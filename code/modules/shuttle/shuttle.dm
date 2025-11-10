@@ -417,8 +417,6 @@
 	else
 		log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]"))
 
-
-
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
 	// Not in a fancy way, it just ceases.
@@ -459,7 +457,6 @@
 		for(var/i in ripples)
 			qdel(i)
 		ripples.Cut()
-
 
 /obj/docking_port/mobile/proc/ripple_area(obj/docking_port/stationary/new_dock)
 	var/list/old_turfs = return_ordered_turfs(x, y, z, dir, areaInstance)
@@ -624,7 +621,6 @@
 	if(T && check_dock(T))
 		return T
 
-
 /obj/docking_port/mobile/proc/findRoundstartDock()
 	for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 		if(S.id == roundstart_move)
@@ -647,8 +643,6 @@
 /obj/effect/landmark/shuttle_import
 	name = "Shuttle Import"
 
-
-
 //shuttle-door closing is handled in the dock() proc whilst looping through turfs
 //this one closes the door where we are docked at, if there is one there.
 /obj/docking_port/mobile/proc/closePortDoors(obj/docking_port/stationary/old_dock)
@@ -668,7 +662,6 @@
 		if(A.id_tag == new_dock.id)
 			if(A.locked)
 				A.unlock()
-
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
@@ -959,7 +952,6 @@
 			destination = target_destination
 			return TRUE
 
-
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -977,7 +969,6 @@
 	circuit = /obj/item/circuitboard/ferry
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
-
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
@@ -999,7 +990,6 @@
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<a href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
-
 /obj/machinery/computer/shuttle/ruins_transport_shuttle // this shuttle made for station and listening post of ussp since they have lore connection between eachother, btw the shuttle existed before the change but was deleted for some reason.
 	name = "Transport Shuttle Console"
 	desc = "Используется для управления Транспортным шаттлом."
@@ -1018,7 +1008,6 @@
 	circuit = /obj/item/circuitboard/ruins_civil_shuttle
 	shuttleId = "ruins_civil_shuttle"
 	possible_destinations = "spacebar;spacehotelv1;ntstation"
-
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"

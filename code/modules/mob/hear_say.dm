@@ -93,8 +93,6 @@
 	if(!client)
 		return 0
 
-
-
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
 			//Does the speaker have a client?  It's either random stuff that observers won't care about (Experiment 97B says, 'EHEHEHEHEHEHEHE')
@@ -308,7 +306,6 @@
 
 	var/rendered = span_gamesay("[span_name(name)] [message]")
 	to_chat(src, rendered)
-
 
 /// Gets language for runechat message.
 /// Will return first found language if more than one is present, cause I have no time to remake this for now.

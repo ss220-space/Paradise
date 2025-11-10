@@ -1,10 +1,8 @@
 #define SPACE_DRAGON_SPAWN_THRESHOLD 55
 
-
 /datum/event/space_dragon
 	announceWhen = 45
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
-
 
 /datum/event/space_dragon/announce(false_alarm)
 	if(successSpawn || false_alarm)
@@ -16,7 +14,6 @@
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Space Dragon")
 
-
 /datum/event/space_dragon/start()
 	var/player_count = num_station_players()
 	if(player_count < SPACE_DRAGON_SPAWN_THRESHOLD)
@@ -26,7 +23,6 @@
 		return
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
 	INVOKE_ASYNC(src, PROC_REF(wrapped_start))
-
 
 /datum/event/space_dragon/proc/wrapped_start()
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Космического Дракона?", ROLE_SPACE_DRAGON, TRUE, source = /mob/living/simple_animal/hostile/space_dragon)
@@ -42,6 +38,5 @@
 	log_and_message_admins("[ADMIN_LOOKUPFLW(space_dragon)] has been made into a Space Dragon by an event.")
 	log_game("[space_dragon.key] was spawned as a Space Dragon by an event.")
 	successSpawn = TRUE
-
 
 #undef SPACE_DRAGON_SPAWN_THRESHOLD

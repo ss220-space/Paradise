@@ -4,6 +4,5 @@
 		/mob/living/simple_animal/hostile/carp/koi/honk = 2,
 	)
 
-
 /datum/event/carp_migration/koi/start()
 	spawn_fish(length(GLOB.landmarks_list))

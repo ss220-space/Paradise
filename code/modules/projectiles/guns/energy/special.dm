@@ -46,10 +46,8 @@
 	ammo_x_offset = 1
 	accuracy = GUN_ACCURACY_MINIMAL
 
-
 /obj/item/gun/energy/decloner/update_icon_state()
 	return
-
 
 /obj/item/gun/energy/decloner/update_overlays()
 	. = list()
@@ -72,7 +70,6 @@
 	selfcharge = TRUE
 	var/emagged = FALSE
 	accuracy = GUN_ACCURACY_SNIPER
-
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()
@@ -207,7 +204,6 @@
 		PREPOSITIONAL = "плазменном резаке",
 	)
 
-
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
@@ -247,10 +243,8 @@
 
 	return ..()
 
-
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
-
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -341,16 +335,13 @@
 	var/obj/effect/portal/wormhole_projector/orange
 	accuracy = GUN_ACCURACY_DEFAULT
 
-
 /obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
 
-
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
 	select_fire(usr)
-
 
 /obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/wormhole_projector/portal)
 	if(portal.is_orange)
@@ -359,7 +350,6 @@
 	else
 		blue = null
 		orange?.target = null
-
 
 /obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/projectile)
 
@@ -379,7 +369,6 @@
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
-
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
@@ -477,7 +466,6 @@
 	modifystate = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
 
-
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
@@ -506,7 +494,6 @@
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/gun/energy/temperature/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -620,7 +607,6 @@
 	dat += "Power cost: "
 	dat += "<span style='color: [powercostcolor];'><b>[powercost]</b></span>"
 
-
 /obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
@@ -643,7 +629,6 @@
 			item_state = "tempgun_0"
 
 	icon_state = item_state
-
 
 /obj/item/gun/energy/temperature/update_overlays()
 	. = ..()
@@ -668,7 +653,6 @@
 			. += "100"
 		if(-INFINITY to 100)
 			. += "0"
-
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -726,13 +710,11 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
 
-
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	. = ..()
 	if(sibyl_mod?.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
 		user.playsound_local(user, sound_voice[select], 50, FALSE)
 		COOLDOWN_START(src, last_sound_effect, 2 SECONDS)
-
 
 /obj/item/gun/energy/dominator/update_icon_state()
 	. = ..()
@@ -742,12 +724,10 @@
 	else
 		item_state = "[base_icon_state]_[shot.select_name]"
 
-
 /obj/item/gun/energy/dominator/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	is_equipped = TRUE
 	update_icon()
-
 
 /obj/item/gun/energy/dominator/dropped(mob/user, slot, silent = FALSE)
 	. = ..()

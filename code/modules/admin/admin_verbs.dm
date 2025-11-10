@@ -309,7 +309,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
-
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
 	set category = STATPANEL_ADMIN_ADMIN
@@ -730,7 +729,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
 
-
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Give Spell"
@@ -870,7 +868,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	update_byond_admin_configs(ckey, 0)
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
-
 
 /client/proc/readmin()
 	set name = "Re-admin self"

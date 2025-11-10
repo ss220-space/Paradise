@@ -31,7 +31,6 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
 	return list(
 		NOMINATIVE = "криогенная капсула",
@@ -42,14 +41,12 @@
 		PREPOSITIONAL = "криогенной капсуле",
 	)
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/power_change(forced = FALSE)
 	..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light_on(FALSE)
 	else
 		set_light(2)
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
 	. = ..()
@@ -60,7 +57,6 @@
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
 		. += span_notice("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
 	. = ..()
@@ -213,7 +209,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell/AllowDrop()
 	return FALSE
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user)
 	if(user.stat)
 		return
@@ -319,7 +314,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -344,7 +338,6 @@
 
 	return ..()
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
@@ -361,7 +354,6 @@
 	if(put_mob(grabbed_thing))
 		return
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return
@@ -373,10 +365,8 @@
 	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
 		return TRUE
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon_state()
 	icon_state = "pod[on]" //set the icon properly every time
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_overlays()
 	. = ..()
@@ -401,7 +391,6 @@
 			animate(time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW)
 
 		. += mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
@@ -431,7 +420,6 @@
 	next_trans++
 	if(next_trans == 17)
 		next_trans = 0
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
 	if(!occupant)
@@ -509,12 +497,10 @@
 	M.ExtinguishMob()
 	return TRUE
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/click_alt(mob/living/carbon/user)
 	go_out()
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
 	set name = "Извлечь пациента"
@@ -537,7 +523,6 @@
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
@@ -567,8 +552,6 @@
 
 	put_mob(usr)
 	return
-
-
 
 /datum/data/function/proc/reset()
 	return

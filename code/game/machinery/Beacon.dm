@@ -65,7 +65,6 @@
 			destroy_beacon()
 			update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/bluespace_beacon/syndicate
 	syndicate = TRUE
 	enabled = FALSE

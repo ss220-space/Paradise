@@ -16,7 +16,6 @@
 	if(blob_stage == BLOB_STAGE_END)
 		end_game()
 
-
 /datum/game_mode/proc/delay_blob_win()
 	delay_blob_end = TRUE
 
@@ -61,7 +60,6 @@
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[blob_objective.type]", "FAIL"))
 	return TRUE
 
-
 /datum/game_mode/proc/auto_declare_completion_blob()
 	var/list/blob_infected = blobs["infected"]
 	var/list/blob_offsprings = blobs["offsprings"]
@@ -84,7 +82,6 @@
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		return text.Join("")
-
 
 /datum/game_mode/proc/end_game()
 	if(!SSticker)

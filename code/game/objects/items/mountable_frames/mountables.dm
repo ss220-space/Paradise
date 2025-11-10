@@ -1,7 +1,6 @@
 /obj/item/mounted
 	var/list/buildon_types = list(/turf/simulated/wall)
 
-
 /obj/item/mounted/afterattack(atom/A, mob/user, proximity_flag)
 	var/found_type = 0
 	for(var/turf_type in src.buildon_types)

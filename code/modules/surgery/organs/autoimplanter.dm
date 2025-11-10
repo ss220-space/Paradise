@@ -23,12 +23,10 @@
 /obj/item/autoimplanter/old
 	icon_state = "autoimplanter"
 
-
 /obj/item/autoimplanter/attack_self(mob/user)//when the object is used...
 	. = ..()
 	if(!.)
 		autoimplant(user)
-
 
 /// Core code of self-implanting
 /obj/item/autoimplanter/proc/autoimplant(mob/living/carbon/human/user)
@@ -57,7 +55,6 @@
 
 	return TRUE
 
-
 /obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/organ/internal/cyberimp))
 		return ..()
@@ -75,7 +72,6 @@
 	balloon_alert(user, "киберимплант установлен")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/autoimplanter/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 
@@ -92,10 +88,8 @@
 	storedorgan = null
 	to_chat(user, span_notice("Вы извлекли [storedorgan.name] из устройства."))
 
-
 /obj/item/autoimplanter/oneuse
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. At once."
-
 
 /obj/item/autoimplanter/oneuse/autoimplant(mob/living/carbon/human/user)
 	. = ..()
@@ -106,7 +100,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	user.temporarily_remove_item_from_inventory(src, force = TRUE)
 	qdel(src)
-
 
 /obj/item/autoimplanter/oneuse/screwdriver_act(mob/living/user, obj/item/I)
 	var/self_destruct = !isnull(storedorgan)
@@ -119,7 +112,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	user.temporarily_remove_item_from_inventory(src, force = TRUE)
 	qdel(src)
-
 
 /obj/item/autoimplanter/oneuse/meson
 	name = "autoimplanter(meson scanner implant)"
@@ -205,11 +197,9 @@
 		PREPOSITIONAL = "автоимплантере с мезонным ИЛС",
 	)
 
-
 /obj/item/autoimplanter/traitor
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."
 	var/uses = 3
-
 
 /obj/item/autoimplanter/traitor/autoimplant(mob/living/carbon/human/user)
 	. = ..()
@@ -224,7 +214,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	user.temporarily_remove_item_from_inventory(src, force = TRUE)
 	qdel(src)
-
 
 /obj/item/autoimplanter/traitor/examine(mob/user)
 	. = ..()

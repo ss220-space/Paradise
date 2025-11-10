@@ -35,12 +35,10 @@
 
 	SSmapping.make_maint_all_access()
 
-
 /datum/weather/rad_storm/can_weather_act(mob/living/mob_to_check)
 	if(!prob(40))
 		return FALSE
 	return ..()
-
 
 /datum/weather/rad_storm/weather_act(mob/living/target)
 	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))

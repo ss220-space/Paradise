@@ -29,7 +29,6 @@
 
 	return amount
 
-
 /mob/living/silicon/robot/adjustBruteLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -48,7 +47,6 @@
 		heal_overall_damage(amount, 0, updating_health, FALSE, affect_robotic)
 
 	return STATUS_UPDATE_HEALTH
-
 
 /mob/living/silicon/robot/adjustFireLoss(
 	amount = 0,
@@ -83,7 +81,6 @@
 	do_sparks(3, TRUE, src)
 	src.adjustBruteLoss(rand(15, 20))
 	return FALSE
-
 
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
@@ -125,7 +122,6 @@
 
 	return FALSE
 
-
 /mob/living/silicon/robot/heal_organ_damage(
 	brute = 0,
 	burn = 0,
@@ -141,7 +137,6 @@
 
 	var/datum/robot_component/picked = pick(parts)
 	. |= picked.heal_damage(brute, burn, updating_health)
-
 
 /mob/living/silicon/robot/take_organ_damage(
 	brute = 0,
@@ -210,7 +205,6 @@
 	if(. && updating_health)
 		updatehealth("heal overall damage")
 
-
 /mob/living/silicon/robot/take_overall_damage(
 	brute = 0,
 	burn = 0,
@@ -262,7 +256,6 @@
 	if(. && updating_health)
 		updatehealth("take overall damage")
 
-
 /mob/living/silicon/robot/get_blocking_resistance(
 	damage = 0,
 	damagetype = BRUTE,
@@ -272,7 +265,6 @@
 )
 	. = ..()
 	. += damage_protection
-
 
 /mob/living/silicon/robot/get_incoming_damage_modifier(
 	damage = 0,

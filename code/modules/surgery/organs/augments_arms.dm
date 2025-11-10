@@ -100,7 +100,6 @@
 	if(Retract())
 		return COMPONENT_CANCEL_DROP
 
-
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
 	if(!active_item || (active_item in src))
 		return FALSE
@@ -202,7 +201,6 @@
 	else // The gun will still discharge anyway.
 		..()
 
-
 /obj/item/organ/internal/cyberimp/arm/gun/laser
 	name = "arm-mounted laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arm and remains inside when not in use."
@@ -222,7 +220,6 @@
 
 /obj/item/organ/internal/cyberimp/arm/gun/taser/l
 	parent_organ_zone = BODY_ZONE_L_ARM
-
 
 /obj/item/organ/internal/cyberimp/arm/toolset
 	name = "integrated toolset implant"
@@ -346,7 +343,6 @@
 	icon_state = "syndie_mantis"
 	emp_proof = TRUE
 
-
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
 	parent_organ_zone = BODY_ZONE_L_ARM
 
@@ -433,7 +429,6 @@
 	if(crit_fail && owner)
 		to_chat(owner, span_notice("Your [src] feels functional again."))
 	crit_fail = FALSE
-
 
 /obj/item/apc_powercord
 	name = "power cable"

@@ -48,10 +48,8 @@
 			if(prob(25))
 				qdel(src)
 
-
 /obj/effect/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
-
 
 /**
  * # The abstract object

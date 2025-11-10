@@ -60,7 +60,6 @@
 		PREPOSITIONAL = "охранном роботе",
 	)
 
-
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "Это Офицер Бипски! Работает с помощью картофеля и рюмки виски."
@@ -83,7 +82,6 @@
 	S.reagents.add_reagent("whiskey", 15)
 	S.on_reagent_change()
 	..()
-
 
 /mob/living/simple_animal/bot/secbot/pingsky
 	name = "Officer Pingsky"
@@ -189,16 +187,13 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /mob/living/simple_animal/bot/secbot/turn_on()
 	..()
 	icon_state = "[base_icon][on]"
 
-
 /mob/living/simple_animal/bot/secbot/turn_off()
 	..()
 	icon_state = "[base_icon][on]"
-
 
 /mob/living/simple_animal/bot/secbot/bot_reset()
 	..()
@@ -209,23 +204,19 @@
 	set_path(null)
 	last_found = world.time
 
-
 /mob/living/simple_animal/bot/secbot/set_custom_texts()
 	text_hack = "Вы взломали систему идентификации целей [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили систему идентификации целей [declent_ru(GENITIVE)]."
 	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] отказывается признавать вашу власть!"
 
-
 /mob/living/simple_animal/bot/secbot/show_controls(mob/M)
 	ui_interact(M)
-
 
 /mob/living/simple_animal/bot/secbot/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BotSecurity", name)
 		ui.open()
-
 
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = list(
@@ -245,7 +236,6 @@
 		"arrest_declare" = declare_arrests // announce arrests on radio
 	)
 	return data
-
 
 /mob/living/simple_animal/bot/secbot/ui_act(action, params)
 	if(..())
@@ -291,12 +281,10 @@
 		target = H
 		mode = BOT_HUNT
 
-
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM || H.a_intent == INTENT_DISARM)
 		retaliate(H)
 	return ..()
-
 
 /mob/living/simple_animal/bot/secbot/attackby(obj/item/I, mob/user, params)
 	var/current_health = health
@@ -304,7 +292,6 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
 		return .
 	retaliate(user)
-
 
 /mob/living/simple_animal/bot/secbot/emag_act(mob/user)
 	..()
@@ -316,14 +303,12 @@
 		declare_arrests = FALSE
 		icon_state = "[base_icon][on]"
 
-
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
 	if(istype(Proj ,/obj/projectile/beam) || istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
 	..()
-
 
 /mob/living/simple_animal/bot/secbot/OnUnarmedAttack(atom/A)
 	if(iscarbon(A))
@@ -335,7 +320,6 @@
 	else
 		..()
 
-
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(isitem(AM))
 		var/obj/item/I = AM
@@ -344,14 +328,12 @@
 			retaliate(thrower)
 	..()
 
-
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает надевать стяжки на [C]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается надеть на вас стяжки!"))
 	addtimer(CALLBACK(src, PROC_REF(cuff_callback), C), 6 SECONDS)
-
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
 	if(QDELETED(src) || QDELETED(C))
@@ -366,7 +348,6 @@
 
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
 	back_to_idle()
-
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
@@ -393,7 +374,6 @@
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] [harmbaton ? "ударил" : "оглушил"] [C]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] [harmbaton ? "ударил" : "оглушил"] вас!"))
 
-
 /mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
 	if(flashing_lights)
@@ -411,14 +391,12 @@
 
 	prev_flashing_lights = flashing_lights
 
-
 /mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
 	set name = "Вкл/выкл фонарик"
 	set category = STATPANEL_OBJECT
 	set src = usr
 
 	flashing_lights = !flashing_lights
-
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
 	if(!..())
@@ -505,7 +483,6 @@
 			look_for_perp()
 			bot_patrol()
 
-
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
 	set_anchored(FALSE)
 	mode = BOT_IDLE
@@ -514,13 +491,11 @@
 	frustration = 0
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 
-
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
 	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
-
 
 /**
  * Look for a criminal in view of the bot.
@@ -551,12 +526,10 @@
 		else
 			continue
 
-
 /mob/living/simple_animal/bot/secbot/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item?.needs_permit)
 		return TRUE
 	return FALSE
-
 
 /mob/living/simple_animal/bot/secbot/explode()
 	GLOB.move_manager.stop_looping(src)
@@ -574,19 +547,16 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
-
 /mob/living/simple_animal/bot/secbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
 	if(!isalien(target))
 		target = user
 		mode = BOT_HUNT
 
-
 /mob/living/simple_animal/bot/secbot/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	secbot_crossed(arrived)
-
 
 /mob/living/simple_animal/bot/secbot/proc/secbot_crossed(mob/living/carbon/arrived)
 	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
@@ -601,11 +571,8 @@
 						"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
 	arrived.Weaken(4 SECONDS)
 
-
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)
-
-
 
 #undef SPEAK_COOLDOWN
 #undef BATON_COOLDOWN

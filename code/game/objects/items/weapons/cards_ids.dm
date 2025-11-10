@@ -6,8 +6,6 @@
  *		FINGERPRINT CARD
  */
 
-
-
 /*
  * DATA CARDS - Used for the teleporter
  */
@@ -34,7 +32,6 @@
 	var/special = null
 	item_state = "card-id"
 
-
 /obj/item/card/data/clown
 	name = "coordinates to clown planet"
 	desc = "This card contains coordinates to the fabled Clown Planet. Handle with care."
@@ -60,10 +57,8 @@
 	origin_tech = "magnets=2;syndicate=3"
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 
-
 /obj/item/card/emag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/card/emag/afterattack(atom/target, mob/user, proximity, params)
 	var/atom/A = target
@@ -92,16 +87,13 @@
 /obj/item/card/cmag/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
-
 /obj/item/card/cmag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/card/cmag/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)
-
 
 /obj/item/card/id
 	name = "identification card"
@@ -274,7 +266,6 @@
 
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]’s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
-
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/id_decal))
 		add_fingerprint(user)
@@ -322,7 +313,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/card/id/verb/remove_guest_pass()
 	set name = "Убрать гостевой пропуск"
@@ -455,7 +445,6 @@
 	save_slots.len = num_of_save_slots
 	for(var/i = 1 to num_of_save_slots)
 		save_slots[i] = list()
-
 
 /obj/item/card/id/syndicate/vox
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
@@ -1120,7 +1109,6 @@
 /obj/item/card/id/warden/battle/Destroy()
 	GLOB.poi_list -= src
 	. = ..()
-
 
 /obj/item/card/id/iaa
 	name = "IAA ID"

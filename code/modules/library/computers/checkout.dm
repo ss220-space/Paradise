@@ -208,7 +208,6 @@
 			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
 			balloon_alert(user, "взломано")
 
-
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -223,10 +222,8 @@
 
 	return ..()
 
-
 /obj/machinery/computer/library/checkout/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
-
 
 /obj/machinery/computer/library/checkout/Topic(href, href_list)
 	if(..())

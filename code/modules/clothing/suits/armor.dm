@@ -56,11 +56,9 @@
 	)
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-
 /obj/item/clothing/suit/armor/vest/security/update_icon_state()
 	icon_state = "armor[attached_badge ? "sec" : ""]"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
 	. = ..()
@@ -68,7 +66,6 @@
 		desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
 	else
 		desc = initial(desc)
-
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
@@ -87,7 +84,6 @@
 
 	return ..()
 
-
 /obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
@@ -101,7 +97,6 @@
 		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		return
 	..()
-
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
@@ -398,11 +393,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
 
-
 /obj/item/clothing/suit/armor/reactive/update_icon_state()
 	icon_state =  "reactive[active ? "" : "off"]"
 	item_state =  "reactive[active ? "" : "off"]"
-
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	if(emp_d)
@@ -413,7 +406,6 @@
 	add_fingerprint(user)
 	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь [active ? "активен" : "неактивен"]."))
 	update_equipped_item()
-
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = FALSE
@@ -426,14 +418,12 @@
 		update_equipped_item()
 	..()
 
-
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	emp_d = FALSE
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
 		update_equipped_item()
 		to_chat(user, span_notice("Похоже, [declent_ru(NOMINATIVE)] снова функционирует нормально."))
-
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
@@ -534,7 +524,6 @@
 
 //All of the armor below is mostly unused
 
-
 /obj/item/clothing/suit/armor/centcomm
 	name = "Cent. Com. armor"
 	desc = "A suit that protects against some damage."
@@ -614,7 +603,6 @@
 	name = "emergency response team security armor"
 	desc = "A set of armor worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "ertarmor_sec"
-
 
 /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	name = "emergency response team paranormal armor"
@@ -763,7 +751,6 @@
 	armor = list(MELEE = 60, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	magical = TRUE
 
-
 /obj/item/clothing/head/hooded/goliath/wizard/get_ru_names()
 	return list(
 		NOMINATIVE = "череп шамана",
@@ -866,7 +853,6 @@
 		INSTRUMENTAL = "броней из хрящевых пластин",
 		PREPOSITIONAL = "броне из хрящевых пластин",
 	)
-
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads
 	name = "cartilage shoulder pads"

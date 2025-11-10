@@ -28,7 +28,6 @@
 /obj/item/gun/throw/update_overlays()
 	return list()
 
-
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		add_fingerprint(user)
@@ -42,7 +41,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/rocketlauncher/can_shoot(mob/user)
 	return rockets.len

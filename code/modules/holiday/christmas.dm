@@ -63,7 +63,6 @@
 		evil_tree.icon_gib = evil_tree.icon_state
 		qdel(xmas)
 
-
 /obj/item/toy/xmas_cracker
 	name = "xmas cracker"
 	icon = 'icons/obj/christmas.dmi'
@@ -71,19 +70,15 @@
 	desc = "Directions for use: Requires two people, one to pull each end."
 	var/cracked = FALSE
 
-
 /obj/item/toy/xmas_cracker/update_icon_state()
 	icon_state = "[initial(icon_state)][cracked ? "1" : ""]"
-
 
 /obj/item/toy/xmas_cracker/other_half
 	icon_state = "cracker2"
 	cracked = TRUE
 
-
 /obj/item/toy/xmas_cracker/other_half/update_icon_state()
 	return
-
 
 /obj/item/toy/xmas_cracker/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(cracked || !ishuman(target) || (target.stat != CONSCIOUS) || target.get_active_hand())
@@ -120,7 +115,6 @@
 	var/obj/item/toy/xmas_cracker/other_half/other_half = new(user_turf)
 	target.put_in_active_hand(other_half, ignore_anim = FALSE)
 	playsound(user, 'sound/effects/snap.ogg', 50, TRUE)
-
 
 /obj/item/clothing/head/festive
 	name = "festive paper hat"

@@ -18,8 +18,6 @@
 
 	id_access = SYNDICATE_OPERATIVE
 
-
-
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,

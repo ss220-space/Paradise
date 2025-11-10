@@ -2,7 +2,6 @@
 	name = "дисплей статуса доставки"
 	is_supply = TRUE
 
-
 /obj/machinery/status_display/supply_display/update()
 	if(isnull(SSshuttle.supply)) //fastload stuff
 		return

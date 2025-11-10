@@ -85,7 +85,6 @@
 		SSticker.mode.space_ninjas += ninja_borg.mind
 		objective.completed = TRUE
 
-
 /mob/living/silicon/robot/proc/update_robot_icons_added(datum/mind/robot_mind)
 	var/datum/atom_hud/antag/ninja_hud = GLOB.huds[ANTAG_HUD_NINJA]
 	ninja_hud.join_hud(robot_mind.current)

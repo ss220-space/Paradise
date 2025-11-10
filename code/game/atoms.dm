@@ -165,7 +165,6 @@
 	/// Proximity monitor associated with this atom, needed for proximity checks.
 	var/datum/proximity_monitor/proximity_monitor
 
-
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -301,7 +300,6 @@
 
 	return ..()
 
-
 /**
  * Hook for running code when a dir change occurs
  *
@@ -316,7 +314,6 @@
 	dir = newdir
 	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
-
 /atom/proc/set_angle(degrees)
 	var/matrix/M = matrix()
 	M.Turn(degrees)
@@ -324,7 +321,6 @@
 	if(degrees)
 		appearance_flags |= PIXEL_SCALE
 	transform = M
-
 
 /*
 	Sets the atom's pixel locations based on the atom's `dir` variable, and what pixel offset arguments are passed into it
@@ -399,10 +395,8 @@
 /atom/proc/on_reagent_change()
 	return
 
-
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-
 
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
@@ -478,7 +472,6 @@
 			found += A.search_contents_for(path, filter_path)
 	return found
 
-
 //All atoms
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	var/f_name = "."
@@ -526,7 +519,6 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
-
 /**
  * Updates the appearence of the icon
  *
@@ -548,20 +540,17 @@
 	if(updates & UPDATE_ICON)
 		update_icon(updates)
 
-
 /// Updates the name of the atom
 /atom/proc/update_name(updates = ALL)
 	SHOULD_CALL_PARENT(TRUE)
 	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
 
-
 /// Updates the description of the atom
 /atom/proc/update_desc(updates = ALL)
 	SHOULD_CALL_PARENT(TRUE)
 	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
-
 
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates = ALL)
@@ -639,12 +628,10 @@
 
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 
-
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
 	PROTECTED_PROC(TRUE)
 	return
-
 
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one.
 /// The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
@@ -654,11 +641,9 @@
 	RETURN_TYPE(/list)
 	. = list()
 
-
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()
 	return
-
 
 /**
  * Adds a special overlay to any atom.
@@ -673,7 +658,6 @@
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
 	AddComponent(/datum/component/persistent_overlay, overlay_to_add, id, timer)
-
 
 /**
  * Removes a persistent overlay from an atom if it exists.
@@ -692,7 +676,6 @@
 	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
 		if(existing.dupe_id == id)
 			qdel(existing)
-
 
 /atom/Topic(href, href_list)
 	. = ..()
@@ -748,7 +731,6 @@
 		if(TOOL_WELDER)
 			return welder_act(user, I)
 
-
 // Tool-specific behavior procs. To be overridden in subtypes.
 /atom/proc/crowbar_act(mob/living/user, obj/item/I)
 	return
@@ -783,7 +765,6 @@
 /atom/proc/cmag_act(mob/user)
 	return
 
-
 /**
  * Special treatment of [/datum/emote/living/carbon/human/fart].
  * Returning `TRUE` will stop emote execution.
@@ -793,7 +774,6 @@
  */
 /atom/proc/fart_act(mob/living/user)
 	return FALSE
-
 
 /atom/proc/rpd_act()
 	return
@@ -814,7 +794,6 @@
 /atom/proc/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	return RCD_NO_ACT
 
-
 /atom/proc/magic_charge_act(mob/user)
 	. = NONE
 
@@ -824,12 +803,10 @@
 	for(var/obj/item/stock_parts/cell/cell in contents)
 		. |= cell.magic_charge_act(user)
 
-
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && AM.no_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
-
 
 /**
  * Called when living mob clicks on this atom with pulled movable.
@@ -844,16 +821,13 @@
 /atom/proc/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	return TRUE
 
-
 /// This proc applies special effects of a mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
 /atom/proc/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
 	return
 
-
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
-
 
 /*
  * Base proc, terribly named but it's all over the code so who cares I guess right?
@@ -902,7 +876,6 @@
 			fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []", M.real_name, M.key)
 			fingerprintslast = M.ckey
 	return
-
 
 //Set ignoregloves to add prints irrespective of the mob having gloves on.
 /atom/proc/add_fingerprint(mob/living/M, ignoregloves = FALSE)
@@ -1068,7 +1041,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	blood_DNA |= blood_dna
 	return length(blood_DNA) > old_length	//some new blood DNA was added
 
-
 //to add blood from a mob onto something, and transfer their dna info
 /atom/proc/add_mob_blood(mob/living/M)
 	var/list/blood_dna = M.get_blood_dna_list()
@@ -1146,7 +1118,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	update_worn_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
-
 /obj/item/proc/add_blood_overlay()
 	if(initial(icon) && initial(icon_state))
 		var/list/params = GLOB.blood_splatter_icons["[blood_color]"]
@@ -1154,7 +1125,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			params = layering_filter(icon = icon('icons/effects/blood.dmi', "itemblood"), color = blood_color, blend_mode = BLEND_INSET_OVERLAY)
 			GLOB.blood_splatter_icons["[blood_color]"] = params
 		add_filter("blood_splatter", 1, params)
-
 
 /atom/proc/clean_blood()
 	germ_level = 0
@@ -1164,7 +1134,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/effect/decal/cleanable/blood/clean_blood()
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
-
 
 /obj/item/clean_blood()
 	. = ..()
@@ -1271,11 +1240,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		return FALSE
 
-
 ///Used for making a sound when a mob involuntarily falls into the ground.
 /atom/proc/handle_fall(mob/living/carbon/faller)
 	return
-
 
 /atom/proc/singularity_act()
 	return
@@ -1446,7 +1413,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 			update_appearance()
 
-
 /atom/vv_get_dropdown()
 	. = ..()
 	var/turf/curturf = get_turf(src)
@@ -1468,7 +1434,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
 
-
 /**
  * An atom has entered this atom's contents
  *
@@ -1477,7 +1442,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, old_loc, old_locs)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, old_loc, old_locs)
-
 
 /**
  * An atom is attempting to exit this atom's contents
@@ -1493,7 +1457,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	return TRUE
 
-
 /**
  * An atom has exited this atom's contents
  *
@@ -1501,7 +1464,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/Exited(atom/movable/departed, atom/newLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
-
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list
@@ -1608,7 +1570,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		balloon_alert(user, "невозможно в данный момент!")
 		return null
 
-
 	t = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
 
 	// Logging
@@ -1653,10 +1614,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 	. = !density
 
-
 /atom/proc/get_examine_time()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return 0 SECONDS
-
 
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
@@ -1687,7 +1646,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!mover.generic_canpass)
 		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
 
-
 /// Returns true or false to allow the mover to move through src
 /atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
@@ -1698,7 +1656,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
 	return !density
-
 
 /**
  * Returns `TRUE` if this atom has gravity for the passed in turf
@@ -1791,7 +1748,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = density
 	density = new_density
 
-
 /**
  * Updates the atom's opacity value.
  *
@@ -1805,7 +1761,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = opacity
 	opacity = new_opacity
 
-
 ///Setter for the `base_pixel_x` variable to append behavior related to its changing.
 /atom/proc/set_base_pixel_x(new_value)
 	if(base_pixel_x == new_value)
@@ -1814,7 +1769,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	base_pixel_x = new_value
 
 	pixel_x = pixel_x + base_pixel_x - .
-
 
 ///Setter for the `base_pixel_y` variable to append behavior related to its changing.
 /atom/proc/set_base_pixel_y(new_value)
@@ -1825,14 +1779,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	pixel_y = pixel_y + base_pixel_y - .
 
-
 /atom/proc/get_visible_name(add_id_name = TRUE)
 	return name
 
-
 /atom/proc/GetVoice()
 	return name
-
 
 /atom/proc/GetTTSVoice()
 	return tts_seed
@@ -1842,7 +1793,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = ..()
 	if(!usr?.client)
 		return
-
 
 	if(href_list["statpanel_item_click"])
 		var/client/usr_client = usr.client

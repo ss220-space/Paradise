@@ -1,6 +1,5 @@
 // Custom human behavior for deadchat control
 
-
 /mob/living/carbon/human/proc/dchat_emote()
 	var/list/possible_emotes = list("scream", "clap", "snap", "crack", "dap", "burp")
 	emote(pick(possible_emotes), intentional = TRUE)
@@ -126,7 +125,6 @@
 	if(length(pulledby))
 		resist_grab()
 	step(src, dir)
-
 
 /mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
 	var/list/inputs = list(

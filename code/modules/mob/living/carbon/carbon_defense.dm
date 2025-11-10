@@ -12,7 +12,6 @@
 	SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 	return TRUE
 
-
 /**
  * Individual check for items to skip catching.
  */
@@ -32,12 +31,10 @@
 		return .
 	. = FALSE
 
-
 /mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
-
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	if(!length(surgeries) || user.a_intent != INTENT_HELP)
@@ -48,7 +45,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 	if(!iscarbon(user))

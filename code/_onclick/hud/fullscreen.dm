@@ -24,7 +24,6 @@
 
 	return screen
 
-
 /mob/proc/clear_fullscreen(category, animated = 10)
 	var/atom/movable/screen/fullscreen/screen = screens[category]
 	if(!screen)
@@ -51,7 +50,6 @@
 				observe.client.screen -= screen
 		qdel(screen)
 
-
 /mob/proc/clear_fullscreen_after_animate(atom/movable/screen/fullscreen/screen)
 	if(client)
 		client.screen -= screen
@@ -62,11 +60,9 @@
 			observe.client.screen -= screen
 	qdel(screen)
 
-
 /mob/proc/clear_fullscreens()
 	for(var/category in screens)
 		clear_fullscreen(category)
-
 
 /datum/hud/proc/reload_fullscreen()
 	if(mymob.client)
@@ -164,11 +160,9 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
 
-
 /atom/movable/screen/fullscreen/payback
 	icon_state = "payback"
 	show_when_dead = TRUE
-
 
 /atom/movable/screen/fullscreen/cinematic_backdrop
 	icon = 'icons/mob/screen_gen.dmi'
@@ -178,7 +172,6 @@
 	layer = CINEMATIC_LAYER
 	color = "#000000"
 	show_when_dead = TRUE
-
 
 /atom/movable/screen/fullscreen/lighting_backdrop
 	icon = 'icons/mob/screen_gen.dmi'

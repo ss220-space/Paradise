@@ -31,7 +31,6 @@
 	new_dir = 0
 	return -1
 
-
 /obj/structure/reflector/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -82,7 +81,6 @@
 
 	return ..()
 
-
 /obj/structure/reflector/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)
@@ -118,7 +116,6 @@
 /obj/structure/reflector/proc/get_reflection(srcdir,pdir)
 	return 0
 
-
 /obj/structure/reflector/verb/rotate()
 	set name = "Повернуть"
 	set category = STATPANEL_OBJECT
@@ -133,11 +130,9 @@
 	setDir(turn(dir, 270))
 	return TRUE
 
-
 /obj/structure/reflector/click_alt(mob/user)
 	rotate()
 	return CLICK_ACTION_SUCCESS
-
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX
 

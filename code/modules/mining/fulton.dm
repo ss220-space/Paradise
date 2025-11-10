@@ -159,7 +159,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(uses_left <= 0)
 				qdel(src)
 
-
 /obj/item/fulton_core
 	name = "extraction beacon signaller"
 	desc = "Излучает сигнал, на который могут ориентироваться устройства фултон. Активируйте в руке, чтобы создать маяк."
@@ -199,7 +198,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		INSTRUMENTAL = "маяком фултона",
 		PREPOSITIONAL = "маяке фултона",
 	)
-
 
 /obj/structure/extraction_point/Initialize(mapload)
 	. = ..()

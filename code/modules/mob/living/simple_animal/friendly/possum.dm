@@ -53,7 +53,6 @@
 		update_icons()
 	return ..()
 
-
 /mob/living/simple_animal/possum/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -66,13 +65,11 @@
 		was_harmed = TRUE
 		update_icons()
 
-
 /mob/living/simple_animal/possum/update_icons()
 	. = ..()
 	if(stat == DEAD || resting || body_position == LYING_DOWN || !was_harmed)
 		return
 	icon_state = icon_harm
-
 
 /mob/living/simple_animal/possum/Poppy
 	name = "Poppy"

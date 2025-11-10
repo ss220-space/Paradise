@@ -164,7 +164,6 @@
 	desc = "Вы одурманены кровью! Ваш пульс бьётся в ушах! Ничто не может причинить вам вреда!" //not true, and the item description mentions its actual effect
 	icon_state = "blooddrunk"
 
-
 /datum/status_effect/blooddrunk/on_apply()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
@@ -180,7 +179,6 @@
 	owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 	return TRUE
 
-
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
@@ -193,7 +191,6 @@
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, KNOCKDOWN))
-
 
 /datum/status_effect/exercised
 	id = "Exercised"
@@ -209,7 +206,6 @@
 	. = ..()
 	STOP_PROCESSING(SSprocessing, src)
 
-
 /datum/status_effect/banana_power
 	id = "banana_power"
 	status_type = STATUS_EFFECT_REFRESH
@@ -223,17 +219,14 @@
 	/// A list of integers, one for each remaining banana effect.
 	var/list/active_instances = list()
 
-
 /datum/status_effect/banana_power/on_apply()
 	to_chat(owner, span_boldnotice("Сок бананов наполняет ваши вены, вы чувствуете себя непобедимым!"))
 	apply_banana_power()
 	return TRUE
 
-
 /datum/status_effect/banana_power/refresh(effect, ...)
 	apply_banana_power()
 	..()
-
 
 /datum/status_effect/banana_power/proc/apply_banana_power()
 	tolerance++
@@ -241,7 +234,6 @@
 	owner.remove_CC()
 	if(tolerance > 2)
 		to_chat(owner, span_warning("Съедание такого количества бананов не усилит исцеление, а только продлит его и сделает слабее!"))
-
 
 /datum/status_effect/banana_power/tick(seconds_between_ticks)
 	var/active_instances_length = length(active_instances)
@@ -266,13 +258,11 @@
 	if(tolerance <= 1 && !length(active_instances))
 		qdel(src)
 
-
 /atom/movable/screen/alert/status_effect/banana_power
 	name = "Сила бананов"
 	desc = "Ваше тело наполнено соком бананов, и теперь вы постепенно исцеляете урон!"
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "banana_power"
-
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
@@ -372,7 +362,6 @@
 			if(update)
 				owner.updatehealth("Hippocratic Oath")
 
-
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Регенеративное ядро"
 	desc = "Вы можете двигаться быстрее, чем ваше повреждённое тело обычно позволяет!"
@@ -383,7 +372,6 @@
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
-
 
 /datum/status_effect/regenerative_core/on_apply()
 	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
@@ -402,10 +390,8 @@
 		owner.set_bodytemperature(BODYTEMP_NORMAL)
 	return TRUE
 
-
 /datum/status_effect/regenerative_core/on_remove()
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
-
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Регенерация плоти"
@@ -426,11 +412,9 @@
 	var/list/active_instances = list()
 	var/ticks = 0
 
-
 /datum/status_effect/fleshmend/on_apply()
 	apply_new_fleshmend()
 	return TRUE
-
 
 /datum/status_effect/fleshmend/refresh(effect, ...)
 	apply_new_fleshmend()
@@ -472,7 +456,6 @@
 	if(tolerance <= 1 && length(active_instances) == 0)
 		qdel(src)
 
-
 /datum/status_effect/speedlegs
 	id = "gottagofast"
 	tick_interval = 4 SECONDS
@@ -481,12 +464,10 @@
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
 
-
 /datum/status_effect/speedlegs/on_apply()
 	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
 	return TRUE
-
 
 /datum/status_effect/speedlegs/tick(seconds_between_ticks)
 	if(owner.body_position == LYING_DOWN)
@@ -502,13 +483,11 @@
 		if(stacks == 7) //Warning message that the stacks are getting too high
 			to_chat(owner, span_warning("Наши ноги начинают сильно болеть..."))
 
-
 /datum/status_effect/speedlegs/before_remove()
 	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
 		to_chat(owner, span_notice("Наши мышцы только что напряглись, они не расслабятся так быстро."))
 		return FALSE
 	return TRUE
-
 
 /datum/status_effect/speedlegs/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
@@ -521,14 +500,12 @@
 	cling.genetic_damage += stacks
 	cling = null
 
-
 /datum/status_effect/panacea
 	id = "panacea"
 	duration = 20 SECONDS
 	tick_interval = 2 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
-
 
 /datum/status_effect/panacea/tick(seconds_between_ticks)
 	owner.heal_damages(tox = 5, brain = 5)	//Has the same healing as 20 charcoal, but happens faster
@@ -538,7 +515,6 @@
 	for(var/datum/reagent/reagent in owner.reagents.reagent_list)
 		if(!reagent.harmless)
 			owner.reagents.remove_reagent(reagent.id, 2)
-
 
 /datum/status_effect/terror/regeneration
 	id = "terror_regen"
@@ -553,10 +529,8 @@
 	duration = 250
 	alert_type = null
 
-
 /datum/status_effect/terror/food_regen/tick(seconds_between_ticks)
 	owner.adjustBruteLoss(-(owner.maxHealth/20))
-
 
 /datum/status_effect/hope
 	id = "hope"
@@ -606,7 +580,6 @@
 	else
 		to_chat(owner, span_cultitalic("[pick(un_hopeful_messages)]"))
 
-
 /datum/status_effect/thrall_net
 	id = "thrall_net"
 	tick_interval = 2 SECONDS
@@ -614,7 +587,6 @@
 	var/blood_cost_per_tick = 5
 	var/list/target_UIDs = list()
 	var/datum/antagonist/vampire/vamp
-
 
 /datum/status_effect/thrall_net/on_creation(mob/living/new_owner, datum/antagonist/vampire/V, ...)
 	. = ..()
@@ -634,7 +606,6 @@
 
 		target_UIDs += M.current.UID()
 		M.current.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
-
 
 /datum/status_effect/thrall_net/tick(seconds_between_ticks)
 	var/total_damage = 0
@@ -665,11 +636,9 @@
 	if(!vamp.bloodusable || length(target_UIDs) <= 1) // if there is one left in the list, its only the vampire.
 		qdel(src)
 
-
 /datum/status_effect/thrall_net/on_remove()
 	. = ..()
 	vamp = null
-
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -678,13 +647,11 @@
 	alert_type = /atom/movable/screen/alert/status_effect/blood_swell
 	var/bonus_damage_applied = FALSE
 
-
 /atom/movable/screen/alert/status_effect/blood_swell
 	name = "Кровавый прилив"
 	desc = "Ваше тело наполнено багровой магией, ваша устойчивость к атакам значительно повысилась!"
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "blood_swell_status"
-
 
 /datum/status_effect/bloodswell/on_apply()
 	. = ..()
@@ -707,7 +674,6 @@
 		human_owner.physiology.punch_damage_high += 14
 		human_owner.physiology.punch_stun_threshold += 10	//higher chance to stun but not 100%
 
-
 /datum/status_effect/bloodswell/on_remove()
 	if(!ishuman(owner))
 		return
@@ -727,21 +693,17 @@
 		human_owner.physiology.punch_damage_high -= 14
 		human_owner.physiology.punch_stun_threshold -= 10
 
-
 /datum/status_effect/blood_rush
 	id = "bloodrush"
 	alert_type = /atom/movable/screen/alert/status_effect/blood_rush
 	duration = 10 SECONDS
 
-
 /datum/status_effect/blood_rush/on_apply()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/blood_rush)
 	return TRUE
 
-
 /datum/status_effect/blood_rush/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/blood_rush)
-
 
 /atom/movable/screen/alert/status_effect/blood_rush
 	name = "Кровавый рывок"
@@ -810,7 +772,6 @@
 	tick_interval = 0
 	alert_type = /atom/movable/screen/alert/status_effect/dash
 
-
 /datum/status_effect/drill_payback
 	alert_type = null
 	var/drilled_successfully = FALSE
@@ -843,7 +804,6 @@
 		update |= owner.heal_damage_type(25, STAMINA, FALSE)
 		if(update)
 			owner.updatehealth("drill_payback")
-
 
 /datum/status_effect/drill_payback/on_remove()
 	..()
@@ -919,7 +879,6 @@
 	duration = 5 MINUTES
 	alert_type = /atom/movable/screen/alert/status_effect/lavaland_blood_regen
 
-
 /datum/status_effect/lavaland_blood_regen/tick(seconds_between_ticks)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
@@ -988,7 +947,6 @@
 	update_flags |= owner.setStaminaLoss(0, FALSE)
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	return TRUE | update_flags
-
 
 /datum/status_effect/adrenaline/tick(seconds_between_ticks)
 	var/update = NONE

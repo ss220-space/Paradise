@@ -35,7 +35,6 @@
 		if(target.Move(turf))
 			return
 
-
 /obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/mob)
 	..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
@@ -163,7 +162,6 @@
 		new /obj/effect/anomaly/bluespace/tier1(get_turf(locate(rand(1, world.maxx), rand(1, world.maxy), z)))
 
 	. = ..()
-
 
 //		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
 

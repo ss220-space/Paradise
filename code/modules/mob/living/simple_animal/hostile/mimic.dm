@@ -66,7 +66,6 @@
 	else
 		icon_state = initial(icon_state)
 
-
 /mob/living/simple_animal/hostile/mimic/crate/FindTarget()
 	. = ..()
 	if(.)

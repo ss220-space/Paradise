@@ -9,7 +9,6 @@
 	density = TRUE
 	max_integrity = 200
 
-
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -29,7 +28,6 @@
 
 	return ..()
 
-
 /obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -37,7 +35,6 @@
 	add_fingerprint(user)
 	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "" : "un"]wrench [src] [anchored ? "into place" : "from the floor"]."))
-
 
 /obj/structure/kitchenspike
 	name = "meat spike"
@@ -50,11 +47,9 @@
 	can_buckle = TRUE
 	max_integrity = 250
 
-
 /obj/structure/kitchenspike/Destroy()
 	unbuckle_all_mobs(force = TRUE)
 	return ..()
-
 
 /obj/structure/kitchenspike/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -74,7 +69,6 @@
 		span_italics("You hear a squishy wet noise."),
 	)
 
-
 /obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(has_buckled_mobs())
@@ -84,7 +78,6 @@
 		return .
 	to_chat(user, span_notice("You pry the spikes out of the frame."))
 	deconstruct(TRUE)
-
 
 /obj/structure/kitchenspike/proc/spike(mob/living/victim)
 	if(!istype(victim))
@@ -96,10 +89,8 @@
 	victim.forceMove(loc)
 	return buckle_mob(victim, force = TRUE, check_loc = FALSE)
 
-
 /obj/structure/kitchenspike/is_user_buckle_possible(mob/living/target, mob/user, check_loc = TRUE)
 	return FALSE	//Don't want them getting put on the rack other than by spiking
-
 
 /obj/structure/kitchenspike/user_unbuckle_mob(mob/living/target, mob/living/user)
 	if(target != user)
@@ -128,7 +119,6 @@
 			return
 	return ..()
 
-
 /obj/structure/kitchenspike/post_buckle_mob(mob/living/carbon/human/target)
 	playsound(loc, 'sound/effects/splat.ogg', 25, TRUE)
 	target.emote("scream")
@@ -142,7 +132,6 @@
 	target.pixel_x = target.base_pixel_x
 	target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING
 
-
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/target)
 	target.adjustBruteLoss(30)
 	target.emote("scream")
@@ -152,7 +141,6 @@
 	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
 	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 	target.AdjustWeakened(20 SECONDS)
-
 
 /obj/structure/kitchenspike/deconstruct(disassembled = TRUE)
 	if(disassembled)

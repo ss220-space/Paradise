@@ -119,11 +119,9 @@
 	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/clothing/suit/space/hostile_environment/process()
 	var/mob/living/carbon/C = loc
@@ -168,11 +166,9 @@
 	AddComponent(/datum/component/spraycan_paintable)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
 	. = ..()
 	. += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion
 	name = "champion's helmet"

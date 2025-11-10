@@ -3,7 +3,6 @@
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM)
 	explaination_text = "Схватите противника и бросьте его на пол, нанося урон выносливости."
 
-
 /datum/martial_combo/judo/judothrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
 	if(IS_HORIZONTAL(user) || IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL

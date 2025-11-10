@@ -65,17 +65,14 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	var/index1
 	var/index2
 
-
 /obj/machinery/status_display/Initialize(mapload)
 	. = ..()
 	GLOB.status_displays |= src
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/status_display/Destroy()
 	GLOB.status_displays -= src
 	return ..()
-
 
 /obj/machinery/status_display/update_overlays()
 	. = ..()
@@ -89,13 +86,11 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 
 	underlays += emissive_appearance(icon, "lightmask", src)
 
-
 /obj/machinery/status_display/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_display_light()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/status_display/process()
 	if(stat & NOPOWER)
@@ -109,7 +104,6 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 
 	update()
 
-
 /obj/machinery/status_display/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
@@ -117,14 +111,12 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	set_picture("ai_bsod")
 	..(severity)
 
-
 /obj/machinery/status_display/flicker()
 	if(stat & (NOPOWER | BROKEN))
 		return FALSE
 
 	spookymode = TRUE
 	return TRUE
-
 
 // set what is displayed
 /obj/machinery/status_display/proc/update()
@@ -193,7 +185,6 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 			message2 = station_time_timestamp("hh:mm")
 			update_display(message1, message2)
 
-
 /obj/machinery/status_display/examine(mob/user)
 	. = ..()
 	if(stat & (BROKEN|NOPOWER))
@@ -202,7 +193,6 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 		. += span_notice("На дисплее написано: <br>\t[sanitize(message1)]<br>\t[sanitize(message2)].")
 	if(mode == STATUS_DISPLAY_ALERT)
 		. += span_notice("Текущий уровень угрозы: [capitalize(SSsecurity_level.get_current_level_as_text())]. ")
-
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
@@ -219,7 +209,6 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 		message2 = ""
 		index2 = 0
 
-
 // Always call update() after using this
 /obj/machinery/status_display/proc/set_mode(newmode)
 	mode = newmode
@@ -230,17 +219,14 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 		// Not an alert image, clear any leftover image
 		set_picture(null)
 
-
 /obj/machinery/status_display/proc/set_picture(state)
 	maptext = null
 	picture_state = state
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/status_display/proc/remove_display()
 	picture_state = null
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/status_display/proc/update_display(line1, line2, warning = FALSE)
 	line1 = uppertext(line1)
@@ -249,7 +235,6 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	if(maptext != new_text)
 		maptext = new_text
 		update_display_light()
-
 
 /obj/machinery/status_display/proc/update_display_light()
 	if(stat & (NOPOWER|BROKEN))
@@ -284,16 +269,13 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	. = ..()
 	GLOB.ai_displays |= src
 
-
 /obj/machinery/ai_status_display/Destroy()
 	GLOB.ai_displays -= src
 	return ..()
 
-
 /obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
 	if(isAI(user))
 		user.ai_statuschange()
-
 
 /obj/machinery/ai_status_display/emp_act(severity)
 	if(!(stat & (BROKEN|NOPOWER)))
@@ -301,12 +283,10 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	update_icon(UPDATE_OVERLAYS)
 	..(severity)
 
-
 /obj/machinery/ai_status_display/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/ai_status_display/flicker()
 	if(stat & (NOPOWER|BROKEN))
@@ -315,7 +295,6 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	emotion = "Tribunal Malf"
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
-
 
 /obj/machinery/ai_status_display/update_overlays()
 	. = ..()

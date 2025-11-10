@@ -177,7 +177,6 @@
 	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "destroyed_target_prism"
 
-
 /obj/machinery/broken/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, span_notice("You begin prying the metal coverings off..."))
@@ -197,13 +196,11 @@
 		to_chat(user, span_notice("You have removed the turret but did not manage to salvage anything."))
 	qdel(src)
 
-
 // Активированная пожарная тревога, проgисать в зоне fire = TRUE
 
 /obj/machinery/firealarm/triggered_nosignals
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
-
 
 //Spieder spawner
 

@@ -113,7 +113,6 @@
 
 	return TRUE
 
-
 /**
  * # Proc to check heal requirements.
  *

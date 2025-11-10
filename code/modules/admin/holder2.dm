@@ -146,7 +146,6 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 /datum/admins/can_vv_delete()
 	return FALSE // don't break shit either
 
-
 /**
  * Requires the holder to have all the rights specified
  *

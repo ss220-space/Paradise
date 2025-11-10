@@ -23,7 +23,6 @@
 	else
 		to_chat(user, span_danger("The unearthly energies that powered the blade are now dormant."))
 
-
 /obj/effect/rend
 	name = "tear in the fabric of reality"
 	desc = "You should run now."
@@ -54,7 +53,6 @@
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-
 /obj/effect/rend/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/nullrod))
 		add_fingerprint(user)
@@ -62,7 +60,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/effect/rend/singularity_pull()
 	return
@@ -86,7 +83,6 @@
 	activate_descriptor = "depression"
 	rend_desc = "Gently wafting with the sounds of endless laughter."
 	icon_state = "clownrender"
-
 
 /obj/item/veilrender/crabrender
 	name = "crab render"
@@ -144,18 +140,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 	..()
 	GLOB.multiverse |= src
 
-
 /obj/item/multisword/Destroy()
 	GLOB.multiverse.Remove(src)
 	return ..()
-
 
 /obj/item/multisword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target.real_name == user.real_name)	//to prevent accidental friendly fire or out and out grief.
 		to_chat(user, span_warning("The [name] detects benevolent energies in your target and redirects your attack!"))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/multisword/attack_self(mob/user)
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
@@ -212,7 +205,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
 	else
 		to_chat(user, span_warning("<b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
-
 
 /obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
@@ -466,7 +458,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), ITEM_SLOT_FEET)
 				M.equip_to_slot_or_del(sword, ITEM_SLOT_HAND_RIGHT)
 
-
 			else
 				return
 
@@ -508,7 +499,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	probability_evil = 100
 	duplicate_self = 1
 	sword_type = /obj/item/multisword/pike
-
 
 /////////////////////////////////////////Necromantic Stone///////////////////
 
@@ -564,7 +554,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	to_chat(target, "[span_userdanger("You have been revived by ")]<b>[user.real_name]!</b>")
 	to_chat(target, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
-
 
 /obj/item/necromantic_stone/proc/check_spooky()
 	if(unlimited) //no point, the list isn't used.
@@ -663,7 +652,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /////////////////////////////////////////Voodoo///////////////////
 
-
 /obj/item/voodoo
 	name = "wicker doll"
 	desc = "Выглядит зловеще."
@@ -716,7 +704,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)

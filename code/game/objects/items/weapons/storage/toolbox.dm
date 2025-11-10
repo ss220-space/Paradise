@@ -216,11 +216,9 @@
 
 /obj/item/storage/toolbox/mechanical/greytide
 
-
 /obj/item/storage/toolbox/mechanical/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty toolbox"

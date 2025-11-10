@@ -39,16 +39,13 @@
 	/// Cooldown timestamp
 	COOLDOWN_DECLARE(stun_cooldown)
 
-
 /obj/item/melee/baton/New()
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND, PROC_REF(try_take_baton))
 
-
 /obj/item/melee/baton/Destroy()
 	UnregisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND)
 	. = ..()
-
 
 /obj/item/melee/baton/proc/try_take_baton(baton, mob/living/carbon/user)
 	SIGNAL_HANDLER
@@ -88,7 +85,6 @@
 			if(!skip_harm_attack && user.a_intent == INTENT_HARM)
 				return ..(target, user, params, def_zone, stun_animation)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/melee/baton/proc/baton_attack(mob/living/target, mob/living/user)
 	. = BATON_ATTACKING
@@ -148,7 +144,6 @@
 	if(attack_desc)
 		target.visible_message(attack_desc["visible"], attack_desc["local"])
 
-
 /obj/item/melee/baton/proc/finalize_baton_attack(mob/living/target, mob/living/user, in_attack_chain = TRUE)
 	if(!in_attack_chain && HAS_TRAIT_FROM(target, TRAIT_IWASBATONED, UNIQUE_TRAIT_SOURCE(user)))
 		return BATON_ATTACK_DONE
@@ -163,7 +158,6 @@
 			add_attack_logs(user, target, "stun attacked")
 	if(baton_effect(target, user) && user)
 		set_batoned(target, user, cooldown)
-
 
 /obj/item/melee/baton/proc/baton_effect(mob/living/target, mob/living/user, stun_override)
 	var/trait_check = HAS_TRAIT(target, TRAIT_BATON_RESISTANCE)
@@ -192,14 +186,12 @@
 	SEND_SIGNAL(target, COMSIG_MOB_BATONED, user, src)
 	return TRUE
 
-
 /obj/item/melee/baton/proc/set_batoned(mob/living/target, mob/living/user, cooldown)
 	if(!cooldown)
 		return
 	var/user_UID = UNIQUE_TRAIT_SOURCE(user)
 	ADD_TRAIT(target, TRAIT_IWASBATONED, user_UID)
 	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_IWASBATONED, user_UID), cooldown)
-
 
 /obj/item/melee/baton/proc/clumsy_check(mob/living/user, mob/living/intented_target)
 	var/trait_check = HAS_TRAIT(user, TRAIT_BATON_RESISTANCE)
@@ -241,11 +233,9 @@
 	SEND_SIGNAL(user, COMSIG_MOB_BATONED, user, src)
 	return TRUE
 
-
 /// Description for trying to stun when still on cooldown.
 /obj/item/melee/baton/proc/get_wait_description()
 	return
-
 
 /// Default message for stunning a living, non-cyborg mob.
 /obj/item/melee/baton/proc/get_stun_description(mob/living/target, mob/living/user)
@@ -253,14 +243,11 @@
 	.["visible"] = span_danger("[user] knocks [target] down with [src]!")
 	.["local"] = span_userdanger("[user] knocks you down with [src]!")
 
-
-
 /// Default message for stunning a cyborg.
 /obj/item/melee/baton/proc/get_cyborg_stun_description(mob/living/target, mob/living/user)
 	. = list()
 	.["visible"] = span_danger("[user] pulses [target]'s sensors with the baton!")
 	.["local"] = span_danger("You pulse [target]'s sensors with the baton!")
-
 
 /// Default message for trying to stun a cyborg with a baton that can't stun cyborgs.
 /obj/item/melee/baton/proc/get_unga_dunga_cyborg_stun_description(mob/living/target, mob/living/user)
@@ -268,13 +255,11 @@
 	.["visible"] = span_danger("[user] tries to knock down [target] with [src], and predictably fails!") //look at this duuuuuude
 	.["local"] = span_userdanger("[user] tries to... knock you down with [src]?") //look at the top of his head!
 
-
 /// Contains any special effects that we apply to living, non-cyborg mobs we stun. Does not include applying a knockdown, dealing stamina damage, etc.
 /obj/item/melee/baton/proc/additional_effects_non_cyborg(mob/living/target, mob/living/user)
 	if(HAS_TRAIT(target, TRAIT_BATON_RESISTANCE))
 		return FALSE
 	return TRUE
-
 
 /// Contains any special effects that we apply to cyborgs we stun. Does not include flashing the cyborg's screen, hardstunning them, etc.
 /obj/item/melee/baton/proc/additional_effects_cyborg(mob/living/target, mob/living/user)
@@ -283,14 +268,12 @@
 	return TRUE
 
 
-
 /obj/item/melee/baton/ntcane
 	name = "fancy cane"
 	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
 	icon_state = "cane_nt"
 	item_state = "cane_nt"
 	needs_permit = FALSE
-
 
 // Telescopic baton
 /obj/item/melee/baton/telescopic
@@ -311,7 +294,6 @@
 	/// The force on extension.
 	var/extend_force = 10
 
-
 /obj/item/melee/baton/telescopic/Initialize(mapload)
 	. = ..()
 	AddComponent( \
@@ -325,7 +307,6 @@
 		attack_verb_on = list("ударил", "вмазал", "врезал"), \
 	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
-
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].

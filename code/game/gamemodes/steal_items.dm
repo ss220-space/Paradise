@@ -11,7 +11,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 
 GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
-
 /proc/get_ungibbable_items_types()
 	var/types = list()
 
@@ -29,7 +28,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	types += /mob/living/simple_animal/diona // Possible diona brains
 
 	return types
-
 
 /proc/get_theft_targets_station(typepath, subtypes = TRUE, list/blacklist)
 	var/list/typecache = list()
@@ -55,7 +53,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 				if(typecache[obj_check.type])
 					. |= obj_check
 				CHECK_TICK
-
 
 /datum/theft_objective
 	var/id
@@ -86,12 +83,10 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 	return FALSE
 
-
 /datum/theft_objective/proc/generate_explanation_text(datum/objective/steal/steal_objective)
 	steal_objective.explanation_text = "Украсть [name]. Последнее местоположение было в [generate_location_text()]. "
 	if(length(protected_jobs) && job_possession)
 		steal_objective.explanation_text += "Также стоит проверить у [jointext(protected_jobs, ", ")]."
-
 
 /datum/theft_objective/proc/generate_location_text()
 	if(location_override)
@@ -101,20 +96,17 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		return "[get_area(check)]"
 	return "неизвестной зоне"
 
-
 /**
  * This proc is to be used for not granting objectives if a special requirement other than job is not met.
  */
 /datum/theft_objective/proc/check_objective_conditions()
 	return TRUE
 
-
 /**
  * For objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
  */
 /datum/proc/check_special_completion(obj/item/I)
 	return TRUE
-
 
 //==========================
 //========Highrisk========
@@ -197,7 +189,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	protected_jobs = list(JOB_TITLE_CHIEF)
 	altitems = list(/obj/item/photo)
 
-
 /datum/theft_objective/highrisk/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
 		return TRUE
@@ -230,7 +221,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 	altitems = list(/obj/item/folder/documents)
-
 
 /datum/theft_objective/highrisk/documents/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/documents))
@@ -277,7 +267,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	location_override = "the Vault. You can use the box and instructions provided to remove the core, with some extra tools"
 	special_equipment = /obj/item/storage/box/syndie_kit/nuke
 
-
 //==========================
 //==========Unique==========
 //==========================
@@ -293,7 +282,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "docs_blue"
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
-
 
 //==========================
 //========Hard Thief========
@@ -347,8 +335,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "cap_flask"
 	typepath = /obj/item/reagent_containers/food/drinks/flask/gold
 	name = "капитанскую золотую фляжку"
-
-
 
 //==========================
 //=======Medium Thief=======
@@ -433,13 +419,11 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/clothing/head/helmet/skull/Yorick
 	name = "череп Йорика"
 
-
 //==========================
 //========Structures========
 //==========================
 /datum/theft_objective/structure
 	flags = THEFT_FLAG_STRUCTURE
-
 
 /datum/theft_objective/structure/check_completion(list/owners)
 	for(var/datum/mind/player in owners)
@@ -451,7 +435,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 				return TRUE
 
 	return FALSE
-
 
 /datum/theft_objective/structure/clown_statue
 	id = "structure_clown"
@@ -481,7 +464,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 /datum/theft_objective/animal
 	flags = THEFT_FLAG_ANIMAL
 
-
 /datum/theft_objective/animal/check_completion(list/owners)
 	for(var/datum/mind/player in owners)
 		if(!player.current)
@@ -497,7 +479,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 				return TRUE
 
 	return FALSE
-
 
 /datum/theft_objective/animal/ian
 	id = "animal_ian"
@@ -594,13 +575,11 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	name = "опоссума по кличке Ключик"
 	protected_jobs = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH)
 
-
 /datum/theft_objective/animal/mars
 	id = "animal_mars"
 	typepath = /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
 	name = "гориллу по кличке Марс"
 	protected_jobs = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH)
-
 
 //==========================
 //========Collection========
@@ -617,7 +596,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	var/max = 0
 	var/required_amount = 0
 	var/list/wanted_items = list()
-
 
 /datum/theft_objective/collect/New()
 	if(min == max)
@@ -656,10 +634,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 	name = get_collection(need_br = TRUE)
 
-
 /datum/theft_objective/collect/generate_explanation_text(datum/objective/steal/steal_objective)
 	steal_objective.explanation_text = name
-
 
 /datum/theft_objective/collect/check_completion(list/owners)
 	if(!length(wanted_items))
@@ -691,7 +667,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 				break
 
 	return collect_amount >= required_amount
-
 
 //=======Collect Types=======
 /datum/theft_objective/collect/figure
@@ -807,7 +782,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/headset_service,
 		/obj/item/encryptionkey/headset_mining_medic,
 	)
-
 
 //=====Collection Number=====
 /datum/theft_objective/collect/number

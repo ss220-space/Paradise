@@ -168,7 +168,6 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 		A.real_name = "[commando_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : commando_name]"
 	A.copy_to(new_commando)
 
-
 	new_commando.dna.ready_dna(new_commando)//Creates DNA.
 
 	//Creates mind stuff.

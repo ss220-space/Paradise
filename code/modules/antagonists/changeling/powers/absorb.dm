@@ -5,7 +5,6 @@
 	power_type = CHANGELING_INNATE_POWER
 	req_human = TRUE
 
-
 /datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user, ignore_absorbing = FALSE)
 	if(!..())
 		return FALSE
@@ -23,7 +22,6 @@
 		return FALSE
 
 	return cling.can_absorb_dna(user.pulling)
-
 
 /datum/action/changeling/absorbDNA/sting_action(mob/user)
 	var/mob/living/carbon/human/target = user.pulling
@@ -98,7 +96,6 @@
 	target.death(FALSE)
 	target.Drain()
 	return TRUE
-
 
 #undef LING_ABSORB_RECENT_SPEECH
 

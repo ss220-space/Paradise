@@ -94,24 +94,20 @@
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	secsensor.show_to(src)
 
-
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
 		var/datum/job/detective/J = new/datum/job/detective
 		access_card.access += J.get_access()
 		prev_access = access_card.access
 
-
 /mob/living/simple_animal/bot/ed209/turn_on()
 	. = ..()
 	icon_state = "[lasercolor]ed209[on]"
 	mode = BOT_IDLE
 
-
 /mob/living/simple_animal/bot/ed209/turn_off()
 	..()
 	icon_state = "[lasercolor]ed209[on]"
-
 
 /mob/living/simple_animal/bot/ed209/bot_reset()
 	..()
@@ -123,23 +119,19 @@
 	last_found = world.time
 	set_weapon()
 
-
 /mob/living/simple_animal/bot/ed209/set_custom_texts()
 	text_hack = "Вы взломали боевую систему [declent_ru(GENITIVE)]"
 	text_dehack = "Вы восстановили боевую систему [declent_ru(GENITIVE)]."
 	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"
 
-
 /mob/living/simple_animal/bot/ed209/show_controls(mob/M)
 	ui_interact(M)
-
 
 /mob/living/simple_animal/bot/ed209/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BotSecurity", name)
 		ui.open()
-
 
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)
 	var/list/data = list(
@@ -159,7 +151,6 @@
 		"arrest_declare" = declare_arrests // announce arrests on radio
 	)
 	return data
-
 
 /mob/living/simple_animal/bot/ed209/ui_act(action, params)
 	if(..())
@@ -195,7 +186,6 @@
 		if("ejectpai")
 			ejectpai()
 
-
 /mob/living/simple_animal/bot/ed209/topic_denied(mob/user)
 	if(lasercolor && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -205,7 +195,6 @@
 			return TRUE
 	return ..()
 
-
 /mob/living/simple_animal/bot/ed209/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = H.assess_threat(src)
 	threatlevel += 6
@@ -213,12 +202,10 @@
 		target = H
 		mode = BOT_HUNT
 
-
 /mob/living/simple_animal/bot/ed209/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
 		retaliate(H)
 	return ..()
-
 
 /mob/living/simple_animal/bot/ed209/attackby(obj/item/I, mob/user, params)
 	var/current_health = health
@@ -228,7 +215,6 @@
 	retaliate(user)
 	if(lasercolor)//To make up for the fact that lasertag bots don't hunt
 		shootAt(user)
-
 
 /mob/living/simple_animal/bot/ed209/emag_act(mob/user)
 	..()
@@ -241,14 +227,12 @@
 		icon_state = "[lasercolor]ed209[on]"
 		set_weapon()
 
-
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(istype(Proj ,/obj/projectile/beam)||istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
 	..()
-
 
 /mob/living/simple_animal/bot/ed209/handle_automated_action()
 	if(!..())
@@ -258,8 +242,6 @@
 		return
 
 	ed209_ai()
-
-
 
 /mob/living/simple_animal/bot/ed209/proc/ed209_ai()
 	var/list/targets = list()
@@ -368,7 +350,6 @@
 			look_for_perp()
 			bot_patrol()
 
-
 /mob/living/simple_animal/bot/ed209/proc/back_to_idle()
 	set_anchored(FALSE)
 	mode = BOT_IDLE
@@ -377,13 +358,11 @@
 	frustration = 0
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 
-
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
-
 
 /**
  * Look for a criminal in view of the bot.
@@ -417,12 +396,10 @@
 		else
 			continue
 
-
 /mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item?.needs_permit)
 		return TRUE
 	return FALSE
-
 
 /mob/living/simple_animal/bot/ed209/explode()
 	GLOB.move_manager.stop_looping(src)
@@ -468,7 +445,6 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..()
 
-
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
@@ -484,7 +460,6 @@
 			projectile = /obj/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
 			projectile = /obj/projectile/beam/lasertag/redtag
-
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(lastfired && world.time - lastfired < shot_delay)
@@ -508,13 +483,11 @@
 	A.xo = U.x - T.x
 	A.fire()
 
-
 /mob/living/simple_animal/bot/ed209/attack_alien(mob/living/carbon/alien/user)
 	..()
 	if(!isalien(target))
 		target = user
 		mode = BOT_HUNT
-
 
 /mob/living/simple_animal/bot/ed209/emp_act(severity)
 
@@ -553,7 +526,6 @@
 						target = toarrest
 						mode = BOT_HUNT
 
-
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = 0
@@ -579,19 +551,15 @@
 	else
 		..(Proj)
 
-
 /mob/living/simple_animal/bot/ed209/proc/unset_disabled()
 	disabled = FALSE
 	icon_state = "[lasercolor]ed2091"
 
-
 /mob/living/simple_animal/bot/ed209/bluetag
 	lasercolor = "b"
 
-
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
-
 
 /mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A)
 	if(iscarbon(A))
@@ -603,7 +571,6 @@
 	else
 		..()
 
-
 /mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(isitem(AM))
 		var/obj/item/I = AM
@@ -612,12 +579,10 @@
 			retaliate(thrower)
 	..()
 
-
 /mob/living/simple_animal/bot/ed209/RangedAttack(atom/A, params)
 	if(!on)
 		return
 	shootAt(A)
-
 
 /mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
@@ -639,15 +604,12 @@
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] оглушил [C]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] оглушил вас!"))
 
-
-
 /mob/living/simple_animal/bot/ed209/proc/start_cuffing(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает надевать стяжки на [C]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается надеть на вас стяжки!"))
 	addtimer(CALLBACK(src, PROC_REF(cuff_callback), C), 6 SECONDS)
-
 
 /mob/living/simple_animal/bot/ed209/proc/cuff_callback(mob/living/carbon/C)
 	if(QDELETED(src) || QDELETED(C))
@@ -661,8 +623,6 @@
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] надел на вас стяжки!"))
 
 	back_to_idle()
-
-
 
 #undef SPEAK_COOLDOWN
 #undef BATON_COOLDOWN

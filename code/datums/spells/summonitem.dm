@@ -14,10 +14,8 @@
 	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod = TRUE, /obj/machinery/atmospherics = TRUE, /obj/structure/disposalholder = TRUE, /obj/machinery/disposal = TRUE)
 	action_icon_state = "summons"
 
-
 /obj/effect/proc_holder/spell/summonitem/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/summonitem/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)

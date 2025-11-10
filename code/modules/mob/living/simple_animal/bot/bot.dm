@@ -25,7 +25,6 @@
 
 	hud_type = /datum/hud/bot
 
-
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
 	var/list/users = list() //for dialog updates
@@ -165,7 +164,6 @@
 
 	bot.radio_config["[bot.radio_channel]"] = 1
 
-
 /mob/living/simple_animal/bot/proc/get_mode()
 	if(client) //Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
 		if(paicard)
@@ -181,7 +179,6 @@
 	else
 		return span_average("[mode_name[mode]]")
 
-
 /mob/living/simple_animal/bot/proc/turn_on()
 	if(disabling_timer_id || stat)
 		return FALSE
@@ -192,14 +189,12 @@
 	diag_hud_set_botstat()
 	return TRUE
 
-
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
 	set_light_on(FALSE)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()
-
 
 /mob/living/simple_animal/bot/Initialize(mapload)
 	. = ..()
@@ -238,8 +233,6 @@
 		path_hud.add_atom_to_hud(src)
 		path_hud.show_to(src)
 
-
-
 /mob/living/simple_animal/bot/proc/add_bot_filter()
 	if(QDELETED(src) || !SSradio || !bot_filter)
 		return
@@ -254,10 +247,8 @@
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return diag_hud_set_bothealth() //we use a different hud
 
-
 /mob/living/simple_animal/bot/med_hud_set_status()
 	return diag_hud_set_botstat() //we use a different hud
-
 
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
@@ -285,7 +276,6 @@
 
 	return ..()
 
-
 /mob/living/simple_animal/bot/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..()
@@ -293,10 +283,8 @@
 		return FALSE
 	explode()
 
-
 /mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
-
 
 /mob/living/simple_animal/bot/emag_act(mob/user)
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
@@ -321,7 +309,6 @@
 	if(user) //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		balloon_alert(user, "техпанель закрыта!")
 
-
 /mob/living/simple_animal/bot/examine(mob/user)
 	. = ..()
 	if(health < maxHealth)
@@ -331,7 +318,6 @@
 			. += span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит сильно повреждённым!")
 	else
 		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] в отличном состоянии.")
-
 
 /mob/living/simple_animal/bot/adjustHealth(
 	amount = 0,
@@ -343,7 +329,6 @@
 	. = ..()
 	if(. && amount > 0 && prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-
 
 /mob/living/simple_animal/bot/handle_automated_action()
 	diag_hud_set_botmode()
@@ -362,7 +347,6 @@
 	if(hijacked)
 		return
 
-
 	switch(mode) //High-priority overrides are processed first. Bots can do nothing else while under direct command.
 		if(BOT_RESPONDING)	//Called by the AI.
 			call_mode()
@@ -372,7 +356,6 @@
 			return
 	return TRUE //Successful completion. Used to prevent child process() continuing if this one is ended early.
 
-
 /mob/living/simple_animal/bot/attack_alien(mob/living/carbon/alien/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -381,7 +364,6 @@
 	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-
 
 /mob/living/simple_animal/bot/attack_animal(mob/living/simple_animal/user)
 	user.do_attack_animation(src)
@@ -393,17 +375,14 @@
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
-
 /mob/living/simple_animal/bot/attack_hand(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HELP)
 		interact(user)
 	else
 		return ..()
 
-
 /mob/living/simple_animal/bot/attack_ghost(mob/M)
 	interact(M)
-
 
 /mob/living/simple_animal/bot/attack_ai(mob/user)
 	if(!topic_denied(user))
@@ -411,10 +390,8 @@
 	else
 		to_chat(user, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
 
-
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
-
 
 /mob/living/simple_animal/bot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// NOT IN COMBAT
@@ -489,7 +466,6 @@
 
 	return ..()
 
-
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
@@ -501,7 +477,6 @@
 		return .
 	open = !open
 	balloon_alert(user, "техпанель [open ? "открыта" : "закрыта"]!")
-
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -524,13 +499,11 @@
 		span_notice("Вы ремонтируете [declent_ru(GENITIVE)].")
 	)
 
-
 /mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
 			do_sparks(5, TRUE, src)
 	return ..()
-
 
 /mob/living/simple_animal/bot/emp_act(severity)
 	var/was_on = on
@@ -553,12 +526,10 @@
 
 	addtimer(CALLBACK(src, PROC_REF(un_emp), was_on), severity * 30 SECONDS)
 
-
 /mob/living/simple_animal/bot/proc/un_emp(was_on)
 	stat &= ~EMPED
 	if(was_on)
 		turn_on()
-
 
 /mob/living/simple_animal/bot/proc/disable(time)
 	if(!time)
@@ -569,14 +540,12 @@
 		turn_off()
 	disabling_timer_id = addtimer(CALLBACK(src, PROC_REF(enable)), time, TIMER_STOPPABLE)
 
-
 /mob/living/simple_animal/bot/proc/enable()
 	if(disabling_timer_id)
 		deltimer(disabling_timer_id)
 		disabling_timer_id = null
 	if(!on)
 		turn_on()
-
 
 /mob/living/simple_animal/bot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
@@ -585,12 +554,10 @@
 	set_custom_texts()
 	return TRUE
 
-
 /mob/living/simple_animal/bot/proc/set_custom_texts() //Superclass for setting hack texts. Appears only if a set is not given to a bot locally.
 	text_hack = "Вы взломали [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили [declent_ru(GENITIVE)]."
 	text_dehack_fail = "Вы не смогли восстановить [declent_ru(GENITIVE)]."
-
 
 /mob/living/simple_animal/bot/proc/speak(message, channel) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if(!on || !message)
@@ -599,7 +566,6 @@
 		radio_announce(message, name, channel == HEADSET_MODE ? PUB_FREQ : channel, src)
 	else
 		say(message)
-
 
 //Generalized behavior code, override where needed!
 
@@ -628,13 +594,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue //The current element failed assessment, move on to the next.
 		return final_result
 
-
 /**
  * When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
  */
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
 	return scan_target
-
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(atom/subject)
 	if(length(ignore_list) < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
@@ -642,7 +606,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	else  //If the list is full, insert newest, delete oldest.
 		ignore_list.Cut(1, 2)
 		ignore_list += subject.UID()
-
 
 /**
  * Movement proc for stepping a bot through a path generated through A-star.
@@ -672,7 +635,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return FALSE
 	return TRUE
 
-
 /mob/living/simple_animal/bot/proc/bot_step() //Step,increase tries if failed
 	if(!length(path))
 		return FALSE
@@ -686,11 +648,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	tries = 0
 	return TRUE
 
-
 /mob/living/simple_animal/bot/proc/check_bot_access()
 	if(mode != BOT_SUMMON && mode != BOT_RESPONDING)
 		access_card.access = prev_access
-
 
 /mob/living/simple_animal/bot/proc/call_bot(requester, turf/waypoint, message = TRUE)
 	if(isAI(requester) && calling_ai && calling_ai != src) //Prevents an override if another AI is controlling this bot.
@@ -728,7 +688,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		access_card.access = prev_access // Don't forget to reset it
 		set_path(null)
 
-
 /mob/living/simple_animal/bot/proc/call_mode() //Handles preparing a bot for a call, as well as calling the move proc.
 //Handles the bot's movement during a call.
 	var/success = bot_move(ai_waypoint, 3)
@@ -737,7 +696,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			to_chat(calling_ai, "[icon2html(src, calling_ai)] [get_turf(src) == ai_waypoint ? span_notice("[capitalize(declent_ru(NOMINATIVE))] прибыл в точку назначения.") : span_danger("[capitalize(declent_ru(NOMINATIVE))] не смог добраться до точки назначения.")]")
 			calling_ai = null
 		bot_reset()
-
 
 /mob/living/simple_animal/bot/proc/bot_reset()
 	if(calling_ai) //Simple notification to the AI if it called a bot. It will not know the cause or identity of the bot.
@@ -756,7 +714,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Patrol and summon code!
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -765,11 +722,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	patrol_step()
 	addtimer(CALLBACK(src, PROC_REF(do_patrol)), 0.5 SECONDS)
 
-
 /mob/living/simple_animal/bot/proc/do_patrol()
 	if(mode == BOT_PATROL)
 		patrol_step()
-
 
 /mob/living/simple_animal/bot/proc/start_patrol()
 	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
@@ -789,14 +744,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		find_patrol_target()
 		tries++
 
-
 /mob/living/simple_animal/bot/proc/target_patrol()
 	calc_path() // Find a route to it
 	if(!length(path))
 		patrol_target = null
 		return
 	mode = BOT_PATROL
-
 
 /**
  * Perform a single patrol step.
@@ -824,13 +777,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	else // no path, so calculate new one
 		mode = BOT_START_PATROL
 
-
 /mob/living/simple_animal/bot/proc/patrol_step_not_moved()
 	calc_path()
 	if(!length(path))
 		find_patrol_target()
 	tries = 0
-
 
 /**
  * Finds the nearest beacon to self.
@@ -849,7 +800,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		speak("Режим патрулирования отключён.")
 		send_status()
 
-
 /mob/living/simple_animal/bot/proc/get_next_patrol_target()
 	// search the beacon list for the next target in the list.
 	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
@@ -858,7 +808,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			patrol_target = NB.loc //Get its location and set it as the target.
 			next_destination = NB.codes["next_patrol"] //Also get the name of the next beacon in line.
 			return TRUE
-
 
 /mob/living/simple_animal/bot/proc/find_nearest_beacon()
 	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
@@ -877,7 +826,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	patrol_target = nearest_beacon_loc
 	destination = nearest_beacon
 
-
 /mob/living/simple_animal/bot/proc/bot_control_message(command, mob/user, user_turf)
 	switch(command)
 		if("stop")
@@ -894,10 +842,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		else
 			to_chat(src, span_warning("Получена нераспознанная команда: [command]."))
 
-
 /obj/machinery/bot_core/receive_signal(datum/signal/signal)
 	owner.receive_signal(signal)
-
 
 /mob/living/simple_animal/bot/proc/receive_signal(datum/signal/signal)
 	. = TRUE
@@ -947,13 +893,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		else
 			. = FALSE
 
-
 /**
  * Send a radio signal with a single data key/value pair.
  */
 /mob/living/simple_animal/bot/proc/post_signal(freq, key, value)
 	post_signal_multiple(freq, list("[key]" = value) )
-
 
 /**
  * Send a radio signal with multiple data key/values.
@@ -973,13 +917,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	INVOKE_ASYNC(src, PROC_REF(async_post_signal), frequency, signal)
 
-
 /mob/living/simple_animal/bot/proc/async_post_signal(datum/radio_frequency/freq, datum/signal/signal)
 	if(signal.data["type"] == bot_type)
 		freq.post_signal(bot_core, signal, filter = bot_filter)
 	else
 		freq.post_signal(bot_core, signal)
-
 
 /**
  * Signals bot status etc. to controller.
@@ -996,10 +938,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	)
 	post_signal_multiple(control_freq, key_values)
 
-
 /mob/living/simple_animal/bot/proc/bot_summon() // summoned to PDA
 	summon_step()
-
 
 /**
  * Calculates a path to the current destination, given an optional turf to avoid.
@@ -1008,19 +948,16 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	check_bot_access()
 	set_path(get_path_to(src, patrol_target, max_distance = 120, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL))
 
-
 /mob/living/simple_animal/bot/proc/calc_summon_path(turf/avoid)
 	check_bot_access()
 	var/datum/callback/path_complete = CALLBACK(src, PROC_REF(on_summon_path_finish))
 	SSpathfinder.pathfind(src, summon_target, max_distance = 150, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL, on_finish = list(path_complete))
-
 
 /mob/living/simple_animal/bot/proc/on_summon_path_finish(list/path)
 	set_path(path)
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		speak("Команда вызова не выполнена, пункт назначения недоступен.", radio_channel)
 		bot_reset()
-
 
 /mob/living/simple_animal/bot/proc/summon_step()
 
@@ -1043,15 +980,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	else	// no path, so calculate new one
 		calc_summon_path()
 
-
 /mob/living/simple_animal/bot/proc/try_calc_path()
 	calc_summon_path()
 	tries = 0
 
-
 /mob/living/simple_animal/bot/proc/openedDoor(obj/machinery/door/D)
 	frustration = 0
-
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/user)
 	users |= user
@@ -1062,15 +996,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	popup.open()
 	return
 
-
 /mob/living/simple_animal/bot/proc/update_controls()
 	for(var/mob/user in users)
 		show_controls(user)
 
-
 /mob/living/simple_animal/bot/proc/get_controls(mob/user)
 	return "PROTOBOT - NOT FOR USE"
-
 
 /mob/living/simple_animal/bot/Topic(href, href_list)
 	if(href_list["close"])// HUE HUE
@@ -1105,10 +1036,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	update_controls()
 
-
 /mob/living/simple_animal/bot/proc/canhack(mob/user)
 	return ((issilicon(user) && (!emagged || hacked)) || user.can_admin_interact())
-
 
 /mob/living/simple_animal/bot/proc/handle_hacking(mob/user) // refactored out of Topic/ to allow re-use by TGUIs
 	if(!canhack(user))
@@ -1134,10 +1063,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		bot_reset()
 		add_attack_logs(user, src, "Dehacked")
 
-
 /mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
-
 
 /**
  * Machinery to simplify topic and access calls.
@@ -1146,13 +1073,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	use_power = NO_POWER_USE
 	var/mob/living/simple_animal/bot/owner = null
 
-
 /obj/machinery/bot_core/New(loc)
 	..()
 	owner = loc
 	if(!istype(owner))
 		qdel(src)
-
 
 /**
  * Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
@@ -1173,7 +1098,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return TRUE
 	return FALSE
 
-
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
@@ -1182,7 +1106,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
 		hack += "Удалённое радиоуправление: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Отключено" : "Включено"]</a><br>"
 	return hack
-
 
 /mob/living/simple_animal/bot/proc/showpai(mob/user)
 	var/eject = ""
@@ -1201,7 +1124,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			eject += "<br>"
 		eject += "<br>"
 	return eject
-
 
 /mob/living/simple_animal/bot/proc/ejectpai(mob/user = null, announce = 1)
 	if(paicard)
@@ -1224,12 +1146,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		faction = initial(faction)
 		tts_seed = initial(tts_seed)
 
-
 /mob/living/simple_animal/bot/proc/ejectpairemote(mob/user)
 	if(bot_core.allowed(user) && paicard)
 		speak("Извлечение ПИИ.", radio_channel)
 		ejectpai(user)
-
 
 /mob/living/simple_animal/bot/Login()
 	. = ..()
@@ -1242,17 +1162,14 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	diag_hud_set_botmode()
 	show_laws()
 
-
 /mob/living/simple_animal/bot/Logout()
 	. = ..()
 	bot_reset()
-
 
 /mob/living/simple_animal/bot/revive(full_heal = 0, admin_revive = 0)
 	if(..())
 		update_icon()
 		. = TRUE
-
 
 /mob/living/simple_animal/bot/ghost()
 	if(stat != DEAD) // Only ghost if we're doing this while alive, the pAI probably isn't dead yet.
@@ -1261,10 +1178,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(paicard && (!client || stat == DEAD))
 		ejectpai()
 
-
 /mob/living/simple_animal/bot/sentience_act()
 	faction -= "silicon"
-
 
 /mob/living/simple_animal/bot/verb/show_laws()
 	set name = "Набор законов"
@@ -1285,7 +1200,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		to_chat(src, "<b>Дополнительные законы(s):</b>")
 		to_chat(src, "[paicard.pai.pai_laws]")
 
-
 /mob/living/simple_animal/bot/get_access()
 	if(hijacked)
 		return get_all_accesses()
@@ -1294,10 +1208,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(access_card)
 		. |= access_card.GetAccess()
 
-
 /mob/living/simple_animal/bot/proc/door_opened(obj/machinery/door/D)
 	frustration = 0
-
 
 /mob/living/simple_animal/bot/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
@@ -1313,10 +1225,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 				Radio.talk_into(src, message, message_mode, verb, speaking)
 				used_radios += Radio
 
-
 /mob/living/simple_animal/bot/is_mechanical()
 	return TRUE
-
 
 /mob/living/simple_animal/bot/proc/set_path(list/newpath)
 	path = newpath ? newpath : list()
@@ -1369,7 +1279,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
 		hud.add_atom_to_hud(src)
 
-
 /mob/living/simple_animal/bot/proc/increment_path()
 	if(!path || !length(path))
 		return
@@ -1378,10 +1287,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		I.icon = null
 	path.Cut(1, 2)
 
-
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)
-
 
 /obj/effect/proc_holder/spell/bot_speed
 	name = "Speed Charge"
@@ -1391,17 +1298,14 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/bot_speed/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/bot_speed/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/bot/bot in targets)
 		bot.set_varspeed(0.1)
 		balloon_alert(src, "вы ускоряетесь")
 		addtimer(CALLBACK(bot, TYPE_PROC_REF(/mob/living/simple_animal/bot, reset_speed)), 45 SECONDS)
-
 
 /mob/living/simple_animal/bot/proc/reset_speed()
 	if(QDELETED(src))

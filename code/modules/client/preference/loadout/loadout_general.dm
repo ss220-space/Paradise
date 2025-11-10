@@ -167,7 +167,6 @@
 	)
 	gear_tweaks += new /datum/gear_tweak/path(lips, src, TRUE)
 
-
 //////////////////////
 //		Mugs		//
 //////////////////////

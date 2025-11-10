@@ -55,7 +55,6 @@
 	tastes = list("cabbage" = 1)
 	wine_power = 0.2
 
-
 // Sugarcane
 /obj/item/seeds/sugarcane
 	name = "pack of sugarcane seeds"
@@ -82,7 +81,6 @@
 	bitesize_mod = 2
 	tastes = list("sugarcane" = 1)
 	distill_reagent = "rum"
-
 
 // Gatfruit
 /obj/item/seeds/gatfruit

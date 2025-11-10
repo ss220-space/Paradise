@@ -2,7 +2,6 @@
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
 
-
 /*
 
 BUBBLEGUM
@@ -214,7 +213,6 @@ Difficulty: Hard
 	charge(delay = 3)
 	SetRecoveryTime(15)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge()
 	if(!BUBBLEGUM_SMASH || prob(33))
 		hallucination_charge_around(times = 6, delay = 12)
@@ -229,7 +227,6 @@ Difficulty: Hard
 		triple_charge()
 		SetRecoveryTime(20)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/surround_with_hallucinations()
 	for(var/i = 1 to 5)
 		INVOKE_ASYNC(src, PROC_REF(hallucination_charge_around), 2, 8, 2, FALSE, 4)
@@ -239,7 +236,6 @@ Difficulty: Hard
 		else
 			SLEEP_CHECK_DEATH(src, 2 SECONDS)
 	SetRecoveryTime(20)
-
 
 #define BUBLEGUM_CHARGE_SPEED 0.4
 
@@ -274,7 +270,6 @@ Difficulty: Hard
 
 #undef BUBLEGUM_CHARGE_SPEED
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/on_move(atom/source, atom/new_loc)
 	SIGNAL_HANDLER
 	if(!actively_moving)
@@ -282,11 +277,9 @@ Difficulty: Hard
 	new /obj/effect/temp_visual/decoy/fading(loc, src)
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings))
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/pre_move(datum/source)
 	SIGNAL_HANDLER
 	actively_moving = TRUE
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/post_move(datum/source)
 	SIGNAL_HANDLER
@@ -294,14 +287,12 @@ Difficulty: Hard
 	if(get_turf(src) == charging)
 		qdel(source)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge_end(datum/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)
 	try_bloodattack()
 	actively_moving = FALSE
 	charging = null
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_mobs_on_blood()
 	var/list/targets = ListTargets()
@@ -523,7 +514,6 @@ Difficulty: Hard
 	if(useoriginal)
 		INVOKE_ASYNC(src, PROC_REF(charge), chargeat, delay, chargepast)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -542,7 +532,6 @@ Difficulty: Hard
 			step(B, pick(GLOB.cardinal))
 		else
 			B.setDir(pick(GLOB.cardinal))
-
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum
 	name = "thick blood"
@@ -586,22 +575,18 @@ Difficulty: Hard
 	severity = EXPLODE_LIGHT // puny mortals
 	return ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination))
 		return TRUE
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Goto(target, delay, minimum_distance)
 	if(!charging)
 		return ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/MoveToTarget(list/possible_targets)
 	if(!charging)
 		return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	update_approach()
@@ -609,7 +594,6 @@ Difficulty: Hard
 		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/bumped_atom)
 	. = ..()
@@ -629,12 +613,10 @@ Difficulty: Hard
 	shake_camera(bumped_living, 4, 3)
 	shake_camera(src, 2, 3)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum)) // hallucinations should not be stopping bubblegum or eachother
 		return TRUE
-
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum
 	duration = 15
@@ -692,21 +674,17 @@ Difficulty: Hard
 	. = ..()
 	toggle_ai(AI_OFF)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge_end(datum/source)
 	. = ..()
 	if(!QDELETED(src))
 		qdel(src)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Destroy()
 	new /obj/effect/decal/cleanable/blood(get_turf(src))
 	. = ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(
 	amount = 0,
@@ -720,7 +698,6 @@ Difficulty: Hard
 	affect_robotic = TRUE,
 )
 	return STATUS_UPDATE_NONE
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/OpenFire()
 	return

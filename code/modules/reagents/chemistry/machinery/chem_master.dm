@@ -136,7 +136,6 @@
 		return
 	update_icon()
 
-
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -179,7 +178,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -587,7 +585,6 @@
 	sprites = list()
 	for(var/i in 1 to sprites_amount)
 		sprites += "[sprite_mask][i]"
-
 
 /datum/chemical_production_mode/proc/get_placeholder_name(datum/reagents/reagents)
 	return get_base_placeholder_name(reagents, clamp(reagents.total_volume / set_items_amount, 0, max_units_per_item))

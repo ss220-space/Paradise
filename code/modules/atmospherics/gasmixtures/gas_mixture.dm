@@ -45,10 +45,8 @@ What are the archived variables for?
 /datum/gas_mixture/proc/heat_capacity()
 	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b)
 
-
 /datum/gas_mixture/proc/heat_capacity_archived()
 	return HEAT_CAPACITY_CALCULATION(oxygen_archived, carbon_dioxide_archived, nitrogen_archived, toxins_archived, sleeping_agent_archived, agent_b_archived)
-
 
 /datum/gas_mixture/proc/total_moles()
 	var/moles = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
@@ -63,21 +61,16 @@ What are the archived variables for?
 		return total_moles() * R_IDEAL_GAS_EQUATION * temperature / volume
 	return 0
 
-
 /datum/gas_mixture/proc/return_temperature()
 	return temperature
-
 
 /datum/gas_mixture/proc/return_volume()
 	return max(0, volume)
 
-
 /datum/gas_mixture/proc/thermal_energy()
 	return temperature * heat_capacity()
 
-
 //Procedures used for very specific events
-
 
 /datum/gas_mixture/proc/react()
 	var/reacting = 0 //set to 1 if a notable reaction occured (used by pipe_network)
@@ -234,7 +227,6 @@ What are the archived variables for?
 		return null
 
 	var/datum/gas_mixture/removed = new
-
 
 	removed.oxygen = QUANTIZE((oxygen / sum) * amount)
 	removed.nitrogen = QUANTIZE((nitrogen/  sum) * amount)
@@ -584,8 +576,6 @@ What are the archived variables for?
 			return 0
 	return 1
 
-
-
 //Takes the amount of the gas you want to PP as an argument
 //So I don't have to do some hacky switches/defines/magic strings
 
@@ -597,7 +587,6 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/get_breath_partial_pressure(gas_pressure)
 	return (gas_pressure * R_IDEAL_GAS_EQUATION * temperature) / BREATH_VOLUME
-
 
 //Reverse of the above
 /datum/gas_mixture/proc/get_true_breath_pressure(breath_pp)

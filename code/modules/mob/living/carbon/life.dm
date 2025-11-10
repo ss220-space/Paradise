@@ -37,7 +37,6 @@
 	if(stat != DEAD)
 		return TRUE
 
-
 ///////////////
 // BREATHING //
 ///////////////
@@ -196,7 +195,6 @@
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
 
-
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(!internal)
 		return
@@ -212,16 +210,13 @@
 		return
 	return internal.remove_air_volume(volume_needed)
 
-
 /mob/living/carbon/proc/handle_organs()
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		organ.on_life()
 
-
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
-
 
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(radiation)
@@ -244,10 +239,8 @@
 
 		radiation = clamp(radiation, 0, 100)
 
-
 /mob/living/carbon/handle_chemicals_in_body()
 	reagents.metabolize(src)
-
 
 /mob/living/carbon/proc/handle_wetness(times_fired)
 	if(times_fired % 20==2) //dry off a bit once every 20 ticks or so
@@ -308,7 +301,6 @@
 				healths.icon_state = "health6"
 		else
 			healths.icon_state = "health7"
-
 
 /mob/living/carbon/update_damage_hud()
 	if(!client)

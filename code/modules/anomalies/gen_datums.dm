@@ -75,7 +75,6 @@
 	new anomaly(T)
 	return TRUE
 
-
 //==================================== TIER 1 ===========================================
 
 /datum/anomaly_gen_datum/tier1
@@ -114,7 +113,6 @@
 /datum/anomaly_gen_datum/tier2/pyroclastic/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/atmospheric/tier1)
 
-
 /datum/anomaly_gen_datum/tier2/bluespace
 	anomaly_type = "блюспейс"
 	anomaly = /obj/effect/anomaly/bluespace/tier2
@@ -122,7 +120,6 @@
 
 /datum/anomaly_gen_datum/tier2/bluespace/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/bluespace/tier1)
-
 
 /datum/anomaly_gen_datum/tier2/vortex
 	anomaly_type = "вихревая"
@@ -132,7 +129,6 @@
 /datum/anomaly_gen_datum/tier2/vortex/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/vortex/tier1)
 
-
 /datum/anomaly_gen_datum/tier2/gravitational
 	anomaly_type = "гравитационная"
 	anomaly = /obj/effect/anomaly/gravitational/tier2
@@ -141,7 +137,6 @@
 /datum/anomaly_gen_datum/tier2/gravitational/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/gravitational/tier1)
 
-
 /datum/anomaly_gen_datum/tier2/energetic
 	anomaly_type = "энергетическая"
 	anomaly = /obj/effect/anomaly/energetic/tier2
@@ -149,7 +144,6 @@
 
 /datum/anomaly_gen_datum/tier2/energetic/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/energetic/tier1)
-
 
 //==================================== TIER 3 ===========================================
 
@@ -171,7 +165,6 @@
 /datum/anomaly_gen_datum/tier3/pyroclastic/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/atmospheric/tier2)
 
-
 /datum/anomaly_gen_datum/tier3/bluespace
 	anomaly_type = "большая блюспейс"
 	anomaly = /obj/effect/anomaly/bluespace/tier3
@@ -179,7 +172,6 @@
 
 /datum/anomaly_gen_datum/tier3/bluespace/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/bluespace/tier2)
-
 
 /datum/anomaly_gen_datum/tier3/vortex
 	anomaly_type = "большая вихревая"
@@ -189,7 +181,6 @@
 /datum/anomaly_gen_datum/tier3/vortex/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/vortex/tier2)
 
-
 /datum/anomaly_gen_datum/tier3/gravitational
 	anomaly_type = "большая гравитационная"
 	anomaly = /obj/effect/anomaly/gravitational/tier3
@@ -197,7 +188,6 @@
 
 /datum/anomaly_gen_datum/tier3/gravitational/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/gravitational/tier2)
-
 
 /datum/anomaly_gen_datum/tier3/energetic
 	anomaly_type = "большая энергетическая"

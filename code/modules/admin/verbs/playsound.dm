@@ -37,7 +37,6 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	BLACKBOX_LOG_ADMIN_VERB("Play Global Sound")
 
-
 /client/proc/play_local_sound(S as sound)
 	set category = STATPANEL_ADMIN_SOUNDS
 	set name = "Play Local Sound"
@@ -46,7 +45,6 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	log_and_message_admins("played a local sound [S]")
 	playsound(get_turf(src.mob), S, 50, FALSE, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Play Local Sound")
-
 
 /client/proc/play_web_sound()
 	set category = STATPANEL_ADMIN_SOUNDS

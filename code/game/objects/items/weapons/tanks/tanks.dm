@@ -17,7 +17,6 @@
 	var/volume = 70
 	var/fillable = TRUE
 
-
 /obj/item/tank/Initialize(mapload)
 	. = ..()
 
@@ -28,7 +27,6 @@
 	populate_gas()
 
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)
@@ -42,7 +40,6 @@
 
 /obj/item/tank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_internals(user)
-
 
 /obj/item/tank/proc/toggle_internals(mob/living/carbon/user, silent = FALSE)
 	if(!iscarbon(user))
@@ -87,7 +84,6 @@
 
 	user.internal = src
 	user.update_action_buttons_icon()
-
 
 /obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
@@ -143,7 +139,6 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-
 /obj/item/tank/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -154,8 +149,6 @@
 
 	if(istype(I, /obj/item/assembly_holder) && bomb_assemble(I, user))
 		. |= ATTACK_CHAIN_SUCCESS
-
-
 
 /obj/item/tank/attack_self(mob/user as mob)
 	if(!(air_contents))
@@ -245,7 +238,6 @@
 	air_contents.react()
 	check_status()
 
-
 /obj/item/tank/proc/check_status()
 	//Handle exploding, leaking, and rupturing of the tank
 
@@ -264,7 +256,6 @@
 		pressure = air_contents.return_pressure()
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
-
 
 		explosion(epicenter, devastation_range = round(range*0.25), heavy_impact_range = round(range*0.5), light_impact_range = round(range), flash_range = round(range*1.5), cause = src)
 		if(istype(loc,/obj/item/transfer_valve))

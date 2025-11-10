@@ -89,7 +89,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
-
 /obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -112,7 +111,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return ..()
 
-
 /obj/machinery/r_n_d/circuit_imprinter/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -121,7 +119,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(. && linked_console)
 		linked_console.linked_imprinter = null
 		linked_console = null
-
 
 /obj/machinery/r_n_d/circuit_imprinter/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

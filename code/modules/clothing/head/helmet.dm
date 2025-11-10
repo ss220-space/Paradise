@@ -30,7 +30,6 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
 
-
 /obj/item/clothing/head/helmet/adjust_headgear(mob/user)
 	. = ..()
 	if(.)
@@ -161,7 +160,6 @@
 	icon_state = "justice2"
 	toggle_on_message = "You turn off the light on"
 	toggle_off_message = "You turn on the light on"
-
 
 /obj/item/clothing/head/helmet/swat
 	name = "SWAT helmet"
@@ -352,11 +350,9 @@
 	item_state = "durathread"
 	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
 
-
 /obj/item/clothing/head/helmet/ert
 	item_flags = NONE
 	flags_inv = parent_type::flags_inv|HIDEHAIR
-
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command

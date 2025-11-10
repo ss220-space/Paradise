@@ -78,7 +78,6 @@
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
-
 /obj/item/clothing/head/welding/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
@@ -91,7 +90,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/clothing/head/welding/update_icon_state()
 	icon_state = paint ? paint : base_icon_state
@@ -133,7 +131,6 @@
 	light_range = 1.5
 	light_color = LIGHT_COLOR_DIM_YELLOW
 
-
 /obj/item/clothing/head/cakehat/process()
 	if(!on_fire)
 		return PROCESS_KILL
@@ -145,10 +142,8 @@
 	if(isturf(cake_turf))
 		cake_turf.hotspot_expose(700, 1)
 
-
 /obj/item/clothing/head/cakehat/attack_self(mob/user)
 	toggle_cake_light(user)
-
 
 /obj/item/clothing/head/cakehat/proc/toggle_cake_light(mob/user)
 	on_fire = !on_fire
@@ -168,16 +163,13 @@
 		damtype = BRUTE
 		STOP_PROCESSING(SSobj, src)
 
-
 /obj/item/clothing/head/cakehat/update_icon_state()
 	icon_state = "[base_icon_state][on_fire]"
-
 
 /obj/item/clothing/head/cakehat/extinguish_light(force = FALSE)
 	if(!force || !on_fire)
 		return
 	toggle_cake_light()
-
 
 /*
  * Soviet Hats
@@ -256,7 +248,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	light_range = 2 //luminosity when on
 
-
 /obj/item/clothing/head/hardhat/reindeer
 	name = "novelty reindeer hat"
 	desc = "Some fake antlers and a very fake red nose."
@@ -266,7 +257,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	light_range = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
-
 
 /*
  * Kitty ears
@@ -280,7 +270,6 @@
 	var/outer_state = "kitty"
 	var/inner_state = "kittyinner"
 
-
 /obj/item/clothing/head/kitty/mouse
 	name = "mouse ears"
 	desc = "A pair of mouse ears. Squeak!"
@@ -288,17 +277,14 @@
 	outer_state = "mousey"
 	inner_state = "mouseyinner"
 
-
 /obj/item/clothing/head/kitty/Destroy()
 	previous_owner = null
 	return ..()
-
 
 /obj/item/clothing/head/kitty/equipped(mob/user, slot, initial)
 	. = ..()
 	if(. && slot == ITEM_SLOT_HEAD)
 		update_look(user)
-
 
 /obj/item/clothing/head/kitty/proc/update_look(mob/living/carbon/human/user)
 	if(!ishuman(user) || user == previous_owner)
@@ -310,7 +296,6 @@
 	new_look.Blend(icon('icons/mob/clothing/head.dmi', inner_state), ICON_OVERLAY)
 	onmob_sheets[ITEM_SLOT_HEAD_STRING] = new_look
 	user.update_worn_head()
-
 
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
@@ -331,18 +316,15 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-
 /obj/item/clothing/head/cardborg/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 	if(ishuman(user) && slot == ITEM_SLOT_HEAD && istype(user.wear_suit, /obj/item/clothing/suit/cardborg))
 		var/obj/item/clothing/suit/cardborg/user_suit = user.wear_suit
 		user_suit.disguise(user, src)
 
-
 /obj/item/clothing/head/cardborg/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
 	user.remove_alt_appearance("standard_borg_disguise")
-
 
 /*
  * Head Mirror

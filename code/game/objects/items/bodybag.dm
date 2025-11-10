@@ -74,7 +74,6 @@
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
-
 /obj/structure/closet/body_bag/get_ru_names()
 	return list(
 		NOMINATIVE = "мешок для трупов",
@@ -85,7 +84,6 @@
 		PREPOSITIONAL = "мешке для трупов",
 	)
 
-
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I)
@@ -93,7 +91,6 @@
 			update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/structure/closet/body_bag/wirecutter_act(mob/living/user, obj/item/I)
 	if(name == initial(name))
@@ -106,22 +103,18 @@
 	ru_names = get_ru_names()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/closet/body_bag/open()
 	. = ..()
 	if(.)
 		pull_push_slowdown = 0
-
 
 /obj/structure/closet/body_bag/close()
 	. = ..()
 	if(. && length(contents))
 		pull_push_slowdown = 1.3
 
-
 /obj/structure/closet/body_bag/update_icon_state()
 	icon_state = opened ? icon_opened : icon_closed
-
 
 /obj/structure/closet/body_bag/update_overlays()
 	. = list()
@@ -144,7 +137,6 @@
 	var/obj/item/folding_bodybag = new foldedbag_path(turf)
 	turf.balloon_alert_to_viewers("складыва[PLUR_ET_YUT(the_folder)] мешок", "мешок сложен")
 	the_folder.put_in_hands(folding_bodybag)
-
 
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
@@ -171,10 +163,8 @@
 		if(!open())
 			loc.balloon_alert(user, "не поддаётся!")
 
-
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
 	return FALSE //Can't be weldled under any circumstances.
-
 
 /obj/item/bodybag/biohazard
 	name = "biohazard bodybag"
@@ -200,7 +190,6 @@
 	icon_closed = "bodybag_biohazard_closed"
 	icon_opened = "bodybag_biohazard_open"
 	foldedbag_path = /obj/item/bodybag/biohazard
-
 
 /obj/structure/closet/body_bag/biohazard/get_ru_names()
 	return list(
@@ -228,7 +217,6 @@
 		INSTRUMENTAL = "блюспейс мешком для трупов",
 		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
-
 
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()
@@ -285,7 +273,6 @@
 	icon_opened = "bluebag_open"
 	foldedbag_path = /obj/item/bodybag/bluespace
 
-
 /obj/structure/closet/body_bag/bluespace/get_ru_names()
 	return list(
 		NOMINATIVE = "блюспейс мешок для трупов",
@@ -295,7 +282,6 @@
 		INSTRUMENTAL = "блюспейс мешком для трупов",
 		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
-
 
 /obj/structure/closet/body_bag/bluespace/attempt_fold(mob/living/carbon/human/the_folder)
 	. = FALSE
@@ -318,7 +304,6 @@
 		return
 
 	return TRUE
-
 
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
 	var/turf/turf = get_turf(src)

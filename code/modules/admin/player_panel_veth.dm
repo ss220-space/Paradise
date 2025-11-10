@@ -11,7 +11,6 @@
 	var/datum/player_panel_veth/tgui = new(usr)
 	tgui.ui_interact(usr)
 
-
 /datum/player_panel_veth/ //required for tgui component
 	var/title = "Veth's Ultimate Player Panel"
 

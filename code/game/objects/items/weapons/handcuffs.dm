@@ -18,7 +18,6 @@
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
 
-
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!iscarbon(target)) // Shouldn't be able to cuff anything but carbons.
@@ -75,7 +74,6 @@
 		apply_cuffs(target, user)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /**
  * This handles handcuffing people
  *
@@ -119,7 +117,6 @@
 
 	if(trashtype && !dispense)
 		qdel(src)
-
 
 /obj/item/restraints/handcuffs/sinew
 	name = "sinew restraints"
@@ -190,7 +187,6 @@
 	icon_state = "pinkcuffs"
 	item_state = "pinkcuff"
 
-
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
@@ -229,7 +225,6 @@
 
 	return ..()
 
-
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
@@ -237,15 +232,12 @@
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
-
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_white_used"
 
-
 /obj/item/restraints/handcuffs/cable/zipties/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/restraints/handcuffs/manacles
 	name = "manacles"

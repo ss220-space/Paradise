@@ -20,7 +20,6 @@ SUBSYSTEM_DEF(explosions)
 	var/sound/hull_creaking_sound
 	var/sound/explosion_echo_sound
 
-
 /datum/controller/subsystem/explosions/Initialize()
 	if(CONFIG_GET(flag/reactionary_explosions))
 		reactionary_explosions = TRUE
@@ -31,7 +30,6 @@ SUBSYSTEM_DEF(explosions)
 	explosion_echo_sound = sound('sound/effects/explosion_distant.ogg')
 	explosion_queue = new()
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/explosions/fire(resumed = 0)
 	while(!explosion_queue.is_empty())
@@ -70,7 +68,6 @@ SUBSYSTEM_DEF(explosions)
 				data.cached_exp_block[total_cords] = prev_block + turf_block
 
 			var/flame_distance = distance < data.flame_range
-
 
 			if(distance < data.devastation_range)
 				distance = EXPLODE_DEVASTATE
@@ -249,7 +246,6 @@ SUBSYSTEM_DEF(explosions)
 	light_impact_range = clamp(light_impact_range, 0, GLOB.max_ex_light_range)
 	flash_range = clamp(flash_range, 0, GLOB.max_ex_flash_range)
 	flame_range = clamp(flame_range, 0, GLOB.max_ex_flame_range)
-
 
 /datum/explosion_data/proc/create_effect(smoke)
 	if(devastation_range > 0)

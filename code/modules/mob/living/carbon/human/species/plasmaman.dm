@@ -76,7 +76,6 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
 
-
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)

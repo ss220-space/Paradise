@@ -44,7 +44,6 @@
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/my_action = null
 
-
 /obj/item/gun/energy/shuriken_emitter/Destroy()
 	. = ..()
 	my_suit?.shuriken_emitter = null
@@ -53,14 +52,11 @@
 	my_action?.use_action()
 	my_action = null
 
-
 /obj/item/gun/energy/shuriken_emitter/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
 
-
 /obj/item/gun/energy/shuriken_emitter/run_drop_held_item(mob/user)
 	qdel(src)
-
 
 /obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
 	return !my_suit.ninjacost(cost*burst_size)

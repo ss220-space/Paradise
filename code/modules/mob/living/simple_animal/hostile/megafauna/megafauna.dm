@@ -174,7 +174,6 @@
 		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
 	..()
 
-
 /mob/living/simple_animal/hostile/megafauna/lose_target()
 	var/mob/living/L = target
 	if(istype(L) && L.mind)
@@ -202,13 +201,11 @@
 		mob_client.give_award(score_achievement_type, mob) //Score progression for specific boss killed
 	return TRUE
 
-
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
 	. = ..()
 	for(var/turf/simulated/floor/chasm/C in circle_range_turfs(src, 1))
 		C.set_density(FALSE) //I hate it.
 		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
-
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

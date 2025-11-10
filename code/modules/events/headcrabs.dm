@@ -43,7 +43,6 @@
 			spawn_types = list(/obj/structure/spawner/headcrab)
 			max_number = 2
 
-
 	var/num = rand(2,max_number)
 
 	while(length(turfs) > 0 && num > 0)
@@ -52,7 +51,6 @@
 		num--
 		var/spawn_type = pick(spawn_types)
 		new spawn_type(T)
-
 
 /datum/event/headcrabs/announce()
 	GLOB.minor_announcement.announce(

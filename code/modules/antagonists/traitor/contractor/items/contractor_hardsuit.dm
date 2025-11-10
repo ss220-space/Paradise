@@ -68,11 +68,6 @@
 	item_state = "eng_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
 
-/*
-	Chameleon
-		Hardsuit chameleon module, very limited choice, shutting down when EMP'd.
-*/
-
 /datum/action/item_action/advanced/chameleon_upgrade
 	name = "Advanced hardsuit chameleon module"
 	desc = "An advanced version of chameleon tech, allowing you to disguise your hardsuit, giving you the opportunity to walk in full view of security and personnel without any difficulties."
@@ -143,7 +138,6 @@
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	update_suit()
 	disguise = TRUE
-
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/disable_chameleon()
 	src.name = initial(name)

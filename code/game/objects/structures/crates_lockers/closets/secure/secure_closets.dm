@@ -20,7 +20,6 @@
 	if(. && broken)
 		update_icon()
 
-
 /obj/structure/closet/secure_closet/emp_act(severity)
 	for(var/obj/object in src)
 		object.emp_act(severity)
@@ -41,7 +40,6 @@
 			return
 		open()
 
-
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)
 		add_attack_logs(user, src, "emagged")
@@ -53,15 +51,36 @@
 		if(user)
 			to_chat(user, span_notice("You break the lock on [src]."))
 
+/obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
+	if(!istype(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
+		return
+	if(opened)
+		to_chat(user, span_notice("Close the locker first."))
+		return
+	if(broken)
+		to_chat(user, span_warning("The locker appears to be broken."))
+		return
+	if(user.loc == src)
+		to_chat(user, span_notice("You can't reach the lock from inside."))
+		return
+	if(allowed(user))
+		locked = !locked
+		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
+		visible_message(span_notice("The locker has been [locked ? null : "un"]locked by [user]."))
+		update_icon()
+	else
+		to_chat(user, span_notice("Access Denied"))
+	add_fingerprint(user)
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
 
-
 /obj/structure/closet/secure_closet/click_alt(mob/user)
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	if(locked)
@@ -87,14 +106,12 @@
 	else
 		. += mutable_appearance(icon, overlay_unlocked, CLOSET_OLAY_LAYER_LOCK_INDICATOR)
 
-
 /obj/structure/closet/secure_closet/update_desc(updates = ALL)
 	. = ..()
 	if(broken)
 		desc = "It appears to be broken."
 	else
 		desc = initial(desc)
-
 
 /obj/structure/closet/secure_closet/container_resist(mob/living/user)
 	if(opened)
@@ -116,7 +133,6 @@
 		span_warning("Вы упираетесь спиной в внутреннюю стенку [declent_ru(ACCUSATIVE)] и начинаете толкать дверь...")
 	)
 	INVOKE_ASYNC(src, PROC_REF(resist_async), user)
-
 
 /obj/structure/closet/secure_closet/proc/resist_async(mob/living/user)
 	if(!do_after(user, breakout_time, src))
@@ -151,7 +167,6 @@
 		loc_as_obj.container_resist(user)
 
 	open()
-
 
 /obj/structure/closet/secure_closet/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

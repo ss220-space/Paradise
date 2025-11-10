@@ -16,7 +16,6 @@
 
 	BLACKBOX_LOG_ADMIN_VERB("Debug Game")
 
-
 /* 21st Sept 2010
 Updated by Skie -- Still not perfect but better!
 Stuff you can't do:
@@ -126,7 +125,6 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 /// List to handle proc call spam prevention
 GLOBAL_LIST_EMPTY(AdminProcCallSpamPrevention)
 GLOBAL_PROTECT(AdminProcCallSpamPrevention)
-
 
 // Wrapper for proccalls where the datum is flagged as vareditted
 /proc/WrapAdminProcCall(datum/target, procname, list/arguments)
@@ -346,7 +344,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(src)] has gorillized [M.key].")
 	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
-
 /client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Superhero"
@@ -449,7 +446,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(isobserver(adminmob))
 		qdel(adminmob)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
-
 
 /client/proc/cmd_admin_areatest()
 	set category = "Debug.Mapping"
@@ -788,7 +784,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.set_content(dat)
 	popup.open(FALSE)
 
-
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
 		return
@@ -889,7 +884,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	log_and_message_admins("[SSachievements.achievements_enabled? "disabled" : "enabled"] the medal hub lockout.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
-
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
@@ -1004,14 +998,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.set_content(msg)
 	popup.open(FALSE)
 
-
 /client/proc/cmd_display_overlay_log()
 	set category = "Debug"
 	set name = "Display Overlay Log"
 	set desc = "Display SSoverlays log of everything that's passed through it."
 
 	render_stats(SSoverlays.stats, src)
-
 
 /client/proc/clear_dynamic_transit()
 	set category = "Debug"

@@ -32,7 +32,6 @@
 	smoothing_groups = SMOOTH_GROUP_WRYN_WAX
 	smooth = SMOOTH_BITMASK
 
-
 /obj/structure/wryn/wax/Initialize(mapload)
 	if(usr)
 		add_fingerprint(usr)
@@ -124,7 +123,6 @@
 		if(issimulatedturf(check) && !(locate(/obj/structure/wryn) in check))
 			. += floorImageCache["[GetOppositeDir(check_dir)]"]
 
-
 /obj/structure/wryn/floor/proc/fullUpdateWeedOverlays()
 	if(!length(floorImageCache))
 		floorImageCache = list(4)
@@ -136,7 +134,6 @@
 	for(var/obj/structure/wryn/floor/floor in range(1,src))
 		floor.update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/wryn/floor/New(pos)
 	..()
 	var/picked = pick(icons)
@@ -147,14 +144,12 @@
 	fullUpdateWeedOverlays()
 	return ..()
 
-
 /obj/structure/wryn/wax/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
-
 
 /obj/structure/wryn/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -212,7 +207,6 @@
 		return TRUE
 
 	return try_switch_state(user)
-
 
 /obj/structure/alien/resin/door/wax/try_switch_state(atom/movable/user)
 	if(operating)

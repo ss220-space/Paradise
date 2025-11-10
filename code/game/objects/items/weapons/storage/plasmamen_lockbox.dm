@@ -108,7 +108,6 @@
 		PREPOSITIONAL = "ящике снаряжения для плазмаменов (Librarian)",
 	)
 
-
 /obj/item/storage/lockbox/plasma/Librarian/populate_contents()
 	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain(src)
 	new /obj/item/clothing/under/plasmaman/chaplain(src)
@@ -128,7 +127,6 @@
 		INSTRUMENTAL = "ящиком снаряжения для плазмаменов (Janitor)",
 		PREPOSITIONAL = "ящике снаряжения для плазмаменов (Janitor)",
 	)
-
 
 /obj/item/storage/lockbox/plasma/janitor/populate_contents()
 	new /obj/item/clothing/head/helmet/space/plasmaman/janitor(src)

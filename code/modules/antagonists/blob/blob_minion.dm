@@ -30,7 +30,6 @@
 	if(mode)
 		mode.blobs["minions"] -= owner
 
-
 /datum/antagonist/blob_minion/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..(mob_override)
 	if(!user)
@@ -39,7 +38,6 @@
 		mob_talk = new
 	mob_talk.Grant(user)
 	return user
-
 
 /datum/antagonist/blob_minion/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..(mob_override)
@@ -50,7 +48,6 @@
 
 /datum/antagonist/blob_minion/roundend_report_header()
 	return
-
 
 /datum/antagonist/blob_minion/on_gain()
 	. = ..()
@@ -64,7 +61,6 @@
 
 /datum/antagonist/blob_minion/blobernaut
 	name = "Blobernaut"
-
 
 /datum/antagonist/blob_minion/blobernaut/greet()
 	. = ..()

@@ -66,7 +66,6 @@
 			shredded.throw_at(throw_to, 1, 1)
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/papershredder/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -119,7 +118,6 @@
 		to_chat(user, span_notice("Вы опустошаете [declent_ru(ACCUSATIVE)]."))
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/papershredder/proc/get_shredded_paper(atom/location)
 	if(!paperamount)
 		return
@@ -128,10 +126,8 @@
 	paperamount--
 	return new /obj/item/shredded_paper(location)
 
-
 /obj/machinery/papershredder/update_icon_state()
 	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
-
 
 /obj/item/shredded_paper/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
@@ -158,7 +154,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/shredded_paper
 	name = "shredded paper"

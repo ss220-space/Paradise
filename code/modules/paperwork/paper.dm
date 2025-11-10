@@ -75,14 +75,11 @@
 		update_icon()
 		updateinfolinks()
 
-
 /obj/item/paper/update_icon_state()
 	icon_state = "paper[info ? "_words" : ""]"
 
-
 /obj/item/paper/update_overlays()
 	return LAZYCOPY(stamp_overlays)
-
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -94,7 +91,6 @@
 			. += span_notice("You have to go closer if you want to read it.")
 	else
 		. += span_notice("You don't know how to read.")
-
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options, special_text = null)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -125,7 +121,6 @@
 		popup.open()
 	return data
 
-
 /obj/item/paper/click_alt(mob/living/carbon/human/user)
 	if(is_pen(user.get_active_hand()))
 		rename(user)
@@ -133,7 +128,6 @@
 	if(user.is_in_hands(src))
 		ProcFoldPlane(user, src)
 		return CLICK_ACTION_SUCCESS
-
 
 /obj/item/paper/proc/rename(mob/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -151,14 +145,12 @@
 		desc = initial(desc)
 	add_fingerprint(user)
 
-
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && !spam_flag && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		spam_flag = TRUE
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 3 SECONDS)
 		playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
-
 
 /obj/item/paper/attack_ai(mob/living/silicon/ai/user)
 	var/dist
@@ -170,7 +162,6 @@
 		show_content(user, forceshow = TRUE)
 	else
 		show_content(user, forcestars = TRUE)
-
 
 /obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -209,7 +200,6 @@
 			target.lip_style = null
 			target.lip_color = null
 			target.update_body()
-
 
 /obj/item/paper/attack_animal(mob/living/simple_animal/pet/dog/doggo)
 	if(!isdog(doggo)) // Only dogs can eat homework.
@@ -259,7 +249,6 @@
 		playsound(doggo, 'sound/items/eatfood.ogg', 50, TRUE)
 		qdel(src)
 
-
 /obj/item/paper/proc/addtofield(id, text, links = 0)
 	if(id > MAX_PAPER_FIELDS)
 		return
@@ -299,7 +288,6 @@
 		info = before + text + after
 		updateinfolinks()
 
-
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
 	for(var/i in 1 to fields)
@@ -308,7 +296,6 @@
 		addtofield(i, "[write_1][write_2]", 1)
 	info_links = info_links + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
 
-
 /obj/item/paper/proc/clearpaper()
 	info = null
 	stamps = null
@@ -316,7 +303,6 @@
 	LAZYNULL(stamp_overlays)
 	updateinfolinks()
 	update_icon()
-
 
 /obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
@@ -331,7 +317,6 @@
 			break
 		laststart = i+1
 		fields++
-
 
 /obj/item/paper/proc/openhelp(mob/user)
 	var/datum/browser/popup = new(user, "paper_help", "Pen Help")
@@ -358,7 +343,6 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>"})
 	popup.open(FALSE)
 
-
 /obj/item/paper/proc/topic_href_write(mob/user, id, input_element)
 	var/obj/item/item_write = user.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
@@ -382,7 +366,6 @@
 	item_write.on_write(src, user)
 	show_content(user, forceshow = TRUE, infolinks = TRUE)
 	update_icon()
-
 
 /obj/item/paper/Topic(href, href_list)
 	..()
@@ -458,7 +441,6 @@
 		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
 
 		topic_href_write(usr, id, input_element)
-
 
 /obj/item/paper/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
@@ -559,12 +541,10 @@
 	bundle.amount++
 	bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-
 /obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
-
 
 /obj/item/paper/proc/stamp(obj/item/stamp/stamp, no_pixel_shift = FALSE, special_stamped, special_icon_state)
 	var/obj/item/stamp/stamp_path
@@ -749,7 +729,6 @@
 	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального командования.</em></font></p>"
 	populatefields()
 
-
 /obj/item/paper/central_command/archive/station_reports
 	info = "<font face=\"Verdana\" color=black><center><b>Приветствую Центральное командование</b></center><br>Сообщает вам ██████████ █████████, в должности капитан </span>.<br><br>В данный момент на станции код: Зеленый </span><br>Активные угрозы для станции: <b>Отсуствуют </span></b><br>Потери среди экипажа: Отсуствуют </span><br>Повреждения на станции: Отсуствуют</span><br>Общее состояние станции: Удовлетворительное </span><br>Дополнительная информация: Отсутствует<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br>Подпись:  ██████████ █████████ <hr><font size = \"1\">*В данном документе описывается полное состояние станции, необходимо перечислить всю доступную информацию. <br>*Информацию, которую вы считаете нужной, необходимо сообщить в разделе — дополнительная информация. <br>*<b>Данный документ считается официальным только после подписи уполномоченного лица и наличии на документе его печати.</b> </font></font>"
 
@@ -807,7 +786,6 @@
 	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах Нанотрейзен.<br><hr>"
 	footer = "<center><font size=\"4\"><b>Штампы и данные:</b></font></center><br>Время принятия отчета: <span class=\"paper_field\"></span><br><hr><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче агенту.<br>*Данный документ может содержать личную информацию. </font></font>"
 
-
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
 	info = ""
@@ -817,7 +795,6 @@
 	var/countdown = 60
 	var/activate_on_timeout = FALSE
 	var/faxmachineid = null
-
 
 /obj/item/paper/evilfax/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
 	if(user == mytarget)
@@ -834,11 +811,9 @@
 		else
 			evilpaper_selfdestruct()
 
-
 /obj/item/paper/evilfax/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/paper/evilfax/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -847,7 +822,6 @@
 		var/datum/disease/virus/transformation/corgi/D = new
 		D.Contract(target)
 	return ..()
-
 
 /obj/item/paper/evilfax/process()
 	if(!countdown)
@@ -862,7 +836,6 @@
 		evilpaper_selfdestruct()
 	else
 		countdown--
-
 
 /obj/item/paper/evilfax/proc/evilpaper_specialaction(mob/living/carbon/target)
 	if(!iscarbon(target))
@@ -936,11 +909,9 @@
 	used = TRUE
 	evilpaper_selfdestruct()
 
-
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()
 	visible_message(span_danger("[src] spontaneously catches fire, and burns up!"))
 	qdel(src)
-
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
@@ -981,14 +952,12 @@
 	var/const/footer_confidential = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<br>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И Нанотрейзен, и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является Нанотрейзен или один из её агентов. Отмечаем, что ни Нанотрейзен, ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
 	footer = footer_signstampfax
 
-
 /obj/item/paper/form/Initialize(mapload)
 	. = ..()
 	from = "Научная станция Нанотрейзен &#34;[SSmapping.map_datum.station_name]&#34;"
 	if(is_header_needed)
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><b><font size=\"4\">[altername]</font></b></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><br><hr><br></font>"
 	populatefields()
-
 
 // MARK: Главы станции
 
@@ -1632,7 +1601,6 @@
 			<hr><i><font size = \"1\">**Отчёт недействителен без подписи Директора Исследований. \
 			В случае его отсутствия требуется подпись Офицера Телекоммуникаций или заменяющего его лица с указанием должности.\
 			<br>***Заполняется Директором Исследований. В случае его отсутствия, заполняется Офицером Телекоммуникаций или заменяющим его лицом</font>"
-
 
 /obj/item/paper/pamphletdeathsquad
 	icon_state = "pamphlet-ds"

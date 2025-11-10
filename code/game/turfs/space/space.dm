@@ -91,7 +91,6 @@
 			return
 		set_light_on(FALSE)
 
-
 /turf/space/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -157,7 +156,6 @@
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
 
-
 /turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!arrived || !(src in arrived.locs))
@@ -174,7 +172,6 @@
 			if(current_pull.pulling == arrived) // pulling each other doesn't help but makes a loop
 				break
 			current_pull = current_pull.pulling
-
 
 /turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
 	if(!is_taipan(destination_z))
@@ -211,7 +208,6 @@
 	if(arrived_is_mob)
 		to_chat(arrived_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
-
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x

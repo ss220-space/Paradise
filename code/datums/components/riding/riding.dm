@@ -5,7 +5,6 @@
  * and we make a new riding component, so on and so forth until the sun explodes.
  */
 
-
 /datum/component/riding
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
@@ -46,7 +45,6 @@
 	COOLDOWN_DECLARE(message_cooldown)
 	/// For telling someone they can't drive
 	COOLDOWN_DECLARE(vehicle_move_cooldown)
-
 
 /datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags= NONE, potion_boost = FALSE)
 	if(!ismovable(parent))

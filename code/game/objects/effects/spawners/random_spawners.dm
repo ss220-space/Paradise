@@ -177,7 +177,6 @@
 		/mob/living/basic/cockroach = 3,
 	)
 
-
 /obj/effect/spawner/random_spawners/rat
 	name = "random color rat"
 	icon_state = "rat"

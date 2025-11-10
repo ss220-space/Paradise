@@ -77,7 +77,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		// If not, wait for one minute, instead of one tick, before checking again.
 		next_event_time += (60 * 10)
 
-
 /datum/event_container/proc/acquire_event()
 	if(length(available_events) == 0)
 		return
@@ -249,7 +248,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",				/datum/event/spawn_floor_cluwne,		15,		is_one_shot = TRUE)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Космический Дракон",			/datum/event/space_dragon,				20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
 	)
-
 
 #undef ASSIGNMENT_ANY
 #undef ASSIGNMENT_AI

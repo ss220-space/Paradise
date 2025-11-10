@@ -32,7 +32,6 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	/// A list of configuration errors that occurred during load
 	var/static/list/configuration_errors
 
-
 /datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
 		return
@@ -320,11 +319,9 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	log_config("[directory]/twitch_censor.txt does not exist, twitch censoring disabled")
 	return FALSE
 
-
 //Message admins when you can.
 /datum/controller/configuration/proc/DelayedMessageAdmins(text)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(message_admins), text), 0)
-
 
 /datum/controller/configuration/proc/LoadModes()
 	gamemode_cache = typecacheof(/datum/game_mode, TRUE)

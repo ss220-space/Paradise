@@ -27,13 +27,11 @@
 	areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig,  /area/security/permahallway, /area/medical/virology, /area/medical/virology/lab, /area/toxins/xenobiology)
 	areaNotType = list(/area/toxins/xenobiology/xenoflora, /area/toxins/xenobiology/xenoflora_storage)
 
-
 /datum/event/prison_break/setup()
 	announceWhen = rand(75, 105)
 	releaseWhen = rand(60, 90)
 
 	src.endWhen = src.releaseWhen+2
-
 
 /datum/event/prison_break/announce(false_alarm)
 	if(length(areas) || false_alarm)

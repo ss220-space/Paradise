@@ -12,7 +12,6 @@
 	icon_state = "elecarm"
 	var/charge_cost = 30
 
-
 /obj/item/borg/stun/attack(mob/living/carbon/human/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(ishuman(target) && target.check_shields(src, 0, "[target]'s [name]", ITEM_ATTACK))
@@ -35,7 +34,6 @@
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	add_attack_logs(user, target, "Stunned with [src] ([uppertext(user.a_intent)])")
-
 
 /obj/item/gun/energy/emittercannon
 	name = "Emitter Cannon"

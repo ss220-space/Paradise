@@ -34,7 +34,6 @@
 	QDEL_NULL(button)
 	return ..()
 
-
 /datum/action/proc/Grant(mob/user)
 	if(owner)
 		if(owner == user)
@@ -66,7 +65,6 @@
 	if(check_flags & AB_CHECK_INCAPACITATED)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
 	return TRUE
-
 
 /datum/action/proc/Remove(mob/user)
 	owner = null
@@ -103,12 +101,10 @@
 
 	return TRUE
 
-
 /// A general use signal proc that reacts to an event and updates JUST our button
 /datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
 	SIGNAL_HANDLER
 	UpdateButtonIcon()
-
 
 /datum/action/proc/Trigger(left_click = TRUE)
 	if(!IsAvailable())
@@ -123,7 +119,6 @@
 
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
-
 
 /datum/action/proc/enable_invisibility(enable = TRUE)
 	if(!owner?.client)
@@ -142,7 +137,6 @@
 		owner.actions += src
 	owner.update_action_buttons()
 
-
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
@@ -159,7 +153,6 @@
 	if((check_flags & AB_CHECK_TURF) && !isturf(owner.loc))
 		return FALSE
 	return TRUE
-
 
 /datum/action/proc/UpdateButtonIcon()
 	if(!button)
@@ -197,11 +190,9 @@
 		return FALSE
 	return TRUE
 
-
 /datum/action/proc/apply_unavailable_effect()
 	var/static/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, alpha = 200, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
 	button.add_overlay(unavailable_effect)
-
 
 /datum/action/proc/ApplyIcon()
 	button.cut_overlays()
@@ -210,10 +201,8 @@
 	var/mutable_appearance/new_icon = mutable_appearance(icon_icon, button_icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
 
-
 /datum/action/proc/toggle_active_overlay()
 	return
-
 
 //Presets for item actions
 /datum/action/item_action
@@ -245,7 +234,6 @@
 		I.ui_action_click(owner, src, left_click)
 	return TRUE
 
-
 /datum/action/item_action/ApplyIcon()
 	button.cut_overlays()
 	if(!use_itemicon)
@@ -255,7 +243,6 @@
 	var/mutable_appearance/new_icon = mutable_appearance(target.icon, target.icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	new_icon.copy_overlays(target)
 	button.add_overlay(new_icon)
-
 
 /datum/action/item_action/toggle_light
 	name = "Переключить свет"
@@ -317,7 +304,6 @@
 			var/mob/living/carbon/C = owner
 			if(target == C.internal)
 				button.icon_state = "[background_icon_state]_active"
-
 
 /datum/action/item_action/toggle_mister
 	name = "Переключить распылитель"
@@ -521,7 +507,6 @@
 	else
 		button.icon_state = "[background_icon_state]_active"
 
-
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 	var/recharge_text_color = "#FFFFFF"
@@ -545,7 +530,6 @@
 /datum/action/item_action/toggle_research_scanner
 	name = "Переключить исследовательский анализатор"
 
-
 /datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
@@ -555,19 +539,16 @@
 
 	return TRUE
 
-
 /datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)
 	if(owner)
 		owner.research_scanner = 0
 
 	. = ..()
 
-
 /datum/action/item_action/toggle_research_scanner/ApplyIcon()
 	button.cut_overlays()
 	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
-
 
 /datum/action/innate/overdrive
 	name = "Овердрайв"
@@ -607,17 +588,14 @@
 		return
 	return ..()
 
-
 /datum/action/item_action/remove_badge
 	name = "Снять голобейдж"
-
 
 /datum/action/item_action/toggle_cleave_attack
 	name = "Переключить режим атаки со взмахом"
 	check_flags = NONE
 	attack_self = FALSE
 	var/toggled = TRUE
-
 
 /datum/action/item_action/toggle_cleave_attack/UpdateButtonIcon()
 	. = ..()
@@ -627,7 +605,6 @@
 	else
 		button.icon_state = "bg_default"
 
-
 /datum/action/item_action/toggle_cleave_attack/Trigger(left_click = TRUE)
 	if(!..())
 		return
@@ -636,7 +613,6 @@
 	SEND_SIGNAL(target, COMSIG_TOGGLE_CLEAVE_ATTACK)
 	UpdateButtonIcon()
 	to_chat(usr, span_notice("Вы [toggled ? "включаете" : "отключаете"] атаку со взмахом."))
-
 
 // Jump boots
 /datum/action/item_action/bhop
@@ -779,7 +755,6 @@
 		return spell.can_cast(owner, show_message = message)
 	return FALSE
 
-
 /datum/action/spell_action/toggle_active_overlay()
 	var/obj/effect/proc_holder/spell/spell = target
 	if(!istype(spell) || !spell.need_active_overlay)
@@ -790,14 +765,12 @@
 	else
 		button.cut_overlay(selector)
 
-
 /datum/action/spell_action/ApplyIcon()
 	button.cut_overlays()
 	if(!button_icon || !button_icon_state)
 		return
 	var/mutable_appearance/new_icon = mutable_appearance(button_icon, button_icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
-
 
 /datum/action/spell_action/apply_unavailable_effect()
 	var/obj/effect/proc_holder/spell/spell = target
@@ -811,7 +784,6 @@
 	var/text = spell.cooldown_handler.cooldown_info()
 	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(maptext_holder)
-
 
 //Preset for general and toggled actions
 /datum/action/innate
@@ -841,19 +813,16 @@
 
 	return TRUE
 
-
 /datum/action/innate/research_scanner/Remove(mob/living/L)
 	if(owner)
 		owner.research_scanner = 0
 
 	. = ..()
 
-
 /datum/action/innate/research_scanner/ApplyIcon()
 	button.cut_overlays()
 	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
-
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic
@@ -873,16 +842,13 @@
 	procname = "ui_interact"
 	var/obj/item/mmi = null
 
-
 /datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
 	. = ..()
 	mmi = M
 
-
 /datum/action/generic/configure_mmi_radio/Destroy()
 	mmi = null
 	return ..()
-
 
 /datum/action/generic/configure_mmi_radio/ApplyIcon()
 	button.cut_overlays()
@@ -891,7 +857,6 @@
 	var/mutable_appearance/new_icon = mutable_appearance(mmi.icon, mmi.icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	new_icon.copy_overlays(mmi)
 	button.add_overlay(new_icon)
-
 
 // This item actions have their own charges/cooldown system like spell procholders, but without all the unnecessary magic stuff
 /datum/action/item_action/advanced
@@ -1023,7 +988,6 @@
 				return 1
 			return 0
 
-
 /datum/action/item_action/advanced/apply_unavailable_effect()
 	var/progress = get_availability_percentage()
 	if(progress == 1)
@@ -1037,20 +1001,17 @@
 		add_charges_overlay()
 	no_count = FALSE //reset
 
-
 /datum/action/item_action/advanced/proc/add_percentage_overlay(progress)
 	// Make a holder for the charge text
 	var/static/mutable_appearance/count_down_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
 	button.add_overlay(count_down_holder)
 
-
 /datum/action/item_action/advanced/proc/add_charges_overlay()
 	// Make a holder for the charge text
 	var/static/mutable_appearance/charges_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	charges_holder.maptext = "<div style=\"font-size:6pt;color:#ffffff;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[charge_counter]/[charge_max]</div>"
 	button.add_overlay(charges_holder)
-
 
 	//visuals only
 /datum/action/item_action/advanced/proc/toggle_button_on_off()
@@ -1092,7 +1053,6 @@
 	else
 		background_icon_state = icon_state_disabled
 	UpdateButtonIcon()
-
 
 #undef BUTTON_LAYER_ICON
 #undef BUTTON_LAYER_UNAVAILABLE

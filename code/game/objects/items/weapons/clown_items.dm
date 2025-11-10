@@ -39,12 +39,10 @@
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
 
-
 /obj/item/bikehorn/golden/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		flip_mobs()
-
 
 /obj/item/bikehorn/golden/attack_self(mob/user)
 	flip_mobs()

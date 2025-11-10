@@ -50,7 +50,6 @@
 	if(LAZYLEN(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
 
-
 /obj/item/resonator/pre_attackby(atom/target, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !check_allowed_items(target, TRUE))
@@ -58,7 +57,6 @@
 	. |= ATTACK_CHAIN_BLOCKED
 	user.changeNext_move(attack_speed)
 	create_resonance(target, user)
-
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
@@ -91,7 +89,6 @@
 		INSTRUMENTAL = "резонансным полем",
 		PREPOSITIONAL = "резонансном поле",
 	)
-
 
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, mode, set_failure = 40)
 	if(mode == RESONATOR_MODE_AUTO)

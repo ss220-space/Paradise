@@ -20,7 +20,6 @@
 	QDEL_NULL(hold)
 	return ..()
 
-
 /obj/item/clothing/accessory/storage/attack_hand(mob/user)
 	if(has_suit)	//if we are part of a suit
 		hold?.open(user)
@@ -29,7 +28,6 @@
 	if(!hold || !hold.handle_attack_hand(user))	//otherwise interact as a regular storage item
 		return ..()
 
-
 /obj/item/clothing/accessory/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(has_suit)
 		return has_suit.MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
@@ -37,13 +35,11 @@
 	if(!hold || !hold.handle_mousedrop(usr, over_object))
 		return ..()
 
-
 /obj/item/clothing/accessory/storage/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !hold)
 		return .
 	return hold.attackby(I, user, params)
-
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
 	..()

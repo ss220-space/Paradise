@@ -51,7 +51,6 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	. = ..()
 	recipes = GLOB.glass_recipes
 
-
 /obj/item/stack/sheet/glass/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))
 		add_fingerprint(user)
@@ -88,7 +87,6 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /*
  * Reinforced glass sheets
@@ -143,7 +141,6 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	source.add_charge(amount * metcost)
 	glasource.add_charge(amount * glacost)
 
-
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	new/datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 0, on_floor = TRUE, check_direction = TRUE), \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 0, on_floor = TRUE, is_fulltile = TRUE) \
@@ -170,7 +167,6 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	. = ..()
 	recipes = GLOB.pglass_recipes
 
-
 /obj/item/stack/sheet/plasmaglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
@@ -190,7 +186,6 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /*
  * Reinforced plasma glass sheets

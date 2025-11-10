@@ -41,12 +41,10 @@
 /obj/structure/world_anvil/update_icon_state()
 	icon_state = forge_charges > 0 ? "anvil_a" : "anvil"
 
-
 /obj/structure/world_anvil/update_overlays()
 	. = ..()
 	if(forging)
 		. += forging.appearance
-
 
 /obj/structure/world_anvil/proc/update_state()
 	update_icon()
@@ -55,11 +53,9 @@
 	else
 		set_light_on(FALSE)
 
-
 /obj/structure/world_anvil/examine(mob/user)
 	. = ..()
 	. += span_notice("Доступно [forge_charges] ковочн[declension_ru(forge_charges,"ый заряд","ых заряда","ых заряда")].")
-
 
 /obj/structure/world_anvil/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)

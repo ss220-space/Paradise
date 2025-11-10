@@ -79,7 +79,6 @@
 	attack_verb = list("полоснул", "порезал", "поцарапал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-
 /obj/item/cultivator/rake
 	name = "rake"
 	desc = "Их используют, чтобы удалить сорняки или почесать спину."
@@ -110,7 +109,6 @@
 	flags = NONE
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
-
 
 /obj/item/hatchet
 	name = "hatchet"
@@ -206,7 +204,6 @@
 			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
 
-
 /obj/item/scythe/tele
 	icon_state = "tscythe0"
 	item_state = null	//no sprite for folded version, like a tele-baton
@@ -246,7 +243,6 @@
 	update_equipped_item(update_speedmods = FALSE)
 	add_fingerprint(user)
 
-
 /obj/item/scythe/tele/update_icon_state()
 	if(extend)
 		icon_state = "tscythe1"
@@ -255,11 +251,9 @@
 		icon_state = "tscythe0"
 		item_state = null	//no sprite for folded version, like a tele-baton
 
-
 // *************************************
 // Nutrient defines for hydroponics
 // *************************************
-
 
 /obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
@@ -299,7 +293,6 @@
 		hitsound = 'sound/weapons/jug_empty_impact.ogg'
 		mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 
-
 /obj/item/reagent_containers/glass/bottle/nutrient/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
@@ -327,7 +320,6 @@
 
 	if(!is_open_container())
 		. += "lid_jug"
-
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"

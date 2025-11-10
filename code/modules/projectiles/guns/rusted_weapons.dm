@@ -20,7 +20,6 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/automatic/rusted/aksu
 	name = "Rusted AKSU assault rifle"
 	desc = "An old AK assault rifle favored by Soviet soldiers."
@@ -55,7 +54,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5),
 	)
 	recoil = GUN_RECOIL_HIGH
-
 
 //////////// Shotguns
 

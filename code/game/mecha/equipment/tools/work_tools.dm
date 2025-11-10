@@ -81,8 +81,6 @@
 			start_cooldown()
 		return TRUE
 
-
-
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	name = "KILL CLAMP"
@@ -299,7 +297,6 @@
 			return FALSE
 	return TRUE
 
-
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
 	for(var/thing in modules)
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
@@ -362,7 +359,6 @@
 
 	return targeted_module.handle_ui_act(action, params)
 
-
 /obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bible))
 		var/obj/item/mecha_parts/mecha_equipment/extinguisher/extinguisher = locate() in src
@@ -371,7 +367,6 @@
 			bible.add_holy_water(user, extinguisher)
 			return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	name = "ATMOS module"
@@ -432,7 +427,6 @@
 	else
 		occupant_message(span_warning("Unable to load from [target] - no cable found."))
 	return FALSE
-
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/handle_ui_act(action, list/params)
 	switch(action)

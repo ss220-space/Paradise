@@ -9,38 +9,31 @@
 								"deer plushie" = "deer", "octopus plushie" = "loveable", "facehugger plushie" = "huggable")
 	var/plushy
 
-
 /obj/item/clockwork/clockslab/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.clockslab_spells
-
 
 /obj/item/clockwork/clockslab/update_name(updates = ALL)
 	. = ..()
 	name = plushy ? plushy : initial(name)
 
-
 /obj/item/clockwork/clockslab/update_desc(updates = ALL)
 	. = ..()
 	desc = plushy ? "An adorable, soft, and cuddly plushie." : initial(desc)
 
-
 /obj/item/clockwork/clockslab/update_icon_state()
 	icon = plushy ? 'icons/obj/toy.dmi' : 'icons/obj/clockwork.dmi'
 	icon_state = plushy ? plush_colors[plushy] : initial(icon_state)
-
 
 /obj/item/clockwork/clockslab/update_overlays()
 	. = ..()
 	if(enchant_type)
 		. += "clock_slab_overlay_[enchant_type]"
 
-
 /obj/item/clockwork/clockslab/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && plushy)
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 20, TRUE)	// Play the whoosh sound in local area
-
 
 /obj/item/clockwork/clockslab/attack_self_tk(mob/user)
 	return
@@ -216,7 +209,6 @@
 			add_attack_logs(user, target, "clockslab healed", ATKLOG_ALL)
 			deplete_spell()
 
-
 /obj/item/clockwork
 	name = "clockwork item name"
 	icon = 'icons/obj/clockwork.dmi'
@@ -269,7 +261,6 @@
 		return
 	. = ..()
 
-
 /obj/item/twohanded/ratvarian_spear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
@@ -282,7 +273,6 @@
 			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -428,7 +418,6 @@
 		return
 	. = ..()
 
-
 /obj/item/twohanded/clock_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.Knockdown(10 SECONDS)
@@ -441,7 +430,6 @@
 		user.apply_damage(rand(force_unwielded, force_wielded), BRUTE, BODY_ZONE_HEAD)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/twohanded/clock_hammer/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -558,7 +546,6 @@
 	swordsman = FALSE
 	deplete_spell()
 
-
 /obj/item/melee/clock_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
@@ -571,7 +558,6 @@
 			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -736,7 +722,6 @@
 		return ..()
 	. += "[initial(icon_state)]_overlay_[enchant_type]"
 
-
 /obj/item/gun/energy/clockwork/add_enchant()
 	switch(enchant_type)
 		if(EMP_G_SPELL)
@@ -755,7 +740,6 @@
 	if(chambered)
 		QDEL_NULL(chambered)
 	newshot()
-
 
 /obj/item/gun/energy/clockwork/update_icon_state()
 	return
@@ -1302,13 +1286,11 @@
 	to_chat(usr, span_notice(" [src] depletes last magic they had."))
 	deplete_spell()
 
-
 /obj/item/clothing/gloves/clockwork/proc/reset_fire()
 	fire_casting = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
 	to_chat(usr, span_notice(" [src] depletes last magic they had."))
 	deplete_spell()
-
 
 /obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -1527,7 +1509,6 @@
 	icon_state = "clock_mod"
 	var/free_VTEC = FALSE
 
-
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
@@ -1547,7 +1528,6 @@
 			robot.install_upgrade(vtec_upgrade)
 		else
 			qdel(vtec_upgrade)
-
 
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab
@@ -1584,7 +1564,6 @@
 	desc = "The stalwart apparition of a soldier. It looks lifeless."
 	icon_state = "marauder_shell"
 
-
 /obj/item/clockwork/marauder/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		add_fingerprint(user)
@@ -1611,7 +1590,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 //Shard
 /obj/item/clockwork/shard
@@ -1668,7 +1646,6 @@
 				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(user))
 	return
 
-
 /obj/item/clockwork/shard/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
@@ -1681,7 +1658,6 @@
 			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()

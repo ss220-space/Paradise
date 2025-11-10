@@ -75,7 +75,6 @@
 	add_attack_logs(user, A, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
-
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
@@ -89,7 +88,6 @@
 			D.reagents.reaction(T)
 		sleep(3)
 	qdel(D)
-
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
 

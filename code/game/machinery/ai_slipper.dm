@@ -14,18 +14,15 @@
 	var/cooldown_on = FALSE
 	req_access = list(ACCESS_AI_UPLOAD)
 
-
 /obj/machinery/ai_slipper/examine(mob/user)
 	. = ..()
 	. += span_notice("A small counter shows it has: [uses] use\s remaining.")
-
 
 /obj/machinery/ai_slipper/power_change()
 	..() //we don't check return here because we also care about the BROKEN flag
 	if(stat & NOPOWER)
 		disabled = TRUE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/ai_slipper/attackby(obj/item/I, mob/user, params)
 	if(stat & (NOPOWER|BROKEN) || user.a_intent == INTENT_HARM)
@@ -51,13 +48,11 @@
 		if(user.machine == src)
 			attack_hand(user)
 
-
 /obj/machinery/ai_slipper/proc/ToggleOn()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	disabled = !disabled
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/ai_slipper/proc/Activate(mob/user)
 	if(stat & (NOPOWER|BROKEN))
@@ -78,13 +73,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown_time)
 
-
 /obj/machinery/ai_slipper/proc/recharge()
 	if(!uses)
 		return
 	cooldown_on = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/ai_slipper/update_icon_state()
 	if((stat & (NOPOWER|BROKEN)) || disabled || cooldown_on || !uses)
@@ -92,14 +85,11 @@
 	else
 		icon_state = "liquid_dispenser_on"
 
-
 /obj/machinery/ai_slipper/attack_ai(mob/user)
 	return attack_hand(user)
 
-
 /obj/machinery/ai_slipper/attack_ghost(mob/user)
 	return attack_hand(user)
-
 
 /obj/machinery/ai_slipper/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
@@ -128,7 +118,6 @@
 	popup.set_content(t)
 	popup.open(TRUE)
 	onclose(user, "ai_slipper")
-
 
 /obj/machinery/ai_slipper/Topic(href, href_list)
 	if(..())

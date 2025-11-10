@@ -47,7 +47,6 @@
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
 
-
 /obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user, params)
 	if(bottom_open)
 		add_fingerprint(user)
@@ -65,7 +64,6 @@
 		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в потайное отделение кейса."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/storage/briefcase/false_bottomed/screwdriver_act(mob/user, obj/item/I)
 	if(!bottom_open && busy_hunting)

@@ -335,7 +335,6 @@
 	if(istype(ML))
 		ML.pulled(src)
 
-
 /mob/living/CtrlClick(mob/living/user)
 	if(!isliving(user) || !user.Adjacent(src) || user.incapacitated())
 		return ..()
@@ -350,7 +349,6 @@
 	return ..()
 
 // Alt Click is in `click_alt.dm` now! I stole it
-
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
@@ -372,7 +370,6 @@
 
 /atom/proc/AltShiftClick(mob/user)
 	return
-
 
 /atom/proc/allow_click()
 	return FALSE
@@ -430,7 +427,6 @@
 
 	setDir(direction)
 	return TRUE
-
 
 /atom/movable/screen/click_catcher
 	icon_state = "catcher"

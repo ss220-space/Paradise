@@ -285,7 +285,6 @@
 	materials = list(MAT_METAL = 13000, MAT_GLASS = 10000, MAT_SILVER = 6000, MAT_GOLD = 6000)
 	category = list("Medical")
 
-
 /datum/design/alienscalpel
 	name = "Alien Scalpel"
 	desc = "An advanced scalpel obtained through Abductor technology."

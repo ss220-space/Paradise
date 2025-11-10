@@ -13,7 +13,6 @@
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
 		playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE)
 		switch(damage_type)
@@ -43,7 +42,6 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-
 /obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -55,7 +53,6 @@
 		return FALSE
 	if(isprojectile(mover))
 		return prob(30)
-
 
 /obj/structure/spider/eggcluster
 	name = "egg cluster"
@@ -129,7 +126,6 @@
 			user.do_attack_animation(src, user.dna.species.unarmed.animation_type)
 			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, TRUE, -1)
 			attack_generic(user, max_integrity/3)
-
 
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)

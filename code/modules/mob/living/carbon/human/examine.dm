@@ -336,7 +336,6 @@
 		else
 			msg += span_warning("<b>У н[GEND_HIS_HER(src)] серьёзное клеточное повреждение.</b>\n")
 
-
 	if(fire_stacks > 0)
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] покрыт[GEND_A_O_Y(src)] чем-то легковоспламеняющимся.\n")
 	if(fire_stacks < 0)
@@ -398,7 +397,6 @@
 			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
 				msg += "[GEND_HE_SHE_CAP(src)] почти без сознания.\n"
 
-
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
 				if(!key)
@@ -415,7 +413,6 @@
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(istype(implant) && implant.activated)
 		msg += span_italics("Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [GEND_HIS_HER(src)] хвосте.\n")
-
 
 	if(get_gravity(src) < -NO_GRAVITY && !buckled)
 		msg += "[GEND_HE_SHE_CAP(src)] наход[PLUR_IT_YAT(src)]ся на потолке.\n"
@@ -469,7 +466,6 @@
 				else
 					msg += "[span_deptradio("Личное дело:")] [copytext_preserve_html(skills, 1, char_limit-3)]...<a href='byond://?src=[UID()];employment_more=1'>Подробнее...</a>\n"
 
-
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
 		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/medical = "None"
@@ -496,10 +492,8 @@
 	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
-
 /mob/living/carbon/human/get_examine_time()
 	return 1 SECONDS
-
 
 /**
  * Shows any and all examine text related to any status effects the user has.
@@ -518,7 +512,6 @@
 		return
 
 	return examine_list.Join("\n") + "\n"
-
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hud_exam)

@@ -62,7 +62,6 @@
 
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/open_encased/retract
 	name = "смещение кости"
 	begin_sound = 'sound/surgery/organ2.ogg'

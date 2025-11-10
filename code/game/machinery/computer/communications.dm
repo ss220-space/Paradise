@@ -374,7 +374,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				return
 			ui.user.client.toggle_ert_calling()
 
-
 		if("view_fax")
 			if(!ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для открытия факс панели."))
@@ -618,7 +617,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 	return TRUE
 
-
 /proc/init_shift_change(mob/user, force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force && !check_shuttle_ability(user))
@@ -635,7 +633,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].")
 	return
 
-
 /proc/cancel_call_proc(mob/user)
 	if(GAMEMODE_IS_METEOR)
 		return
@@ -647,7 +644,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		to_chat(user, span_warning("Центральное командование отклонило запрос об отзыве эвакуационного шаттла!"))
 		add_game_logs("has tried and failed to recall the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
-
 
 /proc/post_status(mode, data1, data2)
 	if(usr && mode == STATUS_DISPLAY_MESSAGE)
@@ -665,7 +661,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				display.set_picture(data1)
 
 		display.update()
-
 
 /obj/machinery/computer/communications/Destroy()
 	GLOB.shuttle_caller_list -= src
@@ -703,7 +698,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-
 
 /obj/machinery/computer/communications/indestrusctable
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

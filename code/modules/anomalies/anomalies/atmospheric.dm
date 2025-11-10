@@ -166,7 +166,6 @@
 
 	. = ..()
 
-
 //		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
 
 /obj/effect/anomaly/atmospheric/tier4

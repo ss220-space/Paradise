@@ -118,4 +118,3 @@
 	index_name = "Shark Plushie"
 	path = /obj/item/toy/plushie/blahaj
 
-

@@ -47,7 +47,6 @@
 	var/from_insurance = min(acc.insurance, req)
 	var/from_money_acc = (req - from_insurance) * 2
 
-
 	if(from_money_acc)
 		if(!acc.insurance_auto_replen || !acc.charge(from_money_acc))
 			to_chat(user, span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено или провалилось."))

@@ -3,7 +3,6 @@
 	if(..())
 		return TRUE
 
-
 /mob/living/silicon/robot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return TRUE
@@ -15,7 +14,6 @@
 		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		return radio.talk_into(src,message_pieces,message_mode,verb)
-
 
 /mob/living/silicon/ai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
@@ -32,7 +30,6 @@
 			message_mode = null
 		return aiRadio.talk_into(src, message_pieces, message_mode, verb)
 
-
 /mob/living/silicon/pai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return TRUE
@@ -45,7 +42,6 @@
 		used_radios += radio
 		return radio.talk_into(src, message_pieces, message_mode, verb)
 
-
 /mob/living/silicon/say_quote(text)
 	var/ending = copytext(text, length(text))
 
@@ -56,14 +52,12 @@
 
 	return speak_statement
 
-
 /mob/living/silicon/say_understands(mob/other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking && ismob(other))
 		if(iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other))
 			return TRUE
 	return ..()
-
 
 //For holopads only. Usable by AI.
 /mob/living/silicon/ai/proc/holopad_talk(list/message_pieces, verb)
@@ -90,7 +84,6 @@
 		return
 	return TRUE
 
-
 /mob/living/silicon/ai/proc/holopad_emote(message) //This is called when the AI uses the 'me' verb while using a holopad.
 	message = trim(message)
 
@@ -110,7 +103,6 @@
 		to_chat(src, "No holopad connected.")
 		return
 	return TRUE
-
 
 /mob/living/silicon/ai/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE, ignore_cooldowns = FALSE)
 	var/obj/machinery/hologram/holopad/T = current

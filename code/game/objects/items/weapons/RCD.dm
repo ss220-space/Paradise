@@ -167,14 +167,12 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/rcd/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/rcd_ammo))
 		return ..()
 	add_fingerprint(user)
 	rcd_reload(I, user)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/rcd/proc/rcd_reload(obj/item/rcd_ammo/rcd_ammo, mob/user)
 	if(matter >= max_matter)
@@ -239,7 +237,6 @@
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
 	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
-
 
 /obj/item/rcd/attack_self(mob/user)
 	//Change the mode // Oh I thought the UI was just for fucking staring at
@@ -366,7 +363,6 @@
 			door_name = sanitize(copytext(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))
 		else
 			return FALSE
-
 
 /obj/item/rcd/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
