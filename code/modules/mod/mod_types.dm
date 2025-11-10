@@ -605,6 +605,8 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/grappling_hook/upgraded,
+		/obj/item/mod/module/scorpion_hook,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,

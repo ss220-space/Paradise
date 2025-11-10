@@ -46,7 +46,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi/syndi
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	internals_slot = ITEM_SLOT_SUITSTORE
-
+	back = /obj/item/mod/control/pre_equipped/contractor/upgraded
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/paper/contractor_guide_midround = 1,
