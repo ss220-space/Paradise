@@ -2,7 +2,6 @@
 	name = "Переключить ночное зрение"
 	button_icon_state = "meson"
 
-
 /datum/action/innate/alien_nightvision_toggle/Activate()
 	var/mob/living/carbon/alien/host = owner
 
@@ -25,7 +24,6 @@
 		host.update_sight()
 		return
 
-
 /proc/playsound_xenobuild(object)
 	var/turf/object_turf = get_turf(object)
 
@@ -35,7 +33,6 @@
 	playsound(object_turf, pick('sound/creatures/alien/xeno_resin_build1.ogg', \
 								'sound/creatures/alien/xeno_resin_build2.ogg', \
 								'sound/creatures/alien/xeno_resin_build3.ogg'), 30)
-
 
 //Small sprites
 /datum/action/innate/small_sprite_alien
@@ -47,10 +44,8 @@
 	var/small_icon = 'icons/mob/alien.dmi'
 	var/small_icon_state = "alienq_running"
 
-
 /datum/action/innate/small_sprite_alien/praetorian
 	small_icon_state = "aliens_running"
-
 
 /datum/action/innate/small_sprite_alien/Trigger(left_click = TRUE)
 	. = ..()

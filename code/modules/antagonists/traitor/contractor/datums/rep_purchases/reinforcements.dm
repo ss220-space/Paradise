@@ -11,8 +11,6 @@
 	item_type = /obj/item/antag_spawner/contractor_partner
 	refundable = TRUE
 
-
-
 /obj/item/antag_spawner/contractor_partner
 	name = "Устройство связи с Контрактником"
 	desc = "Позволяет вам получить поддержку в выполнении контрактов."

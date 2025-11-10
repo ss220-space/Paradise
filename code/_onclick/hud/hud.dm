@@ -323,13 +323,11 @@
 	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
 	return TRUE
 
-
 /datum/hud/proc/plane_masters_update()
 	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		// Plane masters are always shown to OUR mob, never to observers
 		group.refresh_hud()
-
 
 /datum/hud/human/show_hud(version = 0, mob/viewmob)
 	. = ..()
@@ -337,21 +335,17 @@
 		return
 	hidden_inventory_update(viewmob)
 
-
 /datum/hud/robot/show_hud(version = 0)
 	. = ..()
 	if(!.)
 		return
 	update_robot_modules_display()
 
-
 /datum/hud/proc/hidden_inventory_update()
 	return
 
-
 /datum/hud/proc/persistent_inventory_update(mob/viewer)
 	return
-
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()
@@ -364,10 +358,8 @@
 	else
 		to_chat(usr, span_warning("У этого типа существ нет HUD."))
 
-
 /datum/hud/proc/update_locked_slots()
 	return
-
 
 /mob/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
 	QDEL_NULL(hud_used)

@@ -16,7 +16,6 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
 		add_fingerprint(user)
@@ -28,27 +27,22 @@
 
 	return ..()
 
-
 /obj/item/gun/projectile/shotgun/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	return ..(FALSE, FALSE)
 
-
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
-
 
 /obj/item/gun/projectile/shotgun/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
-
 /obj/item/gun/projectile/shotgun/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
 	COOLDOWN_START(src, last_pump, 1 SECONDS)
 	pump(user)
-
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
@@ -117,7 +111,6 @@
 
 	return ..()
 
-
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
 		balloon_alert(user, "нужно снять дульный модуль!")
@@ -162,7 +155,6 @@
 		post_sawoff()
 		return 1
 
-
 /obj/item/gun/projectile/shotgun/riot/proc/post_sawoff()
 	name = "assault shotgun"
 	desc = sawn_desc
@@ -180,7 +172,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 	update_icon()
-
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
@@ -250,7 +241,6 @@
 /obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
 
-
 ///////////////////////
 // BOLT ACTION RIFLE //
 ///////////////////////
@@ -284,10 +274,8 @@
 	update_icon(UPDATE_ICON_STATE)
 	return 1
 
-
 /obj/item/gun/projectile/shotgun/boltaction/update_icon_state()
 	icon_state = "[initial(icon_state)][bolt_open ? "-open" : ""]"
-
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
@@ -295,14 +283,12 @@
 		process_fire(user, user,0)
 		. = 1
 
-
 /obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/I, mob/user, params)
 	if(!bolt_open)
 		add_fingerprint(user)
 		balloon_alert(user, "затвор закрыт!")
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
 	. = ..()

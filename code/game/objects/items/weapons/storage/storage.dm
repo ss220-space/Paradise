@@ -58,7 +58,6 @@
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
 
-
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
@@ -100,7 +99,6 @@
 	QDEL_NULL(closer)
 	QDEL_LIST_ASSOC_VAL(storage_boxes)
 	LAZYCLEARLIST(mobs_viewing)
-
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
@@ -167,7 +165,6 @@
 		return FALSE
 
 	return ..()
-
 
 /obj/item/storage/click_alt(mob/user)
 	if(isobserver(user))
@@ -787,7 +784,6 @@
 		remove_from_storage(I, drop_loc)
 	qdel(src)
 
-
 //This proc is called when you want to place an item into the storage item.
 /obj/item/storage/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -808,7 +804,6 @@
 
 	handle_item_insertion(I)
 	return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))

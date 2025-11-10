@@ -42,7 +42,6 @@
 	connect_types = list(1,2,3)
 	icon_state = "map_universal"
 
-
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_overlays()
 	. = list()
 	if(!check_icon_cache())
@@ -52,7 +51,6 @@
 
 	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
-
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()
 	if(!check_icon_cache())

@@ -41,7 +41,6 @@
 	heavy_range_low = 5
 	heavy_range_high = 10
 
-
 /datum/anomaly_impulse/superpull
 	name = "Всплеск притяжения"
 	desc = "Способность аномалии притягивать предметы временно усиливается."

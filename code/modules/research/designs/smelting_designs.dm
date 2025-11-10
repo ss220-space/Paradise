@@ -11,7 +11,6 @@
 	build_path = /obj/item/stack/sheet/plasteel
 	category = list("initial")
 
-
 /datum/design/smelter/plastitanium_alloy
 	name = "Plastitanium"
 	desc = "Plasma + Titanium"

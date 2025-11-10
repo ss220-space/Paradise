@@ -56,4 +56,3 @@
 		T.start_ion()
 		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), rand(1800, 3000))
 
-

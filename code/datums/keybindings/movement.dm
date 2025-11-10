@@ -28,13 +28,11 @@
 	category = KB_CATEGORY_MOVEMENT
 	keys = list("Ctrl")
 
-
 /datum/keybinding/lock/down(client/user)
 	. = ..()
 	if(.)
 		return .
 	user.movement_locked = TRUE
-
 
 /datum/keybinding/lock/up(client/user)
 	. = ..()

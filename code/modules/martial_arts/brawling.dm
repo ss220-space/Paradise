@@ -25,7 +25,6 @@
 		add_attack_logs(A, D, "Melee attacked with [src] (miss/block)", ATKLOG_ALL)
 		return 0
 
-
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
@@ -89,7 +88,6 @@
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-
 
 	D.visible_message(span_danger("[A] has hit [D] with a [atk_verb]!"), \
 								span_userdanger("[A] has hit [D] with a [atk_verb]!"))

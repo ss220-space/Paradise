@@ -85,7 +85,6 @@
 	for(file in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url(file)]'>"
 
-
 	for(file in scripts)
 		head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
 	var/client/client = isclient(user)? user : user.client
@@ -170,7 +169,6 @@
 	else
 		WARNING("Browser [title] tried to close with a null ID")
 
-
 /datum/browser/modal/alert/New(User,Message,Title,Button1="Ok",Button2,Button3,StealFocus = 1,Timeout=6000)
 	if(!User)
 		return
@@ -249,7 +247,6 @@
 	if(!StealFocus)
 		window_options += "focus=false;"
 	timeout = Timeout
-
 
 /datum/browser/modal/close()
 	.=..()
@@ -450,7 +447,6 @@
 	if(A.selectedbutton)
 		return list("button" = A.selectedbutton, "settings" = A.settings)
 
-
 // Registers the on-close verb for a browse window (client/verb/.windowclose)
 // this will be called when the close-button of a window is pressed.
 //
@@ -473,8 +469,6 @@
 		param = "[ref.UID()]"
 
 	winset(user, windowid, "on-close=\".windowclose [param]\"")
-
-
 
 // the on-close client verb
 // called when a browser popup window is closed after registering with proc/onclose()

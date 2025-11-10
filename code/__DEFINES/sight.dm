@@ -60,7 +60,6 @@
 #define VISOR_HUDTYPE (1<<5)
 #define VISOR_EXAM_EXTENTIONS (1<<6)
 
-
 #define VISOR_FULL_HUD (VISOR_HUDTYPE|VISOR_EXAM_EXTENTIONS)
 
 // BYOND internal values for the sight flags

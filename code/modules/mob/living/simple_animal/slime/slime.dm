@@ -86,7 +86,6 @@
 	var/effectmod //What core modification is being used.
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
-
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700)
 	if(!(locate(/datum/action/innate/slime/feed) in actions))
 		var/datum/action/innate/slime/feed/F = new
@@ -160,11 +159,9 @@
 	else
 		icon_state = icon_dead
 
-
 /mob/living/simple_animal/slime/updatehealth(reason = "none given", should_log = FALSE)
 	. = ..()
 	update_movespeed_damage_modifiers()
-
 
 /mob/living/simple_animal/slime/update_movespeed_damage_modifiers()
 	var/mod = 0
@@ -175,7 +172,6 @@
 		if(health <= 0)
 			mod += 2
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_health_mod, multiplicative_slowdown = mod)
-
 
 /mob/living/simple_animal/slime/adjust_bodytemperature(amount, min_temp = 0, max_temp = INFINITY)
 	. = ..()
@@ -188,7 +184,6 @@
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_temp_mod, multiplicative_slowdown = mod)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/slime_temp_mod)
-
 
 /mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
@@ -224,7 +219,6 @@
 			else
 				clear_fullscreen("brute")
 
-
 /mob/living/simple_animal/slime/ObjBump(obj/object)
 	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (istype(object, /obj/structure/window) && !istype(object, /obj/structure/grille)))
 		return
@@ -251,7 +245,6 @@
 	Atkcool = TRUE
 	addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
 
-
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
@@ -269,7 +262,6 @@
 		status_tab_data[++status_tab_data.len] = list("Power Level:", "You are knocked out by high levels of BZ!")
 	else
 		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
-
 
 /mob/living/simple_animal/slime/adjustFireLoss(
 	amount = 0,
@@ -307,14 +299,11 @@
 		return FALSE
 	return ..()
 
-
 /mob/living/simple_animal/slime/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	return
 
-
 /mob/living/simple_animal/slime/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
-
 
 /mob/living/simple_animal/slime/attack_ui(slot)
 	return
@@ -334,7 +323,6 @@
 			M.add_nutrition(50 + M.age_state.nutrition_steal)
 		if(health > 0)
 			M.adjustBruteLoss(-10 + (-M.age_state.damage * 2))
-
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -387,7 +375,6 @@
 		attacked += 10 - age_state.attacked
 		discipline_slime(M)
 
-
 /mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(I.force && prob(25))
@@ -436,7 +423,6 @@
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		discipline_on_attack(I.force, user)
 
-
 /mob/living/simple_animal/slime/proc/discipline_on_attack(force = 0, mob/user)
 	attacked += 10 - age_state.attacked
 	if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
@@ -448,7 +434,6 @@
 		force_effect = round(force / 2)
 	if(prob(10 + force_effect))
 		discipline_slime(user)
-
 
 /mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
 	UnregisterSignal(friend, COMSIG_QDELETING)
@@ -523,7 +508,6 @@
 /mob/living/simple_animal/slime/pet
 	docile = TRUE
 
-
 /mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
 	if(..())
 		return 3
@@ -553,14 +537,12 @@
 /mob/living/simple_animal/slime/elder/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
 	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder, new_set_nutrition = 2000)
 
-
 /mob/living/simple_animal/slime/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
 	if(buckled)
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете залезть в вентиляцию пока кормитесь!"))
 		return FALSE
 	return ..()
-
 
 /mob/living/simple_animal/slime/invalid
 	var/dead_for_sure = FALSE
@@ -584,7 +566,6 @@
 	parent_spell = null
 	return ..()
 
-
 /mob/living/simple_animal/slime/invalid/death(gibbed)
 	if(dead_for_sure)
 		return
@@ -601,5 +582,4 @@
 	our_slime.Stun(5 SECONDS)
 	our_slime.AdjustConfused(5 SECONDS)
 	our_slime.Jitter(6 SECONDS)
-
 

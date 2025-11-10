@@ -8,7 +8,6 @@
 	anchored = TRUE
 	var/deconstructible = TRUE
 
-
 /obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
 	if(!deconstructible)
 		return FALSE
@@ -26,7 +25,6 @@
 		span_notice("You break down [src] into scrap metal."),
 	)
 	qdel(src)
-
 
 /obj/structure/fluff/empty_terrarium //Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
 	name = "empty terrarium"

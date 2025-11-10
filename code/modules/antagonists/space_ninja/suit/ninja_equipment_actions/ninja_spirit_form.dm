@@ -79,7 +79,6 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/clothing/suit/space/space_ninja/proc/drop_restraints()
 	var/mob/living/carbon/human/ninja = affecting
 	var/obj/restraint

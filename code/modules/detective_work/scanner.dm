@@ -91,7 +91,6 @@
 		M.put_in_hands(P, ignore_anim = FALSE)
 		to_chat(M, span_notice("Report printed. Log cleared."))
 
-
 /obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
 		log = list()
@@ -100,10 +99,8 @@
 	else
 		to_chat(usr, span_warning("The scanner has no logs or is in use."))
 
-
 /obj/item/detective_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/detective_scanner/afterattack(atom/A, mob/user, proximity, params)
 	scan(A, user)
@@ -123,7 +120,6 @@
 			"[user] points [src] at [scan_atom] and performs a forensic scan.",
 			span_notice("You scan [scan_atom]. The scanner is now analysing the results...")
 		)
-
 
 		// GATHER INFORMATION
 

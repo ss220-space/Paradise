@@ -23,7 +23,6 @@
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
 
-
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	var/prev_has = HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	if(prev_has)
@@ -33,14 +32,12 @@
 	if(ismob(loc))
 		to_chat(loc, span_notice("Your vest is now [prev_has ? "unlocked" : "locked"]."))
 
-
 /obj/item/clothing/suit/armor/abductor/vest/update_icon_state()
 	switch(mode)
 		if(VEST_STEALTH)
 			icon_state = "vest_stealth"
 		if(VEST_COMBAT)
 			icon_state = "vest_combat"
-
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
@@ -164,14 +161,12 @@
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
 
-
 /obj/item/abductor/gizmo/update_icon_state()
 	switch(mode)
 		if(GIZMO_SCAN)
 			icon_state = "gizmo_scan"
 		if(GIZMO_MARK)
 			icon_state = "gizmo_mark"
-
 
 /obj/item/abductor/gizmo/attack_self(mob/user)
 	if(!ScientistCheck(user))
@@ -187,7 +182,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
 
-
 /obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ScientistCheck(user))
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
@@ -202,7 +196,6 @@
 			scan(target, user)
 		if(GIZMO_MARK)
 			mark(target, user)
-
 
 /obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -251,7 +244,6 @@
 		console.gizmo = null
 	return ..()
 
-
 /obj/item/abductor/silencer
 	name = "abductor silencer"
 	desc = "A compact device used to shut down communications equipment."
@@ -259,13 +251,11 @@
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-
 /obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	radio_off(target, user)
-
 
 /obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -301,14 +291,12 @@
 	item_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
 
-
 /obj/item/abductor/mind_device/update_icon_state()
 	switch(mode)
 		if(MIND_DEVICE_MESSAGE)
 			icon_state = "mind_device_message"
 		if(MIND_DEVICE_CONTROL)
 			icon_state = "mind_device_control"
-
 
 /obj/item/abductor/mind_device/attack_self(mob/user)
 	if(!ScientistCheck(user))
@@ -417,7 +405,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/paper/abductor/click_alt()
 	return NONE
 
-
 #define BATON_STUN 0
 #define BATON_SLEEP 1
 #define BATON_CUFF 2
@@ -442,19 +429,15 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	var/mode = BATON_STUN
 
-
 /obj/item/melee/baton/abductor/get_stun_description(mob/living/target, mob/living/user)
 	return // chat messages are handled in their own procs.
-
 
 /obj/item/melee/baton/abductor/get_cyborg_stun_description(mob/living/target, mob/living/user)
 	return // same as above.
 
-
 /obj/item/melee/baton/abductor/attack_self(mob/living/user)
 	. = ..()
 	toggle(user)
-
 
 /obj/item/melee/baton/abductor/proc/toggle(mob/living/user = usr)
 	if(!isgrey(user) && !AbductorCheck(user))
@@ -484,7 +467,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	to_chat(user, span_notice("You switch the baton to [txt] mode."))
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/melee/baton/abductor/update_icon_state()
 	switch(mode)
 		if(BATON_STUN)
@@ -501,7 +483,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			item_state = "wonderprodProbe"
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/melee/baton/abductor/examine(mob/user)
 	. = ..()
 	if(!isgrey(user) && !AbductorCheck(user))
@@ -516,12 +497,10 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			. += span_warning("The baton is in probing mode.")
 
-
 /obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user)
 	if(!isgrey(user) && !AbductorCheck(user))
 		return BATON_ATTACK_DONE
 	return ..()
-
 
 /obj/item/melee/baton/abductor/baton_effect(mob/living/carbon/target, mob/living/user, stun_override)
 	switch(mode)
@@ -533,7 +512,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			CuffAttack(target,user)
 		if(BATON_PROBE)
 			ProbeAttack(target,user)
-
 
 /obj/item/melee/baton/abductor/proc/StunAttack(mob/living/carbon/target, mob/living/user)
 	target.visible_message(
@@ -547,7 +525,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(iscarbon(target))
 		target.shock_internal_organs(33)
 	target.Weaken(knockdown_time)
-
 
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/target, mob/living/user)
 	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
@@ -565,7 +542,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			span_danger("[user] tried to induce sleep in [target] with [src]!"),
 			span_userdanger("You suddenly feel drowsy!"),
 		)
-
 
 /obj/item/melee/baton/abductor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
 	if(!iscarbon(target))
@@ -589,7 +565,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		add_attack_logs(user, target, "handcuffed ([src])")
 	else
 		to_chat(user, span_warning("You fail to restrain [target]!"))
-
 
 /obj/item/melee/baton/abductor/proc/ProbeAttack(mob/living/carbon/human/target, mob/living/user)
 	target.visible_message(
@@ -621,7 +596,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 #undef BATON_PROBE
 #undef BATON_MODES
 
-
 /obj/item/restraints/handcuffs/energy
 	name = "hard-light energy field"
 	desc = "A hard-light field restraining the hands."
@@ -639,7 +613,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 							span_userdanger("[src] restraining [user] breaks in a discharge of energy!"))
 	do_sparks(4, FALSE, user.loc)
 	. = ..()
-
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
@@ -748,7 +721,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestackamount = 1
 	density = TRUE
 
-
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -776,7 +748,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	return ..()
 
-
 /obj/structure/table/abductor
 	name = "alien table"
 	desc = "Advanced flat surface technology at work!"
@@ -790,7 +761,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_TABLES
 	canSmoothWith = SMOOTH_GROUP_ABDUCTOR_TABLES
 	frame = /obj/structure/table_frame/abductor
-
 
 /obj/machinery/optable/abductor
 	name = "alien operating table"

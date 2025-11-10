@@ -47,7 +47,6 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
-
 /datum/job/doctor
 	title = JOB_TITLE_DOCTOR
 	flag = JOB_FLAG_DOCTOR
@@ -86,7 +85,6 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
-
 
 /datum/job/doctor/intern
 	title = JOB_TITLE_INTERN
@@ -127,7 +125,6 @@
 			if("Student Medical Doctor")
 				head = /obj/item/clothing/head/surgery/lightgreen
 				uniform = /obj/item/clothing/under/rank/medical/lightgreen
-
 
 /datum/job/coroner
 	title = JOB_TITLE_CORONER
@@ -193,8 +190,6 @@
 				else
 					uniform = /obj/item/clothing/under/rank/medical/purple
 
-
-
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
 	title = JOB_TITLE_CHEMIST
@@ -234,7 +229,6 @@
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
 
-
 /datum/job/geneticist
 	title = JOB_TITLE_GENETICIST
 	flag = JOB_FLAG_GENETICIST
@@ -272,7 +266,6 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
-
 
 /datum/job/virologist
 	title = JOB_TITLE_VIROLOGIST
@@ -312,7 +305,6 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
-
 
 /datum/job/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
@@ -355,7 +347,6 @@
 				uniform = /obj/item/clothing/under/rank/psych/turtleneck
 			if("Therapist")
 				uniform = /obj/item/clothing/under/rank/medical
-
 
 /datum/job/paramedic
 	title = JOB_TITLE_PARAMEDIC

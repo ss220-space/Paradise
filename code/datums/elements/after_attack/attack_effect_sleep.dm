@@ -4,13 +4,10 @@
 	/// How long will the victim sleep.
 	var/sleep_time
 
-
 /datum/element/after_attack/attack_effect_sleep/Attach(datum/target, stamina_damage, sleep_time)
 	. = ..()
 	src.stamina_damage = stamina_damage
 	src.sleep_time = sleep_time
-
-
 
 /datum/element/after_attack/attack_effect_sleep/on_success(datum/source, mob/living/target, mob/living/user, proximity, params)
 	..()

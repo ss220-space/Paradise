@@ -26,7 +26,6 @@
 	density = FALSE // ghost
 	invisibility = 60 // no seriously ghost
 
-
 	response_help = "passes through" // by the way ghost
 	response_disarm = "shoves"
 	response_harm = "hits"
@@ -57,7 +56,6 @@
 /mob/living/simple_animal/hostile/ghost/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/simple_flying)
-
 
 /mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE

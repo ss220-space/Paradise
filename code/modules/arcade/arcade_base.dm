@@ -78,7 +78,6 @@
 
 	return ..()
 
-
 /obj/machinery/arcade/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return FALSE
@@ -86,13 +85,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-
 /obj/machinery/arcade/crowbar_act(mob/living/user, obj/item/I)
 	if(!component_parts || !panel_open)
 		return FALSE
 	default_deconstruction_crowbar(user, I)
 	return TRUE
-
 
 /obj/machinery/arcade/proc/start_play(mob/user)
 	user.set_machine(src)

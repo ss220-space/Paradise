@@ -18,7 +18,6 @@
 	var/anomaly_type
 	announceWhen = 1
 
-
 /datum/event/anomaly/setup()
 	target_turf = find_targets(TRUE)
 	if(anomaly_path) // Preloaded by event.
@@ -29,7 +28,6 @@
 	spawn_num = tier > 1 ? 1 : rand(2, 4)
 	random_types = tier > 1 ? FALSE : prob(50)
 	anomaly_path = text2path("/obj/effect/anomaly/[anomaly_type]/tier[tier]")
-
 
 /datum/event/anomaly/proc/find_targets(warn_on_fail = FALSE)
 	for(var/tries in 1 to TURF_FIND_TRIES)
@@ -52,7 +50,6 @@
 	kill()
 	return
 
-
 /datum/event/anomaly/proc/find_turf(impact_area)
 	if(!impact_area)
 		return
@@ -65,7 +62,6 @@
 
 		target_turf = candidate
 		break
-
 
 /datum/event/anomaly/announce(false_alarm)
 	var/area/target = false_alarm ? findEventArea() : impact_area
@@ -82,14 +78,12 @@
 		new_title = ANNOUNCE_ANOMALY_RU
 	)
 
-
 /datum/event/anomaly/start()
 	for(var/ind = 0; ind < spawn_num; ++ind)
 		if(random_types)
 			anomaly_path = text2path("/obj/effect/anomaly/[pick(GLOB.anomaly_types[TIER1])]/tier[tier]")
 
 		announce_to_ghosts(new anomaly_path(target_turf))
-
 
 /datum/event/anomaly/admin_setup()
 	if(!check_rights(R_EVENT))
@@ -106,6 +100,5 @@
 		random_types = TRUE
 
 	anomaly_path = text2path("/obj/effect/anomaly/[anomaly_type]/tier[tier]")
-
 
 #undef TURF_FIND_TRIES

@@ -32,7 +32,6 @@
 	set hidden = FALSE
 	..()
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		add_fingerprint(user)
@@ -49,7 +48,6 @@
 
 	return ..()
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!reagents.total_volume)
 		return
@@ -59,13 +57,11 @@
 	reagents.clear_reagents()
 	extinguish()
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_icon_state()
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(check.drink_icon)
 			icon_state = check.drink_icon
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_overlays()
 	. = ..()
@@ -76,7 +72,6 @@
 	else
 		icon_state = initial(icon_state)
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_name(updates)
 	. = ..()
 	if(length(reagents.reagent_list))
@@ -84,7 +79,6 @@
 		name = check.drink_name
 	else
 		name = initial(name)
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_desc(updates)
 	. = ..()
@@ -94,15 +88,12 @@
 	else
 		desc = initial(desc)
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
 	update_appearance()
-
 
 // for /obj/machinery/vending/sovietsoda
 /obj/item/reagent_containers/food/drinks/drinkingglass/soda
 	list_reagents = list("sodawater" = 50)
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/cola
 	list_reagents = list("cola" = 50)

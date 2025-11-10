@@ -59,7 +59,6 @@
 		PREPOSITIONAL = "матке голиафов",
 	)
 
-
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Поле из щупалец"
 	button_icon_state = "tentacle_patch"
@@ -203,8 +202,6 @@
 					child.friends += mob
 			to_chat(src, span_notice("Вы добавили [mob.declent_ru(ACCUSATIVE)] в список друзей."))
 
-
-
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child
 	name = "baby goliath"
@@ -245,7 +242,6 @@
 	mother = null
 	return ..()
 
-
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death(gibbed)
 	. = ..()
 	if(!QDELETED(mother))
@@ -255,7 +251,6 @@
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)
-
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother
 	var/damage = 25
@@ -342,7 +337,6 @@
 	addtimer(TRAIT_CALLBACK_REMOVE(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT), 20 SECONDS)
 	to_chat(user, span_notice("Вы сжимаете <b>[declent_ru(ACCUSATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
 	use_time = world.time + 60 SECONDS
-
 
 #undef TENTACLE_PATCH
 #undef SPAWN_CHILDREN

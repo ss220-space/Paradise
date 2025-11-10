@@ -213,7 +213,6 @@
 	monster_damage_boost = FALSE
 	friendly_fire_check = TRUE
 
-
 //Pandora's loot: Hope //Hope I know what to make it do
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
@@ -235,13 +234,11 @@
 		PREPOSITIONAL = "надежде",
 	)
 
-
 /obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
 	if(. && isliving(has_suit.loc))
 		var/mob/living/wearer = has_suit.loc
 		wearer.apply_status_effect(STATUS_EFFECT_HOPE)
-
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/detacher)
 	. = ..()
@@ -251,16 +248,13 @@
 			var/mob/living/wearer = old_suit.loc
 			wearer.remove_status_effect(STATUS_EFFECT_HOPE)
 
-
 /obj/item/clothing/accessory/necklace/pandora_hope/attached_equip(mob/living/user)
 	if(isliving(user))
 		user.apply_status_effect(STATUS_EFFECT_HOPE)
 
-
 /obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip(mob/living/user)
 	if(isliving(user))
 		user.remove_status_effect(STATUS_EFFECT_HOPE)
-
 
 #undef CHASER_BURST
 #undef MAGIC_BOX

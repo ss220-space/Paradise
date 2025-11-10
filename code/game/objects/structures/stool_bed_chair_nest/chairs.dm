@@ -75,7 +75,6 @@
 
 	return ..()
 
-
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
@@ -90,7 +89,6 @@
 	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
-
 
 /obj/structure/chair/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
@@ -115,13 +113,11 @@
 
 	return ..()
 
-
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
 		..()
 	else
 		rotate()
-
 
 /obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
@@ -129,31 +125,25 @@
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
 			buckled_mob.setDir(dir)
 
-
 /obj/structure/chair/proc/handle_layer()
 	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = initial(layer)
 
-
 /obj/structure/chair/post_buckle_mob(mob/living/target)
 	handle_layer()
 
-
 /obj/structure/chair/post_unbuckle_mob(mob/living/target)
 	handle_layer()
-
 
 /obj/structure/chair/setDir(newdir)
 	. = ..()
 	handle_rotation()
 
-
 /obj/structure/chair/examine(mob/user)
 	. = ..()
 	. += span_notice("Вы можете <b>Alt-ЛКМ</b> по [declent_ru(DATIVE)] чтобы повернуть его.")
-
 
 /obj/structure/chair/proc/rotate(mob/living/user)
 	if(user)
@@ -167,11 +157,9 @@
 	handle_rotation()
 	return TRUE
 
-
 /obj/structure/chair/click_alt(mob/living/user)
 	rotate(user)
 	return CLICK_ACTION_SUCCESS
-
 
 // CHAIR TYPES
 
@@ -217,16 +205,13 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-
 /obj/structure/chair/comfy/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-
 /obj/structure/chair/comfy/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
-
 
 /obj/structure/chair/comfy/proc/update_armrest()
 	if(has_buckled_mobs())
@@ -283,7 +268,6 @@
 	pull_push_slowdown = 0.5
 	flip_on_buckled_move = FALSE
 
-
 /obj/structure/chair/office/Bump(atom/bumped_atom)
 	. = ..()
 	if(!propelled || !has_buckled_mobs())
@@ -331,16 +315,13 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-
 /obj/structure/chair/sofa/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-
 /obj/structure/chair/sofa/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
-
 
 /obj/structure/chair/sofa/proc/update_armrest()
 	if(has_buckled_mobs())
@@ -420,7 +401,6 @@
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 
-
 /obj/item/chair/stool
 	name = "stool"
 	icon_state = "stool_toppled"
@@ -480,7 +460,6 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/chair/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
@@ -493,7 +472,6 @@
 	if(smash())
 		. |= ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/chair/attack_obj(obj/object, mob/living/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
@@ -501,7 +479,6 @@
 	user.visible_message(span_danger("[user] smashes [src] to pieces against [object]."))
 	if(smash())
 		. |= ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/chair/wood
 	name = "wooden chair"

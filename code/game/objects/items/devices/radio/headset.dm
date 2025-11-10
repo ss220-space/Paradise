@@ -117,7 +117,6 @@
 
 	return ..()
 
-
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(ishuman(user) && loc == user)
@@ -168,7 +167,6 @@
 		return
 
 	syndiekey = key
-
 
 /obj/item/radio/headset/get_base_channels()
 	return (keyslot?.channels | keyslot2?.channels)
@@ -517,7 +515,6 @@
 		INSTRUMENTAL = "радиочастотной гарнитурой Агента Внутренних Дел",
 		PREPOSITIONAL = "радиочастотной гарнитуре Агента Внутренних Дел",
 	)
-
 
 /obj/item/radio/headset/headset_iaa/alt
 	name = "internal affairs bowman headset"
@@ -920,7 +917,6 @@
 	icon_state = "com_headset"
 	ks2type = /obj/item/encryptionkey/heads/magistrate
 
-
 /obj/item/radio/headset/heads/magistrate/get_ru_names()
 	return list(
 		NOMINATIVE = "радиочастотная гарнитура Магистрата",
@@ -971,7 +967,6 @@
 		INSTRUMENTAL = "радиочастотной гарнитурой Офицера \"Синий Щит\"",
 		PREPOSITIONAL = "радиочастотной гарнитуре Офицера \"Синий Щит\"",
 	)
-
 
 /obj/item/radio/headset/heads/blueshield/alt
 	name = "\proper blueshield's bowman headset"
@@ -1057,7 +1052,6 @@
 		INSTRUMENTAL = "тактической гарнитурой КМП ТСФ",
 		PREPOSITIONAL = "тактической гарнитуре КМП ТСФ",
 	)
-
 
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
@@ -1215,7 +1209,6 @@
 	instant = TRUE
 	freqlock = TRUE
 */
-
 
 /obj/item/bowman_conversion_tool
 	name = "bowman headset conversion tool"

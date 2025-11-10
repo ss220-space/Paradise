@@ -114,7 +114,6 @@
 /mob/living/simple_animal/revenant/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
-
 /mob/living/simple_animal/revenant/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -129,7 +128,6 @@
 	if(essence == 0)
 		to_chat(src, span_revendanger("Вы чувствуете, как ваша сущность распадается!"))
 
-
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
@@ -143,7 +141,6 @@
 		var/rendered = span_revennotice("<b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] говорит: \"[message]\"")
 		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
-
 
 /mob/living/simple_animal/revenant/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -225,7 +222,6 @@
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
 	return TRUE
 
-
 /mob/living/simple_animal/revenant/dust()
 	. = death()
 
@@ -249,7 +245,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	delayed_death()
 
-
 /mob/living/simple_animal/revenant/proc/delayed_death()
 	set waitfor = FALSE
 	animate(src, alpha = 0, time = 2.5 SECONDS)
@@ -265,7 +260,6 @@
 	ghostize()
 	qdel(src)
 
-
 /mob/living/simple_animal/revenant/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/nullrod))
 		visible_message(
@@ -276,7 +270,6 @@
 		inhibited = TRUE
 		addtimer(VARSET_CALLBACK(src, inhibited, FALSE), 3 SECONDS)
 	return ..()
-
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)
@@ -350,17 +343,14 @@
 	else
 		icon_state = icon_idle
 
-
 /datum/objective/revenant
 	needs_target = FALSE
 	var/targetAmount = 100
-
 
 /datum/objective/revenant/New()
 	targetAmount = rand(350,600)
 	explanation_text = "Поглотите [targetAmount] единиц[declension_ru(targetAmount,"e","и","")] эссенции у людей."
 	..()
-
 
 /datum/objective/revenant/check_completion()
 	var/total_essence = 0
@@ -377,12 +367,9 @@
 
 	return TRUE
 
-
 /datum/objective/revenantFluff
 	needs_target = FALSE
 	antag_menu_name = "Задача ревенанта"
-
-
 
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list(
@@ -404,10 +391,8 @@
 	explanation_text = pick(explanationTexts)
 	..()
 
-
 /datum/objective/revenantFluff/check_completion()
 	return TRUE
-
 
 /obj/item/ectoplasm/revenant
 	name = "glimmering residue"
@@ -435,11 +420,9 @@
 	..()
 	addtimer(CALLBACK(src, PROC_REF(reform)), reform_time)
 
-
 /obj/item/ectoplasm/revenant/Destroy()
 	client_to_revive = null
 	return ..()
-
 
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
@@ -451,7 +434,6 @@
 	user.drop_from_active_hand()
 	qdel(src)
 
-
 /obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(inert)
@@ -459,14 +441,12 @@
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] рассыпается на частицы при ударе, которые исчезают в никуда."))
 	qdel(src)
 
-
 /obj/item/ectoplasm/revenant/examine(mob/user)
 	. = ..()
 	if(inert)
 		. += span_revennotice("Кажется, это инертно.")
 	else if(reforming)
 		. += span_revenwarning("Оно искажается и меняется. Было бы мудро уничтожить это.")
-
 
 /obj/item/ectoplasm/revenant/proc/reform()
 	if(QDELETED(src))
@@ -487,7 +467,6 @@
 			if(ghost.client == client_to_revive) //Only recreates the mob if the mob the client is in is dead
 				new_revenant.client = client_to_revive
 				key_of_revenant = client_to_revive.key
-
 
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")

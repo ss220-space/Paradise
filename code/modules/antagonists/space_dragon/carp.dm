@@ -13,12 +13,10 @@
 	/// Ability which lets carp teleport around
 	var/datum/action/innate/lesser_carp_rift/teleport
 
-
 /mob/living/simple_animal/hostile/carp/rift_carp/Initialize(mapload)
 	. = ..()
 	teleport = new
 	teleport.Grant(src)
-
 
 /mob/living/simple_animal/hostile/carp/rift_carp/AttackingTarget()
 	if(istype(target, /obj/structure/carp_rift))

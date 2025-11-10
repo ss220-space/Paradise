@@ -14,7 +14,6 @@ SUBSYSTEM_DEF(nightshift)
 
 	var/high_security_mode = FALSE
 
-
 /datum/controller/subsystem/nightshift/Initialize()
 	if(!CONFIG_GET(flag/enable_night_shifts))
 		flags |= SS_NO_FIRE
@@ -22,12 +21,10 @@ SUBSYSTEM_DEF(nightshift)
 		GLOB.gametime_offset = rand(0, 23) HOURS
 	return SS_INIT_SUCCESS
 
-
 /datum/controller/subsystem/nightshift/fire(resumed = FALSE)
 	if(world.time - SSticker.round_start_time < nightshift_first_check)
 		return
 	check_nightshift()
-
 
 /datum/controller/subsystem/nightshift/proc/announce(message)
 	GLOB.minor_announcement.announce(
@@ -35,7 +32,6 @@ SUBSYSTEM_DEF(nightshift)
 		new_title = ANNOUNCE_NIGHTSHIFT_RU,
 		new_sound = 'sound/misc/notice2.ogg'
 	)
-
 
 /datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
 	if(check_canfire && !can_fire)
@@ -56,7 +52,6 @@ SUBSYSTEM_DEF(nightshift)
 		night_time = FALSE
 	if(nightshift_active != night_time)
 		update_nightshift(night_time, announcing)
-
 
 /datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE)
 	nightshift_active = active

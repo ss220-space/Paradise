@@ -103,7 +103,6 @@
 			var/spawn_type = pick(spawn_types)
 			new spawn_type(T)
 
-
 /datum/event/infestation/announce(false_alarm)
 	var/vermin_chosen = vermstring || pick("пауков", "ящериц", "мышей", "крыс")
 	if(!spawn_area_type)

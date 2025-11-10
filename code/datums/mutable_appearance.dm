@@ -46,15 +46,12 @@
 
 	return appearance
 
-
 /mutable_appearance/clean/New()
 	. = ..()
 	alpha = 255
 	transform = null
 
-
 /mutable_appearance/emissive_blocker
-
 
 /mutable_appearance/emissive_blocker/New()
 	. = ..()

@@ -15,12 +15,10 @@
 	/// The turf being searched
 	var/turf/source_turf
 
-
 /datum/lootpanel/New(client/owner)
 	. = ..()
 
 	src.owner = owner
-
 
 /datum/lootpanel/Destroy(force)
 	reset_contents()
@@ -28,7 +26,6 @@
 	source_turf = null
 
 	return ..()
-
 
 /datum/lootpanel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -46,7 +43,6 @@
 	source_turf = null
 	reset_contents()
 
-
 /datum/lootpanel/ui_data(mob/user)
 	var/list/data = list()
 
@@ -54,7 +50,6 @@
 	data["searching"] = length(to_image)
 
 	return data
-
 
 /datum/lootpanel/ui_status(mob/user, datum/ui_state/state)
 	if(isobserver(user))
@@ -77,7 +72,6 @@
 		return UI_UPDATE
 
 	return UI_CLOSE
-
 
 /datum/lootpanel/ui_act(action, list/params)
 	. = ..()

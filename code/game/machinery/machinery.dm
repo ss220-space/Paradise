@@ -126,7 +126,6 @@
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 
-
 /obj/machinery/Initialize(mapload)
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
@@ -142,7 +141,6 @@
 		begin_processing()
 
 	power_change()
-
 
 /obj/machinery/Destroy()
 	if(myArea)
@@ -169,7 +167,6 @@
 /obj/machinery/proc/flicker()
 	return FALSE
 
-
 /obj/machinery/proc/onAreaExited()
 	SIGNAL_HANDLER
 	if(myArea == get_area(src))
@@ -183,7 +180,6 @@
 	//message_admins("[src] entered [myArea]")
 	power_change()
 
-
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/begin_processing()
 	if(speed_process)
@@ -192,7 +188,6 @@
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	START_PROCESSING(subsystem, src)
 
-
 /// Helper proc for telling a machine to stop processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/end_processing()
 	if(speed_process)
@@ -200,7 +195,6 @@
 		return
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
-
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
@@ -211,7 +205,6 @@
 	STOP_PROCESSING(subsystem, src)
 	START_PROCESSING(SSfastprocess, src)
 
-
 // gotta go slow
 /obj/machinery/makeNormalProcess()
 	if(!speed_process)
@@ -220,7 +213,6 @@
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(SSfastprocess, src)
 	START_PROCESSING(subsystem, src)
-
 
 /obj/machinery/has_prints()
 	return TRUE
@@ -373,7 +365,6 @@
 	if(!(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 
-
 /obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
 	add_fingerprint(user)
 	if(I.tool_behaviour != TOOL_CROWBAR)
@@ -386,7 +377,6 @@
 		I.play_tool_sound(user, I.tool_volume)
 		return TRUE
 	return FALSE
-
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	add_fingerprint(user)
@@ -411,7 +401,6 @@
 		return TRUE
 	return FALSE
 
-
 /obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
 	add_fingerprint(user)
 	if(I.tool_behaviour != TOOL_WRENCH)
@@ -425,12 +414,10 @@
 		return TRUE
 	return FALSE
 
-
 /obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
 	. = ..()
 	if(.)
 		power_change()
-
 
 /obj/machinery/attackby(obj/item/I, mob/user, params)
 	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
@@ -469,7 +456,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
@@ -646,7 +632,6 @@
 	var/alertstr = span_userdanger("Network Alert: Hacking attempt detected[get_area(src)?" in [get_area_name(src, TRUE)]":". Unable to pinpoint location"].")
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		to_chat(AI, alertstr)
-
 
 /obj/machinery/extinguish_light(force = FALSE)
 	if(light_on)

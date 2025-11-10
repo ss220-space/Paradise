@@ -27,7 +27,6 @@
 		controller.blackboard[BB_FETCH_TARGET] = null
 		controller.blackboard[BB_FETCH_DELIVER_TO] = null
 
-
 /// This is simply a behaviour to pick up a fetch target
 /datum/ai_behavior/simple_equip/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
@@ -64,8 +63,6 @@
 	carried_item.forceMove(get_turf(pawn))
 	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
 	return TRUE
-
-
 
 /// This behavior involves dropping off a carried item to a specified person (or place)
 /datum/ai_behavior/deliver_item
@@ -122,7 +119,6 @@
 
 	if(QDELETED(snack)) // we ate it!
 		finish_action(controller, TRUE)
-
 
 /// This behavior involves either eating a snack we can reach, or begging someone holding a snack
 /datum/ai_behavior/play_dead

@@ -21,7 +21,6 @@
 	build_path = /obj/item/pickaxe/drill/diamonddrill
 	category = list("Mining")
 
-
 /datum/design/plasmacutter_adv
 	name = "Advanced Plasma Cutter"
 	desc = "It's an advanced plasma cutter, oh my god."

@@ -190,7 +190,6 @@
 					rejected++
 				CHECK_TICK
 
-
 	var/count = rejected+accepted
 	if(!count)
 		to_chat(src, "No objects found")

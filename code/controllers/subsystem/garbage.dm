@@ -14,7 +14,6 @@ SUBSYSTEM_DEF(garbage)
 	var/delslasttick = 0			// number of del()'s we've done this tick
 	var/totaldels = 0
 
-
 	var/highest_del_time = 0
 	var/highest_del_tickusage = 0
 
@@ -43,7 +42,6 @@ SUBSYSTEM_DEF(garbage)
 	#endif
 	#endif
 
-
 #ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/PreInit()
 	if(isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
@@ -55,7 +53,6 @@ SUBSYSTEM_DEF(garbage)
 			pass_counts[i] = 0
 			fail_counts[i] = 0
 #endif
-
 
 /datum/controller/subsystem/garbage/get_stat_details()
 	var/list/msg = list()
@@ -81,7 +78,6 @@ SUBSYSTEM_DEF(garbage)
 	msg += "del's:[delslasttick] | Total del's:[totaldels]"
 	#endif
 	return msg.Join("")
-
 
 /datum/controller/subsystem/garbage/Shutdown()
 	//Adds the del() log to the qdel log file
@@ -316,7 +312,6 @@ SUBSYSTEM_DEF(garbage)
 		for(var/i in 1 to length(SSgarbage.queues))
 			queues[i] |= SSgarbage.queues[i]
 #endif
-
 
 /datum/qdel_item
 	var/name = ""

@@ -266,7 +266,6 @@
 	var/cardrank
 	var/possiblerank = list("Советский турист", "Товарищ") // addition before name
 
-
 /obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -293,7 +292,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/computer/id_upgrader/ussp/proc/giverank(obj/item/card/id/D)
 	if(!cardholdername||!cardrank)
@@ -392,11 +390,9 @@
 	Ставка Главного Командования поручает Вам собрать боевую группу и уничтожить позицию врага, сохранив возможность последующего использования на благо СССП.\
 	<br> Время отведенное на выполнение задачи <b>72 часа</b> с момента получения директивы. <br><br><i>	Оперативный штаб специальных операций</i>"
 
-
 /obj/item/paper/gorky17/orders/Initialize(mapload)
 	. = ..()
 	stamp(/obj/item/stamp/ussp)
-
 
 /obj/item/paper/gorky17/report
 	name = "Доклад Центральному Комитету СССП"
@@ -529,7 +525,6 @@
 
 /mob/living/simple_animal/hostile/carp/lostsoul/carp_randomify()
 	return
-
 
 //self destruct
 

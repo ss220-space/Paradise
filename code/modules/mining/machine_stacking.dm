@@ -67,7 +67,6 @@
 
 /**********************Mineral stacking unit**************************/
 
-
 /obj/machinery/mineral/stacking_machine
 	name = "stacking machine"
 	icon = 'icons/obj/machines/mining_machines.dmi'

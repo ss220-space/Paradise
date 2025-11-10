@@ -22,7 +22,6 @@
 	/// The dead body we have inside
 	var/mob/living/carbon/human/corpse
 
-
 /mob/living/simple_animal/hostile/blob_minion/zombie/death(gibbed)
 	if(corpse)
 		REMOVE_TRAIT(corpse, TRAIT_BLOB_ZOMBIFIED, BLOB_ZOMBIE_TRAIT)
@@ -50,7 +49,6 @@
 	if(istype(mover, /obj/structure/blob))
 		return TRUE
 
-
 /mob/living/simple_animal/hostile/blob_minion/zombie/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
@@ -72,7 +70,6 @@
 	. |= blob_head_overlay
 	if(blocks_emissive)
 		. |= get_emissive_block()
-
 
 /// Create an explosion of spores on death
 /mob/living/simple_animal/hostile/blob_minion/zombie/proc/death_burst()

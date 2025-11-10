@@ -96,7 +96,6 @@
 			remove_from_head(usr)
 			return
 
-
 /mob/living/silicon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		add_fingerprint(user)
@@ -104,7 +103,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /mob/living/silicon/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
@@ -115,7 +113,6 @@
 		if(!isCentered)
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI
-
 
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
@@ -163,7 +160,6 @@
 	regenerate_icons()
 	return TRUE
 
-
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
@@ -182,7 +178,6 @@
 
 	return TRUE
 
-
 /mob/living/silicon/proc/drop_hat(drop_on_turf = FALSE)
 	if(inventory_head)
 		if(drop_on_turf)
@@ -191,7 +186,6 @@
 			drop_item_ground(inventory_head)
 		null_hat()
 		regenerate_icons()
-
 
 /mob/living/silicon/proc/null_hat()
 	inventory_head = null

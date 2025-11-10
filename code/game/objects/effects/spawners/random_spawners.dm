@@ -177,7 +177,6 @@
 		/mob/living/basic/cockroach = 3,
 	)
 
-
 /obj/effect/spawner/random_spawners/rat
 	name = "random color rat"
 	icon_state = "rat"
@@ -451,6 +450,7 @@
 	name = "ballistics closet spawner"
 	icon_state = "guncabinet_ballistic"
 	result = list(
-		/obj/structure/closet/secure_closet/guncabinet/sp91 = 50,
-		/obj/structure/closet/secure_closet/guncabinet/wt550 = 50,
+		/obj/structure/closet/secure_closet/guncabinet/sparkle_a12 = 33,
+		/obj/structure/closet/secure_closet/guncabinet/sp91 = 33,
+		/obj/structure/closet/secure_closet/guncabinet/wt550 = 34,
 	)

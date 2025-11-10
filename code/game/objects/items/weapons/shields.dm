@@ -41,7 +41,6 @@
 	/// Shield bash cooldown
 	COOLDOWN_DECLARE(cooldown)
 
-
 /obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/baton) && COOLDOWN_FINISHED(src, cooldown))
 		COOLDOWN_START(src, cooldown, 2.5 SECONDS)
@@ -53,7 +52,6 @@
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/shield/riot/roman
 	name = "roman shield"
@@ -187,10 +185,8 @@
 		return ..()
 	return FALSE
 
-
 /obj/item/shield/riot/tele/update_icon_state()
 	icon_state = "teleriot[active]"
-
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active

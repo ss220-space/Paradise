@@ -10,21 +10,17 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags = PASSTABLE | PASSGRILLE
 
-
 /obj/effect/particle_effect/Initialize(mapload)
 	. = ..()
 	GLOB.cameranet.updateVisibility(src)
-
 
 /obj/effect/particle_effect/Destroy()
 	GLOB.cameranet.updateVisibility(src)
 	return ..()
 
-
 // Prevents effects from getting registered for SSspacedrift
 /obj/effect/particle_effect/newtonian_move(direction, instant = FALSE, start_delay = 0)
 	return TRUE
-
 
 /datum/effect_system
 	var/number = 3
@@ -35,22 +31,18 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/total_effects = 0
 	var/autocleanup = FALSE //will delete itself after use
 
-
 /datum/effect_system/Destroy()
 	holder = null
 	location = null
 	return ..()
-
 
 /datum/effect_system/proc/set_up(number = 3, cardinals = FALSE, location)
 	src.number = min(number, 10)
 	src.cardinals = cardinals
 	src.location = get_turf(location)
 
-
 /datum/effect_system/proc/attach(atom/atom)
 	holder = atom
-
 
 /datum/effect_system/proc/start()
 	if(QDELETED(src))
@@ -59,7 +51,6 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		if(total_effects > 20)
 			return
 		generate_effect()
-
 
 /datum/effect_system/proc/generate_effect()
 	if(holder)
@@ -76,7 +67,6 @@ would spawn and follow the beaker, even if it is carried or thrown.
 
 	var/datum/move_loop/loop = GLOB.move_manager.move(effect, direction, step_delay, timeout = step_delay * step_amt, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(decrement_total_effect))
-
 
 /datum/effect_system/proc/decrement_total_effect(datum/source)
 	SIGNAL_HANDLER

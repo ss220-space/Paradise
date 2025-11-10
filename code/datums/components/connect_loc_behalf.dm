@@ -9,19 +9,16 @@
 	var/atom/movable/tracked
 	var/atom/tracked_loc
 
-
 /datum/component/connect_loc_behalf/Initialize(atom/movable/tracked, list/connections)
 	if(!istype(tracked))
 		return COMPONENT_INCOMPATIBLE
 	src.connections = connections
 	src.tracked = tracked
 
-
 /datum/component/connect_loc_behalf/RegisterWithParent()
 	RegisterSignal(tracked, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(tracked, COMSIG_QDELETING, PROC_REF(handle_tracked_qdel))
 	update_signals()
-
 
 /datum/component/connect_loc_behalf/UnregisterFromParent()
 	unregister_signals()
@@ -31,11 +28,9 @@
 	))
 	tracked = null
 
-
 /datum/component/connect_loc_behalf/proc/handle_tracked_qdel()
 	SIGNAL_HANDLER
 	qdel(src)
-
 
 /datum/component/connect_loc_behalf/proc/update_signals()
 	unregister_signals()
@@ -55,7 +50,6 @@
 	for(var/signal in connections)
 		parent.RegisterSignal(tracked_loc, signal, connections[signal])
 
-
 /datum/component/connect_loc_behalf/proc/unregister_signals()
 	if(isnull(tracked_loc))
 		return
@@ -63,7 +57,6 @@
 	parent.UnregisterSignal(tracked_loc, connections)
 
 	tracked_loc = null
-
 
 /datum/component/connect_loc_behalf/proc/on_moved()
 	SIGNAL_HANDLER

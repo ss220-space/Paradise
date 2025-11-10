@@ -14,7 +14,6 @@
 ///Action button checks if it should be given to new mob, after mind transfer
 #define AB_TRANSFER_MIND (1<<6)
 
-
 //Advanced action types
 //Those actions have cooldown, and unavailable until it ends
 #define ADV_ACTION_TYPE_RECHARGE "recharge"

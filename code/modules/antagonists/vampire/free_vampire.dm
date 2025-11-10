@@ -11,14 +11,11 @@
 		/datum/vampire_passive/regen = 200,
 	)
 
-
 /datum/antagonist/vampire/free_vampire/add_owner_to_gamemode()
 	SSticker.mode.vampires += owner
 
-
 /datum/antagonist/vampire/free_vampire/remove_owner_from_gamemode()
 	SSticker.mode.vampires -= owner
-
 
 /datum/antagonist/vampire/free_vampire/greet()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -32,10 +29,8 @@
 		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
 
-
 /datum/antagonist/vampire/free_vampire/give_objectives()
 	add_objective(/datum/objective/survive)
-
 
 /proc/is_free_vampire(datum/source)
 	if(!source)

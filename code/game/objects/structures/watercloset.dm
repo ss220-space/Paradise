@@ -68,7 +68,6 @@
 	open = !open
 	update_icon()
 
-
 /obj/structure/toilet/update_icon_state()
 	icon_state = "toilet[open][cistern]"
 	if(!anchored)
@@ -84,7 +83,6 @@
 			pixel_y = -8
 			layer = FLY_LAYER
 
-
 /obj/structure/toilet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
@@ -98,7 +96,6 @@
 		do_swirlie(grabber, victim)
 		return
 	do_smash_into_toilet(grabber, victim)
-
 
 /obj/structure/toilet/proc/do_swirlie(mob/living/grabber, mob/living/victim)
 	swirlie = victim
@@ -162,7 +159,6 @@
 	)
 	victim.adjustBruteLoss(5)
 
-
 /obj/structure/toilet/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -192,7 +188,6 @@
 
 	return ..()
 
-
 /obj/structure/toilet/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -206,7 +201,6 @@
 			span_italics("Вы слышите скрип фарфора."))
 		cistern = !cistern
 		update_icon()
-
 
 /obj/structure/toilet/wrench_act(mob/user, obj/item/item)
 	. = TRUE
@@ -282,13 +276,11 @@
 		secret.desc += " It's a secret!"
 		w_items += secret.w_class
 
-
 // This toilet made specially for map editor, collects objects on same turf at map loading as well as closets do.
 // regular toilet can't do this. has the same restrictions for objects like regular toilet has.
 /obj/structure/toilet/cancollectmapitems/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
-
 
 /obj/structure/toilet/cancollectmapitems/LateInitialize()
 	for(var/obj/item/I in loc)
@@ -301,7 +293,6 @@
 		if(I.w_class + w_items <= WEIGHT_CLASS_HUGE) // if items summary size <= than 5 , add item in contents
 			w_items += I.w_class
 			I.forceMove(src)
-
 
 /obj/structure/toilet/golden_toilet
 	name = "Золотой унитаз"
@@ -344,7 +335,6 @@
 	)
 	victim.adjustBruteLoss(8)
 
-
 /obj/structure/urinal/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -368,7 +358,6 @@
 			pixel_x = 0
 			pixel_y = 32
 
-
 #define SHOWER_FREEZING "freezing"
 #define SHOWER_NORMAL "normal"
 #define SHOWER_BOILING "boiling"
@@ -386,7 +375,6 @@
 	var/current_temperature = SHOWER_NORMAL
 	///What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
-
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -406,7 +394,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	var/obj/effect/mist/mist = locate() in loc
@@ -423,7 +410,6 @@
 	layer = FLY_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-
 /obj/machinery/shower/attack_hand(mob/user)
 	on = !on
 	update_icon()
@@ -439,14 +425,12 @@
 		if(istype(source_turf) && !source_turf.density)
 			source_turf.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
-
 /obj/machinery/shower/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer))
 		add_fingerprint(user)
 		to_chat(user, span_notice("The water temperature seems to be [current_temperature]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/shower/wrench_act(mob/user, obj/item/I)
 	to_chat(user, span_notice("You begin to adjust the temperature valve with [I]."))
@@ -465,7 +449,6 @@
 		add_hiddenprint(user)
 	handle_mist()
 	return TRUE
-
 
 /obj/machinery/shower/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -488,12 +471,10 @@
 		transfer_prints_to(shower, TRUE)
 		qdel(src)
 
-
 /obj/machinery/shower/update_overlays()
 	. = ..()
 	if(on)
 		. += image(icon, icon_state = "water", layer = ABOVE_MOB_LAYER, dir = src.dir)
-
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
@@ -505,25 +486,21 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		addtimer(CALLBACK(src, PROC_REF(clear_mist)), 25 SECONDS)
 
-
 /obj/machinery/shower/proc/make_mist()
 	var/obj/effect/mist/mist = locate() in loc
 	if(!mist && on && current_temperature != SHOWER_FREEZING)
 		new /obj/effect/mist(loc)
-
 
 /obj/machinery/shower/proc/clear_mist()
 	var/obj/effect/mist/mist = locate() in loc
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-
 /obj/machinery/shower/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(on)
 		wash(arrived)
-
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
@@ -533,7 +510,6 @@
 			return 310.15
 		if(SHOWER_FREEZING)
 			return 230.15
-
 
 //Yes, showers are super powerful as far as washing goes.
 /obj/machinery/shower/proc/wash(atom/target)
@@ -555,7 +531,6 @@
 	target.clean_blood()
 	SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 10)
 
-
 /obj/machinery/shower/process()
 	if(on)
 		if(isturf(loc))
@@ -572,7 +547,6 @@
 		soundloop.stop()
 		handle_mist()
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/shower/proc/check_heat(mob/M)
 	if(current_temperature == SHOWER_NORMAL)
@@ -592,7 +566,6 @@
 #undef SHOWER_FREEZING
 #undef SHOWER_NORMAL
 #undef SHOWER_BOILING
-
 
 /obj/item/bikehorn/rubberducky
 	name = "rubber ducky"
@@ -672,7 +645,6 @@
 	else
 		user.clean_blood()
 
-
 /obj/structure/sink/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -693,7 +665,6 @@
 	busy = FALSE
 	if(wateract)
 		I.water_act(20, COLD_WATER_TEMPERATURE, src)
-
 
 /obj/structure/sink/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -763,12 +734,10 @@
 				pixel_x = (dir == EAST) ? 12 : -12
 				pixel_y = 0
 
-
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
 	icon_state = "sink_alt"
 	can_rotate = 0
-
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
@@ -796,11 +765,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/sink/puddle/attack_hand(mob/user)
 	flick("puddle-splash", src)
 	return ..()
-
 
 /obj/structure/sink/puddle/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -846,7 +813,6 @@
 //		Bathroom Fixture Items	//
 //////////////////////////////////
 
-
 /obj/item/mounted/shower
 	name = "shower fixture"
 	desc = "A self-adhering shower fixture. Simply stick to a wall, no plumber needed!"
@@ -869,7 +835,6 @@
 	var/obj/machinery/shower/S = new(get_turf(user), get_dir(on_wall, user), TRUE)
 	transfer_fingerprints_to(S)
 	qdel(src)
-
 
 /obj/item/bathroom_parts
 	name = "toilet in a box"

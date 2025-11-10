@@ -16,18 +16,15 @@
 	/// Overlay used when the accessory is attached to the clothing.
 	var/mutable_appearance/acc_overlay
 
-
 /obj/item/clothing/accessory/Initialize(mapload)
 	. = ..()
 	if(icon_exists('icons/obj/clothing/ties_overlay.dmi', icon_state))
 		acc_overlay = mutable_appearance('icons/obj/clothing/ties_overlay.dmi', icon_state)
 
-
 /obj/item/clothing/accessory/Destroy()
 	on_removed()
 	acc_overlay = null
 	return ..()
-
 
 /**
  * Accessory being attached to passed suit.
@@ -69,7 +66,6 @@
 	has_suit.armor = has_suit.armor.attachArmor(armor)
 	return has_suit
 
-
 /**
  * Accessory being removed from the suit.
  * But still stays inside it's contents. You need to forceMove it separetly.
@@ -99,7 +95,6 @@
 	has_suit.armor = has_suit.armor.detachArmor(armor)
 	. = has_suit
 	has_suit = null
-
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
@@ -137,34 +132,28 @@
 		span_notice("You have finished puting [name] on [target]'s [uniform.name]..."),
 	)
 
-
 /obj/item/clothing/accessory/proc/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	SHOULD_CALL_PARENT(TRUE)
 	if(target && (target.w_uniform != uniform))
 		return FALSE
 	return TRUE
 
-
 /obj/item/clothing/accessory/attack_hand(mob/user)
 	if(has_suit)
 		return	//we aren't an object on the ground so don't call parent
 	. = ..()
 
-
 /// If we need to do something special when clothing with accessory is equipped by the user.
 /obj/item/clothing/accessory/proc/attached_equip(mob/user)
 	return
-
 
 /// If we need to do something special when clothing with accessory is removed from the user
 /obj/item/clothing/accessory/proc/attached_unequip(mob/user)
 	return
 
-
 /// Additional info when examine accessory on the suit
 /obj/item/clothing/accessory/proc/attached_examine(mob/user, obj/item/clothing/under/uniform)
 	return span_notice("К н[GEND_HIM_HER(uniform)] прикреплен[GEND_A_O_Y(src)] [icon2html(src, user)] [declent_ru(NOMINATIVE)].")
-
 
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
@@ -201,7 +190,6 @@
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
-
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
@@ -271,7 +259,6 @@
 	else
 		to_chat(user, span_warning("You don't hear anything!"))
 
-
 //Medals
 /obj/item/clothing/accessory/medal
 	name = "bronze medal"
@@ -317,10 +304,7 @@
 	name = "medal of command"
 	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
 
-
 // BRONZE (awarded by heads of department, except for the bronze heart)
-
-
 
 /obj/item/clothing/accessory/medal/security
 	name = "robust security medal"
@@ -357,7 +341,6 @@
 	desc = "An eccentric medal made of plasma."
 	icon_state = "plasma"
 	materials = list(MAT_PLASMA = 1000)
-
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	..()
@@ -409,7 +392,6 @@
 	name = "hierophant HRD-MDE award"
 	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing the Hierophant."
 
-
 /obj/item/clothing/accessory/medal/plasma/ash_drake
 	name = "ash drake HRD-MDE award"
 	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing an ash drake."
@@ -442,7 +424,6 @@
 	desc = "This glowing yellow badge marks the holder as THE DETECTIVE."
 	icon_state = "holobadge_dec"
 
-
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user)
 	. = ..()
 	if(.)
@@ -457,7 +438,6 @@
 		span_userdanger("You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security."),
 	)
 
-
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/target, mob/living/user, def_zone, skip_attack_anim = FALSE)
 	if(user == target)
 		user.visible_message(
@@ -470,7 +450,6 @@
 			span_userdanger("You invade [target]'s personal space, thrusting [src] to [target.p_their()] face insistently. You are the law!"),
 		)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
 	var/obj/item/card/id/id = I.GetID()
@@ -486,16 +465,13 @@
 
 	return ..()
 
-
 /obj/item/clothing/accessory/holobadge/update_name(updates = ALL)
 	. = ..()
 	name = "[initial(name)][stored_name ? " ([stored_name])" : ""]"
 
-
 /obj/item/clothing/accessory/holobadge/update_desc(updates = ALL)
 	. = ..()
 	desc = "[stored_name ? "This glowing blue badge marks [stored_name] as THE LAW." : "[initial(desc)]"]"
-
 
 /obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
@@ -508,19 +484,16 @@
 		to_chat(user, span_warning("You swipe the card and crack the holobadge security checks."))
 	. = ..()
 
-
 /obj/item/clothing/accessory/holobadge/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
 	if(.)
 		has_suit.verbs += /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-
 
 /obj/item/clothing/accessory/holobadge/on_removed(mob/detacher)
 	. = ..()
 	if(.)
 		var/obj/item/clothing/under/old_suit = .
 		old_suit.verbs -= /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-
 
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
@@ -549,7 +522,6 @@
 		span_warning("[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security."),
 		span_warning("You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security."),
 	)
-
 
 ///////////
 //SCARVES//
@@ -679,11 +651,9 @@
 	/// Item inside locket.
 	var/obj/item/held_item
 
-
 /obj/item/clothing/accessory/necklace/locket/Destroy()
 	QDEL_NULL(held_item)
 	return ..()
-
 
 /obj/item/clothing/accessory/necklace/locket/attack_self(mob/user)
 	. = ..()
@@ -697,10 +667,8 @@
 		held_item.forceMove(drop_location())
 		held_item = null
 
-
 /obj/item/clothing/accessory/necklace/locket/update_icon_state()
 	icon_state = "[replacetext("[icon_state]", "_open", "")][up ? "_open" : ""]"
-
 
 /obj/item/clothing/accessory/necklace/locket/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo))
@@ -718,7 +686,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clothing/accessory/ntrjacket
 	name = "black light jacket"
@@ -900,7 +867,6 @@
 	icon_state = "corset"
 	item_state = "corset"
 
-
 /obj/item/clothing/accessory/corset/red
 	name = "red corset"
 	desc = "A red corset those fancy nights out."
@@ -921,12 +887,10 @@
 	var/tagname = null
 	var/obj/item/card/id/access_id
 
-
 /obj/item/clothing/accessory/petcollar/Destroy()
 	QDEL_NULL(access_id)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/clothing/accessory/petcollar/proc/remove_id(mob/living/user)
 	if(access_id)
@@ -937,13 +901,11 @@
 		return
 	to_chat(user, span_notice("There is no ID card in \the [src]."))
 
-
 /obj/item/clothing/accessory/petcollar/attack_self(mob/user)
 	. = ..()
 	if(.)
 		return .
 	remove_id(user)
-
 
 /obj/item/clothing/accessory/petcollar/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -967,32 +929,26 @@
 
 	return ..()
 
-
 /obj/item/clothing/accessory/petcollar/update_name(updates = ALL)
 	. = ..()
 	name = "[initial(name)][tagname ? " - [tagname]" : ""]"
 
-
 /obj/item/clothing/accessory/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()
 
-
 /obj/item/clothing/accessory/petcollar/GetID()
 	return access_id ? access_id : ..()
-
 
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
 	. = ..()
 	if(access_id)
 		. += span_notice("There is [icon2html(access_id, user)] \a [access_id] clipped onto it.")
 
-
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user, slot, initial = FALSE)
 	. = ..()
 
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
-
 
 /obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user, slot, silent = FALSE)
 	STOP_PROCESSING(SSobj, src)
@@ -1022,7 +978,6 @@
 	radio_announce("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel, src)
 	STOP_PROCESSING(SSobj, src)
 
-
 /proc/accessory_list(obj/item/clothing/under/uniform)
 	if(!istype(uniform) || !LAZYLEN(uniform.accessories))
 		return
@@ -1051,13 +1006,11 @@
 	var/strip_bubble_icon = "CAP"
 	var/cached_bubble_icon = null
 
-
 /obj/item/clothing/accessory/head_strip/attack_self(mob/user)
 	. = ..()
 	if(.)
 		return .
 	fluff_attack_self_action(user)
-
 
 /obj/item/clothing/accessory/head_strip/proc/fluff_attack_self_action(mob/user)
 	user.visible_message(
@@ -1065,20 +1018,16 @@
 		span_notice("You show your [name]."),
 	)
 
-
 /obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	. = ..()
 	if(. && locate(/obj/item/clothing/accessory/head_strip, uniform.contents))
 		return FALSE
 
-
 /obj/item/clothing/accessory/head_strip/attached_equip(mob/user)
 	update_bubble_icon(user, attached = TRUE)
 
-
 /obj/item/clothing/accessory/head_strip/attached_unequip(mob/user)
 	update_bubble_icon(user, attached = FALSE)
-
 
 /obj/item/clothing/accessory/head_strip/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
@@ -1087,7 +1036,6 @@
 		return
 
 	update_bubble_icon(wearer, attached = TRUE)
-
 
 /obj/item/clothing/accessory/head_strip/on_removed(mob/detacher)
 	. = ..()
@@ -1098,7 +1046,6 @@
 
 	update_bubble_icon(wearer, attached = FALSE)
 
-
 /obj/item/clothing/accessory/head_strip/proc/update_bubble_icon(mob/wearer, attached)
 	if(!attached)
 		wearer.bubble_icon = cached_bubble_icon
@@ -1106,7 +1053,6 @@
 
 	cached_bubble_icon = wearer.bubble_icon
 	wearer.bubble_icon = strip_bubble_icon
-
 
 /obj/item/clothing/accessory/head_strip/rd
 	name = "Research Director's strip"
@@ -1221,7 +1167,6 @@
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
 
-
 /obj/item/clothing/accessory/head_strip/cheese_badge
 	name = "great fellow's badge"
 	desc = "Плотно сшитая круглая нашивка из желто-оранжевого бархата, по центру красуется то ли корона, то ли головка сыра. Слегка отдает запахом Монтерей Джека."
@@ -1333,14 +1278,12 @@
 	materials = list(MAT_METAL = 300, MAT_GOLD = 200)
 	w_class = WEIGHT_CLASS_TINY
 
-
 /obj/item/clothing/accessory/medal/smile/attack_self(mob/user)
 	. = ..()
 	if(.)
 		return .
 	if(prob(5))
 		user.emote("smile")
-
 
 /obj/item/clothing/accessory/medal/smile/examine(mob/user)
 	. = ..()

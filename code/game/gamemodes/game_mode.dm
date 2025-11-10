@@ -222,13 +222,11 @@
 
 	return FALSE
 
-
 /**
  * Attempts to select players for special roles the mode might have.
  */
 /datum/game_mode/proc/pre_setup()
 	return TRUE
-
 
 /**
  * Everyone should now be on the station and have their normal gear. This is the place to give the special roles extra things.
@@ -246,7 +244,6 @@
 	GLOB.start_state.count()
 	return TRUE
 
-
 /datum/game_mode/proc/set_mode_in_db()	// I wonder what this could do guessing by the name
 	if(SSticker?.mode && SSdbcore.IsConnected())
 		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
@@ -257,13 +254,11 @@
 		query_round_game_mode.warn_execute()
 		qdel(query_round_game_mode)
 
-
 /**
  * Called by the gameticker.
  */
 /datum/game_mode/process(wait)
 	return PROCESS_KILL
-
 
 /**
  * Called by the gameticker.
@@ -318,7 +313,6 @@
 						messenger.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
-
 /**
  * Check to be called by ticker
  */
@@ -328,13 +322,11 @@
 
 	return FALSE
 
-
 /**
  * This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
  */
 /datum/game_mode/proc/cleanup()
 	return
-
 
 /datum/game_mode/proc/declare_completion()
 	var/clients = 0
@@ -439,7 +431,6 @@
 
 	return FALSE
 
-
 /**
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
@@ -530,7 +521,6 @@
 			continue
 		. += AI.mind
 
-
 /// All the checks required to find baseline human being
 /proc/is_player_station_relevant(mob/living/carbon/human/player)
 	if(QDELING(player))
@@ -558,10 +548,8 @@
 		return FALSE
 	return TRUE	// congratulations, you are normal!
 
-
 /datum/game_mode/proc/latespawn(mob/player)
 	return
-
 
 /datum/game_mode/proc/num_players()
 	. = 0
@@ -569,20 +557,17 @@
 		if(player.client && player.ready)
 			.++
 
-
 /proc/num_station_players()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(is_player_station_relevant(player))
 			.++
 
-
 /datum/game_mode/proc/num_players_started()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.client)
 			.++
-
 
 /**
  * Keeps track of all living heads.
@@ -595,7 +580,6 @@
 		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
-
 
 /**
  * Keeps track of all heads.
@@ -611,7 +595,6 @@
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
-
 /**
  * Keeps track of all living security members.
  */
@@ -622,7 +605,6 @@
 
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
-
 
 /**
  * Keeps track of all  security members.
@@ -637,14 +619,11 @@
 		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
-
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return FALSE
 
-
 /datum/game_mode/New()
 	newscaster_announcements = pick(GLOB.newscaster_standard_feeds)
-
 
 /**
  * Reports player logouts.
@@ -661,7 +640,6 @@
 					break
 			if(!found)
 				msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (<font color='#ffcc00'><b>Disconnected</b></font>)\n"
-
 
 		if(mob_living.ckey && mob_living.client)
 			if(mob_living.client.inactivity >= (ROUNDSTART_LOGOUT_REPORT_TIME / 2))	//Connected, but inactive (alt+tabbed or something)
@@ -712,7 +690,6 @@
 		if(check_rights(R_ADMIN, FALSE, mob))
 			to_chat(mob, msg)
 
-
 /**
  * Announces objectives/generic antag text.
  */
@@ -725,7 +702,6 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-
 /proc/show_objectives(datum/mind/player)
 	if(!player?.current)
 		return
@@ -736,10 +712,8 @@
 		to_chat(player.current, "<b>Objective #[obj_count]</b>: [objective.explanation_text]")
 		obj_count++
 
-
 /proc/get_nuke_code()
 	return GLOB.nuke_codes[/obj/machinery/nuclearbomb]
-
 
 /proc/get_nuke_status()
 	var/nuke_status = NUKE_MISSING
@@ -749,7 +723,6 @@
 			if(bomb.core)
 				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
-
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
@@ -791,7 +764,6 @@
 
 	return text
 
-
 /proc/printeventplayer(datum/mind/player)
 	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>"
 	if(player.special_role != SPECIAL_ROLE_EVENTMISC)
@@ -810,7 +782,6 @@
 
 	return text
 
-
 /proc/printobjectives(datum/mind/player)
 	var/list/objective_parts = list()
 
@@ -823,7 +794,6 @@
 		count++
 
 	return objective_parts.Join("<br>")
-
 
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()
@@ -849,7 +819,6 @@
 	if(length(station_goals))
 		send_station_goals_message()
 
-
 /datum/game_mode/proc/send_station_goals_message()
 
 	var/list/goals = list()
@@ -865,7 +834,6 @@
 
 	log_game("Station goals at round start were: [english_list(goals)].")
 
-
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/datum/station_goal/goal in station_goals)
 		if(!goal)
@@ -873,12 +841,10 @@
 
 		goal.print_result()
 
-
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, "hudevent")
-
 
 /datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]

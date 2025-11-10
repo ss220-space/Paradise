@@ -141,7 +141,6 @@
 	else
 		to_chat(src, span_danger("Вам нужно стоять смирно!"))
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend
 	name = "Быстрое исцеление"
 	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
@@ -154,16 +153,13 @@
 	var/list/possible_cures = list("bleedings","fractures","infections","embedded","damaged_organs")
 	var/mob/living/carbon/human/summoner = null
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/New(mob/living/carbon/human/summoned_by)
 	. = ..()
 	summoner = summoned_by
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/Destroy()
 	summoner = null
 	return ..()
-
 
 /obj/effect/proc_holder/spell/guardian_quickmend/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
@@ -173,10 +169,8 @@
 	T.try_auto_target = TRUE
 	return T
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/valid_target(target, user)
 	return target == summoner
-
 
 /obj/effect/proc_holder/spell/guardian_quickmend/cast(list/targets, mob/user)
 	for(var/target in targets)

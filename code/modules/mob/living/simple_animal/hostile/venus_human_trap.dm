@@ -33,7 +33,6 @@
 	QDEL_LIST(vines)
 	return ..()
 
-
 /mob/living/simple_animal/hostile/venus_human_trap
 	name = "venus human trap"
 	desc = "Now you know how the fly feels."
@@ -90,7 +89,6 @@
 
 						break //only take 1 new victim per cycle
 
-
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
 	for(var/turf/T as anything in get_line(src,target))
 		if(T.density)
@@ -101,7 +99,6 @@
 	var/dist = get_dist(src,the_target)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/reacting/vine)
 	the_target.attack_animal(src)
-
 
 /mob/living/simple_animal/hostile/venus_human_trap/CanAttack(atom/the_target)
 	. = ..()

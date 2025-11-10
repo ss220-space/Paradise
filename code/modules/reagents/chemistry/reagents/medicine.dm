@@ -317,7 +317,6 @@
 			human.set_heartattack(TRUE)
 	return list(0, update_flags)
 
-
 /datum/reagent/medicine/traneksam_acid/reaction_mob(mob/living/user, method=REAGENT_TOUCH, volume, show_message = TRUE)
 	if(volume < 10)
 		return ..()
@@ -345,7 +344,6 @@
 	color = "#5010a3"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "антибиотиков"
-
 
 /datum/reagent/medicine/neuromatin/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -765,17 +763,14 @@
 	harmless = FALSE
 	taste_description = "приятного оцепенения"
 
-
 /datum/reagent/medicine/morphine/on_mob_add(mob/living/M)
 	. = ..()
 	if(isslime(M))
 		M.add_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
 
-
 /datum/reagent/medicine/morphine/on_mob_delete(mob/living/M)
 	. = ..()
 	M.remove_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
-
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1017,7 +1012,6 @@
 	color = "#5096C8"
 	taste_description = "очищения"
 
-
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	if(M.mind && M.mind.assigned_role == "Cluwne") // HUNKE
 		return ..()
@@ -1034,7 +1028,6 @@
 	M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
 	return ..()
-
 
 /datum/reagent/medicine/antihol
 	name = "Антиголь"
@@ -1089,12 +1082,10 @@
 
 	return ..() | update_flags
 
-
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
 	. = ..()
 	if(absorption_applied)	// somehow???
 		M.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
-
 
 /datum/reagent/medicine/stimulative_agent
 	name = "Стимулирующий агент"
@@ -1121,17 +1112,14 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 	return ..() | update_flags
 
-
 /datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 
-
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
-
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1189,7 +1177,6 @@
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
 			M.AdjustBlood(-rand(1, 2))
 	return list(effect, update_flags)
-
 
 /datum/reagent/medicine/teporone
 	name = "Тепорон"
@@ -1390,7 +1377,6 @@
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol/synthanol, 8, 0, 1)
 	return ..() | update_flags
 
-
 //Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
 /datum/reagent/medicine/bicaridine
 	name = "Бикаридин"
@@ -1431,7 +1417,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustFireLoss(2, FALSE)
 	return ..() | update_flags
-
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Кровь Земли"

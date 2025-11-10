@@ -9,7 +9,6 @@
 	)
 	possible_locs = list(BODY_ZONE_HEAD)
 
-
 /datum/surgery_step/reshape_face
 	name = "изменение черт лица"
 	begin_sound = 'sound/surgery/scalpel1.ogg'
@@ -80,7 +79,6 @@
 		)
 	target.update_hud_set()
 	return SURGERY_STEP_CONTINUE
-
 
 /datum/surgery_step/reshape_face/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)

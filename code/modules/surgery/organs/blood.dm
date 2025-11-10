@@ -63,7 +63,6 @@
 	if(target.stat != DEAD && (bleeding_amount - bleedsuppress) > 0)
 		to_chat(target, span_warning("Повязка полностью пропиталась кровью и больше не ослабляет кровотечение."))
 
-
 /obj/item/organ/external/proc/heal_bleeding(mob/living/user, mob/living/carbon/human/target, bleeding_heal_amount, brute_damage)
 	bleeding_amount = max(0, bleeding_amount - bleeding_heal_amount)
 	if(brute_damage > 0)
@@ -216,7 +215,6 @@
 	var/temperature_percent = clamp((bodytemperature - T0C) / (BODYTEMP_NORMAL * 0.75 - T0C), 0, 1)
 	return BLOODLOSS_SPEED_BY_TEMP_MIN + (BLOODLOSS_SPEED_BY_TEMP_MAX - BLOODLOSS_SPEED_BY_TEMP_MIN) * temperature_percent
 
-
 /// Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)
 	if(!blood_volume)
@@ -235,7 +233,6 @@
 	else
 		add_splatter_floor(loc, small_drip = TRUE)
 
-
 /mob/living/carbon/human/bleed(amt)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
@@ -247,7 +244,6 @@
 	if(!istype(blood_reagent) || !isturf(loc))
 		return .
 	blood_reagent.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-
 
 /mob/living/carbon/proc/bleed_internal(amt)
 	if(!blood_volume)
@@ -266,7 +262,6 @@
 	// Must be bleeding internally in more than one place to have a chance at this.
 	if(amt >= 1 && prob(5 * amt))
 		vomit(mode = VOMIT_BLOOD)
-
 
 /mob/living/carbon/human/bleed_internal(amt)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
@@ -412,17 +407,14 @@
 
 	return blood_data
 
-
 //get the id of the substance this mob use as blood.
 /mob/proc/get_blood_id()
 	return ""
-
 
 /mob/living/simple_animal/get_blood_id()
 	if(blood_volume)
 		return "blood"
 	return ""
-
 
 /mob/living/carbon/human/get_blood_id()
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
@@ -430,7 +422,6 @@
 	if(HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))	//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
 	return "blood"
-
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
@@ -509,7 +500,6 @@
 	if(shift_x || shift_y)
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
-
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!T)

@@ -55,7 +55,6 @@
 					var/mob/living/carbon/human/catface = affected_mob
 					catface?.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
-
 /datum/disease/virus/kingstons_advanced
 	name = "Улучшенный Синдром Кингстона"
 	agent = "Бактерии AMB45DR"
@@ -118,7 +117,6 @@
 						H.visible_message(span_danger("[H.declent_ru(ACCUSATIVE)] царапает свою кожу!"), span_userdanger("Вы царапаете свою кожу, чтобы избавиться от зуда!"))
 						H.adjustBruteLoss(5)
 						affected_mob.Stun(rand(2 SECONDS, 4 SECONDS))
-
 
 /datum/disease/virus/kingstons_advanced/proc/make_sound(mob/living/carbon/human/H)
 	if(!istype(H))

@@ -69,7 +69,9 @@
  */
 /datum/tgui_panel/proc/on_initialize_timed_out()
 	// Currently does nothing but sending a message to old chat.
-	SEND_TEXT(client, span_userdanger("<h1>Failed to load fancy chat, click <a href='byond://?src=[UID()];reload_tguipanel=1'>HERE</a> to attempt to reload it.</h1>"))// users often miss this text, thinking it is wiki-page, so this text should be BIG
+	// Users often miss this text, thinking it is wiki-page, so this text should be BIG
+	SEND_TEXT(client, span_userdanger("<h1>Failed to load fancy chat, click <a href='byond://?src=[UID()];reload_tguipanel=1'>HERE</a> to attempt to reload it.<br>\
+	<a href='https://discord.com/channels/617003227182792704/756409070721957918/1435670788748607599'>ИНСТРУКЦИЯ</a> из Discord по восстановлению работы чата, если перезагрузка не помогает!</h1>"))
 
 /**
  * private

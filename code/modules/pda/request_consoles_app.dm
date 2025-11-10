@@ -21,7 +21,6 @@
 			department_list -= console.department
 			console.connected_apps |= src
 
-
 /datum/data/pda/app/request_console/Destroy()
 	selected_console = null
 	for(var/obj/machinery/requests_console/console as anything in possible_consoles)
@@ -41,7 +40,6 @@
 	var/rendered_message = "Received on [source.name] : [message]"
 	if(!QDELETED(pda) && !consoles_mute[source])
 		notify(rendered_message)
-
 
 /datum/data/pda/app/request_console/update_ui(mob/user, list/data)
 	if(selected_console)
@@ -80,15 +78,12 @@
 			login()
 	SStgui.update_uis(pda)
 
-
 /datum/data/pda/app/request_console/on_id_updated()
 	login()
-
 
 /datum/data/pda/app/request_console/proc/login()
 	if(pda.id && selected_console)
 		selected_console.login_console(selected_console.screen, pda.id, pda, usr)
-
 
 /datum/data/pda/app/request_console/stamp_act(obj/item/stamp/stamp)
 	if(!..() || !selected_console)
@@ -149,7 +144,6 @@
 		RC_MECHANIC,
 	)
 	ore_message_reciver_dep = RC_MECHANIC
-
 
 /datum/data/pda/app/request_console/detective
 	department_list = list(

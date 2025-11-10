@@ -1,9 +1,7 @@
 /datum/event/dust/meaty
 
-
 /datum/event/dust/meaty/setup()
 	qnty = rand(45,125)
-
 
 /datum/event/dust/meaty/announce()
 	if(prob(16))
@@ -17,7 +15,6 @@
 			new_title = "Мясориты.",
 			new_sound = 'sound/AI/meteors.ogg'
 		)
-
 
 /datum/event/dust/meaty/start()
 	while(qnty-- > 0)

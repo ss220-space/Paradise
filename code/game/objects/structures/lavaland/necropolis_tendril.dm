@@ -89,7 +89,6 @@ GLOBAL_LIST_EMPTY(tendrils)
 	new /obj/structure/closet/crate/necropolis/tendril(loc)
 	return ..()
 
-
 /obj/structure/spawner/lavaland/Destroy(force)
 	give_awards()
 	GLOB.tendrils -= src

@@ -48,7 +48,6 @@
 #define MINIGUN_ATTACK 1
 #define MINIGUN_HEAL 2
 
-
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 4),
@@ -102,7 +101,6 @@ GLOBAL_LIST_INIT(minigun_spells, list(
 	new /datum/spell_enchant("Attack sphere", MINIGUN_ATTACK, time = 3),
 	new /datum/spell_enchant("Heal sphere", MINIGUN_HEAL, time = 3),
 ))
-
 
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200

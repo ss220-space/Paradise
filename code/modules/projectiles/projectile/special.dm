@@ -34,6 +34,7 @@
 /obj/projectile/bullet/gyro
 	name ="explosive bolt"
 	icon_state= "bolter"
+	ricochets_max = 0
 
 /obj/projectile/bullet/gyro/get_ru_names()
 	return list(
@@ -55,6 +56,7 @@
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
 	damage = 60
+	ricochets_max = 0
 
 /obj/projectile/bullet/a40mm/get_ru_names()
 	return list(
@@ -455,6 +457,7 @@
 	name ="explosive slug"
 	damage = 20
 	knockdown = 5 SECONDS
+	ricochets_max = 0
 
 /obj/projectile/bullet/frag12/get_ru_names()
 	return list(

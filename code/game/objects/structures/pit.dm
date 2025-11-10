@@ -16,7 +16,6 @@
 /obj/structure/pit/AllowDrop()
 	return TRUE
 
-
 /obj/structure/pit/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -69,10 +68,8 @@
 
 	return ..()
 
-
 /obj/structure/pit/update_icon_state()
 	icon_state = "pit[open][icon_floor_type]"
-
 
 /obj/structure/pit/Initialize(mapload)
 	. = ..()
@@ -238,7 +235,6 @@
 
 	message = "Здесь упокоен [nam], [born] - [died]."
 	update_appearance(UPDATE_DESC)
-
 
 /obj/structure/gravemarker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

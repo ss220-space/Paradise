@@ -91,7 +91,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
 
-
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(slot != ITEM_SLOT_MASK)
@@ -104,7 +103,6 @@
 	if(user.has_pain())
 		// We have to use timer, since an item is still on user, while this proc is called
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, emote), "scream"), 0)
-
 
 /obj/item/clothing/mask/muzzle/tapegag/thick
 	name = "thick tape gag"
@@ -145,11 +143,9 @@
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
-
 /obj/item/clothing/mask/muzzle/safety/shock/Destroy()
 	. = ..()
 	QDEL_NULL(proximity_monitor)
-
 
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/I, mob/user, params)
 	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
@@ -172,7 +168,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/item/clothing/mask/muzzle/safety/shock/screwdriver_act(mob/user, obj/item/I)
 	if(!trigger)
@@ -210,7 +205,6 @@
 	if(trigger)
 		trigger.HasProximity(AM)
 
-
 /obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M, list/message_pieces)
 	if(trigger)
 		trigger.hear_talk(M, message_pieces)
@@ -218,8 +212,6 @@
 /obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M, msg)
 	if(trigger)
 		trigger.hear_message(M, msg)
-
-
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
@@ -312,7 +304,6 @@
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 
-
 /obj/item/clothing/mask/redscarf
 	name = "red scarf"
 	desc = "A red and white checkered neck scarf."
@@ -336,7 +327,6 @@
 	item_state = "pig"
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
-
 
 /obj/item/clothing/mask/horsehead
 	name = "horse head mask"
@@ -527,7 +517,6 @@
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
-
 // Bandanas
 /obj/item/clothing/mask/bandana
 	name = "bandana"
@@ -557,16 +546,13 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	dying_key = DYE_REGISTRY_BANDANA
 
-
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
-
 
 /obj/item/clothing/mask/bandana/adjustmask(mob/living/user)
 	. = ..()
 	if(.)
 		undyeable = up ? TRUE : initial(undyeable)
-
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
@@ -653,11 +639,9 @@
 	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 
-
 /obj/item/clothing/mask/cursedclown/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot, initial)
 	. = ..()

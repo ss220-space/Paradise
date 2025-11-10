@@ -21,7 +21,6 @@
 	/// Whether the component works when the movable isn't directly located on a turf.
 	var/works_in_containers
 
-
 /datum/component/connect_range/Initialize(atom/tracked, list/connections, range, works_in_containers = TRUE)
 	if(!isatom(tracked) || isarea(tracked) || range < 0)
 		return COMPONENT_INCOMPATIBLE
@@ -30,11 +29,9 @@
 	set_tracked(tracked)
 	src.works_in_containers = works_in_containers
 
-
 /datum/component/connect_range/Destroy()
 	set_tracked(null)
 	return ..()
-
 
 /datum/component/connect_range/InheritComponent(datum/component/component, original, atom/tracked, list/connections, range, works_in_containers)
 	// Not equivalent. Checks if they are not the same list via shallow comparison.
@@ -52,7 +49,6 @@
 	//Re-register the signals with the new settings.
 	update_signals(src.tracked)
 
-
 /datum/component/connect_range/proc/set_tracked(atom/new_tracked)
 	if(tracked) //Unregister the signals from the old tracked and its surroundings
 		unregister_signals(isturf(tracked) ? tracked : tracked.loc, turfs)
@@ -68,11 +64,9 @@
 	RegisterSignal(tracked, COMSIG_QDELETING, PROC_REF(handle_tracked_qdel))
 	update_signals(tracked)
 
-
 /datum/component/connect_range/proc/handle_tracked_qdel()
 	SIGNAL_HANDLER
 	qdel(src)
-
 
 /datum/component/connect_range/proc/update_signals(atom/target, atom/old_loc)
 	var/turf/current_turf = get_turf(target)
@@ -108,7 +102,6 @@
 		for(var/signal in connections)
 			parent.RegisterSignal(target_turf, signal, connections[signal])
 
-
 /datum/component/connect_range/proc/unregister_signals(atom/location, list/remove_from)
 	//The location is null or is a container and the component shouldn't have register signals on it
 	if(isnull(location) || (!works_in_containers && !isturf(location)))
@@ -122,7 +115,6 @@
 		return
 	for(var/turf/target_turf as anything in remove_from)
 		parent.UnregisterSignal(target_turf, connections)
-
 
 /datum/component/connect_range/proc/on_moved(atom/movable/movable, atom/old_loc)
 	SIGNAL_HANDLER

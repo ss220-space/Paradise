@@ -6,7 +6,6 @@
 	var/list/mount_reqs = list() //can contain simfloor, nospace. Used in try_build to see if conditions are needed, then met
 	usesound = 'sound/items/deconstruct.ogg'
 
-
 /obj/item/mounted/frame/wrench_act(mob/living/user, obj/item/I)
 	if(!sheets_refunded)
 		return FALSE
@@ -15,7 +14,6 @@
 		return .
 	new /obj/item/stack/sheet/metal(drop_location(), sheets_refunded)
 	qdel(src)
-
 
 /obj/item/mounted/frame/try_build(turf/on_wall, mob/user)
 	if(..()) //if we pass the parent tests

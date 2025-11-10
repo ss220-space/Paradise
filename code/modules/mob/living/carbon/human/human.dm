@@ -27,7 +27,6 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 
-
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
 	QDEL_LIST(bodyparts)
@@ -36,10 +35,8 @@
 	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
 	return ..()
 
-
 /mob/living/carbon/human/OpenCraftingMenu()
 	handcrafting.ui_interact(src)
-
 
 /mob/living/carbon/human/prepare_data_huds()
 	//...sec hud images...
@@ -48,7 +45,6 @@
 	sec_hud_set_security_status()
 	//...and display them.
 	add_to_all_human_data_huds()
-
 
 /mob/living/carbon/human/dummy
 	real_name = "Тестовая кукла"
@@ -409,7 +405,6 @@
 		return UNKNOWN_NAME_RUS
 	return real_name
 
-
 /**
  * Gets name from ID or PDA itself, ID inside PDA doesn't matter.
  * Useful when player is being seen by other mobs.
@@ -428,7 +423,6 @@
 		return wallet.front_id ? wallet.front_id.registered_name : if_no_id
 
 	return if_no_id	//to prevent null-names making the mob unclickable
-
 
 /// Gets ID card object from hands only
 /mob/living/carbon/human/proc/get_id_from_hands()
@@ -452,7 +446,6 @@
 	dna.species.update_sight(src)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
 
 /// Calculates the siemens coeff based on clothing and species, can also restart hearts.
 /mob/living/carbon/human/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -574,7 +567,6 @@
 
 			if(!found_record)
 				to_chat(usr, span_warning("Информация о выбранном гуманоиде отсутствует в базе данных."))
-
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
@@ -733,7 +725,6 @@
 
 	. = ..()
 
-
 /// check_eye_prot()
 /// Returns a number between -1 to 2
 /mob/living/carbon/human/check_eye_prot()
@@ -750,7 +741,6 @@
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
 		eye_prot += EFP.flash_protect
 	return eye_prot
-
 
 /mob/living/carbon/human/check_ear_prot()
 	. = ..()
@@ -774,8 +764,6 @@
 		if(head.item_flags & BANGPROTECT_MINOR)
 			return HEARING_PROTECTION_MINOR
 
-
-
 /mob/living/carbon/human/abiotic(full_body = FALSE)
 	if(full_body && ((src.l_hand && !(src.l_hand.item_flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.item_flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
 		return TRUE
@@ -784,7 +772,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /mob/living/carbon/human/proc/check_dna()
 	dna.check_integrity(src)
@@ -828,7 +815,6 @@
 	if(!. && error_msg && user)
 		balloon_alert(user, "закрыто чем-то плотным!")
 
-
 /mob/living/carbon/human/check_obscured_slots(check_transparent)
 	. = ..()
 
@@ -852,7 +838,6 @@
 		. |= ITEM_SLOT_EYES
 	if(hidden_flags & HIDEHEADSETS)
 		. |= ITEM_SLOT_EARS
-
 
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
@@ -881,7 +866,6 @@
 	else
 		germ_level += n
 
-
 /**
  * Regenerate missing limbs/organs with defined in species datum.
  */
@@ -904,7 +888,6 @@
 
 	recalculate_limbs_status()
 	return TRUE
-
 
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
@@ -947,13 +930,11 @@
 		custom_pain("Вы чувствуете острую боль у себя в груди!")
 		L.damage = L.min_bruised_damage
 
-
 /mob/living/carbon/human/cuff_resist(obj/item/I, cuff_break = FALSE)
 	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";РААААА!", ";УУУГГГГХХХ!", ";РЫЫЫЫЫЫ!", ";УААААААА!"))
 		return ..(I, cuff_break = TRUE)
 	return ..()
-
 
 /mob/living/carbon/human/generate_name()
 	name = dna.species.get_random_name(gender)
@@ -1002,7 +983,6 @@
 		to_chat(usr, span_notice("[self ? "Ваш пульс" : "Пульс [declent_ru(ACCUSATIVE)]"] – [src.get_pulse(GETPULSE_HAND)]."))
 		balloon_alert(usr, "пульс замерен")
 
-
 /mob/living/carbon/human/verb/begin_strip()
 	set name = "Обыскать"
 	set desc = "Обыскать цель."
@@ -1037,7 +1017,6 @@
 	dna.tts_seed_dna = tts_seed
 	sync_organ_dna()
 
-
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
 		set_species(new_dna.species.type, retain_damage = TRUE, transformation = FALSE, keep_missing_bodyparts = TRUE)
@@ -1053,7 +1032,6 @@
 	sync_organ_dna()
 	UpdateAppearance()
 	update_hud_set()
-
 
 /**
  * Change a mob's species.
@@ -1294,7 +1272,6 @@
 
 	return species_check
 
-
 /mob/living/carbon/human/get_default_language()
 	if(default_language)
 		return default_language
@@ -1344,7 +1321,7 @@
 	/// tweeter style
 	var/max_length = bloody_hands * 30
 
-	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина – [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
+	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина — [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
 	if(origin != loc)
 		balloon_alert(src, "не двигайтесь во время письма!")
 		return
@@ -1457,7 +1434,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(judgebot.check_for_weapons(s_store))
 			threatcount += 4
 
-
 	//Check for arrest warrant
 	if(judgebot.check_records)
 		var/perpname = get_visible_name(add_id_name = FALSE)
@@ -1476,7 +1452,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	//Check for dresscode violations
 	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 		threatcount += 2
-
 
 	//Mindshield implants imply slight trustworthiness
 	if(ismindshielded(src))
@@ -1567,7 +1542,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		H.receiving_cpr = FALSE
 		balloon_alert(src, "не двигайтесь во время слр!")
 
-
 /mob/living/carbon/human/has_mutated_organs()
 	for(var/obj/item/organ/external/E as anything in bodyparts)
 		if(E.status & ORGAN_MUTATED)
@@ -1576,7 +1550,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/InCritical()
 	return (health <= HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS)
-
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(dna.species.has_fine_manipulation || ischangeling(src) || BorerControlling())
@@ -1658,10 +1631,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return ..()
 
-
 /mob/living/carbon/human/proc/get_age_pitch(tolerance = 5)
 	return dna?.species.get_emote_pitch(src, tolerance) || 1.0 + 0.5 * (30 - age) / 80 + (0.01 * rand(-tolerance, tolerance))
-
 
 /mob/living/carbon/human/get_access_locations()
 	. = ..()
@@ -1669,7 +1640,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
-
 
 /mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
@@ -1687,7 +1657,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
 		to_chat(src, "[ninja.no_guns_message]")
 		return FALSE
-
 
 /mob/living/carbon/human/proc/change_icobase(new_icobase, new_deform, owner_sensitive)
 	for(var/obj/item/organ/external/O as anything in bodyparts)
@@ -1792,7 +1761,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	..()
 
-
 /mob/living/carbon/human/vv_get_dropdown()
 	. = ..()
 	. += "---"
@@ -1806,20 +1774,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	.["Make superhero"] = "byond://?_src_=vars;makesuper=[UID()]"
 	. += "---"
 
-
 /mob/living/carbon/human/adjust_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	try_update_nutrition_level()
 
-
 /mob/living/carbon/human/set_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	try_update_nutrition_level()
-
 
 /mob/living/carbon/human/proc/try_update_nutrition_level()
 	update_nutrition_hud()
@@ -1844,7 +1809,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE)
 
-
 /// Updates nutrition slowdown both for component users and species with TRAIT_NO_NUTRITION_EFFECTS
 /mob/living/carbon/human/proc/update_nutrition_slowdown()
 	if(!HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
@@ -1856,7 +1820,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 
 	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
-
 
 /mob/living/carbon/human/proc/special_post_clone_handling(transplantated = FALSE)
 	special_check_for_transplantation()
@@ -1886,7 +1849,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100
 
-
 /mob/living/carbon/human/fakefire()
 	ADD_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
 	update_fire()
@@ -1898,7 +1860,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
 		force_gene_block(block, FALSE)
-
 
 /mob/living/carbon/human/get_spooked()
 	to_chat(src, span_whisper("[pick(GLOB.boo_phrases)]"))
@@ -1919,7 +1880,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
 	return min(health, maxHealth) + shock_reduction
 
-
 /**
  * Helper to get the mobs runechat colour span
  *
@@ -1933,7 +1893,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(arm)
 		arm.attack_self(src)
 	return ..()
-
 
 /mob/living/carbon/human/verb/pose()
 	set name = "Задать позу"
@@ -1960,7 +1919,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		visible_message(span_notice("[user] разделыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
 		gib()
 
-
 /mob/living/carbon/human/proc/update_fractures_slowdown()
 	var/static/list/possible_limbs = list(
 		BODY_ZONE_L_LEG,
@@ -1980,7 +1938,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
-
 
 /mob/living/carbon/human/can_pull(hand_to_check, supress_message = FALSE)
 	if(pull_hand == PULL_WITHOUT_HANDS)

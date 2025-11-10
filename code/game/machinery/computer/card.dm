@@ -152,7 +152,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
 
-
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !istype(id_card))
 		return ..()
@@ -173,7 +172,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	SStgui.update_uis(src)
 	attack_hand(user)
-
 
 //Check if you can't touch a job in any way whatsoever
 /obj/machinery/computer/card/proc/job_blacklisted_full(datum/job/job)
@@ -781,7 +779,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/delcount = SSjobs.delete_log_records(scan.registered_name, FALSE)
 			if(delcount)
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
-
 
 /obj/machinery/computer/card/centcom
 	name = "CentComm identification computer"

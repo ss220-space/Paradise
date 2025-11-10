@@ -147,11 +147,9 @@
 	. = ..()
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/fracture(silent = FALSE)
 	. = ..()
@@ -159,13 +157,11 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/apply_splint()
 	. = ..()
@@ -173,13 +169,11 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
@@ -251,7 +245,6 @@
 		owner.set_usable_legs(owner.usable_legs + 1, special)
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.set_num_legs(user.num_legs - 1)
@@ -261,13 +254,11 @@
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
-
 /obj/item/organ/external/foot/fracture(silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/foot/mend_fracture()
 	. = ..()
@@ -275,20 +266,17 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/foot/necrotize(silent = FALSE)
 	. = ..()
@@ -298,7 +286,6 @@
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs - 1)
 
-
 /obj/item/organ/external/foot/unnecrotize()
 	. = ..()
 	if(isnull(.) || !owner)
@@ -306,7 +293,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1)
-
 
 /obj/item/organ/external/foot/mutate(silent = FALSE)
 	. = ..()
@@ -316,7 +302,6 @@
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs - 1)
 
-
 /obj/item/organ/external/foot/unmutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -324,7 +309,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1)
-
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
@@ -341,7 +325,6 @@
 			owner.AdjustWeakened(8 SECONDS)
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
-
 
 /obj/item/organ/external/foot/right
 	name = "right foot"
@@ -396,7 +379,6 @@
 	if(is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
 
-
 /obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.set_num_hands(user.num_hands - 1)
@@ -406,7 +388,6 @@
 		user.drop_item_ground(user.gloves, force = TRUE)
 		user.drop_item_ground(limb_zone == BODY_ZONE_PRECISE_L_HAND ? user.l_hand : user.r_hand, force = TRUE)
 
-
 /obj/item/organ/external/hand/necrotize(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -414,7 +395,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
-
 
 /obj/item/organ/external/hand/unnecrotize()
 	. = ..()
@@ -424,7 +404,6 @@
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
-
 /obj/item/organ/external/hand/mutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -433,7 +412,6 @@
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
 
-
 /obj/item/organ/external/hand/unmutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -441,7 +419,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
-
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
@@ -452,7 +429,6 @@
 		owner.drop_item_ground(hand)
 		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, выбрасывая удерживаемый предмет!"))
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% удерживаемый предмет,, %(его,её,его,их)% кисть выходит из строя!")
-
 
 /obj/item/organ/external/hand/right
 	name = "right hand"
@@ -539,11 +515,9 @@
 		owner.update_markings()
 	. = ..()
 
-
 /obj/item/organ/external/head/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	name = limb_zone
 	. = ..()
-
 
 /obj/item/organ/external/head/external_receive_damage(
 	brute = 0,
@@ -559,7 +533,6 @@
 	. = ..()
 	if(brute_dam + burn_dam > 50)
 		disfigure(silent)
-
 
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()

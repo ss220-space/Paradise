@@ -98,7 +98,6 @@
 		PREPOSITIONAL = "зараженной паутине",
 	)
 
-
 /obj/structure/spider/terrorweb/white/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!IsTSInfected(C) && ishuman(C))

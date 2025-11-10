@@ -101,7 +101,6 @@
 	if(!QDELETED(src))
 		..()
 
-
 /obj/item/reagent_containers/proc/add_lid()
 	if(has_lid)
 		container_type ^= REFILLABLE | DRAINABLE
@@ -121,12 +120,10 @@
 			balloon_alert(user, "крышка снята")
 			remove_lid()
 
-
 /obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())

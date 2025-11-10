@@ -13,23 +13,19 @@
 	QDEL_NULL(pockets)
 	return ..()
 
-
 /obj/item/clothing/suit/storage/attack_hand(mob/user)
 	if(!pockets || !pockets.handle_attack_hand(user))
 		return ..()
 
-
 /obj/item/clothing/suit/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!pockets || !pockets.handle_mousedrop(usr, over_object))
 		return ..()
-
 
 /obj/item/clothing/suit/storage/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pockets || istype(I, /obj/item/radio/spy_spider))
 		return .
 	return pockets.attackby(I, user, params)
-
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	..()

@@ -73,7 +73,6 @@
 		new /obj/item/reagent_containers/food/snacks/donut(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/storage/fancy/donut_box/empty/populate_contents()
 	update_icon(UPDATE_OVERLAYS)
 	return

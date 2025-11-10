@@ -33,7 +33,6 @@
 	to_chat(user, span_notice("You transfer the contents of \the [supplied] into \the [src]."))
 	return 1
 
-
 /obj/item/sample/print/merge_evidence(obj/item/sample/supplied, mob/user)
 	if(!supplied.evidence || !length(supplied.evidence))
 		return 0
@@ -46,7 +45,6 @@
 	to_chat(user, span_notice("You overlay \the [src] and \the [supplied], combining the print records."))
 	return 1
 
-
 /obj/item/sample/attackby(obj/item/I, mob/user, params)
 	if(I.type == type)
 		if(!user.can_unEquip(I) || !merge_evidence(I, user))
@@ -57,7 +55,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/sample/fibers
 	name = "fiber bag"
@@ -86,7 +83,6 @@
 	evidence[fullprint] = fullprint
 	name = ("[initial(name)] (\the [H])")
 	icon_state = "fingerprint1"
-
 
 /obj/item/sample/print/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
@@ -125,7 +121,6 @@
 	name = "[initial(name)] ([target])"
 	icon_state = "fingerprint1"
 
-
 /obj/item/sample/print/copy_evidence(atom/supplied)
 	if(supplied.fingerprints_time && length(supplied.fingerprints_time))
 		evidence = supplied.fingerprints_time.Copy()
@@ -157,7 +152,6 @@
 		to_chat(user, span_warning("You are unable to locate any [evidence_type]s on \the [A]."))
 		. = ..()
 
-
 /obj/item/forensics/sample_kit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
@@ -172,7 +166,6 @@
 
 	afterattack(over_object, user, TRUE, params)
 	return TRUE
-
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint powder"

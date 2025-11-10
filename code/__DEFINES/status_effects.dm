@@ -9,7 +9,6 @@
 
 #define STATUS_EFFECT_REFRESH 3 // if it only allows one, and new instances just instead refresh the timer
 
-
 ///Processing flags - used to define the speed at which the status will work
 ///This is fast - 0.2s between ticks (I believe!)
 #define STATUS_EFFECT_FAST_PROCESS 0
@@ -180,6 +179,7 @@
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
+#define STATUS_EFFECT_LUNGING /datum/status_effect/lunging
 
 #define STATUS_EFFECT_DROPNROLL /datum/status_effect/stop_drop_roll
 
