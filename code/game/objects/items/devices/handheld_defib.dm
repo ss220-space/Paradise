@@ -18,7 +18,7 @@
 	if(shocking)
 		icon_state = "[icon_base]-shock"
 		return
-	if(max_charges == 1)
+	if(max_charges == 1)  // yellow and syndicate defibrillator
 		icon_state = "[icon_base][charges == 0 ? "-off" : "-on"]"
 	else
 		icon_state = "[icon_base]-[charges]"
@@ -98,13 +98,14 @@
 /obj/item/handheld_defibrillator/advanced
 	name = "advanced handheld defibrillator"
 	desc = "Used to more effectively restart stopped hearts."  // TODO: перевод
-	icon_state = "defib-on"
-	item_state = "defib"
+	icon_state = "adv-defib-3"
+	item_state = "adv-defib"
+	icon_base = "adv-defib"
 	advanced = TRUE
 	charges = 3
 	max_charges = 3
 	charge_time = 70
 
-/obj/item/handheld_defibrillator/examine(mob/user)
+/obj/item/handheld_defibrillator/advanced/examine(mob/user)
 	. = ..()
 	. += span_notice("[src] has <b>[charges]</b> out of <b>[max_charges]</b> charges left.")
