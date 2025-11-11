@@ -35,12 +35,10 @@
 
 	SSmapping.make_maint_all_access()
 
-
 /datum/weather/rad_storm/can_weather_act(mob/living/mob_to_check)
 	if(!prob(40))
 		return FALSE
 	return ..()
-
 
 /datum/weather/rad_storm/weather_act(mob/living/target)
 	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
@@ -67,13 +65,15 @@
 
 	status_alarm(FALSE)
 	if(pre_maint_all_access)
-		GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
-										ANNOUNCE_ANOMALY_RU
+		GLOB.minor_announcement.announce(
+			message = "Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
+			new_title = ANNOUNCE_ANOMALY_RU
 		)
 		return
 
-	GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
-									ANNOUNCE_ANOMALY_RU
+	GLOB.minor_announcement.announce(
+		message = "Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
+		new_title = ANNOUNCE_ANOMALY_RU
 	)
 	addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
 

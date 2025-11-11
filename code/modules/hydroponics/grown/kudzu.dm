@@ -22,7 +22,7 @@
 	return S
 
 /obj/item/seeds/kudzu/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide..</span>")
+	user.visible_message(span_suicide("[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide.."))
 	plant(user)
 	return BRUTELOSS
 
@@ -45,12 +45,12 @@
 		add_fingerprint(user)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
-		
+
 	return ..()
 
 /obj/item/seeds/kudzu/attack_self(mob/user)
 	if(plant(user))
-		to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
+		to_chat(user, span_notice("You plant the kudzu. You monster."))
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()
@@ -67,7 +67,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == NEGATIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -75,7 +75,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == POSITIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -83,7 +83,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == MINOR_NEGATIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -98,7 +98,6 @@
 
 	if(S.has_reagent("holywater", 10))
 		adjust_potency(rand(15, -5))
-
 
 /obj/item/reagent_containers/food/snacks/grown/kudzupod
 	seed = /obj/item/seeds/kudzu

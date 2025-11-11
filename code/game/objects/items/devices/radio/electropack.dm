@@ -6,12 +6,9 @@
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
+	default_frequency = AIRLOCK_FREQ
 	var/code = 2
 	var/intensivity = TRUE
-
-/obj/item/radio/electropack/Initialize(mapload)
-	. = ..()
-	set_frequency(AIRLOCK_FREQ)
 
 /obj/item/radio/electropack/attack_hand(mob/user)
 	if(src == user.back)
@@ -28,7 +25,6 @@
 			S.part2 = null
 		master = null
 	return ..()
-
 
 /obj/item/radio/electropack/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/head/helmet))
@@ -57,7 +53,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)

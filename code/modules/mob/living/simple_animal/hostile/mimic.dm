@@ -66,7 +66,6 @@
 	else
 		icon_state = initial(icon_state)
 
-
 /mob/living/simple_animal/hostile/mimic/crate/FindTarget()
 	. = ..()
 	if(.)
@@ -79,7 +78,7 @@
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
 			C.Weaken(4 SECONDS)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+			C.visible_message(span_danger("\The [src] knocks down \the [C]!"), span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
@@ -197,7 +196,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if(knockdown_people && . && prob(15) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Weaken(4 SECONDS)
-		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+		C.visible_message(span_danger("\The [src] knocks down \the [C]!"), span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/Aggro()
 	..()
@@ -277,11 +276,11 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				visible_message("<span class='danger'>The <b>[src]</b> clears a jam!</span>")
 			Pewgun.chambered.loc = loc //rip revolver immersions, blame shotgun snowflake procs
 			Pewgun.chambered = null
-			if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len)
+			if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo))
 				Pewgun.chambered = Pewgun.magazine.get_round(0)
 				Pewgun.chambered.loc = Pewgun
 			Pewgun.update_icon()
-		else if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len) //only true for pumpguns i think
+		else if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo)) //only true for pumpguns i think
 			Pewgun.chambered = Pewgun.magazine.get_round(0)
 			Pewgun.chambered.loc = Pewgun
 			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")

@@ -115,7 +115,6 @@
 	else
 		return 1
 
-
 /proc/preloadTemplates(path = "_maps/map_files/templates/") //see master controller setup
 	for(var/map in flist(path))
 		if(cmptext(copytext(map, length(map) - 3), ".dmm"))

@@ -8,21 +8,17 @@
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/chem
 
-
 /obj/item/implant/chem/Initialize(mapload)
 	. = ..()
 	create_reagents(50)
 	GLOB.tracked_implants += src
 
-
 /obj/item/implant/chem/Destroy()
 	GLOB.tracked_implants -= src
 	return ..()
 
-
 /obj/item/implant/chem/death_trigger(mob/victim, gibbed)
 	activate(reagents.total_volume)
-
 
 /obj/item/implant/chem/activate(cause)
 	if(!cause || !imp_in)
@@ -49,11 +45,9 @@
 	else
 		to_chat(carrier, span_italics("You hear a faint beep."))
 
-
 /obj/item/implanter/chem
 	name = "bio-chip implanter (chem)"
 	imp = /obj/item/implant/chem
-
 
 /obj/item/implantcase/chem
 	name = "bio-chip case - 'Remote Chemical'"

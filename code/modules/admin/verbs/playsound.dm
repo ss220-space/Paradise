@@ -37,7 +37,6 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	BLACKBOX_LOG_ADMIN_VERB("Play Global Sound")
 
-
 /client/proc/play_local_sound(S as sound)
 	set category = STATPANEL_ADMIN_SOUNDS
 	set name = "Play Local Sound"
@@ -46,7 +45,6 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	log_and_message_admins("played a local sound [S]")
 	playsound(get_turf(src.mob), S, 50, FALSE, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Play Local Sound")
-
 
 /client/proc/play_web_sound()
 	set category = STATPANEL_ADMIN_SOUNDS
@@ -150,7 +148,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		else
 			var/url = web_sound_url
 			switch(CONFIG_GET(string/asset_transport))
-				if("webroot")
+				if(ASSET_TRANSPORT_WEBROOT)
 					var/datum/asset/music/my_asset
 					if(GLOB.cached_songs[web_sound_path])
 						my_asset = GLOB.cached_songs[web_sound_path]
@@ -172,7 +170,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Play Server Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt")
+	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
@@ -190,7 +188,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/A = alert(usr, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt")
+	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)

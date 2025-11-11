@@ -41,7 +41,6 @@
 
 	return 0
 
-
 /obj/machinery/proc/getArea()
 	var/area/A = loc.loc
 

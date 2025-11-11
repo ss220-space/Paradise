@@ -366,8 +366,6 @@
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
-
-
 // The "magic hand" items
 /obj/item/melee/blood_magic
 	name = "magical aura"
@@ -411,7 +409,6 @@
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
 
-
 /obj/item/melee/blood_magic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user) || !iscultist(user))
 		uses = 0
@@ -420,7 +417,6 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name
-
 
 /obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	. = ..()
@@ -458,29 +454,37 @@
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
-	if(N)
-		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
-								span_userdanger("Your holy weapon absorbs the blinding light!"))
-	else
-		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
-		// These are in life cycles, so double the time that's stated.
-		L.Knockdown(3 SECONDS)
-		L.apply_damage(55, STAMINA)
-		if(!ismindshielded(L))
-			L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-		L.flash_eyes(1, TRUE)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.Silence(10 SECONDS)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
-	uses--
-	..()
 
+	if(N)
+		target.visible_message(span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"), \
+								span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"))
+		uses--
+		return ..()
+
+	if(ismindshielded(L))
+		target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"), \
+								span_userdanger("Ваш имплант блокирует ослепляющий свет!"))
+		return ..()
+
+	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
+	// These are in life cycles, so double the time that's stated.
+	L.Knockdown(3 SECONDS)
+	L.apply_damage(55, STAMINA)
+	L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+	L.flash_eyes(1, TRUE)
+
+	if(issilicon(target))
+		var/mob/living/silicon/S = L
+		S.emp_act(EMP_HEAVY)
+	else if(iscarbon(target))
+		var/mob/living/carbon/C = L
+		C.Silence(10 SECONDS)
+		C.Stuttering(16 SECONDS)
+		C.CultSlur(20 SECONDS)
+		C.Jitter(16 SECONDS)
+
+	uses--
+	return ..()
 
 //Teleportation
 /obj/item/melee/blood_magic/teleport
@@ -592,7 +596,6 @@
 	else
 		to_chat(user, span_warning("[C] is already bound."))
 
-
 /obj/item/restraints/handcuffs/energy/cult //For the shackling spell
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
@@ -602,7 +605,6 @@
 	user.visible_message(span_danger("[user]'s shackles shatter in a discharge of dark magic!"), \
 	span_userdanger("Your [name] shatter in a discharge of dark magic!"))
 	. = ..()
-
 
 //Construction: Converts 50 metal to a construct shell, plasteel to runed metal, or an airlock to brittle runed airlock
 /obj/item/melee/blood_magic/construction
@@ -727,14 +729,12 @@
 		to_chat(user, span_warning("The spell will not work on [target]!"))
 		return ..()
 
-
 //Blood Rite: Absorb blood to heal cult members or summon weapons
 /obj/item/melee/blood_magic/manipulator
 	name = "Blood Rite Aura"
 	desc = "Absorbs blood from anything you touch. Touching cultists and constructs can heal them. Use in-hand to cast an advanced rite."
 	color = "#7D1717"
 	max_charges = 300
-
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()
@@ -822,8 +822,10 @@
 						uses += 50
 						user.Beam(H, icon_state = "drainbeam", time = 10)
 						playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
-						H.visible_message(span_danger("[user] has drained some of [H]'s blood!"),
-											span_userdanger("[user] has drained some of your blood!"))
+						H.visible_message(
+							span_danger("[user] has drained some of [H]'s blood!"),
+							span_userdanger("[user] has drained some of your blood!")
+						)
 						to_chat(user, span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
 						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					else
@@ -840,13 +842,17 @@
 			if(missing)
 				if(uses > missing)
 					M.adjustHealth(-missing)
-					M.visible_message(span_warning("[M] is fully healed by [user]'s blood magic!"),
-										span_cultitalic("You are fully healed by [user]'s blood magic!"))
+					M.visible_message(
+						span_warning("[M] is fully healed by [user]'s blood magic!"),
+						span_cultitalic("You are fully healed by [user]'s blood magic!")
+					)
 					uses -= missing
 				else
 					M.adjustHealth(-uses)
-					M.visible_message(span_warning("[M] is partially healed by [user]'s blood magic!"),
-										span_cultitalic("You are partially healed by [user]'s blood magic."))
+					M.visible_message(
+						span_warning("[M] is partially healed by [user]'s blood magic!"),
+						span_cultitalic("You are partially healed by [user]'s blood magic.")
+					)
 					uses = 0
 				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
 				user.Beam(M, icon_state = "sendbeam", time = 10)

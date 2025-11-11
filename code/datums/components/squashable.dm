@@ -28,6 +28,10 @@
 
 	AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)
 
+/datum/component/squashable/Destroy(force)
+	on_squash_callback = null
+	return ..()
+
 /datum/component/squashable/UnregisterFromParent()
 	. = ..()
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
@@ -40,7 +44,6 @@
 		return
 
 	var/mob/living/parent_as_living = parent
-
 	if(squash_flags & SQUASHED_SHOULD_BE_DOWN && parent_as_living.resting)
 		return
 
@@ -54,20 +57,20 @@
 		var/mob/living/crossing_mob = crossing_movable
 		if(crossing_mob.mob_size > MOB_SIZE_SMALL && !(crossing_mob.movement_type & FLYING))
 			if(HAS_TRAIT(crossing_mob, TRAIT_PACIFISM))
-				crossing_mob.visible_message(span_notice("[crossing_mob] аккуратно переступа[pluralize_ru(crossing_mob.gender, "ет", "ют")] через [parent_as_living.declent_ru(ACCUSATIVE)]"), span_notice("вы аккуратно переступаете через [parent_as_living.declent_ru(ACCUSATIVE)]"))
+				crossing_mob.visible_message(span_notice("[crossing_mob] аккуратно переступа[PLUR_ET_YUT(crossing_mob)] через [parent_as_living.declent_ru(ACCUSATIVE)]"), span_notice("вы аккуратно переступаете через [parent_as_living.declent_ru(ACCUSATIVE)]"))
 				return
 			if(should_squash)
-				crossing_mob.visible_message(span_notice(" [crossing_mob] раздавлива[pluralize_ru(crossing_mob.gender, "ет", "ют")] [parent_as_living.declent_ru(ACCUSATIVE)]!"), span_notice("Вы раздавливаете [parent_as_living.declent_ru(ACCUSATIVE)]."))
+				crossing_mob.visible_message(span_notice(" [crossing_mob] раздавлива[PLUR_ET_YUT(crossing_mob)] [parent_as_living.declent_ru(ACCUSATIVE)]!"), span_notice("Вы раздавливаете [parent_as_living.declent_ru(ACCUSATIVE)]."))
 				Squish(parent_as_living)
 			else
-				parent_as_living.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] избега[pluralize_ru(crossing_mob.gender, "ет", "ют")] смерти!"))
+				parent_as_living.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] избега[PLUR_ET_YUT(crossing_mob)] смерти!"))
 
 	if(isstructure(crossing_movable) && !crossing_movable.anchored)
 		if(should_squash)
-			crossing_movable.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] раздавлива[pluralize_ru(parent_as_living.gender, "ется", "ются")] под [crossing_movable.declent_ru(INSTRUMENTAL)]"))
+			crossing_movable.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] раздавлива[PLUR_ET_YUT(parent_as_living)]ся под [crossing_movable.declent_ru(INSTRUMENTAL)]"))
 			Squish(parent_as_living)
 		else
-			parent_as_living.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] избега[pluralize_ru(parent_as_living.gender, "ет", "ют")] смерти!"))
+			parent_as_living.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] избега[PLUR_ET_YUT(parent_as_living)] смерти!"))
 
 /datum/component/squashable/proc/Squish(mob/living/target)
 	if(squash_flags & SQUASHED_SHOULD_BE_GIBBED)

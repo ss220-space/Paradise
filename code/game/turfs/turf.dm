@@ -80,7 +80,7 @@
 	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
 	var/mob/oranges_ear/assigned_oranges_ear
-	
+
 	var/pressure_difference = 0
 	var/pressure_direction = 0
 	var/list/atmos_adjacent_turfs = list()
@@ -168,7 +168,6 @@
 	if(length(vis_contents))
 		vis_contents.Cut()
 
-
 /// WARNING WARNING
 /// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 /// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
@@ -176,12 +175,10 @@
 /turf/_clear_signal_refs()
 	return
 
-
 /turf/attack_hand(mob/user)
 	. = ..()
 	if(!.)
 		user.Move_Pulled(src)
-
 
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
@@ -220,7 +217,6 @@
 	..()
 	return FALSE
 
-
 // Enter, but hypothetical.
 /turf/proc/can_enter(atom/movable/mover)
 	var/atom/mover_loc = mover.loc
@@ -238,7 +234,6 @@
 			return FALSE
 
 	return TRUE
-
 
 /turf/Enter(atom/movable/mover)
 	// Do not call ..()
@@ -289,7 +284,6 @@
 		mover.Bump(tompost_bump)
 		return (mover.movement_type & PHASING)
 	return TRUE
-
 
 /turf/proc/levelupdate()
 	for(var/obj/object in src)
@@ -517,7 +511,6 @@
 		L.Add(T)
 	return L
 
-
 //////////////////////////////
 //Distance procs
 //////////////////////////////
@@ -557,13 +550,11 @@
 /turf/proc/acid_melt()
 	return
 
-
 /turf/handle_fall(mob/living/carbon/faller)
 	if(!no_gravity(src))
 		playsound(src, SFX_BODYFALL, 50, TRUE)
 
 	faller.drop_from_hands()
-
 
 /turf/singularity_act()
 	if(intact)
@@ -574,7 +565,6 @@
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
-
 
 /turf/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -610,14 +600,11 @@
 		. |= (ATTACK_CHAIN_BLOCKED_ALL)
 		return .
 
-
 /turf/proc/can_have_cabling()
 	return TRUE
 
-
 /turf/proc/can_lay_cable()
 	return can_have_cabling() && !intact && transparent_floor != TURF_TRANSPARENT
-
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -640,26 +627,22 @@
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
-/turf/proc/empty(turf_type = /turf/space)
-	// Remove all atoms except observers, landmarks, docking ports, and (un)`simulated` atoms (lighting overlays)
-	var/turf/T0 = src
-	for(var/X in T0.GetAllContents())
-		var/atom/A = X
-		if(!A.simulated)
-			continue
-		if(istype(A, /mob/dead))
-			continue
-		if(istype(A, /obj/effect/landmark))
-			continue
-		if(istype(A, /obj/docking_port))
-			continue
-		qdel(A, force = TRUE)
+/turf/proc/empty(turf_type=/turf/space, list/ignore_typecache, flags)
+	// Remove all atoms except observers, landmarks, docking ports
+	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port))
+	var/list/allowed_contents = typecache_filter_list_reverse(get_all_contents_ignoring(ignore_typecache), ignored_atoms)
+	allowed_contents -= src
+	for(var/i in 1 to allowed_contents.len)
+		var/thing = allowed_contents[i]
+		qdel(thing, force=TRUE)
 
-	T0.ChangeTurf(turf_type)
+	if(!turf_type)
+		return
 
-	SSair.remove_from_active(T0)
-	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0, TRUE)
+	var/turf/new_turf = ChangeTurf(turf_type, after_flags = flags)
+	SSair.remove_from_active(new_turf)
+	new_turf.CalculateAdjacentTurfs()
+	SSair.add_to_active(new_turf, TRUE)
 
 /turf/AllowDrop()
 	return TRUE
@@ -753,7 +736,6 @@
 	target.zImpact(falling, levels, src)
 	return TRUE
 
-
 /**
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
  *
@@ -776,7 +758,6 @@
 			continue
 		. += turf_to_check
 
-
 /**
  * Makes an image of up to 20 things on a turf + the turf.
  */
@@ -794,18 +775,16 @@
 			return I
 	return I
 
-
 /turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)
 	C.Weaken(0.1 SECONDS)
-
 
 /**
  * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
@@ -847,7 +826,6 @@
 			return TRUE
 
 	return FALSE
-
 
 /turf/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE

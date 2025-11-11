@@ -3,7 +3,7 @@
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
 	playstyle_string = "Как <b>Защитник</b>, вы заставляете своего призывателя привязываться к вам, вместо того чтобы вы привязывались к нему, и имеете два режима: боевой режим, в котором вы наносите средний урон и получаете очень малый, и режим защиты, в котором вы почти не наносите и не получаете урона, даже от взрывов. Вы так же обладаете заклинанием создания краткосрочных барьеров."
-	magic_fluff_string = "..и берете Стража - непоколебимого защитника, который никогда не покидает сторону своего подопечного."
+	magic_fluff_string = "..и берете Стража — непоколебимого защитника, который никогда не покидает сторону своего подопечного."
 	tech_fluff_string = "Последовательность загрузки завершена. Загружены модули защиты. Голопаразитный рой в сети."
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый защищать вас."
 	var/toggle = FALSE
@@ -25,7 +25,6 @@
 		return 0
 	cooldown = world.time + 10
 	var/static/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
-
 
 	if(toggle)
 		cut_overlay(shield_overlay)
@@ -52,16 +51,15 @@
 			return
 		else
 			if(istype(summoner.loc, /obj/effect))
-				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[declension_ru(range,"","а","ов")] от [summoner.real_name]!"))
+				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
 				visible_message(span_danger("[src] возвращается к своему хозяину."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[declension_ru(range,"","а","ов")] от <b>[src]</b>!"))
-				summoner.visible_message(span_danger("[summoner] отпрыгива[pluralize_ru(summoner.gender,"ет","ют")] назад к своему защитнику."))
+				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от <b>[src]</b>!"))
+				summoner.visible_message(span_danger("[summoner] отпрыгива[PLUR_ET_YUT(summoner)] назад к своему защитнику."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector
-
 
 /mob/living/simple_animal/hostile/guardian/protector/adjustHealth(
 	amount = 0,
@@ -90,7 +88,6 @@
 		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
-
 /obj/effect/proc_holder/spell/forcewall/greater/guardian
 	name = "Голографическая силовая стена"
 	desc = "Создает перед вами непробиваемый барьер, через который могут проходить вы и ваш хозяин."
@@ -102,7 +99,6 @@
 	desc = "Непробиваемый барьер неизвестной сущности."
 	icon_state = "at_shield2"
 	lifetime = 15 SECONDS
-
 
 /obj/effect/forcefield/wizard/guardian/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

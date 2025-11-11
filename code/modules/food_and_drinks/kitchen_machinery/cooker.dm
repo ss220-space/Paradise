@@ -35,7 +35,7 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is still active!</span>")
+		to_chat(user, span_notice("[src] is still active!"))
 		return FALSE
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return TRUE
@@ -81,21 +81,18 @@
 	setme.name = "[thiscooktype] [name.name]"
 	setme.desc = "[name.desc]. It has been [thiscooktype]"
 
-
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	if(!chef.drop_transfer_item_to_loc(tocook, src))
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	to_chat(chef, span_notice("You put [tocook] into [src]."))
 	on = 1
-
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()
 	var/obj/item/reagent_containers/food/snacks/type = new(get_turf(src))
 	return type
-
 
 /obj/machinery/cooker/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -103,10 +100,8 @@
 		return .
 	special_grab_attack(grabbed_thing, grabber)
 
-
 /obj/machinery/cooker/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
 	return
-
 
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -140,7 +135,6 @@
 	addtimer(CALLBACK(src, PROC_REF(cooking_end), I, user), cooktime)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/cooker/proc/cooking_end(obj/item/cooking, mob/cook)
 	if(QDELETED(cooking) || cooking.loc != src)
 		return
@@ -167,7 +161,6 @@
 	newfood.cooktype[thiscooktype] = 1
 	turnoff(cooking)
 
-
 /obj/machinery/cooker/crowbar_act(mob/user, obj/item/I)
 	if(!upgradeable)
 		return
@@ -179,7 +172,6 @@
 		return
 	if(default_deconstruction_screwdriver(user, openicon, officon, I))
 		return TRUE
-
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate

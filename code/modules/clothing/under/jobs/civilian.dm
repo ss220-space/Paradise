@@ -1,5 +1,3 @@
-//Alphabetical order of support jobs.
-
 /obj/item/clothing/under/rank/bartender
 	desc = "It looks like it could use some more flair."
 	name = "bartender's uniform"
@@ -123,12 +121,9 @@
 
 /obj/item/clothing/under/rank/clown/nodrop
 
-
 /obj/item/clothing/under/rank/clown/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -179,8 +174,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
-		)
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/rank/internalaffairs
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
@@ -216,27 +211,30 @@
 	item_color = "janitor"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
-
 /obj/item/clothing/under/lawyer
-	desc = "Slick threads."
 	name = "Lawyer suit"
+	desc = "Slick threads."
 
 /obj/item/clothing/under/lawyer/black
+	name = "black lawyer suit"
 	icon_state = "lawyer_black"
 	item_state = "lawyer_black"
 	item_color = "lawyer_black"
 
 /obj/item/clothing/under/lawyer/female
+	name = "female lawyer suit"
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
 
 /obj/item/clothing/under/lawyer/red
+	name = "red lawyer suit"
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
 
 /obj/item/clothing/under/lawyer/blue
+	name = "blue lawyer suit"
 	icon_state = "lawyer_blue"
 	item_state = "lawyer_blue"
 	item_color = "lawyer_blue"
@@ -262,7 +260,6 @@
 	item_color = "oldman"
 	dying_key = DYE_REGISTRY_UNDER
 
-
 /obj/item/clothing/under/librarian
 	name = "sensible suit"
 	desc = "It's very... sensible."
@@ -280,11 +277,9 @@
 
 /obj/item/clothing/under/mime/nodrop
 
-
 /obj/item/clothing/under/mime/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."

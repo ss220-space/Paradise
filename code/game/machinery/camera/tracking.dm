@@ -29,7 +29,6 @@
 	track.cameras = T
 	return T
 
-
 /mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
 	set category = STATPANEL_AICOMMANDS
 	set name = "Список камер"
@@ -56,7 +55,7 @@
 		to_chat(src, span_warning("Must supply a location name"))
 		return
 
-	if(stored_locations.len >= max_locations)
+	if(length(stored_locations) >= max_locations)
 		to_chat(src, span_warning("Cannot store additional locations. Remove one first"))
 		return
 
@@ -236,7 +235,6 @@
 		return
 	user.eyeobj.setLoc(get_turf(src))
 
-
 /mob/living/silicon/ai/attack_ai(mob/user)
 	ai_camera_list()
 
@@ -244,7 +242,7 @@
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
 
-	for(var/i = L.len, i > 0, i--)
+	for(var/i = length(L), i > 0, i--)
 		for(var/j = 1 to i - 1)
 			a = L[j]
 			b = L[j + 1]

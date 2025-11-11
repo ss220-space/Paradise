@@ -38,7 +38,7 @@
 			connected_holopad.set_holocall(src)
 			connected_holopad.atom_say("[area] голопад звонит: входящий вызов от [requester]!")
 
-	if(!dialed_holopads.len)
+	if(!length(dialed_holopads))
 		calling_holopad.atom_say("Сбой соединения.")
 		qdel(src)
 		return
@@ -67,7 +67,6 @@
 		hologram.HC = null
 		QDEL_NULL(hologram)
 
-
 	for(var/obj/machinery/hologram/holopad/dialed_holopad as anything in dialed_holopads)
 		dialed_holopad.set_holocall(src, FALSE)
 	dialed_holopads.Cut()
@@ -80,7 +79,6 @@
 		connected_holopad.SetLightsAndPower()
 		connected_holopad = null
 	return ..()
-
 
 //Gracefully disconnects a holopad `H` from a call. Pads not in the call are ignored. Notifies participants of the disconnection
 /datum/holocall/proc/Disconnect(obj/machinery/hologram/holopad/H)
@@ -107,7 +105,7 @@
 	disconnected_holopad.set_holocall(src, FALSE)
 
 	dialed_holopads -= disconnected_holopad
-	if(!dialed_holopads.len)
+	if(!length(dialed_holopads))
 		if(graceful)
 			calling_holopad.atom_say("Вызов отклонён.")
 		qdel(src)
@@ -123,7 +121,7 @@
 	if(connected_holopad)
 		return
 
-	for(var/other_dialed_holopad as anything in dialed_holopads)
+	for(var/other_dialed_holopad in dialed_holopads)
 		if(other_dialed_holopad == answering_holopad)
 			continue
 		Disconnect(other_dialed_holopad)

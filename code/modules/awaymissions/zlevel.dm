@@ -5,7 +5,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	empty_region(block(low_x, low_y, z, hi_x, hi_y, z))
 	log_debug("Took [stop_watch(timer)]s")
 
-
 /proc/empty_region(list/turfs)
 	for(var/thing in turfs)
 		var/turf/T = thing
@@ -14,7 +13,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		T.ChangeTurf(T.baseturf)
 
 /proc/loadAwayLevel()
-	if((!GLOB.potentialRandomZlevels || !GLOB.potentialRandomZlevels.len) && !CONFIG_GET(string/override_away_mission))
+	if((!GLOB.potentialRandomZlevels || !length(GLOB.potentialRandomZlevels)) && !CONFIG_GET(string/override_away_mission))
 		log_startup_progress_global("Mapping", "No away missions found.")
 		return
 	var/watch = start_watch()
@@ -41,18 +40,15 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	GLOB.maploader.load_map(file, z_offset = map_z_level)
 	log_world("  Away mission loaded: [map]")
 
-	for(var/obj/effect/landmark/awaystart/thing in GLOB.landmarks_list)
-		GLOB.awaydestinations.Add(thing)
 	for(var/level in map_z_levels)
 		smooth_zlevel(level)
 	log_startup_progress_global("Mapping", "Away mission loaded in [stop_watch(watch)]s.")
 
-
 /proc/generateMapList(filename)
 	var/list/potentialMaps = list()
-	var/list/Lines = file2list(filename)
+	var/list/Lines = world.file2list(filename)
 
-	if(!Lines.len)
+	if(!length(Lines))
 		return
 	for(var/t in Lines)
 		if(!t)

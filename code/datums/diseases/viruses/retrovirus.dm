@@ -11,14 +11,12 @@
 	severity = DANGEROUS
 	permeability_mod = 0.4
 
-
 /datum/disease/virus/dna_retrovirus/New()
 	..()
 	agent = "Вирус класса [pick("A", "B", "C", "D", "E", "F")][pick("A", "B", "C", "D", "E", "F")]-[rand(50,300)]"
 	//else cure is rest
 	if(prob(40))
 		cures = list("mutadone")
-
 
 /datum/disease/virus/dna_retrovirus/stage_act()
 	if(!..())
@@ -56,7 +54,7 @@
 				scramble(pick(0,1), affected_mob, rand(15, 45))
 
 /datum/disease/virus/dna_retrovirus/has_cure()
-	if(cures.len)
+	if(length(cures))
 		return ..()
 	else
 		if(affected_mob.IsSleeping())
@@ -64,5 +62,4 @@
 		if(affected_mob.body_position == LYING_DOWN)
 			return prob(33)
 		return FALSE
-
 

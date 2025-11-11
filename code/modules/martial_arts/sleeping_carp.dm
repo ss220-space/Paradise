@@ -4,6 +4,7 @@
 	name = "Спящий Карп"
 	reroute_deflection = TRUE
 	deflection_chance = 100
+	can_deflect = TRUE
 	no_guns = TRUE
 	no_guns_message = "Использование подобного оружия обесчестит клан."
 	has_explaination_verb = TRUE
@@ -18,7 +19,7 @@
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	var/atk_verb = pick("бь[pluralize_ru(A.gender, "ёт", "ют")]", "пина[pluralize_ru(A.gender, "ет", "ют")]", "руб[pluralize_ru(A.gender, "ит", "ят")]", "забива[pluralize_ru(A.gender, "ет", "ют")]")
+	var/atk_verb = pick("бь[PLUR_YOT_YUT(A)]", "пина[PLUR_ET_YUT(A)]", "руб[PLUR_IT_YAT(A)]", "забива[PLUR_ET_YUT(A)]")
 	D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] [atk_verb] [D.declent_ru(ACCUSATIVE)]!"),
 					span_userdanger("[A.declent_ru(NOMINATIVE)] [atk_verb] тебя!"))
 	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
@@ -49,7 +50,7 @@
 		deflection_chance = initial(deflection_chance)
 	else if(!user.l_hand || !user.r_hand)
 		deflection_chance = 50
-	else if(user.reagents && length(user.reagents.addiction_list))
+	else if(length(user.reagents.addiction_list))
 		deflection_chance = 0
 	else
 		deflection_chance = 0

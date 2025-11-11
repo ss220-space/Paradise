@@ -38,7 +38,7 @@
 		DATIVE = "златожору",
 		ACCUSATIVE = "златожора",
 		INSTRUMENTAL = "златожором",
-		PREPOSITIONAL = "златожоре"
+		PREPOSITIONAL = "златожоре",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
@@ -51,7 +51,7 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
 	add_target(new_target)
 	if(!QDELETED(target))
-		if(wanted_objects[target.type] && loot.len < max_loot)
+		if(wanted_objects[target.type] && length(loot) < max_loot)
 			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] смотрит на [target.declent_ru(ACCUSATIVE)] голодными глазами."))
 		else if(iscarbon(target) || issilicon(target))
 			Aggro()
@@ -86,7 +86,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/projectile/P)
 	visible_message(span_danger("[P.name] отскакивает от тучного брюха [declent_ru(GENITIVE)]"), projectile_message = TRUE)
-
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(
 	amount = 0,

@@ -83,7 +83,7 @@
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
-#define TRAIT_FLATTENED	"flattened"
+#define TRAIT_FLATTENED "flattened"
 
 /// Not a genetic obesity but just a mob who overate
 #define	TRAIT_FAT "trait_fat"
@@ -96,6 +96,10 @@
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
 /// Objects with this trait can cross chasm safe/
 #define TRAIT_CHASM_IGNORED "chasm_ignored"
+/// This mob has red glowing eyes with special text upon examination
+#define TRAIT_RED_EYES "red_eyes"
+/// This mob's hands will glow amber with special text upon examination
+#define TRAIT_CLOCK_HANDS "clock_hands"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -154,6 +158,8 @@
 #define TRAIT_UNDENSE "undense"
 /// Holocigar trait to make a mob BADASS
 #define TRAIT_BADASS "trait_badass"
+/// Mantis blades trait for lunging
+#define TRAIT_CANT_LUNGE "cant_lunge"
 
 /**
  * Traits for ventcrawling.
@@ -180,6 +186,8 @@
 
 //***** ITEM TRAITS *****//
 #define TRAIT_CMAGGED "cmagged"
+/// Trait to toggle Inugami Gloves built-in defibrillator mode
+#define TRAIT_DEFIB_BLOCKED "defib_blocked"
 /// The items needs two hands to be carried
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Properly wielded two handed item
@@ -357,6 +365,9 @@
 
 #define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
 
+/// Used to play an alarm when the gun is out of ammo
+#define TRAIT_AMMO_ALARMED "ammo_alarm"
+
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
 
@@ -368,3 +379,6 @@
 #define TRAIT_AREA_SENSITIVE "area-sensitive"
 ///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+
+/// If any of the owner's robotic parts are being repaired right now
+#define TRAIT_REPAIRING_LIMB "repairing_limb"

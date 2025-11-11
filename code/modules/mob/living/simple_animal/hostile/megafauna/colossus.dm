@@ -48,8 +48,9 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
-	medal_type = BOSS_MEDAL_COLOSSUS
-	score_type = COLOSSUS_SCORE
+	achievement_type = /datum/award/achievement/boss/colossus_kill
+	crusher_achievement_type = /datum/award/achievement/boss/colossus_crusher
+	score_achievement_type = /datum/award/score/colossus_score
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "распадается, оставляя после себя светящееся ядро."
@@ -59,7 +60,7 @@ Difficulty: Very Hard
 		/datum/action/innate/megafauna_attack/spiral_attack,
 		/datum/action/innate/megafauna_attack/aoe_attack,
 		/datum/action/innate/megafauna_attack/shotgun,
-		/datum/action/innate/megafauna_attack/alternating_cardinals
+		/datum/action/innate/megafauna_attack/alternating_cardinals,
 	)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
@@ -71,7 +72,7 @@ Difficulty: Very Hard
 		DATIVE = "Колоссу",
 		ACCUSATIVE = "Колосса",
 		INSTRUMENTAL = "Колоссом",
-		PREPOSITIONAL = "Колоссе"
+		PREPOSITIONAL = "Колоссе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
@@ -172,7 +173,7 @@ Difficulty: Very Hard
 	if(!ishuman(L))
 		return
 	var/mob/living/carbon/human/H = L
-	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.can_deflect))
 		return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots(telegraphing = TRUE)
@@ -318,7 +319,6 @@ Difficulty: Very Hard
 	icon_state = initial(icon_state)
 	ranged_cooldown = world.time + 4 SECONDS
 
-
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
 	visible_message(span_colossus("[declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"))
 	L.dust()
@@ -347,7 +347,6 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-
 /obj/projectile/colossus
 	name = "смертоносный заряд"
 	icon_state= "chronobolt"
@@ -362,7 +361,7 @@ Difficulty: Very Hard
 		DATIVE = "смертоносному заряду",
 		ACCUSATIVE = "смертоносный заряд",
 		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
+		PREPOSITIONAL = "смертоносном заряде",
 	)
 
 /obj/projectile/colossus/on_hit(atom/target, blocked = 0)

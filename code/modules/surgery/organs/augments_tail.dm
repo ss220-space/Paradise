@@ -120,14 +120,6 @@
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade
 	name = "tail tumour"
 	desc = "Небольшая странноватая опухоль, находящаяся в хвосте. На удивление, не делает ничего страшного, но значительно увеличивает мощность удара хвостом."
-	ru_names = list(
-		NOMINATIVE = "хвостовая опухоль",
-		GENITIVE = "хвостовой опухоли",
-		DATIVE = "хвостовой опухоли",
-		ACCUSATIVE = "хвостовую опухоль",
-		INSTRUMENTAL = "хвостовой опухолью",
-		PREPOSITIONAL = "хвостовом сгустке"
-	)
 	icon_state = "roro core"
 	slash_strength = 0
 	stamina_damage = 24
@@ -136,6 +128,16 @@
 	emp_proof = TRUE
 	slash_sound = 'sound/weapons/slash.ogg'
 	biological = TRUE
+
+/obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/get_ru_names()
+	return list(
+		NOMINATIVE = "хвостовая опухоль",
+		GENITIVE = "хвостовой опухоли",
+		DATIVE = "хвостовой опухоли",
+		ACCUSATIVE = "хвостовую опухоль",
+		INSTRUMENTAL = "хвостовой опухолью",
+		PREPOSITIONAL = "хвостовом сгустке",
+	)
 
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/update_icon_state()
 	return
@@ -149,7 +151,6 @@
 	if(IsAvailable(show_message = TRUE))
 		. = ..()
 
-
 /datum/action/innate/tail_cut/Activate()
 	var/mob/living/carbon/human/user = owner
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
@@ -157,7 +158,7 @@
 	var/type_of_damage = BRUTE // I did it only because I need attacklogs without exception
 	var/damage_deal = 5 * user.physiology.tail_strength_mod
 
-	if(implant && implant.activated) // Prevents exception if you dont have the implant, but unathi
+	if(implant?.activated) // Prevents exception if you dont have the implant, but unathi
 		active_implant = TRUE
 
 	if(active_implant)
@@ -202,7 +203,7 @@
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
 			user.visible_message(
-				span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"),
+				span_danger("[user.declent_ru(NOMINATIVE)] теря[PLUR_ET_YUT(user)] равновесие!"),
 				span_danger("Вы теряете равновесие!")
 			)
 			return
@@ -224,7 +225,7 @@
 		return FALSE
 
 	var/active_implant = FALSE
-	if(implant && implant.activated)
+	if(implant?.activated)
 		active_implant = TRUE
 
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)

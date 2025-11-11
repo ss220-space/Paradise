@@ -19,7 +19,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
@@ -29,18 +29,15 @@
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, TRUE)
 	update_icon()
 
-
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
-
 
 /obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)
 	if(cover_open)
 		balloon_alert(user, "крышка не закрыта!")
 		return FALSE
 	return ..()
-
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_hand(mob/user)
 	if(loc != user)
@@ -58,13 +55,11 @@
 		update_icon()
 		balloon_alert(user, "магазин вынут")
 
-
 /obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
 	if(istype(I, mag_type) && !cover_open)
 		balloon_alert(user, "крышка закрыта!")
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 //ammo//
 
@@ -74,6 +69,7 @@
 
 /obj/projectile/bullet/saw/weak
 	damage = 30
+	ricochet_chance = 10
 
 /obj/projectile/bullet/saw/bleeding
 	damage = 20
@@ -88,6 +84,7 @@
 /obj/projectile/bullet/saw/hollow
 	damage = 60
 	armour_penetration = -10
+	ricochets_max = 0
 
 /obj/projectile/bullet/saw/ap
 	damage = 40
@@ -189,7 +186,7 @@
 		DATIVE = "коробке патронов (7.62x51мм)",
 		ACCUSATIVE = "коробку патронов (7.62x51мм)",
 		INSTRUMENTAL = "коробкой патронов (7.62x51мм)",
-		PREPOSITIONAL = "коробке патронов (7.62x51мм)"
+		PREPOSITIONAL = "коробке патронов (7.62x51мм)",
 	)
 
 /obj/item/ammo_box/a762x51/weak
@@ -204,7 +201,7 @@
 		DATIVE = "коробке ослабленныx патронов (7.62x51мм)",
 		ACCUSATIVE = "коробку ослабленныx патронов (7.62x51мм)",
 		INSTRUMENTAL = "коробкой ослабленныx патронов (7.62x51мм)",
-		PREPOSITIONAL = "коробке ослабленныx патронов (7.62x51мм)"
+		PREPOSITIONAL = "коробке ослабленныx патронов (7.62x51мм)",
 	)
 
 /obj/item/ammo_box/a762x51/bleeding
@@ -219,7 +216,7 @@
 		DATIVE = "коробке кровопускающих патронов (7.62x51мм)",
 		ACCUSATIVE = "коробку кровопускающих патронов (7.62x51мм)",
 		INSTRUMENTAL = "коробкой кровопускающих патронов (7.62x51мм)",
-		PREPOSITIONAL = "коробке кровопускающих патронов (7.62x51мм)"
+		PREPOSITIONAL = "коробке кровопускающих патронов (7.62x51мм)",
 	)
 
 /obj/item/ammo_box/a762x51/hollow
@@ -234,7 +231,7 @@
 		DATIVE = "коробке экспансивных патронов (7.62x51мм)",
 		ACCUSATIVE = "коробку экспансивных патронов (7.62x51мм)",
 		INSTRUMENTAL = "коробкой экспансивных патронов (7.62x51мм)",
-		PREPOSITIONAL = "коробке экспансивных патронов (7.62x51мм)"
+		PREPOSITIONAL = "коробке экспансивных патронов (7.62x51мм)",
 	)
 
 /obj/item/ammo_box/a762x51/ap
@@ -249,7 +246,7 @@
 		DATIVE = "коробке бронебойных патронов (7.62x51мм)",
 		ACCUSATIVE = "коробку бронебойных патронов (7.62x51мм)",
 		INSTRUMENTAL = "коробкой бронебойных патронов (7.62x51мм)",
-		PREPOSITIONAL = "коробке бронебойных патронов (7.62x51мм)"
+		PREPOSITIONAL = "коробке бронебойных патронов (7.62x51мм)",
 	)
 
 /obj/item/ammo_box/a762x51/incen
@@ -264,5 +261,5 @@
 		DATIVE = "коробке зажигательных патронов (7.62x51мм)",
 		ACCUSATIVE = "коробку зажигательных патронов (7.62x51мм)",
 		INSTRUMENTAL = "коробкой зажигательных патронов (7.62x51мм)",
-		PREPOSITIONAL = "коробке зажигательных патронов (7.62x51мм)"
+		PREPOSITIONAL = "коробке зажигательных патронов (7.62x51мм)",
 	)

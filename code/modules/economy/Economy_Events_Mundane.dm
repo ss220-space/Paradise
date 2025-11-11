@@ -5,7 +5,7 @@
 /datum/event/mundane_news/announce()
 	var/datum/trade_destination/affected_dest = pickweight(GLOB.weighted_mundaneevent_locations)
 	var/event_type = 0
-	if(affected_dest.viable_mundane_events.len)
+	if(length(affected_dest.viable_mundane_events))
 		event_type = pick(affected_dest.viable_mundane_events)
 
 	if(!event_type)
@@ -39,7 +39,7 @@
 				newMsg.body = "Нанотрейзен с сожалением объявляет об отставке [random_name(locvar)] – [pick("секторного адмирала","дивизионного адмирала","корабельного адмирала","вице-адмирала")]."
 				if(prob(25))
 					var/locstring = pick("Сегунда","Салyса","Цефей","Андромеда","Груис","Корона","Акyила","Аселлyс") + " " + pick("I","II","III","IV","V","VI","VII","VIII")
-					newMsg.body += " Сегодня днём на [affected_dest.name] состоится церемония, на которой [locvar == "MALE" ? "ему" : "ей"] будет вручена награда – [pick("Красная Звезда Жертвенности","Пурпурное Сердце Героизма","Синий Орёл Верности","Зелёный Лев Изобретательности")] за "
+					newMsg.body += " Сегодня днём на [affected_dest.name] состоится церемония, на которой [locvar == "MALE" ? "ему" : "ей"] будет вручена награда — [pick("Красная Звезда Жертвенности","Пурпурное Сердце Героизма","Синий Орёл Верности","Зелёный Лев Изобретательности")] за "
 					if(prob(33))
 						newMsg.body += "действия в Битве при [pick(locstring,"██████████")]."
 					else if(prob(50))
@@ -133,7 +133,7 @@
 	newMsg.author = EDITOR_GIB
 	//newMsg.is_admin_message = 1
 	var/datum/trade_destination/affected_dest = pick(GLOB.weighted_mundaneevent_locations)
-	newMsg.body = pick(file2list("config/news/trivial.txt"))
+	newMsg.body = pick(world.file2list("strings/news/trivial.txt"))
 	newMsg.body = replacetext(newMsg.body, "{{AFFECTED}}", affected_dest.name)
 
 	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_GIB)?.add_message(newMsg)

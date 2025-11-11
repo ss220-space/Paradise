@@ -6951,7 +6951,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/security/prisonershuttle)
 "ayi" = (
-/obj/effect/landmark/event/carpspawn,
+/obj/effect/landmark/spawner/carp,
 /turf/space,
 /area/space)
 "ayo" = (
@@ -8363,7 +8363,7 @@
 	},
 /area/security/permabrig)
 "aCO" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aCY" = (
@@ -8504,7 +8504,7 @@
 /turf/space,
 /area/solar/auxstarboard)
 "aDu" = (
-/obj/effect/landmark/event/carpspawn,
+/obj/effect/landmark/spawner/carp,
 /obj/structure/lattice,
 /turf/space,
 /area/space)
@@ -10130,7 +10130,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aIZ" = (
@@ -10729,6 +10729,18 @@
 	icon_state = "darkredfull"
 	},
 /area/hallway/secondary/exit)
+"aLl" = (
+/obj/structure/table,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/rcd,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellow"
+	},
+/area/engineering/engine)
 "aLp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -11251,7 +11263,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aNE" = (
@@ -11860,7 +11872,7 @@
 	},
 /area/crew_quarters/sleep)
 "aPM" = (
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12708,7 +12720,7 @@
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "aTC" = (
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -14579,7 +14591,7 @@
 	},
 /area/maintenance/fsmaint)
 "bba" = (
-/obj/effect/landmark/honk_squad,
+/obj/effect/landmark/spawner/honk_squad,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "bbd" = (
@@ -16068,7 +16080,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bfR" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bfS" = (
@@ -17214,7 +17226,7 @@
 "bjL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bjO" = (
@@ -17513,7 +17525,7 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bll" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
@@ -19049,14 +19061,6 @@
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
-"bqU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/radio/beacon,
-/obj/effect/landmark/marauder_entry,
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "bqV" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -24046,7 +24050,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bMu" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -24278,7 +24282,7 @@
 /area/medical/morgue)
 "bMZ" = (
 /obj/structure/morgue,
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -25537,7 +25541,7 @@
 	},
 /area/medical/research)
 "bRn" = (
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "bRr" = (
@@ -26055,7 +26059,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bTd" = (
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -26116,7 +26120,7 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "bTm" = (
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -26208,7 +26212,7 @@
 	dir = 4
 	},
 /obj/item/soap/deluxe,
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /obj/item/bikehorn/rubberducky/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -27684,7 +27688,7 @@
 	},
 /area/medical/cmo)
 "bXQ" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /obj/effect/decal/remains/mouse/Pinkie,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server)
@@ -28023,7 +28027,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "bYS" = (
@@ -30433,7 +30437,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "cgv" = (
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -31282,7 +31286,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cjr" = (
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -31971,12 +31975,12 @@
 "clS" = (
 /obj/item/clothing/head/soft/blue,
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "clT" = (
-/obj/effect/landmark/event/blobstart,
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "clU" = (
@@ -33131,17 +33135,6 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"cqZ" = (
-/obj/item/radio/beacon,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/atmos)
 "cra" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -35204,7 +35197,7 @@
 /area/engineering/engine)
 "cye" = (
 /obj/machinery/crematorium,
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -36262,6 +36255,20 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/chief)
+"cCv" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/item/beacon,
+/turf/simulated/floor/plasteel,
+/area/engineering/hardsuitstorage)
 "cCy" = (
 /obj/structure/window/reinforced{
 	color = "yellow";
@@ -37412,7 +37419,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cHA" = (
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
 "cHD" = (
@@ -38833,7 +38840,7 @@
 /area/hydroponics)
 "cNb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "cNc" = (
@@ -40851,7 +40858,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/podbay)
 "cTS" = (
-/obj/effect/landmark/join_late_cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "cTT" = (
@@ -41562,7 +41569,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -43250,7 +43257,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dcv" = (
@@ -45389,7 +45396,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/join_late_cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
 /obj/machinery/computer/cryopod/robot{
 	pixel_x = -30;
 	pixel_y = 30
@@ -47598,7 +47605,7 @@
 	name = "east station intercom (General)";
 	pixel_x = 28
 	},
-/obj/effect/landmark/event/tripai,
+/obj/effect/landmark/spawner/tripai,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "drV" = (
@@ -48457,7 +48464,7 @@
 /area/maintenance/asmaint)
 "dJY" = (
 /obj/structure/closet,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dKe" = (
@@ -48849,7 +48856,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /obj/machinery/requests_console{
 	department = "Arrival Shuttle";
 	name = "Arrival Shuttle Requests Console";
@@ -49008,7 +49015,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "dVZ" = (
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dWC" = (
@@ -49339,6 +49346,14 @@
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"egx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/beacon,
+/obj/effect/landmark/marauder_entry,
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "egE" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -50765,7 +50780,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "eLK" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "eLW" = (
@@ -51426,10 +51441,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
-"eZD" = (
-/obj/item/radio/beacon,
-/turf/simulated/floor/engine,
-/area/toxins/test_chamber)
 "eZH" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -51596,7 +51607,7 @@
 "ffp" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/sign/poster/official/space_a{
 	pixel_x = -32
 	},
@@ -52636,7 +52647,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "fEY" = (
@@ -53188,7 +53199,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /obj/machinery/light,
 /obj/item/radio/intercom{
 	name = "south station intercom (General)";
@@ -54839,7 +54850,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/honk_squad,
+/obj/effect/landmark/spawner/honk_squad,
 /obj/machinery/camera{
 	c_tag = "Arrivals Shuttle South West";
 	dir = 4
@@ -55080,6 +55091,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
+"gLC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/rcd,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "yellow"
+	},
+/area/engineering/hardsuitstorage)
 "gLH" = (
 /obj/structure/flora/junglebush/c,
 /turf/simulated/floor/grass,
@@ -55535,7 +55556,7 @@
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 4
 	},
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "gVu" = (
@@ -56250,6 +56271,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/medbay)
+"hnS" = (
+/obj/item/beacon,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/atmos)
 "hok" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -57519,7 +57551,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/honk_squad,
+/obj/effect/landmark/spawner/honk_squad,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "hSF" = (
@@ -59877,7 +59909,7 @@
 "iVY" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/engine,
 /area/maintenance/server)
 "iWf" = (
@@ -60759,7 +60791,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -61804,10 +61836,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
-"jUp" = (
-/obj/item/radio/beacon/engine/tesling,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "jUI" = (
 /obj/structure/table,
 /obj/item/scalpel,
@@ -61859,7 +61887,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/honk_squad,
+/obj/effect/landmark/spawner/honk_squad,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "jVp" = (
@@ -61924,7 +61952,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/landmark/join_late_prisoner,
+/obj/effect/landmark/spawner/late/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -62417,20 +62445,6 @@
 	icon_state = "dark"
 	},
 /area/gateway)
-"kit" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/item/radio/beacon,
-/turf/simulated/floor/plasteel,
-/area/engineering/hardsuitstorage)
 "kix" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -62586,6 +62600,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"kkd" = (
+/obj/item/beacon,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/camera{
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
+	c_tag = "Research Toxins Test Chamber West";
+	dir = 8;
+	network = list("Toxins","Research","SS13")
+	},
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/toxins/test_area)
 "kkh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -62739,7 +62764,7 @@
 /area/medical/virology/lab)
 "knt" = (
 /obj/effect/spawner/random_spawners/rodent,
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -64156,7 +64181,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "kTJ" = (
@@ -66955,6 +66980,19 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
+"mdV" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west extinguisher cabinet";
+	pixel_x = -27
+	},
+/obj/structure/table,
+/obj/item/beacon,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/teleporter)
 "mdX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -67862,7 +67900,7 @@
 	name = "west station intercom (General)";
 	pixel_x = -28
 	},
-/obj/effect/landmark/event/tripai,
+/obj/effect/landmark/spawner/tripai,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "mzV" = (
@@ -68244,7 +68282,7 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "mJU" = (
@@ -69373,7 +69411,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/landmark/join_late_gateway,
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -71092,7 +71130,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/landmark/join_late_gateway,
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -71684,7 +71722,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "orz" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "orH" = (
@@ -74459,6 +74497,10 @@
 	icon_state = "white"
 	},
 /area/toxins/explab)
+"pGm" = (
+/obj/item/beacon,
+/turf/simulated/floor/engine,
+/area/toxins/test_chamber)
 "pGG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -76279,6 +76321,15 @@
 	icon_state = "purple"
 	},
 /area/atmos)
+"qrM" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/item/beacon,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/storage/eva)
 "qrO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -76599,7 +76650,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
 "qzo" = (
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /obj/structure/morgue{
 	dir = 8
 	},
@@ -77014,17 +77065,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
-"qJB" = (
-/obj/item/radio/beacon,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/camera{
-	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
-	c_tag = "Research Toxins Test Chamber West";
-	dir = 8;
-	network = list("Toxins","Research","SS13")
-	},
-/turf/simulated/floor/plasteel/airless/indestructible,
-/area/toxins/test_area)
 "qJD" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4
@@ -77549,7 +77589,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/landmark/join_late_gateway,
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -78810,15 +78850,6 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
-"rzx" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/item/radio/beacon,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/storage/eva)
 "rzC" = (
 /obj/structure/table,
 /obj/item/healthanalyzer,
@@ -80866,7 +80897,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "svV" = (
@@ -81069,15 +81100,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
-"sBj" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
-	},
-/area/engineering/hardsuitstorage)
 "sBn" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -81355,7 +81377,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "sHg" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/greengrid,
 /area/maintenance/xenozoo)
 "sHq" = (
@@ -82410,7 +82432,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "tbq" = (
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -82556,7 +82578,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "tfT" = (
@@ -83353,7 +83375,7 @@
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "txM" = (
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -83839,19 +83861,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"tHR" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west extinguisher cabinet";
-	pixel_x = -27
-	},
-/obj/structure/table,
-/obj/item/radio/beacon,
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/teleporter)
 "tIA" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
@@ -84700,7 +84709,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "ubM" = (
@@ -85055,6 +85064,10 @@
 	icon_state = "vault"
 	},
 /area/security/nuke_storage)
+"ujO" = (
+/obj/item/beacon/engine/tesling,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "ujP" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -85594,7 +85607,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/obj/effect/landmark/join_late_prisoner,
+/obj/effect/landmark/spawner/late/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -88032,7 +88045,7 @@
 	},
 /area/turret_protected/ai)
 "vAj" = (
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -88304,7 +88317,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -88824,7 +88837,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on,
-/obj/effect/landmark/join_late_prisoner,
+/obj/effect/landmark/spawner/late/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "vQv" = (
@@ -89841,7 +89854,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/honk_squad,
+/obj/effect/landmark/spawner/honk_squad,
 /obj/machinery/camera{
 	c_tag = "Arrivals Shuttle South East";
 	dir = 8
@@ -91083,7 +91096,7 @@
 /area/maintenance/engineering)
 "wNr" = (
 /obj/machinery/light,
-/obj/effect/landmark/join_late_prisoner,
+/obj/effect/landmark/spawner/late/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "wNx" = (
@@ -91211,7 +91224,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "wPy" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "wPz" = (
@@ -91224,7 +91237,7 @@
 "wPE" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
 "wQq" = (
@@ -92942,7 +92955,7 @@
 	c_tag = "Chapel Crematorium";
 	dir = 4
 	},
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -93130,7 +93143,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "xGW" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "xHd" = (
@@ -93327,7 +93340,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "xMs" = (
@@ -93384,7 +93397,7 @@
 /area/hallway/secondary/entry/lounge)
 "xMY" = (
 /mob/living/simple_animal/slime,
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
 "xNd" = (
@@ -93421,17 +93434,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"xNJ" = (
-/obj/structure/table,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
-/area/engineering/engine)
 "xNP" = (
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -93857,7 +93859,7 @@
 "xWl" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/cigbutt,
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/engine,
 /area/maintenance/server)
 "xWm" = (
@@ -120035,7 +120037,7 @@ sHq
 rOx
 pJc
 vMi
-rzx
+qrM
 csn
 lUw
 aBk
@@ -122151,7 +122153,7 @@ cLi
 slH
 ekI
 hxO
-xNJ
+aLl
 xcT
 kRo
 tSH
@@ -122177,7 +122179,7 @@ uTI
 uTI
 lTl
 hpJ
-jUp
+ujO
 pST
 lTl
 uTI
@@ -123129,7 +123131,7 @@ cXj
 dep
 bnY
 bqO
-bqU
+egx
 bsA
 bvX
 bAC
@@ -124174,7 +124176,7 @@ pdw
 quf
 rgN
 bSi
-tHR
+mdV
 iVV
 xic
 rtB
@@ -124461,7 +124463,7 @@ idU
 ehz
 lLj
 ruQ
-kit
+cCv
 dNK
 dNK
 dNK
@@ -126258,7 +126260,7 @@ cGK
 eKr
 yga
 kRG
-sBj
+gLC
 ttH
 mkq
 cJy
@@ -126266,7 +126268,7 @@ cGK
 cMX
 nuO
 dOD
-cqZ
+hnS
 cuu
 ykA
 cEs
@@ -142708,7 +142710,7 @@ sOY
 rVr
 lVb
 meY
-eZD
+pGm
 jjo
 lPa
 xzo
@@ -154773,7 +154775,7 @@ ckb
 cst
 ckb
 ckb
-qJB
+kkd
 ckb
 ckb
 cst

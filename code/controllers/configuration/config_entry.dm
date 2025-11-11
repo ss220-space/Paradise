@@ -166,7 +166,7 @@
 		if(isnull(temp))
 			return FALSE
 		new_list += temp
-	if(!new_list.len)
+	if(!length(new_list))
 		return FALSE
 	config_entry_value = new_list
 	return TRUE
@@ -274,7 +274,6 @@
 				return
 
 			return key_path
-
 
 /// Takes a given config value and validates it. If successful, returns the formatted key. If unsuccessful, returns null.
 /datum/config_entry/keyed_list/proc/validate_config_value(value)

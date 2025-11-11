@@ -37,7 +37,7 @@
 		DATIVE = "низшему адскому псу",
 		ACCUSATIVE = "низшего адского пса",
 		INSTRUMENTAL = "низшим адским псом",
-		PREPOSITIONAL = "низшем адском псе"
+		PREPOSITIONAL = "низшем адском псе",
 	)
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
@@ -103,7 +103,6 @@
 		return TRUE
 	return FALSE
 
-
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/I, mob/user, params)
 	var/current_health = health
 	. = ..()
@@ -112,7 +111,6 @@
 	var/mob/living/living_target = target
 	if(isliving(target) && living_target.stat != CONSCIOUS)
 		GiveTarget(user)
-
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "greater hellhound"
@@ -184,5 +182,5 @@
 		DATIVE = "бешеному адскому псу",
 		ACCUSATIVE = "бешеного адского пса",
 		INSTRUMENTAL = "бешеным адским псом",
-		PREPOSITIONAL = "бешеном адском псе"
+		PREPOSITIONAL = "бешеном адском псе",
 	)

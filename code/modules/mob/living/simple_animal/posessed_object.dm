@@ -30,7 +30,7 @@
 		DATIVE = "одержимой штуке",
 		ACCUSATIVE = "одержимую штуку",
 		INSTRUMENTAL = "одержимой штукой",
-		PREPOSITIONAL = "одержимой штуке"
+		PREPOSITIONAL = "одержимой штуке",
 	)
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
@@ -40,17 +40,14 @@
 	else
 		. += span_warning("Похоже оно одержимо, но ему трудно удержаться на плаву!")
 
-
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	..()
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
-
 
 /mob/living/simple_animal/possessed_object/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(!supress_message)
 		to_chat(src, span_warning("Вы не можете потянуть [pulled_atom.declent_ru(ACCUSATIVE)]!"))
 	return FALSE
-
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
 	var/response = tgui_alert(src, "Прекратить контроль над этим объектом? (Вы сможете возродиться позже)", "Подтверждение выхода", list("Выйти", "Остаться в теле"))
@@ -58,7 +55,7 @@
 		return
 	set_resting(TRUE, instant = TRUE)
 	var/mob/dead/observer/ghost = ghostize(1)
-	ghost.timeofdeath = world.time
+	ghost.persistent_client.time_of_death = world.time
 	death(0) // Turn back into a regular object.
 
 /mob/living/simple_animal/possessed_object/death(gibbed)
@@ -69,7 +66,6 @@
 			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
 			possessed_item.forceMove(loc)
 	return ..()
-
 
 /mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()
@@ -103,23 +99,21 @@
 		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this
 			possessed_item.forceMove(src)
 
-
 /mob/living/simple_animal/possessed_object/Login()
 	..()
-	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя – почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
-
+	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя — почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 /mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
-		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(span_adminnotice("Posessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
 		qdel(src)
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
-		message_admins("<span class='adminnotice'>Posessed object could not find turf, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(span_adminnotice("Posessed object could not find turf, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] attempted to find a turf to spawn on, and could not."), src)
 		qdel(src)
 
@@ -132,20 +126,16 @@
 	visible_message(span_shadowling("[capitalize(src.declent_ru(NOMINATIVE))] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
-
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
 	return possessed_item
 
-
 /mob/living/simple_animal/possessed_object/IsAdvancedToolUser() // So we can shoot guns (Mostly ourselves), among other things.
 	return TRUE
-
 
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
 	if(istype(possessed_item, /obj/item/card/id))
 		var/obj/item/card/id/possessed_id = possessed_item
 		. = possessed_id.access
-
 
 /mob/living/simple_animal/possessed_object/ClickOn(atom/A, params)
 	if(client.click_intercept)
@@ -170,7 +160,6 @@
 			forceMove( possessed_item )
 
 	update_icon()
-
 
 /mob/living/simple_animal/possessed_object/update_icon(update_pixel_xy = 0)
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.

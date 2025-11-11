@@ -8,7 +8,7 @@
 		DATIVE = "сундуку Бубльгума",
 		ACCUSATIVE = "сундук Бубльгума",
 		INSTRUMENTAL = "сундуком Бубльгума",
-		PREPOSITIONAL = "сундуке Бубльгума"
+		PREPOSITIONAL = "сундуке Бубльгума",
 	)
 
 /obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
@@ -27,7 +27,7 @@
 		DATIVE = "кровавому сундуку Бубльгума",
 		ACCUSATIVE = "кровавый сундук Бубльгума",
 		INSTRUMENTAL = "кровавым сундуком Бубльгума",
-		PREPOSITIONAL = "кровавом сундуке Бубльгума"
+		PREPOSITIONAL = "кровавом сундуке Бубльгума",
 	)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher/populate_contents()
@@ -49,7 +49,7 @@
 		DATIVE = "бутылке хаоса",
 		ACCUSATIVE = "бутылку хаоса",
 		INSTRUMENTAL = "бутылкой хаоса",
-		PREPOSITIONAL = "бутылке хаоса"
+		PREPOSITIONAL = "бутылке хаоса",
 	)
 
 /obj/item/mayhem/attack_self(mob/user)
@@ -78,7 +78,7 @@
 		DATIVE = "кровавому контракту",
 		ACCUSATIVE = "кровавый контракт",
 		INSTRUMENTAL = "кровавым контрактом",
-		PREPOSITIONAL = "кровавом контракте"
+		PREPOSITIONAL = "кровавом контракте",
 	)
 
 /obj/item/blood_contract/attack_self(mob/user)
@@ -117,7 +117,7 @@
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(H.stat == DEAD || H == L)
 				continue
-			to_chat(H, span_userdanger("Вы испытываете непреодолимое желание убить [L]. [genderize_ru(L.gender,"Он","Она","Оно","Они")] помечен[genderize_ru(L.gender,"","а","о","ы")] красным! УБЕЙТЕ [genderize_ru(L.gender,"ЕГО","ЕЁ","ЕГО","ИХ")]!"))
+			to_chat(H, span_userdanger("Вы испытываете непреодолимое желание убить [L]. [GEND_HE_SHE_CAP(L)] помечен[GEND_A_O_Y(L)] красным! УБЕЙТЕ [uppertext(GEND_HIS_HER(L))]!"))
 			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))
 
 	qdel(src)
@@ -186,7 +186,6 @@
 		var/turf/target_turf = pick(spawn_exit)
 		O.forceMove(target_turf)
 
-
 // Soulscythe
 
 #define MAX_BLOOD_LEVEL 100
@@ -228,7 +227,7 @@
 		DATIVE = "косе души",
 		ACCUSATIVE = "косу души",
 		INSTRUMENTAL = "косой души",
-		PREPOSITIONAL = "косе души"
+		PREPOSITIONAL = "косе души",
 	)
 
 /obj/item/soulscythe/Initialize(mapload)
@@ -287,7 +286,6 @@
 /obj/item/soulscythe/proc/on_logout(mob/source)
 	SIGNAL_HANDLER
 	source?.canon_client?.show_popup_menus = TRUE
-
 
 /obj/item/soulscythe/attack_self(mob/user, modifiers)
 	if(using || soul.ckey || soul.stat)
@@ -450,7 +448,7 @@
 	projectile.firer = soul
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[pluralize_ru(gender,"ет","ют")] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[PLUR_ET_YUT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
 /obj/item/soulscythe/proc/slash_target(atom/attacked_atom)
@@ -459,13 +457,13 @@
 		if(attacked_mob.stat != DEAD)
 			give_blood(15)
 		attacked_mob.apply_damage(damage = force * (faction_check(attacked_mob.faction, MINING_FACTIONS) ? 2 : 1), sharp = TRUE)
-		to_chat(attacked_mob, span_userdanger("Вас разруба[pluralize_ru(gender,"ет","ют")] [declent_ru(NOMINATIVE)]!"))
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разруба[pluralize_ru(gender,"ет","ют")] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		to_chat(attacked_mob, span_userdanger("Вас разруба[PLUR_ET_YUT(src)] [declent_ru(NOMINATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разруба[PLUR_ET_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	else if((ismachinery(attacked_atom) || isstructure(attacked_atom)) && use_blood(5))
 		var/obj/attacked_obj = attacked_atom
 		attacked_obj.take_damage(force, BRUTE, MELEE, FALSE)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бь[pluralize_ru(gender,"ёт","ют")] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 50, TRUE)
 	else
 		return
@@ -527,9 +525,8 @@
 		DATIVE = "таинственному духу",
 		ACCUSATIVE = "таинственный дух",
 		INSTRUMENTAL = "таинственным духом",
-		PREPOSITIONAL = "таинственном духе"
+		PREPOSITIONAL = "таинственном духе",
 	)
-
 
 /mob/living/simple_animal/soulscythe/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -559,7 +556,7 @@
 		DATIVE = "рассечению души",
 		ACCUSATIVE = "рассечение души",
 		INSTRUMENTAL = "рассечением души",
-		PREPOSITIONAL = "рассечении души"
+		PREPOSITIONAL = "рассечении души",
 	)
 
 /obj/projectile/soulscythe/on_hit(atom/target, blocked = 0, pierce_hit)

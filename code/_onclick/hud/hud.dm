@@ -96,7 +96,7 @@
 	#endif
 	if(!isnull(last_byond_version) && new_byond_version != last_byond_version)
 		var/new_relay_loc = (new_byond_version > 515) ? "1,1" : "CENTER"
-		for(var/group_key as anything in master_groups)
+		for(var/group_key in master_groups)
 			var/datum/plane_master_group/group = master_groups[group_key]
 			group.relay_loc = new_relay_loc
 			group.rebuild_hud()
@@ -125,7 +125,7 @@
 	if(should_sight_scale(new_sight) == should_sight_scale(old_sight))
 		return
 
-	for(var/group_key as anything in master_groups)
+	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		group.build_planes_offset(src, current_plane_offset)
 
@@ -150,7 +150,7 @@
 	current_plane_offset = new_offset
 
 	SEND_SIGNAL(src, COMSIG_HUD_OFFSET_CHANGED, old_offset, new_offset)
-	for(var/group_key as anything in master_groups)
+	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		group.build_planes_offset(src, new_offset)
 
@@ -263,13 +263,13 @@
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD
 			hud_shown = TRUE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				screenmob.client.screen += static_inventory
-			if(toggleable_inventory.len && screenmob.hud_used && screenmob.hud_used.inventory_shown)
+			if(length(toggleable_inventory) && screenmob.hud_used && screenmob.hud_used.inventory_shown)
 				screenmob.client.screen += toggleable_inventory
-			if(hotkeybuttons.len && !hotkey_ui_hidden)
+			if(length(hotkeybuttons) && !hotkey_ui_hidden)
 				screenmob.client.screen += hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				screenmob.client.screen += infodisplay
 
 			screenmob.client.screen += hide_actions_toggle
@@ -280,13 +280,13 @@
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
 			hud_shown = FALSE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				screenmob.client.screen -= static_inventory
-			if(toggleable_inventory.len)
+			if(length(toggleable_inventory))
 				screenmob.client.screen -= toggleable_inventory
-			if(hotkeybuttons.len)
+			if(length(hotkeybuttons))
 				screenmob.client.screen -= hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				screenmob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
@@ -299,13 +299,13 @@
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				screenmob.client.screen -= static_inventory
-			if(toggleable_inventory.len)
+			if(length(toggleable_inventory))
 				screenmob.client.screen -= toggleable_inventory
-			if(hotkeybuttons.len)
+			if(length(hotkeybuttons))
 				screenmob.client.screen -= hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				screenmob.client.screen -= infodisplay
 			. = FALSE
 
@@ -323,13 +323,11 @@
 	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
 	return TRUE
 
-
 /datum/hud/proc/plane_masters_update()
 	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		// Plane masters are always shown to OUR mob, never to observers
 		group.refresh_hud()
-
 
 /datum/hud/human/show_hud(version = 0, mob/viewmob)
 	. = ..()
@@ -337,21 +335,17 @@
 		return
 	hidden_inventory_update(viewmob)
 
-
 /datum/hud/robot/show_hud(version = 0)
 	. = ..()
 	if(!.)
 		return
 	update_robot_modules_display()
 
-
 /datum/hud/proc/hidden_inventory_update()
 	return
 
-
 /datum/hud/proc/persistent_inventory_update(mob/viewer)
 	return
-
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()
@@ -360,14 +354,12 @@
 
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, span_notice("Изменён режим HUD. Переключение – клавиша F12."))
+		to_chat(usr, span_notice("Изменён режим HUD. Переключение — клавиша F12."))
 	else
 		to_chat(usr, span_warning("У этого типа существ нет HUD."))
 
-
 /datum/hud/proc/update_locked_slots()
 	return
-
 
 /mob/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
 	QDEL_NULL(hud_used)

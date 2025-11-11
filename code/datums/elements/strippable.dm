@@ -61,7 +61,6 @@
 	/// The STRIPPABLE_ITEM_* key
 	var/key
 
-
 /// Gets the item from the given source.
 /datum/strippable_item/proc/get_item(atom/source)
 	return
@@ -72,7 +71,7 @@
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
-		to_chat(user, span_warning("Вы не можете надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)] – предмет прилип к вашей руке!"))
+		to_chat(user, span_warning("Вы не можете надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)] — предмет прилип к вашей руке!"))
 		return FALSE
 
 	if(equipping.item_flags & ABSTRACT)
@@ -84,8 +83,8 @@
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
 	source.visible_message(
-		span_notice("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)]."),
-		span_notice("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся надеть на вас [equipping.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] пыта[PLUR_ET_YUT(user)]ся надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] пыта[PLUR_ET_YUT(user)]ся надеть на вас [equipping.declent_ru(ACCUSATIVE)]."),
 	)
 	if(ishuman(source))
 		var/mob/living/carbon/human/victim_human = source
@@ -132,8 +131,8 @@
 
 	if(!in_thief_mode(user))
 		source.visible_message(
-			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся снять [item.declent_ru(ACCUSATIVE)] с [source.declent_ru(GENITIVE)]."),
-			span_userdanger("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
+			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся снять [item.declent_ru(ACCUSATIVE)] с [source.declent_ru(GENITIVE)]."),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
 			"Слышно шуршание."
 		)
 

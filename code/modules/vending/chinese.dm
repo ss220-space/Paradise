@@ -15,6 +15,7 @@
 	lightmask_overlay = "chang_lightmask"
 	broken_overlay = "chang_broken"
 	broken_lightmask_overlay = "chang_broken_lightmask"
+	refill_canister = /obj/item/vending_refill/chinese
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6,
@@ -25,14 +26,12 @@
 		/obj/item/reagent_containers/food/snacks/fortunecookie = 6,
 		/obj/item/storage/box/crayfish_bucket = 5,
 	)
-
 	contraband = list(
 		/obj/item/poster/cheng = 5,
 		/obj/item/storage/box/mr_cheng = 3,
 		/obj/item/clothing/head/rice_hat = 3,
 		/obj/item/clothing/under/martialsuit/random = 1,
 	)
-
 	prices = list(
 		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 49,
 		/obj/item/reagent_containers/food/snacks/chinese/tao = 49,
@@ -45,8 +44,6 @@
 		/obj/item/clothing/under/martialsuit/random = 249,
 	)
 
-	refill_canister = /obj/item/vending_refill/chinese
-
 /obj/machinery/vending/chinese/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат \"Мистер Чанг\"",
@@ -54,7 +51,7 @@
 		DATIVE = "торговому автомату \"Мистер Чанг\"",
 		ACCUSATIVE = "торговый автомат \"Мистер Чанг\"",
 		INSTRUMENTAL = "торговым автоматом \"Мистер Чанг\"",
-		PREPOSITIONAL = "торговом автомате \"Мистер Чанг\""
+		PREPOSITIONAL = "торговом автомате \"Мистер Чанг\"",
 	)
 
 /obj/machinery/vending/chinese/free

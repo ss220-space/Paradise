@@ -35,7 +35,6 @@
 		closeToolTip(usr)
 		return ..()
 
-
 /atom/movable/screen/movable/action_button/Click(location, control, params)
 	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
@@ -92,7 +91,6 @@
 		clean_up_keybinds(user)
 		to_chat(user, span_notice("Назначение клавиши для [src] удалено."))
 
-
 /atom/movable/screen/movable/action_button/click_alt(mob/user)
 	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
@@ -112,7 +110,6 @@
 			owner.client.active_keybindings -= linked_keybind.binded_to
 		QDEL_NULL(linked_keybind)
 
-
 //Hide/Show Action Buttons ... Button
 /atom/movable/screen/movable/action_button/hide_toggle
 	name = "Скрыть кнопки"
@@ -124,14 +121,12 @@
 	icon_state = "bg_default"
 	var/hidden = FALSE
 
-
 /atom/movable/screen/movable/action_button/hide_toggle/MouseDrop(over_object)
 	if(istype(over_object, /atom/movable/screen/movable/action_button))
 		closeToolTip(usr)
 	else
 		closeToolTip(usr)
 		return ..()
-
 
 /atom/movable/screen/movable/action_button/hide_toggle/Click(location,control,params)
 	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
@@ -155,7 +150,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	usr.update_action_buttons()
 
-
 /atom/movable/screen/movable/action_button/hide_toggle/click_alt(mob/user)
 	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
@@ -168,7 +162,6 @@
 	user.update_action_buttons(reload_screen = TRUE)
 	to_chat(user, span_notice("Позиции кнопок сброшены."))
 	return CLICK_ACTION_SUCCESS
-
 
 /atom/movable/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
 	if(isalien(user))
@@ -187,13 +180,11 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-
 /atom/movable/screen/movable/action_button/hide_toggle/update_overlays()
 	. = ..()
 	var/image/img = image(initial(icon), src, hidden ? "show" : "hide")
 	img.appearance_flags = RESET_COLOR|RESET_ALPHA
 	. += img
-
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()
@@ -207,14 +198,12 @@
 			desc_information = desc_information.Join(" ")
 			openToolTip(usr, src, params, title = name, content = desc_information, theme = actiontooltipstyle)
 
-
 /atom/movable/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
 
 /mob/proc/update_action_buttons_icon()
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
-
 
 //This is the proc used to update all the action buttons.
 /mob/proc/update_action_buttons(reload_screen)
@@ -259,7 +248,6 @@
 	if(reload_screen)
 		client.screen += hud_used.hide_actions_toggle
 
-
 #define AB_MAX_COLUMNS 10
 
 /datum/hud/proc/ButtonNumberToScreenCoords(number) // TODO : Make this zero-indexed for readabilty
@@ -272,7 +260,6 @@
 	var/coord_row = "[row ? -row : "+0"]"
 
 	return "WEST[coord_col]:[coord_col_offset],NORTH[coord_row]:-6"
-
 
 /datum/hud/proc/SetButtonCoords(atom/movable/screen/button, number)
 	var/row = round((number-1)/AB_MAX_COLUMNS)

@@ -24,20 +24,20 @@
 */
 
 //Redefinitions of the diagonal directions so they can be stored in one var without conflicts
-#define N_NORTH	2
-#define N_SOUTH	4
-#define N_EAST	16
-#define N_WEST	256
-#define N_NORTHEAST	32
-#define N_NORTHWEST	512
-#define N_SOUTHEAST	64
-#define N_SOUTHWEST	1024
+#define N_NORTH 2
+#define N_SOUTH 4
+#define N_EAST 16
+#define N_WEST 256
+#define N_NORTHEAST 32
+#define N_NORTHWEST 512
+#define N_SOUTHEAST 64
+#define N_SOUTHWEST 1024
 
 #define NULLTURF_BORDER 123456789
 
-#define DEFAULT_UNDERLAY_ICON			'icons/turf/floors.dmi'
-#define DEFAULT_UNDERLAY_ICON_STATE	"plating"
-#define DEFAULT_UNDERLAY_IMAGE			image(DEFAULT_UNDERLAY_ICON, DEFAULT_UNDERLAY_ICON_STATE)
+#define DEFAULT_UNDERLAY_ICON 'icons/turf/floors.dmi'
+#define DEFAULT_UNDERLAY_ICON_STATE "plating"
+#define DEFAULT_UNDERLAY_IMAGE image(DEFAULT_UNDERLAY_ICON, DEFAULT_UNDERLAY_ICON_STATE)
 
 GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
@@ -175,8 +175,11 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 /proc/smooth_icon(atom/A)
 	if(!A || !A.smooth || !A.z)
 		return
+
 	if(QDELETED(A))
 		return
+
+	A.smooth &= ~SMOOTH_QUEUED
 	if(A.smooth & (SMOOTH_TRUE | SMOOTH_MORE))
 		var/adjacencies = calculate_adjacencies(A)
 
@@ -187,6 +190,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
 	else if(A.smooth & SMOOTH_BITMASK)
 		A.bitmask_smooth()
+
 	if(isturf(A))
 		SSdemo.mark_turf(A)
 
@@ -350,7 +354,6 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 		else
 			icon_state = "[base_icon_state]-[smoothing_junction]"
 
-
 /atom/proc/diagonal_smooth(adjacencies)
 	switch(adjacencies)
 		if(N_NORTH|N_WEST)
@@ -461,9 +464,8 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 		A.bottom_left_corner = se
 		New += se
 
-	if(New.len)
+	if(length(New))
 		A.add_overlay(New)
-
 
 /proc/find_type_in_direction(atom/source, direction)
 	var/turf/target_turf = get_step(source, direction)

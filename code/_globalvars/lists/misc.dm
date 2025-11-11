@@ -25,7 +25,6 @@ GLOBAL_LIST_INIT(month_names, list("January", "February", "March", "April", "May
 // keep si_suffixes balanced and with a pivot in the middle!
 GLOBAL_LIST_INIT(si_suffixes, list("y", "z", "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"))
 
-
 GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"CentComm",
 	"ERT",
@@ -51,7 +50,6 @@ GLOBAL_LIST_EMPTY(ruin_landmarks)
 
 /// List of all the maps that have been cached for /proc/load_map
 GLOBAL_LIST_EMPTY(cached_maps)
-
 
 GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
@@ -82,14 +80,35 @@ GLOBAL_LIST_INIT(all_taipan_jobs, list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTA
 /// List of looping sounds
 GLOBAL_LIST_EMPTY(looping_sounds)
 
-
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
 
 /// List of cargo consoles that print reports on completed/expired orders
 GLOBAL_LIST_EMPTY(cargo_announcers)
 
-
 GLOBAL_LIST_EMPTY(devil_contracts)
 
 GLOBAL_LIST_EMPTY(nuke_codes)
+
+GLOBAL_LIST_INIT(permissions_name_to_flag, list(
+	R_BUILDMODE_NAME = R_BUILDMODE,
+	R_ADMIN_NAME = R_ADMIN,
+	R_BAN_NAME = R_BAN,
+	R_EVENT_NAME = R_EVENT,
+	R_SERVER_NAME = R_SERVER,
+	R_DEBUG_NAME = R_DEBUG,
+	R_POSSESS_NAME = R_POSSESS,
+	R_PERMISSIONS_NAME = R_PERMISSIONS,
+	R_STEALTH_NAME = R_STEALTH,
+	R_REJUVINATE_NAME = R_REJUVINATE,
+	R_VAREDIT_NAME = R_VAREDIT,
+	R_SOUNDS_NAME = R_SOUNDS,
+	R_SPAWN_NAME = R_SPAWN,
+	R_PROCCALL_NAME = R_PROCCALL,
+	R_MOD_NAME = R_MOD,
+	R_MENTOR_NAME = R_MENTOR,
+	R_VIEWRUNTIMES_NAME = R_VIEWRUNTIMES,
+	R_SKINS_NAME = R_SKINS
+))
+
+GLOBAL_LIST_EMPTY(exoframe_types)

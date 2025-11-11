@@ -25,7 +25,6 @@
 	distill_reagent = "bananahonk"
 	tastes = list("banana" = 1)
 
-
 /obj/item/reagent_containers/food/snacks/grown/banana/throw_impact(mob/living/simple_animal/hostile/gorilla/hit_gorilla, datum/thrownthing/throwingdatum)
 	if(istype(hit_gorilla))
 		if(!hit_gorilla.can_befriend || hit_gorilla.is_on_cooldown())
@@ -43,9 +42,8 @@
 	else
 		return ..()
 
-
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is aiming the [name] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is aiming the [name] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
 	sleep(25)
 	if(!user)
@@ -67,10 +65,9 @@
 	throw_speed = 3
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is deliberately slipping on the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is deliberately slipping on the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 	return BRUTELOSS
-
 
 // Mimana - invisible sprites are totally a feature!
 /obj/item/seeds/banana/mime

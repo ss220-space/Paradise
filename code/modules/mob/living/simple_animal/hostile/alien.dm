@@ -75,7 +75,6 @@
 	projectiletype = /obj/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 
-
 /mob/living/simple_animal/hostile/alien/queen
 	name = "alien queen"
 	icon_state = "alienq_running"
@@ -117,7 +116,7 @@
 		return
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
 		return
-	visible_message("<span class='alertalien'>[src] has planted some alien weeds!</span>")
+	visible_message(span_alertalien("[src] has planted some alien weeds!"))
 	new /obj/structure/alien/weeds/node(loc)
 
 /mob/living/simple_animal/hostile/alien/proc/LayEggs()
@@ -125,7 +124,7 @@
 		return
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
 		return
-	visible_message("<span class='alertalien'>[src] has laid an egg!</span>")
+	visible_message(span_alertalien("[src] has laid an egg!"))
 	new /obj/structure/alien/egg(loc)
 
 /mob/living/simple_animal/hostile/alien/queen/large
@@ -160,10 +159,10 @@
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(ismovable(target))
 		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
+			visible_message(span_notice("\The [src] cleans up \the [target]."))
 			qdel(target)
 			return TRUE
 		var/atom/movable/M = target
 		M.clean_blood()
-		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+		visible_message(span_notice("\The [src] polishes \the [target]."))
 		return TRUE

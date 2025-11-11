@@ -164,7 +164,7 @@
 /datum/song/proc/do_hearcheck()
 	last_hearcheck = world.time
 	var/list/old = hearing_mobs.Copy()
-	hearing_mobs.len = 0
+	hearing_mobs.Cut()
 	var/turf/source = get_turf(parent)
 	for(var/mob/M in GLOB.player_list)
 		if(M.z != source.z) // Z-level check
@@ -217,11 +217,11 @@
 	if(playing)
 		return
 	if(!using_instrument?.is_ready())
-		to_chat(user, "<span class='warning'>An error has occured with [src]. Please reset the instrument.</span>")
+		to_chat(user, span_warning("An error has occured with [src]. Please reset the instrument."))
 		return
 	compile_chords()
 	if(!length(compiled_chords))
-		to_chat(user, "<span class='warning'>Song is empty.</span>")
+		to_chat(user, span_warning("Song is empty."))
 		return
 	playing = TRUE
 	SStgui.update_uis(parent)
@@ -247,7 +247,7 @@
 	STOP_PROCESSING(SSinstruments, src)
 	SEND_SIGNAL(parent, COMSIG_SONG_END)
 	terminate_all_sounds(TRUE)
-	hearing_mobs.len = 0
+	hearing_mobs.Cut()
 	SStgui.update_uis(parent)
 	user_playing = null
 
@@ -412,7 +412,6 @@
 		return TRUE
 	var/obj/structure/musician/M = parent
 	return M.should_stop_playing(user)
-
 
 // Subtype for thermal drills.
 /datum/song/thermal_drill

@@ -5,7 +5,6 @@
  * and we make a new riding component, so on and so forth until the sun explodes.
  */
 
-
 /datum/component/riding
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
@@ -46,7 +45,6 @@
 	COOLDOWN_DECLARE(message_cooldown)
 	/// For telling someone they can't drive
 	COOLDOWN_DECLARE(vehicle_move_cooldown)
-
 
 /datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags= NONE, potion_boost = FALSE)
 	if(!ismovable(parent))
@@ -192,9 +190,9 @@
 				if(offsetdir == AM_dir)
 					var/list/diroffsets = offsets[offsetdir]
 					buckled_mob.pixel_x = diroffsets[1]
-					if(diroffsets.len >= 2)
+					if(length(diroffsets) >= 2)
 						buckled_mob.pixel_y = diroffsets[2]
-					if(diroffsets.len == 3)
+					if(length(diroffsets) == 3)
 						buckled_mob.layer = diroffsets[3]
 					break dir_loop
 	var/static/list/default_vehicle_pixel_offsets = list(TEXT_NORTH = list(0, 0), TEXT_SOUTH = list(0, 0), TEXT_EAST = list(0, 0), TEXT_WEST = list(0, 0))

@@ -38,19 +38,19 @@
 /datum/action/innate/revolution_recruitment/proc/choose_targets(mob/user = usr)
 	var/list/validtargets = list()
 	for(var/mob/living/carbon/human/M in view(user.client.view, get_turf(user)))
-		if(M && M.mind && M.stat == CONSCIOUS)
+		if(M?.mind && M.stat == CONSCIOUS)
 			if(M == user)
 				continue
 			if((M.mind.special_role == SPECIAL_ROLE_REV) || (M.mind.special_role == SPECIAL_ROLE_HEAD_REV))
 				continue
 			validtargets += M
-	if(!validtargets.len)
+	if(!length(validtargets))
 		to_chat(usr, span_warning("There are no valid targets!"))
 	var/mob/living/carbon/human/target = tgui_input_list(usr, "Choose a target for recruitment.", "Targeting", validtargets)
 	return target
 
 /datum/action/innate/revolution_recruitment/Activate()
-	if(!(usr && usr.mind && usr.stat == CONSCIOUS))
+	if(!(usr?.mind && usr.stat == CONSCIOUS))
 		to_chat(usr, span_danger("You must be conscious."))
 		return
 	if(world.time < usr.mind.rev_cooldown)
@@ -68,7 +68,7 @@
 		return
 	var/choice = alert(recruit, "Do you want to join the revolution?", "Join the revolution", "Yes", "No")
 	if(choice == "Yes")
-		if(!(recruit && recruit.mind && recruit.stat == CONSCIOUS))
+		if(!(recruit?.mind && recruit.stat == CONSCIOUS))
 			return
 		if(usr.mind in SSticker.mode.head_revolutionaries)
 			SSticker.mode.add_revolutionary(recruit.mind)
@@ -86,7 +86,7 @@
 		restricted_jobs += protected_jobs
 
 	for(var/i=1 to max_headrevs)
-		if(!possible_revolutionaries.len)
+		if(!length(possible_revolutionaries))
 			break
 		var/datum/mind/lenin = pick(possible_revolutionaries)
 		possible_revolutionaries -= lenin
@@ -94,18 +94,17 @@
 		lenin.restricted_roles = restricted_jobs
 		lenin.special_role = SPECIAL_ROLE_REV
 
-	if(head_revolutionaries.len < required_enemies)
+	if(length(head_revolutionaries) < required_enemies)
 		return FALSE
 
 	return TRUE
 
-
 /datum/game_mode/revolution/post_setup()
 	var/list/heads = get_living_heads()
 	var/list/sec = get_living_sec()
-	var/weighted_score = min(max(round(heads.len - ((8 - sec.len) / 3)),1),max_headrevs)
+	var/weighted_score = min(max(round(length(heads) - ((8 - length(sec)) / 3)),1),max_headrevs)
 
-	while(weighted_score < head_revolutionaries.len) //das vi danya
+	while(weighted_score < length(head_revolutionaries)) //das vi danya
 		var/datum/mind/trotsky = pick(head_revolutionaries)
 		head_revolutionaries -= trotsky
 		trotsky.special_role = null
@@ -120,14 +119,12 @@
 		greet_revolutionary(rev_mind)
 	..()
 
-
 /datum/game_mode/revolution/process()
 	check_counter++
 	if(check_counter >= 5)
 		check_latejoin()
 		check_counter = 0
 	return FALSE
-
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
 	var/datum/objective/rev_obj = new
@@ -191,11 +188,11 @@
 //Checks if new heads have joined midround//
 ////////////////////////////////////////////
 /datum/game_mode/revolution/proc/check_latejoin()
-	if(head_revolutionaries.len < max_headrevs)
+	if(length(head_revolutionaries) < max_headrevs)
 		var/list/heads = get_all_heads()
 		var/list/sec = get_all_sec()
 
-		if(head_revolutionaries.len < round(heads.len - ((8 - sec.len) / 3)))
+		if(length(head_revolutionaries) < round(length(heads) - ((8 - length(sec)) / 3)))
 			latejoin_headrev()
 
 ///////////////////////////////
@@ -208,7 +205,7 @@
 			if(khrushchev.current && khrushchev.current.client && khrushchev.current.stat != DEAD)
 				if(ROLE_REV in khrushchev.current.client.prefs.be_special)
 					promotable_revs += khrushchev
-		if(promotable_revs.len)
+		if(length(promotable_revs))
 			var/datum/mind/stalin = pick(promotable_revs)
 			revolutionaries -= stalin
 			head_revolutionaries += stalin
@@ -281,7 +278,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_revolution()
 	var/list/targets = list()
-	if(head_revolutionaries.len || GAMEMODE_IS_REVOLUTION)
+	if(length(head_revolutionaries) || GAMEMODE_IS_REVOLUTION)
 		var/num_revs = 0
 		var/num_survivors = 0
 		for(var/mob/living/carbon/survivor in GLOB.alive_mob_list)
@@ -309,7 +306,6 @@
 		text += "<br>"
 		return text.Join("")
 
-
 /datum/game_mode/revolution/set_scoreboard_vars()
 	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
@@ -335,7 +331,6 @@
 			if(player.mind.assigned_role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO))
 				scoreboard.score_dead_command++
 
-
 	var/arrestpoints = scoreboard.score_arrested * 1000
 	var/killpoints = scoreboard.score_ops_killed * 500
 	var/comdeadpts = scoreboard.score_dead_command * 500
@@ -345,7 +340,6 @@
 	scoreboard.crewscore += arrestpoints
 	scoreboard.crewscore += killpoints
 	scoreboard.crewscore -= comdeadpts
-
 
 /datum/game_mode/revolution/get_scoreboard_stats()
 	var/datum/scoreboard/scoreboard = SSticker.score
@@ -376,7 +370,6 @@
 		if(X.stat != DEAD)
 			loycount++
 
-
 	var/dat = ""
 
 	dat += "<b><u>Mode Statistics</u></b><br>"
@@ -396,11 +389,9 @@
 
 	return dat
 
-
 /proc/is_revolutionary(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.revolutionaries)
-
+	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.revolutionaries)
 
 /proc/is_head_revolutionary(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.head_revolutionaries)
+	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.head_revolutionaries)
 

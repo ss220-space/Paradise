@@ -39,7 +39,6 @@
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
-
 /area/syndicate_depot/core/proc/update_state()
 	if(destroyed)
 		invisibility = INVISIBILITY_MAXIMUM
@@ -55,7 +54,6 @@
 		invisibility = INVISIBILITY_MAXIMUM
 	update_icon(UPDATE_ICON_STATE)
 
-
 /area/syndicate_depot/core/update_icon_state()
 	if(invisibility == INVISIBILITY_MAXIMUM)
 		icon_state = null
@@ -68,7 +66,6 @@
 		icon_state = "red"
 	else if(local_alarm)
 		icon_state = "bluenew"
-
 
 /area/syndicate_depot/core/proc/reset_alert()
 
@@ -140,10 +137,9 @@
 		if(perimeter_shield_status)
 			increase_alert("Perimeter shield breach!")
 
-
 /area/syndicate_depot/core/proc/armory_locker_looted()
 	if(!run_finished && !used_self_destruct)
-		if(shield_list.len)
+		if(length(shield_list))
 			activate_self_destruct("Armory compromised despite armory shield being online.", FALSE)
 			return
 		declare_finished()
@@ -236,7 +232,7 @@
 		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name == "syndi_depot_bot")
 				possible_bot_spawns |= L
-		if(possible_bot_spawns.len)
+		if(length(possible_bot_spawns))
 			var/obj/effect/landmark/S = pick(possible_bot_spawns)
 			new /obj/effect/portal(get_turf(S))
 			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
@@ -306,7 +302,7 @@
 			reactor.overload(containment_failure)
 	else
 		log_debug("Depot: [src] called activate_self_destruct with no reactor.")
-		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually via admin bomb(25, 35, 45, 55).</span>")
+		message_admins(span_adminnotice("Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually via admin bomb(25, 35, 45, 55)."))
 	update_icon(UPDATE_ICON_STATE)
 
 /area/syndicate_depot/core/proc/activate_lockdown()
@@ -349,14 +345,14 @@
 		if(!M.ckey)
 			continue
 		var/turf/T = get_turf(M)
-		if(T && T.loc && T.loc == src)
+		if(T?.loc && T.loc == src)
 			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
 
 /area/syndicate_depot/core/proc/shields_up()
-	if(shield_list.len)
+	if(length(shield_list))
 		return
 	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "syndi_depot_shield")
@@ -372,7 +368,7 @@
 		A.lock()
 
 /area/syndicate_depot/core/proc/shields_key_check()
-	if(!shield_list.len)
+	if(!length(shield_list))
 		return
 	if(detected_mech || detected_pod || detected_double_agent)
 		return
@@ -494,7 +490,7 @@
 	var/list/shield_list = list()
 
 /area/syndicate_depot/perimeter/proc/perimeter_shields_up()
-	if(shield_list.len)
+	if(length(shield_list))
 		return
 	for(var/turf/T in src)
 		var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(T)

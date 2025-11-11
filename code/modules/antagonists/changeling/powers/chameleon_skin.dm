@@ -8,7 +8,6 @@
 	chemical_cost = 25
 	req_human = TRUE
 
-
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
 	var/mob/living/carbon/human/h_owner = user
 	if(!istype(h_owner))	// SHOULD always be human, because req_human = TRUE, but better safe than sorry
@@ -18,7 +17,6 @@
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
 
 /datum/action/changeling/chameleon_skin/Remove(mob/user)
 	var/mob/living/carbon/c_owner = user

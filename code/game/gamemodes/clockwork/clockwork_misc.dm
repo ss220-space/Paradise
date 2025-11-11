@@ -92,11 +92,9 @@
 /obj/effect/decal/cleanable/blood/gibs/clock/can_bloodcrawl_in()
 	return FALSE
 
-
 /obj/effect/decal/cleanable/blood/gibs/clock/update_icon(updates = ALL)
 	color = "#FFFFFF"
 	. = ..(NONE)
-
 
 /obj/effect/decal/cleanable/blood/gibs/clock/dry()
 	return
@@ -168,7 +166,7 @@
 /obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+		to_chat(user, span_warning("[src] needs to be unsecured to disassemble it!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -182,7 +180,6 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I, 10)
-
 
 /obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/brass))
@@ -220,7 +217,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT) && disassembled)
 		new metal_type(loc, 1)
@@ -235,7 +231,6 @@
 	if(prob(25))
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
-
 
 /obj/structure/clockwork/wall_gear/fake/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/brass_fake))

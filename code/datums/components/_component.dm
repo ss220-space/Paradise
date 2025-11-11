@@ -104,7 +104,7 @@
 				components_of_type = existing
 			if(i_type == our_type)	//exact match, take priority
 				var/inserted = FALSE
-				for(var/index in 1 to components_of_type.len)
+				for(var/index in 1 to length(components_of_type))
 					var/datum/component/check_component = components_of_type[index]
 					if(check_component.type != our_type) //but not over other exact matches
 						components_of_type.Insert(index, i_type)
@@ -131,7 +131,7 @@
 		if(length(components_of_type))
 			var/list/subtracted = components_of_type - src
 
-			if(subtracted.len == 1) //only 1 guy left
+			if(length(subtracted) == 1) //only 1 guy left
 				parents_components[i_type] = subtracted[1] //make him special
 			else
 				parents_components[i_type] = subtracted
@@ -139,7 +139,7 @@
 		else //just us
 			parents_components -= i_type
 
-	if(!parents_components.len)
+	if(!length(parents_components))
 		parent.datum_components = null
 
 	UnregisterFromParent()
@@ -169,7 +169,7 @@
  * Register to listen for a signal from the passed in target
  *
  * This sets up a listening relationship such that when the target object emits a signal
- * the source datum this proc is called upon, will recieve a callback to the given proctype
+ * the source datum this proc is called upon, will receive a callback to the given proctype
  * Return values from procs registered must be a bitfield
  *
  * Arguments:
@@ -262,7 +262,6 @@
 /datum/component/proc/InheritComponent(datum/component/C, i_am_original)
 	return
 
-
 /**
  * Called on a component when a component of the same type was added to the same parent with [COMPONENT_DUPE_SELECTIVE]
  *
@@ -274,7 +273,6 @@
  */
 /datum/component/proc/CheckDupeComponent(datum/component/C, ...)
 	return
-
 
 /**
  * Callback Just before this component is transferred
@@ -329,7 +327,6 @@
 		queued_calls.Add(listening_datum, listening_datum.signal_procs[src][sigtype])
 	for(var/i in 1 to length(queued_calls) step 2)
 		. |= call(queued_calls[i], queued_calls[i + 1])(arglist(arguments))
-
 
 // The type arg is casted so initial works, you shouldn't be passing a real instance into this
 /**

@@ -44,7 +44,6 @@
 		list("lowerlimit" = text2num((page_num - 1) * FLAGGED_BOOKS_PER_PAGE), "upperlimit" = FLAGGED_BOOKS_PER_PAGE)
 	)
 
-
 	if(!query.warn_execute())
 		qdel(query)
 		return

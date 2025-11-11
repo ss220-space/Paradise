@@ -40,7 +40,7 @@
 				connectedparts += pointer
 			linked = pointer
 			pointer = null
-	if(connectedparts.len < 4)
+	if(length(connectedparts) < 4)
 		return 0
 	for(var/i = 1; i <=4; i++)
 		var/obj/item/pod_parts/pod_frame/F = connectedparts[i]
@@ -51,14 +51,13 @@
 			return 0
 	return connectedparts
 
-
 /obj/item/pod_parts/pod_frame/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
 		var/obj/item/stack/rods/rods = I
 		var/list/linkedparts = find_square()
 		if(!linkedparts)
-			to_chat(user, span_warning("Вы не можете собрать каркас шаттла - отсутствуют необходимые компоненты."))
+			to_chat(user, span_warning("Вы не можете собрать каркас шаттла — отсутствуют необходимые компоненты."))
 			return ATTACK_CHAIN_PROCEED
 		var/cached_sound = rods.usesound
 		if(!rods.use(10))
@@ -80,7 +79,6 @@
 
 	return ..()
 
-
 /obj/item/pod_parts/pod_frame/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -89,11 +87,9 @@
 	set_density(anchored)
 	to_chat(user, span_notice("Вы [anchored ? "закрепили [src.declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
 
-
 /obj/item/pod_parts/pod_frame/examine(mob/user)
 	. = ..()
 	. += span_notice("<b>Alt+ЛКМ</b> для поворота.")
-
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Повернуть каркас"
@@ -110,15 +106,12 @@
 	dir = turn(dir, -90)
 	return TRUE
 
-
 /obj/item/pod_parts/pod_frame/click_alt(mob/user)
 	rotate()
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/pod_parts/pod_frame/attack_hand()
 	return
-
 
 /obj/item/pod_parts/pod_frame/fore_port
 	name = "fore port pod frame"

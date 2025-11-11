@@ -71,6 +71,9 @@
 /datum/atom_hud/pacifism
 	hud_icons = list(PACIFISM_HUD)
 
+/datum/atom_hud/diablerie_aura
+	hud_icons = list(DIABLERIE_AURA_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -180,14 +183,12 @@
 	var/datum/atom_hud/data/human/medical/basic/B = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
 	B.update_suit_sensors(src)
 
-
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
 	if(ismachineperson(src))
 		holder = hud_list[DIAG_HUD]
 	holder?.icon_state = "hud[RoundHealth(src)]"
-
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
@@ -233,7 +234,7 @@
 		holder.icon_state = STATUS_HUD_XENO
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
 		holder.icon_state = STATUS_HUD_TUMOUR
-	else if(B && B.controlling && !B.sneaking)
+	else if(B?.controlling && !B.sneaking)
 		holder.icon_state = STATUS_HUD_BRAINWORM
 	else if(is_in_crit())
 		holder.icon_state = STATUS_HUD_DEFIB
@@ -330,7 +331,6 @@
 				holder = hud_list[IMPCHEM_HUD]
 				holder.icon_state = "hud_imp_chem"
 				set_hud_image_active(IMPCHEM_HUD)
-
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
@@ -438,7 +438,6 @@
 		holder.icon_state = "hudbatt[RoundDiagBar(chargelvl)]"
 	else
 		holder.icon_state = "hudnobatt"
-
 
 /obj/mecha/proc/diag_hud_set_mechstat()
 	var/image/holder = hud_list[DIAG_STAT_HUD]

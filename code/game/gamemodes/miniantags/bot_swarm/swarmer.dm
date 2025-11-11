@@ -45,9 +45,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.visible_message(span_warning("[usr.name] deactivates [src]."),
+	user.visible_message(
+		span_warning("[usr.name] deactivates [src]."),
 		span_notice("After some fiddling, you find a way to disable [src]'s power source."),
-		span_italics("You hear clicking."))
+		span_italics("You hear clicking.")
+	)
 	new /obj/item/deactivated_swarmer(get_turf(src))
 	qdel(src)
 
@@ -152,12 +154,10 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Resources:",resources)
 
-
 /mob/living/simple_animal/hostile/swarmer/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
 	if(. && light_on)
 		ToggleLight()
-
 
 /mob/living/simple_animal/hostile/swarmer/emp_act()
 	if(health > 1)
@@ -165,12 +165,10 @@
 	else
 		death()
 
-
 /mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/projectile/beam/disabler) || isswarmer(mover))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return TRUE
-
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
 /mob/living/simple_animal/hostile/swarmer/AttackingTarget()
@@ -416,7 +414,6 @@
 			return TRUE
 	return ..()
 
-
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
@@ -567,7 +564,7 @@
 	do_teleport(target, F, 0)
 	investigate_log("[key_name_log(src)] teleported [key_name_log(target)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
 
-/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	if(!(flags & SHOCK_TESLA))
 		return FALSE
 	return ..()
@@ -596,7 +593,6 @@
 			if(C.circuit)
 				new C.circuit(Tsec)
 		qdel(target)
-
 
 /obj/effect/temp_visual/swarmer //temporary swarmer visual feedback objects
 	icon = 'icons/mob/swarmer.dmi'
@@ -658,7 +654,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/swarmer/trap/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -666,11 +661,10 @@
 		return
 
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE, -1)
-	arrived.electrocute_act(100, "электрической ловушки", flags = SHOCK_NOGLOVES | SHOCK_ILLUSION) // Remove the Swarmer mode pls
+	arrived.electrocute_act(100, src, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION) // Remove the Swarmer mode pls
 	if(isrobot(arrived) || ismachineperson(arrived))
 		arrived.Weaken(10 SECONDS)
 	qdel(src)
-
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Создать ловушку"
@@ -680,7 +674,6 @@
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
 	Fabricate(/obj/structure/swarmer/trap, 5)
-
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
 	set name = "Создать баррикаду"
@@ -695,7 +688,6 @@
 	if(do_after(src, 1 SECONDS, src, NONE))
 		Fabricate(/obj/structure/swarmer/blockade, 5)
 
-
 /obj/structure/swarmer/blockade
 	name = "swarmer blockade"
 	desc = "A quickly assembled energy blockade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
@@ -703,12 +695,10 @@
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
 
-
 /obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/projectile/beam/disabler) || isswarmer(mover))
 		return TRUE
-
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Репликация"
@@ -726,10 +716,8 @@
 		if(createtype && Fabricate(createtype, 100))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, TRUE, -1)
 
-
 /mob/living/simple_animal/hostile/swarmer/proc/SwarmerTypeToCreate()
 	return /obj/effect/mob_spawn/swarmer
-
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
 	set name = "Саморемонт"

@@ -181,7 +181,7 @@
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Ban]** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
-		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
+		if(banned_mob?.client && banned_mob.client.ckey == banckey)
 			qdel(banned_mob.client)
 
 	if(isjobban)
@@ -343,7 +343,7 @@
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 				var/list/values = text2numlist(raw_values, ":")
-				if(!values?.len || values.len != 3)
+				if(!length(values) || length(values) != 3)
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 				value = values[1] BAN_DAYS + values[2] BAN_HOURS + values[3]
@@ -430,7 +430,6 @@
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
 
-
 /client/proc/DB_ban_panel()
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Banning Panel"
@@ -440,7 +439,6 @@
 		return
 
 	holder.DB_ban_panel()
-
 
 /datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)
 
@@ -617,7 +615,6 @@
 						bantypesearch = "'ADMIN_TEMPBAN' "
 					else
 						bantypesearch += "'PERMABAN' "
-
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
 				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid

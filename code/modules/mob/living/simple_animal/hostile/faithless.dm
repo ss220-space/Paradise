@@ -34,7 +34,7 @@
 		DATIVE = "неверующему",
 		ACCUSATIVE = "неверующего",
 		INSTRUMENTAL = "неверующим",
-		PREPOSITIONAL = "неверующем"
+		PREPOSITIONAL = "неверующем",
 	)
 
 /mob/living/simple_animal/hostile/faithless/ComponentInitialize()
@@ -53,5 +53,5 @@
 		var/mob/living/carbon/C = target
 		if(prob(12))
 			C.Weaken(6 SECONDS)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")
+			C.visible_message(span_danger("\The [src] knocks down \the [C]!"), \
+					span_userdanger("\The [src] knocks you down!"))

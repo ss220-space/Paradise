@@ -11,7 +11,6 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."
 	name = "multi grenade launcher"
@@ -44,15 +43,11 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-
-
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
-
 /obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "loaded" : ""]"
-
 
 /obj/item/gun/projectile/automatic/speargun
 	name = "kinetic speargun"
@@ -72,24 +67,19 @@
 	recoil = null
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return
 
-
 /obj/item/gun/projectile/automatic/speargun/attack_self()
 	return
-
 
 /obj/item/gun/projectile/automatic/speargun/can_shoot(mob/user)
 	if(chambered)
 		return TRUE
 	return FALSE
 
-
 /obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
-
 
 /obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
@@ -104,7 +94,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
 	name = "PML-9"
@@ -122,7 +111,6 @@
 	recoil = GUN_RECOIL_MEDIUM
 	can_air_shoot = FALSE
 
-
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
 		add_fingerprint(user)
@@ -137,16 +125,13 @@
 
 	return ..()
 
-
 /obj/item/gun/projectile/revolver/rocketlauncher/can_shoot(mob/user)
 	if(chambered)
 		return TRUE
 	return FALSE
 
-
 /obj/item/gun/projectile/revolver/rocketlauncher/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
-
 
 /obj/item/gun/projectile/revolver/rocketlauncher/chamber_round()
 	if(chambered || !magazine)
@@ -155,10 +140,8 @@
 		chambered = magazine.get_round()
 		chambered.forceMove(src)
 
-
 /obj/item/gun/projectile/revolver/rocketlauncher/get_ammo(countchambered = TRUE, countempties = TRUE)
 	. = ..()
-
 
 /obj/item/gun/projectile/revolver/rocketlauncher/unload_act(mob/user)
 	var/num_unloaded = 0
@@ -189,16 +172,13 @@
 	else
 		balloon_alert(user, "уже разряжено!")
 
-
 /obj/item/gun/projectile/revolver/rocketlauncher/update_icon_state()
 	return
-
 
 /obj/item/gun/projectile/revolver/rocketlauncher/update_overlays()
 	. = ..()
 	if(!chambered)
 		. += "[icon_state]_empty"
-
 
 /obj/item/gun/projectile/revolver/rocketlauncher/suicide_act(mob/user)
 	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")

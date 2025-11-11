@@ -60,19 +60,17 @@
 /obj/structure/transit_tube/station/should_stop_pod(pod, from_dir)
 	return TRUE
 
-
 /obj/structure/transit_tube/station/Bumped(mob/living/moving_living, skip_effect = FALSE)
 	. = ..()
 	if(skip_effect || pod_moving || moving_living.dir != boarding_dir || hatch_state != TRANSIT_TUBE_OPEN || !isliving(moving_living) || is_type_in_list(moving_living, disallowed_mobs))
 		return .
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(length(pod.contents))
-			to_chat(moving_living, "<span class='warning'>The pod is already occupied.</span>")
+			to_chat(moving_living, span_warning("The pod is already occupied."))
 			break
 		if(!pod.moving && ((pod.dir in directions()) || (reverse_launch && (turn(pod.dir, 180) in directions()))))
 			pod.move_into(moving_living)
 			break
-
 
 /obj/structure/transit_tube/station/attack_hand(mob/user)
 	if(pod_moving)
@@ -88,8 +86,8 @@
 	// Can't empty it when inside or when there is nothing inside
 	if(!length(pod.contents) || user.loc == pod)
 		return
-	user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
-		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
+	user.visible_message(span_warning("[user] starts emptying [pod]'s contents onto the floor!"), \
+		span_notice("You start emptying [pod]'s contents onto the floor."), span_warning("You hear a loud noise! As if somebody is throwing stuff on the floor!"))
 	if(!do_after(user, 2 SECONDS, pod))
 		return
 	for(var/atom/movable/AM in pod)
@@ -97,7 +95,6 @@
 		if(isliving(AM))
 			var/mob/living/L = AM
 			L.Weaken(10 SECONDS)
-
 
 /obj/structure/transit_tube/station/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -110,7 +107,6 @@
 			target.Weaken(10 SECONDS)
 			Bumped(target)
 		break
-
 
 /obj/structure/transit_tube/station/proc/open_hatch()
 	if(hatch_state == TRANSIT_TUBE_CLOSED)
@@ -222,8 +218,8 @@
 
 /obj/structure/transit_tube/station/dispenser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This station will create a pod for you to ride, no need to wait for one.</span>"
-	. += "<span class='notice'>Any pods arriving at this station will be reclaimed.</span>"
+	. += span_notice("This station will create a pod for you to ride, no need to wait for one.")
+	. += span_notice("Any pods arriving at this station will be reclaimed.")
 
 /obj/structure/transit_tube/station/dispenser/close_hatch()
 	. = ..()
@@ -238,18 +234,16 @@
 			return TRUE
 	return FALSE
 
-
 /obj/structure/transit_tube/station/dispenser/Bumped(mob/living/moving_living, skip_effect = TRUE)
 	. = ..()
 	if(!isliving(moving_living) || moving_living.dir != boarding_dir || moving_living.anchored || is_type_in_list(moving_living, disallowed_mobs))
 		return .
 	var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
-	moving_living.visible_message("<span class='notice'>[pod] forms around [moving_living].</span>", "<span class='notice'>[pod] materializes around you.</span>")
+	moving_living.visible_message(span_notice("[pod] forms around [moving_living]."), span_notice("[pod] materializes around you."))
 	playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
 	pod.dir = turn(dir, -90)
 	pod.move_into(moving_living)
 	launch_pod()
-
 
 /obj/structure/transit_tube/station/dispenser/pod_stopped(obj/structure/transit_tube_pod/pod)
 	playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
@@ -278,7 +272,6 @@
 /obj/structure/transit_tube/station/dispenser/reverse/flipped/init_tube_dirs()
 	..()
 	boarding_dir = dir
-
 
 #undef CLOSE_DURATION
 #undef OPEN_DURATION

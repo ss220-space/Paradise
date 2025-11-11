@@ -104,7 +104,7 @@
 	id = "tele_shield"
 	req_tech = list("combat" = 4, "materials" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000, MAT_SILVER = 300, MAT_TITANIUM = 200)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 7500, MAT_SILVER = 300, MAT_TITANIUM = 200)
 	build_path = /obj/item/shield/riot/tele
 	category = list("Weapons")
 
@@ -179,8 +179,8 @@
 	id = "lmag"
 	build_type = PROTOLATHE | AUTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000)
-	build_path = /obj/item/ammo_box/magazine/lr30mag
+	materials = list(MAT_METAL = 2000)
+	build_path = /obj/item/ammo_box/magazine/lr30mag/empty
 	category = list("Weapons", "hacked", "Security")
 
 /datum/design/lmag_box
@@ -209,7 +209,7 @@
 	id = "stunshell"
 	req_tech = list("combat" = 3, "materials" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
+	materials = list(MAT_METAL = 250)
 	build_path = /obj/item/ammo_casing/shotgun/stunslug
 	category = list("Weapons")
 
@@ -299,7 +299,6 @@
 	locked = TRUE
 	category = list("Weapons")
 
-
 // Gun modules
 
 /datum/design/gun_mod/coll_med
@@ -331,7 +330,6 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_GOLD = 750, MAT_URANIUM = 500)
 	build_path = /obj/item/gun_module/rail/scope/x8
 	category = list("Weapons")
-
 
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////

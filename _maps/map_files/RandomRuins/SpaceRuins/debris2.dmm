@@ -59,7 +59,7 @@
 /turf/space,
 /area/space)
 "D" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "E" = (
@@ -115,7 +115,7 @@
 /turf/simulated/wall,
 /area/space)
 "U" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "X" = (

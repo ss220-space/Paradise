@@ -8,7 +8,6 @@
 	/// Defines, used for actual planet type
 	var/lavaland_type
 
-
 /datum/lavaland_theme/New()
 	if(!primary_turf_type)
 		stack_trace("Turf type is `null` in `[type]` lavaland theme")

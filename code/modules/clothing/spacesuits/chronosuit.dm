@@ -13,11 +13,9 @@
 		suit.deactivate()
 	. = ..()
 
-
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
 	suit?.deactivate()
 	return ..()
-
 
 /obj/item/clothing/suit/space/chronos
 	name = "Chronosuit"
@@ -33,7 +31,6 @@
 	var/activated = 0
 	var/cooldowntime = 50 //deciseconds
 	var/teleporting = 0
-
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)
 	if(camera)
@@ -63,7 +60,7 @@
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
-				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
+				to_chat(user, span_userdanger("Elecrtromagnetic pulse detected, shutting down systems to preserve integrity..."))
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(mob/living/carbon/human/user)
@@ -88,7 +85,7 @@
 		spawn(7)
 			if(user)
 				if(phaseanim)
-					if(camera && camera.loc)
+					if(camera?.loc)
 						to_turf = camera.loc
 						flick("chronounphase", phaseanim)
 					else
@@ -176,7 +173,6 @@
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
 		activating = 0
-
 
 /obj/effect/chronos_cam
 	name = "Chronosuit View"

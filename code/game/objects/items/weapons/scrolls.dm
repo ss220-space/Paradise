@@ -62,7 +62,7 @@
 		return
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
-		to_chat(user, "<span class='warning'>A mysterious force disrupts your arcane spell matrix, and you remain where you are.</span>")
+		to_chat(user, span_warning("A mysterious force disrupts your arcane spell matrix, and you remain where you are."))
 		return
 
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
@@ -80,11 +80,11 @@
 			if(clear)
 				L+=T
 
-	if(!L.len)
-		to_chat(user, "<span class='warning'>The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.</span>")
+	if(!length(L))
+		to_chat(user, span_warning("The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."))
 		return
 
-	if(user && user.buckled)
+	if(user?.buckled)
 		user.buckled.unbuckle_mob(user, force = TRUE)
 
 	if(user && user.has_buckled_mobs())
@@ -93,7 +93,7 @@
 	var/list/tempL = L
 	var/attempt = null
 	var/success = FALSE
-	while(tempL.len)
+	while(length(tempL))
 		attempt = pick(tempL)
 		user.forceMove(attempt)
 		if(get_turf(user) == attempt)

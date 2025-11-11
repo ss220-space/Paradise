@@ -4,7 +4,6 @@
 #define AI_STATUS_ON 1
 #define AI_STATUS_OFF 2
 
-
 ///Monkey checks
 #define SHOULD_RESIST(source) (source.on_fire || source.buckled || HAS_TRAIT(source, TRAIT_RESTRAINED) || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
 #define IS_DEAD_OR_INCAP(source) (source.incapacitated() || source.stat)
@@ -52,7 +51,6 @@
 #define BB_MONKEY_DISPOSING "BB_monkey_disposing"
 #define BB_MONKEY_RECRUIT_COOLDOWN "BB_monkey_recruit_cooldown"
 #define BB_MONKEY_NEXT_HUNGRY "BB_monkey_next_hungry"
-
 
 ///Haunted item controller defines
 
@@ -106,7 +104,6 @@
 /// Robot customer has said their can't find seat line at least once. Used to rate limit how often they'll complain after the first time.
 #define BB_CUSTOMER_SAID_CANT_FIND_SEAT_LINE "BB_customer_said_cant_find_seat_line"
 
-
 ///Hostile AI controller blackboard keys
 #define BB_HOSTILE_ORDER_MODE "BB_HOSTILE_ORDER_MODE"
 #define BB_HOSTILE_FRIEND "BB_HOSTILE_FRIEND"
@@ -140,15 +137,15 @@
 #define BB_DOG_HARASS_TARGET "BB_DOG_HARASS_TARGET"
 
 /// Basically, what is our vision/hearing range for picking up on things to fetch/
-#define AI_DOG_VISION_RANGE	10
+#define AI_DOG_VISION_RANGE 10
 /// What are the odds someone petting us will become our friend?
 #define AI_DOG_PET_FRIEND_PROB 15
 /// After this long without having fetched something, we clear our ignore list
-#define AI_FETCH_IGNORE_DURATION 30 SECONDS
+#define AI_FETCH_IGNORE_DURATION (30 SECONDS)
 /// After being ordered to heel, we spend this long chilling out
-#define AI_DOG_HEEL_DURATION 20 SECONDS
+#define AI_DOG_HEEL_DURATION (20 SECONDS)
 /// After either being given a verbal order or a pointing order, ignore further of each for this duration
-#define AI_DOG_COMMAND_COOLDOWN	2 SECONDS
+#define AI_DOG_COMMAND_COOLDOWN (2 SECONDS)
 
 // dog command modes (what pointing at something/someone does depending on the last order the dog heard)
 /// Don't do anything (will still react to stuff around them though)
@@ -169,7 +166,6 @@
 ///bane ai
 #define BB_BANE_BATMAN "BB_bane_batman"
 //yep thats it
-
 
 //Hunting defines
 #define SUCCESSFUL_HUNT_COOLDOWN 5 SECONDS

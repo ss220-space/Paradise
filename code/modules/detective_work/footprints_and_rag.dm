@@ -11,7 +11,6 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/wipespeed = 3 SECONDS
 
-
 /obj/item/reagent_containers/glass/rag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!target.reagents || !reagents.total_volume || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		return ..()
@@ -42,7 +41,6 @@
 	)
 	reagents.reaction(target, REAGENT_TOUCH)
 	reagents.clear_reagents()
-
 
 /obj/item/reagent_containers/glass/rag/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity) return

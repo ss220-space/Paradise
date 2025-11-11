@@ -19,26 +19,21 @@
 			max_charges = CEILING(max_charges / 2, 1)
 	. = ..()
 
-
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Has [charges] charge\s remaining.</span>"
-
+	. += span_notice("Has [charges] charge\s remaining.")
 
 /obj/item/gun/magic/wand/update_icon_state()
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
-
 
 /obj/item/gun/magic/wand/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/gun/magic/wand/magic_charge_act(mob/user)
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
-
 
 /obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!charges)
@@ -48,7 +43,7 @@
 		if(no_den_usage)
 			var/area/A = get_area(user)
 			if(istype(A, /area/wizard_station))
-				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+				to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 				return
 			else
 				no_den_usage = FALSE
@@ -58,7 +53,7 @@
 	update_icon()
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
-	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
+	user.visible_message(span_danger("[user] zaps [user.p_them()]self with [src]."))
 	playsound(user, fire_sound, 50, TRUE)
 	add_attack_logs(null, user, "zapped [user.p_them()]self with a [src]", ATKLOG_ALL)
 
@@ -76,8 +71,13 @@
 	max_charges = 3 //3, 2, 2, 1
 
 /obj/item/gun/magic/wand/death/zap_self(mob/living/user)
-	var/message ="<span class='warning'>You irradiate yourself with pure energy! "
-	message += pick("Do not pass go. Do not collect 200 zorkmids.</span>","You feel more confident in your spell casting skills.</span>","You Die...</span>","Do you want your possessions identified?</span>")
+	var/message = span_warning("You irradiate yourself with pure energy! ")
+	message += pick(
+		span_warning("Do not pass go. Do not collect 200 zorkmids."),
+		span_warning("You feel more confident in your spell casting skills."),
+		span_warning("You Die..."),
+		span_warning("Do you want your possessions identified?"),
+	)
 	to_chat(user, message)
 	user.adjustFireLoss(3000)
 	charges--
@@ -98,7 +98,7 @@
 
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
 	user.revive()
-	to_chat(user, "<span class='notice'>You feel great!</span>")
+	to_chat(user, span_notice("You feel great!"))
 	charges--
 	..()
 
@@ -157,7 +157,7 @@
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/door/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel vaguely more open with your feelings.</span>")
+	to_chat(user, span_notice("You feel vaguely more open with your feelings."))
 	charges--
 	..()
 
@@ -195,24 +195,24 @@
 	var/charging = FALSE
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel rather silly!</span>")
+	to_chat(user, span_notice("You feel rather silly!"))
 	charges--
 	..()
 
 /obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
 	if(!charges && !charging)
-		to_chat(usr, "<span class='notice'>[src] has started to regain its charge.</span>")
+		to_chat(usr, span_notice("[src] has started to regain its charge."))
 		charging = TRUE
 		addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS, TIMER_UNIQUE)
 
 /obj/item/gun/magic/wand/slipping/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>[src] is still regaining its charge!</span>")
+	to_chat(user, span_warning("[src] is still regaining its charge!"))
 	return
 
 /obj/item/gun/magic/wand/slipping/proc/recharge()
 	charges++
 	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
-	to_chat(usr, "<span class='notice'>[src] has regained its charge!</span>")
+	to_chat(usr, span_notice("[src] has regained its charge!"))
 	charging = FALSE
 	update_icon()

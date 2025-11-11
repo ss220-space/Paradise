@@ -41,7 +41,7 @@
 		selected_overlay.color = "#15d12d"
 		user.client.images += selected_overlay
 
-		to_chat(user, span_notice("'[capitalize(selected_atom.declent_ru(NOMINATIVE))]' [genderize_ru(selected_atom.gender, "выбран", "выбрана", "выбрано", "выбраны")] для перемещения."))
+		to_chat(user, span_notice("\"[capitalize(selected_atom.declent_ru(NOMINATIVE))]\" выбран[GEND_A_O_Y(selected_atom)] для перемещения."))
 		return
 
 	// Selecting the destination to move to
@@ -61,7 +61,7 @@
 
 	selected_atom.forceMove(destination)
 
-	to_chat(user, span_notice("'[capitalize(selected_atom.declent_ru(NOMINATIVE))]' [genderize_ru(selected_atom.gender, "перемещён", "перемещена", "перемещено", "перемещены")] '[destination.declent_ru(ACCUSATIVE)]'."))
+	to_chat(user, span_notice("\"[capitalize(selected_atom.declent_ru(NOMINATIVE))]\" перемещен[GEND_A_O_Y(selected_atom)] \"[destination.declent_ru(ACCUSATIVE)]\"."))
 	log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
 
 	UnregisterSignal(selected_atom, COMSIG_QDELETING)

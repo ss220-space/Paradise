@@ -24,12 +24,10 @@
 	var/emagged = FALSE
 	var/open = FALSE
 
-
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>The service panel is [open ? "open" : "closed"].</span>"
-
+		. += span_notice("The service panel is [open ? "open" : "closed"].")
 
 /obj/item/storage/secure/update_overlays()
 	. = ..()
@@ -38,11 +36,9 @@
 	else if(!locked)
 		. += icon_opened
 
-
 /obj/item/storage/secure/populate_contents()
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
-
 
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -50,7 +46,6 @@
 		return .
 	open = !open
 	to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
-
 
 /obj/item/storage/secure/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -73,7 +68,6 @@
 	l_setshort = TRUE
 	addtimer(VARSET_CALLBACK(src, l_setshort, FALSE), 8 SECONDS)
 
-
 /obj/item/storage/secure/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
@@ -94,7 +88,6 @@
 
 	return ..()
 
-
 /obj/item/storage/secure/emag_act(mob/user, obj/weapon)
 	if(emagged)
 		return
@@ -114,7 +107,6 @@
 			to_chat(user, "You slice through the lock on [src].")
 	else if(user)
 		to_chat(user, "You short out the lock on [src].")
-
 
 /obj/item/storage/secure/click_alt(mob/living/user)
 	if(!try_to_open(user))
@@ -158,13 +150,12 @@
 	data["current_code"] = (code) ? (isnum(text2num(code))) ? code : "ERROR" : FALSE
 	return data
 
-
 /obj/item/storage/secure/ui_act(action, params)
 	if(..())
 		return
 
 	if(!usr.IsAdvancedToolUser() && !isobserver(usr))
-		to_chat(usr, "<span class='warning'>You are not able to operate [src].</span>")
+		to_chat(usr, span_warning("You are not able to operate [src]."))
 		return
 
 	. = TRUE
@@ -198,7 +189,7 @@
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, span_notice("[src] is locked!"))
 	return FALSE
 
 /obj/item/storage/secure/hear_talk(mob/living/M, list/message_pieces)
@@ -227,7 +218,7 @@
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user)
 	if((loc == user) && locked)
-		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
+		to_chat(usr, span_warning("[src] is locked and cannot be opened!"))
 	else if((loc == user) && !locked)
 		playsound(loc, 'sound/effects/briefcase.ogg', 50, TRUE, -5)
 		user.s_active?.close(user) //Close and re-open
@@ -245,7 +236,6 @@
 
 /obj/item/storage/secure/briefcase/captian/populate_contents()
 	new /obj/item/card/id/captains_spare(src)
-
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie

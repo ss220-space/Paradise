@@ -29,7 +29,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		add_member(M)
 	GLOB.antagonist_teams[type] = src
 
-
 /datum/team/Destroy(force = FALSE)
 	for(var/datum/mind/member as anything in members)
 		remove_member(member)
@@ -37,7 +36,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	members.Cut()
 	GLOB.antagonist_teams -= type
 	return ..()
-
 
 /**
  * Adds `new_member` to this team.
@@ -70,7 +68,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	members -= member
 	A.objectives -= objectives
 
-
 /**
  * Adds a new member to this team from a list of players in the round.
  */
@@ -88,7 +85,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	var/datum/mind/new_member = valid_minds[name]
 	add_member(new_member)
-
 
 /**
  * Adds a team objective to each member's matching antag datum.
@@ -109,7 +105,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	objectives -= objective
 	qdel(objective)
 
-
 /**
  * Return an antag datum from a member which is linked with this team.
  */
@@ -123,7 +118,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(antag_datum_type)
 		return member.add_antag_datum(antag_datum_type, src)
 
-
 /**
  * Allows admins to send a message to all members of this team.
  */
@@ -133,11 +127,10 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		return
 
 	for(var/datum/mind/member as anything in members)
-		to_chat(member.current, "<font color='#d6000b'><span class='bold'>Admin Team Message ([user.key]): </span><span class='notice'>[message]</span>")
+		to_chat(member.current, "<font color='#d6000b'>[span_bold("Admin Team Message ([user.key]): ")][span_notice("[message]")]")
 
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
-
 
 /**
  * Allows admins to add a team objective.
@@ -156,7 +149,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	message_admins("[key_name_admin(user)] added objective [objective.type] to the team '[name]'.")
 	log_admin("[key_name(user)] added objective [objective.type] to the team '[name]'.")
 
-
 /**
  * Allows admins to remove a team objective.
  */
@@ -164,7 +156,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	remove_objective_from_members(objective)
 	message_admins("[key_name_admin(user)] removed objective [objective.type] from the team '[name]'.")
 	log_admin("[key_name(user)] removed objective [objective.type] from the team '[name]'.")
-
 
 /**
  * Allows admins to rename the team.
@@ -178,7 +169,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	log_admin("[key_name(user)] renamed the '[name]' team to '[team_name]'.")
 	name = team_name
 
-
 /**
  * Allows admins to remove a team member.
  */
@@ -187,13 +177,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	log_admin("[key_name(user)] removed [key_name(member)] from the team '[name]'.")
 	remove_member(member)
 
-
 /datum/team/proc/set_scoreboard_vars()
 	return
 
 /datum/team/proc/get_scoreboard_stats()
 	return ""
-
 
 /**
  * Used for running team specific admin commands.
@@ -210,7 +198,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			return
 
 	admin_topic(href_list["team_command"])
-
 
 /**
  * A list of team-specific admin commands for this team. Should be in the form of `"command" = CALLBACK(x, PROC_REF(some_proc))`.
@@ -235,7 +222,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	popup.set_content(list_teams())
 	popup.open()
 
-
 /**
  * Returns HTML content for the "check teams" window.
  */
@@ -244,7 +230,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams."
 
-	for(var/team_type as anything in GLOB.antagonist_teams)
+	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/check_team = GLOB.antagonist_teams[team_type]
 		content += "<h3>[check_team.name] - [check_team.type]</h3>"
 		content += "<a href='byond://?_src_=holder;team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"

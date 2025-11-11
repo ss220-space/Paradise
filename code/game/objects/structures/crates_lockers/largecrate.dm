@@ -16,11 +16,10 @@
 	if(manifest)
 		. += "manifest"
 
-
 /obj/structure/largecrate/attack_hand(mob/user)
 	if(manifest)
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove_turf()
 		if(ishuman(user))
@@ -29,8 +28,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return
 
-	to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
-
+	to_chat(user, span_notice("You need a crowbar to pry this open!"))
 
 /obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -52,44 +50,36 @@
 	)
 	qdel(src)
 
-
 /obj/structure/largecrate/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/structure/largecrate/mule
-
 
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"
 	animal_type = /mob/living/simple_animal/pet/dog/corgi/Lisa
-
 
 /obj/structure/largecrate/cow
 	name = "cow crate"
 	icon_state = "lisacrate"
 	animal_type = /mob/living/simple_animal/cow
 
-
 /obj/structure/largecrate/goat
 	name = "goat crate"
 	icon_state = "lisacrate"
 	animal_type = /mob/living/simple_animal/hostile/retaliate/goat
-
 
 /obj/structure/largecrate/cat
 	name = "cat crate"
 	icon_state = "lisacrate"
 	animal_type = /mob/living/simple_animal/pet/cat
 
-
 /obj/structure/largecrate/chick
 	name = "chicken crate"
 	icon_state = "lisacrate"
-
 
 /obj/structure/largecrate/chick/crowbar_act(mob/living/user, obj/item/I)
 	var/atom/cached_loc = loc

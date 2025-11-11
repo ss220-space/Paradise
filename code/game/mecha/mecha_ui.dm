@@ -174,7 +174,7 @@
 			radio.set_broadcasting(!radio.get_broadcasting())
 			return TRUE
 		if("toggle_speaker")
-			radio.set_listening(!radio.get_broadcasting())
+			radio.set_listening(!radio.get_listening())
 			return TRUE
 		if("set_frequency")
 			var/new_frequency = text2num(params["new_frequency"])
@@ -210,6 +210,6 @@
 
 /obj/mecha/proc/occupant_message(message as text)
 	if(message)
-		if(occupant && occupant.client)
-			to_chat(occupant, "[bicon(src)] [message]")
+		if(occupant?.client)
+			to_chat(occupant, "[icon2html(src, occupant)] [message]")
 	return

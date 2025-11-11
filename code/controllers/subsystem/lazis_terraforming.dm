@@ -9,7 +9,6 @@ SUBSYSTEM_DEF(terraforming)
 	ss_id = "terraforming"
 	var/queue/queue = new()
 
-
 /datum/controller/subsystem/terraforming/proc/terraform(list/z_levels, list/transformations)
 	for(var/z in z_levels)
 		for(var/x = 1; x <= world.maxx; ++x)
@@ -21,7 +20,6 @@ SUBSYSTEM_DEF(terraforming)
 						continue
 
 					queue.enqueue(list(turf, "[transformations[type]]")) // As type it was null after all.
-
 
 #define CHANGES_PER_FIRE 200
 
@@ -35,7 +33,6 @@ SUBSYSTEM_DEF(terraforming)
 			return
 
 #undef CHANGES_PER_FIRE
-
 
 /proc/set_lazis_type(datum/lavaland_theme/lavaland_theme)
 	if(istype(SSmapping.lavaland_theme, lavaland_theme))

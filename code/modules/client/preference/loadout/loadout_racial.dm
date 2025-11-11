@@ -22,10 +22,8 @@
 
 	return FALSE
 
-
 /datum/gear/racial/get_header_tips()
 	return "\[Раса: [russian_list(whitelisted_species)]\] "
-
 
 // TAJARAN //
 
@@ -85,14 +83,12 @@
 	path = /obj/item/clothing/glasses/hud/skills/tajblind
 	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 
-
 // GREY //
 
 /datum/gear/racial/language_chip
 	index_name = "selected language chip"
 	path = /obj/item/translator_chip/sol
 	whitelisted_species = list(SPECIES_GREY)
-
 
 /datum/gear/racial/language_chip/New()
 	. = ..()
@@ -102,7 +98,6 @@
 		available_chips[chip.stored_language_rus] = chip
 
 	gear_tweaks += new /datum/gear_tweak/path(available_chips, src)
-
 
 // HUMAN //
 

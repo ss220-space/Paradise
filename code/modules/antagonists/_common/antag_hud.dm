@@ -26,7 +26,6 @@
 	if(M.mind)
 		M.mind.antag_hud = null
 
-
 //GAME_MODE PROCS
 //called to set a mob's antag icon state
 /proc/set_antag_hud(mob/M, new_icon_state)
@@ -50,7 +49,6 @@
 	for(var/datum/atom_hud/antag/hud in GLOB.huds)
 		if(current in hud.hud_users_all_z_levels)
 			hud.leave_hud(current)
-
 
 ///Master Servent Datum Sytems,Based on TG Gang system//
 

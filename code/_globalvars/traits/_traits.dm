@@ -4,7 +4,7 @@
 // Please do note that there is absolutely no bearing on what traits are added to what subtype of `/datum`, this is just an easily referenceable list sorted by type.
 // The only thing that truly matters about traits is the code that is built to handle the traits, and where that code is located. Nothing else.
 
-// Sort everything in alphabetical order, please!
+// Sort in alphabetical order, please!
 // Use the website if you can't do it yourself. https://spiskin.ru/scripts/sort_alphabet
 
 GLOBAL_LIST_INIT(traits_by_type, list(
@@ -62,9 +62,11 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_BLOODCRAWL_EAT" = TRAIT_BLOODCRAWL_EAT,
 		"TRAIT_CAN_SEE_WIRES" = TRAIT_CAN_SEE_WIRES,
 		"TRAIT_CAN_STRIP" = TRAIT_CAN_STRIP,
+		"TRAIT_CANT_LUNGE" = TRAIT_CANT_LUNGE,
 		"TRAIT_CANT_RIDE" = TRAIT_CANT_RIDE,
 		"TRAIT_CHASM_DESTROYED" = TRAIT_CHASM_DESTROYED,
 		"TRAIT_CHUNKYFINGERS" = TRAIT_CHUNKYFINGERS,
+		"TRAIT_CLOCK_HANDS" = TRAIT_CLOCK_HANDS,
 		"TRAIT_CLUMSY" = TRAIT_CLUMSY,
 		"TRAIT_COLORBLIND" = TRAIT_COLORBLIND,
 		"TRAIT_COMIC" = TRAIT_COMIC,
@@ -159,6 +161,8 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_QUICK_CARRY" = TRAIT_QUICK_CARRY,
 		"TRAIT_QUICKER_CARRY" = TRAIT_QUICKER_CARRY,
 		"TRAIT_RADIMMUNE" = TRAIT_RADIMMUNE,
+		"TRAIT_RED_EYES" = TRAIT_RED_EYES,
+		"TRAIT_REPAIRING_LIMB" = TRAIT_REPAIRING_LIMB,
 		"TRAIT_RESIST_COLD" = TRAIT_RESIST_COLD,
 		"TRAIT_RESIST_HEAT" = TRAIT_RESIST_HEAT,
 		"TRAIT_RESTRAINED" = TRAIT_RESTRAINED,
@@ -196,12 +200,14 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	// MARK: /obj
 	/obj = list(
+		"TRAIT_AMMO_ALARMED" = TRAIT_AMMO_ALARMED,
 		"TRAIT_SHRAPNEL" = TRAIT_SHRAPNEL,
 	),
 	// MARK: /obj/item
 	/obj/item = list(
 		"TRAIT_ADVANCED_SURGICAL" = TRAIT_ADVANCED_SURGICAL,
 		"TRAIT_CLEAVING" = TRAIT_CLEAVING,
+		"TRAIT_DEFIB_BLOCKED" = TRAIT_DEFIB_BLOCKED,
 		"TRAIT_NEEDS_TWO_HANDS" = TRAIT_NEEDS_TWO_HANDS,
 		"TRAIT_NODROP" = TRAIT_NODROP,
 		"TRAIT_NOT_TURRET_GUN" = TRAIT_NOT_TURRET_GUN,

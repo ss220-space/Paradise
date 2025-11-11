@@ -52,10 +52,8 @@
 	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/energy/noisecannon/update_icon_state()
 	return
-
 
 /obj/item/gun/energy/noisecannon/update_overlays()
 	return list()

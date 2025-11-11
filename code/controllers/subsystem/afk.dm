@@ -1,6 +1,6 @@
-#define AFK_WARNED			1
-#define AFK_CRYOD			2
-#define AFK_ADMINS_WARNED	3
+#define AFK_WARNED 1
+#define AFK_CRYOD 2
+#define AFK_ADMINS_WARNED 3
 
 SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"
@@ -11,7 +11,6 @@ SUBSYSTEM_DEF(afk)
 	ss_id = "afk_watcher"
 	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 	var/list/non_cryo_antags
-
 
 /datum/controller/subsystem/afk/Initialize()
 	if(CONFIG_GET(number/warn_afk_minimum) <= 0 || CONFIG_GET(number/auto_cryo_afk) <= 0 || CONFIG_GET(number/auto_despawn_afk) <= 0)
@@ -75,21 +74,18 @@ SUBSYSTEM_DEF(afk)
 
 	removeFromWatchList(toRemove)
 
-
 /datum/controller/subsystem/afk/proc/warn(mob/living/carbon/human/H, text)
 	to_chat(H, text)
 	SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 	if(H.client)
 		window_flash(H.client)
 
-
 /datum/controller/subsystem/afk/proc/log_afk_action(mob/living/carbon/human/H, mins_afk, turf/location, action, info)
 	log_admin("[key_name(H)] has been [action] by the AFK Watcher subsystem after being AFK for [mins_afk] minutes.[info ? " Extra info:" + info : ""]")
 
-
 /datum/controller/subsystem/afk/proc/removeFromWatchList(list/toRemove)
 	for(var/C in toRemove)
-		for(var/i in 1 to afk_players.len)
+		for(var/i in 1 to length(afk_players))
 			if(afk_players[i] == C)
 				afk_players.Cut(i, i + 1)
 				break

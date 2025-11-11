@@ -8,7 +8,6 @@
  *			Misc
  */
 
-
 /proc/format_table_name(table as text)
 	return CONFIG_GET(string/feedback_tableprefix) + table
 
@@ -94,7 +93,6 @@
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(t, limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
-
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length=512)
@@ -309,11 +307,14 @@
 /proc/trim_length(text, max_length)
 	return copytext_char(text, 1, max_length)
 
-//Returns a string with the first element of the string capitalized.
-/proc/capitalize(t as text)
-	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
+/// Returns a string with the first element of the string capitalized.
+/proc/capitalize(text)
+	. = text
+	if(text)
+		. = text[1]
+		return uppertext(.) + copytext(text, 1 + length(.))
 
-//Returns a string depending on number it recieves
+///Returns a string depending on number it receives
 /proc/numeric_ending(num, more, one, three)
 	var/last_digit = num % 10
 	var/last_two_digit = num % 100
@@ -350,7 +351,6 @@
 	if(size <= length)
 		return message
 	return copytext(message, 1, length + 1)
-
 
 /proc/stringmerge(text,compare,replace = "*")
 //This proc fills in all spaces with the "replace" var (* by default) with whatever
@@ -468,7 +468,6 @@
 			index = findtext(text, char)
 	return text
 
-
 /proc/dmm_decode(text)
 	// Replace what we extracted above
 	var/list/repl_chars = list("#?qt;" = "\"", "#?lbr;" = "{", "#?rbr;" = "}")
@@ -493,7 +492,6 @@
 		if(findtextEx(haystack, needle, start, end))
 			return 1
 	return 0
-
 
 // Pencode
 /proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE)
@@ -594,9 +592,9 @@
 
 	if(tag == "img")
 		var/list/img_props = splittext(arg, ";")
-		if(img_props.len == 3)
+		if(length(img_props) == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(img_props.len == 2)
+		if(length(img_props) == 2)
 			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
 		return "<img src='[arg]'>"
 
@@ -707,7 +705,6 @@
 
 	// return the split html object to the caller
 	return s
-
 
 // Returns the rot13'ed text
 /proc/rot13(text = "")

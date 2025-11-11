@@ -11,7 +11,7 @@
 
 /datum/wires/tesla_coil/interactable(mob/user)
 	var/obj/machinery/power/tesla_coil/T = holder
-	if(T && T.panel_open)
+	if(T?.panel_open)
 		return TRUE
 	return FALSE
 

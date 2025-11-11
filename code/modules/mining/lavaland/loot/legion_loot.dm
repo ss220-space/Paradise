@@ -24,7 +24,7 @@
 		DATIVE = "посоху бурь",
 		ACCUSATIVE = "посох бурь",
 		INSTRUMENTAL = "посохом бурь",
-		PREPOSITIONAL = "посохе бурь"
+		PREPOSITIONAL = "посохе бурь",
 	)
 
 /obj/item/storm_staff/Destroy()
@@ -57,7 +57,7 @@
 				to_chat(user, span_warning("Буря уже стихает! Использовать посох сейчас было бы расточительством."))
 				return
 			user.visible_message(
-				span_warning("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
+				span_warning("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
 				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] к небу, рассеивая бурю!")
 			)
 			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
@@ -117,14 +117,13 @@
 		new /obj/effect/temp_visual/electricity(T)
 		for(var/mob/living/hit_mob in T)
 			to_chat(hit_mob, span_userdanger("Вас поразила молния!"))
-			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), "штормового посоха", flags = SHOCK_NOGLOVES)
+			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_NOGLOVES)
 
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message(span_danger("Молния ударяет в [target.declent_ru(ACCUSATIVE)]!"))
 	explosion(target, devastation_range = -1, heavy_impact_range = -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
-
 
 /obj/effect/temp_visual/thunderbolt_targeting
 	icon_state = "target_circle"

@@ -33,7 +33,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
 	)
 
 // Decloner //
@@ -46,10 +46,8 @@
 	ammo_x_offset = 1
 	accuracy = GUN_ACCURACY_MINIMAL
 
-
 /obj/item/gun/energy/decloner/update_icon_state()
 	return
-
 
 /obj/item/gun/energy/decloner/update_overlays()
 	. = list()
@@ -72,7 +70,6 @@
 	selfcharge = TRUE
 	var/emagged = FALSE
 	accuracy = GUN_ACCURACY_SNIPER
-
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()
@@ -204,14 +201,13 @@
 		DATIVE = "плазменному резаку",
 		ACCUSATIVE = "плазменный резак",
 		INSTRUMENTAL = "плазменным резаком",
-		PREPOSITIONAL = "плазменном резаке"
+		PREPOSITIONAL = "плазменном резаке",
 	)
-
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += span_notice("Заряд [bicon(src)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
+		. += span_notice("Заряд [icon2html(src, user)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
 
 /obj/item/gun/energy/plasmacutter/get_heat()
 	return 3800
@@ -247,10 +243,8 @@
 
 	return ..()
 
-
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
-
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -268,7 +262,7 @@
 		DATIVE = "продвинутому плазменному резаку",
 		ACCUSATIVE = "продвинутый плазменный резак",
 		INSTRUMENTAL = "продвинутым плазменным резаком",
-		PREPOSITIONAL = "продвинутом плазменном резаке"
+		PREPOSITIONAL = "продвинутом плазменном резаке",
 	)
 
 /obj/item/gun/energy/plasmacutter/adv/mega
@@ -286,7 +280,7 @@
 		DATIVE = "магмитовому плазменному резаку",
 		ACCUSATIVE = "магмитовый плазменный резак",
 		INSTRUMENTAL = "магмитовым плазменным резаком",
-		PREPOSITIONAL = "магмитовом плазменном резаке"
+		PREPOSITIONAL = "магмитовом плазменном резаке",
 	)
 
 /obj/item/gun/energy/plasmacutter/shotgun
@@ -306,7 +300,7 @@
 		DATIVE = "плазменному дробовику",
 		ACCUSATIVE = "плазменный дробовик",
 		INSTRUMENTAL = "плазменным дробовиком",
-		PREPOSITIONAL = "плазменном дробовике"
+		PREPOSITIONAL = "плазменном дробовике",
 	)
 
 /obj/item/gun/energy/plasmacutter/shotgun/mega
@@ -324,7 +318,7 @@
 		DATIVE = "магмитовому плазменному дробовику",
 		ACCUSATIVE = "магмитовый плазменный дробовик",
 		INSTRUMENTAL = "магмитовым плазменным дробовиком",
-		PREPOSITIONAL = "магмитовом плазменном дробовике"
+		PREPOSITIONAL = "магмитовом плазменном дробовике",
 	)
 
 // Wormhole Projectors //
@@ -341,16 +335,13 @@
 	var/obj/effect/portal/wormhole_projector/orange
 	accuracy = GUN_ACCURACY_DEFAULT
 
-
 /obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
 
-
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
 	select_fire(usr)
-
 
 /obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/wormhole_projector/portal)
 	if(portal.is_orange)
@@ -359,7 +350,6 @@
 	else
 		blue = null
 		orange?.target = null
-
 
 /obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/projectile)
 
@@ -379,7 +369,6 @@
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
-
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
@@ -468,7 +457,7 @@
 	icon_state = "LSR-39"
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/podsniper/disabler,
-		/obj/item/ammo_casing/energy/podsniper/laser
+		/obj/item/ammo_casing/energy/podsniper/laser,
 	)
 	item_state = null
 	weapon_weight = WEAPON_MEDIUM
@@ -476,7 +465,6 @@
 	charge_sections = 3
 	modifystate = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
-
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature
@@ -507,7 +495,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/gun/energy/temperature/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -528,7 +515,7 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+			to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/gun/energy/temperature/Topic(href, href_list)
@@ -620,7 +607,6 @@
 	dat += "Power cost: "
 	dat += "<span style='color: [powercostcolor];'><b>[powercost]</b></span>"
 
-
 /obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
@@ -643,7 +629,6 @@
 			item_state = "tempgun_0"
 
 	icon_state = item_state
-
 
 /obj/item/gun/energy/temperature/update_overlays()
 	. = ..()
@@ -668,7 +653,6 @@
 			. += "100"
 		if(-INFINITY to 100)
 			. += "0"
-
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -723,16 +707,14 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
-
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	. = ..()
 	if(sibyl_mod?.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
 		user.playsound_local(user, sound_voice[select], 50, FALSE)
 		COOLDOWN_START(src, last_sound_effect, 2 SECONDS)
-
 
 /obj/item/gun/energy/dominator/update_icon_state()
 	. = ..()
@@ -742,12 +724,10 @@
 	else
 		item_state = "[base_icon_state]_[shot.select_name]"
 
-
 /obj/item/gun/energy/dominator/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	is_equipped = TRUE
 	update_icon()
-
 
 /obj/item/gun/energy/dominator/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -757,24 +737,13 @@
 //Specter//
 /obj/item/gun/energy/specter
 	name = "Specter"
-	desc = "Современный пистолет \"Спектр\", модернизирован для возможности стрельбы лазерными патронами. Поставляется только силовым структурам Нанотрейзен."
-	ru_names = list(
-		NOMINATIVE = "Спектр",
-		GENITIVE = "Спектра",
-		DATIVE = "Спектру",
-		ACCUSATIVE = "Спектр",
-		INSTRUMENTAL = "Спектром",
-		PREPOSITIONAL = "Спектре"
-	)
+	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам Нанотрейзен."
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
-	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
 	unique_reskin = TRUE
 	materials = list(MAT_METAL = 1000)
 	accuracy = GUN_ACCURACY_PISTOL
@@ -782,10 +751,23 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
 	)
-	can_add_sibyl_system = FALSE
 	ammo_x_offset = 0
+
+/obj/item/gun/energy/specter/get_ru_names()
+	return list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре",
+	)
+
+/obj/item/gun/energy/specter/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
 
 /obj/item/gun/energy/specter/update_gun_skins()
 	add_skin("Grey slide", "specter")
@@ -796,7 +778,6 @@
 	add_skin("Tan Handle", "specter_tangrip")
 	add_skin("Red Handle", "specter_redgrip")
 
-
 /obj/item/gun/energy/specter/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][cell.charge > 0 ? "" : "-e"]"
@@ -804,7 +785,7 @@
 		icon_state = "[initial(icon_state)][cell.charge > 0 ? "" : "-e"]"
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
-	if(!istype(item, /obj/item/stock_parts/cell/specter))
+	if(!is_spectercell(item))
 		return ..()
 	add_fingerprint(user)
 	if(!user.drop_transfer_item_to_loc(item, src))
@@ -816,6 +797,8 @@
 	cell_type = item.type
 	balloon_alert(user, "батарейка заменена")
 	update_icon(UPDATE_ICON_STATE)
+	if(cell.charge > 0)
+		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
 
 	return ATTACK_CHAIN_PROCEED
 
@@ -834,7 +817,7 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
 	)
 
 // Shield breaker //
@@ -887,7 +870,7 @@
 	if(charging)
 		to_chat(user, span_warning("[src] is already charging!"))
 		return
-	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	to_chat(user, span_notice("You begin to overload [src]."))
 	charging = TRUE
 	if(do_after(user, 2 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING, max_interact_count = 1))
 		overload()
@@ -955,7 +938,7 @@
 	do_sparks(2, TRUE, src)
 	update_icon()
 	if(prob(40))
-		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		visible_message(span_danger("[src] vents heated plasma!"))
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
@@ -967,9 +950,9 @@
 		if(length(mob_targets))
 			var/mob/living/target = pick(mob_targets)
 			shootAt(target)
-			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			visible_message(span_danger("[src] discharges a plasma bolt!"))
 			return
-	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	visible_message(span_danger("[src] discharges a plasma bolt!"))
 	var/list/turf_targets = list()
 	for(var/turf/T in orange(get_turf(src), 7))
 		turf_targets += T

@@ -18,7 +18,7 @@
 /obj/item/twohanded/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
-	user.visible_message(span_warning("[user] толка[pluralize_ru(user.gender,"ет","ют")] [src]!"), span_danger("[pluralize_ru(user.gender,"Ты толкаешь","Вы толкаете")] [src]!"))
+	user.visible_message(span_warning("[user] толка[PLUR_ET_YUT(user)] [src]!"), span_danger("Вы толкаете [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 	push_over()
 
@@ -35,7 +35,7 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		if(pushed_over)
-			to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src]."))
+			to_chat(user, span_notice("Вы поднимаете [src]."))
 			desc = initial(desc)
 			icon = initial(icon)
 			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
@@ -51,7 +51,6 @@
 /obj/item/twohanded/cardboard_cutout/dropped(mob/living/user)
 	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
-
 
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
@@ -82,8 +81,6 @@
 
 	if(prob(I.force))
 		push_over()
-
-
 
 /obj/item/twohanded/cardboard_cutout/bullet_act(obj/projectile/P)
 	visible_message(span_danger("[src] is hit by [P]!"), projectile_message = TRUE)
@@ -120,7 +117,7 @@
 		color = "#FFD7A7"
 	switch(new_appearance)
 		if("Assistant")
-			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]"
 			desc = "A cardboard cutout of an assistant."
 			icon_state = "cutout_greytide"
 		if("Clown")
@@ -204,10 +201,8 @@
 
 	return 1
 
-
 /obj/item/twohanded/cardboard_cutout/setDir(newdir)
 	return ..(SOUTH)
-
 
 /obj/item/twohanded/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 	deceptive = TRUE

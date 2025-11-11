@@ -47,8 +47,10 @@
 	big_guy.start_pulling(batman)
 	big_guy.setDir(get_dir(big_guy, batman))
 
-	batman.visible_message(span_warning("[batman] получает слишком крепкие объятия от [big_guy]!"),
-					span_warning("Вы чувствуете как ваши силы покидают вас, когда [big_guy] обнимает вас!"))
+	batman.visible_message(
+		span_warning("[batman] получает слишком крепкие объятия от [big_guy]!"),
+		span_warning("Вы чувствуете как ваши силы покидают вас, когда [big_guy] обнимает вас!")
+	)
 
 	if(iscarbon(batman))
 		var/mob/living/carbon/human/carbon_batman = batman
@@ -69,7 +71,6 @@
 /// Use in hand the currently held item
 /datum/ai_behavior/use_in_hand
 	behavior_flags = AI_BEHAVIOR_MOVE_AND_PERFORM
-
 
 /datum/ai_behavior/use_in_hand/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
@@ -110,11 +111,9 @@
 /datum/ai_behavior/give
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-
 /datum/ai_behavior/give/setup(datum/ai_controller/controller, target_key)
 	. = ..()
 	controller.current_movement_target = controller.blackboard[target_key]
-
 
 /datum/ai_behavior/give/perform(delta_time, datum/ai_controller/controller, target_key)
 	. = ..()
@@ -194,7 +193,6 @@
 /datum/ai_behavior/find_and_set/proc/search_tactic(datum/ai_controller/controller)
 	return locate(locate_path) in oview(search_range, controller.pawn)
 
-
 /// This behavior involves attacking a target.
 /datum/ai_behavior/attack
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
@@ -256,8 +254,6 @@
 /datum/ai_behavior/follow/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()
 	controller.blackboard[BB_FOLLOW_TARGET] = null
-
-
 
 /datum/ai_behavior/perform_emote
 

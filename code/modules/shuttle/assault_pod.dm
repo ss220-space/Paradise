@@ -13,7 +13,6 @@
 	if(z == initial(src.z)) //No launching pods that have already launched
 		return ..()
 
-
 /obj/docking_port/mobile/assault_pod/dock(obj/docking_port/stationary/S1, force, transit)
 	..()
 	if(!istype(S1, /obj/docking_port/stationary/transit))

@@ -238,7 +238,6 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
 	popup.open(FALSE)
 
-
 /datum/admins/proc/create_outfit_finalize(mob/admin, list/href_list)
 	var/datum/outfit/O = new
 

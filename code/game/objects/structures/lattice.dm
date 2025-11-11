@@ -16,7 +16,6 @@
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED)
 
-
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
 	for(var/obj/structure/lattice/LAT in loc)
@@ -25,7 +24,6 @@
 	if(length(give_turf_traits))
 		give_turf_traits = string_list(give_turf_traits)
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
-
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
@@ -53,14 +51,12 @@
 		C.deconstruct()
 	..()
 
-
 /obj/structure/lattice/attackby(obj/item/I, mob/user, params)
 	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 	I.melee_attack_chain(user, loc, params)	// hand this off to the turf instead (for building plating, catwalks, etc)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)
@@ -167,11 +163,11 @@
 	max_integrity = 100
 
 /obj/structure/lattice/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленные прутья!</span>")
+	to_chat(user, span_notice("Вы срезали усиленные прутья!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
 	deconstruct()
 
@@ -185,16 +181,14 @@
 	number_of_rods = 3
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
-
 /obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
+	to_chat(user, span_notice("Вы срезали усиленный мостик!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
-
 
 /obj/structure/lattice/catwalk/mapping
 	name = "reinforced catwalk"

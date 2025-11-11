@@ -10,7 +10,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/space
 	name = "проход с выходом в космос между техническими помещениями вирусологии и мед. отдела"
 
-
 /// viro maints botany room submap
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room
 	name = "better botany"
@@ -33,7 +32,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse
 	name = "дополнительные баррикады, установленные перед входом в старую ботанику"
 
-
 // dorm maints near toilet submap
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/dorm_maints_near_toilet
@@ -48,7 +46,6 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/gaming_room
 	name = "заброшенная игровая с игрушками вместо старой комнаты под туалетами"
-
 
 // old sm room
 

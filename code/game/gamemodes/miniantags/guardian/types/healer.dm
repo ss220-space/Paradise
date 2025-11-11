@@ -96,8 +96,8 @@
 		if(isfloorturf(beacon_loc))
 			var/turf/simulated/floor/F = beacon_loc
 			F.icon = 'icons/turf/floors.dmi'
-			F.name = "bluespace recieving pad"
-			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
+			F.name = "bluespace receiving pad"
+			F.desc = "A receiving zone for bluespace teleportations. Building a wall over it should disable it."
 			F.icon_state = "light_on-w"
 			to_chat(src, span_danger("Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав Alt+ЛКМ"))
 			if(beacon)
@@ -141,7 +141,6 @@
 	else
 		to_chat(src, span_danger("Вам нужно стоять смирно!"))
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend
 	name = "Быстрое исцеление"
 	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
@@ -154,16 +153,13 @@
 	var/list/possible_cures = list("bleedings","fractures","infections","embedded","damaged_organs")
 	var/mob/living/carbon/human/summoner = null
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/New(mob/living/carbon/human/summoned_by)
 	. = ..()
 	summoner = summoned_by
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/Destroy()
 	summoner = null
 	return ..()
-
 
 /obj/effect/proc_holder/spell/guardian_quickmend/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
@@ -173,10 +169,8 @@
 	T.try_auto_target = TRUE
 	return T
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/valid_target(target, user)
 	return target == summoner
-
 
 /obj/effect/proc_holder/spell/guardian_quickmend/cast(list/targets, mob/user)
 	for(var/target in targets)
@@ -197,7 +191,7 @@
 			for(var/injure in injures)
 				if((injures[injure]).len > 0)
 					available_cures.Add(injure)
-			if(!available_cures.len)
+			if(!length(available_cures))
 				return 0
 			var/random_cure = pick(available_cures)
 			to_chat(user, "Найдена травма. Попытка исцеления..")

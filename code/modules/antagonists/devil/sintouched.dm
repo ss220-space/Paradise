@@ -46,7 +46,6 @@
 /datum/antagonist/sintouched/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	return // No.
 
-
 /datum/antagonist/sintouched/roundend_report()
 	var/text
 	var/traitorwin = TRUE

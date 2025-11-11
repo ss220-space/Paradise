@@ -22,8 +22,6 @@
 	new /obj/item/clothing/suit/soldiercoat(src)	//added here deleted on maps
 	new /obj/item/clothing/under/soldieruniform(src)
 
-
-
 /obj/structure/closet/secure_closet/mime
 	name = "mime's locker"
 	req_access = list(ACCESS_MIME)

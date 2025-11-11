@@ -43,7 +43,6 @@
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
-
 /obj/machinery/cooker/deepfryer/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
 	if(!ishuman(grabbed_thing) || !Adjacent(grabbed_thing))
 		return
@@ -64,7 +63,6 @@
 	add_attack_logs(grabber, victim, "Deep-fried with [src]")
 	//Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
 	grabber.stop_pulling()
-
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
 	if(!I)

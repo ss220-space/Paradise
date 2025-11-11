@@ -15,7 +15,6 @@ SUBSYSTEM_DEF(icon_smooth)
 	var/list/smooth_queue = list()
 	var/list/deferred = list()
 
-
 /datum/controller/subsystem/icon_smooth/fire()
 	if(length(halt_sources))
 		return
@@ -34,7 +33,7 @@ SUBSYSTEM_DEF(icon_smooth)
 			return
 
 	if(!length(smooth_queue_cache))
-		if(deferred.len)
+		if(length(deferred))
 			smooth_queue = deferred
 			deferred = smooth_queue_cache
 		else

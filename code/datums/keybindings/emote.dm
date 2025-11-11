@@ -2,13 +2,11 @@
 	category = KB_CATEGORY_EMOTE_GENERIC
 	var/datum/emote/linked_emote
 
-
 /datum/keybinding/emote/down(client/user)
 	. = ..()
 	if(.)
 		return .
 	return user.mob.emote(initial(linked_emote.key), intentional = TRUE)
-
 
 /**
  * Generic
@@ -270,7 +268,6 @@
 	linked_emote = /datum/emote/living/carbon/twirl
 	name = "Вертеть в руках"
 
-
 /**
  * Alien
  */
@@ -287,7 +284,6 @@
 /datum/keybinding/emote/carbon/alien/humanoid/gnarl
 	linked_emote = /datum/emote/living/carbon/alien/humanoid/gnarl
 	name = "Рычать"
-
 
 /**
  * MMI-brain
@@ -325,7 +321,6 @@
 /datum/keybinding/emote/carbon/brain/boop
 	linked_emote = /datum/emote/living/carbon/brain/boop
 	name = "Бупать"
-
 
 /**
  * Human
@@ -456,7 +451,6 @@
 	linked_emote = /datum/emote/living/carbon/sign/signal
 	name = "Показать число пальцами"
 
-
 /**
  * Species specific
  */
@@ -471,7 +465,6 @@
 /datum/keybinding/emote/carbon/human/wag_stop
 	linked_emote = /datum/emote/living/carbon/human/wag/stop
 	name = "Перестать махать хвостом"
-
 
 /**
  * Monke
@@ -488,7 +481,6 @@
 	linked_emote = /datum/emote/living/carbon/human/monkey/roll
 	name = "Крутиться (мартышки)"
 
-
 /**
  * Moth
  */
@@ -504,14 +496,12 @@
 	linked_emote = /datum/emote/living/carbon/human/moth/flutter
 	name = "Расправить крылья (нианы)"
 
-
 /**
  * Vox
  */
 /datum/keybinding/emote/carbon/human/vox/quill
 	linked_emote = /datum/emote/living/carbon/human/vox/quill
 	name = "Шуршать перьями (воксы)"
-
 
 /**
  * Skrell
@@ -556,7 +546,6 @@
 	linked_emote = /datum/emote/living/carbon/human/skrell/smile
 	name = "Улыбка (скреллы)"
 
-
 /**
  * Kidan
  */
@@ -576,7 +565,6 @@
 	linked_emote = /datum/emote/living/carbon/human/kidan/waves_k
 	name = "Взмахнуть усиками (киданы)"
 
-
 /**
  * Drask
  */
@@ -591,7 +579,6 @@
 /datum/keybinding/emote/carbon/human/drask/rumble
 	linked_emote = /datum/emote/living/carbon/human/drask/drask_talk/rumble
 	name = "Урчать (драски)"
-
 
 /**
  * Unathi
@@ -616,14 +603,12 @@
 	linked_emote = /datum/emote/living/carbon/human/unathi/whip/whip_l
 	name = "Хлестать хвостом (унати)"
 
-
 /**
  * Diona
  */
 /datum/keybinding/emote/carbon/human/diona/creak
 	linked_emote = /datum/emote/living/carbon/human/diona/creak
 	name = "Скрипеть (дионы)"
-
 
 /**
  * Slimepeople
@@ -640,7 +625,6 @@
 	linked_emote = /datum/emote/living/carbon/human/slime/pop
 	name = "Издавать хлопки (слаймолюди)"
 
-
 /**
  * Vulpkanin
  */
@@ -651,7 +635,6 @@
 /datum/keybinding/emote/carbon/human/vulpkanin/growl
 	linked_emote = /datum/emote/living/carbon/human/vulpkanin/growl
 	name = "Рычать (вульпы)"
-
 
 /**
  * Tajaran
@@ -667,7 +650,6 @@
 /datum/keybinding/emote/carbon/human/tajaran/purrl
 	linked_emote = /datum/emote/living/carbon/human/tajaran/purr/purrl
 	name = "Мурчать дольше (таяры)"
-
 
 /**
  * Silicon
@@ -718,7 +700,6 @@
 	linked_emote = /datum/emote/living/silicon/halt
 	name = "Приказать немедленно остановиться"
 
-
 /**
  * Simple Mobs
  */
@@ -743,14 +724,12 @@
 	linked_emote = /datum/emote/living/simple_animal/pet/dog/growl
 	name = "Рычать (пёс)"
 
-
 /datum/keybinding/emote/simple_animal/mouse/can_use(client/user)
 	return ismouse(user.mob)
 
 /datum/keybinding/emote/simple_animal/mouse/squeak
 	linked_emote = /datum/emote/living/simple_animal/mouse/squeak
 	name = "Писк (мышь)"
-
 
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/user)
 	return iscat(user.mob)
@@ -771,7 +750,6 @@
 	linked_emote = /datum/emote/living/sit/cat
 	name = "Сесть/Встать (кот)"
 
-
 /**
  * Custom
  */
@@ -779,7 +757,6 @@
 	category = KB_CATEGORY_EMOTE_CUSTOM
 	var/default_emote_text = "Введите текст вашей эмоции"
 	var/donor_exclusive = FALSE
-
 
 /datum/keybinding/custom/down(client/user)
 	. = ..()
@@ -796,12 +773,10 @@
 	user.mob.me_verb(html_decode(desired_emote)) //do the thing!
 	return TRUE
 
-
 /datum/keybinding/custom/can_use(client/user)
 	if(donor_exclusive && !((user.donator_level >= 2) || user.holder || user.prefs?.unlock_content)) //is this keybind restricted to donors/byond members/admins, and are you one or not?
 		return FALSE
 	return isliving(user.mob)
-
 
 /datum/keybinding/custom/one
 	name = "Пользовательская эмоция №1"

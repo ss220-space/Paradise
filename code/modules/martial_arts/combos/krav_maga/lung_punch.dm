@@ -4,8 +4,8 @@
 
 /datum/martial_combo/krav_maga/lung_punch/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	target.visible_message(
-		"<span class='warning'>[user] pounds [target] on the chest!</span>", \
-		"<span class='userdanger'>[user] slams your chest! You can't breathe!</span>"
+		span_warning("[user] pounds [target] on the chest!"), \
+		span_userdanger("[user] slams your chest! You can't breathe!")
 	)
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	target.AdjustLoseBreath(10 SECONDS)

@@ -1,9 +1,7 @@
 /datum/team/battle_team
 	var/team_role
 	var/team_color
-	var/landmark
 	var/static/list/evacuations = list()
-
 
 /datum/team/battle_team/add_member(datum/mind/new_member, add_objectives)
 	var/mob/living/character
@@ -16,7 +14,7 @@
 	character = SSjobs.AssignRank(character, team_role, TRUE)
 	SSjobs.EquipRank(character, team_role, TRUE)
 	GLOB.data_core.manifest_inject(character)
-	var/spawnpoint = pick(GLOB.battle_teams_spawns[landmark])
+	var/spawnpoint = pick(GLOB.battle_teams_spawns[team_role])
 	character.forceMove(spawnpoint)
 	. = ..()
 
@@ -48,7 +46,6 @@
 
 	return text
 
-
 /datum/team/battle_team/pre_declare_completion()
 	if(!evacuations[team_role])
 		evacuations[team_role] = list()
@@ -69,19 +66,16 @@
 	name = "Зеленые"
 	team_color = "#09ff00"
 	team_role = JOB_TITLE_TEAM1
-	landmark = /obj/effect/landmark/team1
 	antag_datum_type = /datum/antagonist/battle/team1
 
 /datum/team/battle_team/blue
 	name = "Синие"
 	team_color = "#1100ff"
 	team_role = JOB_TITLE_TEAM2
-	landmark = /obj/effect/landmark/team2
 	antag_datum_type = /datum/antagonist/battle/team2
 
 /datum/team/battle_team/red
 	name = "Красные"
 	team_color = "#ff0000"
 	team_role = JOB_TITLE_TEAM3
-	landmark = /obj/effect/landmark/team3
 	antag_datum_type = /datum/antagonist/battle/team3

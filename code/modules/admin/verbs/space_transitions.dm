@@ -11,15 +11,11 @@
 	if(choice == "No")
 		return
 
-
 	message_admins("[key_name_admin(usr)] re-assigned all space transitions")
 	GLOB.space_manager.do_transition_setup()
 	log_admin("[key_name(usr)] re-assigned all space transitions")
 
 	BLACKBOX_LOG_ADMIN_VERB("Remake Space Transitions")
-
-
-
 
 /client/proc/make_turf_space_map()
 	set name = "Make Space Map"
@@ -35,7 +31,6 @@
 		return
 
 	message_admins("[key_name_admin(usr)] made a space map")
-
 
 	GLOB.space_manager.map_as_turfs(get_turf(usr))
 	log_admin("[key_name(usr)] made a space map")

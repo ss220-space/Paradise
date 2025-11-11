@@ -20,7 +20,7 @@
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			occupant_message("<span class='warning'>[H.glasses] prevent you from using the built-in medical hud.</span>")
+			occupant_message(span_warning("[H.glasses] prevent you from using the built-in medical hud."))
 		else
 			var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 			hud.show_to(H)
@@ -50,7 +50,7 @@
 
 /obj/mecha/medical/odysseus/full_load
 	name = "Тестовый Одиссей"
-	desc = "Специальная версия \"Одиссея\", созданная с одной целью - проверять все модули разом. Конструкция не позволяет меху быть массовым образцом, выпущенная специально для ведущих инженеров-роботехников."
+	desc = "Специальная версия \"Одиссея\", созданная с одной целью — проверять все модули разом. Конструкция не позволяет меху быть массовым образцом, выпущенная специально для ведущих инженеров-роботехников."
 	strafe_allowed = TRUE
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
 	max_integrity = 1000

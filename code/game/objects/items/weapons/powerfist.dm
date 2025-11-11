@@ -33,12 +33,11 @@
 	. = ..()
 	if(in_range(user, src))
 		if(tank)
-			. += span_notice("[bicon(tank)] It has [tank] mounted onto it.")
+			. += span_notice("[icon2html(tank, user)] It has [tank] mounted onto it.")
 		if(cell)
-			. += span_notice("[bicon(cell)]The fist is charged for [cell.charge] W")
+			. += span_notice("[icon2html(cell, user)]The fist is charged for [cell.charge] W")
 	else
 		. += span_notice("You'll need to get closer to see any more.")
-
 
 /obj/item/melee/powerfist/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/internals))
@@ -69,7 +68,6 @@
 
 	return ..()
 
-
 /obj/item/melee/powerfist/attack_self(mob/user)
 	. = ..()
 	if(.)
@@ -81,7 +79,6 @@
 	cell.forceMove(drop_location())
 	user.put_in_hands(cell, ignore_anim = FALSE)
 	cell = null
-
 
 /obj/item/melee/powerfist/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -96,7 +93,6 @@
 			fisto_setting = 1
 	to_chat(user, span_notice("You tweak [src]'s piston valve to [fisto_setting]."))
 
-
 /obj/item/melee/powerfist/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!tank)
@@ -108,7 +104,6 @@
 	tank.forceMove(drop_location())
 	user.put_in_hands(tank, ignore_anim = FALSE)
 	tank = null
-
 
 /obj/item/melee/powerfist/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity)
@@ -141,7 +136,7 @@
 			mobtarget.emp_act(1)
 			spark_system.start()
 			if(cell.charge >= 15000)
-				mobtarget.electrocute_act(cell.charge/1250, "силового кулака")
+				mobtarget.electrocute_act(cell.charge / 1250, src)
 			cell.use(cell.maxcharge)
 			to_chat(user, "[src] sparkles violently")
 	else

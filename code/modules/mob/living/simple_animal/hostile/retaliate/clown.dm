@@ -33,7 +33,7 @@
 		DATIVE = "клоуну",
 		ACCUSATIVE = "клоуна",
 		INSTRUMENTAL = "клоуном",
-		PREPOSITIONAL = "клоуне"
+		PREPOSITIONAL = "клоуне",
 	)
 
 /mob/living/simple_animal/hostile/retaliate/clown/ComponentInitialize()
@@ -74,7 +74,7 @@
 		DATIVE = "клоуну-гоблину",
 		ACCUSATIVE = "клоуна-гоблина",
 		INSTRUMENTAL = "клоуном-гоблином",
-		PREPOSITIONAL = "клоуне-гоблине"
+		PREPOSITIONAL = "клоуне-гоблине",
 	)
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
@@ -103,7 +103,7 @@
 		DATIVE = "неуклюжему гоблину",
 		ACCUSATIVE = "неуклюжего гоблина",
 		INSTRUMENTAL = "неуклюжим гоблином",
-		PREPOSITIONAL = "неуклюжем гоблине"
+		PREPOSITIONAL = "неуклюжем гоблине",
 	)
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne/ComponentInitialize()

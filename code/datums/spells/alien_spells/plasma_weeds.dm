@@ -7,14 +7,11 @@
 	var/weed_name = "alien weed node"
 	action_icon_state = "alien_plant"
 
-
 /obj/effect/proc_holder/spell/alien_spell/plant_weeds/queen
 	plasma_cost = 0
 
-
 /obj/effect/proc_holder/spell/alien_spell/plant_weeds/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/alien_spell/plant_weeds/cast(list/targets, mob/living/carbon/user)
 	if(!isturf(user.loc))
@@ -36,5 +33,5 @@
 
 	playsound_xenobuild(user)
 	user.visible_message(span_alertalien("[user] has planted a [weed_name]!"))
-	
+
 	new weed_type(turf)

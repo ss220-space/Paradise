@@ -116,7 +116,6 @@
 				E = get_connection(Z_LEVEL_WEST)
 				S.set_transition_west(E.zpos)
 
-
 /datum/space_level/proc/get_turfs()
 	return block(1, 1, zpos, world.maxx, world.maxy, zpos)
 
@@ -166,11 +165,11 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 	SSatoms.InitializeAtoms(our_atoms, FALSE)
 	log_debug("Primary initialization finished in [stop_watch(watch)]s.")
 	our_atoms.Cut()
-	if(pipes.len)
+	if(length(pipes))
 		do_pipes(pipes)
-	if(cables.len)
+	if(length(cables))
 		do_cables(cables)
-	if(late_maps.len)
+	if(length(late_maps))
 		do_late_maps(late_maps)
 
 /datum/space_level/proc/do_pipes(list/pipes)

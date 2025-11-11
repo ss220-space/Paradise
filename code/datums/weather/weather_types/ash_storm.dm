@@ -6,7 +6,7 @@
 	telegraph_message = span_boldwarning("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
 	telegraph_overlay = "light_ash"
 
-	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью – прячьтесь в убежище!</i>")
+	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью — прячьтесь в убежище!</i>")
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"
@@ -41,7 +41,7 @@
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 
-	for(var/i in 1 to eligible_areas.len)
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(istype(place, /area/shuttle)) // Don't play storm audio to shuttles that are not at lavaland
 			continue
@@ -93,7 +93,6 @@
 		basalt.refill_dug()
 	update_audio()
 
-
 /datum/weather/ash_storm/can_weather_act(mob/living/mob_to_check)
 	. = ..()
 	if(!.)
@@ -106,7 +105,6 @@
 		var/mob/living/simple_animal/borer/borer = mob_to_check
 		if(borer.host?.get_main_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return FALSE
-
 
 /datum/weather/ash_storm/weather_act(mob/living/target)
 	if(!target.mind && target.stat == DEAD || !ishuman(target)) //mind&stat check for optimization against dead roundstart dolls
@@ -126,7 +124,6 @@
 	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_L_FOOT, FIRE) / 100) * THERMAL_PROTECTION_FOOT_LEFT * 4, BURN, BODY_ZONE_PRECISE_L_FOOT)
 	target.apply_damage((1 - target.getarmor(BODY_ZONE_R_LEG, FIRE) / 100) * THERMAL_PROTECTION_LEG_RIGHT * 4, BURN, BODY_ZONE_R_LEG)
 	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_R_FOOT, FIRE) / 100) * THERMAL_PROTECTION_FOOT_RIGHT * 4, BURN, BODY_ZONE_PRECISE_R_FOOT)
-
 
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall

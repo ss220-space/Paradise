@@ -239,7 +239,6 @@
 		else if(!firedoor.density)
 			INVOKE_ASYNC(firedoor, TYPE_PROC_REF(/obj/machinery/door/firedoor, close))
 
-
 /area/proc/air_doors_open()
 	if(!air_doors_activated)
 		return
@@ -322,7 +321,6 @@
 	if(new_length >= zlevel_to_clean)
 		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
 
-
 /// Ensures that the contained_turfs list properly represents the turfs actually inside us
 /area/proc/cannonize_contained_turfs()
 	for(var/area_zlevel in 1 to length(turfs_to_uncontain_by_zlevel))
@@ -368,9 +366,9 @@
 						C.network |= "Power Alarms"
 
 			if(state)
-				SSalarm.cancelAlarm("Power", src, source)
+				GLOB.alarm_manager.cancel_alarm("Power", src, source)
 			else
-				SSalarm.triggerAlarm("Power", src, cameras, source)
+				GLOB.alarm_manager.trigger_alarm("Power", src, cameras, source)
 
 /**
  * Generate an atmospheric alert for this area
@@ -386,8 +384,7 @@
 				if(!QDELETED(C) && is_station_level(C.z))
 					C.network |= "Atmosphere Alarms"
 
-
-			SSalarm.triggerAlarm("Atmosphere", src, cameras, source)
+			GLOB.alarm_manager.trigger_alarm("Atmosphere", src, cameras, source)
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
@@ -395,7 +392,7 @@
 				if(!QDELETED(C) && is_station_level(C.z))
 					C.network -= "Atmosphere Alarms"
 
-			SSalarm.cancelAlarm("Atmosphere", src, source)
+			GLOB.alarm_manager.cancel_alarm("Atmosphere", src, source)
 
 		atmosalm = danger_level
 		return TRUE
@@ -453,7 +450,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network |= "Fire Alarms"
 
-	SSalarm.triggerAlarm("Fire", src, cameras, source)
+	GLOB.alarm_manager.trigger_alarm("Fire", src, cameras, source)
 
 	START_PROCESSING(SSobj, src)
 
@@ -475,7 +472,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network -= "Fire Alarms"
 
-	SSalarm.cancelAlarm("Fire", src, source)
+	GLOB.alarm_manager.cancel_alarm("Fire", src, source)
 
 	STOP_PROCESSING(SSobj, src)
 
@@ -514,9 +511,9 @@
 	for(var/obj/machinery/door/DOOR in machinery_cache)
 		close_and_lock_door(DOOR)
 
-	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
+	if(GLOB.alarm_manager.trigger_alarm("Burglar", src, cameras, trigger))
 		//Cancel silicon alert after 1 minute
-		addtimer(CALLBACK(SSalarm, TYPE_PROC_REF(/datum/controller/subsystem/alarm, cancelAlarm), "Burglar", src, trigger), 600)
+		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Burglar", src, trigger), 1 MINUTES)
 
 /**
  * Trigger the fire alarm visual affects in an area
@@ -548,7 +545,6 @@
 		light.fire_mode = FALSE
 		light.update()
 
-
 /area/update_icon_state()
 	var/weather_icon = FALSE
 	for(var/datum/weather/weather as anything in SSweather.processing)
@@ -557,7 +553,6 @@
 			weather_icon = TRUE
 	if(!weather_icon)
 		icon_state = null
-
 
 /area/space/update_icon_state()
 	icon_state = null
@@ -589,7 +584,6 @@
 		machine.power_change()										// reverify power status (to update icons etc.)
 	update_icon(UPDATE_ICON_STATE)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
-
 
 /area/proc/usage(chan)
 	var/used = 0
@@ -643,7 +637,6 @@
 		if(ENVIRON)
 			used_environ += amount
 
-
 /area/Entered(atom/movable/arrived, area/old_area)
 
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
@@ -681,10 +674,8 @@
 	for(var/obj/machinery/door/window/temp_windoor in machinery_cache)
 		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
-
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")
-
 
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")

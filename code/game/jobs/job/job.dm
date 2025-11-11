@@ -126,7 +126,6 @@
 		return 1	//Available in 0 days = available right now = player is old enough to play.
 	return 0
 
-
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
@@ -150,19 +149,18 @@
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	var/list/slightly_prohibited_disabilities = list(DISABILITY_FLAG_PARAPLEGIA)
 
-	for(var/i = 1, i <= prohibited_disabilities.len, i++)
+	for(var/i = 1, i <= length(prohibited_disabilities), i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)
 			return 1
 
 	if(!disabilities_allowed_slightly)
-		for(var/i = 1, i <= slightly_prohibited_disabilities.len, i++)
+		for(var/i = 1, i <= length(slightly_prohibited_disabilities), i++)
 			var/this_disability = slightly_prohibited_disabilities[i]
 			if(C.prefs.disabilities & this_disability)
 				return 1
 
 	return 0
-
 
 /datum/job/proc/character_old_enough(client/C)
 	. = FALSE
@@ -173,7 +171,6 @@
 	var/datum/species/species = GLOB.all_species[C.prefs.species]
 	if(C.prefs.age >= get_age_limits(species, min_age_type))
 		. = TRUE
-
 
 /datum/job/proc/species_in_blacklist(client/C)
 	if(!C)
@@ -252,6 +249,8 @@
 			else
 				gear_leftovers += G
 
+	H.dna.species.job_pre_equip(H)
+
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
@@ -262,7 +261,7 @@
 
 	imprint_pda(H)
 
-	if(gear_leftovers.len)
+	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
 			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
 			if(placed_in.equip_to_best_slot(H))
@@ -296,7 +295,7 @@
 		C.assignment = alt_title ? alt_title : J.title
 		C.sex = capitalize(H.gender)
 		C.age = H.age
-		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
+		C.name = "[C.registered_name]’s ID Card ([C.assignment])"
 		C.photo = get_id_photo(H)
 
 		if(H.mind && H.mind.initial_account)
@@ -313,8 +312,6 @@
 		PDA.ownrank = C.rank
 		PDA.update_appearance(UPDATE_NAME)
 
-
-
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()
 	if(allow_backbag_choice && backpack)
@@ -322,10 +319,8 @@
 		types += backpack
 	return types
 
-
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
 	return transfer_allowed
-
 
 /datum/job/proc/can_novice_play(client/C)
 	if(!is_novice)

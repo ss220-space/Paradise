@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "фултону",
 		ACCUSATIVE = "фултон",
 		INSTRUMENTAL = "фултоном",
-		PREPOSITIONAL = "фултоне"
+		PREPOSITIONAL = "фултоне",
 	)
 
 /obj/item/extraction_pack/examine(mob/user)
@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(EP.beacon_network in beacon_networks)
 			possible_beacons += EP
 
-	if(!possible_beacons.len)
+	if(!length(possible_beacons))
 		balloon_alert(user, "маяки не найдены!")
 		return
 
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		return
 	else
 		if(!safe_for_living_creatures && check_for_living_mobs(A))
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] небезопасен для живых существ – они не переживут транспортировку!"))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] небезопасен для живых существ — они не переживут транспортировку!"))
 			return
 		if(!isturf(A.loc)) // no extracting stuff inside other stuff
 			return
@@ -165,7 +165,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(uses_left <= 0)
 				qdel(src)
 
-
 /obj/item/fulton_core
 	name = "extraction beacon signaller"
 	desc = "Излучает сигнал, на который могут ориентироваться устройства фултон. Активируйте в руке, чтобы создать маяк."
@@ -179,7 +178,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "маяку фултона",
 		ACCUSATIVE = "маяк фултона",
 		INSTRUMENTAL = "маяком фултона",
-		PREPOSITIONAL = "маяке фултона"
+		PREPOSITIONAL = "маяке фултона",
 	)
 
 /obj/item/fulton_core/attack_self(mob/user)
@@ -203,9 +202,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "маяку фултона",
 		ACCUSATIVE = "маяк фултона",
 		INSTRUMENTAL = "маяком фултона",
-		PREPOSITIONAL = "маяке фултона"
+		PREPOSITIONAL = "маяке фултона",
 	)
-
 
 /obj/structure/extraction_point/Initialize(mapload)
 	. = ..()
@@ -217,7 +215,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "маяку фултона [random_value]",
 		ACCUSATIVE = "маяк фултона [random_value]",
 		INSTRUMENTAL = "маяком фултона [random_value]",
-		PREPOSITIONAL = "маяке фултона [random_value]"
+		PREPOSITIONAL = "маяке фултона [random_value]",
 	)
 	GLOB.total_extraction_beacons += src
 

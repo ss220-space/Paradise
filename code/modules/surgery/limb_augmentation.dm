@@ -5,7 +5,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
-		/datum/surgery_step/augment
+		/datum/surgery_step/augment,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -44,7 +44,7 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -54,7 +54,7 @@
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] заверша[pluralize_ru(user.gender, "ет", "ют")] аугментацию [affected.declent_ru(GENITIVE)] [target]."),
+		span_notice("[user] заверша[PLUR_ET_YUT(user)] аугментацию [affected.declent_ru(GENITIVE)] [target]."),
 		span_notice("Вы завершаете аугментацию [affected.declent_ru(GENITIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)

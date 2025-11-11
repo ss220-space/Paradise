@@ -64,9 +64,10 @@
 						to_chat(aiPlayer, span_warning("Законы обновлены"))
 
 	special_directive(intercepttext, interceptname)
-	GLOB.minor_announcement.announce("Отчёт был загружен и распечатан на всех консолях связи.",
-									ANNOUNCE_SECRETMSG_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.minor_announcement.announce(
+		message = "Отчёт был загружен и распечатан на всех консолях связи.",
+		new_title = ANNOUNCE_SECRETMSG_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 /datum/station_state
@@ -77,7 +78,6 @@
 	var/door = 0
 	var/grille = 0
 	var/mach = 0
-
 
 /datum/station_state/proc/count()
 	for(var/turf/T in block(1,1,1, world.maxx,world.maxy,1))
@@ -101,7 +101,6 @@
 				src.r_wall += 2
 			else
 				src.r_wall += 1
-
 
 		for(var/obj/O in T.contents)
 			if(istype(O, /obj/structure/window))

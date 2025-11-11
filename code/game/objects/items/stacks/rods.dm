@@ -47,10 +47,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	var/amount = get_amount()
 	icon_state = "rods-[clamp(amount, 1, 5)]"
 
-
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)
-		to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
+		to_chat(user, span_warning("You need at least two rods to do this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -59,9 +58,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	if(new_item.get_amount() <= 0)
 		// stack was moved into another one on the pile
 		new_item = locate() in user.loc
-	visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
-					"<span class='notice'>You shape [src] into metal with [I]!</span>", \
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user.name] shapes [src] into metal with [I]!"), \
+					span_notice("You shape [src] into metal with [I]!"), \
+					span_warning("You hear welding."))
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)
 	if(get_amount() <= 0 && replace)
@@ -80,11 +79,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
 
-
 /obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
 		melee_attack_chain(user, target, click_parameters)
-
 
 /obj/item/stack/fireproof_rods
 	name = "fireproof rods"
@@ -102,15 +99,12 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
 
-
 /obj/item/stack/fireproof_rods/twentyfive
 	amount = 25
-
 
 /obj/item/stack/fireproof_rods/update_icon_state()
 	var/amount = get_amount()
 	icon_state = "f_rods-[clamp(amount, 1, 5)]"
-
 
 /obj/item/stack/fireproof_rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)

@@ -15,7 +15,7 @@
 	if(new_dir)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поражён[genderize_ru(gender,"","а","о","ы")] [P.declent_ru(INSTRUMENTAL)]!"), projectile_message = TRUE)
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поражён[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!"), projectile_message = TRUE)
 		new_dir = 0
 		return ..() //Hits as normal, explodes or emps or whatever
 
@@ -30,7 +30,6 @@
 
 	new_dir = 0
 	return -1
-
 
 /obj/structure/reflector/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -82,7 +81,6 @@
 
 	return ..()
 
-
 /obj/structure/reflector/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)
@@ -118,26 +116,23 @@
 /obj/structure/reflector/proc/get_reflection(srcdir,pdir)
 	return 0
 
-
 /obj/structure/reflector/verb/rotate()
 	set name = "Повернуть"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(usr, span_warning("You can't do that right now!"))
 		return FALSE
 	if(anchored)
-		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
+		to_chat(usr, span_warning("It is fastened to the floor!"))
 		return FALSE
 	setDir(turn(dir, 270))
 	return TRUE
 
-
 /obj/structure/reflector/click_alt(mob/user)
 	rotate()
 	return CLICK_ACTION_SUCCESS
-
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX
 

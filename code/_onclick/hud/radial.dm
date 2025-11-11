@@ -51,7 +51,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/list/choices_values = list() //choice_id -> choice
 	var/list/page_data = list() //list of choices per page
 
-
 	var/selected_choice
 	var/list/atom/movable/screen/elements = list()
 	var/atom/movable/screen/radial/center/close_button
@@ -118,7 +117,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 	max_elements = round(zone / min_angle)
 	var/paged = max_elements < choices.len
-	if(elements.len < max_elements)
+	if(length(elements) < max_elements)
 		var/elements_to_add = max_elements - elements.len
 		for(var/i in 1 to elements_to_add) //Create all elements
 			var/atom/movable/screen/radial/new_element = new /atom/movable/screen/radial/slice
@@ -129,18 +128,18 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	page_data = list(null)
 	var/list/current = list()
 	var/list/choices_left = choices.Copy()
-	while(choices_left.len)
-		if(current.len == max_elements)
+	while(length(choices_left))
+		if(length(current) == max_elements)
 			page_data[page] = current
 			page++
 			page_data.len++
 			current = list()
-		if(paged && current.len == max_elements - 1)
+		if(paged && length(current) == max_elements - 1)
 			current += NEXT_PAGE_ID
 			continue
 		else
 			current += popleft(choices_left)
-	if(paged && current.len < max_elements)
+	if(paged && length(current) < max_elements)
 		current += NEXT_PAGE_ID
 
 	page_data[page] = current
@@ -150,11 +149,11 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /datum/radial_menu/proc/update_screen_objects(anim = FALSE)
 	var/list/page_choices = page_data[current_page]
-	var/angle_per_element = round(zone / page_choices.len)
-	for(var/i in 1 to elements.len)
+	var/angle_per_element = round(zone / length(page_choices))
+	for(var/i in 1 to length(elements))
 		var/atom/movable/screen/radial/E = elements[i]
 		var/angle = WRAP(starting_angle + (i - 1) * angle_per_element, 0, 360)
-		if(i > page_choices.len)
+		if(i > length(page_choices))
 			HideElement(E)
 		else
 			SetElement(E,page_choices[i], angle, anim = anim, anim_order = i)
@@ -212,16 +211,15 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	choices_icons.Cut()
 	choices_values.Cut()
 	current_page = 1
-	QDEL_NULL(custom_check_callback)
 
 /datum/radial_menu/proc/element_chosen(choice_id,mob/user)
 	selected_choice = choices_values[choice_id]
 
 /datum/radial_menu/proc/get_next_id()
-	return "c_[choices.len]"
+	return "c_[length(choices)]"
 
 /datum/radial_menu/proc/set_choices(list/new_choices)
-	if(choices.len)
+	if(length(choices))
 		Reset()
 	for(var/E in new_choices)
 		var/id = get_next_id()
@@ -233,14 +231,12 @@ GLOBAL_LIST_EMPTY(radial_menus)
 				choices_icons[id] = I
 	setup_menu()
 
-
 /datum/radial_menu/proc/extract_image(E)
 	var/mutable_appearance/MA = new /mutable_appearance(E)
 	if(MA)
 		MA.layer = ABOVE_HUD_LAYER
 		MA.appearance_flags |= RESET_TRANSFORM
 	return MA
-
 
 /datum/radial_menu/proc/next_page()
 	if(pages > 1)
@@ -288,6 +284,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/Destroy()
 	Reset()
 	hide()
+	custom_check_callback = null
 	for(var/atom/movable/screen/radial/element as anything in elements)
 		element.parent = null
 	elements.Cut()
@@ -298,10 +295,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	menu_holder = null
 	. = ..()
 
-/*
-	Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)
-	Choices should be a list where list keys are movables or text used for element names and return value
-	and list values are movables/icons/images used for element icons
+/**
+ * Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)
+ * Choices should be a list where list keys are movables or text used for element names and return value
+ * and list values are movables/icons/images used for element icons
 */
 /proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE, anim_speed = ANIM_SPEED)
 	if(!user || !anchor || !length(choices))

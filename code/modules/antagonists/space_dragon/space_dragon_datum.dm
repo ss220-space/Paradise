@@ -25,7 +25,6 @@
 	/// Our dragon
 	var/mob/living/simple_animal/hostile/space_dragon/dragon
 
-
 /datum/antagonist/space_dragon/on_gain()
 	. = ..()
 	if(!.)
@@ -33,14 +32,12 @@
 
 	dragon = owner.current
 
-
 /datum/antagonist/space_dragon/Destroy()
 	rift_list = null
 	carp = null
 	dragon = null
 	QDEL_NULL(rift_ability)
 	return ..()
-
 
 /datum/antagonist/space_dragon/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -54,7 +51,6 @@
 
 	return TRUE
 
-
 /datum/antagonist/space_dragon/greet()
 	var/list/messages = list()
 	messages.Add(span_userdanger("Вы космический дракон!"))
@@ -66,10 +62,8 @@
 	SEND_SOUND(owner.current, sound('sound/misc/demon_attack1.ogg'))
 	return messages
 
-
 /datum/antagonist/space_dragon/give_objectives()
 	add_objective(/datum/objective/summon_carp)
-
 
 /datum/antagonist/space_dragon/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/antag = ..()
@@ -84,7 +78,6 @@
 		rift_ability = new()
 	rift_ability.Grant(antag)
 
-
 /datum/antagonist/space_dragon/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/antag = ..()
 	if(!antag)
@@ -94,7 +87,6 @@
 	UnregisterSignal(antag, COMSIG_LIVING_DEATH)
 	antag.faction -= "carp"
 	rift_ability?.Remove(antag)
-
 
 /**
  * Checks to see if we need to do anything with the current state of the dragon's rifts.
@@ -119,7 +111,6 @@
 		owner.current.death(TRUE)
 		QDEL_NULL(owner.current)
 
-
 /**
  * Destroys all of Space Dragon's current rifts.
  *
@@ -140,7 +131,6 @@
 		if(!QDELETED(rift))
 			QDEL_NULL(rift)
 
-
 /**
  * Sets up Space Dragon's victory for completing the objectives.
  *
@@ -155,9 +145,10 @@
 	var/datum/objective/summon_carp/main_objective = locate() in objectives
 	if(main_objective)
 		main_objective.completed = TRUE
-	GLOB.major_announcement.announce("Огромное число неопознанных форм жизни направляется к [station_name()] с высокой скоростью. Оставшемуся экипажу рекомендуется эвакуироваться как можно скорее...",
-									ANNOUNCE_WILDNATURE_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Огромное число неопознанных форм жизни направляется к [station_name()] с высокой скоростью. Оставшемуся экипажу рекомендуется эвакуироваться как можно скорее...",
+		new_title = ANNOUNCE_WILDNATURE_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	sound_to_playing_players('sound/creatures/space_dragon_roar.ogg')
 	for(var/obj/structure/carp_rift/rift as anything in rift_list)
@@ -169,7 +160,6 @@
 	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 	SSshuttle.emergency.request(coefficient = 0.5)
-
 
 /**
  * Gives Space Dragon their the rift speed buff permanantly and fully heals the user.
@@ -183,7 +173,6 @@
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
 	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 
-
 /**
  * Handles Space Dragon's temporary empowerment after boosting a rift.
  *
@@ -196,7 +185,6 @@
 	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 	addtimer(CALLBACK(src, PROC_REF(rift_depower)), 30 SECONDS)
 
-
 /**
  * Removes Space Dragon's rift speed buff.
  *
@@ -208,21 +196,19 @@
 	owner.current.remove_filter("anger_glow")
 	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 
-
 /datum/objective/summon_carp
 	needs_target = FALSE
 	antag_menu_name = "Открывать и защищать разломы"
 	explanation_text = "Открывайте и защищайте разрывы, чтобы наводнить станцию карпами."
 
-
 /datum/antagonist/space_dragon/roundend_report()
 	var/list/parts = list()
 	var/datum/objective/summon_carp/S = locate() in objectives
 	if(S.check_completion())
-		parts += span_redtext("<big>[name] - успех! Космические карпы вернули контроль над территорией расположения станции!</big>")
+		parts += span_redtext("<big>[name] — успех! Космические карпы вернули контроль над территорией расположения станции!</big>")
 	parts += printplayer(owner)
 	var/objectives_complete = TRUE
-	if(objectives.len)
+	if(length(objectives))
 		parts += printobjectives(objectives)
 		for(var/datum/objective/objective in objectives)
 			if(!objective.check_completion())
@@ -232,7 +218,7 @@
 		parts += span_greentext("<big>[name] преуспел!</big>")
 	else
 		parts += span_redtext("<big>[name] провалился!</big>")
-	if(carp.len)
+	if(length(carp))
 		parts += span_header("Помощниками [name] были:")
 		for(var/datum/mind/M in carp)
 			parts += "[printplayer(M)]"

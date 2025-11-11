@@ -15,7 +15,6 @@
 	var/buildstacktype = /obj/item/stack/rods
 	var/buildstackamount = 3
 
-
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	handle_layer()
@@ -27,31 +26,30 @@
 		AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/railing/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(ACCUSATIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(ACCUSATIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE
 
-
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
 		return
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+		to_chat(user, span_warning("[src] is already in good condition!"))
 		return
 	if(!I.tool_start_check(user, amount = 0))
 		return
-	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+	to_chat(user, span_notice("You begin repairing [src]..."))
 	if(I.use_tool(src, user, 40, volume = 50))
 		update_integrity(max_integrity)
-		to_chat(user, "<span class='notice'>You repair [src].</span>")
+		to_chat(user, span_notice("You repair [src]."))
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	if(anchored)
 		return
-	to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
+	to_chat(user, span_warning("You cut apart the railing."))
 	I.play_tool_sound(src, 100)
 	deconstruct()
 	return TRUE
@@ -67,12 +65,11 @@
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
 		return
-	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
+	to_chat(user, span_notice("You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor..."))
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 		set_anchored(!anchored)
-		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor."))
 	return TRUE
-
 
 /obj/structure/railing/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -84,12 +81,10 @@
 		return !density
 	return TRUE
 
-
 /obj/structure/railing/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!(to_dir & dir))
 		return TRUE
 	return ..()
-
 
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -112,7 +107,6 @@
 		return
 	leaving.Bump(src)
 	return COMPONENT_ATOM_BLOCK_EXIT
-
 
 /obj/structure/railing/do_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
@@ -194,7 +188,7 @@
 /obj/structure/railing/wooden/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return

@@ -15,14 +15,12 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7),
 	)
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -35,7 +33,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 6),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -1)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -1),
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
@@ -55,9 +53,20 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
 	)
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=2"
 
+/obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
+	return list(
+		NOMINATIVE = "Блюститель",
+		GENITIVE = "Блюстителя",
+		DATIVE = "Блюстителю",
+		ACCUSATIVE = "Блюститель",
+		INSTRUMENTAL = "Блюстителем",
+		PREPOSITIONAL = "Блюстителе",
+	)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
 	add_skin("Grey slide", "enforcer_grey")
@@ -69,14 +78,11 @@
 	add_skin("Tan Handle", "enforcer_tangrip")
 	add_skin("Red Handle", "enforcer_redgrip")
 
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
-
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
@@ -84,12 +90,9 @@
 	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
 	. = ..()
 
-
 //СБшный инфорсер//
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
-	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;materials=2"
 
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8
@@ -107,9 +110,8 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 5),
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_gun_skins()
 	add_skin("Black", "sp8_black")
@@ -119,14 +121,11 @@
 	add_skin("Yellow", "sp8_yellow")
 	add_skin("White", "sp8_white")
 
-
 /obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"
@@ -136,14 +135,12 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t/update_gun_skins()
 	add_skin("Dust", "sp8t_dust")
 	add_skin("Sea", "sp8t_sea")
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
 	name = "SP-8-AR"
@@ -154,9 +151,8 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
-
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
@@ -173,15 +169,13 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 4),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -2),
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -206,6 +200,6 @@
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 5),
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO

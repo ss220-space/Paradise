@@ -180,7 +180,7 @@
 	delay = 10
 	e_cost = 675
 
-/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
+/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	playsound(src.loc, 'sound/weapons/floragun_gamma.ogg', 75, TRUE)
 	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = FALSE))
 		return FALSE
@@ -335,7 +335,6 @@
 			to_chat(M, span_userdanger("Вы чувствуете жар от взрыва [declent_ru(GENITIVE)], но он почти не задевает вас."))
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5) * effects_mult, BURN)
-
 
 /obj/item/ammo_casing/energy/dart
 	projectile_type = /obj/projectile/energy/dart
@@ -526,7 +525,8 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
-	e_cost = 1000
+	e_cost = 900
+	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
 
 /obj/item/ammo_casing/energy/specter/disable
 	caliber = CALIBER_SPECTER
@@ -534,4 +534,71 @@
 	projectile_type = /obj/projectile/beam/specter/disabler
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
-	e_cost = 500
+	e_cost = 450
+	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
+
+/obj/item/ammo_casing/energy/rat
+	name = "mechanical energy module"
+	desc = "Несколько шестерней, запитывающих оружие энергией Ратвара."
+	caliber = "ratvar"
+	projectile_type = /obj/projectile/energy/rat
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	e_cost = 1
+
+/obj/item/ammo_casing/energy/rat/get_ru_names()
+	return list(
+		NOMINATIVE = "механическая энергоячейка",
+		GENITIVE = "механической энергоячейки",
+		DATIVE = "механической энергоячейке",
+		ACCUSATIVE = "механическую энергоячейку",
+		INSTRUMENTAL = "механичекой энергоячейкой",
+		PREPOSITIONAL = "механической энергоячейке",
+	)
+
+/obj/item/ammo_casing/energy/rat/slug
+	projectile_type = /obj/projectile/energy/rat/slug
+
+/obj/item/ammo_casing/energy/rat/slug/emp
+	projectile_type = /obj/projectile/energy/rat/slug/emp
+
+/obj/item/ammo_casing/energy/rat/slug/heal
+	projectile_type = /obj/projectile/energy/rat/slug/heal
+	fire_sound = 'sound/magic/staff_healing.ogg'
+
+/obj/item/ammo_casing/energy/rat/slug/stun
+	projectile_type = /obj/projectile/energy/rat/slug/stun
+	fire_sound =  'sound/weapons/gunshots/gunshot_mg.ogg'
+
+/obj/item/ammo_casing/energy/rat/snipe
+	projectile_type = /obj/projectile/energy/rat/snipe
+	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
+
+/obj/item/ammo_casing/energy/rat/snipe/emp
+	projectile_type = /obj/projectile/energy/rat/snipe/emp
+
+/obj/item/ammo_casing/energy/rat/snipe/heal
+	projectile_type = /obj/projectile/energy/rat/snipe/heal
+	fire_sound = 'sound/magic/staff_healing.ogg'
+
+/obj/item/ammo_casing/energy/rat/snipe/stun
+	projectile_type = /obj/projectile/energy/rat/snipe/stun
+	fire_sound =  'sound/weapons/gunshots/gunshot_mg.ogg'
+
+/obj/item/ammo_casing/energy/laser/light/rat
+	projectile_type = /obj/projectile/beam/laser/light/rat
+	e_cost = 1
+	color = COLOR_TANGERINE_YELLOW
+	muzzle_flash_color = COLOR_TANGERINE_YELLOW
+
+/obj/item/ammo_casing/energy/rat_sphere
+	projectile_type = /obj/projectile/energy/sphere
+	e_cost = 0
+	color = COLOR_YELLOW
+
+/obj/item/ammo_casing/energy/rat_sphere/attack
+	projectile_type = /obj/projectile/energy/sphere/attack
+	muzzle_flash_color = COLOR_DARK_MODERATE_ORANGE
+
+/obj/item/ammo_casing/energy/rat_sphere/heal
+	projectile_type = /obj/projectile/energy/sphere/heal
+	muzzle_flash_color = LIGHT_COLOR_VIVID_GREEN

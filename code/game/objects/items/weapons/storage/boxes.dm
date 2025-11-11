@@ -47,7 +47,7 @@
 		DATIVE = "большой коробке",
 		ACCUSATIVE = "большую коробку",
 		INSTRUMENTAL = "большой коробкой",
-		PREPOSITIONAL = "большой коробке"
+		PREPOSITIONAL = "большой коробке",
 	)
 
 /obj/item/storage/box/survival
@@ -57,6 +57,15 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/storage/firstaid/crew(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
+/obj/item/storage/box/survival_unathi
+	icon_state = "box_civ"
+
+/obj/item/storage/box/survival_unathi/populate_contents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/storage/firstaid/crew/unathi(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/brigphys
@@ -400,7 +409,7 @@
 		DATIVE = "коробке с Донк-покетами",
 		ACCUSATIVE = "коробку с Донк-покетами",
 		INSTRUMENTAL = "коробкой с Донк-покетами",
-		PREPOSITIONAL = "коробке с Донк-покетами"
+		PREPOSITIONAL = "коробке с Донк-покетами",
 	)
 
 /obj/item/storage/box/donkpockets/populate_contents()
@@ -419,7 +428,7 @@
 		DATIVE = "коробке с Донк-покетами",
 		ACCUSATIVE = "коробку с Донк-покетами",
 		INSTRUMENTAL = "коробкой с Донк-покетами",
-		PREPOSITIONAL = "коробке с Донк-покетами"
+		PREPOSITIONAL = "коробке с Донк-покетами",
 	)
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
@@ -713,13 +722,12 @@
 		DATIVE = "коробку спичек",
 		ACCUSATIVE = "коробок спичек",
 		INSTRUMENTAL = "коробком спичек",
-		PREPOSITIONAL = "коробке спичек"
+		PREPOSITIONAL = "коробке спичек",
 	)
 
 /obj/item/storage/box/matches/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/match(src)
-
 
 /obj/item/storage/box/matches/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match))
@@ -732,7 +740,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/item/storage/box/matches/update_icon_state()
 	switch(length(contents))
 		if(10 to INFINITY)
@@ -743,7 +750,6 @@
 			icon_state = "[base_icon_state]_almostempty"
 		else
 			icon_state = "[base_icon_state]_e"
-
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
@@ -839,7 +845,6 @@
 	foldable = null
 	var/design = NODESIGN
 
-
 /obj/item/storage/box/papersack/update_desc(updates = ALL)
 	. = ..()
 	switch(design)
@@ -854,11 +859,9 @@
 		if(SMILE)
 			desc = "A paper sack with a crude smile etched onto the side."
 
-
 /obj/item/storage/box/papersack/update_icon_state()
 	item_state = "paperbag_[design]"
 	icon_state = length(contents) ? "[item_state]_closed" : "[item_state]"
-
 
 /obj/item/storage/box/papersack/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -897,7 +900,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
@@ -1302,7 +1304,6 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 
-
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
 
@@ -1380,14 +1381,14 @@
 	foldable = null
 
 /obj/item/storage/box/hug/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	user.visible_message(span_suicide("[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all.."))
 	return (BRUTELOSS)
 
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
-	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
 
 /obj/item/storage/box/wizard
 	name = "magical box"
@@ -1440,13 +1441,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	can_hold = list(/obj/item/ammo_box/magazine)
 
-
 /obj/item/storage/pouch/fast
 	name = "fast pouch"
-	desc = "Подсумок на два магазина, настолько быстро перезаряжать оружие ещё никогда не было!"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
 	icon_state = "pouch_fast"
 	item_state = "pouch_fast"
-
 
 /obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun/projectile/automatic))
@@ -1467,7 +1466,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/storage/box/sec
 	name = "officer starter kit"
@@ -1516,11 +1514,11 @@
 		DATIVE = "набору Спектр",
 		ACCUSATIVE = "набор Спектр",
 		INSTRUMENTAL = "набором Спектр",
-		PREPOSITIONAL = "наборе Спектр"
+		PREPOSITIONAL = "наборе Спектр",
 	)
 
 /obj/item/storage/box/specter_kit/populate_contents()
-	new /obj/item/gun/energy/specter(src)
+	new /obj/item/gun/energy/specter/sibyl(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/stock_parts/cell/specter(src)
 	new /obj/item/stock_parts/cell/specter(src)
@@ -1549,7 +1547,6 @@
 	icon_state = "box_of_doom"
 	var/static/list/allowed_uplink_items
 
-
 /obj/item/storage/box/random_syndi/populate_contents()
 	if(!allowed_uplink_items)
 		allowed_uplink_items = list()
@@ -1564,7 +1561,6 @@
 	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
 		new item_path(src)
 
-
 /obj/item/storage/box/crayfish_bucket
 	name = "Mr. Chang's Spicy Lobsters"
 	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
@@ -1578,7 +1574,6 @@
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
 		/obj/item/reagent_containers/food/drinks/cans/beer,
 	)
-
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
 	var/big_ones = rand(2, 4)

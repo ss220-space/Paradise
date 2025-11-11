@@ -83,7 +83,7 @@
 		ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 
 	visible_message(
-		span_notice("[src] прислоня[pluralize_ru(gender, "ется", "ются")] к [lean_target.declent_ru(DATIVE)]."),
+		span_notice("[src] прислоня[PLUR_ET_YUT(src)]ся к [lean_target.declent_ru(DATIVE)]."),
 		span_notice("Вы прислоняетесь к [lean_target.declent_ru(DATIVE)]."),
 	)
 	leaned_object = lean_target
@@ -128,7 +128,7 @@
 /mob/living/proc/teleport_away_while_leaning(datum/source)
 	SIGNAL_HANDLER
 	stop_leaning()
-	visible_message(span_notice("[src] с грохотом пада[pluralize_ru(gender, "ет", "ют")] на пол!"),
+	visible_message(span_notice("[src] с грохотом пада[PLUR_ET_YUT(src)] на пол!"),
 			span_warning("Вы с грохотом падаете на пол после того, как объект, к которому вы прислонились, исчез."))
 	Knockdown(3 SECONDS)
 
@@ -136,7 +136,10 @@
 	SIGNAL_HANDLER
 	if(HAS_TRAIT(src, NO_GRAVITY_TRAIT)) //If there's no gravity on the mob, don't fall lmao
 		return
-	fall_forced(get_turf(source))
+	var/source_turf = get_turf(source)
+	if(!Adjacent(source_turf, src))
+		return
+	fall_forced(source_turf)
 
 /mob/living/proc/fall_into_ex_turf(datum/source, atom/moved, direction)
 	SIGNAL_HANDLER
@@ -146,7 +149,7 @@
 /mob/living/proc/fall(location)
 	stop_leaning()
 	Move(location)
-	visible_message(span_notice("[src] с грохотом пада[pluralize_ru(gender, "ет", "ют")] на пол!"),
+	visible_message(span_notice("[src] с грохотом пада[PLUR_ET_YUT(src)] на пол!"),
 			span_warning("Вы с грохотом падаете на пол!"))
 	Knockdown(3 SECONDS) //boowomp
 
@@ -154,6 +157,6 @@
 /mob/living/proc/fall_forced(location)
 	stop_leaning()
 	forceMove(location)
-	visible_message(span_notice("[src] с грохотом пада[pluralize_ru(gender, "ет", "ют")] на пол!"),
+	visible_message(span_notice("[src] с грохотом пада[PLUR_ET_YUT(src)] на пол!"),
 			span_warning("Вы с грохотом падаете на пол из-за открытой двери!"))
 	Knockdown(3 SECONDS) //boowomp

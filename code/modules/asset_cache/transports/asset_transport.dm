@@ -24,7 +24,6 @@
 	for(var/client/C in GLOB.clients)
 		addtimer(CALLBACK(src, PROC_REF(send_assets_slow), C, preload), 1 SECONDS)
 
-
 /**
  * Register a browser asset with the asset cache system.
  * returns a /datum/asset_cache_item.
@@ -59,7 +58,6 @@
 	SSassets.cache[asset_name] = ACI
 	return ACI
 
-
 /// Returns a url for a given asset.
 /// asset_name - Name of the asset.
 /// asset_cache_item - asset cache item datum for the asset, optional, overrides asset_name
@@ -76,16 +74,11 @@
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")
 
-
 /// Sends a list of browser assets to a client
 /// client - a client or mob
 /// asset_list - A list of asset filenames to be sent to the client. Can optionally be assoicated with the asset's asset_cache_item datum.
 /// Returns TRUE if any assets were sent.
 /datum/asset_transport/proc/send_assets(client/client, list/asset_list)
-#if defined(UNIT_TESTS)
-	return
-#endif
-
 	if(!istype(client))
 		if(ismob(client))
 			var/mob/our_mob = client
@@ -123,8 +116,8 @@
 			continue
 		unreceived[asset_name] = ACI
 
-	if(unreceived.len)
-		if(unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
+	if(length(unreceived))
+		if(length(unreceived) >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
 			to_chat(client, "Sending Resources...")
 
 		for(var/asset_name in unreceived)
@@ -145,7 +138,6 @@
 		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, asset_cache_update_json)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 		return TRUE
 	return FALSE
-
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
 /datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 6)

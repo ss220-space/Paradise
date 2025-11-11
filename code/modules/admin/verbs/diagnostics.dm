@@ -92,7 +92,7 @@
 			if(!f)
 				output += "&nbsp;&nbsp;[filters[filter]]: ERROR<br>"
 				continue
-			output += "&nbsp;&nbsp;[filters[filter]]: [f.len]<br>"
+			output += "&nbsp;&nbsp;[filters[filter]]: [length(f)]<br>"
 			for(var/device in f)
 				if(isobj(device))
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device] ([device:x],[device:y],[device:z] in area [get_area(device:loc)])<br>"
@@ -120,7 +120,6 @@
 
 	load_admins(run_async=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Reload Admins")
-
 
 /client/proc/print_jobban_old()
 	set name = "Print Jobban Log"

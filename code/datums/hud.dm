@@ -39,7 +39,8 @@ GLOBAL_LIST_INIT(huds, list( \
 	ANTAG_HUD_TEAM_3 = new /datum/atom_hud/antag(),\
 	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),\
 	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),\
-	PACIFISM_HUD = new/datum/atom_hud/pacifism()
+	PACIFISM_HUD = new/datum/atom_hud/pacifism(),\
+	DIABLERIE_AURA_HUD = new /datum/atom_hud/diablerie_aura()
 ))
 
 /datum/atom_hud
@@ -73,7 +74,6 @@ GLOBAL_LIST_INIT(huds, list( \
 	///some subtypes cant work like this since theyre supposed to "belong" to
 	///one target atom each. it will still go in the other global hud lists.
 	var/uses_global_hud_category = TRUE
-
 
 /datum/atom_hud/New()
 	GLOB.all_huds += src
@@ -448,7 +448,6 @@ GLOBAL_LIST_INIT(huds, list( \
 		if(hud?.hud_users_all_z_levels[src])
 			for(var/atom/hud_atom as anything in hud.get_hud_atoms_for_z_level(our_turf.z))
 				hud.add_atom_to_single_mob_hud(src, hud_atom)
-
 
 /mob/new_player/reload_huds()
 	return

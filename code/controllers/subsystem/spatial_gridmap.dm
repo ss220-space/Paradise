@@ -443,7 +443,6 @@ SUBSYSTEM_DEF(spatial_grid)
 
 	return TRUE
 
-
 /// if for whatever reason this movable is "untracked" e.g. it breaks the assumption that a movable is only inside the contents of any grid cell associated with its loc,
 /// this will error. this checks every grid cell in the world so dont call this on live unless you have to.
 /// returns TRUE if this movable is untracked, FALSE otherwise
@@ -525,7 +524,7 @@ SUBSYSTEM_DEF(spatial_grid)
 		remove_from_pre_init_queue(to_remove)//the spatial grid doesnt exist yet, so just take it out of the queue
 		return
 
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 	if(untracked_movable_error(to_remove))
 		find_hanging_cell_refs_for_movable(to_remove, remove_from_cells=FALSE) //dont remove from cells because we should be able to see 2 errors
 		return
@@ -576,7 +575,6 @@ SUBSYSTEM_DEF(spatial_grid)
 		cell_coords += "([cell.cell_x], [cell.cell_y], [cell.cell_z]), "
 	message_admins(cell_coords)
 	message_admins("[src] is supposed to only be contained in the cell at indexes ([real_cell.cell_x], [real_cell.cell_y], [real_cell.cell_z]). but is contained at the cells at [cell_coords]")
-
 
 ///creates number_to_generate new oranges_ear's and adds them to the subsystems list of ears.
 ///i really fucking hope this never gets called after init :clueless:

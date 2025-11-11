@@ -38,8 +38,8 @@
 
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
-	var/num_syringes = syringes.len + (chambered.BB ? 1 : 0)
-	. += "<span class='notice'>Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining.</span>"
+	var/num_syringes = length(syringes) + (chambered.BB ? 1 : 0)
+	. += span_notice("Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining.")
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
@@ -61,7 +61,6 @@
 	balloon_alert(user, "шприц разряжен!")
 	return TRUE
 
-
 /obj/item/gun/syringe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		add_fingerprint(user)
@@ -77,7 +76,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
@@ -113,7 +111,7 @@
 	fire_sound = 'sound/items/blowgunproj.ogg'
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	visible_message("<span class='danger'>[user] starts aiming with a blowgun!</span>")
+	visible_message(span_danger("[user] starts aiming with a blowgun!"))
 	if(do_after(user, 1.5 SECONDS, src))
 		user.apply_damages(oxy = 20, stamina = 20)
 		..()

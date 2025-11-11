@@ -23,7 +23,6 @@
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		apply_damage(damage, M.melee_damage_type)
 
-
 /mob/living/silicon/attack_larva(mob/living/carbon/alien/larva/L)
 	if(L.a_intent == INTENT_HELP)
 		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")

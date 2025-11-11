@@ -46,7 +46,6 @@
 			mistakemessage = "\nIf you have to use one, request whitelisting at:  [CONFIG_GET(string/banappeals)]"
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
-
 	if(CONFIG_GET(flag/ban_legacy_system))
 		//Ban Checking
 		. = CheckBan(ckey(key), computer_id, address)

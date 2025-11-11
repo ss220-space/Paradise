@@ -8,7 +8,6 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/civilian/department = "Civilian"
 
-
 /datum/job/bartender/department = "Support"
 
 /datum/job/chef/department = "Support"
@@ -37,7 +36,6 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/atmos/department = "Engineering"
 
-
 /datum/job/cmo/department = "Medical"
 /datum/job/cmo/head_position = 1
 
@@ -49,14 +47,12 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/psychiatrist/department = "Medical"
 
-
 /datum/job/rd/department = "Science"
 /datum/job/rd/head_position = 1
 
 /datum/job/scientist/department = "Science"
 
 /datum/job/roboticist/department = "Science"
-
 
 /datum/job/hos/department = "Security"
 /datum/job/hos/head_position = 1

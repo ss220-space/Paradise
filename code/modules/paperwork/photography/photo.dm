@@ -18,7 +18,7 @@
 		show(user)
 		. += span_notice("Alt-Click to rename photo.")
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += span_notice("It is too far away.")
 
 /obj/item/photo/attack_self(mob/user)
 	user.examinate(src)
@@ -76,7 +76,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+				to_chat(user, span_warning("You must hold \the [P] steady to burn \the [src]."))
 
 /obj/item/photo/proc/show(mob/user)
 	var/icon/img_shown = new/icon(img)

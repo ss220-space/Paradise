@@ -14,7 +14,6 @@
 	item_state = "gift1"
 	resistance_flags = FLAMMABLE
 
-
 /obj/item/a_gift/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-10,10)
@@ -26,12 +25,10 @@
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
 
-
 /obj/effect/spresent/relaymove(mob/user)
 	if(user.stat)
 		return
 	to_chat(user, span_notice("You cannot move."))
-
 
 /obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -41,7 +38,6 @@
 	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
 		thing.forceMove(loc)
 	qdel(src)
-
 
 /obj/item/a_gift/attack_self(mob/user)
 	var/static/list/gift_types = list(/obj/item/sord,
@@ -89,6 +85,9 @@
 		/obj/item/id_decal/prisoner,
 		/obj/item/id_decal/centcom,
 		/obj/item/id_decal/emag,
+		/obj/item/id_decal/federal,
+		/obj/item/id_decal/comrad,
+		/obj/item/id_decal/syndie,
 		/obj/item/spellbook/oneuse/fake_gib,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/flash,
@@ -110,7 +109,6 @@
 	qdel(src)
 	user.put_in_hands(gift)
 
-
 /*
  * Wrapping Paper
  */
@@ -125,4 +123,4 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+	to_chat(user, span_notice("You need to use it on a package that has already been wrapped!"))

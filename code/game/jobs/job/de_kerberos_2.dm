@@ -30,7 +30,6 @@
 	name = "Команда 1"
 	jobtype = /datum/job/civilian/team1
 
-
 	uniform = /obj/item/clothing/under/color/green
 	shoes = /obj/item/clothing/shoes/green
 	l_ear = /obj/item/radio/headset/green
