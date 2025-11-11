@@ -444,6 +444,7 @@ SUBSYSTEM_DEF(mapping)
 
 // move it to code/datums/ruins.dm and make global proc plz thx k
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
+	//log_startup_progress("Seed ruins for [length(z_levels)] z-levels width [budget] budget and [length(potentialRuins)] potential ruins")
 	if(!z_levels || !length(z_levels))
 		WARNING("No Z levels provided - Not generating ruins")
 		return

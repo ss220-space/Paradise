@@ -396,9 +396,6 @@
 	icon_state = "whitered"
 	},
 /area/security/medbay)
-"acZ" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "ada" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -472,23 +469,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
-"adp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "ads" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -1311,15 +1291,6 @@
 "ako" = (
 /turf/simulated/wall,
 /area/medical/paramedic)
-"akq" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "akr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -1348,17 +1319,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
-"aku" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/fancy/oak{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "akx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -2731,10 +2691,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
-"axT" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "axU" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3423,25 +3379,6 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
-"aEw" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
-/obj/structure/curtain/open/shower,
-/obj/item/soap/deluxe,
-/obj/item/bikehorn/rubberducky,
-/obj/machinery/shower{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "aEJ" = (
 /obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/plasteel{
@@ -3923,25 +3860,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
-"aIr" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/item/gps{
-	pixel_x = -9;
-	pixel_y = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "aIx" = (
 /obj/structure/table,
 /obj/item/clothing/mask/cigarette/menthol,
@@ -4137,24 +4055,6 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/maintenance/fpmaint)
-"aKn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "aKp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -4226,22 +4126,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/customs)
-"aKP" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/structure/closet/hydrant{
-	pixel_x = -32
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "aKY" = (
 /obj/structure/closet/secure_closet{
 	anchored = 1;
@@ -5535,15 +5419,6 @@
 "aVJ" = (
 /turf/simulated/wall,
 /area/engineering/gravitygenerator)
-"aVK" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "aVN" = (
 /obj/structure/closet/secure_closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -5644,19 +5519,6 @@
 	icon_state = "grimy"
 	},
 /area/security/hos)
-"aWJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "aWS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6015,14 +5877,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"baa" = (
-/obj/item/cigbutt/cigarbutt{
-	pixel_x = 9;
-	pixel_y = 10
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "bab" = (
 /obj/machinery/camera{
 	c_tag = "Supermatter South";
@@ -6758,17 +6612,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
-"bhs" = (
-/obj/effect/decal/cleanable/glass{
-	pixel_x = -12
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "bhz" = (
 /obj/structure/table/wood,
 /obj/item/storage/bag/books,
@@ -7022,13 +6865,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
-"bjn" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "bjr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7101,17 +6937,6 @@
 	icon_state = "vault"
 	},
 /area/security/nuke_storage)
-"bkr" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 8
-	},
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "bkx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -7180,15 +7005,6 @@
 	icon_state = "dark"
 	},
 /area/engineering/hardsuitstorage)
-"bkO" = (
-/obj/item/reagent_containers/food/condiment/rice,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "bkS" = (
 /turf/simulated/wall,
 /area/toxins/test_chamber)
@@ -7279,19 +7095,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery/north)
-"blQ" = (
-/obj/item/trash/broken_ashtray{
-	name = "trash";
-	pixel_x = -6;
-	pixel_y = -10
-	},
-/obj/item/stack/cable_coil/blue{
-	amount = 1
-	},
-/obj/effect/decal/fakelattice,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "blX" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -7824,11 +7627,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"brn" = (
-/obj/structure/stone_tile/surrounding_tile,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "bro" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/vacuum,
@@ -7897,16 +7695,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"brR" = (
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "brX" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -7928,14 +7716,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
-"bsh" = (
-/obj/machinery/suit_storage_unit/industrial/pirate_leader,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "bsl" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -8126,14 +7906,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"btE" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "btH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -8478,17 +8250,6 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
-"bxd" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "bxg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8869,11 +8630,6 @@
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
-"bBw" = (
-/obj/structure/flora/ash/tall_shroom,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "bBz" = (
 /turf/simulated/floor/light,
 /area/maintenance/kitchen)
@@ -10044,15 +9800,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/turret_protected/ai)
-"bLs" = (
-/obj/structure/ore_box,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "bLx" = (
 /obj/structure/rack,
 /obj/item/circuitboard/destructive_analyzer{
@@ -10377,20 +10124,6 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/xenobiology)
-"bON" = (
-/obj/structure/spider/stickyweb,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"bOS" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "bOW" = (
 /obj/structure/sign/greencross,
 /turf/simulated/wall,
@@ -11423,14 +11156,6 @@
 	icon_state = "white"
 	},
 /area/medical/reception)
-"bXe" = (
-/obj/item/stack/rods/ten{
-	pixel_x = -6;
-	pixel_y = 7
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "bXf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -12033,28 +11758,12 @@
 /obj/item/gun_module/rail/scope/x4,
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors)
-"cek" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "cel" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/additional)
-"ces" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -10;
-	pixel_y = 20
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "ceD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -14232,11 +13941,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/locker/locker_toilet)
-"cyG" = (
-/obj/structure/flora/ash/leaf_shroom,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "cyH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -15382,33 +15086,6 @@
 	icon_state = "cmo"
 	},
 /area/medical/ward)
-"cIQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/obj/item/trash/broken_ashtray{
-	name = "trash"
-	},
-/obj/item/stack/cable_coil{
-	amount = 3;
-	pixel_x = 7;
-	pixel_y = -5
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
-"cIS" = (
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 7;
-	pixel_x = -5;
-	pixel_y = -1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "cIY" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
@@ -16423,21 +16100,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
-"cSK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "cSO" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
@@ -16461,16 +16123,6 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
-"cSS" = (
-/obj/effect/decal/warning_stripes/west{
-	color = "1F1F1F"
-	},
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "cSU" = (
 /obj/structure/table/glass,
 /obj/effect/decal/warning_stripes/south,
@@ -16581,11 +16233,6 @@
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
-"cTF" = (
-/obj/structure/flora/ash/cacti,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "cTM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -16861,12 +16508,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
-"cVK" = (
-/obj/structure/stone_tile/surrounding_tile,
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "cVP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17281,17 +16922,6 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
-"cYR" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "cZb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -17957,12 +17587,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"deQ" = (
-/obj/structure/flora/ash/leaf_shroom,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "deS" = (
 /obj/structure/closet,
 /obj/item/roller,
@@ -18051,14 +17675,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ntrep)
-"dfF" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "dfO" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -18230,16 +17846,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"dhs" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "dhw" = (
 /obj/machinery/light/small,
 /obj/structure/chair/wood{
@@ -18727,12 +18333,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"dlG" = (
-/obj/structure/flora/ash/cacti,
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "dlQ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -18874,13 +18474,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port/west)
-"dmu" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "dmw" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -19221,14 +18814,6 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/crew_quarters/trading)
-"dqr" = (
-/obj/item/clothing/suit/hooded/goliath{
-	pixel_x = -8;
-	pixel_y = -6
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "dqu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -19489,34 +19074,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/crew_quarters/theatre)
-"dtk" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-5"
-	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/glass{
-	pixel_x = 16;
-	pixel_y = 3
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	pixel_x = 4
-	},
-/obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "dtl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -21445,38 +21002,6 @@
 	icon_state = "yellowfull"
 	},
 /area/engineering/controlroom)
-"dKq" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/manifold/visible/supply{
-	dir = 4;
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible/scrubbers{
-	dir = 4
-	},
-/obj/item/storage/pill_bottle/happy{
-	pixel_x = -11;
-	pixel_y = -4
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/item/reagent_containers/food/pill/rum{
-	pixel_x = 12;
-	pixel_y = -8
-	},
-/obj/item/reagent_containers/food/pill/rum{
-	pixel_x = 5;
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/food/pill/rum{
-	pixel_x = -3;
-	pixel_y = -6
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "dKr" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -21777,15 +21302,6 @@
 /obj/structure/flora/ash/rock,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"dNb" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/machinery/light/small,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "dNe" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -22128,10 +21644,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
-"dQk" = (
-/obj/structure/flora/ausbushes/sparsegrass/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "dQn" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet,
@@ -23470,13 +22982,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
-"eej" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "eem" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
@@ -23487,26 +22992,6 @@
 	icon_state = "red"
 	},
 /area/security/main)
-"eev" = (
-/obj/structure/rack,
-/obj/item/storage/pill_bottle/random_drug_bottle{
-	pixel_x = -6;
-	pixel_y = 3
-	},
-/obj/item/storage/pill_bottle/random_drug_bottle{
-	pixel_x = 6;
-	pixel_y = -2
-	},
-/obj/item/storage/pill_bottle/random_drug_bottle,
-/obj/machinery/vending/wallmed{
-	pixel_y = -30
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "eeB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -23896,14 +23381,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
-"ehX" = (
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "eik" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/rods{
@@ -24502,25 +23979,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
-"enQ" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/structure/cable/pink{
-	icon_state = "5-8"
-	},
-/obj/item/stack/sheet/metal{
-	amount = 10;
-	pixel_x = -13;
-	pixel_y = -13
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "enS" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -25091,12 +24549,6 @@
 	icon_state = "darkred"
 	},
 /area/security/interrogation)
-"erx" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "ery" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -25690,16 +25142,6 @@
 /obj/structure/dresser,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin3)
-"ewJ" = (
-/obj/structure/railing,
-/obj/machinery/constructable_frame/machine_frame,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "ewK" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -26203,13 +25645,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
-"eBI" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "eBJ" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -26476,14 +25911,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
-"eEi" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "eEj" = (
 /obj/structure/table,
 /obj/item/stack/sheet/cloth/ten,
@@ -26538,11 +25965,6 @@
 	icon_state = "darkyellow"
 	},
 /area/maintenance/fpmaint)
-"eEY" = (
-/obj/effect/decal/fakelattice,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "eFa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard,
@@ -26602,12 +26024,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/kitchen)
-"eFL" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "eFM" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -27139,16 +26555,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/qm)
-"eKI" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/decal/cleanable/glass,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "eKZ" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/east,
@@ -27610,15 +27016,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
-"eQc" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "eQm" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -28192,15 +27589,6 @@
 /obj/machinery/light_construct,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"eUQ" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/rack,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "eVa" = (
 /obj/machinery/power/supermatter_shard{
 	anchored = 1
@@ -28426,16 +27814,6 @@
 /obj/machinery/papershredder,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
-"eXG" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "eXH" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -28449,14 +27827,6 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/trading)
-"eXK" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "eXL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -28685,16 +28055,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
-"eZD" = (
-/obj/structure/stone_tile/block/cracked,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "eZN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -28956,26 +28316,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/paramedic)
-"fbW" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "fbZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -29047,11 +28387,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/maintenance/asmaint)
-"fcL" = (
-/obj/structure/flora/rock/lava3,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "fcM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -31052,12 +30387,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"fuS" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "fuT" = (
 /obj/machinery/shower{
 	dir = 8;
@@ -31247,24 +30576,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/glass,
 /area/engineering/hardsuitstorage)
-"fwO" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "fwR" = (
 /obj/structure/table,
 /obj/machinery/power/apc{
@@ -31420,13 +30731,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
-"fyA" = (
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 6
-	},
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "fyB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -31653,17 +30957,6 @@
 /obj/structure/bookcase,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
-"fAA" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "pcarrier_windows"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "fAD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -33110,16 +32403,6 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
-"fMx" = (
-/obj/structure/mopbucket/full,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "fMA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -33152,16 +32435,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
-"fMU" = (
-/obj/structure/chair/comfy/black,
-/obj/effect/mob_spawn/human/corpse/pirate/ranged,
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
-	pixel_x = 16;
-	pixel_y = -14
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "fNf" = (
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/incinerator)
@@ -33246,19 +32519,6 @@
 	icon_state = "caution"
 	},
 /area/maintenance/bar)
-"fOn" = (
-/obj/structure/spider/stickyweb,
-/obj/structure/mirror{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/vomit,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "fOs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -33296,13 +32556,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/toxins/mixing)
-"fOP" = (
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "fOV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -33638,16 +32891,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"fRH" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "fRL" = (
 /obj/machinery/camera/motion{
 	c_tag = "Minisat AI Core North";
@@ -34039,22 +33282,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/library)
-"fVe" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	on = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "fVg" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -34277,10 +33504,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/explab)
-"fWQ" = (
-/mob/living/simple_animal/hostile/megafauna/hierophant,
-/turf/simulated/floor/indestructible/hierophant/two,
-/area/ruin/unpowered/hierophant)
 "fWR" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/stone_tile/slab/cracked,
@@ -34328,12 +33551,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/west)
-"fXm" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 20
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "fXp" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/power/apc{
@@ -35300,10 +34517,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/reception)
-"gfZ" = (
-/obj/structure/flora/ausbushes/fernybush/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "ggd" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -35536,13 +34749,6 @@
 	icon_state = "white"
 	},
 /area/medical/paramedic)
-"ghX" = (
-/obj/effect/light_emitter{
-	light_range = 3;
-	light_power = 5
-	},
-/turf/simulated/floor/indestructible/hierophant,
-/area/ruin/unpowered/hierophant)
 "ghY" = (
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
@@ -35900,19 +35106,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
-"gkT" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "gkY" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -37151,22 +36344,6 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
-"gxa" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 1
-	},
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"gxg" = (
-/obj/structure/shuttle/engine/large,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "gxu" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -37385,14 +36562,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/maintenance/asmaint)
-"gzj" = (
-/obj/item/kitchen/knife{
-	pixel_x = 8;
-	pixel_y = 10
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "gzk" = (
 /obj/machinery/mineral/stacking_machine{
 	input_dir = 1;
@@ -37408,41 +36577,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall,
 /area/crew_quarters/kitchen)
-"gzo" = (
-/obj/structure/bonfire,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
-"gzt" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 1;
-	id_tag = "pcarrier_windows"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"gzA" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/crate/engineering,
-/obj/item/stack/cable_coil/blue,
-/obj/item/apc_electronics,
-/obj/item/apc_electronics,
-/obj/item/apc_electronics,
-/obj/item/firelock_electronics,
-/obj/item/firelock_electronics,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "gzF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -38234,26 +37368,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors)
-"gIx" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "gIC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -38549,25 +37663,6 @@
 	icon_state = "darkred"
 	},
 /area/security/processing)
-"gLn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "gLp" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -39213,11 +38308,6 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-"gQJ" = (
-/obj/structure/stone_tile/slab,
-/obj/structure/world_anvil,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "gQR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows,
@@ -39633,13 +38723,6 @@
 	icon_state = "neutralfull"
 	},
 /area/bridge/vip)
-"gUS" = (
-/obj/item/reagent_containers/food/drinks/bottle/jagermeister{
-	pixel_x = 19;
-	pixel_y = -2
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "gUV" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -40104,12 +39187,6 @@
 	icon_state = "neutralfull"
 	},
 /area/bridge/checkpoint/south)
-"gZc" = (
-/obj/structure/grille/broken,
-/obj/structure/flora/ash/leaf_shroom,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "gZf" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -40647,12 +39724,6 @@
 	icon_state = "yellowfull"
 	},
 /area/engineering/engine)
-"hdB" = (
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "hdC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -41328,13 +40399,6 @@
 	icon_state = "whiteblue"
 	},
 /area/maintenance/starboard)
-"hiP" = (
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "hiS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -41996,11 +41060,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/security/processing)
-"hnR" = (
-/obj/item/clothing/under/pirate,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "hnV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -42538,20 +41597,6 @@
 	tag = "icon-wood-broken"
 	},
 /area/maintenance/tourist)
-"hrW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/blood/gibs/robot/down,
-/obj/item/light/tube/large,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "hrY" = (
 /obj/structure/closet/secure_closet/psychiatrist,
 /obj/item/clothing/suit/straight_jacket,
@@ -43667,22 +42712,6 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
-"hBu" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	dir = 1;
-	name = "Broken Computer"
-	},
-/obj/item/holder/parrot{
-	name = "pepper"
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "hBx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -43722,18 +42751,6 @@
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
-"hBz" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow{
-	color = "EDCBFF"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "hBF" = (
 /obj/machinery/atmospherics/binary/pump{
 	desc = "Переводит смесь из хранилища в трубы";
@@ -43892,10 +42909,6 @@
 	icon_state = "whiteblue"
 	},
 /area/maintenance/starboard)
-"hDg" = (
-/obj/structure/flora/firebush,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "hDn" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -44133,37 +43146,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
-"hFq" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 65
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dust,
-/obj/structure/railing/wooden{
-	dir = 8
-	},
-/obj/structure/railing/wooden/cornerr,
-/obj/item/radio/off{
-	pixel_x = -5;
-	pixel_y = 12
-	},
-/obj/item/flashlight/lantern{
-	pixel_x = 8;
-	pixel_y = 10
-	},
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken5";
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "hFs" = (
 /obj/machinery/light{
 	dir = 8
@@ -44622,19 +43604,6 @@
 /obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"hJr" = (
-/obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/mounted/frame/apc_frame,
-/obj/item/mounted/frame/alarm_frame,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "hJt" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -45053,38 +44022,6 @@
 	icon_state = "browncorner"
 	},
 /area/mine/production)
-"hNq" = (
-/obj/structure/table/reinforced,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/item/extinguisher{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = -5;
-	pixel_y = 2
-	},
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = -5;
-	pixel_y = 6
-	},
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = -5;
-	pixel_y = 10
-	},
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = -5;
-	pixel_y = -5
-	},
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "hNr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -45791,11 +44728,6 @@
 /obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
-"hUg" = (
-/obj/structure/barricade/wooden,
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "hUh" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -45912,19 +44844,6 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"hVs" = (
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 7;
-	pixel_x = -6;
-	pixel_y = 10
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "hVt" = (
 /obj/structure/chair,
 /obj/item/radio/intercom{
@@ -46714,26 +45633,6 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/engine)
-"ibF" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/manifold/visible/supply{
-	dir = 4;
-	pixel_x = -2
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/newspaper{
-	pixel_x = -4;
-	pixel_y = -2
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "ibI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
@@ -46744,16 +45643,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"ibU" = (
-/obj/item/trash/tapetrash,
-/obj/structure/closet/walllocker/emerglocker/east,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "ibV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -48332,9 +47221,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/sw)
-"iqO" = (
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "iqP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -48543,27 +47429,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin3)
-"isx" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/machinery/iv_drip{
-	layer = 3.5
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	pixel_x = 4
-	},
-/obj/structure/sign/redcross{
-	pixel_y = 32
-	},
-/obj/item/storage/firstaid/regular,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "isD" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -48833,10 +47698,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"ivJ" = (
-/obj/structure/noticeboard,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/powered/pirateship)
 "ivW" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/light,
@@ -49430,16 +48291,6 @@
 	icon_state = "grimy"
 	},
 /area/bridge/meeting_room)
-"iEa" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "iEm" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -51423,26 +50274,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
-"iYN" = (
-/obj/structure/shuttle/engine/platform{
-	dir = 1
-	},
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "iYU" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
-"iYZ" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/flora/ausbushes/ywflowers/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "iZm" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -51480,10 +50315,6 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
-"iZu" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "iZw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -51498,11 +50329,6 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
-"iZz" = (
-/obj/item/clothing/head/bandana,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "iZE" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -52251,19 +51077,6 @@
 "jhH" = (
 /turf/simulated/wall/rust,
 /area/maintenance/bar)
-"jhM" = (
-/obj/machinery/vending/snack,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-9"
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "jhO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -53644,18 +52457,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
-"juH" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/item/mounted/frame/firealarm{
-	pixel_y = -8
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "juN" = (
 /obj/machinery/chem_dispenser,
 /obj/effect/decal/warning_stripes/southwest,
@@ -53744,12 +52545,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
-"jvy" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "jvD" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -53809,9 +52604,6 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
-"jvP" = (
-/turf/simulated/wall/indestructible/hierophant,
-/area/ruin/unpowered/hierophant)
 "jvT" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark/start/scientist,
@@ -54008,15 +52800,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"jxI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "jxJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -54108,13 +52891,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
-"jyb" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "jyc" = (
 /turf/simulated/wall,
 /area/maintenance/tourist)
@@ -54544,12 +53320,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
-"jDe" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/pirateship)
 "jDi" = (
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -54836,30 +53606,6 @@
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
-"jGh" = (
-/obj/item/storage/toolbox/electrical{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	pixel_x = -2;
-	pixel_y = -4
-	},
-/obj/structure/table/reinforced,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "jGt" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -55328,13 +54074,6 @@
 /obj/structure/lattice,
 /turf/simulated/openspace/lavaland,
 /area/lavaland/surface/outdoors)
-"jKO" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -15;
-	pixel_y = 35
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "jKV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -55583,19 +54322,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/medbay)
-"jNj" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "jNq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -55648,17 +54374,6 @@
 	icon_state = "grimy"
 	},
 /area/maintenance/library)
-"jNF" = (
-/obj/structure/closet/body_bag,
-/obj/effect/mob_spawn/human/corpse/pirate,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "jNL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -55985,26 +54700,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint3)
-"jQD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
-	dir = 5
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 5;
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "jQJ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -56350,17 +55045,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"jTk" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "jTl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -56467,11 +55151,6 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
-"jUg" = (
-/obj/effect/mapping_helpers/no_lava,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "jUx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -57100,15 +55779,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
-"jYy" = (
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/disco,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "jYA" = (
 /obj/docking_port/stationary{
 	dheight = 1;
@@ -57141,12 +55811,6 @@
 /mob/living/simple_animal/chicken/Wife,
 /turf/simulated/floor/grass,
 /area/hydroponics)
-"jYF" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "jYJ" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -57781,10 +56445,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"kdZ" = (
-/obj/structure/foamedmetal,
-/turf/simulated/floor/plating/metalfoam/iron,
-/area/ruin/powered/pirateship)
 "kef" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -59391,19 +58051,6 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
-"ktp" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/machinery/door/airlock/glass,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "ktq" = (
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit/maint)
@@ -61117,26 +59764,6 @@
 	icon_state = "redfull"
 	},
 /area/security/brig)
-"kKV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "5-9"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "kKW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -61538,10 +60165,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/south)
-"kOl" = (
-/obj/structure/grille,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "kOn" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -61851,23 +60474,6 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
-"kQh" = (
-/obj/structure/table,
-/obj/structure/grille/broken,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 4
-	},
-/obj/item/stock_parts/cell/high{
-	pixel_x = 3;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "kQi" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61912,23 +60518,6 @@
 	icon_state = "darkyellow"
 	},
 /area/mine/living_quarters)
-"kQz" = (
-/obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 1;
-	state = 2
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/railing,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "kQG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -62003,27 +60592,6 @@
 	icon_state = "neutralfull"
 	},
 /area/maintenance/consarea_virology)
-"kRs" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	dir = 1;
-	name = "Broken Computer"
-	},
-/obj/item/dice/d2,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "kRw" = (
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile/block{
@@ -63524,21 +62092,6 @@
 	icon_state = "neutral"
 	},
 /area/toxins/mixing)
-"lex" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/structure/cable/cyan{
-	icon_state = "6-9"
-	},
-/obj/structure/cable/blue{
-	icon_state = "6-8"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "leA" = (
 /obj/structure/closet/paramedic,
 /obj/structure/disposalpipe/segment{
@@ -63582,26 +62135,6 @@
 "lft" = (
 /turf/simulated/floor/plasteel,
 /area/security/main)
-"lfJ" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	pixel_x = -2;
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/syringe{
-	pixel_y = -11
-	},
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_x = -10;
-	pixel_y = -7
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lgb" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -64972,11 +63505,6 @@
 	icon_state = "chapel"
 	},
 /area/maintenance/asmaint4)
-"lrH" = (
-/obj/structure/stone_tile,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "lrJ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -65023,15 +63551,6 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/south)
-"lss" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "lsz" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/warning_stripes/yellow,
@@ -65261,38 +63780,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"lvj" = (
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"lvk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "5-9"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lvo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -65343,10 +63830,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
-"lvI" = (
-/obj/structure/flora/ausbushes/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "lvJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -65428,15 +63911,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/security/prisonershuttle)
-"lwj" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lwl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light{
@@ -65499,12 +63973,6 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
-"lwZ" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "lxb" = (
 /obj/structure/rack{
 	dir = 8;
@@ -65771,21 +64239,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)
-"lyK" = (
-/obj/structure/railing{
-	dir = 9
-	},
-/obj/structure/statue/sandstone/assistant,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lyO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
@@ -65918,14 +64371,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
-"lAa" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lAm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -66735,12 +65180,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/delivery)
-"lHJ" = (
-/obj/effect/turf_decal/number/number_1{
-	dir = 4
-	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/lavaland/surface/outdoors)
 "lHM" = (
 /obj/machinery/requests_console{
 	department = "Morgue";
@@ -67103,12 +65542,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/east)
-"lKs" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "lKu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -67131,15 +65564,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/maintenance/starboard)
-"lKD" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "lKL" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -67312,28 +65736,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
-"lNj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
-/obj/structure/closet/crate/trashcart,
-/obj/item/trash/tastybread,
-/obj/item/trash/syndi_cakes,
-/obj/item/trash/sosjerky,
-/obj/item/trash/raisins,
-/obj/item/trash/pistachios,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lNl" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -67370,20 +65772,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
-"lNE" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	pixel_x = 4
-	},
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lNI" = (
 /obj/structure/rack{
 	dir = 8;
@@ -67667,17 +66055,6 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/serviceyard)
-"lPF" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "lPI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -68187,13 +66564,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"lTX" = (
-/obj/structure/stone_tile/block/cracked,
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "lTY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -68269,16 +66639,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"lUE" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "lUG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -68380,12 +66740,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
-"lVL" = (
-/obj/structure/flora/ash/cacti,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "lVO" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -68487,23 +66841,6 @@
 "lWy" = (
 /turf/simulated/wall,
 /area/toxins/sm_test_chamber)
-"lWC" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/sailordress,
-/obj/item/clothing/under/pirate_rags,
-/turf/simulated/floor/wood/fancy/oak{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lWI" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -68572,34 +66909,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"lXe" = (
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/door/window/northright{
-	name = "Engine Access"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"lXk" = (
-/obj/structure/computerframe,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "lXp" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
@@ -68948,21 +67257,6 @@
 /obj/item/reagent_containers/food/snacks/fries,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"maQ" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	pixel_y = -4
-	},
-/obj/structure/cable/green{
-	icon_state = "1-6"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "maS" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -69269,14 +67563,6 @@
 	icon_state = "tranquillite"
 	},
 /area/maintenance/asmaint4)
-"mdq" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "mdt" = (
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 1
@@ -69523,24 +67809,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/medical/virology/lab)
-"meW" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/item/stack/sheet/metal{
-	amount = 20;
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "mfe" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69682,18 +67950,6 @@
 	},
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/turbine)
-"mgC" = (
-/obj/structure/railing{
-	dir = 5
-	},
-/obj/structure/statue/sandstone/assistant,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "mgD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69752,9 +68008,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay2)
-"mhu" = (
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "mhx" = (
 /obj/structure/table/wood,
 /obj/item/pinpointer,
@@ -70234,16 +68487,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
-"mlw" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "mlA" = (
 /obj/structure/chair/office/dark,
 /obj/effect/turf_decal/siding/wood{
@@ -70363,22 +68606,6 @@
 	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
-"mmj" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/warning_stripes/east,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 5;
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "mml" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/turretid/stun{
@@ -70650,22 +68877,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/magistrateoffice)
-"moJ" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "moK" = (
 /obj/machinery/camera{
 	c_tag = "Theatre South";
@@ -71703,10 +69914,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
-"mxF" = (
-/obj/structure/bed/sandstone,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "mxJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -71971,10 +70178,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"mBj" = (
-/obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "mBk" = (
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = 33
@@ -72085,9 +70288,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
-"mCr" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/pirateship)
 "mCA" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -73314,16 +71514,6 @@
 "mLL" = (
 /turf/simulated/wall/r_wall,
 /area/security/prison/cell_block/A)
-"mLO" = (
-/obj/item/trash/chips,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "mLP" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -74300,23 +72490,6 @@
 	icon_state = "darkyellow"
 	},
 /area/security/permabrig)
-"mVn" = (
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "mVp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -74482,13 +72655,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"mXt" = (
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "mXx" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -75252,15 +73418,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
-"nga" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 20
-	},
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 20
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "ngb" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -75482,22 +73639,6 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/aisat)
-"nhH" = (
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 4
-	},
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "nhL" = (
 /obj/machinery/light{
 	dir = 1
@@ -75807,12 +73948,6 @@
 	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
-"njQ" = (
-/obj/item/clothing/suit/pirate_brown,
-/obj/effect/decal/fakelattice,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "nkc" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -76255,24 +74390,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
-"nnx" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/door/window/northright{
-	name = "Engine Access"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "nny" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -76280,17 +74397,6 @@
 	icon_state = "dark"
 	},
 /area/security/permahallway)
-"nnz" = (
-/obj/structure/flora/rock/lava1,
-/obj/structure/flora/ausbushes/fullgrass/hell,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"nnD" = (
-/obj/effect/spawner/lootdrop/maintenance/double,
-/obj/structure/closet/crate,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "nnE" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -77064,9 +75170,6 @@
 	icon_state = "darkblue"
 	},
 /area/aisat/aihallway)
-"nuL" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/ruin/powered/pirateship)
 "nuT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -77307,20 +75410,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
-"nwJ" = (
-/obj/effect/decal/warning_stripes/west{
-	color = "1F1F1F"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "nwK" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -78007,26 +76096,6 @@
 /obj/item/pen/red,
 /turf/simulated/floor/glass,
 /area/medical/virology)
-"nCc" = (
-/obj/machinery/power/terminal,
-/obj/machinery/atmospherics/binary/dp_vent_pump{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 9;
-	pixel_x = -2
-	},
-/obj/structure/cable/green{
-	icon_state = "0-8"
-	},
-/obj/effect/decal/warning_stripes/northeastcorner,
-/obj/structure/closet/walllocker/emerglocker/east,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "nCh" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/detectives_office)
@@ -78260,18 +76329,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
-"nED" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "nEN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -79025,12 +77082,6 @@
 	icon_state = "wood-broken"
 	},
 /area/maintenance/library)
-"nLE" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "nLM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -79342,15 +77393,6 @@
 	icon_state = "yellow"
 	},
 /area/maintenance/electrical)
-"nOd" = (
-/obj/effect/decal/cleanable/dust,
-/obj/item/clothing/under/pirate,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "nOf" = (
 /obj/structure/table/wood,
 /obj/item/book/random,
@@ -79872,18 +77914,6 @@
 	icon_state = "purple"
 	},
 /area/medical/virology/lab)
-"nSB" = (
-/obj/structure/dispenser/oxygen,
-/obj/effect/decal/warning_stripes/southwest,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "nSI" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
@@ -80265,23 +78295,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
-"nWU" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/item/sensor_device{
-	pixel_x = -9;
-	pixel_y = -2
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "nWY" = (
 /obj/structure/table,
 /obj/machinery/computer/security/wooden_tv{
@@ -81400,11 +79413,6 @@
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
-"ohu" = (
-/obj/structure/flora/rock/basalt3,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "ohy" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -81473,14 +79481,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"oif" = (
-/obj/item/stack/rods/ten{
-	pixel_x = 4;
-	pixel_y = 15
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "oim" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -81668,32 +79668,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/warden)
-"ojS" = (
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"ojZ" = (
-/obj/item/stack/rods/ten{
-	pixel_x = 7;
-	pixel_y = -15
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "oka" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82099,25 +80073,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/restroom)
-"onY" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "pcarrier_bridge"
-	},
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"ooa" = (
-/obj/effect/light_emitter{
-	light_range = 3;
-	light_power = 5
-	},
-/turf/simulated/floor/indestructible/hierophant/two,
-/area/ruin/unpowered/hierophant)
 "ooq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
@@ -82632,15 +80587,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
-"oub" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "oud" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -82746,11 +80692,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"ove" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "ovh" = (
 /obj/effect/landmark/start/security_officer,
 /turf/simulated/floor/plasteel{
@@ -83008,13 +80949,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/crew_quarters/captain/bedroom)
-"oxK" = (
-/obj/item/stack/ore/gold{
-	pixel_x = -3;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "oxW" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
@@ -83513,26 +81447,6 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft)
-"oEG" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	pixel_x = -1;
-	pixel_y = 3
-	},
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/decal/warning_stripes/southeastcorner,
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "oEI" = (
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor";
@@ -83793,12 +81707,6 @@
 	icon_state = "bcarpet05"
 	},
 /area/security/prison/cell_block/A)
-"oGZ" = (
-/obj/structure/grille/broken,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "oHe" = (
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -84218,14 +82126,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
-"oKH" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "oKL" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -84254,24 +82154,6 @@
 /obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
-"oKU" = (
-/obj/machinery/atmospherics/binary/pump,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 5;
-	pixel_x = -2
-	},
-/obj/structure/cable/green{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/green{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "oKW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -85318,11 +83200,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/west)
-"oTS" = (
-/obj/effect/mob_spawn/human/corpse/pirate/ranged,
-/obj/structure/closet/coffin,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "oTV" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -85589,10 +83466,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
-"oWO" = (
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/indestructible/hierophant/two,
-/area/ruin/unpowered/hierophant)
 "oWP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -85631,19 +83504,6 @@
 "oXe" = (
 /turf/simulated/wall/r_wall/rust,
 /area/maintenance/asmaint3)
-"oXt" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/item/extinguisher{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "oXz" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -86102,16 +83962,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/storage)
-"pcw" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "pcx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -86146,17 +83996,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
-"pcF" = (
-/obj/item/trash/syndi_cakes{
-	pixel_x = -6;
-	pixel_y = -7
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "pcL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -86536,21 +84375,6 @@
 	icon_state = "neutral"
 	},
 /area/toxins/launch)
-"pfL" = (
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	pixel_x = -3
-	},
-/obj/item/chair{
-	pixel_y = -5
-	},
-/turf/simulated/floor/plasteel/grimy{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "pfN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -86771,16 +84595,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"phv" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "phz" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -86904,9 +84718,6 @@
 	icon_state = "dark"
 	},
 /area/medical/virology/lab)
-"piQ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/lavaland/surface/outdoors)
 "piU" = (
 /obj/machinery/camera{
 	c_tag = "Experimentation Lab";
@@ -87048,22 +84859,6 @@
 	},
 /turf/simulated/openspace/lavaland,
 /area/lavaland/surface/outdoors)
-"pkq" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/orange{
-	icon_state = "9-10"
-	},
-/turf/simulated/floor/plasteel/stairs{
-	color = "4d4d4d";
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "pkr" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -87300,10 +85095,6 @@
 	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
-"plY" = (
-/obj/structure/barricade/wooden,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "plZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/light{
@@ -87660,14 +85451,6 @@
 	icon_state = "red"
 	},
 /area/security/securehallway)
-"pqA" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = 10;
-	pixel_y = 20
-	},
-/obj/effect/baseturf_helper/lava_land/surface/basalt,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "pqG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -88094,15 +85877,6 @@
 	icon_state = "dark"
 	},
 /area/library)
-"pub" = (
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "pud" = (
 /obj/structure/sink{
 	layer = 4;
@@ -88696,19 +86470,6 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/trading)
-"pzA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "pzG" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -88777,18 +86538,6 @@
 	icon_state = "greencorner"
 	},
 /area/medical/virology/lab)
-"pAB" = (
-/obj/effect/decal/cleanable/glass{
-	pixel_x = -16;
-	pixel_y = 5
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "pAF" = (
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -89405,12 +87154,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
-"pFQ" = (
-/obj/effect/turf_decal/number{
-	dir = 4
-	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/lavaland/surface/outdoors)
 "pFS" = (
 /obj/machinery/light{
 	dir = 4
@@ -89674,13 +87417,6 @@
 	icon_state = "dark"
 	},
 /area/security/prison/cell_block/A)
-"pIZ" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "pJa" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/item/stack/cable_coil/random,
@@ -90131,19 +87867,6 @@
 	icon_state = "dark"
 	},
 /area/aisat/maintenance)
-"pNk" = (
-/obj/structure/railing,
-/obj/effect/decal/warning_stripes/south{
-	color = "1F1F1F"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/suit_storage_unit/pirate,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "pNl" = (
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver{
 	id_tag = "secpodbay"
@@ -90190,13 +87913,6 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
-"pNF" = (
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "pNR" = (
 /obj/effect/landmark/spawner/honk_squad,
 /turf/simulated/floor/shuttle,
@@ -90398,20 +88114,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/toxins/explab)
-"pPT" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/stairs{
-	color = "493116";
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "pPU" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -91049,14 +88751,6 @@
 	icon_state = "darkyellow"
 	},
 /area/mine/production)
-"pVS" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "pWa" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -91262,15 +88956,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"pYn" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "pYp" = (
 /obj/machinery/light{
 	dir = 8
@@ -91429,10 +89114,6 @@
 /obj/item/pen,
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
-"qab" = (
-/obj/structure/flora/ash/cacti,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "qac" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -91930,15 +89611,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
-"qeS" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "qeU" = (
 /obj/machinery/light{
 	dir = 4
@@ -92477,14 +90149,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"qlM" = (
-/obj/item/stack/rods/ten{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "qlY" = (
 /turf/simulated/wall,
 /area/medical/cloning)
@@ -92602,11 +90266,6 @@
 	dir = 5
 	},
 /turf/simulated/openspace/lavaland,
-/area/lavaland/surface/outdoors)
-"qnh" = (
-/obj/structure/flora/ausbushes/fernybush/hell,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "qnr" = (
 /obj/machinery/door/firedoor,
@@ -92845,14 +90504,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/sw)
-"qpI" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "qpM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
@@ -92907,13 +90558,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
-"qqq" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "qqr" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -93105,9 +90749,6 @@
 	},
 /turf/simulated/openspace/lavaland,
 /area/solar/starboard)
-"qrO" = (
-/turf/simulated/floor/indestructible/hierophant/two,
-/area/ruin/unpowered/hierophant)
 "qrV" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
@@ -93938,13 +91579,6 @@
 "qyJ" = (
 /turf/simulated/wall,
 /area/maintenance/brig)
-"qyO" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -15;
-	pixel_y = 20
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "qzd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -94016,27 +91650,6 @@
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
-"qzm" = (
-/obj/item/stack/medical/bruise_pack{
-	pixel_x = -11;
-	pixel_y = 12
-	},
-/obj/effect/decal/warning_stripes/west,
-/obj/item/mop{
-	pixel_x = -6;
-	pixel_y = -17
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_x = -9;
-	pixel_y = -7
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "qzo" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -94691,21 +92304,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgery/south)
-"qEr" = (
-/obj/structure/cable/orange{
-	icon_state = "2-6"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "8-10"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "qEG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -95241,18 +92839,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"qIq" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/smes{
-	charge = 1e+006
-	},
-/obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "qIz" = (
 /obj/machinery/light{
 	dir = 4
@@ -95636,10 +93222,6 @@
 	icon_state = "purplefull"
 	},
 /area/medical/research/nhallway)
-"qKN" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/pirateship)
 "qKQ" = (
 /obj/structure/cable,
 /obj/machinery/power/apc{
@@ -95847,16 +93429,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
-"qMJ" = (
-/obj/effect/decal/warning_stripes/northwest,
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "qMK" = (
 /obj/structure/table/wood,
 /obj/machinery/alarm{
@@ -96662,9 +94234,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/additional)
-"qSP" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/lavaland/surface/outdoors)
 "qSX" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -96872,21 +94441,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"qUX" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 38
-	},
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -13;
-	pixel_y = 38
-	},
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "qUY" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -97010,12 +94564,6 @@
 /obj/machinery/papershredder,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
-"qVS" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/maintenance/library)
 "qVW" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -97067,14 +94615,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"qWe" = (
-/obj/item/clothing/shoes/jackboots,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "qWl" = (
 /obj/structure/table,
 /obj/item/radio{
@@ -97178,16 +94718,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/flora/ash/rock/style_2,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"qWG" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
 /area/lavaland/surface/outdoors)
 "qWJ" = (
 /obj/structure/railing/wooden,
@@ -97630,21 +95160,6 @@
 	icon_state = "blue"
 	},
 /area/hydroponics)
-"raH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/door/airlock/glass,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "raK" = (
 /turf/simulated/wall,
 /area/maintenance/asmaint)
@@ -97662,25 +95177,6 @@
 	icon_state = "white"
 	},
 /area/medical/genetics)
-"raZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "4-9"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "rbb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -97818,18 +95314,6 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
-"rbW" = (
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "rbY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -97849,11 +95333,6 @@
 "rcc" = (
 /turf/simulated/wall,
 /area/maintenance/disposal)
-"rcg" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "rch" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28
@@ -98091,9 +95570,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"rdZ" = (
-/turf/simulated/wall/indestructible/boss,
-/area/ruin/unpowered/misc_lavaruin)
 "reo" = (
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_y = 24
@@ -98188,19 +95664,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/se)
-"reO" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/machinery/door/airlock/external/glass,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "reR" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
@@ -99102,9 +96565,6 @@
 	icon_state = "dark"
 	},
 /area/library)
-"rmy" = (
-/turf/simulated/floor/indestructible/hierophant,
-/area/ruin/unpowered/hierophant)
 "rmz" = (
 /obj/structure/table/wood/fancy/royalblue,
 /obj/item/flashlight/lamp/green{
@@ -99180,23 +96640,6 @@
 "rnf" = (
 /turf/simulated/wall/r_wall,
 /area/security/podbay)
-"rnj" = (
-/obj/effect/decal/cleanable/dust,
-/obj/item/stack/sheet/metal{
-	amount = 10;
-	pixel_x = -13;
-	pixel_y = -13
-	},
-/obj/item/stack/sheet/metal{
-	amount = 10;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel/grimy{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "rns" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
@@ -99829,20 +97272,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"rtb" = (
-/obj/structure/stone_tile/center/cracked,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "rtc" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -101758,18 +99187,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
-"rLO" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "pcarrier_windows"
-	},
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "rLW" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/structure/table/reinforced,
@@ -102180,16 +99597,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
-"rRk" = (
-/obj/effect/decal/cleanable/glass{
-	pixel_x = -12
-	},
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "rRA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -102242,17 +99649,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"rRW" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "rSf" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -102417,15 +99813,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"rUg" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "rUl" = (
 /obj/machinery/field/generator{
 	anchored = 1;
@@ -102557,10 +99944,6 @@
 	icon_state = "darkred"
 	},
 /area/security/prisonershuttle)
-"rVt" = (
-/obj/structure/sign/cargo,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/powered/pirateship)
 "rVu" = (
 /obj/structure/holosign/barrier,
 /obj/effect/decal/cleanable/dirt,
@@ -103193,16 +100576,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/cloning)
-"sbb" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "sbd" = (
 /turf/simulated/wall,
 /area/toxins/lab)
@@ -104525,23 +101898,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"smv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 3;
-	pixel_y = 9
-	},
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "smw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bookcase,
@@ -104600,15 +101956,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
-"sni" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "snk" = (
 /obj/machinery/power/apc{
 	pixel_y = -26
@@ -104797,44 +102144,6 @@
 "soV" = (
 /turf/simulated/wall/r_wall,
 /area/teleporter/abandoned)
-"spd" = (
-/obj/structure/grille/broken,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"spo" = (
-/obj/machinery/power/terminal,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/glass{
-	pixel_x = 16;
-	pixel_y = 3
-	},
-/obj/item/trash/candy{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/trash/can{
-	pixel_x = -8;
-	pixel_y = -2
-	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "spt" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -105226,17 +102535,6 @@
 	icon_state = "darkred"
 	},
 /area/security/visiting_room)
-"ste" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "pcarrier_windows"
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "stf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -105255,13 +102553,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"stl" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/fluff/ash_statue{
-	special_name = "мировая кузня"
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "sts" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -107166,10 +104457,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/eastarrival)
-"sJA" = (
-/obj/effect/mob_spawn/human/corpse/pirate/ranged,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "sJB" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 /turf/simulated/floor/plasteel{
@@ -107430,37 +104717,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
-"sLN" = (
-/obj/structure/table/reinforced,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/item/paper_bin{
-	pixel_x = 4;
-	pixel_y = 14
-	},
-/obj/machinery/recharger{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/machinery/door_control{
-	id = "pcarrier_windows";
-	name = "Window Lockdown";
-	pixel_x = -7;
-	pixel_y = -3
-	},
-/obj/machinery/door_control{
-	id = "pcarrier_bridge";
-	name = "Bridge lockdown";
-	pixel_x = 4;
-	pixel_y = -3
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	pixel_x = 4
-	},
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "sLS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -107700,16 +104956,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
-"sNJ" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/barricade/wooden/crude,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "sNU" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -108317,16 +105563,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
-"sTC" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	dir = 1;
-	name = "Broken Computer"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/light/small,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "sTH" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/cable{
@@ -108771,16 +106007,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/se)
-"sXo" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "sXq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -108922,18 +106148,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/ne)
-"sYK" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "sYN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
@@ -109414,30 +106628,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/security/visiting_room)
-"tcb" = (
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 4;
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
-	dir = 5
-	},
-/obj/item/healthanalyzer/advanced,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = -9;
-	pixel_y = 11
-	},
-/obj/item/storage/pill_bottle/painkillers{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tch" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
@@ -110030,18 +107220,6 @@
 	icon_state = "cmo"
 	},
 /area/medical/cmo)
-"thA" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	pixel_y = 3
-	},
-/obj/machinery/mineral/ore_redemption,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "thT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/glass,
@@ -110161,21 +107339,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/medbay)
-"tiV" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/structure/showcase/machinery/oldpod,
-/turf/simulated/floor/wood/fancy/oak{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tiZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -110327,16 +107490,6 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
-"tkC" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2
-	},
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tkR" = (
 /obj/structure/table/wood,
 /obj/machinery/status_display{
@@ -110510,10 +107663,6 @@
 "tmf" = (
 /turf/simulated/wall/r_wall,
 /area/atmos)
-"tmi" = (
-/obj/structure/flora/ausbushes/ywflowers/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "tmm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/face/fox,
@@ -110630,13 +107779,6 @@
 	},
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/necropolis)
-"tns" = (
-/obj/item/stack/ore/gold{
-	pixel_x = -10;
-	pixel_y = -7
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "tnA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
@@ -110845,23 +107987,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"tpl" = (
-/obj/structure/flora/rock/lava1,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"tpu" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/stairs{
-	color = "4d4d4d";
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tpv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/small{
@@ -111087,19 +108212,6 @@
 	icon_state = "darkred"
 	},
 /area/medical/virology/lab)
-"trk" = (
-/obj/item/stack/rods/ten{
-	pixel_x = 9;
-	pixel_y = -13
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "trm" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/item/twohanded/required/kirbyplants,
@@ -111246,26 +108358,6 @@
 "tsA" = (
 /turf/simulated/wall,
 /area/maintenance/asmaint2)
-"tsB" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/white{
-	icon_state = "2-8"
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tsC" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light{
@@ -111273,22 +108365,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/hydroponics)
-"tsH" = (
-/obj/structure/cable/blue{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tsI" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -111471,21 +108547,6 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/aft)
-"tuI" = (
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium{
-	pixel_x = -5;
-	pixel_y = -6
-	},
-/obj/structure/fermenting_barrel{
-	pixel_x = 8;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium{
-	pixel_x = 3;
-	pixel_y = -10
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "tuK" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -111540,24 +108601,6 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
-"tvD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-5"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tvE" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
@@ -112151,14 +109194,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
-"tAG" = (
-/obj/machinery/door/airlock/external/glass,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tAH" = (
 /obj/machinery/power/apc{
 	pixel_y = -26
@@ -112393,15 +109428,6 @@
 "tCn" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/portsolar)
-"tCo" = (
-/obj/machinery/processor,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tCp" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -112643,21 +109669,6 @@
 "tDC" = (
 /turf/simulated/wall/r_wall,
 /area/storage/tech)
-"tDE" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -13;
-	pixel_y = 20
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
-"tDH" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "tDJ" = (
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
@@ -113219,17 +110230,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"tId" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -13;
-	pixel_y = 38
-	},
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tIg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -113245,11 +110245,6 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
-"tIq" = (
-/obj/structure/computerframe,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "tIv" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -113269,15 +110264,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
-"tID" = (
-/obj/structure/railing,
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tIF" = (
 /obj/effect/landmark/start/cyborg,
 /obj/structure/cable{
@@ -113853,19 +110839,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
-"tPW" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow{
-	color = "EDCBFF"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tQc" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -113902,28 +110875,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"tQw" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken5";
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
-"tQx" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -13;
-	pixel_y = 38
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "tQE" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -114025,9 +110976,6 @@
 	icon_state = "yellow"
 	},
 /area/storage/primary)
-"tRB" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/powered/pirateship)
 "tRD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -114766,19 +111714,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
-"tXr" = (
-/obj/structure/bed/roller,
-/obj/item/clothing/gloves/color/latex/nitrile,
-/obj/item/reagent_containers/syringe/epinephrine{
-	pixel_y = -6
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tXw" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -114890,17 +111825,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
-"tYX" = (
-/obj/structure/cable/cyan{
-	icon_state = "6-8"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "tZe" = (
 /obj/structure/table/wood,
 /obj/machinery/firealarm{
@@ -115103,13 +112027,6 @@
 	icon_state = "green"
 	},
 /area/hydroponics)
-"uaD" = (
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "uaE" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -115356,32 +112273,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
-"ucO" = (
-/obj/structure/rack,
-/obj/structure/railing,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/decal/warning_stripes/south,
-/obj/structure/cable/blue{
-	icon_state = "4-8"
-	},
-/obj/item/pickaxe/drill{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/item/pickaxe/drill{
-	pixel_y = -4
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "ucQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -115697,22 +112588,6 @@
 	icon_state = "white"
 	},
 /area/medical/virology/lab)
-"uff" = (
-/obj/machinery/atmospherics/binary/pump,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/glass{
-	pixel_x = -9;
-	pixel_y = 12
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "ufh" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
@@ -116807,17 +113682,6 @@
 "uos" = (
 /turf/simulated/wall,
 /area/maintenance/kitchen)
-"uot" = (
-/obj/machinery/smartfridge/secure/medbay/organ{
-	name = "smart organ storage";
-	req_access = null
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "uou" = (
 /obj/machinery/light{
 	dir = 1
@@ -117155,22 +114019,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/asmaint4)
-"uru" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/item/stack/medical/ointment{
-	pixel_x = -8;
-	pixel_y = -9
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "urB" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
@@ -117765,22 +114613,6 @@
 	icon_state = "dark"
 	},
 /area/storage/tech)
-"uwS" = (
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "uwT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -118304,11 +115136,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
-"uBO" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "uBQ" = (
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/east,
@@ -118797,10 +115624,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"uGL" = (
-/obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "uGR" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -119005,25 +115828,6 @@
 	icon_state = "whitepurple"
 	},
 /area/crew_quarters/hor)
-"uIE" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/trash/waffles{
-	pixel_x = 5;
-	pixel_y = -3
-	},
-/obj/item/trash/fried_vox{
-	pixel_y = 7
-	},
-/obj/effect/decal/cleanable/shreds,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "uIG" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/scrubber,
@@ -119312,10 +116116,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engineering/mechanic_workshop/expedition)
-"uLH" = (
-/obj/structure/disposalpipe/broken,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/pirateship)
 "uLM" = (
 /obj/structure/bedsheetbin,
 /obj/structure/table,
@@ -119756,25 +116556,6 @@
 	icon_state = "caution"
 	},
 /area/engineering/break_room)
-"uPZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "uQd" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -120143,22 +116924,6 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"uSU" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/orange{
-	icon_state = "2-10"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "uTb" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/brig)
@@ -120410,10 +117175,6 @@
 /obj/structure/lattice/catwalk,
 /turf/simulated/openspace/lavaland,
 /area/lavaland/surface/outdoors)
-"uVL" = (
-/obj/structure/closet/crate/secure/loot,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "uVO" = (
 /obj/machinery/atmospherics/unary/heat_reservoir/heater{
 	dir = 1;
@@ -120486,10 +117247,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"uWu" = (
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "uWy" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -121258,18 +118015,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/maintenance/starboard)
-"vdK" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "pcarrier_windows"
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "vdL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -121318,17 +118063,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
-"ved" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "vee" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -121455,20 +118189,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker)
-"vff" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/surgery{
-	pixel_y = -6
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "vfn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -122371,13 +119091,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"voM" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "voQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -122934,26 +119647,9 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/controlroom)
-"vtX" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/beast,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "vua" = (
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
-"vud" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "vuf" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -123769,19 +120465,6 @@
 	icon_state = "green"
 	},
 /area/hydroponics)
-"vBB" = (
-/obj/item/stack/ore/glass/basalt{
-	amount = 15;
-	pixel_x = -6;
-	pixel_y = -8
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "vBH" = (
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -124251,26 +120934,6 @@
 	icon_state = "dark"
 	},
 /area/atmos)
-"vFC" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/item/radio{
-	pixel_x = -7
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "vFD" = (
 /obj/item/pickaxe,
 /obj/effect/mapping_helpers/no_lava,
@@ -125922,15 +122585,6 @@
 	icon_state = "vault"
 	},
 /area/engineering/mechanic_workshop)
-"vUb" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "vUd" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -126298,20 +122952,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
-"vXt" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-6"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "vXw" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/yellow,
@@ -126450,11 +123090,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/heads/hop)
-"vYE" = (
-/obj/structure/fluff/drake_statue,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "vYJ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/door/airlock/external{
@@ -126759,17 +123394,6 @@
 "wcl" = (
 /turf/simulated/wall/r_wall,
 /area/medical/medbay2)
-"wcv" = (
-/obj/effect/decal/warning_stripes/southwest{
-	color = "1F1F1F"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "wcz" = (
 /obj/machinery/light_switch{
 	pixel_x = -24;
@@ -128241,14 +124865,6 @@
 	icon_state = "dark"
 	},
 /area/mine/living_quarters)
-"wqf" = (
-/obj/machinery/atmospherics/unary/tank/air,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "wqi" = (
 /obj/machinery/computer/prisoner,
 /turf/simulated/floor/plasteel{
@@ -128274,25 +124890,6 @@
 	icon_state = "bar"
 	},
 /area/clownoffice)
-"wqm" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-10"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-6"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "wqs" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
@@ -128858,37 +125455,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"wvh" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/pill/zoom{
-	pixel_x = 4;
-	pixel_y = -3
-	},
-/obj/item/trash/spentcasing{
-	pixel_x = 7;
-	pixel_y = 7
-	},
-/obj/item/trash/spentcasing{
-	pixel_x = -5;
-	pixel_y = 2
-	},
-/obj/item/trash/spentcasing{
-	pixel_x = -7;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/pill/zoom{
-	pixel_x = -8;
-	pixel_y = -3
-	},
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = 10
-	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "wvj" = (
 /obj/machinery/door/airlock/public,
 /obj/machinery/door/firedoor,
@@ -129028,21 +125594,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/cryo)
-"wwq" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = 19;
-	pixel_y = 1
-	},
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = -13;
-	pixel_y = 20
-	},
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "wwr" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
@@ -129993,10 +126544,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
-"wDC" = (
-/obj/structure/foamedmetal,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/pirateship)
 "wDF" = (
 /obj/structure/door_assembly/door_assembly_mai,
 /turf/simulated/floor/plating,
@@ -130023,13 +126570,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
-"wDN" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = 19;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "wDQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -130115,16 +126655,6 @@
 	icon_state = "neutralfull"
 	},
 /area/gateway)
-"wEu" = (
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/shoes/jackboots,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "wEv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/popcorn,
@@ -130404,14 +126934,6 @@
 "wGH" = (
 /turf/simulated/wall,
 /area/hallway/primary/central/nw)
-"wGJ" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "wGK" = (
 /obj/machinery/light,
 /obj/item/twohanded/required/kirbyplants,
@@ -130481,15 +127003,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/turbine)
-"wHq" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "wHu" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -130774,17 +127287,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
-"wJC" = (
-/obj/structure/grille/broken,
-/obj/effect/decal/cleanable/glass{
-	pixel_x = -12
-	},
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "wJM" = (
 /obj/structure/table/reinforced,
 /obj/item/wrench,
@@ -131170,14 +127672,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
-"wMG" = (
-/obj/machinery/suit_storage_unit/pirate,
-/turf/simulated/floor/mineral/plastitanium{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "wMN" = (
 /obj/structure/table/reinforced,
 /obj/item/t_scanner,
@@ -131471,13 +127965,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"wPz" = (
-/obj/item/stack/rods/ten,
-/obj/item/stack/sheet/metal,
-/obj/effect/decal/fakelattice,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "wPB" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -133131,13 +129618,6 @@
 	icon_state = "white"
 	},
 /area/medical/research/nhallway)
-"xdZ" = (
-/obj/structure/stone_tile/block/cracked,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "xeb" = (
 /obj/structure/rack,
 /obj/item/circuitboard/scan_consolenew{
@@ -133246,15 +129726,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/office)
-"xeR" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/lavaland/surface/outdoors)
 "xeU" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
@@ -133413,18 +129884,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
-"xfV" = (
-/obj/structure/spider/stickyweb,
-/obj/structure/toilet,
-/obj/structure/curtain/open/shower/security,
-/obj/structure/spider/cocoon,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "xfW" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -133577,13 +130036,6 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos/control)
-"xhy" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "xhz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -133881,10 +130333,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin2)
-"xjx" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "xjy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -134015,11 +130463,6 @@
 "xkh" = (
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
-"xkl" = (
-/obj/structure/flora/rock/basalt4,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "xkm" = (
 /turf/simulated/wall/r_wall,
 /area/mine/living_quarters)
@@ -134458,22 +130901,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"xof" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable/yellow{
-	icon_state = "0-9"
-	},
-/obj/effect/decal/cleanable/glass{
-	pixel_x = -13;
-	pixel_y = 7
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "xor" = (
 /obj/structure/sign/xenobio{
 	pixel_y = -32
@@ -135862,14 +132289,6 @@
 	icon_state = "darkred"
 	},
 /area/security/podbay)
-"xBO" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "xBV" = (
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
@@ -136152,35 +132571,6 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
-"xEJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "8-10"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "6-8"
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	pixel_x = -3
-	},
-/obj/item/mounted/frame/light_fixture{
-	dir = 1;
-	pixel_y = 12
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "xEN" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -136455,13 +132845,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
-"xGH" = (
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "xGQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -136686,13 +133069,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
-"xIr" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_x = 11;
-	pixel_y = 20
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "xIv" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -136761,12 +133137,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/mrchangs)
-"xJl" = (
-/obj/effect/spawner/lootdrop/maintenance/double,
-/obj/structure/closet/crate,
-/obj/item/clothing/neck/cloak/quartermaster,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "xJm" = (
 /obj/item/trash/waffles{
 	pixel_x = -14;
@@ -137681,13 +134051,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/launch)
-"xTf" = (
-/obj/structure/grille/broken,
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "xTg" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
@@ -138055,26 +134418,6 @@
 	},
 /turf/simulated/wall,
 /area/crew_quarters/bar/atrium)
-"xWy" = (
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
-	pixel_x = -7;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/drinks/bottle/rum{
-	pixel_x = 5;
-	pixel_y = 9
-	},
-/turf/simulated/floor/plasteel/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "xWB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -138326,26 +134669,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-"xYU" = (
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "6-8"
-	},
-/obj/item/clothing/suit/hgpirate,
-/turf/simulated/floor/plasteel/grimy{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "xYZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -138390,22 +134713,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
-"xZx" = (
-/obj/item/reagent_containers/food/snacks/goliath_steak{
-	pixel_x = -7;
-	pixel_y = -7
-	},
-/obj/item/reagent_containers/food/snacks/goliath_steak{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/food/snacks/goliath_steak{
-	pixel_x = -4;
-	pixel_y = 14
-	},
-/obj/structure/table/wood,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "xZC" = (
 /obj/machinery/atmospherics/meter,
 /obj/structure/disposalpipe/segment,
@@ -138872,10 +135179,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/shallway)
-"ydB" = (
-/obj/item/storage/backpack/duffel/syndie,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "ydC" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -138949,11 +135252,6 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/medical/cmo)
-"yee" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "yel" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -138995,14 +135293,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
-"yeV" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "yeZ" = (
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/glass,
@@ -139487,15 +135777,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/indestructible/boss,
 /area/ruin/unpowered/safe_cave)
-"yjg" = (
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "yjp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -150773,27 +147054,6 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-vGT
-vGT
-vGT
-vGT
-vGT
-vGT
-vGT
-vGT
-vGT
-fIG
-fIG
-fIG
 vGT
 vGT
 vGT
@@ -150806,12 +147066,33 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -151028,31 +147309,6 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-qSP
-fIG
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-vGT
-vGT
-vGT
-vGT
-gCd
-gCd
-fIG
-cyG
-fIG
-gCd
-gCd
 vGT
 vGT
 vGT
@@ -151062,14 +147318,39 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -151284,50 +147565,50 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-tpl
-qMJ
-fIG
-fIG
-pFQ
-pFQ
-lHJ
-piQ
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-fIG
-fIG
-gCd
-gCd
-gCd
-gCd
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-qab
-qab
-qab
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -151540,52 +147821,52 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-dqr
-xZx
-gCd
-cTF
-sni
-ove
-ove
-fRH
-fIG
-nkP
-ved
-fIG
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-fIG
-fIG
-fIG
-fIG
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-qab
-acZ
-vtX
-acZ
-qab
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -151796,53 +148077,53 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-acZ
-sJA
-gzo
-acZ
-plY
-fIG
-sXo
-fIG
-fIG
-hdB
-lVL
-fIG
-hiP
-fIG
-fIG
-fIG
-ohu
-gCd
-fIG
-wpf
-wpf
-wpf
-xkl
-vxf
-fIG
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-acZ
-acZ
-acZ
-acZ
-acZ
-acZ
-acZ
-qab
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -152053,53 +148334,53 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-acZ
-jvy
-axT
-hUg
-yee
-yee
-rcg
-fIG
-fIG
-fIG
-ove
-ove
-ove
-fIG
-vxf
-fIG
-fIG
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-fIG
-fIG
-fIG
-vxf
-fIG
-fIG
-fIG
-cyG
-acZ
-acZ
-acZ
-acZ
-vtX
-acZ
-qab
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -152310,53 +148591,53 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-fIG
-fIG
-ove
-fIG
-fIG
-fIG
-fIG
-ove
-dlG
-fIG
-fIG
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-vxf
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-qab
-gCd
-gCd
-qab
-qab
-qab
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -152568,52 +148849,52 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-qnh
-wpf
-wpf
-lss
-qpI
-fIG
-fIG
-vxf
-vxf
-ove
-hVs
-xeR
-fIG
-rdT
-wpf
-wpf
-wpf
-fIG
-cyG
-wpf
-wpf
-wpf
-fcL
-fIG
-fIG
-rdT
-wpf
-wpf
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -152824,54 +149105,54 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-wpf
-wpf
-wpf
-qeS
-lUE
-iZu
-pVS
-qWG
-hdB
-xeR
-hdB
-qpI
-qpI
-lKD
-fIG
-fIG
-fIG
-fIG
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -153080,55 +149361,55 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-acZ
-acZ
-gCd
-gCd
-qnh
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-eKI
-ehX
-ove
-ove
-ove
-hdB
-pAB
-iZu
-fIG
-fIG
-aVK
-fIG
-qSP
-wpf
-nuL
-tRB
-tRB
-tRB
-ste
-tRB
-nuL
-wpf
-wpf
-wpf
-fIG
-fIG
-fIG
-fIG
-fIG
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -153336,57 +149617,57 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-uVL
-bOS
-acZ
-uVL
-gCd
-gCd
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-fIG
-fIG
-vxf
-fIG
-fIG
-fIG
-fIG
-deQ
-cIS
-fIG
-fIG
-qlM
-vxf
-tRB
-tRB
-fOn
-aEw
-tRB
-uot
-vff
-tRB
-nuL
-fIG
-fIG
-fIG
-nuL
-tRB
-fIG
-rfB
-fIG
-fIG
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -153592,57 +149873,57 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-nnD
-oxK
-uVL
-acZ
-fXm
-acZ
-acZ
-wpf
-wpf
-gCd
-gCd
-wpf
-wpf
-wpf
-iYZ
-fIG
-fIG
-fIG
-xkl
-fIG
-fIG
-fIG
-ove
-wHq
-aVK
-eEi
-fIG
-tRB
-xfV
-bON
-uIE
-tRB
-tXr
-lfJ
-dNb
-tRB
-tRB
-tRB
-tRB
-tRB
-uwS
-gxg
-fIG
-fcL
-fIG
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -153849,58 +150130,58 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-xJl
-tns
-acZ
-acZ
-fXm
-bOS
-nga
-wDN
-wpf
-wpf
-gCd
-gCd
-gCd
-wpf
-wpf
-wpf
-vxf
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-gzj
-hdB
-trk
-xTf
-oGZ
-tRB
-tRB
-sNJ
-tRB
-tRB
-isx
-tcb
-eev
-tRB
-qIq
-jGh
-spo
-mVn
-rbW
-fIG
-fIG
-fIG
-fIG
-fIG
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -154106,59 +150387,59 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-fMU
-baa
-axT
-bOS
-pqA
-qyO
-xIr
-tQx
-wpf
-wpf
-wpf
-gCd
-ydB
-wpf
-wpf
-wpf
-gZc
-tRB
-tRB
-oub
-oub
-tRB
-bkO
-lAa
-ove
-hdB
-hdB
-ove
-tvD
-ktp
-meW
-aKP
-vud
-nWU
-dKq
-uru
-reO
-jQD
-ibF
-oKU
-ojS
-iYN
-fIG
-fIG
-fIG
-fIG
-bBw
-fIG
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -154363,60 +150644,60 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gUS
-acZ
-acZ
-acZ
-acZ
-ces
-jKO
-tDE
-wpf
-wpf
-wpf
-wpf
-nkP
-wpf
-wpf
-wpf
-uaD
-uaD
-uaD
-kQz
-phv
-tRB
-sYK
-xWy
-tCo
-lvj
-lvk
-wqm
-juH
-tRB
-ewJ
-hJr
-jNF
-qzm
-fMx
-nSB
-tRB
-oEG
-mmj
-nCc
-lXe
-rbW
-gxg
-fIG
-fcL
-wpf
-fIG
-fIG
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -154620,60 +150901,60 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-tuI
-mxF
-mxF
-acZ
-acZ
-acZ
-acZ
-gCd
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-nuL
-tRB
-tRB
-tRB
-tRB
-brR
-tRB
-tRB
-tRB
-tRB
-xEJ
-adp
-gkT
-jhM
-tRB
-tRB
-tRB
-vdK
-vdK
-vdK
-tRB
-tRB
-tRB
-tAG
-tRB
-tRB
-nhH
-vxf
-fIG
-wpf
-wpf
-wpf
-wpf
-fIG
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -154878,59 +151159,59 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-oTS
-oTS
-gCd
-gCd
-gCd
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-kOl
-kOl
-nuL
-tRB
-gzA
-tYX
-ucO
-lXk
-mdq
-rVt
-vXt
-raZ
-lyK
-tRB
-nuL
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-fIG
-fIG
-fIG
-nuL
-tRB
-fIG
-fIG
-wpf
-wpf
-wpf
-wpf
-fIG
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -155135,59 +151416,59 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-xBO
-wwq
-tId
-tkC
-hBz
-bLs
-lex
-fVe
-maQ
-tpu
-enQ
-kKV
-nED
-gzt
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-fIG
-fIG
-rfB
-fIG
-vxf
-fIG
-wpf
-wpf
-wpf
-wpf
-wpf
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -155391,60 +151672,60 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-rdT
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-vBB
-qUX
-gxa
-yeV
-tPW
-bhs
-uLH
-qKN
-hrW
-pkq
-uSU
-tsH
-nED
-gzt
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-fIG
-fIG
-fIG
-fIG
-fIG
-vxf
-fIG
-wpf
-wpf
-wpf
-wpf
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -155648,60 +151929,60 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-rdT
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-xGH
-nuL
-tRB
-oXt
-lwj
-mCr
-jDe
-eUQ
-ivJ
-bxd
-aKn
-mgC
-tRB
-nuL
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-tpl
-wpf
-wpf
-wpf
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -155905,60 +152186,60 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-wpf
-wpf
-igq
-igq
-igq
-nuL
-tRB
-tRB
-tRB
-tRB
-eXK
-tRB
-tRB
-tRB
-tRB
-jNj
-uPZ
-thA
-kQh
-tRB
-tRB
-tRB
-fAA
-spd
-fAA
-wpf
-wpf
-nnz
-fIG
-fIG
-fIG
-fIG
-rfB
-fIG
-fIG
-fIG
-wpf
-wpf
-bBw
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -156161,62 +152442,62 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-wpf
-wpf
-wpf
-wpf
-wpf
-kdZ
-pYn
-uaD
-uaD
-tID
-rRk
-tRB
-cSS
-nwJ
-wcv
-mXt
-tsB
-cSK
-smv
-raH
-pzA
-aWJ
-aWJ
-fbW
-aWJ
-wpf
-rdT
-fIG
-fIG
-rfB
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-wpf
-fIG
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -156418,62 +152699,62 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-rdT
-wpf
-wpf
-wpf
-wpf
-kdZ
-kdZ
-kdZ
-tRB
-bkr
-wJC
-tRB
-wMG
-bsh
-pNk
-vFC
-lNj
-tRB
-tRB
-tRB
-tRB
-tRB
-tRB
-gLn
-tRB
-fIG
-fIG
-fIG
-vxf
-vxf
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-tpl
-fIG
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -156675,62 +152956,62 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-iqO
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-rdT
-wpf
-wpf
-wpf
-wpf
-wpf
-wDC
-wDC
-wpf
-wpf
-nuL
-tRB
-tRB
-tRB
-gIx
-tRB
-tRB
-tiV
-aku
-pPT
-oKH
-nOd
-xYU
-pfL
-eEY
-wPz
-akq
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-rfB
-fIG
-fIG
-fIG
-fIG
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -156831,29 +153112,6 @@ vGT
 vGT
 vGT
 vGT
-jvP
-jvP
-jvP
-rmy
-rmy
-rmy
-rmy
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-rmy
-rmy
-rmy
-rmy
-jvP
-jvP
-jvP
 vGT
 vGT
 vGT
@@ -156932,62 +153190,85 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-iqO
-iqO
-iqO
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-rdT
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-tRB
-sLN
-aIr
-hNq
-tRB
-lWC
-tQw
-hFq
-jYy
-qWe
-rnj
-fIG
-iZz
-njQ
-eEY
-dfF
-fIG
-vxf
-fIG
-fIG
-nuL
-tRB
-fIG
-fIG
-fIG
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -157088,29 +153369,6 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-ghX
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-jvP
 vGT
 vGT
 vGT
@@ -157189,62 +153447,85 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-iqO
-iqO
-iqO
-iqO
-lvI
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-fIG
-qnh
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-onY
-tIq
-mLO
-sTC
-tRB
-tRB
-rLO
-tRB
-eEY
-hnR
-fIG
-wEu
-oif
-jxI
-vUb
-eEY
-cIQ
-fIG
-tAG
-tRB
-tRB
-uwS
-gxg
-fIG
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -157345,29 +153626,6 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-ghX
-ghX
-rmy
-rmy
-rmy
-jvP
-rmy
-rmy
-rmy
-jvP
-rmy
-rmy
-rmy
-ghX
-ghX
-rmy
-rmy
-rmy
-jvP
 vGT
 vGT
 vGT
@@ -157446,61 +153704,84 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-iqO
-iqO
-acZ
-acZ
-acZ
-acZ
-acZ
-acZ
-acZ
-acZ
-fIG
-fIG
-fIG
-qnh
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-wpf
-onY
-jyb
-pcF
-wvh
-tRB
-nuL
-fIG
-fIG
-fIG
-cTF
-fIG
-fIG
-bXe
-fIG
-qpI
-vUb
-ojZ
-fIG
-lNE
-dtk
-fwO
-rbW
-fIG
-fIG
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -157602,29 +153883,6 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
 vGT
 vGT
 vGT
@@ -157704,59 +153962,82 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-iqO
-hDg
-acZ
-acZ
-gfZ
-acZ
-acZ
-acZ
-acZ
-acZ
-fIG
-fIG
-fIG
-fIG
-fIG
-gCd
-fIG
-fIG
-wpf
-wpf
-fIG
-onY
-hBu
-kRs
-tRB
-nuL
-fIG
-fIG
-fIG
-fIG
-fIG
-vxf
-vxf
-nLE
-hnR
-fIG
-eEY
-blQ
-oKH
-qEr
-uff
-moJ
-iYN
-fIG
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -157859,29 +154140,6 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
 vGT
 vGT
 vGT
@@ -157961,59 +154219,82 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-acZ
-acZ
-acZ
-acZ
-acZ
-acZ
-tmi
-acZ
-acZ
-lvI
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-xkl
-fIG
-fIG
-fIG
-nuL
-tRB
-tRB
-nuL
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-vxf
-fIG
-fIG
-fIG
-fIG
-fIG
-tRB
-wqf
-ibU
-xof
-nnx
-rbW
-gxg
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -158116,29 +154397,6 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
 vGT
 vGT
 vGT
@@ -158219,56 +154477,79 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-dQk
-acZ
-acZ
-acZ
-acZ
-dQk
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-cyG
-fIG
-fIG
-vxf
-vxf
-vxf
-fIG
-cTF
-vxf
-fIG
-tRB
-tRB
-tRB
-tRB
-tRB
-nhH
-fIG
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -158373,29 +154654,6 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
 vGT
 vGT
 vGT
@@ -158478,53 +154736,76 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-cyG
-fIG
-fIG
-fIG
-fIG
-fIG
-tRB
-nuL
-gCd
-gCd
-gCd
-nuL
-tRB
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -158630,29 +154911,6 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-ghX
-ghX
-qrO
-qrO
-qrO
-jvP
-qrO
-qrO
-qrO
-jvP
-qrO
-qrO
-qrO
-ghX
-ghX
-rmy
-rmy
-rmy
-jvP
 vGT
 vGT
 vGT
@@ -158737,50 +154995,73 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-vGT
-vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-vGT
-vGT
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-nuL
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -158887,29 +155168,6 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-rmy
-rmy
-qrO
-qrO
-qrO
-qrO
-qrO
-ooa
-qrO
-qrO
-qrO
-qrO
-qrO
-rmy
-rmy
-rmy
-rmy
-rmy
-jvP
 vGT
 vGT
 vGT
@@ -158996,14 +155254,6 @@ vGT
 vGT
 vGT
 vGT
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
 vGT
 vGT
 vGT
@@ -159020,22 +155270,53 @@ vGT
 vGT
 vGT
 vGT
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-fIG
-gCd
-gCd
-gCd
-gCd
-gCd
-gCd
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -159144,29 +155425,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-jvP
-rmy
-rmy
-rmy
-qrO
-jvP
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-jvP
-qrO
-rmy
-rmy
-rmy
-jvP
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -159401,29 +155682,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-rmy
-rmy
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-rmy
-rmy
-rmy
-rmy
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -159658,29 +155939,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-ghX
-rmy
-rmy
-ghX
-ghX
-qrO
-qrO
-ooa
-qrO
-qrO
-fWQ
-qrO
-oWO
-ooa
-qrO
-qrO
-ghX
-ghX
-rmy
-rmy
-ghX
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -159915,29 +156196,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-rmy
-rmy
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-rmy
-rmy
-rmy
-rmy
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -160172,29 +156453,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-jvP
-rmy
-rmy
-rmy
-qrO
-jvP
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-jvP
-qrO
-rmy
-rmy
-rmy
-jvP
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -160429,29 +156710,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-rmy
-rmy
-qrO
-qrO
-qrO
-qrO
-qrO
-ooa
-qrO
-qrO
-qrO
-qrO
-qrO
-rmy
-rmy
-rmy
-rmy
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -160686,29 +156967,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-ghX
-ghX
-qrO
-qrO
-qrO
-jvP
-qrO
-qrO
-qrO
-jvP
-qrO
-qrO
-qrO
-ghX
-ghX
-rmy
-rmy
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -160943,29 +157224,29 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-qrO
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -161200,29 +157481,29 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -161457,29 +157738,29 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-rmy
-rmy
-ghX
-rmy
-jvP
-jvP
-rmy
-ghX
-rmy
-rmy
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -161714,29 +157995,29 @@ vGT
 vGT
 vGT
 vGT
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -161971,29 +158252,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-ghX
-ghX
-rmy
-rmy
-rmy
-jvP
-rmy
-rmy
-rmy
-jvP
-rmy
-rmy
-rmy
-ghX
-ghX
-rmy
-rmy
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -162228,29 +158509,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-ghX
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-rmy
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -162485,29 +158766,29 @@ vGT
 vGT
 vGT
 vGT
-jvP
-jvP
-jvP
-rmy
-rmy
-rmy
-rmy
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-jvP
-rmy
-rmy
-rmy
-rmy
-jvP
-jvP
-jvP
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -175135,18 +171416,18 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-lwZ
-xjx
-pIZ
-dmu
-lKs
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -175391,21 +171672,21 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-fuS
-rUg
-xhy
-xjx
-xjx
-uWu
-mhu
-mhu
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -175643,26 +171924,26 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-rdZ
-rdZ
-xjx
-jUg
-fOP
-jUg
-dmu
-rdZ
-rdZ
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -175901,26 +172182,26 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-rdZ
-rdZ
-xjx
-xjx
-xjx
-tDH
-xjx
-xjx
-xjx
-rdZ
-rdZ
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -176159,25 +172440,25 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-rdZ
-xjx
-xjx
-xjx
-pNF
-dhs
-fOP
-xjx
-xjx
-xjx
-rdZ
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -176416,25 +172697,25 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-fuS
-pub
-xjx
-xjx
-qqq
-rdZ
-pcw
-rdZ
-bjn
-xjx
-xjx
-xdZ
-lKs
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -176672,26 +172953,26 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-jYF
-xjx
-erx
-pNF
-rdZ
-rRW
-lPF
-eZD
-rdZ
-fOP
-xjx
-tDH
-uWu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -176930,25 +173211,25 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-jYF
-vYE
-wGJ
-eXG
-lTX
-jTk
-gQJ
-mlw
-eBI
-btE
-tDH
-stl
-uGL
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -177188,24 +173469,24 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-lwZ
-xjx
-uBO
-tDH
-rdZ
-fyA
-cYR
-rtb
-rdZ
-cVK
-xjx
-tDH
-uWu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -177445,24 +173726,24 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-eFL
-yjg
-xjx
-xjx
-eej
-rdZ
-sbb
-rdZ
-brn
-xjx
-xjx
-voM
-mBj
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -177700,26 +173981,26 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-rdZ
-xjx
-xjx
-xjx
-tDH
-lrH
-lrH
-xjx
-xjx
-xjx
-rdZ
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -177957,26 +174238,26 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-rdZ
-rdZ
-xjx
-xjx
-xjx
-iEa
-xjx
-xjx
-xjx
-rdZ
-rdZ
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -178213,27 +174494,27 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-rdZ
-rdZ
-cek
-xjx
-tDH
-xjx
-xjx
-rdZ
-rdZ
-mhu
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -178474,23 +174755,23 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-mhu
-lwZ
-jUg
-xhy
-xhy
-jUg
-uGL
-mhu
-mhu
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -178734,20 +175015,20 @@ vGT
 vGT
 vGT
 vGT
-mhu
-mhu
-mhu
-mhu
-eFL
-cek
-xjx
-xjx
-eQc
-mBj
-mhu
-mhu
-mhu
-mhu
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
+vGT
 vGT
 vGT
 vGT
@@ -300365,7 +296646,7 @@ lnR
 nRS
 nRS
 rdf
-qVS
+fne
 wBP
 dCb
 gtM
