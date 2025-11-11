@@ -241,7 +241,7 @@
 			process_radiation_healing()
 
 /// Used by trait "Radiation Healing"
-/mob/living/carbon/human/process_radiation_healing()
+/mob/living/carbon/human/proc/process_radiation_healing()
 	radiation = clamp(radiation, 0, 200)
 
 	var/heal_cost = 0
