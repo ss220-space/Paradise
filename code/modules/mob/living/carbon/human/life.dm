@@ -260,8 +260,7 @@
 				radiation = max(radiation - heal_cost * heal_mod, 0)
 				heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
 
-			radiation = max(radiation-1, 0)
-
+			radiation = max(radiation - 1, 0)
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
