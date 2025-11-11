@@ -248,6 +248,31 @@
 				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)
 				if(chest)
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
+		if(HAS_TAIT(src, TRAIT_RADIATION_HEALING))
+			radiation = clamp(radiation, 0, 200)
+
+			var/heal_cost = 0
+			var/heal_brute = 0
+			var/heal_burn = 0
+
+			if(bruteloss > 0)
+				heal_cost += 2
+				heal_brute = 3
+
+			if(fireloss > 0)
+				heal_cost += 1
+				heal_burn = 3
+
+			if(health < HEALTH_THRESHOLD_CRIT && radiation >= heal_cost * 2)
+				radiation = max(radiation - heal_cost * 2, 0)
+				heal_damages(heal_brute * 2, heal_burn * 2)
+
+			else if(radiation >= heal_cost)
+				radiation = max(radiation - heal_cost, 0)
+				heal_damages(heal_brute, heal_burn)
+
+			radiation = max(radiation-1, 0)
+
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))

@@ -382,3 +382,6 @@
 
 /// If any of the owner's robotic parts are being repaired right now
 #define TRAIT_REPAIRING_LIMB "repairing_limb"
+
+/// Mob with this trait will heal while being irradiated
+#define TRAIT_RADIATION_HEALING "radiation_healing"
