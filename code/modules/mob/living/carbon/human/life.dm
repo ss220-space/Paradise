@@ -253,7 +253,7 @@
 				heal_cost += 1
 				heal_burn = 3
 
-			heal_mod = 1
+			var/heal_mod = 1
 			if(health < HEALTH_THRESHOLD_CRIT && radiation >= heal_cost * 2)
 				heal_mod = 2
 			if(radiation >= heal_cost * heal_mod)
