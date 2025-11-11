@@ -379,11 +379,12 @@
 	result = list(
 		/obj/item/gun/projectile/automatic/c20r = 1,
 		/obj/item/gun/projectile/automatic/m90 = 1,
-		/obj/item/gun/projectile/automatic/sniper_rifle/compact = 1, //hell no gib weapons for crew
+		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
 		/obj/item/gun/projectile/revolver = 1,
 		/obj/item/clothing/gloves/color/yellow/power = 1,
+		/obj/item/twohanded/chainsaw = 1,
 		/obj/item/bee_briefcase = 1,
 		/obj/item/twohanded/fireaxe/energized = 1,
 		/obj/item/clothing/glasses/thermal = 1,
