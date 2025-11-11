@@ -238,7 +238,7 @@
 				if(chest)
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
-		if(HAS_TAIT(src, TRAIT_RADIATION_HEALING))
+		if(HAS_TRAIT(src, TRAIT_RADIATION_HEALING))
 			radiation = clamp(radiation, 0, 200)
 
 			var/heal_cost = 0
