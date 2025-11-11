@@ -184,7 +184,6 @@
 						gib()
 
 	if(radiation)
-
 		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE) && !HAS_TRAIT(src, TRAIT_NO_RADIATION_EFFECTS))
 			radiation = clamp(radiation, 0, 200)
 
@@ -261,6 +260,7 @@
 				heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
 
 			radiation = max(radiation - 1, 0)
+
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
