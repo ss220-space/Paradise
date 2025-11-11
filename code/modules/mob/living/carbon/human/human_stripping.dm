@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		source.visible_message(
 			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся снять КПК с [source.declent_ru(GENITIVE)]."),
 			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
-			"Слышно шуршание."
+			span_hear("Вы слышите звуки шуршания.")
 		)
 
 	to_chat(user, span_danger("Вы пытаетесь снять КПК с [source.declent_ru(GENITIVE)]..."))
@@ -168,7 +168,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(ishuman(source))
 		var/mob/living/carbon/human/victim_human = source
 		if(!victim_human.has_vision())
-			to_chat(source, span_userdanger("Вы чувствуете, как кто-то копается в ваших вещах."))
+			to_chat(source, span_userdanger("Вы чувствуете, как кто-то пытается что-то с вас снять!"))
 
 	return start_unequip_mob(get_item(source), source, user)
 
