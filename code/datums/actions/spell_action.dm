@@ -506,9 +506,6 @@
 // 	return ""
 
 
-
-
-
 // Legacy shit
 /datum/action/spell_action
 	background_icon_state = "bg_spell"
