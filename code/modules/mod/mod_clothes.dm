@@ -15,8 +15,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_clothing.dmi',
 		)
 	var/obj/item/mod/control/control
@@ -58,8 +58,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_clothing.dmi',
 		)
 	var/obj/item/mod/control/control
@@ -93,8 +93,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_clothing.dmi',
 		)
 	var/obj/item/mod/control/control
@@ -127,8 +127,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_clothing.dmi',
 		)
 	var/obj/item/mod/control/control
