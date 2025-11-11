@@ -68,15 +68,6 @@
 	H.light_color = null
 	H.set_light_on(FALSE)
 
-/datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "radium")
-		if(R.volume >= 1)
-			H.heal_overall_damage(3, 3)
-			H.reagents.remove_reagent(R.id, 1)
-			if(H.radiation < 80)
-				H.apply_effect(4, IRRADIATE, negate_armor = 1)
-			return FALSE //Что бы не выводилось больше одного, который уже вывелся за счет прока
-	return ..()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/human)
 	if(human.health <= HEALTH_THRESHOLD_DEAD || !length(human.surgeries)) // Needed to prevent brain gib on surgery debrain
