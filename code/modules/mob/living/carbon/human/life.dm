@@ -238,28 +238,34 @@
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
 		if(HAS_TRAIT(src, TRAIT_RADIATION_HEALING))
-			radiation = clamp(radiation, 0, 200)
+			process_radiation_healing()
 
-			var/heal_cost = 0
-			var/heal_brute = 0
-			var/heal_burn = 0
+/// Used by trait "Radiation Healing"
+/mob/living/carbon/human/process_radiation_healing()
+	radiation = clamp(radiation, 0, 200)
 
-			if(bruteloss > 0)
-				heal_cost += 2
-				heal_brute = 3
+	var/heal_cost = 0
+	var/heal_brute = 0
+	var/heal_burn = 0
 
-			if(fireloss > 0)
-				heal_cost += 1
-				heal_burn = 3
+	if(bruteloss > 0)
+		heal_cost += 2
+		heal_brute = 3
 
-			var/heal_mod = 1
-			if(health < HEALTH_THRESHOLD_CRIT && radiation >= heal_cost * 2)
-				heal_mod = 2
-			if(radiation >= heal_cost * heal_mod)
-				radiation = max(radiation - heal_cost * heal_mod, 0)
-				heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
+	if(fireloss > 0)
+		heal_cost += 1
+		heal_burn = 3
 
-			radiation = max(radiation - 1, 0)
+	var/heal_mod = 1
+
+	if(health < HEALTH_THRESHOLD_CRIT && radiation >= heal_cost * 2)
+		heal_mod = 2
+
+	if(radiation >= heal_cost * heal_mod)
+		radiation = max(radiation - heal_cost * heal_mod, 0)
+		heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
+
+	radiation = max(radiation - 1, 0)
 
 
 /mob/living/carbon/human/breathe()
