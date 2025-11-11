@@ -184,17 +184,6 @@
 						gib()
 
 	if(radiation)
-		if(isnucleation(src))
-			radiation = clamp(radiation, 0, 800) // Типа кристаллы СМ лучше вбирают радиацию и поэтому у нуклей больший запас, а так — что бы эффекты снизу вообще работали
-			switch(radiation)
-				if(1 to 399)
-					radiation = max(radiation-1, 0) // Что бы не копилась бесконечно малое кол-во, но все ещё можно было получать эффект снизу при достаточном облучении
-					return
-				if(400 to INFINITY)
-					if(prob(50))
-						reagents.add_reagent("radium", 1)
-						radiation = max(radiation-50, 0)
-						return
 
 		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE) && !HAS_TRAIT(src, TRAIT_NO_RADIATION_EFFECTS))
 			radiation = clamp(radiation, 0, 200)
