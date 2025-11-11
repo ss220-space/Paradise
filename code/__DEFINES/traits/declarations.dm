@@ -385,3 +385,6 @@
 
 /// Mob with this trait will heal while being irradiated
 #define TRAIT_RADIATION_HEALING "radiation_healing"
+
+/// Mob with this trait will not suffer from radiation effects
+#define TRAIT_NO_RADIATION_EFFECTS "no_radiation_effects"

@@ -196,7 +196,7 @@
 						radiation = max(radiation-50, 0)
 						return
 
-		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE))
+		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE) && !HAS_TRAIT(src, TRAIT_NO_RADIATION_EFFECTS))
 			radiation = clamp(radiation, 0, 200)
 
 			var/autopsy_damage = 0
@@ -248,6 +248,7 @@
 				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)
 				if(chest)
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
+
 		if(HAS_TAIT(src, TRAIT_RADIATION_HEALING))
 			radiation = clamp(radiation, 0, 200)
 
