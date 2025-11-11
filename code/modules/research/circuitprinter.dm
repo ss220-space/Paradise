@@ -127,7 +127,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ComponentPrinter", name)
+		ui = new(user, src, "ComponentPrinter", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/tool, mob/user, params)
@@ -175,8 +175,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/image/save_icon = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_save1")
 	var/image/link_icon = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_link")
 	var/choices = list(
-		"Link Circuit" = link_icon,
-		"Save Circuit" = save_icon,
+		"Привязать схему" = link_icon,
+		"Сохранить схему" = save_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, circuit), require_near = TRUE)
 
@@ -184,11 +184,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return FALSE
 
 	switch(choice)
-		if("Link Circuit")
+		if("Привязать схему")
 			link_circuit(user, circuit)
 			return TRUE
 
-		if("Save Circuit")
+		if("Сохранить схему")
 			save_circuit(user, circuit)
 			return TRUE
 
@@ -283,7 +283,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/circuit_desc = reject_bad_name(sanitize(tgui_input_text(user, "Введите описание схемы.", "Описание", "")), allow_numbers = TRUE)
 
-	data["desc"] = circuit_desc ? circuit_desc : "Схема, сохранённая пользователем [user]."
+	data["desc"] = circuit_desc ? circuit_desc : "Схема, сохранённая пользователем \"[user]\"."
 
 	LAZYADD(scanned_designs, list(data))
 

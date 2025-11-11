@@ -4,7 +4,7 @@
  * Gets the current value from a variable.
  */
 /obj/item/circuit_component/variable/getter
-	display_name = "Получить переменную"
+	display_name = "Геттер переменной"
 	desc = "Компонент, который получает глобальную переменную в схеме."
 
 	/// The value of the variable

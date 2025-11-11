@@ -1,5 +1,5 @@
 /obj/item/circuit_component/id_getter
-	display_name = "Получить ID"
+	display_name = "Геттер ID"
 	desc = "Компонент, который возвращает первую доступную ID-карту субъекта."
 	category = "ID"
 

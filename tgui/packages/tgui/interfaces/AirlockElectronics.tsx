@@ -117,14 +117,14 @@ const ChooseAccess = (props: unknown) => {
       rcdButtons={[
         <>
           <Button.Checkbox
-            content="Shell"
+            content="Оболочка"
             checked={shell}
             onClick={() => {
               act('set_shell', {
                 on: !shell,
               });
             }}
-            tooltip="Whether this airlock can have an integrated circuit placed inside of it or not."
+            tooltip="Можно ли установить интегральную схему в этот шлюз?"
           />
           <Button.Checkbox
             checked={one_access}

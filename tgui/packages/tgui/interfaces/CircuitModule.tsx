@@ -12,7 +12,7 @@ export const CircuitModule = (props) => {
         <Stack vertical>
           <Stack.Item>
             <Button
-              content="View Internal Circuit"
+              content="Обзор внутренней интегральной схемы"
               textAlign="center"
               fluid
               onClick={() => act('open_internal_circuit')}
@@ -21,7 +21,7 @@ export const CircuitModule = (props) => {
           <Stack.Item>
             <Stack width="100%">
               <Stack.Item basis="50%">
-                <Section title="Input Ports">
+                <Section title="Порты ввода">
                   <Stack vertical>
                     {input_ports.map((val, index) => (
                       <PortEntry
@@ -53,7 +53,7 @@ export const CircuitModule = (props) => {
                     <Stack.Item>
                       <Button
                         fluid
-                        content="Add Input Port"
+                        content="Добавить порт ввода"
                         color="good"
                         icon="plus"
                         onClick={() => act('add_input_port')}
@@ -63,7 +63,7 @@ export const CircuitModule = (props) => {
                 </Section>
               </Stack.Item>
               <Stack.Item basis="50%">
-                <Section title="Output Ports">
+                <Section title="Порты вывода">
                   <Stack vertical>
                     {output_ports.map((val, index) => (
                       <PortEntry
@@ -95,7 +95,7 @@ export const CircuitModule = (props) => {
                     <Stack.Item>
                       <Button
                         fluid
-                        content="Add Output Port"
+                        content="Добавить порт вывода"
                         color="good"
                         icon="plus"
                         onClick={() => act('add_output_port')}

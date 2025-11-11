@@ -512,7 +512,7 @@
 
 /obj/machinery/bci_implanter/verb/eject()
 	set src in oview(1)
-	set name = "Eject occupant"
+	set name = "Извлечь цель изнутри"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

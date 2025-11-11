@@ -103,7 +103,7 @@ export class ObjectComponent extends Component<
       x,
       y,
       index,
-      category = 'Unassigned',
+      category = 'Не задано',
       removable,
       ui_alerts,
       ui_buttons,

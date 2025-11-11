@@ -261,7 +261,7 @@
 	desc = "Позволяет регулировать угол отражателя."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
-	///angle the reflector will be set to at trigger unless locked
+	/// Angle the reflector will be set to at trigger unless locked
 	var/datum/port/input/angle
 
 	var/obj/structure/reflector/attached_reflector
@@ -285,10 +285,10 @@
 
 /obj/structure/reflector/ui_interact(mob/user, datum/tgui/ui)
 	if(!finished)
-		user.balloon_alert(user, "nothing to rotate!")
+		balloon_alert(user, "нечего разворачивать!")
 		return
 	if(!can_rotate)
-		user.balloon_alert(user, "can't rotate!")
+		balloon_alert(user, "невозможно развернуть!")
 		ui?.close()
 		return
 	ui = SStgui.try_update_ui(user, src, ui)

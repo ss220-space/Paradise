@@ -288,8 +288,8 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
 
   handleVarClicked(event, variable, is_setter) {
     const component = {
-      name: is_setter ? 'Setter' : 'Getter',
-      description: 'This is a component',
+      name: is_setter ? 'Сеттер' : 'Геттер',
+      description: 'Это компонент',
       color: 'blue',
       input_ports: [],
       output_ports: [],
@@ -298,7 +298,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
     if (is_setter) {
       component.input_ports = [
         {
-          name: 'Input',
+          name: 'Ввод',
           type: variable.datatype,
           color: variable.color,
         },
@@ -306,7 +306,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
     } else {
       component.output_ports = [
         {
-          name: 'Value',
+          name: 'Значение',
           type: variable.datatype,
           color: variable.color,
         },
@@ -466,7 +466,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
           <Stack>
             <Stack.Item>
               <Input
-                placeholder="Name"
+                placeholder="Название"
                 value={display_name}
                 maxLength={24}
                 expensive

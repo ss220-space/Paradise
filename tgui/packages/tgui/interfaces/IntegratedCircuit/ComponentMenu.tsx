@@ -24,7 +24,7 @@ export class ComponentMenu extends Component<
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'All',
+      selectedTab: 'Всё',
       currentLimit: DEFAULT_COMPONENT_MENU_LIMIT,
       currentSearch: '',
     };
@@ -75,7 +75,7 @@ export class ComponentMenu extends Component<
       currentSearch,
     } = this.state;
 
-    const tabs = ['All'];
+    const tabs = ['Всё'];
     let shownComponents = componentData.filter((val) => {
       let shouldShow = showAll || components.includes(val.type);
       if (shouldShow) {
@@ -88,7 +88,7 @@ export class ComponentMenu extends Component<
             .includes(currentSearch.toLowerCase());
           return result !== false;
         }
-        return selectedTab === 'All' || selectedTab === val.category;
+        return selectedTab === 'Всё' || selectedTab === val.category;
       }
       return false;
     });
@@ -124,21 +124,21 @@ export class ComponentMenu extends Component<
                 })
               }
               selected={selectedTab}
-              placeholder="Category"
+              placeholder="Категория"
               color="transparent"
               className="IntegratedCircuit__BlueBorder"
             />
           </Stack.Item>
           <Stack.Item>
             <Input
-              placeholder="Поиск."
+              placeholder="Поиск..."
               value={currentSearch}
               width="100%"
               fluid
               onChange={(val) =>
                 this.setState({
                   currentSearch: val,
-                  selectedTab: 'All',
+                  selectedTab: 'Всё',
                   currentLimit: DEFAULT_COMPONENT_MENU_LIMIT,
                 })
               }

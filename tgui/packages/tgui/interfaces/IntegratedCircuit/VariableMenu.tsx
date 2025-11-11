@@ -104,7 +104,7 @@ export class VariableMenu extends Component<
                             color={val.color}
                             disabled={!!val.is_list}
                             tooltip={`
-                              Перетащите меня на схему,
+                              Перетащите на схему,
                               чтобы создать сеттер для этой переменной.
                             `}
                             icon="pen"
@@ -114,7 +114,7 @@ export class VariableMenu extends Component<
                           <Button
                             fluid
                             tooltip={`
-                              Перетащите меня на схему,
+                              Перетащите на схему,
                               чтобы создать геттер для этой переменной.
                             `}
                             color={val.color}

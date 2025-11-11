@@ -16,17 +16,17 @@ export const CircuitAdminPanel = (props) => {
   const { act, data } = useBackend<CircuitAdminPanelData>();
 
   return (
-    <Window title="Circuit Admin Panel" width={1200} height={500}>
+    <Window title="Админ-панель интегральных схем" width={1200} height={500}>
       <Window.Content>
         <Stack vertical>
           <Stack.Item>
             <Table>
               <Table.Row header>
-                <Table.Cell>Circuit name</Table.Cell>
+                <Table.Cell>Название схемы</Table.Cell>
 
-                <Table.Cell>Creator</Table.Cell>
+                <Table.Cell>Создатель</Table.Cell>
 
-                <Table.Cell>Actions</Table.Cell>
+                <Table.Cell>Опции</Table.Cell>
               </Table.Row>
 
               {data.circuits.map((circuit) => {
@@ -42,22 +42,26 @@ export const CircuitAdminPanel = (props) => {
 
                     <Table.Cell>
                       <Button onClick={createAct('follow_circuit')}>
-                        Follow
+                        Следовать
                       </Button>
 
-                      <Button onClick={createAct('open_circuit')}>Open</Button>
+                      <Button onClick={createAct('open_circuit')}>
+                        Открыть
+                      </Button>
 
                       <Button onClick={createAct('vv_circuit')}>VV</Button>
 
-                      <Button onClick={createAct('save_circuit')}>Save</Button>
+                      <Button onClick={createAct('save_circuit')}>
+                        Сохранить
+                      </Button>
 
                       <Button onClick={createAct('duplicate_circuit')}>
-                        Duplicate
+                        Создать копию
                       </Button>
 
                       {!!circuit.has_inserter && (
                         <Button onClick={createAct('open_player_panel')}>
-                          Player Panel
+                          Панель игрока
                         </Button>
                       )}
                     </Table.Cell>

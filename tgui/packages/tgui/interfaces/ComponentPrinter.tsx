@@ -29,7 +29,7 @@ export const ComponentPrinter = (props) => {
   const { designs } = data;
 
   return (
-    <Window title={'Circuit duplicator'} width={670} height={600}>
+    <Window title={'Дубликатор печатных плат'} width={670} height={600}>
       <Window.Content>
         <Box>
           {Object.values(designs).length === 0 && (
@@ -65,7 +65,7 @@ export const ComponentPrinter = (props) => {
               {(design.cost &&
                 Object.keys(design.cost)
                   .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
-                  .join(', ')) || <Box>No resources required.</Box>}
+                  .join(', ')) || <Box>Ресурсы для печати не требуются.</Box>}
 
               <Button
                 mr={1}
