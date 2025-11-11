@@ -21,7 +21,7 @@
 	mutant.invisibility = INVISIBILITY_ABSTRACT
 	var/has_primitive_form = mutant.dna.species.primitive_form // cache this
 	if(has_primitive_form)
-		mutant.set_species(has_primitive_form, keep_missing_bodyparts = TRUE)
+		mutant.set_species(has_primitive_form, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify(mutant.loc)
 	sleep(2.2 SECONDS)
@@ -50,7 +50,7 @@
 	mutant.invisibility = INVISIBILITY_ABSTRACT
 	var/has_greater_form = mutant.dna.species.greater_form //cache this
 	if(has_greater_form)
-		mutant.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
+		mutant.set_species(has_greater_form, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify/humanify(mutant.loc)
 	sleep(2.2 SECONDS)
