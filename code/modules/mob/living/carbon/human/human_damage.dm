@@ -301,7 +301,7 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs if external is TRUE, returns internal organs if FALSE
-/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, type_flags = AFFECT_ALL_ORGANS, external = TURE)
+/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, type_flags = AFFECT_ALL_ORGANS, external = TRUE)
 	if(external)
 		var/list/obj/item/organ/external/parts = list()
 		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
