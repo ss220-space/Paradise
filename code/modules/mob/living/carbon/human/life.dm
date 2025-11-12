@@ -256,14 +256,15 @@
 		heal_cost += 1
 		heal_burn = 3
 
-	var/heal_mod = 1
 
 	if(health < HEALTH_THRESHOLD_CRIT && radiation >= heal_cost * 2)
-		heal_mod = 2
+		radiation = max(radiation - heal_cost * 2, 0)
+		heal_damages(heal_brute * 2, heal_burn * 2)
 
-	if(radiation >= heal_cost * heal_mod)
-		radiation = max(radiation - heal_cost * heal_mod, 0)
-		heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
+	// in case if in crit we dont have enough radiation, we still can heal as normal
+	if(radiation >= heal_cost)
+		radiation = max(radiation - heal_cost, 0)
+		heal_damages(heal_brute, heal_burn)
 
 	radiation = max(radiation - 1, 0)
 
