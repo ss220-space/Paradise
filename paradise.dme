@@ -1545,6 +1545,7 @@
 #include "code\game\objects\items\weapons\storage\plasmamen_lockbox.dm"
 #include "code\game\objects\items\weapons\storage\secure.dm"
 #include "code\game\objects\items\weapons\storage\storage.dm"
+#include "code\game\objects\items\weapons\storage\survival_boxes.dm"
 #include "code\game\objects\items\weapons\storage\toolbox.dm"
 #include "code\game\objects\items\weapons\storage\uplink_kits.dm"
 #include "code\game\objects\items\weapons\storage\wallets.dm"
