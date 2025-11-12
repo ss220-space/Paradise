@@ -301,15 +301,25 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
-/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_ORGANS)
-	var/list/obj/item/organ/external/parts = list()
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if((brute && bodypart.brute_dam) || (burn && bodypart.burn_dam))
-			if(!(flags & AFFECT_ROBOTIC_ORGAN) && bodypart.is_robotic())
-				continue
-			if(!(flags & AFFECT_ORGANIC_ORGAN) && !bodypart.is_robotic())
-				continue
-			parts += bodypart
+/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, type_flags = AFFECT_ALL_ORGANS, part_flags = AFFECT_EXTERNAL_ORGANS)
+	if(part_flags & AFFECT_EXTERNAL_ORGAN)S
+		var/list/obj/item/organ/external/parts = list()
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			if((brute && bodypart.brute_dam) || (burn && bodypart.burn_dam))
+				if(!(type_flags & AFFECT_ROBOTIC_ORGAN) && bodypart.is_robotic())
+					continue
+				if(!(type_flags & AFFECT_ORGANIC_ORGAN) && !bodypart.is_robotic())
+					continue
+				parts += bodypart
+	if(part_flags & AFFECT_INTERNAL_ORGANS)
+		var/list/obj/item/organ/internal/parts = list()
+		for(var/obj/item/organ/internal/int_organ as anything in internal_organs)
+			if((brute && int_organ.brute_dam) || (burn && int_organ.burn_dam))
+				if(!(type_flags & AFFECT_ROBOTIC_ORGAN) && int_organ.is_robotic())
+					continue
+				if(!(type_flags & AFFECT_ORGANIC_ORGAN) && !int_organ.is_robotic())
+					continue
+				parts += int_organ
 	return parts
 
 //Returns a list of damageable organs
