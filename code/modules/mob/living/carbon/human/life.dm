@@ -249,11 +249,11 @@
 	var/heal_brute = 0
 	var/heal_burn = 0
 
-	if(bruteloss > 0)
+	if(getBruteLoss() > 0)
 		heal_cost += 2
 		heal_brute = 3
 
-	if(fireloss > 0)
+	if(getFireLoss() > 0)
 		heal_cost += 1
 		heal_burn = 3
 
@@ -283,10 +283,11 @@
 	heal_cost = 10
 
 	if(radiation >= heal_cost && factured_limbs)
-		var/obj/item/organ/external/limb = pick(factured_limbs)
-		if(limb.status & ORGAN_BROKEN)//double check... just in case
-			limb.heal_status_wounds(flags_to_heal = ORGAN_BROKEN)
-			radiation = max(radiation - heal_cost, 0)
+		for(var/obj/item/organ/external/limb as anything in factured_limbs)
+			if(limb.status & ORGAN_BROKEN)//double check... just in case
+				limb.heal_status_wounds(flags_to_heal = ORGAN_BROKEN)
+				radiation = max(radiation - heal_cost, 0)
+				break
 
 	radiation = max(radiation - 1, 0)//passive radiation drain
 
