@@ -165,8 +165,6 @@
 #define AFFECT_ROBOTIC_ORGAN 1
 #define AFFECT_ORGANIC_ORGAN 2
 #define AFFECT_ALL_ORGANS 3
-#define AFFECT_EXTERNAL_ORGANS 1
-#define AFFECT_INTERNAL_ORGANS 2
 
 //Fire and Acid stuff, for resistance_flags
 #define LAVA_PROOF (1<<0)
