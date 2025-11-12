@@ -295,7 +295,7 @@
 	implants = list(/obj/item/implant/mindshield/ert)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_laws/magisraka
+	box = /obj/item/storage/box/survival/survival_laws/magisraka
 
 //GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
@@ -341,4 +341,4 @@
 	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_laws
+	box = /obj/item/storage/box/survival/survival_laws

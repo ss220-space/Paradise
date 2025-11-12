@@ -892,6 +892,50 @@
 		for(var/i = 1 to 4)
 				new /obj/item/spellbook/oneuse/random(src)
 
+/obj/item/storage/box/hardsuit
+	icon_state = "box_ert"
+	storage_slots = 3
+
+/obj/item/storage/box/hardsuit/engineering/response_team
+	name = "Boxed engineer response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/engineering/response_team/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/engineer (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/engineering
+	name = "Boxed engineering hardsuit kit"
+
+/obj/item/storage/box/hardsuit/engineering/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/engine (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/medical/responseteam
+	name = "Boxed medical response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/medical/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/medical (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/medical
+	name = "Boxed medical hardsuit kit"
+
+/obj/item/storage/box/medical/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/medical (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/janitor/response_team
+	name = "Boxed janitor response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/janitor/response_team/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/janitor (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
 	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
