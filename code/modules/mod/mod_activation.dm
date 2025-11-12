@@ -1,4 +1,4 @@
-#define MOD_ACTIVATION_STEP_FLAGS (DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM|DA_IGNORE_INCAPACITATED)
+#define MOD_ACTIVATION_STEP_FLAGS (DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM|DA_IGNORE_INCAPACITATED|DA_IGNORE_LYING)
 
 /// Creates a radial menu from which the user chooses parts of the suit to deploy/retract. Repeats until all parts are extended or retracted.
 /obj/item/mod/control/proc/choose_deploy(mob/user)

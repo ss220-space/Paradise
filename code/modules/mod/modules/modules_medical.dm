@@ -208,6 +208,8 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibgauntlets0" //Inhands handled by the module overlays
 	item_state = null
+	righthand_file = null //because modules are visual on modsuits
+	lefthand_file = null
 	w_class = WEIGHT_CLASS_BULKY
 	var/defib_cooldown = 5 SECONDS
 	var/safety = TRUE
@@ -226,7 +228,8 @@
 
 /obj/item/mod_defib/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/defib, cooldown = defib_cooldown, speed_multiplier = toolspeed, ignore_hardsuits = !safety, safe_by_default = safety, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
+	//actual unit is set to src because if not, than mod wearer is used as target for atom say and that is cursed as fuck
+	AddComponent(/datum/component/defib, actual_unit = src, cooldown = defib_cooldown, speed_multiplier = toolspeed, ignore_hardsuits = !safety, safe_by_default = safety, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
 	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))

@@ -58,13 +58,13 @@
 	var/obj/item/shoes = mod.get_part_from_slot(ITEM_SLOT_FEET)
 	if(shoes)
 		shoes.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
-	shoes.AddElement(/datum/element/waddling)
+	mod.wearer.AddElement(/datum/element/waddling)
 
 /obj/item/mod/module/waddle/on_part_deactivation(deleting = FALSE)
 	var/obj/item/shoes = mod.get_part_from_slot(ITEM_SLOT_FEET)
 	if(shoes && !deleting)
 		qdel(shoes.GetComponent(/datum/component/squeak))
-	shoes.RemoveElement(/datum/element/waddling)
+	mod.wearer.RemoveElement(/datum/element/waddling)
 
 // MARK: Boot heating
 /// Boot heating - dries floors like galoshes/dry

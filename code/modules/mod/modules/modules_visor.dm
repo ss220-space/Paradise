@@ -28,7 +28,7 @@
 /obj/item/mod/module/visor/on_activation()
 	if(hud_type)
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
-		hud.add_atom_to_hud(mod.wearer)
+		hud.show_to(mod.wearer)
 	if(length(visor_trait))
 		ADD_TRAIT(mod.wearer, visor_trait, MODSUIT_TRAIT)
 	mod.wearer.update_sight()
@@ -36,7 +36,7 @@
 /obj/item/mod/module/visor/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(hud_type)
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
-		hud.remove_atom_from_hud(mod.wearer)
+		hud.hide_from(mod.wearer)
 	if(length(visor_trait))
 		REMOVE_TRAIT(mod.wearer, visor_trait, MODSUIT_TRAIT)
 	mod.wearer.update_sight()
@@ -67,7 +67,7 @@
 	desc = "Модуль диагностического ИЛС для МЭК, использующий набор мощных сенсоров для получения данных о продвинутой \
 			машинерии, экзоскелетах и других устройствах. Выводит на дисплей пользователя информацию об их заряде и прочности."
 	icon_state = "diaghud_visor"
-	hud_type = DATA_HUD_DIAGNOSTIC_ADVANCED
+	hud_type = DATA_HUD_DIAGNOSTIC
 
 /obj/item/mod/module/visor/diaghud/get_ru_names()
 	return list(
