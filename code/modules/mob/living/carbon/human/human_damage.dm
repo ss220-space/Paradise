@@ -314,7 +314,7 @@
 	if(part_flags & AFFECT_INTERNAL_ORGANS)
 		var/list/obj/item/organ/internal/parts = list()
 		for(var/obj/item/organ/internal/int_organ as anything in internal_organs)
-			if((brute && int_organ.brute_dam) || (burn && int_organ.burn_dam))
+			if(int_organ.damage)
 				if(!(type_flags & AFFECT_ROBOTIC_ORGAN) && int_organ.is_robotic())
 					continue
 				if(!(type_flags & AFFECT_ORGANIC_ORGAN) && !int_organ.is_robotic())
