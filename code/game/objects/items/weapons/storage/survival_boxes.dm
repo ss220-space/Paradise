@@ -465,7 +465,7 @@
 	create_species_specific_items(src)
 
 /obj/item/storage/box/survival/species/proc/create_species_specific_items(obj/item/storage/box/place)
-	// Add here species specific items to add after create job specific.
+	return // Add here species specific items to add after create job specific.
 
 /obj/item/storage/box/survival/species/unathi
 	first_aid = /obj/item/storage/firstaid/crew/unathi
