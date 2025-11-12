@@ -802,7 +802,7 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
-/obj/item/storage/box/survival_syndi,
+/obj/item/storage/box/survival/survival_syndi,
 /obj/item/storage/secure/briefcase/syndie,
 /obj/item/clothing/under/syndicate/tacticool,
 /obj/item/clothing/mask/balaclava,
