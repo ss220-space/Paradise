@@ -302,7 +302,7 @@
 
 //Returns a list of damaged organs
 /mob/living/carbon/human/proc/get_damaged_organs(brute, burn, type_flags = AFFECT_ALL_ORGANS, part_flags = AFFECT_EXTERNAL_ORGANS)
-	if(part_flags & AFFECT_EXTERNAL_ORGAN)S
+	if(part_flags & AFFECT_EXTERNAL_ORGANS)
 		var/list/obj/item/organ/external/parts = list()
 		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 			if((brute && bodypart.brute_dam) || (burn && bodypart.burn_dam))
