@@ -262,7 +262,7 @@
 		heal_damages(heal_brute * 2, heal_burn * 2)
 
 	// in case if in crit we dont have enough radiation, we still can heal as normal
-	if(radiation >= heal_cost)
+	else if(radiation >= heal_cost)
 		radiation = max(radiation - heal_cost, 0)
 		heal_damages(heal_brute, heal_burn)
 
