@@ -322,6 +322,14 @@
 				parts += int_organ
 	return parts
 
+//Returns list of factured organs
+/mob/living/carbon/human/proc/get_fractured_organs()
+	var/list/obj/item/organ/external/parts = list()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.status & ORGAN_BROKEN)
+			parts += bodypart
+	return parts
+
 //Returns a list of damageable organs
 /mob/living/carbon/human/proc/get_damageable_organs(affect_robotic = TRUE)
 	var/list/obj/item/organ/external/parts = list()
