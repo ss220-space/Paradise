@@ -172,10 +172,10 @@
 			equip_item(H, r_pocket, ITEM_SLOT_POCKET_RIGHT)
 
 		if(box)
-			if(!backpack_contents)
-				backpack_contents = list()
-			backpack_contents.Insert(1, box)
-			backpack_contents[box] = 1
+			var/obj/item/storage/box/survival_box = new box(H)
+			if(component_to_add)
+				survival_box.RawAddComponent((list(component_to_add) + component_args))
+			H.equip_or_collect(survival_box, ITEM_SLOT_BACKPACK)
 			box = null	// if it's added to backpack_contents ... we don't need it anymore.
 
 		for(var/path in backpack_contents)
