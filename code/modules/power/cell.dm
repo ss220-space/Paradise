@@ -684,7 +684,7 @@
 	if(internal_cell.rigged)
 		. += span_notice("Судя по всему, химический элемент был модифицирован.")
 	else
-		. += span_notice("<b>Индикатор заряда:</b> [round(internal_cell.percent())]%")
+		. += span_notice("<b>Индикатор заряда:</b> [round(internal_cell.percent())]%.")
 
 
 /obj/item/stock_parts/cell/specter
