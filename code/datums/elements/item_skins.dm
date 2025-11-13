@@ -51,7 +51,7 @@
 		skin_options[skin.name] = image(icon = (skin.icon ? skin.icon : item.icon), icon_state = (skin.menu_icon_state ? skin.menu_icon_state : skin.icon_state) )
 
 	if(!length(skin_options))
-		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord сообществе."))
+		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
 		return
 
 	var/choice = show_radial_menu(user, item, skin_options, radius = 40, require_near = TRUE)
