@@ -122,6 +122,7 @@
 	item_state = "adv_defib"
 	icon_base = "adv_defib"
 	belt_icon = "advanced_handheld_defibrillator"
+	origin_tech = "materials=6;biotech=6;magnets=5;"
 	advanced = TRUE
 	charges = 3
 	max_charges = 3
