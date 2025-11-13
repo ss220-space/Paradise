@@ -1652,6 +1652,7 @@
 	default_skin = "contractor"
 	armor_type = /datum/armor/mod_theme_contractor
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 3
 	siemens_coefficient = 0
 	slowdown_deployed = 0
 	ui_theme = "syndicate"
@@ -1797,7 +1798,7 @@
 		компенсируется за счёт внезапности и скорости развёртывания. Штатно используется бойцами ОБР уровня \"Альфа\"."
 	default_skin = "responsory"
 	armor_type = /datum/armor/mod_theme_responsory
-
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -1873,6 +1874,7 @@
 	armor_type = /datum/armor/mod_theme_gamma_responsory
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	siemens_coefficient = 0
 	slowdown_deployed = 0
 	allowed_suit_storage = list(

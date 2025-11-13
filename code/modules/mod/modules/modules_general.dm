@@ -364,6 +364,9 @@
 	set_light_on(TRUE)
 	active_power_cost = base_power * light_range
 
+/obj/item/mod/module/flashlight/extinguish_light(force)
+	on_deactivation()
+
 /obj/item/mod/module/flashlight/on_deactivation(display_message = TRUE, deleting = FALSE)
 	set_light_flags(light_flags & ~LIGHT_ATTACHED)
 	set_light_on(FALSE)

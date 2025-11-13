@@ -7,6 +7,12 @@
 		H.mind?.assigned_role = name
 		H.job = name
 
+/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
+
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))
 		return 0
@@ -406,9 +412,6 @@
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
 		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
 	H.update_hud_set()
-	if(ismodcontrol(H.back))
-		var/obj/item/mod/control/C = H.back
-		C.quick_activation()
 
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
@@ -1027,10 +1030,6 @@
 		var/obj/item/tank/jetpack/J = H.back
 		J.turn_on()
 		J.toggle_internals(H)
-
-	if(ismodcontrol(H.back))
-		var/obj/item/mod/control/C = H.back
-		C.quick_activation()
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))

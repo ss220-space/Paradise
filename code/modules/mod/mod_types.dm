@@ -217,10 +217,9 @@
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
-		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/health_analyzer,
 		/obj/item/mod/module/quick_carry,
+		/obj/item/mod/module/defibrillator,
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
@@ -411,7 +410,7 @@
 	insignia_type = /obj/item/mod/module/insignia/chaplain
 	additional_module = /obj/item/mod/module/injector
 
-/obj/item/mod/control/pre_equipped/responsory/inquisitory //Diffrent look, as well as magic proof on TG. We don't have the magic proof stuff here, but it's perfect for inqusitors. Or if you want to give your ERT a fancy look.
+/obj/item/mod/control/pre_equipped/responsory/inquisitory //Used in gamma ERT.
 	applied_skin = "inquisitory"
 	theme = /datum/mod_theme/gamma_responsory
 	applied_modules = list(
@@ -434,7 +433,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 	insignia_type = /obj/item/mod/module/insignia/security
-	additional_module = /obj/item/mod/module/dispenser/mirage
+	additional_module = /obj/item/mod/module/anomaly_locked/firewall/prebuilt
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
