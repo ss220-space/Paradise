@@ -92,6 +92,7 @@
 		/obj/item/gun/medbeam = 10,
 		/obj/item/defibrillator/compact/loaded = 10,
 		/obj/item/handheld_defibrillator = 10,
+		/obj/item/handheld_defibrillator/advanced = 10,
 		/obj/item/vending_refill/medical = 10,
 	)
 
