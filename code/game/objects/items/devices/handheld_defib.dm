@@ -118,9 +118,10 @@
 /obj/item/handheld_defibrillator/advanced
 	name = "advanced handheld defibrillator"
 	desc = "Используется для эффективного перезапуска остановленных сердец, имеет улучшенную батарею на три быстровосстанавливающихся заряда."
-	icon_state = "adv-defib-3"
-	item_state = "adv-defib"
-	icon_base = "adv-defib"
+	icon_state = "adv_defib-3"
+	item_state = "adv_defib"
+	icon_base = "adv_defib"
+	belt_icon = "advanced_handheld_defibrillator"
 	advanced = TRUE
 	charges = 3
 	max_charges = 3
