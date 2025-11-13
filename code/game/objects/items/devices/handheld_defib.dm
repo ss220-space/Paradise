@@ -1,6 +1,6 @@
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
-	desc = "Used to restart stopped hearts."
+	desc = "Используется для перезапуска остановленных сердец."
 	icon_state = "defib-on"
 	item_state = "defib"
 	belt_icon = "handheld_defibrillator"
@@ -13,14 +13,24 @@
 	var/charges = 1
 	var/max_charges = 1
 
+/obj/item/handheld_defibrillator/get_ru_names()
+	return list(
+		NOMINATIVE = "ручной дефибриллятор",
+		GENITIVE = "ручного дефибриллятора",
+		DATIVE = "ручному дефибриллятору",
+		ACCUSATIVE = "ручной дефибриллятор",
+		INSTRUMENTAL = "ручным дефибриллятором",
+		PREPOSITIONAL = "ручном дефибрилляторе"
+	)
+
 
 /obj/item/handheld_defibrillator/update_icon_state()
 	if(shocking)
 		icon_state = "[icon_base]-shock"
 		return
-	if(max_charges == 1)  // yellow and syndicate defibrillator
+	if(max_charges == 1)  // yellow and syndicate
 		icon_state = "[icon_base][charges == 0 ? "-off" : "-on"]"
-	else
+	else  // advanced
 		icon_state = "[icon_base]-[charges]"
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -34,36 +44,36 @@
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = I
 			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 
-	if(charges == 0)
-		to_chat(user, span_warning("[src] is still charging!"))
+	if((charges == 0) || (shocking))
+		balloon_alert(usr, "дефибриллятор всё ещё заряжается!")
 		return .
 
 	if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		. |= ATTACK_CHAIN_SUCCESS
-		user.visible_message(span_notice("[user] shocks [H] with [src]."), span_notice("You tried to shock [H] with [src]."))
+		user.visible_message(span_notice("[user] использует [declent_ru(ACCUSATIVE)] на [H]."), span_notice("Вы попытались использовать [declent_ru(ACCUSATIVE)] на [H]."))
 		add_attack_logs(user, H, "defibrillated with [src]")
 		playsound(get_turf(src), 'sound/weapons/egloves.ogg', 75, TRUE)
 		if(!blocked)
 			if(H.stat == DEAD)
-				to_chat(user, span_danger("[H] doesn't respond at all!"))
+				balloon_alert(usr, "цель не реагирует!")
 			if(H.stat != DEAD)
 				H.set_heartattack(FALSE)
 				var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 				if(H.health <= HEALTH_THRESHOLD_CRIT)
 					if(total_damage >= 90)
-						to_chat(user, span_danger("[H] looks horribly injured. Resuscitation alone may not help revive them."))
+						to_chat(user, span_danger("Цель сильно ранена, дефибрилляция может быть неэффективна"))
 					if((prob(66)) || (advanced))
-						to_chat(user, span_danger("[H] inhales deeply!"))
+						balloon_alert(usr, "цель делает глубокий вдох!")
 						H.adjustOxyLoss(-50)
 					else
-						to_chat(user, span_danger("[H] doesn't respond!"))
+						balloon_alert(usr, "цель не реагирует!")
 
 				H.AdjustKnockdown(4 SECONDS)
 				H.AdjustStuttering(20 SECONDS)
-				to_chat(H, span_danger("You feel a powerful jolt!"))
+				to_chat(H, span_danger("Вы чувствуете сильный удар током!"))
 				H.shock_internal_organs(100)
 		else
-			to_chat(user, span_danger("[H] has a hardsuit!"))
+			balloon_alert(usr, "слишком толстый слой материала для применения!")
 		shocking = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(short_charge)), 1 SECONDS)
@@ -73,7 +83,7 @@
 			addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 
 	else
-		to_chat(user, span_notice("[src]'s on board medical scanner indicates that no shock is required."))
+		balloon_alert(usr, "дефибрилляция не требуется")
 
 /obj/item/handheld_defibrillator/proc/short_charge()
 	shocking = FALSE
@@ -88,16 +98,26 @@
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"
-	desc = "Used to restart stopped hearts (Not nanotrasen's pigs hearts)."
+	desc = "Используется для перезапуска остановленных сердец (Не для свиней из Нанотрейзен)."
 	icon_state = "sdefib-on"
 	item_state = "sdefib"
 	charge_time = 30
 	icon_base = "sdefib"
 	shield_ignore = TRUE
 
+/obj/item/handheld_defibrillator/syndie/get_ru_names()
+	return list(
+		NOMINATIVE = "боевой ручной дефибриллятор",
+		GENITIVE = "боевого ручного дефибриллятора",
+		DATIVE = "боевому ручному дефибриллятору",
+		ACCUSATIVE = "боевой ручной дефибриллятор",
+		INSTRUMENTAL = "боевым ручным дефибриллятором",
+		PREPOSITIONAL = "боевом ручном дефибрилляторе"
+	)
+
 /obj/item/handheld_defibrillator/advanced
 	name = "advanced handheld defibrillator"
-	desc = "Used to more effectively restart stopped hearts."  // TODO: перевод
+	desc = "Используется для эффективного перезапуска остановленных сердец, имеет улучшенную батарею на три быстровосстанавливающихся заряда."
 	icon_state = "adv-defib-3"
 	item_state = "adv-defib"
 	icon_base = "adv-defib"
@@ -106,6 +126,16 @@
 	max_charges = 3
 	charge_time = 70
 
+/obj/item/handheld_defibrillator/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый ручной дефибриллятор",
+		GENITIVE = " продвинутого ручного дефибриллятора",
+		DATIVE = "продвинутому ручному дефибриллятору",
+		ACCUSATIVE = "продвинутый ручной дефибриллятор",
+		INSTRUMENTAL = "продвинутым ручным дефибриллятором",
+		PREPOSITIONAL = "продвинутом ручном дефибрилляторе"
+	)
+
 /obj/item/handheld_defibrillator/advanced/examine(mob/user)
 	. = ..()
-	. += span_notice("[src] has <b>[charges]</b> out of <b>[max_charges]</b> charges left.")
+	. += span_notice("У [declent_ru(GENITIVE)] осталось <b>[charges]</b> заряда из <b>[max_charges]</b>.")
