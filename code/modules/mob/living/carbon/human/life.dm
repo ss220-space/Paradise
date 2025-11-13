@@ -282,7 +282,7 @@
 	var/list/obj/item/organ/external/fractured_limbs = check_fractures()
 	heal_cost = 10
 
-	if(radiation >= heal_cost && fractured_limbs)
+	if(radiation >= heal_cost && length(fractured_limbs))
 		for(var/obj/item/organ/external/limb as anything in fractured_limbs)
 			if(limb.has_fracture())//double check... just in case
 				limb.mend_fracture()
