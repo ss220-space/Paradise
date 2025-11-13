@@ -278,7 +278,7 @@
 			organ.heal_internal_damage(heal_amount / int_damaged_organs_amount)
 		radiation = max(radiation - heal_cost, 0)
 
-	//healing factures in low priotiry. Won't heal factures while healing internal or external damage with radium
+	//healing fractures in low priotiry. Won't heal fractures while healing internal or external damage with radium
 	var/list/obj/item/organ/external/fractured_limbs = check_fractures()
 	heal_cost = 20
 
