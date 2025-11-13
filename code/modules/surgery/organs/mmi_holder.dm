@@ -18,7 +18,6 @@
 		var/mob/living/carbon/human/h_target = target
 		h_target.makeCluwne() //No matter where you go, no matter what you do, you cannot escape
 
-
 /obj/item/organ/internal/brain/mmi_holder/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
 		if(stored_mmi)

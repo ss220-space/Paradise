@@ -15,7 +15,6 @@
 /datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
 	return
 
-
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
 /datum/plant_gene/core
 	var/value
@@ -60,7 +59,6 @@
 		return ..()
 	return modder.max_endurance // Yes, this is intended. It is used for both lifespan and endurance
 
-
 /datum/plant_gene/core/endurance
 	name = "Endurance"
 	value = 15
@@ -72,7 +70,6 @@
 	if(!modder) // Let the parent handle it
 		return ..()
 	return modder.max_endurance
-
 
 /datum/plant_gene/core/production
 	name = "Production Speed"
@@ -99,7 +96,6 @@
 		return ..()
 	return modder.max_yield
 
-
 /datum/plant_gene/core/potency
 	name = "Potency"
 	value = 10
@@ -111,7 +107,6 @@
 	if(!modder) // Let the parent handle it
 		return ..()
 	return modder.max_potency
-
 
 /datum/plant_gene/core/weed_rate
 	name = "Weed Growth Rate"
@@ -126,7 +121,6 @@
 		return ..()
 	return modder.min_weed_rate
 
-
 /datum/plant_gene/core/weed_chance
 	name = "Weed Vulnerability"
 	value = 5
@@ -139,7 +133,6 @@
 	if(!modder) // Let the parent handle it
 		return ..()
 	return modder.min_weed_chance
-
 
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
 /datum/plant_gene/reagent
@@ -178,7 +171,6 @@
 		if(R.reagent_id == reagent_id)
 			return FALSE
 	return TRUE
-
 
 // Various traits affecting the product. Each must be somehow useful.
 /datum/plant_gene/trait
@@ -318,8 +310,6 @@
 		if(batteries_recharged)
 			to_chat(target, span_notice("Your batteries are recharged!"))
 
-
-
 /datum/plant_gene/trait/glow
 	// Makes plant glow. Makes plant in tray glow too.
 	// Adds (20+potency)*rate light range and potency*rate light_power to products.
@@ -399,7 +389,6 @@
 
 	RegisterSignal(grown_plant, COMSIG_PLANT_ON_SLIP, PROC_REF(on_sliped_carbon))
 
-
 /datum/plant_gene/trait/teleport/proc/on_sliped_carbon(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	SIGNAL_HANDLER
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
@@ -417,7 +406,6 @@
 		to_chat(C, span_warning("[src] sparks, and burns up!"))
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
-
 
 /datum/plant_gene/trait/noreact
 	// Makes plant reagents not react until squashed.
@@ -438,7 +426,6 @@
 			target.investigate_log("squashed [G] starting a reaction. [reglist]", INVESTIGATE_BOTANY)
 		G.reagents.set_reacting(TRUE)
 		G.reagents.handle_reactions()
-
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
@@ -485,7 +472,6 @@
 			qdel(G)
 		else
 			to_chat(user, span_warning("You need five lengths of cable to make a [G] battery!"))
-
 
 /datum/plant_gene/trait/stinging
 	name = "Hypodermic Prickles"

@@ -41,7 +41,6 @@
 	if(client && eye.use_static)
 		client.images += active_static_images
 
-
 // Remove an AI eye from the chunk, then update if changed.
 
 /datum/camerachunk/proc/remove(mob/camera/aiEye/eye, remove_static_with_last_chunk = TRUE)
@@ -120,7 +119,6 @@
 			continue
 
 		client.images += active_static_images
-
 
 /// Create a new camera chunk, since the chunks are made as they are needed.
 /datum/camerachunk/New(x, y, lower_z)

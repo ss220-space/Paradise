@@ -75,6 +75,3 @@ Bonus
 
 	return 1
 
-
-
-

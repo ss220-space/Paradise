@@ -121,7 +121,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
-
 /obj/item/gps/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 
@@ -197,7 +196,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 
-
 /obj/item/gps/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
@@ -208,7 +206,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	src.upgraded = upgraded
 	src.tracking = tracking
 
-
 /obj/item/gps/cyborg/upgraded
 	upgraded = 1
 
@@ -218,11 +215,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	gpstag = "SBORG0"
 	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
 
-
 /obj/item/gps/syndiecyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
 
 /obj/item/gps/internal
 	icon_state = null
@@ -283,7 +278,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "cart-mine"
 	w_class = WEIGHT_CLASS_TINY
 
-
 /obj/item/gps/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gpsupgrade))
 		add_fingerprint(user)
@@ -299,6 +293,5 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 #undef EMP_DISABLE_TIME

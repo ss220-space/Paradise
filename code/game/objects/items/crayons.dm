@@ -98,7 +98,6 @@
 					qdel(src)
 		busy = FALSE
 
-
 /obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 
 	if(target != user)
@@ -126,7 +125,6 @@
 		. = ATTACK_CHAIN_BLOCKED_ALL
 		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
 		qdel(src)
-
 
 /obj/item/toy/crayon/red
 	name = "red crayon"
@@ -270,7 +268,6 @@
 		update_window(usr)
 	else
 		..()
-
 
 //Spraycan stuff
 

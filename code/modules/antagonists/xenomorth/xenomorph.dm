@@ -52,7 +52,6 @@
 	show_in_orbit = FALSE
 	antag_menu_name = "Ксеноморф"
 
-
 /datum/antagonist/facehugger/on_gain()
 	if(!isfacehugger(owner.current))
 		stack_trace("This antag datum cannot be attached to a mob of this type.")

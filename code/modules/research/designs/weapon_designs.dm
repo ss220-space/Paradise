@@ -179,8 +179,8 @@
 	id = "lmag"
 	build_type = PROTOLATHE | AUTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000)
-	build_path = /obj/item/ammo_box/magazine/lr30mag
+	materials = list(MAT_METAL = 2000)
+	build_path = /obj/item/ammo_box/magazine/lr30mag/empty
 	category = list("Weapons", "hacked", "Security")
 
 /datum/design/lmag_box
@@ -299,7 +299,6 @@
 	locked = TRUE
 	category = list("Weapons")
 
-
 // Gun modules
 
 /datum/design/gun_mod/coll_med
@@ -331,7 +330,6 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_GOLD = 750, MAT_URANIUM = 500)
 	build_path = /obj/item/gun_module/rail/scope/x8
 	category = list("Weapons")
-
 
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////

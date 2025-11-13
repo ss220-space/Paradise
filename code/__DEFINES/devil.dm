@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(whiteness, list(
 	/obj/item/clothing/under/mafia/white = 1,
 	/obj/item/clothing/under/noble_clothes = 1,
 	/obj/item/clothing/under/sl_suit = 1,
-	/obj/item/clothing/under/burial = 1
+	/obj/item/clothing/under/burial = 1,
 ))
 
 #define ENRAGED_THRESHOLD 3
@@ -113,12 +113,10 @@ GLOBAL_LIST_INIT(whiteness, list(
 #define CONTRACT_SPACE "Space Gear"
 #define CONTRACT_CALAMITY "Calamity"
 
-
 #define BANE_TOOLBOX_DAMAGE_MODIFIER 2.5
 #define BANE_HARVEST_DAMAGE_MULTIPLIER 2
 #define BANE_IRON_DAMAGE_MODIFIER 2
 #define BANE_SILVER_DAMAGE_MULTIPLIER 3
-
 
 #define DEVIL_ASCEND_START_STAGE 0
 #define FIRST_DEVIL_ASCEND_STAGE 1

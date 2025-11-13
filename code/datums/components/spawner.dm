@@ -7,8 +7,6 @@
 	var/spawn_text = "emerges from"
 	var/list/faction = list("mining")
 
-
-
 /datum/component/spawner/Initialize(_mob_types, _spawn_time, _faction, _spawn_text, _max_mobs)
 	if(_spawn_time)
 		spawn_time=_spawn_time
@@ -26,7 +24,6 @@
 
 /datum/component/spawner/process()
 	try_spawn_mob()
-
 
 /datum/component/spawner/proc/stop_spawning(force)
 	STOP_PROCESSING(SSprocessing, src)

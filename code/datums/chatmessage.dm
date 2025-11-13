@@ -49,7 +49,6 @@
 	/// Our animation lifespan, how long this message will last
 	var/animate_lifespan = 0
 
-
 /**
  * Constructs a chat message overlay
  *
@@ -71,7 +70,6 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner, language, extra_classes, lifespan)
 
-
 /datum/chatmessage/Destroy()
 	if(!QDELETED(owned_by))
 		if(REALTIMEOFDAY < animate_start + animate_lifespan)
@@ -92,7 +90,6 @@
 	message = null
 	return ..()
 
-
 /**
  * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
  */
@@ -100,7 +97,6 @@
 	SIGNAL_HANDLER
 	if(!QDELETED(src))
 		qdel(src)
-
 
 /**
  * Generates a chat message image representation
@@ -191,7 +187,6 @@
 
 	var/datum/callback/our_callback = CALLBACK(src, PROC_REF(finish_image_generation), mheight, target, owner, complete_text, lifespan)
 	SSrunechat.message_queue += our_callback
-
 
 ///finishes the image generation after the MeasureText() call in generate_image().
 ///necessary because after that call the proc can resume at the end of the tick and cause overtime.
@@ -300,7 +295,6 @@
 	// Register with the runechat SS to handle destruction
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), lifespan + CHAT_MESSAGE_GRACE_PERIOD, TIMER_DELETE_ME, SSrunechat)
 
-
 /// Returns the current alpha of the message based on the time spent
 /datum/chatmessage/proc/get_current_alpha(time_spent)
 	if(time_spent < CHAT_MESSAGE_SPAWN_TIME)
@@ -312,13 +306,11 @@
 
 	return (1 - ((time_spent - time_before_fade) / CHAT_MESSAGE_EOL_FADE)) * 255
 
-
 /datum/chatmessage/proc/adjust_message_z(datum/source, turf/old_turf, turf/new_turf, same_z_layer)
 	SIGNAL_HANDLER
 	// Replanes the message if the user of the message changed z
 	if(!same_z_layer)
 		SET_PLANE_EXPLICIT(message, RUNECHAT_PLANE, new_turf)
-
 
 /datum/chatmessage/proc/adjust_message_loc(atom/movable/signal_movable, atom/old_loc, movement_dir, forced)
 	SIGNAL_HANDLER
@@ -363,7 +355,6 @@
 
 	signal_targets = next_signal_targets
 
-
 /**
  * Creates a message overlay at a defined location for a given speaker
  *
@@ -383,7 +374,6 @@
 	// Display visual above source
 	new /datum/chatmessage(raw_message, speaker, src, language, spans)
 
-
 /**
  * Proc to allow atoms to set their own runechat colour
  *
@@ -393,7 +383,6 @@
  */
 /atom/proc/get_runechat_color()
 	return chat_color
-
 
 /**
  * Gets a color for a name, will return the same color for a given string consistently within a round.atom
@@ -440,7 +429,6 @@
 			return "#[num2hex(x, 2)][num2hex(m, 2)][num2hex(c, 2)]"
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
-
 
 #undef CHAT_MESSAGE_SPAWN_TIME
 #undef CHAT_MESSAGE_LIFESPAN

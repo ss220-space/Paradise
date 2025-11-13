@@ -17,7 +17,6 @@
 	///Used in blob/powers.dm, checks if it's already trying to spawn a blobbernaut to prevent issues.
 	var/is_creating_blobbernaut = FALSE
 
-
 /obj/structure/blob/special/factory/scannerreport()
 	if(blobbernaut)
 		return "В настоящее время он поддерживает блобернаута, что делает ее хрупкой и неспособной производить споры."

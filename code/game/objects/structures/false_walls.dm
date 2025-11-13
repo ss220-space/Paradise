@@ -65,7 +65,6 @@
 	. = ..()
 	toggle(user)
 
-
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
 		return
@@ -92,7 +91,6 @@
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/falsewall/proc/do_the_flick()
 	if(density)
 		smooth = NONE
@@ -100,7 +98,6 @@
 		flick("fwall_opening", src)
 	else
 		flick("fwall_closing", src)
-
 
 /obj/structure/falsewall/update_icon_state()
 	if(density)
@@ -110,14 +107,12 @@
 	else
 		icon_state = "fwall_open"
 
-
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)
 	T.ChangeTurf(walltype)
 	if(delete)
 		qdel(src)
 	return T
-
 
 /obj/structure/falsewall/attackby(obj/item/I, mob/user, params)
 	if(opening)
@@ -138,7 +133,6 @@
 
 	return ..()
 
-
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!density)
@@ -158,7 +152,6 @@
 		span_warning("Вы затягиваете болты на стене."),
 	)
 	ChangeToWall()
-
 
 /obj/structure/falsewall/welder_act(mob/user, obj/item/I)
 	if(!density)
@@ -200,7 +193,6 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
-
 // Copy of `/turf/hit_by_thrown_carbon()`. A falsewall is just a wall after all.
 /obj/structure/falsewall/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
@@ -216,7 +208,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, hitby_react), AM), 0.2 SECONDS)
 
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
-
 
 /*
  * False R-Walls
@@ -272,7 +263,6 @@
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
 
-
 /*
  * Other misc falsewall types
  */
@@ -311,7 +301,6 @@
 	smoothing_groups = SMOOTH_GROUP_DIAMOND_WALLS
 	max_integrity = 800
 
-
 /obj/structure/falsewall/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definately a bad idea."
@@ -322,7 +311,6 @@
 	walltype = /turf/simulated/wall/mineral/plasma
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
-
 
 /obj/structure/falsewall/plasma/attackby(obj/item/I, mob/user, params)
 	if(opening)
@@ -335,7 +323,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
@@ -358,7 +345,6 @@
 	walltype = /turf/simulated/wall/mineral/abductor
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
-
 
 /obj/structure/falsewall/bananium
 	name = "bananium wall"
@@ -493,10 +479,8 @@
 	if(I.use_tool(src, user, 120, volume = I.tool_volume)) // 20% more than double normal wall.
 		dismantle(user, TRUE)
 
-
 /obj/structure/falsewall/clockwork/screwdriver_act(mob/living/user, obj/item/I)
 	return FALSE	// wall change is unavailable, idk why
-
 
 /obj/structure/falsewall/mineral_ancient
 	name = "ancient rock"

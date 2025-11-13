@@ -22,7 +22,6 @@ GLOBAL_LIST_EMPTY(all_radios)
 	for(var/freq in GLOB.all_radios)
 		GLOB.all_radios["[freq]"] -= radio
 
-
 /datum/radio_frequency
 	var/frequency as num
 	var/list/obj/devices = list()

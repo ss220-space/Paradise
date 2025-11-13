@@ -20,7 +20,6 @@
 	back = /obj/item/storage/backpack
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/corpse/syndicatecommando
 	name = "Syndicate Commando"
 	mob_name = "Syndicate Commando"
@@ -43,7 +42,6 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/clown/corpse
 	instant = TRUE
 
@@ -64,7 +62,6 @@
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/bandana
 
-
 /obj/effect/mob_spawn/human/corpse/pirate/ranged
 	name = "Pirate Gunner"
 	mob_name = "Pirate Gunner"
@@ -74,7 +71,6 @@
 	name = "Pirate Gunner Corpse"
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
-
 
 /obj/effect/mob_spawn/human/corpse/russian
 	name = "Russian"
@@ -111,7 +107,6 @@
 	suit = /obj/item/clothing/suit/wizrobe
 	shoes = /obj/item/clothing/shoes/sandal
 	head = /obj/item/clothing/head/wizard
-
 
 /obj/effect/mob_spawn/human/corpse/captain
 	name = "Captain Corpse"

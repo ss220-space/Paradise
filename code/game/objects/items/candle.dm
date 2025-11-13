@@ -21,25 +21,21 @@
 	light_range = CANDLE_LUM
 	light_on = FALSE
 
-
 /obj/item/candle/Initialize(mapload)
 	. = ..()
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)
 
-
 /obj/item/candle/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/candle/update_icon_state()
 	if(flickering)
 		icon_state = "candle[wax_index]_flicker"
 	else
 		icon_state = "candle[wax_index][lit ? "_lit" : ""]"
-
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -56,18 +52,15 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
 		light() //honk
 	return ..()
-
 
 /obj/item/candle/proc/light(show_message)
 	if(lit)
@@ -79,7 +72,6 @@
 	START_PROCESSING(SSobj, src)
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
-
 
 /obj/item/candle/proc/update_wax_index()
 	var/new_wax_index
@@ -94,17 +86,14 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(stop_flickering)), 4 SECONDS, TIMER_UNIQUE)
 
-
 /obj/item/candle/proc/stop_flickering()
 	flickering = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/candle/process()
 	if(!lit)
@@ -124,19 +113,16 @@
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
 
-
 /obj/item/candle/proc/unlight()
 	if(lit)
 		lit = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		set_light_on(FALSE)
 
-
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
 		user.visible_message(span_notice("[user] snuffs out [src]."))
 		unlight()
-
 
 /obj/item/candle/get_spooked()
 	if(lit)
@@ -145,23 +131,19 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = TRUE
 
-
 /obj/item/candle/eternal/wizard
 	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
 	start_lit = TRUE
-
 
 /obj/item/candle/extinguish_light(force = FALSE)
 	if(!force)
 		return
 	infinite = FALSE
 	wax = 1 // next process will burn it out
-
 
 #undef TALL_CANDLE
 #undef MID_CANDLE

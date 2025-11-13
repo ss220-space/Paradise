@@ -23,7 +23,7 @@
 		DATIVE = "набору СПИИ Контрактника",
 		ACCUSATIVE = "набор СПИИ Контрактника",
 		INSTRUMENTAL = "набором СПИИ Контрактника",
-		PREPOSITIONAL = "наборе СПИИ Контрактника"
+		PREPOSITIONAL = "наборе СПИИ Контрактника",
 	)
 
 /obj/item/storage/box/contractor/spai_kit/populate_contents()

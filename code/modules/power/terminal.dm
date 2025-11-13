@@ -11,7 +11,6 @@
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
 	var/obj/machinery/power/master = null
 
-
 /obj/machinery/power/terminal/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
@@ -39,10 +38,8 @@
 		invisibility = 0
 		icon_state = "term"
 
-
 /obj/machinery/power/proc/can_terminal_dismantle(mob/living/user)
 	return FALSE
-
 
 /obj/machinery/power/apc/can_terminal_dismantle(mob/living/user)
 	if(opened == 0)	// APC_CLOSED
@@ -50,13 +47,11 @@
 		return FALSE
 	return TRUE
 
-
 /obj/machinery/power/smes/can_terminal_dismantle(mob/living/user)
 	if(!panel_open)
 		to_chat(user, span_warning("You should open the maintenance panel to attach the cables."))
 		return FALSE
 	return TRUE
-
 
 /obj/machinery/power/terminal/proc/dismantle(mob/living/user, obj/item/I)
 	if(!isturf(loc))
@@ -86,7 +81,6 @@
 		span_notice("You start to dismantle the power terminal[master ? " from [master]" : ""]."),
 	)
 	qdel(src)
-
 
 /obj/machinery/power/terminal/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE

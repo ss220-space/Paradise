@@ -6,7 +6,6 @@
 
 	contents += index
 
-
 /// Used to populate contents and start generating if needed
 /datum/lootpanel/proc/populate_contents()
 	if(length(contents))
@@ -36,7 +35,6 @@
 
 	if(length(to_image))
 		SSlooting.backlog += src
-
 
 /// For: Resetting to empty. Ignores the searchable qdel event
 /datum/lootpanel/proc/reset_contents()

@@ -7,7 +7,6 @@
 	var/minplayers = SLAUGHTER_MINPLAYERS
 	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter
 
-
 /datum/event/spawn_slaughter/proc/get_slaughter()
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль [initial(demon.name)]?", ROLE_DEMON, TRUE, source = demon)
 	if(!length(candidates))
@@ -34,7 +33,6 @@
 	message_admins("[key_name_admin(new_demon)] has been made into a [new_demon.name] by an event.")
 	log_game("[key_name_admin(new_demon)] was spawned as a [new_demon.name] by an event.")
 
-
 /datum/event/spawn_slaughter/proc/get_spawn_loc(mob/player)
 	RETURN_TYPE(/turf)
 	var/list/spawn_locs = list()
@@ -50,7 +48,6 @@
 		return
 	return pick(spawn_locs)
 
-
 /datum/event/spawn_slaughter/start()
 	if(num_station_players() <= minplayers)
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
@@ -59,14 +56,12 @@
 
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 
-
 /datum/event/spawn_slaughter/laughter
 	demon = /mob/living/simple_animal/demon/slaughter/laughter
 
 /datum/event/spawn_slaughter/shadow
 	demon = /mob/living/simple_animal/demon/shadow
 	minplayers = SHADOW_MINPLAYERS
-
 
 /datum/event/spawn_slaughter/shadow/get_spawn_loc()
 	var/turf/spawn_loc = ..()

@@ -36,7 +36,6 @@
 	/// If this sound is based off of an area
 	var/area_sound = FALSE
 
-
 /datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
 	if(!mid_sounds)
 		WARNING("A looping sound datum was created without sounds to play.")
@@ -48,13 +47,11 @@
 	if(start_immediately)
 		start()
 
-
 /datum/looping_sound/Destroy()
 	GLOB.looping_sounds -= src
 	stop()
 	output_atoms = null
 	return ..()
-
 
 /datum/looping_sound/proc/start(atom/add_thing)
 	GLOB.looping_sounds += src
@@ -64,7 +61,6 @@
 		return
 	muted = FALSE
 	on_start()
-
 
 /datum/looping_sound/proc/stop(atom/remove_thing, do_not_mute)
 	GLOB.looping_sounds -= src
@@ -76,7 +72,6 @@
 		return
 	muted = TRUE
 
-
 /datum/looping_sound/proc/sound_loop(looped = 0)
 	if(muted || (max_loops && looped > max_loops))
 		on_stop(looped)
@@ -84,7 +79,6 @@
 	if(!chance || prob(chance))
 		play(get_sound(looped))
 	addtimer(CALLBACK(src, PROC_REF(sound_loop), ++looped), mid_length)
-
 
 /datum/looping_sound/proc/play(soundfile)
 	var/list/atoms_cache = output_atoms
@@ -106,7 +100,6 @@
 		else
 			playsound(thing, S, volume, vary, extra_range, falloff_exponent = falloff_exponent, falloff_distance = falloff_distance, channel = channel)
 
-
 /datum/looping_sound/proc/get_sound(looped, _mid_sounds)
 	if(!_mid_sounds)
 		. = mid_sounds
@@ -115,7 +108,6 @@
 	while(!isfile(.) && !isnull(.))
 		. = pickweight(.)
 
-
 /datum/looping_sound/proc/on_start()
 	var/start_wait = 0
 	if(start_sound)
@@ -123,11 +115,9 @@
 		start_wait = start_length
 	addtimer(CALLBACK(src, PROC_REF(sound_loop)), start_wait)
 
-
 /datum/looping_sound/proc/on_stop(looped)
 	if(end_sound)
 		play(end_sound)
-
 
 /// Looping sounds that decrease volume by a specified % each loop until it reaches a specified total % volume.
 /datum/looping_sound/decreasing
@@ -135,7 +125,6 @@
 	var/decrease_to_amount = 50
 	/// How much, as a % of original, to decrease the volume by each loop
 	var/decrease_by_amount = 1
-
 
 /datum/looping_sound/decreasing/sound_loop(looped = 0)
 	. = ..()

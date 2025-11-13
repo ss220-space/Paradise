@@ -28,10 +28,9 @@ $nanotrasen: hsl(0, 0%, 17.3%);
 );
 
 @use '../base.scss' with (
-    $color-bg: hsl(280, 89.7%, 19%),
-    $color-bg-grad-spread: 12%,
-    //$border-radius: 0,
-  );
+  $color-bg: hsl(280, 89.7%, 19%),
+  $color-bg-grad-spread: 12% //$border-radius: 0,
+);
 
 .theme-ntos_roboquest {
   // Atomic classes

@@ -6,23 +6,19 @@
 	origin_tech = "magnets=1"
 	var/datum/effect_system/spark_spread/sparks
 
-
 /obj/item/assembly/igniter/Initialize(mapload)
 	. = ..()
 	sparks = new /datum/effect_system/spark_spread
 	sparks.set_up(2, FALSE, src)
 	sparks.attach(src)
 
-
 /obj/item/assembly/igniter/Destroy()
 	QDEL_NULL(sparks)
 	return ..()
 
-
 /obj/item/assembly/igniter/examine(mob/user)
 	. = ..()
 	. += span_notice("The igniter is [secured ? "secured." : "unsecured."]")
-
 
 /obj/item/assembly/igniter/activate()
 	if(!..())
@@ -56,7 +52,6 @@
 			CG.prime()
 
 	return TRUE
-
 
 /obj/item/assembly/igniter/attack_self(mob/user)
 	if(!istype(loc, /obj/item/assembly_holder))

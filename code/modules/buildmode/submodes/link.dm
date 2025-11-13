@@ -4,7 +4,6 @@
 	var/list/link_lines = list()
 	var/obj/link_obj
 
-
 /datum/buildmode_mode/link/proc/clear_lines()
 	QDEL_LIST(link_lines)
 

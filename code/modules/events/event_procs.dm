@@ -21,7 +21,6 @@
 	BLACKBOX_LOG_ADMIN_VERB("Event Manager")
 	return
 
-
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/static/list/possible_areas
 	if(!length(possible_areas))

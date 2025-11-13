@@ -12,7 +12,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	var/comment = null
 	var/crates
 
-
 /datum/syndie_supply_order/proc/generateRequisition(atom/_loc)
 	if(!object)
 		return
@@ -115,7 +114,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		LC.manifest = slip
 		LC.update_icon(UPDATE_OVERLAYS)
 
-
 /***************************
 	Хранилище данных.
 	Консоли её находят и используют как сервер для снхронизации данных.
@@ -205,7 +203,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			is_cooldown = FALSE
 		return wait_time
 	return 0
-
 
 /datum/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
@@ -323,7 +320,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		SO.createObject(T, errors, data_storage) //А уже тут вызов штуки делающей коробки
 
 	data_storage.shoppinglist.Cut()
-
 
 /obj/machinery/computer/syndie_supplycomp/proc/sell() //Этот код ищет зоны где находятся телепады отправки и продаёт ящики и товар в них
 
@@ -491,7 +487,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	data_storage.blackmarket_message += "[msg]<hr>"
 
-
 /obj/machinery/computer/syndie_supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Используется для оформления заказов у отдела снабжения"
@@ -504,7 +499,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	return
 
-
 /obj/machinery/computer/syndie_supplycomp/attack_hand(mob/user as mob)
 	if(..())
 		return TRUE
@@ -516,7 +510,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	add_fingerprint(user)
 	ui_interact(user)
 	return
-
 
 /obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/living/carbon/human/user, params)
 	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
@@ -537,7 +530,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -725,9 +717,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			else if(money2add < 0)
 				data_storage.blackmarket_message += "[span_bad("[money2add]")]: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
 
-
 	add_fingerprint(usr)
-
 
 /obj/machinery/computer/syndie_supplycomp/proc/withdraw_cash(cash_sum, mob/user)
 	if(cash_sum <= data_storage.cash)

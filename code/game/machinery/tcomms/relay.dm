@@ -30,7 +30,7 @@
 		DATIVE = "реле телекоммуникаций",
 		ACCUSATIVE = "реле телекоммуникаций",
 		INSTRUMENTAL = "реле телекоммуникаций",
-		PREPOSITIONAL = "реле телекоммуникаций"
+		PREPOSITIONAL = "реле телекоммуникаций",
 	)
 
 /**
@@ -80,7 +80,6 @@
 	. = ..()
 	if(linked_core)
 		linked_core.refresh_zlevels()
-
 
 /**
  * Power-on checker

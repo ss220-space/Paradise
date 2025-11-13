@@ -215,7 +215,6 @@
 	for(var/obj/item/radio/radio as anything in radios)
 		. |= get_hearers_in_LOS(radio.canhear_range, radio)
 
-
 //Used when converting pixels to tiles to make them accurate
 #define OFFSET_X (0.5 / ICON_SIZE_X)
 #define OFFSET_Y (0.5 / ICON_SIZE_Y)
@@ -461,7 +460,6 @@
 			continue
 		sliced_turfs += checked_turf
 	return sliced_turfs
-
 
 /**
  * Behaves like the orange() proc, but only looks in the outer range of the function (The "peel" of the orange).

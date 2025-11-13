@@ -78,7 +78,6 @@
 	. = ..()
 	update_audio()
 
-
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(10, 25)
 

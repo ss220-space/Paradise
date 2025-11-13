@@ -58,14 +58,12 @@
 	if(user.can_advanced_admin_interact())
 		SwitchState()
 
-
 /obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
-
 
 /obj/structure/mineral_door/CanAtmosPass(turf/T, vertical)
 	return !density
@@ -131,13 +129,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
-
 /obj/structure/mineral_door/update_icon_state()
 	if(state)
 		icon_state = "[initial_state]open"
 	else
 		icon_state = initial_state
-
 
 /obj/structure/mineral_door/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe))
@@ -163,7 +159,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
@@ -210,7 +205,6 @@
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
-
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, params)
 	var/hot_temp = I.get_heat()
 	if(hot_temp)
@@ -219,7 +213,6 @@
 		TemperatureAct(hot_temp)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

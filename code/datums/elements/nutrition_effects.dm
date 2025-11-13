@@ -1,7 +1,6 @@
 /datum/element/nutrition_effects
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY
 
-
 /datum/element/nutrition_effects/Attach(datum/target)
 	. = ..()
 
@@ -13,7 +12,6 @@
 	RegisterSignal(target, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN, PROC_REF(nutrition_update_slowdown))
 	RegisterSignal(target, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_changed))
 
-
 /datum/element/nutrition_effects/Detach(datum/source)
 	. = ..()
 
@@ -23,7 +21,6 @@
 		COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN,
 		COMSIG_HUMAN_SPECIES_CHANGED,
 	))
-
 
 /// Regenerates [blood_regen] and [stamina_regen] per tick based on nutrition level, currently works only for level "full"
 /datum/element/nutrition_effects/proc/on_life(mob/living/carbon/human/human, deltatime, times_fired)
@@ -41,7 +38,6 @@
 	if(human.blood_volume < BLOOD_VOLUME_NORMAL)
 		human.AdjustBlood(human.current_nutrition_level.blood_regen)
 
-
 /// Applies nutrition level effects (including speed mods) to the human
 /datum/element/nutrition_effects/proc/on_nutrition_level_update(mob/living/carbon/human/human)
 	SIGNAL_HANDLER
@@ -56,7 +52,6 @@
 	human.set_max_stamina(BASE_MAX_STAMINA + human.current_nutrition_level.max_stamina_bonus)
 	human.sound_environment_override = human.current_nutrition_level.sound_env
 	nutrition_update_slowdown(human)
-
 
 /// Updates movespeed and toolspeed modifiers based on current nutrition level,
 /// these who have TRAIT_NO_NUTRITION_EFFECTS dont use this
@@ -78,7 +73,6 @@
 			/datum/movespeed_modifier/hunger,
 			multiplicative_slowdown = human.current_nutrition_level.move_speed_mod
 		)
-
 
 /// Handles situations like human transforming into shadowling or diona or whatever the species that shouldn't use nutrition effects
 /datum/element/nutrition_effects/proc/on_species_changed(mob/living/carbon/human/human)

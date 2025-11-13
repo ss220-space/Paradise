@@ -11,17 +11,14 @@
 	action_icon_state = "shield"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/chaplain_bless/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.range = 1
 	T.click_radius = -1
 	return T
 
-
 /obj/effect/proc_holder/spell/chaplain_bless/valid_target(mob/living/carbon/human/target, mob/user)
 	return target.mind && target.ckey && !target.stat
-
 
 /obj/effect/proc_holder/spell/chaplain_bless/cast(list/targets, mob/living/user = usr)
 	if(!istype(user))

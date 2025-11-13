@@ -47,7 +47,6 @@
 	var/list/params[0]		// what to send to the main object to indicate which sensor
 	var/trigger_limit = 5	// number of time we're allowed to trigger per ptick
 
-
 /obj/effect/portal_sensor/Initialize(mapload, owner, ...)
 	. = ..()
 	src.owner = owner
@@ -61,23 +60,19 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/portal_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/effect/portal_sensor/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(trigger))
 
-
 /obj/effect/portal_sensor/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(trigger))
-
 
 /obj/effect/portal_sensor/process()
 	// check_light()
@@ -234,7 +229,6 @@
 		for(var/i in 1 to distance)
 			T2 = get_step(T2, dir)
 		viewing_turfs = block(T1, T2)
-
 
 	if(reset_view)
 		vis_contents.Cut()

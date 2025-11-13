@@ -12,29 +12,23 @@
 	var/projectile_speed = 1
 	var/projectile_range = 1
 
-
 /obj/item/gun/throw/Destroy()
 	QDEL_NULL(to_launch)
 	QDEL_LIST(loaded_projectiles)
 	loaded_projectiles = null
 	return ..()
 
-
 /obj/item/gun/throw/proc/notify_ammo_count()
 	return ""
-
 
 /obj/item/gun/throw/proc/get_throwrange()
 	return projectile_range
 
-
 /obj/item/gun/throw/proc/get_throwspeed()
 	return projectile_speed
 
-
 /obj/item/gun/throw/proc/modify_projectile(obj/item/I, on_chamber = 0)
 	return
-
 
 /obj/item/gun/throw/proc/get_ammocount(include_loaded = 1)
 	var/count = loaded_projectiles.len
@@ -42,14 +36,12 @@
 		count++
 	return count
 
-
 /obj/item/gun/throw/examine(mob/user)
 	. = ..()
 	. += span_notice("It is [to_launch ? "loaded with [to_launch]" : "not loaded"].")
 	var/ammo_count = notify_ammo_count()
 	if(ammo_count)
 		. += span_notice(ammo_count)
-
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
 	if(istype(I, valid_projectile_type))
@@ -72,16 +64,13 @@
 
 	return ..()
 
-
 /obj/item/gun/throw/process_chamber()
 	if(!to_launch && length(loaded_projectiles))
 		to_launch = loaded_projectiles[1]
 		loaded_projectiles -= to_launch
 
-
 /obj/item/gun/throw/can_shoot(mob/user)
 	return to_launch
-
 
 /obj/item/gun/throw/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	add_fingerprint(user)

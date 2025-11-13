@@ -45,13 +45,13 @@
 	var/mob/SG = pick(candidates)
 	if(isLesserForm)
 		var/mob/living/carbon/human/lesser/LF = pick(potential)
-		LF.key = SG.key
+		LF.possess_by_player(SG.key)
 		LF.health = LF.maxHealth
 		greet_sentient(LF)
 
 	else
 		var/mob/living/simple_animal/SA = pick(potential)
-		SA.key = SG.key
+		SA.possess_by_player(SG.key)
 		SA.universal_speak = 1
 		SA.sentience_act()
 		SA.can_collar = 1

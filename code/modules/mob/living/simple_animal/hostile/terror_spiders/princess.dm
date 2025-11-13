@@ -44,7 +44,6 @@
 		PREPOSITIONAL = "Принцессе Ужаса",
 	)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_queen_subtype_abilities()
 	// Queens start in movement mode, where they can ventcrawl but not lay eggs. Then they move to NestMode() where they can wallsmash and egglay, but not ventcrawl.
 	// Princesses are simpler, and can always lay eggs, always vent crawl, but never smash walls. Unlike queens, they don't have a "nesting" transformation.
@@ -52,7 +51,6 @@
 	queeneggs_action.Grant(src)
 	queensense_action = new()
 	queensense_action.Grant(src)
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ListAvailableEggTypes()
 	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_REAPER, TS_DESC_BUILDER)
@@ -125,7 +123,6 @@
 		spider_lastspawn = world.time
 		DoLayTerrorEggs(pick(spider_types_standard), 1)
 		// Yes, this means NPC princesses won't create T2 spiders.
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ai_nest_is_full()
 	var/list/spider_array = CountSpidersDetailed(TRUE)

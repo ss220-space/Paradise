@@ -36,7 +36,7 @@
 		DATIVE = "гандоле",
 		ACCUSATIVE = "гандолу",
 		INSTRUMENTAL = "гандолой",
-		PREPOSITIONAL = "гандоле"
+		PREPOSITIONAL = "гандоле",
 	)
 
 /mob/living/simple_animal/pet/gondola/Initialize(mapload)
@@ -66,7 +66,6 @@
 	add_overlay(body_overlay)
 	add_overlay(eyes_overlay)
 	add_overlay(moustache_overlay)
-
 
 #undef GONDOLA_HEIGHT
 #undef GONDOLA_COLOR

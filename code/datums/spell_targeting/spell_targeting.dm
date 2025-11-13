@@ -27,7 +27,6 @@
 	/// If the spell should do an obstacle check from the user to the target. Windows, for example, will block the spell if this is true.
 	var/use_obstacle_check = FALSE
 
-
 /**
  * Called when choosing the targets for the parent spell
  *
@@ -40,7 +39,6 @@
 /datum/spell_targeting/proc/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	RETURN_TYPE(/list)
 	return
-
 
 /**
  * Will attempt to auto target the spell. Only works with 1 target currently
@@ -59,7 +57,6 @@
 		return TRUE
 	return FALSE
 
-
 /**
  * Called when the parent spell intercepts the click
  *
@@ -72,7 +69,6 @@
 /datum/spell_targeting/proc/InterceptClickOn(mob/user, params, atom/A, obj/effect/proc_holder/spell/spell)
 	var/list/targets = choose_targets(user, spell, params, A)
 	spell.try_perform(targets, user)
-
 
 /**
  * Checks whether or not the given target is valid. Calls spell.valid_target as well

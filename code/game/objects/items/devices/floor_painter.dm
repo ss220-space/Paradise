@@ -82,7 +82,6 @@
 
 	return data
 
-
 /obj/item/floor_painter/ui_static_data(mob/user)
 	var/list/data = list()
 

@@ -61,26 +61,21 @@
 		JOB_MIN_AGE_COMMAND = 13,
 	)
 
-
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.gene_stability += GREYS_ADDITIONAL_GENE_STABILITY
 	RegisterSignal(H, COMSIG_SINK_ACT, PROC_REF(sink_act))
 
-
 /datum/species/grey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
-
 
 /datum/species/grey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.gene_stability -= GREYS_ADDITIONAL_GENE_STABILITY
 	UnregisterSignal(H, COMSIG_SINK_ACT)
 
-
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)
 	H.force_gene_block(GLOB.remotetalkblock, !remove, TRUE, TRUE)
-
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -113,7 +108,6 @@
 
 		to_chat(H, span_danger("Вы чувствуете острое жжение!"))
 
-
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/retranslator = new
 	retranslator.insert(H)
@@ -137,11 +131,9 @@
 
 	handle_loadout_chip(H, retranslator)
 
-
 /datum/species/grey/proc/handle_loadout_chip(mob/living/carbon/human/H, obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/retranslator)
 	var/obj/item/translator_chip/chip = locate() in H.contents // we can take only one chip from loadout
 	retranslator.install_chip(H, chip, ignore_lid = TRUE)
-
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "water")
@@ -150,11 +142,9 @@
 
 	return ..()
 
-
 /datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
-
 
 /datum/species/grey/proc/sink_act(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
@@ -166,7 +156,6 @@
 		source.emote("scream")
 
 	return COMSIG_SINK_ACT_SUCCESS
-
 
 #undef GREYS_ADDITIONAL_GENE_STABILITY
 #undef GREYS_WATER_DAMAGE

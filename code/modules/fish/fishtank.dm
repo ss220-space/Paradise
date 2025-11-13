@@ -25,7 +25,6 @@
 	var/leaking = FALSE			// 0 if not leaking, 1 if minor leak, 2 if major leak (not leaking by default)
 	var/shard_count = 0			// Number of glass shards to salvage when broken (1 less than the number of sheets to build the tank)
 
-
 /obj/machinery/fishtank/bowl
 	name = "fish bowl"
 	desc = "A small bowl capable of housing a single fish, commonly found on desks. This one has a tiny treasure chest in it!"
@@ -37,7 +36,6 @@
 	max_fish = 1				// What a lonely fish
 
 	max_integrity = 15				// Not very sturdy
-
 
 /obj/machinery/fishtank/tank
 	name = "fish tank"
@@ -54,7 +52,6 @@
 	max_integrity = 50				// Average strength, will take a couple hits from a toolbox.
 	shard_count = 2
 
-
 /obj/machinery/fishtank/wall
 	name = "wall aquarium"
 	desc = "This aquarium is massive! It completely occupies the same space as a wall, and looks very sturdy too!"
@@ -70,7 +67,6 @@
 	max_integrity = 100			// This thing is a freaking wall, it can handle abuse.
 	shard_count = 3
 
-
 //////////////////////////////
 //		VERBS & PROCS		//
 //////////////////////////////
@@ -79,12 +75,10 @@
 	toggle_lid(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/machinery/fishtank/AltShiftClick(mob/user)
 	if(!Adjacent(user))
 		return ..()
 	toggle_light(user)
-
 
 /obj/machinery/fishtank/verb/toggle_lid_verb()
 	set name = "Крышка аквариума"
@@ -92,20 +86,17 @@
 	set src in view(1)
 	toggle_lid(usr)
 
-
 /obj/machinery/fishtank/verb/toggle_light_verb()
 	set name = "Освещение аквариума"
 	set category = STATPANEL_OBJECT
 	set src in view(1)
 	toggle_light(usr)
 
-
 /obj/machinery/fishtank/proc/toggle_lid(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	lid_switch = !lid_switch
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/fishtank/proc/toggle_light(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -115,7 +106,6 @@
 		set_light(2, 2, "#a0a080")
 	else
 		adjust_tank_light()
-
 
 //////////////////////////////
 //	Initialize() PROCS		//
@@ -127,12 +117,10 @@
 		verbs -= /obj/machinery/fishtank/verb/toggle_lid_verb
 		verbs -= /obj/machinery/fishtank/verb/toggle_light_verb
 
-
 /obj/machinery/fishtank/tank/Initialize(mapload)
 	. = ..()
 	if(prob(5))	//5% chance to get the castle decoration
 		icon_state = "tank2"
-
 
 //////////////////////////////
 //		ICON PROCS			//
@@ -166,7 +154,6 @@
 	else if(water_level > (water_capacity * 0.35))		//Show half-full if the water_level is over 35% of water_capacity
 		. += "over_[tank_type]_half[water_type]"
 
-
 /obj/machinery/fishtank/wall/update_overlays()
 	. = ..()
 	// Update fish overlay for wall tanks
@@ -181,7 +168,6 @@
 		if(7 to INFINITY)
 			. += "over_tank_fish_100"
 
-
 //////////////////////////////
 //		PROCESS PROC		//
 //////////////////////////////
@@ -189,7 +175,6 @@
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
 /obj/machinery/fishtank/wall/CanAtmosPass(turf/T, vertical)
 	return FALSE
-
 
 /obj/machinery/fishtank/process()
 	//Start by counting fish in the tank
@@ -246,7 +231,6 @@
 			adjust_water_level(-1)
 	update_icon(UPDATE_OVERLAYS)
 
-
 //////////////////////////////
 //		SUPPORT PROCS		//
 //////////////////////////////
@@ -254,12 +238,10 @@
 /obj/machinery/fishtank/proc/get_num_fish()
 	return length(fish_list)
 
-
 /obj/machinery/fishtank/proc/handle_special_interactions()
 	for(var/datum/fish/fish in fish_list)
 		fish.special_interact(src)
 	adjust_tank_light()
-
 
 /obj/machinery/fishtank/proc/adjust_tank_light()
 	if(!light_switch)								//tank light overrides fish lights
@@ -272,19 +254,15 @@
 		else
 			set_light(0, 0)
 
-
 /obj/machinery/fishtank/proc/adjust_water_level(amount = 0)
 	water_level = min(water_capacity, max(0, water_level + amount))
 	update_icon()
 
-
 /obj/machinery/fishtank/proc/adjust_filth_level(amount = 0)
 	filth_level = min(10, max(0, filth_level + amount))
 
-
 /obj/machinery/fishtank/proc/adjust_food_level(amount = 0)
 	food_level = min(10, max(0, food_level + amount))
-
 
 /obj/machinery/fishtank/proc/check_health()
 	//Leaking status check
@@ -295,7 +273,6 @@
 	else											//Not leaking above 50% health
 		leaking = 0
 
-
 /obj/machinery/fishtank/proc/kill_fish(datum/fish/fish_type = null)
 	//Check if we were passed a fish to kill, otherwise kill a random one
 	if(!fish_type)
@@ -305,7 +282,6 @@
 		adjust_tank_light()
 	qdel(fish_type)
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/fishtank/proc/add_fish(datum/fish/fish_type = null)
 	//Check if we were passed a fish type
@@ -318,7 +294,6 @@
 	//Null type fish are dud eggs, give a message to inform the player
 	else
 		to_chat(usr, "The eggs disolve in the water. They were duds!")
-
 
 /obj/machinery/fishtank/proc/harvest_eggs(mob/user, obj/item/storage/bag/fish/fish_bag)
 	if(!egg_count)									//Can't harvest non-existant eggs
@@ -342,7 +317,6 @@
 	egg_list.Cut()									//Destroy any excess eggs, clearing the egg_list
 	if(duds)
 		to_chat(user, span_notice("[duds] egg\s [duds == 1 ? "was a dud" : "were duds"]!"))
-
 
 /obj/machinery/fishtank/proc/harvest_fish(mob/user)
 	if(!get_num_fish())									//Can't catch non-existant fish!
@@ -397,7 +371,6 @@
 	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
-
 /obj/machinery/fishtank/proc/spill_water()
 	var/turf/simulated/T = get_turf(src)
 	switch(tank_type)
@@ -412,7 +385,6 @@
 		if("wall")										//Wall-tank: Wets it's own tile and the surrounding 8 tiles (3x3 square)
 			for(var/turf/simulated/ST in spiral_range_turfs(1, loc))
 				ST.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
-
 
 /obj/machinery/fishtank/proc/breed_fish()
 	var/list/breed_candidates = fish_list.Copy()
@@ -446,13 +418,11 @@
 					egg_list.Add(parent2.egg_item)
 	egg_count++
 
-
 /obj/machinery/fishtank/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	default_welder_repair(user, I)
-
 
 //////////////////////////////		Note from FalseIncarnate:
 //		EXAMINE PROC		//			This proc is massive, messy, and probably could be handled better.
@@ -568,7 +538,6 @@
 	. += span_notice("You can <b>Alt-Click</b> [src] to open/close its lid.")
 	. += span_notice("You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.")
 
-
 //////////////////////////////
 //		ATACK PROCS			//
 //////////////////////////////
@@ -638,7 +607,6 @@
 	else
 		return ..()
 
-
 /obj/machinery/fishtank/attack_hand(mob/user)
 	if(isAI(user))
 		return
@@ -658,7 +626,6 @@
 			span_italics("You hear a knocking sound."),
 		)
 
-
 /obj/machinery/fishtank/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -668,7 +635,6 @@
 				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
-
 
 /obj/machinery/fishtank/deconstruct(disassembled = TRUE)
 	if(QDELETED(src))
@@ -683,7 +649,6 @@
 	else															//We are deconstructing, make glass sheets instead of shards
 		new /obj/item/stack/sheet/glass(get_turf(src), shard_count + 1)		//Produce the appropriate number of glass sheets, in a single stack
 	qdel(src)
-
 
 /obj/machinery/fishtank/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -828,7 +793,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/fishtank/wrench_act(mob/user, obj/item/I) //Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	. = TRUE

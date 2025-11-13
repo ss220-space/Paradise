@@ -38,10 +38,8 @@
 /turf/simulated/wall/shuttle/burn_down()
 	return
 
-
 /turf/simulated/wall/shuttle/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/wall/shuttle/attack_hand(mob/user)
 	return
@@ -112,7 +110,6 @@
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
 
-
 // sub-type to be used for interior shuttle walls
 // won't get an underlay of the destination turf on shuttle move
 // it's underlay must be preadded by using underlay_floor variables
@@ -150,10 +147,8 @@
 	icon = 'icons/turf/shuttle/floors.dmi'
 	icon_state = "floor"
 
-
 /turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/shuttle/tool_act()
 	return FALSE

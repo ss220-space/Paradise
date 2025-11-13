@@ -80,7 +80,7 @@
 		SSticker.mode.eventmiscs += H.mind
 		SSticker.mode.update_eventmisc_icons_added(H.mind)
 		H.mind.offstation_role = TRUE
-		H.key = thisplayer.key
+		H.possess_by_player(thisplayer.key)
 		H.change_voice()
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
@@ -94,7 +94,6 @@
 		players_spawned++
 		if(players_spawned >= teamsize)
 			break
-
 
 	log_and_message_admins("used Spawn Gimmick Team.")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Gimmick Team")

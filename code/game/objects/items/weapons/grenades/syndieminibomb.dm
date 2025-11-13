@@ -4,7 +4,6 @@
 	icon_state = "syndicate"
 	origin_tech = "materials=3;magnets=4;syndicate=2"
 
-
 /obj/item/grenade/syndieminibomb/prime()
 	. = ..()
 	update_mob()

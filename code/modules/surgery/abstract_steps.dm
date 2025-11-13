@@ -109,7 +109,6 @@
 			possible_any_surgery = S
 			starting_tools.Add(SURGERY_TOOL_ANY)
 
-
 		for(var/allowed in first_step.allowed_tools)
 			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
 				next_surgery = S
@@ -122,7 +121,6 @@
 	if(!next_surgery)
 		if((SURGERY_TOOL_ANY in starting_tools) && tool)
 			next_surgery = possible_any_surgery
-
 
 	// If this is set to true, the tool in use will force the next step in the main surgery.
 	var/overridden_tool = FALSE
@@ -244,9 +242,7 @@
 		// insert at the current step number since we're not trying to bump it up
 		running_surgery.steps.Insert(running_surgery.step_number, following_steps)
 
-
 	return .
-
 
 // Some intermediate surgeries
 /datum/surgery/intermediate/bleeding
@@ -307,7 +303,6 @@
 	name = "Сращивание костей (Плазмолюд) – абстрактное"
 	steps = list(/datum/surgery_step/glue_bone/plasma)
 
-
 /datum/surgery/intermediate/mendbone/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
@@ -330,21 +325,21 @@
 	name = "заживление повреждённых костей или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/mendbone
+		/datum/surgery/intermediate/mendbone,
 	)
 
 /datum/surgery_step/proxy/open_organ/plasma
 	name = "заживление повреждённых костей (Плазмолюд) или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/mendbone/plasma
+		/datum/surgery/intermediate/mendbone/plasma,
 	)
 
 /// Mend IB without healing bones
 /datum/surgery_step/proxy/ib
 	name = "заживление повреждённых сосудов — прокси"
 	branches = list(
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
 	)
 
 /// The robotic equivalent
@@ -352,7 +347,7 @@
 	name = "ремонт конечности — прокси"
 	branches = list(
 		/datum/surgery/intermediate/robotics/repair/burn,
-		/datum/surgery/intermediate/robotics/repair/brute
+		/datum/surgery/intermediate/robotics/repair/brute,
 	)
 
 #undef SURGERY_TOOL_ANY

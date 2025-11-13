@@ -34,15 +34,12 @@
 	if(old_area.has_gravity != new_area.has_gravity)
 		refresh_gravity()
 
-
 /mob/living/update_config_movespeed()
 	update_move_intent_slowdown()
 	return ..()
 
-
 /mob/living/proc/update_move_intent_slowdown()
 	add_movespeed_modifier((m_intent == MOVE_INTENT_WALK) ? /datum/movespeed_modifier/config_walk_run/walk : /datum/movespeed_modifier/config_walk_run/run)
-
 
 /mob/living/proc/update_turf_movespeed(turf/check_turf)
 	if(isturf(check_turf) && !HAS_TRAIT(check_turf, TRAIT_TURF_IGNORE_SLOWDOWN))
@@ -53,7 +50,6 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/turf_slowdown)
 		current_turf_slowdown = 0
 
-
 /mob/living/proc/get_strength_pull_slowdown_modifier()
 	var/mod = 1
 	var/list/mods = list()
@@ -62,7 +58,6 @@
 		mod *= modifier
 
 	return mod
-
 
 /mob/living/proc/update_pull_movespeed()
 	SEND_SIGNAL(src, COMSIG_LIVING_UPDATING_PULL_MOVESPEED)
@@ -106,7 +101,6 @@
 			return
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = pulling_obj.pull_push_slowdown * get_strength_pull_slowdown_modifier())
 
-
 /mob/living/proc/update_push_movespeed()
 	if(!now_pushing && COOLDOWN_FINISHED(src, pushing_delay))
 		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
@@ -129,10 +123,8 @@
 			return
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = pushing_obj.pull_push_slowdown * get_strength_pull_slowdown_modifier())
 
-
 /mob/living/proc/can_change_move_intent(silent = FALSE)
 	return TRUE
-
 
 /mob/living/toggle_move_intent(new_move_intent)
 	if(new_move_intent && m_intent == new_move_intent)
@@ -156,13 +148,11 @@
 	update_move_intent_slowdown()
 	SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLED)
 
-
 /// Living Mob use event based gravity
 /// We check here to ensure we haven't dropped any gravity changes
 /mob/living/proc/gravity_setup()
 	on_negate_gravity(src)
 	refresh_gravity()
-
 
 /// Handles gravity effects. Call if something about our gravity has potentially changed!
 /mob/living/proc/refresh_gravity()
@@ -178,10 +168,8 @@
 	else if(old_grav_state > STANDARD_GRAVITY)
 		remove_filter("gravity")
 
-
 /mob/living/mob_negates_gravity()
 	return HAS_TRAIT_FROM(src, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
-
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
@@ -202,7 +190,6 @@
 	. = ..()
 	if(. && client)
 		reset_perspective()
-
 
 /**
  * We want to relay the zmovement to the buckled atom when possible
@@ -237,7 +224,6 @@
 		if(!target)
 			return FALSE
 	return buckled.zMove(dir, target, z_move_flags) // Return value is a loc.
-
 
 /mob/living/can_z_move(direction, turf/start, turf/destination, z_move_flags = ZMOVE_FLIGHT_FLAGS, mob/living/rider)
 	if(z_move_flags & ZMOVE_INCAPACITATED_CHECKS && incapacitated())
@@ -367,7 +353,6 @@
 	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 
-
 /mob/living/verb/lookup()
 	set name = "Смотреть наверх"
 	set category = STATPANEL_IC
@@ -385,7 +370,6 @@
 		end_look_down()
 	else
 		look_down()
-
 
 /mob/living/keybind_face_direction(direction)
 	if(stat > CONSCIOUS)

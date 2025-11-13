@@ -19,7 +19,6 @@
 	var/page = 1
 	var/screen = 0
 
-
 /obj/item/paper_bundle/Initialize(mapload, default_papers = TRUE)
 	. = ..()
 	papers = list()
@@ -29,11 +28,9 @@
 			papers += paper
 		amount++
 
-
 /obj/item/paper_bundle/Destroy()
 	QDEL_LIST(papers)
 	return ..()
-
 
 /obj/item/paper_bundle/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
@@ -138,13 +135,11 @@
 
 	return ..()
 
-
 /obj/item/paper_bundle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		for(var/obj/item/paper/paper in papers)
 			paper.info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
-
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
@@ -221,7 +216,6 @@
 	add_fingerprint(user)
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-
 /obj/item/paper_bundle/Topic(href, href_list)
 	..()
 	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)))
@@ -271,8 +265,6 @@
 		attack_self(loc)
 		updateUsrDialog()
 
-
-
 /obj/item/paper_bundle/verb/rename()
 	set name = "Переименовать пачку"
 	set category = STATPANEL_OBJECT
@@ -284,7 +276,6 @@
 	name = "[(n_name ? "[n_name]" : "paper bundle")]"
 	add_fingerprint(usr)
 	return
-
 
 /obj/item/paper_bundle/verb/remove_all()
 	set name = "Распустить пачку"
@@ -301,7 +292,6 @@
 	qdel(src)
 	return
 
-
 /obj/item/paper_bundle/update_desc(updates = ALL)
 	. = ..()
 	if(amount == (photos - 1))
@@ -316,12 +306,10 @@
 	if(photos)
 		desc += "\nThere [photos == 1 ? "is a photo" : "are [photos] photos"] attached to it."
 
-
 /obj/item/paper_bundle/update_icon_state()
 	if(length(contents))
 		var/obj/item/paper/P = contents[1]
 		icon_state = P.icon_state // must have an icon_state to show up on clipboards
-
 
 /obj/item/paper_bundle/update_overlays()
 	. = ..()

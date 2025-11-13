@@ -19,7 +19,6 @@
 	var/list/patients = list()
 	var/obj/effect/mob_spawn/human/spawner
 
-
 /datum/addition_goal/medical_patients/setup()
 	request_number = "[rand(100, 999)]"
 	switch(rand(1, 3))
@@ -82,7 +81,6 @@
 	patient.ai_controller = /datum/ai_controller/monkey/angry
 	patient.InitializeAIController()
 
-
 /datum/addition_goal/medical_patients/format_accept_report(mob/user)
 	var/text = {"К вам [declension_ru(patiens_count, "отправлен", "отправлено", "отправлено")] [patiens_count] [declension_ru(patiens_count, "больной", "больных", "больных")] с соседней психбольницы.<br>
 		Необходимо полностью вылечить пациентов. Будьте осторожны, пациенты буйные.
@@ -92,7 +90,6 @@
 		text += "<br>[number]. [patient.real_name]."
 		number++
 	return text
-
 
 /datum/addition_goal/medical_patients/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/shuttle_turfs = system.get_shuttle_turfs()
@@ -127,8 +124,6 @@
 	system.add_reward(reward_credits, reward_cargopoints)
 	var/paper_content = system.create_paper_content("Отчет о медицинской помощи №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
-
-
 
 ////////////////////////////////////////
 // MARK:	Misc

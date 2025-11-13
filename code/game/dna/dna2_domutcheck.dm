@@ -8,11 +8,9 @@
 /mob/proc/check_genes(flags = NONE)
 	return
 
-
 /mob/living/carbon/human/check_genes(flags = NONE)	// only humans have the DNA now, subject to change later
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		update_gene_status(gene, flags)
-
 
 /**
  * Checks provided DNA block and activates/deactivates it
@@ -27,10 +25,8 @@
 /mob/proc/check_gene_block(block, flags = NONE)
 	return FALSE
 
-
 /mob/living/carbon/human/check_gene_block(block, flags = NONE)
 	return update_gene_status(GLOB.assigned_gene_blocks[block], flags)
-
 
 /**
  * Actual meat of gene buisness
@@ -83,7 +79,6 @@
 
 	return FALSE
 
-
 /**
  * Helper for the most used case of activation/deactivation of the single gene.
  * Gene variable (`/datum/dna/var/default_genes`) is NOT the same as species variable (`/datum/species/var/default_genes`).
@@ -100,7 +95,6 @@
  */
 /mob/proc/force_gene_block(block, activate = FALSE, update_default_status = FALSE, ignore_species_default = FALSE)
 	return
-
 
 /mob/living/carbon/human/force_gene_block(block, activate = FALSE, update_default_status = FALSE, ignore_species_default = FALSE)
 	var/force_flags = MUTCHK_FORCED

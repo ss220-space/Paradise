@@ -15,7 +15,7 @@
 		DATIVE = "тактической водолазке",
 		ACCUSATIVE = "тактическую водолазку",
 		INSTRUMENTAL = "тактической водолазкой",
-		PREPOSITIONAL = "тактической водолазке"
+		PREPOSITIONAL = "тактической водолазке",
 	)
 
 /obj/item/clothing/under/syndicate/combat
@@ -28,7 +28,7 @@
 		DATIVE = "боевой водолазке",
 		ACCUSATIVE = "боевую водолазку",
 		INSTRUMENTAL = "боевой водолазкой",
-		PREPOSITIONAL = "боевой водолазке"
+		PREPOSITIONAL = "боевой водолазке",
 	)
 
 /obj/item/clothing/under/syndicate/tacticool
@@ -45,7 +45,7 @@
 		DATIVE = "тактикульной водолазке",
 		ACCUSATIVE = "тактикульную водолазку",
 		INSTRUMENTAL = "тактикульной водолазкой",
-		PREPOSITIONAL = "тактикульной водолазке"
+		PREPOSITIONAL = "тактикульной водолазке",
 	)
 
 /obj/item/clothing/under/syndicate/tacticool/skirt
@@ -60,7 +60,7 @@
 		DATIVE = "тактикульной юбке",
 		ACCUSATIVE = "тактикульную юбку",
 		INSTRUMENTAL = "тактикульной юбкой",
-		PREPOSITIONAL = "тактикульной юбке"
+		PREPOSITIONAL = "тактикульной юбке",
 	)
 
 /obj/item/clothing/under/syndicate/sniper
@@ -76,7 +76,7 @@
 		DATIVE = "тактическому формальному костюму",
 		ACCUSATIVE = "тактический формальный костюм",
 		INSTRUMENTAL = "тактическим формальным костюмом",
-		PREPOSITIONAL = "тактическом формальном костюме"
+		PREPOSITIONAL = "тактическом формальном костюме",
 	)
 
 /obj/item/clothing/under/syndicate/sniper_civ
@@ -93,7 +93,7 @@
 		DATIVE = "тактикульному формальному костюму",
 		ACCUSATIVE = "тактикульный формальный костюм",
 		INSTRUMENTAL = "тактикульным формальным костюмом",
-		PREPOSITIONAL = "тактикульном формальном костюме"
+		PREPOSITIONAL = "тактикульном формальном костюме",
 	)
 
 /obj/item/clothing/under/syndicate/blackops
@@ -110,7 +110,7 @@
 		DATIVE = "комбинезону для спецопераций",
 		ACCUSATIVE = "комбинезон для спецопераций",
 		INSTRUMENTAL = "комбинезоном для спецопераций",
-		PREPOSITIONAL = "комбинезоне для спецопераций"
+		PREPOSITIONAL = "комбинезоне для спецопераций",
 	)
 
 /obj/item/clothing/under/syndicate/blackops_civ
@@ -127,7 +127,7 @@
 		DATIVE = "тактикульному комбинезону для спецопераций",
 		ACCUSATIVE = "тактикульный комбинезон для спецопераций",
 		INSTRUMENTAL = "тактикульным комбинезоном для спецопераций",
-		PREPOSITIONAL = "тактикульном комбинезоне для спецопераций"
+		PREPOSITIONAL = "тактикульном комбинезоне для спецопераций",
 	)
 
 /obj/item/clothing/under/plasmaman/syndie
@@ -145,5 +145,5 @@
 		DATIVE = "тактическому защитному костюму плазмолюда",
 		ACCUSATIVE = "тактический защитный костюм плазмолюда",
 		INSTRUMENTAL = "тактическим защитным костюмом плазмолюда",
-		PREPOSITIONAL = "тактическом защитном костюме плазмолюда"
+		PREPOSITIONAL = "тактическом защитном костюме плазмолюда",
 	)

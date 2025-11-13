@@ -66,7 +66,6 @@
 	if(length(customer.can_order))
 		quest_type = pick(customer.can_order)
 
-
 	if(!quest_type)
 		var/list/possible_types = list()
 		if((num_station_players() < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
@@ -89,7 +88,6 @@
 		return
 
 	return new quest_type(src)
-
 
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)

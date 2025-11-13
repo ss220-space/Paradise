@@ -12,11 +12,8 @@
 	/// 4 - Oxygen. 8 - Toxins. 16 - Nitrogen. 32 - Carbon Dioxide. 64 - Nitrous Oxide.
 	var/output = SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE
 
-
-
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
-
 
 /obj/machinery/atmospherics/air_sensor/proc/toggle_out_flag(bitflag_value)
 	if(!(bitflag_value in list(
@@ -34,7 +31,6 @@
 	else
 		output |= bitflag_value
 
-
 /obj/machinery/atmospherics/air_sensor/proc/toggle_bolts()
 	bolts = !bolts
 	if(bolts)
@@ -45,7 +41,6 @@
 /obj/machinery/atmospherics/air_sensor/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
-
 
 /obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -58,7 +53,6 @@
 	user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
 	new /obj/item/pipe_gsensor(loc)
 	qdel(src)
-
 
 /obj/machinery/atmospherics/air_sensor/process_atmos()
 	if(on)

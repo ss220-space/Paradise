@@ -48,7 +48,6 @@
 		INTERNAL_ORGAN_RESONANT_CRYSTAL = /obj/item/organ/internal/nucleation/resonant_crystal,
 	)
 
-
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nucleation
 
 	age_sheet = list(
@@ -58,18 +57,15 @@
 		JOB_MIN_AGE_COMMAND = 30,
 	)
 
-
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.light_color = "#afaf21"
 	H.set_light_range(2)
 
-
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.light_color = null
 	H.set_light_on(FALSE)
-
 
 /datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "radium")

@@ -18,13 +18,11 @@
 	min_start_money = 100
 	max_start_money = 300
 
-
 /datum/outfit/job/assistant
 	name = "Civilian"
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
-
 
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER
@@ -55,7 +53,6 @@
 	allow_backbag_choice = FALSE
 	back = null
 
-
 /datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
 	. = ..()
 	var/datum/data/record/record = find_security_record("name", human.real_name)
@@ -65,7 +62,7 @@
 	record.fields["last_modifier_level"] = LAW_LEVEL_MAGISTRATE
 	var/crimes = generate_prisoner_role_crimes()
 	human.mind.store_memory("Меня посадили за: [crimes]")
-	record.fields["comments"] += "Заключён[genderize_ru(human.gender, "", "а", "о", "ы")] в пермабриг за: [crimes]"
+	record.fields["comments"] += "Заключён[GEND_A_O_Y(human)] в пермабриг за: [crimes]"
 
 /datum/job/civilian/prisoner/proc/generate_prisoner_role_crimes()
 	var/list/major_crimes = list("400", "402", "407")
