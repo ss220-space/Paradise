@@ -273,10 +273,11 @@
 	icon_state = "tether_projectile"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	speed = 2
-	damage = 5
-	range = 15
+	damage = 15
+	range = 20
 	hitsound = 'sound/weapons/batonextend.ogg'
 	hitsound_wall = 'sound/weapons/batonextend.ogg'
+	ricochet_chance = 0
 
 /obj/projectile/tether/proc/make_chain()
 	if(firer)

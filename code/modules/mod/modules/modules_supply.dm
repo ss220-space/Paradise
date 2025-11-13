@@ -487,8 +487,8 @@
 			В этом режиме пользователь сохраняет полное управление и может развивать высокую скорость передвижения. \
 			Дополнительно поддерживается запуск шахтёрских бомб для быстрой расчистки местности."
 	icon_state = "sphere"
+	complexity = 3
 	module_type = MODULE_ACTIVE
-	removable = FALSE
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/sphere_transform)
@@ -503,6 +503,13 @@
 		TRAIT_HANDS_BLOCKED,
 		TRAIT_NO_SLIP_ALL,
 	)
+	/// Can our bombs be blown on station?
+	var/safe = TRUE
+
+
+/obj/item/mod/module/sphere_transform/emag_act(mob/user)
+	safe = !safe
+	balloon_alert(user, "протоколы безопасности [safe ? "восстановлены" : "сняты"]!")
 
 /obj/item/mod/module/sphere_transform/get_ru_names()
 	return list(
@@ -537,7 +544,9 @@
 	mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/sphere)
 	UnregisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE)
 
-/obj/item/mod/module/sphere_transform/on_use()
+/obj/item/mod/module/sphere_transform/used()
+	if(!safe)
+		return ..()
 	if(!lavaland_equipment_pressure_check(get_turf(src)))
 		balloon_alert(mod.wearer, "слишком высокое давление!")
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
@@ -641,7 +650,7 @@
 	for(var/turf/T in circle_view_turfs(src, 2))
 		if(ismineralturf(T))
 			var/turf/simulated/mineral/mineral_turf = T
-			mineral_turf.gets_drilled(firer)
+			mineral_turf.attempt_drill(firer)
 	for(var/mob/living/mob in range(1, src))
 		mob.apply_damage(damage * (ishostile(mob) ? fauna_boost : 1), BRUTE)
 		if(!ishostile(mob) || !firer)
@@ -649,5 +658,5 @@
 		var/mob/living/simple_animal/hostile/hostile_mob = mob
 		hostile_mob.GiveTarget(firer)
 	for(var/obj/object in range(1, src))
-		object.take_damage(damage, BRUTE, BOMB)
+		object.take_damage(damage, BRUTE)
 	qdel(src)
