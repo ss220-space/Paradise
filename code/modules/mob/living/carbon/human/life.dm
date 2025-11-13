@@ -279,13 +279,13 @@
 		radiation = max(radiation - heal_cost, 0)
 
 	//healing factures in low priotiry. Won't heal factures while healing internal or external damage with radium
-	var/list/obj/item/organ/external/factured_limbs = get_fractured_organs()
+	var/list/obj/item/organ/external/fractured_limbs = check_fractures()
 	heal_cost = 10
 
-	if(radiation >= heal_cost && factured_limbs)
-		for(var/obj/item/organ/external/limb as anything in factured_limbs)
-			if(limb.status & ORGAN_BROKEN)//double check... just in case
-				limb.heal_status_wounds(flags_to_heal = ORGAN_BROKEN)
+	if(radiation >= heal_cost && fractured_limbs)
+		for(var/obj/item/organ/external/limb as anything in fractured_limbs)
+			if(limb.has_fracture())//double check... just in case
+				limb.mend_fracture()
 				radiation = max(radiation - heal_cost, 0)
 				break
 
