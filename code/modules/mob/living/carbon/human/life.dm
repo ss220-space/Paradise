@@ -270,7 +270,7 @@
 	var/list/obj/item/organ/internal/int_damaged_organs = get_damaged_organs(external = FALSE)
 	var/int_damaged_organs_amount = length(int_damaged_organs)
 	var/heal_amount = 2
-	heal_cost = 5
+	heal_cost = 10
 
 	if(int_damaged_organs_amount && radiation >= heal_cost)
 		for(var/obj/item/organ/internal/organ in int_damaged_organs)
@@ -280,7 +280,7 @@
 
 	//healing factures in low priotiry. Won't heal factures while healing internal or external damage with radium
 	var/list/obj/item/organ/external/fractured_limbs = check_fractures()
-	heal_cost = 10
+	heal_cost = 20
 
 	if(radiation >= heal_cost && length(fractured_limbs))
 		for(var/obj/item/organ/external/limb as anything in fractured_limbs)
