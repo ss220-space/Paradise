@@ -196,13 +196,13 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 				. += ", "
 
 /proc/escape_regex_smart(text)
-    var/list/chars = list(".", "*", "+", "?", "^", "$", "(", ")", "[", "]", "{", "}", "|")
-    text = replacetext(text, "\\", "\\\\")
-    for(var/char in chars)
-        text = replacetext(text, char, "\\[char]")
-    for(var/char in chars)
-        text = replacetext(text, "\\\\\\[char]", "\\[char]")
-    return text
+	var/list/chars = list(".", "*", "+", "?", "^", "$", "(", ")", "[", "]", "{", "}", "|")
+	text = replacetext(text, "\\", "\\\\")
+	for(var/char in chars)
+		text = replacetext(text, char, "\\[char]")
+	for(var/char in chars)
+		text = replacetext(text, "\\\\\\[char]", "\\[char]")
+	return text
 
 /proc/GenerateKey()
 	var/newKey
