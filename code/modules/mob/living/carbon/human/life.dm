@@ -269,8 +269,8 @@
 	//internal healing in medium priority. Using radium won't heal internal damage while healing external damage
 	var/list/obj/item/organ/internal/int_damaged_organs = get_damaged_organs(external = FALSE)
 	var/int_damaged_organs_amount = length(int_damaged_organs)
-	var/heal_amount = 2
-	heal_cost = 10
+	var/heal_amount = 3
+	heal_cost = 3
 
 	if(int_damaged_organs_amount && radiation >= heal_cost)
 		for(var/obj/item/organ/internal/organ in int_damaged_organs)
@@ -280,7 +280,7 @@
 
 	//healing fractures in low priotiry. Won't heal fractures while healing internal or external damage with radium
 	var/list/obj/item/organ/external/fractured_limbs = check_fractures()
-	heal_cost = 20
+	heal_cost = 10
 
 	if(radiation >= heal_cost && length(fractured_limbs))
 		for(var/obj/item/organ/external/limb as anything in fractured_limbs)
