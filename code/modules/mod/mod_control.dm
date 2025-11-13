@@ -83,6 +83,7 @@
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
 
+
 /obj/item/mod/control/get_ru_names()
 	return list(
 		NOMINATIVE = "блок управления МЭК",

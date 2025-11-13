@@ -4,6 +4,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	onmob_sheets = list(
 		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
@@ -40,6 +41,7 @@
 	icon_state = "standard-chestplate"
 	base_icon_state = "chestplate"
 	permeability_coefficient = 0.01
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	onmob_sheets = list(
 		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
@@ -82,6 +84,7 @@
 	item_state = null //don't fucking ask
 	base_icon_state = "gauntlets"
 	permeability_coefficient = 0.01
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	onmob_sheets = list(
 		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
@@ -115,6 +118,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	onmob_sheets = list(
 		ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)

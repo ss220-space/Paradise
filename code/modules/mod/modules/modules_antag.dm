@@ -768,7 +768,9 @@
 	if(!holstered)
 		var/obj/item/melee/baton/telescopic/contractor/holding = mod.wearer.get_active_hand()
 		if(!holding)
-			balloon_alert(mod.wearer, "нечего класть!")
+			return
+		if(!mod.wearer.can_unEquip(holding))
+			balloon_alert(mod.wearer, "нельзя выпустить из рук!")
 			return
 		holstered = holding
 		mod.wearer.balloon_alert_to_viewers("убира[PLUR_ET_UT(mod.wearer)] оружие", "оружие убрано")

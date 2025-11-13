@@ -185,10 +185,8 @@
 	theme = /datum/mod_theme/safeguard_mk_one
 	applied_modules = list(
 		/obj/item/mod/module/storage,
-		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/holster,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
 		/obj/item/mod/module/grappling_hook/upgraded,
@@ -199,7 +197,6 @@
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/holster,

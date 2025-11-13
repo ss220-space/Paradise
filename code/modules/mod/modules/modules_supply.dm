@@ -197,6 +197,8 @@
 	cooldown_time = 0.5 SECONDS
 	allow_flags = MODULE_ALLOW_INACTIVE
 	required_slots = list(ITEM_SLOT_BACK)
+	/// The ores stored in the bag.
+	var/list/ores = list()
 
 /obj/item/mod/module/orebag/get_ru_names()
 	return list(
@@ -223,11 +225,20 @@
 		INVOKE_ASYNC(src, PROC_REF(move_ore), ore)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
+	for(var/obj/item/stack/stored_ore as anything in ores)
+		if(!ore.can_merge(stored_ore))
+			continue
+		ore.merge(stored_ore)
+		if(QDELETED(ore))
+			return
+		break
 	ore.forceMove(src)
+	ores += ore
 
 /obj/item/mod/module/orebag/on_use()
 	for(var/obj/item/ore as anything in contents)
 		ore.forceMove(drop_location())
+		ores -= ore
 	drain_power(use_energy_cost)
 
 // MARK: Hydraulic arms

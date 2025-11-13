@@ -8,7 +8,7 @@
 			с возможностью быстро извлечь его в любой момент."
 	icon_state = "holster"
 	module_type = MODULE_USABLE
-	complexity = 2
+	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/holster)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	cooldown_time = 0.5 SECONDS
@@ -34,6 +34,9 @@
 			return
 		if(!istype(holding) || holding.w_class > WEIGHT_CLASS_NORMAL) //god no holstering a BSG / combat shotgun
 			balloon_alert(mod.wearer, "не влезает!")
+			return
+		if(!mod.wearer.can_unEquip(holding))
+			balloon_alert(mod.wearer, "нельзя выпустить из рук!")
 			return
 		holstered = holding
 		mod.wearer.balloon_alert_to_viewers("убира[PLUR_ET_UT(mod.wearer)] оружие", "оружие убрано")

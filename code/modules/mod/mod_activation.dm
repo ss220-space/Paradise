@@ -107,7 +107,7 @@
 				wearer.drop_item_ground(overslot, force = TRUE, silent = TRUE)
 		if(!user)
 			return FALSE
-		balloon_alert(user, "мешает одежда!")
+		balloon_alert(user, "нельзя развернуть!") //fockin wryns
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
