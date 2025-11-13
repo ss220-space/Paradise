@@ -48,7 +48,6 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("На дисплее состояния отображается: Выработка электроэнергии составляет [span_bold("[input_power_multiplier*100]")]%.<br>Интервал между ударами составляет [span_bold("[zap_cooldown*0.1]")] секунд.")
 
-
 /obj/machinery/power/tesla_coil/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -65,7 +64,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/power/tesla_coil/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -145,7 +143,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
-
 /obj/machinery/power/grounding_rod/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -154,7 +151,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/power/grounding_rod/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

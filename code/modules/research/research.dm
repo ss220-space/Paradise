@@ -66,8 +66,6 @@ research holder datum.
 		possible_designs += new D(src)
 	RefreshResearch()
 
-
-
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(datum/tech/T)
@@ -168,7 +166,6 @@ research holder datum.
 		other.AddDesign2Known(D)
 	other.RefreshResearch()
 
-
 //Autolathe files
 /datum/research/autolathe
 
@@ -229,7 +226,6 @@ research holder datum.
 	var/max_level = 1          // Maximum level this can be at (for job objectives)
 	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
 	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
-
 
 //Trunk Technologies (don't require any other techs and you start knowning them).
 

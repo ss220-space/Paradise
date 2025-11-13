@@ -81,9 +81,9 @@
 	)
 
 	autohiss_basic_map = list(
-			"r" = list("r", "rr", "rrr"),
-			"р" = list("р", "рр", "ррр")
-		)
+		"r" = list("r", "rr", "rrr"),
+		"р" = list("р", "рр", "ррр"),
+	)
 	autohiss_exempt = list("Канилунц")
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)

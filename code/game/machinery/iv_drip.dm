@@ -14,7 +14,6 @@
 		return
 	return PROCESS_KILL
 
-
 /obj/machinery/iv_drip/update_overlays()
 	. = ..()
 	if(bag)
@@ -23,7 +22,6 @@
 			var/image/filling = image('icons/goonstation/objects/iv.dmi', src, "hangingbag-fluid")
 			filling.icon += mix_color_from_reagents(bag.reagents.reagent_list)
 			. += filling
-
 
 /obj/machinery/iv_drip/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !ishuman(usr) || !ishuman(over_object) || !Adjacent(over_object) || !usr.Adjacent(over_object))
@@ -36,7 +34,6 @@
 	bag.attack(over_object, usr)
 	START_PROCESSING(SSmachines, src)
 
-
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
 		add_fingerprint(user)
@@ -45,7 +42,6 @@
 		bag.update_icon(UPDATE_OVERLAYS)
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -70,7 +66,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/iv_drip/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

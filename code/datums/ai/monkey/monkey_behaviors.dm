@@ -107,8 +107,8 @@
 						success = TRUE
 						break
 				else
-					victim.visible_message(span_danger("[living_pawn] пыта[pluralize_ru(living_pawn.gender,"ется","ются")] украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[pluralize_ru(living_pawn.gender,"ется","ются")]!"),
-						span_userdanger("[living_pawn] пыта[pluralize_ru(living_pawn.gender,"ется","ются")] украсть [target.declent_ru(ACCUSATIVE)]!")
+					victim.visible_message(span_danger("[living_pawn] пыта[PLUR_ET_YUT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[PLUR_ET_YUT(living_pawn)]ся!"),
+						span_userdanger("[living_pawn] пыта[PLUR_ET_YUT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)]!")
 					)
 
 	finish_action(controller, success) //We either fucked up or got the item.
@@ -299,5 +299,4 @@
 		enemies[your_enemy] = MONKEY_RECRUIT_HATED_AMOUNT
 		monkey_ai.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] = world.time + MONKEY_RECRUIT_COOLDOWN
 	finish_action(controller, TRUE)
-
 

@@ -34,7 +34,6 @@
 	if(client)
 		remove_from_current_dead_players()
 
-
 ///Adds the cliented mob reference to the list of all player-mobs, besides to either the of dead or alive player-mob lists, as appropriate. Called on Login().
 /mob/proc/add_to_player_list()
 	SHOULD_CALL_PARENT(TRUE)
@@ -54,7 +53,6 @@
 		remove_from_current_dead_players()
 	else
 		remove_from_current_living_players()
-
 
 ///Adds the cliented mob reference to either the list of dead player-mobs or to the list of observers, depending on how they joined the game.
 /mob/proc/add_to_current_dead_players()
@@ -78,7 +76,6 @@
 		GLOB.current_observers_list -= src
 		return
 	return ..()
-
 
 ///Adds the cliented mob reference to the list of living player-mobs. If the mob is an antag, it adds it to the list of living antag player-mobs.
 /mob/proc/add_to_current_living_players()

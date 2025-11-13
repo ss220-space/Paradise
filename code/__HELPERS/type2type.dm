@@ -323,7 +323,6 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 
 	return finalNum
 
-
 /// heat2color functions. Adapted from: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
 /proc/heat2color(temp)
 	return rgb(heat2color_r(temp), heat2color_g(temp), heat2color_b(temp))

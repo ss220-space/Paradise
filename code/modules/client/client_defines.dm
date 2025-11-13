@@ -77,7 +77,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
@@ -242,6 +241,9 @@
 	var/list/ViewMods = list()
 	var/ViewModsActive = FALSE
 	var/ViewPreferedIconSize = 0
+
+	///these persist between logins/logouts during the same round.
+	var/datum/persistent_client/persistent_client
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

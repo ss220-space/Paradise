@@ -50,7 +50,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(target.client)
 		target.client.images |= current_image
 
-
 /obj/effect/hallucination/simple/Destroy()
 	if(target.client)
 		target.client.images.Remove(current_image)
@@ -267,7 +266,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	var/image/fakebroken
 	var/image/fakerune
 
-
 /obj/effect/hallucination/oh_yeah/New(loc, mob/living/carbon/C)
 	set waitfor = FALSE
 	..()
@@ -330,7 +328,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(s)
 		QDEL_NULL(s)
 	. = ..()
-
 
 /obj/effect/hallucination/singularity_scare/New(loc, mob/living/carbon/T)
 	. = ..()
@@ -449,7 +446,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				break
 	qdel(src)
 
-
 /obj/effect/hallucination/delusion
 	var/list/image/delusions = list()
 
@@ -518,7 +514,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			delusions |= A
 			target.client.images |= A
 	QDEL_IN(src, duration)
-
 
 /obj/effect/hallucination/delusion/Destroy()
 	for(var/image/I in delusions)
@@ -658,7 +653,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		QDEL_NULL(down)
 	. = ..()
 
-
 /obj/effect/fake_attacker/attackby(obj/item/I, mob/user, params)
 	. = ATTACK_CHAIN_PROCEED
 	if(!my_target)
@@ -673,7 +667,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	)
 	health -= I.force
 
-
 /obj/effect/fake_attacker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -683,7 +676,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	step_away(src, my_target, 2)
 	if(prob(30))
 		my_target.visible_message(span_danger("[my_target] stumbles around."))
-
 
 /obj/effect/fake_attacker/proc/updateimage()
 //	qdel(src.currentimage)
@@ -701,7 +693,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			qdel(currentimage)
 			currentimage = new /image(left, src)
 	my_target << currentimage
-
 
 /obj/effect/fake_attacker/proc/attack_loop()
 	while(1)
@@ -794,7 +785,6 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/bolts/Destroy(force)
 	QDEL_LIST(doors)
 	. = ..()
-
 
 /obj/effect/hallucination/whispers
 
@@ -1139,7 +1129,6 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						client.images += halbody
 					addtimer(CALLBACK(src, PROC_REF(clear_halbody), rand(30, 50)))
 
-
 /mob/living/proc/clear_halbody()
 	if(!halbody)
 		return
@@ -1147,14 +1136,12 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		client.images -= halbody
 	QDEL_NULL(halbody)
 
-
 /mob/living/proc/clear_halimage()
 	if(!halimage)
 		return
 	if(client)
 		client.images -= halimage
 	QDEL_NULL(halimage)
-
 
 /mob/living/proc/clear_halitem()
 	if(!halitem)

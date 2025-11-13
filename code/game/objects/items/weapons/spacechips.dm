@@ -13,7 +13,6 @@
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacechips
 
-
 /obj/item/stack/spacechips/update_icon_state()//changes icon depending on the amount of chips
 	name = "[amount == max_amount ? "1000000" : amount] Chip[amount > 1 ? "s" : ""]"
 	if(amount >= 1 && amount <= 20)
@@ -28,7 +27,6 @@
 		icon_state = "c500"
 	else
 		icon_state = "c1000"
-
 
 /obj/item/stack/spacechips/c10
 	amount = 10

@@ -68,7 +68,6 @@
 	if(!skip_qdel)
 		qdel(src)
 
-
 /obj/effect/overload
 	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"

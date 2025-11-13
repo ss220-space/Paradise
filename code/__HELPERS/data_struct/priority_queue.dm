@@ -46,7 +46,6 @@
 		swap(index, parent)
 		index = parent
 
-
 /priority_queue/proc/bubble_down(index)
 	while(index * 2 <= length(heap))
 		var/child = index * 2
@@ -60,12 +59,10 @@
 		swap(index, child)
 		index = child
 
-
 /priority_queue/proc/swap(a, b)
 	var/list/temp = heap[a]
 	heap[a] = heap[b]
 	heap[b] = temp
-
 
 /priority_queue/Destroy(force)
 	..()

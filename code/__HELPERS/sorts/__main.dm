@@ -30,7 +30,6 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 	var/list/runBases = list()
 	var/list/runLens = list()
 
-
 /datum/sortInstance/proc/timSort(start, end)
 	runBases.Cut()
 	runLens.Cut()
@@ -70,7 +69,6 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 		remaining -= runLen
 
 	while(remaining > 0)
-
 
 		//Merge all remaining runs to complete sort
 	//ASSERT(start == end)
@@ -191,7 +189,6 @@ reverse a descending sequence without violating stability.
 		else
 			break	//Invariant is established
 
-
 //Merges all runs on the stack until only one remains.
 //Called only once, to finalise the sort
 /datum/sortInstance/proc/mergeForceCollapse()
@@ -200,7 +197,6 @@ reverse a descending sequence without violating stability.
 		if(n > 1 && runLens[n - 1] < runLens[n + 1])
 			--n
 		mergeAt(n)
-
 
 //Merges the two consecutive runs at stack indices i and i+1
 //Run i must be the penultimate or antepenultimate run on the stack
@@ -224,7 +220,6 @@ reverse a descending sequence without violating stability.
 	runLens.Cut(i + 1, i + 2)
 	runBases.Cut(i + 1, i + 2)
 
-
 	//Find where the first element of run2 goes in run1.
 	//Prior elements in run1 can be ignored (because they're already in place)
 	var/k = gallopRight(fetchElement(L, base2), base1, len1, 0)
@@ -246,7 +241,6 @@ reverse a descending sequence without violating stability.
 		mergeLo(base1, len1, base2, len2)
 	else
 		mergeHi(base1, len1, base2, len2)
-
 
 /*
 	Locates the position to insert key within the specified sorted range
@@ -365,7 +359,6 @@ reverse a descending sequence without violating stability.
 
 	return offset
 
-
 //Merges two adjacent runs in-place in a stable fashion.
 //For performance this method should only be called when len1 <= len2!
 /datum/sortInstance/proc/mergeLo(base1, len1, base2, len2)
@@ -383,7 +376,6 @@ reverse a descending sequence without violating stability.
 	if(len1 == 1)
 		moveElement(L, cursor1, cursor2 + len2)
 		return
-
 
 	//Move first element of second run
 	moveElement(L, cursor2++, cursor1++)
@@ -417,7 +409,6 @@ reverse a descending sequence without violating stability.
 						break outer
 
 			while((count1 | count2) < minGallop)
-
 
 			//one run is winning consistently so galloping may provide huge benifits
 			//so try galloping, until such time as the run is no longer consistently winning
@@ -461,7 +452,6 @@ reverse a descending sequence without violating stability.
 				minGallop = 0
 			minGallop += 2;  // Penalize for leaving gallop mode
 
-
 	if(len1 == 1)
 		//ASSERT(len2 > 0)
 		moveElement(L, cursor1, cursor2 + len2)
@@ -469,7 +459,6 @@ reverse a descending sequence without violating stability.
 	//else
 		//ASSERT(len2 == 0)
 		//ASSERT(len1 > 1)
-
 
 /datum/sortInstance/proc/mergeHi(base1, len1, base2, len2)
 	//ASSERT(len1 > 0 && len2 > 0 && base1 + len1 == base2)
@@ -571,7 +560,6 @@ reverse a descending sequence without violating stability.
 		//ASSERT(len1 == 0)
 		//ASSERT(len2 > 0)
 
-
 /datum/sortInstance/proc/mergeSort(start, end)
 	var/remaining = end - start
 
@@ -641,7 +629,6 @@ reverse a descending sequence without violating stability.
 			++cursor1
 
 			val2 = fetchElement(L, cursor2)
-
 
 	//Record the legth of the combined runs. If i is the 3rd last run now, also slide over the last run
 	//(which isn't involved in this merge). The current run (i+1) goes away in any case.

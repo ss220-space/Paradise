@@ -28,7 +28,6 @@
 	target = null
 	return ..()
 
-
 /obj/machinery/atmospherics/meter/update_icon_state()
 	if(!target)
 		icon_state = "meterX"
@@ -57,7 +56,6 @@
 		icon_state = "meter3_[val]"
 	else
 		icon_state = "meter4"
-
 
 /obj/machinery/atmospherics/meter/process_atmos()
 	if(!target || (stat & (BROKEN|NOPOWER)))
@@ -88,7 +86,6 @@
 		"sigtype" = "status",
 	)
 	radio_connection.post_signal(src, signal)
-
 
 /obj/machinery/atmospherics/meter/proc/status()
 	var/t = ""
@@ -126,12 +123,10 @@
 
 	return ..()
 
-
 /obj/machinery/atmospherics/meter/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/pipe_meter(loc)
 	qdel(src)
-
 
 /obj/machinery/atmospherics/meter/singularity_pull(S, current_size)
 	..()

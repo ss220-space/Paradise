@@ -338,7 +338,6 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-
 /obj/item/clothing/suit/space/space_ninja/proc/start()
 	if(!s_initialized)
 		START_PROCESSING(SSfastprocess, src)

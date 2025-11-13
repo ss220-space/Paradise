@@ -5,7 +5,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	empty_region(block(low_x, low_y, z, hi_x, hi_y, z))
 	log_debug("Took [stop_watch(timer)]s")
 
-
 /proc/empty_region(list/turfs)
 	for(var/thing in turfs)
 		var/turf/T = thing
@@ -44,7 +43,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	for(var/level in map_z_levels)
 		smooth_zlevel(level)
 	log_startup_progress_global("Mapping", "Away mission loaded in [stop_watch(watch)]s.")
-
 
 /proc/generateMapList(filename)
 	var/list/potentialMaps = list()

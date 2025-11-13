@@ -64,7 +64,6 @@
 #define APC_ELECTRONICS_INSTALLED 1
 #define APC_ELECTRONICS_SECURED 2
 
-
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
 
@@ -72,9 +71,7 @@
 // may be opened to change power cell
 // three different channels (lighting/equipment/environ) - may each be set to on, off, or auto
 
-
 //NOTE: STUFF STOLEN FROM AIRLOCK.DM thx
-
 
 /obj/machinery/power/apc
 	name = "area power controller"
@@ -193,7 +190,6 @@
 	var/global/list/status_overlays_environ
 	var/keep_preset_name = FALSE
 
-
 /obj/machinery/power/apc/worn_out
 	name = "Worn out APC"
 	keep_preset_name = TRUE
@@ -308,7 +304,6 @@
 
 	cog = null // Or you can't put it in
 
-
 	update_icon()
 
 	make_terminal()
@@ -340,7 +335,6 @@
 				. += span_notice("The cover is closed.")
 	if(cog && isclocker(user))
 		. += span_clock("There is an integration cog installed!")
-
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
@@ -417,7 +411,6 @@
 	if(force_update || (update & 2))
 		..(UPDATE_OVERLAYS)
 
-
 /obj/machinery/power/apc/update_icon_state()
 	if(update_state & UPSTATE_ALLGOOD)
 		icon_state = "apc0"
@@ -436,7 +429,6 @@
 		icon_state = "apcemag"
 	else if(update_state & UPSTATE_WIREEXP)
 		icon_state = "apcewires"
-
 
 /obj/machinery/power/apc/update_overlays()
 	. = ..()
@@ -468,7 +460,6 @@
 	underlays += emissive_appearance(icon, statover_equip.icon_state, src)
 	underlays += emissive_appearance(icon, statover_light.icon_state, src)
 	underlays += emissive_appearance(icon, statover_envir.icon_state, src)
-
 
 /obj/machinery/power/apc/proc/check_updates()
 
@@ -536,7 +527,6 @@
 		results += 2
 	return results
 
-
 // Used in process so it doesn't update the icon too much
 /obj/machinery/power/apc/proc/queue_icon_update()
 
@@ -545,11 +535,9 @@
 		// Start the update
 		addtimer(CALLBACK(src, PROC_REF(queue_icon_callback)), APC_UPDATE_ICON_COOLDOWN)
 
-
 /obj/machinery/power/apc/proc/queue_icon_callback()
 	update_icon()
 	updating_icon = FALSE
-
 
 /obj/machinery/power/apc/flicker(second_pass = FALSE)
 	if(opened || panel_open)
@@ -570,7 +558,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 1 SECONDS)
 
 	return TRUE
-
 
 /obj/machinery/power/apc/attackby(obj/item/I, mob/living/user, params)
 	if(issilicon(user) && get_dist(src, user) > 1)
@@ -802,13 +789,11 @@
 	togglelock(H)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
 	if(!can_use(user) || is_locked(user))
 		return
 	toggle_breaker(user)
-
 
 /obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -908,7 +893,6 @@
 		to_chat(user, "The wires have been [panel_open ? "exposed" : "unexposed"]")
 		update_icon()
 
-
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -924,7 +908,6 @@
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)
-
 
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(emagged)
@@ -947,7 +930,6 @@
 	update_icon()
 	return TRUE
 
-
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)
 		return damage_amount
@@ -957,10 +939,8 @@
 	if(!(obj_flags & NODECONSTRUCT))
 		set_broken()
 
-
 /obj/machinery/power/apc/proc/has_electronics()
 	return electronics_state != APC_ELECTRONICS_NONE
-
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -1055,7 +1035,6 @@
 
 	return ui_interact(user)
 
-
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return FALSE
@@ -1142,7 +1121,6 @@
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment_channel]/[lighting_channel]/[environment_channel] ([last_used_equipment+last_used_lighting+last_used_environment]) : [cell? cell.percent() : "N/C"] ([charging])"
 
-
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted)
 		area.power_light = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
@@ -1162,12 +1140,10 @@
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	area.power_change()
 
-
 /obj/machinery/power/apc/proc/turn_emergency_power_off()
 	emergency_power = FALSE
 	for(var/obj/machinery/light as anything in area.lights_cache)
 		INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
-
 
 /obj/machinery/power/apc/proc/can_use(mob/user) //used by attack_hand() and Topic()
 	if(stat & BROKEN)
@@ -1282,7 +1258,6 @@
 				INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 				CHECK_TICK
 
-
 /obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	operating = !operating
 	update()
@@ -1376,7 +1351,6 @@
 				for(var/mob/M in viewers(src))
 					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, span_danger("You hear sizzling electronics."), 2)
 
-
 /obj/machinery/power/apc/surplus()
 	if(terminal)
 		return terminal.surplus()
@@ -1436,7 +1410,6 @@
 										// by the same amount just used
 			cell.give(cellused)
 			add_load(cellused/GLOB.CELLRATE)		// add the load used to recharge the cell
-
 
 		else		// no excess, and not enough per-apc
 			if((cell.charge/GLOB.CELLRATE + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
@@ -1520,7 +1493,6 @@
 
 	handle_flicker()
 
-
 /obj/machinery/power/apc/proc/handle_autoflag()
 	if(cell.charge >= 1250 || longtermpower > 0)	// Put most likely at the top so we don't check it last, efficiency 101
 		if(autoflag != APC_AUTOFLAG_ALL_ON)
@@ -1559,7 +1531,6 @@
 				area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_ALL_OFF
 
-
 /// Handles APC arc'ing every APC process interval
 /obj/machinery/power/apc/proc/handle_shock_chance(excess = 0)
 	if(excess < 2500000)
@@ -1579,7 +1550,6 @@
 			playsound(get_turf(victim), 'sound/effects/eleczap.ogg', 75, TRUE)
 			Beam(victim, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 
-
 /obj/machinery/power/apc/proc/handle_flicker()
 	if(prob(MACHINE_FLICKER_CHANCE))
 		flicker()
@@ -1588,7 +1558,6 @@
 	if(prob(MACHINE_FLICKER_CHANCE) * 3)
 		var/obj/machinery/light/picked_light = safepick(area.lights_cache)
 		picked_light?.flicker()
-
 
 /obj/machinery/power/apc/proc/autoset(current_setting, new_setting)
 	switch(new_setting)
@@ -1608,7 +1577,6 @@
 
 	return current_setting	//if setting is not changed, just keep current setting
 
-
 // damage and destruction acts
 
 /obj/machinery/power/apc/emp_act(severity)
@@ -1624,13 +1592,11 @@
 	addtimer(CALLBACK(src, PROC_REF(emp_callback)), 60 SECONDS)
 	..()
 
-
 /obj/machinery/power/apc/proc/emp_callback()
 	equipment_channel = CHANNEL_SETTING_AUTO_ON
 	environment_channel = CHANNEL_SETTING_AUTO_ON
 	update_icon()
 	update()
-
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()

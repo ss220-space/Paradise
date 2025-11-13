@@ -211,5 +211,5 @@
 /obj/mecha/proc/occupant_message(message as text)
 	if(message)
 		if(occupant?.client)
-			to_chat(occupant, "[bicon(src)] [message]")
+			to_chat(occupant, "[icon2html(src, occupant)] [message]")
 	return

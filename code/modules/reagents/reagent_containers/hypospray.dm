@@ -24,7 +24,7 @@
 		DATIVE = "гипоспрею",
 		ACCUSATIVE = "гипоспрей",
 		INSTRUMENTAL = "гипоспреем",
-		PREPOSITIONAL = "гипоспрее"
+		PREPOSITIONAL = "гипоспрее",
 	)
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -55,12 +55,11 @@
 	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
 	if(safety_hypo)
-		visible_message(span_warning("[user] вкалыва[pluralize_ru(user.gender, "ет", "ют")] [target] <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества \"[primary_reagent_name]\"."))
+		visible_message(span_warning("[user] вкалыва[PLUR_ET_YUT(user)] [target] <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества \"[primary_reagent_name]\"."))
 		playsound(loc, 'sound/goonstation/items/hypo.ogg', 80)
 
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
@@ -74,7 +73,6 @@
 				to_chat(loc, span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
 			else
 				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
-
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
@@ -100,7 +98,7 @@
 		DATIVE = "медицинскому гипоспрею",
 		ACCUSATIVE = "медицинский гипоспрей",
 		INSTRUMENTAL = "медицинским гипоспреем",
-		PREPOSITIONAL = "медицинском гипоспрее"
+		PREPOSITIONAL = "медицинском гипоспрее",
 	)
 
 /obj/item/reagent_containers/hypospray/safety/proc/update_state()
@@ -109,7 +107,6 @@
 	if(paint_color)
 		var/icon/hypo_mask = icon('icons/obj/hypo.dmi', color_overlay)
 		add_filter("hypospray_handle", 1, layering_filter(icon = hypo_mask, color = paint_color))
-
 
 /obj/item/reagent_containers/hypospray/safety/update_icon_state()
 	icon_state = paint_color ? "whitehypo" : "medivend_hypo"
@@ -156,7 +153,7 @@
 		DATIVE = "улучшенному медицинскому гипоспрею",
 		ACCUSATIVE = "улучшенный медицинский гипоспрей",
 		INSTRUMENTAL = "улучшенным медицинским гипоспреем",
-		PREPOSITIONAL = "улучшенном медицинском гипоспрее"
+		PREPOSITIONAL = "улучшенном медицинском гипоспрее",
 	)
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/update_icon_state()
@@ -176,7 +173,7 @@
 		DATIVE = "медицинскому гипоспрею (Омнизин)",
 		ACCUSATIVE = "медицинский гипоспрей (Омнизин)",
 		INSTRUMENTAL = "медицинским гипоспреем (Омнизин)",
-		PREPOSITIONAL = "медицинском гипоспрее (Омнизин)"
+		PREPOSITIONAL = "медицинском гипоспрее (Омнизин)",
 	)
 
 /obj/item/reagent_containers/hypospray/CMO
@@ -192,7 +189,7 @@
 		DATIVE = "гипоспрею Главного Врача",
 		ACCUSATIVE = "гипоспрей Главного Врача",
 		INSTRUMENTAL = "гипоспреем Главного Врача",
-		PREPOSITIONAL = "гипоспрее Главного Врача"
+		PREPOSITIONAL = "гипоспрее Главного Врача",
 	)
 
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
@@ -219,7 +216,7 @@
 		DATIVE = "боевому инъектору",
 		ACCUSATIVE = "боевой инъектор",
 		INSTRUMENTAL = "боевым инъектором",
-		PREPOSITIONAL = "боевом инъекторе"
+		PREPOSITIONAL = "боевом инъекторе",
 	)
 
 /obj/item/reagent_containers/hypospray/ertm
@@ -242,7 +239,7 @@
 		DATIVE = "боевому инъектору (Гидрокодон)",
 		ACCUSATIVE = "боевой инъектор (Гидрокодон)",
 		INSTRUMENTAL = "боевым инъектором (Гидрокодон)",
-		PREPOSITIONAL = "боевом инъекторе (Гидрокодон)"
+		PREPOSITIONAL = "боевом инъекторе (Гидрокодон)",
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/perfluorodecalin
@@ -259,7 +256,7 @@
 		DATIVE = "боевому инъектору (Перфтодекалин)",
 		ACCUSATIVE = "боевой инъектор (Перфтодекалин)",
 		INSTRUMENTAL = "боевым инъектором (Перфтодекалин)",
-		PREPOSITIONAL = "боевом инъекторе (Перфтодекалин)"
+		PREPOSITIONAL = "боевом инъекторе (Перфтодекалин)",
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/pentic_acid
@@ -275,7 +272,7 @@
 		DATIVE = "боевому инъектору (Пентетовая кислота)",
 		ACCUSATIVE = "боевой инъектор (Пентетовая кислота)",
 		INSTRUMENTAL = "боевым инъектором (Пентетовая кислота)",
-		PREPOSITIONAL = "боевом инъекторе (Пентетовая кислота)"
+		PREPOSITIONAL = "боевом инъекторе (Пентетовая кислота)",
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/epinephrine
@@ -291,7 +288,7 @@
 		DATIVE = "боевому инъектору (Эпинефрин)",
 		ACCUSATIVE = "боевой инъектор (Эпинефрин)",
 		INSTRUMENTAL = "боевым инъектором (Эпинефрин)",
-		PREPOSITIONAL = "боевом инъекторе (Эпинефрин)"
+		PREPOSITIONAL = "боевом инъекторе (Эпинефрин)",
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/mannitol
@@ -307,7 +304,7 @@
 		DATIVE = "боевому инъектору (Маннитол)",
 		ACCUSATIVE = "боевой инъектор (Маннитол)",
 		INSTRUMENTAL = "боевым инъектором (Маннитол)",
-		PREPOSITIONAL = "боевом инъекторе (Маннитол)"
+		PREPOSITIONAL = "боевом инъекторе (Маннитол)",
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/oculine
@@ -323,7 +320,7 @@
 		DATIVE = "боевому инъектору (Окулин)",
 		ACCUSATIVE = "боевой инъектор (Окулин)",
 		INSTRUMENTAL = "боевым инъектором (Окулин)",
-		PREPOSITIONAL = "боевом инъекторе (Окулин)"
+		PREPOSITIONAL = "боевом инъекторе (Окулин)",
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/omnisal
@@ -341,7 +338,7 @@
 		DATIVE = "боевому инъектору (Разб. омнизин + Физраствор)",
 		ACCUSATIVE = "боевой инъектор (Разб. омнизин + Физраствор)",
 		INSTRUMENTAL = "боевым инъектором (Разб. омнизин + Физраствор)",
-		PREPOSITIONAL = "боевом инъекторе (Разб. омнизин + Физраствор)"
+		PREPOSITIONAL = "боевом инъекторе (Разб. омнизин + Физраствор)",
 	)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
@@ -356,7 +353,7 @@
 		DATIVE = "боевому инъектору (Боевые наниты)",
 		ACCUSATIVE = "боевой инъектор (Боевые наниты)",
 		INSTRUMENTAL = "боевым инъектором (Боевые наниты)",
-		PREPOSITIONAL = "боевом инъекторе (Боевые наниты)"
+		PREPOSITIONAL = "боевом инъекторе (Боевые наниты)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector
@@ -388,7 +385,7 @@
 		DATIVE = "аварийному автоинъектору",
 		ACCUSATIVE = "аварийный автоинъектор",
 		INSTRUMENTAL = "аварийным автоинъектором",
-		PREPOSITIONAL = "аварийном автоинъекторе"
+		PREPOSITIONAL = "аварийном автоинъекторе",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
@@ -416,7 +413,6 @@
 			base_state = initial(icon_state)
 
 	icon_state = "[base_state][spent ? "0" : ""]"
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/I, mob/user, params)
 	if(!reskin_allowed)
@@ -458,7 +454,6 @@
 
 	return ..()
 
-
 /obj/item/reagent_containers/hypospray/autoinjector/proc/check_reskin(mob/living/user)
 	if(user.incapacitated())
 		return FALSE
@@ -466,11 +461,9 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/reagent_containers/hypospray/autoinjector/empty()
 	set hidden = TRUE
 	return
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!reagents.total_volume || spent)
@@ -484,7 +477,6 @@
 		spent = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, 'sound/effects/stimpak.ogg', 35, TRUE)
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
@@ -515,7 +507,7 @@
 		DATIVE = "зловещему зелёному инъектору",
 		ACCUSATIVE = "зловещий зелёный инъектор",
 		INSTRUMENTAL = "зловещим зелёным инъектором",
-		PREPOSITIONAL = "зловещем зелёном инъекторе"
+		PREPOSITIONAL = "зловещем зелёном инъекторе",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno
@@ -531,7 +523,7 @@
 		DATIVE = "зловещему фиолетовому инъектору",
 		ACCUSATIVE = "зловещий фиолетовый инъектор",
 		INSTRUMENTAL = "зловещим фиолетовым инъектором",
-		PREPOSITIONAL = "зловещем фиолетовом инъекторе"
+		PREPOSITIONAL = "зловещем фиолетовом инъекторе",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
@@ -547,9 +539,8 @@
 		DATIVE = "автоинъектору (Тепорон)",
 		ACCUSATIVE = "автоинъектор (Тепорон)",
 		INSTRUMENTAL = "автоинъектором (Тепорон)",
-		PREPOSITIONAL = "автоинъекторе (Тепорон)"
+		PREPOSITIONAL = "автоинъекторе (Тепорон)",
 	)
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/traneksam
 	name = "traneksam acid autoinjector"
@@ -564,7 +555,7 @@
 		DATIVE = "автоинъектору (Транексамовая кислота)",
 		ACCUSATIVE = "автоинъектор (Транексамовая кислота)",
 		INSTRUMENTAL = "автоинъектором (Транексамовая кислота)",
-		PREPOSITIONAL = "автоинъекторе (Транексамовая кислота)"
+		PREPOSITIONAL = "автоинъекторе (Транексамовая кислота)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/neuromatin
@@ -582,9 +573,8 @@
 		DATIVE = "автоинъектору (Нейроматин)",
 		ACCUSATIVE = "автоинъектор (Нейроматин)",
 		INSTRUMENTAL = "автоинъектором (Нейроматин)",
-		PREPOSITIONAL = "автоинъекторе (Нейроматин)"
+		PREPOSITIONAL = "автоинъекторе (Нейроматин)",
 	)
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
@@ -601,7 +591,7 @@
 		DATIVE = "автоинъектору (Стим-пак)",
 		ACCUSATIVE = "автоинъектор (Стим-пак)",
 		INSTRUMENTAL = "автоинъектором (Стим-пак)",
-		PREPOSITIONAL = "автоинъекторе (Стим-пак)"
+		PREPOSITIONAL = "автоинъекторе (Стим-пак)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
@@ -619,7 +609,7 @@
 		DATIVE = "автоинъектору (Стимуляторы)",
 		ACCUSATIVE = "автоинъектор (Стимуляторы)",
 		INSTRUMENTAL = "автоинъектором (Стимуляторы)",
-		PREPOSITIONAL = "автоинъекторе (Стимуляторы)"
+		PREPOSITIONAL = "автоинъекторе (Стимуляторы)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
@@ -638,7 +628,7 @@
 		DATIVE = "автоинъектору выживания",
 		ACCUSATIVE = "автоинъектор выживания",
 		INSTRUMENTAL = "автоинъектором выживания",
-		PREPOSITIONAL = "автоинъекторе выживания"
+		PREPOSITIONAL = "автоинъекторе выживания",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury
@@ -656,7 +646,7 @@
 		DATIVE = "улучшенному автоинъектору выживания",
 		ACCUSATIVE = "улучшенный автоинъектор выживания",
 		INSTRUMENTAL = "улучшенным автоинъектором выживания",
-		PREPOSITIONAL = "улучшенном автоинъекторе выживания"
+		PREPOSITIONAL = "улучшенном автоинъекторе выживания",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -670,7 +660,6 @@
 
 	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.3 //1/3 of the reagents
 	return ..()
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
@@ -687,15 +676,13 @@
 		DATIVE = "экспериментальному автоинъектору (Нано-Кальций)",
 		ACCUSATIVE = "экспериментальный автоинъектор (Нано-Кальций)",
 		INSTRUMENTAL = "экспериментальным автоинъектором (Нано-Кальций)",
-		PREPOSITIONAL = "экспериментальном автоинъекторе (Нано-Кальций)"
+		PREPOSITIONAL = "экспериментальном автоинъекторе (Нано-Кальций)",
 	)
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE)
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade
 	name = "autoinjector"
@@ -714,14 +701,13 @@
 		DATIVE = "самодельному автоинъектору",
 		ACCUSATIVE = "самодельный автоинъектор",
 		INSTRUMENTAL = "самодельным автоинъектором",
-		PREPOSITIONAL = "самодельном автоинъекторе"
+		PREPOSITIONAL = "самодельном автоинъекторе",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		container_type = DRAINABLE
-
 
 /obj/item/reagent_containers/hypospray/autoinjector/salbutamol
 	name = "Salbutamol autoinjector"
@@ -738,7 +724,7 @@
 		DATIVE = "автоинъектору (Сальбутамол)",
 		ACCUSATIVE = "автоинъектор (Сальбутамол)",
 		INSTRUMENTAL = "автоинъектором (Сальбутамол)",
-		PREPOSITIONAL = "автоинъекторе (Сальбутамол)"
+		PREPOSITIONAL = "автоинъекторе (Сальбутамол)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/radium
@@ -754,7 +740,7 @@
 		DATIVE = "автоинъектору (Радий)",
 		ACCUSATIVE = "автоинъектор (Радий)",
 		INSTRUMENTAL = "автоинъектором (Радий)",
-		PREPOSITIONAL = "автоинъекторе (Радий)"
+		PREPOSITIONAL = "автоинъекторе (Радий)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal
@@ -772,5 +758,5 @@
 		DATIVE = "автоинъектору (Активированный уголь)",
 		ACCUSATIVE = "автоинъектор (Активированный уголь)",
 		INSTRUMENTAL = "автоинъектором (Активированный уголь)",
-		PREPOSITIONAL = "автоинъекторе (Активированный уголь)"
+		PREPOSITIONAL = "автоинъекторе (Активированный уголь)",
 	)

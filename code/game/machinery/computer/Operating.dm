@@ -29,7 +29,7 @@
 		DATIVE = "операционному компьютеру",
 		ACCUSATIVE = "операционный компьютер",
 		INSTRUMENTAL = "операционным компьютером",
-		PREPOSITIONAL = "операционном компьютере"
+		PREPOSITIONAL = "операционном компьютере",
 	)
 
 /obj/machinery/computer/operating/Initialize(mapload)
@@ -158,7 +158,6 @@
 	data["oxy"] = oxy
 
 	return data
-
 
 /obj/machinery/computer/operating/ui_act(action, params)
 	if(..())

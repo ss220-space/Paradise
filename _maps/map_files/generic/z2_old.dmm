@@ -2775,13 +2775,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
-"cue" = (
-/obj/structure/table/wood,
-/obj/item/paper/deltainfo,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "cvw" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/stack/spacecash,
@@ -71764,7 +71757,7 @@ noL
 noL
 jPu
 kjq
-cue
+tqu
 vQj
 lUG
 wwc

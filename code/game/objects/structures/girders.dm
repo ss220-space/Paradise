@@ -42,7 +42,6 @@
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
 
-
 /obj/structure/girder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -333,7 +332,6 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/structure/girder/crowbar_act(mob/user, obj/item/I)
 	if(!can_displace || state != GIRDER_NORMAL)
 		return
@@ -428,7 +426,6 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-
 /obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -436,14 +433,12 @@
 	if(checkpass(mover, PASSGRILLE) || isprojectile(mover))
 		return prob(girderpasschance)
 
-
 /obj/structure/girder/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
 	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
 		return TRUE
 	return FALSE
-
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -501,7 +496,6 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
-
 /obj/structure/girder/cult/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -542,7 +536,6 @@
 
 	return ..()
 
-
 /obj/structure/girder/cult_fake/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -582,7 +575,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/girder/cult/narsie_act()
 	return

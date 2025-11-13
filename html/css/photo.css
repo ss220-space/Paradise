@@ -7,7 +7,6 @@ body {
 img {
     max-width: 100%;
     height: auto;
-    -ms-interpolation-mode: nearest-neighbor; /* Remove after 516 */
     image-rendering: pixelated;
 }
 

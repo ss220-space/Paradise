@@ -15,7 +15,6 @@
 	///Whether or not to add variation to the sounds played
 	var/sound_vary = FALSE
 
-
 /datum/element/footstep/Attach(datum/target, footstep_type = FOOTSTEP_MOB_BAREFOOT, volume = 0.5, e_range = -8, sound_vary = FALSE)
 	. = ..()
 	if(!ismovable(target))
@@ -52,12 +51,10 @@
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep)) //Note that this doesn't get called for humans.
 	steps_for_living[target] = 0
 
-
 /datum/element/footstep/Detach(atom/movable/source)
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 	steps_for_living -= source
 	return ..()
-
 
 ///Prepares a footstep. Determines if it should get played. Returns the turf it should get played on. Note that it is always a /turf/simulated/floor (eventually /turf/simulated)
 /datum/element/footstep/proc/prepare_step(mob/living/source)
@@ -95,7 +92,6 @@
 
 	. = list(FOOTSTEP_MOB_SHOE = turf.footstep, FOOTSTEP_MOB_BAREFOOT = turf.barefootstep, FOOTSTEP_MOB_HEAVY = turf.heavyfootstep, FOOTSTEP_MOB_CLAW = turf.clawfootstep)
 
-
 /datum/element/footstep/proc/play_simplestep(mob/living/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
@@ -115,7 +111,6 @@
 		return
 
 	playsound(source.loc, pick(footstep_sounds[turf_footstep][1]), footstep_sounds[turf_footstep][2] * volume, TRUE, footstep_sounds[turf_footstep][3] + e_range, falloff_distance = 1, vary = sound_vary)
-
 
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
@@ -157,7 +152,6 @@
 					bare_footstep_sounds[barefoot_type][2] * volume,
 					TRUE,
 					bare_footstep_sounds[barefoot_type][3] + e_range, falloff_distance = 1, vary = sound_vary)
-
 
 ///Prepares a footstep for machine walking
 /datum/element/footstep/proc/play_simplestep_machine(atom/movable/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)

@@ -11,7 +11,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
 
@@ -112,7 +112,7 @@
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/internal/extract_organ/synth,
 		/datum/surgery_step/internal/gland_insert,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = FALSE

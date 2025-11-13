@@ -9,7 +9,6 @@
 	origin_tech = "biotech=2"
 	holder_flags = HUMAN_HOLDER
 
-
 /obj/item/holder/New()
 	..()
 	START_PROCESSING(SSobj, src)
@@ -30,12 +29,10 @@
 
 		qdel(src)
 
-
 /obj/item/holder/attackby(obj/item/I, mob/user, params)
 	for(var/mob/living/animal in contents)
 		return animal.attackby(I, user, params)
 	return ..()
-
 
 /obj/item/holder/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user && ishuman(user))	//eating holder
@@ -44,7 +41,6 @@
 				qdel(src)
 				return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
@@ -119,7 +115,7 @@
 		H.desc = desc
 	H.attack_hand(grabber)
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
+	to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	switch(mob_size)

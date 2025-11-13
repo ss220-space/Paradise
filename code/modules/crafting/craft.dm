@@ -83,7 +83,6 @@
 	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
 		. += user.get_item_by_slot(slot)
 
-
 /proc/get_surroundings(mob/user)
 	. = list()
 	.["other"] = list() //paths go in here
@@ -391,7 +390,6 @@
 	if(islist(subcategories[viewing_category]))
 		var/list/subs = subcategories[viewing_category]
 		. = viewing_subcategory % length(subs) + 1
-
 
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)

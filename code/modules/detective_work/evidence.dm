@@ -13,12 +13,10 @@
 		return
 	evidencebagEquip(I, user)
 
-
 /obj/item/evidencebag/attackby(obj/item/I, mob/user, params)
 	if(evidencebagEquip(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)	// this shit is bad
 	if(!istype(I) || I.anchored == 1)

@@ -10,11 +10,9 @@
 	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_data = /datum/implant_fluff/exile
 
-
 /obj/item/implanter/exile
 	name = "bio-chip implanter (exile)"
 	imp = /obj/item/implant/exile
-
 
 /obj/item/implantcase/exile
 	name = "bio-chip case - 'Exile'"

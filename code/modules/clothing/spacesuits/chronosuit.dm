@@ -13,11 +13,9 @@
 		suit.deactivate()
 	. = ..()
 
-
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
 	suit?.deactivate()
 	return ..()
-
 
 /obj/item/clothing/suit/space/chronos
 	name = "Chronosuit"
@@ -33,7 +31,6 @@
 	var/activated = 0
 	var/cooldowntime = 50 //deciseconds
 	var/teleporting = 0
-
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)
 	if(camera)
@@ -176,7 +173,6 @@
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
 		activating = 0
-
 
 /obj/effect/chronos_cam
 	name = "Chronosuit View"

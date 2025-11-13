@@ -64,7 +64,6 @@
 	tastes = list("tofu" = 1)
 	foodtype = VEGETABLES
 
-
 //////////////////////
 //		Salads		//
 //////////////////////

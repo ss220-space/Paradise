@@ -139,7 +139,6 @@
 				Dispense(/obj/item/storage/firstaid_abductor)
 	updateUsrDialog()
 
-
 /obj/machinery/abductor/console/proc/TeleporterRetrieve()
 	if(pad && gizmo?.marked)
 		pad.Retrieve(gizmo.marked)
@@ -166,7 +165,6 @@
 	if(pad)
 		pad.teleport_target = location
 		to_chat(user, span_notice("Location marked as test subject release point."))
-
 
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 
@@ -220,7 +218,6 @@
 	vest = V
 	return TRUE
 
-
 /obj/machinery/abductor/console/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -242,7 +239,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)

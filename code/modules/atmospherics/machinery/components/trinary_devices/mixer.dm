@@ -39,7 +39,6 @@
 	icon_state = "mmap"
 	flipped = 1
 
-
 /obj/machinery/atmospherics/trinary/mixer/proc/set_max()
 	if(powered())
 		target_pressure = MAX_OUTPUT_PRESSURE
@@ -186,8 +185,6 @@
 	)
 	return data
 
-
-
 /obj/machinery/atmospherics/trinary/mixer/ui_act(action, list/params)
 	if(..())
 		return
@@ -223,7 +220,6 @@
 			. = TRUE
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
-
 
 /obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/I, mob/user, params)
 	. = ..()

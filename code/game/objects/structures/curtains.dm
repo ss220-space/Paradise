@@ -8,12 +8,10 @@
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
 
-
 /obj/structure/curtain/open
 	icon_state = "open"
 	layer = SHOWER_OPEN_LAYER
 	opacity = FALSE
-
 
 /obj/structure/curtain/attack_hand(mob/user)
 	playsound(get_turf(loc), SFX_RUSTLE, 15, TRUE, -5)
@@ -30,16 +28,13 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-
 /obj/structure/curtain/proc/toggle()
 	set_opacity(!opacity)
 	layer = opacity ? SHOWER_CLOSED_LAYER : SHOWER_OPEN_LAYER
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/curtain/update_icon_state()
 	icon_state = opacity ? "closed" : "open"
-
 
 /obj/structure/curtain/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -55,7 +50,6 @@
 
 	return ..()
 
-
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
@@ -70,8 +64,6 @@
 		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
 			set_anchored(TRUE)
 			to_chat(user, span_notice("You screw [src] to the floor."))
-
-
 
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)

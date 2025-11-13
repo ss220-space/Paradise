@@ -86,7 +86,6 @@
 	icon = 'icons/mob/blob.dmi'
 	color = rgb(145, 150, 0)
 
-
 /obj/effect/gluttony/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(ishuman(mover))
@@ -103,12 +102,10 @@
 	if(istype(mover, /mob/living/simple_animal/hostile/morph))
 		return TRUE
 
-
 // Pride
 /obj/structure/mirror/magic/pride //Pride's mirror: Used in the Pride ruin.
 	name = "pride's mirror"
 	desc = "Pride cometh before the..."
-
 
 /obj/structure/mirror/magic/pride/curse(mob/user)
 	user.visible_message(
@@ -129,7 +126,6 @@
 	user_turf.ChangeTurf(/turf/simulated/floor/chasm)
 	var/turf/simulated/floor/chasm/new_chasm = user_turf
 	new_chasm.set_target(dest)
-
 
 // Envy
 /obj/item/kitchen/knife/envy //Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.

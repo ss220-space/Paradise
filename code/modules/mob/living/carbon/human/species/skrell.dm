@@ -108,10 +108,8 @@
 		/mob/living/carbon/human/verb/emote_frown,
 		/mob/living/carbon/human/verb/emote_snuffle))
 
-
 /datum/species/skrell/gain_muscles(mob/living/target, datum/strength_level/default, max_level, can_become_stronger)
 	..(target, target.gender == FEMALE ? default.prev_level : default, max_level, can_become_stronger)
-
 
 /datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -134,7 +132,6 @@
 		/mob/living/carbon/human/verb/emote_frown,
 		/mob/living/carbon/human/verb/emote_snuffle))
 
-
 /datum/species/skrell/water_act(mob/living/carbon/human/M, volume, temperature, source, method)
 	. = ..()
 	if(method == REAGENT_TOUCH)
@@ -145,7 +142,6 @@
 		update |= M.heal_damage_type(5, OXY, updating_health = FALSE)
 		if(update)
 			M.updatehealth()
-
 
 /datum/species/skrell/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "water")

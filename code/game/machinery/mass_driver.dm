@@ -24,7 +24,6 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
-
 /obj/machinery/mass_driver/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "You begin to unscrew the bolts off [src]...")
@@ -36,7 +35,6 @@
 	frame.build = MASS_DRIVER_BUILD_GRILLE
 	frame.update_icon()
 	qdel(src)
-
 
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))
@@ -79,7 +77,6 @@
 	desc = "Now you're here, now you're over there."
 	density = TRUE
 
-
 /obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
 	. = ..()
 	set_density(FALSE)
@@ -96,7 +93,6 @@
 	icon_state = "mass_driver_frame"
 	/// Current construction stage
 	var/build = MASS_DRIVER_BUILD_LOOSE
-
 
 /obj/machinery/mass_driver_frame/wrench_act(mob/living/user, obj/item/I)
 	if(build != MASS_DRIVER_BUILD_LOOSE && build != MASS_DRIVER_BUILD_ANCHORED)
@@ -118,7 +114,6 @@
 			build = MASS_DRIVER_BUILD_LOOSE
 			to_chat(user, span_notice("You de-anchored [src]!"))
 
-
 /obj/machinery/mass_driver_frame/wirecutter_act(mob/living/user, obj/item/I)
 	if(build != MASS_DRIVER_BUILD_WIRED)
 		return FALSE
@@ -128,7 +123,6 @@
 		return .
 	build = MASS_DRIVER_BUILD_WELDED
 	to_chat(user, span_notice("You've removed the cables from [src]."))
-
 
 /obj/machinery/mass_driver_frame/crowbar_act(mob/living/user, obj/item/I)
 	if(build != MASS_DRIVER_BUILD_GRILLE)
@@ -140,7 +134,6 @@
 	build = MASS_DRIVER_BUILD_WIRED
 	new /obj/item/stack/rods(loc, 2)
 
-
 /obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/I)
 	if(build != MASS_DRIVER_BUILD_GRILLE) // Grille in place
 		return FALSE
@@ -151,7 +144,6 @@
 	var/obj/machinery/mass_driver/driver = new(loc)
 	driver.setDir(dir)
 	qdel(src)
-
 
 /obj/machinery/mass_driver_frame/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -190,7 +182,6 @@
 
 	return ..()
 
-
 /obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/I)
 	if(build != MASS_DRIVER_BUILD_LOOSE && build != MASS_DRIVER_BUILD_ANCHORED && build != MASS_DRIVER_BUILD_WELDED)
 		return FALSE
@@ -220,7 +211,6 @@
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = MASS_DRIVER_BUILD_ANCHORED
 
-
 /obj/machinery/mass_driver_frame/verb/rotate()
 	set category = STATPANEL_OBJECT
 	set name = "Повернуть каркас"
@@ -230,7 +220,6 @@
 		return
 
 	setDir(turn(dir, -90))
-
 
 #undef MASS_DRIVER_BUILD_LOOSE
 #undef MASS_DRIVER_BUILD_ANCHORED

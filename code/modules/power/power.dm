@@ -130,7 +130,6 @@
 	powernet.remove_machine(src)
 	return TRUE
 
-
 /obj/machinery/power/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -147,7 +146,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 ///////////////////////////////////////////
 // Powernet handling helpers
@@ -204,7 +202,6 @@
 ///////////////////////////////////////////
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////
-
 
 // returns a list of all power-related objects (nodes, cable, junctions) in turf,
 // excluding source, that match the direction d
@@ -265,7 +262,6 @@
 	for(var/obj/machinery/power/PM as anything in found_machines)
 		if(!PM.connect_to_network()) //couldn't find a node on its turf...
 			PM.disconnect_from_network() //... so disconnect if already on a powernet
-
 
 //Merge two powernets, the bigger (in cable length term) absorbing the other
 /proc/merge_powernets(datum/powernet/net1, datum/powernet/net2)
@@ -364,7 +360,6 @@
 ////////////////////////////////////////////////
 // Misc.
 ///////////////////////////////////////////////
-
 
 // return a knot cable (O-X) if one is present in the turf
 // null if there's none

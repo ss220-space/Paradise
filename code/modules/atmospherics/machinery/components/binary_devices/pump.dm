@@ -36,21 +36,17 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	toggle()
 
-
 /obj/machinery/atmospherics/binary/pump/AICtrlClick()
 	toggle()
 	return ..()
-
 
 /obj/machinery/atmospherics/binary/pump/click_alt(mob/living/user)
 	set_max()
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/machinery/atmospherics/binary/pump/ai_click_alt()
 	set_max()
 	return ..()
-
 
 /obj/machinery/atmospherics/binary/pump/proc/set_max()
 	if(powered())
@@ -223,7 +219,6 @@ Thus, the two variables affect pump operation are set in New():
 	if(!..())
 		return
 	update_icon()
-
 
 /obj/machinery/atmospherics/binary/pump/attackby(obj/item/I, mob/user, params)
 	. = ..()

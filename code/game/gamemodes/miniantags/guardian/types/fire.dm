@@ -10,14 +10,12 @@
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый сеять хаос в произвольном порядке."
 	var/toggle = FALSE
 
-
 /mob/living/simple_animal/hostile/guardian/fire/Initialize(mapload, mob/living/host)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /mob/living/simple_animal/hostile/guardian/fire/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
@@ -42,17 +40,14 @@
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 				summoner.AdjustHallucinate(10 SECONDS)
 
-
 /mob/living/simple_animal/hostile/guardian/fire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	collision_ignite(arrived)
 
-
 /mob/living/simple_animal/hostile/guardian/fire/MobBump(mob/living/bumped_mob)
 	. = ..()
 	collision_ignite(bumped_mob)
-
 
 /mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(atom/movable/AM)
 	if(isliving(AM))
@@ -60,7 +55,6 @@
 		if(AM != summoner && M.fire_stacks < 7)
 			M.fire_stacks = 7
 			M.IgniteMob()
-
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination
 	name = "Волна галлюцинаций"
@@ -74,23 +68,19 @@
 	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
 	aoe_range = 10
 
-
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/New(mob/living/summoned_by)
 	. = ..()
 	summoner = summoned_by
 
-
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/Destroy()
 	summoner = null
 	return ..()
-
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.range = aoe_range
 	T.use_turf_of_user = TRUE
 	return T
-
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)

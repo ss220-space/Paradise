@@ -23,7 +23,6 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	var/master_iteration = 0
 	var/running = TRUE
 
-
 /datum/controller/failsafe/New()
 	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 	if(Failsafe != src)
@@ -31,7 +30,6 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 			qdel(Failsafe)
 	Failsafe = src
 	Initialize()
-
 
 /datum/controller/failsafe/Initialize()
 	set waitfor = FALSE
@@ -55,12 +53,10 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	if(!QDELETED(src))
 		qdel(src) //when Loop() returns, we delete ourselves and let the mc recreate us
 
-
 /datum/controller/failsafe/Destroy()
 	running = FALSE
 	..()
 	return QDEL_HINT_HARDDEL_NOW
-
 
 /datum/controller/failsafe/proc/Loop()
 	while(running)
@@ -116,7 +112,6 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 			defcon = 5
 			sleep(initial(processing_interval))
 
-
 //Emergency loop used when Master got deleted or the main loop exited while Defcon == 0
 //Loop is driven externally so runtimes only cancel the current recovery attempt
 /datum/controller/failsafe/proc/emergency_loop()
@@ -139,7 +134,6 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		log_game("FailSafe: Failsafe in emergency state and was unable to recreate MC while in defcon state [defcon_pretty()].")
 		message_admins(span_boldannounceooc("Failsafe in emergency state and master down, trying to recreate MC while in defcon level [defcon_pretty()] failed."))
 
-
 ///Recreate all SSs which will still cause data survive due to Recover(), the new Master will then find and take them from global.vars
 /proc/recover_all_SS_and_recreate_master()
 	// You can break EVERYTHING with this
@@ -158,7 +152,6 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	else
 		message_admins(span_boldannounceooc("Failed to create new MC!"))
 
-
 ///Delete all existing SS to basically start over
 /proc/delete_all_SS_and_recreate_master()
 	// You can break EVERYTHING with this
@@ -176,10 +169,8 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	else
 		message_admins(span_boldannounceooc("Failed to create new MC!"))
 
-
 /datum/controller/failsafe/proc/defcon_pretty()
 	return defcon
-
 
 /datum/controller/failsafe/stat_entry(msg)
 	msg += "Defcon: [defcon_pretty()] (Interval: [Failsafe.processing_interval] | Iteration: [Failsafe.master_iteration])"

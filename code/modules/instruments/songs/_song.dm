@@ -413,7 +413,6 @@
 	var/obj/structure/musician/M = parent
 	return M.should_stop_playing(user)
 
-
 // Subtype for thermal drills.
 /datum/song/thermal_drill
 

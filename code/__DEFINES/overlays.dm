@@ -2,7 +2,6 @@
 // If you think you need more, rethink it
 #define MAX_ATOM_OVERLAYS 100
 
-
 /// Checks if an atom has reached the overlay limit, and make a loud error if it does.
 #define VALIDATE_OVERLAY_LIMIT(changed_on) \
 	if(length(changed_on.overlays) >= MAX_ATOM_OVERLAYS) { \
@@ -12,7 +11,6 @@
 		changed_on.overlays.Cut(); \
 		changed_on.add_overlay(mutable_appearance('icons/testing/greyscale_error.dmi')); \
 	} \
-
 
 /*
 /// Performs any operations that ought to run after an appearance change
@@ -26,7 +24,6 @@
 		} \
 	}
 */
-
 
 // Float layers for closets
 #define CLOSET_OLAY_LAYER_CONTENTS -5

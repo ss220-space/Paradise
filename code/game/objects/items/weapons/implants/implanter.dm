@@ -12,27 +12,22 @@
 	/// Path thats will be transformed into object on Initialize()
 	var/obj/item/implant/imp
 
-
 /obj/item/implanter/Initialize(mapload)
 	. = ..()
 	if(ispath(imp, /obj/item/implant))
 		imp = new imp(src)
 	update_state()
 
-
 /obj/item/implanter/Destroy()
 	QDEL_NULL(imp)
 	return ..()
-
 
 /obj/item/implanter/proc/update_state()
 	origin_tech = imp ? imp.origin_tech : initial(origin_tech)
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/implanter/update_icon_state()
 	icon_state = "implanter[imp ? "1" : "0"]"
-
 
 /obj/item/implanter/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -55,7 +50,7 @@
 		return .
 
 	if(target != user)
-		target.visible_message(span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся имплантировать био-чип в [target]."))
+		target.visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся имплантировать био-чип в [target]."))
 		if(!do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL) || QDELETED(user) || QDELETED(target) || QDELETED(src) || QDELETED(imp))
 			return .
 
@@ -67,12 +62,11 @@
 		to_chat(user, span_notice("Вы имплантировали био-чип."))
 	else
 		target.visible_message(
-			span_warning("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] био-чип в [target]."),
-			span_notice("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] вам био-чип."),
+			span_warning("[user] имплантировал[GEND_A_O_I(user)] био-чип в [target]."),
+			span_notice("[user] имплантировал[GEND_A_O_I(user)] вам био-чип."),
 		)
 	imp = null
 	update_state()
-
 
 /obj/item/implanter/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))

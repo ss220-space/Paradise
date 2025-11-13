@@ -12,7 +12,6 @@
 
 	var/obj/item/paper/internal_paper
 
-
 /obj/item/paperplane/New(loc, obj/item/paper/new_paper)
 	..()
 	pixel_y = rand(-8, 8)
@@ -26,11 +25,9 @@
 		internal_paper = new /obj/item/paper(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/paperplane/Destroy()
 	QDEL_NULL(internal_paper)
 	return ..()
-
 
 /obj/item/paperplane/suicide_act(mob/living/user)
 	user.Stun(20 SECONDS)
@@ -42,14 +39,12 @@
 	sleep(10)
 	return BRUTELOSS
 
-
 /obj/item/paperplane/update_overlays()
 	. = ..()
 	var/list/stamped = internal_paper.stamped
 	if(LAZYLEN(stamped))
 		for(var/obj/item/stamp/stamp_path as anything in stamped)
 			. += "paperplane_[initial(stamp_path.icon_state)]"
-
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
 	to_chat(user, span_notice("You unfold [src]."))
@@ -58,7 +53,6 @@
 		user.put_in_hands(internal_paper)
 		internal_paper = null
 		qdel(src)
-
 
 /obj/item/paperplane/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
@@ -98,7 +92,6 @@
 	)
 	fire_act()
 
-
 /obj/item/paperplane/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..())
 		return
@@ -119,7 +112,6 @@
 		if(E)
 			E.take_damage(8, 1)
 		H.emote("scream")
-
 
 /obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/paper)
 	if(ishuman(user))

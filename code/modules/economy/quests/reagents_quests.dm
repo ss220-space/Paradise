@@ -84,7 +84,6 @@
 /datum/cargo_quest/reagents/length_quest()
 	return length(required_reagents)
 
-
 /datum/cargo_quest/reagents/drinks
 	quest_type_name = "Drink"
 	bounty_jobs = list(JOB_TITLE_BARTENDER)
@@ -123,10 +122,9 @@
 		"gibbfloats" = list("volume" = 30,"reward" = 40),
 		"nuka_cola" = list("volume" = 30,"reward" = 80),
 		"pumpkin_latte" = list("volume" = 30,"reward" = 40),
-		"zazafizzy" = list("volume" = 30, "reward" = 30)
+		"zazafizzy" = list("volume" = 30, "reward" = 30),
 	)
 	unique_reagents = list()
-
 
 /datum/cargo_quest/reagents/drinks/update_interface_icon()
 	for(var/reagent_id in required_reagents)

@@ -55,7 +55,7 @@
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/melee/baton/telescopic = 1,
-		/obj/item/security_voucher = 1
+		/obj/item/security_voucher = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
@@ -64,8 +64,6 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_security/hos
-
-
 
 /datum/job/warden
 	title = JOB_TITLE_WARDEN
@@ -112,7 +110,7 @@
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/security_voucher = 1
+		/obj/item/security_voucher = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield)
@@ -167,7 +165,7 @@
 	l_hand = /obj/item/storage/briefcase/crimekit
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
 	box = /obj/item/storage/box/survival_security/detective
@@ -188,7 +186,6 @@
 		return
 
 	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
-
 
 /datum/job/officer
 	title = JOB_TITLE_OFFICER
@@ -232,7 +229,7 @@
 	pda = /obj/item/pda/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/security_voucher = 1
+		/obj/item/security_voucher = 1,
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security
@@ -302,7 +299,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/survival/brigphys
 
-
 /datum/job/pilot
 	title = JOB_TITLE_PILOT
 	flag = JOB_FLAG_PILOT
@@ -343,7 +339,7 @@
 	pda = /obj/item/pda/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/security_voucher = 1
+		/obj/item/security_voucher = 1,
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security

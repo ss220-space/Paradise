@@ -1038,7 +1038,6 @@
 ///called in /obj/item/gun/process_fire (user, target)
 #define COMSIG_GUN_FIRED "gun_fired"
 
-
 /// Sent from obj/item/gun/toggle_gunlight_verb(): (user)
 #define COMSIG_GUN_LIGHT_TOGGLE "gun_light_toggle"
 
@@ -1376,7 +1375,6 @@
 /// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
 #define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
 
-
 // HUD:
 /// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
 #define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
@@ -1416,7 +1414,6 @@
 #define COMSIG_ITEM_REGISTER_AFTERATTACK "register_item_afterattack"
 ///from base of /datum/element/after_attack/Detach(): (proc_ref)
 #define COMSIG_ITEM_UNREGISTER_AFTERATTACK "unregister_item_afterattack"
-
 
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
@@ -1556,3 +1553,6 @@
 #define SIGNAL_DIABLERIE_LEVEL_GAIN "diablerie_level_gain"
 /// From /datum/diablerie_level/proc/remove()
 #define SIGNAL_DIABLERIE_LEVEL_REMOVE "diablerie_level_remove"
+
+///Sent after awards are saved in the database (/datum/controller/subsystem/achievements/save_achievements_to_db)
+#define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"

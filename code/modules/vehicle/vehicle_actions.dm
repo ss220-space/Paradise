@@ -199,7 +199,6 @@
 /datum/action/vehicle/ridden
 	var/obj/vehicle/ridden/vehicle_ridden_target
 
-
 /datum/action/vehicle/ridden/ambulance/ambulance_alarm
 	name = "Toggle Sirens"
 	icon_icon = 'icons/obj/vehicles/vehicles.dmi'
@@ -233,7 +232,6 @@
 	start_length = 0
 	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
 	mid_length = 14
-
 
 /*
 

@@ -166,7 +166,6 @@
 		else
 			clear_alert("succumb")
 
-
 /mob/living/update_stamina_hud(shown_stamina_loss)
 	if(!client || !stamina_bar)
 		return
@@ -195,7 +194,6 @@
 	else
 		stamina_bar.icon_state = "stamina_full"
 
-
 /mob/living/update_nutrition_hud()
 	if(!client || !nutrition_bar)
 		return
@@ -208,7 +206,6 @@
 		nutrition_bar.icon_state = "[dna.species.hunger_type]_" + current_nutrition_level.icon_state
 
 	med_hud_set_status()
-
 
 /mob/living/simple_animal/update_health_hud()
 	if(!client)
@@ -248,11 +245,9 @@
 	else
 		clear_fullscreen("brute")
 
-
 /mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
 	if(abs(gravity_state) > STANDARD_GRAVITY)
 		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
-
 
 /mob/living/carbon/handle_gravity(seconds_per_tick, times_fired)
 	. = ..()
@@ -266,14 +261,12 @@
 	if(!buckled)
 		ADD_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
 
-
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))
 		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
 
 	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
 	animate(y = 0, time = 10)
-
 
 /mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
 	if(abs(gravity) < HIGH_GRAVITY_SLOWDOWN)
@@ -306,7 +299,6 @@
 		AdjustStuttering(5 SECONDS, bound_upper = 10 SECONDS)	//It will hamper your voice, being choked and all.
 		if(!breathing_tube)
 			AdjustLoseBreath(3 SECONDS, bound_upper = 6 SECONDS)
-
 
 /// Handles mob SSD status.
 /mob/living/proc/handle_SSD(seconds_per_tick)

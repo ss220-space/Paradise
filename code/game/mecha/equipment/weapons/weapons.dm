@@ -181,7 +181,6 @@
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
@@ -425,7 +424,7 @@
 		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
 		ACCUSATIVE = "тяжёлую пусковую ракетную установку SRX-13",
 		INSTRUMENTAL = "тяжёлой пусковой ракетной установкой SRX-13",
-		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13"
+		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
@@ -434,7 +433,6 @@
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 
-
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
 	return list(
 		NOMINATIVE = "пусковая ракетная установка SRM-8",
@@ -442,7 +440,7 @@
 		DATIVE = "пусковой ракетной установке SRM-8",
 		ACCUSATIVE = "пусковую ракетную установку SRM-8",
 		INSTRUMENTAL = "пусковой ракетной установкой SRM-8",
-		PREPOSITIONAL = "пусковой ракетной установке SRM-8"
+		PREPOSITIONAL = "пусковой ракетной установке SRM-8",
 	)
 
 /obj/item/missile

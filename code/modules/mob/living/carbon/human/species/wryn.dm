@@ -83,7 +83,6 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
-
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions
@@ -91,10 +90,8 @@
 		wryn_sting = new
 		wryn_sting.Grant(H)
 
-
 /datum/species/wryn/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
-
 
 /datum/species/wryn/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -115,7 +112,6 @@
 	button_icon = 'icons/mob/actions/actions_wryn.dmi'
 	background_icon_state = "bg_wryn"
 	icon_icon = 'icons/mob/actions/actions_wryn.dmi'
-
 
 //Define the Sting Action
 /datum/action/innate/wryn/wryn_sting
@@ -219,13 +215,13 @@
 	if(target.handcuffed && node && user.zone_selected == BODY_ZONE_HEAD)
 		switch(alert(user, "Вы хотите вырвать усики этому существу?", "OH SHIT", "Да", "Нет"))
 			if("Да")
-				user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target]."))
-				to_chat(target, span_danger("<b>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<b>"))
+				user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] яростно отрывать усики [target]."))
+				to_chat(target, span_danger("<b>[user] схватил[GEND_A_O_I(user)] ваши усики и яростно тян[PLUR_ET_UT(user)] их!<b>"))
 				if(do_after(user, 25 SECONDS, target, NONE))
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, span_notice("Вы слышите громкий хруст, когда безжалостно отрываете усики [target]."))
-					to_chat(target, span_danger("Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы."))
+					to_chat(target, span_danger("Вы слышите невыносимый хруст, когда [user] вырыва[PLUR_ET_YUT(user)] усики из вашей головы."))
 					to_chat(target, span_danger("<b>Стало так тихо...</b>"))
 
 					add_attack_logs(user, target, "Antennae removed")

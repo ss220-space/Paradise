@@ -38,7 +38,7 @@
 		DATIVE = "голокарте станции",
 		ACCUSATIVE = "голокарту станции",
 		INSTRUMENTAL = "голокартой станции",
-		PREPOSITIONAL = "голокарте станции"
+		PREPOSITIONAL = "голокарте станции",
 	)
 
 /obj/machinery/station_map/Initialize(mapload)
@@ -79,7 +79,6 @@
 	var/turf/current_turf = get_turf(src)
 
 	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays())
-
 
 	update_icon()
 

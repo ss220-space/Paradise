@@ -275,7 +275,6 @@
 
 			return key_path
 
-
 /// Takes a given config value and validates it. If successful, returns the formatted key. If unsuccessful, returns null.
 /datum/config_entry/keyed_list/proc/validate_config_value(value)
 	switch(value_mode)

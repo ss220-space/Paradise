@@ -30,7 +30,7 @@
 /**
  * Called when you want to cancel a client's click intercept and return to normal clicking.
  */
-/datum/click_intercept/proc/quit()
+/datum/click_intercept/proc/quit(force)
 	qdel(src)
 
 /**

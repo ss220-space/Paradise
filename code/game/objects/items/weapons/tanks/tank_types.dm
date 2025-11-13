@@ -62,7 +62,6 @@
 /obj/item/tank/internals/plasma/populate_gas()
 	air_contents.toxins = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
 
-
 /obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flamethrower))
 		add_fingerprint(user)
@@ -82,7 +81,6 @@
 		flamethrower.update_icon()
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 	return ..()
-
 
 /obj/item/tank/internals/plasma/full/populate_gas()
 	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)

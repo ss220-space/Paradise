@@ -47,7 +47,6 @@
 			R.SetLockdown(!mend)
 	..()
 
-
 /datum/wires/robot/on_pulse(wire)
 	var/mob/living/silicon/robot/R = holder
 	switch(wire)

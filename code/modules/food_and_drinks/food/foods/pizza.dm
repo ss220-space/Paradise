@@ -57,7 +57,6 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
 	foodtype = GRAIN | DAIRY | VEGETABLES
 
-
 /obj/item/reagent_containers/food/snacks/mushroompizzaslice
 	name = "mushroom pizza slice"
 	desc = "Maybe it is the last slice of pizza in your life."
@@ -77,7 +76,6 @@
 	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "carrot" = 1, "vegetables" = 1)
 	foodtype = GRAIN | DAIRY | VEGETABLES
-
 
 /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
 	name = "vegetable pizza slice"
@@ -229,11 +227,9 @@
 	var/list/boxes = list() // If the boxes are stacked, they come here
 	var/box_tag = ""
 
-
 /obj/item/pizzabox/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
-
 
 /obj/item/pizzabox/update_desc(updates = ALL)
 	. = ..()
@@ -250,7 +246,6 @@
 		if(box_tag != "")
 			desc = "[desc] The box has a tag, it reads: '[box_tag]'."
 
-
 /obj/item/pizzabox/update_icon_state()
 	if(open)
 		if(is_messy)
@@ -259,7 +254,6 @@
 			icon_state = "pizzabox_open"
 		return
 	icon_state = "pizzabox[length(boxes) + 1]"
-
 
 /obj/item/pizzabox/update_overlays()
 	. = ..()
@@ -278,7 +272,6 @@
 				set_tag = TRUE
 		if(!open && set_tag)
 			. += image("food/pizza.dmi", icon_state = "pizzabox_tag", pixel_y = length(boxes) * 3)
-
 
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
@@ -303,7 +296,6 @@
 		return
 	..()
 
-
 /obj/item/pizzabox/attack_self(mob/user)
 	if(length(boxes))
 		return
@@ -311,7 +303,6 @@
 	if(open && pizza)
 		is_messy = TRUE
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
-
 
 /obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -366,30 +357,25 @@
 
 	return ..()
 
-
 /obj/item/pizzabox/margherita/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita(src)
 	box_tag = "margherita deluxe"
 	. = ..()
-
 
 /obj/item/pizzabox/vegetable/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
 	box_tag = "gourmet vegetable"
 	. = ..()
 
-
 /obj/item/pizzabox/mushroom/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
 	box_tag = "mushroom special"
 	. = ..()
 
-
 /obj/item/pizzabox/meat/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	box_tag = "meatlover's supreme"
 	. = ..()
-
 
 /obj/item/pizzabox/hawaiian/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)

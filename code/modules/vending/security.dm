@@ -69,7 +69,7 @@
 		DATIVE = "торговому автомату SecTech",
 		ACCUSATIVE = "торговый автомат SecTech",
 		INSTRUMENTAL = "торговым автоматом SecTech",
-		PREPOSITIONAL = "торговом автомате SecTech"
+		PREPOSITIONAL = "торговом автомате SecTech",
 	)
 
 /obj/machinery/vending/security/training
@@ -91,7 +91,7 @@
 	req_access = list(ACCESS_SECURITY)
 	products = list(
 		/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
-		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2
+		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2,
 	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 
@@ -102,9 +102,8 @@
 		DATIVE = "торговому автомату SecTech Training",
 		ACCUSATIVE = "торговый автомат SecTech Training",
 		INSTRUMENTAL = "торговым автоматом SecTech Training",
-		PREPOSITIONAL = "торговом автомате SecTech Training"
+		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
-
 
 /obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
@@ -139,7 +138,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
-
 	density = FALSE
 	products = list(
 		/obj/item/restraints/handcuffs = 10,
@@ -155,7 +153,8 @@
 		/obj/item/flash = 5,
 		/obj/item/storage/box/evidence = 5,
 		/obj/item/storage/box/swabs = 5,
-		/obj/item/storage/box/fingerprints = 5)
+		/obj/item/storage/box/fingerprints = 5,
+	)
 	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/security/ert/get_ru_names()
@@ -165,7 +164,7 @@
 		DATIVE = "торговому автомату NT ERT Consumables Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Consumables Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Consumables Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Consumables Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Consumables Gear",
 	)
 
 /obj/item/security_voucher
@@ -182,5 +181,5 @@
 		DATIVE = "ваучеру",
 		ACCUSATIVE = "ваучер",
 		INSTRUMENTAL = "ваучером",
-		PREPOSITIONAL = "ваучере"
+		PREPOSITIONAL = "ваучере",
 	)

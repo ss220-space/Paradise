@@ -27,7 +27,6 @@
 
 	var/needs_update = LIGHTING_NO_UPDATE    // Whether we are queued for an update.
 
-
 /datum/light_source/New(atom/owner, atom/top)
 	source_atom = owner // Set our new owner.
 	LAZYADD(source_atom.light_sources, src)
@@ -72,7 +71,6 @@
 	if(needs_update < level) { \
 		needs_update = level; \
 	} \
-
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
 /datum/light_source/proc/update(atom/new_top_atom)
@@ -206,7 +204,6 @@
 	insert_into[draw_from.lighting_corner_SE] = 0;         \
 	insert_into[draw_from.lighting_corner_SW] = 0;         \
 	insert_into[draw_from.lighting_corner_NW] = 0;
-
 
 /datum/light_source/proc/update_corners()
 	var/update = FALSE

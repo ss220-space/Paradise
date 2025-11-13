@@ -75,7 +75,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -83,10 +83,10 @@
 			update_flags |= M.adjustToxLoss(1, FALSE)
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся и пуска[pluralize_ru(M.gender, "ет", "ют")] слюни. Из [genderize_ru(M.gender, "его", "её", "его", "их")] глаз течёт кровь!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся и пуска[PLUR_ET_YUT(M)] слюни. Из [GEND_HIS_HER(M)] глаз течёт кровь!"))
 			M.Dizzy(16 SECONDS)
 			M.Weaken(8 SECONDS)
 		if(effect <= 15)
@@ -317,7 +317,6 @@
 			human.set_heartattack(TRUE)
 	return list(0, update_flags)
 
-
 /datum/reagent/medicine/traneksam_acid/reaction_mob(mob/living/user, method=REAGENT_TOUCH, volume, show_message = TRUE)
 	if(volume < 10)
 		return ..()
@@ -345,7 +344,6 @@
 	color = "#5010a3"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "антибиотиков"
-
 
 /datum/reagent/medicine/neuromatin/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -510,30 +508,30 @@
 	if(severity == 1) //lesser
 		M.AdjustStuttering(2 SECONDS)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] хвата[pluralize_ru(M.gender, "ет", "ют")]ся за живот от боли!"))
+			M.visible_message(span_warning("[M] хвата[PLUR_ET_YUT(M)]ся за живот от боли!"))
 			M.emote("scream")
 			M.Weaken(8 SECONDS)
 		else if(effect <= 3)
-			M.visible_message(span_warning("[M] на мгновение теря[pluralize_ru(M.gender, "ет", "ют")] сознание!"))
+			M.visible_message(span_warning("[M] на мгновение теря[PLUR_ET_YUT(M)] сознание!"))
 			M.AdjustConfused(30 SECONDS)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] спотыка[pluralize_ru(M.gender, "ет", "ют")]ся и едва не падает!"))
+			M.visible_message(span_warning("[M] спотыка[PLUR_ET_YUT(M)]ся и едва не падает!"))
 			M.Dizzy(10 SECONDS)
 			M.Weaken(6 SECONDS)
 		else if(effect <= 7)
-			M.visible_message(span_warning("[M] тряс[pluralize_ru(M.gender, "ёт", "ют")]ся!"))
+			M.visible_message(span_warning("[M] тряс[PLUR_YOT_YUT(M)]ся!"))
 			M.Jitter(60 SECONDS)
 	else if(severity == 2) // greater
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] хвата[pluralize_ru(M.gender, "ет", "ют")]ся за живот от боли!"))
+			M.visible_message(span_warning("[M] хвата[PLUR_ET_YUT(M)]ся за живот от боли!"))
 			M.emote("scream")
 			M.Weaken(14 SECONDS)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] резко дёрга[pluralize_ru(M.gender, "ет", "ют")]ся и падает!"))
+			M.visible_message(span_warning("[M] резко дёрга[PLUR_ET_YUT(M)]ся и падает!"))
 			M.Paralyse(10 SECONDS)
 			M.Weaken(8 SECONDS)
 		else if(effect <= 8)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся из стороны в сторону!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся из стороны в сторону!"))
 			M.Dizzy(10 SECONDS)
 			M.Weaken(6 SECONDS)
 	return list(effect, update_flags)
@@ -711,7 +709,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -719,10 +717,10 @@
 			M.emote("collapse")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся и пуска[pluralize_ru(M.gender, "ет", "ют")] слюни. Из [genderize_ru(M.gender, "его", "её", "его", "их")] глаз течёт кровь!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся и пуска[PLUR_ET_YUT(M)] слюни. Из [GEND_HIS_HER(M)] глаз течёт кровь!"))
 			M.Dizzy(4 SECONDS)
 			M.Weaken(6 SECONDS)
 		if(effect <= 15)
@@ -749,7 +747,7 @@
 	if(prob(3))
 
 		M.AdjustDrowsy(2 SECONDS)
-		M.visible_message(span_notice("[M] выгляд[pluralize_ru(M.gender, "ит вялым", "ят вялыми")]."))
+		M.visible_message(span_notice("[M] выгляд[PLUR_IT_YAT(M)] вялым[PLUR_I(M)]."))
 	return ..()
 
 /datum/reagent/medicine/morphine
@@ -765,17 +763,14 @@
 	harmless = FALSE
 	taste_description = "приятного оцепенения"
 
-
 /datum/reagent/medicine/morphine/on_mob_add(mob/living/M)
 	. = ..()
 	if(isslime(M))
 		M.add_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
 
-
 /datum/reagent/medicine/morphine/on_mob_delete(mob/living/M)
 	. = ..()
 	M.remove_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
-
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -890,7 +885,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -898,10 +893,10 @@
 			M.emote("collapse")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся и пуска[pluralize_ru(M.gender, "ет", "ют")] слюни. Из [genderize_ru(M.gender, "его", "её", "его", "их")] глаз течёт кровь!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся и пуска[PLUR_ET_YUT(M)] слюни. Из [GEND_HIS_HER(M)] глаз течёт кровь!"))
 			M.Dizzy(4 SECONDS)
 			M.Weaken(6 SECONDS)
 		if(effect <= 15)
@@ -938,7 +933,7 @@
 		if(animal.stat == DEAD)
 			animal.revive()
 			animal.loot.Cut() //no abusing strange reagent for farming unlimited resources
-			animal.visible_message(span_warning("[animal] ожива[pluralize_ru(animal.gender, "ет", "ют")]!"))
+			animal.visible_message(span_warning("[animal] ожива[PLUR_ET_YUT(animal)]!"))
 
 	if(iscarbon(mob))
 		if(!((method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25))) && mob.stat == DEAD))
@@ -948,11 +943,11 @@
 			mob.delayed_gib()
 			return
 		if(!mob.ghost_can_reenter())
-			mob.visible_message(span_warning("[mob] слегка вздрагива[pluralize_ru(mob.gender, "ет", "ют")], но в остальном не реагиру[pluralize_ru(mob.gender, "ет", "ют")]!"))
+			mob.visible_message(span_warning("[mob] слегка вздрагива[PLUR_ET_YUT(mob)], но в остальном не реагиру[PLUR_ET_YUT(mob)]!"))
 			return
 		if(!mob.suiciding && !HAS_TRAIT(mob, TRAIT_NO_CLONE) && (!mob.mind || mob.mind?.is_revivable()))
 			var/time_dead = world.time - mob.timeofdeath
-			mob.visible_message(span_warning("[mob] ожива[pluralize_ru(mob.gender, "ет", "ют")]!"))
+			mob.visible_message(span_warning("[mob] ожива[PLUR_ET_YUT(mob)]!"))
 			var/update = NONE
 			update |= mob.take_overall_damage(rand(0, 15), rand(0, 15), updating_health = FALSE)
 			update |= mob.apply_damages(tox = rand(0, 15), clone = 50, updating_health = FALSE)
@@ -1017,7 +1012,6 @@
 	color = "#5096C8"
 	taste_description = "очищения"
 
-
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	if(M.mind && M.mind.assigned_role == "Cluwne") // HUNKE
 		return ..()
@@ -1034,7 +1028,6 @@
 	M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
 	return ..()
-
 
 /datum/reagent/medicine/antihol
 	name = "Антиголь"
@@ -1089,12 +1082,10 @@
 
 	return ..() | update_flags
 
-
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
 	. = ..()
 	if(absorption_applied)	// somehow???
 		M.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
-
 
 /datum/reagent/medicine/stimulative_agent
 	name = "Стимулирующий агент"
@@ -1121,17 +1112,14 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 	return ..() | update_flags
 
-
 /datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 
-
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
-
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1180,7 +1168,7 @@
 			M.AdjustBlood(-rand(1, 2))
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] тряс[pluralize_ru(M.gender, "ёт", "ют")]ся, кровь хлещет прямо из [genderize_ru(M.gender, "его", "её", "его", "их")] пор!"))
+			M.visible_message(span_warning("[M] тряс[PLUR_YOT_YUT(M)]ся, кровь хлещет прямо из [GEND_HIS_HER(M)] пор!"))
 			M.bleed(rand(10, 20))
 		else if(effect <= 4)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
@@ -1189,7 +1177,6 @@
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
 			M.AdjustBlood(-rand(1, 2))
 	return list(effect, update_flags)
-
 
 /datum/reagent/medicine/teporone
 	name = "Тепорон"
@@ -1390,14 +1377,13 @@
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol/synthanol, 8, 0, 1)
 	return ..() | update_flags
 
-
 //Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
 /datum/reagent/medicine/bicaridine
 	name = "Бикаридин"
 	id = "bicaridine"
 	description = "Залечивает травмы. При передозировке вызывает их появление."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#f02c2c"
 	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "восстановления ран"
@@ -1417,7 +1403,7 @@
 	id = "kelotane"
 	description = "Залечивает ожоги. При передозировке вызывает их появление."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#f7a132"
 	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "восстановления ожогов"
@@ -1431,7 +1417,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustFireLoss(2, FALSE)
 	return ..() | update_flags
-
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Кровь Земли"
@@ -1546,10 +1531,10 @@
 				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
 					if(prob(50)) // Each tick has a 50% chance of repearing a bone.
 						if(bodypart.has_fracture()) //I can't just check for !E.status
-							to_chat(M, span_notice("Вы чувствуете жжение в ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как [genderize_ru(bodypart.gender, "он", "она", "оно", "они")] применяют правильную форму!"))
+							to_chat(M, span_notice("Вы чувствуете жжение в ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как [GEND_HE_SHE(bodypart)] применяют правильную форму!"))
 							bodypart.mend_fracture()
 						if(bodypart.has_internal_bleeding())
-							to_chat(M, span_notice("Вы чувствуете жжение в ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как сосуды в [genderize_ru(bodypart.gender, "нём", "ней", "нём", "них")] восстанавливаются!"))
+							to_chat(M, span_notice("Вы чувствуете жжение в ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как сосуды в [GEND_ON_IN_HIM(bodypart)] восстанавливаются!"))
 							bodypart.stop_internal_bleeding()
 
 				if(ishuman(M))
