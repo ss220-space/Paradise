@@ -2,6 +2,7 @@
 /obj/item/organ/internal/nucleation
 	species_type = /datum/species/nucleation
 	name = "nucleation organ"
+	status = ORGAN_CRYSTAL
 
 /obj/item/organ/internal/nucleation/resonant_crystal
 	name = "resonant crystal"
@@ -43,6 +44,7 @@
 	icon_state = "crystal-eyes"
 	light_color = "#f7f792"
 	light_range = 2
+	status = ORGAN_CRYSTAL
 
 /obj/item/organ/internal/eyes/luminescent_crystal/get_ru_names()
 	return list(
@@ -59,6 +61,7 @@
 	name = "crystallized brain"
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Судя по кристаллизированной структуре, этот принадлежал нуклеату."
 	icon_state = "crystal-brain"
+	status = ORGAN_CRYSTAL
 
 /obj/item/organ/internal/brain/crystal/get_ru_names()
 	return list(
@@ -77,3 +80,7 @@
 	var/datum/disease/virus/nuclefication/D = new()
 	D.Contract(target, need_protection_check = FALSE)
 
+/obj/item/organ/internal/heart/crystal
+	name = "crystallized heart"
+	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало нуклеату."
+	status = ORGAN_CRYSTAL

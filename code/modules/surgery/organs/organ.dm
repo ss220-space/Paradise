@@ -405,6 +405,9 @@
 /obj/item/organ/proc/is_robotic()
 	return (status & ORGAN_ROBOT)
 
+/obj/item/organ/proc/is_crystal()
+	return (status & ORGAN_CRYSTAL)
+
 /obj/item/organ/serialize()
 	var/data = ..()
 
