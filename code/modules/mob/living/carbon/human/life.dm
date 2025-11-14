@@ -283,11 +283,10 @@
 	heal_cost = 10
 
 	if(radiation >= heal_cost && length(fractured_limbs))
-		for(var/obj/item/organ/external/limb as anything in fractured_limbs)
-			if(limb.has_fracture())//double check... just in case
-				limb.mend_fracture()
-				radiation = max(radiation - heal_cost, 0)
-				break
+		var/obj/item/organ/external/limb = pick(fractured_limbs)
+		if(limb.has_fracture())//double check... just in case
+			limb.mend_fracture()
+			radiation = max(radiation - heal_cost, 0)
 
 	radiation = max(radiation - 1, 0)//passive radiation drain
 
