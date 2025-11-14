@@ -1,6 +1,7 @@
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
-	desc = "Используется для перезапуска остановленных сердец."
+	desc = "Компактное устройство желтого цвета, используемое для экстренной кардиостимуляции."
+	gender = MALE
 	icon_state = "defib-on"
 	item_state = "defib"
 	belt_icon = "handheld_defibrillator"
@@ -9,7 +10,8 @@
 	var/cooldown = FALSE
 	var/charge_time = 100
 	var/shocking = FALSE
-	var/advanced = FALSE
+	/// Affects the success rate of defibrillation
+	var/is_advanced = FALSE
 	var/charges = 1
 	var/max_charges = 1
 
@@ -44,35 +46,35 @@
 			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 
 	if((charges == 0) || (shocking))
-		balloon_alert(usr, "дефибриллятор всё ещё заряжается!")
+		balloon_alert(user, "всё ещё заряжается!")
 		return .
 
 	if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		. |= ATTACK_CHAIN_SUCCESS
-		user.visible_message(span_notice("[user] использует [declent_ru(ACCUSATIVE)] на [H]."), span_notice("Вы попытались использовать [declent_ru(ACCUSATIVE)] на [H]."))
+		H.balloon_alert_to_viewers("провод[PLUR_IT_YAT(user)] дефибрилляцию...", ignored_mobs = user)
 		add_attack_logs(user, H, "defibrillated with [src]")
 		playsound(get_turf(src), 'sound/weapons/egloves.ogg', 75, TRUE)
 		if(!blocked)
 			if(H.stat == DEAD)
-				balloon_alert(usr, "цель не реагирует!")
+				H.balloon_alert(H, "цель не реагирует!")
 			if(H.stat != DEAD)
 				H.set_heartattack(FALSE)
 				var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 				if(H.health <= HEALTH_THRESHOLD_CRIT)
 					if(total_damage >= 90)
-						to_chat(user, span_danger("Цель сильно ранена, дефибрилляция может быть неэффективна"))
-					if((prob(66)) || (advanced))
-						balloon_alert(usr, "цель делает глубокий вдох!")
+						balloon_alert(user, "цель слишком ранена!")
+					if((prob(66)) || (is_advanced))
+						H.balloon_alert(user, "дефибрилляция успешна!")
 						H.adjustOxyLoss(-50)
 					else
-						balloon_alert(usr, "цель не реагирует!")
+						H.balloon_alert(H, "цель не реагирует!")
 
 				H.AdjustKnockdown(4 SECONDS)
 				H.AdjustStuttering(20 SECONDS)
 				to_chat(H, span_danger("Вы чувствуете сильный удар током!"))
 				H.shock_internal_organs(100)
 		else
-			balloon_alert(usr, "слишком толстый слой материала для применения!")
+			H.balloon_alert(user, "закрыто одеждой!")
 		shocking = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(short_charge)), 1 SECONDS)
@@ -82,7 +84,7 @@
 			addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 
 	else
-		balloon_alert(usr, "дефибрилляция не требуется")
+		H.balloon_alert(user, "дефибрилляция не требуется!")
 
 /obj/item/handheld_defibrillator/proc/short_charge()
 	shocking = FALSE
@@ -96,7 +98,9 @@
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"
-	desc = "Используется для перезапуска остановленных сердец (Не для свиней из Нанотрейзен)."
+	desc = "Компактное устройство матово-чёрного цвета, используемое для экстренной кардиостимуляции. \
+		За счёт интеграции конденсаторов нового поколения скорость перезарядки была увеличена втрое по сравнению со стандартной моделью. \
+		Специализированная боевая версия, используемая элитными тактическими отрядами \"Синдиката\"."
 	icon_state = "sdefib-on"
 	item_state = "sdefib"
 	charge_time = 30
@@ -115,13 +119,15 @@
 
 /obj/item/handheld_defibrillator/advanced
 	name = "advanced handheld defibrillator"
-	desc = "Используется для эффективного перезапуска остановленных сердец, имеет улучшенную батарею на три быстровосстанавливающихся заряда."
+	desc = "Компактное устройство тёмно-синего цвета с противоударными вставками, предназначенное для экстренной кардиостимуляции. \
+		Использование продвинутых конденсаторов и энергомодуля нового поколения позволило повысить скорость перезарядки батареи, \
+		а также увеличить её максимальную вместимость до трёх зарядов."
 	icon_state = "adv_defib-3"
 	item_state = "adv_defib"
 	icon_base = "adv_defib"
 	belt_icon = "advanced_handheld_defibrillator"
 	origin_tech = "materials=6;biotech=6;magnets=5;"
-	advanced = TRUE
+	is_advanced = TRUE
 	charges = 3
 	max_charges = 3
 	charge_time = 70
@@ -138,4 +144,4 @@
 
 /obj/item/handheld_defibrillator/advanced/examine(mob/user)
 	. = ..()
-	. += span_notice("У [declent_ru(GENITIVE)] осталось <b>[charges]</b> заряда из <b>[max_charges]</b>.")
+	. += span_boldnotice("Индикатор заряда: [charges]/[max_charges].")
