@@ -259,5 +259,5 @@
 	icon_state = "dshotgun-l"
 
 /datum/item_skin_data/doublebarrel/rosewood
-	name = "Палисандровый"
+	name = "Палисандр"
 	icon_state = "dshotgun-p"
