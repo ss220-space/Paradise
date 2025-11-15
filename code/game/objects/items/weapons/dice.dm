@@ -477,22 +477,23 @@
 		if(contract.target != damned.mind)
 			continue
 		qdel(contract)
+	damned.ghostize()
+	damned.dust()
 	SSticker.mode.victims.Remove(damned)
 	for(var/datum/objective/obj as anything in GLOB.all_objectives)
-		if(obj.target != damned)
+		if(obj.target != damned.mind)
 			continue
 		obj.target = null
 		obj.find_target(obj.existing_targets_blacklist())
-		if(!obj.target?.current)
-			qdel(src)
+		if(isnull(obj.target))
+			qdel(obj)
+			continue
 		for(var/datum/mind/user in obj.get_owners())
+			if(QDELETED(obj))
+				to_chat(user, span_userdanger("Вам кажется, что вы что-то забыли!"))
+				SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
+				continue
 			var/list/messages = list()
 			messages.Add(user.prepare_announce_objectives(FALSE))
 			to_chat(user.current, chat_box_red(messages.Join("<br>")))
-		for(var/datum/mind/owner as anything in obj.get_owners())
-			SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-			if(QDELETED(src))
-				to_chat(owner.current, span_userdanger("<br>Вам кажется, что вы что-то забыли... Точно, вам нужно убить [obj.target]"))
-				continue
-			to_chat(owner.current, span_userdanger("<br>Вам кажется, что вы что-то забыли... Наверное, это уже не важно..."))
-	damned.dust()
+			SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
