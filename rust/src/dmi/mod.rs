@@ -348,7 +348,7 @@ fn create_qr_code_png(path: ByondValue, data: ByondValue) -> eyre::Result<ByondV
     let image = code.render::<Rgba<u8>>().build();
 
     image.save(&path_str)?;
-    Ok(path_str.try_into()?)
+    Ok(path)
 }
 
 #[byondapi::bind]

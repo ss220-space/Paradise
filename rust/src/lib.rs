@@ -1,5 +1,10 @@
 mod dmi;
+mod error;
+mod hash;
+mod iconforge;
+mod jobs;
 mod logging;
 mod mapmanip;
 mod rand_replace;
+mod sound_len;
 mod uuid;

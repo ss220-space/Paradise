@@ -75,6 +75,11 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
+	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config
+	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
+	var/greyscale_colors
+
 	///Light systems, both shouldn't be active at the same time.
 	var/light_system = STATIC_LIGHT
 	///Range of the light in tiles. Zero means no light.
@@ -98,6 +103,8 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
+
+
 	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
 	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/list/ru_names
@@ -204,6 +211,8 @@
 	flags |= INITIALIZED
 
 	SET_PLANE_IMPLICIT(src, plane)
+
+	update_greyscale()
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -647,6 +656,28 @@
 	RETURN_TYPE(/list)
 	. = list()
 
+/// Checks if the colors given are different and if so causes a greyscale icon update
+/atom/proc/set_greyscale_colors(list/colors)
+	SHOULD_CALL_PARENT(TRUE)
+	var/new_colors = colors.Join("")
+	if(greyscale_colors == new_colors)
+		return
+	greyscale_colors = new_colors
+	if(!greyscale_config)
+		return
+	update_greyscale()
+
+/// Checks if the greyscale config given is different and if so causes a greyscale icon update
+/atom/proc/set_greyscale_config(new_config)
+	if(greyscale_config == new_config)
+		return
+	greyscale_config = new_config
+	update_greyscale()
+
+/// Checks if this atom uses the GAS system and if so updates the icon
+/atom/proc/update_greyscale()
+	if(greyscale_config && greyscale_colors)
+		icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
 
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()
@@ -1451,6 +1482,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	.["Transform editor"] = "byond://?_src_=vars;matrix_tester=[UID()]"
 	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
+	.["Modify greyscale colors"] = "byond://?_src_=vars;modify_greyscale=[UID()]"
 
 /atom/proc/AllowDrop()
 	return FALSE

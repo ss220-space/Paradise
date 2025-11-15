@@ -92,9 +92,10 @@
 #define INIT_ORDER_INPUT 50
 #define INIT_ORDER_SOUNDS 44
 #define INIT_ORDER_INSTRUMENTS 43
-#define INIT_ORDER_EVENTS 42
-#define INIT_ORDER_HOLIDAY 41
-#define INIT_ORDER_JOBS 40
+#define INIT_ORDER_GREYSCALE 42
+#define INIT_ORDER_EVENTS 41
+#define INIT_ORDER_HOLIDAY 40
+#define INIT_ORDER_JOBS 39
 #define INIT_ORDER_AI_MOVEMENT 36 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 35 //So the controller can get the ref
 #define INIT_ORDER_TICKER 30

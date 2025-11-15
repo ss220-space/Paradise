@@ -1422,3 +1422,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		delta += addition
 
 	return force + delta
+
+/// Returns the icon used for overlaying the object on a belt
+/obj/item/proc/get_belt_overlay()
+	if(!belt_icon)
+		return
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)

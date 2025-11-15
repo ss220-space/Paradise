@@ -25,15 +25,31 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	toolbox_radial_menu_compatibility = TRUE
+	/// If the item should be assigned a random color
 	var/random_color = TRUE
+	/// List of possible random colors
+	var/static/list/wirecutter_colors = list(
+		"blue" = "#1861d5",
+		"red" = "#951710",
+		"pink" = "#d5188d",
+		"brown" = "#a05212",
+		"green" = "#0e7f1b",
+		"cyan" = "#18a2d5",
+		"yellow" = "#d58c18"
+	)
+	/// Colored belt appearance for adding it as a belt overlay
+	var/mutable_appearance/colored_belt_appearance
 
 /obj/item/wirecutters/Initialize(mapload, param_color = null)
-	. = ..()
 	if(random_color)
-		if(!param_color)
-			param_color = pick("yellow", "red")
-		icon_state = "cutters_[param_color]"
-
+		set_greyscale_config(/datum/greyscale_config/wirecutters)
+		var/our_color = param_color || pick(wirecutter_colors)
+		set_greyscale_colors(list(wirecutter_colors[our_color]))
+		item_state = null
+		lefthand_file = SSgreyscale.GetColoredIconByType(/datum/greyscale_config/wirecutters_inhand_left, greyscale_colors)
+		righthand_file = SSgreyscale.GetColoredIconByType(/datum/greyscale_config/wirecutters_inhand_right, greyscale_colors)
+		colored_belt_appearance = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/wirecutters_belt, greyscale_colors))
+	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/wirecutters/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -55,10 +71,20 @@
 	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
+/obj/item/wirecutters/get_belt_overlay()
+	if(random_color)
+		return colored_belt_appearance
+
+	if(!belt_icon)
+		return
+
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)
+
 /obj/item/wirecutters/brass
 	name = "brass wirecutters"
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
+	belt_icon = "cutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF

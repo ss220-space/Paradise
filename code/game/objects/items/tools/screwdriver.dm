@@ -23,7 +23,20 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
 	toolbox_radial_menu_compatibility = TRUE
-	var/random_color = TRUE //if the screwdriver uses random coloring
+	/// If the item should be assigned a random color
+	var/random_color = TRUE
+	/// List of possible random colors
+	var/static/list/screwdriver_colors = list(
+		"blue" = "#1861d5",
+		"red" = "#ff0000",
+		"pink" = "#d5188d",
+		"brown" = "#a05212",
+		"green" = "#0e7f1b",
+		"cyan" = "#18a2d5",
+		"yellow" = "#ffa500"
+	)
+	/// Colored belt appearance for adding it as a belt overlay
+	var/mutable_appearance/colored_belt_appearance
 
 /obj/item/screwdriver/Initialize(mapload)
 	. = ..()
@@ -32,6 +45,7 @@
 /obj/item/screwdriver/nuke
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
+	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
 
@@ -40,12 +54,15 @@
 	return BRUTELOSS
 
 /obj/item/screwdriver/Initialize(mapload, param_color = null)
-	. = ..()
 	if(random_color)
-		if(!param_color)
-			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
-		icon_state = "screwdriver_[param_color]"
-
+		set_greyscale_config(/datum/greyscale_config/screwdriver)
+		var/our_color = param_color || pick(screwdriver_colors)
+		set_greyscale_colors(list(screwdriver_colors[our_color]))
+		item_state = null
+		lefthand_file = SSgreyscale.GetColoredIconByType(/datum/greyscale_config/screwdriver_inhand_left, greyscale_colors)
+		righthand_file = SSgreyscale.GetColoredIconByType(/datum/greyscale_config/screwdriver_inhand_right, greyscale_colors)
+		colored_belt_appearance = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/screwdriver_belt, greyscale_colors))
+	. = ..()
 	if(prob(75))
 		pixel_y = rand(0, 16)
 
@@ -62,10 +79,20 @@
 	return eyestab(target, user)
 
 
+/obj/item/screwdriver/get_belt_overlay()
+	if(random_color)
+		return colored_belt_appearance
+
+	if(!belt_icon)
+		return
+
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)
+
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
 	icon_state = "screwdriver_brass"
+	belt_icon = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF

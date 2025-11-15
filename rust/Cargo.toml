@@ -27,6 +27,23 @@ dmi = "0.5.0"
 png = "0.17"
 image = { version = "0.25", features = ["png"] }
 qrcode = { version = "0.14.1", features = ["image", "svg"] }
+symphonia = { version = "0.5.4", features = ["all-codecs"] }
+md-5 = "0.10"
+twox-hash = "2.1"
+const-random = "0.1.18"
+sha-1 = "0.10"
+sha2 = "0.10"
+once_cell  = "1.21"
+tracy_full = "1.12.0"
+dashmap = { version = "6.1", features = ["rayon", "serde"] }
+rayon = "1.11"
+flume = "0.11"
+indexmap = { version = "2.11.4", features = [
+    "serde",
+    "rayon",
+] }
+ordered-float = { version = "5.1.0", features = ["serde"] }
+hex = "0.4"
 
 [features]
 default = ["byond-515"]

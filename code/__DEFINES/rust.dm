@@ -31,3 +31,109 @@
 /// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
 /proc/byondapi_stack_trace(err)
 	CRASH(err)
+
+#define rustlib_dmi_strip_metadata(fname) RUSTLIB_CALL("dmi_strip_metadata", fname)
+#define rustlib_dmi_create_png(path, width, height, data) RUSTLIB_CALL("dmi_create_png", path, width, height, data)
+#define rustlib_dmi_resize_png(path, width, height, resizetype) RUSTLIB_CALL("dmi_resize_png", path, width, height, resizetype)
+/**
+ * input: must be a path, not an /icon; you have to do your own handling if it is one, as icon objects can't be directly passed to rustg.
+ *
+ * output: icon_states list.
+ */
+#define rustlib_dmi_icon_states(fname) RUSTLIB_CALL("dmi_icon_states", fname)
+
+#define rustlib_hash_string(algorithm, text) RUSTLIB_CALL("hash_string", algorithm, text)
+#define rustlib_hash_file(algorithm, fname) RUSTLIB_CALL("hash_file", algorithm, fname)
+#define rustlib_hash_generate_totp(seed)RUSTLIB_CALL("generate_totp", seed)
+#define rustlib_hash_generate_totp_tolerance(seed, tolerance) RUSTLIB_CALL("generate_totp_tolerance", seed, tolerance)
+
+#define RUSTLIB_HASH_MD5 "md5"
+#define RUSTLIB_HASH_SHA1 "sha1"
+#define RUSTLIB_HASH_SHA256 "sha256"
+#define RUSTLIB_HASH_SHA512 "sha512"
+#define RUSTLIB_HASH_XXH64 "xxh64"
+#define RUSTLIB_HASH_BASE64 "base64"
+
+/// Encode a given string into base64
+#define rustlib_encode_base64(str) rustlib_hash_string(RUSTLIB_HASH_BASE64, str)
+/// Decode a given base64 string
+#define rustlib_decode_base64(str) RUSTLIB_CALL("decode_base64", str)
+
+#ifdef RUSTLIB_OVERRIDE_BUILTINS
+	#define md5(thing) (isfile(thing) ? rustlib_hash_file(RUSTLIB_HASH_MD5, "[thing]") : rustlib_hash_string(RUSTLIB_HASH_MD5, thing))
+#endif
+
+
+/// Generates a spritesheet at: [file_path][spritesheet_name]_[size_id].png
+/// The resulting spritesheet arranges icons in a random order, with the position being denoted in the "sprites" return value.
+/// All icons have the same y coordinate, and their x coordinate is equal to `icon_width * position`.
+///
+/// hash_icons is a boolean (0 or 1), and determines if the generator will spend time creating hashes for the output field dmi_hashes.
+/// These hashes can be heplful for 'smart' caching (see rustlib_iconforge_cache_valid), but require extra computation.
+///
+/// Spritesheet will contain all sprites listed within "sprites".
+/// "sprites" format:
+/// list(
+///     "sprite_name" = list( // <--- this list is a [SPRITE_OBJECT]
+///         icon_file = 'icons/path_to/an_icon.dmi',
+///         icon_state = "some_icon_state",
+///         dir = SOUTH,
+///         frame = 1,
+///         transform = list([TRANSFORM_OBJECT], ...)
+///     ),
+///     ...,
+/// )
+/// TRANSFORM_OBJECT format:
+/// list("type" = RUSTLIB_ICONFORGE_BLEND_COLOR, "color" = "#ff0000", "blend_mode" = ICON_MULTIPLY)
+/// list("type" = RUSTLIB_ICONFORGE_BLEND_ICON, "icon" = [SPRITE_OBJECT], "blend_mode" = ICON_OVERLAY)
+/// list("type" = RUSTLIB_ICONFORGE_SCALE, "width" = 32, "height" = 32)
+/// list("type" = RUSTLIB_ICONFORGE_CROP, "x1" = 1, "y1" = 1, "x2" = 32, "y2" = 32) // (BYOND icons index from 1,1 to the upper bound, inclusive)
+///
+/// Returns a SpritesheetResult as JSON, containing fields:
+/// list(
+///     "sizes" = list("32x32", "64x64", ...),
+///     "sprites" = list("sprite_name" = list("size_id" = "32x32", "position" = 0), ...),
+///     "dmi_hashes" = list("icons/path_to/an_icon.dmi" = "d6325c5b4304fb03", ...),
+///     "sprites_hash" = "a2015e5ff403fb5c", // This is the xxh64 hash of the INPUT field "sprites".
+///     "error" = "[A string, empty if there were no errors.]"
+/// )
+/// In the case of an unrecoverable panic from within Rust, this function ONLY returns a string containing the error.
+#define rustlib_iconforge_generate(file_path, spritesheet_name, sprites, hash_icons) RUSTLIB_CALL("iconforge_generate", file_path, spritesheet_name, sprites, "[hash_icons]")
+/// Returns a job_id for use with rustlib_iconforge_check()
+#define rustlib_iconforge_generate_async(file_path, spritesheet_name, sprites, hash_icons) RUSTLIB_CALL("iconforge_generate_async", file_path, spritesheet_name, sprites, "[hash_icons]")
+/// Returns the status of an async job_id, or its result if it is completed. See RUSTG_JOB DEFINEs.
+#define rustlib_iconforge_check(job_id) RUSTLIB_CALL("iconforge_check", "[job_id]")
+/// Clears all cached DMIs and images, freeing up memory.
+/// This should be used after spritesheets are done being generated.
+#define rustlib_iconforge_cleanup RUSTLIB_CALL("iconforge_cleanup")
+/// Takes in a set of hashes, generate inputs, and DMI filepaths, and compares them to determine cache validity.
+/// input_hash: xxh64 hash of "sprites" from the cache.
+/// dmi_hashes: xxh64 hashes of the DMIs in a spritesheet, given by `rustlib_iconforge_generate` with `hash_icons` enabled. From the cache.
+/// sprites: The new input that will be passed to rustlib_iconforge_generate().
+/// Returns a CacheResult with the following structure: list(
+///     "result": "1" (if cache is valid) or "0" (if cache is invalid)
+///     "fail_reason": "" (emtpy string if valid, otherwise a string containing the invalidation reason or an error with ERROR: prefixed.)
+/// )
+/// In the case of an unrecoverable panic from within Rust, this function ONLY returns a string containing the error.
+#define rustlib_iconforge_cache_valid(input_hash, dmi_hashes, sprites) RUSTLIB_CALL("iconforge_cache_valid", input_hash, dmi_hashes, sprites)
+/// Returns a job_id for use with rustlib_iconforge_check()
+#define rustlib_iconforge_cache_valid_async(input_hash, dmi_hashes, sprites) RUSTLIB_CALL("iconforge_cache_valid_async", input_hash, dmi_hashes, sprites)
+/// Provided a /datum/greyscale_config typepath, JSON string containing the greyscale config, and path to a DMI file containing the base icons,
+/// Loads that config into memory for later use by rustlib_iconforge_gags(). The config_path is the unique identifier used later.
+/// JSON Config schema: https://hackmd.io/@tgstation/GAGS-Layer-Types
+/// Unsupported features: color_matrix layer type, 'or' blend_mode. May not have BYOND parity with animated icons or varying dirs between layers.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustlib_iconforge_load_gags_config(config_path, config_json, config_icon_path) RUSTLIB_CALL("iconforge_load_gags_config", "[config_path]", config_json, config_icon_path)
+/// Given a config_path (previously loaded by rustlib_iconforge_load_gags_config), and a string of hex colors formatted as "#ff00ff#ffaa00"
+/// Outputs a DMI containing all of the states within the config JSON to output_dmi_path, creating any directories leading up to it if necessary.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustlib_iconforge_gags(config_path, colors, output_dmi_path) RUSTLIB_CALL("iconforge_gags", "[config_path]", colors, output_dmi_path)
+/// Returns a job_id for use with rustlib_iconforge_check()
+#define rustlib_iconforge_load_gags_config_async(config_path, config_json, config_icon_path) RUSTLIB_CALL("iconforge_load_gags_config_async", "[config_path]", config_json, config_icon_path)
+/// Returns a job_id for use with rustlib_iconforge_check()
+#define rustlib_iconforge_gags_async(config_path, colors, output_dmi_path) RUSTLIB_CALL("iconforge_gags_async", "[config_path]", colors, output_dmi_path)
+
+#define RUSTLIB_ICONFORGE_BLEND_COLOR "BlendColor"
+#define RUSTLIB_ICONFORGE_BLEND_ICON "BlendIcon"
+#define RUSTLIB_ICONFORGE_CROP "Crop"
+#define RUSTLIB_ICONFORGE_SCALE "Scale"
