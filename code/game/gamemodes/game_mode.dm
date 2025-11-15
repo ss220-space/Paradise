@@ -886,16 +886,16 @@
 
 	return FALSE
 
-/datum/game_mode/proc/apocalypse()
-	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+/datum/game_mode/proc/apocalypse(god_name)
 	GLOB.major_announcement.announce(
-		message = "Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
+		message = "Обнаружена вторжение внепространственного бога по имени [god_name]. Помощь и инструкции по противодействию будут направлены в ближайшее время. Всему лояльному экипажу — не доспутить распостранение угрозы.",
 		new_title = ANNOUNCE_CCPARANORMAL_RU,
 		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	sleep(50 SECONDS)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	GLOB.major_announcement.announce(
-		message = "Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
+		message = "Помощь в пути. Всему лояльному экипажу следует закрепиться на текущих позициях и ожидать прибытия подкрепления.",
 		new_title = ANNOUNCE_CCPARANORMAL_RU,
 		new_sound = 'sound/AI/commandreport.ogg'
 	)
@@ -905,7 +905,7 @@
 
 	if(!god)
 		GLOB.minor_announcement.announce(
-			message = "Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
+			message = "Сенсоры более не фиксируют признаков угрозы. Санкционирована экстренная эвакуация.",
 			new_title = ANNOUNCE_CCPARANORMAL_RU,
 			new_sound = 'sound/AI/commandreport.ogg'
 		)
