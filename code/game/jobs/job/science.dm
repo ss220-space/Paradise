@@ -23,7 +23,7 @@
 	disabilities_allowed = 0
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
-		/datum/job_objective/further_research
+		/datum/job_objective/further_research,
 	)
 	outfit = /datum/outfit/job/rd
 	insurance_type = INSURANCE_TYPE_DELUXE
@@ -46,7 +46,7 @@
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/heads/rd
 	backpack_contents = list(
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/science
@@ -72,7 +72,7 @@
 	exp_type = EXP_TYPE_SCIENCE
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
-		/datum/job_objective/further_research
+		/datum/job_objective/further_research,
 	)
 	outfit = /datum/outfit/job/scientist
 

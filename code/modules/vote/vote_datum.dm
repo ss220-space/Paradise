@@ -111,10 +111,10 @@
 			var/res = winning_options[1]
 
 			if(res in choices)
-				to_chat(world, span_interface("<b>Победитель голосования – [sanitize(capitalize(res))]</b>"))
+				to_chat(world, span_interface("<b>Победитель голосования — [sanitize(capitalize(res))]</b>"))
 				return res
 
-			to_chat(world, span_interface("Победитель голосования – [sanitize(capitalize(res))] не может считаться действительным выбором? Что за бред?!"))
+			to_chat(world, span_interface("Победитель голосования — [sanitize(capitalize(res))] не может считаться действительным выбором? Что за бред?!"))
 			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
 			return null
 

@@ -16,7 +16,7 @@
 		DATIVE = "голографической табличке",
 		ACCUSATIVE = "голографическую табличку",
 		INSTRUMENTAL = "голографической табличкой",
-		PREPOSITIONAL = "голографической табличке"
+		PREPOSITIONAL = "голографической табличке",
 	)
 
 /obj/structure/holosign/Initialize(mapload, source_projector)
@@ -71,7 +71,7 @@
 		DATIVE = "знаку мокрого пола",
 		ACCUSATIVE = "знак мокрого пола",
 		INSTRUMENTAL = "знаком мокрого пола",
-		PREPOSITIONAL = "знаке мокрого пола"
+		PREPOSITIONAL = "знаке мокрого пола",
 	)
 
 /obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
@@ -124,7 +124,7 @@
 		DATIVE = "голографическому барьеру",
 		ACCUSATIVE = "голографический барьер",
 		INSTRUMENTAL = "голографическим барьером",
-		PREPOSITIONAL = "голографическом барьере"
+		PREPOSITIONAL = "голографическом барьере",
 	)
 
 
@@ -161,7 +161,7 @@
 		DATIVE = "голографическому пожарному шлюзу",
 		ACCUSATIVE = "голографический пожарный шлюз",
 		INSTRUMENTAL = "голографическим пожарным шлюзом",
-		PREPOSITIONAL = "голографическом пожарном шлюзе"
+		PREPOSITIONAL = "голографическом пожарном шлюзе",
 	)
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
@@ -189,7 +189,7 @@
 		DATIVE = "энергетическому барьеру",
 		ACCUSATIVE = "энергетический барьер",
 		INSTRUMENTAL = "энергетическим барьером",
-		PREPOSITIONAL = "энергетическом барьере"
+		PREPOSITIONAL = "энергетическом барьере",
 	)
 
 /obj/structure/holosign/barrier/cyborg/bullet_act(obj/projectile/P)
@@ -212,7 +212,7 @@
 		DATIVE = "заряженному энергетическому барьеру",
 		ACCUSATIVE = "заряженный энергетический барьер",
 		INSTRUMENTAL = "заряженным энергетическим барьером",
-		PREPOSITIONAL = "заряженном энергетическом барьере"
+		PREPOSITIONAL = "заряженном энергетическом барьере",
 	)
 
 

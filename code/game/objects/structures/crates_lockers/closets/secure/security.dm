@@ -128,7 +128,7 @@
 		DATIVE = "шкафу гранатомета GL-06",
 		ACCUSATIVE = "шкаф гранатомета GL-06",
 		INSTRUMENTAL = "шкафом гранатомета GL-06",
-		PREPOSITIONAL = "шкафе гранатомета GL-06"
+		PREPOSITIONAL = "шкафе гранатомета GL-06",
 	)
 
 /obj/structure/closet/secure_closet/security_grenade_launcher/populate_contents()
@@ -175,7 +175,7 @@
 		DATIVE = "шкафу пистолет пулемётов WT-550",
 		ACCUSATIVE = "шкаф пистолет пулемётов WT-550",
 		INSTRUMENTAL = "шкафом пистолет пулемётов WT-550",
-		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550"
+		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
@@ -197,7 +197,7 @@
 		DATIVE = "шкафу пистолет пулемётов SP-91-RC",
 		ACCUSATIVE = "шкаф пистолет пулемётов SP-91-RC",
 		INSTRUMENTAL = "шкафом пистолет пулемётов SP-91-RC",
-		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC"
+		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
@@ -206,6 +206,28 @@
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12
+	name = "security Sparkle-A12 gun cabinet"
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов А9 \"Искра\". Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		GENITIVE = "шкафа пистолет пулемёта А9 \"Искра\"",
+		DATIVE = "шкафу пистолет пулемёта А9 \"Искра\"",
+		ACCUSATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		INSTRUMENTAL = "шкафом пистолет пулемёта А9 \"Искра\"",
+		PREPOSITIONAL = "шкафе пистолет пулемёта А9 \"Искра\""
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
@@ -219,7 +241,7 @@
 		DATIVE = "шкафу лазерных винтовок",
 		ACCUSATIVE = "шкаф лазерных винтовок",
 		INSTRUMENTAL = "шкафом лазерных винтовок",
-		PREPOSITIONAL = "шкафе лазерных винтовок"
+		PREPOSITIONAL = "шкафе лазерных винтовок",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
@@ -241,7 +263,7 @@
 		DATIVE = "шкафу лазерных винтовок LR-30",
 		ACCUSATIVE = "шкаф лазерных винтовок LR-30",
 		INSTRUMENTAL = "шкафом лазерных винтовок LR-30",
-		PREPOSITIONAL = "шкафе лазерных винтовок LR-30"
+		PREPOSITIONAL = "шкафе лазерных винтовок LR-30",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()

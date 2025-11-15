@@ -37,7 +37,7 @@
 		DATIVE = "низшему адскому псу",
 		ACCUSATIVE = "низшего адского пса",
 		INSTRUMENTAL = "низшим адским псом",
-		PREPOSITIONAL = "низшем адском псе"
+		PREPOSITIONAL = "низшем адском псе",
 	)
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
@@ -184,5 +184,5 @@
 		DATIVE = "бешеному адскому псу",
 		ACCUSATIVE = "бешеного адского пса",
 		INSTRUMENTAL = "бешеным адским псом",
-		PREPOSITIONAL = "бешеном адском псе"
+		PREPOSITIONAL = "бешеном адском псе",
 	)

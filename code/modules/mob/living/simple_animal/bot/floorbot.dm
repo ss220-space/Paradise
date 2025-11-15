@@ -120,7 +120,7 @@
 			return ATTACK_CHAIN_PROCEED
 		amount += loaded
 		balloon_alert(user, "плитки загружены")
-		to_chat(user, span_notice("Вы загрузили [loaded] плитки в [declent_ru(ACCUSATIVE)]. Текущее количество плиток - [amount]."))
+		to_chat(user, span_notice("Вы загрузили [loaded] плитки в [declent_ru(ACCUSATIVE)]. Текущее количество плиток — [amount]."))
 		nagged = FALSE
 		update_icon()
 		return ATTACK_CHAIN_PROCEED_SUCCESS

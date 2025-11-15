@@ -14,7 +14,7 @@
 		DATIVE = "лавовой лодке",
 		ACCUSATIVE = "лавовую лодку",
 		INSTRUMENTAL = "лавовой лодкой",
-		PREPOSITIONAL = "лавовой лодке"
+		PREPOSITIONAL = "лавовой лодке",
 	)
 
 /obj/vehicle/ridden/lavaboat/Initialize(mapload)
@@ -36,7 +36,7 @@
 		DATIVE = "кораблю в бутылке",
 		ACCUSATIVE = "корабль в бутылке",
 		INSTRUMENTAL = "кораблём в бутылке",
-		PREPOSITIONAL = "корабле в бутылке"
+		PREPOSITIONAL = "корабле в бутылке",
 	)
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
@@ -57,7 +57,7 @@
 		DATIVE = "таинственной лодке",
 		ACCUSATIVE = "таинственную лодку",
 		INSTRUMENTAL = "таинственной лодкой",
-		PREPOSITIONAL = "таинственной лодке"
+		PREPOSITIONAL = "таинственной лодке",
 	)
 
 /obj/vehicle/ridden/lavaboat/dragon/Initialize(mapload)
@@ -82,7 +82,7 @@
 		DATIVE = "веслу",
 		ACCUSATIVE = "весло",
 		INSTRUMENTAL = "веслом",
-		PREPOSITIONAL = "весле"
+		PREPOSITIONAL = "весле",
 	)
 
 /datum/crafting_recipe/oar

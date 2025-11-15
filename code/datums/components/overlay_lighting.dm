@@ -50,7 +50,7 @@
 		"352" = 'icons/effects/light_overlays/light_352.dmi',
 		"480" = 'icons/effects/light_overlays/light_480.dmi',
 		"544" = 'icons/effects/light_overlays/light_544.dmi',
-		)
+	)
 
 	///Overlay effect to cut into the darkness and provide light.
 	var/image/visible_mask

@@ -20,7 +20,7 @@
 		DATIVE = "стандартному ключу-шифратору",
 		ACCUSATIVE = "стандартный ключ-шифратор",
 		INSTRUMENTAL = "стандартным ключом-шифратором",
-		PREPOSITIONAL = "стандартном ключе-шифраторе"
+		PREPOSITIONAL = "стандартном ключе-шифраторе",
 	)
 
 
@@ -42,7 +42,7 @@
 		DATIVE = "ключу-шифратору Синдиката",
 		ACCUSATIVE = "ключ-шифратор Синдиката",
 		INSTRUMENTAL = "ключом-шифратором Синдиката",
-		PREPOSITIONAL = "ключе-шифраторе Синдиката"
+		PREPOSITIONAL = "ключе-шифраторе Синдиката",
 	)
 
 /obj/item/encryptionkey/syndicate/Initialize(mapload)
@@ -81,7 +81,7 @@
 		DATIVE = "ключу-шифратору Синдиката",
 		ACCUSATIVE = "ключ-шифратор Синдиката",
 		INSTRUMENTAL = "ключом-шифратором Синдиката",
-		PREPOSITIONAL = "ключе-шифраторе Синдиката"
+		PREPOSITIONAL = "ключе-шифраторе Синдиката",
 	)
 
 /obj/item/encryptionkey/soviet
@@ -96,7 +96,7 @@
 		DATIVE = "ключу-шифратору СССП",
 		ACCUSATIVE = "ключ-шифратор СССП",
 		INSTRUMENTAL = "ключом-шифратором СССП",
-		PREPOSITIONAL = "ключе-шифраторе СССП"
+		PREPOSITIONAL = "ключе-шифраторе СССП",
 	)
 
 /obj/item/encryptionkey/binary
@@ -113,7 +113,7 @@
 		DATIVE = "ключу-переводчику бинарного канала",
 		ACCUSATIVE = "ключ-переводчик бинарного канала",
 		INSTRUMENTAL = "ключом-переводчиком бинарного канала",
-		PREPOSITIONAL = "ключе-переводчике бинарного канала"
+		PREPOSITIONAL = "ключе-переводчике бинарного канала",
 	)
 
 /obj/item/encryptionkey/headset_sec
@@ -128,7 +128,7 @@
 		DATIVE = "ключу-шифратор канала охраны",
 		ACCUSATIVE = "ключ-шифратор канала охраны",
 		INSTRUMENTAL = "ключом-шифратором канала охраны",
-		PREPOSITIONAL = "ключе-шифраторе канала охраны"
+		PREPOSITIONAL = "ключе-шифраторе канала охраны",
 	)
 
 /obj/item/encryptionkey/prisoner
@@ -143,7 +143,7 @@
 		DATIVE = "ключу-шифратор канала заключенных",
 		ACCUSATIVE = "ключ-шифратор канала заключенных",
 		INSTRUMENTAL = "ключом-шифратором канала заключенных",
-		PREPOSITIONAL = "ключе-шифраторе канала заключенных"
+		PREPOSITIONAL = "ключе-шифраторе канала заключенных",
 	)
 
 /obj/item/encryptionkey/green
@@ -158,7 +158,7 @@
 		DATIVE = "ключу-шифратор канала зеленых",
 		ACCUSATIVE = "ключ-шифратор канала зеленых",
 		INSTRUMENTAL = "ключом-шифратором канала зеленых",
-		PREPOSITIONAL = "ключе-шифраторе канала зеленых"
+		PREPOSITIONAL = "ключе-шифраторе канала зеленых",
 	)
 
 /obj/item/encryptionkey/blue
@@ -173,7 +173,7 @@
 		DATIVE = "ключу-шифратор канала синих",
 		ACCUSATIVE = "ключ-шифратор канала синих",
 		INSTRUMENTAL = "ключом-шифратором канала синих",
-		PREPOSITIONAL = "ключе-шифраторе канала синих"
+		PREPOSITIONAL = "ключе-шифраторе канала синих",
 	)
 
 /obj/item/encryptionkey/red
@@ -188,7 +188,7 @@
 		DATIVE = "ключу-шифратор канала красных",
 		ACCUSATIVE = "ключ-шифратор канала красных",
 		INSTRUMENTAL = "ключом-шифратором канала красных",
-		PREPOSITIONAL = "ключе-шифраторе канала красных"
+		PREPOSITIONAL = "ключе-шифраторе канала красных",
 	)
 
 /obj/item/encryptionkey/headset_iaa
@@ -203,7 +203,7 @@
 		DATIVE = "ключу-шифратору агента внутренних дел",
 		ACCUSATIVE = "ключ-шифратор агента внутренних дел",
 		INSTRUMENTAL = "ключом-шифратором агента внутренних дел",
-		PREPOSITIONAL = "ключе-шифраторе агента внутренних дел"
+		PREPOSITIONAL = "ключе-шифраторе агента внутренних дел",
 	)
 
 /obj/item/encryptionkey/headset_eng
@@ -218,7 +218,7 @@
 		DATIVE = "ключу-шифратору инженерного канала",
 		ACCUSATIVE = "ключ-шифратор инженерного канала",
 		INSTRUMENTAL = "ключом-шифратором инженерного канала",
-		PREPOSITIONAL = "ключе-шифраторе инженерного канала"
+		PREPOSITIONAL = "ключе-шифраторе инженерного канала",
 	)
 
 /obj/item/encryptionkey/headset_rob
@@ -233,7 +233,7 @@
 		DATIVE = "ключу-шифратору робототехников",
 		ACCUSATIVE = "ключ-шифратор робототехников",
 		INSTRUMENTAL = "ключом-шифратором робототехников",
-		PREPOSITIONAL = "ключе-шифраторе робототехников"
+		PREPOSITIONAL = "ключе-шифраторе робототехников",
 	)
 
 /obj/item/encryptionkey/headset_med
@@ -248,7 +248,7 @@
 		DATIVE = "ключу-шифратору медицинского канала",
 		ACCUSATIVE = "ключ-шифратор медицинского канала",
 		INSTRUMENTAL = "ключом-шифратором медицинского канала",
-		PREPOSITIONAL = "ключе-шифраторе медицинского канала"
+		PREPOSITIONAL = "ключе-шифраторе медицинского канала",
 	)
 
 /obj/item/encryptionkey/headset_sci
@@ -263,7 +263,7 @@
 		DATIVE = "ключу-шифратору научного канала",
 		ACCUSATIVE = "ключ-шифратор научного канала",
 		INSTRUMENTAL = "ключом-шифратором научного канала",
-		PREPOSITIONAL = "ключе-шифраторе научного канала"
+		PREPOSITIONAL = "ключе-шифраторе научного канала",
 	)
 
 /obj/item/encryptionkey/headset_medsci
@@ -278,7 +278,7 @@
 		DATIVE = "ключу-шифратору научного и медицинского канала",
 		ACCUSATIVE = "ключ-шифратор научного и медицинского канала",
 		INSTRUMENTAL = "ключом-шифратором научного и медицинского канала",
-		PREPOSITIONAL = "ключе-шифраторе научного и медицинского канала"
+		PREPOSITIONAL = "ключе-шифраторе научного и медицинского канала",
 	)
 
 /obj/item/encryptionkey/headset_medsec
@@ -293,7 +293,7 @@
 		DATIVE = "ключу-шифратору охранного и медицинского канала",
 		ACCUSATIVE = "ключ-шифратор охранного и медицинского канала",
 		INSTRUMENTAL = "ключом-шифратором охранного и медицинского канала",
-		PREPOSITIONAL = "ключе-шифраторе охранного и медицинского канала"
+		PREPOSITIONAL = "ключе-шифраторе охранного и медицинского канала",
 	)
 
 /obj/item/encryptionkey/headset_com
@@ -308,7 +308,7 @@
 		DATIVE = "ключу-шифратору командного канала",
 		ACCUSATIVE = "ключ-шифратор командного канала",
 		INSTRUMENTAL = "ключом-шифратором командного канала",
-		PREPOSITIONAL = "ключе-шифраторе командного канала"
+		PREPOSITIONAL = "ключе-шифраторе командного канала",
 	)
 
 /obj/item/encryptionkey/heads/captain
@@ -323,7 +323,7 @@
 		DATIVE = "ключу-шифратору капитана",
 		ACCUSATIVE = "ключ-шифратор капитана",
 		INSTRUMENTAL = "ключом-шифратором капитана",
-		PREPOSITIONAL = "ключе-шифраторе капитана"
+		PREPOSITIONAL = "ключе-шифраторе капитана",
 	)
 
 /obj/item/encryptionkey/heads/rd
@@ -338,7 +338,7 @@
 		DATIVE = "ключу-шифратору научного руководителя",
 		ACCUSATIVE = "ключ-шифратор научного руководителя",
 		INSTRUMENTAL = "ключом-шифратором научного руководителя",
-		PREPOSITIONAL = "ключе-шифраторе научного руководителя"
+		PREPOSITIONAL = "ключе-шифраторе научного руководителя",
 	)
 
 /obj/item/encryptionkey/heads/hos
@@ -353,7 +353,7 @@
 		DATIVE = "ключу-шифратору главы службы безопасности",
 		ACCUSATIVE = "ключ-шифратор главы службы безопасности",
 		INSTRUMENTAL = "ключом-шифратором главы службы безопасности",
-		PREPOSITIONAL = "ключе-шифраторе главы службы безопасности"
+		PREPOSITIONAL = "ключе-шифраторе главы службы безопасности",
 	)
 
 /obj/item/encryptionkey/heads/ce
@@ -368,7 +368,7 @@
 		DATIVE = "ключу-шифратору старшего инженера",
 		ACCUSATIVE = "ключ-шифратор старшего инженера",
 		INSTRUMENTAL = "ключом-шифратором старшего инженера",
-		PREPOSITIONAL = "ключе-шифраторе старшего инженера"
+		PREPOSITIONAL = "ключе-шифраторе старшего инженера",
 	)
 
 /obj/item/encryptionkey/heads/cmo
@@ -383,7 +383,7 @@
 		DATIVE = "ключу-шифратору главного врача",
 		ACCUSATIVE = "ключ-шифратор главного врача",
 		INSTRUMENTAL = "ключом-шифратором главного врача",
-		PREPOSITIONAL = "ключе-шифраторе главного врача"
+		PREPOSITIONAL = "ключе-шифраторе главного врача",
 	)
 
 /obj/item/encryptionkey/heads/hop
@@ -398,7 +398,7 @@
 		DATIVE = "ключу-шифратору главы персонала",
 		ACCUSATIVE = "ключ-шифратор главы персонала",
 		INSTRUMENTAL = "ключом-шифратором главы персонала",
-		PREPOSITIONAL = "ключе-шифраторе главы персонала"
+		PREPOSITIONAL = "ключе-шифраторе главы персонала",
 	)
 /obj/item/encryptionkey/heads/qm
 	name = "Quartermaster's Encryption Key"
@@ -412,7 +412,7 @@
 		DATIVE = "ключу-шифратору Квартирмейстера",
 		ACCUSATIVE = "ключ-шифратор Квартирмейстера",
 		INSTRUMENTAL = "ключом-шифратором Квартирмейстера",
-		PREPOSITIONAL = "ключе-шифраторе Квартирмейстера"
+		PREPOSITIONAL = "ключе-шифраторе Квартирмейстера",
 	)
 
 /obj/item/encryptionkey/heads/ntrep
@@ -427,7 +427,7 @@
 		DATIVE = "ключу-шифратору представителя Нанотрейзен",
 		ACCUSATIVE = "ключ-шифратор представителя Нанотрейзен",
 		INSTRUMENTAL = "ключом-шифратором представителя Нанотрейзен",
-		PREPOSITIONAL = "ключе-шифраторе представителя Нанотрейзен"
+		PREPOSITIONAL = "ключе-шифраторе представителя Нанотрейзен",
 	)
 /obj/item/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"
@@ -441,7 +441,7 @@
 		DATIVE = "ключу-шифратору магистрата",
 		ACCUSATIVE = "ключ-шифратор магистрата",
 		INSTRUMENTAL = "ключом-шифратором магистрата",
-		PREPOSITIONAL = "ключе-шифраторе магистрата"
+		PREPOSITIONAL = "ключе-шифраторе магистрата",
 	)
 /obj/item/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
@@ -455,7 +455,7 @@
 		DATIVE = "ключу-шифратору офицера \"Синий Щит\"",
 		ACCUSATIVE = "ключ-шифратор офицера \"Синий Щит\"",
 		INSTRUMENTAL = "ключом-шифратором офицера \"Синий Щит\"",
-		PREPOSITIONAL = "ключе-шифраторе офицера \"Синий Щит\""
+		PREPOSITIONAL = "ключе-шифраторе офицера \"Синий Щит\"",
 	)
 
 /*
@@ -476,7 +476,7 @@
 		DATIVE = "ключу-шифратору канала снабжения",
 		ACCUSATIVE = "ключ-шифратор канала снабжения",
 		INSTRUMENTAL = "ключом-шифратором канала снабжения",
-		PREPOSITIONAL = "ключе-шифраторе канала снабжения"
+		PREPOSITIONAL = "ключе-шифраторе канала снабжения",
 	)
 
 /obj/item/encryptionkey/headset_service
@@ -491,7 +491,7 @@
 		DATIVE = "ключу-шифратору канала обслуживания",
 		ACCUSATIVE = "ключ-шифратор канала обслуживания",
 		INSTRUMENTAL = "ключом-шифратором канала обслуживания",
-		PREPOSITIONAL = "ключе-шифраторе канала обслуживания"
+		PREPOSITIONAL = "ключе-шифраторе канала обслуживания",
 	)
 
 /obj/item/encryptionkey/ert
@@ -505,7 +505,7 @@
 		DATIVE = "ключу-шифратору ОБР",
 		ACCUSATIVE = "ключ-шифратор ОБР",
 		INSTRUMENTAL = "ключом-шифратором ОБР",
-		PREPOSITIONAL = "ключе-шифраторе ОБР"
+		PREPOSITIONAL = "ключе-шифраторе ОБР",
 	)
 
 /obj/item/encryptionkey/centcom
@@ -520,7 +520,7 @@
 		DATIVE = "ключу-шифратору Центрального командования",
 		ACCUSATIVE = "ключ-шифратор Центрального командования",
 		INSTRUMENTAL = "ключом-шифратором Центрального командования",
-		PREPOSITIONAL = "ключе-шифраторе Центрального командования"
+		PREPOSITIONAL = "ключе-шифраторе Центрального командования",
 	)
 /obj/item/encryptionkey/heads/ai_integrated //ported from bay, this goes 'inside' the AI.
 	name = "AI Integrated Encryption Key"
@@ -536,7 +536,7 @@
 		DATIVE = "ключу-шифратору ИИ",
 		ACCUSATIVE = "ключ-шифратор ИИ",
 		INSTRUMENTAL = "ключом-шифратором ИИ",
-		PREPOSITIONAL = "ключе-шифраторе ИИ"
+		PREPOSITIONAL = "ключе-шифраторе ИИ",
 	)
 
 /obj/item/encryptionkey/admin //totally shitspawn
@@ -551,7 +551,7 @@
 		DATIVE = "ключу-шифратору админа",
 		ACCUSATIVE = "ключ-шифратор админа",
 		INSTRUMENTAL = "ключом-шифратором админа",
-		PREPOSITIONAL = "ключе-шифраторе админа"
+		PREPOSITIONAL = "ключе-шифраторе админа",
 	)
 
 /obj/item/encryptionkey/headset_mining_medic
@@ -566,7 +566,7 @@
 		DATIVE = "ключу-шифратору шахтёрского врача",
 		ACCUSATIVE = "ключ-шифратор шахтёрского врача",
 		INSTRUMENTAL = "ключом-шифратором шахтёрского врача",
-		PREPOSITIONAL = "ключе-шифраторе шахтёрского врача"
+		PREPOSITIONAL = "ключе-шифраторе шахтёрского врача",
 	)
 
 /* Currently unusable due to language refactoring.

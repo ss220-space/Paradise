@@ -86,7 +86,7 @@
 		DATIVE = "шутографическому считывателю",
 		ACCUSATIVE = "шутографический считыватель",
 		INSTRUMENTAL = "шутографическим считывателем",
-		PREPOSITIONAL = "шутографическом считывателе"
+		PREPOSITIONAL = "шутографическом считывателе",
 	)
 
 /obj/item/card/cmag/ComponentInitialize()
@@ -462,19 +462,21 @@
 
 // Added all syndicate 'Taipan' access to the admin officer
 /obj/item/card/id/syndicate/command
-	initial_access = list(ACCESS_MAINT_TUNNELS,
-							ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_SYNDICATE_COMMAND,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-							ACCESS_EXTERNAL_AIRLOCKS,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_ENGINE)
+	initial_access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_SYNDICATE,
+		ACCESS_SYNDICATE_LEADER,
+		ACCESS_SYNDICATE_COMMAND,
+		ACCESS_SYNDICATE_COMMS_OFFICER,
+		ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_SYNDICATE_SCIENTIST,
+		ACCESS_SYNDICATE_CARGO,
+		ACCESS_SYNDICATE_KITCHEN,
+		ACCESS_SYNDICATE_MEDICAL,
+		ACCESS_SYNDICATE_BOTANY,
+		ACCESS_SYNDICATE_ENGINE,
+	)
 	icon_state = "commander"
 	item_state = "syndieofficer-id"
 
@@ -517,32 +519,36 @@
 	rank = "Syndicate Botanist"
 
 /obj/item/card/id/syndicate/comms_officer
-	initial_access = list(ACCESS_MAINT_TUNNELS,
-							ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_EXTERNAL_AIRLOCKS,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_ENGINE,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+	initial_access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_SYNDICATE,
+		ACCESS_SYNDICATE_COMMS_OFFICER,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_SYNDICATE_SCIENTIST,
+		ACCESS_SYNDICATE_CARGO,
+		ACCESS_SYNDICATE_KITCHEN,
+		ACCESS_SYNDICATE_ENGINE,
+		ACCESS_SYNDICATE_MEDICAL,
+		ACCESS_SYNDICATE_BOTANY,
+		ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+	)
 	icon_state = "commander"
 	item_state = "syndieofficer-id"
 	rank = "Syndicate Comms Officer"
 
 /obj/item/card/id/syndicate/research_director
-	initial_access = list(ACCESS_MAINT_TUNNELS,
-							ACCESS_SYNDICATE,
-							ACCESS_EXTERNAL_AIRLOCKS,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_ENGINE,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+	initial_access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_SYNDICATE,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_SYNDICATE_SCIENTIST,
+		ACCESS_SYNDICATE_CARGO,
+		ACCESS_SYNDICATE_KITCHEN,
+		ACCESS_SYNDICATE_ENGINE,
+		ACCESS_SYNDICATE_MEDICAL,
+		ACCESS_SYNDICATE_BOTANY,
+		ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+	)
 	icon_state = "syndierd"
 	item_state = "syndierd-id"
 	rank = "Syndicate Research Director"
@@ -1256,7 +1262,7 @@
 		DATIVE = "наклейке на ID-карту",
 		ACCUSATIVE = "наклейку на ID-карту",
 		INSTRUMENTAL = "наклейкой на ID-карту",
-		PREPOSITIONAL = "наклейке на ID-карту"
+		PREPOSITIONAL = "наклейке на ID-карту",
 	)
 
 /obj/item/id_decal/gold
@@ -1274,7 +1280,7 @@
 		DATIVE = "золотой наклейке на ID-карту",
 		ACCUSATIVE = "золотую наклейку на ID-карту",
 		INSTRUMENTAL = "золотой наклейкой на ID-карту",
-		PREPOSITIONAL = "золотой наклейке на ID-карту"
+		PREPOSITIONAL = "золотой наклейке на ID-карту",
 	)
 
 /obj/item/id_decal/silver
@@ -1292,7 +1298,7 @@
 		DATIVE = "серебряной наклейке на ID-карту",
 		ACCUSATIVE = "серебряную наклейку на ID-карту",
 		INSTRUMENTAL = "серебряной наклейкой на ID-карту",
-		PREPOSITIONAL = "серебряной наклейке на ID-карту"
+		PREPOSITIONAL = "серебряной наклейке на ID-карту",
 	)
 
 /obj/item/id_decal/prisoner
@@ -1310,7 +1316,7 @@
 		DATIVE = "тюремной наклейке на ID-карту",
 		ACCUSATIVE = "тюремную наклейку на ID-карту",
 		INSTRUMENTAL = "тюремной наклейкой на ID-карту",
-		PREPOSITIONAL = "тюремной наклейке на ID-карту"
+		PREPOSITIONAL = "тюремной наклейке на ID-карту",
 	)
 
 /obj/item/id_decal/centcom
@@ -1327,7 +1333,7 @@
 		DATIVE = "наклейке ЦК на ID-карту",
 		ACCUSATIVE = "наклейку ЦК на ID-карту",
 		INSTRUMENTAL = "наклейкой ЦК на ID-карту",
-		PREPOSITIONAL = "наклейке ЦК на ID-карту"
+		PREPOSITIONAL = "наклейке ЦК на ID-карту",
 	)
 
 /obj/item/id_decal/emag
@@ -1346,7 +1352,7 @@
 		DATIVE = "наклейке ЕМАГ на ID-карту",
 		ACCUSATIVE = "наклейку ЕМАГ на ID-карту",
 		INSTRUMENTAL = "наклейкой ЕМАГ на ID-карту",
-		PREPOSITIONAL = "наклейке ЕМАГ на ID-карту"
+		PREPOSITIONAL = "наклейке ЕМАГ на ID-карту",
 	)
 
 /obj/item/id_decal/federal
@@ -1364,7 +1370,7 @@
 		DATIVE = "наклейке ТСФ на ID-карту",
 		ACCUSATIVE = "наклейку ТСФ на ID-карту",
 		INSTRUMENTAL = "наклейкой ТСФ на ID-карту",
-		PREPOSITIONAL = "наклейке ТСФ на ID-карту"
+		PREPOSITIONAL = "наклейке ТСФ на ID-карту",
 	)
 
 /obj/item/id_decal/comrad
@@ -1382,7 +1388,7 @@
 		DATIVE = "наклейке СССП на ID-карту",
 		ACCUSATIVE = "наклейку СССП на ID-карту",
 		INSTRUMENTAL = "наклейкой СССП на ID-карту",
-		PREPOSITIONAL = "наклейке СССП на ID-карту"
+		PREPOSITIONAL = "наклейке СССП на ID-карту",
 	)
 
 /obj/item/id_decal/syndie
@@ -1400,7 +1406,7 @@
 		DATIVE = "наклейке синдиката на ID-карту",
 		ACCUSATIVE = "наклейку синдиката на ID-карту",
 		INSTRUMENTAL = "наклейкой синдиката на ID-карту",
-		PREPOSITIONAL = "наклейке синдиката на ID-карту"
+		PREPOSITIONAL = "наклейке синдиката на ID-карту",
 	)
 
 /proc/get_station_card_skins()

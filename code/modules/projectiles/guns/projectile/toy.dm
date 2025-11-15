@@ -133,9 +133,11 @@
 	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	needs_permit = FALSE
-	zoomable = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_SNIPER_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 
+/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""]"

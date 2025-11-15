@@ -13,7 +13,7 @@
 		DATIVE = "колоде карт таро",
 		ACCUSATIVE = "колоду карт таро",
 		INSTRUMENTAL = "колодой карт таро",
-		PREPOSITIONAL = "колоде карт таро"
+		PREPOSITIONAL = "колоде карт таро",
 	)
 
 /obj/item/deck/tarot/build_deck()

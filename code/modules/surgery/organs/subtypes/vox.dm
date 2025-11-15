@@ -14,7 +14,7 @@
 		DATIVE = "печени вокса",
 		ACCUSATIVE = "печень вокса",
 		INSTRUMENTAL = "печенью вокса",
-		PREPOSITIONAL = "печени вокса"
+		PREPOSITIONAL = "печени вокса",
 	)
 
 /obj/item/organ/internal/eyes/vox
@@ -32,7 +32,7 @@
 		DATIVE = "глазам вокса",
 		ACCUSATIVE = "глаза вокса",
 		INSTRUMENTAL = "глазами вокса",
-		PREPOSITIONAL = "глазах вокса"
+		PREPOSITIONAL = "глазах вокса",
 	)
 
 /obj/item/organ/internal/ears/vox
@@ -47,7 +47,7 @@
 		DATIVE = "ушам вокса",
 		ACCUSATIVE = "уши вокса",
 		INSTRUMENTAL = "ушами вокса",
-		PREPOSITIONAL = "ушах вокса"
+		PREPOSITIONAL = "ушах вокса",
 	)
 
 /obj/item/organ/internal/heart/vox
@@ -66,7 +66,7 @@
 		DATIVE = "сердцу вокса",
 		ACCUSATIVE = "сердце вокса",
 		INSTRUMENTAL = "сердцем вокса",
-		PREPOSITIONAL = "сердце вокса"
+		PREPOSITIONAL = "сердце вокса",
 	)
 
 /obj/item/organ/internal/brain/vox
@@ -86,7 +86,7 @@
 		DATIVE = "мозговому стеку",
 		ACCUSATIVE = "мозговой стек",
 		INSTRUMENTAL = "мозговым стеком",
-		PREPOSITIONAL = "мозговом стеке"
+		PREPOSITIONAL = "мозговом стеке",
 	)
 
 /obj/item/organ/internal/kidneys/vox
@@ -104,7 +104,7 @@
 		DATIVE = "почкам вокса",
 		ACCUSATIVE = "почки вокса",
 		INSTRUMENTAL = "почками вокса",
-		PREPOSITIONAL = "почках вокса"
+		PREPOSITIONAL = "почках вокса",
 	)
 
 /obj/item/organ/internal/lungs/vox
@@ -125,7 +125,7 @@
 		DATIVE = "лёгким вокса",
 		ACCUSATIVE = "лёгкие вокса",
 		INSTRUMENTAL = "лёгкими вокса",
-		PREPOSITIONAL = "лёгких вокса"
+		PREPOSITIONAL = "лёгких вокса",
 	)
 
 /obj/item/organ/external/tail/vox
@@ -143,5 +143,5 @@
 		DATIVE = "хвосту вокса",
 		ACCUSATIVE = "хвост вокса",
 		INSTRUMENTAL = "хвостом вокса",
-		PREPOSITIONAL = "хвосте вокса"
+		PREPOSITIONAL = "хвосте вокса",
 	)

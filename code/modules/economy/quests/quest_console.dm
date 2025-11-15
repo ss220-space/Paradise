@@ -27,7 +27,7 @@
 		DATIVE = "консоли запросов на поставку",
 		ACCUSATIVE = "консоль запросов на поставку",
 		INSTRUMENTAL = "консолью запросов на поставку",
-		PREPOSITIONAL = "консоли запросов на поставку"
+		PREPOSITIONAL = "консоли запросов на поставку",
 	)
 
 /obj/machinery/computer/supplyquest/ui_host()
@@ -236,7 +236,7 @@
 		DATIVE = "форме запроса о поставке",
 		ACCUSATIVE = "форму запроса о поставке",
 		INSTRUMENTAL = "формой запроса о поставке",
-		PREPOSITIONAL = "форме запроса о поставке"
+		PREPOSITIONAL = "форме запроса о поставке",
 	)
 
 
@@ -257,7 +257,7 @@
 		DATIVE = "монитору запросов на поставку",
 		ACCUSATIVE = "монитор запросов на поставку",
 		INSTRUMENTAL = "монитором запросов на поставку",
-		PREPOSITIONAL = "мониторе запросов на поставку"
+		PREPOSITIONAL = "мониторе запросов на поставку",
 	)
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
@@ -329,7 +329,7 @@
 		DATIVE = "отчёту о поставке",
 		ACCUSATIVE = "отчёт о поставке",
 		INSTRUMENTAL = "отчётом о поставке",
-		PREPOSITIONAL = "отчёте о поставке"
+		PREPOSITIONAL = "отчёте о поставке",
 	)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	print_animation()
@@ -357,7 +357,7 @@
 		DATIVE = "планшету Квартирмейстера",
 		ACCUSATIVE = "планшет Квартирмейстера",
 		INSTRUMENTAL = "планшетом Квартирмейстера",
-		PREPOSITIONAL = "планшете Квартирмейстера"
+		PREPOSITIONAL = "планшете Квартирмейстера",
 	)
 
 /obj/machinery/computer/supplyquest/iternal
@@ -398,7 +398,7 @@
 		DATIVE = "планшету запросов на поставку",
 		ACCUSATIVE = "планшет запросов на поставку",
 		INSTRUMENTAL = "планшетом запросов на поставку",
-		PREPOSITIONAL = "планшете запросов на поставку"
+		PREPOSITIONAL = "планшете запросов на поставку",
 	)
 
 /obj/machinery/computer/supplyquest/iternal/cargo

@@ -29,7 +29,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/breath/get_ru_names()
@@ -39,7 +39,7 @@
 		DATIVE = "дыхательной маске",
 		ACCUSATIVE = "дыхательную маску",
 		INSTRUMENTAL = "дыхательной маской",
-		PREPOSITIONAL = "дыхательной маске"
+		PREPOSITIONAL = "дыхательной маске",
 	)
 
 /obj/item/clothing/mask/breath/attack_self(mob/user)
@@ -66,7 +66,7 @@
 		DATIVE = "медицинской маске",
 		ACCUSATIVE = "медицинскую маску",
 		INSTRUMENTAL = "медицинской маской",
-		PREPOSITIONAL = "медицинской маске"
+		PREPOSITIONAL = "медицинской маске",
 	)
 
 /obj/item/clothing/mask/breath/vox
@@ -88,7 +88,7 @@
 		DATIVE = "дыхательной маске для воксов",
 		ACCUSATIVE = "дыхательную маску для воксов",
 		INSTRUMENTAL = "дыхательной маской для воксов",
-		PREPOSITIONAL = "дыхательной маске для воксов"
+		PREPOSITIONAL = "дыхательной маске для воксов",
 	)
 
 /obj/item/clothing/mask/breath/vox/attack_self(mob/user)

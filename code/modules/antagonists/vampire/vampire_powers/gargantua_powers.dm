@@ -174,7 +174,7 @@
 			DATIVE = "демонической хватке",
 			ACCUSATIVE = "демоническую хватку",
 			INSTRUMENTAL = "демонической хваткой",
-			PREPOSITIONAL = "демонической хватке"
+			PREPOSITIONAL = "демонической хватке",
 		)
 
 /obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)

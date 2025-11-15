@@ -34,41 +34,82 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 #define MIN_TOOL_SOUND_DELAY 20
 
 // Crowbar messages
-#define CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] извлекать плату из [declent_ru(GENITIVE)]..."), span_notice("Вы начинаете извлекать плату из [declent_ru(GENITIVE)]..."),  span_warning("Слышны звуки откручивания."))
-
-#define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE user.visible_message(span_notice("[user] извлека[PLUR_ET_YUT(user)] плату из [declent_ru(GENITIVE)]!"), span_notice("Вы извлекаете плату из [declent_ru(GENITIVE)]!"), span_warning("Слышны звуки откручивания."))
+#define CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] извлекать плату...", "извлечение платы...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки поддевания."));
+#define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE balloon_alert_to_viewers("извлека[PLUR_ET_YUT(user)] плату", "плата извлечена")
 
 
 // Screwdriver messages
-#define SCREWDRIVER_SCREW_MESSAGE user.visible_message(span_notice("[user] затягива[PLUR_ET_YUT(user)] винты на [declent_ru(PREPOSITIONAL)]!"), span_notice("Вы затягиваете винты на [declent_ru(PREPOSITIONAL)]!"), span_warning("Слышен звук отвёртки."))
-#define SCREWDRIVER_UNSCREW_MESSAGE user.visible_message(span_notice("[user] ослабля[PLUR_ET_YUT(user)] винты на [declent_ru(PREPOSITIONAL)]!"), span_notice("Вы ослабляете винты на [declent_ru(PREPOSITIONAL)]!"), span_warning("Слышен звук отвёртки."))
-#define SCREWDRIVER_OPEN_PANEL_MESSAGE user.visible_message(span_notice("[user] открыва[PLUR_ET_YUT(user)] панель [declent_ru(GENITIVE)]!"), span_notice("Вы открываете панель [declent_ru(GENITIVE)]!"), span_warning("Слышен звук отвёртки."))
-#define SCREWDRIVER_CLOSE_PANEL_MESSAGE user.visible_message(span_notice("[user] закрыва[PLUR_ET_YUT(user)] панель [declent_ru(GENITIVE)]!"), span_notice("Вы закрываете панель [declent_ru(GENITIVE)]!"), span_warning("Слышен звук отвёртки."))
+#define SCREWDRIVER_SCREW_MESSAGE \
+	balloon_alert_to_viewers("затягива[PLUR_ET_YUT(user)] винты", "винты затянуты");\
+	user.visible_message(blind_message = span_hear("Слышны звуки закручивания."));
+#define SCREWDRIVER_UNSCREW_MESSAGE \
+	balloon_alert_to_viewers("ослабля[PLUR_ET_YUT(user)] винты", "винты ослаблены");\
+	user.visible_message(blind_message = span_hear("Слышны звуки откручивания."));
+
+#define SCREWDRIVER_OPEN_PANEL_MESSAGE \
+	balloon_alert_to_viewers("открыва[PLUR_ET_YUT(user)] панель", "панель открыта");\
+	user.visible_message(blind_message = span_hear("Слышны звуки откручивания."));
+#define SCREWDRIVER_CLOSE_PANEL_MESSAGE \
+	balloon_alert_to_viewers("закрыва[PLUR_ET_YUT(user)] панель", "панель закрыта");\
+	user.visible_message(blind_message = span_hear("Слышны звуки закручивания."));
 
 // Wirecutter messages
-#define WIRECUTTER_SNIP_MESSAGE user.visible_message(span_notice("[user] перереза[PLUR_ET_YUT(user)] провода в [declent_ru(PREPOSITIONAL)]!"), span_notice("Вы перерезаете провода в [declent_ru(GENITIVE)]!"), span_warning("Слышны звуки резки."))
-#define WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] разбирать [declent_ru(NOMINATIVE)]..."), span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."), span_warning("Слышны звуки резки."))
-#define WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE user.visible_message(span_notice("[user] разбира[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на части!"), span_notice("Вы разбираете [declent_ru(ACCUSATIVE)] на части!"), span_warning("Слышны звуки резки."))
+#define WIRECUTTER_SNIP_MESSAGE \
+	balloon_alert_to_viewers("перекусыва[PLUR_ET_YUT(user)] провода", "провода перекусаны");\
+	user.visible_message(blind_message = span_hear("Слышны звуки резки."));
+
+#define WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] разбирать...", "разборка...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки резки."));
+#define WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE balloon_alert_to_viewers("заверша[PLUR_ET_YUT(user)] разборку", "разобрано")
 
 // Welder messages and other stuff
 #define HEALPERWELD 15
-#define WELDER_ATTEMPT_WELD_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] варить [declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете сварку [declent_ru(GENITIVE)]..."), span_warning("Слышна сварка."))
-#define WELDER_WELD_SUCCESS_MESSAGE to_chat(user, span_notice("Вы завершили сварку [declent_ru(GENITIVE)]!"))
-#define WELDER_ATTEMPT_REPAIR_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] ремонтировать [declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете ремонт [declent_ru(GENITIVE)]..."), span_warning("Слышна сварка."))
-#define WELDER_REPAIR_SUCCESS_MESSAGE to_chat(user, span_notice("Вы отремонтировали [declent_ru(ACCUSATIVE)]!"))
-#define WELDER_ATTEMPT_SLICING_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] разрезать [declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете резку [declent_ru(GENITIVE)]..."), span_warning("Слышна сварка."))
-#define WELDER_SLICING_SUCCESS_MESSAGE to_chat(user, span_notice("Вы аккуратно разрезали [declent_ru(ACCUSATIVE)]!"))
-#define WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] отрезать [declent_ru(ACCUSATIVE)] от [get_turf(src)]..."), span_notice("Вы начинаете отрезать [declent_ru(ACCUSATIVE)] от [get_turf(src)]..."), span_warning("Слышна сварка."))
-#define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE to_chat(user, span_notice("Вы отделили [declent_ru(ACCUSATIVE)] от [get_turf(src)]!"))
-#define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] приваривать [declent_ru(ACCUSATIVE)] к [get_turf(src)]..."), span_notice("Вы начинаете приваривать [declent_ru(ACCUSATIVE)] к [get_turf(src)]..."), span_warning("Слышна сварка."))
-#define WELDER_FLOOR_WELD_SUCCESS_MESSAGE to_chat(user, span_notice("Вы приварили [declent_ru(ACCUSATIVE)] к [get_turf(src)]!"))
+
+#define WELDER_ATTEMPT_WELD_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] сваривать...", "сварка...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки сваривания."));
+#define WELDER_WELD_SUCCESS_MESSAGE balloon_alert_to_viewers("заверша[PLUR_ET_YUT(user)] сварку", "сварено")
+
+#define WELDER_ATTEMPT_REPAIR_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] ремонтировать...", "ремонт...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки сваривания."));
+#define WELDER_REPAIR_SUCCESS_MESSAGE balloon_alert_to_viewers("заверша[PLUR_ET_YUT(user)] ремонт", "отремонтировано")
+
+#define WELDER_ATTEMPT_SLICING_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] разваривать...", "разваривание...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки разрезания."));
+#define WELDER_SLICING_SUCCESS_MESSAGE balloon_alert_to_viewers("заверша[PLUR_ET_YUT(user)] разваривание", "разварено")
+
+#define WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] отделять от пола...", "отделение от пола...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки сваривания."));
+#define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE balloon_alert_to_viewers("отделя[PLUR_ET_YUT(user)] от пола", "отделено от пола")
+
+#define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] приваривать к полу...", "приваривание к полу...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки сваривания."));
+#define WELDER_FLOOR_WELD_SUCCESS_MESSAGE balloon_alert_to_viewers("приварива[PLUR_ET_YUT(user)] к полу", "приварено к полу")
 
 // Wrench messages
-#define WRENCH_ANCHOR_MESSAGE user.visible_message(span_notice("[user] затягива[PLUR_ET_YUT(user)] болты на [declent_ru(PREPOSITIONAL)]!"), span_notice("Вы затягиваете болты на [declent_ru(PREPOSITIONAL)]!"), span_warning("Слышен трещоточный звук."))
-#define WRENCH_UNANCHOR_MESSAGE user.visible_message(span_notice("[user] ослабля[PLUR_ET_YUT(user)] болты на [declent_ru(PREPOSITIONAL)]!"), span_notice("Вы ослабляете болты на [declent_ru(PREPOSITIONAL)]!"), span_warning("Слышен трещоточный звук."))
-#define WRENCH_UNANCHOR_WALL_MESSAGE user.visible_message(span_notice("[user] откручива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] от стены!"), span_notice("Вы откручиваете [declent_ru(ACCUSATIVE)] от стены!"), span_warning("Слышен трещоточный звук."))
-#define WRENCH_ANCHOR_TO_WALL_MESSAGE user.visible_message(span_notice("[user] закрепля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на стене!"), span_notice("Вы закрепляете [declent_ru(ACCUSATIVE)] на стене!"), span_warning("Слышен трещоточный звук."))
+#define WRENCH_ANCHOR_MESSAGE \
+	balloon_alert_to_viewers("затягива[PLUR_ET_YUT(user)] болты", "болты затянуты");\
+	user.visible_message(blind_message = span_hear("Слышен трещоточный звук."));
+#define WRENCH_UNANCHOR_MESSAGE \
+	balloon_alert_to_viewers("ослабля[PLUR_ET_YUT(user)] болты", "болты ослаблены");\
+	user.visible_message(blind_message = span_hear("Слышен трещоточный звук."));
+
+#define WRENCH_UNANCHOR_WALL_MESSAGE \
+	balloon_alert_to_viewers("открепля[PLUR_ET_YUT(user)] от стены", "откреплено от стены");\
+	user.visible_message(blind_message = span_hear("Слышен трещоточный звук."));
+#define WRENCH_ANCHOR_TO_WALL_MESSAGE \
+	balloon_alert_to_viewers("закрепля[PLUR_ET_YUT(user)] на стене", "закреплено на стене");\
+	user.visible_message(blind_message = span_hear("Слышен трещоточный звук."));
 
 // Generic tool messages that don't correspond to any particular tool
-#define TOOL_ATTEMPT_DISMANTLE_MESSAGE user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] разбирать [declent_ru(ACCUSATIVE)] при помощи [I]..."), span_notice("Вы начинаете разборку [src] при помощи [I]..."), span_warning("Слышны звуки работы с инструментом."))
-#define TOOL_DISMANTLE_SUCCESS_MESSAGE user.visible_message(span_notice("[user] демонтиру[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы демонтировали [declent_ru(ACCUSATIVE)]!"), span_warning("Слышны звуки работы с инструментом."))
+#define TOOL_ATTEMPT_DISMANTLE_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] разбирать...", "разборка...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки работы с инструментом."));
+#define TOOL_DISMANTLE_SUCCESS_MESSAGE balloon_alert_to_viewers("заверша[PLUR_ET_YUT(user)] разборку", "разобрано")

@@ -147,7 +147,7 @@
 
 
 /datum/smite/hunger/apply_effect(mob/living/target, reason)
-	var/nutrition = tgui_input_number(usr, "Выберите значение насыщения, которое будет установленно у цели. ([NUTRITION_LEVEL_FULL] - сыт)", "Выбор насыщения", 0)
+	var/nutrition = tgui_input_number(usr, "Выберите значение насыщения, которое будет установленно у цели. ([NUTRITION_LEVEL_FULL] — сыт)", "Выбор насыщения", 0)
 	var/old_nutrition = target.nutrition
 	target.set_nutrition(nutrition)
 	to_chat(target, span_userdanger("Вы чувствуете [nutrition < old_nutrition ? "голод" : "что съели слишком много"]. Боги наказали вас за [reason]!"))

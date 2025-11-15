@@ -13,7 +13,7 @@
 		DATIVE = "мешку игральных костей",
 		ACCUSATIVE = "мешок игральных костей",
 		INSTRUMENTAL = "мешком игральных костей",
-		PREPOSITIONAL = "мешке игральных костей"
+		PREPOSITIONAL = "мешке игральных костей",
 	)
 
 /obj/item/storage/pill_bottle/dice/populate_contents()
@@ -77,7 +77,7 @@
 		DATIVE = "игральной кости",
 		ACCUSATIVE = "игральную кость",
 		INSTRUMENTAL = "игральной костью",
-		PREPOSITIONAL = "игральной кости"
+		PREPOSITIONAL = "игральной кости",
 	)
 
 

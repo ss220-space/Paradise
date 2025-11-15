@@ -70,7 +70,7 @@
 		DATIVE = "морфу",
 		ACCUSATIVE = "морфа",
 		INSTRUMENTAL = "морфом",
-		PREPOSITIONAL = "морфе"
+		PREPOSITIONAL = "морфе",
 	)
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
@@ -147,7 +147,7 @@
 		DATIVE = "магическому морфу",
 		ACCUSATIVE = "магического морфа",
 		INSTRUMENTAL = "магическим морфом",
-		PREPOSITIONAL = "магическом морфе"
+		PREPOSITIONAL = "магическом морфе",
 	)
 
 /mob/living/simple_animal/hostile/morph/wizard/New()

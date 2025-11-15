@@ -248,7 +248,7 @@
 		DATIVE = "патрону для убийства",
 		ACCUSATIVE = "патрон для убийства",
 		INSTRUMENTAL = "патроном для убийства",
-		PREPOSITIONAL = "патроне для убийства"
+		PREPOSITIONAL = "патроне для убийства",
 	)
 
 /obj/item/ammo_casing/shotgun/buckshot/magnum

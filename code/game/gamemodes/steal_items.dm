@@ -746,7 +746,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/clothing/head/beret/purple/rd,
 		/obj/item/clothing/head/hopcap,
 		/obj/item/clothing/head/powdered_wig,
-		)
+	)
 
 /datum/theft_objective/collect/clothes
 	id = "collect_clothes"
@@ -779,7 +779,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/clothing/mask/gas/mime,
 		/obj/item/clothing/under/rank/internalaffairs,
 		/obj/item/clothing/suit/storage/internalaffairs,
-		)
+	)
 
 /datum/theft_objective/collect/encryption_keys
 	id = "collect_encryption_keys"
@@ -805,14 +805,13 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/heads/blueshield,
 		/obj/item/encryptionkey/headset_cargo,
 		/obj/item/encryptionkey/headset_service,
-		/obj/item/encryptionkey/headset_mining_medic
-		)
+		/obj/item/encryptionkey/headset_mining_medic,
+	)
 
 
 //=====Collection Number=====
 /datum/theft_objective/collect/number
 	steal_same_types = TRUE
-
 
 /datum/theft_objective/collect/number/make_collection()
 	wanted_items |= typepath

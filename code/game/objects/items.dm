@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// The click cooldown given after attacking. Lower numbers means faster attacks
 	var/attack_speed = CLICK_CD_MELEE
 
-	/// Used in attackby() to say how something was attacked "[x] [z.attack_verb][GEND_A_O_Y(x)] [y.declent_ru(ACCUSATIVE)], используя [z.declent_ru(ACCUSATIVE)]".
+	/// Used in attackby() to say how something was attacked "[x] [z.attack_verb][GEND_A_O_Y(x)] [y.declent_ru(ACCUSATIVE)], используя [z.declent_ru(ACCUSATIVE)]."
 	var/list/attack_verb
 	/// Sound played when you hit something with the item.
 	var/hitsound
@@ -168,8 +168,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
-		SPECIES_TAJARAN = 'icons/cat/are/bad'
-		)
+		SPECIES_TAJARAN = 'icons/cat/are/bad',
+	)
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
 	/// Sprite sheets to render species clothing, takes priority over "onmob_sheets" var, but only takes one dmi

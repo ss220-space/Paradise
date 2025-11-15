@@ -648,7 +648,7 @@
 		DATIVE = "горшка силы",
 		ACCUSATIVE = "горшок силы",
 		INSTRUMENTAL = "горшком силы",
-		PREPOSITIONAL = "горшке силы"
+		PREPOSITIONAL = "горшке силы",
 	)
 
 /obj/structure/festivus/anchored
@@ -664,5 +664,5 @@
 		DATIVE = "остановленному стерженю",
 		ACCUSATIVE = "остановленный стержень",
 		INSTRUMENTAL = "остановленным стерженем",
-		PREPOSITIONAL = "остановленном стержене"
+		PREPOSITIONAL = "остановленном стержене",
 	)

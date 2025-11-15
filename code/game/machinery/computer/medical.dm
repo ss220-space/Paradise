@@ -32,7 +32,7 @@
 		DATIVE = "консоли медицинских записей",
 		ACCUSATIVE = "консоль медицинских записей",
 		INSTRUMENTAL = "консолью медицинских записей",
-		PREPOSITIONAL = "консоли медицинских записей"
+		PREPOSITIONAL = "консоли медицинских записей",
 	)
 
 /obj/machinery/computer/med_data/Initialize(mapload)
@@ -377,7 +377,7 @@
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
-						header = "Создатель записи - [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
+						header = "Создатель записи — [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
 						text = answer
 					))
 				else
@@ -484,7 +484,7 @@
 		DATIVE = "медицинскому ноутбуку",
 		ACCUSATIVE = "медицинский ноутбук",
 		INSTRUMENTAL = "медицинским ноутбуком",
-		PREPOSITIONAL = "медицинском ноутбуке"
+		PREPOSITIONAL = "медицинском ноутбуке",
 	)
 
 #undef MED_DATA_R_LIST

@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(cleanup)
 		GLOB.alive_mob_list = "alive_mob_list",
 		GLOB.dead_mob_list = "dead_mob_list",
 		GLOB.human_list = "human_list",
-		GLOB.carbon_list = "carbon_list"
+		GLOB.carbon_list = "carbon_list",
 	)
 	return SS_INIT_SUCCESS
 

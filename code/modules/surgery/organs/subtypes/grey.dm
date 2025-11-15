@@ -13,7 +13,7 @@
 		DATIVE = "печени серого",
 		ACCUSATIVE = "печень серого",
 		INSTRUMENTAL = "печенью серого",
-		PREPOSITIONAL = "печени серого"
+		PREPOSITIONAL = "печени серого",
 	)
 
 /obj/item/organ/internal/brain/grey
@@ -31,7 +31,7 @@
 		DATIVE = "мозгу серого",
 		ACCUSATIVE = "мозг серого",
 		INSTRUMENTAL = "мозгом серого",
-		PREPOSITIONAL = "мозге серого"
+		PREPOSITIONAL = "мозге серого",
 	)
 
 /obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -58,7 +58,7 @@
 		DATIVE = "глазам серого",
 		ACCUSATIVE = "глаза серого",
 		INSTRUMENTAL = "глазами серого",
-		PREPOSITIONAL = "глазах серого"
+		PREPOSITIONAL = "глазах серого",
 	)
 
 /obj/item/organ/internal/ears/grey
@@ -73,7 +73,7 @@
 		DATIVE = "ушам серого",
 		ACCUSATIVE = "уши серого",
 		INSTRUMENTAL = "ушами серого",
-		PREPOSITIONAL = "ушах серого"
+		PREPOSITIONAL = "ушах серого",
 	)
 
 /obj/item/organ/internal/heart/grey
@@ -91,7 +91,7 @@
 		DATIVE = "сердцу серого",
 		ACCUSATIVE = "сердце серого",
 		INSTRUMENTAL = "сердцем серого",
-		PREPOSITIONAL = "сердце серого"
+		PREPOSITIONAL = "сердце серого",
 	)
 
 /obj/item/organ/internal/lungs/grey
@@ -108,7 +108,7 @@
 		DATIVE = "лёгким серого",
 		ACCUSATIVE = "лёгкие серого",
 		INSTRUMENTAL = "лёгкими серого",
-		PREPOSITIONAL = "лёгких серого"
+		PREPOSITIONAL = "лёгких серого",
 	)
 
 /obj/item/organ/internal/kidneys/grey
@@ -125,5 +125,5 @@
 		DATIVE = "почкам серого",
 		ACCUSATIVE = "почки серого",
 		INSTRUMENTAL = "почками серого",
-		PREPOSITIONAL = "почках серого"
+		PREPOSITIONAL = "почках серого",
 	)

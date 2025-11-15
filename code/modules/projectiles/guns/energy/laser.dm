@@ -12,7 +12,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 
 
@@ -97,7 +97,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 
 ///Laser Cannon
@@ -119,7 +119,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7),
 	)
 
 /obj/item/ammo_casing/energy/laser/accelerator
@@ -166,7 +166,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7),
 	)
 
 /obj/item/gun/energy/immolator
@@ -181,7 +181,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7),
 	)
 
 /obj/item/gun/energy/immolator/multi

@@ -237,7 +237,7 @@
 	icon_state = "shuttle-0"
 	base_icon_state = "shuttle"
 	explosion_block = 3
-	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD | RICOCHET_BALLISTIC
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK

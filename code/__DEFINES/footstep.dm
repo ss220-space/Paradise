@@ -29,9 +29,9 @@
 
 /*
 id = list(
-list(sounds),
-base volume,
-extra range addition
+	list(sounds),
+	base volume,
+	extra range addition,
 )
 */
 

@@ -19,6 +19,7 @@
 	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
 	var/fire_sound = SFX_GUNSHOT
+	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "выстрел" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
@@ -56,13 +57,18 @@
 	/// Guns can be placed on racks
 	var/on_rack = FALSE
 
+	/// Damage modifier for projectile
+	var/damage_mod = 1
+	/// Stamina modifier for projectile
+	var/stamina_mod = 1
+
 /*
  * Gun modules
  */
 	///List of allowed attachments, IT MUST INCLUDE THE STARTING ATTACHMENT TYPES OR THEY WILL NOT ATTACH.
 	var/attachable_allowed = 0
 	///The attachments this gun starts with on Init
-	var/list/starting_attachment_types = null //TODO implement later
+	var/list/starting_attachment_types = null
 	///Image list of attachments overlays.
 	var/list/image/attachment_overlays = list()
 	///List of offsets to make attachment overlays not look wonky.
@@ -129,6 +135,7 @@
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
 	update_gun_skins()
+	create_start_gun_modules()
 	if(islist(accuracy))
 		accuracy = getAccuracy(arglist(accuracy))
 	else if(!accuracy)
@@ -223,7 +230,18 @@
 		attachment_overlays[module.slot] = null
 	update_icon()
 
-
+/obj/item/gun/proc/create_start_gun_modules()
+	if(!starting_attachment_types)
+		return
+	for(var/module_path in starting_attachment_types)
+		if(!ispath(module_path, /obj/item/gun_module))
+			continue
+		var/obj/item/gun_module/module = new module_path(src)
+		attachments_by_slot[module.slot] = module
+		add_attachment_overlay(module)
+		module.gun = src
+		module.on_attach(src, null)
+		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
 
 
 /**
@@ -262,7 +280,7 @@
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
 	if(suppressed)
-		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		playsound(user, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	else
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
@@ -398,7 +416,7 @@
 					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
 					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
-				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
+				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -422,7 +440,7 @@
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
 			sprd = accuracy.randomize_spread(user, bonus_spread)
-			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
+			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -671,10 +689,15 @@
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		choices += module.declent_ru(NOMINATIVE)
+		if(module.can_detach)
+			choices[module.declent_ru(NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
 	if(length(choices) == 0)
 		return
-	var/choice = tgui_input_list(user, "Выберите модуль, который хотите снять", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
+	var/choice = choices[1]
+	if(length(choices) > 1)
+		choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+	if(!choice)
+		return FALSE
 	for(var/slot in attachments_by_slot)
 		if(!attachments_by_slot[slot])
 			continue

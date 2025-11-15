@@ -22,7 +22,7 @@
 		DATIVE = "старой криогенной капсуле",
 		ACCUSATIVE = "старую криогенную капсулу",
 		INSTRUMENTAL = "старой криогенной капсулой",
-		PREPOSITIONAL = "старой криогенной капсуле"
+		PREPOSITIONAL = "старой криогенной капсуле",
 	)
 
 /obj/effect/mob_spawn/human/oldstation/oldsec
@@ -70,7 +70,7 @@
 		DATIVE = "повреждённой криогенной капсуле",
 		ACCUSATIVE = "повреждённую криогенную капсулу",
 		INSTRUMENTAL = "повреждённой криогенной капсулой",
-		PREPOSITIONAL = "повреждённой криогенной капсуле"
+		PREPOSITIONAL = "повреждённой криогенной капсуле",
 	)
 
 /obj/structure/showcase/machinery/oldpod/used
@@ -84,7 +84,7 @@
 		DATIVE = "открытой криогенной капсуле",
 		ACCUSATIVE = "открытую криогенную капсулу",
 		INSTRUMENTAL = "открытой криогенной капсулой",
-		PREPOSITIONAL = "открытой криогенной капсуле"
+		PREPOSITIONAL = "открытой криогенной капсуле",
 	)
 
 /datum/outfit/oldstation/post_equip(mob/living/carbon/human/H)

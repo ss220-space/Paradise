@@ -1278,7 +1278,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		to_chat(src, span_danger("1. #$!@#$32K#$"))
 	else
 		to_chat(src, "1. Вы — машина, созданная для служения экипажу станции и ИИ.")
-		to_chat(src, "2. Ваше задача - [bot_purpose].")
+		to_chat(src, "2. Ваше задача — [bot_purpose].")
 		to_chat(src, "3. Вы не сможете выполнять свою задачу, если будете сломаны.")
 		to_chat(src, "4. Выполняйте свою функцию в меру своих возможностей.")
 	if(paicard?.pai && paicard.pai.pai_laws)

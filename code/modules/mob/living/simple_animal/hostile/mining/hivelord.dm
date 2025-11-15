@@ -36,7 +36,7 @@
 		DATIVE = "рою",
 		ACCUSATIVE = "рой",
 		INSTRUMENTAL = "роем",
-		PREPOSITIONAL = "рое"
+		PREPOSITIONAL = "рое",
 	)
 
 
@@ -103,7 +103,7 @@
 		DATIVE = "фрагменту роя",
 		ACCUSATIVE = "фрагмент роя",
 		INSTRUMENTAL = "фрагментом роя",
-		PREPOSITIONAL = "фрагменте роя"
+		PREPOSITIONAL = "фрагменте роя",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
@@ -129,7 +129,7 @@
 		DATIVE = "кровавому рою",
 		ACCUSATIVE = "кровавый рой",
 		INSTRUMENTAL = "кровавым роем",
-		PREPOSITIONAL = "кровавом рое"
+		PREPOSITIONAL = "кровавом рое",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
@@ -214,7 +214,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
@@ -243,7 +243,7 @@
 		DATIVE = "легиону-карлику",
 		ACCUSATIVE = "легион-карлика",
 		INSTRUMENTAL = "легионом-карликом",
-		PREPOSITIONAL = "легионе-карлике"
+		PREPOSITIONAL = "легионе-карлике",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
@@ -297,7 +297,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
@@ -392,7 +392,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/big_legion/ComponentInitialize()
@@ -422,7 +422,7 @@
 		DATIVE = "обугленным останкам",
 		ACCUSATIVE = "обугленные останки",
 		INSTRUMENTAL = "обугленными останками",
-		PREPOSITIONAL = "об обугленных останках"
+		PREPOSITIONAL = "об обугленных останках",
 	)
 
 //Legion infested mobs

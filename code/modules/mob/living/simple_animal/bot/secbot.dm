@@ -387,7 +387,7 @@
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		if(!speak_cooldown)
-			speak("[arrest_type ? "Удерживаю" : "Задерживаю"] подонка по имени <b>[C]</b> в локации <b>[location]</b>. Уровень опасности - [threat].", radio_channel)
+			speak("[arrest_type ? "Удерживаю" : "Задерживаю"] подонка по имени <b>[C]</b> в локации <b>[location]</b>. Уровень опасности — [threat].", radio_channel)
 			speak_cooldown = TRUE
 			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] [harmbaton ? "ударил" : "оглушил"] [C]!"),

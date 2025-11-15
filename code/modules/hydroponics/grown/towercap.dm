@@ -173,7 +173,7 @@
 		DATIVE = "костру",
 		ACCUSATIVE = "костёр",
 		INSTRUMENTAL = "костром",
-		PREPOSITIONAL = "костре"
+		PREPOSITIONAL = "костре",
 	)
 
 /obj/structure/bonfire/dense

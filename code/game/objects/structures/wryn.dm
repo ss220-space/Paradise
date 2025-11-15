@@ -67,7 +67,7 @@
 		DATIVE = "сотам",
 		ACCUSATIVE = "соты",
 		INSTRUMENTAL = "сотами",
-		PREPOSITIONAL = "сотах"
+		PREPOSITIONAL = "сотах",
 	)
 
 /obj/structure/wryn/wax/window
@@ -87,7 +87,7 @@
 		DATIVE = "прозрачным сотам сотам",
 		ACCUSATIVE = "прозрачные соты",
 		INSTRUMENTAL = "прозрачными сотами",
-		PREPOSITIONAL = "прозрачных сотах"
+		PREPOSITIONAL = "прозрачных сотах",
 	)
 
 /obj/structure/wryn/floor
@@ -112,7 +112,7 @@
 		DATIVE = "полу из воска",
 		ACCUSATIVE = "пол из воска",
 		INSTRUMENTAL = "полом из воска",
-		PREPOSITIONAL = "поле из воска"
+		PREPOSITIONAL = "поле из воска",
 	)
 
 // wax floor procs
@@ -184,7 +184,7 @@
 		DATIVE = "двери из сот",
 		ACCUSATIVE = "дверь из сот",
 		INSTRUMENTAL = "дверью из сот",
-		PREPOSITIONAL = "двери из сот"
+		PREPOSITIONAL = "двери из сот",
 	)
 
 /obj/structure/alien/resin/door/wax/ComponentInitialize()

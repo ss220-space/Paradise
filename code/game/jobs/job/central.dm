@@ -32,7 +32,7 @@
 	belt = /obj/item/gun/energy/pulse/pistol
 	implants = list(
 		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -42,7 +42,7 @@
 	)
 	box = /obj/item/storage/box/centcomofficer
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 	)
 
 /datum/outfit/job/ntnavyofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -103,17 +103,17 @@
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/storage/box/zipties = 1
+		/obj/item/storage/box/zipties = 1,
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/arm/combat/centcom
+		/obj/item/organ/internal/cyberimp/arm/combat/centcom,
 	)
 
 /datum/outfit/job/ntspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -138,7 +138,7 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	backpack_contents = list(
-		/obj/item/stamp/navcom = 1
+		/obj/item/stamp/navcom = 1,
 	)
 
 //Tran-Solar Federation General
@@ -154,7 +154,7 @@
 	l_ear = /obj/item/radio/headset/centcom/solgov
 
 	implants = list(
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 
 	backpack_contents = list(

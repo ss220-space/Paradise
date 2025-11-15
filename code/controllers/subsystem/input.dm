@@ -43,7 +43,7 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 		),
 		"legacy" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=default map.focus=true input.border=line\\\"\"", // Swaps us to rebind mode, moves input away from input bar, sets input bar to white
-			"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
+			"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"", // This makes it so backspace can remove default inputs
 		),
 	)
 

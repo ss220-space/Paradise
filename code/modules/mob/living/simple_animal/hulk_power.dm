@@ -448,7 +448,7 @@
 				M.apply_damage(2, used_weapon = "Tail")
 			playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
 			if(prob(3))
-				M.Weaken(4 SECONDS)
+				M.Knockdown(4 SECONDS)
 		sleep(1)
 
 
@@ -462,7 +462,7 @@
 /obj/projectile/energy/hulkspit/on_hit(atom/target, def_zone = BODY_ZONE_CHEST, blocked = 0)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.Weaken(4 SECONDS)
+		M.Knockdown(4 SECONDS)
 		M.adjust_fire_stacks(20)
 		M.IgniteMob()
 

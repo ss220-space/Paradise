@@ -533,11 +533,11 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							R = GLOB.all_robolimbs[rlimb_data[name]]
 						else
 							R = GLOB.basic_robolimb
-						dat += "\t[capitalize(organ_name)] – роботизированное ([R.company])"
+						dat += "\t[capitalize(organ_name)] — роботизированное ([R.company])"
 					if(PREF_ORGANSTATUS_AMPUTATED_ENG)
-						dat += "\t[capitalize(organ_name)] – ампутировано"
+						dat += "\t[capitalize(organ_name)] — ампутировано"
 					if(PREF_ORGANSTATUS_CYBERNETIC_ENG)
-						dat += "\t[capitalize(organ_name)] – кибернетика"
+						dat += "\t[capitalize(organ_name)] — кибернетика"
 			if(!ind)
 				dat += "\[...\]<br>"
 			else
@@ -2271,7 +2271,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
 						valid_limb_states -= PREF_ORGANSTATUS_CYBERNETIC_RUS
 
-					var/new_state = tgui_input_list(user, "Выберите желаемое состояния части тела", "[limb_name] – изменение состояния", valid_limb_states)
+					var/new_state = tgui_input_list(user, "Выберите желаемое состояния части тела", "[limb_name] — изменение состояния", valid_limb_states)
 					if(!new_state) return
 
 					switch(new_state)
@@ -2304,7 +2304,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
-							choice = tgui_input_list(user, "Выберите фирму-изготовителя для кибернетической части тела", "[limb_name] – выбор фирмы-изготовителя", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
+							choice = tgui_input_list(user, "Выберите фирму-изготовителя для кибернетической части тела", "[limb_name] — выбор фирмы-изготовителя", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
 							if(!choice)
 								return
 							R.company = choice
@@ -2320,7 +2320,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
 								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
-									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] – выбор модели", robolimb_models)
+									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] — выбор модели", robolimb_models)
 								if(subchoice)
 									choice = subchoice
 							if(limb in list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))
