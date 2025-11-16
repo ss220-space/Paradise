@@ -371,7 +371,7 @@
 
 /obj/item/mod/module/status_readout/get_configuration()
 	. = ..()
-	.["display_detailed_vitals"] = add_ui_configuration("Доп. описание вирусов", "bool", display_detailed_vitals)
+	.["display_detailed_vitals"] = add_ui_configuration("Детальные данные", "bool", display_detailed_vitals)
 	.["display_dna"] = add_ui_configuration("Отображение ДНК", "bool", display_dna)
 
 /obj/item/mod/module/status_readout/configure_edit(key, value)

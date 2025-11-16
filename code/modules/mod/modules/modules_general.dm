@@ -714,8 +714,12 @@
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	/// Former flags of the helmet.
 	var/former_helmet_flags = NONE
+	/// Former visor flags of the helmet.
+	var/former_visor_helmet_flags = NONE
 	/// Former flags of the mask.
 	var/former_mask_flags = NONE
+	/// Former visor flags of the mask.
+	var/former_visor_mask_flags = NONE
 
 /obj/item/mod/module/mouthhole/get_ru_names()
 	return list(
@@ -732,18 +736,22 @@
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(istype(helmet))
 		former_helmet_flags = helmet.flags_cover
-		helmet.flags_cover &= ~HEADCOVERSMOUTH
+		former_visor_helmet_flags = helmet.visor_flags_cover
+		helmet.flags_cover &= ~(HEADCOVERSMOUTH)
+		helmet.visor_flags_cover &= ~(HEADCOVERSMOUTH)
 	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
 	if(istype(mask))
 		former_mask_flags = mask.flags_cover
-		mask.flags_cover &= ~MASKCOVERSMOUTH
+		former_visor_mask_flags = mask.visor_flags_cover
+		mask.flags_cover &= ~(MASKCOVERSMOUTH)
+		mask.visor_flags_cover &= ~(MASKCOVERSMOUTH)
 
 /obj/item/mod/module/mouthhole/can_install(obj/item/mod/control/mod)
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
-	if(istype(helmet) && (helmet.flags_cover|helmet.visor_flags_cover & HEADCOVERSMOUTH))
+	if(istype(helmet) && ((helmet.flags_cover|helmet.visor_flags_cover) & (HEADCOVERSMOUTH)))
 		return ..()
-	if(istype(mask) && (mask.flags_cover|mask.visor_flags_cover & MASKCOVERSMOUTH))
+	if(istype(mask) && ((mask.flags_cover|mask.visor_flags_cover) & (MASKCOVERSMOUTH)))
 		return ..()
 	return FALSE
 
@@ -754,9 +762,11 @@
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(istype(helmet))
 		helmet.flags_cover |= former_helmet_flags
+		helmet.visor_flags_cover |= former_visor_helmet_flags
 	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
 	if(istype(mask))
 		mask.flags_cover |= former_mask_flags
+		mask.visor_flags_cover |= former_visor_mask_flags
 
 // MARK: Longfall
 /// Longfall - Nullifies fall damage, removing charge instead.

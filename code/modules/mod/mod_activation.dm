@@ -20,7 +20,7 @@
 	var/obj/item/part = locateUID(part_reference)
 	if(!istype(part) || user.incapacitated())
 		return
-	if(active || activating)
+	if(activating)
 		balloon_alert(user, "выключите костюм!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return

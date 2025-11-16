@@ -34,48 +34,6 @@
 		PREPOSITIONAL = "шлеме МЭК",
 	)
 
-/obj/item/clothing/suit/mod
-	name = "MOD chestplate"
-	desc = "Стандартный нагрудник для модульного экзокостюма."
-	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-	icon_state = "standard-chestplate"
-	base_icon_state = "chestplate"
-	permeability_coefficient = 0.01
-	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
-	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
-	)
-	blood_overlay_type = "armor"
-	allowed = list(
-		/obj/item/tank/internals,
-		/obj/item/flashlight,
-		/obj/item/tank/jetpack/oxygen/captain,
-	)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	heat_protection = UPPER_TORSO|LOWER_TORSO
-	cold_protection = UPPER_TORSO|LOWER_TORSO
-	hide_tail_by_species = list("modsuit")
-	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_clothing.dmi',
-		)
-	var/obj/item/mod/control/control
-
-/obj/item/clothing/suit/mod/get_ru_names()
-	return list(
-		NOMINATIVE = "нагрудник МЭК",
-		GENITIVE = "нагрудника МЭК",
-		DATIVE = "нагруднику МЭК",
-		ACCUSATIVE = "нагрудник МЭК",
-		INSTRUMENTAL = "нагрудником МЭК",
-		PREPOSITIONAL = "нагруднике МЭК",
-	)
-
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
 	desc = "Пара стандартных рукавиц для модульного экзокостюма."
@@ -145,4 +103,46 @@
 		ACCUSATIVE = "ботинки МЭК",
 		INSTRUMENTAL = "ботинками МЭК",
 		PREPOSITIONAL = "ботинках МЭК",
+	)
+
+/obj/item/clothing/suit/mod
+	name = "MOD chestplate"
+	desc = "Стандартный нагрудник для модульного экзокостюма."
+	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	icon_state = "standard-chestplate"
+	base_icon_state = "chestplate"
+	permeability_coefficient = 0.01
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
+	)
+	blood_overlay_type = "armor"
+	allowed = list(
+		/obj/item/tank/internals,
+		/obj/item/flashlight,
+		/obj/item/tank/jetpack/oxygen/captain,
+	)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|TAIL
+	heat_protection = UPPER_TORSO|LOWER_TORSO|TAIL
+	cold_protection = UPPER_TORSO|LOWER_TORSO|TAIL
+	hide_tail_by_species = list("modsuit")
+	sprite_sheets = list(
+		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_clothing.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_clothing.dmi',
+		)
+	var/obj/item/mod/control/control
+
+/obj/item/clothing/suit/mod/get_ru_names()
+	return list(
+		NOMINATIVE = "нагрудник МЭК",
+		GENITIVE = "нагрудника МЭК",
+		DATIVE = "нагруднику МЭК",
+		ACCUSATIVE = "нагрудник МЭК",
+		INSTRUMENTAL = "нагрудником МЭК",
+		PREPOSITIONAL = "нагруднике МЭК",
 	)

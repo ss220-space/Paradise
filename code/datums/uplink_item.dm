@@ -2133,7 +2133,8 @@
 			под один из заранее заданных шаблонов маскировки. Предустановлен в МЭКи класса \"Специалист\", используемые \
 			контрактниками Синдиката. Чувствителен к ЭМИ и очень энергозатратен."
 	item = /obj/item/mod/module/active_chameleon
-	cost = 30
+	cost = 20
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/plate_compression
 	name = "Модуль уплотнения"

@@ -233,7 +233,7 @@
 			L.name += " ([I.name])"
 			L.origin_tech = I.origin_tech
 			L.req_access = D.access_requirement
-			var/list/lockbox_access = list()
+			var/lockbox_access
 			for(var/access in L.req_access)
 				lockbox_access += "[get_access_desc(access)] "
 				L.desc = "A locked box. It is locked to [lockbox_access]access."
