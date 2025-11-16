@@ -17,6 +17,7 @@
 	var/bleedsuppress = 0
 	var/healverb = "bandage"
 	var/use_duration = 3 SECONDS
+	var/use_flags = DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING
 	merge_type = null // do not merge if not defined in subtype
 
 /obj/item/stack/medical/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -53,7 +54,7 @@
 
 		if(human_target == user && !unique_handling)
 			user.balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] применять [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...");
-			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
+			if(!do_after(human_target, self_delay, human_target, use_flags, max_interact_count = 1))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -253,6 +254,7 @@
 	max_amount = 1
 	heal_brute = 0
 	stop_bleeding = 300 SECONDS
+	merge_type = /obj/item/stack/medical/bruise_pack/military
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -300,15 +302,16 @@
 	icon_state = "traumakit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 40
-	amount = 4
-	max_amount = 4
+	heal_brute = 20
+	amount = 8
+	max_amount = 8
 	stop_bleeding = 0
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
+	use_flags = DA_IGNORE_LYING
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
-	icon_state = "traumakit_[amount]"
+	icon_state = "traumakit_[round_down((amount+1) / 2, 1)]"
 
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -320,13 +323,14 @@
 	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 40
+	heal_brute = 30
 	amount = 10
 	max_amount = 10
 	stop_bleeding = 0
 	use_duration = 0
 	self_delay = 1.5 SECONDS
 	use_duration = 0.7 SECONDS
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
@@ -345,7 +349,9 @@
 	heal_burn = 10
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/ointment
+
 
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -384,14 +390,14 @@
 	icon_state = "burnkit_4"
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 40
-	amount = 4
-	max_amount = 4
+	heal_burn = 20
+	amount = 8
+	max_amount = 8
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
-	icon_state = "burnkit_[amount]"
+	icon_state = "burnkit_[round_down((amount+1) / 2, 1)]"
 
 /obj/item/stack/medical/ointment/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -403,7 +409,7 @@
 	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 40
+	heal_burn = 30
 	amount = 10
 	max_amount = 10
 	self_delay = 1.5 SECONDS
@@ -427,8 +433,9 @@
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/comfrey
-	var/max_heal = 40
+	var/max_heal = 30
 
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
@@ -442,7 +449,7 @@
 	color = "#4CC5C7"
 	heal_burn = 12
 	merge_type = /obj/item/stack/medical/ointment/aloe
-	var/max_heal = 40
+	var/max_heal = 30
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return
@@ -467,6 +474,7 @@
 		BODY_ZONE_PRECISE_L_FOOT,
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/splint
 
 /obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
@@ -556,6 +564,7 @@
 	var/damage = 5
 	self_delay = 3 SECONDS
 	use_duration = 2 SECONDS
+	use_flags = DA_IGNORE_LYING
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
 
@@ -647,16 +656,18 @@
 	icon_state = "synthkit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 20
-	heal_burn = 20
-	amount = 4
-	max_amount = 4
+	heal_brute = 12
+	heal_burn = 12
+	amount = 8
+	max_amount = 8
 	stop_bleeding = 0
 	use_duration = 1.5 SECONDS
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
-	icon_state = "synthkit_[amount]"
+	icon_state = "synthkit_[round_down((amount+1) / 2, 1)]"
+
 
 // MARK: Tourniquet
 /obj/item/tourniquet
