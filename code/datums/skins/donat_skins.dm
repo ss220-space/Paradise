@@ -107,7 +107,7 @@
 	icon_state = "specter_red"
 
 /datum/item_skin_data/specter/green_slide
-	name = "Зеленый затвор"
+	name = "Зелёный затвор"
 	icon_state = "specter_green"
 
 /datum/item_skin_data/specter/tan_slide
@@ -115,15 +115,15 @@
 	icon_state = "specter_tan"
 
 /datum/item_skin_data/specter/green_handle
-	name = "Зеленый корпус"
+	name = "Зелёный рукоять"
 	icon_state = "specter_greengrip"
 
 /datum/item_skin_data/specter/tan_handle
-	name = "Бежевый корпус"
+	name = "Бежевый рукоять"
 	icon_state = "specter_tangrip"
 
 /datum/item_skin_data/specter/red_handle
-	name = "Красный корпус"
+	name = "Красный рукоять"
 	icon_state = "specter_redgrip"
 
 //MARK: Enforcer
@@ -139,27 +139,27 @@
 	icon_state = "enforcer_red"
 
 /datum/item_skin_data/enforcer/green_slide
-	name = "Зеленый затвор"
+	name = "Зелёный затвор"
 	icon_state = "enforcer_green"
 
 /datum/item_skin_data/enforcer/tan_slide
-	name = "Песочный затвор"
+	name = "Бежевый затвор"
 	icon_state = "enforcer_tan"
 
 /datum/item_skin_data/enforcer/black_slide
-	name = "Черный затвор"
+	name = "Чёрный затвор"
 	icon_state = "enforcer_black"
 
 /datum/item_skin_data/enforcer/green_handle
-	name = "Зеленый корпус"
+	name = "Зелёный рукоять"
 	icon_state = "enforcer_greengrip"
 
 /datum/item_skin_data/enforcer/tan_handle
-	name = "Песочный корпус"
+	name = "Бежевый рукоять"
 	icon_state = "enforcer_tangrip"
 
 /datum/item_skin_data/enforcer/red_handle
-	name = "Красный корпус"
+	name = "Красный рукоять"
 	icon_state = "enforcer_redgrip"
 
 //MARK: SP-8
@@ -167,7 +167,7 @@
 	item_path = /obj/item/gun/projectile/automatic/pistol/sp8
 
 /datum/item_skin_data/sp8/black
-	name = "Черный"
+	name = "Чёрный"
 	icon_state = "sp8_black"
 
 /datum/item_skin_data/sp8/red
@@ -175,7 +175,7 @@
 	icon_state = "sp8_red"
 
 /datum/item_skin_data/sp8/green
-	name = "Зеленый"
+	name = "Зелёный"
 	icon_state = "sp8_green"
 
 /datum/item_skin_data/sp8/olive
@@ -183,7 +183,7 @@
 	icon_state = "sp8_olive"
 
 /datum/item_skin_data/sp8/yellow
-	name = "Желтый"
+	name = "Жёлтый"
 	icon_state = "sp8_yellow"
 
 /datum/item_skin_data/sp8/white
@@ -215,7 +215,7 @@
 	icon_state = "detective_leopard"
 
 /datum/item_skin_data/detective_revolver/black_panther
-	name = "Черна пантера"
+	name = "Черная пантера"
 	icon_state = "detective_panther"
 
 /datum/item_skin_data/detective_revolver/white_gold
@@ -223,7 +223,7 @@
 	icon_state = "detective_gold"
 
 /datum/item_skin_data/detective_revolver/gold_wood
-	name = "Золотое дерево"
+	name = "Позолота"
 	icon_state = "detective_gold_alt"
 
 /datum/item_skin_data/detective_revolver/peacemaker
@@ -243,7 +243,7 @@
 	icon_state = "dshotgun"
 
 /datum/item_skin_data/doublebarrel/dark_red
-	name = "Темно-красная отделка"
+	name = "Тёмно-красная отделка"
 	icon_state = "dshotgun-d"
 
 /datum/item_skin_data/doublebarrel/ash
@@ -259,5 +259,5 @@
 	icon_state = "dshotgun-l"
 
 /datum/item_skin_data/doublebarrel/rosewood
-	name = "Палисандр"
+	name = "Палисандровый"
 	icon_state = "dshotgun-p"
