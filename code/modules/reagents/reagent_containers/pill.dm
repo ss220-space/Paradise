@@ -413,7 +413,7 @@
 	icon_state = "pill6"
 	list_reagents = list("kelotane" = 10)
 
-/obj/item/reagent_containers/food/pill/bicaridine/get_ru_names()
+/obj/item/reagent_containers/food/pill/kelotane/get_ru_names()
 	return list(
 		NOMINATIVE = "таблетка (Келотан)",
 		GENITIVE = "таблетки (Келотан)",
