@@ -152,6 +152,7 @@
 /obj/item/baton_upgrade
 	var/upgrade_examine
 	gender = FEMALE
+	icon = 'icons/obj/weapons/baton.dmi'
 
 /obj/item/baton_upgrade/cuff
 	name = "handcuff upgrade"

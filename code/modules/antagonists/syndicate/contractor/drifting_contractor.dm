@@ -45,7 +45,7 @@
 	internals_slot = ITEM_SLOT_POCKET_LEFT
 	back = /obj/item/mod/control/pre_equipped/contractor/upgraded
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival/survival_syndi = 1,
 		/obj/item/paper/contractor_guide_midround = 1,
 		/obj/item/storage/firstaid/doctor = 1,
 		/obj/item/jammer = 1,

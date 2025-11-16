@@ -123,7 +123,7 @@
 
 #define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/glass))
 
-#define is_spectercell(A) (istype(A, /obj/item/stock_parts/cell/specter))
+#define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,

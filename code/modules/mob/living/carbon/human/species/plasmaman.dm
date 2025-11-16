@@ -52,7 +52,7 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
 
-	speciesbox = /obj/item/storage/box/survival_plasmaman
+	speciesbox = /obj/item/storage/box/survival/species/plasmaman
 	flesh_color = "#8b3fba"
 
 	toxic_food = NONE
