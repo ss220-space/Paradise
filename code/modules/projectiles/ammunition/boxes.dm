@@ -1042,6 +1042,31 @@
 		PREPOSITIONAL = "устройстве быстрой зарядки (экспансивные .38)",
 	)
 
+/obj/item/ammo_box/speedloader/rubber9mm
+	name = "speed loader (9 mm)"
+	desc = "Устройство для быстрой зарядки револьверов патронами калибра 9 мм."
+	icon_state = "38"
+	materials = list(MAT_METAL = 2000)
+	ammo_type = /obj/item/ammo_casing/rubber9mm
+	max_ammo = 6
+	caliber = CALIBER_9MM
+	icon_state = "38-6"
+	multiple_sprites = 1
+	icon_prefix = "38"
+
+/obj/item/ammo_box/speedloader/rubber9mm/empty
+	start_empty = TRUE
+
+/obj/item/ammo_box/speedloader/rubber9mm/get_ru_names()
+	return list(
+		NOMINATIVE = "устройство быстрой зарядки (9 мм)",
+		GENITIVE = "устройства быстрой зарядки (9 мм)",
+		DATIVE = "устройству быстрой зарядки (9 мм)",
+		ACCUSATIVE = "устройство быстрой зарядки (9 мм)",
+		INSTRUMENTAL = "устройством быстрой зарядки (9 мм)",
+		PREPOSITIONAL = "устройстве быстрой зарядки (9 мм)",
+	)
+
 /obj/item/ammo_box/nagant
 	name = "ammo box (7.62x38mm nagant)"
 	desc = "Коробка, содержащая патроны калибра 7,62х38 мм \"Наган\"."

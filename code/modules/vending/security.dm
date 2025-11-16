@@ -115,6 +115,7 @@
 			"Доминатор" = /obj/item/storage/box/dominator_kit,
 			"Блюститель" = /obj/item/storage/box/enforcer_kit,
 			"Спектр" = /obj/item/storage/box/specter_kit,
+			"Таурус" = /obj/item/storage/box/taurus_kit
 		)
 		var/weapon_kit = tgui_input_list(user, "Выберите оружейный набор для выдачи:", "Получение оружия", available_kits)
 		if(!weapon_kit || !Adjacent(user) || QDELETED(I) || I.loc != user)
