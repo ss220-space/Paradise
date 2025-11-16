@@ -53,7 +53,7 @@
 			return .
 
 		if(human_target == user && !unique_handling)
-			user.balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] применять [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...");
+			user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...");
 			if(!do_after(human_target, self_delay, human_target, use_flags, max_interact_count = 1))
 				return .
 
@@ -74,7 +74,7 @@
 				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
-			user.balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] применять [declent_ru(ACCUSATIVE)] на [human_target]", "применение [declent_ru(GENITIVE)] на [human_target]");
+			user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...");
 			if(use_duration && !do_after(user, use_duration, human_target))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
@@ -763,7 +763,7 @@
 			span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target]."),
 			ignored_mobs = user
 		)
-		user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]", "применение [declent_ru(GENITIVE)] на [human_target]");
+		user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...");
 		if(!do_after(user, other_duration, human_target) || applyed_bodypart)
 			return .
 		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -776,7 +776,6 @@
 		if(affecting_rechecked.is_robotic())
 			balloon_alert(user, "нельзя применить на протезе!")
 			return .
-		user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]", "применил [declent_ru(NOMINATIVE)] на [human_target]");
 	affecting.tourniquet = src
 	applyed_bodypart = affecting
 	if(addition_affecting)
