@@ -139,11 +139,17 @@
 /obj/item/mod/construction/plating/security
 	theme = /datum/mod_theme/security
 
+/obj/item/mod/construction/plating/brig_pilot
+	theme = /datum/mod_theme/brig_pilot
+
 /obj/item/mod/construction/plating/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
 
 /obj/item/mod/construction/plating/rescue
 	theme = /datum/mod_theme/rescue
+
+/obj/item/mod/construction/plating/security_medical
+	theme = /datum/mod_theme/security_medical
 
 /obj/item/mod/construction/plating/safeguard_mk_one
 	theme = /datum/mod_theme/safeguard_mk_one

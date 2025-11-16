@@ -916,7 +916,6 @@
 /obj/item/mod/module/hearing_protection
 	name = "MOD hearing protection module"
 	desc = "Модуль для МЭК, защищающий органы слуха пользователя от воздействия громких звуков."
-	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/hearing_protection)
 	required_slots = list(ITEM_SLOT_HEAD)
 
@@ -1006,7 +1005,7 @@
 		PREPOSITIONAL = "модуле стабилизатора шляп Синдиката",
 	)
 
-// MARK: Passive MOD upgrades
+// MARK: MOD upgrades
 //
 /obj/item/mod/module/activation_upgrade
 	name = "MOD upgraded actuator module"
@@ -1031,11 +1030,29 @@
 
 /obj/item/mod/module/activation_upgrade/on_install()
 	. = ..()
-	mod.activation_step_time *= (1 / activation_step_time_booster) //1 second for standart, 0,4 for elite
+	mod.activation_step_time *= (1 / activation_step_time_booster) //1 second for standart; 0,5 for pilot; 0,4 for elite
 
 /obj/item/mod/module/activation_upgrade/on_uninstall(deleting = FALSE)
 	. = ..()
 	mod.activation_step_time *= activation_step_time_booster
+
+/obj/item/mod/module/activation_upgrade/advanced
+	name = "MOD advanced actuator module"
+	desc = "Модуль для МЭК, представляющий из себя набор продвинутых актуаторов из пластали, предназначенных для увеличения \
+			скорости развёртывания МЭК. Улучшенный вариант, который тяжело достать на гражданском рынке."
+	activation_step_time_booster = 3
+	complexity = 0
+	removable = FALSE
+
+/obj/item/mod/module/activation_upgrade/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль продвинутых актуаторов",
+		GENITIVE = "модуля продвинутых актуаторов",
+		DATIVE = "модулю продвинутых актуаторов",
+		ACCUSATIVE = "модуль продвинутых актуаторов",
+		INSTRUMENTAL = "модулем продвинутых актуаторов",
+		PREPOSITIONAL = "модуле продвинутых актуаторов",
+	)
 
 /obj/item/mod/module/activation_upgrade/elite
 	name = "MOD elite actuator module"

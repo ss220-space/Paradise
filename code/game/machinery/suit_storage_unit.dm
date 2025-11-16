@@ -97,6 +97,8 @@
 	req_access = list(ACCESS_ARMORY)
 
 /obj/machinery/suit_storage_unit/security/pod_pilot
+	name = "pilot's suit storage unit"
+	suit_type = /obj/item/mod/control/pre_equipped/brig_pilot
 	req_access = list(ACCESS_PILOT)
 
 /obj/machinery/suit_storage_unit/brigmed

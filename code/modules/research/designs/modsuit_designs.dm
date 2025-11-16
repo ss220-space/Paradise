@@ -88,6 +88,34 @@
 	locked = TRUE
 	access_requirement = list(ACCESS_ARMORY)
 
+/datum/design/mod_plating/brig_pilot
+	name = "Обшивка МЭК класса \"Часовой\""
+	id = "mod_plating_brig_pilot"
+	build_path = /obj/item/mod/construction/plating/brig_pilot
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "toxins" = 3)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 4000, MAT_TITANIUM = 6000, MAT_DIAMOND = 4000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
+	locked = TRUE
+	access_requirement = list(ACCESS_ARMORY)
+
+/datum/design/mod_plating/rescue
+
+	name = "Обшивка МЭК класса \"Валькирия\""
+	id = "mod_plating_rescue"
+	build_path = /obj/item/mod/construction/plating/rescue
+	req_tech = list("materials" = 6, "powerstorage" = 5, "biotech" = 6, "toxins" = 3)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
+	locked = TRUE
+	access_requirement = list(ACCESS_PARAMEDIC)
+
+/datum/design/mod_plating/security_medical
+	name = "Обшивка МЭК класса \"Клятва\""
+	id = "mod_plating_security_medical"
+	build_path = /obj/item/mod/construction/plating/security_medical
+	req_tech = list("materials" = 6, "powerstorage" = 5, "biotech" = 7, "toxins" = 5)
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 3000)
+	locked = TRUE
+	access_requirement = list(ACCESS_MEDICAL)
+
 /datum/design/mod_plating/cosmohonk
 	name = "Обшивка МЭК класса \"Гогот\""
 	id = "mod_plating_cosmohonk"
@@ -168,7 +196,7 @@
 	id = "mod_night_visor"
 	req_tech = list("materials" = 6, "biotech" = 7, "engineering" = 6, "plasmatech" = 6)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
-	build_path =/obj/item/mod/module/visor/night
+	build_path = /obj/item/mod/module/visor/night
 
 /datum/design/module/mod_t_ray
 	name = "Модуль ТГц сканирования"

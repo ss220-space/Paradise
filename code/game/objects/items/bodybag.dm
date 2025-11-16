@@ -496,8 +496,9 @@
 			позволяющими насильно удерживать заключённого внутри."
 	icon_state = "prisonerenvirobag"
 	foldedbag_path = /obj/item/bodybag/environmental/prisoner
+	breakout_time = 1 MINUTES
 	/// How long it takes to sinch the bag.
-	var/sinch_time = 10 SECONDS
+	var/sinch_time = 5 SECONDS
 	/// Whether or not the bag is sinched. Starts unsinched.
 	var/sinched = FALSE
 	/// The sound that plays when the bag is done sinching.
@@ -618,8 +619,7 @@
 	contents_thermal_insulation = 1
 	foldedbag_path = /obj/item/bodybag/environmental/prisoner/syndicate
 	weather_protection = list(TRAIT_WEATHER_IMMUNE)
-	breakout_time = 4 MINUTES
-	sinch_time = 20 SECONDS
+	sinch_time = 7 SECONDS
 
 /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate/refresh_air()
 	air_contents = null

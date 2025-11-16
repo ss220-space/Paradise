@@ -57,6 +57,7 @@
 		/obj/item/mod/module/grappling_hook,
 	)
 	default_pins = list(
+		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot,
 		/obj/item/mod/module/grappling_hook,
 	)
@@ -72,7 +73,9 @@
 		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
+		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/atmos,
+		/obj/item/mod/module/firefighting_tank,
 	)
 
 
@@ -89,8 +92,10 @@
 		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 	default_pins = list(
+		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 
 /obj/item/mod/control/pre_equipped/loader
@@ -158,7 +163,10 @@
 		/obj/item/mod/module/quick_carry/advanced,
 	)
 	default_pins = list(
+		/obj/item/mod/module/injector,
 		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/monitor,
+		/obj/item/mod/module/health_analyzer,
 	)
 
 /obj/item/mod/control/pre_equipped/research
@@ -170,6 +178,9 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
 	)
+	default_pins = list(
+		/obj/item/mod/module/reagent_scanner/advanced,
+	)
 
 /obj/item/mod/control/pre_equipped/security
 	theme = /datum/mod_theme/security
@@ -180,15 +191,41 @@
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/hearing_protection,
 	)
+	default_pins = list(
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/dispenser/mirage,
+		/obj/item/mod/module/jetpack,
+	)
+
+/obj/item/mod/control/pre_equipped/brig_pilot
+	theme = /datum/mod_theme/brig_pilot
+	applied_modules = list(
+		/obj/item/mod/module/storage,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/criminalcapture,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/criminalcapture,
+	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_one
 	theme = /datum/mod_theme/safeguard_mk_one
 	applied_modules = list(
 		/obj/item/mod/module/storage,
-		/obj/item/mod/module/dispenser/mirage,
+		/obj/item/mod/module/criminalcapture,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
+		/obj/item/mod/module/grappling_hook/upgraded,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/active_sonar,
+		/obj/item/mod/module/criminalcapture,
 		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 
@@ -199,13 +236,15 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/holster,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
 		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 	default_pins = list(
+		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/active_sonar,
+		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 
 /obj/item/mod/control/pre_equipped/brigmed
@@ -216,6 +255,12 @@
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/health_analyzer,
 		/obj/item/mod/module/quick_carry,
+		/obj/item/mod/module/defibrillator,
+	)
+	default_pins = list(
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/injector,
+		/obj/item/mod/module/health_analyzer,
 		/obj/item/mod/module/defibrillator,
 	)
 
@@ -246,6 +291,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/monitor,
 	)
 
 /obj/item/mod/control/pre_equipped/cosmohonk
@@ -255,12 +301,15 @@
 		/obj/item/mod/module/waddle,
 		/obj/item/mod/module/bikehorn,
 	)
+	default_pins = list(
+		/obj/item/mod/module/bikehorn,
+	)
 
 /obj/item/mod/control/pre_equipped/traitor
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
-		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/flashlight,
@@ -269,6 +318,7 @@
 		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
+		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack,
 	)
 
@@ -281,7 +331,7 @@
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
-		/obj/item/mod/module/storage,
+		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/magboot/advanced,
@@ -290,7 +340,8 @@
 		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
-		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/jetpack,
 	)
 
 /obj/item/mod/control/pre_equipped/traitor_elite/Initialize(mapload)
@@ -315,6 +366,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/jetpack/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/elite
@@ -335,6 +387,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/magboot/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/prototype
@@ -357,7 +410,7 @@
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_CENT_GENERAL)
 	applied_modules = list(
-		/obj/item/mod/module/storage/syndicate, //Yes yes syndicate tech in ert but they need the storage
+		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/status_readout,
@@ -366,6 +419,10 @@
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/ert_camera,
 		/obj/item/mod/module/hearing_protection,
+	)
+	default_pins = list(
+		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/jetpack/advanced,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
@@ -405,13 +462,13 @@
 
 /obj/item/mod/control/pre_equipped/responsory/chaplain
 	insignia_type = /obj/item/mod/module/insignia/chaplain
-	additional_module = /obj/item/mod/module/injector
+	additional_module = /obj/item/mod/module/power_kick
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory //Used in gamma ERT.
 	applied_skin = "inquisitory"
 	theme = /datum/mod_theme/gamma_responsory
 	applied_modules = list(
-		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/status_readout,
@@ -422,6 +479,10 @@
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
+	)
+	default_pins = list(
+		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/jetpack/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
@@ -438,7 +499,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	insignia_type = /obj/item/mod/module/insignia/chaplain
-	additional_module = /obj/item/mod/module/power_kick //JUDGEMENT
+	additional_module = /obj/item/mod/module/power_kick
 
 /obj/item/mod/control/pre_equipped/apocryphal
 	theme = /datum/mod_theme/apocryphal
@@ -451,11 +512,13 @@
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/power_kick,
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
 	)
 	default_pins = list(
+		/obj/item/mod/module/power_kick,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced/elite,
 	)
@@ -588,6 +651,7 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 	default_pins = list(
+		/obj/item/mod/module/grappling_hook/upgraded,
 		/obj/item/mod/module/active_chameleon/elite,
 		/obj/item/mod/module/baton_holster,
 	)
@@ -597,15 +661,15 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 	applied_modules = list(
 		/obj/item/mod/module/baton_holster,
 		/obj/item/mod/module/dna_lock/emp_shield,
-		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/grappling_hook/upgraded,
 		/obj/item/mod/module/scorpion_hook,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/grappling_hook/upgraded,
+		/obj/item/mod/module/scorpion_hook,
 		/obj/item/mod/module/baton_holster,
 	)
 
