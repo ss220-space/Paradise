@@ -115,15 +115,15 @@
 	icon_state = "specter_tan"
 
 /datum/item_skin_data/specter/green_handle
-	name = "Зелёный рукоять"
+	name = "Зелёная рукоять"
 	icon_state = "specter_greengrip"
 
 /datum/item_skin_data/specter/tan_handle
-	name = "Бежевый рукоять"
+	name = "Бежевая рукоять"
 	icon_state = "specter_tangrip"
 
 /datum/item_skin_data/specter/red_handle
-	name = "Красный рукоять"
+	name = "Красная рукоять"
 	icon_state = "specter_redgrip"
 
 //MARK: Enforcer
@@ -151,15 +151,15 @@
 	icon_state = "enforcer_black"
 
 /datum/item_skin_data/enforcer/green_handle
-	name = "Зелёный рукоять"
+	name = "Зелёная рукоять"
 	icon_state = "enforcer_greengrip"
 
 /datum/item_skin_data/enforcer/tan_handle
-	name = "Бежевый рукоять"
+	name = "Бежевая рукоять"
 	icon_state = "enforcer_tangrip"
 
 /datum/item_skin_data/enforcer/red_handle
-	name = "Красный рукоять"
+	name = "Красная рукоять"
 	icon_state = "enforcer_redgrip"
 
 //MARK: SP-8
