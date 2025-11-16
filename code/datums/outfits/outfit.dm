@@ -171,12 +171,7 @@
 		if(r_pocket)
 			equip_item(H, r_pocket, ITEM_SLOT_POCKET_RIGHT)
 
-		if(box)
-			if(!backpack_contents)
-				backpack_contents = list()
-			backpack_contents.Insert(1, box)
-			backpack_contents[box] = 1
-			box = null	// if it's added to backpack_contents ... we don't need it anymore.
+		create_survival_box(H)
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
@@ -216,6 +211,36 @@
 
 	H.regenerate_icons()
 	return TRUE
+
+/datum/outfit/proc/create_survival_box(mob/living/carbon/human/owner)
+	if(!box)
+		return
+	var/obj/item/storage/box/box_obj = new box(owner)
+	if(component_to_add)
+		box_obj.RawAddComponent((list(component_to_add) + component_args))
+	owner.equip_or_collect(box_obj, ITEM_SLOT_BACKPACK)
+	box = null	// if it's added to backpack_contents ... we don't need it anymore.
+
+	var/obj/item/storage/box/survival/survival_box = box_obj
+	if(!istype(survival_box))
+		return
+	if(!owner.dna.species.speciesbox)
+		return
+
+	var/obj/item/storage/box/survival/species/base_species_type = /obj/item/storage/box/survival/species
+	var/obj/item/storage/box/survival/species/species_box = new owner.dna.species.speciesbox(owner)
+	QDEL_LIST(survival_box.contents)
+	if(species_box.breathmask != initial(base_species_type.breathmask))
+		survival_box.breathmask = species_box.breathmask
+	if(species_box.internals != initial(base_species_type.internals))
+		survival_box.internals = species_box.internals
+	if(species_box.first_aid != initial(base_species_type.first_aid))
+		survival_box.first_aid = species_box.first_aid
+	if(species_box.glowstick != initial(base_species_type.glowstick))
+		survival_box.glowstick = species_box.glowstick
+	species_box.create_species_specific_items(survival_box)
+	survival_box.populate_contents()
+	qdel(species_box)
 
 /datum/outfit/proc/get_chameleon_disguise_info()
 	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)

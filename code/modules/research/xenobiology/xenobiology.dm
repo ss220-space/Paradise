@@ -846,13 +846,6 @@
 /obj/effect/timestop/clockwork
 	duration = 80
 
-/obj/effect/timestop/clockwork/Initialize(mapload)
-	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
-		if(isclocker(M))
-			immune |= M
-	timestop()
-
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"
 	singular_name = "floor tile"

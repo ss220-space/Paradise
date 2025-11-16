@@ -478,7 +478,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 
 	backpack_contents = list(
-		/obj/item/storage/box/soviet = 1,
+		/obj/item/storage/box/survival/soviet = 1,
 	)
 
 /obj/effect/mob_spawn/human/corpse/usspconscript
