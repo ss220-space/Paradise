@@ -1,4 +1,6 @@
 /// Checks all pre-equipped MODsuit paths to see if they have something set wrong.
+/datum/game_test/modsuit_checks
+
 /datum/game_test/modsuit_checks/Run()
 	var/list/paths = typesof(/obj/item/mod/control/pre_equipped)
 

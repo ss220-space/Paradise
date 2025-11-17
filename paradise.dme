@@ -3699,7 +3699,6 @@
 #include "code\modules\world_topic\players.dm"
 #include "code\modules\world_topic\status.dm"
 #include "code\tests\game_tests.dm"
-#include "code\tests\test_modsuit.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 #include "interface\fonts\fonts_datum.dm"
