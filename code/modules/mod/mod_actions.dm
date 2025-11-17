@@ -224,6 +224,6 @@
 
 	deltimer(cooldown_timer)
 	build_all_button_icons(UPDATE_BUTTON_OVERLAY)
-	if (cooldown_time == 0)
+	if(cooldown_time == 0)
 		return
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(build_all_button_icons), UPDATE_BUTTON_OVERLAY), cooldown_time + 1, TIMER_STOPPABLE)
