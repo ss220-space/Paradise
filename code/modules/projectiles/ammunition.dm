@@ -44,6 +44,8 @@
 	var/muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
+	/// Ammo type overlay for magazines (not add ovarlay if null)
+	var/bullet_type = null
 
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()
@@ -201,6 +203,8 @@
 	var/can_fast_load = TRUE
 	/// One bullet load duration
 	var/bullet_load_duration = 0.4 SECONDS
+	/// Use bullet type overlay
+	var/use_bullet_type_overlay = FALSE
 
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
@@ -228,6 +232,28 @@
 	update_mat_value()
 	update_icon()
 	return bullet
+
+
+/obj/item/ammo_box/update_overlays()
+	. = ..()
+	if(!use_bullet_type_overlay)
+		return
+	var/ammo = length(stored_ammo)
+	if(!ammo)
+		return
+	var/bullet_type = get_bullet_type()
+	if(!bullet_type)
+		return
+	. += image('icons/obj/weapons/ammo_type_overlay.dmi', icon_state = bullet_type)
+
+/obj/item/ammo_box/proc/get_bullet_type()
+	var/ammo = length(stored_ammo)
+	if(!ammo)
+		return null
+	var/obj/item/ammo_casing/last_bullet = stored_ammo[length(stored_ammo)]
+	if(!istype(last_bullet))
+		return null
+	return last_bullet.bullet_type
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/new_casing, replace_spent = FALSE, count_chambered = FALSE, mob/user)
 	if(!ammo_suitability(new_casing))
