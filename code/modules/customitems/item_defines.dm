@@ -382,7 +382,6 @@
 		var/obj/item/melee/baton/the_baton = target
 		the_baton.base_icon_state = "desolate_baton"
 		the_baton.item_state = "desolate_baton"
-		the_baton.icon = 'icons/obj/custom_items.dmi'
 		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 		the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 		the_baton.update_icon()

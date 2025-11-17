@@ -29,7 +29,7 @@
 		notify_ghosts("The Justiciar's light calls to you! Reach out to Ratvar in [A.name] to be granted a shell to spread his glory!", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 	ratvar_spawn_animation()
-	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
+	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse), "Ратвар"), 10 SECONDS)
 
 /obj/singularity/god/ratvar/update_icon_state()
 	return

@@ -34,6 +34,10 @@
 	link_new_cell()
 	update_icon()
 
+/obj/item/melee/baton/security/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/melee/baton/security)
+
 /obj/item/melee/baton/security/loaded
 	cell = /obj/item/stock_parts/cell/high
 
