@@ -501,7 +501,6 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/f545
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
-	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/rocket
 	name = "rocket shell"
