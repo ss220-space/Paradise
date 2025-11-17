@@ -313,15 +313,15 @@
 	return parts
 
 /mob/living/carbon/human/proc/get_damaged_internal_organs(flags = AFFECT_ALL_ORGANS)
-	var/list/obj/item/organ/internal/parts = list()
-	for(var/obj/item/organ/internal/int_organ as anything in internal_organs)
-		if(int_organ.damage)
-			if(!(flags & AFFECT_ROBOTIC_ORGAN) && int_organ.is_robotic())
+	var/list/obj/item/organ/internal/organs = list()
+	for(var/obj/item/organ/internal/organs as anything in internal_organs)
+		if(organs.damage)
+			if(!(flags & AFFECT_ROBOTIC_ORGAN) && organs.is_robotic())
 				continue
-			if(!(flags & AFFECT_ORGANIC_ORGAN) && !int_organ.is_robotic())
+			if(!(flags & AFFECT_ORGANIC_ORGAN) && !organs.is_robotic())
 				continue
-			parts += int_organ
-	return parts
+			organs += int_organ
+	return organs
 
 //Returns a list of damageable organs
 /mob/living/carbon/human/proc/get_damageable_organs(affect_robotic = TRUE)
