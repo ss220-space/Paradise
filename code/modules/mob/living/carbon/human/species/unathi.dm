@@ -42,7 +42,7 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 
-	speciesbox = /obj/item/storage/box/survival_unathi
+	speciesbox = /obj/item/storage/box/survival/species/unathi
 
 	//Default styles for created mobs.
 	default_headacc = "Simple"

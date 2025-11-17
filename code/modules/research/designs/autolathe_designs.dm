@@ -703,8 +703,8 @@
 /datum/design/spectermag_disabler
 	id = "spectermag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 18750)
-	build_path = /obj/item/stock_parts/cell/specter
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/weapon_cell/specter
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/sp91rc_mag
