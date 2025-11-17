@@ -797,7 +797,7 @@
 	cell_type = cell.type
 	magazine = item
 	balloon_alert(user, "батарейка заменена")
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(magazine.is_available_shot(shot.e_cost))
 		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
