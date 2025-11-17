@@ -935,7 +935,7 @@
 	bullet = 40
 	laser = 15
 	energy = 15
-	bomb = 10
+	bomb = 100
 	bio = 80
 	rad = 75
 	fire = 75
