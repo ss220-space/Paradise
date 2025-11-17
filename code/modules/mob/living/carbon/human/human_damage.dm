@@ -312,6 +312,7 @@
 			parts += bodypart
 	return parts
 
+//Returns a list of damaged internal organs
 /mob/living/carbon/human/proc/get_damaged_internal_organs(flags = AFFECT_ALL_ORGANS)
 	var/list/obj/item/organ/internal/organs = list()
 	for(var/obj/item/organ/internal/int_organ as anything in internal_organs)

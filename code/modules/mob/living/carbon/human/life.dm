@@ -267,7 +267,7 @@
 		heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
 
 	//internal healing in medium priority. Using radium won't heal internal damage while healing external damage
-	var/list/obj/item/organ/internal/int_damaged_organs = get_damaged_internal_organs()
+	var/list/obj/item/organ/internal/int_damaged_organs = get_damaged_internal_organs(flags = AFFECT_ORGANIC_ORGAN)
 	var/int_damaged_organs_amount = length(int_damaged_organs)
 	var/heal_amount = 3
 	heal_cost = 3
