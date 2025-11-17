@@ -219,7 +219,7 @@
 
 // Grant pinned actions to pin owners, gives AI pinned actions to the AI and not the wearer
 /obj/item/mod/control/grant_action_to_bearer(datum/action/action)
-	if (!istype(action, /datum/action/item_action/mod/pinnable))
+	if(!istype(action, /datum/action/item_action/mod/pinnable))
 		return ..()
 	var/datum/action/item_action/mod/pinnable/pinned = action
 	give_item_action(action, pinned.pinner, slot_flags)
