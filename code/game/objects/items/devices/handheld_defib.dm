@@ -25,16 +25,12 @@
 		DATIVE = "ручному дефибриллятору",
 		ACCUSATIVE = "ручной дефибриллятор",
 		INSTRUMENTAL = "ручным дефибриллятором",
-		PREPOSITIONAL = "ручном дефибрилляторе"
+		PREPOSITIONAL = "ручном дефибрилляторе",
 	)
 
 /obj/item/handheld_defibrillator/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-
-/obj/item/handheld_defibrillator/UnregisterSignal(datum/source, mob/user)
-	. = ..()
-	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 
 /obj/item/handheld_defibrillator/Destroy()
 	. = ..()
@@ -74,7 +70,7 @@
 		balloon_alert(user, "лопасти не разложены!")
 		return .
 
-	if((charges == 0) || (shocking))
+	if(charges == 0 || shocking)
 		balloon_alert(user, "всё ещё заряжается!")
 		return .
 
@@ -143,7 +139,7 @@
 		DATIVE = "боевому ручному дефибриллятору",
 		ACCUSATIVE = "боевой ручной дефибриллятор",
 		INSTRUMENTAL = "боевым ручным дефибриллятором",
-		PREPOSITIONAL = "боевом ручном дефибрилляторе"
+		PREPOSITIONAL = "боевом ручном дефибрилляторе",
 	)
 
 /obj/item/handheld_defibrillator/advanced
@@ -155,7 +151,7 @@
 	item_state = "adv_defib_passive"
 	icon_base = "adv_defib"
 	belt_icon = "advanced_handheld_defibrillator"
-	origin_tech = "materials=6;biotech=6;magnets=5;"
+	origin_tech = "materials=6;biotech=6;magnets=5"
 	is_advanced = TRUE
 	charges = 3
 	max_charges = 3
@@ -168,7 +164,7 @@
 		DATIVE = "продвинутому ручному дефибриллятору",
 		ACCUSATIVE = "продвинутый ручной дефибриллятор",
 		INSTRUMENTAL = "продвинутым ручным дефибриллятором",
-		PREPOSITIONAL = "продвинутом ручном дефибрилляторе"
+		PREPOSITIONAL = "продвинутом ручном дефибрилляторе",
 	)
 
 /obj/item/handheld_defibrillator/advanced/examine(mob/user)
