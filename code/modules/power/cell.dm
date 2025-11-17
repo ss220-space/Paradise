@@ -26,6 +26,7 @@
 	var/grown_battery = FALSE
 	// For custom overlays.
 	var/overlay_charged = "cell-o2"
+
 /obj/item/stock_parts/cell/get_ru_names()
 	return list(
 		NOMINATIVE = "батарея А",
@@ -35,72 +36,6 @@
 		INSTRUMENTAL = "батареей А",
 		PREPOSITIONAL = "батарее А",
 	)
-
-/obj/item/stock_parts/cell/clock
-	name = "brass power cell"
-	desc = "Элемент, вырабатывающий энергию для оружия культистов Ратвара, однако бесполезен в других целях. Предназначен для дробовика."
-
-/obj/item/stock_parts/cell/clock/get_ru_names()
-	return list(
-		NOMINATIVE = "латунная батарейка",
-		GENITIVE = "латунной батарейки",
-		DATIVE = "латунной батарейке",
-		ACCUSATIVE = "латунную батарейку",
-		INSTRUMENTAL = "латунной батарейкой",
-		PREPOSITIONAL = "латунной батарейке",
-	)
-
-/obj/item/stock_parts/cell/clock/shotgun
-	maxcharge = 10
-
-/obj/item/stock_parts/cell/clock/sniper
-	maxcharge = 5
-
-/obj/item/stock_parts/cell/clock/minigun
-	maxcharge = 175
-/obj/item/stock_parts/cell/laser
-	maxcharge = 1500
-
-/obj/item/stock_parts/cell/laser/gatling
-	maxcharge = 9000
-
-/obj/item/stock_parts/cell/specter
-	name = "аккумулятор Спектра"
-	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
-	icon = 'icons/obj/weapons/ammo.dmi'
-	icon_state = "Specter_accumulator"
-	gender = MALE
-	maxcharge = 7200
-	chargerate = 480
-
-/obj/item/stock_parts/cell/specter/get_ru_names()
-	return list(
-		NOMINATIVE = "аккумулятор Спектра",
-		GENITIVE = "аккумулятора Спектра",
-		DATIVE = "аккумулятору Спектра",
-		ACCUSATIVE = "аккумулятор Спектра",
-		INSTRUMENTAL = "аккумулятором Спектра",
-		PREPOSITIONAL = "аккумуляторе Спектра",
-	)
-
-/obj/item/stock_parts/cell/specter/update_overlays()
-	. = list()
-	var/charge_percent = percent()
-
-	switch(charge_percent)
-		if(1 to 25)
-			. += "Specter_overlay_low"
-		if(26 to 40)
-			. += "Specter_overlay_half2"
-		if(41 to 65)
-			. += "Specter_overlay_half"
-		if(66 to 100)
-			. += "Specter_overlay_full"
-		else
-			. += "Specter_overlay_empty"
-
-/obj/item/stock_parts/cell/get_cell()
-	return src
 
 /obj/item/stock_parts/cell/New()
 	..()
@@ -278,7 +213,7 @@
 	else
 		return 0
 
-// Cell variants
+// MARK: Cell variants
 /obj/item/stock_parts/cell/empty/New()
 	..()
 	charge = 0
@@ -312,91 +247,6 @@
 		ACCUSATIVE = "батарею А++",
 		INSTRUMENTAL = "батареей А++",
 		PREPOSITIONAL = "батарее А++",
-	)
-
-/obj/item/stock_parts/cell/secborg
-	name = "security borg power cell"
-	origin_tech = null
-	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
-	materials = list(MAT_GLASS = 40)
-	rating = 2.5
-
-/obj/item/stock_parts/cell/secborg/get_ru_names()
-	return list(
-		NOMINATIVE = "батарея охранного робота",
-		GENITIVE = "батареи охранного робота",
-		DATIVE = "батарее охранного робота",
-		ACCUSATIVE = "батарею охранного робота",
-		INSTRUMENTAL = "батареей охранного робота",
-		PREPOSITIONAL = "батарее охранного робота",
-	)
-
-/obj/item/stock_parts/cell/secborg/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/stock_parts/cell/pulse //265 pulse shots
-	name = "pulse rifle power cell"
-	maxcharge = 53000
-	rating = 3
-	chargerate = 1500
-
-/obj/item/stock_parts/cell/pulse/get_ru_names()
-	return list(
-		NOMINATIVE = "батарея пульсовой винтовки",
-		GENITIVE = "батареи пульсовой винтовки",
-		DATIVE = "батарее пульсовой винтовки",
-		ACCUSATIVE = "батарею пульсовой винтовки",
-		INSTRUMENTAL = "батареей пульсовой винтовки",
-		PREPOSITIONAL = "батарее пульсовой винтовки",
-	)
-
-/obj/item/stock_parts/cell/pulse/prise
-	chargerate = 0
-
-/obj/item/stock_parts/cell/pulse/carbine //33 pulse shots
-	name = "pulse carbine power cell"
-	maxcharge = 6600
-
-/obj/item/stock_parts/cell/pulse/carbine/get_ru_names()
-	return list(
-		NOMINATIVE = "батарея пульсового карабина",
-		GENITIVE = "батареи пульсового карабина",
-		DATIVE = "батарее пульсового карабина",
-		ACCUSATIVE = "батарею пульсового карабина",
-		INSTRUMENTAL = "батареей пульсового карабина",
-		PREPOSITIONAL = "батарее пульсового карабина",
-	)
-
-/obj/item/stock_parts/cell/pulse/pistol //13 pulse shots
-	name = "pulse pistol power cell"
-	maxcharge = 2600
-
-/obj/item/stock_parts/cell/pulse/pistol/get_ru_names()
-	return list(
-		NOMINATIVE = "батарея пульсового пистолета",
-		GENITIVE = "батареи пульсового пистолета",
-		DATIVE = "батарее пульсового пистолета",
-		ACCUSATIVE = "батарею пульсового пистолета",
-		INSTRUMENTAL = "батареей пульсового пистолета",
-		PREPOSITIONAL = "батарее пульсового пистолета",
-	)
-
-/obj/item/stock_parts/cell/dominator
-	name = "Dominator pistol power cell"
-	maxcharge = 3000
-	chargerate = 200
-	rating = 2
-
-/obj/item/stock_parts/cell/dominator/get_ru_names()
-	return list(
-		NOMINATIVE = "батарея Доминатора",
-		GENITIVE = "батареи Доминатора",
-		DATIVE = "батарее Доминатора",
-		ACCUSATIVE = "батарею Доминатора",
-		INSTRUMENTAL = "батареей Доминатора",
-		PREPOSITIONAL = "батарее Доминатора",
 	)
 
 /obj/item/stock_parts/cell/high
@@ -629,6 +479,99 @@
 /obj/item/stock_parts/cell/emproof/adjust_maxcharge(amount)
 	return FALSE
 
+
+// MARK: Weapon cells
+/obj/item/stock_parts/cell/laser
+	maxcharge = 1500
+
+/obj/item/stock_parts/cell/laser/gatling
+	maxcharge = 9000
+
+/obj/item/stock_parts/cell/secborg
+	name = "security borg power cell"
+	origin_tech = null
+	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
+	materials = list(MAT_GLASS = 40)
+	rating = 2.5
+
+/obj/item/stock_parts/cell/secborg/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея охранного робота",
+		GENITIVE = "батареи охранного робота",
+		DATIVE = "батарее охранного робота",
+		ACCUSATIVE = "батарею охранного робота",
+		INSTRUMENTAL = "батареей охранного робота",
+		PREPOSITIONAL = "батарее охранного робота",
+	)
+
+/obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
+	. = ..()
+	charge = 0
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/stock_parts/cell/pulse //265 pulse shots
+	name = "pulse rifle power cell"
+	maxcharge = 53000
+	rating = 3
+	chargerate = 1500
+
+/obj/item/stock_parts/cell/pulse/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея пульсовой винтовки",
+		GENITIVE = "батареи пульсовой винтовки",
+		DATIVE = "батарее пульсовой винтовки",
+		ACCUSATIVE = "батарею пульсовой винтовки",
+		INSTRUMENTAL = "батареей пульсовой винтовки",
+		PREPOSITIONAL = "батарее пульсовой винтовки",
+	)
+
+/obj/item/stock_parts/cell/pulse/prise
+	chargerate = 0
+
+/obj/item/stock_parts/cell/pulse/carbine //33 pulse shots
+	name = "pulse carbine power cell"
+	maxcharge = 6600
+
+/obj/item/stock_parts/cell/pulse/carbine/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея пульсового карабина",
+		GENITIVE = "батареи пульсового карабина",
+		DATIVE = "батарее пульсового карабина",
+		ACCUSATIVE = "батарею пульсового карабина",
+		INSTRUMENTAL = "батареей пульсового карабина",
+		PREPOSITIONAL = "батарее пульсового карабина",
+	)
+
+/obj/item/stock_parts/cell/pulse/pistol //13 pulse shots
+	name = "pulse pistol power cell"
+	maxcharge = 2600
+
+/obj/item/stock_parts/cell/pulse/pistol/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея пульсового пистолета",
+		GENITIVE = "батареи пульсового пистолета",
+		DATIVE = "батарее пульсового пистолета",
+		ACCUSATIVE = "батарею пульсового пистолета",
+		INSTRUMENTAL = "батареей пульсового пистолета",
+		PREPOSITIONAL = "батарее пульсового пистолета",
+	)
+
+/obj/item/stock_parts/cell/dominator
+	name = "Dominator pistol power cell"
+	maxcharge = 3000
+	chargerate = 200
+	rating = 2
+
+/obj/item/stock_parts/cell/dominator/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея Доминатора",
+		GENITIVE = "батареи Доминатора",
+		DATIVE = "батарее Доминатора",
+		ACCUSATIVE = "батарею Доминатора",
+		INSTRUMENTAL = "батареей Доминатора",
+		PREPOSITIONAL = "батарее Доминатора",
+	)
+
 /obj/item/stock_parts/cell/bsg
 	name = "B.S.G power cell"
 	maxcharge = 40000
@@ -672,3 +615,104 @@
 		INSTRUMENTAL = "батареей А-",
 		PREPOSITIONAL = "батарее А-",
 	)
+
+// MARK: Clock cells
+/obj/item/stock_parts/cell/clock
+	name = "brass power cell"
+	desc = "Элемент, вырабатывающий энергию для оружия культистов Ратвара, однако бесполезен в других целях. Предназначен для дробовика."
+
+/obj/item/stock_parts/cell/clock/get_ru_names()
+	return list(
+		NOMINATIVE = "латунная батарейка",
+		GENITIVE = "латунной батарейки",
+		DATIVE = "латунной батарейке",
+		ACCUSATIVE = "латунную батарейку",
+		INSTRUMENTAL = "латунной батарейкой",
+		PREPOSITIONAL = "латунной батарейке",
+	)
+
+/obj/item/stock_parts/cell/clock/shotgun
+	maxcharge = 10
+
+/obj/item/stock_parts/cell/clock/sniper
+	maxcharge = 5
+
+/obj/item/stock_parts/cell/clock/minigun
+	maxcharge = 175
+
+
+// MARK: Energy weapon cell
+// Basic weapon cell (not as stock parts)
+/obj/item/weapon_cell
+	name = "energy weapon cell magazine"
+	desc = "Магазин к энергооружию."
+	icon = 'icons/obj/weapons/ammo.dmi'
+	icon_state = "Specter_accumulator"
+	gender = MALE
+	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 500)
+	throwforce = 2
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 4
+	throw_range = 10
+	pickup_sound = 'sound/items/handling/pickup/ammobox_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/ammobox_drop.ogg'
+	var/obj/item/stock_parts/cell/internal_cell = new /obj/item/stock_parts/cell/laser
+
+/obj/item/weapon_cell/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/weapon_cell/proc/is_available_shot(shot_energy_cost)
+	return internal_cell.charge >= shot_energy_cost
+
+/obj/item/weapon_cell/get_cell()
+	return internal_cell
+
+/obj/item/weapon_cell/examine(mob/user)
+	. = ..()
+	. += span_notice("<b>Максимальная мощность:</b> [DisplayPower(internal_cell.maxcharge)].")
+
+	if(internal_cell.rigged)
+		. += span_notice("Судя по всему, химический элемент был модифицирован.")
+	else
+		. += span_notice("<b>Индикатор заряда:</b> [round(internal_cell.percent())]%.")
+
+
+/obj/item/stock_parts/cell/specter
+	name = "specter cell"
+	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
+	maxcharge = 7200
+	chargerate = 480
+
+/obj/item/weapon_cell/specter
+	name = "specter pistol cell"
+	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
+	internal_cell = new /obj/item/stock_parts/cell/specter()
+
+/obj/item/weapon_cell/specter/get_ru_names()
+	return list(
+		NOMINATIVE = "аккумулятор Спектра",
+		GENITIVE = "аккумулятора Спектра",
+		DATIVE = "аккумулятору Спектра",
+		ACCUSATIVE = "аккумулятор Спектра",
+		INSTRUMENTAL = "аккумулятором Спектра",
+		PREPOSITIONAL = "аккумуляторе Спектра",
+	)
+
+/obj/item/weapon_cell/specter/update_overlays()
+	. = list()
+	var/charge_percent = internal_cell.percent()
+
+	switch(charge_percent)
+		if(1 to 25)
+			. += "Specter_overlay_low"
+		if(26 to 40)
+			. += "Specter_overlay_half2"
+		if(41 to 65)
+			. += "Specter_overlay_half"
+		if(66 to 100)
+			. += "Specter_overlay_full"
+		else
+			. += "Specter_overlay_empty"

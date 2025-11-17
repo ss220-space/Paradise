@@ -86,7 +86,7 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
-	speciesbox = /obj/item/storage/box/survival_machine
+	speciesbox = /obj/item/storage/box/survival/species/machine
 
 	liked_food = NONE
 	disliked_food = NONE
