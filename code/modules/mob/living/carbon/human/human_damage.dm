@@ -301,28 +301,30 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
-/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_ORGANS)
-	var/list/obj/item/organ/external/parts = list()
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if((brute && bodypart.brute_dam) || (burn && bodypart.burn_dam))
-			if(!(flags & AFFECT_ROBOTIC_ORGAN) && bodypart.is_robotic())
+/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_EXTERNAL_PARTS)
+	var/list/obj/item/organ/organs = list()
+	var/list/obj/item/organ/parts = list()
+	if(AFFECT_EXTERNAL_ORGANS & flags)
+		organs += bodyparts
+	if(AFFECT_INTERNAL_ORGANS & flags)
+		organs += internal_organs
+	for(var/obj/item/organ/organ as anything in organs)
+		var/external = istype(organ, /obj/item/organ/external)
+		var/damaged = FALSE
+		if(external)
+			var/obj/item/organ/external/bodypart = organ
+			damaged = (bodypart.brute_dam >= brute || bodypart.burn_dam >= burn)
+		else
+			var/obj/item/organ/internal/int_organ = organ
+			damaged = int_organ.damage
+		if(damaged)
+			if(!(flags & AFFECT_ROBOTIC_ORGAN) && organ.is_robotic())
 				continue
-			if(!(flags & AFFECT_ORGANIC_ORGAN) && !bodypart.is_robotic())
+			if(!(flags & AFFECT_ORGANIC_ORGAN) && !organ.is_robotic())
 				continue
-			parts += bodypart
+			parts += organ
 	return parts
 
-//Returns a list of damaged internal organs
-/mob/living/carbon/human/proc/get_damaged_internal_organs(flags = AFFECT_ALL_ORGANS)
-	var/list/obj/item/organ/internal/organs = list()
-	for(var/obj/item/organ/internal/int_organ as anything in internal_organs)
-		if(int_organ.damage)
-			if(!(flags & AFFECT_ROBOTIC_ORGAN) && int_organ.is_robotic())
-				continue
-			if(!(flags & AFFECT_ORGANIC_ORGAN) && !int_organ.is_robotic())
-				continue
-			organs += int_organ
-	return organs
 
 //Returns a list of damageable organs
 /mob/living/carbon/human/proc/get_damageable_organs(affect_robotic = TRUE)
@@ -342,7 +344,7 @@
 	affect_robotic = FALSE,
 )
 	. = STATUS_UPDATE_NONE
-	var/obj/item/organ/external/picked = safepick(get_damaged_organs(brute, burn, flags = affect_robotic ? AFFECT_ALL_ORGANS : AFFECT_ORGANIC_ORGAN))
+	var/obj/item/organ/external/picked = safepick(get_damaged_organs(brute, burn, flags = affect_robotic ? AFFECT_ALL_EXTERNAL_PARTS : AFFECT_ORGANIC_EXTERNAL_PARTS))
 	if(!picked)
 		return .
 	var/brute_was = picked.brute_dam
@@ -393,7 +395,7 @@
 	brute = abs(brute)
 	burn = abs(burn)
 
-	var/list/obj/item/organ/external/parts = get_damaged_organs(brute, burn, flags = affect_robotic ? AFFECT_ALL_ORGANS : AFFECT_ORGANIC_ORGAN)
+	var/list/obj/item/organ/external/parts = get_damaged_organs(brute, burn, flags = affect_robotic ? AFFECT_ALL_EXTERNAL_PARTS : AFFECT_ORGANIC_EXTERNAL_PARTS)
 
 	var/should_update_health = FALSE
 	var/update_damage_icon = NONE
