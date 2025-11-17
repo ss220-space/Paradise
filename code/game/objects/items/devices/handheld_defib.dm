@@ -2,11 +2,13 @@
 	name = "handheld defibrillator"
 	desc = "Компактное устройство желтого цвета, используемое для экстренной кардиостимуляции."
 	gender = MALE
-	icon_state = "defib-on"
-	item_state = "defib"
+	icon = 'icons/obj/handheld_defibrillator.dmi'
+	icon_state = "defib_passive-on"
+	item_state = "defib_passive"
 	belt_icon = "handheld_defibrillator"
-	var/shield_ignore = FALSE
 	var/icon_base = "defib"
+	var/icon_mode = "passive"
+	var/shield_ignore = FALSE
 	var/cooldown = FALSE
 	var/charge_time = 100
 	var/shocking = FALSE
@@ -14,6 +16,7 @@
 	var/is_advanced = FALSE
 	var/charges = 1
 	var/max_charges = 1
+
 
 /obj/item/handheld_defibrillator/get_ru_names()
 	return list(
@@ -25,14 +28,32 @@
 		PREPOSITIONAL = "ручном дефибрилляторе"
 	)
 
+/obj/item/handheld_defibrillator/RegisterSignal(datum/source, mob/user)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
+
+/obj/item/handheld_defibrillator/UnregisterSignal(datum/source, mob/user)
+	. = ..()
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+
+
+/obj/item/handheld_defibrillator/attack_self(mob/user)
+	. = ..()
+	icon_mode = "[icon_mode == "passive" ? "active" : "passive"]"
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/handheld_defibrillator/proc/on_drop(datum/source, mob/user)
+	SIGNAL_HANDLER  // COMSIG_ITEM_DROPPED
+	icon_mode = "passive"
+
 /obj/item/handheld_defibrillator/update_icon_state()
 	if(shocking)
-		icon_state = "[icon_base]-shock"
+		icon_state = "[icon_base]_[icon_mode]-shock"
 		return
 	if(max_charges == 1)  // yellow and syndicate
-		icon_state = "[icon_base][charges == 0 ? "-off" : "-on"]"
+		icon_state = "[icon_base]_[icon_mode][charges == 0 ? "-off" : "-on"]"
 	else  // advanced
-		icon_state = "[icon_base]-[charges]"
+		icon_state = "[icon_base]_[icon_mode]-[charges]"
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!istype(H))
@@ -44,6 +65,10 @@
 		if(istype(I, /obj/item/clothing/suit/space/hardsuit))
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = I
 			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+
+	if(icon_mode == "passive")
+		balloon_alert(user, "разложите лопасти!")
+		return .
 
 	if((charges == 0) || (shocking))
 		balloon_alert(user, "всё ещё заряжается!")
@@ -101,10 +126,10 @@
 	desc = "Компактное устройство матово-чёрного цвета, используемое для экстренной кардиостимуляции. \
 		За счёт интеграции конденсаторов нового поколения скорость перезарядки была увеличена втрое по сравнению со стандартной моделью. \
 		Специализированная боевая версия, используемая элитными тактическими отрядами \"Синдиката\"."
-	icon_state = "sdefib-on"
-	item_state = "sdefib"
+	icon_state = "syndie_defib_passive-on"
+	item_state = "syndie_defib_passive"
+	icon_base = "syndie_defib"
 	charge_time = 30
-	icon_base = "sdefib"
 	shield_ignore = TRUE
 
 /obj/item/handheld_defibrillator/syndie/get_ru_names()
@@ -122,8 +147,8 @@
 	desc = "Компактное устройство тёмно-синего цвета с противоударными вставками, предназначенное для экстренной кардиостимуляции. \
 		Использование продвинутых конденсаторов и энергомодуля нового поколения позволило повысить скорость перезарядки батареи, \
 		а также увеличить её максимальную вместимость до трёх зарядов."
-	icon_state = "adv_defib-3"
-	item_state = "adv_defib"
+	icon_state = "adv_defib_passive-3"
+	item_state = "adv_defib_passive"
 	icon_base = "adv_defib"
 	belt_icon = "advanced_handheld_defibrillator"
 	origin_tech = "materials=6;biotech=6;magnets=5;"
