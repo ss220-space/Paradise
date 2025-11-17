@@ -400,7 +400,7 @@
 	for(var/level in 0 to donor_level)
 		available_voices += SStts.tts_seeds_names_by_donator_levels["[level]"]
 
-/datum/action/innate/mimicking/Trigger(left_click)
+/datum/action/innate/mimicking/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 	ui_interact(owner)

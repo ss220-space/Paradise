@@ -120,11 +120,9 @@
 		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		target.handle_item_insertion(thing, user)
 
-/obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!isliving(usr))
 		return FALSE
-
-	var/mob/living/user = usr
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
 	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())

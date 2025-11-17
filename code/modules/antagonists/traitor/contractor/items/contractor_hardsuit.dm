@@ -72,7 +72,6 @@
 	name = "Advanced hardsuit chameleon module"
 	desc = "An advanced version of chameleon tech, allowing you to disguise your hardsuit, giving you the opportunity to walk in full view of security and personnel without any difficulties."
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
 	button_icon_state = "chameleon"
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_chameleon()

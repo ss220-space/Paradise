@@ -121,10 +121,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/gps/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/gps/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 
-	var/mob/user = usr
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 

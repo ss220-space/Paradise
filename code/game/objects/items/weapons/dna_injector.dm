@@ -391,6 +391,17 @@
 	block = GLOB.noprintsblock
 	return ..()
 
+/obj/item/dnainjector/mattereater
+	name = "DNA-Injector (Matter Eater)"
+	desc = "You can eat anything."
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/mattereater/Initialize(mapload)
+	block = GLOB.eatblock
+	return ..()
+
 /obj/item/dnainjector/antinoprints
 	name = "DNA-Injector (Anti-No Prints)"
 	desc = "Not quite as good as a pair of budget insulated gloves."

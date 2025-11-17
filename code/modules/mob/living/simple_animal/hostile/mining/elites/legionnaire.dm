@@ -89,7 +89,7 @@
 
 /datum/action/innate/elite_attack/throw_bone
 	name = "Бросок кости"
-	icon_icon = 'icons/obj/mining.dmi'
+	button_icon = 'icons/obj/mining.dmi'
 	button_icon_state = "bone"
 	chosen_message = span_boldwarning("Вы бросаете тяжёлую кость.")
 	chosen_attack_num = THROW_BONE

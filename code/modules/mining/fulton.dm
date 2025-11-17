@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		beacon = A
 		balloon_alert(user, "синхронизация завершена")
 
-/obj/item/extraction_pack/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/extraction_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!..())
 		return FALSE
 	if(!(loc == usr && loc.Adjacent(over_object)))

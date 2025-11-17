@@ -50,4 +50,4 @@
  * * object - the atom that was just clicked.
  */
 /datum/click_intercept/proc/InterceptClickOn(mob/user, params, atom/object)
-	return
+	return FALSE

@@ -130,8 +130,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	update_sight()
 
 /mob/dead/observer/proc/cleanup_observe()
+	if(isnull(do_observe_target))
+		return
+	var/mob/target = do_observe_target
+	do_observe_target = null
 	client?.perspective = initial(client.perspective)
 	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
+	if(target)
+		hide_other_mob_action_buttons(target)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -592,7 +598,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	GLOB.generic_crew_manifest.ui_interact(usr)
 
 //this is called when a ghost is drag clicked to something.
-/mob/dead/observer/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/mob/dead/observer/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!usr || !over_object)
 		return FALSE
 
@@ -689,15 +695,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	do_observe_target = mob_eye
 	ADD_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
-
-	// Отображение элементов интерфейса
-	for(var/datum/action/act in mob_eye.actions)
-		if(istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || (act in src.actions))
-			continue
-		client.screen |= act.button
-
-	for(var/atom/movable/screen/alert/alert in mob_eye.alerts)
-		client.screen |= alert
 
 /mob/dead/observer/proc/handle_when_autoobserve_move()
 	SIGNAL_HANDLER

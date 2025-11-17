@@ -527,11 +527,12 @@
 
 	return TRUE
 
-/atom/movable/screen/inventory/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+
+/atom/movable/screen/inventory/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	cut_overlay(object_overlay)
 	QDEL_NULL(object_overlay)
 	if(could_be_click_lag())
-		Click(src_location, src_control, params)
+		Click(src_location, null, params)
 		drag_start = 0
 		return
 	return ..()
