@@ -301,18 +301,18 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs if external is TRUE, returns internal organs if FALSE
-/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_ORGANS, external = TRUE)
-	if(external)
-		var/list/obj/item/organ/external/parts = list()
-		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-			if((brute && bodypart.brute_dam) || (burn && bodypart.burn_dam))
-				if(!(flags & AFFECT_ROBOTIC_ORGAN) && bodypart.is_robotic())
-					continue
-				if(!(flags & AFFECT_ORGANIC_ORGAN) && !bodypart.is_robotic())
-					continue
-				parts += bodypart
-		return parts
+/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_ORGANS)
+	var/list/obj/item/organ/external/parts = list()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if((brute && bodypart.brute_dam) || (burn && bodypart.burn_dam))
+			if(!(flags & AFFECT_ROBOTIC_ORGAN) && bodypart.is_robotic())
+				continue
+			if(!(flags & AFFECT_ORGANIC_ORGAN) && !bodypart.is_robotic())
+				continue
+			parts += bodypart
+	return parts
 
+/mob/living/carbon/human/proc/get_damaged_internal_organs(flags = AFFECT_ALL_ORGANS)
 	var/list/obj/item/organ/internal/parts = list()
 	for(var/obj/item/organ/internal/int_organ as anything in internal_organs)
 		if(int_organ.damage)
