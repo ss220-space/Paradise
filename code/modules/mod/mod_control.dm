@@ -82,6 +82,8 @@
 	var/datum/action/item_action/chameleon/change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
+	/// AI or pAI mob inhabiting the MOD.
+	var/mob/living/silicon/ai_assistant
 
 
 /obj/item/mod/control/get_ru_names()

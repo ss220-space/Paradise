@@ -611,10 +611,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/holster,
 		/obj/item/mod/module/energy_shield/gamma,
-		/obj/item/mod/module/jump_jet,
-		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
 	)

@@ -162,7 +162,7 @@
 		new /obj/effect/temp_visual/sonar_ping(mod.wearer.loc, mod.wearer, creature)
 		creatures_detected++
 	playsound(mod.wearer, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE, extrarange = 9) // Should be audible for the radius of the sonar
-	to_chat(mod.wearer, (span_notice("Вы бьёте кулаком в пол, запуская звуковую волну сонара, которая обнаруживает [creatures_detected] жив[declension_ru("ое существо", "ых существ", "ых существ")] поблизости!")))
+	to_chat(mod.wearer, (span_notice("Вы бьёте кулаком в пол, запуская звуковую волну сонара, которая обнаруживает [creatures_detected] жив[declension_ru(creatures_detected, "ое существо", "ых существ", "ых существ")]  поблизости!")))
 
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS
