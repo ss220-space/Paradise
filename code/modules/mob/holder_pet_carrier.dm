@@ -209,35 +209,35 @@
 
 	try_free_content(null, usr)
 
-/obj/item/pet_carrier/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/pet_carrier/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!ishuman(usr))
 		return FALSE
 
-	var/mob/living/carbon/human/user = usr
+	var/mob/living/carbon/human/drag_user = usr
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
-	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(ismecha(drag_user.loc) || is_ventcrawling(drag_user) || drag_user.incapacitated() || HAS_TRAIT(drag_user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
-	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
-		try_free_content(user = user)
+	if(over_object == drag_user && drag_user.Adjacent(src)) // this must come before the screen objects only block
+		try_free_content(user = drag_user)
 		return FALSE
 
 	if(opened && (istype(over_object, /obj/structure/table) || isfloorturf(over_object) \
-		&& length(contents) && loc == user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && user.Adjacent(over_object)))
+		&& length(contents) && loc == drag_user && !drag_user.incapacitated() && !HAS_TRAIT(drag_user, TRAIT_HANDS_BLOCKED) && drag_user.Adjacent(over_object)))
 
-		if(alert(user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")
+		if(alert(drag_user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")
 			return FALSE
 
-		if(!opened || !user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
+		if(!opened || !drag_user || !over_object || drag_user.incapacitated() || loc != drag_user || !drag_user.Adjacent(over_object))
 			return FALSE
 
-		user.face_atom(over_object)
-		user.visible_message(
-			span_notice("[user] вытащил питомца из [name] на [over_object.name]."),
+		drag_user.face_atom(over_object)
+		drag_user.visible_message(
+			span_notice("[drag_user] вытащил питомца из [name] на [over_object.name]."),
 			span_notice("Вы вытащили питомца из [name] на [over_object.name]."),
 		)
-		try_free_content(get_turf(over_object), user)
+		try_free_content(get_turf(over_object), drag_user)
 		return FALSE
 
 	return ..()

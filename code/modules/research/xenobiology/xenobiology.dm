@@ -548,12 +548,11 @@
 	to_chat(user, span_notice("You slather the red gunk over [O], making it faster.</span>"))
 	qdel(src)
 
-/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/speed/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
 
@@ -612,18 +611,14 @@
 	if(!uses)
 		qdel(src)
 
-/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/clothing/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
-
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
-
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
-
 	afterattack(over_object, user, TRUE, params)
 
 /obj/item/slimepotion/clothing/fireproof

@@ -174,21 +174,21 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Рывок к цели"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("Вы рывком движетесь к цели.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Стрелять из кинетического ускорителя"
-	icon_icon = 'icons/obj/weapons/energy.dmi'
+	button_icon = 'icons/obj/weapons/energy.dmi'
 	button_icon_state = "kineticgun"
 	chosen_message = span_colossus("Вы стреляете из кинетического ускорителя.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Трансформировать оружие"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
 	chosen_message = span_colossus("Вы трансформируете своё оружие.")
 	chosen_attack_num = 3

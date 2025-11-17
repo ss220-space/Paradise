@@ -162,9 +162,10 @@
 /datum/action/innate/dash/ninja
 	name = "Энергорывок"
 	desc = "Мгновенно переместиться в выбранную точку. Просто используйте катану в обезоруживающем намерении."
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "arrows_3"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	current_charges = 3
 	max_charges = 3
@@ -189,9 +190,6 @@
 	if(current_charges == 0)
 		background_icon_state = "background_[color_style]"
 	UpdateButtonIcon()
-
-/datum/action/innate/dash/ninja/apply_unavailable_effect()
-	return
 
 /datum/action/innate/dash/ninja/charge()
 	. = ..()

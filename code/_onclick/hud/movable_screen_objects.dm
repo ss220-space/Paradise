@@ -20,7 +20,31 @@
 /atom/movable/screen/movable/snap
 	snap2grid = TRUE
 
-/atom/movable/screen/movable/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/atom/movable/screen/movable/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	var/position = mouse_params_to_position(params)
+	if(!position)
+		return
+
+	screen_loc = position
+
+/// Takes mouse parmas as input, returns a string representing the appropriate mouse position
+/atom/movable/screen/movable/proc/mouse_params_to_position(params)
+	var/list/modifiers = params2list(params)
+
+	//No screen-loc information? abort.
+	if(!LAZYACCESS(modifiers, SCREEN_LOC))
+		return
+	var/client/our_client = usr.client
+	var/list/offset	= screen_loc_to_offset(LAZYACCESS(modifiers, SCREEN_LOC))
+	if(snap2grid) //Discard Pixel Values
+		offset[1] = FLOOR(offset[1], ICON_SIZE_X) // drops any pixel offset
+		offset[2] = FLOOR(offset[2], ICON_SIZE_Y) // drops any pixel offset
+	else //Normalise Pixel Values (So the object drops at the center of the mouse, not 16 pixels off)
+		offset[1] += x_off
+		offset[2] += y_off
+	return offset_to_screen_loc(offset[1], offset[2], our_client?.view)
+
+/atom/movable/screen/movable/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(locked) //no! I am locked! begone!
 		return
 

@@ -136,7 +136,7 @@
 	name = "Подкачка крови"
 
 //You are now brea- pumping blood manually
-/datum/action/item_action/organ_action/cursed_heart/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/cursed_heart/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/heart/cursed))
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target

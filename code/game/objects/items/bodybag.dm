@@ -138,7 +138,8 @@
 	turf.balloon_alert_to_viewers("складыва[PLUR_ET_YUT(the_folder)] мешок", "мешок сложен")
 	the_folder.put_in_hands(folding_bodybag)
 
-/obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+
+/obj/structure/closet/body_bag/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
 		perform_fold(usr)
 		qdel(src)

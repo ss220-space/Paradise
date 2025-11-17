@@ -17,8 +17,8 @@
 	parent_item.update_icon() //Do this first so the action button properly shows the icon
 	if(!hide_tape) //the tape can no longer be removed if TRUE
 		var/datum/action/item_action/remove_tape/remove_action = new(parent_item)
-		if(ismob(parent_item.loc))
-			remove_action.Grant(parent_item.loc)
+		parent_item.add_item_action(remove_action)
+		remove_action.UpdateButtonIcon()
 	parent_item.add_tape()
 
 /datum/component/ducttape/Destroy()

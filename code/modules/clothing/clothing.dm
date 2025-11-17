@@ -246,11 +246,11 @@
 	if(!QDELETED(original_ear))
 		user.drop_item_ground(original_ear, force = TRUE)
 
-/obj/item/clothing/ears/offear/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/clothing/ears/offear/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	var/obj/item/original_ear = locateUID(original_ear_UID)
 	if(!original_ear)
 		CRASH("No original_ear found.")
-	return original_ear.MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
+	return original_ear.mouse_drop_dragged(over_object, user, src_location, over_location, params)
 
 /obj/item/clothing/ears/offear/attack_hand(mob/user, pickupfireoverride)
 	var/obj/item/original_ear = locateUID(original_ear_UID)

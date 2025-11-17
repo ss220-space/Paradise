@@ -1,10 +1,10 @@
 /datum/action/innate/clockwork
-	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
+	button_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	background_icon_state = "bg_clockwork"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_TRANSFER_MIND
 	// buttontooltipstyle = "cult"
 
-/datum/action/innate/clockwork/IsAvailable()
+/datum/action/innate/clockwork/IsAvailable(feedback = FALSE)
 	if(!isclocker(owner))
 		return FALSE
 	return ..()
@@ -58,7 +58,7 @@
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
-/datum/action/innate/clockwork/check_progress/IsAvailable()
+/datum/action/innate/clockwork/check_progress/IsAvailable(feedback = FALSE)
 	if(isclocker(owner) || isobserver(owner))
 		return TRUE
 	return FALSE

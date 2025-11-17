@@ -107,7 +107,8 @@
 	item.pixel_x = clamp(x_offset - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 	item.pixel_y = clamp(y_offset - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 
-/obj/item/craft_blueprints/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+
+/obj/item/craft_blueprints/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))
 		return ..()
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
