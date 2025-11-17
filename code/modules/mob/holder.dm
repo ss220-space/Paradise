@@ -71,7 +71,7 @@
 				return
 		M.status_flags &= ~PASSEMOTES
 
-/mob/living/simple_animal/MouseDrop(atom/over_object)
+/mob/living/simple_animal/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	var/mob/living/carbon/human_to_ask = over_object
 
 	if(!istype(human_to_ask))

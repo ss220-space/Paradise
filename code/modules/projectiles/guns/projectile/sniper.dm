@@ -80,6 +80,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper
 	//speed = 0.75
@@ -193,6 +194,7 @@
 	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
@@ -218,6 +220,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	knockdown = 4 SECONDS
@@ -346,6 +349,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/a338
 	damage = 80
@@ -446,6 +450,7 @@
 	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/penetrator/a338
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator/a338
 

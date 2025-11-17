@@ -464,6 +464,10 @@ def check_updatepaths_validity():
     return failures
 
 def lint_file(code_filepath: str) -> list[Failure]:
+    # Otherwise, the script starts checking the OD files and the linter breaks.
+    if "DMCompiler_linux-x64" in code_filepath:
+        return []
+
     all_failures = []
     with open(code_filepath, encoding="UTF-8") as code:
         filename = code_filepath.split(os.path.sep)[-1]

@@ -67,7 +67,7 @@
 
 /datum/action/innate/diona/merge
 	name = "Слияние с гештальтом"
-	icon_icon = 'icons/mob/human_races/r_diona.dmi'
+	button_icon = 'icons/mob/human_races/r_diona.dmi'
 	button_icon_state = "preview"
 
 /datum/action/innate/diona/merge/Activate()
@@ -76,7 +76,7 @@
 
 /datum/action/innate/diona/evolve
 	name = "Эволюция"
-	icon_icon = 'icons/obj/machines/cloning.dmi'
+	button_icon = 'icons/obj/machines/cloning.dmi'
 	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
@@ -85,7 +85,7 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Кража крови"
-	icon_icon = 'icons/goonstation/objects/iv.dmi'
+	button_icon = 'icons/goonstation/objects/iv.dmi'
 	button_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
@@ -121,7 +121,7 @@
 			get_scooped(M)
 	else
 		..()
-/mob/living/simple_animal/diona/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+/mob/living/simple_animal/diona/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(isdiona(user)) // diona with NO HANDS?? Now it's not trouble.
 		gestalt_heal(user)
 		return FALSE

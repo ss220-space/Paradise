@@ -208,19 +208,6 @@
 /obj/effect/proc_holder/spell/eat/create_new_targeting()
 	return new /datum/spell_targeting/matter_eater
 
-/obj/effect/proc_holder/spell/eat/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	. = ..()
-	if(!.)
-		return
-	var/can_eat = TRUE
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
-			if(show_message)
-				balloon_alert(C, "рот чем-то закрыт!")
-			can_eat = FALSE
-	return can_eat
-
 /obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -244,8 +231,14 @@
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
 	if(!length(targets))
-		balloon_alert(user, "слишком далеко")
+		user.balloon_alert(user, "слишком далеко")
 		return
+
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
+			user.balloon_alert(user, "рот чем-то закрыт!")
+			return
 
 	var/atom/movable/the_item = targets[1]
 	if(ishuman(the_item))
@@ -271,7 +264,7 @@
 		user.visible_message(span_danger("[user] приближа[PLUR_ET_YUT(user)]ся к [the_item] и начина[PLUR_ET_YUT(user)] поглощать [limb.name]!"))
 		var/oldloc = H.loc
 		if(!do_after(user, EAT_MOB_DELAY, H, NONE))
-			balloon_alert(user, "вас прервали")
+			user.balloon_alert(user, "вас прервали")
 		else
 			if(!limb || !H)
 				return

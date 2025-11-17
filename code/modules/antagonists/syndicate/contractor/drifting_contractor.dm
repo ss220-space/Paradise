@@ -48,7 +48,7 @@
 	internals_slot = ITEM_SLOT_SUITSTORE
 
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival/survival_syndi = 1,
 		/obj/item/paper/contractor_guide_midround = 1,
 		/obj/item/storage/firstaid/doctor = 1,
 		/obj/item/jammer = 1,

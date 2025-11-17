@@ -284,6 +284,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		)
 	var/exoframe_type = PREF_EXOFRAME_REINFORCED
 
+	var/action_buttons_screen_locs = list()
+
+
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")

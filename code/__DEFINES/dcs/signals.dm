@@ -325,6 +325,7 @@
 	#define COMPONENT_NO_MOUSEDROP (1<<0)
 ///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
+	#define COMPONENT_CANCEL_MOUSEDROPPED_ONTO (1<<0)
 
 // /area signals
 
@@ -473,6 +474,8 @@
 ///from base of mob/key_down(): (_key, client/user)
 #define COMSIG_MOB_KEY_DROP_ITEM_DOWN "mob_key_drop_item_down"
 	#define COMPONENT_CANCEL_DROP (1<<0)
+/// from /mob/proc/key_down(): (key, client/client, full_key)
+#define COMSIG_MOB_KEYDOWN "mob_key_down"
 
 ///from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_ALLOWED "mob_allowed"
@@ -654,6 +657,8 @@
 	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
 //from base of client/MouseUp(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
+///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+#define COMSIG_CLIENT_CLICK "atom_client_click"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"
 ///sent from living mobs every tick of fire
@@ -848,6 +853,10 @@
 ///Called after successfully performing the Devil Sacrifice Ritual
 #define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
 
+// /mob/living/simple_animal/hostile signals
+///before attackingtarget has happened, source is the attacker and target is the attacked
+#define COMSIG_HOSTILE_PRE_ATTACKINGTARGET "hostile_pre_attackingtarget"
+	#define COMPONENT_HOSTILE_NO_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //cancel the attack, only works before attack happens
 ///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
 #define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
 
@@ -1273,8 +1282,22 @@
 ///from base of datum/action/proc/Trigger(): (datum/action)
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
+/// From /datum/action/Grant(): (mob/grant_to)
+#define COMSIG_ACTION_GRANTED "action_grant"
+/// From /datum/action/Grant(): (datum/action)
+#define COMSIG_MOB_GRANTED_ACTION "mob_action_grant"
+/// From /datum/action/Remove(): (mob/removed_from)
+#define COMSIG_ACTION_REMOVED "action_removed"
+/// From /datum/action/Remove(): (datum/action)
+#define COMSIG_MOB_REMOVED_ACTION "mob_action_removed"
+/// From /datum/action/apply_button_overlay()
+#define COMSIG_ACTION_OVERLAY_APPLY "action_overlay_applied"
+// TODO: spaghetti write comment here
 #define COMSIG_ACTION_BUTTON_UPDATE "action_button_update"
 	#define COMSIG_ACTION_UPDATE_INTERRUPT (1<<0)
+
+/// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
+#define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
 
 //Xenobio hotkeys
 

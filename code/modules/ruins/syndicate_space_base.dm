@@ -60,11 +60,11 @@
 		var/race = H.dna.species.name
 		switch(race)
 			if(SPECIES_VOX, SPECIES_VOX_ARMALIS)
-				box = /obj/item/storage/box/survival_vox
+				box = /obj/item/storage/box/survival/species/vox
 			if(SPECIES_PLASMAMAN)
-				box = /obj/item/storage/box/survival_plasmaman
+				box = /obj/item/storage/box/survival/species/plasmaman
 			else
-				box = /obj/item/storage/box/survival_syndi
+				box = /obj/item/storage/box/survival/survival_syndi
 
 /datum/outfit/space_base_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "syndicate"
