@@ -143,6 +143,11 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/old
+	name = "old mini energy crossbow"
+	desc = "A weapon favored by syndicate stealth specialists. It looks very old."
+	accuracy = new /datum/gun_accuracy/minimal/old()
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."
