@@ -83,8 +83,8 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/taurus
 	name = "taurus revolver cylinder"
-	ammo_type = /obj/item/ammo_casing/rubber9mm
-	caliber = CALIBER_9MM
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	caliber = CALIBER_DOT_45_COLT
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev762

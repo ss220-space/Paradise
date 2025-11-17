@@ -488,12 +488,44 @@
 	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
-/datum/design/speedloader9mm
-	name = "Speed Loader (9 mm)"
+/datum/design/speedloader45colt
+	name = "Speed Loader (.45 Colt)"
 	id = "speedloader9mm"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 2000)
-	build_path = /obj/item/ammo_box/speedloader/rubber9mm/empty
+	build_path = /obj/item/ammo_box/speedloader/rubber45colt/empty
+	category = list("hacked", "Security")
+
+/datum/design/c45colt
+	name = "Ammo Box (.45 Colt)"
+	id = "c45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30500)
+	build_path = /obj/item/ammo_box/c45colt
+	category = list("hacked", "Security")
+
+/datum/design/rubber45colt
+	name = "Ammo Box (rubber .45 Colt)"
+	id = "rubber45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 20000)
+	build_path = /obj/item/ammo_box/rubber45colt
+	category = list("hacked", "Security")
+
+/datum/design/hp45colt
+	name = "Ammo Box (expansive .45 Colt)"
+	id = "hp45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/expansive45colt
+	category = list("hacked", "Security")
+
+/datum/design/ap45colt
+	name = "Ammo Box (armor piercing .45 Colt)"
+	id = "ap45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/ap45colt
 	category = list("hacked", "Security")
 
 /datum/design/recorder

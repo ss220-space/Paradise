@@ -156,7 +156,7 @@
 //Security revolver
 /obj/item/gun/projectile/revolver/taurus
 	name = "Taurus revolver"
-	desc = "Стандартный револьвер службы безопасности Нанотрейзен под калибр 9 мм."
+	desc = "Стандартный револьвер службы безопасности Нанотрейзен под калибр .45 Colt."
 	icon_state = "taurus"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/taurus
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
@@ -168,7 +168,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
 	)
-	damage_mod = 1.2
 
 /obj/item/gun/projectile/revolver/taurus/ComponentInitialize()
 	. = ..()

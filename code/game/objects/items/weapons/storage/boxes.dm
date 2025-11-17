@@ -1058,8 +1058,8 @@
 /obj/item/storage/box/taurus_kit/populate_contents()
 	new /obj/item/gun/projectile/revolver/taurus(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/ammo_box/speedloader/rubber9mm(src)
-	new /obj/item/ammo_box/speedloader/rubber9mm(src)
+	new /obj/item/ammo_box/speedloader/rubber45colt(src)
+	new /obj/item/ammo_box/speedloader/rubber45colt(src)
 
 /obj/item/storage/box/revolver_kit
 	name = "Revolver kit"
