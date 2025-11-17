@@ -488,6 +488,14 @@
 	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
+/datum/design/speedloader9mm
+	name = "Speed Loader (9 mm)"
+	id = "speedloader9mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000)
+	build_path = /obj/item/ammo_box/speedloader/rubber9mm/empty
+	category = list("hacked", "Security")
+
 /datum/design/recorder
 	name = "Universal Recorder"
 	id = "recorder"

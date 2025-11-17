@@ -1043,7 +1043,7 @@
 /obj/item/storage/box/taurus_kit
 	name = "taurus revolver kit (rubber)"
 	desc = "A box marked with pictures of an taurus revolver, two ammo clips, and the word 'NON-LETHAL'."
-	icon_state = "box_revolver"
+	icon_state = "box_taurus"
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
 	return list(

@@ -1050,9 +1050,9 @@
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 6
 	caliber = CALIBER_9MM
-	icon_state = "38-6"
+	icon_state = "speedloader9mm-6"
 	multiple_sprites = 1
-	icon_prefix = "38"
+	icon_prefix = "speedloader9mm"
 
 /obj/item/ammo_box/speedloader/rubber9mm/empty
 	start_empty = TRUE
