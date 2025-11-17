@@ -242,6 +242,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	var/embed_disarm = FALSE
 
+	/// Available skins list (empty for default)
+	var/list/skins = null
+	/// The skin choice if we had a reskin
+	var/current_skin
+	/// Exists change skin
+	var/exists_skin_change = FALSE
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -381,6 +388,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(S.enchantment == enchant_type)
 				. += span_notice("Обнаружено запечатанное заклинание \"[S.name]\" внутри.<br>")
 				break
+
+	if(exists_skin_change)
+		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы выбрать скин.")
+
 
 /obj/item/burn()
 	if(!QDELETED(src))

@@ -44,12 +44,6 @@
 
 	/// Allows renaming with a pen
 	var/unique_rename = TRUE
-	/// Allows reskinning
-	var/unique_reskin = FALSE
-	/// The skin choice if we had a reskin
-	var/current_skin
-	/// Lazy list of gun visual skins. Filled on Initialize() in proc/update_gun_skins()
-	var/list/skin_options
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
@@ -133,7 +127,6 @@
 	build_zooming()
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
-	update_gun_skins()
 	create_start_gun_modules()
 	if(islist(accuracy))
 		accuracy = getAccuracy(arglist(accuracy))
@@ -187,8 +180,6 @@
 	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
 		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
 
-	if(unique_reskin)
-		. += span_notice("Используйте Alt-click чтобы выбрать скин.")
 	if(unique_rename)
 		. += span_notice("Используйте ручку чтобы переименовать его.")
 	if(bayonet)
@@ -196,8 +187,6 @@
 		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
 			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
-/obj/item/gun/proc/update_gun_skins()
-	return
 
 /obj/item/gun/update_overlays()
 	. = ..()
@@ -237,18 +226,6 @@
 		module.gun = src
 		module.on_attach(src, null)
 		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
-
-/**
- * Adds skin in associative lazy list: skin_options[skin_name] = skin_icon_state
- *
- * Arguments:
- * * skin_name - what skin name user will see.
- * * skin_icon_state - which icon_state will be used for the gun.
- */
-/obj/item/gun/proc/add_skin(skin_name, skin_icon_state)
-	if(!unique_reskin)
-		return
-	LAZYSET(skin_options, skin_name, skin_icon_state)
 
 /obj/item/gun/proc/process_chamber()
 	return FALSE
@@ -657,10 +634,7 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
 		return CLICK_ACTION_BLOCKING
-	if(unique_reskin && !current_skin)
-		reskin_gun(user)
-	else
-		try_detach_gun_module(user)
+	try_detach_gun_module(user)
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/proc/try_detach_gun_module(mob/user)
@@ -676,7 +650,7 @@
 		return
 	var/choice = choices[1]
 	if(length(choices) > 1)
-		choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+		choice = show_radial_menu(user, src, choices, require_near = TRUE)
 	if(!choice)
 		return FALSE
 	for(var/slot in attachments_by_slot)
@@ -686,25 +660,6 @@
 		if(module.declent_ru(NOMINATIVE) == choice)
 			return module.detach_without_check(src, user)
 
-/obj/item/gun/proc/reskin_gun(mob/user)
-	if(!LAZYLEN(skin_options))
-		stack_trace("[src] has unique_reskin set to TRUE but skin_options list is empty.")
-		return
-	var/list/skins = list()
-	for(var/skin in skin_options)
-		skins[skin] = image(icon = icon, icon_state = skin_options[skin])
-	var/choice = show_radial_menu(user, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
-
-	if(choice && reskin_radial_check(user) && !current_skin)
-		current_skin = skin_options[choice]
-		to_chat(user, "Теперь ваше оружие имеет облик [choice]. Познакомьтесь с новым дизайном.")
-		update_icon()
-		update_equipped_item(update_speedmods = FALSE)
-
-/obj/item/gun/proc/reskin_radial_check(mob/living/carbon/human/user)
-	if(!ishuman(user) || QDELETED(src) || !user.is_in_hands(src) || user.incapacitated())
-		return FALSE
-	return TRUE
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))

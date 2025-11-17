@@ -745,7 +745,6 @@
 	cell_type = /obj/item/stock_parts/cell/specter
 	var/obj/item/weapon_cell/magazine = new /obj/item/weapon_cell/specter()
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
-	unique_reskin = TRUE
 	materials = list(MAT_METAL = 1000)
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
@@ -769,15 +768,7 @@
 /obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
-
-/obj/item/gun/energy/specter/update_gun_skins()
-	add_skin("Grey slide", "specter")
-	add_skin("Red slide", "specter_red")
-	add_skin("Green slide", "specter_green")
-	add_skin("Tan slide", "specter_tan")
-	add_skin("Green Handle", "specter_greengrip")
-	add_skin("Tan Handle", "specter_tangrip")
-	add_skin("Red Handle", "specter_redgrip")
+	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/energy/specter)
 
 /obj/item/gun/energy/specter/update_icon_state()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
