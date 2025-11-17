@@ -41,6 +41,9 @@
 		PREPOSITIONAL = "коробке патронов (7,62x38 мм)",
 	)
 
+/obj/item/ammo_box/speedloader
+	use_bullet_type_overlay = TRUE
+
 /obj/item/ammo_box/speedloader/n762
 	name = "speed loader (7.62x38)"
 	desc = "Устройство для быстрой зарядки револьверов патронами 7.62x38 калибра."
