@@ -234,6 +234,25 @@
 	name = "Серебрянный"
 	icon_state = "detective_silver"
 
+//MARK: Taurus
+/datum/item_skin_data/taurus_revolver
+	item_path = /obj/item/gun/projectile/revolver/taurus
+
+/datum/item_skin_data/taurus_revolver/classic
+	name = "Классическая"
+	icon_state = "taurus"
+	donation_tier = 1
+
+/datum/item_skin_data/taurus_revolver/wood
+	name = "Деревянная рукоятка"
+	icon_state = "taurus_wood"
+	donation_tier = 1
+
+/datum/item_skin_data/taurus_revolver/black
+	name = "Чёрная"
+	icon_state = "taurus_black"
+	donation_tier = 2
+
 //MARK: Double barrel
 /datum/item_skin_data/doublebarrel
 	item_path = /obj/item/gun/projectile/revolver/doublebarrel

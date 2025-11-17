@@ -160,7 +160,6 @@
 	icon_state = "taurus"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/taurus
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	unique_reskin = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
@@ -171,10 +170,19 @@
 	)
 	damage_mod = 1.2
 
-/obj/item/gun/projectile/revolver/taurus/update_gun_skins()
-	add_skin("Стандартный", "taurus")
-	add_skin("Деревянная рукоятка", "taurus_wood")
-	add_skin("Черная", "taurus_black")
+/obj/item/gun/projectile/revolver/taurus/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/gun/projectile/revolver/taurus/get_ru_names()
+	return list(
+		NOMINATIVE = "Револьвер \"Таурус\"",
+		GENITIVE = "Револьвера \"Таурус\"",
+		DATIVE = "Револьверу \"Таурус\"",
+		ACCUSATIVE = "Револьверу \"Таурус\"",
+		INSTRUMENTAL = "Револьвером \"Таурус\"",
+		PREPOSITIONAL = "Револьвере \"Таурус\"",
+	)
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "finger gun"
