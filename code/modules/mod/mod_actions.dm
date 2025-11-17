@@ -1,10 +1,8 @@
 /datum/action/item_action/mod
 	background_icon_state = "bg_mod"
 	button_icon_state = "bg_mod_border"
-	icon_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_icon = 'icons/mob/actions/actions_mod.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
-	use_itemicon = FALSE
 
 /datum/action/item_action/mod/New(Target, custom_icon, custom_icon_state)
 	..()
@@ -12,12 +10,12 @@
 		stack_trace("invalid target([Target]) for modsuit action.")
 		qdel(src)
 
-/datum/action/item_action/mod/Trigger(left_click, attack_self)
+/datum/action/item_action/mod/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return FALSE
 	var/obj/item/mod/control/mod = target
 	if(mod.malfunctioning && prob(75))
-		usr.balloon_alert(usr, "сбой активации!")
+		clicker.balloon_alert(clicker, "сбой активации!")
 		return FALSE
 	return TRUE
 
@@ -26,15 +24,15 @@
 	desc = "ЛКМ — развернуть или свернуть все компоненты модульного костюма. СКМ — развернуть/свернуть определённый компонент."
 	button_icon_state = "deploy"
 
-/datum/action/item_action/mod/deploy/Trigger(left_click, attack_self)
+/datum/action/item_action/mod/deploy/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/mod/control/mod = target
-	if(left_click)
-		mod.quick_deploy(usr)
+	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
+		mod.choose_deploy(clicker)
 	else
-		mod.choose_deploy(usr)
+		mod.quick_deploy(clicker)
 
 /datum/action/item_action/mod/activate
 	name = "Активировать модульный костюм"
@@ -43,11 +41,11 @@
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
 
-/datum/action/item_action/mod/activate/Trigger(left_click, attack_self)
+/datum/action/item_action/mod/activate/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
-	if(!ready && left_click)
+	if(!ready && !(trigger_flags & TRIGGER_SECONDARY_ACTION))
 		ready = TRUE
 		button_icon_state = "activate-ready"
 		UpdateButtonIcon()
@@ -55,7 +53,7 @@
 		return
 	var/obj/item/mod/control/mod = target
 	reset_ready()
-	mod.toggle_activate(usr)
+	mod.toggle_activate(clicker)
 
 /// Resets the state requiring to be doubleclicked again.
 /datum/action/item_action/mod/activate/proc/reset_ready()
@@ -68,28 +66,28 @@
 	desc = "Активировать модуль МЭК."
 	button_icon_state = "module"
 
-/datum/action/item_action/mod/module/Trigger(left_click, attack_self)
+/datum/action/item_action/mod/module/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/mod/control/mod = target
-	mod.quick_module(usr)
+	mod.quick_module(clicker)
 
 /datum/action/item_action/mod/panel
 	name = "Панель управления МЭК"
 	desc = "Включить панель управления модульным костюмом."
 	button_icon_state = "panel"
 
-/datum/action/item_action/mod/panel/Trigger(left_click, attack_self)
+/datum/action/item_action/mod/panel/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/mod/control/mod = target
-	mod.ui_interact(usr)
+	mod.ui_interact(clicker)
 
 /datum/action/item_action/mod/pinned_module
 	desc = "Активировать модуль"
-	icon_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	button_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	button_icon_state = "module"
 	/// Module we are linked to.
 	var/obj/item/mod/module/module
@@ -125,7 +123,7 @@
 		return
 	return ..()
 
-/datum/action/item_action/mod/pinned_module/Trigger(left_click, attack_self)
+/datum/action/item_action/mod/pinned_module/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
@@ -140,7 +138,7 @@
 		return
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(UpdateButtonIcon)), cooldown_time + 1, TIMER_STOPPABLE)
 
-/datum/action/item_action/mod/pinned_module/IsAvailable()
+/datum/action/item_action/mod/pinned_module/IsAvailable(feedback = FALSE)
 	if(..() && COOLDOWN_FINISHED(module, cooldown_timer))
 		return TRUE
 	return FALSE

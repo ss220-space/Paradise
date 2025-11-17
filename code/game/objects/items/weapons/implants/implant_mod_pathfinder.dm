@@ -157,11 +157,9 @@
 /datum/action/item_action/mod_recall
 	name = "Вызов МЭК"
 	desc = "Призовите привязанный модульный костюм к себе из любого места на станции."
-	use_itemicon = FALSE
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "recall"
 	background_icon_state = "bg_mod"
-	icon_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_icon = 'icons/mob/actions/actions_mod.dmi'
 	/// The cooldown for the recall.
 	COOLDOWN_DECLARE(recall_cooldown)
@@ -172,13 +170,13 @@
 		qdel(src)
 		return
 
-/datum/action/item_action/mod_recall/Trigger(left_click)
+/datum/action/item_action/mod_recall/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/implant/mod/implant = target
 	if(!COOLDOWN_FINISHED(src, recall_cooldown))
-		usr.balloon_alert(usr, "на перезарядке!")
+		clicker.balloon_alert(clicker, "на перезарядке!")
 		return
 	if(implant.recall())
 		COOLDOWN_START(src, recall_cooldown, 15 SECONDS)

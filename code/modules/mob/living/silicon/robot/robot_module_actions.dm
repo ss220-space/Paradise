@@ -43,7 +43,7 @@
 
 /datum/action/innate/robot_magpulse
 	name = "Магнитные захваты"
-	icon_icon = 'icons/obj/clothing/shoes.dmi'
+	button_icon = 'icons/obj/clothing/shoes.dmi'
 	button_icon_state = "magboots0"
 	var/slowdown_active = 2 // Same as magboots
 

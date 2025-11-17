@@ -184,14 +184,14 @@
 		return
 	clean_up()
 
-/obj/item/mod/control/MouseDrop(atom/over_object)
+/obj/item/mod/control/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
 	if(!iscarbon(usr))
 		return
 	var/mob/living/carbon/carbon_mob = usr
 	if(get_dist(usr, src) > 1) //1 as we want to access it if beside the user
 		return
 
-	if(!over_object)
+	if(!over)
 		return
 
 	if(ismecha(carbon_mob.loc))
@@ -200,7 +200,7 @@
 	if(!HAS_TRAIT(carbon_mob, TRAIT_RESTRAINED) && !carbon_mob.stat)
 		playsound(loc, "rustle", 50, TRUE, -5)
 
-		if(istype(over_object, /atom/movable/screen/inventory/hand))
+		if(istype(over, /atom/movable/screen/inventory/hand))
 			for(var/obj/item/part as anything in get_parts())
 				if(part.loc != src)
 					balloon_alert(wearer, "сверните костюм!")
