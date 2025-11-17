@@ -1288,6 +1288,42 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
+/datum/supply_packs/security/armory/SP_91_RC
+	name = "Пистолет-пулемёты SP-91-RC"
+	contains = list(
+		/obj/item/gun/projectile/automatic/sp91rc,
+		/obj/item/gun/projectile/automatic/sp91rc,
+		/obj/item/gun/projectile/automatic/sp91rc,
+	)
+	cost = 50
+	containername = "ящик SP-91-RC"
+	container_ru_names = list(
+		NOMINATIVE = "ящик SP-91-RC",
+		GENITIVE = "ящика SP-91-RC",
+		DATIVE = "ящику SP-91-RC",
+		ACCUSATIVE = "ящик SP-91-RC",
+		INSTRUMENTAL = "ящиком SP-91-RC",
+		PREPOSITIONAL = "ящике SP-91-RC",
+	)
+
+/datum/supply_packs/security/armory/sparkle_a12
+	name = "Пистолет-пулемёты A9 \"Искра\""
+	contains = list(
+		/obj/item/gun/projectile/automatic/sparkle_a12,
+		/obj/item/gun/projectile/automatic/sparkle_a12,
+		/obj/item/gun/projectile/automatic/sparkle_a12,
+	)
+	cost = 50
+	containername = "ящик A9 \"Искра\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик A9 \"Искра\"",
+		GENITIVE = "ящика A9 \"Искра\"",
+		DATIVE = "ящику A9 \"Искра\"",
+		ACCUSATIVE = "ящик A9 \"Искра\"",
+		INSTRUMENTAL = "ящиком A9 \"Искра\"",
+		PREPOSITIONAL = "ящике A9 \"Искра\"",
+	)
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
