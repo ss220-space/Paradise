@@ -106,7 +106,7 @@
 	desc = "Активировать модуль МЭК."
 	button_icon_state = "module"
 
-/datum/action/item_action/mod/module/Trigger(mob/clicker,trigger_flags)
+/datum/action/item_action/mod/module/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
@@ -131,26 +131,49 @@
 /datum/action/item_action/mod/panel/ai
 	ai_action = TRUE
 
-/datum/action/item_action/mod/pinned_module
+/datum/action/item_action/mod/pinnable
+	/// A reference to the mob we are pinned to.
+	var/mob/pinner
+
+/datum/action/item_action/mod/pinnable/New(Target, mob/user)
+	. = ..()
+	var/obj/item/mod/control/mod = Target
+	if(user == mod.ai_assistant)
+		ai_action = TRUE
+	pinner = user
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(pinner_deleted))
+
+/datum/action/item_action/mod/pinnable/Grant(mob/user)
+	if(pinner != user)
+		return
+	return ..()
+
+/// If the guy whose UI we are pinned to got deleted
+/datum/action/item_action/mod/pinnable/proc/pinner_deleted()
+	SIGNAL_HANDLER
+	pinner = null
+	qdel(src)
+
+/datum/action/item_action/mod/pinnable/module
 	desc = "Активировать модуль"
-	button_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	button_icon_state = "module"
+	/// Overrides the icon applications.
+	var/override = FALSE
 	/// Module we are linked to.
 	var/obj/item/mod/module/module
-	/// A ref to the mob we are pinned to.
-	var/pinner_uid
 	/// Timer until we remove our cooldown overlay
 	var/cooldown_timer
 
-/datum/action/item_action/mod/pinned_module/New(Target, custom_icon, custom_icon_state, obj/item/mod/module/linked_module, mob/user)
+/datum/action/item_action/mod/pinnable/module/New(Target, mob/user, obj/item/mod/module/linked_module)
+	button_icon = linked_module.icon
+	button_icon_state = linked_module.icon_state
+	. = ..()
+	module = linked_module
+	module.pinned_to[user.UID()] = src
+	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
+		// clears check hands and check conscious
+		check_flags = NONE
 	name = "Активировать [linked_module.declent_ru(ACCUSATIVE)]"
 	desc = "Быстрая активация [linked_module.declent_ru(GENITIVE)]"
-	..()
-	module = linked_module
-	button_icon_state = module.icon_state
-	if(!(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED))
-		check_flags |= AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
-	Grant(user)
 	RegisterSignal(linked_module, list(
 		COMSIG_MODULE_ACTIVATED,
 		COMSIG_MODULE_DEACTIVATED,
@@ -158,43 +181,49 @@
 	), PROC_REF(module_interacted_with))
 	RegisterSignal(linked_module, COMSIG_MODULE_COOLDOWN_STARTED, PROC_REF(cooldown_started))
 
-/datum/action/item_action/mod/pinned_module/Destroy()
+/datum/action/item_action/mod/pinnable/module/Destroy()
 	deltimer(cooldown_timer)
-	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED, COMSIG_MODULE_COOLDOWN_STARTED))
-	module.pinned_to -= pinner_uid
+	UnregisterSignal(module, list(
+		COMSIG_MODULE_ACTIVATED,
+		COMSIG_MODULE_DEACTIVATED,
+		COMSIG_MODULE_COOLDOWN_STARTED,
+		COMSIG_MODULE_USED,
+	))
+	module.pinned_to -= pinner.UID()
 	module = null
+	pinner = null
 	return ..()
 
-/datum/action/item_action/mod/pinned_module/Grant(mob/user)
-	var/user_uid = user.UID()
-	if(!pinner_uid)
-		pinner_uid = user_uid
-		module.pinned_to[pinner_uid] = src
-	else if(pinner_uid != user_uid)
-		return
-	return ..()
-
-/datum/action/item_action/mod/pinned_module/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/mod/pinnable/module/Trigger(trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	module.on_select()
 
-/datum/action/item_action/mod/pinned_module/proc/module_interacted_with(datum/source)
+/datum/action/item_action/mod/pinnable/module/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
+	current_button.cut_overlays()
+	if(override)
+		return ..()
+
+	var/obj/item/mod/control/mod = target
+	if(module == mod.selected_module)
+		current_button.add_overlay(image(icon = 'icons/hud/radial.dmi', icon_state = "module_selected", layer = FLOAT_LAYER-0.1))
+	else if(module.active)
+		current_button.add_overlay(image(icon = 'icons/hud/radial.dmi', icon_state = "module_active", layer = FLOAT_LAYER-0.1))
+	if(!COOLDOWN_FINISHED(module, cooldown_timer))
+		current_button.add_overlay(image(icon = 'icons/hud/radial.dmi', icon_state = "module_cooldown"))
+	return ..()
+
+/datum/action/item_action/mod/pinnable/module/proc/module_interacted_with(datum/source)
 	SIGNAL_HANDLER
 
 	build_all_button_icons(UPDATE_BUTTON_OVERLAY|UPDATE_BUTTON_STATUS)
 
-/datum/action/item_action/mod/pinned_module/proc/cooldown_started(datum/source, cooldown_time)
+/datum/action/item_action/mod/pinnable/module/proc/cooldown_started(datum/source, cooldown_time)
 	SIGNAL_HANDLER
 
 	deltimer(cooldown_timer)
 	build_all_button_icons(UPDATE_BUTTON_OVERLAY)
-	if(cooldown_time == 0)
+	if (cooldown_time == 0)
 		return
-	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(build_all_button_icons)), cooldown_time + 1, TIMER_STOPPABLE)
-
-/datum/action/item_action/mod/pinned_module/IsAvailable(feedback = FALSE)
-	if(..() && COOLDOWN_FINISHED(module, cooldown_timer))
-		return TRUE
-	return FALSE
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(build_all_button_icons), UPDATE_BUTTON_OVERLAY), cooldown_time + 1, TIMER_STOPPABLE)

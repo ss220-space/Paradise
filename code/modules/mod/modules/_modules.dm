@@ -471,16 +471,16 @@
 /obj/item/mod/module/proc/pin(mob/user)
 	if(module_type == MODULE_PASSIVE)
 		return
-	if(length(pinned_to))
-		for(var/datum/action/item_action/mod/pinned_module/M in user.actions)
-			if(M.module == src)
-				qdel(M)
-		pinned_to = list()
+
+	var/datum/action/item_action/mod/pinnable/module/existing_action = pinned_to[user.UID()]
+	if(existing_action)
+		mod.remove_item_action(existing_action)
 		return
-	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)
+
+	var/datum/action/item_action/mod/pinnable/module/new_action = new(mod, user, src)
+	mod.add_item_action(new_action)
 
 	to_chat(mod.wearer, span_notice("Действие \"[new_action]\" закреплено на панели!"))
-
 
 /// On drop key, concels a device item.
 /obj/item/mod/module/proc/dropkey(mob/living/user)
