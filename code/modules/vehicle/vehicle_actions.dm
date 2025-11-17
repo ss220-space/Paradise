@@ -201,13 +201,13 @@
 
 /datum/action/vehicle/ridden/ambulance/ambulance_alarm
 	name = "Toggle Sirens"
-	icon_icon = 'icons/obj/vehicles/vehicles.dmi'
+	button_icon = 'icons/obj/vehicles/vehicles.dmi'
 	button_icon_state = "docwagon2"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	COOLDOWN_DECLARE(ability_cooldown)
 	var/cooldown_time = 4 SECONDS
 
-/datum/action/vehicle/ridden/ambulance/ambulance_alarm/Trigger(left_click = TRUE)
+/datum/action/vehicle/ridden/ambulance/ambulance_alarm/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 

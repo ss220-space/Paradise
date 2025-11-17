@@ -152,12 +152,11 @@
 		to_chat(user, span_warning("You are unable to locate any [evidence_type]s on \the [A]."))
 		. = ..()
 
-/obj/item/forensics/sample_kit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/forensics/sample_kit/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
 

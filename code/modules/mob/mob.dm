@@ -612,9 +612,9 @@
 		popup.set_content(GLOB.scoreboard)
 		popup.open(FALSE)
 
-/mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
+/mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
 	. = ..()
-	if(!. || usr != user || usr == src || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
+	if(!. || usr != user || usr == src || over_object != usr || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return FALSE
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
@@ -843,6 +843,7 @@
 	if(!istype(spell))
 		return
 	LAZYADD(mob_spell_list, spell)
+	spell.action.allow_observer_click = TRUE
 	spell.action.Grant(src)
 	spell.on_spell_gain(src)
 

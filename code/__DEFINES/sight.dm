@@ -1,3 +1,5 @@
+#define INVISIBILITY_NONE 0
+
 ///Default see in dark. See in dark sucks.
 #define DEFAULT_SEE_IN_DARK 1e6
 

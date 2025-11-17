@@ -123,7 +123,7 @@
 	var/datum/callback/last_jump = null
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_IMMOBILE //lying jumps is real
 
-/datum/action/bhop/Trigger(left_click = TRUE)
+/datum/action/bhop/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return
 

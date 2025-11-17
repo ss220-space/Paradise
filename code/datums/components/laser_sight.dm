@@ -244,11 +244,11 @@
 	button_icon_state = "sniper_zoom"
 	var/datum/component/laser_sight/sight = null
 
-/datum/action/toggle_laser_sight/Trigger(left_click = TRUE)
+/datum/action/toggle_laser_sight/Trigger(mob/clicker, trigger_flags)
 	sight.toggle_enable(owner)
 	sight.process_aim(owner)
 
-/datum/action/toggle_laser_sight/IsAvailable()
+/datum/action/toggle_laser_sight/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(. || !sight)
 		return

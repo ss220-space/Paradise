@@ -6,9 +6,7 @@
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_CHARGES
 	charge_max = 3
-	use_itemicon = FALSE
 	button_icon_state = "chem_injector"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green_active"
 	action_initialisation_text = "Integrated Restorative Cocktail Mixer"

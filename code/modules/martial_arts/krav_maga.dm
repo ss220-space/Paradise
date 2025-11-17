@@ -12,7 +12,7 @@
 	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
 	button_icon_state = "neutralstance"
 
-/datum/action/neutral_stance/Trigger(left_click = TRUE)
+/datum/action/neutral_stance/Trigger(mob/clicker, trigger_flags)
 	var/mob/living/carbon/human/H = owner
 	if(!H.mind.martial_art.in_stance)
 		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
@@ -26,7 +26,7 @@
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
 	button_icon_state = "neckchop"
 
-/datum/action/neck_chop/Trigger(left_click = TRUE)
+/datum/action/neck_chop/Trigger(mob/clicker, trigger_flags)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))
@@ -45,7 +45,7 @@
 	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
 	button_icon_state = "legsweep"
 
-/datum/action/leg_sweep/Trigger(left_click = TRUE)
+/datum/action/leg_sweep/Trigger(mob/clicker, trigger_flags)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))
@@ -64,7 +64,7 @@
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
 	button_icon_state = "lungpunch"
 
-/datum/action/lung_punch/Trigger(left_click = TRUE)
+/datum/action/lung_punch/Trigger(mob/clicker, trigger_flags)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))

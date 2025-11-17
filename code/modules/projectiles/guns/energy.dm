@@ -331,7 +331,7 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[overlay_name]_[shot.select_name]"
-	if(cell.charge < shot.e_cost)
+	if(!cell || cell.charge < shot.e_cost)
 		. += "[overlay_name]_empty"
 	else
 		if(!shaded_charge)
