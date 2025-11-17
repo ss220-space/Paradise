@@ -451,7 +451,7 @@
 		/obj/item/roller/holo = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator/advanced = 1,
-		)
+	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
