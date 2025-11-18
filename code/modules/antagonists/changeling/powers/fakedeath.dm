@@ -16,6 +16,7 @@
 		cling.calculate_stasis_delay(user)
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
+		user.persistent_client?.time_of_death = world.time
 
 	ADD_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)		//play dead
 	user.updatehealth("fakedeath sting")
