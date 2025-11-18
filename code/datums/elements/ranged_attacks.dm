@@ -30,7 +30,6 @@
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(async_fire_ranged_attack), firer, target, modifiers)
 
-
 /datum/element/ranged_attacks/proc/async_fire_ranged_attack(mob/living/basic/firer, atom/target, modifiers)
 	var/turf/startloc = get_turf(firer)
 

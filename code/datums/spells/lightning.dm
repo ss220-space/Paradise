@@ -15,12 +15,10 @@
 	var/damaging = TRUE
 	var/energy_divisor = 2
 
-
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian
 	clothes_req = FALSE
 	invocation_type = "none"
 	damaging = FALSE
-
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/guardian
 	name = "Малая молния"
@@ -30,27 +28,22 @@
 	energy_divisor = 4
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/New()
 	..()
 	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "electricity", layer = EFFECTS_LAYER)
-
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/get_bounce_energy()
 	if(damaging)
 		return max(15, get_energy_charge() / energy_divisor)
 	return 0
 
-
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/get_bounce_amount()
 	if(damaging)
 		return 5
 	return round(get_energy_charge() / 20)
 
-
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/create_beam(mob/origin, mob/target)
 	origin.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
-
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
 	if(HAS_TRAIT(target, TRAIT_SHOCKIMMUNE))

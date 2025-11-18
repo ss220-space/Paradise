@@ -5,21 +5,17 @@
 	name = "AutoTraitor"
 	config_tag = "extend-a-traitormongous"
 
-
 /datum/game_mode/traitor/autotraitor/announce()
 	to_chat(world, "<b>The current game mode is - AutoTraitor!</b>")
 	to_chat(world, "Syndicate traitors will be added to the round automagically as needed.</b>")
-
 
 /datum/game_mode/traitor/autotraitor/post_setup()
 	..()
 	// better to use subsystem, but its good for now
 	addtimer(CALLBACK(src, PROC_REF(autotraitor_check)), 15 MINUTES, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE)
 
-
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/player)
 	autotraitor_check(max_traitors = 2)
-
 
 /datum/game_mode/traitor/autotraitor/proc/autotraitor_check(max_traitors = 1)
 

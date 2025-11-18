@@ -109,7 +109,6 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 
 	SSdemo.mark_turf(affected_turf)
 
-
 // Variety of overrides so the overlays don't get affected by weird things.
 
 /atom/movable/lighting_object/ex_act(severity, target)

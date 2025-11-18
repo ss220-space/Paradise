@@ -3,10 +3,9 @@
 /datum/action/item_action/ninjastar
 	name = "Create Throwing Stars"
 	desc = "Creates a throwing star in your hand, if possible."
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
 /**

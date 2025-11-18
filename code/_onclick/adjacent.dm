@@ -13,11 +13,9 @@ to check that the mob is not inside of something
 /atom/proc/Adjacent(atom/neighbor, atom/target, atom/movable/mover) // basic inheritance, unused
 	return
 
-
 /// Not a sane use of the function and (for now) indicative of an error elsewhere
 /area/Adjacent(atom/neighbor, atom/target, atom/movable/mover)
 	CRASH("Call to /area/Adjacent(), unimplemented proc")
-
 
 /**
 Adjacency (to turf):
@@ -62,7 +60,6 @@ Adjacency (to turf):
 
 	return FALSE
 
-
 /**
 	Adjacency (to anything else):
 	* Must be on a turf
@@ -79,7 +76,6 @@ Adjacency (to turf):
 		return TRUE
 	return FALSE
 
-
 /// This is necessary for storage items not on your person.
 /obj/item/Adjacent(atom/neighbor, atom/target, atom/movable/mover, recurse = 1)
 	if(neighbor == loc)
@@ -89,7 +85,6 @@ Adjacency (to turf):
 			return loc.Adjacent(neighbor, target, mover, recurse - 1)
 		return FALSE
 	return ..()
-
 
 /**
 	This checks if you there is uninterrupted airspace between that turf and this one.

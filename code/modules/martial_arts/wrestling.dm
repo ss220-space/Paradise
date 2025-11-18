@@ -22,7 +22,6 @@
 								span_userdanger("[attacker] fails to get [defender] in a clinch!"))
 	return TRUE
 
-
 /datum/martial_art/wrestling/proc/Suplex(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	D.visible_message(span_danger("[A] suplexes [D]!"), \

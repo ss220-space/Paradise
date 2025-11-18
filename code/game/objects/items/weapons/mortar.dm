@@ -343,7 +343,6 @@
 	new /obj/effect/overlay/temp/blinking_laser(target)
 	sleep(2 SECONDS) // Wait out the rest of the landing time
 
-
 /obj/structure/mortar/proc/can_fire_at(mob/user, test_targ_x = targ_x, test_targ_y = targ_y, test_targ_z = targ_z, test_dial_x, test_dial_y)
 	var/dialing = test_dial_x || test_dial_y
 
@@ -506,7 +505,6 @@
 	mortar.name = src.name
 	mortar.setDir(user.dir)
 	qdel(src)
-
 
 //used to show where dropship ordnance will impact.
 /obj/effect/overlay/temp/blinking_laser

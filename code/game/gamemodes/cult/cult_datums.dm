@@ -15,7 +15,6 @@
 	var/entity_icon_state = "narsie"
 	var/entity_spawn_animation = "narsie_spawn_anim"
 
-
 	//Builder Construct
 	var/artificer_name = "Artificer"
 	var/artificer_icon_state = "artificer"
@@ -73,7 +72,6 @@
 
 	var/airlock_unruned_icon_file = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
 	var/airlock_unruned_overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
-
 
 /datum/cult_info/fire
 	name = "Cult of Kha'Rin"

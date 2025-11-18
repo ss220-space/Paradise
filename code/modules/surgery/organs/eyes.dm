@@ -2,14 +2,6 @@
 /obj/item/organ/internal/eyes
 	name = "eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали человеку."
-	ru_names = list(
-		NOMINATIVE = "глаза человека",
-		GENITIVE = "глаз человека",
-		DATIVE = "глазам человека",
-		ACCUSATIVE = "глаза человека",
-		INSTRUMENTAL = "глазами человека",
-		PREPOSITIONAL = "глазах человека"
-	)
 	gender = PLURAL
 	icon_state = "eyes"
 	parent_organ_zone = BODY_ZONE_HEAD
@@ -28,6 +20,16 @@
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	/// Modifies examine time for living mobs. Uses in /mob/living/run_examinate(atom/target)
 	var/examine_mod = 1
+
+/obj/item/organ/internal/eyes/get_ru_names()
+	return list(
+		NOMINATIVE = "глаза человека",
+		GENITIVE = "глаз человека",
+		DATIVE = "глазам человека",
+		ACCUSATIVE = "глаза человека",
+		INSTRUMENTAL = "глазами человека",
+		PREPOSITIONAL = "глазах человека",
+	)
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
@@ -51,7 +53,6 @@
 	if(is_robotic() || (see_in_dark > EYE_SHINE_THRESHOLD))
 		return TRUE
 
-
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(ishuman(target) && eye_colour)
@@ -65,14 +66,12 @@
 		//If we're here, that means the mob acquired the colourblindness gene while they didn't have eyes. Better handle it.
 		target.update_client_colour()
 
-
 /obj/item/organ/internal/eyes/remove(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	//If special is set, that means these eyes are getting deleted (i.e. during set_species())
 	if(special == ORGAN_MANIPULATION_DEFAULT && HAS_TRAIT(target, TRAIT_COLORBLIND))
 		LAZYOR(dependent_disabilities, TRAIT_COLORBLIND)
 		target.force_gene_block(GLOB.colourblindblock, FALSE)
 	return ..()
-
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
@@ -102,19 +101,21 @@
 /obj/item/organ/internal/eyes/cybernetic
 	name = "cybernetic eyes"
 	desc = "Электронное устройство, имитирующее работу органических глаз. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
-	ru_names = list(
-		NOMINATIVE = "кибернетические глаза",
-		GENITIVE = "кибернетических глаз",
-		DATIVE = "кибернетическим глазам",
-		ACCUSATIVE = "кибернетические глаза",
-		INSTRUMENTAL = "кибернетическими глазами",
-		PREPOSITIONAL = "кибернетических глазах"
-	)
 	icon_state = "eyes-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+
+/obj/item/organ/internal/eyes/cybernetic/get_ru_names()
+	return list(
+		NOMINATIVE = "кибернетические глаза",
+		GENITIVE = "кибернетических глаз",
+		DATIVE = "кибернетическим глазам",
+		ACCUSATIVE = "кибернетические глаза",
+		INSTRUMENTAL = "кибернетическими глазами",
+		PREPOSITIONAL = "кибернетических глазах",
+	)
 
 /obj/item/organ/internal/eyes/on_life()
 	var/update_flags = STATUS_UPDATE_NONE

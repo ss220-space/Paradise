@@ -43,7 +43,6 @@
 
 	desc += "[capitalize(object_name)]<br>"
 
-
 /datum/cargo_quest/thing/update_interface_icon()
 	if(item_for_show)
 		interface_images += path2assetID(item_for_show)
@@ -80,7 +79,7 @@
 		JOB_TITLE_VIROLOGIST,
 		JOB_TITLE_PARAMEDIC,
 		JOB_TITLE_CORONER,
-		JOB_TITLE_INTERN
+		JOB_TITLE_INTERN,
 	)
 	linked_departament = "Science"
 
@@ -103,14 +102,14 @@
 		/obj/item/slime_extract/green = 215,
 		/obj/item/slime_extract/red = 215,
 		/obj/item/slime_extract/pink = 215,
-		/obj/item/slime_extract/gold = 215
+		/obj/item/slime_extract/gold = 215,
 	)
 	hard_items = list(
 		/obj/item/slime_extract/adamantine = 270,
 		/obj/item/slime_extract/oil = 270,
 		/obj/item/slime_extract/black = 270,
 		/obj/item/slime_extract/lightpink = 270,
-		/obj/item/slime_extract/rainbow = 300
+		/obj/item/slime_extract/rainbow = 300,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -126,7 +125,7 @@
 		JOB_TITLE_VIROLOGIST,
 		JOB_TITLE_PARAMEDIC,
 		JOB_TITLE_CORONER,
-		JOB_TITLE_INTERN
+		JOB_TITLE_INTERN,
 	)
 	linked_departament = "Medical"
 
@@ -136,7 +135,7 @@
 		/obj/item/organ/internal/headpocket = 175,
 		/obj/item/organ/internal/eyes/unathi = 175,
 		/obj/item/organ/internal/eyes/nian = 175,
-		/obj/item/organ/internal/liver/skrell = 175
+		/obj/item/organ/internal/liver/skrell = 175,
 	)
 	hard_items = list(
 		/obj/item/organ/internal/kidneys/grey = 350,
@@ -149,7 +148,7 @@
 		/obj/item/organ/internal/eyes/unathi/ash_walker_shaman = 350,
 		/obj/item/organ/internal/lantern = 400,
 		/obj/item/organ/internal/wryn/glands = 700,
-		/obj/item/organ/internal/heart/plasmaman = 750
+		/obj/item/organ/internal/heart/plasmaman = 750,
 	)
 	very_hard_items = list(
 		/obj/item/organ/internal/heart/cursed = 550,
@@ -160,7 +159,7 @@
 		/obj/item/organ/internal/xenos/acidgland/sentinel = 750,
 		/obj/item/organ/internal/xenos/acidgland/praetorian = 750,
 		/obj/item/organ/internal/xenos/resinspinner = 750,
-		/obj/item/organ/internal/xenos/neurotoxin = 850
+		/obj/item/organ/internal/xenos/neurotoxin = 850,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
@@ -297,16 +296,15 @@
 		/obj/item/stack/sheet/mineral/diamond = list("reward" = 100, "amount" = 10),
 		/obj/item/stack/sheet/plasteel = list("reward" = 90, "amount" = 30),
 		/obj/item/stack/sheet/mineral/plasma = list("reward" = 120, "amount" = 40),
-		/obj/item/stack/sheet/mineral/silver = list("reward" = 90, "amount" = 25)
+		/obj/item/stack/sheet/mineral/silver = list("reward" = 90, "amount" = 25),
 	)
 	hard_items = list(
 		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
 		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5)
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5),
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
-
 
 /datum/cargo_quest/thing/minerals/add_goal(difficultly)
 	var/list/difficult_list = generate_goal_list(difficultly)
@@ -437,13 +435,12 @@
 		/obj/item/seeds/lavaland/porcini = 100,
 	)
 
-
 	very_hard_items = list(
 		/obj/item/seeds/kudzu = 460,
 		/obj/item/seeds/cherry/bomb = 640,
 		/obj/item/seeds/apple/poisoned = 640,
 		/obj/item/seeds/wheat/meat = 640,
-		/obj/item/seeds/gatfruit = 760
+		/obj/item/seeds/gatfruit = 760,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_VERY_HARD)
 
@@ -622,7 +619,6 @@
 	. = TRUE
 	current_list = required_blocks.Copy()
 
-
 #define REQUIRED_BLOOD_AMOUNT 10
 /datum/cargo_quest/thing/virus
 	quest_type_name = "Вирусные симптомы в пробирках (минимум 10 ед.)"
@@ -749,7 +745,7 @@
 		/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient = 450,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing = 330,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing = 350,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 350
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 350,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -789,7 +785,6 @@
 			LAZYADD(capsules, capsule)
 			return TRUE
 	return FALSE
-
 
 /datum/cargo_quest/thing/capsule/after_check()
 	. = TRUE

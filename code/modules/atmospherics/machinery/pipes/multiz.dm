@@ -55,7 +55,6 @@
 		below.defer_build_network()
 		below = null
 
-
 /obj/machinery/atmospherics/pipe/multiz/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
 		if(istype(node, /obj/machinery/atmospherics/pipe))

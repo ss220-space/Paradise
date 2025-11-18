@@ -10,7 +10,7 @@
 		"Т+олько с+амое л+учшее!",
 		"Им+еются вс+якие шт+учки.",
 		"С+амое над+ёжное обор+удование!",
-		"Л+учшее снаряж+ение в к+осмосе!"
+		"Л+учшее снаряж+ение в к+осмосе!",
 	)
 	refill_canister = /obj/item/vending_refill/assist
 
@@ -35,5 +35,5 @@
 		DATIVE = "торговому автомату Assistomate",
 		ACCUSATIVE = "торговый автомат Assistomate",
 		INSTRUMENTAL = "торговым автоматом Assistomate",
-		PREPOSITIONAL = "торговом автомате Assistomate"
+		PREPOSITIONAL = "торговом автомате Assistomate",
 	)

@@ -6,7 +6,6 @@
 	var/beacon_goal = 1
 	var/clocker_goal = 1
 
-
 /datum/clockwork_objectives/proc/setup()
 	if(clock_status != RATVAR_IS_ASLEEP)
 		return FALSE
@@ -183,7 +182,6 @@
 /datum/objective/demand_power/check_completion()
 	return (power_get && beacon_get && clockers_get) || completed
 
-
 /datum/objective/clockgod
 	needs_target = FALSE
 	antag_menu_name = "Призвать Ратвара"
@@ -220,7 +218,7 @@
 			ritual_spots += summon
 		sanity++
 	explanation_text = "Призовите Сердце Ратвара, установив и укрепив свою веру.\
-	\nПризыв может быть осуществлен только в [russian_list(ritual_spots)] – где Завеса достаточно слаба, чтобы начать ритуал."
+		\nПризыв может быть осуществлен только в [russian_list(ritual_spots)] — где Завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/clockgod/check_completion()
 	if(killed)

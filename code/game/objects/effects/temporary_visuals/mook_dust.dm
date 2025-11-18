@@ -10,13 +10,13 @@
 	base_pixel_x = -16
 
 /obj/effect/temp_visual/mook_dust/get_ru_names()
-	return list( 
+	return list(
 		NOMINATIVE = "пыль",
 		GENITIVE = "пыли",
 		DATIVE = "пыли",
 		ACCUSATIVE = "пыль",
 		INSTRUMENTAL = "пылью",
-		PREPOSITIONAL = "пыли"
+		PREPOSITIONAL = "пыли",
 	)
 
 /obj/effect/temp_visual/mook_dust/small

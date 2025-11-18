@@ -20,12 +20,11 @@
 		DATIVE = "консоли управления дронами",
 		ACCUSATIVE = "консоль управления дронами",
 		INSTRUMENTAL = "консолью управления дронами",
-		PREPOSITIONAL = "консоли управления дронами"
+		PREPOSITIONAL = "консоли управления дронами",
 	)
 
 /obj/machinery/computer/drone_control/attack_ai(mob/user)
 	return src.attack_hand(user)
-
 
 /obj/machinery/computer/drone_control/attack_hand(mob/user)
 	if(..())

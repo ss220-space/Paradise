@@ -16,7 +16,6 @@
 	"third" = list("working_medical_security") \
 )
 
-
 ///////////////////////
 // roboquest console //
 ///////////////////////
@@ -55,7 +54,6 @@
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 
-
 /obj/machinery/computer/roboquest/LateInitialize()
 	var/mapping_pad = locate(/obj/machinery/roboquest_pad) in get_area(src)
 	if(!mapping_pad)
@@ -63,7 +61,6 @@
 
 	pad = mapping_pad
 	pad.console = src
-
 
 /obj/machinery/computer/roboquest/Destroy()
 	for(var/obj/item/I in contents)
@@ -73,7 +70,6 @@
 		pad = null
 	currentID = null
 	. = ..()
-
 
 /obj/machinery/computer/roboquest/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -91,7 +87,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/roboquest/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool))
@@ -120,13 +115,11 @@
 	to_chat(user, span_notice("You have uploaded the data from [multitool]'s buffer."))
 	multitool.buffer = null
 
-
 /obj/machinery/computer/roboquest/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		atom_say("System override detected. Instant mech teleportation is available.")
 		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-
 
 /obj/machinery/computer/roboquest/proc/check_pad()
 	var/obj/mecha/M
@@ -175,17 +168,14 @@
 
 	shop_items = newshop
 
-
 /obj/machinery/computer/roboquest/proc/clear_checkMessage()
 	checkMessage = ""
 
 /obj/machinery/computer/roboquest/proc/on_quest_complete()
 	return // Unused for now.
 
-
 /obj/machinery/computer/roboquest/proc/can_instant_teleport()
 	return emagged || pad?.advanced
-
 
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())
@@ -366,7 +356,6 @@
 	currentID.robo_bounty = new /datum/roboquest(mecha_type)
 	currentID.robo_bounty.id = currentID
 
-
 ///////////////////
 // roboquest pad //
 ///////////////////
@@ -390,20 +379,17 @@
 	component_parts += new /obj/item/circuitboard/roboquest_pad(null)
 	RefreshParts()
 
-
 /obj/machinery/roboquest_pad/ComponentInitialize()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/roboquest_pad/advanced
 	name = "Robotics Request Advanced Quantum Pad"
 	desc = "A bluespace quantum-linked telepad linked to a orbital long-range matter transmitter. Capable of instant teleportation of mech without need of send them to the cargo."
 	icon_state = "advqpad"
 	advanced = TRUE
-
 
 /obj/machinery/roboquest_pad/advanced/New()
 	..()
@@ -415,7 +401,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/circuitboard/advanced_roboquest_pad(null)
 	RefreshParts()
-
 
 /obj/machinery/roboquest_pad/Destroy()
 	if(console)

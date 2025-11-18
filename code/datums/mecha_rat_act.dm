@@ -19,7 +19,6 @@ GLOBAL_LIST_INIT(ratvar_mechas, typesof(/datum/ratvar_mecha))
 	mecha_to_convert.occupant.SetSleeping(mecha_to_convert.destruction_sleep_duration)
 	mecha_to_convert.go_out()
 
-
 /datum/ratvar_mecha/ripley
 	ratvarized_icon = "ripley_ratvar"
 	mech_types = list(MECH_TYPE_RIPLEY)

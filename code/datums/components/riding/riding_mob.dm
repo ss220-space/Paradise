@@ -48,10 +48,8 @@
 	if(!istype(living_parent) || !istype(rider))
 		return
 
-
 	add_attack_logs(living_parent, rider, "is now being ridden by [rider].")
 	add_attack_logs(rider, living_parent, "started riding [living_parent].")
-
 
 // this applies to humans and most creatures, but is replaced again for cyborgs
 /datum/component/riding/creature/ride_check(mob/living/rider, consequences = TRUE)

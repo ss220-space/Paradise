@@ -49,7 +49,6 @@
 		atmosblock = TRUE
 	air_update_turf(1)
 
-
 /obj/structure/blob/shield/reflective
 	name = "reflective blob"
 	desc = "A solid wall of slightly twitching tendrils with a reflective glow."

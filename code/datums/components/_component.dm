@@ -262,7 +262,6 @@
 /datum/component/proc/InheritComponent(datum/component/C, i_am_original)
 	return
 
-
 /**
  * Called on a component when a component of the same type was added to the same parent with [COMPONENT_DUPE_SELECTIVE]
  *
@@ -274,7 +273,6 @@
  */
 /datum/component/proc/CheckDupeComponent(datum/component/C, ...)
 	return
-
 
 /**
  * Callback Just before this component is transferred
@@ -329,7 +327,6 @@
 		queued_calls.Add(listening_datum, listening_datum.signal_procs[src][sigtype])
 	for(var/i in 1 to length(queued_calls) step 2)
 		. |= call(queued_calls[i], queued_calls[i + 1])(arglist(arguments))
-
 
 // The type arg is casted so initial works, you shouldn't be passing a real instance into this
 /**

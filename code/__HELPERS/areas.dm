@@ -35,7 +35,6 @@
 				continue
 			found_turfs += checkT // Since checkT is connected, add it to the list to be processed
 
-
 /proc/create_area(mob/creator, new_area_type = /area)
 	// Passed into the above proc as list/break_if_found
 	var/static/list/area_or_turf_fail_types = typecacheof(list(

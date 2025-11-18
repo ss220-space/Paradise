@@ -16,7 +16,6 @@
 	var/signs = 0
 	var/const/max_signs = 4
 
-
 /obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
@@ -30,16 +29,13 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
 
-
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
@@ -107,7 +103,6 @@
 
 	return ..()
 
-
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!reagents || !reagents.total_volume)
@@ -125,7 +120,6 @@
 	)
 	reagents.reaction(loc)
 	reagents.clear_reagents()
-
 
 /obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -148,7 +142,6 @@
 			span_italics("You hear ratchet."),
 		)
 
-
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	add_fingerprint(user)
 	user.set_machine(src)
@@ -166,7 +159,6 @@
 	var/datum/browser/popup = new(user, "janicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/structure/janitorialcart/Topic(href, href_list)
 	if(!in_range(src, usr))
@@ -212,7 +204,6 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
-
 
 /obj/structure/janitorialcart/update_overlays()
 	. = ..()

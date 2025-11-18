@@ -273,7 +273,7 @@
 		return "Чтобы начать процесс похищения, вы и цель должны находиться в нужной локации."
 
 	contractor.visible_message(
-		span_notice("[contractor] начина[pluralize_ru(contractor.gender, "ет", "ют")] вводить загадочную серию символов в [uplink.declent_ru(ACCUSATIVE)]..."),\
+		span_notice("[contractor] начина[PLUR_ET_YUT(contractor)] вводить загадочную серию символов в [uplink.declent_ru(ACCUSATIVE)]..."),\
 		span_notice("Вы начинаете подавать сигнал для эвакуации своим кураторам через [uplink.declent_ru(ACCUSATIVE)]...")
 	)
 	if(!do_after(contractor, EXTRACTION_PHASE_PREPARE, contractor))
@@ -283,8 +283,8 @@
 	var/obj/effect/contractor_flare/flare = new(get_turf(contractor))
 	extraction_flare = flare
 	extraction_deadline = world.time + extraction_cooldown
-	contractor.visible_message(span_notice("[contractor] ввод[pluralize_ru(contractor.gender, "ит", "ят")] таинственный код в [uplink.declent_ru(ACCUSATIVE)] и доста[pluralize_ru(contractor.gender, "ёт", "ют")] \
-						чёрно-золотую сигнальную ракету, после чего зажига[pluralize_ru(contractor.gender, "ет", "ют")] её."),\
+	contractor.visible_message(span_notice("[contractor] ввод[PLUR_IT_YAT(contractor)] таинственный код в [uplink.declent_ru(ACCUSATIVE)] и доста[PLUR_YOT_YUT(contractor)] \
+						чёрно-золотую сигнальную ракету, после чего зажига[PLUR_ET_YUT(contractor)] её."),\
 						span_notice("Вы завершаете ввод сигнала в [uplink.declent_ru(ACCUSATIVE)] и зажигаете сигнальную ракету, начиная процесс эвакуации."))
 	addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), uplink, contractor, flare), EXTRACTION_PHASE_PORTAL)
 	extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
@@ -317,7 +317,6 @@
 	)
 	// Open a portal
 	launch_extraction_pod(get_turf(flare))
-
 
 // Launch the pod to collect our victim.
 /datum/syndicate_contract/proc/launch_extraction_pod(turf/empty_pod_turf)
@@ -359,7 +358,6 @@
 		return
 
 	return COMPONENT_CLIMB
-
 
 /datum/syndicate_contract/proc/check_target(mob/living/sent_mob)
 
@@ -421,10 +419,9 @@
 		penalty_text = " (штраф применяется, если цель была эвакуирована мёртвой)"
 	owning_hub.contractor_uplink?.message_holder(
 		"Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. " \
-		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[declension_ru(creds, "", "а", "ов")].", \
+		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[DECL_CREDIT(creds)].", \
 		'sound/machines/terminal_prompt_confirm.ogg'
 	)
-
 
 /datum/syndicate_contract/proc/remove_victim_items(mob/living/victim, turf/portal_turf)
 	var/mob/living/carbon/human/human_victim = victim
@@ -533,7 +530,6 @@
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(food_turf)
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 	temp_objs = list(food, drink)
-
 
 #define VICTIM_EXPERIENCE_START 0
 #define VICTIM_EXPERIENCE_FIRST_HIT 1
@@ -657,7 +653,7 @@
 			victim.take_overall_damage(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
-	victim.visible_message(span_notice("[capitalize(victim.declent_ru(NOMINATIVE))] исчеза[pluralize_ru(victim.gender, "ет", "ют")]..."))
+	victim.visible_message(span_notice("[capitalize(victim.declent_ru(NOMINATIVE))] исчеза[PLUR_ET_YUT(victim)]..."))
 	victim.Paralyse(3 SECONDS)
 	victim.EyeBlurry(5 SECONDS)
 	victim.AdjustConfused(5 SECONDS)

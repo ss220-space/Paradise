@@ -13,11 +13,14 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
 	)
 
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
+
+/obj/item/gun/energy/pulse/prize
+	cell_type = /obj/item/stock_parts/cell/pulse/prise
 
 /obj/item/gun/energy/pulse/cyborg
 	attachable_allowed = GUN_MODULE_CLASS_NONE
@@ -37,7 +40,7 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
 	)
 
 /obj/item/gun/energy/pulse/pistol

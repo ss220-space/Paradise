@@ -10,7 +10,7 @@
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
 		/obj/item/gun/magic/wand/resurrection/debug = 1,
 		/obj/item/gun/magic/wand/death/debug = 1,
-		/obj/item/debug/human_spawner = 1
+		/obj/item/debug/human_spawner = 1,
 	)
 	belt = /obj/item/storage/belt/military/abductor/full
 	l_ear = /obj/item/radio/headset/centcom/debug
@@ -30,9 +30,8 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/advanced,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
-		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 	)
-
 
 /datum/outfit/admin/debug/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -75,7 +74,6 @@
 	. = ..()
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = TRUE // yeah, all channels, sure, probably fine
-
 
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
@@ -160,7 +158,6 @@
 
 /obj/item/clothing/glasses/hud/debug/visor_toggling(mob/living/carbon/human/user)
 	return
-
 
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
 	see_in_dark = initial(see_in_dark)
@@ -404,7 +401,7 @@
 	new /obj/item/storage/box/beakers/bluespace(src)
 	new /obj/item/storage/box/debug/material(src)
 	new /obj/item/storage/box/debug/misc_debug(src)
-	new /obj/item/storage/box/centcomofficer(src)
+	new /obj/item/storage/box/survival/centcomofficer(src)
 	new /obj/item/radio/uplink/admin(src)
 
 /obj/item/storage/box/debug/material
@@ -419,7 +416,6 @@
 		INSTRUMENTAL = "коробкой с материалами",
 		PREPOSITIONAL = "коробке с материалами",
 	)
-
 
 /obj/item/storage/box/debug/material/populate_contents()
 	new /obj/item/stack/sheet/metal/fifty(src)

@@ -54,7 +54,7 @@
 			/obj/machinery/door/airlock/syndicate/freezer = "Freezer",
 			/obj/machinery/door/airlock/syndicate/freezer/glass = "Freezer (Glass)",
 			/obj/machinery/door/airlock/hatch = "Airtight Hatch",
-			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch"
+			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch",
 		)
 	if(!length(syndie_door_types_ui_list))
 		for(var/type in syndie_rcd_door_types)

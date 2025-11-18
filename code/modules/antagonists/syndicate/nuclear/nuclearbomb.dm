@@ -41,11 +41,9 @@ GLOBAL_VAR(bomb_set)
 	var/sheets_to_fix = 5
 	var/cinematic_type = STATION_NUKE
 
-
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
 	cinematic_type = SYNDICATE_NUKE
-
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
@@ -58,14 +56,12 @@ GLOBAL_VAR(bomb_set)
 	AddElement(/datum/element/high_value_item)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(core)
 	GLOB.poi_list.Remove(src)
 	return ..()
-
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
@@ -93,7 +89,6 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_FULLY_EXPOSED)
 			. += span_notice("The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].")
 
-
 /obj/machinery/nuclearbomb/update_icon_state()
 	icon_state = initial(icon_state)
 	if(lighthack)
@@ -110,7 +105,6 @@ GLOBAL_VAR(bomb_set)
 	if(!safety)
 		icon_state = "nuclearbomb1"
 
-
 /obj/machinery/nuclearbomb/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -121,7 +115,6 @@ GLOBAL_VAR(bomb_set)
 	if(!lighthack)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask", src)
 
-
 /obj/machinery/nuclearbomb/process()
 	if(timing)
 		GLOB.bomb_set = TRUE // So long as there is one nuke timing, it means one nuke is armed.
@@ -129,7 +122,6 @@ GLOBAL_VAR(bomb_set)
 		if(timeleft <= 0)
 			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
-
 
 /obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -199,7 +191,6 @@ GLOBAL_VAR(bomb_set)
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -504,7 +495,6 @@ GLOBAL_VAR(bomb_set)
 				GLOB.bomb_set = FALSE
 				SSshuttle?.remove_hostile_environment(src)
 
-
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(exploded)
 		return
@@ -576,7 +566,6 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/proc/reset_lighthack_callback()
 	lighthack = !lighthack
 	update_icon()
-
 
 /obj/machinery/nuclearbomb/proc/reset_safety_callback()
 	safety = !safety

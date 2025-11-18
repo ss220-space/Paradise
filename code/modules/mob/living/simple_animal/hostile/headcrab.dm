@@ -117,7 +117,6 @@
 		if(blocks_emissive)
 			add_overlay(get_emissive_block())
 
-
 /mob/living/simple_animal/hostile/headcrab/CanAttack(atom/the_target)
 	if(stat_attack == DEAD && isliving(the_target) && !ishuman(the_target))
 		var/mob/living/L = the_target
@@ -140,7 +139,6 @@
 	speak_emote = list("визжит")
 	crab_head_overlay = "fast_headcrabpod"
 
-
 /mob/living/simple_animal/hostile/headcrab/fast/Zombify(mob/living/carbon/human/H)
 	. = ..()
 	speak = list('sound/creatures/fast_zombie_idle1.ogg','sound/creatures/fast_zombie_idle2.ogg','sound/creatures/fast_zombie_idle3.ogg')
@@ -160,7 +158,6 @@
 	attack_sound = 'sound/creatures/ph_scream1.ogg'
 	speak_emote = list("визжит")
 	crab_head_overlay = "poison_headcrabpod"
-
 
 /mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()
 	. = ..()

@@ -15,7 +15,6 @@
 	/// A list containing every purchasable changeling ability. Includes its name, description, helptext and cost.
 	var/static/list/ability_list = list()
 
-
 /datum/action/changeling/evolution_menu/Grant(mob/M)
 	..()
 	if(length(ability_list))
@@ -30,7 +29,6 @@
 			"cost" = initial(c_power.dna_cost),
 			"power_path" = power_path
 		))
-
 
 /datum/action/changeling/evolution_menu/try_to_sting(mob/user, mob/target)
 	if(!ishuman(user))	// No need to manipulate with the menu while you are not a humanoid
@@ -48,7 +46,6 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-
 /datum/action/changeling/evolution_menu/ui_data(mob/user)
 	var/list/data = list(
 		"can_respec" = cling.can_respec,
@@ -58,13 +55,11 @@
 	)
 	return data
 
-
 /datum/action/changeling/evolution_menu/ui_static_data(mob/user)
 	var/list/data = list(
 		"ability_list" = ability_list
 	)
 	return data
-
 
 /datum/action/changeling/evolution_menu/ui_act(action, list/params)
 	if(..())
@@ -93,7 +88,6 @@
 
 			view_mode = new_view_mode
 			return TRUE
-
 
 /datum/action/changeling/evolution_menu/proc/try_purchase_power(power_type)
 	if(!(power_type in cling.purchaseable_powers))

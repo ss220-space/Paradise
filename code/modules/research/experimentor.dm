@@ -37,16 +37,13 @@
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
 
-
 /obj/machinery/r_n_d/experimentor/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
-
 /obj/machinery/r_n_d/experimentor/LateInitialize()
 	. = ..()
 	console_connect()
-
 
 /obj/machinery/r_n_d/experimentor/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
@@ -91,7 +88,6 @@
 			if(initial(tempCheck.icon_state) != null)
 				critical_items += I
 
-
 /obj/machinery/r_n_d/experimentor/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -131,10 +127,8 @@
 			return FALSE
 	return TRUE
 
-
 /obj/machinery/r_n_d/experimentor/update_icon_state()
 	icon_state = "h_lathe[recentlyExperimented ? "_wloop" : ""]"
-
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
@@ -206,7 +200,6 @@
 	flick("h_lathe_load", src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/r_n_d/experimentor/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -215,7 +208,6 @@
 	if(. && linked_console)
 		linked_console.linked_destroy = null
 		linked_console = null
-
 
 /obj/machinery/r_n_d/experimentor/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -228,7 +220,6 @@
 		return .
 	ejectItem()
 	default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
 	if(..())
@@ -260,7 +251,6 @@
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/machinery/r_n_d/experimentor/proc/matchReaction(matching,reaction)
 	var/obj/item/D = matching
@@ -347,7 +337,6 @@
 	else
 		exp = FAIL
 
-
 /obj/machinery/r_n_d/experimentor/proc/scan_irradiate(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message(span_danger("[src] reflects radioactive rays at [exp_on]!"))
 	if(!isRelict)
@@ -392,7 +381,6 @@
 		qdel(exp_on)
 	else
 		exp = FAIL
-
 
 /obj/machinery/r_n_d/experimentor/proc/scan_gas(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message(span_warning("[src] fills its chamber with gas, [exp_on] included."))
@@ -444,7 +432,6 @@
 		qdel(exp_on)
 	else
 		exp = FAIL
-
 
 /obj/machinery/r_n_d/experimentor/proc/scan_heat(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message("[src] raises [exp_on]'s temperature.")
@@ -509,7 +496,6 @@
 	else
 		exp = FAIL
 
-
 /obj/machinery/r_n_d/experimentor/proc/scan_cold(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message("[src] lowers [exp_on]'s temperature.")
 	if(!isRelict)
@@ -566,7 +552,6 @@
 	else
 		exp = FAIL
 
-
 /obj/machinery/r_n_d/experimentor/proc/scan_obliterate(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message(span_warning("[exp_on] activates the crushing mechanism."))
 	if(!isRelict)
@@ -612,7 +597,6 @@
 		ejectItem(TRUE)
 	else
 		exp = FAIL
-
 
 /obj/machinery/r_n_d/experimentor/proc/experiment(exp, obj/item/exp_on)
 	recentlyExperimented = TRUE
@@ -681,17 +665,14 @@
 
 	addtimer(CALLBACK(src, PROC_REF(reset_machine)), resetTime)
 
-
 /obj/machinery/r_n_d/experimentor/proc/reset_machine()
 	recentlyExperimented = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/r_n_d/experimentor/proc/console_connect()
 	var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(console_dist, src)
 	if(D)
 		linked_console = D
-
 
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())
@@ -760,7 +741,6 @@
 #undef EFFECT_PROB_MEDIUM
 #undef EFFECT_PROB_HIGH
 #undef EFFECT_PROB_VERYHIGH
-
 
 #undef MAX_DUPE_TECH
 #undef MAX_DUPE_COUNT

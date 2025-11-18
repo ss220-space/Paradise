@@ -16,7 +16,6 @@ FALSE if not
 /atom/proc/could_be_click_lag()
 	return world.time - drag_start < 0.1 SECONDS // should be enough to lag
 
-
 /*
 	MouseDrop:
 
@@ -25,24 +24,13 @@ FALSE if not
 	almost anything into a trash can.
 */
 /atom/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	. = TRUE
 	if(!usr || !over_object)
 		return FALSE
 
-	var/lagging = could_be_click_lag()
-	drag_start = 0
-
-	if(!(is_screen_atom(over_object) || (loc && loc == over_object.loc)))
-		if(!Adjacent(usr) || !over_object.Adjacent(usr)) // should stop you from dragging through windows
-			if(lagging)
-				usr.ClickOn(src, params)
-			return FALSE
-
-	var/datum/callback/mousedrop = new(over_object, PROC_REF(MouseDrop_T), src, usr, params)
-	var/result = mousedrop.InvokeAsync() // if it gets TRUE in return, we think that all is fine
-	if(!result && lagging)
-		usr.ClickOn(src, params) // if not, we click object
-
+	base_mouse_drop_handler(over_object, src_location, over_location, params)
 
 /*
 receive a mousedrop
@@ -53,6 +41,59 @@ to inform the game this action was expected and its fine
 */
 /atom/proc/MouseDrop_T(atom/dropping, mob/user, params) // return TRUE if you want to prevent us click the object after it
 	return FALSE
+
+/**
+ * Called when all sanity checks for mouse dropping have passed. Handles adjacency & other sanity checks before delegating the event
+ * down to lower level handlers. Do not override unless you are trying to create hud & screen elements which do not require proximity
+ * or other checks
+ */
+/atom/proc/base_mouse_drop_handler(atom/over, src_location, over_location, params)
+	PROTECTED_PROC(TRUE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	var/mob/user = usr
+
+	if(SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, over, user) & COMPONENT_NO_MOUSEDROP)
+		return
+
+	if(SEND_SIGNAL(over, COMSIG_MOUSEDROPPED_ONTO, src, user, params) & COMPONENT_CANCEL_MOUSEDROPPED_ONTO)
+		return
+
+	// only if both dragged object & receiver agree to do checks do we proceed
+	var/combined_atom_flags = interaction_flags_click | over.interaction_flags_click
+	//Check for adjacency
+	if(!(combined_atom_flags & INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT) && (!CanReach(user) || !over.CanReach(user)))
+		return // should stop you from dragging through windows
+
+	mouse_drop_dragged(over, user, src_location, over_location, params)
+
+	over.mouse_drop_receive(src, user, params)
+
+/// The proc that should be overridden by subtypes to handle mouse drop. Called on the atom being dragged
+/atom/proc/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	PROTECTED_PROC(TRUE)
+
+	var/lagging = could_be_click_lag()
+	drag_start = 0
+
+	if(!(is_screen_atom(over) || (loc && loc == over.loc)))
+		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
+			if(lagging)
+				usr.ClickOn(src, params)
+			return FALSE
+
+	var/datum/callback/mousedrop = new(over, PROC_REF(MouseDrop_T), src, usr, params)
+	var/result = mousedrop.InvokeAsync() // if it gets TRUE in return, we think that all is fine
+	if(!result && lagging)
+		usr.ClickOn(src, params) // if not, we click object
+		return FALSE
+	return TRUE
+
+/// The proc that should be overridden by subtypes to handle mouse drop. Called on the atom receiving a dragged object
+/atom/proc/mouse_drop_receive(atom/dropped, mob/user, params)
+	PROTECTED_PROC(TRUE)
+
+	return
 
 
 /client/MouseDown(datum/object, location, control, params)
@@ -69,7 +110,6 @@ to inform the game this action was expected and its fine
 			Click(selected_target[1], location, control, selected_target[2])
 			sleep(delay)
 
-
 /client/MouseUp(object, location, control, params)
 	if(SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEUP, object, location, control, params) & COMPONENT_CLIENT_MOUSEUP_INTERCEPT)
 		click_intercept_time = world.time
@@ -77,10 +117,8 @@ to inform the game this action was expected and its fine
 		mouse_pointer_icon = mouse_up_icon
 	selected_target[1] = null
 
-
 /mob/proc/CanMobAutoclick(object, location, params)
 	return FALSE
-
 
 /mob/living/carbon/CanMobAutoclick(atom/object, location, params)
 	if(!object.IsAutoclickable())
@@ -89,22 +127,17 @@ to inform the game this action was expected and its fine
 	if(active_item)
 		. = active_item.CanItemAutoclick(object, location, params)
 
-
 /obj/item/proc/CanItemAutoclick(object, location, params)
 	return FALSE
-
 
 /atom/proc/IsAutoclickable()
 	return TRUE
 
-
 /atom/movable/screen/IsAutoclickable()
 	return FALSE
 
-
 /atom/movable/screen/click_catcher/IsAutoclickable()
 	return TRUE
-
 
 /client/MouseDrag(src_object, atom/over_object, src_location, turf/over_location, src_control, over_control, params)
 	var/list/modifiers = params2list(params)
@@ -119,7 +152,6 @@ to inform the game this action was expected and its fine
 		selected_target[2] = params
 	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDRAG, src_object, over_object, src_location, over_location, src_control, over_control, params)
 	return ..()
-
 
 /client/MouseDrop(atom/src_object, atom/over_object, atom/src_location, atom/over_location, src_control, over_control, params)
 	..()

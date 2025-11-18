@@ -10,7 +10,6 @@
 	no_guns = TRUE
 	no_guns_message = "Вы никогда не опуститесь таааак низко, чтобы пользоваться оружием ПОДЛЕЦОВ!"
 
-
 //Highlander Claymore
 //	Grants the wielder the Highlander Style Martial Art
 

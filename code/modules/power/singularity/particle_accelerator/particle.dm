@@ -16,7 +16,6 @@
 	movement_range = 21
 	energy = 50
 
-
 /obj/effect/accelerated_particle/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)
@@ -27,12 +26,10 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	QDEL_IN(src, movement_range)
 
-
 /obj/effect/accelerated_particle/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	try_irradiate(arrived)
-
 
 /obj/effect/accelerated_particle/proc/on_entering(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -42,7 +39,6 @@
 
 	for(var/atom/movable/movable as anything in (destination.contents - src))
 		try_irradiate(movable)
-
 
 /obj/effect/accelerated_particle/proc/try_irradiate(atom/movable/thing)
 	if(isliving(thing))
@@ -55,21 +51,17 @@
 		var/obj/structure/blob/blob = thing
 		blob.take_damage(energy * 0.6)
 
-
 /obj/effect/accelerated_particle/Bump(obj/singularity/bumped_singulo)
 	. = ..()
 	if(. || !istype(bumped_singulo))
 		return .
 	bumped_singulo.energy += energy
 
-
 /obj/effect/accelerated_particle/ex_act(severity, target)
 	qdel(src)
 
-
 /obj/effect/accelerated_particle/singularity_pull()
 	return
-
 
 /obj/effect/accelerated_particle/proc/propagate()
 	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)

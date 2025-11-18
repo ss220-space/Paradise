@@ -30,7 +30,7 @@
 		DATIVE = "Помидору-Убийце",
 		ACCUSATIVE = "Помидора-Убийцу",
 		INSTRUMENTAL = "Помидором-убийцей",
-		PREPOSITIONAL = "Помидоре-убийце"
+		PREPOSITIONAL = "Помидоре-убийце",
 	)
 
 /mob/living/simple_animal/hostile/killertomato/ComponentInitialize()

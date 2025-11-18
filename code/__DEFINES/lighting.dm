@@ -47,7 +47,6 @@
 #define ALPHA_SOURCE_NINJA "ninja"
 #define ALPHA_SOURCE_CLOCKROBE "clockrobe"
 
-
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0
 #define LIGHTING_VIS_UPDATE 1

@@ -8,7 +8,6 @@
 	chemical_cost = 30 //High cost to prevent spam
 	req_human = TRUE
 
-
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
 
@@ -99,7 +98,6 @@
 
 	return TRUE
 
-
 /datum/action/changeling/biodegrade/proc/dissolve_restraint(mob/living/carbon/human/user, obj/restraints)
 	if(QDELETED(user) || QDELETED(restraints))
 		return
@@ -108,7 +106,6 @@
 		user.visible_message(span_warning("[restraints] dissolves into a puddle of sizzling goop."))
 		user.temporarily_remove_item_from_inventory(restraints, force = TRUE)
 		qdel(restraints)
-
 
 /datum/action/changeling/biodegrade/proc/open_closet(mob/living/carbon/human/user, obj/structure/closet/closet)
 	if(QDELETED(user) || QDELETED(closet))
@@ -121,7 +118,6 @@
 		closet.open()
 		closet.visible_message(span_warning("[closet]'s door breaks and opens!"), \
 								span_warning("We open the container restraining us!"))
-
 
 /datum/action/changeling/biodegrade/proc/dissolve_cocoon(mob/living/carbon/human/user, obj/structure/spider/cocoon/cocoon)
 	if(QDELETED(user) || QDELETED(cocoon))

@@ -26,13 +26,11 @@
 	extinguish()
 	update_icon(UPDATE_ICON_STATE)
 
-
-/obj/item/paper_bin/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/paper_bin/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(over_object != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
@@ -42,7 +40,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /obj/item/paper_bin/attack_hand(mob/user)
 	if(ishuman(user))
@@ -83,7 +80,6 @@
 	add_fingerprint(user)
 	return
 
-
 /obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/paper))
 		add_fingerprint(user)
@@ -103,7 +99,6 @@
 
 	return ..()
 
-
 /obj/item/paper_bin/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -112,13 +107,11 @@
 		else
 			. += span_notice("There are no papers in the bin.")
 
-
 /obj/item/paper_bin/update_icon_state()
 	if(amount < 1)
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin[purple_bin ? "2" : "1"]"
-
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"

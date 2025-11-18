@@ -79,7 +79,6 @@
 	var/grille = 0
 	var/mach = 0
 
-
 /datum/station_state/proc/count()
 	for(var/turf/T in block(1,1,1, world.maxx,world.maxy,1))
 
@@ -102,7 +101,6 @@
 				src.r_wall += 2
 			else
 				src.r_wall += 1
-
 
 		for(var/obj/O in T.contents)
 			if(istype(O, /obj/structure/window))

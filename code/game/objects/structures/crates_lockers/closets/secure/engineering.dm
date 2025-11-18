@@ -32,6 +32,7 @@
 	new /obj/item/storage/bag/construction(src)
 	new /obj/item/storage/belt/utility/chief/full(src)
 	new /obj/item/gun/energy/gun/mini(src)
+	new /obj/item/clothing/accessory/holster(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
@@ -52,7 +53,6 @@
 	new /obj/item/multitool(src)
 	new /obj/item/clothing/head/beret/eng
 
-
 /obj/structure/closet/secure_closet/engineering_welding
 	name = "welding supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
@@ -66,7 +66,6 @@
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/weldingtool/largetank(src)
-
 
 /obj/structure/closet/secure_closet/engineering_personal
 	name = "engineer's locker"
@@ -91,7 +90,6 @@
 	new /obj/item/clothing/head/hardhat/orange(src)
 	new /obj/item/storage/bag/construction(src)
 	new /obj/item/storage/bag/construction(src)
-
 
 /obj/structure/closet/secure_closet/atmos_personal
 	name = "technician's locker"

@@ -23,7 +23,6 @@
 	if(!destination && !QDELETED(src))
 		stack_trace("Slime moved to null space")
 
-
 /mob/living/simple_animal/slime/proc/AIprocess()  // the master AI process
 
 	if(AIproc || stat || client)
@@ -104,7 +103,6 @@
 
 	AIproc = 0
 
-
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
 		return
@@ -127,7 +125,6 @@
 
 	else
 		Tempstun = 0
-
 
 /mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
 	var/temperature = current
@@ -219,7 +216,6 @@
 
 	//Heal yourself.
 	heal_damage_type(3 + round(nutrition_rand / 4))
-
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 

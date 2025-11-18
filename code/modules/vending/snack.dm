@@ -61,7 +61,7 @@
 		DATIVE = "торговому автомату Getmore Chocolate Corp",
 		ACCUSATIVE = "торговый автомат Getmore Chocolate Corp",
 		INSTRUMENTAL = "торговым автоматом Getmore Chocolate Corp",
-		PREPOSITIONAL = "торговом автомате Getmore Chocolate Corp"
+		PREPOSITIONAL = "торговом автомате Getmore Chocolate Corp",
 	)
 
 /obj/machinery/vending/snack/free

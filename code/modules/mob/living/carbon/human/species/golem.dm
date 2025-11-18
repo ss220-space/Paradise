@@ -1,3 +1,6 @@
+#define GOLEM_END_PR_1(gender) UNLINT(genderize_ru(gender, "ый", "ая", "ое", "ые"))
+#define GOLEM_END_PR_2(gender) UNLINT(genderize_ru(gender, "ой", "ая", "ое", "ые"))
+
 GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem
@@ -119,7 +122,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	/// Time required to perform self-healing (2 seconds)
 	var/self_heal_delay = 2 SECONDS
 
-
 /**
  * Generates a random name for a golem
  *
@@ -176,9 +178,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	var/end_pr
 	switch(prefix_type)
 		if(1)
-			end_pr = genderize_ru(gender_name,"ый","ая","ое","ые") // Male, Female, Neuter, Plural endings
+			end_pr = GOLEM_END_PR_1(gender_name) // Male, Female, Neuter, Plural endings
 		if(2)
-			end_pr = genderize_ru(gender_name,"ой","ая","ое","ые")
+			end_pr = GOLEM_END_PR_2(gender_name)
 		if(3)
 			end_pr = ""
 
@@ -209,14 +211,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	. = ..()
 	human.RemoveElement(/datum/element/material_heal)
 
-
 /datum/species/golem/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
 
-
 /datum/species/golem/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN
-
 
 /// Returns a list of material types required for healing
 /datum/species/golem/proc/get_heal_material_types()
@@ -235,7 +234,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		GLOB.cached_heal_materials[type] = heal_materials
 		return heal_materials
 	return
-
 
 //Random Golem
 
@@ -338,14 +336,12 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		H.adjust_fire_stacks(1)
 	..()
 
-
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/ignite/ignite = locate() in H.actions
 	if(!ignite)
 		ignite = new
 		ignite.Grant(H)
-
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -357,7 +353,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/ore/plasma,
 		/obj/item/stack/sheet/mineral/plasma,
 	)
-
 
 /datum/action/innate/ignite
 	name = "Поджог"
@@ -583,7 +578,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_LAVA_IMMUNE,
 	)
 
-
 /datum/species/golem/plastitanium/get_heal_material_types()
 	return list(
 		/obj/item/stack/ore/titanium,
@@ -620,7 +614,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	amount_required_for_heal = 1
 	self_heal_delay = 1 SECONDS
 
-
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/human)
 	var/update = NONE
@@ -630,7 +623,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	if(update)
 		human.updatehealth()
-
 
 /datum/species/golem/alloy/can_understand(mob/other) // Can understand everyone, but they can only speak over their mindlink
 	return TRUE
@@ -831,7 +823,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	self_heal_delay = 1 SECONDS
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message(span_danger("[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!"))
+	H.visible_message(span_danger("[H] рассыпал[GEND_SYA_AS_OS_IS(H)] в кучу песка!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -888,7 +880,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, SFX_SHATTER, 70, TRUE)
-	H.visible_message(span_danger("[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!"))
+	H.visible_message(span_danger("[H] разбил[GEND_SYA_AS_OS_IS(H)] в дребезги!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -946,7 +938,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	self_heal_delay = 1 SECONDS
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -981,18 +973,15 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
-
 /datum/species/golem/bluespace/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
 	. = ..()
 	if(world.time > last_teleport + teleport_cooldown && defender != attacker && reactive_teleport(defender))
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 
-
 /datum/species/golem/bluespace/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
 	return TRUE
-
 
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -1001,7 +990,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		unstable_teleport = new
 		unstable_teleport.Grant(H)
 		last_teleport = world.time
-
 
 /datum/species/golem/bluespace/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -1014,7 +1002,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/sheet/bluespace_crystal,
 	)
 
-
 /datum/action/innate/unstable_teleport
 	name = "Нестабильный телепорт"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
@@ -1024,7 +1011,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	var/last_teleport = 0
 	var/tele_range = 6
 
-/datum/action/innate/unstable_teleport/IsAvailable()
+/datum/action/innate/unstable_teleport/IsAvailable(feedback = FALSE)
 	if(..())
 		if(world.time > last_teleport + cooldown && !activated)
 			return 1
@@ -1039,7 +1026,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы телепортировались!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы телепортировались!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(isspaceturf(T))
@@ -1085,8 +1072,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
-		NEUTER = null
-		)
+		NEUTER = null,
+	)
 	unarmed_type = /datum/unarmed_attack/golem/bananium
 	default_genes = list(/datum/dna/gene/disability/comic)
 
@@ -1100,7 +1087,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	amount_required_for_heal = 2
 	self_heal_delay = 1 SECONDS
 
-
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	last_banana = world.time
@@ -1109,19 +1095,16 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
 
-
 /datum/species/golem/bananium/handle_dna(mob/living/carbon/human/H, remove = FALSE)
 	H.force_gene_block(GLOB.comicblock, !remove, TRUE, TRUE)
-
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.RemoveElement(/datum/element/waddling)
 
-
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)
-	var/golem_name = "[prefix][genderize_ru(gender_name,"ый","ая","ое","ые")] [clown_name]"
+	var/golem_name = "[prefix][GOLEM_END_PR_1(gender_name)] [clown_name]"
 	return golem_name
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
@@ -1130,13 +1113,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-
 /datum/species/golem/bananium/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
 	. = ..()
 	if(world.time > last_banana + banana_cooldown && defender != attacker)
 		new /obj/item/grown/bananapeel/specialpeel(get_turf(defender))
 		last_banana = world.time
-
 
 /datum/species/golem/bananium/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)
@@ -1191,8 +1172,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
-		NEUTER = null
-		)
+		NEUTER = null,
+	)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
 	info_text = "Будучи <span class='danger'>транквилитовым големом</span>, вы можете создавать невидимые стены и регенерировать, выпивая бутылки с ничем."
@@ -1203,7 +1184,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem/tranquillite/get_random_name()
 	var/mime_name = pick(GLOB.mime_names)
-	var/golem_name = "[prefix][genderize_ru(gender_name,"ый","ая","ое","ые")] [mime_name]"
+	var/golem_name = "[prefix][GOLEM_END_PR_1(gender_name)] [mime_name]"
 	return golem_name
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
@@ -1225,7 +1206,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
 
-
 /**
  * Clockwork Golem - Servant of Ratvar
  *
@@ -1242,7 +1222,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
 		FEMALE = list("Дева"),
-		NEUTER = null
+		NEUTER = null,
 	)
 	speed_mod = 0
 	chance_name_male = 70
@@ -1269,3 +1249,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	return list(
 		/obj/item/stack/sheet/brass,
 	)
+
+#undef GOLEM_END_PR_1
+#undef GOLEM_END_PR_2

@@ -31,10 +31,8 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/Shutdown()
 	close_all_uis()
 
-
 /datum/controller/subsystem/tgui/get_stat_details()
 	return "P:[length(open_uis)]"
-
 
 /datum/controller/subsystem/tgui/fire(resumed = FALSE)
 	if(!resumed)
@@ -354,7 +352,6 @@ SUBSYSTEM_DEF(tgui)
 	// Clear the old list.
 	source.tgui_open_uis.Cut()
 	return TRUE
-
 
 /datum/controller/subsystem/tgui/OnConfigLoad()
 	var/storage_iframe = CONFIG_GET(string/storage_cdn_iframe)

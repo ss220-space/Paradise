@@ -14,7 +14,6 @@
 	var/volume_rate = 50
 	var/id
 
-
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = 1
 
@@ -148,7 +147,6 @@
 			icon_state = "[i == 1 && issimulatedturf(loc) ? "h" : "" ]exposed"
 			on = 0
 		return*/
-
 
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/user, obj/item/I)
 	. = TRUE

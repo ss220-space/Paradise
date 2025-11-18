@@ -5,7 +5,6 @@
 		skip_catch = !throw_item.allowed_for_alien()
 	..(AM, skip_catch, FALSE, blocked, throwingdatum)
 
-
 /// Alien attack another alien
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
 	switch(M.a_intent)
@@ -40,7 +39,6 @@
 			adjustBruteLoss(M.attack_damage)
 			add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 
-
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..() && L.a_intent == INTENT_HARM)
 		adjustBruteLoss(L.attack_damage)
@@ -61,13 +59,11 @@
 			return 1
 	return 0
 
-
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		apply_damage(damage, M.melee_damage_type)
-
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
 	return 0 //aliens are immune to acid.
@@ -79,7 +75,6 @@
 			damage = rand(10 + M.age_state.damage, 40 + M.age_state.damage)
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
-
 
 /mob/living/carbon/xenomorph/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	. = ..()

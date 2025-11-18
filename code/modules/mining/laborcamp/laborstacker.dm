@@ -11,7 +11,6 @@
 	var/obj/item/card/id/prisoner/inserted_id
 	var/obj/machinery/door/airlock/release_door
 	var/door_tag = "prisonshuttle"
-	var/obj/item/radio/intercom/announcer
 	var/static/list/sheet_values
 
 /obj/machinery/mineral/labor_claim_console/get_ru_names()
@@ -21,13 +20,11 @@
 		DATIVE = "консоли учета добытой руды",
 		ACCUSATIVE = "консоль учета добытой руды",
 		INSTRUMENTAL = "консолью учета добытой руды",
-		PREPOSITIONAL = "консоли учета добытой руды"
+		PREPOSITIONAL = "консоли учета добытой руды",
 	)
 
 /obj/machinery/mineral/labor_claim_console/Initialize(mapload)
 	. = ..()
-	announcer = new /obj/item/radio/intercom(null)
-	announcer.follow_target = src
 
 	if(!sheet_values)
 		for(var/sheet_type in subtypesof(/obj/item/stack/sheet))
@@ -36,14 +33,6 @@
 				continue
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
 		sheet_values = sortTim(sheet_values, cmp = /proc/cmp_sheet_list)
-
-/obj/machinery/mineral/labor_claim_console/Destroy()
-	. = ..()
-	QDEL_NULL(announcer)
-
-/proc/cmp_sheet_list(list/a, list/b)
-	return a["value"] - b["value"]
-
 
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -62,7 +51,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
 	if(..())
@@ -137,7 +125,7 @@
 					else
 						if(!emagged)
 							var/message = "[inserted_id.registered_name] вернулся на станцию. Минералы и ID-карта заключенного готовы к выдаче."
-							announcer.autosay(message, "Labor Camp Controller", SEC_FREQ_NAME)
+							radio_announce(message, "Labor Camp Controller", SEC_FREQ, src)
 						to_chat(usr, span_notice("Сообщение получено, шаттл будет отправлен в ближайшее время."))
 						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 
@@ -154,7 +142,6 @@
 		if(user)
 			to_chat(user, span_warning("PZZTTPFFFT"))
 
-
 /**********************Prisoner Collection Unit**************************/
 /obj/machinery/mineral/stacking_machine/laborstacker
 	damage_deflection = 21
@@ -163,7 +150,6 @@
 /obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)
 	points += inp.point_value * inp.amount
 	..()
-
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -176,7 +162,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker
@@ -193,7 +178,7 @@
 		DATIVE = "консоли проверки очков",
 		ACCUSATIVE = "консоль проверки очков",
 		INSTRUMENTAL = "консолью проверки очков",
-		PREPOSITIONAL = "консоли проверки очков"
+		PREPOSITIONAL = "консоли проверки очков",
 	)
 
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
@@ -201,7 +186,6 @@
 	if(.)
 		return
 	user.examinate(src)
-
 
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

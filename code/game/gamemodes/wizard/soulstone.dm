@@ -66,7 +66,6 @@
 		A.death()
 	return ..()
 
-
 /obj/item/soulstone/update_name(updates = ALL)
 	. = ..()
 	var/mob/living/simple_animal/shade/shade = locate() in src
@@ -74,7 +73,6 @@
 		name = "soulstone: [shade.name]"
 	else
 		name = initial(name)
-
 
 /obj/item/soulstone/update_icon_state()
 	if(purified)
@@ -87,7 +85,6 @@
 	var/mob/living/simple_animal/shade/shade = locate() in src
 	if(shade)
 		icon_state = icon_state_full
-
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -176,7 +173,6 @@
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
 
-
 /obj/item/soulstone/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -237,7 +233,6 @@
 
 	return ..()
 
-
 /obj/item/soulstone/attack_self(mob/living/user)
 	if(!in_range(src, user))
 		return
@@ -280,7 +275,6 @@
 		. += span_cultitalic("A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.")
 		. += span_cultitalic("A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.")
 
-
 /obj/structure/constructshell/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -297,22 +291,18 @@
 
 	return ..()
 
-
 /obj/structure/constructshell/holy
 	name = "empty holy shell"
 	icon_state = "construct-holy"
 	desc = "A holy machine used by those who are pure in soul and mind. It is inactive."
 	var/defiled = FALSE
 
-
 /obj/structure/constructshell/holy/update_icon_state()
 	icon_state = defiled ? "construct-cult" : initial(icon_state)
-
 
 /obj/structure/constructshell/holy/update_name(updates = ALL)
 	. = ..()
 	name = defiled ? "empty shell" : initial(name)
-
 
 /obj/structure/constructshell/holy/update_desc(updates = ALL)
 	. = ..()
@@ -320,7 +310,6 @@
 		desc = initial(desc)
 		return
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive."
-
 
 /obj/structure/constructshell/holy/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -363,7 +352,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 /obj/item/soulstone/proc/transfer_soul(choice, target, mob/living/user)
@@ -468,7 +456,6 @@
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
 
-
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
 		var/datum/action/innate/cult/check_progress/D = new
@@ -494,7 +481,7 @@
 		smoke.start()
 
 	C.faction |= "\ref[user]"
-	C.key = target.key
+	C.possess_by_player(target.key)
 	if(user && iscultist(user) || cult_override)
 		SSticker.mode.add_cultist(C.mind)
 		SSticker.mode.update_cult_icons_added(C.mind)
@@ -510,7 +497,7 @@
 
 	S.name = "Shade of [M.real_name]"
 	S.real_name = "Shade of [M.real_name]"
-	S.key = M.key
+	S.possess_by_player(M.key)
 	S.cancel_camera()
 
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
@@ -575,6 +562,6 @@
 		return FALSE
 	if(length(contents)) //If they used the soulstone on someone else in the meantime
 		return FALSE
-	M.ckey = chosen_ghost.ckey
+	M.possess_by_player(chosen_ghost.ckey)
 	init_shade(M, user)
 	return TRUE

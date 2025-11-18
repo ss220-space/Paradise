@@ -1,3 +1,6 @@
+//Recoil for mob hit
+GLOBAL_DATUM_INIT(mob_hit_recoil, /datum/gun_recoil, GUN_RECOIL_LOW)
+
 /datum/gun_recoil
 	/// Recoil strength in tile size (32 pixels)
 	var/strength
@@ -46,7 +49,7 @@
 	recoil_camera(user, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)
 
 /proc/recoil_camera(mob/user, strength, duration, backtime_duration, angle)
-	if(!user || !user.client)
+	if(!user || !istype(user) || !user.client)
 		return
 	var/client/sufferer = user.client
 	strength *= ICON_SIZE_ALL

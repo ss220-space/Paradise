@@ -18,28 +18,22 @@
 
 /obj/item/pod_paint_bucket
 	name = "space pod paintkit"
-	ru_names = list(
+	desc = "Pimp your ride"
+	icon_state = "paint_red"
+
+/obj/item/pod_paint_bucket/get_ru_names()
+	return list(
 		NOMINATIVE = "набор для покраски челнока",
 		GENITIVE = "набора для покраски челнока",
 		DATIVE = "набору для покраски челнока",
 		ACCUSATIVE = "набор для покраски челнока",
 		INSTRUMENTAL = "набором для покраски челнока",
-		PREPOSITIONAL = "наборе для покраски челнока"
+		PREPOSITIONAL = "наборе для покраски челнока",
 	)
-	desc = "Pimp your ride"
-	icon_state = "paint_red"
 
 /obj/spacepod
 	name = "space pod"
 	desc = "Космический челнок, предназначенный для путешествий в открытом космосе."
-	ru_names = list(
-		NOMINATIVE = "космический челнок",
-		GENITIVE = "космического челнока",
-		DATIVE = "космическому челноку",
-		ACCUSATIVE = "космический челнок",
-		INSTRUMENTAL = "космическим челноком",
-		PREPOSITIONAL = "космическом челноке"
-	)
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = TRUE //Dense. To raise the heat.
 
@@ -103,6 +97,16 @@
 	var/datum/action/innate/pod/pod_fire/fire_action = new
 	var/datum/action/innate/pod/pod_misc/misc_action = new
 
+/obj/spacepod/get_ru_names()
+	return list(
+		NOMINATIVE = "космический челнок",
+		GENITIVE = "космического челнока",
+		DATIVE = "космическому челноку",
+		ACCUSATIVE = "космический челнок",
+		INSTRUMENTAL = "космическим челноком",
+		PREPOSITIONAL = "космическом челноке",
+	)
+
 /obj/spacepod/proc/apply_paint(mob/user)
 	var/part_type
 	if(!can_paint)
@@ -161,7 +165,6 @@
 	ion_trail.set_up(src)
 	ion_trail.start()
 
-
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)
@@ -181,11 +184,9 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/spacepod/process()
 	give_air()
 	regulate_temp()
-
 
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
@@ -223,7 +224,6 @@
 		add_overlay(pod_overlays[DAMAGE])
 		if(health <= round(initial(health)/4))
 			add_overlay(pod_overlays[FIRE_OLAY])
-
 
 	light_color = icon_light_color[src.icon_state]
 
@@ -276,7 +276,7 @@
 		deal_damage(user.obj_damage)
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
 		to_chat(user, span_warning("Вы наносите удар по [declent_ru(DATIVE)]!"))
-		visible_message(span_warning("[capitalize(user)] пробива[pluralize_ru(user.gender, "ет", "ют")] броню [declent_ru(GENITIVE)]"))
+		visible_message(span_warning("[capitalize(user)] пробива[PLUR_ET_YUT(user)] броню [declent_ru(GENITIVE)]"))
 
 /obj/spacepod/attack_tk()
 	return
@@ -313,7 +313,6 @@
 	if(health)
 		health = min(initial(health), health + repair_amount)
 		update_icons()
-
 
 /obj/spacepod/ex_act(severity, target)
 	occupant_sanity_check()
@@ -364,7 +363,6 @@
 		return
 	for(var/mob/M in passengers | pilot)
 		to_chat(M, mymessage)
-
 
 /obj/spacepod/attackby(obj/item/I, mob/user, params)
 	var/cached_damage = I.force
@@ -466,7 +464,6 @@
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		deal_damage(cached_damage)
 
-
 /obj/spacepod/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return
@@ -496,7 +493,6 @@
 		repair_damage(10)
 		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [I.declent_ru(GENITIVE)]."))
 
-
 /obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
 		to_chat(user, span_warning("В слоте \"[slot]\" уже есть оборудование!"))
@@ -511,7 +507,6 @@
 	max_passengers += SPE.occupant_mod
 	cargo_hold.storage_slots += SPE.storage_mod["slots"]
 	cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
-
 
 /obj/spacepod/attack_hand(mob/user)
 	if(user.a_intent == INTENT_GRAB && unlocked)
@@ -594,7 +589,6 @@
 		if("Locator System")
 			remove_equipment(user, equipment_system.locator_system, "locator_system")
 
-
 /obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 
 	if(length(passengers) > max_passengers - SPE.occupant_mod)
@@ -623,7 +617,6 @@
 	SPE.my_atom = null
 	equipment_system.vars[slot] = null
 
-
 /obj/spacepod/hear_talk(mob/M, list/message_pieces)
 	cargo_hold.hear_talk(M, message_pieces)
 	..()
@@ -651,7 +644,6 @@
 	icon_state = "pod_civ"
 	desc = "Стильный гражданский космический челнок."
 
-
 /obj/spacepod/civilian/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -662,7 +654,6 @@
 
 	return ..()
 
-
 /obj/spacepod/random
 	icon_state = "pod_civ"
 // placeholder
@@ -670,35 +661,38 @@
 /obj/spacepod/sec
 	name = "security spacepod"
 	desc = "Бронированный челнок службы безопасности с усиленной бронёй."
-	ru_names = list(
+	icon_state = "pod_dece"
+	health = 600
+
+/obj/spacepod/sec/get_ru_names()
+	return list(
 		NOMINATIVE = "космический челнок охраны",
 		GENITIVE = "космического челнока охраны",
 		DATIVE = "космическому челноку охраны",
 		ACCUSATIVE = "космический челнок охраны",
 		INSTRUMENTAL = "космическим челноком охраны",
-		PREPOSITIONAL = "космическом челноке охраны"
+		PREPOSITIONAL = "космическом челноке охраны",
 	)
-	icon_state = "pod_dece"
-	health = 600
 
 /obj/spacepod/syndi
 	name = "syndicate spacepod"
 	desc = "Челнок, окрашенный в цвета Синдиката."
-	ru_names = list(
+	icon_state = "pod_synd"
+	health = 400
+	unlocked = FALSE
+
+/obj/spacepod/syndi/get_ru_names()
+	return list(
 		NOMINATIVE = "космический челнок Синдиката",
 		GENITIVE = "космического челнока Синдиката",
 		DATIVE = "космическому челноку Синдиката",
 		ACCUSATIVE = "космический челнок Синдиката",
 		INSTRUMENTAL = "космическим челноком Синдиката",
-		PREPOSITIONAL = "космическом челноке Синдиката"
+		PREPOSITIONAL = "космическом челноке Синдиката",
 	)
-	icon_state = "pod_synd"
-	health = 400
-	unlocked = FALSE
 
 /obj/spacepod/syndi/unlocked
 	unlocked = TRUE
-
 
 /obj/spacepod/sec/Initialize(mapload)
 	. = ..()
@@ -825,7 +819,7 @@
 				to_chat(user, span_danger("<b>Этот человек не может управлять челноком!</b>"))
 				return .
 			if(length(passengers) < max_passengers)
-				visible_message(span_danger("[user.name] начина[pluralize_ru(user.gender,"ет","ют")] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
+				visible_message(span_danger("[user.name] начина[PLUR_ET_YUT(user)] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
 				if(do_after(user, 5 SECONDS, dropping))
 					moved_other_inside(dropping)
 			return .
@@ -835,7 +829,6 @@
 
 	else if(isobj(dropping))
 		load_cargo(user, dropping)
-
 
 /obj/spacepod/proc/load_cargo(mob/user, obj/object)
 	var/obj/item/spacepod_equipment/cargo/cargo = equipment_system.cargo_system
@@ -861,7 +854,6 @@
 	else
 		balloon_alert(user, "нет места!")
 
-
 /obj/spacepod/proc/enter_pod(mob/user)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
@@ -885,7 +877,6 @@
 
 	move_inside(user)
 	return TRUE
-
 
 /obj/spacepod/proc/move_inside(mob/living/user)
 	if(!istype(user))
@@ -967,7 +958,6 @@
 	else
 		unlocked = !unlocked
 		to_chat(user, span_warning("Вы [unlocked ? "разблокировали" : "заблокировали"] двери."))
-
 
 /obj/spacepod/proc/toggleDoors(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -1101,7 +1091,7 @@
 
 /datum/action/innate/pod
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	var/obj/spacepod/pod
 
 /datum/action/innate/pod/Grant(mob/living/L, obj/spacepod/S)
@@ -1210,11 +1200,9 @@
 				else //just delete the cabin gas, we're in space or some shit
 					qdel(removed)
 
-
 // it looks really good with default Process_Spacemove and newtonian movement actually, should make a button to turn it on/off
 /obj/spacepod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE	// obviously
-
 
 /obj/spacepod/relaymove(mob/user, direction)
 	if(!COOLDOWN_FINISHED(src, spacepod_move_cooldown))
@@ -1233,7 +1221,7 @@
 		to_chat(user, span_warning("Батарея не обнаружена."))
 		. = FALSE
 	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
-		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] секунд[pluralize_ru(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
+		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] [DECL_SEC_MIN(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
 		. = FALSE
 	else if(!battery.use(1))
 		to_chat(user, span_warning("Недостаточно энергии."))
@@ -1264,7 +1252,6 @@
 			for(var/obj/item/item in pod_loc.contents)
 				equipment_system.cargo_system.passover(item)
 
-
 //// Damaged spacepod
 /obj/spacepod/civilian/damaged
 	desc = "Сильно поврежденный челнок."
@@ -1273,7 +1260,6 @@
 	. = ..()
 	deal_damage(200)
 	update_icon()
-
 
 #undef DAMAGE
 #undef FIRE_OLAY

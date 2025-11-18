@@ -29,7 +29,6 @@
 	track.cameras = T
 	return T
 
-
 /mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
 	set category = STATPANEL_AICOMMANDS
 	set name = "Список камер"
@@ -235,7 +234,6 @@
 	if(!src.can_use())
 		return
 	user.eyeobj.setLoc(get_turf(src))
-
 
 /mob/living/silicon/ai/attack_ai(mob/user)
 	ai_camera_list()

@@ -50,10 +50,8 @@
 	icon_state = "paper_bin1"
 	item_state = "sheet-metal"
 
-
 /obj/item/form_printer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/form_printer/afterattack(atom/target, mob/living/user, flag, params)
 	if(!target || !flag)
