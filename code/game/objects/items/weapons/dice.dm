@@ -339,11 +339,11 @@
 	var/turf/T = get_turf(src)
 	switch(roll)
 		if(1)
+			//Damnation. This person never existed
 			Damnation(user)
 		if(2)
-			//Death
-			T.visible_message(span_userdanger("[user] внезапно умира[PLUR_ET_YUT(user)]!"))
-			user.death()
+			//100 Brute damage and ripping organs off
+			Butcher(user)
 		if(3)
 			//Swarm of creatures
 			T.visible_message(span_userdanger("Рой опасных существ окружает [user]!"))
@@ -497,3 +497,20 @@
 			messages.Add(user.prepare_announce_objectives(FALSE))
 			to_chat(user.current, chat_box_red(messages.Join("<br>")))
 			SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
+
+/obj/item/dice/d20/fate/proc/Butcher(mob/living/carbon/human/butchered)
+	var/obj/item/organ/external/body = butchered.get_organ(BODY_ZONE_CHEST)
+	body.droplimb()
+	butchered.adjustBruteLoss(100, def_zone = BODY_ZONE_CHEST)
+	if(ismachineperson(Butcher))
+		butchered.visible_message(
+			span_userdanger("Корпус [butchered] разваливается на части, и [GEND_HIS_HER(butchered)] компоненты вываливаются наружу!"),
+			span_userdanger("Вы не успели инчего осознать, как ваши части вывалились наружу."),
+			span_userdanger("Вы слышите звук вываливающихся запчастей и разрывающихся проводов.")
+		)
+		return
+	butchered.visible_message(
+		span_userdanger("Тонкая красная линия появляется на груди [butchered], и спустя мгновение [GEND_HIS_HER(butchered)] органы вываливаются наружу!"),
+		span_userdanger("Вы не успели инчего осознать, как ваши органы вывалились наружу."),
+		span_userdanger("Вы слышите звук вываливающихся органов.")
+	)
