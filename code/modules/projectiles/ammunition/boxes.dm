@@ -456,7 +456,7 @@
 /obj/item/ammo_box/c45colt
 	name = "ammo box (.45 Colt)"
 	desc = "Коробка, содержащая патроны калибра .45 Colt."
-	icon_state = "box_с45colt"
+	icon_state = "box_c45colt"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45colt
 	max_ammo = 30
