@@ -8,13 +8,18 @@
 	belt_icon = "handheld_defibrillator"
 	var/icon_base = "defib"
 	var/icon_mode = "passive"
+	/// Can defib peretrate through hardsuits and etc.
 	var/shield_ignore = FALSE
 	var/cooldown = FALSE
+	/// ~10 seconds
 	var/charge_time = 100
+	/// becomes TRUE for 1 second when used, changes the icon and is the delay between uses in advanced defib
 	var/shocking = FALSE
 	/// Affects the success rate of defibrillation
 	var/is_advanced = FALSE
+	/// Current number of charges
 	var/charges = 1
+	/// Maximum number of charges to which restoration occurs
 	var/max_charges = 1
 
 
@@ -81,7 +86,7 @@
 		playsound(get_turf(src), 'sound/weapons/egloves.ogg', 75, TRUE)
 		if(!blocked)
 			if(H.stat == DEAD)
-				H.balloon_alert(H, "цель не реагирует!")
+				H.balloon_alert(user, "цель не реагирует!")
 			if(H.stat != DEAD)
 				H.set_heartattack(FALSE)
 				var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
@@ -89,10 +94,10 @@
 					if(total_damage >= 90)
 						balloon_alert(user, "цель слишком ранена!")
 					if((prob(66)) || (is_advanced))
-						H.balloon_alert(user, "дефибрилляция успешна!")
+						H.balloon_alert(user, "дефибрилляция успешна")
 						H.adjustOxyLoss(-50)
 					else
-						H.balloon_alert(H, "цель не реагирует!")
+						H.balloon_alert(user, "цель не реагирует!")
 
 				H.AdjustKnockdown(4 SECONDS)
 				H.AdjustStuttering(20 SECONDS)
@@ -124,8 +129,8 @@
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"
 	desc = "Компактное устройство матово-чёрного цвета, используемое для экстренной кардиостимуляции. \
-		За счёт интеграции конденсаторов нового поколения скорость перезарядки была увеличена втрое по сравнению со стандартной моделью. \
-		Специализированная боевая версия, используемая элитными тактическими отрядами \"Синдиката\"."
+			За счёт интеграции конденсаторов нового поколения скорость перезарядки была увеличена втрое по сравнению со стандартной моделью. \
+			Специализированная боевая версия, используемая элитными тактическими отрядами \"Синдиката\"."
 	icon_state = "syndie_defib_passive-on"
 	item_state = "syndie_defib_passive"
 	icon_base = "syndie_defib"
@@ -145,8 +150,8 @@
 /obj/item/handheld_defibrillator/advanced
 	name = "advanced handheld defibrillator"
 	desc = "Компактное устройство тёмно-синего цвета с противоударными вставками, предназначенное для экстренной кардиостимуляции. \
-		Использование продвинутых конденсаторов и энергомодуля нового поколения позволило повысить скорость перезарядки батареи, \
-		а также увеличить её максимальную вместимость до трёх зарядов."
+			Использование продвинутых конденсаторов и энергомодуля нового поколения позволило повысить скорость перезарядки батареи, \
+			а также увеличить её максимальную вместимость до трёх зарядов."
 	icon_state = "adv_defib_passive-3"
 	item_state = "adv_defib_passive"
 	icon_base = "adv_defib"

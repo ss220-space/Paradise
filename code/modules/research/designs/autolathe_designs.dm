@@ -652,7 +652,7 @@
 	name = "Handheld Defibrillator"
 	id = "handheld_defibrillator"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 200, MAT_GLASS = 200)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
 	build_path = /obj/item/handheld_defibrillator
 	category = list("initial", "Medical")
 
