@@ -34,6 +34,13 @@
 /// Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS (1<<11)
 
+// Bypass all adjacency checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<12)
+/// Bypass all can_perform_action checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY (1<<13)
+/// Bypass all adjacency and other checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS (INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT | INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY)
+
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
 #define UPDATE_NAME (1<<0)

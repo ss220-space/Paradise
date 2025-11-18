@@ -3,8 +3,6 @@
 	desc = "Toggles stealth mode on and off. Passively encrease suit energy consumption."
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 15 SECONDS
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "ninja_cloak"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"

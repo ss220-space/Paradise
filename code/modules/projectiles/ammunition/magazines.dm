@@ -239,6 +239,7 @@
 /obj/item/ammo_box/magazine
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
+	use_bullet_type_overlay = TRUE
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"

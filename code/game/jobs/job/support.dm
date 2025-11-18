@@ -114,7 +114,7 @@
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
-	box = /obj/item/storage/box/survival_mining
+	box = /obj/item/storage/box/survival/survival_mining
 
 /datum/outfit/job/mining/equipped
 	toggle_helmet = TRUE
@@ -400,7 +400,7 @@
 	for(var/level in 0 to donor_level)
 		available_voices += SStts.tts_seeds_names_by_donator_levels["[level]"]
 
-/datum/action/innate/mimicking/Trigger(left_click)
+/datum/action/innate/mimicking/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 	ui_interact(owner)

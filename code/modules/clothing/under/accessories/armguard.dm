@@ -214,7 +214,7 @@
 	var/reload_icon = "armguard_reload"
 	name = "Скрытый клинок"
 
-/datum/action/armguard_hidden_blade/Trigger(left_click)
+/datum/action/armguard_hidden_blade/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 	var/mob/user = usr

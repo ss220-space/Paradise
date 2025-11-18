@@ -225,7 +225,7 @@
 /datum/action/innate/produce_pheromones
 	name = "Создать феромоны"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "kidan_pheromones_static"
 
 	/// How long our message can be (characters)
