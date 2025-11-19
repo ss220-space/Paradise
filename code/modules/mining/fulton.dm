@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/extraction_pack/proc/check_use_pack(atom/movable/target, mob/living/carbon/human/user)
 	if(!safe_for_living_creatures && check_for_living_mobs(target))
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] небезопас[GEND_EN_NA_NO_NY(src)] для живых существ — они не переживут транспортировку!"))
+		balloon_alert(user, "не подходит для существ!")
 		return FALSE
 	if(!isturf(target.loc)) // no extracting stuff inside other stuff
 		return FALSE

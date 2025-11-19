@@ -2,7 +2,7 @@
  * # Rep Purchase - Contractor Hardsuit
  */
 /datum/rep_purchase/item/contractor_hardsuit
-	name = "МЭК Контрактника"
+	name = "МЭК \"Специалист\""
 	description = "Элитный МЭК, оснащённый технологией \"Хамелеон\". В комплект также входит оборудование для поддержания жизнедеятельности. \
 			МЭК окрашен в классические для Контрактников цвета, при этом обеспечивает достойную защиту. Вы можете приобрести модули для \
 			дальнейшего улучшения вашего МЭКа."
@@ -19,12 +19,12 @@
 
 /obj/item/storage/box/contractor/hardsuit/get_ru_names()
 	return list(
-		NOMINATIVE = "набор ИКС Контрактника",
-		GENITIVE = "набора ИКС Контрактника",
-		DATIVE = "набору ИКС Контрактника",
-		ACCUSATIVE = "набор ИКС Контрактника",
-		INSTRUMENTAL = "набором ИКС Контрактника",
-		PREPOSITIONAL = "наборе ИКС Контрактника",
+		NOMINATIVE = "набор МЭК \"Специалист\"",
+		GENITIVE = "набора МЭК \"Специалист\"",
+		DATIVE = "набору МЭК \"Специалист\"",
+		ACCUSATIVE = "набор МЭК \"Специалист\"",
+		INSTRUMENTAL = "набором МЭК \"Специалист\"",
+		PREPOSITIONAL = "наборе МЭК \"Специалист\"",
 	)
 
 /obj/item/storage/box/contractor/hardsuit/populate_contents()

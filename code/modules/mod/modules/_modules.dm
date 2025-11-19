@@ -106,9 +106,9 @@
 		var/list/slot_strings = list()
 		for(var/slot in required_slots)
 			var/list/slot_list = parse_slot_flags(slot)
-			slot_strings += (length(slot_list) == 1 ? "" : "один из ") + russian_list(slot_list, and_text = " или ")
-		. += span_notice("МЭК обязан иметь данные слоты: [russian_list(slot_strings)]")
-	. += "Стоимость модуля: [complexity]"
+			slot_strings += russian_list(slot_list, and_text = " или ")
+		. += span_notice("Совместимые элементы МЭК: <b>[russian_list(slot_strings)]</b>")
+	. += span_notice("Стоимость модуля: <b>[complexity]</b> единиц[declension_ru(complexity, "а", "ы", "")].")
 
 /// Looks through the MODsuit's parts to see if it has the parts required to support this module
 /obj/item/mod/module/proc/has_required_parts(list/parts, need_active = FALSE)
@@ -147,7 +147,7 @@
 		var/list/slot_strings = list()
 		for(var/slot in required_slots)
 			var/list/slot_list = parse_slot_flags(slot)
-			slot_strings += (length(slot_list) == 1 ? "" : "один из ") + russian_list(slot_list, and_text = " или ")
+			slot_strings += russian_list(slot_list, and_text = " или ")
 		to_chat(activator, span_warning("Для работы модуля необходимо, чтобы были развёрнуты данные элементы: [russian_list(slot_strings)]"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return

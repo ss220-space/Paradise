@@ -97,7 +97,7 @@
 	if(attached_hat)
 		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] [loose_hat ? "свободно" : ""] надет[GEND_A_O_Y(attached_hat)] [attached_hat.declent_ru(NOMINATIVE)].")
 	else
-		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] не надета шляпа. Пока ещё.")
+		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] не надета шляпа.")
 
 /datum/component/hat_stabilizer/proc/get_worn_overlays(atom/movable/source, list/overlays, mutable_appearance/standing, isinhands, icon_file)
 	SIGNAL_HANDLER

@@ -102,8 +102,7 @@
 		return
 
 	//okay, so the closet is either welded or locked... resist!!!
-	balloon_alert(user, "вы сопротивляетесь...")
-	balloon_alert_to_viewers("начинает трястись!")
+	balloon_alert_to_viewers("начинает трястись!", "вы сопротивляетесь...")
 	visible_message(
 		span_danger("[src] begins to shake violently!"),
 		span_warning("Вы упираетесь спиной в внутреннюю стенку [declent_ru(ACCUSATIVE)] и начинаете толкать дверь...")

@@ -306,13 +306,12 @@ GLOBAL_LIST_EMPTY(closets)
 		balloon_alert(user, "сломано!")
 		return
 	if(user.loc == src)
-		balloon_alert(user, "невозможно!")
-		to_chat(user, span_notice("Вы не можете достичь замка, находясь внутри."))
+		balloon_alert(user, "невозможно изнутри!")
 		return
 	if(allowed(user))
 		locked = !locked
 		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		visible_message(span_notice("[user.declent_ru(NOMINATIVE)] [locked ? "открыл" : "закрыл"][GEND_A_O_I(src)] замок."))
+		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_UT(user)] замок", "замок [locked ? "за" : "от"]крыт")
 		update_icon()
 	else
 		balloon_alert(user, "нет доступа!")
@@ -486,9 +485,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	balloon_alert(user, "вы сопротивляетесь...")
-	balloon_alert_to_viewers("начинает трястись!")
-	to_chat(user, span_notice("Вы упираетесь спиной в внутреннюю стенку [declent_ru(ACCUSATIVE)] и начинаете толкать дверь..."))
+	balloon_alert_to_viewers("начинает трястись!", "вы сопротивляетесь!")
 
 	spawn(0)
 		if(do_after(user, breakout_time, src))

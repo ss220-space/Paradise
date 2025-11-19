@@ -89,7 +89,7 @@
 	access_requirement = list(ACCESS_ARMORY)
 
 /datum/design/mod_plating/brig_pilot
-	name = "Обшивка МЭК класса \"Часовой\""
+	name = "Обшивка МЭК класса \"Сокол\""
 	id = "mod_plating_brig_pilot"
 	build_path = /obj/item/mod/construction/plating/brig_pilot
 	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "toxins" = 3)

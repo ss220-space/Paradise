@@ -156,7 +156,7 @@
 
 /datum/action/item_action/mod_recall
 	name = "Вызов МЭК"
-	desc = "Призовите привязанный модульный костюм к себе из любого места на станции."
+	desc = "Призовите привязанный модульный экзокостюм к себе из любого места на станции."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "recall"
 	background_icon_state = "bg_mod"

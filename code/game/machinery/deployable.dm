@@ -271,7 +271,8 @@
  */
 /obj/structure/barricade/dropwall
 	name = "dropwall"
-	desc = "Временный энергетический щит, питаемый от небольшого генератора. Уничтожение генератора приведёт к полному отключению всех привязанных к нему щитов."
+	desc = "Временный энергетический щит, питаемый от небольшого генератора. \
+			Уничтожение генератора приведёт к полному отключению всех привязанных к нему щитов."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead" //sprite chosen in init
 	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 10, ACID = 0) // Copied from the security barrier, but no melee armor
@@ -361,7 +362,7 @@
 		if(WEST)
 			mode = AUTO
 
-	to_chat(user, "[capitalize(declent_ru(NOMINATIVE))] переключён в режим \"[mode == AUTO ? mode : dir2rustext(mode)]\".")
+	balloon_alert(user, "режим — \"[mode == AUTO ? mode : dir2rustext(mode)]\"")
 
 /obj/item/grenade/barrier/dropwall/attack_self(mob/user)
 	. = ..()

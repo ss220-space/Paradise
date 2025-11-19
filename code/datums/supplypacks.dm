@@ -3314,7 +3314,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("materials" = 6, "combat" = 6, "biotech" = 6, "powerstorage" = 5)
 
 /datum/supply_packs/science/mod_core
-	name = "Ящик ядер для создания МЭК"
+	name = "Ящик ядер МЭК"
 	contains = list(
 		/obj/item/mod/core/standard,
 		/obj/item/mod/core/standard,
@@ -3323,14 +3323,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containertype = /obj/structure/closet/crate/secure/scisec
-	containername = "ящик с ядрами для создания МЭК"
+	containername = "ящик с ядрами МЭК"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с ядрами для создания МЭК",
-		GENITIVE = "ящика с ядрами для создания МЭК",
-		DATIVE = "ящику с ядрами для создания МЭК",
-		ACCUSATIVE = "ящик с ядрами для создания МЭК",
-		INSTRUMENTAL = "ящиком с ядрами для создания МЭК",
-		PREPOSITIONAL = "ящике с ядрами для создания МЭК",
+		NOMINATIVE = "ящик с ядрами МЭК",
+		GENITIVE = "ящика с ядрами МЭК",
+		DATIVE = "ящику с ядрами МЭК",
+		ACCUSATIVE = "ящик с ядрами МЭК",
+		INSTRUMENTAL = "ящиком с ядрами МЭК",
+		PREPOSITIONAL = "ящике с ядрами МЭК",
 	)
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics"))
