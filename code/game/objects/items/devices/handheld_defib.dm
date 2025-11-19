@@ -92,7 +92,7 @@
 				var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 				if(H.health <= HEALTH_THRESHOLD_CRIT)
 					if(total_damage >= 90)
-						balloon_alert(user, "цель слишком ранена!")
+						balloon_alert(user, "цель слишком ранена!")   /// not h.balloon_alert so that they don't overlap each other
 					if((prob(66)) || (is_advanced))
 						H.balloon_alert(user, "дефибрилляция успешна")
 						H.adjustOxyLoss(-50)
