@@ -1,6 +1,6 @@
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
-	desc = "Компактное устройство желтого цвета, используемое для экстренной кардиостимуляции."
+	desc = "Компактное устройство жёлтого цвета, используемое для экстренной кардиостимуляции."
 	gender = MALE
 	icon = 'icons/obj/handheld_defibrillator.dmi'
 	icon_state = "defib_passive-on"
@@ -8,7 +8,7 @@
 	belt_icon = "handheld_defibrillator"
 	var/icon_base = "defib"
 	var/icon_mode = "passive"
-	/// Can defib peretrate through hardsuits and etc.
+	/// Can defib penetrate through hardsuits and etc.
 	var/shield_ignore = FALSE
 	var/cooldown = FALSE
 	/// ~10 seconds
