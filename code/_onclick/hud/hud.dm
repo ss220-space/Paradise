@@ -347,9 +347,9 @@
 
 	update_reuse(screenmob)
 
+	plane_masters_update()
 	// ensure observers get an accurate and up-to-date view
 	if(!viewmob)
-		plane_masters_update()
 		for(var/M in mymob.inventory_observers)
 			show_hud(hud_version, M)
 	else if(viewmob.hud_used)
