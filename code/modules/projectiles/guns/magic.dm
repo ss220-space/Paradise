@@ -28,7 +28,7 @@
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
-			to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return
 		else
 			no_den_usage = 0
@@ -51,7 +51,6 @@
 		charges--//... drain a charge
 	return
 
-
 /obj/item/gun/magic/magic_charge_act(mob/user)
 	. = NONE
 
@@ -67,7 +66,6 @@
 	if(!max_charges)
 		. |= RECHARGE_BURNOUT
 
-
 /obj/item/gun/magic/Initialize(mapload)
 	. = ..()
 	charges = max_charges
@@ -75,12 +73,10 @@
 	if(can_charge)
 		START_PROCESSING(SSobj, src)
 
-
 /obj/item/gun/magic/Destroy()
 	if(can_charge)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/gun/magic/process()
 	charge_tick++
@@ -94,10 +90,10 @@
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] whizzles quietly.</span>")
+	to_chat(user, span_warning("The [name] whizzles quietly."))
 	return
 
 /obj/item/gun/magic/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is twisting the [name] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is twisting the [name] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, fire_sound, 50, TRUE, -1)
 	return FIRELOSS

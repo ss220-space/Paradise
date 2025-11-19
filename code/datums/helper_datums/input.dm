@@ -108,11 +108,11 @@
 /datum/async_input/ranked/render_choices()
 	var/dat = "<div>"
 	dat += "<table id='choices' uid=[UID()] style='margin: auto; text-align: left;'>"
-	for(var/i = 1, i <= choices.len, i++)
+	for(var/i = 1, i <= length(choices), i++)
 		var/choice = choices[i]
 		dat += "<tr>"
 		dat += "<td>[button("+", i != 1 ? "upvote=[i]" : "", , i == 1)]</td>"
-		dat += "<td>[button("-", i != choices.len ? "downvote=[i]" : "", , i == choices.len)]</td>"
+		dat += "<td>[button("-", i != length(choices) ? "downvote=[i]" : "", , i == length(choices))]</td>"
 		dat += "<td style='cursor: move;' index='[i]'  ondrop='drop(event)' ondragover='allowDrop(event)' draggable='true' ondragstart='drag(event)'>[i]. [choice]</td>"
 		dat += "</tr>"
 	dat += "</table>"
@@ -155,7 +155,7 @@
 	..()
 	popup.add_script("autocomplete.js", 'html/browser/autocomplete.js')
 
-	for(var/i=1, i <= choices.len, i++)
+	for(var/i=1, i <= length(choices), i++)
 		var/C = choices[choices[i]]
 		choices[i] = url_encode(choices[i])
 		choices[choices[i]] = C

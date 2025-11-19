@@ -95,7 +95,7 @@
 		"Exosuit Equipment",
 		"Cyborg Upgrade Modules",
 		"Medical",
-		"Misc"
+		"Misc",
 	)
 
 /obj/machinery/mecha_part_fabricator/Destroy()
@@ -288,25 +288,21 @@
  */
 /obj/machinery/mecha_part_fabricator/proc/can_insert_materials(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>[src] cannot be loaded with new materials while opened!</span>")
+		to_chat(user, span_warning("[src] cannot be loaded with new materials while opened!"))
 		return FALSE
 	if(being_built)
-		to_chat(user, "<span class='warning'>[src] is currently building a part! Please wait until completion.</span>")
+		to_chat(user, span_warning("[src] is currently building a part! Please wait until completion."))
 		return FALSE
 	return TRUE
-
 
 /obj/machinery/mecha_part_fabricator/wrench_act(mob/living/user, obj/item/I)
 	return default_change_direction_wrench(user, I)
 
-
 /obj/machinery/mecha_part_fabricator/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, icon_open, icon_closed, I)
 
-
 /obj/machinery/mecha_part_fabricator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/mecha_part_fabricator/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -315,7 +311,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
 	ui_interact(user)
 
@@ -323,7 +318,7 @@
 	if(..())
 		return
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	ui_interact(user)
@@ -527,7 +522,7 @@
 		"Pod_Cargo",
 		"Pod_Parts",
 		"Pod_Frame",
-		"Misc"
+		"Misc",
 	)
 
 /**
@@ -579,9 +574,8 @@
 		"Cyborg Upgrade Modules",
 		"Medical",
 		"Misc",
-		"Syndicate"
+		"Syndicate",
 	)
-
 
 #undef EXOFAB_BASE_CAPACITY
 #undef EXOFAB_CAPACITY_PER_RATING

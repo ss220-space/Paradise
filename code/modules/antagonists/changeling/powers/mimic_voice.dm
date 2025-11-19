@@ -7,7 +7,6 @@
 	dna_cost = 1
 	req_human = TRUE
 
-
 /datum/action/changeling/mimicvoice/sting_action(mob/user)
 	if(cling.mimicking)
 		cling.mimicking = ""

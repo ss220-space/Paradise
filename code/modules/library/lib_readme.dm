@@ -16,7 +16,6 @@
 //*******************************
 // Requires Dantom.DB library ( http://www.byond.com/developer/Dantom/DB )
 
-
 /*
 	The Library
 	------------
@@ -25,7 +24,6 @@
 	convince the on-staff Librarian to submit it to the Archives
 	to be chronicled in history forever - some say even persisting
 	through alternate dimensions.
-
 
 	Written by TLE for /tg/station 13
 	Feel free to use this as you like. Some credit would be cool.
@@ -45,7 +43,6 @@
 //  - book scanner
 // Datum:
 //	- borrowbook
-
 
 // Ideas for the future
 // ---------------------

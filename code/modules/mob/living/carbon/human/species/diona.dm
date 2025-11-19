@@ -99,12 +99,10 @@
 	H.gender = NEUTER
 	add_verb(H, /mob/living/carbon/human/proc/emote_creak)
 
-
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, /mob/living/carbon/human/proc/emote_creak)
 	H.clear_alert("nolight")
-
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 

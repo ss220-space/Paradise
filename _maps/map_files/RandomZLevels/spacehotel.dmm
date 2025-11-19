@@ -1142,12 +1142,6 @@
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
-"eH" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
 "eI" = (
 /obj/machinery/light{
 	dir = 8
@@ -2497,7 +2491,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "ja" = (
@@ -2602,7 +2596,7 @@
 	icon_state = "smes";
 	name = "WaffeCo PSU"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jo" = (
@@ -7572,7 +7566,7 @@ em
 dX
 ex
 eb
-eH
+eG
 eb
 eb
 fi
@@ -7582,7 +7576,7 @@ fr
 fy
 eb
 eb
-eH
+eG
 eb
 eb
 fi
@@ -7592,7 +7586,7 @@ fr
 fy
 eb
 eb
-eH
+eG
 eb
 eb
 fi
@@ -7602,7 +7596,7 @@ fr
 fy
 eb
 eb
-eH
+eG
 eb
 eb
 eb
@@ -24213,7 +24207,7 @@ em
 dX
 eA
 eb
-eH
+eG
 eK
 hH
 hH
@@ -24223,7 +24217,7 @@ hH
 hH
 hH
 fF
-eH
+eG
 eK
 hH
 hH
@@ -24233,7 +24227,7 @@ hH
 hH
 hH
 fF
-eH
+eG
 eK
 hH
 hH
@@ -24243,7 +24237,7 @@ hH
 hH
 hH
 fF
-eH
+eG
 eb
 eb
 eb

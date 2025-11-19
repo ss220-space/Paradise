@@ -9,7 +9,6 @@
 	dna_cost = 1
 	req_human = TRUE
 
-
 /**
  * Transform into a monka.
  */

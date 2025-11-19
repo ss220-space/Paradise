@@ -31,7 +31,6 @@ SUBSYSTEM_DEF(events)
 
 	var/datum/event_meta/new_event = new
 
-
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
 	return SS_INIT_SUCCESS
@@ -103,7 +102,7 @@ SUBSYSTEM_DEF(events)
 		html += "<div class='block'>"
 		html += "<h2>Available [GLOB.severity_to_string[selected_event_container.severity]] Events (queued & running events will not be displayed)</h2>"
 		html += "<table[table_options]>"
-		html += "<tr[head_options]><td[row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td><span class='alert'>CurrWeight </span></td><td>Remove</td></tr>"
+		html += "<tr[head_options]><td[row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td>[span_alert("CurrWeight ")]</td><td>Remove</td></tr>"
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
 			html += "<tr>"
 			html += "<td>[EM.name]</td>"
@@ -112,7 +111,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
 			html += "<td><a align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</a></td>"
 			html += "<td><a align='right' href='byond://?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</a></td>"
-			html += "<td><span class='alert'>[EM.get_weight(number_active_with_role())]</span></td>"
+			html += "<td>[span_alert("[EM.get_weight(number_active_with_role())]")]</td>"
 			html += "<td><a align='right' href='byond://?src=[UID()];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</a></td>"
 			html += "</tr>"
 		html += "</table>"

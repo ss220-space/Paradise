@@ -181,7 +181,6 @@
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
@@ -236,10 +235,10 @@
 			if(isobj(H.shoes) && !HAS_TRAIT(H.shoes, TRAIT_NODROP))
 				var/thingy = H.shoes
 				H.drop_item_ground(H.shoes)
-				SSmove_manager.move_away(thingy, chassis, 15, 2)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
-						SSmove_manager.stop_looping(thingy)
+						GLOB.move_manager.stop_looping(thingy)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
@@ -425,7 +424,7 @@
 		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
 		ACCUSATIVE = "тяжёлую пусковую ракетную установку SRX-13",
 		INSTRUMENTAL = "тяжёлой пусковой ракетной установкой SRX-13",
-		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13"
+		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
@@ -434,7 +433,6 @@
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 
-
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
 	return list(
 		NOMINATIVE = "пусковая ракетная установка SRM-8",
@@ -442,7 +440,7 @@
 		DATIVE = "пусковой ракетной установке SRM-8",
 		ACCUSATIVE = "пусковую ракетную установку SRM-8",
 		INSTRUMENTAL = "пусковой ракетной установкой SRM-8",
-		PREPOSITIONAL = "пусковой ракетной установке SRM-8"
+		PREPOSITIONAL = "пусковой ракетной установке SRM-8",
 	)
 
 /obj/item/missile
@@ -618,7 +616,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment)<M.max_equip)
 			return TRUE
 	return FALSE
 

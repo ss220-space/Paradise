@@ -18,7 +18,7 @@
 		DATIVE = "свёрнутому постеру",
 		ACCUSATIVE = "свёрнутый постер",
 		INSTRUMENTAL = "свёрнутым постером",
-		PREPOSITIONAL = "свёрнутом постере"
+		PREPOSITIONAL = "свёрнутом постере",
 	)
 
 /obj/item/poster/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
@@ -84,7 +84,7 @@
 		DATIVE = "постеру",
 		ACCUSATIVE = "постер",
 		INSTRUMENTAL = "постером",
-		PREPOSITIONAL = "постере"
+		PREPOSITIONAL = "постере",
 	)
 
 /obj/structure/sign/poster/Initialize(mapload)
@@ -93,7 +93,7 @@
 		randomise(random_basetype)
 	if(!ruined)
 		original_name = name
-		name = "Постер – [name]"
+		name = "Постер — [name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
 
 /obj/structure/sign/poster/proc/randomise(base_type)
@@ -206,7 +206,6 @@
 	balloon_alert(user, "постер упал!")
 	D.roll_and_drop(temp_loc, user)
 
-
 // MARK: Poster variations
 
 /obj/structure/sign/poster/ripped
@@ -222,7 +221,7 @@
 		DATIVE = "порванному постеру",
 		ACCUSATIVE = "порванный постер",
 		INSTRUMENTAL = "порванным постером",
-		PREPOSITIONAL = "порванном постере"
+		PREPOSITIONAL = "порванном постере",
 	)
 
 /obj/structure/sign/poster/random
@@ -243,7 +242,7 @@
 		DATIVE = "контрабандному постеру",
 		ACCUSATIVE = "контрабандный постер",
 		INSTRUMENTAL = "контрабандным постером",
-		PREPOSITIONAL = "контрабандном постере"
+		PREPOSITIONAL = "контрабандном постере",
 	)
 
 /obj/structure/sign/poster/contraband/random
@@ -529,7 +528,7 @@
 
 /obj/structure/sign/poster/contraband/flamethrower
 	name = "Огнемёт"
-	desc = "Теперь ты - поджигатель. Крайне опасное оружие для всех, включая самого поджигателя."
+	desc = "Теперь ты — поджигатель. Крайне опасное оружие для всех, включая самого поджигателя."
 	icon_state = "poster_flamethrower"
 
 /obj/structure/sign/poster/contraband/bigbrother
@@ -560,7 +559,7 @@
 		DATIVE = "мотивационному постеру",
 		ACCUSATIVE = "мотивационный постер",
 		INSTRUMENTAL = "мотивационным постером",
-		PREPOSITIONAL = "мотивационном постере"
+		PREPOSITIONAL = "мотивационном постере",
 	)
 
 /obj/structure/sign/poster/official/random
@@ -626,7 +625,7 @@
 
 /obj/structure/sign/poster/official/love_ian
 	name = "Любите Иана"
-	desc = "Иан - это любовь, Иан - это жизнь."
+	desc = "Иан — это любовь, Иан — это жизнь."
 	icon_state = "poster12_legit"
 
 /obj/structure/sign/poster/official/space_cops
@@ -691,7 +690,7 @@
 
 /obj/structure/sign/poster/official/cohiba_robusto_ad
 	name = "Реклама Коиба Робусто"
-	desc = "Коиба Робусто – стильные сигары."
+	desc = "Коиба Робусто — стильные сигары."
 	icon_state = "poster25_legit"
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
@@ -852,7 +851,7 @@
 		DATIVE = "секретному постеру",
 		ACCUSATIVE = "секретный постер",
 		INSTRUMENTAL = "секретным постером",
-		PREPOSITIONAL = "секретном постере"
+		PREPOSITIONAL = "секретном постере",
 	)
 
 /obj/structure/sign/poster/secret/lady

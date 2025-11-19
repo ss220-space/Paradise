@@ -81,8 +81,6 @@
 			start_cooldown()
 		return TRUE
 
-
-
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	name = "KILL CLAMP"
@@ -102,12 +100,11 @@
 	if(M.stat == DEAD)
 		return FALSE
 	if(chassis.occupant.a_intent == INTENT_HARM)
-		target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."),
-							span_userdanger("[chassis] destroys [target] in an unholy fury."))
+		target.visible_message(
+			span_danger("[chassis] destroys [target] in an unholy fury."),
+			span_userdanger("[chassis] destroys [target] in an unholy fury.")
+		)
 		M.gib()
-	/*if(chassis.occupant.a_intent == INTENT_DISARM)
-		target.visible_message(span_danger("[chassis] rips [target]'s arms off."),
-							span_userdanger("[chassis] rips [target]'s arms off."))*/
 	else
 		step_away(M,chassis)
 		target.visible_message("[chassis] tosses [target] like a piece of paper.")
@@ -146,12 +143,12 @@
 	var/obj/item/rcd/mecha_ref/rcd_holder
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/mecha_parts/mecha_equipment/rcd/New()
+/obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
 	GLOB.rcd_list += src
 	rcd_holder = new(rcd_holder)
 	rcd_holder.power_use_multiplier = energy_drain
 	rcd_holder.canRwall = TRUE
-	..()
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
 	GLOB.rcd_list -= src
@@ -280,8 +277,8 @@
 	var/obj/item/mecha_parts/mecha_equipment/targeted_module
 	range = MECHA_MELEE | MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/New()
-	..()
+/obj/item/mecha_parts/mecha_equipment/multimodule/Initialize(mapload)
+	. = ..()
 	for(var/module in modules)
 		var/obj/item/mecha_parts/mecha_equipment/new_module = new module(src)
 		modules[module] = new_module
@@ -299,7 +296,6 @@
 		if(!module.can_attach(M))
 			return FALSE
 	return TRUE
-
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
 	for(var/thing in modules)
@@ -363,7 +359,6 @@
 
 	return targeted_module.handle_ui_act(action, params)
 
-
 /obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bible))
 		var/obj/item/mecha_parts/mecha_equipment/extinguisher/extinguisher = locate() in src
@@ -373,14 +368,15 @@
 			return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	name = "ATMOS module"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
 	icon_state = "mecha_atmos"
-	modules = list(/obj/item/mecha_parts/mecha_equipment/cable_layer,
-					/obj/item/mecha_parts/mecha_equipment/extinguisher,
-					/obj/item/mecha_parts/mecha_equipment/holowall)
+	modules = list(
+		/obj/item/mecha_parts/mecha_equipment/cable_layer,
+		/obj/item/mecha_parts/mecha_equipment/extinguisher,
+		/obj/item/mecha_parts/mecha_equipment/holowall,
+	)
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer
 	name = "cable layer"
@@ -392,9 +388,9 @@
 	var/obj/item/stack/cable_coil/cable
 	var/max_cable = 1000
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/New()
+/obj/item/mecha_parts/mecha_equipment/cable_layer/Initialize(mapload)
 	cable = new(src, 0)
-	..()
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/M)
 	if(..())
@@ -431,7 +427,6 @@
 	else
 		occupant_message(span_warning("Unable to load from [target] - no cable found."))
 	return FALSE
-
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/handle_ui_act(action, list/params)
 	switch(action)
@@ -523,10 +518,10 @@
 	equip_cooldown = 1.5 SECONDS
 	range = MECHA_MELEE | MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/New()
+/obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize(mapload)
 	create_reagents(1000)
 	reagents.add_reagent("water", 1000)
-	..()
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -684,8 +679,8 @@
 	var/emag_item = /obj/item/kitchen/knife/combat/cyborg/mecha
 	var/emagged = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/New()
-	..()
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/Initialize(mapload)
+	. = ..()
 	for(var/obj/item/item as anything in items_list)
 		ADD_TRAIT(item, TRAIT_NODROP, type)
 		item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

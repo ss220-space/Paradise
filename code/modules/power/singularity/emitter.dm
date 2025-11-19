@@ -70,11 +70,9 @@
 	dir = turn(dir, 90)
 	return TRUE
 
-
 /obj/machinery/power/emitter/click_alt(mob/user)
 	rotate()
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/machinery/power/emitter/Destroy()
 	message_admins("Emitter deleted at [ADMIN_COORDJMP(src)] [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]" : ""]")
@@ -83,13 +81,11 @@
 	QDEL_NULL(sparks)
 	return ..()
 
-
 /obj/machinery/power/emitter/update_icon_state()
 	if(active && powernet && avail(active_power_usage))
 		icon_state = "emitter_+a"
 	else
 		icon_state = "emitter"
-
 
 /obj/machinery/power/emitter/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
@@ -119,7 +115,6 @@
 	else
 		to_chat(user, span_warning("The [src] needs to be firmly secured to the floor first."))
 		return 1
-
 
 /obj/machinery/power/emitter/emp_act(severity)//Emitters are hardened but still might have issues
 //	add_load(1000)
@@ -214,7 +209,6 @@
 	P.fire()
 	return P
 
-
 /obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -240,14 +234,11 @@
 
 	return ..()
 
-
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
 
-
 /obj/machinery/power/emitter/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/power/emitter/emag_act(mob/user)
 	if(!emagged)

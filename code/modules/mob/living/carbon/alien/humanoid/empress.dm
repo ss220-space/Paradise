@@ -53,7 +53,6 @@
 	real_name = name
 	..()
 
-
 /mob/living/carbon/alien/humanoid/empress/get_caste_organs()
 	. = ..()
 	. += list(
@@ -63,7 +62,6 @@
 		/obj/item/organ/internal/xenos/resinspinner,
 		/obj/item/organ/internal/xenos/neurotoxin
 	)
-
 
 /mob/living/carbon/alien/humanoid/empress/is_strong()
 	return TRUE

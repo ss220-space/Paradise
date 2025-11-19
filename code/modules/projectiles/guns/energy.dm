@@ -28,12 +28,12 @@
 
 	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
+	var/isclockwork = FALSE
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
-
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/sibyl_system_mod))
@@ -56,7 +56,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/gun/energy/proc/toggle_voice()
 	set name = "Сменить голос Sibyl System"
@@ -166,7 +165,7 @@
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
-	for(var/i = 1, i <= ammo_type.len, i++)
+	for(var/i = 1, i <= length(ammo_type), i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
 		ammo_type[i] = shot
@@ -197,13 +196,11 @@
 /obj/item/gun/energy/proc/on_recharge()
 	newshot()
 
-
 /obj/item/gun/energy/attack_self(mob/living/user)
 	. = ..()
 	if(!. && length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
-
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
 	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
@@ -214,7 +211,6 @@
 
 	if(!. && !silent)
 		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
-
 
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
@@ -242,7 +238,7 @@
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	if(!user)	// If it's called by something, but not human (Security level changing), drop firemode to non-lethal.
 		select = 1
-	else if(++select > ammo_type.len)
+	else if(++select > length(ammo_type))
 		select = 1
 	else
 		if(sibyl_mod && !sibyl_mod.check_select(select))
@@ -303,11 +299,9 @@
 	newshot()
 	update_icon()
 
-
 /obj/item/gun/energy/update_icon(updates = ALL)
 	. = ..()
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/gun/energy/update_icon_state()
 	icon_state = initial(icon_state)
@@ -327,14 +321,17 @@
 	if(current_skin)
 		icon_state = current_skin
 
-
 /obj/item/gun/energy/update_overlays()
 	. = ..()
+	if(isclockwork)
+		return
 	var/overlay_name = overlay_set ? overlay_set : icon_state
+	if(!length(ammo_type))
+		return
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[overlay_name]_[shot.select_name]"
-	if(cell.charge < shot.e_cost)
+	if(!cell || cell.charge < shot.e_cost)
 		. += "[overlay_name]_empty"
 	else
 		if(!shaded_charge)
@@ -344,8 +341,6 @@
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
-
-
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))
@@ -366,7 +361,6 @@
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 
-
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(var_name == NAMEOF(src, selfcharge))
@@ -375,30 +369,25 @@
 		else
 			STOP_PROCESSING(SSobj, src)
 
-
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)
 		// No point in recharging a weapon's cell that is already at 100%. That would just waste borg cell power for no reason.
 		return
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell)
+		if(R?.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
-
 /obj/item/gun/energy/proc/turret_check()
 	return !HAS_TRAIT(src, TRAIT_NOT_TURRET_GUN)
-
 
 /obj/item/gun/energy/proc/turret_deconstruct(list/data)
 	return
 
-
 /obj/item/gun/energy/proc/prepare_gun_data(list/data)
 	return
-
 
 /obj/item/gun/energy/proc/setup_gun_for_turret(list/data)
 	return

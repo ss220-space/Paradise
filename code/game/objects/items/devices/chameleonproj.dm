@@ -22,7 +22,7 @@
 		DATIVE = "\"Хамелеон\"-проектору",
 		ACCUSATIVE = "\"Хамелеон\"-проектор",
 		INSTRUMENTAL = "\"Хамелеон\"-проектором",
-		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
+		PREPOSITIONAL = "\"Хамелеон\"-проекторе",
 	)
 
 /obj/item/chameleon/Initialize(mapload)
@@ -109,7 +109,6 @@
 	M.forceMove(src)
 	master = C
 	master.active_dummy = src
-
 
 /obj/effect/dummy/chameleon/proc/notify_disrupt(mob/attacker, mob/defender, obj/item)
 	to_chat(defender, span_danger("Your chameleon projector deactivates."))
@@ -407,7 +406,7 @@
 	disrupt(user)
 
 /obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
-	if(user && user.cell && user.cell.charge >  activationCost)
+	if(user?.cell && user.cell.charge >  activationCost)
 		if(isturf(user.loc))
 			toggle(user)
 		else
@@ -464,7 +463,7 @@
 		else
 			to_chat(user, span_warning("The chameleon field fizzles."))
 			do_sparks(3, FALSE, user)
-			for(i in 1 to min(7, user.filters.len)) // removing filters that are animating does nothing, we gotta stop the animations first
+			for(i in 1 to min(7, length(user.filters))) // removing filters that are animating does nothing, we gotta stop the animations first
 				f = user.filters[start + i]
 				animate(f)
 		user.filters = null

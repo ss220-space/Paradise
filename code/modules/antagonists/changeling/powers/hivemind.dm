@@ -11,7 +11,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	/// Connected linglink ability.
 	var/datum/action/changeling/linglink/linglink
 
-
 /datum/action/changeling/hivemind_pick/on_purchase(mob/user, datum/antagonist/changeling/antag)
 	if(!..())
 		return FALSE
@@ -24,7 +23,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	to_chat(user, span_changeling("Use say '[language_key]' to communicate with the other changelings."))
 
 	return TRUE
-
 
 /datum/action/changeling/hivemind_pick/Grant(mob/user)
 	if(!..() || QDELETED(user) || !cling)
@@ -39,8 +37,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		user.add_language(LANGUAGE_HIVE_EVENTLING)
 	else
 		user.add_language(LANGUAGE_HIVE_CHANGELING)
-
-
 
 /datum/action/changeling/hivemind_pick/Remove(mob/user)
 	if(QDELETED(user))
@@ -57,7 +53,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	..()
 
-
 /datum/action/changeling/hivemind_pick/Destroy(force)
 	/*if(linglink)
 		if(owner)
@@ -69,7 +64,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	owner?.remove_language(LANGUAGE_HIVE_EVENTLING)
 
 	return ..()
-
 
 /datum/action/changeling/hivemind_pick/sting_action(mob/user)
 	var/channel_pick = tgui_alert(user, "Upload or Absorb DNA?", "Channel Select", list("Upload", "Absorb"))
@@ -86,7 +80,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	return TRUE
 
-
 /datum/action/changeling/proc/dna_upload(mob/user)
 	var/datum/dna/chosen_dna = cling.select_dna("Select a DNA to channel: ", "Channel DNA", TRUE)
 	if(!chosen_dna)
@@ -97,7 +90,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	to_chat(user, span_notice("We channel the DNA of [chosen_dna.real_name] to the air."))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
 
 /datum/action/changeling/proc/dna_absorb(mob/user)
 	var/list/names = list()

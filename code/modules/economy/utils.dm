@@ -34,7 +34,7 @@
 	if(price > cashmoney.amount)
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
-		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
+		to_chat(user, "[icon2html(cashmoney, user)] <span class='warning'>That is not enough money.</span>")
 		return FALSE
 
 	// Bills (banknotes) cannot really have worth different than face value,

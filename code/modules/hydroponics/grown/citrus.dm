@@ -111,7 +111,7 @@
 	wine_flavor = "fire"
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
+	user.visible_message(span_warning("[user] primes the [src]!"), span_userdanger("You prime the [src]!"))
 	investigate_log("[key_name_log(user)] primed a combustible lemon for detonation at [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	if(iscarbon(user))
@@ -184,18 +184,15 @@
 	tastes = list("polygons" = 1, "oranges" = 1)
 	var/big_icon = TRUE
 
-
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/equipped(mob/user, slot, initial = FALSE)
 	big_icon = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()
 
-
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	big_icon = TRUE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/update_icon_state()
 	icon_state = big_icon ? "orang" : "orange"

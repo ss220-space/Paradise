@@ -63,15 +63,13 @@ SUBSYSTEM_DEF(redis)
 	log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
 	return SS_INIT_SUCCESS
 
-
 /datum/controller/subsystem/redis/fire()
 	check_messages()
-
 
 // Redis integration stuff
 /datum/controller/subsystem/redis/proc/connect()
 	if(CONFIG_GET(flag/enable_redis))
-		#ifndef UNIT_TESTS // CI uses linux so dont flag up a fail there
+		#ifndef GAME_TESTS // CI uses linux so dont flag up a fail there
 		if(world.system_type == UNIX)
 			stack_trace("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
 		#endif
@@ -132,7 +130,6 @@ SUBSYSTEM_DEF(redis)
 
 	// If we are alive, publish straight away
 	rustg_redis_publish(channel, message)
-
 
 // Misc protection stuff
 /datum/controller/subsystem/redis/CanProcCall(procname)

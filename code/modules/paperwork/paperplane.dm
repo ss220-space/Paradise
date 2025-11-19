@@ -12,7 +12,6 @@
 
 	var/obj/item/paper/internal_paper
 
-
 /obj/item/paperplane/New(loc, obj/item/paper/new_paper)
 	..()
 	pixel_y = rand(-8, 8)
@@ -26,22 +25,19 @@
 		internal_paper = new /obj/item/paper(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/paperplane/Destroy()
 	QDEL_NULL(internal_paper)
 	return ..()
 
-
 /obj/item/paperplane/suicide_act(mob/living/user)
 	user.Stun(20 SECONDS)
-	user.visible_message("<span class='suicide'>[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.EyeBlurry(12 SECONDS)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
 		E.take_damage(8, 1)
 	sleep(10)
 	return BRUTELOSS
-
 
 /obj/item/paperplane/update_overlays()
 	. = ..()
@@ -50,15 +46,13 @@
 		for(var/obj/item/stamp/stamp_path as anything in stamped)
 			. += "paperplane_[initial(stamp_path.icon_state)]"
 
-
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
-	to_chat(user, "<span class='notice'>You unfold [src].</span>")
+	to_chat(user, span_notice("You unfold [src]."))
 	if(internal_paper)
 		internal_paper.forceMove(get_turf(src))
 		user.put_in_hands(internal_paper)
 		internal_paper = null
 		qdel(src)
-
 
 /obj/item/paperplane/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
@@ -98,7 +92,6 @@
 	)
 	fire_act()
 
-
 /obj/item/paperplane/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..())
 		return
@@ -112,7 +105,7 @@
 			return
 		if(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES)
 			return
-		visible_message("<span class='danger'>[src] hits [H] in the eye!</span>")
+		visible_message(span_danger("[src] hits [H] in the eye!"))
 		H.EyeBlurry(12 SECONDS)
 		H.Weaken(4 SECONDS)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -120,15 +113,14 @@
 			E.take_damage(8, 1)
 		H.emote("scream")
 
-
 /obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/paper)
 	if(ishuman(user))
 		if(!Adjacent(user) || user.incapacitated())
 			return
-		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
+		to_chat(user, span_notice("You fold [src] into the shape of a plane!"))
 		user.drop_item_ground(src)
 		paper = new /obj/item/paperplane(user, src)
 		user.put_in_hands(paper, ignore_anim = FALSE)
 	else
-		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
+		to_chat(user, span_notice("You lack the dexterity to fold [src]."))
 

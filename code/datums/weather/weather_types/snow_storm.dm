@@ -32,7 +32,7 @@
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 
-	for(var/i in 1 to eligible_areas.len)
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
 			outside_areas |= place
@@ -77,7 +77,6 @@
 /datum/weather/snow_storm/end()
 	. = ..()
 	update_audio()
-
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(10, 25)

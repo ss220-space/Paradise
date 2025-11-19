@@ -25,13 +25,13 @@
 	var/turfs_per_tick = 40
 	var/list/affected_turfs_list = list()
 
-
 /datum/weather/web_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.announce("Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg'
+	GLOB.major_announcement.announce(
+		message = "Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg'
 	)
 
 	if(!.)
@@ -49,7 +49,6 @@
 		new/obj/structure/spider/terrorweb(turf)
 		turfs += turf
 	affected_turfs_list -= turfs
-
 
 /datum/weather/web_storm/end()
 	if(..())

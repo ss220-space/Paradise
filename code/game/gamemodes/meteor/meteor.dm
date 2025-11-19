@@ -5,23 +5,20 @@
 	var/wave = 1
 	required_players = 35
 
-
 /datum/game_mode/meteor/announce()
 	to_chat(world, "<b>The current game mode is - Meteor!</b>")
 	to_chat(world, "<b>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</b>")
 
-
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))
-		GLOB.major_announcement.announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
-										ANNOUNCE_METEOR_RU,
-										'sound/effects/siren.ogg'
+		GLOB.major_announcement.announce(
+			message = "Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
+			new_title = ANNOUNCE_METEOR_RU,
+			new_sound = 'sound/effects/siren.ogg'
 		)
 	spawn(initialmeteordelay)
 		sendmeteors()
 	..()
-
-
 
 /datum/game_mode/meteor/proc/sendmeteors()
 	var/waveduration = world.time + rand(0,1000) + text2num("[wave]000") / 2
@@ -53,9 +50,9 @@
 			survivors++
 
 	if(survivors)
-		to_chat(world, "<span class='boldnotice'>The following survived the meteor storm</span>:[text]")
+		to_chat(world, "[span_boldnotice("The following survived the meteor storm")]:[text]")
 	else
-		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
+		to_chat(world, span_boldnotice("Nobody survived the meteor storm!"))
 
 	SSticker.mode_result = "meteor end - evacuation"
 

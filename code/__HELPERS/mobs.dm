@@ -42,7 +42,7 @@
 			continue
 		valid_picks += test
 
-	if(!valid_picks.len) valid_picks += "Nude"
+	if(!length(valid_picks)) valid_picks += "Nude"
 
 	return pick(valid_picks)
 
@@ -100,7 +100,7 @@
 			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	if(valid_facial_hairstyles.len)
+	if(length(valid_facial_hairstyles))
 		f_style = pick(valid_facial_hairstyles)
 
 	return f_style
@@ -115,7 +115,7 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	if(valid_head_accessories.len)
+	if(length(valid_head_accessories))
 		ha_style = pick(valid_head_accessories)
 
 	return ha_style
@@ -165,7 +165,7 @@
 					continue
 		valid_markings += marking
 
-	if(valid_markings.len)
+	if(length(valid_markings))
 		m_style = pick(valid_markings)
 
 	return m_style
@@ -196,7 +196,7 @@
 		if(gender==FEMALE)
 			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
 		else
-			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
 	else
 		return current_species.get_random_name(gender)
 
@@ -308,7 +308,6 @@
 	update_all_mob_security_hud()
 	return TRUE
 
-
 /**
  * Timed action involving one mob user. Target is optional.
  * Checks that `user` does not move, change hands, get stunned, etc. for the given `delay`.
@@ -361,7 +360,7 @@
 	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
-	if(SSmove_manager.processing_on(user, SSspacedrift))
+	if(GLOB.move_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
@@ -405,7 +404,7 @@
 				. = FALSE
 				break
 
-		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !SSmove_manager.processing_on(user, SSspacedrift)))
+		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !GLOB.move_manager.processing_on(user, SSspacedrift)))
 			drifting = FALSE
 			user_loc = user.loc
 
@@ -438,7 +437,6 @@
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
-
 /proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
@@ -446,17 +444,14 @@
 		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
-
 /proc/is_monkeybasic(mob/living/carbon/human/target)
 	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
-
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
 	if(!ishuman(target) || !istype(target.dna.species, /datum/species/slime))
 		return FALSE
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
-
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
 	var/turf/T = get_turf(target)
@@ -599,7 +594,6 @@
 		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
-
 /proc/getviewsize(view)
 	if(!view) // Just to avoid any runtimes that could otherwise cause constant disconnect loops.
 		stack_trace("Missing value for 'view' in getviewsize(), defaulting to world.view!")
@@ -612,20 +606,18 @@
 		var/list/viewrangelist = splittext(view, "x")
 		return list(text2num(viewrangelist[1]), text2num(viewrangelist[2]))
 
-
 /proc/in_view_range(mob/user, atom/A)
 	var/list/view_range = getviewsize(user.client.view)
 	var/turf/source = get_turf(user)
 	var/turf/target = get_turf(A)
 	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[1], source.y + view_range[1])
 
-
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
 	var/static/list/mob_spawn_meancritters = list() // list of possible hostile mobs
 	var/static/list/mob_spawn_nicecritters = list() // and possible friendly mobs
 
-	if(mob_spawn_meancritters.len <= 0 || mob_spawn_nicecritters.len <= 0)
+	if(length(mob_spawn_meancritters) <= 0 || length(mob_spawn_nicecritters) <= 0)
 		for(var/T in typesof(/mob/living/simple_animal))
 			var/mob/living/simple_animal/SA = T
 			switch(initial(SA.gold_core_spawnable))
@@ -678,7 +670,6 @@
 			if(player.stat == CONSCIOUS)
 				active++
 	return list(total, active, dead, antag)
-
 
 /**
  * Safe ckey getter

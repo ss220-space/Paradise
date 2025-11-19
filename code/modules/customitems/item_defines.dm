@@ -29,7 +29,6 @@
 	var/tattoo_b = 1
 	usesound = 'sound/items/welder2.ogg'
 
-
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(user.a_intent == INTENT_HARM)
@@ -86,7 +85,6 @@
 	used = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/fluff/tattoo_gun/update_overlays()
 	. = ..()
 	if(!used)
@@ -114,12 +112,12 @@
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
 
-			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
+			to_chat(user, span_notice("You change the color setting on the [src]."))
 
 			update_icon()
 
 	else
-		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
+		to_chat(user, span_notice("The [src] is out of ink!"))
 
 /obj/item/fluff/bird_painter // BirdtTalon: Kahkiri
 	name = "Orb of Onyx"
@@ -188,7 +186,6 @@
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
 
-
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "Набор деталей для инвалидной коляски."
@@ -205,7 +202,7 @@
 		DATIVE = "комплекту модификаций для инвалидной коляски",
 		ACCUSATIVE = "комплект модификаций для инвалидной коляски",
 		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
-		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
+		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски",
 	)
 
 /obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
@@ -217,7 +214,6 @@
 		return
 
 	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
-
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -254,7 +250,7 @@
 	force = 2
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
+	user.visible_message(span_notice("[user] blows on the whistle, but no sound comes out."),  span_notice("You blow on the whistle, but don't hear anything."))
 	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
@@ -264,8 +260,8 @@
 	var/obj/item/clothing/head/det_hat/D = new
 	ADD_TRAIT(D, TRAIT_NODROP, CURSED_ITEM_TRAIT(D.type))
 	C.place_on_head(D)
-	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
-	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
+	C.visible_message(span_notice("[C] suddenly winks into existence at [user]'s feet!"))
+	to_chat(user, span_danger("[src] crumbles to dust in your hands!"))
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
@@ -286,7 +282,6 @@
 	new /obj/item/reagent_containers/food/snacks/chips(src)
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
-
 /obj/item/fluff/wingler_comb
 	name = "blue comb"
 	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
@@ -305,7 +300,7 @@
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
-		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
+		to_chat(target, span_notice("You comb your tail with the [src]."))
 		used = 1
 
 /obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
@@ -319,10 +314,10 @@
 		return
 
 	if(!istype(target, /obj/item/clothing/suit/armor/hos))
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, span_warning("You can't modify [target]!"))
 		return
 
-	to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+	to_chat(user, span_notice("You modify the appearance of [target]."))
 	var/obj/item/clothing/suit/armor/jacket = target
 	jacket.icon_state = "desolate_coat_open"
 	jacket.icon = 'icons/obj/custom_items.dmi'
@@ -351,7 +346,7 @@
 		return
 
 	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, span_notice("You modify the appearance of [target]."))
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
 		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words \"Property of Yon-Dale\" can be seen on the inner band."
@@ -363,13 +358,13 @@
 			SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 			SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 			SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-			SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+			SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 			)
 		user.update_icons()
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/desolate_baton_kit //DesolateG: Micheal Smith
 	name = "stun baton conversion kit"
@@ -383,11 +378,10 @@
 		return
 
 	if(istype(target, /obj/item/melee/baton/security) && !istype(target, /obj/item/melee/baton/security/cattleprod))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, span_notice("You modify the appearance of [target]."))
 		var/obj/item/melee/baton/the_baton = target
 		the_baton.base_icon_state = "desolate_baton"
 		the_baton.item_state = "desolate_baton"
-		the_baton.icon = 'icons/obj/custom_items.dmi'
 		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 		the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 		the_baton.update_icon()
@@ -395,7 +389,7 @@
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
 	name = "welding helmet modkit"
@@ -408,14 +402,14 @@
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, span_notice("You modify the appearance of [target]."))
 
 		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
 		target.transfer_fingerprints_to(P)
 		qdel(target)
 		qdel(src)
 		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
 	name = "SG Helmet modkit"
@@ -451,12 +445,12 @@
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
 		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, TRUE)
-		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
+		to_chat(user, span_notice("You modify [target] with [src]."))
 		H.update_worn_head()
 		qdel(target)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/k3_webbing_modkit //IK3I: Yakikatachi
 	name = "webbing modkit"
@@ -473,13 +467,12 @@
 		var/obj/item/clothing/suit/storage/S = target
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
-		to_chat(user, "<span class='notice'>You modify the [S] with [src].</span>")
+		to_chat(user, span_notice("You modify the [S] with [src]."))
 		H.update_worn_oversuit()
 		qdel(S)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
+		to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
 	name = "winter sec conversion kit"
@@ -494,9 +487,9 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/hardsuit/security))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			to_chat(H, span_notice("The kit's helmet modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_HELM
 
 		var/obj/item/clothing/head/helmet/space/hardsuit/security/P = target
@@ -514,9 +507,9 @@
 		return
 	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			to_chat(user, span_notice("The kit's suit modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_SUIT
 
 		var/obj/item/clothing/suit/space/hardsuit/security/P = target
@@ -531,8 +524,7 @@
 		if(P == H.wear_suit)
 			H.update_worn_oversuit()
 		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/sylus_conversion_kit //Decemviri: Sylus Cain
 	name = "cerberus pattern conversion kit"
@@ -547,9 +539,9 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/hardsuit/security))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			to_chat(H, span_notice("The kit's helmet modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_HELM
 
 		var/obj/item/clothing/head/helmet/space/hardsuit/security/P = target
@@ -570,9 +562,9 @@
 
 	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			to_chat(user, span_notice("The kit's suit modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_SUIT
 
 		var/obj/item/clothing/suit/space/hardsuit/security/P = target
@@ -590,12 +582,10 @@
 			qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
-
 
 //////////////////////////////////
 //////////// Clothing ////////////
@@ -897,7 +887,6 @@
 	desc = "A greatcoat with Nanotrasen colors."
 	icon_state = "stobarico_jacket"
 
-
 /obj/item/clothing/suit/hooded/hoodie/fluff/linda // Epic_Charger: Linda Clark
 	name = "Green Nanotrasen Hoodie"
 	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
@@ -949,10 +938,9 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 	actions_types = list(/datum/action/item_action/toggle)
-
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/update_icon_state()
 	var/base_icon_state = replacetext("[icon_state]", "_on", "")
@@ -960,7 +948,6 @@
 
 	icon_state = suit_adjusted ? "[base_icon_state]_on" : base_icon_state
 	item_state = suit_adjusted ? "[base_item_state]_on" : base_item_state
-
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
 	if(user.incapacitated())
@@ -971,8 +958,6 @@
 	update_equipped_item(update_speedmods = FALSE)
 	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "on" : "off"].")
 
-
-
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "stripped winter coat"
 	desc = "A velvety smooth black winter coat with white and red stripes on the side."
@@ -980,7 +965,6 @@
 	icon_state = "xantholne_wintercoat"
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xantholne
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-
 
 /obj/item/clothing/head/hooded/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "black winter hood"
@@ -1023,9 +1007,7 @@
 		return
 
 	if(target.change_hair("Sasook Hair", 1))
-		to_chat(target, "<span class='notice'>You dump some of [src] on your head and style it around.</span>")
-
-
+		to_chat(target, span_notice("You dump some of [src] on your head and style it around."))
 
 /obj/item/clothing/suit/hooded/wintercoat/fluff/shesi //MrSynnester : Shesi Skaklas
 	name = "custom made winter coat"
@@ -1131,11 +1113,9 @@
 	sensor_mode = 3
 	up = TRUE
 
-
 /obj/item/clothing/under/fluff/jane_sidsuit/Initialize(mapload)
 	. = ..()
 	verbs -= /obj/item/clothing/under/verb/rollsuit
-
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Молния костюма"
@@ -1150,12 +1130,10 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/clothing/under/fluff/jane_sidsuit/update_icon_state()
 	var/new_state = "[replacetext("[item_color]", "_d", "")][up ? "" : "_d"]"
 	icon_state = new_state
 	item_state = new_state
-
 
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
@@ -1182,7 +1160,7 @@
 	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
 	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
 	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/obj/custom_items.dmi' // for the mob sprite
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/obj/custom_items.dmi', // for the mob sprite
 	)
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
@@ -1266,7 +1244,6 @@
 /obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user, datum/action/action, leftclick)
 	change_color()
 
-
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
 	name = "Arachno-Man costume"
@@ -1292,7 +1269,6 @@
 	icon_state = "superior_boots"
 	item_state = "superior_boots"
 
-
 /obj/item/nullrod/fluff/chronx //chronx100: Hughe O'Splash
 	fluff_transformations = list(/obj/item/nullrod/fluff/chronx/scythe)
 
@@ -1314,22 +1290,18 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = FALSE
 
-
 /obj/item/clothing/head/fluff/chronx/ui_action_click(mob/user, datum/action/action, leftclick)
 	adjust()
-
 
 /obj/item/clothing/head/fluff/chronx/update_icon_state()
 	icon_state = adjusted ? initial(icon_state) : "[initial(icon_state)][adjusted ? "" : "_open"]"
 	item_state = adjusted ? initial(item_state) : "[initial(item_state)][adjusted ? "" : "_open"]"
-
 
 /obj/item/clothing/head/fluff/chronx/proc/adjust()
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
 	to_chat(usr, "You untransform [src].")
 	adjusted = !adjusted
-
 
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Robes"
@@ -1408,10 +1380,8 @@
 	item_state = "classic_witch"
 	var/current_state
 
-
 /obj/item/clothing/head/wizard/fluff/dreamy/update_icon_state()
 	icon_state = current_state ? current_state : initial(icon_state)
-
 
 /obj/item/clothing/head/wizard/fluff/dreamy/attack_self(mob/user)
 	var/list/options = list()
@@ -1454,8 +1424,7 @@
 		return
 
 	if(target.change_hair("Zekes Tentacles", 1))
-		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
-
+		to_chat(target, span_notice("You take time to admire yourself in [src], brushing your tendrils down and revealing their true length."))
 
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
 	name = "Orange gemmed locket"
@@ -1475,7 +1444,6 @@
 	item_state = "sheetcosmos"
 	item_color = "sheetcosmos"
 
-
 /obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
 	name = "Classy bowler hat"
 	desc = "a very classy looking bowler hat"
@@ -1493,7 +1461,6 @@
 	item_color = "victorianlightfire"
 	displays_id = FALSE
 
-
 /obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
 	name = "Spacepod mod kit"
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
@@ -1504,10 +1471,10 @@
 		return
 
 	if(!isspacepod(target))
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, span_warning("You can't modify [target]!"))
 		return
 
-	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kit blueprints.</span>")
+	to_chat(user, span_notice("You modify the appearance of [target] based on the kit blueprints."))
 	var/obj/spacepod/pod = target
 	pod.icon = 'icons/48x48/custom_pod.dmi'
 	pod.icon_state = "pod_dece"
@@ -1585,7 +1552,6 @@
 	icon_state = "asmer_accordion"
 	item_state = "asmer_accordion"
 
-
 /obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
 	name = "Bluespace Horns"
 	desc = "A pair of fake horns. Now with added bluespace!"
@@ -1634,7 +1600,6 @@
 	item_color = "kiamask"
 	species_restricted = list(SPECIES_VOX)
 
-
 /obj/item/clothing/gloves/ring/fluff
 	name = "fluff ring"
 	desc = "Someone forgot to set this fluff item's description, notify a coder!"
@@ -1644,12 +1609,10 @@
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()
 	return
 
-
 /obj/item/clothing/gloves/ring/fluff/benjaminfallout	//Benjaminfallout: Pretzel Brassheart
 	name = "Pretzel's Ring"
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
-
 
 /obj/item/clothing/under/fluff/kikeridress //Gangelwaefre: Kikeri
 	name = "Kikeri's Dress"

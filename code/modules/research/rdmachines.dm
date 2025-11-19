@@ -1,6 +1,5 @@
 //All devices that link into the R&D console fall into thise type for easy identification and some shared procs.
 
-
 /obj/machinery/r_n_d
 	name = "R&D Device"
 	icon = 'icons/obj/machines/research.dmi'
@@ -65,7 +64,6 @@
 		popup.open(FALSE)
 	return
 
-
 /obj/machinery/r_n_d/Topic(href, href_list)
 	if(..())
 		return
@@ -109,24 +107,24 @@
 //whether the machine can have an item inserted in its current state.
 /obj/machinery/r_n_d/proc/is_insertion_ready(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
+		to_chat(user, span_warning("You can't load [src] while it's opened!"))
 		return FALSE
 	if(disabled)
 		return FALSE
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
+		to_chat(user, span_warning("[src] must be linked to an R&D console first!"))
 		return FALSE
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		to_chat(user, span_warning("[src] is busy right now."))
 		return FALSE
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>[src] is broken.</span>")
+		to_chat(user, span_warning("[src] is broken."))
 		return FALSE
 	if(stat & NOPOWER)
-		to_chat(user, "<span class='warning'>[src] has no power.</span>")
+		to_chat(user, span_warning("[src] has no power."))
 		return FALSE
 	if(loaded_item)
-		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
+		to_chat(user, span_warning("[src] is already loaded."))
 		return FALSE
 	return TRUE
 
@@ -139,7 +137,6 @@
 		use_power(min(1000, (amount_inserted / 100)))
 	stack_name = S.protolathe_name
 	flick_overlay_view(mutable_appearance(icon, "[base_icon_state]_[stack_name]"), 1.5 SECONDS)
-
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, M)
 	return 0 // number of copies of design beign_built you can make with material M

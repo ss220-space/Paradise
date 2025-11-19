@@ -6,7 +6,7 @@
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, span_notice("You inflate [src]."))
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
 	transfer_fingerprints_to(R)
 	qdel(src)
@@ -35,12 +35,10 @@
 /obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
 	return !density
 
-
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (is_sharp(I) || is_pointed(I)))
 		deconstruct(FALSE)
-
 
 /obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -48,7 +46,6 @@
 /obj/structure/inflatable/click_alt(mob/living/user)
 	deconstruct(TRUE)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/structure/inflatable/deconstruct(disassembled = TRUE)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, TRUE)
@@ -60,7 +57,6 @@
 	else
 		visible_message("[src] slowly deflates.")
 		addtimer(CALLBACK(src, PROC_REF(deflate)), 5 SECONDS)
-
 
 /obj/structure/inflatable/proc/deflate()
 	var/obj/item/inflatable/R = new intact(loc)
@@ -84,7 +80,7 @@
 
 /obj/item/inflatable/door/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, span_notice("You inflate [src]."))
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -110,7 +106,6 @@
 /obj/structure/inflatable/door/attack_hand(mob/user)
 	return try_to_operate(user)
 
-
 /obj/structure/inflatable/door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -118,10 +113,8 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 
-
 /obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
 	return !density
-
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
 	if(is_operating)
@@ -137,7 +130,6 @@
 				operate()
 	else if(ismecha(user))
 		operate()
-
 
 /obj/structure/inflatable/door/proc/operate()
 	is_operating = TRUE
@@ -157,10 +149,8 @@
 	air_update_turf(TRUE)
 	is_operating = FALSE
 
-
 /obj/structure/inflatable/door/update_icon_state()
 	icon_state = "door_[state_closed ? "closed" : "open"]"
-
 
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"
@@ -168,7 +158,7 @@
 	icon_state = "folded_wall_torn"
 
 /obj/item/inflatable/torn/attack_self(mob/user)
-	to_chat(user, "<span class='warning'>The inflatable wall is too torn to be inflated!</span>")
+	to_chat(user, span_warning("The inflatable wall is too torn to be inflated!"))
 	add_fingerprint(user)
 
 /obj/item/inflatable/door/torn
@@ -177,7 +167,7 @@
 	icon_state = "folded_door_torn"
 
 /obj/item/inflatable/door/torn/attack_self(mob/user)
-	to_chat(user, "<span class='warning'>The inflatable door is too torn to be inflated!</span>")
+	to_chat(user, span_warning("The inflatable door is too torn to be inflated!"))
 	add_fingerprint(user)
 
 /obj/item/storage/briefcase/inflatable

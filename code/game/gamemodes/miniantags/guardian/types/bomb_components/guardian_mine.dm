@@ -45,7 +45,6 @@
 
 	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE))
 
-
 /datum/component/guardian_mine/proc/defuse()
 	if(is_exploded)
 		return

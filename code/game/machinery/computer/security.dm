@@ -1,6 +1,6 @@
-#define SEC_DATA_R_LIST	1	// Record list
-#define SEC_DATA_MAINT	2	// Records maintenance
-#define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_R_LIST 1 // Record list
+#define SEC_DATA_MAINT 2 // Records maintenance
+#define SEC_DATA_RECORD 3 // Record
 
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
@@ -60,7 +60,6 @@
 	record_security = null
 	return ..()
 
-
 /obj/machinery/computer/secure_data/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -70,7 +69,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/secure_data/attack_hand(mob/user)
 	if(..())
@@ -205,7 +203,7 @@
 				return
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "New Record"
-			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7), 2), 6)]"
+			G.fields["id"] = "[add_zero(num2hex(rand(1, SHORT_REAL_LIMIT), 2), 6)]"
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
@@ -501,7 +499,7 @@
 		if(prob(10 / severity))
 			switch(rand(1, 6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)

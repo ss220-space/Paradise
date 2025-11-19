@@ -3,7 +3,6 @@
 	endWhen = 11
 	var/turf/spawn_turf
 
-
 /datum/event/ghostpiano/start()
 	spawn_turf = get_spawning_turf()
 	if(!spawn_turf)
@@ -11,7 +10,6 @@
 		return
 	var/obj/structure/pianoclassic/ghostpiano/piano = new(spawn_turf)
 	notify_ghosts("Проклятое фортепиано появилось в [get_area(piano)].\nПомните, что вставка текста в поля UI не по назначению\n(К примеру текст \"А убил Б в техах\") - может каратся.", source = piano, action = NOTIFY_FOLLOW)
-
 
 /datum/event/ghostpiano/proc/get_spawning_turf()
 	var/list/availableareas = list()
@@ -26,9 +24,9 @@
 			avaivableturfs += floor
 	return safepick(avaivableturfs)
 
-
 /datum/event/ghostpiano/announce()
-	GLOB.minor_announcement.announce("Обнаружена незначительная безвредная паранормальная активность в [get_area(spawn_turf)]. Рекомендуется принять меры.",
-									ANNOUNCE_PARANORMAL_RU
+	GLOB.minor_announcement.announce(
+		message = "Обнаружена незначительная безвредная паранормальная активность в [get_area(spawn_turf)]. Рекомендуется принять меры.",
+		new_title = ANNOUNCE_PARANORMAL_RU
 	)
 

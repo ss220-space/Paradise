@@ -33,6 +33,7 @@ fast_paradise.dme
 #ignore any files in config/, except those in subdirectories.
 /config/*
 !config/**/*/
+!config/emojis.txt
 
 # ignore cfg, an internal BYOND folder
 /cfg/*
@@ -94,3 +95,7 @@ __pycache__/
 # Tools some of us like to keep in the repo
 OpenDream
 paradise.json
+
+# dmdoc and output
+dmdoc.exe
+dmdoc/

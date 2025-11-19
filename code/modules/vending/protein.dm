@@ -11,14 +11,14 @@
 		"Д+аже мо+я б+абушка сильн+ее теб+я! Подк+ачайся!",
 		"Чем ты сильн+ее, тем м+еньше у теб+я вол+ос.",
 		"Пред+ел есть у вс+его, кр+оме гуман+оида!", // Onepunchman
-		"Насто+ящая с+ила гуман+оида в спос+обности измен+иться по сво+ей в+оле!", // Onepunchman
+		"Насто+ящая с+ила заключ+ается в спос+обности измен+иться по сво+ей в+оле!", // Onepunchman
 		"Кто сильн+ее, тот и прав!",
 		"Дод+елал подх+од? Иди сюд+а и закреп+и +это бат+ончиком!"
 	)
-
 	icon_state = "protein_off"
 	panel_overlay = "cola-machine_panel"
 	screen_overlay = "protein_overlay"
+	refill_canister = /obj/item/vending_refill/protein
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,
@@ -46,14 +46,13 @@
 		/obj/item/reagent_containers/food/drinks/creatine = 349,
 		/obj/item/reagent_containers/food/drinks/guarana = 129,
 	)
-	refill_canister = /obj/item/vending_refill/protein
 
 /obj/machinery/vending/protein/get_ru_names()
 	return list(
-		NOMINATIVE = "торговый автомат спортивного пит+ания",
-		GENITIVE = "торгового автомата спортивного пит+ания",
-		DATIVE = "торговому автомату спортивного пит+ания",
-		ACCUSATIVE = "торговый автомат спортивного пит+ания",
-		INSTRUMENTAL = "торговым автоматом спортивного пит+ания",
-		PREPOSITIONAL = "торговом автомате спортивного пит+ания"
+		NOMINATIVE = "торговый автомат спортивного питания",
+		GENITIVE = "торгового автомата спортивного питания",
+		DATIVE = "торговому автомату спортивного питания",
+		ACCUSATIVE = "торговый автомат спортивного питания",
+		INSTRUMENTAL = "торговым автоматом спортивного питания",
+		PREPOSITIONAL = "торговом автомате спортивного питания",
 	)

@@ -53,7 +53,6 @@
 	return (mean + stddev * R1)
 #undef ACCURACY
 
-
 /proc/get_turf_in_angle(angle, turf/starting, increments = 1)
 	var/pixel_x = 0
 	var/pixel_y = 0
@@ -97,7 +96,6 @@
 		region_y2["[i]"] = TRUE
 
 	return list(region_x1 & region_x2, region_y1 & region_y2)
-
 
 /proc/RaiseToPower(num, power)
 	if(!power)
@@ -263,3 +261,10 @@
 		else //It gets too tedious to use latin prefixes from here.
 			return "[number]-tuple"
 
+/// Returns a text string containing N prefixed with a series of zeros with length equal to max_zeros minus log(10, N), rounded down.
+/proc/prefix_zeros_to_number(number, max_zeros)
+	var/zeros = ""
+	var/how_many_zeros = max_zeros - round(log(10, number))
+	for(var/zero in 1 to how_many_zeros)
+		zeros += "0"
+	return "[zeros][number]"

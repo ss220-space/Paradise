@@ -31,7 +31,6 @@
 				O.icon = I
 				O:silicateIcon = I */
 
-
 /datum/reagent/oxygen
 	name = "Кислород"
 	id = "oxygen"
@@ -98,9 +97,8 @@
 /datum/reagent/gold
 	name = "Золото"
 	id = "gold"
-	description = "Золото - плотный, мягкий, блестящий металл, самый податливый и вязкий из всех известных металлов."
+	description = "Золото — плотный, мягкий, блестящий металл, самый податливый и вязкий из всех известных металлов."
 	color = "#F7C430" // rgb: 247, 196, 48
-
 
 /datum/reagent/silver
 	name = "Серебро"
@@ -123,7 +121,6 @@
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "микросхем"
 
-
 /datum/reagent/copper
 	name = "Медь"
 	id = "copper"
@@ -141,7 +138,7 @@
 /datum/reagent/iron
 	name = "Железо"
 	id = "iron"
-	description = "Чистое железо - это металл."
+	description = "Чистое железо — это металл."
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "железа"
 
@@ -425,7 +422,7 @@
 /datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
 	name = "Шутостерон"
 	id = "jestosterone"
-	description = "Джестостерон - странное химическое соединение, вызывающее у обычного человека целый ряд раздражающих побочных эффектов. Он также вызывает лёгкое опьянение и токсичен для мимов."
+	description = "Джестостерон — странное химическое соединение, вызывающее у обычного человека целый ряд раздражающих побочных эффектов. Он также вызывает лёгкое опьянение и токсичен для мимов."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
 	taste_description = "смеха и шуток"
 	var/datum/component/squeak
@@ -672,13 +669,13 @@
 		set_skin_color(N)
 		if(prob(7))
 			if(N.w_uniform)
-				M.visible_message(span_notice(pick("Воротник [M] приподнимается без предупреждения.", "[M] игра[pluralize_ru(M.gender, "ет", "ют")] своими бицепсами.")))
+				M.visible_message(span_notice(pick("Воротник [M] приподнимается без предупреждения.", "[M] игра[PLUR_ET_YUT(M)] своими бицепсами.")))
 			else
-				M.visible_message(span_notice("[M] игра[pluralize_ru(M.gender, "ет", "ют")] своими бицепсами."))
+				M.visible_message(span_notice("[M] игра[PLUR_ET_YUT(M)] своими бицепсами."))
 	if(prob(10))
 		M.say(pick(
 			"Это было ПРОСТО ОХУИТЕЛЬНО.",
-			"Вы - зло этого мира.",
+			"Вы — зло этого мира.",
 			"А каким спортом вы занимаетесь кроме дрочки на голых анимешных тянок?",
 			"Не стесняйтесь, покажите мне на что вы способны.",
 			"Меня зовут Джон и я всех вас ненавижу.",

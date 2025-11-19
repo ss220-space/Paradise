@@ -6,7 +6,6 @@
 	on_gain_message = span_noticealien("You vomit some plasma in your hand and prepare to transfer it.")
 	on_withdraw_message = span_noticealien("You decide not to use plasma for now...")
 
-
 /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma/Click(mob/living/carbon/user = usr)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't control your hands!"))
@@ -42,24 +41,20 @@
 	else
 		to_chat(user, span_warning("Your hands are full!"))
 
-
 /obj/item/melee/touch_attack/alien/transfer_plasma
 	name = "plasma transfer"
 	desc = "Transfers plasma to another alien."
 	icon_state = "alien_transfer"
 	var/plasma_amount = 0
 
-
 /obj/item/melee/touch_attack/alien/transfer_plasma/New(spell, owner, plasma)
 	. = ..()
 	name = "[name] ([plasma])"
-
 
 /obj/item/melee/touch_attack/alien/transfer_plasma/Destroy()
 	if(owner && is_withdraw)
 		owner.adjust_alien_plasma(plasma_amount)
 	return ..()
-
 
 /obj/item/melee/touch_attack/alien/transfer_plasma/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(target == user)

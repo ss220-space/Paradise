@@ -29,10 +29,8 @@
 		to_chat(user,span_notice("You stop the [src].")) //Sand magically flows back because that's more convinient to use.
 		stop()
 
-
 /obj/item/hourglass/update_icon_state()
 	icon_state = "hourglass_[timing_id ? "active" : "idle"]"
-
 
 /obj/item/hourglass/proc/start()
 	finish_time = world.time + time

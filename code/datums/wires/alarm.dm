@@ -70,7 +70,6 @@
 			A.updateDialog()
 			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/alarm, enable_ai_control_callback)), 10 SECONDS)
 
-
 		if(WIRE_SYPHON)
 			if(A.mode == 1) // AALARM_MODE_SCRUB
 				A.mode = 3 // AALARM_MODE_PANIC

@@ -132,7 +132,7 @@
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This room is currently [occupant ? "" : "un"]occupied.</span>"
+	. += span_notice("This room is currently [occupant ? "" : "un"]occupied.")
 
 /obj/machinery/door/unpowered/hotel_door/allowed(mob/living/carbon/user)
 	for(var/obj/item/card/hotel_card/C in user.get_all_slots())
@@ -193,8 +193,6 @@
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id
 
-	var/obj/item/radio/radio	// for shouting at deadbeats
-
 /obj/effect/hotel_controller/Initialize(mapload)
 	. = ..()
 
@@ -203,9 +201,6 @@
 
 	controller = src
 
-	radio = new()
-	radio.broadcasting = 0
-	radio.listening = 0
 	var/area/myArea = get_area(src)
 	// get room doors
 	for(var/obj/machinery/door/unpowered/hotel_door/D in myArea?.machinery_cache)
@@ -219,8 +214,6 @@
 	room_doors.Cut()
 	vacant_rooms.Cut()
 	guests.Cut()
-
-	QDEL_NULL(radio)
 
 	return ..()
 
@@ -279,8 +272,7 @@
 		return 0
 
 	var/mob/deadbeat = D.occupant
-
-	radio.autosay("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name)
+	radio_announce("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name, PUB_FREQ, D)
 	spawn(300)
 		if(D.occupant == deadbeat)
 			// they still haven't checked out...

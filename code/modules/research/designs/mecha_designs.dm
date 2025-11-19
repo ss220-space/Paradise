@@ -64,7 +64,6 @@
 	build_path = /obj/item/circuitboard/mecha/clarke/peripherals
 	category = list("Exosuit Modules")
 
-
 // Gygax
 /datum/design/gygax_main
 	name = "Exosuit Board (\"Gygax\" Central Control module)"

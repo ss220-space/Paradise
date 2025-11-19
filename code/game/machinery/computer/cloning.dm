@@ -32,7 +32,7 @@
 		DATIVE = "консоли капсулы клонирования",
 		ACCUSATIVE = "консоль капсулы клонирования",
 		INSTRUMENTAL = "консолью капсулы клонирования",
-		PREPOSITIONAL = "консоли капсулы клонирования"
+		PREPOSITIONAL = "консоли капсулы клонирования",
 	)
 
 /obj/machinery/computer/cloning/Initialize(mapload)
@@ -47,7 +47,7 @@
 	return ..()
 
 /obj/machinery/computer/cloning/process()
-	if(!scanner || !pods.len || !autoprocess || stat & NOPOWER)
+	if(!scanner || !length(pods) || !autoprocess || stat & NOPOWER)
 		return
 
 	if(scanner.occupant && can_autoprocess())
@@ -67,7 +67,7 @@
 	src.scanner = findscanner()
 	releasecloner()
 	findcloner()
-	if(!selected_pod && pods.len)
+	if(!selected_pod && length(pods))
 		selected_pod = pods[1]
 
 /obj/machinery/computer/cloning/proc/findscanner()
@@ -99,7 +99,6 @@
 			P.connected = src
 			P.name = "[initial(P.name)] #[num++]"
 
-
 /obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -118,7 +117,6 @@
 
 	return ..()
 
-
 /obj/machinery/computer/cloning/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -135,10 +133,8 @@
 	clonepod.name = "[initial(clonepod.name)] #[length(pods)]"
 	balloon_alert(user, "устройства связаны")
 
-
 /obj/machinery/computer/cloning/attack_ai(mob/user)
 	return attack_hand(user)
-
 
 /obj/machinery/computer/cloning/attack_hand(mob/user)
 	if(..())
@@ -157,7 +153,6 @@
 	if(emagged)
 		circuit = /obj/item/circuitboard/broken
 	..()
-
 
 /obj/machinery/computer/cloning/emag_act(mob/user)
 	if(!emagged)
@@ -196,7 +191,7 @@
 	data["scanner"] = sanitize("[src.scanner]")
 
 	var/canpodautoprocess = 0
-	if(pods.len)
+	if(length(pods))
 		data["numberofpods"] = src.pods.len
 
 		var/list/tempods[0]
@@ -223,7 +218,7 @@
 	data["can_brainscan"] = can_brainscan() // You'll need tier 4s for this
 	data["scan_mode"] = scan_mode
 
-	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
+	if(scanner && length(pods) && ((scanner.scan_level > 2) || canpodautoprocess))
 		data["autoallowed"] = 1
 	else
 		data["autoallowed"] = 0

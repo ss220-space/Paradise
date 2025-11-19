@@ -5,7 +5,6 @@
  *		Edaggers
  */
 
-
 /*
  * Pens
  */
@@ -80,7 +79,6 @@
 	if(select_colour(user))
 		..()
 
-
 /obj/item/pen/multi/update_overlays()
 	. = ..()
 	var/icon/color_overlay = new(icon, pen_color_iconstate)
@@ -90,34 +88,28 @@
 		color_overlay.Shift(SOUTH, pen_color_shift)
 	. += color_overlay
 
-
 /obj/item/pen/fancy
 	name = "fancy pen"
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
 	icon_state = "fancypen"
-
 
 /obj/item/pen/fancy/bomb
 	var/clickscount = 0
 	var/bomb_timer
 	var/obj/item/grenade/syndieminibomb/bomb
 
-
 /obj/item/pen/fancy/bomb/Initialize(mapload)
 	. = ..()
 	bomb = new(src)
-
 
 /obj/item/pen/fancy/bomb/Destroy()
 	QDEL_NULL(bomb)
 	return ..()
 
-
 /obj/item/pen/fancy/bomb/examine(mob/user)
 	. = ..()
 	if(istraitor(user))
 		. += span_specialnotice("They always said the pen is mightier than the sword.")
-
 
 /obj/item/pen/fancy/bomb/attack_self(mob/user)
 	..()
@@ -133,26 +125,21 @@
 			deltimer(bomb_timer)
 			bomb_timer = null
 
-
 /obj/item/pen/fancy/bomb/proc/prime_bomb(mob/user)
 	log_and_message_admins("[key_name_admin(user)] has detonated a pen-bomb.")
 	update_mob()
 	bomb.prime()
-
 
 /obj/item/pen/fancy/bomb/proc/update_mob()
 	if(ismob(loc))
 		var/mob/mob_loc = loc
 		mob_loc.drop_item_ground(src)
 
-
 /obj/item/pen/fancy/bomb/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	return bomb.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
 
-
 /obj/item/pen/fancy/bomb/tool_act(mob/living/user, obj/item/I, tool_type)
 	return bomb.tool_act(user, I, tool_type) || ..()
-
 
 /obj/item/pen/multi/gold
 	name = "Gilded Pen"
@@ -173,7 +160,6 @@
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
 
-
 /obj/item/pen/sleepy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!target.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
 		return ATTACK_CHAIN_PROCEED
@@ -184,12 +170,10 @@
 	to_chat(user, span_warning("You sneakily stab [target] with the pen."))
 	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
 
-
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
 	reagents.add_reagent("ketamine", 100)
-
 
 /*
  * (Alan) Edaggers
@@ -205,7 +189,6 @@
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
 	COOLDOWN_DECLARE(backstab_cooldown)
-
 
 /obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/extra_force_applied = FALSE
@@ -231,12 +214,10 @@
 		span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"),
 	)
 
-
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	if(!force)
 		return ..()
 	return 20
-
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	on = !on
@@ -264,27 +245,22 @@
 	set_sharpness(on)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
-
 /obj/item/pen/edagger/update_name(updates = ALL)
 	. = ..()
 	name = on ? "energy dagger" : initial(name)
 
-
 /obj/item/pen/edagger/update_icon_state()
 	icon_state = on ? "edagger" : initial(icon_state) //looks like a normal pen when off.
 	item_state = on ? "edagger" : initial(item_state)
-
 
 /obj/item/pen/edagger/comms
 	icon_state = "ofcommpen"
 	item_state = "ofcommpen"
 	light_color = LIGHT_COLOR_BLUE
 
-
 /obj/item/pen/edagger/comms/update_icon_state()
 	icon_state = on ? "ofcommpen_active" : initial(icon_state)
 	item_state = on ? "ofcommpen_active" : initial(item_state)
-
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return

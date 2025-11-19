@@ -13,7 +13,6 @@
 	temperature_max = 350
 	var/needs_to_apply_reagents = TRUE
 	var/application_zone = null
-	var/protection_on_apply = 1
 
 /obj/item/reagent_containers/food/pill/patch/get_ru_names()
 	return list(
@@ -22,7 +21,7 @@
 		DATIVE = "пластырю",
 		ACCUSATIVE = "пластырь",
 		INSTRUMENTAL = "пластырем",
-		PREPOSITIONAL = "пластыре"
+		PREPOSITIONAL = "пластыре",
 	)
 
 /obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -31,17 +30,15 @@
 		return .
 	if(!user.can_unEquip(src))
 		return .
+	if(!target.can_inject(user, FALSE))
+		return .
 	bitesize = 0
 	if(!target.eat(src, user) || !user.can_unEquip(src))
 		return .
 	user.drop_transfer_item_to_loc(src, target)
-	var/mob/living/carbon/human/H = target
-	if(istype(H))
-		protection_on_apply = H.get_permeability_protection_organ(target.get_organ(def_zone))
 	application_zone = def_zone
 	LAZYADD(target.processing_patches, src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user, proximity, params)
 	return // thanks inheritance again
@@ -60,7 +57,7 @@
 		DATIVE = "пластырю (Мех. Повреждения)",
 		ACCUSATIVE = "пластырь (Мех. Повреждения)",
 		INSTRUMENTAL = "пластырем (Мех. Повреждения)",
-		PREPOSITIONAL = "пластыре (Мех. Повреждения)"
+		PREPOSITIONAL = "пластыре (Мех. Повреждения)",
 	)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
@@ -75,7 +72,7 @@
 		DATIVE = "мини-пластырю (Мех. Повреждения)",
 		ACCUSATIVE = "мини-пластырь (Мех. Повреждения)",
 		INSTRUMENTAL = "мини-пластырем (Мех. Повреждения)",
-		PREPOSITIONAL = "мини-пластыре (Мех. Повреждения)"
+		PREPOSITIONAL = "мини-пластыре (Мех. Повреждения)",
 	)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
@@ -92,7 +89,7 @@
 		DATIVE = "пластырю (Терм. Повреждения)",
 		ACCUSATIVE = "пластырь (Терм. Повреждения)",
 		INSTRUMENTAL = "пластырем (Терм. Повреждения)",
-		PREPOSITIONAL = "пластыре (Терм. Повреждения)"
+		PREPOSITIONAL = "пластыре (Терм. Повреждения)",
 	)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
@@ -107,7 +104,7 @@
 		DATIVE = "мини-пластырю (Терм. Повреждения)",
 		ACCUSATIVE = "мини-пластырь (Терм. Повреждения)",
 		INSTRUMENTAL = "мини-пластырем (Терм. Повреждения)",
-		PREPOSITIONAL = "мини-пластыре (Терм. Повреждения)"
+		PREPOSITIONAL = "мини-пластыре (Терм. Повреждения)",
 	)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
@@ -124,7 +121,7 @@
 		DATIVE = "пластырю (Синт-плоть)",
 		ACCUSATIVE = "пластырь (Синт-плоть)",
 		INSTRUMENTAL = "пластырем (Синт-плоть)",
-		PREPOSITIONAL = "пластыре (Синт-плоть)"
+		PREPOSITIONAL = "пластыре (Синт-плоть)",
 	)
 
 /obj/item/reagent_containers/food/pill/patch/nicotine
@@ -139,7 +136,7 @@
 		DATIVE = "пластырю (Никотин)",
 		ACCUSATIVE = "пластырь (Никотин)",
 		INSTRUMENTAL = "пластырем (Никотин)",
-		PREPOSITIONAL = "пластыре (Никотин)"
+		PREPOSITIONAL = "пластыре (Никотин)",
 	)
 
 /obj/item/reagent_containers/food/pill/patch/jestosterone
@@ -155,5 +152,5 @@
 		DATIVE = "пластырю (Шутостерон)",
 		ACCUSATIVE = "пластырь (Шутостерон)",
 		INSTRUMENTAL = "пластырем (Шутостерон)",
-		PREPOSITIONAL = "пластыре (Шутостерон)"
+		PREPOSITIONAL = "пластыре (Шутостерон)",
 	)

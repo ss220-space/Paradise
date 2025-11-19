@@ -9,7 +9,6 @@
 	else
 		return asset_cache_job || TRUE
 
-
 /// Process asset cache client topic calls for `"asset_cache_preload_data=[HTML+JSON_STRING]"`
 /client/proc/asset_cache_preload_data(data)
 	var/json = data
@@ -20,7 +19,6 @@
 			preloaded_assets -= preloaded_asset
 			continue
 	sent_assets |= preloaded_assets
-
 
 /// Updates the client side stored json file used to keep track of what assets the client has between restarts/reconnects.
 /client/proc/asset_cache_update_json()

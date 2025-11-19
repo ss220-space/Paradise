@@ -5,13 +5,10 @@
 	desc = "Automatically dusts user if turned on!"
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
 	button_icon_state = "dust"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Auto-Dust"
-
 
 /**
  * Proc called to enable/disable autodust.
@@ -29,10 +26,10 @@
 		if(choise == "Да")
 			if(health_threshold == 0 && auto_dust)
 				health_threshold = -90
-				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")]  в режим <span class='green'>\"Обнаружение смерти\"</span>")
+				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")]  в режим [span_green("\"Обнаружение смерти\"")]")
 			else if(health_threshold == -90 && auto_dust)
 				health_threshold = 0
-				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")] в режим <span class='green'>\"Обнаружение критического состояния\"</span>")
+				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")] в режим [span_green("\"Обнаружение критического состояния\"")]")
 	else if(auto_dust)
 		auto_dust = FALSE
 		user.show_message("Вы выключили программу [span_warning("\"Автораспыления\"")]")

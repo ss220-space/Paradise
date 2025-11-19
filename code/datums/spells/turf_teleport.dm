@@ -16,10 +16,8 @@
 	var/sound_in = 'sound/weapons/zapbang.ogg'
 	var/sound_out = 'sound/weapons/zapbang.ogg'
 
-
 /obj/effect/proc_holder/spell/turf_teleport/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/turf_teleport/cast(list/targets,mob/living/user = usr)
 	if(sound_in)

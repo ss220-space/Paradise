@@ -113,7 +113,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)	continue
 				destination_list += T
-			if(destination_list.len)
+			if(length(destination_list))
 				destination = pick(destination_list)
 			else	return
 
@@ -124,7 +124,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	else	return
 
 	return destination
-
 
 /proc/is_in_teleport_proof_area(atom/O)
 	if(!O)
@@ -158,7 +157,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /////////////////////////////////////////////////////////////////////////
 
-
 //Same as the thing below just for density and without support for atoms.
 /proc/can_line(atom/source, atom/target, length = 5)
 	var/turf/current = get_turf(source)
@@ -189,7 +187,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			return FALSE
 	return TRUE
 
-//Ensure the frequency is within bounds of what it should be sending/recieving at
+///Ensure the frequency is within bounds of what it should be sending/receiving at
 /proc/sanitize_frequency(f, low = PUBLIC_LOW_FREQ, high = PUBLIC_HIGH_FREQ)
 	f = round(f)
 	f = max(low, f)
@@ -200,6 +198,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //Turns 1479 into 147.9
 /proc/format_frequency(f)
+	f = text2num(f)
 	return "[round(f / 10)].[f % 10]"
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -216,7 +215,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/name = "[A.real_name] ([A.modtype?.name] [A.braintype])"
 		borgs[name] = A
 
-	if(borgs.len)
+	if(length(borgs))
 		select = tgui_input_list(usr, "Unshackled borg signals detected:", "Borg selection", borgs, null)
 		return borgs[select]
 
@@ -246,7 +245,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(ais.len)
+	if(length(ais))
 		if(user)	. = tgui_input_list(usr, "AI signals detected:", "AI selection", ais)
 		else		. = pick(ais)
 	return .
@@ -340,12 +339,12 @@ Turf and target are seperate in case you want to teleport some distance from a t
 // Format a power value in W, kW, MW, or GW.
 /proc/DisplayPower(powerused)
 	if(powerused < 1000) //Less than a kW
-		return "[powerused] W"
+		return "[powerused] Вт"
 	else if(powerused < 1000000) //Less than a MW
-		return "[round((powerused * 0.001), 0.01)] kW"
+		return "[round((powerused * 0.001), 0.01)] кВт"
 	else if(powerused < 1000000000) //Less than a GW
-		return "[round((powerused * 0.000001), 0.001)] MW"
-	return "[round((powerused * 0.000000001), 0.0001)] GW"
+		return "[round((powerused * 0.000001), 0.001)] МВт"
+	return "[round((powerused * 0.000000001), 0.0001)] ГВт"
 
 //Forces a variable to be posative
 /proc/modulus(M)
@@ -375,13 +374,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		ckey = findStealthKey(ckey)
 	return GLOB.directory[ckey]
 
-
 /proc/findStealthKey(txt)
 	if(txt)
 		for(var/P in GLOB.stealthminID)
 			if(GLOB.stealthminID[P] == txt)
 				return P
-
 
 /**
  * Returns the top-most atom sitting on the turf.
@@ -404,7 +401,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			break
 
 	return topmost_thing
-
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -461,7 +457,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return locate(x,y,target_atom.z)
 
-
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
 /proc/get_offset_target_turf(atom/A, dx, dy)
@@ -473,25 +468,32 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/between(low, middle, high)
 	return max(min(middle, high), low)
 
-//Will return the contents of an atom recursivly to a depth of 'searchDepth'
-/atom/proc/GetAllContents(searchDepth = 5)
-	var/list/toReturn = list()
-
-	for(var/atom/part in contents)
-		toReturn += part
-		if(part.contents.len && searchDepth)
-			toReturn += part.GetAllContents(searchDepth - 1)
-
-	return toReturn
+//Will return the contents of an atom
+/atom/proc/GetAllContents(turf)
+	var/list/processing_list = list(src)
+	if(!turf)
+		var/i = 0
+		while(i < length(processing_list))
+			var/atom/atom = processing_list[++i]
+			processing_list += atom.contents
+		return processing_list
+	. = list()
+	var/i = 0
+	while(i < length(processing_list))
+		var/atom/atom = processing_list[++i]
+		//Byond does not allow things to be in multiple contents, or double parent-child hierarchies, so only += is needed
+		//This is also why we don't need to check against assembled as we go along
+		processing_list += atom.contents
+		if(istype(atom, turf))
+			. += atom
 
 //Searches contents of the atom and returns the sum of all w_class of obj/item within
-/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+/atom/proc/GetTotalContentsWeight()
 	var/weight = 0
-	var/list/content = GetAllContents(searchDepth)
-	for(var/obj/item/I in content)
-		weight += I.w_class
+	var/list/content = GetAllContents()
+	for(var/obj/item/item in content)
+		weight += item.w_class
 	return weight
-
 
 ///Step-towards method of determining whether one atom can see another. Similar to viewers()
 ///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
@@ -574,8 +576,6 @@ Returns 1 if the chain up to the area contains the given typepath
 			turfs += zlevel_turfs
 
 	return turfs
-
-
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all atoms	(objs, turfs, mobs) in areas of that type of that type in the world.
@@ -675,7 +675,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	var/copiedobjs = list()
 
-
 	moving:
 		for(var/turf/T in refined_src)
 			var/datum/coords/C_src = refined_src[T]
@@ -712,17 +711,12 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-
-
-	if(toupdate.len)
+	if(length(toupdate))
 		for(var/turf/simulated/T1 in toupdate)
 			T1.CalculateAdjacentTurfs()
 			SSair.add_to_active(T1,1)
 
-
 	return copiedobjs
-
-
 
 /proc/get_cardinal_dir(atom/A, atom/B)
 	var/dx = abs(B.x - A.x)
@@ -911,7 +905,6 @@ Standard way to write links -Sayu
 		arglist = list2params(arglist)
 	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
-
 // This proc is made to check if we can interact or use (directly or in the other way) the specific bodypart
 // Not to check if one clothing blocks access to the other clothing
 // for that we have flags_inv var
@@ -990,14 +983,13 @@ Standard way to write links -Sayu
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
-
 /atom/proc/GetTypeInAllContents(typepath)
 	var/list/processing_list = list(src)
 	var/list/processed = list()
 
 	var/atom/found = null
 
-	while(processing_list.len && found==null)
+	while(length(processing_list) && found==null)
 		var/atom/A = processing_list[1]
 		if(istype(A, typepath))
 			found = A
@@ -1100,7 +1092,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 	return FALSE
 
-
 /**
  * Checks whether the target turf is in a valid state to accept a directional construction
  * such as windows or railings.
@@ -1147,7 +1138,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //NORTH --> NORTHWEST
 /proc/get_anticlockwise_dir(dir)
 	. = angle2dir(dir2angle(dir)-45)
-
 
 //Compare A's dir, the clockwise dir of A and the anticlockwise dir of A
 //To the opposite dir of the dir returned by get_dir(B,A)
@@ -1226,7 +1216,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		stop_orbit()
-
 
 /atom/movable/proc/stop_orbit()
 	if(ismob(orbiting))
@@ -1338,8 +1327,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			. |= T.loc
 
 /proc/is_there_multiz()
-	return SSmapping?.map_datum?.traits?.len > 1
-
+	return length(SSmapping?.map_datum?.traits) > 1
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
@@ -1377,11 +1365,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!isnull(value) && value != "")
 		matches = filter_fancy_list(matches, value)
 
-	if(matches.len == 0)
+	if(length(matches) == 0)
 		return
 
 	var/chosen
-	if(matches.len == 1)
+	if(length(matches) == 1)
 		chosen = matches[1]
 	else
 		chosen = tgui_input_list(usr, "Select a type", "Pick Type", matches,  matches[1])
@@ -1497,20 +1485,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				break
 		.[typename] = type
 
-
 /proc/get_fancy_list_of_atom_types()
 	var/static/list/pre_generated_list
 	if(!pre_generated_list) //init
 		pre_generated_list = make_types_fancy(typesof(/atom))
 	return pre_generated_list
 
-
 /proc/get_fancy_list_of_datum_types()
 	var/static/list/pre_generated_list
 	if(!pre_generated_list) //init
 		pre_generated_list = make_types_fancy(sortList(typesof(/datum) - typesof(/atom)))
 	return pre_generated_list
-
 
 /proc/filter_fancy_list(list/L, filter as text)
 	var/list/matches = new
@@ -1717,7 +1702,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-
 /**
  * Returns the clean name of an audio channel.
  *
@@ -1863,7 +1847,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return ITEM_SLOT_LEGCUFFED_STRING
 		if(ITEM_SLOT_ACCESSORY)
 			return ITEM_SLOT_ACCESSORY_STRING
-
 
 /proc/return_typenames(type)
 	return splittext("[type]", "/")

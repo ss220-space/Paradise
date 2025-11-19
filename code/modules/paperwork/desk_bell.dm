@@ -24,17 +24,15 @@
 	if(ring_cooldown > world.time || !anchored)
 		return TRUE
 	if(!ring_bell(user))
-		to_chat(user, "<span class='notice'>[src] is silent. Some idiot broke it.</span>")
+		to_chat(user, span_notice("[src] is silent. Some idiot broke it."))
 	ring_cooldown = world.time + ring_cooldown_length
 	return TRUE
 
-
-/obj/item/desk_bell/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/desk_bell/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(over_object != user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
 		return FALSE
 
@@ -47,15 +45,14 @@
 	set_anchored(TRUE)
 	return FALSE
 
-
 // Fix the clapper
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(broken_ringer)
-		visible_message("<span class='notice'>[user] begins repairing [src]...</span>", "<span class='notice'>You begin repairing [src]...</span>")
+		visible_message(span_notice("[user] begins repairing [src]..."), span_notice("You begin repairing [src]..."))
 		tool.play_tool_sound(src)
 		if(tool.use_tool(src, user, 5 SECONDS))
-			user.visible_message("<span class='notice'>[user] repairs [src].</span>", "<span class='notice'>You repair [src].</span>")
+			user.visible_message(span_notice("[user] repairs [src]."), span_notice("You repair [src]."))
 			playsound(user, 'sound/items/change_drill.ogg', 50, vary = TRUE)
 			broken_ringer = FALSE
 			times_rang = 0
@@ -66,9 +63,9 @@
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(user.a_intent == INTENT_HARM && !(item_flags & IN_INVENTORY))
-		visible_message("<span class='notice'>[user] begins taking apart [src]...</span>", "<span class='notice'>You begin taking apart [src]...</span>")
+		visible_message(span_notice("[user] begins taking apart [src]..."), span_notice("You begin taking apart [src]..."))
 		if(tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume))
-			visible_message("<span class='notice'>[user] takes apart [src].</span>", "<span class='notice'>You take apart [src].</span>")
+			visible_message(span_notice("[user] takes apart [src]."), span_notice("You take apart [src]."))
 			playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
 			new /obj/item/stack/sheet/metal(drop_location(), 2)
 			qdel(src)
@@ -85,11 +82,10 @@
 				return
 			set_anchored(FALSE)
 
-
 /// Check if the clapper breaks, and if it does, break it
 /obj/item/desk_bell/proc/check_clapper(mob/living/user)
 	if(prob(times_rang / 50) && ring_cooldown_length)
-		to_chat(user, "<span class='notice'>You hear [src]'s clapper fall off of its hinge. Nice job, you broke it.</span>")
+		to_chat(user, span_notice("You hear [src]'s clapper fall off of its hinge. Nice job, you broke it."))
 		broken_ringer = TRUE
 
 /// Ring the bell

@@ -6,7 +6,6 @@
 	name = "heat reservoir"
 	desc = "Heats gas when connected to pipe network"
 
-
 	var/current_temperature = T20C
 	var/current_heat_capacity = 50000 //totally random
 

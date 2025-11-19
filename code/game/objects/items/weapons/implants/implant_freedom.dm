@@ -8,7 +8,6 @@
 	implant_data = /datum/implant_fluff/freedom
 	uses = 4
 
-
 /obj/item/implant/freedom/activate(cause)
 	uses--
 	to_chat(imp_in, "You feel a faint click.")
@@ -35,17 +34,14 @@
 	if(!uses)
 		qdel(src)
 
-
 /obj/item/implanter/freedom
 	name = "bio-chip implanter (freedom)"
 	imp = /obj/item/implant/freedom
-
 
 /obj/item/implantcase/freedom
 	name = "bio-chip case - 'Freedom'"
 	desc = "A glass case containing a freedom bio-chip."
 	imp = /obj/item/implant/freedom
-
 
 /obj/item/implant/freedom/prototype
 	name = "prototype freedom bio-chip"
@@ -54,12 +50,9 @@
 	implant_data = /datum/implant_fluff/protofreedom
 	uses = 1
 
-
-
 /obj/item/implanter/freedom/prototype
 	name = "bio-chip implanter (proto-freedom)"
 	imp = /obj/item/implant/freedom/prototype
-
 
 /obj/item/implantcase/freedom/prototype
 	name = "bio-chip case - 'Proto-Freedom'"

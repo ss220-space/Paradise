@@ -31,7 +31,6 @@
 
 	qdel(src)
 
-
 //////////////////////
 //Clusterbang segment
 //////////////////////
@@ -45,11 +44,10 @@
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = 1
-	SSmove_manager.move_away(src, loc, rand(1,4), 1)
+	GLOB.move_manager.move_away(src, loc, rand(1,4), 1)
 	payload_power /= SEGMENTATION_PAYLOAD_DECREASE
 	spawn(rand(15,60))
 		prime()
-
 
 /obj/item/grenade/clusterbuster/segment/prime()
 
@@ -68,14 +66,13 @@
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
 			P.active = 1
-		SSmove_manager.move_away(P, loc, rand(1,4), 1)
+		GLOB.move_manager.move_away(P, loc, rand(1,4), 1)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))
 				if(istype(P, /obj/item/grenade))
 					P.prime(power)
 			qdel(src)
-
 
 //////////////////////////////////
 //Custom payload clusterbusters
@@ -277,7 +274,6 @@
 /obj/item/grenade/clusterbuster/mega_emp
 	name = "Electromagnetic Storm"
 	payload = /obj/item/grenade/clusterbuster/emp
-
 
 /obj/item/grenade/clusterbuster/admincleaner
 	desc = "Для уборки <b>действительно</b> больших беспорядков."

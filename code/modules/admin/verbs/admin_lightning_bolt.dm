@@ -1,9 +1,9 @@
-#define MODE_CKEY			"По игроку"
-#define MODE_POINTER		"По указателю"
-#define WARNING_MESSAGE		span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
-#define DEFAULT_DAMAGE		100
-#define DEFAULT_RADIUS		3
-#define DEFAULT_DELAY		3
+#define MODE_CKEY "По игроку"
+#define MODE_POINTER "По указателю"
+#define WARNING_MESSAGE span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
+#define DEFAULT_DAMAGE 100
+#define DEFAULT_RADIUS 3
+#define DEFAULT_DELAY 3
 
 /client/proc/drop_lightning_bolt()
 	set category = STATPANEL_ADMIN_FUN
@@ -18,7 +18,6 @@
 
 	var/datum/drop_lightning_bolt_ui/editor = new()
 	editor.ui_interact(mob)
-
 
 /datum/drop_lightning_bolt_ui
 	var/client/client = null
@@ -193,12 +192,10 @@
 	dropper.mode = MODE_POINTER
 	return TRUE
 
-
 /datum/drop_lightning_bolt_ui/preloaded_target/New(mob/user, reason)
 	victim_mob = user
 	mode = MODE_CKEY
 	src.reason = reason
-
 
 #undef MODE_CKEY
 #undef MODE_POINTER

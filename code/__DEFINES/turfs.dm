@@ -61,7 +61,6 @@
 		(CENTER).x + (RADIUS), (CENTER).y - (RADIUS) + 1, (CENTER).z \
 	) : list())
 
-
 /// Returns a list of turfs in the rectangle specified by BOTTOM LEFT corner and height/width, checks for being outside the world border for you
 #define CORNER_BLOCK(corner, width, height) CORNER_BLOCK_OFFSET(corner, width, height, 0, 0)
 
@@ -71,7 +70,6 @@
 		corner.x + offset_x, corner.y + offset_y, corner.z, \
 		corner.x + (width - 1) + offset_x, corner.y + (height - 1) + offset_y, corner.z \
 	))
-
 
 /// Returns an outline (neighboring turfs) of the given block
 #define CORNER_OUTLINE(corner, width, height) ( \

@@ -6,8 +6,8 @@
 	item_state = "beekeeper"
 	clothing_flags = THICKMATERIAL
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+	)
 
 /obj/item/clothing/suit/beekeeper_suit
 	name = "beekeeper suit"
@@ -17,6 +17,6 @@
 	clothing_flags = THICKMATERIAL
 	allowed = list(/obj/item/melee/flyswatter, /obj/item/reagent_containers/spray, /obj/item/plant_analyzer, /obj/item/seeds, /obj/item/reagent_containers/glass/bottle, /obj/item/cultivator)
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 

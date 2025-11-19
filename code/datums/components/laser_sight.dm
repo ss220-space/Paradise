@@ -1,13 +1,11 @@
 // Laser sight component
 
-
 //MARK: Base component
 /datum/component/laser_sight
 	var/enable = FALSE
 	var/datum/action/toggle_laser_sight/action = null
 	var/sight_timer = null
 	var/atom/sight_target = null
-
 
 /datum/component/laser_sight/Initialize()
 	. = ..()
@@ -36,7 +34,6 @@
 		sight_timer = null
 	return ..()
 
-
 /datum/component/laser_sight/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
@@ -51,7 +48,6 @@
 	// The gun is equipped in their hands, give them the zoom ability.
 	action.Grant(user)
 
-
 /datum/component/laser_sight/proc/on_attach_module(datum/source, mob/user, obj/item/gun, obj/item/gun_module/gun_mod)
 	SIGNAL_HANDLER
 
@@ -59,12 +55,10 @@
 		return
 	on_equip(src, user, ITEM_SLOT_HANDS)
 
-
 /datum/component/laser_sight/proc/on_detach_module(datum/source, mob/user, obj/item/gun, obj/item/gun_module/gun_mod)
 	SIGNAL_HANDLER
 
 	on_drop(source, user)
-
 
 /datum/component/laser_sight/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -75,13 +69,11 @@
 	sight_target = null
 	return FALSE
 
-
 /datum/component/laser_sight/proc/on_laser_sight_keybinding(datum/sourc, mob/user, obj/item/gun/target_gun)
 	SIGNAL_HANDLER
 
 	toggle_enable(user)
 	process_aim(user)
-
 
 // There is a gun and there is a user wielding it. The component now waits for the mouse click.
 /datum/component/laser_sight/proc/toggle_enable(mob/user, forced_enable = null)
@@ -99,7 +91,6 @@
 	if(!parent)
 		return
 	SEND_SIGNAL(parent, COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE, user, enable)
-
 
 /datum/component/laser_sight/proc/process_aim(mob/user)
 	if(enable)
@@ -164,7 +155,7 @@
 		return
 	var/target_x = rand(-move_range, move_range)
 	var/target_y = rand(-move_range, move_range)
-	var/duration = rand(animation_speed * 0.5, animation_speed * 1.5)
+	var/duration = randfloat(animation_speed * 0.5, animation_speed * 1.5)
 	animate(point,
 		pixel_x = target_x,
 		pixel_y = target_y,
@@ -253,11 +244,11 @@
 	button_icon_state = "sniper_zoom"
 	var/datum/component/laser_sight/sight = null
 
-/datum/action/toggle_laser_sight/Trigger(left_click = TRUE)
+/datum/action/toggle_laser_sight/Trigger(mob/clicker, trigger_flags)
 	sight.toggle_enable(owner)
 	sight.process_aim(owner)
 
-/datum/action/toggle_laser_sight/IsAvailable()
+/datum/action/toggle_laser_sight/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(. || !sight)
 		return
@@ -268,7 +259,6 @@
 	sight.toggle_enable(owner, FALSE)
 	sight.process_aim(living)
 	return ..()
-
 
 // MARK: Effects
 

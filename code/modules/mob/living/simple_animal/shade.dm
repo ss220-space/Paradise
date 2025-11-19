@@ -41,7 +41,6 @@
 	. = ..()
 	SSticker.mode.remove_cultist(mind, FALSE)
 
-
 /mob/living/simple_animal/shade/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -53,14 +52,11 @@
 
 	return ..()
 
-
 /mob/living/simple_animal/shade/update_icon_state()
 	icon_state = holy ? "shade_angelic" : "shade"
 
-
 /mob/living/simple_animal/shade/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /mob/living/simple_animal/shade/cult/Initialize(mapload)
 	. = ..()
@@ -92,4 +88,4 @@
 /mob/living/simple_animal/shade/talisman/New()
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)

@@ -24,9 +24,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
-	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
+	to_chat(user, span_warning("The station AI is not to interact with these devices."))
 	return
-
 
 /obj/machinery/keycard_auth/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -58,13 +57,11 @@
 
 	return ..()
 
-
 /obj/machinery/keycard_auth/update_icon_state()
 	if(event_triggered_by || event_source)
 		icon_state = "auth_on"
 	else
 		icon_state = "auth_off"
-
 
 /obj/machinery/keycard_auth/update_overlays()
 	. = ..()
@@ -72,7 +69,6 @@
 
 	if(event_triggered_by || event_source)
 		underlays += emissive_appearance(icon, "auth_lightmask", src)
-
 
 /obj/machinery/keycard_auth/power_change(forced = FALSE)
 	if(!..())
@@ -93,27 +89,26 @@
 		ui = new(user, src, "KeycardAuth", name)
 		ui.open()
 
-
 /obj/machinery/keycard_auth/ui_data()
 	var/list/data = list()
 	data["redAvailable"] = SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_RED
 	data["swiping"] = swiping
 	data["busy"] = busy
-	data["event"] = active && event_source && event_source.event ? event_source.event : event
-	data["ertreason"] = active && event_source && event_source.ert_reason ? event_source.ert_reason : ert_reason
+	data["event"] = active && event_source?.event ? event_source.event : event
+	data["ertreason"] = active && event_source?.ert_reason ? event_source.ert_reason : ert_reason
 	data["isRemote"] = active ? TRUE : FALSE
 	data["hasSwiped"] = event_triggered_by ? TRUE : FALSE
-	data["hasConfirm"] = event_confirmed_by || (active && event_source && event_source.event_confirmed_by) ? TRUE : FALSE
+	data["hasConfirm"] = event_confirmed_by || (active && event_source?.event_confirmed_by) ? TRUE : FALSE
 	return data
 
 /obj/machinery/keycard_auth/ui_act(action, params)
 	if(..())
 		return
 	if(busy)
-		to_chat(usr, "<span class='warning'>This device is busy.</span>")
+		to_chat(usr, span_warning("This device is busy."))
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE
@@ -125,7 +120,7 @@
 		if("triggerevent")
 			event = params["triggerevent"]
 			if(SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_RED && event == "Red Alert") //if gamma, epsilon or delta
-				to_chat(usr, "<span class='warning'>CentCom security measures prevent you from changing the alert level.</span>")
+				to_chat(usr, span_warning("CentCom security measures prevent you from changing the alert level."))
 				return
 			swiping = TRUE
 
@@ -141,7 +136,6 @@
 	busy = FALSE
 	update_icon()
 
-
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
 	for(var/obj/machinery/keycard_auth/KA in SSmachines.get_by_type(/obj/machinery/keycard_auth))
@@ -151,14 +145,12 @@
 
 	addtimer(CALLBACK(src, PROC_REF(confirm_and_trigger)), confirm_delay)
 
-
 /obj/machinery/keycard_auth/proc/confirm_and_trigger()
 	if(event_confirmed_by)
 		trigger_event(event)
 		add_game_logs("triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
 		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
 	reset()
-
 
 /obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
 	if(stat & (BROKEN|NOPOWER))
@@ -172,7 +164,6 @@
 	update_icon()
 
 	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
-
 
 /obj/machinery/keycard_auth/proc/trigger_event()
 	SHOULD_NOT_SLEEP(TRUE) // trigger_armed_response_team sleeps, which can cause issues for procs that call trigger_event(). We want to avoid that
@@ -192,7 +183,7 @@
 				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
 			atom_say("Запрос ОБР отправлен!")
-			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, name, follow_target_override = src)
+			radio_announce("ERT request transmitted. Reason: [ert_reason]", name, COMM_FREQ, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 
@@ -219,12 +210,10 @@
 				ert_reason = null
 				GLOB.ert_request_answered = TRUE
 
-
 /obj/machinery/keycard_auth/proc/remind_admins(old_reason, event_triggered_by)
 	if(GLOB.ert_request_answered)
 		return
 	ERT_Announce(old_reason, event_triggered_by, repeat_warning = TRUE)
-
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled

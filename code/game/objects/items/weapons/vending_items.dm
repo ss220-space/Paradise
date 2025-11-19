@@ -28,9 +28,8 @@
 		DATIVE = "набору пополнения",
 		ACCUSATIVE = "набор пополнения",
 		INSTRUMENTAL = "набором пополнения",
-		PREPOSITIONAL = "наборе пополнения"
+		PREPOSITIONAL = "наборе пополнения",
 	)
-
 
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()
@@ -42,7 +41,7 @@
 		DATIVE = "набору пополнения \"[machine_name]\"",
 		ACCUSATIVE = "набор пополнения \"[machine_name]\"",
 		INSTRUMENTAL = "набором пополнения \"[machine_name]\"",
-		PREPOSITIONAL = "наборе пополнения \"[machine_name]\""
+		PREPOSITIONAL = "наборе пополнения \"[machine_name]\"",
 	)
 
 /obj/item/vending_refill/examine(mob/user)
@@ -53,7 +52,7 @@
 	else if(num == 0)
 		. += span_notice("Пустой.")
 	else
-		. += span_notice("Может пополнить <b>[num]</b> товар[declension_ru(num, "", "а", "ов")].")
+		. += span_notice("Может пополнить <b>[num]</b> товар[DECL_CREDIT(num)].")
 
 /obj/item/vending_refill/get_part_rating()
 	if(!products || !product_categories || !contraband || !premium)
@@ -225,6 +224,8 @@
 /obj/item/vending_refill/protein
 	machine_name = "Автомат спортивного питания"
 
+/obj/item/vending_refill/ammo
+	machine_name = "Liberty"
 
 /obj/item/vending_refill/custom
 	machine_name = "Customat"
@@ -240,13 +241,10 @@
 	sum_of_weigths = 100
 	. = ..()
 
-
-
 /obj/item/vending_refill/custom/proc/add_account(datum/money_account/new_account, weight)
 	linked_accounts += new_account
 	accounts_weights += weight
 	sum_of_weigths += weight
-
 
 /obj/item/vending_refill/custom/proc/clear_accounts(mob/user)
 	linked_accounts = list()
@@ -254,10 +252,9 @@
 	sum_of_weigths = 0
 	balloon_alert(user, "счета отвязаны")
 
-
 /obj/item/vending_refill/custom/proc/try_add_account(mob/user)
 	. = FALSE
-	if(linked_accounts.len >= 150) // better to do it
+	if(length(linked_accounts) >= 150) // better to do it
 		balloon_alert(user, "лимит привязки достигнут")
 		return
 
@@ -286,7 +283,6 @@
 	balloon_alert(user, "новый счет добавлен")
 	return TRUE
 
-
 /obj/item/vending_refill/custom/proc/try_add_station_account(mob/user)
 	. = FALSE
 	var/weight = tgui_input_number(user, "Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
@@ -303,7 +299,6 @@
 	balloon_alert(user, "счет станции привязан")
 	return TRUE
 
-
 /obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
 	var/operation = tgui_input_number(user, "Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка счетов", 0, 2, 0, ui_state = GLOB.hands_state, ui_source = src)
 
@@ -311,7 +306,6 @@
 		balloon_alert(user, "значение не введено")
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 		return
-
 
 	var/correct = TRUE
 	switch(operation)
@@ -333,14 +327,13 @@
 	else
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 
-
 /obj/item/vending_refill/custom/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if(!linked_accounts.len)
+		if(!length(linked_accounts))
 			. += span_notice("К этой канистре не привязанно ни одного счета.")
 		else
 			. += span_notice("К этой канистре привязанны следующее счета:")
-			for(var/i = 1; i <= linked_accounts.len; ++i)
+			for(var/i = 1; i <= length(linked_accounts); ++i)
 				. += span_notice("Владелец: " + linked_accounts[i].owner_name + ", вес: [accounts_weights[i]], доля: [round(accounts_weights[i]/sum_of_weigths, 0.01)].")
 

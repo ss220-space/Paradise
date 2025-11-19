@@ -180,7 +180,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "bR" = (
@@ -360,7 +360,7 @@
 	},
 /area/maintenance/medroom)
 "dv" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dB" = (
@@ -1053,7 +1053,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "jh" = (
@@ -1894,6 +1894,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "si" = (
@@ -3208,6 +3211,15 @@
 	icon_state = "barber"
 	},
 /area/maintenance/medroom)
+"DZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	pixel_y = -3;
+	pixel_x = -5
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "Ei" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dust,
@@ -3419,6 +3431,13 @@
 	icon_state = "Dark"
 	},
 /area/maintenance/medroom)
+"Gp" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "Gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/blood/tracks,
@@ -3598,7 +3617,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "Io" = (
@@ -4460,7 +4479,7 @@
 /turf/simulated/wall/rust,
 /area/maintenance/kitchen)
 "QI" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "QM" = (
@@ -4889,12 +4908,6 @@
 /area/maintenance/apmaint)
 "UV" = (
 /obj/machinery/shieldgen,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
@@ -4990,7 +5003,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "Wk" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -5132,7 +5145,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "XP" = (
@@ -5255,7 +5268,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/medroom)
 "YK" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -7207,7 +7220,7 @@ ag
 cU
 ag
 cU
-ag
+Gp
 cU
 ag
 vj
@@ -7261,7 +7274,7 @@ tU
 Vx
 DQ
 Py
-tU
+DZ
 NH
 ag
 vj

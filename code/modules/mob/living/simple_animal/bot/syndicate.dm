@@ -25,7 +25,6 @@
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/get_ru_names()
 	return list(
 		NOMINATIVE = "робот-часовой Синдиката",
@@ -42,43 +41,34 @@
 	update_icon()
 	spawn_turf = get_turf(src)
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/setup_access()
 	if(access_card)
 		access_card.access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 		prev_access = access_card.access
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/update_icon_state()
 	icon_state = initial(icon_state)
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/turn_on()
 	. = ..()
 	update_icon()
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/turn_off()
 	..()
 	update_icon()
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
 	balloon_alert(user, "панель управления отсутствует!")
 	return
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/ui_data(mob/user)
 	return
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_act(action, params)
 	return
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/Topic(href, href_list)
 	return
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/retaliate(mob/living/carbon/human/H)
 	if(!H)
@@ -86,11 +76,9 @@
 	target = H
 	mode = BOT_HUNT
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	if(user)
 		balloon_alert(user, "сканер ID-карт отсутствует!")
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
 	var/turf/current_turf = get_turf(src)
@@ -104,14 +92,14 @@
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			if(frustration >= 8)
-				SSmove_manager.stop_looping(src)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 			if(target)
@@ -121,7 +109,7 @@
 						return
 				shootAt(target)
 				var/turf/olddist = get_dist(src, target)
-				SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
+				GLOB.move_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 				if((get_dist(src, target)) >= (olddist))
 					frustration++
 				else
@@ -136,7 +124,6 @@
 			bot_patrol()
 		else
 			back_to_idle()
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/look_for_perp()
 	if(disabled)
@@ -172,7 +159,6 @@
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		break
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/shootAt(atom/target)
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
@@ -187,12 +173,11 @@
 	P.original = target
 	P.fire()
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/explode()
 	if(!QDELETED(src))
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 		do_sparks(3, TRUE, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -202,34 +187,26 @@
 		raise_alert("[capitalize(declent_ru(NOMINATIVE))] уничтожен.")
 		qdel(src)
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
 	projectile = /obj/projectile/bullet/a40mm
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
 	return
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/OnUnarmedAttack(atom/A)
 	return shootAt(A)
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)
 	shootAt(C)
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/stun_attack(mob/living/carbon/C)
 	shootAt(C)
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/speak()
 	return
 
-
 /mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_patrol()
 	if(tries >= BOT_STEP_MAX_RETRIES)
@@ -240,7 +217,6 @@
 				failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] cannot reach [patrol_target.x],[patrol_target.y]"
 			log_debug(failmsg)
 	return ..()
-
 
 /mob/living/simple_animal/bot/ed209/syndicate/proc/raise_alert(reason)
 	if(raised_alert)

@@ -2607,8 +2607,8 @@
 "bKs" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/item/radio/beacon,
-/obj/item/radio/beacon,
+/obj/item/beacon,
+/obj/item/beacon,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
@@ -2863,7 +2863,7 @@
 	},
 /area/maintenance/auxsolarstarboard)
 "bQr" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/bar/atrium)
 "bQI" = (
@@ -6212,7 +6212,7 @@
 /obj/machinery/gateway{
 	dir = 10
 	},
-/obj/effect/landmark/join_late_gateway,
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6993,7 +6993,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -7027,7 +7027,7 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "eKZ" = (
@@ -7329,7 +7329,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -7856,7 +7856,7 @@
 /turf/simulated/floor/wood,
 /area/bridge)
 "fmn" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/camera{
 	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber East";
@@ -8103,8 +8103,8 @@
 /turf/simulated/floor/engine,
 /area/engineering/engine)
 "fsa" = (
-/obj/effect/landmark/event/lightsout,
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "fsh" = (
@@ -11822,7 +11822,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/wood,
 /area/library)
 "hEh" = (
@@ -11917,7 +11917,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "hHo" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/break_room)
 "hHC" = (
@@ -12044,7 +12044,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "hLO" = (
@@ -12422,7 +12422,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/primary/central)
 "hWM" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel,
 /area/medical/medbay)
 "hWP" = (
@@ -12441,7 +12441,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "hXJ" = (
@@ -13459,7 +13459,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "iGV" = (
@@ -13683,7 +13683,7 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "iMJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -14506,7 +14506,7 @@
 /obj/machinery/gateway{
 	dir = 6
 	},
-/obj/effect/landmark/join_late_gateway,
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14917,7 +14917,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/medical/medbay)
 "jBd" = (
@@ -15583,7 +15583,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/assembly/chargebay)
 "jZn" = (
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -15910,7 +15910,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -16277,7 +16277,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
 "kyR" = (
-/obj/effect/landmark/join_late_cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "kyU" = (
@@ -16307,7 +16307,7 @@
 /turf/simulated/wall/r_wall,
 /area/quartermaster/storage)
 "kzZ" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "kAc" = (
@@ -16974,7 +16974,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/medical/research)
 "kXl" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/primary/starboard)
 "kXS" = (
@@ -17212,13 +17212,6 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/hallway/secondary/exit)
-"leR" = (
-/obj/structure/table/reinforced,
-/obj/item/paper/deltainfo,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "leV" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17650,7 +17643,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/landmark/join_late_cryo,
+/obj/effect/landmark/spawner/late/cryo,
 /obj/item/radio/intercom{
 	pixel_y = 32
 	},
@@ -18296,7 +18289,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "lOs" = (
-/obj/effect/landmark/event/tripai,
+/obj/effect/landmark/spawner/tripai,
 /obj/item/radio/intercom{
 	pixel_y = -32
 	},
@@ -18574,7 +18567,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -18664,7 +18657,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -19477,8 +19470,8 @@
 	},
 /area/security/prisonershuttle)
 "myD" = (
-/obj/effect/landmark/event/lightsout,
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard)
 "myP" = (
@@ -19629,7 +19622,7 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/dorms)
 "mDm" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/medical/medbay)
 "mEs" = (
@@ -21768,7 +21761,7 @@
 /area/crew_quarters/dorms)
 "nZH" = (
 /obj/structure/window/reinforced,
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "nZJ" = (
@@ -22064,7 +22057,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "ohA" = (
@@ -24398,7 +24391,7 @@
 /area/hallway/secondary/entry)
 "pHw" = (
 /obj/structure/disposalpipe/trunk/multiz/down,
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/medbay)
 "pHG" = (
@@ -25550,7 +25543,7 @@
 	},
 /area/bridge)
 "quM" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/medical/research)
 "qva" = (
@@ -26375,8 +26368,8 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "qWE" = (
-/obj/effect/landmark/event/lightsout,
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
+/obj/effect/landmark/lightsout,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -26386,8 +26379,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "qWU" = (
-/obj/effect/landmark/event/carpspawn,
-/obj/effect/landmark/event/carpspawn,
+/obj/effect/landmark/spawner/carp,
+/obj/effect/landmark/spawner/carp,
 /turf/space/openspace,
 /area/space)
 "qXf" = (
@@ -26781,7 +26774,7 @@
 	},
 /area/civilian/barber)
 "rjk" = (
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "rjL" = (
@@ -27118,7 +27111,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "rvf" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/break_room)
 "rvh" = (
@@ -27201,7 +27194,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/break_room)
 "rxM" = (
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "ryd" = (
@@ -28034,7 +28027,7 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "rZU" = (
-/obj/effect/landmark/event/carpspawn,
+/obj/effect/landmark/spawner/carp,
 /turf/space/openspace,
 /area/space)
 "rZV" = (
@@ -28302,7 +28295,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/medical/medbay)
 "sls" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar/atrium)
 "smc" = (
@@ -28530,7 +28523,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "stS" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -29676,7 +29669,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
 "thy" = (
@@ -29872,7 +29865,7 @@
 /area/crew_quarters/bar/atrium)
 "tnU" = (
 /obj/structure/disposalpipe/trunk/multiz,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "tnY" = (
@@ -29971,7 +29964,7 @@
 /obj/structure/morgue{
 	dir = 1
 	},
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "trH" = (
@@ -30748,7 +30741,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "tRi" = (
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -31871,8 +31864,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/landmark/event/lightsout,
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar/atrium)
 "uAW" = (
@@ -32801,7 +32794,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "vgb" = (
-/obj/effect/landmark/event/tripai,
+/obj/effect/landmark/spawner/tripai,
 /obj/item/radio/intercom{
 	pixel_y = 32
 	},
@@ -33044,7 +33037,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "vlJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/dorms)
 "vlM" = (
@@ -33203,7 +33196,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/medical/medbay)
 "vrp" = (
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
 /obj/item/radio/intercom{
 	pixel_y = 32
 	},
@@ -33734,7 +33727,7 @@
 /obj/machinery/gateway{
 	density = 0
 	},
-/obj/effect/landmark/join_late_gateway,
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34067,7 +34060,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/entry)
 "vRq" = (
-/obj/effect/landmark/honk_squad,
+/obj/effect/landmark/spawner/honk_squad,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "vRr" = (
@@ -34638,7 +34631,7 @@
 	},
 /area/crew_quarters/dorms)
 "wkb" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/entry)
 "wkN" = (
@@ -37079,7 +37072,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/security/brig)
 "xDe" = (
-/obj/effect/landmark/honk_squad,
+/obj/effect/landmark/spawner/honk_squad,
 /obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
@@ -37270,8 +37263,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/landmark/event/lightsout,
-/obj/effect/landmark/event/lightsout,
+/obj/effect/landmark/lightsout,
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "xKO" = (
@@ -37365,7 +37358,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard)
 "xNX" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
@@ -37395,7 +37388,7 @@
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "xPC" = (
@@ -37897,7 +37890,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/event/revenantspawn,
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "yhY" = (
@@ -269990,7 +269983,7 @@ rgz
 wCc
 uvM
 ryd
-leR
+mte
 wCc
 rgz
 rgz

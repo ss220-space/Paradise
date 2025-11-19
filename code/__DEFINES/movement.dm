@@ -70,7 +70,6 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define MOVELOOP_SUCCESS 1
 #define MOVELOOP_NOT_READY 2
 
-
 /**
  * currently_z_moving defines. Higher numbers mean higher priority.
  * This one is for falling down open space from stuff such as deleted tile, pit grate...

@@ -91,15 +91,15 @@
 	init_subsystems()
 
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	diag_hud.add_atom_to_hud(src)
 
 	diag_hud_set_status()
 	diag_hud_set_health()
 
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/med_hud_set_health()
 	return diag_hud_set_health() //we use a different hud
@@ -108,7 +108,7 @@
 	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/Destroy()
-	UnregisterSignal(SSalarm, list(
+	UnregisterSignal(GLOB.alarm_manager, list(
 		COMSIG_TRIGGERED_ALARM,
 		COMSIG_CANCELLED_ALARM
 	))
@@ -131,7 +131,7 @@
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)
-	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
+	var/in_cooldown = (length(alarms_to_show) > 0 || length(alarms_to_clear) > 0)
 	if(incoming)
 		alarms_to_show += message
 		alarm_types_show[type] += 1
@@ -145,7 +145,7 @@
 	addtimer(CALLBACK(src, PROC_REF(show_alarms)), 3 SECONDS)
 
 /mob/living/silicon/proc/show_alarms()
-	if(alarms_to_show.len < 5)
+	if(length(alarms_to_show) < 5)
 		for(var/msg in alarms_to_show)
 			to_chat(src, msg)
 	else if(length(alarms_to_show))
@@ -174,11 +174,11 @@
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
-	if(alarms_to_clear.len < 3)
+	if(length(alarms_to_clear) < 3)
 		for(var/msg in alarms_to_clear)
 			to_chat(src, msg)
 
-	else if(alarms_to_clear.len)
+	else if(length(alarms_to_clear))
 		var/list/msg = list("--- ")
 
 		if(alarm_types_clear["Motion"])
@@ -200,7 +200,6 @@
 
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
-
 
 	alarms_to_show.Cut()
 	alarms_to_clear.Cut()
@@ -224,7 +223,7 @@
 /mob/living/silicon/drop_from_active_hand(force = FALSE)
 	return
 
-/mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/silicon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)
@@ -240,18 +239,16 @@
 	to_chat(src, span_danger("*BZZZT*"))
 	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 
-
 /mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
 	return
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, span_alert("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
-
 
 /mob/living/silicon/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
@@ -259,7 +256,6 @@
 		drop_hat(drop_on_turf = TRUE)
 		if(message)
 			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
-
 
 /mob/living/silicon/bullet_act(obj/projectile/Proj)
 
@@ -272,9 +268,7 @@
 			if(BURN)
 				adjustFireLoss(Proj.damage)
 
-
 	return 2
-
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
@@ -283,11 +277,9 @@
 		return 1
 	return 0
 
-
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
 	return list("System integrity:", stat ? "Nonfunctional" : "[round((health / maxHealth) * 100)]%")
-
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/get_status_tab_items()
@@ -329,7 +321,6 @@
 			var/synth = (language in speech_synthesizer_langs)
 			. += "<b>[language.name] (:[language.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[language.desc]<br><br>"
 
-
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
 	GLOB.generic_crew_manifest.ui_interact(usr)
@@ -358,23 +349,21 @@
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.remove_hud_from(src)
-	secsensor.remove_hud_from(src)
-	medsensor.remove_hud_from(src)
-
+		diagsensor.hide_from(src)
+	secsensor.hide_from(src)
+	medsensor.hide_from(src)
 
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 /mob/living/silicon/proc/add_med_hud()
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
 	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.add_hud_to(src)
-
+		diagsensor.show_to(src)
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Security", "Medical","Diagnostic", "Multisensor","Disable"), null)
@@ -382,21 +371,20 @@
 	switch(sensor_type)
 		if("Security")
 			add_sec_hud()
-			to_chat(src, "<span class='notice'>Security records overlay enabled.</span>")
+			to_chat(src, span_notice("Security records overlay enabled."))
 		if("Medical")
 			add_med_hud()
-			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+			to_chat(src, span_notice("Life signs monitor overlay enabled."))
 		if("Diagnostic")
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+			to_chat(src, span_notice("Robotics diagnostic overlay enabled."))
 		if("Multisensor")
 			add_sec_hud()
 			add_med_hud()
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Multisensor overlay enabled.</span>")
+			to_chat(src, span_notice("Multisensor overlay enabled."))
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
-
 
 /mob/living/silicon/adjustToxLoss(
 	amount = 0,
@@ -406,7 +394,6 @@
 	used_weapon = null,
 )
 	return STATUS_UPDATE_NONE
-
 
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
@@ -425,30 +412,23 @@
 /mob/living/silicon/can_hear()
 	return TRUE
 
-
 /mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
 	return FALSE
-
 
 /mob/living/silicon/on_handsblocked_start()
 	return // AIs and borgs have no hands
 
-
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs and borgs have no hands
-
 
 /mob/living/silicon/on_floored_start()
 	return // Silicons are always standing by default.
 
-
 /mob/living/silicon/on_floored_end()
 	return // Silicons are always standing by default.
 
-
 /mob/living/silicon/on_lying_down()
 	return // Silicons are always standing by default.
-
 
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.

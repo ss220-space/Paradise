@@ -25,7 +25,8 @@
 	new /obj/item/clothing/under/syndicate/sniper(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
-	new /obj/item/gun_module/muzzle/suppressor(src)
+	new /obj/item/gun_module/muzzle/suppressor/heavy(src)
+	new /obj/item/gun_module/rail/scope/x8(src)
 
 /obj/item/storage/briefcase/false_bottomed
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -46,7 +47,6 @@
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
 
-
 /obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user, params)
 	if(bottom_open)
 		add_fingerprint(user)
@@ -64,7 +64,6 @@
 		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в потайное отделение кейса."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/storage/briefcase/false_bottomed/screwdriver_act(mob/user, obj/item/I)
 	if(!bottom_open && busy_hunting)
@@ -112,7 +111,7 @@
 		DATIVE = "чемодану с бипками",
 		ACCUSATIVE = "чемодан с бипками",
 		INSTRUMENTAL = "чемоданом с бипками",
-		PREPOSITIONAL = "чемодане с бипками"
+		PREPOSITIONAL = "чемодане с бипками",
 	)
 
 /obj/item/case_with_bipki/attack_self(mob/user)

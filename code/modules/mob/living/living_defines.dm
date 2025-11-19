@@ -23,7 +23,6 @@
 	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/staminaloss = 0 //Stamina damage, or exhaustion. You recover it slowly naturally, and are stunned if it gets too high. Holodeck and hallucinations deal this.
 
-
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
@@ -42,7 +41,6 @@
 	/// Tracks how many stacks of fire we have on, max is usually 20
 	var/fire_stacks = 0
 
-
 	var/mob_size = MOB_SIZE_HUMAN
 	/// More or less efficiency to metabolize helpful/harmful reagents and regulate body temperature.
 	var/metabolism_efficiency = 1
@@ -59,6 +57,9 @@
 	var/last_played_vent
 	/// The last direction we moved in a vent. Used to make holding two directions feel nice
 	var/last_vent_dir = NONE
+
+	/// Should only exist if you're in a pipe
+	var/datum/cell_tracker/pipetracker
 
 	/// Used to prevent spam with smoke reagent reaction on mob.
 	var/smoke_delay = 0

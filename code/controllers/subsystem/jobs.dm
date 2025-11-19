@@ -23,11 +23,9 @@ SUBSYSTEM_DEF(jobs)
 	//Debug info
 	var/list/job_debug = list()
 
-
 /datum/controller/subsystem/jobs/Initialize()
 	SetupOccupations()
 	return SS_INIT_SUCCESS
-
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
@@ -35,11 +33,10 @@ SUBSYSTEM_DEF(jobs)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
-
 /datum/controller/subsystem/jobs/proc/SetupOccupations()
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
-	if(!all_jobs.len)
+	if(!length(all_jobs))
 		to_chat(world, span_warning("Ошибка выдачи профессий, датумы профессий не найдены."))
 		return
 
@@ -54,7 +51,6 @@ SUBSYSTEM_DEF(jobs)
 	LoadJobsFile("config/jobs.txt", FALSE)
 	LoadJobsFile("config/jobs_highpop.txt", TRUE)
 
-
 /datum/controller/subsystem/jobs/proc/ApplyHighpopConfig()
 	for(var/datum/job/J in occupations)
 		if(J.positions_highpop)
@@ -63,11 +59,9 @@ SUBSYSTEM_DEF(jobs)
 				positions_lowpop = initial(J.total_positions)
 			J.total_positions += (J.positions_highpop - positions_lowpop)
 
-
 /datum/controller/subsystem/jobs/proc/Debug(text)
 	if(GLOB.debug2)
 		job_debug.Add(text)
-
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
 	return name_occupations[rank]
@@ -80,7 +74,7 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = FALSE)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
-	if(player && player.mind && rank)
+	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return 0
@@ -245,7 +239,7 @@ SUBSYSTEM_DEF(jobs)
 			if(!job)
 				continue
 			var/list/candidates = FindOccupationCandidates(job, level)
-			if(!candidates.len)
+			if(!length(candidates))
 				continue
 
 			var/list/filteredCandidates = list()
@@ -256,7 +250,7 @@ SUBSYSTEM_DEF(jobs)
 					continue
 				filteredCandidates += V
 
-			if(!filteredCandidates.len)
+			if(!length(filteredCandidates))
 				continue
 
 			var/mob/new_player/candidate = pick(filteredCandidates)
@@ -265,7 +259,6 @@ SUBSYSTEM_DEF(jobs)
 
 	return 0
 
-
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
 /datum/controller/subsystem/jobs/proc/CheckHeadPositions(level)
 	for(var/command_position in GLOB.command_positions)
@@ -273,11 +266,10 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 		var/list/candidates = FindOccupationCandidates(job, level)
-		if(!candidates.len)
+		if(!length(candidates))
 			continue
 		var/mob/new_player/candidate = pick(candidates)
 		AssignRole(candidate, command_position)
-
 
 /datum/controller/subsystem/jobs/proc/FillMalfAIPosition()
 	if(!CONFIG_GET(flag/allow_ai))
@@ -313,7 +305,7 @@ SUBSYSTEM_DEF(jobs)
 	if(!CONFIG_GET(flag/allow_ai))
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 0
-	else if(SSticker && SSticker.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
+	else if(SSticker?.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 3
 
@@ -323,8 +315,8 @@ SUBSYSTEM_DEF(jobs)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 
-	Debug("DO, Len: [unassigned.len]")
-	if(unassigned.len == 0)
+	Debug("DO, Len: [length(unassigned)]")
+	if(length(unassigned) == 0)
 		return 0
 
 	//Shuffle players and jobs
@@ -347,7 +339,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Running Civilian Check 1")
 	var/datum/job/civ = new /datum/job/civilian()
 	var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
-	Debug("AC1, Candidates: [civilian_candidates.len]")
+	Debug("AC1, Candidates: [length(civilian_candidates)]")
 	for(var/mob/new_player/player in civilian_candidates)
 		Debug("AC1 pass, Player: [player]")
 		AssignRole(player, JOB_TITLE_CIVILIAN)
@@ -361,7 +353,6 @@ SUBSYSTEM_DEF(jobs)
 
 	//Other jobs are now checked
 	Debug("DO, Running Standard Check")
-
 
 	// New job giving system by Donkie
 	// This will cause lots of more loops, but since it's only done once it shouldn't really matter much at all.
@@ -501,7 +492,6 @@ SUBSYSTEM_DEF(jobs)
 
 	return human
 
-
 /datum/controller/subsystem/jobs/proc/get_default_spawn_landmark(rank)
 	for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 		if(sloc.name != rank)
@@ -511,7 +501,6 @@ SUBSYSTEM_DEF(jobs)
 			continue
 
 		return sloc
-
 
 /// Moves character in it's job's spawn. Returns outfit override.
 /datum/controller/subsystem/jobs/proc/equip_spawn(mob/living/carbon/human/human, rank)
@@ -559,7 +548,6 @@ SUBSYSTEM_DEF(jobs)
 	human.buckled.forceMove(human.loc)
 	human.buckled.dir = human.dir
 
-
 /datum/controller/subsystem/jobs/proc/check_nearsight(mob/living/carbon/human/human)
 	if(!HAS_TRAIT(human, TRAIT_NEARSIGHTED))
 		return
@@ -574,7 +562,6 @@ SUBSYSTEM_DEF(jobs)
 
 	glasses.upgrade_prescription()
 	human.update_nearsighted_effects()
-
 
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/human, rank, joined_late = FALSE) // Equip and put them in an area
 	if(!human)
@@ -618,7 +605,6 @@ SUBSYSTEM_DEF(jobs)
 	wheelchair.buckle_mob(human, TRUE)
 	return human
 
-
 /datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type)
 	var/list/turf/possible_turfs = list()
 	var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
@@ -635,13 +621,13 @@ SUBSYSTEM_DEF(jobs)
 		if(bad_turf)
 			continue
 		possible_turfs += TS
-	return possible_turfs.len ? pick(possible_turfs) : pick(possible_but_bad_turfs)
+	return length(possible_turfs) ? pick(possible_turfs) : pick(possible_but_bad_turfs)
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
 	if(!CONFIG_GET(flag/load_jobs_from_txt))
 		return
 
-	var/list/jobEntries = file2list(jobsfile)
+	var/list/jobEntries = world.file2list(jobsfile)
 
 	for(var/job in jobEntries)
 		if(!job)
@@ -717,7 +703,6 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", charyoung, list("[job.title]", "charyoung"))
 
-
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
 	var/datum/money_account/M = create_account(human.real_name, money_amount, null, job, TRUE)
@@ -730,13 +715,13 @@ SUBSYSTEM_DEF(jobs)
 	remembered_info += "<b>ПИН вашего аккаунта:</b> [M.remote_access_pin]<br>"
 	remembered_info += "<b>Баланс вашего аккаунта:</b> $[M.money]<br>"
 
-	if(M.transaction_log.len)
+	if(length(M.transaction_log))
 		var/datum/transaction/T = M.transaction_log[1]
 		remembered_info += "<b>Ваш аккаунт был создан:</b> [T.time], [T.date] на [T.source_terminal]<br>"
 	human.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
-	if(job && job.head_position)
+	if(job?.head_position)
 		remembered_info = ""
 		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 
@@ -787,8 +772,6 @@ SUBSYSTEM_DEF(jobs)
 		if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
-
-
 
 /datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
 	id_change_records["[id_change_counter]"] = list(
@@ -864,7 +847,6 @@ SUBSYSTEM_DEF(jobs)
 			newlist[lkey] = thisrecord[lkey]
 		formatted.Add(list(newlist))
 	return formatted
-
 
 /datum/controller/subsystem/jobs/proc/delete_log_records(sourceuser, delete_all)
 	. = 0
@@ -946,7 +928,6 @@ SUBSYSTEM_DEF(jobs)
 			else
 				play_records[C.ckey][rtype] = 0
 
-
 		var/myrole
 		if(C.mob.mind)
 			if(C.mob.mind.playtime_role)
@@ -1009,7 +990,6 @@ SUBSYSTEM_DEF(jobs)
 		)
 
 		playtime_history_update_queries += update_query_history
-
 
 	// warn=TRUE, qdel=TRUE, assoc=FALSE, log=FALSE
 	SSdbcore.MassExecute(player_update_queries, TRUE, TRUE, FALSE, FALSE) // Batch execute so we can take advantage of async magic

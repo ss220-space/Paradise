@@ -2,12 +2,12 @@
 	check_flags = NONE
 	name = "Status Readout"
 	desc = "Gives a detailed readout about your current status."
-	use_itemicon = FALSE
 	button_icon_state = "healthstatus"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
-	action_initialisation_text = "Integrated Health Analizer"
+	//action_initialisation_text = "Integrated Health Analizer"
+
 /**
  * Proc called to put a status readout to the ninja in chat.
  *
@@ -38,13 +38,13 @@
 		for(var/datum/disease/ninja_disease in ninja.diseases)
 			info_list += "[span_notice("* [ninja_disease.name], Тип: [ninja_disease.additional_info], Стадия: [ninja_disease.stage]/[ninja_disease.max_stages], Возможное лекарство: [ninja_disease.cure_text]")]\n"
 	//Реагенты
-	if(ninja.reagents.reagent_list.len)
+	if(length(ninja.reagents.reagent_list))
 		info_list += "[span_notice("Обнаружены реагенты:")]\n"
 		for(var/datum/reagent/ninja_reagent in ninja.reagents.reagent_list)
 			info_list += "[span_notice("&emsp;[ninja_reagent.volume]u [ninja_reagent.name][ninja_reagent.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]")]\n"
 	else
 		info_list += "[span_notice("Реагенты не обнаружены.")]\n"
-	if(ninja.reagents.addiction_list.len)
+	if(length(ninja.reagents.addiction_list))
 		info_list += "[span_danger("Обнаружены зависимости от реагентов:")]\n"
 		for(var/datum/reagent/ninja_reagent in ninja.reagents.addiction_list)
 			info_list += "[span_danger("&emsp;[ninja_reagent.name] Стадия: [ninja_reagent.addiction_stage]/5")]\n"

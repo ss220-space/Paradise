@@ -52,7 +52,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	if(volume >= 1 && istype(T))
 		T.MakeSlippery(TURF_WET_LUBE, 120 SECONDS)
 
-
 /datum/reagent/space_cleaner
 	name = "Космочист"
 	id = "cleaner"
@@ -62,7 +61,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	harmless = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "средства для мытья полов"
-
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
 	if(iseffect(O))
@@ -78,7 +76,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			if(istype(H) && H.helmet)
 				H.helmet.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
-
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
@@ -353,7 +350,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message(span_biggerdanger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
+			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_YUT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_YUT(M)] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -419,7 +416,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 						M.emote("scream")
 					vamp.base_nullification()
 				if(13 to INFINITY)
-					M.visible_message(span_danger("[M] внезапно вспыхива[pluralize_ru(M.gender, "ет", "ют")]!"),
+					M.visible_message(span_danger("[M] внезапно вспыхива[PLUR_ET_YUT(M)]!"),
 									span_danger("Внезапно святая вода внутри вас начинает гореть!"))
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()
@@ -431,7 +428,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 					vamp.base_nullification()
 
 	return ..() | update_flags
-
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
@@ -453,8 +449,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			else
 				to_chat(target, span_warning("Вы чувствуете, как ваши силы ослабевают из-за внезапного святого присутствия рядом!"))
 				vamp.adjust_nullification(5, 2)
-
-
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -549,23 +543,19 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
 
-
 /datum/reagent/status_effect
 	id = "status_effect"
 	metabolization_rate = REAGENTS_METABOLISM / 4
 	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
 	var/status_effect_type
 
-
 /datum/reagent/status_effect/on_mob_add(mob/living/user)
 	. = ..()
 	user.apply_status_effect(status_effect_type)
 
-
 /datum/reagent/status_effect/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_status_effect(status_effect_type)
-
 
 /datum/reagent/status_effect/creatine
 	name = "Креатин"
@@ -575,14 +565,12 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	taste_description = "соды"
 	status_effect_type = /datum/status_effect/sport_reagents/creatine
 
-
 /datum/reagent/status_effect/creatine/liquid
 	name = "Разбавленный креатин"
 	id = "creatine_liquid"
 	description = "Смесь воды и креатина."
 	reagent_state = LIQUID
 	status_effect_type = /datum/status_effect/sport_reagents/creatine/liquid
-
 
 /datum/reagent/status_effect/guarana
 	name = "Экстракт гуараны"
@@ -591,7 +579,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	color = "#dc3b00"
 	taste_description = "горечи"
 	status_effect_type = /datum/status_effect/sport_reagents/guarana
-
 
 /datum/reagent/status_effect/steroids
 	name = "Стероиды"
@@ -602,7 +589,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	color = "#c2ff34"
 	taste_description = "силы"
 	status_effect_type = /datum/status_effect/sport_reagents/steroids
-
 
 /datum/reagent/status_effect/steroids/on_mob_life(mob/living/target)
 	. = ..()

@@ -8,13 +8,11 @@
 	origin_tech = "combat=2"
 	var/open = FALSE
 
-
 /obj/item/conversion_kit/update_icon_state()
 	icon_state = "kit_[open]"
 
-
 /obj/item/conversion_kit/attack_self(mob/user)
 	open = !open
-	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the conversion kit.</span>")
+	to_chat(user, span_notice("You [open ? "open" : "close"] the conversion kit."))
 	update_icon(UPDATE_ICON_STATE)
 

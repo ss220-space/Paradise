@@ -30,11 +30,9 @@
 			for(var/obj/structure/blob/shield/B in range(reflector_reinforce_range, src))
 				reinforce_tile(B, /obj/structure/blob/shield/reflective/core, seconds_per_tick)
 
-
 /obj/structure/blob/special/proc/reinforce_tile(obj/structure/blob/B, type, seconds_per_tick)
 	if(SPT_PROB(BLOB_REINFORCE_CHANCE, seconds_per_tick))
 		B.change_to(type, overmind, B.point_return)
-
 
 /obj/structure/blob/special/proc/pulse_area(mob/camera/blob/pulsing_overmind, claim_range = 10, pulse_range = 3, expand_range = 2)
 	if(QDELETED(pulsing_overmind))
@@ -64,7 +62,7 @@
 			expand_probablity = 20
 		if(distance <= expand_range)
 			var/can_expand = TRUE
-			if(blobs_to_affect.len >= 120 && !(COOLDOWN_FINISHED(B, heal_timestamp)))
+			if(length(blobs_to_affect) >= 120 && !(COOLDOWN_FINISHED(B, heal_timestamp)))
 				can_expand = FALSE
 			if(can_expand && COOLDOWN_FINISHED(B, pulse_timestamp) && prob(expand_probablity*BLOB_EXPAND_CHANCE_MULTIPLIER))
 				if(!expanded)

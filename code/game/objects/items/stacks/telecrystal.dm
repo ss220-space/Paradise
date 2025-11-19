@@ -18,7 +18,7 @@
 		DATIVE = "телекристаллу",
 		ACCUSATIVE = "телекристалл",
 		INSTRUMENTAL = "телекристаллом",
-		PREPOSITIONAL = "телекристалле"
+		PREPOSITIONAL = "телекристалле",
 	)
 
 /obj/item/stack/telecrystal/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -32,7 +32,6 @@
 		balloon_alert(user, UNLINT("ТК активирован!"))
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity, params)
 	if(!proximity)

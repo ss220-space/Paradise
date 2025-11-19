@@ -3,18 +3,18 @@ Spawners for mappers. Just plonk one down of the desired size and it will place 
 This spawner places pipe leading up to the interior door, you will need to finish it off yourself with a connector, canister, and pipe connecting the two. It also assumes you already put in wall and floor.
 */
 
-#define HALF_X	round((tiles_in_x_direction - 1) * 0.5) //These are required so that the airlock can be in the middle of the chamber wall
-#define HALF_Y	round((tiles_in_y_direction - 1) * 0.5)
-#define CHAMBER_LONG	1
-#define CHAMBER_SQUARE	2
-#define CHAMBER_BIGGER	3
+#define HALF_X round((tiles_in_x_direction - 1) * 0.5) //These are required so that the airlock can be in the middle of the chamber wall
+#define HALF_Y round((tiles_in_y_direction - 1) * 0.5)
+#define CHAMBER_LONG 1
+#define CHAMBER_SQUARE 2
+#define CHAMBER_BIGGER 3
 #define DOOR_NORMAL_PLACEMENT 1
 #define DOOR_FLIPPED_PLACEMENT 2
 
-#define AIRPUMP_TAG		"[id_to_link]_pump"
-#define SENSOR_TAG		"[id_to_link]_sensor"
-#define OUTER_DOOR_TAG	"[id_to_link]_outer"
-#define INNER_DOOR_TAG	"[id_to_link]_inner"
+#define AIRPUMP_TAG "[id_to_link]_pump"
+#define SENSOR_TAG "[id_to_link]_sensor"
+#define OUTER_DOOR_TAG "[id_to_link]_outer"
+#define INNER_DOOR_TAG "[id_to_link]_inner"
 
 /obj/effect/spawner/airlock
 	name = "1 by 1 airlock spawner (interior north, exterior south)"
@@ -208,7 +208,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
-
 
 //Premade airlocks for mappers, probably won't need all of these but whatever
 /obj/effect/spawner/airlock/s_to_n

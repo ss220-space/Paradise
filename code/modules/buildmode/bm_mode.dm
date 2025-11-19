@@ -71,6 +71,7 @@
 	cornerB = null
 
 /datum/buildmode_mode/proc/handle_click(user, params, object)
+	. = TRUE
 	var/list/modifiers = params2list(params)
 	if(use_corner_selection)
 		if(LAZYACCESS(modifiers, LEFT_CLICK))
@@ -83,10 +84,12 @@
 				return
 			handle_selected_area(user, params)
 			deselect_region()
+			return
 		else
 			to_chat(user, span_notice("Region selection canceled!"))
 			deselect_region()
-	return
+			return
+	return FALSE
 
 /datum/buildmode_mode/proc/handle_selected_area(mob/user, params)
 	return

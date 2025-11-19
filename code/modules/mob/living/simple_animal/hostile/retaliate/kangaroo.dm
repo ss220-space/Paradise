@@ -54,7 +54,7 @@
 
 	var/rookick_dir = get_dir(src, L)
 	var/turf/general_direction = get_edge_target_turf(L, rookick_dir)
-	L.visible_message("<span class='danger'>[L] сильно пинает!</span>", "<span class='userdanger'>Пинок [name] посылает вас в полёт!</span>")
+	L.visible_message(span_danger("[L] сильно пинает!"), span_userdanger("Пинок [name] посылает вас в полёт!"))
 	L.throw_at(general_direction, 10, 2)
 
 	attacktext = initial(attacktext)

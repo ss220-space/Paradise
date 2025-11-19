@@ -5,7 +5,6 @@
 GLOBAL_LIST_EMPTY(string_cache)
 GLOBAL_LIST_EMPTY(string_filename_current_key)
 
-
 /proc/strings_replacement(filename, key)
 	load_strings_file(filename)
 

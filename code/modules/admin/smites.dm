@@ -3,7 +3,6 @@
 	var/desc = "Если вы это увидели, пишите баг-репорт."
 	var/logmsg
 
-
 /datum/smite/proc/activate(mob/living/target, reason = "грехи")
 	apply_effect(target, reason)
 	if(!logmsg)
@@ -11,10 +10,8 @@
 
 	log_and_message_admins("smited [key_name_log(target)] with: [logmsg][reason != "грехи" ? "reason - \"[reason]\"" : ""]")
 
-
 /datum/smite/proc/apply_effect(mob/living/target, reason)
 	return
-
 
 /// MARK: Burn (off)
 /datum/smite/burn
@@ -22,12 +19,10 @@
 	desc = "Грешник сгорит!"
 	logmsg = "a firey death."
 
-
 /datum/smite/burn/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вас охватывает пламя! Боги наказали вас за [reason]!"))
 	flame_radius(1, get_turf(target))
 	target.adjustFireLoss(150)
-
 
 /// MARK: Lighting
 /datum/smite/lighting
@@ -35,11 +30,9 @@
 	desc = "Грешник получит удар молнией!"
 	logmsg = "a lightning bolt."
 
-
 /datum/smite/lighting/apply_effect(mob/living/target, reason)
 	var/datum/drop_lightning_bolt_ui/preloaded_target/editor = new(target, reason)
 	editor.ui_interact(target)
-
 
 /// MARK: Gib
 /datum/smite/gib
@@ -47,11 +40,9 @@
 	desc = "Разорвите грешника на кучу маленьких частей!"
 	logmsg = "gibbed."
 
-
 /datum/smite/gib/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Невероятная сила разрывает вас изнутри! Боги наказали вас за [reason]!"))
 	target.gib(FALSE)
-
 
 /// MARK: Dust
 /datum/smite/dust
@@ -59,17 +50,14 @@
 	desc = "Испепелите грешника!"
 	logmsg = "dusted."
 
-
 /datum/smite/dust/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете... нет, вы ничего не чувствуете! Боги наказали вас за [reason]!"))
 	target.dust()
-
 
 /// MARK: Brainloss
 /datum/smite/brainloss
 	name = SMITE_BRAINLOSS
 	desc = "Повредите мозг грешника!"
-
 
 /datum/smite/brainloss/apply_effect(mob/living/target, reason)
 	var/damage = tgui_input_number(
@@ -94,13 +82,11 @@
 	to_chat(target, span_userdanger("Вы чувствуете как ваши мозги плавятся! Боги наказали вас за [reason]!"))
 	logmsg = "[damage] brain damage."
 
-
 /// MARK: Honk tumor
 /datum/smite/honktumor
 	name = SMITE_HONKTUMOR
 	desc = "Подсадите в мозг грешника банановую опухоль!"
 	logmsg = "a honk tumor."
-
 
 /datum/smite/honktumor/apply_effect(mob/living/target, reason)
 	if(target.get_int_organ(/obj/item/organ/internal/honktumor))
@@ -111,13 +97,11 @@
 	to_chat(target, span_userdanger("Вы чувствуете как в вашем мозгу развивается нечто инородное. \
 									Нечто со вкусом банана. Боги наказали вас за [reason]!"))
 
-
 /// MARK: Hallucinate (off)
 /datum/smite/hallucinate
 	name = SMITE_HALLUCIONATE
 	desc = "Нашлите на грешника галлюцинации!"
 	logmsg = "hallucinations."
-
 
 /datum/smite/hallucinate/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете как в вашем мозгу развивается нечто инородное. Нечто со вкусом банана. Боги наказали вас за [reason]!"))
@@ -125,19 +109,16 @@
 	target.Hallucinate(time SECONDS)
 	target.last_hallucinator_log = "Hallucination smite"
 
-
 /// MARK: Cold (off)
 /datum/smite/cold
 	name = SMITE_COLD
 	desc = "Заморозьте грешника!"
 	logmsg = "cold."
 
-
 /datum/smite/cold/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете как холод пронизывает ваше тело! Боги наказали вас за [reason]!"))
 	target.reagents.add_reagent("frostoil", 40)
 	target.reagents.add_reagent("ice", 40)
-
 
 /// MARK: Hunger
 /datum/smite/hunger
@@ -145,13 +126,11 @@
 	desc = "Вызовите сильный голод у грешника, или сделайте его толстым. Выбор за вами."
 	logmsg = "starvation."
 
-
 /datum/smite/hunger/apply_effect(mob/living/target, reason)
-	var/nutrition = tgui_input_number(usr, "Выберите значение насыщения, которое будет установленно у цели. ([NUTRITION_LEVEL_FULL] - сыт)", "Выбор насыщения", 0)
+	var/nutrition = tgui_input_number(usr, "Выберите значение насыщения, которое будет установленно у цели. ([NUTRITION_LEVEL_FULL] — сыт)", "Выбор насыщения", 0)
 	var/old_nutrition = target.nutrition
 	target.set_nutrition(nutrition)
 	to_chat(target, span_userdanger("Вы чувствуете [nutrition < old_nutrition ? "голод" : "что съели слишком много"]. Боги наказали вас за [reason]!"))
-
 
 /// MARK: Cluwne
 /datum/smite/cluwne
@@ -159,18 +138,15 @@
 	desc = "Извратите сущность грешника, сделав его Клуней."
 	logmsg = "cluwned."
 
-
 /datum/smite/cluwne/apply_effect(mob/living/carbon/human/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
 	target.makeCluwne()
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 
-
 /// MARK: Cookie (off)
 /datum/smite/cookie
 	name = SMITE_COOKIE
 	desc = "Выдайте жертве печенье с выбранным веществом, которое она не сможет выбросить."
-
 
 /datum/smite/cookie/apply_effect(mob/living/carbon/human/target, reason)
 	target.makeCluwne()
@@ -190,25 +166,21 @@
 	to_chat(target, span_userdanger("В ваших руках появляется печенье. По воле божьей, вы должны его съесть. Это наказание за [reason]!"))
 	logmsg = "an antidrop cookie with [reagent] units of [id]."
 
-
 /// MARK: Hunter
 /datum/smite/hunter
 	name = SMITE_HUNTER
 	desc = "Отправьте за грешником охотника."
 	logmsg = "hunter."
 
-
 /datum/smite/hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	usr.client.create_eventmob_for(target, 1)
-
 
 /// MARK: Hunter-traitor
 /datum/smite/traitor_hunter
 	name = SMITE_TRAITORHUNTER
 	desc = "Отправьте за грешником агента синдиката, созданного среди экипажа."
 	logmsg = "crew traitor."
-
 
 /datum/smite/traitor_hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
 	var/list/possible_traitors = list()
@@ -224,8 +196,8 @@
 
 		possible_traitors += player.mind
 
-	if(!possible_traitors.len)
-		to_chat(usr, span_warning("Не удалось найти кандидатов на предателя - охотника."), confidential = TRUE)
+	if(!length(possible_traitors))
+		to_chat(usr, span_warning("Не удалось найти кандидатов на предателя — охотника."), confidential = TRUE)
 		return
 
 	var/datum/mind/newtraitormind = pick(possible_traitors)
@@ -240,12 +212,10 @@
 	to_chat(newtraitormind.current, span_boldwarning("Цель: УБЕЙТЕ [target.real_name]. Сейчас находится в [get_area(target.loc)].</b>"))
 	newtraitormind.add_antag_datum(turf)
 
-
 /// MARK: Transform
 /datum/smite/transform
 	name = SMITE_TRANSFORM
 	desc = "Превратите грешника в выбранное существо."
-
 
 /datum/smite/transform/apply_effect(mob/living/target, reason)
 	var/turf/turf = get_turf(target)
@@ -259,12 +229,10 @@
 	to_chat(mob, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
 	logmsg = "transformed into [mob]."
 
-
 /// MARK: Honk tumor
 /datum/smite/antidrop_equip
 	name = SMITE_ANTIDROP_EQUIP
 	desc = "Наденьте на грешника проклятый предмет одежды!"
-
 
 /datum/smite/antidrop_equip/apply_effect(mob/living/carbon/human/target, reason)
 	var/type = tgui_input_list(usr, "Выберите какую одежду надеть на цель.", "Выбор одежды", GLOB.typecache_clothing)
@@ -276,9 +244,8 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[genderize_ru(clothing.gender, "ий", "ая", "ее", "ие")] из пустоты прилипа[pluralize_ru(clothing.gender, "ет", "ют")] к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
-
 
 /// MARK: Nugget
 /datum/smite/nugget
@@ -286,20 +253,17 @@
 	desc = "Оторвите руки и ноги грешника."
 	logmsg = "nugget"
 
-
 /datum/smite/nugget/apply_effect(mob/living/target, reason)
 	target.Weaken(12 SECONDS, TRUE)
 	target.AdjustJitter(40 SECONDS)
 	to_chat(target, span_userdanger("Вы чувствуете резкую боль в руках и ногах! Что-то отрывает их от вашего тела! Боги наказали вас за [reason]!"))
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 
-
 /// MARK: Rod
 /datum/smite/rod
 	name = SMITE_ROD
 	desc = "Отправьте несдвигаемый стержень убить грешника."
 	logmsg = "a rod"
-
 
 /datum/smite/rod/apply_effect(mob/living/target, reason)
 	var/starting_turf_x = target.x + rand(10, 15) * pick(1, -1)
@@ -309,12 +273,10 @@
 	rod.reason = reason
 	rod.go_for_a_walk(target)
 
-
 /// MARK: Summon
 /datum/smite/summon
 	name = SMITE_SUMMON
 	desc = "Призовите злобное существо около грешника!"
-
 
 /datum/smite/summon/apply_effect(mob/living/target, reason)
 	var/turf/turf = get_turf(target)
@@ -328,12 +290,10 @@
 	to_chat(target, span_userdanger("[capitalize(mob.declent_ru(NOMINATIVE))] появляется из воздуха! Боги наказали вас за [reason]!"))
 	logmsg = "summon angry [mob]."
 
-
 /// MARK: HRP (off)
 /datum/smite/hrp
 	name = SMITE_HRP
 	desc = "Подсадите в грешника опухоль ХРП."
-
 
 /datum/smite/hrp/apply_effect(mob/living/carbon/human/target, reason) // silent
 	var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
@@ -346,7 +306,7 @@
 
 	var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
 	"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
-	var/effect_strength = tgui_input_list(src, "Какую силу эффекта вы хотите? (задержка в секундах - урон гипоксией)", effect_variants)
+	var/effect_strength = tgui_input_list(src, "Какую силу эффекта вы хотите? (задержка в секундах — урон гипоксией)", effect_variants)
 	var/pdelay
 	var/oxy_dmg
 	if(effect_strength == "custom")
@@ -361,19 +321,17 @@
 	LAZYADD(target.mind.curses, "high_rp")
 	logmsg = "high rp([pdelay] - [oxy_dmg])"
 
-
 /// MARK: Demote
 /datum/smite/demote
 	name = SMITE_DEMOTE
 	desc = "Увольте грешника!"
 	logmsg = "demote."
 
-
 /datum/smite/demote/apply_effect(mob/living/target, reason)
 	GLOB.major_announcement.announce(
-		"[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
-		ANNOUNCE_CCDEMOTE_RU,
-		'sound/AI/commandreport.ogg'
+		message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+		new_title = ANNOUNCE_CCDEMOTE_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 	for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
@@ -386,13 +344,11 @@
 
 	update_all_mob_security_hud()
 
-
 /// MARK: Virus
 /datum/smite/virus
 	name = SMITE_VIRUS
 	desc = "Заразите грешника выбранным вирусом! Если хотите, сделайте вирус незаразным."
 	logmsg = "virus."
-
 
 /datum/smite/virus/activate(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", GLOB.typecache_virus, /datum/disease/virus/nuclefication)
@@ -409,19 +365,16 @@
 
 	virus.Contract(target)
 
-
 /// MARK: Pod
 /datum/smite/pod
 	name = SMITE_POD
 	desc = "Запустите по грешнику ракетой."
 	logmsg = "supply pod."
 
-
 /datum/smite/pod/activate(mob/living/target, reason)
 	var/datum/centcom_podlauncher/launcher = new(usr, reason)
 	launcher.specificTarget = target
 	launcher.ui_interact(usr)
-
 
 /// MARK: Global hunting
 /datum/smite/global_hunting
@@ -429,15 +382,12 @@
 	desc = "Заставьте экипаж охотиться за грешником."
 	logmsg = "global hunting."
 
-
 /datum/smite/global_hunting/activate(mob/living/target, reason)
 	var/bounty = tgui_input_number(usr, "Выберите денежное вознаграждение поделённое между исполнителями приговора.", "Выбор вознаграждения", 5000, INFINITY, 0)
 	GLOB.major_announcement.announce(
-		"[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. \
-		Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни \
-		будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[declension_ru(bounty, "", "а", "ов")].",
-		ANNOUNCE_CCKILL_RU,
-		'sound/AI/commandreport.ogg'
+		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[DECL_CREDIT(bounty)].",
+		new_title = ANNOUNCE_CCKILL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	target.AddComponent(/datum/component/killing_reward, bounty)
@@ -452,13 +402,11 @@
 
 	update_all_mob_security_hud()
 
-
 /// MARK: Brainrot braindamage
 /datum/smite/brainrot_braingamage
 	name = SMITE_BRAINROTBRAINDAMAGE
 	desc = "Мозг грешника будет повреждаться от глупых фраз."
 	logmsg = "brainrot braindamage."
-
 
 /datum/smite/brainrot_braingamage/activate(mob/living/target, reason)
 	var/datum/component = target.GetComponent(/datum/component/brainrot_braingamage)
@@ -478,7 +426,6 @@
 	target.AddComponent(/datum/component/brainrot_braingamage, damage, bad_words)
 	to_chat(target, span_userdanger("Ваш мозг напрягается. Вы чувствуете, что лучше больше не нести бред. Это кара за [reason]!"))
 
-
 /datum/smite/brainrot_braingamage/proc/list_to_string(list/bad_words)
 	var/result = ""
 	for(var/word in bad_words)
@@ -486,10 +433,8 @@
 
 	return result
 
-
 /datum/smite/brainrot_braingamage/proc/string_to_list(bad_words)
 	return splittext(bad_words, ",")
-
 
 /// MARK: Piano
 /datum/smite/piano
@@ -497,17 +442,15 @@
 	desc = "Сбросьте на грешника пианино или вендомат."
 	logmsg = "piano"
 
-
 /datum/smite/piano/apply_effect(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите что именно упадёт на грешника.", "Выбор падающей стуктуры", GLOB.typecache_vending + list(/obj/structure/pianoclassic) + list(/obj/structure/piano))
 	var/turf/target_turf = get_turf(target)
 	var/obj/fallen = new type(target_turf)
 	target_turf.zImpact(fallen, 1)
 	to_chat(target, span_userdanger(
-		"Откуда-то сверху на вас пада[pluralize_ru(fallen.gender, "ет", "ют")] [fallen.declent_ru(NOMINATIVE)]! \
+		"Откуда-то сверху на вас пада[PLUR_ET_YUT(fallen)] [fallen.declent_ru(NOMINATIVE)]! \
 		Вам почему-то кажется, что это наказание за [reason]." \
 	))
-
 
 /// MARK: Jackboots
 /datum/smite/jackbots
@@ -517,11 +460,9 @@
 	var/mob/target
 	var/sound_chanse = 1
 
-
 /datum/smite/jackbots/apply_effect(mob/living/target, reason)
 	src.target = target
 	RegisterSignal(target, COMSIG_LIVING_LIFE, PROC_REF(try_hear_sound))
-
 
 /datum/smite/jackbots/proc/try_hear_sound()
 	SIGNAL_HANDLER
@@ -534,7 +475,6 @@
 	var/turf/end = locate(starting_turf_x + rand(5, 10) * pick(1, -1), starting_turf_y + rand(5, 10) * pick(1, -1), target.z)
 	do_step(start, end)
 
-
 /datum/smite/jackbots/proc/do_step(turf/now, turf/last, limit = 10)
 	if(!now || !last || limit <= 0)
 		return
@@ -543,27 +483,24 @@
 	now = get_step(now, get_dir(now, last))
 	addtimer(CALLBACK(src, PROC_REF(do_step), now, last, limit - 1), 0.3 SECONDS)
 
-
 /// MARK: Machinery transformation
 /datum/smite/machinery
 	name = SMITE_MACHINERY
 	desc = "Сбросьте на грешника пианино или вендомат."
 	logmsg = "machinery transformation"
 
-
 /datum/smite/machinery/apply_effect(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите в какую машинерию превратится грешник.", "Выбор новой формы", GLOB.typecache_machinery)
 	var/obj/machinery/new_form = new type(get_turf(target))
 	to_chat(target, span_userdanger( \
 		"Ваши конечности немеют... По телу распространяется металлический холод... Это смерть? \
-		Нет. Хуже. Это [new_form.declent_ru(NOMINATIVE)]. Похоже что ваша новая форма - наказание за [reason]." \
+		Нет. Хуже. Это [new_form.declent_ru(NOMINATIVE)]. Похоже что ваша новая форма — наказание за [reason]." \
 	))
 	target.flash_eyes(2, TRUE)
 	new_form.obj_flags |= NODECONSTRUCT
 	var/mob/living/machinery_mind/machinery_mind = new(new_form)
 	target.mind.transfer_to(machinery_mind)
 	qdel(target)
-
 
 /mob/living/machinery_mind
 
@@ -578,13 +515,11 @@
 	health = maxHealth
 	RegisterSignal(machinery, COMSIG_QDELETING, PROC_REF(death))
 
-
 /// MARK: Head hit
 /datum/smite/headhit
 	name = SMITE_HEADHIT
 	desc = "Грешник будет периодически биться головой об шлюзы."
 	logmsg = "airlock headhit."
-
 
 /datum/smite/headhit/apply_effect(mob/living/target, reason)
 	if(HAS_TRAIT_FROM(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT))
@@ -594,7 +529,6 @@
 
 	ADD_TRAIT(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT)
 	to_chat(target, span_userdanger("Вы чувствуете что стали на пару сантиметров выше. К чему бы это? Может это наказание за [reason]?"))
-
 
 /// MARK: Admin smite proc
 /client/proc/smite(mob/living/mob as mob)
@@ -608,8 +542,7 @@
 		return
 
 	var/datum/smite_ui/ui = new(mob)
-	ui.ui_interact(mob)
-
+	ui.ui_interact(usr)
 
 /// MARK: TGUI
 /datum/smite_ui
@@ -620,10 +553,8 @@
 	/// Mob that we want to smite.
 	var/mob/victim_mob
 
-
 /datum/smite_ui/ui_state(mob/user)
 	return GLOB.admin_state
-
 
 /datum/smite_ui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -633,11 +564,10 @@
 	ui = new(user, src, "SmiteMenu", "Наказание [victim_mob.declent_ru(GENITIVE)]")
 	ui.open()
 
-
 /datum/smite_ui/ui_static_data(mob/user)
 	. = ..()
 	var/list/smites_paths = GLOB.smites_not_human.Copy()
-	if(ishuman(user))
+	if(ishuman(victim_mob))
 		smites_paths += GLOB.smites_human.Copy()
 
 	.["all_smites"] = list()
@@ -647,12 +577,10 @@
 		.["all_smites"] += name
 		.["all_descs"] += smite_type::desc
 
-
 /datum/smite_ui/ui_data(mob/user)
 	. = ..()
 	.["choosen"] = choosen
 	.["reason"] = reason
-
 
 /datum/smite_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -682,14 +610,11 @@
 
 	return FALSE
 
-
 /datum/smite_ui/ui_close(mob/user)
 	qdel(src)
 
-
 /datum/smite_ui/New(target)
 	src.victim_mob = target
-
 
 /datum/smite_ui/Destroy(force)
 	victim_mob = null

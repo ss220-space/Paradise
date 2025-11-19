@@ -62,7 +62,7 @@
 	name = "Welding Tool"
 	id = "welding_tool"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 70, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 70, MAT_GLASS = 30)
 	build_path = /obj/item/weldingtool
 	category = list("initial","Tools")
 
@@ -804,8 +804,8 @@
 	name = "Specter cell"
 	id = "spectermag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 18750)
-	build_path = /obj/item/stock_parts/cell/specter
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/weapon_cell/specter
 	category = list("initial", "Security")
 
 /datum/design/sp91rc_mag
@@ -814,6 +814,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/ammo_box/magazine/sp91rc/empty
+	category = list("hacked", "Security")
+
+/datum/design/sparkle_a12_mag
+	name = "Sparkle-A12 magazine (9mm)"
+	id = "sparkle-a12-9mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/sparkle_a12/empty
 	category = list("hacked", "Security")
 
 /datum/design/buckshot_shell

@@ -14,7 +14,6 @@
 	// We'll store the languages the mob knew before the fever here
 	var/list/datum/language/stored_languages
 
-
 /datum/disease/virus/babylonian_fever/Contract(mob/living/M, act_type, is_carrier, need_protection_check, zone)
 	var/datum/disease/virus/babylonian_fever/disease = ..()
 
@@ -27,7 +26,6 @@
 	disease.RegisterSignal(disease.affected_mob, COMSIG_MOB_LANGUAGE_REMOVE, PROC_REF(remove_language))
 
 	ADD_TRAIT(disease.affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(disease))
-
 
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
@@ -56,7 +54,6 @@
 
 	return TRUE
 
-
 /datum/disease/virus/babylonian_fever/Destroy()
 	if(affected_mob)
 		UnregisterSignal(affected_mob, list(
@@ -75,7 +72,6 @@
 
 	return ..()
 
-
 /datum/disease/virus/babylonian_fever/proc/store_and_remove_languages()
 	if(!LAZYLEN(affected_mob.languages))
 		return
@@ -91,7 +87,6 @@
 			continue
 		affected_mob.remove_language(lan.name)
 
-
 /datum/disease/virus/babylonian_fever/proc/store_language(datum/signal_source, language_name, lang_flags)
 	SIGNAL_HANDLER
 
@@ -101,7 +96,6 @@
 	var/datum/language/new_language = GLOB.all_languages[language_name]
 	LAZYOR(stored_languages, new_language)
 	return DISEASE_MOB_LANGUAGE_PROCESSED
-
 
 /datum/disease/virus/babylonian_fever/proc/remove_language(datum/signal_source, language_name, lang_flags)
 	SIGNAL_HANDLER

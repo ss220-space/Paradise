@@ -69,9 +69,9 @@
 	. = ..()
 	if(!in_range(user, src))
 		if(active)
-			. += "<span class='notice'>The generator is on.</span>"
+			. += span_notice("The generator is on.")
 		else
-			. += "<span class='notice'>The generator is off.</span>"
+			. += span_notice("The generator is off.")
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes
@@ -164,12 +164,12 @@
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>\The [src] appears to be producing [power_gen*power_output] W.</span>"
-	. += "<span class='notice'>There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.</span>"
+	. += span_notice("\The [src] appears to be producing [power_gen*power_output] W.")
+	. += span_notice("There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.")
 	if(IsBroken())
-		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
+		. += span_warning("\The [src] seems to have broken down.")
 	if(overheating)
-		. += "<span class='danger'>\The [src] is overheating!</span>"
+		. += span_danger("\The [src] is overheating!")
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	var/needed_sheets = power_output / time_per_sheet
@@ -280,7 +280,6 @@
 		emagged = 1
 		return 1
 
-
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -305,7 +304,6 @@
 
 	return ..()
 
-
 /obj/machinery/power/port_gen/pacman/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
@@ -315,7 +313,6 @@
 		return .
 	panel_open = !panel_open
 	to_chat(user, span_notice("You have [panel_open ? "opened" : "closed"] the access panel."))
-
 
 /obj/machinery/power/port_gen/pacman/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -332,7 +329,6 @@
 		to_chat(user, span_notice("You have unsecured [src] from the floor."))
 		disconnect_from_network()
 
-
 /obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
@@ -342,7 +338,6 @@
 		to_chat(user, span_warning("You cannot disassemble [src] while the access panel is closed."))
 		return .
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user)
 	..()

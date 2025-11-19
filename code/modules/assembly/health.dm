@@ -16,13 +16,11 @@
 	/// The health amount on which to activate
 	var/alarm_health = MAX_HEALTH_ACTIVATE
 
-
 /obj/item/assembly/health/activate()
 	if(!..())
 		return FALSE//Cooldown check
 	toggle_scan()
 	return FALSE
-
 
 /obj/item/assembly/health/toggle_secure()
 	secured = !secured
@@ -35,7 +33,6 @@
 	update_icon()
 	return secured
 
-
 /obj/item/assembly/health/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -46,7 +43,6 @@
 	else
 		alarm_health = MAX_HEALTH_ACTIVATE
 		user.show_message("You toggle [src] to \"detect critical state\" mode.")
-
 
 /obj/item/assembly/health/process()
 	if(!scanning || !secured)
@@ -60,10 +56,9 @@
 	user_health = user.health
 	if(user_health <= alarm_health) // Its a health detector, not a death detector
 		pulse(FALSE, user)
-		user.audible_message("[bicon(src)] *beep* *beep* *beep*")
+		user.audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
 		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 		toggle_scan()
-
 
 /obj/item/assembly/health/proc/toggle_scan()
 	if(!secured)
@@ -75,7 +70,6 @@
 		user_health = null // Clear out the user data, we're no longer scanning
 		STOP_PROCESSING(SSobj, src)
 
-
 /obj/item/assembly/health/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
 		user.show_message(span_warning("The [name] is unsecured!"))
@@ -86,7 +80,6 @@
 	var/datum/browser/popup = new(user, "hscan", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/item/assembly/health/Topic(href, href_list)
 	..()
@@ -108,7 +101,6 @@
 		return
 
 	attack_self(user)
-
 
 #undef MAX_HEALTH_ACTIVATE
 #undef MIN_HEALTH_ACTIVATE

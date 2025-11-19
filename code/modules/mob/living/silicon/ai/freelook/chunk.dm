@@ -41,7 +41,6 @@
 	if(client && eye.use_static)
 		client.images += active_static_images
 
-
 // Remove an AI eye from the chunk, then update if changed.
 
 /datum/camerachunk/proc/remove(mob/camera/aiEye/eye, remove_static_with_last_chunk = TRUE)
@@ -56,7 +55,7 @@
 // instead be flagged to update the next time an AI Eye moves near it.
 
 /datum/camerachunk/proc/hasChanged(update_now = 0, update_delay_buffer = UPDATE_BUFFER)
-	if(seenby.len || update_now)
+	if(length(seenby) || update_now)
 		addtimer(CALLBACK(src, PROC_REF(update)), update_delay_buffer, TIMER_UNIQUE)
 	else
 		changed = TRUE
@@ -120,7 +119,6 @@
 			continue
 
 		client.images += active_static_images
-
 
 /// Create a new camera chunk, since the chunks are made as they are needed.
 /datum/camerachunk/New(x, y, lower_z)

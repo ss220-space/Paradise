@@ -50,7 +50,7 @@
 		DATIVE = "Духу-Хранителю",
 		ACCUSATIVE = "Духа-Хранителя",
 		INSTRUMENTAL = "Духом-Хранителем",
-		PREPOSITIONAL = "Духе-Хранителе"
+		PREPOSITIONAL = "Духе-Хранителе",
 	)
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
@@ -103,7 +103,7 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[declension_ru(range,"","а","ов")] от [summoner.real_name]!"))
+			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
 			visible_message(span_danger("[src] вернулся к носителю."))
 			if(iseffect(summoner.loc))
 				Recall(TRUE)
@@ -135,7 +135,6 @@
 		return FALSE
 	to_chat(summoner, span_danger("Ваш [name] как-то умер!"))
 	summoner.death()
-
 
 /mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
@@ -236,13 +235,11 @@
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
-		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
+		if(M?.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
-
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
-
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	set_light_on(!light_on)
@@ -251,12 +248,11 @@
 	else
 		to_chat(src, span_notice("Вы выключили свет."))
 
-
 ////////Creation
 
 /obj/item/guardiancreator
 	name = "колода карт Таро"
-	desc = "Зачарованная колода карт, по слухам - источник невероятной силы. "
+	desc = "Зачарованная колода карт, по слухам — источник невероятной силы. "
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	var/used = FALSE
@@ -285,7 +281,7 @@
 		DATIVE = "колоде карт Таро",
 		ACCUSATIVE = "колоду карт Таро",
 		INSTRUMENTAL = "колодой карт Таро",
-		PREPOSITIONAL = "колоде карт Таро"
+		PREPOSITIONAL = "колоде карт Таро",
 	)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
@@ -322,7 +318,7 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть за [mob_name] ([guardian_type]) у [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 	var/mob/dead/observer/theghost = null
 
-	if(candidates.len)
+	if(length(candidates))
 		theghost = pick(candidates)
 		log_game("[user](ckey: [user.key]) has successfully spawned [guardian_type] type guardian(ckey: [theghost.key])")
 		spawn_guardian(user, theghost.key, guardian_type)
@@ -369,11 +365,11 @@
 
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
 	G.summoned = TRUE
-	G.key = key
+	G.possess_by_player(key)
 	SSticker.mode.guardians |= G.mind
 	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
 	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
-	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [genderize_ru(user.gender,"он","она","оно","они")] погибн[pluralize_ru(user.gender,"ет","ут")] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [genderize_ru(user.gender,"ему","ей","ему","им")], так как вы существуете за счёт [genderize_ru(user.gender,"его","её","его","их")] жизненной силы.")
+	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [GEND_HIM_HER(user)], так как вы существуете за счёт [GEND_HIS_HER(user)] жизненной силы.")
 	to_chat(G, "[G.playstyle_string]")
 	G.faction = user.faction
 
@@ -425,7 +421,7 @@
 		DATIVE = "инъектору голопаразитов",
 		ACCUSATIVE = "инъектор голопаразитов",
 		INSTRUMENTAL = "инъектором голопаразитов",
-		PREPOSITIONAL = "инъекторе голопаразитов"
+		PREPOSITIONAL = "инъекторе голопаразитов",
 	)
 
 /obj/item/guardiancreator/tech/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
@@ -473,7 +469,7 @@
 		DATIVE = "скоплению яиц скарабеев",
 		ACCUSATIVE = "скопление яиц скарабеев",
 		INSTRUMENTAL = "скоплением яиц скарабеев",
-		PREPOSITIONAL = "скоплении яиц скарабеев"
+		PREPOSITIONAL = "скоплении яиц скарабеев",
 	)
 
 /obj/item/guardiancreator/biological/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
@@ -487,7 +483,6 @@
 	G.speak_emote = list("щебечет")
 
 /obj/item/guardiancreator/biological/choose
-
 
 /obj/item/paper/guardian
 	name = "Справочник по голопаразитам"
@@ -516,7 +511,6 @@
 
 /obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "Набор инжектора голопаразита"

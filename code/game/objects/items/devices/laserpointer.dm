@@ -18,7 +18,6 @@
 	var/obj/item/stock_parts/micro_laser/diode //used for upgrading!
 	var/is_pointing = FALSE
 
-
 /obj/item/laser_pointer/red
 	pointer_icon_state = "red_laser"
 /obj/item/laser_pointer/green
@@ -42,16 +41,13 @@
 	..()
 	diode = new /obj/item/stock_parts/micro_laser/ultra
 
-
 /obj/item/laser_pointer/update_icon_state()
 	icon_state = "pointer[is_pointing ? "_[pointer_icon_state]" : ""]"
-
 
 /obj/item/laser_pointer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(laser_act(target, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/laser_pointer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/micro_laser))
@@ -66,7 +62,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -164,16 +159,14 @@
 			recharging = 1
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
-			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			to_chat(user, span_warning("You've overused the battery of [src], now it needs time to recharge!"))
 			recharge_locked = 1
 
 	target.flick_overlay_view(laser, 1 SECONDS)
 
-
 /obj/item/laser_pointer/proc/stop_pointing()
 	is_pointing = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/laser_pointer/process()
 	if(prob(20 - recharge_locked*5))

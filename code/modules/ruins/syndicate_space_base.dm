@@ -13,7 +13,6 @@
 	info_links = info
 	update_icon()
 
-
 // Space Base Spawners. Исспользуется переделанная копия спавнеров лавалендовских.
 /obj/effect/mob_spawn/human/space_base_syndicate
 	name = "Syndicate Scientist sleeper"
@@ -61,11 +60,11 @@
 		var/race = H.dna.species.name
 		switch(race)
 			if(SPECIES_VOX, SPECIES_VOX_ARMALIS)
-				box = /obj/item/storage/box/survival_vox
+				box = /obj/item/storage/box/survival/species/vox
 			if(SPECIES_PLASMAMAN)
-				box = /obj/item/storage/box/survival_plasmaman
+				box = /obj/item/storage/box/survival/species/plasmaman
 			else
-				box = /obj/item/storage/box/survival_syndi
+				box = /obj/item/storage/box/survival/survival_syndi
 
 /datum/outfit/space_base_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "syndicate"
@@ -123,7 +122,7 @@
 		/obj/item/reagent_containers/applicator/burn = 1,
 		/obj/item/reagent_containers/hypospray/safety = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 1
+		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist
@@ -223,7 +222,7 @@
 	backpack_contents = list(
 		/obj/item/paper/monitorkey = 1, // message console does NOT spawn with this
 		/obj/item/paper/syndicate/code_words = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/ammo_box/magazine/m50 = 3,
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/rd
@@ -246,7 +245,7 @@
 	back = /obj/item/storage/backpack/fluff/syndiesatchel
 	id = /obj/item/card/id/syndicate/research_director
 	backpack_contents = list(
-		/obj/item/gun/energy/telegun = 1
+		/obj/item/gun/energy/telegun = 1,
 	)
 
 //Прок вызываемый для выдачи Тайпан Худа

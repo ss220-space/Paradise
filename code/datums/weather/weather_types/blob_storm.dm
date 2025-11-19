@@ -23,7 +23,6 @@
 
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 
-
 /datum/weather/blob_storm/telegraph()
 	var/list/blobs = SSticker?.mode?.blobs["infected"] + SSticker?.mode?.blobs["offsprings"]
 	var/color
@@ -32,7 +31,7 @@
 		var/mob/camera/blob/overmind = blob.current
 		if(QDELETED(overmind) || !istype(overmind) || overmind.stat == DEAD)
 			continue
-		if(overmind.blobs_legit.len > mass)
+		if(length(overmind.blobs_legit) > mass)
 			mass = overmind.blobs_legit.len
 			color = overmind.blobstrain.color
 
@@ -41,11 +40,11 @@
 
 	..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.announce("Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
-
 
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)
 	if(prob(50))
@@ -61,7 +60,6 @@
 		return FALSE
 	return ..()
 
-
 /datum/weather/blob_storm/weather_act(mob/living/target)
 	var/datum_type = target.mind.get_blob_infected_type()
 	var/datum/antagonist/blob_infected/blob_datum = new datum_type()
@@ -69,7 +67,6 @@
 	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
 	target.mind.add_antag_datum(blob_datum)
-
 
 /datum/weather/blob_storm/end()
 	if(..())
@@ -92,7 +89,7 @@
 	stage = MAIN_STAGE
 	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 		for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-			if(bomb && bomb.timing && is_station_level(bomb.z))
+			if(bomb?.timing && is_station_level(bomb.z))
 				INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/machinery/nuclearbomb/,explode))
 	update_areas()
 	for(var/M in GLOB.player_list)

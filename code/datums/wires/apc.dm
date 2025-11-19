@@ -16,7 +16,6 @@
 	. += A.shorted ? "The APCs power has been shorted." : "The APC is working properly!"
 	. += "The 'AI control allowed' light is [A.aidisabled ? "off" : "on"]."
 
-
 /datum/wires/apc/interactable(mob/user)
 	var/obj/machinery/power/apc/A = holder
 	if(A.panel_open && !A.opened)
@@ -32,12 +31,10 @@
 			A.locked = FALSE
 			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/power/apc, relock_callback)), 30 SECONDS)
 
-
 		if(WIRE_MAIN_POWER1, WIRE_MAIN_POWER2)
 			if(!A.shorted)
 				A.shorted = TRUE
 				addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/power/apc, check_main_power_callback)), 120 SECONDS)
-
 
 		if(WIRE_AI_CONTROL)
 			if(!A.aidisabled)

@@ -9,7 +9,6 @@
 	to_chat(world, "<b>The current game mode is - Thief+Changeling!</b>")
 	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
 
-
 /datum/game_mode/thief/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs

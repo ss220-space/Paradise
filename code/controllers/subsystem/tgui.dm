@@ -31,10 +31,8 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/Shutdown()
 	close_all_uis()
 
-
 /datum/controller/subsystem/tgui/get_stat_details()
 	return "P:[length(open_uis)]"
-
 
 /datum/controller/subsystem/tgui/fire(resumed = FALSE)
 	if(!resumed)
@@ -45,7 +43,7 @@ SUBSYSTEM_DEF(tgui)
 		var/datum/tgui/ui = current_run[length(current_run)]
 		current_run.len--
 		// TODO: Move user/src_object check to process()
-		if(ui && ui.user && ui.src_object)
+		if(ui?.user && ui.src_object)
 			ui.process()
 		else
 			open_uis.Remove(ui)
@@ -194,7 +192,7 @@ SUBSYSTEM_DEF(tgui)
 		return count
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Check if UI is valid.
-		if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user))
+		if(ui?.src_object && ui.user && ui.src_object.ui_host(ui.user))
 			ui.process(force = TRUE)
 			count++
 	return count
@@ -216,7 +214,7 @@ SUBSYSTEM_DEF(tgui)
 		return
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Check if UI is valid.
-		if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user))
+		if(ui?.src_object && ui.user && ui.src_object.ui_host(ui.user))
 			ui.close()
 			.++
 	return
@@ -233,7 +231,7 @@ SUBSYSTEM_DEF(tgui)
 	for(var/key in open_uis_by_src)
 		for(var/datum/tgui/ui in open_uis_by_src[key])
 			// Check if UI is valid.
-			if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user))
+			if(ui?.src_object && ui.user && ui.src_object.ui_host(ui.user))
 				ui.close()
 				count++
 	return count
@@ -354,3 +352,22 @@ SUBSYSTEM_DEF(tgui)
 	// Clear the old list.
 	source.tgui_open_uis.Cut()
 	return TRUE
+
+/datum/controller/subsystem/tgui/OnConfigLoad()
+	var/storage_iframe = CONFIG_GET(string/storage_cdn_iframe)
+
+	if(storage_iframe && storage_iframe != /datum/config_entry/string/storage_cdn_iframe::default)
+		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", storage_iframe)
+		return
+
+	if(CONFIG_GET(string/asset_transport) == ASSET_TRANSPORT_WEBROOT)
+		var/datum/asset_transport/webroot/webroot = SSassets.transport
+
+		var/datum/asset_cache_item/item = webroot.register_asset("iframe.html", file("tgui/public/iframe.html"))
+		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", webroot.get_asset_url("iframe.html", item))
+		return
+
+	if(!storage_iframe)
+		return
+
+	basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", storage_iframe)

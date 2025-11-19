@@ -122,7 +122,6 @@ SUBSYSTEM_DEF(instancing)
 	query.warn_execute()
 	qdel(query)
 
-
 /**
  * Seed data
  *

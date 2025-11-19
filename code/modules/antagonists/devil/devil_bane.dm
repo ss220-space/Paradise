@@ -50,7 +50,7 @@
 	owner.apply_damage(item.force * bonus_damage)
 	attacker.visible_message(
 		span_warning("На этот раз [item.declent_ru(NOMINATIVE)] кажется необычайно робастным."),
-		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] уничтожа[pluralize_ru(item.gender,"ет","ют")] [owner.declent_ru(ACCUSATIVE)]!"))
+		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] уничтожа[PLUR_ET_YUT(item)] [owner.declent_ru(ACCUSATIVE)]!"))
 
 /datum/devil_bane/whiteclothes
 	name = BANE_WHITECLOTHES
@@ -127,10 +127,9 @@
 	var/damage = intensity - owner.check_eye_prot()
 
 	if(!damage)
-		owner.mind?.disrupt_spells(0)
 		return
 
-	owner.mind?.disrupt_spells(-500)
+	owner.mind?.disrupt_spells(500)
 
 /datum/devil_bane/silver
 	name = BANE_SILVER

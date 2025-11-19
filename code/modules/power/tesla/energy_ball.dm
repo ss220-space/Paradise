@@ -47,7 +47,7 @@
 		DATIVE = "энергетическому шару",
 		ACCUSATIVE = "энергетический шар",
 		INSTRUMENTAL = "энергетическим шаром",
-		PREPOSITIONAL = "энергетическом шаре"
+		PREPOSITIONAL = "энергетическом шаре",
 	)
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
@@ -113,7 +113,7 @@
 /obj/singularity/energy_ball/examine(mob/user)
 	. = ..()
 	if(length(orbiting_balls))
-		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[declension_ru(length(orbiting_balls), "", "а", "ов")]."
+		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[DECL_CREDIT(length(orbiting_balls))]."
 
 /obj/singularity/energy_ball/proc/move_basketball(move_amount) // We need to get the gods and Tesla out of the inheritance from Singa. What a vicious piece of shit that is.
 	var/list/dirs = GLOB.alldirs.Copy()
@@ -353,7 +353,7 @@ GLOBAL_LIST_INIT(things_to_shock, typecacheof(list(
 		ADD_TRAIT(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 		addtimer(TRAIT_CALLBACK_REMOVE(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
 		var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round(power / 600), 90) + rand(-5, 5)) : 0
-		closest_mob.electrocute_act(shock_damage, "тесла шар", 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
+		closest_mob.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 		if(issilicon(closest_mob))
 			var/mob/living/silicon/silicon = closest_mob
 			if((zap_flags & ZAP_MOB_STUN) && (zap_flags & ZAP_MOB_DAMAGE))

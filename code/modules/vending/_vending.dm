@@ -43,7 +43,6 @@
 	 */
 	var/category
 
-
 /obj/machinery/vending
 	name = "Vendomat"
 	desc = "Обычный торговый автомат."
@@ -96,7 +95,6 @@
 	var/vend_delay = 0.2 SECONDS
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
-
 
 	/**
 	 * List of products this machine sells
@@ -211,6 +209,7 @@
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
+		/datum/vendor_crit/pop_head,
 		/datum/vendor_crit/lucky
 	)
 	/// number of shards to apply when a crit embeds
@@ -229,7 +228,7 @@
 		DATIVE = "торговому автомату",
 		ACCUSATIVE = "торговый автомат",
 		INSTRUMENTAL = "торговым автоматом",
-		PREPOSITIONAL = "торговом автомате"
+		PREPOSITIONAL = "торговом автомате",
 	)
 
 /obj/machinery/vending/Initialize(mapload)
@@ -290,6 +289,7 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
+	QDEL_NULL(proximity_monitor)
 	return ..()
 
 /// Better would be to make constructable child
@@ -308,12 +308,10 @@
 	for(var/obj/item/vending_refill/installed_refill in component_parts)
 		restock(installed_refill)
 
-
 /obj/machinery/vending/update_icon(updates = ALL)
 	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)))
 		return ..(NONE)
 	return ..()
-
 
 /obj/machinery/vending/update_overlays()
 	. = ..()
@@ -359,7 +357,6 @@
 	if(panel_overlay && panel_open)
 		. += panel_overlay
 
-
 /obj/machinery/vending/power_change(forced = FALSE)
 	. = ..()
 	if(stat & NOPOWER)
@@ -369,12 +366,10 @@
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/vending/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-
 
 /obj/machinery/vending/proc/flick_vendor_overlay(flick_flag = FLICK_NONE)
 	if(flick_sequence & (FLICK_VEND|FLICK_DENY))
@@ -389,12 +384,16 @@
 	var/flick_time = (flick_flag & FLICK_VEND) ? vend_overlay_time : (flick_flag & FLICK_DENY) ? deny_overlay_time : 0
 	addtimer(CALLBACK(src, PROC_REF(flick_reset)), flick_time)
 
-
 /obj/machinery/vending/proc/flick_reset()
 	skip_non_primary_icon_updates = FALSE
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/vending/proc/create_proximity_monitor()
+	proximity_monitor = new(src)
+
+/obj/machinery/vending/proc/remove_proximity_monitor()
+	QDEL_NULL(proximity_monitor)
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -497,7 +496,6 @@
 		var/list/category_products = category["products"]
 		for(var/product_key in category_products)
 			products[product_key] += category_products[product_key]
-
 
 /**
  * Refill a vending machine from a refill canister
@@ -644,7 +642,6 @@
 	else
 		..()
 
-
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
@@ -746,17 +743,20 @@
 			record.amount--
 			break
 
-/obj/machinery/vending/HasProximity(atom/movable/AM)
-	if(!aggressive  || tilted || !tiltable)
+/obj/machinery/vending/HasProximity(atom/movable/movable)
+	if(!aggressive || tilted || !tiltable)
 		return
 
-	if(isliving(AM) && prob(25))
-		AM.visible_message(
-			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM.declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
-		)
-	tilt(AM, prob(5), FALSE)
+	if(!isliving(movable) || !prob(25))
+		return
+
+	movable.visible_message(
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
+	)
+	tilt(movable, prob(5), FALSE)
 	aggressive = FALSE
+	remove_proximity_monitor()
 	// Not making same mistakes as offs did.
 	// Don't make this prob more than 5%
 
@@ -790,7 +790,10 @@
 		return
 
 	panel_open = !panel_open
-	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	if(panel_open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 	SStgui.update_uis(src)
 
@@ -840,7 +843,7 @@
 	if(!..())
 		return FALSE
 	if(!istype(I, /obj/item/toy))
-		to_chat(user, "<span class='warning'>[I] isn't compatible with this machine's slot.</span>")
+		to_chat(user, span_warning("[I] isn't compatible with this machine's slot."))
 		return FALSE
 	return TRUE
 */
@@ -863,7 +866,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
+		balloon_alert(user, "пополнено [moved] товар[DECL_CREDIT(moved)]")
 		W.play_rped_sound()
 	return TRUE
 
@@ -875,7 +878,7 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[genderize_ru(I.gender, "", "а", "о", "ы")] к вашей руке! Вы не можете [genderize_ru(I.gender, "его", "её", "его", "их")] скинуть!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[GEND_A_O_Y(I)] к вашей руке! Вы не можете [GEND_HIS_HER(I)] скинуть!"))
 		return
 	inserted_item = I
 	balloon_alert(user, "предмет вставлен")
@@ -954,7 +957,7 @@
 		var/obj/item/stack/spacecash/cash = H.get_active_hand()
 		if(istype(cash))
 			data["userMoney"] = cash.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[pluralize_ru(cash.amount, "", "а", "ов")]."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[DECL_CREDIT(cash.amount)]."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
 			if(istype(money_account))
@@ -1093,6 +1096,10 @@
 				to_chat(usr, "Товар \"[product_record.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
+			if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)
+				balloon_alert(usr, "в доступе отказано!")
+				flick_vendor_overlay(FLICK_DENY)
+				return
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
@@ -1147,9 +1154,6 @@
 	if(.)
 		add_fingerprint(usr)
 
-
-
-
 /obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, span_warning("В доступе отказано!"))//Unless emagged of course
@@ -1189,12 +1193,10 @@
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product_record, user), vend_delay)
 
-
 /obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/product_record, mob/user)
 	do_vend(product_record, user)
 	vend_ready = TRUE
 	currently_vending = null
-
 
 /**
  * Override this proc to add handling for what to do with the vended product
@@ -1243,7 +1245,6 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
-
 /obj/machinery/vending/proc/speak(message)
 	if(stat & NOPOWER)
 		return
@@ -1251,7 +1252,6 @@
 		return
 
 	atom_say(message)
-
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(stat & BROKEN)
@@ -1283,7 +1283,6 @@
 			if(dump_amount >= 16)
 				return
 
-
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/vending/proc/throw_item()
 	var/obj/throw_item = null
@@ -1308,7 +1307,6 @@
 	throw_item.throw_at(target, 16, 3)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] метнул [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
 
-
 /obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
 		return
@@ -1316,14 +1314,14 @@
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
-			span_danger("[attacker] толка[pluralize_ru(attacker.gender, "ет", "ют")] [target] в [declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[attacker] впечатыва[pluralize_ru(attacker.gender, "ет", "ют")] вас в [declent_ru(ACCUSATIVE)]!"),
+			span_danger("[attacker] толка[PLUR_ET_YUT(attacker)] [target] в [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("[attacker] впечатыва[PLUR_ET_YUT(attacker)] вас в [declent_ru(ACCUSATIVE)]!"),
 			span_danger("Вы слышите громкий хруст.")
 		)
 	else
 		attacker.visible_message(
-			span_notice("[attacker] слегка прижима[pluralize_ru(attacker.gender, "ет", "ют")] [target] к [declent_ru(DATIVE)]."),
-			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [genderize_ru(target.gender, "ему", "ей", "ему", "им")] боль!")
+			span_notice("[attacker] слегка прижима[PLUR_ET_YUT(attacker)] [target] к [declent_ru(DATIVE)]."),
+			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [GEND_HIM_HER(target)] боль!")
 			)
 	return TRUE
 
@@ -1405,6 +1403,7 @@
 		tilt_over()
 		return
 	for(var/mob/living/victim in get_turf(target_atom))
+		var/was_alive = (victim.stat != DEAD)
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
@@ -1435,15 +1434,17 @@
 		. = TRUE
 		victim.Weaken(4 SECONDS)
 		victim.Knockdown(8 SECONDS)
+		if(was_alive && victim.stat == DEAD && victim.client)
+			victim.client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
 
-		playsound(victim, "sound/effects/blobattack.ogg", 40, TRUE)
-		playsound(victim, "sound/effects/splat.ogg", 50, TRUE)
+		playsound(victim, 'sound/effects/blobattack.ogg', 40, TRUE)
+		playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)
 
 		tilt_over(should_throw_at_target ? target_atom : null)
 
 /obj/machinery/vending/proc/tilt_over(mob/victim)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опрокидывается!"))
-	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
 	var/picked_rotation = pick(90, 270)
 	tilted_rotation = picked_rotation
 	var/matrix/to_turn = turn(transform, tilted_rotation)
@@ -1451,6 +1452,7 @@
 
 	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+		SStgui.close_uis(wires)
 
 /obj/machinery/vending/proc/untilt(mob/user)
 	if(!tilted)
@@ -1464,7 +1466,7 @@
 		if(!do_after(user, 7 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
 			return
 		user.visible_message(
-			span_notice("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы слышите громкий лязг.")
 		)

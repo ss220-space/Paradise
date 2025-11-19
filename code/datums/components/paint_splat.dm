@@ -51,8 +51,6 @@
 /datum/component/paint_splatter/proc/on_finish_live_time()
 	qdel(src)
 
-
-
 // MARK: Signals processors
 /datum/component/paint_splatter/proc/on_move(datum/source)
 	SIGNAL_HANDLER
@@ -74,8 +72,6 @@
 	if(remove_timer)
 		deltimer(remove_timer)
 	qdel(src)
-
-
 
 // MARK: Logic procs
 /datum/component/paint_splatter/proc/create_paint_splatter(turf/location)

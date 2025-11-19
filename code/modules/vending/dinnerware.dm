@@ -42,7 +42,7 @@
 		DATIVE = "торговому автомату Plasteel Chef's Dinnerware Vendor",
 		ACCUSATIVE = "торговый автомат Plasteel Chef's Dinnerware Vendor",
 		INSTRUMENTAL = "торговым автоматом Plasteel Chef's Dinnerware Vendor",
-		PREPOSITIONAL = "торговом автомате Plasteel Chef's Dinnerware Vendor"
+		PREPOSITIONAL = "торговом автомате Plasteel Chef's Dinnerware Vendor",
 	)
 
 /obj/machinery/vending/dinnerware/old

@@ -28,7 +28,6 @@
 	else
 		return FALSE
 
-
 /datum/game_mode/traitor/thief/changeling/post_setup()
 	for(var/datum/mind/changeling in pre_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)

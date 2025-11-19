@@ -77,7 +77,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
@@ -107,8 +106,11 @@
 	/// Messages currently seen by this client
 	var/list/seen_messages
 
-	/// list of tabs containing spells and abilities
+	/// list of tabs containing spells and abilities //TODO vakons actions: remove if not used
 	var/list/spell_tabs = list()
+
+	/// datum wrapper for client view
+	var/datum/view_data/view_size
 
 	/// our current tab
 	var/stat_tab
@@ -242,6 +244,9 @@
 	var/list/ViewMods = list()
 	var/ViewModsActive = FALSE
 	var/ViewPreferedIconSize = 0
+
+	///these persist between logins/logouts during the same round.
+	var/datum/persistent_client/persistent_client
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

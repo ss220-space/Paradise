@@ -14,14 +14,12 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
-
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = flipped ? "[item_color]soft_flipped" : "[item_color]soft"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/head/soft/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -29,10 +27,8 @@
 		flipped = FALSE
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/clothing/head/soft/attack_self(mob/user)
 	flip(user)
-
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
 	flipped = !flipped
@@ -131,6 +127,7 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
+	item_state = "secsoft"
 	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dog_fashion = null
@@ -140,6 +137,8 @@
 	desc = "It's a baseball hat in corporate colours."
 	icon_state = "corpsoft"
 	item_color = "corp"
+	item_state = "corpsoft"
+	dog_fashion = null
 
 /obj/item/clothing/head/soft/solgov
 	name = "Trans-Solar Federation marine cap"
@@ -187,7 +186,7 @@
 		DATIVE = "синей бейсболке",
 		ACCUSATIVE = "синюю бейсболку",
 		INSTRUMENTAL = "синей бейсболкой",
-		PREPOSITIONAL = "синей бейсболке"
+		PREPOSITIONAL = "синей бейсболке",
 	)
 /obj/item/clothing/head/tchaikowsky/baseballcap/brown
 	name = "baseball cap (brown)"
@@ -202,5 +201,5 @@
 		DATIVE = "коричневой бейсболке",
 		ACCUSATIVE = "коричневую бейсболку",
 		INSTRUMENTAL = "коричневой бейсболкой",
-		PREPOSITIONAL = "коричневой бейсболке"
+		PREPOSITIONAL = "коричневой бейсболке",
 	)

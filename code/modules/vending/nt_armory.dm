@@ -11,7 +11,7 @@
 	desc = "Автомат-помощник по выдаче боеприпасов."
 	slogan_list = list(
 		"Возьм+и поб+ольше патр+онов!",
-		"Не забыв+ай, снаряж+аться – пол+езно!",
+		"Не забыв+ай, снаряж+аться — пол+езно!",
 		"Бжж-Бзз-з!",
 		"Обезоп+асить, Удерж+ать, Сохран+ить!",
 		"Сто+ять, сняряд+ись на зад+ание!"
@@ -26,8 +26,8 @@
 	vend_overlay = "nta_vend"
 	deny_overlay = "nta_deny"
 	vend_overlay_time = 3 SECONDS
-
 	req_access = list(ACCESS_SECURITY)
+
 	products = list(
 		/obj/item/grenade/flashbang = 4,
 		/obj/item/flash = 5,
@@ -56,9 +56,14 @@
 		/obj/item/ammo_box/inc46x30mm = 4,
 		/obj/item/ammo_box/tox46x30mm = 4,
 		/obj/item/ammo_box/ap46x30mm = 4,
-		/obj/item/ammo_box/laserammobox = 4
+		/obj/item/ammo_box/laserammobox = 4,
 	)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
+	contraband = list(
+		/obj/item/clothing/glasses/sunglasses = 2,
+		/obj/item/storage/fancy/donut_box = 2,
+		/obj/item/grenade/clusterbuster/apocalypsefake = 1,
+	)
+
 	refill_canister = /obj/item/vending_refill/nta
 	tiltable = FALSE //no ert tilt
 
@@ -69,7 +74,7 @@
 		DATIVE = "торговому автомату NT Ammunition",
 		ACCUSATIVE = "торговый автомат NT Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT Ammunition",
-		PREPOSITIONAL = "торговом автомате NT Ammunition"
+		PREPOSITIONAL = "торговом автомате NT Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory
@@ -100,13 +105,12 @@
 
 	underlays += emissive_appearance(icon, "nta_lightmask", src)
 
-
 /obj/machinery/vending/nta/ertarmory/blue
 	name = "NT ERT Medium Gear & Ammunition"
 	desc = "Автомат-помощник по выдаче снаряжения среднего класса."
 	slogan_list = list(
 		"Круш+и череп+а враг+ов Нанотр+ейзен!",
-		"Не забыв+ай, спас+ать – пол+езно!",
+		"Не забыв+ай, спас+ать — пол+езно!",
 		"Бжж-Бзз-з!",
 		"Обезоп+асить, Удерж+ать, Сохран+ить!",
 		"Сто+ять, сняряд+ись на зад+ание!"
@@ -114,23 +118,26 @@
 
 	base_icon_state = "nta-blue"
 	deny_overlay = "nta-blue_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
 		/obj/item/gun_module/muzzle/suppressor = 4,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
-		/obj/item/ammo_box/shotgun/dragonsbreath = 2
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/blue/get_ru_names()
 	return list(
@@ -139,7 +146,7 @@
 		DATIVE = "торговому автомату NT ERT Medium Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Medium Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Medium Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Medium Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Medium Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/red
@@ -147,7 +154,7 @@
 	desc = "Автомат-помощник по выдаче снаряжения тяжелого класса."
 	slogan_list = list(
 		"Круш+и череп+а враг+ов Нанотр+ейзен!",
-		"Не забыв+ай, спас+ать – пол+езно!",
+		"Не забыв+ай, спас+ать — пол+езно!",
 		"Бжж-Бзз-з!",
 		"Обезоп+асить, Удерж+ать, Сохран+ить!",
 		"Сто+ять, сняряд+ись на зад+ание!"
@@ -155,8 +162,8 @@
 
 	base_icon_state = "nta-red"
 	deny_overlay = "nta-red_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/gun/projectile/automatic/ar = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
@@ -170,9 +177,11 @@
 		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
-		/obj/item/grenade/frag = 4
+		/obj/item/grenade/frag = 4,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/red/get_ru_names()
 	return list(
@@ -181,7 +190,7 @@
 		DATIVE = "торговому автомату NT ERT Heavy Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Heavy Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Heavy Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Heavy Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Heavy Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/green
@@ -189,7 +198,7 @@
 	desc = "Автомат-помощник по выдаче снаряжения лёгкого класса."
 	slogan_list = list(
 		"Круш+и череп+а враг+ов Нанотр+ейзен!",
-		"Не забыв+ай, спас+ать – пол+езно!",
+		"Не забыв+ай, спас+ать — пол+езно!",
 		"Бжж-Бзз-з!",
 		"Обезоп+асить, Удерж+ать, Сохран+ить!",
 		"Сто+ять, сняряд+ись на зад+ание!"
@@ -197,8 +206,8 @@
 
 	base_icon_state = "nta-green"
 	deny_overlay = "nta-green_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/restraints/handcuffs = 5,
 		/obj/item/restraints/handcuffs/cable/zipties = 5,
@@ -215,9 +224,11 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
-		/obj/item/melee/baton/telescopic = 4
+		/obj/item/melee/baton/telescopic = 4,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/green/get_ru_names()
 	return list(
@@ -226,28 +237,33 @@
 		DATIVE = "торговому автомату NT ERT Light Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Light Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Light Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Light Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Light Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/green/cc_jail
 	name = "NT CentComm prison guards' Gear & Ammunition"
 	desc = "Автомат с оборудованием для надзирателей тюрьмы Центрального Командования."
-	products = list(/obj/item/restraints/handcuffs=5,
-		/obj/item/restraints/handcuffs/cable/zipties=5,
-		/obj/item/grenade/flashbang=3,
-		/obj/item/flash=3,
-		/obj/item/restraints/legcuffs/bola/energy=3,
-		/obj/item/gun/energy/gun/advtaser=6,
-		/obj/item/gun/projectile/automatic/pistol/enforcer=6,
-		/obj/item/storage/box/barrier=2,
-		/obj/item/gun/projectile/shotgun/riot=2,
-		/obj/item/ammo_box/shotgun/rubbershot=4,
-		/obj/item/ammo_box/shotgun=2,
-		/obj/item/ammo_box/magazine/enforcer=6,
-		/obj/item/gun/energy/dominator/sibyl=3)
-	contraband = list(/obj/item/storage/fancy/donut_box=2,
-		/obj/item/ammo_box/shotgun/buck=4,
-		/obj/item/ammo_box/magazine/enforcer/lethal=4)
+
+	products = list(
+		/obj/item/restraints/handcuffs = 5,
+		/obj/item/restraints/handcuffs/cable/zipties = 5,
+		/obj/item/grenade/flashbang = 3,
+		/obj/item/flash = 3,
+		/obj/item/restraints/legcuffs/bola/energy = 3,
+		/obj/item/gun/energy/gun/advtaser = 6,
+		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
+		/obj/item/storage/box/barrier = 2,
+		/obj/item/gun/projectile/shotgun/riot = 2,
+		/obj/item/ammo_box/shotgun/rubbershot = 4,
+		/obj/item/ammo_box/shotgun = 2,
+		/obj/item/ammo_box/magazine/enforcer = 6,
+		/obj/item/gun/energy/dominator/sibyl = 3,
+	)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/magazine/enforcer/lethal = 4,
+	)
 
 /obj/machinery/vending/nta/ertarmory/green/cc_jail/get_ru_names()
 	return list(
@@ -256,7 +272,7 @@
 		DATIVE = "торговому автомату NT CentComm prison guards' Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT CentComm prison guards' Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT CentComm prison guards' Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT CentComm prison guards' Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT CentComm prison guards' Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/yellow
@@ -264,7 +280,7 @@
 	desc = "Автомат с оборудованием для ОБР — помогает людям осуществить их желание УМЕРЕТЬ."
 	slogan_list = list(
 		"Круш+и череп+а ВСЕХ!",
-		"Не забыв+ай, УБИВ+АТЬ – пол+езно!",
+		"Не забыв+ай, УБИВ+АТЬ — пол+езно!",
 		"УБИВ+АТЬ! УБИВ+АТЬ!! УБИВ+АТЬ!!!",
 		"УБИВ+АТЬ, Удерж+ать, УБИВ+АТЬ!",
 		"Сто+ять, сняряд+ись на УБИВ+АТЬ!",
@@ -273,11 +289,10 @@
 		"ТР+УПОВ МН+ОГО НЕ БЫВ+АЕТ!",
 		"НИ ОДН+А МРАЗЬ НЕ ДОЖИВ+ЁТ ДО З+АВТРА!"
 	)
-
 	base_icon_state = "nta-yellow"
 	deny_overlay = "nta-yellow_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
@@ -289,9 +304,12 @@
 		/obj/item/gun/energy/xray = 8,
 		/obj/item/gun/energy/pulse/destroyer/annihilator = 8,
 		/obj/item/grenade/clusterbuster/inferno = 3,
-		/obj/item/grenade/clusterbuster/emp = 3
+		/obj/item/grenade/clusterbuster/emp = 3,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
+
 /obj/machinery/vending/nta/ertarmory/yellow/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
@@ -299,7 +317,7 @@
 		DATIVE = "торговому автомату NT ERT Death Wish Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Death Wish Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Death Wish Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Death Wish Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/medical
@@ -307,16 +325,15 @@
 	desc = "Автомат с медицинским оборудованием ОБР."
 	slogan_list = list(
 		"В+ылечи всех р+аненых!",
-		"Не забыв+ай, лечи+ть – пол+езно!",
+		"Не забыв+ай, лечи+ть — пол+езно!",
 		"Бжж-Бзз-з!",
 		"Перевяз+ать, В+ылечить, В+ыписать!",
 		"Сто+ять, сняряд+ись медикам+ентами на зад+ание!"
 	)
-
 	base_icon_state = "nta-medical"
 	deny_overlay = "nta-medical_deny"
-
 	req_access = list(ACCESS_CENT_MEDICAL)
+
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
 		/obj/item/reagent_containers/applicator/dual = 2,
@@ -338,7 +355,7 @@
 		/obj/item/reagent_containers/applicator/brute = 4,
 		/obj/item/reagent_containers/applicator/burn = 4,
 		/obj/item/healthanalyzer/advanced = 4,
-		/obj/item/roller/holo = 2
+		/obj/item/roller/holo = 2,
 	)
 	contraband = list()
 
@@ -349,7 +366,7 @@
 		DATIVE = "торговому автомату NT ERT Medical Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Medical Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Medical Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Medical Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Medical Gear",
 	)
 
 /obj/machinery/vending/nta/ertarmory/engineer
@@ -357,16 +374,15 @@
 	desc = "Автомат с инженерным оборудованием ОБР."
 	slogan_list = list(
 		"Почини всё поломанное!",
-		"Не забыв+ай, чин+ить – пол+езно!",
+		"Не забыв+ай, чин+ить — пол+езно!",
 		"Бжж-Бзз-з!",
 		"Почин+ить, Завар+ить, Восстанов+ить!",
 		"Сто+ять, сняряд+ись на поч+инку объ+екта!"
 	)
-
 	base_icon_state = "nta-engi"
 	deny_overlay = "nta-engi_deny"
-
 	req_access = list(ACCESS_CENT_GENERAL)
+
 	products = list(
 		/obj/item/storage/belt/utility/chief/full = 2,
 		/obj/item/clothing/mask/gas/welding = 4,
@@ -377,13 +393,14 @@
 		/obj/item/multitool = 3,
 		/obj/item/rcd/preloaded = 2,
 		/obj/item/rcd_ammo  = 8,
-		/obj/item/stack/cable_coil = 4
+		/obj/item/stack/cable_coil = 4,
 	)
-	contraband = list(/obj/item/clothing/head/welding/flamedecal = 1,
+	contraband = list(
+		/obj/item/clothing/head/welding/flamedecal = 1,
 		/obj/item/storage/fancy/donut_box = 2,
 		/obj/item/clothing/head/welding/flamedecal/white  = 1,
-		/obj/item/clothing/head/welding/flamedecal/blue = 1
-		)
+		/obj/item/clothing/head/welding/flamedecal/blue = 1,
+	)
 
 /obj/machinery/vending/nta/ertarmory/engineer/get_ru_names()
 	return list(
@@ -392,7 +409,7 @@
 		DATIVE = "торговому автомату NT ERT Engineer Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Engineer Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Engineer Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Engineer Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Engineer Gear",
 	)
 
 /obj/machinery/vending/nta/ertarmory/janitor
@@ -400,16 +417,15 @@
 	desc = "Автомат с уборочным оборудованием ОБР."
 	slogan_list = list(
 		"В+ымой всё заг+аженное!",
-		"Не забыв+ай, ч+истить – пол+езно!",
+		"Не забыв+ай, ч+истить — пол+езно!",
 		"Бжж-Бзз-з!",
 		"Пом+ыть, Постир+ать, Оттер+еть!",
 		"Сто+ять, сняряд+ись на уб+орку!"
 	)
-
 	base_icon_state = "nta-janitor"
 	deny_overlay = "nta-janitor_deny"
-
 	req_access = list(ACCESS_CENT_GENERAL)
+
 	products = list(
 		/obj/item/storage/belt/janitor/ert = 2,
 		/obj/item/clothing/shoes/galoshes = 2,
@@ -422,9 +438,12 @@
 		/obj/item/grenade/chem_grenade/cleaner = 4,
 		/obj/item/clothing/mask/gas = 3,
 		/obj/item/watertank/janitor  = 4,
-		/obj/item/lightreplacer = 2
+		/obj/item/lightreplacer = 2,
 	)
-	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
+	contraband = list(
+		/obj/item/grenade/clusterbuster/cleaner = 1,
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/janitor/get_ru_names()
 	return list(
@@ -433,7 +452,7 @@
 		DATIVE = "торговому автомату NT ERT Janitor Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Janitor Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Janitor Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Janitor Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Janitor Gear",
 	)
 
 #undef FLICK_NONE

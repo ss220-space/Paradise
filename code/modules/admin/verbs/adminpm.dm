@@ -8,7 +8,6 @@
 	cmd_admin_pm(M.client,null)
 	BLACKBOX_LOG_ADMIN_VERB("Admin PM Mob")
 
-
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
 	set category = STATPANEL_ADMIN_ADMIN
@@ -58,7 +57,6 @@
 		return
 	cmd_admin_pm(targets[target],null)
 	BLACKBOX_LOG_ADMIN_VERB("Admin PM Key")
-
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
@@ -174,7 +172,6 @@
 						adminhelp(reply) //sender has left, adminhelp instead
 				return
 
-
 	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link
 	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
@@ -215,7 +212,7 @@
 	else
 		third_party_message = chat_box_ahelp(span_adminhelp("[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link]"))
 
-	//play the recieving admin the adminhelp sound (if they have them enabled)
+	//play the receiving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
 	if((!C.holder) || (C.prefs.sound & SOUND_ADMINHELP))
 		if(message_type == MESSAGE_TYPE_MENTORPM)
@@ -385,7 +382,7 @@
 		dat += "</table>"
 		dat += "</div>"
 		if(convo.typing)
-			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
+			dat += "<i>[span_typing("[current_title] is typing")]</i>"
 		dat += "<br>"
 		dat += "</h4>"
 		dat += "<a href='byond://?src=[UID()];reply=[current_title]'>Reply</a>"

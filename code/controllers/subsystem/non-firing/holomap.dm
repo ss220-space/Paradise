@@ -153,7 +153,6 @@ SUBSYSTEM_DEF(holomaps)
 	holomap_position_to_name["[z_level]"] = position_to_name
 	return setup_station_map(area_canvas, z_level)
 
-
 /// Draws the station area overlay. Required to be run if you want the map to be viewable on a station map viewer.
 /// Takes the area canvas, and the Z-level value.
 /datum/controller/subsystem/holomaps/proc/setup_station_map(icon/canvas, z_level)

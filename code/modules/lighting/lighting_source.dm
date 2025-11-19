@@ -27,7 +27,6 @@
 
 	var/needs_update = LIGHTING_NO_UPDATE    // Whether we are queued for an update.
 
-
 /datum/light_source/New(atom/owner, atom/top)
 	source_atom = owner // Set our new owner.
 	LAZYADD(source_atom.light_sources, src)
@@ -72,7 +71,6 @@
 	if(needs_update < level) { \
 		needs_update = level; \
 	} \
-
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
 /datum/light_source/proc/update(atom/new_top_atom)
@@ -131,7 +129,7 @@
 // Because z diffs are so functionally small, cubes and cube roots are too aggressive
 #define LUM_FALLOFF_MULTIZ(C) (1 - CLAMP01(sqrt((C.x - _turf_x) ** 2 + (C.y - _turf_y) ** 2 + abs(C.z - _turf_z) ** 2 + LIGHTING_HEIGHT) / _range_divisor))
 
-#define APPLY_CORNER(C)							\
+#define APPLY_CORNER(C) \
 	if(C.z == _turf_z) {						\
 		. = LUM_FALLOFF(C);						\
 	}											\
@@ -148,7 +146,7 @@
 		(. * _lum_b) - (OLD * _applied_lum_b)	\
 	);
 
-#define REMOVE_CORNER(C)						\
+#define REMOVE_CORNER(C) \
 	. = -effect_str[C];							\
 	C.update_lumcount							\
 	(											\
@@ -206,7 +204,6 @@
 	insert_into[draw_from.lighting_corner_SE] = 0;         \
 	insert_into[draw_from.lighting_corner_SW] = 0;         \
 	insert_into[draw_from.lighting_corner_NW] = 0;
-
 
 /datum/light_source/proc/update_corners()
 	var/update = FALSE

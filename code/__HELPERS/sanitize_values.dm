@@ -19,9 +19,7 @@
 /proc/sanitize_inlist(value, list/List, default)
 	if(value in List)	return value
 	if(default)			return default
-	if(List && List.len)return pick(List)
-
-
+	if(List && length(List))return pick(List)
 
 //more specialised stuff
 /proc/sanitize_gender(gender,neuter=0,plural=0, default="male")

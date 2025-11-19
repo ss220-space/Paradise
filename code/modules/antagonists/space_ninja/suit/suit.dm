@@ -103,7 +103,7 @@
 	jetpack_upgradable = TRUE
 
 	/// UI stuff ///
-	/// Флаги отвечающие за то - показываем мы или нет интерфейс заряда и концентрации ниндзя
+	/// Флаги отвечающие за то — показываем мы или нет интерфейс заряда и концентрации ниндзя
 	var/show_concentration_UI = TRUE
 	var/show_charge_UI = TRUE
 	/// Флаг отвечающий за то, можно ли сейчас купить ещё абилку.
@@ -181,8 +181,8 @@
 		"Успех.",
 		"Статус основных систем...	ONLINE",
 		"Статус резервных систем...	ONLINE",
-		"Текущий запас энергии: ",	//Кодом должно дописаться - сколько энергии
-		"Все системы в норме. Добро пожаловать в SpiderOS, ",//Кодом должно дописаться - имя пользователя костюма
+		"Текущий запас энергии: ",	//Кодом должно дописаться — сколько энергии
+		"Все системы в норме. Добро пожаловать в SpiderOS, ",//Кодом должно дописаться — имя пользователя костюма
 		)
 
 	// Сообщения при выключении костюма
@@ -337,7 +337,6 @@
 	QDEL_NULL(disguise)
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
-
 
 /obj/item/clothing/suit/space/space_ninja/proc/start()
 	if(!s_initialized)
@@ -518,16 +517,34 @@
 
 	var/datum/action/item_action/action
 	for(action in ninja.actions)
-		action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
-		action.background_icon_state = "background_[color_choice]"
 		if(istype(action, /datum/action/item_action/advanced/ninja))
+			action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
+			action.background_icon_state = "background_[color_choice]"
 			var/datum/action/item_action/advanced/ninja/ninja_action = action
 			ninja_action.recharge_text_color = color_choice
 			ninja_action.icon_state_active = "background_[color_choice]_active"
 			ninja_action.icon_state_disabled = "background_[color_choice]"
 		if((istype(action, /datum/action/item_action/advanced/ninja/ninjaboost) && a_boost == action) || (istype(action, /datum/action/item_action/advanced/ninja/ninjaheal) && heal_chems == action))
+			action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
 			action.background_icon_state = "background_[color_choice]_active"
 	ninja.update_action_buttons_icon()
+
+/obj/item/clothing/suit/space/space_ninja/proc/is_need_change_action_bg(action)
+	if(istype(action, /datum/action/item_action/advanced/ninja))
+		return TRUE
+	if(istype(action, /datum/action/item_action/ninjastatus))
+		return TRUE
+	if(istype(action, /datum/action/item_action/ninja_glasses_toggle))
+		return TRUE
+	if(istype(action, /datum/action/item_action/toggle_jetpack/ninja))
+		return TRUE
+	if(istype(action, /datum/action/item_action/jetpack_stabilization/ninja))
+		return TRUE
+	if(istype(action, /datum/action/item_action/set_internals_ninja))
+		return TRUE
+	if(istype(action, /datum/action/innate/dash/ninja))
+		return TRUE
+	return FALSE
 
 /**
  * Proc for changing the suit's appearance back to default state.
@@ -662,7 +679,7 @@
 	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)
-//	to_chat(ninja_clothing.loc, "<span class='notice'>Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"].</span>")
+//	to_chat(ninja_clothing.loc, span_notice("Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"]."))
 
 //Необходимо дабы костюм "Защищал" от ЕМП взрывов(особенно от своих же) протезы/импланты игрока
 /proc/toggle_emp_proof(list/bodyparts, toggle_to)

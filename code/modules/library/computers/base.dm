@@ -2,7 +2,7 @@
 
 /obj/machinery/computer/library
 	name = "visitor computer"
-	desc = "Старый библиотечный компьютер с ограниченным функционалом – специально для посетителей книжного храма."
+	desc = "Старый библиотечный компьютер с ограниченным функционалом — специально для посетителей книжного храма."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "oldcomp"
 	icon_screen = "library"
@@ -20,7 +20,7 @@
 		DATIVE = "гостевому компьютеру",
 		ACCUSATIVE = "гостевой компьютер",
 		INSTRUMENTAL = "гостевым компьютером",
-		PREPOSITIONAL = "гостевом компьютере"
+		PREPOSITIONAL = "гостевом компьютере",
 	)
 
 /obj/machinery/computer/library/attack_animal(mob/living/simple_animal/M)

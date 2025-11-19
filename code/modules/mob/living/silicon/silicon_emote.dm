@@ -3,9 +3,8 @@
 		/mob/living/silicon,
 		/mob/living/simple_animal/bot,
 		/mob/living/carbon/human,	// Humans are allowed for the sake of IPCs
-		)
+	)
 	mob_type_blacklist_typecache = null
-
 
 /datum/emote/living/silicon/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
@@ -16,7 +15,6 @@
 		var/obj/item/organ/external/head/head = user.get_organ(BODY_ZONE_HEAD)
 		if(!head || !head.is_robotic())
 			return FALSE
-
 
 /datum/emote/living/silicon/scream
 	key = "scream"
@@ -32,7 +30,6 @@
 	sound = 'sound/goonstation/voice/robot_scream.ogg'
 	volume = 80
 
-
 /datum/emote/living/silicon/ping
 	key = "ping"
 	key_third_person = "pings"
@@ -42,7 +39,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/ping.ogg'
-
 
 /datum/emote/living/silicon/buzz
 	key = "buzz"
@@ -54,7 +50,6 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/buzz-sigh.ogg'
 
-
 /datum/emote/living/silicon/buzz2
 	key = "buzz2"
 	message = "изда%(ёт,ют)% раздраженный жужжащий звук."
@@ -63,7 +58,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/buzz-two.ogg'
-
 
 /datum/emote/living/silicon/beep
 	key = "beep"
@@ -75,7 +69,6 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/twobeep.ogg'
 
-
 /datum/emote/living/silicon/boop
 	key = "boop"
 	key_third_person = "boops"
@@ -86,7 +79,6 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/boop.ogg'
 
-
 /datum/emote/living/silicon/yes
 	key = "yes"
 	message = "изда%(ёт,ют)% утвердительный сигнал."
@@ -95,7 +87,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/synth_yes.ogg'
-
 
 /datum/emote/living/silicon/no
 	key = "no"
@@ -106,7 +97,6 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/synth_no.ogg'
 
-
 /datum/emote/living/silicon/law
 	key = "law"
 	message = "указыва%(ет,ют)% на штрих-код службы безопасноти."
@@ -115,18 +105,15 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/biamthelaw.ogg'
 
-
 /datum/emote/living/silicon/law/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
 	if(!. || !is_security_robot(user))
 		return FALSE
 
-
 /datum/emote/living/silicon/proc/is_security_robot(mob/living/silicon/robot/user)
 	if(!isrobot(user) || !istype(user.module, /obj/item/robot_module/security))
 		return FALSE
 	return TRUE
-
 
 /datum/emote/living/silicon/halt
 	key = "halt"
@@ -134,9 +121,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/halt.ogg'
 
-
 /datum/emote/living/silicon/halt/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
 	if(!. || !is_security_robot(user))
 		return FALSE
-

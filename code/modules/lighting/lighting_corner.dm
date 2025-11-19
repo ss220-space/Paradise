@@ -144,10 +144,8 @@
 
 	self_destruct_if_idle()
 
-
 /datum/lighting_corner/dummy/New()
 	return
-
 
 /datum/lighting_corner/Destroy(force)
 	if(!force)

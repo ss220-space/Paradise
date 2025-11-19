@@ -15,7 +15,6 @@
 	transparent_floor = TURF_FULLTRANSPARENT // bruh
 	intact = FALSE //this means wires go on top
 
-
 /turf/simulated/openspace/airless
 	temperature = TCMB
 	oxygen = 0
@@ -126,7 +125,6 @@
 /turf/simulated/openspace/proc/CanBuildHere()
 	return can_build_on
 
-
 /turf/simulated/openspace/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -191,7 +189,6 @@
 		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /turf/simulated/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))

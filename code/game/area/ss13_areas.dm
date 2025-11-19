@@ -21,7 +21,6 @@ This applies to all STANDARD station areas
 
 /*-----------------------------------------------------------------------------*/
 
-
 /area/admin
 	name = "Admin Room"
 	icon_state = "start"
@@ -31,7 +30,6 @@ This applies to all STANDARD station areas
 	hide_attacklogs = TRUE
 	has_gravity = STANDARD_GRAVITY
 	area_flags = NONE
-
 
 /area/adminconstruction
 	name = "Admin Testing Area"
@@ -75,6 +73,11 @@ This applies to all STANDARD station areas
 
 /area/space/firereset(obj/source)
 	return
+
+/area/game_test
+	name = "Game Test Area"
+	icon_state = "test_room"
+	requires_power = FALSE
 
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
@@ -409,7 +412,6 @@ This applies to all STANDARD station areas
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 
-
 /area/airtunnel1/ // referenced in airtunnel.dm:759
 
 /area/dummy/ // Referenced in engine.dm:261
@@ -637,7 +639,6 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
 	area_flags = NONE
-
 
 /area/tdome/arena_source
 	name = "Thunderdome Arena Template"
@@ -1261,7 +1262,6 @@ This applies to all STANDARD station areas
 	icon_state = "entry"
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
 
-
 /area/hallway/secondary/entry/eastarrival
 	name = "Arrival Shuttle East Hallway"
 
@@ -1281,7 +1281,6 @@ This applies to all STANDARD station areas
 /area/hallway/secondary/entry/lounge
 	name = "Arrivals Lounge"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
-
 
 //Command
 
@@ -1607,7 +1606,6 @@ This applies to all STANDARD station areas
 /area/holodeck/alphadeck
 	name = "Holodeck Alpha"
 
-
 /area/holodeck/source_plating
 	name = "Holodeck - Off"
 
@@ -1893,7 +1891,6 @@ This applies to all STANDARD station areas
 /area/medical/medbay3
 	name = "Medbay"
 	icon_state = "medbay3"
-
 
 /area/medical/biostorage
 	name = "Medical Storage"
@@ -2758,7 +2755,6 @@ This applies to all STANDARD station areas
 	name = "Undersea"
 	icon_state = "undersea"
 
-
 // area for AWAY "moonoutpost19"
 /area/moonoutpost19
 	name = "moonoutpost"
@@ -2842,7 +2838,6 @@ This applies to all STANDARD station areas
 /area/ae13/asteroid
 	name = "asteroid"
 	icon_state = "ae13_asteroid"
-
 
 ////////////////////////AWAY AREAS///////////////////////////////////
 
@@ -2961,7 +2956,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/shuttle/specops/centcom,
 ))
 
-
 //// Special event areas
 
 /area/special_event
@@ -2994,7 +2988,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 //space area
 /area/ruin/space/bubblegum_arena
 	name = "Bubblegum Arena"
-
 
 /area/ruin/USSP_SpaceBanya
 	name = "Space_abandoned_banya"
