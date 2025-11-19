@@ -1,7 +1,7 @@
 /// Delay before shot (trigger process)
-#define EOKA_SHOT_DELAY 1.2
+#define EOKA_SHOT_DELAY (0.6 SECONDS)
 /// Repair broken eoka duration with welder
-#define EOKA_REPAIR_DURATION 8
+#define EOKA_REPAIR_DURATION (8 SECONDS)
 /// Chance of process fire on trigger (after do_after delay)
 #define EOKA_SHOT_CHANCE 50
 // Shot modifiers chances
@@ -126,6 +126,7 @@
 		balloon_alert(user, "осечка!")
 		return
 	. = ..()
+	unload_act(user)
 
 /obj/item/ammo_box/magazine/internal/eoka
 	name = "eoka pistol internal magazine"
