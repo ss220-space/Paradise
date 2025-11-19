@@ -204,7 +204,6 @@
 
 	return total_amount_save - total_amount
 
-
 /datum/component/material_container/proc/use_amount_type(amt, id)
 	var/datum/material/M = materials[id]
 	if(M)
@@ -330,7 +329,6 @@
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
 	return material_amount
-
 
 /datum/material
 	var/name

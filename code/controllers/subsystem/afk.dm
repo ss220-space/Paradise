@@ -12,7 +12,6 @@ SUBSYSTEM_DEF(afk)
 	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 	var/list/non_cryo_antags
 
-
 /datum/controller/subsystem/afk/Initialize()
 	if(CONFIG_GET(number/warn_afk_minimum) <= 0 || CONFIG_GET(number/auto_cryo_afk) <= 0 || CONFIG_GET(number/auto_despawn_afk) <= 0)
 		flags |= SS_NO_FIRE
@@ -75,17 +74,14 @@ SUBSYSTEM_DEF(afk)
 
 	removeFromWatchList(toRemove)
 
-
 /datum/controller/subsystem/afk/proc/warn(mob/living/carbon/human/H, text)
 	to_chat(H, text)
 	SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 	if(H.client)
 		window_flash(H.client)
 
-
 /datum/controller/subsystem/afk/proc/log_afk_action(mob/living/carbon/human/H, mins_afk, turf/location, action, info)
 	log_admin("[key_name(H)] has been [action] by the AFK Watcher subsystem after being AFK for [mins_afk] minutes.[info ? " Extra info:" + info : ""]")
-
 
 /datum/controller/subsystem/afk/proc/removeFromWatchList(list/toRemove)
 	for(var/C in toRemove)

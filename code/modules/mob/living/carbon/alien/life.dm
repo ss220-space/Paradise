@@ -8,7 +8,6 @@
 			points_to_add *= 2
 		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
 
-
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
@@ -40,7 +39,6 @@
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
-
 /mob/living/carbon/alien/handle_status_effects()
 	..()
 	//natural reduction of movement delay due to stun.
@@ -50,7 +48,6 @@
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
 		else
 			remove_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay)
-
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	. = ..()

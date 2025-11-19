@@ -93,7 +93,7 @@
 		DATIVE = "пространственному разрыву",
 		ACCUSATIVE = "пространственный разрыв",
 		INSTRUMENTAL = "пространственным разрывом",
-		PREPOSITIONAL = "пространственном разрыве"
+		PREPOSITIONAL = "пространственном разрыве",
 	)
 
 /obj/effect/tear/Initialize(mapload)
@@ -121,7 +121,7 @@
 		return
 	var/mob/mob = new leader(get_turf(src))
 	playsound(mob, 'sound/goonstation/voice/growl2.ogg', 100)
-	visible_message(span_danger("С оглушительным рёвом, [mob.declent_ru(NOMINATIVE)] выход[pluralize_ru(mob.gender, "ит", "ят")] из портала!"))
+	visible_message(span_danger("С оглушительным рёвом, [mob.declent_ru(NOMINATIVE)] выход[PLUR_IT_YAT(mob)] из портала!"))
 
 /obj/effect/tear/proc/spawn_next_mob()
 	spawn_total++
@@ -137,4 +137,4 @@
 	mob.faction = list("rift")
 	step(mob, pick(GLOB.cardinal))
 	if(prob(30))
-		visible_message(span_danger("[capitalize(mob.declent_ru(NOMINATIVE))] выход[pluralize_ru(mob.gender, "ит", "ят")] из портала!"))
+		visible_message(span_danger("[capitalize(mob.declent_ru(NOMINATIVE))] выход[PLUR_IT_YAT(mob)] из портала!"))

@@ -201,7 +201,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			names += list(ammo.select_name)
 	return names.Join(", ")
 
-
 /obj/item/sibyl_system_mod/proc/sibyl_sound(mob/living/user, sound, time)
 	if(user && voice_is_enabled && !voice_cd)
 		user.playsound_local(get_turf(user), sound, 50, FALSE)

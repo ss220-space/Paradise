@@ -16,7 +16,7 @@
 		DATIVE = "комбинезону научного руководителя",
 		ACCUSATIVE = "комбинезон научного руководителя",
 		INSTRUMENTAL = "комбинезоном научного руководителя",
-		PREPOSITIONAL = "комбинезоне научного руководителя"
+		PREPOSITIONAL = "комбинезоне научного руководителя",
 	)
 
 /obj/item/clothing/under/rank/scientist
@@ -34,7 +34,7 @@
 		DATIVE = "комбинезону учёного",
 		ACCUSATIVE = "комбинезон учёного",
 		INSTRUMENTAL = "комбинезоном учёного",
-		PREPOSITIONAL = "комбинезоне учёного"
+		PREPOSITIONAL = "комбинезоне учёного",
 	)
 
 /obj/item/clothing/under/rank/scientist/skirt
@@ -50,7 +50,7 @@
 		DATIVE = "комбинезону-юбке учёного",
 		ACCUSATIVE = "комбинезон-юбку учёного",
 		INSTRUMENTAL = "комбинезоном-юбкой учёного",
-		PREPOSITIONAL = "комбинезоне-юбке учёного"
+		PREPOSITIONAL = "комбинезоне-юбке учёного",
 	)
 
 /obj/item/clothing/under/rank/scientist/student
@@ -66,7 +66,7 @@
 		DATIVE = "комбинезону учёного-практиканта",
 		ACCUSATIVE = "комбинезон учёного-практиканта",
 		INSTRUMENTAL = "комбинезоном учёного-практиканта",
-		PREPOSITIONAL = "комбинезоне учёного-практиканта"
+		PREPOSITIONAL = "комбинезоне учёного-практиканта",
 	)
 
 /obj/item/clothing/under/rank/scientist/student/skirt
@@ -83,7 +83,7 @@
 		DATIVE = "комбинезону-юбке учёного-практиканта",
 		ACCUSATIVE = "комбинезон-юбку учёного-практиканта",
 		INSTRUMENTAL = "комбинезоном-юбкой учёного-практиканта",
-		PREPOSITIONAL = "комбинезоне-юбке учёного-практиканта"
+		PREPOSITIONAL = "комбинезоне-юбке учёного-практиканта",
 	)
 
 /obj/item/clothing/under/rank/scientist/student/assistant
@@ -99,7 +99,7 @@
 		DATIVE = "комбинезону научного ассистента",
 		ACCUSATIVE = "комбинезон научного ассистента",
 		INSTRUMENTAL = "комбинезоном научного ассистента",
-		PREPOSITIONAL = "комбинезоне научного ассистента"
+		PREPOSITIONAL = "комбинезоне научного ассистента",
 	)
 
 /obj/item/clothing/under/rank/scientist/student/assistant/skirt
@@ -116,7 +116,7 @@
 		DATIVE = "комбинезону-юбке научного ассистента",
 		ACCUSATIVE = "комбинезон-юбку научного ассистента",
 		INSTRUMENTAL = "комбинезоном-юбкой научного ассистента",
-		PREPOSITIONAL = "комбинезоне-юбке научного ассистента"
+		PREPOSITIONAL = "комбинезоне-юбке научного ассистента",
 	)
 
 /obj/item/clothing/under/rank/chemist
@@ -134,7 +134,7 @@
 		DATIVE = "комбинезону химика",
 		ACCUSATIVE = "комбинезон химика",
 		INSTRUMENTAL = "комбинезоном химика",
-		PREPOSITIONAL = "комбинезоне химика"
+		PREPOSITIONAL = "комбинезоне химика",
 	)
 
 /obj/item/clothing/under/rank/chemist/skirt
@@ -150,7 +150,7 @@
 		DATIVE = "комбинезону-юбке химика",
 		ACCUSATIVE = "комбинезон-юбку химика",
 		INSTRUMENTAL = "комбинезоном-юбкой химика",
-		PREPOSITIONAL = "комбинезоне-юбке химика"
+		PREPOSITIONAL = "комбинезоне-юбке химика",
 	)
 
 /*
@@ -171,7 +171,7 @@
 		DATIVE = "комбинезону главного врача",
 		ACCUSATIVE = "комбинезон главного врача",
 		INSTRUMENTAL = "комбинезоном главного врача",
-		PREPOSITIONAL = "комбинезоне главного врача"
+		PREPOSITIONAL = "комбинезоне главного врача",
 	)
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt
@@ -187,7 +187,7 @@
 		DATIVE = "комбинезону-юбке главного врача",
 		ACCUSATIVE = "комбинезон-юбку главного врача",
 		INSTRUMENTAL = "комбинезоном-юбкой главного врача",
-		PREPOSITIONAL = "комбинезоне-юбке главного врача"
+		PREPOSITIONAL = "комбинезоне-юбке главного врача",
 	)
 
 /obj/item/clothing/under/rank/geneticist
@@ -205,7 +205,7 @@
 		DATIVE = "комбинезону генетика",
 		ACCUSATIVE = "комбинезон генетика",
 		INSTRUMENTAL = "комбинезоном генетика",
-		PREPOSITIONAL = "комбинезоне генетика"
+		PREPOSITIONAL = "комбинезоне генетика",
 	)
 
 /obj/item/clothing/under/rank/geneticist/skirt
@@ -221,7 +221,7 @@
 		DATIVE = "комбинезону-юбке генетика",
 		ACCUSATIVE = "комбинезон-юбку генетика",
 		INSTRUMENTAL = "комбинезоном-юбкой генетика",
-		PREPOSITIONAL = "комбинезоне-юбке генетика"
+		PREPOSITIONAL = "комбинезоне-юбке генетика",
 	)
 
 /obj/item/clothing/under/rank/virologist
@@ -239,7 +239,7 @@
 		DATIVE = "комбинезону вирусолога",
 		ACCUSATIVE = "комбинезон вирусолога",
 		INSTRUMENTAL = "комбинезоном вирусолога",
-		PREPOSITIONAL = "комбинезоне вирусолога"
+		PREPOSITIONAL = "комбинезоне вирусолога",
 	)
 
 /obj/item/clothing/under/rank/virologist/skirt
@@ -255,7 +255,7 @@
 		DATIVE = "комбинезону-юбке вирусолога",
 		ACCUSATIVE = "комбинезон-юбку вирусолога",
 		INSTRUMENTAL = "комбинезоном-юбкой вирусолога",
-		PREPOSITIONAL = "комбинезоне-юбке вирусолога"
+		PREPOSITIONAL = "комбинезоне-юбке вирусолога",
 	)
 
 /obj/item/clothing/under/rank/nursesuit
@@ -273,7 +273,7 @@
 		DATIVE = "костюму медсестры",
 		ACCUSATIVE = "костюм медсестры",
 		INSTRUMENTAL = "костюмом медсестры",
-		PREPOSITIONAL = "костюме медсестры"
+		PREPOSITIONAL = "костюме медсестры",
 	)
 
 /obj/item/clothing/under/rank/nurse
@@ -292,7 +292,7 @@
 		DATIVE = "платью медсестры",
 		ACCUSATIVE = "платье медсестры",
 		INSTRUMENTAL = "платьем медсестры",
-		PREPOSITIONAL = "платье медсестры"
+		PREPOSITIONAL = "платье медсестры",
 	)
 
 /obj/item/clothing/under/rank/orderly
@@ -311,7 +311,7 @@
 		DATIVE = "униформе санитара",
 		ACCUSATIVE = "униформу санитара",
 		INSTRUMENTAL = "униформе санитара",
-		PREPOSITIONAL = "униформе санитара"
+		PREPOSITIONAL = "униформе санитара",
 	)
 
 /obj/item/clothing/under/rank/medical
@@ -329,7 +329,7 @@
 		DATIVE = "комбинезону врача",
 		ACCUSATIVE = "комбинезон врача",
 		INSTRUMENTAL = "комбинезоном врача",
-		PREPOSITIONAL = "комбинезоне врача"
+		PREPOSITIONAL = "комбинезоне врача",
 	)
 
 /obj/item/clothing/under/rank/medical/sensor
@@ -349,7 +349,7 @@
 		DATIVE = "комбинезону интерна",
 		ACCUSATIVE = "комбинезон интерна",
 		INSTRUMENTAL = "комбинезоном интерна",
-		PREPOSITIONAL = "комбинезоне интерна"
+		PREPOSITIONAL = "комбинезоне интерна",
 	)
 
 /obj/item/clothing/under/rank/medical/intern/skirt
@@ -365,7 +365,7 @@
 		DATIVE = "комбинезону-юбке интерна",
 		ACCUSATIVE = "комбинезон-юбку интерна",
 		INSTRUMENTAL = "комбинезоном-юбкой интерна",
-		PREPOSITIONAL = "комбинезоне-юбке интерна"
+		PREPOSITIONAL = "комбинезоне-юбке интерна",
 	)
 
 /obj/item/clothing/under/rank/medical/intern/assistant
@@ -381,7 +381,7 @@
 		DATIVE = "комбинезону ассистирующего врача",
 		ACCUSATIVE = "комбинезон ассистирующего врача",
 		INSTRUMENTAL = "комбинезоном ассистирующего врача",
-		PREPOSITIONAL = "комбинезоне ассистирующего врача"
+		PREPOSITIONAL = "комбинезоне ассистирующего врача",
 	)
 
 /obj/item/clothing/under/rank/medical/intern/assistant/skirt
@@ -397,7 +397,7 @@
 		DATIVE = "комбинезону-юбке ассистирующего врача",
 		ACCUSATIVE = "комбинезон-юбку ассистирующего врача",
 		INSTRUMENTAL = "комбинезоном-юбкой ассистирующего врача",
-		PREPOSITIONAL = "комбинезоне-юбке ассистирующего врача"
+		PREPOSITIONAL = "комбинезоне-юбке ассистирующего врача",
 	)
 
 /obj/item/clothing/under/rank/medical/skirt
@@ -413,7 +413,7 @@
 		DATIVE = "комбинезону-юбке врача",
 		ACCUSATIVE = "комбинезон-юбку врача",
 		INSTRUMENTAL = "комбинезоном-юбкой врача",
-		PREPOSITIONAL = "комбинезоне-юбке врача"
+		PREPOSITIONAL = "комбинезоне-юбке врача",
 	)
 
 /obj/item/clothing/under/rank/medical/blue
@@ -430,7 +430,7 @@
 		DATIVE = "голубой медицинской одежде",
 		ACCUSATIVE = "голубую медицинскую одежду",
 		INSTRUMENTAL = "голубой медицинской одеждой",
-		PREPOSITIONAL = "голубой медицинской одежде"
+		PREPOSITIONAL = "голубой медицинской одежде",
 	)
 
 /obj/item/clothing/under/rank/medical/green
@@ -447,7 +447,7 @@
 		DATIVE = "тёмно-зелёной медицинской одежде",
 		ACCUSATIVE = "тёмно-зелёную медицинскую одежду",
 		INSTRUMENTAL = "тёмно-зелёной медицинской одеждой",
-		PREPOSITIONAL = "тёмно-зелёной медицинской одежде"
+		PREPOSITIONAL = "тёмно-зелёной медицинской одежде",
 	)
 
 /obj/item/clothing/under/rank/medical/lightgreen
@@ -464,7 +464,7 @@
 		DATIVE = "зелёной медицинской одежде",
 		ACCUSATIVE = "зелёную медицинскую одежду",
 		INSTRUMENTAL = "зелёной медицинской одеждой",
-		PREPOSITIONAL = "зелёной медицинской одежде"
+		PREPOSITIONAL = "зелёной медицинской одежде",
 	)
 
 /obj/item/clothing/under/rank/medical/purple
@@ -481,7 +481,7 @@
 		DATIVE = "фиолетовой медицинской одежде",
 		ACCUSATIVE = "фиолетовую медицинскую одежду",
 		INSTRUMENTAL = "фиолетовой медицинской одеждой",
-		PREPOSITIONAL = "фиолетовой медицинской одежде"
+		PREPOSITIONAL = "фиолетовой медицинской одежде",
 	)
 
 /obj/item/clothing/under/rank/medical/mortician
@@ -498,7 +498,7 @@
 		DATIVE = "одежде патологоанатома",
 		ACCUSATIVE = "одежду патологоанатома",
 		INSTRUMENTAL = "одеждой патологоанатома",
-		PREPOSITIONAL = "одежде патологоанатома"
+		PREPOSITIONAL = "одежде патологоанатома",
 	)
 
 //paramedic
@@ -516,7 +516,7 @@
 		DATIVE = "комбинезону парамедика",
 		ACCUSATIVE = "комбинезон парамедика",
 		INSTRUMENTAL = "комбинезоном парамедика",
-		PREPOSITIONAL = "комбинезоне парамедика"
+		PREPOSITIONAL = "комбинезоне парамедика",
 	)
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt
@@ -532,7 +532,7 @@
 		DATIVE = "комбинезону-юбке парамедика",
 		ACCUSATIVE = "комбинезон-юбку парамедика",
 		INSTRUMENTAL = "комбинезоном-юбкой парамедика",
-		PREPOSITIONAL = "комбинезоне-юбке парамедика"
+		PREPOSITIONAL = "комбинезоне-юбке парамедика",
 	)
 
 /obj/item/clothing/under/rank/psych
@@ -548,7 +548,7 @@
 		DATIVE = "комбинезону психиатра",
 		ACCUSATIVE = "комбинезон психиатра",
 		INSTRUMENTAL = "комбинезоном психиатра",
-		PREPOSITIONAL = "комбинезоне психиатра"
+		PREPOSITIONAL = "комбинезоне психиатра",
 	)
 
 /obj/item/clothing/under/rank/psych/skirt
@@ -563,7 +563,7 @@
 		DATIVE = "комбинезону-юбке психиатра",
 		ACCUSATIVE = "комбинезон-юбку психиатра",
 		INSTRUMENTAL = "комбинезоном-юбкой психиатра",
-		PREPOSITIONAL = "комбинезоне-юбке психиатра"
+		PREPOSITIONAL = "комбинезоне-юбке психиатра",
 	)
 
 /obj/item/clothing/under/rank/psych/turtleneck
@@ -580,7 +580,7 @@
 		DATIVE = "водолазке психиатра",
 		ACCUSATIVE = "водолазку психиатра",
 		INSTRUMENTAL = "водолазкой психиатра",
-		PREPOSITIONAL = "водолазке психиатра"
+		PREPOSITIONAL = "водолазке психиатра",
 	)
 
 /*
@@ -601,7 +601,7 @@
 		DATIVE = "комбинезону генетика",
 		ACCUSATIVE = "комбинезон генетика",
 		INSTRUMENTAL = "комбинезоном генетика",
-		PREPOSITIONAL = "комбинезоне генетика"
+		PREPOSITIONAL = "комбинезоне генетика",
 	)
 
 /obj/item/clothing/under/rank/chemist_new
@@ -619,7 +619,7 @@
 		DATIVE = "комбинезону химика",
 		ACCUSATIVE = "комбинезон химика",
 		INSTRUMENTAL = "комбинезоном химика",
-		PREPOSITIONAL = "комбинезоне химика"
+		PREPOSITIONAL = "комбинезоне химика",
 	)
 
 /obj/item/clothing/under/rank/scientist_new
@@ -637,7 +637,7 @@
 		DATIVE = "комбинезону учёного",
 		ACCUSATIVE = "комбинезон учёного",
 		INSTRUMENTAL = "комбинезоном учёного",
-		PREPOSITIONAL = "комбинезоне учёного"
+		PREPOSITIONAL = "комбинезоне учёного",
 	)
 
 /obj/item/clothing/under/rank/virologist_new
@@ -655,7 +655,7 @@
 		DATIVE = "комбинезону вирусолога",
 		ACCUSATIVE = "комбинезон вирусолога",
 		INSTRUMENTAL = "комбинезоном вирусолога",
-		PREPOSITIONAL = "комбинезоне вирусолога"
+		PREPOSITIONAL = "комбинезоне вирусолога",
 	)
 
 /obj/item/clothing/under/rank/medical/mining_medic
@@ -672,7 +672,7 @@
 		DATIVE = "комбинезону шахтёрского врача",
 		ACCUSATIVE = "комбинезон шахтёрского врача",
 		INSTRUMENTAL = "комбинезоном шахтёрского врача",
-		PREPOSITIONAL = "комбинезоне шахтёрского врача"
+		PREPOSITIONAL = "комбинезоне шахтёрского врача",
 	)
 
 /obj/item/clothing/under/rank/medical/mining_medic/skirt
@@ -689,7 +689,7 @@
 		DATIVE = "комбинезону-юбке шахтёрского врача",
 		ACCUSATIVE = "комбинезон-юбку шахтёрского врача",
 		INSTRUMENTAL = "комбинезоном-юбкой шахтёрского врача",
-		PREPOSITIONAL = "комбинезоне-юбке шахтёрского врача"
+		PREPOSITIONAL = "комбинезоне-юбке шахтёрского врача",
 	)
 
 /obj/item/clothing/under/rank/medical/brown
@@ -707,7 +707,7 @@
 		DATIVE = "коричневой медицинской одежде",
 		ACCUSATIVE = "коричневую медицинскую одежду",
 		INSTRUMENTAL = "коричневой медицинской одеждой",
-		PREPOSITIONAL = "коричневой медицинской одежде"
+		PREPOSITIONAL = "коричневой медицинской одежде",
 	)
 
 /obj/item/clothing/under/rank/medical/mining_paramedic
@@ -724,7 +724,7 @@
 		DATIVE = "комбинезону шахтёрского парамедика",
 		ACCUSATIVE = "комбинезон шахтёрского парамедика",
 		INSTRUMENTAL = "комбинезоном шахтёрского парамедика",
-		PREPOSITIONAL = "комбинезоне шахтёрского парамедика"
+		PREPOSITIONAL = "комбинезоне шахтёрского парамедика",
 	)
 
 /obj/item/clothing/under/rank/medical/mining_paramedic/skirt
@@ -741,5 +741,5 @@
 		DATIVE = "комбинезону-юбке шахтёрского парамедика",
 		ACCUSATIVE = "комбинезон-юбку шахтёрского парамедика",
 		INSTRUMENTAL = "комбинезоном-юбкой шахтёрского парамедика",
-		PREPOSITIONAL = "комбинезоне-юбке шахтёрского парамедика"
+		PREPOSITIONAL = "комбинезоне-юбке шахтёрского парамедика",
 	)

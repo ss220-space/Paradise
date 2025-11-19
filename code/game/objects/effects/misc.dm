@@ -54,7 +54,6 @@
 	name = "Projection"
 	desc = "This looks like a projection of something."
 
-
 /obj/effect/shut_controller
 	name = "shut controller"
 	var/moving = null
@@ -80,13 +79,11 @@
 
 	var/list/container = list()
 
-
 /obj/structure/showcase/horrific_experiment
 	name = "horrific experiment"
 	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_mess"
-
 
 /obj/effect/supplypod_selector
 	icon_state = "supplypod_selector"
@@ -99,7 +96,6 @@
 	plane = LIGHTING_PLANE
 	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
-
 
 /obj/effect/dummy/lighting_obj
 	name = "lighting fx obj"

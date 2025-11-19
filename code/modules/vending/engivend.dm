@@ -38,5 +38,5 @@
 		DATIVE = "торговому автомату Engi-Vend",
 		ACCUSATIVE = "торговый автомат Engi-Vend",
 		INSTRUMENTAL = "торговым автоматом Engi-Vend",
-		PREPOSITIONAL = "торговом автомате Engi-Vend"
+		PREPOSITIONAL = "торговом автомате Engi-Vend",
 	)

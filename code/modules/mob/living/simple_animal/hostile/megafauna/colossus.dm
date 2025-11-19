@@ -48,8 +48,9 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
-	medal_type = BOSS_MEDAL_COLOSSUS
-	score_type = COLOSSUS_SCORE
+	achievement_type = /datum/award/achievement/boss/colossus_kill
+	crusher_achievement_type = /datum/award/achievement/boss/colossus_crusher
+	score_achievement_type = /datum/award/score/colossus_score
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "распадается, оставляя после себя светящееся ядро."
@@ -59,7 +60,7 @@ Difficulty: Very Hard
 		/datum/action/innate/megafauna_attack/spiral_attack,
 		/datum/action/innate/megafauna_attack/aoe_attack,
 		/datum/action/innate/megafauna_attack/shotgun,
-		/datum/action/innate/megafauna_attack/alternating_cardinals
+		/datum/action/innate/megafauna_attack/alternating_cardinals,
 	)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
@@ -71,7 +72,7 @@ Difficulty: Very Hard
 		DATIVE = "Колоссу",
 		ACCUSATIVE = "Колосса",
 		INSTRUMENTAL = "Колоссом",
-		PREPOSITIONAL = "Колоссе"
+		PREPOSITIONAL = "Колоссе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
@@ -87,28 +88,28 @@ Difficulty: Very Hard
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Спиральные выстрелы"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("Вы стреляете по спирали.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "Во всех направлениях"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "at_shield2"
 	chosen_message = span_colossus("Вы стреляете во всех направлениях.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Выстрел дробью"
-	icon_icon = 'icons/obj/weapons/projectile.dmi'
+	button_icon = 'icons/obj/weapons/projectile.dmi'
 	button_icon_state = "shotgun"
 	chosen_message = span_colossus("Вы выстрелите дробью туда, куда нажмёте.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Чередующиеся выстрелы"
-	icon_icon = 'icons/obj/weapons/projectile.dmi'
+	button_icon = 'icons/obj/weapons/projectile.dmi'
 	button_icon_state = "pistol"
 	chosen_message = span_colossus("Вы стреляете в чередующихся кардинальных направлениях.")
 	chosen_attack_num = 4
@@ -318,7 +319,6 @@ Difficulty: Very Hard
 	icon_state = initial(icon_state)
 	ranged_cooldown = world.time + 4 SECONDS
 
-
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
 	visible_message(span_colossus("[declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"))
 	L.dust()
@@ -347,7 +347,6 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-
 /obj/projectile/colossus
 	name = "смертоносный заряд"
 	icon_state= "chronobolt"
@@ -362,7 +361,7 @@ Difficulty: Very Hard
 		DATIVE = "смертоносному заряду",
 		ACCUSATIVE = "смертоносный заряд",
 		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
+		PREPOSITIONAL = "смертоносном заряде",
 	)
 
 /obj/projectile/colossus/on_hit(atom/target, blocked = 0)

@@ -20,7 +20,7 @@
 		DATIVE = "модификатору ДНК",
 		ACCUSATIVE = "модификатор ДНК",
 		INSTRUMENTAL = "модификатором ДНК",
-		PREPOSITIONAL = "модификаторе ДНК"
+		PREPOSITIONAL = "модификаторе ДНК",
 	)
 
 /obj/item/dna_upgrader/update_icon_state()

@@ -22,7 +22,7 @@
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	var/obj/mecha/chassis
 
 /datum/action/innate/mecha/Grant(mob/living/L, obj/mecha/M)
@@ -204,7 +204,6 @@
 	chassis.occupant_message("<font color=\"[chassis.phasing ? "#00f\">Фазовый переход вкл" : "#f00\">Фазовый переход выкл"]</font>")
 	UpdateButtonIcon()
 
-
 /datum/action/innate/mecha/mech_switch_damtype
 	name = "Смена инструментов"
 	button_icon_state = "mech_damtype_brute"
@@ -294,7 +293,7 @@
 		return FALSE
 	equipment = _equipment
 	name = "Переключить модуль на [equipment.declent_ru(ACCUSATIVE)]"
-	icon_icon = equipment.icon
+	button_icon = equipment.icon
 	button_icon_state = equipment.icon_state
 	. = ..()
 
@@ -310,7 +309,7 @@
 		return FALSE
 	equipment = _equipment
 	name = "Переключить модуль [equipment.declent_ru(ACCUSATIVE)]"
-	icon_icon = equipment.icon
+	button_icon = equipment.icon
 	button_icon_state = equipment.icon_state
 	. = ..()
 

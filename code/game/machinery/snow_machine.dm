@@ -83,7 +83,6 @@
 			continue
 		make_snowcloud(TF)
 
-
 /obj/machinery/snow_machine/power_change(forced = FALSE)
 	if(!..())
 		return
@@ -91,13 +90,11 @@
 		turn_on_or_off(FALSE, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/snow_machine/update_icon_state()
 	if(panel_open)
 		icon_state = "snow_machine_openpanel"
 	else
 		icon_state = "snow_machine_[active ? "on" : "off"]"
-
 
 /obj/machinery/snow_machine/proc/affect_turf_temperature(turf/T, modifier)
 	if(!issimulatedturf(T) || T.density)

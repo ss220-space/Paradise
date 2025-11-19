@@ -6,9 +6,7 @@
 	desc = "Disable any nearby technology with an electro-magnetic pulse. Energy cost: 5000"
 	check_flags = AB_CHECK_CONSCIOUS
 	charge_max = 4 SECONDS
-	use_itemicon = FALSE
 	button_icon_state = "emp"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Concentrated Electro-Magnetic Pulse Emitter"

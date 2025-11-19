@@ -30,7 +30,6 @@
 	/// Whether or not this foam should be slippery.
 	var/slippery_foam = TRUE
 
-
 /obj/effect/particle_effect/fluid/foam/Initialize(mapload)
 	. = ..()
 	if(slippery_foam)
@@ -153,7 +152,6 @@
 		spread_foam.result_type = result_type
 		SSfoam.queue_spread(spread_foam)
 
-
 /obj/effect/particle_effect/fluid/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
 		kill_foam()
@@ -169,7 +167,6 @@
 	var/atom/movable/result_type = null
 
 	var/static/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
-
 
 /datum/effect_system/fluid_spread/foam/New()
 	..()
@@ -206,7 +203,6 @@
 		help_out_the_admins(foam, holder, location)
 	SSfoam.queue_spread(foam)
 
-
 // Short-lived foam
 /// A foam variant which dissipates quickly.
 /obj/effect/particle_effect/fluid/foam/short_life
@@ -224,7 +220,6 @@
 /datum/effect_system/fluid_spread/foam/long
 	effect_type = /obj/effect/particle_effect/fluid/foam/long_life
 	reagent_scale = FOAM_REAGENT_SCALE * (30 / 8)
-
 
 // Firefighting foam
 /// A variant of foam which absorbs plasma in the air if there is a fire.
@@ -446,7 +441,6 @@
 		potential_tinder.ExtinguishMob()
 	for(var/obj/item/potential_tinder in location)
 		potential_tinder.extinguish()
-
 
 /obj/effect/spawner/foam_starter
 	var/datum/effect_system/fluid_spread/foam/foam_type = /datum/effect_system/fluid_spread/foam

@@ -9,7 +9,6 @@
 			kill()
 			return
 
-
 		var/mob/picked = pick(candidates)
 		key_of_morph = picked.key
 		if(!key_of_morph)

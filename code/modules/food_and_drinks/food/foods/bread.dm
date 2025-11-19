@@ -132,7 +132,6 @@
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
 
-
 /obj/item/reagent_containers/food/snacks/breadslice/stale
 	name = "stale bread"
 	desc = "Похоже, ваши похитители позаботились о вашем питании."
@@ -147,7 +146,7 @@
 		DATIVE = "чёрствому хлебу",
 		ACCUSATIVE = "чёрствый хлеб",
 		INSTRUMENTAL = "чёрствым хлебом",
-		PREPOSITIONAL = "чёрством хлебе"
+		PREPOSITIONAL = "чёрством хлебе",
 	)
 
 /obj/item/reagent_containers/food/snacks/breadslice/moldy
@@ -163,7 +162,7 @@
 			DATIVE = "заплесневелому хлебу",
 			ACCUSATIVE = "заплесневелый хлеб",
 			INSTRUMENTAL = "заплесневелым хлебом",
-			PREPOSITIONAL = "заплесневелом хлебе"
+			PREPOSITIONAL = "заплесневелом хлебе",
 		)
 
 /obj/item/reagent_containers/food/snacks/breadslice/burned
@@ -195,7 +194,6 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("bread" = 10, "cheese" = 10)
 	foodtype = GRAIN | DAIRY
-
 
 //////////////////////
 //		Misc		//
@@ -248,7 +246,7 @@
 		DATIVE = "багету",
 		ACCUSATIVE = "багет",
 		INSTRUMENTAL = "багетом",
-		PREPOSITIONAL = "багете"
+		PREPOSITIONAL = "багете",
 	)
 
 /obj/item/reagent_containers/food/snacks/baguette/combat
@@ -316,5 +314,4 @@
 	filling_color = "#E6DEB5"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	foodtype = GRAIN | SUGAR
-
 

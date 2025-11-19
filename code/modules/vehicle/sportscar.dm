@@ -9,7 +9,6 @@
 	. = ..()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/car)
 
-
 #define CAR_COVER_NORTH 1
 #define CAR_COVER_SOUTH 2
 #define CAR_COVER_EAST 3

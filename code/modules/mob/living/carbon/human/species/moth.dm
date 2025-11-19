@@ -74,7 +74,7 @@
 		"откусывает свои усики!",
 		"вспарывает себе живот!",
 		"отрывает себе крылья!",
-		"заддерживает своё дыхание!"
+		"заддерживает своё дыхание!",
 	)
 	toxic_food = MEAT | JUNKFOOD
 	disliked_food = FRIED | RAW | EGG
@@ -87,7 +87,6 @@
 		JOB_MIN_AGE_HIGH_ED = 15,
 		JOB_MIN_AGE_COMMAND = 15,
 	)
-
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -105,11 +104,8 @@
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, PROC_REF(on_change_head_accessory))
 	RegisterSignal(H, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
-
-
 /datum/species/monkey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_WEAK, STRENGTH_LEVEL_STRONG, can_become_stronger)
-
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -137,13 +133,11 @@
 /datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
 	return H.m_colours["body"]
 
-
 /datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharp, obj/item/used_weapon)
 	SIGNAL_HANDLER
 
 	if(istype(used_weapon, /obj/item/melee/flyswatter))
 		damage_mods += FLYSWATTER_DAMAGE_MULTIPLIER // Yes, a 10x damage modifier
-
 
 /datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
 	. = FALSE
@@ -159,11 +153,9 @@
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85))
 		return TRUE
 
-
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
-
 
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
@@ -189,7 +181,7 @@
 	name = "Кокон"
 	desc = "Восстанавливает крылья и усики, а также лечит повреждения. Если кокон будет разрушен извне, вы получите серьёзные травмы!"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_TURF
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()

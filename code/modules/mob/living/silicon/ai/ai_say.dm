@@ -63,10 +63,8 @@
 /*
  * MARK: AI VOX Announcements
  */
-
 GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 #define VOX_DELAY 100
-#define VOX_PATH "sound/vox_fem/"
 
 /mob/living/silicon/ai/verb/announcement_help()
 	set name = "Памятка по оповещениям"
@@ -187,4 +185,3 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	return FALSE
 
 #undef VOX_DELAY
-#undef VOX_PATH

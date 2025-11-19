@@ -52,7 +52,7 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
 
-	speciesbox = /obj/item/storage/box/survival_plasmaman
+	speciesbox = /obj/item/storage/box/survival/species/plasmaman
 	flesh_color = "#8b3fba"
 
 	toxic_food = NONE
@@ -67,15 +67,14 @@
 	)
 
 	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss"),
-			"с" = list("сс", "ссс", "сссс")
-		)
+		"s" = list("ss", "sss", "ssss"),
+		"с" = list("сс", "ссс", "сссс"),
+	)
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
-
 
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
 	. = ..()

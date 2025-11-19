@@ -46,7 +46,6 @@
 
 	return .
 
-
 /datum/uplink_item
 	/// Uplink name.
 	var/name = "item name"
@@ -81,14 +80,12 @@
 	/// Associative list UID - refund cost
 	var/static/list/item_to_refund_cost
 
-
 /datum/uplink_item/Destroy(force)
 	if(force)
 		return ..()
 	else
 		// if you're deleting an uplink item something has gone wrong
 		return QDEL_HINT_LETMELIVE
-
 
 /**
  * Spawns object item contained as path in datum item variable if possible.
@@ -112,7 +109,6 @@
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
 	return new item(get_turf(buyer))
 
-
 /**
  * Actulizes datum description.
  */
@@ -122,7 +118,6 @@
 		var/obj/temp = item
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
-
 
 /**
  * Handles buying an item, and logging.
@@ -188,9 +183,9 @@
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
-			target_uplink.purchase_log += span_fontsize4(bicon(box_item))
+			target_uplink.purchase_log += span_fontsize4(icon2base64html(box_item))
 	else
-		target_uplink.purchase_log += span_fontsize4(bicon(spawned))
+		target_uplink.purchase_log += span_fontsize4(icon2base64html(spawned))
 
 	return spawned
 
@@ -688,6 +683,15 @@
 	cost = 40
 	race = list(SPECIES_MACNINEPERSON)
 
+/datum/uplink_item/racial/combat_exoframe
+	name = "Боевой каркас экзоскелета"
+	desc = "Укреплённый титановыми вставками каркас экзоскелета, значительно повышающий прочность корпуса, при этом практически не увеличивая вес. \
+			Благодаря усовершенствованной гидравлической системе повышает мобильность пользователя без потери боевых характеристик. \
+			Поставляется с одноразовым автоимплантером для установки на месте."
+	item = /obj/item/storage/box/syndie_kit/combat_exoframe
+	cost = 43
+	race = list(SPECIES_MACNINEPERSON)
+
 //Slime People
 
 /datum/uplink_item/racial/anomaly_extract
@@ -750,7 +754,7 @@
 	name = "Пояс абдуктора"
 	desc = "Пояс с инструментами, используемый абдукторами. Он включает в себя полный набор инопланетных инструментов."
 	item = /obj/item/storage/belt/military/abductor/full
-	cost = 16
+	cost = 8
 	race = list(SPECIES_GREY)
 
 /datum/uplink_item/racial/silencer
@@ -758,6 +762,13 @@
 	desc = "Компактное устройство, предназначенное для выключения коммуникационного оборудования."
 	item = /obj/item/abductor/silencer
 	cost = 12
+	race = list(SPECIES_GREY)
+
+/datum/uplink_item/racial/agent_surgical_belt
+	name = "Хирургический пояс абдукторов"
+	desc = "Абдукторский хирургический пояс. Включает в себя полный набор абдукторских инструментов и два мендера. Может помещаться в рюкзак"
+	item = /obj/item/storage/belt/medical/surgery/abductor/loaded
+	cost = 8
 	race = list(SPECIES_GREY)
 
 /**
@@ -1746,7 +1757,7 @@
 
 /datum/uplink_item/device_tools/toolbox
 	name = "Набор инструментов"
-	desc = "Ящик, выполненный в зловещих чёрно-красных тонах, содержащий набор стандартных инструментов, изолированные перчатки и мультитул."
+	desc = "Ящик, выполненный в зловещих чёрно-красных тонах, содержащий набор стандартных инструментов, изолированные перчатки и мультиметр."
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 3
 
@@ -1960,7 +1971,6 @@
 	surplus = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Детонатор Синдиката"
 	desc = "При активации детонатора все установленные бомбы Синдиката будут приведены в боевую готовность, и таймер начнет отсчитывать 5 секунд до взрыва. \
@@ -1979,7 +1989,7 @@
 
 /datum/uplink_item/device_tools/ai_detector
 	name = "Детектор ИИ"
-	desc = "Устройство, замаскированное под мультитул, которое оповещает владельца световым индикатором о том, что за ним следит искусственный интеллект. \
+	desc = "Устройство, замаскированное под мультиметр, которое оповещает владельца световым индикатором о том, что за ним следит искусственный интеллект. \
 			Расстояние до фокуса ИИ определяется цветом индикатора: жёлтый означает, что до него 20 тайлов, а красный — 8 тайлов."
 	item = /obj/item/multitool/ai_detect
 	cost = 2
@@ -2296,7 +2306,6 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
-
 /datum/uplink_item/badass/bandage
 	name = "Военный перевязочный пакет"
 	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
@@ -2343,7 +2352,7 @@
 
 /datum/uplink_item/bundles_TC/sniper
 	name = "Набор — Снайперская винтовка Bubz FX1000"
-	desc = "Портфель, в которой находятся: снайперская винтовка Bubz FX1000, красный галстук, тактический комбинезон и 2 магазина .50 \"Снотворный\"."
+	desc = "Портфель, в которой находятся: снайперская винтовка Bubz FX1000, красный галстук, тактический комбинезон, глушитель, оптический прицел и 2 магазина .50 \"Снотворный\"."
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 110 // normally 135
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -2392,7 +2401,6 @@
 	target_uplink.uses -= cost
 	target_uplink.used_TC = cost
 
-
 	while(remaining_TC && length(buyable_items))
 		var/datum/uplink_item/chosen_item = pick(buyable_items)
 		if(!chosen_item.surplus || prob(100 - chosen_item.surplus))
@@ -2405,10 +2413,10 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<big>[bicon(crate)]</big>"
+	target_uplink.purchase_log += "<big>[icon2base64html(crate)]</big>"
 	for(var/bought_item in bought_items)
 		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<big>[bicon(purchased)]</big>"
+		target_uplink.purchase_log += "<big>[icon2base64html(purchased)]</big>"
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

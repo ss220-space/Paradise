@@ -72,7 +72,7 @@
 				if(is_new_mind)
 					new_mob.mind.wipe_memory()
 			else
-				new_mob.key = affected_mob.key
+				new_mob.possess_by_player(affected_mob.ckey)
 
 		qdel(affected_mob)
 		transformed = TRUE
@@ -156,7 +156,6 @@
 		if(4)
 			if(prob(20))
 				affected_mob.say(pick("Бип-буп!", "Биип-буп-бип-буп-бип!", "Уб-бе-ейте мен-н-н-я!", "Я хо-ч-чу ум-м-ме-р-р-ее-е-еть..."))
-
 
 /datum/disease/virus/transformation/xeno
 	name = "Ксенотрансформация"
@@ -276,7 +275,6 @@
 	и память. Вы не являетесь антагонистом."))
 	new_form = /mob/living/simple_animal/hostile/morph
 
-
 /datum/disease/virus/transformation/pig
 	name = "Свинофикация"
 	agent = "Мистическая грязь"
@@ -290,7 +288,6 @@
 	transform_message = list(span_danger("ХРЮЮЮЮЮ!!!"))
 	new_form = /mob/living/simple_animal/pig
 	is_new_mind = TRUE
-
 
 /datum/disease/virus/transformation/pig/stage_act()
 	if(!..() || !affected_mob)

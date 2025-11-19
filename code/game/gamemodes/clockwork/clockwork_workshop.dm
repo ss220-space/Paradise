@@ -27,34 +27,33 @@
 	var/build_end = 0
 	canbehidden = TRUE
 
-
 // CLOCK_DESIGN(NAME, PATH, BRASS_AMOUNT, POWER_AMOUNT, TIME),
 // and remember brass is in 2000x not 1x
 /obj/structure/clockwork/functional/workshop/Initialize(mapload)
 	. = ..()
 	item_list = list()
 	item_list["Weapon"] = list(
-		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 100, 0, 3),
-		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 2000, 400, 10),
-		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 2000, 400, 10),
-		CLOCK_DESIGN("Rustless Sword", /obj/item/melee/clock_sword, 1000, 200, 4),
-		CLOCK_DESIGN("Brass Buckler", /obj/item/shield/clock_buckler, 500, 200, 4),
+		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 100, 0, 2),
+		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 2000, 400, 5),
+		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 2000, 400, 5),
+		CLOCK_DESIGN("Rustless Sword", /obj/item/melee/clock_sword, 1000, 200, 2),
+		CLOCK_DESIGN("Brass Buckler", /obj/item/shield/clock_buckler, 500, 200, 2),
 	)
 	item_list["Clothing"] = list(
-		CLOCK_DESIGN("Clock Robe", /obj/item/clothing/suit/hooded/clockrobe, 400, 80, 3),
-		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 4000, 400, 20),
-		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 800, 200, 5),
-		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 300, 50, 5),
-		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 300, 100, 5),
-		CLOCK_DESIGN("Judical Visors", /obj/item/clothing/glasses/clockwork, 400, 200, 5),
+		CLOCK_DESIGN("Clock Robe", /obj/item/clothing/suit/hooded/clockrobe, 400, 80, 2),
+		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 4000, 400, 10),
+		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 800, 200, 3),
+		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 300, 50, 3),
+		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 300, 100, 3),
+		CLOCK_DESIGN("Judical Visors", /obj/item/clothing/glasses/clockwork, 400, 200, 3),
 	)
 	item_list["Consumables"] = list(
-		CLOCK_DESIGN("Brass sheet", /obj/item/stack/sheet/brass, 0, 200, 3),
-		CLOCK_DESIGN("Integration Cog", /obj/item/clockwork/integration_cog, 100, 0, 3),
-		CLOCK_DESIGN("Soul Vessel", /obj/item/mmi/robotic_brain/clockwork, 500, 100, 5),
-		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 1000, 200, 5),
-		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 1200, 300, 10),
-		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 15),
+		CLOCK_DESIGN("Brass sheet", /obj/item/stack/sheet/brass, 0, 200, 2),
+		CLOCK_DESIGN("Integration Cog", /obj/item/clockwork/integration_cog, 100, 0, 2),
+		CLOCK_DESIGN("Soul Vessel", /obj/item/mmi/robotic_brain/clockwork, 500, 100, 3),
+		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 1000, 200, 3),
+		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 1200, 300, 5),
+		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 8),
 	)
 
 /obj/structure/clockwork/functional/workshop/Destroy()
@@ -86,7 +85,6 @@
 /obj/structure/clockwork/functional/workshop/attack_ghost(mob/user)
 	ui_interact(user)
 
-
 /obj/structure/clockwork/functional/workshop/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/brass) && isclocker(user))
 		add_fingerprint(user)
@@ -99,7 +97,6 @@
 		flick("workshop_b", src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/clockwork/functional/workshop/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -220,7 +217,6 @@
 	build_end = 0
 	desc = initial(desc)
 	SStgui.update_uis(src)
-
 
 // DATUM OF CLOCK DESIGN AAAAAAAAAAAAAAAAAAA
 /datum/clockwork_design

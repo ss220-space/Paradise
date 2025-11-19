@@ -393,7 +393,6 @@
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
-
 /obj/item/reagent_containers/food/snacks/crayfish_raw_small
 	name = "small raw crayfish"
 	desc = "A raw crayfish of a small size."
@@ -405,7 +404,6 @@
 	list_reagents = list("protein" = 1.5, "vitamin" = 1)
 	tastes = list("raw crayfish" = 1)
 	foodtype = MEAT|RAW
-
 
 /obj/item/reagent_containers/food/snacks/crayfish_raw
 	name = "raw crayfish"
@@ -420,7 +418,6 @@
 	foodtype = MEAT|RAW
 	///Cooldown timestamp for pinching.
 	COOLDOWN_DECLARE(pinch_cooldown)
-
 
 /obj/item/reagent_containers/food/snacks/crayfish_raw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!COOLDOWN_FINISHED(src, pinch_cooldown))
@@ -443,7 +440,6 @@
 
 	target.apply_damage(5, BRUTE, def_zone)
 
-
 /obj/item/reagent_containers/food/snacks/crayfish_cooked_small
 	name = "cooked small crayfish"
 	desc = "Boiled crayfish, aromatic and well seasoned... But wheres the beer?"
@@ -456,13 +452,11 @@
 	tastes = list("crayfish" = 1)
 	foodtype = MEAT
 
-
 /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang
 	name = "spicy small lobster"
 	desc = "Wait, thats not a lobster! But still tasty dish with a special Mr.Chang's ingredient."
 	list_reagents = list("nutriment" = 1, "msg" = 2, "sugar" = 1)
 	foodtype = MEAT|FRIED
-
 
 /obj/item/reagent_containers/food/snacks/crayfish_cooked
 	name = "cooked crayfish"
@@ -475,7 +469,6 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 2)
 	tastes = list("crayfish" = 1)
 	foodtype = MEAT
-
 
 /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang
 	name = "spicy lobster"

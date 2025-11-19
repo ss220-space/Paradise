@@ -93,7 +93,6 @@
 		ui = new(user, src, "Autolathe", name)
 		ui.open()
 
-
 /obj/machinery/autolathe/ui_static_data(mob/user)
 	var/list/data = list()
 	data["categories"] = categories
@@ -249,7 +248,6 @@
 		data["queue"] = null
 	return data
 
-
 /obj/machinery/autolathe/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -297,7 +295,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -464,7 +461,7 @@
 			being_built = new /list()
 			return 0
 		if(!can_build(D, multiplier))
-			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
+			visible_message("[icon2html(src, viewers(src))] <b>[src]</b> beeps: \"Not enough resources. Queue processing terminated.\"")
 			queue = list()
 			being_built = new /list()
 			return 0

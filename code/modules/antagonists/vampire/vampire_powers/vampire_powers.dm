@@ -14,47 +14,37 @@
 
 	return TRUE
 
-
 /datum/vampire_passive
 	var/gain_desc
 	var/mob/living/owner = null
-
 
 /datum/vampire_passive/New()
 	..()
 	if(!gain_desc)
 		gain_desc = "Вы получили способность «[src]»."
 
-
 /datum/vampire_passive/Destroy(force)
 	owner = null
 	return ..()
 
-
 /datum/vampire_passive/proc/on_apply(datum/antagonist/vampire/vampire_datum)
 	return
-
 
 /datum/vampire_passive/proc/on_remove(datum/antagonist/vampire/vampire_datum)
 	return
 
-
 /datum/vampire_passive/regen
 	gain_desc = "Ваша способность «Восстановление» улучшена. Теперь она будет постепенно исцелять вас после использования."
-
 
 /datum/vampire_passive/vision
 	gain_desc = "Ваше вампирское зрение улучшено."
 
-
 /datum/vampire_passive/full
 	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
-
 
 /datum/vampire_passive/full/on_apply(datum/antagonist/vampire/vampire_datum)
 	. = ..()
 	ADD_TRAIT(vampire_datum.owner.current, TRAIT_VIRUSIMMUNE, VAMPIRE_TRAIT)
-
 
 /datum/vampire_passive/full/on_remove(datum/antagonist/vampire/vampire_datum)
 	. = ..()
@@ -66,7 +56,6 @@
 /datum/vampire_passive/glare_aoe
 	gain_desc = "Теперь ваша способность \"Вспышка\" не зависит от направления взгляда."
 
-
 /obj/effect/proc_holder/spell/vampire
 	name = "Report Me"
 	desc = "You shouldn't see this!"
@@ -77,10 +66,8 @@
 	var/required_blood
 	var/deduct_blood_on_cast = TRUE
 
-
 /obj/effect/proc_holder/spell/vampire/after_spell_init()
 	update_vampire_spell_name()
-
 
 /obj/effect/proc_holder/spell/proc/update_vampire_spell_name(mob/user = usr)
 	var/datum/spell_handler/vampire/handler = custom_handler
@@ -95,17 +82,14 @@
 		action?.name = new_name
 		action?.UpdateButtonIcon()
 
-
 /obj/effect/proc_holder/spell/vampire/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
 	H.required_blood = required_blood
 	H.deduct_blood_on_cast = deduct_blood_on_cast
 	return H
 
-
 /obj/effect/proc_holder/spell/vampire/self/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Восстановление"
@@ -154,7 +138,6 @@
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, PROC_REF(heal), user, rejuv_bonus)
 
-
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/carbon/human/user, rejuv_bonus)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire.get_ability(/datum/vampire_passive/regen_bleeding))
@@ -174,7 +157,6 @@
 				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
 		sleep(3.5 SECONDS)
 
-
 /datum/antagonist/vampire/proc/get_rejuv_bonus()
 	var/rejuv_multiplier = 0
 	if(!get_ability(/datum/vampire_passive/regen))
@@ -186,14 +168,12 @@
 
 	return 1
 
-
 /obj/effect/proc_holder/spell/vampire/self/specialize
 	name = "Выбрать специализацию"
 	desc = "Выберите, каким подклассом вампира вы хотите стать."
 	gain_desc = "Теперь вы можете выбрать, в какую специализацию вампира вы хотите эволюционировать."
 	base_cooldown = 2 SECONDS
 	action_icon_state = "select_class"
-
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/cast(mob/user)
 	ui_interact(user)
@@ -222,7 +202,6 @@
 	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/list/data = list("subclasses" = vamp.subclass)
 	return data
-
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_act(action, list/params)
 	if(..())
@@ -256,7 +235,6 @@
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
 
-
 /datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE, log_choice = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
@@ -265,7 +243,6 @@
 	check_vampire_upgrade(announce)
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
-
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Вспышка"
@@ -288,17 +265,14 @@
 	SIGNAL_HANDLER
 	level.downgrade_glare_charges(cooldown_handler)
 
-
 /obj/effect/proc_holder/spell/vampire/glare/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
 	T.allowed_type = /mob/living
 	T.range = 1
 	return T
 
-
 /obj/effect/proc_holder/spell/vampire/glare/valid_target(mob/living/target, mob/user)
 	return !isnull(target.mind) && target.stat != DEAD && target.affects_vampire(user)
-
 
 /obj/effect/proc_holder/spell/vampire/glare/create_new_cooldown()
 	var/datum/spell_cooldown/charges/C = new
@@ -306,7 +280,6 @@
 	C.recharge_duration = base_cooldown
 	C.charge_duration = 3 SECONDS
 	return C
-
 
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3
@@ -357,7 +330,6 @@
 		to_chat(target, span_warning("Вы ослеплены взглядом [user]."))
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
-
 /obj/effect/proc_holder/spell/vampire/glare/proc/calculate_deviation(mob/victim, mob/attacker)
 	// Are they on the same tile? We'll return partial deviation. This may be someone flashing while lying down
 	if(victim.loc == attacker.loc)
@@ -392,7 +364,6 @@
 #undef DEVIATION_PARTIAL
 #undef DEVIATION_FULL
 
-
 /**
  * Unlike "raise_vampires" spell, which is absolutely crazy and shitspawn only, this one just gives you an opportunity
  * to raise from the dead a humanoid and make him a vampire with free will and no antag objectives.
@@ -406,14 +377,12 @@
 	gain_desc = "Вы получили способность \"Таинство посвящения\". Эта мощная способность действует только на трупы гуманоидов, имеющих кровь, воскрешая их как вампиров. Воскрешённые подобным образом вампиры будут обладать свободной волей и не будут подчиняться вам. Вы также не сможете получить с них доступной крови."
 	required_blood = 50
 
-
 /obj/effect/proc_holder/spell/vampire/raise_free_vampire/create_new_targeting()
 	var/datum/spell_targeting/click/targeting = new()
 	targeting.try_auto_target = FALSE
 	targeting.range = 1
 	targeting.click_radius = -1
 	return targeting
-
 
 /obj/effect/proc_holder/spell/vampire/raise_free_vampire/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/victim = targets[1]
@@ -427,7 +396,6 @@
 
 	victim.revive()
 	victim.mind.make_free_vampire()
-
 
 /obj/effect/proc_holder/spell/vampire/raise_free_vampire/valid_target(mob/living/carbon/human/victim, mob/living/carbon/human/user)
 	if(!istype(victim))
@@ -454,7 +422,6 @@
 
 	return TRUE
 
-
 /obj/effect/proc_holder/spell/vampire/raise_vampires
 	name = "Возвышение вампиров"
 	desc = "Призывает смертоносных вампиров из блюспейса."
@@ -465,12 +432,10 @@
 	sound = 'sound/magic/wandodeath.ogg'
 	gain_desc = "Вы получили способность «Возвышение вампиров». Эта чрезвычайно мощная АОЕ-способность действует на всех людей рядом с вами. Вампиры/стражи исцеляются. Трупы воскрешаются как вампиры. Другие люди оглушаются, получают повреждения мозга, а затем погибают."
 
-
 /obj/effect/proc_holder/spell/vampire/raise_vampires/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
 	T.range = 3
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
@@ -481,18 +446,17 @@
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
 		raise_vampire(user, H)
 
-
 /obj/effect/proc_holder/spell/vampire/raise_vampires/proc/raise_vampire(mob/M, mob/living/carbon/human/H)
 	if(!istype(M) || !istype(H))
 		return
 	if(!H.mind)
-		visible_message("Похоже, [H] слишком глуп[genderize_ru(H.gender, "", "а", "о", "ы")], чтобы понять, что происходит.")
+		visible_message("Похоже, [H] слишком глуп[GEND_A_O_Y(H)], чтобы понять, что происходит.")
 		return
 	if(HAS_TRAIT(H, TRAIT_NO_BLOOD) || HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD) || !H.blood_volume)
-		visible_message("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] невозмутимым!")
+		visible_message("[H] выгляд[PLUR_IT_YAT(H)] невозмутимым!")
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		visible_message(span_notice("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] посвежевшим!"))
+		visible_message(span_notice("[H] выгляд[PLUR_IT_YAT(H)] посвежевшим!"))
 		H.heal_overall_damage(60, 60, affect_robotic = TRUE)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
@@ -502,10 +466,10 @@
 		return
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
-			visible_message(span_warning("[H], похоже, испытыва[pluralize_ru(H.gender, "ет", "ют")] боль!"))
+			visible_message(span_warning("[H], похоже, испытыва[PLUR_ET_YUT(H)] боль!"))
 			H.apply_damage(60, BRAIN)
 		else
-			visible_message(span_warning("Похоже, что [H] ошеломлен[genderize_ru(H.gender, "", "а", "о", "ы")] энергией!"))
+			visible_message(span_warning("Похоже, что [H] ошеломлен[GEND_A_O_Y(H)] энергией!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
@@ -514,7 +478,7 @@
 	for(var/obj/item/implant/traitor/T in H)
 		if(T?.implanted)
 			qdel(T)
-	visible_message(span_warning("У [H] появля[pluralize_ru(H.gender, "ет", "ют")]ся жуткое красное свечение в глазах!"))
+	visible_message(span_warning("У [H] появля[PLUR_ET_YUT(H)]ся жуткое красное свечение в глазах!"))
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = H.mind
 	protect_objective.target = M.mind

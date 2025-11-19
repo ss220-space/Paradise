@@ -74,7 +74,6 @@
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 
-
 /*
  * Tool Closet
  */
@@ -115,7 +114,6 @@
 	if(prob(40))
 		new /obj/item/clothing/head/hardhat(src)
 
-
 /*
  * Radiation Closet
  */
@@ -142,7 +140,6 @@
 	new /obj/item/clothing/under/color/black( src )
 	new /obj/item/clothing/shoes/black( src )
 	new /obj/item/clothing/head/bomb_hood( src )
-
 
 /obj/structure/closet/bombclosetsecurity
 	name = "EOD closet"

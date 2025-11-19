@@ -8,7 +8,6 @@
 	cmd_admin_pm(M.client,null)
 	BLACKBOX_LOG_ADMIN_VERB("Admin PM Mob")
 
-
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
 	set category = STATPANEL_ADMIN_ADMIN
@@ -58,7 +57,6 @@
 		return
 	cmd_admin_pm(targets[target],null)
 	BLACKBOX_LOG_ADMIN_VERB("Admin PM Key")
-
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
@@ -173,7 +171,6 @@
 					else
 						adminhelp(reply) //sender has left, adminhelp instead
 				return
-
 
 	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link

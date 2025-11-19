@@ -123,7 +123,6 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-
 /obj/item/fish/shark/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
@@ -136,7 +135,6 @@
 	shark.add_fingerprint(user)
 	teeth.add_fingerprint(user)
 	qdel(src)
-
 
 /obj/item/fish/toothless_shark
 	name = "toothless shark"
@@ -162,7 +160,6 @@
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-
 /obj/item/fish/catfish/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
 		to_chat(user, "You carefully clean and gut [src].")
@@ -172,7 +169,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/fish/goldfish
 	name = "goldfish"
@@ -184,7 +180,6 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-
 /obj/item/fish/salmon/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
 		to_chat(user, "You carefully clean and gut [src].")
@@ -195,14 +190,12 @@
 
 	return ..()
 
-
 /obj/item/fish/babycarp
 	name = "baby space carp"
 	desc = "Substantially smaller than the space carp lurking outside the hull, but still unsettling."
 	icon_state = "babycarp"
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
-
 
 /obj/item/fish/babycarp/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
@@ -213,7 +206,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/grown/bananapeel/clownfish
 	name = "clown fish"

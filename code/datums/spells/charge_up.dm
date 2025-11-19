@@ -18,13 +18,11 @@
 	/// The text shown when you are over the charge limit and thus can't stop.
 	var/stop_charging_fail_text
 
-
 /obj/effect/proc_holder/spell/charge_up/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
 	T.try_auto_target = FALSE
 	return T
-
 
 /obj/effect/proc_holder/spell/charge_up/Click()
 	if(cast_check(TRUE, FALSE, usr))
@@ -35,7 +33,6 @@
 				return // Don't remove the click intercept
 
 	return ..()
-
 
 /obj/effect/proc_holder/spell/charge_up/proc/try_stop_buildup(mob/user)
 	var/energy_perc = get_energy_charge() / max_charge_time
@@ -48,10 +45,8 @@
 		to_chat(user, span_danger("[stop_charging_fail_text]"))
 		return FALSE
 
-
 /obj/effect/proc_holder/spell/charge_up/proc/get_energy_charge()
 	return min(world.time - start_time, max_charge_time)
-
 
 /obj/effect/proc_holder/spell/charge_up/proc/StartChargeup(mob/user)
 	to_chat(user, span_notice("[start_charging_text]"))
@@ -62,10 +57,8 @@
 		if(start_time)
 			Discharge(user)
 
-
 /obj/effect/proc_holder/spell/charge_up/proc/stopped_casting()
 	return start_time != 0
-
 
 /obj/effect/proc_holder/spell/charge_up/proc/Reset(mob/user)
 	start_time = 0
@@ -73,18 +66,15 @@
 	remove_ranged_ability(user)
 	playsound(user, null, 50, FALSE, channel = charge_sound.channel)
 
-
 /obj/effect/proc_holder/spell/charge_up/revert_cast(mob/user)
 	Reset(user)
 	..()
-
 
 /obj/effect/proc_holder/spell/charge_up/proc/Discharge(mob/user)
 	to_chat(user, span_danger("You lose control over the spell!"))
 	Reset(user)
 	spend_spell_cost(user)
 	cooldown_handler.start_recharge()
-
 
 /obj/effect/proc_holder/spell/charge_up/after_cast(list/targets, mob/user)
 	..()

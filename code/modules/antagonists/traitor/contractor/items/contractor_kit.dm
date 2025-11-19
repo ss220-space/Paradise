@@ -41,9 +41,8 @@
 		DATIVE = "набору контрактника",
 		ACCUSATIVE = "набор контрактника",
 		INSTRUMENTAL = "набором контрактника",
-		PREPOSITIONAL = "наборе контрактника"
+		PREPOSITIONAL = "наборе контрактника",
 	)
-
 
 /obj/item/storage/box/syndie_kit/contractor/populate_contents()
 	new /obj/item/paper/contractor_guide(src)
@@ -65,7 +64,7 @@
 		DATIVE = "стандартному набору контрактника",
 		ACCUSATIVE = "стандартный набор контрактника",
 		INSTRUMENTAL = "стандартным набором контрактника",
-		PREPOSITIONAL = "стандартном наборе контрактника"
+		PREPOSITIONAL = "стандартном наборе контрактника",
 	)
 
 /obj/item/storage/box/syndie_kit/contractor_loadout/populate_contents()

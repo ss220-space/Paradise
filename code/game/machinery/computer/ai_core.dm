@@ -18,14 +18,11 @@
 
 	return ..()
 
-
 /obj/structure/AIcore/proc/death_alarm()
-	var/obj/item/radio/headset/all_channels/dummy = new(src)
 	var/static/msg = "Внимание! Обнаружено повреждение внутренних систем станционного ИИ. \
 					Требуется срочное вмешательство."
 	var/static/sender = "Автоматическая система оповещений"
-	dummy.autosay(msg, sender, COMM_FREQ_NAME)
-	qdel(dummy)
+	radio_announce(msg, sender, COMM_FREQ, src)
 
 	var/obj/item/pda/dummy_pda = new /obj/item/pda()
 	dummy_pda.owner = sender
@@ -46,7 +43,6 @@
 		sender_messenger.create_message(pda, message = msg)
 
 	qdel(dummy_pda)
-
 
 /obj/structure/AIcore/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -169,7 +165,6 @@
 
 	return ..()
 
-
 /obj/structure/AIcore/crowbar_act(mob/living/user, obj/item/I)
 	if(state !=CIRCUIT_CORE && state != GLASS_CORE && !(state == CABLED_CORE && brain))
 		return
@@ -233,7 +228,6 @@
 			to_chat(user, span_notice("You disconnect the monitor."))
 			state = GLASS_CORE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/AIcore/wirecutter_act(mob/living/user, obj/item/I)
 	if(state != CABLED_CORE)
@@ -336,7 +330,6 @@
 		GLOB.empty_playable_ai_cores += D
 		to_chat(src, "\The [id] is now <font color=\"#008000\">available</font> for latejoining AIs.")
 
-
 /*
 This is a good place for AI-related object verbs so I'm sticking it here.
 If adding stuff to this, don't forget that an AI need to cancel_camera() whenever it physically moves to a different location.
@@ -344,14 +337,12 @@ That prevents a few funky behaviors.
 */
 //The type of interaction, the player performing the operation, the AI itself, and the card object, if any.
 
-
 /atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
 			to_chat(user, span_boldannounceic("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
 			return 0
 	return 1
-
 
 /obj/structure/AIcore/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(state != AI_READY_CORE || !..())

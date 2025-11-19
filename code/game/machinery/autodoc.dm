@@ -54,11 +54,9 @@
 	for(var/atom/movable/target in src)
 		target.forceMove(source_turf)
 
-
 /obj/machinery/autodoc/examine(mob/user)
 	. = ..()
 	. += span_notice("You can rotate [src] by using </b>wrench<b>.")
-
 
 /obj/machinery/autodoc/update_overlays()
 	. = ..()
@@ -67,7 +65,6 @@
 
 	if(connected)
 		return
-
 
 /obj/machinery/autodoc/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -79,7 +76,6 @@
 		I.forceMove(src)
 		return
 	return ..()
-
 
 /obj/machinery/autodoc/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -280,7 +276,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-
 /obj/machinery/autodoc/proc/connect()
 	var/turf/target_turf = get_step(src, dir)
 
@@ -309,13 +304,11 @@
 		return
 	tray_toggle(user)
 
-
 /obj/machinery/autodoc/container_resist(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated())
 		return
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
 	tray_toggle(user)
-
 
 /obj/machinery/autodoc/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

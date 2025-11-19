@@ -23,7 +23,7 @@
 		DATIVE = "солнечной панели",
 		ACCUSATIVE = "солнечную панель",
 		INSTRUMENTAL = "солнечной панелью",
-		PREPOSITIONAL = "солнечной панели"
+		PREPOSITIONAL = "солнечной панели",
 	)
 
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
@@ -60,7 +60,6 @@
 		update_integrity(max_integrity)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -68,12 +67,12 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	balloon_alert(user, "демонтаж...")
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] снимать стекло с [declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
 	)
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] снима[pluralize_ru(user.gender, "ет", "ют")] стекло с [declent_ru(GENITIVE)]."),
+			span_notice("[user] снима[PLUR_ET_YUT(user)] стекло с [declent_ru(GENITIVE)]."),
 			span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
 		)
 		deconstruct(TRUE)
@@ -190,7 +189,6 @@
 	obscured = FALSE		// if hit the edge or stepped 20 times, not obscured
 	update_solar_exposure()
 
-
 //
 // Solar Assembly - For construction of solar arrays.
 //
@@ -213,7 +211,7 @@
 		DATIVE = "заготовке солнечной панели",
 		ACCUSATIVE = "заготовку солнечной панели",
 		INSTRUMENTAL = "заготовкой солнечной панели",
-		PREPOSITIONAL = "заготовке солнечной панели"
+		PREPOSITIONAL = "заготовке солнечной панели",
 	)
 
 /obj/item/solar_assembly/attack_hand(mob/user)
@@ -226,17 +224,15 @@
 		new glass_type(src.loc, 2)
 		glass_type = null
 
-
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += span_notice("Похоже, что [genderize_ru(gender, "он", "она", "оно", "они")] <b>[anchored ? "прикручен[genderize_ru(gender, "", "а", "о", "ы")]" : "не прикручен[genderize_ru(gender, "", "а", "о", "ы")]"]</b>.")
+	. += span_notice("Похоже, что [GEND_HE_SHE(src)] <b>[anchored ? "прикручен[GEND_A_O_Y(src)]" : "не прикручен[GEND_A_O_Y(src)]"]</b>.")
 	if(tracker)
-		. += span_notice("В [genderize_ru(gender, "нём", "ней", "нём", "них")] видно плату солнечного датчика. <b>Её можно достать</b>.")
+		. += span_notice("В [GEND_ON_IN_HIM(src)] видно плату солнечного датчика. <b>Её можно достать</b>.")
 	else
-		. += span_notice("В [genderize_ru(gender, "нём", "ней", "нём", "них")] видно отсек под плату <i>датчика<i>.")
+		. += span_notice("В [GEND_ON_IN_HIM(src)] видно отсек под плату <i>датчика<i>.")
 	if(anchored)
 		.+= span_notice("Чтобы завершить сборку —  установите <b><i>стекло</i></b>.")
-
 
 /obj/item/solar_assembly/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass) || istype(I, /obj/item/stack/sheet/rglass))
@@ -251,7 +247,7 @@
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, cached_sound, 50, TRUE)
 		user.visible_message(
-			span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] стеклянные панели на солнечной батарее."),
+			span_notice("[user] устанавлива[PLUR_ET_YUT(user)] стеклянные панели на солнечной батарее."),
 			span_notice("Вы устанавливаете стеклянные панели на солнечной батарее."),
 		)
 		glass_type = glass.merge_type
@@ -277,14 +273,13 @@
 		tracker = TRUE
 		balloon_alert(user, "установлено")
 		user.visible_message(
-			span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] плату трекера в солнечную батарею."),
+			span_notice("[user] вставля[PLUR_ET_YUT(user)] плату трекера в солнечную батарею."),
 			span_notice("Вы вставляете плату трекера в солнечную батарею."),
 		)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -298,16 +293,15 @@
 	if(anchored)
 		balloon_alert(user, "прикручено")
 		user.visible_message(
-			span_notice("[user] прикручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею к полу."),
+			span_notice("[user] прикручива[PLUR_ET_YUT(user)] солнечную батарею к полу."),
 			span_notice("Вы прикручиваете солнечную батарею к полу."),
 		)
 	else
 		balloon_alert(user, "откручено")
 		user.visible_message(
-			span_notice("[user] откручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею от пола."),
+			span_notice("[user] откручива[PLUR_ET_YUT(user)] солнечную батарею от пола."),
 			span_notice("Вы откручиваете солнечную батарею от пола."),
 		)
-
 
 /obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -321,7 +315,7 @@
 	tracker = FALSE
 	balloon_alert(user, "плата извлечена")
 	user.visible_message(
-		span_notice("[user] доста[pluralize_ru(user.gender, "ет", "ют")] плату солнечного датчика из [declent_ru(GENITIVE)]."),
+		span_notice("[user] доста[PLUR_ET_YUT(user)] плату солнечного датчика из [declent_ru(GENITIVE)]."),
 		span_notice("Вы достаёте плату трекера из [declent_ru(GENITIVE)]."),
 	)
 
@@ -440,7 +434,6 @@
 	if(cdir > -1)
 		. += image('icons/obj/machines/computer.dmi', icon_state = "solcon-o", layer = FLY_LAYER, dir = angle2dir(cdir))
 
-
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
 	ui_interact(user)
@@ -535,7 +528,6 @@
 	A.set_anchored(TRUE)
 	qdel(src)
 
-
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -580,12 +572,10 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/power/solar_control/power_change()
 	if(!..())
 		return
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/power/solar_control/proc/broken()
 	stat |= BROKEN

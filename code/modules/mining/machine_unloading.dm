@@ -1,6 +1,5 @@
 /**********************Unloading unit**************************/
 
-
 /obj/machinery/mineral/unloading_machine
 	name = "unloading machine"
 	icon = 'icons/obj/machines/mining_machines.dmi'
@@ -18,7 +17,7 @@
 		DATIVE = "разгрузочной машине",
 		ACCUSATIVE = "разгрузочную машину",
 		INSTRUMENTAL = "разгрузочной машиной",
-		PREPOSITIONAL = "разгрузочной машине"
+		PREPOSITIONAL = "разгрузочной машине",
 	)
 
 /obj/machinery/mineral/unloading_machine/process()

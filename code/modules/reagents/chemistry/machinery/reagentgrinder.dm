@@ -1,14 +1,6 @@
 /obj/machinery/reagentgrinder
 	name = "All-In-One Grinder"
 	desc = "Измельчает, дробит, разжижает и извлекает вещества из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
-	ru_names = list(
-		NOMINATIVE = "универсальный блендер",
-		GENITIVE = "универсального блендера",
-		DATIVE = "универсальному блендеру",
-		ACCUSATIVE = "универсальный блендер",
-		INSTRUMENTAL = "универсальным блендером",
-		PREPOSITIONAL = "универсальном блендере"
-	)
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	anchored = TRUE
@@ -59,7 +51,6 @@
 			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/moonlight = list("moonlin" = 0),
 
-
 			//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 			/obj/item/slime_extract = list(),
 			/obj/item/reagent_containers/food = list(),
@@ -102,6 +93,16 @@
 	)
 
 	var/list/holdingitems = list()
+
+/obj/machinery/reagentgrinder/get_ru_names()
+	return list(
+		NOMINATIVE = "универсальный блендер",
+		GENITIVE = "универсального блендера",
+		DATIVE = "универсальному блендеру",
+		ACCUSATIVE = "универсальный блендер",
+		INSTRUMENTAL = "универсальным блендером",
+		PREPOSITIONAL = "универсальном блендере",
+	)
 
 /obj/machinery/reagentgrinder/examine(mob/user)
 	. = ..()
@@ -168,10 +169,8 @@
 		beaker = null
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/reagentgrinder/update_icon_state()
 	icon_state = "juicer[beaker ? "1" : "0"]"
-
 
 /obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -197,7 +196,6 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I)
-
 
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -253,7 +251,7 @@
 			balloon_alert(user, "нечего загружать!")
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] загрузил[GEND_A_O_I(user)] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы загрузили содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "содержимое загружено")
 		updateUsrDialog()
@@ -268,13 +266,11 @@
 
 	holdingitems += I
 	user.visible_message(
-		span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] загрузил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы загрузили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	balloon_alert(user, "загружено в камеру")
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
-
-
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
 	return FALSE
@@ -310,7 +306,6 @@
 								beaker_contents += "[R.volume] - [R.name]<br>"
 						if(!anything)
 								beaker_contents += "Ничего<br>"
-
 
 				dat += {"
 		<b>Содержимое камеры:</b><br>
@@ -496,7 +491,6 @@
 										if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
 												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)*efficiency), space))
 												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-
 
 						else
 								O.reagents.trans_id_to(beaker, r_id, min(amount, space))

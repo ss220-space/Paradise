@@ -35,14 +35,6 @@
 
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "slime management console"
-	ru_names = list(
-		NOMINATIVE = "консоль управления слаймами",
-		GENITIVE = "консоли управления слаймами",
-		DATIVE = "консоли управления слаймами",
-		ACCUSATIVE = "консоль управления слаймами",
-		INSTRUMENTAL = "консолью управления слаймами",
-		PREPOSITIONAL = "консоли управления слаймами"
-	)
 	desc = "Компьютер, используемый для удаленного взаимодействия со слаймами."
 	networks = list("SS13")
 	circuit = /obj/item/circuitboard/xenobiology
@@ -61,6 +53,16 @@
 	var/monkeys = 0
 	var/obj/item/slimepotion/slime/current_potion
 	var/obj/machinery/monkey_recycler/connected_recycler
+
+/obj/machinery/computer/camera_advanced/xenobio/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления слаймами",
+		GENITIVE = "консоли управления слаймами",
+		DATIVE = "консоли управления слаймами",
+		ACCUSATIVE = "консоль управления слаймами",
+		INSTRUMENTAL = "консолью управления слаймами",
+		PREPOSITIONAL = "консоли управления слаймами",
+	)
 
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
@@ -190,7 +192,6 @@
 		return
 	return ..()
 
-
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -228,7 +229,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -328,12 +328,12 @@
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
 	if(!recycler)
-		to_chat(owner, span_notice("Нет подключенного утилизатора мартышек. Используйте мультитул для привязки."))
+		to_chat(owner, span_notice("Нет подключенного утилизатора мартышек. Используйте мультиметр для привязки."))
 		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(is_monkeybasic(M) && M.stat)
-				M.visible_message("[capitalize(M)] исчезает, [genderize_ru(M.gender,"он","она","оно","они")] отправлен[genderize_ru(M.gender,"","а","о","ы")] на переработку!")
+				M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 				recycler.use_power(500)
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
@@ -530,14 +530,13 @@
 	var/area/mobarea = get_area(M.loc)
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	if(!recycler)
-		to_chat(user, span_notice("Нет подключенного утилизатора мартышек. Используйте мультитул для связи."))
+		to_chat(user, span_notice("Нет подключенного утилизатора мартышек. Используйте мультиметр для связи."))
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)
-			M.visible_message("[capitalize(M)] исчезает, [genderize_ru(M.gender,"он","она","оно","они")] отправлен[genderize_ru(M.gender,"","а","о","ы")] на переработку!")
+			M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)
-
 
 #undef MAX_SLIME_IN_CONSOLE

@@ -30,7 +30,7 @@
 		DATIVE = "дешёвой зажигалке",
 		ACCUSATIVE = "дешёвую зажигалку",
 		INSTRUMENTAL = "дешёвой зажигалкой",
-		PREPOSITIONAL = "дешёвой зажигалке"
+		PREPOSITIONAL = "дешёвой зажигалке",
 	)
 
 /obj/item/lighter/random/New()
@@ -68,7 +68,7 @@
 		user.balloon_alert(user, "включено")
 	else if(HAS_TRAIT(user, TRAIT_BADASS))
 		user.balloon_alert(user, "включено")
-		to_chat(user, span_notice("Как только вы зажгли [declent_ru(ACCUSATIVE)], [genderize_ru(user.gender, "его", "её", "его", "их")] пламя окутывает вашу руку, но вы даже не дёрнулись."))
+		to_chat(user, span_notice("Как только вы зажгли [declent_ru(ACCUSATIVE)], [GEND_HIS_HER(user)] пламя окутывает вашу руку, но вы даже не дёрнулись."))
 	else
 		user.balloon_alert(user, "включено")
 		user.apply_damage(5, BURN, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)	//INFERNO
@@ -102,7 +102,6 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-
 /obj/item/lighter/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!lit)
 		return ..()
@@ -128,13 +127,12 @@
 	. = return_flags
 
 	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] доста[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_rose("[user] доста[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] и держ[PLUR_IT_AT(user)] [src.declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [GEND_HE_SHE(user)] прикурива[PLUR_ET_YUT(user)] [cig.declent_ru(ACCUSATIVE)]."))
 	else
-		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
+		cig.light(span_notice("[user] держ[PLUR_IT_AT(user)] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	target.update_worn_mask()
-
 
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
@@ -160,7 +158,7 @@
 		DATIVE = "зажигалке Зиппо",
 		ACCUSATIVE = "зажигалку Зиппо",
 		INSTRUMENTAL = "зажигалкой Зиппо",
-		PREPOSITIONAL = "зажигалке Зиппо"
+		PREPOSITIONAL = "зажигалке Зиппо",
 	)
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
@@ -174,7 +172,7 @@
 	. = ..()
 	user.balloon_alert(user, "включено")
 	if(world.time > next_on_message)
-		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[pluralize_ru(user.gender, "ет", "ют")] и зажига[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[PLUR_ET_YUT(user)] и зажига[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)]."))
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
 
@@ -184,7 +182,7 @@
 		return
 	user.balloon_alert(user, "выключено")
 	if(world.time > next_off_message)
-		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
+		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
@@ -210,7 +208,7 @@
 		DATIVE = "золотой зажигалке Зиппо",
 		ACCUSATIVE = "золотую зажигалку Зиппо",
 		INSTRUMENTAL = "золотой зажигалкой Зиппо",
-		PREPOSITIONAL = "золотой зажигалке Зиппо"
+		PREPOSITIONAL = "золотой зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/blue
@@ -228,7 +226,7 @@
 		DATIVE = "синей зажигалке Зиппо",
 		ACCUSATIVE = "синюю зажигалку Зиппо",
 		INSTRUMENTAL = "синей зажигалкой Зиппо",
-		PREPOSITIONAL = "синей зажигалке Зиппо"
+		PREPOSITIONAL = "синей зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/black
@@ -246,7 +244,7 @@
 		DATIVE = "чёрной зажигалке Зиппо",
 		ACCUSATIVE = "чёрную зажигалку Зиппо",
 		INSTRUMENTAL = "чёрной зажигалкой Зиппо",
-		PREPOSITIONAL = "чёрной зажигалке Зиппо"
+		PREPOSITIONAL = "чёрной зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/engraved
@@ -264,7 +262,7 @@
 		DATIVE = "гравированной зажигалке Зиппо",
 		ACCUSATIVE = "гравированную зажигалку Зиппо",
 		INSTRUMENTAL = "гравированной зажигалкой Зиппо",
-		PREPOSITIONAL = "гравированной зажигалке Зиппо"
+		PREPOSITIONAL = "гравированной зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/gonzofist
@@ -282,7 +280,7 @@
 		DATIVE = "зажигалке Зиппо с кулаком Гонзо",
 		ACCUSATIVE = "зажигалку Зиппо с кулаком Гонзо",
 		INSTRUMENTAL = "зажигалкой Зиппо с кулаком Гонзо",
-		PREPOSITIONAL = "зажигалке Зиппо с кулаком Гонзо"
+		PREPOSITIONAL = "зажигалке Зиппо с кулаком Гонзо",
 	)
 
 /obj/item/lighter/zippo/cap
@@ -300,7 +298,7 @@
 		DATIVE = "зажигалке Зиппо Капитана",
 		ACCUSATIVE = "зажигалку Зиппо Капитана",
 		INSTRUMENTAL = "зажигалкой Зиппо Капитана",
-		PREPOSITIONAL = "зажигалке Зиппо Капитана"
+		PREPOSITIONAL = "зажигалке Зиппо Капитана",
 	)
 
 /obj/item/lighter/zippo/hop
@@ -318,9 +316,8 @@
 		DATIVE = "зажигалке Зиппо Главы Персонала",
 		ACCUSATIVE = "зажигалку Зиппо Главы Персонала",
 		INSTRUMENTAL = "зажигалкой Зиппо Главы Персонала",
-		PREPOSITIONAL = "зажигалке Зиппо Главы Персонала"
+		PREPOSITIONAL = "зажигалке Зиппо Главы Персонала",
 	)
-
 
 /obj/item/lighter/zippo/hos
 	name = "Head of Security zippo"
@@ -337,7 +334,7 @@
 		DATIVE = "зажигалке Зиппо Главы Службы Безопасности",
 		ACCUSATIVE = "зажигалку Зиппо Главы Службы Безопасности",
 		INSTRUMENTAL = "зажигалкой Зиппо Главы Службы Безопасности",
-		PREPOSITIONAL = "зажигалке Зиппо Главы Службы Безопасности"
+		PREPOSITIONAL = "зажигалке Зиппо Главы Службы Безопасности",
 	)
 
 /obj/item/lighter/zippo/cmo
@@ -355,7 +352,7 @@
 		DATIVE = "зажигалке Зиппо Главного Врача",
 		ACCUSATIVE = "зажигалку Зиппо Главного Врача",
 		INSTRUMENTAL = "зажигалкой Зиппо Главного Врача",
-		PREPOSITIONAL = "зажигалке Зиппо Главного Врача"
+		PREPOSITIONAL = "зажигалке Зиппо Главного Врача",
 	)
 
 /obj/item/lighter/zippo/ce
@@ -373,7 +370,7 @@
 		DATIVE = "зажигалке Зиппо Старшего Инженера",
 		ACCUSATIVE = "зажигалку Зиппо Старшего Инженера",
 		INSTRUMENTAL = "зажигалкой Зиппо Старшего Инженера",
-		PREPOSITIONAL = "зажигалке Зиппо Старшего Инженера"
+		PREPOSITIONAL = "зажигалке Зиппо Старшего Инженера",
 	)
 
 /obj/item/lighter/zippo/rd
@@ -391,7 +388,7 @@
 		DATIVE = "зажигалке Зиппо Научного Руководителя",
 		ACCUSATIVE = "зажигалку Зиппо Научного Руководителя",
 		INSTRUMENTAL = "зажигалкой Зиппо Научного Руководителя",
-		PREPOSITIONAL = "зажигалке Зиппо Научного Руководителя"
+		PREPOSITIONAL = "зажигалке Зиппо Научного Руководителя",
 	)
 
 /obj/item/lighter/zippo/qm
@@ -409,7 +406,7 @@
 		DATIVE = "зажигалке Зиппо Квартирмейстера",
 		ACCUSATIVE = "зажигалку Зиппо Квартирмейстера",
 		INSTRUMENTAL = "зажигалкой Зиппо Квартирмейстера",
-		PREPOSITIONAL = "зажигалке Зиппо Квартирмейстера"
+		PREPOSITIONAL = "зажигалке Зиппо Квартирмейстера",
 	)
 
 /obj/item/lighter/zippo/detective
@@ -427,7 +424,7 @@
 		DATIVE = "зажигалке Зиппо детектива",
 		ACCUSATIVE = "зажигалку Зиппо детектива",
 		INSTRUMENTAL = "зажигалкой Зиппо детектива",
-		PREPOSITIONAL = "зажигалке Зиппо детектива"
+		PREPOSITIONAL = "зажигалке Зиппо детектива",
 	)
 
 /obj/item/lighter/zippo/contractor
@@ -445,7 +442,7 @@
 		DATIVE = "зажигалке Зиппо контрактора",
 		ACCUSATIVE = "зажигалку Зиппо контрактора",
 		INSTRUMENTAL = "зажигалкой Зиппо контрактора",
-		PREPOSITIONAL = "зажигалке Зиппо контрактора"
+		PREPOSITIONAL = "зажигалке Зиппо контрактора",
 	)
 
 //Ninja-Zippo//
@@ -467,7 +464,7 @@
 		DATIVE = "зажигалке Зиппо \"Шиноби в рисовом поле\"",
 		ACCUSATIVE = "зажигалку Зиппо \"Шиноби в рисовом поле\"",
 		INSTRUMENTAL = "зажигалкой Зиппо \"Шиноби в рисовом поле\"",
-		PREPOSITIONAL = "зажигалке Зиппо \"Шиноби в рисовом поле\""
+		PREPOSITIONAL = "зажигалке Зиппо \"Шиноби в рисовом поле\"",
 	)
 
 ///////////
@@ -496,9 +493,8 @@
 		DATIVE = "спичке",
 		ACCUSATIVE = "спичку",
 		INSTRUMENTAL = "спичкой",
-		PREPOSITIONAL = "спичке"
+		PREPOSITIONAL = "спичке",
 	)
-
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
@@ -508,22 +504,18 @@
 	if(location)
 		location.hotspot_expose(700, 5)
 
-
 /obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	matchignite()
-
 
 /obj/item/match/extinguish_light(force = FALSE)
 	if(!force)
 		return
 	matchburnout()
 
-
 /obj/item/match/update_icon_state()
 	icon_state = lit ? "match_lit" : "match_burnt"
 	item_state = lit ? "match_lit" : "match_burnt"
-
 
 /obj/item/match/update_name(updates = ALL)
 	. = ..()
@@ -547,8 +539,6 @@
 		if(!lit && !burnt)
 			ru_names = get_ru_names_cached()
 
-
-
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
 	desc = lit ? "[capitalize(declent_ru(NOMINATIVE))], охваченная пламенем." : burnt ? "[capitalize(declent_ru(NOMINATIVE))]. Повидала всякое." : initial(desc)
@@ -567,7 +557,6 @@
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
 
-
 /obj/item/match/proc/matchburnout()
 	if(lit)
 		lit = FALSE
@@ -579,11 +568,9 @@
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
 
-
 /obj/item/match/dropped(mob/user, slot, silent = FALSE)
 	matchburnout()
 	. = ..()
-
 
 /obj/item/match/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!lit)
@@ -611,16 +598,15 @@
 
 	if(istype(src, /obj/item/match/unathi))
 		if(prob(50))
-			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)], чуть не опалив [genderize_ru(target.gender, "его", "её", "его", "их")] лицо!"))
+			cig.light(span_rose("[user] изверга[PLUR_ET_YUT(user)] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[PLUR_ET_YUT(user)] [cig.declent_ru(ACCUSATIVE)], чуть не опалив [GEND_HIS_HER(target)] лицо!"))
 			matchburnout()
 		else
-			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] , опаливая [genderize_ru(target.gender, "его", "её", "его", "их")] лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."))
+			cig.light(span_rose("[user] изверга[PLUR_ET_YUT(user)] пламя на [target.declent_ru(ACCUSATIVE)] , опаливая [GEND_HIS_HER(target)] лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."))
 			target.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
 			playsound(src, 'sound/effects/unathiignite.ogg', 40, FALSE)
 	else
-		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_notice("[user] держ[PLUR_IT_AT(user)] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажига[PLUR_ET_YUT(user)] [cig.declent_ru(ACCUSATIVE)]."))
 		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(burnt)
@@ -629,12 +615,10 @@
 		return TRUE
 	return ..()
 
-
 /obj/item/proc/help_light_cig(mob/living/M)
 	var/mask_item = M.get_item_by_slot(ITEM_SLOT_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
-
 
 /obj/item/match/firebrand
 	name = "firebrand"
@@ -648,13 +632,12 @@
 		DATIVE = "лучине",
 		ACCUSATIVE = "лучину",
 		INSTRUMENTAL = "лучиной",
-		PREPOSITIONAL = "лучине"
+		PREPOSITIONAL = "лучине",
 	)
 
 /obj/item/match/firebrand/Initialize(mapload)
 	. = ..()
 	matchignite()
-
 
 /obj/item/match/unathi
 	name = "small blaze"
@@ -673,25 +656,21 @@
 		DATIVE = "маленькому пламени",
 		ACCUSATIVE = "маленькое пламея",
 		INSTRUMENTAL = "маленьким пламенем",
-		PREPOSITIONAL = "маленьком плами"
+		PREPOSITIONAL = "маленьком плами",
 	)
-
 
 /obj/item/match/unathi/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/match/unathi/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return	// we are already burning
-
 
 /obj/item/match/unathi/matchburnout()
 	if(!lit)
 		return
 	lit = FALSE //to avoid a qdel loop
 	qdel(src)
-
 
 /obj/item/match/unathi/Destroy()
 	. = ..()

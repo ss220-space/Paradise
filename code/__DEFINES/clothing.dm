@@ -153,7 +153,6 @@
 #define MATERIAL_CLASS_TECH (1<<2)
 #define MATERIAL_CLASS_SOAP (1<<3)
 
-
 //These defines used in sprites, keep in touch with "Slot defines" above if needed
 #define ITEM_SLOT_EAR_LEFT_STRING "left_ear"
 #define ITEM_SLOT_EAR_RIGHT_STRING "right_ear"

@@ -40,7 +40,6 @@
 		return steps.len
 	return 0
 
-
 /datum/construction/proc/custom_action(step, used_atom, user)
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
@@ -74,7 +73,6 @@
 				spawn_result(user)
 			return 1
 	return 0
-
 
 /datum/construction/proc/spawn_result(mob/user as mob)
 	if(result)

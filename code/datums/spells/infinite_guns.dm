@@ -7,10 +7,8 @@
 
 	action_icon_state = "bolt_action"
 
-
 /obj/effect/proc_holder/spell/infinite_guns/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/infinite_guns/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/C in targets)

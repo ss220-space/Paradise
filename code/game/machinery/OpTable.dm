@@ -23,7 +23,7 @@
 		DATIVE = "операционному столу",
 		ACCUSATIVE = "операционный стол",
 		INSTRUMENTAL = "операционным столом",
-		PREPOSITIONAL = "операционном столе"
+		PREPOSITIONAL = "операционном столе",
 	)
 
 /obj/machinery/optable/Initialize(mapload)
@@ -40,7 +40,6 @@
 		computer = null
 	patient = null
 	return ..()
-
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
@@ -67,10 +66,8 @@
 	if(!no_icon_updates)
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/optable/update_icon_state()
 	icon_state = "table2-[(patient?.pulse) ? "active" : "idle"]"
-
 
 /obj/machinery/optable/process()
 	update_patient()
@@ -87,12 +84,12 @@
 
 	if(new_patient == user)
 		user.visible_message(
-			"[user] забира[pluralize_ru(user.gender, "ет", "ют")]ся на [declent_ru(ACCUSATIVE)].",
+			"[user] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)].",
 			"Вы забираетесь на на [declent_ru(ACCUSATIVE)]."
 		)
 	else
 		visible_message(
-			span_alert("[user] укладыва[pluralize_ru(user.gender, "ет", "ют")] [new_patient] на [declent_ru(ACCUSATIVE)]."),
+			span_alert("[user] укладыва[PLUR_ET_YUT(user)] [new_patient] на [declent_ru(ACCUSATIVE)]."),
 			span_alert("Вы укладываете [new_patient] на [declent_ru(ACCUSATIVE)].")
 		)
 	if(user.pulling == new_patient)
@@ -110,7 +107,6 @@
 		return .
 	add_fingerprint(grabber)
 	take_patient(grabbed_thing, grabber)
-
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE

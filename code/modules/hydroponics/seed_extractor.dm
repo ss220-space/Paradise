@@ -36,7 +36,6 @@
 
 	return 0
 
-
 /obj/machinery/seed_extractor
 	name = "seed extractor"
 	desc = "Extracts and bags seeds from produce."
@@ -67,7 +66,6 @@
 		max_seeds = 1000 * B.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		seed_multiplier = M.rating
-
 
 /obj/machinery/seed_extractor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -114,18 +112,14 @@
 
 	return ..()
 
-
 /obj/machinery/seed_extractor/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", I)
-
 
 /obj/machinery/seed_extractor/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
 
-
 /obj/machinery/seed_extractor/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/seed_extractor/attack_ai(mob/user)
 	ui_interact(user)
@@ -192,7 +186,6 @@
 			O.forceMove(loc)
 			amount_dispensed++
 
-
 /obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/seed, mob/user)
 	if(!seed || (user && !ishuman(user) && !Adjacent(user)))
 		return FALSE
@@ -224,7 +217,6 @@
 	if(seed.loc != src)
 		seed.forceMove(src)
 	return TRUE
-
 
 /obj/machinery/seed_extractor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -144,7 +144,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		if(PLURAL)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
 
-
 	UpdateUI()
 
 // Set a DNA UI block's raw value.
@@ -192,7 +191,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 	return UI[block] > 2050
 
-
 // Set UI gene "on" (1) or "off" (0)
 /datum/dna/proc/SetUIState(block, on, defer = FALSE)
 	if(block <= 0)
@@ -232,7 +230,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		if(2)
 			val = rand(2761, 4095)
 	SetUIValue(block, val, defer)
-
 
 // Get a hex-encoded UI block.
 /datum/dna/proc/GetUIBlock(block)
@@ -276,7 +273,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			continue
 		SetSEValue(i, rand(1, 1024), 1)
 	UpdateSE()
-
 
 // Set a DNA SE block's raw value.
 /datum/dna/proc/SetSEValue(block, value, defer = FALSE)
@@ -366,7 +362,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			newBlock += copytext(oldBlock, i, i + 1)
 	//testing("SetSESubBlock([block],[subBlock],[newSubBlock],[defer]): [oldBlock] -> [newBlock]")
 	SetSEBlock(block, newBlock, defer)
-
 
 /proc/EncodeDNABlock(value)
 	return uppertext(add_zero2(num2hex(value, 1), 3))

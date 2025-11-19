@@ -87,7 +87,6 @@
 				RangedAttack(A, params)
 	return
 
-
 /mob/living/silicon/robot/cogscarab/ShiftClickOn(atom/A)
 	A.ShiftClick(src)
 	return

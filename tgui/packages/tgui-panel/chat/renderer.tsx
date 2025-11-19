@@ -228,7 +228,7 @@ class ChatRenderer {
 
   assignStyle(style = {}) {
     for (let key of Object.keys(style)) {
-      this.rootNode.style.setProperty(key, style[key]);
+      this.rootNode.style[key] = style[key];
     }
   }
 

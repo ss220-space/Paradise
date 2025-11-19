@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 		. |= ATTACK_CHAIN_SUCCESS
 		victim.revive()
 		add_attack_logs(user, victim, "infernally revived via contract")
-		user.visible_message(span_notice("Внезапно вспыхнуло пламя, и [victim.declent_ru(NOMINATIVE)] [genderize_ru(victim.gender, "восстал", "восстала", "восстало", "восстали")]."))
+		user.visible_message(span_notice("Внезапно вспыхнуло пламя, и [victim.declent_ru(NOMINATIVE)] восстал[GEND_A_O_I(victim)]."))
 		victim.fakefire()
 		contract.fulfill_contract(victim)
 		spawn(5)
@@ -263,7 +263,6 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	var/obj/effect/proc_holder/spell/lichdom/spell = new(null)
 	spell.create_lich(user)
 	qdel(spell)
-
 
 /datum/devil_contract/gun
 	name = "контракт оружия"

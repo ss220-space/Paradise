@@ -10,10 +10,8 @@ SUBSYSTEM_DEF(lighting)
 	var/static/list/corners_queue = list() // List of lighting corners queued for update.
 	var/static/list/objects_queue = list() // List of lighting objects queued for update.
 
-
 /datum/controller/subsystem/lighting/get_stat_details()
 	return "L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]"
-
 
 /datum/controller/subsystem/lighting/Initialize()
 	if(!initialized)
@@ -22,7 +20,6 @@ SUBSYSTEM_DEF(lighting)
 
 	fire(FALSE, TRUE)
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
 	MC_SPLIT_TICK_INIT(3)
@@ -82,7 +79,6 @@ SUBSYSTEM_DEF(lighting)
 		queue.Cut(1, i + 1)
 		i = 0
 
-
 	if(!init_tick_checks)
 		MC_SPLIT_TICK
 
@@ -108,7 +104,6 @@ SUBSYSTEM_DEF(lighting)
 			break
 	if(i)
 		queue.Cut(1, i + 1)
-
 
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized

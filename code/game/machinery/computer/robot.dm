@@ -95,8 +95,6 @@
 		return FALSE
 	return TRUE
 
-
-
 /**
  * Check if the user is the right kind of entity to be able to hack borgs
  *
@@ -113,7 +111,6 @@
 	if(!isAI(user))
 		return FALSE
 	return (user.mind.special_role && user.mind.is_original_mob(user))
-
 
 /**
  * Check if the user is allowed to hack a specific borg
@@ -134,7 +131,6 @@
 	if(R.connected_ai != user)
 		return FALSE
 	return TRUE
-
 
 /obj/machinery/computer/robotics/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

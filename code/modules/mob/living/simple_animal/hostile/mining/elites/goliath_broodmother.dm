@@ -39,10 +39,12 @@
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 	tts_seed = "Azalina"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
-								/datum/action/innate/elite_attack/spawn_children,
-								/datum/action/innate/elite_attack/rage,
-								/datum/action/innate/elite_attack/call_children)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/tentacle_patch,
+		/datum/action/innate/elite_attack/spawn_children,
+		/datum/action/innate/elite_attack/rage,
+		/datum/action/innate/elite_attack/call_children,
+	)
 
 	var/rand_tent = 0
 	var/list/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/children_list = list()
@@ -54,9 +56,8 @@
 		DATIVE = "матке голиафов",
 		ACCUSATIVE = "матку голиафов",
 		INSTRUMENTAL = "маткой голиафов",
-		PREPOSITIONAL = "матке голиафов"
+		PREPOSITIONAL = "матке голиафов",
 	)
-
 
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Поле из щупалец"
@@ -201,8 +202,6 @@
 					child.friends += mob
 			to_chat(src, span_notice("Вы добавили [mob.declent_ru(ACCUSATIVE)] в список друзей."))
 
-
-
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child
 	name = "baby goliath"
@@ -234,7 +233,7 @@
 		DATIVE = "детёнышу голиафа",
 		ACCUSATIVE = "детёныша голиафа",
 		INSTRUMENTAL = "детёнышем голиафа",
-		PREPOSITIONAL = "детёныше голиафа"
+		PREPOSITIONAL = "детёныше голиафа",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/Destroy()
@@ -242,7 +241,6 @@
 		mother.children_list -= src
 	mother = null
 	return ..()
-
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death(gibbed)
 	. = ..()
@@ -253,7 +251,6 @@
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)
-
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother
 	var/damage = 25
@@ -315,7 +312,7 @@
 		DATIVE = "материнскому языку",
 		ACCUSATIVE = "материнский язык",
 		INSTRUMENTAL = "материнским языком",
-		PREPOSITIONAL = "материнском языке"
+		PREPOSITIONAL = "материнском языке",
 	)
 
 /obj/item/crusher_trophy/broodmother_tongue/effect_desc()
@@ -340,7 +337,6 @@
 	addtimer(TRAIT_CALLBACK_REMOVE(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT), 20 SECONDS)
 	to_chat(user, span_notice("Вы сжимаете <b>[declent_ru(ACCUSATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
 	use_time = world.time + 60 SECONDS
-
 
 #undef TENTACLE_PATCH
 #undef SPAWN_CHILDREN

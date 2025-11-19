@@ -123,11 +123,9 @@
 	Goto(where, move_to_delay)
 	addtimer(CALLBACK(src, PROC_REF(start_automated_movement)), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 
-
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/start_automated_movement()
 	GLOB.move_manager.stop_looping(src)
 	stop_automated_movement = FALSE
-
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
@@ -196,7 +194,6 @@
 				new /obj/structure/spider/stickyweb(T)
 			busy = 0
 			stop_automated_movement = 0
-
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/Wrap()
 	set name = "Wrap"

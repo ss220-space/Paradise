@@ -1,6 +1,5 @@
 // String identifiers for associative list lookup
 
-
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
 /// Ignores any restrictions (except flag MUTCHK_IGNORE_DEFAULT) while we are making gene checks
@@ -31,7 +30,6 @@
 
 // If you add new disability, modify this value
 #define DISABILITY_MAX ((1<<19) - 1)
-
 
 // Nutrition levels for humans. No idea where else to put it
 // Number stands for the upper limit, reaching the number increases the nutrition level (349 - LEVEL_FED, 350 -> WELL_FED)

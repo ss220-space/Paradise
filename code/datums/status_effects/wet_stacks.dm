@@ -33,7 +33,6 @@
 		return TRUE
 	return FALSE
 
-
 /datum/status_effect/stacking/wet/add_stacks(stacks_added) //Adjusting the amount of fire_stacks we have on person
 	if(HAS_TRAIT(owner, TRAIT_WET_IMMUNITY))
 		return
@@ -45,7 +44,6 @@
 		DryMob()
 	else
 		WetMob()
-
 
 /datum/status_effect/stacking/wet/proc/DryMob()
 	var/slippery = owner.GetComponent(/datum/component/slippery)

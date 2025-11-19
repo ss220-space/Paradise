@@ -19,7 +19,7 @@
 		/obj/item/stock_parts/capacitor/super = 8,
 		/obj/item/stock_parts/micro_laser/ultra = 2,
 		/obj/item/stock_parts/scanning_module/phasic = 10,
-		/obj/item/stack/ore/bluespace_crystal = 4
+		/obj/item/stack/ore/bluespace_crystal = 4,
 	)
 
 /obj/machinery/power/brs_stationary_scanner
@@ -166,16 +166,13 @@
 
 	icon_state = "[prefix]-act"
 
-
 /obj/machinery/brs_stationary_scanner/update_overlays()
 	. = ..()
 	if(panel_open)
 		. += image(icon, "[initial(icon_state)]-panel")
 
-
 /obj/machinery/power/brs_stationary_scanner/power_change(forced = FALSE)
 	return
-
 
 /obj/machinery/power/brs_stationary_scanner/proc/on_power_change()
 	if(!cable_powered)
@@ -197,7 +194,7 @@
 
 	// It's a large machine, add a delay
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "за" : "от"]кручивать панель [src].",
+		"[user] начина[PLUR_ET_YUT(user)] [panel_open ? "за" : "от"]кручивать панель [src].",
 		"Вы начинаете [panel_open ? "за" : "от"]кручивать панель [src]."
 	)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
@@ -214,7 +211,7 @@
 		return
 
 	// It's a large machine, add a delay
-	user.visible_message("[user] начина[pluralize_ru(user.gender, "ет", "ют")] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_YUT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 

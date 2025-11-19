@@ -17,7 +17,6 @@
 	update_appearance()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 
-
 /obj/vehicle/ridden/janicart/Destroy()
 	if(trash_bag)
 		QDEL_NULL(trash_bag)
@@ -32,7 +31,6 @@
 		for(var/obj/effect/check in loc)
 			if(check.is_cleanable())
 				qdel(check)
-
 
 /obj/vehicle/ridden/janicart/examine(mob/user)
 	. = ..()
@@ -80,7 +78,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	else
 		return ..()
-
 
 /obj/vehicle/ridden/janicart/update_overlays()
 	. = ..()

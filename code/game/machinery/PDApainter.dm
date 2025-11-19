@@ -13,7 +13,6 @@
 	var/statusLabelCooldownTimeSecondsToAdd = 20 // 20 deciseconds = 2 seconds, 1sec = 0.1 decisecond
 	var/allowErasePda = TRUE
 
-
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
 
@@ -42,11 +41,9 @@
 	new_color_list = sortAssoc(new_color_list)
 	colorlist = new_color_list
 
-
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
 	return ..()
-
 
 /obj/machinery/pdapainter/update_icon_state()
 	if(stat & BROKEN)
@@ -58,14 +55,12 @@
 	else
 		icon_state = "[base_icon_state]-off"
 
-
 /obj/machinery/pdapainter/update_overlays()
 	. = ..()
 	if(stat & BROKEN)
 		return
 	if(storedpda)
 		. += "[base_icon_state]-closed"
-
 
 /obj/machinery/pdapainter/on_deconstruction()
 	if(storedpda)
@@ -82,11 +77,9 @@
 		storedpda = null
 		update_icon()
 
-
 /obj/machinery/pdapainter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
-
 
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -104,7 +97,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/pdapainter/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -129,13 +121,10 @@
 
 	ui_interact(user)
 
-
 /obj/machinery/pdapainter/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon()
-
-
 
 // TGUI Related.
 

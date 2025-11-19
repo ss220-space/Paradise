@@ -116,8 +116,6 @@
 /area/mine/podbay
 	name = "Mining Podbay"
 
-
-
 /**********************Lavaland Areas**************************/
 
 /area/lavaland

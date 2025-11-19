@@ -2,5 +2,5 @@
 	keep_local_name = TRUE
 	// legacy = TRUE
 	assets = list(
-		"safe_dial.png" = 'icons/obj/safe_dial.png'
+		"safe_dial.png" = 'icons/obj/safe_dial.png',
 	)

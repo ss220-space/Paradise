@@ -30,7 +30,6 @@
 	using.screen_loc = ui_back
 	static_inventory += using
 
-
 //HUD BUTTONS
 
 /atom/movable/screen/guardian
@@ -77,7 +76,6 @@
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Communicate()
-
 
 /atom/movable/screen/guardian/ToggleLight
 	icon_state = "light"

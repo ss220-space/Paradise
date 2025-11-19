@@ -60,7 +60,6 @@
 /obj/structure/transit_tube/station/should_stop_pod(pod, from_dir)
 	return TRUE
 
-
 /obj/structure/transit_tube/station/Bumped(mob/living/moving_living, skip_effect = FALSE)
 	. = ..()
 	if(skip_effect || pod_moving || moving_living.dir != boarding_dir || hatch_state != TRANSIT_TUBE_OPEN || !isliving(moving_living) || is_type_in_list(moving_living, disallowed_mobs))
@@ -72,7 +71,6 @@
 		if(!pod.moving && ((pod.dir in directions()) || (reverse_launch && (turn(pod.dir, 180) in directions()))))
 			pod.move_into(moving_living)
 			break
-
 
 /obj/structure/transit_tube/station/attack_hand(mob/user)
 	if(pod_moving)
@@ -98,7 +96,6 @@
 			var/mob/living/L = AM
 			L.Weaken(10 SECONDS)
 
-
 /obj/structure/transit_tube/station/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || hatch_state != TRANSIT_TUBE_OPEN || !isliving(grabbed_thing))
@@ -110,7 +107,6 @@
 			target.Weaken(10 SECONDS)
 			Bumped(target)
 		break
-
 
 /obj/structure/transit_tube/station/proc/open_hatch()
 	if(hatch_state == TRANSIT_TUBE_CLOSED)
@@ -238,7 +234,6 @@
 			return TRUE
 	return FALSE
 
-
 /obj/structure/transit_tube/station/dispenser/Bumped(mob/living/moving_living, skip_effect = TRUE)
 	. = ..()
 	if(!isliving(moving_living) || moving_living.dir != boarding_dir || moving_living.anchored || is_type_in_list(moving_living, disallowed_mobs))
@@ -249,7 +244,6 @@
 	pod.dir = turn(dir, -90)
 	pod.move_into(moving_living)
 	launch_pod()
-
 
 /obj/structure/transit_tube/station/dispenser/pod_stopped(obj/structure/transit_tube_pod/pod)
 	playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
@@ -278,7 +272,6 @@
 /obj/structure/transit_tube/station/dispenser/reverse/flipped/init_tube_dirs()
 	..()
 	boarding_dir = dir
-
 
 #undef CLOSE_DURATION
 #undef OPEN_DURATION

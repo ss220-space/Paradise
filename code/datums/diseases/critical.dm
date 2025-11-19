@@ -165,7 +165,6 @@
 	stage_prob = 1
 	cure_text = "Приём пищи или введение витаминов и питательных веществ"
 
-
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(HAS_TRAIT(affected_mob, TRAIT_NO_HUNGER) && !isvampire(affected_mob))
 		return TRUE
@@ -174,7 +173,6 @@
 		return TRUE
 
 	return ..()
-
 
 /datum/disease/critical/hypoglycemia/stage_act()
 	if(..())
