@@ -130,14 +130,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	update_sight()
 
 /mob/dead/observer/proc/cleanup_observe()
-	if(isnull(do_observe_target))
-		return
-	var/mob/target = do_observe_target
-	do_observe_target = null
 	client?.perspective = initial(client.perspective)
 	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
-	if(target)
-		hide_other_mob_action_buttons(target)
+	if(do_observe_target)
+		hide_other_mob_action_buttons(do_observe_target)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
