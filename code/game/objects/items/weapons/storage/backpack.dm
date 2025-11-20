@@ -37,15 +37,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 			if(!space_used)
-				. += span_notice("[declension_ru(NOMINATIVE)] пуст.")
+				. += span_notice("[declent_ru(NOMINATIVE)] пуст.")
 			else if(space_used <= max_combined_w_class*0.6)
-				. += span_notice("[declension_ru(NOMINATIVE)] ещё имеет много свободного места.")
+				. += span_notice("[declent_ru(NOMINATIVE)] ещё имеет много свободного места.")
 			else if(space_used <= max_combined_w_class*0.8)
-				. += span_notice("[declension_ru(NOMINATIVE)] начинает заполняться.")
+				. += span_notice("[declent_ru(NOMINATIVE)] начинает заполняться.")
 			else if(space_used < max_combined_w_class)
-				. += span_notice("[declension_ru(NOMINATIVE)] почти полон.")
+				. += span_notice("[declent_ru(NOMINATIVE)] почти полон.")
 			else
-				. += span_notice("[declension_ru(NOMINATIVE)] полностью заполнен.")
+				. += span_notice("[declent_ru(NOMINATIVE)] полностью заполнен.")
 
 /*
  * Backpack Types
