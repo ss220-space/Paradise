@@ -554,6 +554,17 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/eoka
+	name = "Eoka pistol"
+	result = /obj/item/gun/projectile/eoka
+	time = 10 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/metal = 5,
+	)
+	tools = list(TOOL_WELDER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/glove_balloon
 	name = "Latex Glove Balloon"
 	result = /obj/item/latexballon

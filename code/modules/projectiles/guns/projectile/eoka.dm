@@ -1,7 +1,7 @@
 /// Delay before shot (trigger process)
 #define EOKA_SHOT_DELAY (0.6 SECONDS)
 /// Repair broken eoka duration with welder
-#define EOKA_REPAIR_DURATION (8 SECONDS)
+#define EOKA_REPAIR_DURATION (5 SECONDS)
 /// Chance of process fire on trigger (after do_after delay)
 #define EOKA_SHOT_CHANCE 50
 // Shot modifiers chances
@@ -111,7 +111,9 @@
 	if(!do_after(user, EOKA_SHOT_DELAY, user, interaction_key = src, timed_action_flags = DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 		return
 	if(!prob(EOKA_SHOT_CHANCE)) //try again (with recusrion)
-		return process_fire(target, user, message, params, zone_override, bonus_spread)
+		. = process_fire(target, user, message, params, zone_override, bonus_spread)
+		unload_act(user)
+		return
 	if(prob(EOKA_BROKE_CHANCE))
 		playsound(src, 'sound/weapons/eoka/eoka-pistol-fire.wav', 100, TRUE)
 		broken = TRUE
