@@ -19,7 +19,7 @@
 	icon_state = "eoka"
 	item_state = "eoka"
 	mag_type = /obj/item/ammo_box/magazine/internal/eoka
-	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
+	fire_sound = 'sound/weapons/eoka/eoka-pistol-fire.wav'
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
 	accuracy = GUN_ACCURACY_MINIMAL
@@ -107,13 +107,13 @@
 	chambered = magazine.stored_ammo[1]
 
 /obj/item/gun/projectile/eoka/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	playsound(src, 'sound/weapons/eoka/eoka-pistol-charge.ogg', 100, TRUE)
 	if(!do_after(user, EOKA_SHOT_DELAY, user, interaction_key = src, timed_action_flags = DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 		return
-	if(!prob(EOKA_SHOT_CHANCE))
-		//try again (with recusrion)
+	if(!prob(EOKA_SHOT_CHANCE)) //try again (with recusrion)
 		return process_fire(target, user, message, params, zone_override, bonus_spread)
 	if(prob(EOKA_BROKE_CHANCE))
-		//TODO broke sound
+		playsound(src, 'sound/weapons/eoka/eoka-pistol-fire.wav', 100, TRUE)
 		broken = TRUE
 		QDEL_NULL(chambered.BB)
 		unload_act(user)
@@ -124,6 +124,7 @@
 		return
 	if(prob(EOKA_MISFIRE_CHANCE))
 		balloon_alert(user, "осечка!")
+		playsound(src, 'sound/weapons/eoka/eoka-pistol-trigger.wav', 100, TRUE)
 		return
 	. = ..()
 	unload_act(user)
@@ -133,7 +134,5 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	caliber = CALIBER_12X70
 	max_ammo = 1
-	insert_sound = 'sound/weapons/bombarda/load.ogg'
-	remove_sound = 'sound/weapons/bombarda/open.ogg'
-	load_sound = 'sound/weapons/bombarda/load.ogg'
+	insert_sound = 'sound/weapons/eoka/eoka-pistol-recharge.ogg'
 	start_empty = TRUE
