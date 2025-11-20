@@ -209,3 +209,20 @@
 		INSTRUMENTAL = "Гатлинг-пульсером",
 		PREPOSITIONAL = "Гатлинг-пульсере",
 	)
+
+/obj/item/gun/energy/nucle_inator
+	name = "Nucle-inator"
+	desc = "С виду похожа на разработку сумашедшего учёного и тут даже есть кнопка самоуничьтоженя с надписью 'НЕ РАБОТАЕТ'. Имеет два самовасстанавливающихся заряда и при стрельбе излучает радиацию особой интенсивности способная превратить любого органика в нуклеата менее чем за 30 секунд. В обратной стороне есть наклейка с напдисью 'производство Dufel.inc'"
+	item_state = "nucle_inator"
+	icon_state = "nucle_inator"
+	recharge_rate = 1000
+	selfcharge = TRUE
+	charge_delay = 20
+	ammo_type = list(/obj/item/ammo_casing/energy/nucle_transformer)
+	cell_type = /obj/item/stocl_parts/cell/nucle_inator_cell
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
+	origin_tech = "combat=5;magnets=7;powerstorage=7;illegal=5"
+	can_add_sibyl_system = FALSE
+	ammo_x_offset = 2
+	ratio = 2

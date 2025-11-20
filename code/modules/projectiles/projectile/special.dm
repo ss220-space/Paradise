@@ -719,3 +719,24 @@
 		name = limb.name
 		icon = limb.icobase
 		icon_state = limb.icon_name
+
+/obj/projectile/energy/nucle_transformer
+	name = "nucle transformation bolt"
+	icon_state = "nucle_transformer"
+	damage = 0
+	damage_type = TOX
+	nodamage = TRUE
+	flag = "energy"
+
+/obj/projectile/energy/nucle_transformer/on_hit(atom/target, blocked = 0, hit_zone)
+	if(!ishuman(target))
+		return FALSE
+
+	var/mob/living/carbon/human/M = target
+	if(HAS_TRAIT(M, TRAIT_NO_DNA))
+		return FALSE
+
+	var/datum/disease/virus/nuclefication/virus = new datum/disease/virus/nuclefication
+	virus.stage_prob = 20 // much faster progression
+	virus.Contract(M, need_protection_check = FALSE)
+	return TRUE

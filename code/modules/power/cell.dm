@@ -672,3 +672,8 @@
 		INSTRUMENTAL = "батареей А-",
 		PREPOSITIONAL = "батарее А-",
 	)
+
+/obj/item/stocl_parts/cell/nucle_inator_cell
+	name = "Nucle-inator power cell"
+	desc = "Специальный элемент питания, разработанный для Nucle-inator'а. Имеет два самовосстанавливающихся заряда."
+	maxcharge = 2000

@@ -59,3 +59,7 @@
 	select_name = "spraydown"
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	e_cost = 20
+
+/obj/item/ammo_casing/energy/nucle_transformer
+	projectile_type = /obj/projectile/energy/nucle_transformer
+	e_cost = 1000
