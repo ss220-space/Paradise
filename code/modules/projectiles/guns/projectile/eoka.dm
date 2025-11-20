@@ -138,3 +138,10 @@
 	max_ammo = 1
 	insert_sound = 'sound/weapons/eoka/eoka-pistol-recharge.ogg'
 	start_empty = TRUE
+
+#undef EOKA_SHOT_DELAY
+#undef EOKA_REPAIR_DURATION
+#undef EOKA_SHOT_CHANCE
+#undef EOKA_BROKE_CHANCE
+#undef EOKA_SELF_FIRE_CHANCE
+#undef EOKA_MISFIRE_CHANCE
