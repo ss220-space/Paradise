@@ -90,7 +90,7 @@
 		new buildstacktype(loc, buildstackamount)
 	..()
 
-/obj/structure/chair/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/structure/chair/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 			to_chat(usr, span_warning("You can't do that right now!"))

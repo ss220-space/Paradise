@@ -233,7 +233,7 @@
 /datum/action/innate/remove_hand
 	name = "Оторвать себе руку"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/human_races/r_human.dmi'
+	button_icon = 'icons/mob/human_races/r_human.dmi'
 	button_icon_state = "l_arm"
 
 /datum/action/innate/remove_hand/Grant(mob/user)
@@ -246,7 +246,7 @@
 		return
 	. = ..()
 
-/datum/action/innate/remove_hand/IsAvailable()
+/datum/action/innate/remove_hand/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!ishuman(owner))
 		return FALSE

@@ -565,15 +565,13 @@
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(!toggle_gunlight_action)
 			toggle_gunlight_action = new(src)
-			if(ismob(loc))
-				var/mob/user = loc
-				if(!(toggle_gunlight_action in user.actions))
-					toggle_gunlight_action.Grant(user)
+			add_item_action(toggle_gunlight_action)
 	else
 		verbs -= /obj/item/gun/proc/toggle_gunlight_verb
 
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(toggle_gunlight_action)
+			remove_item_action(toggle_gunlight_action)
 			qdel(toggle_gunlight_action)
 
 		if(.)
@@ -705,10 +703,10 @@
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/Trigger(left_click = TRUE)
+/datum/action/toggle_scope_zoom/Trigger(mob/clicker, trigger_flags)
 	gun.zoom(owner)
 
-/datum/action/toggle_scope_zoom/IsAvailable()
+/datum/action/toggle_scope_zoom/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!. && gun)
 		gun.zoom(owner, FALSE)

@@ -82,7 +82,7 @@
 	else
 		return
 
-/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params) //CHUG! CHUG! CHUG!
+/obj/item/reagent_containers/food/drinks/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!iscarbon(over_object) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return ..()
 	var/mob/living/carbon/chugger = over_object

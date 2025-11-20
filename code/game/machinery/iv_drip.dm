@@ -23,7 +23,7 @@
 			filling.icon += mix_color_from_reagents(bag.reagents.reagent_list)
 			. += filling
 
-/obj/machinery/iv_drip/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/machinery/iv_drip/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !ishuman(usr) || !ishuman(over_object) || !Adjacent(over_object) || !usr.Adjacent(over_object))
 		return FALSE
 
