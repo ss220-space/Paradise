@@ -21,7 +21,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/eoka
 	fire_sound = 'sound/weapons/eoka/eoka-pistol-fire.wav'
 	w_class = WEIGHT_CLASS_SMALL
-	weapon_weight = WEAPON_LIGHT
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
 	var/broken = FALSE
@@ -60,6 +59,7 @@
 	if(welder.use_tool(src, user, EOKA_REPAIR_DURATION, volume = welder.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		broken = FALSE
+		update_icon()
 
 /obj/item/gun/projectile/eoka/update_icon_state()
 	icon_state = initial(icon_state) + (broken ?  "-broken" : "")
