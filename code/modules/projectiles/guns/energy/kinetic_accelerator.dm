@@ -58,28 +58,8 @@
 		if(max_mod_capacity)
 			. += span_notice("Осталось <b>[get_remaining_mod_capacity()]%</b> емкости для модификаций.")
 			
-			var/list/modkit_groups = list()
 			for(var/obj/item/borg/upgrade/modkit/MK in get_modkits())
-				var/key = MK.name 
-				if(!modkit_groups[key])
-					modkit_groups[key] = list(
-						"count" = 0,
-						"total_cost" = 0,
-						"sample" = MK
-					)
-				modkit_groups[key]["count"] += 1
-				modkit_groups[key]["total_cost"] += MK.cost
-			
-			for(var/key in modkit_groups)
-				var/list/group = modkit_groups[key]
-				var/count = group["count"]
-				var/total_cost = group["total_cost"]
-				var/obj/item/borg/upgrade/modkit/sample = group["sample"]
-				
-				if(count == 1)
-					. += span_notice("Установлена [sample.declent_ru(NOMINATIVE)], занимающая <b>[total_cost]%</b> емкости.")
-				else		
-					. += span_notice("Установлено [count] [sample.declent_ru(GENITIVE)], занимающие <b>[total_cost]%</b> емкости.")
+				. += span_notice("Установлена [MK.declent_ru(NOMINATIVE)], занимающая <b>[MK.cost]%</b> емкости.")
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
