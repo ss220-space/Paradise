@@ -11,7 +11,7 @@
 	var/max_mobs = 5
 	var/spawn_time = 300 //30 seconds default
 	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
-	var/spawn_text = "emerges from"
+	var/spawn_text = "выходит из"
 	var/faction = list("hostile")
 	var/spawner_type = /datum/component/spawner
 	/// Is this spawner taggable with something?
@@ -36,7 +36,7 @@
 	if(gps_tagged)
 		. += span_notice("A holotag's been attached, projecting \"<b>[assigned_tag]</b>\".")
 	else
-		. += span_notice("It looks like you could probably scan and tag it with a <b>[scanner_descriptor]</b>.")
+		. += span_notice("Похоже, вы могли бы отсканировать его и пометить с помощью<b>шахтёрского сканера</b>.")
 
 /obj/structure/spawner/Initialize(mapload)
 	. = ..()
@@ -57,9 +57,9 @@
 /// Tag the spawner, prefixing its GPS entry with an identifier - or giving it one, if nonexistent.
 /obj/structure/spawner/proc/gps_tag(mob/user)
 	if(gps_tagged)
-		to_chat(user, span_warning("[src] already has a holotag attached!"))
+		to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже прикреплён голотег!"))
 		return
-	to_chat(user, span_notice("You affix a holotag to [src]."))
+	to_chat(user, span_notice("Вы прикрепляете голотег к [declent_ru(DATIVE)]."))
 	playsound(src, 'sound/machines/twobeep.ogg', 50)
 	gps_tagged = TRUE
 	assigned_tag = "\[[mob_gps_id]-[rand(100,999)]\] " + spawner_gps_id

@@ -47,7 +47,7 @@
 
 	if(user.internal == src)
 		if(!silent)
-			to_chat(user, span_notice("You close [src] valve."))
+			to_chat(user, span_notice("Вы закрываете клапан [declent_ru(GENITIVE)]."))
 		user.internal = null
 		user.update_action_buttons_icon()
 		return
@@ -73,14 +73,14 @@
 
 		if(!internals_allowed)
 			if(!silent)
-				to_chat(user, span_warning("You are not wearing a suitable mask or helmet."))
+				to_chat(user, span_warning("На вас не надета подходящая маска или шлем."))
 			return
 
 	if(!silent)
 		if(user.internal)
-			to_chat(user, span_notice("You switch your internals to [src]."))
+			to_chat(user, span_notice("Вы переключаете свой дыхательный аппарат на [declent_ru(ACCUSATIVE)]."))
 		else
-			to_chat(user, span_notice("You open [src] valve."))
+			to_chat(user, span_notice("Вы открываете клапан [declent_ru(GENITIVE)]."))
 
 	user.internal = src
 	user.update_action_buttons_icon()
@@ -97,27 +97,27 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += span_notice("It's \a [icon2html(icon, user)][src]! If you want any more information you'll need to get closer.")
+			. += span_notice("Это [icon2html(icon, user)] [declent_ru(NOMINATIVE)]! Для получения дополнительной информации нужно подойти ближе.")
 		return
 
 	var/celsius_temperature = air_contents.temperature - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
-		descriptive = "cold"
+		descriptive = "холодный"
 	else if(celsius_temperature < 40)
-		descriptive = "room temperature"
+		descriptive = "комнатной температуры"
 	else if(celsius_temperature < 80)
-		descriptive = "lukewarm"
+		descriptive = "тепловатый"
 	else if(celsius_temperature < 100)
-		descriptive = "warm"
+		descriptive = "тёплый"
 	else if(celsius_temperature < 300)
-		descriptive = "hot"
+		descriptive = "горячий"
 	else
-		descriptive = "furiously hot"
+		descriptive = "обжигающе горячий"
 
-	. += span_notice("[icon2html(icon, user)] [src] feels [descriptive]")
-	. += span_notice("The pressure gauge displays [round(air_contents.return_pressure())] kPa")
+	. += span_notice("[icon2html(icon, user)] [declent_ru(NOMINATIVE)] на ощупь [descriptive].")
+	. += span_notice("Манометр показывает [round(air_contents.return_pressure())] кПа.")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src))

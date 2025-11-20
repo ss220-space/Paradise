@@ -36,16 +36,16 @@
 	if(in_range(user, src))
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
-		if(!space_used)
-			. += span_notice(" [src] is empty.")
-		else if(space_used <= max_combined_w_class*0.6)
-			. += span_notice(" [src] still has plenty of remaining space.")
-		else if(space_used <= max_combined_w_class*0.8)
-			. += span_notice(" [src] is beginning to run out of space.")
-		else if(space_used < max_combined_w_class)
-			. += span_notice(" [src] doesn't have much space left.")
-		else
-			. += span_notice(" [src] is full.")
+			if(!space_used)
+				. += span_notice("[declension_ru(NOMINATIVE)] пуст.")
+			else if(space_used <= max_combined_w_class*0.6)
+				. += span_notice("[declension_ru(NOMINATIVE)] ещё имеет много свободного места.")
+			else if(space_used <= max_combined_w_class*0.8)
+				. += span_notice("[declension_ru(NOMINATIVE)] начинает заполняться.")
+			else if(space_used < max_combined_w_class)
+				. += span_notice("[declension_ru(NOMINATIVE)] почти полон.")
+			else
+				. += span_notice("[declension_ru(NOMINATIVE)] полностью заполнен.")
 
 /*
  * Backpack Types
@@ -208,9 +208,19 @@
 
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
-	desc = "A robust backpack for stashing your loot."
+	desc = "Прочный рюкзак для хранения вашей добычи."
 	icon_state = "explorerpack"
 	item_state = "explorerpack"
+
+/obj/item/storage/backpack/explorer/get_ru_names()
+	return list(
+		NOMINATIVE = "рюкзак исследователя",
+		GENITIVE = "рюкзака исследователя",
+		DATIVE = "рюкзаку исследователя",
+		ACCUSATIVE = "рюкзак исследователя",
+		INSTRUMENTAL = "рюкзаком исследователя",
+		PREPOSITIONAL = "рюкзаке исследователя"
+	)
 
 /obj/item/storage/backpack/botany
 	name = "botany backpack"
@@ -372,9 +382,19 @@
 
 /obj/item/storage/backpack/satchel_explorer
 	name = "explorer satchel"
-	desc = "A robust satchel for stashing your loot."
+	desc = "Прочная сумка для хранения вашей добычи."
 	icon_state = "satchel-explorer"
 	item_state = "securitypack"
+
+/obj/item/storage/backpack/satchel_explorer/get_ru_names()
+	return list(
+		NOMINATIVE = "сумка исследователя",
+		GENITIVE = "сумки исследователя",
+		DATIVE = "сумке исследователя",
+		ACCUSATIVE = "сумку исследователя",
+		INSTRUMENTAL = "сумкой исследователя",
+		PREPOSITIONAL = "сумке исследователя"
+	)
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
@@ -572,7 +592,17 @@ TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/mining_conscript
 	name = "mining conscription kit"
-	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
+	desc = "Набор, содержащий всё необходимое члену экипажа для поддержки шахтёра в полевых условиях."
+
+/obj/item/storage/backpack/duffel/mining_conscript/get_ru_names()
+	return list(
+		NOMINATIVE = "набор шахтёрского призывника",
+		GENITIVE = "набора шахтёрского призывника",
+		DATIVE = "набору шахтёрского призывника",
+		ACCUSATIVE = "набор шахтёрского призывника",
+		INSTRUMENTAL = "набором шахтёрского призывника",
+		PREPOSITIONAL = "наборе шахтёрского призывника"
+	)
 
 /obj/item/storage/backpack/duffel/mining_conscript/populate_contents()
 	new /obj/item/pickaxe/mini(src)
@@ -603,7 +633,17 @@ TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/vendor_ext
 	name = "extraction and rescue kit"
-	desc = "A kit containing everything to save your fellow miners from imminent death."
+	desc = "Набор, содержащий всё необходимое для спасения ваших товарищей-шахтёров от неминуемой смерти."
+
+/obj/item/storage/backpack/duffel/vendor_ext/get_ru_names()
+	return list(
+		NOMINATIVE = "набор для спасения и эвакуации",
+		GENITIVE = "набора для спасения и эвакуации",
+		DATIVE = "набору для спасения и эвакуации",
+		ACCUSATIVE = "набор для спасения и эвакуации",
+		INSTRUMENTAL = "набором для спасения и эвакуации",
+		PREPOSITIONAL = "наборе для спасения и эвакуации"
+	)
 
 /obj/item/storage/backpack/duffel/vendor_ext/populate_contents()
 	new /obj/item/extraction_pack(src)

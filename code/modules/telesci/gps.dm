@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
  */
 /obj/item/gps
 	name = "default gps"
-	desc = "Helping lost spacemen find their way through the planets since 2016."
+	desc = "Помогает потерявшимся космонавтам находить дорогу по планетам с 2016 года."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
 	w_class = WEIGHT_CLASS_SMALL
@@ -181,19 +181,19 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/mining
 	icon_state = "gps-m"
 	gpstag = "MINE0"
-	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+	desc = "Система позиционирования, полезная для спасения заблокированных или раненых шахтёров. Если носить её с собой во время работ, это может спасти вам жизнь."
 	tracking = FALSE
 
 /obj/item/gps/security
 	icon_state = "gps-r"
 	gpstag = "SEC0"
-	desc = "A positioning system helpful for monitoring prisoners that are implanted with a tracking implant."
+	desc = "Система позиционирования, полезная для отслеживания заключённых с имплантированными маячками."
 	local = TRUE
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
 	gpstag = "BORG0"
-	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
+	desc = "Внутренняя система позиционирования шахтёрского киборга. Используется как маяк для восстановления повреждённых киборгов или как инструмент кооперации для шахтёрских команд."
 
 /obj/item/gps/cyborg/Initialize(mapload)
 	. = ..()
@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-b"
 	local = TRUE
 	gpstag = "SBORG0"
-	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
+	desc = "Версия GPS для киборгов от Синдиката, которая показывает только своё местоположение на текущем Z-уровне."
 
 /obj/item/gps/syndiecyborg/Initialize(mapload)
 	. = ..()
@@ -229,11 +229,11 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/internal/mining
 	icon_state = "gps-m"
 	gpstag = "MINER"
-	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+	desc = "Система позиционирования, полезная для спасения заблокированных или раненых шахтёров. Если носить её с собой во время работ, это может спасти вам жизнь."
 
 /obj/item/gps/internal/base
 	gpstag = "NT_AUX"
-	desc = "A homing signal from Nanotrasen's mining base."
+	desc = "Наводящий сигнал с шахтёрского аванпоста НаноТрейзен."
 
 /obj/item/gps/visible_debug
 	name = "visible GPS"
@@ -272,10 +272,20 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gpsupgrade
 	name = "GPS upgrade"
-	desc = "A data cartridge for portable microcomputers."
+	desc = "Картридж с данными для улучшения системы GPS."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "cart-mine"
 	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/gpsupgrade/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль улучшения GPS",
+		GENITIVE = "модуля улучшения GPS",
+		DATIVE = "модулю улучшения GPS",
+		ACCUSATIVE = "модуль улучшения GPS",
+		INSTRUMENTAL = "модулем улучшения GPS",
+		PREPOSITIONAL = "модуле улучшения GPS"
+	)
 
 /obj/item/gps/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gpsupgrade))

@@ -5,12 +5,32 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Magmite ore"
 
+/obj/item/magmite/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменный магмит",
+		GENITIVE = "плазменного магмита",
+		DATIVE = "плазменному магмиту",
+		ACCUSATIVE = "плазменный магмит",
+		INSTRUMENTAL = "плазменным магмитом",
+		PREPOSITIONAL = "плазменном магмите"
+	)
+
 /obj/item/magmite_parts
 	name = "plasma magmite upgrade parts"
 	desc = "Выкованные на легендарной Мировой Кузне, эти детали можно использовать для улучшения различных видов шахтёрского оборудования."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "upgrade_parts"
 	var/inert = FALSE
+
+/obj/item/magmite_parts/get_ru_names()
+	return list(
+		NOMINATIVE = "детали для улучшения из плазменного магмита",
+		GENITIVE = "деталей для улучшения из плазменного магмита",
+		DATIVE = "деталям для улучшения из плазменного магмита",
+		ACCUSATIVE = "детали для улучшения из плазменного магмита",
+		INSTRUMENTAL = "деталями для улучшения из плазменного магмита",
+		PREPOSITIONAL = "деталях для улучшения из плазменного магмита"
+	)
 
 /obj/item/magmite_parts/Initialize(mapload)
 	. = ..()

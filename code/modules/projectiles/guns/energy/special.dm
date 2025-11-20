@@ -126,7 +126,7 @@
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
+	desc = "Оружие, ценимое синдикатскими спецами по скрытным операциям."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -143,9 +143,19 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/get_ru_names()
+	return list(
+		NOMINATIVE = "мини энерго-арбалет",
+		GENITIVE = "мини энерго-арбалета",
+		DATIVE = "мини энерго-арбалету",
+		ACCUSATIVE = "мини энерго-арбалет",
+		INSTRUMENTAL = "мини энерго-арбалетом",
+		PREPOSITIONAL = "мини энерго-арбалете"
+	)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
-	desc = "A reverse engineered weapon using syndicate technology."
+	desc = "Оружие, воссозданное по образцу технологий Синдиката."
 	icon_state = "crossbowlarge"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
@@ -153,6 +163,16 @@
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	accuracy = GUN_ACCURACY_RIFLE
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/large/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический арбалет",
+		GENITIVE = "энергетического арбалета",
+		DATIVE = "энергетическому арбалету",
+		ACCUSATIVE = "энергетический арбалет",
+		INSTRUMENTAL = "энергетическим арбалетом",
+		PREPOSITIONAL = "энергетическом арбалете"
+	)
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/toy
 	name = "toy energy crossbow"
@@ -165,6 +185,16 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/bolttoy)
 	accuracy = GUN_ACCURACY_DEFAULT
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/toy/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушечный энерго-арбалет",
+		GENITIVE = "игрушечного энерго-арбалета",
+		DATIVE = "игрушечному энерго-арбалету",
+		ACCUSATIVE = "игрушечный энерго-арбалет",
+		INSTRUMENTAL = "игрушечным энерго-арбалетом",
+		PREPOSITIONAL = "игрушечном энерго-арбалете"
+	)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
 	origin_tech = null
@@ -174,7 +204,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
-	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+	user.visible_message(span_suicide("[user] взводит [declent_ru(ACCUSATIVE)] и приставляет его к своему виску! Похоже [GEND_HE_SHE_CAP(user)] пытается покончить с собой!</b>"))
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 

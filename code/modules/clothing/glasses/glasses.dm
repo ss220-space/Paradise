@@ -78,7 +78,7 @@
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
-	desc = "Used for seeing walls, floors, and stuff through anything."
+	desc = "Позволяет видеть стены, полы и объекты сквозь любые препятствия."
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
@@ -98,6 +98,16 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
+/obj/item/clothing/glasses/meson/get_ru_names()
+	return list(
+		NOMINATIVE = "оптический мезонный сканер",
+		GENITIVE = "оптического мезонного сканера",
+		DATIVE = "оптическому мезонному сканеру",
+		ACCUSATIVE = "оптический мезонный сканер",
+		INSTRUMENTAL = "оптическим мезонным сканером",
+		PREPOSITIONAL = "оптическом мезонном сканере"
+	)
+
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "Meson Sunglasses"
 	desc = "An Optical Meson Scanner that protects your eyes"
@@ -114,7 +124,7 @@
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
-	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
+	desc = "Оптический мезонный сканер с усиленным наложением видимого спектра, обеспечивающий лучшую чёткость изображения в темноте."
 	icon_state = "nvgmeson"
 	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
@@ -122,20 +132,40 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	prescription_upgradable = FALSE
 
+/obj/item/clothing/glasses/meson/night/get_ru_names()
+	return list(
+		NOMINATIVE = "ночной оптический мезонный сканер",
+		GENITIVE = "ночного оптического мезонного сканера",
+		DATIVE = "ночному оптическому мезонному сканеру",
+		ACCUSATIVE = "ночной оптический мезонный сканер",
+		INSTRUMENTAL = "ночным оптическим мезонным сканером",
+		PREPOSITIONAL = "очном оптическом мезонном сканере"
+	)
+
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
+	desc = "Сделай невозможное, увидь невидимое!"
 	icon_state = "garm"
 	item_state = "garm"
-	desc = "Do the impossible, see the invisible!"
 	force = 10
 	throwforce = 10
 	throw_speed = 4
 	attack_verb = list("полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
+
+/obj/item/clothing/glasses/meson/gar/get_ru_names()
+	return list(
+		NOMINATIVE = "гар-мезоны",
+		GENITIVE = "гар-мезонов",
+		DATIVE = "гар-мезонам",
+		ACCUSATIVE = "гар-мезоны",
+		INSTRUMENTAL = "гар-мезонами",
+		PREPOSITIONAL = "гар-мезонах"
+	)
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"

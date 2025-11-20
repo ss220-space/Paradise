@@ -6,7 +6,7 @@
 #define VENDOR_EXPLOSIVES_KIT "Комплект шахтёрских взрывчаток"
 #define VENDOR_CRUSHER_KIT "Комплект крушителя"
 #define VENDOR_CONSCRIPTION_KIT "Стандартный набор шахтёра"
-#define VENDOR_KA_UPGRADE_KIT "Базовый набор улучшений для КА"
+#define VENDOR_KA_UPGRADE_KIT "Базовый набор улучшений для КУ"
 
 /**********************Mining Equipment Vendor**************************/
 
