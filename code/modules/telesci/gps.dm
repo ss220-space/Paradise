@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/internal/base
 	gpstag = "NT_AUX"
-	desc = "Наводящий сигнал с шахтёрского аванпоста НаноТрейзен."
+	desc = "Наводящий сигнал с шахтёрского аванпоста Нанотрейзен."
 
 /obj/item/gps/visible_debug
 	name = "visible GPS"
