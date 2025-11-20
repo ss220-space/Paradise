@@ -249,6 +249,20 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Exists change skin
 	var/exists_skin_change = FALSE
 
+	// Clothing vars moved from item/clothing to item because we can wear fucking items (papers, animals) and it runtimes
+
+	/// Special flags applied to clothing items only
+	var/clothing_flags = NONE
+	var/visor_flags = NONE
+	/// Same as visor_flags, but for flags_inv
+	var/visor_flags_inv = NONE
+	/// Same as visor_flags_inv, but for flags_inv_transparent
+	var/visor_flags_inv_transparent = NONE
+	/// Same as visor_flags_inv_transparent, but for flags_cover
+	var/visor_flags_cover = NONE
+	/// What to toggle when toggled with weldingvisortoggle()
+	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
+
 /obj/item/Initialize(mapload)
 	. = ..()
 

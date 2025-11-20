@@ -478,6 +478,7 @@
 	mod.icon_state = "[mod.skin]-control"
 	var/list/mod_skin = mod.theme.variants[mod.skin]
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	mod.onmob_sheets = list(slot_bitfield_to_slot_string(mod.slot_flags) = 'icons/mob/clothing/modsuit/mod_clothing.dmi')
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
 	update_clothing_slots()
@@ -929,14 +930,6 @@
 		PREPOSITIONAL = "модуле активного хамелеона",
 	)
 
-/obj/item/mod/module/active_chameleon/on_install()
-	. = ..()
-	RegisterSignal(mod, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
-
-/obj/item/mod/module/active_chameleon/on_uninstall(deleting = FALSE)
-	. = ..()
-	UnregisterSignal(mod, COMSIG_ATOM_EMP_ACT)
-
 /obj/item/mod/module/active_chameleon/on_activation()
 	cached_default_skin = mod.theme.default_skin
 	var/list/choices = list(
@@ -1002,10 +995,6 @@
 			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [mod.theme.name]",
 			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [mod.theme.name]"
 			)
-
-/obj/item/mod/module/active_chameleon/proc/on_emp(datum/source, severity)
-	to_chat(mod.wearer, span_robot("замечен всплеск ЭМИ! Система маскировки костюма перегружена."))
-	on_deactivation()
 
 /obj/item/mod/module/active_chameleon/elite
 	complexity = 0

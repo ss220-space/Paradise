@@ -594,7 +594,7 @@
 	name = "RT Janitor (Red)"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
-	suit = /obj/item/mod/control/pre_equipped/responsory/janitor
+	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/scythe/tele
 	mask = /obj/item/clothing/mask/gas/sechailer
@@ -611,7 +611,7 @@
 	name = "RT Janitor (Gamma)"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	suit = /obj/item/mod/control/pre_equipped/responsory/janitor
+	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner

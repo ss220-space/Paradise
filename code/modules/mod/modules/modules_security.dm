@@ -272,6 +272,9 @@
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/proc/on_gun_fire()
 	SIGNAL_HANDLER
 
+	if(HAS_TRAIT(mod.wearer, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		return
+
 	if(!drain_power(use_energy_cost)) //Drain the rest dry
 		drain_power(mod.core.charge_amount())
 

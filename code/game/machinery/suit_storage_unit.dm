@@ -156,7 +156,6 @@
 /obj/machinery/suit_storage_unit/clown
 	name = "clown suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/cosmohonk
-	helmet_type  = /obj/item/clothing/head/helmet/space/eva/clown
 	req_access = list(ACCESS_CLOWN)
 
 /obj/machinery/suit_storage_unit/blueshield
