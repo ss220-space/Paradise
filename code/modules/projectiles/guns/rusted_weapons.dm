@@ -5,7 +5,6 @@
 	desc = "An AK assault rifle favored by Soviet soldiers."
 	icon_state = "aksu"
 	item_state = "aksu"
-	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=4;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/aksu
@@ -13,7 +12,6 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	slot_flags = ITEM_SLOT_BACK
-	fire_delay = 2
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -39,7 +37,6 @@
 	icon_state = "ppsh"
 	item_state = "ppsh"
 	mag_type = /obj/item/ammo_box/magazine/ppsh
-	w_class = WEIGHT_CLASS_HUGE
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=4;materials=3"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
