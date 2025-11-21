@@ -1288,6 +1288,42 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
+/datum/supply_packs/security/armory/SP_91_RC
+	name = "Пистолет-пулемёты SP-91-RC"
+	contains = list(
+		/obj/item/gun/projectile/automatic/sp91rc,
+		/obj/item/gun/projectile/automatic/sp91rc,
+		/obj/item/gun/projectile/automatic/sp91rc,
+	)
+	cost = 50
+	containername = "ящик SP-91-RC"
+	container_ru_names = list(
+		NOMINATIVE = "ящик SP-91-RC",
+		GENITIVE = "ящика SP-91-RC",
+		DATIVE = "ящику SP-91-RC",
+		ACCUSATIVE = "ящик SP-91-RC",
+		INSTRUMENTAL = "ящиком SP-91-RC",
+		PREPOSITIONAL = "ящике SP-91-RC",
+	)
+
+/datum/supply_packs/security/armory/sparkle_a12
+	name = "Пистолет-пулемёты A9 \"Искра\""
+	contains = list(
+		/obj/item/gun/projectile/automatic/sparkle_a12,
+		/obj/item/gun/projectile/automatic/sparkle_a12,
+		/obj/item/gun/projectile/automatic/sparkle_a12,
+	)
+	cost = 50
+	containername = "ящик A9 \"Искра\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик A9 \"Искра\"",
+		GENITIVE = "ящика A9 \"Искра\"",
+		DATIVE = "ящику A9 \"Искра\"",
+		ACCUSATIVE = "ящик A9 \"Искра\"",
+		INSTRUMENTAL = "ящиком A9 \"Искра\"",
+		PREPOSITIONAL = "ящике A9 \"Искра\"",
+	)
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
@@ -2197,63 +2233,43 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_RESEARCH
 
 /datum/supply_packs/misc/htdisk/materials
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/materials,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/materials)
 	name = "Дискета технологий (Материалы)"
 
 /datum/supply_packs/misc/htdisk/engineering
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/engineering,
-	)
-	name = "Дискета технологий (Инженерия)"
+	contains = list(/obj/item/disk/tech_disk/loaded/engineering)
+	name = "Дискета технологий (" + RESEARCH_TREE_ENGINEERING + ")"
 
 /datum/supply_packs/misc/htdisk/plasmatech
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/plasmatech,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/plasmatech)
 	name = "Дискета технологий (Плазма)"
 
 /datum/supply_packs/misc/htdisk/powerstorage
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/powerstorage,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/powerstorage)
 	name = "Дискета технологий (Электроэнергия)"
 
 /datum/supply_packs/misc/htdisk/bluespace
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/bluespace,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/bluespace)
 	name = "Дискета технологий (Блюспейс)"
 
 /datum/supply_packs/misc/htdisk/biotech
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/biotech,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/biotech)
 	name = "Дискета технологий (Биотехнологии)"
 
 /datum/supply_packs/misc/htdisk/combat
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/combat,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/combat)
 	name = "Дискета технологий (Боевые технологии)"
 
 /datum/supply_packs/misc/htdisk/magnets
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/magnets,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/magnets)
 	name = "Дискета технологий (Электромагнитный спектр)"
 
 /datum/supply_packs/misc/htdisk/programming
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/programming,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/programming)
 	name = "искета технологий (Программная инженерия)"
 
 /datum/supply_packs/misc/htdisk/toxins
-	contains = list(
-		/obj/item/disk/tech_disk/loaded/toxins,
-	)
+	contains = list(/obj/item/disk/tech_disk/loaded/toxins)
 	name = "Дискета технологий (Токсикология)"
 
 //////////////////////////////////////////////////////////////////////////////
