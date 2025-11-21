@@ -1,7 +1,8 @@
 /**
  * Gun misfire component
  */
-/datum/component/misfire_weapon
+/datum/element/misfire_weapon
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY | ELEMENT_BESPOKE
 	/// Maximal misfire chance
 	var/misfire_max_chance
 	/// Shots after gun begin misfiring from 0 to max
@@ -9,24 +10,22 @@
 	/// Shots after gun begin misfiring with max chance
 	var/misfire_high_bound
 
-/datum/component/misfire_weapon/Initialize(misfire_max_chance = 25, misfire_low_bound = 50, misfire_high_bound = 300)
+/datum/element/misfire_weapon/Attach(datum/target, misfire_max_chance = 25, misfire_low_bound = 50, misfire_high_bound = 300)
 	. = ..()
-	if(!isgun(parent))
-		return COMPONENT_INCOMPATIBLE
+	if(!isgun(target))
+		return ELEMENT_INCOMPATIBLE
 	src.misfire_max_chance = misfire_max_chance
 	src.misfire_low_bound = misfire_low_bound
 	src.misfire_high_bound = misfire_high_bound
+	RegisterSignal(target, COMSIG_GUN_FIRED, PROC_REF(before_process_fire))
 
-/datum/component/misfire_weapon/RegisterWithParent()
+/datum/element/misfire_weapon/Detach(datum/target)
 	. = ..()
-	RegisterSignal(parent, COMSIG_GUN_FIRED, PROC_REF(before_process_fire))
+	UnregisterSignal(target, COMSIG_GUN_FIRED)
 
-/datum/component/misfire_weapon/UnregisterFromParent()
-	. = ..()
-	UnregisterSignal(parent, COMSIG_GUN_FIRED)
-
-/datum/component/misfire_weapon/proc/before_process_fire(datum/source, mob/living/user, atom/target)
-	var/obj/item/gun/gun = parent
+/datum/element/misfire_weapon/proc/before_process_fire(datum/source, mob/living/user, atom/target)
+	SIGNAL_HANDLER
+	var/obj/item/gun/gun = source
 	if(gun.shots_counter < misfire_low_bound)
 		return //no misfire
 	var/misfire_chance = gun.shots_counter >= misfire_high_bound ? misfire_max_chance : ((gun.shots_counter - misfire_low_bound) / (misfire_high_bound - misfire_low_bound) * misfire_max_chance)

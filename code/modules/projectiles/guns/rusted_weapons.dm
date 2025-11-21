@@ -29,8 +29,8 @@
 
 /obj/item/gun/projectile/automatic/aksu/rusted/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/rusted_weapon, face_shot_max_chance = 25, destroy_max_chance = 5, malf_low_bound = 10, malf_high_bound = 30)
-	AddComponent(/datum/component/misfire_weapon, misfire_max_chance = 8, misfire_low_bound = 10, misfire_high_bound = 30)
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 25, destroy_max_chance = 5, malf_low_bound = 10, malf_high_bound = 30)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 10, misfire_high_bound = 30)
 
 
 /obj/item/gun/projectile/automatic/ppsh
@@ -63,8 +63,8 @@
 
 /obj/item/gun/projectile/automatic/ppsh/rusted/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/rusted_weapon, face_shot_max_chance = 15, destroy_max_chance = 5, malf_low_bound = 15, malf_high_bound = 71)
-	AddComponent(/datum/component/misfire_weapon, misfire_max_chance = 10, misfire_low_bound = 30, misfire_high_bound = 71)
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 4, malf_low_bound = 15, malf_high_bound = 71)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 30, misfire_high_bound = 71)
 
 
 //////////// Shotguns
@@ -75,8 +75,8 @@
 
 /obj/item/gun/projectile/shotgun/lethal/rusted/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 4)
-	AddComponent(/datum/component/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 4)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
 
 //////////// Revolvers
 
@@ -85,5 +85,5 @@
 
 /obj/item/gun/projectile/shotgun/lethal/rusted/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
-	AddComponent(/datum/component/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)

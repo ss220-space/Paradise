@@ -1,6 +1,7 @@
 // Rusted weapon feature component
 
-/datum/component/rusted_weapon
+/datum/element/rusted_weapon
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY | ELEMENT_BESPOKE
 	/// Max chance to destroy gun after shot
 	var/destroy_max_chance
 	/// Max chance of shots in the face
@@ -9,25 +10,22 @@
 	var/malf_low_bound
 	var/malf_high_bound
 
-/datum/component/rusted_weapon/Initialize(face_shot_max_chance = 25, destroy_max_chance = 10, malf_low_bound = 40, malf_high_bound = 80)
+/datum/element/rusted_weapon/Attach(datum/target, face_shot_max_chance = 25, destroy_max_chance = 10, malf_low_bound = 40, malf_high_bound = 80)
 	. = ..()
-	if(!isgun(parent))
+	if(!isgun(target))
 		return COMPONENT_INCOMPATIBLE
 	src.face_shot_max_chance = face_shot_max_chance
 	src.destroy_max_chance = destroy_max_chance
 	src.malf_low_bound = malf_low_bound
 	src.malf_high_bound = malf_high_bound
+	RegisterSignal(target, COMSIG_GUN_AFTER_PROCESS_FIRE, PROC_REF(after_process_fire))
 
-/datum/component/rusted_weapon/RegisterWithParent()
+/datum/element/rusted_weapon/Detach(datum/target)
 	. = ..()
-	RegisterSignal(parent, COMSIG_GUN_AFTER_PROCESS_FIRE, PROC_REF(after_process_fire))
+	UnregisterSignal(target, COMSIG_GUN_AFTER_PROCESS_FIRE)
 
-/datum/component/rusted_weapon/UnregisterFromParent()
-	. = ..()
-	UnregisterSignal(parent, COMSIG_GUN_AFTER_PROCESS_FIRE)
-
-/datum/component/rusted_weapon/proc/after_process_fire(datum/source, atom/target, mob/living/user)
-	var/obj/item/gun/gun = parent
+/datum/element/rusted_weapon/proc/after_process_fire(datum/source, atom/target, mob/living/user)
+	var/obj/item/gun/gun = source
 	if(!gun.chambered || !gun.chambered.BB)
 		return
 	if(gun.shots_counter < malf_low_bound)
