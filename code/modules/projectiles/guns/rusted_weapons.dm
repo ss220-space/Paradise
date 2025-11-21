@@ -14,11 +14,12 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	slot_flags = ITEM_SLOT_BACK
 	fire_delay = 1
-	rusted_weapon = TRUE
-	malf_low_bound = 60
-	malf_high_bound = 90
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_HIGH
+
+/obj/item/gun/projectile/automatic/rusted/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/rusted_weapon, malf_low_bound = 60, malf_high_bound = 90)
 
 /obj/item/gun/projectile/automatic/rusted/aksu
 	name = "Rusted AKSU assault rifle"
@@ -43,8 +44,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	origin_tech = "combat=4;materials=3"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	self_shot_divisor = 5
-	malf_high_bound = 100
 	burst_size = 5
 	fire_delay = 1.5
 	accuracy = GUN_ACCURACY_RIFLE
@@ -55,20 +54,25 @@
 	)
 	recoil = GUN_RECOIL_HIGH
 
+/obj/item/gun/projectile/automatic/rusted/ppsh/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/rusted_weapon, self_shot_divisor = 5, malf_low_bound = 60, malf_high_bound = 100)
+
 //////////// Shotguns
 
 /obj/item/gun/projectile/shotgun/lethal/rusted
 	desc = "A traditional shotgun. It looks like it has been lying here for a very long time, rust is pouring."
-	rusted_weapon = TRUE
-	malf_low_bound = 12
-	malf_high_bound = 24
 	accuracy = GUN_ACCURACY_SHOTGUN
+
+/obj/item/gun/projectile/shotgun/lethal/rusted/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/rusted_weapon, malf_low_bound = 12, malf_high_bound = 24)
 
 //////////// Revolvers
 
 /obj/item/gun/projectile/revolver/nagant/rusted
 	desc = "An old model of revolver that originated in Russia. This one is a real relic, rust is pouring."
-	rusted_weapon = TRUE
-	self_shot_divisor = 2
-	malf_low_bound = 7
-	malf_high_bound = 21
+
+/obj/item/gun/projectile/shotgun/lethal/rusted/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/rusted_weapon, self_shot_divisor = 2, malf_low_bound = 7, malf_high_bound = 21)

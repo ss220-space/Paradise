@@ -634,6 +634,7 @@
 #include "code\datums\components\pref_holder.dm"
 #include "code\datums\components\radioactivity.dm"
 #include "code\datums\components\ritual_object.dm"
+#include "code\datums\components\rusted_weapon.dm"
 #include "code\datums\components\seethrough.dm"
 #include "code\datums\components\shielded.dm"
 #include "code\datums\components\slippery.dm"
