@@ -8,8 +8,6 @@
 	var/misfire_low_bound
 	/// Shots after gun begin misfiring with max chance
 	var/misfire_high_bound
-	/// Fires counter
-	var/fire_counter = 0
 
 /datum/component/misfire_weapon/Initialize(misfire_max_chance = 25, misfire_low_bound = 50, misfire_high_bound = 300)
 	. = ..()
@@ -29,10 +27,9 @@
 
 /datum/component/misfire_weapon/proc/before_process_fire(datum/source, mob/living/user, atom/target)
 	var/obj/item/gun/gun = parent
-	fire_counter += gun.burst_size
-	if(fire_counter < misfire_low_bound)
+	if(gun.shots_counter < misfire_low_bound)
 		return //no misfire
-	var/misfire_chance = fire_counter >= misfire_high_bound ? misfire_max_chance : ((fire_counter - misfire_low_bound) / (misfire_high_bound - misfire_low_bound) * misfire_max_chance)
+	var/misfire_chance = gun.shots_counter >= misfire_high_bound ? misfire_max_chance : ((gun.shots_counter - misfire_low_bound) / (misfire_high_bound - misfire_low_bound) * misfire_max_chance)
 	if(!prob(misfire_chance))
 		return
 	if(!gun.chambered || !gun.chambered.BB)

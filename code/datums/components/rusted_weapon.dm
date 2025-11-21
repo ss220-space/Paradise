@@ -1,22 +1,22 @@
 // Rusted weapon feature component
 
 /datum/component/rusted_weapon
-	/// Higher value means more shots in the face
-	var/self_shot_divisor
+	/// Max chance to destroy gun after shot
+	var/destroy_max_chance
+	/// Max chance of shots in the face
+	var/face_shot_max_chance
 	/// Shots before gun exploding
 	var/malf_low_bound
 	var/malf_high_bound
-	// Random number between malf_low_bound and malf_high_bound
-	var/malf_counter
 
-/datum/component/rusted_weapon/Initialize(self_shot_divisor = 3, malf_low_bound = 40, malf_high_bound = 80)
+/datum/component/rusted_weapon/Initialize(face_shot_max_chance = 25, destroy_max_chance = 10, malf_low_bound = 40, malf_high_bound = 80)
 	. = ..()
 	if(!isgun(parent))
 		return COMPONENT_INCOMPATIBLE
-	src.self_shot_divisor = self_shot_divisor
+	src.face_shot_max_chance = face_shot_max_chance
+	src.destroy_max_chance = destroy_max_chance
 	src.malf_low_bound = malf_low_bound
 	src.malf_high_bound = malf_high_bound
-	malf_counter = rand(malf_low_bound, malf_high_bound)
 
 /datum/component/rusted_weapon/RegisterWithParent()
 	. = ..()
@@ -28,28 +28,26 @@
 
 /datum/component/rusted_weapon/proc/after_process_fire(datum/source, atom/target, mob/living/user)
 	var/obj/item/gun/gun = parent
-	malf_counter -= gun.burst_size
-	// if the gun grabbed by telekinesis, it's can exploise but without damage for user
-	if(user.tkgrabbed_objects[gun])
-		if(malf_counter > 0 || prob(50))
-			return
-		user.drop_item_ground(user.tkgrabbed_objects[gun])
-		new /obj/effect/decal/cleanable/ash(gun.loc)
-		to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается!"))
-		playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
-		qdel(gun)
+	if(!gun.chambered || !gun.chambered.BB)
 		return
-	// explode in hands probe
-	if(malf_counter <= 0 && prob(50))
-		new /obj/effect/decal/cleanable/ash(user.loc)
-		user.take_organ_damage(0, 30)
-		user.flash_eyes()
-		to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается у вас в руках!"))
+	if(gun.shots_counter < malf_low_bound)
+		return
+	var/destroy_chance = gun.shots_counter >= malf_high_bound ? destroy_max_chance : ((gun.shots_counter - malf_low_bound) / (malf_high_bound - malf_low_bound) * destroy_max_chance)
+	if(prob(destroy_chance))
+		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
+		if(user.tkgrabbed_objects[gun])
+			user.drop_item_ground(user.tkgrabbed_objects[gun])
+			to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается!"))
+		else
+			user.take_organ_damage(0, 30)
+			user.flash_eyes()
+			to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается у вас в руках!"))
+		new /obj/effect/decal/cleanable/ash(gun.loc)
 		playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 		qdel(gun)
 		return
 	// shot in the face probe
-	var/face_shot_chance = 40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)
+	var/face_shot_chance = gun.shots_counter >= malf_high_bound ? face_shot_max_chance : ((gun.shots_counter - malf_low_bound) / (malf_high_bound - malf_low_bound) * face_shot_max_chance)
 	if(!prob(face_shot_chance))
 		return
 	playsound(user, gun.fire_sound, 30, TRUE)

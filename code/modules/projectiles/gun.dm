@@ -113,6 +113,8 @@
 
 	/// Responsible for the range of the throwing back when shooting at point blank range
 	var/pb_knockback = 0
+	/// Shots counter
+	var/shots_counter = 0
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -421,6 +423,7 @@
 	if(user)
 		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
+	shots_counter += burst_size
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 
 /obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
