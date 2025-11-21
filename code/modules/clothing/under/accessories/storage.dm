@@ -28,9 +28,9 @@
 	if(!hold || !hold.handle_attack_hand(user))	//otherwise interact as a regular storage item
 		return ..()
 
-/obj/item/clothing/accessory/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/clothing/accessory/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(has_suit)
-		return has_suit.MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
+		return has_suit.mouse_drop_dragged(over_object, user, src_location, over_location, params)
 
 	if(!hold || !hold.handle_mousedrop(usr, over_object))
 		return ..()

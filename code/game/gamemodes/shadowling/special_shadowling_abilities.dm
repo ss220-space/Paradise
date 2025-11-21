@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_regen_armor(null))
 
 	QDEL_NULL(user.hud_used)
-	user.hud_used = new /datum/hud/human(user, ui_style2icon(user.client.prefs.UI_style), user.client.prefs.UI_style_color, user.client.prefs.UI_style_alpha)
+	user.set_hud_used(new /datum/hud/human(user, ui_style2icon(user.client.prefs.UI_style), user.client.prefs.UI_style_color, user.client.prefs.UI_style_alpha))
 	user.hud_used.show_hud(user.hud_used.hud_version)
 
 /obj/effect/proc_holder/spell/shadowling_ascend

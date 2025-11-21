@@ -55,6 +55,7 @@
 
 	if(should_end_cooldown())
 		end_recharge()
+		spell_parent.action.UpdateButtonIcon()
 		return PROCESS_KILL
 
 /*
@@ -88,3 +89,8 @@
 	var/dat = round(get_availability_percentage(), 0.01) * 100
 	return dat != 100 ? "[dat]%" : null
 
+/datum/spell_cooldown/proc/cooldown_last_duration()
+	var/time = round((recharge_time - world.time)/10, 0.1)
+	if(time > 0)
+		return "[time]"
+	return ""

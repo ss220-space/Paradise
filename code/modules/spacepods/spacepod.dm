@@ -1091,7 +1091,7 @@
 
 /datum/action/innate/pod
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	var/obj/spacepod/pod
 
 /datum/action/innate/pod/Grant(mob/living/L, obj/spacepod/S)

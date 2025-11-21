@@ -94,7 +94,7 @@
 	remove_sample(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/dnaforensics/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/machinery/dnaforensics/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(usr == over_object)
 		remove_sample(usr)
 		return FALSE

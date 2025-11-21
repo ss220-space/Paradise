@@ -70,8 +70,8 @@
 	if(!mob) // Clients can join before world/new is setup, so we gotta mob check em
 		return active_keybindings
 	for(var/datum/action/action as anything in mob.actions)
-		if(action.button?.linked_keybind?.binded_to)
-			var/datum/keybinding/mob/trigger_action_button/linked_bind = action.button.linked_keybind
+		if(action.full_key)
+			var/datum/keybinding/mob/trigger_action_button/linked_bind = action.full_key
 			active_keybindings[linked_bind.binded_to] += list(linked_bind)
 
 	return active_keybindings

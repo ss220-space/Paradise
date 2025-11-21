@@ -493,7 +493,7 @@
 		qdel(animation)
 		qdel(holder)
 
-		for(var/datum/action/spell_action/action in user.actions)
+		for(var/datum/action/action in user.actions)
 			action.UpdateButtonIcon()
 
 // Blink for vamps

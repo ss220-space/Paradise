@@ -14,10 +14,11 @@
 			given_action.Grant(src)
 
 /datum/action/innate/admin
-	icon_icon = 'icons/mob/actions/actions_admin.dmi'
+	button_icon = 'icons/mob/actions/actions_admin.dmi'
 	var/rights_required = R_ADMIN
+	allow_observer_click = TRUE
 
-/datum/action/innate/admin/Trigger(left_click = TRUE)
+/datum/action/innate/admin/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 	if(!check_rights(rights_required, TRUE, usr))
@@ -54,15 +55,18 @@
 		button_icon_state = "nohelp"
 	UpdateButtonIcon()
 
-/datum/action/innate/admin/ticket/UpdateButtonIcon()
-	. = ..()
+/datum/action/innate/admin/ticket/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
+	button.maptext = "[ticket_amt]"
+	button.maptext_x = 2
+	return button
+
+
+/datum/action/innate/admin/ticket/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	if(ticket_amt <= 0)
+		button.maptext = ""
 		return
-	var/image/maptext_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	maptext_holder.plane = FLOAT_PLANE + 1.1
-	maptext_holder.maptext = MAPTEXT("[ticket_amt]")
-	maptext_holder.maptext_x = 2
-	button.add_overlay(maptext_holder)
+	button.maptext = MAPTEXT("<b>[ticket_amt]</b>")
 
 /datum/action/innate/admin/ticket/mentor
 	name = MENTORHELP_SYSTEM_NAME

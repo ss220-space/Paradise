@@ -53,7 +53,7 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineer
 	title = JOB_TITLE_ENGINEER
@@ -94,7 +94,7 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
@@ -177,7 +177,7 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/mechanic
 	title = JOB_TITLE_MECHANIC
@@ -218,4 +218,4 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer
