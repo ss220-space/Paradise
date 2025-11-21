@@ -8,25 +8,23 @@ Note: Must be placed west/left of and R&D console to function.
 
 */
 /obj/machinery/r_n_d/protolathe
-	name = "protolathe"
-	desc = "Оборудование, предназначенное для печати изделий высокого уровня сложности \
-			на основе шаблонов для печати. Использует широкий спектр материалов в качестве сырья. \
-			Управление происходит с помощью подключаемой консоли."
+	name = "Protolathe"
+	desc = "Крупное устройство, предназначенное для печати сложных предметов и устройств из разнообразных ресурсов."
 	icon_state = "protolathe"
 	base_icon_state = "protolathe"
 	container_type = OPENCONTAINER
 
 	categories = list(
-		PROTOLATHE_CATEGORY_BLUESPACE,
-		PROTOLATHE_CATEGORY_EQUIPMENT,
-		PROTOLATHE_CATEGORY_JANITORIAL,
-		PROTOLATHE_CATEGORY_MEDICAL,
-		PROTOLATHE_CATEGORY_MINING,
-		PROTOLATHE_CATEGORY_POWER,
-		PROTOLATHE_CATEGORY_STOCK_PARTS,
-		PROTOLATHE_CATEGORY_WEAPON,
-		PROTOLATHE_CATEGORY_MISC,
-		PROTOLATHE_CATEGORY_ILLEGAL,
+		"Bluespace",
+		"Equipment",
+		"Janitorial",
+		"Medical",
+		"Mining",
+		"Miscellaneous",
+		"Power",
+		"Stock Parts",
+		"Weapons",
+		"ILLEGAL",
 	)
 
 	reagents = new()
@@ -110,7 +108,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 	if(is_open_container)
 		if(panel_open)
-			balloon_alert(user, "техпанель открыта!")
+			to_chat(user, span_warning("Сначала закройте панель обслуживания."))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
@@ -132,7 +130,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return .
 	if(!panel_open)
 		add_fingerprint(user)
-		balloon_alert(user, "техпанель закрыта!")
+		to_chat(user, span_warning("Сначала откройте панель обслуживания."))
 		return .
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)

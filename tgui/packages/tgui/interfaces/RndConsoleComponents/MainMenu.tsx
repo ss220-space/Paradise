@@ -1,8 +1,7 @@
 import { useBackend } from '../../backend';
-import { Box, Flex, LabeledList, Section, Button } from '../../components';
+import { Box, Flex, LabeledList, Section } from '../../components';
 import { RndNavButton } from './index';
 import { MENU, SUBMENU } from '../RndConsole';
-import { left } from '@popperjs/core';
 
 export const MainMenu = (properties) => {
   const { data } = useBackend<RndData>();
@@ -16,7 +15,7 @@ export const MainMenu = (properties) => {
   } = data;
 
   return (
-    <Section title="Главное меню">
+    <Section title="Main Menu">
       <Flex
         className="RndConsole__MainMenu__Buttons"
         direction="column"
@@ -28,7 +27,7 @@ export const MainMenu = (properties) => {
           submenu={SUBMENU.MAIN}
           icon="save"
         >
-          Операции с дискетами
+          Disk Operations
         </RndNavButton>
         <RndNavButton
           disabled={!linked_destroy}
@@ -36,7 +35,7 @@ export const MainMenu = (properties) => {
           submenu={SUBMENU.MAIN}
           icon="unlink"
         >
-          Деструктивный анализатор
+          Destructive Analyzer Menu
         </RndNavButton>
         <RndNavButton
           disabled={!linked_lathe}
@@ -44,7 +43,7 @@ export const MainMenu = (properties) => {
           submenu={SUBMENU.MAIN}
           icon="print"
         >
-          Протолат
+          Protolathe Menu
         </RndNavButton>
         <RndNavButton
           disabled={!linked_imprinter}
@@ -52,25 +51,18 @@ export const MainMenu = (properties) => {
           submenu={SUBMENU.MAIN}
           icon="print"
         >
-          Принтер плат
+          Circuit Imprinter Menu
         </RndNavButton>
         <RndNavButton menu={MENU.SETTINGS} submenu={SUBMENU.MAIN} icon="cog">
-          Настройки
+          Settings
         </RndNavButton>
       </Flex>
 
       <Box mt="12px" />
-      <h3>Локальные уровни технологий:</h3>
+      <h3>Current Research Levels:</h3>
       <LabeledList>
-        {tech_levels.map(({ name, level, desc }) => (
-          <LabeledList.Item
-            label={
-              <Button color="transparent" tooltip={desc}>
-                {name}:
-              </Button>
-            }
-            key={name}
-          >
+        {tech_levels.map(({ name, level }) => (
+          <LabeledList.Item label={name} key={name}>
             {level}
           </LabeledList.Item>
         ))}

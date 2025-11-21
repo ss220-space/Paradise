@@ -25,13 +25,13 @@
 	. = ..()
 	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, PROC_REF(is_insertion_ready)), CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	materials.precise_insertion = TRUE
-	wires["Красный"] = 0
-	wires["Синий"] = 0
-	wires["Зелёный"] = 0
-	wires["Жёлтый"] = 0
-	wires["Чёрный"] = 0
-	wires["Белый"] = 0
-	var/list/w = list("Красный", "Синий", "Зелёный", "Жёлтый", "Чёрный", "Белый")
+	wires["Red"] = 0
+	wires["Blue"] = 0
+	wires["Green"] = 0
+	wires["Yellow"] = 0
+	wires["Black"] = 0
+	wires["White"] = 0
+	var/list/w = list("Red","Blue","Green","Yellow","Black","White")
 	hack_wire = pick_n_take(w)
 	shock_wire = pick_n_take(w)
 	disable_wire = pick_n_take(w)
@@ -52,14 +52,14 @@
 		shock(user,50)
 	if(panel_open)
 		var/list/dat = list()
-		dat += "Проводка [declent_ru(GENITIVE)]:<br>"
+		dat += "[src.name] Wires:<br>"
 		for(var/wire in wires)
-			dat += "[wire] провод: <a href='byond://?src=[UID()];wire=[wire];cut=1'>[wires[wire] ? "Восстановить" : "Перекусить"]</a> <a href='byond://?src=[UID()];wire=[wire];pulse=1'>Прозвонка</a><br>"
+			dat += "[wire] Wire: <a href='byond://?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</a> <a href='byond://?src=[UID()];wire=[wire];pulse=1'>Pulse</a><br>"
 
-		dat += "Красная лампочка <b>[disabled ? "не" : ""]</b> горит.<br>"
-		dat += "Зелёная лампочка <b>[shocked ? "не" : ""]</b> горит.<br>"
-		dat += "Синяя лампочка <b>[hacked ? "не" : ""]</b> горит.<br>"
-		var/datum/browser/popup = new(user, "hack_win", "Проводка [declent_ru(GENITIVE)]")
+		dat += "The red light is [src.disabled ? "off" : "on"].<br>"
+		dat += "The green light is [src.shocked ? "off" : "on"].<br>"
+		dat += "The blue light is [src.hacked ? "off" : "on"].<br>"
+		var/datum/browser/popup = new(user, "hack_win", "[src.name] Hacking")
 		popup.set_content(dat.Join(""))
 		popup.open(FALSE)
 	return
@@ -68,63 +68,63 @@
 	if(..())
 		return
 	usr.set_machine(src)
-	add_fingerprint(usr)
+	src.add_fingerprint(usr)
 	if(href_list["pulse"])
 		var/temp_wire = href_list["wire"]
 		if(!istype(usr.get_active_hand(), /obj/item/multitool))
-			balloon_alert(usr, "неподходящий инструмент!")
+			to_chat(usr, "You need a multitool!")
 		else
-			if(wires[temp_wire])
-				balloon_alert(usr, "провод перекусан!")
+			if(src.wires[temp_wire])
+				to_chat(usr, "You can't pulse a cut wire.")
 			else
-				if(hack_wire == href_list["wire"])
-					hacked = !hacked
-					spawn(100) hacked = !hacked
-				if(disable_wire == href_list["wire"])
-					disabled = !disabled
-					shock(usr,50)
-					spawn(100) disabled = !disabled
-				if(shock_wire == href_list["wire"])
-					shocked = !shocked
-					shock(usr,50)
-					spawn(100) shocked = !shocked
+				if(src.hack_wire == href_list["wire"])
+					src.hacked = !src.hacked
+					spawn(100) src.hacked = !src.hacked
+				if(src.disable_wire == href_list["wire"])
+					src.disabled = !src.disabled
+					src.shock(usr,50)
+					spawn(100) src.disabled = !src.disabled
+				if(src.shock_wire == href_list["wire"])
+					src.shocked = !src.shocked
+					src.shock(usr,50)
+					spawn(100) src.shocked = !src.shocked
 	if(href_list["cut"])
 		if(!istype(usr.get_active_hand(), /obj/item/wirecutters))
-			balloon_alert(usr, "неподходящий инструмент!")
+			to_chat(usr, "You need wirecutters!")
 		else
 			var/temp_wire = href_list["wire"]
 			wires[temp_wire] = !wires[temp_wire]
-			if(hack_wire == temp_wire)
-				hacked = !hacked
-			if(disable_wire == temp_wire)
-				disabled = !disabled
-				shock(usr,50)
-			if(shock_wire == temp_wire)
-				shocked = !shocked
-				shock(usr,50)
-	updateUsrDialog()
+			if(src.hack_wire == temp_wire)
+				src.hacked = !src.hacked
+			if(src.disable_wire == temp_wire)
+				src.disabled = !src.disabled
+				src.shock(usr,50)
+			if(src.shock_wire == temp_wire)
+				src.shocked = !src.shocked
+				src.shock(usr,50)
+	src.updateUsrDialog()
 
 //whether the machine can have an item inserted in its current state.
 /obj/machinery/r_n_d/proc/is_insertion_ready(mob/user)
 	if(panel_open)
-		balloon_alert(user, "техпанель открыта!")
+		to_chat(user, span_warning("You can't load [src] while it's opened!"))
 		return FALSE
 	if(disabled)
 		return FALSE
 	if(!linked_console)
-		balloon_alert(user, "не подключено к консоли!")
+		to_chat(user, span_warning("[src] must be linked to an R&D console first!"))
 		return FALSE
 	if(busy)
-		balloon_alert(user, "в работе!")
+		to_chat(user, span_warning("[src] is busy right now."))
 		return FALSE
 	if(stat & BROKEN)
-		balloon_alert(user, "сломано!")
+		to_chat(user, span_warning("[src] is broken."))
 		return FALSE
 	if(stat & NOPOWER)
-		balloon_alert(user, "нет энергии!")
+		to_chat(user, span_warning("[src] has no power."))
 		return FALSE
 	if(loaded_item)
-		balloon_alert(user, "слот для предмета занят!")
+		to_chat(user, span_warning("[src] is already loaded."))
 		return FALSE
 	return TRUE
 

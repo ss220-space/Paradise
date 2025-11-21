@@ -61,11 +61,7 @@
 
 /// Check if we can use tools inside toolbox via radial menu
 /obj/item/storage/toolbox/proc/check_for_radial_menu_availability(atom/object, mob/living/user, proximity)
-	if(user.incapacitated())
-		return FALSE
-
 	if(!proximity)
-		balloon_alert(user, "слишком далеко!")
 		return FALSE
 
 	if(ismob(object))
@@ -104,15 +100,8 @@
 
 	playsound(user, 'sound/items/handling/toolbox_open.ogg', 50)
 
-	var/obj/item/picked_item = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, object), require_near = TRUE, anim_speed = 0.1)
+	var/obj/item/picked_item = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, anim_speed = 0.1)
 	if(!picked_item)
-		return
-
-	if(user.incapacitated())
-		return
-
-	if(!user.Adjacent(object))
-		balloon_alert(user, "слишком далеко!")
 		return
 
 	var/obj/item/selected
@@ -134,13 +123,12 @@
  * Runs a series of pre-checks before opening the radial menu to the user.
  *
  * Arguments:
- * * user - the mob trying to open the radial menu
- * * object - atom we interact with
+ * * user - the mob trying to open the radial menu.
  */
-/obj/item/storage/toolbox/proc/check_menu(mob/living/user, atom/object)
+/obj/item/storage/toolbox/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(object))
+	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 

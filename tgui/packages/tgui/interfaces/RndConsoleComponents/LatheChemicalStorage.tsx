@@ -13,7 +13,7 @@ export const LatheChemicalStorage = (properties) => {
   const lathe = data.menu === 4;
 
   return (
-    <Section title="Буфер реагентов">
+    <Section title="Chemical Storage">
       <Button
         icon="trash"
         onClick={() => {
@@ -21,7 +21,7 @@ export const LatheChemicalStorage = (properties) => {
           act(action);
         }}
       >
-        Удалить всё
+        Purge All
       </Button>
 
       <LabeledList>
@@ -34,7 +34,7 @@ export const LatheChemicalStorage = (properties) => {
                 act(action, { id });
               }}
             >
-              Удалить
+              Purge
             </Button>
           </LabeledList.Item>
         ))}

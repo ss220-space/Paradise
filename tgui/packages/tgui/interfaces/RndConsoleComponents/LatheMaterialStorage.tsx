@@ -1,4 +1,3 @@
-import { declension_ru } from 'common/string';
 import { useBackend } from '../../backend';
 import { Button, Section, Table } from '../../components';
 
@@ -12,7 +11,7 @@ export const LatheMaterialStorage = (properties) => {
   return (
     <Section
       className="RndConsole__LatheMaterialStorage"
-      title="Хранилище материалов"
+      title="Material Storage"
     >
       <Table>
         {loaded_materials.map(({ id, amount, name }) => {
@@ -31,10 +30,10 @@ export const LatheMaterialStorage = (properties) => {
               className={empty ? 'color-grey' : 'color-yellow'}
             >
               <Table.Cell minWidth="210px">
-                - {amount} единиц{declension_ru(amount, 'а', 'ы', '')} {name}
+                * {amount} of {name}
               </Table.Cell>
               <Table.Cell minWidth="110px">
-                ({sheets} лист{declension_ru(sheets, '', 'а', 'ов')})
+                ({sheets} sheet{plural})
               </Table.Cell>
               <Table.Cell>
                 {amount >= 2000 ? (
@@ -42,12 +41,8 @@ export const LatheMaterialStorage = (properties) => {
                     <Button icon="eject" onClick={() => eject(1)}>
                       1x
                     </Button>
-                    <Button
-                      icon="eject"
-                      tooltip={'Выбрать объём'}
-                      onClick={() => eject('custom')}
-                    >
-                      В
+                    <Button icon="eject" onClick={() => eject('custom')}>
+                      C
                     </Button>
                     {amount >= 2000 * 5 ? (
                       <Button icon="eject" onClick={() => eject(5)}>
@@ -55,7 +50,7 @@ export const LatheMaterialStorage = (properties) => {
                       </Button>
                     ) : null}
                     <Button icon="eject" onClick={() => eject(50)}>
-                      Всё
+                      All
                     </Button>
                   </>
                 ) : null}

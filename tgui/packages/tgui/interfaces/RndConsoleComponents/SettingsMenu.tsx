@@ -15,7 +15,7 @@ export const SettingsMenu = (properties) => {
       <RndRoute
         submenu={SUBMENU.MAIN}
         render={() => (
-          <Section title="Настройки">
+          <Section title="Settings">
             <Flex direction="column" align="flex-start">
               <Button
                 icon="sync"
@@ -24,7 +24,7 @@ export const SettingsMenu = (properties) => {
                   act('sync');
                 }}
               >
-                Синхронизировать с сетью НИО
+                Sync Database with Network
               </Button>
 
               <Button
@@ -34,7 +34,7 @@ export const SettingsMenu = (properties) => {
                   act('togglesync');
                 }}
               >
-                Подключиться к сети НИО
+                Connect to Research Network
               </Button>
 
               <Button
@@ -44,7 +44,7 @@ export const SettingsMenu = (properties) => {
                   act('togglesync');
                 }}
               >
-                Отключиться от сети НИО
+                Disconnect from Research Network
               </Button>
 
               <RndNavButton
@@ -53,12 +53,12 @@ export const SettingsMenu = (properties) => {
                 menu={MENU.SETTINGS}
                 submenu={SUBMENU.SETTINGS_DEVICES}
               >
-                Меню подключения оборудования
+                Device Linkage Menu
               </RndNavButton>
 
               {admin ? (
                 <Button icon="exclamation" onClick={() => act('maxresearch')}>
-                  [АДМИН] Повысить тех. уровни до максимума
+                  [ADMIN] Maximize Research Levels
                 </Button>
               ) : null}
             </Flex>
@@ -69,54 +69,54 @@ export const SettingsMenu = (properties) => {
       <RndRoute
         submenu={SUBMENU.SETTINGS_DEVICES}
         render={() => (
-          <Section title="Меню подключения оборудования">
+          <Section title="Device Linkage Menu">
             <Button icon="link" onClick={() => act('find_device')}>
-              Синхронизация ближайшего оборудования
+              Re-sync with Nearby Devices
             </Button>
 
             <Box mt="5px">
-              <h3>Подключённое оборудование:</h3>
+              <h3>Linked Devices:</h3>
             </Box>
             <LabeledList>
               {linked_destroy ? (
-                <LabeledList.Item label="- Деструктивный анализатор">
+                <LabeledList.Item label="* Destructive Analyzer">
                   <Button
                     icon="unlink"
                     onClick={() => act('disconnect', { item: 'destroy' })}
                   >
-                    Отключить
+                    Unlink
                   </Button>
                 </LabeledList.Item>
               ) : (
-                <LabeledList.Item label="- Деструктивный анализатор (ОТКЛЮЧЕНО)" />
+                <LabeledList.Item label="* No Destructive Analyzer Linked" />
               )}
 
               {linked_lathe ? (
-                <LabeledList.Item label="- Протолат">
+                <LabeledList.Item label="* Protolathe">
                   <Button
                     icon="unlink"
                     onClick={() => {
                       act('disconnect', { item: 'lathe' });
                     }}
                   >
-                    Отключить
+                    Unlink
                   </Button>
                 </LabeledList.Item>
               ) : (
-                <LabeledList.Item label="- Протолат (ОТКЛЮЧЕНО)" />
+                <LabeledList.Item label="* No Protolathe Linked" />
               )}
 
               {linked_imprinter ? (
-                <LabeledList.Item label="- Принтер плат">
+                <LabeledList.Item label="* Circuit Imprinter">
                   <Button
                     icon="unlink"
                     onClick={() => act('disconnect', { item: 'imprinter' })}
                   >
-                    Отключить
+                    Unlink
                   </Button>
                 </LabeledList.Item>
               ) : (
-                <LabeledList.Item label="- Принтер плат (ОТКЛЮЧЕНО)" />
+                <LabeledList.Item label="* No Circuit Imprinter Linked" />
               )}
             </LabeledList>
           </Section>

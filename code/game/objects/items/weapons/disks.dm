@@ -1,5 +1,4 @@
 /obj/item/disk
-	gender = FEMALE
 	icon = 'icons/obj/module.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "card-id"

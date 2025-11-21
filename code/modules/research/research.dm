@@ -47,17 +47,12 @@ research holder datum.
 /datum/research								//Holder for all the existing, archived, and known tech. Individual to console.
 
 									//Datum/tech go here.
-	// Possible is a list of direct datum references
-	// known is a list of id -> datum mappings
-
-	/// List of all tech in the game that players have access to (barring special events).
-	var/list/possible_tech = list()
-	/// List of locally known tech.
-	var/list/known_tech = list()
-	/// List of all designs
-	var/list/possible_designs = list()
-	/// List of available designs
-	var/list/known_designs = list()
+									// Possible is a list of direct datum references
+									// known is a list of id -> datum mappings
+	var/list/possible_tech = list()			//List of all tech in the game that players have access to (barring special events).
+	var/list/known_tech = list()				//List of locally known tech.
+	var/list/possible_designs = list()		//List of all designs
+	var/list/known_designs = list()			//List of available designs
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
 	// MON DIEU!!!
@@ -71,8 +66,8 @@ research holder datum.
 		possible_designs += new D(src)
 	RefreshResearch()
 
-/// Checks to see if tech has all the required pre-reqs.
-/// Input: datum/tech; Output: 0/1 (false/true)
+//Checks to see if tech has all the required pre-reqs.
+//Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(datum/tech/T)
 	if(length(T.req_tech) == 0)
 		return TRUE
@@ -82,8 +77,8 @@ research holder datum.
 			return FALSE
 	return TRUE
 
-/// Checks to see if design has all the required pre-reqs.
-/// Input: datum/design; Output: 0/1 (false/true)
+//Checks to see if design has all the required pre-reqs.
+//Input: datum/design; Output: 0/1 (false/true)
 /datum/research/proc/DesignHasReqs(datum/design/D)
 	if(!islist(D.req_tech))
 		return FALSE
@@ -95,8 +90,8 @@ research holder datum.
 			return FALSE
 	return TRUE
 
-/// Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
-/// Input: datum/tech; Output: Null
+//Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
+//Input: datum/tech; Output: Null
 /datum/research/proc/AddTech2Known(datum/tech/T)
 	if(T.id in known_tech)
 		var/datum/tech/known = known_tech[T.id]
@@ -117,8 +112,8 @@ research holder datum.
 	// Global datums make me nervous
 	known_designs[D.id] = D
 
-/// Refreshes known_tech and known_designs list.
-/// Input/Output: n/a
+//Refreshes known_tech and known_designs list.
+//Input/Output: n/a
 /datum/research/proc/RefreshResearch()
 	for(var/datum/tech/PT in possible_tech)
 		if(TechHasReqs(PT))
@@ -130,8 +125,8 @@ research holder datum.
 		var/datum/tech/T = known_tech[v]
 		T.level = clamp(T.level, 0, 20)
 
-/// Refreshes the levels of a given tech.
-/// Input: Tech's ID and Level; Output: new level or Null
+//Refreshes the levels of a given tech.
+//Input: Tech's ID and Level; Output: new level or Null
 /datum/research/proc/UpdateTech(ID, level)
 	var/datum/tech/KT = known_tech[ID]
 	if(KT)
@@ -144,8 +139,8 @@ research holder datum.
 			return KT.level
 	return null
 
-/// Checks if the origin level can raise current tech levels
-/// Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no
+//Checks if the origin level can raise current tech levels
+//Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no
 /datum/research/proc/IsTechHigher(ID, level)
 	var/datum/tech/KT = known_tech[ID]
 	if(KT)
@@ -157,10 +152,10 @@ research holder datum.
 /datum/research/proc/FindDesignByID(id)
 	return known_designs[id]
 
-///  A common task is for one research datum to copy over its techs and designs
-///  and update them on another research datum.
-///  Arguments:
-///  `other` - The research datum to send designs and techs to
+// A common task is for one research datum to copy over its techs and designs
+// and update them on another research datum.
+// Arguments:
+// `other` - The research datum to send designs and techs to
 /datum/research/proc/push_data(datum/research/other)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
@@ -223,104 +218,122 @@ research holder datum.
 **	Includes all the various technoliges and what they make.  **
 ***************************************************************/
 
-/// Datum of individual technologies.
-/datum/tech
-	/// Name of the technology.
-	var/name = "name"
-	/// General description of what it does and what it makes.
-	var/desc = "description"
-	/// An easily referenced ID. Must be alphanumeric, lower-case, and no symbols.
-	var/id = "id"
-	/// A simple number scale of the research level. Level 0 = Secret tech.
-	var/level = 1
-	///  Maximum level this can be at (for job objectives)
-	var/max_level = 1
-	/// How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
-	var/rare = 1
-	/// List of ids associated values of techs required to research this tech. "id" = #
-	var/list/req_tech = list()
+/datum/tech	//Datum of individual technologies.
+	var/name = "name"					//Name of the technology.
+	var/desc = "description"			//General description of what it does and what it makes.
+	var/id = "id"						//An easily referenced ID. Must be alphanumeric, lower-case, and no symbols.
+	var/level = 1						//A simple number scale of the research level. Level 0 = Secret tech.
+	var/max_level = 1          // Maximum level this can be at (for job objectives)
+	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
+	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
 
-// Trunk Technologies (don't require any other techs and you start knowning them).
+//Trunk Technologies (don't require any other techs and you start knowning them).
 
 /datum/tech/materials
-	name = RESEARCH_TREE_MATERIALS
-	desc = "Исследование и разработка новых материалов с улучшенными характеристиками."
+	name = "Materials Research"
+	desc = "Development of new and improved materials."
 	id = "materials"
 	max_level = 8
 
 /datum/tech/engineering
-	name = RESEARCH_TREE_ENGINEERING
-	desc = "Совершенствование конструкций, узлов и методов сборки промышленного оборудования."
+	name = "Engineering Research"
+	desc = "Development of new and improved engineering parts and methods."
 	id = "engineering"
 	max_level = 8
 
 /datum/tech/plasmatech
-	name = RESEARCH_TREE_PLASMA
-	desc = "Изучение свойств и применение вещества под названием \"Плазма\" в различных сферах."
+	name = "Plasma Research"
+	desc = "Research into the mysterious substance colloqually known as 'plasma'."
 	id = "plasmatech"
 	max_level = 8
 	rare = 3
 
 /datum/tech/powerstorage
-	name = RESEARCH_TREE_POWERSTORAGE
-	desc = "Разработка технологий генерации, накопления и распределения электрической энергии."
+	name = "Power Manipulation Technology"
+	desc = "The various technologies behind the storage and generation of electicity."
 	id = "powerstorage"
 	max_level = 8
 
 /datum/tech/bluespace
-	name = RESEARCH_TREE_BLUESPACE
-	desc = "Изучение подпространственного слоя реальности, известного как \"Блюспейс\", и его применение в различных сферах."
+	name = "'Blue-space' Research"
+	desc = "Research into the sub-reality known as 'blue-space'."
 	id = "bluespace"
 	max_level = 8
 	rare = 2
 
 /datum/tech/biotech
-	name = RESEARCH_TREE_BIOTECH
-	desc = "Исследование живых организмов, генной инженерии и органических соединений."
+	name = "Biological Technology"
+	desc = "Research into the deeper mysteries of life and organic substances."
 	id = "biotech"
 	max_level = 8
 
 /datum/tech/combat
-	name = RESEARCH_TREE_COMBAT
-	desc = "Разработка наступательных и оборонительных технологий."
+	name = "Combat Systems Research"
+	desc = "The development of offensive and defensive systems."
 	id = "combat"
 	max_level = 8
 
 /datum/tech/magnets
-	name = RESEARCH_TREE_MAGNETS
-	desc = "Исследование электромагнитного спектра и его применение на практике."
+	name = "Electromagnetic Spectrum Research"
+	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
 	id = "magnets"
 	max_level = 8
 
 /datum/tech/programming
-	name = RESEARCH_TREE_PROGRAMMING
-	desc = "Развитие архитектур искусственного интеллекта, систем хранения информации и вычислительных протоколов."
+	name = "Data Theory Research"
+	desc = "The development of new computer and artificial intelligence and data storage systems."
 	id = "programming"
 	max_level = 8
 
 /datum/tech/toxins //not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
-	name = RESEARCH_TREE_TOXINS
-	desc = "Исследование плазменных взрывчатых веществ и реактивных химических соединений."
+	name = "Toxins Research"
+	desc = "Research into plasma based explosive devices. Upgrade through testing explosives in the toxins lab."
 	id = "toxins"
 	max_level = 8
 	rare = 2
 
 /datum/tech/syndicate
-	name = RESEARCH_TREE_ILLEGAL
-	desc = "Изучение систем и устройств, нарушающих регламенты безопасности \"Нанотрейзен\"."
+	name = "Illegal Technologies Research"
+	desc = "The study of technologies that violate standard Nanotrasen regulations."
 	id = "syndicate"
 	level = 0 // Illegal tech level dont need to show in roundstart on console
 	max_level = 8 // Used for admin button so need max level like other tech
 	rare = 4
 
 /datum/tech/abductor
-	name = RESEARCH_TREE_ALIEN
-	desc = "Анализ и адаптация технологий, используемых высокоразвитой цивилизацией, известной как \"Абдукторы\"."
+	name = "Alien Technologies Research"
+	desc = "The study of technologies used by the advanced alien race known as Abductors."
 	id = "abductor"
 	level = 0 // Alien tech level hide roundstart like illegal
 	max_level = 8
 	rare = 5
 
+/*
+datum/tech/arcane
+	name = "Arcane Research"
+	desc = "Research into the occult and arcane field for use in practical science"
+	id = "arcane"
+	level = 0 //It didn't become "secret" as advertised.
+
+//Branch Techs
+datum/tech/explosives
+	name = "Explosives Research"
+	desc = "The creation and application of explosive materials."
+	id = "explosives"
+	req_tech = list("materials" = 3)
+
+datum/tech/generators
+	name = "Power Generation Technology"
+	desc = "Research into more powerful and more reliable sources."
+	id = "generators"
+	req_tech = list("powerstorage" = 2)
+
+datum/tech/robotics
+	name = "Robotics Technology"
+	desc = "The development of advanced automated, autonomous machines."
+	id = "robotics"
+	req_tech = list("materials" = 3, "programming" = 3)
+*/
 /datum/tech/proc/copyTech()
 	var/datum/tech/copied = new src.type
 	copied.level = src.level
@@ -343,52 +356,29 @@ research holder datum.
 	return cost
 
 /obj/item/disk/tech_disk
-	name = "technology disk"
-	desc = "Переносной носитель данных, специализированный для хранения научной информации."
+	name = "Technology Disk"
+	desc = "A disk for storing technology data for further research."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/tech/stored
-	var/default_name = "technology disk"
-	var/default_desc = "Переносной носитель данных, специализированный для хранения научной информации."
-	var/default_ru_names = list(
-		NOMINATIVE = "дискета технологий",
-		GENITIVE = "дискеты технологий",
-		DATIVE = "дискете технологий",
-		ACCUSATIVE = "дискету технологий",
-		INSTRUMENTAL = "дискетой технологий",
-		PREPOSITIONAL = "дискете технологий"
-	)
-
-/obj/item/disk/tech_disk/get_ru_names()
-	return list(
-		NOMINATIVE = "дискета технологий",
-		GENITIVE = "дискеты технологий",
-		DATIVE = "дискете технологий",
-		ACCUSATIVE = "дискету технологий",
-		INSTRUMENTAL = "дискетой технологий",
-		PREPOSITIONAL = "дискете технологий"
-	)
+	var/default_name = "Technology Disk"
+	var/default_desc = "A disk for storing technology data for further research."
 
 /obj/item/disk/tech_disk/Initialize(mapload)
 	. = ..()
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
-/obj/item/disk/tech_disk/proc/load_tech(datum/tech/tech_tree)
-	name = "[default_name] \[[tech_tree]\]"
-	desc = tech_tree.desc + " <b>Уровень: \"[tech_tree.level]\"</b>."
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-	for(var/i = 1; i <= 6; i++)
-		ru_names[i] = "[names ? names[i] : initial(name)] \[[tech_tree]\]"
+/obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
+	name = "[default_name] \[[T]\]"
+	desc = T.desc + " Level: '[T.level]'"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
-	stored = tech_tree
+	stored = T
 
 /obj/item/disk/tech_disk/proc/wipe_tech()
 	name = default_name
 	desc = default_desc
-	ru_names = default_ru_names
 	stored = null
 
 /obj/item/disk/tech_disk/loaded
@@ -407,47 +397,37 @@ research holder datum.
 	load_tech(our_tech)
 
 /obj/item/disk/tech_disk/loaded/materials
-	tech_name = RESEARCH_TREE_MATERIALS
+	tech_name = "Materials Research"
 
 /obj/item/disk/tech_disk/loaded/engineering
-	tech_name = RESEARCH_TREE_ENGINEERING
+	tech_name = "Engineering Research"
 
 /obj/item/disk/tech_disk/loaded/plasmatech
-	tech_name = RESEARCH_TREE_PLASMA
+	tech_name = "Plasma Research"
 
 /obj/item/disk/tech_disk/loaded/powerstorage
-	tech_name = RESEARCH_TREE_POWERSTORAGE
+	tech_name = "Power Manipulation Technology"
 
 /obj/item/disk/tech_disk/loaded/bluespace
-	tech_name = RESEARCH_TREE_BLUESPACE
+	tech_name = "'Blue-space' Research"
 
 /obj/item/disk/tech_disk/loaded/biotech
-	tech_name = RESEARCH_TREE_BIOTECH
+	tech_name = "Biological Technology"
 
 /obj/item/disk/tech_disk/loaded/combat
-	tech_name = RESEARCH_TREE_COMBAT
+	tech_name = "Combat Systems Research"
 
 /obj/item/disk/tech_disk/loaded/magnets
-	tech_name = RESEARCH_TREE_MAGNETS
+	tech_name = "Electromagnetic Spectrum Research"
 
 /obj/item/disk/tech_disk/loaded/programming
-	tech_name = RESEARCH_TREE_PROGRAMMING
+	tech_name = "Data Theory Research"
 
 /obj/item/disk/tech_disk/loaded/toxins
-	tech_name = RESEARCH_TREE_TOXINS
+	tech_name = "Toxins Research"
 
 /obj/structure/closet/crate/full_tech
 	name = "Crate with Tech Disks"
-
-/obj/structure/closet/crate/full_tech/get_ru_names()
-	return list(
-		NOMINATIVE = "ящик с дискетами технологий",
-		GENITIVE = "ящика с дискетами технологий",
-		DATIVE = "ящику с дискетами технологий",
-		ACCUSATIVE = "ящик с дискетами технологий",
-		INSTRUMENTAL = "ящиком с дискетами технологий",
-		PREPOSITIONAL = "ящике с дискетами технологий"
-	)
 
 /obj/structure/closet/crate/full_tech/populate_contents()
 	for(var/path in subtypesof(/obj/item/disk/tech_disk/loaded))
@@ -455,32 +435,14 @@ research holder datum.
 
 /obj/item/disk/design_disk
 	name = "Component Design Disk"
-	desc = "Переносной носитель данных, специализированный для хранения шаблонов печати."
+	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=100, MAT_GLASS=100)
 	var/datum/design/blueprint
 	// I'm doing this so that disk paths with pre-loaded designs don't get weird names
 	// Otherwise, I'd use "initial()"
 	var/default_name = "Component Design Disk"
-	var/default_desc = "Переносной носитель данных, специализированный для хранения шаблонов печати."
-	var/default_ru_names = list(
-		NOMINATIVE = "дискета шаблона печати",
-		GENITIVE = "дискеты шаблона печати",
-		DATIVE = "дискете шаблона печати",
-		ACCUSATIVE = "дискету шаблона печати",
-		INSTRUMENTAL = "дискетой шаблона печати",
-		PREPOSITIONAL = "дискете шаблона печати"
-	)
-
-/obj/item/disk/design_disk/get_ru_names()
-	return list(
-		NOMINATIVE = "дискета шаблона печати",
-		GENITIVE = "дискеты шаблона печати",
-		DATIVE = "дискете шаблона печати",
-		ACCUSATIVE = "дискету шаблона печати",
-		INSTRUMENTAL = "дискетой шаблона печати",
-		PREPOSITIONAL = "дискете шаблона печати"
-	)
+	var/default_desc = "A disk for storing device design data for construction in lathes."
 
 /obj/item/disk/design_disk/New()
 	..()
@@ -488,38 +450,21 @@ research holder datum.
 	pixel_y = rand(-5, 5)
 
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
-	var/obj/design_item = new D
-	name = "[default_name] \[[design_item]\]"
+	name = "[default_name] \[[D]\]"
 	desc = D.desc
-
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-	for(var/i = 1; i <= 6; i++)
-		ru_names[i] = "[names ? names[i] : initial(name)] \[[capitalize(design_item.declent_ru(NOMINATIVE))]\]"
 	// NOTE: This is just a reference to the design on the system it grabbed it from
 	// This seems highly fragile
 	blueprint = D
-	qdel(design_item)
 
 /obj/item/disk/design_disk/proc/wipe_blueprint()
 	name = default_name
 	desc = default_desc
-	ru_names = default_ru_names
 	blueprint = null
 
 /obj/item/disk/design_disk/golem_shell
 	name = "golem creation disk"
+	desc = "A gift from the Liberator."
 	icon_state = "datadisk1"
-
-/obj/item/disk/design_disk/golem_shell/get_ru_names()
-	return list(
-		NOMINATIVE = "дискета для создания голема",
-		GENITIVE = "дискеты для создания голема",
-		DATIVE = "дискете для создания голема",
-		ACCUSATIVE = "дискету для создания голема",
-		INSTRUMENTAL = "дискетой для создания голема",
-		PREPOSITIONAL = "дискете для создания голема"
-	)
 
 /obj/item/disk/design_disk/golem_shell/Initialize(mapload)
 	. = ..()
@@ -534,9 +479,6 @@ research holder datum.
 	icon_state = "datadisk5"
 	var/design_type
 
-/obj/item/disk/design_disk/station_goal_machinery/brs_server/get_ru_names()
-	return list()
-
 /obj/item/disk/design_disk/station_goal_machinery/Initialize(mapload)
 	. = ..()
 	if(isnull(design_type))
@@ -544,64 +486,27 @@ research holder datum.
 
 	blueprint = new design_type()
 
+/** Bluespace rift scan server */
 /obj/item/disk/design_disk/station_goal_machinery/brs_server
 	name = "Bluespace rift scan server design"
-	desc = "Экспериментальный проект сервера сканирования блюспейс-разломов."
+	desc = "Экспериментальный проект сервера сканирования блюспейс разлома."
 	design_type = /datum/design/brs_server
 
-/obj/item/disk/design_disk/station_goal_machinery/brs_server/get_ru_names()
-	return list(
-		NOMINATIVE = "дискета шаблона печати (Сервер сканирования БС-разломов)",
-		GENITIVE = "дискеты шаблона печати (Сервер сканирования БС-разломов)",
-		DATIVE = "дискете шаблона печати (Сервер сканирования БС-разломов)",
-		ACCUSATIVE = "дискету шаблона печати (Сервер сканирования БС-разломов)",
-		INSTRUMENTAL = "дискетой шаблона печати (Сервер сканирования БС-разломов)",
-		PREPOSITIONAL = "дискете шаблона печати (Сервер сканирования БС-разломов)"
-	)
-
+/** Bluespace rift small scanner */
 /obj/item/disk/design_disk/station_goal_machinery/brs_portable_scanner
 	name = "Bluespace rift portable scanner design"
-	desc = "Экспериментальный проект портативного сканера блюспейс-разломов."
+	desc = "Экспериментальный проект портативного сканера блюспейс разлома."
 	design_type = /datum/design/brs_portable_scanner
 
-/obj/item/disk/design_disk/station_goal_machinery/brs_portable_scanner/get_ru_names()
-	return list(
-		NOMINATIVE = "дискета шаблона печати (Портативный сканер БС-разломов)",
-		GENITIVE = "дискеты шаблона печати (Портативный сканер БС-разломов)",
-		DATIVE = "дискете шаблона печати (Портативный сканер БС-разломов)",
-		ACCUSATIVE = "дискету шаблона печати (Портативный сканер БС-разломов)",
-		INSTRUMENTAL = "дискетой шаблона печати (Портативный сканер БС-разломов)",
-		PREPOSITIONAL = "дискете шаблона печати (Портативный сканер БС-разломов)"
-	)
-
+/** Bluespace rift big scanner */
 /obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner
 	name = "Bluespace rift stationary scanner design"
-	desc = "Экспериментальный проект стационарного сканера блюспейс-разломов."
+	desc = "Экспериментальный проект стационарного сканера блюспейс разлома."
 	design_type = /datum/design/brs_stationary_scanner
 
-/obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner/get_ru_names()
-	return list(
-		NOMINATIVE = "дискета шаблона печати (Стационарный сканер БС-разломов)",
-		GENITIVE = "дискеты шаблона печати (Стационарный сканер БС-разломов)",
-		DATIVE = "дискете шаблона печати (Стационарный сканер БС-разломов)",
-		ACCUSATIVE = "дискету шаблона печати (Стационарный сканер БС-разломов)",
-		INSTRUMENTAL = "дискетой шаблона печати (Стационарный сканер БС-разломов)",
-		PREPOSITIONAL = "дискете шаблона печати (Стационарный сканер БС-разломов)"
-	)
-
-
+/** Nanotrasen tail blade implant */
 /obj/item/disk/design_disk/tailblade/blade_nt
 	name = "Tail laserblade implant design"
-	desc = "Переносной носитель данных, специализированный для хранения шаблонов печати. \
-			Получен корпорацией \"Нанотрейзен\" по уникальному контракту с \"Кибернетикой М’Саи\"."
+	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 	blueprint = new /datum/design/tailblade
 
-/obj/item/disk/design_disk/tailblade/blade_nt/get_ru_names()
-	return list(
-		NOMINATIVE = "дискета шаблона печати (Имплант хвостового лазера)",
-		GENITIVE = "дискеты шаблона печати (Имплант хвостового лазера)",
-		DATIVE = "дискете шаблона печати (Имплант хвостового лазера)",
-		ACCUSATIVE = "дискету шаблона печати (Имплант хвостового лазера)",
-		INSTRUMENTAL = "дискетой шаблона печати (Имплант хвостового лазера)",
-		PREPOSITIONAL = "дискете шаблона печати (Имплант хвостового лазера)"
-	)
