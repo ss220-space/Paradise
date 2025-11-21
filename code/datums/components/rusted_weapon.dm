@@ -10,7 +10,7 @@
 	var/malf_low_bound
 	var/malf_high_bound
 
-/datum/element/rusted_weapon/Attach(datum/target, face_shot_max_chance = 25, destroy_max_chance = 10, malf_low_bound = 40, malf_high_bound = 80)
+/datum/element/rusted_weapon/Attach(datum/target, face_shot_max_chance, destroy_max_chance, malf_low_bound, malf_high_bound)
 	. = ..()
 	if(!isgun(target))
 		return COMPONENT_INCOMPATIBLE

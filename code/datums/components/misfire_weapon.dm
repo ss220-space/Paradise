@@ -10,7 +10,7 @@
 	/// Shots after gun begin misfiring with max chance
 	var/misfire_high_bound
 
-/datum/element/misfire_weapon/Attach(datum/target, misfire_max_chance = 25, misfire_low_bound = 50, misfire_high_bound = 300)
+/datum/element/misfire_weapon/Attach(datum/target, misfire_max_chance, misfire_low_bound, misfire_high_bound)
 	. = ..()
 	if(!isgun(target))
 		return ELEMENT_INCOMPATIBLE
