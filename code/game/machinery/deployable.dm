@@ -511,6 +511,14 @@
 	name = "firewall shield generator"
 	generator_type = /obj/structure/dropwall_generator/firewall
 
+/obj/item/grenade/barrier/dropwall/firewall/weak
+	generator_type = /obj/structure/dropwall_generator/firewall/weak
+	uptime = 20 SECONDS
+
+/obj/item/grenade/barrier/dropwall/firewall/strong
+	generator_type = /obj/structure/dropwall_generator/firewall/strong
+	uptime = 5 MINUTES
+
 /obj/item/grenade/barrier/dropwall/firewall/get_ru_names()
 	return list(
 		NOMINATIVE = "граната огненного щита",
@@ -524,6 +532,12 @@
 	name = "deployed firewall shield generator"
 	barricade_type = /obj/structure/barricade/dropwall/firewall
 
+/obj/structure/dropwall_generator/firewall/weak
+	barricade_type = /obj/structure/barricade/dropwall/firewall/weak
+
+/obj/structure/dropwall_generator/firewall/strong
+	barricade_type = /obj/structure/barricade/dropwall/firewall/strong
+
 /obj/structure/dropwall_generator/firewall/get_ru_names()
 	return list(
 		NOMINATIVE = "генератор огненного щита",
@@ -533,6 +547,18 @@
 		INSTRUMENTAL = "генератором огненного щита",
 		PREPOSITIONAL = "генераторе огненного щита"
 	)
+
+/obj/structure/barricade/dropwall/firewall
+	/// Can our dropwall inflict stamina damage in each shot?
+	var/add_knockdown = FALSE
+	/// Can our dropwall add penetration in each shot?
+	var/add_penetration = TRUE
+
+/obj/structure/barricade/dropwall/firewall/weak
+	add_penetration = FALSE
+
+/obj/structure/barricade/dropwall/firewall/strong
+	add_knockdown = TRUE
 
 /obj/structure/barricade/dropwall/firewall/Initialize(mapload, owner, core, dir_1, dir_2)
 	. = ..()
@@ -554,6 +580,11 @@
 		return
 	var/obj/projectile/projectile = entered_atom
 	projectile.immolate++
+	if(add_penetration)
+		projectile.armour_penetration += 20
+	if(add_knockdown)
+		projectile.knockdown += 2 SECONDS
+
 
 #undef SINGLE
 #undef VERTICAL

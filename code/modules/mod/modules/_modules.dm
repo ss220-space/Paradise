@@ -512,6 +512,7 @@
 	for(var/anomaly in cashed_anomalies)
 		accepted_anomalies += subtypesof(anomaly)
 	if(!prebuilt || !length(accepted_anomalies))
+		update_core_powers()
 		return
 	var/core_path = pick(cashed_anomalies)
 	core = new core_path(src)
@@ -570,6 +571,10 @@
 	balloon_alert(user, "ядро установлено")
 	playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 	update_icon(UPDATE_ICON_STATE)
+	update_core_powers()
+
+/obj/item/mod/module/anomaly_locked/proc/update_core_powers()
+	return
 
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()

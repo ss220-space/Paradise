@@ -14,6 +14,8 @@
 	overlay_state_active = "module_kinesis_on"
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/gravitational)
 	required_slots = list(ITEM_SLOT_GLOVES)
+	/// The maximum amount of range, that we can get from core
+	var/maximum_grab_range = 8
 	/// Range of the kinesis grab.
 	var/grab_range = 5
 	/// Time between us hitting objects with kinesis.
@@ -63,6 +65,26 @@
 	QDEL_NULL(kinesis_icon)
 	grabbed_atom = null
 	return ..()
+
+/*
+tier 1 - range 2-3
+tier 2 - range 5-6, can lift conscious with handcuffs on them
+tier 3 - range 7-8, can lift conscious
+*/
+
+/obj/item/mod/module/anomaly_locked/kinesis/update_core_powers()
+	if(!core)
+		grab_range = 0
+		stat_required = DEAD
+		incapacitated_required = TRUE
+		return
+
+	var/calculated_range = round((core.get_strength() / 20))
+	grab_range = min(calculated_range, maximum_grab_range)
+	if(core.get_strength() > 100)
+		stat_required = CONSCIOUS
+	if(core.get_strength() > 200)
+		incapacitated_required = FALSE
 
 /obj/item/mod/module/anomaly_locked/kinesis/on_select_use(atom/target)
 	. = ..()
@@ -302,6 +324,7 @@
 			воздействовать на живых существ благодаря модификации гравитационного механизма."
 	complexity = 0
 	prebuilt = TRUE
+	removable = FALSE
 	stat_required = CONSCIOUS //Still conscious here so we don't forget about it if the above is changed
 	incapacitated_required = FALSE
 	mob_stun_time = 10 SECONDS

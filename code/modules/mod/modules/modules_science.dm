@@ -89,12 +89,16 @@
 	icon_state = "teleporter"
 	module_type = MODULE_ACTIVE
 	complexity = 3
-	use_energy_cost = DEFAULT_CHARGE_DRAIN * 50 //too good
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 500 //too good
 	cooldown_time = 5 SECONDS
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/bluespace)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// Time it takes to teleport
-	var/teleport_time = 1.25 SECONDS //This is a bluespace core this should be fast, like you can get a phazon with this man, we don't have anomaly refining either
+	var/teleport_time = 1.25 SECONDS
+	/// Maximum turf range
+	var/max_range = 9
+	///Limit of range, that we can get from the core
+	var/limited_range = 12
 
 /obj/item/mod/module/anomaly_locked/teleporter/get_ru_names()
 	return list(
@@ -105,14 +109,46 @@
 		INSTRUMENTAL = "модулем телепортера",
 		PREPOSITIONAL = "модуле телепортера",
 	)
+/*
+tier 1 - 2-3 range, 375 energy per teleport, 3 sec teleport
+tier 2 - 5-6 range, 250 energy per teleport, 2 sec teleport
+tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
+*/
+/obj/item/mod/module/anomaly_locked/teleporter/update_core_powers()
+	if(!core)
+		teleport_time = 3 SECONDS
+		use_energy_cost = DEFAULT_CHARGE_DRAIN * 500
+		max_range = 0
+		return
+
+	var/calculated_range = min(round(core.get_strength() / 20), limited_range)
+	max_range = calculated_range
+	if(core.get_strength() > 100)
+		use_energy_cost = DEFAULT_CHARGE_DRAIN * 200
+		teleport_time = 2 SECONDS
+	if(core.get_strength() > 200)
+		use_energy_cost = DEFAULT_CHARGE_DRAIN * 100
+		teleport_time = 1 SECONDS
 
 /obj/item/mod/module/anomaly_locked/teleporter/on_select_use(atom/target)
 	. = ..()
 	if(!.)
 		return
 	var/turf/target_turf = get_turf(target)
-	if(!istype(target_turf) || target_turf.density || !((target in view(9, mod.wearer)) || mod.wearer.sight & SEE_TURFS) || (get_dist(target_turf, get_turf(mod.wearer)) > 9)) //No. No camera bug shenanigins.
+	if(get_dist(target_turf, mod.wearer) > max_range)
+		balloon_alert(mod.wearer, "слишком далеко!")
 		return
+	if(!istype(target_turf))
+		balloon_alert(mod.wearer, "неподходящая цель!")
+		return
+	if(target_turf.density)
+		balloon_alert(mod.wearer, "невозможно!")
+		return
+	if(!is_teleport_allowed(target_turf.z))
+		balloon_alert(mod.wearer, "сбой в работе!")
+		return
+
+	balloon_alert(mod.wearer, "телепортация...")
 	var/matrix/pre_matrix = matrix()
 	pre_matrix.Scale(4, 0.25)
 	var/matrix/post_matrix = matrix()
@@ -128,6 +164,7 @@
 
 /obj/item/mod/module/anomaly_locked/teleporter/prebuilt
 	prebuilt = TRUE
+	removable = FALSE
 
 // MARK: Anti-gravity
 /// Anti-Gravity - Makes the user weightless.

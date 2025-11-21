@@ -118,6 +118,13 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/admin)
+"zM" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "An" = (
 /turf/simulated/openspace,
 /area/admin)
@@ -139,6 +146,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"ET" = (
+/obj/item/mod/control/pre_equipped/standard,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "GN" = (
@@ -2092,14 +2103,14 @@ jk
 HE
 Dp
 HE
-HE
+ET
 HE
 Cd
 WA
 CV
 qp
 nx
-Dp
+zM
 HE
 jk
 ay
@@ -2292,7 +2303,7 @@ HE
 HE
 HE
 HE
-HE
+Pd
 HE
 HE
 HE
@@ -2424,7 +2435,7 @@ HE
 HE
 HE
 HE
-HE
+Pd
 HE
 HE
 HE

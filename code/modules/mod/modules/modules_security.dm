@@ -228,6 +228,17 @@
 		PREPOSITIONAL = "модуле огненного щита",
 	)
 
+/obj/item/mod/module/anomaly_locked/firewall/update_core_powers()
+	if(!core)
+		dispense_type = null
+		return
+
+	dispense_type = /obj/item/grenade/barrier/dropwall/firewall/weak
+	if(core.get_strength() > 100)
+		dispense_type = /obj/item/grenade/barrier/dropwall/firewall
+	if(core.get_strength() > 200)
+		dispense_type = /obj/item/grenade/barrier/dropwall/firewall/strong
+
 /obj/item/mod/module/anomaly_locked/firewall/on_use()
 	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
 	mod.wearer.put_in_hands(dispensed)
@@ -264,6 +275,15 @@
 		INSTRUMENTAL = "модулем вихревого дробовика",
 		PREPOSITIONAL = "модуле вихревого дробовика",
 	)
+
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/update_core_powers()
+	if(!core)
+		return
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 1000
+	if(core.get_strength() > 100)
+		use_energy_cost = DEFAULT_CHARGE_DRAIN * 750
+	if(core.get_strength() > 200)
+		use_energy_cost = DEFAULT_CHARGE_DRAIN * 500
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/Initialize(mapload)
 	. = ..()

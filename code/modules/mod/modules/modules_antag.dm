@@ -590,9 +590,15 @@
 	var/shield_icon = "electricity3"
 	/// Charges the shield should start with.
 	var/charges
-
+	/// Can our core actually zap in melee?
+	var/can_tesla_zap = TRUE
+	/// Range of tesla zap when we get shot
 	var/zap_range = 5
+	/// Maximum tesla zap range of the core
+	var/maximum_zap_range = 7
+	/// Power of tesla zap when we get shot
 	var/power = 12500
+	/// Damage of tesla zap when we get shot
 	var/shock_damage = 30
 
 /obj/item/mod/module/anomaly_locked/teslawall/get_ru_names()
@@ -608,6 +614,30 @@
 /obj/item/mod/module/anomaly_locked/teslawall/Initialize(mapload)
 	. = ..()
 	charges = max_charges
+
+/*
+tier 1 - 15-20 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
+tier 2 - 30-40 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
+tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
+*/
+/obj/item/mod/module/anomaly_locked/teslawall/update_core_powers()
+	if(!core)
+		max_charges = 0
+		zap_range = 0
+		shock_damage = 0
+		can_tesla_zap = FALSE
+		return
+
+	var/calculated_protection = round((core.get_strength() / 3))
+	var/calculated_charge = round((core.get_strength() / 9))
+	var/calculated_range =  min(round((core.get_strength() / 20)), maximum_zap_range) //limit of 7
+	var/calculated_damage = round((core.get_strength() / 7))
+	max_charges = calculated_protection
+	charge_recovery = calculated_charge
+	zap_range = calculated_range
+	shock_damage = calculated_damage
+	if(core.get_strength() > 200)
+		can_tesla_zap = TRUE
 
 /obj/item/mod/module/anomaly_locked/teslawall/on_part_activation()
 	if(!core)
@@ -645,6 +675,8 @@
 /obj/item/mod/module/anomaly_locked/teslawall/proc/arc_flash(mob/owner, atom/movable/hitby, damage, attack_type)
 	if((attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK) && prob(33))
 		tesla_zap(owner, zap_range, power)
+		return
+	if(!can_tesla_zap)
 		return
 	if(isitem(hitby))
 		if(isliving(hitby.loc))

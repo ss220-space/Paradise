@@ -397,37 +397,44 @@
 /datum/design/module/mod_teleporter
 	name = "Модуль телепортера"
 	id = "mod_teleporter"
-	req_tech = list("combat" = 7, "engineering" = 7, "bluespace" = 7, "plasmatech" = 7, "toxins" = 6)
+	req_tech = list("combat" = 6, "engineering" = 6, "bluespace" = 7, "plasmatech" = 6)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires bluespace anomaly core to function.
 	build_path = /obj/item/mod/module/anomaly_locked/teleporter
 
 /datum/design/module/mod_kinesis
 	name = "Модуль \"Кинезис\""
 	id = "mod_kinesis"
-	req_tech = list("combat" = 7, "engineering" = 7, "bluespace" = 7, "plasmatech" = 7, "toxins" = 6)
+	req_tech = list("combat" = 6, "engineering" = 6, "bluespace" = 7, "plasmatech" = 6)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires Gravitational anomaly core to function.
 	build_path = /obj/item/mod/module/anomaly_locked/kinesis
 
 /datum/design/module/mod_firewall
 	name = "Модуль огненного щита"
 	id = "mod_firewall"
-	req_tech = list("combat" = 7, "engineering" = 7, "bluespace" = 7, "plasmatech" = 7, "toxins" = 6)
+	req_tech = list("combat" = 6, "engineering" = 6, "bluespace" = 7, "plasmatech" = 6)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires Pyroclastic anomaly core to function.
 	build_path = /obj/item/mod/module/anomaly_locked/firewall
 
 /datum/design/module/mod_arcshield
 	name = "Модуль аномальной защиты"
 	id = "mod_arcshield"
-	req_tech = list("combat" = 7, "engineering" = 7, "bluespace" = 7, "plasmatech" = 7, "toxins" = 6)
+	req_tech = list("combat" = 6, "engineering" = 6, "bluespace" = 7, "plasmatech" = 6)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires Flux anomaly core to function.
 	build_path = /obj/item/mod/module/anomaly_locked/teslawall
 
 /datum/design/module/mod_vortex
 	name = "Модуль вихревого дробовика"
 	id = "mod_vortex"
-	req_tech = list("combat" = 7, "engineering" = 7, "bluespace" = 7, "plasmatech" = 7, "toxins" = 6)
+	req_tech = list("combat" = 6, "engineering" = 6, "bluespace" = 7, "plasmatech" = 6)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires Vortex anomaly core to function.
 	build_path = /obj/item/mod/module/anomaly_locked/vortex_shotgun
+
+/datum/design/module/mod_antigrav
+	name = "Модуль антигравитации"
+	id = "mod_antigrav"
+	req_tech = list("combat" = 6, "engineering" = 6, "bluespace" = 7, "plasmatech" = 6)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
+	build_path = /obj/item/mod/module/anomaly_locked/antigrav
 
 /datum/design/module/mod_flamethrower
 	name = "Модуль огнемёта"
@@ -484,13 +491,6 @@
 	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 6)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/criminalcapture/patienttransport
-
-/datum/design/module/mod_antigrav
-	name = "Модуль антигравитации"
-	id = "mod_antigrav"
-	req_tech = list("combat" = 7, "engineering" = 7, "bluespace" = 7, "plasmatech" = 7, "toxins" = 6)
-	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
-	build_path = /obj/item/mod/module/anomaly_locked/antigrav
 
 /datum/design/module/mod_criminalcapture
 	name = "Модуль мешков для тел заключённых"
