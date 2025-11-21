@@ -232,7 +232,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/rusted/ppsh{
+/obj/item/gun/projectile/automatic/ppsh/rusted{
 	malf_counter = 70;
 	malf_high_bound = 70;
 	malf_low_bound = 50
@@ -2343,7 +2343,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/item/gun/projectile/automatic/rusted/aksu{
+/obj/item/gun/projectile/automatic/aksu/rusted{
 	malf_high_bound = 80;
 	malf_low_bound = 50
 	},
@@ -3562,7 +3562,7 @@
 	req_access = list(123)
 	},
 /obj/item/ammo_box/magazine/aksu,
-/obj/item/gun/projectile/automatic/rusted/aksu{
+/obj/item/gun/projectile/automatic/aksu/rusted{
 	malf_high_bound = 80;
 	malf_low_bound = 50
 	},
@@ -15965,7 +15965,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/rusted/aksu{
+/obj/item/gun/projectile/automatic/aksu/rusted{
 	malf_high_bound = 80;
 	malf_low_bound = 50
 	},
@@ -16179,7 +16179,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/rusted/ppsh{
+/obj/item/gun/projectile/automatic/ppsh/rusted{
 	malf_counter = 70;
 	malf_high_bound = 70;
 	malf_low_bound = 50
