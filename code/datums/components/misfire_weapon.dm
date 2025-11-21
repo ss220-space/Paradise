@@ -3,6 +3,7 @@
  */
 /datum/element/misfire_weapon
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY | ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 	/// Maximal misfire chance
 	var/misfire_max_chance
 	/// Shots after gun begin misfiring from 0 to max

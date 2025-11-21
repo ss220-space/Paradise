@@ -2,6 +2,7 @@
 
 /datum/element/rusted_weapon
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY | ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 	/// Max chance to destroy gun after shot
 	var/destroy_max_chance
 	/// Max chance of shots in the face

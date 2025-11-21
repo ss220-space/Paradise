@@ -80,7 +80,7 @@
 /obj/item/gun/projectile/revolver/nagant/rusted
 	desc = "An old model of revolver that originated in Russia. This one is a real relic, rust is pouring."
 
-/obj/item/gun/projectile/shotgun/lethal/rusted/ComponentInitialize()
+/obj/item/gun/projectile/revolver/nagant/rusted/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
