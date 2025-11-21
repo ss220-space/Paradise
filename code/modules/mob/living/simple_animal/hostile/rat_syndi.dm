@@ -35,7 +35,6 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-
 	ranged =  1
 	projectiletype = /obj/projectile/beam/disabler
 
@@ -99,10 +98,9 @@
 	else if(prob(0.5))
 		set_resting(TRUE, instant = TRUE)
 
-
 /mob/living/simple_animal/hostile/retaliate/syndirat/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
+		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
 

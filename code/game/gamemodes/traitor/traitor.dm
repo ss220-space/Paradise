@@ -64,7 +64,6 @@
 			pre_traitors += traitor
 			traitor.restricted_roles = restricted_jobs
 
-
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/new_antag = new
@@ -76,11 +75,9 @@
 		exchange_blue = -1 //Block latejoiners from getting exchange objectives
 	..()
 
-
 /datum/game_mode/traitor/declare_completion()
 	..()
 	return//Traitors will be checked as part of check_extra_completion. Leaving this here as a reminder.
-
 
 /datum/game_mode/traitor/process()
 	// Make sure all objectives are processed regularly, so that objectives
@@ -89,7 +86,6 @@
 		for(var/datum/objective/objective in traitor_mind.get_all_objectives())
 			objective.check_completion()
 	return FALSE
-
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))

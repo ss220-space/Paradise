@@ -5,10 +5,8 @@
 		return
 	interact(user)
 
-
 /obj/machinery/computer/library/public/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
-
 
 /obj/machinery/computer/library/public/interact(mob/user)
 	if(interact_check(user))

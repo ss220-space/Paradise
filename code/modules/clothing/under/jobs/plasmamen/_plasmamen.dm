@@ -22,13 +22,12 @@
 		DATIVE = "защитному костюму плазмолюда",
 		ACCUSATIVE = "защитный костюм плазмолюда",
 		INSTRUMENTAL = "защитным костюмом плазмолюда",
-		PREPOSITIONAL = "защитном костюме плазмолюда"
+		PREPOSITIONAL = "защитном костюме плазмолюда",
 	)
-
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
-	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[declension_ru(extinguishes_left, "", "а", "ов")].")
+	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[DECL_CREDIT(extinguishes_left)].")
 
 /obj/item/clothing/under/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -41,7 +40,7 @@
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
 			H.visible_message(
-				span_warning("Защитный костюм [H] автоматически тушит [genderize_ru(H.gender, "его", "её", "его", "их")]!"),
+				span_warning("Защитный костюм [H] автоматически тушит [GEND_HIS_HER(H)]!"),
 				span_warning("Встроенный огнетушитель вашего костюма автоматически тушит вас!")
 			)
 			if(!extinguishes_left)
@@ -50,7 +49,6 @@
 			H.ExtinguishMob()
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE
-
 
 /obj/item/clothing/under/plasmaman/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/extinguisher_refill))
@@ -67,7 +65,6 @@
 
 	return ..()
 
-
 /obj/item/extinguisher_refill
 	name = "envirosuit extinguisher cartridge"
 	desc = "Картридж, заполненный противопожарной смесью. Используется для заправки встроенного огнетушителя в защитных костюмах плазмолюдов."
@@ -81,5 +78,5 @@
 		DATIVE = "картриджу пополнения встроенного огнетушителя",
 		ACCUSATIVE = "картридж пополнения встроенного огнетушителя",
 		INSTRUMENTAL = "картриджем пополнения встроенного огнетушителя",
-		PREPOSITIONAL = "картридже пополнения встроенного огнетушителя"
+		PREPOSITIONAL = "картридже пополнения встроенного огнетушителя",
 	)

@@ -91,7 +91,6 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		if(!department && !(name in heads))
 			misc[++misc.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 
-
 	GLOB.PDA_Manifest = list(\
 		"heads" = heads,\
 		"pro" = pro,\
@@ -105,8 +104,6 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		"misc" = misc\
 		)
 	return
-
-
 
 /datum/datacore/proc/manifest()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -144,7 +141,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			assignment = "Неназначенный"
 
 		var/id = num2hex(GLOB.record_id_num++, 6)
-
 
 		//General Record
 		var/datum/data/record/G = new()
@@ -352,7 +348,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 				face_s.Blend(h_marking_s, ICON_OVERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY)
-
 
 	var/icon/clothes_s = null
 	var/job_clothes = null

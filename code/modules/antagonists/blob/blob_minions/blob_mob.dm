@@ -25,7 +25,6 @@
 	/// Is blob mob linked to factory
 	var/factory_linked = FALSE
 
-
 /mob/living/simple_animal/hostile/blob_minion/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -68,7 +67,6 @@
 			return
 	. = ..()
 
-
 /mob/living/simple_animal/hostile/blob_minion/regenerate_icons()
 	update_icon()
 
@@ -87,7 +85,6 @@
 /mob/living/simple_animal/hostile/blob_minion/proc/on_factory_destroyed()
 	SIGNAL_HANDLER
 	to_chat(src, span_userdanger("Your factory was destroyed! You feel yourself dying!"))
-
 
 /mob/living/simple_animal/hostile/blob_minion/can_be_blob()
 	return FALSE

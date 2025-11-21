@@ -136,6 +136,5 @@
 		return TRUE
 	return FALSE
 
-
 /mob/proc/check_smart_brain()
 	return FALSE

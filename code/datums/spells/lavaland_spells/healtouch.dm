@@ -30,7 +30,7 @@
 		DATIVE = "целебному касанию",
 		ACCUSATIVE = "целебное касание",
 		INSTRUMENTAL = "целебным касанием",
-		PREPOSITIONAL = "целебном касании"
+		PREPOSITIONAL = "целебном касании",
 	)
 
 /obj/item/melee/touch_attack/healtouch/afterattack(atom/target, mob/living/carbon/user, proximity, params)

@@ -15,7 +15,6 @@
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
 
-
 /obj/machinery/light_switch/New(turf/loc, w_dir)
 	..()
 	switch(w_dir)
@@ -27,7 +26,6 @@
 			pixel_x = 25
 		if(WEST)
 			pixel_x = -25
-
 
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
@@ -44,12 +42,10 @@
 	on = area.lightswitch
 	update_icon()
 
-
 /obj/machinery/light_switch/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
-
 
 /obj/machinery/light_switch/Destroy()
 	if(SSradio)
@@ -57,13 +53,11 @@
 	radio_connection = null
 	return ..()
 
-
 /obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 		return
 	icon_state = "light[on]"
-
 
 /obj/machinery/light_switch/update_overlays()
 	. = ..()
@@ -73,23 +67,19 @@
 		return
 	underlays += emissive_appearance(icon, "light_lightmask", src)
 
-
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	. += span_notice("A light switch. It is [on? "on" : "off"].")
 
-
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
-
 
 /obj/machinery/light_switch/attack_hand(mob/user)
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 	add_fingerprint(user)
 	on = !on
 	update_icon()
-
 
 	if(light_connect && area)
 		area.lightswitch = on
@@ -103,7 +93,6 @@
 			light_switch.on = on
 			light_switch.update_icon()
 		area?.power_change()
-
 
 /obj/machinery/light_switch/proc/handle_output()
 	if(!radio_connection)		//can't output without this
@@ -134,12 +123,10 @@
 	if(on)
 		use_power(5, LIGHT)			//Use a tiny bit of power every time we send an ON signal. Draws from the local APC's lighting circuit, since this is a LIGHT switch.
 
-
 /obj/machinery/light_switch/power_change(forced = FALSE)
 	if(!..() || !otherarea)
 		return
 	update_icon()
-
 
 /obj/machinery/light_switch/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -152,12 +139,10 @@
 	if(logic_connect && powered(LIGHT))		//We won't send signals while unpowered, but the last signal will remain valid for anything that received it before we went dark
 		handle_output()
 
-
 /obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detective_scanner))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
 	. = TRUE

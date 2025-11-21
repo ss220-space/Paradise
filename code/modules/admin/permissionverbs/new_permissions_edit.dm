@@ -69,7 +69,6 @@
 	.["admins"] = admins
 	return .
 
-
 /datum/ui_module/permissions_edit/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
@@ -99,7 +98,6 @@
 
 			if(!istext(ckey) || !istext(rank))
 				return
-
 
 			usr.client.holder.update_rank_to_db(ckey, rank)
 			usr.client.holder.admin_rank_only_modification(ckey, rank)
@@ -162,7 +160,6 @@
 			var/preset = params["preset"]
 			var/permissions = GLOB.admin_ranks[preset]
 			add_new_admin(ckey, rank, permissions)
-
 
 /datum/ui_module/permissions_edit/proc/update_permissions(ckey, permissions)
 	if(IsAdminAdvancedProcCall())

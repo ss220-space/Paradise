@@ -25,7 +25,6 @@
 	/// Nodes store the endgoal so they can process their heuristic without a reference to the pathfind datum
 	var/turf/node_goal
 
-
 /datum/jps_node/New(turf/our_tile, datum/jps_node/incoming_previous_node, jumps_taken, turf/incoming_goal)
 	tile = our_tile
 	jumps = jumps_taken
@@ -39,11 +38,9 @@
 		f_value = number_tiles + heuristic
 	// otherwise, no parent node means this is from a subscan lateral scan, so we just need the tile for now until we call [datum/jps/proc/update_parent] on it
 
-
 /datum/jps_node/Destroy(force)
 	previous_node = null
 	return ..()
-
 
 /datum/jps_node/proc/update_parent(datum/jps_node/new_parent)
 	previous_node = new_parent
@@ -53,10 +50,8 @@
 	heuristic = get_dist_euclidean(tile, node_goal)
 	f_value = number_tiles + heuristic
 
-
 /proc/HeapPathWeightCompare(datum/jps_node/a, datum/jps_node/b)
 	return b.f_value - a.f_value
-
 
 /datum/pathfind/jps
 	/// The movable we are pathing
@@ -77,7 +72,6 @@
 	///Defines how we handle diagonal moves. See __DEFINES/path.dm
 	var/diagonal_handling = DIAGONAL_REMOVE_CLUNKY
 
-
 /datum/pathfind/jps/proc/setup(atom/movable/requester, list/access, max_distance, simulated_only, avoid, list/datum/callback/on_finish, atom/goal, mintargetdist, skip_first, diagonal_handling)
 	src.requester = requester
 	src.pass_info = new(requester, access)
@@ -92,13 +86,11 @@
 	open = new /datum/heap(/proc/HeapPathWeightCompare)
 	found_turfs = list()
 
-
 /datum/pathfind/jps/Destroy(force)
 	. = ..()
 	requester = null
 	end = null
 	open = null
-
 
 /datum/pathfind/jps/start()
 	start = start || get_turf(requester)
@@ -118,7 +110,6 @@
 	open.insert(current_processed_node)
 	found_turfs[start] = TRUE // i'm sure this is fine
 	return TRUE
-
 
 /datum/pathfind/jps/search_step()
 	. = ..()
@@ -144,7 +135,6 @@
 			return TRUE
 	return TRUE
 
-
 /datum/pathfind/jps/finished()
 	//we're done! turn our reversed path (end to start) into a path (start to end)
 	found_turfs = null
@@ -162,7 +152,6 @@
 	hand_back(path)
 	return ..()
 
-
 /// Called when we've hit the goal with the node that represents the last tile, then sets the path var to that path so it can be returned by [datum/pathfind/proc/search]
 /datum/pathfind/jps/proc/unwind_path(datum/jps_node/unwind_node)
 	path = new()
@@ -175,7 +164,6 @@
 			iter_turf = get_step(iter_turf,dir_goal)
 			path.Add(iter_turf)
 		unwind_node = unwind_node.previous_node
-
 
 /**
  * For performing lateral scans from a given starting turf.
@@ -241,7 +229,6 @@
 			if(parent_node) // if we're a diagonal subscan, we'll handle adding ourselves to the heap in the diag
 				open.insert(newnode)
 			return newnode
-
 
 /**
  * For performing diagonal scans from a given starting turf.

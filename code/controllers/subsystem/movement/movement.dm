@@ -22,13 +22,11 @@ SUBSYSTEM_DEF(movement)
 	///The visual delay of the subsystem
 	var/visual_delay = 1
 
-
 /datum/controller/subsystem/movement/get_stat_details()
 	var/total_len = 0
 	for(var/list/bucket as anything in sorted_buckets)
 		total_len += length(bucket[MOVEMENT_BUCKET_LIST])
 	return "B:[length(sorted_buckets)] E:[total_len]"
-
 
 /datum/controller/subsystem/movement/Recover()
 	//Get ready this is gonna be horrible
@@ -40,7 +38,6 @@ SUBSYSTEM_DEF(movement)
 	buckets = old_version.buckets
 	sorted_buckets = old_version.sorted_buckets
 
-
 /datum/controller/subsystem/movement/fire(resumed)
 	if(!resumed)
 		canonical_time = world.time
@@ -50,7 +47,6 @@ SUBSYSTEM_DEF(movement)
 		if(time > canonical_time || MC_TICK_CHECK)
 			return
 		pour_bucket(bucket_info)
-
 
 /// Processes a bucket of movement loops (This should only ever be called by fire(), it exists to prevent runtime fuckery)
 /datum/controller/subsystem/movement/proc/pour_bucket(list/bucket_info)
@@ -74,7 +70,6 @@ SUBSYSTEM_DEF(movement)
 	smash_bucket(1, bucket_time) // We assume we're the first bucket in the queue right now
 	visual_delay = MC_AVERAGE_FAST(visual_delay, max((world.time - canonical_time) / wait, 1))
 
-
 /// Removes a bucket from our system. You only need to pass in the time, but if you pass in the index of the list you save us some work
 /datum/controller/subsystem/movement/proc/smash_bucket(index, bucket_time)
 	var/sorted_length = length(sorted_buckets)
@@ -95,7 +90,6 @@ SUBSYSTEM_DEF(movement)
 	//Removes the assoc lookup too
 	buckets -= "[bucket_time]"
 
-
 /datum/controller/subsystem/movement/proc/queue_loop(datum/move_loop/loop)
 	if(loop.status & MOVELOOP_STATUS_QUEUED)
 		stack_trace("A move loop attempted to queue while already queued")
@@ -115,7 +109,6 @@ SUBSYSTEM_DEF(movement)
 	our_bucket += loop
 	uniqueList_inplace(buckets["[loop.queued_time]"]) //ensure there are no copies of themselves
 
-
 /datum/controller/subsystem/movement/proc/dequeue_loop(datum/move_loop/loop)
 	// Go home, you're not here anyway
 	if(!(loop.status & MOVELOOP_STATUS_QUEUED))
@@ -130,7 +123,6 @@ SUBSYSTEM_DEF(movement)
 	loop.queued_time = null
 	loop.status &= ~MOVELOOP_STATUS_QUEUED
 
-
 /datum/controller/subsystem/movement/proc/add_loop(datum/move_loop/add)
 	if(add.status & MOVELOOP_STATUS_QUEUED)
 		CRASH("Loop being added that is already queued.")
@@ -138,7 +130,6 @@ SUBSYSTEM_DEF(movement)
 	if(QDELETED(add) || add.status & MOVELOOP_STATUS_QUEUED)
 		return
 	queue_loop(add)
-
 
 /datum/controller/subsystem/movement/proc/remove_loop(datum/move_loop/remove)
 	dequeue_loop(remove)

@@ -10,20 +10,16 @@
 	/// Bio-chip case inside source.
 	var/obj/item/implantcase/case
 
-
 /obj/item/implantpad/Destroy()
 	if(case)
 		eject_case()
 	return ..()
 
-
 /obj/item/implantpad/update_icon_state()
 	icon_state = "implantpad-[case ? "on" : "off"]"
 
-
 /obj/item/implantpad/attack_self(mob/user)
 	ui_interact(user)
-
 
 /obj/item/implantpad/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/implantcase))
@@ -38,7 +34,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/implantpad/proc/eject_case(mob/user)
 	if(!case)
 		to_chat(user, span_warning("There's no bio-chip in the pad!"))
@@ -52,18 +47,15 @@
 	case = null
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/implantpad/click_alt(mob/living/user)
 	eject_case(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/implantpad/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ImplantPad", name)
 		ui.open()
-
 
 /obj/item/implantpad/ui_data(mob/user)
 	var/list/data = list()
@@ -81,7 +73,6 @@
 		var/obj/item/implant/tracking/tracking_imp = case.imp
 		data["tag"] = istype(tracking_imp) ? tracking_imp.gps_tag : null
 	return data
-
 
 /obj/item/implantpad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())

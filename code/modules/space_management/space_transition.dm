@@ -1,6 +1,5 @@
 //This is realisation of the working torus-looping randomized-per-round space map, this kills the cube
 
-
 /proc/get_opposite_direction(direction)
 	switch(direction)
 		if(Z_LEVEL_NORTH)
@@ -11,7 +10,6 @@
 			return Z_LEVEL_WEST
 		if(Z_LEVEL_WEST)
 			return Z_LEVEL_EAST
-
 
 // Do this before setting up new connections, or the old ones will haunt you
 /datum/space_level/proc/reset_connections()
@@ -66,7 +64,6 @@
 	GLOB.space_manager.unbuilt_space_transitions |= src
 	GLOB.space_manager.unbuilt_space_transitions |= S
 
-
 /datum/space_level/proc/get_connection(direction)
 	if(direction in neighbors)
 		return neighbors[direction]
@@ -80,7 +77,6 @@
 			CRASH("Tesseract formed when routing connections between z levels. Culprit: z level '[S.zpos]' to '[src.zpos]', direction [oppose]")
 		S = S.neighbors[oppose]
 	return S
-
 
 /datum/point					//this is explicitly utilitarian datum type made specially for the space map generation and are absolutely unusable for anything else
 	var/list/neighbors = list()
@@ -160,7 +156,6 @@
 	if(!isnull(SW.get(x,y-1)))
 		result = 0
 	return result
-
 
 /datum/point/proc/deactivate()
 	if(!spl)
@@ -282,7 +277,6 @@
 		if(isnull(outer_bound))
 			min_y++
 
-
 // If the node isn't in the grid, this will return null
 /datum/spacewalk_grid/proc/get(x,y, allow_empty = 0)
 	var/datum/point/P = all_nodes["([x],[y])"]
@@ -308,7 +302,6 @@
 /datum/spacewalk_grid/proc/add_level(datum/space_level/S)
 	var/datum/point/P = get_empty_node()
 	P.set_space_level(S)
-
 
 // This proc substantiates the grid of points used to determine routes between levels
 // Separating this from initialization gives us time in which we can add more crosslink z levels
@@ -357,7 +350,6 @@
 		levels_to_rebuild = list()
 		for(var/A in z_list)
 			levels_to_rebuild.Add(z_list[A])
-
 
 	for(var/foo in levels_to_rebuild) //Define the transitions of the z levels
 		D = foo

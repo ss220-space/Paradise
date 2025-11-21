@@ -8,11 +8,9 @@
 	/// Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
 	var/sortType = 0
 
-
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload, obj/structure/disposalconstruct/made_from)
 	. = ..()
 	update_appearance(UPDATE_NAME|UPDATE_DESC)
-
 
 /obj/structure/disposalpipe/sortjunction/update_name(updates = ALL)
 	. = ..()
@@ -20,14 +18,12 @@
 	if(sortType > 0)
 		name = GLOB.TAGGERLOCATIONS[sortType]
 
-
 /obj/structure/disposalpipe/sortjunction/update_desc(updates = ALL)
 	. = ..()
 	desc = "An underfloor disposal pipe with a package sorting mechanism."
 	if(sortType > 0)
 		var/tag = uppertext(GLOB.TAGGERLOCATIONS[sortType])
 		desc += "\nIt's tagged with [tag]"
-
 
 /obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -47,7 +43,6 @@
 
 	return ..()
 
-
 /obj/structure/disposalpipe/sortjunction/nextdir(obj/structure/disposalholder/holder)
 	var/sortdir = dpdir & ~(dir | REVERSE_DIR(dir))
 	if(holder.dir != sortdir) // probably came from the negdir
@@ -57,13 +52,11 @@
 	// go with the flow to positive direction
 	return dir
 
-
 /obj/structure/disposalpipe/sortjunction/reversed
 	icon_state = "pipe-j2s"
 	base_icon_state = "pipe-j2s"
 	flip_type = /obj/structure/disposalpipe/sortjunction
 	initialize_dirs = DISP_DIR_LEFT|DISP_DIR_FLIP
-
 
 //a three-way junction that sorts objects destined for the mail office mail table (tomail = 1)
 /obj/structure/disposalpipe/wrapsortjunction
@@ -74,7 +67,6 @@
 	flip_type = /obj/structure/disposalpipe/wrapsortjunction/reversed
 	initialize_dirs = DISP_DIR_RIGHT|DISP_DIR_FLIP
 
-
 /obj/structure/disposalpipe/wrapsortjunction/nextdir(obj/structure/disposalholder/holder)
 	var/sortdir = dpdir & ~(dir | REVERSE_DIR(dir))
 	if(holder.dir != sortdir) // probably came from the negdir
@@ -83,7 +75,6 @@
 
 	// go with the flow to positive direction
 	return dir
-
 
 /obj/structure/disposalpipe/wrapsortjunction/reversed
 	icon_state = "pipe-j2s"

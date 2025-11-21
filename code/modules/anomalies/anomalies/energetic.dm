@@ -136,7 +136,7 @@
 		DATIVE = "малой энергетической аномалии", \
 		ACCUSATIVE = "малую энергетическую аномалию", \
 		INSTRUMENTAL = "малой энергетической аномалией", \
-		PREPOSITIONAL = "малой энергетической аномалии"
+		PREPOSITIONAL = "малой энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier2
@@ -169,7 +169,7 @@
 		DATIVE = "энергетической аномалии", \
 		ACCUSATIVE = "энергетическую аномалию", \
 		INSTRUMENTAL = "энергетической аномалией", \
-		PREPOSITIONAL = "энергетической аномалии"
+		PREPOSITIONAL = "энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier3
@@ -201,7 +201,7 @@
 		DATIVE = "большой энергетической аномалии", \
 		ACCUSATIVE = "большую энергетическую аномалию", \
 		INSTRUMENTAL = "большой энергетической аномалией", \
-		PREPOSITIONAL = "большой энергетической аномалии"
+		PREPOSITIONAL = "большой энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier3/New()
@@ -215,7 +215,6 @@
 
 		mob.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
 		to_chat(mob, span_energetic_anomaly("Вы слышите тихое потрескивание в воздухе. Подозрительно похоже на статическое электричество."))
-
 
 /obj/effect/energy_ball
 	name = "энергетический шар"
@@ -239,7 +238,7 @@
 		DATIVE = "энергетическому шару", \
 		ACCUSATIVE = "энергетический шар", \
 		INSTRUMENTAL = "энергетическим шаром", \
-		PREPOSITIONAL = "энергетическом шаре"
+		PREPOSITIONAL = "энергетическом шаре",
 	)
 
 /obj/effect/energy_ball/New(loc, owner)
@@ -310,7 +309,6 @@
 	size = 1.5
 	spawn_type = /obj/effect/anomaly/energetic/tier2
 
-
 //			 TIER 4 ADMIN SPAWN ONLY
 
 /obj/effect/anomaly/energetic/tier4
@@ -344,7 +342,7 @@
 		DATIVE = "колоссальной энергетической аномалии", \
 		ACCUSATIVE = "колоссальную энергетическую аномалию", \
 		INSTRUMENTAL = "колоссальной энергетической аномалией", \
-		PREPOSITIONAL = "колоссальной энергетической аномалии"
+		PREPOSITIONAL = "колоссальной энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier4/New()

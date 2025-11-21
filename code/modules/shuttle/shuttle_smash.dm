@@ -28,7 +28,6 @@
 		for(var/mob/viewer as anything in viewers_by_turf[turf])
 			viewer.show_message(span_warning("[destroyed] gets crushed by a hyperspace ripple!"), EMOTE_VISIBLE)
 
-
 /**
  * Atom crushed by shuttle feedback.
  * Avoid any visible messages here, since it will clutter the chat tremendously.
@@ -43,12 +42,10 @@
 	if(simulated) // Don't qdel lighting overlays, they are static
 		qdel(src)
 
-
 // Mobs
 
 /mob/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
-
 
 /mob/living/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	if(incorporeal_move || HAS_TRAIT(src, TRAIT_GODMODE))
@@ -65,10 +62,8 @@
 		victim.shuttle_crush_react(stationary_turf, mobile_dir)
 	gib()
 
-
 /mob/living/silicon/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = TRUE)
 	. = ..()	// we are skipping ungibable search, since silicons have no valuables to drop and this only cause bugs with brain removal
-
 
 /mob/living/silicon/robot/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = TRUE)
 	if(module)
@@ -76,14 +71,11 @@
 		our_gripper?.drop_ungibbable_items(stationary_turf)
 	return ..()
 
-
 /mob/living/silicon/ai/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
 
-
 /mob/living/carbon/brain/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
-
 
 // Objects
 
@@ -93,14 +85,12 @@
 	pilot?.shuttle_crush_react(stationary_turf, mobile_dir, TRUE)
 	return TRUE
 
-
 /obj/spacepod/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	var/list/happy_three_friends = passengers + pilot
 	..()
 	for(var/mob/living/victim as anything in happy_three_friends)
 		victim.shuttle_crush_react(stationary_turf, mobile_dir, TRUE)
 	return TRUE
-
 
 /obj/structure/closet/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	var/list/insides = contents.Copy()
@@ -109,13 +99,11 @@
 		thing.shuttle_crush_react(stationary_turf, mobile_dir, TRUE)
 	return TRUE
 
-
 /obj/item/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	if(is_type_in_list(src, GLOB.ungibbable_items_types))
 		return FALSE
 	..()
 	return TRUE
-
 
 /obj/effect/dummy/chameleon/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	. = FALSE
@@ -124,22 +112,17 @@
 	if(ismovable(user))
 		user.shuttle_crush_react(stationary_turf, mobile_dir)
 
-
 /obj/effect/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
-
 
 /atom/movable/screen/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
 
-
 /obj/docking_port/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
 
-
 /obj/singularity/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
-
 
 /obj/machinery/nuclearbomb/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE

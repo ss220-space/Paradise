@@ -10,7 +10,6 @@
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 
-
 /obj/item/melee/touch_attack/banana
 	name = "banana touch"
 	desc = "It's time to start clowning around."
@@ -18,7 +17,6 @@
 	on_use_sound = 'sound/items/AirHorn.ogg'
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
-
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -32,7 +30,6 @@
 	var/mob/living/carbon/human/h_target = target
 	h_target.bananatouched()
 	..()
-
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")

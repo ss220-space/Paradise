@@ -12,9 +12,8 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
-
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -74,7 +73,6 @@
 	high_risk = FALSE
 	accuracy = GUN_ACCURACY_SHOTGUN
 
-
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
@@ -97,7 +95,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 
 ///Laser Cannon
@@ -119,7 +117,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7),
 	)
 
 /obj/item/ammo_casing/energy/laser/accelerator
@@ -145,7 +143,6 @@
 	armour_penetration = min(armour_penetration, 50)
 	forcedodge = min(forcedodge, 20)
 
-
 /obj/item/gun/energy/lasercannon/cyborg
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
@@ -166,7 +163,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7),
 	)
 
 /obj/item/gun/energy/immolator
@@ -181,7 +178,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7),
 	)
 
 /obj/item/gun/energy/immolator/multi
@@ -192,19 +189,16 @@
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 
-
 /obj/item/gun/energy/immolator/multi/update_overlays()
 	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/append = shot.select_name
 	. += image(icon, icon_state = "multilensimmolator-[append]")
 
-
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
 	attachable_allowed = GUN_MODULE_CLASS_NONE
-
 
 ////////Laser Tag////////////////////
 

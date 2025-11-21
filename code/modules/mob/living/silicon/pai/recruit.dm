@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			else
 				pai.name = candidate.name
 			pai.real_name = pai.name
-			pai.key = candidate.key
+			pai.possess_by_player(candidate.key)
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
 
@@ -125,7 +125,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 		recruitWindow(usr)
 
-
 /datum/paiController/proc/recruitWindow(mob/M as mob)
 	var/datum/paiCandidate/candidate
 	for(var/datum/paiCandidate/c in pai_candidates)
@@ -137,7 +136,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		candidate = new /datum/paiCandidate()
 		candidate.key = M.key
 		pai_candidates.Add(candidate)
-
 
 	var/dat = ""
 

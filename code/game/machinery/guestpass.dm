@@ -39,7 +39,6 @@
 	icon_keyboard = null
 	density = FALSE
 
-
 	var/obj/item/card/id/giver
 	var/list/accesses = list()
 	var/giv_name = "NOT SPECIFIED"
@@ -48,7 +47,6 @@
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
-
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -67,13 +65,11 @@
 
 	return ..()
 
-
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
 	return giver.access
 
 /obj/machinery/computer/guestpass/attack_ai(mob/user)
 	return attack_hand(user)
-
 
 /obj/machinery/computer/guestpass/attack_hand(mob/user as mob)
 	if(..())
@@ -108,7 +104,6 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "guestpass")
-
 
 /obj/machinery/computer/guestpass/Topic(href, href_list)
 	if(..())

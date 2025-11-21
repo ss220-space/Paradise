@@ -106,7 +106,7 @@
 			// Check the carrier
 			var/answer = tgui_alert(M, "[pai_holder] запрашивает у вас образец ДНК. Предоставить образец для подтверждения вашей личности?", "[pai_holder] запрашивает ДНК", list("Да", "Нет"))
 			if(answer == "Да")
-				M.visible_message(span_notice("[M] помеща[pluralize_ru(M.gender,"ет","ют")] палец на сканер ДНК."), span_notice("Вы помещаете палец на сканер ДНК."))
+				M.visible_message(span_notice("[M] помеща[PLUR_ET_YUT(M)] палец на сканер ДНК."), span_notice("Вы помещаете палец на сканер ДНК."))
 				var/datum/dna/dna = M.dna
 				to_chat(usr, span_notice("Сканируемый: [M]"))
 				to_chat(usr, span_notice("UE код: [dna.unique_enzymes]"))
@@ -115,8 +115,7 @@
 				else
 					to_chat(usr, span_warning("ДНК не совпадает с записанным ДНК мастера!"))
 			else
-				to_chat(usr, span_warning("[M] отказа[genderize_ru(M.gender,"лся","лась","лось","лись" )] предоставлять вам образец ДНК."))
-
+				to_chat(usr, span_warning("[M] отказал[GEND_SYA_AS_OS_IS(M)] предоставлять вам образец ДНК."))
 
 // Crew Manifest //
 /datum/pai_software/crew_manifest
@@ -410,7 +409,6 @@
 	template_file = "pai_gps_module"
 	ui_icon = "location-arrow"
 
-
 /datum/pai_software/gps/ui_act(action, list/params)
 	if(..())
 		return
@@ -529,7 +527,6 @@
 			to_chat(pai_holder, span_notice("В кровоток носителя введён синтезированный реагент: \"[R.name]\"."))
 			held.reagents.add_reagent(C.key, C.quantity)
 			pai_holder.chemicals -= C.chemuse
-
 
 // Advanced Security Records //
 /datum/pai_software/adv_sec_records

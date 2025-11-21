@@ -61,7 +61,6 @@
 	balloon_alert(user, "шприц разряжен!")
 	return TRUE
 
-
 /obj/item/gun/syringe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		add_fingerprint(user)
@@ -77,7 +76,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"

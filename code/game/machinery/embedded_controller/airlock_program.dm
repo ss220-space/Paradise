@@ -103,7 +103,6 @@
 					else
 						receive_user_command("cycle_int")
 
-
 /datum/computer/file/embedded_program/airlock/receive_user_command(command)
 	var/shutdown_pump = 0
 	switch(command)
@@ -156,7 +155,6 @@
 
 	if(shutdown_pump)
 		signalPump(tag_airpump, 0)		//send a signal to stop pressurizing
-
 
 /datum/computer/file/embedded_program/airlock/process()
 	if(!state) //Idle
@@ -214,13 +212,11 @@
 				if(memory["pump_status"] != "off")
 					signalPump(tag_airpump, 0)		//send a signal to stop pumping
 
-
 		if(STATE_DEPRESSURIZE)
 			if(memory["purge"])
 				if(memory["chamber_sensor_pressure"] <= ONE_ATMOSPHERE * 0.05)
 					state = STATE_PRESSURIZE
 					signalPump(tag_airpump, 1, 1, memory["target_pressure"])
-
 
 			else if(memory["chamber_sensor_pressure"] <= memory["target_pressure"] * 1.05)
 				cycleDoors(target_state)
@@ -231,7 +227,6 @@
 				//send a signal to stop pumping
 				if(memory["pump_status"] != "off")
 					signalPump(tag_airpump, 0)
-
 
 	memory["processing"] = state != target_state
 

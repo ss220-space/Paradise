@@ -126,7 +126,6 @@
 /mob/living/silicon/robot/AltShiftClickOn(atom/A)
 	A.BorgAltShiftClick(src)
 
-
 /atom/proc/BorgShiftClick(mob/user)
 	if(user.client && user.client.eye == user)
 		user.examinate(src)
@@ -147,7 +146,6 @@
 /atom/proc/BorgAltShiftClick()
 	return
 
-
 // AIRLOCKS
 
 /obj/machinery/door/airlock/BorgShiftClick(mob/living/silicon/robot/user)  // Opens and closes doors! Forwards to AI code.
@@ -162,12 +160,10 @@
 /obj/machinery/door/airlock/BorgAltShiftClick(mob/living/silicon/robot/user)  // Enables emergency override on doors! Forwards to AI code.
 	AIAltShiftClick(user)
 
-
 // APC
 
 /obj/machinery/power/apc/BorgCtrlClick(mob/living/silicon/robot/user) // turns off/on APCs. Forwards to AI code.
 	AICtrlClick(user)
-
 
 // AI SLIPPER
 
@@ -176,7 +172,6 @@
 
 /obj/machinery/ai_slipper/borg_click_alt(mob/living/silicon/robot/user) //Dispenses liquid if on
 	Activate()
-
 
 // TURRETCONTROL
 

@@ -26,7 +26,6 @@
 	core = null
 	. = ..()
 
-
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
 	if(core && has_bluespace_crystal)
@@ -42,7 +41,6 @@
 		return
 
 	. += span_warning("Не хватает ядра энергетической аномалии и БС кристалла для работы.")
-
 
 /obj/item/gun/energy/bsg/attackby(obj/item/item, mob/user, params)
 	if(isbluespacecrystal(item))
@@ -113,14 +111,12 @@
 	bsg_BB.core_strength = core.get_strength()
 	return ..()
 
-
 /obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
 		icon_state = "bsg_[has_bluespace_crystal ? "finished" : "core"]"
 		return
 
 	icon_state = "bsg[has_bluespace_crystal ? "_crystal" : ""]"
-
 
 /obj/item/gun/energy/bsg/emp_act(severity)
 	..()
@@ -139,26 +135,21 @@
 	has_bluespace_crystal = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/gun/energy/bsg/turret_check()
 	return core && has_bluespace_crystal
 
-
 /obj/item/gun/energy/bsg/prepare_gun_data(list/data)
 	data["core"] = core
-
 
 /obj/item/gun/energy/bsg/turret_deconstruct(list/data)
 	has_bluespace_crystal = TRUE
 	core = data["core"]
 	core.forceMove(src)
 
-
 /obj/item/gun/energy/bsg/setup_gun_for_turret(list/data, turret)
 	core = data["core"]
 	has_bluespace_crystal = TRUE
 	core.forceMove(turret)
-
 
 /obj/item/gun/energy/bsg/prebuilt
 	icon_state = "bsg_finished"

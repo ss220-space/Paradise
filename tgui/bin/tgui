@@ -130,21 +130,12 @@ task-install-git-hooks() {
 }
 
 ## Bundle merge driver
-task-merge-bundle() {
+task-merge-bundle(){
+  local our_version="${2}"
   local file_path="${1}"
-  local file_current="${2}"
   echo "----------------------"
   echo "tgui: prepping to replace a conflicted bundle"
-  cat $file_path > $file_current
-  task-rebuild-conflicted-bundle
-  exit 0
-}
-
-task-rebuild-conflicted-bundle() {
-  echo "----------------------"
-  echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
-  task-install
-  task-webpack --mode=production
+  cat "$our_version" > "$file_path"
   exit 0
 }
 

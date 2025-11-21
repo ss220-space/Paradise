@@ -158,7 +158,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	testing(msg)
 	#endif
 
-
 #ifdef TESTING
 /client/verb/changerank(newrank in GLOB.admin_ranks)
 	if(holder)

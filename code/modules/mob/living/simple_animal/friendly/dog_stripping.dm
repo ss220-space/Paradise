@@ -12,7 +12,6 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 	/datum/strippable_item/pet_collar
 )))
 
-
 /datum/strippable_item/dog_head
 	key = STRIPPABLE_ITEM_HEAD
 
@@ -74,7 +73,6 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 		return
 
 	pet_source.remove_collar(user.drop_location(), user)
-
 
 /datum/strippable_item/dog_back
 	key = STRIPPABLE_ITEM_BACK

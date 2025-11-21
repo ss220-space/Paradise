@@ -150,7 +150,6 @@
 	/// If emag only(Really??)
 	var/emag_only = FALSE
 
-
 /datum/roboshop_item/New()
 	if(!desc)
 		desc = visual_item::desc
@@ -166,7 +165,6 @@
 
 	if(!name)
 		name = path::name	// It is better to know exactly what we are buying.
-
 
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
@@ -242,7 +240,6 @@
 	visual_item = /obj/item/storage/box/stockparts/experimental_parts
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)
 
-
 //design disks
 
 /obj/item/disk/design_disk/roboquest
@@ -263,7 +260,6 @@
 /obj/item/disk/design_disk/roboquest/examine(mob/user)
 	. = ..()
 	. += span_notice("Insert disk into R&D concole and download it for mass production of [hint_name].")
-
 
 /obj/item/disk/design_disk/roboquest/bluespace_bag_disk
 	name = "bluespace bag design"

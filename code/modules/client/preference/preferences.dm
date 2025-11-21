@@ -47,7 +47,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	if(job.available_in_playtime(C))
 		return TRUE
 
-
 /proc/available_in_days_antag(client/C, role)
 	if(!C)
 		return 0
@@ -272,11 +271,18 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	/// Minigames notification about their end, start and etc.
 	var/minigames_notifications = TRUE
 
+	var/achivements_sound = CHEEVO_SOUND_PING
+
 	///TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/skip_antag = FALSE
 
 	var/datum/ui_module/loadout/loadout
 
+	var/static/list/exoframe_names = list(
+		PREF_EXOFRAME_REINFORCED = "Укрепленный каркас экзоскелета",
+		PREF_EXOFRAME_INDUSTRIAL = "Промышленный каркас экзоскелета"
+		)
+	var/exoframe_type = PREF_EXOFRAME_REINFORCED
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -434,7 +440,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Цвет №2</a> [color_square(f_sec_colour)]"
 			dat += "<br>"
 
-
 			if(!(S.bodyflags & ALL_RPARTS))
 				dat += "<b>Глаза:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Цвет</a> [color_square(e_colour)]<br>"
@@ -466,6 +471,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 				dat += "<b>Альтернативный тип головы:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
+			if(species == SPECIES_MACNINEPERSON)
+				var/exoframe_name = exoframe_names[exoframe_type] || exoframe_type
+				dat += "<b>Каркас экзоскелета:</b> <a href='byond://?_src_=prefs;preference=exoframe;task=input'>[exoframe_name]</a><br>"
 			dat += "<b>Части тела:</b> <a href='byond://?_src_=prefs;preference=limbs;task=input'>Изменить</a><br>"
 			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACNINEPERSON)
 				dat += "<b>Внутренние органы:</b> <a href='byond://?_src_=prefs;preference=organs;task=input'>Изменить</a><br>"
@@ -522,11 +530,11 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							R = GLOB.all_robolimbs[rlimb_data[name]]
 						else
 							R = GLOB.basic_robolimb
-						dat += "\t[capitalize(organ_name)] – роботизированное ([R.company])"
+						dat += "\t[capitalize(organ_name)] — роботизированное ([R.company])"
 					if(PREF_ORGANSTATUS_AMPUTATED_ENG)
-						dat += "\t[capitalize(organ_name)] – ампутировано"
+						dat += "\t[capitalize(organ_name)] — ампутировано"
 					if(PREF_ORGANSTATUS_CYBERNETIC_ENG)
-						dat += "\t[capitalize(organ_name)] – кибернетика"
+						dat += "\t[capitalize(organ_name)] — кибернетика"
 			if(!ind)
 				dat += "\[...\]<br>"
 			else
@@ -610,6 +618,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<b>Mute End Of Round Sounds:</b> <a href='byond://?_src_=prefs;preference=mute_end_of_round'><b>[(sound & SOUND_MUTE_END_OF_ROUND) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Диапазон обзора:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Мигающие окна:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Да" : "Нет"]</a><br>"
+			dat += "<b>Звук получения достижения:</b> <a href='byond://?_src_=prefs;preference=achievement_sound'>[achivements_sound]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
@@ -804,7 +813,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	metadata["[tweak]"] = new_metadata
 	tweak.update_gear_intro(new_metadata)
 
-
 /datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_RD, JOB_TITLE_JUDGE), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
@@ -814,7 +822,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	//widthPerColumn - Screen's width for every column.
 	//height - Screen's height.
 	var/width = widthPerColumn
-
 
 	var/list/html = list()
 	html += "<body>"
@@ -931,7 +938,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				prefLevelColor = "btn-outline-secondary"
 				prefUpperLevel = 3
 				prefLowerLevel = 1
-
 
 			html += "<a class='nobg' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
@@ -1347,7 +1353,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	job_karma_med = 0
 	job_karma_low = 0
 
-
 /datum/preferences/proc/GetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(job.department_flag)
@@ -1539,7 +1544,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				return
 			exploit_record = expmsg
 			SetRecords(user)
-
 
 	switch(href_list["task"])
 		if("random")
@@ -1988,7 +1992,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						m_styles["tail"] = "None"
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
-
 				if("facial")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
 						var/new_facial = tgui_input_color(user, "Выберите цвет лицевой растительности.", "Лицевая растительность", f_colour)
@@ -2259,7 +2262,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
 						valid_limb_states -= PREF_ORGANSTATUS_CYBERNETIC_RUS
 
-					var/new_state = tgui_input_list(user, "Выберите желаемое состояния части тела", "[limb_name] – изменение состояния", valid_limb_states)
+					var/new_state = tgui_input_list(user, "Выберите желаемое состояния части тела", "[limb_name] — изменение состояния", valid_limb_states)
 					if(!new_state) return
 
 					switch(new_state)
@@ -2292,7 +2295,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
-							choice = tgui_input_list(user, "Выберите фирму-изготовителя для кибернетической части тела", "[limb_name] – выбор фирмы-изготовителя", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
+							choice = tgui_input_list(user, "Выберите фирму-изготовителя для кибернетической части тела", "[limb_name] — выбор фирмы-изготовителя", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
 							if(!choice)
 								return
 							R.company = choice
@@ -2308,7 +2311,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
 								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
-									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] – выбор модели", robolimb_models)
+									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] — выбор модели", robolimb_models)
 								if(subchoice)
 									choice = subchoice
 							if(limb in list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))
@@ -2370,6 +2373,14 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							parent.fps = clientfps
 						else
 							parent.fps = CONFIG_GET(number/clientfps)
+				if("exoframe")
+					var/available_frames = list()
+					for(var/path in exoframe_names)
+						available_frames[exoframe_names[path]] = path
+
+					var/chosen_name = tgui_input_list(user, "Выберите желаемый каркас экзоскелета", "Каркас экзоскелета", available_frames)
+					if(chosen_name && available_frames[chosen_name])
+						exoframe_type = available_frames[chosen_name]
 		else
 			switch(href_list["preference"])
 				if("publicity")
@@ -2501,7 +2512,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
 						to_chat(user, span_notice("Ваш персонаж будет автоматические перемещён в криосон после [CONFIG_GET(number/auto_cryo_afk)] минут[declension_ru(CONFIG_GET(number/auto_cryo_afk), "ы", "", "")]. \
-								После чего через [CONFIG_GET(number/auto_despawn_afk)] минут[declension_ru(CONFIG_GET(number/auto_despawn_afk), "у", "ы", "")] ваш персонаж будет удалён. Перед перемещением в криосон вы получите уведомление."))
+								После чего через [CONFIG_GET(number/auto_despawn_afk)] минут[DECL_SEC_MIN(CONFIG_GET(number/auto_despawn_afk))] ваш персонаж будет удалён. Перед перемещением в криосон вы получите уведомление."))
 					else
 						to_chat(user, span_notice("Автоматический переход в криосон выключен."))
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
@@ -2665,6 +2676,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 						group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
+				if("achievement_sound")
+					achivements_sound = tgui_input_list(usr, "Выберите нужный звук", "Звук получения достижения", GLOB.achievement_sounds, CHEEVO_SOUND_PING)
+					var/sound/sound_to_send = LAZYACCESS(GLOB.achievement_sounds, achivements_sound)
+					if(sound_to_send)
+						SEND_SOUND(usr, sound_to_send)
+
 				if("keybindings")
 					if(!keybindings_overrides)
 						keybindings_overrides = list()
@@ -2823,9 +2840,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		else if(firstspace == name_length)
 			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 
-
 	character.add_language(language)
-
 
 	character.real_name = real_name
 	character.dna.real_name = real_name
@@ -3053,7 +3068,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			return UI_THEME_WHITE_RUS
 		if(UI_THEME_CLOCKWORK)
 			return UI_THEME_CLOCKWORK_RUS
-
 
 /// Get random charecter with can_be_antagonist on. If no such characters, don't change current.
 /datum/preferences/proc/get_possible_antagonist()

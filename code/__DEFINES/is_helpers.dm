@@ -156,7 +156,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define iscoret3(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 3)
 #define iscell(O) (istype(O, /obj/item/stock_parts/cell)) // Not assembly, but neaely.
 
-
 //Turfs
 #define issimulatedturf(A) (istype(A, /turf/simulated))
 
@@ -203,21 +202,18 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))
 
-
 #define is_ventcrawler(A) (HAS_TRAIT(A, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ITEM_BASED) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALIEN))
 
 #define is_multi_tile_object(atom) (atom.bound_width > ICON_SIZE_X || atom.bound_height > ICON_SIZE_Y)
 
-#define is_proximity(A) (istype(A, /obj/effect/abstract/proximity_checker))
-
 #define is_light(A) (istype(A, /atom/movable/lighting_object))
+
 #define ischest(A) (istype(A, /obj/item/organ/external/chest))
 
 #define isgroin(A) (istype(A, /obj/item/organ/external/groin))
 
 /// in some situations we can't rely on dynamic typing and use if(statement)
 #define istrue(statement) (statement == TRUE)
-
 
 #define isbeachwater(A) (istype(A, /turf/simulated/floor/beach/water))
 #define isbeachwater_i(A) (istype(A, /turf/simulated/floor/indestructible/beach/water))
@@ -241,7 +237,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 #define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
 #define ismarauder(A) (istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
-
 
 #define issilicon(A) (istype((A), /mob/living/silicon))
 #define isAI(A) (istype((A), /mob/living/silicon/ai))

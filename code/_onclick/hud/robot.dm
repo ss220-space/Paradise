@@ -40,7 +40,6 @@
 		var/mob/living/silicon/robot/R = usr
 		R.toggle_module(3)
 
-
 /atom/movable/screen/robot/radio
 	name = "radio"
 	icon_state = "radio"
@@ -91,17 +90,14 @@
 	name = "fast/slow toggle"
 	icon_state = "running"
 
-
 /atom/movable/screen/robot/mov_intent/Click()
 	usr.toggle_move_intent()
-
 
 /atom/movable/screen/robot/mov_intent/update_icon_state()
 	if(hud?.mymob)
 		icon_state = (hud.mymob.m_intent == MOVE_INTENT_RUN) ? "running" : "walking"
 	else
 		icon_state = initial(icon_state)
-
 
 /datum/hud/robot/New(mob/user)
 	..()
@@ -280,7 +276,6 @@
 				screenmob.client?.screen -= A
 		R.shown_robot_modules = 0
 		screenmob.client?.screen -= R.robot_modules_background
-
 
 /datum/hud/robot/persistent_inventory_update(mob/viewer)
 	if(!mymob)

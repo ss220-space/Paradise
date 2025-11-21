@@ -81,7 +81,6 @@
 	var/obj/item/I = new item_type(user)
 	user.put_in_hands(I)
 
-
 /datum/rep_purchase/item/refund(datum/contractor_hub/hub, obj/item/item, mob/living/carbon/human/user)
 	. = FALSE
 	if(!refundable)

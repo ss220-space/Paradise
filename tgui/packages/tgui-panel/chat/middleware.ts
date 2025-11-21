@@ -48,10 +48,8 @@ const saveChatToStorage = async (store: Store) => {
   // Only save messages if chat saving is enabled
   const chatSavingEnabled = await storage.get('chat-saving-enabled');
   if (chatSavingEnabled !== false) {
-    if (!window.hubStorage) {
-      const indexedDbBackend =
-        (await storage.getBackendPromise()) as IFrameIndexedDbBackend;
-      indexedDbBackend.processChatMessages(chatRenderer.storeQueue);
+    if (!storage.iframe_check()) {
+      storage.processChatMessages(chatRenderer.storeQueue);
     } else {
       const fromIndex = Math.max(
         0,
@@ -62,7 +60,7 @@ const saveChatToStorage = async (store: Store) => {
         .slice(fromIndex)
         .map((message) => serializeMessage(message));
 
-      storage.set('chat-messages', messages);
+      storage.processChatMessages(messages);
     }
 
     chatRenderer.storeQueue = [];
@@ -82,13 +80,8 @@ const loadChatFromStorage = async (store) => {
   let messages = [];
 
   if (chatSavingEnabled !== false) {
-    if (!window.hubStorage) {
-      messages = await (
-        (await storage.getBackendPromise()) as IFrameIndexedDbBackend
-      ).getChatMessages();
-    } else {
-      messages = await storage.get('chat-messages');
-    }
+    messages = await storage.getChatMessages();
+
     if (messages) {
       for (let message of messages) {
         if (message.html) {

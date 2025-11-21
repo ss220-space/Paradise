@@ -29,26 +29,21 @@
 	/// How much power does it cost to stun someone.
 	var/cell_hit_cost = 500
 
-
 /obj/item/melee/baton/security/Initialize(mapload)
 	. = ..()
 	link_new_cell()
 	update_icon()
 
-
 /obj/item/melee/baton/security/loaded
 	cell = /obj/item/stock_parts/cell/high
-
 
 /obj/item/melee/baton/security/Destroy()
 	if(cell?.loc == src)
 		QDEL_NULL(cell)
 	return ..()
 
-
 /obj/item/melee/baton/security/get_cell()
 	return cell
-
 
 /**
  * Updates the linked power cell on the baton.
@@ -70,7 +65,6 @@
 		cell = new cell(src)
 	update_appearance(UPDATE_ICON_STATE)
 
-
 /obj/item/melee/baton/security/update_icon_state()
 	if(active)
 		icon_state = "[base_icon_state]_active"
@@ -78,7 +72,6 @@
 		icon_state = "[base_icon_state]_nocell"
 	else
 		icon_state = "[base_icon_state]"
-
 
 /obj/item/melee/baton/security/examine(mob/user)
 	. = ..()
@@ -89,11 +82,9 @@
 	else
 		. += span_warning("The baton does not have a power source installed.")
 
-
 /obj/item/melee/baton/security/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide."))
 	return FIRELOSS
-
 
 /obj/item/melee/baton/security/proc/deductcharge(amount)
 	if(!cell)
@@ -112,12 +103,10 @@
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, SFX_SPARKS, 75, TRUE, -1)
 
-
 /obj/item/melee/baton/security/clumsy_check(mob/living/carbon/human/user, mob/living/intented_target)
 	. = ..()
 	if(.)
 		deductcharge(cell_hit_cost)
-
 
 /obj/item/melee/baton/security/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -135,7 +124,6 @@
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/melee/baton/security/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -156,7 +144,6 @@
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/melee/baton/security/attack_self(mob/user)
 	if(cell?.charge >= cell_hit_cost)
 		active = !active
@@ -172,13 +159,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 
-
 /obj/item/melee/baton/security/baton_effect(mob/living/target, mob/living/user, stun_override)
 	if(!deductcharge(cell_hit_cost))
 		return FALSE
 	stun_override = 0 //Avoids knocking people down prematurely.
 	return ..()
-
 
 /*
  * After a target is hit, we apply some status effects.
@@ -195,40 +180,33 @@
 
 	addtimer(CALLBACK(src, PROC_REF(apply_stun_effect_end), target), knockdown_delay_time)
 
-
 /// After the initial stun period, we check to see if the target needs to have the stun applied.
 /obj/item/melee/baton/security/proc/apply_stun_effect_end(mob/living/target)
 	if(!target.IsKnockdown())
 		to_chat(target, span_warning("Your muscles seize, making you collapse!"))
 	target.Knockdown(knockdown_time)
 
-
 /obj/item/melee/baton/security/get_wait_description()
 	return span_danger("The baton is still charging!")
-
 
 /obj/item/melee/baton/security/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
 	.["visible"] = span_danger("[user] stuns [target] with [src]!")
 	.["local"] = span_userdanger("[user] stuns you with [src]!")
 
-
 /obj/item/melee/baton/security/get_unga_dunga_cyborg_stun_description(mob/living/target, mob/living/user)
 	. = list()
 	.["visible"] = span_danger("[user] tries to stun [target] with [src], and predictably fails!")
 	.["local"] = span_userdanger("[user] tries to... stun you with [src]?")
-
 
 /obj/item/melee/baton/security/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!. && active && prob(throw_stun_chance) && isliving(hit_atom))
 		finalize_baton_attack(hit_atom, locateUID(thrownby), in_attack_chain = FALSE)
 
-
 /obj/item/melee/baton/security/emp_act(severity)
 	. = ..()
 	deductcharge(1000 / severity)
-
 
 /obj/item/melee/baton/security/wash(mob/living/user, atom/source)
 	if(active && cell?.charge)
@@ -242,7 +220,6 @@
 		deductcharge(cell_hit_cost)
 		return TRUE
 	return ..()
-
 
 // Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/security/cattleprod
@@ -260,22 +237,18 @@
 	/// Our prescious sparks holder
 	var/obj/item/assembly/igniter/sparkler
 
-
 /obj/item/melee/baton/security/cattleprod/Initialize(mapload)
 	. = ..()
 	sparkler = new(src)
-
 
 /obj/item/melee/baton/security/cattleprod/Destroy()
 	QDEL_NULL(sparkler)
 	return ..()
 
-
 /obj/item/melee/baton/security/cattleprod/baton_effect(mob/living/target, mob/living/user, stun_override)
 	if(!sparkler.activate())
 		return BATON_ATTACK_DONE
 	return ..()
-
 
 // Teleprod
 /obj/item/melee/baton/security/cattleprod/teleprod
@@ -286,7 +259,6 @@
 	item_state = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
-
 /obj/item/melee/baton/security/cattleprod/teleprod/clumsy_check(mob/living/carbon/human/user, mob/living/intented_target)
 	. = ..()
 	if(!.)
@@ -294,7 +266,6 @@
 	var/turf/user_turf = get_turf(user)
 	do_teleport(user, user_turf, 50)	// honk honk
 	user.investigate_log("[key_name_log(user)] teleprodded himself from [COORD(user_turf)].", INVESTIGATE_TELEPORTATION)
-
 
 /obj/item/melee/baton/security/cattleprod/teleprod/baton_effect(mob/living/target, mob/living/user, stun_override)
 	. = ..()

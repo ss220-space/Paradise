@@ -29,7 +29,6 @@
 		D.Contract(M)
 	return ..()
 
-
 /datum/reagent/xenomicrobes
 	name = "Ксеномикробы"
 	id = "xenomicrobes"

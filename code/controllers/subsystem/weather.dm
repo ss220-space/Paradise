@@ -11,7 +11,6 @@ SUBSYSTEM_DEF(weather)
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
 	cpu_display = SS_CPUDISPLAY_LOW
 
-
 /datum/controller/subsystem/weather/fire()
 	// process active weather
 	for(var/V in processing)
@@ -35,7 +34,6 @@ SUBSYSTEM_DEF(weather)
 			addtimer(CALLBACK(src, PROC_REF(make_eligible), z, possible_weather), randTime + initial(W.weather_duration_upper), TIMER_UNIQUE) //Around 5-10 minutes between weathers
 			next_hit_by_zlevel["[z]"] = world.time + randTime + initial(W.telegraph_duration)
 
-
 /datum/controller/subsystem/weather/Initialize()
 	for(var/V in subtypesof(/datum/weather))
 		var/datum/weather/W = V
@@ -48,7 +46,6 @@ SUBSYSTEM_DEF(weather)
 				LAZYINITLIST(eligible_zlevels["[z]"])
 				eligible_zlevels["[z]"][W] = probability
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/weather/proc/run_weather(datum/weather/weather_datum_type, z_levels)
 	if(istext(weather_datum_type))
@@ -70,11 +67,9 @@ SUBSYSTEM_DEF(weather)
 	var/datum/weather/W = new weather_datum_type(z_levels)
 	return W.telegraph()
 
-
 /datum/controller/subsystem/weather/proc/make_eligible(z, possible_weather)
 	eligible_zlevels[z] = possible_weather
 	next_hit_by_zlevel["[z]"] = null
-
 
 /datum/controller/subsystem/weather/proc/get_weather(z, area_path)
 	var/datum/weather/A

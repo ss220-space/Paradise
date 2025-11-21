@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets,
+	/client/proc/achievements_cleanup,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -183,6 +184,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
+	/client/proc/cmd_controller_view_ui,
 #ifndef OPENDREAM
 	/client/proc/dmjit_debug_toggle_call_counts,
 	/client/proc/dmjit_debug_dump_call_count,
@@ -307,7 +309,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
-
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
 	set category = STATPANEL_ADMIN_ADMIN
@@ -384,7 +385,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/mob/body = mob
 		body.ghostize(1)
 		if(body && !body.key)
-			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
+			body.possess_by_player("@[key]")	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		BLACKBOX_LOG_ADMIN_VERB("Aghost")
@@ -686,7 +687,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)
-				P.key = theghost.key
+				P.possess_by_player(theghost.key)
 				P.master_commander = H
 				P.universal_speak = TRUE
 				P.universal_understand = TRUE
@@ -727,7 +728,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "all access."
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
-
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = STATPANEL_ADMIN_EVENT
@@ -868,7 +868,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	update_byond_admin_configs(ckey, 0)
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
-
 
 /client/proc/readmin()
 	set name = "Re-admin self"

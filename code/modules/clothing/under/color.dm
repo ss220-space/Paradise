@@ -2,7 +2,6 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dying_key = DYE_REGISTRY_UNDER
 
-
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
 
@@ -22,7 +21,6 @@
 	icon_state = initial(new_color.icon_state)
 	item_state = initial(new_color.item_state)
 	item_color = initial(new_color.item_color)
-
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
@@ -46,12 +44,9 @@
 
 /obj/item/clothing/under/color/blue/dodgeball
 
-
 /obj/item/clothing/under/color/blue/dodgeball/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
@@ -68,11 +63,9 @@
 
 /obj/item/clothing/under/color/grey/greytide
 
-
 /obj/item/clothing/under/color/grey/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
@@ -102,7 +95,7 @@
 		DATIVE = "старому тюремному комбинезону",
 		ACCUSATIVE = "старый тюремный комбинезон",
 		INSTRUMENTAL = "старым тюремным комбинезоном",
-		PREPOSITIONAL = "старом тюремном комбинезоне"
+		PREPOSITIONAL = "старом тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/prison
@@ -121,7 +114,7 @@
 		DATIVE = "тюремному комбинезону",
 		ACCUSATIVE = "тюремный комбинезон",
 		INSTRUMENTAL = "тюремным комбинезоном",
-		PREPOSITIONAL = "тюремном комбинезоне"
+		PREPOSITIONAL = "тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/color/pink
@@ -139,11 +132,9 @@
 
 /obj/item/clothing/under/color/red/dodgeball
 
-
 /obj/item/clothing/under/color/red/dodgeball/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
@@ -169,8 +160,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"

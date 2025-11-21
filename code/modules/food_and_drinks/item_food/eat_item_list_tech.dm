@@ -74,7 +74,6 @@
 	nutritional_value = 3, \
 	)
 
-
 //Medium tech
 
 /obj/item/t_scanner/add_eatable_component()

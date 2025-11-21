@@ -44,13 +44,11 @@
 			data[thing] = vars[thing]
 	return data
 
-
 /atom/deserialize(list/data)
 	for(var/thing in vars_to_save())
 		if(thing in data)
 			vars[thing] = data[thing]
 	..()
-
 
 /*
 Whoops, forgot to put documentation here.

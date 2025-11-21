@@ -80,7 +80,6 @@
 	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 
-
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
 	. = ..()
 	ASSERT(istype(copy_to_turf, /turf/simulated))
@@ -202,7 +201,7 @@
 
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
-		to_chat(slipper, span_notice("[pluralize_ru(slipper.gender,"Ты","Вы")] поскользнул[genderize_ru(slipper.gender,"ся","ась","ся","ись")][slippable ? " на [slippable.declent_ru(PREPOSITIONAL)]" : ""]!"))
+		to_chat(slipper, span_notice("Вы поскользнул[GEND_SYA_AS_OS_IS(slipper)][slippable ? " на [slippable.declent_ru(PREPOSITIONAL)]" : ""]!"))
 		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)

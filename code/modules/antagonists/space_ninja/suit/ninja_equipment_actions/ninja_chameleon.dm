@@ -50,19 +50,15 @@
 	my_suit = null
 	my_action = null
 
-
 /obj/item/ninja_chameleon_scanner/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
-
 
 /obj/item/ninja_chameleon_scanner/run_drop_held_item(mob/user)
 	qdel(src)
 
-
 /obj/item/ninja_chameleon_scanner/attack_self(mob/user)
 	if(!my_suit.s_busy)	//Боремся со спамом кнопок
 		ninja_chameleon(user, user)
-
 
 /obj/item/ninja_chameleon_scanner/afterattack(atom/target, mob/living/user, proximity, params)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)
@@ -175,7 +171,6 @@
 	ninja.add_overlay(disguise.overlays)
 	//Disguise flag
 	disguise_active = TRUE
-
 
 /*
 * Proc восстанавливающий внешность ниндзя и отрубающий хамелион.

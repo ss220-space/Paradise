@@ -13,7 +13,6 @@
 	codebase for the entire /TG/station commuity a TONNE easier :3 Thanks for your help!
 */
 
-
 //This proc allows download of past server logs saved within the data/logs/ folder.
 /client/proc/getserverlogs()
 	set name = "Get Server Logs"

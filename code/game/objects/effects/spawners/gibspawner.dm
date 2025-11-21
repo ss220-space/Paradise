@@ -51,14 +51,12 @@
 	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, GLOB.alldirs)
 	..()
 
-
 /obj/effect/gibspawner/confetti
 	gibtypes = list(/obj/effect/decal/cleanable/confetti, /obj/effect/decal/cleanable/confetti)
 	gibamounts = list(3, 1) //separated to leave one in place
 	sound_to_play = 'sound/effects/confetti_partywhistle.ogg'
 	sound_vol = 30
 	sound_vary = TRUE
-
 
 /obj/effect/gibspawner/confetti/New()
 	gibdirections = list(GLOB.alldirs, list()) //3 will go in any direction one will not move

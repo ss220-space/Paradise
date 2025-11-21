@@ -39,7 +39,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 		z_list["[i]"] = new /datum/space_level(i)
 	initialized = 1
 
-
 /datum/zlev_manager/proc/get_zlev(z)
 	return z_list["[z]"] == null ? log_runtime(EXCEPTION("Unmanaged z level: '[z]'")) : z_list["[z]"]
 
@@ -54,12 +53,10 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 * among other things
 */
 
-
 // Returns whether the given z level has a freeze on initialization
 /datum/zlev_manager/proc/is_zlevel_dirty(z)
 	var/datum/space_level/our_z = get_zlev(z)
 	return (our_z.dirt_count > 0)
-
 
 // Increases the dirt count on a z level
 /datum/zlev_manager/proc/add_dirt(z)
@@ -67,7 +64,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	if(our_z.dirt_count == 0)
 		log_debug("Placing an init freeze on z-level '[our_z.zpos]'!")
 	our_z.dirt_count++
-
 
 // Decreases the dirt count on a z level
 /datum/zlev_manager/proc/remove_dirt(z)
@@ -83,13 +79,11 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/space_level/our_z = get_zlev(z)
 	our_z.init_list.Add(thing)
 
-
 /**
 *
 *	SPACE ALLOCATION
 *
 */
-
 
 // For when you need the z-level to be at a certain point
 /datum/zlev_manager/proc/increase_max_zlevel_to(new_maxz)

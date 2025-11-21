@@ -135,7 +135,6 @@
 	desc = "It's a storage unit for paramedic equipment."
 	icon_state = "paramed"
 
-
 /obj/structure/closet/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
@@ -187,7 +186,7 @@
 		DATIVE = "ящику с траурной одеждой",
 		ACCUSATIVE = "ящик с траурной одеждой",
 		INSTRUMENTAL = "ящиком с траурной одеждой",
-		PREPOSITIONAL = "ящике с траурной одеждой"
+		PREPOSITIONAL = "ящике с траурной одеждой",
 	)
 
 /obj/structure/closet/burial/populate_contents()

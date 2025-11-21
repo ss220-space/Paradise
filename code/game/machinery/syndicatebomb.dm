@@ -110,7 +110,6 @@
 	else
 		. = timer_set
 
-
 /obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -135,7 +134,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/I)
 	if(!can_unanchor)
@@ -260,14 +258,14 @@
 	var/new_timer = tgui_input_number(user, "Please set the timer.", "Timer", "[timer_set]")
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
-		loc.visible_message(span_notice("[bicon(src)] timer set for [timer_set] seconds."))
+		loc.visible_message(span_notice("[icon2html(src, viewers(src))] timer set for [timer_set] seconds."))
 	if(tgui_alert(user, "Would you like to start the countdown now?", "Countdown", list("Yes", "No")) == "Yes" && can_interact(user))
 		if(defused || active)
 			if(defused)
-				loc.visible_message(span_notice("[bicon(src)] Device error: User intervention required."))
+				loc.visible_message(span_notice("[icon2html(src, viewers(src))] Device error: User intervention required."))
 			return
 		else
-			loc.visible_message(span_danger("[bicon(src)] [timer_set] seconds until detonation, please clear the area."))
+			loc.visible_message(span_danger("[icon2html(src, viewers(src))] [timer_set] seconds until detonation, please clear the area."))
 			activate()
 			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
@@ -353,7 +351,6 @@
 /obj/item/bombcore/ex_act(severity, target) //Little boom can chain a big boom
 	detonate()
 
-
 /obj/item/bombcore/burn()
 	detonate()
 	..()
@@ -398,7 +395,7 @@
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		attempts++
-		holder.loc.visible_message(span_danger("[bicon(holder)] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires..."))
+		holder.loc.visible_message(span_danger("[icon2html(holder, viewers(holder))] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires..."))
 		reset()
 	else
 		qdel(src)
@@ -408,7 +405,7 @@
 	if(istype(holder))
 		attempts++
 		defusals++
-		holder.loc.visible_message(span_notice("[bicon(holder)] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds..."))
+		holder.loc.visible_message(span_notice("[icon2html(holder, viewers(holder))] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds..."))
 		sleep(50)	//Just in case someone is trying to remove the bomb core this gives them a little window to crowbar it out
 		if(istype(holder))
 			reset()
@@ -560,7 +557,6 @@
 		qdel(loc)
 	qdel(src)
 
-
 /obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -577,7 +573,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/bombcore/chemical/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -636,7 +631,6 @@
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
 
-
 /obj/item/bombcore/toxins/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -657,7 +651,6 @@
 
 	return ..()
 
-
 /obj/item/bombcore/toxins/crowbar_act(mob/user, obj/item/I)
 	if(!ttv)
 		return
@@ -667,13 +660,10 @@
 	ttv.forceMove(get_turf(src))
 	ttv = null
 
-
-
 /obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
 	if(ttv?.attached_device)
 		return TRUE
 	return FALSE
-
 
 /obj/item/bombcore/toxins/ex_act(severity, target) //No chain reactions, the explosion only occurs when gas mixes
 	return

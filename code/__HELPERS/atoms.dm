@@ -33,7 +33,6 @@
 		processing += checked_atom.contents
 		. += checked_atom
 
-
 ///Returns true if the src countain the atom target
 /atom/proc/contains(atom/target)
 	if(!target)
@@ -41,7 +40,6 @@
 	for(var/atom/location = target.loc, location, location = location.loc)
 		if(location == src)
 			return TRUE
-
 
 /// Forces atom to drop all the important items while dereferencing them from their
 /// containers both ways. To be used to preserve important items before mob gib/self-gib.
@@ -90,7 +88,6 @@
 
 		I.forceMove(drop_loc)
 
-
 /**
  * Proc that collects all atoms of passed `path` in our atom contents
  * and returns it in a list()
@@ -116,7 +113,6 @@
 	&& (loc.y > TRANSITION_BORDER_SOUTH) \
 	&& (loc.y < TRANSITION_BORDER_NORTH)
 
-
 /// Returns an x and y value require to reverse the transformations made to center an oversized icon
 /atom/proc/get_oversized_icon_offsets()
 	if(pixel_x == 0 && pixel_y == 0)
@@ -128,7 +124,6 @@
 		"x" = icon_width > ICON_SIZE_X && pixel_x != 0 ? (icon_width - ICON_SIZE_X) * 0.5 : 0,
 		"y" = icon_height > ICON_SIZE_Y && pixel_y != 0 ? (icon_height - ICON_SIZE_Y) * 0.5 : 0,
 	)
-
 
 /**
  * Checks if mover is movable atom and has passed pass_flags.
@@ -145,7 +140,6 @@
 	if(!passflag)
 		return FALSE
 	return (mover.pass_flags & passflag)
-
 
 ///Returns a list of all locations (except the area) the movable is within.
 /proc/get_nested_locs(atom/movable/atom_on_location, include_turf = FALSE)

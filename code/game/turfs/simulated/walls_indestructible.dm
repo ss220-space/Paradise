@@ -6,7 +6,6 @@
 	icon_state = "riveted"
 	smooth = NONE
 
-
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
 
@@ -37,10 +36,8 @@
 /turf/simulated/wall/indestructible/burn_down()
 	return
 
-
 /turf/simulated/wall/indestructible/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/wall/indestructible/attack_hand(mob/user)
 	return
@@ -84,14 +81,12 @@
 	base_icon_state = "r_wall"
 	smooth = SMOOTH_BITMASK
 
-
 /turf/simulated/wall/indestructible/reinforced/rusted
 	name = "rusted reinforced wall"
 	desc = "A huge chunk of rusted reinforced metal."
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
 	icon_state = "rusty_reinforced_wall-0"
 	base_icon_state = "rusty_reinforced_wall"
-
 
 /turf/simulated/wall/indestructible/wood
 	name = "wooden wall"
@@ -148,13 +143,11 @@
 	icon_state = "wall"
 	smooth = SMOOTH_BITMASK
 
-
 /turf/simulated/wall/indestructible/abductor
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
 	always_lit = TRUE
-
 
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Splash Screen"
@@ -187,15 +180,12 @@
 	canSmoothWith = SMOOTH_GROUP_WALL_GINGERBREAD
 	smoothing_groups = SMOOTH_GROUP_WALL_GINGERBREAD
 
-
 /turf/simulated/wall/indestructible/rock
 	name = "rock"
 	icon_state = "rock"
 
-
 /turf/simulated/wall/indestructible/rock/dark
 	color = "#91857C"
-
 
 /turf/simulated/wall/indestructible/sandstone
 	name = "sandstone wall"
@@ -207,7 +197,6 @@
 	canSmoothWith = SMOOTH_GROUP_SANDSTONE_WALLS
 	smoothing_groups = SMOOTH_GROUP_SANDSTONE_WALLS
 
-
 /turf/simulated/wall/indestructible/iron
 	name = "rough metal wall"
 	desc = "A wall with rough metal plating."
@@ -215,7 +204,6 @@
 	icon_state = "iron"
 	base_icon_state = "iron_wall"
 	smooth = SMOOTH_BITMASK
-
 
 /turf/simulated/wall/indestructible/bananium
 	name = "bananium wall"
@@ -227,7 +215,6 @@
 	canSmoothWith = SMOOTH_GROUP_BANANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_BANANIUM_WALLS
 
-
 /turf/simulated/wall/indestructible/cult
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
@@ -235,7 +222,6 @@
 	icon_state = "cult"
 	canSmoothWith = null
 	smoothing_groups = null
-
 
 /turf/simulated/wall/indestructible/mineral_rock
 	name = "rock"
@@ -251,7 +237,6 @@
 	//M.Translate(-4, -4)
 	transform = M
 	. = ..()
-
 
 /turf/simulated/wall/indestructible/invisible
 	name = "Deep space"

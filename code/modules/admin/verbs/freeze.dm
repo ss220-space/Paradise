@@ -57,7 +57,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 	return frozen
 
-
 /mob/living/simple_animal/slime/admin_Freeze(admin)
 	if(..()) // The result of the parent call here will be the value of the mob's `frozen` variable after they get (un)frozen.
 		adjustHealth(1000) //arbitrary large value

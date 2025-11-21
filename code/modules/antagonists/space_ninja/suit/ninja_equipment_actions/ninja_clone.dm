@@ -21,7 +21,6 @@
 			break
 		addtimer(CALLBACK(src, PROC_REF(spawn_ninja_clones), ninja), 15)
 
-
 /obj/item/clothing/suit/space/space_ninja/proc/spawn_ninja_clones(mob/living/carbon/human/ninja)
 	if(auto_smoke)
 		if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)

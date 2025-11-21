@@ -44,7 +44,6 @@
 				continue
 			affected_turfs_list += turf
 
-
 /datum/weather/hell/proc/transform_mobs()
 	var/list/devils
 	for(var/datum/mind/mind as anything in SSticker?.mode?.devils)
@@ -67,7 +66,7 @@
 	var/demon_type = (prob(50))? /mob/living/simple_animal/demon/slaughter : /mob/living/simple_animal/demon/slaughter/laughter
 	var/mob/new_mob = new demon_type(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon)
 
@@ -80,13 +79,12 @@
 			to_chat(mob, span_warning("Ваша проданная душа взывает к вам. Вы вынуждены повиноваться ее воле. Вы чувствуете серьезные изменения в своем теле."))
 			addtimer(CALLBACK(src, PROC_REF(transform_imp), mob), TELEGRAPH_TIME)
 
-
 /datum/weather/hell/proc/transform_imp(mob/mob)
 	if(QDELETED(src))
 		return
 	var/mob/new_mob = new /mob/living/simple_animal/imp(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/from_soul)
 
@@ -114,7 +112,7 @@
 
 	var/mob/new_mob = new /mob/living/simple_animal/demon/shadow(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon/shadow)
 
@@ -177,7 +175,6 @@
 	for(var/mob/player in (GLOB.player_list))
 		SEND_SOUND(player, sound(null, channel = CHANNEL_BOSS_MUSIC))
 
-
 /obj/structure/hell_rift
 	name = "hell rift"
 	desc = "Разлом, позволяющий адским существам проникнуть в этот мир."
@@ -199,7 +196,7 @@
 		DATIVE = "адскому разлому",
 		ACCUSATIVE = "адский разлом",
 		INSTRUMENTAL = "адским разломом",
-		PREPOSITIONAL = "адском разломе"
+		PREPOSITIONAL = "адском разломе",
 	)
 
 /obj/structure/hell_rift/ComponentInitialize()
@@ -222,7 +219,7 @@
 	if(!result)
 		return ..()
 	var/mob/living/simple_animal/imp/imp = new(get_turf(loc))
-	imp.key = user.key
+	imp.possess_by_player(user.key)
 	imp.mind?.add_antag_datum(/datum/antagonist/imp)
 	imps_count++
 	if(imps_count < PORTAL_MAX_IMPS)

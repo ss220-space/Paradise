@@ -17,8 +17,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -29,7 +29,7 @@
 		DATIVE = "лабораторному халату",
 		ACCUSATIVE = "лабораторный халат",
 		INSTRUMENTAL = "лабораторным халатом",
-		PREPOSITIONAL = "лабораторном халате"
+		PREPOSITIONAL = "лабораторном халате",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/cmo
@@ -45,7 +45,7 @@
 		DATIVE = "лабораторному халату главного врача",
 		ACCUSATIVE = "лабораторный халат главного врача",
 		INSTRUMENTAL = "лабораторным халатом главного врача",
-		PREPOSITIONAL = "лабораторном халате главного врача"
+		PREPOSITIONAL = "лабораторном халате главного врача",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/mad
@@ -61,7 +61,7 @@
 		DATIVE = "лабораторному халату безумного учёного",
 		ACCUSATIVE = "лабораторный халат безумного учёного",
 		INSTRUMENTAL = "лабораторным халатом безумного учёного",
-		PREPOSITIONAL = "лабораторном халате безумного учёного"
+		PREPOSITIONAL = "лабораторном халате безумного учёного",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/genetics
@@ -77,7 +77,7 @@
 		DATIVE = "лабораторному халату генетика",
 		ACCUSATIVE = "лабораторный халат генетика",
 		INSTRUMENTAL = "лабораторным халатом генетика",
-		PREPOSITIONAL = "лабораторном халате генетика"
+		PREPOSITIONAL = "лабораторном халате генетика",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/chemist
@@ -93,7 +93,7 @@
 		DATIVE = "лабораторному халату химика",
 		ACCUSATIVE = "лабораторный халат химика",
 		INSTRUMENTAL = "лабораторным халатом химика",
-		PREPOSITIONAL = "лабораторном халате химика"
+		PREPOSITIONAL = "лабораторном халате химика",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/virologist
@@ -108,7 +108,7 @@
 		DATIVE = "лабораторному халату вирусолога",
 		ACCUSATIVE = "лабораторный халат вирусолога",
 		INSTRUMENTAL = "лабораторным халатом вирусолога",
-		PREPOSITIONAL = "лабораторном халате вирусолога"
+		PREPOSITIONAL = "лабораторном халате вирусолога",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/science
@@ -124,7 +124,7 @@
 		DATIVE = "лабораторному халату учёного",
 		ACCUSATIVE = "лабораторный халат учёного",
 		INSTRUMENTAL = "лабораторным халатом учёного",
-		PREPOSITIONAL = "лабораторном халате учёного"
+		PREPOSITIONAL = "лабораторном халате учёного",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/mortician
@@ -140,7 +140,7 @@
 		DATIVE = "лабораторному халату патологоанатома",
 		ACCUSATIVE = "лабораторный халат патологоанатома",
 		INSTRUMENTAL = "лабораторным халатом патологоанатома",
-		PREPOSITIONAL = "лабораторном халате патологоанатома"
+		PREPOSITIONAL = "лабораторном халате патологоанатома",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/emt
@@ -156,7 +156,7 @@
 		DATIVE = "лабораторному халату парамедика",
 		ACCUSATIVE = "лабораторный халат парамедика",
 		INSTRUMENTAL = "лабораторным халатом парамедика",
-		PREPOSITIONAL = "лабораторном халате парамедика"
+		PREPOSITIONAL = "лабораторном халате парамедика",
 	)
 
 /obj/item/clothing/suit/storage/labcoat/mining_medic
@@ -172,5 +172,5 @@
 		DATIVE = "лабораторному халату шахтёрского врача",
 		ACCUSATIVE = "лабораторный халат шахтёрского врача",
 		INSTRUMENTAL = "лабораторным халатом шахтёрского врача",
-		PREPOSITIONAL = "лабораторном халате шахтёрского врача"
+		PREPOSITIONAL = "лабораторном халате шахтёрского врача",
 	)

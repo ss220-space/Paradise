@@ -46,12 +46,10 @@
 	var/list/choosable_items = list("A coder forgot to set this" = /obj/item/grown/bananapeel)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
-
 /obj/structure/cult/functional/Initialize(mapload)
 	. = ..()
 	if(cult_icon_changing)
 		update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/cult/functional/obj_destruction()
 	visible_message(death_message)
@@ -64,14 +62,12 @@
 		. += span_cult("The magic in [src] is weak, it will be ready to use again in [get_ETA()].")
 	. += span_notice("[src] is [anchored ? "":"not "]secured to the floor.")
 
-
 /obj/structure/cult/functional/update_icon_state()
 	var/init_icon = initial(icon_state)
 	if(!SSticker || !SSticker.cultdat || !cult_icon_changing)
 		icon_state = init_icon
 		return
 	icon_state = anchored ? SSticker.cultdat.get_icon("[init_icon]") : SSticker.cultdat.get_icon("[init_icon]_off")
-
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
@@ -81,7 +77,6 @@
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
 	if(!iscultist(user))
@@ -157,7 +152,6 @@
 	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
 
-
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
 	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
@@ -173,7 +167,6 @@
 	creation_message = span_cultitalic("You work the forge as dark knowledge guides your hands, creating a %ITEM%!")
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe,
 							"Mirror Shield" = /obj/item/shield/mirror)
-
 
 /obj/structure/cult/functional/forge/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -200,7 +193,6 @@
 	head.disfigure() // Your face is unrecognizable because it's FUCKING LAVA
 	victim.UpdateDamageIcon()
 	add_attack_logs(grabber, victim, "Lava-dunked into [src]")
-
 
 GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/floor/engine/cult,
@@ -259,7 +251,6 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 		)
 
 	START_PROCESSING(SSobj, src)
-
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -333,7 +324,6 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	creation_message = span_cultitalic("You invoke the dark magic of the tomes creating a %ITEM%!")
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
-
 
 /obj/effect/gateway
 	name = "gateway"

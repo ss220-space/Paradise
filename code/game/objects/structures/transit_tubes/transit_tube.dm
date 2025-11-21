@@ -63,7 +63,6 @@
 /obj/structure/transit_tube/proc/pod_stopped(pod, from_dir)
 	return
 
-
 // Returns a /list of directions this tube section can connect to.
 //  Tubes that have some sort of logic or changing direction might
 //  override it with additional logic.
@@ -138,7 +137,6 @@
 		else
 			. += create_tube_overlay(direction ^ (EAST|WEST), WEST)
 
-
 /obj/structure/transit_tube/proc/create_tube_overlay(direction, shift_dir)
 	// We use image() because a mutable appearance will have its dir mirror the parent which sort of fucks up what we're doing here
 	var/image/tube_overlay = image(icon, dir = direction)
@@ -189,7 +187,6 @@
 /obj/structure/transit_tube/diagonal/crossing/topleft
 	dir = WEST
 
-
 /obj/structure/transit_tube/curved
 	icon_state = "curved0"
 
@@ -218,7 +215,6 @@
 		if(WEST)
 			tube_dirs = list(NORTHEAST, WEST)
 
-
 /obj/structure/transit_tube/junction
 	icon_state = "junction0"
 
@@ -246,7 +242,6 @@
 			tube_dirs = list(EAST, NORTHWEST, SOUTHWEST)
 		if(WEST)
 			tube_dirs = list(WEST, SOUTHEAST, NORTHEAST)
-
 
 /obj/structure/transit_tube/crossing
 	icon_state = "crossing"

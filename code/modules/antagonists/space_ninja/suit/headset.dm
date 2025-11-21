@@ -15,7 +15,6 @@
 	var/list/scanned_channels
 	var/scan_hive = FALSE
 
-
 /obj/item/radio/headset/ninja/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/radio/headset))
 		var/obj/item/radio/headset/target_headset = I

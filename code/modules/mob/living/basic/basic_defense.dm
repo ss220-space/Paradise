@@ -31,10 +31,10 @@
 				//to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)]!"))
 			else
 				add_attack_logs(user, src, "толкнул")
-				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)], отталкивая [genderize_ru(src.gender, "его", "её", "его", "их")]!"), \
+				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)], отталкивая [GEND_HIS_HER(src)]!"), \
 					span_userdanger("[user] оттолкнул вас!"), \
 					span_warning("Вы слышите звуки шарканья!"))
-				//to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)], отталкивая [genderize_ru(src.gender, "его", "её", "его", "их")]!"))
+				//to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)], отталкивая [GEND_HIS_HER(src)]!"))
 			return TRUE
 		if(INTENT_HARM)
 			if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))

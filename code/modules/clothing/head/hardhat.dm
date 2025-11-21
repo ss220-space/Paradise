@@ -19,12 +19,11 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/hardhat/attack_self()
 	toggle_helmet_light()
-
 
 /obj/item/clothing/head/hardhat/proc/toggle_helmet_light()
 	on = !on
@@ -34,12 +33,10 @@
 		turn_off()
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/head/hardhat/proc/turn_on()
 	set_light_on(TRUE)
@@ -117,5 +114,5 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)

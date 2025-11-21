@@ -42,7 +42,6 @@
 /obj/effect/spawner/window/proc/sync_id(obj/structure/window/reinforced/polarized/W)
 	return
 
-
 /obj/effect/spawner/window/reinforced
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"

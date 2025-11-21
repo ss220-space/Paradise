@@ -62,4 +62,3 @@
 /datum/disease/virus/magnitis/has_cure()
 	return ismachineperson(affected_mob) ? FALSE : ..()
 
-

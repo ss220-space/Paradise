@@ -41,7 +41,6 @@
 	players = temp_players
 	return TRUE
 
-
 /datum/game_mode/de_kerberos_2/post_setup()
 	for(var/datum/team/battle_team/team as anything in list(/datum/team/battle_team/green, /datum/team/battle_team/blue, /datum/team/battle_team/red))\
 		teams[team.team_role] = new team

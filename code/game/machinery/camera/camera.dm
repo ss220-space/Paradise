@@ -74,6 +74,7 @@
 	SStgui.close_uis(wires)
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
+	QDEL_NULL(proximity_monitor)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
 	if(isarea(myArea))
@@ -120,7 +121,6 @@
 	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
-
 
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -196,7 +196,6 @@
 
 	return ..()
 
-
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -241,13 +240,11 @@
 /obj/item/proc/camera_upgrade(obj/machinery/camera/target, power_use_update = FALSE)
 	target.setPowerUsage()
 
-
 /obj/item/analyzer/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)
 	..()
 	target.update_icon(UPDATE_ICON_STATE)
 	//Update what it can see.
 	GLOB.cameranet.updateVisibility(target, opacity_check = FALSE)
-
 
 /obj/item/assembly/prox_sensor/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)
 	..()
@@ -255,7 +252,7 @@
 		target.update_appearance(UPDATE_NAME)
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, target)
-	target.AddComponent(/datum/component/proximity_monitor, target.view_range, TRUE)
+	target.proximity_monitor = new(target, target.view_range)
 
 /obj/machinery/camera/update_name(updates)
 	. = ..()
@@ -263,8 +260,6 @@
 		name = "motion-sensitive security camera"
 	else
 		name = "security camera"
-
-
 
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status && !(obj_flags & NODECONSTRUCT))
@@ -287,7 +282,6 @@
 			I.update_integrity(I.max_integrity * 0.5)
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
-
 
 /obj/machinery/camera/update_icon_state()
 	icon_state = isXRay() ? "xray[initial(icon_state)]" : initial(icon_state)
@@ -440,14 +434,12 @@
 		cam["z"] = 0
 	return cam
 
-
 /obj/machinery/camera/proc/can_AI_see(mob/living/silicon/ai/ai)
 	if(!ai)
 		return TRUE
 
 	var/list/tempnetwork = network & ai.network
 	return length(tempnetwork) > 0
-
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
