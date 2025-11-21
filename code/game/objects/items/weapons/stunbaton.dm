@@ -34,6 +34,10 @@
 	link_new_cell()
 	update_icon()
 
+/obj/item/melee/baton/security/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/melee/baton/security)
+
 /obj/item/melee/baton/security/loaded
 	cell = /obj/item/stock_parts/cell/high
 
@@ -240,6 +244,10 @@
 /obj/item/melee/baton/security/cattleprod/Initialize(mapload)
 	. = ..()
 	sparkler = new(src)
+
+/obj/item/melee/baton/security/cattleprod/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/melee/baton/security/cattleprod)
 
 /obj/item/melee/baton/security/cattleprod/Destroy()
 	QDEL_NULL(sparkler)

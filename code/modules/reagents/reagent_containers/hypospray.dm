@@ -371,8 +371,6 @@
 	list_reagents = list("epinephrine" = 10)
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
-	/// Currently selected skin
-	var/current_skin
 	/// Is it usable only on yourself?
 	var/only_self = FALSE
 	/// Is it used?

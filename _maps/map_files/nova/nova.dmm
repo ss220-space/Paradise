@@ -16009,6 +16009,14 @@
 	icon_state = "purple"
 	},
 /area/janitor)
+"cow" = (
+/obj/machinery/atm{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/hallway/primary/central/sw)
 "coJ" = (
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
@@ -17436,7 +17444,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/security_lasers,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -114733,6 +114740,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/machinery/atm{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -129053,6 +129063,14 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
+"sYa" = (
+/obj/machinery/atm{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/starboard)
 "sYc" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/machinery/camera{
@@ -192441,7 +192459,7 @@ tkq
 thy
 lvV
 wmY
-sfN
+cow
 fDY
 wrb
 bGa
@@ -207075,7 +207093,7 @@ szH
 dVE
 pWT
 bib
-rDT
+sYa
 cbh
 cbh
 sbO

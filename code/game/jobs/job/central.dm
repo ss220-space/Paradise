@@ -40,7 +40,7 @@
 		/obj/item/stamp/ploho = 1,
 		/obj/item/stamp/BIGdeny = 1,
 	)
-	box = /obj/item/storage/box/centcomofficer
+	box = /obj/item/storage/box/survival/centcomofficer
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 	)
@@ -99,7 +99,7 @@
 	pda = /obj/item/pda/centcom
 	r_pocket = /obj/item/storage/box/matches
 	l_pocket = /obj/item/melee/baseball_bat/homerun/central_command
-	box = /obj/item/storage/box/centcomofficer
+	box = /obj/item/storage/box/survival/centcomofficer
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,

@@ -48,7 +48,7 @@
 		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 	narsie_spawn_animation()
-	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
+	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse), name), 10 SECONDS)
 
 /obj/singularity/god/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
