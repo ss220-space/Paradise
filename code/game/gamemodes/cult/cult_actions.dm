@@ -1,10 +1,10 @@
 /datum/action/innate/cult
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon = 'icons/mob/actions/actions_cult.dmi'
 	background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_TRANSFER_MIND
 	buttontooltipstyle = "cult"
 
-/datum/action/innate/cult/IsAvailable()
+/datum/action/innate/cult/IsAvailable(feedback = FALSE)
 	if(!iscultist(owner))
 		return FALSE
 	return ..()
@@ -57,8 +57,9 @@
 /datum/action/innate/cult/comm/spirit
 	name = "Spiritual Communion"
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
+	allow_observer_click = TRUE
 
-/datum/action/innate/cult/comm/spirit/IsAvailable()
+/datum/action/innate/cult/comm/spirit/IsAvailable(feedback = FALSE)
 	return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
@@ -78,13 +79,14 @@
 	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
+	allow_observer_click = TRUE
 
 /datum/action/innate/cult/check_progress/New()
 	if(SSticker.mode)
 		button_icon_state = SSticker.cultdat.tome_icon
 	..()
 
-/datum/action/innate/cult/check_progress/IsAvailable()
+/datum/action/innate/cult/check_progress/IsAvailable(feedback = FALSE)
 	if(iscultist(owner) || isobserver(owner))
 		return TRUE
 	return FALSE
@@ -108,10 +110,11 @@
 		button_icon_state = SSticker.cultdat.dagger_icon
 	..()
 
-/datum/action/innate/cult/use_dagger/override_location()
-	button.ordered = FALSE
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
+//TODO vakons actions: later
+// /datum/action/innate/cult/use_dagger/override_location()
+// 	button.ordered = FALSE
+// 	button.screen_loc = "6:157,4:-2"
+// 	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/use_dagger/Activate()
 	var/obj/item/melee/cultblade/dagger/dagger

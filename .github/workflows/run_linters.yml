@@ -44,6 +44,14 @@ jobs:
         with:
           dotnet-version: 9.x
 
+      - name: Install OpenDream
+        uses: robinraju/release-downloader@v1.12
+        with:
+          repository: "OpenDreamProject/OpenDream"
+          tag: "latest"
+          fileName: "DMCompiler_linux-x64.tar.gz"
+          extract: true
+
       - name: Give Linters A Go
         id: linter-setup
         run: ":"
@@ -98,15 +106,6 @@ jobs:
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
-
-      # Do not raise the OD installation higher, otherwise check_grep and unticked_files will check it! :/
-      - name: Install OpenDream
-        uses: robinraju/release-downloader@v1.12
-        with:
-          repository: "OpenDreamProject/OpenDream"
-          tag: "latest"
-          fileName: "DMCompiler_linux-x64.tar.gz"
-          extract: true
 
       - name: Run OpenDream
         if: steps.linter-setup.conclusion == 'success' && !cancelled()

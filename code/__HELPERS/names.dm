@@ -154,7 +154,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 		if(!t.fields["name"])
 			stack_trace("Nameless record: [t.fields]")
 			continue
-		names += t.fields["name"]
+		names += escape_regex_smart(t.fields["name"])
 
 	var/maxwords = words//Extra var to check for duplicates.
 
@@ -194,6 +194,15 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 				. += "."
 			else
 				. += ", "
+
+/proc/escape_regex_smart(text)
+	var/list/chars = list(".", "*", "+", "?", "^", "$", "(", ")", "[", "]", "{", "}", "|")
+	text = replacetext(text, "\\", "\\\\")
+	for(var/char in chars)
+		text = replacetext(text, char, "\\[char]")
+	for(var/char in chars)
+		text = replacetext(text, "\\\\\\[char]", "\\[char]")
+	return text
 
 /proc/GenerateKey()
 	var/newKey

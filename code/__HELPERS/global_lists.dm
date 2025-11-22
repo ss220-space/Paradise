@@ -162,6 +162,8 @@
 
 	GLOB.slotmachine_prizes = init_slotmachine_prizes(GLOB.uplink_items)
 
+	GLOB.item_skins = init_item_skins()
+
 	init_keybindings()
 
 	// Preference toggles
@@ -430,3 +432,16 @@
 			continue
 		prizes[item.id] = item
 	return prizes
+
+/proc/init_item_skins()
+	var/list/skins = list()
+	for(var/datum/item_skin_data/skin as anything in subtypesof(/datum/item_skin_data))
+		if(!initial(skin.name))
+			continue
+		add_item_skin(skins, new skin)
+	return skins
+
+/proc/add_item_skin(list/skins, datum/item_skin_data/skin)
+	if(!(skin.item_path in skins))
+		skins[skin.item_path] = list()
+	skins[skin.item_path] += skin

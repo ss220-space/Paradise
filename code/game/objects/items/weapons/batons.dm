@@ -1,4 +1,6 @@
 /obj/item/melee/baton
+
+	icon = 'icons/obj/weapons/baton.dmi'
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
 	gender = FEMALE
@@ -279,8 +281,9 @@
 	/// The force on extension.
 	var/extend_force = 10
 
-/obj/item/melee/baton/telescopic/Initialize(mapload)
+/obj/item/melee/baton/telescopic/ComponentInitialize()
 	. = ..()
+	AddElement(/datum/element/item_skins)
 	AddComponent( \
 		/datum/component/transforming, \
 		force_on = src.extend_force, \
@@ -291,6 +294,9 @@
 		clumsy_check_prob = 0, \
 		attack_verb_on = list("ударил", "вмазал", "врезал"), \
 	)
+
+/obj/item/melee/baton/telescopic/Initialize(mapload)
+	. = ..()
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
