@@ -41,7 +41,7 @@
 			outfit.back = /obj/item/storage/backpack/satchel/hermit
 			outfit.belt = /obj/item/melee/baton
 			outfit.l_pocket = /obj/item/lighter/zippo
-			outfit.r_pocket = /obj/item/radio/sec/hermit
+			outfit.r_pocket = /obj/item/radio/hermit/trade
 			outfit.id = /obj/item/card/id/away/hermit/trade
 		if(2)
 			flavour_text += "Вы были инженером проектировщиком на экспериментальной фабрике \"Einstein Engine\". Вы работали над проектом \"Прометей\" — новым типом термоядерного \
@@ -122,13 +122,14 @@
 
 //Trade
 
-
-/obj/item/radio/sec/hermit
+/obj/item/radio/hermit/trade
 	name = "tactical shortwave radio"
 	desc = "портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями. При близком рассмотрении становится понятно что это дешёвый ширпотреб в красивой обёртке."
+	icon_state = "walkietalkie_sec"
+	item_state = "walkietalkie_sec"
 	frequency = PROC_FREQ
 
-/obj/item/radio/sec/hermit/get_ru_names()
+/obj/item/radio/hermit/trade/get_ru_names()
 	return list(
 		NOMINATIVE = "тактическая коротковолновая рация",
 		GENITIVE = "тактической коротковолновой рации",
@@ -362,7 +363,6 @@
 	icon_state = "radio"
 	belt_icon = "emergency_syndi"
 	materials = list(MAT_METAL=150)
-	frequency = ENG_FREQ
 
 /obj/item/radio/intercom/hermit
 	name = "rack—mounted intercom"
@@ -493,7 +493,7 @@
 		DATIVE = "ключ—карте",
 		ACCUSATIVE = "ключ—карту",
 		INSTRUMENTAL = "ключ—картой",
-		PREPOSITIONAL = "ключ—карте"
+		PREPOSITIONAL = "ключ—карте",
 	)
 
 /obj/item/pda/hermit/autumn
