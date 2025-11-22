@@ -346,9 +346,7 @@
 			Butcher(user)
 		if(3)
 			//Swarm of creatures
-			T.visible_message(span_userdanger("Рой опасных существ окружает [user]!"))
-			for(var/direction in GLOB.alldirs)
-				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user),direction))
+			Greetings_From_Hell(user)
 		if(4)
 			//Destroy Equipment
 			T.visible_message(span_userdanger("Все вещи [user] внезапно исчезли!"))
@@ -502,7 +500,7 @@
 	var/obj/item/organ/external/body = butchered.get_organ(BODY_ZONE_CHEST)
 	body.droplimb()
 	butchered.adjustBruteLoss(100, def_zone = BODY_ZONE_CHEST)
-	if(ismachineperson(Butcher))
+	if(ismachineperson(butchered))
 		butchered.visible_message(
 			span_userdanger("Корпус [butchered] разваливается на части, и [GEND_HIS_HER(butchered)] компоненты вываливаются наружу!"),
 			span_userdanger("Вы не успели инчего осознать, как ваши части вывалились наружу."),
@@ -514,3 +512,8 @@
 		span_userdanger("Вы не успели инчего осознать, как ваши органы вывалились наружу."),
 		span_userdanger("Вы слышите звук вываливающихся органов.")
 	)
+
+/obj/item/dice/d20/fate/proc/Greetings_From_Hell(mob/living/carbon/human/greeted)
+	src.visible_message(span_userdanger("На месте кубика появился портал, из которого выходят адские отродья!"))
+	greeted.Weaken(2 SECONDS)
+
