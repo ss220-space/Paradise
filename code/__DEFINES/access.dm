@@ -137,3 +137,7 @@
 
 //Ghost roles
 #define ACCESS_FREE_GOLEMS 300
+
+#ifndef ACCESS_HERMIT_AUTUMN
+#define ACCESS_HERMIT_AUTUMN 500
+#endif
