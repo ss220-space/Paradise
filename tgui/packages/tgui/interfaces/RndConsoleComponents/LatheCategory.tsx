@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Button, Section, Table } from '../../components';
+import { Button, Section, Table, DmIcon } from '../../components';
 import { LatheMaterials } from './index';
 
 type LatheCategoryData = {
@@ -10,6 +10,9 @@ type LatheCategoryData = {
 type Designs = {
   id: string;
   name: string;
+  desc: string;
+  icon: string;
+  icon_state: string;
   can_build: number;
   materials: Material[];
 };
@@ -27,45 +30,58 @@ export const LatheCategory = (properties) => {
     <Section title={category}>
       <LatheMaterials />
       <Table className="RndConsole__LatheCategory__MatchingDesigns">
-        {matching_designs.map(({ id, name, can_build, materials }) => {
-          return (
-            <Table.Row key={id}>
-              <Table.Cell>
-                <Button
-                  icon="print"
-                  disabled={can_build < 1}
-                  onClick={() => act(action, { id, amount: 1 })}
-                >
-                  {name}
-                </Button>
-              </Table.Cell>
-              <Table.Cell>
-                {can_build >= 5 ? (
-                  <Button onClick={() => act(action, { id, amount: 5 })}>
-                    x5
+        {matching_designs.map(
+          ({ id, name, desc, icon, icon_state, can_build, materials }) => {
+            return (
+              <Table.Row key={id}>
+                <Table.Cell>
+                  <DmIcon
+                    icon={icon}
+                    icon_state={icon_state}
+                    style={{
+                      verticalAlign: 'middle',
+                      width: '48px',
+                      margin: '0px',
+                      marginLeft: '0px',
+                    }}
+                  />
+                  <Button
+                    icon="print"
+                    disabled={can_build < 1}
+                    tooltip={desc}
+                    onClick={() => act(action, { id, amount: 1 })}
+                  >
+                    {name}
                   </Button>
-                ) : null}
-              </Table.Cell>
-              <Table.Cell>
-                {can_build >= 10 ? (
-                  <Button onClick={() => act(action, { id, amount: 10 })}>
-                    x10
-                  </Button>
-                ) : null}
-              </Table.Cell>
-              <Table.Cell>
-                {materials.map(({ name, amount, is_red }) => (
-                  <>
-                    {' | '}
-                    <span className={is_red ? 'color-red' : null}>
-                      {amount} {name}
-                    </span>
-                  </>
-                ))}
-              </Table.Cell>
-            </Table.Row>
-          );
-        })}
+                </Table.Cell>
+                <Table.Cell>
+                  {can_build >= 5 ? (
+                    <Button onClick={() => act(action, { id, amount: 5 })}>
+                      x5
+                    </Button>
+                  ) : null}
+                </Table.Cell>
+                <Table.Cell>
+                  {can_build >= 10 ? (
+                    <Button onClick={() => act(action, { id, amount: 10 })}>
+                      x10
+                    </Button>
+                  ) : null}
+                </Table.Cell>
+                <Table.Cell>
+                  {materials.map(({ name, amount, is_red }) => (
+                    <>
+                      {' | '}
+                      <span className={is_red ? 'color-red' : null}>
+                        {amount} {name}
+                      </span>
+                    </>
+                  ))}
+                </Table.Cell>
+              </Table.Row>
+            );
+          }
+        )}
       </Table>
     </Section>
   );
