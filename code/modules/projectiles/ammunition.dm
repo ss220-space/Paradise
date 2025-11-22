@@ -66,16 +66,6 @@
 	gun.chambered = null
 	. = ..()
 
-/obj/item/ammo_casing/get_ru_names()
-	return list(
-		NOMINATIVE = "гильза от пули",
-		GENITIVE = "гильзы от пули",
-		DATIVE = "гильзе от пули",
-		ACCUSATIVE = "гильзу от пули",
-		INSTRUMENTAL = "гильзой от пули",
-		PREPOSITIONAL = "гильзе от пули",
-	)
-
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
