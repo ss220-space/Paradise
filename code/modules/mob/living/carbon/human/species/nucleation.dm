@@ -78,7 +78,7 @@
 	return ..()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/human)
-	if(human.health <= HEALTH_THRESHOLD_DEAD || !length(human.surgeries)) // Needed to prevent brain gib on surgery debrain
+	if(human.health <= HEALTH_THRESHOLD_DEAD) // Needed to prevent brain gib on surgery debrain
 		death_explosion(human)
 		return
 
