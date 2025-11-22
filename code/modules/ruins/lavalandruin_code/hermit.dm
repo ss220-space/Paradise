@@ -14,7 +14,7 @@
 	allow_name_pick = TRUE
 	outfit = /datum/outfit/hermit
 	mob_species = /datum/species/human
-	description = "Вы - выживший, застрявший на Лаваленде в аварийном шаттле. Корабль это якорь вашего выживания, он потребляет ресурсы, конвертирует их, а ещё его можно починить. Эта роль для тех, кто хочет получить иной опыт от игры, отличный от станционного."
+	description = "Вы — выживший, застрявший на Лаваленде в аварийном шаттле. Корабль это якорь вашего выживания, он потребляет ресурсы, конвертирует их, а ещё его можно починить. Эта роль для тех, кто хочет получить иной опыт от игры, отличный от станционного."
 	flavour_text = "Вы застряли на этой безбожной планете дольше, чем планировали. Каждый день вы занимаетесь рутинными, уже ставшими ритуалом делами. Осталось совсем чуть чуть и ваш \
 	корабль наконец взлетит. Эти мысли развеиваются очередным воспоминанием о том, как вы сюда попали...\n"
 	assignedrole = "Hermit"
@@ -30,9 +30,9 @@
 			flavour_text += "Вы были торговцем с Бизель. Запах сварочной плазмы, смешанный с ароматом специй из портовых кафе. \
 			Гул тяжёлых грузовиков, плывущих между ангарами. Бизель был не планетой, а пульсирующим узлом, местом, где царил строгий коррумпированный порядок. \
 			Сделки заключались в тишине кабинетов, а безопасность обеспечивали частные армии с ТСФ. \
-			Заказ казался рядовым - доставить чертежи на окраину системы. Условия были просты: никаких вопросов, двойная ставка. \
+			Заказ казался рядовым — доставить чертежи на окраину системы. Условия были просты: никаких вопросов, двойная ставка. \
 			Вы приняли его, как и десятки других. И теперь за вами охотятся. Вы чудом сбежали на этом утлом спасательном челноке. \
-			Эти чертежи с вами - смертный приговор. Но это и ваш единственный шанс. Найдите покупателя в этом секторе и сбыйте его с рук, \
+			Эти чертежи с вами — смертный приговор. Но это и ваш единственный шанс. Найдите покупателя в этом секторе и сбыйте его с рук, \
 			желательно за 20 000 кредитов или больше. Этой суммы будет достаточно чтобы \"стереть свой след\" в этой истории."
 			outfit.glasses = /obj/item/clothing/glasses/sunglasses/big
 			outfit.mask = /obj/item/clothing/mask/cigarette/menthol
@@ -44,7 +44,7 @@
 			outfit.r_pocket = /obj/item/radio/sec/hermit
 			outfit.id = /obj/item/card/id/away/hermit/trade
 		if(2)
-			flavour_text += "Вы были инженером проектировщиком на экспериментальной фабрике \"Einstein Engine\". Вы работали над проектом \"Прометей\" - новым типом термоядерного \
+			flavour_text += "Вы были инженером проектировщиком на экспериментальной фабрике \"Einstein Engine\". Вы работали над проектом \"Прометей\" — новым типом термоядерного \
 			двигателя, который должен был дать второй шанс ядерной энергетики показать себя. Вы были горды за свои достижения, пока не увидели итоговый отчёт о стабильности. \
 			Цифры не сходились. Реакция была не контролируема, она была осуждена на катастрофу. Вы возмутились, но вам вежливо предложили \"не вмешиваться не в своё дело\". \
 			Вы можно было подумать были уже готовы уйти, но оказалось, что теперь ваши разработки были переписаны под их \"кооперативную собственность\", вы более не владели своим изобретением. \
@@ -60,8 +60,8 @@
 			outfit.r_pocket = /obj/item/reagent_containers/food/drinks/oilcan/full
 			outfit.id = /obj/item/card/id/away/hermit/einstein_engine
 		if(3)
-			flavour_text += "Вы были старшим медицинским специалистом на ИСН \"Ананси\". Официально - вы лечили больных с колоний и ближайших судов. \
-			Неофициально - вы были смотрителем для \"испытуемых\" каторжников с Рида, по делу психологической и физической устойчивости к местной флоре. \
+			flavour_text += "Вы были старшим медицинским специалистом на ИСН \"Ананси\". Официально — вы лечили больных с колоний и ближайших судов. \
+			Неофициально — вы были смотрителем для \"испытуемых\" каторжников с Рида, по делу психологической и физической устойчивости к местной флоре. \
 			Вы закрывали на это глаза, пока в одну из смен не увидели, как от нового препарата человек не разложился изнутри. Вы не смогли молчать. \
 			И в тот же миг вы превратились в мишень. Пользуясь репутацией и полномочиями вы смогли выкрасть документы из архива и сбежать на спасательной капсуле. \
 			После чего \"Ананси\" объявили вас психически нестабильным деструктивным элементом. Теперь у вас в кармане информационная бомба, компромат, \
@@ -77,10 +77,10 @@
 			outfit.neck = /obj/item/clothing/neck/cloak/chief_medical_officer
 			outfit.id = /obj/item/card/id/away/hermit/medic
 		if(4)
-			flavour_text += "Вы были осуждённым каторжником на Риде. Рид - это ад  вырезанный из льда и камня. Вы отбывали срок за преступление, которого не помните, \
-			на рудниках, где срок измеряется не годами, а количеством породы, которую вы поднимаете на поверхность. Побег был безумием. Шанс выжить в ледяной пустоши - нулевой. \
+			flavour_text += "Вы были осуждённым каторжником на Риде. Рид — это ад  вырезанный из льда и камня. Вы отбывали срок за преступление, которого не помните, \
+			на рудниках, где срок измеряется не годами, а количеством породы, которую вы поднимаете на поверхность. Побег был безумием. Шанс выжить в ледяной пустоши — нулевой. \
 			Но лучше умереть свободным, чем сгнить заживо. Вы организовали бунт. Пока охранники отбивались от обезумевших зеков, вы пробились в ангар. \
-			Этот шаттл - ваша украденная свобода. Вы рванули вперёд, не глядя на координаты, лишь бы подальше от этого места. Теперь вы один, с клеймом беглого каторжника. \
+			Этот шаттл — ваша украденная свобода. Вы рванули вперёд, не глядя на координаты, лишь бы подальше от этого места. Теперь вы один, с клеймом беглого каторжника. \
 			Но вы свободны. И будете драться за эту свободу до конца, зубами и когтями."
 			outfit.glasses = /obj/item/clothing/glasses/welding
 			outfit.mask = /obj/item/clothing/mask/gas
@@ -213,17 +213,17 @@
 	name = "Level 3 access card"
 	desc = "Ключ карта открывающая почти все шлюзы среднего доступа на объектах корпорации \"Двигатели Энштейна\"."
 	icon_state = "guest"
-	item_state = "guestpass-id"
+	item_state = "guestpass—id"
 	access = list(10, 11, 32)
 
 /obj/item/card/id/away/hermit/einstein_engine/get_ru_names()
 	return list(
-		NOMINATIVE = "ключ-карта 3 уровня",
-		GENITIVE = "ключ-карты 3 уровня",
-		DATIVE = "ключ-карте 3 уровня",
-		ACCUSATIVE = "ключ-карту 3 уровня",
-		INSTRUMENTAL = "ключ-картой 3 уровня",
-		PREPOSITIONAL = "ключ-карте 3 уровня"
+		NOMINATIVE = "ключ—карта 3 уровня",
+		GENITIVE = "ключ—карты 3 уровня",
+		DATIVE = "ключ—карте 3 уровня",
+		ACCUSATIVE = "ключ—карту 3 уровня",
+		INSTRUMENTAL = "ключ—картой 3 уровня",
+		PREPOSITIONAL = "ключ—карте 3 уровня"
 	)
 
 /obj/item/documents/hermit/einstein_engine
@@ -251,12 +251,12 @@
 
 /obj/item/card/id/away/hermit/medic/get_ru_names()
 	return list(
-		NOMINATIVE = "ID-карта старшего медицинского специалиста",
-		GENITIVE = "ID-карты старшего медицинского специалиста",
-		DATIVE = "ID-карте старшего медицинского специалиста",
-		ACCUSATIVE = "ID-карту старшего медицинского специалиста",
-		INSTRUMENTAL = "ID-картой старшего медицинского специалиста",
-		PREPOSITIONAL = "ID-карте старшего медицинского специалиста"
+		NOMINATIVE = "ID—карта старшего медицинского специалиста",
+		GENITIVE = "ID—карты старшего медицинского специалиста",
+		DATIVE = "ID—карте старшего медицинского специалиста",
+		ACCUSATIVE = "ID—карту старшего медицинского специалиста",
+		INSTRUMENTAL = "ID—картой старшего медицинского специалиста",
+		PREPOSITIONAL = "ID—карте старшего медицинского специалиста"
 	)
 
 /obj/item/documents/hermit/medical
@@ -275,7 +275,7 @@
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "standart"
 
-/obj/effect/spawner/hermit_random_structure/Initialize()
+/obj/effect/spawner/hermit_random_structure/Initialize(mapload)
 	. = ..()
 	var/static/list/possible_objects = list(
 		/obj/structure/reagent_dispensers/watertank = 100,
@@ -297,7 +297,7 @@
 		/obj/machinery/power/emitter = 25,
 		/obj/machinery/power/tesla_coil = 100,
 		/obj/machinery/power/grounding_rod = 100,
-		/obj/structure/reagent_dispensers/oil = 100,
+		/obj/structure/reagent_dispensers/oil = 100
 	)
 	var/chosen_type = pickweight(possible_objects)
 	new chosen_type(loc)
@@ -309,7 +309,7 @@
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "standart"
 
-/obj/effect/spawner/hermit_random_sleeper/Initialize()
+/obj/effect/spawner/hermit_random_sleeper/Initialize(mapload)
 	. = ..()
 	var/choice = rand(1, 100)
 	if(choice <= 25)
@@ -327,7 +327,7 @@
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "standart"
 
-/obj/effect/spawner/hermit_random_firstaid/Initialize()
+/obj/effect/spawner/hermit_random_firstaid/Initialize(mapload)
 	. = ..()
 	var/static/list/firstaid_kits = list(
 		/obj/item/storage/firstaid,
@@ -365,7 +365,7 @@
 	frequency = ENG_FREQ
 
 /obj/item/radio/intercom/hermit
-	name = "rack-mounted intercom"
+	name = "rack—mounted intercom"
 	desc = "Автономный модуль связи. Выполняющий функции бортового самописца и радио приёмника."
 	icon = 'icons/obj/machines/computer3.dmi'
 	icon_state = "rackframe"
@@ -379,7 +379,7 @@
 		DATIVE = "автономному модулю связи",
 		ACCUSATIVE = "автономный модуль связи",
 		INSTRUMENTAL = "автономным модулем связи",
-		PREPOSITIONAL = "автономном модуле связи"
+		PREPOSITIONAL = "автономном модуле связи",
 	)
 
 /obj/item/radio/intercom/rackmounted/Initialize(mapload, direction, buildstage = 2)
@@ -488,18 +488,18 @@
 
 /obj/item/card/id/away/hermit/autumn/get_ru_names()
 	ru_names = list(
-		NOMINATIVE = "ключ-карта",
-		GENITIVE = "ключ-карты",
-		DATIVE = "ключ-карте",
-		ACCUSATIVE = "ключ-карту",
-		INSTRUMENTAL = "ключ-картой",
-		PREPOSITIONAL = "ключ-карте"
+		NOMINATIVE = "ключ—карта",
+		GENITIVE = "ключ—карты",
+		DATIVE = "ключ—карте",
+		ACCUSATIVE = "ключ—карту",
+		INSTRUMENTAL = "ключ—картой",
+		PREPOSITIONAL = "ключ—карте"
 	)
 
 /obj/item/pda/hermit/autumn
 	name = "\"Autumn BEES\" PDA"
 	default_cartridge = /obj/item/cartridge/engineering
-	icon_state = "pda-engineer"
+	icon_state = "pda—engineer"
 	desc = "Специализированный карманный компьютер \"Autumn BEES\". Привязан к кораблю."
 	model_name = "Backup Emergency Evacuation Shuttle OS"
 	owner = "Autumn BEES"
@@ -512,7 +512,7 @@
 
 /obj/item/craft_blueprints/hermit/autumn
 	name = "\"Autumn BEES\" circuitboard blueprints"
-	desc = "Рукописные чертежи на специальной бумаге, это схема какого-то компьютера."
+	desc = "Рукописные чертежи на специальной бумаге, это схема какого—то компьютера."
 	crafting_name = "платы консоли управления"
 	crafting_item = /obj/item/circuitboard/shuttle/autumn
 	tools = list(TOOL_WELDER, TOOL_MULTITOOL)
