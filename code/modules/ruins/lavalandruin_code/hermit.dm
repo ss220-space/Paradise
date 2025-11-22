@@ -450,7 +450,6 @@
 
 /obj/effect/spawner/airlock/w_to_e/long/square/hermit
 	required_access = list(ACCESS_HERMIT_AUTUMN)
-	door_name = "external access"
 
 //Safe
 
@@ -466,9 +465,7 @@
 //Camera
 
 /obj/machinery/computer/camera_advanced/hermit/autumn
-	name = "advanced camera console"
 	desc = "Используется для доступа к различным камерам, установленным на \"Autumn BEES\"."
-	icon_screen = "cameras"
 	icon_keyboard = "accelerator_key"
 	networks = list("Autumn")
 
@@ -486,7 +483,6 @@
 /obj/item/card/id/away/hermit/autumn
 	name = "\"Autumn BEES\" Access Key"
 	desc = "Криптографическая ключ карта для доступа к системам \"Autumn BEES\"."
-	icon = 'icons/obj/card.dmi'
 	icon_state = "TDgreen"
 	access = list(ACCESS_HERMIT_AUTUMN)
 
