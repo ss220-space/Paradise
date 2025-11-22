@@ -59,13 +59,12 @@
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/handheld_defib_adv
-	name = "Advanced Handheld Defibrillator"
 	id = "handheld_defib_adv"
 	req_tech = list("biotech" = 7, "materials" = 6, "magnets" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_GOLD = 1000, MAT_TITANIUM = 500)
 	build_path = /obj/item/handheld_defibrillator/advanced
-	category = list("Medical")
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/defib
 	id = "defib"
