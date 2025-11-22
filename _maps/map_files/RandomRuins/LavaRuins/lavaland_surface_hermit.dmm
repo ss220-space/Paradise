@@ -8,15 +8,13 @@
 	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "hermit";
+	id_tag = "hermit_back";
 	dir = 2
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/hermit/autumn)
 "aD" = (
-/obj/machinery/suit_storage_unit{
-	req_access = null
-	},
+/obj/machinery/suit_storage_unit/hermit,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "bh" = (
@@ -53,10 +51,29 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "eP" = (
-/turf/simulated/wall/shuttle/nodiagonal,
+/obj/machinery/door_control{
+	id = "hermit_door";
+	req_access = list(500);
+	name = "door shutters";
+	pixel_y = 26
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "gj" = (
 /obj/machinery/computer/camera_advanced/hermit/autumn,
+/obj/machinery/door_control{
+	id = "hermit";
+	pixel_x = 8;
+	req_access = list(500);
+	name = "bow shutters"
+	},
+/obj/machinery/door_control{
+	id = "hermit_back";
+	pixel_x = 8;
+	req_access = list(500);
+	pixel_y = -5;
+	name = "stern shutters"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -93,12 +110,12 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/hermit/autumn)
 "hk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/plastic{
-	name = "Emergency plastic crate"
+	name = "emergency plastic crate"
 	},
 /obj/item/seeds/potato,
 /obj/item/seeds/potato,
@@ -225,7 +242,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/spawner/random_structure/hermit,
+/obj/effect/spawner/hermit_random_structure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -250,7 +267,7 @@
 /area/template_noop)
 "qz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_structure/hermit,
+/obj/effect/spawner/hermit_random_structure,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "ru" = (
@@ -314,7 +331,7 @@
 	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "hermit";
+	id_tag = "hermit_back";
 	dir = 2
 	},
 /turf/simulated/floor/plating/airless,
@@ -322,7 +339,7 @@
 "wW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/spawner/random_structure/hermit,
+/obj/effect/spawner/hermit_random_structure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -347,7 +364,10 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/effect/spawner/random_firstaid,
+/obj/effect/spawner/hermit_random_firstaid,
+/obj/item/reagent_containers/food/pill/patch/styptic,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/snacks/monkeycube,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -356,12 +376,8 @@
 /turf/simulated/wall/shuttle,
 /area/shuttle/hermit/autumn)
 "Ar" = (
-/obj/machinery/computer/shuttle/autumn,
-/obj/machinery/door_control{
-	id = "hermit";
-	pixel_x = 8;
-	req_access = list(500)
-	},
+/obj/structure/computerframe,
+/obj/item/circuitboard/broken,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -375,9 +391,6 @@
 /area/shuttle/hermit/autumn)
 "Ed" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "hermit"
-	},
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 10;
@@ -394,6 +407,9 @@
 	dwidth = 10;
 	id = "autumn"
 	},
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "hermit_door"
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Eq" = (
@@ -408,7 +424,8 @@
 /obj/machinery/washing_machine,
 /obj/machinery/power/apc/noalarm{
 	pixel_x = 26;
-	dir = 4
+	dir = 4;
+	req_access = list(500)
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
@@ -497,6 +514,9 @@
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
+"Kb" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/shuttle/hermit/autumn)
 "Kg" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -519,7 +539,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/spawner/random_sleeper,
+/obj/effect/spawner/hermit_random_sleeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -542,7 +562,7 @@
 /area/shuttle/hermit/autumn)
 "Mi" = (
 /obj/effect/spawner/airlock/w_to_e/long/square/hermit,
-/turf/simulated/wall/shuttle/nodiagonal,
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/hermit/autumn)
 "Mv" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -586,7 +606,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/spawner/random_structure/hermit,
+/obj/effect/spawner/hermit_random_structure,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Pd" = (
@@ -604,7 +624,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "QU" = (
-/obj/effect/spawner/random_structure/hermit,
+/obj/effect/spawner/hermit_random_structure,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Rv" = (
@@ -674,7 +694,7 @@
 "YA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "hermit"
+	id_tag = "hermit_door"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
@@ -748,17 +768,17 @@ Cm
 Cm
 bQ
 TL
+Kb
 xL
 xL
-xL
-xL
+Kb
 TL
 wZ
 TL
+Kb
 xL
 xL
-xL
-xL
+Kb
 bQ
 bQ
 Cm
@@ -769,19 +789,19 @@ bQ
 TL
 TL
 TL
-xL
-xL
+Kb
+Kb
 TJ
 bh
+Kb
+Kb
 xL
-xL
-xL
-xL
-xL
+Kb
+Kb
 qz
 QU
-xL
-xL
+Kb
+Kb
 bQ
 bQ
 "}
@@ -789,9 +809,9 @@ bQ
 HY
 TL
 TL
+Kb
 xL
-xL
-xL
+Kb
 xL
 io
 GX
@@ -810,8 +830,8 @@ bQ
 (6,1,1) = {"
 bQ
 bQ
-xL
-xL
+Kb
+Kb
 OE
 gl
 xL
@@ -876,11 +896,11 @@ bQ
 (9,1,1) = {"
 bQ
 bQ
-xL
-xL
+Kb
+Kb
 ZC
 GC
-eP
+Kb
 hX
 hX
 Mi
@@ -899,11 +919,11 @@ bQ
 HY
 lp
 bQ
-xL
+Kb
 xL
 hJ
 xL
-Hk
+eP
 dG
 xL
 tr
@@ -927,15 +947,15 @@ gN
 xL
 Pd
 Ct
+Kb
+Kb
 xL
-xL
-xL
-xL
-xL
+Kb
+Kb
 Kp
 SX
-xL
-xL
+Kb
+Kb
 bQ
 bQ
 "}
@@ -946,17 +966,17 @@ PA
 Cm
 bQ
 bQ
-xL
+Kb
 Ed
 YA
-xL
+Kb
 bQ
 bQ
 tj
+Kb
 xL
 xL
-xL
-xL
+Kb
 bQ
 bQ
 HY
