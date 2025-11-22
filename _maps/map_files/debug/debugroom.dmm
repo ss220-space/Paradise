@@ -23,6 +23,10 @@
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"f" = (
+/obj/machinery/r_n_d/circuit_imprinter/upgraded,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "g" = (
 /obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel,
@@ -130,6 +134,16 @@
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"r" = (
+/obj/machinery/r_n_d/server/core,
+/turf/simulated/wall,
+/area/admin)
+"s" = (
+/obj/machinery/mecha_part_fabricator/upgraded{
+	id = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "t" = (
 /turf/simulated/wall,
 /area/admin)
@@ -151,6 +165,9 @@
 /obj/item/stack/sheet/mineral/gold/fifty,
 /obj/item/stack/sheet/mineral/diamond/fifty,
 /obj/item/stack/sheet/mineral/bananium/fifty,
+/obj/item/stack/sheet/bluespace_crystal{
+	amount = 50
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "y" = (
@@ -171,6 +188,13 @@
 	icon_state = "black"
 	},
 /area/space)
+"A" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/stack/debug_resource{
+	amount = 50
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "B" = (
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel,
@@ -188,6 +212,14 @@
 "F" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/clothing/suit/space/hardsuit/syndi,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"G" = (
+/obj/machinery/r_n_d/protolathe/upgraded,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"H" = (
+/obj/machinery/autolathe/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "I" = (
@@ -220,18 +252,26 @@
 /obj/item/areaeditor/blueprints,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"M" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/storage/part_replacer/bluespace/experimental,
+/obj/item/storage/part_replacer/bluespace/experimental,
+/obj/item/storage/part_replacer/bluespace/experimental,
+/obj/item/storage/part_replacer/bluespace/experimental,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "N" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/clothing/suit/space/hardsuit/security,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "O" = (
-/obj/structure/table/wood/fancy/red,
+/obj/machinery/vending/gun_mods/free,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "P" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/implant/uplink/admin,
+/obj/item/radio/uplink/admin,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Q" = (
@@ -271,8 +311,17 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/elite,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"X" = (
+/obj/machinery/computer/rdconsole/core,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "Y" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"Z" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/debug/debugtools,
 /turf/simulated/floor/plasteel,
 /area/admin)
 
@@ -27127,7 +27176,7 @@ R
 C
 P
 O
-O
+u
 u
 u
 v
@@ -28928,8 +28977,8 @@ u
 u
 u
 u
-u
-u
+s
+X
 t
 a
 a
@@ -29187,7 +29236,7 @@ u
 u
 u
 u
-t
+r
 a
 a
 a
@@ -29441,9 +29490,9 @@ u
 u
 u
 u
-u
-u
-u
+H
+G
+f
 t
 a
 a
@@ -29699,8 +29748,8 @@ u
 u
 u
 u
-u
-u
+A
+M
 t
 a
 a
@@ -33295,7 +33344,7 @@ U
 u
 L
 x
-u
+Z
 u
 q
 q
