@@ -127,7 +127,6 @@
 	desc = "портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями. При близком рассмотрении становится понятно что это дешёвый ширпотреб в красивой обёртке."
 	icon_state = "walkietalkie_sec"
 	item_state = "walkietalkie_sec"
-	frequency = PROC_FREQ
 
 /obj/item/radio/hermit/trade/get_ru_names()
 	return list(
