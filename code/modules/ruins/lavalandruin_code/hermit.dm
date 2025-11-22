@@ -91,7 +91,7 @@
 			outfit.l_pocket = /obj/item/reagent_containers/food/drinks/flask/thermos
 
 /obj/effect/mob_spawn/human/hermit/Destroy()
-	new/obj/machinery/bodyscanner/hermit(get_turf(src)) {dir = 4}
+	new /obj/machinery/bodyscanner/hermit(get_turf(src), 4)
 	return ..()
 
 /obj/effect/mob_spawn/human/hermit/special(mob/living/carbon/human/H)
