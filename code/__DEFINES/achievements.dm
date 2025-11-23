@@ -29,6 +29,9 @@
 #define MEDAL_CULT_SHUTTLE_OMFG "WHAT JUST HAPPENED"
 #define MEDAL_CLICKBAIT "Clickbait"
 #define MEDAL_HEALTHY "Heart Healthy"
+#define MEDAL_ARCH_DEVIL "Arch Devil"
+#define MEDAL_NO_HELL_TODAY "No Hell today"
+#define MEDAL_KERBEROS_MASTER "Kerberos master"
 
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER "Legendary Miner"
@@ -74,6 +77,7 @@
 #define WENDIGO_SCORE "Wendigos Killed"
 
 #define MAINT_PILLS_SCORE "Weird Pills Eaten"
+#define DE_KERBEROS_2_SCORE "De_kerberos_2 Wins"
 
 /// DB ID for the amount of achievements unlocked by the player.
 #define ACHIEVEMENTS_SCORE "Achievements Score"
