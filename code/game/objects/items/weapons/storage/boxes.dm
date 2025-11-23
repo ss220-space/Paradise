@@ -1040,6 +1040,27 @@
 	new /obj/item/weapon_cell/specter(src)
 	new /obj/item/weapon_cell/specter(src)
 
+/obj/item/storage/box/taurus_kit
+	name = "taurus revolver kit (rubber)"
+	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
+	icon_state = "box_taurus"
+
+/obj/item/storage/box/taurus_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"Таурус\"",
+		GENITIVE = "набора \"Таурус\"",
+		DATIVE = "набору \"Таурус\"",
+		ACCUSATIVE = "набор \"Таурус\"",
+		INSTRUMENTAL = "набором \"Таурус\"",
+		PREPOSITIONAL = "наборе \"Таурус\"",
+	)
+
+/obj/item/storage/box/taurus_kit/populate_contents()
+	new /obj/item/gun/projectile/revolver/taurus(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/ammo_box/speedloader/rubber45colt(src)
+	new /obj/item/ammo_box/speedloader/rubber45colt(src)
+
 /obj/item/storage/box/revolver_kit
 	name = "Revolver kit"
 	icon_state = "box_revolver"

@@ -969,6 +969,8 @@
 
 ///from base of obj/gun/projectile/automatic/toggle_firemode(): (/mob/user, firemode)
 #define COMSIG_GUN_TOGGLE_FIREMODE "gun_firemode_toggle"
+///from base of obj/gun/process_fire(): (/atom/target, /mob/living/user)
+#define COMSIG_GUN_AFTER_PROCESS_FIRE "gun_after_process_fire"
 
 /// Defib-specific signals
 

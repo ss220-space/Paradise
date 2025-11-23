@@ -162,7 +162,7 @@
 	if(!length(sst))
 		return
 
-	var/list/text = list(span_fontsize2("<b>Бойцами Ударного Отряда Синдиката были:</b>"))
+	var/list/text = list(span_fontsize2("<b>Бойцами Ударного Отряда \"Синдиката\" были:</b>"))
 	for(var/datum/mind/commando in sst)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("
@@ -192,10 +192,10 @@
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><b>Боец Ударного Отряда Синдиката успешен!</b></font>"
+			text += "<br><font color='green'><b>Боец Ударного Отряда \"Синдиката\" успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "sst_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><b>Боец Ударного Отряда Синдиката провалился!</b></font>"
+			text += "<br><font color='red'><b>Боец Ударного Отряда \"Синдиката\" провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "sst_success", 1, "FAIL")
 	return text.Join("")
 
@@ -203,7 +203,7 @@
 	if(!length(sit))
 		return
 
-	var/list/text = list(span_fontsize2("<b>Агентами Диверсионного Отряда Синдиката были:</b>"))
+	var/list/text = list(span_fontsize2("<b>Агентами Диверсионного Отряда \"Синдиката\" были:</b>"))
 	for(var/datum/mind/commando in sit)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("
@@ -233,9 +233,9 @@
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><b>Агент Диверсионного Отряда Синдиката был успешен!</b></font>"
+			text += "<br><font color='green'><b>Агент Диверсионного Отряда \"Синдиката\" был успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "sit_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><b>Агент Диверсионного Отряда Синдиката провалился!</b></font>"
+			text += "<br><font color='red'><b>Агент Диверсионного Отряда \"Синдиката\" провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "sit_success", 1, "FAIL")
 	return text.Join("")

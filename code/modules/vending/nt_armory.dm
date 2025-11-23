@@ -341,6 +341,7 @@
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
 		/obj/item/storage/belt/medical/surgery/loaded = 2,
 		/obj/item/storage/belt/medical/response_team = 3,
+		/obj/item/handheld_defibrillator/advanced = 2,
 		/obj/item/storage/pill_bottle/ert = 4,
 		/obj/item/reagent_containers/food/pill/mannitol = 10,
 		/obj/item/reagent_containers/food/pill/salbutamol = 10,
