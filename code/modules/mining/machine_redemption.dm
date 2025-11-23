@@ -58,6 +58,8 @@
 	var/obj/item/disk/design_disk/inserted_disk
 	var/invalid_material
 	COOLDOWN_DECLARE(messages_cooldown)
+	/// Variable for caching names and descriptions of alloy objects
+	var/list/cached_alloy_names = list()
 
 /obj/machinery/mineral/ore_redemption/get_ru_names()
 	return list(
@@ -84,11 +86,14 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	//Проверка на случай постройки такой на Тайпане
+	// Special access for built on Taipan machines
 	var/area/MyArea = getArea(src)
 	if(istype(MyArea, /area/syndicate/unpowered/syndicate_space_base))
 		req_access = list(ACCESS_SYNDICATE)
 		req_access_claim = ACCESS_SYNDICATE
+
+	// Cache names and descriptions of all known alloy designs
+	cache_all_alloy_names()
 
 /obj/machinery/mineral/ore_redemption/upgraded/Initialize(mapload)
 	. = ..()
@@ -299,7 +304,6 @@
 	do_sparks(5, TRUE, src)
 	return ..()
 
-// UI
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
 	var/list/data = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -332,12 +336,9 @@
 	var/list/alloys = list()
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
-		var/obj/design_item = new D.build_path
-		var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
-		qdel(design_item)
 		alloys += list(list(
 			"id" = D.id,
-			"name" = design_name,
+			"name" = get_cached_alloy_name(D),
 			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
@@ -426,7 +427,8 @@
 		if("download")
 			if(inserted_disk?.blueprint?.build_type & SMELTER)
 				files.AddDesign2Known(inserted_disk.blueprint)
-				atom_say("Чертёж \"[inserted_disk.blueprint.name]\" успешно загружен.")
+				cache_alloy_name(inserted_disk.blueprint)
+				atom_say("Чертёж \"[inserted_disk.blueprint.name]\" успешно загружен.", use_tts = FALSE)
 		else
 			return FALSE
 	add_fingerprint(usr)
@@ -551,6 +553,34 @@
 	interact(user)
 	balloon_alert_to_viewers("вставля[PLUR_ET_YUT(user)] ID-карту", "ID-карта вставлена")
 	return TRUE
+
+/// Cache the name and description of a single alloy design
+/obj/machinery/mineral/ore_redemption/proc/cache_alloy_name(datum/design/D)
+	if(!D || !D.build_path) // Ensure D and build_path exist
+		return
+	var/obj/item/design_item = new D.build_path
+	var/cached_name = capitalize(design_item.declent_ru(NOMINATIVE))
+	qdel(design_item)
+	cached_alloy_names[D.id] = cached_name
+
+/// Cache names and descriptions of all known alloy designs
+/obj/machinery/mineral/ore_redemption/proc/cache_all_alloy_names()
+	cached_alloy_names = list() // Clear old cache before populating
+	for(var/datum/design/D in files.known_designs)
+		cache_alloy_name(D)
+
+/// Get the cached name
+/obj/machinery/mineral/ore_redemption/proc/get_cached_alloy_name(datum/design/D)
+	if(!D)
+		return "Неизвестный сплав"
+	if(D.id in cached_alloy_names)
+		return cached_alloy_names[D.id]
+	else
+		// In case if somehow name of design wasn't cached
+		var/obj/item/design_item = new D.build_path
+		var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
+		qdel(design_item)
+		return design_name
 
 /**
  * Called when an item is inserted manually as material.
