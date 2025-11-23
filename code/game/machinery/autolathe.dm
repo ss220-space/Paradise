@@ -190,7 +190,7 @@
 			var/index = text2num(params["remove_from_queue"])
 			if(isnum(index) && ISINRANGE(index, 1, length(queue)))
 				remove_from_queue(index)
-				to_chat(usr, span_notice("Шаблон  удалён из очереди печати."))
+				to_chat(usr, span_notice("Шаблон удалён из очереди печати."))
 		if("make")
 			BuildTurf = loc
 
@@ -198,7 +198,6 @@
 			design_last_ordered = locateUID(params["make"])
 
 			var/design_name = get_cached_name(design_last_ordered)
-			var/design_desc = get_cached_desc(design_last_ordered)
 
 			if(!istype(design_last_ordered))
 				to_chat(usr, span_warning("Неподходящий шаблон."))
@@ -228,7 +227,7 @@
 				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in ui_act. Possible href exploit.")
 				return
 			if((length(queue) + 1) < queue_max_len)
-				add_to_queue(design_last_ordered, multiplier, design_name, design_desc)
+				add_to_queue(design_last_ordered, multiplier, design_name)
 			else
 				to_chat(usr, span_warning("Очередь печати заполнена!"))
 			if(!busy)
@@ -443,11 +442,11 @@
 	var/output = "Печать: [design_name][is_stack?" (x[multiplier])":null]"
 	return output
 
-/obj/machinery/autolathe/proc/add_to_queue(D, multiplier, design_name, design_desc)
+/obj/machinery/autolathe/proc/add_to_queue(D, multiplier, design_name)
 	if(!istype(queue))
 		queue = list()
 	if(D && design_name)
-		queue.Add(list(list(D, multiplier, design_name, design_desc)))
+		queue.Add(list(list(D, multiplier, design_name)))
 	return queue.len
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)
