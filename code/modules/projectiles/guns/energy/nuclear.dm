@@ -219,7 +219,7 @@
 	selfcharge = TRUE
 	charge_delay = 20
 	ammo_type = list(/obj/item/ammo_casing/energy/nucle_transformer)
-	cell_type = /obj/item/stocl_parts/cell/nucle_inator_cell
+	cell_type = /obj/item/stock_parts/cell/nucle_inator_cell
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	origin_tech = "combat=5;magnets=7;powerstorage=7;illegal=5"

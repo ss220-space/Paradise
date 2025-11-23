@@ -736,7 +736,7 @@
 	if(HAS_TRAIT(M, TRAIT_NO_DNA))
 		return FALSE
 
-	var/datum/disease/virus/nuclefication/virus = new datum/disease/virus/nuclefication
+	var/datum/disease/virus/nuclefication/virus = new()
 	virus.stage_prob = 20 // much faster progression
 	virus.Contract(M, need_protection_check = FALSE)
 	return TRUE

@@ -723,6 +723,16 @@
 	cost = 40
 	race = list(SPECIES_NUCLEATION)
 
+/datum/uplink_item/racial/nucle_inator
+	name = "Нукле-инатор"
+	desc = "Разработка неизвестного безумного учёного основанная в теориях и фактах зарождения нуклеаций \
+			способная превращять любого биолоогического гуманоида в нуклеацию менее чем за 30 секунд. \
+			Из-за плохой привычки ученого добавлять кнопку самоуничьтожения в каждую его разработку, \
+			мы принудительно сломали эту кнопку за вас"
+	item = /obj/item/gun/energy/nucle_inator
+	cost = 50
+	race = list(SPECIES_NUCLEATION)
+
 //Human
 
 /datum/uplink_item/racial/holo_cigar
