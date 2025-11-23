@@ -1595,16 +1595,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 /mob/living/silicon/robot/proc/self_destruct()
-	if(emagged)
-		if(mmi)
-			qdel(mmi)
-
-		explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, cause = src)
-
-	else
-		explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
-
-	gib()
+	apply_status_effect(/datum/status_effect/selfdestruct, src)
 	return
 
 /mob/living/silicon/robot/proc/UnlinkSelf()
