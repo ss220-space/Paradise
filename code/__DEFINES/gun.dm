@@ -62,6 +62,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_10MM "10mm"
 #define CALIBER_4_DOT_6X30MM "4.6x30mm"
 #define CALIBER_DOT_45 ".45"
+#define CALIBER_DOT_45_COLT ".45colt"
 #define CALIBER_SPEAR "spear"
 #define CALIBER_84MM "84mm"
 #define CALIBER_12X70 "12х70"
