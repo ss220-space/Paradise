@@ -60,8 +60,7 @@
 	return CONTAINER_INSERT_FAILED
 
 /datum/component/material_container/proc/OnExamine(datum/source, mob/user, list/examine_list)
-	if(show_on_examine && length(materials))
-		examine_list += span_boldnotice("Отсек для материалов:")
+	if(show_on_examine)
 		for(var/I in materials)
 			var/datum/material/M = materials[I]
 			var/amt = amount(M.id)
