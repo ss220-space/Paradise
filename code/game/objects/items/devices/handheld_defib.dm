@@ -1,3 +1,6 @@
+#define ICON_MODE_PASSIVE "passive"
+#define ICON_MODE_ACTIVE "active"
+
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
 	desc = "Компактное устройство жёлтого цвета, используемое для экстренной кардиостимуляции."
@@ -7,7 +10,7 @@
 	item_state = "defib_passive"
 	belt_icon = "handheld_defibrillator"
 	var/icon_base = "defib"
-	var/icon_mode = "passive"
+	var/icon_mode = ICON_MODE_PASSIVE
 	/// Can defib penetrate through hardsuits and etc.
 	var/shield_ignore = FALSE
 	var/cooldown = FALSE
@@ -43,7 +46,7 @@
 
 /obj/item/handheld_defibrillator/attack_self(mob/user)
 	. = ..()
-	icon_mode = "[icon_mode == "passive" ? "active" : "passive"]"
+	icon_mode = "[icon_mode == ICON_MODE_PASSIVE ? ICON_MODE_ACTIVE : ICON_MODE_PASSIVE]"
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/handheld_defibrillator/proc/on_drop(datum/source, mob/user)
