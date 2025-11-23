@@ -35,6 +35,7 @@ const canBeMade = (
 type Recipe = {
   requirements: Record<string, number>;
   name: string;
+  desc: string;
   category: string[];
   hacked: boolean;
   icon: string;
@@ -74,7 +75,7 @@ export const Autolathe = (props: unknown) => {
   let [category, setCategory] = useSharedState('category', '');
 
   if (category === '') {
-    category = 'Tools';
+    category = 'Инструменты';
   }
   let metalReadable = metal_amount
     .toString()
@@ -127,11 +128,11 @@ export const Autolathe = (props: unknown) => {
       sortBy(recipes, (recipe) => recipe.name.toLowerCase()),
   ])(recipes);
 
-  let rText = 'Build';
+  let rText = '';
   if (searchText) {
-    rText = "Results for: '" + searchText + "':";
+    rText = 'Результаты поиска: "' + searchText + '":';
   } else if (category) {
-    rText = 'Build (' + category + ')';
+    rText = 'Категория "' + category + '"';
   }
   return (
     <Window width={750} height={525}>
@@ -153,7 +154,7 @@ export const Autolathe = (props: unknown) => {
             >
               <Input
                 fluid
-                placeholder="Search for..."
+                placeholder="Найти рецепт..."
                 expensive
                 onChange={setSearchText}
                 mb={1}
@@ -184,6 +185,7 @@ export const Autolathe = (props: unknown) => {
                         1
                       )
                     }
+                    tooltip={recipe.desc}
                     onClick={() =>
                       act('make', {
                         make: recipe.uid,
@@ -275,34 +277,34 @@ export const Autolathe = (props: unknown) => {
                         (mat) =>
                           toTitleCase(mat) + ': ' + recipe.requirements[mat]
                       )
-                      .join(', ')) || <Box>No resources required.</Box>}
+                      .join(', ')) || <Box>Материалы не требуются.</Box>}
                 </Stack.Item>
               ))}
             </Section>
           </Stack.Item>
           <Stack.Item width="30%">
-            <Section title="Materials">
+            <Section title="Материалы">
               <LabeledList>
-                <LabeledList.Item label="Metal">
+                <LabeledList.Item label="Сталь">
                   {metalReadable}
                 </LabeledList.Item>
-                <LabeledList.Item label="Glass">
+                <LabeledList.Item label="Стекло">
                   {glassReadable}
                 </LabeledList.Item>
-                <LabeledList.Item label="Total">
+                <LabeledList.Item label="Всего">
                   {totalReadable}
                 </LabeledList.Item>
-                <LabeledList.Item label="Storage">
-                  {data.fill_percent}% Full
+                <LabeledList.Item label="Хранилище">
+                  {data.fill_percent}%
                 </LabeledList.Item>
               </LabeledList>
             </Section>
-            <Section title="Building">
+            <Section title="В процессе печати">
               <Box color={busyname ? 'green' : ''}>
-                {busyname ? busyname : 'Nothing'}
+                {busyname ? busyname : 'Ничего'}
               </Box>
             </Section>
-            <Section title="Build Queue" height={23.7}>
+            <Section title="Очередь печати" height={23.7}>
               {buildQueueItems}
               <Button
                 mt={0.5}
@@ -312,7 +314,7 @@ export const Autolathe = (props: unknown) => {
                 disabled={!data.buildQueueLen}
                 onClick={() => act('clear_queue')}
               >
-                Clear All
+                Очистить очередь
               </Button>
             </Section>
           </Stack.Item>

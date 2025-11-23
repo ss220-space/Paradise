@@ -92,6 +92,14 @@
 /obj/item/gun/projectile/automatic/can_shoot(mob/user)
 	return get_ammo()
 
+/obj/item/gun/projectile/automatic/CtrlClick(mob/user)
+	if(user.is_in_hands(src) && chambered)
+		process_chamber(TRUE, TRUE)
+		balloon_alert(user, "патрон извлечён")
+		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+		return
+	. = ..()
+
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
 	name = "Nanotrasen Saber SMG"

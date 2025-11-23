@@ -8,15 +8,15 @@ export const CurrentLevels = (properties) => {
 
   return (
     <Box>
-      <h3>Current Research Levels:</h3>
+      <h3>Текущие уровни технологий:</h3>
       {tech_levels.map((techLevel, i) => {
         const { name, level, desc } = techLevel;
         return (
           <Box key={name}>
             {i > 0 ? <Divider /> : null}
             <Box>{name}</Box>
-            <Box>* Level: {level}</Box>
-            <Box>* Summary: {desc}</Box>
+            <Box>- Уровень: {level}</Box>
+            <Box>- Суммарно: {desc}</Box>
           </Box>
         );
       })}
