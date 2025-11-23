@@ -428,44 +428,39 @@
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/speedloader45colt
-	name = "Speed Loader (.45 Colt)"
 	id = "speedloader9mm"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 2000)
 	build_path = /obj/item/ammo_box/speedloader/rubber45colt/empty
-	category = list("hacked", "Security")
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/c45colt
-	name = "Ammo Box (.45 Colt)"
 	id = "c45colt"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c45colt
-	category = list("hacked", "Security")
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/rubber45colt
-	name = "Ammo Box (rubber .45 Colt)"
 	id = "rubber45colt"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 20000)
 	build_path = /obj/item/ammo_box/rubber45colt
-	category = list("hacked", "Security")
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/hp45colt
-	name = "Ammo Box (expansive .45 Colt)"
 	id = "hp45colt"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 35000)
 	build_path = /obj/item/ammo_box/expansive45colt
-	category = list("hacked", "Security")
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/ap45colt
-	name = "Ammo Box (armor piercing .45 Colt)"
 	id = "ap45colt"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 35000)
 	build_path = /obj/item/ammo_box/ap45colt
-	category = list("hacked", "Security")
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/recorder
 	id = "recorder"

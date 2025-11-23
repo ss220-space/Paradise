@@ -1119,7 +1119,7 @@
 
 /obj/item/ammo_box/speedloader/rubber45colt
 	name = "speed loader (.45 Colt)"
-	desc = "Устройство для быстрой зарядки револьверов патронами калибра .45 Colt."
+	desc = "Устройство для быстрой перезарядки револьверов патронами калибра .45 Colt."
 	icon_state = "38"
 	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/c45colt/rubber
