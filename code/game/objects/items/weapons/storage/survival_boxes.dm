@@ -83,7 +83,7 @@
 	new /obj/item/camera(src)
 
 /obj/item/storage/box/survival/survival_laws/magisraka
-	icon_state = "box_magisraka"
+	icon_state = "box_magistrate"
 
 /obj/item/storage/box/survival/survival_syndi
 	icon_state = "box_syndi"

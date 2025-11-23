@@ -518,7 +518,7 @@
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
 	desc = "<b><span style='color: red;'>WARNING:</span></b> <i>Keep out of reach of children</i>."
-	icon_state = "mousetraps"
+	icon_state = "box_mousetraps"
 
 /obj/item/storage/box/mousetraps/populate_contents()
 	for(var/I in 1 to 6)
@@ -527,6 +527,7 @@
 /obj/item/storage/box/pillbottles
 	name = "box of pill bottles"
 	desc = "It has pictures of pill bottles on its front."
+	icon_state = "box_pillpacks"
 
 /obj/item/storage/box/pillbottles/populate_contents()
 	for(var/I in 1 to 7)
@@ -543,7 +544,7 @@
 /obj/item/storage/box/bodybags
 	name = "body bags"
 	desc = "This box contains body bags."
-	icon_state = "bodybags"
+	icon_state = "box_bodybags"
 
 /obj/item/storage/box/bodybags/populate_contents()
 	for(var/I in 1 to 7)
@@ -626,7 +627,7 @@
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
 	desc = "Contains autoinjectors."
-	icon_state = "syringe"
+	icon_state = "box_syringe"
 
 /obj/item/storage/box/autoinjectors/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -635,7 +636,7 @@
 /obj/item/storage/box/autoinjector/utility
 	name = "autoinjector kit"
 	desc = "A box with several utility autoinjectors for the economical miner."
-	icon_state = "syringe"
+	icon_state = "box_syringe"
 
 /obj/item/storage/box/autoinjector/utility/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
@@ -646,7 +647,7 @@
 
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
-	icon_state = "light"
+	icon_state = "box_lamps"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
 	storage_slots=21
 	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
@@ -659,7 +660,7 @@
 
 /obj/item/storage/box/lights/tubes
 	name = "replacement tubes"
-	icon_state = "lighttube"
+	icon_state = "box_tubes"
 
 /obj/item/storage/box/lights/tubes/populate_contents()
 	for(var/I in 1 to 21)
@@ -667,7 +668,7 @@
 
 /obj/item/storage/box/lights/mixed
 	name = "replacement lights"
-	icon_state = "lightmixed"
+	icon_state = "box_mixed"
 
 /obj/item/storage/box/lights/mixed/populate_contents()
 	for(var/I in 1 to 14)
@@ -678,7 +679,6 @@
 /obj/item/storage/box/barber
 	name = "Barber Starter Kit"
 	desc = "For all hairstyling needs."
-	icon_state = "implant"
 
 /obj/item/storage/box/barber/populate_contents()
 	new /obj/item/scissors/barber(src)
@@ -692,7 +692,7 @@
 /obj/item/storage/box/lip_stick
 	name = "Lipstick Kit"
 	desc = "For all your lip coloring needs."
-	icon_state = "implant"
+	icon_state = "box_implants"
 
 /obj/item/storage/box/lip_stick/populate_contents()
 	new /obj/item/lipstick(src)
@@ -712,6 +712,7 @@
 /obj/item/storage/box/papersack
 	name = "paper sack"
 	desc = "A sack neatly crafted out of paper."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
 	foldable = null
@@ -810,7 +811,7 @@
 /obj/item/storage/box/stockparts/deluxe
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
-	icon_state = "stock_box_t4"
+	icon_state = "t4_parts"
 
 /obj/item/storage/box/stockparts/deluxe/populate_contents()
 	for(var/i in 1 to 3)
@@ -823,7 +824,7 @@
 /obj/item/storage/box/stockparts/experimental_parts
 	name = "box of experimental stock parts"
 	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
-	icon_state = "stock_box_t5"
+	icon_state = "t5_parts"
 
 /obj/item/storage/box/stockparts/experimental_parts/populate_contents()
 	new /obj/item/stock_parts/capacitor/purple(src)
@@ -867,7 +868,7 @@
 /obj/item/storage/box/wizard
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
-	icon_state = "box_wizard"
+	icon_state = "box_wiz"
 
 /obj/item/storage/box/wizard/hardsuit
 	name = "Battlemage Armour Bundle"
@@ -952,6 +953,7 @@
 /obj/item/storage/pouch
 	name = "pouch"
 	desc = "Подсумок на два магазина."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch"
 	item_state = "pouch"
 	storage_slots = 2
@@ -988,6 +990,7 @@
 /obj/item/storage/box/sec
 	name = "officer starter kit"
 	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
+	icon_state = "box_security"
 
 /obj/item/storage/box/sec/populate_contents()
 	new /obj/item/clothing/head/helmet(src)
@@ -1126,7 +1129,7 @@
 /obj/item/storage/box/mr_cheng
 	name = "Mr. Cheng ad agent kit"
 	desc = "Contains essential advertising agent kit for Mr. Cheng"
-	icon_state = "box_mr_chang"
+	icon_state = "box_chang"
 
 /obj/item/storage/box/mr_cheng/populate_contents()
 	new /obj/item/clothing/suit/mr_chang_coat(src)
@@ -1148,7 +1151,7 @@
  */
 /obj/item/storage/box/disks_plantgene
 	name = "plant data disks box"
-	icon_state = "disk_kit"
+	icon_state = "box_disc"
 
 /obj/item/storage/box/disks_plantgene/New()
 	..()
