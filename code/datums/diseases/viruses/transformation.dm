@@ -285,6 +285,7 @@
 	desc = "Эта болезнь превращает жертву в свинью."
 	cure_text = "Смерть"
 	cures = list("adminordrazine")
+	severity = DISEASE_SEVERITY_UNCURABLE
 	stage1 = list(span_notice("ХРЮ."))
 	stage2 = list(span_notice("Вам хочется валяться в грязи."))
 	stage3 = list(span_danger("Нужно... валяться... в грязи...."), span_danger("ХРЮ"))

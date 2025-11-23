@@ -39,9 +39,11 @@
 
 /datum/design/component/New()
 	. = ..()
-	if(build_path)
-		var/obj/item/circuit_component/component_path = build_path
-		desc = initial(component_path.desc)
+	if(!build_path)
+		return
+
+	var/obj/item/circuit_component/component_path = build_path
+	desc = initial(component_path.desc)
 
 /datum/design/component/arithmetic
 	id = "comp_arithmetic"

@@ -222,6 +222,7 @@
 
 //called after the gun has successfully fired its chambered ammo.
 /obj/item/gun/proc/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 	handle_chamber(empty_chamber, from_firing, chamber_next_round)
 	SEND_SIGNAL(src, COMSIG_GUN_CHAMBER_PROCESSED)
 

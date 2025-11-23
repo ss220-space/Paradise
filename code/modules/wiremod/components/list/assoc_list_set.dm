@@ -30,12 +30,15 @@
 
 /obj/item/circuit_component/variable/assoc_list/list_set/pre_input_received(datum/port/input/port)
 	. = ..()
-	if(current_variable)
-		value.set_datatype(current_variable.datatype_handler.get_datatype(2))
+	if(!current_variable)
+		return
+
+	value.set_datatype(current_variable.datatype_handler.get_datatype(2))
 
 /obj/item/circuit_component/variable/assoc_list/list_set/input_received(datum/port/input/port, list/return_values)
 	if(!current_variable)
 		return
+
 	var/list/info = current_variable.value
 	var/key_to_set = key.value
 	var/value_to_set = value.value

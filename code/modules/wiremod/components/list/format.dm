@@ -54,7 +54,6 @@
 
 /obj/item/circuit_component/format/input_received(datum/port/input/port, list/return_values)
 	. = ..()
-
 	// Inject the parameters.
 	param_regex.context = src
 	output.set_output(param_regex.Replace(format_port.value, /regex/format_component/proc/process_format_component_param))

@@ -87,7 +87,7 @@
 		qdel(O)
 	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
 		qdel(O)
-	if(istype(O, /obj/item/mmi))
+	if(is_mmi(O))
 		qdel(O)
 
 /datum/reagent/admin_cleaner/item

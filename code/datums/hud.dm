@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(huds, list( \
 		for(var/hud_icon in hud_icons)
 			GLOB.huds_by_category[hud_icon] += list(src)
 
-/datum/atom_hud/Destroy()
+/datum/atom_hud/Destroy(force)
 	for(var/mob/mob as anything in hud_users_all_z_levels)
 		hide_from(mob)
 

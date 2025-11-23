@@ -34,13 +34,14 @@
 	output = add_output_port("Результат", PORT_TYPE_ANY)
 
 /obj/item/circuit_component/index/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_type = list_options.value
-		list_port.set_datatype(PORT_TYPE_LIST(new_type))
-		output.set_datatype(new_type)
+	if(port != list_options)
+		return
+
+	var/new_type = list_options.value
+	list_port.set_datatype(PORT_TYPE_LIST(new_type))
+	output.set_datatype(new_type)
 
 /obj/item/circuit_component/index/input_received(datum/port/input/port)
-
 	var/index = index_port.value
 	var/list/list_input = list_port.value
 
@@ -65,7 +66,10 @@
 	list_port = add_input_port("Список", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY))
 
 /obj/item/circuit_component/index/assoc_string/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_type = list_options.value
-		list_port.set_datatype(PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, new_type))
-		output.set_datatype(new_type)
+	if(port != list_options)
+		return
+
+	var/new_type = list_options.value
+	list_port.set_datatype(PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, new_type))
+	output.set_datatype(new_type)
+

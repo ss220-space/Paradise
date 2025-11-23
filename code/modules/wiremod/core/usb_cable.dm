@@ -30,7 +30,7 @@
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 
-/obj/item/usb_cable/Destroy()
+/obj/item/usb_cable/Destroy(force)
 	attached_circuit = null
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -38,8 +38,10 @@
 /obj/item/usb_cable/examine(mob/user)
 	. = ..()
 
-	if(!isnull(attached_circuit))
-		. += span_notice("Прикреплён к <b>[attached_circuit.shell.declent_ru(ACCUSATIVE) || attached_circuit.declent_ru(ACCUSATIVE)]</b>.")
+	if(isnull(attached_circuit))
+		return
+
+	. += span_notice("Прикреплён к <b>[attached_circuit.shell.declent_ru(ACCUSATIVE) || attached_circuit.declent_ru(ACCUSATIVE)]</b>.")
 
 // Look, I'm not happy about this either, but moving an object doesn't call Moved if it's inside something else.
 // There's good reason for this, but there's no element or similar yet to track it as far as I know.

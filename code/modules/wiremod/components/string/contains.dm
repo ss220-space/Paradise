@@ -4,16 +4,16 @@
  * Checks if a string contains a word/letter
  */
 /obj/item/circuit_component/compare/contains
-	display_name = "Содержимое строки"
-	desc = "Проверяет, содержит ли строка слово или букву."
+	display_name = "Вхождение подстроки"
+	desc = "Проверяет, содержит ли строка подстроку. Возвращает индекс первого вхождения."
 	category = "String"
 
 	var/datum/port/input/needle
 	var/datum/port/input/haystack
 
 /obj/item/circuit_component/compare/contains/populate_custom_ports()
-	needle = add_input_port("Строка", PORT_TYPE_STRING)
-	haystack = add_input_port("Ввод", PORT_TYPE_STRING)
+	haystack = add_input_port("Строка", PORT_TYPE_STRING)
+	needle = add_input_port("Подстрока", PORT_TYPE_STRING)
 
 /obj/item/circuit_component/compare/contains/Destroy()
 	needle = null

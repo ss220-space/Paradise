@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(tgui)
 		if(ui?.user && ui.src_object)
 			ui.process()
 		else
-			ui.close(0)
+			ui.close(FALSE)
 		if(MC_TICK_CHECK)
 			return
 
@@ -166,6 +166,7 @@ SUBSYSTEM_DEF(tgui)
 	// No UIs opened for this src_object
 	if(!LAZYLEN(src_object.open_uis))
 		return null
+
 	for(var/datum/tgui/ui in src_object.open_uis)
 		// Make sure we have the right user
 		if(ui.user == user)
@@ -185,12 +186,14 @@ SUBSYSTEM_DEF(tgui)
 	// No UIs opened for this src_object
 	if(!LAZYLEN(src_object.open_uis))
 		return 0
+
 	var/count = 0
 	for(var/datum/tgui/ui in src_object.open_uis)
 		// Check if UI is valid.
 		if(ui?.src_object && ui.user && ui.src_object.ui_host(ui.user))
 			INVOKE_ASYNC(ui, TYPE_PROC_REF(/datum/tgui, process), wait * 0.1, TRUE)
 			count++
+
 	return count
 
 /**
@@ -206,12 +209,14 @@ SUBSYSTEM_DEF(tgui)
 	// No UIs opened for this src_object
 	if(!LAZYLEN(src_object.open_uis))
 		return 0
+
 	var/count = 0
 	for(var/datum/tgui/ui in src_object.open_uis)
 		// Check if UI is valid.
 		if(ui?.src_object && ui.user && ui.src_object.ui_host(ui.user))
 			ui.close()
 			count++
+
 	return count
 
 /**
@@ -228,6 +233,7 @@ SUBSYSTEM_DEF(tgui)
 		if(ui?.src_object && ui.user && ui.src_object.ui_host(ui.user))
 			ui.close()
 			count++
+
 	return count
 
 /**
@@ -244,6 +250,7 @@ SUBSYSTEM_DEF(tgui)
 	var/count = 0
 	if(length(user?.tgui_open_uis) == 0)
 		return count
+
 	for(var/datum/tgui/ui in user.tgui_open_uis)
 		if(isnull(src_object) || ui.src_object == src_object)
 			ui.process(force = TRUE)
@@ -264,10 +271,12 @@ SUBSYSTEM_DEF(tgui)
 	var/count = 0
 	if(length(user?.tgui_open_uis) == 0)
 		return count
+
 	for(var/datum/tgui/ui in user.tgui_open_uis)
 		if(isnull(src_object) || ui.src_object == src_object)
 			ui.close()
 			count++
+
 	return count
 
 /**
@@ -297,8 +306,10 @@ SUBSYSTEM_DEF(tgui)
 	// If the user exists, remove it from them too.
 	if(ui.user)
 		ui.user.tgui_open_uis -= ui
+
 	if(ui.src_object)
 		LAZYREMOVE(ui.src_object.open_uis, ui)
+
 	return TRUE
 
 /**

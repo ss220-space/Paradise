@@ -197,7 +197,7 @@
 /obj/item/camera/proc/createpicture(atom/target, atom/user, list/turfs, mobs, logs, have_blueprints = FALSE)
 	var/range = picture_size * 2 + 1
 	var/clone_area = SSmapping.request_turf_block_reservation(range, range, 1)
-	var/icon/photoimage = camera_get_icon(turfs, target, user, picture_size*32, clone_area, picture_size, range)
+	var/icon/photoimage = camera_get_icon(turfs, target, user, picture_size * 32, clone_area, picture_size, range)
 	qdel(clone_area)
 	photoimage.Blend("#000", ICON_UNDERLAY)
 

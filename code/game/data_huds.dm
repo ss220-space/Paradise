@@ -124,15 +124,17 @@
 	var/threat
 	var/severity
 
-	for(var/thing in diseases)
-		var/datum/disease/D = thing
+	for(var/datum/disease/virus as anything in diseases)
+		var/datum/virus_severity/virus_severity = GLOB.viruses_severity[virus.severity]
 
-		if(D.visibility_flags & HIDDEN_HUD)
+		if(virus.visibility_flags & HIDDEN_HUD)
 			continue
 
-		if(!threat || get_disease_severity_value(D.severity) > threat) //a buffing virus gets an icon
-			threat = get_disease_severity_value(D.severity)
-			severity = D.severity
+		if(threat && virus_severity.severity <= threat) //a buffing virus gets an icon
+			continue
+
+		threat = virus_severity.severity
+		severity = virus_severity.name
 
 	return severity
 
@@ -312,36 +314,15 @@
 
 	return desc_medical_status
 
+
 /mob/living/proc/med_hud_set_virus_threat()
 	var/virus_threat = check_virus()
 	if(!virus_threat)
 		set_hud_image_state(STATUS_HUD, "hudhealthy")
 		return TRUE
 
-	switch(virus_threat)
-		if(DISEASE_SEVERITY_UNCURABLE)
-			set_hud_image_state(STATUS_HUD, "hudill6")
-
-		if(DISEASE_SEVERITY_BIOHAZARD)
-			set_hud_image_state(STATUS_HUD, "hudill5")
-
-		if(DISEASE_SEVERITY_DANGEROUS)
-			set_hud_image_state(STATUS_HUD, "hudill4")
-
-		if(DISEASE_SEVERITY_HARMFUL)
-			set_hud_image_state(STATUS_HUD, "hudill3")
-
-		if(DISEASE_SEVERITY_MEDIUM)
-			set_hud_image_state(STATUS_HUD, "hudill2")
-
-		if(DISEASE_SEVERITY_MINOR)
-			set_hud_image_state(STATUS_HUD, "hudill1")
-
-		if(DISEASE_SEVERITY_NONTHREAT)
-			set_hud_image_state(STATUS_HUD, "hudill0")
-
-		if(DISEASE_SEVERITY_POSITIVE)
-			set_hud_image_state(STATUS_HUD, "hudbuff")
+	var/datum/virus_severity/severity = GLOB.viruses_severity[virus_threat]
+	set_hud_image_state(STATUS_HUD, severity.hud_state)
 
 /***********************************************
 	Security HUDs! Basic mode shows only the job.
@@ -361,18 +342,20 @@
 		set_hud_image_inactive(hud_type)
 
 	for(var/obj/item/implant/current_implant in src)
-		if(current_implant.implanted)
-			if(istype(current_implant,/obj/item/implant/tracking))
-				set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
-				set_hud_image_active(IMPTRACK_HUD)
+		if(!current_implant.implanted)
+			return
 
-			else if(istype(current_implant,/obj/item/implant/mindshield))
-				set_hud_image_state(IMPMINDSHIELD_HUD, "hud_imp_loyal")
-				set_hud_image_active(IMPMINDSHIELD_HUD)
+		if(istype(current_implant,/obj/item/implant/tracking))
+			set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
+			set_hud_image_active(IMPTRACK_HUD)
 
-			else if(istype(current_implant,/obj/item/implant/chem))
-				set_hud_image_state(IMPCHEM_HUD, "hud_imp_chem")
-				set_hud_image_active(IMPCHEM_HUD)
+		else if(istype(current_implant,/obj/item/implant/mindshield))
+			set_hud_image_state(IMPMINDSHIELD_HUD, "hud_imp_loyal")
+			set_hud_image_active(IMPMINDSHIELD_HUD)
+
+		else if(istype(current_implant,/obj/item/implant/chem))
+			set_hud_image_state(IMPCHEM_HUD, "hud_imp_chem")
+			set_hud_image_active(IMPCHEM_HUD)
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	if(!SSticker)
@@ -723,12 +706,20 @@
 /atom/proc/set_hud_image_state(hud_type, hud_state, x_offset = 0, y_offset = 0)
 	if(!hud_list) // Still initializing
 		return
+
 	var/image/holder = hud_list[hud_type]
+
 	if(!holder)
 		return
+
 	if(!istype(holder)) // Can contain lists for HUD_LIST_LIST hinted HUDs, if someone fucks up and passes this here we wanna know about it
 		CRASH("[src] ([type]) had a HUD_LIST_LIST hud_type [hud_type] passed into set_hud_image_state!")
+
 	holder.icon_state = hud_state
-	if(x_offset || y_offset)
-		holder.pixel_x += x_offset
-		holder.pixel_y += y_offset
+
+	if(!x_offset && !y_offset)
+		return
+
+	holder.pixel_x += x_offset
+	holder.pixel_y += y_offset
+

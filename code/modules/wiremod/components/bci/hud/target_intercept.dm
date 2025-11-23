@@ -24,7 +24,7 @@
 	clicked_atom = add_output_port("Цель", PORT_TYPE_ATOM)
 
 /obj/item/circuit_component/target_intercept/register_shell(atom/movable/shell)
-	if(!istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
+	if(!is_bci(shell))
 		return
 
 	bci = shell
@@ -61,8 +61,10 @@
 	user.client.click_intercept = null
 	clicked_atom.set_output(object)
 	trigger_output.set_output(COMPONENT_SIGNAL)
-	if(parent.shell)
-		TIMER_COOLDOWN_START(parent.shell, COOLDOWN_CIRCUIT_TARGET_INTERCEPT, intercept_cooldown)
+	if(!parent.shell)
+		return
+
+	TIMER_COOLDOWN_START(parent.shell, COOLDOWN_CIRCUIT_TARGET_INTERCEPT, intercept_cooldown)
 
 /obj/item/circuit_component/target_intercept/get_ui_notices()
 	. = ..()

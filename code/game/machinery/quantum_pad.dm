@@ -131,6 +131,7 @@
 	if(stat & NOPOWER)
 		to_chat(user, span_warning("[src] is unpowered!"))
 		return
+
 	if(!target_pad || QDELETED(target_pad) || target_pad.stat & NOPOWER)
 		to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 		return
@@ -147,20 +148,20 @@
 	flick("[initial(target_pad.icon_state)]-beam", target_pad)
 	playsound(get_turf(target_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 	var/tele_success = TRUE
-	for(var/atom/movable/ROI in get_turf(src))
-		// if is anchored, don't let through
-		if(ROI.anchored)
-			if(isliving(ROI))
-				var/mob/living/L = ROI
-				if(L.buckled)
-					// TP people on office chairs
-					if(L.buckled.anchored)
-						continue
-				else
-					continue
-			else if(!isobserver(ROI))
+	for(var/atom/movable/target in get_turf(src))
+		if(target.anchored)
+			continue
+
+		if(isliving(target))
+			var/mob/living/mob = target
+			if(mob.buckled && mob.buckled.anchored)
 				continue
-		tele_success = do_teleport(ROI, get_turf(target_pad))
+
+		if(!isobserver(target))
+			continue
+
+		tele_success = do_teleport(target, get_turf(target_pad))
+
 	if(!tele_success)
 		to_chat(user, span_warning("Teleport failed due to bluespace interference."))
 

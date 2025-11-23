@@ -62,25 +62,26 @@
 	return ..()
 
 /obj/item/circuit_component/mmi/input_received(datum/port/input/port)
-
 	if(!brain)
 		return
 
 	if(COMPONENT_TRIGGERED_BY(eject, port))
 		remove_current_brain()
-	if(COMPONENT_TRIGGERED_BY(send, port))
-		if(!message.value || !COOLDOWN_FINISHED(src, message_cooldown))
-			return
 
-		var/msg_str = copytext(html_encode(message.value), 1, max_length)
+	if(!COMPONENT_TRIGGERED_BY(send, port))
+		return
 
-		var/mob/living/target = brain.brainmob
-		if(!target)
-			return
+	if(!message.value || !COOLDOWN_FINISHED(src, message_cooldown))
+		return
 
-		to_chat(target, "[span_bold("Вы слышите сообщение: ")][msg_str]")
-		COOLDOWN_START(src, message_cooldown, MMI_MESSAGE_COOLDOWN)
+	var/msg_str = copytext(html_encode(message.value), 1, max_length)
 
+	var/mob/living/target = brain.brainmob
+	if(!target)
+		return
+
+	to_chat(target, "[span_bold("Вы слышите сообщение: ")][msg_str]")
+	COOLDOWN_START(src, message_cooldown, MMI_MESSAGE_COOLDOWN)
 
 /obj/item/circuit_component/mmi/register_shell(atom/movable/shell)
 	. = ..()
@@ -93,12 +94,15 @@
 
 /obj/item/circuit_component/mmi/proc/handle_attack_by(atom/movable/shell, obj/item/item, mob/living/attacker)
 	SIGNAL_HANDLER
-	if(istype(item, /obj/item/mmi))
-		var/obj/item/mmi/target_mmi = item
-		if(!target_mmi.brainmob)
-			return
-		add_mmi(item, attacker)
-		. = COMPONENT_CANCEL_ATTACK_CHAIN|COMPONENT_NO_AFTERATTACK
+	if(!is_mmi(item))
+		return
+
+	var/obj/item/mmi/target_mmi = item
+	if(!target_mmi.brainmob)
+		return
+
+	add_mmi(item, attacker)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN|COMPONENT_NO_AFTERATTACK
 
 /obj/item/circuit_component/mmi/proc/add_mmi(obj/item/mmi/to_add, mob/living/attacker)
 	remove_current_brain()
@@ -106,6 +110,7 @@
 	attacker.drop_transfer_item_to_loc(to_add, src)
 	if(to_add.brainmob)
 		update_mmi_mob(to_add, null, to_add.brainmob)
+
 	brain = to_add
 	RegisterSignal(to_add, COMSIG_QDELETING, PROC_REF(remove_current_brain))
 	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, PROC_REF(mmi_moved))
@@ -113,8 +118,10 @@
 /obj/item/circuit_component/mmi/proc/mmi_moved(atom/movable/mmi)
 	SIGNAL_HANDLER
 
-	if(mmi.loc != src)
-		remove_current_brain()
+	if(mmi.loc == src)
+		return
+
+	remove_current_brain()
 
 /obj/item/circuit_component/mmi/proc/remove_current_brain()
 	SIGNAL_HANDLER
@@ -123,12 +130,14 @@
 
 	if(brain.brainmob)
 		update_mmi_mob(brain, brain.brainmob)
+
 	UnregisterSignal(brain, list(
 		COMSIG_QDELETING,
 		COMSIG_MOVABLE_MOVED
 	))
 	if(brain.loc == src)
 		brain.forceMove(drop_location())
+
 	brain = null
 
 /obj/item/circuit_component/mmi/proc/update_mmi_mob(datum/source, mob/living/old_mmi, mob/living/new_mmi)
@@ -136,6 +145,7 @@
 	if(old_mmi)
 		old_mmi.remote_control = null
 		UnregisterSignal(old_mmi, COMSIG_MOB_CLICKON)
+
 	if(new_mmi)
 		new_mmi.remote_control = src
 		RegisterSignal(new_mmi, COMSIG_MOB_CLICKON, PROC_REF(handle_mmi_attack))
@@ -146,10 +156,13 @@
 
 	if(direct & NORTH)
 		north.set_output(COMPONENT_SIGNAL)
+
 	if(direct & WEST)
 		west.set_output(COMPONENT_SIGNAL)
+
 	if(direct & EAST)
 		east.set_output(COMPONENT_SIGNAL)
+
 	if(direct & SOUTH)
 		south.set_output(COMPONENT_SIGNAL)
 
@@ -157,19 +170,24 @@
 
 /obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target, list/modifiers)
 	SIGNAL_HANDLER
-	if(modifiers[ALT_CLICK])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		clicked_atom.set_output(target)
 		alt_attack.set_output(COMPONENT_SIGNAL)
 		. = COMSIG_MOB_CANCEL_CLICKON
-	else if(modifiers[LEFT_CLICK] && !modifiers[SHIFT_CLICK] && !modifiers[CTRL_CLICK])
-		clicked_atom.set_output(target)
-		attack.set_output(COMPONENT_SIGNAL)
-		. = COMSIG_MOB_CANCEL_CLICKON
+		return
+
+	if(!LAZYACCESS(modifiers, LEFT_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK))
+		return
+
+	clicked_atom.set_output(target)
+	attack.set_output(COMPONENT_SIGNAL)
+	. = COMSIG_MOB_CANCEL_CLICKON
 
 /obj/item/circuit_component/mmi/add_to(obj/item/integrated_circuit/add_to)
 	. = ..()
 	if(HAS_TRAIT(add_to, TRAIT_COMPONENT_MMI))
 		return FALSE
+
 	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/circuit_component/mmi/removed_from(obj/item/integrated_circuit/removed_from)

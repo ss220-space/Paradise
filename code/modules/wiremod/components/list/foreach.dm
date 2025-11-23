@@ -34,10 +34,12 @@
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/foreach/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_datatype = list_options.value
-		list_to_iterate.set_datatype(PORT_TYPE_LIST(new_datatype))
-		element.set_datatype(new_datatype)
+	if(port != list_options)
+		return
+
+	var/new_datatype = list_options.value
+	list_to_iterate.set_datatype(PORT_TYPE_LIST(new_datatype))
+	element.set_datatype(new_datatype)
 
 /obj/item/circuit_component/foreach/populate_ports()
 	list_to_iterate = add_input_port("Список", PORT_TYPE_LIST(PORT_TYPE_ANY))
@@ -60,10 +62,13 @@
 	var/list/to_check = list_to_iterate.value
 	if(!to_check)
 		return
+
 	if(current_actual_index > length(to_check))
 		on_finished.set_output(COMPONENT_SIGNAL)
 		return
+
 	element.set_output(to_check[current_actual_index])
 	current_index.set_output(current_actual_index)
 	on_next_index.set_output(COMPONENT_SIGNAL)
 	current_actual_index += 1
+

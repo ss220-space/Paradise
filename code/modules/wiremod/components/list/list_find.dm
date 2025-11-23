@@ -49,6 +49,7 @@
 	var/list/info = list_to_check.value
 	if(!info)
 		return
+
 	var/data_to_check = to_check.value
 
 	if(isdatum(data_to_check))
@@ -56,9 +57,11 @@
 
 	var/actual_result = info.Find(data_to_check)
 	index.set_output(actual_result)
-	if(actual_result != 0)
+	if(actual_result)
 		result.set_output(TRUE)
 		found.set_output(COMPONENT_SIGNAL)
-	else
-		result.set_output(FALSE)
-		not_found.set_output(COMPONENT_SIGNAL)
+		return
+
+	result.set_output(FALSE)
+	not_found.set_output(COMPONENT_SIGNAL)
+

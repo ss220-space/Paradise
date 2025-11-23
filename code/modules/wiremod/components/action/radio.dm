@@ -38,14 +38,18 @@
 
 /obj/item/circuit_component/radio/examine(mob/user)
 	. = ..()
-	if(signal_cooldown_time > 0)
-		. += "Ещё [signal_cooldown_time * 0.1] секунд[declension_ru(signal_cooldown_time * 0.1, "а", "ы", "")] перезарядки между отправками сигнала."
+	if(!signal_cooldown_time)
+		return
+
+	. += "Ещё [signal_cooldown_time * 0.1] секунд[declension_ru(signal_cooldown_time * 0.1, "а", "ы", "")] перезарядки между отправками сигнала."
 
 /obj/item/circuit_component/radio/register_shell(atom/movable/shell)
 	parent_shell = shell
 	var/potential_fingerprints = shell.fingerprintslast
-	if(!isnull(potential_fingerprints))
-		owner_ckey = potential_fingerprints
+	if(isnull(potential_fingerprints))
+		return
+
+	owner_ckey = potential_fingerprints
 
 /obj/item/circuit_component/radio/unregister_shell(atom/movable/shell)
 	parent_shell = null
@@ -65,7 +69,7 @@
 	trigger_input = add_input_port("Вызов", PORT_TYPE_SIGNAL)
 	trigger_output = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
-/obj/item/circuit_component/radio/Destroy()
+/obj/item/circuit_component/radio/Destroy(force)
 	SSradio.remove_object(src, current_freq)
 	return ..()
 
@@ -85,25 +89,27 @@
 		radio_connection = SSradio.add_object(src, frequency, RADIO_SIGNALER)
 		current_freq = frequency
 
-	if(COMPONENT_TRIGGERED_BY(trigger_input, port))
-		var/signal_code = round(code.value) || 0
-		var/turf/location = get_turf(src)
-		var/time = time2text(world.realtime,"hh:mm:ss")
+	if(!COMPONENT_TRIGGERED_BY(trigger_input, port))
+		return
 
-		var/list/loggable_strings = list("[time] <b>:</b> The [QDELETED(parent_shell) ? "null circuit shell(?)" : parent_shell] @ location ([location.x],[location.y],[location.z]) transmitted the following signal <b>:</b> [format_frequency(current_freq)]/[signal_code] via the radio circuit component.")
-		if(!isnull(owner_ckey))
-			loggable_strings += "<b>:</b> The person who inserted the signalling circuit component was very likely [owner_ckey]."
-		if(!QDELETED(parent_shell))
-			loggable_strings += "<b>:</b> The last fingerprints on the containing shell was [parent_shell.fingerprintslast]."
+	var/signal_code = round(code.value) || 0
+	var/turf/location = get_turf(src)
+	var/time = time2text(world.realtime,"hh:mm:ss")
 
-		var/loggable_string = loggable_strings.Join(" ")
-		GLOB.lastsignalers.Add(loggable_string)
-		TIMER_COOLDOWN_START(parent, COOLDOWN_SIGNALLER_SEND, signal_cooldown_time)
+	var/list/loggable_strings = list("[time] <b>:</b> The [QDELETED(parent_shell) ? "null circuit shell(?)" : parent_shell] @ location ([location.x],[location.y],[location.z]) transmitted the following signal <b>:</b> [format_frequency(current_freq)]/[signal_code] via the radio circuit component.")
+	if(!isnull(owner_ckey))
+		loggable_strings += "<b>:</b> The person who inserted the signalling circuit component was very likely [owner_ckey]."
+	if(!QDELETED(parent_shell))
+		loggable_strings += "<b>:</b> The last fingerprints on the containing shell was [parent_shell.fingerprintslast]."
 
-		var/datum/signal/signal = new
-		signal.encryption = signal_code
-		signal.data = list("message" = "ACTIVATE", "key" = parent?.owner_id)
-		radio_connection.post_signal(src, signal)
+	var/loggable_string = loggable_strings.Join(" ")
+	GLOB.lastsignalers.Add(loggable_string)
+	TIMER_COOLDOWN_START(parent, COOLDOWN_SIGNALLER_SEND, signal_cooldown_time)
+
+	var/datum/signal/signal = new
+	signal.encryption = signal_code
+	signal.data = list("message" = "ACTIVATE", "key" = parent?.owner_id)
+	radio_connection.post_signal(src, signal)
 
 /obj/item/circuit_component/radio/receive_signal(datum/signal/signal)
 	. = FALSE

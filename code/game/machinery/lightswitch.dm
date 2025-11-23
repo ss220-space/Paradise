@@ -26,10 +26,13 @@
 
 	if(istext(area))
 		area = text2path(area)
+
 	if(ispath(area))
 		area = GLOB.areas_by_type[area]
+
 	if(!area)
 		area = get_area(src)
+
 	if(autoname)
 		name = "[name] ([area.name])"
 
@@ -43,6 +46,7 @@
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 		return
+
 	icon_state = "light[area.lightswitch]"
 
 /obj/machinery/light_switch/update_overlays()
@@ -51,6 +55,7 @@
 
 	if(stat & NOPOWER)
 		return
+
 	underlays += emissive_appearance(icon, "light_lightmask", src)
 
 /obj/machinery/light_switch/examine(mob/user)
@@ -68,6 +73,7 @@
 /obj/machinery/light_switch/proc/set_lights(status)
 	if(area.lightswitch == status)
 		return
+
 	area.lightswitch = status
 	update_icon()
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
@@ -83,26 +89,29 @@
 /obj/machinery/light_switch/power_change(forced = FALSE)
 	if(!..())
 		return
+
 	update_icon()
 
 /obj/machinery/light_switch/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
+
 	power_change()
 	..(severity)
 
-/obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/detective_scanner))
-		return ATTACK_CHAIN_PROCEED
-	return ..()
+/obj/machinery/light_switch/attackby(obj/item/tool, mob/user, params)
+	if(!istype(tool, /obj/item/detective_scanner))
+		return ..()
 
-/obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
+	return ATTACK_CHAIN_PROCEED
+
+/obj/machinery/light_switch/wrench_act(mob/user, obj/item/tool)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!tool.tool_use_check(user, 0))
 		return
 	user.visible_message(span_notice("[user] starts unwrenching [src] from the wall..."), span_notice("You are unwrenching [src] from the wall..."), span_warning("You hear ratcheting."))
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new/obj/item/mounted/frame/light_switch(get_turf(src))
@@ -127,9 +136,11 @@
 
 /obj/item/circuit_component/light_switch/register_usb_parent(atom/movable/parent)
 	. = ..()
-	if(istype(parent, /obj/machinery/light_switch))
-		attached_switch = parent
-		RegisterSignal(parent, COMSIG_LIGHT_SWITCH_SET, PROC_REF(on_light_switch_set))
+	if(!istype(parent, /obj/machinery/light_switch))
+		return
+
+	attached_switch = parent
+	RegisterSignal(parent, COMSIG_LIGHT_SWITCH_SET, PROC_REF(on_light_switch_set))
 
 /obj/item/circuit_component/light_switch/unregister_usb_parent(atom/movable/parent)
 	attached_switch = null

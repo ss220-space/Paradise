@@ -23,7 +23,7 @@
 
 /datum/component/circuit_component_add_port/Initialize(list/port_list, add_action, remove_action, port_type, is_output = FALSE, prefix = "Порт", order = 1, minimum_amount = 1, maximum_amount = 10)
 	. = ..()
-	if(!istype(parent, /obj/item/circuit_component))
+	if(!is_circuit_component(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.port_list = port_list
 	src.add_action = add_action

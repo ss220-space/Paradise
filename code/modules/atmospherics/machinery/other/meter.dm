@@ -162,8 +162,10 @@
 
 /obj/item/circuit_component/atmos_meter/register_usb_parent(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/machinery/atmospherics/meter))
-		connected_meter = shell
+	if(!istype(shell, /obj/machinery/atmospherics/meter))
+		return
+
+	connected_meter = shell
 
 /obj/item/circuit_component/atmos_meter/unregister_usb_parent(atom/movable/shell)
 	connected_meter = null
@@ -173,6 +175,7 @@
 	CIRCUIT_TRIGGER
 	if(!connected_meter)
 		return
+
 	var/datum/gas_mixture/environment = connected_meter.target.return_air()
 	pressure.set_output(environment.return_pressure())
 	temperature.set_output(environment.temperature)

@@ -282,7 +282,7 @@
 			return
 		can_accept_user = 1
 
-	if(istype(user, /mob/living/simple_animal/circuit_drone))
+	if(is_circuit_drone(user))
 		can_accept_user = 1
 
 	if(!can_accept_user)

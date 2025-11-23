@@ -106,10 +106,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return
 
 	var/datum/research/research_console = linked_console.files
-	for(var/v in research_console.known_designs)
-		var/datum/design/design = research_console.known_designs[v]
+	for(var/desing_id in research_console.known_designs)
+		var/datum/design/design = research_console.known_designs[desing_id]
 		if(!(design.build_type & IMPRINTER) || !ispath(design.build_path, /obj/item/circuit_component))
 			continue
+
 		LAZYADDASSOC(current_unlocked_designs, design.build_path, design.id)
 
 /obj/machinery/r_n_d/circuit_imprinter/attack_hand(mob/user)
@@ -121,14 +122,19 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	return interact(user)
 
 /obj/machinery/r_n_d/circuit_imprinter/interact(mob/user)
-	if(!disabled)
-		ui_interact(user)
+	if(disabled)
+		return
+
+	ui_interact(user)
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "ComponentPrinter", capitalize(declent_ru(NOMINATIVE)))
-		ui.open()
+
+	if(ui)
+		return
+
+	ui = new(user, src, "ComponentPrinter", capitalize(declent_ru(NOMINATIVE)))
+	ui.open()
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/tool, mob/user, params)
 	if(shocked && shock(user, 50))
@@ -158,15 +164,20 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/recycling_component(mob/living/user, obj/item/tool)
 	//to allow quick recycling of circuits
-	if(!istype(tool, /obj/item/circuit_component))
+	if(!is_circuit_component(tool))
 		return
 
 	var/amount_inserted = materials.insert_item(tool)
-	if(amount_inserted)
-		qdel(tool)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] переребатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_SEC_MIN(amount_inserted /  SHEET_VOLUME)] материала."))
-	else
+	if(!amount_inserted)
 		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отклоняет переработку [tool.declent_ru(GENITIVE)]."))
+		return
+
+	qdel(tool)
+	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] перерабатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_SEC_MIN(amount_inserted /  SHEET_VOLUME)] материала."))
+
+
+#define LINK_CIRCUIT "Привязать схему"
+#define SAVE_CIRCUIT "Сохранить схему"
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/circuit_iteract(mob/user, obj/item/circuit)
 	if(!is_circuit(circuit))
@@ -175,8 +186,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/image/save_icon = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_save1")
 	var/image/link_icon = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_link")
 	var/choices = list(
-		"Привязать схему" = link_icon,
-		"Сохранить схему" = save_icon,
+		LINK_CIRCUIT = link_icon,
+		SAVE_CIRCUIT = save_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, circuit), require_near = TRUE)
 
@@ -184,21 +195,26 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return FALSE
 
 	switch(choice)
-		if("Привязать схему")
+		if(LINK_CIRCUIT)
 			link_circuit(user, circuit)
 			return TRUE
 
-		if("Сохранить схему")
+		if(SAVE_CIRCUIT)
 			save_circuit(user, circuit)
 			return TRUE
 
 	return TRUE
 
+#undef LINK_CIRCUIT
+#undef SAVE_CIRCUIT
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/check_menu(mob/living/user, obj/item/circuit)
 	if(!istype(user))
 		return FALSE
+
 	if(panel_open)
 		return FALSE
+
 	if(user.incapacitated() || (user.get_active_hand() != circuit))
 		return FALSE
 
@@ -210,9 +226,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/obj/item/integrated_circuit/circuit
 
-	if(istype(tool, /obj/item/integrated_circuit))
+	if(is_integrated_circuit(tool))
 		circuit = tool
-	else if(istype(tool, /obj/item/circuit_component/module))
+
+	if(is_module_circuit(tool))
 		var/obj/item/circuit_component/module/module = tool
 		circuit = module.internal_circuit
 
@@ -322,10 +339,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(!(design?.build_type & IMPRINTER))
 		return
 
-	if(try_use_materials(design.materials))
-		flick("[base_icon_state]_ani", src)
+	if(!try_use_materials(design.materials))
+		return
 
-		return new design.build_path(drop_location())
+	flick("[base_icon_state]_ani", src)
+	return new design.build_path(drop_location())
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/try_use_materials(list/design_materials)
 	return materials.use_amount(design_materials, efficiency_coeff)
@@ -398,7 +416,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
+
 	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, tool)
+
 	if(. && linked_console)
 		linked_console.linked_imprinter = null
 		linked_console = null
@@ -408,15 +428,19 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return .
+
 	if(!panel_open)
 		add_fingerprint(user)
 		balloon_alert(user, "техпанель закрыта!")
 		return .
+
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)
 		if(istype(component, /obj/item/reagent_containers/glass/beaker))
 			reagents.trans_to(component, reagents.total_volume)
+
 		component.forceMove(drop_loc)
+
 	materials.retrieve_all()
 	default_deconstruction_crowbar(user, tool)
 

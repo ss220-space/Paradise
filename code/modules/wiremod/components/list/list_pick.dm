@@ -45,6 +45,7 @@
 	if(!ismob(mob_user) || HAS_TRAIT_FROM(parent, TRAIT_CIRCUIT_UI_OPEN, UNIQUE_TRAIT_SOURCE(mob_user)))
 		failure.set_output(COMPONENT_SIGNAL)
 		return
+
 	INVOKE_ASYNC(src, PROC_REF(show_list), mob_user, input_name.value, input_list.value)
 
 /// Show a list of options to the user using standed TGUI input list
@@ -52,28 +53,32 @@
 	if(!showed_list || showed_list.len == 0)
 		failure.set_output(COMPONENT_SIGNAL)
 		return
+
 	if(!message)
 		message = "Ввод..."
+
 	if(!(user.can_perform_action(parent.shell, FORBID_TELEKINESIS_REACH|ALLOW_SILICON_REACH|ALLOW_RESTING)))
 		failure.set_output(COMPONENT_SIGNAL)
 		return
+
 	var/user_ref = user.UID()
 	ADD_TRAIT(parent, TRAIT_CIRCUIT_UI_OPEN, user_ref)
 	var/picked = tgui_input_list(user, message = message, items = showed_list)
 	REMOVE_TRAIT(parent, TRAIT_CIRCUIT_UI_OPEN, user_ref)
 	if(QDELETED(src))
 		return
+
 	if(!(user.can_perform_action(parent.shell, FORBID_TELEKINESIS_REACH|ALLOW_SILICON_REACH|ALLOW_RESTING)))
 		failure.set_output(COMPONENT_SIGNAL)
 		return
+
 	choose_item(picked, showed_list)
 
 /obj/item/circuit_component/list_pick/proc/choose_item(choice, list/choice_list)
 	if(choice)
 		output.set_output(choice)
 		success.set_output(COMPONENT_SIGNAL)
-	else
-		failure.set_output(COMPONENT_SIGNAL)
+		return
 
-
+	failure.set_output(COMPONENT_SIGNAL)
 

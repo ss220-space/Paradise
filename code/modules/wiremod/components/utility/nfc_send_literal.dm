@@ -25,13 +25,6 @@
 	enc_key = add_input_port("Ключ", PORT_TYPE_STRING)
 	target = add_input_port("Цель", PORT_TYPE_ATOM)
 
-/obj/item/circuit_component/list_literal/nfc_send/should_receive_input(datum/port/input/port)
-	. = ..()
-	if(!.)
-		return FALSE
-	/// If the server is down, don't use power or attempt to send data
-	return find_functional_tcomms_core()
-
 /obj/item/circuit_component/list_literal/nfc_send/input_received(datum/port/input/port)
 	. = ..()
 	if(isatom(target.value))

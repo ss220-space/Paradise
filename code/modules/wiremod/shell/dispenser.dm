@@ -73,7 +73,7 @@
 /obj/structure/dispenser_bot/attackby(obj/item/item, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(istype(item, /obj/item/wrench) || istype(item, /obj/item/multitool) || istype(item, /obj/item/integrated_circuit))
+	if(istype(item, /obj/item/wrench) || is_circuit_multitool(item) || is_integrated_circuit(item))
 		return ..()
 	if(item.w_class > max_weight && !istype(item, /obj/item/storage/bag))
 		balloon_alert(user, "объект слишком большой!")

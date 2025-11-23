@@ -280,9 +280,11 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/item/circuit_component/atmos_volume_pump/register_usb_parent(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/machinery/atmospherics/binary/volume_pump))
-		connected_pump = shell
-		RegisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON, PROC_REF(handle_pump_activation))
+	if(!istype(shell, /obj/machinery/atmospherics/binary/volume_pump))
+		return
+
+	connected_pump = shell
+	RegisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON, PROC_REF(handle_pump_activation))
 
 /obj/item/circuit_component/atmos_volume_pump/unregister_usb_parent(atom/movable/shell)
 	UnregisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON)
@@ -297,19 +299,22 @@ Thus, the two variables affect pump operation are set in New():
 	is_active.set_output(active)
 	if(active)
 		turned_on.set_output(COMPONENT_SIGNAL)
-	else
-		turned_off.set_output(COMPONENT_SIGNAL)
+		return
+
+	turned_off.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/atmos_volume_pump/proc/set_transfer_rate()
 	CIRCUIT_TRIGGER
 	if(!connected_pump)
 		return
+
 	connected_pump.transfer_rate = transfer_rate.value
 
 /obj/item/circuit_component/atmos_volume_pump/proc/set_pump_on()
 	CIRCUIT_TRIGGER
 	if(!connected_pump || connected_pump.on)
 		return
+
 	connected_pump.toggle()
 	connected_pump.update_appearance()
 
@@ -317,6 +322,7 @@ Thus, the two variables affect pump operation are set in New():
 	CIRCUIT_TRIGGER
 	if(!connected_pump || !connected_pump.on)
 		return
+
 	connected_pump.toggle()
 	connected_pump.update_appearance()
 
@@ -324,9 +330,11 @@ Thus, the two variables affect pump operation are set in New():
 	CIRCUIT_TRIGGER
 	if(!connected_pump)
 		return
+
 	var/datum/gas_mixture/air_input = connected_pump.air1
 	var/datum/gas_mixture/air_output = connected_pump.air2
 	input_pressure.set_output(air_input.return_pressure())
 	output_pressure.set_output(air_output.return_pressure())
 	input_temperature.set_output(air_input.return_temperature())
 	output_temperature.set_output(air_output.return_temperature())
+

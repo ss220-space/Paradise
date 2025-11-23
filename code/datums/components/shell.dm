@@ -42,14 +42,18 @@
 /datum/component/shell/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(on_attack_ghost))
+
 	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNMODIFIABLE))
 		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
 		RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attack_by))
+
 	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE))
 		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(on_screwdriver_act))
 		RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_object_deconstruct))
+
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
 		RegisterSignal(parent, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
+
 	RegisterSignal(parent, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, PROC_REF(on_atom_usb_cable_try_attach))
 	RegisterSignal(parent, COMSIG_MOVABLE_CIRCUIT_LOADED, PROC_REF(on_load))
 
@@ -65,6 +69,7 @@
 /datum/component/shell/proc/add_unremovable_circuit_component(obj/item/circuit_component/component)
 	if(ispath(component))
 		component = new component()
+
 	component.removable = FALSE
 	component.set_circuit_size(0)
 	RegisterSignal(component, COMSIG_CIRCUIT_COMPONENT_SAVE, PROC_REF(save_component))
@@ -72,11 +77,20 @@
 
 /datum/component/shell/proc/save_component(datum/source, list/objects)
 	SIGNAL_HANDLER
-	objects += parent
+	if(parent.UID() in objects)
+		return
+
+	var/list/new_data = list()
+	new_data["type"] = parent.type
+	for(var/datum/compontent as anything in unremovable_circuit_components)
+		LAZYADD(new_data["connected_components"], compontent.UID())
+
+	LAZYADDASSOC(objects, parent.UID(), new_data)
 
 /datum/component/shell/proc/on_load(datum/source, obj/item/integrated_circuit/circuit, list/components)
 	SIGNAL_HANDLER
 	var/list/components_in_list = list()
+
 	for(var/obj/item/circuit_component/component as anything in components)
 		components_in_list += component.type
 
@@ -85,6 +99,7 @@
 			continue
 		var/new_type = component.type
 		components += new new_type()
+
 	set_unremovable_circuit_components(components)
 	attach_circuit(circuit)
 
@@ -112,10 +127,13 @@
 	SIGNAL_HANDLER
 	if(!attached_circuit)
 		return
+
 	if(attached_circuit.admin_only)
 		return
+
 	if(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE)
 		return
+
 	remove_circuit()
 
 /datum/component/shell/proc/on_attack_ghost(datum/source, mob/dead/observer/ghost)
@@ -180,7 +198,7 @@
 	if(!is_authorized(attacker))
 		return
 
-	if(istype(item, /obj/item/stock_parts/cell))
+	if(iscell(item))
 		source.balloon_alert(attacker, "нельзя установить!")
 		return
 
@@ -195,12 +213,13 @@
 			attached_circuit.owner_id = WEAKREF(item)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
-		if(istype(item, /obj/item/circuit_component))
+		if(is_circuit_component(item))
 			attached_circuit.add_component_manually(item, attacker)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	if(!istype(item, /obj/item/integrated_circuit))
+	if(!is_integrated_circuit(item))
 		return
+
 	var/obj/item/integrated_circuit/logic_board = item
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -232,13 +251,14 @@
 	if(!attached_circuit)
 		return
 
-	if(!istype(tool, /obj/item/multitool/circuit))
+	if(!is_circuit_multitool(tool))
 		source.balloon_alert(user, "не мультиметр для схем!")
 		return
 
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
+
 		source.balloon_alert(user, "закрыто!")
 		return TRUE
 
@@ -259,6 +279,7 @@
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
+
 		source.balloon_alert(user, "закрыто!")
 		return TRUE
 
@@ -272,8 +293,10 @@
  */
 /datum/component/shell/proc/on_circuit_moved(obj/item/integrated_circuit/circuit, atom/old_loc)
 	SIGNAL_HANDLER
-	if(circuit.loc != parent)
-		remove_circuit()
+	if(circuit.loc == parent)
+		return
+
+	remove_circuit()
 
 /**
  * Checks for when the circuitboard deletes so that it can be unassigned.
@@ -288,9 +311,11 @@
 		source.balloon_alert(user, "закрыто!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
-	if(attached_circuit.current_size + added_comp.circuit_size > capacity)
-		source.balloon_alert(user, "не влезает!")
-		return COMPONENT_CANCEL_ADD_COMPONENT
+	if(attached_circuit.current_size + added_comp.circuit_size < capacity)
+		return
+
+	source.balloon_alert(user, "не влезает!")
+	return COMPONENT_CANCEL_ADD_COMPONENT
 
 /datum/component/shell/proc/override_power_usage(datum/source, power_to_use)
 	SIGNAL_HANDLER
@@ -306,6 +331,7 @@
 		if(attached_circuit)
 			remove_circuit()
 		return
+
 	location.use_power(power_to_use, EQUIP)
 	power_used_in_minute += power_to_use
 	COOLDOWN_START(src, power_used_cooldown, 1 MINUTES)
@@ -318,26 +344,32 @@
 	var/atom/movable/parent_atom = parent
 	if(user && !user.transfer_item_to_loc(circuitboard, parent_atom))
 		return
+
 	locked = FALSE
 	attached_circuit = circuitboard
 	SEND_SIGNAL(src, COMSIG_SHELL_CIRCUIT_ATTACHED)
 	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE) && !circuitboard.admin_only)
 		RegisterSignal(circuitboard, COMSIG_MOVABLE_MOVED, PROC_REF(on_circuit_moved))
+
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
 		RegisterSignal(circuitboard, COMSIG_CIRCUIT_PRE_POWER_USAGE, PROC_REF(override_power_usage))
+
 	RegisterSignal(circuitboard, COMSIG_QDELETING, PROC_REF(on_circuit_delete))
 	for(var/obj/item/circuit_component/to_add as anything in unremovable_circuit_components)
 		to_add.forceMove(attached_circuit)
 		attached_circuit.add_component(to_add)
+
 	RegisterSignal(circuitboard, COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY, PROC_REF(on_circuit_add_component_manually))
 	if(attached_circuit.display_name != "")
 		parent_atom.name = "[initial(parent_atom.name)] ([strip_html(attached_circuit.display_name)])"
+
 	attached_circuit.set_locked(FALSE)
 
 	if((shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE) || circuitboard.admin_only)
 		circuitboard.moveToNullspace()
 	else if(circuitboard.loc != parent_atom)
 		circuitboard.forceMove(parent_atom)
+
 	attached_circuit.set_shell(parent_atom)
 
 	// call after set_shell() sets on to true
@@ -367,6 +399,7 @@
 	for(var/obj/item/circuit_component/to_remove as anything in unremovable_circuit_components)
 		attached_circuit.remove_component(to_remove)
 		to_remove.moveToNullspace()
+
 	attached_circuit.set_locked(FALSE)
 	SEND_SIGNAL(src, COMSIG_SHELL_CIRCUIT_REMOVED)
 	attached_circuit = null

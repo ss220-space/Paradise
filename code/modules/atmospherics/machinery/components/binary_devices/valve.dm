@@ -176,9 +176,11 @@
 
 /obj/item/circuit_component/digital_valve/register_usb_parent(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/machinery/atmospherics/binary/valve/digital))
-		attached_valve = shell
-		RegisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN, PROC_REF(handle_valve_toggled))
+	if(!istype(shell, /obj/machinery/atmospherics/binary/valve/digital))
+		return
+
+	attached_valve = shell
+	RegisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN, PROC_REF(handle_valve_toggled))
 
 /obj/item/circuit_component/digital_valve/unregister_usb_parent(atom/movable/shell)
 	UnregisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN)
@@ -190,15 +192,17 @@
 	is_open.set_output(on)
 	if(on)
 		opened.set_output(COMPONENT_SIGNAL)
-	else
-		closed.set_output(COMPONENT_SIGNAL)
+		return
+
+	closed.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/digital_valve/input_received(datum/port/input/port)
-
 	if(!attached_valve)
 		return
 
 	if(COMPONENT_TRIGGERED_BY(open, port) && !attached_valve.on)
 		attached_valve.toggle()
+
 	if(COMPONENT_TRIGGERED_BY(close, port) && attached_valve.on)
 		attached_valve.toggle()
+

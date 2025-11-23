@@ -89,6 +89,7 @@
 
 /obj/structure/reflector/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+
 	if(anchored)
 		to_chat(user, "Unweld [src] first!")
 		return
@@ -103,6 +104,7 @@
 	playsound(user, 'sound/items/Ratchet.ogg', 50, TRUE)
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	new framebuildstacktype(drop_location(), framebuildstackamount)
+
 	if(buildstackamount)
 		new buildstacktype(drop_location(), buildstackamount)
 
@@ -122,6 +124,7 @@
 	else
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 		set_anchored(TRUE)
+
 	WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 
 /obj/structure/reflector/attackby(obj/item/tool, mob/user, params)
@@ -251,8 +254,7 @@
 /obj/structure/reflector/singularity_act()
 	if(admin)
 		return
-	else
-		return ..()
+	return ..()
 
 //	USB
 
@@ -271,8 +273,10 @@
 
 /obj/item/circuit_component/reflector/register_usb_parent(atom/movable/parent)
 	. = ..()
-	if(istype(parent, /obj/structure/reflector))
-		attached_reflector = parent
+	if(!istype(parent, /obj/structure/reflector))
+		return
+
+	attached_reflector = parent
 
 /obj/item/circuit_component/reflector/unregister_usb_parent(atom/movable/parent)
 	attached_reflector = null
@@ -287,14 +291,19 @@
 	if(!finished)
 		balloon_alert(user, "нечего разворачивать!")
 		return
+
 	if(!can_rotate)
 		balloon_alert(user, "невозможно развернуть!")
 		ui?.close()
 		return
+
 	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Reflector")
-		ui.open()
+
+	if(ui)
+		return
+
+	ui = new(user, src, "Reflector")
+	ui.open()
 
 /obj/structure/reflector/attack_hand(mob/living/user)
 	ui_interact(user)
@@ -322,21 +331,27 @@
 		if("rotate")
 			if(!can_rotate || admin)
 				return FALSE
+
 			var/new_angle = params["rotation_angle"]
+
 			if(!isnull(new_angle))
 				set_reflector_angle(SIMPLIFY_DEGREES(new_angle))
+
 			return TRUE
+
 		if("calculate")
 			if(!can_rotate || admin)
 				return FALSE
+
 			var/new_angle = rotation_angle + params["rotation_angle"]
+
 			if(!isnull(new_angle))
 				set_reflector_angle(SIMPLIFY_DEGREES(new_angle))
+
 			return TRUE
 
 /obj/structure/reflector/wrenched
 
 /obj/structure/reflector/wrenched/Initialize(mapload)
 	. = ..()
-
 	set_anchored(TRUE)

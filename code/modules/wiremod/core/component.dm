@@ -203,6 +203,47 @@
 		SStgui.update_uis(parent)
 	return null //explicitly set the port to null if used like this: `port = remove_input_port(port)`
 
+/obj/item/circuit_component/proc/save_connections_to_list(list/connections)
+	for(var/datum/port/input/input as anything in input_ports)
+		var/list/connection_data
+		for(var/datum/port/output/output as anything in input.connected_ports)
+			LAZYADDASSOCLIST(connection_data, "connected_ports", list(
+				"component_id" = output.connected_component.UID(),
+				"port_name" = output.name,
+			))
+
+		if(!LAZYLEN(connection_data))
+			continue
+
+		LAZYADDASSOC(connections, input.name, connection_data)
+
+/obj/item/circuit_component/proc/save_ports_values_to_list(list/stored_data, only_connected = FALSE)
+	for(var/datum/port/input/input as anything in input_ports)
+		var/list/connection_data
+
+		if(LAZYLEN(input.connected_ports) && only_connected)
+			continue
+
+		if(isnull(input.value) || !(input.datatype in GLOB.circuit_dupe_whitelisted_types))
+			continue
+
+		LAZYADDASSOC(connection_data, "stored_data", input.value)
+		LAZYADDASSOC(stored_data, input.name, connection_data)
+
+/obj/item/circuit_component/proc/find_input_port_by_name(port_name)
+	for(var/datum/port/input/port_to_check as anything in input_ports)
+		if(port_to_check.name != port_name)
+			continue
+
+		return port_to_check
+
+/obj/item/circuit_component/proc/find_output_port_by_name(port_name)
+	for(var/datum/port/output/port_to_check as anything in output_ports)
+		if(port_to_check.name != port_name)
+			continue
+
+		return port_to_check
+
 /**
  * Adds an output port and returns it
  *

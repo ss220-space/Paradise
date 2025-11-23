@@ -38,8 +38,9 @@
 	for(var/entry in list_input)
 		if(isdatum(entry))
 			text_list += PORT_TYPE_ATOM
-		else
-			text_list += "[entry]"
+			continue
+
+		text_list += "[entry]"
 
 	output.set_output(text_list.Join(seperator))
 

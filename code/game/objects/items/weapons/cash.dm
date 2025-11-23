@@ -59,7 +59,7 @@
 	. = ..()
 
 /obj/item/stack/spacecash/get_item_credit_value()
-	return (amount)
+	return amount
 
 /obj/item/stack/spacecash/after_throw(datum/callback/callback)
 	throwforce = initial(throwforce)

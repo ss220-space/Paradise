@@ -47,23 +47,28 @@
 
 /mob/living/simple_animal/circuit_drone/examine(mob/user)
 	. = ..()
-	if(health < maxHealth)
-		if(health > maxHealth/3)
-			. += span_notice("[capitalize(declent_ru(NOMINATIVE))] выглядит слегка повреждённым.")
-		else
-			. += span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит сильно повреждённым!")
-	else
+	if(health >= maxHealth)
 		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] в отличном состоянии.")
+		return
+
+	if(health > maxHealth / 3)
+		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] выглядит слегка повреждённым.")
+		return
+
+	. += span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит сильно повреждённым!")
 
 /mob/living/simple_animal/circuit_drone/welder_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(user.a_intent != INTENT_HELP)
 		return FALSE
+
 	if(health == maxHealth)
 		balloon_alert(user, "ремонт не требуется!")
 		return TRUE
+
 	if(tool.use_tool(src, user, 1 SECONDS, volume = tool.tool_volume))
 		adjustHealth(-5)
+
 	return TRUE
 
 /obj/item/circuit_component/bot_circuit
@@ -87,8 +92,10 @@
 
 /obj/item/circuit_component/bot_circuit/register_shell(atom/movable/shell)
 	. = ..()
-	if(ismob(shell))
-		RegisterSignal(shell, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
+	if(!ismob(shell))
+		return
+
+	RegisterSignal(shell, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 
 /obj/item/circuit_component/bot_circuit/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)

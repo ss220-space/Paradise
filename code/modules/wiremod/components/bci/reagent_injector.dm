@@ -47,18 +47,24 @@
 	var/fraction = min(transfer_amounts.value/bci.reagents.total_volume, 1)
 	bci.reagents.reaction(bci.owner, REAGENT_INGEST, fraction, ignore_protection = TRUE)
 	var/units = bci.reagents.trans_to(bci.owner, transfer_amounts.value)
-	if(units)
-		injected.set_output(COMPONENT_SIGNAL)
-		add_attack_logs(bci.owner, bci.owner, "Injected with [name] containing [bci.reagents.log_list()], transfered [units] units", bci.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+	if(!units)
+		return
+
+	injected.set_output(COMPONENT_SIGNAL)
+	add_attack_logs(bci.owner, bci.owner, "Injected with [name] containing [bci.reagents.log_list()], transfered [units] units", bci.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 /obj/item/circuit_component/reagent_injector/register_shell(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
-		bci = shell
-		bci.container_type = OPENCONTAINER
-		bci.create_reagents(15)
-		if(reagents.total_volume)
-			reagents.trans_to(bci, reagents.total_volume)
+	if(!is_bci(shell))
+		return
+
+	bci = shell
+	bci.container_type = OPENCONTAINER
+	bci.create_reagents(15)
+	if(!reagents.total_volume)
+		return
+
+	reagents.trans_to(bci, reagents.total_volume)
 
 /obj/item/circuit_component/reagent_injector/unregister_shell(atom/movable/shell)
 	. = ..()
@@ -67,4 +73,5 @@
 			bci.reagents.trans_to(src, bci.reagents.total_volume)
 		bci.container_type = NONE
 		QDEL_NULL(bci.reagents)
+
 	bci = null

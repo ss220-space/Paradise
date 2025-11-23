@@ -28,11 +28,14 @@
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/list_literal/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_datatype = list_options.value
-		list_output.set_datatype(PORT_TYPE_LIST(new_datatype))
-		for(var/datum/port/input/port_to_set as anything in entry_ports)
-			port_to_set.set_datatype(new_datatype)
+	if(port != list_options)
+		return
+
+	var/new_datatype = list_options.value
+	list_output.set_datatype(PORT_TYPE_LIST(new_datatype))
+
+	for(var/datum/port/input/port_to_set as anything in entry_ports)
+		port_to_set.set_datatype(new_datatype)
 
 /obj/item/circuit_component/list_literal/populate_ports()
 	AddComponent(/datum/component/circuit_component_add_port, \
@@ -55,9 +58,11 @@
 		if(islist(value) && get_list_count(value, max_list_count) >= max_list_count)
 			balloon_alert_to_viewers("начинает перегреваться!")
 			return
+
 		var/value_to_add = handler.convert_value(list_output, value)
 		if(isdatum(value_to_add))
 			value_to_add = WEAKREF(value_to_add)
+
 		new_literal += list(value_to_add)
 
 	list_output.set_output(new_literal)
@@ -74,4 +79,5 @@
 			lists += 1
 		if(lists > max_list_count)
 			return lists
+
 	return lists

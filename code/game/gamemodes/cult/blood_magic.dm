@@ -659,7 +659,7 @@
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 		//Airlock to cult airlock
-		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
+		else if(is_airlock(target) && !istype(target, /obj/machinery/door/airlock/cult))
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)

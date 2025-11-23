@@ -379,10 +379,12 @@ Just a object used in constructing fire alarms
 
 /obj/item/circuit_component/firealarm/register_usb_parent(atom/movable/parent)
 	. = ..()
-	if(istype(parent, /obj/machinery/firealarm))
-		attached_alarm = parent
-		RegisterSignal(parent, COMSIG_FIREALARM_ON_TRIGGER, PROC_REF(on_firealarm_triggered))
-		RegisterSignal(parent, COMSIG_FIREALARM_ON_RESET, PROC_REF(on_firealarm_reset))
+	if(!istype(parent, /obj/machinery/firealarm))
+		return
+
+	attached_alarm = parent
+	RegisterSignal(parent, COMSIG_FIREALARM_ON_TRIGGER, PROC_REF(on_firealarm_triggered))
+	RegisterSignal(parent, COMSIG_FIREALARM_ON_RESET, PROC_REF(on_firealarm_reset))
 
 /obj/item/circuit_component/firealarm/unregister_usb_parent(atom/movable/parent)
 	attached_alarm = null
@@ -392,12 +394,12 @@ Just a object used in constructing fire alarms
 
 /obj/item/circuit_component/firealarm/proc/on_firealarm_triggered(datum/source)
 	SIGNAL_HANDLER
-	is_on.set_output(1)
+	is_on.set_output(TRUE)
 	triggered.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/firealarm/proc/on_firealarm_reset(datum/source)
 	SIGNAL_HANDLER
-	is_on.set_output(0)
+	is_on.set_output(FALSE)
 	reset.set_output(COMPONENT_SIGNAL)
 
 

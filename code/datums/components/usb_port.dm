@@ -42,8 +42,10 @@
 		RegisterSignal(component, COMSIG_CIRCUIT_COMPONENT_SAVE, PROC_REF(save_component))
 		circuit_components += component
 
-	if(should_register)
-		RegisterWithParent()
+	if(!should_register)
+		return
+
+	RegisterWithParent()
 
 /datum/component/usb_port/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, PROC_REF(on_atom_usb_cable_try_attach))
@@ -71,7 +73,15 @@
 
 /datum/component/usb_port/proc/save_component(datum/source, list/objects)
 	SIGNAL_HANDLER
-	objects += parent
+	if(parent.UID() in objects)
+		return
+
+	var/list/new_data = list()
+	new_data["type"] = parent.type
+	for(var/datum/compontent as anything in circuit_components)
+		LAZYADD(new_data["connected_components"], compontent.UID())
+
+	LAZYADDASSOC(objects, parent.UID(), new_data)
 
 /datum/component/usb_port/proc/on_load(datum/source, obj/item/integrated_circuit/circuit, list/components)
 	SIGNAL_HANDLER
@@ -83,6 +93,7 @@
 		if(component.type in components_in_list)
 			continue
 		components += component.type
+
 	set_circuit_components(components)
 	var/obj/item/usb_cable/cable = new(circuit.drop_location())
 	cable.attached_circuit = circuit
@@ -124,11 +135,11 @@
 
 /datum/component/usb_port/proc/on_examine(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
-
 	if(isnull(attached_circuit))
 		examine_text += span_notice("На передней панели расположен USB-порт.")
-	else
-		examine_text += span_notice("[capitalize(attached_circuit.shell.declent_ru(NOMINATIVE) || attached_circuit.declent_ru(NOMINATIVE))] подключено с помощью USB-порта.")
+		return
+
+	examine_text += span_notice("[capitalize(attached_circuit.shell.declent_ru(NOMINATIVE) || attached_circuit.declent_ru(NOMINATIVE))] подключено с помощью USB-порта.")
 
 /datum/component/usb_port/proc/on_examine_shell(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
@@ -168,7 +179,7 @@
 	usb_cable_ref = WEAKREF(connecting_cable)
 	attached_circuit = connecting_cable.attached_circuit
 
-	user.transfer_item_to_loc(connecting_cable, attached_circuit)
+	user ? user.transfer_item_to_loc(connecting_cable, attached_circuit) : connecting_cable.forceMove(attached_circuit)
 	attach_circuit_components(attached_circuit)
 	if(user)
 		attached_circuit.interact(user)

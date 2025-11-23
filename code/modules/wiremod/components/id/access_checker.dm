@@ -65,9 +65,12 @@
 
 /obj/item/circuit_component/compare/access/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "CircuitAccessChecker", display_name)
-		ui.open()
+
+	if(ui)
+		return
+
+	ui = new(user, src, "CircuitAccessChecker", display_name)
+	ui.open()
 
 /obj/item/circuit_component/compare/access/ui_static_data(mob/user)
 	var/list/data = list(

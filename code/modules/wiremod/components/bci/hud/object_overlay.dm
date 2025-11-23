@@ -85,7 +85,7 @@
 	options_map = component_options
 
 /obj/item/circuit_component/object_overlay/register_shell(atom/movable/shell)
-	if(!istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
+	if(!is_bci(shell))
 		return
 
 	bci = shell
@@ -113,9 +113,12 @@
 		show_to_owner(target_atom, owner)
 
 	var/datum/atom_hud/existing_overlay = LAZYACCESS(active_overlays, target_atom.UID())
-	if(COMPONENT_TRIGGERED_BY(signal_off, port) && !isnull(existing_overlay))
-		LAZYREMOVE(active_overlays, target_atom.UID())
-		qdel(existing_overlay)
+
+	if(!COMPONENT_TRIGGERED_BY(signal_off, port) || isnull(existing_overlay))
+		return
+
+	LAZYREMOVE(active_overlays, target_atom.UID())
+	qdel(existing_overlay)
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
 	if(length(active_overlays) > OBJECT_OVERLAY_LIMIT)

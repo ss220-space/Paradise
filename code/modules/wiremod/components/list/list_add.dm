@@ -25,13 +25,15 @@
 
 /obj/item/circuit_component/variable/list/listadd/populate_ports()
 	to_add = add_input_port("Добавить", PORT_TYPE_ANY)
-	allow_duplicate = add_input_port("Дублицирование", PORT_TYPE_NUMBER, default = 0)
+	allow_duplicate = add_input_port("Дублицирование", PORT_TYPE_NUMBER, default = FALSE)
 	failed = add_output_port("Провал", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/variable/list/listadd/pre_input_received(datum/port/input/port)
 	. = ..()
-	if(current_variable)
-		to_add.set_datatype(current_variable.datatype_handler.get_datatype(1))
+	if(!current_variable)
+		return
+
+	to_add.set_datatype(current_variable.datatype_handler.get_datatype(1))
 
 /obj/item/circuit_component/variable/list/listadd/input_received(datum/port/input/port, list/return_values)
 	if(!current_variable)
@@ -48,5 +50,7 @@
 
 	if(!allow_duplicate.value)
 		info |= data_to_add
-	else
-		info += data_to_add
+		return
+
+	info += data_to_add
+

@@ -50,21 +50,14 @@
 	INVOKE_ASYNC(src, PROC_REF(perform_pathfinding), port)
 
 /obj/item/circuit_component/pathfind/proc/perform_pathfinding(datum/port/input/port)
-	var/target_X = input_X.value
-	if(isnull(target_X))
+	var/list/coordinate = get_target_coordinate()
+	if(!LAZYLEN(coordinate))
 		return
 
-	var/target_Y = input_Y.value
-	if(isnull(target_Y))
-		return
+	var/target_X = LAZYACCESS(coordinate, "x")
+	var/target_Y = LAZYACCESS(coordinate, "y")
 
-	var/list/access = list()
-	if(is_id_card(id_card.value))
-		var/obj/item/card/id/id = id_card.value
-		access = id.GetAccess()
-	else if(id_card.value)
-		failed.set_output(COMPONENT_SIGNAL)
-		reason_failed.set_output("Отмеченный объект не имеет идентификатора! Вместо этого используется отсутствие идентификатора.")
+	var/list/access = get_access_list()
 
 	// Get both the current turf and the destination's turf
 	var/turf/current_turf = get_location()
@@ -78,38 +71,76 @@
 		next_turf = null
 		return
 
+	if(try_use_cache_path(current_turf, destination))
+		return
+
+	calculate_new_path(destination, access)
+
+/obj/item/circuit_component/pathfind/proc/get_target_coordinate()
+	var/target_X = input_X.value
+	if(isnull(target_X))
+		return
+
+	var/target_Y = input_Y.value
+	if(isnull(target_Y))
+		return
+
+	return list("x" = target_X, "y" = target_Y)
+
+/obj/item/circuit_component/pathfind/proc/get_access_list()
+	var/list/access = list()
+	if(is_id_card(id_card.value))
+		var/obj/item/card/id/id = id_card.value
+		access = id.GetAccess()
+		return access
+
+	if(id_card.value)
+		failed.set_output(COMPONENT_SIGNAL)
+		reason_failed.set_output("Отмеченный объект не имеет идентификатора! Вместо этого используется отсутствие идентификатора.")
+
+/obj/item/circuit_component/pathfind/proc/send_next_step(list/path)
+	if(!LAZYLEN(path))
+		return
+
+	next_turf = get_turf(path[1])
+	output.set_output(next_turf)
+
+/obj/item/circuit_component/pathfind/proc/try_use_cache_path(turf/current_turf, turf/destination)
 	// If we're going to the same place and the cooldown hasn't subsided, we're probably on the same path as before
-	if(destination == old_dest && TIMER_COOLDOWN_RUNNING(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME))
+	if(destination != old_dest || TIMER_COOLDOWN_FINISHED(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME))
+		return FALSE
 
-		// Check if the current turf is the same as the current turf we're supposed to be in. If so, then we set the next step as the next turf on the list
-		if(current_turf == next_turf)
-			popleft(path)
-			next_turf = get_turf(path[1])
-			output.set_output(next_turf)
+	// Check if the current turf is the same as the current turf we're supposed to be in. If so, then we set the next step as the next turf on the list
+	if(current_turf != next_turf)
+		return FALSE
 
-			// Restart the cooldown since we don't need a new path ( TIMER_COOLDOWN_START might restart the timer by itself and i dont need to call TIMER_COOLDOWN_END, but better safe than sorry )
-			TIMER_COOLDOWN_END(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME)
-			TIMER_COOLDOWN_START(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME, same_path_cooldown)
+	popleft(path)
+	send_next_step(path)
 
+	// Restart the cooldown since we don't need a new path ( TIMER_COOLDOWN_START might restart the timer by itself and i dont need to call TIMER_COOLDOWN_END, but better safe than sorry )
+	TIMER_COOLDOWN_END(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME)
+	TIMER_COOLDOWN_START(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME, same_path_cooldown)
+	return TRUE
 
-	else // Either we're not going to the same place or the cooldown is over. Either way, we need a new path
+/obj/item/circuit_component/pathfind/proc/calculate_new_path(turf/destination, access)
+	// Either we're not going to the same place or the cooldown is over. Either way, we need a new path
+	if(destination != old_dest && TIMER_COOLDOWN_RUNNING(parent, COOLDOWN_CIRCUIT_PATHFIND_DIF))
+		failed.set_output(COMPONENT_SIGNAL)
+		reason_failed.set_output("Все еще перезаряжается!")
+		return
 
-		if(destination != old_dest && TIMER_COOLDOWN_RUNNING(parent, COOLDOWN_CIRCUIT_PATHFIND_DIF))
-			failed.set_output(COMPONENT_SIGNAL)
-			reason_failed.set_output("Все еще перезаряжается!")
-			return
+	TIMER_COOLDOWN_END(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME)
 
-		TIMER_COOLDOWN_END(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME)
+	old_dest = destination
+	path = get_path_to(src, destination, max_range, access = access)
 
-		old_dest = destination
-		path = get_path_to(src, destination, max_range, access=access)
-		if(length(path) == 0 || !path)// Check if we can even path there
-			next_turf = null
-			failed.set_output(COMPONENT_SIGNAL)
-			reason_failed.set_output("Нет пути!")
-			return
-		else
-			TIMER_COOLDOWN_START(parent, COOLDOWN_CIRCUIT_PATHFIND_DIF, different_path_cooldown)
-			next_turf = get_turf(path[1])
-			output.set_output(next_turf)
-		TIMER_COOLDOWN_START(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME, same_path_cooldown)
+	if(!length(path) || !path)// Check if we can even path there
+		next_turf = null
+		failed.set_output(COMPONENT_SIGNAL)
+		reason_failed.set_output("Нет пути!")
+		return
+
+	send_next_step(path)
+	TIMER_COOLDOWN_START(parent, COOLDOWN_CIRCUIT_PATHFIND_DIF, different_path_cooldown)
+	TIMER_COOLDOWN_START(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME, same_path_cooldown)
+

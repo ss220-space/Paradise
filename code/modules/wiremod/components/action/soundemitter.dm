@@ -34,7 +34,6 @@
 
 	var/list/options_map
 
-
 /obj/item/circuit_component/soundemitter/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Перезарядка звука: [DisplayTimeText(sound_emitter_cooldown)]", "orange", "stopwatch")
@@ -84,8 +83,8 @@
 	if(!sound_to_play)
 		return
 
-	var/actual_frequency = 1 + (frequency.value/100)
-	var/actual_volume = max_volume * (volume.value/100)
+	var/actual_frequency = 1 + (frequency.value / 100)
+	var/actual_volume = max_volume * (volume.value / 100)
 
 	if(backwards.value)
 		actual_frequency = -actual_frequency

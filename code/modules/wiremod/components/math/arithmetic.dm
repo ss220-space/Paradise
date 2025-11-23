@@ -2,9 +2,10 @@
 #define COMP_ARITHMETIC_SUBTRACT "Вычитание"
 #define COMP_ARITHMETIC_MULTIPLY "Умножение"
 #define COMP_ARITHMETIC_DIVIDE "Деление"
-#define COMP_ARITHMETIC_MODULO "Модуль"
+#define COMP_ARITHMETIC_MODULO "Деление по модулю"
 #define COMP_ARITHMETIC_MIN "Минимум"
 #define COMP_ARITHMETIC_MAX "Максимум"
+#define COMP_ARITHMETIC_EXPONENTIATION "Возведение в степень"
 
 /**
  * # Arithmetic Component
@@ -38,6 +39,7 @@
 		COMP_ARITHMETIC_MODULO,
 		COMP_ARITHMETIC_MIN,
 		COMP_ARITHMETIC_MAX,
+		COMP_ARITHMETIC_EXPONENTIATION,
 	)
 	arithmetic_option = add_option_port("Параметр", component_options)
 
@@ -54,7 +56,6 @@
 	output = add_output_port("Результат", PORT_TYPE_NUMBER, order = 1.1)
 
 /obj/item/circuit_component/arithmetic/input_received(datum/port/input/port)
-
 	var/list/ports = arithmetic_ports.Copy()
 	var/datum/port/input/first_port = popleft(ports)
 	var/result = first_port.value
@@ -83,6 +84,8 @@
 				result = max(result, value)
 			if(COMP_ARITHMETIC_MIN)
 				result = min(result, value)
+			if(COMP_ARITHMETIC_EXPONENTIATION)
+				result = result ** value
 
 	output.set_output(result)
 
@@ -93,3 +96,4 @@
 #undef COMP_ARITHMETIC_MODULO
 #undef COMP_ARITHMETIC_MIN
 #undef COMP_ARITHMETIC_MAX
+#undef COMP_ARITHMETIC_EXPONENTIATION

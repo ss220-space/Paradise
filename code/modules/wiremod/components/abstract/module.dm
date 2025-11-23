@@ -62,9 +62,13 @@
 	if(to_add.circuit_flags & CIRCUIT_FLAG_REFUSE_MODULE)
 		balloon_alert(user, "не подходит для модуля!")
 		return
+
 	. = ..()
-	if(attached_module)
-		attached_module.circuit_size += to_add.circuit_size
+
+	if(!attached_module)
+		return
+
+	attached_module.circuit_size += to_add.circuit_size
 
 /obj/item/integrated_circuit/module/remove_component(obj/item/circuit_component/to_remove)
 	if(attached_module)
@@ -240,11 +244,11 @@
 	. = list()
 	.["global_port_types"] = GLOB.wiremod_basic_types
 
-/obj/item/circuit_component/module/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/circuit_component))
-		internal_circuit.attackby(I, user, params)
-		return
-	return ..()
+/obj/item/circuit_component/module/attackby(obj/item/tool, mob/living/user, params)
+	if(!is_circuit_component(tool))
+		return ..()
+	internal_circuit.attackby(tool, user, params)
+	return
 
 #define WITHIN_RANGE(id, table) (id >= 1 && id <= length(table))
 
@@ -309,15 +313,19 @@
 				var/type = params["port_type"]
 				if(!(type in GLOB.wiremod_basic_types))
 					return
+
 				component_port.set_datatype(type)
 				internal_component_port.set_datatype(type)
-			else
-				var/port_name = params["port_name"]
-				if(!port_name)
-					return
-				port_name = strip_html(port_name, PORT_MAX_NAME_LENGTH)
-				component_port.name = port_name
-				internal_component_port.name = port_name
+				return
+
+			var/port_name = params["port_name"]
+
+			if(!port_name)
+				return
+
+			port_name = strip_html(port_name, PORT_MAX_NAME_LENGTH)
+			component_port.name = port_name
+			internal_component_port.name = port_name
 			. = TRUE
 
 	if(.)
@@ -330,7 +338,10 @@
 
 /obj/item/circuit_component/module/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "CircuitModule", capitalize(declent_ru(NOMINATIVE)))
-		ui.open()
-		ui.set_autoupdate(FALSE)
+	if(ui)
+		return
+
+	ui = new(user, src, "CircuitModule", capitalize(declent_ru(NOMINATIVE)))
+	ui.open()
+	ui.set_autoupdate(FALSE)
+

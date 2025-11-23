@@ -32,7 +32,6 @@
 	on_error = add_output_port("Провал", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/pinpointer/input_received(datum/port/input/port)
-
 	if(isnull(target.value))
 		x_pos.set_output(null)
 		y_pos.set_output(null)
@@ -44,15 +43,14 @@
 
 	if(is_in_sight(target_entity, get_location()) && IN_GIVEN_RANGE(get_location(), target_entity, max_range))
 		var/turf/location = get_turf(target_entity)
-
 		x_pos.set_output(location?.x)
 		y_pos.set_output(location?.y)
 		z_pos.set_output(location?.z)
-	else
-		x_pos.set_output(null)
-		y_pos.set_output(null)
-		z_pos.set_output(null)
-		on_error.set_output(COMPONENT_SIGNAL)
 		return TRUE
 
+	x_pos.set_output(null)
+	y_pos.set_output(null)
+	z_pos.set_output(null)
+	on_error.set_output(COMPONENT_SIGNAL)
+	return TRUE
 

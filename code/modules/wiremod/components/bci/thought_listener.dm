@@ -32,8 +32,10 @@
 	failure = add_output_port("Провал", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/thought_listener/register_shell(atom/movable/shell)
-	if(istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
-		bci = shell
+	if(!is_bci(shell))
+		return
+
+	bci = shell
 
 /obj/item/circuit_component/thought_listener/unregister_shell(atom/movable/shell)
 	bci = null

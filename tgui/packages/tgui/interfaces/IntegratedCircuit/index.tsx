@@ -140,7 +140,6 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
   // mouse up called whilst over a port. This means we can check if selectedPort
   // exists and do perform some actions if it does.
   handlePortUp(portIndex, componentId, port, isOutput, event) {
-    // Вот этот пидорас срёт
     const { act, data: uiData } = useBackend<IntegratedCircuitData>();
     const { selectedPort } = this.state;
     if (!selectedPort) {

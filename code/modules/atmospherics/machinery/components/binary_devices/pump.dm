@@ -35,11 +35,14 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
+
 	if(!in_range(src, user) && !issilicon(user))
 		return
+
 	toggle()
 
 /obj/machinery/atmospherics/binary/pump/AICtrlClick()
@@ -55,13 +58,16 @@ Thus, the two variables affect pump operation are set in New():
 	return ..()
 
 /obj/machinery/atmospherics/binary/pump/proc/set_max()
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
+	if(!powered())
+		return
+
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
 
 /obj/machinery/atmospherics/binary/pump/Destroy()
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
+
 	radio_connection = null
 	return ..()
 
@@ -78,13 +84,16 @@ Thus, the two variables affect pump operation are set in New():
 		icon_state = "[on ? "on" : "off"]"
 
 /obj/machinery/atmospherics/binary/pump/update_underlays()
-	if(..())
-		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
-			return
-		add_underlay(T, node1, turn(dir, -180))
-		add_underlay(T, node2, dir)
+	if(!..())
+		return
+
+	underlays.Cut()
+	var/turf/T = get_turf(src)
+	if(!istype(T))
+		return
+
+	add_underlay(T, node1, turn(dir, -180))
+	add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/pump/process_atmos()
 	..()
@@ -98,17 +107,19 @@ Thus, the two variables affect pump operation are set in New():
 		return 1
 
 	//Calculate necessary moles to transfer using PV=nRT
-	if((air1.total_moles() > 0) && (air1.temperature>0))
-		var/pressure_delta = target_pressure - output_starting_pressure
-		var/transfer_moles = pressure_delta*air2.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+	if(!(air1.total_moles() > 0) || !(air1.temperature > 0))
+		return 1
 
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
-		air2.merge(removed)
+	var/pressure_delta = target_pressure - output_starting_pressure
+	var/transfer_moles = pressure_delta*air2.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
 
-		parent1.update = 1
+	//Actually transfer the gas
+	var/datum/gas_mixture/removed = air1.remove(transfer_moles)
+	air2.merge(removed)
 
-		parent2.update = 1
+	parent1.update = 1
+	parent2.update = 1
+
 	return 1
 
 /obj/machinery/atmospherics/binary/pump/proc/broadcast_status()
@@ -132,8 +143,10 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/pump/atmos_init()
 	..()
-	if(frequency)
-		set_frequency(frequency)
+	if(!frequency)
+		return
+
+	set_frequency(frequency)
 
 /obj/machinery/atmospherics/binary/pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
@@ -183,9 +196,11 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "AtmosPump", name)
-		ui.open()
+	if(ui)
+		return
+
+	ui = new(user, src, "AtmosPump", name)
+	ui.open()
 
 /obj/machinery/atmospherics/binary/pump/ui_data(mob/user)
 	var/list/data = list(
@@ -285,9 +300,11 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/item/circuit_component/atmos_pump/register_usb_parent(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/machinery/atmospherics/binary/pump))
-		connected_pump = shell
-		RegisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON, PROC_REF(handle_pump_activation))
+	if(!istype(shell, /obj/machinery/atmospherics/binary/pump))
+		return
+
+	connected_pump = shell
+	RegisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON, PROC_REF(handle_pump_activation))
 
 /obj/item/circuit_component/atmos_pump/unregister_usb_parent(atom/movable/shell)
 	UnregisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON)
@@ -300,21 +317,25 @@ Thus, the two variables affect pump operation are set in New():
 /obj/item/circuit_component/atmos_pump/proc/handle_pump_activation(datum/source, active)
 	SIGNAL_HANDLER
 	is_active.set_output(active)
+
 	if(active)
 		turned_on.set_output(COMPONENT_SIGNAL)
-	else
-		turned_off.set_output(COMPONENT_SIGNAL)
+		return
+
+	turned_off.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/atmos_pump/proc/set_pump_pressure()
 	CIRCUIT_TRIGGER
 	if(!connected_pump)
 		return
+
 	connected_pump.target_pressure = pressure_value.value
 
 /obj/item/circuit_component/atmos_pump/proc/set_pump_on()
 	CIRCUIT_TRIGGER
 	if(!connected_pump || connected_pump.on)
 		return
+
 	connected_pump.toggle()
 	connected_pump.update_appearance()
 
@@ -322,6 +343,7 @@ Thus, the two variables affect pump operation are set in New():
 	CIRCUIT_TRIGGER
 	if(!connected_pump || !connected_pump.on)
 		return
+
 	connected_pump.toggle()
 	connected_pump.update_appearance()
 
@@ -329,9 +351,12 @@ Thus, the two variables affect pump operation are set in New():
 	CIRCUIT_TRIGGER
 	if(!connected_pump)
 		return
+
 	var/datum/gas_mixture/air_input = connected_pump.air1
 	var/datum/gas_mixture/air_output = connected_pump.air2
+
 	input_pressure.set_output(air_input.return_pressure())
 	output_pressure.set_output(air_output.return_pressure())
 	input_temperature.set_output(air_input.return_temperature())
 	output_temperature.set_output(air_output.return_temperature())
+

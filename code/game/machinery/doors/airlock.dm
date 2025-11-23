@@ -1331,7 +1331,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		playsound(loc, 'sound/machines/airlockforced.ogg', 30, TRUE)
 	else
 		playsound(loc, doorOpen, 30, TRUE)
-	if(istype(closeOther, /obj/machinery/door/airlock) && !closeOther.density)
+	if(is_airlock(closeOther) && !closeOther.density)
 		closeOther.close()
 
 	if(autoclose)
@@ -1420,6 +1420,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/set_bolt(should_bolt)
 	if(locked == should_bolt)
 		return
+
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET_BOLT, should_bolt)
 	. = locked
 	locked = should_bolt

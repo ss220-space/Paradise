@@ -83,8 +83,10 @@
 
 /obj/item/circuit_component/medical_console_data/register_usb_parent(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/machinery/computer/crew))
-		attached_console = shell
+	if(!istype(shell, /obj/machinery/computer/crew))
+		return
+
+	attached_console = shell
 
 /obj/item/circuit_component/medical_console_data/unregister_usb_parent(atom/movable/shell)
 	attached_console = null
@@ -109,10 +111,10 @@
 	if(!attached_console || !GLOB.crew_repository)
 		return
 
-	var/turf/T = get_turf(attached_console)
+	var/turf/console_turf = get_turf(attached_console)
 
 	var/list/new_table = list()
-	for(var/list/player_record as anything in GLOB.crew_repository.health_data(T))
+	for(var/list/player_record as anything in GLOB.crew_repository.health_data(console_turf))
 		var/list/entry = list()
 		entry[RU_NAME] = player_record["name"]
 		entry[RU_ASSIGNMENT] = player_record["assignment"]

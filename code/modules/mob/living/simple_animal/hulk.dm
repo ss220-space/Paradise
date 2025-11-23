@@ -188,7 +188,7 @@
 /mob/living/simple_animal/hulk/proc/attack_hulk(obj/machinery/door/D)
 	do_attack_animation(D)
 	changeNext_move(CLICK_CD_MELEE)
-	if(istype(D,/obj/machinery/door/airlock))
+	if(is_airlock(D))
 		var/obj/machinery/door/airlock/A = D
 		if(A.welded || A.locked)
 			if(hulk_scream(A, 75))

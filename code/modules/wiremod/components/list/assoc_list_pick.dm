@@ -15,15 +15,18 @@
 	input_list = add_input_port("Список", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY))
 
 /obj/item/circuit_component/list_pick/assoc/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_type = list_options.value
-		input_list.set_datatype(PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, new_type))
-		output.set_datatype(new_type)
+	if(port != list_options)
+		return
+
+	var/new_type = list_options.value
+	input_list.set_datatype(PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, new_type))
+	output.set_datatype(new_type)
 
 /obj/item/circuit_component/list_pick/assoc/choose_item(choice, list/choice_list)
 	if(choice_list[choice])
 		output.set_output(choice_list[choice])
 		success.set_output(COMPONENT_SIGNAL)
-	else
-		failure.set_output(COMPONENT_SIGNAL)
+		return
+
+	failure.set_output(COMPONENT_SIGNAL)
 

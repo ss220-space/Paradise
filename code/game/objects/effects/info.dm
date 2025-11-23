@@ -9,8 +9,10 @@
 /obj/effect/info/Initialize(mapload, info_text)
 	. = ..()
 
-	if(!isnull(info_text))
-		src.info_text = info_text
+	if(isnull(info_text))
+		return
+
+	src.info_text = info_text
 
 /obj/effect/info/Click()
 	. = ..()

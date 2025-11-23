@@ -22,10 +22,9 @@
 	output = add_output_port("Раса", PORT_TYPE_STRING)
 
 /obj/item/circuit_component/species/input_received(datum/port/input/port)
-
 	var/mob/living/carbon/human/human = input_port.value
 	if(!istype(human) || HAS_TRAIT(human, TRAIT_NO_DNA))
-		output.set_output(null)
+		output.set_output("нет ДНК")
 		return
 
 	output.set_output(human.dna.species.name)

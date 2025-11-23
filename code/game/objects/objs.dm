@@ -208,6 +208,7 @@
 	return
 
 /obj/proc/hear_talk(mob/speaker, list/message_pieces)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
 	return
 

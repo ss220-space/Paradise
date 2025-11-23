@@ -29,7 +29,9 @@
 	if(TIMER_COOLDOWN_RUNNING(parent.shell, COOLDOWN_CIRCUIT_SPEECH))
 		return
 
-	if(message.value)
-		var/atom/movable/shell = parent.shell
-		shell.atom_say(message.value)
-		TIMER_COOLDOWN_START(shell, COOLDOWN_CIRCUIT_SPEECH, speech_cooldown)
+	if(!message.value)
+		return
+
+	var/atom/movable/shell = parent.shell
+	shell.atom_say(message.value)
+	TIMER_COOLDOWN_START(shell, COOLDOWN_CIRCUIT_SPEECH, speech_cooldown)

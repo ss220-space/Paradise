@@ -41,11 +41,13 @@
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/filter_list/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_datatype = list_options.value
-		list_to_filter.set_datatype(PORT_TYPE_LIST(new_datatype))
-		finished_list.set_datatype(PORT_TYPE_LIST(new_datatype))
-		element.set_datatype(new_datatype)
+	if(port != list_options)
+		return
+
+	var/new_datatype = list_options.value
+	list_to_filter.set_datatype(PORT_TYPE_LIST(new_datatype))
+	finished_list.set_datatype(PORT_TYPE_LIST(new_datatype))
+	element.set_datatype(new_datatype)
 
 /obj/item/circuit_component/filter_list/populate_ports()
 	list_to_filter = add_input_port("Ввод", PORT_TYPE_LIST(PORT_TYPE_ANY))
@@ -60,8 +62,10 @@
 
 /obj/item/circuit_component/filter_list/proc/accept_entry_port(datum/port/input/port, list/return_values)
 	CIRCUIT_TRIGGER
-	if(return_values)
-		return_values["accept_entry"] = TRUE
+	if(!return_values)
+		return
+
+	return_values["accept_entry"] = TRUE
 
 /obj/item/circuit_component/filter_list/input_received(datum/port/input/port)
 	var/index = 1
@@ -69,17 +73,22 @@
 	for(var/element_in_list in list_to_filter.value)
 		if(index > limit && !parent.admin_only)
 			break
+
 		SScircuit_component.queue_instant_run()
 		element.set_output(element_in_list)
 		current_index.set_output(index)
 		on_next_index.set_output(COMPONENT_SIGNAL)
 		index += 1
 		var/list/result = SScircuit_component.execute_instant_run()
-		if(!result)
-			balloon_alert_to_viewers("начинает перегреваться!")
-			on_failed.set_output(COMPONENT_SIGNAL)
-			return
-		if(result["accept_entry"])
+		if(LAZYACCESS(result, "accept_entry"))
 			filtered_list += list(element_in_list)
+			continue
+
+		balloon_alert_to_viewers("начинает перегреваться!")
+		on_failed.set_output(COMPONENT_SIGNAL)
+		return
+
+
 	finished_list.set_output(filtered_list)
 	on_finished.set_output(COMPONENT_SIGNAL)
+

@@ -164,20 +164,22 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	SEND_SIGNAL(src, COMSIG_CIRCUIT_SET_LOCKED, new_value)
 	locked = new_value
 
-/obj/item/integrated_circuit/attackby(obj/item/I, mob/living/user, params)
+/obj/item/integrated_circuit/attackby(obj/item/tool, mob/living/user, params)
 	. = ..()
-	if(istype(I, /obj/item/circuit_component))
-		add_component_manually(I, user)
+	if(is_circuit_component(tool))
+		add_component_manually(tool, user)
 		return
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(tool))
 		if(cell)
 			balloon_alert(user, "уже установлено!")
 			return
-		if(!user.transfer_item_to_loc(I, src))
+
+		if(!user.transfer_item_to_loc(tool, src))
 			return
-		set_cell(I)
-		I.add_fingerprint(user)
+
+		set_cell(tool)
+		tool.add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] вставля[PLUR_ET_UT(user)] элемент питания в [declent_ru(ACCUSATIVE)]."),
 			ignored_mobs = user,
@@ -185,15 +187,16 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		balloon_alert(user, "элемент питания установлен")
 		return
 
-	if(is_id_card(I))
-		balloon_alert(user, "идентификатор пользователя установлен для [I.declent_ru(GENITIVE)]")
-		owner_id = WEAKREF(I)
+	if(is_id_card(tool))
+		balloon_alert(user, "идентификатор пользователя установлен для [tool.declent_ru(GENITIVE)]")
+		owner_id = WEAKREF(tool)
 		return
 
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+	if(tool.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!cell)
 			return
-		I.play_tool_sound(src)
+
+		tool.play_tool_sound(src)
 		user.visible_message(
 			span_notice("[user] откручива[PLUR_ET_UT(user)] элемент питания от [declent_ru(GENITIVE)]."),
 			ignored_mobs = user,

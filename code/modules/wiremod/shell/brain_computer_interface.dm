@@ -259,7 +259,7 @@
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/Trigger(left_click = TRUE)
+/datum/action/innate/bci_charge_action/Trigger(left_click = TRUE, trigger_flags)
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if(isnull(cell))
@@ -326,7 +326,7 @@
 /obj/machinery/bci_implanter/on_deconstruction(disassembled)
 	drop_stored_bci()
 
-/obj/machinery/bci_implanter/Destroy()
+/obj/machinery/bci_implanter/Destroy(force)
 	go_out(force = TRUE)
 	qdel(bci_to_implant)
 	return ..()
