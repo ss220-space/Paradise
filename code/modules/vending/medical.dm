@@ -103,6 +103,9 @@
 		PREPOSITIONAL = "торговом автомате NanoMed Plus",
 	)
 
+/obj/machinery/vending/medical/free
+	prices = list()
+
 /obj/machinery/vending/medical/syndicate_access
 	name = "SyndiMed Plus"
 	icon_state = "syndi-big-med_off"
@@ -216,6 +219,9 @@
 		INSTRUMENTAL = "торговым автоматом NanoMed",
 		PREPOSITIONAL = "торговом автомате NanoMed",
 	)
+
+/obj/machinery/vending/wallmed/free
+	prices = list()
 
 /obj/machinery/vending/wallmed/syndicate
 	name = "SyndiWallMed"

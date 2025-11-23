@@ -17,6 +17,10 @@
 	. = ..()
 	QDEL_NULL(action)
 
+/obj/item/implant/adrenalin/implant(mob/living/carbon/human/source, mob/user, force)
+	add_item_action(action)
+	. = ..()
+
 /obj/item/implant/adrenalin/create_new_cooldown()
 	var/datum/implant_cooldown/charges/C = new
 	C.max_charges = 2

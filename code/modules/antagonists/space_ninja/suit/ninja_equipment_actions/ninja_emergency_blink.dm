@@ -3,9 +3,7 @@
 	desc = "Teleports user to a random nearby location. Consumes a big amount of energy. Use wisely. Energy cost: 1500"
 	check_flags = NONE
 	charge_max = 3 SECONDS
-	use_itemicon = FALSE
 	button_icon_state = "emergency_blink"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Void-Shift - Emergency Blink System"

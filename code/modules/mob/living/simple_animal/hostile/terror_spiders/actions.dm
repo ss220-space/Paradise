@@ -4,7 +4,7 @@
 
 /datum/action/innate/terrorspider/web
 	name = "Паутина"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "stickyweb1"
 
 /datum/action/innate/terrorspider/web/Activate()
@@ -13,7 +13,7 @@
 
 /datum/action/innate/terrorspider/wrap
 	name = "Завернуть"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon_large1"
 
 /datum/action/innate/terrorspider/wrap/Activate()
@@ -25,7 +25,7 @@
 
 /datum/action/innate/terrorspider/greeneggs
 	name = "Отложить зелёные яйца"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 
 /datum/action/innate/terrorspider/greeneggs/Activate()
@@ -35,7 +35,7 @@
 // ---------- KNIGHT ACTIONS
 /datum/action/innate/terrorspider/knight/defaultm
 	name = "Default"
-	icon_icon = 'icons/mob/terrorspider.dmi'
+	button_icon = 'icons/mob/terrorspider.dmi'
 	button_icon_state = "terror_princess1"
 
 /datum/action/innate/terrorspider/knight/defaultm/Activate()
@@ -62,7 +62,7 @@
 
 /datum/action/innate/terrorspider/ventsmash
 	name = "Сломать вентиляцию"
-	icon_icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
+	button_icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
 /datum/action/innate/terrorspider/ventsmash/Activate()
@@ -71,7 +71,7 @@
 
 /datum/action/innate/terrorspider/remoteview
 	name = "Удалённое зрение"
-	icon_icon = 'icons/obj/eyes.dmi'
+	button_icon = 'icons/obj/eyes.dmi'
 	button_icon_state = "heye"
 
 /datum/action/innate/terrorspider/remoteview/Activate()
@@ -82,7 +82,7 @@
 
 /datum/action/innate/terrorspider/queen/queennest
 	name = "Гнездо"
-	icon_icon = 'icons/mob/terrorspider.dmi'
+	button_icon = 'icons/mob/terrorspider.dmi'
 	button_icon_state = "terror_queen"
 
 /datum/action/innate/terrorspider/queen/queennest/Activate()
@@ -99,7 +99,7 @@
 
 /datum/action/innate/terrorspider/queen/queeneggs
 	name = "Отложить королевские яйца"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 
 /datum/action/innate/terrorspider/queen/queeneggs/Activate()
@@ -110,7 +110,7 @@
 
 /datum/action/innate/terrorspider/queen/empress/empresserase
 	name = "Уничтожить выводок"
-	icon_icon = 'icons/effects/blood.dmi'
+	button_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "mgibbl1"
 
 /datum/action/innate/terrorspider/queen/empress/empresserase/Activate()
@@ -119,7 +119,7 @@
 
 /datum/action/innate/terrorspider/queen/empress/empresslings
 	name = "Паучки императрицы"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "spiderling"
 
 /datum/action/innate/terrorspider/queen/empress/empresslings/Activate()

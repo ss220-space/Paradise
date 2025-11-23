@@ -118,9 +118,9 @@
 		/obj/item/gun/energy/xray,
 		list(
 			/obj/item/gun/energy/specter,
-			/obj/item/stock_parts/cell/specter,
-			/obj/item/stock_parts/cell/specter,
-			/obj/item/stock_parts/cell/specter,
+			/obj/item/weapon_cell/specter,
+			/obj/item/weapon_cell/specter,
+			/obj/item/weapon_cell/specter,
 		),
 		list(
 			/obj/item/gun/projectile/revolver/ga12,
@@ -129,7 +129,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/ppsh,
+			/obj/item/gun/projectile/automatic/ppsh/rusted,
 			/obj/item/ammo_box/magazine/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 		),
@@ -303,7 +303,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/aksu,
+			/obj/item/gun/projectile/automatic/aksu/rusted,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
@@ -738,7 +738,7 @@
 			/obj/item/ammo_box/shotgun/improvised,
 		),
 		CALIBER_SPECTER = list(
-			/obj/item/stock_parts/cell/specter,
+			/obj/item/weapon_cell/specter,
 		),
 		CALIBER_5_DOT_56X45MM = list(
 			/obj/item/ammo_box/a556,

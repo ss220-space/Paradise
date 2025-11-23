@@ -145,4 +145,4 @@
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 
 	implants = list(/obj/item/implant/mindshield)
-	box = /obj/item/storage/box/survival_security/warden
+	box = /obj/item/storage/box/survival/survival_security/warden

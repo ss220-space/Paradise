@@ -9,7 +9,7 @@
 	. = ..()
 	morph_human(user, FALSE)
 
-/obj/item/changestone/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/changestone/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(Adjacent(usr))
 		return attack_hand(usr)
 	return ..()

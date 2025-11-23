@@ -9,7 +9,7 @@
 	var/small_icon_state = "carp"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/small_sprite_dragon/Trigger(left_click = TRUE)
+/datum/action/innate/small_sprite_dragon/Trigger(mob/clicker, trigger_flags)
 	..()
 	if(owner.stat == DEAD)
 		return
@@ -45,7 +45,7 @@
 		return
 	space_dragon = null
 
-/datum/action/innate/space_dragon_gust/Trigger(left_click = TRUE)
+/datum/action/innate/space_dragon_gust/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(space_dragon?.stat == DEAD)
 		return

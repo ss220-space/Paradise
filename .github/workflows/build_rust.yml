@@ -47,7 +47,7 @@ jobs:
         echo "base_repo=$(echo "$PR_JSON" | jq -r '.base.repo.full_name')" >> $GITHUB_OUTPUT
 
     - name: Checkout PR branch
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: ${{ env.PR_REPO }}
         ref:          ${{ env.PR_BRANCH }}

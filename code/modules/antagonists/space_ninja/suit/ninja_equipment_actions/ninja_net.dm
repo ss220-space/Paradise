@@ -3,9 +3,7 @@
 	desc = "Captures an opponent in a net of energy. Energy cost: 4000"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
 	button_icon_state = "energynet"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Pure Energy Net Generator"
