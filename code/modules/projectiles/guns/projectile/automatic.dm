@@ -189,6 +189,11 @@
 		PREPOSITIONAL = "пистолет-пулемете C-20r (ржавый)",
 	)
 
+/obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
+
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
 	name = "WT-550 PDW"
@@ -382,6 +387,11 @@ TODO Use this name and desc for localisation*/
 /obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
 	. = ..()
 	QDEL_NULL(underbarrel.chambered)
+
+/obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //Tommy Gun//
 /obj/item/gun/projectile/automatic/tommygun
