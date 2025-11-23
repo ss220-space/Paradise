@@ -152,6 +152,38 @@
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
+
+//Security revolver
+/obj/item/gun/projectile/revolver/taurus
+	name = "Taurus revolver"
+	desc = "Револьвер под калибр .45 Colt, используемый силовыми структурами \"Нанотрейзен\". \
+			Отличается простотой конструкции, высокой надёжностью и минимальным количеством движущихся частей. Произведён \"Оружейной Ауссек\"."
+	icon_state = "taurus"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/taurus
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+	)
+
+/obj/item/gun/projectile/revolver/taurus/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/gun/projectile/revolver/taurus/get_ru_names()
+	return list(
+		NOMINATIVE = "револьвер \"Таурус\"",
+		GENITIVE = "револьвера \"Таурус\"",
+		DATIVE = "револьверу \"Таурус\"",
+		ACCUSATIVE = "револьверу \"Таурус\"",
+		INSTRUMENTAL = "револьвером \"Таурус\"",
+		PREPOSITIONAL = "револьвере \"Таурус\"",
+	)
+
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "finger gun"
 	desc = "Bang bang bang!"

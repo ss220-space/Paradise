@@ -453,6 +453,78 @@
 		PREPOSITIONAL = "коробке патронов (нелетальный 9 мм)",
 	)
 
+/obj/item/ammo_box/c45colt
+	name = "ammo box (.45 Colt)"
+	desc = "Коробка, содержащая патроны калибра .45 Colt."
+	icon_state = "box_c45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt
+	max_ammo = 30
+
+/obj/item/ammo_box/c45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (.45 Colt)",
+		GENITIVE = "коробки патронов (.45 Colt)",
+		DATIVE = "коробке патронов (.45 Colt)",
+		ACCUSATIVE = "коробку патронов (.45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (.45 Colt)",
+		PREPOSITIONAL = "коробке патронов (.45 Colt)",
+	)
+
+/obj/item/ammo_box/rubber45colt
+	name = "ammo box (rubber .45 Colt)"
+	desc = "Коробка, содержащая резиновые патроны калибра .45 Colt."
+	icon_state = "box_rubber45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	max_ammo = 30
+
+/obj/item/ammo_box/rubber45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (нелетальный .45 Colt)",
+		GENITIVE = "коробки патронов (нелетальный .45 Colt)",
+		DATIVE = "коробке патронов (нелетальный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (нелетальный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (нелетальный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (нелетальный .45 Colt)",
+	)
+
+/obj/item/ammo_box/expansive45colt
+	name = "ammo box (expansive .45 Colt)"
+	desc = "Коробка, содержащая экспансивные патроны калибра .45 Colt."
+	icon_state = "box_hp45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt/hp
+	max_ammo = 30
+
+/obj/item/ammo_box/expansive45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (экспансивный .45 Colt)",
+		GENITIVE = "коробки патронов (экспансивный .45 Colt)",
+		DATIVE = "коробке патронов (экспансивный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (экспансивный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (экспансивный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (экспансивный .45 Colt)",
+	)
+
+/obj/item/ammo_box/ap45colt
+	name = "ammo box (armor piercing .45 Colt)"
+	desc = "Коробка, содержащая бронебойные патроны калибра .45 Colt."
+	icon_state = "box_ap45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt/ap
+	max_ammo = 30
+
+/obj/item/ammo_box/ap45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (бронебойный .45 Colt)",
+		GENITIVE = "коробки патронов (бронебойный .45 Colt)",
+		DATIVE = "коробке патронов (бронебойный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (бронебойный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (бронебойный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (бронебойный .45 Colt)",
+	)
+
 /obj/item/ammo_box/c10mm
 	name = "ammo box (10mm)"
 	desc = "Коробка, содержащая патроны калибра 10 мм."
@@ -1043,6 +1115,31 @@
 		ACCUSATIVE = "устройство быстрой зарядки (экспансивные .38)",
 		INSTRUMENTAL = "устройством быстрой зарядки (экспансивные .38)",
 		PREPOSITIONAL = "устройстве быстрой зарядки (экспансивные .38)",
+	)
+
+/obj/item/ammo_box/speedloader/rubber45colt
+	name = "speed loader (.45 Colt)"
+	desc = "Устройство для быстрой перезарядки револьверов патронами калибра .45 Colt."
+	icon_state = "38"
+	materials = list(MAT_METAL = 2000)
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	max_ammo = 6
+	caliber = CALIBER_DOT_45_COLT
+	icon_state = "speedloader45colt-6"
+	multiple_sprites = 1
+	icon_prefix = "speedloader45colt"
+
+/obj/item/ammo_box/speedloader/rubber45colt/empty
+	start_empty = TRUE
+
+/obj/item/ammo_box/speedloader/rubber45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "ускоритель заряжания (.45 Colt)",
+		GENITIVE = "ускорителя заряжания (.45 Colt)",
+		DATIVE = "ускорителю заряжания (.45 Colt)",
+		ACCUSATIVE = "ускоритель заряжания (.45 Colt)",
+		INSTRUMENTAL = "ускорителем заряжания (.45 Colt)",
+		PREPOSITIONAL = "ускорителе заряжания (.45 Colt)",
 	)
 
 /obj/item/ammo_box/nagant

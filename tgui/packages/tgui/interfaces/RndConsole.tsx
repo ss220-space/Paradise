@@ -41,7 +41,7 @@ export const RndConsole = (_properties) => {
   const { wait_message } = data;
 
   return (
-    <Window width={800} height={550} theme={data.ui_theme}>
+    <Window width={1000} height={555} theme={data.ui_theme}>
       <Window.Content scrollable>
         <Box className="RndConsole">
           <RndNavbar />
