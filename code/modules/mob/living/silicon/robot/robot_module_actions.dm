@@ -1,7 +1,7 @@
 /datum/action/innate/robot_sight
 	var/sight_mode = null
 
-	icon_icon = 'icons/obj/decals.dmi'
+	button_icon = 'icons/obj/decals.dmi'
 	button_icon_state = "securearea"
 
 /datum/action/innate/robot_sight/Activate()
@@ -27,23 +27,23 @@
 /datum/action/innate/robot_sight/thermal
 	name = "Термальное зрение"
 	sight_mode = SILICONTHERM
-	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "thermal"
 
 // ayylmao
 /datum/action/innate/robot_sight/thermal/alien
-	icon_icon = 'icons/mob/alien.dmi'
+	button_icon = 'icons/mob/alien.dmi'
 	button_icon_state = "borg-extra-vision"
 
 /datum/action/innate/robot_sight/meson
 	name = "Мезонное зрение"
 	sight_mode = SILICONMESON
-	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "meson"
 
 /datum/action/innate/robot_sight_hydro
 	name = "Гидропоническое зрение"
-	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "hydroponichud"
 
 /datum/action/innate/robot_sight_hydro/Activate()

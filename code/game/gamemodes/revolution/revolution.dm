@@ -32,9 +32,6 @@
 	button_icon_state = "genetic_mindscan"
 	background_icon_state = "bg_vampire_old"
 
-/datum/action/innate/revolution_recruitment/IsAvailable()
-	return ..()
-
 /datum/action/innate/revolution_recruitment/proc/choose_targets(mob/user = usr)
 	var/list/validtargets = list()
 	for(var/mob/living/carbon/human/M in view(user.client.view, get_turf(user)))

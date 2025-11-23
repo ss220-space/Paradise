@@ -37,21 +37,18 @@
 
 	return standard_outfit_options
 
-/datum/action/chameleon_outfit/Trigger(left_click = TRUE)
+/datum/action/chameleon_outfit/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!. || currently_in_use || usr != owner)
 		return .
-
 	currently_in_use = TRUE
-
-	if(left_click)
-		. = select_outfit(usr)
-	else
+	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		. = save_current_outfit(usr)
-
+	else
+		. = select_outfit(usr)
 	currently_in_use = FALSE
 
-/datum/action/chameleon_outfit/AltTrigger()
+/datum/action/chameleon_outfit/AltTrigger(mob/clicker, trigger_flags)
 	if(currently_in_use || !IsAvailable() || usr != owner)
 		return FALSE
 
@@ -333,7 +330,7 @@
 		item_target.onmob_sheets = dummy.onmob_sheets
 		qdel(dummy)
 
-/datum/action/item_action/chameleon/change/Trigger(left_click = TRUE)
+/datum/action/item_action/chameleon/change/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return FALSE
 
