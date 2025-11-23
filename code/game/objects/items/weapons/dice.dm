@@ -346,7 +346,7 @@
 			Butcher(user)
 		if(3)
 			//Swarm of creatures
-			Greetings_From_Hell(user)
+			mob_swarm(user)
 		if(4)
 			//Destroy Equipment
 			T.visible_message(span_userdanger("Все вещи [user] внезапно исчезли!"))
@@ -513,14 +513,28 @@
 		span_userdanger("Вы слышите звук вываливающихся органов.")
 	)
 
-/obj/item/dice/d20/fate/proc/Greetings_From_Hell(mob/living/carbon/human/greeted)
+/obj/item/dice/d20/fate/proc/mob_swarm(mob/living/carbon/human/swarmed)
 	src.visible_message(span_userdanger("На месте кубика появился портал, из которого выходят адские отродья!"))
-	new /mob/living/simple_animal/hostile/hellhound/tear(pick(range(3, greeted)))
-	new /mob/living/simple_animal/hostile/hellhound/tear(pick(range(3, greeted)))
-	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
-	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
-	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
-	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
-	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
-	greeted.Weaken(2 SECONDS)
+	var/spawned_hounds = 0
+	var/spawned_t_hounds = 0
+	var/list/spawned_turfs = list()
+	var/list/turfs_around = list()
+	var/turf/turf_to_spawn
+
+	for(var/turf/turf_around in range(3, swarmed))
+		LAZYADD(turfs_around, turf_around)
+
+	while(spawned_hounds < 5 || spawned_t_hounds < 2)
+		turf_to_spawn = pick(turfs_around)
+		if(turf_to_spawn in spawned_turfs)
+			continue
+		LAZYADD(spawned_turfs, turf_to_spawn)
+		if(spawned_t_hounds < 2)
+			new /mob/living/simple_animal/hostile/hellhound/tear(turf_to_spawn)
+			spawned_t_hounds++
+			continue
+		new /mob/living/simple_animal/hostile/hellhound(turf_to_spawn)
+		spawned_hounds++
+
+	swarmed.Weaken(2 SECONDS)
 
