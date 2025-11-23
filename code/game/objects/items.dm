@@ -262,12 +262,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 		if(damtype == "brute")
 			hitsound = "swing_hit"
-	for(var/path in actions_types)
-		if(action_icon && action_icon_state)
-			new path(src, action_icon[path], action_icon_state[path])
 
-		else
-			new path(src)
+	// Handle adding item associated actions
+	for(var/path in actions_types)
+		add_item_action(path)
+	actions_types = null
 
 	if(!move_resist)
 		determine_move_resist()
@@ -316,13 +315,59 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		remove_item_from_storage(get_turf(src))
 
-	//Reason behind why it's not QDEL_LIST: works badly with lazy removal in Destroy() of item_action
-	for(var/i in actions)
-		qdel(i)
+	// Handle cleaning up our actions list
+	for(var/datum/action/action as anything in actions)
+		remove_item_action(action)
 
 	QDEL_NULL(item_pixel_shift)
 
 	return ..()
+
+
+/// Called when an action associated with our item is deleted
+/obj/item/proc/on_action_deleted(datum/source)
+	SIGNAL_HANDLER
+
+	if(!(source in actions))
+		CRASH("An action ([source.type]) was deleted that was associated with an item ([src]), but was not found in the item's actions list.")
+
+	LAZYREMOVE(actions, source)
+
+/// Adds an item action to our list of item actions.
+/// Item actions are actions linked to our item, that are granted to mobs who equip us.
+/// This also ensures that the actions are properly tracked in the actions list and removed if they're deleted.
+/// Can be be passed a typepath of an action or an instance of an action.
+/obj/item/proc/add_item_action(action_or_action_type)
+
+	var/datum/action/action
+	if(ispath(action_or_action_type, /datum/action))
+		action = new action_or_action_type(src)
+	else if(istype(action_or_action_type, /datum/action))
+		action = action_or_action_type
+	else
+		CRASH("item add_item_action got a type or instance of something that wasn't an action.")
+
+	LAZYADD(actions, action)
+	RegisterSignal(action, COMSIG_QDELETING, PROC_REF(on_action_deleted))
+	grant_action_to_bearer(action)
+	return action
+
+/// Grant the action to anyone who has this item equipped to an appropriate slot
+/obj/item/proc/grant_action_to_bearer(datum/action/action)
+	if(!ismob(loc))
+		return
+	var/mob/holder = loc
+	give_item_action(action, holder, holder.get_slot_by_item(src))
+
+/// Removes an instance of an action from our list of item actions.
+/obj/item/proc/remove_item_action(datum/action/action)
+	if(!action)
+		return
+
+	UnregisterSignal(action, COMSIG_QDELETING)
+	LAZYREMOVE(actions, action)
+	qdel(action)
+
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -684,8 +729,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	SHOULD_CALL_PARENT(TRUE)
 
 	// Give out actions our item has to people who equip it.
-	for(var/datum/action/action_item_has as anything in actions)
-		give_item_action(slot, user, action_item_has)
+	for(var/datum/action/action as anything in actions)
+		give_item_action(action, user, slot)
 
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	item_flags |= IN_INVENTORY
@@ -711,15 +756,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return TRUE
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot
-/obj/item/proc/give_item_action(slot, mob/user, datum/action/action)
+/obj/item/proc/give_item_action(datum/action/action, mob/to_who, slot)
 	// Some items only give their actions buttons when in a specific slot.
-	if(!item_action_slot_check(slot, user, action) || SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_SLOT_CHECKED, slot, user, action) & COMPONENT_ITEM_ACTION_SLOT_INVALID)
+	if(!item_action_slot_check(slot, to_who, action) || SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_SLOT_CHECKED, to_who, action, slot) & COMPONENT_ITEM_ACTION_SLOT_INVALID)
 		// There is a chance we still have our item action currently,
 		// and are moving it from a "valid slot" to an "invalid slot".
 		// So call Remove() here regardless, even if excessive.
-		action.Remove(user)
+		action.Remove(to_who)
 		return
-	action.Grant(user)
+
+	action.Grant(to_who)
+
 
 /**
  * Some items only give their actions buttons when in a specific slot.

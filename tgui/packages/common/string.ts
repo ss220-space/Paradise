@@ -207,7 +207,6 @@ export const decodeHtmlEntities = (str: string): string => {
 
 /**
  * Accepts a number, returns one of the strings - for singular, dual, and plural numbers in Russian language.
- * Handles -es and -ies.
  * *
  * @example
  * ```tsx

@@ -517,16 +517,34 @@
 
 	var/datum/action/item_action/action
 	for(action in ninja.actions)
-		action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
-		action.background_icon_state = "background_[color_choice]"
 		if(istype(action, /datum/action/item_action/advanced/ninja))
+			action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
+			action.background_icon_state = "background_[color_choice]"
 			var/datum/action/item_action/advanced/ninja/ninja_action = action
 			ninja_action.recharge_text_color = color_choice
 			ninja_action.icon_state_active = "background_[color_choice]_active"
 			ninja_action.icon_state_disabled = "background_[color_choice]"
 		if((istype(action, /datum/action/item_action/advanced/ninja/ninjaboost) && a_boost == action) || (istype(action, /datum/action/item_action/advanced/ninja/ninjaheal) && heal_chems == action))
+			action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
 			action.background_icon_state = "background_[color_choice]_active"
 	ninja.update_action_buttons_icon()
+
+/obj/item/clothing/suit/space/space_ninja/proc/is_need_change_action_bg(action)
+	if(istype(action, /datum/action/item_action/advanced/ninja))
+		return TRUE
+	if(istype(action, /datum/action/item_action/ninjastatus))
+		return TRUE
+	if(istype(action, /datum/action/item_action/ninja_glasses_toggle))
+		return TRUE
+	if(istype(action, /datum/action/item_action/toggle_jetpack/ninja))
+		return TRUE
+	if(istype(action, /datum/action/item_action/jetpack_stabilization/ninja))
+		return TRUE
+	if(istype(action, /datum/action/item_action/set_internals_ninja))
+		return TRUE
+	if(istype(action, /datum/action/innate/dash/ninja))
+		return TRUE
+	return FALSE
 
 /**
  * Proc for changing the suit's appearance back to default state.

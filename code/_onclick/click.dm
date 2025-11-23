@@ -37,13 +37,12 @@
  * * [mob/proc/RangedAttack] (atom, modifiers) - used only ranged, only used for tk and laser eyes but could be changed
  */
 /mob/proc/ClickOn(atom/A, params)
-	if(client.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
-		return
-
 	if(next_click > world.time)
 		return
 	changeNext_click(1)
+
+	if(check_click_intercept(params,A) || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return
 
 	var/list/modifiers = params2list(params)
 
@@ -199,6 +198,81 @@
 		if(AM.flags & PREVENT_CLICK_UNDER && AM.density)
 			return TRUE
 	return FALSE
+
+
+/**
+ * A backwards depth-limited breadth-first-search to see if the target is
+ * logically "in" anything adjacent to us.
+ */
+/atom/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+	var/list/direct_access = DirectAccess()
+	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
+
+	var/list/closed = list()
+	var/list/checking = list(ultimate_target)
+
+	while(checking.len && depth > 0)
+		var/list/next = list()
+		--depth
+
+		for(var/atom/target in checking)  // will filter out nulls
+			if(closed[target] || isarea(target))  // avoid infinity situations
+				continue
+
+			if(isturf(target) || isturf(target.loc) || (target in direct_access) || (ismovable(target))) //Directly accessible atoms
+				if(Adjacent(target) || (tool && CheckToolReach(src, target, 1))) //Adjacent or reaching attacks
+					return TRUE
+
+			closed[target] = TRUE
+
+			if(!target.loc)
+				continue
+
+		checking = next
+
+	if(!(SEND_SIGNAL(src, COMSIG_ATOM_CANREACH, ultimate_target) & COMPONENT_BLOCK_REACH))
+		return TRUE
+
+	return FALSE
+
+/atom/proc/DirectAccess()
+	return list(src, loc)
+
+/mob/DirectAccess(atom/target)
+	return ..() + contents
+
+/mob/living/DirectAccess(atom/target)
+	return ..() + get_all_contents()
+
+/atom/proc/AllowClick()
+	return FALSE
+
+/turf/AllowClick()
+	return TRUE
+
+/proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
+	if(!here || !there)
+		return
+	var/turf/turf = get_turf(here)
+	if(turf.z != there.z)
+		return FALSE
+	switch(reach)
+		if(0)
+			return FALSE
+		if(1)
+			return FALSE //here.Adjacent(there)
+		if(2 to INFINITY)
+			var/obj/dummy = new(turf)
+			dummy.pass_flags |= PASSTABLE
+			for(var/i in 1 to reach) //Limit it to that many tries
+				var/turf/T = get_step(dummy, get_dir(dummy, there))
+				if(dummy.CanReach(there))
+					qdel(dummy)
+					return TRUE
+				if(!dummy.Move(T)) //we're blocked!
+					qdel(dummy)
+					return
+			qdel(dummy)
 
 // Default behavior: ignore double clicks, consider them normal clicks instead
 /mob/proc/DblClickOn(atom/A, params)
@@ -470,6 +544,20 @@
 			modifiers["catcher"] = TRUE
 			click_turf.Click(click_turf, control, list2params(modifiers))
 	. = 1
+
+
+/mob/proc/check_click_intercept(params,A)
+	//Client level intercept
+	if(client?.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	//Mob level intercept
+	if(click_intercept)
+		if(call(click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	return FALSE
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES
 #undef MAX_SAFE_BYOND_ICON_SCALE_PX

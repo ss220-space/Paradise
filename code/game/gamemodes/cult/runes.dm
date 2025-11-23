@@ -943,8 +943,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 		span_cult("You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.")
 	)
 	ghost = user.ghostize(TRUE)
-	var/datum/action/innate/cult/comm/spirit/CM = new
-	var/datum/action/innate/cult/check_progress/V = new
+	var/datum/action/innate/cult/comm/spirit/CM = new(ghost)
+	var/datum/action/innate/cult/check_progress/V = new(ghost)
 	//var/datum/action/innate/cult/ghostmark/GM = new
 	ghost.name = "Dark Spirit of [ghost.name]"
 	ghost.color = "red"

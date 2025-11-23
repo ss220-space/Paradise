@@ -56,6 +56,7 @@
 
 	set_stat(DEAD)
 	timeofdeath = world.time
+	persistent_client?.time_of_death = world.time
 	..()
 	INVOKE_ASYNC(src, PROC_REF(burst_blob_on_die))
 	var/gib_pref = ""

@@ -168,10 +168,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/GetID()
 	return id ? id : ..()
 
-/obj/item/pda/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/pda/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 
-	var/mob/user = usr
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 

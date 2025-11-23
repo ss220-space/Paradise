@@ -40,12 +40,11 @@
 
 /datum/action/item_action/organ_action/manual_breath
 	name = "Дышать"
-	use_itemicon = FALSE
-	icon_icon = 'icons/obj/surgery.dmi'
+	button_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "lungs"
 	check_flags = NONE
 
-/datum/action/item_action/organ_action/manual_breath/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/manual_breath/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/high_rp_tumor))
 		var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target
