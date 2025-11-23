@@ -520,6 +520,7 @@
 	var/list/spawned_turfs = list()
 	var/list/turfs_around = list()
 	var/turf/turf_to_spawn
+	var/mob/living/simple_animal/hostile/hellhound/hound
 
 	for(var/turf/turf_around in range(3, swarmed))
 		LAZYADD(turfs_around, turf_around)
@@ -530,11 +531,12 @@
 			continue
 		LAZYADD(spawned_turfs, turf_to_spawn)
 		if(spawned_t_hounds < 2)
-			new /mob/living/simple_animal/hostile/hellhound/tear(turf_to_spawn)
+			hound = new /mob/living/simple_animal/hostile/hellhound/tear(turf_to_spawn)
+			hound.faction = list("rift")
 			spawned_t_hounds++
 			continue
-		new /mob/living/simple_animal/hostile/hellhound(turf_to_spawn)
+		hound = new /mob/living/simple_animal/hostile/hellhound(turf_to_spawn)
 		spawned_hounds++
-
+		hound.faction = list("rift")
 	swarmed.Weaken(2 SECONDS)
 
