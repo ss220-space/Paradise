@@ -28,11 +28,10 @@
 	background_icon_state = "bg_agent"
 	button_icon_state = "deploy_box"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING
-	use_itemicon = FALSE
 	/// If TRUE, the box can't be deployed
 	var/on_cooldown = FALSE
 
-/datum/action/item_action/agent_box/Trigger(left_click = TRUE)
+/datum/action/item_action/agent_box/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return .
@@ -84,7 +83,7 @@
 	var/atom/movable/flick_visual/fake_box_visual = owner.flick_overlay_view(fake_box, 0.4 SECONDS)
 	animate(fake_box_visual, pixel_z = fake_box.pixel_z + 30, alpha = fake_box.alpha - 255, time = 3, loop = 1)
 
-/datum/action/item_action/agent_box/IsAvailable()
+/datum/action/item_action/agent_box/IsAvailable(feedback = FALSE)
 	if(..() && !on_cooldown)
 		return TRUE
 	return FALSE

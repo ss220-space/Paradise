@@ -40,10 +40,10 @@ const TechSummary = (properties) => {
       </LabeledList>
       <Box mt="10px">
         <Button icon="arrow-up" onClick={() => act('updt_tech')}>
-          Upload to Database
+          Загрузить в базу данных
         </Button>
         <Button icon="trash" onClick={() => act('clear_tech')}>
-          Clear Disk
+          Очистить дискету
         </Button>
         <EjectDisk />
       </Box>
@@ -66,15 +66,15 @@ const LatheSummary = (properties) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Name">{name}</LabeledList.Item>
+        <LabeledList.Item label="Название">{name}</LabeledList.Item>
 
         {lathe_types_str ? (
-          <LabeledList.Item label="Lathe Types">
+          <LabeledList.Item label="Совместимое оборудование">
             {lathe_types_str}
           </LabeledList.Item>
         ) : null}
 
-        <LabeledList.Item label="Required Materials" />
+        <LabeledList.Item label="Требуется материалов" />
       </LabeledList>
 
       {materials.map((mat) => (
@@ -88,10 +88,10 @@ const LatheSummary = (properties) => {
 
       <Box mt="10px">
         <Button icon="arrow-up" onClick={() => act('updt_design')}>
-          Upload to Database
+          Загрузить в базу данных
         </Button>
         <Button icon="trash" onClick={() => act('clear_design')}>
-          Clear Disk
+          Очистить дискету
         </Button>
         <EjectDisk />
       </Box>
@@ -104,15 +104,15 @@ const EmptyDisk = (properties) => {
   const { disk_type } = data;
   return (
     <Box>
-      <Box>This disk is empty.</Box>
+      <Box>Дискета пуста.</Box>
       <Box mt="10px">
         <RndNavButton
           submenu={SUBMENU.DISK_COPY}
           icon="arrow-down"
           content={
             disk_type === DISK_TYPE_TECH
-              ? 'Load Tech to Disk'
-              : 'Load Design to Disk'
+              ? 'Загрузить тех. данные на дискету'
+              : 'Загрузить шаблон печати на дискету'
           }
         />
         <EjectDisk />
@@ -138,7 +138,7 @@ const EjectDisk = (properties) => {
         act(action);
       }}
     >
-      Eject Disk
+      Извлечь дискету
     </Button>
   );
 };
@@ -162,7 +162,7 @@ const ContentsSubmenu = (properties) => {
     }
   };
 
-  return <Section title="Data Disk Contents">{body()}</Section>;
+  return <Section title="Содержимое дискеты">{body()}</Section>;
 };
 
 const CopySubmenu = (properties) => {
@@ -187,7 +187,7 @@ const CopySubmenu = (properties) => {
                     }
                   }}
                 >
-                  Copy to Disk
+                  Копировать на дискету
                 </Button>
               </LabeledList.Item>
             ))}

@@ -2,12 +2,12 @@
 	check_flags = NONE
 	name = "Status Readout"
 	desc = "Gives a detailed readout about your current status."
-	use_itemicon = FALSE
 	button_icon_state = "healthstatus"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
-	action_initialisation_text = "Integrated Health Analizer"
+	//action_initialisation_text = "Integrated Health Analizer"
+
 /**
  * Proc called to put a status readout to the ninja in chat.
  *

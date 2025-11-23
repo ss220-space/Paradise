@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	cling = null
 	return ..()
 
-/datum/action/changeling/Trigger(left_click = TRUE)
+/datum/action/changeling/Trigger(mob/clicker, trigger_flags)
 	try_to_sting(owner)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)

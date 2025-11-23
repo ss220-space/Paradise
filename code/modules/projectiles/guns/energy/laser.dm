@@ -46,7 +46,6 @@
 	ammo_x_offset = 3
 	selfcharge = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	unique_reskin = TRUE
 	var/high_risk = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
@@ -56,10 +55,9 @@
 	if(high_risk)
 		AddElement(/datum/element/high_value_item)
 
-/obj/item/gun/energy/laser/captain/update_gun_skins()
-	add_skin("The Original", "caplaser")
-	add_skin("Restored", "caplaser_new")
-	add_skin("Alternative", "caplaser_newer")
+/obj/item/gun/energy/laser/captain/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -69,7 +67,6 @@
 	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = FALSE
-	unique_reskin = FALSE
 	high_risk = FALSE
 	accuracy = GUN_ACCURACY_SHOTGUN
 

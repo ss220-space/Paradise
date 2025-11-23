@@ -17,7 +17,7 @@
 	if(!pockets || !pockets.handle_attack_hand(user))
 		return ..()
 
-/obj/item/clothing/suit/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/clothing/suit/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!pockets || !pockets.handle_mousedrop(usr, over_object))
 		return ..()
 

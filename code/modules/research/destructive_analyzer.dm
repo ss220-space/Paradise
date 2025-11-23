@@ -7,7 +7,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 */
 /obj/machinery/r_n_d/destructive_analyzer
 	name = "Destructive Analyzer"
-	desc = "Крупное устройство, предназначенное для исследования и разработки с помощью обратной инженерии."
+	desc = "Оборудование, предназначенное для проведения научных исследований методом обратной инженерии \
+			путём разборки различных объектов. Управление происходит с помощью подключаемой консоли."
 	icon_state = "d_analyzer"
 	base_icon_state = "d_analyzer"
 	var/decon_mod = 0
@@ -71,35 +72,35 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 	add_fingerprint(user)
 	if(disabled)
-		to_chat(user, span_warning("Машина отключена."))
+		balloon_alert(user, "отключено!")
 		return ATTACK_CHAIN_PROCEED
 	if(!linked_console)
-		to_chat(user, span_warning("Машина не подключена к R&D консоли."))
+		balloon_alert(user, "не подключено к консоли НИО!")
 		return ATTACK_CHAIN_PROCEED
 	if(busy)
-		to_chat(user, span_warning("Машина анализирует образец."))
+		balloon_alert(user, "в процессе разборки!")
 		return ATTACK_CHAIN_PROCEED
 	if(loaded_item)
-		to_chat(user, span_warning("В машину уже помещён другой образец."))
+		balloon_alert(user, "камера разборки занята!")
 		return ATTACK_CHAIN_PROCEED
 	// anomaly cores are only disassembed in the upgraded machine.
 	// 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
 	if(istype(I, /obj/item/assembly/signaler/core) && (decon_mod < 12))
-		to_chat(user, span_warning("Машина не в состоянии обработать такой сложный образец."))
+		balloon_alert(user, "слишком сложный объект!")
 		return ATTACK_CHAIN_PROCEED
 	if(!I.origin_tech)
-		to_chat(user, span_warning("Образец не имеет технологического происхождения."))
+		balloon_alert(user, "не подходит для анализа!")
 		return ATTACK_CHAIN_PROCEED
 	var/list/temp_tech = ConvertReqString2List(I.origin_tech)
 	if(!length(temp_tech))
-		to_chat(user, span_warning("Образец не имеет технологического происхождения."))
+		balloon_alert(user, "не подходит для анализа!")
 		return ATTACK_CHAIN_PROCEED
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return ..()
 	busy = TRUE
 	flick("[base_icon_state]_insert", src)
 	loaded_item = I
-	to_chat(user, span_notice("Образец помещён в машину."))
+	balloon_alert(user, "помещено в камеру разбора")
 	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
 	return ATTACK_CHAIN_BLOCKED_ALL
 

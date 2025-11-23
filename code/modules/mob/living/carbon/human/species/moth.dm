@@ -181,7 +181,7 @@
 	name = "Кокон"
 	desc = "Восстанавливает крылья и усики, а также лечит повреждения. Если кокон будет разрушен извне, вы получите серьёзные травмы!"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_TURF
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()

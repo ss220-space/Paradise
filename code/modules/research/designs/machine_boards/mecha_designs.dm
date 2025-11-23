@@ -10,7 +10,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/ripley/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/ripley_peri
 	name = "Exosuit Board (APLU \"Ripley\" Peripherals Control module)"
@@ -20,7 +20,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/ripley/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 // Odysseus
 /datum/design/odysseus_main
@@ -31,7 +31,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/odysseus/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/odysseus_peri
 	name = "Exosuit Board (\"Odysseus\" Peripherals Control module)"
@@ -41,7 +41,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 // Clarke
 /datum/design/clarke_main
@@ -52,7 +52,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/clarke/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/clarke_peri
 	name = "Exosuit Board (\"Clarke\" Peripherals Control module)"
@@ -62,7 +62,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/clarke/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 // Gygax
 /datum/design/gygax_main
@@ -73,7 +73,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/gygax/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/gygax_peri
 	name = "Exosuit Board (\"Gygax\" Peripherals Control module)"
@@ -83,7 +83,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/gygax/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/gygax_targ
 	name = "Exosuit Board (\"Gygax\" Weapons & Targeting Control module)"
@@ -93,7 +93,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/gygax/targeting
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 // Durand
 /datum/design/durand_main
@@ -104,7 +104,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/durand/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/durand_peri
 	name = "Exosuit Board (\"Durand\" Peripherals Control module)"
@@ -114,7 +114,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/durand/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/durand_targ
 	name = "Exosuit Board (\"Durand\" Weapons & Targeting Control module)"
@@ -124,7 +124,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/durand/targeting
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 // Phazon
 /datum/design/phazon_main
@@ -135,7 +135,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/mecha/phazon/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/phazon_peri
 	name = "Exosuit Board (\"Phazon\" Peripherals Control module)"
@@ -145,7 +145,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/mecha/phazon/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/phazon_targ
 	name = "Exosuit Design (\"Phazon\" Weapons & Targeting Control module)"
@@ -155,7 +155,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/mecha/phazon/targeting
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 // H.O.N.K.
 /datum/design/honker_main
@@ -166,7 +166,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/honker/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/honker_peri
 	name = "Exosuit Board (\"H.O.N.K\" Peripherals Control module)"
@@ -176,7 +176,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/honker/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/honker_targ
 	name = "Exosuit Board (\"H.O.N.K\" Weapons & Targeting Control module)"
@@ -186,7 +186,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/honker/targeting
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/reticence_main
 	name = "Exosuit Module (\"Reticence\" Central Control module)"
@@ -196,7 +196,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/reticence/main
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/reticence_peri
 	name = "Exosuit Module (\"Reticence\" Peripherals Control module)"
@@ -206,7 +206,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/reticence/peripherals
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)
 
 /datum/design/reticence_targ
 	name = "Exosuit Module (\"Reticence\" Weapons & Targeting Control module)"
@@ -216,4 +216,4 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/reticence/targeting
-	category = list("Exosuit Modules")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT)

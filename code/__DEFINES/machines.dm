@@ -105,6 +105,62 @@
 /// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
 #define START_PROCESSING_MANUALLY (1<<1)
 
+#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
+
 #define ORE_REDEMPTION "Плавильная печь"
 
-#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
+// Research tree names
+#define RESEARCH_TREE_MATERIALS "Материаловедение"
+#define RESEARCH_TREE_ENGINEERING "Инженерные технологии"
+#define RESEARCH_TREE_PLASMA "Плазмотехнологии"
+#define RESEARCH_TREE_POWERSTORAGE "Энергетические системы"
+#define RESEARCH_TREE_BLUESPACE "Блюспейс-исследования"
+#define RESEARCH_TREE_BIOTECH "Биотехнологии"
+#define RESEARCH_TREE_COMBAT "Боевые системы"
+#define RESEARCH_TREE_MAGNETS "Электромагнитные технологии"
+#define RESEARCH_TREE_PROGRAMMING "Теория данных"
+#define RESEARCH_TREE_TOXINS "Токсинология"
+
+#define RESEARCH_TREE_ILLEGAL "Запрещённые технологии"
+#define RESEARCH_TREE_ALIEN "Инопланетные технологии"
+
+// Categories, used in different types of printers
+#define PRINTER_CATEGORY_INITIAL "initial"
+#define PRINTER_CATEGORY_HACKED "hacked"
+
+// Autolathe categories
+#define AUTOLATHE_CATEGORY_TOOLS "Инструменты"
+#define AUTOLATHE_CATEGORY_ELECTRONICS "Электроника"
+#define AUTOLATHE_CATEGORY_CONSTRUCTION "Конструирование"
+#define AUTOLATHE_CATEGORY_COMMUNICATION "Радиосвязь"
+#define AUTOLATHE_CATEGORY_SECURITY "Безопасность"
+#define AUTOLATHE_CATEGORY_MACHINERY "Машинерия"
+#define AUTOLATHE_CATEGORY_MEDICAL "Медицина"
+#define AUTOLATHE_CATEGORY_MISC "Разное"
+#define AUTOLATHE_CATEGORY_DINNERWARE "Посуда и утварь"
+#define AUTOLATHE_CATEGORY_IMPORTED "Импортированное"
+
+// Protolathe categories
+#define PROTOLATHE_CATEGORY_BLUESPACE "Блюспейс"
+#define PROTOLATHE_CATEGORY_EQUIPMENT "Снаряжение"
+#define PROTOLATHE_CATEGORY_JANITORIAL "Уборка"
+#define PROTOLATHE_CATEGORY_MINING "Шахтёрское дело"
+#define PROTOLATHE_CATEGORY_WEAPON "Вооружение"
+#define PROTOLATHE_CATEGORY_STOCK_PARTS "Компоненты машинерии"
+#define PROTOLATHE_CATEGORY_MEDICAL "Медицина"
+#define PROTOLATHE_CATEGORY_POWER "Электроэнергия"
+#define PROTOLATHE_CATEGORY_MISC "Разное"
+#define PROTOLATHE_CATEGORY_ILLEGAL "Контрабанда"
+
+// Circuit Imprinter categories
+#define CIRCUIT_IMPRINTER_CATEGORY_AI "Станционный ИИ"
+#define CIRCUIT_IMPRINTER_CATEGORY_COMPUTER "Компьютеры и консоли"
+#define CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING "Инженерные модули"
+#define CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT "Экзоскелеты"
+#define CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS "Гидропоника"
+#define CIRCUIT_IMPRINTER_CATEGORY_MEDICAL "Медицина"
+#define CIRCUIT_IMPRINTER_CATEGORY_POWER "Электроэнергия"
+#define CIRCUIT_IMPRINTER_CATEGORY_MISC "Разное"
+#define CIRCUIT_IMPRINTER_CATEGORY_RESEARCH "Наука и исследование"
+#define CIRCUIT_IMPRINTER_CATEGORY_TELECOMS "Телекоммуникация"
+#define CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION "Телепортация"

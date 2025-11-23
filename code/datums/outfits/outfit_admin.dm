@@ -41,14 +41,14 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	mask = /obj/item/clothing/mask/breath
 	belt = /obj/item/tank/internals/plasmaman/belt/full
-	box = /obj/item/storage/box/survival_plasmaman
+	box = /obj/item/storage/box/survival/species/plasmaman
 
 /datum/outfit/admin/observer/vox
 	name = "Наблюдатель (Вокс)"
 
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
-	box = /obj/item/storage/box/survival_vox
+	box = /obj/item/storage/box/survival/species/vox
 
 /datum/outfit/admin/syndicate
 	name = "Syndicate Agent"
@@ -62,7 +62,7 @@
 	id = /obj/item/card/id/syndicate
 	r_pocket = /obj/item/radio/uplink
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
@@ -110,7 +110,7 @@
 	l_pocket = /obj/item/card/emag
 	r_pocket = /obj/item/melee/energy/sword/saber/red
 	id = /obj/item/card/id/syndicate
-	box = /obj/item/storage/box/survival_syndi
+	box = /obj/item/storage/box/survival/survival_syndi
 	backpack_contents = list(
 		/obj/item/radio/uplink/sst = 1,
 		/obj/item/grenade/plastic/x4 = 2,
@@ -182,7 +182,7 @@
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 	)
 
 /datum/outfit/admin/nt_vip/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -214,14 +214,14 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
 		/obj/item/gun/projectile/automatic/proto = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/CQC_manual = 1,
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 	)
 
 	accessories = list(
@@ -266,7 +266,7 @@
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
-		/obj/item/storage/box/centcomofficer = 1,
+		/obj/item/storage/box/survival/centcomofficer = 1,
 		/obj/item/gun/energy/pulse/pistol = 1,
 		/obj/item/implanter/death_alarm = 1,
 	)
@@ -330,7 +330,7 @@
 	id = /obj/item/card/id
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/pinpointer/crew = 1,
 	)
@@ -379,7 +379,7 @@
 	l_ear = /obj/item/radio/headset/alt
 	id = /obj/item/card/id
 	pda = /obj/item/pinpointer
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/responseteam
 
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
@@ -697,7 +697,7 @@
 	id = /obj/item/card/id
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/alt/soviet
-	box = /obj/item/storage/box/soviet
+	box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/admin/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -824,7 +824,7 @@
 	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/implanter/dust = 1,
 		/obj/item/implanter/death_alarm = 1,
 		/obj/item/stamp/solgov = 1,
@@ -857,7 +857,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -884,7 +884,7 @@
 	head = /obj/item/clothing/head/soft/solgov/elite
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -909,7 +909,7 @@
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -1306,7 +1306,7 @@
 	l_hand = /obj/item/twohanded/staff
 	r_hand = /obj/item/spellbook
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 	)
 
 /datum/outfit/admin/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1339,7 +1339,7 @@
 	belt = /obj/item/storage/belt/wands/full
 	l_hand = null
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 		/obj/item/clothing/suit/space/hardsuit/wizard/arch/shielded = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
