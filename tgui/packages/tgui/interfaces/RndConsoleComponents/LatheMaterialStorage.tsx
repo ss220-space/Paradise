@@ -31,7 +31,7 @@ export const LatheMaterialStorage = (properties) => {
               className={empty ? 'color-grey' : 'color-yellow'}
             >
               <Table.Cell minWidth="210px">
-                - {amount} единиц{declension_ru(amount, 'а', 'ы', '')} {name}
+                - {name} — {amount} единиц{declension_ru(amount, 'а', 'ы', '')}
               </Table.Cell>
               <Table.Cell minWidth="110px">
                 ({sheets} лист{declension_ru(sheets, '', 'а', 'ов')})

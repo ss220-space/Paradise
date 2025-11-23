@@ -224,7 +224,7 @@
 
 					var/cost = tech.getCost(SSshuttle.techLevels[tech.id])
 					if(tech.level >= 7)
-						SScapitalism.base_account.credit(7000, "Благодарность за вклад в науку.", "Терминал Института Нанотрейзен №[rand(111,333)]", "Институт Нанотрейзен")
+						SScapitalism.base_account.credit(7000, "Благодарность за вклад в науку.", "Терминал Института \"Нанотрейзен\" №[rand(111,333)]", "Институт \"Нанотрейзен\"")
 					if(cost)
 						SSshuttle.techLevels[tech.id] = tech.level
 						for(var/mob/mob in GLOB.player_list)

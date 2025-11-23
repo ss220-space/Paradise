@@ -34,7 +34,7 @@ export const LatheCategory = (properties) => {
           ({ id, name, desc, icon, icon_state, can_build, materials }) => {
             return (
               <Table.Row key={id}>
-                <Table.Cell>
+                <Table.Cell collapsing>
                   <DmIcon
                     icon={icon}
                     icon_state={icon_state}
@@ -45,6 +45,8 @@ export const LatheCategory = (properties) => {
                       marginLeft: '0px',
                     }}
                   />
+                </Table.Cell>
+                <Table.Cell>
                   <Button
                     icon="print"
                     disabled={can_build < 1}

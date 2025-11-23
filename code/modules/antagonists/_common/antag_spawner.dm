@@ -101,7 +101,7 @@
 	poll_icon_file = 'icons/mob/robots.dmi'
 	poll_icon_state = "syndi-engi-preview"
 
-#define SYNDICATE_CYBORG "Борг Синдиката"
+#define SYNDICATE_CYBORG "Борг \"Синдиката\""
 #define NUCLEAR_OPERATIVE "Ядерный Оперативник"
 #define CANCER_SWITCH_ROLES_CHOICE "Не активировать этот робот-телепортатор"
 

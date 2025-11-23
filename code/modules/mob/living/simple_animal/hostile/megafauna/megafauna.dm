@@ -29,7 +29,7 @@
 	var/achievement_type
 	var/crusher_achievement_type
 	var/score_achievement_type
-	var/elimination = 0
+	var/elimination = FALSE
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
 	var/internal_type

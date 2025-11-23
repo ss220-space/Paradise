@@ -107,7 +107,7 @@ export const Autolathe = (props: unknown) => {
               })
             }
           >
-            {buildQueue[i][0]}
+            {buildQueue[i][2]}
           </Button>
         </Box>
       );
@@ -154,7 +154,7 @@ export const Autolathe = (props: unknown) => {
             >
               <Input
                 fluid
-                placeholder="Найти рецепт..."
+                placeholder="Найти шаблон..."
                 expensive
                 onChange={setSearchText}
                 mb={1}

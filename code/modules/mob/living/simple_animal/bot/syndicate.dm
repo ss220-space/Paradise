@@ -1,7 +1,7 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate
 	name = "Syndicate Sentry Bot"
-	desc = "Охранный робот Синдиката."
+	desc = "Охранный робот \"Синдиката\"."
 	model = "Guardian"
 	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
@@ -17,7 +17,7 @@
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = TRUE
 	window_id = "syndiebot"
-	window_name = "Интерфейс Часового Робота Синдиката"
+	window_name = "Интерфейс Часового Робота \"Синдиката\""
 	var/turf/saved_turf
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/area/syndicate_depot/core/depotarea
@@ -27,12 +27,12 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "робот-часовой Синдиката",
-		GENITIVE = "робота-часового Синдиката",
-		DATIVE = "роботу-часовому Синдиката",
-		ACCUSATIVE = "робота-часового Синдиката",
-		INSTRUMENTAL = "роботом-часовым Синдиката",
-		PREPOSITIONAL = "роботе-часовом Синдиката",
+		NOMINATIVE = "робот-часовой \"Синдиката\"",
+		GENITIVE = "робота-часового \"Синдиката\"",
+		DATIVE = "роботу-часовому \"Синдиката\"",
+		ACCUSATIVE = "робота-часового \"Синдиката\"",
+		INSTRUMENTAL = "роботом-часовым \"Синдиката\"",
+		PREPOSITIONAL = "роботе-часовом \"Синдиката\"",
 	)
 
 /mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
