@@ -221,7 +221,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
 
 /datum/design/metal
-	id = "metal"
+	id = "metal"	
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/metal
@@ -237,6 +237,7 @@
 	maxstack = 50
 
 /datum/design/rglass
+	desc = "Сталь + Стекло" // because this design is used in ore redemption
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)

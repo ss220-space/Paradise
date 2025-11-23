@@ -11,7 +11,9 @@
  */
 /obj/machinery/mineral/ore_redemption
 	name = "ore redemption machine"
-	desc = "Устройство, перерабатывающее руду в готовые листы материалов. Начисляет баллы в зависимости от типа руды, которые можно обменять в раздатчике шахтёрского оборудования."
+	desc = "Промышленное устройство, перерабатывающее руду в готовые листы материалов. Автоматически начисляет баллы \
+			на аккаунт подключённой ID-карты в зависимости от типа руды, которые можно обменять в раздатчике шахтёрского оборудования."
+	gender = FEMALE
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
 	density = TRUE
@@ -131,12 +133,12 @@
 
 /obj/machinery/mineral/ore_redemption/labor/get_ru_names()
 	return list(
-		NOMINATIVE = "каторжная печь для руды",
-		GENITIVE = "каторжной печи для руды",
-		DATIVE = "каторжной печи для руды",
-		ACCUSATIVE = "каторжную печь для руды",
-		INSTRUMENTAL = "каторжной печью для руды",
-		PREPOSITIONAL = "каторжной печи для руды",
+		NOMINATIVE = "печь для руды трудового лагеря",
+		GENITIVE = "печи для руды трудового лагеря",
+		DATIVE = "печи для руды трудового лагеря",
+		ACCUSATIVE = "печь для руды трудового лагеря",
+		INSTRUMENTAL = "печью для руды трудового лагеря",
+		PREPOSITIONAL = "печи для руды трудового лагеря",
 	)
 
 /obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
@@ -179,7 +181,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
-		visible_message(span_notice("Индикатор слота ID на [declent_ru(PREPOSITIONAL)] мигает, устройство выдаёт карту и отключается."))
+		balloon_alert_to_viewers("выбрасывает ID-карту из слота")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
@@ -216,7 +218,7 @@
 	// Throwing it away if it doesn't suck.
 	if(invalid_material)
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		atom_say("ОШИБКА: Некорректные материалы.", use_tts = FALSE)
+		balloon_alert_to_viewers("несовместимый тип материала!")
 		invalid_material = FALSE
 	// Process it
 	if(length(ore_buffer))
@@ -255,10 +257,7 @@
 		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message(
-			span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-		)
+		balloon_alert_to_viewers("вставля[PLUR_ET_YUT(user)] дискету шаблона-печати", "дискета вставлена")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -333,9 +332,12 @@
 	var/list/alloys = list()
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
+		var/obj/design_item = new D.build_path
+		var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
+		qdel(design_item)
 		alloys += list(list(
 			"id" = D.id,
-			"name" = D.name,
+			"name" = design_name,
 			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
@@ -432,7 +434,7 @@
 /obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OreRedemption", name)
+		ui = new(user, src, "OreRedemption", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -540,17 +542,14 @@
 	if(!istype(I))
 		return
 	if(inserted_id)
-		to_chat(user, span_warning("ID-карта уже вставлена!"))
+		balloon_alert(user, "слот для ID-карты занят!")
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return
 	inserted_id = I
 	SStgui.update_uis(src)
 	interact(user)
-	user.visible_message(
-		span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
-	)
+	balloon_alert_to_viewers("вставля[PLUR_ET_YUT(user)] ID-карту", "ID-карта вставлена")
 	return TRUE
 
 /**
