@@ -100,8 +100,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	/// for the search function
 	var/list/datum/design/matching_designs = list()
 
-	/// Тема интерфейса
+	/// TGUI theme
 	var/ui_theme = "Nanotrasen"
+	/// Variable for caching names and descriptions of printing objects
+	var/list/cached_design_names = list()
 
 /// A simple helper proc to find the name of a tech with a given ID.
 /proc/CallTechName(ID)
@@ -183,6 +185,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
 		update_icon()
+
+	// Cache names and descriptions of all known designs
+	cache_all_design_names()
+
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -279,9 +285,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	if(d_disk?.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
+		cache_design_name(d_disk.blueprint)
 	else if(t_disk?.stored)
 		var/datum/tech/tech_copy = t_disk.stored.copyTech()
 		files.AddTech2Known(tech_copy)
+		cache_design_name(tech_copy)
 	SStgui.update_uis(src)
 	griefProtection() //Update centcom too
 
@@ -309,6 +317,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
+	// Clear the design cache when research is reset
+	cached_design_names = list()
 	clear_wait_message()
 	SStgui.update_uis(src)
 
@@ -743,13 +753,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
-				var/obj/design_item = new D.build_path
-				var/item_name = capitalize(design_item.declent_ru(NOMINATIVE))
 				if(!(D.build_type & compare))
 					continue
-				if(findtext(item_name, query))
+				if(findtext(get_cached_design_name(D), query))
 					matching_designs.Add(D)
-				qdel(design_item)
 			submenu = SUBMENU_LATHE_CATEGORY
 
 			selected_category = "Результаты поиска по запросу \"[query]\""
@@ -798,17 +805,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
-			var/obj/design_item = new D.build_path
+			var/item_name = get_cached_design_name(D)
+			var/item_desc = get_cached_design_desc(D)
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
-			design_list["name"] = capitalize(design_item.declent_ru(NOMINATIVE))
-			design_list["desc"] = design_item.desc
-			design_list["icon"] = initial(design_item.icon)
-			design_list["icon_state"] = initial(design_item.icon_state)
-			qdel(design_item)
+			design_list["name"] = item_name
+			design_list["desc"] = item_desc
+			var/obj/I = new D.build_path
+			design_list["icon"] = initial(I.icon)
+			design_list["icon_state"] = initial(I.icon_state)
+			qdel(I)
 			var/can_build = is_imprinter ? 1 : 50
 
 			for(var/M in D.materials)
@@ -950,14 +959,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/datum/design/D = files.known_designs[v]
 				if(!can_copy_design(D))
 					continue
-				var/obj/design_item = new D.build_path
-				var/item_name = capitalize(design_item.declent_ru(NOMINATIVE))
 				var/list/item = list()
 				to_copy[++to_copy.len] = item
-				item["name"] = item_name
+				item["name"] = get_cached_design_name(D)
 				item["id"] = D.id
-				qdel(design_item)
-
 	else if(menu == MENU_DESTROY && linked_destroy?.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
@@ -1006,6 +1011,49 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		deltimer(wait_message_timer)
 		wait_message_timer = null
 	SStgui.update_uis(src)
+
+/// Cache the name and description of a single design
+/obj/machinery/computer/rdconsole/proc/cache_design_name(datum/design/D)
+	if(!D || !D.build_path) // Ensure D and build_path exist
+		return
+	var/obj/item/design_item = new D.build_path
+	var/cached_name = capitalize(design_item.declent_ru(NOMINATIVE))
+	var/cached_desc = design_item.desc
+	qdel(design_item)
+	cached_design_names[D.id] = list("name" = cached_name, "desc" = cached_desc)
+
+/// Cache names and descriptions of all known designs
+/obj/machinery/computer/rdconsole/proc/cache_all_design_names()
+	cached_design_names = list() // Clear old cache before populating
+	for(var/datum/design/D in files.known_designs)
+		cache_design_name(D)
+
+/// Get the cached name
+/obj/machinery/computer/rdconsole/proc/get_cached_design_name(datum/design/D)
+	if(!D)
+		return "Неизвестный шаблон"
+	if(D.id in cached_design_names)
+		return cached_design_names[D.id]["name"]
+	else
+		// In case if somehow name of design wasn't cached
+		var/obj/item/design_item = new D.build_path
+		var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
+		qdel(design_item)
+		return design_name
+
+/// Get the cached description
+/obj/machinery/computer/rdconsole/proc/get_cached_design_desc(datum/design/D)
+	if(!D)
+		return "Неизвестный шаблон"
+	if(D.id in cached_design_names)
+		return cached_design_names[D.id]["desc"]
+	else
+		// In case if somehow desc of design wasn't cached
+		var/obj/item/design_item = new D.build_path
+		var/design_desc = design_item.desc
+		qdel(design_item)
+		return design_desc
+
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
