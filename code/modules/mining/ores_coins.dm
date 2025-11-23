@@ -694,12 +694,12 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/antagtoken/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "монета Синдиката",
-		GENITIVE = "монеты Синдиката",
-		DATIVE = "монете Синдиката",
-		ACCUSATIVE = "монету Синдиката",
-		INSTRUMENTAL = "монетой Синдиката",
-		PREPOSITIONAL = "монете Синдиката",
+		NOMINATIVE = "монета \"Синдиката\"",
+		GENITIVE = "монеты \"Синдиката\"",
+		DATIVE = "монете \"Синдиката\"",
+		ACCUSATIVE = "монету \"Синдиката\"",
+		INSTRUMENTAL = "монетой \"Синдиката\"",
+		PREPOSITIONAL = "монете \"Синдиката\"",
 	)
 
 /obj/item/coin/update_overlays()

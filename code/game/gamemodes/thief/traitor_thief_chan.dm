@@ -7,7 +7,7 @@
 
 /datum/game_mode/traitor/thief/changeling/announce()
 	to_chat(world, "<b>The current game mode is - Traitor+Thief+Changeling!</b>")
-	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров, генокрадов и агентов Синдиката. Не дайте агентам Синдиката и Генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
+	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров, генокрадов и агентов \"Синдиката\". Не дайте агентам \"Синдиката\" и Генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
 
 /datum/game_mode/traitor/thief/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

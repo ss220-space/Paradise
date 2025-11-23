@@ -64,6 +64,24 @@
 	database_id = MEDAL_SPRINGLOCK
 	icon_state = "springlock"
 
+/datum/award/achievement/misc/arch_devil
+	name = "Адский босс"
+	desc = "Вы достигли вершин адской иерархии!"
+	database_id = MEDAL_ARCH_DEVIL
+	icon_state = "arch_devil"
+
+/datum/award/achievement/misc/no_hell_today
+	name = "Никакого Ада сегодня"
+	desc = "Вы совершили практически невозможное. Изгнать архидьявола и спасти мир от Ада удаётся не каждому."
+	database_id = MEDAL_NO_HELL_TODAY
+	icon_state = "no_hell_today"
+
+/datum/award/achievement/misc/kerberos_master
+	name = "Мастер Кербероса"
+	desc = "Вы смогли победить в режиме de_kerberos_2 и успешно эвакуироваться. Да вы настоящий мастер Кербероса."
+	database_id = MEDAL_KERBEROS_MASTER
+	icon_state = "de_kerberos_2"
+
 //TODO Uncomment when be implemented
 /*
 /datum/award/achievement/misc/round_and_full

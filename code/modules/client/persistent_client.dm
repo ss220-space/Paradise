@@ -71,6 +71,10 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 		return "Unknown"
 	return "[byond_version].[byond_build || "xxx"]"
 
+///Redirect proc that makes it easier to call the unlock achievement proc. Achievement type is the typepath to the award, user is the mob getting the award, and value is an optional variable used for leaderboard value increments
+/datum/persistent_client/proc/give_award(achievement_type, mob/user, value = 1)
+	return achievements.unlock(achievement_type, user, value)
+
 /// Adds the new names to the player's played_names list on their /datum/persistent_client for use of admins.
 /// `ckey` should be their ckey, and `data` should be an associative list with the keys being the names they played under and the values being the unique mob ID tied to that name.
 /proc/log_played_names(ckey, data)

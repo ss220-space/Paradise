@@ -673,7 +673,8 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
+	if(SSticker?.current_state >= GAME_STATE_PLAYING)
+		SSshuttle.autoEvac()
 	return ..()
 
 /proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, datum/station_goal/goal = null)

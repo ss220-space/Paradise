@@ -6,6 +6,7 @@
 	density = TRUE
 
 	var/operating = 0.0
+	/// Every element is a list(datum/design, multiplier, cached_name, cached_desc)
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
@@ -23,7 +24,6 @@
 	var/busy = FALSE
 	var/prod_coeff
 	var/datum/wires/autolathe/wires = null
-
 	var/list/being_built = list()
 	var/datum/research/files
 	var/list/imported = list() // /datum/design.id -> boolean
@@ -70,6 +70,7 @@
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
+
 
 /obj/machinery/autolathe/upgraded/Initialize(mapload)
 	. = ..()
@@ -121,7 +122,8 @@
 					matreq["metal"] = x["amount"]
 				if(x["name"] == "glass")
 					matreq["glass"] = x["amount"]
-			var/obj/item/design_item = new D.build_path
+
+			var/obj/item/created_object = D.build_path
 			var/maxmult = 1
 			if(ispath(D.build_path, /obj/item/stack))
 				maxmult = D.maxstack
@@ -133,16 +135,15 @@
 				categories |= AUTOLATHE_CATEGORY_IMPORTED
 
 			recipes.Add(list(list(
-				"name" = capitalize(design_item.declent_ru(NOMINATIVE)),
-				"desc" = design_item.desc,
+				"name" = D.build_object_name,
+				"desc" = created_object.desc,
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
 				"hacked" = (PRINTER_CATEGORY_HACKED in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
-				"icon" = initial(design_item.icon),
-				"icon_state" = initial(design_item.icon_state),
-			qdel(design_item)
+				"icon" = created_object.icon,
+				"icon_state" = created_object.icon_state,
 			)))
 		recipiecache = recipes
 	data["recipes"] = recipiecache
@@ -160,10 +161,9 @@
 	data["busyamt"] = 1
 	if(length(being_built) > 0)
 		var/datum/design/D = being_built[1]
-		var/obj/item/design_item = new D.build_path
-		data["busyname"] =  istype(D) && capitalize(design_item.declent_ru(NOMINATIVE)) ? capitalize(design_item.declent_ru(NOMINATIVE)) : FALSE
+		var/design_name = D.build_object_name
+		data["busyname"] =  istype(D) && design_name ? design_name : FALSE
 		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
-		qdel(design_item)
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
 	data["buildQueueLen"] = queue.len
@@ -186,8 +186,12 @@
 				to_chat(usr, span_notice("Шаблон удалён из очереди печати."))
 		if("make")
 			BuildTurf = loc
+
 			var/datum/design/design_last_ordered
 			design_last_ordered = locateUID(params["make"])
+
+			var/design_name = design_last_ordered.build_object_name
+
 			if(!istype(design_last_ordered))
 				to_chat(usr, span_warning("Неподходящий шаблон."))
 				return
@@ -216,7 +220,7 @@
 				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in ui_act. Possible href exploit.")
 				return
 			if((length(queue) + 1) < queue_max_len)
-				add_to_queue(design_last_ordered, multiplier)
+				add_to_queue(design_last_ordered, multiplier, design_name)
 			else
 				to_chat(usr, span_warning("Очередь печати заполнена!"))
 			if(!busy)
@@ -243,27 +247,6 @@
 	data[++data.len] = list("name" = "metal", "amount" = D.materials[MAT_METAL] / coeff, "is_red" = !has_metal)
 	data[++data.len] = list("name" = "glass", "amount" = D.materials[MAT_GLASS] / coeff, "is_red" = !has_glass)
 
-	return data
-
-/obj/machinery/autolathe/proc/queue_data(list/data)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	var/temp_metal = materials.amount(MAT_METAL)
-	var/temp_glass = materials.amount(MAT_GLASS)
-	data["processing"] = length(being_built) ? get_processing_line() : null
-	if(istype(queue) && length(queue))
-		var/list/data_queue = list()
-		for(var/list/L in queue)
-			var/datum/design/D = L[1]
-			var/list/LL = get_design_cost_as_list(D, L[2])
-			var/obj/design_item = new D
-			data_queue[++data_queue.len] = list("name" = capitalize(design_item.declent_ru(NOMINATIVE)), "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
-			temp_metal = max(temp_metal - LL[1], 1)
-			temp_glass = max(temp_glass - LL[2], 1)
-			qdel(design_item)
-		data["queue"] = data_queue
-		data["queue_len"] = data_queue.len
-	else
-		data["queue"] = null
 	return data
 
 /obj/machinery/autolathe/attackby(obj/item/I, mob/user, params)
@@ -441,17 +424,16 @@
 
 /obj/machinery/autolathe/proc/get_processing_line()
 	var/datum/design/D = being_built[1]
-	var/obj/design_item = new D
 	var/multiplier = being_built[2]
 	var/is_stack = (multiplier>1)
-	var/output = "Печать: [capitalize(design_item.declent_ru(NOMINATIVE))][is_stack?" (x[multiplier])":null]"
+	var/output = "Печать: [D.build_object_name][is_stack?" (x[multiplier])":null]"
 	return output
 
-/obj/machinery/autolathe/proc/add_to_queue(D, multiplier)
+/obj/machinery/autolathe/proc/add_to_queue(D, multiplier, design_name)
 	if(!istype(queue))
 		queue = list()
-	if(D)
-		queue.Add(list(list(D,multiplier)))
+	if(D && design_name)
+		queue.Add(list(list(D, multiplier, design_name)))
 	return queue.len
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)

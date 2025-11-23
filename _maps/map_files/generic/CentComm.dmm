@@ -2976,18 +2976,6 @@
 	icon_state = "white"
 	},
 /area/centcom/jail)
-"bsK" = (
-/obj/item/syndicatedetonator{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/structure/table/wood/poker,
-/obj/item/mod/universal_modkit/infinite{
-	pixel_x = -8;
-	pixel_y = 7
-	},
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership)
 "btN" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -10514,15 +10502,6 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/ninja/outpost)
-"eUc" = (
-/obj/item/melee/energy_katana{
-	desc = "Ныне — сломанная собственность синдиката";
-	name = "Катана Змея"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership/control)
 "eUo" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/turf_decal/tile/neutral{
@@ -18160,6 +18139,15 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"iMc" = (
+/obj/item/melee/energy_katana{
+	desc = "Ныне — сломанная собственность \"Синдиката\"";
+	name = "Катана Змея"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/control)
 "iMy" = (
 /obj/structure/closet/secure_closet/freezer/meat{
 	req_access = list(102)
@@ -24508,24 +24496,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
-"lFw" = (
-/obj/structure/reagent_dispensers/beerkeg/nuke{
-	desc = "Однажды незадачливый отряд внедрения синдиката вместо настоящей бомбы, украл у НТ эту стилизованную кегу с пивом. Эти ребята более не ходят по миру, но кега всё ещё украшает один из местных баров. На ней виднеется зачёркнутое слово 'Нанотрейзен' и приписанное рядом, кровью, слово 'Синдикат'";
-	name = "Syndicate-brand nuclear fission explosive";
-	pixel_y = 12
-	},
-/obj/structure/table/wood/fancy/black,
-/obj/effect/turf_decal/tile/neutral{
-	alpha = 100;
-	color = "#791500";
-	icon_state = "tile_full"
-	},
-/turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "elevatorshaft";
-	name = "floor"
-	},
-/area/syndicate_mothership/elite_squad)
 "lFA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
@@ -33811,6 +33781,15 @@
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"pIj" = (
+/mob/living/simple_animal/mouse/brown{
+	desc = "Секретная разработка \"Синдиката\". Сидит тут потому, что сам хочет";
+	name = "Мышедемон"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "pJe" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery{
@@ -37165,6 +37144,18 @@
 /obj/structure/table/wood/fancy/orange,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
+"rfB" = (
+/obj/item/syndicatedetonator{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/structure/table/wood/poker,
+/obj/item/mod/universal_modkit/infinite{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership)
 "rfE" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -38295,6 +38286,21 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
+"rHk" = (
+/obj/structure/table,
+/obj/item/coin/antagtoken/syndicate{
+	pixel_x = -8;
+	pixel_y = -2
+	},
+/obj/item/mod/universal_modkit/infinite{
+	pixel_x = 5;
+	pixel_y = 12
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
 "rHo" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
@@ -47712,6 +47718,22 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"vPn" = (
+/obj/structure/table,
+/obj/item/paper/syndimemo{
+	info = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж";
+	name = "Записка'";
+	pixel_x = 10;
+	pixel_y = 3
+	},
+/obj/item/mod/universal_modkit/infinite{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "vPq" = (
 /obj/structure/railing{
 	dir = 8
@@ -48661,15 +48683,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
-"woh" = (
-/mob/living/simple_animal/mouse/brown{
-	desc = "Секретная разработка синдиката. Сидит тут потому, что сам хочет";
-	name = "Мышедемон"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership/jail)
 "wos" = (
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -50130,21 +50143,6 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
-"xaF" = (
-/obj/structure/table,
-/obj/item/coin/antagtoken/syndicate{
-	pixel_x = -8;
-	pixel_y = -2
-	},
-/obj/item/mod/universal_modkit/infinite{
-	pixel_x = 5;
-	pixel_y = 12
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "plastitanium_red"
-	},
-/area/shuttle/syndicate)
 "xaG" = (
 /obj/structure/flora/junglebush/b,
 /obj/structure/flora/junglebush/b,
@@ -50348,22 +50346,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"xdW" = (
-/obj/structure/table,
-/obj/item/paper/syndimemo{
-	info = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж";
-	name = "Записка'";
-	pixel_x = 10;
-	pixel_y = 3
-	},
-/obj/item/mod/universal_modkit/infinite{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership)
 "xea" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -52765,6 +52747,24 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
+"ylS" = (
+/obj/structure/reagent_dispensers/beerkeg/nuke{
+	desc = "Однажды незадачливый отряд внедрения \"Синдиката\" вместо настоящей бомбы, украл у НТ эту стилизованную кегу с пивом. Эти ребята более не ходят по миру, но кега всё ещё украшает один из местных баров. На ней виднеется зачёркнутое слово \"Нанотрейзен\" и приписанное рядом, кровью, слово \"Синдикат\"";
+	name = "Syndicate-brand nuclear fission explosive";
+	pixel_y = 12
+	},
+/obj/structure/table/wood/fancy/black,
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "#791500";
+	icon_state = "tile_full"
+	},
+/turf/simulated/floor/plating{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "elevatorshaft";
+	name = "floor"
+	},
+/area/syndicate_mothership/elite_squad)
 "ylW" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcornersalt"
@@ -62243,7 +62243,7 @@ aSy
 fZg
 aSy
 dJo
-eUc
+iMc
 akW
 dJo
 vPe
@@ -65038,7 +65038,7 @@ nYK
 keo
 wPq
 xBV
-bsK
+rfB
 lWc
 wXg
 keo
@@ -65523,7 +65523,7 @@ kAO
 aOe
 lXY
 xqR
-xaF
+rHk
 xir
 xun
 xEX
@@ -67349,7 +67349,7 @@ vvX
 vWN
 mxA
 keo
-xdW
+vPn
 xJo
 xPb
 tkm
@@ -76875,7 +76875,7 @@ tnt
 xho
 ooP
 dfm
-woh
+pIj
 xho
 ena
 wbG
@@ -77599,7 +77599,7 @@ vPe
 vPe
 mZB
 kMm
-lFw
+ylS
 mls
 mGA
 nbV

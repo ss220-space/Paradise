@@ -12993,6 +12993,14 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/break_room)
+"bRl" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet/royalblack,
+/area/quartermaster/qm)
 "bRt" = (
 /obj/structure/closet/secure_closet,
 /obj/item/storage/secure/briefcase,
@@ -13710,6 +13718,29 @@
 	icon_state = "neutral"
 	},
 /area/hallway/primary/central/south)
+"bWu" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "bWy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -14088,6 +14119,16 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/kitchen)
+"bZs" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syndie_kit/dropwall{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "bZz" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -17733,17 +17774,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
-"cBq" = (
-/obj/structure/table/glass,
-/obj/item/phone,
-/obj/item/lighter/zippo/cmo,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = -11;
-	pixel_y = 7
-	},
-/turf/simulated/floor/carpet/blue,
-/area/medical/cmo)
 "cBv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -24427,29 +24457,6 @@
 "dBx" = (
 /turf/simulated/floor/glass/reinforced,
 /area/quartermaster/qm)
-"dBD" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner/medical,
-/obj/item/folder/white{
-	pixel_x = 12;
-	pixel_y = 3
-	},
-/obj/machinery/light{
-	dir = 1;
-	in_use = 1
-	},
-/obj/structure/sign/poster/official/cleanliness{
-	pixel_y = 32
-	},
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = -13;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/paramedic)
 "dBG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -27116,14 +27123,6 @@
 "dXt" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai_upload)
-"dXv" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/carpet/royalblack,
-/area/quartermaster/qm)
 "dXw" = (
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp{
@@ -27638,18 +27637,6 @@
 	icon_state = "dark"
 	},
 /area/hallway/primary/command)
-"eaU" = (
-/obj/structure/window/reinforced,
-/obj/item/flag/nt,
-/obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Aeterna0. Слава Нанотрейзен!";
-	name = "Благодарственное Письмо от Главного Инженера станции Нова";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
 "eaW" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -29905,16 +29892,6 @@
 	},
 /turf/simulated/floor/wood/dark,
 /area/crew_quarters/bar/atrium)
-"erh" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "eri" = (
 /obj/machinery/atmospherics/unary/cold_sink/freezer,
 /turf/simulated/floor/plasteel{
@@ -35108,18 +35085,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/arcade)
-"feO" = (
-/obj/structure/window/reinforced,
-/obj/item/flag/nt,
-/obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Zhojaba. Слава Нанотрейзен!";
-	name = "Благодарственное Письмо от Главного Инженера станции Нова";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
 "feY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -35292,6 +35257,23 @@
 	icon_state = "yellow"
 	},
 /area/engineering/engine)
+"fgk" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/table/reinforced,
+/obj/item/toy/russian_revolver,
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = -8
+	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkbluealt"
+	},
+/area/security/warden)
 "fgq" = (
 /obj/structure/table/glass,
 /obj/item/storage/fancy/vials{
@@ -37135,37 +37117,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
-"ftt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/structure/table/reinforced,
-/obj/item/mod/module/hat_stabilizer{
-	pixel_x = 1;
-	pixel_y = -6
-	},
-/obj/item/mod/module/hat_stabilizer{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/obj/item/mod/module/pepper_shoulders{
-	pixel_y = 9;
-	pixel_x = 6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "ftz" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -37307,6 +37258,17 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"fuT" = (
+/obj/structure/table/glass,
+/obj/item/phone,
+/obj/item/lighter/zippo/cmo,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = -11;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet/blue,
+/area/medical/cmo)
 "fuX" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -54579,6 +54541,16 @@
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/exit)
+"ial" = (
+/obj/structure/window/reinforced,
+/obj/structure/statue/gold/unathi{
+	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции \"Нанотрейзен\" - Nova.";
+	name = "К.А.З"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "iaz" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -55732,21 +55704,6 @@
 	dir = 5
 	},
 /area/hydroponics)
-"iif" = (
-/obj/structure/sign/poster/official/cleanliness{
-	pixel_y = 32
-	},
-/obj/structure/table/glass,
-/obj/item/clothing/gloves/color/latex/nitrile,
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = 5;
-	pixel_y = 13
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/security/medbay)
 "iij" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -57795,6 +57752,29 @@
 /obj/structure/cable,
 /turf/simulated/floor/carpet,
 /area/library)
+"iwC" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/table/reinforced,
+/obj/item/mod/module/longfall{
+	pixel_y = 4;
+	pixel_x = 6
+	},
+/obj/item/mod/module/longfall{
+	pixel_y = 4;
+	pixel_x = 6
+	},
+/obj/item/mod/module/jump_jet{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/mod/module/jump_jet{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/seceqstorage)
 "iwG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -60484,18 +60464,6 @@
 "iUn" = (
 /turf/simulated/floor/carpet/red,
 /area/chapel/main)
-"iUo" = (
-/obj/structure/window/reinforced,
-/obj/item/flag/nt,
-/obj/structure/sign/beautyplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Saad603. Слава Нанотрейзен!";
-	name = "Благодарственное Письмо от Главного Инженера станции Нова";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
 "iUr" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -60832,6 +60800,18 @@
 	slowdown = -0.3
 	},
 /area/hallway/primary/central)
+"iWM" = (
+/obj/structure/window/reinforced,
+/obj/item/flag/nt,
+/obj/structure/sign/beautyplaque{
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Saad603. Слава \"Нанотрейзен\"!";
+	name = "Благодарственное Письмо от Главного Инженера станции Нова";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "iWT" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Подаёт азот из атмосферки в систему охлаждения реактора, таким образом запитывая её хладагентом";
@@ -64465,18 +64445,6 @@
 	tag = "icon-whitepurple (WEST)"
 	},
 /area/medical/research/nhallway)
-"jxf" = (
-/obj/structure/window/reinforced,
-/obj/item/flag/nt,
-/obj/structure/sign/tajarplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Den10g. Слава Нанотрейзен!";
-	name = "Благодарственное Письмо от Главного Инженера станции Нова";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
 "jxi" = (
 /obj/effect/turf_decal/siding/red,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -68181,6 +68149,21 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/courtroom)
+"jZh" = (
+/obj/structure/sign/poster/official/cleanliness{
+	pixel_y = 32
+	},
+/obj/structure/table/glass,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/security/medbay)
 "jZm" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/flashlight/lantern,
@@ -70624,6 +70607,18 @@
 	dir = 1
 	},
 /area/security/range)
+"ktP" = (
+/obj/structure/window/reinforced,
+/obj/item/flag/nt,
+/obj/structure/sign/tajarplaque{
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Den10g. Слава \"Нанотрейзен\"!";
+	name = "Благодарственное Письмо от Главного Инженера станции Нова";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "ktQ" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -81262,23 +81257,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
-"mbB" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/table/reinforced,
-/obj/item/toy/russian_revolver,
-/obj/item/bodybag/environmental/prisoner/pressurized{
-	pixel_x = -8
-	},
-/obj/item/bodybag/environmental/prisoner/pressurized{
-	pixel_x = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkbluealt"
-	},
-/area/security/warden)
 "mbM" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/dirt,
@@ -93296,29 +93274,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
-"nMX" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/table/reinforced,
-/obj/item/mod/module/longfall{
-	pixel_y = 4;
-	pixel_x = 6
-	},
-/obj/item/mod/module/longfall{
-	pixel_y = 4;
-	pixel_x = 6
-	},
-/obj/item/mod/module/jump_jet{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/mod/module/jump_jet{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/seceqstorage)
 "nMY" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dust,
@@ -95772,29 +95727,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
-"ogm" = (
-/obj/structure/table/reinforced,
-/obj/item/mod/module/quick_cuff{
-	pixel_x = -6;
-	pixel_y = -4
-	},
-/obj/item/mod/module/quick_cuff{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/item/mod/module/megaphone{
-	pixel_x = -8;
-	pixel_y = 8
-	},
-/obj/item/mod/module/megaphone{
-	pixel_x = 6;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "ogo" = (
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -100575,6 +100507,37 @@
 	icon_state = "freezerfloor"
 	},
 /area/maintenance/medroom)
+"oSC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = 1;
+	pixel_y = -6
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/mod/module/pepper_shoulders{
+	pixel_y = 9;
+	pixel_x = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "oSH" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -109655,6 +109618,16 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
+"qhl" = (
+/obj/structure/window/reinforced,
+/obj/structure/statue/gold/tajaran{
+	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции \"Нанотрейзен\" - Nova.";
+	name = "Л.А.Р"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "qhm" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/wideplating/light,
@@ -126734,6 +126707,18 @@
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
+"sGz" = (
+/obj/structure/chair{
+	desc = "Этот красивый стул был отлит из двух трофейных боргов \"Синдиката\".";
+	name = "Дизайнерский стул"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/secret/Viper{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/trading)
 "sGD" = (
 /obj/machinery/field/generator{
 	anchored = 1;
@@ -129874,18 +129859,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"tdg" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/quartermaster/qm)
 "tdm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -131054,16 +131027,6 @@
 "tkq" = (
 /turf/space,
 /area/space)
-"tkt" = (
-/obj/structure/window/reinforced,
-/obj/structure/statue/gold/tajaran{
-	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции Нанотрейзен - Nova.";
-	name = "Л.А.Р"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
 "tku" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -133021,6 +132984,18 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
+"tyJ" = (
+/obj/structure/window/reinforced,
+/obj/item/flag/nt,
+/obj/structure/sign/goldenplaque{
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Zhojaba. Слава \"Нанотрейзен\"!";
+	name = "Благодарственное Письмо от Главного Инженера станции Нова";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "tyK" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/red,
@@ -134003,6 +133978,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"tGf" = (
+/obj/structure/window/reinforced,
+/obj/item/flag/nt,
+/obj/structure/sign/atmosplaque{
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Aeterna0. Слава \"Нанотрейзен\"!";
+	name = "Благодарственное Письмо от Главного Инженера станции Нова";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "tGh" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -134370,6 +134357,18 @@
 	icon_state = "red"
 	},
 /area/security/reception)
+"tIm" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/quartermaster/qm)
 "tIp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -144439,6 +144438,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"vii" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/suit_storage_unit/qm,
+/turf/simulated/floor/wood,
+/area/quartermaster/qm)
 "vis" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -150040,6 +150046,29 @@
 	icon_state = "dark"
 	},
 /area/security/medbay)
+"wah" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/cleaner/medical,
+/obj/item/folder/white{
+	pixel_x = 12;
+	pixel_y = 3
+	},
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/structure/sign/poster/official/cleanliness{
+	pixel_y = 32
+	},
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = -13;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
 "wam" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/light/small{
@@ -151543,16 +151572,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"wmf" = (
-/obj/structure/window/reinforced,
-/obj/structure/statue/gold/unathi{
-	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции Нанотрейзен - Nova.";
-	name = "К.А.З"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
 "wmg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -156255,18 +156274,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"wWg" = (
-/obj/structure/chair{
-	desc = "Этот красивый стул был отлит из двух трофейных боргов синдиката.";
-	name = "Дизайнерский стул"
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/secret/Viper{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/trading)
 "wWl" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -165326,13 +165333,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"ylF" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/suit_storage_unit/qm,
-/turf/simulated/floor/wood,
-/area/quartermaster/qm)
 "ylG" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardaux)
@@ -186069,7 +186069,7 @@ goi
 wTR
 geH
 sGG
-dBD
+wah
 wTc
 gYl
 bZW
@@ -186576,7 +186576,7 @@ sGG
 dqD
 iXB
 rOx
-cBq
+fuT
 cPy
 fiS
 gxb
@@ -243669,7 +243669,7 @@ rTd
 wGO
 vCB
 xAy
-nMX
+iwC
 eni
 osh
 kAy
@@ -244417,7 +244417,7 @@ bkc
 xoL
 ajW
 xoL
-erh
+bZs
 oWw
 vVc
 tes
@@ -245452,7 +245452,7 @@ jnj
 bhh
 fZC
 cam
-ogm
+bWu
 brr
 wMy
 cRW
@@ -246735,7 +246735,7 @@ fsx
 fsx
 fsx
 xws
-ftt
+oSC
 nfx
 tSD
 xoL
@@ -248793,7 +248793,7 @@ pKw
 kHT
 tJo
 gXg
-mbB
+fgk
 kWl
 uZW
 aWV
@@ -252139,7 +252139,7 @@ jUp
 bSJ
 xQI
 dlD
-iif
+jZh
 sOq
 uKm
 iGe
@@ -259294,7 +259294,7 @@ jQH
 hCH
 hHJ
 brM
-iUo
+iWM
 ihk
 fGh
 boP
@@ -259808,7 +259808,7 @@ ncS
 hCH
 plF
 brM
-tkt
+qhl
 ihk
 xtS
 bDd
@@ -260322,7 +260322,7 @@ jQH
 aEK
 pgG
 brM
-jxf
+ktP
 ihk
 xbt
 uav
@@ -263920,7 +263920,7 @@ woE
 mmc
 wsA
 qCF
-eaU
+tGf
 ihk
 fGh
 qEA
@@ -264434,7 +264434,7 @@ npi
 mRk
 ptU
 qCF
-wmf
+ial
 ihk
 xtS
 xcG
@@ -264948,7 +264948,7 @@ lpY
 snI
 skE
 qCF
-feO
+tyJ
 ihk
 kjR
 mpH
@@ -274518,8 +274518,8 @@ olU
 ati
 dKV
 kgJ
-tdg
-ylF
+tIm
+vii
 emV
 mzQ
 tlW
@@ -274775,7 +274775,7 @@ fUI
 ctn
 wVx
 inI
-dXv
+bRl
 rkd
 emV
 oLB
@@ -276280,7 +276280,7 @@ mOQ
 bDb
 ihh
 ijt
-wWg
+sGz
 ntw
 nim
 vkO

@@ -913,7 +913,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		targetinfo = new /datum/theft_objective/unique/docs_blue
 	else if(faction == "blue")
 		targetinfo = new /datum/theft_objective/unique/docs_red
-	explanation_text = "Заполучите [targetinfo.name], переносимые [target.current.real_name], [target.assigned_role] и агент Синдиката."
+	explanation_text = "Заполучите [targetinfo.name], переносимые [target.current.real_name], [target.assigned_role] и агент \"Синдиката\"."
 	steal_target = targetinfo
 
 /datum/objective/steal/exchange/backstab
@@ -1092,7 +1092,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low, high)
 	target_amount = round(round(target_amount / 5) * 5)
-	explanation_text = "Накопить не менее [target_amount] единиц крови."
+	explanation_text = "Накопить не менее [target_amount] единиц крови."
 	return target_amount
 
 /datum/objective/blood/check_completion()
