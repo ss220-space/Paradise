@@ -673,7 +673,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src
-	if(Master.init_stage_completed == INITSTAGE_MAX)
+	if(SSticker?.current_state >= GAME_STATE_PLAYING)
 		SSshuttle.autoEvac()
 	return ..()
 
