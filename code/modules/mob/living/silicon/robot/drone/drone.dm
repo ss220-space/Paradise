@@ -1,7 +1,7 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
-	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта Нанотрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
+	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта \"Нанотрейзен\": Решаем проблемы завтрашнего дня уже сегодня!\"."
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
@@ -282,7 +282,7 @@
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
-	set_zeroth_law("Только [H.real_name] и люди, которых [H.real_name] обозначит, являются агентами Синдиката.")
+	set_zeroth_law("Только [H.real_name] и люди, которых [H.real_name] обозначит, являются агентами \"Синдиката\".")
 	SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 
 	to_chat(src, "<b>Соблюдайте эти законы:</b>")

@@ -702,7 +702,7 @@ SUBSYSTEM_DEF(ticker)
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_NYX
 	newChannel.author = EDITOR_NYX
-	newChannel.description = "Новости Нанотрейзен!"
+	newChannel.description = "Новости \"Нанотрейзен\"!"
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE

@@ -58,7 +58,7 @@
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
 					форм, обратитесь в Отдел\
-					стандартизации Нанотрейзен."
+					стандартизации \"Нанотрейзен\"."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
@@ -86,12 +86,12 @@
 
 /obj/machinery/photocopier/syndie/get_ru_names()
 	return list(
-		NOMINATIVE = "ксерокс Синдиката",
-		GENITIVE = "ксерокса Синдиката",
-		DATIVE = "ксероксу Синдиката",
-		ACCUSATIVE = "ксерокс Синдиката",
-		INSTRUMENTAL = "ксероксом Синдиката",
-		PREPOSITIONAL = "ксероксе Синдиката",
+		NOMINATIVE = "ксерокс \"Синдиката\"",
+		GENITIVE = "ксерокса \"Синдиката\"",
+		DATIVE = "ксероксу \"Синдиката\"",
+		ACCUSATIVE = "ксерокс \"Синдиката\"",
+		INSTRUMENTAL = "ксероксом \"Синдиката\"",
+		PREPOSITIONAL = "ксероксе \"Синдиката\"",
 	)
 
 /obj/machinery/photocopier/Initialize(mapload)

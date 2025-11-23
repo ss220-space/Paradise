@@ -602,6 +602,14 @@
 	build_path = /obj/item/reagent_containers/iv_bag
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/handheld_defib
+	name = "Handheld Defibrillator"
+	id = "handheld_defibrillator"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
+	build_path = /obj/item/handheld_defibrillator
+	category = list("initial", "Medical")
+
 /datum/design/prox_sensor
 	id = "prox_sensor"
 	build_type = AUTOLATHE
