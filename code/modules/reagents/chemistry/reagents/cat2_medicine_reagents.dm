@@ -39,7 +39,7 @@
 	else
 		affected_mob.adjustToxLoss((beginning_combo - combo) * 0.1) //If you are just healing instead of converting the damage we'll KINDLY do it for you AND make it the most difficult!
 
-	if(!healed_this_iteration || reaping || !prob(100)) //janken with the grim reaper!
+	if(!healed_this_iteration || reaping || !prob(0.05)) //janken with the grim reaper!
 		return ..()
 
 	notify_ghosts(
