@@ -497,7 +497,7 @@
 	for(var/datum/design/D in files.known_designs)
 		cache_design_name(D)
 
-/// Get the cached name
+/// Get the design name from cache
 /obj/machinery/autolathe/proc/get_cached_name(datum/design/D)
 	if(!D)
 		return "Неизвестный шаблон"
@@ -510,7 +510,7 @@
 		qdel(design_item)
 		return design_name
 
-/// Get the cached description
+/// Get the design description from cache
 /obj/machinery/autolathe/proc/get_cached_desc(datum/design/D)
 	if(!D)
 		return "Неизвестный шаблон"
