@@ -121,7 +121,11 @@
 					matreq["metal"] = x["amount"]
 				if(x["name"] == "glass")
 					matreq["glass"] = x["amount"]
+
 			var/obj/item/design_item = new D.build_path
+			var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
+			qdel(design_item)
+
 			var/maxmult = 1
 			if(ispath(D.build_path, /obj/item/stack))
 				maxmult = D.maxstack
@@ -133,7 +137,7 @@
 				categories |= AUTOLATHE_CATEGORY_IMPORTED
 
 			recipes.Add(list(list(
-				"name" = capitalize(design_item.declent_ru(NOMINATIVE)),
+				"name" = design_name,
 				"desc" = design_item.desc,
 				"category" = categories,
 				"uid" = D.UID(),
@@ -142,7 +146,6 @@
 				"max_multiplier" = maxmult,
 				"icon" = initial(design_item.icon),
 				"icon_state" = initial(design_item.icon_state),
-			qdel(design_item)
 			)))
 		recipiecache = recipes
 	data["recipes"] = recipiecache
@@ -160,10 +163,13 @@
 	data["busyamt"] = 1
 	if(length(being_built) > 0)
 		var/datum/design/D = being_built[1]
+
 		var/obj/item/design_item = new D.build_path
-		data["busyname"] =  istype(D) && capitalize(design_item.declent_ru(NOMINATIVE)) ? capitalize(design_item.declent_ru(NOMINATIVE)) : FALSE
-		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
+		var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
 		qdel(design_item)
+
+		data["busyname"] =  istype(D) && design_name ? design_name : FALSE
+		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
 	data["buildQueueLen"] = queue.len
@@ -183,11 +189,17 @@
 			var/index = text2num(params["remove_from_queue"])
 			if(isnum(index) && ISINRANGE(index, 1, length(queue)))
 				remove_from_queue(index)
-				to_chat(usr, span_notice("Шаблон удалён из очереди печати."))
+				to_chat(usr, span_notice("Шаблон  удалён из очереди печати."))
 		if("make")
 			BuildTurf = loc
+
 			var/datum/design/design_last_ordered
 			design_last_ordered = locateUID(params["make"])
+
+			var/obj/design_item = new design_last_ordered.build_path
+			var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
+			qdel(design_item)
+
 			if(!istype(design_last_ordered))
 				to_chat(usr, span_warning("Неподходящий шаблон."))
 				return
@@ -216,7 +228,7 @@
 				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in ui_act. Possible href exploit.")
 				return
 			if((length(queue) + 1) < queue_max_len)
-				add_to_queue(design_last_ordered, multiplier)
+				add_to_queue(design_last_ordered, multiplier, design_name)
 			else
 				to_chat(usr, span_warning("Очередь печати заполнена!"))
 			if(!busy)
@@ -255,11 +267,10 @@
 		for(var/list/L in queue)
 			var/datum/design/D = L[1]
 			var/list/LL = get_design_cost_as_list(D, L[2])
-			var/obj/design_item = new D
-			data_queue[++data_queue.len] = list("name" = capitalize(design_item.declent_ru(NOMINATIVE)), "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
+
+			data_queue[++data_queue.len] = list("name" = L[3], "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
 			temp_metal = max(temp_metal - LL[1], 1)
 			temp_glass = max(temp_glass - LL[2], 1)
-			qdel(design_item)
 		data["queue"] = data_queue
 		data["queue_len"] = data_queue.len
 	else
@@ -441,17 +452,21 @@
 
 /obj/machinery/autolathe/proc/get_processing_line()
 	var/datum/design/D = being_built[1]
-	var/obj/design_item = new D
+
+	var/obj/design_item = new D.build_path
+	var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
+	qdel(design_item)
+
 	var/multiplier = being_built[2]
 	var/is_stack = (multiplier>1)
-	var/output = "Печать: [capitalize(design_item.declent_ru(NOMINATIVE))][is_stack?" (x[multiplier])":null]"
+	var/output = "Печать: [design_name][is_stack?" (x[multiplier])":null]"
 	return output
 
-/obj/machinery/autolathe/proc/add_to_queue(D, multiplier)
+/obj/machinery/autolathe/proc/add_to_queue(D, multiplier, design_name)
 	if(!istype(queue))
 		queue = list()
-	if(D)
-		queue.Add(list(list(D,multiplier)))
+	if(D && design_name)
+		queue.Add(list(list(D,multiplier,design_name)))
 	return queue.len
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)
