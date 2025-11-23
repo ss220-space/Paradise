@@ -34,7 +34,7 @@ export const LatheCategory = (properties) => {
           ({ id, name, desc, icon, icon_state, can_build, materials }) => {
             return (
               <Table.Row key={id}>
-                <Table.Cell>
+                <Table.Cell collapsing>
                   <DmIcon
                     icon={icon}
                     icon_state={icon_state}

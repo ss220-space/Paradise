@@ -488,7 +488,7 @@ research holder datum.
 	pixel_y = rand(-5, 5)
 
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
-	var/obj/design_item = new D
+	var/obj/design_item = new D.build_path
 	name = "[default_name] \[[design_item]\]"
 	desc = D.desc
 
