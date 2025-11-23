@@ -81,6 +81,10 @@
 	affected_mob.revive()
 	affected_mob.reagents.del_reagent(type)
 
+#undef ROCK
+#undef PAPER
+#undef SCISSORS
+
 /datum/reagent/medicine/c2/helbital/overdose_process(mob/living/carbon/affected_mob)
 	if(!helbent)
 		affected_mob.apply_necropolis_curse(CURSE_WASTING | CURSE_BLINDING)
