@@ -723,10 +723,8 @@
 /obj/projectile/energy/nucle_transformer
 	name = "nucle transformation bolt"
 	icon_state = "nucle_transformer"
-	damage = 0
 	damage_type = TOX
 	nodamage = TRUE
-	flag = "energy"
 
 /obj/projectile/energy/nucle_transformer/on_hit(atom/target, blocked = 0, hit_zone)
 	if(!ishuman(target))
