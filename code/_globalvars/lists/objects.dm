@@ -68,3 +68,5 @@ GLOBAL_LIST_EMPTY(visual_portals)
 GLOBAL_LIST_EMPTY(pod_styles_by_type)
 
 GLOBAL_LIST_EMPTY(loot_tiers)
+
+GLOBAL_LIST_EMPTY(design_names_cached)

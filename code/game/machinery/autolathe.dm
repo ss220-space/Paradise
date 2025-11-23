@@ -31,8 +31,6 @@
 	var/temp_search
 	var/selected_category
 	var/list/recipiecache = list()
-	/// Variable for caching names and descriptions of printing objects
-	var/list/cached_names = list()
 
 	var/list/categories = list(
 		AUTOLATHE_CATEGORY_TOOLS,
@@ -73,8 +71,6 @@
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
 
-	// Cache names and descriptions of all known designs
-	cache_all_design_names()
 
 /obj/machinery/autolathe/upgraded/Initialize(mapload)
 	. = ..()
@@ -127,10 +123,8 @@
 				if(x["name"] == "glass")
 					matreq["glass"] = x["amount"]
 
-			var/design_name = get_cached_name(D)
-			var/design_desc = get_cached_desc(D)
+			var/obj/item/created_object = D.build_path
 			var/maxmult = 1
-			var/obj/I = new D.build_path
 			if(ispath(D.build_path, /obj/item/stack))
 				maxmult = D.maxstack
 
@@ -141,17 +135,16 @@
 				categories |= AUTOLATHE_CATEGORY_IMPORTED
 
 			recipes.Add(list(list(
-				"name" = design_name,
-				"desc" = design_desc,
+				"name" = D.build_object_name,
+				"desc" = created_object.desc,
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
 				"hacked" = (PRINTER_CATEGORY_HACKED in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
-				"icon" = initial(I.icon),
-				"icon_state" = initial(I.icon_state),
+				"icon" = created_object.icon,
+				"icon_state" = created_object.icon_state,
 			)))
-			qdel(I)
 		recipiecache = recipes
 	data["recipes"] = recipiecache
 	return data
@@ -168,7 +161,7 @@
 	data["busyamt"] = 1
 	if(length(being_built) > 0)
 		var/datum/design/D = being_built[1]
-		var/design_name = get_cached_name(D)
+		var/design_name = D.build_object_name
 		data["busyname"] =  istype(D) && design_name ? design_name : FALSE
 		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
 	data["showhacked"] = hacked ? TRUE : FALSE
@@ -197,7 +190,7 @@
 			var/datum/design/design_last_ordered
 			design_last_ordered = locateUID(params["make"])
 
-			var/design_name = get_cached_name(design_last_ordered)
+			var/design_name = design_last_ordered.build_object_name
 
 			if(!istype(design_last_ordered))
 				to_chat(usr, span_warning("Неподходящий шаблон."))
@@ -293,8 +286,6 @@
 			return ATTACK_CHAIN_PROCEED
 		imported[design.id] = TRUE
 		files.AddDesign2Known(design)
-		// Cache the name and desc of the new design
-		cache_design_name(design)
 		recipiecache = list()
 		SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 		busy = FALSE
@@ -371,9 +362,6 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		prod_coeff += 1 + (M.rating == 5 ? 2 : (M.rating - 1) / 3)
 	recipiecache = list()
-	// Update cache after changing the list of known designs
-	if(files)
-		cache_all_design_names()
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 
 /obj/machinery/autolathe/proc/get_coeff(datum/design/D)
@@ -436,10 +424,9 @@
 
 /obj/machinery/autolathe/proc/get_processing_line()
 	var/datum/design/D = being_built[1]
-	var/design_name = get_cached_name(D)
 	var/multiplier = being_built[2]
 	var/is_stack = (multiplier>1)
-	var/output = "Печать: [design_name][is_stack?" (x[multiplier])":null]"
+	var/output = "Печать: [D.build_object_name][is_stack?" (x[multiplier])":null]"
 	return output
 
 /obj/machinery/autolathe/proc/add_to_queue(D, multiplier, design_name)
@@ -480,48 +467,6 @@
 		multiplier = listgetindex(listgetindex(queue,1),2)
 	being_built = new /list()
 
-/// Cache the name and description of a single design
-/obj/machinery/autolathe/proc/cache_design_name(datum/design/D)
-	if(!D)
-		return
-	var/obj/item/design_item = new D.build_path
-	var/cached_name = capitalize(design_item.declent_ru(NOMINATIVE))
-	var/cached_desc = design_item.desc
-	qdel(design_item)
-	cached_names[D.id] = list("name" = cached_name, "desc" = cached_desc)
-
-/// Cache names and descriptions of all known designs
-/obj/machinery/autolathe/proc/cache_all_design_names()
-	cached_names = list() // Clear old cache before populating
-	for(var/datum/design/D in files.known_designs)
-		cache_design_name(D)
-
-/// Get the design name from cache
-/obj/machinery/autolathe/proc/get_cached_name(datum/design/D)
-	if(!D)
-		return "Неизвестный шаблон"
-	if(D.id in cached_names)
-		return cached_names[D.id]["name"]
-	else
-		// In case if somehow name of design wasn't cached
-		var/obj/item/design_item = new D.build_path
-		var/design_name = capitalize(design_item.declent_ru(NOMINATIVE))
-		qdel(design_item)
-		return design_name
-
-/// Get the design description from cache
-/obj/machinery/autolathe/proc/get_cached_desc(datum/design/D)
-	if(!D)
-		return "Неизвестный шаблон"
-	if(D.id in cached_names)
-		return cached_names[D.id]["desc"]
-	else
-		// In case if somehow desc of design wasn't cached
-		var/obj/item/design_item = new D.build_path
-		var/design_desc = design_item.desc
-		qdel(design_item)
-		return design_desc
-
 /obj/machinery/autolathe/proc/adjust_hacked(hack)
 	hacked = hack
 
@@ -533,8 +478,6 @@
 		for(var/datum/design/D in files.known_designs)
 			if(PRINTER_CATEGORY_HACKED in D.category)
 				files.known_designs -= D.id
-	// Update cache after changing the list of known designs
-	cache_all_design_names()
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI, thus adding/removing hacked entries from lists
 	recipiecache = list()
 
