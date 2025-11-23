@@ -17,6 +17,7 @@ type ProductRecord = {
   req_coin: boolean;
   price: number;
   name: string;
+  desc: string;
   max_amount: number;
   ref: string;
   category: string;
@@ -79,7 +80,11 @@ const VendingRow = (props: VendingRowProps) => {
           fallback={<Icon p={0.66} name={'spinner'} size={2} spin />}
         />
       </Table.Cell>
-      <Table.Cell bold>{product.name}</Table.Cell>
+      <Table.Cell bold>
+        <Button color="translucent" tooltip={product.desc}>
+          {product.name}
+        </Button>
+      </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         <Box
           color={
