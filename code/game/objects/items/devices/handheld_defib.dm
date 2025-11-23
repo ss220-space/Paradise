@@ -128,6 +128,8 @@
 	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, 'sound/weapons/flash.ogg', 75, TRUE)
 
+#undef ICON_MODE_PASSIVE
+#undef ICON_MODE_ACTIVE
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"
