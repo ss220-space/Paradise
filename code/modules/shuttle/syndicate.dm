@@ -65,7 +65,7 @@
 
 /obj/machinery/computer/shuttle/sst
 	name = "Syndicate Strike Team Shuttle Console"
-	desc = "Используется для вызова и отправки шаттла Ударного Отряда Синдиката."
+	desc = "Используется для вызова и отправки шаттла Ударного Отряда \"Синдиката\"."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
@@ -76,7 +76,7 @@
 
 /obj/machinery/computer/shuttle/sit
 	name = "Syndicate Infiltration Team Shuttle Console"
-	desc = "Используется для вызова и отправки шаттла Диверсионного Отряда Синдиката."
+	desc = "Используется для вызова и отправки шаттла Диверсионного Отряда \"Синдиката\"."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
@@ -87,7 +87,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
-	desc = "Используется, чтобы указать точное местоположение для отправки шаттла синдиката."
+	desc = "Используется, чтобы указать точное местоположение для отправки шаттла \"Синдиката\"."
 	icon_screen = "syndinavigation"
 	icon_keyboard = "syndie_key"
 	shuttleId = "syndicate"
@@ -101,7 +101,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst
 	name = "SST shuttle navigation computer"
-	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Ударного Отряда Синдиката."
+	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Ударного Отряда \"Синдиката\"."
 	shuttleId = "sst"
 	shuttlePortId = "sst_custom"
 	x_offset = 0
@@ -110,7 +110,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit
 	name = "SIT shuttle navigation computer"
-	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Диверсионного Отряда Синдиката."
+	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Диверсионного Отряда \"Синдиката\"."
 	shuttleId = "sit"
 	shuttlePortId = "sit_custom"
 	x_offset = 0

@@ -68,19 +68,19 @@
 
 /obj/item/clothing/under/plasmaman/nt
 	name = "Nanotrasen Representative plasma envirosuit"
-	desc = "Защитный костюм плазмолюда, разработанный специально для представителя Нанотрейзен."
+	desc = "Защитный костюм плазмолюда, разработанный специально для представителя \"Нанотрейзен\"."
 	icon_state = "ntrep_envirosuit"
 	item_state = "ntrep_envirosuit"
 	item_color = "ntrep_envirosuit"
 
 /obj/item/clothing/under/plasmaman/nt/get_ru_names()
 	return list(
-		NOMINATIVE = "защитный костюм представителя Нанотрейзен",
-		GENITIVE = "защитного костюма представителя Нанотрейзен",
-		DATIVE = "защитному костюму представителя Нанотрейзен",
-		ACCUSATIVE = "защитный костюм представителя Нанотрейзен",
-		INSTRUMENTAL = "защитным костюмом представителя Нанотрейзен",
-		PREPOSITIONAL = "защитном костюме представителя Нанотрейзен",
+		NOMINATIVE = "защитный костюм представителя \"Нанотрейзен\"",
+		GENITIVE = "защитного костюма представителя \"Нанотрейзен\"",
+		DATIVE = "защитному костюму представителя \"Нанотрейзен\"",
+		ACCUSATIVE = "защитный костюм представителя \"Нанотрейзен\"",
+		INSTRUMENTAL = "защитным костюмом представителя \"Нанотрейзен\"",
+		PREPOSITIONAL = "защитном костюме представителя \"Нанотрейзен\"",
 	)
 
 /obj/item/clothing/under/plasmaman/enviroslacks

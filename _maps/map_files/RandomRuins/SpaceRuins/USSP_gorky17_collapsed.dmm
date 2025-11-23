@@ -232,11 +232,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/rusted/ppsh{
-	malf_counter = 70;
-	malf_high_bound = 70;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/ppsh/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "aY" = (
@@ -2343,10 +2339,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	malf_high_bound = 80;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/aksu/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "hn" = (
@@ -3562,10 +3555,7 @@
 	req_access = list(123)
 	},
 /obj/item/ammo_box/magazine/aksu,
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	malf_high_bound = 80;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/aksu/rusted,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -15965,10 +15955,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	malf_high_bound = 80;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/aksu/rusted,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16179,11 +16166,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/rusted/ppsh{
-	malf_counter = 70;
-	malf_high_bound = 70;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/ppsh/rusted,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},

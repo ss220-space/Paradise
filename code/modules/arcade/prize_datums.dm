@@ -175,7 +175,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/spacesuit
 	name = "Fake Spacesuit"
-	desc = "Реплика скафандра синдиката. Не пригоден для использования в космосе."
+	desc = "Реплика скафандра \"Синдиката\". Не пригоден для использования в космосе."
 	typepath = /obj/item/storage/box/fakesyndiesuit
 	cost = 90
 

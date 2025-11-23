@@ -129,7 +129,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/ppsh,
+			/obj/item/gun/projectile/automatic/ppsh/rusted,
 			/obj/item/ammo_box/magazine/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 		),
@@ -303,7 +303,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/aksu,
+			/obj/item/gun/projectile/automatic/aksu/rusted,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,

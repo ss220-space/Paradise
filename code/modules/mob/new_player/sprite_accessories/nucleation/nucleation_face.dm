@@ -2,6 +2,7 @@
 	icon = 'icons/mob/sprite_accessories/nucleation/nucleation_face.dmi'
 	species_allowed = list(SPECIES_NUCLEATION)
 	glasses_over = 1
+	do_colouration = FALSE
 
 /datum/sprite_accessory/hair/nucleation/nuc_crystals
 	name = "Nucleation Crystals"

@@ -72,7 +72,7 @@
 	return ..()
 
 /obj/item/soap/nanotrasen
-	desc = "Именное мыло Нанотрейзен. Обладает игривым запахом плазмы."
+	desc = "Именное мыло \"Нанотрейзен\". Обладает игривым запахом плазмы."
 	icon_state = "soapnt"
 	item_state = "soapnt"
 
