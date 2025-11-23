@@ -257,26 +257,6 @@
 
 	return data
 
-/obj/machinery/autolathe/proc/queue_data(list/data)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	var/temp_metal = materials.amount(MAT_METAL)
-	var/temp_glass = materials.amount(MAT_GLASS)
-	data["processing"] = length(being_built) ? get_processing_line() : null
-	if(istype(queue) && length(queue))
-		var/list/data_queue = list()
-		for(var/list/L in queue) // L = list(datum/design, multiplier, cached_name, cached_desc)
-			var/datum/design/D = L[1]
-			var/list/LL = get_design_cost_as_list(D, L[2])
-
-			data_queue[++data_queue.len] = list("name" = L[3], "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
-			temp_metal = max(temp_metal - LL[1], 1)
-			temp_glass = max(temp_glass - LL[2], 1)
-		data["queue"] = data_queue
-		data["queue_len"] = data_queue.len
-	else
-		data["queue"] = null
-	return data
-
 /obj/machinery/autolathe/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
