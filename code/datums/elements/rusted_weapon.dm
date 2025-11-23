@@ -33,17 +33,7 @@
 		return
 	var/destroy_chance = gun.shots_counter >= malf_high_bound ? destroy_max_chance : ((gun.shots_counter - malf_low_bound) / (malf_high_bound - malf_low_bound) * destroy_max_chance)
 	if(prob(destroy_chance))
-		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
-		if(user.tkgrabbed_objects[gun])
-			user.drop_item_ground(user.tkgrabbed_objects[gun])
-			to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается!"))
-		else
-			user.take_organ_damage(0, 30)
-			user.flash_eyes()
-			to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается у вас в руках!"))
-		new /obj/effect/decal/cleanable/ash(gun.loc)
-		playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
-		qdel(gun)
+		destroy_gun(gun, user)
 		return
 	// shot in the face probe
 	var/face_shot_chance = gun.shots_counter >= malf_high_bound ? face_shot_max_chance : ((gun.shots_counter - malf_low_bound) / (malf_high_bound - malf_low_bound) * face_shot_max_chance)
@@ -52,3 +42,16 @@
 	playsound(user, gun.fire_sound, 30, TRUE)
 	to_chat(user, span_userdanger("[capitalize(gun.declent_ru(NOMINATIVE))] взрывается прямо у вас перед лицом!"))
 	user.take_organ_damage(0, 10)
+
+/datum/element/rusted_weapon/proc/destroy_gun(obj/item/gun/gun, mob/living/user)
+	// if the gun grabbed by telekinesis, it's can exploise but without damage for user
+	if(user.tkgrabbed_objects[gun])
+		user.drop_item_ground(user.tkgrabbed_objects[gun])
+		to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается!"))
+	else
+		user.take_organ_damage(0, 30)
+		user.flash_eyes()
+		to_chat(user, span_userdanger("БА-БАХ! [capitalize(gun.declent_ru(NOMINATIVE))] взрывается у вас в руках!"))
+	new /obj/effect/decal/cleanable/ash(gun.loc)
+	playsound(user, SFX_EXPLOSION, 30, TRUE)
+	qdel(gun)
