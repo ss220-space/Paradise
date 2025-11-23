@@ -41,8 +41,8 @@
 	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
 /obj/item/handheld_defibrillator/Destroy()
-	. = ..()
 	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	. = ..()
 
 /obj/item/handheld_defibrillator/attack_self(mob/user)
 	. = ..()
@@ -51,7 +51,7 @@
 
 /obj/item/handheld_defibrillator/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ITEM_DROPPED
-	icon_mode = "passive"
+	icon_mode = ICON_MODE_PASSIVE
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/handheld_defibrillator/update_icon_state()
@@ -74,7 +74,7 @@
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = I
 			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 
-	if(icon_mode == "passive")
+	if(icon_mode == ICON_MODE_PASSIVE)
 		balloon_alert(user, "лопасти не разложены!")
 		return .
 
