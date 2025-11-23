@@ -156,7 +156,7 @@
 //Security revolver
 /obj/item/gun/projectile/revolver/taurus
 	name = "Taurus revolver"
-	desc = "Стандартный револьвер службы безопасности Нанотрейзен под калибр .45 Colt."
+	desc = "Револьвер под калибр .45 Colt, используемый силовыми структурами \"Нанотрейзен\". Отличается простотой конструкции, высокой надёжностью и минимальным количеством движущихся частей. Произведён \"Оружейной Ауссек\"."
 	icon_state = "taurus"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/taurus
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
@@ -175,12 +175,12 @@
 
 /obj/item/gun/projectile/revolver/taurus/get_ru_names()
 	return list(
-		NOMINATIVE = "Револьвер \"Таурус\"",
-		GENITIVE = "Револьвера \"Таурус\"",
-		DATIVE = "Револьверу \"Таурус\"",
-		ACCUSATIVE = "Револьверу \"Таурус\"",
-		INSTRUMENTAL = "Револьвером \"Таурус\"",
-		PREPOSITIONAL = "Револьвере \"Таурус\"",
+		NOMINATIVE = "револьвер \"Таурус\"",
+		GENITIVE = "револьвера \"Таурус\"",
+		DATIVE = "револьверу \"Таурус\"",
+		ACCUSATIVE = "револьверу \"Таурус\"",
+		INSTRUMENTAL = "револьвером \"Таурус\"",
+		PREPOSITIONAL = "револьвере \"Таурус\"",
 	)
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item

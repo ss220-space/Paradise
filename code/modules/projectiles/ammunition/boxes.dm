@@ -481,12 +481,12 @@
 
 /obj/item/ammo_box/rubber45colt/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (нелетальные .45 Colt)",
-		GENITIVE = "коробки патронов (нелетальные .45 Colt)",
-		DATIVE = "коробке патронов (нелетальные .45 Colt)",
-		ACCUSATIVE = "коробку патронов (нелетальные .45 Colt)",
-		INSTRUMENTAL = "коробкой патронов (нелетальные .45 Colt)",
-		PREPOSITIONAL = "коробке патронов (нелетальные .45 Colt)",
+		NOMINATIVE = "коробка патронов (нелетальный .45 Colt)",
+		GENITIVE = "коробки патронов (нелетальный .45 Colt)",
+		DATIVE = "коробке патронов (нелетальный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (нелетальный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (нелетальный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (нелетальный .45 Colt)",
 	)
 
 /obj/item/ammo_box/expansive45colt
@@ -499,12 +499,12 @@
 
 /obj/item/ammo_box/expansive45colt/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (экспансивные .45 Colt)",
-		GENITIVE = "коробки патронов (экспансивные .45 Colt)",
-		DATIVE = "коробке патронов (экспансивные .45 Colt)",
-		ACCUSATIVE = "коробку патронов (экспансивные .45 Colt)",
-		INSTRUMENTAL = "коробкой патронов (экспансивные .45 Colt)",
-		PREPOSITIONAL = "коробке патронов (экспансивные .45 Colt)",
+		NOMINATIVE = "коробка патронов (экспансивный .45 Colt)",
+		GENITIVE = "коробки патронов (экспансивный .45 Colt)",
+		DATIVE = "коробке патронов (экспансивный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (экспансивный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (экспансивный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (экспансивный .45 Colt)",
 	)
 
 /obj/item/ammo_box/ap45colt
@@ -517,12 +517,12 @@
 
 /obj/item/ammo_box/ap45colt/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (бронебойные .45 Colt)",
-		GENITIVE = "коробки патронов (бронебойные .45 Colt)",
-		DATIVE = "коробке патронов (бронебойные .45 Colt)",
-		ACCUSATIVE = "коробку патронов (бронебойные .45 Colt)",
-		INSTRUMENTAL = "коробкой патронов (бронебойные .45 Colt)",
-		PREPOSITIONAL = "коробке патронов (бронебойные .45 Colt)",
+		NOMINATIVE = "коробка патронов (бронебойный .45 Colt)",
+		GENITIVE = "коробки патронов (бронебойный .45 Colt)",
+		DATIVE = "коробке патронов (бронебойный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (бронебойный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (бронебойный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (бронебойный .45 Colt)",
 	)
 
 /obj/item/ammo_box/c10mm
@@ -1134,12 +1134,12 @@
 
 /obj/item/ammo_box/speedloader/rubber45colt/get_ru_names()
 	return list(
-		NOMINATIVE = "устройство быстрой зарядки (.45 Colt)",
-		GENITIVE = "устройства быстрой зарядки (.45 Colt)",
-		DATIVE = "устройству быстрой зарядки (.45 Colt)",
-		ACCUSATIVE = "устройство быстрой зарядки (.45 Colt)",
-		INSTRUMENTAL = "устройством быстрой зарядки (.45 Colt)",
-		PREPOSITIONAL = "устройстве быстрой зарядки (.45 Colt)",
+		NOMINATIVE = "ускоритель заряжания (.45 Colt)",
+		GENITIVE = "ускорителя заряжания (.45 Colt)",
+		DATIVE = "ускорителю заряжания (.45 Colt)",
+		ACCUSATIVE = "ускоритель заряжания (.45 Colt)",
+		INSTRUMENTAL = "ускорителем заряжания (.45 Colt)",
+		PREPOSITIONAL = "ускорителе заряжания (.45 Colt)",
 	)
 
 /obj/item/ammo_box/nagant

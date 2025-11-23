@@ -1042,17 +1042,17 @@
 
 /obj/item/storage/box/taurus_kit
 	name = "taurus revolver kit (rubber)"
-	desc = "A box marked with pictures of an taurus revolver, two ammo clips, and the word 'NON-LETHAL'."
+	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
 	icon_state = "box_taurus"
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
 	return list(
-		NOMINATIVE = "набор Таурус",
-		GENITIVE = "набора Таурус",
-		DATIVE = "набору Таурус",
-		ACCUSATIVE = "набор Таурус",
-		INSTRUMENTAL = "набором Таурус",
-		PREPOSITIONAL = "наборе Таурус",
+		NOMINATIVE = "набор \"Таурус\"",
+		GENITIVE = "набора \"Таурус\"",
+		DATIVE = "набору \"Таурус\"",
+		ACCUSATIVE = "набор \"Таурус\"",
+		INSTRUMENTAL = "набором \"Таурус\"",
+		PREPOSITIONAL = "наборе \"Таурус\"",
 	)
 
 /obj/item/storage/box/taurus_kit/populate_contents()
