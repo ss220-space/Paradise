@@ -21,6 +21,7 @@
 
 /obj/item/storage/box
 	name = "box"
+	icon = 'icons/obj/storage/boxes.dmi'
 	desc = "Это обычная коробка."
 	icon_state = "box"
 	item_state = "syringe_kit"
@@ -53,7 +54,7 @@
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
 	desc = "Contains white gloves."
-	icon_state = "latex"
+	icon_state = "box_gloves"
 
 /obj/item/storage/box/gloves/populate_contents()
 	for(var/I in 1 to 7)
@@ -62,7 +63,7 @@
 /obj/item/storage/box/masks
 	name = "sterile masks"
 	desc = "This box contains masks of sterility."
-	icon_state = "sterile"
+	icon_state = "box_mask"
 
 /obj/item/storage/box/masks/populate_contents()
 	for(var/I in 1 to 7)
@@ -72,7 +73,7 @@
 	name = "syringes"
 	desc = "A box full of syringes."
 	desc = "A biohazard alert warning is printed on the box"
-	icon_state = "syringe"
+	icon_state = "box_syringe"
 
 /obj/item/storage/box/syringes/populate_contents()
 	for(var/I in 1 to 7)
@@ -80,7 +81,7 @@
 
 /obj/item/storage/box/beakers
 	name = "beaker box"
-	icon_state = "beaker"
+	icon_state = "box_beaker"
 
 /obj/item/storage/box/beakers/populate_contents()
 	for(var/I in 1 to 7)
@@ -97,7 +98,7 @@
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
 	desc = "A box full of empty IV bags."
-	icon_state = "beaker"
+	icon_state = "box_beaker"
 
 /obj/item/storage/box/iv_bags/populate_contents()
 	for(var/i in 1 to 7)
@@ -118,7 +119,7 @@
 /obj/item/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
 	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</b>"
-	icon_state = "flashbang"
+	icon_state = "box_flashbang"
 
 /obj/item/storage/box/flashbangs/populate_contents()
 	for(var/I in 1 to 7)
@@ -127,7 +128,7 @@
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
 	desc = "<b>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</b>"
-	icon_state = "flashbang"
+	icon_state = "box_flashbang"
 
 /obj/item/storage/box/flashes/populate_contents()
 	for(var/I in 1 to 6)
@@ -136,7 +137,7 @@
 /obj/item/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
 	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</b>"
-	icon_state = "flashbang"
+	icon_state = "box_flashbang"
 
 /obj/item/storage/box/teargas/populate_contents()
 	for(var/I in 1 to 7)
@@ -145,7 +146,7 @@
 /obj/item/storage/box/barrier
 	name = "box of barrier grenades"
 	desc = "Instant cover.</b>"
-	icon_state = "flashbang"
+	icon_state = "box_flashbang"
 
 /obj/item/storage/box/barrier/populate_contents()
 	for(var/I in 1 to 7)
@@ -154,7 +155,7 @@
 /obj/item/storage/box/emps
 	name = "emp grenades"
 	desc = "A box with 5 emp grenades."
-	icon_state = "flashbang"
+	icon_state = "box_flashbang"
 
 /obj/item/storage/box/emps/populate_contents()
 	for(var/I in 1 to 5)
@@ -163,7 +164,7 @@
 /obj/item/storage/box/trackimp
 	name = "tracking implant kit"
 	desc = "Box full of scum-bag tracking utensils."
-	icon_state = "implant"
+	icon_state = "box_implants"
 
 /obj/item/storage/box/trackimp/populate_contents()
 	for(var/I in 1 to 4)
@@ -175,7 +176,7 @@
 /obj/item/storage/box/minertracker
 	name = "boxed tracking implant kit"
 	desc = "For finding those who have died on the accursed lavaworld."
-	icon_state = "implant"
+	icon_state = "box_implants"
 
 /obj/item/storage/box/minertracker/populate_contents()
 	for(var/I in 1 to 3)
@@ -187,7 +188,7 @@
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"
 	desc = "Box of stuff used to implant chemicals."
-	icon_state = "implant"
+	icon_state = "box_implants"
 
 /obj/item/storage/box/chemimp/populate_contents()
 	for(var/I in 1 to 5)
@@ -198,7 +199,7 @@
 /obj/item/storage/box/exileimp
 	name = "boxed exile implant kit"
 	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
-	icon_state = "implant"
+	icon_state = "box_implants"
 
 /obj/item/storage/box/exileimp/populate_contents()
 	for(var/I in 1 to 5)
@@ -208,7 +209,7 @@
 /obj/item/storage/box/deathimp
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
-	icon_state = "implant"
+	icon_state = "box_implants"
 	storage_slots = 8
 
 /obj/item/storage/box/deathimp/populate_contents()
@@ -227,7 +228,7 @@
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"
 	desc = "This box contains nerd glasses."
-	icon_state = "glasses"
+	icon_state = "box_glasses"
 
 /obj/item/storage/box/rxglasses/populate_contents()
 	for(var/I in 1 to 4)
@@ -244,7 +245,7 @@
 /obj/item/storage/box/cdeathalarm_kit
 	name = "Death Alarm Kit"
 	desc = "Box of stuff used to implant death alarms."
-	icon_state = "implant"
+	icon_state = "box_implants"
 
 /obj/item/storage/box/cdeathalarm_kit/populate_contents()
 	for(var/I in 1 to 6)
@@ -262,7 +263,7 @@
 /obj/item/storage/box/cups
 	name = "box of paper cups"
 	desc = "It has pictures of paper cups on the front."
-	icon_state = "papercup"
+	icon_state = "box_cups"
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
@@ -271,7 +272,7 @@
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
 	desc = "<b>Инструкция:</b> <i>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</i>"
-	icon_state = "donk_kit"
+	icon_state = "donkpocket_box"
 
 /obj/item/storage/box/donkpockets/get_ru_names()
 	return list(
@@ -290,7 +291,7 @@
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "Эта коробка кажется немного тёплой на ощупь."
-	icon_state = "donk_kit"
+	icon_state = "donkpocket_box"
 
 /obj/item/storage/box/syndidonkpockets/get_ru_names()
 	return list(
@@ -345,7 +346,7 @@
 /obj/item/storage/box/permits
 	name = "box of construction permits"
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
-	icon_state = "id"
+	icon_state = "box_id"
 
 /obj/item/storage/box/permits/populate_contents()
 	for(var/I in 1 to 7)
@@ -363,7 +364,7 @@
 /obj/item/storage/box/ids
 	name = "spare IDs"
 	desc = "Has so many empty IDs."
-	icon_state = "id"
+	icon_state = "box_id"
 
 /obj/item/storage/box/ids/populate_contents()
 	for(var/I in 1 to 7)
@@ -372,7 +373,7 @@
 /obj/item/storage/box/prisoner
 	name = "prisoner IDs"
 	desc = "Take away their last shred of dignity, their name."
-	icon_state = "id"
+	icon_state = "box_id"
 
 /obj/item/storage/box/prisoner/populate_contents()
 	new /obj/item/card/id/prisoner/one(src)
@@ -386,7 +387,7 @@
 /obj/item/storage/box/seccarts
 	name = "spare R.O.B.U.S.T. Cartridges"
 	desc = "A box full of R.O.B.U.S.T. Cartridges, used by Security."
-	icon_state = "pda"
+	icon_state = "box_pda"
 
 /obj/item/storage/box/seccarts/populate_contents()
 	for(var/I in 1 to 7)
@@ -415,7 +416,7 @@
 /obj/item/storage/box/handcuffs
 	name = "spare handcuffs"
 	desc = "A box full of handcuffs."
-	icon_state = "handcuff"
+	icon_state = "box_handcuff"
 
 /obj/item/storage/box/handcuffs/populate_contents()
 	for(var/I in 1 to 7)
@@ -424,7 +425,7 @@
 /obj/item/storage/box/zipties
 	name = "box of spare zipties"
 	desc = "A box full of zipties."
-	icon_state = "handcuff"
+	icon_state = "box_handcuff"
 
 /obj/item/storage/box/zipties/populate_contents()
 	for(var/I in 1 to 7)
@@ -433,7 +434,7 @@
 /obj/item/storage/box/alienhandcuffs
 	name = "box of spare handcuffs"
 	desc = "A box full of handcuffs."
-	icon_state = "alienboxCuffs"
+	icon_state = "box_abductor_handcuffs"
 
 /obj/item/storage/box/alienhandcuffs/populate_contents()
 	for(var/i in 1 to 7)
