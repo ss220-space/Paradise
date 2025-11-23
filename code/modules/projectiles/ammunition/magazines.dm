@@ -81,6 +81,12 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 	ammo_type = /obj/item/ammo_casing/c38/invisible/fake
 
+/obj/item/ammo_box/magazine/internal/cylinder/taurus
+	name = "taurus revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	caliber = CALIBER_DOT_45_COLT
+	max_ammo = 6
+
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762

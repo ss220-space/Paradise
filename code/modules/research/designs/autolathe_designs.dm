@@ -427,6 +427,41 @@
 	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
+/datum/design/speedloader45colt
+	id = "speedloader9mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000)
+	build_path = /obj/item/ammo_box/speedloader/rubber45colt/empty
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
+
+/datum/design/c45colt
+	id = "c45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30500)
+	build_path = /obj/item/ammo_box/c45colt
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
+
+/datum/design/rubber45colt
+	id = "rubber45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 20000)
+	build_path = /obj/item/ammo_box/rubber45colt
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
+
+/datum/design/hp45colt
+	id = "hp45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/expansive45colt
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
+
+/datum/design/ap45colt
+	id = "ap45colt"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/ap45colt
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
+
 /datum/design/recorder
 	id = "recorder"
 	build_type = AUTOLATHE
@@ -566,6 +601,14 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 3000)
 	build_path = /obj/item/reagent_containers/iv_bag
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/handheld_defib
+	name = "Handheld Defibrillator"
+	id = "handheld_defibrillator"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
+	build_path = /obj/item/handheld_defibrillator
+	category = list("initial", "Medical")
 
 /datum/design/prox_sensor
 	id = "prox_sensor"

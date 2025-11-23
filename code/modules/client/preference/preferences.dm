@@ -392,7 +392,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 				dat += "<b>Тон кожи:</b> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Особенности:</b> <a href='byond://?_src_=prefs;preference=disabilities'>Выбрать</a><br>"
-			dat += "<b>Отношение к Нанотрейзен:</b> <a href='byond://?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
+			dat += "<b>Отношение к \"Нанотрейзен\":</b> <a href='byond://?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Задать описание персонажа</a><br>"
 			dat += "[TextPreview(flavor_text)]<br>"
 
@@ -2144,7 +2144,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					return FALSE
 
 				if("nt_relation")
-					var/new_relation = tgui_input_list(user, "Выберите отношение к Нанотрейзен. Имейте ввиду, что это та информация, которую кто-то может узнать при изучении биографии персонажа, а не его актуальное мнение.", "Отношение к Нанотрейзен", list(PREF_NTRELATION_LOYAL, PREF_NTRELATION_SUPPORTIVE, PREF_NTRELATION_NEUTRAL, PREF_NTRELATION_SCEPTICAL, PREF_NTRELATION_OPPOSED))
+					var/new_relation = tgui_input_list(user, "Выберите отношение к \"Нанотрейзен\". Имейте ввиду, что это та информация, которую кто-то может узнать при изучении биографии персонажа, а не его актуальное мнение.", "Отношение к \"Нанотрейзен\"", list(PREF_NTRELATION_LOYAL, PREF_NTRELATION_SUPPORTIVE, PREF_NTRELATION_NEUTRAL, PREF_NTRELATION_SCEPTICAL, PREF_NTRELATION_OPPOSED))
 					if(new_relation)
 						nanotrasen_relation = new_relation
 

@@ -81,7 +81,7 @@ const VendingRow = (props: VendingRowProps) => {
         />
       </Table.Cell>
       <Table.Cell bold>
-        <Button color="translucent" tooltip={product.desc}>
+        <Button multiLine color="translucent" tooltip={product.desc}>
           {product.name}
         </Button>
       </Table.Cell>
