@@ -9,6 +9,7 @@
 	stage_prob = 5
 	can_contract_dead = TRUE
 	cure_text = null
+	var/fast_mode = FALSE
 	var/stage_message = 1
 
 /datum/disease/virus/nuclefication/stage_act()
@@ -28,7 +29,7 @@
 
 		if(2)
 			if(stage_message == 2)
-				stage_prob = 1
+				stage_prob = fast_mode ? 50 : 1
 				stage_message++
 				to_chat(H, span_notice("Вы чувствуете себя больным."))
 			if(prob(2))

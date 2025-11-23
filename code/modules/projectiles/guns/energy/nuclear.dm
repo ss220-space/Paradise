@@ -216,6 +216,7 @@
 	item_state = "nucle_inator"
 	icon_state = "nucle_inator"
 	recharge_rate = 1000
+	shaded_charge = TRUE
 	selfcharge = TRUE
 	charge_delay = 20
 	ammo_type = list(/obj/item/ammo_casing/energy/nucle_transformer)
@@ -224,5 +225,4 @@
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	origin_tech = "combat=5;magnets=7;powerstorage=7;illegal=5"
 	can_add_sibyl_system = FALSE
-	ammo_x_offset = 2
-	ratio = 2
+	charge_sections = 2
