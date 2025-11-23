@@ -503,17 +503,24 @@
 	if(ismachineperson(butchered))
 		butchered.visible_message(
 			span_userdanger("Корпус [butchered] разваливается на части, и [GEND_HIS_HER(butchered)] компоненты вываливаются наружу!"),
-			span_userdanger("Вы не успели инчего осознать, как ваши части вывалились наружу."),
+			span_userdanger("Вы не успели ничего осознать, как ваши части вывалились наружу."),
 			span_userdanger("Вы слышите звук вываливающихся запчастей и разрывающихся проводов.")
 		)
 		return
 	butchered.visible_message(
 		span_userdanger("Тонкая красная линия появляется на груди [butchered], и спустя мгновение [GEND_HIS_HER(butchered)] органы вываливаются наружу!"),
-		span_userdanger("Вы не успели инчего осознать, как ваши органы вывалились наружу."),
+		span_userdanger("Вы не успели ничего осознать, как ваши органы вывалились наружу."),
 		span_userdanger("Вы слышите звук вываливающихся органов.")
 	)
 
 /obj/item/dice/d20/fate/proc/Greetings_From_Hell(mob/living/carbon/human/greeted)
 	src.visible_message(span_userdanger("На месте кубика появился портал, из которого выходят адские отродья!"))
+	new /mob/living/simple_animal/hostile/hellhound/tear(pick(range(3, greeted)))
+	new /mob/living/simple_animal/hostile/hellhound/tear(pick(range(3, greeted)))
+	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
+	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
+	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
+	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
+	new /mob/living/simple_animal/hostile/hellhound(pick(range(3, greeted)))
 	greeted.Weaken(2 SECONDS)
 
