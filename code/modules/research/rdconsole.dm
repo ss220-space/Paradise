@@ -838,7 +838,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		materials_list[++materials_list.len] = list("name" = "Серебро", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
 		materials_list[++materials_list.len] = list("name" = "Твёрдая плазма", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
 		materials_list[++materials_list.len] = list("name" = "Уран", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
-		materials_list[++materials_list.len] = list("name" = "Алмазы", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
+		materials_list[++materials_list.len] = list("name" = "Алмаз", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
 		materials_list[++materials_list.len] = list("name" = "Бананиум", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
 		materials_list[++materials_list.len] = list("name" = "Транквилит", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
 		materials_list[++materials_list.len] = list("name" = "Титан", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))

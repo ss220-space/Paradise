@@ -45,6 +45,8 @@ export const LatheCategory = (properties) => {
                       marginLeft: '0px',
                     }}
                   />
+                </Table.Cell>
+                <Table.Cell>
                   <Button
                     icon="print"
                     disabled={can_build < 1}
