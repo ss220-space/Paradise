@@ -3546,7 +3546,7 @@
 /area/ruin/space/spacebotany/Hydro)
 "Tz" = (
 /obj/structure/chair{
-	desc = "Этот красивый стул был отлит из двух трофейных боргов синдиката.";
+	desc = "Этот красивый стул был отлит из двух трофейных боргов \"Синдиката\".";
 	name = "Дизайнерский стул"
 	},
 /obj/effect/decal/cleanable/blood/gibs,

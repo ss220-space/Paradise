@@ -151,7 +151,12 @@
 		ACCUSATIVE = "мини энерго-арбалет",
 		INSTRUMENTAL = "мини энерго-арбалетом",
 		PREPOSITIONAL = "мини энерго-арбалете"
-	)
+)
+  
+/obj/item/gun/energy/kinetic_accelerator/crossbow/old
+	name = "old mini energy crossbow"
+	desc = "A weapon favored by syndicate stealth specialists. It looks very old."
+	accuracy = new /datum/gun_accuracy/minimal/old()
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -767,7 +772,7 @@
 //Specter//
 /obj/item/gun/energy/specter
 	name = "Specter"
-	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам Нанотрейзен."
+	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам \"Нанотрейзен\"."
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10

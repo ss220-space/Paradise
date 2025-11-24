@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
-	desc = "Содержимое засекречено военно-космическим командованием Нанотрейзен. Требуется соединение с другими компонентами БСА с помощью мультиметра."
+	desc = "Содержимое засекречено военно-космическим командованием \"Нанотрейзен\". Требуется соединение с другими компонентами БСА с помощью мультиметра."
 	icon_state = "fuel_chamber"
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front

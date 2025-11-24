@@ -652,16 +652,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit
 	name = "bowman headset conversion kit"
-	desc = "В комплект входят гарнитура, которая обеспечивает защиту от громких звуков, а также ключ-шифратор Синдиката."
+	desc = "В комплект входят гарнитура, которая обеспечивает защиту от громких звуков, а также ключ-шифратор \"Синдиката\"."
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit/get_ru_names()
 	return list(
-		NOMINATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
-		GENITIVE = "набора гарнитуры с ключом-шифратором Синдиката",
-		DATIVE = "набору гарнитуры с ключом-шифратором Синдиката",
-		ACCUSATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
-		INSTRUMENTAL = "набором гарнитуры с ключом-шифратором Синдиката",
-		PREPOSITIONAL = "наборе гарнитуры с ключом-шифратором Синдиката",
+		NOMINATIVE = "набор гарнитуры с ключом-шифратором \"Синдиката\"",
+		GENITIVE = "набора гарнитуры с ключом-шифратором \"Синдиката\"",
+		DATIVE = "набору гарнитуры с ключом-шифратором \"Синдиката\"",
+		ACCUSATIVE = "набор гарнитуры с ключом-шифратором \"Синдиката\"",
+		INSTRUMENTAL = "набором гарнитуры с ключом-шифратором \"Синдиката\"",
+		PREPOSITIONAL = "наборе гарнитуры с ключом-шифратором \"Синдиката\"",
 	)
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
