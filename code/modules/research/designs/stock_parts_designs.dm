@@ -6,7 +6,7 @@
 
 /datum/design/basic_capacitor
 	id = "basic_capacitor"
-	req_tech = list("powerstorage" = 1)
+	req_tech = list(RESEARCH_TREE_POWERSTORAGE = 1)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	build_path = /obj/item/stock_parts/capacitor
@@ -15,7 +15,7 @@
 
 /datum/design/basic_sensor
 	id = "basic_sensor"
-	req_tech = list("magnets" = 1)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 1)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	build_path = /obj/item/stock_parts/scanning_module
@@ -24,7 +24,7 @@
 
 /datum/design/micro_mani
 	id = "micro_mani"
-	req_tech = list("materials" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/stock_parts/manipulator
@@ -33,7 +33,7 @@
 
 /datum/design/basic_micro_laser
 	id = "basic_micro_laser"
-	req_tech = list("magnets" = 1)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 1)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	build_path = /obj/item/stock_parts/micro_laser
@@ -42,7 +42,7 @@
 
 /datum/design/basic_matter_bin
 	id = "basic_matter_bin"
-	req_tech = list("materials" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/stock_parts/matter_bin
@@ -53,7 +53,7 @@
 
 /datum/design/adv_capacitor
 	id = "adv_capacitor"
-	req_tech = list("powerstorage" = 3)
+	req_tech = list(RESEARCH_TREE_POWERSTORAGE = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 150)
 	build_path = /obj/item/stock_parts/capacitor/adv
@@ -62,7 +62,7 @@
 
 /datum/design/adv_sensor
 	id = "adv_sensor"
-	req_tech = list("magnets" = 3)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 	build_path = /obj/item/stock_parts/scanning_module/adv
@@ -71,7 +71,7 @@
 
 /datum/design/nano_mani
 	id = "nano_mani"
-	req_tech = list("materials" = 3, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_PROGRAMMING = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 150)
 	build_path = /obj/item/stock_parts/manipulator/nano
@@ -80,7 +80,7 @@
 
 /datum/design/high_micro_laser
 	id = "high_micro_laser"
-	req_tech = list("magnets" = 3)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 	build_path = /obj/item/stock_parts/micro_laser/high
@@ -89,7 +89,7 @@
 
 /datum/design/adv_matter_bin
 	id = "adv_matter_bin"
-	req_tech = list("materials" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 150)
 	build_path = /obj/item/stock_parts/matter_bin/adv
@@ -100,7 +100,7 @@
 
 /datum/design/super_capacitor
 	id = "super_capacitor"
-	req_tech = list("powerstorage" = 5, "engineering" = 5)
+	req_tech = list(RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_ENGINEERING = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100)
 	build_path = /obj/item/stock_parts/capacitor/super
@@ -109,7 +109,7 @@
 
 /datum/design/phasic_sensor
 	id = "phasic_sensor"
-	req_tech = list("magnets" = 5, "engineering" = 5)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_ENGINEERING = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_SILVER = 60)
 	build_path = /obj/item/stock_parts/scanning_module/phasic
@@ -118,7 +118,7 @@
 
 /datum/design/pico_mani
 	id = "pico_mani"
-	req_tech = list("materials" = 5, "programming" = 4, "engineering" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/stock_parts/manipulator/pico
@@ -127,7 +127,7 @@
 
 /datum/design/ultra_micro_laser
 	id = "ultra_micro_laser"
-	req_tech = list("magnets" = 5, "engineering" = 5)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_ENGINEERING = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_URANIUM = 60)
 	build_path = /obj/item/stock_parts/micro_laser/ultra
@@ -136,7 +136,7 @@
 
 /datum/design/super_matter_bin
 	id = "super_matter_bin"
-	req_tech = list("materials" = 5, "engineering" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/stock_parts/matter_bin/super
@@ -147,7 +147,7 @@
 
 /datum/design/quadratic_capacitor
 	id = "quadratic_capacitor"
-	req_tech = list("powerstorage" = 6, "engineering" = 5, "materials" = 5, "bluespace" = 5)
+	req_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_BLUESPACE = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100, MAT_DIAMOND = 100)
 	build_path = /obj/item/stock_parts/capacitor/quadratic
@@ -156,7 +156,7 @@
 
 /datum/design/triphasic_scanning
 	id = "triphasic_scanning"
-	req_tech = list("magnets" = 6, "materials" = 5, "engineering" = 5, "bluespace" = 5)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_DIAMOND = 30, MAT_BLUESPACE = 30)
 	build_path = /obj/item/stock_parts/scanning_module/triphasic
@@ -165,7 +165,7 @@
 
 /datum/design/femto_mani
 	id = "femto_mani"
-	req_tech = list("materials" = 7, "programming" = 5, "engineering" = 5, "bluespace" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_DIAMOND = 30, MAT_TITANIUM = 30)
 	build_path = /obj/item/stock_parts/manipulator/femto
@@ -174,7 +174,7 @@
 
 /datum/design/quadultra_micro_laser
 	id = "quadultra_micro_laser"
-	req_tech = list("magnets" = 6, "materials" = 5, "engineering" = 5, "bluespace" = 5)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 100, MAT_DIAMOND = 60)
 	build_path = /obj/item/stock_parts/micro_laser/quadultra
@@ -183,7 +183,7 @@
 
 /datum/design/bluespace_matter_bin
 	id = "bluespace_matter_bin"
-	req_tech = list("materials" = 7, "engineering" = 5, "bluespace" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 250, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)
 	build_path = /obj/item/stock_parts/matter_bin/bluespace
@@ -192,7 +192,7 @@
 
 /datum/design/RPED
 	id = "rped"
-	req_tech = list("engineering" = 1)
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000)
 	build_path = /obj/item/storage/part_replacer
@@ -200,7 +200,7 @@
 
 /datum/design/BS_RPED
 	id = "bs_rped"
-	req_tech = list("engineering" = 4, "bluespace" = 3)
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BLUESPACE = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000, MAT_SILVER = 2500)
 	build_path = /obj/item/storage/part_replacer/bluespace
