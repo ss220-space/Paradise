@@ -117,7 +117,6 @@ const ChooseAccess = (props: unknown) => {
       rcdButtons={[
         <>
           <Button.Checkbox
-            content="Оболочка"
             checked={shell}
             onClick={() => {
               act('set_shell', {
@@ -125,7 +124,9 @@ const ChooseAccess = (props: unknown) => {
               });
             }}
             tooltip="Можно ли установить интегральную схему в этот шлюз?"
-          />
+          >
+            Оболочка
+          </Button.Checkbox>
           <Button.Checkbox
             checked={one_access}
             onClick={() =>

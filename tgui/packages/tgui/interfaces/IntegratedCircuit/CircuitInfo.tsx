@@ -10,12 +10,9 @@ export const CircuitInfo = (props) => {
           <Stack vertical>
             {notices.map((val, index) => (
               <Stack.Item key={index}>
-                <Button
-                  content={val.content}
-                  color={val.color}
-                  icon={val.icon}
-                  fluid
-                />
+                <Button color={val.color} icon={val.icon} fluid>
+                  {val.content}
+                </Button>
               </Stack.Item>
             ))}
           </Stack>

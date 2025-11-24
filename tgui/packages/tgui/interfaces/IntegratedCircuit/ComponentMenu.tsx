@@ -171,14 +171,15 @@ export class ComponentMenu extends Component<
                     textAlign="center"
                     py={1}
                     mb={1}
-                    content="Показать больше"
                     onClick={() =>
                       this.setState({
                         currentLimit: currentLimit + 5,
                       })
                     }
                     fluid
-                  />
+                  >
+                    Показать больше
+                  </Button>
                 </Stack.Item>
               )}
             </Stack>

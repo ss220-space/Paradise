@@ -198,6 +198,7 @@
 /datum/component/usb_port/proc/set_physical_object(atom/movable/new_physical_object)
 	if(physical_object)
 		unregister_physical_signals()
+
 	if(usb_cable_beam)
 		QDEL_NULL(usb_cable_beam)
 

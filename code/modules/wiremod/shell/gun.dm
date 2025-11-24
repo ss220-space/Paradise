@@ -65,8 +65,10 @@
 
 /obj/item/circuit_component/wiremod_gun/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_PROJECTILE_ON_HIT, PROC_REF(handle_shot))
-	if(istype(shell, /obj/item/gun/energy))
-		RegisterSignal(shell, COMSIG_GUN_CHAMBER_PROCESSED, PROC_REF(handle_chamber))
+	if(!istype(shell, /obj/item/gun/energy))
+		return
+
+	RegisterSignal(shell, COMSIG_GUN_CHAMBER_PROCESSED, PROC_REF(handle_chamber))
 
 /obj/item/circuit_component/wiremod_gun/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(COMSIG_PROJECTILE_ON_HIT, COMSIG_GUN_CHAMBER_PROCESSED))
@@ -91,9 +93,12 @@
 
 	if(!parent?.cell)
 		return
+
 	var/obj/item/gun/energy/fired_gun = source
 	var/transferred = fired_gun.cell.give(min(ENERGY_PER_SHOT, parent.cell.charge))
-	if(transferred)
-		parent.cell.use(transferred)
+	if(!transferred)
+		return
+
+	parent.cell.use(transferred)
 
 #undef ENERGY_PER_SHOT

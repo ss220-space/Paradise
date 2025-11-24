@@ -197,6 +197,8 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	rel_x = component_data["rel_x"]
 	rel_y = component_data["rel_y"]
 
+#define JSON_FROM_FILE "Файл"
+#define JSON_FROM_STRING "Прямой ввод"
 /client/proc/load_circuit()
 	set name = "Загрузка схемы"
 	set category = STATPANEL_ADMIN_FUN
@@ -206,13 +208,13 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 
 	var/list/errors = list()
 
-	var/option = tgui_alert(usr, "Загрузить из файла или напрямую?", "Загрузка схемы", list("Файл", "Прямой ввод"))
+	var/option = tgui_alert(usr, "Загрузить из файла или напрямую?", "Загрузка схемы", list(JSON_FROM_FILE, JSON_FROM_STRING))
 	var/txt
 	switch(option)
-		if("Файл")
+		if(JSON_FROM_FILE)
 			txt = file2text(input(usr, "Укажите файл") as null|file)
-		if("Прямой ввод")
-			txt = input(usr, "Введите JSON-строку", "Прямой ввод") as text|null
+		if(JSON_FROM_STRING)
+			txt = input(usr, "Введите JSON-строку", "Прямой ввод") as message|null
 
 	if(!txt)
 		return
@@ -227,3 +229,5 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	for(var/error in errors)
 		to_chat(src, span_warning(error))
 
+#undef JSON_FROM_FILE
+#undef JSON_FROM_STRING

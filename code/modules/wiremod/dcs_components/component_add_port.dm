@@ -60,10 +60,12 @@
 	if(action == add_action)
 		if(length(port_list) >= maximum_amount)
 			return
+
 		port_list += add_port()
 	else if(action == remove_action)
 		if(length(port_list) <= minimum_amount)
 			return
+
 		if(is_output)
 			component.remove_output_port(pop(port_list))
 		else

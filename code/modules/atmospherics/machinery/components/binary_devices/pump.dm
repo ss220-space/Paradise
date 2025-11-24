@@ -88,12 +88,12 @@ Thus, the two variables affect pump operation are set in New():
 		return
 
 	underlays.Cut()
-	var/turf/T = get_turf(src)
-	if(!istype(T))
+	var/turf/pump_turf = get_turf(src)
+	if(!istype(pump_turf))
 		return
 
-	add_underlay(T, node1, turn(dir, -180))
-	add_underlay(T, node2, dir)
+	add_underlay(pump_turf, node1, turn(dir, -180))
+	add_underlay(pump_turf, node2, dir)
 
 /obj/machinery/atmospherics/binary/pump/process_atmos()
 	..()

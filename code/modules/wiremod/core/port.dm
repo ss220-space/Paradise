@@ -29,6 +29,7 @@
 	if(!to_connect)
 		qdel(src)
 		return
+
 	. = ..()
 	connected_component = to_connect
 	src.name = name
@@ -45,38 +46,41 @@
  * Sets the port's value to value.
  * Casts to the port's datatype (e.g. number -> string), and assumes this can be done.
  */
-/datum/port/proc/set_value(value, force = FALSE)
-	if(isweakref(value))
-		var/datum/weakref/reference_to_obj = value
-		value = reference_to_obj.resolve()
+/datum/port/proc/set_value(new_value, force = FALSE)
+	if(isweakref(new_value))
+		var/datum/weakref/reference_to_obj = new_value
+		new_value = reference_to_obj.resolve()
 
-	if(src.value != value || force)
-		if(isdatum(src.value))
-			UnregisterSignal(src.value, COMSIG_QDELETING)
+	if(value != new_value || force)
+		if(isdatum(value))
+			UnregisterSignal(value, COMSIG_QDELETING)
+
 		if(datatype_handler.is_extensive)
-			src.value = datatype_handler.convert_value_extensive(src, value, force)
+			value = datatype_handler.convert_value_extensive(src, new_value, force)
 		else
-			src.value = datatype_handler.convert_value(src, value, force)
+			value = datatype_handler.convert_value(src, new_value, force)
+
 		if(isdatum(value))
 			RegisterSignal(value, COMSIG_QDELETING, PROC_REF(null_value))
+
 	SEND_SIGNAL(src, COMSIG_PORT_SET_VALUE, value)
 
 /**
  * Updates the value of the input and calls input_received on the connected component
  */
-/datum/port/input/proc/set_input(value, list/return_values)
+/datum/port/input/proc/set_input(new_value, list/return_values)
 	if(QDELETED(src)) //Pain
 		return
 
-	set_value(value)
+	set_value(new_value)
 
 	if(!trigger)
 		return
 
 	connected_component.trigger_component(src, return_values)
 
-/datum/port/output/proc/set_output(value)
-	set_value(value)
+/datum/port/output/proc/set_output(new_value)
+	set_value(new_value)
 
 /**
  * Sets the datatype of the port.
@@ -90,6 +94,7 @@
 
 	if(datatype_handler)
 		datatype_handler.on_loss(src)
+
 	datatype_handler = null
 
 	var/datum/circuit_datatype/handler = GLOB.circuit_datatypes[type_to_set]
@@ -109,9 +114,9 @@
 		SStgui.update_uis(connected_component.parent)
 
 /datum/port/input/set_datatype(new_type)
+	. = ..()
 	for(var/datum/port/output/output as anything in connected_ports)
 		check_type(output)
-	..()
 
 /**
  * Returns the data from the datatype
@@ -197,11 +202,6 @@
 	if(!(datatype_handler.datatype_flags & DATATYPE_FLAG_AVOID_VALUE_UPDATE))
 		set_input(output.value)
 
-/datum/port/input/set_datatype(new_type)
-	. = ..()
-	for(var/datum/port/output/port as anything in connected_ports)
-		check_type(port)
-
 /**
  * Determines if a datatype is compatible with another port of a different type.
  *
@@ -240,5 +240,7 @@
  */
 /datum/port/input/proc/check_type(datum/port/output/output)
 	SIGNAL_HANDLER
-	if(!can_receive_from_datatype(output.datatype))
-		disconnect(output)
+	if(can_receive_from_datatype(output.datatype))
+		return
+
+	disconnect(output)

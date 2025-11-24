@@ -13,8 +13,10 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /atom/proc/add_alt_appearance(type, key, ...)
 	if(!type || !key)
 		return
+
 	if(alternate_appearances && alternate_appearances[key])
 		return
+
 	if(!ispath(type, /datum/atom_hud/alternate_appearance))
 		CRASH("Invalid type passed in: [type]")
 
@@ -45,8 +47,10 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/proc/apply_to_new_mob(mob/applying_to)
 	if(!mob_should_see(applying_to))
 		return FALSE
+
 	if(!hud_users_all_z_levels[applying_to])
 		show_to(applying_to)
+
 	return TRUE
 
 /// Checks if the passed mob should be seeing this hud
@@ -57,6 +61,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	. = ..()
 	if(!new_viewer)
 		return
+
 	track_mob(new_viewer)
 
 /// Registers some signals to track the mob's state to determine if they should be seeing the hud still
@@ -67,6 +72,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	. = ..()
 	if(!former_viewer || hud_atoms_all_z_levels[former_viewer] >= 1)
 		return
+
 	untrack_mob(former_viewer)
 
 /// Unregisters the signals that were tracking the mob's state

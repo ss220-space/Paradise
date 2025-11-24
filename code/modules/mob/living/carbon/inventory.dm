@@ -412,14 +412,19 @@
 	)
 	var/list/obscured = check_obscured_slots()
 	var/list/visible_items = list()
+
 	for(var/slot in visible_slots)
 		if(obscured & slot)
 			continue
+
 		var/obj/item/equipped = get_item_by_slot(slot)
+
 		if(equipped)
 			visible_items += equipped
+
 	for(var/obj/item/held in get_equipped_items(INCLUDE_HELD))
 		visible_items += held
+
 	return visible_items
 
 /mob/living/carbon/update_equipment_speed_mods()

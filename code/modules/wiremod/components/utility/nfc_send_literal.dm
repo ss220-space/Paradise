@@ -27,6 +27,8 @@
 
 /obj/item/circuit_component/list_literal/nfc_send/input_received(datum/port/input/port)
 	. = ..()
-	if(isatom(target.value))
-		var/atom/target_enty = target.value
-		SEND_SIGNAL(target_enty, COMSIG_CIRCUIT_NFC_DATA_SENT, list("data" = list_output.value, "enc_key" = enc_key.value, "port" = WEAKREF(list_output)))
+	if(!isatom(target.value))
+		return
+
+	var/atom/target_enty = target.value
+	SEND_SIGNAL(target_enty, COMSIG_CIRCUIT_NFC_DATA_SENT, list("data" = list_output.value, "enc_key" = enc_key.value, "port" = WEAKREF(list_output)))

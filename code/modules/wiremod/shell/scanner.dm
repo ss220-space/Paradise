@@ -60,6 +60,7 @@
 	SIGNAL_HANDLER
 	if(!proximity_flag)
 		return
+
 	source.balloon_alert(user, "объект отсканирован")
 	playsound(source, "terminal_type", 25, FALSE)
 	attacker.set_output(user)

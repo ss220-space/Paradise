@@ -14,4 +14,5 @@
 	var/list/converted_list = list()
 	for(var/data in value_to_convert)
 		converted_list += list(datatype_handler.convert_value(port, data))
+
 	return converted_list

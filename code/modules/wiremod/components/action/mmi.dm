@@ -146,9 +146,11 @@
 		old_mmi.remote_control = null
 		UnregisterSignal(old_mmi, COMSIG_MOB_CLICKON)
 
-	if(new_mmi)
-		new_mmi.remote_control = src
-		RegisterSignal(new_mmi, COMSIG_MOB_CLICKON, PROC_REF(handle_mmi_attack))
+	if(!new_mmi)
+		return
+
+	new_mmi.remote_control = src
+	RegisterSignal(new_mmi, COMSIG_MOB_CLICKON, PROC_REF(handle_mmi_attack))
 
 /obj/item/circuit_component/mmi/relaymove(mob/living/user, direct)
 	if(user != brain.brainmob)

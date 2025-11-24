@@ -39,6 +39,8 @@
 		data_package.set_datatype(PORT_TYPE_LIST(new_datatype))
 
 /obj/item/circuit_component/nfc_send/input_received(datum/port/input/port)
-	if(isatom(target.value))
-		var/atom/target_enty = target.value
-		SEND_SIGNAL(target_enty, COMSIG_CIRCUIT_NFC_DATA_SENT, parent, list("data" = data_package.value, "enc_key" = enc_key.value, "port" = WEAKREF(data_package)))
+	if(!isatom(target.value))
+		return
+
+	var/atom/target_enty = target.value
+	SEND_SIGNAL(target_enty, COMSIG_CIRCUIT_NFC_DATA_SENT, parent, list("data" = data_package.value, "enc_key" = enc_key.value, "port" = WEAKREF(data_package)))

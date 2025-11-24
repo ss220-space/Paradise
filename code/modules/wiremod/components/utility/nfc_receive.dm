@@ -52,12 +52,12 @@
 
 	UnregisterSignal(owner, COMSIG_CIRCUIT_NFC_DATA_SENT)
 
-
 /obj/item/circuit_component/nfc_receive/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_datatype = list_options.value
-		data_package.set_datatype(PORT_TYPE_LIST(new_datatype))
+	if(port != list_options)
+		return
 
+	var/new_datatype = list_options.value
+	data_package.set_datatype(PORT_TYPE_LIST(new_datatype))
 
 /obj/item/circuit_component/nfc_receive/proc/nfc_receive(obj/item/circuit_component/source,obj/sender, list/data)
 	SIGNAL_HANDLER

@@ -42,11 +42,11 @@
 /obj/structure/money_bot/wrench_act(mob/living/user, obj/item/tool)
 	if(locked)
 		return
+
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
 	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
 	return TRUE
-
 
 /obj/item/circuit_component/money_dispenser
 	display_name = "Бот-банкомат"
@@ -56,10 +56,9 @@
 
 	/// The amount of money to dispense
 	var/datum/port/input/dispense_amount
-
 	/// Outputs a signal when it fails to output any money.
 	var/datum/port/output/on_fail
-
+	/// Attached shell
 	var/obj/structure/money_bot/attached_bot
 
 /obj/item/circuit_component/money_dispenser/populate_ports()
@@ -68,15 +67,16 @@
 
 /obj/item/circuit_component/money_dispenser/register_shell(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/structure/money_bot))
-		attached_bot = shell
+	if(!istype(shell, /obj/structure/money_bot))
+		return
+
+	attached_bot = shell
 
 /obj/item/circuit_component/money_dispenser/unregister_shell(atom/movable/shell)
 	attached_bot = null
 	return ..()
 
 /obj/item/circuit_component/money_dispenser/input_received(datum/port/input/port)
-
 	if(!attached_bot)
 		return
 
@@ -90,7 +90,6 @@
 
 /obj/item/circuit_component/money_bot
 	display_name = "Денежный бот"
-	var/obj/structure/money_bot/attached_bot
 	desc = "Используется для получения входных сигналов при вставке денег в оболочку денежного бота, \
 			а также для отслеживания общего количества денег в оболочке."
 
@@ -102,6 +101,8 @@
 	var/datum/port/output/money_trigger
 	/// The person who input the money
 	var/datum/port/output/entity
+	/// Attached shell
+	var/obj/structure/money_bot/attached_bot
 
 /obj/item/circuit_component/money_bot/populate_ports()
 	total_money = add_output_port("Всего денег", PORT_TYPE_NUMBER)
@@ -111,13 +112,15 @@
 
 /obj/item/circuit_component/money_bot/register_shell(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/structure/money_bot))
-		attached_bot = shell
-		total_money.set_output(attached_bot.stored_money)
-		RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_money_insert))
-		RegisterSignal(shell, COMSIG_MONEYBOT_ADD_MONEY, PROC_REF(handle_money_update))
-		RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
-		attached_bot.locked = parent.locked
+	if(!istype(shell, /obj/structure/money_bot))
+		return
+
+	attached_bot = shell
+	total_money.set_output(attached_bot.stored_money)
+	RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_money_insert))
+	RegisterSignal(shell, COMSIG_MONEYBOT_ADD_MONEY, PROC_REF(handle_money_update))
+	RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
+	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/money_bot/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
@@ -125,9 +128,11 @@
 		COMSIG_MONEYBOT_ADD_MONEY,
 	))
 	total_money.set_output(null)
+
 	if(attached_bot)
 		attached_bot.locked = FALSE
 		UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
+
 	attached_bot = null
 	return ..()
 
@@ -141,18 +146,22 @@
 		balloon_alert(attacker, "это не деньги!")
 		return
 
-	attached_bot.add_money(amount_to_insert)
 	balloon_alert(attacker, "вставлено [amount_to_insert] кредит[DECL_CREDIT(amount_to_insert)]")
+	attached_bot.add_money(amount_to_insert)
+
 	money_input.set_output(amount_to_insert)
 	entity.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)
+
 	qdel(item)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/circuit_component/money_bot/proc/handle_money_update(atom/source)
 	SIGNAL_HANDLER
-	if(attached_bot)
-		total_money.set_output(attached_bot.stored_money)
+	if(!attached_bot)
+		return
+
+	total_money.set_output(attached_bot.stored_money)
 
 /**
  * Locks the attached bot when the circuit is locked.

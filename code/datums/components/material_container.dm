@@ -337,8 +337,8 @@
 /datum/component/material_container/ui_data(mob/user)
 	var/list/data = list()
 
-	for(var/MAT in materials)
-		var/datum/material/material = materials[MAT]
+	for(var/material_id in materials)
+		var/datum/material/material = materials[material_id]
 
 		data += list(list(
 			"name" = material.name,

@@ -114,6 +114,7 @@
 /obj/item/circuit_component/module/pre_input_received(datum/port/input/port)
 	if(!port)
 		return
+
 	var/datum/port/output/port_to_update = linked_ports[port]
 	if(!port_to_update)
 		CRASH("[port.type] doesn't have a linked port in [type]!")
@@ -247,6 +248,7 @@
 /obj/item/circuit_component/module/attackby(obj/item/tool, mob/living/user, params)
 	if(!is_circuit_component(tool))
 		return ..()
+
 	internal_circuit.attackby(tool, user, params)
 	return
 
@@ -261,25 +263,32 @@
 		if("open_internal_circuit")
 			internal_circuit.ui_interact(usr)
 			. = TRUE
+
 		if("add_input_port")
 			if(length(input_ports) > port_limit)
 				return
+
 			add_and_link_input_port("Input Port", PORT_TYPE_ANY)
 			. = TRUE
+
 		if("remove_input_port")
 			var/port_id = text2num(params["port_id"])
 			if(!WITHIN_RANGE(port_id, input_ports))
 				return
+
 			var/datum/port/removed_port = input_ports[port_id]
 			linked_ports -= removed_port
 			remove_input_port(removed_port)
 			input_component.remove_output_port(input_component.output_ports[port_id])
 			. = TRUE
+
 		if("add_output_port")
 			if(length(output_ports) > port_limit)
 				return
+
 			add_and_link_output_port("Output Port", PORT_TYPE_ANY)
 			. = TRUE
+
 		if("remove_output_port")
 			var/port_id = text2num(params["port_id"])
 			if(!WITHIN_RANGE(port_id, output_ports))
@@ -290,12 +299,14 @@
 			remove_output_port(output_ports[port_id])
 			output_component.remove_input_port(removed_port)
 			. = TRUE
+
 		if("set_port_name", "set_port_type")
 			var/port_id = text2num(params["port_id"])
 			var/is_input = params["is_input"]
 
 			var/list/ports_to_use
 			var/list/internal_ports_to_use
+
 			if(is_input)
 				ports_to_use = input_ports
 				internal_ports_to_use = input_component.output_ports

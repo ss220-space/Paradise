@@ -68,22 +68,30 @@
 		switch(arithmetic_option.value)
 			if(COMP_ARITHMETIC_ADD)
 				result += value
+
 			if(COMP_ARITHMETIC_SUBTRACT)
 				result -= value
+
 			if(COMP_ARITHMETIC_MULTIPLY)
 				result *= value
+
 			if(COMP_ARITHMETIC_DIVIDE)
 				// Protect from div by zero errors.
 				if(value == 0)
 					result = null
 					break
+
 				result /= value
+
 			if(COMP_ARITHMETIC_MODULO)
 				result %= value
+
 			if(COMP_ARITHMETIC_MAX)
 				result = max(result, value)
+
 			if(COMP_ARITHMETIC_MIN)
 				result = min(result, value)
+
 			if(COMP_ARITHMETIC_EXPONENTIATION)
 				result = result ** value
 

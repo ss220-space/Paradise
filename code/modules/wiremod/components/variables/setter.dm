@@ -24,11 +24,14 @@
 
 /obj/item/circuit_component/variable/setter/pre_input_received(datum/port/input/port)
 	. = ..()
-	if(port == variable_name)
-		input_port.set_datatype(current_variable.datatype)
+	if(port != variable_name)
+		return
+
+	input_port.set_datatype(current_variable.datatype)
 
 /obj/item/circuit_component/variable/setter/input_received(datum/port/input/port)
 	if(!current_variable)
 		return
+
 	current_variable.set_value(input_port.value)
 

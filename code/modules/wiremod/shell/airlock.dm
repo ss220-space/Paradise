@@ -6,6 +6,7 @@
 	// Don't allow them to re-enable autoclose.
 	if(wire == WIRE_SPEED)
 		return
+
 	return ..()
 
 /obj/machinery/door/airlock/shell
@@ -43,6 +44,7 @@
 /obj/machinery/door/airlock/shell/allowed(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_SHELL_ALLOWED, user) & COMPONENT_OBJ_ALLOW)
 		return TRUE
+
 	return user.can_advanced_admin_interact()
 
 /obj/item/circuit_component/airlock
@@ -115,8 +117,9 @@
 	is_bolted.set_output(should_bolt)
 	if(should_bolt)
 		bolted.set_output(COMPONENT_SIGNAL)
-	else
-		unbolted.set_output(COMPONENT_SIGNAL)
+		return
+
+	unbolted.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/airlock/proc/on_airlock_open(datum/source, force)
 	SIGNAL_HANDLER
@@ -129,19 +132,20 @@
 	closed.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/airlock/input_received(datum/port/input/port)
-
 	if(!attached_airlock)
 		return
 
 	if(COMPONENT_TRIGGERED_BY(bolt, port))
 		attached_airlock.lock()
+
 	if(COMPONENT_TRIGGERED_BY(unbolt, port))
 		attached_airlock.unlock()
+
 	if(COMPONENT_TRIGGERED_BY(open, port) && attached_airlock.density)
 		INVOKE_ASYNC(attached_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, open))
+
 	if(COMPONENT_TRIGGERED_BY(close, port) && !attached_airlock.density)
 		INVOKE_ASYNC(attached_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, close))
-
 
 /obj/item/circuit_component/airlock_access_event
 	display_name = "Событие доступа к шлюзу"
@@ -160,7 +164,6 @@
 
 	/// The signal sent when this event is triggered
 	var/datum/port/output/event_triggered
-
 
 /obj/item/circuit_component/airlock_access_event/register_shell(atom/movable/shell)
 	. = ..()
@@ -181,17 +184,17 @@
 	))
 	return ..()
 
-
 /obj/item/circuit_component/airlock_access_event/populate_ports()
 	open_airlock = add_input_port("Открыть шлюз", PORT_TYPE_RESPONSE_SIGNAL, trigger = PROC_REF(should_open_airlock))
+
 	accessing_entity = add_output_port("Цель", PORT_TYPE_ATOM)
 	event_triggered = add_output_port("Вызвано", PORT_TYPE_INSTANT_SIGNAL)
-
 
 /obj/item/circuit_component/airlock_access_event/proc/should_open_airlock(datum/port/input/port, list/return_values)
 	CIRCUIT_TRIGGER
 	if(!return_values)
 		return
+
 	return_values["should_open"] = TRUE
 
 /obj/item/circuit_component/airlock_access_event/proc/handle_allowed(datum/source, mob/accesser)
@@ -208,7 +211,4 @@
 		attached_airlock.visible_message(span_warning("[attached_airlock] начал перегреваться!"))
 		return
 
-	if(result["should_open"])
-		return COMPONENT_OBJ_ALLOW
-	else
-		return COMPONENT_OBJ_DISALLOW
+	return result["should_open"] ? COMPONENT_OBJ_ALLOW : COMPONENT_OBJ_DISALLOW

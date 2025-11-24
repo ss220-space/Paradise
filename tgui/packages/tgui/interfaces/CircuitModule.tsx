@@ -12,11 +12,12 @@ export const CircuitModule = (props) => {
         <Stack vertical>
           <Stack.Item>
             <Button
-              content="Обзор внутренней интегральной схемы"
               textAlign="center"
               fluid
               onClick={() => act('open_internal_circuit')}
-            />
+            >
+              Обзор внутренней интегральной схемы
+            </Button>
           </Stack.Item>
           <Stack.Item>
             <Stack width="100%">
@@ -53,11 +54,12 @@ export const CircuitModule = (props) => {
                     <Stack.Item>
                       <Button
                         fluid
-                        content="Добавить порт ввода"
                         color="good"
                         icon="plus"
                         onClick={() => act('add_input_port')}
-                      />
+                      >
+                        Добавить порт ввода
+                      </Button>
                     </Stack.Item>
                   </Stack>
                 </Section>
@@ -95,11 +97,12 @@ export const CircuitModule = (props) => {
                     <Stack.Item>
                       <Button
                         fluid
-                        content="Добавить порт вывода"
                         color="good"
                         icon="plus"
                         onClick={() => act('add_output_port')}
-                      />
+                      >
+                        Добавить порт вывода
+                      </Button>
                     </Stack.Item>
                   </Stack>
                 </Section>

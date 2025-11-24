@@ -94,9 +94,11 @@
 		access = id.GetAccess()
 		return access
 
-	if(id_card.value)
-		failed.set_output(COMPONENT_SIGNAL)
-		reason_failed.set_output("Отмеченный объект не имеет идентификатора! Вместо этого используется отсутствие идентификатора.")
+	if(!id_card.value)
+		return
+
+	failed.set_output(COMPONENT_SIGNAL)
+	reason_failed.set_output("Отмеченный объект не имеет идентификатора! Вместо этого используется отсутствие идентификатора.")
 
 /obj/item/circuit_component/pathfind/proc/send_next_step(list/path)
 	if(!LAZYLEN(path))

@@ -263,12 +263,12 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		var/datum/radial_menu_choice/choice = to_extract_from
 		to_extract_from = choice.image
 
-	var/mutable_appearance/MA = new /mutable_appearance(to_extract_from)
-	if(MA)
-		SET_PLANE_EXPLICIT(MA, ABOVE_HUD_PLANE, anchor)
-		MA.layer = RADIAL_CONTENT_LAYER
-		MA.appearance_flags |= RESET_TRANSFORM
-	return MA
+	var/mutable_appearance/radial_icon = new /mutable_appearance(to_extract_from)
+	if(radial_icon)
+		SET_PLANE_EXPLICIT(radial_icon, ABOVE_HUD_PLANE, anchor)
+		radial_icon.layer = RADIAL_CONTENT_LAYER
+		radial_icon.appearance_flags |= RESET_TRANSFORM
+	return radial_icon
 
 /datum/radial_menu/proc/next_page()
 	if(pages > 1)
@@ -278,8 +278,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/show_to(mob/M)
 	if(current_user)
 		hide()
+
 	if(!M.client || !anchor)
 		return
+
 	current_user = M.client
 
 	var/atom/menu_holder_location = anchor

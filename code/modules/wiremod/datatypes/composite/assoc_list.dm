@@ -19,4 +19,5 @@
 	var/list/converted_list = list()
 	for(var/data in value_to_convert)
 		converted_list[key_handler.convert_value(port, data)] = value_handler.convert_value(port, value_to_convert[data])
+
 	return converted_list

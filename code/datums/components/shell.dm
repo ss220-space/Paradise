@@ -203,9 +203,7 @@
 		return
 
 	if(attached_circuit)
-		if(attached_circuit.owner_id && item == attached_circuit.owner_id.resolve())
-			set_locked(!locked)
-			source.balloon_alert(attacker, "[locked ? "за" : "раз"]блокировано")
+		if(try_toggle_lock(source, item))
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 		if(!attached_circuit.owner_id && is_id_card(item))
@@ -237,11 +235,23 @@
 	logic_board.inserter_mind = WEAKREF(attacker.mind)
 	attach_circuit(logic_board, attacker)
 
+
+/datum/component/shell/proc/try_toggle_lock(atom/source, obj/item/id_card)
+	if(is_id_card(id_card))
+		return FALSE
+
+	if(id_card != attached_circuit.owner_id?.resolve())
+		source.balloon_alert(source, "ошибка!")
+		return FALSE
+
+	set_locked(!locked)
+	source.balloon_alert(source, "[locked ? "за" : "раз"]блокировано")
+	return TRUE
+
 /// Sets whether the shell is locked or not
 /datum/component/shell/proc/set_locked(new_value)
 	locked = new_value
 	attached_circuit?.set_locked(new_value)
-
 
 /datum/component/shell/proc/on_multitool_act(atom/source, mob/user, obj/item/tool)
 	SIGNAL_HANDLER

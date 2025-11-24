@@ -49,10 +49,13 @@
 	switch(current_option)
 		if(ALIVE)
 			return state != DEAD && !HAS_TRAIT(organism, TRAIT_FAKEDEATH)
+
 		if(CRIT)
 			return organism.InCritical()
+
 		if(UNCONS)
 			return state == UNCONS
+
 		if(DECEASED)
 			return state == DEAD || HAS_TRAIT(organism, TRAIT_FAKEDEATH)
 	//Unknown state, something fucked up really bad - just return false

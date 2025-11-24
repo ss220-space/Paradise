@@ -714,17 +714,23 @@
 	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
 	if(signal_result)
 		return TRUE
+
 	switch(tool_type)
 		if(TOOL_CROWBAR)
 			return crowbar_act(user, I)
+
 		if(TOOL_MULTITOOL)
 			return multitool_act(user, I)
+
 		if(TOOL_SCREWDRIVER)
 			return screwdriver_act(user, I)
+
 		if(TOOL_WRENCH)
 			return wrench_act(user, I)
+
 		if(TOOL_WIRECUTTER)
 			return wirecutter_act(user, I)
+
 		if(TOOL_WELDER)
 			return welder_act(user, I)
 

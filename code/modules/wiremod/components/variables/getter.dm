@@ -16,6 +16,8 @@
 
 /obj/item/circuit_component/variable/getter/pre_input_received(datum/port/input/port)
 	. = ..()
-	if(current_variable)
-		value.set_datatype(current_variable.datatype)
-		value.set_value(current_variable.value)
+	if(!current_variable)
+		return
+
+	value.set_datatype(current_variable.datatype)
+	value.set_value(current_variable.value)

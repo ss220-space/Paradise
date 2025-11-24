@@ -6,4 +6,5 @@
 	var/datum/object = value_to_convert
 	if(QDELETED(object))
 		return null
+
 	return object

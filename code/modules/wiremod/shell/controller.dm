@@ -77,6 +77,7 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
+
 	handle_trigger(source, user, "главная", signal)
 
 /**

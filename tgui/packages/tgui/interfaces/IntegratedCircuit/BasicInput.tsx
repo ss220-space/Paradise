@@ -17,11 +17,12 @@ export const BasicInput = (props) => {
       </Stack>
     )) || (
       <Button
-        content={name}
         color="transparent"
         compact
         onClick={() => setValue(defaultValue)}
-      />
+      >
+        {name}
+      </Button>
     )
   );
 };

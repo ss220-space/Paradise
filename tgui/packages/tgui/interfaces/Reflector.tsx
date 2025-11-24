@@ -162,40 +162,43 @@ export const Reflector = (props) => {
                     <Button
                       fluid
                       icon="undo-alt"
-                      content="-5"
                       mb={1}
                       onClick={() =>
                         act('calculate', {
                           rotation_angle: -5,
                         })
                       }
-                    />
+                    >
+                      {'-5'}
+                    </Button>
                   </Stack.Item>
                   <Stack>
                     <Button
                       fluid
                       icon="undo-alt"
-                      content="-10"
                       mb={1}
                       onClick={() =>
                         act('calculate', {
                           rotation_angle: -10,
                         })
                       }
-                    />
+                    >
+                      {'-10'}
+                    </Button>
                   </Stack>
                   <Stack>
                     <Button
                       fluid
                       icon="undo-alt"
-                      content="-15"
                       mb={1}
                       onClick={() =>
                         act('calculate', {
                           rotation_angle: -15,
                         })
                       }
-                    />
+                    >
+                      {'-15'}
+                    </Button>
                   </Stack>
                 </Stack>
                 <Stack vertical>
@@ -204,42 +207,45 @@ export const Reflector = (props) => {
                       fluid
                       icon="redo-alt"
                       iconPosition="right"
-                      content="+5"
                       mb={1}
                       onClick={() =>
                         act('calculate', {
                           rotation_angle: 5,
                         })
                       }
-                    />
+                    >
+                      {'+5'}
+                    </Button>
                   </Stack.Item>
                   <Stack>
                     <Button
                       fluid
                       icon="redo-alt"
                       iconPosition="right"
-                      content="+10"
                       mb={1}
                       onClick={() =>
                         act('calculate', {
                           rotation_angle: 10,
                         })
                       }
-                    />
+                    >
+                      {'+10'}
+                    </Button>
                   </Stack>
                   <Stack>
                     <Button
                       fluid
                       icon="redo-alt"
                       iconPosition="right"
-                      content="+15"
                       mb={1}
                       onClick={() =>
                         act('calculate', {
                           rotation_angle: 15,
                         })
                       }
-                    />
+                    >
+                      {'+15'}
+                    </Button>
                   </Stack>
                 </Stack>
               </Stack>

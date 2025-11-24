@@ -148,12 +148,16 @@
 /obj/item/circuit_component/remotecam/proc/remove_camera()
 	if(!shell_camera)
 		return
+
 	if(!camera_signal_move_override)
 		UnregisterSignal(shell_parent, COMSIG_MOVABLE_MOVED)
+
 	UnregisterSignal(shell_parent, COMSIG_ATOM_EMP_ACT)
+
 	if(current_camera_emp)
 		deltimer(current_camera_emp_timer_id)
 		current_camera_emp = FALSE
+
 	cameranet_add() //Readd camera to cameranet before deleting camera
 	QDEL_NULL(shell_camera)
 

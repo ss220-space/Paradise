@@ -434,29 +434,40 @@
 /obj/machinery/bci_implanter/MouseDrop_T(mob/living/target, mob/living/user, params)
 	if(!ishuman(target))
 		return
+
 	if(target.loc == user) //no you can't pull things out of your ass
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
+
 	if(target.anchored || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
+
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the implanter
 		return
+
 	if(user.loc == null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(target.loc, /turf)) // are you in a container/closet/pod/etc?
+
+	if(!isturf(user.loc) || !isturf(target.loc)) // are you in a container/closet/pod/etc?
 		return
+
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
 		return TRUE
+
 	if(target.buckled)
 		return
+
 	if(target.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
+
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return TRUE
+
 	put_in(target, user)
 	return TRUE
 
@@ -464,19 +475,25 @@
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
 		return .
+
 	if(panel_open)
 		balloon_alert(grabber, "техпанель открыта!")
 		return .
+
 	var/mob/target = grabbed_thing
+
 	if(occupant)
 		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
+
 	if(target.abiotic())
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
+
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
+
 	put_in(target, grabber)
 	add_fingerprint(grabber)
 

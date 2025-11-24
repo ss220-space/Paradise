@@ -83,10 +83,13 @@
 	populate_options()
 	populate_ports()
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
+
 	if((circuit_flags & CIRCUIT_FLAG_INPUT_SIGNAL) && !trigger_input)
 		trigger_input = add_input_port("Вызов", PORT_TYPE_SIGNAL, order = 2)
+
 	if((circuit_flags & CIRCUIT_FLAG_OUTPUT_SIGNAL) && !trigger_output)
 		trigger_output = add_output_port("Вызвано", PORT_TYPE_SIGNAL, order = 2)
+
 	update_ui_alerts()
 
 /obj/item/circuit_component/Destroy()
@@ -116,6 +119,7 @@
 /obj/item/circuit_component/drop_location()
 	if(parent?.shell)
 		return parent.shell.drop_location()
+
 	return ..()
 
 /obj/item/circuit_component/examine(mob/user)
@@ -127,12 +131,15 @@
 /obj/item/circuit_component/proc/update_ui_alerts(new_flag, remove_flag)
 	if(new_flag)
 		circuit_flags |= new_flag
+
 	if(remove_flag)
 		circuit_flags &= ~remove_flag
+
 	if(circuit_flags & CIRCUIT_FLAG_INSTANT)
 		ui_alerts["tachometer-alt"] = "Мгновенно"
 	else
 		ui_alerts -= "tachometer-alt"
+
 	if(circuit_flags & CIRCUIT_FLAG_DISABLED)
 		ui_alerts["exclamation"] = "Нефункционально"
 	else
@@ -181,13 +188,17 @@
 /obj/item/circuit_component/proc/add_input_port(name, type, order = 1, trigger = PROC_REF(input_received), default = null, port_type = /datum/port/input, extra_args = null)
 	var/list/arguments = list(src)
 	arguments += args
+
 	if(extra_args)
 		arguments += extra_args
+
 	var/datum/port/input/input_port = new port_type(arglist(arguments))
 	input_ports += input_port
 	sortTim(input_ports, GLOBAL_PROC_REF(cmp_port_order_asc))
+
 	if(parent)
 		SStgui.update_uis(parent)
+
 	return input_port
 
 /**
@@ -199,13 +210,16 @@
 /obj/item/circuit_component/proc/remove_input_port(datum/port/input/input_port)
 	input_ports -= input_port
 	qdel(input_port)
+
 	if(parent)
 		SStgui.update_uis(parent)
+
 	return null //explicitly set the port to null if used like this: `port = remove_input_port(port)`
 
 /obj/item/circuit_component/proc/save_connections_to_list(list/connections)
 	for(var/datum/port/input/input as anything in input_ports)
 		var/list/connection_data
+
 		for(var/datum/port/output/output as anything in input.connected_ports)
 			LAZYADDASSOCLIST(connection_data, "connected_ports", list(
 				"component_id" = output.connected_component.UID(),
@@ -257,8 +271,10 @@
 	var/datum/port/output/output_port = new(arglist(arguments))
 	output_ports += output_port
 	sortTim(output_ports, GLOBAL_PROC_REF(cmp_port_order_asc))
+
 	if(parent)
 		SStgui.update_uis(parent)
+
 	return output_port
 
 /**
@@ -270,8 +286,10 @@
 /obj/item/circuit_component/proc/remove_output_port(datum/port/output/output_port)
 	output_ports -= output_port
 	qdel(output_port)
+
 	if(parent)
 		SStgui.update_uis(parent)
+
 	return null //explicitly set the port to null if used like this: `port = remove_output_port(port)`
 
 
@@ -303,6 +321,7 @@
 
 	if(circuit_flags & CIRCUIT_FLAG_OUTPUT_SIGNAL)
 		trigger_output.set_output(COMPONENT_SIGNAL)
+
 	return TRUE
 
 /obj/item/circuit_component/proc/set_circuit_size(new_size)
@@ -376,6 +395,7 @@
 /obj/item/circuit_component/proc/add_to(obj/item/integrated_circuit/added_to)
 	if(circuit_flags & CIRCUIT_FLAG_ADMIN)
 		ADD_TRAIT(added_to, TRAIT_CIRCUIT_UNDUPABLE, UNIQUE_TRAIT_SOURCE(src))
+
 	return TRUE
 
 /// Called when this component is removed from an integrated_circuit.
@@ -437,6 +457,7 @@
 /obj/item/circuit_component/ui_host(mob/user)
 	if(parent)
 		return parent.ui_host()
+
 	return ..()
 
 /**

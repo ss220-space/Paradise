@@ -40,35 +40,34 @@ export const FUNDAMENTAL_DATA_TYPES = {
     const { name, setValue } = props;
     return (
       <Button
-        content={name}
         color="transparent"
         icon="upload"
         compact
         onClick={() => setValue(null, { marked_atom: true })}
-      />
+      >
+        {name}
+      </Button>
     );
   },
   datum: (props) => {
     const { name, setValue } = props;
     return (
       <Button
-        content={name}
         color="transparent"
         icon="upload"
         compact
         onClick={() => setValue(null, { marked_atom: true })}
-      />
+      >
+        {name}
+      </Button>
     );
   },
   signal: (props) => {
     const { name, setValue } = props;
     return (
-      <Button
-        content={name}
-        color="transparent"
-        compact
-        onClick={() => setValue()}
-      />
+      <Button color="transparent" compact onClick={() => setValue()}>
+        {name}
+      </Button>
     );
   },
   option: (props) => {

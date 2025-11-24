@@ -17,6 +17,7 @@
 	AIStatus = AI_OFF
 	can_collar = TRUE
 	del_on_death = TRUE
+	healable = FALSE
 
 /mob/living/simple_animal/circuit_drone/get_ru_names()
 	return list(

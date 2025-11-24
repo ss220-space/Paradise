@@ -30,12 +30,12 @@
 /obj/structure/dispenser_bot/deconstruct(disassembled)
 	for(var/obj/item/stored_item as anything in stored_items)
 		remove_item(stored_item)
+
 	return ..()
 
 /obj/structure/dispenser_bot/Destroy()
 	QDEL_LIST(stored_items)
 	return ..()
-
 
 /obj/structure/dispenser_bot/proc/add_item(mob/user, obj/item/to_add)
 	balloon_alert(user, "объект вставлен")
@@ -47,8 +47,10 @@
 
 /obj/structure/dispenser_bot/proc/handle_stored_item_moved(obj/item/moving_item, atom/location)
 	SIGNAL_HANDLER
-	if(location != src)
-		remove_item(moving_item)
+	if(location == src)
+		return
+
+	remove_item(moving_item)
 
 /obj/structure/dispenser_bot/proc/handle_stored_item_deleted(obj/item/deleting_item)
 	SIGNAL_HANDLER
@@ -63,7 +65,6 @@
 	stored_items -= to_remove
 	SEND_SIGNAL(src, COMSIG_DISPENSERBOT_REMOVE_ITEM, to_remove)
 
-
 /obj/structure/dispenser_bot/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shell, list(
@@ -73,28 +74,37 @@
 /obj/structure/dispenser_bot/attackby(obj/item/item, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
 	if(istype(item, /obj/item/wrench) || is_circuit_multitool(item) || is_integrated_circuit(item))
 		return ..()
+
 	if(item.w_class > max_weight && !istype(item, /obj/item/storage/bag))
 		balloon_alert(user, "объект слишком большой!")
 		return ATTACK_CHAIN_BLOCKED
+
 	if(length(stored_items) >= capacity)
 		balloon_alert(user, "хранилище заполнено!")
 		return ATTACK_CHAIN_BLOCKED
-	if(istype(item, /obj/item/storage/bag))
-		for(var/obj/item/bag_item in item.contents)
-			if(length(stored_items) >= capacity)
-				break
-			if(bag_item.w_class > max_weight || istype(bag_item, /obj/item/storage/bag))
-				continue
-			add_item(user, bag_item)
+
+	if(!istype(item, /obj/item/storage/bag))
+		add_item(user, item)
 		return ATTACK_CHAIN_BLOCKED
-	add_item(user, item)
+
+	for(var/obj/item/bag_item in item.contents)
+		if(length(stored_items) >= capacity)
+			break
+
+		if(bag_item.w_class > max_weight || istype(bag_item, /obj/item/storage/bag))
+			continue
+
+		add_item(user, bag_item)
+
 	return ATTACK_CHAIN_BLOCKED
 
 /obj/structure/dispenser_bot/wrench_act(mob/living/user, obj/item/tool)
 	if(locked)
 		return
+
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
 	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
@@ -160,6 +170,7 @@
 	))
 	if(!QDELING(vendor_component))
 		qdel(vendor_component)
+
 	vendor_components -= vendor_component
 
 /obj/item/circuit_component/dispenser_bot/ui_perform_action(mob/user, action)
@@ -168,6 +179,7 @@
 			if(length(vendor_components) >= max_vendor_components)
 				balloon_alert(user, "отсек для компонентов полон!")
 				return
+
 			var/obj/item/circuit_component/vendor_component/vendor_component = new(parent)
 			parent.add_component(vendor_component, user)
 			vendor_components += vendor_component
@@ -193,8 +205,10 @@
 
 /obj/item/circuit_component/vendor_component/register_shell(atom/movable/shell)
 	. = ..()
-	if(istype(shell, /obj/structure/dispenser_bot))
-		attached_bot = shell
+	if(!istype(shell, /obj/structure/dispenser_bot))
+		return
+
+	attached_bot = shell
 
 /obj/item/circuit_component/vendor_component/unregister_shell(atom/movable/shell)
 	attached_bot = null

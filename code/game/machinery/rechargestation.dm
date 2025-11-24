@@ -273,17 +273,17 @@
 			to_chat(R, span_warning("Without a power cell, you can't be recharged."))
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
-		can_accept_user = 1
+		can_accept_user = TRUE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
 		if(!H.get_int_organ(/obj/item/organ/internal/cell) && !H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci))
 			return
-		can_accept_user = 1
+		can_accept_user = TRUE
 
 	if(is_circuit_drone(user))
-		can_accept_user = 1
+		can_accept_user = TRUE
 
 	if(!can_accept_user)
 		to_chat(user, span_notice("Only non-organics may enter the recharger!"))
