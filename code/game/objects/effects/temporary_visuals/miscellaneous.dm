@@ -358,13 +358,11 @@
 	duration = 12
 	shrink = FALSE
 
-
 /obj/effect/temp_visual/gib
 	name = "gib"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "gibbed-h"
 	duration = 1.5 SECONDS
-
 
 /obj/effect/temp_visual/small_smoke
 	icon_state = "smoke"
@@ -438,6 +436,10 @@
 	icon_state = "impact_laser_purple"
 	duration = 4
 
+/obj/effect/temp_visual/impact_effect/orange_laser
+	icon_state = "impact_laser_orange"
+	duration = 4
+
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 6
@@ -496,6 +498,18 @@
 	transform = M
 	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.8 SECONDS)
+
+/obj/effect/warp_effect/heart
+	var/range = 12
+
+/obj/effect/warp_effect/heart/Initialize(mapload)
+	. = ..()
+	if(GLOB.heart)
+		range = GLOB.heart.pulse_range * 4
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)
+	QDEL_IN(src, 0.1 * range SECONDS)
 
 /obj/effect/temp_visual/love_heart
 	name = "love heart"

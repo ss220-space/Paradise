@@ -58,7 +58,6 @@
 /obj/machinery/bot_core/toy
 	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate
 	name = "General Syndie"
 	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
@@ -89,7 +88,6 @@
 /obj/machinery/bot_core/syndicate
 	req_access = list(ACCESS_SYNDICATE)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon][on]"
@@ -97,21 +95,17 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/Destroy()
 	QDEL_NULL(weapon)
 	return ..()
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
 	playsound(loc, 'sound/weapons/saberoff.ogg', 50, TRUE, -1)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
 	..()
 	light_color = LIGHT_COLOR_INTENSE_RED //if you see a red one. RUN!!
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/secbot_crossed(mob/living/carbon/arrived)
 	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
@@ -120,14 +114,12 @@
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] размахивает своими мечами и отталкивает [arrived]!"))
 	arrived.Weaken(4 SECONDS)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom) //like secbots its only possible with admin intervention
 	if(!iscarbon(atom))
 		return
 
 	var/mob/living/carbon/carbon = atom
 	sword_attack(carbon)
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
@@ -146,7 +138,6 @@
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	addtimer(CALLBACK(src, PROC_REF(do_sword_attack), C), 0.2 SECONDS)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/proc/do_sword_attack(mob/living/carbon/C)
 	icon_state = spin_icon
 	var/threat = C.assess_threat(src)
@@ -160,13 +151,12 @@
 		var/area/location = get_area(src)
 		if(!spam_flag)
 			if(syndie)
-				speak("Контакт! [C] [threat] уровня угрозы, место - [location]! Сейчас нашинкую этого [("syndicate" in C.faction) ? "ублюдка!" : "прихвостня НТ!"]", radio_channel)
+				speak("Контакт! [C] [threat] уровня угрозы, место — [location]! Сейчас нашинкую этого [("syndicate" in C.faction) ? "ублюдка!" : "прихвостня НТ!"]", radio_channel)
 			else
-				speak("Контакт! [C] [threat] уровня угрозы, место - [location]! Сейчас нашинкую этого ублюдка!", radio_channel)
+				speak("Контакт! [C] [threat] уровня угрозы, место — [location]! Сейчас нашинкую этого ублюдка!", radio_channel)
 			spam_flag = TRUE
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 10 SECONDS)	//to avoid spamming comms of sec for each hit
 			visible_message("[capitalize(declent_ru(NOMINATIVE))] замахивается своими мечами и рубит [C]!")
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/handle_automated_action()
 	if(!on)
@@ -178,7 +168,7 @@
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			icon_state = "[base_icon][on]"
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -187,7 +177,7 @@
 			icon_state = spin_icon
 			playsound(loc,'sound/effects/spinsabre.ogg',50, TRUE,-1)
 			if(frustration >= frustration_number) // general beepsky doesn't give up so easily, jedi scum
-				SSmove_manager.stop_looping(src)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -201,7 +191,7 @@
 						return
 					else	// not next to perp
 						var/turf/olddist = get_dist(src, target)
-						SSmove_manager.move_to(src, target, 1, 3)	//he's a fast fucker
+						GLOB.move_manager.move_to(src, target, 1, 3)	//he's a fast fucker
 						if((get_dist(src, target)) >= (olddist))
 							frustration++
 						else
@@ -220,7 +210,6 @@
 			icon_state = "[base_icon][on]"
 			look_for_perp()
 			bot_patrol()
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
 	set_anchored(FALSE)
@@ -259,7 +248,6 @@
 		else
 			continue
 
-
 /**
  * Taipan bullshit.
  */
@@ -268,9 +256,8 @@
 		return TRUE
 	return FALSE
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	visible_message(span_boldannounceic("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -292,7 +279,6 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	qdel(src)
 
-
 /**
  * This section is blocking attack.
  */
@@ -303,7 +289,6 @@
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
-
 
 /**
  * Allows special actions to take place after being attacked.
@@ -316,14 +301,12 @@
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return TRUE
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/attack_hand(mob/living/carbon/human/H)
 	if((H.a_intent == INTENT_HARM) || (H.a_intent == INTENT_DISARM))
 		retaliate(H)
 		if(special_retaliate_after_attack(H))
 			return
 	return ..()
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, params) //cant touch or attack him while spinning
 	if(icon_state == spin_icon && prob(block_chance_melee))	// FFS! have no time to rework this now

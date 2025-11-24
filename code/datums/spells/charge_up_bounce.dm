@@ -5,7 +5,6 @@
 /obj/effect/proc_holder/spell/charge_up/bounce
 	var/bounce_hit_sound
 
-
 /obj/effect/proc_holder/spell/charge_up/bounce/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.allowed_type = /mob/living
@@ -13,12 +12,10 @@
 	T.use_obstacle_check = TRUE
 	return T
 
-
 /obj/effect/proc_holder/spell/charge_up/bounce/cast(list/targets, mob/user = usr)
 	var/mob/living/target = targets[1]
 
 	bounce(user, target, get_bounce_energy(), get_bounce_amount(), user)
-
 
 /**
  * How much energy should each bounce have?
@@ -26,13 +23,11 @@
 /obj/effect/proc_holder/spell/charge_up/bounce/proc/get_bounce_energy()
 	return
 
-
 /**
  * How much bounces should there be in total?
  */
 /obj/effect/proc_holder/spell/charge_up/bounce/proc/get_bounce_amount()
 	return
-
 
 /**
  * Called when a bounce travels from one mob to another
@@ -43,7 +38,6 @@
  */
 /obj/effect/proc_holder/spell/charge_up/bounce/proc/create_beam(mob/origin, mob/target)
 	return
-
 
 /**
  * The proc called when a bounce hits a target. Override this to add an effect
@@ -57,7 +51,6 @@
  */
 /obj/effect/proc_holder/spell/charge_up/bounce/proc/apply_bounce_effect(mob/origin, mob/target, energy, mob/user)
 	return
-
 
 /obj/effect/proc_holder/spell/charge_up/bounce/proc/bounce(mob/origin, mob/target, energy, bounces, mob/user)
 	SHOULD_CALL_PARENT(TRUE)

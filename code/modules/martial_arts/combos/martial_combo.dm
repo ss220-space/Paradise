@@ -36,7 +36,7 @@
 		return
 
 	final_combo_text = ""
-	for(var/step as anything in steps)
+	for(var/step in steps)
 		final_combo_text += final_combo_text ? ", " : ""
 		final_combo_text += GLOB.martial_combo_step_message[step]
 

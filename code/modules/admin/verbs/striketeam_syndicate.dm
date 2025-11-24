@@ -6,8 +6,8 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 /client/proc/syndicate_strike_team()
 	set category = STATPANEL_ADMIN_EVENT
-	set name = "Заспавнить Ударный Отряд Синдиката"
-	set desc = "Спавнит Ударный Отряд Синдиката в месте их дислокации на СЦК."
+	set name = "Заспавнить Ударный Отряд \"Синдиката\""
+	set desc = "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК."
 	if(!src.holder)
 		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
@@ -17,15 +17,15 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	if(GLOB.sent_syndicate_strike_team == 1)
 		tgui_alert(src, "Синдикат уже отправил отряд, Мистер Тупой.")
 		return
-	if(tgui_alert(src, "Вы действительно хотите отправить Ударный Отряд Синдиката? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
+	if(tgui_alert(src, "Вы действительно хотите отправить Ударный Отряд \"Синдиката\"? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
 		return
-	tgui_alert(src, "Этот 'режим' будет продолжаться до тех пор, пока все не погибнут или станция не будет разрушена. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки. У появившихся агентов синдиката есть внутренние камеры, которые можно просматривать через монитор на мостике корабля синдиката. Руководить командой рекомендуется оттуда. Первый выбранный/появившийся будет лидером команды.")
+	tgui_alert(src, "Этот 'режим' будет продолжаться до тех пор, пока все не погибнут или станция не будет разрушена. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки. У появившихся агентов \"Синдиката\" есть внутренние камеры, которые можно просматривать через монитор на мостике корабля \"Синдиката\". Руководить командой рекомендуется оттуда. Первый выбранный/появившийся будет лидером команды.")
 
 	message_admins(span_notice("[key_name_admin(usr)] has started to spawn a Syndicate Strike Team."))
 
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд синдиката.", "Укажите миссию", "", encode = FALSE)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд \"Синдиката\".", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return
@@ -42,8 +42,8 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
-	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду Синдиката?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд Синдиката", input)
-	if(!commando_ghosts.len)
+	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду \"Синдиката\"?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд \"Синдиката\"", input)
+	if(!length(commando_ghosts))
 		to_chat(src, span_userdanger("Никто не присоединился к SST."))
 		return
 
@@ -56,7 +56,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 		if(L.name == "Syndicate-Commando")
 
-			if(!commando_ghosts.len)
+			if(!length(commando_ghosts))
 				break
 
 			var/mob/ghost_mob = pick(commando_ghosts)
@@ -70,7 +70,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			if(!new_syndicate_commando)
 				continue
 
-			new_syndicate_commando.key = ghost_mob.key
+			new_syndicate_commando.possess_by_player(ghost_mob.key)
 			new_syndicate_commando.internal = new_syndicate_commando.s_store
 			new_syndicate_commando.update_action_buttons_icon()
 
@@ -79,7 +79,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 				new_syndicate_commando.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code]</span>.")
 			new_syndicate_commando.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input]</span>.")
 
-			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<b>Лидер</b>" : "боец"] Элитного Отряда в подчинении Синдиката. \nВаша миссия: <span class='userdanger'>[input]</span>"))
+			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<b>Лидер</b>" : "боец"] Элитного Отряда в подчинении \"Синдиката\". \nВаша миссия: <span class='userdanger'>[input]</span>"))
 			new_syndicate_commando.faction += "syndicate"
 			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 			opshud.join_hud(new_syndicate_commando.mind.current)
@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
 	var/syndicate_commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
 	var/syndicate_commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
-	var/syndicate_commando_name = pick(GLOB.last_names)
+	var/syndicate_commando_name = pick(GLOB.last_names_male)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)

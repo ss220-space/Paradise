@@ -2,10 +2,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical
 
-/obj/item/mecha_parts/mecha_equipment/medical/New()
-	..()
+/obj/item/mecha_parts/mecha_equipment/medical/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/M)
 	if(..())
@@ -241,8 +240,8 @@
 	equip_cooldown = 1 SECONDS
 	origin_tech = "materials=3;biotech=4;magnets=4"
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/New()
-	..()
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Initialize(mapload)
+	. = ..()
 	create_reagents(max_volume)
 	reagents.set_reacting(FALSE)
 	syringes = new
@@ -274,7 +273,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_snowflake_data()
 	var/list/analyzed_reagents = list() // we need to make this list because .tsk wont map over an indexed array
 
-	for(var/i = 1 to known_reagents.len)
+	for(var/i = 1 to length(known_reagents))
 		var/enabled = FALSE
 		if(known_reagents[i] in processed_reagents)
 			enabled = TRUE
@@ -295,7 +294,7 @@
 	return data
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/synthesize(reagent)
-	if(processed_reagents.len >= synth_speed)
+	if(length(processed_reagents) >= synth_speed)
 		occupant_message("Достигнут максимум одновременных реагентов.")
 		return
 
@@ -305,7 +304,7 @@
 
 	processed_reagents += reagent
 
-	if(processed_reagents.len != 1)
+	if(length(processed_reagents) != 1)
 		return
 
 	START_PROCESSING(SSobj, src)
@@ -350,7 +349,7 @@
 		return analyze_reagents(target)
 	if(!is_faced_target(target))
 		return FALSE
-	if(!syringes.len)
+	if(!length(syringes))
 		occupant_message(span_alert("No syringes loaded."))
 		return FALSE
 	if(reagents.total_volume<=0)
@@ -366,7 +365,6 @@
 	playsound(chassis, 'sound/items/syringeproj.ogg', 50, TRUE)
 	start_cooldown()
 	INVOKE_ASYNC(src, PROC_REF(async_syringe_gun_action), mechsyringe, target_turf)
-
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/async_syringe_gun_action(obj/item/reagent_containers/syringe/mechsyringe, turf/target_turf)
 	var/mob/originaloccupant = chassis.occupant
@@ -413,7 +411,7 @@
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/syringe)
-	if(syringes.len >= max_syringes)
+	if(length(syringes) >= max_syringes)
 		occupant_message("The [src] syringe chamber is full.")
 		return FALSE
 	syringe.reagents.trans_to(src, syringe.reagents.total_volume)
@@ -461,9 +459,9 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/process()
 	if(..())
 		return
-	if(!processed_reagents.len || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
+	if(!length(processed_reagents) || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
 		occupant_message(span_alert("Синтезирование реагентов остановлено."))
-		processed_reagents.len = 0
+		processed_reagents.Cut()
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/amount = synth_speed / processed_reagents.len
@@ -507,7 +505,6 @@
 	energy_drain = 10
 	var/dam_force = 20
 
-
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
 	if(!action_checks(target))
 		return FALSE
@@ -544,7 +541,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter) || istype(M, /obj/mecha/combat/lockersyndie))	//Odys or firefighters or syndielocker
-		if(M.equipment.len < M.max_equip)
+		if(length(M.equipment) < M.max_equip)
 			return TRUE
 	return FALSE
 
@@ -565,7 +562,7 @@
 		DATIVE = "Медицинской Лучпушке",
 		ACCUSATIVE = "Медицинскую Лучпушку",
 		INSTRUMENTAL = "Медицинской Лучпушкой",
-		PREPOSITIONAL = "Медицинская Лучпушке"
+		PREPOSITIONAL = "Медицинская Лучпушке",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/Initialize(mapload)

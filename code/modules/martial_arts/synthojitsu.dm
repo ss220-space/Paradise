@@ -21,8 +21,8 @@
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	D.visible_message(
-		"<span class='danger'>[A] electrocuted [D]!</span>", \
-		"<span class='userdanger'>[A] elecrtrocuted you!</span>"
+		span_danger("[A] electrocuted [D]!"), \
+		span_userdanger("[A] elecrtrocuted you!")
 	)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return TRUE
@@ -35,8 +35,8 @@
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/contractorbatonhit.ogg', 50, TRUE, -1)
 	D.visible_message(
-		"<span class='danger'>[A] tapped [D]!</span>", \
-		"<span class='userdanger'>[A] tapped you!</span>"
+		span_danger("[A] tapped [D]!"), \
+		span_userdanger("[A] tapped you!")
 	)
 	return TRUE
 
@@ -47,10 +47,8 @@
 	icon_state ="viable"
 	var/is_used = FALSE
 
-
 /obj/item/ipc_combat_upgrade/update_icon_state()
 	icon_state = "[is_used ? "un" : ""]viable"
-
 
 /obj/item/ipc_combat_upgrade/update_desc(updates = ALL)
 	. = ..()
@@ -59,11 +57,10 @@
 		return
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols.It's hardlocked"
 
-
 /obj/item/ipc_combat_upgrade/attack_self(mob/user)
 	if(!ismachineperson(user) || is_used)
 		return
-	to_chat(user, "<span class='notice'>Installation sequence initialized. It will take some time...</span>")
+	to_chat(user, span_notice("Installation sequence initialized. It will take some time..."))
 	if(do_after(user, 10 SECONDS, user))
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)
@@ -73,7 +70,6 @@
 		to_chat(H, span_boldannounceic("Melee algorithms installed. Safety disabled."))
 		is_used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-
 
 /datum/martial_art/synthojitsu/explaination_header(user)
 	to_chat(user, "<b><i>You reapload some of the basics of synthojitsu.</i></b>")

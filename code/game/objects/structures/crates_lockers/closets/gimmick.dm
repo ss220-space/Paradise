@@ -41,7 +41,6 @@
 	new /obj/item/clothing/under/soviet(src)
 	new /obj/item/clothing/under/soviet(src)
 
-
 /obj/structure/closet/gimmick/tacticool
 	name = "tacticool gear closet"
 	desc = "It's a storage unit for Tacticool gear."
@@ -61,7 +60,6 @@
 	new /obj/item/clothing/suit/space/hardsuit/deathsquad(src)
 	new /obj/item/clothing/under/syndicate/tacticool(src)
 	new /obj/item/clothing/under/syndicate/tacticool(src)
-
 
 /obj/structure/closet/thunderdome
 	name = "Thunderdome closet"

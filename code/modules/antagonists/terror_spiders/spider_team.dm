@@ -24,7 +24,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	RegisterSignal(SSdcs, COMSIG_GLOB_IFECTION_CREATED, PROC_REF(on_terror_infection_created))
 	RegisterSignal(SSdcs, COMSIG_GLOB_IFECTION_REMOVED, PROC_REF(on_terror_infection_removed))
 
-
 /datum/team/terror_spiders/Destroy(force)
 	. = ..()
 	UnregisterSignal(SSdcs, list(COMSIG_GLOB_EMPRESS_EGG_DESTROYED, COMSIG_GLOB_IFECTION_REMOVED, COMSIG_GLOB_EMPRESS_EGG_BURST, COMSIG_GLOB_IFECTION_CREATED))
@@ -40,10 +39,11 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		on_minor_spider_created(new_member)
 
 /datum/team/terror_spiders/proc/spider_announce()
-	GLOB.major_announcement.announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg',
-									new_sound2 = 'sound/AI/outbreak_terror.ogg'
+	GLOB.major_announcement.announce(
+		message = "Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg',
+		new_sound2 = 'sound/AI/outbreak_terror.ogg'
 	)
 	SSticker?.mode?.special_directive()
 	SSshuttle?.emergency.cancel()
@@ -54,15 +54,17 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 /datum/team/terror_spiders/proc/egg_announce()
 	if(QDELETED(empress_egg))
 		return
-	GLOB.major_announcement.announce("На борту станции [station_name()] зафиксирована биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожьте его, пока ситуация не вышла из под контроля.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg'
+	GLOB.major_announcement.announce(
+		message = "На борту станции [station_name()] зафиксирована биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожьте его, пока ситуация не вышла из под контроля.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg'
 	)
 
 /datum/team/terror_spiders/proc/spider_win_announce()
-	GLOB.major_announcement.announce("Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
-									"Отчёт об объекте [station_name()].",
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
+		new_title = "Отчёт об объекте [station_name()].",
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 /datum/team/terror_spiders/proc/get_main_spiders()
@@ -77,7 +79,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		if(!QDELETED(spider) && spider?.current?.stat != DEAD)
 			return TRUE
 	return FALSE
-
 
 /datum/team/terror_spiders/proc/on_terror_infection_created(source, eggs)
 	SIGNAL_HANDLER
@@ -120,7 +121,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 	var/main_spider_exist = check_main_spiders()
 
-	if(main_spider_exist && terror_infections.len > crew_count * INFECTIONS_ANNOUNCE_TRIGGER)
+	if(main_spider_exist && length(terror_infections) > crew_count * INFECTIONS_ANNOUNCE_TRIGGER)
 		result = TRUE
 
 	if(main_spider_exist && get_terror_spiders_alife_count() > crew_count * SPIDERS_ANNOUNCE_TRIGGER)
@@ -135,7 +136,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	ASYNC
 		SSshuttle?.remove_hostile_environment(mind)
 
-
 /datum/team/terror_spiders/proc/on_terror_infection_removed(source, eggs)
 	SIGNAL_HANDLER
 	terror_infections -= eggs
@@ -147,7 +147,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		SEND_SIGNAL(spider, COMSIG_EMPRESS_EGG_LAYED)
 	give_protect_egg_objective()
 	addtimer(CALLBACK(src, PROC_REF(egg_announce)), TIME_TO_ANNOUNCE)
-
 
 /datum/team/terror_spiders/proc/give_protect_egg_objective()
 	if(!protect_egg)
@@ -190,7 +189,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		qdel(infection)
 	for(var/egg in terror_eggs)
 		qdel(egg)
-
 
 /datum/team/terror_spiders/proc/delay_terror_win()
 	delay_terror_end = TRUE
@@ -235,34 +233,33 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_egg.type]", completed ? "SUCCESS" : "FAIL"))
 	return text
 
-
 /datum/team/terror_spiders/declare_completion()
 	var/list/terror_queens = main_spiders[TERROR_QUEEN]
 	var/list/terror_princes = main_spiders[TERROR_PRINCE]
 	var/list/terror_princesses = main_spiders[TERROR_PRINCESS]
 	var/list/terror_defilers = main_spiders[TERROR_DEFILER]
 
-	if(terror_queens.len || terror_princes.len || terror_princesses.len || terror_defilers.len)
+	if(length(terror_queens) || length(terror_princes) || length(terror_princesses) || length(terror_defilers))
 		var/list/text= declare_results()
 		text += span_fontsize2("<br/><b>Основа гнезда:</b>")
-		if(terror_queens.len)
-			text += span_fontsize1("<br/><b>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
+		if(length(terror_queens))
+			text += span_fontsize1("<br/><b>Королев[(length(terror_queens)> 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_queens)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(terror_princes.len)
-			text += span_fontsize1("<br/><b>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</b>")
+		if(length(terror_princes))
+			text += span_fontsize1("<br/><b>Принц[(length(terror_queens) > 1 ? "ами были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_princes)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(terror_princesses.len)
-			text += span_fontsize1("<br/><b>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
+		if(length(terror_princesses))
+			text += span_fontsize1("<br/><b>Принцесс[(length(terror_queens) > 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_princesses)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(terror_defilers.len)
-			text += span_fontsize1("<br/><b>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</b>")
+		if(length(terror_defilers))
+			text += span_fontsize1("<br/><b>Осквернител[(length(terror_queens) > 1 ? "ями были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_defilers)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(members.len)
-			text += span_fontsize2("<br/><b>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b>")
+		if(length(members))
+			text += span_fontsize2("<br/><b>Паук[(length(members) > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b>")
 			for(var/datum/mind/spider in members)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		return text.Join("")
@@ -273,7 +270,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/list/terror_princes = main_spiders[TERROR_PRINCE]
 	var/list/terror_princesses = main_spiders[TERROR_PRINCESS]
 	var/list/terror_defilers = main_spiders[TERROR_DEFILER]
-	if(terror_queens?.len || terror_princes?.len || terror_princesses?.len || terror_defilers?.len)
+	if(length(terror_queens) || length(terror_princes)|| length(terror_princesses) || length(terror_defilers))
 		if(check_rights(R_EVENT))
 			. += "<br/><a href='byond://?_src_=holder;team_command=delay_terror_end;team=[UID()]'>Отложить победу Терроров</a> Сейчас: [delay_terror_end? "ON" : "OFF"]<br>"
 		var/datum/admins/holder = usr.client.holder
@@ -289,7 +286,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
 			if(!L.stillborn && is_station_level(L.z))
 				count_spiderlings += 1
-		. += "<table cellspacing='5'><tr><td>Растущие ПУ на станции: яйца - [count_eggs], спайдерлинги - [count_spiderlings], зараженные гуманоиды - [terror_infections.len]. </td></tr></table>"
+		. += "<table cellspacing='5'><tr><td>Растущие ПУ на станции: яйца — [count_eggs], спайдерлинги — [count_spiderlings], зараженные гуманоиды — [length(terror_infections)]. </td></tr></table>"
 
 /datum/team/terror_spiders/admin_topic(comand)
 	if(comand == "delay_terror_end")
@@ -308,7 +305,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 			return_terror_win()
 
 		log_and_message_admins("has [delay_terror_end? "stopped" : "returned"] stopped delayed terror win")
-
 
 /proc/create_terror_spiders(type, count)
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_type = get_spider_type(type)
@@ -330,7 +326,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(vent_spawns)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/spider = new spider_type(spider_type.ventcrawler_trait ? vent.loc : pick(GLOB.xeno_spawn))
 
-		spider.set_key(ghost.key)
+		spider.possess_by_player(ghost.key)
 
 		if(spider_type.ventcrawler_trait)
 			spider.move_into_vent(vent, FALSE)
@@ -342,7 +338,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		log_game("[spider.key] has become [spider].")
 
 	return successSpawn
-
 
 /proc/get_spider_type(text_type)
 	switch(text_type)

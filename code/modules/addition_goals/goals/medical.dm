@@ -4,10 +4,10 @@
 #define AGS_DIFFICULTY_NORMAL 2
 #define AGS_DIFFICULTY_HARD 3
 
-#define AGS_MIN_CREDITS_PER_PATIEN 3000
-#define AGS_MAX_CREDITS_PER_PATIEN 5000
-#define AGS_MIN_CARGOPOINTS_PER_PATIEN 10
-#define AGS_MAX_CARGOPOINTS_PER_PATIEN 20
+#define AGS_MIN_CREDITS_PER_PATIEN 5000
+#define AGS_MAX_CREDITS_PER_PATIEN 8000
+#define AGS_MIN_CARGOPOINTS_PER_PATIEN 20
+#define AGS_MAX_CARGOPOINTS_PER_PATIEN 30
 
 ////////////////////////////////////////
 // MARK:	Goal datum
@@ -18,7 +18,6 @@
 	var/patiens_count
 	var/list/patients = list()
 	var/obj/effect/mob_spawn/human/spawner
-
 
 /datum/addition_goal/medical_patients/setup()
 	request_number = "[rand(100, 999)]"
@@ -82,7 +81,6 @@
 	patient.ai_controller = /datum/ai_controller/monkey/angry
 	patient.InitializeAIController()
 
-
 /datum/addition_goal/medical_patients/format_accept_report(mob/user)
 	var/text = {"К вам [declension_ru(patiens_count, "отправлен", "отправлено", "отправлено")] [patiens_count] [declension_ru(patiens_count, "больной", "больных", "больных")] с соседней психбольницы.<br>
 		Необходимо полностью вылечить пациентов. Будьте осторожны, пациенты буйные.
@@ -92,7 +90,6 @@
 		text += "<br>[number]. [patient.real_name]."
 		number++
 	return text
-
 
 /datum/addition_goal/medical_patients/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/shuttle_turfs = system.get_shuttle_turfs()
@@ -125,10 +122,8 @@
 	if(reward_cargopoints > 0)
 		report_text += "[reward_number]. [reward_cargopoints] очков поставки в карго.<br>"
 	system.add_reward(reward_credits, reward_cargopoints)
-	var/paper_content = system.create_paper_content("Отчет о медицинской помощи №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
+	var/paper_content = system.create_paper_content("Отчет о медицинской помощи №[request_number]", report_text, "Официальный документ, заверенный печатью Центрального командования \"Нанотрейзен\"")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
-
-
 
 ////////////////////////////////////////
 // MARK:	Misc

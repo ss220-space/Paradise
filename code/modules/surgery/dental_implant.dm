@@ -17,7 +17,7 @@
 
 /datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] вставлять [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] вставлять [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		span_notice("Вы начинаете вставлять [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -32,8 +32,8 @@
 		dental_implants++
 	if(dental_implants >= 4)
 		user.visible_message(
-			span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target]."),
-			span_notice("Вы достаёте [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target] – некуда вставлять.")
+			span_notice("[user] доста[PLUR_YOT_YUT(user)] [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target]."),
+			span_notice("Вы достаёте [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target] — некуда вставлять.")
 		)
 		return SURGERY_STEP_INCOMPLETE
 
@@ -44,7 +44,7 @@
 	P.Grant(target)
 
 	user.visible_message(
-		span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
+		span_notice("[user] вставля[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		span_notice("Вы вставляете [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -53,14 +53,14 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Раскусить таблетку"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger(left_click = TRUE)
+/datum/action/item_action/hands_free/activate_pill/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return
-	to_chat(owner, span_warning("Вы сжимаете зубы и раскусываете [target.declent_ru(ACCUSATIVE)]!"))
-	add_attack_logs(owner, owner, "Swallowed implanted [target]")
-	if(target.reagents.total_volume)
-		target.reagents.reaction(owner, REAGENT_INGEST)
-		target.reagents.trans_to(owner, target.reagents.total_volume)
+	to_chat(owner, span_warning("Вы сжимаете зубы и раскусываете [target]!"))
+	add_attack_logs(owner, owner, "Swallowed implanted [owner]")
+	if(owner.reagents.total_volume)
+		owner.reagents.reaction(owner, REAGENT_INGEST)
+		owner.reagents.trans_to(owner, owner.reagents.total_volume)
 	Remove(owner)
 	qdel(target)
 	return 1

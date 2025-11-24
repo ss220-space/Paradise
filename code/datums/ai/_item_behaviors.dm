@@ -7,10 +7,9 @@
 	var/mob/item_holder = item_pawn.loc
 	if(!istype(item_holder))
 		finish_action(controller, FALSE) //We're no longer beind held. abort abort!!
-	item_pawn.visible_message("<span class='warning'>[item_pawn] slips out of the hands of [item_holder]!</span>")
+	item_pawn.visible_message(span_warning("[item_pawn] slips out of the hands of [item_holder]!"))
 	item_holder.drop_item_ground(item_pawn, TRUE)
 	finish_action(controller, TRUE)
-
 
 /// This behavior is for obj/items, it is used to move closer to a target and throw themselves towards them.
 /datum/ai_behavior/item_move_close_and_attack
@@ -22,11 +21,9 @@
 	///Max attemps to make
 	var/max_attempts = 3
 
-
 /datum/ai_behavior/item_move_close_and_attack/setup(datum/ai_controller/controller, target_key, throw_count_key)
 	. = ..()
 	controller.current_movement_target = controller.blackboard[target_key]
-
 
 /datum/ai_behavior/item_move_close_and_attack/perform(delta_time, datum/ai_controller/controller, target_key, throw_count_key)
 	. = ..()

@@ -1,12 +1,12 @@
-#define CREW_TRANSFER_CHOICE	"Инициировать трансфер экипажа"
-#define CONTINUE_SHIFT_CHOICE	"Продолжить смену"
+#define CREW_TRANSFER_CHOICE "Инициировать трансфер экипажа"
+#define CONTINUE_SHIFT_CHOICE "Продолжить смену"
 
 // Crew transfer vote
 /datum/vote/crew_transfer
 	question = "Завершение смены"
 	choices = list(
 		CREW_TRANSFER_CHOICE,
-		CONTINUE_SHIFT_CHOICE
+		CONTINUE_SHIFT_CHOICE,
 	)
 	vote_type_text = "crew transfer"
 
@@ -86,7 +86,7 @@
 		return
 	if(GLOB.master_mode != result)
 		world.save_mode(result)
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			to_chat(world, "<font color='red'><b>Mode has been selected but round already started, it will be applied next round.</b></font>")
 		else
 			GLOB.master_mode = result

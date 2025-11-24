@@ -244,7 +244,6 @@
 		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
-
 /obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
 	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(exclude_self && AA == src)
@@ -309,7 +308,6 @@
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
 
-
 /obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
 	cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
@@ -349,7 +347,6 @@
 
 			environment.merge(gas)
 
-
 /obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
 		switch(buildstage)
@@ -376,7 +373,6 @@
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
-
 /obj/machinery/alarm/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -385,7 +381,6 @@
 		return
 
 	underlays += emissive_appearance(icon, "alarm_lightmask", src)
-
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name
@@ -716,7 +711,7 @@
 	data["preset"] = preset
 
 	var/list/vents = list()
-	if(alarm_area.air_vent_names.len)
+	if(length(alarm_area.air_vent_names))
 		for(var/id_tag in alarm_area.air_vent_names)
 			var/list/vent_info = list()
 			var/long_name = alarm_area.air_vent_names[id_tag]
@@ -730,7 +725,7 @@
 	data["vents"] = vents
 
 	var/list/scrubbers = list()
-	if(alarm_area.air_scrub_names.len)
+	if(length(alarm_area.air_scrub_names))
 		for(var/id_tag in alarm_area.air_scrub_names)
 			var/long_name = alarm_area.air_scrub_names[id_tag]
 			var/list/scrubber_data = alarm_area.air_scrub_info[id_tag]
@@ -768,24 +763,24 @@
 	for(var/g in gas_names)
 		thresholds += list(list("name" = gas_names[g], "settings" = list()))
 		selected = TLV[g]
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "min2", "selected" = selected.min2))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "min1", "selected" = selected.min1))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min2", "selected" = selected.min2))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min1", "selected" = selected.min1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["pressure"]
 	thresholds += list(list("name" = "Pressure", "settings" = list()))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["temperature"]
 	thresholds += list(list("name" = "Temperature", "settings" = list()))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
 
 	return thresholds
 
@@ -841,7 +836,6 @@
 					rcon_setting = RCON_AUTO
 				if(RCON_YES)
 					rcon_setting = RCON_YES
-
 
 		if("command")
 			if(!is_authenticated(usr, active_ui))
@@ -913,14 +907,12 @@
 			mode = params["mode"]
 			apply_mode()
 
-
 		if("preset")
 			if(!is_authenticated(usr, active_ui))
 				return
 
 			preset = params["preset"]
 			apply_preset()
-
 
 		if("temperature")
 			var/datum/tlv/selected = TLV["temperature"]
@@ -940,7 +932,6 @@
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
 
-
 /obj/machinery/alarm/ui_state(mob/user)
 	if(issilicon(user))
 		if(isAI(user))
@@ -957,7 +948,6 @@
 
 	return GLOB.default_state
 
-
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
@@ -965,7 +955,6 @@
 			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], disabling its safeties."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
-
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -1005,7 +994,6 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_BUILDING)
@@ -1068,12 +1056,10 @@
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	qdel(src)
 
-
 /obj/machinery/alarm/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon()
-
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()
@@ -1087,7 +1073,6 @@
 			I.update_integrity(I.max_integrity * 0.5)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
-
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
@@ -1120,7 +1105,6 @@
 		return NONE
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)

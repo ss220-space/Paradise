@@ -1,7 +1,7 @@
 /datum/action/innate/terrorspider/lay_empress_egg
 	name = "Отложить яйцо Императрицы"
 	desc = "Отложить яйцо Имератрицы Ужаса."
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 	var/datum/weakref/spider_team
@@ -17,7 +17,7 @@
 		to_chat(usr, span_warning("Вы или кто-то из вашего гнезда уже отложили яйцо Императрицы."))
 		return
 
-	if(!team.protect_egg && team.protect_egg.check_completion())
+	if(team.protect_egg && team.protect_egg.check_completion())
 		to_chat(usr, span_warning("Императрица уже вылупилась. Вы не можете отложить еще одно яйцо."))
 		return
 

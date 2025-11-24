@@ -59,12 +59,12 @@
 	if(!files)
 		files = new /datum/research(src)
 	var/list/temp_list
-	if(!id_with_upload.len)
+	if(!length(id_with_upload))
 		temp_list = list()
 		temp_list = splittext(id_with_upload_string, ";")
 		for(var/N in temp_list)
 			id_with_upload += text2num(N)
-	if(!id_with_download.len)
+	if(!length(id_with_download))
 		temp_list = list()
 		temp_list = splittext(id_with_download_string, ";")
 		for(var/N in temp_list)
@@ -105,7 +105,6 @@
 	griefProtection()
 	return ..()
 
-
 /obj/machinery/r_n_d/server/ex_act(severity, target)
 	griefProtection()
 	return ..()
@@ -140,7 +139,6 @@
 				env.merge(removed)
 				air_update_turf()
 
-
 /obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -154,13 +152,11 @@
 
 	return ..()
 
-
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
 	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
-
 
 /obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -173,7 +169,6 @@
 		return .
 	griefProtection()
 	default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user)
 	if(..())
@@ -200,7 +195,7 @@
 
 	LAZYINITLIST(usage_logs)
 	usage_logs.len++
-	usage_logs[usage_logs.len] = list(time_created, user_name, user_job, blueprint_name, used_machine)
+	usage_logs[length(usage_logs)] = list(time_created, user_name, user_job, blueprint_name, used_machine)
 
 /obj/machinery/r_n_d/server/proc/clear_logs(mob/user)
 	if(!LAZYLEN(usage_logs))
@@ -215,7 +210,7 @@
 
 	LAZYINITLIST(logs_for_logs_clearing)
 	logs_for_logs_clearing.len++
-	logs_for_logs_clearing[logs_for_logs_clearing.len] = list(time_cleared, user_name, user_job)
+	logs_for_logs_clearing[length(logs_for_logs_clearing)] = list(time_cleared, user_name, user_job)
 
 	LAZYCLEARLIST(usage_logs)
 
@@ -249,7 +244,6 @@
 /obj/machinery/r_n_d/server/centcom/process()
 	return PROCESS_KILL	//don't need process()
 
-
 /obj/machinery/computer/rdservercontrol
 	name = "R&D server controller"
 	icon_screen = "rdcomp"
@@ -276,7 +270,7 @@
 	add_fingerprint(usr)
 	usr.set_machine(src)
 	if(!src.allowed(usr) && !emagged)
-		to_chat(usr, "<span class='warning'>You do not have the required access level</span>")
+		to_chat(usr, span_warning("You do not have the required access level"))
 		return
 
 	if(href_list["main"])
@@ -452,7 +446,7 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
+			to_chat(user, span_notice("You you disable the security protocols"))
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

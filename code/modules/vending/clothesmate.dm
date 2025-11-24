@@ -12,13 +12,12 @@
 		"Приод+енься для усп+еха!",
 		"Пригот+овьтесь в+ыглядеть потряс+ающе!",
 		"Посмотр+ите на все +эти кл+ассные в+ещи!",
-		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуйте ClothesMate!"
+		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуйте ClothesMate!",
 	)
 
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
 
 	product_categories = list(
-
 		list(
 			"name" = "Головные уборы",
 			"icon" = "hat-cowboy",
@@ -43,7 +42,6 @@
 				/obj/item/clothing/head/sombrero = 1,
 			),
 		),
-
 		list(
 			"name" = "Аксессуары",
 			"icon" = "glasses",
@@ -78,7 +76,6 @@
 				/obj/item/clothing/gloves/fingerless = 2,
 			),
 		),
-
 		list(
 			"name" = "Униформа",
 			"icon" = "shirt",
@@ -107,7 +104,6 @@
 				/obj/item/clothing/under/blacktango = 1,
 			),
 		),
-
 		list(
 			"name" = "Верхняя одежда",
 			"icon" = "vest",
@@ -120,7 +116,6 @@
 				/obj/item/clothing/suit/storage/bomber = 4,
 			),
 		),
-
 		list(
 			"name" = "Обувь",
 			"icon" = "socks",
@@ -161,5 +156,5 @@
 		DATIVE = "торговому автомату ClothesMate",
 		ACCUSATIVE = "торговый автомат ClothesMate",
 		INSTRUMENTAL = "торговым автоматом ClothesMate",
-		PREPOSITIONAL = "торговом автомате ClothesMate"
+		PREPOSITIONAL = "торговом автомате ClothesMate",
 	)

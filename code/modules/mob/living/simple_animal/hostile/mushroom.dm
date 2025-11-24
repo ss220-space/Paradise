@@ -34,9 +34,9 @@
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	. = ..()
 	if(health >= maxHealth)
-		. += "<span class='notice'>It looks healthy.</span>"
+		. += span_notice("It looks healthy.")
 	else
-		. += "<span class='warning'>It looks like it's been roughed up.</span>"
+		. += span_warning("It looks like it's been roughed up.")
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()
@@ -76,7 +76,6 @@
 
 	return FALSE
 
-
 /mob/living/simple_animal/hostile/mushroom/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -90,7 +89,6 @@
 		retreat_distance = 5
 		addtimer(VARSET_CALLBACK(src, retreat_distance, null), 3 SECONDS)
 
-
 /mob/living/simple_animal/hostile/mushroom/attack_animal(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/mushroom) && stat == DEAD)
 		var/mob/living/simple_animal/hostile/mushroom/M = L
@@ -98,7 +96,7 @@
 			M.visible_message("[M] chews a bit on [src].")
 			faint_ticker++
 			return TRUE
-		M.visible_message("<span class='warning'>[M] devours [src]!</span>")
+		M.visible_message(span_warning("[M] devours [src]!"))
 		var/level_gain = (powerlevel - M.powerlevel)
 		if(level_gain >= -1 && !bruised && !M.ckey)//Player shrooms can't level up to become robust gods.
 			if(level_gain < 1)//So we still gain a level if two mushrooms were the same level
@@ -132,7 +130,6 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-
 /mob/living/simple_animal/hostile/mushroom/proc/Recover()
 	visible_message(span_notice("[src] starts to slowly recover."))
 	faint_ticker = 0
@@ -140,7 +137,6 @@
 	UpdateMushroomCap()
 	recovery_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, recovery_cooldown, FALSE), 30 SECONDS)
-
 
 /mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
@@ -152,12 +148,10 @@
 		maxHealth += (level_gain * rand(1,5))
 	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
-
 /mob/living/simple_animal/hostile/mushroom/proc/Bruise()
 	if(!bruised && !stat)
 		visible_message(span_notice("The [name] was bruised!"))
 		bruised = TRUE
-
 
 /mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I, mob/user, params)
 	var/current_health
@@ -185,7 +179,6 @@
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && health < current_health)
 		Bruise()
-
 
 /mob/living/simple_animal/hostile/mushroom/attack_hand(mob/living/carbon/human/M as mob)
 	..()

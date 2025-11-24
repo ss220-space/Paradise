@@ -25,4 +25,4 @@
 		var/datum/syndicate_contract/C = c
 		if(C.status == CONTRACT_STATUS_INACTIVE && C.generate())
 			changed++
-	hub.contractor_uplink?.message_holder("Агент, мы заменили [changed] контракт[declension_ru(changed, "", "а", "ов")] на новы[declension_ru(changed, "й", "е", "е")].")
+	hub.contractor_uplink?.message_holder("Агент, мы заменили [changed] контракт[DECL_CREDIT(changed)] на новы[declension_ru(changed, "й", "е", "е")].")

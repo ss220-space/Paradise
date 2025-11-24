@@ -1,9 +1,9 @@
-#define ASSEMBLY_UNBUILT		0 // Nothing done to it
-#define ASSEMBLY_WRENCHED		1 // Wrenched in place
-#define ASSEMBLY_WELDED		2 // Welded in place
-#define ASSEMBLY_WIRED		3 // Wires attached (Upgradable now)
-#define ASSEMBLY_BUILT		4 // Fully built (incl panel closed)
-#define HEY_IM_WORKING_HERE	666 //So nobody can mess with the camera while we're inputting settings
+#define ASSEMBLY_UNBUILT 0 // Nothing done to it
+#define ASSEMBLY_WRENCHED 1 // Wrenched in place
+#define ASSEMBLY_WELDED 2 // Welded in place
+#define ASSEMBLY_WIRED 3 // Wires attached (Upgradable now)
+#define ASSEMBLY_BUILT 4 // Fully built (incl panel closed)
+#define HEY_IM_WORKING_HERE 666 //So nobody can mess with the camera while we're inputting settings
 
 /obj/item/camera_assembly
 	name = "camera assembly"
@@ -17,11 +17,9 @@
 	var/list/upgrades = list()
 	var/state = ASSEMBLY_UNBUILT
 
-
 /obj/item/camera_assembly/Destroy()
 	QDEL_LIST(upgrades)
 	return ..()
-
 
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -55,7 +53,6 @@
 
 	return ..()
 
-
 /obj/item/camera_assembly/crowbar_act(mob/user, obj/item/I)
 	if(!length(upgrades))
 		return FALSE
@@ -69,7 +66,6 @@
 	playsound(loc, I.usesound, 50, TRUE)
 	upgrade.forceMove(loc)
 	upgrades -= upgrade
-
 
 /obj/item/camera_assembly/screwdriver_act(mob/user, obj/item/I)
 	if(state != ASSEMBLY_WIRED)
@@ -85,7 +81,7 @@
 		return
 
 	var/list/tempnetwork = splittext(input, ",")
-	if(tempnetwork.len < 1)
+	if(length(tempnetwork) < 1)
 		state = ASSEMBLY_WIRED
 		to_chat(user, span_warning("No network found please hang up and try your call again."))
 		return
@@ -106,7 +102,6 @@
 			var/confirm = tgui_alert(user, "Is this what you want? Chances Remaining: [i]", "Confirmation", list("Yes", "No"))
 			if(confirm == "Yes")
 				break
-
 
 /obj/item/camera_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != ASSEMBLY_WIRED)
@@ -171,7 +166,6 @@
 	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 	qdel(src)
-
 
 #undef ASSEMBLY_UNBUILT
 #undef ASSEMBLY_WRENCHED

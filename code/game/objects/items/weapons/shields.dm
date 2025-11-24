@@ -41,7 +41,6 @@
 	/// Shield bash cooldown
 	COOLDOWN_DECLARE(cooldown)
 
-
 /obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/baton) && COOLDOWN_FINISHED(src, cooldown))
 		COOLDOWN_START(src, cooldown, 2.5 SECONDS)
@@ -53,7 +52,6 @@
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/shield/riot/roman
 	name = "roman shield"
@@ -99,7 +97,7 @@
 		DATIVE = "щиту из пластин голиафа",
 		ACCUSATIVE = "щит из пластин голиафа",
 		INSTRUMENTAL = "щитом из пластин голиафа",
-		PREPOSITIONAL = "щите из пластин голиафа"
+		PREPOSITIONAL = "щите из пластин голиафа",
 	)
 
 /obj/item/shield/energy
@@ -120,7 +118,7 @@
 		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
-			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
+			to_chat(owner, span_warning("[hitby] overloaded your [src]!"))
 	return FALSE
 
 /obj/item/shield/energy/IsReflect()
@@ -131,7 +129,7 @@
 
 /obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !forced)
-		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
+		to_chat(user, span_warning("You beat yourself in the head with [src]."))
 		user.take_organ_damage(5)
 	active = !active
 	if(active)
@@ -141,7 +139,7 @@
 		update_icon()
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, TRUE)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
 		throwforce = 3
@@ -149,7 +147,7 @@
 		update_icon()
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, span_notice("[src] can now be concealed."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_held_items()
@@ -187,10 +185,8 @@
 		return ..()
 	return FALSE
 
-
 /obj/item/shield/riot/tele/update_icon_state()
 	icon_state = "teleriot[active]"
-
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
@@ -203,14 +199,14 @@
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
 		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+		to_chat(user, span_notice("You extend \the [src]."))
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = NONE
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, span_notice("[src] can now be concealed."))
 	update_equipped_item()
 	add_fingerprint(user)
 

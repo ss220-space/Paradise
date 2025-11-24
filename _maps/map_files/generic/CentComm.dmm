@@ -529,11 +529,6 @@
 	},
 /area/centcom/jail)
 "ajk" = (
-/obj/machinery/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = 32
-	},
 /obj/structure/rack,
 /obj/item/roller/holo,
 /obj/item/roller/holo,
@@ -718,7 +713,7 @@
 	},
 /area/shuttle/trade/sol)
 "alR" = (
-/obj/effect/landmark/ert_director,
+/obj/effect/landmark/spawner/ertdirector,
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -2434,7 +2429,7 @@
 /area/shuttle/administration)
 "bdh" = (
 /obj/structure/chair,
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -2964,7 +2959,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -3430,7 +3425,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -3458,7 +3453,7 @@
 	name = "Dress shoes"
 	},
 /obj/item/clothing/gloves/color/white,
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/clothing/accessory/holster,
@@ -3880,7 +3875,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -5428,7 +5423,7 @@
 	dir = 4
 	},
 /obj/item/stock_parts/cell/infinite{
-	desc = "Интересная батарейка золотого цвета, главный вопрос который вас терзает - а что она делает в космосе? \n Жаль что контакты окислились.";
+	desc = "Интересная батарейка золотого цвета, главный вопрос который вас терзает — а что она делает в космосе? \n Жаль что контакты окислились.";
 	name = "Батарейка в космосе?"
 	},
 /turf/simulated/floor/beach/water{
@@ -6101,7 +6096,7 @@
 /area/centcom/zone1)
 "cNc" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/landmark/syndicate_officer,
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "cNn" = (
@@ -7075,12 +7070,6 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
-"dnh" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "dnB" = (
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
@@ -7488,7 +7477,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_officer,
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "dxR" = (
@@ -8897,7 +8886,7 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "edZ" = (
-/obj/effect/landmark/ert_director,
+/obj/effect/landmark/spawner/ertdirector,
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
@@ -10526,7 +10515,7 @@
 /area/ninja/outpost)
 "eUc" = (
 /obj/item/melee/energy_katana{
-	desc = "Ныне - сломанная собственность синдиката";
+	desc = "Ныне — сломанная собственность \"Синдиката\"";
 	name = "Катана Змея"
 	},
 /turf/simulated/floor/plasteel{
@@ -10746,7 +10735,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -11207,7 +11196,7 @@
 	color = "#363636";
 	icon_state = "diagonal_edge"
 	},
-/obj/effect/landmark/ninjastart,
+/obj/effect/landmark/spawner/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "fny" = (
@@ -11984,7 +11973,7 @@
 "fDt" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/effect/landmark/traderstart_sol,
+/obj/effect/landmark/spawner/soltrader,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "fDP" = (
@@ -13853,7 +13842,7 @@
 	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
 	name = "Супъективное мнение"
 	},
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "gAB" = (
@@ -15025,7 +15014,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -16104,9 +16093,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16730,7 +16717,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "ifg" = (
@@ -17076,7 +17063,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 4
 	},
-/obj/effect/landmark/syndicate_officer,
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "iny" = (
@@ -17221,7 +17208,7 @@
 	},
 /area/wizard_station)
 "ism" = (
-/obj/effect/landmark/response_team,
+/obj/effect/landmark/spawner/ert,
 /obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -18111,7 +18098,7 @@
 /obj/structure/rack,
 /obj/machinery/light,
 /obj/item/toy/katana{
-	desc = "Говорят тому, кто будет орудовать этой катаной в настоящей битве - не светит победы даже в бою с пьяницей вооружённым веслом";
+	desc = "Говорят тому, кто будет орудовать этой катаной в настоящей битве — не светит победы даже в бою с пьяницей вооружённым веслом";
 	name = "Сасаки Кадзиро"
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -18459,7 +18446,7 @@
 /area/syndicate_mothership/outside)
 "iUt" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/effect/landmark/death_squard,
+/obj/effect/landmark/spawner/death_squard,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21921,7 +21908,7 @@
 	},
 /area/centcom/specops)
 "kzy" = (
-/obj/effect/landmark/syndieprisonwarp,
+/obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -22198,7 +22185,7 @@
 /area/centcom/supply)
 "kHS" = (
 /obj/structure/bookcase,
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "kHT" = (
@@ -22245,7 +22232,7 @@
 /obj/structure/closet/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom{
 	desc = null;
 	name = "Supreme commander bowman headset"
@@ -23266,9 +23253,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "lcJ" = (
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -24524,7 +24509,7 @@
 /area/centcom/evac)
 "lFw" = (
 /obj/structure/reagent_dispensers/beerkeg/nuke{
-	desc = "Однажды незадачливый отряд внедрения синдиката вместо настоящей бомбы, украл у НТ эту стилизованную кегу с пивом. Эти ребята более не ходят по миру, но кега всё ещё украшает один из местных баров. На ней виднеется зачёркнутое слово 'Нанотрейзен' и приписанное рядом, кровью, слово 'Синдикат'";
+	desc = "Однажды незадачливый отряд внедрения \"Синдиката\" вместо настоящей бомбы, украл у НТ эту стилизованную кегу с пивом. Эти ребята более не ходят по миру, но кега всё ещё украшает один из местных баров. На ней виднеется зачёркнутое слово \"Нанотрейзен\" и приписанное рядом, кровью, слово \"Синдикат\"";
 	name = "Syndicate-brand nuclear fission explosive";
 	pixel_y = 12
 	},
@@ -25113,7 +25098,7 @@
 /area/centcom/jail)
 "lUK" = (
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/effect/landmark/response_team,
+/obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25150,7 +25135,7 @@
 /area/centcom/bridge)
 "lWc" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
 	},
@@ -26346,7 +26331,7 @@
 /area/syndicate_mothership/jail)
 "muU" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/teleport_scroll,
+/obj/effect/landmark/spawner/teleport_scroll,
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -30
 	},
@@ -26361,7 +26346,7 @@
 "mvo" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
-/obj/effect/landmark/wizard,
+/obj/effect/landmark/spawner/wizard,
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "mvu" = (
@@ -28411,7 +28396,7 @@
 /obj/effect/turf_decal/siding{
 	color = "#444444"
 	},
-/obj/effect/landmark/ninjastart,
+/obj/effect/landmark/spawner/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "nnm" = (
@@ -30237,7 +30222,7 @@
 /obj/structure/closet/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom{
 	desc = null;
 	name = "Supreme commander bowman headset"
@@ -30957,9 +30942,14 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "opw" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/wallmed/free{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
 "opx" = (
@@ -31241,7 +31231,7 @@
 /obj/item/clothing/shoes/chameleon/noslip,
 /obj/item/clothing/under/color/black,
 /obj/item/implanter/dust,
-/obj/item/storage/box/engineer{
+/obj/item/storage/box/survival/engineer{
 	name = "Survival kit"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -32711,9 +32701,7 @@
 	},
 /area/centcom/supply)
 "pek" = (
-/obj/effect/landmark/syndicate_commando{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pem" = (
@@ -33414,7 +33402,7 @@
 /obj/structure/sign/poster/contraband/punch_shit{
 	pixel_y = 32
 	},
-/obj/effect/landmark/prisonsecuritywarp,
+/obj/effect/landmark/spawner/prisonsecuritywarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -33435,11 +33423,11 @@
 /obj/item/grenade/syndieminibomb{
 	pixel_x = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_x = -5;
 	pixel_y = 12
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_x = -5;
 	pixel_y = 12
 	},
@@ -34014,6 +34002,7 @@
 "pOx" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
 "pOE" = (
@@ -34078,18 +34067,14 @@
 	},
 /area/centcom/supplypod/loading/ert)
 "pPN" = (
-/obj/effect/landmark/syndicate_commando{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /obj/structure/sign/double/map/right{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pQd" = (
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "pQe" = (
@@ -34304,13 +34289,13 @@
 /area/syndicate_mothership/cargo)
 "pUu" = (
 /obj/structure/table/wood,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 4
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -34335,7 +34320,7 @@
 	},
 /area/centcom/specops)
 "pUC" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/medical/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
 	},
@@ -35882,7 +35867,7 @@
 /area/shuttle/administration)
 "qBj" = (
 /obj/effect/turf_decal/box,
-/obj/effect/landmark/nuclear_bomb,
+/obj/effect/landmark/spawner/nuclear_bomb,
 /obj/machinery/door/window/brigdoor/westleft{
 	color = "#d70000";
 	dir = 2;
@@ -36260,7 +36245,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/clothing/head/beret/centcom/officer,
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -36855,7 +36840,7 @@
 	department = "Central Command";
 	pixel_y = 2
 	},
-/obj/effect/landmark/commando_manual,
+/obj/effect/landmark/spawner/commando_manual,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -37634,9 +37619,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /obj/effect/turf_decal/plaque,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/effect/turf_decal/stripes/gold{
@@ -38363,7 +38346,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -39079,7 +39062,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "rWE" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/medical/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39592,18 +39575,14 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/specops)
 "skU" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "sle" = (
@@ -39922,7 +39901,7 @@
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/mask/balaclava,
 /obj/item/clothing/accessory/holster,
-/obj/item/storage/box/survival_security{
+/obj/item/storage/box/survival/survival_security{
 	name = "Security survival kit"
 	},
 /turf/simulated/floor/wood,
@@ -41380,7 +41359,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -42409,7 +42388,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -42621,10 +42600,10 @@
 	},
 /area/shuttle/escape)
 "tzO" = (
-/obj/machinery/vending/medical,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/vending/medical/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
 	},
@@ -43826,8 +43805,8 @@
 	},
 /area/centcom/supply)
 "uam" = (
-/obj/effect/landmark/prisonwarp,
-/obj/effect/landmark/prisonwarp,
+/obj/effect/landmark/spawner/prisonwarp,
+/obj/effect/landmark/spawner/prisonwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -44011,6 +43990,7 @@
 	roundstart_move = "addition_goal_dock";
 	width = 10
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
 "ueC" = (
@@ -46198,7 +46178,7 @@
 /area/centcom/specops)
 "vdf" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/prisonsecuritywarp,
+/obj/effect/landmark/spawner/prisonsecuritywarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -47875,7 +47855,7 @@
 	},
 /area/syndicate_mothership/control)
 "vSC" = (
-/obj/effect/landmark/ert_director,
+/obj/effect/landmark/spawner/ertdirector,
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -48682,7 +48662,7 @@
 /area/shuttle/vox)
 "woh" = (
 /mob/living/simple_animal/mouse/brown{
-	desc = "Секретная разработка синдиката. Сидит тут потому, что сам хочет";
+	desc = "Секретная разработка \"Синдиката\". Сидит тут потому, что сам хочет";
 	name = "Мышедемон"
 	},
 /turf/simulated/floor/plasteel{
@@ -51062,9 +51042,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/specops)
@@ -51459,7 +51437,7 @@
 /area/syndicate_mothership)
 "xBV" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "xCi" = (
@@ -106971,8 +106949,8 @@ mHv
 fAg
 kZY
 nAN
-opw
-dnh
+fDY
+wrh
 nAN
 nAN
 nAN
@@ -108016,7 +107994,7 @@ hOe
 mzs
 wJo
 mzs
-cnO
+opw
 nAN
 ajk
 rTL

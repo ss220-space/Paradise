@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/marrowweaver
 	name = "marrow weaver"
-	desc = "Большой, злой и ядовитый паук. Обожает костный мозг. И его любимый источник пищи - это вы."
+	desc = "Большой, злой и ядовитый паук. Обожает костный мозг. И его любимый источник пищи — это вы."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "weaver"
 	icon_living = "weaver"
@@ -42,7 +42,7 @@
 		DATIVE = "костномозговому ткачу",
 		ACCUSATIVE = "костномозгового ткача",
 		INSTRUMENTAL = "костномозговым ткачом",
-		PREPOSITIONAL = "костномозговом ткаче"
+		PREPOSITIONAL = "костномозговом ткаче",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(
@@ -75,7 +75,6 @@
 			poison_type = initial(poison_type)
 			set_varspeed(initial(speed))
 			poison_per_bite = initial(poison_per_bite)
-
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/AttackingTarget()
 	. = ..()
@@ -130,7 +129,7 @@
 		DATIVE = "хитину ткача",
 		ACCUSATIVE = "хитин ткача",
 		INSTRUMENTAL = "хитином ткача",
-		PREPOSITIONAL = "хитине ткача"
+		PREPOSITIONAL = "хитине ткача",
 	)
 
 /obj/item/stack/sheet/animalhide/weaver_chitin/five
@@ -176,7 +175,7 @@
 		DATIVE = "морозному костномозговому ткачу",
 		ACCUSATIVE = "морозного костномозгового ткача",
 		INSTRUMENTAL = "морозным костномозговым ткачом",
-		PREPOSITIONAL = "морозном костномозговом ткаче"
+		PREPOSITIONAL = "морозном костномозговом ткаче",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril

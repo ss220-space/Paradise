@@ -47,14 +47,13 @@
 	r_pocket = /obj/item/t_scanner
 	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
-	box = /obj/item/storage/box/engineer
-
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineer
 	title = JOB_TITLE_ENGINEER
@@ -95,8 +94,7 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
-	box = /obj/item/storage/box/engineer
-
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
@@ -143,7 +141,6 @@
 			if("Engineer Student")
 				head = /obj/item/clothing/head/beret/eng
 
-
 /datum/job/atmos
 	title = JOB_TITLE_ATMOSTECH
 	flag = JOB_FLAG_ATMOSTECH
@@ -180,8 +177,7 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
-	box = /obj/item/storage/box/engineer
-
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/mechanic
 	title = JOB_TITLE_MECHANIC
@@ -216,10 +212,10 @@
 	r_pocket = /obj/item/t_scanner
 	pda = /obj/item/pda/engineering
 	backpack_contents = list(
-		/obj/item/pod_paint_bucket = 1
+		/obj/item/pod_paint_bucket = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer

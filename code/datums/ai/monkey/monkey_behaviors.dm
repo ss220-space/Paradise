@@ -107,8 +107,8 @@
 						success = TRUE
 						break
 				else
-					victim.visible_message(span_danger("[living_pawn] пыта[pluralize_ru(living_pawn.gender,"ется","ются")] украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[pluralize_ru(living_pawn.gender,"ется","ются")]!"),
-						span_userdanger("[living_pawn] пыта[pluralize_ru(living_pawn.gender,"ется","ются")] украсть [target.declent_ru(ACCUSATIVE)]!")
+					victim.visible_message(span_danger("[living_pawn] пыта[PLUR_ET_YUT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[PLUR_ET_YUT(living_pawn)]ся!"),
+						span_userdanger("[living_pawn] пыта[PLUR_ET_YUT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)]!")
 					)
 
 	finish_action(controller, success) //We either fucked up or got the item.
@@ -137,7 +137,7 @@
 			break
 
 	if(target)
-		SSmove_manager.move_away(living_pawn, target, max_dist = MONKEY_ENEMY_VISION, delay = 5)
+		GLOB.move_manager.move_away(living_pawn, target, max_dist = MONKEY_ENEMY_VISION, delay = 5)
 	else
 		finish_action(controller, TRUE)
 
@@ -171,7 +171,7 @@
 /datum/ai_behavior/monkey_attack_mob/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
-	SSmove_manager.stop_looping(living_pawn)
+	GLOB.move_manager.stop_looping(living_pawn)
 	controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = null
 
 /// attack using a held weapon otherwise bite the enemy, then if we are angry there is a chance we might calm down a little
@@ -299,5 +299,4 @@
 		enemies[your_enemy] = MONKEY_RECRUIT_HATED_AMOUNT
 		monkey_ai.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] = world.time + MONKEY_RECRUIT_COOLDOWN
 	finish_action(controller, TRUE)
-
 

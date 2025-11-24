@@ -41,6 +41,7 @@
 #define INTERNAL_ORGAN_BRAIN_ANTISLEEP "brain_antisleep"
 #define INTERNAL_ORGAN_BRAIN_CLOWNVOICE "brain_clownvoice"
 #define INTERNAL_ORGAN_BRAIN_SPEECHTRANSLATOR "brain_speechtranslator"
+#define INTERNAL_ORGAN_CHEST_EXOFRAME "exoframe"
 
 #define INTERNAL_ORGAN_VOCALCORDS "vocal_cords"
 #define INTERNAL_ORGAN_HIVECORE "hivecore"
@@ -50,7 +51,6 @@
 #define INTERNAL_ORGAN_HONK_BLADDER "honk_bladder"
 #define INTERNAL_ORGAN_BRAIN_TUMOR "brain_tumor"
 #define INTERNAL_ORGAN_HIGHRP_TUMOR "highrp_tumor"
-
 
 // insert/remove organ special defines
 #define ORGAN_MANIPULATION_DEFAULT 0
@@ -62,6 +62,6 @@
 /// used for species that can see without eyes
 #define NO_VISION_ORGAN "no_vision_organ"
 
-/// Species organs
-#define DRASK_LUNGS_COOLING_START_TEMP      280
-#define DRASK_LUNGS_COOLING_STOP_TEMP       400
+// Species organs
+#define DRASK_LUNGS_COOLING_START_TEMP 280
+#define DRASK_LUNGS_COOLING_STOP_TEMP 400

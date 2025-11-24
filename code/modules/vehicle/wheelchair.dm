@@ -1,14 +1,6 @@
 /obj/vehicle/ridden/wheelchair
 	name = "wheelchair"
 	desc = "Коляска для людей с ограниченными физическими возможностями. Почему просто не пришить новые ноги?"
-	ru_names = list(
-		NOMINATIVE = "инвалидная коляска",
-		GENITIVE = "инвалидной коляски",
-		DATIVE = "инвалидной коляске",
-		ACCUSATIVE = "инвалидную коляску",
-		INSTRUMENTAL = "инвалидной коляской",
-		PREPOSITIONAL = "инвалидной коляске"
-	)
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wheelchair"
 	base_icon_state = "wheelchair"
@@ -24,6 +16,16 @@
 	var/detonation_delay = FALSE
 	var/obj/item/grenade/bomb = null
 	var/datum/action/innate/wheelchair/bell/bell_action
+
+/obj/vehicle/ridden/wheelchair/get_ru_names()
+	return list(
+		NOMINATIVE = "инвалидная коляска",
+		GENITIVE = "инвалидной коляски",
+		DATIVE = "инвалидной коляске",
+		ACCUSATIVE = "инвалидную коляску",
+		INSTRUMENTAL = "инвалидной коляской",
+		PREPOSITIONAL = "инвалидной коляске",
+	)
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
@@ -58,7 +60,7 @@
 		return
 	if(decon_speed)
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
 			span_notice("Вы начинаете откреплять [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
 			span_warning("Слышны звуки работы с инструментом.")
 		)
@@ -86,16 +88,13 @@
 /obj/vehicle/ridden/wheelchair/update_icon_state()
 	icon_state = applied_skin ? initial(applied_skin.new_icon_state) : base_icon_state
 
-
 /obj/vehicle/ridden/wheelchair/update_overlays()
 	. = ..()
 	. += chair_overlay
 
-
 /obj/vehicle/ridden/wheelchair/update_name(updates = ALL)
 	. = ..()
 	name = applied_skin ? initial(applied_skin.new_name) : initial(name)
-
 
 /obj/vehicle/ridden/wheelchair/update_desc(updates = ALL)
 	. = ..()
@@ -104,7 +103,6 @@
 		desc += " К подлокотнику зачем-то прикреплён звонок."
 	if(bomb)
 		desc += " Под сиденьем что-то есть."
-
 
 ///Modify logic
 
@@ -156,9 +154,7 @@
 /obj/vehicle/ridden/wheelchair/proc/delayed_boom()
 	bomb.prime()
 
-
 ///Buckle logic
-
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	if(exists_bell)
 		bell_action.Grant(user)
@@ -169,9 +165,7 @@
 		bell_action.Remove(user)
 	return ..()
 
-
 ///Bell logic
-
 /obj/vehicle/ridden/wheelchair/proc/on_bell_action()
 	if(!bomb)
 		bell_sound()
@@ -184,9 +178,8 @@
 		addtimer(CALLBACK(src, PROC_REF(bell_sound)), (0.25 * i) SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(detonate_bomb)), 2 SECONDS)
 
-
 /obj/vehicle/ridden/wheelchair/proc/bell_sound()
-	playsound(src, "sound/machines/bell.ogg", 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, 'sound/machines/bell.ogg', 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/vehicle/ridden/wheelchair/proc/detonate_bomb()
 	bomb.prime()
@@ -195,9 +188,7 @@
 	//Else multiple time detonation bomb, safe it
 	detonation_delay = FALSE
 
-
 ///Action
-
 /datum/action/innate/wheelchair
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/datum/callback/bell_action
@@ -206,16 +197,14 @@
 	. = ..()
 	bell_action = callback
 
-
 /datum/action/innate/wheelchair/Destroy()
-	QDEL_NULL(bell_action)
+	bell_action = null
 	return ..()
 
 /datum/action/innate/wheelchair/Activate()
 	bell_action.Invoke()
 
 /datum/action/innate/wheelchair/bell
-	icon_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon = 'icons/obj/bureaucracy.dmi'
 	button_icon_state = "desk_bell"
 	name = "Звонок"
-

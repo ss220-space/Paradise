@@ -1,4 +1,4 @@
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 GLOBAL_VAR_INIT(mob_suspension, FALSE)
 #else
 GLOBAL_VAR_INIT(mob_suspension, TRUE)
@@ -21,10 +21,8 @@ SUBSYSTEM_DEF(mobs)
 	/// The amount of Xenobiology mobs (and their offspring) that exist in the world. Used for mob capping. Excludes Slimes
 	var/xenobiology_mobs = 0
 
-
 /datum/controller/subsystem/mobs/get_stat_details()
 	return "P:[length(GLOB.mob_living_list)]"
-
 
 /datum/controller/subsystem/mobs/Initialize()
 	clients_by_zlevel = new /list(world.maxz, 0)
@@ -51,8 +49,8 @@ SUBSYSTEM_DEF(mobs)
 	var/times_fired = src.times_fired
 	var/suspension = GLOB.mob_suspension
 
-	while(currentrun.len)
-		var/mob/living/L = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/mob/living/L = currentrun[length(currentrun)]
 		currentrun.len--
 
 		if(L)

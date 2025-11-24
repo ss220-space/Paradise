@@ -8,7 +8,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
-
 /obj/item/anomaly_extract/attack_self(mob/user)
 	if(used)
 		to_chat(user, span_notice("Looks like somebody already used it."))
@@ -30,16 +29,13 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-
 /obj/item/anomaly_extract/update_icon_state()
 	icon_state = "slime_extract[used ? "0" : "1"]"
-
 
 /obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user && attack_self(user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/effect/proc_holder/spell/slime_degradation
 	name = "Slime degradation"
@@ -52,15 +48,12 @@
 	var/is_transformed = FALSE
 	var/mob/living/carbon/human/original_body
 
-
 /obj/effect/proc_holder/spell/slime_degradation/Destroy()
 	original_body = null
 	return ..()
 
-
 /obj/effect/proc_holder/spell/slime_degradation/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/slime_degradation/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!original_body && is_transformed)
@@ -87,7 +80,6 @@
 
 	return ..()
 
-
 /obj/effect/proc_holder/spell/slime_degradation/before_cast(list/targets, mob/user)
 	. = ..()
 	if(is_transformed)
@@ -95,14 +87,11 @@
 	else
 		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIMEPERSON
 
-
 /obj/effect/proc_holder/spell/slime_degradation/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!is_transformed && istype(user))
 		slime_transform(user)
 	else if(is_transformed && original_body)
 		slime_transform_back(user)
-
-
 
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
 	for(var/obj/item/check as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
@@ -140,7 +129,6 @@
 	slimeme.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
 
-
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform_back(mob/living/simple_animal/slime/invalid/user, death_provoked = FALSE)
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_notice("You hear something squishing..."))
@@ -173,7 +161,6 @@
 	is_transformed = FALSE
 	original_body = null
 
-
 /obj/effect/proc_holder/spell/slime_selfheat
 	name = "Slime heat"
 	desc = "Heats up your body a little."
@@ -184,14 +171,11 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
-
 /obj/effect/proc_holder/spell/slime_selfheat/Destroy()
 	return ..()
 
-
 /obj/effect/proc_holder/spell/slime_selfheat/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/slime_selfheat/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!user.mind)
@@ -213,7 +197,6 @@
 		return FALSE
 
 	return ..()
-
 
 /obj/effect/proc_holder/spell/slime_selfheat/cast(list/targets, mob/living/carbon/human/user = usr)
 	user.adjust_bodytemperature(50)

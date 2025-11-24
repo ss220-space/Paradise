@@ -184,7 +184,6 @@
 	At least the good news. Report sent<br /><br />Our management requested new chemicals and one of them very expensive - Plasma, solid and gas. I personaly sure it will give us what we waiting from the cores.  \
 	Chemical analysis shows that reagents close to Plasma parameters are most effective rise electrical activity inside. It should be the answer."
 
-
 	//Old Prototype Hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	name = "prototype RIG hardsuit helmet"

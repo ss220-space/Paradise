@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 
 /datum/devil_contract/magic/fulfill_contract(mob/living/carbon/human/user)
 	var/list/spell_list = possible_magic.Copy()
-	for(var/i = 1; i <= MAGIC_SPELLS_COUNT; i++)
+	for(var/i in 1 to MAGIC_SPELLS_COUNT)
 		var/spell_type = pick_n_take(spell_list)
 		var/obj/effect/proc_holder/spell/spell = new spell_type(null)
 		spell.clothes_req = FALSE
@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 		. |= ATTACK_CHAIN_SUCCESS
 		victim.revive()
 		add_attack_logs(user, victim, "infernally revived via contract")
-		user.visible_message(span_notice("Внезапно вспыхнуло пламя, и [victim.declent_ru(NOMINATIVE)] [genderize_ru(victim.gender, "восстал", "восстала", "восстало", "восстали")]."))
+		user.visible_message(span_notice("Внезапно вспыхнуло пламя, и [victim.declent_ru(NOMINATIVE)] восстал[GEND_A_O_I(victim)]."))
 		victim.fakefire()
 		contract.fulfill_contract(victim)
 		spawn(5)
@@ -263,7 +263,6 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	var/obj/effect/proc_holder/spell/lichdom/spell = new(null)
 	spell.create_lich(user)
 	qdel(spell)
-
 
 /datum/devil_contract/gun
 	name = "контракт оружия"

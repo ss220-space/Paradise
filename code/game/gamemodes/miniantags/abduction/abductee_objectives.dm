@@ -38,7 +38,7 @@
 	for(var/datum/job/J in jobs)
 		if(J.current_positions < 1)
 			jobs -= J
-	if(jobs.len > 0)
+	if(length(jobs) > 0)
 		var/datum/job/target = pick(jobs)
 		explanation_text += " a [target.title]."
 	else
@@ -86,7 +86,7 @@
 
 /datum/objective/abductee/pristine
 	antag_menu_name = "Идеалист"
-	explanation_text = "Генеральный директор Нанотрейзен вот-вот приедет! Убедитесь что станция находится в идеальном состоянии."
+	explanation_text = "Генеральный директор \"Нанотрейзен\" вот-вот приедет! Убедитесь что станция находится в идеальном состоянии."
 
 /datum/objective/abductee/nowalls
 	antag_menu_name = "Стены это лишнее"
@@ -105,7 +105,7 @@
 	explanation_text = "Древние боги голодны. Соберите культ и проведите ритуал, что бы вызвать одного из них."
 
 /datum/objective/abductee/machine
-	antag_menu_name = "Вы - робот"
+	antag_menu_name = "Вы — робот"
 	explanation_text = "На самом деле вы андройд под прикрытием. Наберитесь могущества, взаимодействуя с как можно большим количеством машин, что бы ИИ наконец-то признал вас."
 
 /datum/objective/abductee/calling
@@ -119,7 +119,7 @@
 
 /datum/objective/abductee/social_experiment
 	antag_menu_name = "Социальный эксперимент"
-	explanation_text = "Это секретный социальный эксперемент, проводимый Нанотрейзен. Убедите команду, что это правда."
+	explanation_text = "Это секретный социальный эксперемент, проводимый \"Нанотрейзен\". Убедите команду, что это правда."
 
 /datum/objective/abductee/vr
 	antag_menu_name = "Виртуальная реальность"
@@ -127,7 +127,7 @@
 
 /datum/objective/abductee/pets
 	antag_menu_name = "Спасти животных"
-	explanation_text = "Нанотрейзен издевается над животными! Спасите как можно больше!"
+	explanation_text = "\"Нанотрейзен\" издевается над животными! Спасите как можно больше!"
 
 /datum/objective/abductee/defect
 	antag_menu_name = "Дизертировать со станции"

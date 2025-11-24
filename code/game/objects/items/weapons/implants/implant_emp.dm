@@ -7,18 +7,15 @@
 	implant_data = /datum/implant_fluff/emp
 	implant_state = "implant-syndicate"
 
-
 /obj/item/implant/emp/activate()
 	uses--
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/empulse, get_turf(imp_in), 3, 5, TRUE, name)
 	if(!uses)
 		qdel(src)
 
-
 /obj/item/implanter/emp
 	name = "bio-chip implanter (EMP)"
 	imp = /obj/item/implant/emp
-
 
 /obj/item/implantcase/emp
 	name = "bio-chip case - 'EMP'"

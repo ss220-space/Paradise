@@ -36,7 +36,6 @@
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
-
 /obj/item/gun/energy/chrono_gun
 	name = "T.E.D. Projection Apparatus"
 	desc = "It's as if they never existed in the first place."
@@ -89,7 +88,6 @@
 		if(isliving(user) && F.captured)
 			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
 
-
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
 	if(F && field == F)
 		var/mob/living/user = src.loc
@@ -113,7 +111,6 @@
 /obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
 	if(TED)
 		TED.pass_mind(M)
-
 
 /obj/projectile/energy/chrono_beam
 	name = "eradication beam"
@@ -206,7 +203,7 @@
 				AM.forceMove(drop_location())
 			qdel(src)
 		else if(tickstokill <= 0)
-			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
+			to_chat(captured, span_boldnotice("As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy..."))
 			var/mob/dead/observer/ghost = captured.ghostize(1)
 			if(captured.mind)
 				if(ghost)
@@ -230,7 +227,6 @@
 				tickstokill++
 	else
 		qdel(src)
-
 
 /obj/structure/chrono_field/bullet_act(obj/projectile/P)
 	if(istype(P, /obj/projectile/energy/chrono_beam))
@@ -262,7 +258,6 @@
 
 /obj/structure/chrono_field/blob_act(obj/structure/blob/B)
 	return
-
 
 #undef CHRONO_BEAM_RANGE
 #undef CHRONO_FRAME_COUNT

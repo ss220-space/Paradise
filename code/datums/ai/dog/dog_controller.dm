@@ -129,11 +129,11 @@
 
 	var/obj/item/carried_item = blackboard[BB_SIMPLE_CARRY_ITEM]
 	if(carried_item)
-		examine_text += span_notice("В [genderize_ru(pawn.gender, "его", "её", "его", "их")] пасти находится [carried_item.declent_ru(NOMINATIVE)].")
+		examine_text += span_notice("В [GEND_HIS_HER(pawn)] пасти находится [carried_item.declent_ru(NOMINATIVE)].")
 	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
 		var/mob/living/living_pawn = pawn
 		if(!IS_DEAD_OR_INCAP(living_pawn))
-			examine_text += span_notice("Кажется, [genderize_ru(living_pawn.gender, "он", "она", "оно", "они")] рад[genderize_ru(living_pawn.gender, "", "а", "о", "ы")] вас видеть!")
+			examine_text += span_notice("Кажется, [GEND_HE_SHE(living_pawn)] рад[GEND_A_O_Y(living_pawn)] вас видеть!")
 
 /// If we died, drop anything we were carrying
 /datum/ai_controller/dog/proc/on_death(mob/living/ol_yeller)

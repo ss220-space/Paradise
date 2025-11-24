@@ -45,7 +45,7 @@
 	else
 		radio = new /obj/item/radio/borg/syndicate(src)
 
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 
 	if(playstyle_string)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstyle_string), 5 DECISECONDS)
@@ -107,7 +107,6 @@
 	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
-
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
 	SR.action(src)
 
@@ -116,13 +115,11 @@
 
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
-
 /mob/living/silicon/robot/syndicate/saboteur/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
 
 	if(mail_destination)
 		disposal_holder.destinationTag = mail_destination
-
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Изменить имя"
@@ -170,16 +167,17 @@
 
 	return
 
-
 /mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, params)
 	cham_proj?.disrupt(src)
+
+	add_attack_logs(user, src, "disrupt [cham_proj] by [I]")
 	return ..()
 
-
-/mob/living/silicon/robot/syndicate/saboteur/attack_hand()
+/mob/living/silicon/robot/syndicate/saboteur/attack_hand(mob/living/carbon/human/user)
 	if(cham_proj)
 		cham_proj.disrupt(src)
 
+	add_attack_logs(user, src, "disrupt [cham_proj] by hand attack")
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()

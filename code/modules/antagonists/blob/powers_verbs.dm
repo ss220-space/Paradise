@@ -10,7 +10,6 @@
 	else
 		to_chat(src, span_warning("Теперь вам не нужно иметь узел или ядро рядом ​​для размещения фабрики и ресурсной плитки."))
 
-
 /mob/camera/blob/verb/blob_broadcast()
 	set category = STATPANEL_BLOB
 	set name = "Ретрянсляция блоба"

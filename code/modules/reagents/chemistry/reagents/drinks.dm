@@ -1,7 +1,7 @@
 /datum/reagent/consumable/drink/orangejuice
 	name = "Апельсиновый сок"
 	id = "orangejuice"
-	description = "И вкусно, и богато витамином С - что ещё нужно?"
+	description = "И вкусно, и богато витамином С — что ещё нужно?"
 	drink_icon = "glass_orange"
 	drink_name = "стакан апельсинового сока"
 	drink_desc = "Витамины! Круто!"
@@ -176,7 +176,6 @@
 		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
-
 /datum/reagent/consumable/drink/strawwberry
 	name = "Клубничный сок"
 	id = "strawwberry"
@@ -185,7 +184,6 @@
 	drink_name = "стакан клубничного сока"
 	drink_desc = "Сырая сущность клубники."
 	taste_description = "клубники"
-
 
 /datum/reagent/consumable/drink/nothing
 	name = "Ничего"
@@ -272,7 +270,7 @@
 /datum/reagent/consumable/drink/coffee
 	name = "Кофе"
 	id = "coffee"
-	description = "Кофе - это напиток, приготовленный из обжаренных семян кофейного растения, которые обычно называют какао-бобами."
+	description = "Кофе — это напиток, приготовленный из обжаренных семян кофейного растения, которые обычно называют какао-бобами."
 	color = "#482000" // rgb: 72, 32, 0
 	nutriment_factor = 0
 	adj_dizzy = -10 SECONDS

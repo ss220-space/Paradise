@@ -36,7 +36,7 @@
 	torch.fingerprints = src.fingerprints
 	torch.fingerprintshidden = src.fingerprintshidden
 	torch.fingerprintslast = src.fingerprintslast
-	user.visible_message(span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]"), \
+	user.visible_message(span_notice("[user] устанавлива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]"), \
 		span_notice("вы устанавливаете [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]."))
 	qdel(src)
 
@@ -253,7 +253,6 @@
 	desc = "Красиво выглядящее крепление для факела. Поверхность проржавела от времени, а сам факел практически прирос к креплению."
 	icon_state = "torch_holder_complete"
 	ancient = TRUE
-
 
 /obj/structure/torch_holder/mapping/get_ru_names()
 	return list(

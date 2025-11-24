@@ -49,6 +49,14 @@
 	index_name = "Solar Federation uniform"
 	path = /obj/item/clothing/under/solgov/civ
 
+/datum/gear/uniform/suit/federal/forest
+	index_name = "Solar Federation forest uniform"
+	path = /obj/item/clothing/under/solgov/forest/civ
+
+/datum/gear/uniform/suit/federal/urban
+	index_name = "Solar Federation urban uniform"
+	path = /obj/item/clothing/under/solgov/urban/civ
+
 /datum/gear/uniform/suit/kilt
 	index_name = "a kilt"
 	path = /obj/item/clothing/under/kilt
@@ -94,11 +102,9 @@
 	index_name = "dyeable skirt, color"
 	path = /obj/item/clothing/under/colour/skirt
 
-
 /datum/gear/uniform/skirt/dyeable/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
-
 
 /datum/gear/uniform/skirt/plaid
 	index_name = "plaid skirt, select"

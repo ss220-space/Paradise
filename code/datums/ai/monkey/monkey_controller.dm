@@ -19,7 +19,7 @@ have ways of interacting with a specific mob and control it.
 		BB_MONKEY_CURRENT_ATTACK_TARGET = null,
 		BB_MONKEY_GUN_NEURONS_ACTIVATED = FALSE,
 		BB_MONKEY_GUN_WORKED = TRUE,
-		BB_MONKEY_NEXT_HUNGRY = 0
+		BB_MONKEY_NEXT_HUNGRY = 0,
 	)
 	idle_behavior = /datum/idle_behavior/idle_monkey
 
@@ -120,9 +120,7 @@ have ways of interacting with a specific mob and control it.
 	var/gun_neurons_activated = blackboard[BB_MONKEY_GUN_NEURONS_ACTIVATED]
 	var/top_force = 0
 	var/obj/item/top_force_item
-	for(var/obj/item/item as anything in held_weapons)
-		if(!item)
-			continue
+	for(var/obj/item/item in held_weapons)
 		if(HAS_TRAIT(item, TRAIT_NEEDS_TWO_HANDS) || blackboard[BB_MONKEY_BLACKLISTITEMS][item])
 			continue
 		if(gun_neurons_activated && istype(item, /obj/item/gun))
@@ -133,9 +131,7 @@ have ways of interacting with a specific mob and control it.
 			top_force = item.force
 			top_force_item = item
 
-	for(var/obj/item/item as anything in choices)
-		if(!item)
-			continue
+	for(var/obj/item/item in choices)
 		if(HAS_TRAIT(item, TRAIT_NEEDS_TWO_HANDS) || blackboard[BB_MONKEY_BLACKLISTITEMS][item])
 			continue
 		if(gun_neurons_activated && istype(item, /obj/item/gun))

@@ -2,8 +2,6 @@
 GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players,
-	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 ))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
@@ -24,6 +22,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_offer_control,
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets,
+	/client/proc/achievements_cleanup,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -126,6 +127,8 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom_adv,
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize,
+	/client/proc/spawn_panel,
+	/client/proc/beaker_panel,
 ))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -181,6 +184,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
+	/client/proc/cmd_controller_view_ui,
 #ifndef OPENDREAM
 	/client/proc/dmjit_debug_toggle_call_counts,
 	/client/proc/dmjit_debug_dump_call_count,
@@ -200,7 +204,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debugstatpanel,
 	/client/proc/view_instances,
 	/client/proc/allow_browser_inspect, // XSS prevention
-	/client/proc/change_title_screen_html
+	/client/proc/change_title_screen_html,
+	/client/proc/paint_grids,
 ))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -208,6 +213,7 @@ GLOBAL_LIST_INIT(admin_verbs_possess, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(
 	/client/proc/edit_admin_permissions,
+	/client/proc/edit_admin_permissions_new,
 	/client/proc/big_brother,
 ))
 GLOBAL_LIST_INIT(admin_verbs_rejuv, list(
@@ -229,11 +235,15 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/ban_panel,
 	/client/proc/view_asays,
 	/client/proc/openAdminTicketUI,
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 	/client/proc/openMentorTicketUI,
 	/client/proc/cmd_mentor_say,	/* mentor say*/
 	/client/proc/view_msays,
@@ -254,7 +264,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/add_admin_verbs()
 	if(holder)
 		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
-		if(holder.rights != R_VIEWRUNTIMES)
+		if(holder.rights)
 			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
 			add_verb(src, /client/proc/togglebuildmodeself)
@@ -298,7 +308,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
-
 
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
@@ -376,7 +385,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/mob/body = mob
 		body.ghostize(1)
 		if(body && !body.key)
-			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
+			body.possess_by_player("@[key]")	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		BLACKBOX_LOG_ADMIN_VERB("Aghost")
@@ -675,10 +684,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 			var/mob/dead/observer/theghost = null
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)
-				P.key = theghost.key
+				P.possess_by_player(theghost.key)
 				P.master_commander = H
 				P.universal_speak = TRUE
 				P.universal_understand = TRUE
@@ -719,7 +728,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "all access."
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
-
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = STATPANEL_ADMIN_EVENT
@@ -857,6 +865,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	deadmin()
 	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
+	update_byond_admin_configs(ckey, 0)
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
 
@@ -869,7 +878,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	var/rank = null
 	if(CONFIG_GET(flag/admin_legacy_system))
 		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
+		var/list/Lines = world.file2list("config/admins.txt")
 		for(var/line in Lines)
 			if(findtext(line, "#")) // Skip comments
 				continue
@@ -930,7 +939,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.", confidential=TRUE)
 					qdel(admin_read)
 					return
-				if(admin_rank == "Удален") //This person was de-adminned. They are only in the admin list for archive purposes.
+				if(admin_rank == DELETED_RANK) //This person was de-adminned. They are only in the admin list for archive purposes.
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.", confidential=TRUE)
 					qdel(admin_read)
 					return
@@ -944,11 +953,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
 		update_active_keybindings()
+		update_byond_admin_configs(C.ckey, D.rights)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
-		update_active_keybindings()
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		GLOB.de_devs -= ckey
 		if(isobserver(mob))
 			var/mob/dead/observer/observer = mob
 			observer.update_admin_actions()
@@ -1117,7 +1127,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if(!jobs.len)
+	if(!length(jobs))
 		to_chat(usr, "There are no fully staffed jobs.", confidential=TRUE)
 		return
 	var/job = tgui_input_list(src, "Please select job slot to free", "Free Job Slot", jobs)

@@ -13,7 +13,7 @@
 		"72"='sound/instruments/synthesis_samples/piano/fluid_piano/c5.ogg',
 		"84"='sound/instruments/synthesis_samples/piano/fluid_piano/c6.ogg',
 		"96"='sound/instruments/synthesis_samples/piano/fluid_piano/c7.ogg',
-		"108"='sound/instruments/synthesis_samples/piano/fluid_piano/c8.ogg'
+		"108"='sound/instruments/synthesis_samples/piano/fluid_piano/c8.ogg',
 	)
 
 /datum/instrument/piano/fluid_harpsichord
@@ -26,7 +26,7 @@
 		"72"='sound/instruments/synthesis_samples/piano/fluid_harpsi/c5.ogg',
 		"84"='sound/instruments/synthesis_samples/piano/fluid_harpsi/c6.ogg',
 		"96"='sound/instruments/synthesis_samples/piano/fluid_harpsi/c7.ogg',
-		"108"='sound/instruments/synthesis_samples/piano/fluid_harpsi/c8.ogg'
+		"108"='sound/instruments/synthesis_samples/piano/fluid_harpsi/c8.ogg',
 	)
 
 /datum/instrument/piano/crisis_harpsichord
@@ -36,7 +36,7 @@
 		"36"='sound/instruments/synthesis_samples/piano/crisis_harpsichord/c2.ogg',
 		"48"='sound/instruments/synthesis_samples/piano/crisis_harpsichord/c3.ogg',
 		"60"='sound/instruments/synthesis_samples/piano/crisis_harpsichord/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/piano/crisis_harpsichord/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/piano/crisis_harpsichord/c5.ogg',
 	)
 
 /datum/instrument/piano/crisis_grandpiano_uni
@@ -49,7 +49,7 @@
 		"72"='sound/instruments/synthesis_samples/piano/crisis_grand_piano/c5.ogg',
 		"84"='sound/instruments/synthesis_samples/piano/crisis_grand_piano/c6.ogg',
 		"96"='sound/instruments/synthesis_samples/piano/crisis_grand_piano/c7.ogg',
-		"108"='sound/instruments/synthesis_samples/piano/crisis_grand_piano/c8.ogg'
+		"108"='sound/instruments/synthesis_samples/piano/crisis_grand_piano/c8.ogg',
 	)
 
 /datum/instrument/piano/crisis_brightpiano_uni
@@ -62,5 +62,5 @@
 		"72"='sound/instruments/synthesis_samples/piano/crisis_bright_piano/c5.ogg',
 		"84"='sound/instruments/synthesis_samples/piano/crisis_bright_piano/c6.ogg',
 		"96"='sound/instruments/synthesis_samples/piano/crisis_bright_piano/c7.ogg',
-		"108"='sound/instruments/synthesis_samples/piano/crisis_bright_piano/c8.ogg'
+		"108"='sound/instruments/synthesis_samples/piano/crisis_bright_piano/c8.ogg',
 	)

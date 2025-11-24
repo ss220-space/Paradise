@@ -63,10 +63,8 @@
 /*
  * MARK: AI VOX Announcements
  */
-
 GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 #define VOX_DELAY 100
-#define VOX_PATH "sound/vox_fem/"
 
 /mob/living/silicon/ai/verb/announcement_help()
 	set name = "Памятка по оповещениям"
@@ -121,7 +119,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	var/list/words = splittext(trim(message), " ")
 	var/list/incorrect_words = list()
 
-	if(words.len > 30)
+	if(length(words) > 30)
 		words.len = 30
 
 	for(var/word in words)
@@ -132,7 +130,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		if(!GLOB.vox_sounds[word])
 			incorrect_words += word
 
-	if(incorrect_words.len)
+	if(length(incorrect_words))
 		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 
@@ -187,4 +185,3 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	return FALSE
 
 #undef VOX_DELAY
-#undef VOX_PATH

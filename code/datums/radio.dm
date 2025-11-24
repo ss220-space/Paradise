@@ -1,3 +1,26 @@
+GLOBAL_LIST_EMPTY(all_radios)
+
+/proc/add_radio(obj/item/radio, freq)
+	if(!freq || !radio)
+		return
+	if(!GLOB.all_radios["[freq]"])
+		GLOB.all_radios["[freq]"] = list(radio)
+		return freq
+
+	GLOB.all_radios["[freq]"] |= radio
+	return freq
+
+/proc/remove_radio(obj/item/radio, freq)
+	if(!freq || !radio)
+		return
+	if(!GLOB.all_radios["[freq]"])
+		return
+
+	GLOB.all_radios["[freq]"] -= radio
+
+/proc/remove_radio_all(obj/item/radio)
+	for(var/freq in GLOB.all_radios)
+		GLOB.all_radios["[freq]"] -= radio
 
 /datum/radio_frequency
 	var/frequency as num
@@ -46,7 +69,7 @@
 	devices_line+=device
 //			var/list/obj/devices_line___ = devices[filter_str]
 //			var/l = devices_line___.len
-	//log_admin("DEBUG: devices_line.len=[devices_line.len]")
+	//log_admin("DEBUG: devices_line.len=[length(devices_line)]")
 	//log_admin("DEBUG: devices(filter_str).len=[l]")
 
 /datum/radio_frequency/proc/remove_listener(obj/device)

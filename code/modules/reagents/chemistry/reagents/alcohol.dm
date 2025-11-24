@@ -42,7 +42,6 @@
 	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(volume / 15)
 
-
 /datum/reagent/consumable/ethanol/beer
 	name = "Пиво"
 	id = "beer"
@@ -82,7 +81,7 @@
 /datum/reagent/consumable/ethanol/specialwhiskey
 	name = "Виски Особого Смешения"
 	id = "specialwhiskey"
-	description = "Как раз в тот момент, когда вы уже думаете, что обычный станционный виски - это хорошо... Это шелковистое, янтарное великолепие приходит и всё портит."
+	description = "Как раз в тот момент, когда вы уже думаете, что обычный станционный виски — это хорошо... Это шелковистое, янтарное великолепие приходит и всё портит."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	taste_description = "отличного виски"
@@ -143,7 +142,7 @@
 /datum/reagent/consumable/ethanol/rum
 	name = "Ром"
 	id = "rum"
-	description = "Крик подобен грому – дайте людям рому!"
+	description = "Крик подобен грому — дайте людям рому!"
 	color = "#664300" // rgb: 102, 67, 0
 	overdose_threshold = 30
 	alcohol_perc = 0.4
@@ -285,7 +284,6 @@
 	M.Jitter(10 SECONDS)
 	return ..()
 
-
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
 
 /datum/reagent/consumable/ethanol/bilk
@@ -297,7 +295,7 @@
 	alcohol_perc = 0.2
 	drink_icon = "glass_brown"
 	drink_name = "стакан мива"
-	drink_desc = "Молоко с пивом - миво. Или пиво с молоком - пивоко. Как вам будет угодно."
+	drink_desc = "Молоко с пивом — миво. Или пиво с молоком — пивоко. Как вам будет угодно."
 	taste_description = "мива"
 
 /datum/reagent/consumable/ethanol/atomicbomb
@@ -526,13 +524,13 @@
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Ирландские Сливки"
-	description = "Крем с добавлением виски - чего ещё ожидать от ирландцев?"
+	description = "Крем с добавлением виски — чего ещё ожидать от ирландцев?"
 	id = "irishcream"
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "irishcreamglass"
 	drink_name = "стакан Ирландских Сливок"
-	drink_desc = "Крем с добавлением виски - чего ещё ожидать от ирландцев?"
+	drink_desc = "Крем с добавлением виски — чего ещё ожидать от ирландцев?"
 	taste_description = "сливочного алкоголя"
 
 /datum/reagent/consumable/ethanol/manly_dorf
@@ -963,13 +961,13 @@
 	taste_description = "проблем"
 
 /datum/reagent/consumable/ethanol/syndicatebomb
-	name = "Бомба Синдиката"
+	name = "Бомба \"Синдиката\""
 	id = "syndicatebomb"
 	description = "Пить аккуратно."
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "syndicatebomb"
-	drink_name = "Бомба Синдиката"
+	drink_name = "Бомба \"Синдиката\""
 	drink_desc = "Бум. Пить осторожно."
 	taste_description = "предложения о работе"
 
@@ -1128,7 +1126,7 @@
 			M.adjust_fire_stacks(20)
 		if(prob(50))
 			to_chat(M, span_userdanger("КАК ЖЖЁТСЯ, КАК ЖЕ ОНО ЖЖЁТСЯ!!!"))
-			M.visible_message( span_danger("[M] сгорел[genderize_ru(M.gender, "", "а", "о", "и")] заживо!"))
+			M.visible_message( span_danger("[M] сгорел[GEND_A_O_I(M)] заживо!"))
 			M.dust()
 			return
 	return ..() | update_flags
@@ -1312,7 +1310,7 @@
 			alcohol_description = "водянистого" //How the hell did you get negative boozepwr?
 
 	var/list/fruits = list()
-	if(names_in_order.len <= 3)
+	if(length(names_in_order) <= 3)
 		fruits = names_in_order
 	else
 		for(var/i in 1 to 3)
@@ -1322,10 +1320,10 @@
 	description = "Образец [alcohol_description] вина, приготовленного из [fruit_list]."
 
 	var/flavor = ""
-	if(!primary_tastes.len)
+	if(!length(primary_tastes))
 		primary_tastes = list("[alcohol_description] алкоголя")
 	flavor += russian_list(primary_tastes)
-	if(secondary_tastes.len)
+	if(length(secondary_tastes))
 		flavor += ", с лёгким привкусом "
 		flavor += russian_list(secondary_tastes)
 	taste_description = flavor
@@ -2003,12 +2001,12 @@
 /datum/reagent/consumable/ethanol/sazerac
 	name = "Сазерак"
 	id = "sazerac"
-	description = "Лучшие фармацевты - бармены."
+	description = "Лучшие фармацевты — бармены."
 	color = "#7c6232"
 	alcohol_perc = 0.4
 	drink_icon = "sazerac"
 	drink_name = "Сазерак"
-	drink_desc = "Лучшие фармацевты - бармены."
+	drink_desc = "Лучшие фармацевты — бармены."
 	taste_description = "горького виски"
 
 /datum/reagent/consumable/ethanol/monako

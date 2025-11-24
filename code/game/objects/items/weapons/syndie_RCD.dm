@@ -54,7 +54,7 @@
 			/obj/machinery/door/airlock/syndicate/freezer = "Freezer",
 			/obj/machinery/door/airlock/syndicate/freezer/glass = "Freezer (Glass)",
 			/obj/machinery/door/airlock/hatch = "Airtight Hatch",
-			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch"
+			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch",
 		)
 	if(!length(syndie_door_types_ui_list))
 		for(var/type in syndie_rcd_door_types)
@@ -116,7 +116,7 @@
 		else
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
-	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
+	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
 
 /obj/item/rcd/syndicate/combat
 	name = "Syndicate combat rapid-construction-device (RCD)"

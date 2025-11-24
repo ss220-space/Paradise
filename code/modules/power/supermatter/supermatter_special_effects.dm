@@ -144,7 +144,6 @@
 				INVOKE_ASYNC(src, PROC_REF(give_mind_lesser), monke)
 	return
 
-
 /datum/supermatter_explosive_effects/proc/handle_genetic_mutation()
 	for(var/mob/living/creature in GLOB.alive_mob_list)
 		if(!creature.dna || HAS_TRAIT(creature, TRAIT_NO_DNA) || HAS_TRAIT(creature, TRAIT_RADIMMUNE))
@@ -158,13 +157,12 @@
 			randmut(creature, FALSE)
 			creature.check_genes(MUTCHK_FORCED)
 
-
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
-	monke.key = SG.key
+	monke.possess_by_player(SG.key)
 	monke.health = monke.maxHealth
 	greet_sentient(monke)
 
@@ -174,7 +172,7 @@
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
-	animal.key = SG.key
+	animal.possess_by_player(SG.ckey)
 	animal.universal_speak = 1
 	animal.sentience_act()
 	animal.can_collar = 1
@@ -183,9 +181,8 @@
 	animal.del_on_death = FALSE
 	greet_sentient(animal)
 
-
 /datum/supermatter_explosive_effects/proc/greet_sentient(mob/M)
-	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!</span>"))
+	to_chat(M, chat_box_green("[span_userdanger("Hello world!")]<br>[span_warning("Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!")]"))
 
 //All seeds in sector will become strange-like
 /datum/supermatter_explosive_effects/proc/handle_seeds_mutation()

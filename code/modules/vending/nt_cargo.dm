@@ -51,6 +51,7 @@
 	desc = "Тяжелый кейс с медалями на любой вкус и цвет."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "medalbox"
+
 	products = list(
 		/obj/item/clothing/accessory/medal = 5,
 		/obj/item/clothing/accessory/medal/engineering = 5,
@@ -63,7 +64,7 @@
 		/obj/item/clothing/accessory/medal/silver/leadership = 5,
 		/obj/item/clothing/accessory/medal/silver/valor = 5,
 		/obj/item/clothing/accessory/medal/gold = 5,
-		/obj/item/clothing/accessory/medal/gold/heroism = 5
+		/obj/item/clothing/accessory/medal/gold/heroism = 5,
 	)
 
 /obj/machinery/vending/ntc/medal/get_ru_names()
@@ -73,7 +74,7 @@
 		DATIVE = "торговому автомату NT Cargo Encouragement",
 		ACCUSATIVE = "торговый автомат NT Cargo Encouragement",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Encouragement",
-		PREPOSITIONAL = "торговом автомате NT Cargo Encouragement"
+		PREPOSITIONAL = "торговом автомате NT Cargo Encouragement",
 	)
 
 /obj/machinery/vending/ntc/medical
@@ -91,7 +92,9 @@
 		/obj/item/gun/medbeam = 10,
 		/obj/item/defibrillator/compact/loaded = 10,
 		/obj/item/handheld_defibrillator = 10,
-		/obj/item/vending_refill/medical = 10)
+		/obj/item/handheld_defibrillator/advanced = 10,
+		/obj/item/vending_refill/medical = 10,
+	)
 
 /obj/machinery/vending/ntc/medical/get_ru_names()
 	return list(
@@ -100,7 +103,7 @@
 		DATIVE = "торговому автомату NT Cargo Medical Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Medical Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Medical Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Medical Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Medical Gear",
 	)
 
 /obj/machinery/vending/ntc/engineering
@@ -117,7 +120,7 @@
 		/obj/item/storage/belt/utility/chief/full = 10,
 		/obj/item/rcd/combat = 10,
 		/obj/item/rcd_ammo/large = 20,
-		/obj/item/grenade/chem_grenade/metalfoam = 30
+		/obj/item/grenade/chem_grenade/metalfoam = 30,
 	)
 
 /obj/machinery/vending/ntc/engineering/get_ru_names()
@@ -127,7 +130,7 @@
 		DATIVE = "торговому автомату NT Cargo Engineering Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Engineering Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Engineering Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Engineering Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Engineering Gear",
 	)
 
 /obj/machinery/vending/ntc/janitor
@@ -149,7 +152,7 @@
 		/obj/item/grenade/chem_grenade/cleaner = 30,
 		/obj/item/grenade/clusterbuster/cleaner = 30,
 		/obj/item/grenade/chem_grenade/antiweed = 30,
-		/obj/item/grenade/clusterbuster/antiweed = 30
+		/obj/item/grenade/clusterbuster/antiweed = 30,
 	)
 
 /obj/machinery/vending/ntc/janitor/get_ru_names()
@@ -159,7 +162,7 @@
 		DATIVE = "торговому автомату NT Cargo Janitor Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Janitor Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Janitor Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Janitor Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Janitor Gear",
 	)
 
 /obj/machinery/vending/ntcrates
@@ -183,9 +186,8 @@
 		/obj/item/storage/backpack/duffel/hydro/weed = 100,
 		/obj/item/storage/backpack/duffel/security/spiders = 100,
 		/obj/item/storage/backpack/duffel/security/blob = 100,
-		/obj/item/storage/backpack/duffel/engineering/building_event = 100
+		/obj/item/storage/backpack/duffel/engineering/building_event = 100,
 	)
-
 
 /obj/machinery/vending/ntcrates/get_ru_names()
 	return list(
@@ -194,7 +196,7 @@
 		DATIVE = "торговому автомату NT Cargo Preset Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Preset Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Preset Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Preset Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Preset Gear",
 	)
 
 /obj/machinery/vending/ntc/ert
@@ -204,17 +206,17 @@
 	deny_overlay = "nta-blue_deny"
 
 	products = list(
-		/obj/item/storage/box/responseteam/amber/commander = 100,
-		/obj/item/storage/box/responseteam/amber/security = 100,
-		/obj/item/storage/box/responseteam/amber/engineer = 100,
-		/obj/item/storage/box/responseteam/amber/medic = 100,
-		/obj/item/storage/box/responseteam/amber/janitor = 100,
-		/obj/item/storage/box/responseteam/red/commander = 100,
-		/obj/item/storage/box/responseteam/red/security = 100,
-		/obj/item/storage/box/responseteam/red/engineer = 100,
-		/obj/item/storage/box/responseteam/red/medic = 100,
-		/obj/item/storage/box/responseteam/red/janitor = 100)
-
+		/obj/item/storage/box/survival/responseteam/amber/commander = 100,
+		/obj/item/storage/box/survival/responseteam/amber/security = 100,
+		/obj/item/storage/box/survival/responseteam/amber/engineer = 100,
+		/obj/item/storage/box/survival/responseteam/amber/medic = 100,
+		/obj/item/storage/box/survival/responseteam/amber/janitor = 100,
+		/obj/item/storage/box/survival/responseteam/red/commander = 100,
+		/obj/item/storage/box/survival/responseteam/red/security = 100,
+		/obj/item/storage/box/survival/responseteam/red/engineer = 100,
+		/obj/item/storage/box/survival/responseteam/red/medic = 100,
+		/obj/item/storage/box/survival/responseteam/red/janitor = 100,
+	)
 
 /obj/machinery/vending/ntc/ert/get_ru_names()
 	return list(
@@ -223,7 +225,7 @@
 		DATIVE = "торговому автомату NT Response Team Base Gear",
 		ACCUSATIVE = "торговый автомат NT Response Team Base Gear",
 		INSTRUMENTAL = "торговым автоматом NT Response Team Base Gear",
-		PREPOSITIONAL = "торговом автомате NT Response Team Base Gear"
+		PREPOSITIONAL = "торговом автомате NT Response Team Base Gear",
 	)
 
 /obj/machinery/vending/ntc_resources
@@ -240,18 +242,22 @@
 	deny_overlay = "engi_deny"
 	deny_lightmask = "engi_deny_lightmask"
 
-	products = list(/obj/item/stack/sheet/mineral/diamond/fifty = 50,
+	products = list(
+		/obj/item/stack/sheet/mineral/diamond/fifty = 50,
 		/obj/item/stack/sheet/mineral/gold/fifty = 50,
 		/obj/item/stack/sheet/glass/fifty = 50,
 		/obj/item/stack/sheet/metal/fifty = 50,
 		/obj/item/stack/sheet/mineral/plasma/fifty = 50,
 		/obj/item/stack/sheet/mineral/silver/fifty = 50,
 		/obj/item/stack/sheet/mineral/titanium/fifty = 50,
-		/obj/item/stack/sheet/mineral/uranium/fifty = 50)
-	contraband = list(/obj/item/stack/sheet/mineral/tranquillite/fifty = 50,
+		/obj/item/stack/sheet/mineral/uranium/fifty = 50,
+	)
+	contraband = list(
+		/obj/item/stack/sheet/mineral/tranquillite/fifty = 50,
 		/obj/item/stack/sheet/mineral/bananium/fifty = 50,
 		/obj/item/stack/sheet/mineral/sandstone/fifty = 50,
-		/obj/item/stack/sheet/mineral/abductor/fifty = 50)
+		/obj/item/stack/sheet/mineral/abductor/fifty = 50,
+	)
 
 /obj/machinery/vending/ntc_resources/get_ru_names()
 	return list(
@@ -260,7 +266,7 @@
 		DATIVE = "торговому автомату NT Matter Сompression Vendor",
 		ACCUSATIVE = "торговый автомат NT Matter Сompression Vendor",
 		INSTRUMENTAL = "торговым автоматом NT Matter Сompression Vendor",
-		PREPOSITIONAL = "торговом автомате NT Matter Сompression Vendor"
+		PREPOSITIONAL = "торговом автомате NT Matter Сompression Vendor",
 	)
 
 /obj/machinery/vending/mech/ntc
@@ -272,6 +278,7 @@
 	desc = "Фабрикатор с передовой технологией блюспейс-транспортировки ресурсов."
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fabricator"
+
 	products = list(
 		/obj/mecha/combat/durand = 10,
 		/obj/mecha/combat/gygax = 10,
@@ -279,7 +286,8 @@
 		/obj/mecha/medical/odysseus = 10,
 		/obj/mecha/working/ripley = 10,
 		/obj/mecha/working/ripley/firefighter = 10,
-		/obj/mecha/working/clarke = 10)
+		/obj/mecha/working/clarke = 10,
+	)
 
 /obj/machinery/vending/mech/ntc/exousuit/get_ru_names()
 	return list(
@@ -288,7 +296,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 /obj/machinery/vending/mech/ntc/equipment
@@ -307,7 +315,7 @@
 		/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 10,
 		/obj/item/mecha_parts/mecha_equipment/repair_droid = 10,
 		/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 10,
-		/obj/item/mecha_parts/mecha_equipment/generator/nuclear = 10
+		/obj/item/mecha_parts/mecha_equipment/generator/nuclear = 10,
 	)
 
 /obj/machinery/vending/mech/ntc/equipment/get_ru_names()
@@ -317,7 +325,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 /obj/machinery/vending/mech/ntc/weapon
@@ -351,7 +359,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 /obj/machinery/vending/mech/ntc/tools
@@ -365,7 +373,8 @@
 	broken_lightmask_overlay = "tool_broken_lightmask"
 	deny_overlay = "tool_deny"
 
-	products = list(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp = 10,
+	products = list(
+		/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp = 10,
 		/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 10,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner = 10,
 		/obj/item/mecha_parts/mecha_equipment/rcd = 10,
@@ -382,7 +391,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 #undef FLICK_NONE

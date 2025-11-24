@@ -40,13 +40,12 @@
 	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
-
 
 /datum/job/doctor
 	title = JOB_TITLE_DOCTOR
@@ -87,7 +86,6 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
-
 /datum/job/doctor/intern
 	title = JOB_TITLE_INTERN
 	flag = JOB_FLAG_INTERN
@@ -111,7 +109,7 @@
 	l_hand = /obj/item/storage/firstaid/o2
 	backpack_contents = list(
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/clothing/gloves/color/latex = 1
+		/obj/item/clothing/gloves/color/latex = 1,
 	)
 
 /datum/outfit/job/doctor/intern/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -127,7 +125,6 @@
 			if("Student Medical Doctor")
 				head = /obj/item/clothing/head/surgery/lightgreen
 				uniform = /obj/item/clothing/under/rank/medical/lightgreen
-
 
 /datum/job/coroner
 	title = JOB_TITLE_CORONER
@@ -168,10 +165,11 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 	backpack_contents = list(
-					/obj/item/clothing/head/surgery/black = 1,
-					/obj/item/autopsy_scanner = 1,
-					/obj/item/reagent_scanner = 1,
-					/obj/item/storage/box/bodybags = 1)
+		/obj/item/clothing/head/surgery/black = 1,
+		/obj/item/autopsy_scanner = 1,
+		/obj/item/reagent_scanner = 1,
+		/obj/item/storage/box/bodybags = 1,
+	)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -191,8 +189,6 @@
 					head = /obj/item/clothing/head/nursehat
 				else
 					uniform = /obj/item/clothing/under/rank/medical/purple
-
-
 
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
@@ -233,7 +229,6 @@
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
 
-
 /datum/job/geneticist
 	title = JOB_TITLE_GENETICIST
 	flag = JOB_FLAG_GENETICIST
@@ -271,7 +266,6 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
-
 
 /datum/job/virologist
 	title = JOB_TITLE_VIROLOGIST
@@ -311,7 +305,6 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
-
 
 /datum/job/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
@@ -355,7 +348,6 @@
 			if("Therapist")
 				uniform = /obj/item/clothing/under/rank/medical
 
-
 /datum/job/paramedic
 	title = JOB_TITLE_PARAMEDIC
 	flag = JOB_FLAG_PARAMEDIC
@@ -390,13 +382,13 @@
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(
-		/obj/item/healthanalyzer = 1
+		/obj/item/healthanalyzer = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/outfit/job/paramedic/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

@@ -113,7 +113,6 @@
 	..()
 	make_babies()
 
-
 /mob/living/simple_animal/pet/cat/verb/sit()
 	set name = "Сесть"
 	set category = STATPANEL_IC
@@ -125,16 +124,13 @@
 	sitting = TRUE
 	set_resting(TRUE)
 
-
 /mob/living/simple_animal/pet/cat/post_lying_on_rest()
 	if(sitting)
 		custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
 
-
 /mob/living/simple_animal/pet/cat/on_standing_up()
 	sitting = FALSE
 	. = ..()
-
 
 /mob/living/simple_animal/pet/cat/update_icons()
 	if(stat == DEAD)
@@ -152,7 +148,6 @@
 	else
 		icon_state = icon_living
 	regenerate_icons()
-
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
@@ -184,13 +179,12 @@
 				custom_emote(EMOTE_VISIBLE, "подбрасыва%(ет,ют)% игрушечную мышь своей лапой!")
 				toy.cooldown = world.time + 40 SECONDS
 
-
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
 	if(!stat && !resting && !buckled)
 		turns_since_scan++
 		if(turns_since_scan > 5)
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			turns_since_scan = 0
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 				movement_target = null
@@ -204,8 +198,7 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
-				SSmove_manager.move_to(src, movement_target, 1, 4)
-
+				GLOB.move_manager.move_to(src, movement_target, 1, 4)
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
@@ -240,7 +233,6 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
-
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
@@ -266,10 +258,10 @@
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
 		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,
-		/obj/item/reagent_containers/food/snacks/meat/slab = 2
+		/obj/item/reagent_containers/food/snacks/meat/slab = 2,
 	)
 	response_harm = "takes a bite out of"
-	attacked_sound = "sound/items/eatfood.ogg"
+	attacked_sound = 'sound/items/eatfood.ogg'
 	deathmessage = "loses its false life and collapses!"
 	death_sound = SFX_BODYFALL
 	holder_type = /obj/item/holder/cak
@@ -299,7 +291,7 @@
 	if(!B || !B.brainmob || !B.brainmob.mind)
 		return
 	B.brainmob.mind.transfer_to(src)
-	to_chat(src, "<span class='big bold'>You are a cak!</span><b> You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
+	to_chat(src, "[span_bigbold("You are a cak!")] You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
 	so quickly that it generally doesn't matter. You're remarkably resilient to any damage besides this and it's hard for you to really die at all. You should go around and bring happiness and \
 	free cake to the station!</b>")
 	var/new_name = tgui_input_text(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change", name)

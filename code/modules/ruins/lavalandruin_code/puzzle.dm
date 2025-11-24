@@ -53,12 +53,11 @@
 			return FALSE
 	return TRUE
 
-
 /obj/effect/sliding_puzzle/proc/validate()
 	if(finished)
 		return
 
-	if(elements.len < 8) //Someone broke it
+	if(length(elements) < 8) //Someone broke it
 		qdel(src)
 
 	//Check if everything is in place
@@ -97,9 +96,9 @@
 		current_ordering += E.id
 
 	var/swap_tally = 0
-	for(var/i in 1 to current_ordering.len)
+	for(var/i in 1 to length(current_ordering))
 		var/checked_value = current_ordering[i]
-		for(var/j in i to current_ordering.len)
+		for(var/j in i to length(current_ordering))
 			if(current_ordering[j] < checked_value)
 				swap_tally++
 
@@ -278,7 +277,7 @@
 
 /obj/effect/sliding_puzzle/prison/Destroy()
 	if(prisoner)
-		to_chat(prisoner,"<span class='userdanger'>With the cube broken by force, you can feel your body falling apart.</span>")
+		to_chat(prisoner,span_userdanger("With the cube broken by force, you can feel your body falling apart."))
 		prisoner.death()
 		qdel(prisoner)
 	. = ..()
@@ -310,12 +309,12 @@
 	//Handcuffed or unconcious
 	if(istype(carbon_victim) && carbon_victim.handcuffed || victim.stat != CONSCIOUS)
 		if(!puzzle_imprison(target))
-			to_chat(user,"<span class='warning'>[src] does nothing.</span>")
+			to_chat(user,span_warning("[src] does nothing."))
 			return
-		to_chat(user,"<span class='warning'>You trap [victim] in the prison cube!</span>")
+		to_chat(user,span_warning("You trap [victim] in the prison cube!"))
 		qdel(src)
 	else
-		to_chat(user,"<span class='notice'>[src] only accepts restrained or unconcious prisoners.</span>")
+		to_chat(user,span_notice("[src] only accepts restrained or unconcious prisoners."))
 
 /proc/puzzle_imprison(mob/living/prisoner)
 	var/turf/T = get_turf(prisoner)
@@ -327,7 +326,7 @@
 	//First grab the prisoner and move them temporarily into the generator so they won't get thrown around.
 	ADD_TRAIT(prisoner, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(cube))
 	prisoner.forceMove(cube)
-	to_chat(prisoner,"<span class='userdanger'>You're trapped by the prison cube! You will remain trapped until someone solves it.</span>")
+	to_chat(prisoner,span_userdanger("You're trapped by the prison cube! You will remain trapped until someone solves it."))
 
 	//Clear the area from objects (and cube user)
 	var/list/things_to_throw = list()

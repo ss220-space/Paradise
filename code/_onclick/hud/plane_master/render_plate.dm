@@ -5,14 +5,13 @@
  * if you want to read more read the _render_readme.md
  */
 
-
 /**
  * Render relay object assigned to a plane master to be able to relay it's render onto other planes that are not it's own
  */
 /atom/movable/render_plane_relay
 	screen_loc = "CENTER"
 	layer = -1
-	plane = 0
+	plane = DEFAULT_PLANE
 	appearance_flags = PASS_MOUSE | NO_CLIENT_COLOR | KEEP_TOGETHER
 	/// If we render into a critical plane master, or not
 	var/critical_target = FALSE
@@ -181,7 +180,6 @@
 		RegisterSignal(hud, COMSIG_HUD_OFFSET_CHANGED, PROC_REF(on_offset_change), override = TRUE)
 	offset_change(hud?.current_plane_offset || 0)
 	set_alpha(mymob.lighting_alpha)
-
 
 /atom/movable/screen/plane_master/rendering_plate/lighting/hide_from(mob/oldmob)
 	. = ..()

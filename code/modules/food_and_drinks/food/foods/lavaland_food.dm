@@ -319,7 +319,7 @@
 	tastes = list("трав" = 1)
 	foodtype = FRUIT|VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal/get_ru_names()	
+/obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal/get_ru_names()
 	return list(
 		NOMINATIVE = "вегетарианское блюдо Лазиса",
 		GENITIVE = "вегетарианского блюда Лазиса",
@@ -368,7 +368,6 @@
 		INSTRUMENTAL = "блюдом \"Ям-Граб\"",
 		PREPOSITIONAL = "блюде \"Ям-Граб\"",
 	)
-
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/ashie_kebab
 	name = "ashie-kebab"

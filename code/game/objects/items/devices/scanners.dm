@@ -24,6 +24,7 @@ BODY SCANNERS
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
+	toolbox_radial_menu_compatibility = TRUE
 	var/scan_range = 1
 	var/pulse_duration = 1 SECONDS
 
@@ -158,7 +159,6 @@ BODY SCANNERS
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
 	origin_tech = "combat=3;magnets=5;biotech=5"
 
-
 /obj/item/t_scanner/security/Initialize(mapload)
 	. = ..()
 	//Sets up a spark system
@@ -166,13 +166,11 @@ BODY SCANNERS
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-
 /obj/item/t_scanner/security/update_icon_state()
 	if(burnt)
 		icon_state = "[base_icon_state]_burnt"
 		return
 	icon_state = "[base_icon_state][on]"
-
 
 /obj/item/t_scanner/security/update_desc(updates = ALL)
 	. = ..()
@@ -180,7 +178,6 @@ BODY SCANNERS
 		desc = initial(desc)
 		return
 	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство сгорело, теперь можно обнаружить разве что крошки от пончика оставшиеся на нём..."
-
 
 /obj/item/t_scanner/security/attack_self(mob/user)
 	if(!burnt)
@@ -192,7 +189,6 @@ BODY SCANNERS
 	else
 		STOP_PROCESSING(SSprocessing, src)
 
-
 /obj/item/t_scanner/security/emp_act(severity)
 	. = ..()
 	if(prob(25) && !burnt)
@@ -202,7 +198,6 @@ BODY SCANNERS
 		playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 		spark_system.start()
 
-
 /obj/item/t_scanner/security/scan()
 	var/mob/viewer = loc
 	if(!ismob(viewer) || !viewer.client)
@@ -210,7 +205,7 @@ BODY SCANNERS
 	new /obj/effect/temp_visual/scan(get_turf(src))
 	var/list/t_ray_images = list()
 
-	for(var/atom/movable/invisible_object as anything in view(scan_range, get_turf(src)))
+	for(var/atom/movable/invisible_object in view(scan_range, get_turf(src)))
 		if(!(istype(invisible_object, /obj/structure/closet/cardboard/agent/) || isliving(invisible_object)))
 			continue
 		if(!(invisible_object.alpha < 255 || invisible_object.invisibility == INVISIBILITY_LEVEL_TWO))
@@ -246,13 +241,13 @@ BODY SCANNERS
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				to_chat(user, span_notice("Subject contains the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> – [span_boldannounceic("OVERDOSING")]" : ".</span>"]")
+					to_chat(user, "[span_notice("[R.volume]u of [R.name]")][R.overdosed ? " – [span_boldannounceic("OVERDOSING")]" : "[span_notice(".")]"]")
 			else
 				to_chat(user, span_notice("Subject contains no reagents."))
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				to_chat(user, span_danger("Subject is addicted to the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					to_chat(user, span_danger("[R.name] Stage: [R.addiction_stage]/5"))
@@ -300,7 +295,7 @@ BODY SCANNERS
 		DATIVE = "анализатору здоровья",
 		ACCUSATIVE = "анализатор здоровья",
 		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
+		PREPOSITIONAL = "анализаторе здоровья",
 	)
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -309,7 +304,6 @@ BODY SCANNERS
 	scan_data = medical_scan_action(user, target, src, mode, advanced)
 	show_results(user)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scan_data)
@@ -485,7 +479,7 @@ BODY SCANNERS
 			P.header += "&emsp;[implant]<br>"
 
 	P.header += "<hr>"
-	P.header += "Тип страховки - [scan_data["insuranceType"]].<br>"
+	P.header += "Тип страховки — [scan_data["insuranceType"]].<br>"
 	P.header += "Требуемое количество очков страховки: [scan_data["reqInsurance"]].<br>"
 	if(scan_data["insurance"])
 		P.header += "Текущее количество очков страховки: [scan_data["insurance"]].<br>"
@@ -559,7 +553,7 @@ BODY SCANNERS
 
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(
-			span_warning("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] жизненные показатели пола!"),
+			span_warning("[user] анализиру[PLUR_ET_YUT(user)] жизненные показатели пола!"),
 			span_notice("Вы по глупости проанализировали жизненные показатели пола!")
 		)
 		var/list/data = list()
@@ -581,10 +575,10 @@ BODY SCANNERS
 			for(var/mob/living/L in B.contents)
 				scan_content.Add(L)
 
-			if(scan_content.len == 1)
+			if(length(scan_content) == 1)
 				for(var/mob/living/carbon/human/L in scan_content)
 					scan_subject = L
-			else if(scan_content.len > 1)
+			else if(length(scan_content) > 1)
 				balloon_alert(user, "внутри слишком много субъектов!")
 				return
 			else
@@ -596,12 +590,12 @@ BODY SCANNERS
 
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] сканиру[pluralize_ru(user.gender,"ет","ют")] себя с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_YUT(user)] себя с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете себя с помощью [declent_ru(GENITIVE)].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] сканиру[pluralize_ru(user.gender,"ет","ют")] [target] с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_YUT(user)] [target] с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете [target] с помощью [declent_ru(GENITIVE)].")
 		)
 	var/mob/living/carbon/human/H = target
@@ -682,7 +676,7 @@ BODY SCANNERS
 
 	if(advanced)
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				var/list/reagentList = list()
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					reagentList += list(list(
@@ -694,7 +688,7 @@ BODY SCANNERS
 			else
 				data["reagentList"] = FALSE
 
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				var/list/addictionList = list()
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					addictionList += list(list(
@@ -760,7 +754,6 @@ BODY SCANNERS
 	data["fractureList"] = fractureList
 	data["infectedList"] = infectedList
 
-
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
@@ -790,7 +783,6 @@ BODY SCANNERS
 		data["implantDetect"] = implant_detect
 
 	return data
-
 
 // This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
@@ -844,13 +836,13 @@ BODY SCANNERS
 				scan_data += "&emsp;[span_notice(capitalize(org.name))]: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
 	if(advanced)
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				scan_data += "Обнаружены реагенты:"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					scan_data += "&emsp;[R.volume]u [R.name][R.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
 			else
 				scan_data += "Реагенты не обнаружены."
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				scan_data += span_danger("Обнаружены зависимости от реагентов:")
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					scan_data += span_danger("&emsp;[R.name] Стадия: [R.addiction_stage]/5")
@@ -969,7 +961,7 @@ BODY SCANNERS
 
 	var/datum/money_account/acc = get_insurance_account(H)
 	if(acc)
-		scan_data += "Тип страховки - [acc.insurance_type]."
+		scan_data += "Тип страховки — [acc.insurance_type]."
 	else
 		scan_data += "Аккаунт не обнаружен."
 	scan_data += "Требуемое количество очков страховки: [get_req_insurance(H)]."
@@ -995,7 +987,6 @@ BODY SCANNERS
 	. = ..()
 	if(advanced)
 		. += "advanced"
-
 
 /obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/healthupgrade))
@@ -1031,14 +1022,12 @@ BODY SCANNERS
 
 	return ..()
 
-
 /obj/item/healthanalyzer/advanced
 	advanced = TRUE
 
 /obj/item/healthanalyzer/advanced/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/healthupgrade
 	name = "health analyzer upgrade"
@@ -1056,7 +1045,7 @@ BODY SCANNERS
 		DATIVE = "модулю улучшения анализатора здоровья",
 		ACCUSATIVE = "модуль улучшения анализатора здоровья",
 		INSTRUMENTAL = "модулем улучшения анализатора здоровья",
-		PREPOSITIONAL = "модуле улучшения анализатора здоровья"
+		PREPOSITIONAL = "модуле улучшения анализатора здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer
@@ -1073,7 +1062,7 @@ BODY SCANNERS
 		DATIVE = "глазу здоровья",
 		ACCUSATIVE = "глаз здоровья",
 		INSTRUMENTAL = "глазом здоровья",
-		PREPOSITIONAL = "глазе здоровья"
+		PREPOSITIONAL = "глазе здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
@@ -1241,7 +1230,7 @@ BODY SCANNERS
 		var/mix_name = capitalize(lowertext(scan_target.name))
 		if(scan_target == get_turf(src))
 			mix_name = "Location Reading"
-		if(airs.len != 1) //not a unary gas mixture
+		if(length(airs) != 1) //not a unary gas mixture
 			mix_name += " - Node [airs.Find(air)]"
 		new_gasmix_data += list(gas_mixture_parser(air, mix_name))
 	last_gasmix_data = new_gasmix_data
@@ -1285,8 +1274,8 @@ BODY SCANNERS
 	var/icon = target
 	var/message = list()
 	if(!silent && isliving(user))
-		user.visible_message(span_notice("[user] uses the analyzer on [bicon(icon)] [target]."), span_notice("You use the analyzer on [bicon(icon)] [target]"))
-	message += span_boldnotice("Results of analysis of [bicon(icon)] [target].")
+		user.visible_message(span_notice("[user] uses the analyzer on [icon2html(icon, viewers(icon))] [target]."), span_notice("You use the analyzer on [icon2html(icon, user)] [target]"))
+	message += span_boldnotice("Results of analysis of [icon2html(icon, user)] [target].")
 
 	if(!print)
 		return TRUE
@@ -1294,7 +1283,7 @@ BODY SCANNERS
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
 	for(var/datum/gas_mixture/air as anything in airs)
 		var/mix_name = capitalize(lowertext(target.name))
-		if(airs.len > 1) //not a unary gas mixture
+		if(length(airs) > 1) //not a unary gas mixture
 			var/mix_number = airs.Find(air)
 			message += span_boldnotice("Node [mix_number]")
 			mix_name += " - Node [mix_number]"
@@ -1328,7 +1317,7 @@ BODY SCANNERS
 			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
 			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
 		else
-			message += airs.len > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
+			message += length(airs) > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
 			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it
 
 	// we let the join apply newlines so we do need handholding
@@ -1369,15 +1358,15 @@ BODY SCANNERS
 		var/dat = ""
 		var/blood_type = ""
 		var/blood_species = ""
-		if(O.reagents.reagent_list.len > 0)
+		if(length(O.reagents.reagent_list) > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")
-					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB][span_notice("[R][details ? ": [R.volume / one_percent]%" : ""]")]"
 				else
 					blood_species = R.data["blood_species"]
 					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB][span_notice("[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]")]"
 		if(dat)
 			to_chat(user, span_notice("Chemicals found: [dat]"))
 			datatoprint = dat
@@ -1537,7 +1526,6 @@ BODY SCANNERS
 	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, FALSE)
 	update_icon()
 
-
 /obj/item/bodyanalyzer/update_icon_state()
 	if(!cell)
 		icon_state = "[base_icon_state]_0"
@@ -1547,7 +1535,6 @@ BODY SCANNERS
 	else
 		icon_state = "[base_icon_state]_2"
 
-
 /obj/item/bodyanalyzer/update_overlays()
 	. = ..()
 	var/percent = cell.percent()
@@ -1555,7 +1542,6 @@ BODY SCANNERS
 	. += "[base_icon_state]_charge[overlayid]"
 	if(printing)
 		. += "[base_icon_state]_printing"
-
 
 /obj/item/bodyanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -1575,7 +1561,6 @@ BODY SCANNERS
 		to_chat(user, span_notice("The scanner beeps angrily at you! It's out of charge!"))
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 
-
 /obj/item/bodyanalyzer/borg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
@@ -1591,7 +1576,6 @@ BODY SCANNERS
 		mobScan(target, user)
 	else
 		to_chat(user, span_notice("You need to recharge before you can use [src]"))
-
 
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
 	if(ishuman(M))

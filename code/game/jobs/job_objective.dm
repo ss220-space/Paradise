@@ -23,7 +23,6 @@
 	owner = new_owner
 	owner.job_objectives += src
 
-
 /datum/job_objective/proc/get_description()
 	var/desc = "Placeholder Objective"
 	return desc

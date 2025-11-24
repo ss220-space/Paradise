@@ -6,7 +6,6 @@
 	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_data = /datum/implant_fluff/mindshield
 
-
 /obj/item/implant/mindshield/implant(mob/living/target, mob/user, force = FALSE)
 	. = ..()
 	if(!.)
@@ -29,23 +28,19 @@
 	else
 		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
 
-
 /obj/item/implant/mindshield/removed(mob/target, silent = FALSE)
 	. = ..()
 	if(. && target.stat != DEAD && !silent)
 		to_chat(target, span_boldnotice("Your mind softens. You feel susceptible to the effects of brainwashing once more."))
 
-
 /obj/item/implanter/mindshield
 	name = "bio-chip implanter (mindshield)"
 	imp = /obj/item/implant/mindshield
-
 
 /obj/item/implantcase/mindshield
 	name = "bio-chip case - 'mindshield'"
 	desc = "A glass case containing a mindshield bio-chip."
 	imp = /obj/item/implant/mindshield
-
 
 /**
  * ERT mindshield
@@ -55,11 +50,9 @@
 	desc = "Stops people messing with your mind and allows to use some high-tech weapons."
 	implant_data = /datum/implant_fluff/mindshield/ert
 
-
 /obj/item/implanter/mindshield/ert
 	name = "bio-chip implanter (ERT-mindshield)"
 	imp = /obj/item/implant/mindshield/ert
-
 
 /obj/item/implantcase/mindshield/ert
 	name = "bio-chip case - 'ERT-mindshield'"

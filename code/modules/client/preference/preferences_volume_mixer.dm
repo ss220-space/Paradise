@@ -12,7 +12,6 @@
 		temp["[channel]"] = vm[channel]
 	return json_encode(temp)
 
-
 /**
  * Returns a volume mixer list from text, usually from the DB.
  *
@@ -36,7 +35,6 @@
 			continue
 		temp[channel] = vm[channel]
 	return temp
-
 
 /**
  * Changes a channel's volume then queues it for DB save.
@@ -78,7 +76,6 @@
 			deltimer(volume_mixer_saving)
 		save_volume_mixer()
 
-
 /**
  * Returns a volume multiplier for the given channel, from 0 to 1 (default).
  *
@@ -91,7 +88,6 @@
 	if(isnull(volume_mixer[channel]))
 		return 1
 	return clamp(volume_mixer[channel] / 100, 0, 1)
-
 
 /client/verb/volume_mixer()
 	set name = "Микшер громкости"

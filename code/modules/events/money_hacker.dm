@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 /datum/event/money_hacker/setup()
 	end_time = world.time + 6000
-	if(GLOB.all_money_accounts.len)
+	if(length(GLOB.all_money_accounts))
 		affected_account = pick(GLOB.all_money_accounts)
 
 		GLOB.account_hack_attempted = 1
@@ -42,7 +42,6 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 		affected_account.phantom_charge(lost)
 
-
 		//create a taunting log entry
 		var/dest_name = pick("","yo brotha from anotha motha","el Presidente","chieF smackDowN")
 		var/amount = pick("","([rand(0,99999)])","alla money","9001$","HOLLA HOLLA GET DOLLA","([lost])")
@@ -56,7 +55,6 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 		var/source_terminal = pick("","[pick("Biesel","New Gibson")] GalaxyNet Terminal #[rand(111,999)]","your mums place","nantrasen high CommanD")
 
 		affected_account.makeTransactionLog(amount, purpose, source_terminal, dest_name, TRUE, date, time)
-
 
 	else
 		//crew wins

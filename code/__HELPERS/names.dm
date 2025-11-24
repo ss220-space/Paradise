@@ -106,7 +106,6 @@ GLOBAL_VAR(english_station_name)
 			new_station_name += pick("13","XIII","Thirteen")
 	return new_station_name
 
-
 //Traitors and traitor silicons will get these. Revs will not.
 GLOBAL_VAR(syndicate_code_phrase) //Code phrase for traitors.
 GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
@@ -114,7 +113,6 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 //Cached regex search - for checking if codewords are used.
 GLOBAL_DATUM(syndicate_code_phrase_regex, /regex)
 GLOBAL_DATUM(syndicate_code_response_regex, /regex)
-
 
 	/*
 	Should be expanded.
@@ -146,7 +144,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
 //	var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
 //	var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
-//	var/locations[] = GLOB.teleportlocs.len ? GLOB.teleportlocs : drinks//if null, defaults to drinks instead.
+//	var/locations[] = length(GLOB.teleportlocs) ? GLOB.teleportlocs : drinks//if null, defaults to drinks instead.
 
 	var/names[] = list()
 	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
@@ -156,7 +154,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 		if(!t.fields["name"])
 			stack_trace("Nameless record: [t.fields]")
 			continue
-		names += t.fields["name"]
+		names += escape_regex_smart(t.fields["name"])
 
 	var/maxwords = words//Extra var to check for duplicates.
 
@@ -196,6 +194,15 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 				. += "."
 			else
 				. += ", "
+
+/proc/escape_regex_smart(text)
+	var/list/chars = list(".", "*", "+", "?", "^", "$", "(", ")", "[", "]", "{", "}", "|")
+	text = replacetext(text, "\\", "\\\\")
+	for(var/char in chars)
+		text = replacetext(text, char, "\\[char]")
+	for(var/char in chars)
+		text = replacetext(text, "\\\\\\[char]", "\\[char]")
+	return text
 
 /proc/GenerateKey()
 	var/newKey

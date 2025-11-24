@@ -5,10 +5,10 @@
 /datum/martial_art/highlander
 	name = "Highlander Style"
 	deflection_chance = 100
+	can_deflect = TRUE
 	weight = 100
 	no_guns = TRUE
 	no_guns_message = "Вы никогда не опуститесь таааак низко, чтобы пользоваться оружием ПОДЛЕЦОВ!"
-
 
 //Highlander Claymore
 //	Grants the wielder the Highlander Style Martial Art
@@ -34,7 +34,7 @@
 	if(slot & ITEM_SLOT_HANDS)
 		if(H.mind.martial_art && H.mind.martial_art != style)
 			style.teach(H, TRUE)
-			to_chat(H, "<span class='notice'>THERE CAN ONLY BE ONE!</span>")
+			to_chat(H, span_notice("THERE CAN ONLY BE ONE!"))
 	else if(H.mind.martial_art && H.mind.martial_art == style)
 		style.remove(H)
 		var/obj/item/melee/claymore/highlander/sword = H.is_type_in_hands(/obj/item/melee/claymore/highlander)

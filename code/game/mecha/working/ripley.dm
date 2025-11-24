@@ -17,12 +17,10 @@
 
 	mech_type = MECH_TYPE_RIPLEY
 
-
 /obj/mecha/working/ripley/Destroy()
 	for(var/i=1, i <= hides, i++)
 		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
 	return ..()
-
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
@@ -55,7 +53,6 @@
 			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
 			. += occupant ? "ripley-a" : "ripley-a-open"
 
-
 /obj/mecha/working/ripley/update_desc(updates = ALL)
 	. = ..()
 
@@ -80,7 +77,6 @@
 			desc = "Autonomous Power Loader Unit. Fully covered with homemade armor and few goliath hides on top."
 		else if(plates >= 3 && hides >= 3)
 			desc = "Autonomous Power Loader Unit. Clad in homemade armor from ear to toe, with Goliath plates on top - a real tank, no other way."
-
 
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
@@ -109,19 +105,18 @@
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
 
-/obj/mecha/working/ripley/deathripley/New()
-	..()
+/obj/mecha/working/ripley/deathripley/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
-	return
 
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/New()
-	..()
+/obj/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	//Attach drill
@@ -148,7 +143,6 @@
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
 
-
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -172,7 +166,7 @@
 	fast_pressure_step_in = 1 //не хочу страдать на щитспавн мехе для тестов
 	slow_pressure_step_in = 0.5
 
-/obj/mecha/working/ripley/full_load/New()
+/obj/mecha/working/ripley/full_load/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/drill
 	ME.attach(src)

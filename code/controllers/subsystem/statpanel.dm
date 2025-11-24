@@ -77,7 +77,6 @@ SUBSYSTEM_DEF(statpanels)
 				if(target.stat_tab == "MC" && ((num_fires % mc_wait == 0)))
 					set_MC_tab(target)
 
-
 		if(MC_TICK_CHECK)
 			return
 

@@ -1,11 +1,12 @@
-#define NINJA_NIGHTVISION		"nightvision"
-#define NINJA_THERMALS			"thermals"
-#define NINJA_FLASHPROTECTION	"flashprotection"
+#define NINJA_NIGHTVISION "nightvision"
+#define NINJA_THERMALS "thermals"
+#define NINJA_FLASHPROTECTION "flashprotection"
 
 /datum/action/item_action/ninja_glasses_toggle
 	name = "Toggle Visor Mode"
 	desc = "Toggles Visor mode to the next one. Available modes: Thermals, Blind protection, Night vision"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
 /obj/item/clothing/glasses/ninja/proc/toggle_modes(mob/user, mode)

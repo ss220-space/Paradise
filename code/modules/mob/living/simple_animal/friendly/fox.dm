@@ -30,7 +30,7 @@
 		DATIVE = "лисе",
 		ACCUSATIVE = "лису",
 		INSTRUMENTAL = "лисой",
-		PREPOSITIONAL = "лисе"
+		PREPOSITIONAL = "лисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/update_icons()
@@ -68,7 +68,7 @@
 		DATIVE = "дикой лисе",
 		ACCUSATIVE = "дикую лису",
 		INSTRUMENTAL = "дикой лисой",
-		PREPOSITIONAL = "дикой лисе"
+		PREPOSITIONAL = "дикой лисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/forest/winter
@@ -96,13 +96,13 @@
 		DATIVE = "ренальду",
 		ACCUSATIVE = "ренальда",
 		INSTRUMENTAL = "ренальдом",
-		PREPOSITIONAL = "ренальде"
+		PREPOSITIONAL = "ренальде",
 	)
 
 //Syndi fox
 /mob/living/simple_animal/pet/dog/fox/Syndifox
 	name = "Syndifox"
-	desc = "Синдилис, очень уважаемый маскот Синдиката."
+	desc = "Синдилис, очень уважаемый маскот \"Синдиката\"."
 	icon_state = "Syndifox"
 	icon_living = "Syndifox"
 	icon_dead = "Syndifox_dead"
@@ -122,7 +122,7 @@
 		DATIVE = "Синдилису",
 		ACCUSATIVE = "Синдилиса",
 		INSTRUMENTAL = "Синдилисом",
-		PREPOSITIONAL = "Синдилисе"
+		PREPOSITIONAL = "Синдилисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/SyndiFox/ComponentInitialize()
@@ -135,7 +135,6 @@
 	. = ..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
 	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
-
 
 //Central Command Fox
 /mob/living/simple_animal/pet/dog/fox/alisa
@@ -159,7 +158,7 @@
 		DATIVE = "Алисе",
 		ACCUSATIVE = "Алису",
 		INSTRUMENTAL = "Алисой",
-		PREPOSITIONAL = "Алисе"
+		PREPOSITIONAL = "Алисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/alisa/ComponentInitialize()
@@ -171,7 +170,6 @@
 /mob/living/simple_animal/pet/dog/fox/alisa/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
-
 
 /mob/living/simple_animal/pet/dog/fox/fennec
 	name = "фенек"
@@ -192,5 +190,5 @@
 		DATIVE = "фенеку",
 		ACCUSATIVE = "фенека",
 		INSTRUMENTAL = "фенеком",
-		PREPOSITIONAL = "фенеке"
+		PREPOSITIONAL = "фенеке",
 	)

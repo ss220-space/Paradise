@@ -9,7 +9,6 @@
 	if(input)
 		return 1
 
-
 	if(!input)
 		var/turf/T = get_step(src, dir)
 		if(T)
@@ -37,9 +36,6 @@
 		icon_state = "bulb1"
 	else
 		icon_state = "bulb0"
-
-
-
 
 //Sensors only have one output and no inputs
 /obj/machinery/logic/sensor
@@ -75,9 +71,6 @@
 		return
 
 	pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)
-
-
-
 
 //ONE INPUT logic elements have one input and one output
 /obj/machinery/logic/oneinput
@@ -131,14 +124,6 @@
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
-
-
-
-
-
-
-
-
 
 //TWO INPUT logic elements have two inputs and one output
 /obj/machinery/logic/twoinput
@@ -286,7 +271,6 @@
 		if(pn_input2.avail >= RELAY_POWER_TRANSFER)
 			pn_input2.load += RELAY_POWER_TRANSFER
 			pn_output.newavail += RELAY_POWER_TRANSFER
-
 
 #undef RELAY_POWER_TRANSFER
 #undef LOGIC_HIGH

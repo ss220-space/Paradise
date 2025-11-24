@@ -2,7 +2,8 @@
 //------------------------------------SUPPLY POD-------------------------------------//
 /obj/structure/closet/supplypod
 	name = "supply pod" //Names and descriptions are normally created with the setStyle() proc during initialization, but we have these default values here as a failsafe
-	desc = "Капсула снабжения Nanotrasen."
+	desc = "Капсула снабжения \"Нанотрейзен\"."
+	gender = FEMALE
 	icon = 'icons/obj/supplypods.dmi'
 	icon_state = "pod" //This is a common base sprite shared by a number of pods
 	pixel_x = SUPPLYPOD_X_OFFSET //2x2 sprite
@@ -62,9 +63,8 @@
 		DATIVE = "капсуле снабжения",
 		ACCUSATIVE = "капсулу снабжения",
 		INSTRUMENTAL = "капсулой снабжения",
-		PREPOSITIONAL = "капсуле снабжения"
+		PREPOSITIONAL = "капсуле снабжения",
 	)
-
 
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
@@ -97,7 +97,7 @@
 
 /obj/structure/closet/supplypod/extractionpod
 	name = "Syndicate Extraction Pod"
-	desc = "Специализированная капсула кроваво-красного цвета для эвакуации ценных целей из зон активных задач. <b>Для правильной доставки цели необходимо вручную поместить в капсулу.</b>"
+	desc = "Специализированная капсула кроваво-красного цвета для эвакуации ценных целей из зон активных задач. <b>Для правильной доставки цель должна быть помещена в капсулу вручную.</b>"
 	specialised = TRUE
 	style = /datum/pod_style/contractor
 	bluespace = TRUE
@@ -110,15 +110,14 @@
 	leavingSound = 'sound/effects/podwoosh.ogg'
 	reverse_option_list = list(MOB_OPTION = FALSE, UNANCHORED_OPTION = FALSE, ANCHORED_OPTION = FALSE, MECHA_OPTION = FALSE)
 
-
 /obj/structure/closet/supplypod/extractionpod/get_ru_names()
 	return list(
-		NOMINATIVE = "капсула эвакуации Синдиката",
-		GENITIVE = "капсулы эвакуации Синдиката",
-		DATIVE = "капсуле эвакуации Синдиката",
-		ACCUSATIVE = "капсулу эвакуации Синдиката",
-		INSTRUMENTAL = "капсулой эвакуации Синдиката",
-		PREPOSITIONAL = "капсуле эвакуации Синдиката"
+		NOMINATIVE = "капсула эвакуации \"Синдиката\"",
+		GENITIVE = "капсулы эвакуации \"Синдиката\"",
+		DATIVE = "капсуле эвакуации \"Синдиката\"",
+		ACCUSATIVE = "капсулу эвакуации \"Синдиката\"",
+		INSTRUMENTAL = "капсулой эвакуации \"Синдиката\"",
+		PREPOSITIONAL = "капсуле эвакуации \"Синдиката\"",
 	)
 
 /obj/structure/closet/supplypod/centcompod
@@ -189,9 +188,7 @@
 		else
 			prisoner.equipOutfit(/datum/outfit/prisoner)
 
-
 	to_chat(target, span_warning("Вы были этапированы на тюремную станцию!"))
-
 
 /obj/structure/closet/supplypod/back_to_station
 	name = "blood-red supply pod"
@@ -210,12 +207,12 @@
 		DATIVE = "кроваво-красной капсуле снабжения",
 		ACCUSATIVE = "кроваво-красную капсулу снабжения",
 		INSTRUMENTAL = "кроваво-красной капсулой снабжения",
-		PREPOSITIONAL = "кроваво-красной капсуле снабжения"
+		PREPOSITIONAL = "кроваво-красной капсуле снабжения",
 	)
 
 /obj/structure/closet/supplypod/deadmatch_missile
 	name = "cruise missile"
-	desc = "Огромная ракета, вероятно, запущенная из какой-то далекой ракетной шахты в дальнем космосе"
+	desc = "Огромная ракета, вероятно, запущенная из какой-то далёкой ракетной шахты в дальнем космосе."
 	style = /datum/pod_style/missile/syndicate
 	explosionSize = list(0,1,2,2)
 	effectShrapnel = TRUE
@@ -230,7 +227,7 @@
 		DATIVE = "крылатой ракете",
 		ACCUSATIVE = "крылатую ракету",
 		INSTRUMENTAL = "крылатой ракете",
-		PREPOSITIONAL = "крылатой ракетой"
+		PREPOSITIONAL = "крылатой ракетой",
 	)
 
 /obj/structure/closet/supplypod/deadmatch_missile/endgame
@@ -323,7 +320,6 @@
 	transform = matrix()
 	update_appearance()
 
-
 /obj/structure/closet/supplypod/update_overlays()
 	. = ..()
 	if(ispath(style, /datum/pod_style/invisible))
@@ -372,13 +368,11 @@
 	if(decal)
 		. += decal
 
-
 /obj/structure/closet/supplypod/tool_act(mob/living/user, obj/item/I, tool_type)
 	if(bluespace) //We dont want to worry about interacting with bluespace pods, as they are due to delete themselves soon anyways.
 		return FALSE
 	else
 		..()
-
 
 /obj/structure/closet/supplypod/ex_act() //Explosions dont do SHIT TO US! This is because supplypods create explosions when they land.
 	return FALSE
@@ -392,13 +386,13 @@
 ///Called by the drop pods that return captured crewmembers from the ninja den.
 /obj/structure/closet/supplypod/proc/return_from_capture(mob/living/victim, turf/destination = get_safe_random_station_turf())
 	if(isnull(destination)) //Uuuuh, something went wrong. This is gonna hurt.
-		to_chat(victim, span_holoparasite("Миллион голосов эхом звучит в твоей голове... «Похоже, там, куда тебя отправили, не могут справиться с нашей капсулой...\
+		to_chat(victim, span_holoparasite("Миллион голосов эхом звучит в вашей голове... «Похоже, там, куда вас отправили, не могут справиться с нашей капсулой...\
 		как будто мы хотели, чтобы пассажир выжил. Держись, корпоративная собака»"))
 		explosionSize = list(0, 1, 1, 1)
 		destination = get_random_station_turf()
 
 	do_sparks(8, FALSE, victim)
-	victim.visible_message(span_notice("[victim] исчезает..."))
+	victim.visible_message(span_notice("[victim] исчеза[PLUR_ET_YUT(victim)]..."))
 
 	victim.forceMove(src)
 
@@ -409,7 +403,10 @@
 	bluespace = TRUE //Make it so that the pod doesn't stay in centcom forever
 	pod_flags &= ~FIRST_SOUNDS //Make it so we play sounds now
 	if(!effectQuiet && !ispath(style, /datum/pod_style/seethrough))
-		audible_message(span_notice("Капсула шипит, закрываясь и улетая прочь от станции."), span_notice("Земля вибрирует, и вы слышите звук работающих двигателей."))
+		audible_message(
+			span_notice("[capitalize(declent_ru(NOMINATIVE))] шипит, закрываясь и улетая прочь от станции."),
+			span_notice("Земля вибрирует, и вы слышите звук работающих двигателей.")
+		)
 	stay_after_drop = FALSE
 	holder.pixel_z = initial(holder.pixel_z)
 	holder.alpha = initial(holder.alpha)
@@ -443,7 +440,7 @@
 					if(bodypart.limb_zone != BODY_ZONE_HEAD && bodypart.limb_zone != BODY_ZONE_CHEST \
 						&& bodypart.limb_zone != BODY_ZONE_PRECISE_GROIN && !(bodypart.cannot_amputate))//we dont want to kill him, just teach em a lesson!
 						possible_organs |= bp
-				if(possible_organs.len)
+				if(length(possible_organs))
 					bodypart = pick(possible_organs)
 					bodypart.droplimb()
 
@@ -626,7 +623,6 @@
 
 	O.forceMove(get_turf(src))
 
-
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
 	set_density(FALSE)
@@ -750,7 +746,7 @@
 		DATIVE = "обломкам",
 		ACCUSATIVE = "обломки",
 		INSTRUMENTAL = "обломками",
-		PREPOSITIONAL = "обломках"
+		PREPOSITIONAL = "обломках",
 	)
 
 /obj/effect/supplypod_rubble/proc/getForeground(obj/structure/closet/supplypod/pod)
@@ -811,7 +807,7 @@
 		DATIVE = "индикатору зоны приземления",
 		ACCUSATIVE = "индикатор зоны приземления",
 		INSTRUMENTAL = "индикатором зоны приземления",
-		PREPOSITIONAL = "индикаторе зоны приземления"
+		PREPOSITIONAL = "индикаторе зоны приземления",
 	)
 
 /obj/effect/pod_landingzone/Initialize(mapload, podParam, single_order = null, clientman)

@@ -43,7 +43,7 @@
 	data = counterlist_normalise(supplied_data)
 
 /datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	if(!islist(newdata) || !newdata.len)
+	if(!islist(newdata) || !length(newdata))
 		return
 	var/list/taste_amounts = list()
 	var/list/other_taste_amounts = newdata.Copy()
@@ -54,7 +54,6 @@
 	counterlist_normalise(taste_amounts)
 	data = taste_amounts
 
-
 /datum/reagent/consumable/nutriment/taste_amplification(mob/living/user)
 	. = list()
 	var/list/nutriment_taste_data = data
@@ -63,13 +62,11 @@
 		var/amount = ratio * taste_mult * volume
 		.[nutriment_taste] = amount
 
-
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Растительная масса"
 	id = "plantmatter"
 	description = "Богатые витаминами волокна и натуральные сахара, которые обычно содержатся в свежих продуктах."
 	diet_flags = DIET_HERB | DIET_OMNI
-
 
 /datum/reagent/consumable/nutriment/vitamin
 	name = "Витамины"
@@ -77,13 +74,11 @@
 	description = "Все лучшие витамины, минералы и углеводы, необходимые организму, в чистом виде."
 	burn_heal = 1
 
-
 /datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 30
 
 	return ..()
-
 
 /datum/reagent/consumable/nutriment/protein // Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Белки"
@@ -93,16 +88,13 @@
 	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
 	var/status_effect_type = /datum/status_effect/sport_reagents/protein
 
-
 /datum/reagent/consumable/nutriment/protein/on_mob_add(mob/living/user)
 	. = ..()
 	user.apply_status_effect(status_effect_type)
 
-
 /datum/reagent/consumable/nutriment/protein/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_status_effect(status_effect_type)
-
 
 /datum/reagent/consumable/nutriment/protein/liquid
 	name = "Разбавленный протеин"
@@ -112,12 +104,10 @@
 	metabolization_rate = REAGENTS_METABOLISM / 4
 	status_effect_type = /datum/status_effect/sport_reagents/protein/water
 
-
 /datum/reagent/consumable/nutriment/protein/liquid/milk
 	name = "Разбавленный протеин на молоке"
 	id = "protein_liquid_milk"
 	status_effect_type = /datum/status_effect/sport_reagents/protein/milk
-
 
 /datum/reagent/consumable/sugar
 	name = "Сахар"
@@ -168,13 +158,11 @@
 				H.vomit()
 	return ..() | update_flags
 
-
 /datum/reagent/consumable/sugar/overdose_end(mob/living/carbon/human/affected)
 	affected.clear_fullscreen("hyperglycemia")
 	if(ishuman(affected))
 		affected.physiology.hunger_mod *= 0.5
 	..()
-
 
 /datum/reagent/consumable/soysauce
 	name = "Соевый соус"
@@ -331,10 +319,10 @@
 				if(!safe_thing)
 					safe_thing = victim.glasses
 			if(eyes_covered && mouth_covered)
-				to_chat(victim, span_danger("[safe_thing] защища[pluralize_ru(safe_thing, "ет", "ют")] ваше лицо от перца!"))
+				to_chat(victim, span_danger("[safe_thing] защища[PLUR_ET_YUT(safe_thing)] ваше лицо от перца!"))
 				return
 			else if(mouth_covered) // Reduced effects if partially protected
-				to_chat(victim, span_danger("[safe_thing] почти полностью защища[pluralize_ru(safe_thing, "ет", "ют")] ваше лицо от перца!"))
+				to_chat(victim, span_danger("[safe_thing] почти полностью защища[PLUR_ET_YUT(safe_thing)] ваше лицо от перца!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(6 SECONDS)
@@ -345,7 +333,7 @@
 				victim.drop_from_active_hand()
 				return
 			else if(eyes_covered) // Eye cover is better than mouth cover but not best
-				to_chat(victim, span_danger("[safe_thing] частично защища[pluralize_ru(safe_thing, "ет", "ют")] ваше лицо от перца!"))
+				to_chat(victim, span_danger("[safe_thing] частично защища[PLUR_ET_YUT(safe_thing)] ваше лицо от перца!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(4 SECONDS)
@@ -375,17 +363,14 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<font color='lightblue'>холода</span>"
 
-
 /datum/reagent/consumable/frostoil/on_mob_add(mob/living/user)
 	. = ..()
 	if(isslime(user))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
 
-
 /datum/reagent/consumable/frostoil/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
-
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/user)
 	var/is_slime = isslime(user)
@@ -420,7 +405,6 @@
 			if(prob(1))
 				user.emote("shiver")
 	return ..()
-
 
 /datum/reagent/consumable/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
@@ -499,7 +483,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
-		if(vamp && vamp.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+		if(vamp?.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, span_danger("Аромат чеснока не выветривается из вашего носа! Вы едва можете думать..."))
 				H.Weaken(2 SECONDS)
@@ -725,7 +709,7 @@
 /datum/reagent/consumable/chocolate
 	name = "Шоколад"
 	id = "chocolate"
-	description = "Шоколад - это восхитительный продукт, получаемый из семян дерева \"Theobroma cacao\"."
+	description = "Шоколад — это восхитительный продукт, получаемый из семян дерева \"Theobroma cacao\"."
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
@@ -937,7 +921,6 @@
 	color = "#B4641B"
 	taste_description = "подливки"
 
-
 ///Food Related, but non-nutritious
 
 /datum/reagent/questionmark // food poisoning
@@ -961,7 +944,7 @@
 /datum/reagent/msg
 	name = "Глутамат натрия"
 	id = "msg"
-	description = "Глутамат натрия - это натриевая соль, известная главным образом благодаря своему использованию в качестве спорного усилителя вкуса."
+	description = "Глутамат натрия — это натриевая соль, известная главным образом благодаря своему использованию в качестве спорного усилителя вкуса."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM

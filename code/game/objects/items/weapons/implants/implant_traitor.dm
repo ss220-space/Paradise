@@ -8,7 +8,6 @@
 	/// The UID of the mindslave's `mind`. Stored to solve GC race conditions and ensure we can remove their mindslave status even when they're deleted or gibbed.
 	var/mindslave_UID
 
-
 /obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
 	// Check `implanted` here so you can't just keep taking it out and putting it back into other people.
 	if(implanted == BIOCHIP_USED || !ishuman(mindslave_target) || !ishuman(user)) // Both the target and the user need to be human.
@@ -43,17 +42,14 @@
 	log_admin("[key_name_admin(user)] has mind-slaved [key_name_admin(mindslave_target)].")
 	return ..()
 
-
 /obj/item/implant/traitor/removed(mob/target)
 	. = ..()
 	var/datum/mind/the_slave = locateUID(mindslave_UID)
 	the_slave?.remove_antag_datum(/datum/antagonist/mindslave)
 
-
 /obj/item/implanter/traitor
 	name = "bio-chip implanter (Mindslave)"
 	imp = /obj/item/implant/traitor
-
 
 /obj/item/implantcase/traitor
 	name = "bio-chip case - 'Mindslave'"

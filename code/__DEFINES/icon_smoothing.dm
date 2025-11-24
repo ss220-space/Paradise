@@ -21,14 +21,13 @@
 /// Has a smooth burnt sprite, used to decide whether to apply an offset to the burnt overlay or not. For /turf/open only.
 #define SMOOTH_BURNT_TURF (1<<8)
 
-#define SMOOTH_FALSE	(1 << 9) //not smooth
+#define SMOOTH_FALSE (1 << 9) //not smooth
 
-#define SMOOTH_TRUE		(1 << 10) //smooths with exact specified types or just itself
+#define SMOOTH_TRUE (1 << 10) //smooths with exact specified types or just itself
 
-#define SMOOTH_MORE		(1 << 11) //smooths with all subtypes of specified types or just itself (this value can replace SMOOTH_TRUE)
+#define SMOOTH_MORE (1 << 11) //smooths with all subtypes of specified types or just itself (this value can replace SMOOTH_TRUE)
 
-#define SMOOTH_DIAGONAL	(1 << 12) //if atom should smooth diagonally, this should be present in 'smooth' var
-
+#define SMOOTH_DIAGONAL (1 << 12) //if atom should smooth diagonally, this should be present in 'smooth' var
 
 /// Components of a smoothing junction
 /// Redefinitions of the diagonal directions so they can be stored in one var without conflicts
@@ -148,7 +147,6 @@
 #define SMOOTH_GROUP_PLASTINUM_WALLS S_OBJ(18) //![turf/closed/indestructible/riveted/plastinum]
 #define SMOOTH_GROUP_HIERO_FLOOR S_OBJ(19)
 #define SMOOTH_GROUP_HIERO_VORTEX S_OBJ(20)
-
 
 #define SMOOTH_GROUP_PAPERFRAME S_OBJ(21) ///obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe
 

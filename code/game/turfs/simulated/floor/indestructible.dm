@@ -22,10 +22,8 @@
 /turf/simulated/floor/indestructible/burn_down()
 	return
 
-
 /turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/indestructible/attack_hand(mob/user)
 	return
@@ -198,7 +196,6 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 
-
 /turf/simulated/floor/indestructible/beach/sand/Initialize(mapload)
 	. = ..()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
@@ -297,7 +294,6 @@
 	density = TRUE
 	opacity = TRUE
 	explosion_block = 2
-
 
 /obj/effect/beach_water_overlay
 	name = "Water overlay that you shouldn't see"

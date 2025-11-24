@@ -21,11 +21,11 @@
 /datum/game_mode/abduction/pre_setup()
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
 
-	if(!possible_abductors.len)
+	if(!length(possible_abductors))
 		return 0
 
 	abductor_teams = max(1, min(max_teams,round(num_players()/15)))
-	var/possible_teams = max(1,round(possible_abductors.len / 2))
+	var/possible_teams = max(1,round(length(possible_abductors) / 2))
 	abductor_teams = min(abductor_teams,possible_teams)
 
 	abductors.len = 2*abductor_teams
@@ -50,7 +50,7 @@
 	//Team Members
 
 	if(!preset_agent || !preset_scientist)
-		if(possible_abductors.len <=2)
+		if(length(possible_abductors) <=2)
 			return 0
 
 	var/datum/mind/scientist
@@ -67,7 +67,6 @@
 		possible_abductors -= agent
 	else
 		agent = preset_agent
-
 
 	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
@@ -225,11 +224,11 @@
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships
 /obj/effect/landmark/abductor
+	icon_state = "abductor_agent"
 	var/team = 1
 
 /obj/effect/landmark/abductor/agent
 /obj/effect/landmark/abductor/scientist
-
 
 // OBJECTIVES
 /datum/objective/experiment
@@ -249,7 +248,6 @@
 /datum/objective/experiment/New()
 	explanation_text = "Проведите эксперимент на [target_amount] гуманоид[declension_ru(target_amount, "е", "ах", "ах")]."
 
-
 /datum/objective/experiment/check_completion()
 	var/ab_team = abductor_team_number
 	for(var/datum/mind/player in get_owners())
@@ -268,7 +266,6 @@
 				return FALSE
 
 	return FALSE
-
 
 /datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
 	if(abductor_mind in abductors)

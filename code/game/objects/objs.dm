@@ -38,6 +38,10 @@
 	var/list/req_access
 	var/check_one_access = TRUE
 
+	/// Icon to use as a 32x32 preview in crafting menus and such
+	var/icon_preview
+	var/icon_state_preview
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -170,7 +174,6 @@
 		if(!ai_in_use && !is_in_use)
 			in_use = FALSE
 
-
 /**
  * Hidden uplink interaction proc. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
  *
@@ -213,7 +216,7 @@
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	add_fingerprint(user)
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, span_notice("[src] does not need repairs."))
 		return
 	if(I.tool_behaviour != TOOL_WELDER)
 		return
@@ -230,16 +233,16 @@
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	add_fingerprint(user)
 	if(!anchored && !isfloorturf(loc))
-		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+		user.visible_message(span_warning("A floor must be present to secure [src]!"))
 		return FALSE
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	if(!(obj_flags & NODECONSTRUCT))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
+		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
+			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
 			set_anchored(!anchored)
 		return TRUE
 	return FALSE
@@ -305,7 +308,6 @@
 	if(!sharp && new_sharp_val)
 		AddComponent(/datum/component/surgery_initiator)
 
-
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
@@ -326,7 +328,6 @@
 
 	return locate(/obj) in A
 
-
 #define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
 
 /obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
@@ -335,12 +336,12 @@
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
-	C.Weaken(3 SECONDS)
+	C.Knockdown(3 SECONDS)
 
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER

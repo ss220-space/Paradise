@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	GLOB.send_emergency_team = TRUE
 	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Присоединиться к Отряду Быстрого Реагирования?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
-	if(!ert_candidates.len)
+	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
 
-	if(!GLOB.response_team_members.len)
+	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -93,8 +93,8 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /proc/dispatch_response_team(list/response_team_members, list/ert_prefs)
 	var/spawn_index = 1
 
-	while(spawn_index <= GLOB.emergencyresponseteamspawn.len)
-		if(!ert_prefs.len)
+	while(spawn_index <= length(GLOB.emergencyresponseteamspawn))
+		if(!length(ert_prefs))
 			break
 		var/mob/user = pick(ert_prefs)
 		if(!GLOB.active_team.get_slot_list().len)
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 				if(!user || !new_commando)
 					break
 				new_commando.mind.key = user.key
-				new_commando.key = user.key
+				new_commando.possess_by_player(user.ckey)
 				new_commando.update_icons()
 				new_commando.change_voice()
 				break
@@ -183,7 +183,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.update_dna()
 
 	return M
-
 
 /datum/response_team
 	var/list/slots = list(
@@ -256,15 +255,17 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
 		return
-	GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
-									ANNOUNCE_ERT_UNAVAIL_RU
+	GLOB.major_announcement.announce(
+		message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
+		new_title = ANNOUNCE_ERT_UNAVAIL_RU
 	)
 
 /datum/response_team/proc/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: AMBER TEAM
@@ -279,8 +280,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/amber/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: RED TEAM
@@ -296,8 +298,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/red/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: GAMMA TEAM
@@ -313,8 +316,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/gamma/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /datum/outfit/job/centcom/response_team
@@ -322,18 +326,20 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/rt_assignment = "Emergency Response Team Member"
 	var/rt_job = "This is a bug"
 	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
-	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира - в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
+	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира — в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
 	var/hours_dif = 0 // Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
 	var/exp_type = FALSE
-	var/list/ranks = list("Min" = "Рядовой",
-				"Med" = "Младший капрал",
-				"Max" = "Капрал")
+	var/list/ranks = list(
+		"Min" = "Рядовой",
+		"Med" = "Младший капрал",
+		"Max" = "Капрал"
+	)
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/responseteam
 
 	implants = list(/obj/item/implant/mindshield/ert)
 
@@ -350,15 +356,15 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(exp_type) // If the ERT have special exp type: EXP_TYPE_COMMAND for Leaders, EXP_TYPE_MEDICAL for medics, etc
 			hours -= text2num(all_hours[exp_type])
 			hours += text2num(all_hours[exp_type]) * 2
-		hours *= rand(0.8, 1.2)
+		hours *= randfloat(0.8, 1.2)
 		if((hours - hours_dif) <= MEDIUM_RANK_HOURS)
-			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 		else if((hours - hours_dif) < MAX_RANK_HOURS)
-			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 		else
-			H.rename_character(null, "[ranks["Max"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+			H.rename_character(null, "[ranks["Max"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 	else
-		H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+		H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 
 #undef MEDIUM_RANK_HOURS
 #undef MAX_RANK_HOURS
@@ -369,6 +375,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
-	frequency = ERT_FREQ
 	icon_state = "radio"
 	freqlock = TRUE
+
+/obj/item/radio/centcom/Initialize(mapload)
+	. = ..()
+	set_frequency(ERT_FREQ)

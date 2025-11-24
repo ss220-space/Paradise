@@ -41,7 +41,6 @@
 	players = temp_players
 	return TRUE
 
-
 /datum/game_mode/de_kerberos_2/post_setup()
 	for(var/datum/team/battle_team/team as anything in list(/datum/team/battle_team/green, /datum/team/battle_team/blue, /datum/team/battle_team/red))\
 		teams[team.team_role] = new team
@@ -93,7 +92,7 @@
 /datum/game_mode/de_kerberos_2/late_join(mob/new_player/player)
 	var/min_count = INFINITY
 	var/datum/team/team = null
-	for(var/possible_team_name as anything in teams)
+	for(var/possible_team_name in teams)
 		var/datum/team/possible_team = teams[possible_team_name]
 		var/team_len = LAZYLEN(possible_team.members)
 		if(team_len >= min_count)

@@ -10,7 +10,7 @@
 
 /obj/item/extraction_pack/contractor
 	name = "black fulton extraction pack"
-	desc = "Модифицированный Фултон, который можно использовать в помещении благодаря блюспейс-технологиям. Пользуется спросом у Контрактников Синдиката."
+	desc = "Модифицированный Фултон, который можно использовать в помещении благодаря блюспейс-технологиям. Пользуется спросом у Контрактников \"Синдиката\"."
 	icon_state = "black"
 	can_use_indoors = TRUE
 
@@ -21,7 +21,7 @@
 		DATIVE = "системе эвакуации \"Фултон\"",
 		ACCUSATIVE = "систему эвакуации \"Фултон\"",
 		INSTRUMENTAL = "системой эвакуации \"Фултон\"",
-		PREPOSITIONAL = "системе эвакуации \"Фултон\""
+		PREPOSITIONAL = "системе эвакуации \"Фултон\"",
 	)
 
 /obj/item/storage/box/contractor/fulton_kit
@@ -36,7 +36,7 @@
 		DATIVE = "набору для эвакуации Фултон",
 		ACCUSATIVE = "набор для эвакуации Фултон",
 		INSTRUMENTAL = "набором для эвакуации Фултон",
-		PREPOSITIONAL = "наборе для эвакуации Фултон"
+		PREPOSITIONAL = "наборе для эвакуации Фултон",
 	)
 
 /obj/item/storage/box/contractor/fulton_kit/populate_contents()

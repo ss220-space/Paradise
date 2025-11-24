@@ -40,7 +40,6 @@
 
 /datum/component/codeword_hearing/Destroy(force)
 	replace_regex = null
-
 	return ..()
 
 /datum/component/codeword_hearing/proc/handle_hearing(mob/source, message)

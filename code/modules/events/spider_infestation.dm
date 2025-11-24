@@ -12,9 +12,10 @@ GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 
 /datum/event/spider_infestation/announce(false_alarm)
 	if(successSpawn || false_alarm)
-		GLOB.minor_announcement.announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
-										ANNOUNCE_UNID_LIFEFORMS_RU,
-										'sound/AI/aliens.ogg'
+		GLOB.minor_announcement.announce(
+			message = "Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
+			new_title = ANNOUNCE_UNID_LIFEFORMS_RU,
+			new_sound = 'sound/AI/aliens.ogg'
 		)
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Spider Infestation")

@@ -417,7 +417,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("glowstick box", /obj/item/storage/fancy/glowsticks_box/empty, 2),
 ))
 
-
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		add_fingerprint(user)
@@ -432,7 +431,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
 	name = "cardboard"
@@ -625,7 +623,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
 	energy_type = /datum/robot_energy_storage/brass
 
-
 /obj/item/stack/sheet/brass_fake
 	name = "brass"
 	desc = "Specially hand-crafted sheets of brass. These ones look tarnished. "
@@ -677,7 +674,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		DATIVE = "костям",
 		ACCUSATIVE = "кости",
 		INSTRUMENTAL = "костями",
-		PREPOSITIONAL = "костях"
+		PREPOSITIONAL = "костях",
 	)
 
 /obj/item/stack/sheet/razor_sharp_teeth
@@ -701,7 +698,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		DATIVE = "бритвенно-острым зубам",
 		ACCUSATIVE = "бритвенно-острые зубы",
 		INSTRUMENTAL = "бритвенно-острыми зубами",
-		PREPOSITIONAL = "бритвенно-острых зубах"
+		PREPOSITIONAL = "бритвенно-острых зубах",
 	)
 
 /*
@@ -807,7 +804,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 GLOBAL_LIST_INIT(bamboo_recipes, list(
 	new /datum/stack_recipe("Bamboo spear", /obj/item/twohanded/bamboospear, 25, time = 9 SECONDS),
-	new /datum/stack_recipe("Blow gun", /obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS SECONDS),
+	new /datum/stack_recipe("Blow gun", /obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS),
 	new /datum/stack_recipe("Punji sticks trap", /obj/structure/punji_sticks, 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
@@ -827,7 +824,6 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 /obj/item/stack/sheet/bamboo/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.bamboo_recipes
-
 
 /*
  * Cheese

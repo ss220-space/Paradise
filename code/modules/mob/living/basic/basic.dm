@@ -21,7 +21,6 @@
 	///Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 
-
 	///How much wounding power it has
 	// var/wound_bonus = CANT_WOUND
 	///How much bare wounding power it has
@@ -193,5 +192,5 @@
 /mob/living/basic/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += span_deadsay("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
+		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] мёртв[GEND_YM_OI_YM_YMI(user)].")
 		return

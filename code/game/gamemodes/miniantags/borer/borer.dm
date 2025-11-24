@@ -147,9 +147,8 @@
 		DATIVE = "мозговому червю",
 		ACCUSATIVE = "мозгового червя",
 		INSTRUMENTAL = "мозговым червём",
-		PREPOSITIONAL = "мозговом черве"
+		PREPOSITIONAL = "мозговом черве",
 	)
-
 
 /mob/living/simple_animal/borer/New(atom/newloc, gen=1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
@@ -159,7 +158,7 @@
 	add_language(LANGUAGE_HIVE_BORER)
 	notify_ghosts("Мозговой червь появился в [get_area(src)]!", enter_link = "<a href=byond://?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	real_name = "Мозговой червь [rand(1000,9999)]"
-	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
+	truename = "[borer_names[min(generation, length(borer_names))]] [rand(1000,9999)]"
 	GrantBorerActions()
 
 /mob/living/simple_animal/borer/death(gibbed)
@@ -212,7 +211,6 @@
 	status_tab_data[++status_tab_data.len] = list("Rank", antag_datum.borer_rank?.rankname)
 	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
 
-
 /mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	var/list/message_pieces = parse_languages(message)
 
@@ -222,7 +220,6 @@
 			return
 
 	return ..()
-
 
 /mob/living/simple_animal/borer/proc/Communicate(sended_message)
 	if(!host)
@@ -630,7 +627,7 @@
 		qdel(host_brain)
 		host_brain = new(src)
 
-		host_brain.ckey = host.ckey
+		host_brain.possess_by_player(host.ckey)
 
 		host_brain.name = host.name
 
@@ -646,7 +643,7 @@
 		src.computer_id = null
 		src.lastKnownIP = null
 
-		host.ckey = src.ckey
+		host.possess_by_player(ckey)
 
 		if(!host.computer_id)
 			host.computer_id = s2h_id
@@ -663,7 +660,7 @@
 		host.med_hud_set_status()
 
 		if(src && !src.key)
-			src.key = "@[borer_key]"
+			src.possess_by_player("@[borer_key]")
 
 		return
 
@@ -681,18 +678,18 @@
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
-	return FALSE
+	return
 
 /mob/living/carbon/has_brain_worms()
 	if(borer)
 		return borer
 
-	return FALSE
+	return
 
 /mob/living/carbon/proc/BorerControlling()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(borer && borer.controlling)
+	if(borer?.controlling)
 		return TRUE
 
 	return FALSE
@@ -772,7 +769,6 @@
 
 	return
 
-
 /mob/living/simple_animal/borer/proc/transfer_personality(client/candidate)
 	if(QDELETED(candidate) || QDELETED(candidate.mob))
 		return
@@ -780,7 +776,7 @@
 	var/datum/mind/mind = create_borer_mind(candidate.ckey)
 	mind.transfer_to(src)
 	candidate.mob = src
-	ckey = candidate.ckey
+	possess_by_player(candidate.ckey)
 	mind.add_antag_datum(antag_datum)
 
 	GrantBorerSpells()
@@ -840,8 +836,8 @@
 
 /mob/living/carbon/human/proc/get_real_mind()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	return (borer && borer.controlling) ? borer.host_brain.mind : mind
+	return (borer?.controlling) ? borer.host_brain.mind : mind
 
 /mob/living/carbon/human/proc/get_real_ckey()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	return (borer && borer.controlling) ? borer.host_brain.ckey : ckey
+	return (borer?.controlling) ? borer.host_brain.ckey : ckey

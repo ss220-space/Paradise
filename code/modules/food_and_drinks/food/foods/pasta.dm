@@ -25,7 +25,6 @@
 	tastes = list("raw pasta" = 1)
 	foodtype = GRAIN
 
-
 //////////////////////
 //	Pasta Dishes	//
 //////////////////////
@@ -77,7 +76,6 @@
 	list_reagents = list("nutriment" = 8, "synaptizine" = 10, "vitamin" = 6)
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 2)
 	foodtype = GRAIN | MEAT
-
 
 /obj/item/reagent_containers/food/snacks/macncheese
 	name = "mac 'n' cheese"

@@ -37,7 +37,7 @@
 		DATIVE = "артистическому ящику для инструментов",
 		ACCUSATIVE = "артистический ящик для инструментов",
 		INSTRUMENTAL = "артистическим ящиком для инструментов",
-		PREPOSITIONAL = "артистическом ящике для инструментов"
+		PREPOSITIONAL = "артистическом ящике для инструментов",
 	)
 
 /obj/item/his_grace/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -155,7 +155,7 @@
 	if(awakened)
 		return
 	user.forceMove(get_turf(src))
-	user.visible_message(span_warning("[user] выкарабкива[pluralize_ru(user.gender,"ет","ют")]ся из [declent_ru(GENITIVE)]!"), span_notice("Вы выбираетесь из [declent_ru(GENITIVE)]!"))
+	user.visible_message(span_warning("[user] выкарабкива[PLUR_ET_YUT(user)]ся из [declent_ru(GENITIVE)]!"), span_notice("Вы выбираетесь из [declent_ru(GENITIVE)]!"))
 
 /obj/item/his_grace/process(seconds_per_tick)
 	if(!bloodthirst)
@@ -238,7 +238,7 @@
 
 	var/datum/mind/mind = meal.mind
 	if(!mind || mind.madeby_sentience_potion)
-		meal.visible_message(span_his_grace("[capitalize(declent_ru(NOMINATIVE))] не получа[pluralize_ru(gender, "ет", "ют")] насыщения от подобной пищи. [capitalize(declent_ru(NOMINATIVE))] недоволен!"))
+		meal.visible_message(span_his_grace("[capitalize(declent_ru(NOMINATIVE))] не получа[PLUR_ET_YUT(src)] насыщения от подобной пищи. [capitalize(declent_ru(NOMINATIVE))] недоволен!"))
 		meal.forceMove(src)
 		return
 
@@ -349,11 +349,11 @@
 	playsound(src, 'sound/effects/his_grace/his_grace_ascend.ogg', 100)
 	if(!istype(master))
 		return
+	master.client?.give_award(/datum/award/achievement/misc/ascension, master)
 	if(master.is_in_hands(src))
 		master.update_held_items()
 	master.visible_message(span_his_grace("[span_big("Боги заинтересовались тобой.")]"))
 	SEND_SIGNAL(master, COMSIG_MOB_HALO_GAINED)
-
 
 //for thunderdome
 /obj/item/his_grace/no_sound
@@ -370,7 +370,6 @@
 	move_gracefully()
 	init_new_tier(HIS_GRACE_AWAKENED)
 	user.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["his_grace"], GLOB.halo_callbacks["his_grace"])
-
 
 /proc/is_grace_ascended(mob/living/carbon/human/user)
 	if(!istype(user))

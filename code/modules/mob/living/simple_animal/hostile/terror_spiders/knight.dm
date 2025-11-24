@@ -28,7 +28,7 @@
 	spider_opens_doors = 2
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	web_type = /obj/structure/spider/terrorweb/knight
-	spider_intro_text = "Будучи Рыцарем Ужаса, ваша задача - создавать места для прорыва, или же оборонять гнездо. Несмотря на медлительность, вы живучи и опасны вблизи, используйте свою силу и выносливость, чтобы другие пауки могли выполнять свои функции! Ваши способности позволяют вам переключаться между режимом атаки и обороны, первый - увеличивает скорость, а также наносимый и получаемый урон, второй - уменьшает скорость, получаемый и наносимый урон."
+	spider_intro_text = "Будучи Рыцарем Ужаса, ваша задача — создавать места для прорыва, или же оборонять гнездо. Несмотря на медлительность, вы живучи и опасны вблизи, используйте свою силу и выносливость, чтобы другие пауки могли выполнять свои функции! Ваши способности позволяют вам переключаться между режимом атаки и обороны, первый — увеличивает скорость, а также наносимый и получаемый урон, второй — уменьшает скорость, получаемый и наносимый урон."
 	tts_seed = "Chu"
 	var/last_attack_mode = 0
 	var/last_defence_mode = 0
@@ -71,8 +71,8 @@
 			if(world.time > (last_defence_mode + mode_cooldown))
 				defence_mode_av = 1
 
-//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you recieve.
-//Third - defence, grants even slower movement speed then default, but you recieve much less damage.
+//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you receive.
+//Third - defence, grants even slower movement speed then default, but you receive much less damage.
 //Both attack and defence mod lasts for 10 seconds and has a cd of 30. When you are out of non default modes your mode is set to default.
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/proc/activate_mode(n)
 	var/t = world.time

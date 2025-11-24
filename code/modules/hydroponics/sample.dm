@@ -35,7 +35,6 @@ GLOBAL_LIST_INIT(chem_t4_reagents, list(
 		I.color = sample_color
 		add_overlay(I)
 
-
 /obj/item/seeds/sample/get_analyzer_text()
 	return " The DNA of this sample is damaged beyond recovery, it can't support life on it's own."
 /obj/item/seeds/sample/alienweed

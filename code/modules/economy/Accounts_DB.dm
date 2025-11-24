@@ -41,7 +41,6 @@ GLOBAL_VAR(current_date_string)
 		<hr>
 	"}
 
-
 /obj/machinery/computer/account_database/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -52,12 +51,11 @@ GLOBAL_VAR(current_date_string)
 
 	return ..()
 
-
 /obj/machinery/computer/account_database/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	if(issilicon(user))
-		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции Нанотрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции \"Нанотрейзен\" №1023 вмешательство синтетических форм жизни в финансовые операции объекта запрещено."))
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -107,7 +105,6 @@ GLOBAL_VAR(current_date_string)
 				data["transactions"] = transactions
 	return data
 
-
 /obj/machinery/computer/account_database/ui_act(action, list/params)
 	if(..())
 		return
@@ -155,7 +152,6 @@ GLOBAL_VAR(current_date_string)
 
 			current_page = AUT_ACCLST
 
-
 		if("print_records")
 			// Anti spam measures
 			if(next_print > world.time)
@@ -197,7 +193,7 @@ GLOBAL_VAR(current_date_string)
 			"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] prints out a report.</span>")
+			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 
 		if("print_account_details")
@@ -215,7 +211,7 @@ GLOBAL_VAR(current_date_string)
 				<u>Holder:</u> [detailed_account_view.owner_name]<br>
 				<u>Balance:</u> $[detailed_account_view.money]<br>
 				<u>Status:</u> [detailed_account_view.suspended ? "Suspended" : "Active"]<br>
-				<u>Transactions:</u> ([detailed_account_view.transaction_log.len])<br>
+				<u>Transactions:</u> ([length(detailed_account_view.transaction_log)])<br>
 				<table>
 					<thead>
 						<tr>
@@ -246,7 +242,7 @@ GLOBAL_VAR(current_date_string)
 				"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] prints out a report.</span>")
+			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 
 #undef AUT_ACCLST

@@ -15,7 +15,7 @@
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
+	. += span_notice("[length(rockets)] / [max_rockets] rockets.")
 
 /obj/item/gun/rocketlauncher/Destroy()
 	QDEL_LIST(rockets)
@@ -27,7 +27,6 @@
 
 /obj/item/gun/throw/update_overlays()
 	return list()
-
 
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
@@ -43,12 +42,11 @@
 
 	return ..()
 
-
 /obj/item/gun/rocketlauncher/can_shoot(mob/user)
 	return rockets.len
 
 /obj/item/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
-	if(rockets.len)
+	if(length(rockets))
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)
 		playsound(user.loc, 'sound/weapons/gunshots/1launcher.ogg', 70, TRUE)
@@ -58,4 +56,4 @@
 		rockets -= I
 		qdel(I)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, span_warning("[src] is empty."))

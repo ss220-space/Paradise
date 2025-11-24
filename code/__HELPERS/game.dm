@@ -10,7 +10,6 @@
 #define MANUAL_PICK_TITLE "Активные игроки"
 #define VETO_PICK_TITLE "Кандидаты"
 
-
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -23,89 +22,6 @@
 		return null
 	return format_text ? format_text(A.name) : A.name
 
-/proc/get_areas_in_range(dist=0, atom/center=usr)
-	if(!dist)
-		var/turf/T = get_turf(center)
-		return T ? list(T.loc) : list()
-	if(!center)
-		return list()
-
-	var/list/turfs = RANGE_TURFS(dist, center)
-	var/list/areas = list()
-	for(var/V in turfs)
-		var/turf/T = V
-		areas |= T.loc
-	return areas
-
-/proc/get_open_turf_in_dir(atom/center, dir)
-	var/turf/T = get_step(center, dir)
-	if(T && !T.density)
-		return T
-
-/proc/get_adjacent_open_turfs(atom/center)
-	var/list/hand_back = list()
-	// Inlined get_open_turf_in_dir, just to be fast
-	var/turf/new_turf = get_step(center, NORTH)
-	if(new_turf && !new_turf.density)
-		hand_back += new_turf
-	new_turf = get_step(center, SOUTH)
-	if(new_turf && !new_turf.density)
-		hand_back += new_turf
-	new_turf = get_step(center, EAST)
-	if(new_turf && !new_turf.density)
-		hand_back += new_turf
-	new_turf = get_step(center, WEST)
-	if(new_turf && !new_turf.density)
-		hand_back += new_turf
-	return hand_back
-
-/proc/get_adjacent_open_areas(atom/center)
-	. = list()
-	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
-	for(var/I in adjacent_turfs)
-		. |= get_area(I)
-
-// Like view but bypasses luminosity check
-
-/proc/hear(range, atom/source)
-	var/lum = source.luminosity
-	source.luminosity = 6
-
-	var/list/heard = view(range, source)
-	source.luminosity = lum
-
-	return heard
-
-/proc/circlerange(center=usr,radius=3)
-
-	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
-	var/rsq = radius * (radius+0.5)
-
-	for(var/atom/T in range(radius, centerturf))
-		var/dx = T.x - centerturf.x
-		var/dy = T.y - centerturf.y
-		if(dx*dx + dy*dy <= rsq)
-			turfs += T
-
-	//turfs += centerturf
-	return turfs
-
-/proc/circleview(center=usr,radius=3)
-
-	var/turf/centerturf = get_turf(center)
-	var/list/atoms = new/list()
-	var/rsq = radius * (radius+0.5)
-
-	for(var/atom/A in view(radius, centerturf))
-		var/dx = A.x - centerturf.x
-		var/dy = A.y - centerturf.y
-		if(dx*dx + dy*dy <= rsq)
-			atoms += A
-
-	//turfs += centerturf
-	return atoms
-
 /proc/ff_cansee(atom/A, atom/B)
 	var/AT = get_turf(A)
 	var/BT = get_turf(B)
@@ -117,44 +33,6 @@
 		if(T.density)
 			return FALSE
 	return TRUE
-
-
-///Returns the distance between two atoms
-/proc/get_dist_euclidean(atom/first_location, atom/second_location)
-	var/dx = first_location.x - second_location.x
-	var/dy = first_location.y - second_location.y
-
-	var/dist = sqrt(dx ** 2 + dy ** 2)
-
-	return dist
-
-
-/proc/circlerangeturfs(center=usr,radius=3)
-
-	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
-	var/rsq = radius * (radius+0.5)
-
-	for(var/turf/T in range(radius, centerturf))
-		var/dx = T.x - centerturf.x
-		var/dy = T.y - centerturf.y
-		if(dx*dx + dy*dy <= rsq)
-			turfs += T
-	return turfs
-
-/proc/circleviewturfs(center=usr,radius=3)		//Is there even a diffrence between this proc and circlerangeturfs()?
-
-	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
-	var/rsq = radius * (radius+0.5)
-
-	for(var/turf/T in view(radius, centerturf))
-		var/dx = T.x - centerturf.x
-		var/dy = T.y - centerturf.y
-		if(dx*dx + dy*dy <= rsq)
-			turfs += T
-	return turfs
-
 
 /// Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
 /// It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
@@ -170,12 +48,12 @@
 			if(isnull(mob.client) && !include_clientless)
 				output |= recursive_mob_check(mob, output, recursion_limit - 1, include_clientless, include_radio, sight_check)
 				continue
-			if(sight_check && !isInSight(mob, check))
+			if(sight_check && !is_in_sight(mob, check))
 				continue
 			output |= mob
 
 		else if(include_radio && isradio(thing))
-			if(sight_check && !isInSight(thing, check))
+			if(sight_check && !is_in_sight(thing, check))
 				continue
 			output |= thing
 
@@ -183,7 +61,6 @@
 			output |= recursive_mob_check(thing, output, recursion_limit - 1, include_clientless, include_radio, sight_check)
 
 	return output
-
 
 /// The old system would loop through lists for a total of 5000 per function call, in an empty server.
 /// This new system will loop at around 1000 in an empty server.
@@ -195,7 +72,7 @@
 	if(!source_turf)
 		return .
 
-	for(var/thing in hear(range, source_turf))
+	for(var/thing in get_hear(range, source_turf))
 		var/is_mob = ismob(thing)
 		if(is_mob)
 			var/mob/mob = thing
@@ -206,93 +83,6 @@
 
 		if(is_mob || isobj(thing))
 			. |= recursive_mob_check(thing, ., 3, include_clientless, include_radio, FALSE)
-
-
-/proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
-	. = list()
-	// Returns a list of mobs who can hear any of the radios given in @radios
-	var/list/speaker_coverage = list()
-	for(var/obj/item/radio/R in radios)
-		if(R)
-			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
-			var/obj/item/radio/borg/BR = R
-			if(istype(BR) && BR.myborg)
-				var/mob/living/silicon/robot/borg = BR.myborg
-				var/datum/robot_component/CO = borg.get_component("radio")
-				if(!CO)
-					continue //No radio component (Shouldn't happen)
-				if(!borg.is_component_functioning("radio"))
-					continue //No power.
-
-			var/turf/speaker = get_turf(R)
-			if(speaker)
-				for(var/turf/T in hear(R.canhear_range,speaker))
-					speaker_coverage[T] = T
-
-
-	// Try to find all the players who can hear the message
-	for(var/A in GLOB.player_list + GLOB.hear_radio_list)
-		var/mob/M = A
-		if(M)
-			var/turf/ear = get_turf(M)
-			if(ear)
-				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
-					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
-	return .
-
-//Used when converting pixels to tiles to make them accurate
-#define OFFSET_X (0.5 / ICON_SIZE_X)
-#define OFFSET_Y (0.5 / ICON_SIZE_Y)
-
-///Calculate if two atoms are in sight, returns TRUE or FALSE
-/proc/inLineOfSight(X1, Y1, X2, Y2, Z = 1, PX1 = 16.5, PY1 = 16.5, PX2 = 16.5, PY2 = 16.5)
-	var/turf/current_turf
-	if(X1 == X2)
-		if(Y1 == Y2)
-			return TRUE //Light cannot be blocked on same tile
-		else
-			var/sign = SIGN(Y2-Y1)
-			Y1 += sign
-			while(Y1 != Y2)
-				current_turf = locate(X1, Y1, Z)
-				if(IS_OPAQUE_TURF(current_turf))
-					return FALSE
-				Y1 += sign
-	else
-		//This looks scary but we're just calculating a linear function (y = mx + b)
-
-		//m = y/x
-		var/m = (ICON_SIZE_Y*(Y2-Y1) + (PY2-PY1)) / (ICON_SIZE_X*(X2-X1) + (PX2-PX1))//In pixels
-
-		//b = y - mx
-		var/b = (Y1 + PY1/ICON_SIZE_Y - OFFSET_Y) - m*(X1 + PX1/ICON_SIZE_X - OFFSET_X)//In tiles
-
-		var/signX = SIGN(X2-X1)
-		var/signY = SIGN(Y2-Y1)
-		if(X1 < X2)
-			b += m
-		while(X1 != X2 || Y1 != Y2)
-			if(round(m*X1 + b - Y1)) // Basically, if y >= mx+b
-				Y1 += signY //Line exits tile vertically
-			else
-				X1 += signX //Line exits tile horizontally
-			current_turf = locate(X1, Y1, Z)
-			if(IS_OPAQUE_TURF(current_turf))
-				return FALSE
-	return TRUE
-
-#undef OFFSET_X
-#undef OFFSET_Y
-
-/proc/isInSight(atom/A, atom/B)
-	var/turf/Aturf = get_turf(A)
-	var/turf/Bturf = get_turf(B)
-
-	if(!Aturf || !Bturf)
-		return FALSE
-
-	return inLineOfSight(Aturf.x, Aturf.y, Bturf.x, Bturf.y, Aturf.z)
 
 /proc/get_cardinal_step_away(atom/start, atom/finish) //returns the position of a step from start away from finish, in one of the cardinal directions
 	//returns only NORTH, SOUTH, EAST, or WEST
@@ -324,7 +114,7 @@
 /proc/get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -339,7 +129,7 @@
 /proc/get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -368,7 +158,6 @@
 		spawn(delay)
 			for(var/client/C in group)
 				C.screen -= O
-
 
 /// Adds an image to a client's `.images`. Useful as a callback.
 /proc/add_image_to_client(image/image_to_remove, client/add_to)
@@ -445,9 +234,9 @@
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= GLOB.player_list.len; i++)
+	for(var/i = 1; i <= length(GLOB.player_list); i++)
 		var/mob/M = GLOB.player_list[i]
-		if(M && M.client)
+		if(M?.client)
 			if(isnewplayer(M)) // exclude people in the lobby
 				continue
 			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
@@ -494,7 +283,6 @@
 
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 
-
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	var/area/our_area = get_area(the_area)
@@ -505,17 +293,6 @@
 			continue
 		mobs_found += M
 	return mobs_found
-
-/proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
-	var/area/our_area = get_area(the_area)
-	for(var/C in GLOB.alive_mob_list)
-		if(!istype(C, check_type))
-			continue
-		if(C == must_be_alone)
-			continue
-		if(our_area == get_area(C))
-			return 0
-	return 1
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE
@@ -531,7 +308,7 @@
 /proc/pollCandidatesWithVeto(client/adminclient, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
 	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)
 	var/list/selected_ghosts = list()
-	if(!willing_ghosts.len)
+	if(!length(willing_ghosts))
 		return selected_ghosts
 
 	var/list/candidate_ghosts = willing_ghosts.Copy()
@@ -542,14 +319,13 @@
 			to_chat(adminclient, "- [G] ([G.key])");
 		else
 			candidate_ghosts -= G
-	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
+	for(var/i = max_slots, (i > 0 && length(candidate_ghosts)), i--)
 		var/this_ghost = tgui_input_list(adminclient, VETO_PICK_MESSAGE(i), VETO_PICK_TITLE, candidate_ghosts)
 		if(!this_ghost)
 			continue
 		candidate_ghosts -= this_ghost
 		selected_ghosts += this_ghost
 	return selected_ghosts
-
 
 /proc/pick_candidates_manually(client/admin_client, teamsize)
 	var/list/possible_ghosts = list()
@@ -558,7 +334,7 @@
 		if(!G.client.is_afk())
 			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 				possible_ghosts += G
-	for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every member selected.
+	for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every member selected.
 		var/candidate = tgui_input_list(admin_client, MANUAL_PICK_MESSAGE(i), MANUAL_PICK_TITLE, possible_ghosts) // auto-picks if only one candidate
 		if(candidate == null)
 			break;
@@ -568,11 +344,11 @@
 
 /proc/pick_candidates_all_types(client/admin_client, max_slot, question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
 	var/type = tgui_alert(admin_client,"Как вы хотите выбрать членов команды? \n \
-	Случайно - призраки получат предложение занять роль. \
+	Случайно — призраки получат предложение занять роль. \
 	После его окончания, среди них будет рандомно выбрано [max_slot] кандидатов \n \
-	С вето - призраки получат предложение занять роль.\
+	С вето — призраки получат предложение занять роль.\
 	После его окончания, вам необходимо среди них выбрать [max_slot] кандидатов \n \
-	Вручную - Вам необходимо выбрать [max_slot] кандидатов среди всех призраков. \
+	Вручную — Вам необходимо выбрать [max_slot] кандидатов среди всех призраков. \
 	(не рекомендуется, вы можете выбрать игрока на роль против его воли).",
 	"Выберите способ.", list("Случайно", "С вето", "Вручную"))
 	switch(type)
@@ -655,24 +431,3 @@
 		if(length(vent.parent.other_atmosmch) <= min_network_size)
 			continue
 		. += vent
-
-/**
- * Get a bounding box of a list of atoms.
- *
- * Arguments:
- * - atoms - List of atoms. Can accept output of view() and range() procs.
- *
- * Returns: list(x1, y1, x2, y2)
- */
-/proc/get_bbox_of_atoms(list/atoms)
-	var/list/list_x = list()
-	var/list/list_y = list()
-	for(var/_a in atoms)
-		var/atom/a = _a
-		list_x += a.x
-		list_y += a.y
-	return list(
-		min(list_x),
-		min(list_y),
-		max(list_x),
-		max(list_y))

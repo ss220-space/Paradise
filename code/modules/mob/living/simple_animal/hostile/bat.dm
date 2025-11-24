@@ -35,7 +35,6 @@
 	if(istype(L))
 		owner = L
 
-
 /mob/living/simple_animal/hostile/scarybat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/simple_flying)
@@ -62,8 +61,7 @@
 	if(istype(L))
 		if(prob(15))
 			L.Stun(2 SECONDS)
-			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
-
+			L.visible_message(span_danger("\the [src] scares \the [L]!"))
 
 /mob/living/simple_animal/hostile/scarybat/batswarm
 	name = "bat swarm"

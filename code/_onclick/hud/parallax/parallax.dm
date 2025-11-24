@@ -48,7 +48,6 @@
 		plane_master.color = initial(plane_master.color)
 	C.parallax_layers = null
 
-
 /datum/hud/proc/apply_parallax_pref(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
@@ -76,7 +75,6 @@
 
 		if(PARALLAX_DISABLE)
 			return FALSE
-
 
 /datum/hud/proc/update_parallax_pref(mob/viewmob)
 	var/mob/screen_mob = viewmob || mymob
@@ -146,7 +144,6 @@
 	var/scaled_time = (PARALLAX_LOOP_TIME / layer.speed) / 2
 	animate(layer, transform = new_transform, time = 0, loop = -1, flags = ANIMATION_END_NOW)
 	animate(transform = matrix(), time = scaled_time)
-
 
 /datum/hud/proc/update_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
@@ -224,11 +221,12 @@
 			animate(parallax_layer, pixel_w = round(parallax_layer.offset_x, 1), pixel_z = round(parallax_layer.offset_y, 1), time = glide_rate)
 
 /atom/movable/proc/update_parallax_contents()
-	if(length(client_mobs_in_contents))
-		for(var/thing in client_mobs_in_contents)
-			var/mob/M = thing
-			if(M && M.client && M.hud_used && length(M.client.parallax_layers))
-				M.hud_used.update_parallax()
+	if(!length(client_mobs_in_contents))
+		return
+
+	for(var/mob/client_mob as anything in client_mobs_in_contents)
+		if(length(client_mob?.client?.parallax_layers) && client_mob.hud_used)
+			client_mob.hud_used.update_parallax()
 
 // Root object for parallax, all parallax layers are drawn onto this
 INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_home)
@@ -251,7 +249,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	blend_mode = BLEND_ADD
 	plane = PLANE_SPACE_PARALLAX
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
 
 /atom/movable/screen/parallax_layer/Initialize(mapload, datum/hud/hud_owner, template = FALSE)
 	. = ..()

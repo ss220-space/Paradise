@@ -27,7 +27,6 @@
 	/// Type of mob to create
 	var/mob/living/zombie_type = /mob/living/simple_animal/hostile/blob_minion/zombie
 
-
 /mob/living/simple_animal/hostile/blob_minion/spore/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
@@ -125,7 +124,6 @@
 
 /mob/living/simple_animal/hostile/blob_minion/spore/minion/death_burst()
 	return // This behaviour is superceded by the overmind's intervention
-
 
 /// Weakened spore spawned by distributed neurons, can't zombify people and makes a teeny explosion
 /mob/living/simple_animal/hostile/blob_minion/spore/minion/weak

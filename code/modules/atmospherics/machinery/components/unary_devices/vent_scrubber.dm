@@ -89,7 +89,7 @@
 		amount = active_power_usage
 
 	if(widenet)
-		amount += amount*(adjacent_turfs.len*(adjacent_turfs.len/2))
+		amount += amount*(length(adjacent_turfs)*(length(adjacent_turfs)/2))
 	use_power(amount, power_channel)
 	return 1
 
@@ -115,7 +115,6 @@
 
 	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
 	update_pipe_image()
-
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
 	if(..())
@@ -350,7 +349,6 @@
 	id_tag = new_tag
 	broadcast_status()
 
-
 /obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
 	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
@@ -362,11 +360,9 @@
 	set_welded(FALSE)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
-
 
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE

@@ -19,18 +19,16 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi',
 	) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 
-
 /obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
-
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
@@ -39,15 +37,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += "<span class='notice'> [src] is empty.</span>"
+			. += span_notice(" [src] is empty.")
 		else if(space_used <= max_combined_w_class*0.6)
-			. += "<span class='notice'> [src] still has plenty of remaining space.</span>"
+			. += span_notice(" [src] still has plenty of remaining space.")
 		else if(space_used <= max_combined_w_class*0.8)
-			. += "<span class='notice'> [src] is beginning to run out of space.</span>"
+			. += span_notice(" [src] is beginning to run out of space.")
 		else if(space_used < max_combined_w_class)
-			. += "<span class='notice'> [src] doesn't have much space left.</span>"
+			. += span_notice(" [src] doesn't have much space left.")
 		else
-			. += "<span class='notice'> [src] is full.</span>"
+			. += span_notice(" [src] is full.")
 
 /*
  * Backpack Types
@@ -65,7 +63,6 @@
 	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
-
 
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/storage/backpack/holding))
@@ -112,7 +109,6 @@
 	add_game_logs("created singularity using two bag of holding!", user)
 	qdel(src)
 
-
 /obj/item/storage/backpack/holding/satchel
 	name = "Satchel of holding"
 	desc = "A satchel that opens into a localized pocket of Blue Space."
@@ -130,7 +126,6 @@
 	item_state = "giftbag"
 	max_combined_w_class = 400 // can store a ton of shit!
 
-
 /obj/item/storage/backpack/santabag/update_icon_state()
 	var/items_count = length(contents)
 	switch(items_count)
@@ -142,7 +137,6 @@
 			icon_state = "giftbag2"
 
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/storage/backpack/cultpack
 	name = "trophy rack"
@@ -302,41 +296,40 @@
 /obj/item/storage/backpack/justice/proc/turn_off()
 	soundloop.stop()
 
-
 /*
 *	Syndicate backpacks. Sprites by ElGood
 */
 /obj/item/storage/backpack/syndicate
-	name = "Рюкзак синдиката"
+	name = "Рюкзак \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных вещей. Не собственность НТ!"
 	icon_state = "syndi_backpack"
 	item_state = "syndi_backpack"
 
 /obj/item/storage/backpack/syndicate/science
-	name = "Рюкзак учёных синдиката"
+	name = "Рюкзак учёных \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных колбочек. Не собственность НТ!"
 	icon_state = "syndi_sci_backpack"
 	item_state = "syndi_sci_backpack"
 
 /obj/item/storage/backpack/syndicate/engineer
-	name = "Рюкзак инженеров синдиката"
+	name = "Рюкзак инженеров \"Синдиката\""
 	icon_state = "syndi_eng_backpack"
 	item_state = "syndi_eng_backpack"
 
 /obj/item/storage/backpack/syndicate/cargo
-	name = "Рюкзак грузчиков синдиката"
+	name = "Рюкзак грузчиков \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных грузов. Не собственность НТ!"
 	icon_state = "syndi_cargo_backpack"
 	item_state = "syndi_cargo_backpack"
 
 /obj/item/storage/backpack/syndicate/med
-	name = "Рюкзак медиков синдиката"
+	name = "Рюкзак медиков \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных лекарств. Не собственность НТ!"
 	icon_state = "syndi_med_backpack"
 	item_state = "syndi_med_backpack"
 
 /obj/item/storage/backpack/syndicate/command
-	name = "Рюкзак командования синдиката"
+	name = "Рюкзак командования \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для крайне подозрительных личностей. Не собственность НТ!"
 	icon_state = "syndi_com_backpack"
 	item_state = "syndi_com_backpack"
@@ -419,7 +412,6 @@
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
 
-
 /obj/item/storage/backpack/satchel_detective
 	name = "forensic satchel"
 	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
@@ -467,7 +459,6 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_worn_back()
-
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
 	new /obj/item/storage/wallet/random(src)
@@ -942,8 +933,8 @@ TODO Use this name and desc for localisation*/
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/back.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/back.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/back.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/back.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/back.dmi',
+	)
 	can_hold = list(/obj/item/instrument, /obj/item/gun)
 	cant_hold = list(/obj/item/instrument/accordion, /obj/item/instrument/harmonica)
 

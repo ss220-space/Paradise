@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				VV_RESTORE_DEFAULT
 				)
 
-		if(holder && holder.marked_datum && !(VV_MARKED_DATUM in restricted_classes))
+		if(holder?.marked_datum && !(VV_MARKED_DATUM in restricted_classes))
 			classes += "[VV_MARKED_DATUM] ([holder.marked_datum.type])"
 		if(restricted_classes)
 			classes -= restricted_classes
@@ -90,9 +90,8 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			classes += extra_classes
 
 		.["class"] = tgui_input_list(src, "Какой тип данных?", "Тип переменной", classes, default_class)
-		if(holder && holder.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
+		if(holder?.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
 			.["class"] = VV_MARKED_DATUM
-
 
 	switch(.["class"])
 		if(VV_TEXT)
@@ -105,7 +104,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(.["value"] == null)
 				.["class"] = null
 				return
-
 
 		if(VV_NUM)
 			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY, min_value = -INFINITY, round_value = FALSE)
@@ -160,7 +158,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(.["value"] == null)
 				.["class"] = null
 
-
 		if(VV_ATOM_REFERENCE)
 			var/type = pick_closest_path(FALSE)
 			var/subtypes = vv_subtype_prompt(type)
@@ -200,14 +197,11 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				return
 			.["value"] = things[value]
 
-
-
 		if(VV_CLIENT)
 			.["value"] =  tgui_input_list(src, "Выберите клитент:", "Клиент", GLOB.clients, current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
-
 
 		if(VV_FILE)
 			.["value"] = input(src, "Выберите файл:", "Файл") as null|file
@@ -215,13 +209,11 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 
-
 		if(VV_ICON)
 			.["value"] = input(src, "Выберите иконку:", "Иконка") as null|icon
 			if(.["value"] == null)
 				.["class"] = null
 				return
-
 
 		if(VV_MARKED_DATUM)
 			.["value"] = holder.marked_datum
@@ -240,11 +232,10 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
 
-			if(!arguments?.len)
+			if(!length(arguments))
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
-
 
 		if(VV_NEW_DATUM)
 			var/type = pick_closest_path(FALSE, get_fancy_list_of_datum_types())
@@ -257,7 +248,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый датум", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
 
-			if(!arguments?.len)
+			if(!length(arguments))
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
@@ -278,11 +269,10 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
 
-			if(!arguments?.len)
+			if(!length(arguments))
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
-
 
 		if(VV_NEW_LIST)
 			.["value"] = list()
@@ -302,9 +292,9 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(!ispath(type))
 		return
 	var/list/subtypes = subtypesof(type)
-	if(!subtypes || !subtypes.len)
+	if(!subtypes || !length(subtypes))
 		return FALSE
-	if(subtypes && subtypes.len)
+	if(subtypes && length(subtypes))
 		switch(tgui_alert(usr, "Strict object type detection?", "Type detection", list("Strictly this type", "This type and subtypes", "Cancel")))
 			if("Strictly this type")
 				return FALSE
@@ -394,15 +384,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		to_chat(src, "Not a List.")
 		return
 
-	if(L.len > 1000)
+	if(length(L) > 1000)
 		var/confirm = tgui_alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", list("Continue", "Abort"))
 		if(confirm != "Continue")
 			return
 
-
-
 	var/list/names = list()
-	for(var/i in 1 to L.len)
+	for(var/i in 1 to length(L))
 		var/key = L[i]
 		var/value
 		if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -422,7 +410,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 		if(variable == "(CLEAR NULLS)")
 			L = L.Copy()
-			listclearnulls(L)
+			list_clear_nulls(L)
 			if(!O.vv_edit_var(objectvar, L))
 				to_chat(src, "Your edit was rejected by the object.")
 				return
@@ -452,7 +440,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			return
 
 		index = names[variable]
-
 
 	var/assoc_key
 	if(index == null)
@@ -532,7 +519,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/list/varsvars = vv_parse_text(O, new_var)
 			for(var/V in varsvars)
 				new_var = replacetext(new_var,"\[[V]]","[O.vars[V]]")
-
 
 	if(assoc)
 		L[assoc_key] = new_var

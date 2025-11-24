@@ -62,11 +62,9 @@
 	item_state = "gift"
 	w_class = WEIGHT_CLASS_BULKY
 
-
 /obj/item/gift/Destroy()
 	QDEL_NULL(gift)
 	return ..()
-
 
 /obj/item/gift/attack_self(mob/user)
 	if(gift)
@@ -76,7 +74,6 @@
 	else
 		to_chat(user, span_notice("The gift was empty!"))
 	qdel(src)
-
 
 /obj/item/gift/emp_act(severity)
 	..()
@@ -95,15 +92,12 @@
 	desc = "test lightning"
 	var/angle
 
-
 /obj/item/lightning/Initialize(mapload)
 	. = ..()
 	icon_state = "1"
 
-
 /obj/item/lightning/update_icon_state()
 	icon_state = "[angle]"
-
 
 /obj/item/lightning/afterattack(atom/A, mob/living/user, flag, params)
 	var/angle = get_angle(A, user)
@@ -175,7 +169,6 @@
 		if(do_after(user, 1 SECONDS, user))
 			active = TRUE
 			update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/nunchuck/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!active)

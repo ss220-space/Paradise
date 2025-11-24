@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	icon_state = "dont_use_this_tile"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
+	var/icon_regular_floor_dmi = 'icons/turf/floors.dmi' //used to remember what icon the tile should have by default (fix bug for change dmi)
 	var/floor_regular_dir = SOUTH  //used to remember what dir the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.040
@@ -48,10 +49,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	. = ..()
 	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
 		icon_regular_floor = "floor"
+		icon_regular_floor_dmi = 'icons/turf/floors.dmi'
 	else
 		icon_regular_floor = icon_state
+		icon_regular_floor_dmi = icon
 		floor_regular_dir = dir
-
 
 /// Returns a list of every turf state considered "broken".
 /// Will be randomly chosen if a turf breaks at runtime.
@@ -113,7 +115,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		return FALSE
 	return TRUE
 
-
 /turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
 
@@ -156,6 +157,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(!ispath(T, /turf/simulated/floor))
 		return ..()
 
+	var/old_dmi = icon_regular_floor_dmi
 	var/old_icon = icon_regular_floor
 	var/old_plating = icon_plating
 	var/old_dir = dir
@@ -163,6 +165,9 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/old_transparent_floor = transparent_floor
 
 	var/turf/simulated/floor/W = ..()
+
+	if(old_dmi != W.icon_regular_floor_dmi) //bugfix for dark tiles
+		keep_icon = FALSE
 
 	var/obj/machinery/atmospherics/R
 	var/obj/machinery/power/terminal/term
@@ -182,7 +187,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		R.update_underlays()
 	W.update_icon()
 	return W
-
 
 /turf/simulated/floor/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -217,7 +221,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		else
 			pipe.setDir(user.dir)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/crowbar_act(mob/user, obj/item/I)
 	if(!intact)

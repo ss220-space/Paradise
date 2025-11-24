@@ -150,7 +150,6 @@
 			armorval += inventory_back.armor.getRating(attack_flag)
 	return armorval * 0.5
 
-
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -183,7 +182,6 @@
 
 	return ..()
 
-
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
@@ -197,16 +195,16 @@
 
 	if(inventory_head)
 		if(user)
-			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
+			to_chat(user, span_warning("You can't put more than one hat on [src]!"))
 		return
 	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
+		user.visible_message(span_notice("[user] pets [src]."), span_notice("You rest your hand on [src]'s head for a moment."))
 		if(flags & HOLOGRAM)
 			return
 		return
 
 	if(user && !user.drop_item_ground(item_to_add))
-		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
+		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!"))
 		return 0
 
 	var/valid = FALSE
@@ -217,17 +215,19 @@
 
 	if(valid)
 		if(health <= 0)
-			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
+			to_chat(user, span_notice("There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()]."))
 		else if(user)
-			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
-				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
-				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+			user.visible_message(
+				span_notice("[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once."),
+				span_notice("You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks."),
+				span_italics("You hear a friendly-sounding bark.")
+			)
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_dog_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
+		to_chat(user, span_warning("You set [item_to_add] on [src]'s head, but it falls off!"))
 		item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
@@ -253,11 +253,11 @@
 	var/datum/component/animal_temperature/temp = GetComponent(/datum/component/animal_temperature)
 	temp?.minbodytemp = initial(temp?.minbodytemp)
 
-	if(inventory_head && inventory_head.dog_fashion)
+	if(inventory_head?.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
 		DF.apply(src)
 
-	if(inventory_back && inventory_back.dog_fashion)
+	if(inventory_back?.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
 
@@ -332,13 +332,13 @@
 		inventory_head.forceMove(drop_location())
 		inventory_head = null
 	place_on_head(pick(possible_headwear))
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[pluralize_ru(gender, "ет", "ют")] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[PLUR_ET_YUT(src)] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
 
 ///Deadchat plays command that drops the current hat off Ian.
 /mob/living/simple_animal/pet/dog/corgi/proc/drop_hat()
 	if(!inventory_head)
 		return
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[pluralize_ru(gender, "ёт", "ут")] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[PLUR_YOT_UT(src)] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
 	inventory_head.forceMove(drop_location())
 	inventory_head = null
 	update_dog_fluff()
@@ -520,15 +520,19 @@
 	..()
 	for(var/mob/living/simple_animal/pet/P in range(1, src))
 		if(P != src && !istype(P, /mob/living/simple_animal/pet/dog/corgi/narsie))
-			visible_message("<span class='warning'>[src] devours [P]!</span>", \
-			"<span class='cult big bold'>DELICIOUS SOULS</span>")
+			visible_message(
+				span_warning("[src] devours [P]!"),
+				span_cult(span_bigbold("DELICIOUS SOULS"))
+			)
 			playsound(src, 'sound/misc/demon_attack1.ogg', 75, TRUE)
 			narsie_act()
 			if(P.mind)
 				if(P.mind.hasSoul)
 					P.mind.hasSoul = FALSE //Nars-Ian ate your soul; you don't have one anymore
 				else
-					visible_message("<span class='cult big bold'>... Aw, someone beat me to this one.</span>")
+					visible_message(
+						span_cult(span_bigbold("... Aw, someone beat me to this one."))
+					)
 			P.gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/update_dog_fluff()
@@ -693,11 +697,11 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
-		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
+		visible_message(span_warning("[user] swipes a card through [src]."), span_notice("You overload [src]s internal reactor."))
 		addtimer(CALLBACK(src, PROC_REF(explode)), 1000)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
-	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
+	visible_message(span_warning("[src] makes an odd whining noise."))
 	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, flash_range = 7, cause = src)
 	death()
 
@@ -728,7 +732,6 @@
 		if(target)
 			shootAt(target)
 
-
 /mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -748,7 +751,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/death(gibbed)
 	// Only execute the below if we successfully died
@@ -782,7 +784,7 @@
 		DATIVE = "мопсу",
 		ACCUSATIVE = "мопса",
 		INSTRUMENTAL = "мопсом",
-		PREPOSITIONAL = "мопсе"
+		PREPOSITIONAL = "мопсе",
 	)
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
@@ -830,7 +832,7 @@
 /mob/living/simple_animal/pet/dog/german
 	name = "german"
 	real_name = "german"
-	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу - явно не породистый."
+	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу — явно не породистый."
 	icon_state = "german"
 	icon_living = "german"
 	icon_dead = "german_dead"

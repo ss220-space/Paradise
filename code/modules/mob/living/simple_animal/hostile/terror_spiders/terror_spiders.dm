@@ -143,7 +143,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/spider_growinstantly = FALSE
 	var/spider_debug = FALSE
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
@@ -284,7 +283,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
 	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.add_hud_to(src)
+	U.show_to(src)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
@@ -356,10 +355,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat != DEAD)
-			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
+			to_chat(T, span_terrorspider("TerrorSense: [msgtext]"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
-	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
+	if(length(faction) != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, span_userdanger("Ваша связь с коллективным разумом разрывается!"))
 		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
 		gib()
@@ -390,14 +389,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			D.close(TRUE)
 		return TRUE
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
 	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
 	if(!.)
 		for(var/obj/structure/spider/spider_thing in range(1, get_turf(src)))
 			return spider_thing
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -430,12 +427,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/projectile/terrorspider))
 		return TRUE
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))

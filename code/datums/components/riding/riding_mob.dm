@@ -48,10 +48,8 @@
 	if(!istype(living_parent) || !istype(rider))
 		return
 
-
 	add_attack_logs(living_parent, rider, "is now being ridden by [rider].")
 	add_attack_logs(rider, living_parent, "started riding [living_parent].")
-
 
 // this applies to humans and most creatures, but is replaced again for cyborgs
 /datum/component/riding/creature/ride_check(mob/living/rider, consequences = TRUE)
@@ -94,7 +92,7 @@
 		former_rider.log_message("is no longer riding [formerly_ridden].", LOG_GAME, color="pink")
 		*/
 	//remove_abilities(former_rider)
-	if(!formerly_ridden.buckled_mobs.len)
+	if(!length(formerly_ridden.buckled_mobs))
 		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, ref(src))
 	// We gotta reset those layers at some point, don't we?
 	former_rider.layer = MOB_LAYER
@@ -248,7 +246,7 @@
 
 /datum/component/riding/creature/human/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
-	if(!AM.buckled_mobs || !AM.buckled_mobs.len)
+	if(!AM.buckled_mobs || !length(AM.buckled_mobs))
 		AM.layer = MOB_LAYER
 		return
 

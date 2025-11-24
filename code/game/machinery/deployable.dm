@@ -84,7 +84,6 @@
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
 
-
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()

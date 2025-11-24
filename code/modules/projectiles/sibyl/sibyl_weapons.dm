@@ -38,3 +38,7 @@
 /obj/item/gun/energy/immolator/multi/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()
+
+/obj/item/gun/energy/specter/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()

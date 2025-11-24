@@ -9,7 +9,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prizes/proc/PlaceOrder(obj/machinery/prize_counter/prize_counter, itemID)
 	if(!prize_counter.Adjacent(usr))
-		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
+		to_chat(usr, span_warning("You need to be closer!"))
 		return
 	if(!prize_counter)
 		return 0
@@ -19,10 +19,10 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	if(prize_counter.tickets >= item.cost)
 		new item.typepath(prize_counter.loc)
 		prize_counter.tickets -= item.cost
-		prize_counter.visible_message("<span class='notice'>Enjoy your prize!</span>")
+		prize_counter.visible_message(span_notice("Enjoy your prize!"))
 		return 1
 	else
-		prize_counter.visible_message("<span class='warning'>Not enough tickets!</span>")
+		prize_counter.visible_message(span_warning("Not enough tickets!"))
 		return 0
 
 //////////////////////////////////////
@@ -175,9 +175,15 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/spacesuit
 	name = "Fake Spacesuit"
-	desc = "Реплика скафандра синдиката. Не пригоден для использования в космосе."
+	desc = "Реплика скафандра \"Синдиката\". Не пригоден для использования в космосе."
 	typepath = /obj/item/storage/box/fakesyndiesuit
 	cost = 90
+
+/datum/prize_item/spraytan
+	name = "Spray Tan"
+	desc = "Спрей-автозагар. Не попадите в глаза!"
+	typepath = /obj/item/reagent_containers/spray/spraytan
+	cost = 100
 
 /datum/prize_item/owl
 	name = "Owl Action Figure"

@@ -8,7 +8,6 @@
 
 */
 
-
 //This datum is built on-the-fly by some of the procs below
 //no need to instantiate it
 /datum/alternate_appearance
@@ -17,13 +16,12 @@
 	var/list/viewers = list()
 	var/atom/owner = null
 
-
 /*
 	Displays the alternate_appearance
 	displayTo - a list of MOBS to show this appearance to
 */
 /datum/alternate_appearance/proc/display_to(list/displayTo)
-	if(!displayTo || !displayTo.len)
+	if(!displayTo || !length(displayTo))
 		return
 	for(var/m in displayTo)
 		var/mob/M = m
@@ -47,19 +45,17 @@
 		var/mob/M = m
 		if(M.client)
 			M.client.images -= img
-		if(M.viewing_alternate_appearances && M.viewing_alternate_appearances.len)
+		if(M.viewing_alternate_appearances && length(M.viewing_alternate_appearances))
 			M.viewing_alternate_appearances -= src
 		viewers -= M
-
 
 /*
 	Removes the alternate_appearance from its owner's alternate_appearances list, hiding it also
 */
 /datum/alternate_appearance/proc/remove()
 	hide()
-	if(owner && owner.alternate_appearances)
+	if(owner?.alternate_appearances)
 		owner.alternate_appearances -= key
-
 
 /datum/alternate_appearance/Destroy()
 	remove()
@@ -94,9 +90,8 @@
 	if(alternate_appearances[key])
 		qdel(alternate_appearances[key])
 	alternate_appearances[key] = AA
-	if(displayTo && displayTo.len)
+	if(displayTo && length(displayTo))
 		display_alt_appearance(key, displayTo)
-
 
 //////////////
 // WRAPPERS //
@@ -112,7 +107,6 @@
 		if(alternate_appearances[key])
 			qdel(alternate_appearances[key])
 
-
 /*
 	Displays an alternate appearance from src's alternate_appearances list
 	Wrapper for: alternate_appearance/display_to()
@@ -127,7 +121,6 @@
 		return
 	AA.display_to(displayTo)
 
-
 /*
 	Hides an alternate appearance from src's alternate_appearances list
 	Wrapper for: alternate_appearance/hide()
@@ -141,5 +134,4 @@
 	if(!AA)
 		return
 	AA.hide(hideFrom)
-
 

@@ -20,3 +20,5 @@
 
 #define KEY_MODE_TEXT 0
 #define KEY_MODE_TYPE 1
+
+#define ASSET_TRANSPORT_WEBROOT "webroot"
