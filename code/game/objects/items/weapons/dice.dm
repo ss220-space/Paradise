@@ -348,12 +348,8 @@
 			//Swarm of creatures
 			mob_swarm(user)
 		if(4)
-			//Destroy Equipment
-			T.visible_message(span_userdanger("Все вещи [user] внезапно исчезли!"))
-			for(var/obj/item/I in user)
-				if(istype(I, /obj/item/implant) || istype(I, /obj/item/organ))
-					continue
-				qdel(I)
+			//Destroy equipment, remove all genes and antag datums
+			purify(user)
 		if(5)
 			//Monkeying
 			T.visible_message(span_userdanger("[user] превраща[PLUR_ET_YUT(user)]ся в обезьяну!"))
@@ -540,3 +536,13 @@
 		hound.faction = list("rift")
 	swarmed.Weaken(2 SECONDS)
 
+/obj/item/dice/d20/fate/proc/purify(mob/living/carbon/human/purified)
+	purified.visible_message(span_userdanger("[purified] выгляд[PLUR_IT_YAT(purified)] очистившим[PLUR_I(purified)]ся!"))
+	for(var/obj/item/I in purified)
+		if(istype(I, /obj/item/organ))
+			continue
+		qdel(I)
+	purified.mind.remove_all_antag_datums()
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		if(!LAZYIN(purified.dna.default_blocks, gene.block))
+			purified.force_gene_block(gene.block, FALSE)

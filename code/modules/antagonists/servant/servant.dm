@@ -70,7 +70,8 @@
 		to_chat(serve_to, span_userdanger("Физическая оболочка вашего слуги уничтожена, но ваша жизненная энергия сможет восстановить её через время."))
 		var/client/died_servant = owner.current.client
 		new /datum/servant_revive(serve_to, died_servant)
-	to_chat(serve_to, span_userdanger("Умирая, вы чувствуете как связь с вашим слугой теряется."))
+	else
+		new /obj/item/coin/magic(serve_to.loc)
 	owner.current.dust()
 	qdel(src)
 
