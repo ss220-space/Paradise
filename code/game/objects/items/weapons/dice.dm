@@ -348,16 +348,14 @@
 			//Swarm of creatures
 			mob_swarm(user)
 		if(4)
-			//Destroy equipment, remove all genes and antag datums
+			//Destroy equipment, remove all genes and antag roles
 			purify(user)
 		if(5)
-			//Monkeying
-			T.visible_message(span_userdanger("[user] превраща[PLUR_ET_YUT(user)]ся в обезьяну!"))
-			user.monkeyize()
-		if(6)
 			//Cut speed
-			T.visible_message(span_userdanger("[user] начал[GEND_A_O_I(user)] двигаться медленнее!"))
-			user.add_movespeed_modifier(/datum/movespeed_modifier/die_of_fate)
+			slow(user)
+		if(6)
+			//Monkeying
+			monkefy(user)
 		if(7)
 			//Throw
 			T.visible_message(span_userdanger("Невидимая сила бросает [user]!"))
@@ -546,3 +544,11 @@
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(!LAZYIN(purified.dna.default_blocks, gene.block))
 			purified.force_gene_block(gene.block, FALSE)
+
+/obj/item/dice/d20/fate/proc/slow(mob/living/carbon/human/slowed)
+	slowed.visible_message(span_userdanger("[slowed] начал[GEND_A_O_I(slowed)] двигаться медленнее!"))
+	slowed.add_movespeed_modifier(/datum/movespeed_modifier/die_of_fate)
+
+/obj/item/dice/d20/fate/proc/monkefy(mob/living/carbon/human/monkeyed)
+	monkeyed.visible_message(span_userdanger("[monkeyed] превраща[PLUR_ET_YUT(monkeyed)]ся в обезьяну!"))
+	monkeyed.monkeyize()
