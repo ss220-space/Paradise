@@ -387,9 +387,8 @@
 			var/datum/design/D = local_designs.known_designs[v]
 			if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 				continue
-			var/obj/design_item = new D.build_path
+			var/obj/design_item = D.build_path
 			var/design_desc = design_item.desc
-			qdel(design_item)
 			var/list/design_out = list("id" = D.id, "name" = D.build_object_name, "desc" = design_desc, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
 			if(!can_afford_design(D))
 				design_out["notEnough"] = TRUE
