@@ -208,7 +208,7 @@
 	icon_state = "working"
 	var/brute = 0
 	var/burn = 0
-  
+
 /obj/item/robot_parts/robot_component/binary_communication_device
 	name = "binary communication device"
 	icon_state = "binary_translator"
