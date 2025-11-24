@@ -53,6 +53,14 @@
 	attacktext = "рвёт"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
+	death_sound = 'sound/impact/MetalGib.ogg'
+	damaged_sound = list(
+		'sound/impact/metalimpactB1.ogg',
+		'sound/impact/metalimpactB2.ogg',
+		'sound/impact/metalimpactB3.ogg',
+		'sound/impact/metalimpactB4.ogg',
+		'sound/impact/metalimpactB5.ogg'
+		)
 	projectiletype = /obj/projectile/hivebot
 	faction = list("hivebot")
 	check_friendly_fire = 1
@@ -107,7 +115,14 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
+	playsound(src, 'sound/impact/gib1.ogg', 50, 1)
 	do_sparks(3, 1, src)
+
+/mob/living/simple_animal/hostile/hivebot/bullet_act(obj/item/projectile/P, def_zone)
+	var/result = ..()
+	if(length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+	return result
 
 //Melee
 
