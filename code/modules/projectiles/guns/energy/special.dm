@@ -152,7 +152,7 @@
 		INSTRUMENTAL = "мини энерго-арбалетом",
 		PREPOSITIONAL = "мини энерго-арбалете"
 )
-  
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/old
 	name = "old mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists. It looks very old."
