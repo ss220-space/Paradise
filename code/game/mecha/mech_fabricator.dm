@@ -10,7 +10,8 @@
  */
 /obj/machinery/mecha_part_fabricator
 	name = "exosuit fabricator"
-	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём ничего не печатается."
+	desc = "Промышленное оборудование, предназначенное для печати крупногабаритных компонентов экзоскелетов и роботизированных систем. \
+			Использует широкий спектр материалов в качестве сырья."
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fabricator"
 	var/icon_open = "fabricator_unscrewed"
@@ -19,7 +20,6 @@
 	anchored = TRUE
 	idle_power_usage = 20
 	active_power_usage = 5000
-	// Settings
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
 	/// List of categories to display in the UI. Designs intended for each respective category need to have the name in [/datum/design/category]. Defined in [Initialize()][/atom/proc/Initialize].
@@ -79,23 +79,23 @@
 		req_access = list(ACCESS_SYNDICATE)
 
 	categories = list(
-		"Cyborg",
-		"Cyborg Repair",
-		"IPC",
-		"Ripley",
-		"Firefighter",
-		"Clarke",
-		"Odysseus",
-		"Gygax",
-		"Durand",
-		"H.O.N.K",
-		"Reticence",
-		"Phazon",
-		"Exosuit Paintkits",
-		"Exosuit Equipment",
-		"Cyborg Upgrade Modules",
-		"Medical",
-		"Misc",
+		MECH_FAB_CATEGORY_CYBORG,
+		MECH_FAB_CATEGORY_CYBORG_REPAIR,
+		MECH_FAB_CATEGORY_CYBORG_EQUIPMENT,
+		MECH_FAB_CATEGORY_IPC,
+		MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT,
+		MECH_FAB_CATEGORY_EXOSUIT_PAINTKITS,
+		MECH_FAB_CATEGORY_RIPLEY,
+		MECH_FAB_CATEGORY_FIREFIGHTER,
+		MECH_FAB_CATEGORY_CLARKE,
+		MECH_FAB_CATEGORY_ODYSSEUS,
+		MECH_FAB_CATEGORY_GYGAX,
+		MECH_FAB_CATEGORY_DURAND,
+		MECH_FAB_CATEGORY_HONKER,
+		MECH_FAB_CATEGORY_RETICENCE,
+		MECH_FAB_CATEGORY_PHAZON,
+		PROTOLATHE_CATEGORY_MEDICAL,
+		MECH_FAB_CATEGORY_MISC,
 	)
 
 /obj/machinery/mecha_part_fabricator/Destroy()
@@ -180,10 +180,10 @@
 	if(!local_designs.known_designs[D.id] || !(D.build_type & allowed_design_types))
 		return
 	if(being_built)
-		atom_say("Ошибка: уже в процессе производства!")
+		atom_say("Ошибка: уже в процессе печати!", FALSE)
 		return
 	if(!can_afford_design(D))
-		atom_say("Ошибка: недостаточно материалов для производства [D.name]!")
+		atom_say("Ошибка: недостаточно материалов для печати \"[D.build_object_name]\"!", FALSE)
 		return
 
 	// Subtract the materials from the holder
@@ -196,7 +196,6 @@
 	being_built = D
 	build_start = world.time
 	build_end = build_start + build_time
-	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём печатается [initial(D.name)]."
 	use_power = ACTIVE_POWER_USE
 	add_overlay("fabricator_active")
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
@@ -221,24 +220,32 @@
  */
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
-	var/atom/A = new D.build_path(get_step(src, dir))
-	if(isitem(A))
-		var/obj/item/I = A
-		I.materials = final_cost
+	var/atom/new_item = new D.build_path(get_step(src, dir))
+	if(isitem(new_item))
+		var/obj/item/real_item = new_item
+		real_item.materials = final_cost
 		if(D.locked)
-			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, dir))
-			I.forceMove(L)
-			L.name += " ([I.name])"
-			L.origin_tech = I.origin_tech
+			var/obj/item/storage/lockbox/research/large/lockbox = new(get_step(src, dir))
+			real_item.forceMove(lockbox)
+			lockbox.name += " ([real_item.name])"
+			var/real_item_ru_name = capitalize(real_item.declent_ru(NOMINATIVE))
+			lockbox.ru_names = list(
+				NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
+				GENITIVE = "защищённого кейса ([real_item_ru_name])",
+				DATIVE = "защищённому кейсу ([real_item_ru_name])",
+				ACCUSATIVE = "защищённый кейс ([real_item_ru_name])",
+				INSTRUMENTAL = "защищённым кейсом ([real_item_ru_name])",
+				PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
+			)
+			lockbox.origin_tech = real_item.origin_tech
 
 	// Clean up
 	being_built = null
 	build_start = 0
 	build_end = 0
-	desc = initial(desc)
 	use_power = IDLE_POWER_USE
 	cut_overlays()
-	atom_say("[A] завершён.")
+	atom_say("Печать \"[D.build_object_name]\" завершена.", FALSE)
 
 	// Keep the queue processing going if it's on
 	process_queue()
@@ -262,7 +269,7 @@
 		if(!RDC.sync)
 			continue
 		RDC.files.push_data(local_designs)
-		atom_say("Успешная синхронизация с серверами РНД.")
+		atom_say("Синхронизация с сетью НИО завершена.", FALSE)
 		break
 	SStgui.update_uis(src)
 
@@ -288,10 +295,10 @@
  */
 /obj/machinery/mecha_part_fabricator/proc/can_insert_materials(mob/user)
 	if(panel_open)
-		to_chat(user, span_warning("[src] cannot be loaded with new materials while opened!"))
+		balloon_alert(user, "панель открыта!")
 		return FALSE
 	if(being_built)
-		to_chat(user, span_warning("[src] is currently building a part! Please wait until completion."))
+		balloon_alert(user, "в процессе печати!")
 		return FALSE
 	return TRUE
 
@@ -318,7 +325,7 @@
 	if(..())
 		return
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "отказано в доступе!")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	ui_interact(user)
@@ -329,7 +336,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ExosuitFabricator", name)
+		ui = new(user, src, "ExosuitFabricator", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -362,7 +369,7 @@
 	var/list/queue_deficit = mats.Copy() // What (and how much) materials are we missing to fully process the queue? Any negative values after the loop mean a deficit for a particular material.
 	for(var/d in build_queue)
 		var/datum/design/D = d
-		var/list/out = list("name" = D.name, "time" = get_design_build_time(D))
+		var/list/out = list("name" = D.build_object_name, "time" = get_design_build_time(D))
 		// Add to deficit
 		var/list/actual_cost = get_design_cost(D)
 		for(var/cost_id in actual_cost)
@@ -380,7 +387,9 @@
 			var/datum/design/D = local_designs.known_designs[v]
 			if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 				continue
-			var/list/design_out = list("id" = D.id, "name" = D.name, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
+			var/obj/design_item = D.build_path
+			var/design_desc = design_item.desc
+			var/list/design_out = list("id" = D.id, "name" = D.build_object_name, "desc" = design_desc, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
 			if(!can_afford_design(D))
 				design_out["notEnough"] = TRUE
 			category_designs += list(design_out)
@@ -468,7 +477,7 @@
 			var/datum/material/M = materials.materials[id]
 			if(!M || !M.amount)
 				return
-			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to withdraw?", "Withdrawing [M.name]", max_value = round(M.amount / MINERAL_MATERIAL_AMOUNT))
+			var/num_sheets = tgui_input_number(usr, "Сколько листов материала вы хотите извлечь?", "Извлечение сырья", max_value = round(M.amount / MINERAL_MATERIAL_AMOUNT))
 			if(isnull(num_sheets) || num_sheets <= 0)
 				return
 			materials.retrieve_sheets(num_sheets, id)
@@ -532,13 +541,36 @@
  */
 /obj/machinery/mecha_part_fabricator/robot
 	name = "robotic fabricator"
-	categories = list("Cyborg")
+	desc = "Промышленное оборудование, предназначенное для печати компонентов роботизированных систем. \
+			Использует широкий спектр материалов в качестве сырья."
+	categories = list(MECH_FAB_CATEGORY_CYBORG)
+
+/obj/machinery/mecha_part_fabricator/robot/get_ru_names()
+	return list(
+		NOMINATIVE = "фабрикатор роботов",
+		GENITIVE = "фабрикатора роботов",
+		DATIVE = "фабрикатору роботов",
+		ACCUSATIVE = "фабрикатор роботов",
+		INSTRUMENTAL = "фабрикатором роботов",
+		PREPOSITIONAL = "фабрикаторе роботов",
+	)
 
 /obj/machinery/mecha_part_fabricator/syndicate
 	name = "Syndicate exosuit fabricator"
-	desc = "Nothing is being built."
+	desc = "Промышленное оборудование, предназначенное для печати крупногабаритных компонентов экзоскелетов и роботизированных систем. \
+			Использует широкий спектр материалов в качестве сырья. Специализированная версия, используемая на объектах \"Синдиката\"."
 	req_access = list(ACCESS_SYNDICATE)
 	ui_theme = "nologo"
+
+/obj/machinery/mecha_part_fabricator/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "фабрикатор экзоскелетов \"Синдиката\"",
+		GENITIVE = "фабрикатора экзоскелетов \"Синдиката\"",
+		DATIVE = "фабрикатору экзоскелетов \"Синдиката\"",
+		ACCUSATIVE = "фабрикатор экзоскелетов \"Синдиката\"",
+		INSTRUMENTAL = "фабрикатором экзоскелетов \"Синдиката\"",
+		PREPOSITIONAL = "фабрикаторе экзоскелетов \"Синдиката\"",
+	)
 
 /obj/machinery/mecha_part_fabricator/syndicate/Initialize(mapload)
 	. = ..()
@@ -556,25 +588,27 @@
 		icon_open = "syndie_fabricator_unscrewed"
 		icon_closed = "syndie_fabricator"
 
-/obj/machinery/mecha_part_fabricator/syndicate/Initialize(mapload)
-	. = ..()
 	categories = list(
-		"Cyborg",
-		"Cyborg Repair",
-		"Ripley",
-		"Firefighter",
-		"Clarke",
-		"Odysseus",
-		"Dark Gygax",
-		"Rover",
-		"H.O.N.K",
-		"Reticence",
-		"Phazon",
-		"Exosuit Equipment",
-		"Cyborg Upgrade Modules",
-		"Medical",
-		"Misc",
-		"Syndicate",
+		MECH_FAB_CATEGORY_CYBORG,
+		MECH_FAB_CATEGORY_CYBORG_REPAIR,
+		MECH_FAB_CATEGORY_CYBORG_EQUIPMENT,
+		MECH_FAB_CATEGORY_IPC,
+		MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT,
+		MECH_FAB_CATEGORY_EXOSUIT_PAINTKITS,
+		MECH_FAB_CATEGORY_RIPLEY,
+		MECH_FAB_CATEGORY_FIREFIGHTER,
+		MECH_FAB_CATEGORY_CLARKE,
+		MECH_FAB_CATEGORY_ODYSSEUS,
+		MECH_FAB_CATEGORY_GYGAX,
+		MECH_FAB_CATEGORY_DURAND,
+		MECH_FAB_CATEGORY_HONKER,
+		MECH_FAB_CATEGORY_RETICENCE,
+		MECH_FAB_CATEGORY_PHAZON,
+		PROTOLATHE_CATEGORY_MEDICAL,
+		MECH_FAB_CATEGORY_MISC,
+		MECH_FAB_CATEGORY_ROVER,
+		MECH_FAB_CATEGORY_DARK_GYGAX,
+		MECH_FAB_CATEGORY_SYNDICATE,
 	)
 
 #undef EXOFAB_BASE_CAPACITY

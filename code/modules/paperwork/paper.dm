@@ -930,7 +930,7 @@
 
 /obj/item/paper/researchnotes/Initialize(mapload)
 	. = ..()
-	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
+	var/list/possible_techs = list(RESEARCH_TREE_MATERIALS, RESEARCH_TREE_ENGINEERING, RESEARCH_TREE_PLASMA, RESEARCH_TREE_POWERSTORAGE, RESEARCH_TREE_BLUESPACE, RESEARCH_TREE_BIOTECH, RESEARCH_TREE_COMBAT, RESEARCH_TREE_MAGNETS, RESEARCH_TREE_PROGRAMMING, RESEARCH_TREE_ILLEGAL)
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
