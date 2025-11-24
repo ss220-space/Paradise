@@ -60,3 +60,23 @@ other types of metals and chemistry for reagents).
 	var/maxstack = 1
 	/// How many times faster than normal is this to build on the protolathe.
 	var/lathe_time_factor = 1
+	/// Name of the object that gets created.
+	var/build_object_name
+
+/datum/design/New()
+	. = ..()
+
+	if(!build_path)
+		return
+
+	var/design_name = GLOB.design_names_cached[id]
+
+	if(design_name)
+		build_object_name = design_name
+		return
+
+	var/obj/item/design_item = new build_path
+	design_name = capitalize(design_item.declent_ru(NOMINATIVE))
+	qdel(design_item)
+	build_object_name = design_name
+	GLOB.design_names_cached[id] = design_name

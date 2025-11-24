@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике c генератором \"Пакман\"",
 	)
 	access = ACCESS_ATMOSPHERICS
-	required_tech = list("engineering" = 2, "materials" = 2)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 2, RESEARCH_TREE_MATERIALS = 2)
 
 /datum/supply_packs/emergency/spacesuit
 	name = "Костюмы для ВКД"
@@ -436,7 +436,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/hand_tele,
 	)
-	required_tech = list("programming" = 7, "bluespace" = 8)
+	required_tech = list(RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_BLUESPACE = 8)
 
 /datum/supply_packs/emergency/highrisk/rd_tp_armor
 	name = "Реактивная броня"
@@ -444,7 +444,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/clothing/suit/armor/reactive/teleport,
 	)
-	required_tech = list("combat" = 8, "bluespace" = 5)
+	required_tech = list(RESEARCH_TREE_COMBAT = 8, RESEARCH_TREE_BLUESPACE = 5)
 
 /datum/supply_packs/emergency/highrisk/reflect_kit
 	name = "Противолазерная броня"
@@ -455,14 +455,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/shoes/reflector,
 		/obj/item/clothing/head/helmet/reflector,
 	)
-	required_tech = list("combat" = 8, "materials" = 7)
+	required_tech = list(RESEARCH_TREE_COMBAT = 8, RESEARCH_TREE_MATERIALS = 7)
 
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Люксовый реактивный ранец"
 	contains = list(
 		/obj/item/tank/jetpack/oxygen/captain,
 	)
-	required_tech = list("toxins" = 8, "materials" = 7)
+	required_tech = list(RESEARCH_TREE_TOXINS = 8, RESEARCH_TREE_MATERIALS = 7)
 
 /datum/supply_packs/emergency/highrisk/ce_combatrcd
 	name = "Боевое УБС"
@@ -470,7 +470,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/rcd/combat,
 	)
-	required_tech = list("materials" = 6, "engineering" = 8)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 8)
 
 /datum/supply_packs/emergency/highrisk/ce_advmagboots
 	name = "Продвинутые магбутсы"
@@ -478,7 +478,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/clothing/shoes/magboots/advance,
 	)
-	required_tech = list("engineering" = 8, "magnets" = 6)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 8, RESEARCH_TREE_MAGNETS = 6)
 
 /datum/supply_packs/emergency/highrisk/cmo_defib
 	name = "Продвинутый дефибриллятор"
@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/defibrillator/compact/advanced/loaded,
 	)
-	required_tech = list("biotech" = 7, "powerstorage" = 8)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_POWERSTORAGE = 8)
 
 /datum/supply_packs/emergency/highrisk/cmo_hypospray
 	name = "Продвинутый гипоспрей"
@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/reagent_containers/hypospray/CMO/empty,
 	)
-	required_tech = list("materials" = 7, "biotech" = 8)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_BIOTECH = 8)
 
 /datum/supply_packs/emergency/jetpack
 	name = "Реактивные ранцы"
@@ -504,7 +504,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/tank/jetpack,
 	)
 	cost = 30
-	required_tech = list("toxins" = 3)
+	required_tech = list(RESEARCH_TREE_TOXINS = 3)
 	containername = "ящик реактивных ранцев"
 	container_ru_names = list(
 		NOMINATIVE = "ящик реактивных ранцев",
@@ -523,7 +523,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/tank/jetpack/suit,
 	)
 	cost = 80
-	required_tech = list("toxins" = 7)
+	required_tech = list(RESEARCH_TREE_TOXINS = 7)
 	containername = "ящик модулей реактивного ранца"
 	container_ru_names = list(
 		NOMINATIVE = "ящик модулей реактивного ранца",
@@ -541,7 +541,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mouse_jetpack,
 	)
 	cost = 30
-	required_tech = list("toxins" = 2)
+	required_tech = list(RESEARCH_TREE_TOXINS = 2)
 	containername = "ящик реактивных ранцев для мышей"
 	container_ru_names = list(
 		NOMINATIVE = "ящик реактивных ранцев для мышей",
@@ -572,7 +572,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/mask/gas/sechailer,
 	)
 	cost = 180
-	required_tech = list("toxins" = 6, "combat" = 6)
+	required_tech = list(RESEARCH_TREE_TOXINS = 6, RESEARCH_TREE_COMBAT = 6)
 	containername = "ящик ИКС службы безопасности"
 	container_ru_names = list(
 		NOMINATIVE = "ящик ИКС службы безопасности",
@@ -929,7 +929,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком противолазерной брони",
 		PREPOSITIONAL = "ящике противолазерной брони",
 	)
-	required_tech = list("bluespace" = 4, "combat" = 4)
+	required_tech = list(RESEARCH_TREE_BLUESPACE = 4, RESEARCH_TREE_COMBAT = 4)
 
 /datum/supply_packs/security/armory/sibyl
 	name = "Модули \"Sibyl\""
@@ -1147,7 +1147,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком Tkach Ya-Sui GA 12",
 		PREPOSITIONAL = "ящике Tkach Ya-Sui GA 12",
 	)
-	required_tech = list("combat" = 5, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/security/armory/lr30
 	name = "Лазерные карабины LR-30"
@@ -1227,7 +1227,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком бронебойных боеприпасов для WT-550",
 		PREPOSITIONAL = "ящике бронебойных боеприпасов для WT-550",
 	)
-	required_tech = list("combat" = 5, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/security/armory/security_voucher
 	name = "Оружейные ваучеры"
@@ -1265,7 +1265,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с гранатометами М79",
 		PREPOSITIONAL = "ящике с гранатометами М79",
 	)
-	required_tech = list("combat" = 6, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/security/armory/grenades40mm_nonlethal
 	name = "40-мм нелетальные гранаты"
@@ -1286,7 +1286,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с 40-мм нелетальными гранатами",
 		PREPOSITIONAL = "ящике с 40-мм нелетальными гранатами",
 	)
-	required_tech = list("combat" = 5, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/security/armory/SP_91_RC
 	name = "Пистолет-пулемёты SP-91-RC"
@@ -1341,7 +1341,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с имплантом \"Щит разума\"",
 		PREPOSITIONAL = "ящике с имплантом \"Щит разума\"",
 	)
-	required_tech = list("materials" = 2, "biotech" = 4, "programming" = 4)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 4)
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Имплант слежения"
@@ -1358,7 +1358,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с имплантом слежения",
 		PREPOSITIONAL = "ящике с имплантом слежения",
 	)
-	required_tech = list("materials" = 2, "biotech" = 2, "programming" = 2, "magnets" = 2)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_MAGNETS = 2)
 
 /datum/supply_packs/security/armory/chemimp
 	name = "Химический имплант"
@@ -1375,7 +1375,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с химическим имплантом",
 		PREPOSITIONAL = "ящике с химическим имплантом",
 	)
-	required_tech = list("materials" = 3, "biotech" = 4)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_BIOTECH = 4)
 
 /datum/supply_packs/security/armory/exileimp
 	name = "Имплант изгнания"
@@ -1392,7 +1392,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с имплантом изгнания",
 		PREPOSITIONAL = "ящике с имплантом изгнания",
 	)
-	required_tech = list("materials" = 2, "biotech" = 4, "programming" = 6)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 6)
 
 /datum/supply_packs/security/armory/ion_carbine
 	name = "Ионные карабины"
@@ -1411,7 +1411,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком ионных карабинов",
 		PREPOSITIONAL = "ящике ионных карабинов",
 	)
-	required_tech = list("combat" = 5, "magnets" = 4)
+	required_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MAGNETS = 4)
 
 /datum/supply_packs/security/armory/tele_shield
 	name = "Телескопические щиты"
@@ -1430,7 +1430,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком телескопических щитов",
 		PREPOSITIONAL = "ящике телескопических щитов",
 	)
-	required_tech = list("combat" = 4, "engineering" = 4, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/security/armory/shotgun_shells
 	name = "Различные боеприпасы 12-го калибра"
@@ -1451,7 +1451,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком боеприпасов 12-го калибра",
 		PREPOSITIONAL = "ящике боеприпасов 12-го калибра",
 	)
-	required_tech = list("powerstorage" = 4, "combat" = 4, "magnets" = 4, "materials" = 4)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_MATERIALS = 4)
 
 /datum/supply_packs/security/securitybarriers
 	name = "Охранные барьеры"
@@ -1542,7 +1542,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/mask/breath,
 	)
 	cost = 130
-	required_tech = list("toxins" = 5, "engineering" = 4)
+	required_tech = list(RESEARCH_TREE_TOXINS = 5, RESEARCH_TREE_ENGINEERING = 4)
 	containername = "ящик инженерных ИКС"
 	container_ru_names = list(
 		NOMINATIVE = "ящик инженерных ИКС",
@@ -1562,7 +1562,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/mask/breath,
 		/obj/item/clothing/mask/breath,
 	)
-	required_tech = list("toxins" = 6, "plasmatech" = 4)
+	required_tech = list(RESEARCH_TREE_TOXINS = 6, RESEARCH_TREE_PLASMA = 4)
 	containername = "ящик атмосферных ИКС"
 	container_ru_names = list(
 		NOMINATIVE = "ящик атмосферных ИКС",
@@ -1786,7 +1786,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с генератором сингулярности",
 	)
 	access = ACCESS_CE
-	required_tech = list("powerstorage" = 6, "engineering" = 7)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_ENGINEERING = 7)
 
 /datum/supply_packs/engineering/engine/tesla
 	name = "Тесла-генератор"
@@ -1804,7 +1804,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с тесла-генератором",
 	)
 	access = ACCESS_CE
-	required_tech = list("powerstorage" = 7, "magnets" = 5)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 7, RESEARCH_TREE_MAGNETS = 5)
 
 /datum/supply_packs/engineering/engine/coil
 	name = "Тесла-катушки"
@@ -1881,7 +1881,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с деталями ускорителя частиц",
 	)
 	access = ACCESS_CE
-	required_tech = list("powerstorage" = 4, "magnets" = 4, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/engineering/inflatable
 	name = "Надувные заграждения"
@@ -1917,7 +1917,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с осколком суперматерии",
 	)
 	access = ACCESS_CE
-	required_tech = list("materials" = 7)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 7)
 
 /datum/supply_packs/engineering/engine/teg
 	name = "Детали термоэлектрического генератора"
@@ -1938,7 +1938,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
-	required_tech = list("powerstorage" = 6, "engineering" = 5, "materials" = 2)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 2)
 
 /datum/supply_packs/engineering/conveyor
 	name = "Детали конвейерной ленты"
@@ -1979,7 +1979,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком магбутсов",
 		PREPOSITIONAL = "ящике магбутсов",
 	)
-	required_tech = list("magnets" = 4, "engineering" = 4)
+	required_tech = list(RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_ENGINEERING = 4)
 
 /datum/supply_packs/engineering/permit
 	name = "Разрешение на строительство"
@@ -2034,7 +2034,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком деталей блюспейс-артиллерии",
 		PREPOSITIONAL = "ящике деталей блюспейс-артиллерии",
 	)
-	required_tech = list("powerstorage" = 6, "engineering" = 4, "combat" = 6, "bluespace" = 7)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_BLUESPACE = 7)
 
 /datum/supply_packs/misc/station_goal/bluespace_tap
 	name = "Детали блюспейс-сборщика"
@@ -2052,7 +2052,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком деталей блюспейс-сборщика",
 		PREPOSITIONAL = "ящике деталей блюспейс-сборщика",
 	)
-	required_tech = list("powerstorage" = 7, "engineering" = 4, "magnets" = 6, "bluespace" = 5)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 7, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_BLUESPACE = 5)
 
 /datum/supply_packs/misc/station_goal/dna_vault
 	name = "Детали хранилища ДНК"
@@ -2069,7 +2069,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком деталей хранилища ДНК",
 		PREPOSITIONAL = "ящике деталей хранилища ДНК",
 	)
-	required_tech = list("engineering" = 4, "programming" = 7, "bluespace" = 3)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_BLUESPACE = 3)
 
 /datum/supply_packs/misc/station_goal/dna_probes
 	name = "Семплеры ДНК"
@@ -2090,7 +2090,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком сэмплеров ДНК",
 		PREPOSITIONAL = "ящике сэмплеров ДНК",
 	)
-	required_tech = list("biotech" = 6, "programming" = 5)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_PROGRAMMING = 5)
 
 /datum/supply_packs/misc/station_goal/shield_sat
 	name = "Метеоритные щиты"
@@ -2110,7 +2110,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком метеоритных щитов",
 		PREPOSITIONAL = "ящике метеоритных щитов",
 	)
-	required_tech = list("combat" = 6, "programming" = 3)
+	required_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_PROGRAMMING = 3)
 
 /datum/supply_packs/misc/station_goal/shield_sat_control
 	name = "Плата консоли управления метеоритными щитами"
@@ -2127,7 +2127,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с консолью управления метеоритными щитами",
 		PREPOSITIONAL = "ящике с консолью управления метеоритными щитами",
 	)
-	required_tech = list("powerstorage" = 4, "programming" = 5, "magnets" = 4)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MAGNETS = 4)
 
 /datum/supply_packs/misc/station_goal/bfl
 	name = "Детали ОБЛ"
@@ -2145,7 +2145,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком деталей ОБЛ",
 		PREPOSITIONAL = "ящике деталей ОБЛ",
 	)
-	required_tech = list("engineering" = 5, "powerstorage" = 4, "bluespace" = 6, "plasmatech" = 6)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_PLASMA = 6)
 
 /datum/supply_packs/misc/station_goal/bfl_lens
 	name = "Линза ОБЛ"
@@ -2162,7 +2162,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с линзой ОБЛ",
 		PREPOSITIONAL = "ящике с линзой ОБЛ",
 	)
-	required_tech = list("materials" = 7, "bluespace" = 4)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_BLUESPACE = 4)
 
 /datum/supply_packs/misc/station_goal/bfl_goal
 	name = "Награда за постройку ОБЛ"
@@ -2212,7 +2212,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с набором сканирования БС-разлома",
 	)
 	containertype = /obj/structure/closet/crate/sci
-	required_tech = list("engineering" = 3, "programming" = 6, "bluespace" = 7)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BLUESPACE = 7)
 
 ///////////// High-Tech Disks
 
@@ -2233,43 +2233,43 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/htdisk/materials
 	contains = list(/obj/item/disk/tech_disk/loaded/materials)
-	name = "Дискета технологий (Материалы)"
+	name = "Дискета технологий (" + RESEARCH_TREE_MATERIALS_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/engineering
 	contains = list(/obj/item/disk/tech_disk/loaded/engineering)
-	name = "Дискета технологий (" + RESEARCH_TREE_ENGINEERING + ")"
+	name = "Дискета технологий (" + RESEARCH_TREE_ENGINEERING_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/plasmatech
 	contains = list(/obj/item/disk/tech_disk/loaded/plasmatech)
-	name = "Дискета технологий (Плазма)"
+	name = "Дискета технологий (" + RESEARCH_TREE_PLASMA_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/powerstorage
 	contains = list(/obj/item/disk/tech_disk/loaded/powerstorage)
-	name = "Дискета технологий (Электроэнергия)"
+	name = "Дискета технологий (" + RESEARCH_TREE_POWERSTORAGE_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/bluespace
 	contains = list(/obj/item/disk/tech_disk/loaded/bluespace)
-	name = "Дискета технологий (Блюспейс)"
+	name = "Дискета технологий (" + RESEARCH_TREE_BLUESPACE_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/biotech
 	contains = list(/obj/item/disk/tech_disk/loaded/biotech)
-	name = "Дискета технологий (Биотехнологии)"
+	name = "Дискета технологий (" + RESEARCH_TREE_BIOTECH_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/combat
 	contains = list(/obj/item/disk/tech_disk/loaded/combat)
-	name = "Дискета технологий (Боевые технологии)"
+	name = "Дискета технологий (" + RESEARCH_TREE_COMBAT_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/magnets
 	contains = list(/obj/item/disk/tech_disk/loaded/magnets)
-	name = "Дискета технологий (Электромагнитный спектр)"
+	name = "Дискета технологий (" + RESEARCH_TREE_MAGNETS_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/programming
 	contains = list(/obj/item/disk/tech_disk/loaded/programming)
-	name = "искета технологий (Программная инженерия)"
+	name = "Дискета технологий (" + RESEARCH_TREE_PROGRAMMING_NAME + ")"
 
 /datum/supply_packs/misc/htdisk/toxins
 	contains = list(/obj/item/disk/tech_disk/loaded/toxins)
-	name = "Дискета технологий (Токсикология)"
+	name = "Дискета технологий (" + RESEARCH_TREE_TOXINS_NAME + ")"
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Medical
@@ -2291,7 +2291,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 130
 	containertype = /obj/structure/closet/crate/secure
-	required_tech = list("toxins" = 4, "biotech" = 5)
+	required_tech = list(RESEARCH_TREE_TOXINS = 4, RESEARCH_TREE_BIOTECH = 5)
 	containername = "ящик медицинских ИКС"
 	container_ru_names = list(
 		NOMINATIVE = "ящик медицинских ИКС",
@@ -2376,7 +2376,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	access = ACCESS_MEDICAL
 	containertype = /obj/structure/closet/crate/secure
-	required_tech = list("biotech" = 4, "materials" = 2)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 2)
 
 /datum/supply_packs/medical/firstaibrute
 	name = "Аптечки первой помощи (Мех.)"
@@ -2503,7 +2503,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
-	required_tech = list("biotech" = 6, "combat" = 2)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_COMBAT = 2)
 
 /datum/supply_packs/medical/cloning
 	name = "Платы клонировальной машины"
@@ -2543,7 +2543,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	containertype = /obj/structure/closet/crate/secure
 	access = ACCESS_MEDICAL
-	required_tech = list("biotech" = 4, "programming" = 2)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 2)
 
 /datum/supply_packs/medical/bloodpacks_syn_oxygenis
 	name = "Синтетическая кровь (Кислород)"
@@ -2565,7 +2565,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике синетической крови (Кислород)",
 	)
 	access = ACCESS_MEDICAL
-	required_tech = list("biotech" = 6, "toxins" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_TOXINS = 3)
 
 /datum/supply_packs/medical/bloodpacks_syn_nitrogenis
 	name = "Синтетическая кровь (Азот)"
@@ -2587,7 +2587,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике синтетической крови (Азот)",
 	)
 	access = ACCESS_MEDICAL
-	required_tech = list("biotech" = 6, "toxins" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_TOXINS = 3)
 
 /datum/supply_packs/medical/bloodpacks_human
 	name = "Пакеты крови (Человек)"
@@ -2613,7 +2613,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике пакетов крови (Человек)",
 	)
 	access = ACCESS_MEDICAL
-	required_tech = list("biotech" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 3)
 
 /datum/supply_packs/medical/bloodpacks_xenos
 	name = "Пакеты крови (Ксеносы)"
@@ -2639,7 +2639,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком пакетов крови (Ксеносы)",
 		PREPOSITIONAL = "ящике пакетов крови (Ксеносы)",
 	)
-	required_tech = list("biotech" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 3)
 
 /datum/supply_packs/medical/bloodpacks_syn_oxygenis_credit
 	name = "Synthetic Blood Pack Oxygenis"
@@ -2653,7 +2653,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure
 	containername = "synthetic blood pack oxygenis crate"
 	access = ACCESS_MEDICAL
-	required_tech = list("biotech" = 6, "toxins" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_TOXINS = 3)
 
 /datum/supply_packs/medical/bloodpacks_syn_nitrogenis_credit
 	name = "Synthetic Blood Pack Nitrogenis"
@@ -2667,7 +2667,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure
 	containername = "synthetic blood pack nitrogenis crate"
 	access = ACCESS_MEDICAL
-	required_tech = list("biotech" = 6, "toxins" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_TOXINS = 3)
 
 /datum/supply_packs/medical/bloodpacks_human_credit
 	name = "Human Blood Pack"
@@ -2684,7 +2684,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	credits_cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "human blood pack crate"
-	required_tech = list("biotech" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 3)
 
 /datum/supply_packs/medical/bloodpacks_xenos_credit
 	name = "Xenos Blood Pack"
@@ -2702,7 +2702,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	credits_cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "xenos blood pack crate"
-	required_tech = list("biotech" = 3)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 3)
 
 /datum/supply_packs/medical/iv_drip
 	name = "Стойка для капельницы"
@@ -2767,7 +2767,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/scalpel/laser/manager,
 		/obj/item/scalpel/laser/manager,
 	)
-	required_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PROGRAMMING = 4)
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Science
@@ -2906,7 +2906,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике генераторов силового поля",
 	)
 	access = ACCESS_TELEPORTER
-	required_tech = list("engineering" = 3, "powerstorage" = 3)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_POWERSTORAGE = 3)
 
 /datum/supply_packs/science/transfer_valves
 	name = "Запорные клапаны"
@@ -2926,7 +2926,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике запорных клапанов",
 	)
 	access = ACCESS_RD
-	required_tech = list("engineering" = 2, "toxins" = 3)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 2, RESEARCH_TREE_TOXINS = 3)
 
 /datum/supply_packs/science/prototype
 	name = "Прототип машины"
@@ -2945,7 +2945,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с прототипом машины",
 	)
 	access = ACCESS_RESEARCH
-	required_tech = list("engineering" = 4, "magnets" = 2)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MAGNETS = 2)
 
 /datum/supply_packs/science/oil
 	name = "Бак масла"
@@ -3007,7 +3007,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком радиационных костюмов",
 		PREPOSITIONAL = "ящике радиационных костюмов",
 	)
-	required_tech = list("biotech" = 3, "materials" = 2)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_MATERIALS = 2)
 
 /datum/supply_packs/science/sohs
 	name = "Блюспейс-ранцы"
@@ -3026,7 +3026,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком блюспейс-ранцев",
 		PREPOSITIONAL = "ящике блюспейс-ранцев",
 	)
-	required_tech = list("plasmatech" = 6, "engineering" = 5, "bluespace" = 6, "materials" = 5)
+	required_tech = list(RESEARCH_TREE_PLASMA = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5)
 
 /datum/supply_packs/science/belt_of_hold
 	name = "Блюспейс-пояса"
@@ -3045,7 +3045,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/belt/bluespace,
 		/obj/item/storage/belt/bluespace,
 	)
-	required_tech = list("plasmatech" = 6, "engineering" = 5, "bluespace" = 6, "materials" = 5)
+	required_tech = list(RESEARCH_TREE_PLASMA = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5)
 
 /datum/supply_packs/science/mining_sohs
 	name = "Блюспейс-сумки для руды"
@@ -3064,7 +3064,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/bag/ore/holding,
 		/obj/item/storage/bag/ore/holding,
 	)
-	required_tech = list("engineering" = 4, "bluespace" = 4, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BLUESPACE = 4, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/science/cutters
 	name = "Продвинутые плазменные резаки"
@@ -3083,7 +3083,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/gun/energy/plasmacutter/adv,
 		/obj/item/gun/energy/plasmacutter/adv,
 	)
-	required_tech = list("engineering" = 6, "combat" = 3, "plasmatech" = 6, "materials" = 5, "magnets" = 3)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_COMBAT = 3, RESEARCH_TREE_PLASMA = 6, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_MAGNETS = 3)
 
 /datum/supply_packs/science/cutters_shotgun
 	name = "Плазменные дробовики"
@@ -3102,7 +3102,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/gun/energy/plasmacutter/shotgun,
 		/obj/item/gun/energy/plasmacutter/shotgun,
 	)
-	required_tech = list("powerstorage" = 5, "engineering" = 6, "combat" = 7, "plasmatech" = 7, "materials" = 7, "magnets" = 6)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_PLASMA = 7, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_MAGNETS = 6)
 
 /datum/supply_packs/science/eka
 	name = "Экспериментальные кинетические акселераторы"
@@ -3121,7 +3121,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/gun/energy/kinetic_accelerator/experimental,
 		/obj/item/gun/energy/kinetic_accelerator/experimental,
 	)
-	required_tech = list("powerstorage" = 4, "engineering" = 6, "combat" = 6, "materials" = 4)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MATERIALS = 4)
 
 /datum/supply_packs/science/fireproof_rods
 	name = "Огнеупорные пруты"
@@ -3138,7 +3138,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/stack/fireproof_rods/twentyfive,
 	)
-	required_tech = list("plasmatech" = 4, "engineering" = 3, "materials" = 6)
+	required_tech = list(RESEARCH_TREE_PLASMA = 4, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MATERIALS = 6)
 
 /datum/supply_packs/science/super_cell
 	name = "Батареи ААА"
@@ -3160,7 +3160,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/stock_parts/cell/super,
 		/obj/item/stock_parts/cell/super,
 	)
-	required_tech = list("powerstorage" = 3, "materials" = 3)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 3, RESEARCH_TREE_MATERIALS = 3)
 
 /datum/supply_packs/science/bluespace_cell
 	name = "Блюспейс-батареи"
@@ -3182,7 +3182,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/stock_parts/cell/bluespace,
 		/obj/item/stock_parts/cell/bluespace,
 	)
-	required_tech = list("powerstorage" = 6, "materials" = 6, "engineering" = 5, "bluespace" = 5,)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 5,)
 
 /datum/supply_packs/science/adv_tools
 	name = "Продвинутые инструменты"
@@ -3206,7 +3206,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/mask/gas/welding,
 		/obj/item/clothing/mask/gas/welding,
 	)
-	required_tech = list("powerstorage" = 7, "engineering" = 4, "magnets" = 6, "bluespace" = 5, "biotech" = 3, "materials" = 2)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 7, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_BLUESPACE = 5, RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_MATERIALS = 2)
 
 /datum/supply_packs/science/rcd_crate
 	name = "Устройства Быстрого Строительства"
@@ -3225,7 +3225,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/rcd,
 		/obj/item/rcd,
 	)
-	required_tech = list("engineering" = 3, "programming" = 2)
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_PROGRAMMING = 2)
 
 /datum/supply_packs/science/bluespace_beakers
 	name = "Блюспейс мерные стаканы"
@@ -3243,7 +3243,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/box/beakers/bluespace,
 		/obj/item/storage/box/beakers/bluespace,
 	)
-	required_tech = list("plasmatech" = 4, "bluespace" = 6, "materials" = 5)
+	required_tech = list(RESEARCH_TREE_PLASMA = 4, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5)
 
 /datum/supply_packs/science/deluxe_parts
 	name = "Компоненты 4-го поколения"
@@ -3261,7 +3261,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/box/stockparts/deluxe,
 		/obj/item/storage/box/stockparts/deluxe,
 	)
-	required_tech = list("powerstorage" = 7, "engineering" = 5, "magnets" = 6, "bluespace" = 6, "programming" = 6, "materials" = 7)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 7, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_MATERIALS = 7)
 
 /datum/supply_packs/science/cyborg_upgrades
 	name = "Улучшения для роботов"
@@ -3283,7 +3283,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/borg/upgrade/thrusters,
 		/obj/item/borg/upgrade/thrusters,
 	)
-	required_tech = list("powerstorage" = 5, "engineering" = 5, "magnets" = 6, "materials" = 6)
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_MATERIALS = 6)
 
 /datum/supply_packs/science/civ_implants
 	name = "Гражданские импланты"
@@ -3305,7 +3305,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/organ/internal/cyberimp/eyes/meson,
 		/obj/item/organ/internal/cyberimp/eyes/meson,
 	)
-	required_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_PLASMA = 4)
 
 //Nanotrasen tailblade
 /datum/supply_packs/science/tailblade
@@ -3325,7 +3325,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	containertype = /obj/structure/closet/crate/secure/scisec
 	access = ACCESS_RESEARCH
-	required_tech = list("materials" = 6, "combat" = 6, "biotech" = 6, "powerstorage" = 5)
+	required_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_POWERSTORAGE = 5)
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Organic
@@ -4016,7 +4016,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/seeds/random,
 		/obj/item/seeds/random,
 	)
-	required_tech = list("biotech" = 6)
+	required_tech = list(RESEARCH_TREE_BIOTECH = 6)
 
 /datum/supply_packs/organic/gorilla
 	name = "Горилла"
@@ -4467,7 +4467,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с набором PlasmaMate",
 		PREPOSITIONAL = "ящике с набором PlasmaMate",
 	)
-	required_tech = list("toxins" = 5, "plasmatech" = 6)
+	required_tech = list(RESEARCH_TREE_TOXINS = 5, RESEARCH_TREE_PLASMA = 6)
 
 /datum/supply_packs/misc/religious_supplies
 	name = "Религиозное снабжение"
