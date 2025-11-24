@@ -357,17 +357,10 @@
 			//Monkeying
 			monkefy(user)
 		if(7)
-			//Throw
-			T.visible_message(span_userdanger("Невидимая сила бросает [user]!"))
-			user.Stun(12 SECONDS)
-			user.adjustBruteLoss(50)
-			var/throw_dir = GLOB.cardinal
-			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
-			user.throw_at(throw_target, 200, 4)
-		if(8)
 			//Fueltank Explosion
-			T.visible_message(span_userdanger("Рядом с [user] происходит взрыв!"))
-			explosion(get_turf(user), devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flame_range = 2, cause = src)
+			explode(user)
+		if(8)
+
 		if(9)
 			//Cold
 			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] простудивш[GEND_IM_EI_IM_IMI(user)]ся!"))
@@ -552,3 +545,7 @@
 /obj/item/dice/d20/fate/proc/monkefy(mob/living/carbon/human/monkeyed)
 	monkeyed.visible_message(span_userdanger("[monkeyed] превраща[PLUR_ET_YUT(monkeyed)]ся в обезьяну!"))
 	monkeyed.monkeyize()
+
+/obj/item/dice/d20/fate/proc/explode(mob/living/carbon/human/center)
+	center.visible_message(span_userdanger("Рядом с [center] происходит взрыв!"))
+	explosion(get_turf(center), devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flame_range = 2, cause = src)
