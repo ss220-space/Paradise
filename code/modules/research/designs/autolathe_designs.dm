@@ -604,7 +604,6 @@
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/handheld_defib
-
 	id = "handheld_defibrillator"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
