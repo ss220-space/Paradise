@@ -221,7 +221,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
 
 /datum/design/metal
-	id = "metal"	
+	id = "metal"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/metal
@@ -604,12 +604,11 @@
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/handheld_defib
-	name = "Handheld Defibrillator"
 	id = "handheld_defibrillator"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
 	build_path = /obj/item/handheld_defibrillator
-	category = list("initial", "Medical")
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/prox_sensor
 	id = "prox_sensor"
