@@ -16,6 +16,16 @@
 	var/has_specials = 0		//Set to 1 if the machine has specials to check, otherwise leave it at 0
 	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 
+/obj/machinery/cooker/get_ru_names()
+	return list(
+		NOMINATIVE = "кухонный аппарат",
+		GENITIVE = "кухонного аппарата",
+		DATIVE = "кухонному аппарату",
+		ACCUSATIVE = "кухонный аппарат",
+		INSTRUMENTAL = "кухонным аппаратом",
+		PREPOSITIONAL = "кухонном аппарате"
+	)
+
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
 	if(D.cooktype[thiscooktype])
@@ -35,13 +45,13 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, span_notice("[src] is still active!"))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] всё ещё работает!"))
 		return FALSE
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return TRUE
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	to_chat(user, "<span class ='notice'>You can only process food!</span>")
+	to_chat(user, span_notice("Можно обрабатывать только продукты!"))
 	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
@@ -65,7 +75,7 @@
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(drop_turf)
 	setRegents(props, burnt)
 	if(user && (user in viewers(5, src)))
-		to_chat(user, span_warning("You smell burning coming from the [src]!"))
+		to_chat(user, span_warning("Вы чувствуете запах гари из [declent_ru(GENITIVE)]!"))
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new // burning things makes smoke!
 	smoke.set_up(amount = 5, location = src)
 	smoke.start()
@@ -73,20 +83,20 @@
 	if(prob(firechance))
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"
-		oil.desc = "uh oh, looks like some fat from [src]"
+		oil.desc = "Ой-ой, похоже это жир из [declent_ru(GENITIVE)]"
 		drop_turf.hotspot_expose(700, 50, 1)
 		//TODO have a chance of setting the tile on fire
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
 	setme.name = "[thiscooktype] [name.name]"
-	setme.desc = "[name.desc]. It has been [thiscooktype]"
+	setme.desc = "[name.desc] Это было [thiscooktype]."
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	if(!chef.drop_transfer_item_to_loc(tocook, src))
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, span_notice("You put [tocook] into [src]."))
+	to_chat(chef, span_notice("Вы положили [tocook.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	on = 1
 
 // Override this with the correct snack type
@@ -119,14 +129,14 @@
 
 	add_fingerprint(user)
 	if(panel_open)
-		to_chat(user, span_warning("Close the panel first!"))
+		to_chat(user, span_warning("Сначала закройте панель!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!checkValid(I, user))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!burns && istype(I, /obj/item/reagent_containers/food/snacks) && checkCooked(I))
-		to_chat(user, span_warning("That is already [thiscooktype], it would do nothing!"))
+		to_chat(user, span_warning("Оно уже [thiscooktype]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!putIn(I, user))

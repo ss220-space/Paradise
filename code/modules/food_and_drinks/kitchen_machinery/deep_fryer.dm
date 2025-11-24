@@ -1,9 +1,9 @@
 /obj/machinery/cooker/deepfryer
 	name = "deep fryer"
-	desc = "Deep fried <i>everything</i>."
+	desc = "Здесь можно <i>зафритюрить</i> что угодно!"
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "fryer_off"
-	thiscooktype = "deep fried"
+	thiscooktype = "обжарено во фритюре"
 	burns = 1
 	firechance = 100
 	cooktime = 200
@@ -13,6 +13,16 @@
 	openicon = "fryer_open"
 	has_specials = 1
 	upgradeable = 1
+
+/obj/machinery/cooker/deepfryer/get_ru_names()
+	return list(
+		NOMINATIVE = "фритюрница",
+		GENITIVE = "фритюрницы",
+		DATIVE = "фритюрнице",
+		ACCUSATIVE = "фритюрницу",
+		INSTRUMENTAL = "фритюрницей",
+		PREPOSITIONAL = "фритюрнице"
+	)
 
 /obj/machinery/cooker/deepfryer/Initialize(mapload)
 	. = ..()
@@ -49,12 +59,12 @@
 	var/mob/living/carbon/human/victim = grabbed_thing
 	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
 	if(!head)
-		to_chat(grabber, span_warning("This person doesn't have a head!"))
+		to_chat(grabber, span_warning("Кажется у н[GEND_HIS_HER(victim)] нет головы..."))
 		return
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] dunks [victim]'s face into [src]!"),
-		span_userdanger("[grabber] dunks your face into [src]!"),
+		span_danger("[grabber] окуна[PLUR_ET_YUT(grabber)] лицо [victim] в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[grabber] окуна[PLUR_ET_YUT(grabber)] твое лицо в [declent_ru(ACCUSATIVE)]!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")

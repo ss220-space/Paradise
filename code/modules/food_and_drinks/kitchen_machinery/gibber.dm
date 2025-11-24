@@ -2,7 +2,7 @@
 
 /obj/machinery/gibber
 	name = "Gibber"
-	desc = "The name isn't descriptive enough?"
+	desc = "Разве название недостаточно говорящее?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
 	density = TRUE
@@ -23,6 +23,16 @@
 
 	idle_power_usage = 2
 	active_power_usage = 500
+
+/obj/machinery/gibber/get_ru_names()
+	return list(
+		NOMINATIVE = "мясорубка",
+		GENITIVE = "мясорубки",
+		DATIVE = "мясорубке",
+		ACCUSATIVE = "мясорубку",
+		INSTRUMENTAL = "мясорубкой",
+		PREPOSITIONAL = "мясорубке"
+	)
 
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()
@@ -60,7 +70,7 @@
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.visible_message(span_danger("[user] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)] и включает её!</b>"))
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
@@ -80,11 +90,11 @@
 		return
 
 	if(operating)
-		to_chat(user, span_danger("The gibber is locked and running, wait for it to finish."))
+		to_chat(user, span_danger("Мясорубка заблокирована и работает, дождитесь завершения."))
 		return
 
 	if(locked)
-		to_chat(user, span_warning("Wait for [occupant.name] to finish being loaded!"))
+		to_chat(user, span_warning("Дождитесь завершения погрузки [occupant.declent_ru(ACCUSATIVE)]!"))
 		return
 
 	add_fingerprint(user)
@@ -132,25 +142,25 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, span_danger("The [src] is full, empty it first!"))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] переполнена, сначала опустошите её!"))
 		return
 
 	if(operating)
-		to_chat(user, span_danger("The [src] is locked and running, wait for it to finish."))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] заблокирована и работает, дождитесь завершения."))
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, span_danger("This is not suitable for the [src]!"))
+		to_chat(user, span_danger("Это не подходит для [declent_ru(GENITIVE)]!"))
 		return
 
 	if(victim.abiotic(1))
-		to_chat(user, span_danger("Subject may not have abiotic items on."))
+		to_chat(user, span_danger("Объект не должен иметь абиотических предметов."))
 		return
 
-	user.visible_message(span_danger("[user] starts to put [victim] into the [src]!"))
+	user.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] засовывать [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
 	add_fingerprint(user)
 	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message(span_danger("[user] stuffs [victim] into the [src]!"))
+		user.visible_message(span_danger("[user] запихиваPLUR_ET_YUT(user) [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
 
 		victim.forceMove(src)
 		occupant = victim
@@ -242,11 +252,11 @@
 		return
 
 	if(!occupant)
-		visible_message(span_danger("You hear a loud metallic grinding sound."))
+		visible_message(span_danger("Вы слышите громкий металлический скрежещущий звук."))
 		return
 
 	use_power(1000)
-	visible_message(span_danger("You hear a loud squelchy grinding sound."))
+	visible_message(span_danger("Вы слышите громкий хлюпающий скрежещущий звук."))
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS)
@@ -342,7 +352,7 @@
 		victim_targets += H
 
 	if(length(victim_targets))
-		visible_message(span_danger("[src] states, \"Food detected!\""))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] объявляет: \"Обнаружена еда!\""))
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
@@ -358,7 +368,7 @@
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(mob/living/carbon/human/victim)
 	if(!istype(victim))
 		return FALSE
-	visible_message(span_danger("[victim.name] gets sucked into [src]!"))
+	visible_message(span_danger("[capitalize(victim.declent_ru(NOMINATIVE))] засасыва[PLUR_ET_YUT(victim)]ся в [declent_ru(ACCUSATIVE)]!"))
 
 	victim.forceMove(src)
 	occupant = victim
@@ -395,7 +405,7 @@
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
-	visible_message("<span class='warning'>\The [src] spits out \the [H.name]'s possessions!")
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает вещи [H.declent_ru(GENITIVE)]!"))
 
 /obj/machinery/gibber/autogibber/proc/cleanbay()
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
@@ -408,6 +418,6 @@
 			spats++
 			sleep(1)
 	if(spats)
-		visible_message(span_warning("\The [src] spits out more possessions!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает еще больше вещей!"))
 
 #undef GIBBER_ANIMATION_DELAY

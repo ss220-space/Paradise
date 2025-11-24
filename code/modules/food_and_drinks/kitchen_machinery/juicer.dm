@@ -28,6 +28,16 @@
 		/obj/item/reagent_containers/food/snacks/grown/peaslaugh = "laughsyrup"
 	)
 
+/obj/machinery/juicer/get_ru_names()
+	return list(
+		NOMINATIVE = "соковыжималка",
+		GENITIVE = "соковыжималки",
+		DATIVE = "соковыжималке",
+		ACCUSATIVE = "соковыжималку",
+		INSTRUMENTAL = "соковыжималкой",
+		PREPOSITIONAL = "соковыжималке"
+	)
+
 /obj/machinery/juicer/Initialize(mapload)
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
@@ -42,7 +52,7 @@
 	add_fingerprint(user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
-			to_chat(user, span_warning("The [beaker.name] is already inside [src]."))
+			to_chat(user, span_warning("[capitalize(beaker.declent_ru(NOMINATIVE))] уже внутри [declent_ru(GENITIVE)]."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -53,7 +63,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!is_type_in_list(I, allowed_items))
-		to_chat(user, span_warning("It doesn't look like [I.name] contains any juice."))
+		to_chat(user, span_warning("Похоже, [I.declent_ru(NOMINATIVE)] не содержит сока."))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
@@ -87,27 +97,27 @@
 			break
 	if(!processing_chamber)
 		is_chamber_empty = 1
-		processing_chamber = "Nothing."
+		processing_chamber = "Ничего."
 	if(!beaker)
-		beaker_contents = "\The [src] has no beaker attached."
+		beaker_contents = "[capitalize(declent_ru(NOMINATIVE))] не имеет присоединённой ёмкости."
 	else if(!beaker.reagents.total_volume)
-		beaker_contents = "\The [src]  has attached an empty beaker."
+		beaker_contents = "[capitalize(declent_ru(NOMINATIVE))] содержит пустую ёмкость."
 		is_beaker_ready = 1
 	else if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
-		beaker_contents = "\The [src]  has attached a beaker with something."
+		beaker_contents = "[capitalize(declent_ru(NOMINATIVE))] содержит ёмкость с чем-то внутри."
 		is_beaker_ready = 1
 	else
-		beaker_contents = "\The [src]  has attached a beaker and beaker is full!"
+		beaker_contents = "[capitalize(declent_ru(NOMINATIVE))] содержит ёмкость, и ёмкость полна!"
 
 	var/dat = {"<meta charset="UTF-8">
-<b>Processing chamber contains:</b><br>
+<b>Камера обработки содержит:</b><br>
 [processing_chamber]<br>
 [beaker_contents]<hr>
 "}
 	if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-		dat += "<a href='byond://?src=[UID()];action=juice'>Turn on!<br>"
+		dat += "<a href='byond://?src=[UID()];action=juice'>Включить!<br>"
 	if(beaker)
-		dat += "<a href='byond://?src=[UID()];action=detach'>Detach a beaker!<br>"
+		dat += "<a href='byond://?src=[UID()];action=detach'>Вытащить ёмкость!<br>"
 	var/datum/browser/popup = new(user, "juicer", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)

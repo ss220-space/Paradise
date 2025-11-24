@@ -8,6 +8,16 @@
 	onicon = "cereal_on"
 	officon = "cereal_off"
 
+/obj/machinery/cooker/cerealmaker/get_ru_names()
+	return list(
+		NOMINATIVE = "аппарат для хлопьев",
+		GENITIVE = "аппарата для хлопьев",
+		DATIVE = "аппарату для хлопьев",
+		ACCUSATIVE = "аппарат для хлопьев",
+		INSTRUMENTAL = "аппаратом для хлопьев",
+		PREPOSITIONAL = "аппарате для хлопьев"
+	)
+
 /obj/machinery/cooker/cerealmaker/setIcon(obj/item/copyme, obj/item/copyto)
 	var/image/img = new(copyme.icon, copyme.icon_state)
 	img.transform *= 0.7
