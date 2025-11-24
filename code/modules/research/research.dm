@@ -243,80 +243,80 @@ research holder datum.
 // Trunk Technologies (don't require any other techs and you start knowning them).
 
 /datum/tech/materials
-	name = RESEARCH_TREE_MATERIALS
+	name = RESEARCH_TREE_MATERIALS_NAME
 	desc = "Исследование и разработка новых материалов с улучшенными характеристиками."
-	id = "materials"
+	id = RESEARCH_TREE_MATERIALS
 	max_level = 8
 
 /datum/tech/engineering
-	name = RESEARCH_TREE_ENGINEERING
+	name = RESEARCH_TREE_ENGINEERING_NAME
 	desc = "Совершенствование конструкций, узлов и методов сборки промышленного оборудования."
-	id = "engineering"
+	id = RESEARCH_TREE_ENGINEERING
 	max_level = 8
 
 /datum/tech/plasmatech
-	name = RESEARCH_TREE_PLASMA
+	name = RESEARCH_TREE_PLASMA_NAME
 	desc = "Изучение свойств и применение вещества под названием \"Плазма\" в различных сферах."
-	id = "plasmatech"
+	id = RESEARCH_TREE_PLASMA
 	max_level = 8
 	rare = 3
 
 /datum/tech/powerstorage
-	name = RESEARCH_TREE_POWERSTORAGE
+	name = RESEARCH_TREE_POWERSTORAGE_NAME
 	desc = "Разработка технологий генерации, накопления и распределения электрической энергии."
-	id = "powerstorage"
+	id = RESEARCH_TREE_POWERSTORAGE
 	max_level = 8
 
 /datum/tech/bluespace
-	name = RESEARCH_TREE_BLUESPACE
+	name = RESEARCH_TREE_BLUESPACE_NAME
 	desc = "Изучение подпространственного слоя реальности, известного как \"Блюспейс\", и его применение в различных сферах."
-	id = "bluespace"
+	id = RESEARCH_TREE_BLUESPACE
 	max_level = 8
 	rare = 2
 
 /datum/tech/biotech
-	name = RESEARCH_TREE_BIOTECH
+	name = RESEARCH_TREE_BIOTECH_NAME
 	desc = "Исследование живых организмов, генной инженерии и органических соединений."
-	id = "biotech"
+	id = RESEARCH_TREE_BIOTECH
 	max_level = 8
 
 /datum/tech/combat
-	name = RESEARCH_TREE_COMBAT
+	name = RESEARCH_TREE_COMBAT_NAME
 	desc = "Разработка наступательных и оборонительных технологий."
-	id = "combat"
+	id = RESEARCH_TREE_COMBAT
 	max_level = 8
 
 /datum/tech/magnets
-	name = RESEARCH_TREE_MAGNETS
+	name = RESEARCH_TREE_MAGNETS_NAME
 	desc = "Исследование электромагнитного спектра и его применение на практике."
-	id = "magnets"
+	id = RESEARCH_TREE_MAGNETS
 	max_level = 8
 
 /datum/tech/programming
-	name = RESEARCH_TREE_PROGRAMMING
+	name = RESEARCH_TREE_PROGRAMMING_NAME
 	desc = "Развитие архитектур искусственного интеллекта, систем хранения информации и вычислительных протоколов."
-	id = "programming"
+	id = RESEARCH_TREE_PROGRAMMING
 	max_level = 8
 
 /datum/tech/toxins //not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
-	name = RESEARCH_TREE_TOXINS
+	name = RESEARCH_TREE_TOXINS_NAME
 	desc = "Исследование плазменных взрывчатых веществ и реактивных химических соединений."
-	id = "toxins"
+	id = RESEARCH_TREE_TOXINS
 	max_level = 8
 	rare = 2
 
 /datum/tech/syndicate
-	name = RESEARCH_TREE_ILLEGAL
+	name = RESEARCH_TREE_ILLEGAL_NAME
 	desc = "Изучение систем и устройств, нарушающих регламенты безопасности \"Нанотрейзен\"."
-	id = "syndicate"
+	id = RESEARCH_TREE_ILLEGAL
 	level = 0 // Illegal tech level dont need to show in roundstart on console
 	max_level = 8 // Used for admin button so need max level like other tech
 	rare = 4
 
 /datum/tech/abductor
-	name = RESEARCH_TREE_ALIEN
+	name = RESEARCH_TREE_ALIEN_NAME
 	desc = "Анализ и адаптация технологий, используемых высокоразвитой цивилизацией, известной как \"Абдукторы\"."
-	id = "abductor"
+	id = RESEARCH_TREE_ALIEN
 	level = 0 // Alien tech level hide roundstart like illegal
 	max_level = 8
 	rare = 5
@@ -407,34 +407,34 @@ research holder datum.
 	load_tech(our_tech)
 
 /obj/item/disk/tech_disk/loaded/materials
-	tech_name = RESEARCH_TREE_MATERIALS
+	tech_name = RESEARCH_TREE_MATERIALS_NAME
 
 /obj/item/disk/tech_disk/loaded/engineering
-	tech_name = RESEARCH_TREE_ENGINEERING
+	tech_name = RESEARCH_TREE_ENGINEERING_NAME
 
 /obj/item/disk/tech_disk/loaded/plasmatech
-	tech_name = RESEARCH_TREE_PLASMA
+	tech_name = RESEARCH_TREE_PLASMA_NAME
 
 /obj/item/disk/tech_disk/loaded/powerstorage
-	tech_name = RESEARCH_TREE_POWERSTORAGE
+	tech_name = RESEARCH_TREE_POWERSTORAGE_NAME
 
 /obj/item/disk/tech_disk/loaded/bluespace
-	tech_name = RESEARCH_TREE_BLUESPACE
+	tech_name = RESEARCH_TREE_BLUESPACE_NAME
 
 /obj/item/disk/tech_disk/loaded/biotech
-	tech_name = RESEARCH_TREE_BIOTECH
+	tech_name = RESEARCH_TREE_BIOTECH_NAME
 
 /obj/item/disk/tech_disk/loaded/combat
-	tech_name = RESEARCH_TREE_COMBAT
+	tech_name = RESEARCH_TREE_COMBAT_NAME
 
 /obj/item/disk/tech_disk/loaded/magnets
-	tech_name = RESEARCH_TREE_MAGNETS
+	tech_name = RESEARCH_TREE_MAGNETS_NAME
 
 /obj/item/disk/tech_disk/loaded/programming
-	tech_name = RESEARCH_TREE_PROGRAMMING
+	tech_name = RESEARCH_TREE_PROGRAMMING_NAME
 
 /obj/item/disk/tech_disk/loaded/toxins
-	tech_name = RESEARCH_TREE_TOXINS
+	tech_name = RESEARCH_TREE_TOXINS_NAME
 
 /obj/structure/closet/crate/full_tech
 	name = "Crate with Tech Disks"

@@ -4,7 +4,7 @@
 
 /datum/design/freeform_module
 	id = "freeform_module"
-	req_tech = list("programming" = 5, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MATERIALS = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/ai_module/freeform
@@ -12,7 +12,7 @@
 
 /datum/design/onecrewmember_module
 	id = "onecrewmember_module"
-	req_tech = list("programming" = 6, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_MATERIALS = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/one_crew_member
@@ -20,7 +20,7 @@
 
 /datum/design/oxygen_module
 	id = "oxygen_module"
-	req_tech = list("programming" = 4, "biotech" = 2, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_MATERIALS = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/ai_module/oxygen
@@ -28,7 +28,7 @@
 
 /datum/design/protectstation_module
 	id = "protectstation_module"
-	req_tech = list("programming" = 5, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MATERIALS = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/ai_module/protect_station
@@ -36,7 +36,7 @@
 
 /datum/design/purge_module
 	id = "purge_module"
-	req_tech = list("programming" = 5, "materials" = 6)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MATERIALS = 6)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/purge
@@ -44,7 +44,7 @@
 
 /datum/design/quarantine_module
 	id = "quarantine_module"
-	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_MATERIALS = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/ai_module/quarantine
@@ -52,7 +52,7 @@
 
 /datum/design/reset_module
 	id = "reset_module"
-	req_tech = list("programming" = 4, "materials" = 6)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_MATERIALS = 6)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/ai_module/reset
@@ -60,7 +60,7 @@
 
 /datum/design/safeguard_module
 	id = "safeguard_module"
-	req_tech = list("programming" = 3, "materials" = 3)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_MATERIALS = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/ai_module/safeguard
@@ -68,7 +68,7 @@
 
 /datum/design/asimov
 	id = "asimov_module"
-	req_tech = list("programming" = 3, "materials" = 5)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_MATERIALS = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/asimov
@@ -76,7 +76,7 @@
 
 /datum/design/corporate_module
 	id = "corporate_module"
-	req_tech = list("programming" = 5, "materials" = 5)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MATERIALS = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/corp
@@ -84,7 +84,7 @@
 
 /datum/design/crewsimov
 	id = "crewsimov_module"
-	req_tech = list("programming" = 3, "materials" = 5)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_MATERIALS = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/crewsimov
@@ -92,7 +92,7 @@
 
 /datum/design/freeformcore_module
 	id = "freeformcore_module"
-	req_tech = list("programming" = 6, "materials" = 6)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_MATERIALS = 6)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/freeformcore
@@ -100,7 +100,7 @@
 
 /datum/design/paladin_module
 	id = "paladin_module"
-	req_tech = list("programming" = 5, "materials" = 5)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MATERIALS = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/paladin
