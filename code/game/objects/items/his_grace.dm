@@ -9,9 +9,9 @@
 	desc = "Покрашенный в ярко-зелёные цвета тулбокс. От одного его вида становится страшно."
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "toolbox_green"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "toolbox_green"
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 12
 	attack_verb = list("заробастил", "сокрушил")

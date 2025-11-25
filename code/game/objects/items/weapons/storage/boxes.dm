@@ -24,7 +24,9 @@
 	icon = 'icons/obj/storage/boxes.dmi'
 	desc = "Это обычная коробка."
 	icon_state = "box"
-	item_state = "syringe_kit"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	item_state = "normal"
 	resistance_flags = FLAMMABLE
 	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
 	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
@@ -200,6 +202,7 @@
 	name = "boxed exile implant kit"
 	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
 	icon_state = "box_implants"
+	item_state = "clown"
 
 /obj/item/storage/box/exileimp/populate_contents()
 	for(var/I in 1 to 5)
@@ -273,6 +276,7 @@
 	name = "box of donk-pockets"
 	desc = "<b>Инструкция:</b> <i>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</i>"
 	icon_state = "donkpocket_box"
+	item_state = "donks"
 
 /obj/item/storage/box/donkpockets/get_ru_names()
 	return list(
@@ -435,6 +439,7 @@
 	name = "box of spare handcuffs"
 	desc = "A box full of handcuffs."
 	icon_state = "box_abductor_handcuffs"
+	item_state = "abductor"
 
 /obj/item/storage/box/alienhandcuffs/populate_contents()
 	for(var/i in 1 to 7)
@@ -554,6 +559,7 @@
 	name = "biohazard body bags"
 	desc = "This box contains biohazard body bags."
 	icon_state = "biohazard_bodybags"
+	item_state = "biohazard_bodybags"
 
 /obj/item/storage/box/bodybags/biohazard/populate_contents()
 	for(var/I in 1 to 7)
@@ -812,6 +818,7 @@
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
 	icon_state = "t4_parts"
+	item_state = "tier4"
 
 /obj/item/storage/box/stockparts/deluxe/populate_contents()
 	for(var/i in 1 to 3)
@@ -825,6 +832,7 @@
 	name = "box of experimental stock parts"
 	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
 	icon_state = "t5_parts"
+	item_state = "tier5"
 
 /obj/item/storage/box/stockparts/experimental_parts/populate_contents()
 	new /obj/item/stock_parts/capacitor/purple(src)
@@ -853,6 +861,7 @@
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
 	icon_state = "hugbox"
+	item_state = "hugbox"
 	foldable = null
 
 /obj/item/storage/box/hug/suicide_act(mob/user)
@@ -869,6 +878,7 @@
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wiz"
+	item_state = "wizard"
 
 /obj/item/storage/box/wizard/hardsuit
 	name = "Battlemage Armour Bundle"
@@ -1130,6 +1140,7 @@
 	name = "Mr. Cheng ad agent kit"
 	desc = "Contains essential advertising agent kit for Mr. Cheng"
 	icon_state = "box_chang"
+	item_state = "chang"
 
 /obj/item/storage/box/mr_cheng/populate_contents()
 	new /obj/item/clothing/suit/mr_chang_coat(src)

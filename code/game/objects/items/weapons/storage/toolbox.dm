@@ -4,8 +4,8 @@
 	gender = MALE
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "toolbox_red"
-	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "toolbox_red"
 	flags = CONDUCT
 	force = 10.0
@@ -279,7 +279,7 @@
 	name = "suspicious looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительно."
 	icon_state = "toolbox_syndicate"
-	item_state = "toolbox_syndi"
+	item_state = "toolbox_syndie"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
 	silent = 1
 	force = 15
@@ -309,7 +309,7 @@
 	name = "exteremely suspicious looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит чрезвычайно подозрительно."
 	icon_state = "toolbox_syndicate"
-	item_state = "toolbox_syndi"
+	item_state = "toolbox_syndie"
 	origin_tech = "combat=5;syndicate=1;engineering=5"
 	silent = 1
 	force = 18 //robuster because of rarity
@@ -339,7 +339,7 @@
 	name = "suspicous looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительно. Краска ещё не засохла."
 	icon_state = "toolbox_syndicate"
-	item_state = "toolbox_syndi"
+	item_state = "toolbox_syndie"
 
 /obj/item/storage/toolbox/fakesyndi/get_ru_names()
 	return list(
@@ -400,7 +400,7 @@
 	name = "surgery kit"
 	desc = "Контейнер, предназначенный для хранения и транспортировки хирургических инструментов."
 	icon_state = "surgerykit"
-	item_state = "firstaid-surgery"
+	item_state = "surgerykit"
 	origin_tech = "combat=1;biotech=1"
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
