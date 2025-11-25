@@ -1047,7 +1047,7 @@
 /obj/item/storage/box/taurus_kit
 	name = "taurus revolver kit (rubber)"
 	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
-	icon_state = "box_taurus"
+	icon_state = "box_colt"
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
 	return list(
