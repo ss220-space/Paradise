@@ -580,7 +580,7 @@
 			if(JOB_FLAG_LAWYER)
 				clothes_s = new /icon(uniform_dmi, "internalaffairs_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "briefcase"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/inhands/storage_righthand.dmi', "briefcase"), ICON_UNDERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "suitjacket_blue"), ICON_OVERLAY)
 				switch(backbag)

@@ -5,7 +5,7 @@
  */
 /obj/item/contractor_uplink
 	name = "contractor uplink"
-	desc = "Устройство, выданное Синдикатом, для работы с контрактами в полевых условиях."
+	desc = "Устройство, выданное \"Синдикатом\", для работы с контрактами в полевых условиях."
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "contractor_uplink"

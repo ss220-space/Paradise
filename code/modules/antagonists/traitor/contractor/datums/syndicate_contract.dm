@@ -354,7 +354,7 @@
 		return
 
 	if(user == victim)
-		to_chat(user, span_warning("Вы не хотите лезть в непонятную капсулу с символикой Синдиката!"))
+		to_chat(user, span_warning("Вы не хотите лезть в непонятную капсулу с символикой \"Синдиката\"!"))
 		return
 
 	return COMPONENT_CLIMB
@@ -668,7 +668,7 @@
 	var/datum/feed_message/news_message = new
 	news_message.author = NEWS_CHANNEL_NYX
 	news_message.admin_locked = TRUE
-	news_message.body = "В системе зафиксирована подозрительная активность, предположительно связанная с Синдикатом. Появились слухи о том, что [record?.fields["rank"] || victim?.mind.assigned_role || UNKNOWN_STATUS_RUS] на борту [SSmapping.map_datum.station_name] стал жертвой похищения.\n\n" +\
+	news_message.body = "В системе зафиксирована подозрительная активность, предположительно связанная с \"Синдикатом\". Появились слухи о том, что [record?.fields["rank"] || victim?.mind.assigned_role || UNKNOWN_STATUS_RUS] на борту [SSmapping.map_datum.station_name] стал жертвой похищения.\n\n" +\
 				"Надёжный источник сообщил следующее: Была найдена записка с инициалами жертвы — \"[initials]\", а также каракулями, гласящими: \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Никс Дейли")?.add_message(news_message)
 
@@ -679,7 +679,7 @@
 		var/datum/feed_message/second_news_message = new
 		second_news_message.author = NEWS_CHANNEL_NYX
 		second_news_message.admin_locked = TRUE
-		second_news_message.body = "Совет по управлению активами Нанотрейзен сегодня ушёл в отставку после серии похищений на борту [SSmapping.map_datum.station_name]." +\
+		second_news_message.body = "Совет по управлению активами \"Нанотрейзен\" сегодня ушёл в отставку после серии похищений на борту [SSmapping.map_datum.station_name]." +\
 					"Один из бывших членов совета заявил: – Я больше не могу этого выносить. Как одна смена на этой проклятой станции может обойтись нам более чем в десять миллионов кредитов в виде выкупов? Неужели на борту совсем нет службы безопасности?!\""
 		GLOB.news_network.get_channel_by_name("Никс Дейли")?.add_message(second_news_message)
 

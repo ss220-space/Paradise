@@ -986,6 +986,7 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
+		/obj/item/handheld_defibrillator,
 	)
 
 /obj/item/storage/belt/bluespace/owlman
