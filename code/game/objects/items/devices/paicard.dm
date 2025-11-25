@@ -475,6 +475,9 @@
 /obj/item/paicard_upgrade/unused
 	used = FALSE
 
+/obj/item/paicard_upgrade/contractor/unused
+	used = FALSE
+
 /obj/item/paicard_upgrade/protolate
 
 /obj/item/paicard_upgrade/proc/set_syndie_key(obj/item/paicard/paicard)
