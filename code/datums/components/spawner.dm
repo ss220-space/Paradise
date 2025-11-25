@@ -192,7 +192,7 @@
 	for(var/i in 1 to burst_size)
 		if(!can_spawn_more())
 			break
-		addtimer(CALLBACK(src, .proc/spawn_mob), i * 20)
+		addtimer(CALLBACK(src, PROC_REF(spawn_mob)), i * 20)
 		spawned_count++
 
 	if(spawned_count == 0)
