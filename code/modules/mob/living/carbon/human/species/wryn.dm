@@ -16,9 +16,9 @@
 	first names, these names are generally simplistic and easy to pronounce. Wryn have rarely had to communicate using their mouths, \
 	so in order to integrate with the multi-species crew they have been taught broken sol?."
 
-	cold_level_1 = -200 //Default 260 - Lower is better
-	cold_level_2 = -150 //Default 200
-	cold_level_3 = -115 //Default 120
+	cold_level_1 = 200 //Default 260 - Lower is better
+	cold_level_2 = 150 //Default 200
+	cold_level_3 = 115 //Default 120
 
 	heat_level_1 = 300 //Default 360 - Higher is better
 	heat_level_2 = 310 //Default 400
@@ -60,6 +60,7 @@
 		TRAIT_NO_SCAN,
 		TRAIT_TEMPERATURE_MOVEMENT,
 		TRAIT_STRONG_PULLING,
+		TRAIT_RESIST_COLD,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
