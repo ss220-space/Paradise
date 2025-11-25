@@ -128,27 +128,29 @@
 	COOLDOWN_START(src, spawn_cooldown, spawn_time)
 
 /datum/component/spawner/proc/handle_wave_spawn()
-	if(is_active)
-		if(!COOLDOWN_FINISHED(src, spawn_cooldown))
+	if(!is_active)
+		if(!COOLDOWN_FINISHED(src, wave_cooldown_timer))
 			return
-
-		if(!can_spawn_more())
-			finish_wave()
+		if(can_spawn_more() || max_mobs <= 0)
+			start_wave()
 			return
-
-		spawn_mob()
-		current_wave_count++
-
-		if(current_wave_count >= wave_size)
-			finish_wave()
-		else
-			COOLDOWN_START(src, spawn_cooldown, wave_spawn_time)
+		COOLDOWN_START(src, wave_cooldown_timer, 100)
+		return
+	
+	if(!COOLDOWN_FINISHED(src, spawn_cooldown))
+		return
+	
+	if(!can_spawn_more())
+		finish_wave()
+		return
+	
+	spawn_mob()
+	current_wave_count++
+	
+	if(current_wave_count >= wave_size)
+		finish_wave()
 	else
-		if(COOLDOWN_FINISHED(src, wave_cooldown_timer))
-			if(can_spawn_more() || max_mobs <= 0)
-				start_wave()
-			else
-				COOLDOWN_START(src, wave_cooldown_timer, 100)
+		COOLDOWN_START(src, spawn_cooldown, wave_spawn_time)
 
 /datum/component/spawner/proc/handle_burst_spawn()
 	if(!COOLDOWN_FINISHED(src, spawn_cooldown))
