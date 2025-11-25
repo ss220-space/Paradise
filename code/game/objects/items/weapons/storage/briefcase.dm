@@ -1,6 +1,7 @@
 /obj/item/storage/briefcase
 	name = "briefcase"
 	desc = "Он сделан из НАСТОЯЩЕЙ искусственной кожи и всё ещё с ценником. Его владелец, должно быть, настоящий профессионал."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "briefcase"
 	item_state = "briefcase"
 	flags = CONDUCT

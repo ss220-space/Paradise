@@ -2,7 +2,8 @@
 	name = "toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит мощно."
 	gender = MALE
-	icon_state = "red"
+	icon = 'icons/obj/storage/boxes.dmi'
+	icon_state = "toolbox_red"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "toolbox_red"
@@ -191,7 +192,7 @@
 
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty toolbox"
-	icon_state = "toolbox_red_old"
+	icon_state = "toolbox_red_rusted"
 
 /obj/item/storage/toolbox/emergency/old/get_ru_names()
 	return list(
@@ -205,7 +206,7 @@
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
-	icon_state = "blue"
+	icon_state = "toolbox_blue"
 	item_state = "toolbox_blue"
 
 /obj/item/storage/toolbox/mechanical/get_ru_names()
@@ -234,7 +235,7 @@
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty toolbox"
-	icon_state = "toolbox_blue_old"
+	icon_state = "toolbox_blue_rusted"
 
 /obj/item/storage/toolbox/mechanical/old/get_ru_names()
 	return list(
@@ -248,7 +249,7 @@
 
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
-	icon_state = "yellow"
+	icon_state = "toolbox_yellow"
 	item_state = "toolbox_yellow"
 
 /obj/item/storage/toolbox/electrical/get_ru_names()
@@ -277,7 +278,7 @@
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительно."
-	icon_state = "syndicate"
+	icon_state = "toolbox_syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
 	silent = 1
@@ -307,7 +308,7 @@
 /obj/item/storage/toolbox/syndisuper
 	name = "exteremely suspicious looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит чрезвычайно подозрительно."
-	icon_state = "syndicate"
+	icon_state = "toolbox_syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=5;syndicate=1;engineering=5"
 	silent = 1
@@ -337,7 +338,7 @@
 /obj/item/storage/toolbox/fakesyndi
 	name = "suspicous looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительно. Краска ещё не засохла."
-	icon_state = "syndicate"
+	icon_state = "toolbox_syndicate"
 	item_state = "toolbox_syndi"
 
 /obj/item/storage/toolbox/fakesyndi/get_ru_names()
@@ -352,7 +353,7 @@
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
-	icon_state = "blue"
+	icon_state = "toolbox_blue"
 	item_state = "toolbox_blue"
 
 /obj/item/storage/toolbox/drone/populate_contents()
@@ -508,6 +509,7 @@
 /obj/item/storage/toolbox/surgery/ashwalker
 	name = "surgery bag"
 	desc = "Небольшой кожанный футляр, предназначенный для хранения и транспортировки хирургических инструментов. От него исходит едва заметный запах пепла."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "surgery_bag"
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
@@ -541,7 +543,7 @@
 /obj/item/storage/toolbox/green
 	name = "artistic toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения различных инструментов, в том числе художественных принадлежностей."
-	icon_state = "green"
+	icon_state = "toolbox_green"
 	item_state = "toolbox_green"
 	icon = 'icons/goonstation/objects/objects.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'

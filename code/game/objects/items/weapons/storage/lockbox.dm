@@ -1,6 +1,7 @@
 /obj/item/storage/lockbox
 	name = "lockbox"
 	desc = "A locked box."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "lockbox+l"
 	item_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_BULKY

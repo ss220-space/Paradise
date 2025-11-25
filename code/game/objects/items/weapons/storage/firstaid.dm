@@ -12,6 +12,7 @@
 	name = "first-aid kit"
 	desc = "Если вы видите это, напишите сообщение об ошибке, что-то пошло не так!"
 	gender = FEMALE
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "firstaid"
 	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/plasticbox_pickup.ogg'
@@ -345,7 +346,7 @@
 /obj/item/storage/firstaid/ertm
 	name = "NT ert-aid kit"
 	desc = "Тактическая аптечка, содержащая в себе всё самое необходимое для лечения в пылу боя. Продвинутая версия."
-	icon_state = "NTertaid"
+	icon_state = "NTeraid"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -410,6 +411,7 @@
 	name = "field surgery kit"
 	desc = "Тактическая версия спортивной сумки с медицинскими опознавательными знаками. Содержит в себе набор инструментов для полевой хирургии."
 	gender = MALE
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "duffel-med"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
@@ -446,6 +448,7 @@
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам Нанотрейзен в обязательным порядке."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "crew_medpouch"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(

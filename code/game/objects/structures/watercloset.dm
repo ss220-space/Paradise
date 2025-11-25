@@ -839,7 +839,7 @@
 /obj/item/bathroom_parts
 	name = "toilet in a box"
 	desc = "An entire toilet in a box, straight from Space Sweden. It has an unpronounceable name."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "largebox"
 	w_class = WEIGHT_CLASS_BULKY
 	var/result = /obj/structure/toilet

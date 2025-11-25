@@ -1,6 +1,7 @@
 /obj/item/storage/conveyor //Stores conveyor belts, click floor to make belt, use a conveyor switch on this to link all belts to that lever.
 	name = "conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "belt_placer"
 	item_state = "belt_placer"
 	w_class = WEIGHT_CLASS_BULKY //Because belts are large things, you know?
