@@ -56,7 +56,7 @@
 
 	return ..()
 
-/datum/reagent/terror_eggs/phantom
+/datum/reagent/terror_eggs_phantom/phantom
 	name = "Яйца паука ужаса"
 	id = "terror_eggs"
 	description = "Да поможет вам бог."
