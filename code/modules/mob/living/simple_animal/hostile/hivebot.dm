@@ -118,7 +118,7 @@
 	playsound(src, 'sound/impact/gib1.ogg', 50, 1)
 	do_sparks(3, 1, src)
 
-/mob/living/simple_animal/hostile/hivebot/bullet_act(obj/item/projectile/P, def_zone)
+/mob/living/simple_animal/hostile/hivebot/bullet_act(obj/projectile/P, def_zone)
 	var/result = ..()
 	if(length(src.damaged_sound))
 		playsound(src, pick(src.damaged_sound), 40, 1)
