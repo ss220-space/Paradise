@@ -1,4 +1,4 @@
-/*
+/**
 	This datum should be used for handling mineral contents of machines and whatever else is supposed to hold minerals and make use of them.
 
 	Variables:
@@ -8,10 +8,11 @@
 		parent - object that this container is being used by, used for output.
 		MAX_STACK_SIZE - size of a stack of mineral sheets. Constant.
 */
-
 /datum/component/material_container
 	var/total_amount = 0
+	/// Raw amount of the mineral this container is holding, calculated by the defined value MINERAL_MATERIAL_AMOUNT=2000
 	var/max_amount
+	/// Type of the mineral sheet the container handles, used for output.
 	var/sheet_type
 	var/list/materials
 	var/show_on_examine
@@ -51,7 +52,7 @@
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
 
-/// Signal handler for stack insertion, returns container insertion flags.
+/// / Signal handler for stack insertion, returns container insertion flags.
 /datum/component/material_container/proc/on_insert_stack_signal(datum/source, obj/item/stack/stack, amt)
 	SIGNAL_HANDLER
 	if(insert_stack(stack, amt))
@@ -64,7 +65,7 @@
 			var/datum/material/M = materials[I]
 			var/amt = amount(M.id)
 			if(amt)
-				examine_list += span_notice("It has [amt] units of [lowertext(M.name)] stored.")
+				examine_list += span_notice("- [M.name] — <b>[amt]</b> единиц[declension_ru(amt, "а", "ы", "")] материала.")
 
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
@@ -75,7 +76,7 @@
 	if(I.item_flags & ABSTRACT)
 		return
 	if((I.item_flags & NO_MAT_REDEMPTION) || (I.flags & HOLOGRAM) || (tc && !is_type_in_typecache(I, tc)))
-		to_chat(user, span_warning("[parent] won't accept [I]!"))
+		I.balloon_alert(user, "несовместимый объект!")
 		return
 	. = COMPONENT_CANCEL_ATTACK_CHAIN|COMPONENT_NO_AFTERATTACK
 	var/datum/callback/pc = precondition
@@ -83,10 +84,10 @@
 		return
 	var/material_amount = get_item_material_amount(I)
 	if(!material_amount)
-		to_chat(user, span_warning("[I] does not contain sufficient amounts of metal or glass to be accepted by [parent]."))
+		I.balloon_alert(user, "нельзя переработать!")
 		return
 	if(!has_space(material_amount))
-		to_chat(user, span_warning("[parent] is full. Please remove metal or glass from [parent] in order to insert more."))
+		I.balloon_alert(user, "отсек для материалов полон!")
 		return
 	user_insert(I, user)
 
@@ -100,25 +101,24 @@
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
 	if(!user.drop_transfer_item_to_loc(I, parent))
-		to_chat(user, span_warning("[I] is stuck to you and cannot be placed into [parent]."))
+		I.balloon_alert(user, "не удаётся выпустить из руки!")
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
 	if(inserted)
 		if(isstack(I))
-			var/obj/item/stack/S = I
-			to_chat(user, span_notice("You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent]."))
+			I.balloon_alert(user, "вставлен[declension_ru(inserted, "", "о", "о")] [inserted] объект[DECL_CREDIT(inserted)] из стопки")
 			if(!QDELETED(I) && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
-			to_chat(user, span_notice("You insert a material total of [inserted] into [parent]."))
+			I.balloon_alert(user, "вставлен[declension_ru(inserted, "а", "о", "о")] [inserted] единиц[declension_ru(inserted, "а", "ы", "")] материала")
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)
 	else
 		user.put_in_active_hand(I)
 
-//For inserting an amount of material
+/// For inserting an amount of material
 /datum/component/material_container/proc/insert_amount(amt, id = null)
 	if(amt > 0 && has_space(amt))
 		var/total_amount_saved = total_amount
@@ -172,7 +172,8 @@
 	last_inserted_id = insert_materials(I, multiplier)
 	return material_amount
 
-/datum/component/material_container/proc/insert_materials(obj/item/I, multiplier = 1) //for internal usage only
+/// for internal usage only
+/datum/component/material_container/proc/insert_materials(obj/item/I, multiplier = 1)
 	var/datum/material/M
 	var/primary_mat
 	var/max_mat_value = 0
@@ -184,8 +185,8 @@
 			primary_mat = MAT
 	return primary_mat
 
-//For consuming material
-//mats is a list of types of material to use and the corresponding amounts, example: list(MAT_METAL=100, MAT_GLASS=200)
+/// For consuming material
+/// mats is a list of types of material to use and the corresponding amounts, example: list(MAT_METAL=100, MAT_GLASS=200)
 /datum/component/material_container/proc/use_amount(list/mats, multiplier=1)
 	if(!mats || !length(mats))
 		return FALSE
@@ -251,7 +252,7 @@
 		return TRUE
 	return FALSE
 
-//For spawning mineral sheets; internal use only
+/// For spawning mineral sheets; internal use only
 /datum/component/material_container/proc/retrieve(sheet_amt, datum/material/M, target = null)
 	if(!M.sheet_type)
 		return 0
@@ -318,8 +319,8 @@
 	var/datum/material/M = materials[id]
 	return M ? M.amount : 0
 
-//returns the amount of material relevant to this container;
-//if this container does not support glass, any glass in 'I' will not be taken into account
+/// returns the amount of material relevant to this container;
+/// if this container does not support glass, any glass in 'I' will not be taken into account
 /datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I))
 		return FALSE
@@ -339,84 +340,84 @@
 	var/ore_type = null
 
 /datum/material/metal
-	name = "Metal"
+	name = "Сталь"
 	id = MAT_METAL
 	sheet_type = /obj/item/stack/sheet/metal
 	coin_type = /obj/item/coin/iron
 	ore_type = /obj/item/stack/ore/iron
 
 /datum/material/glass
-	name = "Glass"
+	name = "Стекло"
 	id = MAT_GLASS
 	sheet_type = /obj/item/stack/sheet/glass
 	ore_type = /obj/item/stack/ore/glass
 
 /datum/material/silver
-	name = "Silver"
+	name = "Серебро"
 	id = MAT_SILVER
 	sheet_type = /obj/item/stack/sheet/mineral/silver
 	coin_type = /obj/item/coin/silver
 	ore_type = /obj/item/stack/ore/silver
 
 /datum/material/gold
-	name = "Gold"
+	name = "Золото"
 	id = MAT_GOLD
 	sheet_type = /obj/item/stack/sheet/mineral/gold
 	coin_type = /obj/item/coin/gold
 	ore_type = /obj/item/stack/ore/gold
 
 /datum/material/diamond
-	name = "Diamond"
+	name = "Алмаз"
 	id = MAT_DIAMOND
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	coin_type = /obj/item/coin/diamond
 	ore_type = /obj/item/stack/ore/diamond
 
 /datum/material/uranium
-	name = "Uranium"
+	name = "Уран"
 	id = MAT_URANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	coin_type = /obj/item/coin/uranium
 	ore_type = /obj/item/stack/ore/uranium
 
 /datum/material/plasma
-	name = "Solid Plasma"
+	name = "Твёрдая плазма"
 	id = MAT_PLASMA
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	coin_type = /obj/item/coin/plasma
 	ore_type = /obj/item/stack/ore/plasma
 
 /datum/material/bluespace
-	name = "Bluespace Mesh"
+	name = "Блюспейс-пыль"
 	id = MAT_BLUESPACE
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal
 	ore_type = /obj/item/stack/ore/bluespace_crystal
 
 /datum/material/bananium
-	name = "Bananium"
+	name = "Бананиум"
 	id = MAT_BANANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
 	coin_type = /obj/item/coin/clown
 	ore_type = /obj/item/stack/ore/bananium
 
 /datum/material/tranquillite
-	name = "Tranquillite"
+	name = "Транквилит"
 	id = MAT_TRANQUILLITE
 	sheet_type = /obj/item/stack/sheet/mineral/tranquillite
 	coin_type = /obj/item/coin/mime
 	ore_type = /obj/item/stack/ore/tranquillite
 
 /datum/material/titanium
-	name = "Titanium"
+	name = "Титан"
 	id = MAT_TITANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	ore_type = /obj/item/stack/ore/titanium
 
 /datum/material/biomass
-	name = "Biomass"
+	name = "Биомасса"
 	id = MAT_BIOMASS
 
 /datum/material/plastic
-	name = "Plastic"
+	name = "Пластик"
 	id = MAT_PLASTIC
 	sheet_type = /obj/item/stack/sheet/plastic

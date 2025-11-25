@@ -961,13 +961,13 @@
 	taste_description = "проблем"
 
 /datum/reagent/consumable/ethanol/syndicatebomb
-	name = "Бомба Синдиката"
+	name = "Бомба \"Синдиката\""
 	id = "syndicatebomb"
 	description = "Пить аккуратно."
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "syndicatebomb"
-	drink_name = "Бомба Синдиката"
+	drink_name = "Бомба \"Синдиката\""
 	drink_desc = "Бум. Пить осторожно."
 	taste_description = "предложения о работе"
 

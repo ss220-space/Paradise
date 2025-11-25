@@ -106,8 +106,11 @@
 	/// Messages currently seen by this client
 	var/list/seen_messages
 
-	/// list of tabs containing spells and abilities
+	/// list of tabs containing spells and abilities //TODO vakons actions: remove if not used
 	var/list/spell_tabs = list()
+
+	/// datum wrapper for client view
+	var/datum/view_data/view_size
 
 	/// our current tab
 	var/stat_tab

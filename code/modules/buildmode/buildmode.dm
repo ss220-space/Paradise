@@ -148,7 +148,7 @@
 	return TRUE
 
 /datum/click_intercept/buildmode/InterceptClickOn(user, params, atom/object)
-	mode.handle_click(user, params, object)
+	return mode.handle_click(user, params, object)
 
 /datum/click_intercept/buildmode/quit(force)
 	if(!force)

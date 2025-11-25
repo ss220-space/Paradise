@@ -4,8 +4,6 @@
 	Has a pulse launcher that allowes you to shot it at an incredible speed, and grab your victims to get them right next to you! Energy cost: 500"
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 5 SECONDS
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "kunai"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
@@ -64,7 +62,7 @@
 	qdel(src)
 
 /obj/item/gun/magic/johyo/can_trigger_gun(mob/living/user)
-	if(!my_action.IsAvailable(show_message = TRUE, ignore_ready = TRUE))
+	if(!my_action.IsAvailable(feedback = TRUE))
 		return FALSE
 	if(!my_suit.ninjacost(cost*burst_size))
 		my_action.use_action()

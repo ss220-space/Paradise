@@ -199,12 +199,12 @@
 
 /obj/item/clothing/mask/gas/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "маска Синдиката",
-		GENITIVE = "маски Синдиката",
-		DATIVE = "маске Синдиката",
-		ACCUSATIVE = "маску Синдиката",
-		INSTRUMENTAL = "маской Синдиката",
-		PREPOSITIONAL = "маске Синдиката",
+		NOMINATIVE = "маска \"Синдиката\"",
+		GENITIVE = "маски \"Синдиката\"",
+		DATIVE = "маске \"Синдиката\"",
+		ACCUSATIVE = "маску \"Синдиката\"",
+		INSTRUMENTAL = "маской \"Синдиката\"",
+		PREPOSITIONAL = "маске \"Синдиката\"",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -399,17 +399,17 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
+	//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
 	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
 		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
-			mask_spell = spell
+			//mask_spell = spell
 			continue
 		if(spell)
 			return
 
-	if(mask_spell)
-		mask_spell.action.enable_invisibility(FALSE)
-		return
+	// if(mask_spell)
+	// 	mask_spell.action.enable_invisibility(FALSE)
+	// 	return
 
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
 
@@ -423,9 +423,9 @@
 	if(!spell)
 		return
 
-	if(spell.cooldown_handler.is_on_cooldown())
-		spell.action.enable_invisibility(TRUE)
-		return
+	// if(spell.cooldown_handler.is_on_cooldown())
+	// 	spell.action.enable_invisibility(TRUE)
+	// 	return
 
 	if(user.mind.miming)
 		spell.cast(list(user))
@@ -657,7 +657,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/tactical
 	name = "Security gas mask FCO-26"
-	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности Нанотрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
+	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией \"Стальная Гвардия\" специально для сотрудников станционной службы безопасности \"Нанотрейзен\". Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
 	aggressiveness = 3

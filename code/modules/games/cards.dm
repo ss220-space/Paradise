@@ -103,9 +103,8 @@
 	name = "Взять карту"
 	desc = "Взять одну карту."
 	button_icon_state = "draw"
-	use_itemicon = FALSE
 
-/datum/action/item_action/draw_card/Trigger(left_click = TRUE)
+/datum/action/item_action/draw_card/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		owner.changeNext_click(CLICK_CD_RAPID)
@@ -116,9 +115,8 @@
 	name = "Раздать карту"
 	desc = "Раздать одну карту игроку рядом с вами."
 	button_icon_state = "deal_card"
-	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card/Trigger(left_click = TRUE)
+/datum/action/item_action/deal_card/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card(usr)
@@ -128,9 +126,8 @@
 	name = "Раздать несколько карт"
 	desc = "Раздать несколько карт игроку рядом с вами."
 	button_icon_state = "deal_card_multi"
-	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card_multi/Trigger(left_click = TRUE)
+/datum/action/item_action/deal_card_multi/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card_multi(usr)
@@ -140,9 +137,8 @@
 	name = "Перетасовать"
 	desc = "Перетасовать колоду."
 	button_icon_state = "shuffle"
-	use_itemicon = FALSE
 
-/datum/action/item_action/shuffle/Trigger(left_click = TRUE)
+/datum/action/item_action/shuffle/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deckshuffle(usr)
@@ -280,12 +276,11 @@
 	)
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
-/obj/item/deck/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/deck/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(over_object != user || user.incapacitated() || !iscarbon(user))
 		return FALSE
 
@@ -451,15 +446,14 @@
 	name = "Убрать карту"
 	desc = "Убрать одну карту из руки."
 	button_icon_state = "remove_card"
-	use_itemicon = FALSE
 
-/datum/action/item_action/remove_card/IsAvailable()
+/datum/action/item_action/remove_card/IsAvailable(feedback = FALSE)
 	var/obj/item/cardhand/cardhand = target
 	if(LAZYLEN(cardhand.cards) <= 1)
 		return FALSE
 	return ..()
 
-/datum/action/item_action/remove_card/Trigger(left_click = TRUE)
+/datum/action/item_action/remove_card/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return
 	if(istype(target, /obj/item/cardhand))
@@ -471,9 +465,8 @@
 	name = "Сбросить"
 	desc = "Положить карту(ы) из вашей руки перед собой."
 	button_icon_state = "discard"
-	use_itemicon = FALSE
 
-/datum/action/item_action/discard/Trigger(left_click = TRUE)
+/datum/action/item_action/discard/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.discard()

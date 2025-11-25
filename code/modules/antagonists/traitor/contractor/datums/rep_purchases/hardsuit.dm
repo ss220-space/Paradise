@@ -14,6 +14,7 @@
 	name = "Boxed Contractor Hardsuit"
 	gender = MALE
 	icon_state = "box_of_doom"
+	item_state = "syndie"
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 

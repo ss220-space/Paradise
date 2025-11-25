@@ -55,7 +55,7 @@
 	name = "Сбросить джетпак"
 	desc = "Позволяет избавиться от этой шумной штуки на спине."
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/obj/tank.dmi'
+	button_icon = 'icons/obj/tank.dmi'
 	button_icon_state = "jetpack_mouse"
 
 /datum/action/innate/drop_jetpack/Activate()

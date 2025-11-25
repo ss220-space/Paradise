@@ -295,7 +295,7 @@
 
 			if(STATE_BITE)
 				vampire.visible_message(span_danger("[vampire] вонзает [GEND_HIS_HER(vampire)] клыки!"), \
-					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [GEND_HIS_HER(target)] кровь."), \
+					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [GEND_HIS_HER(target)] кровь."), \
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
 				time_per_action = suck_rate_final
@@ -342,7 +342,7 @@
 				break
 
 		// Everything else - we draining sentient monkey, borer controlled non-player human or non-player human, corpses and all other shit
-		to_chat(vampire, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
+		to_chat(vampire, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
 		vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
 		target.AdjustBlood(-sucking_amount)
 		if(check_blood_volume(vampire, target))
@@ -558,7 +558,7 @@
 		vamp_burn(10)
 
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, span_userdanger("Ваше тело обугливается, превращаясь в пепел! Укройтесь от звёздного света!"))
+		to_chat(owner.current, span_userdanger("Ваше тело обугливается, превращаясь в пепел! Укройтесь от звёздного света!"))
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
 		if(owner.current.cloneloss >= 100 && dust_in_space)
@@ -790,7 +790,7 @@
 
 /datum/antagonist/mindslave/thrall/farewell()
 	if(issilicon(owner.current))
-		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы больше не очарованы…"))
+		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы больше не очарованы…"))
 	else
 		to_chat(owner.current, span_userdanger("Ваш разум очищен! Вы больше не очарованы."))
 

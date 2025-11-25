@@ -93,7 +93,7 @@
 			T.give_objectives = FALSE
 			N.mind.add_antag_datum(T)
 
-			to_chat(M, "<b>Вы вступили в ряды Синдиката и стали предателем!</b>")
+			to_chat(M, "<b>Вы вступили в ряды \"Синдиката\" и стали предателем!</b>")
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
 	src.add_fingerprint(usr)

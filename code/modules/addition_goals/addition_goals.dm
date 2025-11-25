@@ -154,7 +154,7 @@ SUBSYSTEM_DEF(addition_goals)
 		reward_number++
 	if(goal.reward_cargopoints > 0)
 		report += "<br>[reward_number]. [goal.reward_cargopoints] очков поставки в карго."
-	var/addition = "Данный запрос считается действительным только при наличии печати Центрального Командоваия Нанотрейзен"
+	var/addition = "Данный запрос считается действительным только при наличии печати Центрального Командоваия \"Нанотрейзен\""
 	var/report_message = create_paper_content(goal.name, report, addition)
 	print_report_on_console(goal.name, report_message, stamp = TRUE)
 

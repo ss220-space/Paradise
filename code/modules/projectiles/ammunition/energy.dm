@@ -17,6 +17,7 @@
 	projectile_type = /obj/projectile/beam/laser
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
+	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/laser/light
 	projectile_type = /obj/projectile/beam/laser/light
@@ -30,6 +31,7 @@
 	muzzle_flash_color = COLOR_SOFT_RED
 	e_cost = 65
 	select_name = "kill"
+	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 75
@@ -90,6 +92,7 @@
 	projectile_type = /obj/projectile/beam/immolator
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	e_cost = 125
+	bullet_type = BULLET_TYPE_FIRE
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/projectile/beam/immolator/strong
@@ -211,6 +214,8 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
+	bullet_type = BULLET_TYPE_DISABLER
+
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
 
@@ -527,6 +532,7 @@
 	select_name = "kill"
 	e_cost = 900
 	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
+	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/specter/disable
 	caliber = CALIBER_SPECTER
@@ -536,6 +542,8 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	e_cost = 450
 	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
+	harmful = FALSE
+	bullet_type = BULLET_TYPE_DISABLER
 
 /obj/item/ammo_casing/energy/rat
 	name = "mechanical energy module"

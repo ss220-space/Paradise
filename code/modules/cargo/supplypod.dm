@@ -2,7 +2,7 @@
 //------------------------------------SUPPLY POD-------------------------------------//
 /obj/structure/closet/supplypod
 	name = "supply pod" //Names and descriptions are normally created with the setStyle() proc during initialization, but we have these default values here as a failsafe
-	desc = "Капсула снабжения Нанотрейзен."
+	desc = "Капсула снабжения \"Нанотрейзен\"."
 	gender = FEMALE
 	icon = 'icons/obj/supplypods.dmi'
 	icon_state = "pod" //This is a common base sprite shared by a number of pods
@@ -112,12 +112,12 @@
 
 /obj/structure/closet/supplypod/extractionpod/get_ru_names()
 	return list(
-		NOMINATIVE = "капсула эвакуации Синдиката",
-		GENITIVE = "капсулы эвакуации Синдиката",
-		DATIVE = "капсуле эвакуации Синдиката",
-		ACCUSATIVE = "капсулу эвакуации Синдиката",
-		INSTRUMENTAL = "капсулой эвакуации Синдиката",
-		PREPOSITIONAL = "капсуле эвакуации Синдиката",
+		NOMINATIVE = "капсула эвакуации \"Синдиката\"",
+		GENITIVE = "капсулы эвакуации \"Синдиката\"",
+		DATIVE = "капсуле эвакуации \"Синдиката\"",
+		ACCUSATIVE = "капсулу эвакуации \"Синдиката\"",
+		INSTRUMENTAL = "капсулой эвакуации \"Синдиката\"",
+		PREPOSITIONAL = "капсуле эвакуации \"Синдиката\"",
 	)
 
 /obj/structure/closet/supplypod/centcompod

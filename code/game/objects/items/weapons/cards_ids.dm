@@ -1389,12 +1389,12 @@
 
 /obj/item/id_decal/syndie/get_ru_names()
 	return list(
-		NOMINATIVE = "наклейка синдиката на ID-карту",
-		GENITIVE = "наклейки синдиката на ID-карту",
-		DATIVE = "наклейке синдиката на ID-карту",
-		ACCUSATIVE = "наклейку синдиката на ID-карту",
-		INSTRUMENTAL = "наклейкой синдиката на ID-карту",
-		PREPOSITIONAL = "наклейке синдиката на ID-карту",
+		NOMINATIVE = "наклейка \"Синдиката\" на ID-карту",
+		GENITIVE = "наклейки \"Синдиката\" на ID-карту",
+		DATIVE = "наклейке \"Синдиката\" на ID-карту",
+		ACCUSATIVE = "наклейку \"Синдиката\" на ID-карту",
+		INSTRUMENTAL = "наклейкой \"Синдиката\" на ID-карту",
+		PREPOSITIONAL = "наклейке \"Синдиката\" на ID-карту",
 	)
 
 /proc/get_station_card_skins()

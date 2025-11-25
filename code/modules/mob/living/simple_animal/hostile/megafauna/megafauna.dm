@@ -29,7 +29,7 @@
 	var/achievement_type
 	var/crusher_achievement_type
 	var/score_achievement_type
-	var/elimination = 0
+	var/elimination = FALSE
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
 	var/internal_type
@@ -209,7 +209,7 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_icon_state = ""
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message

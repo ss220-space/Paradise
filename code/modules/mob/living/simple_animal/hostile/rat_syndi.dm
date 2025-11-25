@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/syndirat
 	name = "Синди-мышь"
-	desc = "Мышь на службе синдиката?"
+	desc = "Мышь на службе \"Синдиката\"?"
 	icon = 'icons/mob/syndirat.dmi'
 	icon_state = "syndirat"
 	icon_living = "syndirat"
@@ -21,7 +21,7 @@
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	nightvision = 6
-	speak = list("Слава Синдикату!", "Смерть Нанотрейзен!", "У вас есть сыр?")
+	speak = list("Слава \"Синдикату\"!", "Смерть \"Нанотрейзен\"!", "У вас есть сыр?")
 	speak_emote = list("пищит", "попискивает")
 	emote_hear = list("пищит", "попискивает")
 	emote_see = list("бегает кругами", "дрожит", "быстро осматривается")

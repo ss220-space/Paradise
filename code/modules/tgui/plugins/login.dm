@@ -143,6 +143,7 @@ GLOBAL_LIST(ui_logins)
 	else if(login_type == LOGIN_TYPE_AI && (isAI(usr) || ispAI(usr)))
 		state.name = usr.name
 		state.rank = JOB_TITLE_AI
+		state.law_level = LAW_LEVEL_BASE
 	else if(iscogscarab(usr))
 		to_chat(usr,  span_warning("Отказано в доступе."))
 		return
@@ -150,6 +151,7 @@ GLOBAL_LIST(ui_logins)
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name
 		state.rank = "[R.modtype?.name] [R.braintype]"
+		state.law_level = LAW_LEVEL_BASE
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
 		state.name = "*ЗАСЕКРЕЧЕНО*"
 		state.rank = "Защищённый канал ЦентКома"
