@@ -56,4 +56,21 @@
 
 	return ..()
 
+/datum/reagent/terror_eggs/phantom
+	name = "Яйца паука ужаса"
+	id = "terror_eggs"
+	description = "Да поможет вам бог."
+	can_synth = FALSE
+	color = "#b327b3"
+	taste_mult = 0
+	id = "terror_phantom_balls"
+
+/datum/reagent/terror_eggs_phantom/on_mob_life(mob/living/target)
+	if(!(volume > REAGENT_UNITS_5 && iscarbon(target)))
+		return ..()
+	if(!target.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
+		new /obj/item/organ/internal/body_egg/terror_eggs/phantom(target)
+
+	return ..()
+
 #undef REAGENT_UNITS_5
