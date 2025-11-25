@@ -668,6 +668,7 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/grappling_hook/upgraded,
 		/obj/item/mod/module/scorpion_hook,
 		/obj/item/mod/module/baton_holster,
+		/obj/item/mod/module/active_chameleon/elite,
 	)
 
 /obj/item/mod/control/pre_equipped/contractor/Initialize(mapload)

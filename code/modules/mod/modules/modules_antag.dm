@@ -974,6 +974,10 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 	var/choosed_skin
 	var/choosed_name
 	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
+
+	if(!selected_chameleon)
+		return
+
 	switch(selected_chameleon)
 		if("civilian")
 			choosed_name = "модели \"Путник\""
