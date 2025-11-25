@@ -296,6 +296,7 @@
 	name = "box of donk-pockets"
 	desc = "Эта коробка кажется немного тёплой на ощупь."
 	icon_state = "donkpocket_box"
+	item_state = "donks"
 
 /obj/item/storage/box/syndidonkpockets/get_ru_names()
 	return list(
@@ -459,6 +460,7 @@
 	name = "boxed space suit and helmet"
 	desc = "A sleek, sturdy box used to hold replica spacesuits."
 	icon_state = "box_of_doom"
+	item_state = "syndie"
 
 /obj/item/storage/box/fakesyndiesuit/populate_contents()
 	new /obj/item/clothing/head/syndicatefake(src)
@@ -1097,6 +1099,7 @@
 
 /obj/item/storage/box/random_syndi
 	icon_state = "box_of_doom"
+	item_state = "syndie"
 	var/static/list/allowed_uplink_items
 
 /obj/item/storage/box/random_syndi/populate_contents()

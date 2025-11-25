@@ -16,6 +16,7 @@
 	name = "Box"
 	gender = MALE
 	icon_state = "box_of_doom"
+	item_state = "syndie"
 
 /obj/item/storage/box/syndie_kit/get_ru_names()
 	return list(
