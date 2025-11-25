@@ -17,15 +17,19 @@
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
+	/// Overlay for lightmask of our crate
+	var/overlay_lightmask
 
 /obj/structure/closet/crate/update_icon_state()
-	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
+	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
 
 /obj/structure/closet/crate/update_overlays()
 	// . = ..() is not needed here because of different overlay handling logic for crates
+	underlays.Cut()
 	. = list()
 	if(manifest)
 		. += "manifest"
+	underlays += emissive_appearance(icon, overlay_lightmask, src)
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -178,6 +182,7 @@
 	var/tamperproof = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
+	overlay_lightmask = "securecrate_lightmask"
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -479,11 +484,21 @@
 	desc = "A secure weapons crate."
 	name = "weapons crate"
 	icon_state = "weaponcrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
 	name = "plasma crate"
 	icon_state = "plasmacrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
 
 /obj/structure/closet/crate/secure/gear
 	desc = "A secure gear crate."
