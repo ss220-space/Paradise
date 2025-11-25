@@ -179,7 +179,7 @@
 /// MARK: Hunter-traitor
 /datum/smite/traitor_hunter
 	name = SMITE_TRAITORHUNTER
-	desc = "Отправьте за грешником агента синдиката, созданного среди экипажа."
+	desc = "Отправьте за грешником агента \"Синдиката\", созданного среди экипажа."
 	logmsg = "crew traitor."
 
 /datum/smite/traitor_hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
@@ -208,7 +208,7 @@
 	newtraitormind.objectives += kill_objective
 	var/datum/antagonist/traitor/turf = new()
 	turf.give_objectives = FALSE
-	to_chat(newtraitormind.current, "[span_danger("ВНИМАНИЕ:")] [span_warning("Время отдать свой долг Синдикату!")]")
+	to_chat(newtraitormind.current, "[span_danger("ВНИМАНИЕ:")] [span_warning("Время отдать свой долг \"Синдикату\"!")]")
 	to_chat(newtraitormind.current, span_boldwarning("Цель: УБЕЙТЕ [target.real_name]. Сейчас находится в [get_area(target.loc)].</b>"))
 	newtraitormind.add_antag_datum(turf)
 

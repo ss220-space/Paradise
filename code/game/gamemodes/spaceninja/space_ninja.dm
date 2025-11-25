@@ -9,7 +9,7 @@
 	var/datum/mind/pre_ninja
 
 /datum/game_mode/space_ninja/announce()
-	to_chat(world, "<b>>Текущий игровой режим — Космический Ниндзя!</b>")
+	to_chat(world, "<b>>Текущий игровой режим — Космический Ниндзя!</b>")
 	to_chat(world, "<b>На станцию проник опасный наёмник из клана Паука. Более известный как Космический Ниндзя. Какие бы он не преследовал цели, станция в опасности!</b>")
 
 /datum/game_mode/space_ninja/can_start()

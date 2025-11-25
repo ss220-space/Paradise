@@ -149,7 +149,7 @@
 	to_chat(user, span_warning("Вы незаметно инфицируете [target] заражающим касанием."))
 	target.help_shake_act(user)
 	if(!affects(target))
-		to_chat(user, span_warning("Вам кажется, что заражающее касание не подействовало на [target]."))
+		to_chat(user, span_warning("Вам кажется, что заражающее касание не подействовало на [target]."))
 		return
 
 	var/datum/disease/vampire/virus = new

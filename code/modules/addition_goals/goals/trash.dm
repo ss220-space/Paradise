@@ -57,7 +57,7 @@
 	if(reward_credits <= 0 && reward_cargopoints <= 0)
 		report_text += "Отсутствует.<br>"
 	system.add_reward(reward_credits, reward_cargopoints)
-	var/paper_content = system.create_paper_content("Отчет об утилизации мусора №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
+	var/paper_content = system.create_paper_content("Отчет об утилизации мусора №[request_number]", report_text, "Официальный документ, заверенный печатью Центрального командования \"Нанотрейзен\"")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
 
 #undef AGS_CREDITS_PER_TRASH

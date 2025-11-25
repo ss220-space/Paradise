@@ -474,6 +474,10 @@ Difficulty: Very Hard
 	visible_message(span_biggerdanger("[declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
 	GLOB.move_manager.stop_looping(src)
 	playsound(src,'sound/machines/alarm.ogg',100, FALSE,5)
+	var/datum/status_effect/crusher_damage/crusher_damage = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	grant_achievement(achievement_type, score_achievement_type, crusher_damage && crusher_damage.total_damage >= maxHealth * 0.6)
+	SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
+	elimination = TRUE
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()

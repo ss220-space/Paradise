@@ -4,7 +4,7 @@
 
 /datum/design/adv_reagent_scanner
 	id = "adv_reagent_scanner"
-	req_tech = list("biotech" = 3, "magnets" = 4, "plasmatech" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_PLASMA = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/reagent_scanner/adv
@@ -12,7 +12,7 @@
 
 /datum/design/bluespacebeaker
 	id = "bluespacebeaker"
-	req_tech = list("bluespace" = 6, "materials" = 5, "plasmatech" = 4)
+	req_tech = list(RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PLASMA = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 250, MAT_BLUESPACE = 250)
 	build_path = /obj/item/reagent_containers/glass/beaker/bluespace
@@ -20,7 +20,7 @@
 
 /datum/design/noreactbeaker
 	id = "splitbeaker"
-	req_tech = list("materials" = 3, "engineering" = 3, "plasmatech" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_PLASMA = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/reagent_containers/glass/beaker/noreact
@@ -28,7 +28,7 @@
 
 /datum/design/cyborg_analyzer
 	id = "cyborg_analyzer"
-	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_MAGNETS = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/robotanalyzer
@@ -36,7 +36,7 @@
 
 /datum/design/healthanalyzer_upgrade
 	id = "healthanalyzer_upgrade"
-	req_tech = list("biotech" = 2, "magnets" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_MAGNETS = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
 	build_path = /obj/item/healthupgrade
@@ -44,7 +44,7 @@
 
 /datum/design/dna_notepad
 	id = "dna_notepad"
-	req_tech = list("programming" = 2)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 	build_path = /obj/item/dna_notepad
@@ -52,7 +52,7 @@
 
 /datum/design/bodyanalyzer
 	id = "handheld_body_analyzer"
-	req_tech = list("biotech" = 6, "materials" = 7, "magnets" = 5, "programming" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PROGRAMMING = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 2000, MAT_SILVER = 600)
 	build_path = /obj/item/bodyanalyzer/rnd
@@ -60,7 +60,7 @@
 
 /datum/design/handheld_defib_adv
 	id = "handheld_defib_adv"
-	req_tech = list("biotech" = 7, "materials" = 6, "magnets" = 6)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_GOLD = 1000, MAT_TITANIUM = 500)
 	build_path = /obj/item/handheld_defibrillator/advanced
@@ -68,7 +68,7 @@
 
 /datum/design/defib
 	id = "defib"
-	req_tech = list("materials" = 7, "biotech" = 5, "powerstorage" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_POWERSTORAGE = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000, MAT_SILVER = 1000)
 	build_path = /obj/item/defibrillator
@@ -76,7 +76,7 @@
 
 /datum/design/compact_defib
 	id = "compact_defib"
-	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_POWERSTORAGE = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000)
 	build_path = /obj/item/defibrillator/compact
@@ -84,7 +84,7 @@
 
 /datum/design/defib_mount
 	id = "defib_mount"
-	req_tech = list("magnets" = 3, "biotech" = 3, "powerstorage" = 4)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 3, RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_POWERSTORAGE = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 	build_path = /obj/item/mounted/frame/defib_mount
@@ -92,7 +92,7 @@
 
 /datum/design/sensor_device
 	id = "sensor_device"
-	req_tech = list("programming" = 3, "magnets" = 2, "biotech" = 2)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_MAGNETS = 2, RESEARCH_TREE_BIOTECH = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/sensor_device
@@ -100,7 +100,7 @@
 
 /datum/design/mmi
 	id = "mmi"
-	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 2)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_ENGINEERING = 2)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	construction_time = 75
@@ -109,7 +109,7 @@
 
 /datum/design/robotic_brain
 	id = "mmi_robotic"
-	req_tech = list("programming" = 5, "biotech" = 4, "plasmatech" = 3)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PLASMA = 3)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) //Gold, because SWAG.
 	construction_time = 75
@@ -118,7 +118,7 @@
 
 /datum/design/mmi_radio_upgrade
 	id = "mmi_radio_upgrade"
-	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 2)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_ENGINEERING = 2)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 200)
 	construction_time = 50
@@ -127,7 +127,7 @@
 
 /datum/design/nanopaste
 	id = "nanopaste"
-	req_tech = list("materials" = 3, "engineering" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 7000)
 	build_path = /obj/item/stack/nanopaste
@@ -135,7 +135,7 @@
 
 /datum/design/reagent_scanner
 	id = "reagent_scanner"
-	req_tech = list("magnets" = 2, "plasmatech" = 2)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 2, RESEARCH_TREE_PLASMA = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/reagent_scanner
@@ -143,7 +143,7 @@
 
 /datum/design/upgraded_hypospray
 	id = "upgraded_hypospray"
-	req_tech = list("plasmatech" = 4, "biotech" = 6, "materials" = 5)
+	req_tech = list(RESEARCH_TREE_PLASMA = 4, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_MATERIALS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 800, MAT_SILVER = 400, MAT_GOLD = 600)
 	build_path = /obj/item/reagent_containers/hypospray/safety/upgraded
@@ -151,7 +151,7 @@
 
 /datum/design/item/scalpel_laser1
 	id = "scalpel_laser1"
-	req_tech = list("biotech" = 2, "materials" = 2, "magnets" = 2)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_MAGNETS = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500)
 	build_path = /obj/item/scalpel/laser/laser1
@@ -159,7 +159,7 @@
 
 /datum/design/item/scalpel_laser2
 	id = "scalpel_laser2"
-	req_tech = list("biotech" = 3, "materials" = 4, "magnets" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_MAGNETS = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000)
 	build_path = /obj/item/scalpel/laser/laser2
@@ -167,7 +167,7 @@
 
 /datum/design/item/scalpel_laser3
 	id = "scalpel_laser3"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/scalpel/laser/laser3
@@ -175,7 +175,7 @@
 
 /datum/design/item/scalpel_manager
 	id = "scalpel_manager"
-	req_tech = list("biotech" = 4, "materials" = 8, "magnets" = 5, "programming" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 8, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PROGRAMMING = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/scalpel/laser/manager
@@ -183,7 +183,7 @@
 
 /datum/design/item/retractor_laser
 	id = "retractor_laser"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/retractor/laser
@@ -191,7 +191,7 @@
 
 /datum/design/item/hemostat_laser
 	id = "hemostat_laser"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/hemostat/laser
@@ -199,7 +199,7 @@
 
 /datum/design/item/surgicaldrill_laser
 	id = "surgicaldrill_laser"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/surgicaldrill/laser
@@ -207,7 +207,7 @@
 
 /datum/design/item/circular_laser
 	id = "circular_laser"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/circular_saw/laser
@@ -215,7 +215,7 @@
 
 /datum/design/item/bonesetter_laser
 	id = "bonesetter_laser"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/bonesetter/laser
@@ -223,7 +223,7 @@
 
 /datum/design/item/laserfullkit
 	id = "laser_fullsurgerykit"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	build_path = /obj/item/storage/toolbox/surgery/advanced
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 13000, MAT_GLASS = 10000, MAT_SILVER = 6000, MAT_GOLD = 6000)
@@ -231,7 +231,7 @@
 
 /datum/design/alienscalpel
 	id = "alien_scalpel"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/scalpel/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
@@ -239,7 +239,7 @@
 
 /datum/design/alienhemostat
 	id = "alien_hemostat"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/hemostat/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
@@ -247,7 +247,7 @@
 
 /datum/design/alienretractor
 	id = "alien_retractor"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/retractor/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
@@ -255,7 +255,7 @@
 
 /datum/design/aliensaw
 	id = "alien_saw"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/circular_saw/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
@@ -263,7 +263,7 @@
 
 /datum/design/aliendrill
 	id = "alien_drill"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/surgicaldrill/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
@@ -271,7 +271,7 @@
 
 /datum/design/aliencautery
 	id = "alien_cautery"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/cautery/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2500, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
@@ -279,7 +279,7 @@
 
 /datum/design/alienbonegel
 	id = "alien_bonegel"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/bonegel/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
@@ -287,7 +287,7 @@
 
 /datum/design/alienbonesetter
 	id = "alien_bonesetter"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/bonesetter/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
@@ -295,7 +295,7 @@
 
 /datum/design/alienfixovein
 	id = "alien_fixovein"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/FixOVein/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
@@ -303,7 +303,7 @@
 
 /datum/design/alienfullkit
 	id = "alien_fullsurgerykit"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ALIEN = 3)
 	build_path = /obj/item/storage/toolbox/surgery/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 34500, MAT_SILVER = 16000, MAT_PLASMA = 5500, MAT_TITANIUM = 13500)
@@ -315,7 +315,7 @@
 
 /datum/design/cyberimp_welding
 	id = "ci-welding"
-	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_PLASMA = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 40
 	materials = list(MAT_METAL = 600, MAT_GLASS = 400)
@@ -324,7 +324,7 @@
 
 /datum/design/cyberimp_breather
 	id = "ci-breather"
-	req_tech = list("materials" = 2, "biotech" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 3)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 35
 	materials = list(MAT_METAL = 600, MAT_GLASS = 250)
@@ -333,7 +333,7 @@
 
 /datum/design/cyberimp_surgical
 	id = "ci-surgey"
-	req_tech = list("materials" = 3, "engineering" = 3, "biotech" = 3, "programming" = 2, "magnets" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_MAGNETS = 3)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
@@ -342,7 +342,7 @@
 
 /datum/design/cyberimp_toolset
 	id = "ci-toolset"
-	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4, "powerstorage" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_POWERSTORAGE = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
@@ -351,7 +351,7 @@
 
 /datum/design/mantisblade
 	id = "ci-mantisblade"
-	req_tech = list("materials" = 7, "combat" = 7, "biotech" = 7, "programming" = 6)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_PROGRAMMING = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 6000, MAT_DIAMOND = 6000)
 	build_path = /obj/item/storage/lockbox/research/mantis
@@ -369,7 +369,7 @@
 
 /datum/design/cyberimp_atmostoolset
 	id = "ci-atmostoolset"
-	req_tech = list("materials" = 5, "engineering" = 7, "biotech" = 4, "bluespace" = 6, "powerstorage" = 4, "programming" = 6, "plasmatech" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_PLASMA = 5)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 1000, MAT_DIAMOND = 600, MAT_BLUESPACE = 1000)
 	construction_time = 200
@@ -378,7 +378,7 @@
 
 /datum/design/cyberimp_janitorial
 	id = "ci-janitorial"
-	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BIOTECH = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
@@ -387,7 +387,7 @@
 
 /datum/design/cyberimp_botanical
 	id = "ci-botanical"
-	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BIOTECH = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
@@ -396,7 +396,7 @@
 
 /datum/design/cyberimp_hacking
 	id = "ci-hacking"
-	req_tech = list("materials" = 3, "engineering" = 5, "biotech" = 4, "programming" = 4, "abductor" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ALIEN = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	construction_time = 200
@@ -405,7 +405,7 @@
 
 /datum/design/cyberimp_diagnostic_hud
 	id = "ci-diaghud"
-	req_tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
@@ -414,7 +414,7 @@
 
 /datum/design/cyberimp_medical_hud
 	id = "ci-medhud"
-	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
@@ -423,7 +423,7 @@
 
 /datum/design/cyberimp_science_hud
 	id = "ci-scihud"
-	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
@@ -432,7 +432,7 @@
 
 /datum/design/cyberimp_security_hud
 	id = "ci-sechud"
-	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4, "combat" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_COMBAT = 3)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 750, MAT_GOLD = 750)
@@ -441,7 +441,7 @@
 
 /datum/design/cyberimp_meson
 	id = "ci-mesonhud"
-	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_ENGINEERING = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_GOLD = 300)
@@ -450,7 +450,7 @@
 
 /datum/design/cyberimp_xray
 	id = "ci-xray"
-	req_tech = list("materials" = 7, "programming" = 5, "biotech" = 8, "magnets" = 5,"plasmatech" = 6)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIOTECH = 8, RESEARCH_TREE_MAGNETS = 5,RESEARCH_TREE_PLASMA = 6)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 1000)
@@ -459,7 +459,7 @@
 
 /datum/design/cyberimp_thermals
 	id = "ci-thermals"
-	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 7, "magnets" = 5,"plasmatech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5,RESEARCH_TREE_PLASMA = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
@@ -468,7 +468,7 @@
 
 /datum/design/cyberimp_antidrop
 	id = "ci-antidrop"
-	req_tech = list("materials" = 5, "programming" = 6, "biotech" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BIOTECH = 5)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 400, MAT_GOLD = 400)
@@ -477,7 +477,7 @@
 
 /datum/design/cyberimp_antistun
 	id = "ci-antistun"
-	req_tech = list("materials" = 6, "programming" = 5, "biotech" = 6)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIOTECH = 6)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 1000)
@@ -486,7 +486,7 @@
 
 /datum/design/cyberimp_antisleep
 	id = "ci-antisleep"
-	req_tech = list("materials" = 6, "programming" = 5, "biotech" = 6)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIOTECH = 6)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 1000)
@@ -495,7 +495,7 @@
 
 /datum/design/cyberimp_clownvoice
 	id = "ci-clownvoice"
-	req_tech = list("materials" = 2, "biotech" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 2)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_BANANIUM = 200)
@@ -504,7 +504,7 @@
 
 /datum/design/cyberimp_nutriment
 	id = "ci-nutriment"
-	req_tech = list("materials" = 3, "powerstorage" = 4, "biotech" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_BIOTECH = 3)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 40
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
@@ -513,7 +513,7 @@
 
 /datum/design/cyberimp_nutriment_plus
 	id = "ci-nutrimentplus"
-	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_BIOTECH = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_GOLD = 500, MAT_URANIUM = 750)
@@ -522,7 +522,7 @@
 
 /datum/design/cyberimp_reviver
 	id = "ci-reviver"
-	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 5)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)
@@ -531,7 +531,7 @@
 
 /datum/design/voice_retranslator
 	id = "ci_retranslator"
-	req_tech = list("materials" = 5, "programming" = 6, "biotech" = 6, "engineering" = 6, "abductor" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_ALIEN = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_TITANIUM = 1000, MAT_DIAMOND = 600, MAT_PLASMA = 500)
@@ -544,7 +544,7 @@
 
 /datum/design/implanter
 	id = "implanter"
-	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_PROGRAMMING = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
 	build_path = /obj/item/implanter
@@ -552,7 +552,7 @@
 
 /datum/design/implantcase
 	id = "implantcase"
-	req_tech = list("biotech" = 2)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500)
 	build_path = /obj/item/implantcase
@@ -560,7 +560,7 @@
 
 /datum/design/implant_chem
 	id = "implant_chem"
-	req_tech = list("materials" = 3, "biotech" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_BIOTECH = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
 	build_path = /obj/item/implantcase/chem
@@ -568,7 +568,7 @@
 
 /datum/design/implant_sadtrombone
 	id = "implant_trombone"
-	req_tech = list("materials" = 3, "biotech" = 5)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_BIOTECH = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
 	build_path = /obj/item/implantcase/sad_trombone
@@ -576,7 +576,7 @@
 
 /datum/design/implant_tracking
 	id = "implant_tracking"
-	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_MAGNETS = 3, RESEARCH_TREE_PROGRAMMING = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/implantcase/tracking
@@ -584,7 +584,7 @@
 
 /datum/design/implant_mindshield
 	id = "implant_mindshield"
-	req_tech = list("materials" = 3, "biotech" = 5, "magnets" = 4, "programming" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_PROGRAMMING = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/implantcase/mindshield
@@ -594,7 +594,7 @@
 
 /datum/design/cybernetic_eyes
 	id = "cybernetic_eyes"
-	req_tech = list("biotech" = 4, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
@@ -603,7 +603,7 @@
 
 /datum/design/cybernetic_ears
 	id = "cybernetic_ears"
-	req_tech = list("biotech" = 4, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
@@ -612,7 +612,7 @@
 
 /datum/design/cybernetic_liver
 	id = "cybernetic_liver"
-	req_tech = list("biotech" = 4, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
@@ -621,7 +621,7 @@
 
 /datum/design/cybernetic_kidneys
 	id = "cybernetic_kidneys"
-	req_tech = list("biotech" = 4, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
@@ -630,7 +630,7 @@
 
 /datum/design/cybernetic_heart
 	id = "cybernetic_heart"
-	req_tech = list("biotech" = 4, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
@@ -639,7 +639,7 @@
 
 /datum/design/cybernetic_heart_u
 	id = "cybernetic_heart_u"
-	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	construction_time = 60
@@ -648,7 +648,7 @@
 
 /datum/design/cybernetic_lungs
 	id = "cybernetic_lungs"
-	req_tech = list("biotech" = 4, "materials" = 4)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
@@ -657,7 +657,7 @@
 
 /datum/design/cybernetic_lungs_u
 	id = "cybernetic_lungs_u"
-	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	construction_time = 60
@@ -666,7 +666,7 @@
 
 /datum/design/holostretcher
 	id = "holo_stretcher"
-	req_tech = list("magnets" = 6, "powerstorage" = 4)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_POWERSTORAGE = 4)
 	build_path = /obj/item/roller/holo
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
@@ -674,7 +674,7 @@
 
 /datum/design/modified_medical_gloves
 	id = "modified_medical_gloves"
-	req_tech = list("magnets" = 7, "materials" = 7, "programming" = 5, "biotech" = 5)
+	req_tech = list(RESEARCH_TREE_MAGNETS = 7, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIOTECH = 5)
 	build_path = /obj/item/clothing/gloves/color/latex/modified
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 800, MAT_GLASS = 800, MAT_DIAMOND = 600, MAT_GOLD = 400)
@@ -690,7 +690,7 @@
 
 /datum/design/adv_drug_storage
 	id = "adv_drug_storage"
-	req_tech = list("materials" = 4, "bluespace" = 3, "biotech" = 3, "plasmatech" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_BLUESPACE = 3, RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_PLASMA = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 340, MAT_GLASS = 340, MAT_PLASMA = 200, MAT_BLUESPACE = 30)
 	build_path = /obj/item/storage/pill_bottle/bluespace
@@ -698,7 +698,7 @@
 
 /datum/design/inugami_medical_gloves
 	id = "medical_gloves_inugami"
-	req_tech = list("materials" = 7, "biotech" = 7, "magnets" = 8, "programming" = 7)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 8, RESEARCH_TREE_PROGRAMMING = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1200, MAT_GLASS = 1000, MAT_SILVER = 800, MAT_GOLD = 800, MAT_DIAMOND = 1000, MAT_BLUESPACE = 600)
 	build_path = /obj/item/clothing/gloves/color/latex/inugami
@@ -706,7 +706,7 @@
 
 /datum/design/scalpel
 	id = "scalpel"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
 	build_path = /obj/item/scalpel
@@ -714,7 +714,7 @@
 
 /datum/design/circular_saw
 	id = "circular_saw"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
 	build_path = /obj/item/circular_saw
@@ -722,7 +722,7 @@
 
 /datum/design/surgicaldrill
 	id = "surgicaldrill"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
 	build_path = /obj/item/surgicaldrill
@@ -730,7 +730,7 @@
 
 /datum/design/retractor
 	id = "retractor"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000)
 	build_path = /obj/item/retractor
@@ -738,7 +738,7 @@
 
 /datum/design/cautery
 	id = "cautery"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 750)
 	build_path = /obj/item/cautery
@@ -746,7 +746,7 @@
 
 /datum/design/hemostat
 	id = "hemostat"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
 	build_path = /obj/item/hemostat
@@ -754,7 +754,7 @@
 
 /datum/design/bonesetter
 	id = "bonesetter"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/bonesetter
@@ -762,7 +762,7 @@
 
 /datum/design/fixovein
 	id = "fixovein"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
 	build_path = /obj/item/FixOVein
@@ -770,7 +770,7 @@
 
 /datum/design/bonegel
 	id = "bonegel"
-	req_tech = list("materials" = 1, "biotech" = 1)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_BIOTECH = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 6000)
 	build_path = /obj/item/bonegel

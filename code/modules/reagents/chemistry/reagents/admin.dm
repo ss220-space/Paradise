@@ -102,7 +102,7 @@
 /datum/reagent/admin_cleaner/all
 	name = "WD-2381-ALL"
 	id = "admincleaner_all"
-	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают всё, к чему прикасаются."
+	description = "Невероятно опасный набор нанитов, созданный Уборщиками \"Синдиката\", которые пожирают всё, к чему прикасаются."
 
 /datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/grenade/clusterbuster/segment))

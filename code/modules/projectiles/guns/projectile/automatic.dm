@@ -174,6 +174,26 @@
 		PREPOSITIONAL = "пистолет-пулемете C-20rm",
 	)
 
+/obj/item/gun/projectile/automatic/c20r/rusted
+	name = "C-20r SMG (Rusted)"
+	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемет C-20r (ржавый)",
+		GENITIVE = "пистолет-пулемета C-20r (ржавый)",
+		DATIVE = "пистолет-пулемету C-20r (ржавый)",
+		ACCUSATIVE = "пистолет-пулемету C-20r (ржавый)",
+		INSTRUMENTAL = "пистолет-пулеметом C-20r (ржавый)",
+		PREPOSITIONAL = "пистолет-пулемете C-20r (ржавый)",
+	)
+
+/obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
+
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
 	name = "WT-550 PDW"
@@ -358,6 +378,20 @@ TODO Use this name and desc for localisation*/
 			balloon_alert(user, "подствольный гранатомёт")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
+
+/obj/item/gun/projectile/automatic/m90/rusted
+	name = "M-90gl Carbine (Rusted)"
+	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
+	. = ..()
+	QDEL_NULL(underbarrel.chambered)
+
+/obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //Tommy Gun//
 /obj/item/gun/projectile/automatic/tommygun
