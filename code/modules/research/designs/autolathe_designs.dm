@@ -237,6 +237,7 @@
 	maxstack = 50
 
 /datum/design/rglass
+	desc = "Сталь + Стекло" // because this design is used in ore redemption
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -603,12 +604,11 @@
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/handheld_defib
-	name = "Handheld Defibrillator"
 	id = "handheld_defibrillator"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
 	build_path = /obj/item/handheld_defibrillator
-	category = list("initial", "Medical")
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/prox_sensor
 	id = "prox_sensor"

@@ -52,7 +52,7 @@ Difficulty: Medium
 	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
-	elimination = 1
+	elimination = TRUE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
@@ -105,6 +105,7 @@ Difficulty: Medium
 			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 			return ..()
 	UnlockBlastDoors("11119")
+	elimination = FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()

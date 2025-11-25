@@ -129,7 +129,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/ppsh/rusted,
+			/obj/item/gun/projectile/automatic/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 		),
@@ -144,6 +144,14 @@
 			/obj/item/ammo_box/shotgun,
 			/obj/item/ammo_box/shotgun/buck,
 			/obj/item/ammo_box/speedloader/shotgun,
+		),
+		list(
+			/obj/item/gun/projectile/revolver/taurus,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/c45colt,
+			/obj/item/ammo_box/c45colt,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/pistol,
@@ -203,6 +211,12 @@
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
+		),
+		list(
+			/obj/item/gun/projectile/automatic/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
 		),
 		/obj/item/gun/syringe/rapidsyringe/experimental/preloaded,
 		/obj/item/storage/belt/security/judobelt,
@@ -303,7 +317,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/aksu/rusted,
+			/obj/item/gun/projectile/automatic/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
@@ -742,6 +756,12 @@
 		),
 		CALIBER_5_DOT_56X45MM = list(
 			/obj/item/ammo_box/a556,
+		),
+		CALIBER_DOT_45_COLT = list(
+			/obj/item/ammo_box/c45colt,
+			/obj/item/ammo_box/rubber45colt,
+			/obj/item/ammo_box/expansive45colt,
+			/obj/item/ammo_box/ap45colt,
 		),
 		CALIBER_5_DOT_45X39MM = list(
 			/obj/item/ammo_box/ak814/fusty,

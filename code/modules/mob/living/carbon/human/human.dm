@@ -114,6 +114,7 @@
 
 /mob/living/carbon/human/machine/created
 	name = "Комплексный роботизированный блок"
+	deathgasp_on_death = FALSE
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	. = ..()
@@ -127,6 +128,7 @@
 		qdel(organ)
 	regenerate_icons()
 	death()
+	deathgasp_on_death = TRUE
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
 	. = ..(mapload, /datum/species/shadow)

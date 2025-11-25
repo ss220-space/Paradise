@@ -100,7 +100,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	/// for the search function
 	var/list/datum/design/matching_designs = list()
 
-	/// Тема интерфейса
+	/// TGUI theme
 	var/ui_theme = "Nanotrasen"
 
 /// A simple helper proc to find the name of a tech with a given ID.
@@ -183,6 +183,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
 		update_icon()
+
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -743,13 +744,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
-				var/obj/design_item = new D.build_path
-				var/item_name = capitalize(design_item.declent_ru(NOMINATIVE))
 				if(!(D.build_type & compare))
 					continue
-				if(findtext(item_name, query))
+				if(findtext(D.build_object_name, query))
 					matching_designs.Add(D)
-				qdel(design_item)
 			submenu = SUBMENU_LATHE_CATEGORY
 
 			selected_category = "Результаты поиска по запросу \"[query]\""
@@ -798,17 +796,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
-			var/obj/design_item = new D.build_path
+			var/item_name = D.build_object_name
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
+			var/obj/item/created_object = D.build_path
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
-			design_list["name"] = capitalize(design_item.declent_ru(NOMINATIVE))
-			design_list["desc"] = design_item.desc
-			design_list["icon"] = initial(design_item.icon)
-			design_list["icon_state"] = initial(design_item.icon_state)
-			qdel(design_item)
+			design_list["name"] = item_name
+			design_list["desc"] = created_object.desc
+			design_list["icon"] = created_object.icon
+			design_list["icon_state"] = created_object.icon_state
 			var/can_build = is_imprinter ? 1 : 50
 
 			for(var/M in D.materials)
@@ -838,7 +836,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		materials_list[++materials_list.len] = list("name" = "Серебро", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
 		materials_list[++materials_list.len] = list("name" = "Твёрдая плазма", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
 		materials_list[++materials_list.len] = list("name" = "Уран", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
-		materials_list[++materials_list.len] = list("name" = "Алмазы", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
+		materials_list[++materials_list.len] = list("name" = "Алмаз", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
 		materials_list[++materials_list.len] = list("name" = "Бананиум", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
 		materials_list[++materials_list.len] = list("name" = "Транквилит", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
 		materials_list[++materials_list.len] = list("name" = "Титан", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
@@ -950,14 +948,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/datum/design/D = files.known_designs[v]
 				if(!can_copy_design(D))
 					continue
-				var/obj/design_item = new D.build_path
-				var/item_name = capitalize(design_item.declent_ru(NOMINATIVE))
 				var/list/item = list()
 				to_copy[++to_copy.len] = item
-				item["name"] = item_name
+				item["name"] = D.build_object_name
 				item["id"] = D.id
-				qdel(design_item)
-
 	else if(menu == MENU_DESTROY && linked_destroy?.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
@@ -1006,6 +1000,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		deltimer(wait_message_timer)
 		wait_message_timer = null
 	SStgui.update_uis(src)
+
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
