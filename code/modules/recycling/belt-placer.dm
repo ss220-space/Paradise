@@ -21,8 +21,6 @@
 	name = "bluespace conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
 	icon_state = "bluespace_belt_placer"
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "bs_conv"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 50

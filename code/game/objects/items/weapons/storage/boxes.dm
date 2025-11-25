@@ -965,7 +965,6 @@
 /obj/item/storage/pouch
 	name = "pouch"
 	desc = "Подсумок на два магазина."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch"
 	item_state = "pouch"
 	storage_slots = 2
