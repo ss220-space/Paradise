@@ -92,6 +92,7 @@
 		/obj/item/gun/medbeam = 10,
 		/obj/item/defibrillator/compact/loaded = 10,
 		/obj/item/handheld_defibrillator = 10,
+		/obj/item/handheld_defibrillator/advanced = 10,
 		/obj/item/vending_refill/medical = 10,
 	)
 
@@ -205,16 +206,16 @@
 	deny_overlay = "nta-blue_deny"
 
 	products = list(
-		/obj/item/storage/box/responseteam/amber/commander = 100,
-		/obj/item/storage/box/responseteam/amber/security = 100,
-		/obj/item/storage/box/responseteam/amber/engineer = 100,
-		/obj/item/storage/box/responseteam/amber/medic = 100,
-		/obj/item/storage/box/responseteam/amber/janitor = 100,
-		/obj/item/storage/box/responseteam/red/commander = 100,
-		/obj/item/storage/box/responseteam/red/security = 100,
-		/obj/item/storage/box/responseteam/red/engineer = 100,
-		/obj/item/storage/box/responseteam/red/medic = 100,
-		/obj/item/storage/box/responseteam/red/janitor = 100,
+		/obj/item/storage/box/survival/responseteam/amber/commander = 100,
+		/obj/item/storage/box/survival/responseteam/amber/security = 100,
+		/obj/item/storage/box/survival/responseteam/amber/engineer = 100,
+		/obj/item/storage/box/survival/responseteam/amber/medic = 100,
+		/obj/item/storage/box/survival/responseteam/amber/janitor = 100,
+		/obj/item/storage/box/survival/responseteam/red/commander = 100,
+		/obj/item/storage/box/survival/responseteam/red/security = 100,
+		/obj/item/storage/box/survival/responseteam/red/engineer = 100,
+		/obj/item/storage/box/survival/responseteam/red/medic = 100,
+		/obj/item/storage/box/survival/responseteam/red/janitor = 100,
 	)
 
 /obj/machinery/vending/ntc/ert/get_ru_names()

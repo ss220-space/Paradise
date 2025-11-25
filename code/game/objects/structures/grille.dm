@@ -42,7 +42,6 @@
 	//height=42
 	icon='icons/obj/fence-ns.dmi'
 
-
 /obj/structure/grille/examine(mob/user)
 	. = ..()
 	if(anchored)
@@ -99,14 +98,12 @@
 	take_damage(25 * levels) //second time turn into broken
 	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
 
-
 /obj/structure/grille/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
 		return .
 	shock(moving_atom, 70)
 	COOLDOWN_START(src, shock_cooldown, 1 SECONDS)
-
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
@@ -135,7 +132,6 @@
 	if(!shock(user, 70))
 		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
-
 /obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -143,14 +139,12 @@
 	if(!. && isprojectile(mover))
 		return prob(30)
 
-
 /obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
 	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
 		return TRUE
 	return FALSE
-
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	var/obj/structure/window/window = locate() in loc
@@ -194,7 +188,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -265,7 +258,6 @@
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, span_notice("You place the [W] on [src]."))
 		W.update_nearby_icons()
-
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

@@ -12,7 +12,6 @@
 	if(newback_icon)
 		back_icon = newback_icon
 
-
 /obj/item/deck
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/playing_cards.dmi'
@@ -47,14 +46,12 @@
 	/// To prevent spam shuffle
 	COOLDOWN_DECLARE(shuffle_cooldown)
 
-
 /obj/item/deck/Initialize(mapload)
 	. = ..()
 	for(var/deck in 1 to deck_size)
 		build_deck()
 	deck_total = LAZYLEN(cards)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/deck/proc/build_deck()
 	return
@@ -75,7 +72,6 @@
 		to_chat(user, span_notice("Вы кладёте свои карты вниз [declent_ru(GENITIVE)]."))
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/deck/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = I
@@ -95,7 +91,6 @@
 
 	return ..()
 
-
 /obj/item/deck/examine(mob/user)
 	. = ..()
 	. += span_notice("В колоде [LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карта", "карты", "карт")].")
@@ -103,64 +98,51 @@
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
 
-
 // Datum actions
 /datum/action/item_action/draw_card
 	name = "Взять карту"
 	desc = "Взять одну карту."
 	button_icon_state = "draw"
-	use_itemicon = FALSE
 
-
-/datum/action/item_action/draw_card/Trigger(left_click = TRUE)
+/datum/action/item_action/draw_card/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		owner.changeNext_click(CLICK_CD_RAPID)
 		return D.draw_card(owner)
 	return ..()
 
-
 /datum/action/item_action/deal_card
 	name = "Раздать карту"
 	desc = "Раздать одну карту игроку рядом с вами."
 	button_icon_state = "deal_card"
-	use_itemicon = FALSE
 
-
-/datum/action/item_action/deal_card/Trigger(left_click = TRUE)
+/datum/action/item_action/deal_card/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card(usr)
 	return ..()
 
-
 /datum/action/item_action/deal_card_multi
 	name = "Раздать несколько карт"
 	desc = "Раздать несколько карт игроку рядом с вами."
 	button_icon_state = "deal_card_multi"
-	use_itemicon = FALSE
 
-
-/datum/action/item_action/deal_card_multi/Trigger(left_click = TRUE)
+/datum/action/item_action/deal_card_multi/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card_multi(usr)
 	return ..()
 
-
 /datum/action/item_action/shuffle
 	name = "Перетасовать"
 	desc = "Перетасовать колоду."
 	button_icon_state = "shuffle"
-	use_itemicon = FALSE
 
-
-/datum/action/item_action/shuffle/Trigger(left_click = TRUE)
+/datum/action/item_action/shuffle/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deckshuffle(usr)
 	return ..()
-
 
 // Datum actions
 /obj/item/deck/proc/draw_card(mob/living/carbon/human/user)
@@ -192,7 +174,6 @@
 		span_notice("Вы тянете карту из колоды. Это <b>[play_card]</b>.")
 	)
 
-
 /obj/item/deck/proc/deal_card(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
@@ -219,7 +200,6 @@
 		return
 
 	deal_at(user, target, 1)
-
 
 /obj/item/deck/proc/deal_card_multi(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -255,7 +235,6 @@
 
 	deal_at(user, target, dcard)
 
-
 /obj/item/deck/proc/deal_at(mob/user, mob/target, dcard) // Take in the no. of card to be dealt
 	var/obj/item/cardhand/cardhand = new(get_step(user, user.dir))
 	for(var/i in 1 to dcard)
@@ -278,15 +257,12 @@
 		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
-
 /obj/item/deck/attack_self(mob/user)
 	deckshuffle(user)
-
 
 /obj/item/deck/click_alt(mob/user)
 	deckshuffle(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/deck/proc/deckshuffle(mob/user)
 	if(!COOLDOWN_FINISHED(src, shuffle_cooldown) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -300,13 +276,11 @@
 	)
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
-
-/obj/item/deck/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/deck/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(over_object != user || user.incapacitated() || !iscarbon(user))
 		return FALSE
 
@@ -320,7 +294,6 @@
 
 	return FALSE
 
-
 /obj/item/pack
 	name = "card pack"
 	desc = "For those with disposable income."
@@ -330,7 +303,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/list/cards = list()
 	var/parentdeck = null // For future card pack that need to be compatible with eachother i.e. cardemon
-
 
 /obj/item/pack/attack_self(mob/user)
 	user.visible_message(span_notice("[name] rips open [src]!"), span_notice("You rip open [src]!"))
@@ -343,7 +315,6 @@
 
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.put_in_hands(cardhand, ignore_anim = FALSE)
-
 
 /obj/item/cardhand
 	name = "hand of cards"
@@ -388,7 +359,6 @@
 	attack_verb = deck.card_attack_verb
 	resistance_flags = deck.card_resistance_flags
 
-
 /obj/item/cardhand/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		if(LAZYLEN(cards) > 1)
@@ -419,14 +389,12 @@
 
 	return ..()
 
-
 /obj/item/cardhand/attack_self(mob/user)
 	if(LAZYLEN(cards) == 1)
 		turn_hand(user)
 		return
 	user.set_machine(src)
 	ui_interact(user)
-
 
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
@@ -472,24 +440,20 @@
 		for(var/datum/playingcard/card in cards)
 			. += span_notice("[card.name].")
 
-
 // Datum action here
 
 /datum/action/item_action/remove_card
 	name = "Убрать карту"
 	desc = "Убрать одну карту из руки."
 	button_icon_state = "remove_card"
-	use_itemicon = FALSE
 
-
-/datum/action/item_action/remove_card/IsAvailable()
+/datum/action/item_action/remove_card/IsAvailable(feedback = FALSE)
 	var/obj/item/cardhand/cardhand = target
 	if(LAZYLEN(cardhand.cards) <= 1)
 		return FALSE
 	return ..()
 
-
-/datum/action/item_action/remove_card/Trigger(left_click = TRUE)
+/datum/action/item_action/remove_card/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return
 	if(istype(target, /obj/item/cardhand))
@@ -497,20 +461,16 @@
 		return cardhand.Removecard()
 	return ..()
 
-
 /datum/action/item_action/discard
 	name = "Сбросить"
 	desc = "Положить карту(ы) из вашей руки перед собой."
 	button_icon_state = "discard"
-	use_itemicon = FALSE
 
-
-/datum/action/item_action/discard/Trigger(left_click = TRUE)
+/datum/action/item_action/discard/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.discard()
 	return ..()
-
 
 // No more datum action here
 
@@ -554,7 +514,6 @@
 		qdel(src)
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-
 
 /obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
@@ -605,7 +564,6 @@
 	if(!LAZYLEN(cards))
 		qdel(src)
 
-
 /obj/item/cardhand/update_appearance(updates = ALL)
 	if(!LAZYLEN(cards))
 		return
@@ -613,7 +571,6 @@
 		for(var/datum/action/action as anything in actions)
 			action.UpdateButtonIcon()
 	return ..()
-
 
 /obj/item/cardhand/update_name(updates = ALL)
 	. = ..()
@@ -639,7 +596,6 @@
 		)
 	return ..()
 
-
 /obj/item/cardhand/update_desc(updates = ALL)
 	. = ..()
 	if(LAZYLEN(cards) > 1)
@@ -651,10 +607,8 @@
 			var/datum/playingcard/card = cards[1]
 			desc = "\A [card.name]."
 
-
 /obj/item/cardhand/update_icon_state()
 	return
-
 
 /obj/item/cardhand/update_overlays()
 	. = ..()
@@ -692,7 +646,6 @@
 		. += render_card(card, M, i, offset)
 		i++
 
-
 /obj/item/cardhand/proc/render_card(datum/playingcard/card, matrix/mat, index, offset)
 	var/image/I = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
 	switch(direction)
@@ -707,7 +660,6 @@
 	I.transform = mat
 	return I
 
-
 /obj/item/cardhand/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user)
@@ -715,7 +667,6 @@
 	else
 		direction = NORTH
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-
 
 /obj/item/cardhand/pickup(mob/user)
 	. = ..()

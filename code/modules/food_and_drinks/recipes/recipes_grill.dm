@@ -13,7 +13,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/telebacon
 
-
 /datum/recipe/grill/syntitelebacon
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,

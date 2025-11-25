@@ -22,7 +22,6 @@ Possible to do for anyone motivated enough:
 	Itegrate EMP effect to disable the unit.
 */
 
-
 /*
  * Holopad
  */
@@ -65,7 +64,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	///bitfield. used to turn on and off hearing sensitivity depending on if we can act on Hear() at all - meant for lowering the number of unessesary hearable atoms
 	var/can_hear_flags = NONE
 
-
 /obj/machinery/hologram/holopad/Initialize(mapload)
 	. = ..()
 	GLOB.holopads += src
@@ -93,7 +91,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	GLOB.holopads -= src
 	return ..()
 
-
 /obj/machinery/hologram/holopad/power_change(forced = FALSE)
 	if(!..())
 		return
@@ -102,7 +99,6 @@ GLOBAL_LIST_EMPTY(holopads)
 			outgoing_call.ConnectionFailure(src)
 		set_light_on(FALSE)
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/hologram/holopad/update_icon_state()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
@@ -114,7 +110,6 @@ GLOBAL_LIST_EMPTY(holopads)
 		icon_state = "holopad1"
 	else
 		icon_state = "holopad0"
-
 
 /obj/machinery/hologram/holopad/update_overlays()
 	. = ..()
@@ -129,7 +124,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	else if(total_users)
 		underlays += emissive_appearance(icon, "holopad1_lightmask", src)
 
-
 /obj/machinery/hologram/holopad/obj_break()
 	. = ..()
 	if(outgoing_call)
@@ -141,7 +135,6 @@ GLOBAL_LIST_EMPTY(holopads)
 		holograph_range += 1 * B.rating
 	holo_range = holograph_range
 
-
 /obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -149,11 +142,9 @@ GLOBAL_LIST_EMPTY(holopads)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I)
-
 
 /obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -379,7 +370,6 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	update_icon()
 
-
 //Try to transfer hologram to another pad that can project on T
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
 	if(!isAI(holo_owner))
@@ -411,7 +401,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
 		return TRUE
 	return FALSE
-
 
 /obj/machinery/hologram/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(LAZYACCESS(masters, user))
@@ -465,7 +454,6 @@ GLOBAL_LIST_EMPTY(holopads)
 
 		return hologram
 
-
 	to_chat(user, span_danger("ERROR: ") + "Hologram Projection Malfunction.")
 	clear_holo(user)//safety check
 
@@ -484,8 +472,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(outgoing_call && speaker == outgoing_call.user)
 		outgoing_call.hologram.atom_say(multilingual_to_message(message_pieces))
 
-
-
 /obj/machinery/hologram/holopad/proc/SetLightsAndPower()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
@@ -495,7 +481,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	else
 		set_light_on(FALSE)
 	update_icon()
-
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	LAZYSET(masters, user, h)
@@ -549,7 +534,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	else
 		ray.transform = turn(M.Scale(1, sqrt(distx*distx+disty*disty)), newangle)
 
-
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
@@ -560,17 +544,14 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		HC.Disconnect(HC.calling_holopad)
 	return ..()
 
-
 /obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)
 		. = Impersonation.examine(user)
 	else
 		. = ..()
-
 
 /obj/effect/overlay/holoray
 	name = "holoray"

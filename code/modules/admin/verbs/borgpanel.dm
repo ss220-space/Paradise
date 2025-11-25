@@ -77,7 +77,6 @@
 	for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
 		.["ais"] += list(list("ref" = ai, "name" = ai.name, "connected" = (borg.connected_ai == ai)))
 
-
 /datum/borgpanel/ui_act(action, params)
 	. = ..()
 	if(.)

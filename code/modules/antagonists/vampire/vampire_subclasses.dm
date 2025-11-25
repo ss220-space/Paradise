@@ -29,7 +29,6 @@
 		INTERNAL_ORGAN_EARS = 0,
 	)
 
-
 /datum/vampire_subclass/proc/on_blood_sucking(mob/living/carbon/human/H)
 	return
 
@@ -38,15 +37,12 @@
 		if(vamp.bloodtotal >= standard_powers[thing])
 			vamp.add_ability(thing)
 
-
 /datum/vampire_subclass/proc/on_remove(datum/antagonist/vampire/vamp)
 	return
-
 
 /datum/vampire_subclass/proc/add_full_power_abilities(datum/antagonist/vampire/vamp)
 	for(var/thing in fully_powered_abilities)
 		vamp.add_ability(thing)
-
 
 /datum/vampire_subclass/umbrae
 	name = "umbrae"

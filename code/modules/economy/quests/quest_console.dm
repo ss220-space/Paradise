@@ -188,7 +188,7 @@
 				to_chat(user, span_warning("Не удаётся получить доступ к учётной записи: неверные учётные данные."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
-			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Купить дискету технологий", terminal_name = "Терминал Института Нанотрейзен №[rand(111,333)]", dest_name = "Институт Нанотрейзен"))
+			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Купить дискету технологий", terminal_name = "Терминал Института \"Нанотрейзен\" №[rand(111,333)]", dest_name = "Институт \"Нанотрейзен\""))
 				hightech_recovery = TRUE
 				addtimer(VARSET_CALLBACK(src, hightech_recovery, FALSE), 30 MINUTES)
 				order_techdisk(params["tech_name"], user)
@@ -238,7 +238,6 @@
 		INSTRUMENTAL = "формой запроса о поставке",
 		PREPOSITIONAL = "форме запроса о поставке",
 	)
-
 
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
@@ -336,7 +335,6 @@
 
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
 	flick_overlay_view(mutable_appearance(icon, "print_quest_overlay"), 4 SECONDS)
-
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"

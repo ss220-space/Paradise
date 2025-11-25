@@ -30,7 +30,6 @@
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
 
-
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
@@ -45,7 +44,6 @@
 	else
 		to_chat(user, span_biggerdanger("You feel like you have UNLIMITED POWER!!!"))
 
-
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 
@@ -57,7 +55,6 @@
 		old_mclick_override = null
 	else
 		user.middleClickOverride = null
-
 
 /obj/item/clothing/gloves/color/yellow/power/unlimited
 	name = "UNLIMITED POWER gloves"
@@ -73,7 +70,6 @@
 	if(Adjacent(user))
 		. += span_notice("They don't feel like rubber...")
 
-
 /obj/item/clothing/gloves/color/fyellow	 //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
@@ -86,7 +82,6 @@
 	resistance_flags = NONE
 	toolspeedmod = 0.2
 	clothing_traits = list(TRAIT_NO_GUNS)
-
 
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
@@ -108,7 +103,6 @@
 	resistance_flags = NONE
 	var/can_be_cut = 1
 
-
 /obj/item/clothing/gloves/color/black/hos
 	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
 
@@ -117,7 +111,6 @@
 
 /obj/item/clothing/gloves/color/black/thief
 	pickpocket = TRUE
-
 
 /obj/item/clothing/gloves/color/black/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -139,7 +132,6 @@
 	if(pickpocket)
 		new_gloves.pickpocket = FALSE
 	qdel(src)
-
 
 /obj/item/clothing/gloves/color/black/goliath
 	name = "goliath gloves"

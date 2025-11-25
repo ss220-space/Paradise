@@ -62,7 +62,6 @@
 		step_away(src, L)
 		visible_message(span_notice("[src] jumps away from [L]!"))
 
-
 /obj/structure/spider/terrorweb/widow
 	name = "sinister web"
 	desc = "На нитях этой паутины сверкают капли тёмной жидкости."

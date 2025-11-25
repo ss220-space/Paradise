@@ -12,11 +12,9 @@
 	/// New sound for the received messages, in a format of associative list: sound name -> sound file
 	var/list/new_ttone
 
-
 /obj/item/pda_case/Destroy()
 	new_ttone?.Cut()
 	return ..()
-
 
 /obj/item/pda/proc/apply_pda_case(obj/item/pda_case/new_case)
 	if(!istype(new_case))
@@ -27,7 +25,6 @@
 	current_case = new_case
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
-
 /obj/item/pda/proc/remove_pda_case()
 	if(!current_case)
 		return
@@ -37,7 +34,6 @@
 			ttone = initial(ttone)
 	QDEL_NULL(current_case)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-
 
 /obj/item/pda_case/beer
 	name = "PDA case \"BEER\""

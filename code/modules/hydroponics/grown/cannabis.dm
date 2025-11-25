@@ -19,7 +19,6 @@
 	)
 	reagents_add = list("thc" = 0.15, "cbd" = 0.15)
 
-
 /obj/item/seeds/cannabis/rainbow
 	name = "pack of rainbow weed seeds"
 	desc = "These seeds grow into rainbow weed. Groovy."
@@ -59,7 +58,6 @@
 	reagents_add = list("omnizine" = 0.35, "thc" = 0.15, "cbd" = 0.15)
 	rarity = 40
 
-
 /obj/item/seeds/cannabis/ultimate
 	name = "pack of omega weed seeds"
 	desc = "These seeds grow into omega weed."
@@ -88,7 +86,6 @@
 						"histamine" = 0.05)
 	rarity = 69
 
-
 // ---------------------------------------------------------------
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis
@@ -101,7 +98,6 @@
 	bitesize_mod = 2
 	tastes = list("cannabis" = 1)
 	wine_power = 0.2
-
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	seed = /obj/item/seeds/cannabis/rainbow

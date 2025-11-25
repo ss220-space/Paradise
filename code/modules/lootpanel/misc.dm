@@ -20,7 +20,6 @@
 	populate_contents()
 	ui_interact(owner.mob)
 
-
 /**
  * Called by SSlooting whenever this datum is added to its backlog.
  * Iterates over to_image list to create icons, then removes them.

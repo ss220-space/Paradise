@@ -63,7 +63,6 @@
 		setDir(made_from.dir)
 	return INITIALIZE_HINT_LATELOAD
 
-
 /obj/machinery/disposal/LateInitialize()
 	. = ..()
 	var/datum/gas_mixture/env = new
@@ -72,7 +71,6 @@
 	air_contents.merge(removed)
 	trunk_check()
 	update()
-
 
 /obj/machinery/disposal/proc/trunk_check()
 	var/obj/structure/disposalpipe/trunk/found_trunk = locate() in loc
@@ -84,7 +82,6 @@
 		flush = initial(flush)
 		found_trunk.set_linked(src) // link the pipe trunk to self
 		trunk = found_trunk
-
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
 /obj/machinery/disposal/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -102,7 +99,6 @@
 	transfer_fingerprints_to(construct)
 	qdel(src)
 
-
 /obj/machinery/disposal/Destroy()
 	eject()
 	if(trunk)
@@ -110,12 +106,10 @@
 		trunk = null
 	return ..()
 
-
 /obj/machinery/disposal/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
 
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
@@ -144,7 +138,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
@@ -189,7 +182,6 @@
 	update()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/disposal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
@@ -204,7 +196,6 @@
 	grabber.visible_message(span_warning("[capitalize(grabber.declent_ru(NOMINATIVE))] поместил [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	add_attack_logs(grabber, grabbed_thing, "Disposal'ed")
 	update()
-
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
 	if(mode > OFF) // It's on
@@ -221,7 +212,6 @@
 		mode = OFF
 	to_chat(user, "Вы [mode ? "ослабляете" : "затягиваете"] винты питания.")
 	update()
-
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -241,7 +231,6 @@
 	construct.set_anchored(TRUE)
 	qdel(src)
 
-
 /obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
 	target.visible_message(
 		span_warning("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[PLUR_ET_YUT(attacker)] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"),
@@ -253,7 +242,6 @@
 	playsound(src, 'sound/effects/bang.ogg', 30)
 	update()
 	return TRUE
-
 
 // mouse drop another mob or self
 //
@@ -274,7 +262,6 @@
 			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] заталкивать [target.declent_ru(ACCUSATIVE)] в мусоропровод.", 3)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
-
 
 /obj/machinery/disposal/proc/put_in(mob/living/target, mob/living/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/msg
@@ -343,7 +330,6 @@
 		return
 	go_out(user)
 
-
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
 	if(user)
@@ -357,7 +343,6 @@
 
 /obj/machinery/disposal/attack_ghost(mob/user)
 	ui_interact(user)
-
 
 // human interact with machine
 /obj/machinery/disposal/attack_hand(mob/user)
@@ -378,13 +363,11 @@
 		flush = !flush
 		update()
 
-
 /obj/machinery/disposal/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "DisposalBin", name)
 		ui.open()
-
 
 /obj/machinery/disposal/ui_data(mob/user)
 	var/list/data = list()
@@ -435,12 +418,10 @@
 				eject()
 	return TRUE
 
-
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
 	pipe_eject(src, FALSE, FALSE)
 	update()
-
 
 /obj/machinery/disposal/click_alt(mob/user)
 	user.visible_message(
@@ -457,7 +438,6 @@
 	eject()
 	return CLICK_ACTION_SUCCESS
 
-
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
 	if(stat & BROKEN)
@@ -466,13 +446,11 @@
 
 	update_icon()
 
-
 /obj/machinery/disposal/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
 		return
 	icon_state = initial(icon_state)
-
 
 /obj/machinery/disposal/update_overlays()
 	. = ..()
@@ -500,7 +478,6 @@
 		if(CHARGED)
 			. += "dispover-ready"
 			underlays += emissive_appearance(icon, "dispover-lightmask", src)
-
 
 // timed process
 // charge the gas reservoir and perform flush if ready
@@ -549,7 +526,6 @@
 		mode = CHARGED
 		update()
 
-
 // perform a flush
 /obj/machinery/disposal/proc/flush()
 	flushing = TRUE
@@ -574,10 +550,8 @@
 		mode = CHARGING	// switch to charging
 	update()
 
-
 /obj/machinery/disposal/proc/flush_animation()
 	flick("[icon_state]-flush", src)
-
 
 /obj/machinery/disposal/proc/manage_wrapping(obj/structure/disposalholder/holder)
 	for(var/atom/movable/thing as anything in contents)
@@ -585,13 +559,11 @@
 			holder.tomail = TRUE
 			return
 
-
 // called when area power changes
 /obj/machinery/disposal/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update()	// do default setting/reset of stat NOPOWER bit
-
 
 // called when holder is expelled from a disposal
 // should usually only occur if the pipe network is modified
@@ -607,7 +579,6 @@
 	holder.vent_gas(loc)
 	qdel(holder)
 
-
 /obj/machinery/disposal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
@@ -620,15 +591,12 @@
 			visible_message("[capitalize(mover.declent_ru(NOMINATIVE))] отскакивает от края [declent_ru(GENITIVE)]!")
 		return FALSE
 
-
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
-
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
-
 
 /obj/machinery/disposal/deliveryChute
 	name = "Delivery chute"
@@ -663,12 +631,10 @@
 
 	return  ..()
 
-
 /obj/machinery/disposal/deliveryChute/examine(mob/user)
 	. = ..()
 	. += span_notice("Люк настроен на [to_waste ? "мусорную" : "грузовую"] систему.")
 	. += span_notice("Используйте маркировщик для изменения пункта назначения.")
-
 
 /obj/machinery/disposal/deliveryChute/interact()
 	return
@@ -701,7 +667,6 @@
 	if(mode != OFF)
 		flush()
 
-
 /obj/machinery/disposal/deliveryChute/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isprojectile(AM))
 		return ..() //chutes won't eat bullets
@@ -711,7 +676,6 @@
 
 /obj/machinery/disposal/deliveryChute/flush_animation()
 	flick("intake-closing", src)
-
 
 /obj/machinery/disposal/deliveryChute/manage_wrapping(obj/structure/disposalholder/holder)
 	var/wrap_check = FALSE
@@ -738,7 +702,6 @@
 		holder.tomail = TRUE
 	else if(!wrap_check && to_waste)
 		holder.destinationTag = 1
-
 
 #undef SEND_PRESSURE
 #undef UNSCREWED

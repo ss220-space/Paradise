@@ -161,7 +161,6 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
-
 /*
  * Radiation protection
  */

@@ -3,9 +3,7 @@
 	desc = "Captures an opponent in a net of energy. Energy cost: 4000"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
 	button_icon_state = "energynet"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Pure Energy Net Generator"
@@ -44,23 +42,18 @@
 	my_action.use_action()
 	my_action = null
 
-
 /obj/item/ninja_net_emitter/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
-
 
 /obj/item/ninja_net_emitter/run_drop_held_item(mob/user)
 	qdel(src)
 
-
 /obj/item/ninja_net_emitter/attack_self(mob/user)
 	return
-
 
 /obj/item/ninja_net_emitter/afterattack(atom/target, mob/living/user, proximity, params)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)
 	ensnare(target_mob, user)
-
 
 /obj/item/ninja_net_emitter/proc/ensnare(mob/living/target, mob/living/ninja)
 	if(isnull(target))

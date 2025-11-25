@@ -1,27 +1,29 @@
-/*///////////////Circuit Imprinter (By Darem)////////////////////////
+/*///////////////Circuit Imprinter////////////////////////
 	Used to print new circuit boards (for computers and similar systems) and AI modules. Each circuit board pattern are stored in
 a /datum/desgin on the linked R&D console. You can then print them out in a fasion similar to a regular lathe. However, instead of
 using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 */
 /obj/machinery/r_n_d/circuit_imprinter
-	name = "Circuit Imprinter"
-	desc = "Машина, предназначенное для печати плат различных устройств."
+	name = "circuit imprinter"
+	desc = "Оборудование, предназначенное для создания печатных плат \
+			на основе шаблонов для печати для последующей установки в различное оборудование. \
+			Управление происходит с помощью подключаемой консоли."
 	icon_state = "circuit_imprinter"
 	base_icon_state = "circuit_imprinter"
 	container_type = OPENCONTAINER
 
 	categories = list(
-		"AI Modules",
-		"Computer Boards",
-		"Engineering Machinery",
-		"Exosuit Modules",
-		"Hydroponics Machinery",
-		"Medical Machinery",
-		"Misc. Machinery",
-		"Research Machinery",
-		"Subspace Telecomms",
-		"Teleportation Machinery",
+		CIRCUIT_IMPRINTER_CATEGORY_AI,
+		CIRCUIT_IMPRINTER_CATEGORY_COMPUTER,
+		CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING,
+		CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT,
+		CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS,
+		CIRCUIT_IMPRINTER_CATEGORY_MEDICAL,
+		CIRCUIT_IMPRINTER_CATEGORY_MISC,
+		CIRCUIT_IMPRINTER_CATEGORY_RESEARCH,
+		CIRCUIT_IMPRINTER_CATEGORY_TELECOMS,
+		CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION,
 	)
 
 	reagents = new()
@@ -89,7 +91,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
-
 /obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -106,12 +107,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	if(is_open_container)
 		if(panel_open)
-			to_chat(user, span_warning("Close the maintenance panel first."))
+			balloon_alert(user, "панель открыта!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
 	return ..()
-
 
 /obj/machinery/r_n_d/circuit_imprinter/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
@@ -122,7 +122,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		linked_console.linked_imprinter = null
 		linked_console = null
 
-
 /obj/machinery/r_n_d/circuit_imprinter/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(shocked && shock(user, 50))
@@ -130,7 +129,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return .
 	if(!panel_open)
 		add_fingerprint(user)
-		to_chat(user, span_warning("Open the maintenance panel first."))
+		balloon_alert(user, "панель закрыта!")
 		return .
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)

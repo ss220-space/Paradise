@@ -73,7 +73,6 @@
 		new /obj/item/reagent_containers/food/snacks/donut(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/storage/fancy/donut_box/empty/populate_contents()
 	update_icon(UPDATE_OVERLAYS)
 	return
@@ -347,12 +346,12 @@
 
 /obj/item/storage/fancy/cigarettes/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "пачка сигарет Синдиката",
-		GENITIVE = "пачки сигарет Синдиката",
-		DATIVE = "пачке сигарет Синдиката",
-		ACCUSATIVE = "пачку сигарет Синдиката",
-		INSTRUMENTAL = "пачкой сигарет Синдиката",
-		PREPOSITIONAL = "пачке сигарет Синдиката",
+		NOMINATIVE = "пачка сигарет \"Синдиката\"",
+		GENITIVE = "пачки сигарет \"Синдиката\"",
+		DATIVE = "пачке сигарет \"Синдиката\"",
+		ACCUSATIVE = "пачку сигарет \"Синдиката\"",
+		INSTRUMENTAL = "пачкой сигарет \"Синдиката\"",
+		PREPOSITIONAL = "пачке сигарет \"Синдиката\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
@@ -516,7 +515,7 @@
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
-	desc = "Упаковка рулонной бумаги Нанотрейзен."
+	desc = "Упаковка рулонной бумаги \"Нанотрейзен\"."
 	gender = FEMALE
 	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'

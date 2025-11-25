@@ -5,7 +5,6 @@
 /// Cap on how many custom outfits we can save
 #define MAX_CUSTOM_OUTFITS 10
 
-
 /// OUTFIT ACTION
 
 /datum/action/chameleon_outfit
@@ -23,11 +22,9 @@
 	/// Assoc list of custom outfit names ("Custom outfit 1", "Custom outfit 2", etc) to list of all item typepaths saved in that outfit
 	var/list/custom_outfits
 
-
 /datum/action/chameleon_outfit/New(Target)
 	. = ..()
 	outfit_options = get_initial_outfits()
-
 
 /datum/action/chameleon_outfit/proc/get_initial_outfits()
 	var/static/list/standard_outfit_options
@@ -40,30 +37,24 @@
 
 	return standard_outfit_options
 
-
-/datum/action/chameleon_outfit/Trigger(left_click = TRUE)
+/datum/action/chameleon_outfit/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!. || currently_in_use || usr != owner)
 		return .
-
 	currently_in_use = TRUE
-
-	if(left_click)
-		. = select_outfit(usr)
-	else
+	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		. = save_current_outfit(usr)
-
+	else
+		. = select_outfit(usr)
 	currently_in_use = FALSE
 
-
-/datum/action/chameleon_outfit/AltTrigger()
+/datum/action/chameleon_outfit/AltTrigger(mob/clicker, trigger_flags)
 	if(currently_in_use || !IsAvailable() || usr != owner)
 		return FALSE
 
 	currently_in_use = TRUE
 	. = delete_custom_outfit(usr)
 	currently_in_use = FALSE
-
 
 /datum/action/chameleon_outfit/proc/delete_custom_outfit(mob/user)
 	if(!LAZYLEN(custom_outfits))
@@ -78,7 +69,6 @@
 	to_chat(owner, span_notice("Outfit <b>\"[outfit_ro_remove]\"</b> was successfully removed."))
 	return TRUE
 
-
 /datum/action/chameleon_outfit/proc/save_current_outfit(mob/user)
 	if(LAZYLEN(custom_outfits) >= MAX_CUSTOM_OUTFITS)
 		to_chat(owner, span_warning("You have exceeded the maximum amount of allowed custom outfits!"))
@@ -88,7 +78,6 @@
 		if(change_action.active_type)
 			saved_paths |= change_action.active_type
 	return save_outfit(user, saved_paths)
-
 
 /datum/action/chameleon_outfit/proc/save_outfit(mob/user, list/saved_paths)
 	if(!length(saved_paths))
@@ -112,7 +101,6 @@
 	LAZYSET(custom_outfits, new_outfit_name, saved_paths)
 	to_chat(owner, span_notice("Outfit saved as <b>\"[new_outfit_name]\"</b>."))
 	return TRUE
-
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
 	var/list/all_options = list()
@@ -140,7 +128,6 @@
 
 	return FALSE
 
-
 /**
  * Applies the given outfit to all chameleon actions the owner has
  *
@@ -153,8 +140,6 @@
 
 	for(var/datum/action/item_action/chameleon/change/change_action in owner.actions)
 		change_action.apply_outfit(outfit, outfit_types)
-
-
 
 /// BASIC ITEM ACTION
 
@@ -180,7 +165,6 @@
 	/// Cooldown from when we started being EMP'd
 	COOLDOWN_DECLARE(emp_timer)
 
-
 /datum/action/item_action/chameleon/change/New(Target)
 	. = ..()
 	if(!isitem(target))
@@ -200,11 +184,9 @@
 
 	RegisterSignal(target, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
-
 /datum/action/item_action/chameleon/change/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
-
 
 /datum/action/item_action/chameleon/change/ui_host()
 	return target
@@ -252,7 +234,6 @@
 	if(COOLDOWN_FINISHED(src, emp_timer))
 		emp_randomise()
 
-
 /datum/action/item_action/chameleon/change/Grant(mob/grant_to)
 	. = ..()
 	if(isnull(owner))
@@ -265,7 +246,6 @@
 	var/datum/action/chameleon_outfit/outfit_action = new(owner)
 	outfit_action.Grant(owner)
 
-
 /datum/action/item_action/chameleon/change/Remove(mob/remove_from)
 	. = ..()
 	// Likewise when the mob loses the cham change action, if they have no others, they need to lose the outfit action
@@ -275,10 +255,8 @@
 	var/datum/action/chameleon_outfit/outfit_action = locate() in remove_from.actions
 	qdel(outfit_action)
 
-
 /datum/action/item_action/chameleon/change/proc/initialize_blacklist()
 	chameleon_blacklist |= typecacheof(target.type)
-
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	name = "Change [chameleon_name] Appearance"
@@ -294,7 +272,6 @@
 
 	add_chameleon_items(chameleon_type)
 
-
 /datum/action/item_action/chameleon/change/proc/add_chameleon_items(type_to_add)
 	chameleon_typecache |= typecacheof(type_to_add)
 	for(var/obj/item/item_type as anything in chameleon_typecache)
@@ -309,15 +286,12 @@
 		if(!item_exist)
 			chameleon_list[chameleon_name][chameleon_item_name] = item_type
 
-
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
 	ui_interact(user)
-
 
 /datum/action/item_action/chameleon/change/proc/random_look()
 	var/picked_name = pick(chameleon_list[chameleon_name])
 	update_look(chameleon_list[chameleon_name][picked_name])
-
 
 /datum/action/item_action/chameleon/change/proc/update_look(obj/item/picked_item)
 	var/obj/item/chameleon_item = target
@@ -329,7 +303,6 @@
 	else
 		UpdateButtonIcon()
 	SStgui.update_uis(src)
-
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
 	PROTECTED_PROC(TRUE) // Call update_look, not this!
@@ -357,14 +330,12 @@
 		item_target.onmob_sheets = dummy.onmob_sheets
 		qdel(dummy)
 
-
-/datum/action/item_action/chameleon/change/Trigger(left_click = TRUE)
+/datum/action/item_action/chameleon/change/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return FALSE
 
 	select_look(owner)
 	return TRUE
-
 
 /datum/action/item_action/chameleon/change/proc/emp_randomise(amount = EMP_RANDOMISE_TIME)
 	START_PROCESSING(SSprocessing, src)
@@ -372,13 +343,11 @@
 
 	COOLDOWN_START(src, emp_timer, amount)
 
-
 /datum/action/item_action/chameleon/change/process()
 	if(COOLDOWN_FINISHED(src, emp_timer))
 		STOP_PROCESSING(SSprocessing, src)
 		return
 	random_look()
-
 
 /datum/action/item_action/chameleon/change/proc/apply_outfit(datum/outfit/applying_from, list/all_items_to_apply)
 	SHOULD_CALL_PARENT(TRUE)
@@ -405,11 +374,9 @@
 	all_items_to_apply -= using_item_type
 	return TRUE
 
-
 /// Used when applying this cham item via a job datum (from an outfit selection)
 /datum/action/item_action/chameleon/change/proc/apply_job_data(datum/job/job_datum)
 	return
-
 
 #undef EMP_RANDOMISE_TIME
 #undef MAX_OUTFIT_NAME_LEN

@@ -391,7 +391,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 	return ..()
 
-
 //Step two - washing (also handled by water reagent code and washing machine code)
 /obj/item/stack/sheet/hairlesshide/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()

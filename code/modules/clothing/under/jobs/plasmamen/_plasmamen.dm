@@ -25,7 +25,6 @@
 		PREPOSITIONAL = "защитном костюме плазмолюда",
 	)
 
-
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
 	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[DECL_CREDIT(extinguishes_left)].")
@@ -51,7 +50,6 @@
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE
 
-
 /obj/item/clothing/under/plasmaman/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/extinguisher_refill))
 		add_fingerprint(user)
@@ -66,7 +64,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/extinguisher_refill
 	name = "envirosuit extinguisher cartridge"

@@ -62,7 +62,6 @@
 	update_icon()
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), time_between_uses)
 
-
 /obj/structure/healingfountain/update_icon_state()
 	if(last_process + time_between_uses > world.time)
 		icon_state = "fountain"

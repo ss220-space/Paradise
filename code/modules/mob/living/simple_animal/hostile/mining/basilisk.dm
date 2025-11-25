@@ -93,7 +93,6 @@
 	. = ..()
 	AddElement(/datum/element/simple_flying)
 
-
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"
 	desc = "Когда наблюдатели растут у самой лавы, они адаптируются к жаре и начинают использовать её как оружие."
@@ -188,7 +187,6 @@
 			L.AdjustWeakened(1 SECONDS)
 			L.Slowed(3 SECONDS)
 			L.Confused(3 SECONDS)
-
 
 /obj/projectile/temp/basilisk/magmawing
 	name = "scorching blast"

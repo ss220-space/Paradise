@@ -5,15 +5,15 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /client/proc/syndicate_infiltration_team()
 	set category = STATPANEL_ADMIN_EVENT
-	set name = "Отправить Диверсионный Отряд Синдиката"
-	set desc = "Спавнит Диверсионный Отряд Синдиката в их месте постоянной дислокации на СЦК."
+	set name = "Отправить Диверсионный Отряд \"Синдиката\""
+	set desc = "Спавнит Диверсионный Отряд \"Синдиката\" в их месте постоянной дислокации на СЦК."
 	if(!check_rights(R_ADMIN))
 		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
 	if(!SSticker)
 		tgui_alert(src, "Игра ещё не началась!")
 		return
-	if(tgui_alert(src, "Вы хотите отправить Диверсионный Отряд Синдиката?", "Подтверждение", list("Да","Нет")) != "Да")
+	if(tgui_alert(src, "Вы хотите отправить Диверсионный Отряд \"Синдиката\"?", "Подтверждение", list("Да","Нет")) != "Да")
 		return
 	var/spawn_dummies = 0
 	if(tgui_alert(src, "Создавать полноразмерную команду, даже если призраков недостаточно для их заполнения?", "Подтверждение", list("Да","Нет")) == "Да")
@@ -25,14 +25,14 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		return
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", encode = FALSE)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд \"Синдиката\".", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			tgui_alert(src, "Миссия не указана. Отмена.")
 			return
 	var/tcamount = tgui_input_number(src, "Как много ТК вы хотите дать каждому члену команды? Рекомендовано: 100-150. Они не могут продавать ТК.","Количество ТК", 100, 5000)
 
 	if(GLOB.sent_syndicate_infiltration_team == 1)
-		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать ещё один?","Подтверждение", list("Да","Нет")) != "Да")
+		if(tgui_alert(src, "Диверсионный Отряд \"Синдиката\" уже был отправлен. Нужно ли посылать ещё один?","Подтверждение", list("Да","Нет")) != "Да")
 			return
 
 	var/syndicate_leader_selected = 0
@@ -40,10 +40,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/list/infiltrators = list()
 
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
-	infiltrators = pick_candidates_all_types(src, teamsize, "Вы хотите поиграть за Диверсанта Синдиката?", ROLE_TRAITOR, 21, 30 SECONDS, FALSE, GLOB.role_playtime_requirements[ROLE_TRAITOR], TRUE, FALSE, I, "Диверсант Синдиката", input)
+	infiltrators = pick_candidates_all_types(src, teamsize, "Вы хотите поиграть за Диверсанта \"Синдиката\"?", ROLE_TRAITOR, 21, 30 SECONDS, FALSE, GLOB.role_playtime_requirements[ROLE_TRAITOR], TRUE, FALSE, I, "Диверсант \"Синдиката\"", input)
 
 	if(!length(infiltrators))
-		to_chat(src, "Никто не захотел быть Диверсантом Синдиката.")
+		to_chat(src, "Никто не захотел быть Диверсантом \"Синдиката\".")
 		return 0
 
 	GLOB.sent_syndicate_infiltration_team = 1
@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
-		to_chat(new_syndicate_infiltrator, span_danger("Вы [!syndicate_leader_selected?"Диверсант":"<b>Командир Диверсантов</b>"] в подчинении Синдиката. \nВаша миссия: <b>[input]</b>"))
+		to_chat(new_syndicate_infiltrator, span_danger("Вы [!syndicate_leader_selected?"Диверсант":"<b>Командир Диверсантов</b>"] в подчинении \"Синдиката\". \nВаша миссия: <b>[input]</b>"))
 		to_chat(new_syndicate_infiltrator, span_notice("Вы оснащены имплантом аплинка, который поможет вам достичь ваших целей. ((активируйте его с помощью кнопки в левом верхнем углу экрана))"))
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
@@ -79,7 +79,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		to_chat(new_syndicate_infiltrator, span_notice("В ваших заметках хранится ещё больше полезной информации."))
 		new_syndicate_infiltrator.mind.store_memory("<b>Миссия:</b> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<b>Лидер:</b> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<b>Стартовое снаряжение:</b> <br>- Наушник синдиката ((:t для вашего канала))<br>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<br> - ID карта агента ((Может изменять должность и другие данные))<br> - Имплант аплинка ((в левом верхнем углу экрана)) <br> - Имплант распыления ((превращает тело при смерти в пыль)) <br> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <br> - Все, что куплено с помощью вашего импланта аплинка")
+		new_syndicate_infiltrator.mind.store_memory("<b>Стартовое снаряжение:</b> <br>- Наушник \"Синдиката\" ((:t для вашего канала))<br>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<br> - ID карта агента ((Может изменять должность и другие данные))<br> - Имплант аплинка ((в левом верхнем углу экрана)) <br> - Имплант распыления ((превращает тело при смерти в пыль)) <br> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <br> - Все, что куплено с помощью вашего импланта аплинка")
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")

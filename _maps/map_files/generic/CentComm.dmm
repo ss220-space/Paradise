@@ -529,11 +529,6 @@
 	},
 /area/centcom/jail)
 "ajk" = (
-/obj/machinery/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = 32
-	},
 /obj/structure/rack,
 /obj/item/roller/holo,
 /obj/item/roller/holo,
@@ -3458,7 +3453,7 @@
 	name = "Dress shoes"
 	},
 /obj/item/clothing/gloves/color/white,
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/clothing/accessory/holster,
@@ -3880,7 +3875,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -7075,12 +7070,6 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
-"dnh" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "dnB" = (
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
@@ -10526,7 +10515,7 @@
 /area/ninja/outpost)
 "eUc" = (
 /obj/item/melee/energy_katana{
-	desc = "Ныне — сломанная собственность синдиката";
+	desc = "Ныне — сломанная собственность \"Синдиката\"";
 	name = "Катана Змея"
 	},
 /turf/simulated/floor/plasteel{
@@ -10746,7 +10735,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -15025,7 +15014,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -22243,7 +22232,7 @@
 /obj/structure/closet/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom{
 	desc = null;
 	name = "Supreme commander bowman headset"
@@ -24520,7 +24509,7 @@
 /area/centcom/evac)
 "lFw" = (
 /obj/structure/reagent_dispensers/beerkeg/nuke{
-	desc = "Однажды незадачливый отряд внедрения синдиката вместо настоящей бомбы, украл у НТ эту стилизованную кегу с пивом. Эти ребята более не ходят по миру, но кега всё ещё украшает один из местных баров. На ней виднеется зачёркнутое слово 'Нанотрейзен' и приписанное рядом, кровью, слово 'Синдикат'";
+	desc = "Однажды незадачливый отряд внедрения \"Синдиката\" вместо настоящей бомбы, украл у НТ эту стилизованную кегу с пивом. Эти ребята более не ходят по миру, но кега всё ещё украшает один из местных баров. На ней виднеется зачёркнутое слово \"Нанотрейзен\" и приписанное рядом, кровью, слово \"Синдикат\"";
 	name = "Syndicate-brand nuclear fission explosive";
 	pixel_y = 12
 	},
@@ -30233,7 +30222,7 @@
 /obj/structure/closet/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom{
 	desc = null;
 	name = "Supreme commander bowman headset"
@@ -30953,9 +30942,14 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "opw" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/wallmed/free{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
 "opx" = (
@@ -31237,7 +31231,7 @@
 /obj/item/clothing/shoes/chameleon/noslip,
 /obj/item/clothing/under/color/black,
 /obj/item/implanter/dust,
-/obj/item/storage/box/engineer{
+/obj/item/storage/box/survival/engineer{
 	name = "Survival kit"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -34326,7 +34320,7 @@
 	},
 /area/centcom/specops)
 "pUC" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/medical/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
 	},
@@ -36251,7 +36245,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomofficer,
 /obj/item/clothing/head/beret/centcom/officer,
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -38352,7 +38346,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -39068,7 +39062,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "rWE" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/medical/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39907,7 +39901,7 @@
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/mask/balaclava,
 /obj/item/clothing/accessory/holster,
-/obj/item/storage/box/survival_security{
+/obj/item/storage/box/survival/survival_security{
 	name = "Security survival kit"
 	},
 /turf/simulated/floor/wood,
@@ -41365,7 +41359,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -42394,7 +42388,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -42606,10 +42600,10 @@
 	},
 /area/shuttle/escape)
 "tzO" = (
-/obj/machinery/vending/medical,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/vending/medical/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
 	},
@@ -48668,7 +48662,7 @@
 /area/shuttle/vox)
 "woh" = (
 /mob/living/simple_animal/mouse/brown{
-	desc = "Секретная разработка синдиката. Сидит тут потому, что сам хочет";
+	desc = "Секретная разработка \"Синдиката\". Сидит тут потому, что сам хочет";
 	name = "Мышедемон"
 	},
 /turf/simulated/floor/plasteel{
@@ -106955,8 +106949,8 @@ mHv
 fAg
 kZY
 nAN
-opw
-dnh
+fDY
+wrh
 nAN
 nAN
 nAN
@@ -108000,7 +107994,7 @@ hOe
 mzs
 wJo
 mzs
-cnO
+opw
 nAN
 ajk
 rTL

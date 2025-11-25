@@ -64,7 +64,6 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-
 /obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)
 	// Extremely important that this doesn't get varedited by mistake, otherwise horrible,
 	// horrible things can happen to the server.
@@ -72,7 +71,6 @@
 		log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
 		return FALSE
 	return ..()
-
 
 /obj/machinery/shuttle_manipulator/ui_state(mob/user)
 	return GLOB.admin_state
@@ -205,7 +203,6 @@
 					usr.forceMove(get_turf(mdp))
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
-
 
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
 	// Check for an existing preview

@@ -68,7 +68,6 @@
 		if(L.stat != DEAD)
 			L.apply_damages(tox = 3, stamina = 3)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/consume_jelly(obj/structure/spider/royaljelly/J)
 	to_chat(src, span_warning("Матери Ужаса не могут употреблять королевское желе."))
 	return

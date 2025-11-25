@@ -115,13 +115,11 @@
 		qdel(picked_snare)
 		to_chat(src, span_danger("Ловушка убрана."))
 
-
 /obj/item/effect/snare
 	name = "snare"
 	desc = "You shouldn't be seeing this!"
 	invisibility = 1
 	var/mob/living/simple_animal/hostile/guardian/guardian
-
 
 /obj/item/effect/snare/Initialize(mapload, mob/living/simple_animal/hostile/guardian/guardian)
 	. = ..()
@@ -131,7 +129,6 @@
 			COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 		)
 		AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/item/effect/snare/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -144,10 +141,8 @@
 	if(guardian.summoner)
 		to_chat(guardian.summoner, span_danger("[arrived.name] пересек Вашу ловушку в [snare_area.name]."))
 
-
 /obj/effect/snare/singularity_act()
 	return
-
 
 /obj/effect/snare/singularity_pull()
 	return

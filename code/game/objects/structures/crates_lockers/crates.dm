@@ -18,17 +18,14 @@
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
 
-
 /obj/structure/closet/crate/update_icon_state()
 	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
-
 
 /obj/structure/closet/crate/update_overlays()
 	// . = ..() is not needed here because of different overlay handling logic for crates
 	. = list()
 	if(manifest)
 		. += "manifest"
-
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -72,7 +69,6 @@
 
 	return TRUE
 
-
 /obj/structure/closet/crate/close()
 	if(!opened || !can_close())
 		return FALSE
@@ -91,12 +87,10 @@
 	update_icon()
 	return TRUE
 
-
 /obj/structure/closet/crate/attackby(obj/item/I, mob/user, params)
 	if(!opened && try_rig(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
 	if(!(opened ? close() : open(by_hand)))
@@ -167,7 +161,6 @@
 			if(D.department in src.announce_beacons[destination])
 				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
 
-
 // MARK: Secure crate
 
 /obj/structure/closet/crate/secure
@@ -186,7 +179,6 @@
 	locked = TRUE
 	can_be_emaged = TRUE
 
-
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
 	if(locked)
@@ -195,7 +187,6 @@
 		. += overlay_broken
 	else
 		. += overlay_unlocked
-
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -213,15 +204,12 @@
 	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
-
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
-
 
 /obj/structure/closet/crate/secure/click_alt(mob/living/user)
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)
 	if(!istype(user))
@@ -261,10 +249,8 @@
 	add_fingerprint(user)
 	toggle(user, by_hand = TRUE)
 
-
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
-
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(!locked)
@@ -278,7 +264,6 @@
 	if(!user)
 		return
 	balloon_alert(user, "разблокировано")
-
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/object in src)
@@ -297,14 +282,12 @@
 		else
 			open()
 
-
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
 	if(!locked || broken)
 		return
 	if(user)
 		balloon_alert(user, "не удалось!")
 	playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
-
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -329,7 +312,6 @@
 	user.emote("scream")
 	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(tool)]ась и повредил[GEND_A_O_I(tool)] [affecting.declent_ru(ACCUSATIVE)]!"))
 
-
 /obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(!locked || broken != SECURE_CRATE_STAGE_PANEL_OPEN || user.a_intent == INTENT_HARM)
@@ -348,7 +330,6 @@
 	balloon_alert(user, "не тот провод!")
 	do_sparks(5, TRUE, src)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
-
 
 /obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -369,7 +350,6 @@
 	balloon_alert(user, "не тот провод!")
 	do_sparks(5, TRUE, src)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
-
 
 // MARK: Specific crates
 
@@ -463,7 +443,6 @@
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
-
 /obj/structure/closet/crate/vault
 	desc = "Ящик с ценностями."
 	name = "vault crate"
@@ -479,7 +458,6 @@
 		PREPOSITIONAL = "ящике с ценностями",
 	)
 
-
 /obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
 	name = "wooden crate"
 	desc = "Ящик, сделанный из дерева."
@@ -494,7 +472,6 @@
 		INSTRUMENTAL = "деревянным ящиком",
 		PREPOSITIONAL = "деревянном ящике",
 	)
-
 
 // MARK: Specific secure crates
 
@@ -668,7 +645,6 @@
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	can_be_emaged = FALSE
 
-
 // MARK: Blood crates
 
 /obj/structure/closet/crate/secure/blood
@@ -688,7 +664,6 @@
 		PREPOSITIONAL = "комплекте донорской крови (человеческий)",
 	)
 
-
 /obj/structure/closet/crate/secure/blood/xeno
 	name = "secure xenoblood crate"
 	desc = "Ящик, содержащий капельницы с кровью различных рас."
@@ -703,7 +678,6 @@
 		INSTRUMENTAL = "комплектом донорской крови (ксено)",
 		PREPOSITIONAL = "комплекте донорской крови (ксено)",
 	)
-
 
 /obj/structure/closet/crate/secure/blood/mixed
 	name = "secure mixed blood crate"
@@ -720,7 +694,6 @@
 		PREPOSITIONAL = "комплекте донорской крови (смешанная)",
 	)
 
-
 /obj/structure/closet/crate/secure/blood/nitrogenis
 	name = "secure nitrogenis blood crate"
 	desc = "Ящик, содержащий капельницы с синтетической кровью (Азот)."
@@ -735,7 +708,6 @@
 		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — азот)",
 		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — азот)",
 	)
-
 
 /obj/structure/closet/crate/secure/blood/oxygenis
 	name = "secure synthetic blood crate"

@@ -115,16 +115,13 @@
 	if(shoot_inventory && prob(2))
 		throw_item()
 
-
 /obj/machinery/smartfridge/extinguish_light(force = FALSE)
 	set_light_on(FALSE)
 	underlays.Cut()
 
-
 /obj/machinery/smartfridge/obj_break(damage_flag)
 	..()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/smartfridge/power_change()
 	. = ..()
@@ -134,7 +131,6 @@
 		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()
@@ -156,7 +152,6 @@
 		. += "[icon_addon]"
 	if(icon_lightmask && light)
 		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
-
 
 /obj/machinery/smartfridge/proc/update_fridge_contents()
 	switch(length(contents))
@@ -184,7 +179,6 @@
 		return
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
 	. = default_unfasten_wrench(user, I)
 	if(.)
@@ -204,7 +198,6 @@
 		attack_hand(user)
 		return TRUE
 	return ..()
-
 
 /obj/machinery/smartfridge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/emag))
@@ -255,7 +248,6 @@
 
 	balloon_alert(user, "не подходит!")
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -376,7 +368,6 @@
 						if(i <= 0)
 							return TRUE
 
-
 /**
  * Tries to load an item if it is accepted by [/obj/machinery/smartfridge/proc/accept_check].
  *
@@ -411,7 +402,6 @@
 
 	item_quants[I.declent_ru(NOMINATIVE)] += 1
 	return TRUE
-
 
 /**
  * Tries to shoot a random at a nearby living mob.
@@ -509,13 +499,11 @@
 		PREPOSITIONAL = "ботаническом холодильнике",
 	)
 
-
 /obj/machinery/smartfridge/seeds/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/seeds
 	))
-
 
 /obj/machinery/smartfridge/seeds/update_overlays()
 	. = list()
@@ -536,7 +524,6 @@
 	else
 		. += base_icon_state
 		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
-
 
 /**
  * # Refrigerated Medicine Storage
@@ -570,7 +557,6 @@
 /obj/machinery/smartfridge/medbay/syndie
 	icon_state = "smartfridge-syndie"
 	contents_overlay = "smartfridge-syndie"
-
 
 /**
  * # Slime Extract Storage
@@ -682,7 +668,6 @@
 	icon_state = "smartfridge-syndie"
 	contents_overlay = "smartfridge-syndie"
 
-
 /obj/machinery/smartfridge/secure/medbay/organ
 
 	name = "Secure Refrigerated Organ Storage"
@@ -711,7 +696,6 @@
 		/obj/item/robot_parts/l_leg,
 		/obj/item/robot_parts/r_leg,
 	))
-
 
 /**
  * # Disk Compartmentalizer
@@ -743,7 +727,6 @@
 		/obj/item/disk,
 	))
 
-
 /obj/machinery/smartfridge/disks/update_overlays()
 	. = list()
 	underlays.Cut()
@@ -756,7 +739,6 @@
 	. += "[base_icon_state]"
 	if(icon_lightmask && light)
 		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
-
 
 /**
  * # Smart Virus Storage
@@ -788,7 +770,6 @@
 		/obj/item/reagent_containers/glass/beaker,
 	))
 
-
 /**
  * # Smart Virus Storage (Preloaded)
  *
@@ -819,7 +800,6 @@
 	icon_state = "smartfridge-syndie"
 	contents_overlay = "smartfridge-syndie"
 	req_access = list(ACCESS_SYNDICATE)
-
 
 /**
  * # Drink Showcase
@@ -966,7 +946,6 @@
 		. += "drying-rack_drying"
 	if(length(contents))
 		. += "drying-rack_filled"
-
 
 /obj/machinery/smartfridge/drying_rack/process()
 	if(!drying)//no need to update if we don't dry

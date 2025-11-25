@@ -16,7 +16,6 @@ SUBSYSTEM_DEF(ghost_spawns)
 	/// The poll that's closest to finishing
 	var/datum/candidate_poll/next_poll_to_finish
 
-
 /datum/controller/subsystem/ghost_spawns/fire()
 	if(!polls_active)
 		return
@@ -144,7 +143,6 @@ SUBSYSTEM_DEF(ghost_spawns)
 	UNTIL(P.finished)
 	return P.signed_up
 
-
 /**
  * Returns whether an observer is eligible to be an event mob
  *
@@ -177,7 +175,6 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	return TRUE
 
-
 /**
  * Called by the subsystem when a poll's timer runs out
  *
@@ -205,14 +202,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(!next_poll_to_finish || P2.time_left() < next_poll_to_finish.time_left())
 				next_poll_to_finish = P2
 
-
 /datum/controller/subsystem/ghost_spawns/get_stat_details()
 	var/list/msg = list()
 	msg += "Active: [length(currently_polling)] | Total: [total_polls]"
 	if(next_poll_to_finish)
 		msg += " | Next: [DisplayTimeText(next_poll_to_finish.time_left())] ([length(next_poll_to_finish.signed_up)] candidates)"
 	return msg.Join("")
-
 
 // The datum that describes one instance of candidate polling
 /datum/candidate_poll
@@ -223,7 +218,6 @@ SUBSYSTEM_DEF(ghost_spawns)
 	var/time_started // The world.time at which the poll was created
 	var/finished = FALSE // Whether the polling is finished
 	var/hash // Used to categorize in the alerts system
-
 
 /datum/candidate_poll/New(polled_role, polled_question, poll_duration)
 	role = polled_role
@@ -269,7 +263,6 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	return TRUE
 
-
 /**
  * Attempts to remove a signed-up mob from a poll.
  *
@@ -301,7 +294,6 @@ SUBSYSTEM_DEF(ghost_spawns)
 				P.remove_candidate(M, TRUE)
 	return TRUE
 
-
 /**
  * Deletes any candidates who may have disconnected from the list
  */
@@ -311,7 +303,6 @@ SUBSYSTEM_DEF(ghost_spawns)
 		var/mob/M = mob
 		if(!M.key || !M.client)
 			signed_up -= M
-
 
 /**
  * Returns the time left for a poll

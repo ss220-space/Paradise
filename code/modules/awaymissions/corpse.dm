@@ -53,7 +53,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(GLOB.off_mob_spawns)
-		return 
+		return
 	if(!uses)
 		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
@@ -274,7 +274,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		mob_name = id_job
 	return ..()
 
-
 /obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
 	if(!allow_prefs_prompt)
 		return FALSE
@@ -300,7 +299,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		return FALSE
 
 	return TRUE
-
 
 /obj/effect/mob_spawn/human/species_prompt()
 	var/selected_species = tgui_input_list(usr, "Select a species: ", "Species Selection", pickable_species)
@@ -435,13 +433,11 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/corpse/damaged
 	brute_damage = 1000
 
-
 /obj/effect/mob_spawn/human/alive
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	death = FALSE
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
-
 
 //Non-human spawners
 
@@ -465,7 +461,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
-
 
 ///////////Civilians//////////////////////
 
@@ -541,8 +536,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	mask = /obj/item/clothing/mask/breath
 
-
-
 /obj/effect/mob_spawn/human/clown
 	name = "Clown"
 	mob_name = "Clown"
@@ -568,7 +561,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	return ..()
-
 
 /datum/outfit/clownsoldier
 	name = "Clown Soldier"
@@ -687,7 +679,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/beach
 	outfit = /datum/outfit/beachbum
 
@@ -752,7 +743,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/commander
 	name = "Commander"
 	mob_name = "Commander"
@@ -769,8 +759,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	head = /obj/item/clothing/head/beret/centcom/officer
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
-
-
 
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"

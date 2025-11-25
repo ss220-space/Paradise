@@ -19,7 +19,6 @@
 #define SPIDER_PERMISSION "Spider"
 #define NINJA_ALT_PERMISSION "Ninja alt"
 
-
 GLOBAL_LIST_INIT(all_skin_permissions, list(
 		MEKA_PERMISSION,
 		FMEKA_PERMISSION,
@@ -42,5 +41,4 @@ GLOBAL_LIST_INIT(all_skin_permissions, list(
 		SPIDER_PERMISSION,
 		NINJA_ALT_PERMISSION,
 	))
-
 

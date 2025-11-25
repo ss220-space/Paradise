@@ -74,4 +74,3 @@ GLOBAL_LIST_INIT(see_through_maps, list(
 	)
 ))
 
-

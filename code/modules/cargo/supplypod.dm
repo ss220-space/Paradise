@@ -2,7 +2,7 @@
 //------------------------------------SUPPLY POD-------------------------------------//
 /obj/structure/closet/supplypod
 	name = "supply pod" //Names and descriptions are normally created with the setStyle() proc during initialization, but we have these default values here as a failsafe
-	desc = "Капсула снабжения Нанотрейзен."
+	desc = "Капсула снабжения \"Нанотрейзен\"."
 	gender = FEMALE
 	icon = 'icons/obj/supplypods.dmi'
 	icon_state = "pod" //This is a common base sprite shared by a number of pods
@@ -66,7 +66,6 @@
 		PREPOSITIONAL = "капсуле снабжения",
 	)
 
-
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
 	bluespace = TRUE
@@ -111,15 +110,14 @@
 	leavingSound = 'sound/effects/podwoosh.ogg'
 	reverse_option_list = list(MOB_OPTION = FALSE, UNANCHORED_OPTION = FALSE, ANCHORED_OPTION = FALSE, MECHA_OPTION = FALSE)
 
-
 /obj/structure/closet/supplypod/extractionpod/get_ru_names()
 	return list(
-		NOMINATIVE = "капсула эвакуации Синдиката",
-		GENITIVE = "капсулы эвакуации Синдиката",
-		DATIVE = "капсуле эвакуации Синдиката",
-		ACCUSATIVE = "капсулу эвакуации Синдиката",
-		INSTRUMENTAL = "капсулой эвакуации Синдиката",
-		PREPOSITIONAL = "капсуле эвакуации Синдиката",
+		NOMINATIVE = "капсула эвакуации \"Синдиката\"",
+		GENITIVE = "капсулы эвакуации \"Синдиката\"",
+		DATIVE = "капсуле эвакуации \"Синдиката\"",
+		ACCUSATIVE = "капсулу эвакуации \"Синдиката\"",
+		INSTRUMENTAL = "капсулой эвакуации \"Синдиката\"",
+		PREPOSITIONAL = "капсуле эвакуации \"Синдиката\"",
 	)
 
 /obj/structure/closet/supplypod/centcompod
@@ -190,9 +188,7 @@
 		else
 			prisoner.equipOutfit(/datum/outfit/prisoner)
 
-
 	to_chat(target, span_warning("Вы были этапированы на тюремную станцию!"))
-
 
 /obj/structure/closet/supplypod/back_to_station
 	name = "blood-red supply pod"
@@ -324,7 +320,6 @@
 	transform = matrix()
 	update_appearance()
 
-
 /obj/structure/closet/supplypod/update_overlays()
 	. = ..()
 	if(ispath(style, /datum/pod_style/invisible))
@@ -373,13 +368,11 @@
 	if(decal)
 		. += decal
 
-
 /obj/structure/closet/supplypod/tool_act(mob/living/user, obj/item/I, tool_type)
 	if(bluespace) //We dont want to worry about interacting with bluespace pods, as they are due to delete themselves soon anyways.
 		return FALSE
 	else
 		..()
-
 
 /obj/structure/closet/supplypod/ex_act() //Explosions dont do SHIT TO US! This is because supplypods create explosions when they land.
 	return FALSE
@@ -629,7 +622,6 @@
 		return
 
 	O.forceMove(get_turf(src))
-
 
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE

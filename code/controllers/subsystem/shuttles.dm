@@ -54,7 +54,6 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
-
 /datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
 
@@ -85,10 +84,8 @@ SUBSYSTEM_DEF(shuttle)
 	UnregisterSignal(src, COMSIG_CRYOPOD_DESPAWN)
 	. = ..()
 
-
 /datum/controller/subsystem/shuttle/get_stat_details()
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
-
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)
@@ -282,7 +279,6 @@ SUBSYSTEM_DEF(shuttle)
 			return 2
 	return 0	//dock successful
 
-
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/dockAt = getDock(dockId)
@@ -303,7 +299,6 @@ SUBSYSTEM_DEF(shuttle)
 			return 2
 	SEND_SOUND(area, hyperspace_mini)
 	return 0	//dock successful
-
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
@@ -337,7 +332,6 @@ SUBSYSTEM_DEF(shuttle)
 		if(EAST, WEST)
 			transit_width += M.height
 			transit_height += M.width
-
 
 	var/transit_path = /turf/space/transit
 	switch(travel_dir)
@@ -407,7 +401,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	M.assigned_transit = new_transit_dock
 	return new_transit_dock
-
 
 /datum/controller/subsystem/shuttle/proc/initial_move()
 	for(var/obj/docking_port/mobile/M in mobile)
@@ -547,7 +540,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	log_and_message_admins(span_notice("[key_name(usr)] re-registered docking ports for SSshuttle."))
 	BLACKBOX_LOG_ADMIN_VERB("Re-register Docking Ports")
-
 
 #undef CALL_SHUTTLE_REASON_LENGTH
 #undef MAX_TRANSIT_REQUEST_RETRIES

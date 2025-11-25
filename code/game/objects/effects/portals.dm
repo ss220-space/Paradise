@@ -35,7 +35,6 @@
 	///Whether or not portal use will cause sparks
 	var/create_sparks = TRUE
 
-
 /obj/effect/portal/Initialize(mapload, turf/target = null, obj/creation_object = null, lifespan = 30 SECONDS, mob/creation_mob = null, create_sparks = TRUE)
 	. = ..()
 
@@ -60,7 +59,6 @@
 	if(lifespan > 0)
 		QDEL_IN(src, lifespan)
 
-
 /obj/effect/portal/Destroy()
 	GLOB.portals -= src
 
@@ -75,41 +73,33 @@
 
 	return ..()
 
-
 /obj/effect/portal/update_icon_state()
 	if(fail_icon && failed_teleport)
 		icon_state = fail_icon
 	else
 		icon_state = base_icon_state
 
-
 /obj/effect/portal/update_overlays()
 	. = ..()
 	underlays.Cut()
 	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
-
 /obj/effect/portal/singularity_pull()
 	return
 
-
 /obj/effect/portal/singularity_act()
 	return
-
 
 /obj/effect/portal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(!force_teleport && (HAS_TRAIT(mover, TRAIT_NO_TELEPORT) || !can_teleport(mover)))
 		return TRUE
 
-
 /obj/effect/portal/Bumped(atom/movable/moving_atom)
 	teleport(moving_atom)
 
-
 /obj/effect/portal/attack_tk(mob/user)
 	return
-
 
 /obj/effect/portal/attack_hand(mob/user)
 	. = ..()
@@ -118,16 +108,13 @@
 	if(Adjacent(user))
 		teleport(user)
 
-
 /obj/effect/portal/attack_robot(mob/living/user)
 	if(Adjacent(user))
 		teleport(user)
 
-
 /obj/effect/portal/attack_ghost(mob/user)
 	if(target)
 		teleport(user)
-
 
 /obj/effect/portal/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -137,7 +124,6 @@
 		qdel(src)
 	else
 		teleport(user)
-
 
 /obj/effect/portal/proc/can_teleport(atom/movable/M, silent = FALSE)
 	. = TRUE
@@ -150,7 +136,6 @@
 
 	if(!can_mecha_pass && M.anchored && ismecha(M))
 		return FALSE
-
 
 /obj/effect/portal/proc/teleport(atom/movable/M)
 	if(!can_teleport(M))
@@ -183,7 +168,6 @@
 
 	return TRUE
 
-
 /obj/effect/portal/proc/attempt_teleport(atom/movable/victim, turf/destination, variance = 0, force_teleport = TRUE)
 	var/use_effects = world.time >= effect_cooldown
 	var/effect = null // Will result in the default effect being used
@@ -196,13 +180,11 @@
 	effect_cooldown = world.time + EFFECT_COOLDOWN
 	return TRUE
 
-
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message(span_warning("[src] flickers and fails due to bluespace interference!"))
 	if(create_sparks)
 		do_sparks(5, FALSE, loc)
 	qdel(src)
-
 
 /obj/effect/portal/hand_tele
 	/// After you touch the portal, it will be unstable with high bad teleport chance, this variable contains time when it will be fine again
@@ -210,23 +192,19 @@
 	/// If this is TRUE, you will not be able to teleport with that portal
 	var/inactive = FALSE
 
-
 /obj/effect/portal/hand_tele/examine(mob/user, infix, suffix)
 	. = ..()
 	if(unstable_time > world.time)
 		. += span_warning("[src] is shaking, it looks very unstable!")
-
 
 /obj/effect/portal/hand_tele/can_teleport(atom/movable/M, silent = FALSE)
 	if(inactive)
 		return FALSE
 	return ..()
 
-
 /obj/effect/portal/hand_tele/teleport(atom/movable/M)
 	. = ..()
 	adjust_unstable()
-
 
 /obj/effect/portal/hand_tele/proc/adjust_unstable()
 	unstable_time = world.time + UNSTABLE_TIME_DELAY
@@ -237,14 +215,12 @@
 	addtimer(CALLBACK(src, PROC_REF(check_unstable), unstable_time), UNSTABLE_TIME_DELAY)
 	addtimer(VARSET_CALLBACK(src, inactive, FALSE), 0.5 SECONDS) // after unstable is setted you have 0.5 safe seconds to think if you want to use it
 
-
 /obj/effect/portal/hand_tele/proc/check_unstable(current_unstable_time)
 	if(current_unstable_time != unstable_time)
 		return
 	failchance = 0
 	failed_teleport = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/effect/portal/redspace
 	name = "redspace portal"
@@ -254,7 +230,6 @@
 	failchance = 0
 	ignore_tele_proof_area_setting = TRUE
 
-
 /obj/effect/portal/wormhole_projector
 	icon_state = "portal-projector0"
 	base_icon_state = "portal-projector"
@@ -262,16 +237,13 @@
 	can_multitool_to_remove = TRUE
 	var/is_orange = FALSE
 
-
 /obj/effect/portal/wormhole_projector/update_icon_state()
 	icon_state = "[base_icon_state][is_orange]"
-
 
 /obj/effect/portal/wormhole_projector/update_overlays()
 	. = list()
 	underlays.Cut()
 	underlays += emissive_appearance(icon, "portal-syndicate_lightmask", src)
-
 
 #undef EFFECT_COOLDOWN
 #undef UNSTABLE_TIME_DELAY

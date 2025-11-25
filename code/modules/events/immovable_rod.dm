@@ -23,7 +23,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/turf/endT = spaceDebrisFinishLoc(startside, level)
 	new /obj/effect/immovablerod(startT, endT)
 
-
 /obj/effect/immovablerod
 	name = "\proper незыблемый стержень"
 	desc = "Что это за херня?"
@@ -55,7 +54,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	/// Whether this rod was spawned by admins.
 	var/admin_spawned = FALSE
 
-
 /obj/effect/immovablerod/Initialize(mapload, atom/target_atom, atom/special_target, move_delay = 1, force_looping = FALSE)
 	. = ..()
 
@@ -85,7 +83,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else
 		GLOB.move_manager.move_towards(src, destination_turf, delay = move_delay)
 
-
 /obj/effect/immovablerod/Destroy(force)
 	UnregisterSignal(src, list(
 		COMSIG_ATOM_ENTERING,
@@ -97,7 +94,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	GLOB.poi_list -= src
 
 	return ..()
-
 
 /obj/effect/immovablerod/update_name(updates = ALL)
 	. = ..()
@@ -118,13 +114,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(20 to INFINITY)
 			name = "[initial(name)] бич Божий"
 
-
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["follow"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			ghost.ManualFollow(src)
-
 
 /obj/effect/immovablerod/examine(mob/user)
 	. = ..()
@@ -139,7 +133,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		\t<b>[num_mobs_hit]</b> [declension_ru(num_mobs_hit, "живое существо", "живых существа", "живых существ")], \n\
 		\t<b>[num_sentient_mobs_hit]</b> из которых [declension_ru(num_sentient_mobs_hit, "обладало", "обладали", "обладали")] разумом, и \n\
 		\t<b>[num_sentient_people_hit]</b> из них [declension_ru(num_sentient_people_hit, "было гуманоидом", "были гуманоидами", "были гуманоидами")].</span>"
-
 
 /obj/effect/immovablerod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(!loc)
@@ -200,7 +193,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	return ..()
 
-
 /obj/effect/immovablerod/proc/possessed_relay_move(datum/source, mob/user, new_loc, direction)
 	SIGNAL_HANDLER
 
@@ -209,13 +201,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	walk_in_direction(direction)
 
-
 /obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(destination.density && isturf(destination))
 		Bump(destination)
-
 
 /obj/effect/immovablerod/proc/complete_trajectory(random_shift = FALSE)
 	// We hit what we wanted to hit, time to go.
@@ -225,22 +215,17 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else
 		walk_in_direction(dir)
 
-
 /obj/effect/immovablerod/ex_act(severity, target)
 	return
-
 
 /obj/effect/immovablerod/singularity_act()
 	return
 
-
 /obj/effect/immovablerod/singularity_pull()
 	return
 
-
 /obj/effect/immovablerod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))
@@ -271,7 +256,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	CRASH("[src] Bump()ed into non-atom thing [clong] ([clong.type])")
 
-
 /obj/effect/immovablerod/proc/penetrate(mob/living/smeared_mob)
 	smeared_mob.visible_message(
 		span_danger("[smeared_mob] был пронзён незыблемым стержнем!"),
@@ -295,14 +279,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(smeared_mob.density || prob(10))
 		smeared_mob.ex_act(EXPLODE_HEAVY)
 
-
 /* Below are a couple of admin helper procs when dealing with immovable rod memes. */
 /**
  * Stops your rod's automated movement. Sit... Stay... Good rod!
  */
 /obj/effect/immovablerod/proc/sit_stay_good_rod()
 	GLOB.move_manager.stop_looping(src)
-
 
 /obj/effect/immovablerod/smite
 	/// The target that we're gonna aim for between start and end
@@ -334,14 +316,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
 	GLOB.move_manager.move_towards(src, exit, delay = move_delay)
 
-
 /obj/effect/immovablerod/smite/penetrate(mob/living/smeared_mob)
 	. = ..()
 	if(smeared_mob != target || !reason)
 		return
 
 	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[PLUR_IT_YAT(src)] через ваши внутренности, вы внезапно осознаёте — боги наказали вас за [reason]!"))
-
 
 /**
  * Allows your rod to release restraint level zero and go for a walk.
@@ -358,7 +338,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		GLOB.move_manager.home_onto(src, special_target, delay = move_delay)
 		return
 	complete_trajectory()
-
 
 /**
  * Rod will walk towards edge turf in the specified direction.

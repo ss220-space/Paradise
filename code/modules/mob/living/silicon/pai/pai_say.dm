@@ -6,7 +6,6 @@
 		return
 	return ..(message)
 
-
 /mob/living/silicon/pai/get_whisper_loc()
 	if(loc == card)			// currently in its card?
 		var/atom/movable/whisper_loc = card

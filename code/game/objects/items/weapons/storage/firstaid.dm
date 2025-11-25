@@ -12,7 +12,10 @@
 	name = "first-aid kit"
 	desc = "Если вы видите это, напишите сообщение об ошибке, что-то пошло не так!"
 	gender = FEMALE
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "firstaid"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/plasticbox_pickup.ogg'
 	use_sound = 'sound/items/handling/plasticbox_open.ogg'
@@ -36,12 +39,11 @@
 		PREPOSITIONAL = "аптечке первой помощи",
 	)
 
-
 /obj/item/storage/firstaid/fire
 	name = "fire first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при серьёзных термических повреждениях."
 	icon_state = "ointment"
-	item_state = "firstaid-ointment"
+	item_state = "medkit_burn"
 	med_bot_skin = "ointment"
 
 /obj/item/storage/firstaid/fire/get_ru_names()
@@ -122,7 +124,7 @@
 	name = "toxin first aid kit"
 	desc = "Это аптечка для экстренной первой помощи при отравлениях."
 	icon_state = "antitoxin"
-	item_state = "firstaid-toxin"
+	item_state = "medkit_tox"
 	med_bot_skin = "tox"
 
 /obj/item/storage/firstaid/toxin/get_ru_names()
@@ -155,7 +157,7 @@
 	name = "oxygen deprivation first aid kit"
 	desc = "Это аптечка для экстренной первой помощи при удушьях."
 	icon_state = "o2"
-	item_state = "firstaid-o2"
+	item_state = "medkit_oxy"
 	med_bot_skin = "o2"
 
 /obj/item/storage/firstaid/o2/get_ru_names()
@@ -182,7 +184,7 @@
 	name = "brute trauma treatment kit"
 	desc = "Это аптечка для экстренной первой помощи при серьёзных механических повреждениях."
 	icon_state = "brute"
-	item_state = "firstaid-brute"
+	item_state = "medkit_brute"
 	med_bot_skin = "brute"
 
 /obj/item/storage/firstaid/brute/get_ru_names()
@@ -214,7 +216,7 @@
 	name = "advanced first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи, продвинутая версия."
 	icon_state = "advfirstaid"
-	item_state = "firstaid-advanced"
+	item_state = "medkit_advanced"
 	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/adv/get_ru_names()
@@ -243,7 +245,7 @@
 	name = "paramed first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при, специализированная версия для Парамедика."
 	icon_state = "firstaid_paramed"
-	item_state = "firstaid_paramed"
+	item_state = "medkit_paramed"
 	med_bot_skin = "paramed"
 
 /obj/item/storage/firstaid/paramed/get_ru_names()
@@ -274,7 +276,7 @@
 	desc = "Это набор для полевого ремонта синтетических форм жизни при повреждениях."
 	gender = MALE
 	icon_state = "machinefirstaid"
-	item_state = "firstaid-machine"
+	item_state = "medkit_mechanical"
 	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/get_ru_names()
@@ -301,13 +303,13 @@
 	name = "NT first-aid kit"
 	desc = "Тактическая аптечка, содержащая в себе всё самое необходимое для лечения в пылу боя."
 	icon_state = "NTfirstaid"
+	item_state = "medkit_ert"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
-
 
 /obj/item/storage/firstaid/tactical/get_ru_names()
 	return list(
@@ -347,7 +349,8 @@
 /obj/item/storage/firstaid/ertm
 	name = "NT ert-aid kit"
 	desc = "Тактическая аптечка, содержащая в себе всё самое необходимое для лечения в пылу боя. Продвинутая версия."
-	icon_state = "NTertaid"
+	icon_state = "NTeraid"
+	item_state = "medkit_ert2"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -379,6 +382,7 @@
 	name = "first-aid tacticool kit"
 	desc = "Тактическая аптечка, содержащая в себе всё самое необходимое для лечения в пылу боя. Узкоспециализированная версия."
 	icon_state = "bezerk"
+	item_state = "medkit_bezerk"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -412,6 +416,7 @@
 	name = "field surgery kit"
 	desc = "Тактическая версия спортивной сумки с медицинскими опознавательными знаками. Содержит в себе набор инструментов для полевой хирургии."
 	gender = MALE
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "duffel-med"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
@@ -447,7 +452,8 @@
 
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
-	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам Нанотрейзен в обязательным порядке."
+	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам \"Нанотрейзен\" в обязательным порядке."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "crew_medpouch"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(
@@ -527,7 +533,7 @@
 	name = "mining first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи, используемая шахтёрским врачом."
 	icon_state = "mining_medic_firstaid"
-	item_state = "mining_medic_firstaid"
+	item_state = "medkit_mining"
 
 /obj/item/storage/firstaid/doctor/mining_medic/get_ru_names()
 	return list(
@@ -588,7 +594,6 @@
 	if(allow_wrap)
 		apply_wrap()
 
-
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
 		cut_overlays()
@@ -597,7 +602,6 @@
 		add_overlay(I)
 		if(blocks_emissive)
 			add_overlay(get_emissive_block())
-
 
 /obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !length(contents))
@@ -610,7 +614,6 @@
 	if(pill)
 		return pill.attack(target, user, params, def_zone, skip_attack_anim)
 
-
 /obj/item/storage/pill_bottle/ert
 	wrapper_color = COLOR_MAROON
 
@@ -622,9 +625,8 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-
-/obj/item/storage/pill_bottle/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)
 		if(!length(contents))
 			balloon_alert(user, "пусто!")
 			return FALSE
@@ -640,13 +642,11 @@
 
 	return ..()
 
-
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "patch pack"
@@ -678,9 +678,8 @@
 	for(var/I in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
-
-/obj/item/storage/pill_bottle/patch_pack/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/storage/pill_bottle/patch_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)
 		if(!length(contents))
 			balloon_alert(user, "пусто!")
 			return FALSE

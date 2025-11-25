@@ -86,7 +86,6 @@
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 
-
 /obj/machinery/power/smes/update_overlays()
 	. = ..()
 	if((stat & BROKEN) || panel_open)
@@ -102,7 +101,6 @@
 	var/clevel = chargedisplay()
 	if(clevel > 0)
 		. += "smes-og[clevel]"
-
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -169,12 +167,10 @@
 		return TRUE
 	return FALSE
 
-
 /obj/machinery/power/smes/screwdriver_act(mob/living/user, obj/item/I)
 	. = default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I)
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/power/smes/wrench_act(mob/living/user, obj/item/I)
 	. = default_change_direction_wrench(user, I)
@@ -193,7 +189,6 @@
 		return .
 	stat &= ~BROKEN
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/tool)
 	. = TRUE
@@ -233,10 +228,8 @@
 	)
 	return TRUE
 
-
 /obj/machinery/power/smes/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
@@ -245,14 +238,12 @@
 		return TRUE
 	return FALSE
 
-
 /obj/machinery/power/smes/proc/make_terminal(tempDir, tempLoc)
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new /obj/machinery/power/terminal(tempLoc)
 	terminal.dir = tempDir
 	terminal.master = src
-
 
 /obj/machinery/power/smes/Destroy()
 	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
@@ -322,8 +313,6 @@
 	// only update icon if state changed
 	if(last_disp != chargedisplay() || last_chrg != inputting || last_onln != outputting)
 		update_icon(UPDATE_OVERLAYS)
-
-
 
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
@@ -470,7 +459,6 @@
 			smoke.attach(src)
 			smoke.start()
 
-
 /obj/machinery/power/smes/proc/inputting(do_input)
 	input_attempt = do_input
 	if(!input_attempt)
@@ -512,7 +500,6 @@
 	icon_state = "oldsmes"
 	capacity = 2500000
 
-
 // MARK: Portable smes
 
 /obj/machinery/power/smes/portable
@@ -523,11 +510,9 @@
 	interact_offline = TRUE
 	anchored = FALSE
 
-
 /obj/machinery/power/smes/portable/Initialize(mapload)
 	. = ..()
 	stat = 0
-
 
 /obj/machinery/power/smes/portable/wrench_act(mob/living/user, obj/item/tool)
 	if(!anchored)
@@ -538,7 +523,6 @@
 	qdel(terminal)
 	anchored = FALSE
 	return TRUE
-
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -552,7 +536,6 @@
 
 	return ..()
 
-
 /obj/machinery/power/smes/portable/screwdriver_act(mob/living/user, obj/item/I)
 	return FALSE
 
@@ -563,7 +546,6 @@
 	. = ..()
 	var/clevel = chargedisplay()
 	icon_state = "minismes_[clevel]"
-
 
 /obj/machinery/power/smes/portable/chargedisplay()
 	if(charge >= PORTABLE_SMES_LEVEL_FULL * capacity)

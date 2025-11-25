@@ -3,7 +3,6 @@
 ///Supports spinning on each move, for lube related reasons
 /datum/component/force_move
 
-
 /datum/component/force_move/Initialize(atom/target, spin, no_dir_update)
 	if(!target || !ismob(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -19,22 +18,18 @@
 		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(slip_spin))
 	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(loop_ended))
 
-
 /datum/component/force_move/proc/stop_move(datum/source)
 	SIGNAL_HANDLER
 	return COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE
-
 
 /datum/component/force_move/proc/stop_pressure(datum/source)
 	SIGNAL_HANDLER
 	return COMSIG_ATOM_BLOCKS_PRESSURE
 
-
 /datum/component/force_move/proc/slip_spin(datum/source)
 	SIGNAL_HANDLER
 	var/mob/mob_parent = parent
 	mob_parent.spin(1, 1)
-
 
 /datum/component/force_move/proc/loop_ended(datum/source)
 	SIGNAL_HANDLER

@@ -20,7 +20,6 @@
 	var/vents_per_tick = 15
 	var/list/affected_vents_list = list()
 
-
 /datum/weather/xeno_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
@@ -38,7 +37,6 @@
 		if(area in impacted_areas)
 			affected_vents_list[vent] = TRUE
 
-
 /datum/weather/xeno_storm/fire()
 	if(!length(affected_vents_list))
 		return
@@ -49,7 +47,6 @@
 		new/obj/structure/alien/weeds/node(get_turf(vent))
 		vents += vent
 	affected_vents_list -= vents
-
 
 /datum/weather/xeno_storm/end()
 	if(..())

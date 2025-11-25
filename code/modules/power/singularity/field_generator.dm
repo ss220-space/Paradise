@@ -39,7 +39,6 @@ field_generator power level display
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
 
-
 /obj/machinery/field/generator/update_overlays()
 	. = ..()
 	if(warming_up)
@@ -49,12 +48,10 @@ field_generator power level display
 	if(power_level)
 		. += "+p[power_level]"
 
-
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
 	fields = list()
 	connected_gens = list()
-
 
 /obj/machinery/field/generator/process()
 	if(active == FG_ONLINE)
@@ -76,7 +73,6 @@ field_generator power level display
 				add_fingerprint(user)
 	else
 		to_chat(user, span_warning("[src] needs to be firmly secured to the floor first!"))
-
 
 /obj/machinery/field/generator/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -109,7 +105,6 @@ field_generator power level display
 
 		if(FG_WELDED)
 			to_chat(user, span_warning("The [name] should be unwelded from the floor."))
-
 
 /obj/machinery/field/generator/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -155,11 +150,9 @@ field_generator power level display
 		check_power_level()
 	return 0
 
-
 /obj/machinery/field/generator/Destroy()
 	cleanup()
 	return ..()
-
 
 /obj/machinery/field/generator/proc/check_power_level()
 	var/new_level = round(num_power_levels * power / field_generator_max_power)
@@ -185,7 +178,6 @@ field_generator power level display
 			update_icon(UPDATE_OVERLAYS)
 			if(warming_up >= 3)
 				start_fields()
-
 
 /obj/machinery/field/generator/proc/calc_power()
 	var/power_draw = 2 + fields.len
@@ -230,7 +222,6 @@ field_generator power level display
 				else
 					return 0
 
-
 /obj/machinery/field/generator/proc/start_fields()
 	if(state != FG_WELDED || !anchored)
 		turn_off()
@@ -245,7 +236,6 @@ field_generator power level display
 		setup_field(8)
 	spawn(5)
 		active = FG_ONLINE
-
 
 /obj/machinery/field/generator/proc/setup_field(NSEW)
 	var/turf/T = loc
@@ -297,7 +287,6 @@ field_generator power level display
 	connected_gens |= G
 	G.connected_gens |= src
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/field/generator/proc/cleanup()
 	clean_up = 1

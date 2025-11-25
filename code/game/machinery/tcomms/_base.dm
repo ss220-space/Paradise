@@ -98,7 +98,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	else
 		icon_state = initial(icon_state)
 
-
 // Attack overrides. These are needed so the UIs can be opened up //
 /obj/machinery/tcomms/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -111,7 +110,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	if(..(user))
 		return
 	ui_interact(user)
-
 
 // If we do not override the default process(), the machine defaults to not processing, meaning it uses no power.
 /obj/machinery/tcomms/process()
@@ -147,7 +145,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), span_warning("Оборудование радиосвязи на [declent_ru(NOMINATIVE)] было перегружено мощным блюспейс-воздействием. Пожалуйста, перезагрузите устройство.")), 5)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /**
  * Logging helper
@@ -231,7 +228,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	follow_target = null
 	return ..()
 
-
 #define CREW_RADIO_TYPE 0
 #define CENTCOMM_RADIO_TYPE 1
 #define SYNDICATE_RADIO_TYPE 2
@@ -266,7 +262,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 #undef CENTCOMM_RADIO_TYPE
 #undef SYNDICATE_RADIO_TYPE
 
-
 /**
  * Message Broadcast Proc
  *
@@ -276,7 +271,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
  * * tcm - The tcomms message datum
  */
 /proc/broadcast_message(datum/tcomms_message/tcm)
-
 
 	/* ###### Prepare the radio connection ###### */
 
@@ -371,7 +365,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			// - Just display a garbled message -
 			heard_garbled += R
 
-
 	/* ###### Begin formatting and sending the message ###### */
 	if(length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled) || length(heard_gibberish))
 
@@ -388,7 +381,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		SSblackbox.LogBroadcast(display_freq)
 
 	/* ###### Send the message ###### */
-
 
 		/* --- Process all the mobs that heard a masked voice (understood) --- */
 
@@ -419,7 +411,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
-
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
 
 		if(length(heard_gibberish))
@@ -428,7 +419,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 	return TRUE
-
 
 /**
  * # Telecommunications Password Paper

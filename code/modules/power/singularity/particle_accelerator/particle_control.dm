@@ -79,7 +79,6 @@
 	active = FALSE
 	connected_parts = list()
 
-
 /obj/machinery/particle_accelerator/control_box/update_icon_state()
 	if(active)
 		icon_state = "[reference]p[strength]"
@@ -102,8 +101,6 @@
 			icon_state = "[reference]w"
 		else
 			icon_state = "[reference]c"
-
-
 
 /obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/obj/structure/particle_accelerator/part in connected_parts)
@@ -157,7 +154,6 @@
 		part.powered = FALSE
 		part.update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/particle_accelerator/control_box/process()
 	if(!active)
 		return
@@ -171,7 +167,6 @@
 		if(!emitter)
 			continue
 		emitter.emit_particle(strength)
-
 
 /obj/machinery/particle_accelerator/control_box/proc/part_scan()
 	dir_text = null
@@ -223,7 +218,6 @@
 		assembled = FALSE
 		return FALSE
 
-
 /obj/machinery/particle_accelerator/control_box/proc/check_part(turf/checked_turf, type, column, row)
 	if(!(checked_turf) || !(type))
 		return FALSE
@@ -251,7 +245,6 @@
 	connected_parts |= accelerator
 	return TRUE
 
-
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
 	investigate_log("turned [active?"<span style='color: red;'>ON</span>":"<span style='color: green;'>OFF</span>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
@@ -272,7 +265,6 @@
 			part.powered = FALSE
 			part.update_icon(UPDATE_ICON_STATE)
 	return TRUE
-
 
 /obj/machinery/particle_accelerator/control_box/ui_state(mob/user)
 	return GLOB.default_state

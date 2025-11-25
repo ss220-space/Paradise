@@ -81,7 +81,6 @@
 	if(linked_core)
 		linked_core.refresh_zlevels()
 
-
 /**
  * Power-on checker
  *

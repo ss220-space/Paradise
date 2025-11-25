@@ -52,7 +52,6 @@
 	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
 
-
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/toy/crayon))
@@ -82,8 +81,6 @@
 
 	if(prob(I.force))
 		push_over()
-
-
 
 /obj/item/twohanded/cardboard_cutout/bullet_act(obj/projectile/P)
 	visible_message(span_danger("[src] is hit by [P]!"), projectile_message = TRUE)
@@ -204,10 +201,8 @@
 
 	return 1
 
-
 /obj/item/twohanded/cardboard_cutout/setDir(newdir)
 	return ..(SOUTH)
-
 
 /obj/item/twohanded/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 	deceptive = TRUE

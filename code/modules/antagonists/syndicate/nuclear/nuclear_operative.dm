@@ -25,7 +25,7 @@
 	store_nuke_code()
 
 /datum/antagonist/nuclear_operative/proc/store_nuke_code()
-	antag_memory = "<b>Код от боеголовки Синдиката</b>: [nuclear_team?.nuke_code]"
+	antag_memory = "<b>Код от боеголовки \"Синдиката\"</b>: [nuclear_team?.nuke_code]"
 
 /datum/antagonist/nuclear_operative/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -49,7 +49,6 @@
 	else
 		to_chat(owner.current, span_userdanger("Вам промли мозги! Вы больше не Ядерный Оперативник."))
 
-
 /datum/antagonist/nuclear_operative/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ops.ogg'))
@@ -65,7 +64,7 @@
 	return messages
 
 /datum/antagonist/nuclear_operative/proc/code_message()
-	return span_notice("Код от боеголовки Синдиката: <b>[nuclear_team.nuke_code]</b>")
+	return span_notice("Код от боеголовки \"Синдиката\": <b>[nuclear_team.nuke_code]</b>")
 
 /datum/antagonist/nuclear_operative/proc/footer_messages()
 	var/list/messages = list()
@@ -154,7 +153,6 @@
 
 /datum/antagonist/nuclear_operative/loneop/give_objectives()
 	add_objective(/datum/objective/nuclear)
-
 
 /datum/antagonist/nuclear_operative/loneop/additional_messages()
 	var/list/messages = list()

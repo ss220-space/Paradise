@@ -141,14 +141,12 @@
 				return 1
 	return 0
 
-
 /obj/item/robot_parts/robot_suit/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!check_completion())
 		to_chat(user, span_warning("The endoskeleton must be assembled before debugging can begin!"))
 		return .
 	Interact(user)
-
 
 /obj/item/robot_parts/robot_suit/attackby(obj/item/I, mob/living/user, params)
 	if(is_pen(I))
@@ -383,7 +381,6 @@
 		new_borg.set_lockcharge(TRUE)
 		to_chat(new_borg, span_warning("Error: Servo motors unresponsive."))
 
-
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <a href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
 			t1 += "Master AI: <a href='byond://?src=[UID()];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n"
@@ -433,7 +430,6 @@
 	Interact(usr)
 	return
 
-
 /obj/item/robot_parts/chest/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))
 		add_fingerprint(user)
@@ -460,7 +456,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/robot_parts/head/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/flash))
@@ -492,7 +487,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/robot_parts/emag_act(mob/user)
 	if(sabotaged)

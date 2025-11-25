@@ -39,12 +39,10 @@
 	else
 		return FALSE
 
-
 /datum/game_mode/thief/post_setup()
 	for(var/datum/mind/thief in pre_thieves)
 		thief.add_antag_datum(/datum/antagonist/thief)
 	..()
-
 
 /datum/game_mode/proc/auto_declare_completion_thief()
 	if(!length(thieves))

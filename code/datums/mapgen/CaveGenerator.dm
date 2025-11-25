@@ -9,7 +9,6 @@
 	///Expanded list of the types that spawns if the turf is closed
 	var/wall_turf_types
 
-
 	///Weighted list of mobs that can spawn in the area.
 	var/list/weighted_mob_spawn_list
 	///Expanded list of mobs that can spawn in the area. Reads from the weighted list
@@ -29,8 +28,6 @@
 	var/list/weighted_feature_spawn_list
 	///Expanded list of extra features that can spawn in the area. Reads from the weighted list
 	var/list/feature_spawn_list
-
-
 
 	///Base chance of spawning a mob
 	var/mob_spawn_chance = 3

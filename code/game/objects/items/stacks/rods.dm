@@ -47,7 +47,6 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	var/amount = get_amount()
 	icon_state = "rods-[clamp(amount, 1, 5)]"
 
-
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)
 		to_chat(user, span_warning("You need at least two rods to do this!"))
@@ -80,11 +79,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
 
-
 /obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
 		melee_attack_chain(user, target, click_parameters)
-
 
 /obj/item/stack/fireproof_rods
 	name = "fireproof rods"
@@ -102,15 +99,12 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
 
-
 /obj/item/stack/fireproof_rods/twentyfive
 	amount = 25
-
 
 /obj/item/stack/fireproof_rods/update_icon_state()
 	var/amount = get_amount()
 	icon_state = "f_rods-[clamp(amount, 1, 5)]"
-
 
 /obj/item/stack/fireproof_rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)

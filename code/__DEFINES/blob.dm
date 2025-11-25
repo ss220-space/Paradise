@@ -49,7 +49,6 @@
 #define FIRST_STAGE_WARN span_userdanger("Вы чувствуете усталость и раздутость.")
 #define SECOND_STAGE_WARN span_userdanger("Вы чувствуете, что вот-вот лопнете.")
 
-
 #define TOTAL_BLOB_MASS length(SSticker?.mode?.legit_blobs)
 #define NEEDED_BLOB_MASS SSticker?.mode?.blob_win_count
 
@@ -65,7 +64,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define OVERMIND_STARTING_REROLLS 1 // Free strain rerolls at the start
 #define OVERMIND_MAX_CAMERA_STRAY "3x3" // How far the overmind camera is allowed to stray from blob tiles. 3x3 is 1 tile away, 5x5 2 tiles etc
 
-
 // Generic blob defines
 
 #define BLOB_BASE_POINT_RATE 2 // Base amount of points per process()
@@ -80,7 +78,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOB_REAGENT_SPORE_VOL 10
 #define BLOB_BONUS_POINTS 60
 #define BLOB_REAGENTS_METABOLISM 1
-
 
 // Structure properties
 
@@ -134,7 +131,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOB_STORAGE_MIN_DISTANCE 3
 #define BLOB_STORAGE_FIRE_RESIST 2
 
-
 // Structure purchasing
 
 #define BLOB_UPGRADE_STRONG_COST 15 // Upgrade and build costs here
@@ -160,7 +156,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOB_POWER_REROLL_COST 40 // Strain reroll
 #define BLOB_POWER_REROLL_FREE_TIME (4 MINUTES) // Gain a free strain reroll every x minutes
 #define BLOB_POWER_REROLL_CHOICES 6 // Possibilities to choose from; keep in mind increasing this might fuck with the radial menu
-
 
 // Mob defines
 

@@ -30,13 +30,10 @@
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi',
 	)
 
-
 /obj/item/camera/examine(mob/user)
 	. = ..()
 	. += span_notice("Alt-Click to change photo size.")
 	. += span_notice("Alt-Shift-Click on [src] to toggle camera flashing")
-
-
 
 /obj/item/camera/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
@@ -156,11 +153,9 @@
 	addtimer(CALLBACK(src, PROC_REF(delayed_turn_on)), 6.4 SECONDS)
 	captureimage(target, user) // It's expensive proc so that's why we do it after all the cheap ones
 
-
 /obj/item/camera/proc/delayed_turn_on()
 	on = TRUE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user
@@ -198,7 +193,6 @@
 	var/icon/photoimage = camera_get_icon(turfs, target, user, size*32, clone_area, size, range)
 	qdel(clone_area)
 	photoimage.Blend("#000", ICON_UNDERLAY)
-
 
 	var/icon/small_img = icon(photoimage)
 	var/icon/tiny_img = icon(photoimage)
@@ -265,7 +259,6 @@
 	)
 	SEND_SOUND(user, sound(pick(creepyasssounds)))
 
-
 /*
  * Digital Camera
  */
@@ -291,7 +284,6 @@
 	on = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/camera, delayed_turn_on)), 6.4 SECONDS)
-
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user)
 	if(length(saved_pictures) >= max_storage)

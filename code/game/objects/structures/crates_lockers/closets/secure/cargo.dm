@@ -14,7 +14,6 @@
 	new /obj/item/clothing/suit/storage/cargotech(src)
 	new /obj/item/qm_quest_tablet/cargotech(src)
 
-
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)

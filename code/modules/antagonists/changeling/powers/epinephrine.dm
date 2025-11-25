@@ -9,7 +9,6 @@
 	req_human = TRUE
 	req_stat = UNCONSCIOUS
 
-
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)
 
 	if(user.body_position == LYING_DOWN)

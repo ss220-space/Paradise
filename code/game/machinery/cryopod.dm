@@ -10,7 +10,6 @@
  * ~ Zuhayr
  */
 
-
 //Main cryopod console.
 
 /obj/machinery/computer/cryopod
@@ -180,20 +179,16 @@
 	anchored = TRUE
 	var/orient_right = FALSE // Flips the sprite.
 
-
 /obj/structure/cryofeed/right
 	orient_right = TRUE
 	icon_state = "cryo_rear-r"
-
 
 /obj/structure/cryofeed/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/cryofeed/update_icon_state()
 	icon_state = "cryo_rear[orient_right ? "-r" : ""]"
-
 
 // Cryopods themselves.
 /obj/machinery/cryopod
@@ -265,7 +260,6 @@
 		PREPOSITIONAL = "криогенном морозильнике",
 	)
 
-
 //////
 //Syndie cryopod.
 
@@ -276,17 +270,14 @@
 	dir = WEST
 	syndicate = TRUE
 
-
 /obj/machinery/cryopod/Initialize(mapload)
 	. = ..()
 	icon_state = base_icon_state
 	set_light(1, 1, COLOR_GREEN)
 	find_control_computer()
 
-
 /obj/machinery/cryopod/update_icon_state()
 	icon_state = occupant ? occupied_icon_state : base_icon_state
-
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
 	var/area/A = get_area(src)
@@ -441,7 +432,6 @@
 			announce_rank = G.fields["rank"]
 			qdel(G)
 
-
 	// Make an announcement and log the person entering storage + their rank
 	var/list/crew_member = list()
 	crew_member["name"] = occupant.real_name
@@ -484,7 +474,6 @@
 	QDEL_NULL(occupant)
 	update_icon(UPDATE_ICON_STATE)
 	name = initial(name)
-
 
 /obj/machinery/cryopod/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -530,7 +519,6 @@
 	add_fingerprint(grabber)
 	take_occupant(target, willing)
 
-
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O, mob/user, params)
 
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -572,7 +560,6 @@
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/cryopod, put_in), user, L)
 	return TRUE
 
-
 /obj/machinery/cryopod/proc/put_in(mob/user, mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/willing = null //We don't want to allow people to be forced into despawning.
 	time_till_despawn = initial(time_till_despawn)
@@ -603,7 +590,6 @@
 		else
 			to_chat(user, span_notice("You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]"))
 
-
 /obj/machinery/cryopod/proc/take_occupant(mob/living/carbon/E, willing_factor = 1)
 	if(occupant)
 		return
@@ -626,7 +612,6 @@
 	log_admin(span_notice("[key_name_log(E)] entered a stasis pod."))
 	message_admins("[key_name_admin(E)] entered a stasis pod. [ADMIN_JMP(src)]")
 	add_fingerprint(E)
-
 
 /obj/machinery/cryopod/verb/eject()
 	set name = "Вылезти"
@@ -693,7 +678,6 @@
 		add_fingerprint(usr)
 		name = "[name] ([usr.name])"
 
-
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)
 		return
@@ -702,8 +686,6 @@
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 	name = initial(name)
-
-
 
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()
@@ -732,7 +714,6 @@
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
 
-
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R))
@@ -749,7 +730,6 @@
 		qdel(R.module)
 
 	return ..()
-
 
 /proc/cryo_ssd(mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))

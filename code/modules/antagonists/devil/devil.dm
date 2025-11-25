@@ -142,9 +142,9 @@
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
-	LAZYADD(messages, span_warning("<b>Вы – [info.truename], агент ада, дьявол.\n\
-	Вы прибыли сюда, преследуя важную цель.\n\
-	Склоните экипаж к грехопадению и укрепите влияние ада.</b>"))
+	LAZYADD(messages, span_warning("<b>Вы — [info.truename], агент ада, дьявол.\n\
+		Вы прибыли сюда, преследуя важную цель.\n\
+		Склоните экипаж к грехопадению и укрепите влияние ада.</b>"))
 	LAZYADD(messages, "Вы никак не можете навредить другим дьяволам.")
 	LAZYADD(messages, info.bane.law)
 	LAZYADD(messages, info.ban.law)
@@ -252,7 +252,6 @@
 	to_chat(sender, span_warningbig("Ты не в силах узнать мое имя, глупый ангел."))
 	to_chat(target, span_warning("Кто-то пытася силой заставить вас сказать свое настоящее имя, но вы смогли защититься."))
 
-
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
 	owner.current.RemoveElement(/datum/element/devil_regeneration)
@@ -282,7 +281,6 @@
 		ui = new(user, src, "DevilInfo")
 		ui.open()
 
-
 /datum/antagonist/devil/ui_status(mob/user, datum/ui_state/state)
 	return UI_INTERACTIVE
 
@@ -302,7 +300,6 @@
 	data["ritual_required"] = rank.ritual_required
 
 	return data
-
 
 /**
  * Takes any datum `source` and checks it for devil datum.

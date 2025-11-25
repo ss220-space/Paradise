@@ -117,7 +117,6 @@
 			else
 				to_chat(usr, span_warning("[M] отказал[GEND_SYA_AS_OS_IS(M)] предоставлять вам образец ДНК."))
 
-
 // Crew Manifest //
 /datum/pai_software/crew_manifest
 	name = "Crew Manifest"
@@ -410,7 +409,6 @@
 	template_file = "pai_gps_module"
 	ui_icon = "location-arrow"
 
-
 /datum/pai_software/gps/ui_act(action, list/params)
 	if(..())
 		return
@@ -529,7 +527,6 @@
 			to_chat(pai_holder, span_notice("В кровоток носителя введён синтезированный реагент: \"[R.name]\"."))
 			held.reagents.add_reagent(C.key, C.quantity)
 			pai_holder.chemicals -= C.chemuse
-
 
 // Advanced Security Records //
 /datum/pai_software/adv_sec_records

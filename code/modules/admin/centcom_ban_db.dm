@@ -3,7 +3,6 @@
 // API Documentation: https://centcom.melonmesa.com/swagger/index.html
 // Please refer to said documentation before editing any of the stuff in here, otherwise it will likely break
 
-
 /**
  * CCBDB Lookup Initiator
  *

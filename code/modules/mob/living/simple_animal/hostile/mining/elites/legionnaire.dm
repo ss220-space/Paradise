@@ -89,7 +89,7 @@
 
 /datum/action/innate/elite_attack/throw_bone
 	name = "Бросок кости"
-	icon_icon = 'icons/obj/mining.dmi'
+	button_icon = 'icons/obj/mining.dmi'
 	button_icon_state = "bone"
 	chosen_message = span_boldwarning("Вы бросаете тяжёлую кость.")
 	chosen_attack_num = THROW_BONE
@@ -323,11 +323,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/legionnaire_bonfire/Destroy()
 	myowner?.mypile = null
 	return ..()
-
 
 /obj/structure/legionnaire_bonfire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -339,7 +337,6 @@
 		var/mob/living/fire_walker = arrived
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
-
 
 /obj/projectile/legionnaire
 	name = "bone"

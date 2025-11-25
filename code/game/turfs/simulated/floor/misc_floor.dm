@@ -58,7 +58,6 @@
 	if(user)
 		to_chat(user, span_notice("Looks like someone has dug here already."))
 
-
 /turf/simulated/floor/beach/sand/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -78,7 +77,6 @@
 		new /obj/item/stack/ore/glass(src, 5)
 		dug = TRUE
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
@@ -124,7 +122,6 @@
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	add_overlay(overlay_image)
-
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

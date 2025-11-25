@@ -99,7 +99,6 @@
 	target.apply_damage(10, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/generic/suture
 	name = "зашить раны"
 	begin_sound = 'sound/surgery/cautery1.ogg'
@@ -148,7 +147,6 @@
 	)
 	target.apply_damage(10, def_zone = affected, sharp = TRUE)
 	return SURGERY_STEP_RETRY
-
 
 /datum/surgery_step/generic/retract_skin
 	name = "расширение краёв раны"
@@ -268,7 +266,6 @@
 	target.custom_pain("Вы чувствуете сильное жжение в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
-
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "сверление кости"
@@ -310,7 +307,6 @@
 
 	target.apply_damage(15, def_zone = affected)
 	return SURGERY_STEP_RETRY
-
 
 /datum/surgery_step/generic/amputate
 	name = "ампутация конечности"

@@ -93,7 +93,6 @@
 		M.dna.UpdateSE()
 		M.check_genes()
 
-
 // I haven't yet figured out what the fuck this is supposed to do.
 /proc/miniscramble(input, rs, rd)
 	var/output
@@ -161,7 +160,6 @@
 // Simpler. Don't specify UI in order for the mob to use its own.
 /mob/proc/UpdateAppearance(list/UI)
 	. = FALSE
-
 
 /mob/living/carbon/human/UpdateAppearance(list/UI)
 	. = TRUE
@@ -233,11 +231,9 @@
 
 	regenerate_icons()
 
-
 /*
 	ORGAN WRITING PROCS
 */
-
 
 // I'm putting this here because nothing outside the DNA module should ever have
 // to directly mess with the guts of DNA code

@@ -7,8 +7,6 @@
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 25 SECONDS
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "ninja_spirit_form"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
@@ -78,7 +76,6 @@
 			ninja_action.toggle_button_on_off()
 		return TRUE
 	return FALSE
-
 
 /obj/item/clothing/suit/space/space_ninja/proc/drop_restraints()
 	var/mob/living/carbon/human/ninja = affecting

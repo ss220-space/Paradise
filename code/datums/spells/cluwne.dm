@@ -10,7 +10,6 @@
 
 	action_icon_state = "cluwne"
 
-
 /mob/living/carbon/human/proc/makeCluwne()
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new

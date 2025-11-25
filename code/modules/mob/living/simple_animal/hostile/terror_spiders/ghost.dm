@@ -21,7 +21,6 @@
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Призрак взял управление <b>[declent_ru(INSTRUMENTAL)]</b>. ([ghost_follow_link(src, ghost=G)]).</i>")
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/add_datum_if_not_exist()
 	if(mind && !mind.has_antag_datum(/datum/antagonist/terror_spider))
 		mind.add_antag_datum(datum_type, /datum/team/terror_spiders)

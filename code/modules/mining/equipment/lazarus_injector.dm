@@ -26,7 +26,6 @@
 /obj/item/lazarus_injector/update_icon_state()
 	icon_state = "lazarus_[loaded ? "hypo" : "empty"]"
 
-
 /obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag, params)
 	if(!loaded)
 		return
@@ -108,12 +107,10 @@
 		QDEL_NULL(captured)
 	return ..()
 
-
 /obj/item/mobcapsule/attack(mob/living/simple_animal/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(istype(target) && target.sentience_type == capture_type && capture(target, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/mobcapsule/proc/capture(mob/living/simple_animal/S, mob/living/M)
 	if(captured)
@@ -139,10 +136,8 @@
 		captured.forceMove(get_turf(src))
 		captured = null
 
-
 /obj/item/mobcapsule/update_icon_state()
 	icon_state = "mobcap[colorindex]"
-
 
 /obj/item/mobcapsule/attack_self(mob/user)
 	colorindex += 1

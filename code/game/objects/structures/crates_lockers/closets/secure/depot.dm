@@ -37,7 +37,6 @@
 		return
 	return ..()
 
-
 /obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/I, mob/user, params)
 	if(opened)
 		return ..()
@@ -48,7 +47,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/structure/closet/secure_closet/syndicate/depot/emp_act(severity)
 	return

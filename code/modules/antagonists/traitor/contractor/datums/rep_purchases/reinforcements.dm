@@ -3,15 +3,13 @@
 */
 /datum/rep_purchase/item/contractor_partner
 	name = "Вызов напарника"
-	description = "Устройство, позволяющее связаться с ближайшими отделениями Синдиката в вашем секторе. \
+	description = "Устройство, позволяющее связаться с ближайшими отделениями \"Синдиката\" в вашем секторе. \
 			Если в вашем районе есть свободный агент, его незамедлительно отправят к вам на помощь. \
 			В случае отсутствия свободных агентов, средства будут возвращены."
 	stock = 1
 	cost = 2
 	item_type = /obj/item/antag_spawner/contractor_partner
 	refundable = TRUE
-
-
 
 /obj/item/antag_spawner/contractor_partner
 	name = "Устройство связи с Контрактником"

@@ -39,8 +39,6 @@
 		qdel(src) // prevent people re-implanting them into others
 	return null
 
-
-
 // Terror Spiders - white spider infection
 
 /obj/item/organ/internal/body_egg/terror_eggs

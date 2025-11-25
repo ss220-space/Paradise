@@ -116,7 +116,6 @@
 		if(density && radio_connection && mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)))
 			send_status(1)
 
-
 /obj/machinery/door/airlock/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	if(new_frequency)
@@ -231,7 +230,6 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -242,7 +240,6 @@
 		return ATTACK_CHAIN_BLOCKED
 
 	return ..()
-
 
 /obj/machinery/access_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

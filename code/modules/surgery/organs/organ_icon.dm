@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		add_overlay(childpart.mob_icon)
 		child_icons += childpart.mob_icon
 
-
 /obj/item/organ/external/proc/change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of this organ. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 	if(owner_sensitive) //This and the below statements mean that the icobase/deform will only get updated if the limb is the same species as and is owned by the mob it's attached to.
 		if(dna.species && owner.dna.species && dna.species.name != owner.dna.species.name)
@@ -20,7 +19,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	icobase = new_icobase ? new_icobase : icobase
 	deform	= new_deform ? new_deform : deform
-
 
 /obj/item/organ/external/proc/sync_colour_to_human(mob/living/carbon/human/H)
 	if(is_robotic() && !istype(dna.species, /datum/species/machine)) //machine people get skin color
@@ -55,7 +53,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes) eyes.update_colour()
-
 
 /obj/item/organ/external/proc/get_icon(skeletal)
 	// Kasparrov, you monster
@@ -149,7 +146,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	return mob_icon //Don't need to blend the above into this as it's handled in human/update_icons(). The overlays are for rendering stuff on disembodied heads.
 
-
 /obj/item/organ/external/proc/get_normal_icon_state()
 	var/new_icon_state = "[icon_name][(!dna || !gendered_icon) ? "" : (dna.GetUITriState(DNA_UI_GENDER) == DNA_GENDER_MALE ? "_m" : "_f")]"
 	var/list/icon_state_additions = list()
@@ -160,7 +156,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		new_icon_state += addition
 
 	return list(icobase, new_icon_state)
-
 
 /obj/item/organ/external/proc/get_icon_state(skeletal)
 	var/gender
@@ -195,7 +190,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	// Congratulations, you are normal
 	return get_normal_icon_state()
-
 
 // new damage icon system
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)

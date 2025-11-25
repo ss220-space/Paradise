@@ -19,7 +19,6 @@
 
 	var/savefile/F = new /savefile(src.savefile_path(user))
 
-
 	F["name"] << src.name
 	F["description"] << src.description
 	F["role"] << src.role

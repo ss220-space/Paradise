@@ -39,7 +39,6 @@
 			else
 				qdel(recipe)
 
-
 /obj/machinery/bottler/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -100,7 +99,6 @@
 	//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.
 	to_chat(user, span_warning("You aren't sure this is able to be processed by the machine."))
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
 	. = TRUE

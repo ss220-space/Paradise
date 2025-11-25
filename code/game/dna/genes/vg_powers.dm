@@ -8,7 +8,6 @@
 	deactivation_messages = list("Вы больше не способны менять свой внешний вид.")
 	instability = GENE_INSTABILITY_MINOR
 
-
 /datum/dna/gene/basic/grant_spell/morph/New()
 	..()
 	block = GLOB.morphblock
@@ -22,10 +21,8 @@
 
 	action_icon_state = "genetic_morph"
 
-
 /obj/effect/proc_holder/spell/morph/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/morph/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
@@ -181,7 +178,6 @@
 					span_notice("Вы меняете свою внешность!"),
 					span_warning("О боже!  Что это, чёрт возьми, было?  Звук был такой, будто плоть сплющивают, а кости перетирают, придавая им другую форму!"))
 
-
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name = "Телепатия"
 	activation_messages = list("Вы чувствуете, что можете проецировать свои мысли.")
@@ -189,11 +185,9 @@
 	instability = GENE_INSTABILITY_MINOR
 	spelltype = /obj/effect/proc_holder/spell/remotetalk
 
-
 /datum/dna/gene/basic/grant_spell/remotetalk/New()
 	..()
 	block = GLOB.remotetalkblock
-
 
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/mutant, flags)
 	. = ..()
@@ -201,14 +195,12 @@
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
 	hud.manage_hud(mutant, THOUGHTS_HUD_PRECISE)
 
-
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/mutant, flags)
 	. = ..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	for(var/obj/effect/proc_holder/spell/mindscan/spell in mutant.mob_spell_list)
 		mutant.RemoveSpell(spell)
 	hud.manage_hud(mutant, THOUGHTS_HUD_DISPERSE)
-
 
 /obj/effect/proc_holder/spell/remotetalk
 	name = "Project Mind"
@@ -221,7 +213,6 @@
 
 /obj/effect/proc_holder/spell/remotetalk/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
-
 
 /obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!ishuman(user))
@@ -259,7 +250,6 @@
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message(span_italics("Телепатическое сообщение от <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) для <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]"))
 
-
 /obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
 	desc = "Дайте людям возможность поделиться их мыслями!"
@@ -268,10 +258,8 @@
 	action_icon_state = "genetic_mindscan"
 	var/list/available_targets = list()
 
-
 /obj/effect/proc_holder/spell/mindscan/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
-
 
 /obj/effect/proc_holder/spell/mindscan/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
@@ -287,14 +275,12 @@
 		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
 		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 45 SECONDS)
 
-
 /obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)
 		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		available_targets -= target
 		hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
 		target.show_message(span_abductor("Вы чувствуете, как это ощущение исчезает..."))
-
 
 /obj/effect/proc_holder/spell/mindscan/Topic(href, href_list)
 	var/mob/living/user
@@ -334,12 +320,10 @@
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message(span_italics("Телепатический ответ от <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) для <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]"))
 
-
 /obj/effect/proc_holder/spell/mindscan/Destroy()
 	for(var/mob/living/target in available_targets)
 		removeAvailability(target)
 	return ..()
-
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name = "Удаленное наблюдение"
@@ -349,11 +333,9 @@
 	spelltype = /obj/effect/proc_holder/spell/remoteview
 	traits_to_add = list(TRAIT_OPEN_MIND)
 
-
 /datum/dna/gene/basic/grant_spell/remoteview/New()
 	..()
 	block = GLOB.remoteviewblock
-
 
 /obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"
@@ -363,10 +345,8 @@
 
 	action_icon_state = "genetic_view"
 
-
 /obj/effect/proc_holder/spell/remoteview/create_new_targeting()
 	return new /datum/spell_targeting/remoteview
-
 
 /obj/effect/proc_holder/spell/remoteview/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H

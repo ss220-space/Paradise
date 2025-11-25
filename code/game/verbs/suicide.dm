@@ -2,7 +2,6 @@
 	set hidden = TRUE
 	be_suicidal()
 
-
 /mob/living/proc/be_suicidal(forced = FALSE)
 	if(stat == DEAD)
 		to_chat(src, "Вы уже мертвы!")
@@ -15,7 +14,6 @@
 	if(suiciding)
 		to_chat(src, "Вы уже совершаете самоубийство! Наберитесь терпения!")
 		return
-
 
 	var/confirm = null
 	if(!forced)
@@ -44,19 +42,15 @@
 		do_suicide()
 		add_attack_logs(src, src, "Attempted suicide")
 
-
 /mob/living/proc/do_suicide()
 	return
-
 
 /mob/living/simple_animal/do_suicide()
 	setOxyLoss((health * 1.5), TRUE)
 
-
 /mob/living/simple_animal/mouse/do_suicide()
 	visible_message(span_danger("[src] бешено мечется! Уровень сыра упал до критической отметки, и [GEND_HE_SHE(src)] покинул[GEND_A_O_I(src)] наш мир."))
 	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
-
 
 /mob/living/simple_animal/slime/do_suicide()
 	var/update = NONE
@@ -67,16 +61,13 @@
 	if(update)
 		updatehealth()
 
-
 /mob/living/silicon/do_suicide()
 	to_chat(viewers(src), span_danger("[src] отключа[PLUR_ET_YUT(src)] питание. Это похоже на попытку суицида."))
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
-
 /mob/living/silicon/robot/drone/do_suicide()
 	shut_down()
-
 
 /mob/living/silicon/pai/do_suicide()
 	if(mobility_flags & MOBILITY_MOVE)
@@ -88,11 +79,9 @@
 		)
 	death(gibbed = FALSE, cleanWipe = TRUE)
 
-
 /mob/living/carbon/do_suicide()
 	death(gibbed = FALSE)
 	suiciding = FALSE
-
 
 /mob/living/carbon/brain/do_suicide()
 	to_chat(viewers(loc), span_danger("Мозг [src] становится тусклым и безжизненным. Похоже, [GEND_HE_SHE(src)] потерял[GEND_A_O_I(src)] волю к жизни."))
@@ -100,12 +89,10 @@
 		death(gibbed = FALSE)
 		suiciding = FALSE
 
-
 /mob/living/carbon/alien/humanoid/do_suicide()
 	to_chat(viewers(src), span_danger("[src] бь[PLUR_ET_YUT(src)]ся в конвульсиях! Это похоже на попытку суицида."))
 	//put em at -175
 	adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-
 
 /mob/living/carbon/human/do_suicide()
 	var/obj/item/held_item = get_active_hand()
@@ -137,7 +124,6 @@
 
 	to_chat(viewers(src), span_danger("[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] Это похоже на попытку суицида."))
 	human_suicide(0)
-
 
 /mob/living/carbon/human/proc/human_suicide(damagetype, byitem)
 	var/threshold = check_death_method() ? ((HEALTH_THRESHOLD_CRIT + HEALTH_THRESHOLD_DEAD) / 2) : (HEALTH_THRESHOLD_DEAD - 50)

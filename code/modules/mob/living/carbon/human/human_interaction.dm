@@ -125,7 +125,6 @@
 			playsound(loc, 'sound/effects/snap.ogg', 50, TRUE, -1)
 			H.do_attack_animation(P)
 
-
 		if("fuckyou")
 			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 				return

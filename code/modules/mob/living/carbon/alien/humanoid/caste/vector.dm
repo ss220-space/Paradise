@@ -10,4 +10,3 @@
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/impregnate)
 	..()
 
-
