@@ -219,11 +219,14 @@
 	init_datum_subtypes(/datum/nutrition_level, GLOB.nutrition_levels, null, "type")
 
 	// Init list for slime actions
-	init_datum_subtypes(/datum/slime_action, GLOB.slime_actions, null, "name")
+	init_datum_subtypes(/datum/slime_action, GLOB.skills, null, "name")
 
 	var/exoframe_type = /obj/item/organ/internal/cyberimp/chest/exoframe
 	for(var/obj/item/organ/internal/cyberimp/chest/exoframe/frame as anything in subtypesof(exoframe_type))
 		GLOB.exoframe_types[frame.id] = frame
+
+	// Init list for skills
+	init_datum_subtypes(/datum/skill_level, GLOB.skill_levels, null, "level")
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
