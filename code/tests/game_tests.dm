@@ -21,6 +21,7 @@
 #include "test_plane_double_transform.dm"
 #include "test_plane_dupe_detector.dm"
 #include "test_reagent_id_typos.dm"
+#include "test_security_levels.dm"
 #include "test_spawn_humans.dm"
 #include "test_sql.dm"
 #include "test_status_effect_ids.dm"
