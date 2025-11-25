@@ -1,19 +1,67 @@
+#ifndef SIMPLE_SPAWNER
+#define SIMPLE_SPAWNER "simple"
+#endif
+#ifndef WAVE_SPAWNER
+#define WAVE_SPAWNER "wave"
+#endif
+#ifndef BURST_SPAWNER
+#define BURST_SPAWNER "burst"
+#endif
+
 /obj/structure/spawner
 	name = "monster nest"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "hole"
 	max_integrity = 100
-
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	anchored = TRUE
 	density = TRUE
 
+	// === BASIC SETTINGS ===
+	/// Operation mode: SIMPLE_SPAWNER, WAVE_SPAWNER, BURST_SPAWNER
+	var/spawner_mode = SIMPLE_SPAWNER
+	/// Mob types to spawn
+	var/list/mob_types = list(/mob/living/simple_animal/hostile/carp)
+	/// Mob faction
+	var/list/faction = list("hostile")
+	/// Spawn text ("emerges from", "crawls out of")
+	var/spawn_text = "появляется из"
+	/// Maximum living mobs at once (0 = no limit)
 	var/max_mobs = 5
-	var/spawn_time = 300 //30 seconds default
-	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
-	var/spawn_text = "emerges from"
-	var/faction = list("hostile")
-	var/spawner_type = /datum/component/spawner
+
+	// === SIMPLE MODE SETTINGS ===
+	/// Spawn interval in simple mode
+	var/spawn_time = 300
+
+	// === WAVE MODE SETTINGS ===
+	/// Wave size (mobs per cycle)
+	var/wave_size = 3
+	/// Interval between mobs within a wave
+	var/wave_spawn_time = 100
+	/// Cooldown between waves
+	var/wave_cooldown = 600
+	/// Activation message when wave starts
+	var/activation_message = "начинает гудеть!"
+	/// Deactivation message when wave ends
+	var/deactivation_message = "затихает."
+
+	// === BURST MODE SETTINGS ===
+	/// Mobs per burst
+	var/burst_size = 5
+	/// Cooldown between bursts
+	var/burst_cooldown = 1200
+
+	// === VISUAL SETTINGS ===
+	/// Icon state when active
+	var/active_icon_state = "fab_robot"
+	/// Icon state when inactive
+	var/inactive_icon_state = "fab_robot"
+	/// Sound when cycle starts
+	var/activation_sound = 'sound/machines/synth_yes.ogg'
+	/// Sound when cycle completes
+	var/deactivation_sound = 'sound/machines/synth_no.ogg'
+
+	// === GPS SETTINGS ===
 	/// Is this spawner taggable with something?
 	var/scanner_taggable = FALSE
 	/// If this spawner's taggable, what can we tag it with?
@@ -29,6 +77,18 @@
 	/// A complete identifier. Generated on tag (if tagged), used for its examine.
 	var/assigned_tag
 
+/obj/structure/spawner/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spawner, mob_types, spawner_mode, faction, spawn_text, max_mobs, spawn_time, wave_size, wave_spawn_time, wave_cooldown, activation_message, deactivation_message, burst_size, burst_cooldown, active_icon_state, inactive_icon_state, activation_sound, deactivation_sound)
+
+/obj/structure/spawner/Destroy()
+	return ..()
+
+/obj/structure/spawner/attack_animal(mob/living/simple_animal/M)
+	if(faction_check(faction, M.faction, FALSE) && !M.client)
+		return
+	..()
+
 /obj/structure/spawner/examine(mob/user)
 	. = ..()
 	if(!scanner_taggable)
@@ -37,15 +97,6 @@
 		. += span_notice("A holotag's been attached, projecting \"<b>[assigned_tag]</b>\".")
 	else
 		. += span_notice("It looks like you could probably scan and tag it with a <b>[scanner_descriptor]</b>.")
-
-/obj/structure/spawner/Initialize(mapload)
-	. = ..()
-	AddComponent(spawner_type, mob_types, spawn_time, faction, spawn_text, max_mobs)
-
-/obj/structure/spawner/attack_animal(mob/living/simple_animal/M)
-	if(faction_check(faction, M.faction, FALSE) && !M.client)
-		return
-	..()
 
 /obj/structure/spawner/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -69,8 +120,8 @@
 
 /obj/item/gps/internal/tendril
 	icon_state = null
-	gpstag = "Null  Signal"
-	desc = "Holotag to a tendrill."
+	gpstag = "Null Signal"
+	desc = "Holotag to a spawner."
 	invisibility = 100
 
 /obj/structure/spawner/syndicate
@@ -86,6 +137,7 @@
 /obj/structure/spawner/skeleton
 	name = "bone pit"
 	desc = "A pit full of bones, and some still seem to be moving..."
+	icon_state = "hole"
 	icon = 'icons/mob/nest.dmi'
 	max_integrity = 150
 	max_mobs = 15
@@ -107,11 +159,13 @@
 	mob_types = list(/mob/living/simple_animal/hostile/retaliate/clown)
 	spawn_text = "climbs out of"
 	faction = list("clown")
+	mob_gps_id = "???" // clowns
 	spawner_gps_id = "Clown Planet Distortion"
 
 /obj/structure/spawner/mining
 	name = "monster den"
 	desc = "A hole dug into the ground, harboring all kinds of monsters found within most caves or mining asteroids."
+	icon_state = "hole"
 	max_integrity = 200
 	max_mobs = 3
 	icon = 'icons/mob/nest.dmi'
@@ -155,3 +209,36 @@
 	spawn_text = "crawls out of"
 	faction = list("hostile")
 	mob_gps_id = "HC"
+
+/obj/structure/spawner/test_simple
+	name = "test_simple"
+	spawner_mode = SIMPLE_SPAWNER
+	spawn_time = 50
+	max_mobs = 3
+	mob_types = list(/mob/living/simple_animal/hostile/carp)
+	spawn_text = "выпрыгивает из"
+
+/obj/structure/spawner/test_wave
+	name = "test_wave"
+	spawner_mode = WAVE_SPAWNER
+	wave_size = 2
+	wave_spawn_time = 20
+	wave_cooldown = 100
+	activation_message = "запускает протокол!"
+	deactivation_message = "отключается."
+	mob_types = list(/mob/living/simple_animal/hostile/bear)
+
+/obj/structure/spawner/test_burst
+	name = "test_burst"
+	spawner_mode = BURST_SPAWNER
+	burst_size = 4
+	burst_cooldown = 150
+	mob_types = list(/mob/living/simple_animal/hostile/carp)
+
+/obj/structure/spawner/test_unlimited
+	max_mobs = 0
+	spawn_time = 30
+
+/obj/structure/spawner/test_single
+	max_mobs = 1
+	spawn_time = 20
