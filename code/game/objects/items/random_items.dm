@@ -263,7 +263,7 @@
 /obj/item/storage/box/grenades
 	name = "tactical grenades"
 	desc = "A box with 6 tactical grenades."
-	icon_state = "flashbang"
+	icon_state = "box_flashbang"
 	var/list/grenadelist = list(/obj/item/grenade/chem_grenade/metalfoam, /obj/item/grenade/chem_grenade/incendiary,
 	/obj/item/grenade/chem_grenade/antiweed, /obj/item/grenade/chem_grenade/cleaner, /obj/item/grenade/chem_grenade/teargas,
 	/obj/item/grenade/chem_grenade/holywater, /obj/item/grenade/chem_grenade/meat,
