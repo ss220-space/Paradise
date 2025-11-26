@@ -16,6 +16,7 @@
 #include "test_elements.dm"
 #include "test_init_sanity.dm"
 #include "test_map_templates.dm"
+#include "test_missing_icons.dm"
 #include "test_reagent_id_typos.dm"
 #include "test_spawn_humans.dm"
 #include "test_sql.dm"
