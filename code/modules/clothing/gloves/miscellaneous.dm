@@ -139,13 +139,6 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
-/obj/item/clothing/gloves/batmangloves
-	desc = "Used for handling all things bat related."
-	name = "batgloves"
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color = "bmgloves"
-
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
 	desc = "These things smell terrible, and they're all lumpy. Gross."

@@ -543,11 +543,9 @@
 /obj/item/storage/toolbox/green
 	name = "artistic toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения различных инструментов, в том числе художественных принадлежностей."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "toolbox_green"
 	item_state = "toolbox_green"
-	icon = 'icons/goonstation/objects/objects.dmi'
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 
 /obj/item/storage/toolbox/green/get_ru_names()
 	return list(

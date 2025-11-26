@@ -18,7 +18,7 @@
 /obj/item/gun/dartgun
 	name = "dart gun"
 	desc = "A small gas-powered dartgun, capable of delivering chemical cocktails swiftly across short distances."
-	icon_state = "dartgun-empty"
+	icon_state = "dartgun-e"
 
 	var/list/beakers = list() //All containers inside the gun.
 	var/list/mixing = list() //Containers being used for mixing.
@@ -286,7 +286,7 @@
 	name = ""
 	desc = ""
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
+	icon_state = null
 
 /obj/effect/syringe_gun_dummy/Initialize(mapload)
 	. = ..()

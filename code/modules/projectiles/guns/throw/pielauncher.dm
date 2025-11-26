@@ -1,12 +1,12 @@
 /obj/item/gun/throw/piecannon
 	name = "pie cannon"
 	desc = "A projectile weapon that fires pies."
-	icon_state = "piecannon"
+	icon_state = "piecannon1"
+	item_state = "piecannon1"
 	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 2
 	throw_range = 3
-
-	clumsy_check = 0
+	clumsy_check = FALSE
 	valid_projectile_type = /obj/item/reagent_containers/food/snacks/pie
 	max_capacity = 5
 	projectile_speed = 2

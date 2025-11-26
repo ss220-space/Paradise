@@ -140,7 +140,7 @@
 
 /obj/structure/mecha_wreckage/reticence
 	name = "Reticence wreckage"
-	icon_state = "reticence-broken"
+	icon_state = "mime-broken"
 	color = "#87878715"
 	desc = "..."
 
@@ -154,10 +154,6 @@
 		/obj/item/mecha_parts/part/ripley_left_leg,
 		/obj/item/mecha_parts/part/ripley_right_leg,
 	)
-
-/obj/structure/mecha_wreckage/ripley/mkii
-	name = "Ripley MK-II wreckage"
-	icon_state = "ripleymkii-broken"
 
 /obj/structure/mecha_wreckage/ripley/firefighter
 	name = "Firefighter wreckage"

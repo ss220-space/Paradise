@@ -528,20 +528,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 
-//This should really be somewhere else but I don't know where. w/e
-
-/obj/item/inflatable_duck
-	name = "inflatable duck"
-	desc = "No bother to sink or swim when you can just float!"
-	icon_state = "inflatable"
-	item_state = "inflatable"
-	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = ITEM_SLOT_BELT
-
 /*
  * Fake meteor
  */
-
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
 	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."

@@ -598,7 +598,8 @@
 /obj/item/ammo_casing/magic/skull_gun_casing
 	name = "skull gun casing"
 	desc = "Что это за..."
-	icon_state = "skulls"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "ashen_skull"
 	projectile_type = /obj/projectile/skull_projectile
 	muzzle_flash_effect = null
 	caliber = "skulls"

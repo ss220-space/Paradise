@@ -754,7 +754,7 @@
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
 	desc = "Патронташ для хранения патронов к дробовику."
-	icon_state = "bandolier"
+	icon_state = "bandolier_0"
 	item_state = "bandolier"
 	storage_slots = 16
 	max_combined_w_class = 16

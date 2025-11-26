@@ -65,10 +65,6 @@
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
 
-/obj/item/crowbar/red/sec
-	icon_state = "crowbar_sec"
-	item_state = "crowbar_sec"
-
 /obj/item/crowbar/brass
 	name = "brass crowbar"
 	desc = "Инструмент, предназначенный для использования в качестве рычага. \

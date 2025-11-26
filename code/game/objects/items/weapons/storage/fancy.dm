@@ -624,10 +624,10 @@
 /*
  * MARK: Aquatic Starter Kit
  */
-
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "AquaticKit"
 	med_bot_skin = "fish"
 

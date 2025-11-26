@@ -148,6 +148,7 @@
 	desc = "a hardlight hook."
 	projectile_type = /obj/projectile/contractor_hook
 	caliber = "hardlight_hook"
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "hard_hook"
 	muzzle_flash_effect = null
 

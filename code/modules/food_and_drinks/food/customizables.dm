@@ -70,7 +70,6 @@
 		layer = ABOVE_ALL_MOB_LAYER	// all should see our monstrosity
 
 /obj/item/reagent_containers/food/snacks/customizable/sandwich
-	icon_state = "breadslice"
 	basename = "sandwich"
 	snack_overlays = TRUE
 
@@ -217,7 +216,7 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/bar
 	name = "flavored chocolate bar"
 	desc = "Made in a factory downtown."
-	icon_state = "barcustom"
+	icon_state = "barcustom_filling"
 	baseicon = "barcustom"
 	basename = "flavored chocolate bar"
 
@@ -263,7 +262,7 @@
 /obj/item/reagent_containers/food/snacks/customizable/burger
 	name = "burger bun"
 	desc = "A bun for a burger. Delicious."
-	icon_state = "burger"
+	icon_state = "burgercustom"
 	baseicon = "burgercustom"
 	basename = "burger"
 	top = TRUE
