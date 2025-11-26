@@ -15,6 +15,7 @@
 #include "test_components.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"
+#include "test_get_turf_pixel.dm"
 #include "test_init_sanity.dm"
 #include "test_map_templates.dm"
 #include "test_orphaned_genturf.dm"
