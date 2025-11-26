@@ -324,7 +324,7 @@
 	damage = 26
 
 /obj/projectile/bullet/c45colt/hp
-	damage = 28
+	damage = 35
 	armour_penetration = -50
 
 /obj/projectile/bullet/c45colt/ap
