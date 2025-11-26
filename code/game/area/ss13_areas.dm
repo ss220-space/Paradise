@@ -1987,7 +1987,7 @@ This applies to all STANDARD station areas
 	icon_state = "medbaysecstorage"
 
 /area/medical/robotics //why
-	name = "Робототехника"
+	name = "НИО — Робототехника"
 	icon_state = "research"
 
 /area/medical/research

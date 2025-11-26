@@ -3328,7 +3328,7 @@
 					for(var/mob/M in GLOB.player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
-							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
+							if(!istype(AffectedArea, /area) && !istype(AffectedArea, /area/shuttle/escape) && !istype(AffectedArea, /area/toxins/test_chamber) && !istype(AffectedArea, /area/shuttle/arrival) && !istype(AffectedArea, /area/start) && !istype(AffectedArea, /area/engineering/supermatter))
 								AffectedArea.power_light = 0
 								AffectedArea.power_change()
 								spawn(rand(55,185))
