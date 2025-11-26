@@ -1,8 +1,11 @@
 /obj/item/storage/lockbox
 	name = "lockbox"
 	desc = "A locked box."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "lockbox+l"
-	item_state = "syringe_kit"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	item_state = "lockbox"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 4
@@ -126,6 +129,7 @@
 	name = "medal box"
 	desc = "A locked box used to store medals of honor."
 	icon_state = "medalbox+l"
+	item_state = "medalbox"
 	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 20
