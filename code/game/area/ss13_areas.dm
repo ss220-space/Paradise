@@ -271,7 +271,6 @@ This applies to all STANDARD station areas
 	icon_state = "shuttlered2"
 
 /area/shuttle/thunderdome
-	name = "хонк"
 	area_flags = NONE
 
 /area/shuttle/thunderdome/grnshuttle
