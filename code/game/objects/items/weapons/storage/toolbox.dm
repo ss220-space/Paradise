@@ -543,7 +543,6 @@
 /obj/item/storage/toolbox/green
 	name = "artistic toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения различных инструментов, в том числе художественных принадлежностей."
-	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "toolbox_green"
 	item_state = "toolbox_green"
 

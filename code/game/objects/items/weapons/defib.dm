@@ -486,8 +486,6 @@
 
 /obj/item/twohanded/shockpaddles/borg
 	desc = "Пара встроенных электродов с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
-	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
 	var/safety = TRUE
 
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)

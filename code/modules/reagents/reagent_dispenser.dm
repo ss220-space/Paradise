@@ -57,7 +57,6 @@
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
 	desc = "A water tank."
-	icon_state = "water"
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
