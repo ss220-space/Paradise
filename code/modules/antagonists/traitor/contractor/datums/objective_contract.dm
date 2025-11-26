@@ -66,7 +66,7 @@
 			/area/maintenance/fore,
 			/area/maintenance/starboard,
 			/area/maintenance/asmaint4,
-			/area/maintenance/asmaint3б
+			/area/maintenance/asmaint3,
 		),
 		EXTRACTION_DIFFICULTY_MEDIUM = list(
 			// Rooms
@@ -206,18 +206,16 @@
  */
 /datum/objective/contract/proc/pick_candidate_zone(difficulty = EXTRACTION_DIFFICULTY_EASY)
 	var/list/allowed_types = possible_zone_types[difficulty]
-	if(!allowed_types || !allowed_types.len)
+	if(!allowed_types || !length(allowed_types))
 		return
 
 	var/area_type = pick(allowed_types)
 
-	// Находим реальную зону этого типа на станции (любую)
 	var/area/real_zone = locate(area_type) in GLOB.areas
 	if(!real_zone)
-		// Если такой зоны нет на карте — попробуем найти подтип
-		for(var/area/A in GLOB.areas)
-			if(istype(A, area_type) && !A.outdoors && is_station_level(A.z))
-				real_zone = A
+		for(var/area/area in GLOB.areas)
+			if(istype(area, area_type) && !area.outdoors && is_station_level(area.z))
+				real_zone = area
 				break
 
 	candidate_zones[difficulty] = real_zone
@@ -234,13 +232,13 @@
 	if(!ISINDEXSAFE(candidate_zones, difficulty))
 		return
 
-	var/area/A = candidate_zones[difficulty]
-	if(!A)
+	var/area/area = candidate_zones[difficulty]
+	if(!area)
 		return FALSE
 
-	extraction_zone = A
+	extraction_zone = area
 	chosen_difficulty = difficulty
-	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
+	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[area.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
 	return TRUE
 
 /**
