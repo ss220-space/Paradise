@@ -535,8 +535,8 @@
 /obj/item/storage/box/chef_rare_ingredients_kit
 	name = "chef rare reagents kit"
 	desc = "A box intended for experienced chefs."
-	icon_state "box_of_doom"
-	item_state "syndie"
+	icon_state = "box_of_doom"
+	item_state = "syndie"
 
 /obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
 	new /obj/item/reagent_containers/food/condiment/soysauce(src)
