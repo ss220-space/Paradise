@@ -95,14 +95,9 @@
 	)
 
 /obj/projectile/bullet/hp38 //Detective hollow-point
-	damage = 33
+	damage = 35
 	armour_penetration = -50
 	ricochets_max = 0 //no ricochets for HP
-
-/obj/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
-	if(..(target, blocked))
-		var/mob/living/M = target
-		M.Slowed(2 SECONDS)
 
 /obj/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
