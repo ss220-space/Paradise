@@ -32,11 +32,11 @@
 
 	var/area/camera_area = get_area(src)
 	if(!camera_area)
-		c_tag = "Unknown #[rand(1, 100)]"
+		c_tag = "Неизвестно №[rand(1, 100)]"
 		stack_trace("Camera with tag [c_tag] was spawned without an area, please report this to your nearest coder.")
 		return ..()
 
-	c_tag = "[sanitize(camera_area.name)] #[++autonames_in_areas[camera_area]]" // increase the number, then print it (this is what ++ before does)
+	c_tag = "[sanitize(camera_area.name)] №[++autonames_in_areas[camera_area]]" // increase the number, then print it (this is what ++ before does)
 	return ..() // We do this here so the camera is not added to the cameranet until it has a name.
 
 // CHECKS
