@@ -92,7 +92,6 @@
 
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
-	icon_state = "box_beaker"
 
 /obj/item/storage/box/beakers/bluespace/populate_contents()
 	..()
@@ -697,7 +696,6 @@
 /obj/item/storage/box/lights/tubes
 	name = "replacement tubes"
 	icon_state = "box_tubes"
-	item_state = "eng"
 
 /obj/item/storage/box/lights/tubes/populate_contents()
 	for(var/I in 1 to 21)
@@ -706,7 +704,6 @@
 /obj/item/storage/box/lights/mixed
 	name = "replacement lights"
 	icon_state = "box_mixed"
-	item_state = "eng"
 
 /obj/item/storage/box/lights/mixed/populate_contents()
 	for(var/I in 1 to 14)

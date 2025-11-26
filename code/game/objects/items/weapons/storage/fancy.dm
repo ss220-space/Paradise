@@ -628,9 +628,6 @@
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."
-	icon = 'icons/obj/storage/boxes.dmi'
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	icon_state = "acuatic_kit"
 	item_state = "fishkit"
 	med_bot_skin = "fish"
