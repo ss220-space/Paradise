@@ -13,7 +13,7 @@
 	var/area/new_area = get_area(destination)
 	if(!new_area)
 		return
-	if(!is_type(new_area, allowed_area) && !new_area.xenobiology_compatible)
+	if(!istype(new_area, allowed_area) && !new_area.xenobiology_compatible)
 		return
 	return ..()
 
@@ -22,7 +22,7 @@
 	if(!.)
 		return
 	var/area/new_area = get_area(.)
-	if(new_area && !is_type(new_area, allowed_area) && !(new_area?.xenobiology_compatible))
+	if(new_area && !istype(new_area, allowed_area) && !(new_area?.xenobiology_compatible))
 		return FALSE
 
 #define MAX_SLIME_IN_CONSOLE 5
@@ -436,7 +436,7 @@
 	var/mob/living/C = user
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/area/mob_area = get_area(S.loc)
-	if(is_type(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
+	if(istype(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
 		slime_scan(S, C)
 
 //Feeds a potion to slime
@@ -451,7 +451,7 @@
 	if(!X.current_potion)
 		to_chat(C, span_warning("Зелье не загружено."))
 		return
-	if(is_type(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
+	if(istype(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
 		X.current_potion.attack(S, C)
 
 //Picks up slime
@@ -463,7 +463,7 @@
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mob_area = get_area(S.loc)
-	if(is_type(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
+	if(istype(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
 		if(length(X.stored_slimes) >= MAX_SLIME_IN_CONSOLE)
 			to_chat(user, span_warning("Хранилище слаймов переполнено."))
 			return
@@ -486,7 +486,7 @@
 	if(iswallturf(T))
 		to_chat(user, "Вы не можете разместить слайма здесь.")
 		return
-	if(is_type(turf_area, E.allowed_area) || turf_area.xenobiology_compatible)
+	if(istype(turf_area, E.allowed_area) || turf_area.xenobiology_compatible)
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
 			X.release_slime(S, T)
 
@@ -508,7 +508,7 @@
 	if(!X.monkeys)
 		to_chat(user, "В [X.declent_ru(GENITIVE)] нет мартышек!")
 		return
-	if(is_type(turf_area, E.allowed_area) || turf_area.xenobiology_compatible)
+	if(istype(turf_area, E.allowed_area) || turf_area.xenobiology_compatible)
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(T)
 			food.LAssailant = C
@@ -532,7 +532,7 @@
 	if(!recycler)
 		to_chat(user, span_notice("Нет подключенного утилизатора мартышек. Используйте мультиметр для связи."))
 		return
-	if(is_type(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
+	if(istype(mob_area, E.allowed_area) || mob_area.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)
 			M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 			recycler.use_power(500)
