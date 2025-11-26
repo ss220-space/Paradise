@@ -164,7 +164,7 @@
 
 	//handcuffed?
 	if(handcuffed)
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] <b>[declent_ru(INSTRUMENTAL)]</b>.\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] <b>[handcuffed.declent_ru(INSTRUMENTAL)]</b>.\n")
 
 	//belt
 	if(belt)
