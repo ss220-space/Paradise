@@ -9,6 +9,7 @@ import {
   Stack,
   Table,
   Icon,
+  Input,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -275,7 +276,11 @@ export const Vending = (_props: unknown) => {
             )}
 
           <Stack.Item grow>
-            <Section title="Продукция" fill scrollable>
+            <Section title="Продукция" fill scrollable buttons = {
+              <Stack.Item>
+                <Input onChange={setStockSearch} placeholder="Поиск..." value={stockSearch} />
+              </Stack.Item>
+            }>
               <Table>
                 {inventory
                   .filter((product) => {
