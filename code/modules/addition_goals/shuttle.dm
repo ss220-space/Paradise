@@ -2,10 +2,6 @@
 
 // MARK:	Machinery
 
-/area/shuttle/addition_goals
-	icon_state = "shuttle3"
-	name = "Addition Goals Shuttle"
-
 /obj/machinery/computer/shuttle/addition_goals
 	name = "Addition Goal Shuttle Console"
 	desc = "Используется для вызова и отправки шаттла дополнительных целей смены."

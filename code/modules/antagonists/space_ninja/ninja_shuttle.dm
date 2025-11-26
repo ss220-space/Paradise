@@ -24,9 +24,3 @@
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	obj_flags = NODECONSTRUCT
-
-/area/shuttle/ninja
-	icon_state = "shuttlegrn"
-	name = "Spider Clan \"Ombra\" Shuttle"
-	nad_allowed = TRUE
-	area_flags = NONE

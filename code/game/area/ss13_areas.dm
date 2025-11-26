@@ -409,12 +409,27 @@ This applies to all STANDARD station areas
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 
+/area/shuttle/addition_goals
+	name = "Шаттл транспортировки доп. целей станции"
+	icon_state = "shuttle3"
+
+/area/shuttle/funeral
+	name = "Похоронный шаттл"
+	icon_state = "shuttle3"
+	nad_allowed = TRUE
+
+/area/shuttle/ninja
+	name = "Шаттл \"Клана Паука\" — \"Омбра\""
+	icon_state = "shuttlegrn"
+	nad_allowed = TRUE
+	area_flags = NONE
+
 /area/airtunnel1/ // referenced in airtunnel.dm:759
 
 /area/dummy/ // Referenced in engine.dm:261
 
 /area/start // will be unused once kurper gets his login interface patch done
-	name = "start area"
+	name = "стартовая зона"
 	icon_state = "start"
 	requires_power = FALSE
 	static_lighting = FALSE
@@ -1638,7 +1653,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
 
 /area/holodeck/alphadeck
-	name = "Holodeck Alpha"
+	name = "Голопалуба — Альфа"
 
 /area/holodeck/source_plating
 	name = "Голопалуба — неактивная"
@@ -2701,7 +2716,7 @@ This applies to all STANDARD station areas
 	icon_state = "ai_chamber"
 
 /area/turret_protected/aisat
-	name = "AI Satellite"
+	name = "Спутник ИИ"
 	icon_state = "ai"
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 

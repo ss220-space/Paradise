@@ -14,11 +14,6 @@
 
 ///// The Undertaker Shuttle
 
-/area/shuttle/funeral
-	icon_state = "shuttle3"
-	name = "Suneral Shuttle"
-	nad_allowed = TRUE
-
 /obj/machinery/computer/shuttle/funeral
 	name = "Funeral \"The Undertaker\" Shuttle Console"
 	desc = "Используется для вызова и отправки похоронного шаттла \"The Undertaker\"."
