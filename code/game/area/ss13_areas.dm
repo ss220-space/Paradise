@@ -1009,7 +1009,7 @@ This applies to all STANDARD station areas
 	icon_state = "construction"
 
 /area/maintenance/consarea_virology
-	name = "Virology Maintenance Construction Area"
+	name = "Строительная зона — тех. тонелли вирусологии"
 	icon_state = "yellow"
 
 /area/maintenance/detectives_office
