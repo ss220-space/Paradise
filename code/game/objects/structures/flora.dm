@@ -471,8 +471,6 @@
 	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/grass/jungle/b // TODO: Delete this and edit maps
-
 // MARK: Jungle rocks
 /obj/structure/flora/rock/jungle
 	icon_state = "rock"
@@ -497,9 +495,6 @@
 /obj/structure/flora/junglebush/Initialize(mapload)
 	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
-
-/obj/structure/flora/junglebush/b // TODO: Delete this and edit maps
-/obj/structure/flora/junglebush/c // TODO: Delete this and edit maps
 
 /obj/structure/flora/junglebush/large
 	icon = 'icons/obj/flora/largejungleflora.dmi'

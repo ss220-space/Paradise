@@ -2843,7 +2843,7 @@
 /area/engineering/engine)
 "bPU" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/tree/jungle{
 	pixel_y = -69
 	},
@@ -15340,7 +15340,7 @@
 /area/tcommsat/server)
 "jRr" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -26846,7 +26846,7 @@
 /area/atmos)
 "rli" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -28787,7 +28787,7 @@
 /area/medical/medbay)
 "sDT" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "sDU" = (
@@ -37051,7 +37051,7 @@
 /area/ntrep)
 "xCa" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/tree/jungle/small{
 	pixel_y = -16
 	},

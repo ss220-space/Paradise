@@ -6015,10 +6015,6 @@
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/entry/south)
-"aXN" = (
-/obj/structure/flora/junglebush/c,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/garden)
 "aXO" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
@@ -94847,10 +94843,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/permabrig)
-"qVE" = (
-/obj/structure/flora/junglebush/b,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/garden)
 "qVG" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
@@ -243967,7 +243959,7 @@ oSw
 wbx
 wbx
 wbx
-aXN
+kZW
 wbx
 gqs
 uWe
@@ -244475,10 +244467,10 @@ oSw
 oSw
 wbx
 wbx
-qVE
+kZW
 kxM
 wbx
-qVE
+kZW
 oSw
 wbx
 oSw
@@ -245504,7 +245496,7 @@ fBj
 biJ
 biJ
 biJ
-aXN
+kZW
 tDl
 gLW
 oSw

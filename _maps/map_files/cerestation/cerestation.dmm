@@ -5918,10 +5918,6 @@
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/entry/south)
-"aXN" = (
-/obj/structure/flora/junglebush/c,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/garden)
 "aXO" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
@@ -72950,10 +72946,6 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
-"qVE" = (
-/obj/structure/flora/junglebush/b,
-/turf/simulated/floor/grass,
-/area/hallway/secondary/garden)
 "qVG" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -126582,13 +126574,13 @@ fph
 hqg
 uqn
 ooA
-qVE
+kZW
 hqg
 ooA
 kZW
 ooA
 cGq
-aXN
+kZW
 ooA
 gqs
 wWC
@@ -126840,7 +126832,7 @@ ooA
 aZg
 aZh
 beR
-aXN
+kZW
 aYD
 ooA
 ooA
@@ -127095,11 +127087,11 @@ fph
 aYm
 hqg
 ooA
-aXN
+kZW
 beR
 ooA
 ooA
-qVE
+kZW
 beR
 bdn
 lWT
@@ -128125,7 +128117,7 @@ ooA
 aZj
 aZI
 aZH
-aXN
+kZW
 hqg
 bbM
 lip
