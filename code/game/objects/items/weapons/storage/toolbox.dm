@@ -236,6 +236,7 @@
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty toolbox"
 	icon_state = "toolbox_blue_rusted"
+	item_state = "toolbox_blue_rusted"
 
 /obj/item/storage/toolbox/mechanical/old/get_ru_names()
 	return list(
