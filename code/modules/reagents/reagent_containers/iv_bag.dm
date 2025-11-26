@@ -26,7 +26,7 @@
 		DATIVE = "капельнице",
 		ACCUSATIVE = "капельницу",
 		INSTRUMENTAL = "капельницей",
-		PREPOSITIONAL = "капельнице"
+		PREPOSITIONAL = "капельнице",
 	)
 
 /obj/item/reagent_containers/iv_bag/empty()
@@ -102,7 +102,6 @@
 				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
 			update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/reagent_containers/iv_bag/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
@@ -165,7 +164,6 @@
 	begin_processing(target, def_zone)
 	return .|ATTACK_CHAIN_SUCCESS
 
-
 /obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
@@ -186,7 +184,6 @@
 		balloon_alert(user, "закрыто!")
 		return
 
-
 /obj/item/reagent_containers/iv_bag/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
@@ -202,13 +199,11 @@
 			if(IV_INJECT)
 				. += "inject"
 
-
 /obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 // PRE-FILLED IV BAGS BELOW
 
@@ -222,7 +217,7 @@
 		DATIVE = "капельнице (Физраствор)",
 		ACCUSATIVE = "капельницу (Физраствор)",
 		INSTRUMENTAL = "капельницей (Физраствор)",
-		PREPOSITIONAL = "капельнице (Физраствор)"
+		PREPOSITIONAL = "капельнице (Физраствор)",
 	)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
@@ -252,12 +247,12 @@
 
 /obj/item/reagent_containers/iv_bag/blood/get_ru_names()
 	return list(
-			NOMINATIVE = "капельница - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])" ,
-			GENITIVE = "капельницы - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			DATIVE = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			ACCUSATIVE = "капельницу - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			INSTRUMENTAL = "капельницей - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			PREPOSITIONAL = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])"
+			NOMINATIVE = "капельница — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])" ,
+			GENITIVE = "капельницы — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			DATIVE = "капельнице — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			ACCUSATIVE = "капельницу — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			INSTRUMENTAL = "капельницей — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			PREPOSITIONAL = "капельнице — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
 		)
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
@@ -345,7 +340,7 @@
 			DATIVE = "капельнице — Синтетическая кровь (Кислород)",
 			ACCUSATIVE = "капельницу — Синтетическая кровь (Кислород)",
 			INSTRUMENTAL = "капельницей — Синтетическая кровь (Кислород)",
-			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)"
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)",
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
@@ -365,7 +360,7 @@
 			DATIVE = "капельнице — Синтетическая кровь (Азот)",
 			ACCUSATIVE = "капельницу — Синтетическая кровь (Азот)",
 			INSTRUMENTAL = "капельницей — Синтетическая кровь (Азот)",
-			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)"
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)",
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
@@ -385,7 +380,7 @@
 		DATIVE = "капельнице — Слаймовое желе",
 		ACCUSATIVE = "капельницу — Слаймовое желе",
 		INSTRUMENTAL = "капельницей — Слаймовое желе",
-		PREPOSITIONAL = "капельнице — Слаймовое желе"
+		PREPOSITIONAL = "капельнице — Слаймовое желе",
 	)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)

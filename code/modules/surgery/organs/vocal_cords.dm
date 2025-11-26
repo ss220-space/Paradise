@@ -49,7 +49,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		DATIVE = "голосовым связкам",
 		ACCUSATIVE = "голосовые связки",
 		INSTRUMENTAL = "голосовыми связками",
-		PREPOSITIONAL = "голосовых связках"
+		PREPOSITIONAL = "голосовых связках",
 	)
 
 /obj/item/organ/internal/vocal_cords/proc/can_speak_with() //if there is any limitation to speaking with these cords
@@ -75,7 +75,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		DATIVE = "адамантиновому резонатору",
 		ACCUSATIVE = "адамантиновый резонатор",
 		INSTRUMENTAL = "адамантиновым резонатором",
-		PREPOSITIONAL = "адамантиновом резонаторе"
+		PREPOSITIONAL = "адамантиновом резонаторе",
 	)
 
 /obj/item/organ/internal/vocal_cords/adamantine
@@ -91,10 +91,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		DATIVE = "адамантиновым голосовым связкам",
 		ACCUSATIVE = "адамантиновые голосовые связки",
 		INSTRUMENTAL = "адамантиновыми голосовыми связками",
-		PREPOSITIONAL = "адамантиновых голосовых связках"
+		PREPOSITIONAL = "адамантиновых голосовых связках",
 	)
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return
 	var/message = tgui_input_text(owner, "Отправить резонирующее сообщение всем ближайшим големам.", "Резонанс")
@@ -131,7 +131,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		DATIVE = "связкам бога",
 		ACCUSATIVE = "связки бога",
 		INSTRUMENTAL = "связками бога",
-		PREPOSITIONAL = "связках бога"
+		PREPOSITIONAL = "связках бога",
 	)
 
 /datum/action/item_action/organ_action/colossus
@@ -142,8 +142,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	..()
 	cords = target
 
-
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return .
@@ -152,8 +151,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	if(!owner.can_speak())
 		return FALSE
 
-
-/datum/action/item_action/organ_action/colossus/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/colossus/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)
@@ -180,10 +178,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		return FALSE
 	return TRUE
 
-
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(list/message_pieces)
 	return ..(message_to_multilingual(uppertext(multilingual_to_message(message_pieces)), GLOB.all_languages[LANGUAGE_ANGEL]))
-
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)

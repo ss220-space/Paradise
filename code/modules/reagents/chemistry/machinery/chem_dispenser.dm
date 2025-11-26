@@ -21,6 +21,8 @@
 	var/componentscheck = FALSE
 	var/obj/item/reagent_containers/beaker = null
 	var/mutable_appearance/icon_beaker //cached overlay
+	/// Different dispensers have different overlay for installed beaker
+	var/beaker_overlay_name = "disp_beaker"
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
@@ -35,7 +37,7 @@
 		DATIVE = "химическому раздатчику",
 		ACCUSATIVE = "химический раздатчик",
 		INSTRUMENTAL = "химическим раздатчиком",
-		PREPOSITIONAL = "химическом раздатчике"
+		PREPOSITIONAL = "химическом раздатчике",
 	)
 
 /obj/machinery/chem_dispenser/get_cell()
@@ -96,7 +98,8 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
@@ -106,7 +109,7 @@
 		DATIVE = "ботаническому раздатчику",
 		ACCUSATIVE = "ботанический раздатчик",
 		INSTRUMENTAL = "ботаническим раздатчиком",
-		PREPOSITIONAL = "ботаническом раздатчике"
+		PREPOSITIONAL = "ботаническом раздатчике",
 	)
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
@@ -148,7 +151,6 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_SEC_MIN(recharge_amount)] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
 
-
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
 		if(!is_operational())
@@ -159,7 +161,6 @@
 		recharge_counter = 0
 		return
 	recharge_counter++
-
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity > EXPLODE_LIGHT)
@@ -261,7 +262,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -288,7 +288,6 @@
 
 	return ..()
 
-
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
 		balloon_alert(user, "техпанель закрыта!")
@@ -305,7 +304,6 @@
 		cell = null
 	return ..()
 
-
 /obj/machinery/chem_dispenser/proc/update_reagents(update_type)
 	switch(update_type)
 		if(UPDATE_TYPE_HACK)
@@ -318,7 +316,6 @@
 
 	dispensable_reagents = sortAssoc(dispensable_reagents)
 
-
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -328,7 +325,6 @@
 	balloon_alert(user, "защитные протоколы [hackedcheck ? "активированы" : "дезактивированы"]")
 	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
-
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
@@ -362,7 +358,6 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-
 /obj/machinery/chem_dispenser/update_overlays()
 	. = ..()
 
@@ -372,16 +367,16 @@
 	var/static/list/beaker_cache = list()
 	var/random_pixel = rand(-10, 5)	// randomize beaker overlay position
 	if(!beaker_cache["[random_pixel]"])
-		var/mutable_appearance/beaker_olay = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker")
+		var/mutable_appearance/beaker_olay = mutable_appearance('icons/obj/chemical.dmi', beaker_overlay_name)
 		beaker_olay.pixel_w = random_pixel
 		beaker_cache["[random_pixel]"] = beaker_olay
 	. += beaker_cache["[random_pixel]"]
-
 
 /obj/machinery/chem_dispenser/soda
 	name = "soda fountain"
 	desc = "Машина, способная синтезировать целый ряд самых разных напитков. Круто!"
 	icon_state = "soda_dispenser"
+	beaker_overlay_name = "bar_beaker"
 	ui_title = "Фонтан Напитков 10000"
 	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
@@ -398,7 +393,7 @@
 		DATIVE = "раздатчику напитков",
 		ACCUSATIVE = "раздатчик напитков",
 		INSTRUMENTAL = "раздатчиком напитков",
-		PREPOSITIONAL = "раздатчике напитков"
+		PREPOSITIONAL = "раздатчике напитков",
 	)
 
 /obj/machinery/chem_dispenser/soda/Initialize(mapload)
@@ -425,7 +420,6 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-
 /obj/machinery/chem_dispenser/soda/update_reagents(update_type)
 	if(update_type == UPDATE_TYPE_HACK && componentscheck)
 		if(hackedcheck)
@@ -437,11 +431,11 @@
 		dispensable_reagents |= hackedupgrade_reagents
 	return ..()
 
-
 /obj/machinery/chem_dispenser/beer
 	name = "booze dispenser"
 	desc = "Машина, способная синтезировать для вас любую алкогольную бурду, которая только может прийти в голову. Настоящее чудо алкологольных технологий!"
 	icon_state = "booze_dispenser"
+	beaker_overlay_name = "bar_beaker"
 	ui_title = "Наливатель Бухла 9001"
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
@@ -455,7 +449,7 @@
 		DATIVE = "раздатчику алкоголя",
 		ACCUSATIVE = "раздатчик алкоголя",
 		INSTRUMENTAL = "раздатчиком алкоголя",
-		PREPOSITIONAL = "раздатчике алкоголя"
+		PREPOSITIONAL = "раздатчике алкоголя",
 	)
 
 /obj/machinery/chem_dispenser/beer/Initialize(mapload)
@@ -497,7 +491,7 @@
 		DATIVE = "ботаническому раздатчику",
 		ACCUSATIVE = "ботанический раздатчик",
 		INSTRUMENTAL = "ботаническим раздатчиком",
-		PREPOSITIONAL = "ботаническом раздатчике"
+		PREPOSITIONAL = "ботаническом раздатчике",
 	)
 
 /obj/machinery/chem_dispenser/botanical/Initialize(mapload)
@@ -550,7 +544,7 @@
 		DATIVE = "ручному химическому раздатчику",
 		ACCUSATIVE = "ручной химический раздатчик",
 		INSTRUMENTAL = "ручным химическим раздатчиком",
-		PREPOSITIONAL = "ручном химическом раздатчике"
+		PREPOSITIONAL = "ручном химическом раздатчике",
 	)
 
 /obj/item/handheld_chem_dispenser/Initialize(mapload)
@@ -626,7 +620,6 @@
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
-
 	return data
 
 /obj/item/handheld_chem_dispenser/ui_act(action, list/params)
@@ -655,7 +648,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
 	if(cell?.charge)
@@ -679,7 +671,6 @@
 		chamber_contents.icon += R.color
 		. += chamber_contents
 
-
 /obj/item/handheld_chem_dispenser/process()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
@@ -688,7 +679,6 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
-
 
 /obj/item/handheld_chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -708,7 +698,6 @@
 
 	return ..()
 
-
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(isrobot(loc))
@@ -726,7 +715,6 @@
 	cell.add_fingerprint(user)
 	cell = null
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"
@@ -746,7 +734,7 @@
 		DATIVE = "ручному алкогольному раздатчику",
 		ACCUSATIVE = "ручной алкогольный раздатчик",
 		INSTRUMENTAL = "ручным алкогольным раздатчиком",
-		PREPOSITIONAL = "ручном алкогольном раздатчике"
+		PREPOSITIONAL = "ручном алкогольном раздатчике",
 	)
 
 /obj/item/handheld_chem_dispenser/soda
@@ -767,7 +755,7 @@
 		DATIVE = "ручному раздатчику напитков",
 		ACCUSATIVE = "ручной раздатчик напитков",
 		INSTRUMENTAL = "ручным раздатчиком напитков",
-		PREPOSITIONAL = "ручном раздатчике напитков"
+		PREPOSITIONAL = "ручном раздатчике напитков",
 	)
 
 /obj/item/handheld_chem_dispenser/botanical
@@ -785,7 +773,8 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 
 /obj/item/handheld_chem_dispenser/botanical/get_ru_names()
 	return list(
@@ -794,7 +783,7 @@
 		DATIVE = "компактному кухонному раздатчику",
 		ACCUSATIVE = "компактный кухонный раздатчик",
 		INSTRUMENTAL = "компактным кухонным раздатчиком",
-		PREPOSITIONAL = "компактном кухонном раздатчике"
+		PREPOSITIONAL = "компактном кухонном раздатчике",
 	)
 
 /obj/item/handheld_chem_dispenser/cooking
@@ -804,7 +793,8 @@
 		"sodiumchloride",
 		"blackpepper",
 		"ketchup",
-		"herbsmix")
+		"herbsmix",
+	)
 
 /obj/item/handheld_chem_dispenser/cooking/get_ru_names()
 	return list(
@@ -813,7 +803,7 @@
 		DATIVE = "компактному кухонному раздатчику",
 		ACCUSATIVE = "компактный кухонный раздатчик",
 		INSTRUMENTAL = "компактным кухонным раздатчиком",
-		PREPOSITIONAL = "компактном кухонном раздатчике"
+		PREPOSITIONAL = "компактном кухонном раздатчике",
 	)
 
 #undef UPDATE_TYPE_HACK

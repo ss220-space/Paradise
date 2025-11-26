@@ -63,14 +63,12 @@
 		else if(user)
 			to_chat(user, span_notice("A no server error appears on the screen."))
 
-
 /obj/machinery/computer/message_monitor/update_icon_state()
 	if(emag || hacking)
 		icon_screen = hack_icon
 	else
 		icon_screen = normal_icon
 	..()
-
 
 /obj/machinery/computer/message_monitor/Initialize(mapload)
 	. = ..()
@@ -490,15 +488,12 @@
 
 	return src.attack_hand(usr)
 
-
 /obj/item/paper/monitorkey
 	name = "Monitor Decryption Key"
-
 
 /obj/item/paper/monitorkey/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
-
 
 /obj/item/paper/monitorkey/LateInitialize()
 	for(var/obj/machinery/message_server/server as anything in GLOB.message_servers)

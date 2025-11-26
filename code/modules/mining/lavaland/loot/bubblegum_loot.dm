@@ -8,7 +8,7 @@
 		DATIVE = "сундуку Бубльгума",
 		ACCUSATIVE = "сундук Бубльгума",
 		INSTRUMENTAL = "сундуком Бубльгума",
-		PREPOSITIONAL = "сундуке Бубльгума"
+		PREPOSITIONAL = "сундуке Бубльгума",
 	)
 
 /obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
@@ -27,7 +27,7 @@
 		DATIVE = "кровавому сундуку Бубльгума",
 		ACCUSATIVE = "кровавый сундук Бубльгума",
 		INSTRUMENTAL = "кровавым сундуком Бубльгума",
-		PREPOSITIONAL = "кровавом сундуке Бубльгума"
+		PREPOSITIONAL = "кровавом сундуке Бубльгума",
 	)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher/populate_contents()
@@ -49,7 +49,7 @@
 		DATIVE = "бутылке хаоса",
 		ACCUSATIVE = "бутылку хаоса",
 		INSTRUMENTAL = "бутылкой хаоса",
-		PREPOSITIONAL = "бутылке хаоса"
+		PREPOSITIONAL = "бутылке хаоса",
 	)
 
 /obj/item/mayhem/attack_self(mob/user)
@@ -78,7 +78,7 @@
 		DATIVE = "кровавому контракту",
 		ACCUSATIVE = "кровавый контракт",
 		INSTRUMENTAL = "кровавым контрактом",
-		PREPOSITIONAL = "кровавом контракте"
+		PREPOSITIONAL = "кровавом контракте",
 	)
 
 /obj/item/blood_contract/attack_self(mob/user)
@@ -186,7 +186,6 @@
 		var/turf/target_turf = pick(spawn_exit)
 		O.forceMove(target_turf)
 
-
 // Soulscythe
 
 #define MAX_BLOOD_LEVEL 100
@@ -228,7 +227,7 @@
 		DATIVE = "косе души",
 		ACCUSATIVE = "косу души",
 		INSTRUMENTAL = "косой души",
-		PREPOSITIONAL = "косе души"
+		PREPOSITIONAL = "косе души",
 	)
 
 /obj/item/soulscythe/Initialize(mapload)
@@ -287,7 +286,6 @@
 /obj/item/soulscythe/proc/on_logout(mob/source)
 	SIGNAL_HANDLER
 	source?.canon_client?.show_popup_menus = TRUE
-
 
 /obj/item/soulscythe/attack_self(mob/user, modifiers)
 	if(using || soul.ckey || soul.stat)
@@ -527,9 +525,8 @@
 		DATIVE = "таинственному духу",
 		ACCUSATIVE = "таинственный дух",
 		INSTRUMENTAL = "таинственным духом",
-		PREPOSITIONAL = "таинственном духе"
+		PREPOSITIONAL = "таинственном духе",
 	)
-
 
 /mob/living/simple_animal/soulscythe/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -559,7 +556,7 @@
 		DATIVE = "рассечению души",
 		ACCUSATIVE = "рассечение души",
 		INSTRUMENTAL = "рассечением души",
-		PREPOSITIONAL = "рассечении души"
+		PREPOSITIONAL = "рассечении души",
 	)
 
 /obj/projectile/soulscythe/on_hit(atom/target, blocked = 0, pierce_hit)

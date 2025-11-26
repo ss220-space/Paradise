@@ -64,7 +64,6 @@
 	else
 		return
 
-
 /obj/item/reagent_containers/food/snacks/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || (user.a_intent == INTENT_HARM && force))
 		return ..()
@@ -94,7 +93,6 @@
 	bitecount++
 	On_Consume(target, user)
 
-
 /obj/item/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity, params)
 	return
 
@@ -108,7 +106,6 @@
 				. += span_notice("[src] was bitten [bitecount] times!")
 			else
 				. += span_notice("[src] was bitten multiple times!")
-
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -144,7 +141,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
@@ -217,7 +213,6 @@
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -261,20 +256,9 @@
 		reagents.trans_to(slice, reagents_per_slice)
 	qdel(src)
 
-
 ////////////////////////////////////////////////////////////////////////////////
 /// FOOD END
 ////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
 
 //////////////////////////////////////////////////
 ////////////////////////////////////////////Snacks

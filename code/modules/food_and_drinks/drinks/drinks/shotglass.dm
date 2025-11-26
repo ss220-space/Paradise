@@ -18,14 +18,13 @@
 		DATIVE = "рюмке",
 		ACCUSATIVE = "рюмку",
 		INSTRUMENTAL = "рюмкой",
-		PREPOSITIONAL = "рюмке"
+		PREPOSITIONAL = "рюмке",
 	)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
 		extinguish()
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_name()
 	. = ..()
@@ -37,7 +36,7 @@
 			DATIVE = "рюмке — " + reagents.get_master_reagent_name(),
 			ACCUSATIVE = "рюмку — " + reagents.get_master_reagent_name(),
 			INSTRUMENTAL = "рюмкой — " + reagents.get_master_reagent_name(),
-			PREPOSITIONAL = "рюмке — " +reagents.get_master_reagent_name()
+			PREPOSITIONAL = "рюмке — " + reagents.get_master_reagent_name(),
 		)
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"
@@ -56,9 +55,8 @@
 			DATIVE = "рюмке",
 			ACCUSATIVE = "рюмку",
 			INSTRUMENTAL = "рюмкой",
-			PREPOSITIONAL = "рюмке"
+			PREPOSITIONAL = "рюмке",
 		)
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_overlays()
 	. = ..()
@@ -76,7 +74,6 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(!(resistance_flags & ON_FIRE))
 		return ATTACK_CHAIN_PROCEED
@@ -90,7 +87,6 @@
 	reagents.clear_reagents()
 	user.IgniteMob()
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/isShotFlammable()
 	var/datum/reagent/R = reagents.get_master_reagent()
@@ -118,19 +114,16 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
 	return
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		return clumsilyDrink(user)
 	return ..()
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
 		fire_act()
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)
 	..()
@@ -146,8 +139,7 @@
 								span_notice("Вы накрываете [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"))
 		extinguish()
 
-
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!ishuman(user) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return ..()
 

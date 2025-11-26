@@ -7,36 +7,30 @@
 	custom_snack.add_ingredient(snack, user)
 	qdel(src)
 
-
 /obj/item/reagent_containers/food/snacks/breadslice/attackby(obj/item/I, mob/user, params)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/sandwich))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/bun/attackby(obj/item/I, mob/user, params)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/burger))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/I, mob/user, params)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/pizza))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/boiledspaghetti/attackby(obj/item/I, mob/user, params)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/pasta))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/trash/plate/attackby(obj/item/I, mob/user, params)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/fullycustom))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/trash/bowl
 	name = "bowl"
@@ -44,12 +38,10 @@
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
-
 /obj/item/trash/bowl/attackby(obj/item/I, mob/user, params)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/soup))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/customizable
 	name = "sandwich"
@@ -68,7 +60,6 @@
 	trash = /obj/item/trash/plate
 	var/list/ingredients = list()
 	list_reagents = list("nutriment" = 8)
-
 
 /obj/item/reagent_containers/food/snacks/customizable/Initialize(mapload)
 	. = ..()
@@ -279,18 +270,15 @@
 	snack_overlays = TRUE
 	tastes = list("bun" = 4)
 
-
 /obj/item/reagent_containers/food/snacks/customizable/Destroy()
 	QDEL_LIST(ingredients)
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/customizable/examine(mob/user)
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
 		. += span_notice("You think you can see [whatsinside] in there.")
-
 
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/food/snacks))
@@ -304,7 +292,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /**
  * Tries to add one ingredient and it's ingredients, if any and applicable, to this snack
@@ -348,7 +335,6 @@
 	add_ingredients(added_ingredients)
 	name = newname()
 
-
 /obj/item/reagent_containers/food/snacks/customizable/proc/add_ingredients(list/new_ingredients)
 	cut_overlay(top_image) // Remove the top image so we can change it again
 
@@ -379,7 +365,6 @@
 		top_image.pixel_y = ingredient_num * 2 + 1
 		add_overlay(top_image)
 
-
 /obj/item/reagent_containers/food/snacks/customizable/proc/newname()
 	var/unsorteditems[0]
 	var/sorteditems[0]
@@ -396,7 +381,6 @@
 	for(var/obj/item/ing in ingredients)
 		if(istype(ing, /obj/item/shard))
 			continue
-
 
 		if(istype(ing, /obj/item/reagent_containers/food/snacks/customizable))				// split the ingredients into ones with basenames (sandwich, burger, etc) and ones without, keeping track of how many of each there are
 			var/obj/item/reagent_containers/food/snacks/customizable/gettype = ing
@@ -459,7 +443,6 @@
 	if(length(sendback) > 80)
 		sendback = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
 	return sendback
-
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/sortlist(list/unsorted, highest)
 	var/sorted[0]

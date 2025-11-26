@@ -55,7 +55,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		icon_regular_floor_dmi = icon
 		floor_regular_dir = dir
 
-
 /// Returns a list of every turf state considered "broken".
 /// Will be randomly chosen if a turf breaks at runtime.
 /turf/simulated/floor/proc/broken_states()
@@ -115,7 +114,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(Z.oxygen < 16 || Z.toxins >= 0.05 || Z.carbon_dioxide >= 10 || Z.sleeping_agent >= 1 || (Z.temperature <= 270) || (Z.temperature >= 360) || (pressure <= 20) || (pressure >= 550))
 		return FALSE
 	return TRUE
-
 
 /turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
@@ -190,7 +188,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	W.update_icon()
 	return W
 
-
 /turf/simulated/floor/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -224,7 +221,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		else
 			pipe.setDir(user.dir)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/crowbar_act(mob/user, obj/item/I)
 	if(!intact)

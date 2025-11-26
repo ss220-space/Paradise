@@ -130,9 +130,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "коротковолновой рации",
 		ACCUSATIVE = "коротковолновую рацию",
 		INSTRUMENTAL = "коротковолновой рацией",
-		PREPOSITIONAL = "коротковолновой рации"
+		PREPOSITIONAL = "коротковолновой рации",
 	)
-
 
 /obj/item/radio/Initialize(mapload)
 	wires = new(src)
@@ -160,7 +159,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	. = ..()
 	// this is just dummy. We minimalize memmory usage for this object
 	Destroy()
-
 
 //simple getters only because i NEED to enforce complex setter use for these vars for caching purposes but VAR_PROTECTED requires getter usage as well.
 //if another decorator is made that doesnt require getters feel free to nuke these and change these vars over to that
@@ -252,7 +250,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	if(listening && on)
 		radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
-
 
 /obj/item/radio/emag_act(mob/user)
 	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
@@ -427,7 +424,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "коротковолновой рации СБ",
 		ACCUSATIVE = "коротковолновую рацию СБ",
 		INSTRUMENTAL = "коротковолновой рацией СБ",
-		PREPOSITIONAL = "коротковолновой рации СБ"
+		PREPOSITIONAL = "коротковолновой рации СБ",
 	)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
@@ -491,7 +488,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return
 
 	var/datum/radio_frequency/connection = message_mode
-
 
 	// ||-- The mob's name identity --||
 	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
@@ -595,7 +591,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	// If we didnt get here, oh fuck
 	qdel(tcm) // Delete the message datum
 	return FALSE
-
 
 /obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "говор%(ит,ят)%")
 	if(broadcasting)
@@ -770,7 +765,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			continue
 		channels[channel] = channels_configs[channel]
 
-
 /obj/item/radio/proc/reset_channels()
 	channels = list()
 	secure_radio_connections = null
@@ -800,7 +794,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "рации робота",
 		ACCUSATIVE = "рацию робота",
 		INSTRUMENTAL = "рацией робота",
-		PREPOSITIONAL = "рации робота"
+		PREPOSITIONAL = "рации робота",
 	)
 
 /obj/item/radio/borg/syndicate
@@ -842,7 +836,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-
 /obj/item/radio/borg/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/encryptionkey))
 		add_fingerprint(user)
@@ -858,7 +851,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	return ..()
 
-
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -868,7 +860,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		for(var/ch_name in channels)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 			LAZYSET(secure_radio_connections, ch_name, null)
-
 
 		if(keyslot)
 			var/turf/T = get_turf(user)
@@ -912,7 +903,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "сломанной рации",
 		ACCUSATIVE = "сломанную рацию",
 		INSTRUMENTAL = "сломанной рацией",
-		PREPOSITIONAL = "сломанной рации"
+		PREPOSITIONAL = "сломанной рации",
 	)
 
 /obj/item/radio/borg/interact(mob/user)
@@ -940,7 +931,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "телефону",
 		ACCUSATIVE = "телефон",
 		INSTRUMENTAL = "телефоном",
-		PREPOSITIONAL = "телефоне"
+		PREPOSITIONAL = "телефоне",
 	)
 
 /obj/item/radio/phone/medbay
@@ -955,7 +946,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "медицинскому телефону",
 		ACCUSATIVE = "медицинский телефон",
 		INSTRUMENTAL = "медицинским телефоном",
-		PREPOSITIONAL = "медицинском телефоне"
+		PREPOSITIONAL = "медицинском телефоне",
 	)
 
 /obj/item/radio/phone/medbay/get_internal_channels()
@@ -977,5 +968,5 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "красному телефону",
 		ACCUSATIVE = "красный телефон",
 		INSTRUMENTAL = "красным телефоном",
-		PREPOSITIONAL = "красном телефоне"
+		PREPOSITIONAL = "красном телефоне",
 	)

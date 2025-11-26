@@ -16,9 +16,8 @@
 		DATIVE = "ящику для руды",
 		ACCUSATIVE = "ящик для руды",
 		INSTRUMENTAL = "ящиком для руды",
-		PREPOSITIONAL = "ящике для руды"
+		PREPOSITIONAL = "ящике для руды",
 	)
-
 
 /obj/structure/ore_box/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -49,7 +48,6 @@
 
 	return ..()
 
-
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
@@ -60,7 +58,6 @@
 		span_italics("Слышен треск дерева."),
 	)
 	deconstruct(TRUE, user)
-
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))

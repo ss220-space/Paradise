@@ -22,7 +22,6 @@
 
 	var/cast_sound = 'sound/items/welder.ogg'
 
-
 /obj/effect/proc_holder/spell/aoe/conjure/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.range = aoe_range
@@ -81,9 +80,7 @@
 	else
 		cooldown_handler.start_recharge(0.5 SECONDS)
 
-
 	return what_conjure_summoned
-
 
 /obj/effect/proc_holder/spell/aoe/conjure/summonEdSwarm //test purposes
 	name = "Dispense Wizard Justice"

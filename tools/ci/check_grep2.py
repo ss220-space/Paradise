@@ -25,6 +25,11 @@ def check_515_proc_syntax(idx, line):
     if CHECK_515_PROC_MARKER_RE.search(line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
+CHECK_516_HREF_STYLE = re.compile(r"href[\s='\"\\\\]*\?")
+def check_516_href_style(idx, line):
+    if CHECK_516_HREF_STYLE.search(line):
+        return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
+
 CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
@@ -99,6 +104,9 @@ def check_proc_args_with_var_prefix(idx, line):
 NANOTRASEN_CAMEL_CASE_EN = re.compile(r"(NanoTrasen)")
 NANOTRASEN_CAMEL_CASE_RU = re.compile(r"(НаноТрейзен)")
 NANOTRASEN_MISSPELLING_N_RU = re.compile(r"(нанотрейзен)")
+
+NANOTRASEN_QUOTES_RU = re.compile(r'(..)Нанотрейзен(..)')
+
 def check_nanotrasen_style(idx, line):
     failures = []
     if match := NANOTRASEN_CAMEL_CASE_EN.search(line):
@@ -108,6 +116,22 @@ def check_nanotrasen_style(idx, line):
     if match := NANOTRASEN_MISSPELLING_N_RU.search(line):
         if 'UNLINT' not in line:
             failures.append((idx + 1, f"Found lowercase '{match.group(1)}', should be 'Нанотрейзен'."))
+
+    for match in NANOTRASEN_QUOTES_RU.finditer(line):
+        context_before = match.group(1)
+        context_after = match.group(2)
+
+        if context_before != '\\"' and context_after != '\\"':
+            surrounding_text = context_before[1] + "Нанотрейзен" + context_after[0]
+            failures.append((idx + 1, f"Found 'Нанотрейзен' without escaped quotes '{surrounding_text}', should be \\\"Нанотрейзен\\\"."))
+            continue
+        elif context_before[1] != '"' and context_after[0] != '"':
+            surrounding_text = context_before[1] + "Нанотрейзен" + context_after[0]
+            failures.append((idx + 1, f"Found 'Нанотрейзен' without escaped quotes '{surrounding_text}', should be \\\"Нанотрейзен\\\"."))
+            continue
+        else:
+            continue
+
     return failures
 
 TO_CHAT_WITH_NO_USER_ARG_RE = re.compile(r"to_chat\(\"")
@@ -204,8 +228,10 @@ def check_uid_parameters(idx, line):
         return [(idx + 1, f"UID() does not take arguments. Found: '{result.group(1)}'. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
 BALLOON_ALERT_WITHOUT_USER = re.compile(r'(balloon_alert\(["\'])')
-BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert\(.*?span_)')
-BALLOON_ALERT_CAPITALIZED = re.compile(r'(balloon_alert\(.*?,\s*["\'][A-ZА-Я])')
+BALLOON_ALERT_TO_VIEWERS_WRONG_FIRST_ARG = re.compile(r'(balloon_alert_to_viewers\((?!\s*message\s*,)[^"\'])')
+BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert(_to_viewers)?\(.*?span_)')
+BALLOON_ALERT_CAPITALIZED = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*["\'][A-ZА-Я])')
+BALLOON_ALERT_ENDS_WITH_PERIOD = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*"[^"]*[^\.]\.(?!\.)")')
 def check_balloon_alert(idx, line):
     failures = []
     if match := BALLOON_ALERT_WITHOUT_USER.search(line):
@@ -215,6 +241,13 @@ def check_balloon_alert(idx, line):
     if match := BALLOON_ALERT_CAPITALIZED.search(line):
         if 'UNLINT' not in line:
             failures.append((idx + 1, f"Balloon alerts should not start with capital letters: '{match.group(1)}'. Includes text like 'AI'. Wrap the text in UNLINT() if needed."))
+    if match := BALLOON_ALERT_ENDS_WITH_PERIOD.search(line):
+        if 'UNLINT' not in line:
+            text_part = match.group(0)
+            if text_part.endswith('."') or text_part.endswith('.")'):
+                failures.append((idx + 1, f"Balloon alerts should not end with a period: '{match.group(1)}'. If this is a false positive, wrap the text in UNLINT()."))
+    if match := BALLOON_ALERT_TO_VIEWERS_WRONG_FIRST_ARG.search(line):
+        failures.append((idx + 1, f"balloon_alert_to_viewers called with non-string first argument. First argument should be a message string."))
     return failures
 
 TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
@@ -283,20 +316,21 @@ def check_html_tags_case(idx, line):
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
         return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
 
-HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) - \d+|\d+ - (?=[а-яё]))', re.IGNORECASE)
-EN_DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) – (?=[а-яё])|(?<=[а-яё]) – \d+|\d+ – (?=[а-яё]))', re.IGNORECASE)
+DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) [–-] (?=[а-яё])|(?<=[а-яё]) [–-] \d|\d [–-] (?=[а-яё])|(?<=[а-яё]) [–-] [\]\[]|[\]\[] [–-] (?=[а-яё]))', re.IGNORECASE)
 def check_dash_usage(idx, line):
-    failures = []
-    if HYPHEN_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A hyphen was found, which should be replaced with a dash (—)."))
-    if EN_DASH_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A en dash was found, which should be replaced with a dash (—)."))
-    return failures
+    if DASH_USAGE_RE.search(line):
+        if 'UNLINT' not in line:
+            return [(idx + 1, "Found hyphen or en dash, which should be replaced with em dash (—).")]
 
 PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
+SOUND_IMPROPER_PATH = re.compile(r'"(sound\/[^\[]+)(.ogg)"')
 def check_playsound_improper_call(idx, line):
+    failures = []
     if match := PLAYSOUND_IMPROPER_CALL.search(line):
         return [(idx + 1, f"Improper playsound call detected: \"{match.group(2)}\", it should be '{match.group(2)}' instead.")]
+    if match := SOUND_IMPROPER_PATH.search(line):
+        return [(idx + 1, f"Improper sound path detected: {match.group(0)}, it should be '{match.group(1)}.ogg' instead.")]
+    return failures
 
 APOSTROPHE_NAME = re.compile(r'name\s*=\s*"[^"]*\[[^]]*\]\'s')
 def check_apostrophe_name(idx, line):
@@ -313,7 +347,7 @@ def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
-IGNORE_LOCALIZATION_FILE = ["localization.dm"]
+IGNORE_LOCALIZATION_FILE = "localization.dm"
 MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
 def check_localization_macro_usage(idx, line):
     if MACROED_PROCS.search(line):
@@ -354,6 +388,78 @@ CODE_CHECKS = [
     check_apostrophe_name,
     check_rand_floating_point,
     check_bitwise_operator_order,
+    check_516_href_style,
+]
+
+def run_multiline_check(lines, filename, patterns, strip_comments=False):
+    if strip_comments:
+        clean_lines = []
+        for line in lines:
+            clean_line = line.split('//')[0].rstrip()
+            clean_lines.append(clean_line + '\n')
+        content = ''.join(clean_lines)
+    else:
+        content = ''.join(lines)
+
+    failures = []
+    for pattern, message in patterns:
+        for match in pattern.finditer(content):
+            line_no = content[:match.start()].count('\n') + 1
+            failures.append(Failure(filename, line_no, message))
+    return failures
+
+LONG_LIST_PATTERNS = [
+    (re.compile(r'^(\t)[\w_]+ = list\(\n\1\t{2,}', re.MULTILINE),
+    "Long list overindented, should be exactly two tabs."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n\1\S', re.MULTILINE),
+    "Long list underindented, should be exactly two tabs."),
+    (re.compile(r'^(\t)[\w_]+ = list\([^\s)]+( ?= ?[\w\d]+)?,\n', re.MULTILINE),
+    "First item in a long list should be on the next line with proper indentation."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n(?:\1\t(?:[^,\n]|list\([^)]*\))+,\n)*\1\t(?:[^,\n]|list\([^)]*\))+\s*\n\1\)', re.MULTILINE),
+    "Last item in a long list should have a comma."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n(\1\t[^\s)]+( ?= ?[\w\d]+)?,\n)*\1\t[^\s)]+( ?= ?[\w\d]+)?\)', re.MULTILINE),
+    "The ) in a long list should be on a new line without comma."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n(\1\t[^\s)]+( ?= ?[\w\d]+)?,\n)+\1\t\)', re.MULTILINE),
+    "The ) in a long list should match indentation of the opening list line."),
+]
+def check_long_list_formatting(lines, filename):
+    return run_multiline_check(lines, filename, LONG_LIST_PATTERNS, strip_comments=True)
+
+EXCESSIVE_EMPTY_LINES_PATTERNS = [
+    (re.compile(r'\n\s*\n\s*\n\s*\n+'),
+    "Too many empty lines were found. Please observe the code style, there is no point in more than 1 empty line between any code."),
+]
+def check_excessive_empty_lines(lines, filename):
+    return run_multiline_check(lines, filename, EXCESSIVE_EMPTY_LINES_PATTERNS, strip_comments=False)
+
+MULTI_LINE_CHECKS = [
+    check_long_list_formatting,
+    check_excessive_empty_lines,
+]
+
+NEW_DEFINITION_RE = re.compile(r'^\s*/?(obj|mob|turf|area|atom)/?.*/New\(')
+LIMIT_NEW_DEFINITION = 2
+IGNORE_NEW_DEFINITION_FILES = [
+#    "labubu.dm",
+]
+def check_new_definitions_count(lines, filename):
+    if filename in IGNORE_NEW_DEFINITION_FILES:
+        return []
+
+    failures = []
+    new_line_numbers = []
+
+    for idx, line in enumerate(lines):
+        if NEW_DEFINITION_RE.match(line):
+            new_line_numbers.append(idx + 1)
+
+    if len(new_line_numbers) > LIMIT_NEW_DEFINITION:
+        for line_no in new_line_numbers:
+            failures.append(Failure(filename, line_no, f"Found excessive New() definition. It should be replaced with Initialize(mapload)."))
+    return failures
+
+FILE_CHECKS = [
+#    check_new_definitions_count,
 ]
 
 def check_updatepaths_validity():
@@ -377,9 +483,14 @@ def check_updatepaths_validity():
     return failures
 
 def lint_file(code_filepath: str) -> list[Failure]:
+    # Otherwise, the script starts checking the OD files and the linter breaks.
+    if "DMCompiler_linux-x64" in code_filepath:
+        return []
+
     all_failures = []
     with open(code_filepath, encoding="UTF-8") as code:
         filename = code_filepath.split(os.path.sep)[-1]
+        lines = code.readlines()
 
         extra_checks = []
         if filename != IGNORE_515_PROC_MARKER_FILENAME:
@@ -388,18 +499,20 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
-        if filename not in IGNORE_LOCALIZATION_FILE:
+        if filename != IGNORE_LOCALIZATION_FILE:
             extra_checks.append(check_localization_macro_usage)
 
-        last_line = None
-        for idx, line in enumerate(code):
+        for idx, line in enumerate(lines):
             for check in CODE_CHECKS + extra_checks:
                 if failures := check(idx, line):
                     all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
-            last_line = line
 
-        if last_line and last_line[-1] != '\n':
-            all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline."))
+        for check in MULTI_LINE_CHECKS + FILE_CHECKS:
+            all_failures.extend(check(lines, code_filepath))
+
+        if lines and not lines[-1].endswith('\n'):
+            all_failures.append(Failure(code_filepath, len(lines), "Missing a trailing newline."))
+
     return all_failures
 
 if __name__ == "__main__":

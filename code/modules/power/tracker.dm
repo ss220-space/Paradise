@@ -23,7 +23,7 @@
 		DATIVE = "солнечному датчику",
 		ACCUSATIVE = "солнечный датчик",
 		INSTRUMENTAL = "солнечным датчиком",
-		PREPOSITIONAL = "солнечном датчке"
+		PREPOSITIONAL = "солнечном датчке",
 	)
 
 /obj/machinery/power/tracker/Initialize(mapload, obj/item/solar_assembly/S)
@@ -84,7 +84,6 @@
 			span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
 		)
 		deconstruct(TRUE)
-
 
 /obj/machinery/power/tracker/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))

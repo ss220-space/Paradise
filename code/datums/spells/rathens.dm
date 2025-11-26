@@ -7,12 +7,10 @@
 	invocation_type = "shout"
 	action_icon_state = "lungpunch"
 
-
 /obj/effect/proc_holder/spell/rathens/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.max_targets = INFINITY
 	return T
-
 
 /obj/effect/proc_holder/spell/rathens/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/H in targets)

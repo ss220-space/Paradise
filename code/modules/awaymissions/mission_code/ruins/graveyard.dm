@@ -25,7 +25,6 @@
 	shuttleId = "funeral"
 	possible_destinations = "graveyard_church;graveyard_dock"
 
-
 ///// Graveyard items
 
 /obj/structure/bookcase/ashframe
@@ -33,19 +32,15 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "case-0"
 
-
 /obj/structure/bookcase/ashframe/generate_allowed_books()
 	allowed_books = typecacheof(list(
 		/obj/item/storage/funeral_urn,
 	))
 
-
 /obj/structure/bookcase/ashframe/update_icon_state()
 	icon_state = "case-[min(length(contents), 5)]"
 
-
 /obj/structure/bookcase/ashframe/random
-
 
 /obj/structure/bookcase/ashframe/random/Initialize(mapload)
 	var/number = rand(1,4)
@@ -53,7 +48,6 @@
 		new /obj/item/storage/funeral_urn/random(src)
 	update_icon(UPDATE_ICON_STATE)
 	return ..()
-
 
 /obj/item/storage/funeral_urn
 	name = "Funeral urn"
@@ -79,13 +73,11 @@
 	throw_speed = 3
 	throw_range = 4
 
-
 /obj/item/storage/funeral_urn/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/storage/funeral_urn/afterattack(atom/A, mob/user, proximity, params)
 	if(istype(A,/obj/effect/decal/cleanable/ash))
@@ -223,7 +215,6 @@
 
 		<br><br>Так сказал Немрис.
 		"}
-
 
 ////// Grave with loot spawner and evil soul
 /obj/structure/pit/closed/graveyard_loot

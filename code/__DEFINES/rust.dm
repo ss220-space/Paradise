@@ -1,6 +1,5 @@
 // DM API for Rust extension modules
 
-
 // Default automatic library detection.
 // Look for it in the build location first, then in `.`, then in standard places.
 

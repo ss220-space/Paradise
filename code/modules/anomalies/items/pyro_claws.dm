@@ -21,7 +21,7 @@
 		DATIVE = "энергокогтям", \
 		ACCUSATIVE = "энергокогти", \
 		INSTRUMENTAL = "энергокогтями", \
-		PREPOSITIONAL = "энергокогтях"
+		PREPOSITIONAL = "энергокогтях",
 	)
 
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
@@ -110,7 +110,7 @@
 		DATIVE = "плавящим перчаткам", \
 		ACCUSATIVE = "плавящие перчатки", \
 		INSTRUMENTAL = "плавящими перчатками", \
-		PREPOSITIONAL = "плавящих перчатках"
+		PREPOSITIONAL = "плавящих перчатках",
 	)
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
@@ -165,7 +165,6 @@
 	ADD_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	used = TRUE
 	do_sparks(rand(1,6), TRUE, loc)
-
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/item, mob/user, params)
 	if(!iscoreatmos(item))

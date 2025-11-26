@@ -127,10 +127,8 @@
 	else if(A == node2)
 		return parent2
 
-
 /obj/machinery/atmospherics/binary/return_pipenets()
 	return list(parent1, parent2)
-
 
 /obj/machinery/atmospherics/binary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)

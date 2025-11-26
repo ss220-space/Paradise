@@ -33,7 +33,6 @@
 	var/obj/item/melee/energy_katana/my_katana
 	var/obj/item/stock_parts/cell/cell
 
-
 /datum/antagonist/ninja/on_gain()
 	if(!owner?.current)
 		return FALSE
@@ -65,7 +64,6 @@
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
 
-
 /datum/antagonist/ninja/Destroy(force)
 	owner.offstation_role = FALSE
 	human_ninja = null
@@ -75,7 +73,6 @@
 	cell = null
 	purchased_abilities = null
 	return ..()
-
 
 /datum/antagonist/ninja/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -89,27 +86,22 @@
 
 	return TRUE
 
-
 /datum/antagonist/ninja/add_owner_to_gamemode()
 	SSticker.mode.space_ninjas |= owner
 
-
 /datum/antagonist/ninja/remove_owner_from_gamemode()
 	SSticker.mode.space_ninjas -= owner
-
 
 /datum/antagonist/ninja/greet()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ninja_greeting.ogg'))
 	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><b>Космический Ниндзя!</b></font>")
 	to_chat(owner.current, "Моё оружие внезапность. Моя броня Тень. Без них, я ничто.")
 
-
 /datum/antagonist/ninja/farewell()
 	if(issilicon(owner.current))
 		to_chat(owner.current, span_userdanger("Вы стали Роботом! И годы ваших тренировок становятся пылью..."))
 	else
 		to_chat(owner.current, span_userdanger("Вам промыло мозги! Вы больше не Ниндзя!"))
-
 
 /datum/antagonist/ninja/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
@@ -133,13 +125,11 @@
 		human_ninja.set_species(/datum/species/human)	// only human ninjas for now
 		human_ninja.revive()
 
-
 /datum/antagonist/ninja/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	user.faction = list("Station")
 	if(user.hud_used)
 		user.hud_used.remove_ninja_hud()
-
 
 /datum/antagonist/ninja/finalize_antag()
 	INVOKE_ASYNC(src, PROC_REF(name_ninja))
@@ -153,12 +143,10 @@
 		// to ensure all antags were properly generated
 		addtimer(CALLBACK(src, PROC_REF(finalize_antag_paradise_mode)), 15 SECONDS)
 
-
 /datum/antagonist/ninja/proc/finalize_antag_paradise_mode()
 	give_objectives()
 	announce_objectives()
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-
 
 /datum/antagonist/ninja/proc/name_ninja()
 	var/ninja_name_first = pick(GLOB.ninja_titles)
@@ -170,7 +158,6 @@
 	human_ninja.real_name = newname
 	human_ninja.name = newname
 	owner.name = newname
-
 
 /**
  * All the equipment for ninja.
@@ -206,7 +193,6 @@
 	my_suit.n_backpack = my_backpack
 	my_suit.energyKatana = my_katana
 	cell = my_suit.cell
-
 
 /**
  * HUD creating and updates.
@@ -254,7 +240,6 @@
 		hud.ninja_focus_display.icon_state = creeping_widow.has_focus ? "focus_active_[my_suit.color_choice]" : "focus"
 		hud.ninja_focus_display.invisibility = my_suit.show_concentration_UI ? 0 : INVISIBILITY_ABSTRACT
 
-
 /**
  * HUD cleaning proc.
  */
@@ -268,7 +253,6 @@
 	show_hud(hud_version)
 	hidden_inventory_update()
 
-
 /**
  * Stat panel cell charge info.
  */
@@ -277,7 +261,6 @@
 		return "ERROR!"
 	return "[cell.charge]/[cell.maxcharge]"
 
-
 /**
  * Stat panel katana charge info.
  */
@@ -285,7 +268,6 @@
 	if(!my_katana)
 		return "ERROR!"
 	return "[my_katana.jaunt.current_charges]/[my_katana.jaunt.max_charges]"
-
 
 /datum/antagonist/ninja/proc/pick_antags()
 	if(ninja_type == NINJA_TYPE_GENERIC)
@@ -342,7 +324,6 @@
 			break
 		pre_antags |= antag
 
-
 /datum/antagonist/ninja/proc/generate_antags()
 	if(antags_done)
 		return
@@ -363,7 +344,6 @@
 
 	pre_antags.Cut()
 	antags_done = TRUE
-
 
 /datum/antagonist/ninja/proc/generate_traitors()
 	var/datum/objective/protect/ninja/protect_objective = locate() in owner.get_all_objectives()
@@ -401,16 +381,13 @@
 
 		traitor_datum.announce_objectives()
 
-
 /datum/antagonist/ninja/proc/generate_vampires()
 	for(var/datum/mind/vampire in pre_antags)
 		vampire.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
-
 /datum/antagonist/ninja/proc/generate_changelings()
 	for(var/datum/mind/changeling in pre_antags)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
-
 
 /datum/antagonist/ninja/proc/make_objectives_generate_antags(chosen_ninja_type, datum/objective/custom_objective)
 
@@ -423,7 +400,6 @@
 	give_objectives(custom_objective)
 	generate_antags()
 
-
 /datum/antagonist/ninja/give_objectives(datum/objective/custom_objective)
 	switch(ninja_type)
 		if(NINJA_TYPE_GENERIC)
@@ -434,7 +410,6 @@
 			forge_hacker_ninja_objectives()
 		if(NINJA_TYPE_KILLER)
 			forge_killer_ninja_objectives()
-
 
 /datum/antagonist/ninja/proc/forge_generic_ninja_objectives(datum/objective/custom_objective)
 
@@ -485,7 +460,6 @@
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/survive)
 
-
 /datum/antagonist/ninja/proc/forge_protector_ninja_objectives()
 
 	try_protect_objective()
@@ -510,7 +484,6 @@
 	var/list/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/survive)
-
 
 /**
  * Ninja protect. If traitors have been generated they will all hunt for our target.
@@ -562,7 +535,6 @@
 		var/list/messages = maroon_objective.owner.prepare_announce_objectives()
 		to_chat(maroon_objective.owner.current, chat_box_red(messages.Join("<br>")))
 
-
 /datum/antagonist/ninja/proc/forge_hacker_ninja_objectives()
 
 	try_blood_collect_objective()
@@ -598,7 +570,6 @@
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/survive)
 
-
 /**
  * Vampire blood collecting objective.
  */
@@ -610,7 +581,6 @@
 	var/datum/objective/collect_blood/blood_objective = add_objective(/datum/objective/collect_blood)
 	if(length(vampires_amount) < blood_objective.samples_to_win)	// no objective if there are fewer antagonists than needed
 		qdel(blood_objective)
-
 
 /datum/antagonist/ninja/proc/forge_killer_ninja_objectives()
 
@@ -634,7 +604,6 @@
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/survive)
 
-
 /**
  * Changelings massacre objective.
  */
@@ -646,7 +615,6 @@
 	if(changelings_amount > 1)	// we will not hunt if only one ling is available
 		var/datum/objective/vermit_hunt/hunt_changelings = add_objective(/datum/objective/vermit_hunt)
 		hunt_changelings.update_objective(round(changelings_amount / 2))
-
 
 /**
  * Takes any datum `source` and checks it for ninja datum.

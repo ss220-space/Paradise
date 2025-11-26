@@ -15,7 +15,6 @@ GLOBAL_LIST_INIT(rukeys, list(
 	"Б" = ",", "Ю" = ".",
 ))
 
-
 /proc/sanitize_english_key_to_russian(char)
 	if(LAZYIN(GLOB.enkeys, lowertext(char)))
 		return GLOB.enkeys[lowertext(char)]

@@ -20,7 +20,7 @@
 		DATIVE = "мылу",
 		ACCUSATIVE = "мыло",
 		INSTRUMENTAL = "мылом",
-		PREPOSITIONAL = "мыле"
+		PREPOSITIONAL = "мыле",
 	)
 
 /obj/item/soap/ComponentInitialize()
@@ -62,7 +62,6 @@
 			qdel(O)
 	SEND_SIGNAL(T, COMSIG_COMPONENT_CLEAN_ACT, 5)
 
-
 /obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		user.visible_message(
@@ -72,9 +71,8 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/item/soap/nanotrasen
-	desc = "Именное мыло Нанотрейзен. Обладает игривым запахом плазмы."
+	desc = "Именное мыло \"Нанотрейзен\". Обладает игривым запахом плазмы."
 	icon_state = "soapnt"
 	item_state = "soapnt"
 
@@ -228,7 +226,7 @@
 		DATIVE = "мылу в изоленте",
 		ACCUSATIVE = "мыло в изоленте",
 		INSTRUMENTAL = "мылом в изоленте",
-		PREPOSITIONAL = "мыле в изоленте"
+		PREPOSITIONAL = "мыле в изоленте",
 	)
 
 /obj/item/soap/ducttape/afterattack(atom/target, mob/user, proximity, params)

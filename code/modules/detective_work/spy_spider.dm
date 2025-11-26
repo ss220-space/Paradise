@@ -12,7 +12,7 @@
 			DATIVE = "жучку",
 			ACCUSATIVE = "жучок",
 			INSTRUMENTAL = "жучком",
-			PREPOSITIONAL = "жучке"
+			PREPOSITIONAL = "жучке",
 		)
 
 /obj/item/radio/spy_spider/Initialize(mapload)
@@ -52,7 +52,6 @@
 	new /obj/item/encryptionkey/spy_spider(src)
 	new /obj/item/encryptionkey/spy_spider(src)
 
-
 /**
  * CLOTHING PART
  */
@@ -85,7 +84,6 @@
 		spy_spider_attached = null
 
 	verbs -= /obj/item/clothing/proc/remove_spy_spider
-
 
 /**
  * HUMAN PART

@@ -100,7 +100,6 @@
 
 	qdel(src)
 
-
 /obj/effect/old_anomaly/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))

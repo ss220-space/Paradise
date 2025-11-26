@@ -153,12 +153,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	/// Our sweet wires
 	var/datum/wires/washing_machine/wires
 
-
 /obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
 	wires = new(src)
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/washing_machine/Destroy()
 	dump_contents(forced = TRUE)
@@ -166,11 +164,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	QDEL_NULL(wires)
 	return ..()
 
-
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
 	qdel(src)
-
 
 /// Dumps every movable atom in the machine's contents list
 /obj/machinery/washing_machine/proc/dump_contents(forced = FALSE)
@@ -188,7 +184,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(toggle_states)
 		toggle_state(toggle_states)
 
-
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
 	if(state & STATE_PANEL)
@@ -199,7 +194,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		. += span_warning("The red light on the panel is blinking...")
 	if(!(state & (STATE_OPENED|STATE_WORKING)) && (state & STATE_FULL))
 		. += span_notice("<b>Alt-click</b> to start the washing cycle.")
-
 
 /obj/machinery/washing_machine/process(seconds_per_tick)
 	if(!(state & STATE_WORKING))
@@ -219,16 +213,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		animate(src, transform = animatrix, time = 0.1 SECONDS)
 		animate(transform = matrix(), time = 0.1 SECONDS)
 
-
 /obj/machinery/washing_machine/relaymove(mob/living/user, direction)
 	container_resist(user)
-
 
 /obj/machinery/washing_machine/container_resist(mob/living/user)
 	if(!(state & STATE_WORKING))
 		add_fingerprint(user)
 		dump_contents()
-
 
 /**
  * Toggles machine bitflag for `state` variable and calls icon update.
@@ -241,7 +232,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	state ^= new_state
 	if(. != state)
 		update_icon(UPDATE_OVERLAYS)
-
 
 #define WASHER_OVERLAY_CLOSED 1
 #define WASHER_OVERLAY_CLOSED_FULL 2
@@ -305,7 +295,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 #undef WASHER_OVERLAY_WORKING_BLOODY
 #undef WASHER_OVERLAY_PANEL
 
-
 /obj/machinery/washing_machine/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
@@ -321,7 +310,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		panel_open = FALSE
 		to_chat(user, span_notice("You close the maintenance panel of [src]."))
 
-
 /obj/machinery/washing_machine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
@@ -331,7 +319,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		to_chat(user, span_warning("Close the maintenance panel first!"))
 		return .
 	default_unfasten_wrench(user, I, 5 SECONDS)
-
 
 /obj/machinery/washing_machine/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -345,7 +332,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return .
 	wires.Interact(user)
 
-
 /obj/machinery/washing_machine/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
@@ -358,7 +344,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return .
 	wires.Interact(user)
 
-
 /obj/machinery/washing_machine/emag_act(mob/user)
 	if(emagged)
 		return
@@ -369,14 +354,12 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	add_attack_logs(user, src, "emagged")
 	. = ..()
 
-
 /obj/machinery/washing_machine/unemag()
 	if(!emagged)
 		return
 	emagged = FALSE
 	if(wires.is_cut(WIRE_WASHER_HACK))
 		wires.cut(WIRE_WASHER_HACK)
-
 
 /obj/machinery/washing_machine/attack_hand(mob/living/user)
 	. = ..()
@@ -398,7 +381,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	dump_contents()
 
-
 /obj/machinery/washing_machine/clean_blood()
 	. = ..()
 	if(!(state & STATE_BLOODY))
@@ -410,7 +392,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else
 		if(usr)
 			to_chat(usr, span_warning("Open [src]'s hatch first!"))
-
 
 /obj/machinery/washing_machine/attackby(obj/item/I, mob/user, params)
 	var/is_mob_holder = istype(I, /obj/item/holder)
@@ -443,7 +424,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		toggle_state(STATE_FULL)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/washing_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !(state & STATE_OPENED) || !(state & STATE_HACKED) || !isanimal(grabbed_thing))
@@ -453,7 +433,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	grabbed_thing.forceMove(src)
 	if(!contents_len)
 		toggle_state(STATE_FULL)
-
 
 /// All generic checks with feedback for the user
 /obj/machinery/washing_machine/proc/generic_check(mob/living/user, states_to_ignore)
@@ -480,10 +459,8 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return FALSE
 	return TRUE
 
-
 /obj/machinery/washing_machine/attack_ai(mob/user)
 	turn_on(user)
-
 
 /obj/machinery/washing_machine/click_alt(mob/user)
 	if(!generic_check(user))
@@ -507,7 +484,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	START_PROCESSING(SSfastprocess, src)
 	return TRUE
 
-
 /// Ending of the machine wash cycle
 /obj/machinery/washing_machine/proc/wash_cycle_end()
 	for(var/atom/movable/thing as anything in contents)
@@ -520,31 +496,25 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	use_power = IDLE_POWER_USE
 	toggle_state(STATE_WORKING)
 
-
 /obj/machinery/washing_machine/proc/pulsed_callback(wire_check, state_check)
 	if(!wires.is_cut(wire_check) && (state & state_check))
 		toggle_state(state_check)
-
 
 /// What happens to this object when washed inside a washing machine
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/washer)
 	return
 
-
 /obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/washer)
 	new /obj/item/stack/sheet/wetleather(washer, amount)
 	qdel(src)
-
 
 /mob/living/simple_animal/machine_wash(obj/machinery/washing_machine/washer)
 	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
 	gib()
 
-
 /obj/item/machine_wash(obj/machinery/washing_machine/washer)
 	if(washer.color_source)
 		dye_item(washer.color_source.dye_color)
-
 
 /obj/item/clothing/shoes/orange/machine_wash(obj/machinery/washing_machine/washer)
 	if(shackles)

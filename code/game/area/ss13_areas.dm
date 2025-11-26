@@ -21,7 +21,6 @@ This applies to all STANDARD station areas
 
 /*-----------------------------------------------------------------------------*/
 
-
 /area/admin
 	name = "Админ-комната"
 	icon_state = "start"
@@ -31,7 +30,6 @@ This applies to all STANDARD station areas
 	hide_attacklogs = TRUE
 	has_gravity = STANDARD_GRAVITY
 	area_flags = NONE
-
 
 /area/adminconstruction
 	name = "Тестовая зона администрации"
@@ -412,7 +410,6 @@ This applies to all STANDARD station areas
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 
-
 /area/airtunnel1/ // referenced in airtunnel.dm:759
 
 /area/dummy/ // Referenced in engine.dm:261
@@ -654,7 +651,6 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
 	area_flags = NONE
-
 
 /area/tdome/arena_source
 	name = "Тандедом — шаблон арены"
@@ -1292,7 +1288,6 @@ This applies to all STANDARD station areas
 	icon_state = "entry"
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
 
-
 /area/hallway/secondary/entry/eastarrival
 	name = "Проход к пункту прибытия — восточный"
 
@@ -1644,8 +1639,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
 
 /area/holodeck/alphadeck
-	name = "Голопалуба альфа"
-
+	name = "Holodeck Alpha"
 
 /area/holodeck/source_plating
 	name = "Голопалуба — неактивная"
@@ -1939,7 +1933,6 @@ This applies to all STANDARD station areas
 /area/medical/medbay3
 	name = "Медицинский отдел"
 	icon_state = "medbay3"
-
 
 /area/medical/biostorage
 	name = "Медицинский отдел — склад снаряжения"
@@ -2825,7 +2818,6 @@ This applies to all STANDARD station areas
 	name = "Под водой"
 	icon_state = "undersea"
 
-
 // area for AWAY "moonoutpost19"
 /area/moonoutpost19
 	name = "Лунный аванпост №19"
@@ -3026,7 +3018,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/shuttle/specops/centcom,
 ))
 
-
 /**
  * MARK: Special event areas
  */
@@ -3064,7 +3055,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 
 /area/ruin/space/bubblegum_arena
 	name = "Арена Бубльгума"
-
 
 /area/ruin/USSP_SpaceBanya
 	name = "Заброшенная космическая баня"

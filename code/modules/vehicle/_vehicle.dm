@@ -55,7 +55,6 @@
 	. = ..()
 	. += generate_integrity_message()
 
-
 /obj/vehicle/zap_act(power, zap_flags)
 	zap_buckle_check(power)
 	return ..()

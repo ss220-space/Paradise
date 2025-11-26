@@ -19,7 +19,7 @@
 		/obj/item/stock_parts/capacitor/super = 8,
 		/obj/item/stock_parts/micro_laser/ultra = 2,
 		/obj/item/stock_parts/scanning_module/phasic = 10,
-		/obj/item/stack/ore/bluespace_crystal = 4
+		/obj/item/stack/ore/bluespace_crystal = 4,
 	)
 
 /obj/machinery/power/brs_stationary_scanner
@@ -166,16 +166,13 @@
 
 	icon_state = "[prefix]-act"
 
-
 /obj/machinery/brs_stationary_scanner/update_overlays()
 	. = ..()
 	if(panel_open)
 		. += image(icon, "[initial(icon_state)]-panel")
 
-
 /obj/machinery/power/brs_stationary_scanner/power_change(forced = FALSE)
 	return
-
 
 /obj/machinery/power/brs_stationary_scanner/proc/on_power_change()
 	if(!cable_powered)

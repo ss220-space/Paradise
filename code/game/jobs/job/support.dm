@@ -37,10 +37,9 @@
 	pda = /obj/item/pda/quartermaster
 	backpack = /obj/item/storage/backpack/cargo
 	backpack_contents = list(
-	/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
-
 
 /datum/job/cargo_tech
 	title = JOB_TITLE_CARGOTECH
@@ -70,7 +69,6 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
 	backpack = /obj/item/storage/backpack/cargo
-
 
 /datum/job/mining
 	title = JOB_TITLE_MINER
@@ -111,12 +109,12 @@
 		/obj/item/mining_voucher = 1,
 		/obj/item/stack/marker_beacon/ten = 1,
 		/obj/item/wormhole_jaunter = 1,
-		/obj/item/survivalcapsule = 1
+		/obj/item/survivalcapsule = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
-	box = /obj/item/storage/box/survival_mining
+	box = /obj/item/storage/box/survival/survival_mining
 
 /datum/outfit/job/mining/equipped
 	toggle_helmet = TRUE
@@ -131,7 +129,7 @@
 		/obj/item/mining_voucher = 1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
 		/obj/item/gun/energy/kinetic_accelerator = 1,
-		/obj/item/stack/marker_beacon/ten = 1
+		/obj/item/stack/marker_beacon/ten = 1,
 	)
 
 /datum/outfit/job/miner/equipped/hardsuit
@@ -214,7 +212,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	pda = /obj/item/pda/bar
 	backpack_contents = list(
-		/obj/item/toy/russian_revolver = 1
+		/obj/item/toy/russian_revolver = 1,
 	)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -223,7 +221,6 @@
 		return
 
 	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
-
 
 /datum/job/chef
 	title = JOB_TITLE_CHEF
@@ -274,7 +271,6 @@
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap
 				suit = /obj/item/clothing/suit/storage/chefbluza
-
 
 /datum/job/hydro
 	title = JOB_TITLE_BOTANIST
@@ -353,7 +349,7 @@
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
-		/obj/item/clown_recorder = 1
+		/obj/item/clown_recorder = 1,
 	)
 
 	implants = list(/obj/item/implant/sad_trombone)
@@ -404,7 +400,7 @@
 	for(var/level in 0 to donor_level)
 		available_voices += SStts.tts_seeds_names_by_donator_levels["[level]"]
 
-/datum/action/innate/mimicking/Trigger(left_click)
+/datum/action/innate/mimicking/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 	ui_interact(owner)
@@ -566,7 +562,7 @@
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
-		/obj/item/cane = 1
+		/obj/item/cane = 1,
 	)
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/satchel_mime
@@ -586,8 +582,6 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = TRUE
-
-
 
 /datum/job/janitor
 	title = JOB_TITLE_JANITOR
@@ -615,7 +609,6 @@
 	uniform = /obj/item/clothing/under/rank/janitor
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
-
 
 //More or less assistants
 /datum/job/librarian
@@ -648,7 +641,8 @@
 	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam = 1)
+		/obj/item/videocam = 1,
+	)
 
 /datum/job/explorer
 	title = JOB_TITLE_EXPLORER

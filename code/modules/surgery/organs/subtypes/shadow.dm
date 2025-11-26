@@ -11,5 +11,5 @@
 		DATIVE = "теневым сферам",
 		ACCUSATIVE = "теневые сферы",
 		INSTRUMENTAL = "теневыми сферами",
-		PREPOSITIONAL = "теневых сферах"
+		PREPOSITIONAL = "теневых сферах",
 	)

@@ -46,7 +46,7 @@
 		DATIVE = "элите",
 		ACCUSATIVE = "элиту",
 		INSTRUMENTAL = "элитой",
-		PREPOSITIONAL = "элите"
+		PREPOSITIONAL = "элите",
 	)
 
 //Gives player-controlled variants the ability to swap attacks
@@ -95,7 +95,6 @@
 		else if(L.health < -400)
 			L.gib()
 
-
 /mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier() //If on lavaland, return 1, or 1x cooldown. 10 if revived by a non antag, 2 if by an antag. 1 otherwise
 	if(is_mining_level(z))
 		return 1
@@ -104,7 +103,6 @@
 	if(del_on_death)
 		return REVIVE_COOLDOWN_MULT_ANTAG
 	return 1
-
 
 /mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(
 	amount = 0,
@@ -116,7 +114,6 @@
 	. = ..()
 	if(. && del_on_death)
 		setMaxHealth(max(maxHealth - (amount * antag_revived_heal_mod), 0))
-
 
 /mob/living/simple_animal/hostile/asteroid/elite/ex_act(severity, origin) //No surrounding the tumor with gibtonite and one shotting them.
 	switch(severity)
@@ -156,24 +153,24 @@
 			friends += mob
 			to_chat(src, span_notice("Вы добавили [mob.declent_ru(ACCUSATIVE)] в список друзей."))
 
-
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
 
 /datum/action/innate/elite_attack
 	name = "Элитная атака"
-	icon_icon = 'icons/mob/actions/actions_elites.dmi'
+	button_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
+	overlay_icon_state = "bg_default_border"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
 
-/datum/action/innate/elite_attack/New(Target)
-	. = ..()
+/datum/action/innate/elite_attack/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
-	button.maptext_x = 8
-	button.maptext_y = 0
+	button.maptext_x = 6
+	button.maptext_y = 2
 	button.maptext_width = 24
 	button.maptext_height = 12
 	return button
@@ -183,17 +180,20 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
 		return
-	UpdateButton()
 
-/datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE)
-	if(status_only)
-		return
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
+
+/datum/action/innate/elite_attack/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	if(!istype(owner))
+		button.maptext = ""
+		return
+
 	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
 	if(timeleft == 0)
 		button.maptext = ""
 	else
-		button.maptext = MAPTEXT("[round(timeleft/10, 0.1)]")
+		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
@@ -241,7 +241,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		DATIVE = "пульсирующей опухоли",
 		ACCUSATIVE = "пульсирующую опухоль",
 		INSTRUMENTAL = "пульсирующей опухолью",
-		PREPOSITIONAL = "пульсирующей опухоли"
+		PREPOSITIONAL = "пульсирующей опухоли",
 	)
 
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
@@ -362,7 +362,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			var/obj/effect/temp_visual/heal/H = new(get_turf(mychild))
 			H.color = "#FF0000"
 
-
 /obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -383,13 +382,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 	return ..()
 
-
 /obj/structure/elite_tumor/update_icon_state()
 	if(mychild)
 		icon_state = "tumor_popped"
 		return
 	icon_state = boosted ? "advanced_tumor" : "tumor"
-
 
 /obj/structure/elite_tumor/examine(mob/user)
 	. = ..()
@@ -505,7 +502,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		DATIVE = "осколку опухоли",
 		ACCUSATIVE = "осколок опухоли",
 		INSTRUMENTAL = "осколком опухоли",
-		PREPOSITIONAL = "осколке опухоли"
+		PREPOSITIONAL = "осколке опухоли",
 	)
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
@@ -559,7 +556,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		DATIVE = "магической стене",
 		ACCUSATIVE = "магическую стену",
 		INSTRUMENTAL = "магической стеной",
-		PREPOSITIONAL = "магической стене"
+		PREPOSITIONAL = "магической стене",
 	)
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
@@ -570,7 +567,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/effect/temp_visual/elite_tumor_wall/Destroy()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
-
 
 /obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

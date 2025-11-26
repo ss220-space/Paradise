@@ -144,7 +144,6 @@
 				INVOKE_ASYNC(src, PROC_REF(give_mind_lesser), monke)
 	return
 
-
 /datum/supermatter_explosive_effects/proc/handle_genetic_mutation()
 	for(var/mob/living/creature in GLOB.alive_mob_list)
 		if(!creature.dna || HAS_TRAIT(creature, TRAIT_NO_DNA) || HAS_TRAIT(creature, TRAIT_RADIMMUNE))
@@ -157,7 +156,6 @@
 		if(prob(chance))
 			randmut(creature, FALSE)
 			creature.check_genes(MUTCHK_FORCED)
-
 
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)
@@ -182,7 +180,6 @@
 	animal.health = animal.maxHealth
 	animal.del_on_death = FALSE
 	greet_sentient(animal)
-
 
 /datum/supermatter_explosive_effects/proc/greet_sentient(mob/M)
 	to_chat(M, chat_box_green("[span_userdanger("Hello world!")]<br>[span_warning("Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!")]"))

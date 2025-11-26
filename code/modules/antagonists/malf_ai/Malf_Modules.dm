@@ -16,12 +16,12 @@
 	else
 		owner_AI = owner
 
-/datum/action/innate/ai/IsAvailable()
+/datum/action/innate/ai/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(owner_AI && owner_AI.malf_cooldown > world.time)
 		return
 
-/datum/action/innate/ai/Trigger(left_click = TRUE)
+/datum/action/innate/ai/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
@@ -93,18 +93,18 @@
 	. = ..()
 	owner_AI.malf_picker = new /datum/module_picker
 
-/datum/action/innate/ai/choose_modules/Trigger(left_click = TRUE)
+/datum/action/innate/ai/choose_modules/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	owner_AI.malf_picker.use(owner_AI)
 
 /datum/action/innate/ai/return_to_core
 	name = "Return to Main Core"
 	desc = "Leave the APC you are shunted to, and return to your core."
-	icon_icon = 'icons/obj/engines_and_power/power.dmi'
+	button_icon = 'icons/obj/engines_and_power/power.dmi'
 	button_icon_state = "apcemag"
 	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
 
-/datum/action/innate/ai/return_to_core/Trigger(left_click = TRUE)
+/datum/action/innate/ai/return_to_core/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	var/obj/machinery/power/apc/apc = owner_AI.loc
 	if(!istype(apc)) // This shouldn't happen but here for safety.
@@ -458,7 +458,6 @@
 	to_chat(owner, span_notice("All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode."))
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
-
 //Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
 /datum/AI_Module/small/overload_machine
 	module_name = "Machine Overload"
@@ -478,7 +477,6 @@
 /datum/action/innate/ai/ranged/overload_machine/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
@@ -514,7 +512,6 @@
 	remove_ranged_ability(ranged_ability_user, span_warning("Overloading machine circuitry..."))
 	return TRUE
 
-
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
 /datum/AI_Module/small/override_machine
 	module_name = "Machine Override"
@@ -534,7 +531,6 @@
 /datum/action/innate/ai/ranged/override_machine/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
@@ -567,7 +563,6 @@
 	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability(ranged_ability_user, span_danger("Sending override signal..."))
 	return TRUE
-
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
 /datum/AI_Module/large/place_cyborg_transformer
@@ -662,7 +657,6 @@
 /datum/action/innate/ai/blackout/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/blackout/Activate()
 	for(var/thing in GLOB.apcs)
@@ -699,7 +693,6 @@
 /datum/action/innate/ai/reactivate_cameras/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
 	var/fixed_cameras = 0

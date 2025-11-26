@@ -37,19 +37,16 @@
 	var/prisoner_hasrecord = FALSE
 	var/prisoner_time_add
 
-
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
 	GLOB.celltimers_list += src
 	addtimer(CALLBACK(src, PROC_REF(delayed_update)), 2 SECONDS, TIMER_DELETE_ME)
-
 
 /obj/machinery/door_timer/Destroy()
 	targets.Cut()
 	prisoner = null
 	GLOB.celltimers_list -= src
 	return ..()
-
 
 /obj/machinery/door_timer/proc/delayed_update()
 	for(var/obj/machinery/door/window/brigdoor/brigdoor in GLOB.airlocks)
@@ -75,7 +72,6 @@
 	if(!length(targets))
 		stat |= BROKEN
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/door_timer/proc/print_report()
 	if(occupant == CELL_NONE || crimes == CELL_NONE)
@@ -153,7 +149,6 @@
 			return human
 	return null
 
-
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
@@ -174,7 +169,6 @@
 	else
 		timer_end()
 		return PROCESS_KILL
-
 
 //Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
 // Stolen from status_display
@@ -198,13 +192,11 @@
 	else if(maptext)
 		maptext = ""
 
-
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_display()
-
 
 // open/closedoor checks if door_timer has power, if so it checks if the
 // linked door is open/closed (by density) then opens it/closes it.
@@ -248,7 +240,6 @@
 		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_START, crimes, prisoner_time)
 
 	return TRUE
-
 
 // Opens and unlocks doors, power check
 /obj/machinery/door_timer/proc/timer_end()
@@ -298,7 +289,6 @@
 
 	return TRUE
 
-
 // Check for releasetime timeleft
 /obj/machinery/door_timer/proc/timeleft()
 	var/time = releasetime - world.timeofday
@@ -323,7 +313,6 @@
 /obj/machinery/door_timer/attack_ghost(mob/user)
 	ui_interact(user)
 
-
 /obj/machinery/door_timer/emp_act(severity)
 	if((stat & (BROKEN|NOPOWER)) || emagged)
 		..(severity)
@@ -332,12 +321,10 @@
 		emagged = TRUE
 	..(severity)
 
-
 /obj/machinery/door_timer/emag_act()
 	if((stat & (BROKEN|NOPOWER)) || emagged || !timing)
 		return
 	emagged = TRUE
-
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -482,12 +469,10 @@
 		else
 			. = FALSE
 
-
 /obj/machinery/door_timer/update_overlays()
 	. = ..()
 	if(!(stat & NOPOWER) && ((stat & BROKEN) || emagged))
 		. += "ai_bsod"
-
 
 /obj/machinery/door_timer/cell_1
 	name = "Cell 1"

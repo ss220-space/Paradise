@@ -63,7 +63,7 @@
 		DATIVE = "лицехвату",
 		ACCUSATIVE = "лицехвата",
 		INSTRUMENTAL = "лицехватом",
-		PREPOSITIONAL = "лицехвате"
+		PREPOSITIONAL = "лицехвате",
 	)
 
 /mob/living/simple_animal/hostile/facehugger/ComponentInitialize()
@@ -114,7 +114,6 @@
 	if(hugger_holder)
 		return
 	. = ..()
-
 
 /mob/living/simple_animal/hostile/facehugger/OpenFire(atom/A)
 	if(impregnated)
@@ -192,7 +191,6 @@
 		QDEL_NULL(hugger_holder)
 		return (M.a_intent == INTENT_GRAB)? FALSE : ..()
 	return result
-
 
 /mob/living/simple_animal/hostile/facehugger/attack_proc()
 	if(impregnated)
@@ -306,7 +304,6 @@
 	var/obj/item/hugger = get_scooped(human_to_ask)
 	hugger.attack_hand(human_to_ask)
 
-
 /mob/living/simple_animal/hostile/facehugger/get_scooped(mob/living/carbon/grabber)
 	if(!holder_type)
 		return
@@ -372,5 +369,5 @@
 		DATIVE = "ламарр",
 		ACCUSATIVE = "ламарр",
 		INSTRUMENTAL = "ламарр",
-		PREPOSITIONAL = "ламарр"
+		PREPOSITIONAL = "ламарр",
 	)

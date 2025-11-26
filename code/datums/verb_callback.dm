@@ -4,11 +4,9 @@
 	///the tick this callback datum was created in. used for testing latency
 	var/creation_time = 0
 
-
 /datum/callback/verb_callback/New(thingtocall, proctocall, ...)
 	creation_time = DS2TICKS(world.time)
 	. = ..()
-
 
 #ifndef GAME_TESTS
 /datum/callback/verb_callback/Invoke(...)
@@ -20,7 +18,6 @@
 	var/mob/temp = usr
 	. = ..()
 	usr = temp
-
 
 /datum/callback/verb_callback/InvokeAsync(...)
 	if(isnull(user))

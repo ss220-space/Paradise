@@ -7,7 +7,6 @@
 /datum/spell_targeting/spiral
 	max_targets = INFINITY
 
-
 /datum/spell_targeting/spiral/choose_targets(atom/center)
 	// Get turfs around the center
 	var/list/turfs = spiral_range_turfs(range, center)

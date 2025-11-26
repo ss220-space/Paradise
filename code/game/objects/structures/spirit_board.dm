@@ -19,10 +19,8 @@
 		return
 	spirit_board_pick_letter(user)
 
-
 /obj/structure/spirit_board/attack_ghost(mob/dead/observer/user as mob)
 	spirit_board_pick_letter(user)
-
 
 /obj/structure/spirit_board/proc/spirit_board_pick_letter(mob/M)
 	if(!spirit_board_checks(M))
@@ -41,7 +39,6 @@
 	sleep(rand(20,30))
 	if(T == loc)
 		visible_message(span_notice("The planchette slowly moves... and stops at the letter \"[planchette]\"."))
-
 
 /obj/structure/spirit_board/proc/spirit_board_checks(mob/M)
 	//cooldown

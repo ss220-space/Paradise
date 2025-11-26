@@ -222,7 +222,6 @@ SUBSYSTEM_DEF(demo)
 	if(canceled)
 		return
 
-
 	var/list/marked_new = src.marked_new
 	var/list/new_updates = list()
 	while(length(marked_new))
@@ -246,7 +245,6 @@ SUBSYSTEM_DEF(demo)
 		WRITE_LOG_NO_FORMAT(GLOB.demo_log, s)
 	if(canceled)
 		return
-
 
 	var/list/marked_turfs = src.marked_turfs
 	var/list/turf_updates = list()

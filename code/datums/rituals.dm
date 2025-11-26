@@ -67,7 +67,6 @@
 	params["Удаление предметов:"] = ritual_should_del_things? "Да" : (ritual_should_del_things_on_fail)? "При провале" : "Нет"
 	return params
 
-
 /datum/ritual/proc/get_ui_things()
 	var/list/things = list()
 	for(var/atom/item as anything in required_things)
@@ -196,7 +195,7 @@
 	needed_dye = "Amber Dyes"
 	totem_dye = "amber"
 	required_things = list(
-		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1
+		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1,
 	)
 
 /datum/ritual/ashwalker/summon_ashstorm/check_contents(mob/living/carbon/invoker, list/used_things)
@@ -258,7 +257,7 @@
 	needed_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
 	required_things = list(
-		/mob/living/carbon/human = 1
+		/mob/living/carbon/human = 1,
 	)
 
 /datum/ritual/ashwalker/transformation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
@@ -458,7 +457,7 @@
 	needed_dye = "Indigo Dyes"
 	totem_dye = "indigo"
 	required_things = list(
-		/obj/item/organ/internal/regenerative_core = 1
+		/obj/item/organ/internal/regenerative_core = 1,
 	)
 
 /datum/ritual/ashwalker/power/del_things(list/used_things)
@@ -745,7 +744,7 @@
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
 	required_things = list(
-		/obj/item/stack/sheet/animalhide/ashdrake = 1
+		/obj/item/stack/sheet/animalhide/ashdrake = 1,
 	)
 
 /datum/ritual/ashwalker/soul/check_invokers(mob/living/carbon/invoker, list/invokers)
@@ -815,7 +814,7 @@
 	cooldown_after_cast = 20 SECONDS
 	cast_time = 10 SECONDS
 	required_things = list(
-		/obj/item/stack/ore = 10
+		/obj/item/stack/ore = 10,
 	)
 
 /datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/invoker, list/invokers)
@@ -861,7 +860,7 @@
 	shaman_only = TRUE
 	cast_time = 10 SECONDS
 	required_things = list(
-		/mob/living/carbon/human = 1
+		/mob/living/carbon/human = 1,
 	)
 
 /datum/ritual/ashwalker/interrogation/check_invokers(mob/living/carbon/invoker, list/invokers)
@@ -1024,7 +1023,7 @@
 	animal.del_on_death = FALSE
 	animal.master_commander = invoker
 
-	animal.mind.store_memory("<b>Мой хозяин - [invoker.name], выполню [GEND_HIS_HER(invoker)] цели любой ценой!</b>")
+	animal.mind.store_memory("<b>Мой хозяин — [invoker.name], выполню [GEND_HIS_HER(invoker)] цели любой ценой!</b>")
 	to_chat(animal, chat_box_green("Вы — раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 
@@ -1063,7 +1062,7 @@
 	needed_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
 	required_things = list(
-		/obj/item/gem/magma = 1
+		/obj/item/gem/magma = 1,
 	)
 
 /datum/ritual/ashwalker/coldresist/del_things(list/used_things)

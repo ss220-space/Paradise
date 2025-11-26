@@ -56,6 +56,7 @@
 
 	set_stat(DEAD)
 	timeofdeath = world.time
+	persistent_client?.time_of_death = world.time
 	..()
 	INVOKE_ASYNC(src, PROC_REF(burst_blob_on_die))
 	var/gib_pref = ""
@@ -102,7 +103,6 @@
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
 					to_chat(M, span_deadsay("<b>[mind.name]</b> умер в <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>следовать</a>)"))
-
 
 	if(xenobiology_spawned)
 		SSmobs.xenobiology_mobs--

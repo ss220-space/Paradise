@@ -41,6 +41,9 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
+
+	speciesbox = /obj/item/storage/box/survival/species/unathi
+
 	//Default styles for created mobs.
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
@@ -101,19 +104,18 @@
 	)
 
 	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss"),
-			"с" = list("сс", "ссс", "сссс")
-		)
+		"s" = list("ss", "sss", "ssss"),
+		"с" = list("сс", "ссс", "сссс"),
+	)
 	autohiss_extra_map = list(
-			"x" = list("ks", "kss", "ksss"),
-			"ш" = list("шш", "шшш", "шшшш"),
-			"ч" = list("щ", "щщ", "щщщ")
-		)
+		"x" = list("ks", "kss", "ksss"),
+		"ш" = list("шш", "шшш", "шшшш"),
+		"ч" = list("щ", "щщ", "щщщ"),
+	)
 	autohiss_exempt = list("Синт'Унати")
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
-
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -130,10 +132,8 @@
 		lash = new
 		lash.Grant(H)
 
-
 /datum/species/unathi/gain_muscles(mob/living/target, datum/strength_level/default, max_level, can_become_stronger)
 	..(target, target.gender == FEMALE ? default.next_level : default, max_level, can_become_stronger)
-
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -147,7 +147,6 @@
 		/mob/living/carbon/human/proc/emote_whip_l))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	lash?.Remove(H)
-
 
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
 	..()
@@ -165,7 +164,6 @@
 			if(prob(5) && H.bodytemperature <= 170)
 				H.AdjustSleeping(4 SECONDS)
 				to_chat(H, span_danger("Слишком холодно, я засыпаю..."))
-
 
 /datum/species/unathi/ashwalker
 	name = SPECIES_ASHWALKER_BASIC
@@ -206,13 +204,11 @@
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs), override = TRUE)
 	speedylegs(H)
 
-
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	fire?.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
-
 
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
 	SIGNAL_HANDLER
@@ -221,7 +217,6 @@
 		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 	else
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
-
 
 //Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability
 /datum/species/unathi/ashwalker/shaman
@@ -267,7 +262,6 @@
 		fire = new
 		fire.Grant(owner)
 
-
 /datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/human/owner)
 	. = ..()
 	owner.RemoveSpell(/obj/effect/proc_holder/spell/touch/healtouch)
@@ -277,7 +271,6 @@
 	var/datum/action/innate/shaman_gps/fire = locate() in owner.actions
 	if(fire)
 		fire.Remove(owner)
-
 
 /*
 draconids
@@ -314,7 +307,6 @@ They're basically just lizards with all-around marginally better stats and fire 
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	) //no need to b-r-e-a-t-h
 
-
 /datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/owner)
 	. = ..()
 	var/obj/item/organ/external/head/head_organ = owner.get_organ(BODY_ZONE_HEAD)
@@ -328,7 +320,6 @@ They're basically just lizards with all-around marginally better stats and fire 
 		fire = new
 		fire.Grant(owner)
 
-
 /datum/species/unathi/draconid/on_species_loss(mob/living/carbon/owner)
 	. = ..()
 	owner.update_worn_head()
@@ -336,12 +327,11 @@ They're basically just lizards with all-around marginally better stats and fire 
 	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	fire?.Remove(owner)
 
-
 //igniter. only for ashwalkers and drakonids because of """lore"""
 /datum/action/innate/ignite_unathi
 	name = "Поджог"
 	desc = "Вы формируете небольшой сгусток пламени в вашей пасти, достаточный для... розжига костра."
-	icon_icon = 'icons/obj/cigarettes.dmi'
+	button_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 40 SECONDS
@@ -366,7 +356,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 /datum/action/innate/shaman_gps
 	name = "Помощь некрополя"
 	desc = "Вы используете силу Некрополя, чтобы узнать примерное местоположение точек интереса."
-	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
+	button_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	button_icon_state = "stun"
 
 /datum/action/innate/shaman_gps/Activate()

@@ -39,7 +39,6 @@
 	holder_type = /obj/item/holder/diona
 	can_collar = TRUE
 
-
 	var/random_name = TRUE
 	var/gestalt_alert = "слился с гештальтом" //used in adding and clearing alert
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
@@ -57,7 +56,7 @@
 		DATIVE = "нимфе дионы",
 		ACCUSATIVE = "нимфу дионы",
 		INSTRUMENTAL = "нимфой дионы",
-		PREPOSITIONAL = "нимфе дионы"
+		PREPOSITIONAL = "нимфе дионы",
 	)
 
 /mob/living/simple_animal/diona/ComponentInitialize()
@@ -68,7 +67,7 @@
 
 /datum/action/innate/diona/merge
 	name = "Слияние с гештальтом"
-	icon_icon = 'icons/mob/human_races/r_diona.dmi'
+	button_icon = 'icons/mob/human_races/r_diona.dmi'
 	button_icon_state = "preview"
 
 /datum/action/innate/diona/merge/Activate()
@@ -77,7 +76,7 @@
 
 /datum/action/innate/diona/evolve
 	name = "Эволюция"
-	icon_icon = 'icons/obj/machines/cloning.dmi'
+	button_icon = 'icons/obj/machines/cloning.dmi'
 	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
@@ -86,7 +85,7 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Кража крови"
-	icon_icon = 'icons/goonstation/objects/iv.dmi'
+	button_icon = 'icons/goonstation/objects/iv.dmi'
 	button_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
@@ -122,7 +121,7 @@
 			get_scooped(M)
 	else
 		..()
-/mob/living/simple_animal/diona/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+/mob/living/simple_animal/diona/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(isdiona(user)) // diona with NO HANDS?? Now it's not trouble.
 		gestalt_heal(user)
 		return FALSE
@@ -328,7 +327,6 @@
 	else
 		to_chat(src, span_noticealien("Кровь проникает в вас, принося воспоминания и черты личности."))
 
-
 /mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
 	var/atom/drop_loc = drop_location()
 	I.forceMove(drop_loc)
@@ -337,7 +335,6 @@
 	I.layer = initial(I.layer)
 	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
 	I.dropped(src, NONE, silent)
-
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
 	balloon_alert(src, "нет рук!")

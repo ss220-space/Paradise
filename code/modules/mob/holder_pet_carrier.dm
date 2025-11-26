@@ -15,7 +15,6 @@
 	var/contains_pet_color_open = "#d8d8d8ff"
 	var/contains_pet_color_close = "#949494ff"
 
-
 /obj/item/pet_carrier/normal
 	name = "переноска"
 	desc = "Переноска для небольших животных."
@@ -25,23 +24,19 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mob_size = MOB_SIZE_SMALL
 
-
 /obj/item/pet_carrier/Initialize(mapload)
 	. = ..()
 	if(!color_skin)
 		color_skin = pick(possible_skins)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/pet_carrier/Destroy()
 	free_content()
 	. = ..()
 
-
 /obj/item/pet_carrier/attack_self(mob/user)
 	..()
 	change_state()
-
 
 /obj/item/pet_carrier/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/holder))
@@ -53,22 +48,18 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/pet_carrier/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
-
 
 /obj/item/pet_carrier/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-
 /obj/item/pet_carrier/click_alt(mob/user)
 	if(try_free_content(null, user))
 		return CLICK_ACTION_SUCCESS
 	return CLICK_ACTION_BLOCKING
-
 
 /obj/item/pet_carrier/proc/put_in_carrier(mob/living/target, mob/living/user)
 	if(!opened)
@@ -91,7 +82,6 @@
 	to_chat(target, span_notice("[user.name] поместил[GEND_A_O_I(user)] вас в [name]."))
 	return TRUE
 
-
 /obj/item/pet_carrier/proc/try_free_content(atom/new_location, mob/user)
 	add_fingerprint(user)
 	if(!opened)
@@ -100,7 +90,6 @@
 		return FALSE
 	free_content(new_location)
 	return TRUE
-
 
 /obj/item/pet_carrier/proc/free_content(atom/new_location)
 	if(isturf(loc) || length(contents))
@@ -112,11 +101,9 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/pet_carrier/proc/change_state()
 	opened = !opened
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/pet_carrier/update_name(updates = ALL)
 	. = ..()
@@ -125,7 +112,6 @@
 	if(animal)
 		name += " ([animal.name])"
 
-
 /obj/item/pet_carrier/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc)
@@ -133,7 +119,6 @@
 	if(animal)
 		desc += "\n\nВнутри [animal.name]\n"
 		desc += animal.desc
-
 
 /obj/item/pet_carrier/update_overlays()
 	. = ..()
@@ -153,16 +138,13 @@
 	if(color_skin)
 		. += image(icon, icon_state = "[icon_state]_[color_skin]")
 
-
 /obj/item/pet_carrier/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-
 /obj/item/pet_carrier/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
-
 
 /obj/item/pet_carrier/container_resist(mob/living/L)
 	var/breakout_time = 60 SECONDS
@@ -207,7 +189,6 @@
 			change_state()
 		return
 
-
 /obj/item/pet_carrier/verb/open_close()
 	set name = "Откр/закр переноску"
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
@@ -217,7 +198,6 @@
 		return
 
 	change_state()
-
 
 /obj/item/pet_carrier/verb/unload_content()
 	set name = "Опустошить переноску"
@@ -229,37 +209,35 @@
 
 	try_free_content(null, usr)
 
-
-
-/obj/item/pet_carrier/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/pet_carrier/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!ishuman(usr))
 		return FALSE
 
-	var/mob/living/carbon/human/user = usr
+	var/mob/living/carbon/human/drag_user = usr
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
-	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(ismecha(drag_user.loc) || is_ventcrawling(drag_user) || drag_user.incapacitated() || HAS_TRAIT(drag_user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
-	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
-		try_free_content(user = user)
+	if(over_object == drag_user && drag_user.Adjacent(src)) // this must come before the screen objects only block
+		try_free_content(user = drag_user)
 		return FALSE
 
 	if(opened && (istype(over_object, /obj/structure/table) || isfloorturf(over_object) \
-		&& length(contents) && loc == user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && user.Adjacent(over_object)))
+		&& length(contents) && loc == drag_user && !drag_user.incapacitated() && !HAS_TRAIT(drag_user, TRAIT_HANDS_BLOCKED) && drag_user.Adjacent(over_object)))
 
-		if(alert(user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")
+		if(alert(drag_user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")
 			return FALSE
 
-		if(!opened || !user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
+		if(!opened || !drag_user || !over_object || drag_user.incapacitated() || loc != drag_user || !drag_user.Adjacent(over_object))
 			return FALSE
 
-		user.face_atom(over_object)
-		user.visible_message(
-			span_notice("[user] вытащил питомца из [name] на [over_object.name]."),
+		drag_user.face_atom(over_object)
+		drag_user.visible_message(
+			span_notice("[drag_user] вытащил питомца из [name] на [over_object.name]."),
 			span_notice("Вы вытащили питомца из [name] на [over_object.name]."),
 		)
-		try_free_content(get_turf(over_object), user)
+		try_free_content(get_turf(over_object), drag_user)
 		return FALSE
 
 	return ..()

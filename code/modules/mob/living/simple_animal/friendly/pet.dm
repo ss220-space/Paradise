@@ -6,7 +6,6 @@
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
-
 /mob/living/simple_animal/pet/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()

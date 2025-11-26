@@ -6,7 +6,6 @@
  *		Barcode Scanner
  */
 
-
 /*
  * Bookcase
  */
@@ -39,7 +38,7 @@
 		DATIVE = "книжному шкафу",
 		ACCUSATIVE = "книжный шкаф",
 		INSTRUMENTAL = "книжным шкафом",
-		PREPOSITIONAL = "книжном шкафе"
+		PREPOSITIONAL = "книжном шкафе",
 	)
 
 /obj/structure/bookcase/Initialize(mapload)
@@ -260,7 +259,7 @@
 		DATIVE = "книге",
 		ACCUSATIVE = "книгу",
 		INSTRUMENTAL = "книгой",
-		PREPOSITIONAL = "книге"
+		PREPOSITIONAL = "книге",
 	)
 
 /obj/item/book/Initialize(mapload)
@@ -297,7 +296,6 @@
 		onclose(user, "book")
 	else
 		to_chat(user, "Эта книга полностью пуста!")
-
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(carved)
@@ -390,10 +388,8 @@
 
 	return ..()
 
-
 /obj/item/book/wirecutter_act(mob/user, obj/item/I)
 	return carve_book(user, I)
-
 
 /obj/item/book/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent == INTENT_HELP)
@@ -403,7 +399,6 @@
 		force = initial(force)
 		attack_verb = list("ударил", "огрел")
 	return ..()
-
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
@@ -420,7 +415,6 @@
 	balloon_alert(user, "страницы вырезаны")
 	carved = TRUE
 	return TRUE
-
 
 /*
  * Barcode Scanner
@@ -448,7 +442,7 @@
 		DATIVE = "сканнеру штрих-кодов",
 		ACCUSATIVE = "сканнер штрих-кодов",
 		INSTRUMENTAL = "сканнером штрих-кодов",
-		PREPOSITIONAL = "сканнере штрих-кодов"
+		PREPOSITIONAL = "сканнере штрих-кодов",
 	)
 
 /obj/item/barcodescanner/attack_self(mob/user)

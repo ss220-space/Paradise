@@ -38,7 +38,7 @@
 		DATIVE = "златожору",
 		ACCUSATIVE = "златожора",
 		INSTRUMENTAL = "златожором",
-		PREPOSITIONAL = "златожоре"
+		PREPOSITIONAL = "златожоре",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
@@ -86,7 +86,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/projectile/P)
 	visible_message(span_danger("[P.name] отскакивает от тучного брюха [declent_ru(GENITIVE)]"), projectile_message = TRUE)
-
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(
 	amount = 0,

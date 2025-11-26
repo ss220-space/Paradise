@@ -20,7 +20,7 @@
 		DATIVE = "консоли учета добытой руды",
 		ACCUSATIVE = "консоль учета добытой руды",
 		INSTRUMENTAL = "консолью учета добытой руды",
-		PREPOSITIONAL = "консоли учета добытой руды"
+		PREPOSITIONAL = "консоли учета добытой руды",
 	)
 
 /obj/machinery/mineral/labor_claim_console/Initialize(mapload)
@@ -33,7 +33,6 @@
 				continue
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
 		sheet_values = sortTim(sheet_values, cmp = /proc/cmp_sheet_list)
-
 
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -52,7 +51,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
 	if(..())
@@ -144,7 +142,6 @@
 		if(user)
 			to_chat(user, span_warning("PZZTTPFFFT"))
 
-
 /**********************Prisoner Collection Unit**************************/
 /obj/machinery/mineral/stacking_machine/laborstacker
 	damage_deflection = 21
@@ -153,7 +150,6 @@
 /obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)
 	points += inp.point_value * inp.amount
 	..()
-
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -166,7 +162,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker
@@ -183,7 +178,7 @@
 		DATIVE = "консоли проверки очков",
 		ACCUSATIVE = "консоль проверки очков",
 		INSTRUMENTAL = "консолью проверки очков",
-		PREPOSITIONAL = "консоли проверки очков"
+		PREPOSITIONAL = "консоли проверки очков",
 	)
 
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
@@ -191,7 +186,6 @@
 	if(.)
 		return
 	user.examinate(src)
-
 
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

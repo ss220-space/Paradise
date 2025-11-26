@@ -24,6 +24,8 @@
  */
 /datum/data/vending_product
 	name = "generic"
+	/// Description of the vending product
+	var/desc = ""
 	/// Typepath of the product that is created when this record "sells"
 	var/product_path = null
 	/// How many of this product we currently have
@@ -42,7 +44,6 @@
 	 * and will overwrite it's list of products if children's categories aren't specified.
 	 */
 	var/category
-
 
 /obj/machinery/vending
 	name = "Vendomat"
@@ -229,7 +230,7 @@
 		DATIVE = "торговому автомату",
 		ACCUSATIVE = "торговый автомат",
 		INSTRUMENTAL = "торговым автоматом",
-		PREPOSITIONAL = "торговом автомате"
+		PREPOSITIONAL = "торговом автомате",
 	)
 
 /obj/machinery/vending/Initialize(mapload)
@@ -309,12 +310,10 @@
 	for(var/obj/item/vending_refill/installed_refill in component_parts)
 		restock(installed_refill)
 
-
 /obj/machinery/vending/update_icon(updates = ALL)
 	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)))
 		return ..(NONE)
 	return ..()
-
 
 /obj/machinery/vending/update_overlays()
 	. = ..()
@@ -360,7 +359,6 @@
 	if(panel_overlay && panel_open)
 		. += panel_overlay
 
-
 /obj/machinery/vending/power_change(forced = FALSE)
 	. = ..()
 	if(stat & NOPOWER)
@@ -370,12 +368,10 @@
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/vending/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-
 
 /obj/machinery/vending/proc/flick_vendor_overlay(flick_flag = FLICK_NONE)
 	if(flick_sequence & (FLICK_VEND|FLICK_DENY))
@@ -390,20 +386,16 @@
 	var/flick_time = (flick_flag & FLICK_VEND) ? vend_overlay_time : (flick_flag & FLICK_DENY) ? deny_overlay_time : 0
 	addtimer(CALLBACK(src, PROC_REF(flick_reset)), flick_time)
 
-
 /obj/machinery/vending/proc/flick_reset()
 	skip_non_primary_icon_updates = FALSE
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/vending/proc/create_proximity_monitor()
 	proximity_monitor = new(src)
 
-
 /obj/machinery/vending/proc/remove_proximity_monitor()
 	QDEL_NULL(proximity_monitor)
-
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -463,6 +455,7 @@
 		var/obj/item = new typepath(src)
 		var/datum/data/vending_product/record = new /datum/data/vending_product()
 		record.name = capitalize(item.declent_ru(NOMINATIVE))
+		record.desc = item.desc
 		qdel(item)
 		record.product_path = typepath
 		if(!start_empty)
@@ -506,7 +499,6 @@
 		var/list/category_products = category["products"]
 		for(var/product_key in category_products)
 			products[product_key] += category_products[product_key]
-
 
 /**
  * Refill a vending machine from a refill canister
@@ -652,7 +644,6 @@
 		qdel(src)
 	else
 		..()
-
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(tilted)
@@ -802,7 +793,10 @@
 		return
 
 	panel_open = !panel_open
-	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	if(panel_open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 	SStgui.update_uis(src)
 
@@ -998,10 +992,10 @@
 
 	for(var/datum/data/vending_product/product_record as anything in records)
 		var/obj/item/item = new product_record.product_path(src)
-		var/list/names = item.ru_names || item.get_ru_names()
 		var/list/static_record = list(
 			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
+			name = capitalize(item.declent_ru(NOMINATIVE)),
+			desc = item.desc,
 			price = (product_record.product_path in prices) ? prices[product_record.product_path] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
@@ -1163,7 +1157,6 @@
 	if(.)
 		add_fingerprint(usr)
 
-
 /obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, span_warning("В доступе отказано!"))//Unless emagged of course
@@ -1203,12 +1196,10 @@
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product_record, user), vend_delay)
 
-
 /obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/product_record, mob/user)
 	do_vend(product_record, user)
 	vend_ready = TRUE
 	currently_vending = null
-
 
 /**
  * Override this proc to add handling for what to do with the vended product
@@ -1257,7 +1248,6 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
-
 /obj/machinery/vending/proc/speak(message)
 	if(stat & NOPOWER)
 		return
@@ -1265,7 +1255,6 @@
 		return
 
 	atom_say(message)
-
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(stat & BROKEN)
@@ -1297,7 +1286,6 @@
 			if(dump_amount >= 16)
 				return
 
-
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/vending/proc/throw_item()
 	var/obj/throw_item = null
@@ -1321,7 +1309,6 @@
 		return
 	throw_item.throw_at(target, 16, 3)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] метнул [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
-
 
 /obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
@@ -1420,6 +1407,7 @@
 		return
 	for(var/mob/living/victim in get_turf(target_atom))
 		var/was_alive = (victim.stat != DEAD)
+		var/client/victim_client = victim.client
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
@@ -1450,8 +1438,8 @@
 		. = TRUE
 		victim.Weaken(4 SECONDS)
 		victim.Knockdown(8 SECONDS)
-		if(was_alive && victim.stat == DEAD && victim.client)
-			victim.client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
+		if(was_alive && victim.stat == DEAD && victim_client)
+			victim_client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
 
 		playsound(victim, 'sound/effects/blobattack.ogg', 40, TRUE)
 		playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)

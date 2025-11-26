@@ -24,7 +24,7 @@
 		DATIVE = "распылителю",
 		ACCUSATIVE = "распылитель",
 		INSTRUMENTAL = "распылителем",
-		PREPOSITIONAL = "распылителе"
+		PREPOSITIONAL = "распылителе",
 	)
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user, proximity, params)
@@ -75,7 +75,6 @@
 	add_attack_logs(user, A, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
-
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
@@ -89,7 +88,6 @@
 			D.reagents.reaction(T)
 		sleep(3)
 	qdel(D)
-
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
 
@@ -115,7 +113,7 @@
 		DATIVE = "распылителю",
 		ACCUSATIVE = "распылитель",
 		INSTRUMENTAL = "распылителем",
-		PREPOSITIONAL = "распылителе"
+		PREPOSITIONAL = "распылителе",
 	)
 
 /obj/item/reagent_containers/spray/cleaner/brig
@@ -131,7 +129,7 @@
 		DATIVE = "распылителю СБ",
 		ACCUSATIVE = "распылитель СБ",
 		INSTRUMENTAL = "распылителем СБ",
-		PREPOSITIONAL = "распылителе СБ"
+		PREPOSITIONAL = "распылителе СБ",
 	)
 
 /obj/item/reagent_containers/spray/cleaner/brig/empty
@@ -150,7 +148,7 @@
 		DATIVE = "химическому распылителю",
 		ACCUSATIVE = "химический распылитель",
 		INSTRUMENTAL = "химическим распылителем",
-		PREPOSITIONAL = "химическом распылителе"
+		PREPOSITIONAL = "химическом распылителе",
 	)
 
 /obj/item/reagent_containers/spray/cleaner/chemical/empty
@@ -169,7 +167,7 @@
 		DATIVE = "распылителю уборщика",
 		ACCUSATIVE = "распылитель уборщика",
 		INSTRUMENTAL = "распылителем уборщика",
-		PREPOSITIONAL = "распылителе уборщика"
+		PREPOSITIONAL = "распылителе уборщика",
 	)
 
 /obj/item/reagent_containers/spray/cleaner/janitor/empty
@@ -188,7 +186,7 @@
 		DATIVE = "медицинскому распылителю",
 		ACCUSATIVE = "медицинский распылитель",
 		INSTRUMENTAL = "медицинским распылителем",
-		PREPOSITIONAL = "медицинском распылителе"
+		PREPOSITIONAL = "медицинском распылителе",
 	)
 
 /obj/item/reagent_containers/spray/cleaner/medical/empty
@@ -196,7 +194,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/tactical
 	name = "Tactical cleaner"
-	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами Нанотрейзен для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
+	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами \"Нанотрейзен\" для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
 	icon_state = "cleaner_tactical"
 	item_state = "cleaner_tactical"
 
@@ -207,7 +205,7 @@
 		DATIVE = "тактическому распылителю",
 		ACCUSATIVE = "тактический распылитель",
 		INSTRUMENTAL = "тактическим распылителем",
-		PREPOSITIONAL = "тактическом распылителе"
+		PREPOSITIONAL = "тактическом распылителе",
 	)
 
 /obj/item/reagent_containers/spray/blue_cleaner
@@ -226,7 +224,7 @@
 		DATIVE = "блюспейс распылителю",
 		ACCUSATIVE = "блюспейс распылитель",
 		INSTRUMENTAL = "блюспейс распылителем",
-		PREPOSITIONAL = "блюспейс распылителе"
+		PREPOSITIONAL = "блюспейс распылителе",
 	)
 
 /obj/item/reagent_containers/spray/cleaner/safety
@@ -260,7 +258,7 @@
 		DATIVE = "спрею для авто-загара",
 		ACCUSATIVE = "спрей для авто-загара",
 		INSTRUMENTAL = "спреем для авто-загара",
-		PREPOSITIONAL = "спрее для авто-загара"
+		PREPOSITIONAL = "спрее для авто-загара",
 	)
 
 //pepperspray
@@ -282,7 +280,7 @@
 		DATIVE = "перцовому баллончику",
 		ACCUSATIVE = "перцовый баллончик",
 		INSTRUMENTAL = "перцовым баллончиком",
-		PREPOSITIONAL = "перцовом баллончике"
+		PREPOSITIONAL = "перцовом баллончике",
 	)
 
 //water flower
@@ -303,7 +301,7 @@
 		DATIVE = "водяному подсолнуху",
 		ACCUSATIVE = "водяной подсолнух",
 		INSTRUMENTAL = "водяным подсолнухом",
-		PREPOSITIONAL = "водяном подсолнухе"
+		PREPOSITIONAL = "водяном подсолнухе",
 	)
 
 /obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
@@ -330,7 +328,7 @@
 		DATIVE = "химическому распылителю веществ",
 		ACCUSATIVE = "химический распылитель веществ",
 		INSTRUMENTAL = "химическим распылителем веществ",
-		PREPOSITIONAL = "химическом распылителе веществ"
+		PREPOSITIONAL = "химическом распылителе веществ",
 	)
 
 /obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
@@ -389,5 +387,5 @@
 		DATIVE = "распылителю гербицидов \"Plant-B-Gone\"",
 		ACCUSATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
 		INSTRUMENTAL = "распылителем гербицидов \"Plant-B-Gone\"",
-		PREPOSITIONAL = "распылителе гербицидов \"Plant-B-Gone\""
+		PREPOSITIONAL = "распылителе гербицидов \"Plant-B-Gone\"",
 	)

@@ -3,7 +3,6 @@
 	var/team_color
 	var/static/list/evacuations = list()
 
-
 /datum/team/battle_team/add_member(datum/mind/new_member, add_objectives)
 	var/mob/living/character
 	if(isnewplayer(new_member.current))
@@ -40,6 +39,7 @@
 	else
 		text += span_fontsize3("<br><b>Полная победа команды <span style='color:[team_color];'>[name]</span></b>")
 		text += "<br><b>Команда <span style='color:[team_color];'>[name]</span> смогла эвакуироваться, помешав это сделать другим командам.</b>"
+		grant_achievements()
 
 	text += span_fontsize4("<b>Успешно эакуировались:</b>")
 	for(var/mob/living/evacuated as anything in evacuations[team_role])
@@ -47,6 +47,12 @@
 
 	return text
 
+/datum/team/battle_team/proc/grant_achievements()
+	for(var/mob/living/evacuated as anything in evacuations[team_role])
+		if(!evacuated.client)
+			continue
+		evacuated.client.give_award(/datum/award/achievement/misc/kerberos_master, evacuated)
+		evacuated.client.give_award(/datum/award/score/de_kerberos_2, evacuated, 1)
 
 /datum/team/battle_team/pre_declare_completion()
 	if(!evacuations[team_role])

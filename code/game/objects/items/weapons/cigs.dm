@@ -52,7 +52,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
 
 /obj/item/clothing/mask/cigarette/get_ru_names()
@@ -62,9 +62,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "сигарете",
 		ACCUSATIVE = "сигарету",
 		INSTRUMENTAL = "сигаретой",
-		PREPOSITIONAL = "сигарете"
+		PREPOSITIONAL = "сигарете",
 	)
-
 
 /obj/item/clothing/mask/cigarette/Initialize(mapload)
 	. = ..()
@@ -95,7 +94,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/target, mob/user)
 	if(lit && !istype(target, /obj/item/storage/ashtray))
 		user.balloon_alert(user, "потушите сигарету!")
@@ -115,7 +113,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = TRUE
 	if(item.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
 		light(span_notice("[user] непринуждённо прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]!"))
-
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/weldingtool/sword))
@@ -210,7 +207,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	return ..()
 
-
 /obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity, params)
 	..()
 	if(!proximity)
@@ -225,12 +221,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 			else
 				user.balloon_alert(usr, "уже заполнено!")
 
-
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	icon_state = lit ? icon_on : icon_off
 	item_state = lit ? icon_on : initial(item_state)
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/mask/cigarette/update_name(updates = ALL)
 	. = ..()
@@ -248,12 +242,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "[lit ? "прикуренной " : ""]" + ru_names[DATIVE],
 		ACCUSATIVE = "[lit ? "прикуренную " : ""]" + ru_names[ACCUSATIVE],
 		INSTRUMENTAL = "[lit ? "прикуренной " : ""]" + ru_names[INSTRUMENTAL],
-		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL]
+		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL],
 	)
 
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
-
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)
@@ -277,7 +270,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	START_PROCESSING(SSobj, src)
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
-
 /obj/item/clothing/mask/cigarette/proc/check_reagents_explosion()
 	var/reagent = ""
 	var/reagent_divisor = 2.5
@@ -296,7 +288,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 	qdel(src)
 	return TRUE
-
 
 /obj/item/clothing/mask/cigarette/process()
 	var/mob/living/M = loc
@@ -403,14 +394,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "самокрутке",
 		ACCUSATIVE = "самокрутку",
 		INSTRUMENTAL = "самокруткой",
-		PREPOSITIONAL = "самокрутке"
+		PREPOSITIONAL = "самокрутке",
 	)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
-
 
 /obj/item/cigbutt/roach
 	name = "roach"
@@ -447,7 +437,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "сигаре премиум-класса",
 		ACCUSATIVE = "сигару премиум-класса",
 		INSTRUMENTAL = "сигарой премиум-класса",
-		PREPOSITIONAL = "сигаре премиум-класса"
+		PREPOSITIONAL = "сигаре премиум-класса",
 	)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
@@ -464,7 +454,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "Сигаре Коиба Робусто",
 		ACCUSATIVE = "Сигару Коиба Робусто",
 		INSTRUMENTAL = "Сигарой Коиба Робусто",
-		PREPOSITIONAL = "Сигаре Коиба Робусто"
+		PREPOSITIONAL = "Сигаре Коиба Робусто",
 	)
 
 /obj/item/clothing/mask/cigarette/cigar/havana
@@ -484,7 +474,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "Гаванская Сигаре премиум-класса",
 		ACCUSATIVE = "Гаванская Сигару премиум-класса",
 		INSTRUMENTAL = "Гаванская Сигарой премиум-класса",
-		PREPOSITIONAL = "Гаванская Сигаре премиум-класса"
+		PREPOSITIONAL = "Гаванская Сигаре премиум-класса",
 	)
 
 /obj/item/cigbutt
@@ -504,7 +494,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "окурку",
 		ACCUSATIVE = "окурок",
 		INSTRUMENTAL = "окурком",
-		PREPOSITIONAL = "окурке"
+		PREPOSITIONAL = "окурке",
 	)
 
 /obj/item/cigbutt/Initialize(mapload)
@@ -523,7 +513,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "Обмякшие останки выкуренной сигары."
 	icon_state = "cigarbutt"
 	item_state = "cigarbutt"
-
 
 /obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/item, mob/user, params)
 	var/static/list/lighters = typecacheof(list(
@@ -548,7 +537,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /////////////////
 //SMOKING PIPES//
 /////////////////
@@ -571,7 +559,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "курительной трубке",
 		ACCUSATIVE = "курительную трубку",
 		INSTRUMENTAL = "курительной трубкой",
-		PREPOSITIONAL = "курительной трубке"
+		PREPOSITIONAL = "курительной трубке",
 	)
 
 /obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
@@ -611,7 +599,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		smoketime = initial(smoketime)
 		first_puff = TRUE
 
-
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/item, mob/user, params)
 	var/static/list/lighters = typecacheof(list(
 		/obj/item/lighter,
@@ -635,7 +622,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
 	desc = "Система доставки никотина, популяризированная жителями провинций и пользующаяся популярностью и в наше время. В основном у разного рода хипстеров."
@@ -653,7 +639,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "кукурузной курительной трубке",
 		ACCUSATIVE = "кукурузную курительную трубку",
 		INSTRUMENTAL = "кукурузной курительной трубкой",
-		PREPOSITIONAL = "кукурузной курительной трубке"
+		PREPOSITIONAL = "кукурузной курительной трубке",
 	)
 
 /obj/item/clothing/mask/cigarette/pipe/oldpipe
@@ -671,7 +657,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "крепкой курительной трубке",
 		ACCUSATIVE = "крепкую курительную трубку",
 		INSTRUMENTAL = "крепкой курительной трубкой",
-		PREPOSITIONAL = "крепкой курительной трубке"
+		PREPOSITIONAL = "крепкой курительной трубке",
 	)
 
 ///////////
@@ -694,7 +680,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "папиросной бумаге",
 		ACCUSATIVE = "папиросная бумага",
 		INSTRUMENTAL = "папиросной бумагой",
-		PREPOSITIONAL = "папиросной бумаге"
+		PREPOSITIONAL = "папиросной бумаге",
 	)
 
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity, params)
@@ -738,7 +724,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "голографической сигаре",
 		ACCUSATIVE = "голографическую сигару",
 		INSTRUMENTAL = "голографической сигарой",
-		PREPOSITIONAL = "голографической сигаре"
+		PREPOSITIONAL = "голографической сигаре",
 	)
 
 /obj/item/clothing/mask/holo_cigar/Destroy()

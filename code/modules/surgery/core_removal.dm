@@ -22,7 +22,6 @@
 	. = ..()
 	return . && target.stat == DEAD
 
-
 /datum/surgery_step/slime
 
 /datum/surgery_step/slime/cut_flesh
@@ -33,7 +32,7 @@
 		TOOL_SCALPEL = 100,
 		/obj/item/melee/energy/sword = 75,
 		/obj/item/kitchen/knife = 65,
-		/obj/item/shard = 45
+		/obj/item/shard = 45,
 	)
 	time = 1.6 SECONDS
 
@@ -72,7 +71,6 @@
 		span_notice("Вы начинаете извлекать ядро [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	return ..()
-
 
 /datum/surgery_step/slime/extract_core/end_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	if(target.cores > 0)

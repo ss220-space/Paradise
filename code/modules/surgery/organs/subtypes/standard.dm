@@ -27,7 +27,7 @@
 		DATIVE = "груди",
 		ACCUSATIVE = "грудь",
 		INSTRUMENTAL = "грудью",
-		PREPOSITIONAL = "груди"
+		PREPOSITIONAL = "груди",
 	)
 
 /obj/item/organ/external/chest/emp_act(severity)
@@ -62,7 +62,7 @@
 		DATIVE = "животу",
 		ACCUSATIVE = "живот",
 		INSTRUMENTAL = "животом",
-		PREPOSITIONAL = "животе"
+		PREPOSITIONAL = "животе",
 	)
 
 /obj/item/organ/external/arm
@@ -86,7 +86,7 @@
 		DATIVE = "левой руке",
 		ACCUSATIVE = "левую руку",
 		INSTRUMENTAL = "левой рукой",
-		PREPOSITIONAL = "левой руке"
+		PREPOSITIONAL = "левой руке",
 	)
 
 /obj/item/organ/external/arm/emp_act(severity)
@@ -115,7 +115,7 @@
 		DATIVE = "правой руке",
 		ACCUSATIVE = "правую руку",
 		INSTRUMENTAL = "правой рукой",
-		PREPOSITIONAL = "правой руке"
+		PREPOSITIONAL = "правой руке",
 	)
 
 /obj/item/organ/external/leg
@@ -140,18 +140,16 @@
 		DATIVE = "левой ноге",
 		ACCUSATIVE = "левую ногу",
 		INSTRUMENTAL = "левой ногой",
-		PREPOSITIONAL = "левой ноге"
+		PREPOSITIONAL = "левой ноге",
 	)
 
 /obj/item/organ/external/leg/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/fracture(silent = FALSE)
 	. = ..()
@@ -159,13 +157,11 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/apply_splint()
 	. = ..()
@@ -173,13 +169,11 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
@@ -214,7 +208,7 @@
 		DATIVE = "правой ноге",
 		ACCUSATIVE = "правую ногу",
 		INSTRUMENTAL = "правой ногой",
-		PREPOSITIONAL = "правой ноге"
+		PREPOSITIONAL = "правой ноге",
 	)
 
 /obj/item/organ/external/foot
@@ -240,7 +234,7 @@
 		DATIVE = "левой ступне",
 		ACCUSATIVE = "левую ступню",
 		INSTRUMENTAL = "левой ступнёй",
-		PREPOSITIONAL = "левой ступне"
+		PREPOSITIONAL = "левой ступне",
 	)
 
 /obj/item/organ/external/foot/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
@@ -249,7 +243,6 @@
 	if(is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1, special)
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
@@ -260,13 +253,11 @@
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
-
 /obj/item/organ/external/foot/fracture(silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/foot/mend_fracture()
 	. = ..()
@@ -274,20 +265,17 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/foot/necrotize(silent = FALSE)
 	. = ..()
@@ -297,7 +285,6 @@
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs - 1)
 
-
 /obj/item/organ/external/foot/unnecrotize()
 	. = ..()
 	if(isnull(.) || !owner)
@@ -305,7 +292,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1)
-
 
 /obj/item/organ/external/foot/mutate(silent = FALSE)
 	. = ..()
@@ -315,7 +301,6 @@
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs - 1)
 
-
 /obj/item/organ/external/foot/unmutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -323,7 +308,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1)
-
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
@@ -340,7 +324,6 @@
 			owner.AdjustWeakened(8 SECONDS)
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
-
 
 /obj/item/organ/external/foot/right
 	name = "right foot"
@@ -359,7 +342,7 @@
 		DATIVE = "правой ступне",
 		ACCUSATIVE = "правую ступню",
 		INSTRUMENTAL = "правой ступнёй",
-		PREPOSITIONAL = "правой ступне"
+		PREPOSITIONAL = "правой ступне",
 	)
 
 /obj/item/organ/external/hand
@@ -385,7 +368,7 @@
 		DATIVE = "левой кисти",
 		ACCUSATIVE = "левую кисть",
 		INSTRUMENTAL = "левой кистью",
-		PREPOSITIONAL = "левой кисти"
+		PREPOSITIONAL = "левой кисти",
 	)
 
 /obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
@@ -393,7 +376,6 @@
 	owner.set_num_hands(owner.num_hands + 1)
 	if(is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
-
 
 /obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
@@ -404,7 +386,6 @@
 		user.drop_item_ground(user.gloves, force = TRUE)
 		user.drop_item_ground(limb_zone == BODY_ZONE_PRECISE_L_HAND ? user.l_hand : user.r_hand, force = TRUE)
 
-
 /obj/item/organ/external/hand/necrotize(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -412,7 +393,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
-
 
 /obj/item/organ/external/hand/unnecrotize()
 	. = ..()
@@ -422,7 +402,6 @@
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
-
 /obj/item/organ/external/hand/mutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -431,7 +410,6 @@
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
 
-
 /obj/item/organ/external/hand/unmutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -439,7 +417,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
-
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
@@ -450,7 +427,6 @@
 		owner.drop_item_ground(hand)
 		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, выбрасывая удерживаемый предмет!"))
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% удерживаемый предмет,, %(его,её,его,их)% кисть выходит из строя!")
-
 
 /obj/item/organ/external/hand/right
 	name = "right hand"
@@ -468,7 +444,7 @@
 		DATIVE = "правой кисти",
 		ACCUSATIVE = "правую кисть",
 		INSTRUMENTAL = "правой кистью",
-		PREPOSITIONAL = "правой кисти"
+		PREPOSITIONAL = "правой кисти",
 	)
 
 /obj/item/organ/external/head
@@ -514,7 +490,7 @@
 		DATIVE = "голове",
 		ACCUSATIVE = "голову",
 		INSTRUMENTAL = "головой",
-		PREPOSITIONAL = "голове"
+		PREPOSITIONAL = "голове",
 	)
 
 /obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
@@ -537,11 +513,9 @@
 		owner.update_markings()
 	. = ..()
 
-
 /obj/item/organ/external/head/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	name = limb_zone
 	. = ..()
-
 
 /obj/item/organ/external/head/external_receive_damage(
 	brute = 0,
@@ -557,7 +531,6 @@
 	. = ..()
 	if(brute_dam + burn_dam > 50)
 		disfigure(silent)
-
 
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
@@ -624,7 +597,7 @@
 		DATIVE = "хвосту",
 		ACCUSATIVE = "хвост",
 		INSTRUMENTAL = "хвостом",
-		PREPOSITIONAL = "хвосте"
+		PREPOSITIONAL = "хвосте",
 	)
 
 /obj/item/organ/external/tail/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
@@ -668,7 +641,7 @@
 		DATIVE = "хвосту обезьяны",
 		ACCUSATIVE = "хвост обезьяны",
 		INSTRUMENTAL = "хвостом обезьяны",
-		PREPOSITIONAL = "хвосте обезьяны"
+		PREPOSITIONAL = "хвосте обезьяны",
 	)
 
 /obj/item/organ/external/tail/monkey/tajaran
@@ -684,7 +657,7 @@
 		DATIVE = "хвосту фарвы",
 		ACCUSATIVE = "хвост фарвы",
 		INSTRUMENTAL = "хвостом фарвы",
-		PREPOSITIONAL = "хвосте фарвы"
+		PREPOSITIONAL = "хвосте фарвы",
 	)
 
 /obj/item/organ/external/tail/monkey/vulpkanin
@@ -700,7 +673,7 @@
 		DATIVE = "хвосту вульпина",
 		ACCUSATIVE = "хвост вульпина",
 		INSTRUMENTAL = "хвостом вульпина",
-		PREPOSITIONAL = "хвосте вульпина"
+		PREPOSITIONAL = "хвосте вульпина",
 	)
 
 /obj/item/organ/external/tail/monkey/unathi
@@ -716,7 +689,7 @@
 		DATIVE = "хвосту стока",
 		ACCUSATIVE = "хвост стока",
 		INSTRUMENTAL = "хвостом стока",
-		PREPOSITIONAL = "хвосте стока"
+		PREPOSITIONAL = "хвосте стока",
 	)
 
 /obj/item/organ/external/wing
@@ -742,7 +715,7 @@
 		DATIVE = "крыльям",
 		ACCUSATIVE = "крылья",
 		INSTRUMENTAL = "крыльями",
-		PREPOSITIONAL = "крыльях"
+		PREPOSITIONAL = "крыльях",
 	)
 
 /obj/item/organ/external/wing/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)

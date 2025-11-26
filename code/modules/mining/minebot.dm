@@ -54,7 +54,7 @@
 		DATIVE = "шахтёрскому боту",
 		ACCUSATIVE = "шахтёрский бот",
 		INSTRUMENTAL = "шахтёрским ботом",
-		PREPOSITIONAL = "шахтёрском боте"
+		PREPOSITIONAL = "шахтёрском боте",
 	)
 
 /mob/living/simple_animal/hostile/mining_drone/New()
@@ -100,7 +100,6 @@
 			var/obj/item/borg/upgrade/modkit/M = A
 			. += span_notice("Установлен [M.declent_ru(NOMINATIVE)], занимающий <b>[M.cost]%</b> ёмкости.")
 
-
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, span_notice("Вы приказываете [declent_ru(DATIVE)] выгрузить собранную руду."))
@@ -112,7 +111,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /mob/living/simple_animal/hostile/mining_drone/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -158,7 +156,6 @@
 		return
 	..()
 
-
 /mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 
@@ -170,8 +167,6 @@
 
 	if(istype(mover, /obj/projectile/destabilizer))
 		return TRUE
-
-
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MINEDRONE_COLLECT
@@ -222,7 +217,6 @@
 	for(var/obj/item/stack/ore/O in contents)
 		O.forceMove(drop_location())
 
-
 /mob/living/simple_animal/hostile/mining_drone/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -233,7 +227,6 @@
 	. = ..()
 	if(. && amount > 0 && mode != MINEDRONE_ATTACK)
 		SetOffenseBehavior()
-
 
 /mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
 	switch(mode)
@@ -251,11 +244,9 @@
 	name = "Переключить фонарик"
 	button_icon_state = "mech_lights_off"
 
-
 /datum/action/innate/minedrone/toggle_light/Activate()
 	owner.set_light_on(!owner.light_on)
 	to_chat(owner, span_notice("Вы [owner.light_on ? "включили" : "выключили"] фонарик."))
-
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Переключить мезонное зрение"
@@ -297,7 +288,6 @@
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.DropOre()
 
-
 /**********************Minebot Upgrades**********************/
 
 //Melee
@@ -315,7 +305,7 @@
 		DATIVE = "модулю ближнего боя для шахтёрского бота",
 		ACCUSATIVE = "модуль ближнего боя для шахтёрского бота",
 		INSTRUMENTAL = "модулем ближнего боя для шахтёрского бота",
-		PREPOSITIONAL = "модуле ближнего боя для шахтёрского бота"
+		PREPOSITIONAL = "модуле ближнего боя для шахтёрского бота",
 	)
 
 /obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity, params)
@@ -344,7 +334,7 @@
 		DATIVE = "модулю брони для шахтёрского бота",
 		ACCUSATIVE = "модуль брони для шахтёрского бота",
 		INSTRUMENTAL = "модулем брони для шахтёрского бота",
-		PREPOSITIONAL = "модуле брони для шахтёрского бота"
+		PREPOSITIONAL = "модуле брони для шахтёрского бота",
 	)
 
 /obj/item/mine_bot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
@@ -376,7 +366,7 @@
 		DATIVE = "модулю ИИ для шахтёрского бота",
 		ACCUSATIVE = "модуль ИИ для шахтёрского бота",
 		INSTRUMENTAL = "модулем ИИ для шахтёрского бота",
-		PREPOSITIONAL = "модуле ИИ для шахтёрского бота"
+		PREPOSITIONAL = "модуле ИИ для шахтёрского бота",
 	)
 
 /obj/item/slimepotion/sentience/mining/after_success(mob/living/user, mob/living/simple_animal/SM)
@@ -408,7 +398,7 @@
 		DATIVE = "кубу шахтёрского бота",
 		ACCUSATIVE = "куб шахтёрского бота",
 		INSTRUMENTAL = "кубом шахтёрского бота",
-		PREPOSITIONAL = "кубе шахтёрского бота"
+		PREPOSITIONAL = "кубе шахтёрского бота",
 	)
 
 /obj/item/mining_drone_cube/attack_self(mob/user)

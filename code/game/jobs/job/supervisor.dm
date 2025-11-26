@@ -50,20 +50,18 @@
 	pda = /obj/item/pda/captain
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
 
-
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H?.w_uniform)
 		var/obj/item/clothing/accessory/medal/gold/captain/medal = new(H.w_uniform)
 		medal.on_attached(H.w_uniform)
-
 
 /datum/job/hop
 	title = JOB_TITLE_HOP
@@ -118,12 +116,10 @@
 	pda = /obj/item/pda/heads/hop
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 
 	implants = list()
-
-
 
 /datum/job/nanotrasenrep
 	title = JOB_TITLE_REPRESENTATIVE
@@ -178,7 +174,7 @@
 	l_pocket = /obj/item/lighter/zippo/nt_rep
 	pda = /obj/item/pda/heads/ntrep
 	backpack_contents = list(
-		/obj/item/melee/baton/ntcane = 1
+		/obj/item/melee/baton/ntcane = 1,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 
@@ -294,14 +290,12 @@
 	r_pocket = /obj/item/clothing/accessory/head_strip/lawyers_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_laws/magisraka
-
-
+	box = /obj/item/storage/box/survival/survival_laws/magisraka
 
 //GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
@@ -342,9 +336,9 @@
 	l_hand = /obj/item/storage/briefcase
 	pda = /obj/item/pda/lawyer
 	backpack_contents = list(
-		/obj/item/flash = 1
+		/obj/item/flash = 1,
 	)
 	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_laws
+	box = /obj/item/storage/box/survival/survival_laws

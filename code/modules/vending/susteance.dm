@@ -1,6 +1,6 @@
 /obj/machinery/vending/sustenance
 	name = "Sustenance Vendor"
-	desc = "Торговый автомат, в котором продаются продукты питания, в соответствии с разделом 47-С Соглашения об этическом обращении с заключёнными Нанотрейзен."
+	desc = "Торговый автомат, в котором продаются продукты питания, в соответствии с разделом 47-С Соглашения об этическом обращении с заключёнными \"Нанотрейзен\"."
 	slogan_list = list(
 		"При+ятного аппет+ита!",
 		"Дост+аточное кол+ичество кал+орий для интенс+ивной раб+оты.",
@@ -43,7 +43,7 @@
 		DATIVE = "торговому автомату Sustenance Vendor",
 		ACCUSATIVE = "торговый автомат Sustenance Vendor",
 		INSTRUMENTAL = "торговым автоматом Sustenance Vendor",
-		PREPOSITIONAL = "торговом автомате Sustenance Vendor"
+		PREPOSITIONAL = "торговом автомате Sustenance Vendor",
 	)
 
 /obj/machinery/vending/sustenance/additional

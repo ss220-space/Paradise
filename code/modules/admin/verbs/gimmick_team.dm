@@ -95,7 +95,6 @@
 		if(players_spawned >= teamsize)
 			break
 
-
 	log_and_message_admins("used Spawn Gimmick Team.")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Gimmick Team")
 

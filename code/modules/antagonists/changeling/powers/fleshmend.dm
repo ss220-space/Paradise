@@ -8,7 +8,6 @@
 	chemical_cost = 20
 	req_stat = UNCONSCIOUS
 
-
 /**
  * Starts healing you every second for 10 seconds. Can be used whilst unconscious.
  */

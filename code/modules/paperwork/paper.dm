@@ -59,7 +59,7 @@
 		DATIVE = "бумаге",
 		ACCUSATIVE = "бумагу",
 		INSTRUMENTAL = "бумагой",
-		PREPOSITIONAL = "бумаге"
+		PREPOSITIONAL = "бумаге",
 	)
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
@@ -75,14 +75,11 @@
 		update_icon()
 		updateinfolinks()
 
-
 /obj/item/paper/update_icon_state()
 	icon_state = "paper[info ? "_words" : ""]"
 
-
 /obj/item/paper/update_overlays()
 	return LAZYCOPY(stamp_overlays)
-
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -94,7 +91,6 @@
 			. += span_notice("You have to go closer if you want to read it.")
 	else
 		. += span_notice("You don't know how to read.")
-
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options, special_text = null)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -125,7 +121,6 @@
 		popup.open()
 	return data
 
-
 /obj/item/paper/click_alt(mob/living/carbon/human/user)
 	if(is_pen(user.get_active_hand()))
 		rename(user)
@@ -133,7 +128,6 @@
 	if(user.is_in_hands(src))
 		ProcFoldPlane(user, src)
 		return CLICK_ACTION_SUCCESS
-
 
 /obj/item/paper/proc/rename(mob/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -151,14 +145,12 @@
 		desc = initial(desc)
 	add_fingerprint(user)
 
-
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && !spam_flag && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		spam_flag = TRUE
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 3 SECONDS)
 		playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
-
 
 /obj/item/paper/attack_ai(mob/living/silicon/ai/user)
 	var/dist
@@ -170,7 +162,6 @@
 		show_content(user, forceshow = TRUE)
 	else
 		show_content(user, forcestars = TRUE)
-
 
 /obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -209,7 +200,6 @@
 			target.lip_style = null
 			target.lip_color = null
 			target.update_body()
-
 
 /obj/item/paper/attack_animal(mob/living/simple_animal/pet/dog/doggo)
 	if(!isdog(doggo)) // Only dogs can eat homework.
@@ -259,7 +249,6 @@
 		playsound(doggo, 'sound/items/eatfood.ogg', 50, TRUE)
 		qdel(src)
 
-
 /obj/item/paper/proc/addtofield(id, text, links = 0)
 	if(id > MAX_PAPER_FIELDS)
 		return
@@ -299,7 +288,6 @@
 		info = before + text + after
 		updateinfolinks()
 
-
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
 	for(var/i in 1 to fields)
@@ -308,7 +296,6 @@
 		addtofield(i, "[write_1][write_2]", 1)
 	info_links = info_links + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
 
-
 /obj/item/paper/proc/clearpaper()
 	info = null
 	stamps = null
@@ -316,7 +303,6 @@
 	LAZYNULL(stamp_overlays)
 	updateinfolinks()
 	update_icon()
-
 
 /obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
@@ -331,7 +317,6 @@
 			break
 		laststart = i+1
 		fields++
-
 
 /obj/item/paper/proc/openhelp(mob/user)
 	var/datum/browser/popup = new(user, "paper_help", "Pen Help")
@@ -358,7 +343,6 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>"})
 	popup.open(FALSE)
 
-
 /obj/item/paper/proc/topic_href_write(mob/user, id, input_element)
 	var/obj/item/item_write = user.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
@@ -382,7 +366,6 @@
 	item_write.on_write(src, user)
 	show_content(user, forceshow = TRUE, infolinks = TRUE)
 	update_icon()
-
 
 /obj/item/paper/Topic(href, href_list)
 	..()
@@ -458,7 +441,6 @@
 		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
 
 		topic_href_write(usr, id, input_element)
-
 
 /obj/item/paper/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
@@ -559,12 +541,10 @@
 	bundle.amount++
 	bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-
 /obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
-
 
 /obj/item/paper/proc/stamp(obj/item/stamp/stamp, no_pixel_shift = FALSE, special_stamped, special_icon_state)
 	var/obj/item/stamp/stamp_path
@@ -749,7 +729,6 @@
 	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального командования.</em></font></p>"
 	populatefields()
 
-
 /obj/item/paper/central_command/archive/station_reports
 	info = "<font face=\"Verdana\" color=black><center><b>Приветствую Центральное командование</b></center><br>Сообщает вам ██████████ █████████, в должности капитан </span>.<br><br>В данный момент на станции код: Зеленый </span><br>Активные угрозы для станции: <b>Отсуствуют </span></b><br>Потери среди экипажа: Отсуствуют </span><br>Повреждения на станции: Отсуствуют</span><br>Общее состояние станции: Удовлетворительное </span><br>Дополнительная информация: Отсутствует<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br>Подпись:  ██████████ █████████ <hr><font size = \"1\">*В данном документе описывается полное состояние станции, необходимо перечислить всю доступную информацию. <br>*Информацию, которую вы считаете нужной, необходимо сообщить в разделе — дополнительная информация. <br>*<b>Данный документ считается официальным только после подписи уполномоченного лица и наличии на документе его печати.</b> </font></font>"
 
@@ -802,11 +781,10 @@
 	<br>\n\t\t<font size = \"1\">~~~ <b>Твой Куратор:</b> Персональный Управляемый Помощник Согласования ~~~</span>"
 
 /obj/item/paper/dog_detective_explain
-	name = "Форма NT-PET- — Уведомление агента внутренних дел Нанотрейзен о питомце \"Гав Гавыч\""
-	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Отдел внутренних дел Нанотрейзен по надзору за животными.</h3><p style='text-align: center;font-family:Verdana;'>Официальное Уведомление</p></b><hr />"
-	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах Нанотрейзен.<br><hr>"
+	name = "Форма NT-PET- — Уведомление агента внутренних дел \"Нанотрейзен\" о питомце \"Гав Гавыч\""
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Отдел внутренних дел \"Нанотрейзен\" по надзору за животными.</h3><p style='text-align: center;font-family:Verdana;'>Официальное Уведомление</p></b><hr />"
+	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах \"Нанотрейзен\".<br><hr>"
 	footer = "<center><font size=\"4\"><b>Штампы и данные:</b></font></center><br>Время принятия отчета: <span class=\"paper_field\"></span><br><hr><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче агенту.<br>*Данный документ может содержать личную информацию. </font></font>"
-
 
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
@@ -817,7 +795,6 @@
 	var/countdown = 60
 	var/activate_on_timeout = FALSE
 	var/faxmachineid = null
-
 
 /obj/item/paper/evilfax/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
 	if(user == mytarget)
@@ -834,11 +811,9 @@
 		else
 			evilpaper_selfdestruct()
 
-
 /obj/item/paper/evilfax/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/paper/evilfax/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -847,7 +822,6 @@
 		var/datum/disease/virus/transformation/corgi/D = new
 		D.Contract(target)
 	return ..()
-
 
 /obj/item/paper/evilfax/process()
 	if(!countdown)
@@ -862,7 +836,6 @@
 		evilpaper_selfdestruct()
 	else
 		countdown--
-
 
 /obj/item/paper/evilfax/proc/evilpaper_specialaction(mob/living/carbon/target)
 	if(!iscarbon(target))
@@ -936,11 +909,9 @@
 	used = TRUE
 	evilpaper_selfdestruct()
 
-
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()
 	visible_message(span_danger("[src] spontaneously catches fire, and burns up!"))
 	qdel(src)
-
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
@@ -959,7 +930,7 @@
 
 /obj/item/paper/researchnotes/Initialize(mapload)
 	. = ..()
-	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
+	var/list/possible_techs = list(RESEARCH_TREE_MATERIALS, RESEARCH_TREE_ENGINEERING, RESEARCH_TREE_PLASMA, RESEARCH_TREE_POWERSTORAGE, RESEARCH_TREE_BLUESPACE, RESEARCH_TREE_BIOTECH, RESEARCH_TREE_COMBAT, RESEARCH_TREE_MAGNETS, RESEARCH_TREE_PROGRAMMING, RESEARCH_TREE_ILLEGAL)
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
@@ -978,17 +949,15 @@
 	var/is_header_needed = TRUE
 	var/const/footer_signstampfax = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Подписи глав являются доказательством их согласия.<br>Данный документ является недействительным при отсутствии релевантной печати.<br>Пожалуйста, отправьте обратно подписанную/проштампованную копию факсом.</font></center></font>"
 	var/const/footer_signstamp = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Подписи глав являются доказательством их согласия.<br>Данный документ является недействительным при отсутствии релевантной печати.</font></center></font>"
-	var/const/footer_confidential = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<br>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И Нанотрейзен, и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является Нанотрейзен или один из её агентов. Отмечаем, что ни Нанотрейзен, ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
+	var/const/footer_confidential = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<br>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И \"Нанотрейзен\", и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является \"Нанотрейзен\" или один из её агентов. Отмечаем, что ни \"Нанотрейзен\", ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
 	footer = footer_signstampfax
-
 
 /obj/item/paper/form/Initialize(mapload)
 	. = ..()
-	from = "Научная станция Нанотрейзен &#34;[SSmapping.map_datum.station_name]&#34;"
+	from = "Научная станция \"Нанотрейзен\" &#34;[SSmapping.map_datum.station_name]&#34;"
 	if(is_header_needed)
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><b><font size=\"4\">[altername]</font></b></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><br><hr><br></font>"
 	populatefields()
-
 
 // MARK: Главы станции
 
@@ -1038,7 +1007,7 @@
 	id = "NT-COM-OS"
 	altername = "Отчёт о выполнении цели"
 	category = "Главы станции"
-	info = "<font face=\"Verdana\" color=black><br>Цель станции: <span class=\"paper_field\"></span><br>Статус цели: <span class=\"paper_field\"></span><br>Общее состояние станции: <span class=\"paper_field\"></span><br>Активные угрозы: <span class=\"paper_field\"></span><br>Оценка работы экипажа: <span class=\"paper_field\"></span><br>Дополнительные замечания: <span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center>Должность уполномоченного лица: <span class=\"paper_field\"></span><br>Подпись уполномоченного лица: <span class=\"paper_field\"></span><hr><font size = \"1\"><i>*Данное сообщение должно сообщить вам о состоянии цели, установленной Центральным командованием Нанотрейзен для ИСН &#34;Керберос&#34;. Убедительная просьба внимательно прочитать данное сообщение для вынесения наиболее эффективных указаний для последующей деятельности станции.<br>*Данный документ считается официальным только при наличии подписи уполномоченного лица и соответствующего его должности штампа. В случае отсутствия любого из указанных элементов данный документ не является официальным и рекомендуется его удалить с любого информационного носителя. <br>ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Корпорация Нанотрейзен не несёт ответственности, если данный документ не попал в руки первоначального предполагаемого получателя. Однако, корпорация Nanotrasen запрещает использование любой имеющейся в данном документе информации третьими лицами и сообщает, что это преследуется по закону, даже если информация в данном документе не является достоверной. <center></font>"
+	info = "<font face=\"Verdana\" color=black><br>Цель станции: <span class=\"paper_field\"></span><br>Статус цели: <span class=\"paper_field\"></span><br>Общее состояние станции: <span class=\"paper_field\"></span><br>Активные угрозы: <span class=\"paper_field\"></span><br>Оценка работы экипажа: <span class=\"paper_field\"></span><br>Дополнительные замечания: <span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center>Должность уполномоченного лица: <span class=\"paper_field\"></span><br>Подпись уполномоченного лица: <span class=\"paper_field\"></span><hr><font size = \"1\"><i>*Данное сообщение должно сообщить вам о состоянии цели, установленной Центральным командованием \"Нанотрейзен\" для ИСН &#34;Керберос&#34;. Убедительная просьба внимательно прочитать данное сообщение для вынесения наиболее эффективных указаний для последующей деятельности станции.<br>*Данный документ считается официальным только при наличии подписи уполномоченного лица и соответствующего его должности штампа. В случае отсутствия любого из указанных элементов данный документ не является официальным и рекомендуется его удалить с любого информационного носителя. <br>ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Корпорация \"Нанотрейзен\" не несёт ответственности, если данный документ не попал в руки первоначального предполагаемого получателя. Однако, корпорация Nanotrasen запрещает использование любой имеющейся в данном документе информации третьими лицами и сообщает, что это преследуется по закону, даже если информация в данном документе не является достоверной. <center></font>"
 
 // MARK: Медицинский отдел
 
@@ -1268,7 +1237,7 @@
 	id = "NT-SEC-11"
 	altername = "Ордер на обыск"
 	category = "Служба безопасности"
-	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><b>Информация о свидетеле</b></font></center><br><table></td><tr><td>Имя свидетеля:<br><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><br></td><tr><td>Номер аккаунта свидетеля:<br><font size = \"1\">Эта информация есть у главы персонала</font><td><span class=\"paper_field\"></span><br></td><tr><td>Должность свидетеля:<br><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><br></td></tr></table><br><hr><br><center><font size=\"4\"><b>Ордер</b></font></center><br><table></td><tr><td>В целях обыска:<br><font size = \"1\">(помещения, имущества, лица)</font><td><span class=\"paper_field\"></span></td></tr></table><br>Ознакомившись с письменными показаниями свидетеля(-ей), у меня появились основания полагать, что на лицах или помещениях, указанных выше, имеются соответствующие доказательства в этой связи или в пределах, в частности:<br><br><span class=\"paper_field\"></span><br><br>и другое имущество, являющееся доказательством уголовного преступления, контрабанды, плодов преступления или предметов, иным образом принадлежащих преступнику, или имущество, спроектированное или предназначенное для использования, или которое используется или использовалось в качестве средства совершения уголовного преступления, в частности заговор с целью совершения преступления, или совершения злонамеренного предъявления ложных и фиктивных претензий к или против корпорации Нанотрейзен или его дочерних компаний.<br><br>Я удовлетворен тем, что показания под присягой и любые записанные показания устанавливают вероятную причину полагать, что описанное имущество в данный момент скрыто в описанных выше помещениях, лицах или имуществе, и устанавливают законные основания для выдачи этого ордера.<br><br>ВЫ НАСТОЯЩИМ КОМАНДИРОВАНЫ для обыска вышеуказанного помещения, имущества или лица в течение <span class=\"paper_field\"></span> минут с даты выдачи настоящего ордера на указанное скрытое имущество, и если будет установлено, что имущество изъято, оставить копию этого ордера в качестве доказательства на реквизированную собственность, в соответствии с требованиями указа корпорации Nanotrasen.<br><br>Слава Корпорации Nanotrasen!<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><br></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><br></td></tr></table></font>"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><b>Информация о свидетеле</b></font></center><br><table></td><tr><td>Имя свидетеля:<br><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><br></td><tr><td>Номер аккаунта свидетеля:<br><font size = \"1\">Эта информация есть у главы персонала</font><td><span class=\"paper_field\"></span><br></td><tr><td>Должность свидетеля:<br><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><br></td></tr></table><br><hr><br><center><font size=\"4\"><b>Ордер</b></font></center><br><table></td><tr><td>В целях обыска:<br><font size = \"1\">(помещения, имущества, лица)</font><td><span class=\"paper_field\"></span></td></tr></table><br>Ознакомившись с письменными показаниями свидетеля(-ей), у меня появились основания полагать, что на лицах или помещениях, указанных выше, имеются соответствующие доказательства в этой связи или в пределах, в частности:<br><br><span class=\"paper_field\"></span><br><br>и другое имущество, являющееся доказательством уголовного преступления, контрабанды, плодов преступления или предметов, иным образом принадлежащих преступнику, или имущество, спроектированное или предназначенное для использования, или которое используется или использовалось в качестве средства совершения уголовного преступления, в частности заговор с целью совершения преступления, или совершения злонамеренного предъявления ложных и фиктивных претензий к или против корпорации \"Нанотрейзен\" или его дочерних компаний.<br><br>Я удовлетворен тем, что показания под присягой и любые записанные показания устанавливают вероятную причину полагать, что описанное имущество в данный момент скрыто в описанных выше помещениях, лицах или имуществе, и устанавливают законные основания для выдачи этого ордера.<br><br>ВЫ НАСТОЯЩИМ КОМАНДИРОВАНЫ для обыска вышеуказанного помещения, имущества или лица в течение <span class=\"paper_field\"></span> минут с даты выдачи настоящего ордера на указанное скрытое имущество, и если будет установлено, что имущество изъято, оставить копию этого ордера в качестве доказательства на реквизированную собственность, в соответствии с требованиями указа корпорации Nanotrasen.<br><br>Слава Корпорации Nanotrasen!<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><br></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><br></td></tr></table></font>"
 	footer = footer_confidential
 
 /obj/item/paper/form/NT_SEC_21
@@ -1410,7 +1379,7 @@
 	id = "NT-COM-01"
 	altername = "Запрос отчёта общего состояния станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1422,7 +1391,7 @@
 	id = "NT-COM-02"
 	altername = "Запрос отчёта состояния трудовых активов станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1434,7 +1403,7 @@
 	id = "NT-COM-03"
 	altername = "Запрос отчёта криминального статуса станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1449,7 +1418,7 @@
 	id = "NT-COM-04"
 	altername = "Запрос отчёта здравоохранения станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1461,7 +1430,7 @@
 	id = "NT-COM-05"
 	altername = "Запрос отчёта научно-технического прогресса станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1473,7 +1442,7 @@
 	id = "NT-COM-06"
 	altername = "Запрос отчёта инженерного обеспечения станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1485,7 +1454,7 @@
 	id = "NT-COM-07"
 	altername = "Запрос отчёта статуса снабжения станции "
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1552,7 +1521,7 @@
 	access = ACCESS_SYNDICATE
 	footer = footer_from_taipan
 	info = "<font face=\"Verdana\" color=black>\
-			<center><h2>Запрос особой доставки на станцию<br>Синдиката</h2></center><hr>\
+			<center><h2>Запрос особой доставки на станцию<br>\"Синдиката\"</h2></center><hr>\
 			<center><table>\
 			<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>\
 			<td><center><font size=\"4\">Данные<br>для<br>доставки</font></center><td>\
@@ -1632,61 +1601,6 @@
 			<hr><i><font size = \"1\">**Отчёт недействителен без подписи Директора Исследований. \
 			В случае его отсутствия требуется подпись Офицера Телекоммуникаций или заменяющего его лица с указанием должности.\
 			<br>***Заполняется Директором Исследований. В случае его отсутствия, заполняется Офицером Телекоммуникаций или заменяющим его лицом</font>"
-
-// MARK: Буклеты
-
-/obj/item/paper/deltainfo
-	name = "Информационный буклет НСС Керберос"
-	info = "<font face=\"Verdana\" color=black><center><h1>Буклет нового сотрудника \
-			на борту НСС &#34;Керберос&#34;</h1></center>\
-			<br><hr><b></b><br><center><h2>Цель</h2></center>\
-			<br><font size=\"4\">Данное руководство было создано с целью \
-			<b>облегчить процесс</b> введения в работу станции <b>нового экипажа</b>, \
-			а также для <b>информирования сотрудников</b> об оптимальных маршрутах \
-			передвижения. В данном буклете находится <b>основная карта</b> &#34;Кербероса&#34; \
-			и несколько интересных фактов о станции.</font>\
-			<br><hr><br><center><h2>Карта Станции</h2></center>\
-			<br><font size=\"4\">С точки зрения конструкции, станция состоит из 12 зон:\
-			<br><ul><li>Прибытие - <b><b>Серый</b></b> - Отсек прибытия экипажа и ангар космических подов.\
-			<br><li>Мостик - <b>Синий</b> - Отсек командования и VIP-персон.\
-			<br><li>Двор - <b>Зелёный</b> - Отсек сферы услуг.\
-			<br><li>Карго - <b>Оранжевый</b> - Отсек снабжения и поставок.\
-			<br><li>Инженерия - <b>Жёлтый</b> - Отсек технического обслуживания и систем станции.\
-			<br><li>Бриг - <b>Красный</b> - Отсек службы безопасности.\
-			<br><li>Процедурная - <b>Розовый</b> - Юридические зоны и процедурный отсек.\
-			<br><li>Дормы - <b>Розовый</b> - Отсек для отдыха и развлечений.\
-			<br><li>РнД - <b>Фиолетовый</b> - Отсек научных исследований и разработок.\
-			<br><li>Медбей - <b>Голубой</b> - Отсек медицинских услуг и биовирусных разработок.\
-			<br><li>Спутник ИИ - <b>Тёмно-синий</b> - Отсек систем искусственного интеллекта станции.\
-			<br><li>Отбытие - <b>Салатовый</b> - Отсек отбытия и эвакуационного шаттла.\
-			<br><li>Зоны исследователей - <b>Светло-синий</b> - Гейт, ЕВА и экспедиционный склад. \
-			<br><li>Технические туннели - <b>Коричневый</b> - Неэксплуатируемые технические помещения.\
-			<br><li>Библиотека - <b>Зона и путь в чёрном пунктире</b> - Архив и место для получения новых знаний и СРП.\
-			<br><li>Офис Главы Персонала - <b>Зона и путь в белом пунктире</b> - Место для получения работы.\
-			<br></ul><hr></font> \
-			<img src=\"https://media.discordapp.net/attachments/911024179984347217/1066699505099096144/map2.png?width=600&height=600\">\
-			<font face=\"Verdana\" color=black><br><br><hr><br><center><h2>Технические туннели</h2></center>\
-			<br> За время строительства проект станции претерпел несколько значительных \
-			изменений. Изначально новая станция должна была стать туристическим объектом, \
-			но после произошедшей в <b>2549 году</b> серии <b>террористических актов</b> \
-			объект вошёл в состав парка научно-исследовательских станций корпорации. В \
-			нынешних технических туннелях до сих пор можно найти заброшенные комнаты для \
-			гостей, бары и клубы. В связи с плачевным состоянием несущих конструкций \
-			посещать эти части станции не рекомендуется, однако неиспользуемые площади \
-			могут быть использованы для строительства новых отсеков.\
-			<br><hr><br><center><h2>Особенности станции</h2></center>\
-			<br>В отличие от большинства других научно-исследовательских станций Нанотрейзен, \
-			таких как &#34;Кибериада&#34;, <b>НСС &#34;Керберос&#34;</b> имеет менее \
-			жёсткую систему контроля за личными вещами экипажа. В частности, в отсеках \
-			были построены <b>дополнительные автолаты</b>, в том числе <b>публичные</b> \
-			(в карго и РНД). Также, благодаря более высокому бюджету, были возведены \
-			<b>новые отсеки</b>, такие как <b>ангар</b> или <b>склад</b> в отсеке РнД.\
-			Был расширен отдел <b>вирусологии</b> и возведены <b>новые технические туннели</b> для \
-			новых проектов.</font>"
-	icon_state = "pamphlet"
-
-/obj/item/paper/deltainfo/update_icon_state()
-	return
 
 /obj/item/paper/pamphletdeathsquad
 	icon_state = "pamphlet-ds"

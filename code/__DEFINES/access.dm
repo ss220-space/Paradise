@@ -122,7 +122,6 @@
 #define ACCESS_SYNDICATE_BOTANY 148 // Ghost role 'Taipan' Syndicate Botany Access
 #define ACCESS_SYNDICATE_CONTAINER 163
 
-
 //Trade Stations
 #define ACCESS_TRADE_SOL 160
 

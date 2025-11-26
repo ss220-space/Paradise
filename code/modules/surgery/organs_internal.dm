@@ -18,7 +18,7 @@
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
 		/datum/surgery_step/proxy/open_organ,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -33,7 +33,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/manipulate_organs,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 /datum/surgery/organ_manipulation_boneless
@@ -55,7 +55,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/manipulate_organs,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 /datum/surgery/organ_manipulation/plasmaman
@@ -71,7 +71,7 @@
 		/datum/surgery_step/internal/manipulate_organs/finish,
 		/datum/surgery_step/glue_bone/plasma,
 		/datum/surgery_step/proxy/open_organ/plasma,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -91,7 +91,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/manipulate_organs,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 /datum/surgery/organ_manipulation/insect
@@ -109,7 +109,7 @@
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
 		/datum/surgery_step/proxy/open_organ,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -129,7 +129,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/manipulate_organs,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 /datum/surgery/organ_manipulation/alien
@@ -150,9 +150,8 @@
 		/datum/surgery_step/cut_carapace,
 		/datum/surgery_step/retract_carapace,
 		/datum/surgery_step/proxy/manipulate_organs/alien,
-		/datum/surgery_step/generic/seal_carapace
+		/datum/surgery_step/generic/seal_carapace,
 	)
-
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -183,7 +182,7 @@
 		/datum/surgery_step/screwdriver_use,
 		/datum/surgery_step/proxy/manipulate_translator,
 		/datum/surgery_step/screwdriver_use,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 /datum/surgery/translator_manipulations/can_start(mob/user, mob/living/carbon/target)
@@ -195,7 +194,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/surgery_step/screwdriver_use
 	name = "откручивание/закручивание импланта-переводчика"
@@ -221,7 +219,6 @@
 
 	return SURGERY_STEP_CONTINUE
 
-
 /datum/surgery_step/proxy/manipulate_translator
 	name = "манипуляция с имплантом-переводчиком — прокси"
 	branches = list(
@@ -229,23 +226,19 @@
 		/datum/surgery/intermediate/manipulate_translator/uninstall,
 	)
 
-
 /datum/surgery/intermediate/manipulate_translator
 	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
 
-
 /datum/surgery/intermediate/manipulate_translator/install
 	steps = list(/datum/surgery_step/internal/manipulate_translator/install)
-
 
 /datum/surgery_step/internal/manipulate_translator/install
 	name = "установка чипа/улучшения"
 	allowed_tools = list(
 		/obj/item/translator_chip = 100,
 		/obj/item/translator_upgrade = 100,
-		)
+	)
 	time = 5 SECONDS
-
 
 /datum/surgery_step/internal/manipulate_translator/install/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
@@ -254,7 +247,6 @@
 	)
 
 	return ..()
-
 
 /datum/surgery_step/internal/manipulate_translator/install/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
@@ -290,16 +282,13 @@
 
 	return SURGERY_STEP_CONTINUE
 
-
 /datum/surgery/intermediate/manipulate_translator/uninstall
 	steps = list(/datum/surgery_step/internal/manipulate_translator/uninstall)
-
 
 /datum/surgery_step/internal/manipulate_translator/uninstall
 	name = "извлечение чипа/улучшения"
 	allowed_tools = list(TOOL_MULTITOOL = 100)
 	time = 0
-
 
 /datum/surgery_step/internal/manipulate_translator/uninstall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
@@ -357,7 +346,6 @@
 
 	return ..()
 
-
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
 	possible_locs = list(
@@ -395,7 +383,7 @@
 		/datum/surgery/intermediate/manipulate/implant,
 		/datum/surgery/intermediate/manipulate/mend,
 		/datum/surgery/intermediate/manipulate/clean,
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
 	)
 
 /datum/surgery_step/proxy/manipulate_organs/soft
@@ -405,7 +393,7 @@
 		/datum/surgery/intermediate/manipulate/implant,
 		/datum/surgery/intermediate/manipulate/mend,
 		/datum/surgery/intermediate/manipulate/clean,
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
 	)
 
 // have to redefine all of these because xenos don't technically have bodyparts.
@@ -427,9 +415,8 @@
 		/datum/surgery/intermediate/manipulate/extract/xeno,
 		/datum/surgery/intermediate/manipulate/implant/xeno,
 		/datum/surgery/intermediate/manipulate/mend/xeno,
-		/datum/surgery/intermediate/manipulate/clean/xeno
+		/datum/surgery/intermediate/manipulate/clean/xeno,
 	)
-
 
 // Internal surgeries.
 /datum/surgery_step/internal
@@ -463,7 +450,7 @@
 		/obj/item/stack/medical/bruise_pack/advanced = 100,
 		/obj/item/stack/medical/bruise_pack/extended = 100,
 		/obj/item/stack/medical/bruise_pack = 20,
-		/obj/item/stack/nanopaste = 100
+		/obj/item/stack/nanopaste = 100,
 	)
 
 /datum/surgery_step/internal/manipulate_organs/mend/proc/get_tool_name(obj/item/tool)
@@ -567,7 +554,7 @@
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
-		/obj/item/kitchen/utensil/fork = 70
+		/obj/item/kitchen/utensil/fork = 70,
 	)
 
 	var/obj/item/organ/internal/extracting = null
@@ -677,7 +664,7 @@
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/organ/internal = 100,
-		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text
+		/obj/item/reagent_containers/food/snacks/organ = 0,  // there for the flavor text
 	)
 
 /datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -769,7 +756,6 @@
 
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/internal/manipulate_organs/clean
 	name = "дезинфекция"
 	begin_sound = 'sound/surgery/bonegel.ogg'
@@ -783,7 +769,7 @@
 		/obj/item/reagent_containers/food/drinks/bottle = 80,
 		/obj/item/reagent_containers/glass/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
-		/obj/item/reagent_containers/glass/bucket = 50
+		/obj/item/reagent_containers/glass/bucket = 50,
 	)
 
 /datum/surgery_step/internal/manipulate_organs/clean/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -822,7 +808,6 @@
 	var/spaceacillin = 0 //how much actual antibiotic is in the thing
 	var/mito_tot = 0 // same for mito, thanks farie
 
-
 	if(length(R.reagent_list))
 		for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
 			ethanol += alcohol.alcohol_perc * 300
@@ -830,7 +815,6 @@
 
 		mito_tot = R.get_reagent_amount("mitocholide")
 		spaceacillin = R.get_reagent_amount("spaceacillin")
-
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.germ_level < INFECTION_LEVEL_ONE / 2 && !(organ.is_dead()))  // not dead, don't need to inject mito either
@@ -889,7 +873,6 @@
 
 	return SURGERY_STEP_CONTINUE
 
-
 /datum/surgery_step/internal/manipulate_organs/clean/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!istype(tool, /obj/item/reagent_containers))
 		return SURGERY_STEP_INCOMPLETE
@@ -926,7 +909,7 @@
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
-		TOOL_CROWBAR = 90
+		TOOL_CROWBAR = 90,
 	)
 
 /datum/surgery_step/internal/manipulate_organs/finish/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -1002,7 +985,7 @@
 		/obj/item/primitive_saw = 100,
 		/obj/item/hatchet = 90,
 		/obj/item/circular_saw_blade = 80,
-		/obj/item/wirecutters = 70
+		/obj/item/wirecutters = 70,
 	)
 
 	time = 5.4 SECONDS
@@ -1043,7 +1026,7 @@
 		/obj/item/twohanded/chainsaw = 1,
 		/obj/item/melee/claymore = 6,
 		/obj/item/melee/energy = 6,
-		/obj/item/pen/edagger = 6
+		/obj/item/pen/edagger = 6,
 	)
 
 	time = 1.6 SECONDS
@@ -1082,7 +1065,7 @@
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
 		/obj/item/crowbar = 90,
-		/obj/item/kitchen/utensil/fork = 60
+		/obj/item/kitchen/utensil/fork = 60,
 	)
 
 	time = 2.4 SECONDS
@@ -1134,7 +1117,7 @@
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
-		TOOL_WELDER = 30
+		TOOL_WELDER = 30,
 	)
 
 	time = 2.4 SECONDS

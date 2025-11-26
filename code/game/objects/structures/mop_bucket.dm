@@ -27,7 +27,6 @@
 	if(in_range(user, src))
 		. += span_notice("[icon2html(src, user)] [src] contains [reagents.total_volume] units of water left.")
 
-
 /obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
@@ -39,7 +38,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/mopbucket/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -59,16 +57,13 @@
 	reagents.reaction(loc)
 	reagents.clear_reagents()
 
-
 /obj/structure/mopbucket/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
 
-
 /obj/structure/mopbucket/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/structure/mopbucket/update_overlays()
 	. = ..()
@@ -88,7 +83,6 @@
 				reagentsImage.icon_state = "mopbucket_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += reagentsImage
-
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)
 	. = ..()

@@ -116,8 +116,6 @@
 /area/mine/podbay
 	name = "Ангар шахтёрских капсул"
 
-
-
 /**********************Lavaland Areas**************************/
 
 /area/lavaland

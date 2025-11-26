@@ -26,7 +26,7 @@
 
 /datum/rep_purchase/comms_blackout
 	name = "Отключение связи"
-	description = "Запрос командования Синдиката на отключение телекоммуникаций станции. Отключает телекоммуникации на станции на определённое время."
+	description = "Запрос командования \"Синдиката\" на отключение телекоммуникаций станции. Отключает телекоммуникации на станции на определённое время."
 	cost = 2
 	var/static/cooldown = 10 MINUTES
 	var/static/next_commsout = -1
@@ -55,5 +55,4 @@
 	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
 		T.start_ion()
 		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), rand(1800, 3000))
-
 

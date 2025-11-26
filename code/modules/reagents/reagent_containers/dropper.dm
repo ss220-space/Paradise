@@ -19,7 +19,7 @@
 		DATIVE = "пипетке",
 		ACCUSATIVE = "пипетку",
 		INSTRUMENTAL = "пипеткой",
-		PREPOSITIONAL = "пипетке"
+		PREPOSITIONAL = "пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/update_overlays()
@@ -44,14 +44,11 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
-
 /obj/item/reagent_containers/dropper/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -146,7 +143,7 @@
 		DATIVE = "промышленной пипетке",
 		ACCUSATIVE = "промышленную пипетку",
 		INSTRUMENTAL = "промышленной пипеткой",
-		PREPOSITIONAL = "промышленной пипетке"
+		PREPOSITIONAL = "промышленной пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/precision
@@ -170,12 +167,11 @@
 		DATIVE = "микропипетке",
 		ACCUSATIVE = "микропипетку",
 		INSTRUMENTAL = "микропипеткой",
-		PREPOSITIONAL = "микропипетке"
+		PREPOSITIONAL = "микропипетке",
 	)
 
 //Syndicate item. Virus transmitting mini hypospray
 /obj/item/reagent_containers/dropper/precision/viral_injector
-
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED

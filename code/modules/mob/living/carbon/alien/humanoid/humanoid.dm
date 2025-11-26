@@ -23,7 +23,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 		/datum/strippable_item/mob_item_slot/pocket/right,
 )))
 
-
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
 	if(name == "alien")
@@ -37,11 +36,9 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 	update_icons()
 
-
 // Determines if mob has and can use his hands like a human
 /mob/living/carbon/alien/humanoid/real_human_being()
 	return TRUE
-
 
 ///mob/living/carbon/alien/humanoid/bullet_act(obj/projectile/Proj)// taken care of in living
 
@@ -74,26 +71,21 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 	take_overall_damage(b_loss, f_loss)
 
-
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I, cuff_break = FALSE)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, 1)  //Alien roars when starting to break free
 	return ..(I, cuff_break = TRUE)
 
-
 /mob/living/carbon/alien/humanoid/lying_angle_on_lying_down(new_lying_angle)
 	set_lying_angle(90)	// it had to be 90, looks silly otherwise
 
-
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
-
 
 /mob/living/carbon/alien/humanoid/toggle_move_intent(new_move_intent) //because with movement intent change our pose changes
 	var/old_m_intent = m_intent
 	. = ..()
 	if(old_m_intent != m_intent)
 		update_icons()
-
 
 /mob/living/carbon/alien/humanoid/examine(mob/user)
 	. = ..()
@@ -112,7 +104,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	if(legcuffed)
 		. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(legcuffed, user)] restrained with [legcuffed]!")
 
-
 /mob/living/carbon/alien/humanoid/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = ..()
 	if(!include_pockets)
@@ -123,7 +114,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 		items += l_store
 	return items
 
-
 /mob/living/carbon/alien/humanoid/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
 	. = ..()
 	if(!include_pockets)
@@ -133,10 +123,8 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	if(l_store)
 		. |= ITEM_SLOT_POCKET_LEFT
 
-
 /mob/living/carbon/alien/humanoid/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
 	return grabbed_thing.devoured(src)
-
 
 /// Returns FALSE if we're not allowed to eat it, true otherwise
 /mob/living/carbon/alien/humanoid/proc/can_consume(mob/living/target)

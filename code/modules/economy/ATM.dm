@@ -84,7 +84,6 @@ log transactions
 				linked_db = DB
 				break
 
-
 /obj/machinery/atm/update_icon_state()
 	. = ..()
 	if(stat & NOPOWER)
@@ -92,12 +91,10 @@ log transactions
 	else
 		icon_state = "atm"
 
-
 /obj/machinery/atm/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon()
-
 
 /obj/machinery/atm/update_overlays()
 	. = ..()
@@ -107,7 +104,6 @@ log transactions
 		return
 
 	underlays += emissive_appearance(icon, "atm_lightmask", src)
-
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
@@ -142,12 +138,11 @@ log transactions
 
 	return ..()
 
-
 /obj/machinery/atm/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	if(issilicon(user))
-		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции Нанотрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции \"Нанотрейзен\" №1023 вмешательство синтетических форм жизни в финансовые операции объекта запрещено."))
 		return
 	if(!linked_db)
 		reconnect_database()

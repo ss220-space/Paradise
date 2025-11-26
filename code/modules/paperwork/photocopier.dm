@@ -58,7 +58,7 @@
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
 					форм, обратитесь в Отдел\
-					стандартизации Нанотрейзен."
+					стандартизации \"Нанотрейзен\"."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
@@ -69,7 +69,7 @@
 		DATIVE = "ксероксу",
 		ACCUSATIVE = "ксерокс",
 		INSTRUMENTAL = "ксероксом",
-		PREPOSITIONAL = "ксероксе"
+		PREPOSITIONAL = "ксероксе",
 	)
 
 /obj/machinery/photocopier/syndie
@@ -86,12 +86,12 @@
 
 /obj/machinery/photocopier/syndie/get_ru_names()
 	return list(
-		NOMINATIVE = "ксерокс Синдиката",
-		GENITIVE = "ксерокса Синдиката",
-		DATIVE = "ксероксу Синдиката",
-		ACCUSATIVE = "ксерокс Синдиката",
-		INSTRUMENTAL = "ксероксом Синдиката",
-		PREPOSITIONAL = "ксероксе Синдиката"
+		NOMINATIVE = "ксерокс \"Синдиката\"",
+		GENITIVE = "ксерокса \"Синдиката\"",
+		DATIVE = "ксероксу \"Синдиката\"",
+		ACCUSATIVE = "ксерокс \"Синдиката\"",
+		INSTRUMENTAL = "ксероксом \"Синдиката\"",
+		PREPOSITIONAL = "ксероксе \"Синдиката\"",
 	)
 
 /obj/machinery/photocopier/Initialize(mapload)
@@ -159,7 +159,6 @@
 	c.updateinfolinks()
 	c.update_icon()
 	return c
-
 
 /**
  * Public proc for copying photo objs
@@ -463,7 +462,6 @@
 	if(LAZYIN(saved_documents, document))
 		copy(document, scancopy = TRUE)
 
-
 /obj/machinery/photocopier/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -623,13 +621,11 @@
 	use_power(active_power_usage)
 	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
 
-
 /obj/machinery/photocopier/proc/do_print_form_paper(obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
 	paper.pixel_x = rand(-10, 10)
 	paper.pixel_y = rand(-10, 10)
 	finish_copying()
-
 
 /obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -661,7 +657,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/photocopier/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -748,7 +743,7 @@
 		DATIVE = "тонер-картриджу",
 		ACCUSATIVE = "тонер-картридж",
 		INSTRUMENTAL = "тонер-картриджом",
-		PREPOSITIONAL = "тонер-картридже"
+		PREPOSITIONAL = "тонер-картридже",
 	)
 
 #undef PHOTOCOPIER_DELAY

@@ -38,7 +38,7 @@
 		DATIVE = "воздушной проекции [target.declent_ru(GENITIVE)]",
 		ACCUSATIVE = "воздушную проекцию [target.declent_ru(GENITIVE)]",
 		INSTRUMENTAL = "воздушной проекцей [target.declent_ru(GENITIVE)]",
-		PREPOSITIONAL = "воздушной проекции [target.declent_ru(GENITIVE)]"
+		PREPOSITIONAL = "воздушной проекции [target.declent_ru(GENITIVE)]",
 	)
 
 	armor = list(

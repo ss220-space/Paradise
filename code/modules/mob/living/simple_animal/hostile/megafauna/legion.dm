@@ -52,7 +52,7 @@ Difficulty: Medium
 	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
-	elimination = 1
+	elimination = TRUE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
@@ -64,7 +64,7 @@ Difficulty: Medium
 		DATIVE = "Легиону",
 		ACCUSATIVE = "Легион",
 		INSTRUMENTAL = "Легионом",
-		PREPOSITIONAL = "Легионе"
+		PREPOSITIONAL = "Легионе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
@@ -72,7 +72,6 @@ Difficulty: Medium
 	update_transform(2)
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
-
 
 /mob/living/simple_animal/hostile/megafauna/legion/enrage()
 	health = 1250
@@ -88,7 +87,6 @@ Difficulty: Medium
 	legiontwo.maxHealth = 1250
 	legiontwo.enraged = TRUE
 
-
 /mob/living/simple_animal/hostile/megafauna/legion/unrage()
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
@@ -100,7 +98,6 @@ Difficulty: Medium
 	if(!QDELETED(src))
 		qdel(src) //Suprise, it's the one on lavaland that regrows to full.
 
-
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
@@ -108,8 +105,8 @@ Difficulty: Medium
 			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 			return ..()
 	UnlockBlastDoors("11119")
+	elimination = FALSE
 	return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
@@ -214,10 +211,8 @@ Difficulty: Medium
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
 
-
 /mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(
 	amount = 0,

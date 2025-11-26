@@ -3,7 +3,6 @@
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
 	explaination_text = "Возьмите сбитого с ног противника в болевой захват, обезоружив его."
 
-
 /datum/martial_combo/judo/armbar/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
 	if(!IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL

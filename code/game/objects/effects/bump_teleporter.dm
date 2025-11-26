@@ -23,7 +23,6 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 /obj/effect/bump_teleporter/singularity_pull()
 	return
 
-
 /obj/effect/bump_teleporter/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(!id_target || !ismob(moving_atom))
@@ -34,7 +33,6 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 			moving_atom.forceMove(teleporter.loc)
 			process_special_effects(moving_atom)
 			break
-
 
 ///Special effects for teleporter. Supposed to be overriden.
 /obj/effect/bump_teleporter/proc/process_special_effects(mob/living/target)

@@ -39,7 +39,6 @@
 	s.start()
 	holder.clear_reagents()
 
-
 /datum/chemical_reaction/metalfoam
 	name = "Metal Foam"
 	id = "metalfoam"
@@ -55,7 +54,6 @@
 	var/datum/effect_system/fluid_spread/foam/metal/s = new()
 	s.set_up(amount = created_volume, location = location)
 	s.start()
-
 
 /datum/chemical_reaction/ironfoam
 	name = "Iron Foam"
@@ -157,14 +155,12 @@
 	required_reagents = list("plasma" = 2, "ethanol" = 1, "sodium" = 1)
 	result_amount = 3
 
-
 /datum/chemical_reaction/steroids
 	name = "Стероиды"
 	id = "steroids"
 	result = "steroids"
 	required_reagents = list("protein" = 2, "oil" = 1, "ethanol" = 1)
 	result_amount = 3
-
 
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
@@ -189,7 +185,6 @@
 	required_reagents = list("fungus" = 1, "blood" = 1)
 	result_amount = 2
 	mix_message = "The substance turns thick and stiff, yet soft."
-
 
 /datum/chemical_reaction/oil
 	name = "Oil"
@@ -724,7 +719,6 @@
 			if(D)
 				D.Evolve(level_min, level_max)
 				return
-
 
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"

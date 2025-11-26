@@ -8,7 +8,7 @@
 		DATIVE = "драконьему сундуку",
 		ACCUSATIVE = "драконий сундук",
 		INSTRUMENTAL = "драконьим сундуком",
-		PREPOSITIONAL = "драконьем сундуке"
+		PREPOSITIONAL = "драконьем сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
@@ -27,7 +27,6 @@
 		if(5)
 			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
-
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
@@ -38,13 +37,12 @@
 		DATIVE = "огненному драконьему сундуку",
 		ACCUSATIVE = "огненный драконий сундук",
 		INSTRUMENTAL = "огненным драконьим сундуком",
-		PREPOSITIONAL = "огненном драконьем сундуке"
+		PREPOSITIONAL = "огненном драконьем сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
 	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
-
 
 // Spectral Blade
 
@@ -72,7 +70,7 @@
 		DATIVE = "спектральному клинку",
 		ACCUSATIVE = "спектральный клинок",
 		INSTRUMENTAL = "спектральным клинком",
-		PREPOSITIONAL = "спектральном клинке"
+		PREPOSITIONAL = "спектральном клинке",
 	)
 
 /obj/item/melee/ghost_sword/New()
@@ -134,7 +132,6 @@
 
 	return ghost_counter
 
-
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	force = 0
 	var/ghost_counter = ghost_check()
@@ -144,7 +141,6 @@
 		span_notice("Вы бьёте с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
 	)
 	return ..()
-
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
@@ -167,7 +163,7 @@
 		DATIVE = "бутылке драконьей крови",
 		ACCUSATIVE = "бутылку драконьей крови",
 		INSTRUMENTAL = "бутылкой драконьей крови",
-		PREPOSITIONAL = "бутылке драконьей крови"
+		PREPOSITIONAL = "бутылке драконьей крови",
 	)
 
 /obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
@@ -206,7 +202,7 @@
 		DATIVE = "бутылке очищенной драконьей крови",
 		ACCUSATIVE = "бутылку очищенной драконьей крови",
 		INSTRUMENTAL = "бутылкой очищенной драконьей крови",
-		PREPOSITIONAL = "бутылке очищенной драконьей крови"
+		PREPOSITIONAL = "бутылке очищенной драконьей крови",
 	)
 
 /obj/item/dragons_blood/refined/attack_self(mob/living/carbon/human/user)
@@ -269,7 +265,7 @@
 		DATIVE = "лавовому посоху",
 		ACCUSATIVE = "лавовый посох",
 		INSTRUMENTAL = "лавовым посохом",
-		PREPOSITIONAL = "лавовом посохе"
+		PREPOSITIONAL = "лавовом посохе",
 	)
 
 /obj/item/lava_staff/New()

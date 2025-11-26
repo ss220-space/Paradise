@@ -14,7 +14,6 @@
 	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
 
-
 /obj/item/slime_extract/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slimepotion/enhancer))
 		add_fingerprint(user)
@@ -29,7 +28,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/slime_extract/New()
 	..()
@@ -101,7 +99,6 @@
 /obj/item/slime_extract/oil/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	obj_destruction(MELEE)
 
-
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
 	icon_state = "adamantine slime extract"
@@ -149,7 +146,6 @@
 	icon_state = "bottle19"
 	var/being_used = FALSE
 
-
 /obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))
@@ -181,7 +177,6 @@
 	target.real_name = newname
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"
@@ -428,7 +423,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-
 /obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))//If target is not a slime.
@@ -450,7 +444,6 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/slimepotion/enhancer
 	name = "extract enhancer"
 	id = "Enhancer"
@@ -464,7 +457,6 @@
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-
 
 /obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -484,14 +476,12 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/slimepotion/slime/mutator
 	name = "slime mutator"
 	id = "Mutator"
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
-
 
 /obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -514,7 +504,6 @@
 	target.mutator_used = TRUE
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/slimepotion/speed
 	name = "slime speed potion"
@@ -559,13 +548,11 @@
 	to_chat(user, span_notice("You slather the red gunk over [O], making it faster.</span>"))
 	qdel(src)
 
-
-/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/speed/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
 
@@ -573,7 +560,6 @@
 		return FALSE
 
 	afterattack(over_object, user, TRUE, params, drop = TRUE)
-
 
 /obj/item/slimepotion/clothing
 	var/inapplicable_caption
@@ -625,21 +611,15 @@
 	if(!uses)
 		qdel(src)
 
-
-/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/clothing/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
-
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
-
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
-
 	afterattack(over_object, user, TRUE, params)
-
 
 /obj/item/slimepotion/clothing/fireproof
 	name = "slime chill potion"
@@ -809,7 +789,6 @@
 		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/spell in living.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= living
 
-
 /obj/effect/timestop/proc/timestop()
 	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
 	for(var/i in 1 to duration-1)
@@ -862,13 +841,6 @@
 /obj/effect/timestop/clockwork
 	duration = 80
 
-/obj/effect/timestop/clockwork/Initialize(mapload)
-	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
-		if(isclocker(M))
-			immune |= M
-	timestop()
-
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"
 	singular_name = "floor tile"
@@ -880,7 +852,6 @@
 	throw_speed = 3
 	throw_range = 7
 	turf_type = /turf/simulated/floor/bluespace
-
 
 /turf/simulated/floor/bluespace
 	slowdown = -1

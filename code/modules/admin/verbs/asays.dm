@@ -28,7 +28,6 @@ GLOBAL_LIST_EMPTY(devsays)
 
 	display_says(GLOB.msays, "msay")
 
-
 /client/proc/view_devsays()
 	set name = "View devsays"
 	set desc = "View Devsays from the current round."

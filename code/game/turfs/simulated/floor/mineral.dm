@@ -17,11 +17,9 @@
 /turf/simulated/floor/mineral/broken_states()
 	return list("[initial(icon_state)]_dam")
 
-
 /turf/simulated/floor/mineral/update_icon_state()
 	if(!broken && !burnt && !(icon_state in icons))
 		icon_state = initial(icon_state)
-
 
 //PLASMA
 /turf/simulated/floor/mineral/plasma
@@ -35,7 +33,6 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
-
 /turf/simulated/floor/mineral/plasma/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -47,7 +44,6 @@
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(I.get_heat())
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
@@ -165,11 +161,9 @@
 	if(isliving(arrived))
 		squeek()
 
-
 /turf/simulated/floor/mineral/bananium/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	honk()
-
 
 /turf/simulated/floor/mineral/bananium/attack_hand(mob/user)
 	.=..()
@@ -190,7 +184,6 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
-
 
 /turf/simulated/floor/mineral/bananium/lubed/Initialize(mapload)
 	. = ..()

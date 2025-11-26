@@ -53,7 +53,6 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	cube_production = cubes_made
 	required_grind = max(req_grind, 1)
 
-
 /obj/machinery/monkey_recycler/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -63,18 +62,14 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 	return ..()
 
-
 /obj/machinery/monkey_recycler/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, "grinder_open", "grinder", I)
-
 
 /obj/machinery/monkey_recycler/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
 
-
 /obj/machinery/monkey_recycler/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/monkey_recycler/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -102,7 +97,6 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			cycle_through = 0
 	to_chat(user, span_notice("You have changed the monkeycube type to [initial(cube_type.name)]."))
 
-
 /obj/machinery/monkey_recycler/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || (stat & (NOPOWER|BROKEN)))
@@ -129,7 +123,6 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	sleep(5 SECONDS)
 	pixel_x = initial(pixel_x)
 	to_chat(grabber, span_notice("The machine now has [grinded] monkey\s worth of material stored."))
-
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc

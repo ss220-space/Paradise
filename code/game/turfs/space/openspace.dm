@@ -100,7 +100,6 @@
 /turf/space/openspace/proc/CanBuildHere()
 	return can_build_on
 
-
 /turf/space/openspace/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -165,7 +164,6 @@
 		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /turf/space/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))

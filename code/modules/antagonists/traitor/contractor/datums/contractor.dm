@@ -18,7 +18,6 @@
 	/// The associated contractor uplink. Only present if the offer was accepted.
 	var/obj/item/contractor_uplink/contractor_uplink = null
 
-
 /datum/antagonist/contractor/Destroy(force)
 	if(contractor_uplink)
 		contractor_uplink.hub?.owner = null
@@ -26,14 +25,12 @@
 
 	return ..()
 
-
 /datum/antagonist/contractor/add_antag_hud(mob/living/antag_mob)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = contractor_uplink ? "hudhijackcontractor" : "hudhijack"
 	else
 		antag_hud_name = contractor_uplink ? "hudcontractor" : "hudsyndicate"
 	return ..()
-
 
 /datum/antagonist/contractor/finalize_antag()
 
@@ -46,7 +43,6 @@
 	if(!hidden_uplink)
 		stack_trace("Сontractor [owner] spawned without a hidden uplink!")
 		return
-
 
 /datum/antagonist/contractor/greet()
 	// Greet them with the unique message
@@ -65,6 +61,7 @@
 	var/list/messages = list()
 	messages.Add(greet())
 	apply_innate_effects()
+	give_objectives()
 	finalize_antag()
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Contractor\">Контрактор"))
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))

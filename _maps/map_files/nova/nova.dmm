@@ -16009,6 +16009,14 @@
 	icon_state = "purple"
 	},
 /area/janitor)
+"cow" = (
+/obj/machinery/atm{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/hallway/primary/central/sw)
 "coJ" = (
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
@@ -17436,7 +17444,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/security_lasers,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -18491,7 +18498,7 @@
 	},
 /area/security/permabrig)
 "cGZ" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 8
 	},
 /turf/simulated/floor/glass,
@@ -22870,6 +22877,9 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -24864,8 +24874,11 @@
 	},
 /area/medical/research)
 "dEP" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 6
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 2
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -27619,7 +27632,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Aeterna0. Слава Нанотрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Aeterna0. Слава \"Нанотрейзен\"!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -35079,7 +35092,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Zhojaba. Слава Нанотрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Zhojaba. Слава \"Нанотрейзен\"!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -39624,7 +39637,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin2)
 "fMb" = (
-/obj/effect/turf_decal/siding/white/end,
+/obj/effect/turf_decal/siding/thinplating/end,
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
 "fMe" = (
@@ -42901,11 +42914,11 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
 	},
 /turf/simulated/floor/glass,
 /area/medical/reception)
@@ -45995,10 +46008,6 @@
 /obj/machinery/shower{
 	pixel_x = -3;
 	pixel_y = 3
-	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 32;
-	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -52113,8 +52122,11 @@
 	},
 /area/bridge/checkpoint/south)
 "hFD" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 10
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 2
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -53833,7 +53845,7 @@
 	},
 /area/maintenance/trading)
 "hUC" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
 	},
 /turf/simulated/floor/glass,
@@ -59149,8 +59161,13 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "iIv" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 5
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4;
+	pixel_y = -4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 1;
+	pixel_x = -1
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -60434,7 +60451,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/beautyplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Saad603. Слава Нанотрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Saad603. Слава \"Нанотрейзен\"!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -64415,7 +64432,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/tajarplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Den10g. Слава Нанотрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции \"Нанотрейзен\". С благодарностью, Den10g. Слава \"Нанотрейзен\"!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -77855,11 +77872,11 @@
 	},
 /area/crew_quarters/serviceyard)
 "lAQ" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/thinplating/corner{
 	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -83887,10 +83904,10 @@
 /turf/simulated/floor/redgrid,
 /area/turret_protected/ai)
 "mvV" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/thinplating/corner{
 	dir = 4
 	},
 /turf/simulated/floor/glass,
@@ -94139,11 +94156,11 @@
 	},
 /area/turret_protected/aisat)
 "nUq" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
 	},
 /turf/simulated/floor/glass,
 /area/medical/reception)
@@ -106930,9 +106947,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "pNR" = (
@@ -114726,6 +114740,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/machinery/atm{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -116644,8 +116661,12 @@
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
 "rlb" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 9
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 1;
+	pixel_x = 1
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -129042,6 +129063,14 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
+"sYa" = (
+/obj/machinery/atm{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/starboard)
 "sYc" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/machinery/camera{
@@ -130956,7 +130985,7 @@
 "tkt" = (
 /obj/structure/window/reinforced,
 /obj/structure/statue/gold/tajaran{
-	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции Нанотрейзен - Nova.";
+	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции \"Нанотрейзен\" - Nova.";
 	name = "Л.А.Р"
 	},
 /turf/simulated/floor/plasteel{
@@ -135824,10 +135853,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "tUe" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/thinplating/corner{
 	dir = 8
 	},
 /turf/simulated/floor/glass,
@@ -147146,7 +147175,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/teleporter)
 "vFj" = (
-/obj/effect/turf_decal/siding/white/end{
+/obj/effect/turf_decal/siding/thinplating/end{
 	dir = 1
 	},
 /turf/simulated/floor/glass,
@@ -151445,7 +151474,7 @@
 "wmf" = (
 /obj/structure/window/reinforced,
 /obj/structure/statue/gold/unathi{
-	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции Нанотрейзен - Nova.";
+	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке — Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции \"Нанотрейзен\" - Nova.";
 	name = "К.А.З"
 	},
 /turf/simulated/floor/plasteel{
@@ -156156,7 +156185,7 @@
 /area/maintenance/asmaint3)
 "wWg" = (
 /obj/structure/chair{
-	desc = "Этот красивый стул был отлит из двух трофейных боргов синдиката.";
+	desc = "Этот красивый стул был отлит из двух трофейных боргов \"Синдиката\".";
 	name = "Дизайнерский стул"
 	},
 /obj/effect/decal/cleanable/blood/old,
@@ -161793,7 +161822,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/xenozoo)
 "xNM" = (
-/obj/effect/turf_decal/siding/white/end,
+/obj/effect/turf_decal/siding/thinplating/end,
 /turf/simulated/floor/glass,
 /area/medical/reception)
 "xNP" = (
@@ -164890,10 +164919,10 @@
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "yiq" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/white/corner,
+/obj/effect/turf_decal/siding/thinplating/corner,
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
 "yiv" = (
@@ -192430,7 +192459,7 @@ tkq
 thy
 lvV
 wmY
-sfN
+cow
 fDY
 wrb
 bGa
@@ -207064,7 +207093,7 @@ szH
 dVE
 pWT
 bib
-rDT
+sYa
 cbh
 cbh
 sbO

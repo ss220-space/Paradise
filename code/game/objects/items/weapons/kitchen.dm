@@ -16,9 +16,6 @@
 	icon = 'icons/obj/kitchen.dmi'
 	origin_tech = "materials=1"
 
-
-
-
 /*
  * Utensils
  */
@@ -33,7 +30,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	var/max_contents = 1
 
-
 /obj/item/kitchen/utensil/Initialize(mapload)
 	. = ..()
 
@@ -41,7 +37,6 @@
 		set_base_pixel_y(rand(0, 4))
 
 	create_reagents(5)
-
 
 /obj/item/kitchen/utensil/update_overlays()
 	. = ..()
@@ -51,7 +46,6 @@
 		food_olay.pixel_w = pixel_x
 		food_olay.pixel_z = pixel_y
 		. += food_olay
-
 
 /obj/item/kitchen/utensil/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
@@ -83,7 +77,6 @@
 		toEat.On_Consume(target, user)
 		update_icon(UPDATE_OVERLAYS)
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /obj/item/kitchen/utensil/fork
 	name = "fork"
@@ -158,7 +151,6 @@
 	default_force = force
 	default_throwforce = throwforce
 
-
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
 						span_suicide("[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
@@ -169,7 +161,6 @@
 	. = ..()
 	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, TRUE)
 
-
 /obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
@@ -178,13 +169,11 @@
 		shields_penetration = initial(shields_penetration) + MA.shields_penetration_bonus
 	return ..()
 
-
 /obj/item/kitchen/knife/after_throw(datum/callback/callback)
 	embed_chance = initial(embed_chance)
 	throwforce = default_throwforce
 	shields_penetration = initial(shields_penetration)
 	return ..()
-
 
 /obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
@@ -196,14 +185,12 @@
 	. = ..()
 	force = default_force
 
-
 /obj/item/kitchen/knife/attack_obj(obj/object, mob/living/user, params)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		force = default_force + MA.knife_bonus_damage
 	. = ..()
 	force = default_force
-
 
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
@@ -239,7 +226,7 @@
 		DATIVE = "мясницкому тесаку",
 		ACCUSATIVE = "мясницкий тесак",
 		INSTRUMENTAL = "мясницким тесаком",
-		PREPOSITIONAL = "мясницком тесаке"
+		PREPOSITIONAL = "мясницком тесаке",
 	)
 
 /obj/item/kitchen/knife/butcher/ComponentInitialize()
@@ -272,7 +259,7 @@
 		DATIVE = "тесаку для мяса",
 		ACCUSATIVE = "тесак для мяса",
 		INSTRUMENTAL = "тесаком для мяса",
-		PREPOSITIONAL = "тесаке для мяса"
+		PREPOSITIONAL = "тесаке для мяса",
 	)
 
 /obj/item/kitchen/knife/butcher/meatcleaver/ComponentInitialize()
@@ -323,7 +310,7 @@
 		DATIVE = "ножу для выживания",
 		ACCUSATIVE = "нож для выживания",
 		INSTRUMENTAL = "ножом для выживания",
-		PREPOSITIONAL = "ноже для выживания"
+		PREPOSITIONAL = "ноже для выживания",
 	)
 
 /obj/item/kitchen/knife/combat/throwing
@@ -352,7 +339,7 @@
 		DATIVE = "костяному кинжалу",
 		ACCUSATIVE = "костяной кинжал",
 		INSTRUMENTAL = "костяным кинжалом",
-		PREPOSITIONAL = "костяном кинжале"
+		PREPOSITIONAL = "костяном кинжале",
 	)
 
 /obj/item/kitchen/knife/combat/survival/bone/eel
@@ -372,7 +359,7 @@
 		DATIVE = "хвосту донного угря",
 		ACCUSATIVE = "хвост донного угря",
 		INSTRUMENTAL = "хвостом донного угря",
-		PREPOSITIONAL = "хвосте донного угря"
+		PREPOSITIONAL = "хвосте донного угря",
 	)
 
 /obj/item/kitchen/knife/combat/cyborg
@@ -419,7 +406,6 @@
 	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 	var/size
 
-
 /obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
 	. = ..()
 	if(sh)
@@ -428,10 +414,8 @@
 		size = pick("large", "medium", "small")
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/kitchen/knife/glassshiv/update_icon_state()
 	icon_state = "[size]_[initial(icon_state)]"
-
 
 /obj/item/kitchen/knife/glassshiv/plasma
 	name = "plasma glass shiv"
@@ -460,7 +444,7 @@
 		DATIVE = "старому ножу",
 		ACCUSATIVE = "старый нож",
 		INSTRUMENTAL = "старым ножом",
-		PREPOSITIONAL = "старом ноже"
+		PREPOSITIONAL = "старом ноже",
 	)
 
 /obj/item/kitchen/knife/ghostface_knife/ComponentInitialize()
@@ -485,9 +469,8 @@
 		DATIVE = "старому ржавому ножу",
 		ACCUSATIVE = "старый ржавый нож",
 		INSTRUMENTAL = "старым ржавым ножом",
-		PREPOSITIONAL = "старом ржавом ноже"
+		PREPOSITIONAL = "старом ржавом ноже",
 	)
-
 
 /*
  * Rolling Pins
@@ -572,8 +555,6 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("закатил", "треснул")
-
-
 
 /// circular cutter by Ume
 

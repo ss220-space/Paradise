@@ -13,13 +13,11 @@
 
 	..(message)
 
-
 /mob/living/carbon/brain/whisper(message as text)
 	if(!can_speak(warning = TRUE))
 		return
 
 	..()
-
 
 /mob/living/carbon/brain/can_speak(warning = FALSE)
 	. = ..()
@@ -32,7 +30,6 @@
 			if(warning)
 				to_chat(usr, span_warning("You cannot speak, as your internal speaker is turned off."))
 			. = FALSE
-
 
 /mob/living/carbon/brain/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
@@ -54,7 +51,6 @@
 			return TRUE
 		else
 			return FALSE
-
 
 /mob/living/carbon/brain/say_understands(mob/other, datum/language/speaking = null)	//Goddamn is this hackish, but this say code is so odd
 	if(isAI(other) || istype(other, /mob/living/silicon/decoy) || ispAI(other) || isrobot(other))

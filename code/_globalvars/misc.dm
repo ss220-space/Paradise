@@ -75,7 +75,6 @@ GLOBAL_PROTECT(polls)
 GLOBAL_LIST_EMPTY(active_polls)
 GLOBAL_PROTECT(active_polls)
 
-
 ///All poll option datums of running polls
 GLOBAL_LIST_EMPTY(poll_options)
 GLOBAL_PROTECT(poll_options)

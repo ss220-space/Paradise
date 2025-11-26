@@ -22,7 +22,6 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("Huh? How does this thing work?"))
@@ -33,16 +32,13 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/grenade/proc/delayed_boom(mob/living/user)
 	if(!QDELETED(user))
 		user.drop_item_ground(src)
 	prime()
 
-
 /obj/item/grenade/update_icon_state()
 	icon_state = "[initial(icon_state)][active ? "_active" : ""]"
-
 
 /obj/item/grenade/examine(mob/user)
 	. = ..()
@@ -51,7 +47,6 @@
 			. += span_notice("The timer is set to [det_time/10] second\s.")
 		else
 			. += span_warning("[src] is set for instant detonation.")
-
 
 /obj/item/grenade/attack_self(mob/user)
 	if(!active && clown_check(user))
@@ -68,17 +63,14 @@
 			c_user.throw_mode_on()
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
-
 /obj/item/grenade/proc/prime(mob/user)
 	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, user)
 	return
-
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.drop_item_ground(src)
-
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
 	switch(det_time)
@@ -97,11 +89,9 @@
 	add_fingerprint(user)
 	return TRUE
 
-
 /obj/item/grenade/attack_hand(mob/user)
 	GLOB.move_manager.stop_looping(src)
 	. = ..()
-
 
 /obj/item/grenade/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	obj_destruction(MELEE)

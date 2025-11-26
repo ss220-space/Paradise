@@ -40,10 +40,12 @@
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
 	tts_seed = "Volibear"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
-								/datum/action/innate/elite_attack/head_detach,
-								/datum/action/innate/elite_attack/bonfire_teleport,
-								/datum/action/innate/elite_attack/throw_bone)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/legionnaire_charge,
+		/datum/action/innate/elite_attack/head_detach,
+		/datum/action/innate/elite_attack/bonfire_teleport,
+		/datum/action/innate/elite_attack/throw_bone,
+	)
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/myhead = null
 	var/obj/structure/legionnaire_bonfire/mypile = null
@@ -60,7 +62,7 @@
 		DATIVE = "легионеру",
 		ACCUSATIVE = "легионера",
 		INSTRUMENTAL = "легионером",
-		PREPOSITIONAL = "легионере"
+		PREPOSITIONAL = "легионере",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
@@ -87,7 +89,7 @@
 
 /datum/action/innate/elite_attack/throw_bone
 	name = "Бросок кости"
-	icon_icon = 'icons/obj/mining.dmi'
+	button_icon = 'icons/obj/mining.dmi'
 	button_icon_state = "bone"
 	chosen_message = span_boldwarning("Вы бросаете тяжёлую кость.")
 	chosen_attack_num = THROW_BONE
@@ -283,7 +285,7 @@
 		DATIVE = "голове легионера",
 		ACCUSATIVE = "голову легионера",
 		INSTRUMENTAL = "головой легионера",
-		PREPOSITIONAL = "голове легионера"
+		PREPOSITIONAL = "голове легионера",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death(gibbed)
@@ -311,7 +313,7 @@
 		DATIVE = "груде костей",
 		ACCUSATIVE = "груду костей",
 		INSTRUMENTAL = "грудой костей",
-		PREPOSITIONAL = "груде костей"
+		PREPOSITIONAL = "груде костей",
 	)
 
 /obj/structure/legionnaire_bonfire/Initialize(mapload)
@@ -321,11 +323,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/legionnaire_bonfire/Destroy()
 	myowner?.mypile = null
 	return ..()
-
 
 /obj/structure/legionnaire_bonfire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -337,7 +337,6 @@
 		var/mob/living/fire_walker = arrived
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
-
 
 /obj/projectile/legionnaire
 	name = "bone"
@@ -354,7 +353,7 @@
 		DATIVE = "кости",
 		ACCUSATIVE = "кость",
 		INSTRUMENTAL = "костью",
-		PREPOSITIONAL = "кости"
+		PREPOSITIONAL = "кости",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
@@ -394,7 +393,7 @@
 		DATIVE = "позвоночнику легионера",
 		ACCUSATIVE = "позвоночник легионера",
 		INSTRUMENTAL = "позвоночником легионера",
-		PREPOSITIONAL = "позвоночнике легионера"
+		PREPOSITIONAL = "позвоночнике легионера",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire

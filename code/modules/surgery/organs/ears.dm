@@ -13,12 +13,11 @@
 		DATIVE = "ушам человека",
 		ACCUSATIVE = "уши человека",
 		INSTRUMENTAL = "ушами человека",
-		PREPOSITIONAL = "ушах человека"
+		PREPOSITIONAL = "ушах человека",
 	)
 
 /obj/item/organ/internal/ears/invincible/internal_receive_damage(amount, silent)
 	return FALSE
-
 
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
@@ -43,8 +42,6 @@
 		if((H.l_ear && (H.l_ear.item_flags & HEALS_EARS)) || (H.r_ear && (H.r_ear.item_flags & HEALS_EARS)))
 			H.AdjustDeaf(-1 SECONDS)
 			heal_internal_damage(0.1)
-
-
 
 /obj/item/organ/internal/ears/has_damage()
 	. = ..()
@@ -73,7 +70,7 @@
 		DATIVE = "кибернетическим ушам",
 		ACCUSATIVE = "кибернетические уши",
 		INSTRUMENTAL = "кибернетическими ушами",
-		PREPOSITIONAL = "кибернетических ушах"
+		PREPOSITIONAL = "кибернетических ушах",
 	)
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)

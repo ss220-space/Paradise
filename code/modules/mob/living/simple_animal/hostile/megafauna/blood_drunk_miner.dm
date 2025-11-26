@@ -57,9 +57,11 @@ Difficulty: Medium
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner
 	enraged_unique_loot = /obj/item/clothing/suit/hooded/explorer/blood
-	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
-							/datum/action/innate/megafauna_attack/kinetic_accelerator,
-							/datum/action/innate/megafauna_attack/transform_weapon)
+	attack_action_types = list(
+		/datum/action/innate/megafauna_attack/dash,
+		/datum/action/innate/megafauna_attack/kinetic_accelerator,
+		/datum/action/innate/megafauna_attack/transform_weapon,
+	)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/get_ru_names()
 	return list(
@@ -68,7 +70,7 @@ Difficulty: Medium
 		DATIVE = "кровожадному шахтёру",
 		ACCUSATIVE = "кровожадного шахтёра",
 		INSTRUMENTAL = "кровожадным шахтёром",
-		PREPOSITIONAL = "кровожадном шахтёре"
+		PREPOSITIONAL = "кровожадном шахтёре",
 	)
 
 /* New costume */
@@ -87,7 +89,7 @@ Difficulty: Medium
 		DATIVE = "усиленному костюму исследователя",
 		ACCUSATIVE = "усиленный костюм исследователя",
 		INSTRUMENTAL = "усиленным костюмом исследователя",
-		PREPOSITIONAL = "усиленном костюме исследователя"
+		PREPOSITIONAL = "усиленном костюме исследователя",
 	)
 
 /obj/item/clothing/head/hooded/explorer/blood
@@ -102,7 +104,7 @@ Difficulty: Medium
 		DATIVE = "усиленному капюшону исследователя",
 		ACCUSATIVE = "усиленный капюшон исследователя",
 		INSTRUMENTAL = "усиленным капюшоном исследователя",
-		PREPOSITIONAL = "усиленном капюшоне исследователя"
+		PREPOSITIONAL = "усиленном капюшоне исследователя",
 	)
 
 /obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
@@ -152,14 +154,12 @@ Difficulty: Medium
 		user.Slowed(20 SECONDS)
 		user.Dizzy(20 SECONDS)
 
-
 /obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
 	LAZYADD(user.mob_spell_list, blood_spell)
 	blood_spell.action.Grant(user)
-
 
 /obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
@@ -168,28 +168,27 @@ Difficulty: Medium
 	LAZYREMOVE(user.mob_spell_list, blood_spell)
 	blood_spell.action.Remove(user)
 
-
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
 	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Рывок к цели"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("Вы рывком движетесь к цели.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Стрелять из кинетического ускорителя"
-	icon_icon = 'icons/obj/weapons/energy.dmi'
+	button_icon = 'icons/obj/weapons/energy.dmi'
 	button_icon_state = "kineticgun"
 	chosen_message = span_colossus("Вы стреляете из кинетического ускорителя.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Трансформировать оружие"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
 	chosen_message = span_colossus("Вы трансформируете своё оружие.")
 	chosen_attack_num = 3
@@ -216,7 +215,6 @@ Difficulty: Medium
 	force = 6
 	force_on = 10
 
-
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	target.add_status_effect_absorption(
 		source = "miner",
@@ -226,7 +224,6 @@ Difficulty: Medium
 	)
 	return ..()
 
-
 /obj/projectile/kinetic/miner
 	damage = 20
 	speed = 0.9
@@ -235,7 +232,6 @@ Difficulty: Medium
 
 /obj/projectile/kinetic/miner/enraged
 	damage = 35
-
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(
 	amount = 0,
@@ -249,7 +245,6 @@ Difficulty: Medium
 		if(world.time + adjustment_amount > next_move)
 			changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
 	return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death(gibbed)
 	if(health > 0)

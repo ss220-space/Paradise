@@ -18,7 +18,6 @@
 
 /obj/effect/spawner/newbomb/radio
 
-
 /obj/effect/spawner/newbomb/New()
 	..()
 
@@ -52,7 +51,6 @@
 		if(2)
 
 			S = new/obj/item/assembly/timer(V)
-
 
 	V.attached_device = S
 

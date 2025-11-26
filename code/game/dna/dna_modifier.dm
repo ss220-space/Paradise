@@ -47,7 +47,6 @@
 	newrecord.implant = implant
 	return newrecord
 
-
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
 	name = "DNA modifier"
@@ -74,7 +73,7 @@
 		DATIVE = "ДНК-модификатору",
 		ACCUSATIVE = "ДНК-модификатор",
 		INSTRUMENTAL = "ДНК-модификатором",
-		PREPOSITIONAL = "ДНК-модификаторе"
+		PREPOSITIONAL = "ДНК-модификаторе",
 	)
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
@@ -178,7 +177,6 @@
 	put_in(L, user)
 	return TRUE
 
-
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -201,7 +199,6 @@
 
 	return ..()
 
-
 /obj/machinery/dna_scannernew/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
@@ -221,7 +218,6 @@
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
-
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -350,7 +346,7 @@
 		DATIVE = "консоли управления ДНК-модификатором",
 		ACCUSATIVE = "консоль управления ДНК-модификатором",
 		INSTRUMENTAL = "консолью управления ДНК-модификатором",
-		PREPOSITIONAL = "консоли управления ДНК-модификатором"
+		PREPOSITIONAL = "консоли управления ДНК-модификатором",
 	)
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
@@ -367,7 +363,6 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/machinery/computer/scan_consolenew/Initialize(mapload)
 	. = ..()

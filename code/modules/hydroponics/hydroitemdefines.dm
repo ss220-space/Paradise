@@ -32,7 +32,7 @@
 		DATIVE = "распылителю средства от сорняков",
 		ACCUSATIVE = "распылитель средства от сорняков",
 		INSTRUMENTAL = "распылителем средства от сорняков",
-		PREPOSITIONAL = "распылителе средства от сорняков"
+		PREPOSITIONAL = "распылителе средства от сорняков",
 	)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
@@ -56,7 +56,7 @@
 		DATIVE = "распылителю пестицидов",
 		ACCUSATIVE = "распылитель пестицидов",
 		INSTRUMENTAL = "распылителем пестицидов",
-		PREPOSITIONAL = "распылителе пестицидов"
+		PREPOSITIONAL = "распылителе пестицидов",
 	)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
@@ -79,7 +79,6 @@
 	attack_verb = list("полоснул", "порезал", "поцарапал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-
 /obj/item/cultivator/rake
 	name = "rake"
 	desc = "Их используют, чтобы удалить сорняки или почесать спину."
@@ -100,7 +99,7 @@
 		DATIVE = "граблям",
 		ACCUSATIVE = "грабли",
 		INSTRUMENTAL = "граблями",
-		PREPOSITIONAL = "граблях"
+		PREPOSITIONAL = "граблях",
 	)
 
 /obj/item/cultivator/wooden
@@ -110,7 +109,6 @@
 	flags = NONE
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
-
 
 /obj/item/hatchet
 	name = "hatchet"
@@ -206,7 +204,6 @@
 			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
 
-
 /obj/item/scythe/tele
 	icon_state = "tscythe0"
 	item_state = null	//no sprite for folded version, like a tele-baton
@@ -246,7 +243,6 @@
 	update_equipped_item(update_speedmods = FALSE)
 	add_fingerprint(user)
 
-
 /obj/item/scythe/tele/update_icon_state()
 	if(extend)
 		icon_state = "tscythe1"
@@ -255,11 +251,9 @@
 		icon_state = "tscythe0"
 		item_state = null	//no sprite for folded version, like a tele-baton
 
-
 // *************************************
 // Nutrient defines for hydroponics
 // *************************************
-
 
 /obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
@@ -280,7 +274,7 @@
 		DATIVE = "канистре",
 		ACCUSATIVE = "канистру",
 		INSTRUMENTAL = "канистрой",
-		PREPOSITIONAL = "канистре"
+		PREPOSITIONAL = "канистре",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/New()
@@ -298,7 +292,6 @@
 	else
 		hitsound = 'sound/weapons/jug_empty_impact.ogg'
 		mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
-
 
 /obj/item/reagent_containers/glass/bottle/nutrient/update_overlays()
 	. = ..()
@@ -328,7 +321,6 @@
 	if(!is_open_container())
 		. += "lid_jug"
 
-
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
@@ -342,7 +334,7 @@
 		DATIVE = "канистре (И-ЗИ-Нутриент)",
 		ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
 		INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
-		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
+		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
@@ -358,7 +350,7 @@
 		DATIVE = "канистре (Лефт-Фо-Зед)",
 		ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
 		INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
-		PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
+		PREPOSITIONAL = "канистре (Лефт-Фо-Зед)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
@@ -374,7 +366,7 @@
 		DATIVE = "канистре (Робаст-Харвест)",
 		ACCUSATIVE = "канистру (Робаст-Харвест)",
 		INSTRUMENTAL = "канистрой (Робаст-Харвест)",
-		PREPOSITIONAL = "канистре (Робаст-Харвест)"
+		PREPOSITIONAL = "канистре (Робаст-Харвест)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
@@ -400,7 +392,7 @@
 		DATIVE = "канистре (Атразин)",
 		ACCUSATIVE = "канистру (Атразин)",
 		INSTRUMENTAL = "канистрой (Атразин)",
-		PREPOSITIONAL = "канистре (Атразин)"
+		PREPOSITIONAL = "канистре (Атразин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
@@ -416,7 +408,7 @@
 		DATIVE = "канистре (Пестициды)",
 		ACCUSATIVE = "канистру (Пестициды)",
 		INSTRUMENTAL = "канистрой (Пестициды)",
-		PREPOSITIONAL = "канистре (Пестициды)"
+		PREPOSITIONAL = "канистре (Пестициды)",
 	)
 
 /obj/item/conductive_organ

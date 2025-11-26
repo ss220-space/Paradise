@@ -191,7 +191,6 @@
 
 	fixdir()
 
-
 /obj/item/pipe/verb/flip()
 	set category = STATPANEL_OBJECT
 	set name = "Перевернуть трубу"
@@ -211,7 +210,6 @@
 	src.dir = turn(src.dir, -180)
 
 	fixdir()
-
 
 /obj/item/pipe/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -345,7 +343,6 @@
 		if(T.transparent_floor == TURF_TRANSPARENT) //stops jank with transparent floors and pipes
 			to_chat(user, span_warning("You can only fix simple pipes and devices over glass floors!"))
 			return 1
-
 
 	switch(pipe_type) //What kind of heartless person thought of doing this?
 		if(PIPE_SIMPLE_STRAIGHT, PIPE_SIMPLE_BENT)
@@ -526,7 +523,6 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-
 /obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))
@@ -538,7 +534,6 @@
 	meter.add_fingerprint(user)
 	to_chat(user, span_notice("You have fastened the meter to the pipe."))
 	qdel(src)
-
 
 /obj/item/pipe_meter/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_DELETE_MODE)
@@ -554,7 +549,6 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-
 /obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -563,7 +557,6 @@
 	sensor.add_fingerprint(user)
 	to_chat(user, span_notice("You have fastened the gas sensor."))
 	qdel(src)
-
 
 /obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_DELETE_MODE)

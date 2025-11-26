@@ -248,7 +248,6 @@
 		else if(!firedoor.density)
 			INVOKE_ASYNC(firedoor, TYPE_PROC_REF(/obj/machinery/door/firedoor, close))
 
-
 /area/proc/air_doors_open()
 	if(!air_doors_activated)
 		return
@@ -331,7 +330,6 @@
 	if(new_length >= zlevel_to_clean)
 		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
 
-
 /// Ensures that the contained_turfs list properly represents the turfs actually inside us
 /area/proc/cannonize_contained_turfs()
 	for(var/area_zlevel in 1 to length(turfs_to_uncontain_by_zlevel))
@@ -394,7 +392,6 @@
 				var/obj/machinery/camera/C = locateUID(thing)
 				if(!QDELETED(C) && is_station_level(C.z))
 					C.network |= "Atmosphere Alarms"
-
 
 			GLOB.alarm_manager.trigger_alarm("Atmosphere", src, cameras, source)
 
@@ -557,7 +554,6 @@
 		light.fire_mode = FALSE
 		light.update()
 
-
 /area/update_icon_state()
 	var/weather_icon = FALSE
 	for(var/datum/weather/weather as anything in SSweather.processing)
@@ -566,7 +562,6 @@
 			weather_icon = TRUE
 	if(!weather_icon)
 		icon_state = null
-
 
 /area/space/update_icon_state()
 	icon_state = null
@@ -599,7 +594,6 @@
 		machine.power_change()										// reverify power status (to update icons etc.)
 	update_icon(UPDATE_ICON_STATE)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
-
 
 /area/proc/usage(chan)
 	var/used = 0
@@ -653,7 +647,6 @@
 		if(ENVIRON)
 			used_environ += amount
 
-
 /area/Entered(atom/movable/arrived, area/old_area)
 
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
@@ -691,10 +684,8 @@
 	for(var/obj/machinery/door/window/temp_windoor in machinery_cache)
 		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
-
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")
-
 
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")

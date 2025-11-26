@@ -9,12 +9,10 @@
 /// Bananas required for gorilla to eat, in order to make everyone understand them.
 #define BANANAS_TO_ENLIGHTEN 50
 
-
 /mob/living/simple_animal/hostile/gorilla/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Бананов съедено:", "[bananas_eaten]/[BANANAS_TO_ENLIGHTEN]")
-
 
 /mob/living/simple_animal/hostile/gorilla/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/food/snacks/grown/banana))
@@ -63,7 +61,6 @@
 	oogaooga(50)
 	custom_emote(EMOTE_VISIBLE, "раздражённо смотр%(ит,ят)% на банан.", intentional = TRUE)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/gorilla/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(client || !can_befriend || !ishuman(speaker) || speaker == src || incapacitated() || is_on_cooldown())
@@ -211,7 +208,6 @@
 
 	return ..()
 
-
 /**
  * Parses message for specific phrases contained in a list.
  *
@@ -225,7 +221,6 @@
 			return TRUE
 	return FALSE
 
-
 /**
  * Checks if gorillas is currently buckeld to something.
  *
@@ -236,7 +231,6 @@
 	. = !isnull(buckled)
 	if(. && unbuckle)
 		buckled.unbuckle_mob(src)
-
 
 /**
  * Signal handler used to give gorilla various actions by pointing. Works only if gorilla is befrinded.
@@ -311,7 +305,6 @@
 	RegisterSignal(new_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(move_postprocess))
 	RegisterSignal(new_loop, COMSIG_QDELETING, PROC_REF(move_end))
 
-
 /mob/living/simple_animal/hostile/gorilla/proc/move_postprocess(datum/source)
 	SIGNAL_HANDLER
 
@@ -330,12 +323,10 @@
 	point_target = null
 	target_turf = null
 
-
 /mob/living/simple_animal/hostile/gorilla/proc/move_end(datum/source)
 	SIGNAL_HANDLER
 
 	follow_master()
-
 
 /**
  * Result of pointing at banana or crate/closet.
@@ -358,7 +349,6 @@
 		oogaooga(50)
 		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок[pointed_at ? ", смотря на [pointed_at]" : ""].", intentional = TRUE)
 	follow_master()
-
 
 /**
  * Result of pointing at anything except crates or bananas.
@@ -383,7 +373,6 @@
 		oogaooga(50)
 		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
 	follow_master()
-
 
 /**
  * Banana consuming overmind.
@@ -457,7 +446,6 @@
 			follow_master()
 			befriend_timer = addtimer(CALLBACK(src, PROC_REF(reset_behavior)), BANANAS_TO_BEFRIEND * TIME_PER_BANANA, TIMER_STOPPABLE|TIMER_DELETE_ME)
 
-
 /**
  * Simple follow its master if gorilla is not waiting.
  */
@@ -465,7 +453,6 @@
 	if(master && !is_waiting)
 		check_buckled_gorilla()
 		Goto(master, move_to_delay, 2)
-
 
 /**
  * Changes current gorilla master.
@@ -484,14 +471,12 @@
 		RegisterSignal(user, COMSIG_MOB_POINTED, PROC_REF(check_pointed))
 		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
-
 /**
  * Resetting gorilla after master's death.
  */
 /mob/living/simple_animal/hostile/gorilla/proc/on_death(mob/living/carbon/human/user, gibbed)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(reset_behavior), FALSE)
-
 
 /**
  * Reset variables for gorilla after end of friendship or after excitement is finished.
@@ -532,13 +517,11 @@
 		deltimer(befriend_timer)
 		befriend_timer = null
 
-
 /**
  * Is gorilla enlightened enough by bananas?
  */
 /mob/living/simple_animal/hostile/gorilla/proc/check_enlighten()
 	return bananas_eaten >= BANANAS_TO_ENLIGHTEN
-
 
 /**
  * Starts general actions cooldown for gorilla.
@@ -546,13 +529,11 @@
 /mob/living/simple_animal/hostile/gorilla/proc/start_action_cooldown()
 	COOLDOWN_START(src, gorilla_actions_cooldown, GORILLA_ACTIONS_COOLDOWN)
 
-
 /**
  * Checks general actions cooldown for gorilla. Returns `TRUE` if still in progress.
  */
 /mob/living/simple_animal/hostile/gorilla/proc/is_on_cooldown()
 	return !COOLDOWN_FINISHED(src, gorilla_actions_cooldown)
-
 
 #undef GORILLA_ACTIONS_COOLDOWN
 #undef GORILLA_EXCITEMENT_TIME

@@ -5,7 +5,6 @@
 	action_icon_state = "alien_whisper"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/alien_spell/whisper/create_new_targeting() // Yeah this is copy and pasted code from cryoken and it's good enough
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
@@ -14,7 +13,6 @@
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.include_user = TRUE
 	return T
-
 
 /obj/effect/proc_holder/spell/alien_spell/whisper/cast(list/targets, mob/living/carbon/user)
 	var/mob/living/target = targets[1]

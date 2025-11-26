@@ -14,7 +14,6 @@
 	item_state = "gift1"
 	resistance_flags = FLAMMABLE
 
-
 /obj/item/a_gift/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-10,10)
@@ -26,12 +25,10 @@
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
 
-
 /obj/effect/spresent/relaymove(mob/user)
 	if(user.stat)
 		return
 	to_chat(user, span_notice("You cannot move."))
-
 
 /obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -41,7 +38,6 @@
 	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
 		thing.forceMove(loc)
 	qdel(src)
-
 
 /obj/item/a_gift/attack_self(mob/user)
 	var/static/list/gift_types = list(/obj/item/sord,
@@ -112,7 +108,6 @@
 	gift.add_fingerprint(user)
 	qdel(src)
 	user.put_in_hands(gift)
-
 
 /*
  * Wrapping Paper

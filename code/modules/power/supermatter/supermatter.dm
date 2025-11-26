@@ -20,12 +20,10 @@
 #define CHARGING_FACTOR 0.05
 #define DAMAGE_RATE_LIMIT 4.5		//damage rate cap at power = 300, scales linearly with power
 
-
 // Base variants are applied to everyone on the same Z level
 // Range variants are applied on per-range basis: numbers here are on point blank, it scales with the map size (assumes square shaped Z levels)
 #define DETONATION_RADS 200
 #define DETONATION_HALLUCINATION 600
-
 
 #define WARNING_DELAY 20			//seconds between warnings.
 /obj/machinery/power/supermatter_shard
@@ -37,7 +35,6 @@
 	anchored = FALSE
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
-
 
 	var/gasefficency = 0.125
 
@@ -98,7 +95,6 @@
 	gasefficency = 0.25
 	explosion_power = 24
 
-
 /obj/machinery/power/supermatter_shard/New()
 	. = ..()
 	GLOB.poi_list |= src
@@ -108,7 +104,6 @@
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
 	supermatter_explosive_effects = new()
 	supermatter_explosive_effects.z = src.z
-
 
 /obj/machinery/power/supermatter_shard/proc/handle_admin_warnings()
 	if(disable_adminwarn)
@@ -132,7 +127,6 @@
 		return TRUE
 	else
 		return FALSE
-
 
 /obj/machinery/power/supermatter_shard/Destroy()
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
@@ -301,7 +295,6 @@
 		return 0	// This stops people from being able to really power up the supermatter
 				// Then bring it inside to explode instantly upon landing on a valid turf.
 
-
 	if(Proj.flag != BULLET)
 		power += Proj.damage * config_bullet_energy
 		if(!has_been_powered)
@@ -363,7 +356,6 @@
 			R.receive_pulse(power/10)
 	return
 
-
 /obj/machinery/power/supermatter_shard/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/scalpel/supermatter))
 		add_fingerprint(user)
@@ -420,7 +412,6 @@
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.apply_effect(150, IRRADIATE)
 
-
 /obj/machinery/power/supermatter_shard/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -449,7 +440,6 @@
 			consume(robot)
 	else
 		consume_wrench(I)
-
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
 	. = ..()
@@ -503,7 +493,6 @@
 		visible_message(span_danger("\The [src], smacks into the plating out of nowhere, reducing everything below to ash."), null,
 			span_hear("You hear a loud crack as you are washed with a wave of heat."))
 	return ..()
-
 
 /obj/machinery/power/supermatter_shard/proc/consume(atom/movable/AM)
 	if(isliving(AM))
@@ -587,12 +576,10 @@
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. Apparently the structure is attached to the surface with industrial equipment, it cannot be unanchored with simple equipment. <span class='danger'>You get headaches just from looking at it.</span>"
 	anchored = TRUE
 
-
 /obj/machinery/power/supermatter_shard/anchored/attackby(obj/item/I, mob/living/user, params)
 	consume_wrench(I)
 	user.apply_effect(150, IRRADIATE)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/power/supermatter_shard/anchored/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -604,7 +591,6 @@
 	)
 	consume_wrench(I)
 	user.apply_effect(150, IRRADIATE)
-
 
 /obj/machinery/power/supermatter_shard/proc/nuclear_touch(mob/living/user)
 	var/datum/species/nucleation/nuclear = user.dna.species

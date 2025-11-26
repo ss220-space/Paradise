@@ -33,7 +33,6 @@
 		/mob/living/simple_animal/hostile/asteroid/elite, //failsafe also
 	))
 
-
 /datum/component/chasm/Initialize(turf/target_turf, mapload)
 	if(!isturf(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -49,34 +48,28 @@
 	if(!mapload)
 		addtimer(CALLBACK(src, PROC_REF(drop_stuff)), 0)
 
-
 /datum/component/chasm/UnregisterFromParent()
 	storage = null
-
 
 /datum/component/chasm/proc/entered(datum/source, atom/movable/arrived)
 	SIGNAL_HANDLER
 
 	drop_stuff(arrived)
 
-
 /datum/component/chasm/proc/exited(datum/source, atom/movable/exited)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(exited, list(COMSIG_MOVETYPE_FLAG_DISABLED, COMSIG_LIVING_SET_BUCKLED, COMSIG_MOVABLE_THROW_LANDED))
-
 
 /datum/component/chasm/proc/initialized_on(datum/source, atom/movable/movable, mapload)
 	SIGNAL_HANDLER
 
 	drop_stuff(movable)
 
-
 /datum/component/chasm/proc/block_teleport()
 	SIGNAL_HANDLER
 
 	return COMPONENT_BLOCK_TELEPORT
-
 
 /datum/component/chasm/proc/on_chasm_stopped(datum/source)
 	SIGNAL_HANDLER
@@ -86,7 +79,6 @@
 	for(var/atom/movable/movable as anything in atom_parent)
 		UnregisterSignal(movable, list(COMSIG_MOVETYPE_FLAG_DISABLED, COMSIG_LIVING_SET_BUCKLED, COMSIG_MOVABLE_THROW_LANDED))
 
-
 /datum/component/chasm/proc/on_chasm_no_longer_stopped(datum/source)
 	SIGNAL_HANDLER
 
@@ -95,12 +87,10 @@
 	RegisterSignal(parent, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(initialized_on))
 	drop_stuff()
 
-
 #define CHASM_NOT_DROPPING 0
 #define CHASM_DROPPING 1
 ///Doesn't drop the movable, but registers a few signals to try again if the conditions change.
 #define CHASM_REGISTER_SIGNALS 2
-
 
 /datum/component/chasm/proc/drop_stuff(atom/movable/dropped_thing)
 	if(HAS_TRAIT(parent, TRAIT_CHASM_STOPPED))
@@ -114,7 +104,6 @@
 				INVOKE_ASYNC(src, PROC_REF(drop), thing)
 			if(CHASM_REGISTER_SIGNALS)
 				RegisterSignal(thing, list(COMSIG_MOVETYPE_FLAG_DISABLED, COMSIG_LIVING_SET_BUCKLED, COMSIG_MOVABLE_THROW_LANDED), PROC_REF(drop_stuff), override = TRUE)
-
 
 /datum/component/chasm/proc/droppable(atom/movable/dropped_thing)
 	var/atom/atom_parent = parent
@@ -160,11 +149,9 @@
 
 	return CHASM_DROPPING
 
-
 #undef CHASM_NOT_DROPPING
 #undef CHASM_DROPPING
 #undef CHASM_REGISTER_SIGNALS
-
 
 /datum/component/chasm/proc/drop(atom/movable/dropped_thing)
 	var/atom/atom_parent = parent
@@ -275,8 +262,6 @@
 
 	falling_atoms -= falling_ref
 
-
-
 /**
  * An abstract object which is basically just a bag that the chasm puts people inside
  */
@@ -285,18 +270,15 @@
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-
 /obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived))
 		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
-
 /obj/effect/abstract/chasm_storage/Exited(atom/movable/departed, atom/newLoc)
 	. = ..()
 	if(isliving(departed))
 		UnregisterSignal(departed, COMSIG_LIVING_REVIVE)
-
 
 /obj/effect/abstract/chasm_storage/proc/get_fish(mob/fish, atom/new_loc)
 	if(!(fish in src))
@@ -305,7 +287,6 @@
 	UnregisterSignal(fish, COMSIG_LIVING_REVIVE)
 	if(new_loc)
 		fish.forceMove(new_loc)
-
 
 /**
  * Called if something comes back to life inside the pit. Expected sources are badmins and changelings.

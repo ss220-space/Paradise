@@ -6,11 +6,9 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "brain1"
 
-
 /mob/living/carbon/brain/New()
 	..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
-
 
 /mob/living/carbon/brain/Destroy()
 	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
@@ -19,18 +17,14 @@
 		ghostize()		//Ghostize checks for key so nothing else is necessary.
 	return ..()
 
-
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
-
 
 /mob/living/carbon/brain/blob_act(obj/structure/blob/B)
 	return
 
-
 /mob/living/carbon/brain/incapacitated(ignore_flags)
 	return FALSE
-
 
 /mob/living/carbon/brain/on_forcemove(atom/newloc)
 	if(container)
@@ -54,7 +48,6 @@ I'm using this for Stat to give it a more nifty interface to work with
 /mob/living/carbon/brain/proc/has_synthetic_assistance()
 	return (container && istype(container, /obj/item/mmi)) || in_contents_of(/obj/mecha)
 
-
 /mob/living/carbon/brain/proc/get_race()
 	if(container)
 		var/obj/item/mmi/M = container
@@ -66,7 +59,6 @@ I'm using this for Stat to give it a more nifty interface to work with
 		var/obj/item/organ/internal/brain/B = loc
 		return B.dna.species.name
 
-
 /mob/living/carbon/brain/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
@@ -77,10 +69,8 @@ I'm using this for Stat to give it a more nifty interface to work with
 			status_tab_data[++status_tab_data.len] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
 			status_tab_data[++status_tab_data.len] = list("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
 
-
 /mob/living/carbon/brain/can_safely_leave_loc()
 	return FALSE //You're not supposed to be ethereal jaunting, brains
-
 
 /mob/living/carbon/brain/can_hear()
 	return TRUE

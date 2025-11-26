@@ -13,9 +13,8 @@
 		DATIVE = "печени кидана",
 		ACCUSATIVE = "печень кидана",
 		INSTRUMENTAL = "печенью кидана",
-		PREPOSITIONAL = "печени кидана"
+		PREPOSITIONAL = "печени кидана",
 	)
-
 
 #define KIDAN_LANTERN_HUNGERCOST 0.5
 #define KIDAN_LANTERN_MINHUNGER 150
@@ -44,7 +43,7 @@
 		DATIVE = "биолюминесцентной железе",
 		ACCUSATIVE = "биолюминесцентную железу",
 		INSTRUMENTAL = "биолюминесцентной железй",
-		PREPOSITIONAL = "биолюминесцентной железе"
+		PREPOSITIONAL = "биолюминесцентной железе",
 	)
 
 /obj/item/organ/internal/lantern/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -154,7 +153,7 @@
 		DATIVE = "глазам кидана",
 		ACCUSATIVE = "глаза кидана",
 		INSTRUMENTAL = "глазами кидана",
-		PREPOSITIONAL = "глазах кидана"
+		PREPOSITIONAL = "глазах кидана",
 	)
 
 /obj/item/organ/internal/ears/kidan
@@ -169,7 +168,7 @@
 		DATIVE = "ушам кидана",
 		ACCUSATIVE = "уши кидана",
 		INSTRUMENTAL = "ушами кидана",
-		PREPOSITIONAL = "ушах кидана"
+		PREPOSITIONAL = "ушах кидана",
 	)
 
 /obj/item/organ/internal/heart/kidan
@@ -187,7 +186,7 @@
 		DATIVE = "сердцу кидана",
 		ACCUSATIVE = "сердце кидана",
 		INSTRUMENTAL = "сердцем кидана",
-		PREPOSITIONAL = "сердце кидана"
+		PREPOSITIONAL = "сердце кидана",
 	)
 
 /obj/item/organ/internal/brain/kidan
@@ -205,7 +204,7 @@
 		DATIVE = "мозгу кидана",
 		ACCUSATIVE = "мозг кидана",
 		INSTRUMENTAL = "мозгом кидана",
-		PREPOSITIONAL = "мозге кидана"
+		PREPOSITIONAL = "мозге кидана",
 	)
 
 /obj/item/organ/internal/brain/kidan/on_life()
@@ -233,7 +232,7 @@
 		DATIVE = "лёгким кидана",
 		ACCUSATIVE = "лёгкие кидана",
 		INSTRUMENTAL = "лёгкими кидана",
-		PREPOSITIONAL = "лёгких кидана"
+		PREPOSITIONAL = "лёгких кидана",
 	)
 
 /obj/item/organ/internal/kidneys/kidan
@@ -250,7 +249,7 @@
 		DATIVE = "почкам кидана",
 		ACCUSATIVE = "почки кидана",
 		INSTRUMENTAL = "почками кидана",
-		PREPOSITIONAL = "почках кидана"
+		PREPOSITIONAL = "почках кидана",
 	)
 
 /obj/item/organ/external/head/kidan

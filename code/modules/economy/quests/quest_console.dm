@@ -27,7 +27,7 @@
 		DATIVE = "консоли запросов на поставку",
 		ACCUSATIVE = "консоль запросов на поставку",
 		INSTRUMENTAL = "консолью запросов на поставку",
-		PREPOSITIONAL = "консоли запросов на поставку"
+		PREPOSITIONAL = "консоли запросов на поставку",
 	)
 
 /obj/machinery/computer/supplyquest/ui_host()
@@ -188,7 +188,7 @@
 				to_chat(user, span_warning("Не удаётся получить доступ к учётной записи: неверные учётные данные."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
-			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Купить дискету технологий", terminal_name = "Терминал Института Нанотрейзен №[rand(111,333)]", dest_name = "Институт Нанотрейзен"))
+			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Купить дискету технологий", terminal_name = "Терминал Института \"Нанотрейзен\" №[rand(111,333)]", dest_name = "Институт \"Нанотрейзен\""))
 				hightech_recovery = TRUE
 				addtimer(VARSET_CALLBACK(src, hightech_recovery, FALSE), 30 MINUTES)
 				order_techdisk(params["tech_name"], user)
@@ -236,9 +236,8 @@
 		DATIVE = "форме запроса о поставке",
 		ACCUSATIVE = "форму запроса о поставке",
 		INSTRUMENTAL = "формой запроса о поставке",
-		PREPOSITIONAL = "форме запроса о поставке"
+		PREPOSITIONAL = "форме запроса о поставке",
 	)
-
 
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
@@ -257,7 +256,7 @@
 		DATIVE = "монитору запросов на поставку",
 		ACCUSATIVE = "монитор запросов на поставку",
 		INSTRUMENTAL = "монитором запросов на поставку",
-		PREPOSITIONAL = "мониторе запросов на поставку"
+		PREPOSITIONAL = "мониторе запросов на поставку",
 	)
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
@@ -329,14 +328,13 @@
 		DATIVE = "отчёту о поставке",
 		ACCUSATIVE = "отчёт о поставке",
 		INSTRUMENTAL = "отчётом о поставке",
-		PREPOSITIONAL = "отчёте о поставке"
+		PREPOSITIONAL = "отчёте о поставке",
 	)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	print_animation()
 
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
 	flick_overlay_view(mutable_appearance(icon, "print_quest_overlay"), 4 SECONDS)
-
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"
@@ -357,7 +355,7 @@
 		DATIVE = "планшету Квартирмейстера",
 		ACCUSATIVE = "планшет Квартирмейстера",
 		INSTRUMENTAL = "планшетом Квартирмейстера",
-		PREPOSITIONAL = "планшете Квартирмейстера"
+		PREPOSITIONAL = "планшете Квартирмейстера",
 	)
 
 /obj/machinery/computer/supplyquest/iternal
@@ -398,7 +396,7 @@
 		DATIVE = "планшету запросов на поставку",
 		ACCUSATIVE = "планшет запросов на поставку",
 		INSTRUMENTAL = "планшетом запросов на поставку",
-		PREPOSITIONAL = "планшете запросов на поставку"
+		PREPOSITIONAL = "планшете запросов на поставку",
 	)
 
 /obj/machinery/computer/supplyquest/iternal/cargo

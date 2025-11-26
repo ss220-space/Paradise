@@ -82,7 +82,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	popup.set_content(msg)
 	popup.open(FALSE)
 
-
 /datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
 	if(!C)
 		to_chat(usr, "ERROR: Client not found.")
@@ -94,7 +93,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	var/datum/browser/popup = new(usr, "playerplaytime[C.ckey]", "Playtime for [C.key]", 550, 615)
 	popup.set_content(body)
 	popup.open(FALSE)
-
 
 // Procs
 
@@ -120,7 +118,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	if(!isnum(my_exp))
 		return req_mins
 	return max(0, req_mins - my_exp)
-
 
 /datum/job/proc/available_in_playtime(client/C)
 	if(!C)
@@ -213,7 +210,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		else
 			result_text.Add("<td>-</td>")
 	return result_text.Join("")
-
 
 /proc/get_exp_format(expnum)
 	if(expnum > 60)

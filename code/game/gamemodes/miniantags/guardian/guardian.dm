@@ -50,7 +50,7 @@
 		DATIVE = "Духу-Хранителю",
 		ACCUSATIVE = "Духа-Хранителя",
 		INSTRUMENTAL = "Духом-Хранителем",
-		PREPOSITIONAL = "Духе-Хранителе"
+		PREPOSITIONAL = "Духе-Хранителе",
 	)
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
@@ -135,7 +135,6 @@
 		return FALSE
 	to_chat(summoner, span_danger("Ваш [name] как-то умер!"))
 	summoner.death()
-
 
 /mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
@@ -239,10 +238,8 @@
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
-
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
-
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	set_light_on(!light_on)
@@ -250,7 +247,6 @@
 		to_chat(src, span_notice("Вы активировали свет."))
 	else
 		to_chat(src, span_notice("Вы выключили свет."))
-
 
 ////////Creation
 
@@ -285,7 +281,7 @@
 		DATIVE = "колоде карт Таро",
 		ACCUSATIVE = "колоду карт Таро",
 		INSTRUMENTAL = "колодой карт Таро",
-		PREPOSITIONAL = "колоде карт Таро"
+		PREPOSITIONAL = "колоде карт Таро",
 	)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
@@ -425,7 +421,7 @@
 		DATIVE = "инъектору голопаразитов",
 		ACCUSATIVE = "инъектор голопаразитов",
 		INSTRUMENTAL = "инъектором голопаразитов",
-		PREPOSITIONAL = "инъекторе голопаразитов"
+		PREPOSITIONAL = "инъекторе голопаразитов",
 	)
 
 /obj/item/guardiancreator/tech/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
@@ -473,7 +469,7 @@
 		DATIVE = "скоплению яиц скарабеев",
 		ACCUSATIVE = "скопление яиц скарабеев",
 		INSTRUMENTAL = "скоплением яиц скарабеев",
-		PREPOSITIONAL = "скоплении яиц скарабеев"
+		PREPOSITIONAL = "скоплении яиц скарабеев",
 	)
 
 /obj/item/guardiancreator/biological/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
@@ -487,7 +483,6 @@
 	G.speak_emote = list("щебечет")
 
 /obj/item/guardiancreator/biological/choose
-
 
 /obj/item/paper/guardian
 	name = "Справочник по голопаразитам"
@@ -516,7 +511,6 @@
 
 /obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "Набор инжектора голопаразита"

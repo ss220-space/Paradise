@@ -145,9 +145,8 @@
 		DATIVE = "базальтовой катане",
 		ACCUSATIVE = "базальтовую катану",
 		INSTRUMENTAL = "базальтовой катаной",
-		PREPOSITIONAL = "базальтовой катане"
+		PREPOSITIONAL = "базальтовой катане",
 	)
-
 
 /obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
@@ -160,7 +159,6 @@
 	. = ..()
 	if(nemesis_faction)
 		force -= faction_bonus_force
-
 
 /obj/item/harpoon
 	name = "harpoon"
@@ -184,7 +182,6 @@
 	throwforce = 10
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("ударил", "огрел")
-
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shard))
@@ -220,7 +217,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/throwing_star
 	name = "throwing star"
@@ -326,7 +322,6 @@
 		homerun_ready = 1
 	..()
 
-
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(deflectmode)
 		to_chat(user, span_warning("Вы не можете атаковать в режиме отбивания!"))
@@ -367,7 +362,6 @@
 	if(!homerun_always_charged)
 		target.Knockdown(1 SECONDS)
 	next_throw_time = world.time + 10 SECONDS
-
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"
@@ -416,7 +410,6 @@
 	/// Attack verbs when extended (created on Initialize)
 	var/list/attack_verb_on = list("шлёпнул", "ударил", "треснул", "поколотил")
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/srt
 	name = "тактическая бита ГСН"
 	desc = "Выдвижная тактическая бита Центрального командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
@@ -425,11 +418,9 @@
 	icon_state = "srt_bat_0"
 	icon_state_on = "srt_bat_1"
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/update_icon_state()
 	icon_state = on ? icon_state_on : initial(icon_state)
 	item_state = on ? item_state_on : initial(item_state)
-
 
 /obj/item/melee/baseball_bat/homerun/central_command/proc/toggle(mob/living/user)
 	on = !on
@@ -444,10 +435,9 @@
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 	if(on)
-		to_chat(user, span_userdanger("Вы активировали [name] - время для правосудия!"))
+		to_chat(user, span_userdanger("Вы активировали [name] — время для правосудия!"))
 	else
 		to_chat(user, span_notice("Вы деактивировали [name]."))
-
 
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	if(!(isertmindshielded(user)))
@@ -462,10 +452,8 @@
 		return FALSE
 	return ..()
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
 	toggle(user)
-
 
 /obj/item/melee/claymore/bone
 	name = "bone sword"
@@ -485,7 +473,7 @@
 		DATIVE = "костяному мечу",
 		ACCUSATIVE = "костяной меч",
 		INSTRUMENTAL = "костяным мечом",
-		PREPOSITIONAL = "костяном мече"
+		PREPOSITIONAL = "костяном мече",
 	)
 
 /obj/item/melee/claymore/bone/ComponentInitialize()
@@ -518,7 +506,7 @@
 		DATIVE = "колотушке",
 		ACCUSATIVE = "колотушку",
 		INSTRUMENTAL = "колотушкой",
-		PREPOSITIONAL = "колотушке"
+		PREPOSITIONAL = "колотушке",
 	)
 
 /obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)

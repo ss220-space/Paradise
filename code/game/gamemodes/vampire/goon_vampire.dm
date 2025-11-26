@@ -43,12 +43,10 @@
 	else
 		return FALSE
 
-
 /datum/game_mode/goon_vampire/post_setup()
 	for(var/datum/mind/vampire in pre_vampires)
 		vampire.add_antag_datum(/datum/antagonist/vampire/goon_vampire)
 	..()
-
 
 /datum/game_mode/proc/auto_declare_completion_goon_vampire()
 	if(!length(goon_vampires))
@@ -102,7 +100,6 @@
 			text += "<br><font color='red'><b>The [special_role_text] has failed!</b></font>"
 			SSblackbox.record_feedback("tally", "vampire_success", 1, "FAIL")
 	return text.Join("")
-
 
 /datum/game_mode/proc/auto_declare_completion_goon_enthralled()
 	if(!length(goon_vampire_enthralled))

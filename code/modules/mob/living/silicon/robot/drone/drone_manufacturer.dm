@@ -18,7 +18,7 @@
 		DATIVE = "фабрикатору дронов",
 		ACCUSATIVE = "фабрикатор дронов",
 		INSTRUMENTAL = "фабрикатором дронов",
-		PREPOSITIONAL = "фабрикаторе дронов"
+		PREPOSITIONAL = "фабрикаторе дронов",
 	)
 
 /obj/machinery/drone_fabricator/update_icon_state()
@@ -32,12 +32,10 @@
 
 	icon_state = "drone_fab_active"
 
-
 /obj/machinery/drone_fabricator/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/drone_fabricator/process()
 

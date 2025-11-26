@@ -44,7 +44,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/radiochannel = PUB_FREQ
 	var/list/connected_apps = list()
 
-
 /obj/machinery/requests_console/Initialize(mapload)
 	. = ..()
 
@@ -60,7 +59,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
@@ -92,12 +90,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		return
 	ui_interact(user)
 
-
 /obj/machinery/requests_console/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/requests_console/update_overlays()
 	. = ..()
@@ -108,7 +104,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	. += "req_comp[newmessagepriority]"
 	underlays += emissive_appearance(icon, "req_comp_lightmask", src)
-
 
 /obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -257,7 +252,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("toggleSilent")
 			silent = !silent
 
-
 /obj/machinery/requests_console/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || inoperable(MAINT))
 		return ..()
@@ -270,7 +264,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		return stamp_messauth(screen, I, src, user)
 
 	return ..()
-
 
 /obj/machinery/requests_console/proc/stamp_messauth(screen, obj/item/stamp/stamp, obj/ui_object, mob/user, is_distant=FALSE)
 	if(screen == RCS_MESSAUTH)
@@ -341,7 +334,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	if(!isnull(rendered_message))
 		write_to_message_log(rendered_message, source == ORE_REDEMPTION)
-
 
 /obj/machinery/requests_console/proc/write_to_message_log(message, ore_message = FALSE)
 	for(var/datum/data/pda/app/request_console/app as anything in connected_apps)

@@ -35,7 +35,6 @@
 		if(target.Move(turf))
 			return
 
-
 /obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/mob)
 	..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
@@ -83,7 +82,7 @@
 		DATIVE = "малой ​​блюспейс аномалии", \
 		ACCUSATIVE = "малую ​​блюспейс аномалию", \
 		INSTRUMENTAL = "малой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "малой ​​блюспейс аномалии"
+		PREPOSITIONAL = "малой ​​блюспейс аномалии",
 	)
 
 // Moves only by /datum/anomaly_impulse/move/bs_selftp
@@ -115,7 +114,7 @@
 		DATIVE = "​​блюспейс аномалии", \
 		ACCUSATIVE = "​​блюспейс аномалию", \
 		INSTRUMENTAL = "​​блюспейс аномалией", \
-		PREPOSITIONAL = "​​блюспейс аномалии"
+		PREPOSITIONAL = "​​блюспейс аномалии",
 	)
 
 /obj/effect/anomaly/bluespace/tier3
@@ -142,7 +141,7 @@
 		DATIVE = "большой ​​блюспейс аномалии", \
 		ACCUSATIVE = "большую ​​блюспейс аномалию", \
 		INSTRUMENTAL = "большой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "большой ​​блюспейс аномалии"
+		PREPOSITIONAL = "большой ​​блюспейс аномалии",
 	)
 
 /obj/effect/anomaly/bluespace/tier3/New()
@@ -163,7 +162,6 @@
 		new /obj/effect/anomaly/bluespace/tier1(get_turf(locate(rand(1, world.maxx), rand(1, world.maxy), z)))
 
 	. = ..()
-
 
 //		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
 
@@ -191,7 +189,7 @@
 		DATIVE = "колоссальной ​​блюспейс аномалии", \
 		ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
 		INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
-		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
+		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии",
 	)
 
 /obj/effect/anomaly/bluespace/tier4/New()
