@@ -321,14 +321,14 @@
 	ricochet_chance = 20
 
 /obj/projectile/bullet/c45colt
-	damage = 28
+	damage = 26
 
 /obj/projectile/bullet/c45colt/hp
-	damage = 35
+	damage = 28
 	armour_penetration = -50
 
 /obj/projectile/bullet/c45colt/ap
-	damage = 20
+	damage = 18
 	armour_penetration = 30
 
 //.45 bullet casing
