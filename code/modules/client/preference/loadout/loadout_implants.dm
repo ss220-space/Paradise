@@ -1,10 +1,9 @@
 /datum/gear/implant
+	donator_tier = 1
 	subtype_path = /datum/gear/implant
 	slot = null
 	sort_category = "Импланты"
 	implantable = TRUE
-
-/datum/gear/implant/
 
 //Eye implants
 
@@ -15,12 +14,14 @@
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/implant/security
+	donator_tier = 2
 	index_name = "Security Hud Implant"
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/security
 	allowed_roles = list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_JUDGE)
 
 /datum/gear/implant/medical
+	donator_tier = 2
 	index_name = "Medical Hud Implant"
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
