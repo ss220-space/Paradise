@@ -111,7 +111,7 @@
 	 *
 	 * Form should be list(
 	 ** 	"name" = "Category Name",
-	 ** 	"icon" = "UI Icon (Font Awesome or tgfont)",
+	 ** 	"icon" = "UI Icon (Font Awesome)",
 	 ** 	"products" = list(/type/path = amount, ...),
 	 * )
 	 */

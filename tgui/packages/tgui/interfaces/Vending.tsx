@@ -127,11 +127,7 @@ export const Vending = (_props: unknown) => {
           )}
           {!!coin_name && (
             <Stack.Item>
-              <Button
-                fluid
-                icon="eject"
-                onClick={() => act('remove_coin', {})}
-              >
+              <Button fluid icon="eject" onClick={() => act('remove_coin', {})}>
                 Извлечь монету
               </Button>
               <Box>{coin_name}</Box>
@@ -139,11 +135,7 @@ export const Vending = (_props: unknown) => {
           )}
           {!!inserted_item_name && (
             <Stack.Item>
-              <Button
-                fluid
-                icon="eject"
-                onClick={() => act('eject_item', {})}
-              >
+              <Button fluid icon="eject" onClick={() => act('eject_item', {})}>
                 Извлечь предмет
               </Button>
               <Box>{inserted_item_name}</Box>
@@ -218,7 +210,9 @@ const ProductDisplay = (props: ProductDisplayProps) => {
     setSelectedCategory,
   } = props;
   const { stock, user, chargesMoney } = data;
-  const [toggleLayout, setToggleLayout] = useState(() => getLayoutState(LAYOUT.Grid));
+  const [toggleLayout, setToggleLayout] = useState(() =>
+    getLayoutState(LAYOUT.Grid)
+  );
 
   return (
     <Section
@@ -317,11 +311,13 @@ const ProductGrid = (props) => {
       {...baseProps}
       tooltip={`${product.name}. ${product.desc}`}
       buttonsAlt={
-        <Stack fontSize={1}>
+        <Stack fontSize={0.9}>
           <Stack.Item grow textAlign={'left'}>
             <ProductPrice {...priceProps} />
           </Stack.Item>
-          <Stack.Item color={'lightgray'}>x{remaining}</Stack.Item>
+          <Stack.Item fontSize={1} color={'lightgray'}>
+            x{remaining}
+          </Stack.Item>
         </Stack>
       }
     >
@@ -340,15 +336,10 @@ const ProductList = (props) => {
         <Stack.Item grow textAlign={'left'}>
           {product.name}
         </Stack.Item>
-        <Stack.Item
-          width={10}
-          color={'rgba(255, 255, 255, 0.5)'}
-        >
+        <Stack.Item width={10} color={'lightgray'}>
           <b>{remaining}</b> в наличии
         </Stack.Item>
-        <Stack.Item
-          width={6}
-        >
+        <Stack.Item width={6}>
           <ProductPrice {...priceProps} />
         </Stack.Item>
       </Stack>
@@ -369,7 +360,7 @@ const ProductPrice = (props) => {
   } else if (free) {
     return (
       <Stack.Item color={'green'}>
-       <b>0 кр.</b>
+        <b>0 кр.</b>
       </Stack.Item>
     );
   } else {

@@ -16,7 +16,7 @@ export enum LAYOUT {
 export const getLayoutState = (defaultState?: LAYOUT) => {
   const { config } = useBackend();
   return config.interface.layout;
-}
+};
 
 /**
  * Allows the user to toggle between grid and list layouts, if preference on Default value.
@@ -38,10 +38,14 @@ export const LayoutToggle = (props: Props) => {
     <Stack.Item>
       <Button
         icon={state === LAYOUT.Grid ? 'list' : 'border-all'}
-        tooltip={state === LAYOUT.Grid ? 'Отобразить в виде списка' : 'Отобразить в виде сетки'}
+        tooltip={
+          state === LAYOUT.Grid
+            ? 'Отобразить в виде списка'
+            : 'Отобразить в виде сетки'
+        }
         tooltipPosition={'bottom-end'}
         onClick={handleClick}
       />
     </Stack.Item>
   );
-}
+};
