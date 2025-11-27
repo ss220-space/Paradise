@@ -281,6 +281,12 @@
 	min_start_money = 200
 	max_start_money = 550
 
+/datum/job/brigdoc/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/cargo/carring)
+			return SKILL_LEVEL_ADVANCED
+	. = ..()
+
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
 	jobtype = /datum/job/brigdoc

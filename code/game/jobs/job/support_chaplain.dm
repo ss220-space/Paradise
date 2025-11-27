@@ -19,6 +19,12 @@
 	min_start_money = 10
 	max_start_money = 200
 
+/datum/job/chaplain/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/cargo/carring)
+			return SKILL_LEVEL_BASIC
+	. = ..()
+
 /datum/outfit/job/chaplain
 	name = "Chaplain"
 	jobtype = /datum/job/chaplain

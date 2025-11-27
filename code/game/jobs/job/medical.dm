@@ -369,6 +369,12 @@
 	min_start_money = 200
 	max_start_money = 400
 
+/datum/job/paramedic/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/cargo/carring)
+			return SKILL_LEVEL_ADVANCED
+	. = ..()
+
 /datum/outfit/job/paramedic
 	name = "Paramedic"
 	jobtype = /datum/job/paramedic

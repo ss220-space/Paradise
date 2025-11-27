@@ -23,6 +23,12 @@
 	min_start_money = 400
 	max_start_money = 700
 
+/datum/job/qm/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/cargo/carring)
+			return SKILL_LEVEL_PROFESSIONAL
+	. = ..()
+
 /datum/outfit/job/qm
 	name = "Quartermaster"
 	jobtype = /datum/job/qm
@@ -60,6 +66,12 @@
 	min_start_money = 200
 	max_start_money = 400
 
+/datum/job/cargo_tech/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/cargo/carring)
+			return SKILL_LEVEL_PROFESSIONAL
+	. = ..()
+
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
 	jobtype = /datum/job/cargo_tech
@@ -90,6 +102,12 @@
 	salary = 100
 	min_start_money = 100
 	max_start_money = 300
+
+/datum/job/mining/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/cargo/carring)
+			return SKILL_LEVEL_BEGINNER
+	. = ..()
 
 /datum/outfit/job/mining
 	name = "Shaft Miner"
@@ -160,6 +178,12 @@
 	salary = 170
 	min_start_money = 250
 	max_start_money = 500
+
+/datum/job/mining_medic/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/cargo/carring)
+			return SKILL_LEVEL_ADVANCED
+	. = ..()
 
 /datum/outfit/job/mining_medic
 	name = "Mining Medic"

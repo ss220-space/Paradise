@@ -446,12 +446,7 @@
 	if(vampire_grab)
 		return vampire_grab.grab_speed
 
-	var/mod = 1
-	var/list/mods = list()
-	SEND_SIGNAL(src, COMSIG_GET_GRAB_SPEED_MODIFIERS, mods)
-	for(var/modifier in mods)
-		mod *= modifier
-
+	CALCULATE_SKILL_MOD(src, COMSIG_GET_GRAB_SPEED_MODIFIERS, mod)
 	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
 	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time / mod : grabber.mind.martial_art.grab_speed
 

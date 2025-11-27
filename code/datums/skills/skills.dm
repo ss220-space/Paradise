@@ -1,5 +1,6 @@
+//MARK: Skill levels
 /*
- * Basic skills datum
+ * Basic skill level datum
  */
 /datum/skill_level
 	var/level
@@ -65,3 +66,71 @@
 	desc = "Одним словом легенда"
 	duration_mod = 0.1
 	quality_mod = 3
+
+
+//MARK: Skills
+/*
+ * Basic skill datum
+ */
+/datum/skill
+	// type defined variables
+	var/id
+	var/category
+	var/name
+	var/desc
+	var/list/duration_mod_signals = list()
+	var/list/quality_mod_signals = list()
+	// runtime variables
+	var/mob/owner = null
+	var/datum/skill_level/level
+
+/datum/skill/proc/apply_to_mob(mob/owner)
+	src.owner = owner
+	for(var/signal as anything in duration_mod_signals)
+		RegisterSignal(owner, signal, PROC_REF(get_duration_mod_signal))
+	for(var/signal as anything in quality_mod_signals)
+		RegisterSignal(owner, signal, PROC_REF(get_quality_mod_signal))
+
+/datum/skill/proc/get_duration_mod_signal(mob/living/user, list/modifiers)
+	SIGNAL_HANDLER
+	if(!level)
+		return
+	modifiers.Add(level.duration_mod)
+
+/datum/skill/proc/get_quality_mod_signal(mob/living/user, list/modifiers)
+	SIGNAL_HANDLER
+	if(!level)
+		return
+	modifiers.Add(level.quality_mod)
+
+/datum/skill/proc/remove_from_mob()
+	UnregisterSignal(owner, duration_mod_signals)
+	UnregisterSignal(owner, quality_mod_signals)
+	src.owner = null
+
+
+//MARK: Engineering
+/datum/skill/engineering
+	category = "Инженерные"
+
+/datum/skill/engineering/building
+	id = "engineering.building"
+	name = "Строительство"
+	desc = "Влияет на скорость строительства."
+	duration_mod_signals = list(COMSIG_GET_WALL_BUILDING_SPEED_MOD)
+
+/datum/skill/engineering/construction
+	id = "engineering.construction"
+	name = "Конструирование"
+	desc = "Влияет на скорость конструирования машинерии."
+
+
+//MARK: Cargo
+/datum/skill/cargo
+	category = "Карго"
+
+/datum/skill/cargo/carring
+	id = "cargo.carrying"
+	name = "Переноска"
+	desc = "Влияет на переноски вещей."
+	duration_mod_signals = list(COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, COMSIG_GET_GRAB_SPEED_MODIFIERS)

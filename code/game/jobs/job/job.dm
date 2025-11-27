@@ -272,6 +272,8 @@
 
 		qdel(gear_leftovers)
 
+	apply_skills(H)
+
 	return TRUE
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
@@ -329,3 +331,19 @@
 		if(job_exp >= job_requirement)
 			return FALSE
 	return TRUE
+
+/datum/outfit/job/proc/apply_skills(mob/living/carbon/human/user)
+	to_chat(user, "apply [length(GLOB.character_skills)] skills")
+	var/datum/job/job = SSjobs.GetJobType(jobtype)
+	if(!job)
+		job = SSjobs.GetJob(user.job)
+	for(var/skill_name as anything in GLOB.character_skills)
+		var/datum/skill/skill_type = GLOB.character_skills[skill_name]
+		var/datum/skill/skill = new skill_type.type(skill_type)
+		var/datum/skill_level/level = job.get_skill_level(skill_type.type)
+		skill.level = GLOB.skill_levels["[level]"]
+		skill.apply_to_mob(user)
+		user.skills.Add(skill)
+
+/datum/job/proc/get_skill_level(skill_type)
+	return SKILL_LEVEL_NONE
