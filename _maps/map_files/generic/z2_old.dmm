@@ -10137,7 +10137,7 @@
 /area/centcom/zone1)
 "hIL" = (
 /obj/machinery/vending/crittercare{
-	prices = list()
+	
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
@@ -32058,7 +32058,7 @@
 /area/ninja/outside)
 "xhs" = (
 /obj/machinery/vending/cigarette{
-	prices = list()
+	
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
