@@ -150,6 +150,54 @@
 
 	return ..()
 
+/datum/reagent/sanguis
+	name = "Сангвиний"
+	id = "sanguis"
+	description = "Сангвиний - синтетический реагент, напоминает железо."
+	color = "#C8A5DC" // rgb: 200, 165, 220
+	taste_description = "железа"
+
+/datum/reagent/sanguis/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.AdjustBlood(1.2)
+
+	return ..()
+
+/datum/reagent/sanguis/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!M.nutrition)
+		switch(rand(1,3))
+			if(1)
+				to_chat(M, span_warning("Вам хочется есть!"))
+			if(2)
+				update_flags |= M.adjustToxLoss(1, FALSE)
+				to_chat(M, span_warning("Вы чувствуете боль в животе!"))
+			else
+				pass()
+	else
+		if(prob(60))
+			var/fat_to_burn = max(round(M.nutrition / 200, 2), 10)
+			M.adjust_nutrition(-fat_to_burn)
+			M.overeatduration = 0
+	return ..() | update_flags
+
+/datum/reagent/sanguisplus
+	name = "Сангвиний плюс"
+	id = "sanguisplus"
+	description = "Сангвиний плюс - улучшенная версия синтетического реагента, напоминает железо."
+	color = "#C8A5DC" // rgb: 200, 165, 220
+	taste_description = "железа"
+
+/datum/reagent/sanguisplus/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.AdjustBlood(3.0)
+
+	return ..()
+
 //foam
 /datum/reagent/fluorosurfactant
 	name = "Фтортензид"

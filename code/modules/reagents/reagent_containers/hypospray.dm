@@ -758,3 +758,39 @@
 		INSTRUMENTAL = "автоинъектором (Активированный уголь)",
 		PREPOSITIONAL = "автоинъекторе (Активированный уголь)",
 	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguis
+	name = "sanguis autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу сангвиния. Экстренный способ пополнить объем циркулирующей крови."
+	icon_state = "whiteinjector"
+	amount_per_transfer_from_this = 20
+	volume = 20
+	list_reagents = list("sanguis" = 20)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguis/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Сангвиний)",
+		GENITIVE = "автоинъектора (Сангвиний)",
+		DATIVE = "автоинъектору (Сангвиний)",
+		ACCUSATIVE = "автоинъектор (Сангвиний)",
+		INSTRUMENTAL = "автоинъектором (Сангвиний)",
+		PREPOSITIONAL = "автоинъекторе (Сангвиний)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguisplus
+	name = "sanguis plus autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу сангвиний плюс. Экстренный способ быстро пополнить объем циркулирующей крови."
+	icon_state = "whiteinjector"
+	amount_per_transfer_from_this = 20
+	volume = 20
+	list_reagents = list("sanguisplus" = 20)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguisplus/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Сангвиний плюс)",
+		GENITIVE = "автоинъектора (Сангвиний плюс)",
+		DATIVE = "автоинъектору (Сангвиний плюс)",
+		ACCUSATIVE = "автоинъектор (Сангвиний плюс)",
+		INSTRUMENTAL = "автоинъектором (Сангвиний плюс)",
+		PREPOSITIONAL = "автоинъекторе (Сангвиний плюс)",
+	)

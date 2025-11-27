@@ -2042,6 +2042,12 @@
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
+/datum/uplink_item/device_tools/sanguisplus
+	name = "Экспериментальный автоинъектор с сангвиний плюс"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу сангвиний плюс. Экстренный способ быстро пополнить объем циркулирующей крови."
+	item = /obj/item/reagent_containers/hypospray/autoinjector/sanguisplus
+	cost = 2
+
 /**
  * MARK: Space Suits & Hardsuits
  */

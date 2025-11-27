@@ -23,6 +23,7 @@
 		/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 10,
 		/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 10,
 		/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 10,
+		/obj/item/reagent_containers/hypospray/autoinjector/sanguis = 10,
 		/obj/item/stack/medical/bruise_pack = 4,
 		/obj/item/stack/medical/ointment = 4,
 		/obj/item/stack/medical/bruise_pack/advanced = 6,
@@ -73,6 +74,7 @@
 	)
 	prices = list(
 		/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 49,
+		/obj/item/reagent_containers/hypospray/autoinjector/sanguis = 200,
 		/obj/item/stack/medical/bruise_pack/extended = 199,
 		/obj/item/stack/medical/ointment/extended = 199,
 		/obj/item/stack/medical/bruise_pack/advanced = 99,
@@ -190,6 +192,7 @@
 		/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
 		/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
 		/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 2,
+		/obj/item/reagent_containers/hypospray/autoinjector/sanguis = 2,
 		/obj/item/stack/medical/suture = 4,
 		/obj/item/healthanalyzer = 1,
 	)
@@ -202,6 +205,7 @@
 		/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 69,
 		/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
 		/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 99,
+		/obj/item/reagent_containers/hypospray/autoinjector/sanguis = 200,
 		/obj/item/stack/medical/suture = 99,
 		/obj/item/healthanalyzer = 99,
 	)
