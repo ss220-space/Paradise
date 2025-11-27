@@ -58,6 +58,9 @@
 				throwforce = 10
 	. = ..()
 
+/obj/item/stack/spacecash/get_item_credit_value()
+	return amount
+
 /obj/item/stack/spacecash/after_throw(datum/callback/callback)
 	throwforce = initial(throwforce)
 	. = ..()

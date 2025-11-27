@@ -66,7 +66,7 @@
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
 
-/obj/item/gun/projectile/shotgun/toy/process_chamber()
+/obj/item/gun/projectile/shotgun/toy/handle_chamber()
 	..()
 	if(chambered && !chambered.BB)
 		qdel(chambered)

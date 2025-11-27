@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				F.open()
 		else
 			to_chat(src, "Закрытие противопожарных дверей не помогает.")
-	else if(istype(target, /obj/machinery/door/airlock))
+	else if(is_airlock(target))
 		var/obj/machinery/door/airlock/A = target
 		try_open_airlock(A)
 	else if(isliving(target) && (!client || a_intent == INTENT_HARM))
@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/object)
-	if(istype(object, /obj/machinery/door/airlock))
+	if(is_airlock(object))
 		var/obj/machinery/door/airlock/airlock = object
 		if(airlock.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
 			return try_open_airlock(airlock)

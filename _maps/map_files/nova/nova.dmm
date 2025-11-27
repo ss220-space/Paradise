@@ -108617,7 +108617,18 @@
 	network = list("Research","SS13")
 	},
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool/circuit,
+/obj/item/multitool/circuit,
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay,
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/compact_remote{
+	pixel_x = 11;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -123655,7 +123666,13 @@
 	dir = 1;
 	pixel_y = 24
 	},
-/obj/item/rcs,
+/obj/item/rcs{
+	pixel_y = 2;
+	pixel_x = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"

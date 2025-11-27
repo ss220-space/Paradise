@@ -12,7 +12,7 @@
 
 	bomb_name = "remote-control bomb"
 
-	var/code = 30
+	var/code = DEFAULT_SIGNALER_CODE
 	var/frequency = RSD_FREQ
 	var/delay = 0
 	var/datum/radio_frequency/radio_connection

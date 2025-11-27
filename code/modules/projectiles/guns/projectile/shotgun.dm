@@ -27,7 +27,7 @@
 
 	return ..()
 
-/obj/item/gun/projectile/shotgun/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/projectile/shotgun/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	return ..(FALSE, FALSE)
 
 /obj/item/gun/projectile/shotgun/chamber_round()

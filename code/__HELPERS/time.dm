@@ -86,8 +86,24 @@
 /proc/station_time(time=world.time, display_only=FALSE)
 	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
 
-/proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
+/proc/station_time_timestamp(format = "hh:mm:ss", time = world.time)
 	return time2text(station_time(time, TRUE), format)
+
+/**
+ * Converts a time expressed in deciseconds (like world.time) to the 12-hour time format.
+ * the format arg is the format passed down to time2text() (e.g. "hh:mm" is hours and minutes but not seconds).
+ * the timezone is the time value offset from the local time. It's to be applied outside time2text() to get the AM/PM right.
+ */
+/proc/time_to_twelve_hour(format = "hh:mm:ss", time = world.time)
+	time = station_time(time, TRUE)
+	var/am_pm = "AM"
+	if(time > 12 HOURS)
+		am_pm = "PM"
+		if(time > 13 HOURS)
+			time -= 12 HOURS // e.g. 4:16 PM but not 00:42 PM
+	else if(time < 1 HOURS)
+		time += 12 HOURS // e.g. 12.23 AM
+	return "[time2text(time, format)] [am_pm]"
 
 /* Returns 1 if it is the selected month and day */
 /proc/isDay(month, day)

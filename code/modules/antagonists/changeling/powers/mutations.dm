@@ -195,7 +195,7 @@
 	if(!proximity)
 		return
 
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		var/obj/machinery/door/airlock/airlock = target
 
 		if(!airlock.requiresID() || airlock.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.

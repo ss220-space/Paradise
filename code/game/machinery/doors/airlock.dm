@@ -55,6 +55,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
+	hud_possible = list(DIAG_AIRLOCK_HUD)
 	smoothing_groups = SMOOTH_GROUP_AIRLOCK
 	interaction_flags_click = ALLOW_SILICON_REACH
 
@@ -161,6 +162,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 
+	prepare_huds()
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_atom_to_hud(src)
+
+	diag_hud_set_electrified()
+
 	update_icon()
 
 // Remove shielding to prevent metal/plasteel duplication
@@ -193,6 +200,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
@@ -312,6 +321,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		electrified_until = duration == -1 ? -1 : world.time + duration SECONDS
 		if(duration != -1)
 			electrified_timer = addtimer(CALLBACK(src, PROC_REF(electrify), 0), duration SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+
+	diag_hud_set_electrified()
 	if(feedback && message)
 		to_chat(user, message)
 
@@ -1320,7 +1331,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		playsound(loc, 'sound/machines/airlockforced.ogg', 30, TRUE)
 	else
 		playsound(loc, doorOpen, 30, TRUE)
-	if(istype(closeOther, /obj/machinery/door/airlock) && !closeOther.density)
+	if(is_airlock(closeOther) && !closeOther.density)
 		closeOther.close()
 
 	if(autoclose)
@@ -1371,6 +1382,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(killthis)
 		killthis.ex_act(EXPLODE_HEAVY)//Smashin windows
 
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE, forced)
+
 	operating = DOOR_CLOSING
 	update_icon(AIRLOCK_CLOSING, TRUE)
 	layer = CLOSED_DOOR_LAYER
@@ -1399,10 +1412,18 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(operating && !forced)
 		return FALSE
 
-	locked = TRUE
+	set_bolt(TRUE)
 	playsound(src, boltDown, 30, FALSE, 3)
 	update_icon()
 	return TRUE
+
+/obj/machinery/door/airlock/proc/set_bolt(should_bolt)
+	if(locked == should_bolt)
+		return
+
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET_BOLT, should_bolt)
+	. = locked
+	locked = should_bolt
 
 /obj/machinery/door/airlock/unlock(forced = FALSE)
 	if(!locked)
@@ -1411,7 +1432,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!forced && (operating || !arePowerSystemsOn() || wires.is_cut(WIRE_DOOR_BOLTS)))
 		return FALSE
 
-	locked = FALSE
+	set_bolt(FALSE)
 	playsound(src, boltUp, 30, FALSE, 3)
 	update_icon()
 	return TRUE

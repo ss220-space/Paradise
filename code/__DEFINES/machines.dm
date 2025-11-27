@@ -164,6 +164,7 @@
 #define PROTOLATHE_CATEGORY_POWER "Электроэнергия"
 #define PROTOLATHE_CATEGORY_MISC "Разное"
 #define PROTOLATHE_CATEGORY_ILLEGAL "Контрабанда"
+#define PROTOLATHE_CATEGORY_CIRCUITRY "Интегральные схемы"
 
 // Circuit Imprinter categories
 #define CIRCUIT_IMPRINTER_CATEGORY_AI "Станционный ИИ"
@@ -177,6 +178,7 @@
 #define CIRCUIT_IMPRINTER_CATEGORY_RESEARCH "Наука и исследование"
 #define CIRCUIT_IMPRINTER_CATEGORY_TELECOMS "Телекоммуникация"
 #define CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION "Телепортация"
+#define CIRCUIT_IMPRINTER_CATEGORY_CIRCUIT "Компоненты схем"
 
 // Mech fabricator categories
 #define MECH_FAB_CATEGORY_CYBORG "Части роботов"
