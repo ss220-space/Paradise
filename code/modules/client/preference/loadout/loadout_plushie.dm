@@ -1,4 +1,5 @@
 /datum/gear/plushie
+	donator_tier = 1
 	sort_category = "Игрушки"
 	subtype_path = /datum/gear/plushie
 
