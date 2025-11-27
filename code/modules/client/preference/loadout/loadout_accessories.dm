@@ -178,6 +178,7 @@
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/gear/accessory/holsters
+	donator_tier = 2
 	index_name = "holster, select"
 	display_name = "Кобура"
 	path = /obj/item/clothing/accessory/holster/
