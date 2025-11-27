@@ -313,6 +313,24 @@
 	do_sparks(3, TRUE, src)
 	..()
 
+/obj/projectile/bullet/rubber45colt
+	name = "rubber bullet"
+	damage = 5
+	stamina = 33
+	icon_state = "bullet-r"
+	ricochet_chance = 20
+
+/obj/projectile/bullet/c45colt
+	damage = 28
+
+/obj/projectile/bullet/c45colt/hp
+	damage = 35
+	armour_penetration = -50
+
+/obj/projectile/bullet/c45colt/ap
+	damage = 20
+	armour_penetration = 30
+
 //.45 bullet casing
 /obj/projectile/bullet/midbullet
 	damage = 23

@@ -8,7 +8,7 @@ export const RndNavbar = () => (
       menu={(n) => n !== MENU.MAIN}
       render={() => (
         <RndNavButton menu={MENU.MAIN} submenu={SUBMENU.MAIN} icon="reply">
-          Main Menu
+          Главное меню
         </RndNavButton>
       )}
     />
@@ -22,7 +22,7 @@ export const RndNavbar = () => (
             menu={MENU.DISK}
             render={() => (
               <RndNavButton submenu={SUBMENU.MAIN} icon="reply">
-                Disk Operations Menu
+                Операции с дискетами
               </RndNavButton>
             )}
           />
@@ -31,7 +31,7 @@ export const RndNavbar = () => (
             menu={MENU.LATHE}
             render={() => (
               <RndNavButton submenu={SUBMENU.MAIN} icon="reply">
-                Protolathe Menu
+                Протолат
               </RndNavButton>
             )}
           />
@@ -40,7 +40,7 @@ export const RndNavbar = () => (
             menu={MENU.IMPRINTER}
             render={() => (
               <RndNavButton submenu={SUBMENU.MAIN} icon="reply">
-                Circuit Imprinter Menu
+                Принтер плат
               </RndNavButton>
             )}
           />
@@ -49,7 +49,7 @@ export const RndNavbar = () => (
             menu={MENU.SETTINGS}
             render={() => (
               <RndNavButton submenu={SUBMENU.MAIN} icon="reply">
-                Settings Menu
+                Настройки
               </RndNavButton>
             )}
           />
@@ -63,10 +63,10 @@ export const RndNavbar = () => (
       render={() => (
         <Box>
           <RndNavButton submenu={SUBMENU.LATHE_MAT_STORAGE} icon="arrow-up">
-            Material Storage
+            Хранилище материалов
           </RndNavButton>
           <RndNavButton submenu={SUBMENU.LATHE_CHEM_STORAGE} icon="arrow-up">
-            Chemical Storage
+            Буфер химикатов
           </RndNavButton>
         </Box>
       )}

@@ -10,7 +10,7 @@
 
 /datum/award/achievement/jobs/helbitaljanken
 	name = "Игра со смертью"
-	desc = "Вас жестоко обманули."
+	desc = "В \"камень-ножницы-бумага\" вы обошли саму Хель."
 	database_id = MEDAL_HELBITALJANKEN
 	icon_state = "helbital"
 

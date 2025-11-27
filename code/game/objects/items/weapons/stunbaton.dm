@@ -245,6 +245,10 @@
 	. = ..()
 	sparkler = new(src)
 
+/obj/item/melee/baton/security/cattleprod/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/melee/baton/security/cattleprod)
+
 /obj/item/melee/baton/security/cattleprod/Destroy()
 	QDEL_NULL(sparkler)
 	return ..()

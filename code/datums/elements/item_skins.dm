@@ -15,7 +15,7 @@
 		item_path = target.type
 
 	item_target.skins = GLOB.item_skins[item_path]
-	if(!item_target.skins)
+	if(!item_target.skins || !length(item_target.skins))
 		item_target.skins = null
 		return
 

@@ -258,6 +258,7 @@
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
 			stage = EIGHTH_DEVIL_ASCEND_STAGE
+			invoker?.client.give_award(/datum/award/achievement/misc/arch_devil, invoker)
 
 		if(EIGHTH_DEVIL_ASCEND_STAGE)
 			SSweather.run_weather(/datum/weather/hell)

@@ -8,7 +8,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 20)
 	make_reagents = list("milk" = 10)
-	category = list("initial","Food")
+	category = list(PRINTER_CATEGORY_INITIAL, "Food")
 
 /datum/design/cream
 	name = "10u cream"
@@ -16,7 +16,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 30)
 	make_reagents = list("cream" = 10)
-	category = list("initial","Food")
+	category = list(PRINTER_CATEGORY_INITIAL, "Food")
 
 /datum/design/milk_carton
 	name = "Milk carton"
@@ -24,7 +24,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 100)
 	build_path = /obj/item/reagent_containers/food/condiment/milk
-	category = list("initial","Food")
+	category = list(PRINTER_CATEGORY_INITIAL, "Food")
 
 /datum/design/cream_carton
 	name = "Cream carton"
@@ -32,7 +32,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/reagent_containers/food/drinks/bottle/cream
-	category = list("initial","Food")
+	category = list(PRINTER_CATEGORY_INITIAL, "Food")
 
 /datum/design/black_pepper
 	name = "10u black pepper"
@@ -40,7 +40,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
 	make_reagents = list("blackpepper" = 10)
-	category = list("initial","Food")
+	category = list(PRINTER_CATEGORY_INITIAL, "Food")
 
 /datum/design/pepper_mill
 	name = "Pepper mill"
@@ -49,7 +49,7 @@
 	materials = list(MAT_BIOMASS = 50)
 	build_path = /obj/item/reagent_containers/food/condiment/peppermill
 	make_reagents = list()
-	category = list("initial","Food")
+	category = list(PRINTER_CATEGORY_INITIAL, "Food")
 
 /datum/design/monkey_cube
 	name = "Monkey cube"
@@ -57,7 +57,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 500)
 	build_path = /obj/item/reagent_containers/food/snacks/monkeycube
-	category = list("initial", "Food")
+	category = list(PRINTER_CATEGORY_INITIAL, "Food")
 
 /datum/design/ez_nut
 	name = "E-Z-Nutrient"
@@ -65,7 +65,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 10)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/ez
-	category = list("initial","Botany Chemicals")
+	category = list(PRINTER_CATEGORY_INITIAL, "Botany Chemicals")
 
 /datum/design/l4z_nut
 	name = "Left 4 Zed"
@@ -73,7 +73,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 20)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/l4z
-	category = list("initial","Botany Chemicals")
+	category = list(PRINTER_CATEGORY_INITIAL, "Botany Chemicals")
 
 /datum/design/rh_nut
 	name = "Robust Harvest"
@@ -81,7 +81,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/rh
-	category = list("initial","Botany Chemicals")
+	category = list(PRINTER_CATEGORY_INITIAL, "Botany Chemicals")
 
 /datum/design/weed_killer
 	name = "Weed Killer"
@@ -89,7 +89,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
-	category = list("initial","Botany Chemicals")
+	category = list(PRINTER_CATEGORY_INITIAL, "Botany Chemicals")
 
 /datum/design/pest_spray
 	name = "Pest Killer"
@@ -97,7 +97,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
-	category = list("initial","Botany Chemicals")
+	category = list(PRINTER_CATEGORY_INITIAL, "Botany Chemicals")
 
 /datum/design/botany_bottle
 	name = "Empty Jug"
@@ -105,7 +105,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 5)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/empty
-	category = list("initial", "Botany Chemicals")
+	category = list(PRINTER_CATEGORY_INITIAL, "Botany Chemicals")
 
 /datum/design/cloth
 	name = "Roll of cloth"
@@ -113,7 +113,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
 	build_path = /obj/item/stack/sheet/cloth
-	category = list("initial", "Organic Materials")
+	category = list(PRINTER_CATEGORY_INITIAL, "Organic Materials")
 
 /datum/design/cardboard
 	name = "Sheet of cardboard"
@@ -121,7 +121,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
 	build_path = /obj/item/stack/sheet/cardboard
-	category = list("initial", "Organic Materials")
+	category = list(PRINTER_CATEGORY_INITIAL, "Organic Materials")
 
 /datum/design/leather
 	name = "Sheet of Leather"
@@ -129,7 +129,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 150)
 	build_path = /obj/item/stack/sheet/leather
-	category = list("initial", "Organic Materials")
+	category = list(PRINTER_CATEGORY_INITIAL, "Organic Materials")
 
 /datum/design/hydrobelt
 	name = "Botanist belt"
@@ -137,7 +137,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/storage/belt/botany
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/secbelt
 	name = "Security belt"
@@ -145,7 +145,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/storage/belt/security
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/medbelt
 	name = "Medical belt"
@@ -153,7 +153,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/storage/belt/medical
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/surbelt
 	name = "Surgical belt"
@@ -161,7 +161,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/storage/belt/medical/surgery
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/janibelt
 	name = "Janitorial belt"
@@ -169,7 +169,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/storage/belt/janitor
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/s_holster
 	name = "Shoulder holster"
@@ -177,7 +177,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 400)
 	build_path = /obj/item/clothing/accessory/holster
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/k_holster
 	name = "Knife holster"
@@ -185,7 +185,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 400)
 	build_path = /obj/item/clothing/accessory/holster/knives
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/webbing
 	name = "Webbing"
@@ -193,7 +193,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 500)
 	build_path = /obj/item/clothing/accessory/storage/webbing
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/brown_vest
 	name = "Brown vest"
@@ -201,7 +201,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 800)
 	build_path = /obj/item/clothing/accessory/storage/brown_vest
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/black_vest
 	name = "Black vest"
@@ -209,7 +209,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 800)
 	build_path = /obj/item/clothing/accessory/storage/black_vest
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/rice_hat
 	name = "Rice hat"
@@ -217,7 +217,7 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/clothing/head/rice_hat
-	category = list("initial","Leather and Cloth")
+	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/rollingpapers
 	name = "Rolling paper pack"
@@ -225,4 +225,4 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
 	build_path = /obj/item/storage/fancy/rollingpapers
-	category = list("initial","Organic Materials")
+	category = list(PRINTER_CATEGORY_INITIAL, "Organic Materials")
