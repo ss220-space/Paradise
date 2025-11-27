@@ -1759,3 +1759,56 @@
 		M.reagents.add_reagent("epinephrine", 0.2)
 		M.reagents.add_reagent("heparin", 0,4)
 	return ..()
+
+/datum/reagent/medicine/sanguinius
+	name = "Сангвиний"
+	id = "sanguinius"
+	description = "Кроваво-красная густая жидкость, способная имитировать любой тип крови. Повышает возможности организма восстанавливать кровь"
+	color = "#770101"
+	taste_description = "металла"
+	harmless = FALSE
+	overdose_threshold = 15
+
+/datum/reagent/medicine/sanguinius/on_mob_life(mob/living/M)
+	if(!ishuman(M))
+		return
+
+	var/mob/living/carbon/human/H = M
+
+	if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+		switch(current_cycle)
+			if(1)
+				H.AdjustBlood(1)
+			if(2 to 25)
+				H.AdjustBlood(3)
+			else
+				H.AdjustBlood(5)
+
+	return ..()
+
+/datum/reagent/medicine/sanguinius/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	if(volume < 20)
+		if(prob(10))
+			to_chat(H, "<span class='warning>Вы кашляете запекшейся кровью.</span>")
+			H.vomit(0, VOMIT_BLOOD, 0)
+			H.AdjustBlood(-15)
+		else if(prob(10))
+			var/overdose_message = pick("На мгновение ваше зрение окрасилось в красный цвет.", "Вы слышите, как бьется ваше сердце.")
+			to_chat(H, "<span class='warning'>[overdose_message]</span>")
+	else
+		if(prob(10))
+			to_chat(H, "<span class='danger'>Вы захлёбываетесь своей запекшейся кровью!</span>")
+			H.AdjustLoseBreath(2 SECONDS)
+			H.vomit(0, VOMIT_BLOOD, 0)
+			H.AdjustBlood(-30)
+		else if(prob(10))
+			var/overdose_message = pick("Ваши глаза застелает кровавая пелена!", "Стук вашего сердца гремит в ушах", "Ваши вены вздуваются под кожей!")
+			to_chat(H, "<span class='danger'>[overdose_message]</span>")
+			H.adjustBruteLoss(6)
+			H.client.color = "red"
+			addtimer(VARSET_CALLBACK(H.client, color, ""), 6 SECONDS)
+	return list(0, update_flags)
