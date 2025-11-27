@@ -32,6 +32,14 @@
 	min_start_money = 400
 	max_start_money = 700
 
+/datum/job/chief_engineer/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/engineering/building)
+			return SKILL_LEVEL_PROFESSIONAL
+		if(/datum/skill/engineering/construction)
+			return SKILL_LEVEL_PROFESSIONAL
+	. = ..()
+
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer
@@ -77,6 +85,14 @@
 	min_start_money = 200
 	max_start_money = 500
 
+/datum/job/engineer/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/engineering/building)
+			return SKILL_LEVEL_PROFESSIONAL
+		if(/datum/skill/engineering/construction)
+			return SKILL_LEVEL_PROFESSIONAL
+	. = ..()
+
 /datum/outfit/job/engineer
 	name = "Station Engineer"
 	jobtype = /datum/job/engineer
@@ -112,6 +128,14 @@
 	salary = 130
 	min_start_money = 150
 	max_start_money = 300
+
+/datum/job/engineer/trainee/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/engineering/building)
+			return SKILL_LEVEL_ADVANCED
+		if(/datum/skill/engineering/construction)
+			return SKILL_LEVEL_ADVANCED
+	. = ..()
 
 /datum/outfit/job/engineer/trainee
 	name = "Trainee Engineer"
@@ -163,6 +187,14 @@
 	min_start_money = 200
 	max_start_money = 500
 
+/datum/job/atmos/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/engineering/building)
+			return SKILL_LEVEL_ADVANCED
+		if(/datum/skill/engineering/construction)
+			return SKILL_LEVEL_PROFESSIONAL
+	. = ..()
+
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"
 	jobtype = /datum/job/atmos
@@ -198,6 +230,14 @@
 	salary = 150
 	min_start_money = 200
 	max_start_money = 400
+
+/datum/job/mechanic/get_skill_level(skill_type)
+	switch(skill_type)
+		if(/datum/skill/engineering/building)
+			return SKILL_LEVEL_ADVANCED
+		if(/datum/skill/engineering/construction)
+			return SKILL_LEVEL_PROFESSIONAL
+	. = ..()
 
 /datum/outfit/job/mechanic
 	name = "Mechanic"

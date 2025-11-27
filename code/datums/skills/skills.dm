@@ -109,6 +109,7 @@
 	src.owner = null
 
 
+//TODO make correct descriptions
 //MARK: Engineering
 /datum/skill/engineering
 	category = "Инженерные"
@@ -117,12 +118,13 @@
 	id = "engineering.building"
 	name = "Строительство"
 	desc = "Влияет на скорость строительства."
-	duration_mod_signals = list(COMSIG_GET_WALL_BUILDING_SPEED_MOD)
+	duration_mod_signals = list(COMSIG_GET_BUILDING_SPEED_MOD)
 
 /datum/skill/engineering/construction
 	id = "engineering.construction"
 	name = "Конструирование"
 	desc = "Влияет на скорость конструирования машинерии."
+	duration_mod_signals = list(COMSIG_GET_CONSTRUCTING_SPEED_MOD)
 
 
 //MARK: Cargo
@@ -134,3 +136,27 @@
 	name = "Переноска"
 	desc = "Влияет на переноски вещей."
 	duration_mod_signals = list(COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, COMSIG_GET_GRAB_SPEED_MODIFIERS)
+
+
+//MARK: Service
+/datum/skill/service
+	category = "Сервис"
+
+/datum/skill/service/cooking
+	id = "service.cooking"
+	name = "Готовка"
+	desc = "Влияет на готовку."
+	duration_mod_signals = list()
+
+/datum/skill/service/butchering
+	id = "service.butchering"
+	name = "Разделывание туш"
+	desc = "Влияет на мастерство разделывания туш."
+	duration_mod_signals = list()
+
+/datum/skill/service/drink_mixing
+	id = "service.drink_mixing"
+	name = "Смешивание напитков"
+	desc = "Влияет на смешивание напитков."
+	duration_mod_signals = list()
+	quality_mod_signals = list()

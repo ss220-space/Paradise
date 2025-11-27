@@ -1583,5 +1583,7 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 //MARK: Skill signals
-/// Get speed modifier for wall building (mob/living/user, list/modifiers)
-#define COMSIG_GET_WALL_BUILDING_SPEED_MOD "get_wall_building_speed"
+/// Get speed modifier for building skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_BUILDING_SPEED_MOD "get_building_speed"
+/// Get speed modifier for constructing skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_CONSTRUCTING_SPEED_MOD "get_constructing_speed"
