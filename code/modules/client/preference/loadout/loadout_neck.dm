@@ -1,4 +1,5 @@
 /datum/gear/neck
+	donator_tier = 1
 	subtype_path = /datum/gear/neck
 	slot = ITEM_SLOT_NECK
 	sort_category = "Плащи"
