@@ -543,6 +543,23 @@
 		PREPOSITIONAL = "сексуальной маске мима",
 	)
 
+/obj/item/clothing/mask/gas/mime/old
+
+	name = "classic mime mask"
+	desc = "Маска мима прямиком из 2568."
+	icon_state = "mime_old"
+	item_state = "mime_old"
+
+/obj/item/clothing/mask/gas/mime/old/get_ru_names()
+	return list(
+		NOMINATIVE = "классическая маска мима",
+		GENITIVE = "классической маски мима",
+		DATIVE = "классической маске мима",
+		ACCUSATIVE = "классическую маску мима",
+		INSTRUMENTAL = "классической маской мима",
+		PREPOSITIONAL = "классической маске мима",
+	)
+
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Бип буп."
