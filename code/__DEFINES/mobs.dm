@@ -433,6 +433,10 @@
 /// Allows pAIs to perform an action
 #define ALLOW_PAI (1<<11)
 
+//Lying angles, which way your head points
+#define LYING_ANGLE_EAST 90
+#define LYING_ANGLE_WEST 270
+
 ///Squash flags. For squashable element
 
 ///Whether or not the squashing requires the squashed mob to be lying down

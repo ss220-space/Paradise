@@ -60,20 +60,30 @@ GLOBAL_LIST_EMPTY(active_video_cameras)
 	if(on)
 		camera_state()
 
-/obj/item/videocam/hear_talk(mob/M, list/message_pieces)
+/obj/item/videocam/hear_talk(mob/speaker, list/message_pieces)
+	. = ..()
 	var/msg = multilingual_to_message(message_pieces)
-	if(camera && on)
-		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, msg)
-		for(var/obj/machinery/computer/security/telescreen/T in SSmachines.get_by_type(/obj/machinery/computer/security/telescreen))
-			if(T.concurrent_users[M] == camera)
-				T.atom_say(msg)
+	if(!camera || !on)
+		return
 
-/obj/item/videocam/hear_message(mob/M, msg)
-	if(camera && on)
-		for(var/obj/machinery/computer/security/telescreen/T in SSmachines.get_by_type(/obj/machinery/computer/security/telescreen))
-			if(T.concurrent_users[M] == camera)
-				T.atom_say(msg)
+	if(get_dist(src, speaker) <= canhear_range)
+		talk_into(speaker, msg)
+
+	for(var/obj/machinery/computer/security/telescreen/telescreen in SSmachines.get_by_type(/obj/machinery/computer/security/telescreen))
+		if(telescreen.concurrent_users[speaker] != camera)
+			continue
+
+		telescreen.atom_say(msg)
+
+/obj/item/videocam/hear_message(mob/speaker, msg)
+	if(!camera || !on)
+		return
+
+	for(var/obj/machinery/computer/security/telescreen/telescreen in SSmachines.get_by_type(/obj/machinery/computer/security/telescreen))
+		if(telescreen.concurrent_users[speaker] != camera)
+			continue
+
+		telescreen.atom_say(msg)
 
 /obj/item/videocam/advanced
 	name = "advanced video camera"

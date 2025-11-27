@@ -587,6 +587,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
 
+/obj/item/coin/get_item_credit_value()
+	return credits
+
 /obj/item/coin/gold
 	cmineral = "gold"
 	icon_state = "coin_gold_heads"

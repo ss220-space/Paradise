@@ -54,7 +54,7 @@
 /obj/item/gun/proc/update_weight()
 	return
 
-/obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/projectile/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	var/obj/item/ammo_casing/hold_casing = chambered //Find chambered round
 	if(isnull(hold_casing) || !istype(hold_casing))
 		chamber_round()

@@ -30,15 +30,18 @@
 //MARK: Job-specific survival boxes
 /obj/item/storage/box/survival/brigphys
 	icon_state = "box_brigphys"
+	item_state = "sec"
 
 /obj/item/storage/box/survival/engineer
 	icon_state = "box_eng"
+	item_state = "eng"
 	internals = /obj/item/tank/internals/emergency_oxygen/engi
 
 /obj/item/storage/box/survival/survival_mining
 	icon_state = "box_min"
 	breathmask = /obj/item/clothing/mask/gas/explorer/folded
 	internals = /obj/item/tank/internals/emergency_oxygen/engi
+	item_state = "mining"
 
 /obj/item/storage/box/survival/survival_mining/populate_contents()
 	. = ..()
@@ -50,6 +53,7 @@
 	breathmask = /obj/item/clothing/mask/gas/sechailer/folded
 	internals = /obj/item/tank/internals/emergency_oxygen/engi/sec
 	glowstick = /obj/item/flashlight/flare/glowstick/red
+	item_state = "sec"
 
 /obj/item/storage/box/survival/survival_security/populate_contents()
 	. = ..()
@@ -59,6 +63,7 @@
 
 /obj/item/storage/box/survival/survival_security/hos
 	icon_state = "box_hos"
+	item_state = "hos"
 
 /obj/item/storage/box/survival/survival_security/cadet
 	icon_state = "box_cadet"
@@ -75,6 +80,7 @@
 /obj/item/storage/box/survival/survival_laws
 	icon_state = "box_avd"
 	glowstick = /obj/item/flashlight/flare/glowstick/pink
+	item_state = "sec"
 
 /obj/item/storage/box/survival/survival_laws/populate_contents()
 	. = ..()
@@ -83,10 +89,12 @@
 	new /obj/item/camera(src)
 
 /obj/item/storage/box/survival/survival_laws/magisraka
-	icon_state = "box_magisraka"
+	icon_state = "box_magistrate"
+	item_state = "magistrate"
 
 /obj/item/storage/box/survival/survival_syndi
 	icon_state = "box_syndi"
+	item_state = "syndie"
 	breathmask = /obj/item/clothing/mask/gas/syndicate
 	internals = /obj/item/tank/internals/emergency_oxygen/engi/syndi
 	first_aid = null
@@ -102,6 +110,7 @@
 /obj/item/storage/box/survival/centcomofficer
 	name = "officer kit"
 	icon_state = "box_ert"
+	item_state = "ert"
 	storage_slots = 14
 	max_combined_w_class = 20
 	breathmask = /obj/item/clothing/mask/gas/sechailer/folded
@@ -144,6 +153,7 @@
 /obj/item/storage/box/survival/responseteam
 	name = "boxed survival kit"
 	icon_state = "box_ert"
+	item_state = "ert"
 
 /obj/item/storage/box/survival/responseteam/populate_contents()
 	new /obj/item/clothing/mask/gas/sechailer/folded(src)
@@ -472,11 +482,13 @@
 
 /obj/item/storage/box/survival/species/vox
 	icon_state = "box_vox"
+	item_state = "vox"
 	breathmask = /obj/item/clothing/mask/breath/vox
 	internals = /obj/item/tank/internals/emergency_oxygen/nitrogen
 
 /obj/item/storage/box/survival/species/machine
 	icon_state = "box_machine"
+	item_state = "mech"
 	breathmask = null
 	internals = null
 	first_aid = null

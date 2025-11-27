@@ -56,10 +56,10 @@
 		SPECIES_GOLEM_BANANIUM = "бананиевый голем",
 		SPECIES_GOLEM_TRANQUILLITITE = "транквилитовый голем",
 		SPECIES_GOLEM_CLOCKWORK = "латунный голем",
-		SPECIES_GREY = "грей",
+		SPECIES_GREY = "серый",
 		SPECIES_HUMAN = "человек",
 		SPECIES_KIDAN = "кидан",
-		SPECIES_MACNINEPERSON = "машина",
+		SPECIES_MACNINEPERSON = "КПБ",
 		SPECIES_MONKEY = "шимпанзе",
 		SPECIES_FARWA = "фарва",
 		SPECIES_WOLPIN = "вульпин",
@@ -67,15 +67,15 @@
 		SPECIES_STOK = "сток",
 		SPECIES_MOTH = "ниан",
 		SPECIES_NUCLEATION = "нуклеация",
-		SPECIES_PLASMAMAN = "плазмамен",
+		SPECIES_PLASMAMAN = "плазмолюд",
 		SPECIES_SHADOW_BASIC = "тень",
-		SPECIES_SHADOWLING = "тенелинг",
-		SPECIES_LESSER_SHADOWLING = "низший тенелинг",
+		SPECIES_SHADOWLING = "тенеморф",
+		SPECIES_LESSER_SHADOWLING = "низший тенеморф",
 		SPECIES_SKELETON = "скелет",
 		SPECIES_SKRELL = "скрелл",
 		SPECIES_SLIMEPERSON = "слаймолюд",
 		SPECIES_TAJARAN = "таяран",
-		SPECIES_UNATHI = "унатх",
+		SPECIES_UNATHI = "унати",
 		SPECIES_ASHWALKER_BASIC = "пеплоходец",
 		SPECIES_ASHWALKER_SHAMAN = "шаман пеплоходец",
 		SPECIES_DRACONOID = "драконид",
@@ -85,9 +85,9 @@
 		SPECIES_WRYN = "врин"
 	)
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
-		msg += "!\n"    //omit the species when examining
+		msg += ".\n"    //omit the species when examining
 	else
-		msg += ",<b><font color='[examine_color]'> [ru_species[displayed_species]]</font></b>!\n"
+		msg += ",<b><font color='[examine_color]'> [ru_species[displayed_species]]</font></b>.\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
@@ -97,129 +97,124 @@
 			tie_msg += " c [accessory_list(w_uniform)]"
 
 		if(w_uniform.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(w_uniform, user)] [w_uniform.declent_ru(ACCUSATIVE)] [w_uniform.blood_color != "#030303" ? "со следами крови":"со следами масла"][tie_msg]!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(w_uniform, user)] <b>[w_uniform.declent_ru(ACCUSATIVE)]</b> [span_warning(w_uniform.blood_color != "#030303" ? "со следами крови":"со следами масла")][tie_msg] на теле.\n"
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(w_uniform, user)] [w_uniform.declent_ru(ACCUSATIVE)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(w_uniform, user)] <b>[w_uniform.declent_ru(ACCUSATIVE)]</b>[tie_msg] на теле.\n"
 
 	//head
 	if(head && !(head.item_flags & ABSTRACT))
 		if(head.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(head, user)] [head.declent_ru(ACCUSATIVE)] [head.blood_color != "#030303" ? "со следами крови":"со следами масла"] на голове!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(head, user)] <b>[head.declent_ru(ACCUSATIVE)]</b> [span_warning(head.blood_color != "#030303" ? "со следами крови":"со следами масла")] на голове.\n"
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(head, user)] [head.declent_ru(ACCUSATIVE)] на голове.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(head, user)] <b>[head.declent_ru(ACCUSATIVE)]</b> на голове.\n"
 
 	//neck
 	if(neck && !(neck.item_flags & ABSTRACT))
 		if(neck.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(neck, user)] [neck.declent_ru(ACCUSATIVE)] [neck.blood_color != "#030303" ? "со следами крови":"со следами масла"] на шее!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(neck, user)] <b>[neck.declent_ru(ACCUSATIVE)]</b> [span_warning(neck.blood_color != "#030303" ? "со следами крови":"со следами масла")] на шее.\n"
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(neck, user)] [neck.declent_ru(ACCUSATIVE)] на шее.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(neck, user)] <b>[neck.declent_ru(ACCUSATIVE)]</b> на шее.\n"
 
 	//suit/armour
 	if(wear_suit && !(wear_suit.item_flags & ABSTRACT))
 		if(wear_suit.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_suit, user)] [wear_suit.declent_ru(ACCUSATIVE)] [wear_suit.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_suit, user)] <b>[wear_suit.declent_ru(ACCUSATIVE)]</b> [span_warning(wear_suit.blood_color != "#030303" ? "со следами крови":"со следами масла")].\n"
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_suit, user)] [wear_suit.declent_ru(ACCUSATIVE)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_suit, user)] <b>[wear_suit.declent_ru(ACCUSATIVE)]</b>.\n"
 
 		//suit/armour storage
 		if(s_store && !skipsuitstorage)
 			if(s_store.blood_DNA)
-				msg += span_warning("На [GEND_HIS_HER(src)] [icon2html(wear_suit, user)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[PLUR_IT_YAT(s_store)] [icon2html(s_store, user)] [s_store.declent_ru(NOMINATIVE)] [s_store.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+				msg += "На [GEND_HIS_HER(src)] [icon2html(wear_suit, user)] <b>[wear_suit.declent_ru(PREPOSITIONAL)]</b> вис[PLUR_IT_YAT(s_store)] [icon2html(s_store, user)] <b>[s_store.declent_ru(NOMINATIVE)]</b> [span_warning(s_store.blood_color != "#030303" ? "со следами крови":"со следами масла")].\n"
 			else
-				msg += "На [GEND_HIS_HER(src)] [icon2html(wear_suit, user)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[PLUR_IT_YAT(s_store)] [icon2html(s_store, user)] [s_store.declent_ru(NOMINATIVE)].\n"
+				msg += "На [GEND_HIS_HER(src)] [icon2html(wear_suit, user)] <b>[wear_suit.declent_ru(PREPOSITIONAL)]</b> вис[PLUR_IT_YAT(s_store)] [icon2html(s_store, user)] <b>[s_store.declent_ru(NOMINATIVE)]</b>.\n"
 
 	//back
 	if(back && !(back.item_flags & ABSTRACT))
 		if(back.blood_DNA)
-			msg += span_warning("На [GEND_HIS_HER(src)] спине вис[PLUR_IT_YAT(back)] [icon2html(back, user)] [back.declent_ru(NOMINATIVE)] [back.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(back, user)] <b>[back.declent_ru(NOMINATIVE)]</b> [span_warning(back.blood_color != "#030303" ? "со следами крови":"со следами масла")] на спине.\n"
 		else
-			msg += "На [GEND_HIS_HER(src)] спине вис[PLUR_IT_YAT(back)] [icon2html(back, user)] [back.declent_ru(NOMINATIVE)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(back, user)] <b>[back.declent_ru(NOMINATIVE)]</b> на спине.\n"
 
 	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(l_hand, user)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(l_hand, user)] <b>[l_hand.declent_ru(ACCUSATIVE)]</b> [span_warning(l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла")] в левой руке.\n"
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(l_hand, user)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(l_hand, user)] <b>[l_hand.declent_ru(ACCUSATIVE)]</b> в левой руке.\n"
 
 	//right hand
 	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(r_hand, user)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(r_hand, user)] <b>[r_hand.declent_ru(ACCUSATIVE)]</b> [span_warning(r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла")] в правой руке.\n"
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(r_hand, user)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(r_hand, user)] <b>[r_hand.declent_ru(ACCUSATIVE)]</b> в правой руке.\n"
 
 	//gloves
 	if(!skipgloves)
 		if(gloves && !(gloves.item_flags & ABSTRACT))
 			if(gloves.blood_DNA)
-				msg += span_warning("На [GEND_HIS_HER(src)] руках [icon2html(gloves, user)] [gloves.declent_ru(NOMINATIVE)] [gloves.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+				msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(gloves, user)] <b>[gloves.declent_ru(NOMINATIVE)]</b> [span_warning(gloves.blood_color != "#030303" ? "со следами крови":"со следами масла")] на руках.\n"
 			else
-				msg += "На [GEND_HIS_HER(src)] руках [icon2html(gloves, user)] [gloves.declent_ru(NOMINATIVE)].\n"
+				msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(gloves, user)] <b>[gloves.declent_ru(NOMINATIVE)]</b> на руках.\n"
 		else if(blood_DNA)
-			msg += span_warning("[GEND_HIS_HER_CAP(src)] руки [hand_blood_color != "#030303" ? "измазаны кровью":"измазаны маслом"]!\n")
+			msg += "[GEND_HIS_HER_CAP(src)] руки [hand_blood_color != "#030303" ? "измазаны кровью":"измазаны маслом"].\n"
 		else if(isclocker(src) && HAS_TRAIT(src, TRAIT_CLOCK_HANDS))
-			msg += span_clockitalic("[GEND_HIS_HER_CAP(src)] руки сверкают янтарём!\n")
+			msg += span_clockitalic("[GEND_HIS_HER_CAP(src)] руки сверкают янтарём.\n")
 
 	//handcuffed?
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] стяжками!\n")
-		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] самодельными стяжками!\n")
-		else
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] наручниками!\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] <b>[handcuffed.declent_ru(INSTRUMENTAL)]</b>.\n")
 
 	//belt
 	if(belt)
 		if(belt.blood_DNA)
-			msg += span_warning("На [GEND_HIS_HER(src)] талии вис[PLUR_IT_YAT(belt)] [icon2html(belt, user)] [belt.declent_ru(NOMINATIVE)] [belt.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(belt, user)] <b>[belt.declent_ru(NOMINATIVE)]</b> [span_warning(belt.blood_color != "#030303" ? "со следами крови":"со следами масла")] на талии.\n"
 		else
-			msg += "На [GEND_HIS_HER(src)] талии вис[PLUR_IT_YAT(belt)] [icon2html(belt, user)] [belt.declent_ru(NOMINATIVE)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(belt, user)] <b>[belt.declent_ru(NOMINATIVE)]</b> на талии.\n"
 
 	//shoes
 	if(!skipshoes)
 		if(shoes && !(shoes.item_flags & ABSTRACT))
 			if(shoes.blood_DNA)
-				msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(shoes, user)] [shoes.declent_ru(ACCUSATIVE)] [shoes.blood_color != "#030303" ? "со следами крови":"со следами масла"] на ногах!\n")
+				msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(shoes, user)] <b>[shoes.declent_ru(ACCUSATIVE)]</b> [span_warning(shoes.blood_color != "#030303" ? "со следами крови":"со следами масла")] на ногах.\n"
 			else
-				msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(shoes, user)] [shoes.declent_ru(ACCUSATIVE)] на ногах.\n"
+				msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(shoes, user)] <b>[shoes.declent_ru(ACCUSATIVE)]</b> на ногах.\n"
 		else if(blood_DNA)
-			msg += span_warning("[GEND_HIS_HER_CAP(src)] ступни [hand_blood_color != "#030303" ? "измазаны в крови":"измазаны в масле"]!\n")
+			msg += "[GEND_HIS_HER_CAP(src)] ступни [span_warning(hand_blood_color != "#030303" ? "измазаны в крови":"измазаны в масле")].\n"
 
 	//legcuffed?
 	if(legcuffed)
-		msg += span_warning("[GEND_HIS_HER_CAP(src)] ноги [icon2html(legcuffed, user)] скованы [legcuffed.declent_ru(INSTRUMENTAL)]!\n")
+		msg += span_warning("[GEND_HIS_HER_CAP(src)] ноги [icon2html(legcuffed, user)] скованы [legcuffed.declent_ru(INSTRUMENTAL)].\n")
 
 	//mask
 	if(wear_mask && !skipmask && !(wear_mask.item_flags & ABSTRACT))
 		if(wear_mask.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_mask, user)] [wear_mask.declent_ru(ACCUSATIVE)] [wear_mask.blood_color != "#030303" ? "со следами крови":"со следами масла"] на лице!\n")
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_mask, user)] <b>[wear_mask.declent_ru(ACCUSATIVE)]</b> [span_warning(wear_mask.blood_color != "#030303" ? "со следами крови":"со следами масла")] на лице.\n"
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_mask, user)] [wear_mask.declent_ru(ACCUSATIVE)] на лице.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_mask, user)] <b>[wear_mask.declent_ru(ACCUSATIVE)]</b> на лице.\n"
 
 	//eyes
 	if(!skipeyes)
 		if(glasses && !(glasses.item_flags & ABSTRACT))
 			if(glasses.blood_DNA)
-				msg += span_warning("[GEND_HIS_HER_CAP(src)] глаза закрыты [icon2html(glasses, user)] [glasses.declent_ru(INSTRUMENTAL)] [glasses.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+				msg += "[GEND_HIS_HER_CAP(src)] глаза закрыты [icon2html(glasses, user)] <b>[glasses.declent_ru(INSTRUMENTAL)]</b> [span_warning(glasses.blood_color != "#030303" ? "со следами крови":"со следами масла")].\n"
 			else
-				msg += "[GEND_HIS_HER_CAP(src)] глаза закрыты [icon2html(glasses, user)] [glasses.declent_ru(INSTRUMENTAL)].\n"
+				msg += "[GEND_HIS_HER_CAP(src)] глаза закрыты [icon2html(glasses, user)] <b>[glasses.declent_ru(INSTRUMENTAL)]</b>.\n"
 		else if(HAS_TRAIT(src, TRAIT_RED_EYES) && get_int_organ(/obj/item/organ/internal/eyes))
-			msg += span_boldwarning("[GEND_HIS_HER_CAP(src)] глаза неестественно горят кроваво-красным!\n")
+			msg += span_boldwarning("[GEND_HIS_HER_CAP(src)] глаза горят кроваво-красным цветом.\n")
 
 	//left ear
 	if(l_ear && !skipears)
-		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(l_ear, user)] [l_ear.declent_ru(ACCUSATIVE)] на левом ухе.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(l_ear, user)] <b>[l_ear.declent_ru(ACCUSATIVE)]</b> на левом ухе.\n"
 
 	//right ear
 	if(r_ear && !skipears)
-		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(r_ear, user)] [r_ear.declent_ru(ACCUSATIVE)] на правом ухе.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(r_ear, user)] <b>[r_ear.declent_ru(ACCUSATIVE)]</b> на правом ухе.\n"
 
 	//ID
 	if(wear_id)
-		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_id, user)] [wear_id.declent_ru(ACCUSATIVE)].\n"
+		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_id, user)] <b>[wear_id.declent_ru(ACCUSATIVE)]</b> на креплении ID-карты.\n"
 
 	var/rolled_down = FALSE
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))

@@ -31,7 +31,7 @@
 	user.apply_status_effect(STATUS_EFFECT_PANACEA)
 
 	for(var/datum/disease/virus in user.diseases)
-		if(virus.severity == NONTHREAT)
+		if(virus.severity == DISEASE_SEVERITY_POSITIVE)
 			continue
 		virus.cure()
 

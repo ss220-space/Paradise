@@ -387,7 +387,7 @@
 /obj/item/ammo_box/shotgun/improvised
 	name = "ammunition box (improvised shells)"
 	desc = "Коробка, содержащая самодельные патроны калибра 12х70."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "largebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 
