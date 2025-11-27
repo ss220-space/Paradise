@@ -58,7 +58,6 @@
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_DETECTIVE)
 
 /datum/gear/glasses/sechudpatch/read_only
-	donator_tier = 1
 	index_name = "Security HUD eyepatch (read only)"
 	path = /obj/item/clothing/glasses/hud/security/patch/read_only
 	allowed_roles = list(JOB_TITLE_LAWYER)
