@@ -6253,7 +6253,7 @@
 /obj/item/cigbutt{
 	pixel_y = 9
 	},
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"

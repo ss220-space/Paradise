@@ -72,7 +72,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "cP" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)

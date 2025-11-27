@@ -140,7 +140,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/machinery/light/small{
@@ -988,7 +988,7 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -1195,7 +1195,7 @@
 	},
 /area/event_zone)
 "aZF" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/indestructible{
 	icon_state = "woodalt"
 	},
@@ -1559,7 +1559,7 @@
 "bpU" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "bpZ" = (
@@ -5336,7 +5336,7 @@
 /area/syndicate_mothership)
 "ejW" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "eka" = (
@@ -6434,7 +6434,7 @@
 	},
 /area/centcom/jail)
 "eZl" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -12153,7 +12153,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "jix" = (
@@ -12611,7 +12611,7 @@
 	},
 /area/syndicate_mothership)
 "jvy" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "jvL" = (
@@ -14046,7 +14046,7 @@
 	},
 /area/centcom/evac)
 "kyR" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/indestructible{
 	icon_state = "whitehall"
 	},
@@ -14093,7 +14093,7 @@
 	},
 /area/syndicate_mothership)
 "kAr" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/indestructible{
 	icon_state = "whitehall"
 	},
@@ -15226,7 +15226,7 @@
 	},
 /area/syndicate_mothership)
 "loD" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -24654,7 +24654,7 @@
 	},
 /area/centcom/specops)
 "rUg" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -26915,7 +26915,7 @@
 	},
 /area/centcom/evac)
 "tyu" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
 	},
@@ -26925,7 +26925,7 @@
 	},
 /area/centcom/zone3)
 "tyz" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/indestructible{
 	dir = 1;
 	icon_state = "darkred"
@@ -28647,7 +28647,7 @@
 /turf/simulated/floor/wood/cherry,
 /area/ninja/outside)
 "uSl" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /obj/machinery/camera{
 	c_tag = "CentComm Jail 5";
 	dir = 10;
@@ -29170,7 +29170,7 @@
 	},
 /area/centcom/specops)
 "vjT" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},

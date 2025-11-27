@@ -16449,7 +16449,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "cdI" = (
@@ -29677,7 +29677,7 @@
 	},
 /area/quartermaster/office)
 "eDr" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -32370,7 +32370,7 @@
 	c_tag = "Detective's Office";
 	dir = 8
 	},
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/detectives_office)
 "fxg" = (
@@ -76455,7 +76455,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/detectives_office)
 "rWK" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -87712,7 +87712,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "vsu" = (
-/obj/machinery/vending/cart/free,
+/obj/machinery/vending/cart,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "vsw" = (

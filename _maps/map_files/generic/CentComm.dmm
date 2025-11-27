@@ -1246,7 +1246,7 @@
 	},
 /area/shuttle/escape)
 "azd" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -1825,7 +1825,7 @@
 	},
 /area/vox_station)
 "aLD" = (
-/obj/machinery/vending/chinese/free{
+/obj/machinery/vending/chinese{
 	pixel_y = 7
 	},
 /turf/simulated/floor/carpet/black,
@@ -2064,7 +2064,7 @@
 	},
 /area/centcom/zone2)
 "aRY" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
 "aSp" = (
@@ -2253,7 +2253,7 @@
 	},
 /area/shuttle/ussp)
 "aXa" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
 "aXg" = (
@@ -5289,7 +5289,7 @@
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
 "cuf" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/structure/curtain/black{
 	pixel_x = -32
 	},
@@ -11400,7 +11400,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/outpost)
 "frx" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "frA" = (
@@ -11794,7 +11794,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone3)
 "fBA" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
 "fBG" = (
@@ -11833,7 +11833,7 @@
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
 "fBS" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
 "fBW" = (
@@ -12002,7 +12002,7 @@
 	},
 /area/centcom/zone1)
 "fDY" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12306,7 +12306,7 @@
 	},
 /area/centcom/zone2)
 "fKY" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /obj/structure/curtain/black{
 	pixel_x = -32
 	},
@@ -13256,7 +13256,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "giw" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "giC" = (
@@ -13870,7 +13870,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -14314,7 +14314,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/syndicate_mothership/control)
 "gOI" = (
-/obj/machinery/vending/gun_mods/free,
+/obj/machinery/vending/gun_mods/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14509,7 +14509,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "gVk" = (
@@ -14764,7 +14764,7 @@
 /area/centcom/jail)
 "gYZ" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "gZv" = (
@@ -14835,7 +14835,7 @@
 "hbt" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "hbV" = (
@@ -15644,7 +15644,7 @@
 	},
 /area/centcom/zone1)
 "hza" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -16462,7 +16462,7 @@
 	},
 /area/shuttle/syndicate)
 "hYJ" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
 "hYY" = (
@@ -16684,7 +16684,7 @@
 	},
 /area/centcom/specops)
 "idI" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21178,7 +21178,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
 "kgC" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22141,7 +22141,7 @@
 /area/syndicate_mothership/outside)
 "kFi" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/gun_mods/free,
+/obj/machinery/vending/gun_mods/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22826,7 +22826,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone2)
 "kTQ" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -25967,7 +25967,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "mpg" = (
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/vending/cigarette{
 	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
 	},
 /turf/simulated/floor/plasteel{
@@ -26238,7 +26238,7 @@
 	},
 /area/centcom/zone3)
 "msY" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "mto" = (
@@ -28172,7 +28172,7 @@
 	},
 /area/ninja/holding)
 "nhv" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "nhC" = (
@@ -29831,7 +29831,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "nQs" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5
 	},
@@ -30942,7 +30942,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "opw" = (
-/obj/machinery/vending/wallmed/free{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_y = -32
@@ -31354,7 +31354,7 @@
 	},
 /area/syndicate_mothership/control)
 "ozy" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31434,7 +31434,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "oCp" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32219,7 +32219,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "oRv" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -32470,7 +32470,7 @@
 	},
 /area/centcom/zone1)
 "oWt" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -32654,7 +32654,7 @@
 	},
 /area/centcom/evac)
 "pcD" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/vending/cigarette/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -32674,7 +32674,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "pdq" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -32925,7 +32925,7 @@
 	},
 /area/centcom/jail)
 "pmZ" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /obj/effect/turf_decal/stripes/gold{
 	dir = 4
 	},
@@ -33034,7 +33034,7 @@
 	},
 /area/centcom/zone1)
 "ppZ" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33863,7 +33863,7 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "pKR" = (
-/obj/machinery/vending/gun_mods/free,
+/obj/machinery/vending/gun_mods/advanced,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -34320,7 +34320,7 @@
 	},
 /area/centcom/specops)
 "pUC" = (
-/obj/machinery/vending/medical/free,
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
 	},
@@ -35309,7 +35309,7 @@
 	},
 /area/centcom/supply)
 "qqV" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35662,7 +35662,7 @@
 	},
 /area/shuttle/syndicate)
 "qyk" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -38457,7 +38457,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "rIL" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/vending/cigarette/syndicate,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken6"
 	},
@@ -39062,7 +39062,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "rWE" = (
-/obj/machinery/vending/medical/free,
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39382,7 +39382,7 @@
 	},
 /area/centcom/specops)
 "sfK" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -39551,7 +39551,7 @@
 /area/centcom/zone2)
 "sjJ" = (
 /obj/effect/decal/warning_stripes/white,
-/obj/machinery/vending/gun_mods/free,
+/obj/machinery/vending/gun_mods/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42603,7 +42603,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/medical/free,
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
 	},
@@ -45884,7 +45884,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -46347,7 +46347,7 @@
 	},
 /area/syndicate_mothership)
 "vhg" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /obj/structure/closet/medical_wall{
 	pixel_y = -32
 	},
@@ -48788,7 +48788,7 @@
 	},
 /area/syndicate_mothership)
 "wrh" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49013,7 +49013,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "wyk" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50197,7 +50197,7 @@
 /turf/simulated/floor/beach/sand,
 /area/centcom/evac)
 "xaP" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "xbw" = (
@@ -50864,7 +50864,7 @@
 	},
 /area/centcom/specops)
 "xoT" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /obj/structure/curtain/black{
 	pixel_x = -32
 	},
@@ -51313,7 +51313,7 @@
 	},
 /area/centcom/supply)
 "xzd" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52249,7 +52249,7 @@
 	},
 /area/shuttle/vox)
 "xYl" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -52459,7 +52459,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "ycU" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)

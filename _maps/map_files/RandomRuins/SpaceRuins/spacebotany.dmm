@@ -144,7 +144,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
 "ch" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -1145,7 +1145,7 @@
 	},
 /area/ruin/space/spacebotany/EastGarden)
 "oi" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "arrival"

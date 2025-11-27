@@ -10696,7 +10696,7 @@
 	},
 /area/security/permabrig)
 "aLh" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/light_switch{
 	name = "south light switch";
 	pixel_y = -24
@@ -15863,7 +15863,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "bfj" = (
@@ -67240,7 +67240,7 @@
 /area/toxins/launch)
 "mjy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -85417,7 +85417,7 @@
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "urb" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/security/permabrig)

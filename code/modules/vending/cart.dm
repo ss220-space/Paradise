@@ -31,17 +31,6 @@
 		/obj/item/cartridge/clown = 1,
 		/obj/item/cartridge/mime = 1,
 	)
-	prices = list(
-		/obj/item/pda = 299,
-		/obj/item/eftpos = 199,
-		/obj/item/cartridge/medical = 199,
-		/obj/item/cartridge/chemistry = 149,
-		/obj/item/cartridge/engineering = 99,
-		/obj/item/cartridge/atmos = 69,
-		/obj/item/cartridge/janitor = 99,
-		/obj/item/cartridge/signal/toxins = 149,
-		/obj/item/cartridge/signal = 69,
-	)
 
 /obj/machinery/vending/cart/get_ru_names()
 	return list(
@@ -52,6 +41,3 @@
 		INSTRUMENTAL = "торговым автоматом PTech",
 		PREPOSITIONAL = "торговом автомате PTech",
 	)
-
-/obj/machinery/vending/cart/free
-	prices = list()

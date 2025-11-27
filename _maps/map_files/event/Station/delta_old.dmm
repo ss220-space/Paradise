@@ -34178,7 +34178,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -54808,7 +54808,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "hLJ" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -72149,7 +72149,7 @@
 	},
 /area/gateway)
 "mEK" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -83751,7 +83751,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/west)
 "pIp" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/light{
 	dir = 4
@@ -89667,7 +89667,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110123,7 +110123,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
-/obj/machinery/vending/cart/free,
+/obj/machinery/vending/cart,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "wFd" = (
@@ -112164,7 +112164,7 @@
 	},
 /area/hallway/primary/central/ne)
 "xgF" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";

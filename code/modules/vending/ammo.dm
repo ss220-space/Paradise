@@ -57,13 +57,6 @@
 		/obj/item/ammo_box/a357 = 1,
 	)
 
-	prices = list(
-		/obj/item/storage/box/flashbangs = 99,
-		/obj/item/storage/box/barrier = 69,
-		/obj/item/storage/box/teargas = 99,
-		/obj/item/ammo_box/a357 = 299,
-	)
-
 /obj/machinery/vending/ammo/get_ru_names()
 	return	list(
 		NOMINATIVE = "торговый автомат Liberty",

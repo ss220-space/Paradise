@@ -31,17 +31,6 @@
 		/obj/item/pai_cartridge/syndi_emote = 1,
 		/obj/item/pai_cartridge/snake = 1,
 	)
-	prices = list(
-		/obj/item/paicard = 199,
-		/obj/item/robot_parts/l_arm = 549,
-		/obj/item/robot_parts/r_arm = 549,
-		/obj/item/pai_cartridge/female = 149,
-		/obj/item/pai_cartridge/doorjack = 399,
-		/obj/item/pai_cartridge/syndi_emote = 649,
-		/obj/item/pai_cartridge/snake = 599,
-		/obj/item/pai_cartridge/reset = 599,
-		/obj/item/pai_cartridge/memory = 349,
-	)
 
 /obj/machinery/vending/pai/get_ru_names()
 	return list(

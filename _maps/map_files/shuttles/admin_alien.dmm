@@ -224,7 +224,7 @@
 	},
 /area/shuttle/administration)
 "jP" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';

@@ -51,15 +51,6 @@
 		/obj/item/storage/fancy/donut_box = 2,
 		/obj/item/hailer = 5,
 	)
-	prices = list(
-		/obj/item/storage/belt/security/judobelt = 499,
-		/obj/item/storage/belt/security/webbing = 999,
-		/obj/item/storage/pouch/fast = 999,
-		/obj/item/clothing/mask/gas/sechailer/tactical = 299,
-		/obj/item/flashlight/sectaclight = 299,
-		/obj/item/grenade/smokebomb = 249,
-		/obj/item/stack/medical/bruise_pack/military = 299,
-	)
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/get_ru_names()

@@ -447,7 +447,7 @@
 	},
 /area/space)
 "dc" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
 "dd" = (
@@ -510,7 +510,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/sepia{
 	slowdown = 0
 	},
@@ -1555,7 +1555,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/sepia{
 	slowdown = 0
 	},
@@ -1924,7 +1924,7 @@
 	},
 /area/ruin/space/spacehotelv1/cargostorage)
 "oH" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "oI" = (
@@ -2344,7 +2344,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "rO" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "sb" = (
@@ -3423,7 +3423,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/entryhallway)
 "zk" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "zl" = (
@@ -3754,7 +3754,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom3)
 "BM" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/forehallway)
 "BO" = (
@@ -4901,7 +4901,7 @@
 	},
 /area/space)
 "JX" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ka" = (
@@ -5379,7 +5379,7 @@
 /turf/space,
 /area/space)
 "MT" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
 "MW" = (
@@ -6634,7 +6634,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftportmaints)
 "Vj" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
 "Vl" = (

@@ -22178,7 +22178,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cele/cargo)
 "cWp" = (
-/obj/machinery/vending/cart/free,
+/obj/machinery/vending/cart,
 /obj/machinery/atmospherics/pipe/multiz,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
@@ -35312,7 +35312,7 @@
 	c_tag = "Detective's Office";
 	dir = 8
 	},
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/detectives_office)
 "fwS" = (

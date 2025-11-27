@@ -513,7 +513,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedoffices)
 "fR" = (
-/obj/machinery/vending/chinese/free{
+/obj/machinery/vending/chinese{
 	pixel_y = 0
 	},
 /turf/simulated/floor/plating,

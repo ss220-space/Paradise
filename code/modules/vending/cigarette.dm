@@ -62,20 +62,6 @@
 		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
 		/obj/item/storage/fancy/cigarettes/cigpack_med = 1,
 	)
-	prices = list(
-		/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
-		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
-		/obj/item/storage/fancy/cigarettes/cigpack_random = 359,
-		/obj/item/reagent_containers/food/pill/patch/nicotine = 69,
-		/obj/item/storage/box/matches = 9,
-		/obj/item/lighter/random = 59,
-		/obj/item/storage/fancy/rollingpapers = 19,
-		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 249,
-		/obj/item/lighter/zippo = 249,
-		/obj/item/clothing/mask/cigarette/cigar/havana = 999,
-		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
-		/obj/item/storage/fancy/cigarettes/cigpack_med = 499,
-	)
 
 /obj/machinery/vending/cigarette/get_ru_names()
 	return list(
@@ -86,9 +72,6 @@
 		INSTRUMENTAL = "торговым автоматом ShadyCigs Deluxe",
 		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe",
 	)
-
-/obj/machinery/vending/cigarette/free
-	prices = list()
 
 /obj/machinery/vending/cigarette/syndicate
 	product_categories = list(
@@ -119,9 +102,6 @@
 			),
 		),
 	)
-
-/obj/machinery/vending/cigarette/syndicate/free
-	prices = list()
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "ShadyCigs Ultra"
@@ -169,7 +149,6 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 		/obj/item/lighter/zippo = 3,
 	)
-	prices = list()
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()
 	return list(

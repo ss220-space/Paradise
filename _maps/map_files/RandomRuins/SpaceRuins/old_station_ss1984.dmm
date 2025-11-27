@@ -2348,7 +2348,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "im" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -7133,7 +7133,7 @@
 /area/template_noop)
 "yE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -7213,7 +7213,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "yO" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "yP" = (

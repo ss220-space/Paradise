@@ -7287,7 +7287,7 @@
 	},
 /area/coldcolony/malta/quartermaster/office)
 "cDd" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
 	},
@@ -9585,7 +9585,7 @@
 	},
 /area/coldcolony/malta/quartermaster/storage)
 "dsm" = (
-/obj/machinery/vending/cart/free,
+/obj/machinery/vending/cart,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/hop)
 "dsL" = (
@@ -40027,7 +40027,7 @@
 	},
 /area/coldcolony/malta/security/medbay)
 "oBB" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
@@ -57530,7 +57530,7 @@
 	},
 /area/coldcolony/malta/medical/chemistry)
 "uYZ" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -57668,7 +57668,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "vcO" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/bar)
 "vde" = (

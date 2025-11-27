@@ -1273,7 +1273,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "vv" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "vX" = (

@@ -10504,7 +10504,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "gQf" = (
-/obj/machinery/vending/cart/free,
+/obj/machinery/vending/cart,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "gQh" = (

@@ -33,20 +33,6 @@
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 2,
 		/obj/item/gun_module/rail/scope/x4 = 2,
 	)
-	prices = list(
-		/obj/item/gun_module/muzzle/compensator = 199,
-		/obj/item/gun_module/rail/scope/collimator/pistol = 299,
-		/obj/item/gun_module/rail/scope/collimator = 349,
-		/obj/item/gun_module/under/flashlight/pistol = 99,
-		/obj/item/gun_module/under/flashlight/rifle = 99,
-		/obj/item/gun_module/under/laser/point = 199,
-		/obj/item/gun_module/under/hand/simple = 249,
-		/obj/item/gun_module/under/hand/angle = 299,
-		/obj/item/ammo_box/magazine/enforcer/extended = 149,
-		/obj/item/gun_module/muzzle/suppressor = 399,
-		/obj/item/gun_module/muzzle/suppressor/shotgun = 799,
-		/obj/item/gun_module/rail/scope/x4 = 2499,
-	)
 
 /obj/machinery/vending/gun_mods/get_ru_names()
 	return list(
@@ -58,8 +44,8 @@
 		PREPOSITIONAL = "торговом автомате ModTech",
 	)
 
-/obj/machinery/vending/gun_mods/free
-	// all items free, this vending for central command and syndicate
+// all items free, this vending is for Central command and Syndicate
+/obj/machinery/vending/gun_mods/advanced
 	desc = "Раздатчик с модулями для оружия."
 	req_access = list()
 
@@ -83,4 +69,3 @@
 		/obj/item/gun_module/rail/scope/x16 = 3,
 	)
 	contraband = list()
-	prices = list()

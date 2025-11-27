@@ -636,7 +636,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aHg" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/vending/cigarette/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -1051,7 +1051,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -3096,7 +3096,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/alarm/syndicate{
 	pixel_x = 32
@@ -7399,7 +7399,7 @@
 /turf/space,
 /area/space)
 "gJf" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "gJt" = (
@@ -9102,7 +9102,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "ikC" = (
-/obj/machinery/vending/cola/free{
+/obj/machinery/vending/cola{
 	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -9126,7 +9126,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "imn" = (
-/obj/machinery/vending/coffee/free{
+/obj/machinery/vending/coffee{
 	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -9137,7 +9137,7 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "imp" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14047,7 +14047,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -22026,7 +22026,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -22267,7 +22267,7 @@
 /obj/machinery/alarm/syndicate{
 	pixel_y = -32
 	},
-/obj/machinery/vending/gun_mods/free,
+/obj/machinery/vending/gun_mods/advanced,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tbu" = (
@@ -28721,7 +28721,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xur" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
@@ -29391,7 +29391,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/light,
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

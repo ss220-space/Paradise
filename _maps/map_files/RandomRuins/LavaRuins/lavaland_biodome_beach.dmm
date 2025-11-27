@@ -561,7 +561,7 @@
 /area/ruin/powered/beach)
 "KX" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "Lm" = (
@@ -677,7 +677,7 @@
 /area/ruin/powered/beach)
 "YN" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "ZW" = (

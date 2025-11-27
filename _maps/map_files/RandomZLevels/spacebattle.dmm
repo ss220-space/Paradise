@@ -641,7 +641,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /obj/structure/door_assembly/door_assembly_public{
 	anchored = 1
 	},
@@ -1214,7 +1214,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "dN" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "dO" = (
@@ -1636,7 +1636,7 @@
 /turf/space,
 /area/awaymission/spacebattle/hallway11)
 "fa" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /obj/structure/sign/poster/ripped{
 	pixel_x = 32
 	},
@@ -2756,7 +2756,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/hallway5)
 "hV" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -14182,7 +14182,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway7)
 "NI" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -17409,7 +17409,7 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "Wr" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
