@@ -34,12 +34,6 @@ type Category = {
   icon: string;
 };
 
-type UserData = {
-  name: string;
-  job: string;
-  cash: number;
-};
-
 type ProductRecord = {
   is_hidden: boolean;
   req_coin: boolean;
@@ -53,12 +47,145 @@ type ProductRecord = {
   icon_state: string;
 };
 
+type UserData = {
+  name: string;
+  job: string;
+  cash: number;
+};
+
 type ProductDisplayProps = {
   inventory: ProductRecord[];
   stockSearch: string;
   setStockSearch: (search: string) => void;
   selectedCategory: string | null;
   setSelectedCategory: (category: string) => void;
+};
+
+export const Vending = (_props: unknown) => {
+  const { act, data } = useBackend<VendingData>();
+  const {
+    user,
+    chargesMoney,
+    product_records = [],
+    coin_records = [],
+    hidden_records = [],
+    stock,
+    categories,
+    coin_name,
+    inserted_item_name,
+    panel_open,
+    speaker,
+  } = data;
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    Object.keys(categories)[0]
+  );
+
+  const [stockSearch, setStockSearch] = useState('');
+  const stockSearchFn = createSearch(
+    stockSearch,
+    (item: ProductRecord) => item.name
+  );
+
+  let inventory: ProductRecord[];
+
+  inventory = [...product_records, ...coin_records];
+  if (data.extended_inventory) {
+    inventory = [...inventory, ...hidden_records];
+  }
+
+  // Just in case we still have undefined values in the list
+  inventory = inventory.filter((item) => !!item);
+
+  if (stockSearch.length >= 1) {
+    inventory = inventory.filter(stockSearchFn);
+  }
+
+  const filteredCategories = Object.fromEntries(
+    Object.entries(data.categories).filter(([categoryName]) => {
+      return inventory.find((product) => {
+        if ('category' in product) {
+          return product.category === categoryName;
+        } else {
+          return false;
+        }
+      });
+    })
+  );
+
+  return (
+    <Window
+      width={470}
+      height={100 + Math.min(product_records.length * 38, 500)}
+    >
+      <Window.Content>
+        <Stack fill vertical>
+          {!!chargesMoney && (
+            <Stack.Item>
+              <UserDetails />
+            </Stack.Item>
+          )}
+          {!!coin_name && (
+            <Stack.Item>
+              <Button
+                fluid
+                icon="eject"
+                onClick={() => act('remove_coin', {})}
+              >
+                Извлечь монету
+              </Button>
+              <Box>{coin_name}</Box>
+            </Stack.Item>
+          )}
+          {!!inserted_item_name && (
+            <Stack.Item>
+              <Button
+                fluid
+                icon="eject"
+                onClick={() => act('eject_item', {})}
+              >
+                Извлечь предмет
+              </Button>
+              <Box>{inserted_item_name}</Box>
+            </Stack.Item>
+          )}
+          {!!panel_open && (
+            <Stack.Item>
+              <Button
+                icon={speaker ? 'check' : 'volume-mute'}
+                selected={speaker}
+                textAlign="left"
+                onClick={() => act('toggle_voice', {})}
+              >
+                Динамик
+              </Button>
+            </Stack.Item>
+          )}
+
+          <Stack.Item grow>
+            <ProductDisplay
+              inventory={inventory}
+              stockSearch={stockSearch}
+              setStockSearch={setStockSearch}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
+          </Stack.Item>
+
+          {stockSearch.length < 2 &&
+            Object.keys(filteredCategories).length > 1 && (
+              <Stack.Item>
+                <CategorySelector
+                  categories={filteredCategories}
+                  selectedCategory={selectedCategory!}
+                  onSelect={setSelectedCategory}
+                />
+              </Stack.Item>
+            )}
+        </Stack>
+      </Window.Content>
+    </Window>
+  );
 };
 
 /** Displays user details if an ID is present */
@@ -91,7 +218,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
     setSelectedCategory,
   } = props;
   const { stock, user, chargesMoney } = data;
-  const [toggleLayout, setToggleLayout] = useState(() => getLayoutState(LAYOUT.List));
+  const [toggleLayout, setToggleLayout] = useState(() => getLayoutState(LAYOUT.Grid));
 
   return (
     <Section
@@ -190,7 +317,7 @@ const ProductGrid = (props) => {
       {...baseProps}
       tooltip={`${product.name}. ${product.desc}`}
       buttonsAlt={
-        <Stack fontSize={0.8}>
+        <Stack fontSize={1}>
           <Stack.Item grow textAlign={'left'}>
             <ProductPrice {...priceProps} />
           </Stack.Item>
@@ -209,19 +336,18 @@ const ProductList = (props) => {
 
   return (
     <ImageButton {...baseProps} tooltip={product.desc} fluid imageSize={64}>
-      <Stack textAlign={'right'} align="center">
+      <Stack textAlign={'right'} fontSize={1} align="center">
         <Stack.Item grow textAlign={'left'}>
           {product.name}
         </Stack.Item>
         <Stack.Item
-          width={3.5}
-          fontSize={0.8}
+          width={10}
           color={'rgba(255, 255, 255, 0.5)'}
         >
           <b>{remaining}</b> в наличии
         </Stack.Item>
         <Stack.Item
-          width={3.5}
+          width={6}
         >
           <ProductPrice {...priceProps} />
         </Stack.Item>
@@ -236,150 +362,23 @@ const ProductPrice = (props) => {
 
   if (product.req_coin) {
     return (
-      <Stack.Item fontSize={0.85} color={'gold'}>
+      <Stack.Item color={'gold'}>
         <b>МОНЕТА</b>
       </Stack.Item>
     );
   } else if (free) {
     return (
-      <Stack.Item fontSize={0.85} color={'green'}>
+      <Stack.Item color={'green'}>
        <b>0 кр.</b>
       </Stack.Item>
     );
   } else {
     return (
-      <Stack.Item fontSize={0.85} color={'gold'}>
+      <Stack.Item color={'gold'}>
         <b>{product.price}</b> кр.
       </Stack.Item>
     );
   }
-};
-
-export const Vending = (_props: unknown) => {
-  const { act, data } = useBackend<VendingData>();
-  const {
-    user,
-    chargesMoney,
-    product_records = [],
-    coin_records = [],
-    hidden_records = [],
-    stock,
-    categories,
-    coin_name,
-    inserted_item_name,
-    panel_open,
-    speaker,
-  } = data;
-
-  const [stockSearch, setStockSearch] = useState('');
-  const stockSearchFn = createSearch(
-    stockSearch,
-    (item: ProductRecord) => item.name
-  );
-
-  const [selectedCategory, setSelectedCategory] = useState(
-    Object.keys(categories)[0]
-  );
-
-  let inventory: ProductRecord[];
-
-  inventory = [...product_records, ...coin_records];
-  if (data.extended_inventory) {
-    inventory = [...inventory, ...hidden_records];
-  }
-
-  if (stockSearch.length >= 1) {
-    inventory = inventory.filter(stockSearchFn);
-  }
-
-  // Just in case we still have undefined values in the list
-  inventory = inventory.filter((item) => !!item);
-
-  const filteredCategories = Object.fromEntries(
-    Object.entries(data.categories).filter(([categoryName]) => {
-      return inventory.find((product) => {
-        if ('category' in product) {
-          return product.category === categoryName;
-        } else {
-          return false;
-        }
-      });
-    })
-  );
-
-  return (
-    <Window
-      width={470}
-      height={100 + Math.min(product_records.length * 38, 500)}
-    >
-      <Window.Content>
-        <Stack fill vertical>
-          {!!chargesMoney && (
-            <Stack.Item>
-              <UserDetails />
-            </Stack.Item>
-          )}
-          {!!coin_name && (
-            <Stack.Item>
-              <Button
-                fluid
-                icon="eject"
-                onClick={() => act('remove_coin', {})}
-              >
-                Извлечь монету
-              </Button>
-              <Box>{coin_name}</Box>
-            </Stack.Item>
-          )}
-          {!!inserted_item_name && (
-            <Stack.Item>
-              <Button
-                fluid
-                icon="eject"
-                onClick={() => act('eject_item', {})}
-              >
-                Извлечь предмет
-              </Button>
-              <Box>{inserted_item_name}</Box>
-            </Stack.Item>
-          )}
-          {!!panel_open && (
-            <Stack.Item>
-              <Button
-                icon={speaker ? 'check' : 'volume-mute'}
-                selected={speaker}
-                textAlign="left"
-                onClick={() => act('toggle_voice', {})}
-              >
-                Динамик
-              </Button>
-            </Stack.Item>
-          )}
-
-          {stockSearch.length < 2 &&
-            Object.keys(filteredCategories).length > 1 && (
-              <Stack.Item>
-                <CategorySelector
-                  categories={filteredCategories}
-                  selectedCategory={selectedCategory!}
-                  onSelect={setSelectedCategory}
-                />
-              </Stack.Item>
-            )}
-
-          <Stack.Item grow>
-            <ProductDisplay
-              inventory={inventory}
-              stockSearch={stockSearch}
-              setStockSearch={setStockSearch}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-            />
-          </Stack.Item>
-        </Stack>
-      </Window.Content>
-    </Window>
-  );
 };
 
 const CATEGORY_COLORS = {
