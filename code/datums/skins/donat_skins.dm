@@ -85,14 +85,17 @@
 /datum/item_skin_data/captain_laser/original
 	name = "Оригинальный"
 	icon_state = "caplaser"
+	donation_tier = 1
 
 /datum/item_skin_data/captain_laser/restored
 	name = "Восстановленный"
 	icon_state = "caplaser_new"
+	donation_tier = 1
 
 /datum/item_skin_data/captain_laser/alternative
 	name = "Альтернативный"
 	icon_state = "caplaser_newer"
+	donation_tier = 2
 
 //MARK: Specter
 /datum/item_skin_data/specter
@@ -101,30 +104,37 @@
 /datum/item_skin_data/specter/grey_slide
 	name = "Серый затвор"
 	icon_state = "specter"
+	donation_tier = 1
 
 /datum/item_skin_data/specter/red_slide
 	name = "Красный затвор"
 	icon_state = "specter_red"
+	donation_tier = 1
 
 /datum/item_skin_data/specter/green_slide
 	name = "Зелёный затвор"
 	icon_state = "specter_green"
+	donation_tier = 1
 
 /datum/item_skin_data/specter/tan_slide
 	name = "Бежевый затвор"
 	icon_state = "specter_tan"
+	donation_tier = 2
 
 /datum/item_skin_data/specter/green_handle
 	name = "Зелёная рукоять"
 	icon_state = "specter_greengrip"
+	donation_tier = 2
 
 /datum/item_skin_data/specter/tan_handle
 	name = "Бежевая рукоять"
 	icon_state = "specter_tangrip"
+	donation_tier = 3
 
 /datum/item_skin_data/specter/red_handle
 	name = "Красная рукоять"
 	icon_state = "specter_redgrip"
+	donation_tier = 2
 
 //MARK: Enforcer
 /datum/item_skin_data/enforcer
@@ -133,34 +143,42 @@
 /datum/item_skin_data/enforcer/grey_slide
 	name = "Серый затвор"
 	icon_state = "enforcer_grey"
+	donation_tier = 1
 
 /datum/item_skin_data/enforcer/red_slide
 	name = "Красный затвор"
 	icon_state = "enforcer_red"
+	donation_tier = 1
 
 /datum/item_skin_data/enforcer/green_slide
 	name = "Зелёный затвор"
 	icon_state = "enforcer_green"
+	donation_tier = 1
 
 /datum/item_skin_data/enforcer/tan_slide
 	name = "Бежевый затвор"
 	icon_state = "enforcer_tan"
+	donation_tier = 2
 
 /datum/item_skin_data/enforcer/black_slide
 	name = "Чёрный затвор"
 	icon_state = "enforcer_black"
+	donation_tier = 2
 
 /datum/item_skin_data/enforcer/green_handle
 	name = "Зелёная рукоять"
 	icon_state = "enforcer_greengrip"
+	donation_tier = 2
 
 /datum/item_skin_data/enforcer/tan_handle
 	name = "Бежевая рукоять"
 	icon_state = "enforcer_tangrip"
+	donation_tier = 3
 
 /datum/item_skin_data/enforcer/red_handle
 	name = "Красная рукоять"
 	icon_state = "enforcer_redgrip"
+	donation_tier = 2
 
 //MARK: SP-8
 /datum/item_skin_data/sp8
@@ -169,26 +187,32 @@
 /datum/item_skin_data/sp8/black
 	name = "Чёрный"
 	icon_state = "sp8_black"
+	donation_tier = 1
 
 /datum/item_skin_data/sp8/red
 	name = "Красный"
 	icon_state = "sp8_red"
+	donation_tier = 1
 
 /datum/item_skin_data/sp8/green
 	name = "Зелёный"
 	icon_state = "sp8_green"
+	donation_tier = 2
 
 /datum/item_skin_data/sp8/olive
 	name = "Олива"
 	icon_state = "sp8_olive"
+	donation_tier = 2
 
 /datum/item_skin_data/sp8/yellow
 	name = "Жёлтый"
 	icon_state = "sp8_yellow"
+	donation_tier = 3
 
 /datum/item_skin_data/sp8/white
 	name = "Белый"
 	icon_state = "sp8_white"
+	donation_tier = 3
 
 //MARK: SP-8T
 /datum/item_skin_data/sp8t
@@ -197,10 +221,12 @@
 /datum/item_skin_data/sp8t/dust
 	name = "Песочный"
 	icon_state = "sp8t_dust"
+	donation_tier = 1
 
 /datum/item_skin_data/sp8t/sea
 	name = "Морской"
 	icon_state = "sp8t_sea"
+	donation_tier = 1
 
 //MARK: Detective revolver
 /datum/item_skin_data/detective_revolver
@@ -209,30 +235,37 @@
 /datum/item_skin_data/detective_revolver/original
 	name = "Оригинальный"
 	icon_state = "detective"
+	donation_tier = 1
 
 /datum/item_skin_data/detective_revolver/leopard_sport
 	name = "Леопардовый"
 	icon_state = "detective_leopard"
+	donation_tier = 1
 
 /datum/item_skin_data/detective_revolver/black_panther
 	name = "Чёрная пантера"
 	icon_state = "detective_panther"
+	donation_tier = 1
 
 /datum/item_skin_data/detective_revolver/white_gold
 	name = "Белое золото"
 	icon_state = "detective_gold"
+	donation_tier = 2
 
 /datum/item_skin_data/detective_revolver/gold_wood
 	name = "Позолота"
 	icon_state = "detective_gold_alt"
+	donation_tier = 2
 
 /datum/item_skin_data/detective_revolver/peacemaker
 	name = "Миротворец"
 	icon_state = "detective_peacemaker"
+	donation_tier = 3
 
 /datum/item_skin_data/detective_revolver/silver
 	name = "Серебрянный"
 	icon_state = "detective_silver"
+	donation_tier = 3
 
 //MARK: Taurus
 /datum/item_skin_data/taurus_revolver
@@ -260,23 +293,29 @@
 /datum/item_skin_data/doublebarrel/default
 	name = "Обычный"
 	icon_state = "dshotgun"
+	donation_tier = 1
 
 /datum/item_skin_data/doublebarrel/dark_red
 	name = "Тёмно-красная отделка"
 	icon_state = "dshotgun-d"
+	donation_tier = 1
 
 /datum/item_skin_data/doublebarrel/ash
 	name = "Пепельный"
 	icon_state = "dshotgun-f"
+	donation_tier = 2
 
 /datum/item_skin_data/doublebarrel/fadded_grey
 	name = "Выцветший серый"
 	icon_state = "dshotgun-g"
+	donation_tier = 2
 
 /datum/item_skin_data/doublebarrel/maple
 	name = "Кленовый"
 	icon_state = "dshotgun-l"
+	donation_tier = 3
 
 /datum/item_skin_data/doublebarrel/rosewood
 	name = "Палисандровый"
 	icon_state = "dshotgun-p"
+	donation_tier = 3
