@@ -78,7 +78,7 @@
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
-	desc = "Позволяет видеть стены, полы и объекты сквозь любые препятствия."
+	desc = "Позволяет видеть станцию насквозь. А так же породу, конструкции и прочие мелочи."
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
@@ -100,12 +100,12 @@
 
 /obj/item/clothing/glasses/meson/get_ru_names()
 	return list(
-		NOMINATIVE = "оптический мезонный сканер",
-		GENITIVE = "оптического мезонного сканера",
-		DATIVE = "оптическому мезонному сканеру",
-		ACCUSATIVE = "оптический мезонный сканер",
-		INSTRUMENTAL = "оптическим мезонным сканером",
-		PREPOSITIONAL = "оптическом мезонном сканере"
+		NOMINATIVE = "мезонные очки",
+		GENITIVE = "мезонных очков",
+		DATIVE = "мезонным очкам",
+		ACCUSATIVE = "мезонные очки",
+		INSTRUMENTAL = "мезонными очками",
+		PREPOSITIONAL = "мезонных очках"
 	)
 
 /obj/item/clothing/glasses/meson/sunglasses
@@ -124,7 +124,7 @@
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
-	desc = "Оптический мезонный сканер с усиленным наложением видимого спектра, обеспечивающий лучшую чёткость изображения в темноте."
+	desc = "Мезонные очки с усиленной светочувствительной матрицей. Позволяет видеть в темноте так же отчётливо, как и сквозь стены."
 	icon_state = "nvgmeson"
 	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
@@ -134,12 +134,12 @@
 
 /obj/item/clothing/glasses/meson/night/get_ru_names()
 	return list(
-		NOMINATIVE = "ночной оптический мезонный сканер",
-		GENITIVE = "ночного оптического мезонного сканера",
-		DATIVE = "ночному оптическому мезонному сканеру",
-		ACCUSATIVE = "ночной оптический мезонный сканер",
-		INSTRUMENTAL = "ночным оптическим мезонным сканером",
-		PREPOSITIONAL = "очном оптическом мезонном сканере"
+		NOMINATIVE = "мезонные очки ночного видения",
+		GENITIVE = "мезонных очков ночного видения",
+		DATIVE = "мезонным очкам ночного видения",
+		ACCUSATIVE = "мезонные очки ночного видения",
+		INSTRUMENTAL = "мезонными очками ночного видения",
+		PREPOSITIONAL = "мезонных очках ночного видения"
 	)
 
 /obj/item/clothing/glasses/meson/prescription

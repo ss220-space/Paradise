@@ -92,7 +92,7 @@
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
-	desc = "Эти перчатки огнестойкие."
+	desc = "Черные перчатки, обладающие повышенной стойкостью к высоким температурам."
 	name = "black gloves"
 	icon_state = "black"
 	item_color = "black"

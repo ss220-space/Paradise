@@ -282,8 +282,8 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 /obj/item/clothing/under/rank/miner
-	desc = "Стильный комбинезон с прочной спецовкой. Очень грязный."
 	name = "shaft miner's jumpsuit"
+	desc = "Стильный комбинезон с прочными подкладками. Покрыт слоем вечной шахтёрской грязи."
 	icon_state = "miner"
 	item_state = "miner"
 	item_color = "miner"
@@ -299,8 +299,8 @@
 	)
 
 /obj/item/clothing/under/rank/miner/alt
-	desc = "Уютный рабочий свитер в старом стиле."
 	name = "shaft miner's sweater"
+	desc = "Уютный рабочий свитер в старомодном стиле."
 	icon_state = "miner_alt"
 	item_state = "miner_alt"
 	item_color = "miner_alt"
@@ -316,7 +316,7 @@
 	)
 
 /obj/item/clothing/under/rank/miner/lavaland
-	desc = "Зелёная униформа для работы в опасных условиях."
+	desc = "Зелёная униформа, созданная для работы в опасных условиях."
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"

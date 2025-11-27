@@ -628,7 +628,6 @@
 	update_icon(UPDATE_ICON_STATE)
 
 	if(up)
-		to_chat(user, span_notice("Вы опускаете [declent_ru(ACCUSATIVE)] с лица."))
 		gas_transfer_coefficient = 1
 		permeability_coefficient = 1
 		if(adjusted_slot_flags)
@@ -645,7 +644,6 @@
 			clothing_flags &= ~AIRTIGHT
 
 	else
-		to_chat(user, span_notice("Вы возвращаете [declent_ru(ACCUSATIVE)] на место."))
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
 		slot_flags = initial(slot_flags)

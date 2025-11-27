@@ -126,7 +126,7 @@
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "Оружие, ценимое синдикатскими спецами по скрытным операциям."
+	desc = "Компактное энергооружие, ценимое агентами синдиката за бесшумность. Заряжается автоматически, идеально для точечных устранений."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -160,7 +160,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
-	desc = "Оружие, воссозданное по образцу технологий Синдиката."
+	desc = "Полноразмерная реплика арбалета синдиката, воссозданная методом обратной инженерии. Конструкция, но вышла более громоздкой, чем шпионский оригинал."
 	icon_state = "crossbowlarge"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
@@ -209,7 +209,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
-	user.visible_message(span_suicide("[user] взводит [declent_ru(ACCUSATIVE)] и приставляет его к своему виску! Похоже [GEND_HE_SHE_CAP(user)] пытается покончить с собой!</b>"))
+	user.visible_message(span_suicide("[user] взводит [declent_ru(ACCUSATIVE)] и приставляет его к своему виску! Это похоже на попытку самоубийства!</b>"))
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 

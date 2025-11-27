@@ -36,16 +36,16 @@
 	if(in_range(user, src))
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
-			if(!space_used)
-				. += span_notice("[declent_ru(NOMINATIVE)] пуст.")
-			else if(space_used <= max_combined_w_class*0.6)
-				. += span_notice("[declent_ru(NOMINATIVE)] ещё имеет много свободного места.")
-			else if(space_used <= max_combined_w_class*0.8)
-				. += span_notice("[declent_ru(NOMINATIVE)] начинает заполняться.")
-			else if(space_used < max_combined_w_class)
-				. += span_notice("[declent_ru(NOMINATIVE)] почти полон.")
-			else
-				. += span_notice("[declent_ru(NOMINATIVE)] полностью заполнен.")
+		if(!space_used)
+			. += span_boldnotice("Пуст.")
+		else if(space_used <= max_combined_w_class*0.6)
+			. += span_boldnotice("Не заполнен.")
+		else if(space_used <= max_combined_w_class*0.8)
+			. += span_boldnotice("Заполняется.")
+		else if(space_used < max_combined_w_class)
+			. += span_boldnotice("Почти полон.")
+		else
+			. += span_boldnotice("Полон.")
 
 /*
  * Backpack Types
@@ -208,7 +208,7 @@
 
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
-	desc = "Прочный рюкзак для хранения вашей добычи."
+	desc = "Вместительный рюкзак, в котором не потеряется ни один трофей."
 	icon_state = "explorerpack"
 	item_state = "explorerpack"
 
@@ -592,16 +592,16 @@ TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/mining_conscript
 	name = "mining conscription kit"
-	desc = "Набор, содержащий всё необходимое члену экипажа для поддержки шахтёра в полевых условиях."
+	desc = "Набор с необходимым минимумом, чтобы превратить рядового члена экипажа в помощника шахтёра."
 
 /obj/item/storage/backpack/duffel/mining_conscript/get_ru_names()
 	return list(
-		NOMINATIVE = "набор шахтёрского призывника",
-		GENITIVE = "набора шахтёрского призывника",
-		DATIVE = "набору шахтёрского призывника",
-		ACCUSATIVE = "набор шахтёрского призывника",
-		INSTRUMENTAL = "набором шахтёрского призывника",
-		PREPOSITIONAL = "наборе шахтёрского призывника"
+		NOMINATIVE = "стартовый набор Шахтёра",
+		GENITIVE = "стартового набора Шахтёра",
+		DATIVE = "стартовому набору Шахтёра",
+		ACCUSATIVE = "стартовый набор Шахтёра",
+		INSTRUMENTAL = "стартовым набором Шахтёра",
+		PREPOSITIONAL = "стартовом наборе Шахтёра"
 	)
 
 /obj/item/storage/backpack/duffel/mining_conscript/populate_contents()

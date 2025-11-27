@@ -1,6 +1,7 @@
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
+	gender = MALE
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
@@ -46,8 +47,6 @@
 		return
 
 	if(user.internal == src)
-		if(!silent)
-			to_chat(user, span_notice("Вы закрываете клапан [declent_ru(GENITIVE)]."))
 		user.internal = null
 		user.update_action_buttons_icon()
 		return
@@ -73,14 +72,8 @@
 
 		if(!internals_allowed)
 			if(!silent)
-				to_chat(user, span_warning("На вас не надета подходящая маска или шлем."))
+				balloon_alert(user, "нет подходящей маски")
 			return
-
-	if(!silent)
-		if(user.internal)
-			to_chat(user, span_notice("Вы переключаете свой дыхательный аппарат на [declent_ru(ACCUSATIVE)]."))
-		else
-			to_chat(user, span_notice("Вы открываете клапан [declent_ru(GENITIVE)]."))
 
 	user.internal = src
 	user.update_action_buttons_icon()
@@ -97,27 +90,27 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += span_notice("Это [icon2html(icon, user)] [declent_ru(NOMINATIVE)]! Для получения дополнительной информации нужно подойти ближе.")
+			. += span_boldnotice("Для получения дополнительной информации нужно подойти ближе.")
 		return
 
 	var/celsius_temperature = air_contents.temperature - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
-		descriptive = "холодный"
+		descriptive = "холодн[GEND_YI_AYA_OE_YE(src)]"
 	else if(celsius_temperature < 40)
 		descriptive = "комнатной температуры"
 	else if(celsius_temperature < 80)
-		descriptive = "тепловатый"
+		descriptive = "слегка тёпл[GEND_IM_EI_IM_IMI(src)]"
 	else if(celsius_temperature < 100)
-		descriptive = "тёплый"
+		descriptive = "тёпл[GEND_YI_AYA_OE_YE(src)]"
 	else if(celsius_temperature < 300)
-		descriptive = "горячий"
+		descriptive = "горяч[GEND_II_AYA_II_IE(src)]"
 	else
-		descriptive = "обжигающе горячий"
+		descriptive = "обжигающе горяч[GEND_II_AYA_II_IE(src)]"
 
-	. += span_notice("[icon2html(icon, user)] [declent_ru(NOMINATIVE)] на ощупь [descriptive].")
-	. += span_notice("Манометр показывает [round(air_contents.return_pressure())] кПа.")
+	. += span_notice("На ощупь <b>[descriptive]</b>.")
+	. += span_notice("Манометр показывает [round(air_contents.return_pressure())] <b>кПа</b>.")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src))
