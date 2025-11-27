@@ -14,7 +14,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "aH" = (
 /obj/structure/chair/sofa/pew{
@@ -33,7 +33,7 @@
 /area/ruin/space/graveyard/church)
 "aQ" = (
 /obj/structure/fence/door,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "aR" = (
 /obj/machinery/light_switch{
@@ -68,7 +68,7 @@
 	dir = 1;
 	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "bz" = (
 /obj/effect/turf_decal/siding/wood,
@@ -116,7 +116,7 @@
 	icon_state = "grass_edge_big_full";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "cG" = (
 /obj/effect/clockwork/overlay/floor/bloodcult,
@@ -151,7 +151,7 @@
 	dir = 10;
 	icon_state = "grass_edge_medium"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "do" = (
 /turf/simulated/floor/plasteel{
@@ -166,7 +166,7 @@
 /area/ruin/space/graveyard/church)
 "dy" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "dB" = (
 /obj/structure/rack,
@@ -180,7 +180,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "dS" = (
 /obj/effect/decal/cleanable/dust,
@@ -197,7 +197,7 @@
 "dZ" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/item/restraints/handcuffs/manacles/used,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "ed" = (
 /obj/structure/statue/silver/janitor{
@@ -290,7 +290,7 @@
 	dir = 4;
 	icon_state = "grass_edge_medium"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "hA" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -420,7 +420,7 @@
 	dir = 1;
 	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "kg" = (
 /obj/effect/turf_decal/siding/wood,
@@ -518,7 +518,7 @@
 	name = "grass"
 	},
 /obj/effect/spawner/lootdrop/bouquet_spawner,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "mq" = (
 /obj/structure/sign/poster/official/religious{
@@ -584,7 +584,7 @@
 	dir = 4;
 	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "nk" = (
 /obj/structure/reagent_dispensers/oil,
@@ -646,7 +646,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "ow" = (
 /turf/simulated/floor/wood/oak,
@@ -668,7 +668,7 @@
 /area/ruin/space/graveyard/church)
 "pf" = (
 /obj/structure/sink/puddle,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "pn" = (
 /obj/effect/turf_decal/siding/wood{
@@ -789,7 +789,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "sm" = (
 /obj/structure/morgue{
@@ -904,7 +904,7 @@
 /area/ruin/space/graveyard/church)
 "vu" = (
 /obj/structure/fence/cut/large,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "vv" = (
 /obj/docking_port/stationary{
@@ -940,7 +940,7 @@
 /area/ruin/space/graveyard/church)
 "vG" = (
 /obj/structure/fence/cut,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "vM" = (
 /obj/effect/decal/leaves,
@@ -1009,7 +1009,7 @@
 /area/ruin/space/graveyard/church)
 "wW" = (
 /obj/structure/fence/corner,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "xj" = (
 /obj/effect/turf_decal{
@@ -1154,7 +1154,7 @@
 	dir = 8;
 	icon_state = "grass_edge_medium"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "Bu" = (
 /obj/machinery/crematorium{
@@ -1252,7 +1252,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "CM" = (
 /obj/structure/statue/silver/janitor{
@@ -1316,7 +1316,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "DH" = (
 /obj/effect/decal/cleanable/dust,
@@ -1386,7 +1386,7 @@
 	dir = 8;
 	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "FC" = (
 /obj/structure/closet,
@@ -1416,7 +1416,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "Gf" = (
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "Gh" = (
 /obj/effect/spawner/lootdrop/bouquet_spawner,
@@ -1460,7 +1460,7 @@
 	pixel_x = -8;
 	pixel_y = -3
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "Ha" = (
 /obj/effect/decal/cleanable/dust,
@@ -1532,7 +1532,7 @@
 	dir = 9;
 	icon_state = "grass_edge_medium"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "HY" = (
 /obj/effect/turf_decal/siding/wood{
@@ -1569,7 +1569,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "IW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1649,7 +1649,7 @@
 /obj/structure/fence/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "KV" = (
 /obj/structure/railing/wooden/endr{
@@ -1672,7 +1672,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "Lj" = (
 /obj/structure/table/wood,
@@ -1811,7 +1811,7 @@
 	dir = 4;
 	invulnerable = 1
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "Pw" = (
 /obj/effect/decal/warning_stripes/northeast,
@@ -1844,7 +1844,7 @@
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 20
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "PP" = (
 /obj/structure/chair/wood{
@@ -1865,7 +1865,7 @@
 /area/ruin/space/graveyard/church)
 "Qu" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "QD" = (
 /obj/structure/statue/silver/janitor{
@@ -1889,7 +1889,7 @@
 /area/ruin/space/graveyard/church)
 "QM" = (
 /obj/effect/spawner/graveyard_statues,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "Ra" = (
 /obj/structure/closet/coffin,
@@ -1983,7 +1983,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "Sf" = (
 /obj/structure/closet/coffin,
@@ -2069,7 +2069,7 @@
 	dir = 8;
 	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "Uj" = (
 /obj/structure/statue/silver/janitor{
@@ -2175,7 +2175,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "VT" = (
 /obj/structure/table/socle,
@@ -2308,7 +2308,7 @@
 	dir = 4;
 	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "XF" = (
 /obj/structure/decorative_structures/metal/statue/metal_angel{
@@ -2345,7 +2345,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "XW" = (
 /obj/effect/turf_decal{
@@ -2353,7 +2353,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "Ya" = (
 /obj/structure/table/wood,
@@ -2481,7 +2481,7 @@
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "ZS" = (
 /obj/effect/decal/cleanable/dirt,

@@ -5969,9 +5969,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "ceA" = (
-/turf/simulated/mineral/ancient{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
-	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "ceT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
