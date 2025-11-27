@@ -1,0 +1,350 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"b" = (
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"g" = (
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_half1"
+	},
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"j" = (
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"o" = (
+/obj/item/clothing/suit/sovietcoat,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/sovietsidecap,
+/obj/item/clothing/shoes/jackboots,
+/obj/structure/closet/crate/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"p" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/gun/projectile/shotgun/boltaction,
+/obj/item/ammo_box/speedloader/a762,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"q" = (
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"r" = (
+/obj/structure/decorative_structures/corpse,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"s" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 4;
+	icon_state = "corpse_soviet2"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"w" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"y" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"z" = (
+/mob/living/simple_animal/hostile/asteroid/marrowweaver,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"D" = (
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"J" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"Q" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"T" = (
+/obj/item/flag/ussp,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"W" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"X" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+J
+J
+J
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(2,1,1) = {"
+J
+J
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+J
+J
+a
+a
+a
+a
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+a
+a
+"}
+(4,1,1) = {"
+J
+a
+a
+a
+Q
+Q
+Q
+p
+o
+y
+g
+Q
+Q
+Q
+a
+"}
+(5,1,1) = {"
+J
+a
+Q
+Q
+Q
+X
+T
+a
+s
+j
+a
+Q
+Q
+Q
+a
+"}
+(6,1,1) = {"
+a
+Q
+Q
+a
+a
+X
+j
+b
+j
+a
+Q
+Q
+Q
+Q
+a
+"}
+(7,1,1) = {"
+a
+Q
+a
+a
+a
+X
+r
+W
+a
+Q
+Q
+a
+Q
+Q
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+a
+a
+X
+X
+X
+Q
+Q
+a
+z
+a
+Q
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+a
+a
+Q
+Q
+Q
+Q
+a
+w
+q
+Q
+Q
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+Q
+Q
+a
+a
+a
+a
+D
+Q
+Q
+a
+a
+"}
+(11,1,1) = {"
+a
+J
+a
+Q
+Q
+a
+a
+a
+a
+a
+a
+Q
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+J
+a
+Q
+a
+a
+a
+a
+a
+Q
+Q
+Q
+a
+J
+J
+"}
+(13,1,1) = {"
+J
+J
+J
+a
+a
+a
+a
+a
+Q
+Q
+a
+a
+J
+J
+J
+"}
+(14,1,1) = {"
+J
+J
+J
+a
+a
+a
+a
+Q
+Q
+a
+a
+J
+J
+J
+J
+"}
+(15,1,1) = {"
+J
+J
+J
+a
+a
+a
+a
+a
+a
+a
+a
+J
+J
+J
+J
+"}

@@ -1,0 +1,383 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"e" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/lavaland_food/hunters_treat,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"f" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"g" = (
+/obj/structure/fermenting_barrel,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"i" = (
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"m" = (
+/obj/machinery/kitchen_machine/tribal_oven,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"n" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"v" = (
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"z" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"A" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"D" = (
+/obj/structure/table/wood,
+/obj/item/twohanded/fishing_rod/tribal,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"H" = (
+/obj/vehicle/ridden/lavaboat,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"I" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"O" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"R" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/unpowered/misc_lavaruin)
+"T" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"U" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/reagent_containers/food/snacks/bait/goldgrub_larva,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/bait/random,
+/obj/item/reagent_containers/food/snacks/charred_krill,
+/obj/item/storage/bag/medpouch/fishing,
+/obj/item/clothing/suit/hooded/pathfinder,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"W" = (
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"X" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"Y" = (
+/obj/structure/chair/stool/wooden,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"Z" = (
+/obj/structure/bed/leather,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+
+(1,1,1) = {"
+a
+a
+a
+a
+I
+I
+I
+I
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+n
+I
+I
+I
+I
+I
+I
+i
+a
+a
+i
+a
+a
+"}
+(3,1,1) = {"
+a
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+z
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+O
+f
+i
+a
+"}
+(5,1,1) = {"
+a
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+a
+"}
+(6,1,1) = {"
+I
+I
+I
+I
+I
+I
+I
+I
+I
+H
+I
+I
+I
+I
+a
+"}
+(7,1,1) = {"
+I
+I
+I
+I
+R
+R
+R
+R
+R
+T
+I
+I
+I
+I
+a
+"}
+(8,1,1) = {"
+I
+I
+I
+I
+R
+Y
+e
+m
+R
+T
+I
+I
+I
+I
+a
+"}
+(9,1,1) = {"
+I
+I
+I
+I
+R
+W
+v
+v
+A
+T
+I
+I
+I
+I
+a
+"}
+(10,1,1) = {"
+a
+I
+I
+I
+R
+U
+Z
+g
+R
+T
+I
+I
+I
+I
+a
+"}
+(11,1,1) = {"
+a
+I
+I
+I
+R
+R
+R
+R
+R
+D
+I
+I
+I
+I
+a
+"}
+(12,1,1) = {"
+a
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+a
+"}
+(13,1,1) = {"
+a
+i
+X
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+a
+"}
+(14,1,1) = {"
+a
+a
+i
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+a
+a
+"}
+(15,1,1) = {"
+a
+a
+a
+a
+a
+a
+I
+I
+I
+I
+I
+a
+a
+a
+a
+"}

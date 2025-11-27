@@ -1,0 +1,328 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/flora/ash/rock/style_3,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"d" = (
+/obj/structure/flora/ash/coaltree,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"e" = (
+/obj/structure/flora/ausbushes/grassybush/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"h" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/lavaland/eel_ringlets,
+/obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"j" = (
+/obj/structure/flora/ausbushes/sparsegrass/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"l" = (
+/obj/structure/flora/ausbushes/genericbush/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"p" = (
+/obj/structure/flora/ash/rock/style_2,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"s" = (
+/obj/structure/flora/ausbushes/fernybush/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"t" = (
+/obj/structure/flora/ausbushes/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"y" = (
+/obj/structure/statue/death,
+/obj/structure/flora/rock/basalt1,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"A" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal,
+/obj/item/reagent_containers/food/snacks/lavaland_food/ashie_kebab,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"C" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"D" = (
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"F" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"R" = (
+/obj/structure/flora/rock/basalt2,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"U" = (
+/obj/structure/flora/ash/leaf_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Y" = (
+/obj/structure/flora/ash/rock/style_4,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+C
+C
+C
+C
+C
+C
+F
+F
+F
+F
+C
+C
+C
+C
+C
+"}
+(2,1,1) = {"
+C
+C
+C
+C
+C
+C
+l
+F
+F
+F
+C
+C
+C
+C
+C
+"}
+(3,1,1) = {"
+C
+C
+C
+C
+C
+p
+F
+F
+F
+j
+a
+C
+C
+C
+C
+"}
+(4,1,1) = {"
+C
+C
+C
+C
+C
+D
+F
+j
+D
+F
+F
+Y
+C
+C
+C
+"}
+(5,1,1) = {"
+C
+C
+C
+a
+d
+F
+s
+D
+j
+t
+F
+D
+U
+C
+C
+"}
+(6,1,1) = {"
+F
+F
+F
+F
+F
+F
+j
+F
+F
+D
+j
+F
+F
+F
+F
+"}
+(7,1,1) = {"
+F
+F
+F
+F
+F
+F
+y
+h
+F
+F
+F
+j
+F
+F
+F
+"}
+(8,1,1) = {"
+F
+F
+F
+F
+F
+F
+R
+A
+F
+F
+F
+F
+F
+F
+F
+"}
+(9,1,1) = {"
+F
+F
+F
+F
+F
+F
+j
+t
+j
+F
+F
+j
+F
+F
+F
+"}
+(10,1,1) = {"
+C
+C
+C
+l
+F
+F
+F
+D
+D
+F
+j
+F
+F
+C
+C
+"}
+(11,1,1) = {"
+C
+C
+C
+C
+Y
+F
+D
+F
+F
+F
+D
+p
+C
+C
+C
+"}
+(12,1,1) = {"
+C
+C
+C
+C
+C
+e
+F
+j
+F
+F
+p
+C
+C
+C
+C
+"}
+(13,1,1) = {"
+C
+C
+C
+C
+C
+C
+F
+F
+F
+F
+C
+C
+C
+C
+C
+"}
+(14,1,1) = {"
+C
+C
+C
+C
+C
+C
+F
+F
+F
+j
+C
+C
+C
+C
+C
+"}
+(15,1,1) = {"
+C
+C
+C
+C
+C
+C
+F
+F
+F
+F
+C
+C
+C
+C
+C
+"}

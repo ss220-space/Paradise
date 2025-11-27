@@ -331,3 +331,41 @@
 		always_place = TRUE
 	else
 		unpickable = TRUE
+
+/datum/map_template/ruin/lavaland/lavalake/check_specials()
+	if(SSmapping.lavaland_theme.lavaland_type != LAVALAND_TYPE_LAVA)
+		always_place = TRUE
+	else
+		unpickable = TRUE
+
+/datum/map_template/ruin/lavaland/wastelands1
+	name = "Wastelands 1"
+	id = "wastelands1"
+	description = "Пустошь с маленьким прудом."
+	suffix = "lavaland_surface_wastelands1.dmm"
+	allow_duplicates = FALSE
+	cost = 15
+
+/datum/map_template/ruin/lavaland/wastelands2
+	name = "Wastelands 2"
+	id = "wastelands2"
+	description = "Пустошь с лавовым озером."
+	suffix = "lavaland_surface_wastelands2.dmm"
+	allow_duplicates = FALSE
+	cost = 10
+
+/datum/map_template/ruin/lavaland/wastelands3
+	name = "Wastelands 3"
+	id = "wastelands3"
+	description = "Пустошь с солдатами СССП."
+	suffix = "lavaland_surface_wastelands3.dmm"
+	allow_duplicates = FALSE
+	cost = 10
+
+/datum/map_template/ruin/lavaland/wastelands4
+	name = "Wastelands 4"
+	id = "wastelands4"
+	description = "Загадочный перекресток."
+	suffix = "lavaland_surface_wastelands4.dmm"
+	allow_duplicates = FALSE
+	cost = 10
