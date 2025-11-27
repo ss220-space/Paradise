@@ -99,7 +99,7 @@
 /obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity, params)
 	if(!proximity)
 		return
-	if(!iswallturf(T) && !istype(T, /obj/machinery/door/airlock))
+	if(!iswallturf(T) && !is_airlock(T))
 		return
 	to_chat(user, span_notice("You start planting the [src]."))
 
@@ -195,7 +195,7 @@
 	update_mob()
 	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src)
 	if(target)
-		if(istype(target, /obj/machinery/door/airlock))
+		if(is_airlock(target))
 			var/obj/machinery/door/airlock/T = target
 			if((T.obj_integrity - 300) <= 0)
 				qdel(T)

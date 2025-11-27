@@ -9,13 +9,18 @@
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
-	var/teleporting = 0 //if it's in the process of teleporting
+	var/teleporting = FALSE //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
 	var/preset_target = null
 
 /obj/machinery/quantumpad/Initialize(mapload)
 	. = ..()
+
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/quantumpad,
+	))
+
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
@@ -112,53 +117,53 @@
 	if(linked_pad)
 		ghost.forceMove(get_turf(linked_pad))
 
-/obj/machinery/quantumpad/proc/doteleport(mob/user)
-	if(linked_pad)
-		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
-		teleporting = 1
+/obj/machinery/quantumpad/proc/doteleport(mob/user, obj/machinery/quantumpad/target_pad = linked_pad)
+	if(!target_pad)
+		return
+	playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
+	teleporting = TRUE
 
-		spawn(teleport_speed)
-			if(!src || QDELETED(src))
-				teleporting = 0
-				return
-			if(stat & NOPOWER)
-				to_chat(user, span_warning("[src] is unpowered!"))
-				teleporting = 0
-				return
-			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
-				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
-				teleporting = 0
-				return
+	addtimer(CALLBACK(src, PROC_REF(teleport_contents), user, target_pad), teleport_speed)
 
-			teleporting = 0
-			last_teleport = world.time
+/obj/machinery/quantumpad/proc/teleport_contents(mob/user, obj/machinery/quantumpad/target_pad)
+	teleporting = FALSE
 
-			// use a lot of power
-			use_power(10000 / power_efficiency)
-			sparks()
-			linked_pad.sparks()
+	if(stat & NOPOWER)
+		to_chat(user, span_warning("[src] is unpowered!"))
+		return
 
-			flick("[initial(icon_state)]-beam", src)
-			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			flick("[initial(linked_pad.icon_state)]-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			var/tele_success = TRUE
-			for(var/atom/movable/ROI in get_turf(src))
-				// if is anchored, don't let through
-				if(ROI.anchored)
-					if(isliving(ROI))
-						var/mob/living/L = ROI
-						if(L.buckled)
-							// TP people on office chairs
-							if(L.buckled.anchored)
-								continue
-						else
-							continue
-					else if(!isobserver(ROI))
-						continue
-				tele_success = do_teleport(ROI, get_turf(linked_pad))
-			if(!tele_success)
-				to_chat(user, span_warning("Teleport failed due to bluespace interference."))
+	if(!target_pad || QDELETED(target_pad) || target_pad.stat & NOPOWER)
+		to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
+		return
+
+	last_teleport = world.time
+
+	// use a lot of power
+	use_power(10000 / power_efficiency)
+	sparks()
+	target_pad.sparks()
+
+	flick("[initial(icon_state)]-beam", src)
+	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
+	flick("[initial(target_pad.icon_state)]-beam", target_pad)
+	playsound(get_turf(target_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
+	var/tele_success = TRUE
+	for(var/atom/movable/target in get_turf(src))
+		if(target.anchored)
+			continue
+
+		if(isliving(target))
+			var/mob/living/mob = target
+			if(mob.buckled && mob.buckled.anchored)
+				continue
+
+		if(!isobserver(target))
+			continue
+
+		tele_success = do_teleport(target, get_turf(target_pad))
+
+	if(!tele_success)
+		to_chat(user, span_warning("Teleport failed due to bluespace interference."))
 
 /obj/machinery/quantumpad/cere
 	var/destination
@@ -187,6 +192,63 @@
 		desc = "This leads to [destination]"
 	else
 		desc = "This leads to nowhere."
+
+/obj/item/circuit_component/quantumpad
+	display_name = "Квантовая платформа"
+	desc = "Квантовая платформа, связанная через блюспейс. \
+			Используется для телепортации предметов на другие квантовые платформы."
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	var/datum/port/input/target_pad
+	var/datum/port/output/failed
+
+	var/obj/machinery/quantumpad/attached_pad
+
+/obj/item/circuit_component/quantumpad/populate_ports()
+	target_pad = add_input_port("Платформа", PORT_TYPE_ATOM)
+	failed = add_output_port("Ошибка", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/quantumpad/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(istype(shell, /obj/machinery/quantumpad))
+		attached_pad = shell
+
+/obj/item/circuit_component/quantumpad/unregister_usb_parent(atom/movable/shell)
+	attached_pad = null
+	return ..()
+
+/obj/item/circuit_component/quantumpad/input_received(datum/port/input/port)
+	if(!attached_pad)
+		return
+
+	var/obj/machinery/quantumpad/targeted_pad = target_pad.value
+
+	if((!attached_pad.linked_pad || QDELETED(attached_pad.linked_pad)) && !(targeted_pad && istype(targeted_pad)))
+		failed.set_output(COMPONENT_SIGNAL)
+		return
+
+	if(world.time < attached_pad.last_teleport + attached_pad.teleport_cooldown)
+		failed.set_output(COMPONENT_SIGNAL)
+		return
+
+	if(targeted_pad && istype(targeted_pad))
+		if(attached_pad.teleporting || targeted_pad.teleporting)
+			failed.set_output(COMPONENT_SIGNAL)
+			return
+
+		if(targeted_pad.stat & NOPOWER)
+			failed.set_output(COMPONENT_SIGNAL)
+			return
+		attached_pad.doteleport(target_pad = targeted_pad)
+	else
+		if(attached_pad.teleporting || attached_pad.linked_pad.teleporting)
+			failed.set_output(COMPONENT_SIGNAL)
+			return
+
+		if(attached_pad.linked_pad.stat & NOPOWER)
+			failed.set_output(COMPONENT_SIGNAL)
+			return
+		attached_pad.doteleport(target_pad = attached_pad.linked_pad)
 
 //cere only
 /obj/machinery/quantumpad/cere/science_arrivals

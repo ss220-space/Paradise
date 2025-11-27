@@ -206,6 +206,7 @@
 		trigger.HasProximity(AM)
 
 /obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
 	if(trigger)
 		trigger.hear_talk(M, message_pieces)
 

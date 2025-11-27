@@ -244,7 +244,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!istype(I, /obj/item/mmi))
+	if(!is_mmi(I))
 		return ..()
 
 	. = ATTACK_CHAIN_PROCEED

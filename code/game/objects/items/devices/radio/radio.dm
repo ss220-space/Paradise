@@ -593,9 +593,14 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	return FALSE
 
 /obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "говор%(ит,ят)%")
-	if(broadcasting)
-		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, message_pieces, null, genderize_decode(M, verb))
+	. = ..()
+	if(!broadcasting)
+		return
+
+	if(get_dist(src, M) > canhear_range)
+		return
+
+	talk_into(M, message_pieces, null, genderize_decode(M, verb))
 
 // To the person who asks "Why is this in a callback?"
 // You see, if you use QDEL_IN on the tcm and on broadcast_message()
