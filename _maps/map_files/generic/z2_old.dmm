@@ -10136,9 +10136,7 @@
 	},
 /area/centcom/zone1)
 "hIL" = (
-/obj/machinery/vending/crittercare{
-	
-	},
+/obj/machinery/vending/crittercare,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
@@ -32057,9 +32055,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "xhs" = (
-/obj/machinery/vending/cigarette{
-	
-	},
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
