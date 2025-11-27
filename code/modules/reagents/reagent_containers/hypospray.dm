@@ -767,7 +767,6 @@
 	volume = 15
 	list_reagents = list("sanguinius" = 15)
 
-
 /obj/item/reagent_containers/hypospray/autoinjector/sanguinius/get_ru_names()
 	return list(
 		NOMINATIVE = "автоинъектор (Сангвиний)",
