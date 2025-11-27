@@ -15,12 +15,12 @@ import { Window } from '../layouts';
 import { getLayoutState, LAYOUT, LayoutToggle } from 'common/LayoutToggle';
 
 type VendingData = {
-  chargesMoney: number;
+  all_products_free: boolean;
+  onstation: boolean;
   vend_ready: boolean;
-  coin_name: string;
   user: UserData;
   product_records?: ProductRecord[];
-  coin_records?: ProductRecord[];
+  premium_records?: ProductRecord[];
   hidden_records?: ProductRecord[];
   extended_inventory: boolean;
   stock: Record<string, number>;
@@ -43,8 +43,8 @@ type ProductRecord = {
   max_amount: number;
   ref: string;
   category: string;
-  icon: string;
-  icon_state: string;
+  icon?: string;
+  icon_state?: string;
 };
 
 type UserData = {
@@ -58,20 +58,16 @@ type ProductDisplayProps = {
   stockSearch: string;
   setStockSearch: (search: string) => void;
   selectedCategory: string | null;
-  setSelectedCategory: (category: string) => void;
 };
 
 export const Vending = (_props: unknown) => {
   const { act, data } = useBackend<VendingData>();
   const {
-    user,
-    chargesMoney,
+    onstation,
     product_records = [],
-    coin_records = [],
+    premium_records = [],
     hidden_records = [],
-    stock,
     categories,
-    coin_name,
     inserted_item_name,
     panel_open,
     speaker,
@@ -89,7 +85,7 @@ export const Vending = (_props: unknown) => {
 
   let inventory: ProductRecord[];
 
-  inventory = [...product_records, ...coin_records];
+  inventory = [...product_records, ...premium_records];
   if (data.extended_inventory) {
     inventory = [...inventory, ...hidden_records];
   }
@@ -120,17 +116,9 @@ export const Vending = (_props: unknown) => {
     >
       <Window.Content>
         <Stack fill vertical>
-          {!!chargesMoney && (
+          {!!onstation && (
             <Stack.Item>
               <UserDetails />
-            </Stack.Item>
-          )}
-          {!!coin_name && (
-            <Stack.Item>
-              <Button fluid icon="eject" onClick={() => act('remove_coin', {})}>
-                Извлечь монету
-              </Button>
-              <Box>{coin_name}</Box>
             </Stack.Item>
           )}
           {!!inserted_item_name && (
@@ -160,7 +148,6 @@ export const Vending = (_props: unknown) => {
               stockSearch={stockSearch}
               setStockSearch={setStockSearch}
               selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
             />
           </Stack.Item>
 
@@ -202,14 +189,8 @@ export const UserDetails = (props) => {
 /** Displays products in a section, with user balance at top */
 const ProductDisplay = (props: ProductDisplayProps) => {
   const { data } = useBackend<VendingData>();
-  const {
-    inventory,
-    stockSearch,
-    setStockSearch,
-    selectedCategory,
-    setSelectedCategory,
-  } = props;
-  const { stock, user, chargesMoney } = data;
+  const { inventory, stockSearch, setStockSearch, selectedCategory } = props;
+  const { stock, user, all_products_free } = data;
   const [toggleLayout, setToggleLayout] = useState(() =>
     getLayoutState(LAYOUT.Grid)
   );
@@ -221,7 +202,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
       title="Продукция"
       buttons={
         <Stack>
-          {!!chargesMoney && user && (
+          {!all_products_free && user && (
             <Stack.Item fontSize="16px" color="green">
               <b>{(user && user.cash) || 0}</b> кредит
               {declension_ru(user.cash, '', 'а', 'ов')}
@@ -264,17 +245,18 @@ const ProductDisplay = (props: ProductDisplayProps) => {
 const Product = (props) => {
   const { act, data } = useBackend<VendingData>();
   const { product, productStock, fluid } = props;
-  const { chargesMoney, user, vend_ready, coin_name } = data;
+  const { all_products_free, user, vend_ready } = data;
 
-  const free = !chargesMoney || product.price === 0;
+  const free = all_products_free || product.price === 0;
   const remaining = productStock;
   const disabled =
     !vend_ready ||
-    (!coin_name && product.req_coin) ||
     remaining === 0 ||
-    (!free && product.price > (user && user.cash));
+    (!all_products_free && !user) ||
+    (!all_products_free && !free && product.price > (user && user.cash));
 
   const baseProps = {
+    base64: product.image,
     dmIcon: product.icon,
     dmIconState: product.icon_state,
     disabled: disabled,
@@ -289,8 +271,6 @@ const Product = (props) => {
   };
 
   const priceProps = {
-    chargesMoney: chargesMoney,
-    user: user,
     product: product,
     free: free,
   };
@@ -349,27 +329,15 @@ const ProductList = (props) => {
 
 /** The main button to purchase an item. */
 const ProductPrice = (props) => {
-  const { chargesMoney, user, product, free } = props;
+  const { product, free } = props;
 
-  if (product.req_coin) {
-    return (
-      <Stack.Item color={'gold'}>
-        <b>МОНЕТА</b>
-      </Stack.Item>
-    );
-  } else if (free) {
-    return (
-      <Stack.Item color={'green'}>
-        <b>0 кр.</b>
-      </Stack.Item>
-    );
-  } else {
-    return (
-      <Stack.Item color={'gold'}>
-        <b>{product.price}</b> кр.
-      </Stack.Item>
-    );
-  }
+  let standardPrice = free ? '0' : product.price;
+
+  return (
+    <Stack.Item color={free ? 'green' : 'gold'}>
+      <b>{standardPrice}</b> кр.
+    </Stack.Item>
+  );
 };
 
 const CATEGORY_COLORS = {
