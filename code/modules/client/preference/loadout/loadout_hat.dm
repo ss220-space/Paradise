@@ -122,6 +122,7 @@
 	gear_tweaks += new /datum/gear_tweak/path(berets, src)
 
 /datum/gear/hat/beret_job
+	donator_tier = 1
 	subtype_path = /datum/gear/hat/beret_job
 	subtype_cost_overlap = FALSE
 
