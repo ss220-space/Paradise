@@ -395,7 +395,7 @@
 		. += span_warning("Его индикаторы зловеще мигают...")
 	if(credits_contained < CREDITS_DUMP_THRESHOLD && credits_contained > 0)
 		. += span_notice("Судя по объёму отсутствующих товаров, в отсеке для наличных должно быть <b>немного</b> кредитов.")
-	else if (credits_contained > 100) //TODO: change to PAYCHECK_CREW after paycheck values are converted into defines
+	else if(credits_contained > 100) //TODO: change to PAYCHECK_CREW after paycheck values are converted into defines
 		. += span_notice("Судя по объёму отсутствующих товаров, в отсеке для наличных должно быть <b>много</b> кредитов.")
 		/**
 		 * Intentionally leaving out a case for zero credits as it should be covered by the vending machine's stock being full,

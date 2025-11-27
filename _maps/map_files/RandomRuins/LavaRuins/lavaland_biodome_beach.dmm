@@ -424,7 +424,7 @@
 /area/ruin/powered/beach)
 "tG" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/machinery/vending/crittercare/free,
+/obj/machinery/vending/crittercare,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "uA" = (

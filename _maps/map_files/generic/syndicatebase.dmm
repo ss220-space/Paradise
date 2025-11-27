@@ -25332,7 +25332,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "uZl" = (
-/obj/machinery/vending/crittercare/free,
+/obj/machinery/vending/crittercare,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vab" = (
