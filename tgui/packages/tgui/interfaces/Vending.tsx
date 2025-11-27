@@ -1,128 +1,24 @@
 import { useState } from 'react';
 import { useBackend } from '../backend';
-import { capitalizeAll, createSearch } from 'common/string';
+import { createSearch, declension_ru } from 'common/string';
 import {
   Box,
-  DmIcon,
   Button,
   Section,
   Stack,
-  Table,
   Icon,
   Input,
+  NoticeBox,
+  ImageButton,
 } from '../components';
 import { Window } from '../layouts';
-
-type ProductRecord = {
-  is_hidden: boolean;
-  req_coin: boolean;
-  price: number;
-  name: string;
-  desc: string;
-  max_amount: number;
-  ref: string;
-  category: string;
-  icon: string;
-  icon_state: string;
-};
-
-type VendingRowProps = {
-  product: ProductRecord;
-  productStock: number;
-  inventory: ProductRecord[];
-  stockSearch: string;
-  setStockSearch: (search: string) => void;
-  selectedCategory: string | null;
-  setSelectedCategory: (category: string) => void;
-};
-
-/** Displays products in a section */
-const VendingRow = (props: VendingRowProps) => {
-  const { act, data } = useBackend<VendingData>();
-  const {
-    product,
-    inventory,
-    productStock,
-    stockSearch,
-    setStockSearch,
-    selectedCategory,
-    setSelectedCategory,
-  } = props;
-  const { chargesMoney, userMoney, vend_ready, coin_name } = data;
-  const free = !chargesMoney || product.price === 0;
-
-  let buttonText = 'ОШИБКА';
-  let rowIcon = '';
-
-  let buttonDisabled =
-    !vend_ready ||
-    (!coin_name && product.req_coin) ||
-    productStock === 0 ||
-    (!free && product.price > userMoney);
-
-  if (product.req_coin) {
-    buttonText = 'МОНЕТА';
-    rowIcon = 'circle';
-  } else if (free) {
-    buttonText = 'БЕСПЛАТНО';
-    rowIcon = 'arrow-circle-down';
-  } else {
-    buttonText = product.price.toString();
-    rowIcon = 'shopping-cart';
-  }
-
-  return (
-    <Table.Row>
-      <Table.Cell collapsing>
-        <DmIcon
-          verticalAlign="middle"
-          icon={product.icon}
-          icon_state={product.icon_state}
-          fallback={<Icon p={0.66} name={'spinner'} size={2} spin />}
-        />
-      </Table.Cell>
-      <Table.Cell bold>
-        <Button multiLine color="translucent" tooltip={product.desc}>
-          {product.name}
-        </Button>
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="center">
-        <Box
-          color={
-            (productStock <= 0 && 'bad') ||
-            (productStock <= product.max_amount / 2 && 'average') ||
-            'good'
-          }
-        >
-          {productStock} в наличии
-        </Box>
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="center">
-        <Button
-          fluid
-          disabled={buttonDisabled}
-          icon={rowIcon}
-          textAlign="left"
-          onClick={() =>
-            act('vend', {
-              'ref': product.ref,
-            })
-          }
-        >
-          {buttonText}
-        </Button>
-      </Table.Cell>
-    </Table.Row>
-  );
-};
+import { getLayoutState, LAYOUT, LayoutToggle } from 'common/LayoutToggle';
 
 type VendingData = {
   chargesMoney: number;
-  userMoney: number;
   vend_ready: boolean;
   coin_name: string;
-  user: User;
-  guestNotice: string;
+  user: UserData;
   product_records?: ProductRecord[];
   coin_records?: ProductRecord[];
   hidden_records?: ProductRecord[];
@@ -138,17 +34,231 @@ type Category = {
   icon: string;
 };
 
-type User = {
+type UserData = {
   name: string;
   job: string;
+  cash: number;
+};
+
+type ProductRecord = {
+  is_hidden: boolean;
+  req_coin: boolean;
+  price: number;
+  name: string;
+  desc: string;
+  max_amount: number;
+  ref: string;
+  category: string;
+  icon: string;
+  icon_state: string;
+};
+
+type ProductDisplayProps = {
+  inventory: ProductRecord[];
+  stockSearch: string;
+  setStockSearch: (search: string) => void;
+  selectedCategory: string | null;
+  setSelectedCategory: (category: string) => void;
+};
+
+/** Displays user details if an ID is present */
+export const UserDetails = (props) => {
+  const { data } = useBackend<VendingData>();
+  const { user } = data;
+
+  return (
+    <NoticeBox m={0} color={user && 'blue'}>
+      <Stack align="center">
+        <Stack.Item>
+          <Icon name="id-card" size={1.5} />
+        </Stack.Item>
+        <Stack.Item>
+          {user ? `${user.name} | ${user.job}` : 'Пользователь не определён'}
+        </Stack.Item>
+      </Stack>
+    </NoticeBox>
+  );
+};
+
+/** Displays products in a section, with user balance at top */
+const ProductDisplay = (props: ProductDisplayProps) => {
+  const { data } = useBackend<VendingData>();
+  const {
+    inventory,
+    stockSearch,
+    setStockSearch,
+    selectedCategory,
+    setSelectedCategory,
+  } = props;
+  const { stock, user, chargesMoney } = data;
+  const [toggleLayout, setToggleLayout] = useState(() => getLayoutState(LAYOUT.List));
+
+  return (
+    <Section
+      fill
+      scrollable
+      title="Продукция"
+      buttons={
+        <Stack>
+          {!!chargesMoney && user && (
+            <Stack.Item fontSize="16px" color="green">
+              <b>{(user && user.cash) || 0}</b> кредит
+              {declension_ru(user.cash, '', 'а', 'ов')}
+            </Stack.Item>
+          )}
+          <Stack.Item>
+            <Input
+              onChange={setStockSearch}
+              placeholder="Поиск..."
+              value={stockSearch}
+            />
+          </Stack.Item>
+          <LayoutToggle state={toggleLayout} setState={setToggleLayout} />
+        </Stack>
+      }
+    >
+      {inventory
+        .filter((product) => {
+          if (!stockSearch && 'category' in product) {
+            return product.category === selectedCategory;
+          } else {
+            return true;
+          }
+        })
+        .map((product) => (
+          <Product
+            key={product.name}
+            fluid={toggleLayout === LAYOUT.List}
+            product={product}
+            productStock={stock[product.name]}
+          />
+        ))}
+    </Section>
+  );
+};
+
+/**
+ * An individual listing for an item.
+ */
+const Product = (props) => {
+  const { act, data } = useBackend<VendingData>();
+  const { product, productStock, fluid } = props;
+  const { chargesMoney, user, vend_ready, coin_name } = data;
+
+  const free = !chargesMoney || product.price === 0;
+  const remaining = productStock;
+  const disabled =
+    !vend_ready ||
+    (!coin_name && product.req_coin) ||
+    remaining === 0 ||
+    (!free && product.price > (user && user.cash));
+
+  const baseProps = {
+    dmIcon: product.icon,
+    dmIconState: product.icon_state,
+    disabled: disabled,
+    tooltipPosition: 'bottom',
+    product: product,
+    remaining: remaining,
+    onClick: () => {
+      act('vend', {
+        'ref': product.ref,
+      });
+    },
+  };
+
+  const priceProps = {
+    chargesMoney: chargesMoney,
+    user: user,
+    product: product,
+    free: free,
+  };
+
+  return fluid ? (
+    <ProductList {...baseProps} {...priceProps} />
+  ) : (
+    <ProductGrid {...baseProps} {...priceProps} />
+  );
+};
+
+const ProductGrid = (props) => {
+  const { product, remaining, ...baseProps } = props;
+  const { ...priceProps } = props;
+
+  return (
+    <ImageButton
+      {...baseProps}
+      tooltip={`${product.name}. ${product.desc}`}
+      buttonsAlt={
+        <Stack fontSize={0.8}>
+          <Stack.Item grow textAlign={'left'}>
+            <ProductPrice {...priceProps} />
+          </Stack.Item>
+          <Stack.Item color={'lightgray'}>x{remaining}</Stack.Item>
+        </Stack>
+      }
+    >
+      {product.name}
+    </ImageButton>
+  );
+};
+
+const ProductList = (props) => {
+  const { product, remaining, ...baseProps } = props;
+  const { ...priceProps } = props;
+
+  return (
+    <ImageButton {...baseProps} tooltip={product.desc} fluid imageSize={64}>
+      <Stack textAlign={'right'} align="center">
+        <Stack.Item grow textAlign={'left'}>
+          {product.name}
+        </Stack.Item>
+        <Stack.Item
+          width={3.5}
+          fontSize={0.8}
+          color={'rgba(255, 255, 255, 0.5)'}
+        >
+          <b>{remaining}</b> в наличии
+        </Stack.Item>
+        <Stack.Item
+          width={3.5}
+        >
+          <ProductPrice {...priceProps} />
+        </Stack.Item>
+      </Stack>
+    </ImageButton>
+  );
+};
+
+/** The main button to purchase an item. */
+const ProductPrice = (props) => {
+  const { chargesMoney, user, product, free } = props;
+
+  if (product.req_coin) {
+    return (
+      <Stack.Item fontSize={0.85} color={'gold'}>
+        <b>МОНЕТА</b>
+      </Stack.Item>
+    );
+  } else if (free) {
+    return (
+      <Stack.Item fontSize={0.85} color={'green'}>
+       <b>0 кр.</b>
+      </Stack.Item>
+    );
+  } else {
+    return (
+      <Stack.Item fontSize={0.85} color={'gold'}>
+        <b>{product.price}</b> кр.
+      </Stack.Item>
+    );
+  }
 };
 
 export const Vending = (_props: unknown) => {
   const { act, data } = useBackend<VendingData>();
   const {
     user,
-    guestNotice,
-    userMoney,
     chargesMoney,
     product_records = [],
     coin_records = [],
@@ -178,7 +288,7 @@ export const Vending = (_props: unknown) => {
     inventory = [...inventory, ...hidden_records];
   }
 
-  if (stockSearch.length >= 2) {
+  if (stockSearch.length >= 1) {
     inventory = inventory.filter(stockSearchFn);
   }
 
@@ -204,65 +314,47 @@ export const Vending = (_props: unknown) => {
     >
       <Window.Content>
         <Stack fill vertical>
-          <Stack.Item>
-            {!!chargesMoney && (
-              <Section title="Пользователь">
-                {(user && (
-                  <Box>
-                    Здраствуйте, <b>{user.name}</b>,{' '}
-                    <b>{user.job || 'Безработный'}</b>
-                    !
-                    <br />
-                    Ваш баланс: <b>{userMoney} кр.</b>
-                  </Box>
-                )) || <Box color="light-grey">{guestNotice}</Box>}
-              </Section>
-            )}
-            {!!coin_name && (
-              <Section
-                title="Монета"
-                buttons={
-                  <Button
-                    fluid
-                    icon="eject"
-                    onClick={() => act('remove_coin', {})}
-                  >
-                    Извлечь монету
-                  </Button>
-                }
+          {!!chargesMoney && (
+            <Stack.Item>
+              <UserDetails />
+            </Stack.Item>
+          )}
+          {!!coin_name && (
+            <Stack.Item>
+              <Button
+                fluid
+                icon="eject"
+                onClick={() => act('remove_coin', {})}
               >
-                <Box>{coin_name}</Box>
-              </Section>
-            )}
-            {!!inserted_item_name && (
-              <Section
-                title="Предмет"
-                buttons={
-                  <Button
-                    fluid
-                    icon="eject"
-                    onClick={() => act('eject_item', {})}
-                  >
-                    Извлечь предмет
-                  </Button>
-                }
+                Извлечь монету
+              </Button>
+              <Box>{coin_name}</Box>
+            </Stack.Item>
+          )}
+          {!!inserted_item_name && (
+            <Stack.Item>
+              <Button
+                fluid
+                icon="eject"
+                onClick={() => act('eject_item', {})}
               >
-                <Box>{inserted_item_name}</Box>
-              </Section>
-            )}
-            {!!panel_open && (
-              <Section title="Тех. обслуживание">
-                <Button
-                  icon={speaker ? 'check' : 'volume-mute'}
-                  selected={speaker}
-                  textAlign="left"
-                  onClick={() => act('toggle_voice', {})}
-                >
-                  Динамик
-                </Button>
-              </Section>
-            )}
-          </Stack.Item>
+                Извлечь предмет
+              </Button>
+              <Box>{inserted_item_name}</Box>
+            </Stack.Item>
+          )}
+          {!!panel_open && (
+            <Stack.Item>
+              <Button
+                icon={speaker ? 'check' : 'volume-mute'}
+                selected={speaker}
+                textAlign="left"
+                onClick={() => act('toggle_voice', {})}
+              >
+                Динамик
+              </Button>
+            </Stack.Item>
+          )}
 
           {stockSearch.length < 2 &&
             Object.keys(filteredCategories).length > 1 && (
@@ -276,34 +368,13 @@ export const Vending = (_props: unknown) => {
             )}
 
           <Stack.Item grow>
-            <Section title="Продукция" fill scrollable buttons = {
-              <Stack.Item>
-                <Input onChange={setStockSearch} placeholder="Поиск..." value={stockSearch} />
-              </Stack.Item>
-            }>
-              <Table>
-                {inventory
-                  .filter((product) => {
-                    if (!stockSearch && 'category' in product) {
-                      return product.category === selectedCategory;
-                    } else {
-                      return true;
-                    }
-                  })
-                  .map((product) => (
-                    <VendingRow
-                      key={product.name}
-                      product={product}
-                      inventory={inventory}
-                      productStock={stock[product.name]}
-                      stockSearch={stockSearch}
-                      setStockSearch={setStockSearch}
-                      selectedCategory={selectedCategory}
-                      setSelectedCategory={setSelectedCategory}
-                    />
-                  ))}
-              </Table>
-            </Section>
+            <ProductDisplay
+              inventory={inventory}
+              stockSearch={stockSearch}
+              setStockSearch={setStockSearch}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
           </Stack.Item>
         </Stack>
       </Window.Content>

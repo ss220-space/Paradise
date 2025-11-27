@@ -945,31 +945,20 @@
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
 	var/datum/money_account/money_account = null
-	data["guestNotice"] = "Предъявите ID-карту или используйте наличные.";
-	data["userMoney"] = 0
 	data["user"] = null
-	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
-		money_account = get_card_account(user)
-		data["user"] = list()
-		data["user"]["name"] = money_account.owner_name
-		data["userMoney"] = money_account.money
-		data["user"]["job"] = "Силикон"
 	if(ishuman(user))
 		money_account = get_card_account(user)
 		var/mob/living/carbon/human/H = user
 		var/obj/item/stack/spacecash/cash = H.get_active_hand()
 		if(istype(cash))
-			data["userMoney"] = cash.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[DECL_CREDIT(cash.amount)]."
+			data["user"]["cash"] = cash.amount
 		else if(istype(H))
-			var/obj/item/card/id/C = H.get_id_card()
+			var/obj/item/card/id/id_card = H.get_id_card()
 			if(istype(money_account))
 				data["user"] = list()
 				data["user"]["name"] = money_account.owner_name
-				data["userMoney"] = money_account.money
-				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "Должность отсутствует"
-			else
-				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
+				data["user"]["cash"] = money_account.money
+				data["user"]["job"] = (istype(id_card) && id_card.rank) ? id_card.rank : "Должность отсутствует"
 	data["stock"] = list()
 	for(var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
 		data["stock"][product_record.name] = product_record.amount
@@ -1335,9 +1324,9 @@
 	if(!length(possible_crits))
 		return
 	for(var/crit_path in shuffle(possible_crits))
-		var/datum/vendor_crit/C = all_possible_crits[crit_path]
-		if(C.is_valid(src, victim))
-			return C
+		var/datum/vendor_crit/id_card = all_possible_crits[crit_path]
+		if(id_card.is_valid(src, victim))
+			return id_card
 
 /obj/machinery/vending/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
 

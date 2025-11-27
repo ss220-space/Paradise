@@ -399,6 +399,7 @@ type BackendState<TData> = {
     status: number;
     interface: {
       name: string;
+      layout: string;
     };
     refreshing: BooleanLike;
     map: string;
