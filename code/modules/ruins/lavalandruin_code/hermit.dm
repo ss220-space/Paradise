@@ -137,6 +137,7 @@
 	desc = "портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями. При близком рассмотрении становится понятно что это дешёвый ширпотреб в красивой обёртке."
 	icon_state = "walkietalkie_sec"
 	item_state = "walkietalkie_sec"
+	icon = 'icons/obj/radio.dmi'
 
 /obj/item/radio/hermit/trade/get_ru_names()
 	return list(
@@ -506,7 +507,8 @@
 /obj/item/pda/hermit/autumn
 	name = "\"Autumn BEES\" PDA"
 	default_cartridge = /obj/item/cartridge/engineering
-	icon_state = "pda—engineer"
+	icon = 'icons/obj/pda.dmi'
+	icon_state = "pda-engineer"
 	desc = "Специализированный карманный компьютер \"Autumn BEES\". Привязан к кораблю."
 	model_name = "Backup Emergency Evacuation Shuttle OS"
 	owner = "Autumn BEES"
