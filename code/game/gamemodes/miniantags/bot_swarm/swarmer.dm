@@ -586,6 +586,7 @@
 
 /obj/effect/temp_visual/swarmer //temporary swarmer visual feedback objects
 	icon = 'icons/mob/swarmer.dmi'
+	icon_state = null
 	layer = BELOW_MOB_LAYER
 
 /obj/effect/temp_visual/swarmer/disintegration

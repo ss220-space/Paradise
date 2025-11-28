@@ -1,209 +1,71 @@
-//Cargo
-/datum/job/qm
-	title = JOB_TITLE_QUARTERMASTER
-	flag = JOB_FLAG_QUARTERMASTER
+/datum/job/head_of_staff/hop
+	title = JOB_TITLE_HOP
+	flag = JOB_FLAG_HOP
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	is_supply = 1
-	supervisors = "the captain"
-	department_head = list(JOB_TITLE_CAPTAIN)
-	selection_color = "#9f8545"
-	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SECURITY, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	exp_requirements = 3000
-	exp_type = EXP_TYPE_CREW
-	disabilities_allowed = 0
-	alt_titles = list("Chief Supply Manager")
-	outfit = /datum/outfit/job/qm
-	insurance_type = INSURANCE_TYPE_DELUXE // Always has been.
+	is_service = 1
+	blocked_race_for_job = list(SPECIES_VOX)
+	selection_color = "#d1e8d3"
+	access = list(
+		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+		ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+		ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM
+	)
+	minimal_access = list(
+		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+		ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+		ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM
+	)
+	exp_type = EXP_TYPE_SERVICE
+	outfit = /datum/outfit/job/hop
 
-	//QM IS THE HEAD!!
-	salary = 300
-	min_start_money = 400
-	max_start_money = 700
-
-/datum/outfit/job/qm
-	name = "Quartermaster"
-	jobtype = /datum/job/qm
-
-	uniform = /obj/item/clothing/under/rank/cargo
+/datum/outfit/job/hop
+	name = JOB_TITLE_HOP
+	jobtype = /datum/job/head_of_staff/hop
+	uniform = /obj/item/clothing/under/rank/head_of_personnel_alt
+	suit = /obj/item/clothing/suit/hop_jacket
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/radio/headset/heads/qm
-	glasses = /obj/item/clothing/glasses/sunglasses
-	l_pocket = /obj/item/lighter/zippo/qm
-	id = /obj/item/card/id/qm
-	l_hand = /obj/item/clipboard
-	pda = /obj/item/pda/quartermaster
-	backpack = /obj/item/storage/backpack/cargo
+	head = /obj/item/clothing/head/hopcap
+	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
+	l_ear = /obj/item/radio/headset/heads/hop
+	id = /obj/item/card/id/silver
+	l_pocket = /obj/item/lighter/zippo/hop
+	pda = /obj/item/pda/heads/hop
 	backpack_contents = list(
+		/obj/item/storage/box/ids = 1,
 		/obj/item/melee/baton/telescopic = 1,
 	)
-	head = /obj/item/clothing/head/cowboyhat/tan
 
-/datum/job/cargo_tech
-	title = JOB_TITLE_CARGOTECH
-	flag = JOB_FLAG_CARGOTECH
+	implants = list()
+
+/datum/job/service
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 2
-	spawn_positions = 2
-	is_supply = 1
-	supervisors = "the quartermaster"
-	department_head = list(JOB_TITLE_QUARTERMASTER)
-	selection_color = "#e2dbc8"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Supply Manager","Loader")
-	outfit = /datum/outfit/job/cargo_tech
-
-	salary = 130
-	min_start_money = 200
-	max_start_money = 400
-
-/datum/outfit/job/cargo_tech
-	name = "Cargo Technician"
-	jobtype = /datum/job/cargo_tech
-
-	uniform = /obj/item/clothing/under/rank/cargotech
-	l_ear = /obj/item/radio/headset/headset_cargo
-	id = /obj/item/card/id/supply
-	pda = /obj/item/pda/cargo
-	backpack = /obj/item/storage/backpack/cargo
-
-/datum/job/mining
-	title = JOB_TITLE_MINER
-	flag = JOB_FLAG_MINER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 6
-	spawn_positions = 8
-	is_supply = 1
-	supervisors = "the quartermaster"
-	department_head = list(JOB_TITLE_QUARTERMASTER)
-	blocked_race_for_job = list(SPECIES_NUCLEATION)
-	selection_color = "#e2dbc8"
-	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Spelunker")
-	outfit = /datum/outfit/job/mining
-	insurance_type = INSURANCE_TYPE_EXTENDED
-
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
-/datum/outfit/job/mining
-	name = "Shaft Miner"
-	jobtype = /datum/job/mining
-
-	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	shoes = /obj/item/clothing/shoes/workboots/mining
-	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/miner/lavaland
-	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
-	r_pocket = /obj/item/storage/bag/ore
-	id = /obj/item/card/id/supply
-	pda = /obj/item/pda/shaftminer
-	backpack_contents = list(
-		/obj/item/flashlight/seclite = 1,
-		/obj/item/kitchen/knife/combat/survival = 1,
-		/obj/item/mining_voucher = 1,
-		/obj/item/stack/marker_beacon/ten = 1,
-		/obj/item/wormhole_jaunter = 1,
-		/obj/item/survivalcapsule = 1,
-	)
-
-	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel_explorer
-	box = /obj/item/storage/box/survival/survival_mining
-
-/datum/outfit/job/mining/equipped
-	toggle_helmet = TRUE
-	suit = /obj/item/clothing/suit/hooded/explorer
-	mask = /obj/item/clothing/mask/gas/explorer
-	glasses = /obj/item/clothing/glasses/meson
-	suit_store = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = ITEM_SLOT_SUITSTORE
-	backpack_contents = list(
-		/obj/item/flashlight/seclite = 1,
-		/obj/item/kitchen/knife/combat/survival = 1,
-		/obj/item/mining_voucher = 1,
-		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
-		/obj/item/gun/energy/kinetic_accelerator = 1,
-		/obj/item/stack/marker_beacon/ten = 1,
-	)
-
-/datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	mask = /obj/item/clothing/mask/breath
-
-/// Mining medic job and outfit
-
-/datum/job/mining_medic
-	title = JOB_TITLE_MINING_MEDIC
-	flag = JOB_FLAG_MINING_MEDIC
-	department_flag = JOBCAT_SUPPORT
-	is_supply = 1
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "the chief medical officer and the quartermaster"
-	department_head = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CMO)
-	selection_color = "#cee6ef"
-	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_GENETICS)
-	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
-	alt_titles = list("Lavaland Health Officer")
-	outfit = /datum/outfit/job/mining_medic
-	insurance_type = INSURANCE_TYPE_EXTENDED
-	exp_requirements = 600 //10 hours
-	exp_type = EXP_TYPE_MEDICAL
-
-	salary = 170
-	min_start_money = 250
-	max_start_money = 500
-
-/datum/outfit/job/mining_medic
-	name = "Mining Medic"
-	jobtype = /datum/job/mining_medic
-	glasses = /obj/item/clothing/glasses/hud/health/meson
-	l_ear = /obj/item/radio/headset/headset_mining_medic
-	shoes = /obj/item/clothing/shoes/workboots/mining
-	uniform = /obj/item/clothing/under/rank/medical/mining_medic
-	suit = /obj/item/clothing/suit/storage/labcoat/mining_medic
-	l_pocket = /obj/item/roller/holo
-	r_pocket = /obj/item/flash
-	l_hand = /obj/item/storage/firstaid/doctor/mining_medic
-	id = /obj/item/card/id/mining_medic
-	pda = /obj/item/pda/cargo
-
-	backpack_contents = list(
-		/obj/item/flashlight/lantern = 1,
-		/obj/item/radio/weather_monitor = 1,
-		/obj/item/wormhole_jaunter = 1,
-	)
-
-//Food
-/datum/job/bartender
-	title = JOB_TITLE_BARTENDER
-	flag = JOB_FLAG_BARTENDER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "Главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
+	exp_requirements = 300
+	exp_type = EXP_TYPE_SERVICE
+	paycheck = PAYCHECK_CREW
+
+/datum/job/service/bartender
+	title = JOB_TITLE_BARTENDER
+	flag = JOB_FLAG_BARTENDER
+	total_positions = 1
+	spawn_positions = 1
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Barman","Barkeeper","Drink Artist")
+	alt_titles = list("Barman", "Barkeeper", "Drink Artist")
 	outfit = /datum/outfit/job/bartender
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
 /datum/outfit/job/bartender
-	name = "Bartender"
-	jobtype = /datum/job/bartender
+	name = JOB_TITLE_BARTENDER
+	jobtype = /datum/job/service/bartender
 
 	uniform = /obj/item/clothing/under/rank/bartender
 	suit = /obj/item/clothing/suit/armor/vest
@@ -222,28 +84,19 @@
 
 	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
 
-/datum/job/chef
+/datum/job/service/chef
 	title = JOB_TITLE_CHEF
 	flag = JOB_FLAG_CHEF
-	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Cook","Culinary Artist","Butcher")
+	alt_titles = list("Cook", "Culinary Artist", "Butcher")
 	outfit = /datum/outfit/job/chef
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
 /datum/outfit/job/chef
-	name = "Chef"
-	jobtype = /datum/job/chef
+	name = JOB_TITLE_CHEF
+	jobtype = /datum/job/service/chef
 
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
@@ -272,30 +125,19 @@
 				head = /obj/item/clothing/head/chefcap
 				suit = /obj/item/clothing/suit/storage/chefbluza
 
-/datum/job/hydro
+/datum/job/service/botanist
 	title = JOB_TITLE_BOTANIST
 	flag = JOB_FLAG_BOTANIST
-	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
-	outfit = /datum/outfit/job/hydro
+	outfit = /datum/outfit/job/botanist
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
-/datum/outfit/job/hydro
-	name = "Botanist"
-	jobtype = /datum/job/hydro
+/datum/outfit/job/botanist
+	name = JOB_TITLE_BOTANIST
+	jobtype = /datum/job/service/botanist
 
 	uniform = /obj/item/clothing/under/rank/hydroponics
 	suit = /obj/item/clothing/suit/apron
@@ -308,30 +150,19 @@
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
 
-//Griff //BS12 EDIT
-
-/datum/job/clown
+/datum/job/service/clown
 	title = JOB_TITLE_CLOWN
 	flag = JOB_FLAG_CLOWN
-	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Performance Artist","Comedian","Jester")
+	alt_titles = list("Performance Artist", "Comedian", "Jester")
 	outfit = /datum/outfit/job/clown
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
 /datum/outfit/job/clown
-	name = "Clown"
-	jobtype = /datum/job/clown
+	name = JOB_TITLE_CLOWN
+	jobtype = /datum/job/service/clown
 
 	uniform = /obj/item/clothing/under/rank/clown
 	belt = /obj/item/signmaker
@@ -385,7 +216,7 @@
 	add_verb(src, /mob/living/carbon/human/proc/mimicking)
 
 /datum/action/innate/mimicking
-	name = "Mimicking"
+	name = "Подражание"
 	button_icon_state = "clown"
 	check_flags = AB_CHECK_CONSCIOUS
 	var/list/voice_slots = list()
@@ -411,7 +242,7 @@
 /datum/action/innate/mimicking/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Mimicking", "Mimicking")
+		ui = new(user, src, "Mimicking", "Подражание")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -443,12 +274,12 @@
 			empty_slots++
 		if("Add")
 			if(empty_slots < 1)
-				to_chat(owner, span_notice("You have no available slots."))
+				to_chat(owner, span_notice("У вас нет свободных слотов."))
 				return
-			var/voice_name = tgui_input_text(owner, "Choose a name for slot.", "Mimicking")
+			var/voice_name = tgui_input_text(owner, "Выберите имя для слота", "Подражание")
 			if(!voice_name)
 				return
-			var/voice_seed = tgui_input_list(owner, "Choose a voice for slot", "Mimicking", available_voices, owner.tts_seed)
+			var/voice_seed = tgui_input_list(owner, "Выберите TTS-голос для слота.", "Подражание", available_voices, owner.tts_seed)
 			if(!voice_seed)
 				return
 			var/new_voice = new /datum/mimicking_voice(voice_name, voice_seed)
@@ -494,12 +325,12 @@
 	set name = "Имитировать голос"
 	set category = STATPANEL_IC
 	if(!H)
-		to_chat(usr, span_notice("Use right click to choose target correctly."))
+		to_chat(usr, span_notice("Используйте <b>ПКМ</b> для выбора цели."))
 	var/datum/action/innate/mimicking/mimic = locate(/datum/action/innate/mimicking) in usr.actions
 	if(!mimic)
 		return
 	if(mimic.empty_slots < 1)
-		to_chat(usr, span_notice("You have no available slots."))
+		to_chat(usr, span_notice("У вас нет свободных слотов."))
 		return
 	var/new_voice = new /datum/mimicking_voice(H.name, H.tts_seed)
 	mimic.add_voice(new_voice)
@@ -507,7 +338,7 @@
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
-	name = "Toggle Clown Clumsy"
+	name = "Переключить клоунскую неуклюжесть"
 	button_icon_state = "clown"
 
 /datum/action/innate/toggle_clumsy/Activate()
@@ -517,7 +348,7 @@
 	active = TRUE
 	background_icon_state = "bg_spell"
 	UpdateButtonIcon()
-	to_chat(clown, span_notice("You start acting clumsy to throw suspicions off. Focus again before using weapons."))
+	to_chat(clown, span_notice("Вы начинаете вести тебя неуклюже, чтобы сбросить с себя подозрения."))
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/clown = owner
@@ -526,30 +357,21 @@
 	active = FALSE
 	background_icon_state = "bg_default"
 	UpdateButtonIcon()
-	to_chat(clown, span_notice("You focus and can now use weapons regularly."))
+	to_chat(clown, span_notice("Вы фокусируетесь на задаче и перестаёте вести себя неуклюже."))
 
-/datum/job/mime
+/datum/job/service/mime
 	title = JOB_TITLE_MIME
 	flag = JOB_FLAG_MIME
-	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Panthomimist")
 	outfit = /datum/outfit/job/mime
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
 /datum/outfit/job/mime
-	name = "Mime"
-	jobtype = /datum/job/mime
+	name = JOB_TITLE_MIME
+	jobtype = /datum/job/service/mime
 
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
@@ -583,56 +405,37 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
-/datum/job/janitor
+/datum/job/service/janitor
 	title = JOB_TITLE_JANITOR
 	flag = JOB_FLAG_JANITOR
-	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Custodial Technician","Sanitation Technician")
+	alt_titles = list("Custodial Technician", "Sanitation Technician")
 	outfit = /datum/outfit/job/janitor
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
 /datum/outfit/job/janitor
-	name = "Janitor"
-	jobtype = /datum/job/janitor
+	name = JOB_TITLE_JANITOR
+	jobtype = /datum/job/service/janitor
 
 	uniform = /obj/item/clothing/under/rank/janitor
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
 
-//More or less assistants
-/datum/job/librarian
+/datum/job/service/librarian
 	title = JOB_TITLE_LIBRARIAN
 	flag = JOB_FLAG_LIBRARIAN
-	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
 	access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Journalist")
 	outfit = /datum/outfit/job/librarian
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
 /datum/outfit/job/librarian
-	name = "Librarian"
-	jobtype = /datum/job/librarian
+	name = JOB_TITLE_LIBRARIAN
+	jobtype = /datum/job/service/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
 	l_ear = /obj/item/radio/headset/headset_service
@@ -644,25 +447,98 @@
 		/obj/item/videocam = 1,
 	)
 
-/datum/job/explorer
+/datum/job/service/chaplain
+	title = JOB_TITLE_CHAPLAIN
+	flag = JOB_FLAG_CHAPLAIN
+	total_positions = 1
+	spawn_positions = 1
+	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
+	alt_titles = list("Priest", "Monk", "Preacher", "Reverend", "Oracle", "Nun", "Imam", "Exorcist")
+	outfit = /datum/outfit/job/chaplain
+
+/datum/outfit/job/chaplain
+	name = JOB_TITLE_CHAPLAIN
+	jobtype = /datum/job/service/chaplain
+
+	uniform = /obj/item/clothing/under/rank/chaplain
+	l_ear = /obj/item/radio/headset/headset_service
+	pda = /obj/item/pda/chaplain
+	backpack_contents = list(
+		/obj/item/camera/spooky = 1,
+		/obj/item/nullrod = 1,
+	)
+
+/datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+
+	if(visualsOnly)
+		return
+
+	if(H.mind)
+		H.mind.isholy = TRUE
+		ADD_TRAIT(H, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
+
+	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
+
+/datum/outfit/job/chaplain/proc/religion_pick(mob/living/carbon/human/user)
+	var/obj/item/storage/bible/bible = new /obj/item/storage/bible(get_turf(user))
+	bible.customisable = TRUE // Only the initial bible is customisable
+	user.put_in_l_hand(bible)
+
+	var/religion_name = "Christianity"
+	var/new_religion = tgui_input_text(user, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, max_length = MAX_NAME_LEN)
+
+	if(!new_religion)
+		new_religion = religion_name
+
+	switch(lowertext(new_religion))
+		if("christianity")
+			bible.name = "The Holy Bible"
+		if("satanism")
+			bible.name = "The Unholy Bible"
+		if("cthulu")
+			bible.name = "The Necronomicon"
+		if("islam")
+			bible.name = "Quran"
+		if("scientology")
+			bible.name = pick("The Biography of L. Ron Hubbard", "Dianetics")
+		if("chaos")
+			bible.name = "The Book of Lorgar"
+		if("imperium")
+			bible.name = "Uplifting Primer"
+		if("toolboxia")
+			bible.name = "Toolbox Manifesto Robusto"
+		if("science")
+			bible.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
+		else
+			bible.name = "The Holy Book of [new_religion]"
+	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
+
+	var/deity_name = "Space Jesus"
+	var/new_deity = tgui_input_text(user, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, max_length = MAX_NAME_LEN)
+
+	if(!length(new_deity) || (new_deity == "Space Jesus"))
+		new_deity = deity_name
+	bible.deity_name = new_deity
+	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
+
+	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
+
+	if(SSticker)
+		SSticker.Bible_deity_name = bible.deity_name
+
+/datum/job/service/explorer
 	title = JOB_TITLE_EXPLORER
 	flag = JOB_FLAG_EXPLORER
-	department_flag = JOBCAT_SUPPORT
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	outfit = /datum/outfit/job/explorer
 	hidden_from_job_prefs = TRUE
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
 /datum/outfit/job/explorer
 	// This outfit is never used, because there are no slots for this job.
 	// To get it, you have to go to the HOP and ask for a transfer to it.
-	name = "Explorer"
-	jobtype = /datum/job/explorer
+	name = JOB_TITLE_EXPLORER
+	jobtype = /datum/job/service/explorer
 	uniform = /obj/item/clothing/under/color/random

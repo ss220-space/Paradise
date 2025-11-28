@@ -1,3 +1,9 @@
+/// Amount of time after the rounds starts, that the player disconnect report is issued.
+#define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
+
+/// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1
+
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -954,3 +960,6 @@
 
 /datum/game_mode/proc/late_join(mob/new_player/player)
 	return FALSE
+
+#undef ROUNDSTART_LOGOUT_REPORT_TIME
+#undef STATION_GOAL_BUDGET

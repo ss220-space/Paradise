@@ -457,23 +457,21 @@
 
 	return ..()
 
-//Jungle grass
-
+// MARK: Jungle grass
 /obj/structure/flora/grass/jungle
 	name = "jungle grass"
 	desc = "Thick alien flora."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "grassa"
+	icon_state = "grass1"
+	base_icon_state = "grass"
+	/// Controls how many variants of the sprite exists
+	var/variations = 10
 
 /obj/structure/flora/grass/jungle/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 5)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/grass/jungle/b
-	icon_state = "grassb"
-
-//Jungle rocks
-
+// MARK: Jungle rocks
 /obj/structure/flora/rock/jungle
 	icon_state = "rock"
 	desc = "A pile of rocks."
@@ -483,40 +481,38 @@
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,5)]"
 
-//Jungle bushes
-
+// MARK: Jungle bushes
 /obj/structure/flora/junglebush
 	name = "bush"
 	desc = "A wild plant that is found in jungles."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "busha"
+	icon_state = "bush1"
+	base_icon_state = "bush"
+	anchored = TRUE
+	/// Controls how many variants of the sprite exists
+	var/variations = 9
 
 /obj/structure/flora/junglebush/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 3)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/junglebush/b
-	icon_state = "bushb"
-
-/obj/structure/flora/junglebush/c
-	icon_state = "bushc"
-
 /obj/structure/flora/junglebush/large
-	icon_state = "bush"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -12
 	layer = ABOVE_ALL_MOB_LAYER
+	variations = 3
 
 /obj/structure/flora/rock/pile/largejungle
-	icon_state = "rocks"
+	icon_state = "rocks1"
+	base_icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -16
 
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
-	icon_state = "[initial(icon_state)][rand(1,3)]"
+	icon_state = "[initial(base_icon_state)][rand(1,3)]"
 
 //hellflora from shiptest
 /obj/structure/flora/firebush

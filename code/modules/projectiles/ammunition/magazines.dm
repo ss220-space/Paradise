@@ -435,7 +435,7 @@
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
 	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный патронами калибра 4,6x30 мм."
-	icon_state = "46x30mmt-20"
+	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = CALIBER_4_DOT_6X30MM
 	max_ammo = 30

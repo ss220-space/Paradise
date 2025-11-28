@@ -142,6 +142,16 @@
 #define SUIT_SENSOR_VITAL 2
 #define SUIT_SENSOR_TRACKING 3
 
+//suit sensors: sensor_mode defines
+/// Suit sensor is turned off
+#define SENSOR_OFF 0
+/// Suit sensor displays the mob as alive or dead
+#define SENSOR_LIVING 1
+/// Suit sensor displays the mob damage values
+#define SENSOR_VITALS 2
+/// Suit sensor displays the mob damage values and exact location
+#define SENSOR_COORDS 3
+
 //flags for muzzle speech blocking
 #define MUZZLE_MUTE_NONE 0 // Does not mute you.
 #define MUZZLE_MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
@@ -197,4 +207,3 @@
 #define ADD_CLOTHING_TRAIT(mob, cloth, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID_of(cloth)]")
 /// Wrapper for removing clothing based traits
 #define REMOVE_CLOTHING_TRAIT(mob, cloth, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID_of(cloth)]")
-

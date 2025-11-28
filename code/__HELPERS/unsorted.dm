@@ -969,6 +969,17 @@ Standard way to write links -Sayu
 
 	return TRUE
 
+//check_target_facings() return defines
+/// Facing failed
+#define FACING_FAILED 0
+/// Two mobs are facing the same direction
+#define FACING_SAME_DIR 1
+/// Two mobs are facing each others
+#define FACING_EACHOTHER 2
+/// Two mobs one is facing a person, but the other is perpendicular
+#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //Do I win the most informative but also most stupid define award?
+
+///Returns the direction that the initiator and the target are facing
 /proc/check_target_facings(mob/living/initator, mob/living/target)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
@@ -982,6 +993,11 @@ Standard way to write links -Sayu
 		return FACING_EACHOTHER
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+
+#undef FACING_FAILED
+#undef FACING_SAME_DIR
+#undef FACING_EACHOTHER
+#undef FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
 /atom/proc/GetTypeInAllContents(typepath)
 	var/list/processing_list = list(src)
@@ -1041,48 +1057,6 @@ Standard way to write links -Sayu
 		dest_x = max(0, dest_x-distance)
 
 	return locate(dest_x,dest_y,dest_z)
-
-GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
-
-//Version of view() which ignores darkness, because BYOND doesn't have it.
-/proc/dview(range = world.view, center, invis_flags = 0)
-	if(!center)
-		return
-
-	GLOB.dview_mob.loc = center
-
-	GLOB.dview_mob.set_invis_see(invis_flags)
-
-	. = view(range, GLOB.dview_mob)
-	GLOB.dview_mob.loc = null
-
-/mob/dview
-	name = "INTERNAL DVIEW MOB"
-	invisibility = INVISIBILITY_ABSTRACT
-	density = FALSE
-	move_force = 0
-	pull_force = 0
-	move_resist = INFINITY
-	simulated = 0
-	var/ready_to_die = FALSE
-
-/mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
-	SHOULD_CALL_PARENT(FALSE)
-	if(flags & INITIALIZED)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	flags |= INITIALIZED
-	return INITIALIZE_HINT_NORMAL
-
-/mob/dview/Destroy(force = FALSE)
-	if(!ready_to_die)
-		stack_trace("ALRIGHT WHICH FUCKER TRIED TO DELETE *MY* DVIEW?")
-
-		if(!force)
-			return QDEL_HINT_LETMELIVE
-
-		log_world("EVACUATE THE SHITCODE IS TRYING TO STEAL MUH JOBS")
-		GLOB.dview_mob = new
-	return ..()
 
 /proc/IsValidSrc(A)
 	if(isdatum(A))

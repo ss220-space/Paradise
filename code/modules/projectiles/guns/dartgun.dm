@@ -18,7 +18,7 @@
 /obj/item/gun/dartgun
 	name = "dart gun"
 	desc = "A small gas-powered dartgun, capable of delivering chemical cocktails swiftly across short distances."
-	icon_state = "dartgun-empty"
+	icon_state = "dartgun-e"
 
 	var/list/beakers = list() //All containers inside the gun.
 	var/list/mixing = list() //Containers being used for mixing.
@@ -274,7 +274,6 @@
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
-	icon_state = "dartgun-e"
 
 /obj/item/gun/dartgun/vox/medical
 	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")
@@ -286,7 +285,7 @@
 	name = ""
 	desc = ""
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
+	icon_state = null
 
 /obj/effect/syringe_gun_dummy/Initialize(mapload)
 	. = ..()
