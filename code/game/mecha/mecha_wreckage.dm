@@ -155,6 +155,10 @@
 		/obj/item/mecha_parts/part/ripley_right_leg,
 	)
 
+/obj/structure/mecha_wreckage/ripley/mkii
+	name = "Ripley MK-II wreckage"
+	icon_state = "ripleymkii-broken"
+
 /obj/structure/mecha_wreckage/ripley/firefighter
 	name = "Firefighter wreckage"
 	icon_state = "firefighter-broken"

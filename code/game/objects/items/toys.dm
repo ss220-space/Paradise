@@ -528,6 +528,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 
+/obj/item/inflatable_duck
+	name = "inflatable duck"
+	desc = "No bother to sink or swim when you can just float!"
+	icon_state = "inflatable"
+	item_state = "inflatable"
+	icon = 'icons/obj/clothing/belts.dmi'
+	slot_flags = ITEM_SLOT_BELT
+
 /*
  * Fake meteor
  */
