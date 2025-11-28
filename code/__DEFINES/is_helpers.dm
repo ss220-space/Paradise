@@ -127,6 +127,31 @@
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 
+#define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
+
+#define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
+
+#define is_camera(A) (istype(A, /obj/item/camera))
+
+#define is_module_circuit(A) (istype(A, /obj/item/circuit_component/module))
+
+#define is_integrated_circuit(A) (istype(A, /obj/item/integrated_circuit))
+
+#define is_circuit(A) (is_module_circuit(A) || is_integrated_circuit(A))
+
+#define is_circuit_component(A) (istype(A, /obj/item/circuit_component))
+
+#define is_circuit_multitool(A) (istype(A, /obj/item/multitool/circuit))
+
+#define is_bci(A) (istype(A, /obj/item/organ/internal/cyberimp/brain/bci))
+
+#define is_module_output(A) (istype(A, /obj/item/circuit_component/module_output))
+
+#define is_module_input(A) (istype(A, /obj/item/circuit_component/module_input))
+
+
+#define is_mmi(A) (istype(A, /obj/item/mmi))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -254,6 +279,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ispathbot(A) (ispath(A, /mob/living/simple_animal/bot))
 #define ispathsilicon(A) (ispath(A, /mob/living/silicon))
 #define ispathanimal(A) (ispath(A, /mob/living/simple_animal))
+#define is_circuit_drone(A) (istype(A, /mob/living/simple_animal/circuit_drone))
 
 #define isAIEye(A) (istype((A), /mob/camera/aiEye))
 #define isovermind(A) (istype((A), /mob/camera/blob))

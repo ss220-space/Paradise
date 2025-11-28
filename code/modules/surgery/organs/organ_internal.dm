@@ -74,6 +74,8 @@
 	if(vital)
 		target.update_stat("Vital organ inserted")
 
+	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, target)
+
 	STOP_PROCESSING(SSobj, src)
 
 /**

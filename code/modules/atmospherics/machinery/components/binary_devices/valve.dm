@@ -80,6 +80,12 @@
 	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
 
+/obj/machinery/atmospherics/binary/valve/digital/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/digital_valve
+	))
+
 /obj/machinery/atmospherics/binary/valve/digital/Destroy()
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
@@ -141,3 +147,62 @@
 			else
 				if(open)
 					close()
+
+/obj/item/circuit_component/digital_valve
+	display_name = "Цифровой клапан"
+	desc = "Интерфейс для связи с цифровым клапаном."
+
+	var/obj/machinery/atmospherics/binary/valve/digital/attached_valve
+
+	/// Opens the digital valve
+	var/datum/port/input/open
+	/// Closes the digital valve
+	var/datum/port/input/close
+
+	/// Whether the valve is currently open
+	var/datum/port/output/is_open
+	/// Sent when the valve is opened
+	var/datum/port/output/opened
+	/// Sent when the valve is closed
+	var/datum/port/output/closed
+
+/obj/item/circuit_component/digital_valve/populate_ports()
+	open = add_input_port("Открыть", PORT_TYPE_SIGNAL)
+	close = add_input_port("Закрыть", PORT_TYPE_SIGNAL)
+
+	is_open = add_output_port("Открыто", PORT_TYPE_NUMBER)
+	opened = add_output_port("Открыт", PORT_TYPE_SIGNAL)
+	closed = add_output_port("Закрыт", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/digital_valve/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(!istype(shell, /obj/machinery/atmospherics/binary/valve/digital))
+		return
+
+	attached_valve = shell
+	RegisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN, PROC_REF(handle_valve_toggled))
+
+/obj/item/circuit_component/digital_valve/unregister_usb_parent(atom/movable/shell)
+	UnregisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN)
+	attached_valve = null
+	return ..()
+
+/obj/item/circuit_component/digital_valve/proc/handle_valve_toggled(datum/source, on)
+	SIGNAL_HANDLER
+	is_open.set_output(on)
+	if(on)
+		opened.set_output(COMPONENT_SIGNAL)
+		return
+
+	closed.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/digital_valve/input_received(datum/port/input/port)
+	if(!attached_valve)
+		return
+
+	if(COMPONENT_TRIGGERED_BY(open, port) && !attached_valve.on)
+		attached_valve.toggle()
+
+	if(COMPONENT_TRIGGERED_BY(close, port) && attached_valve.on)
+		attached_valve.toggle()
+

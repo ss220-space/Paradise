@@ -51,6 +51,10 @@ GLOBAL_LIST_EMPTY(firealarms)
 	if(is_station_contact(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/firealarm,
+	))
+
 	update_fire_light()
 	update_icon()
 
@@ -299,36 +303,40 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 /obj/machinery/firealarm/proc/toggle_alarm(mob/user)
 	var/area/A = get_area(src)
-	if(istype(A))
-		add_fingerprint(user)
-		last_time_pulled = world.time
-		if(A.fire)
-			reset()
-		else
-			alarm()
+	if(!istype(A))
+		return
+
+	add_fingerprint(user)
+	last_time_pulled = world.time
+	if(A.fire)
+		reset()
+	else
+		alarm()
 
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
 	switch(buildstage)
 		if(FIRE_ALARM_FRAME)
-			. += "<span class='notice'>It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.</span>"
+			. += span_notice("It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.")
 		if(FIRE_ALARM_UNWIRED)
-			. += "<span class='notice'>The control board needs <i>wiring</i> and can be <b>pried out</b>.</span>"
+			. += span_notice("The control board needs <i>wiring</i> and can be <b>pried out</b>.")
 		if(FIRE_ALARM_READY)
 			if(wiresexposed)
-				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
-				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
+				. += span_notice("The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.")
+				. += span_notice("The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.")
 
 	. += "It shows the alert level as: <b><u>[capitalize(SSsecurity_level.get_current_level_as_text())]</u></b>."
 
 /obj/machinery/firealarm/proc/reset()
 	if(!working || !report_fire_alarms)
 		return
+	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
 	myArea?.firereset(src)
 
 /obj/machinery/firealarm/proc/alarm()
 	if(!working || !report_fire_alarms)
 		return
+	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 	myArea?.firealert(src)
 
 /*
@@ -344,6 +352,63 @@ Just a object used in constructing fire alarms
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/circuit_component/firealarm
+	display_name = "Пожарная сигнализация"
+	desc = "Интерфейс управления пожарной сигнализацией."
+
+	var/datum/port/input/alarm_trigger
+	var/datum/port/input/reset_trigger
+
+	/// Returns a boolean value of 0 or 1 if the fire alarm is on or not.
+	var/datum/port/output/is_on
+	/// Returns when the alarm is turned on
+	var/datum/port/output/triggered
+	/// Returns when the alarm is turned off
+	var/datum/port/output/reset
+
+	var/obj/machinery/firealarm/attached_alarm
+
+/obj/item/circuit_component/firealarm/populate_ports()
+	alarm_trigger = add_input_port("Тревога", PORT_TYPE_SIGNAL)
+	reset_trigger = add_input_port("Отбой", PORT_TYPE_SIGNAL)
+
+	is_on = add_output_port("Статус", PORT_TYPE_NUMBER)
+	triggered = add_output_port("Тревога", PORT_TYPE_SIGNAL)
+	reset = add_output_port("Отбой", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/firealarm/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(!istype(parent, /obj/machinery/firealarm))
+		return
+
+	attached_alarm = parent
+	RegisterSignal(parent, COMSIG_FIREALARM_ON_TRIGGER, PROC_REF(on_firealarm_triggered))
+	RegisterSignal(parent, COMSIG_FIREALARM_ON_RESET, PROC_REF(on_firealarm_reset))
+
+/obj/item/circuit_component/firealarm/unregister_usb_parent(atom/movable/parent)
+	attached_alarm = null
+	UnregisterSignal(parent, COMSIG_FIREALARM_ON_TRIGGER)
+	UnregisterSignal(parent, COMSIG_FIREALARM_ON_RESET)
+	return ..()
+
+/obj/item/circuit_component/firealarm/proc/on_firealarm_triggered(datum/source)
+	SIGNAL_HANDLER
+	is_on.set_output(TRUE)
+	triggered.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/firealarm/proc/on_firealarm_reset(datum/source)
+	SIGNAL_HANDLER
+	is_on.set_output(FALSE)
+	reset.set_output(COMPONENT_SIGNAL)
+
+
+/obj/item/circuit_component/firealarm/input_received(datum/port/input/port)
+	if(COMPONENT_TRIGGERED_BY(alarm_trigger, port))
+		attached_alarm?.alarm()
+
+	if(COMPONENT_TRIGGERED_BY(reset_trigger, port))
+		attached_alarm?.reset()
 
 #undef FIRE_ALARM_FRAME
 #undef FIRE_ALARM_UNWIRED

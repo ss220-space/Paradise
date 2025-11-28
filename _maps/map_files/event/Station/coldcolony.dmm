@@ -22358,6 +22358,20 @@
 /obj/structure/table,
 /obj/item/gps/science,
 /obj/item/storage/toolbox/mechanical,
+/obj/item/multitool/circuit,
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_x = 2;
+	pixel_y = 0
+	},
+/obj/item/compact_remote{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/compact_remote{
+	pixel_x = 11;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
