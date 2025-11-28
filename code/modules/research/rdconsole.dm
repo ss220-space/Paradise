@@ -156,6 +156,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
+				linked_imprinter.update_components_list()
 
 /// Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -305,12 +306,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			server_processed = TRUE
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
+
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
+
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
 	clear_wait_message()
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()

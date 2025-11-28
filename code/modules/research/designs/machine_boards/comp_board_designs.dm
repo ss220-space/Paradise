@@ -282,14 +282,6 @@
 	build_path = /obj/item/circuitboard/teleporter
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
 
-/datum/design/teleconsole_robotics
-	id = "teleconsole_robotics"
-	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_BLUESPACE = 3, RESEARCH_TREE_PLASMA = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/teleporter/robotics
-	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
-
 /datum/design/GAC
 	id = "GAC"
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_MAGNETS = 2)

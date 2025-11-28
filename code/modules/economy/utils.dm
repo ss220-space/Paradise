@@ -30,6 +30,9 @@
 /proc/get_account_from_card(obj/item/card/id/id)
 	return get_money_account(id.associated_account_number)
 
+/obj/item/proc/get_item_credit_value()
+	return
+
 /obj/machinery/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user, price, vended_name, datum/money_account/account_we_pay_on = GLOB.vendor_account)
 	if(price > cashmoney.amount)
 		// This is not a status display message, since it's something the character

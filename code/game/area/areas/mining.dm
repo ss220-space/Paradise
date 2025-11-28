@@ -37,36 +37,6 @@
 	max_ambience_cooldown = 220 SECONDS
 	holomap_should_draw = FALSE
 
-/area/mine/unexplored/cere
-	ignore_gravgen = TRUE
-
-/area/mine/unexplored/cere/ai
-	name = "Астероид ИИ"
-
-/area/mine/unexplored/cere/cargo
-	name = "Грузовой астероид"
-
-/area/mine/unexplored/cere/civilian
-	name = "Гражданский астероид"
-
-/area/mine/unexplored/cere/command
-	name = "Командный астероид"
-
-/area/mine/unexplored/cere/docking
-	name = "Стыковочный астероид"
-
-/area/mine/unexplored/cere/engineering
-	name = "Инженерный астероид"
-
-/area/mine/unexplored/cere/medical
-	name = "Медицинский астероид"
-
-/area/mine/unexplored/cere/research
-	name = "Исследовательский астероид"
-
-/area/mine/unexplored/cere/orbiting
-	name = "Астероиды у станции"
-
 /area/mine/lobby
 	name = "Шахтёрский аванпост"
 
