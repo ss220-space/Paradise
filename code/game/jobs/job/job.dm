@@ -1,9 +1,9 @@
 /datum/job
 
-	///The name of the job
+	/// The name of the job
 	var/title = "NOPE"
 
-	///Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
+	/// Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
 	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
 	var/law_level = LAW_LEVEL_BASE
@@ -81,9 +81,9 @@
 	// /vg/ feature: Job Objectives!
 	/////////////////////////////////
 
-	///Objectives that are ALWAYS added.
+	/// Objectives that are ALWAYS added.
 	var/required_objectives=list()
-	///Objectives that are SOMETIMES added.
+	/// Objectives that are SOMETIMES added.
 	var/optional_objectives=list()
 
 	var/insurance = INSURANCE_STANDART
