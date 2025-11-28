@@ -1,6 +1,3 @@
-/// max_start_money = paycheck * multiplier
-#define MAX_START_MONEY_MULTIPLIER 3
-
 /datum/job
 
 	/// The name of the job
@@ -99,11 +96,17 @@
 	/// Whether this is a head position
 	var/head_position = 0
 
+#define MAX_START_MONEY_MULTIPLIER 3
+
 /datum/job/New()
 	. = ..()
-	if(paycheck)
-		min_start_money = paycheck
-		max_start_money = paycheck * MAX_START_MONEY_MULTIPLIER
+	if(!paycheck)
+		return
+
+	min_start_money = paycheck
+	max_start_money = paycheck * MAX_START_MONEY_MULTIPLIER
+
+#undef MAX_START_MONEY_MULTIPLIER
 
 /// Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
@@ -344,5 +347,3 @@
 		if(job_exp >= job_requirement)
 			return FALSE
 	return TRUE
-
-#undef MAX_START_MONEY_MULTIPLIER

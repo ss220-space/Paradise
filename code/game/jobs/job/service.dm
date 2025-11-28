@@ -482,9 +482,9 @@
 	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
 
 /datum/outfit/job/chaplain/proc/religion_pick(mob/living/carbon/human/user)
-	var/obj/item/storage/bible/B = new /obj/item/storage/bible(get_turf(user))
-	B.customisable = TRUE // Only the initial bible is customisable
-	user.put_in_l_hand(B)
+	var/obj/item/storage/bible/bible = new /obj/item/storage/bible(get_turf(user))
+	bible.customisable = TRUE // Only the initial bible is customisable
+	user.put_in_l_hand(bible)
 
 	var/religion_name = "Christianity"
 	var/new_religion = tgui_input_text(user, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, max_length = MAX_NAME_LEN)
@@ -494,25 +494,25 @@
 
 	switch(lowertext(new_religion))
 		if("christianity")
-			B.name = "The Holy Bible"
+			bible.name = "The Holy Bible"
 		if("satanism")
-			B.name = "The Unholy Bible"
+			bible.name = "The Unholy Bible"
 		if("cthulu")
-			B.name = "The Necronomicon"
+			bible.name = "The Necronomicon"
 		if("islam")
-			B.name = "Quran"
+			bible.name = "Quran"
 		if("scientology")
-			B.name = pick("The Biography of L. Ron Hubbard", "Dianetics")
+			bible.name = pick("The Biography of L. Ron Hubbard", "Dianetics")
 		if("chaos")
-			B.name = "The Book of Lorgar"
+			bible.name = "The Book of Lorgar"
 		if("imperium")
-			B.name = "Uplifting Primer"
+			bible.name = "Uplifting Primer"
 		if("toolboxia")
-			B.name = "Toolbox Manifesto Robusto"
+			bible.name = "Toolbox Manifesto Robusto"
 		if("science")
-			B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
+			bible.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
 		else
-			B.name = "The Holy Book of [new_religion]"
+			bible.name = "The Holy Book of [new_religion]"
 	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
 	var/deity_name = "Space Jesus"
@@ -520,13 +520,13 @@
 
 	if(!length(new_deity) || (new_deity == "Space Jesus"))
 		new_deity = deity_name
-	B.deity_name = new_deity
+	bible.deity_name = new_deity
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
 
 	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
 
 	if(SSticker)
-		SSticker.Bible_deity_name = B.deity_name
+		SSticker.Bible_deity_name = bible.deity_name
 
 /datum/job/service/explorer
 	title = JOB_TITLE_EXPLORER

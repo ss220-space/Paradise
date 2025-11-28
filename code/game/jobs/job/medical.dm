@@ -74,22 +74,23 @@
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Surgeon")
-				uniform = /obj/item/clothing/under/rank/medical/blue
-				head = /obj/item/clothing/head/surgery/blue
-			if(JOB_TITLE_DOCTOR)
-				uniform = /obj/item/clothing/under/rank/medical
-			if("Nurse")
-				if(H.gender == FEMALE)
-					if(prob(50))
-						uniform = /obj/item/clothing/under/rank/nursesuit
-					else
-						uniform = /obj/item/clothing/under/rank/nurse
-					head = /obj/item/clothing/head/nursehat
-				else
-					uniform = /obj/item/clothing/under/rank/medical/purple
+	if(!H.mind || !H.mind.role_alt_title)
+		return
+	switch(H.mind.role_alt_title)
+		if(JOB_TITLE_DOCTOR)
+			uniform = /obj/item/clothing/under/rank/medical
+		if("Surgeon")
+			uniform = /obj/item/clothing/under/rank/medical/blue
+			head = /obj/item/clothing/head/surgery/blue
+		if("Nurse")
+			if(!H.gender == FEMALE)
+				uniform = /obj/item/clothing/under/rank/medical/purple
+				return
+			if(prob(50))
+				uniform = /obj/item/clothing/under/rank/nursesuit
+			else
+				uniform = /obj/item/clothing/under/rank/nurse
+			head = /obj/item/clothing/head/nursehat
 
 /datum/job/medical/doctor/intern
 	title = JOB_TITLE_INTERN
