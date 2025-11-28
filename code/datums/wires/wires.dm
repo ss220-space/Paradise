@@ -102,6 +102,25 @@
 		ui = new(user, src, "Wires", "[proper_name] wires")
 		ui.open()
 
+/**
+ * Used for wire name appearances. Replaces the color name on the left with the one on the right.
+ * The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
+ * So, we need to replace the name to something that looks better.
+ */
+#define LIST_COLOR_RENAME list( \
+	"rebeccapurple" = "dark purple", \
+	"darkslategrey" = "dark grey", \
+	"darkolivegreen" = "dark green", \
+	"darkslateblue" = "dark blue", \
+	"darkkhaki" = "khaki", \
+	"darkseagreen" = "light green", \
+	"midnightblue" = "blue", \
+	"lightgrey" = "light grey", \
+	"darkgrey" = "dark grey", \
+	"steelblue" = "blue", \
+	"goldenrod" = "gold" \
+)
+
 /datum/wires/ui_data(mob/user)
 	var/list/data = list()
 	var/list/replace_colors
@@ -152,6 +171,8 @@
 
 	data["status"] = status
 	return data
+
+#undef LIST_COLOR_RENAME
 
 /datum/wires/ui_act(action, list/params)
 	if(..())

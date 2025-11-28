@@ -964,7 +964,7 @@
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
 	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
-	var/new_log = "\[[time_stamp()]] [text]"
+	var/new_log = "\[[time_stamp()]\] [text]"
 
 	if(length(target))//if there are other logs already present
 		var/previous_log = target[length(target)]//get the latest log
@@ -990,7 +990,7 @@
 
 				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
 
-			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
+			new_log = "\[[old_timestamp]-[time_stamp()]\]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
 			target -= target[length(target)]//remove the last log
 
 	target += new_log
