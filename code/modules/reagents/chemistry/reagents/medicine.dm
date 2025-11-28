@@ -1770,7 +1770,13 @@
 	overdose_threshold = 15
 
 /datum/reagent/medicine/sanguinius/on_mob_life(mob/living/user)
-	if(ishuman(user) && !HAS_TRAIT(user, TRAIT_NO_BLOOD) && !HAS_TRAIT(user, TRAIT_NO_BLOOD_RESTORE) && user.blood_volume < BLOOD_VOLUME_NORMAL)
+	if(!ishuman(user))
+		return
+
+	if(HAS_TRAIT(user, TRAIT_NO_BLOOD) || HAS_TRAIT(user, TRAIT_NO_BLOOD_RESTORE))
+		return ..()
+
+	if(user.blood_volume < BLOOD_VOLUME_NORMAL)
 		switch(current_cycle)
 			if(1)
 				user.AdjustBlood(1)
@@ -1782,28 +1788,32 @@
 	return ..()
 
 /datum/reagent/medicine/sanguinius/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(!ishuman(M))
-		return
-	var/mob/living/carbon/human/user = M
-	if(volume < 20)
-		if(prob(10))
-			to_chat(user, span_warning("Вы кашляете запекшейся кровью."))
-			user.vomit(0, VOMIT_BLOOD, 0)
-			user.AdjustBlood(-15)
-		else if(prob(10))
-			var/overdose_message = pick("На мгновение ваше зрение окрасилось в красный цвет.", "Вы слышите, как бьется ваше сердце.")
-			to_chat(user, span_warning("[overdose_message]"))
-	else
-		if(prob(10))
-			to_chat(user, span_danger("Вы захлёбываетесь своей запекшейся кровью!"))
-			user.AdjustLoseBreath(2 SECONDS)
-			user.vomit(0, VOMIT_BLOOD, 0)
-			user.AdjustBlood(-30)
-		else if(prob(10))
-			var/overdose_message = pick("Ваши глаза застелает кровавая пелена!", "Стук вашего сердца гремит в ушах", "Ваши вены вздуваются под кожей!")
-			to_chat(user, span_danger("[overdose_message]"))
-			user.adjustBruteLoss(6)
-			user.client.color = "red"
-			addtimer(VARSET_CALLBACK(user.client, color, ""), 6 SECONDS)
-	return list(0, update_flags)
+    . = list(0, STATUS_UPDATE_NONE)
+    if(!ishuman(M))
+        return
+    var/mob/living/carbon/human/user = M
+    if(volume < 20)
+        if(prob(10))
+            to_chat(user, span_warning("Вы кашляете запекшейся кровью."))
+            user.vomit(0, VOMIT_BLOOD, 0)
+            user.AdjustBlood(-15)
+            return .
+        if(!prob(10))
+            return .
+        var/overdose_message = pick("На мгновение ваше зрение окрасилось в красный цвет.", "Вы слышите, как бьется ваше сердце.")
+        to_chat(user, span_warning("[overdose_message]"))
+        return .
+
+    if(prob(10))
+        to_chat(user, span_danger("Вы захлёбываетесь своей запекшейся кровью!"))
+        user.AdjustLoseBreath(2 SECONDS)
+        user.vomit(0, VOMIT_BLOOD, 0)
+        user.AdjustBlood(-30)
+        return .
+    if(!prob(10))
+        return .
+    var/overdose_message = pick("Ваши глаза застелает кровавая пелена!", "Стук вашего сердца гремит в ушах", "Ваши вены вздуваются под кожей!")
+    to_chat(user, span_danger("[overdose_message]"))
+    user.adjustBruteLoss(6)
+    user.client.color = "red"
+    addtimer(VARSET_CALLBACK(user.client, color, ""), 6 SECONDS)
