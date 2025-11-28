@@ -331,6 +331,25 @@
 		material_amount += I.materials[MAT]
 	return material_amount
 
+//============================================================================================
+
+/// List format is list(material_name = list(amount = ..., ref = ..., etc.))
+/datum/component/material_container/ui_data(mob/user)
+	var/list/data = list()
+
+	for(var/material_id in materials)
+		var/datum/material/material = materials[material_id]
+
+		data += list(list(
+			"name" = material.name,
+			"ref" = material.UID(),
+			"amount" = material.amount,
+		))
+
+	return data
+
+//============================================================================================
+
 /datum/material
 	var/name
 	var/amount = 0

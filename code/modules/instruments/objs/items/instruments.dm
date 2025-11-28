@@ -13,17 +13,6 @@
 	item_state = "golden_violin"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/instrument/piano_synth
-	name = "synthesizer"
-	desc = "An advanced electronic synthesizer that can be used as various instruments."
-	icon_state = "synth"
-	item_state = "synth"
-	allowed_instrument_ids = "piano"
-
-/obj/item/instrument/piano_synth/Initialize(mapload)
-	. = ..()
-	song.allowed_instrument_ids = SSinstruments.synthesizer_instrument_ids
-
 /obj/item/instrument/banjo
 	name = "banjo"
 	desc = "A 'Mura' brand banjo. It's pretty much just a drum with a neck and strings."

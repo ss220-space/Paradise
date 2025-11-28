@@ -3,7 +3,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(!gibbed && container && istype(container, /obj/item/mmi))//If not gibbed but in a container.
+	if(!gibbed && container && is_mmi(container))//If not gibbed but in a container.
 		var/obj/item/mmi/mmi = container
 		visible_message("<span class='danger'>[src]'s MMI flatlines!</span>", "<span class='warning'>You hear something flatline.</span>")
 		mmi.icon_state = mmi.dead_icon
@@ -18,7 +18,7 @@
 
 	gibs(loc, dna)
 
-	if(container && istype(container, /obj/item/mmi))
+	if(container && is_mmi(container))
 		qdel(container)//Gets rid of the MMI if there is one
 	if(loc)
 		if(istype(loc,/obj/item/organ/internal/brain))

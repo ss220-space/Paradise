@@ -23,14 +23,19 @@
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
 	var/mineralAmt = 1
-	var/spread = 0 //will the seam spread?
-	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
-	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
+	/// Will the seam spread?
+	var/spread = 0
+	/// The percentual chance of an ore spreading to the neighbouring tiles
+	var/spreadChance = 0
+	/// Holder for the image we display when we're pinged by a mining scanner
+	var/scan_state = ""
 	var/defer_change = 0
-	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	/// Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	var/mine_time = 4 SECONDS
 	/// Should this be set to the normal rock colour on init?
 	var/should_reset_color = TRUE
-	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
+	/// How hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
+	var/hardness = 1
 	/// Typecache of all the instruments allowed to dig us.
 	/// Populated in [/turf/simulated/mineral/proc/generate_picks()].
 	var/static/list/list/allowed_picks_typecache = list()
@@ -213,86 +218,6 @@
 
 /turf/simulated/mineral/blob_consume()
 	gets_drilled()
-
-/turf/simulated/mineral/ancient
-	name = "ancient rock"
-	desc = "Редкий астероидный камень, устойчивый ко всем инструментам, кроме кирок!"
-	mine_time = 6 SECONDS
-	color = COLOR_ANCIENT_ROCK
-	layer = MAP_EDITOR_TURF_LAYER
-	should_reset_color = FALSE
-	mineralAmt = 2
-	mineralType = /obj/item/stack/ore/glass/basalt/ancient
-	baseturf = /turf/simulated/floor/plating/asteroid/ancient
-
-/turf/simulated/mineral/ancient/get_ru_names()
-	return list(
-		NOMINATIVE = "древний камень",
-		GENITIVE = "древнего камня",
-		DATIVE = "древнему камню",
-		ACCUSATIVE = "древний камень",
-		INSTRUMENTAL = "древним камнем",
-		PREPOSITIONAL = "древнем камне",
-	)
-
-/turf/simulated/mineral/ancient/generate_picks()
-	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT])
-		allowed_picks_typecache[MINERAL_TYPE_ANCIENT] = typecacheof(list(
-		/obj/item/pickaxe,
-	))
-	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT]
-
-/turf/simulated/mineral/ancient/burn_down()
-	return
-
-/turf/simulated/mineral/ancient/rpd_act()
-	return
-
-/turf/simulated/mineral/ancient/acid_act(acidpwr, acid_volume)
-	return
-
-/turf/simulated/mineral/ancient/ex_act(severity, target)
-	switch(severity)
-		if(EXPLODE_LIGHT)
-			return
-		if(EXPLODE_HEAVY)
-			if(prob(75))
-				gets_drilled(null, 1)
-		if(EXPLODE_DEVASTATE)
-			gets_drilled(null, 1)
-
-	return TRUE
-
-/turf/simulated/mineral/ancient/outer
-	name = "cold ancient rock"
-	desc = "Редкий плотный астероидный камень, неуязвимый для всего, кроме алмазных и звуковых инструментов! Не может быть использован для создания порталов в ад."
-	mine_time = 15 SECONDS
-	color = COLOR_COLD_ROCK
-	temperature = TCMB
-	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
-
-/turf/simulated/mineral/ancient/outer/get_ru_names()
-	return list(
-		NOMINATIVE = "холодный древний камень",
-		GENITIVE = "холодного древнего камня",
-		DATIVE = "холодному древнему камню",
-		ACCUSATIVE = "холодный древний камень",
-		INSTRUMENTAL = "холодным древним камнем",
-		PREPOSITIONAL = "холодном древнем камне",
-	)
-
-/turf/simulated/mineral/ancient/outer/generate_picks()
-	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER])
-		allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER] = typecacheof(list(
-		/obj/item/pickaxe/drill/jackhammer,
-		/obj/item/pickaxe/diamond,
-		/obj/item/pickaxe/drill/cyborg/diamond,
-		/obj/item/pickaxe/drill/diamonddrill,
-	))
-	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER]
-
-/turf/simulated/mineral/ancient/outer/ex_act(severity, target)
-	return
 
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(/turf/simulated/mineral/uranium = 5, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 10,

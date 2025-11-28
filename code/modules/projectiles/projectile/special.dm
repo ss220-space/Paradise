@@ -497,10 +497,6 @@
 /obj/projectile/plasma/on_hit(atom/target, pointblank = 0)
 	. = ..()
 	if(ismineralturf(target))
-		if(isancientturf(target))
-			visible_message(span_notice("Похоже, что эта порода устойчива ко всем шахтёрским инструментам, кроме кирки!"))
-			forcedodge = 0
-			return
 		forcedodge = 1
 		var/turf/simulated/mineral/M = target
 		M.attempt_drill(firer)

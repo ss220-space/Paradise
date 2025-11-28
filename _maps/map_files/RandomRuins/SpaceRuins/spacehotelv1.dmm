@@ -4365,7 +4365,6 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "FU" = (
 /obj/machinery/light_switch{
-	on = 0;
 	pixel_x = -24;
 	pixel_y = 24
 	},

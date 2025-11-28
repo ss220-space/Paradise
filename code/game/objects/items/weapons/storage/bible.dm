@@ -194,7 +194,7 @@
 		if(user.mind?.isholy)
 			for(var/obj/O in target)
 				O.cult_reveal()
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		to_chat(user, span_notice("Вы ударяете шлюз [declent_ru(INSTRUMENTAL)]."))
 		if(user.mind?.isholy)
 			var/obj/airlock = target

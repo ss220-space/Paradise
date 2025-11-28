@@ -69,3 +69,5 @@
 #define MAX_STACK_SIZE 50
 //maximum amount of cable in a coil
 #define MAXCOIL 30
+//Determines how much material is contained in one sheet
+#define SHEET_VOLUME 1000 //cm3

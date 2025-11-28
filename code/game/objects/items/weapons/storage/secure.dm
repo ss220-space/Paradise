@@ -12,6 +12,7 @@
 // -----------------------------
 /obj/item/storage/secure
 	name = "secstorage"
+	icon = 'icons/obj/storage/boxes.dmi'
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
 	var/icon_opened = "secure0"
@@ -193,7 +194,10 @@
 	return FALSE
 
 /obj/item/storage/secure/hear_talk(mob/living/M, list/message_pieces)
-	return
+	if(locked)
+		return
+
+	..()
 
 /obj/item/storage/secure/hear_message(mob/living/M, msg)
 	return

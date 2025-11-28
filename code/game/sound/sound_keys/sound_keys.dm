@@ -421,3 +421,26 @@
 		'sound/items/handling/equip/generic_equip4.ogg',
 		'sound/items/handling/equip/generic_equip5.ogg',
 	)
+
+/datum/sound_effect/fart
+	key = SFX_FART
+	file_paths = list(
+		'sound/effects/mob_effects/fart1.ogg',
+		'sound/effects/mob_effects/fart2.ogg',
+		'sound/effects/mob_effects/fart3.ogg',
+		'sound/effects/mob_effects/fart4.ogg',
+		'sound/effects/mob_effects/fart5.ogg',
+		'sound/effects/mob_effects/fart6.ogg',
+	)
+
+/datum/sound_effect/keyboard_clicks
+	key = SFX_KEYBOARD_CLICKS
+	file_paths = list(
+		'sound/machines/computer/keyboard_clicks_1.ogg',
+		'sound/machines/computer/keyboard_clicks_2.ogg',
+		'sound/machines/computer/keyboard_clicks_3.ogg',
+		'sound/machines/computer/keyboard_clicks_4.ogg',
+		'sound/machines/computer/keyboard_clicks_5.ogg',
+		'sound/machines/computer/keyboard_clicks_6.ogg',
+		'sound/machines/computer/keyboard_clicks_7.ogg',
+	)
