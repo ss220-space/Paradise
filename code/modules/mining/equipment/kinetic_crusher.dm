@@ -227,9 +227,9 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		var/turf/simulated/mineral/M = target_turf
-		new /obj/effect/temp_visual/kinetic_blast(M)
-		M.attempt_drill(firer)
+		var/turf/simulated/mineral/mineral = target_turf
+		new /obj/effect/temp_visual/kinetic_blast(mineral)
+		mineral.attempt_drill(firer)
 	..()
 
 //trophies
