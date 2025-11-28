@@ -1058,8 +1058,6 @@ Standard way to write links -Sayu
 
 	return locate(dest_x,dest_y,dest_z)
 
-
-
 /proc/IsValidSrc(A)
 	if(isdatum(A))
 		var/datum/D = A
