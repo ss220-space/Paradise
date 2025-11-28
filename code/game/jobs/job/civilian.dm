@@ -1,25 +1,21 @@
-#define SALARY_FOR_NISHEBROD 60
-
 /datum/job/civilian
 	title = JOB_TITLE_CIVILIAN
 	flag = JOB_FLAG_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = -1
 	spawn_positions = -1
-	supervisors = "the head of personnel"
+	supervisors = "Главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e6e6e6"
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Tourist","Businessman","Trader","Assistant")
+	alt_titles = list("Tourist", "Businessman", "Trader", "Assistant")
 	outfit = /datum/outfit/job/assistant
 	insurance_type = INSURANCE_TYPE_BUDGETARY
-
-	min_start_money = 100
-	max_start_money = 300
+	paycheck = PAYCHECK_MIN
 
 /datum/outfit/job/assistant
-	name = "Civilian"
+	name = JOB_TITLE_CIVILIAN
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
@@ -29,18 +25,16 @@
 	flag = JOB_FLAG_PRISONER
 	total_positions = ROLE_PRISONERS_MAX_COUNT
 	spawn_positions = ROLE_PRISONERS_MAX_COUNT
-	supervisors = "the warden"
+	supervisors = "составом службы безопасности"
 	department_head = list(JOB_TITLE_WARDEN)
 	access = list()
 	minimal_access = list()
 	alt_titles = list("Arrestee")
 	outfit = /datum/outfit/job/assistant/prisoner
 	insurance_type = INSURANCE_TYPE_NONE
-	min_start_money = 10
-	max_start_money = 50
 
 /datum/outfit/job/assistant/prisoner
-	name = "Заключенный"
+	name = JOB_TITLE_PRISONER
 	allow_loadout = FALSE
 	jobtype = /datum/job/civilian/prisoner
 	id = /obj/item/card/id/prisoner/random
@@ -62,7 +56,7 @@
 	record.fields["last_modifier_level"] = LAW_LEVEL_MAGISTRATE
 	var/crimes = generate_prisoner_role_crimes()
 	human.mind.store_memory("Меня посадили за: [crimes]")
-	record.fields["comments"] += "Заключён[GEND_A_O_Y(human)] в пермабриг за: [crimes]"
+	record.fields["comments"] += "Заключен[GEND_A_O_Y(human)] в пермабриг за: [crimes]"
 
 /datum/job/civilian/prisoner/proc/generate_prisoner_role_crimes()
 	var/list/major_crimes = list("400", "402", "407")
@@ -74,5 +68,3 @@
 		minor_crimes -= crime
 		. += ", [crime]"
 	. += "."
-
-#undef SALARY_FOR_NISHEBROD

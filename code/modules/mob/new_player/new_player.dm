@@ -296,9 +296,9 @@
 	if(CONFIG_GET(flag/assistant_limit))
 		if(job.title == JOB_TITLE_CIVILIAN)
 			var/count = 0
-			var/datum/job/officer = SSjobs.GetJob(JOB_TITLE_OFFICER)
-			var/datum/job/warden = SSjobs.GetJob(JOB_TITLE_WARDEN)
-			var/datum/job/hos = SSjobs.GetJob(JOB_TITLE_HOS)
+			var/datum/job/security/officer = SSjobs.GetJob(JOB_TITLE_OFFICER)
+			var/datum/job/security/warden = SSjobs.GetJob(JOB_TITLE_WARDEN)
+			var/datum/job/head_of_staff/hos = SSjobs.GetJob(JOB_TITLE_HOS)
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
 			if(job.current_positions > (CONFIG_GET(number/assistant_ratio) * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
