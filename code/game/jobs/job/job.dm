@@ -98,11 +98,9 @@
 
 /datum/job/New()
 	. = ..()
-
 	if(paycheck)
 		min_start_money = paycheck
 		max_start_money = paycheck * 3
-
 	return
 
 /// Only override this proc
