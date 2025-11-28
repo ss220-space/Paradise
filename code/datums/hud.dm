@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(huds, list( \
 		for(var/hud_icon in hud_icons)
 			GLOB.huds_by_category[hud_icon] += list(src)
 
-/datum/atom_hud/Destroy()
+/datum/atom_hud/Destroy(force)
 	for(var/mob/mob as anything in hud_users_all_z_levels)
 		hide_from(mob)
 
@@ -97,6 +97,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	if(uses_global_hud_category)
 		for(var/hud_icon in hud_icons)
 			LAZYREMOVEASSOC(GLOB.huds_by_category, hud_icon, src)
+
 	GLOB.all_huds -= src
 	return ..()
 
@@ -444,6 +445,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
 		return
+
 	for(var/datum/atom_hud/hud in GLOB.all_huds)
 		if(hud?.hud_users_all_z_levels[src])
 			for(var/atom/hud_atom as anything in hud.get_hud_atoms_for_z_level(our_turf.z))

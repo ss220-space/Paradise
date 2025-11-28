@@ -358,6 +358,11 @@
 /turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
+// Metal foam states
+// teehee no one will find these here
+#define MFOAM_ALUMINUM 1
+#define MFOAM_IRON 2
+
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
@@ -373,6 +378,9 @@
 			icon_state = "metalfoam"
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
+
+#undef MFOAM_ALUMINUM
+#undef MFOAM_IRON
 
 /turf/simulated/floor/plating/metalfoam/attackby(obj/item/I, mob/user, params)
 	. = ..()

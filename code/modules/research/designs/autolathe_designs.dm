@@ -449,13 +449,6 @@
 	build_path = /obj/item/ammo_box/rubber45colt
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
-/datum/design/hp45colt
-	id = "hp45colt"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 35000)
-	build_path = /obj/item/ammo_box/expansive45colt
-	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
-
 /datum/design/ap45colt
 	id = "ap45colt"
 	build_type = AUTOLATHE

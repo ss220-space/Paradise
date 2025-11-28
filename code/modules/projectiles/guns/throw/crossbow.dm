@@ -71,7 +71,7 @@
 /obj/item/gun/throw/crossbow/get_throwrange()
 	return tension * range_multiplier
 
-/obj/item/gun/throw/crossbow/process_chamber()
+/obj/item/gun/throw/crossbow/handle_chamber()
 	..()
 	update_icon()
 

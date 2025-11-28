@@ -140,6 +140,7 @@
 	name = "eradication beam"
 	projectile_type = /obj/projectile/energy/chrono_beam
 	muzzle_flash_color = null
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "chronobolt"
 	e_cost = 0
 

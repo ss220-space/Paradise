@@ -395,7 +395,7 @@
 
 /obj/projectile/energy/rat/snipe/emp
 	name = "brass sniper EMP bullet"
-	icon_state = "brassshot_emp"
+	icon_state = "brassslug_emp" // there is no "brassshot_emp"
 	weaken = 0
 	damage = 0
 

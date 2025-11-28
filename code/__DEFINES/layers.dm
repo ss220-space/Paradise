@@ -255,3 +255,8 @@
 
 #define SPLASHSCREEN_LAYER 33
 
+//-------------------- Radial ---------------------
+
+#define RADIAL_BACKGROUND_LAYER 0
+///1000 is an unimportant number, it's just to normalize copied layers
+#define RADIAL_CONTENT_LAYER 1000

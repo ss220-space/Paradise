@@ -339,8 +339,9 @@
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
 	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
-	icon_state = "defibpaddles"
-	item_state = "defibpaddles"
+	icon_state = "defibpaddles0"
+	item_state = "defibpaddles0"
+	base_icon_state = "defibpaddles"
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
@@ -365,8 +366,9 @@
 /obj/item/twohanded/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
 	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони."
-	icon_state = "ntpaddles"
-	item_state = "ntpaddles"
+	icon_state = "ntpaddles0"
+	item_state = "ntpaddles0"
+	base_icon_state = "ntpaddles"
 
 /obj/item/twohanded/shockpaddles/advanced/get_ru_names()
 	return list(
@@ -382,8 +384,9 @@
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони. Одинаково хорошо подходят как для оживления мёртвых оперативников, так и для устранения противников."
-	icon_state = "syndiepaddles"
-	item_state = "syndiepaddles"
+	icon_state = "syndiepaddles0"
+	item_state = "syndiepaddles0"
+	base_icon_state = "syndiepaddles"
 
 /obj/item/twohanded/shockpaddles/syndicate/get_ru_names()
 	return list(
@@ -483,8 +486,6 @@
 
 /obj/item/twohanded/shockpaddles/borg
 	desc = "Пара встроенных электродов с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
-	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
 	var/safety = TRUE
 
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)

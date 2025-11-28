@@ -3,8 +3,11 @@
 /obj/item/storage/part_replacer
 	name = "Rapid Part Exchange Device"
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "RPED"
-	item_state = "RPED"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	item_state = "rped"
 	w_class = WEIGHT_CLASS_HUGE
 	can_hold = list(/obj/item/stock_parts)
 	storage_slots = 50
@@ -35,7 +38,7 @@
 	name = "bluespace rapid part exchange device"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
 	icon_state = "BS_RPED"
-	item_state = "BS_RPED"
+	item_state = "bs_rped"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 400
 	max_combined_w_class = 800

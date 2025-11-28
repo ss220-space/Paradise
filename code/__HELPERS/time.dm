@@ -1,30 +1,3 @@
-#define MILLISECONDS *0.01
-
-#define DECISECONDS *1 //the base unit all of these defines are scaled by, because byond uses that as a unit of measurement for some fucking reason
-
-// So you can be all 10 SECONDS
-#define SECONDS *10
-
-#define MINUTES SECONDS*60
-
-#define HOURS MINUTES*60
-
-#define TICKS *world.tick_lag
-
-#define MS2DS(T) ((T) MILLISECONDS)
-
-#define DS2MS(T) ((T) * 100)
-
-#define SECONDS_TO_LIFE_CYCLES /2
-
-#define DS2TICKS(DS) ((DS)/world.tick_lag)
-
-#define TICKS2DS(T) ((T) TICKS)
-
-#define ROUND_TIME_TEXT(...) ( "[world.time - SSticker.round_start_time > MIDNIGHT_ROLLOVER ? "[round((world.time - SSticker.round_start_time)/MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]" )
-
-#define SHIFT_TIME_TEXT(...) ( "[SSticker.round_start_time > MIDNIGHT_ROLLOVER ? "[round(SSticker.round_start_time/MIDNIGHT_ROLLOVER)]:[shifttime2text()]" : shifttime2text()]" )
-
 /* This proc should only be used for world/Topic.
  * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
  * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
@@ -86,8 +59,24 @@
 /proc/station_time(time=world.time, display_only=FALSE)
 	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
 
-/proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
+/proc/station_time_timestamp(format = "hh:mm:ss", time = world.time)
 	return time2text(station_time(time, TRUE), format)
+
+/**
+ * Converts a time expressed in deciseconds (like world.time) to the 12-hour time format.
+ * the format arg is the format passed down to time2text() (e.g. "hh:mm" is hours and minutes but not seconds).
+ * the timezone is the time value offset from the local time. It's to be applied outside time2text() to get the AM/PM right.
+ */
+/proc/time_to_twelve_hour(format = "hh:mm:ss", time = world.time)
+	time = station_time(time, TRUE)
+	var/am_pm = "AM"
+	if(time > 12 HOURS)
+		am_pm = "PM"
+		if(time > 13 HOURS)
+			time -= 12 HOURS // e.g. 4:16 PM but not 00:42 PM
+	else if(time < 1 HOURS)
+		time += 12 HOURS // e.g. 12.23 AM
+	return "[time2text(time, format)] [am_pm]"
 
 /* Returns 1 if it is the selected month and day */
 /proc/isDay(month, day)
