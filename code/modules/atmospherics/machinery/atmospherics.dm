@@ -447,6 +447,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!powered())
 		return
 	on = !on
+	SEND_SIGNAL(src, COMSIG_ATMOS_MACHINE_SET_ON, on)
 	update_icon()
 	if(user)
 		to_chat(user, span_notice("You toggle [src] [on ? "on" : "off"]."))

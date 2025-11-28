@@ -1167,8 +1167,23 @@
 			. += ", "
 	. += ")"
 
-///Return a list with no duplicate entries
+/// Return a list with no duplicate entries
 /proc/unique_list(list/inserted_list)
 	. = list()
 	for(var/i in inserted_list)
 		. |= LIST_VALUE_WRAP_LISTS(i)
+
+/proc/get_list_count(list/value, max_list_count)
+	var/list/lists_to_check = list()
+	lists_to_check += list(value)
+	var/lists = 1
+	while(length(lists_to_check))
+		var/list/list_to_iterate = lists_to_check[length(lists_to_check)]
+		lists_to_check.len--
+		for(var/list/list_data in list_to_iterate)
+			lists_to_check += list(list_data)
+			lists += 1
+		if(lists > max_list_count)
+			return lists
+
+	return lists

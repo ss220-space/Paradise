@@ -289,11 +289,8 @@
 		for(var/obj/item/borg/upgrade/modkit/M in mods)
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
-		if(isancientturf(target_turf))
-			visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
-		else
-			var/turf/simulated/mineral/M = target_turf
-			M.attempt_drill(firer, FALSE, power)
+		var/turf/simulated/mineral/mineral = target_turf
+		mineral.attempt_drill(firer, FALSE, power)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
@@ -508,7 +505,7 @@
 	new /obj/effect/temp_visual/pka_explosion(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
-			if(ismineralturf(T) && !isancientturf(T))
+			if(ismineralturf(T))
 				var/turf/simulated/mineral/M = T
 				M.attempt_drill(K.firer)
 	if(modifier)

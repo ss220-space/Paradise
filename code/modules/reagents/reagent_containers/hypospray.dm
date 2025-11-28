@@ -476,7 +476,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, 'sound/effects/stimpak.ogg', 35, TRUE)
 
-/obj/item/reagent_containers/hypospray/autoinjector/examine()
+/obj/item/reagent_containers/hypospray/autoinjector/examine(mob/user)
 	. = ..()
 	if(reagents && length(reagents.reagent_list))
 		. += span_notice("Не использовано.")

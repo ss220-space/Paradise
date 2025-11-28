@@ -18,6 +18,8 @@
 	/// An associative list containing all station accesses. Includes their name and access number.
 	var/static/list/door_accesses_list = list()
 	var/list/current_door_accesses_list = list()
+	/// Whether this airlock can have an integrated circuit inside of it or not
+	var/shell = FALSE
 
 	/// Which direction has unrestricted access to the airlock (e.g. medbay doors from the inside)
 	var/unres_access_from = null
@@ -68,6 +70,7 @@
 	data["selected_accesses"] = selected_accesses
 	data["one_access"] = one_access
 	data["unrestricted_dir"] = unres_access_from
+	data["shell"] = shell
 	return data
 
 /obj/item/access_control/ui_static_data(mob/user)
@@ -100,6 +103,9 @@
 				selected_accesses -= access
 			else
 				selected_accesses |= access
+
+		if("set_shell")
+			shell = !!params["on"]
 
 		if("grant_region")
 			var/region = text2num(params["region"])

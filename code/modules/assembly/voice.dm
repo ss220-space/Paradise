@@ -6,6 +6,7 @@
 	var/listening = FALSE
 	var/recorded = null	//the activation message
 	var/recorded_type = 0 // 0 for say, 1 for emote
+	var/only_noice = FALSE
 
 	bomb_name = "voice-activated bomb"
 
@@ -21,6 +22,10 @@
 		. += span_notice("It is deactivated.")
 
 /obj/item/assembly/voice/hear_talk(mob/living/M, list/message_pieces)
+	if(only_noice)
+		return
+
+	. = ..()
 	hear_input(M, multilingual_to_message(message_pieces), 0)
 
 /obj/item/assembly/voice/hear_message(mob/living/M, msg)
@@ -65,6 +70,7 @@
 	desc = "A simple noise sensor that triggers on vocalizations other than speech."
 	materials = list(MAT_METAL=100, MAT_GLASS=10)
 	bomb_name = "noise-activated bomb"
+	only_noice = TRUE
 
 /obj/item/assembly/voice/noise/attack_self(mob/user)
 	return
@@ -72,9 +78,6 @@
 /obj/item/assembly/voice/noise/examine(mob/user)
 	. = ..()
 	. += span_notice("It does not appear to have any controls.")
-
-/obj/item/assembly/voice/noise/hear_talk(mob/living/M, list/message_pieces)
-	return
 
 /obj/item/assembly/voice/noise/hear_message(mob/living/M, msg)
 	pulse(0, M)

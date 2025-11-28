@@ -246,6 +246,7 @@
 			. += span_notice("[icon2html(ME, user)] [ME]")
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
+	. = ..()
 	if(M == occupant && radio.get_broadcasting())
 		radio.talk_into(M, message_pieces)
 
@@ -874,7 +875,7 @@
 			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[name]' using [I]")
 		return ..()
 
-	if(istype(I, /obj/item/mmi))
+	if(is_mmi(I))
 		add_fingerprint(user)
 		if(!mmi_move_inside(I, user))
 			to_chat(user, "[name]-MMI interface initialization failed.")
@@ -1452,7 +1453,7 @@
 	if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
-	if(istype(mob_container, /obj/item/mmi))
+	if(is_mmi(mob_container))
 		return TRUE
 	return FALSE
 
@@ -1537,7 +1538,7 @@
 	if(mob_container.forceMove(newloc))//ejecting mob container
 		close_window(L, "exosuit")
 
-		if(istype(mob_container, /obj/item/mmi))
+		if(is_mmi(mob_container))
 			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
 				L.forceMove(mmi)
