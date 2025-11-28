@@ -225,7 +225,7 @@
 		if(is_found_within(typepath))
 			return TRUE
 
-	if(istype(loc,/obj/item/mmi))	// So a brain can slowly recover from being left out of an MMI
+	if(is_mmi(loc))	// So a brain can slowly recover from being left out of an MMI
 		germ_level = max(0, germ_level - 1)
 		return TRUE
 

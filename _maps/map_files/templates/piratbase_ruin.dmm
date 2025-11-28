@@ -74,10 +74,6 @@
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/observ)
-"ai" = (
-/obj/machinery/vending/snack,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/security_atrium)
 "aj" = (
 /obj/item/storage/firstaid/o2/empty,
 /obj/item/reagent_containers/hypospray/autoinjector,
@@ -1327,13 +1323,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
-"dx" = (
-/obj/structure/railing{
-	layer = 4.2
-	},
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/security_atrium)
 "dy" = (
 /obj/machinery/door/window/brigdoor{
 	req_access = list(161);
@@ -2033,6 +2022,13 @@
 /obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
+"fw" = (
+/obj/structure/railing{
+	layer = 4.2
+	},
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/security_atrium)
 "fx" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/structure/disposalpipe/segment,
@@ -3563,6 +3559,10 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_atrium)
+"jH" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/security_atrium)
 "jI" = (
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 75;
@@ -4737,10 +4737,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"mO" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/security_atrium)
 "mP" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -5711,6 +5707,10 @@
 	icon_state = "cmo"
 	},
 /area/ruin/space/pirate_base/security_medical)
+"pD" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/security_atrium)
 "pF" = (
 /obj/machinery/tcomms/relay,
 /turf/simulated/floor/bluegrid,
@@ -6148,15 +6148,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
-"qX" = (
-/obj/machinery/vending/cola,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "qY" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/decal/cleanable/dust,
@@ -7647,6 +7638,20 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"vk" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	req_access = list(160);
+	name = "piratepad"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
 "vl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -8201,6 +8206,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"wO" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/pirate_base/laboratory)
 "wP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -8412,20 +8423,6 @@
 "xw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"xx" = (
-/obj/effect/turf_decal/box/red,
-/obj/machinery/quantumpad/cere/arrivals_cargo{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/obj/machinery/door/window/brigdoor{
-	req_access = list(160);
-	dir = 2
-	},
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/observ)
 "xz" = (
 /obj/structure/table/tray,
 /obj/item/storage/backpack/duffel/syndie/surgery,
@@ -8928,16 +8925,6 @@
 	icon_state = "darkred"
 	},
 /area/ruin/space/pirate_base/lab_sec)
-"zh" = (
-/obj/machinery/vending/cigarette,
-/obj/structure/sign/restroom{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "zi" = (
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 1
@@ -9077,6 +9064,15 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
+"zB" = (
+/obj/machinery/vending/cola,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "zC" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
@@ -10498,6 +10494,16 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/kitchen)
+"DY" = (
+/obj/machinery/vending/cigarette,
+/obj/structure/sign/restroom{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "DZ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -11647,6 +11653,20 @@
 /obj/structure/window/full/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
+"Hf" = (
+/obj/effect/turf_decal/box/red,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	req_access = list(160);
+	name = "piratepad"
+	},
+/obj/machinery/door/window/brigdoor{
+	req_access = list(160);
+	dir = 2
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/observ)
 "Hg" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -12496,22 +12516,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/laboratory)
-"JA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/security_atrium)
 "JB" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
@@ -12946,6 +12950,14 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/atrium)
+"KN" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "KQ" = (
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -13778,12 +13790,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/security_atrium)
-"Nl" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/pirate_base/laboratory)
 "No" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -15082,10 +15088,6 @@
 /obj/machinery/pipedispenser/disposal,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/telecomms)
-"Rb" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/security_atrium)
 "Re" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -15845,20 +15847,6 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
-"Tp" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/effect/turf_decal/box/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/quantumpad/cere/cargo_arrivals{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "Tq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -16221,14 +16209,6 @@
 	icon_state = "sepia"
 	},
 /area/ruin/space/pirate_base/kitchen)
-"Ux" = (
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "Uy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -16744,6 +16724,22 @@
 /obj/item/soap/homemade_whiskey,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/pirate_base/observ)
+"We" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/security_atrium)
 "Wf" = (
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
@@ -17907,6 +17903,10 @@
 	icon_state = "cmo"
 	},
 /area/ruin/space/pirate_base/security_medical)
+"ZA" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/security_atrium)
 "ZB" = (
 /obj/structure/railing,
 /obj/structure/rack,
@@ -22160,7 +22160,7 @@ FU
 sK
 FK
 Sz
-Tp
+vk
 iS
 Fi
 if
@@ -24126,11 +24126,11 @@ BM
 AK
 AK
 cS
-Ux
+KN
 dl
 iQ
 cS
-zh
+DY
 oE
 uj
 Gf
@@ -24228,7 +24228,7 @@ BM
 AK
 AK
 cS
-qX
+zB
 KU
 tA
 Ol
@@ -24730,7 +24730,7 @@ QP
 QP
 Oh
 kz
-ai
+pD
 BM
 AK
 AK
@@ -24827,12 +24827,12 @@ Sl
 my
 qx
 CL
-Rb
-dx
+jH
+fw
 tE
 CR
 fa
-mO
+ZA
 BM
 AK
 AK
@@ -25876,7 +25876,7 @@ wl
 MD
 Zx
 cf
-Nl
+wO
 jZ
 yV
 Kr
@@ -26054,7 +26054,7 @@ pK
 IP
 Nx
 Nx
-JA
+We
 ph
 RG
 Go
@@ -26862,7 +26862,7 @@ JU
 qU
 iB
 BX
-xx
+Hf
 Xy
 ty
 cJ

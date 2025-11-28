@@ -42,6 +42,7 @@
 #define INTERNAL_ORGAN_BRAIN_CLOWNVOICE "brain_clownvoice"
 #define INTERNAL_ORGAN_BRAIN_SPEECHTRANSLATOR "brain_speechtranslator"
 #define INTERNAL_ORGAN_CHEST_EXOFRAME "exoframe"
+#define INTERNAL_ORGAN_BRAIN_COMPUTER_INTERFACE "brain_computer_interface"
 
 #define INTERNAL_ORGAN_VOCALCORDS "vocal_cords"
 #define INTERNAL_ORGAN_HIVECORE "hivecore"

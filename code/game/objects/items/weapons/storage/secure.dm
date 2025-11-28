@@ -194,7 +194,10 @@
 	return FALSE
 
 /obj/item/storage/secure/hear_talk(mob/living/M, list/message_pieces)
-	return
+	if(locked)
+		return
+
+	..()
 
 /obj/item/storage/secure/hear_message(mob/living/M, msg)
 	return

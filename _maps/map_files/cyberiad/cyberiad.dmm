@@ -10695,20 +10695,6 @@
 	icon_state = "cmo"
 	},
 /area/security/permabrig)
-"aLh" = (
-/obj/machinery/vending/cigarette,
-/obj/machinery/light_switch{
-	name = "south light switch";
-	pixel_y = -24
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "aLi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -15854,18 +15840,6 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/central/nw)
-"bfi" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -26
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/wood,
-/area/lawoffice)
 "bfj" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -22559,26 +22533,6 @@
 	icon_state = "white"
 	},
 /area/medical/chemistry)
-"bGu" = (
-/obj/structure/table,
-/obj/machinery/door_control{
-	id = "robotics";
-	name = "Robotics Lab Shutters Control";
-	pixel_x = -24;
-	pixel_y = 24;
-	req_access = list(29)
-	},
-/obj/item/clothing/glasses/hud/diagnostic,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/welding,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitered"
-	},
-/area/assembly/robotics)
 "bGw" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
@@ -51531,6 +51485,21 @@
 	icon_state = "podfloor_dark"
 	},
 /area/maintenance/livingcomplex)
+"fbG" = (
+/obj/structure/closet/wardrobe/robotics_black,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "fbJ" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -52868,6 +52837,32 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
+"fKM" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "robotics";
+	name = "Robotics Lab Shutters Control";
+	pixel_x = -24;
+	pixel_y = 24;
+	req_access = list(29)
+	},
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_y = -7
+	},
+/obj/item/multitool/circuit{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/multitool/circuit{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitered"
+	},
+/area/assembly/robotics)
 "fLc" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -61417,6 +61412,33 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
+"jHx" = (
+/obj/machinery/ai_status_display{
+	pixel_x = 32
+	},
+/obj/structure/table,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/compact_remote{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/book/manual/sop_science{
+	pixel_y = -14
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "jHB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -67238,14 +67260,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/launch)
-"mjy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
-/area/security/permabrig)
 "mjA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -69881,6 +69895,14 @@
 /obj/item/storage/pill_bottle/dice,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"nya" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/security/permabrig)
 "nyd" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -70380,25 +70402,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"nJp" = (
-/obj/machinery/ai_status_display{
-	pixel_x = 32
-	},
-/obj/structure/table,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
-	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
 "nJG" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -74278,6 +74281,11 @@
 /obj/item/pen,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"pAI" = (
+/obj/machinery/vending/coffee,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
+/area/security/permabrig)
 "pBT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -79087,6 +79095,18 @@
 	icon_state = "dark"
 	},
 /area/storage/eva)
+"rDj" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/wood,
+/area/lawoffice)
 "rDp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -82976,6 +82996,20 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"toS" = (
+/obj/machinery/vending/cigarette,
+/obj/machinery/light_switch{
+	name = "south light switch";
+	pixel_y = -24
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/security/detectives_office)
 "tpi" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/machinery/light{
@@ -85416,11 +85450,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
-"urb" = (
-/obj/machinery/vending/coffee,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood,
-/area/security/permabrig)
 "urx" = (
 /obj/machinery/camera{
 	c_tag = "Central Hallway South-East";
@@ -86027,12 +86056,6 @@
 	},
 /turf/space,
 /area/space)
-"uKm" = (
-/obj/structure/closet/wardrobe/robotics_black,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
 "uKx" = (
 /obj/machinery/light{
 	dir = 8
@@ -111512,7 +111535,7 @@ atO
 atO
 atO
 atO
-mjy
+nya
 qmz
 azU
 aBF
@@ -113308,7 +113331,7 @@ uTI
 uTI
 amW
 abN
-urb
+pAI
 gOz
 rwJ
 atO
@@ -118471,7 +118494,7 @@ bax
 mgH
 avO
 bdY
-bfi
+rDj
 hLS
 yhP
 bmh
@@ -124390,7 +124413,7 @@ axe
 axe
 aFz
 bxn
-aLh
+toS
 axe
 bFK
 aMj
@@ -138304,7 +138327,7 @@ bFr
 bwv
 iaJ
 kxm
-bGu
+fKM
 bId
 bId
 bLT
@@ -138820,12 +138843,12 @@ tGd
 kxm
 bGw
 nfv
-nJp
+jHx
 bLL
 bRs
 xND
 tag
-uKm
+fbG
 bUF
 wWc
 cal

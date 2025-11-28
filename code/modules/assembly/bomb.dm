@@ -86,26 +86,36 @@
 		bombtank.release()
 
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
-	if(bombassembly)
-		bombassembly.HasProximity(AM)
+	if(!bombassembly)
+		return
+
+	bombassembly.HasProximity(AM)
 
 /obj/item/onetankbomb/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
+	if(!bombassembly)
+		return
 
-	if(bombassembly)
-		bombassembly.assembly_crossed(arrived, old_loc)
+	bombassembly.assembly_crossed(arrived, old_loc)
 
 /obj/item/onetankbomb/on_found(mob/finder) //for mousetraps
-	if(bombassembly)
-		bombassembly.on_found(finder)
+	if(!bombassembly)
+		return
+
+	bombassembly.on_found(finder)
 
 /obj/item/onetankbomb/hear_talk(mob/living/M, list/message_pieces)
-	if(bombassembly)
-		bombassembly.hear_talk(M, message_pieces)
+	. = ..()
+	if(!bombassembly)
+		return
+
+	bombassembly.hear_talk(M, message_pieces)
 
 /obj/item/onetankbomb/hear_message(mob/living/M, msg)
-	if(bombassembly)
-		bombassembly.hear_message(M, msg)
+	if(!bombassembly)
+		return
+
+	bombassembly.hear_message(M, msg)
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 

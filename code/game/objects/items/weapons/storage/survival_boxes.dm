@@ -136,6 +136,7 @@
 	name = "boxed survival kit"
 	desc = "A standard issue Soviet military survival kit."
 	icon_state = "box_soviet"
+	item_state = "green"
 
 /obj/item/storage/box/survival/soviet/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -499,10 +500,12 @@
 
 /obj/item/storage/box/survival/species/nucleation
 	icon_state = "box_nucleation"
+	item_state = "eng"
 	breathmask = null
 	internals = null
 	first_aid = /obj/item/storage/firstaid/crew/nucleation
 
 /obj/item/storage/box/survival/species/plasmaman
 	icon_state = "box_plasma"
+	item_state = "mining"
 	internals = /obj/item/tank/internals/emergency_oxygen/plasma

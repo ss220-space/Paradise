@@ -27,6 +27,7 @@ export { Grid } from './Grid';
 export { Image } from './Image';
 export { Interactive } from './Interactive';
 export { Icon } from './Icon';
+export { InfinitePlane } from './InfinitePlane';
 export { ImageButton } from './ImageButton';
 export { Input } from './Input';
 export { KeyListener } from './KeyListener';

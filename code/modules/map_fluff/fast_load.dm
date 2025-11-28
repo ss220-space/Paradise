@@ -11,6 +11,7 @@
 	company_short = "1984"
 	starsys_name = "Дебагия"
 	admin_only = TRUE
+	disables = DISABLE_ALL
 
 /datum/map/fast_load_multiz
 	name = "fast load multiz"
@@ -25,6 +26,7 @@
 	company_short = "1984"
 	starsys_name = "Дебагия"
 	admin_only = TRUE
+	disables = DISABLE_ALL
 
 	traits = list(
 		list(MAIN_STATION, STATION_LEVEL = "First Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP),

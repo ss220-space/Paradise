@@ -61,10 +61,6 @@
 	icon_state = "redfull"
 	},
 /area/ruin/space/ancientstation/charlie_sec)
-"an" = (
-/obj/structure/flora/rock/lava3,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "ao" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "whiteblue";
@@ -440,9 +436,6 @@
 /mob/living/simple_animal/hostile/carp/koi,
 /turf/template_noop,
 /area/template_noop)
-"bw" = (
-/turf/simulated/mineral/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "by" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light_switch{
@@ -845,6 +838,10 @@
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
+"cN" = (
+/obj/structure/flora/ausbushes/leafybush,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "cO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor{
@@ -1230,13 +1227,6 @@
 	icon_state = "solarpanel"
 	},
 /area/template_noop)
-"eb" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Corral"
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "ec" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -1262,15 +1252,15 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/theta_proto)
-"ei" = (
-/obj/effect/decal/remains/xeno,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "ej" = (
 /obj/item/clothing/shoes/black,
 /obj/item/clothing/under/color/grey,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
+"ek" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/charlie_hydroroom)
 "em" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
@@ -2200,14 +2190,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
-"hL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/machinery/light_construct/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "hO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2346,15 +2328,6 @@
 	icon_state = "neutralfull"
 	},
 /area/ruin/space/ancientstation/charlie_cryo)
-"im" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_secrest)
 "in" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ancient";
@@ -2619,6 +2592,10 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"jj" = (
+/obj/effect/decal/ants,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/charlie_hydroroom)
 "jk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/space_heater,
@@ -2782,9 +2759,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
-"jR" = (
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "jS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/photocopier,
@@ -3622,9 +3596,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
-"my" = (
-/turf/simulated/mineral/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "mz" = (
 /obj/machinery/door/window{
 	dir = 1
@@ -3875,6 +3846,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
+"nw" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "ny" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3986,10 +3962,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"nZ" = (
-/obj/structure/flora/ausbushes/grassybush,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "oa" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -4165,10 +4137,6 @@
 /obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
-"oF" = (
-/obj/structure/flora/ausbushes/grassybush,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "oI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -5131,10 +5099,6 @@
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
-"rM" = (
-/mob/living/simple_animal/cow,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "rO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -5274,11 +5238,6 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
-"so" = (
-/obj/effect/decal/cleanable/blood/gibs/xeno,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "sp" = (
 /obj/item/mop,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -5845,10 +5804,6 @@
 /obj/item/spacepod_equipment/sec_cargo/loot_box,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
-"uw" = (
-/obj/structure/flora/rock,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "uy" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -6359,10 +6314,6 @@
 	dir = 4
 	},
 /area/template_noop)
-"wh" = (
-/obj/effect/decal/ants,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "wi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -6716,6 +6667,15 @@
 /obj/effect/decal/straw/edge,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
+"xc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/charlie_secrest)
 "xd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -7131,15 +7091,9 @@
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
-"yE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette,
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
-	},
-/area/ruin/space/ancientstation/charlie_comm)
+"yD" = (
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "yF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/cap{
@@ -7212,10 +7166,6 @@
 /obj/structure/particle_accelerator/particle_emitter/left,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
-"yO" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/wood,
-/area/ruin/space/ancientstation/charlie_dininghall)
 "yP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
@@ -7383,6 +7333,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_hydroponics)
+"zw" = (
+/mob/living/simple_animal/cow,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "zy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9768,6 +9722,10 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/charlie_kitchen)
+"HI" = (
+/obj/structure/flora/rock/lava3,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "HK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette,
@@ -9837,6 +9795,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_rnd)
+"HX" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "Ia" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10476,6 +10438,10 @@
 /obj/machinery/pipedispenser/disposal,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
+"Kl" = (
+/obj/structure/flora/rock,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/charlie_hydroroom)
 "Km" = (
 /obj/structure/lattice,
 /obj/structure/transit_tube/crossing/horizontal{
@@ -10483,6 +10449,10 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"Kp" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/wood,
+/area/ruin/space/ancientstation/charlie_dininghall)
 "Kr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -10746,10 +10716,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
-"Lr" = (
-/obj/structure/flora/rock/lava2,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "Ls" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/station,
@@ -10957,10 +10923,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
-"Mb" = (
-/obj/structure/flora/rock/jungle,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "Me" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -11647,6 +11609,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
+"Ow" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/ruin/space/ancientstation/charlie_comm)
 "Oy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -12507,10 +12478,6 @@
 /obj/effect/decal/remains/xeno,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
-"Rl" = (
-/obj/structure/flora/ausbushes/leafybush,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "Rm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -12841,6 +12808,10 @@
 /obj/item/paper/fluff/ruins/oldstation/generator_manual,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
+"Sw" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "SA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -12951,9 +12922,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
-"SY" = (
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "Ta" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -13022,6 +12990,10 @@
 "To" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/charlie_punishmentcell)
+"Tp" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "Tq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/green,
@@ -13035,6 +13007,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_hydroponics)
+"Tu" = (
+/obj/structure/flora/rock/lava2,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "Tv" = (
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/chest,
@@ -13126,10 +13102,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
-"TY" = (
-/obj/effect/decal/cleanable/blood/gibs/xeno,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "TZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -13145,6 +13117,12 @@
 	icon_state = "green"
 	},
 /area/ruin/space/ancientstation/charlie_hydrostorage)
+"Ua" = (
+/obj/item/camera_assembly,
+/obj/structure/flora/ausbushes/leafybush,
+/obj/effect/decal/straw/light,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/charlie_hydroroom)
 "Ub" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -13253,10 +13231,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/beta_atmos)
-"Uu" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/cowasteroid)
 "Uw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -13675,12 +13649,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/hivebot)
-"Wg" = (
-/obj/item/camera_assembly,
-/obj/structure/flora/ausbushes/leafybush,
-/obj/effect/decal/straw/light,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "Wi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -13799,6 +13767,14 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/ancientstation/charlie_secintel)
+"Wx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/charlie_hydroroom)
 "Wy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -13856,6 +13832,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
+"WJ" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Corral"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/charlie_hydroroom)
 "WK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
@@ -13914,6 +13897,10 @@
 "WT" = (
 /turf/simulated/mineral/random,
 /area/template_noop)
+"WU" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "WV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -14307,6 +14294,10 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/theta_rnd)
+"YJ" = (
+/obj/effect/decal/remains/xeno,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ancientstation/cowasteroid)
 "YO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -19117,10 +19108,10 @@ FL
 hx
 Cg
 Cg
-bw
-bw
-bw
-bw
+Cg
+Cg
+Cg
+Cg
 Cg
 Cg
 Cg
@@ -19237,13 +19228,13 @@ xU
 lp
 RF
 hx
-bw
-bw
-bw
-so
-Rl
-bw
-bw
+Cg
+Cg
+Cg
+nw
+cN
+Cg
+Cg
 Cg
 Cg
 WT
@@ -19358,15 +19349,15 @@ ZE
 Sp
 pP
 ru
-my
-Mb
+hx
+WU
 CU
-Uu
-jR
-ei
-jR
-bw
-bw
+Sw
+yD
+YJ
+yD
+Cg
+Cg
 Cg
 WT
 WT
@@ -19476,20 +19467,20 @@ ew
 zN
 zm
 zN
-eb
-SY
-uw
-nZ
+WJ
+zN
+Kl
+ek
 wz
-jR
-so
-jR
-rM
-jR
-jR
-an
-bw
-bw
+yD
+nw
+yD
+zw
+yD
+yD
+HI
+Cg
+Cg
 WT
 WT
 WD
@@ -19599,19 +19590,19 @@ Jo
 zN
 bn
 ZE
-hL
-wh
-Wg
-SY
-rM
-jR
-jR
-ei
-jR
-jR
-jR
-jR
-bw
+Wx
+jj
+Ua
+zN
+zw
+yD
+yD
+YJ
+yD
+yD
+yD
+yD
+Cg
 WT
 WT
 WD
@@ -19724,16 +19715,16 @@ ZE
 Sp
 Sp
 iU
-my
-bw
-bw
-jR
+hx
+Cg
+Cg
+yD
 fP
-jR
-oF
-TY
-bw
-bw
+yD
+HX
+Tp
+Cg
+Cg
 WT
 WD
 WT
@@ -19849,11 +19840,11 @@ bn
 hx
 Cg
 mp
-bw
-Uu
-Lr
-bw
-bw
+Cg
+Sw
+Tu
+Cg
+Cg
 Cg
 Cg
 WT
@@ -19972,8 +19963,8 @@ ZE
 Cg
 Cg
 mp
-bw
-bw
+Cg
+Cg
 mp
 mp
 Cg
@@ -20569,7 +20560,7 @@ WD
 lE
 WD
 Ed
-im
+xc
 hO
 rb
 lv
@@ -21408,7 +21399,7 @@ kY
 Nh
 HB
 yU
-yO
+Kp
 RH
 cB
 EU
@@ -22228,7 +22219,7 @@ WZ
 zt
 fY
 fY
-yE
+Ow
 KL
 WD
 WD
