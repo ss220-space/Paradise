@@ -25,44 +25,52 @@
 #define DIAG_BATT_HUD "10"
 /// Mech health bar
 #define DIAG_MECH_HUD "11"
-/// STATUS_HUD without virus db check for someone being ill.
-#define STATUS_HUD_OOC "12"
-/// For antag huds. these are used at the /mob level
-#define SPECIALROLE_HUD "13"
-/// Bot HUDS
-#define DIAG_BOT_HUD "14"
-/// Plant nutrient level
-#define PLANT_NUTRIENT_HUD "15"
-/// Plant water level
-#define PLANT_WATER_HUD "16"
-/// Plant harvest/dead
-#define PLANT_STATUS_HUD "17"
-/// Plant health
-#define PLANT_HEALTH_HUD "18"
-/// Toxin level
-#define PLANT_TOXIN_HUD "19"
-/// Pest level
-#define PLANT_PEST_HUD "20"
-/// Weed level
-#define PLANT_WEED_HUD "21"
+/// Airlock shock overlay
+#define DIAG_AIRLOCK_HUD "12"
 /// Mech tracking beacon
-#define DIAG_TRACK_HUD "22"
+#define DIAG_TRACK_HUD "13"
 /// Bot path indicators
-#define DIAG_PATH_HUD "23"
+#define DIAG_PATH_HUD "14"
+/// Bot HUDS
+#define DIAG_BOT_HUD "15"
+/// STATUS_HUD without virus db check for someone being ill
+#define STATUS_HUD_OOC "16"
+/// for antag huds. these are used at the /mob level
+#define SPECIALROLE_HUD "17"
+/// Plant nutrient level
+#define PLANT_NUTRIENT_HUD "18"
+/// Plant water level
+#define PLANT_WATER_HUD "19"
+/// Plant harvest/dead
+#define PLANT_STATUS_HUD "20"
+/// Plant health
+#define PLANT_HEALTH_HUD "21"
+/// Toxin level
+#define PLANT_TOXIN_HUD "22"
+/// Pest level
+#define PLANT_PEST_HUD "23"
+/// Weed level
+#define PLANT_WEED_HUD "24"
 /// Gland indicators for abductors
-#define GLAND_HUD "24"
+#define GLAND_HUD "25"
 /// Telepathy bubbles
-#define THOUGHT_HUD "25"
-/// Hud for pacifists (only for dantalion for now)
-#define PACIFISM_HUD "pacifism_hud"
-/// Kidan pheromones hud (lol)
+#define THOUGHT_HUD "thoughts_hud"
+/// Kidan pheromones hud
 #define KIDAN_PHEROMONES_HUD "pheromone_hud"
+/// Hud for pacifists(only for dantalion for now)
+#define PACIFISM_HUD "pacifism_hud"
 /// Hud for vampires only to see default diablerie aura
 #define DIABLERIE_AURA_HUD "diablerie_aura_hud"
+/// Insurance level
+#define INSURANCE_HUD "insurance_hud"
+
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
 #define HUD_LIST_LIST 1
+
+/// cooldown for being shown the images for any particular data hud
+#define ADD_HUD_TO_COOLDOWN 20
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!
@@ -167,9 +175,6 @@
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
-
-/// cooldown for being shown the images for any particular data hud
-#define ADD_HUD_TO_COOLDOWN 20
 
 /// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
 /proc/view_to_pixels(view)

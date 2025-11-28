@@ -8,7 +8,7 @@
 	spread_flags = CONTACT
 	cure_text = "Отдых или инъекция мутадона"
 	cure_prob = 6
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 	permeability_mod = 0.4
 
 /datum/disease/virus/dna_retrovirus/New()

@@ -74,9 +74,7 @@
 		if("edit")
 			editing = !editing
 		if("repeat") //Changing this from a toggle to a number of repeats to avoid infinite loops.
-			if(playing)
-				return //So that people cant keep adding to repeat. If the do it intentionally, it could result in the server crashing.
-			repeat = clamp(round(text2num(params["new"])), 0, max_repeats)
+			set_repeats(clamp(round(text2num(params["new"])), 0, max_repeats))
 		if("tempo")
 			tempo = sanitize_tempo(text2num(params["new"]))
 		if("play")

@@ -8,7 +8,7 @@
 	cures = list("manlydorf")
 	cure_prob = 100
 	permeability_mod = 0.75
-	severity = HARMFUL
+	severity = DISEASE_SEVERITY_HARMFUL
 	required_organs = list(/obj/item/organ/external/head)
 
 /*

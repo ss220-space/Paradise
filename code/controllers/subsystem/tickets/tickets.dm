@@ -44,6 +44,12 @@ SUBSYSTEM_DEF(tickets)
 	/// Who has what tickets open? Maps client -> open ticket number.
 	var/list/open_detail_uis = list()
 
+/datum/controller/subsystem/tickets/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["tickets"] = length(allTickets) // Not a perf metric but I want to see a graph where SSair usage spikes and 20 tickets come in
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/tickets/Initialize()
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
 				span_boldmessage("Пожалуйста, постарайтесь в тикетах вести себя спокойно, излагать проблему ясно и описательно. Не предполагайте что администратор видел какие-либо связанные события, и чётко укажите имена тех, о ком вы сообщаете. Если вы задали вопрос, то убедитесь, что из него понятно, о чём именно вы спрашиваете."),

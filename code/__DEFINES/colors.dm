@@ -488,11 +488,6 @@
 #define COLOR_AMMO_ARMORPIERCE "#d9d9d9"
 #define COLOR_AMMO_HOLLOWPOINT "#ff9900"
 
-// Cerestation rocks (DELETE THIS SHIT PLEASE!)
-#define COLOR_ASTEROID_ROCK "#735555"
-#define COLOR_ANCIENT_ROCK "#575757"
-#define COLOR_COLD_ROCK "#575764"
-
 // Pipe colours.
 #define	PIPE_COLOR_GREY "#dddddd"
 #define	PIPE_COLOR_RED "#dd1010"

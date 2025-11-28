@@ -157,36 +157,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/ore/glass/basalt))
-		var/obj/item/stack/ore/glass/basalt/glass = stack
-		if(state == GIRDER_DISPLACED)
-			if(glass.get_amount() < 2)
-				to_chat(user, span_warning("You need at least two piles of [glass] to create a false wall!"))
-				return .
-			to_chat(user, span_notice("You start building a false wall..."))
-			if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(glass) || !glass.use(2))
-				return .
-			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
-			var/obj/structure/falsewall/mineral_ancient/falsewall = new(loc)
-			transfer_fingerprints_to(falsewall)
-			falsewall.add_fingerprint(user)
-			qdel(src)
-			return ATTACK_CHAIN_BLOCKED_ALL
-
-		if(glass.get_amount() < 2)
-			to_chat(user, span_warning("You need at least two piles of [glass] to finalize the wall!"))
-			return .
-		to_chat(user, span_notice("You start adding [glass]..."))
-		if(!do_after(user, 4 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(glass) || !glass.use(2))
-			return .
-		to_chat(user, span_notice("You have finalized basalt wall."))
-		var/turf/floor = loc
-		floor.ChangeTurf(/turf/simulated/mineral/ancient)
-		transfer_fingerprints_to(floor)
-		floor.add_fingerprint(user)
-		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	var/obj/item/stack/sheet/sheet = stack
 	if(!istype(sheet, /obj/item/stack/sheet) || !sheet.wall_allowed)
 		to_chat(user, span_warning("This material is not suitable for a wall."))
