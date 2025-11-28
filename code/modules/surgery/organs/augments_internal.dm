@@ -617,7 +617,8 @@
 /obj/item/storage/box/cyber_implants
 	name = "boxed cybernetic implant"
 	desc = "A sleek, sturdy box."
-	icon_state = "cyber_implants"
+	icon_state = "box_implants"
+	item_state = "spec"
 
 /obj/item/storage/box/cyber_implants/populate_contents()
 	new /obj/item/autoimplanter(src)

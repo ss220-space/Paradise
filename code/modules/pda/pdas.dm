@@ -222,8 +222,7 @@
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"
 	desc = "A box of spare PDA microcomputers."
-	icon = 'icons/obj/pda.dmi'
-	icon_state = "pdabox"
+	icon_state = "box_pda"
 
 /obj/item/storage/box/PDAs/populate_contents()
 	new /obj/item/pda(src)

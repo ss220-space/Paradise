@@ -915,9 +915,9 @@
 ///Called by mob Move() when the lying_angle is different than zero, to better visually simulate crawling.
 /mob/living/proc/lying_angle_on_movement(direct)
 	if(direct & EAST)
-		set_lying_angle(90)
+		set_lying_angle(LYING_ANGLE_EAST)
 	else if(direct & WEST)
-		set_lying_angle(270)
+		set_lying_angle(LYING_ANGLE_WEST)
 
 /mob/living/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
 	..()
@@ -1600,16 +1600,16 @@
 	else if(direction & SOUTH)
 		target_pixel_y -= offset
 	if(direction & EAST)
-		if(same_loc && target.lying_angle == 90) //update the dragged dude's direction if we've turned
-			target.set_lying_angle(270)
-		else if(!same_loc && target.lying_angle == 270)
-			target.set_lying_angle(90)
+		if(same_loc && target.lying_angle == LYING_ANGLE_EAST) //update the dragged dude's direction if we've turned
+			target.set_lying_angle(LYING_ANGLE_WEST)
+		else if(!same_loc && target.lying_angle == LYING_ANGLE_WEST)
+			target.set_lying_angle(LYING_ANGLE_EAST)
 		target_pixel_x += offset
 	else if(direction & WEST)
-		if(same_loc && target.lying_angle == 270)
-			target.set_lying_angle(90)
-		else if(!same_loc && target.lying_angle == 90)
-			target.set_lying_angle(270)
+		if(same_loc && target.lying_angle == LYING_ANGLE_WEST)
+			target.set_lying_angle(LYING_ANGLE_EAST)
+		else if(!same_loc && target.lying_angle == LYING_ANGLE_EAST)
+			target.set_lying_angle(LYING_ANGLE_WEST)
 		target_pixel_x -= offset
 	animate(target, pixel_x = target_pixel_x, pixel_y = target_pixel_y, 0.3 SECONDS)
 

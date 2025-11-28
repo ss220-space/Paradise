@@ -157,6 +157,10 @@
 	var/hitx
 	var/hity
 
+	if(firer_source_atom)
+		SEND_SIGNAL(firer_source_atom, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle, hit_zone, blocked)
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, hit_zone, blocked)
+
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
 		hity = target.pixel_y + p_y - 16
