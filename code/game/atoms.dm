@@ -136,8 +136,6 @@
 	// These lists are built as necessary, so atoms aren't all lugging around empty lists
 	/// The alternate appearances we own
 	var/list/alternate_appearances
-	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s
-	var/list/viewing_alternate_appearances
 
 	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
 	var/drag_start = 0
@@ -274,10 +272,9 @@
 
 /atom/Destroy(force)
 	if(alternate_appearances)
-		for(var/aakey in alternate_appearances)
-			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
-			qdel(AA)
-		alternate_appearances = null
+		for(var/current_alternate_appearance in alternate_appearances)
+			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
+			selected_alternate_appearance.remove_atom_from_hud(src)
 
 	QDEL_NULL(reagents)
 
@@ -714,17 +711,26 @@
 		reagents.temperature_reagents(exposed_temperature)
 
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
+	if(signal_result)
+		return TRUE
+
 	switch(tool_type)
 		if(TOOL_CROWBAR)
 			return crowbar_act(user, I)
+
 		if(TOOL_MULTITOOL)
 			return multitool_act(user, I)
+
 		if(TOOL_SCREWDRIVER)
 			return screwdriver_act(user, I)
+
 		if(TOOL_WRENCH)
 			return wrench_act(user, I)
+
 		if(TOOL_WIRECUTTER)
 			return wirecutter_act(user, I)
+
 		if(TOOL_WELDER)
 			return welder_act(user, I)
 

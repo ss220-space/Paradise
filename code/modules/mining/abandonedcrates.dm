@@ -207,6 +207,7 @@
 			new /obj/item/pda/mime(src)
 			new /obj/item/clothing/gloves/color/white(src)
 			new /obj/item/clothing/mask/gas/mime(src)
+			new /obj/item/clothing/mask/gas/mime/old(src)
 			new /obj/item/clothing/head/beret(src)
 			new /obj/item/clothing/suit/suspenders(src)
 			new /obj/item/toy/crayon/mime(src)

@@ -436,9 +436,10 @@
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
-	desc = "Это крюк."
+	desc = "Это хрюк."
 	projectile_type = /obj/projectile/hook
 	caliber = "hook"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hook"
 	muzzle_flash_effect = null
 

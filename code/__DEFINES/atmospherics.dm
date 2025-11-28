@@ -162,3 +162,19 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_COMPOSITION_NITROGEN (1<<4)
 #define SENSOR_COMPOSITION_CO2 (1<<5)
 #define SENSOR_COMPOSITION_N2O (1<<6)
+
+/// Maximum germ level you can reach by standing still
+#define GERM_LEVEL_AMBIENT 110
+/// Maximum germ level you can reach by running around
+#define GERM_LEVEL_MOVE_CAP 200
+
+// Atmos stuff that fucking terrifies me
+#define LINDA_SPAWN_HEAT (1<<0)
+#define LINDA_SPAWN_20C (1<<1)
+#define LINDA_SPAWN_TOXINS (1<<2)
+#define LINDA_SPAWN_OXYGEN (1<<3)
+#define LINDA_SPAWN_CO2 (1<<4)
+#define LINDA_SPAWN_NITROGEN (1<<5)
+#define LINDA_SPAWN_N2O (1<<6)
+#define LINDA_SPAWN_AGENT_B (1<<7)
+#define LINDA_SPAWN_AIR (1<<8)

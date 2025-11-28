@@ -2,6 +2,13 @@ GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
+// Ghost orbit types
+#define GHOST_ORBIT_CIRCLE "circle"
+#define GHOST_ORBIT_TRIANGLE "triangle"
+#define GHOST_ORBIT_HEXAGON "hexagon"
+#define GHOST_ORBIT_SQUARE "square"
+#define GHOST_ORBIT_PENTAGON "pentagon"
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "Это п-п-п-п-призраааак!" //jinkies!
@@ -100,6 +107,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, UNIQUE_TRAIT_SOURCE(src))
+
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.apply_to_new_mob(src)
+
 	..()
 	abstract_move(T) //let ghost initialize properly, then off to spawn point
 
@@ -886,3 +897,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/datum/minigames_explorer = new /datum/minigames_explorer(src)
 	minigames_explorer.ui_interact(src)
 
+#undef GHOST_ORBIT_CIRCLE
+#undef GHOST_ORBIT_TRIANGLE
+#undef GHOST_ORBIT_HEXAGON
+#undef GHOST_ORBIT_SQUARE
+#undef GHOST_ORBIT_PENTAGON

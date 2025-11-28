@@ -702,3 +702,52 @@
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
+
+GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
+
+///Version of view() which ignores darkness, because BYOND doesn't have it.
+/proc/dview(range = world.view, center, invis_flags = 0)
+	if(!center)
+		return
+
+	GLOB.dview_mob.loc = center
+
+	GLOB.dview_mob.set_invis_see(invis_flags)
+
+	. = view(range, GLOB.dview_mob)
+	GLOB.dview_mob.loc = null
+
+/mob/dview
+	name = "INTERNAL DVIEW MOB"
+	invisibility = INVISIBILITY_ABSTRACT
+	density = FALSE
+	move_force = 0
+	pull_force = 0
+	move_resist = INFINITY
+	simulated = 0
+	var/ready_to_die = FALSE
+
+/mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
+	SHOULD_CALL_PARENT(FALSE)
+	if(flags & INITIALIZED)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	flags |= INITIALIZED
+	return INITIALIZE_HINT_NORMAL
+
+/mob/dview/Destroy(force = FALSE)
+	if(!ready_to_die)
+		stack_trace("ALRIGHT WHICH FUCKER TRIED TO DELETE *MY* DVIEW?")
+
+		if(!force)
+			return QDEL_HINT_LETMELIVE
+
+		log_world("EVACUATE THE SHITCODE IS TRYING TO STEAL MUH JOBS")
+		GLOB.dview_mob = new
+	return ..()
+
+#define FOR_DVIEW(type, range, center, invis_flags) \
+	GLOB.dview_mob.loc = center; \
+	GLOB.dview_mob.set_invis_see(invis_flags); \
+	for(type in view(range, GLOB.dview_mob))
+
+#define END_FOR_DVIEW GLOB.dview_mob.loc = null

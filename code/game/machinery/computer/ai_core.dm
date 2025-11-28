@@ -119,7 +119,7 @@
 				laws = ai_module.laws
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(I, /obj/item/mmi))
+			if(is_mmi(I))
 				add_fingerprint(user)
 				if(brain)
 					to_chat(user, span_warning("There is already [brain] installed into the frame."))

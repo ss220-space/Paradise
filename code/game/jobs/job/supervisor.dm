@@ -1,17 +1,29 @@
+/datum/job/head_of_staff
+	total_positions = 1
+	spawn_positions = 1
+	supervisors = "Капитаном"
+	department_head = list(JOB_TITLE_CAPTAIN)
+	minimal_player_age = 21
+	req_admin_notify = 1
+	exp_requirements = 3000
+	disabilities_allowed = 0
+	insurance_type = INSURANCE_TYPE_DELUXE
+	paycheck = PAYCHECK_COMMAND
+
 /datum/job/captain
 	title = JOB_TITLE_CAPTAIN
 	flag = JOB_FLAG_CAPTAIN
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen officials"
+	supervisors = "должностными лицами \"Нанотрейзен\""
 	department_head = list(JOB_TITLE_CCOFFICER)
 	selection_color = "#6691ff"
 	req_admin_notify = 1
 	is_command = 1
-	access = list()			//See get_access()
-	law_level = LAW_LEVEL_CAPTAIN
+	access = list()	//See get_access()
 	minimal_access = list()	//See get_access()
+	law_level = LAW_LEVEL_CAPTAIN
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
@@ -20,10 +32,7 @@
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
-
-	salary = 500
-	min_start_money = 600
-	max_start_money = 1200
+	paycheck = PAYCHECK_MAX
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -37,7 +46,7 @@
 	)
 
 /datum/outfit/job/captain
-	name = "Captain"
+	name = JOB_TITLE_CAPTAIN
 	jobtype = /datum/job/captain
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
@@ -63,81 +72,16 @@
 		var/obj/item/clothing/accessory/medal/gold/captain/medal = new(H.w_uniform)
 		medal.on_attached(H.w_uniform)
 
-/datum/job/hop
-	title = JOB_TITLE_HOP
-	flag = JOB_FLAG_HOP
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "the captain"
-	department_head = list(JOB_TITLE_CAPTAIN)
-	selection_color = "#d1deff"
-	req_admin_notify = 1
-	is_command = 1
-	minimal_player_age = 21
-	blocked_race_for_job = list(SPECIES_VOX)
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_COMMAND
-	disabilities_allowed = 0
-	access = list(
-		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
-		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
-		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-		ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
-		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
-		ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM
-	)
-	minimal_access = list(
-		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
-		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
-		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-		ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
-		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
-		ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM
-	)
-	outfit = /datum/outfit/job/hop
-	insurance_type = INSURANCE_TYPE_DELUXE
-
-	salary = 300
-	min_start_money = 400
-	max_start_money = 700
-
-/datum/outfit/job/hop
-	name = "Head of Personnel"
-	jobtype = /datum/job/hop
-	uniform = /obj/item/clothing/under/rank/head_of_personnel_alt
-	suit = /obj/item/clothing/suit/hop_jacket
-	shoes = /obj/item/clothing/shoes/brown
-	head = /obj/item/clothing/head/hopcap
-	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
-	l_ear = /obj/item/radio/headset/heads/hop
-	id = /obj/item/card/id/silver
-	l_pocket = /obj/item/lighter/zippo/hop
-	pda = /obj/item/pda/heads/hop
-	backpack_contents = list(
-		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/baton/telescopic = 1,
-	)
-
-	implants = list()
-
-/datum/job/nanotrasenrep
+/datum/job/head_of_staff/nanotrasenrep
 	title = JOB_TITLE_REPRESENTATIVE
 	flag = JOB_FLAG_REPRESENTATIVE
 	department_flag = JOBCAT_KARMA
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "the command staff"
-	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#d1deff"
-	req_admin_notify = 1
 	is_command = 1
 	transfer_allowed = FALSE
-	minimal_player_age = 21
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
-	disabilities_allowed = 0
 	access = list(
 		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
@@ -154,17 +98,13 @@
 		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 		ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP
 	)
-	alt_titles = list("NT Consultant","Central Command Consultant")
+	alt_titles = list("NT Consultant", "Central Command Consultant")
 	outfit = /datum/outfit/job/nanotrasenrep
-	insurance_type = INSURANCE_TYPE_DELUXE
-
-	salary = 300
-	min_start_money = 400
-	max_start_money = 700
+	paycheck = PAYCHECK_MAX
 
 /datum/outfit/job/nanotrasenrep
-	name = "Nanotrasen Representative"
-	jobtype = /datum/job/nanotrasenrep
+	name = JOB_TITLE_REPRESENTATIVE
+	jobtype = /datum/job/head_of_staff/nanotrasenrep
 	uniform = /obj/item/clothing/under/rank/ntrep
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
@@ -184,7 +124,7 @@
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen representative"
+	supervisors = "Представителем \"Нанотрейзен\""
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#d1deff"
 	req_admin_notify = 1
@@ -210,13 +150,10 @@
 	)
 	outfit = /datum/outfit/job/blueshield
 	insurance_type = INSURANCE_TYPE_DELUXE
-
-	salary = 300
-	min_start_money = 400
-	max_start_money = 700
+	paycheck = PAYCHECK_COMMAND
 
 /datum/outfit/job/blueshield
-	name = "Blueshield"
+	name = JOB_TITLE_BLUESHIELD
 	jobtype = /datum/job/blueshield
 	uniform = /obj/item/clothing/under/rank/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
@@ -237,16 +174,13 @@
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
-/datum/job/judge
+/datum/job/head_of_staff/judge
 	title = JOB_TITLE_JUDGE
 	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "the Nanotrasen Supreme Court"
+	supervisors = "верховным судом \"Нанотрейзен\""
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#edccd7"
-	req_admin_notify = 1
 	is_legal = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 30
@@ -254,7 +188,6 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
-	disabilities_allowed = 0
 	access = list(
 		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
@@ -269,15 +202,11 @@
 	law_level = LAW_LEVEL_MAGISTRATE
 	alt_titles = list("Judge")
 	outfit = /datum/outfit/job/judge
-	insurance_type = INSURANCE_TYPE_DELUXE
-
-	salary = 300
-	min_start_money = 500
-	max_start_money = 1000
+	paycheck = PAYCHECK_MAX
 
 /datum/outfit/job/judge
-	name = "Magistrate"
-	jobtype = /datum/job/judge
+	name = JOB_TITLE_JUDGE
+	jobtype = /datum/job/head_of_staff/judge
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	suit = /obj/item/clothing/suit/judgerobe
 	gloves = /obj/item/clothing/gloves/color/white
@@ -297,7 +226,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_laws/magisraka
 
-//GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
 	title = JOB_TITLE_LAWYER
 	flag = JOB_FLAG_LAWYER
@@ -305,25 +233,22 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1
-	supervisors = "the magistrate"
+	supervisors = "Магистратом"
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#edccd7"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
-	alt_titles = list("Human Resources Agent","Lawyer","Attorney")
+	alt_titles = list("Human Resources Agent", "Lawyer", "Attorney")
 	minimal_player_age = 30
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/lawyer
 	insurance_type = INSURANCE_TYPE_DELUXE
-
-	salary = 170
-	min_start_money = 200
-	max_start_money = 550
+	paycheck = PAYCHECK_COMMAND
 
 /datum/outfit/job/lawyer
-	name = "Internal Affairs Agent"
+	name = JOB_TITLE_LAWYER
 	jobtype = /datum/job/lawyer
 	uniform = /obj/item/clothing/under/rank/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs

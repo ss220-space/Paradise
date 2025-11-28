@@ -81,9 +81,9 @@
 							break
 		update_icon()
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
-	level=1
-	icon_state="intact-f"
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden // wtf is this?
+	level = 1
+	plane = FLOOR_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /////////////////////////////////
@@ -125,7 +125,7 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden
-	level=1
-	icon_state="intact-f"
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden // wtf is this?
+	level = 1
+	plane = FLOOR_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER

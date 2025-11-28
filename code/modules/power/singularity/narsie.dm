@@ -6,7 +6,7 @@
 	name = "Nar'sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
-
+	icon_state = null
 	pixel_x = -89
 	pixel_y = -85
 	current_size = 9 // It moves/eats like a max-size singulo, aside from range. --NEO
@@ -24,6 +24,7 @@
 /obj/singularity/god/narsie/large
 	name = "Nar'Sie"
 	icon = 'icons/obj/narsie.dmi'
+	icon_state = "narsie"
 	// Pixel stuff centers Narsie.
 	pixel_x = -236
 	pixel_y = -256
@@ -31,11 +32,11 @@
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
-/obj/singularity/god/narsie/large/New()
-	..()
+/obj/singularity/god/narsie/large/Initialize(mapload, starting_energy)
+	. = ..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
-	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
+	to_chat(world,  span_fontsize3(span_red("<b> [uppertext(name)] HAS RISEN</b>")))
 	SEND_SOUND(world, sound('sound/effects/narsie_risen.ogg'))
 
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -47,11 +48,11 @@
 		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
-	narsie_spawn_animation()
+	INVOKE_ASYNC(src, PROC_REF(narsie_spawn_animation))
 	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse), name), 10 SECONDS)
 
 /obj/singularity/god/narsie/large/Destroy()
-	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
+	to_chat(world, span_fontsize3(span_red("<b> [uppertext(name)] HAS FALLEN</b>")))
 	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)

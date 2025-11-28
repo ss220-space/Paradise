@@ -26,6 +26,12 @@ Thus, the two variables affect pump operation are set in New():
 
 	var/id = null
 
+/obj/machinery/atmospherics/binary/volume_pump/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/atmos_volume_pump,
+	))
+
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
@@ -224,4 +230,111 @@ Thus, the two variables affect pump operation are set in New():
 
 	. |= ATTACK_CHAIN_SUCCESS
 	rename_interactive(user, I)
+
+/obj/item/circuit_component/atmos_volume_pump
+	display_name = "Объёмный атмосферный насос"
+	desc = "Интерфейс для связи с объемным насосом."
+
+	///Set the transfer rate of the pump
+	var/datum/port/input/transfer_rate
+	///Activate the pump
+	var/datum/port/input/on
+	///Deactivate the pump
+	var/datum/port/input/off
+	///Signals the circuit to retrieve the pump's current pressure and temperature
+	var/datum/port/input/request_data
+
+	///Pressure of the input port
+	var/datum/port/output/input_pressure
+	///Pressure of the output port
+	var/datum/port/output/output_pressure
+	///Temperature of the input port
+	var/datum/port/output/input_temperature
+	///Temperature of the output port
+	var/datum/port/output/output_temperature
+
+	///Whether the pump is currently active
+	var/datum/port/output/is_active
+	///Send a signal when the pump is turned on
+	var/datum/port/output/turned_on
+	///Send a signal when the pump is turned off
+	var/datum/port/output/turned_off
+
+	///The component parent object
+	var/obj/machinery/atmospherics/binary/volume_pump/connected_pump
+
+/obj/item/circuit_component/atmos_volume_pump/populate_ports()
+	transfer_rate = add_input_port("Новая скорость передачи", PORT_TYPE_NUMBER, trigger = PROC_REF(set_transfer_rate))
+	on = add_input_port("Включить", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_pump_on))
+	off = add_input_port("Выключить", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_pump_off))
+	request_data = add_input_port("Запрос данных порта", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_pump_data))
+
+	input_pressure = add_output_port("Входное давление", PORT_TYPE_NUMBER)
+	output_pressure = add_output_port("Выходное давление", PORT_TYPE_NUMBER)
+	input_temperature = add_output_port("Входная температура", PORT_TYPE_NUMBER)
+	output_temperature = add_output_port("Выходная температура", PORT_TYPE_NUMBER)
+
+	is_active = add_output_port("Активный", PORT_TYPE_NUMBER)
+	turned_on = add_output_port("Включено", PORT_TYPE_SIGNAL)
+	turned_off = add_output_port("Выключено", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/atmos_volume_pump/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(!istype(shell, /obj/machinery/atmospherics/binary/volume_pump))
+		return
+
+	connected_pump = shell
+	RegisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON, PROC_REF(handle_pump_activation))
+
+/obj/item/circuit_component/atmos_volume_pump/unregister_usb_parent(atom/movable/shell)
+	UnregisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON)
+	connected_pump = null
+	return ..()
+
+/obj/item/circuit_component/atmos_volume_pump/pre_input_received(datum/port/input/port)
+	transfer_rate.set_value(clamp(transfer_rate.value, 0, MAX_TRANSFER_RATE))
+
+/obj/item/circuit_component/atmos_volume_pump/proc/handle_pump_activation(datum/source, active)
+	SIGNAL_HANDLER
+	is_active.set_output(active)
+	if(active)
+		turned_on.set_output(COMPONENT_SIGNAL)
+		return
+
+	turned_off.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/atmos_volume_pump/proc/set_transfer_rate()
+	CIRCUIT_TRIGGER
+	if(!connected_pump)
+		return
+
+	connected_pump.transfer_rate = transfer_rate.value
+
+/obj/item/circuit_component/atmos_volume_pump/proc/set_pump_on()
+	CIRCUIT_TRIGGER
+	if(!connected_pump || connected_pump.on)
+		return
+
+	connected_pump.toggle()
+	connected_pump.update_appearance()
+
+/obj/item/circuit_component/atmos_volume_pump/proc/set_pump_off()
+	CIRCUIT_TRIGGER
+	if(!connected_pump || !connected_pump.on)
+		return
+
+	connected_pump.toggle()
+	connected_pump.update_appearance()
+
+/obj/item/circuit_component/atmos_volume_pump/proc/request_pump_data()
+	CIRCUIT_TRIGGER
+	if(!connected_pump)
+		return
+
+	var/datum/gas_mixture/air_input = connected_pump.air1
+	var/datum/gas_mixture/air_output = connected_pump.air2
+	input_pressure.set_output(air_input.return_pressure())
+	output_pressure.set_output(air_output.return_pressure())
+	input_temperature.set_output(air_input.return_temperature())
+	output_temperature.set_output(air_output.return_temperature())
 

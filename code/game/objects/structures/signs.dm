@@ -352,14 +352,6 @@
 	desc = "Тот самый знак, который все ищут в критический момент."
 	icon_state = "restroom"
 
-/obj/structure/sign/medbay
-	name = "МЕДБЭЙ"
-	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
-	icon_state = "bluecross"
-
-/obj/structure/sign/medbay/alt
-	icon_state = "bluecross2"
-
 /obj/structure/sign/directions/floor
 	name = "Этаж"
 	desc = "Указательный знак, указывающий, на каком этаже вы находитесь."

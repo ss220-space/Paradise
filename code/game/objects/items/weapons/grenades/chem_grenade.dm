@@ -307,6 +307,7 @@
 		nadeassembly.on_found(finder)
 
 /obj/item/grenade/chem_grenade/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.hear_talk(M, message_pieces)
 

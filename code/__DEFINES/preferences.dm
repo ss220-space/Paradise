@@ -227,3 +227,11 @@
 // Exoframes (machines only)
 #define PREF_EXOFRAME_REINFORCED "EXO_REINFORCED"
 #define PREF_EXOFRAME_INDUSTRIAL "EXO_INDUSTRIAL"
+
+/// This isnt in client_defines due to scoping issues
+#define DEFAULT_CLIENT_VIEWSIZE "17x15"
+
+// Used for alternate_option
+#define GET_RANDOM_JOB 0
+#define BE_ASSISTANT 1
+#define RETURN_TO_LOBBY 2
