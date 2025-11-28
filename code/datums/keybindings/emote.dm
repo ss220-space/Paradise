@@ -707,7 +707,7 @@
  * MARK: Plasmaman
  */
 
-/datum/keybinding/emote/carbon/human/diona/crack
+/datum/keybinding/emote/carbon/human/skelly
 	linked_emote = /datum/emote/living/carbon/human/crack/skelly
 	name = "Хрустнуть костяшками"
 
