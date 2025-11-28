@@ -200,3 +200,7 @@
 #define MECH_FAB_CATEGORY_ROVER "Странник"
 #define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
 #define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
+
+// Engine types
+#define ENGTYPE_SING "Сингулярность"
+#define ENGTYPE_TESLA "Тесла"

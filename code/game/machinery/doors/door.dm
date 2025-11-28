@@ -451,6 +451,8 @@
 		sleep(1)
 		open()
 
+#define DOOR_CRUSH_DAMAGE 10
+
 /obj/machinery/door/proc/crush()
 	for(var/mob/living/L in get_turf(src))
 		L.visible_message(span_warning("[src] closes on [L], crushing [L.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
@@ -468,6 +470,8 @@
 		L.add_splatter_floor(location)
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
+
+#undef DOOR_CRUSH_DAMAGE
 
 /obj/machinery/door/proc/requiresID()
 	return 1
