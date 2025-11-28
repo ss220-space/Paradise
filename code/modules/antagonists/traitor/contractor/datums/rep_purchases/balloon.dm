@@ -23,7 +23,7 @@
 
 /obj/item/toy/syndicateballoon/contractor
 	name = "contractor balloon"
-	desc = "Черно-золотой шар, который носят только легендарные агенты Синдиката."
+	desc = "Черно-золотой шар, который носят только легендарные агенты \"Синдиката\"."
 	gender = MALE
 	icon_state = "contractorballoon"
 	item_state = "contractorballoon"

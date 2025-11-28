@@ -178,7 +178,7 @@
 				to_chat(fucking_target, span_danger(span_reallybig("Ваша память о последних недавних событиях была стёрта!")))
 				if(is_taipan(fucking_target.z) && !fucking_target.mind.lost_memory)
 					var/objective = "Вы не помните ничего о последних событиях, так как ваша память была стёрта. \
-					В частности вы не помните о базе синдиката \"Тайпан\", о том как туда добраться и обо всём так или иначе с ней связанным!"
+					В частности вы не помните о базе \"Синдиката\" \"Тайпан\", о том как туда добраться и обо всём так или иначе с ней связанным!"
 					var/datum/objective/custom_objective = new(objective)
 					custom_objective.needs_target = FALSE
 					custom_objective.owner = fucking_target.mind

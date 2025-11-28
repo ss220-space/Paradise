@@ -157,7 +157,7 @@
 	set category = STATPANEL_AICOMMANDS
 	set name = "Ускорение камеры"
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		return //won't work if dead
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
@@ -177,9 +177,12 @@
 		to_chat(src, span_notice("You move down."))
 
 /mob/camera/aiEye/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
-	if(relay_speech)
-		if(istype(ai))
-			ai.relay_speech(speaker, message_pieces, verb)
-		else
-			var/mob/M = ai
-			M.hear_say(message_pieces, verb, italics, speaker, speech_sound, sound_vol, sound_frequency)
+	if(!relay_speech)
+		return
+
+	if(istype(ai))
+		ai.relay_speech(speaker, message_pieces, verb)
+		return
+
+	ai.hear_say(message_pieces, verb, italics, speaker, speech_sound, sound_vol, sound_frequency)
+

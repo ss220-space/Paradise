@@ -228,7 +228,7 @@
 	// For code, see grown.dm
 	name = "Liquid Contents"
 	examine_line = span_notice("It has a lot of liquid contents inside.")
-	origin_tech = list("biotech" = 5)
+	origin_tech = list(RESEARCH_TREE_BIOTECH = 5)
 	dangerous = TRUE
 
 /datum/plant_gene/trait/slip
@@ -264,7 +264,7 @@
 	// Multiplies max charge by (rate*1000) when used in potato power cells.
 	name = "Electrical Activity"
 	rate = 0.2
-	origin_tech = list("powerstorage" = 5)
+	origin_tech = list(RESEARCH_TREE_POWERSTORAGE = 5)
 	dangerous = TRUE
 
 /datum/plant_gene/trait/cell_charge/on_new(obj/item/reagent_containers/food/snacks/grown/our_plant)
@@ -365,7 +365,7 @@
 	// Teleport radius is calculated as max(round(potency*rate), 1)
 	name = "Bluespace Activity"
 	rate = 0.1
-	origin_tech = list("bluespace" = 5)
+	origin_tech = list(RESEARCH_TREE_BLUESPACE = 5)
 	dangerous = TRUE
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)

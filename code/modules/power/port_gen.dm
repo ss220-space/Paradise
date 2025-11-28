@@ -1,4 +1,3 @@
-#define SHEET_VOLUME 1000 //cm3
 
 #define TEMPERATURE_DIVISOR 40
 #define TEMPERATURE_CHANGE_MAX 20
@@ -478,6 +477,5 @@
 	explosion(loc, devastation_range = 3, heavy_impact_range = 6, light_impact_range = 12, flash_range = 16, adminlog = TRUE, cause = src)
 	qdel(src)
 
-#undef SHEET_VOLUME
 #undef TEMPERATURE_DIVISOR
 #undef TEMPERATURE_CHANGE_MAX

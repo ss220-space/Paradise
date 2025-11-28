@@ -100,6 +100,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, UNIQUE_TRAIT_SOURCE(src))
+
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.apply_to_new_mob(src)
+
 	..()
 	abstract_move(T) //let ghost initialize properly, then off to spawn point
 
@@ -130,14 +134,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	update_sight()
 
 /mob/dead/observer/proc/cleanup_observe()
-	if(isnull(do_observe_target))
-		return
-	var/mob/target = do_observe_target
-	do_observe_target = null
 	client?.perspective = initial(client.perspective)
 	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
-	if(target)
-		hide_other_mob_action_buttons(target)
+	if(do_observe_target)
+		hide_other_mob_action_buttons(do_observe_target)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density

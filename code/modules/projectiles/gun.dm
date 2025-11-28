@@ -109,24 +109,17 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/datum/action/toggle_scope_zoom/azoom
 
-	//Rusted
-	var/rusted_weapon = FALSE
-	var/self_shot_divisor = 3 // higher value means more shots in the face
-	var/malf_low_bound = 40 // shots before gun exploding
-	var/malf_high_bound = 80
-	var/malf_counter // random number between malf_low_bound and malf_high_bound
-
 	light_on = FALSE
 
 	/// Responsible for the range of the throwing back when shooting at point blank range
 	var/pb_knockback = 0
+	/// Shots counter
+	var/shots_counter = 0
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
 	build_zooming()
-	if(rusted_weapon)
-		malf_counter = rand(malf_low_bound, malf_high_bound)
 	create_start_gun_modules()
 	if(islist(accuracy))
 		accuracy = getAccuracy(arglist(accuracy))
@@ -227,8 +220,14 @@
 		module.on_attach(src, null)
 		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
 
-/obj/item/gun/proc/process_chamber()
-	return FALSE
+//called after the gun has successfully fired its chambered ammo.
+/obj/item/gun/proc/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	handle_chamber(empty_chamber, from_firing, chamber_next_round)
+	SEND_SIGNAL(src, COMSIG_GUN_CHAMBER_PROCESSED)
+
+/obj/item/gun/proc/handle_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	return
 
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
@@ -285,14 +284,14 @@
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
-		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
 			return
 
 	if(!can_trigger_gun(user))
 		return
 
 	if(flag)
-		if(user.zone_selected == "mouth")
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
 				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
@@ -430,32 +429,8 @@
 	if(user)
 		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
-
-	if(rusted_weapon)
-		malf_counter -= burst_size
-		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
-		if(user.tkgrabbed_objects[src])
-			if(malf_counter <= 0 && prob(50))
-				user.drop_item_ground(user.tkgrabbed_objects[src])
-				new /obj/effect/decal/cleanable/ash(loc)
-				to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается!"))
-				playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
-				qdel(src)
-				return FALSE
-			return TRUE
-		if(malf_counter <= 0 && prob(50))
-			new /obj/effect/decal/cleanable/ash(user.loc)
-			user.take_organ_damage(0, 30)
-			user.flash_eyes()
-			to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается у вас в руках!"))
-			playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
-			qdel(src)
-			return FALSE
-		if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
-			playsound(user, fire_sound, 30, TRUE)
-			to_chat(user, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается прямо у вас перед лицом!"))
-			user.take_organ_damage(0, 10)
-			return FALSE
+	shots_counter += burst_size
+	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 
 /obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)

@@ -24,6 +24,8 @@
  */
 /datum/data/vending_product
 	name = "generic"
+	/// Description of the vending product
+	var/desc = ""
 	/// Typepath of the product that is created when this record "sells"
 	var/product_path = null
 	/// How many of this product we currently have
@@ -453,6 +455,7 @@
 		var/obj/item = new typepath(src)
 		var/datum/data/vending_product/record = new /datum/data/vending_product()
 		record.name = capitalize(item.declent_ru(NOMINATIVE))
+		record.desc = item.desc
 		qdel(item)
 		record.product_path = typepath
 		if(!start_empty)
@@ -989,10 +992,10 @@
 
 	for(var/datum/data/vending_product/product_record as anything in records)
 		var/obj/item/item = new product_record.product_path(src)
-		var/list/names = item.ru_names || item.get_ru_names()
 		var/list/static_record = list(
 			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
+			name = capitalize(item.declent_ru(NOMINATIVE)),
+			desc = item.desc,
 			price = (product_record.product_path in prices) ? prices[product_record.product_path] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
@@ -1404,6 +1407,7 @@
 		return
 	for(var/mob/living/victim in get_turf(target_atom))
 		var/was_alive = (victim.stat != DEAD)
+		var/client/victim_client = victim.client
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
@@ -1434,8 +1438,8 @@
 		. = TRUE
 		victim.Weaken(4 SECONDS)
 		victim.Knockdown(8 SECONDS)
-		if(was_alive && victim.stat == DEAD && victim.client)
-			victim.client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
+		if(was_alive && victim.stat == DEAD && victim_client)
+			victim_client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
 
 		playsound(victim, 'sound/effects/blobattack.ogg', 40, TRUE)
 		playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)

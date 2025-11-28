@@ -293,7 +293,7 @@
 						if(!disease)
 							CRASH("We weren't able to get the advance disease from the archive.")
 
-						dat += "<b>Болезнетворный агент:</b> [disease?"[disease.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</a>":"нет"]<br>"
+						dat += "<b>Болезнетворный агент:</b> [disease?"[disease.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</a>":"нет"]<br>"
 						dat += "<b>Описание: </b> [(disease.desc||"нет")]<br>"
 						dat += "<b>Путь передачи:</b> [(disease.additional_info||"нет")]<br>"
 						dat += "<b>Возможное лекарство:</b> [(disease.cure_text||"нет")]<br>"

@@ -15,11 +15,11 @@ export const LatheMenu = (properties) => {
   const { menu, linked_lathe, linked_imprinter } = data;
 
   if (menu === 4 && !linked_lathe) {
-    return <Box>NO PROTOLATHE LINKED TO CONSOLE</Box>;
+    return <Box>ПРОТОЛАТ НЕ ПОДКЛЮЧЁН</Box>;
   }
 
   if (menu === 5 && !linked_imprinter) {
-    return <Box>NO CIRCUIT IMPRITER LINKED TO CONSOLE</Box>;
+    return <Box>ПРИНТЕР ПЛАТ НЕ ПОДКЛЮЧЁН</Box>;
   }
 
   return (

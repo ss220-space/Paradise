@@ -7,7 +7,7 @@
 	cures = list("mannitol")
 	cure_prob = 15
 	required_organs = list(/obj/item/organ/internal/brain)
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 	mutation_reagents = list("mutagen", "neurotoxin2")
 	possible_mutations = list(/datum/disease/kuru, /datum/disease/virus/advance/preset/mind_restoration, /datum/disease/virus/transformation/jungle_fever)
 

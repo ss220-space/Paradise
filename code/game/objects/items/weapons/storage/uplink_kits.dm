@@ -16,6 +16,7 @@
 	name = "Box"
 	gender = MALE
 	icon_state = "box_of_doom"
+	item_state = "syndie"
 
 /obj/item/storage/box/syndie_kit/get_ru_names()
 	return list(
@@ -632,7 +633,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/mr_chang_technique
 	name = "Mr. Chang's aggressive marketing technique"
 	desc = "Коробка с товарами, предназначенными для увеличения прибыли через агрессивный маркетинг. Предоставлена корпорацией Мистера Чанга."
-	icon_state = "box_mr_chang"
+	icon_state = "box_chang"
+	item_state = "chang"
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique/get_ru_names()
 	return list(
@@ -652,16 +654,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit
 	name = "bowman headset conversion kit"
-	desc = "В комплект входят гарнитура, которая обеспечивает защиту от громких звуков, а также ключ-шифратор Синдиката."
+	desc = "В комплект входят гарнитура, которая обеспечивает защиту от громких звуков, а также ключ-шифратор \"Синдиката\"."
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit/get_ru_names()
 	return list(
-		NOMINATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
-		GENITIVE = "набора гарнитуры с ключом-шифратором Синдиката",
-		DATIVE = "набору гарнитуры с ключом-шифратором Синдиката",
-		ACCUSATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
-		INSTRUMENTAL = "набором гарнитуры с ключом-шифратором Синдиката",
-		PREPOSITIONAL = "наборе гарнитуры с ключом-шифратором Синдиката",
+		NOMINATIVE = "набор гарнитуры с ключом-шифратором \"Синдиката\"",
+		GENITIVE = "набора гарнитуры с ключом-шифратором \"Синдиката\"",
+		DATIVE = "набору гарнитуры с ключом-шифратором \"Синдиката\"",
+		ACCUSATIVE = "набор гарнитуры с ключом-шифратором \"Синдиката\"",
+		INSTRUMENTAL = "набором гарнитуры с ключом-шифратором \"Синдиката\"",
+		PREPOSITIONAL = "наборе гарнитуры с ключом-шифратором \"Синдиката\"",
 	)
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
@@ -671,7 +673,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/commando_kit
 	name = "knife fight kit"
 	desc = "Коробка, наполненная ароматами пороха, напалма и дешёвого виски, хранит в себе всё необходимое для выживания в суровых условиях."
-	icon_state = "commandos_kit"
+	icon_state = "commando_kit"
+	item_state = "green"
 
 /obj/item/storage/box/syndie_kit/commando_kit/get_ru_names()
 	return list(
@@ -797,7 +800,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/gun_mods
 	name = "gun upgrade kit"
 	desc = "Коробка, содержащая различные модуля для улучшения оружия."
-	icon_state = "box_gun_mods"
+	icon_state = "box_attachments"
 	item_state = "box_gun_mods"
 
 /obj/item/storage/box/syndie_kit/gun_mods/get_ru_names()

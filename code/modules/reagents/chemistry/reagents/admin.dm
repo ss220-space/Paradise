@@ -54,7 +54,7 @@
 	M.SetJitter(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(D.severity == NONTHREAT)
+		if(D.severity == DISEASE_SEVERITY_POSITIVE)
 			continue
 		D.cure(need_immunity = FALSE)
 	..()
@@ -87,7 +87,7 @@
 		qdel(O)
 	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
 		qdel(O)
-	if(istype(O, /obj/item/mmi))
+	if(is_mmi(O))
 		qdel(O)
 
 /datum/reagent/admin_cleaner/item
@@ -102,7 +102,7 @@
 /datum/reagent/admin_cleaner/all
 	name = "WD-2381-ALL"
 	id = "admincleaner_all"
-	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают всё, к чему прикасаются."
+	description = "Невероятно опасный набор нанитов, созданный Уборщиками \"Синдиката\", которые пожирают всё, к чему прикасаются."
 
 /datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/grenade/clusterbuster/segment))

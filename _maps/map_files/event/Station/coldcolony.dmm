@@ -5969,9 +5969,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "ceA" = (
-/turf/simulated/mineral/ancient{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
-	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "ceT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -22358,6 +22356,20 @@
 /obj/structure/table,
 /obj/item/gps/science,
 /obj/item/storage/toolbox/mechanical,
+/obj/item/multitool/circuit,
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_x = 2;
+	pixel_y = 0
+	},
+/obj/item/compact_remote{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/compact_remote{
+	pixel_x = 11;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -56330,7 +56342,7 @@
 /area/coldcolony/ruin/sm_lab)
 "uAf" = (
 /obj/structure/chair{
-	desc = "Этот красивый стул был отлит из двух трофейных боргов синдиката.";
+	desc = "Этот красивый стул был отлит из двух трофейных боргов \"Синдиката\".";
 	name = "Дизайнерский стул"
 	},
 /obj/machinery/shower{

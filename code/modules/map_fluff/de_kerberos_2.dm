@@ -6,7 +6,7 @@
 	english_station_name = "NSS Kerberos"
 	station_short = "Керберос"
 	dock_name = "АКН Трурль"
-	company_name = "Нанотрейзен"
+	company_name = "\"Нанотрейзен\""
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/deltastation/"

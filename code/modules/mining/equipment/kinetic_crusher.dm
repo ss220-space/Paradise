@@ -227,12 +227,9 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		if(isancientturf(target_turf))
-			visible_message(span_notice("Похоже, что эту породу возьмёт только кирка!"))
-		else
-			var/turf/simulated/mineral/M = target_turf
-			new /obj/effect/temp_visual/kinetic_blast(M)
-			M.attempt_drill(firer)
+		var/turf/simulated/mineral/mineral = target_turf
+		new /obj/effect/temp_visual/kinetic_blast(mineral)
+		mineral.attempt_drill(firer)
 	..()
 
 //trophies
@@ -786,10 +783,7 @@
 /obj/projectile/destabilizer/mega/on_hit(atom/target, blocked = FALSE)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		if(isancientturf(target_turf))
-			visible_message(span_notice("Похоже, что эту породу возьмёт только кирка!"))
-			forcedodge = 0
-		else if(istype(target_turf, /turf/simulated/mineral/gibtonite))
+		if(istype(target_turf, /turf/simulated/mineral/gibtonite))
 			var/turf/simulated/mineral/gibtonite/gib = target
 			if(gib.stage == 0)
 				gib.defuse()
