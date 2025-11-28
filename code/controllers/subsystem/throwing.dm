@@ -19,6 +19,12 @@ SUBSYSTEM_DEF(throwing)
 /datum/controller/subsystem/throwing/get_stat_details()
 	return "P:[length(processing)]"
 
+/datum/controller/subsystem/throwing/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(processing)
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if(!resumed)
 		src.currentrun = processing.Copy()

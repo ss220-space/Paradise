@@ -78,6 +78,7 @@
 	name = "riot shotgun"
 	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
+	item_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
@@ -160,14 +161,15 @@
 	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
 	current_skin = "riotshotgun-short"
-	item_state = "gun"			//phil235 is it different with different skin?
+	item_state = "riotshotgun-short"			//phil235 is it different with different skin?
+	item_color = "riotshotgun-short"
 	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
 	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	accuracy = GUN_ACCURACY_MINIMAL
 	magazine.max_ammo = 3
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 1),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
@@ -359,17 +361,17 @@
 	name = "combat shotgun"
 	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
 	icon_state = "cshotgun"
+	item_state = "cshotgun"
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
-	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4),
 	)
 	recoil = GUN_RECOIL_HIGH
 

@@ -87,6 +87,12 @@ SUBSYSTEM_DEF(timer)
 	// Dump all the logged data to the world log
 	log_world(to_log.Join("\n"))
 
+/datum/controller/subsystem/timer/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["bucket_count"] = bucket_count
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/timer/fire(resumed = FALSE)
 	// Store local references to datum vars as it is faster to access them
 	var/lit = last_invoke_tick

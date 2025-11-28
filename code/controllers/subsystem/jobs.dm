@@ -705,6 +705,8 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
+	if(human.client.donator_level > 0)
+		money_amount += human.client.donator_level * START_CREDITS_BY_DONATION_TIER
 	var/datum/money_account/M = create_account(human.real_name, money_amount, null, job, TRUE)
 	if(human.dna)
 		GLOB.dna2account[human.dna] = M

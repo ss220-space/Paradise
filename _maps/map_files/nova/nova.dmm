@@ -68550,7 +68550,7 @@
 	},
 /area/security/interrogation)
 "kdb" = (
-/turf/simulated/floor/glass/reinforced/airless,
+/turf/simulated/floor/glass/reinforced,
 /area/space)
 "kdc" = (
 /obj/effect/turf_decal/siding/white/end{

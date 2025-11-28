@@ -196,18 +196,3 @@
 	name = "plastitanium glass floor"
 	icon = 'icons/turf/floors/plastitaniumglass.dmi'
 	base_icon_state = "plastitaniumglass"
-
-/turf/simulated/floor/glass/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/glass/reinforced/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/glass/plasma/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
