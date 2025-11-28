@@ -792,7 +792,7 @@
 	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon_state()
-	icon_state = "[initial(base_icon_state)]_[length(contents)]"
+	icon_state = "[base_icon_state]_[length(contents)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
