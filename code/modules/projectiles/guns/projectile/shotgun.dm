@@ -364,7 +364,6 @@
 	item_state = "cshotgun"
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
-	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	accuracy = GUN_ACCURACY_SHOTGUN
