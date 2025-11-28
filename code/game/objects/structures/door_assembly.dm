@@ -261,6 +261,14 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 
+	if(access_electronics?.shell)
+		door.AddComponent( \
+			/datum/component/shell, \
+			unremovable_circuit_components = list(new /obj/item/circuit_component/airlock, new /obj/item/circuit_component/airlock_access_event), \
+			capacity = SHELL_CAPACITY_LARGE, \
+			shell_flags = SHELL_FLAG_ALLOW_FAILURE_ACTION|SHELL_FLAG_REQUIRE_ANCHOR \
+		)
+
 	door.airlock_electronics = airlock_electronics
 	door.id_tag = airlock_electronics.id
 	airlock_electronics.forceMove(door)

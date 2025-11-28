@@ -22568,12 +22568,18 @@
 	pixel_y = 24;
 	req_access = list(29)
 	},
-/obj/item/clothing/glasses/hud/diagnostic,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_y = -7
 	},
-/obj/item/clothing/glasses/welding,
+/obj/item/multitool/circuit{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/multitool/circuit{
+	pixel_x = -8;
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -70390,11 +70396,19 @@
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
+/obj/item/compact_remote{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 7
 	},
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
+/obj/item/book/manual/sop_science{
+	pixel_y = -14
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -86029,6 +86043,15 @@
 /area/space)
 "uKm" = (
 /obj/structure/closet/wardrobe/robotics_black,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

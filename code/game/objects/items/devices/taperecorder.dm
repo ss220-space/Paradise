@@ -281,26 +281,29 @@
 	stop(playback_override = TRUE)
 
 /obj/item/taperecorder/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
 	var/msg = multilingual_to_message(message_pieces)
-	if(mytape && recording)
-		var/ending = copytext(msg, length(msg))
-		mytape.timestamp += mytape.used_capacity
-		var/datum/tape_piece/piece = new()
-		piece.time = mytape.used_capacity
-		piece.speaker_name = M.name
-		piece.message = msg
-		piece.message_verb = "says"
-		piece.tts_seed = M.tts_seed
+	if(!mytape || !recording)
+		return
 
-		if(M.AmountStuttering())
-			piece.message_verb = "stammers"
-		else if(M.getBrainLoss() >= 60)
-			piece.message_verb = "gibbers"
-		else if(ending == "?")
-			piece.message_verb = "asks"
-		else if(ending == "!")
-			piece.message_verb = "exclaims"
-		mytape.storedinfo += piece
+	var/ending = copytext(msg, length(msg))
+	mytape.timestamp += mytape.used_capacity
+	var/datum/tape_piece/piece = new()
+	piece.time = mytape.used_capacity
+	piece.speaker_name = M.name
+	piece.message = msg
+	piece.message_verb = "says"
+	piece.tts_seed = M.tts_seed
+
+	if(M.AmountStuttering())
+		piece.message_verb = "stammers"
+	else if(M.getBrainLoss() >= 60)
+		piece.message_verb = "gibbers"
+	else if(ending == "?")
+		piece.message_verb = "asks"
+	else if(ending == "!")
+		piece.message_verb = "exclaims"
+	mytape.storedinfo += piece
 
 /obj/item/taperecorder/hear_message(mob/living/M, msg)
 	if(mytape && recording)

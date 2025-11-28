@@ -304,7 +304,7 @@
 		return
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.override = 1
-	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()

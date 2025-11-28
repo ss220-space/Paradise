@@ -139,6 +139,14 @@
 	materials = list(MAT_METAL = 48000, MAT_SILVER = 3000, MAT_URANIUM = 4000)
 	build_path = /obj/item/ammo_box/tox46x30mm
 
+/datum/design/hp45colt
+	id = "hp45colt"
+	req_tech = list(RESEARCH_TREE_COMBAT = 2, RESEARCH_TREE_MATERIALS = 1)
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(MAT_METAL = 48000)
+	build_path = /obj/item/ammo_box/expansive45colt
+	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
+
 /datum/design/lmag
 	id = "lmag"
 	build_type = PROTOLATHE | AUTOLATHE

@@ -168,7 +168,7 @@
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
 
-		if(istype(I, /obj/item/relic) || (techs_sum > MAX_DUPE_TECH || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
+		if(HAS_TRAIT(I, TRAIT_NO_CLONE_IN_EXPERIMENTATOR) || (techs_sum > MAX_DUPE_TECH || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
 			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
 
@@ -869,5 +869,6 @@
 
 /obj/item/relic/New()
 	..()
+	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
 	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","suspicious tech","gear")]"
