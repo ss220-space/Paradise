@@ -82,7 +82,7 @@
 
 /obj/item/mod/module/circuit/configure_edit(key, value)
 	. = ..()
-	var/obj/item/circuit_component/equipment_action/action_comp = locate(key) in action_comps
+	var/obj/item/circuit_component/equipment_action/action_comp = locateUID(key)
 	if(!istype(action_comp))
 		return
 	if(text2num(value))
