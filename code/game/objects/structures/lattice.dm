@@ -88,8 +88,7 @@
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
 	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-	icon_state = "lattice_clockwork-0"
-	base_icon_state = "lattice_clockwork"
+	icon_state = "lattice-0"
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()

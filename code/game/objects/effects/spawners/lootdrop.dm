@@ -16,18 +16,6 @@
 		lootcount--
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/spawner/lootdrop/armory_contraband
-	name = "armory contraband gun spawner"
-	icon_state ="stechkin"
-	lootdoubles = FALSE
-
-	loot = list(
-		/obj/item/gun/projectile/automatic/pistol = 8,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 5,
-		/obj/item/gun/projectile/revolver/mateba,
-		/obj/item/gun/projectile/automatic/pistol/deagle,
-	)
-
 /obj/effect/spawner/lootdrop/maintenance
 	name = "maintenance loot spawner"
 	icon_state = "x1"

@@ -1725,7 +1725,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -3050,7 +3050,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/maintenance/kitchen)
