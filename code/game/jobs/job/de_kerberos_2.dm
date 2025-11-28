@@ -8,8 +8,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team1
 	insurance_type = INSURANCE_TYPE_NONE
-
-
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
@@ -44,8 +42,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team2
 	insurance_type = INSURANCE_TYPE_NONE
-
-
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
@@ -71,8 +67,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team3
 	insurance_type = INSURANCE_TYPE_NONE
-
-
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE

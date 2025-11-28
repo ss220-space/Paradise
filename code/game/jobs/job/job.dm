@@ -101,7 +101,7 @@
 
 	if(paycheck)
 		min_start_money = paycheck
-
+		max_start_money = paycheck * 3
 
 	return
 
