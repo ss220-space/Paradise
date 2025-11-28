@@ -193,6 +193,7 @@
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty toolbox"
 	icon_state = "toolbox_red_rusted"
+	item_state = "toolbox_red_rusted"
 
 /obj/item/storage/toolbox/emergency/old/get_ru_names()
 	return list(
@@ -236,6 +237,7 @@
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty toolbox"
 	icon_state = "toolbox_blue_rusted"
+	item_state = "toolbox_blue_rusted"
 
 /obj/item/storage/toolbox/mechanical/old/get_ru_names()
 	return list(

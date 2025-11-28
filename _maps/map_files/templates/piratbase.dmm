@@ -8280,7 +8280,7 @@
 /area/ruin/space/pirate_base/atrium)
 "xx" = (
 /obj/effect/turf_decal/box/red,
-/obj/machinery/quantumpad/cere/arrivals_cargo{
+/obj/machinery/quantumpad{
 	color = "#A52A2A";
 	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
 	req_access = list(160);
@@ -15556,7 +15556,7 @@
 	},
 /obj/effect/turf_decal/box/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/quantumpad/cere/cargo_arrivals{
+/obj/machinery/quantumpad{
 	color = "#A52A2A";
 	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
 	req_access = list(160);

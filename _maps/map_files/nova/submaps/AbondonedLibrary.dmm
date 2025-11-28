@@ -112,7 +112,7 @@
 	},
 /area/maintenance/electrical_shop)
 "hb" = (
-/turf/simulated/floor/glass/reinforced/airless,
+/turf/simulated/floor/glass/reinforced,
 /area/template_noop)
 "hc" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedLibrary,

@@ -627,8 +627,8 @@
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "AquaticKit"
+	icon_state = "acuatic_kit"
+	item_state = "fishkit"
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()
