@@ -49,7 +49,8 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SCIENCE
 	paycheck = PAYCHECK_CREW
-	required_objectives = list( // All science guys get bonuses for maxing out their tech.
+	// All science guys get bonuses for maxing out their tech.
+	required_objectives = list(
 		/datum/job_objective/further_research,
 	)
 
