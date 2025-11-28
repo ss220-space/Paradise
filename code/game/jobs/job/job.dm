@@ -82,9 +82,9 @@
 	/////////////////////////////////
 
 	/// Objectives that are ALWAYS added.
-	var/required_objectives=list()
+	var/required_objectives = list()
 	/// Objectives that are SOMETIMES added.
-	var/optional_objectives=list()
+	var/optional_objectives = list()
 
 	var/insurance = INSURANCE_STANDART
 	var/insurance_type = INSURANCE_TYPE_STANDART
