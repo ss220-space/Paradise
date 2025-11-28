@@ -22,6 +22,7 @@
 		if(istype(item, /obj/item/ammo_box/speedloader) && !do_after(user, GUN_MAGAZINE_RELOAD_DURATION, item, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
 			balloon_alert(user, "отменено")
 			return
+
 		add_fingerprint(user)
 		var/num_loaded = magazine.reload(item, user)
 		if(num_loaded)
