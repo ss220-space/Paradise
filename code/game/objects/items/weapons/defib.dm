@@ -448,8 +448,8 @@
 
 /obj/item/twohanded/shockpaddles/update_icon_state()
 	var/is_wielded = HAS_TRAIT(src, TRAIT_WIELDED)
-	icon_state = "[initial(icon_state)][is_wielded][on_cooldown ? "_cooldown" : ""]"
-	item_state = "[initial(icon_state)][is_wielded]"
+	icon_state = "[initial(base_icon_state)][is_wielded][on_cooldown ? "_cooldown" : ""]"
+	item_state = "[initial(base_icon_state)][is_wielded]"
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] поднос[PLUR_IT_YAT(user)] включенные электроды к своей груди! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
@@ -519,5 +519,5 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/twohanded/shockpaddles/borg/update_icon_state()
-	icon_state = "[initial(icon_state)][on_cooldown ? "_cooldown" : ""]"
+	icon_state = "[initial(base_icon_state)][on_cooldown ? "_cooldown" : ""]"
 

@@ -112,13 +112,11 @@
 	desc = "This looks suspicious..."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "beacon0"
-
+	base_icon_state = "beacon"
 	anchored = FALSE
 	density = TRUE
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
-
-	var/active = 0
-	var/icontype = "beacon"
+	var/active = FALSE
 
 /obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
 	if(surplus() < 1500)
@@ -129,8 +127,8 @@
 		var/obj/singularity/singulo = thing
 		if(singulo.z == z)
 			singulo.target = src
-	icon_state = "[icontype]1"
-	active = 1
+	icon_state = "[base_icon_state]1"
+	active = TRUE
 	START_PROCESSING(SSmachines, src)
 	if(user)
 		to_chat(user, span_notice("You activate the beacon."))
@@ -140,8 +138,8 @@
 		var/obj/singularity/singulo = thing
 		if(singulo.target == src)
 			singulo.target = null
-	icon_state = "[icontype]0"
-	active = 0
+	icon_state = "[base_icon_state]0"
+	active = FALSE
 	if(user)
 		to_chat(user, span_notice("You deactivate the beacon."))
 
@@ -191,5 +189,5 @@
 		Deactivate()
 
 /obj/machinery/power/singularity_beacon/syndicate
-	icontype = "beaconsynd"
 	icon_state = "beaconsynd0"
+	base_icon_state = "beaconsynd"
