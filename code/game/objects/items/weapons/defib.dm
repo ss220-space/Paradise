@@ -341,8 +341,8 @@
 	name = "defibrillator paddles"
 	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
 	icon = 'icons/obj/defib.dmi'
-	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
+	icon_state = "defibpaddles"
+	item_state = "defibpaddles"
 	base_icon_state = "defibpaddles"
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY

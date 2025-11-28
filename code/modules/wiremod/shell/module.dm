@@ -251,7 +251,7 @@
 			if(module.module_type != MODULE_PASSIVE)
 				modules_list += module.name
 		module_to_select.possible_options = modules_list
-		if(module_to_select.possible_options.len)
+		if(length(module_to_select.possible_options))
 			module_to_select.set_value(module_to_select.possible_options[1])
 	else if(istype(old_loc, /obj/item/mod/control))
 		UnregisterSignal(old_loc, list(COMSIG_MOD_MODULE_SELECTED, COMSIG_ITEM_EQUIPPED))
@@ -277,7 +277,7 @@
 		if(module.module_type != MODULE_PASSIVE)
 			modules_list += module.name
 	module_to_select.possible_options = modules_list
-	if(module_to_select.possible_options.len)
+	if(length(module_to_select.possible_options))
 		module_to_select.set_value(module_to_select.possible_options[1])
 
 /obj/item/circuit_component/mod_adapter_core/proc/on_mod_part_toggled()
