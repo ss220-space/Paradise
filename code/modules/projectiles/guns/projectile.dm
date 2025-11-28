@@ -95,6 +95,7 @@
 	if(!do_after(user, GUN_MAGAZINE_RELOAD_DURATION, new_magazine, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
 		balloon_alert(user, "отменено")
 		return FALSE
+
 	if(user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 		return FALSE
 	. = TRUE
