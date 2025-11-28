@@ -4,7 +4,6 @@
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
 	selection_color = "#66c6ff"
-	req_admin_notify = 1
 	access = list(ACCESS_EVA, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
@@ -95,7 +94,6 @@
 /datum/job/medical/doctor/intern
 	title = JOB_TITLE_INTERN
 	flag = JOB_FLAG_INTERN
-	spawn_positions = 3
 	alt_titles = list("Student Medical Doctor", "Medical Assistant")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -193,7 +191,6 @@
 /datum/job/medical/geneticist
 	title = JOB_TITLE_GENETICIST
 	flag = JOB_FLAG_GENETICIST
-	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "Главным врачом и Научным руководителем"
