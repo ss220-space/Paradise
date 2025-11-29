@@ -292,11 +292,17 @@
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/proc/on_gun_fire()
 	SIGNAL_HANDLER
 
+	var/obj/item/gun/energy/gun = device
+
 	if(HAS_TRAIT(mod.wearer, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		return
 
-	if(!drain_power(use_energy_cost)) //Drain the rest dry
-		drain_power(mod.core.charge_amount())
+	if(!gun.chambered.BB)
+		gun.chambered.newshot()
+
+	if(!drain_power(use_energy_cost)) //no shoot when no energy
+		QDEL_NULL(gun.chambered.BB)
+		balloon_alert(mod.wearer, "нет энергии!")
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt
 	prebuilt = TRUE

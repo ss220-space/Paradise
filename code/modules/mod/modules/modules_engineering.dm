@@ -35,6 +35,25 @@
 	if(istype(head_cover))
 		head_cover.flash_protect = initial(head_cover.flash_protect)
 
+/obj/item/mod/module/welding/syndie
+	name = "MOD flash protection module"
+	desc = "Модуль для МЭК, устанавливаемый в визор. Продвинутая матрица обеспечивает автоматическую фильтрацию любого мощного оптического излучения, \
+			полностью защищая пользователя от ярких вспышек любого рода."
+	icon_state = "welding_syndie"
+	complexity = 0
+	removable = FALSE
+	overlay_state_inactive = "module_welding_syndie"
+
+/obj/item/mod/module/welding/syndie/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль защиты от вспышек",
+		GENITIVE = "модуля защиты от вспышек",
+		DATIVE = "модулю защиты от вспышек",
+		ACCUSATIVE = "модуль защиты от вспышек",
+		INSTRUMENTAL = "модулем защиты от вспышек",
+		PREPOSITIONAL = "модуле защиты от вспышек",
+	)
+
 // MARK: T-ray scanner
 /// T-Ray Scan - Scans the terrain for undertile objects.
 /obj/item/mod/module/t_ray
