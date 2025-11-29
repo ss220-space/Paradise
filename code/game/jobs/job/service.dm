@@ -41,11 +41,19 @@
 		/obj/item/storage/box/ids = 1,
 		/obj/item/melee/baton/telescopic = 1,
 	)
-	head = /obj/item/clothing/head/cowboyhat/tan
+	implants = list()
 
+/datum/job/service
+	department_flag = JOBCAT_SUPPORT
+	is_service = 1
+	supervisors = "Главой персонала"
+	department_head = list(JOB_TITLE_HOP)
+	selection_color = "#d1e8d3"
+	exp_requirements = 300
+	exp_type = EXP_TYPE_SERVICE
+	paycheck = PAYCHECK_CREW
 
-//Food
-/datum/job/bartender
+/datum/job/service/bartender
 	title = JOB_TITLE_BARTENDER
 	flag = JOB_FLAG_BARTENDER
 	total_positions = 1

@@ -354,7 +354,7 @@
 
 /datum/job/proc/apply_skills(mob/living/carbon/human/user)
 	to_chat(user, "apply [length(GLOB.skills)] skills")
-	for(var/skill_name as anything in GLOB.skills)
+	for(var/skill_name in GLOB.skills)
 		//TODO vakons сделать потом переиспользование датума навыка, а уровни вынести в отдельную мапу
 		var/datum/skill/skill_type = GLOB.skills[skill_name]
 		var/datum/skill/skill = new skill_type.type(skill_type)
