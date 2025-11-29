@@ -65,9 +65,6 @@
 		var/datum/hud/our_hud = usr.hud_used
 		our_hud.position_action(src, SCRN_OBJ_DEFAULT)
 		return TRUE
-	if(usr.next_click > world.time)
-		return
-	usr.next_click = world.time + 1
 	var/trigger_flags
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		trigger_flags |= TRIGGER_SECONDARY_ACTION
