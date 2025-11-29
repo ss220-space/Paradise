@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/medical/geneticist/department = "Medical"
 
-/datum/job/psychiatrist/department = "Medical"
+/datum/job/medical/psychiatrist/department = "Medical"
 
 /datum/job/head_of_staff/rd/department = "Science"
 /datum/job/head_of_staff/rd/head_position = 1
