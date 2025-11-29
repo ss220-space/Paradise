@@ -53,11 +53,6 @@ SUBSYSTEM_DEF(jobs)
     if(!length(GLOB.joblist))
         to_chat(world, span_warning("Ошибка выдачи профессий: GLOB.joblist пуст."))
         return
-
-    for(var/title in GLOB.joblist)
-        var/datum/job/job = GLOB.joblist[title]
-        name_occupations[job.title] = job
-
 	/// Order of departments, used in occupation setup menu
     var/list/department_order = list(
         "command", "engineering", "science", "medical", "security", "supply", "service", "legal", "other"
@@ -81,6 +76,10 @@ SUBSYSTEM_DEF(jobs)
 
     for(var/title in GLOB.joblist)
         var/datum/job/job = GLOB.joblist[title]
+        if(!job)
+            continue
+
+        name_occupations[job.title] = job
 
         if(job.admin_only || job.hidden_from_job_prefs)
             continue
