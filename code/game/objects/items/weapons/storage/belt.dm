@@ -756,6 +756,7 @@
 	desc = "Патронташ для хранения патронов к дробовику."
 	icon_state = "bandolier_0"
 	item_state = "bandolier"
+	base_icon_state = "bandolier"
 	storage_slots = 16
 	max_combined_w_class = 16
 	display_contents_with_number = TRUE
@@ -791,7 +792,7 @@
 	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon_state()
-	icon_state = "[initial(icon_state)]_[length(contents)]"
+	icon_state = "[base_icon_state]_[length(contents)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
