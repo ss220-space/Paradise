@@ -1,39 +1,53 @@
-#define BLUEPRINTS_MAX_ROOM_SIZE 300
+/**
+ * Detects a room of connected turfs starting from an origin point
+ * Returns an associative list of turf|dirs pairs where dirs are connected turfs in the same space
+ *
+ * Arguments:
+ * * origin_turf - The starting turf for room detection
+ * * break_types - Typecache of turf/area types that will break detection if found
+ * * max_room_size - Maximum number of turfs to include in the room (default: INFINITY)
+ */
+/proc/detect_room(turf/origin_turf, list/break_types = list(), max_room_size = INFINITY)
+	if(origin_turf.blocks_air)
+		return list(origin_turf)
 
-// Gets an atmos isolated contained space
-// Returns an associative list of turf|dirs pairs
-// The dirs are connected turfs in the same space
-// break_if_found is a typecache of turf/area types to return false if found
-// Please keep this proc type agnostic. If you need to restrict it do it elsewhere or add an arg.
-/proc/detect_room(turf/origin, list/break_if_found = list(), max_size = INFINITY)
-	if(origin.blocks_air)
-		return list(origin)
-
-	. = list()
+	var/list/room_turfs = list()
 	var/list/checked_turfs = list()
-	var/list/found_turfs = list(origin)
-	while(length(found_turfs))
-		var/turf/sourceT = found_turfs[1]
-		found_turfs.Cut(1, 2)
-		var/dir_flags = checked_turfs[sourceT]
-		for(var/dir in GLOB.alldirs)
-			if(length(.) > max_size)
-				return
-			if(dir_flags & dir) // This means we've checked this dir before, probably from the other turf
+	var/list/turfs_to_process = list(origin_turf)
+
+	while(length(turfs_to_process))
+		var/turf/current_turf = turfs_to_process[1]
+		turfs_to_process.Cut(1, 2)
+		var/checked_directions = checked_turfs[current_turf]
+
+		for(var/direction in GLOB.alldirs)
+			if(length(room_turfs) > max_room_size)
+				return room_turfs
+
+			if(checked_directions & direction)
 				continue
-			var/turf/checkT = get_step(sourceT, dir)
-			if(!checkT)
+
+			var/turf/adjacent_turf = get_step(current_turf, direction)
+			if(!adjacent_turf)
 				continue
-			checked_turfs[sourceT] |= dir
-			checked_turfs[checkT] |= REVERSE_DIR(dir)
-			.[sourceT] |= dir
-			.[checkT] |= REVERSE_DIR(dir)
-			if(break_if_found[checkT.type] || break_if_found[checkT.loc.type])
+
+			checked_turfs[current_turf] |= direction
+			checked_turfs[adjacent_turf] |= REVERSE_DIR(direction)
+			room_turfs[current_turf] |= direction
+			room_turfs[adjacent_turf] |= REVERSE_DIR(direction)
+
+			if(break_types[adjacent_turf.type] || break_types[adjacent_turf.loc.type])
 				return FALSE
-			var/static/list/cardinal_cache = list("[NORTH]" = TRUE, "[EAST]" = TRUE, "[SOUTH]" = TRUE, "[WEST]" = TRUE)
-			if(!cardinal_cache["[dir]"] || checkT.blocks_air || !sourceT.CanAtmosPass(checkT))
+
+			var/static/list/cardinal_directions = list("[NORTH]" = TRUE, "[EAST]" = TRUE, "[SOUTH]" = TRUE, "[WEST]" = TRUE)
+			if(!cardinal_directions["[direction]"] || adjacent_turf.blocks_air || !current_turf.CanAtmosPass(adjacent_turf))
 				continue
-			found_turfs += checkT // Since checkT is connected, add it to the list to be processed
+
+			turfs_to_process += adjacent_turf
+
+	return room_turfs
+
+#define BLUEPRINTS_MAX_ROOM_SIZE 300
 
 /proc/create_area(mob/creator, new_area_type = /area)
 	// Passed into the above proc as list/break_if_found
@@ -143,6 +157,8 @@
 
 	return TRUE
 
+#undef BLUEPRINTS_MAX_ROOM_SIZE
+
 /proc/require_area_resort()
 	GLOB.sortedAreas = null
 
@@ -152,5 +168,161 @@
 		GLOB.sortedAreas = sortTim(GLOB.areas.Copy(), /proc/cmp_name_asc)
 	return GLOB.sortedAreas
 
-#undef BLUEPRINTS_MAX_ROOM_SIZE
+/// Simple datum for storing coordinates.
+/datum/coords
+	var/x_pos = null
+	var/y_pos = null
+	var/z_pos = null
 
+// MARK: TODO: REF
+/area/proc/copy_contents_to(area/A , platingRequired = FALSE, perfect_copy = TRUE)
+	//Takes: Area. Optional: If it should copy to areas that don't have plating
+	//Returns: Nothing.
+	//Notes: Attempts to move the contents of one area to another area.
+	//	   Movement based on lower left corner. Tiles that do not fit
+	//		 into the new area will not be moved.
+
+	if(!A || !src)
+		return FALSE
+
+	var/list/turfs_src = get_area_turfs(src.type)
+	var/list/turfs_trg = get_area_turfs(A.type)
+
+	var/src_min_x = 0
+	var/src_min_y = 0
+	for(var/turf/T in turfs_src)
+		if(T.x < src_min_x || !src_min_x)
+			src_min_x	= T.x
+		if(T.y < src_min_y || !src_min_y)
+			src_min_y	= T.y
+
+	var/trg_min_x = 0
+	var/trg_min_y = 0
+	for(var/turf/T in turfs_trg)
+		if(T.x < trg_min_x || !trg_min_x)
+			trg_min_x	= T.x
+		if(T.y < trg_min_y || !trg_min_y)
+			trg_min_y	= T.y
+
+	var/list/refined_src = new/list()
+	for(var/turf/T in turfs_src)
+		refined_src += T
+		refined_src[T] = new/datum/coords
+		var/datum/coords/C = refined_src[T]
+		C.x_pos = (T.x - src_min_x)
+		C.y_pos = (T.y - src_min_y)
+
+	var/list/refined_trg = new/list()
+	for(var/turf/T in turfs_trg)
+		refined_trg += T
+		refined_trg[T] = new/datum/coords
+		var/datum/coords/C = refined_trg[T]
+		C.x_pos = (T.x - trg_min_x)
+		C.y_pos = (T.y - trg_min_y)
+
+	var/list/toupdate = new/list()
+
+	var/copiedobjs = list()
+
+	moving:
+		for(var/turf/T in refined_src)
+			var/datum/coords/C_src = refined_src[T]
+			for(var/turf/B in refined_trg)
+				var/datum/coords/C_trg = refined_trg[B]
+				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
+					var/old_dir1 = T.dir
+					var/old_icon_state1 = T.icon_state
+					var/old_icon1 = T.icon
+
+					if(platingRequired)
+						if(isspaceturf(B))
+							continue moving
+					var/turf/X = new T.type(B)
+					X.dir = old_dir1
+					X.icon_state = old_icon_state1
+					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+
+					for(var/obj/O in T)
+						copiedobjs += DuplicateObject(O, perfect_copy, newloc = X)
+
+					for(var/mob/M in T)
+						if(!M.move_on_shuttle)
+							continue
+						copiedobjs += DuplicateObject(M, perfect_copy, newloc = X)
+
+					for(var/V in T.vars)
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
+							X.vars[V] = T.vars[V]
+
+					toupdate += X
+
+					refined_src -= T
+					refined_trg -= B
+					continue moving
+
+	if(length(toupdate))
+		for(var/turf/simulated/T1 in toupdate)
+			T1.CalculateAdjacentTurfs()
+			SSair.add_to_active(T1,1)
+
+	return copiedobjs
+
+///Takes: Area type as text string or as typepath OR an instance of the area.
+///Returns: A list of all turfs in areas of that type of that type in the world.
+/proc/get_area_turfs(areatype, target_z = 0, subtypes=FALSE)
+	if(istext(areatype))
+		areatype = text2path(areatype)
+	else if(isarea(areatype))
+		var/area/areatemp = areatype
+		areatype = areatemp.type
+	else if(!ispath(areatype))
+		return null
+	// Pull out the areas
+	var/list/areas_to_pull = list()
+	if(subtypes)
+		var/list/cache = typecacheof(areatype)
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(!cache[area_to_check.type])
+				continue
+			areas_to_pull += area_to_check
+	else
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(area_to_check.type != areatype)
+				continue
+			areas_to_pull += area_to_check
+
+	// Now their turfs
+	var/list/turfs = list()
+	for(var/area/pull_from as anything in areas_to_pull)
+
+		if(target_z != 0)
+			turfs += pull_from.get_turfs_by_zlevel(target_z)
+			continue
+
+		for(var/list/zlevel_turfs as anything in pull_from.get_zlevel_turf_lists())
+			turfs += zlevel_turfs
+
+	return turfs
+
+///Takes: Area type as text string or as typepath OR an instance of the area.
+///Returns: A list of all areas of that type in the world.
+/proc/get_areas(areatype, subtypes=TRUE)
+	if(!areatype)
+		return null
+	if(istext(areatype))
+		areatype = text2path(areatype)
+	if(isarea(areatype))
+		var/area/areatemp = areatype
+		areatype = areatemp.type
+
+	var/list/areas = list()
+	if(subtypes)
+		var/list/cache = typecacheof(areatype)
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(cache[area_to_check.type])
+				areas += area_to_check
+	else
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(area_to_check.type == areatype)
+				areas += area_to_check
+	return areas

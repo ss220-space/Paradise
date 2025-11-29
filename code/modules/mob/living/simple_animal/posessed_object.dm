@@ -178,27 +178,27 @@
 	return ..(NONE)
 
 /mob/living/simple_animal/possessed_object/proc/animate_ghostly_presence(atom/target, loop_count = -1, float_speed = 20, random_rotation = TRUE)
-    if(!istype(target))
-        return
+	if(!istype(target))
+		return
 
-    var/rotation_angle = rand(5, 20)
-    var/rotation_direction = 1
-    if(random_rotation)
-        rotation_direction = pick(-1, 1)
+	var/rotation_angle = rand(5, 20)
+	var/rotation_direction = 1
+	if(random_rotation)
+		rotation_direction = pick(-1, 1)
 
-    spawn(rand(1,10))
-        animate(
-            target,
-            pixel_y = 8,
-            transform = matrix(rotation_angle * (rotation_direction == 1 ? 1 : -1), MATRIX_ROTATE),
-            time = float_speed,
-            loop = loop_count,
-            easing = SINE_EASING
-        )
-        animate(
-            pixel_y = 0,
-            transform = matrix(rotation_angle * (rotation_direction == 1 ? -1 : 1), MATRIX_ROTATE),
-            time = float_speed,
-            loop = loop_count,
-            easing = SINE_EASING
-        )
+	spawn(rand(1,10))
+		animate(
+			target,
+			pixel_y = 8,
+			transform = matrix(rotation_angle * (rotation_direction == 1 ? 1 : -1), MATRIX_ROTATE),
+			time = float_speed,
+			loop = loop_count,
+			easing = SINE_EASING
+		)
+		animate(
+			pixel_y = 0,
+			transform = matrix(rotation_angle * (rotation_direction == 1 ? -1 : 1), MATRIX_ROTATE),
+			time = float_speed,
+			loop = loop_count,
+			easing = SINE_EASING
+		)

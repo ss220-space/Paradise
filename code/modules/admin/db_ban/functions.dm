@@ -99,7 +99,7 @@
 	if(query.NextRow())
 		validckey = TRUE
 	if(!validckey)
-		if(!banned_mob || (banned_mob && !IsGuestKey(banned_mob.key)))
+		if(!banned_mob || (banned_mob && !is_guest_key(banned_mob.key)))
 			message_admins("<font color='red'>[key_name_admin(usr)] attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>")
 			qdel(query)
 			return
