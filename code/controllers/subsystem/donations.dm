@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(donations)
 	name = "Donations"
-	wait = 5 MINUTES
+	wait = 10 MINUTES
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
 	priority = FIRE_PRIORITY_DONATIONS
 	init_order = INIT_ORDER_DONATIONS
