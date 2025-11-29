@@ -7355,7 +7355,8 @@
 "bdA" = (
 /obj/item/radio/intercom{
 	pixel_x = -28;
-	pixel_y = -2
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -9754,7 +9755,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_x = 28
+	pixel_x = 28;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14643,10 +14645,6 @@
 	pixel_y = 6;
 	tag = "icon-shower (EAST)"
 	},
-/obj/item/radio/intercom{
-	pixel_x = -28;
-	pixel_y = -8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -16061,7 +16059,8 @@
 	network = list("Medical","SS13")
 	},
 /obj/item/radio/intercom{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -16314,8 +16313,9 @@
 /area/security/detectives_office)
 "cqm" = (
 /obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
+	pixel_x = -28;
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet2)
@@ -24151,6 +24151,10 @@
 	icon_state = "red"
 	},
 /area/security/customs)
+"dyL" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet,
+/area/library)
 "dyQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -31236,15 +31240,16 @@
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/machinery/light,
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -26
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -42379,11 +42384,6 @@
 	},
 /turf/simulated/floor/wood/dark,
 /area/crew_quarters/bar/atrium)
-"gfy" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "gfA" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -56910,9 +56910,15 @@
 	},
 /area/medical/research/restroom)
 "ipA" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/carpet,
-/area/library)
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay)
 "ipK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -62928,6 +62934,11 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/north)
+"jkU" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/red/line,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "jkV" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
@@ -67753,7 +67764,9 @@
 "jVz" = (
 /obj/structure/closet/wardrobe/white,
 /obj/item/radio/intercom{
-	pixel_x = -32
+	pixel_x = -28;
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81308,11 +81321,13 @@
 /area/medical/surgery/south)
 "mbt" = (
 /obj/structure/chair/comfy/brown,
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 30
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -81361,7 +81376,8 @@
 /obj/machinery/recharger,
 /obj/item/radio/intercom{
 	pixel_x = -28;
-	pixel_y = -8
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -92701,11 +92717,6 @@
 	pixel_x = -25;
 	pixel_y = 26
 	},
-/obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_y = 35;
-	pixel_x = -32
-	},
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
 "nHY" = (
@@ -93522,7 +93533,9 @@
 "nNz" = (
 /obj/machinery/computer/crew,
 /obj/item/radio/intercom{
-	pixel_x = -32
+	pixel_x = -28;
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -105815,7 +105828,8 @@
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28;
-	pixel_y = -8
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -116814,10 +116828,12 @@
 	name = "CMO Quarters Shutters";
 	pixel_y = 26
 	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -1;
+	dir = 4
+	},
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
 "rlb" = (
@@ -121457,7 +121473,8 @@
 "rRF" = (
 /obj/item/radio/intercom{
 	pixel_x = -28;
-	pixel_y = -8
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -131438,6 +131455,14 @@
 "tnd" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/perma)
+"tnj" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/red/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space)
 "tnk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -143384,6 +143409,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -1;
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/medical/cmo)
 "uZc" = (
@@ -151023,8 +151053,7 @@
 	},
 /obj/effect/landmark/start/civilian,
 /obj/item/radio/intercom{
-	dir = 1;
-	pixel_y = 24
+	pixel_y = 29
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -154442,7 +154471,8 @@
 "wHg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
@@ -160559,8 +160589,9 @@
 	pixel_y = 32
 	},
 /obj/item/radio/intercom{
-	pixel_x = -26;
-	pixel_y = -2
+	pixel_x = -28;
+	pixel_y = -1;
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
@@ -164692,14 +164723,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
-"yfm" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "yfn" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -186745,7 +186768,7 @@ jmb
 sbP
 jOC
 oSy
-ipA
+dyL
 qel
 geO
 dGr
@@ -187265,7 +187288,7 @@ qel
 qel
 ejf
 aAA
-ipA
+dyL
 qel
 qel
 qel
@@ -187736,7 +187759,7 @@ fDG
 pxf
 gGm
 rZV
-ppc
+ipA
 ufI
 jGt
 ppc
@@ -274159,8 +274182,8 @@ mdC
 wJE
 wJE
 pkq
-yfm
-yfm
+tnj
+tnj
 gYD
 wQZ
 uJG
@@ -274416,8 +274439,8 @@ fYq
 jEB
 jEB
 bsg
-gfy
-gfy
+jkU
+jkU
 szR
 wQZ
 uJG
@@ -274673,8 +274696,8 @@ fYq
 jEB
 jEB
 bsg
-gfy
-gfy
+jkU
+jkU
 szR
 wQZ
 uJG
@@ -274930,7 +274953,7 @@ uYE
 bsg
 jEB
 bsg
-gfy
+jkU
 bsg
 kQf
 wQZ
