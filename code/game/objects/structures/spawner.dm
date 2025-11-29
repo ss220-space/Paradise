@@ -32,9 +32,9 @@
 	if(!scanner_taggable)
 		return
 	if(gps_tagged)
-		. += span_notice("Прикреплён голотег: <b>[assigned_tag]</b>.")
+		. += span_notice("Прикреплён GPS-голотег: <b>[assigned_tag]</b>.")
 	else
-		. += span_notice("Может быть отмечено GPS-сигнатурой с помощью<b>шахтёрского сканера</b>.")
+		. += span_notice("Может быть отмечено GPS-сигнатурой с помощью <b>шахтёрского сканера</b>.")
 
 /obj/structure/spawner/Initialize(mapload)
 	. = ..()
@@ -55,7 +55,7 @@
 /// Tag the spawner, prefixing its GPS entry with an identifier - or giving it one, if nonexistent.
 /obj/structure/spawner/proc/gps_tag(mob/user)
 	if(gps_tagged)
-		balloon_alert(user, "уже отмечено")
+		balloon_alert(user, "уже отмечено!")
 		return
 	playsound(src, 'sound/machines/twobeep.ogg', 50)
 	gps_tagged = TRUE

@@ -382,7 +382,7 @@
 
 /obj/item/storage/backpack/satchel_explorer
 	name = "explorer satchel"
-	desc = "Прочная сумка для хранения вашей добычи."
+	desc = "Прочная сумка, используемая авантюристами и исследователями разного рода."
 	icon_state = "satchel-explorer"
 	item_state = "securitypack"
 
@@ -592,7 +592,7 @@ TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/mining_conscript
 	name = "mining conscription kit"
-	desc = "Набор с необходимым минимумом, чтобы превратить рядового члена экипажа в помощника шахтёра."
+	desc = "Набор с необходимым минимумом, чтобы превратить рядового члена экипажа в Шахтёра."
 
 /obj/item/storage/backpack/duffel/mining_conscript/get_ru_names()
 	return list(

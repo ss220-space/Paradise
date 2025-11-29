@@ -78,7 +78,7 @@
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
-	desc = "Позволяет видеть станцию насквозь. А так же породу, конструкции и прочие мелочи."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве."
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
@@ -124,7 +124,8 @@
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
-	desc = "Мезонные очки с усиленной светочувствительной матрицей. Позволяет видеть в темноте так же отчётливо, как и сквозь стены."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
+			Данная модель оснащена светочувствительной матрицей, повышающей видимость в условиях ограниченного освещения."
 	icon_state = "nvgmeson"
 	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
@@ -147,7 +148,8 @@
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
-	desc = "Сделай невозможное, увидь невидимое!"
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
+			Обладают уникальным дизайном."
 	icon_state = "garm"
 	item_state = "garm"
 	force = 10
@@ -159,12 +161,12 @@
 
 /obj/item/clothing/glasses/meson/gar/get_ru_names()
 	return list(
-		NOMINATIVE = "гар-мезоны",
-		GENITIVE = "гар-мезонов",
-		DATIVE = "гар-мезонам",
-		ACCUSATIVE = "гар-мезоны",
-		INSTRUMENTAL = "гар-мезонами",
-		PREPOSITIONAL = "гар-мезонах"
+		NOMINATIVE = "гар-мезонные очки",
+		GENITIVE = "гар-мезонных очков",
+		DATIVE = "гар-мезонным очкам",
+		ACCUSATIVE = "гар-мезонные очки",
+		INSTRUMENTAL = "гар-мезонными очками",
+		PREPOSITIONAL = "гар-мезонных очках"
 	)
 
 /obj/item/clothing/glasses/meson/cyber

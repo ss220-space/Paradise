@@ -72,7 +72,7 @@
 
 		if(!internals_allowed)
 			if(!silent)
-				balloon_alert(user, "нет подходящей маски")
+				balloon_alert(user, "не к чему полключать!")
 			return
 
 	user.internal = src
@@ -110,7 +110,7 @@
 		descriptive = "обжигающе горяч[GEND_II_AYA_II_IE(src)]"
 
 	. += span_notice("На ощупь <b>[descriptive]</b>.")
-	. += span_notice("Манометр показывает [round(air_contents.return_pressure())] <b>кПа</b>.")
+	. += span_notice("Манометр показывает <b>[round(air_contents.return_pressure())]</b> кПа.")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src))

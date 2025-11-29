@@ -283,7 +283,8 @@
 
 /obj/item/clothing/under/rank/miner
 	name = "shaft miner's jumpsuit"
-	desc = "Стильный комбинезон с прочными подкладками. Покрыт слоем вечной шахтёрской грязи."
+	desc = "Стильный комбинезон с прочными подкладками. Покрыты тонким слоем грязи и пепла, \
+			который, видимо, уже никогда не смоется."
 	icon_state = "miner"
 	item_state = "miner"
 	item_color = "miner"

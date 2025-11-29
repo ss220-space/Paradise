@@ -126,7 +126,8 @@
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "Компактное энергооружие, ценимое агентами синдиката за бесшумность. Заряжается автоматически, идеально для точечных устранений."
+	desc = "Компактное энергооружие, ценимое агентами \"Синдиката\" за бесшумность. \
+			Заряжается автоматически, идеально для точечных устранений."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -160,7 +161,8 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
-	desc = "Полноразмерная реплика арбалета синдиката, воссозданная методом обратной инженерии. Конструкция, но вышла более громоздкой, чем шпионский оригинал."
+	desc = "Полноразмерная реплика арбалета \"Синдиката\", воссозданная методом обратной инженерии. \
+			Более громоздкий по сравнению с оригиналом."
 	icon_state = "crossbowlarge"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)

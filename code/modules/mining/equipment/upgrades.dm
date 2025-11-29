@@ -1,7 +1,7 @@
 //plasma magmite is exclusively used to upgrade mining equipment, by using it on a heated world anvil to make upgradeparts.
 /obj/item/magmite
 	name = "plasma magmite"
-	desc = "Образец плазменного магмита, кристаллизовавшегося в глубинах планеты. Похоже, он слабеет по мере удаления от места рождения."
+	desc = "Образец плазменного магмита, кристаллизовавшегося в глубинах Лазиса. Похоже, он слабеет по мере удаления от места рождения."
 	gender = MALE
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Magmite ore"
@@ -19,7 +19,7 @@
 /obj/item/magmite_parts
 	name = "plasma magmite upgrade parts"
 	desc = "Детали, выкованные на легендарной Мировой Кузне. Позволяют улучшить почти любое шахтёрское оборудование."
-	gender = FEMALE
+	gender = PLURAL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "upgrade_parts"
 	var/inert = FALSE
