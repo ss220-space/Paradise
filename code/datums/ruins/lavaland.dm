@@ -356,3 +356,4 @@
 	suffix = "lavaland_surface_wastelands4.dmm"
 	allow_duplicates = FALSE
 	cost = 10
+
