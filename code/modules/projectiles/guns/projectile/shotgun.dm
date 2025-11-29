@@ -17,18 +17,8 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/ammo_box/speedloader) || istype(item, /obj/item/ammo_casing))
-		. = ATTACK_CHAIN_PROCEED
-		if(istype(item, /obj/item/ammo_box/speedloader) && !do_after(user, GUN_MAGAZINE_RELOAD_DURATION, item, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
-			balloon_alert(user, "отменено")
-			return
-		add_fingerprint(user)
-		var/num_loaded = magazine.reload(item, user)
-		if(num_loaded)
-			update_appearance()
-			return ATTACK_CHAIN_BLOCKED_ALL
-		return
-
+	if(speedloader_reload(item, user))
+		return ATTACK_CHAIN_PROCEED
 	return ..()
 
 /obj/item/gun/projectile/shotgun/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)

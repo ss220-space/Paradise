@@ -137,7 +137,6 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	caliber = CALIBER_12X70
 	max_ammo = 4
-	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = TRUE)
 	. = 0

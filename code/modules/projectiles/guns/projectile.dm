@@ -133,6 +133,20 @@
 
 	return ..()
 
+/obj/item/gun/projectile/proc/speedloader_reload(obj/item/item, mob/user)
+	. = TRUE
+	if(!isspeedloader(item) && !isammocasing(item))
+		return FALSE
+	add_fingerprint(user)
+	if(isspeedloader(item) && !do_after(user, GUN_MAGAZINE_RELOAD_DURATION, item, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
+		balloon_alert(user, "отменено")
+		return FALSE
+	var/num_loaded = magazine.reload(item, user)
+	if(!num_loaded)
+		return
+	update_icon()
+	chamber_round(FALSE)
+
 /obj/item/gun/projectile/attack_self(mob/living/user)
 	add_fingerprint(user)
 	. = ..()
