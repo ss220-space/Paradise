@@ -55,7 +55,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/mmi))
+	if(is_mmi(I))
 		add_fingerprint(user)
 		var/obj/item/mmi/new_mmi = I
 		if(mmi) //There's already a brain in it.
@@ -164,7 +164,7 @@
 
 /mob/living/simple_animal/spiderbot/update_icon_state()
 	if(mmi)
-		if(istype(mmi, /obj/item/mmi))
+		if(is_mmi(mmi))
 			icon_state = "spiderbot-chassis-mmi"
 			icon_living = "spiderbot-chassis-mmi"
 		if(istype(mmi, /obj/item/mmi/robotic_brain))

@@ -42,13 +42,8 @@
 	name = "laser"
 	desc = "IT BURNS!!!"
 	icon = 'icons/obj/weapons/projectiles.dmi'
-	var/damage = 0.0
-	var/range = 10.0
-
-/obj/effect/begin
-	name = "begin"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "begin"
+	var/damage = 0
+	var/range = 10
 
 /obj/effect/projection
 	name = "Projection"
@@ -76,7 +71,6 @@
 /obj/effect/list_container/mobl
 	name = "mobl"
 	var/master = null
-
 	var/list/container = list()
 
 /obj/structure/showcase/horrific_experiment
@@ -84,10 +78,6 @@
 	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_mess"
-
-/obj/effect/supplypod_selector
-	icon_state = "supplypod_selector"
-	layer = FLY_LAYER
 
 //Makes a tile fully lit no matter what
 /obj/effect/fullbright

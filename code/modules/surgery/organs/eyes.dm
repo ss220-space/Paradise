@@ -1,3 +1,17 @@
+/// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
+#define GREYSCALE_COLOR_REPLACE list( \
+	"red" = "grey", \
+	"blue" = "grey", \
+	"green" = "grey", \
+	"orange" = "light grey", \
+	"yellow" = "light grey", \
+	"brown" = "grey", \
+	"gold" = "light grey", \
+	"cyan" = "silver", \
+	"magenta" = "grey", \
+	"purple" = "grey", \
+	"pink" = "light grey" \
+)
 
 /obj/item/organ/internal/eyes
 	name = "eyeballs"
@@ -128,3 +142,5 @@
 				E.heal_internal_damage(G.heal_rate)
 				owner.AdjustEyeBlurry(-2 SECONDS)
 	return ..() | update_flags
+
+#undef GREYSCALE_COLOR_REPLACE

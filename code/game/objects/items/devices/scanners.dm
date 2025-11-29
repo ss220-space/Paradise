@@ -1068,6 +1068,13 @@ BODY SCANNERS
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+// GAS ANALYZER
+#define ANALYZER_MODE_SURROUNDINGS 0
+#define ANALYZER_MODE_TARGET 1
+#define ANALYZER_HISTORY_SIZE 30
+#define ANALYZER_HISTORY_MODE_KPA "kpa"
+#define ANALYZER_HISTORY_MODE_MOL "mol"
+
 ////////////////////////////////////////
 // MARK:	Gas analyzer
 ////////////////////////////////////////
@@ -1322,6 +1329,12 @@ BODY SCANNERS
 
 	// we let the join apply newlines so we do need handholding
 	to_chat(user, chat_box_examine((jointext(message, "\n"))))
+
+#undef ANALYZER_MODE_SURROUNDINGS
+#undef ANALYZER_MODE_TARGET
+#undef ANALYZER_HISTORY_SIZE
+#undef ANALYZER_HISTORY_MODE_KPA
+#undef ANALYZER_HISTORY_MODE_MOL
 
 ////////////////////////////////////////
 // MARK:	Reagent scanners

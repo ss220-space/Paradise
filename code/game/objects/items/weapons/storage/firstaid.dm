@@ -14,6 +14,7 @@
 	gender = FEMALE
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "firstaid"
+	item_state = "medkit"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'

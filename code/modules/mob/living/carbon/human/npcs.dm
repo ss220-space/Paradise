@@ -9,7 +9,7 @@
 	. = ..()
 	name = "Pun Pun"
 	real_name = name
-	
+
 	var/obj/item/clothing/under/punpun/prom = new(src)
 	var/obj/item/clothing/accessory/petcollar/prom_collar = new(src)
 	var/obj/item/card/id/punpun/punpun_id = new(prom_collar)
@@ -31,10 +31,3 @@
 
 /mob/living/carbon/human/lesser/monkey/punpun/get_npc_respawn_message()
 	return "Вы подчиняетесь Повару, Бармену и ГП. Вам нельзя покидать бар без их разрешения. Ваша задача  развлекать посетителей, обслуживать их и слушаться ваших хозяев."
-
-/mob/living/carbon/human/lesser/monkey/teeny/Initialize(mapload)
-	. = ..()
-	name = "Mr. Teeny"
-	real_name = name
-	update_transform(0.8)
-	tts_seed = "Chen"

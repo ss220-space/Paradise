@@ -843,7 +843,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader
 	name = "Syndi trader corpse"
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "secure"
+	icon_state = "securitypack" // idk, its trash
 	random = TRUE
 	outfit = /datum/outfit/syndicatetrader
 

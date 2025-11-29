@@ -499,6 +499,8 @@
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
+#define REDIS_ANNOUNCER_NAME "Смотритель"
+
 /client/proc/announce_join()
 	if(!holder)
 		return
@@ -554,6 +556,8 @@
 		data["source"] = CONFIG_GET(string/instance_id)
 		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
+
+#undef REDIS_ANNOUNCER_NAME
 
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -1168,6 +1172,20 @@
 	return TRUE
 
 #undef SSD_WARNING_TIMER
+
+/// Attempts to make the client orbit the given object, for administrative purposes.
+/// If they are not an observer, will try to aghost them.
+/client/proc/admin_follow(atom/movable/target)
+	var/can_ghost = TRUE
+
+	if(!isobserver(mob))
+		can_ghost = admin_ghost()
+
+	if(!can_ghost)
+		return FALSE
+
+	var/mob/dead/observer/observer = mob
+	observer.ManualFollow(target)
 
 /client/verb/toggle_fullscreen()
 	set name = "Полный экран"

@@ -264,6 +264,7 @@
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
 	icon = 'icons/obj/spacebattle.dmi'
+	icon_state = null
 	var/id = null
 	var/syndi_mob = null
 

@@ -195,7 +195,7 @@
 	if(!proximity)
 		return
 
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		var/obj/machinery/door/airlock/airlock = target
 
 		if(!airlock.requiresID() || airlock.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
@@ -400,16 +400,17 @@
 
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
-	desc = "a tentacle."
+	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
-/obj/item/ammo_casing/magic/tentacle/New(obj/item/gun/magic/tentacle/tentacle_gun)
-	gun = tentacle_gun
-	..()
+/obj/item/ammo_casing/magic/tentacle/Initialize(mapload)
+	gun = loc
+	. = ..()
 
 /obj/item/ammo_casing/magic/tentacle/Destroy()
 	gun = null
@@ -425,9 +426,9 @@
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
-/obj/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
-	source = tentacle_casing
-	..()
+/obj/projectile/tentacle/Initialize(mapload)
+	source = loc
+	. = ..()
 
 /obj/projectile/tentacle/fire(setAngle)
 	if(firer)

@@ -9294,7 +9294,7 @@
 /turf/space,
 /area/space)
 "bpf" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -18948,8 +18948,13 @@
 	pixel_x = -28
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
+/obj/item/multitool/circuit{
+	pixel_x = -9
+	},
+/obj/item/multitool/circuit,
+/obj/item/multitool/circuit{
+	pixel_x = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -19036,7 +19041,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "clF" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -40583,7 +40588,7 @@
 	},
 /area/toxins/explab)
 "eiC" = (
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -83047,7 +83052,7 @@
 /turf/simulated/wall,
 /area/medical/morgue)
 "ooo" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/item/flashlight/flare/glowstick/yellow{
 	on = 1
 	},
@@ -85274,14 +85279,28 @@
 /area/security/main)
 "oNS" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/folder,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
+	},
+/obj/item/integrated_circuit/loaded/hello_world{
+	pixel_x = -2;
+	pixel_y = -5
+	},
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 0
+	},
+/obj/item/compact_remote{
+	pixel_x = -4;
+	pixel_y = 13
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -97748,10 +97767,6 @@
 "rzU" = (
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
-"rAa" = (
-/obj/structure/flora/junglebush/b,
-/turf/simulated/floor/grass,
-/area/maintenance/fpmaint)
 "rAh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98763,7 +98778,7 @@
 /turf/simulated/floor/plating,
 /area/security/podbay)
 "rLY" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes,
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/table_flip{
@@ -103950,10 +103965,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"sYp" = (
-/obj/structure/flora/grass/jungle/b,
-/turf/simulated/floor/grass,
-/area/maintenance/fpmaint)
 "sYB" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -120007,7 +120018,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "wFH" = (
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/grass,
 /area/maintenance/fpmaint)
@@ -157004,7 +157015,7 @@ cjn
 aBr
 moG
 csa
-sYp
+qEL
 wup
 bvG
 moG
@@ -157262,7 +157273,7 @@ nvO
 aeg
 moG
 ooo
-rAa
+bYT
 moG
 mMD
 aVS

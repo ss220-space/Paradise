@@ -43,6 +43,7 @@
 	name = "CQC Thunderdome Brawler"
 	mob_name = "Fighter"
 	icon = 'icons/mob/thunderdome_previews.dmi'
+	icon_state = "thunderman_preview_CqC"
 	flavour_text = "Станьте лучшим бойцом арены среди любителей ближнего боя!"
 	outfit = /datum/outfit/thunderdome/cqc
 
@@ -50,6 +51,7 @@
 	name = "Ranged Thunderdome Brawler"
 	mob_name = "Ranger"
 	icon = 'icons/mob/thunderdome_previews.dmi'
+	icon_state = "thunderman_preview_Ranged"
 	flavour_text = "Станьте лучшим бойцом арены среди любителей дальнего боя!"
 	outfit = /datum/outfit/thunderdome/ranged
 
@@ -57,5 +59,6 @@
 	name = "Mixed Thunderdome Brawler"
 	mob_name = "Gladiator"
 	icon = 'icons/mob/thunderdome_previews.dmi'
+	icon_state = "thunderman_preview_Mixed"
 	flavour_text = "Станьте лучшим бойцом арены среди любителей любого боя!"
 	outfit = /datum/outfit/thunderdome/mixed

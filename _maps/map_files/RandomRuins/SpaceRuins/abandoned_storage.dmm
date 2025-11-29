@@ -94,7 +94,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt,
 /obj/structure/mirror{
 	pixel_x = -29
 	},
@@ -103,8 +103,8 @@
 /area/ruin/unpowered)
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/ore/glass/basalt/ancient,
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt,
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = 7;
 	pixel_y = 4
 	},
@@ -1312,7 +1312,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "wL" = (
-/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -1322,7 +1322,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "wT" = (
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = -7;
 	pixel_y = 2
 	},
@@ -1443,7 +1443,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = 7;
 	pixel_y = 4
 	},
@@ -1563,14 +1563,14 @@
 /area/ruin/unpowered)
 "Bv" = (
 /obj/item/pickaxe,
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_y = 4
 	},
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Bw" = (
@@ -1640,7 +1640,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Cb" = (
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = -7;
 	pixel_y = 2
 	},
@@ -1881,7 +1881,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "GV" = (
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = 7;
 	pixel_y = 4
 	},
@@ -1922,7 +1922,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "HL" = (
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = -7;
 	pixel_y = 2
 	},
@@ -2161,11 +2161,11 @@
 /area/ruin/unpowered)
 "KV" = (
 /obj/item/pickaxe,
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = 6;
 	pixel_y = -5
 	},
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = -7;
 	pixel_y = 2
 	},
@@ -2314,7 +2314,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -2353,7 +2353,7 @@
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 4
 	},
-/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "MY" = (
@@ -2396,11 +2396,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "NX" = (
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = 6;
 	pixel_y = -5
 	},
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = -7;
 	pixel_y = 2
 	},
@@ -2565,8 +2565,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Qz" = (
-/obj/item/stack/ore/glass/basalt/ancient,
-/obj/item/stack/ore/glass/basalt/ancient{
+/obj/item/stack/ore/glass/basalt,
+/obj/item/stack/ore/glass/basalt{
 	pixel_x = 7;
 	pixel_y = 4
 	},
@@ -2612,7 +2612,7 @@
 /area/ruin/unpowered)
 "QZ" = (
 /obj/item/pickaxe,
-/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
@@ -2738,8 +2738,8 @@
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/unpowered)
 "Ts" = (
-/obj/item/stack/ore/glass/basalt/ancient,
-/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt,
+/obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Tx" = (

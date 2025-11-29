@@ -70,7 +70,7 @@
 	return ..()
 
 /obj/item/his_grace/update_icon_state()
-	icon_state = ascended ? "toolbox_gold" : (awakened ? (rogue ? "toolbox_green_frenzy" : "toolbox_green_hunger") : "green")
+	icon_state = ascended ? "toolbox_gold" : (awakened ? (rogue ? "toolbox_green_frenzy" : "toolbox_green_hunger") : "toolbox_green")
 	item_state = ascended ? "toolbox_gold" : "toolbox_green"
 	return ..()
 

@@ -10,7 +10,7 @@
 	var/failure_count = 0
 
 /datum/map_per_tile_test/proc/CheckTile(turf/checked_turf)
-	TEST_FAIL("CheckTile() called parent or not implemented")
+	TEST_FAIL("CheckTile() called parent or not implemented.")
 
 /datum/map_per_tile_test/proc/Fail(turf/checked_turf, reason)
 	succeeded = FALSE

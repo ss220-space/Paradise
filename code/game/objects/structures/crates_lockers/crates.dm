@@ -19,6 +19,8 @@
 	var/list/announce_beacons = list()
 	/// Overlay for lightmask of our crate
 	var/overlay_lightmask
+	/// Can our crate make emissive light?
+	var/can_be_emissive = FALSE
 
 /obj/structure/closet/crate/update_icon_state()
 	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
@@ -29,7 +31,8 @@
 	. = list()
 	if(manifest)
 		. += "manifest"
-	underlays += emissive_appearance(icon, overlay_lightmask, src)
+	if(can_be_emissive)
+		underlays += emissive_appearance(icon, overlay_lightmask, src)
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -183,6 +186,7 @@
 	locked = TRUE
 	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
+	can_be_emissive = TRUE
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
