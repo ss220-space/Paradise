@@ -33,23 +33,87 @@ SUBSYSTEM_DEF(jobs)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
+/// Department id getter for a certain role
+/datum/controller/subsystem/jobs/proc/getJobDepartment(datum/job/job)
+	if(job.is_command) return "command"
+	if(job.is_engineering) return "engineering"
+	if(job.is_science) return "science"
+	if(job.is_medical) return "medical"
+	if(job.is_security) return "security"
+	if(job.is_supply) return "supply"
+	if(job.is_service) return "service"
+	if(job.is_legal) return "legal"
+	return "other"
+
 /datum/controller/subsystem/jobs/proc/SetupOccupations()
-	occupations = list()
-	var/list/all_jobs = subtypesof(/datum/job)
-	if(!length(all_jobs))
-		to_chat(world, span_warning("Ошибка выдачи профессий, датумы профессий не найдены."))
-		return
+    occupations = list()
+    name_occupations = list()
+    type_occupations = list()
 
-	for(var/J in all_jobs)
-		var/datum/job/job = new J()
-		if(!job)
-			continue
-		occupations += job
-		name_occupations[job.title] = job
-		type_occupations[J] = job
+    if(!length(GLOB.joblist))
+        to_chat(world, span_warning("Ошибка выдачи профессий: GLOB.joblist пуст."))
+        return
 
-	LoadJobsFile("config/jobs.txt", FALSE)
-	LoadJobsFile("config/jobs_highpop.txt", TRUE)
+    for(var/title in GLOB.joblist)
+        var/datum/job/job = GLOB.joblist[title]
+        name_occupations[job.title] = job
+
+	/// Order of departments, used in occupation setup menu
+    var/list/department_order = list(
+        "command", "engineering", "science", "medical", "security", "supply", "service", "legal", "other"
+    )
+
+	/// Titles of roles, used to split jobs by their department in SetChoices proc
+    var/list/head_titles = list(
+        JOB_TITLE_CAPTAIN, // Command
+        JOB_TITLE_CHIEF, // Engineering
+        JOB_TITLE_RD, // Science
+        JOB_TITLE_CMO, // Meducal
+        JOB_TITLE_HOS, // Security
+        JOB_TITLE_QUARTERMASTER, // Supply
+        JOB_TITLE_HOP, // Service
+        JOB_TITLE_JUDGE // Legal
+    )
+
+    var/list/department_groups = list()
+    for(var/department in department_order)
+        department_groups[department] = list()
+
+    for(var/title in GLOB.joblist)
+        var/datum/job/job = GLOB.joblist[title]
+
+        if(job.admin_only || job.hidden_from_job_prefs)
+            continue
+
+        var/department = getJobDepartment(job)
+        if(department in department_groups)
+            department_groups[department] += job
+        else
+            if(!department_groups["other"])
+                department_groups["other"] = list()
+            department_groups["other"] += job
+
+    for(var/department in department_groups)
+        var/list/jobs = department_groups[department]
+		/// Datum of job which is the head of respected department
+        var/datum/job/chief = null
+
+        for(var/datum/job/job in jobs)
+            if(job.title in head_titles)
+                chief = job
+                break
+
+        // Department head goes first
+        if(chief)
+            jobs -= chief
+            jobs.Insert(1, chief)
+
+	// Collecting a list in the right order
+    for(var/department in department_order)
+        occupations += department_groups[department]
+
+    LoadJobsFile("config/jobs.txt", FALSE)
+    LoadJobsFile("config/jobs_highpop.txt", TRUE)
 
 /datum/controller/subsystem/jobs/proc/ApplyHighpopConfig()
 	for(var/datum/job/J in occupations)
