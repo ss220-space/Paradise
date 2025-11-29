@@ -7,12 +7,16 @@ SUBSYSTEM_DEF(jobs)
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "jobs"
 
-	//List of all jobs
+	/// List of all jobs
 	var/list/occupations = list()
-	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
-	var/list/type_occupations = list()	//Dict of all jobs, keys are types
-	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
-	var/list/id_change_records = list() // List of all job transfer records
+	/// Dict of all jobs, keys are titles
+	var/list/name_occupations = list()
+	/// Dict of all jobs, keys are types
+	var/list/type_occupations = list()
+	/// List of jobs set to priority by HoP/Captain
+	var/list/prioritized_jobs = list()
+	/// List of all job transfer records
+	var/list/id_change_records = list()
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
@@ -53,6 +57,7 @@ SUBSYSTEM_DEF(jobs)
     if(!length(GLOB.joblist))
         to_chat(world, span_warning("Ошибка выдачи профессий: GLOB.joblist пуст."))
         return
+
 	/// Order of departments, used in occupation setup menu
     var/list/department_order = list(
         "command", "engineering", "science", "medical", "security", "supply", "service", "legal", "other"
@@ -76,6 +81,7 @@ SUBSYSTEM_DEF(jobs)
 
     for(var/title in GLOB.joblist)
         var/datum/job/job = GLOB.joblist[title]
+
         if(!job)
             continue
 
@@ -84,6 +90,7 @@ SUBSYSTEM_DEF(jobs)
         if(job.admin_only || job.hidden_from_job_prefs)
             continue
 
+		// Splitting by departments
         var/department = getJobDepartment(job)
         if(department in department_groups)
             department_groups[department] += job
@@ -92,6 +99,7 @@ SUBSYSTEM_DEF(jobs)
                 department_groups["other"] = list()
             department_groups["other"] += job
 
+	// Order: head_of_department -> department roles
     for(var/department in department_groups)
         var/list/jobs = department_groups[department]
         var/datum/job/head_of_department = null
