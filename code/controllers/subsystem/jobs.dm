@@ -50,76 +50,76 @@ SUBSYSTEM_DEF(jobs)
 	return "other"
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations()
-    occupations = list()
-    name_occupations = list()
-    type_occupations = list()
+	occupations = list()
+	name_occupations = list()
+	type_occupations = list()
 
-    if(!length(GLOB.joblist))
-        to_chat(world, span_warning("Ошибка выдачи профессий: GLOB.joblist пуст."))
-        return
+	if(!length(GLOB.joblist))
+		to_chat(world, span_warning("Ошибка выдачи профессий: GLOB.joblist пуст."))
+		return
 
 	/// Order of departments, used in occupation setup menu
-    var/list/department_order = list(
-        "command", "engineering", "science", "medical", "security", "supply", "service", "legal", "other"
-    )
+	var/list/department_order = list(
+		"command", "engineering", "science", "medical", "security", "supply", "service", "legal", "other"
+	)
 
 	/// Titles of roles, used to split jobs by their department in SetChoices proc
-    var/list/head_titles = list(
-        JOB_TITLE_CAPTAIN, // Command
-        JOB_TITLE_CHIEF, // Engineering
-        JOB_TITLE_RD, // Science
-        JOB_TITLE_CMO, // Meducal
-        JOB_TITLE_HOS, // Security
-        JOB_TITLE_QUARTERMASTER, // Supply
-        JOB_TITLE_HOP, // Service
-        JOB_TITLE_JUDGE // Legal
-    )
+	var/list/head_titles = list(
+		JOB_TITLE_CAPTAIN, // Command
+		JOB_TITLE_CHIEF, // Engineering
+		JOB_TITLE_RD, // Science
+		JOB_TITLE_CMO, // Meducal
+		JOB_TITLE_HOS, // Security
+		JOB_TITLE_QUARTERMASTER, // Supply
+		JOB_TITLE_HOP, // Service
+		JOB_TITLE_JUDGE // Legal
+	)
 
-    var/list/department_groups = list()
-    for(var/department in department_order)
-        department_groups[department] = list()
+	var/list/department_groups = list()
+	for(var/department in department_order)
+		department_groups[department] = list()
 
-    for(var/title in GLOB.joblist)
-        var/datum/job/job = GLOB.joblist[title]
+	for(var/title in GLOB.joblist)
+		var/datum/job/job = GLOB.joblist[title]
 
-        if(!job)
-            continue
+		if(!job)
+			continue
 
-        name_occupations[job.title] = job
+		name_occupations[job.title] = job
 
-        if(job.admin_only || job.hidden_from_job_prefs)
-            continue
+		if(job.admin_only || job.hidden_from_job_prefs)
+			continue
 
 		// Splitting by departments
-        var/department = getJobDepartment(job)
-        if(department in department_groups)
-            department_groups[department] += job
-        else
-            if(!department_groups["other"])
-                department_groups["other"] = list()
-            department_groups["other"] += job
+		var/department = getJobDepartment(job)
+		if(department in department_groups)
+			department_groups[department] += job
+		else
+			if(!department_groups["other"])
+				department_groups["other"] = list()
+			department_groups["other"] += job
 
 	// Order: head_of_department -> department roles
-    for(var/department in department_groups)
-        var/list/jobs = department_groups[department]
-        var/datum/job/head_of_department = null
+	for(var/department in department_groups)
+		var/list/jobs = department_groups[department]
+		var/datum/job/head_of_department = null
 
-        for(var/datum/job/job in jobs)
-            if(job.title in head_titles)
-                head_of_department = job
-                break
+		for(var/datum/job/job in jobs)
+			if(job.title in head_titles)
+				head_of_department = job
+				break
 
-        // Department head goes first
-        if(head_of_department)
-            jobs -= head_of_department
-            jobs.Insert(1, head_of_department)
+		// Department head goes first
+		if(head_of_department)
+			jobs -= head_of_department
+			jobs.Insert(1, head_of_department)
 
 	// Collecting a list in the right order
-    for(var/department in department_order)
-        occupations += department_groups[department]
+	for(var/department in department_order)
+		occupations += department_groups[department]
 
-    LoadJobsFile("config/jobs.txt", FALSE)
-    LoadJobsFile("config/jobs_highpop.txt", TRUE)
+	LoadJobsFile("config/jobs.txt", FALSE)
+	LoadJobsFile("config/jobs_highpop.txt", TRUE)
 
 /datum/controller/subsystem/jobs/proc/ApplyHighpopConfig()
 	for(var/datum/job/J in occupations)
