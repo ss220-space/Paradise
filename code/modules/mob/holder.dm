@@ -151,13 +151,13 @@
 /obj/item/holder/cogscarab
 	name = "cogscarab"
 	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
-	icon_state = "drone_holder"
+	icon_state = "cogscarab"
 	origin_tech = "materials=3;magnets=4;powerstorage=9;bluespace=4"
 
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
-	icon_state = "pai"
+	icon_state = "pai-repairbot"
 	origin_tech = "materials=3;programming=4;engineering=4"
 
 /obj/item/holder/mouse
@@ -354,7 +354,7 @@
 	name = "pet"
 	desc = "It's a chicken"
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "chicken_brown"
+	icon_state = "chicken_red"
 	slot_flags = null
 
 /obj/item/holder/cock

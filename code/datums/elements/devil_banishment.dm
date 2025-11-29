@@ -41,11 +41,12 @@
 	if(!devil.info.banish.check_banishment())
 		return
 
-	for(var/mob/living/mob in view(7, human))
-		if(mob.stat || !mob.client)
-			continue
-		var/client/mob_client = mob.client
-		mob_client.give_award(/datum/award/achievement/misc/no_hell_today, mob)
+	if(istype(devil.rank, ASCEND_DEVIL_RANK))
+		for(var/mob/living/mob in view(7, human))
+			if(mob.stat || !mob.client)
+				continue
+			var/client/mob_client = mob.client
+			mob_client.give_award(/datum/award/achievement/misc/no_hell_today, mob)
 
 	REMOVE_TRAIT(human, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(devil))
 

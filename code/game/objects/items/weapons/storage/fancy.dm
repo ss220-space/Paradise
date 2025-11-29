@@ -624,7 +624,6 @@
 /*
  * MARK: Aquatic Starter Kit
  */
-
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."

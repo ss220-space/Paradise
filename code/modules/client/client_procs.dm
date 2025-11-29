@@ -463,6 +463,8 @@
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
+#define REDIS_ANNOUNCER_NAME "Смотритель"
+
 /client/proc/announce_join()
 	if(!holder)
 		return
@@ -518,6 +520,8 @@
 		data["source"] = CONFIG_GET(string/instance_id)
 		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
+
+#undef REDIS_ANNOUNCER_NAME
 
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly

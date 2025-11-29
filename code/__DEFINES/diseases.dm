@@ -28,3 +28,11 @@
 #define BLOOD (1<<2) //virus can spread with infected blood
 #define CONTACT (1<<3) //virus can spread with any touch
 #define AIRBORNE (1<<4) //virus spreads through the air
+
+// infection
+#define INFECTION_LEVEL_ONE 100
+#define INFECTION_LEVEL_TWO 500
+#define INFECTION_LEVEL_THREE 1000
+
+// Medical stuff
+#define SYMPTOM_ACTIVATION_PROB 3

@@ -2534,10 +2534,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
-"Ck" = (
-/obj/structure/flora/grass/jungle/b,
-/turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
 "Cm" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -4610,13 +4606,6 @@
 	icon_state = "fancy-wood-oak-broken7"
 	},
 /area/maintenance/abandonedoffices)
-"XK" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/flora/grass/jungle/b,
-/turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
 "XM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -5810,9 +5799,9 @@ PQ
 pU
 gj
 uR
-XK
+ov
 Yk
-Ck
+ln
 PQ
 PQ
 Fb
