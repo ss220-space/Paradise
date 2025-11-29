@@ -415,14 +415,6 @@
 	new /obj/item/clothing/head/powdered_wig (src)
 	new /obj/item/storage/briefcase(src)
 
-/obj/structure/closet/secure_closet/wall //TODO: Add here sprites. (They do not exist)
-	name = "wall locker"
-	req_access = list(ACCESS_SECURITY)
-	icon_state = "wall-locker"
-
-	//too small to put a man in
-	large = FALSE
-
 /obj/structure/closet/secure_closet/magistrate
 	name = "Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)

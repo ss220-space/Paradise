@@ -62,9 +62,3 @@
 	desc = "Saddle up!"
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
-
-/obj/item/twohanded/staff/stick
-	name = "stick"
-	desc = "A great tool to drag someone else's drinks across the bar."
-	icon_state = "stick"
-	item_state = "stick"

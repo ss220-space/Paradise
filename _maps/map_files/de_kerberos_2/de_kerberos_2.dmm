@@ -9511,7 +9511,7 @@
 	},
 /area/engineering/mechanic_workshop/hangar)
 "bpf" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -19405,7 +19405,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "clF" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -41195,7 +41195,7 @@
 	},
 /area/toxins/explab)
 "eiC" = (
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -85004,7 +85004,7 @@
 	},
 /area/atmos)
 "ooo" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/item/flashlight/flare/glowstick/yellow{
 	on = 1
 	},
@@ -100255,10 +100255,6 @@
 "rzU" = (
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
-"rAa" = (
-/obj/structure/flora/junglebush/b,
-/turf/simulated/floor/grass,
-/area/maintenance/fpmaint)
 "rAh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -101292,7 +101288,7 @@
 /turf/simulated/floor/plating,
 /area/security/podbay)
 "rLY" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes,
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/table_flip{
@@ -106695,10 +106691,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
-"sYp" = (
-/obj/structure/flora/grass/jungle/b,
-/turf/simulated/floor/grass,
-/area/maintenance/fpmaint)
 "sYB" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -123303,7 +123295,7 @@
 	},
 /area/hallway/primary/central/east)
 "wFH" = (
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/grass,
 /area/maintenance/fpmaint)
@@ -160351,7 +160343,7 @@ cjn
 aBr
 moG
 csa
-sYp
+qEL
 wup
 bvG
 moG
@@ -160609,7 +160601,7 @@ nvO
 aeg
 moG
 ooo
-rAa
+bYT
 moG
 mMD
 aVS

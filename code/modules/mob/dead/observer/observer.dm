@@ -2,6 +2,13 @@ GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
+// Ghost orbit types
+#define GHOST_ORBIT_CIRCLE "circle"
+#define GHOST_ORBIT_TRIANGLE "triangle"
+#define GHOST_ORBIT_HEXAGON "hexagon"
+#define GHOST_ORBIT_SQUARE "square"
+#define GHOST_ORBIT_PENTAGON "pentagon"
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "Это п-п-п-п-призраааак!" //jinkies!
@@ -890,3 +897,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/datum/minigames_explorer = new /datum/minigames_explorer(src)
 	minigames_explorer.ui_interact(src)
 
+#undef GHOST_ORBIT_CIRCLE
+#undef GHOST_ORBIT_TRIANGLE
+#undef GHOST_ORBIT_HEXAGON
+#undef GHOST_ORBIT_SQUARE
+#undef GHOST_ORBIT_PENTAGON

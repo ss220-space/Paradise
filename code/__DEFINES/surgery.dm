@@ -71,3 +71,12 @@
 
 /// The surgery never reached (or finished) the do_after. Go back to the state we were in before this even happened.
 #define SURGERY_INITIATE_INTERRUPTED 3
+
+/// Damage above this value must be repaired with surgery.
+#define ROBOLIMB_SELF_REPAIR_CAP 60
+
+// Defib stats
+/// Past this much time the patient is unrecoverable (in deciseconds).
+#define DEFIB_TIME_LIMIT (300 SECONDS)
+/// Brain damage starts setting in on the patient after some time left rotting.
+#define DEFIB_TIME_LOSS (60 SECONDS)

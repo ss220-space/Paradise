@@ -18,7 +18,18 @@
 		plane = FLOAT_PLANE
 #endif
 
-// Helper similar to image()
+/** Helper similar to image()
+ *
+ * icon - Our appearance's icon
+ * icon_state - Our appearance's icon state
+ * layer - Our appearance's layer
+ * atom/offset_spokesman - An atom to use as reference for the z position of this appearance. Only required if a plane is passed in. If this is not passed in we accept offset_const as a substitute
+ * plane - The plane to use for the appearance. If this is not FLOAT_PLANE we require context for the offset to use
+ * alpha - Our appearance's alpha
+ * appearance_flags - Our appearance's appearance_flags
+ * color - ??? idk, some EM legacy shit?
+ * offset_const - A constant to offset our plane by, so it renders on the right "z layer"
+**/
 /proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, atom/offset_spokesman, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, color, offset_const)
 	var/mutable_appearance/appearance = new()
 	appearance.icon = icon

@@ -451,3 +451,57 @@
 #define SCREWYHUD_CRIT 1
 #define SCREWYHUD_DEAD 2
 #define SCREWYHUD_HEALTHY 3
+
+// Carbon Overlays Indexes
+#define TOTAL_LAYERS 47
+#define MUTANTRACE_LAYER 45
+#define WING_UNDERLIMBS_LAYER 44
+#define TAIL_UNDERLIMBS_LAYER 43 //Tail split-rendering.
+#define LIMBS_LAYER 42
+#define INTORGAN_LAYER 41
+#define MARKINGS_LAYER 40
+#define UNDERWEAR_LAYER 39
+#define MUTATIONS_LAYER 38
+#define H_DAMAGE_LAYER 37
+#define UNIFORM_LAYER 36
+#define SHOES_LAYER 35
+#define OVER_SHOES_LAYER 34
+#define ID_LAYER 33
+#define GLOVES_LAYER 32
+#define EARS_LAYER 31
+#define SUIT_LAYER 30
+#define BELT_LAYER 29 //Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER 28
+#define SUIT_STORE_LAYER 27
+#define BACK_LAYER 26
+#define HEAD_ACCESSORY_LAYER 25
+#define FHAIR_LAYER 24
+#define GLASSES_LAYER 23
+#define HAIR_LAYER 22 //TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER 21 //Select-layer rendering.
+#define FHAIR_OVER_LAYER 20 //Select-layer rendering.
+#define GLASSES_OVER_LAYER 19 //Select-layer rendering.
+#define WING_LAYER 18
+#define TAIL_LAYER 17 //bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER 16
+#define OVER_MASK_LAYER 15 //Select-layer rendering.
+#define HEAD_LAYER 14
+#define OVER_HEAD_LAYER 13
+#define MUTANT_EARS_LAYER 12
+#define COLLAR_LAYER 11
+#define HANDCUFF_LAYER 10
+#define LEGCUFF_LAYER 9
+#define HANDS_LAYER 8
+#define TARGETED_LAYER 7 //BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER 6 //blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER 5 //If you're on fire
+#define MISC_LAYER 4
+#define SLEEP_LAYER 3
+#define FROZEN_LAYER 2
+#define SSD_LAYER 1
+
+/// Get the client from the var
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+
+/// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
+#define RESIZE_DEFAULT_SIZE 1

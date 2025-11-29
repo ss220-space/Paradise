@@ -631,7 +631,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/space/spacebotany/EastGarden)
 "hY" = (
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /obj/effect/decal/ants,
 /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
 /turf/simulated/floor/beach/sand,
@@ -2906,10 +2906,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
-"Mx" = (
-/obj/structure/flora/junglebush/c,
-/turf/simulated/floor/beach/sand,
-/area/ruin/space/spacebotany/EastGarden)
 "MA" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -6468,7 +6464,7 @@ Ap
 hY
 Ap
 nz
-Mx
+Up
 Ap
 ZM
 SR

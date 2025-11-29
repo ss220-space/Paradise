@@ -74,7 +74,7 @@
 	name = "Random Toolbox"
 	desc = "This is a random toolbox."
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "red"
+	icon_state = "toolbox"
 
 /obj/random/toolbox/item_to_spawn()
 	return pick(prob(3);/obj/item/storage/toolbox/mechanical,\
