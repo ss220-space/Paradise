@@ -103,8 +103,6 @@
 
 #define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
 
-#define isammocasing(A) (istype(A, /obj/item/ammo_casing))
-
 #define isbaton(A) (istype(A, /obj/item/melee/baton))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
