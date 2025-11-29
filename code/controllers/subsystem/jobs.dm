@@ -95,18 +95,17 @@ SUBSYSTEM_DEF(jobs)
 
     for(var/department in department_groups)
         var/list/jobs = department_groups[department]
-		/// Datum of job which is the head of respected department
-        var/datum/job/chief = null
+        var/datum/job/head_of_department = null
 
         for(var/datum/job/job in jobs)
             if(job.title in head_titles)
-                chief = job
+                head_of_department = job
                 break
 
         // Department head goes first
-        if(chief)
-            jobs -= chief
-            jobs.Insert(1, chief)
+        if(head_of_department)
+            jobs -= head_of_department
+            jobs.Insert(1, head_of_department)
 
 	// Collecting a list in the right order
     for(var/department in department_order)
