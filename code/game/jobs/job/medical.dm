@@ -285,12 +285,9 @@
 	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	outfit = /datum/outfit/job/paramedic
-
-/datum/job/paramedic/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/cargo/carring)
-			return SKILL_LEVEL_ADVANCED
-	. = ..()
+	skill_levels = list(
+		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/paramedic
 	name = JOB_TITLE_PARAMEDIC

@@ -226,9 +226,7 @@
 		GLOB.exoframe_types[frame.id] = frame
 
 	// Init list for skills
-	init_datum_subtypes(/datum/skill_level, GLOB.skill_levels, null, "level")
-	GLOB.skill_levels["0"] = new /datum/skill_level/none() //because none skill level are 0
-	init_datum_subtypes(/datum/skill, GLOB.character_skills, null, "name")
+	init_datum_subtypes(/datum/skill, GLOB.skills, null, "name")
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

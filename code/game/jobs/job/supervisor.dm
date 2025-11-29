@@ -151,12 +151,9 @@
 	outfit = /datum/outfit/job/blueshield
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
-
-/datum/job/blueshield/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/cargo/carring)
-			return SKILL_LEVEL_ADVANCED
-	. = ..()
+	skill_levels = list(
+		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/blueshield
 	name = JOB_TITLE_BLUESHIELD

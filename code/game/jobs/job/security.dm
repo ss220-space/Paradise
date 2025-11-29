@@ -225,12 +225,9 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
-
-/datum/job/brigdoc/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/cargo/carring)
-			return SKILL_LEVEL_ADVANCED
-	. = ..()
+	skill_levels = list(
+		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/brigdoc
 	name = JOB_TITLE_BRIGDOC

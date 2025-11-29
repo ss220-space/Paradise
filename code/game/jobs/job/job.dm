@@ -96,6 +96,9 @@
 	/// Whether this is a head position
 	var/head_position = 0
 
+	/// Skill levels by job list
+	var/list/skill_levels = list()
+
 #define MAX_START_MONEY_MULTIPLIER 3
 
 /datum/job/New()
@@ -124,6 +127,7 @@
 	if(outfit)
 		H.equipOutfit(outfit, visualsOnly)
 
+	apply_skills(H)
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 
 	if(!visualsOnly && announce)
@@ -290,8 +294,6 @@
 
 		qdel(gear_leftovers)
 
-	apply_skills(H)
-
 	return TRUE
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
@@ -350,18 +352,18 @@
 			return FALSE
 	return TRUE
 
-/datum/outfit/job/proc/apply_skills(mob/living/carbon/human/user)
-	to_chat(user, "apply [length(GLOB.character_skills)] skills")
-	var/datum/job/job = SSjobs.GetJobType(jobtype)
-	if(!job)
-		job = SSjobs.GetJob(user.job)
-	for(var/skill_name as anything in GLOB.character_skills)
-		var/datum/skill/skill_type = GLOB.character_skills[skill_name]
+/datum/job/proc/apply_skills(mob/living/carbon/human/user)
+	to_chat(user, "apply [length(GLOB.skills)] skills")
+	for(var/skill_name as anything in GLOB.skills)
+		//TODO vakons сделать потом переиспользование датума навыка, а уровни вынести в отдельную мапу
+		var/datum/skill/skill_type = GLOB.skills[skill_name]
 		var/datum/skill/skill = new skill_type.type(skill_type)
-		var/datum/skill_level/level = job.get_skill_level(skill_type.type)
-		skill.level = GLOB.skill_levels["[level]"]
+		skill.level = get_skill_level(skill_type.type)
 		skill.apply_to_mob(user)
 		user.skills.Add(skill)
 
 /datum/job/proc/get_skill_level(skill_type)
-	return SKILL_LEVEL_NONE
+	var/level = skill_levels[skill_type]
+	if(level == null)
+		return SKILL_LEVEL_NONE
+	return level

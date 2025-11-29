@@ -7,6 +7,9 @@
 	minimal_access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SECURITY, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Chief Supply Manager")
 	outfit = /datum/outfit/job/qm
+	skill_levels = list(
+		/datum/skill/cargo/carring = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /datum/outfit/job/qm
 	name = JOB_TITLE_QUARTERMASTER
@@ -45,6 +48,9 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Supply Manager", "Loader")
 	outfit = /datum/outfit/job/cargo_tech
+	skill_levels = list(
+		/datum/skill/cargo/carring = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /datum/outfit/job/cargo_tech
 	name = JOB_TITLE_CARGOTECH
@@ -67,6 +73,9 @@
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 	insurance_type = INSURANCE_TYPE_EXTENDED
+	skill_levels = list(
+		/datum/skill/cargo/carring = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/mining
 	name = JOB_TITLE_MINER
@@ -130,6 +139,9 @@
 	outfit = /datum/outfit/job/mining_medic
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	exp_type = EXP_TYPE_MEDICAL
+	skill_levels = list(
+		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/mining_medic
 	name = JOB_TITLE_MINING_MEDIC

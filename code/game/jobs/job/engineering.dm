@@ -18,22 +18,10 @@
 	)
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
-
-/datum/job/chief_engineer/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/engineering/building)
-			return SKILL_LEVEL_PROFESSIONAL
-		if(/datum/skill/engineering/construction)
-			return SKILL_LEVEL_PROFESSIONAL
-	. = ..()
-
-/datum/job/chief_engineer/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/engineering/building)
-			return SKILL_LEVEL_PROFESSIONAL
-		if(/datum/skill/engineering/construction)
-			return SKILL_LEVEL_PROFESSIONAL
-	. = ..()
+	skill_levels = list(
+		/datum/skill/engineering/building = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/engineering/construction = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /datum/outfit/job/chief_engineer
 	name = JOB_TITLE_CHIEF
@@ -78,14 +66,10 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Maintenance Technician", "Engine Technician", "Electrician")
 	outfit = /datum/outfit/job/engineer
-
-/datum/job/engineer/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/engineering/building)
-			return SKILL_LEVEL_PROFESSIONAL
-		if(/datum/skill/engineering/construction)
-			return SKILL_LEVEL_PROFESSIONAL
-	. = ..()
+	skill_levels = list(
+		/datum/skill/engineering/building = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/engineering/construction = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /datum/outfit/job/engineer
 	name = JOB_TITLE_ENGINEER
@@ -118,22 +102,10 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/engineer/trainee
 	paycheck = PAYCHECK_LOWER
-
-/datum/job/engineer/trainee/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/engineering/building)
-			return SKILL_LEVEL_ADVANCED
-		if(/datum/skill/engineering/construction)
-			return SKILL_LEVEL_ADVANCED
-	. = ..()
-
-/datum/job/engineer/trainee/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/engineering/building)
-			return SKILL_LEVEL_ADVANCED
-		if(/datum/skill/engineering/construction)
-			return SKILL_LEVEL_ADVANCED
-	. = ..()
+	skill_levels = list(
+		/datum/skill/engineering/building = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/construction = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/engineer/trainee
 	name = JOB_TITLE_ENGINEER_TRAINEE
@@ -206,14 +178,10 @@
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mechanic
-
-/datum/job/mechanic/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/engineering/building)
-			return SKILL_LEVEL_ADVANCED
-		if(/datum/skill/engineering/construction)
-			return SKILL_LEVEL_PROFESSIONAL
-	. = ..()
+	skill_levels = list(
+		/datum/skill/engineering/building = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/construction = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /datum/outfit/job/mechanic
 	name = JOB_TITLE_MECHANIC
