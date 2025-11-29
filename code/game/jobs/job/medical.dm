@@ -244,7 +244,7 @@
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
 
-/datum/job/psychiatrist
+/datum/job/medical/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
 	flag = JOB_FLAG_PSYCHIATRIST
 	total_positions = 1
@@ -256,7 +256,7 @@
 
 /datum/outfit/job/psychiatrist
 	name = JOB_TITLE_PSYCHIATRIST
-	jobtype = /datum/job/psychiatrist
+	jobtype = /datum/job/medical/psychiatrist
 
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
