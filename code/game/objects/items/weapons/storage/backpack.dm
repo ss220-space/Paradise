@@ -37,15 +37,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += span_boldnotice("Пуст.")
+			. += span_boldnotice("Пусто.")
 		else if(space_used <= max_combined_w_class*0.6)
-			. += span_boldnotice("Не заполнен.")
+			. += span_boldnotice("Место начинает заканчиваться.")
 		else if(space_used <= max_combined_w_class*0.8)
-			. += span_boldnotice("Заполняется.")
+			. += span_boldnotice("Близится к заполнению.")
 		else if(space_used < max_combined_w_class)
-			. += span_boldnotice("Почти полон.")
+			. += span_boldnotice("Почти заполнено.")
 		else
-			. += span_boldnotice("Полон.")
+			. += span_boldnotice("Заполнено.")
 
 /*
  * Backpack Types
