@@ -24151,10 +24151,6 @@
 	icon_state = "red"
 	},
 /area/security/customs)
-"dyL" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/carpet,
-/area/library)
 "dyQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -31173,7 +31169,8 @@
 "ezr" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/item/radio/intercom{
-	pixel_y = -30
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
@@ -35560,7 +35557,8 @@
 "fht" = (
 /obj/item/radio/intercom{
 	name = "west station intercom (General)";
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
@@ -45109,7 +45107,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -62929,11 +62928,6 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/north)
-"jkU" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "jkV" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
@@ -71870,14 +71864,15 @@
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "kDs" = (
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/northwest,
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "kDu" = (
@@ -84766,7 +84761,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -111102,7 +111098,8 @@
 	icon_state = "4-8"
 	},
 /obj/item/radio/intercom{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -131441,14 +131438,6 @@
 "tnd" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/perma)
-"tnj" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "tnk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -136791,11 +136780,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "tYK" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/machinery/camera{
 	c_tag = "Hangar West";
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -140851,11 +140841,12 @@
 	},
 /area/chapel/main)
 "uFC" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -143595,7 +143586,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/radio/intercom{
-	dir = 1;
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -162623,10 +162613,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "xRI" = (
-/obj/item/radio/intercom{
-	pixel_x = 30
-	},
 /obj/effect/decal/warning_stripes/southeast,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "xRN" = (
@@ -187274,7 +187265,7 @@ qel
 qel
 ejf
 aAA
-dyL
+ipA
 qel
 qel
 qel
@@ -274169,7 +274160,7 @@ wJE
 wJE
 pkq
 yfm
-tnj
+yfm
 gYD
 wQZ
 uJG
@@ -274426,7 +274417,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG
@@ -274683,7 +274674,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG

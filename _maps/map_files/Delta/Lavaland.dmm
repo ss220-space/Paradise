@@ -495,8 +495,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	pixel_x = 30;
-	pixel_y = -4
+	dir = 8;
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1567,15 +1567,15 @@
 	},
 /area/mine/living_quarters)
 "ft" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1662,14 +1662,14 @@
 	},
 /area/mine/living_quarters)
 "fF" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -1962,6 +1962,10 @@
 "gK" = (
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4838,9 +4842,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -5120,15 +5121,8 @@
 	},
 /area/mine/eva)
 "AJ" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
+/obj/item/radio/intercom,
+/turf/simulated/wall/r_wall,
 /area/mine/living_quarters)
 "AQ" = (
 /obj/machinery/door/firedoor,
@@ -18949,8 +18943,8 @@ Fe
 gh
 Fe
 Lf
-Zf
 AJ
+ee
 Lc
 Lc
 ZL
