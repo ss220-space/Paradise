@@ -1,7 +1,7 @@
 /obj/item/mod/construction
 	desc = "Деталь модульного экзокостюма, используемая при его строительстве. Вы можете установить это в оболочку МЭК."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
-	icon_state = "rack_parts"
+	icon_state = "skinapplier"
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"

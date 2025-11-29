@@ -881,6 +881,7 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 	projectile_type = /obj/projectile/contractor_hook
 	caliber = "hardlight_hook"
 	icon_state = "hard_hook"
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	muzzle_flash_effect = null
 
 /obj/item/ammo_casing/magic/contractor_hook/get_ru_names()
