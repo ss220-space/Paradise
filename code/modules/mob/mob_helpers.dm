@@ -555,7 +555,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					break
 
 		//update our pda and id if we have them on our person
-		var/list/searching = GetAllContents()
+		var/list/searching = get_all_contents()
 		var/search_id = 1
 		var/search_pda = 1
 

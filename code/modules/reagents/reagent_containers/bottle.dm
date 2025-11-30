@@ -590,7 +590,7 @@
 	volume = 40
 
 /obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
-	reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), 40)
+	reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle"), 40)
 	. = ..()
 
 /obj/item/reagent_containers/glass/bottle/plasma

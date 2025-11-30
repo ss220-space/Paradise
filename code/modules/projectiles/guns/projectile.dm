@@ -91,17 +91,22 @@
 	return !magazine
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
-	if(user && magazine.loc == user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
+	playsound(loc, magin_sound, 50, TRUE)
+	if(!do_after(user, GUN_MAGAZINE_RELOAD_DURATION, new_magazine, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
+		balloon_alert(user, "отменено")
+		return FALSE
+
+	if(user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 		return FALSE
 	. = TRUE
 	magazine = new_magazine
 	if(magazine.loc != src)
 		magazine.forceMove(src)
-	playsound(loc, magin_sound, 50, TRUE)
 	chamber_round()
 	update_weight()
 	magazine.update_icon()
 	update_icon()
+	balloon_alert(user, "заряжено")
 
 /obj/item/gun/projectile/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box/magazine))
@@ -114,14 +119,13 @@
 			if(!user.can_unEquip(new_magazine))
 				return ..()
 			reload(new_magazine, user)
-			balloon_alert(user, "заряжено")
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!can_tactical)
 			balloon_alert(user, "уже заряжено!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.can_unEquip(new_magazine))
 			return ..()
-		balloon_alert(user, "заряжено")
+		balloon_alert(user, "разряжено")
 		magazine.forceMove(drop_location())
 		magazine.update_appearance(UPDATE_ICON|UPDATE_DESC)
 		magazine = null
@@ -129,6 +133,20 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/gun/projectile/proc/speedloader_reload(obj/item/item, mob/user)
+	. = TRUE
+	if(!isspeedloader(item) && !isammocasing(item))
+		return FALSE
+	add_fingerprint(user)
+	if(isspeedloader(item) && !do_after(user, GUN_MAGAZINE_RELOAD_DURATION, item, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
+		balloon_alert(user, "отменено")
+		return FALSE
+	var/num_loaded = magazine.reload(item, user)
+	if(!num_loaded)
+		return
+	update_icon()
+	chamber_round(FALSE)
 
 /obj/item/gun/projectile/attack_self(mob/living/user)
 	add_fingerprint(user)
