@@ -1770,8 +1770,10 @@
 	overdose_threshold = 15
 
 /datum/reagent/medicine/sanguinius/on_mob_life(mob/living/user)
+	. = list(0, STATUS_UPDATE_NONE)
+
 	if(!ishuman(user))
-		return
+		return ..()
 
 	if(HAS_TRAIT(user, TRAIT_NO_BLOOD) || HAS_TRAIT(user, TRAIT_NO_BLOOD_RESTORE))
 		return ..()
@@ -1789,9 +1791,6 @@
 
 /datum/reagent/medicine/sanguinius/overdose_process(mob/living/M, severity)
 	. = list(0, STATUS_UPDATE_NONE)
-
-	if(!ishuman(M))
-		return
 
 	var/mob/living/carbon/human/user = M
 
