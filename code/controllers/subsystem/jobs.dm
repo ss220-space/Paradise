@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(jobs)
 
 		// Splitting by departments
 		var/department = job.department
-		for(department in department_groups)
+		if(department in department_groups)
 			department_groups[department] += job
 
 	// Order: head_of_department -> department jobs
