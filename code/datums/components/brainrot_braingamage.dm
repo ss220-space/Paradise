@@ -4,7 +4,6 @@
 	var/list/bad_words
 	var/damage
 
-
 /datum/component/brainrot_braingamage/Initialize(damage, list/bad_words)
 	if(!ishuman(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -15,10 +14,8 @@
 /datum/component/brainrot_braingamage/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOB_TRY_SPEECH, PROC_REF(on_mob_say))
 
-
 /datum/component/brainrot_braingamage/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_TRY_SPEECH)
-
 
 /datum/component/brainrot_braingamage/proc/on_mob_say(mob/living/carbon/human/mob, message)
 	for(var/word in bad_words)

@@ -99,7 +99,6 @@
 			if(!tail_marking.tails_allowed || !(bodypart_tail.body_accessory.name in tail_marking.tails_allowed))
 				return
 
-
 	if(location == "tail")
 		bodypart_tail.m_styles["tail"] = marking_style
 		stop_tail_wagging()
@@ -312,7 +311,6 @@
 	else
 		update_markings()
 	return 1
-
 
 /mob/living/carbon/human/proc/change_skin_color(colour = "#000000")
 	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))

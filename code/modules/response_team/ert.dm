@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 				if(!user || !new_commando)
 					break
 				new_commando.mind.key = user.key
-				new_commando.key = user.key
+				new_commando.possess_by_player(user.ckey)
 				new_commando.update_icons()
 				new_commando.change_voice()
 				break
@@ -183,7 +183,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.update_dna()
 
 	return M
-
 
 /datum/response_team
 	var/list/slots = list(
@@ -340,7 +339,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/responseteam
 
 	implants = list(/obj/item/implant/mindshield/ert)
 

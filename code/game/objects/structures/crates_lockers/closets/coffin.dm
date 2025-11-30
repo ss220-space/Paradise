@@ -12,7 +12,6 @@
 	open_sound_volume = 25
 	no_overlays = TRUE
 
-
 /obj/structure/closet/coffin/sarcophagus
 	name = "sarcophagus"
 	icon_state = "sarc"

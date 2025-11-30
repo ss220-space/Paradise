@@ -31,10 +31,8 @@ LINEN BINS
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi'
-		)
-
-
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
+	)
 
 /obj/item/bedsheet/attack_self(mob/user)
 	user.drop_from_active_hand()
@@ -45,9 +43,8 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		if(loc == user && !user.can_unEquip(src))
 			add_fingerprint(user)
 			return ATTACK_CHAIN_PROCEED
@@ -58,7 +55,6 @@ LINEN BINS
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/bedsheet/blue
 	icon_state = "sheetblue"
@@ -99,7 +95,7 @@ LINEN BINS
 		DATIVE = "амбассадору Зазе",
 		ACCUSATIVE = "амбассадора Зазу",
 		INSTRUMENTAL = "амбассадором Зазой",
-		PREPOSITIONAL = "амбассадоре Зазе"
+		PREPOSITIONAL = "амбассадоре Зазе",
 	)
 
 /obj/item/bedsheet/rainbow
@@ -189,7 +185,6 @@ LINEN BINS
 	dream_messages = list("authority", "a silvery ID", "handcuffs", "a baton", "a flashbang", "sunglasses", "the head of security")
 	nightmare_messages = list("the clown", "a toolbox", "sHiTcUrItY", "why did you put them in for 50 minutes")
 
-
 /obj/item/bedsheet/hop
 	name = "head of personnel's bedsheet"
 	desc = "It is decorated with a key emblem.  For those rare moments when you can rest and cuddle with Ian without someone screaming for you over the radio."
@@ -244,7 +239,6 @@ LINEN BINS
 	dream_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 	nightmare_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 
-
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
 	desc = "A special fabric enchanted with magic so you can have an enchanted night.  It even glows!"
@@ -252,8 +246,6 @@ LINEN BINS
 	item_color = "wiz"
 	dream_messages = list("a book", "an explosion", "lightning", "a staff", "a skeleton", "a robe", "magic")
 	nightmare_messages = list("a toolbox", "solars")
-
-
 
 /obj/structure/bedsheetbin
 	name = "linen bin"
@@ -265,7 +257,6 @@ LINEN BINS
 	var/amount = 20
 	var/list/sheets = list()
 	var/obj/item/hidden = null
-
 
 /obj/structure/bedsheetbin/examine(mob/user)
 	. = ..()
@@ -285,7 +276,6 @@ LINEN BINS
 		else
 			icon_state = "linenbin-full"
 
-
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
 		amount = 0
@@ -296,7 +286,6 @@ LINEN BINS
 	amount = 0
 	extinguish()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
@@ -319,7 +308,6 @@ LINEN BINS
 
 	return ..()
 
-
 /obj/structure/bedsheetbin/attack_hand(mob/user)
 	if(amount >= 1)
 		amount--
@@ -341,9 +329,7 @@ LINEN BINS
 			to_chat(user, span_notice("[hidden] falls out of [B]!"))
 			hidden = null
 
-
 	add_fingerprint(user)
-
 
 /obj/structure/bedsheetbin/attack_tk(mob/user as mob)
 	if(amount >= 1)

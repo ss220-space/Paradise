@@ -46,7 +46,6 @@
 				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"
 				stack_trace("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]")
 
-
 	// asset_cache
 	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
@@ -112,7 +111,6 @@
 			return
 		cmd_admin_discord_pm()
 		return
-
 
 	//Logs all hrefs
 	if(config && CONFIG_GET(flag/log_hrefs))
@@ -194,7 +192,7 @@
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
-			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[declension_ru(wait_time, "у", "ы", "")] перед отправкой нового сообщения."), confidential=TRUE)
+			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_SEC_MIN(wait_time)] перед отправкой нового сообщения."), confidential=TRUE)
 			return 1
 		last_message_time = world.time
 	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
@@ -219,7 +217,6 @@
 		to_chat(src, span_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential = TRUE)
 		return FALSE
 	return TRUE
-
 
 	///////////
 	//CONNECT//
@@ -256,6 +253,16 @@
 	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential=TRUE)
 
 	GLOB.directory[ckey] = src
+
+	if(GLOB.persistent_clients_by_ckey[ckey])
+		persistent_client = GLOB.persistent_clients_by_ckey[ckey]
+		persistent_client.byond_build = byond_build
+		persistent_client.byond_version = byond_version
+	else
+		persistent_client = new(ckey)
+		persistent_client.byond_build = byond_build
+		persistent_client.byond_version = byond_version
+
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
 	if(!CONFIG_GET(flag/disable_localhost_admin))
@@ -432,6 +439,8 @@
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 
+	persistent_client.client = null
+
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
 	#endif
@@ -439,7 +448,6 @@
 	if(movingmob)
 		LAZYREMOVE(movingmob.client_mobs_in_contents, mob)
 		movingmob = null
-
 
 	SSambience.remove_ambience_client(src)
 	SSmouse_entered.hovers -= src
@@ -454,6 +462,8 @@
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+#define REDIS_ANNOUNCER_NAME "Смотритель"
 
 /client/proc/announce_join()
 	if(!holder)
@@ -511,10 +521,11 @@
 		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
+#undef REDIS_ANNOUNCER_NAME
 
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -576,10 +587,9 @@
 	browser.open(FALSE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
 
-
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -635,17 +645,14 @@
 		if(check_randomizer(connectiontopic))
 			return
 
-
 	//Log all the alts
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
-
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins(span_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
-
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
@@ -774,7 +781,6 @@
 		else
 			message_admins(span_adminnotice("IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]"))
 
-
 /client/proc/check_forum_link()
 	if(!CONFIG_GET(string/forum_link_url) || !prefs || prefs.fuid)
 		return
@@ -814,7 +820,7 @@
 /client/proc/link_forum_account(fromban)
 	if(!CONFIG_GET(string/forum_link_url))
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
 		return
 	if(prefs?.fuid)
@@ -1010,7 +1016,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/client, preload_vox)), 1 MINUTES)
 		#endif
 
-
 #if(PRELOAD_RSC == 0)
 /client/proc/preload_vox()
 	for(var/name in GLOB.vox_sounds)
@@ -1018,7 +1023,6 @@
 		Export("##action=load_rsc", file)
 		stoplag()
 #endif
-
 
 //For debugging purposes
 /client/proc/list_all_languages()
@@ -1032,10 +1036,8 @@
 /client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
 	animate(src, color = colour_to, time = time, easing = SINE_EASING)
 
-
 /client/proc/on_varedit()
 	datum_flags |= DF_VAR_EDITED
-
 
 /client/Click(atom/object, atom/location, control, params)
 	if(click_intercept_time)
@@ -1096,8 +1098,9 @@
 	if(!QDELETED(object) && TRY_QUEUE_VERB(VERB_CALLBACK(object, TYPE_PROC_REF(/atom, _Click), location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))
 		return
 
-	..()
+	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
 
+	..()
 
 /client/proc/generate_clickcatcher()
 	if(!void)
@@ -1134,6 +1137,20 @@
 
 #undef SSD_WARNING_TIMER
 
+/// Attempts to make the client orbit the given object, for administrative purposes.
+/// If they are not an observer, will try to aghost them.
+/client/proc/admin_follow(atom/movable/target)
+	var/can_ghost = TRUE
+
+	if(!isobserver(mob))
+		can_ghost = admin_ghost()
+
+	if(!can_ghost)
+		return FALSE
+
+	var/mob/dead/observer/observer = mob
+	observer.ManualFollow(target)
+
 /client/verb/toggle_fullscreen()
 	set name = "Полный экран"
 	set category = STATPANEL_OOC
@@ -1155,7 +1172,6 @@
 		winset(usr, "mainwindow", "on-size=fitviewport")
 
 	fit_viewport()
-
 
 /**
  * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
@@ -1204,7 +1220,6 @@
 	// If we don't get our expected 2 outputs, let's give some useful error info.
 	if(length(map_size) != 2)
 		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
-
 
 	var/height = text2num(map_size[2])
 	var/desired_width = round(height * aspect_ratio)
@@ -1273,7 +1288,7 @@
 
 	if(!CONFIG_GET(string/discordurl))
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(usr, "Гостевой аккаунт не может быть связан.", confidential=TRUE)
 		return
 	if(prefs)
@@ -1366,7 +1381,6 @@
 		log_debug("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
 		return null
 
-
 /**
  * Sets the clients BYOND date up properly
  *
@@ -1441,7 +1455,6 @@
 	popup.open(FALSE)
 	to_chat(src, span_userdanger("Ваш клиент BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND."), confidential=TRUE)
 
-
 /client/proc/update_ambience_pref()
 	if(prefs.sound & SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
@@ -1501,7 +1514,6 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
-
 
 /// Returns the biggest number from client.view so we can do easier maths
 /client/proc/maxview()
@@ -1586,7 +1598,6 @@
 
 	editor.ui_interact(mob)
 
-
 /client/proc/try_add_reagent(atom/target)
 	if(!target.reagents)
 		var/amount = tgui_input_number(usr, "Укажите размер хранилища реагентов для [target]", "Размер хранилища", 50)
@@ -1614,7 +1625,6 @@
 			target.reagents.add_reagent(chosen_id, amount)
 			log_and_message_admins("has added [amount] units of [chosen_id] to \the [target]")
 
-
 /client/proc/acquire_dpi()
 	set waitfor = FALSE
 
@@ -1636,6 +1646,14 @@
 		return
 
 	src << link("https://secure.byond.com/download/")
+
+///Redirect proc that makes it easier to call the unlock achievement proc. Achievement type is the typepath to the award, user is the mob getting the award, and value is an optional variable used for leaderboard value increments
+/client/proc/give_award(achievement_type, mob/user, value = 1)
+	return persistent_client.achievements.unlock(achievement_type, user, value)
+
+///Redirect proc that makes it easier to get the status of an achievement. Achievement type is the typepath to the award.
+/client/proc/get_award_status(achievement_type, mob/user, value = 1)
+	return persistent_client.achievements.get_achievement_status(achievement_type)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

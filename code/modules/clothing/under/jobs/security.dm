@@ -5,7 +5,6 @@
  *		Head of Security
  */
 
-
 /*
  * Security
  */
@@ -30,7 +29,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/rank/security
@@ -78,9 +77,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
-
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
@@ -130,8 +128,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/det/skirt
 	name = "hard-worn skirt"
@@ -144,9 +142,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
-
 
 /obj/item/clothing/under/det/noir
 	name = "hard-worn black suit"
@@ -162,7 +159,7 @@
 	item_color = "noirdet_skirt"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/det/alt_a
@@ -180,8 +177,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/uniform.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/vulpkanin/uniform.dmi'
-		)
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/vulpkanin/uniform.dmi',
+	)
 
 /obj/item/clothing/under/det/alt_b
 	icon_state = "detective_suit_alt"
@@ -209,7 +206,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/rank/head_of_security/corp
@@ -228,7 +225,7 @@
 	item_color = "hosalt_skirt"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/rank/head_of_security/paradef
@@ -239,7 +236,7 @@
 	item_color = "hos_parade_fem"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 //Jensen cosplay gear
@@ -264,8 +261,8 @@
 
 /obj/item/clothing/suit/armor/hos/officernavyjacket
 	name = "officer's navy jacket"
-	icon_state = "officernavyjacket"
-	item_state = "officernavyjacket"
+	icon_state = "officerdnavyjacket"
+	item_state = "officerdnavyjacket"
 
 /obj/item/clothing/suit/armor/hos/officerbluejacket
 	name = "officer's blue jacket"
@@ -295,7 +292,6 @@
 	item_state = "gy_suit"
 	item_color = "hos_formal"
 
-
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys
 	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
@@ -321,8 +317,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/rank/security/brigmedical
 	desc = "Комбинезон медика СБ синего цвета 26-го века. Является компромиссом между санитарными нормами и стандартами защиты."
@@ -340,7 +336,7 @@
 	item_color = "brigmed_skirt"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 //Pod Pilot

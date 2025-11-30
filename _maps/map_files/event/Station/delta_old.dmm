@@ -6495,7 +6495,6 @@
 /area/maintenance/engrooms)
 "baI" = (
 /obj/structure/table,
-/obj/item/paper/deltainfo,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -12170,10 +12169,6 @@
 /area/maintenance/garden)
 "bFy" = (
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bFz" = (
@@ -14395,7 +14390,6 @@
 /area/engineering/controlroom)
 "bRv" = (
 /obj/structure/table,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -19045,7 +19039,6 @@
 	name = "Cargo Bay Desk";
 	req_access = list(31)
 	},
-/obj/item/paper/deltainfo,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -28460,7 +28453,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/paper/deltainfo,
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
@@ -36933,7 +36925,6 @@
 	pixel_y = 28
 	},
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "dMm" = (
@@ -42485,9 +42476,6 @@
 /area/maintenance/tourist)
 "eCU" = (
 /obj/structure/table,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -42851,7 +42839,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -44999,11 +44986,6 @@
 /area/maintenance/fsmaint)
 "fma" = (
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -47346,10 +47328,6 @@
 	dir = 4;
 	network = list("Medical","SS13")
 	},
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue";
@@ -68067,7 +68045,6 @@
 	dir = 1;
 	pixel_y = -25
 	},
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -70897,8 +70874,6 @@
 /area/chapel/main)
 "mrx" = (
 /obj/structure/table,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue";
@@ -72954,7 +72929,6 @@
 	dir = 5
 	},
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/carpet/black,
 /area/bridge/vip)
 "mRE" = (
@@ -73042,9 +73016,6 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76596,8 +76567,6 @@
 /area/crew_quarters/courtroom)
 "nQB" = (
 /obj/structure/table/reinforced,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 7;
 	icon_state = "yellow"
@@ -76748,8 +76717,6 @@
 /area/medical/ward)
 "nSr" = (
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "escape"
@@ -79277,7 +79244,6 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -90713,7 +90679,6 @@
 /area/maintenance/asmaint2)
 "rAl" = (
 /obj/structure/table/reinforced,
-/obj/item/paper/deltainfo,
 /obj/item/flashlight/seclite,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -103025,7 +102990,7 @@
 /area/medical/virology)
 "uRG" = (
 /obj/structure/chair{
-	desc = "Этот красивый стул был отлит из двух трофейных боргов синдиката.";
+	desc = "Этот красивый стул был отлит из двух трофейных боргов \"Синдиката\".";
 	name = "Дизайнерский стул"
 	},
 /obj/machinery/shower{
@@ -103881,9 +103846,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "vcG" = (
@@ -108849,7 +108811,6 @@
 /area/medical/medbay3)
 "wqd" = (
 /obj/structure/table,
-/obj/item/paper/deltainfo,
 /obj/machinery/camera{
 	c_tag = "Brig Lobby";
 	dir = 8
@@ -116280,7 +116241,6 @@
 /area/toxins/mixing)
 "ydB" = (
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "ydL" = (

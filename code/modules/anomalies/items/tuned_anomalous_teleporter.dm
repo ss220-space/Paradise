@@ -41,7 +41,7 @@
 		DATIVE = "настраеваемому аномальному телепортеру", \
 		ACCUSATIVE = "настраеваемый аномальный телепортер", \
 		INSTRUMENTAL = "настраеваемым аномальным телепортером", \
-		PREPOSITIONAL = "настраеваемом аномальном телепортере"
+		PREPOSITIONAL = "настраеваемом аномальном телепортере",
 	)
 
 /obj/item/assembly/tuned_anomalous_teleporter/Initialize(mapload)
@@ -199,7 +199,7 @@ Ranges with core charge 50-100:
 	if(!can_teleport()) // Without massages.
 		return ..()
 
-	user.visible_message(span_suicide("[user] перенастраива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] случайным образом и пыта[pluralize_ru(user.gender,"ет","ют")]ся телепортироваться! Выглядит, будто он[genderize_ru(gender, "", "а", "о", "и")] хо[genderize_ru(gender, "чет", "чет", "чет", "тят")] убить себя!"))
+	user.visible_message(span_suicide("[user] перенастраива[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] случайным образом и пыта[PLUR_ET_YUT(user)]ся телепортироваться! Выглядит, будто он[GEND_A_O_I(src)] хо[PLUR_CHET_TYAT(src)] убить себя!"))
 	if(!do_after(user, 1 SECONDS, user))
 		return ..()
 
@@ -221,10 +221,12 @@ Ranges with core charge 50-100:
 	name = "Tuned anomalous teleporter"
 	result = /obj/item/assembly/tuned_anomalous_teleporter
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
-	reqs = list(/obj/item/relict_production/strange_teleporter = 1,
-				/obj/item/gps = 1,
-				/obj/item/stack/ore/bluespace_crystal,
-				/obj/item/stack/sheet/metal = 2,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/relict_production/strange_teleporter = 1,
+		/obj/item/gps = 1,
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/sheet/metal = 2,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 300
 	category = CAT_MISC

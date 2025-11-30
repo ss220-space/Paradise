@@ -19,10 +19,8 @@
 	/// The desired pressure the pump should be outputting, either into the atmosphere, or into a holding tank.
 	var/target_pressure = 101.325
 
-
 /obj/machinery/portable_atmospherics/pump/update_icon_state()
 	icon_state = "psiphon:[on]"
-
 
 /obj/machinery/portable_atmospherics/pump/update_overlays()
 	. = ..()
@@ -30,7 +28,6 @@
 		. += "siphon-open"
 	if(connected_port)
 		. += "siphon-connector"
-
 
 /obj/machinery/portable_atmospherics/pump/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

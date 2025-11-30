@@ -19,7 +19,7 @@
 		DATIVE = "пипетке",
 		ACCUSATIVE = "пипетку",
 		INSTRUMENTAL = "пипеткой",
-		PREPOSITIONAL = "пипетке"
+		PREPOSITIONAL = "пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/update_overlays()
@@ -44,14 +44,11 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
-
 /obj/item/reagent_containers/dropper/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -62,7 +59,7 @@
 		if(!reagents.total_volume)
 			return
 		if(user != C)
-			user.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 			if(!do_after(user, 3 SECONDS, C, NONE))
 				return
 		if(ishuman(target))
@@ -79,15 +76,15 @@
 					safe_thing = H.head
 
 			if(safe_thing)
-				user.visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся капнуть что-то в глаза [C], используя [declent_ru(ACCUSATIVE)], но [genderize_ru(user.gender, "ему", "ей", "ему", "им")] не удаётся!"))
+				user.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся капнуть что-то в глаза [C], используя [declent_ru(ACCUSATIVE)], но [GEND_HIM_HER(user)] не удаётся!"))
 
 				reagents.reaction(safe_thing, REAGENT_TOUCH)
 				to_transfer = reagents.remove_any(amount_per_transfer_from_this)
 
-				to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "у", "ы", "")] вещества, используя [declent_ru(ACCUSATIVE)]."))
+				to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 				return
 
-		user.visible_message(span_danger("[user] закапыва[pluralize_ru(user.gender, "ет", "ют")] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_danger("[user] закапыва[PLUR_ET_YUT(user)] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 		reagents.reaction(C, REAGENT_TOUCH)
 
 		var/list/injected = list()
@@ -97,7 +94,7 @@
 		add_attack_logs(user, C, "Dripped with [src] containing ([contained]), transfering [to_transfer]")
 
 		to_transfer = reagents.trans_to(C, amount_per_transfer_from_this)
-		to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "у", "ы", "")] вещества, используя [declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 	if(isobj(target))
 		if(!target.reagents)
@@ -114,7 +111,7 @@
 
 			to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
 			after_transfer(target)
-			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "у", "ы", "")] вещества, используя [declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 		else
 			if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers))
@@ -146,7 +143,7 @@
 		DATIVE = "промышленной пипетке",
 		ACCUSATIVE = "промышленную пипетку",
 		INSTRUMENTAL = "промышленной пипеткой",
-		PREPOSITIONAL = "промышленной пипетке"
+		PREPOSITIONAL = "промышленной пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/precision
@@ -170,12 +167,11 @@
 		DATIVE = "микропипетке",
 		ACCUSATIVE = "микропипетку",
 		INSTRUMENTAL = "микропипеткой",
-		PREPOSITIONAL = "микропипетке"
+		PREPOSITIONAL = "микропипетке",
 	)
 
 //Syndicate item. Virus transmitting mini hypospray
 /obj/item/reagent_containers/dropper/precision/viral_injector
-
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED

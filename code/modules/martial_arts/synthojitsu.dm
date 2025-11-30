@@ -47,10 +47,8 @@
 	icon_state ="viable"
 	var/is_used = FALSE
 
-
 /obj/item/ipc_combat_upgrade/update_icon_state()
 	icon_state = "[is_used ? "un" : ""]viable"
-
 
 /obj/item/ipc_combat_upgrade/update_desc(updates = ALL)
 	. = ..()
@@ -58,7 +56,6 @@
 		desc = initial(desc)
 		return
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols.It's hardlocked"
-
 
 /obj/item/ipc_combat_upgrade/attack_self(mob/user)
 	if(!ismachineperson(user) || is_used)
@@ -73,7 +70,6 @@
 		to_chat(H, span_boldannounceic("Melee algorithms installed. Safety disabled."))
 		is_used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-
 
 /datum/martial_art/synthojitsu/explaination_header(user)
 	to_chat(user, "<b><i>You reapload some of the basics of synthojitsu.</i></b>")

@@ -77,7 +77,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		// If not, wait for one minute, instead of one tick, before checking again.
 		next_event_time += (60 * 10)
 
-
 /datum/event_container/proc/acquire_event()
 	if(length(available_events) == 0)
 		return
@@ -196,7 +195,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Мясной дождь",				/datum/event/dust/meaty,				0,		list(ASSIGNMENT_ENGINEER = 20)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Телекоммуникационный сбой",/datum/event/communications_blackout,	500,	list(ASSIGNMENT_AI = 150, ASSIGNMENT_SECURITY = 120)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Побег",					/datum/event/prison_break,				0,		list(ASSIGNMENT_SECURITY = 100)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Проклятое фортепиано",     /datum/event/ghostpiano,                500,    list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Проклятое фортепиано",     /datum/event/ghostpiano,                100,    list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",		/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Замыкание ЛКП",			/datum/event/apc_short,				200,	list(ASSIGNMENT_ENGINEER = 60)),
@@ -227,6 +226,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Космический ниндзя",		/datum/event/space_ninja,				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ядерный оперативник",		/datum/event/lone_operative,			40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Дрейфующий Контрактник",	/datum/event/drifting_contractor,		60,		list(ASSIGNMENT_SECURITY = 10)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Торговцы",					/datum/event/traders,					85,		is_one_shot = TRUE),
 	)
 
@@ -248,7 +248,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",				/datum/event/spawn_floor_cluwne,		15,		is_one_shot = TRUE)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Космический Дракон",			/datum/event/space_dragon,				20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
 	)
-
 
 #undef ASSIGNMENT_ANY
 #undef ASSIGNMENT_AI

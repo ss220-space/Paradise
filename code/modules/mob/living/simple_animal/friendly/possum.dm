@@ -44,7 +44,7 @@
 		DATIVE = "опоссуму",
 		ACCUSATIVE = "опоссума",
 		INSTRUMENTAL = "опоссумом",
-		PREPOSITIONAL = "опоссуме"
+		PREPOSITIONAL = "опоссуме",
 	)
 
 /mob/living/simple_animal/possum/attack_hand(mob/user)
@@ -52,7 +52,6 @@
 		was_harmed = FALSE
 		update_icons()
 	return ..()
-
 
 /mob/living/simple_animal/possum/adjustHealth(
 	amount = 0,
@@ -66,13 +65,11 @@
 		was_harmed = TRUE
 		update_icons()
 
-
 /mob/living/simple_animal/possum/update_icons()
 	. = ..()
 	if(stat == DEAD || resting || body_position == LYING_DOWN || !was_harmed)
 		return
 	icon_state = icon_harm
-
 
 /mob/living/simple_animal/possum/Poppy
 	name = "Poppy"
@@ -93,5 +90,5 @@
 		DATIVE = "Ключику",
 		ACCUSATIVE = "Ключика",
 		INSTRUMENTAL = "Ключиком",
-		PREPOSITIONAL = "Ключике"
+		PREPOSITIONAL = "Ключике",
 	)

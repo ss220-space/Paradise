@@ -18,14 +18,12 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/clipboard/click_alt(mob/user)
 	if(is_pen(user.get_active_hand()))
 		penPlacement(user, user.get_active_hand(), TRUE)
 	else
 		removePen(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/clipboard/verb/removePen()
 	set category = STATPANEL_OBJECT
@@ -52,7 +50,6 @@
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 
-
 /obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/pen, placing)
 	if(placing)
 		if(!is_pen(pen))
@@ -76,7 +73,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
 	var/dat = {"<meta charset="UTF-8"><title>[src]</title>"}
 	dat += "<a href='byond://?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
@@ -90,7 +86,6 @@
 	var/datum/browser/popup = new(user, "clipboard", "[src]", 400, 400)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/item/clipboard/update_overlays()
 	. = ..()
@@ -107,7 +102,6 @@
 			. += img
 			break
 	. += "clipboard_over"
-
 
 /obj/item/clipboard/attackby(obj/item/I, mob/user, params)
 	var/paperwork = isPaperwork(I)
@@ -152,7 +146,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clipboard/attack_self(mob/user)
 	showClipboard(user)

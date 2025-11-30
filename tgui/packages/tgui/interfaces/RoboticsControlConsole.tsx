@@ -49,7 +49,7 @@ export const RoboticsControlConsole = (_props: unknown) => {
               {safety ? 'Disable Safety' : 'Enable Safety'}
             </Button>
             <Button
-              icon="bomb"
+              icon="bolt"
               disabled={safety}
               color="bad"
               onClick={() => act('nuke', {})}
@@ -109,7 +109,7 @@ const Cyborgs = (props: CyborgsProps) => {
               {cyborg.locked_down ? 'Release' : 'Lockdown'}
             </Button.Confirm>
             <Button.Confirm
-              icon="bomb"
+              icon="bolt"
               disabled={!data.auth}
               color="bad"
               onClick={() =>
@@ -118,7 +118,7 @@ const Cyborgs = (props: CyborgsProps) => {
                 })
               }
             >
-              Detonate
+              Self-destruct
             </Button.Confirm>
           </>
         }

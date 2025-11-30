@@ -9,7 +9,6 @@
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
-
 /obj/item/aicard/afterattack(atom/target, mob/user, proximity, params)
 	..()
 	if(!proximity || !target)
@@ -22,7 +21,6 @@
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
 
-
 /obj/item/aicard/update_icon_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI)
@@ -33,13 +31,11 @@
 	else
 		icon_state = "aicard"
 
-
 /obj/item/aicard/update_overlays()
 	. = ..()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI)
 		. += "aicard-on"
-
 
 /obj/item/aicard/update_name(updates = ALL)
 	. = ..()
@@ -49,13 +45,11 @@
 	else
 		name = "intelliCard"
 
-
 /obj/item/aicard/proc/update_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
 	update_appearance(UPDATE_ICON|UPDATE_NAME)
 	if(AI)
 		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
-
 
 /obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
@@ -68,7 +62,6 @@
 	if(!ui)
 		ui = new(user, src, "AICard", "[name]")
 		ui.open()
-
 
 /obj/item/aicard/ui_data(mob/user)
 	var/list/data = list()
@@ -96,7 +89,6 @@
 		data["has_ai"] = FALSE // If this isn't passed to tgui, it won't show there isn't a AI in the card.
 
 	return data
-
 
 /obj/item/aicard/ui_act(action, params)
 	if(..())
@@ -143,13 +135,11 @@
 		R.show_laws()
 	flush = FALSE
 
-
 /obj/item/aicard/add_tape()
 	var/mob/living/silicon/ai/AI = locate() in src
 	if(!AI)
 		return
 	QDEL_NULL(AI.builtInCamera)
-
 
 /obj/item/aicard/remove_tape()
 	var/mob/living/silicon/ai/AI = locate() in src

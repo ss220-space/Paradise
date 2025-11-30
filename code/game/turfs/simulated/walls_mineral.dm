@@ -25,7 +25,6 @@
 	smoothing_groups = SMOOTH_GROUP_GOLD_WALLS
 	smooth = SMOOTH_BITMASK
 
-
 /turf/simulated/wall/mineral/silver
 	name = "silver wall"
 	desc = "A wall with silver plating. Shiny!"
@@ -102,7 +101,6 @@
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
 
-
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -113,8 +111,6 @@
 	add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 	investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 	ignite(I.get_heat())
-
-
 
 /turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.tool_enabled)
@@ -175,7 +171,7 @@
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
-	if(is_sharp(I) && I.force)
+	if(I.sharp && I.force)
 		var/duration = (48 / I.force) * 2 //In seconds, for now.
 		if(istype(I, /obj/item/hatchet) || istype(I, /obj/item/twohanded/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.
@@ -184,7 +180,6 @@
 			return TRUE
 		return FALSE
 	return ..()
-
 
 /turf/simulated/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
@@ -237,7 +232,7 @@
 	icon_state = "shuttle-0"
 	base_icon_state = "shuttle"
 	explosion_block = 3
-	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD | RICOCHET_BALLISTIC
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK

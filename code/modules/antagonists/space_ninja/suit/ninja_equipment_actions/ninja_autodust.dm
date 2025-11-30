@@ -5,13 +5,10 @@
 	desc = "Automatically dusts user if turned on!"
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
 	button_icon_state = "dust"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Auto-Dust"
-
 
 /**
  * Proc called to enable/disable autodust.

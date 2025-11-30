@@ -25,7 +25,6 @@
 	new T(loc)
 	qdel(src)
 
-
 /obj/item/stack/sheet/animalhide/random
 	name = "random animal hide"
 
@@ -163,7 +162,6 @@
 	name = "variety pillbottle"
 	labelled = TRUE
 
-
 // -------------------------------------
 //    Containers full of unknown crap
 // -------------------------------------
@@ -221,7 +219,6 @@
 	name = "Mysterious Crate"
 	desc = "What could it be?"
 
-
 /obj/structure/largecrate/evil/crowbar_act(mob/living/user, obj/item/I)
 	var/cached_name = name
 	var/atom/cached_loc = loc
@@ -244,11 +241,9 @@
 	while(prob(15))
 		new menace(get_step_rand(cached_loc))
 
-
 /obj/structure/largecrate/schrodinger
 	name = "Schrodinger's Crate"
 	desc = "What happens if you open it?"
-
 
 /obj/structure/largecrate/schrodinger/crowbar_act(mob/living/user, obj/item/I)
 	var/atom/cached_loc = loc
@@ -262,14 +257,13 @@
 	else
 		kitty.desc = "It was alive the whole time!"
 
-
 // --------------------------------------
 //   Collen's box of wonder and mystery
 // --------------------------------------
 /obj/item/storage/box/grenades
 	name = "tactical grenades"
 	desc = "A box with 6 tactical grenades."
-	icon_state = "flashbang"
+	icon_state = "box_flashbang"
 	var/list/grenadelist = list(/obj/item/grenade/chem_grenade/metalfoam, /obj/item/grenade/chem_grenade/incendiary,
 	/obj/item/grenade/chem_grenade/antiweed, /obj/item/grenade/chem_grenade/cleaner, /obj/item/grenade/chem_grenade/teargas,
 	/obj/item/grenade/chem_grenade/holywater, /obj/item/grenade/chem_grenade/meat,

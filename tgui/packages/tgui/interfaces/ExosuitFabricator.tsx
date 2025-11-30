@@ -1,5 +1,5 @@
 import { classes } from '../../common/react';
-import { createSearch } from '../../common/string';
+import { createSearch, declension_ru } from '../../common/string';
 import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
@@ -37,6 +37,7 @@ type ExosuitFabricatorData = {
 
 type DesignData = {
   name: string;
+  desc: string;
   id: string;
 };
 
@@ -89,11 +90,11 @@ const Materials = (properties) => {
     <Section
       fill
       scrollable
-      title="Materials"
+      title="Материалы"
       className="Exofab__materials"
       buttons={
         <Box color="label" mt="0.25rem">
-          {((totalMats / capacity) * 100).toPrecision(3)}% full
+          {((totalMats / capacity) * 100).toPrecision(3)}/100%
         </Box>
       }
     >
@@ -154,8 +155,12 @@ const Designs = (properties) => {
       }
       buttons={
         <Box mt={-3.5}>
-          <Button icon="plus" onClick={() => act('queueall')}>
-            Queue all
+          <Button
+            icon="plus"
+            tooltip={'Добавлеие всех шаблонов из категории в очередь печати.'}
+            onClick={() => act('queueall')}
+          >
+            Добавить всё
           </Button>
           <Button
             disabled={syncing}
@@ -163,13 +168,13 @@ const Designs = (properties) => {
             icon="sync-alt"
             onClick={() => act('sync')}
           >
-            {syncing ? 'Synchronizing...' : 'Synchronize with R&D servers'}
+            {syncing ? 'Синхронизация...' : 'Синхронизация с сетью НИО'}
           </Button>
         </Box>
       }
     >
       <Input
-        placeholder="Search by name..."
+        placeholder="Поиск..."
         mb="0.5rem"
         width="100%"
         expensive
@@ -179,7 +184,7 @@ const Designs = (properties) => {
         <Design key={design.id} design={design} />
       ))}
       {filteredDesigns.length === 0 && (
-        <Box color="label">No designs found.</Box>
+        <Box color="label">Шаблоны печати не загружены.</Box>
       )}
     </Section>
   );
@@ -200,7 +205,7 @@ const Building = (properties) => {
             <Icon name="cog" spin />
           </Stack.Item>
           <Stack.Item>
-            Building {building}
+            Печать {building}
             &nbsp;(
             <Countdown
               current={worldTime}
@@ -227,7 +232,7 @@ const Queue = (properties) => {
       fill
       scrollable
       className="Exofab__queue"
-      title="Queue"
+      title="Очередь"
       buttons={
         <Box>
           <Button
@@ -235,21 +240,21 @@ const Queue = (properties) => {
             icon={processingQueue ? 'toggle-on' : 'toggle-off'}
             onClick={() => act('process')}
           >
-            Process
+            Печать
           </Button>
           <Button
             disabled={queue.length === 0}
             icon="eraser"
             onClick={() => act('unqueueall')}
           >
-            Clear
+            Очистить
           </Button>
         </Box>
       }
     >
       <Stack fill vertical>
         {queue.length === 0 ? (
-          <Box color="label">The queue is empty.</Box>
+          <Box color="label">Очередь печати пуста.</Box>
         ) : (
           <>
             <Stack.Item className="Exofab__queue--queue" grow overflow="auto">
@@ -293,7 +298,7 @@ const Queue = (properties) => {
             {queueTime > 0 && (
               <Stack.Item className="Exofab__queue--time">
                 <Divider />
-                Processing time:
+                Время печати:
                 <Icon name="clock" mx="0.5rem" />
                 <Box inline bold>
                   {new Date((queueTime / 10) * 1000)
@@ -305,7 +310,7 @@ const Queue = (properties) => {
             {Object.keys(queueDeficit).length > 0 && (
               <Stack.Item className="Exofab__queue--deficit" shrink={0}>
                 <Divider />
-                Lacking materials to complete:
+                Недостаточно сырья для печати:
                 {queueDeficit.map((kv) => (
                   <Box key={kv[0]}>
                     <MaterialCount id={kv[0]} amount={-kv[1]} lineDisplay />
@@ -348,9 +353,15 @@ const MaterialCount = (properties) => {
           <Stack.Item grow={1}>
             <Box className="Exofab__material--name">{id}</Box>
             <Box className="Exofab__material--amount">
-              {curAmount.toLocaleString('en-US')} cm³ (
-              {Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10}{' '}
-              sheets)
+              {curAmount.toLocaleString('en-US')} см³ (
+              {Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10} лист
+              {declension_ru(
+                Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10,
+                '',
+                'а',
+                'ов'
+              )}
+              )
             </Box>
           </Stack.Item>
         </>
@@ -378,6 +389,7 @@ const Design = (properties) => {
     <Box className="Exofab__design">
       <Button
         disabled={design.notEnough || data.building}
+        tooltip={design.desc}
         icon="cog"
         onClick={() =>
           act('build', {
@@ -405,7 +417,14 @@ const Design = (properties) => {
       <Stack className="Exofab__design--time">
         <Stack.Item>
           <Icon name="clock" />
-          {design.time > 0 ? <>{design.time / 10} seconds</> : 'Instant'}
+          {design.time > 0 ? (
+            <>
+              {design.time / 10} секунд
+              {declension_ru(design.time / 10, 'у', 'ы', '')}
+            </>
+          ) : (
+            'Мгновенно'
+          )}
         </Stack.Item>
       </Stack>
     </Box>

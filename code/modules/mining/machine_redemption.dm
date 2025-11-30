@@ -11,7 +11,9 @@
  */
 /obj/machinery/mineral/ore_redemption
 	name = "ore redemption machine"
-	desc = "Устройство, перерабатывающее руду в готовые листы материалов. Начисляет баллы в зависимости от типа руды, которые можно обменять в раздатчике шахтёрского оборудования."
+	desc = "Промышленное устройство, перерабатывающее руду в готовые листы материалов. Автоматически начисляет баллы \
+			на аккаунт подключённой ID-карты в зависимости от типа руды, которые можно обменять в раздатчике шахтёрского оборудования."
+	gender = FEMALE
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
 	density = TRUE
@@ -64,7 +66,7 @@
 		DATIVE = "печи для руды",
 		ACCUSATIVE = "печь для руды",
 		INSTRUMENTAL = "печью для руды",
-		PREPOSITIONAL = "печи для руды"
+		PREPOSITIONAL = "печи для руды",
 	)
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
@@ -82,9 +84,9 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	//Проверка на случай постройки такой на Тайпане
-	var/area/MyArea = getArea(src)
-	if(istype(MyArea, /area/syndicate/unpowered/syndicate_space_base))
+	// Special access for built on Taipan machines
+	var/area/area = get_area(src)
+	if(istype(area, /area/syndicate/unpowered/syndicate_space_base))
 		req_access = list(ACCESS_SYNDICATE)
 		req_access_claim = ACCESS_SYNDICATE
 
@@ -131,12 +133,12 @@
 
 /obj/machinery/mineral/ore_redemption/labor/get_ru_names()
 	return list(
-		NOMINATIVE = "каторжная печь для руды",
-		GENITIVE = "каторжной печи для руды",
-		DATIVE = "каторжной печи для руды",
-		ACCUSATIVE = "каторжную печь для руды",
-		INSTRUMENTAL = "каторжной печью для руды",
-		PREPOSITIONAL = "каторжной печи для руды"
+		NOMINATIVE = "печь для руды трудового лагеря",
+		GENITIVE = "печи для руды трудового лагеря",
+		DATIVE = "печи для руды трудового лагеря",
+		ACCUSATIVE = "печь для руды трудового лагеря",
+		INSTRUMENTAL = "печью для руды трудового лагеря",
+		PREPOSITIONAL = "печи для руды трудового лагеря",
 	)
 
 /obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
@@ -179,7 +181,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
-		visible_message(span_notice("Индикатор слота ID на [declent_ru(PREPOSITIONAL)] мигает, устройство выдаёт карту и отключается."))
+		balloon_alert_to_viewers("выбрасывает ID-карту из слота")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
@@ -216,7 +218,7 @@
 	// Throwing it away if it doesn't suck.
 	if(invalid_material)
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		atom_say("ОШИБКА: Некорректные материалы.", use_tts = FALSE)
+		balloon_alert_to_viewers("несовместимый тип материала!")
 		invalid_material = FALSE
 	// Process it
 	if(length(ore_buffer))
@@ -255,14 +257,10 @@
 		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message(
-			span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-		)
+		balloon_alert_to_viewers("вставля[PLUR_ET_YUT(user)] дискету шаблона-печати", "дискета вставлена")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -301,7 +299,6 @@
 	do_sparks(5, TRUE, src)
 	return ..()
 
-// UI
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
 	var/list/data = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -336,7 +333,7 @@
 		var/datum/design/D = files.known_designs[v]
 		alloys += list(list(
 			"id" = D.id,
-			"name" = D.name,
+			"name" = D.build_object_name,
 			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
@@ -403,7 +400,7 @@
 				inserted_id.forceMove_turf()
 				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
 				usr.visible_message(
-					span_notice("[usr] извлека[pluralize_ru(usr.gender,"ет","ют")] [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("[usr] извлека[PLUR_ET_YUT(usr)] [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
 					span_notice("Вы извлекаете [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
 				)
 			else
@@ -416,7 +413,7 @@
 				inserted_disk.forceMove_turf()
 				usr.put_in_hands(inserted_disk, ignore_anim = FALSE)
 				usr.visible_message(
-					span_notice("[usr] извлека[pluralize_ru(usr.gender,"ет","ют")] [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("[usr] извлека[PLUR_ET_YUT(usr)] [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
 					span_notice("Вы извлекаете [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
 				)
 			else
@@ -425,7 +422,7 @@
 		if("download")
 			if(inserted_disk?.blueprint?.build_type & SMELTER)
 				files.AddDesign2Known(inserted_disk.blueprint)
-				atom_say("Чертёж \"[inserted_disk.blueprint.name]\" успешно загружен.")
+				atom_say("Чертёж \"[inserted_disk.blueprint.name]\" успешно загружен.", use_tts = FALSE)
 		else
 			return FALSE
 	add_fingerprint(usr)
@@ -433,7 +430,7 @@
 /obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OreRedemption", name)
+		ui = new(user, src, "OreRedemption", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -541,17 +538,14 @@
 	if(!istype(I))
 		return
 	if(inserted_id)
-		to_chat(user, span_warning("ID-карта уже вставлена!"))
+		balloon_alert(user, "слот для ID-карты занят!")
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return
 	inserted_id = I
 	SStgui.update_uis(src)
 	interact(user)
-	user.visible_message(
-		span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
-	)
+	balloon_alert_to_viewers("вставля[PLUR_ET_YUT(user)] ID-карту", "ID-карта вставлена")
 	return TRUE
 
 /**

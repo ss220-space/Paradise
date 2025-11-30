@@ -12,7 +12,6 @@ SUBSYSTEM_DEF(ambience)
 	var/list/client_old_areas = list()
 	var/list/currentrun = list()
 
-
 /datum/controller/subsystem/ambience/proc/remove_ambience_client(client/to_remove)
 	ambience_listening_clients -= to_remove
 	client_old_areas -= to_remove
@@ -62,7 +61,6 @@ SUBSYSTEM_DEF(ambience)
 			continue
 
 		SEND_SOUND(client_iterator.mob, sound(ambience, repeat = 0, wait = 0, volume = 25 * client_iterator.prefs.get_channel_volume(CHANNEL_AMBIENCE), channel = CHANNEL_AMBIENCE))
-
 
 		ambience_listening_clients[client_iterator] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 

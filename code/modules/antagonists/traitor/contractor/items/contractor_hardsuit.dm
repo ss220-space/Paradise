@@ -23,9 +23,9 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet,
-		/datum/action/item_action/advanced/chameleon_upgrade
-		//datum/action/item_action/advanced/hook_upgrade
-		)
+		/datum/action/item_action/advanced/chameleon_upgrade,
+		//datum/action/item_action/advanced/hook_upgrade,
+	)
 	//working as ninja hook, deleted when droped
 	var/obj/item/gun/magic/contractor_hook/scorpion
 	var/disguise = FALSE
@@ -81,7 +81,6 @@
 	desc = "A module installed in the wrist of your hardsuit, this highly illegal module uses a hardlight hook to forcefully pull a target towards you at high speed, knocking them down and partially exhausting them."
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 6 SECONDS
-	use_itemicon = FALSE
 	button_icon_state = "hook"
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_hook()
@@ -135,7 +134,7 @@
 	hook_action = null
 
 /obj/item/gun/magic/contractor_hook/can_trigger_gun(mob/living/user)
-	if(!hook_action.IsAvailable(show_message = TRUE, ignore_ready = TRUE))
+	if(!hook_action.IsAvailable(feedback = TRUE))
 		return FALSE
 	else
 		hook_action.use_action()
@@ -149,6 +148,7 @@
 	desc = "a hardlight hook."
 	projectile_type = /obj/projectile/contractor_hook
 	caliber = "hardlight_hook"
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "hard_hook"
 	muzzle_flash_effect = null
 
@@ -181,8 +181,6 @@
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 			firer.drop_item_ground(src)
 
-
-
 /obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
@@ -195,7 +193,6 @@
 	name = "Advanced hardsuit chameleon module"
 	desc = "An advanced version of chameleon tech, allowing you to disguise your hardsuit, giving you the opportunity to walk in full view of security and personnel without any difficulties."
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
 	button_icon_state = "chameleon"
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_chameleon()
@@ -261,7 +258,6 @@
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	update_suit()
 	disguise = TRUE
-
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/disable_chameleon()
 	src.name = initial(name)

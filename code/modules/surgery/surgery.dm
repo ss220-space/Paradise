@@ -1,6 +1,5 @@
 ///Datum Surgery Helpers//
 
-
 /datum/surgery
 	/// Name of the surgery
 	var/name
@@ -49,7 +48,6 @@
 	/// Whether this surgery should be cancelled when an organ change happens. (removed if requires bodypart, or added if doesn't require bodypart)
 	var/cancel_on_organ_change = TRUE
 
-
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(!surgery_target)
@@ -79,7 +77,6 @@
 	if(!affecting || !istype(affecting))
 		return TRUE
 	return requires_organic_bodypart && affecting.is_robotic() || !requires_organic_bodypart && !affecting.is_robotic()
-
 
 /**
  * Whether or not we can start this surgery.
@@ -170,7 +167,6 @@
 /datum/surgery/proc/on_organ_remove(mob/living/carbon/organ_owner, obj/item/organ/external/organ)
 	SIGNAL_HANDLER  // COMSIG_CARBON_LOSE_ORGAN
 	handle_organ_state_change(organ_owner, organ, FALSE)
-
 
 /* SURGERY STEPS */
 /datum/surgery_step
@@ -362,7 +358,11 @@
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
+	var/was_sleeping = (target.stat != DEAD && target.IsSleeping())
+
 	if(!do_after(user, modded_time, target, DA_IGNORE_SLOWDOWNS))
+		if(target.stat == DEAD && was_sleeping && user.client)
+			user.client.give_award(/datum/award/achievement/jobs/sandman, user)
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
@@ -397,6 +397,9 @@
 		surgery.step_number++
 		if(surgery.step_number > length(surgery.steps))
 			surgery.complete(target)
+
+	if(target.stat == DEAD && was_sleeping && user.client)
+		user.client.give_award(/datum/award/achievement/jobs/sandman, user)
 
 	surgery.step_in_progress = FALSE
 	if(advance)

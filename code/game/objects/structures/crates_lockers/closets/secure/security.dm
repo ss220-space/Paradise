@@ -19,6 +19,8 @@
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/storage/garmentbag/captains(src)
+	new /obj/item/clothing/accessory/holster(src)
+
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
@@ -37,6 +39,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/garmentbag/hop(src)
+	new /obj/item/clothing/accessory/holster(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -125,7 +128,7 @@
 		DATIVE = "шкафу гранатомета GL-06",
 		ACCUSATIVE = "шкаф гранатомета GL-06",
 		INSTRUMENTAL = "шкафом гранатомета GL-06",
-		PREPOSITIONAL = "шкафе гранатомета GL-06"
+		PREPOSITIONAL = "шкафе гранатомета GL-06",
 	)
 
 /obj/structure/closet/secure_closet/security_grenade_launcher/populate_contents()
@@ -137,7 +140,6 @@
 	new /obj/item/ammo_box/secgl/gas(src)
 	new /obj/item/ammo_box/secgl/barricade(src)
 	new /obj/item/ammo_box/secgl/paint(src)
-
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -172,7 +174,7 @@
 		DATIVE = "шкафу пистолет пулемётов WT-550",
 		ACCUSATIVE = "шкаф пистолет пулемётов WT-550",
 		INSTRUMENTAL = "шкафом пистолет пулемётов WT-550",
-		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550"
+		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
@@ -194,7 +196,7 @@
 		DATIVE = "шкафу пистолет пулемётов SP-91-RC",
 		ACCUSATIVE = "шкаф пистолет пулемётов SP-91-RC",
 		INSTRUMENTAL = "шкафом пистолет пулемётов SP-91-RC",
-		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC"
+		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
@@ -203,6 +205,28 @@
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12
+	name = "security Sparkle-A12 gun cabinet"
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов А9 \"Искра\". Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		GENITIVE = "шкафа пистолет пулемёта А9 \"Искра\"",
+		DATIVE = "шкафу пистолет пулемёта А9 \"Искра\"",
+		ACCUSATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		INSTRUMENTAL = "шкафом пистолет пулемёта А9 \"Искра\"",
+		PREPOSITIONAL = "шкафе пистолет пулемёта А9 \"Искра\""
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
@@ -216,7 +240,7 @@
 		DATIVE = "шкафу лазерных винтовок",
 		ACCUSATIVE = "шкаф лазерных винтовок",
 		INSTRUMENTAL = "шкафом лазерных винтовок",
-		PREPOSITIONAL = "шкафе лазерных винтовок"
+		PREPOSITIONAL = "шкафе лазерных винтовок",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
@@ -238,7 +262,7 @@
 		DATIVE = "шкафу лазерных винтовок LR-30",
 		ACCUSATIVE = "шкаф лазерных винтовок LR-30",
 		INSTRUMENTAL = "шкафом лазерных винтовок LR-30",
-		PREPOSITIONAL = "шкафе лазерных винтовок LR-30"
+		PREPOSITIONAL = "шкафе лазерных винтовок LR-30",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()
@@ -307,13 +331,11 @@
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/garmentbag/ntrep(src)
 
-
 /obj/structure/closet/secure_closet/security/cargo
 
 /obj/structure/closet/secure_closet/security/cargo/populate_contents()
 	new /obj/item/clothing/accessory/armband/cargo(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
-
 
 /obj/structure/closet/secure_closet/security/engine
 
@@ -321,13 +343,11 @@
 	new /obj/item/clothing/accessory/armband/engine(src)
 	new /obj/item/encryptionkey/headset_eng(src)
 
-
 /obj/structure/closet/secure_closet/security/science
 
 /obj/structure/closet/secure_closet/security/science/populate_contents()
 	new /obj/item/clothing/accessory/armband/science(src)
 	new /obj/item/encryptionkey/headset_sci(src)
-
 
 /obj/structure/closet/secure_closet/security/med
 
@@ -335,13 +355,10 @@
 	new /obj/item/clothing/accessory/armband/medgreen(src)
 	new /obj/item/encryptionkey/headset_med(src)
 
-
 /obj/structure/closet/secure_closet/cabinet/detective
 	name = "detective's cabinet"
 	icon_state = "cabinetdetective"
-	overlay_locker = "cd_locker"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
-
 
 /obj/structure/closet/secure_closet/cabinet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
@@ -363,7 +380,6 @@
 /obj/structure/closet/secure_closet/injection/populate_contents()
 	new /obj/item/reagent_containers/syringe/lethal(src)
 	new /obj/item/reagent_containers/syringe/lethal(src)
-
 
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
@@ -398,15 +414,6 @@
 	new /obj/item/clothing/suit/judgerobe (src)
 	new /obj/item/clothing/head/powdered_wig (src)
 	new /obj/item/storage/briefcase(src)
-
-
-/obj/structure/closet/secure_closet/wall //TODO: Add here sprites. (They do not exist)
-	name = "wall locker"
-	req_access = list(ACCESS_SECURITY)
-	icon_state = "wall-locker"
-
-	//too small to put a man in
-	large = FALSE
 
 /obj/structure/closet/secure_closet/magistrate
 	name = "Magistrate's locker"

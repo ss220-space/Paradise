@@ -38,10 +38,8 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-
 /obj/item/voice_changer/update_icon_state()
 	icon_state = "voice_changer_[active ? "on" : "off"]"
-
 
 /obj/item/voice_changer/proc/set_voice(mob/user)
 	var/mimic_voice

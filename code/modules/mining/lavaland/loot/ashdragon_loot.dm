@@ -8,7 +8,7 @@
 		DATIVE = "драконьему сундуку",
 		ACCUSATIVE = "драконий сундук",
 		INSTRUMENTAL = "драконьим сундуком",
-		PREPOSITIONAL = "драконьем сундуке"
+		PREPOSITIONAL = "драконьем сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
@@ -27,7 +27,6 @@
 		if(5)
 			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
-
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
@@ -38,13 +37,12 @@
 		DATIVE = "огненному драконьему сундуку",
 		ACCUSATIVE = "огненный драконий сундук",
 		INSTRUMENTAL = "огненным драконьим сундуком",
-		PREPOSITIONAL = "огненном драконьем сундуке"
+		PREPOSITIONAL = "огненном драконьем сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
 	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
-
 
 // Spectral Blade
 
@@ -72,7 +70,7 @@
 		DATIVE = "спектральному клинку",
 		ACCUSATIVE = "спектральный клинок",
 		INSTRUMENTAL = "спектральным клинком",
-		PREPOSITIONAL = "спектральном клинке"
+		PREPOSITIONAL = "спектральном клинке",
 	)
 
 /obj/item/melee/ghost_sword/New()
@@ -102,7 +100,7 @@
 		return
 	to_chat(user, "Вы взываете о помощи, пытаясь призвать духов на свою сторону.")
 
-	notify_ghosts("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)], взывая о вашей помощи!", enter_link="<a href='byond://?src=[UID()];follow=1'>(Нажмите, чтобы помочь)</a>", source = user, action = NOTIFY_FOLLOW)
+	notify_ghosts("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)], взывая о вашей помощи!", enter_link="<a href='byond://?src=[UID()];follow=1'>(Нажмите, чтобы помочь)</a>", source = user, action = NOTIFY_FOLLOW)
 
 	summon_cooldown = world.time + 600
 
@@ -118,7 +116,7 @@
 /obj/item/melee/ghost_sword/proc/ghost_check()
 	var/ghost_counter = 0
 	var/turf/T = get_turf(src)
-	var/list/contents = T.GetAllContents()
+	var/list/contents = T.get_all_contents()
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
@@ -134,17 +132,15 @@
 
 	return ghost_counter
 
-
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	force = 0
 	var/ghost_counter = ghost_check()
 	force = clamp((ghost_counter * 4), 0, 75)
 	user.visible_message(
-		span_danger("[user] нанос[pluralize_ru(user.gender,"ит","ят")] удар с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
+		span_danger("[user] нанос[PLUR_IT_YAT(user)] удар с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
 		span_notice("Вы бьёте с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
 	)
 	return ..()
-
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
@@ -167,7 +163,7 @@
 		DATIVE = "бутылке драконьей крови",
 		ACCUSATIVE = "бутылку драконьей крови",
 		INSTRUMENTAL = "бутылкой драконьей крови",
-		PREPOSITIONAL = "бутылке драконьей крови"
+		PREPOSITIONAL = "бутылке драконьей крови",
 	)
 
 /obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
@@ -206,7 +202,7 @@
 		DATIVE = "бутылке очищенной драконьей крови",
 		ACCUSATIVE = "бутылку очищенной драконьей крови",
 		INSTRUMENTAL = "бутылкой очищенной драконьей крови",
-		PREPOSITIONAL = "бутылке очищенной драконьей крови"
+		PREPOSITIONAL = "бутылке очищенной драконьей крови",
 	)
 
 /obj/item/dragons_blood/refined/attack_self(mob/living/carbon/human/user)
@@ -227,7 +223,7 @@
 	agent = "Кровь дракона"
 	desc = "Какое отношение драконы имеют к Космической Станции 13?"
 	stage_prob = 20
-	severity = BIOHAZARD
+	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage1	= list("Ваши кости ноют.")
 	stage2	= list("Ваша кожа кажется чешуйчатой.")
 	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))
@@ -269,7 +265,7 @@
 		DATIVE = "лавовому посоху",
 		ACCUSATIVE = "лавовый посох",
 		INSTRUMENTAL = "лавовым посохом",
-		PREPOSITIONAL = "лавовом посохе"
+		PREPOSITIONAL = "лавовом посохе",
 	)
 
 /obj/item/lava_staff/New()
@@ -299,10 +295,10 @@
 			var/obj/effect/temp_visual/lavastaff/L = new /obj/effect/temp_visual/lavastaff(T)
 			L.alpha = 0
 			animate(L, alpha = 255, time = create_delay)
-			user.visible_message(span_danger("[user] направля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [T.declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_danger("[user] направля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [T.declent_ru(ACCUSATIVE)]!"))
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, T))
-				user.visible_message(span_danger("[user] превраща[pluralize_ru(user.gender,"ет","ют")] [T.declent_ru(ACCUSATIVE)] в лаву!"))
+				user.visible_message(span_danger("[user] превраща[PLUR_ET_YUT(user)] [T.declent_ru(ACCUSATIVE)] в лаву!"))
 				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
 				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)
 				T.ChangeTurf(turf_type, keep_icon = FALSE)
@@ -313,7 +309,7 @@
 				qdel(L)
 				return
 		else
-			user.visible_message(span_danger("[user] превраща[pluralize_ru(user.gender,"ет","ют")] [T.declent_ru(ACCUSATIVE)] в базаль!"))
+			user.visible_message(span_danger("[user] превраща[PLUR_ET_YUT(user)] [T.declent_ru(ACCUSATIVE)] в базаль!"))
 			T.ChangeTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
 		playsound(T,'sound/magic/fireball.ogg', 200, TRUE)

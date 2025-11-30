@@ -3,7 +3,7 @@
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	if(affected_mob?.stat == DEAD)
@@ -165,7 +165,6 @@
 	stage_prob = 1
 	cure_text = "Приём пищи или введение витаминов и питательных веществ"
 
-
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(HAS_TRAIT(affected_mob, TRAIT_NO_HUNGER) && !isvampire(affected_mob))
 		return TRUE
@@ -174,7 +173,6 @@
 		return TRUE
 
 	return ..()
-
 
 /datum/disease/critical/hypoglycemia/stage_act()
 	if(..())

@@ -16,7 +16,7 @@
 		DATIVE = "ручному монитору экипажа",
 		ACCUSATIVE = "ручной монитор экипажа",
 		INSTRUMENTAL = "ручным монитором экипажа",
-		PREPOSITIONAL = "ручном мониторе экипажа"
+		PREPOSITIONAL = "ручном мониторе экипажа",
 	)
 
 /obj/item/sensor_device/Initialize(mapload)
@@ -30,13 +30,11 @@
 /obj/item/sensor_device/attack_self(mob/user)
 	ui_interact(user)
 
-
-/obj/item/sensor_device/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/sensor_device/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
 		return FALSE
 
@@ -45,7 +43,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /obj/item/sensor_device/ui_interact(mob/user, datum/tgui/ui = null)
 	crew_monitor.ui_interact(user, ui)
@@ -65,7 +62,7 @@
 		DATIVE = "командному монитору экипажа",
 		ACCUSATIVE = "командный монитор экипажа",
 		INSTRUMENTAL = "командным монитором экипажа",
-		PREPOSITIONAL = "командном мониторе экипажа"
+		PREPOSITIONAL = "командном мониторе экипажа",
 	)
 
 /obj/item/sensor_device/advanced/command/Initialize(mapload)
@@ -85,7 +82,7 @@
 		DATIVE = "охранному монитору экипажа",
 		ACCUSATIVE = "охранный монитор экипажа",
 		INSTRUMENTAL = "охранным монитором экипажа",
-		PREPOSITIONAL = "охранном мониторе экипажа"
+		PREPOSITIONAL = "охранном мониторе экипажа",
 	)
 
 /obj/item/sensor_device/advanced/security/Initialize(mapload)
@@ -107,7 +104,7 @@
 		DATIVE = "шахтёрскому монитору экипажа",
 		ACCUSATIVE = "шахтёрский монитор экипажа",
 		INSTRUMENTAL = "шахтёрским монитором экипажа",
-		PREPOSITIONAL = "шахтёрском мониторе экипажа"
+		PREPOSITIONAL = "шахтёрском мониторе экипажа",
 	)
 
 /obj/item/sensor_device/advanced/mining/Initialize(mapload)

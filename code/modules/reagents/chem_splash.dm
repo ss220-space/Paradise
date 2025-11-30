@@ -4,7 +4,6 @@
 // Threatscale is a multiplier for the 'threat' of the grenade. If you're increasing the affected range drastically, you might want to improve this.
 // Extra heat affects the temperature of the mixture, and may cause it to react in different ways.
 
-
 /proc/chem_splash(turf/epicenter, affected_range = 3, list/datum/reagents/reactants = list(), extra_heat = 0, threatscale = 1, adminlog = 1)
 	if(!isturf(epicenter) || !length(reactants) || threatscale <= 0)
 		return
@@ -57,7 +56,7 @@
 					break
 		var/list/reactable = accessible
 		for(var/turf/T in accessible)
-			for(var/atom/A in T.GetAllContents())
+			for(var/atom/A in T.get_all_contents())
 				if(!(A in viewable))
 					continue
 				reactable |= A
@@ -73,5 +72,4 @@
 
 	qdel(splash_holder)
 	return 1
-
 

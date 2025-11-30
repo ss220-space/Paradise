@@ -6,12 +6,12 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	button_icon = 'icons/mob/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 	var/needs_split = NO_SPLIT_NEEDED
 
-/datum/action/innate/slime/IsAvailable()
+/datum/action/innate/slime/IsAvailable(feedback = FALSE)
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
@@ -46,7 +46,6 @@
 /datum/action/innate/slime/feed
 	name = "Поглощать"
 	button_icon_state = "slimeeat"
-
 
 /datum/action/innate/slime/feed/Activate()
 	var/mob/living/simple_animal/slime/S = owner
@@ -257,7 +256,7 @@
 	if(src.mind)
 		src.mind.transfer_to(new_slime)
 	else
-		new_slime.key = src.key
+		new_slime.possess_by_player(key)
 	qdel(src)
 	return TRUE
 

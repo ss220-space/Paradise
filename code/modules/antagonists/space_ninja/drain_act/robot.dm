@@ -74,7 +74,7 @@
 			cell_component.brute_damage = 0
 			cell_component.electronics_damage = 0
 			diag_hud_set_borgcell()
-		var/law = "[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [genderize_ru(ninja.gender,"его","её","его","их")] приказы и указания."
+		var/law = "[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [GEND_HIS_HER(ninja)] приказы и указания."
 		ninja_borg.set_zeroth_law(law)
 		SSticker?.score?.save_silicon_laws(ninja_borg, ninja, "ninja's conversion, new zero law was added '[law]'")
 		//Переносим разум в нового борга и удаляем старое тело
@@ -84,7 +84,6 @@
 		update_robot_icons_added(ninja_borg.mind)
 		SSticker.mode.space_ninjas += ninja_borg.mind
 		objective.completed = TRUE
-
 
 /mob/living/silicon/robot/proc/update_robot_icons_added(datum/mind/robot_mind)
 	var/datum/atom_hud/antag/ninja_hud = GLOB.huds[ANTAG_HUD_NINJA]

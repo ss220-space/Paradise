@@ -22,7 +22,6 @@
 	create_queen.team = src
 	add_objective_to_members(create_queen)
 
-
 /datum/team/xenomorph/add_member(datum/mind/new_member, add_objectives)
 	var/is_queen = new_member?.current && isalienqueen(new_member.current)
 	var/is_facehuggger = new_member?.current && isfacehugger(new_member.current)
@@ -41,7 +40,6 @@
 
 /datum/team/xenomorph/add_objective_to_members(datum/objective/objective, member_blacklist = list(current_queen, current_empress))
 	. = ..()
-
 
 /datum/team/xenomorph/proc/on_alien_evolve(datum/mind/source, old_type, new_type)
 	SIGNAL_HANDLER
@@ -127,7 +125,6 @@
 		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
-
 /datum/team/xenomorph/proc/evolve_start(area/loc)
 	protect_queen.completed = TRUE
 	protect_cocon = new
@@ -168,7 +165,6 @@
 		var/datum/admins/holder = usr.client.holder
 		. += holder.check_role_table("Королева", list(current_queen))
 
-
 /datum/team/xenomorph/proc/declare_results()
 	var/list/text = list()
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
@@ -203,7 +199,6 @@
 		text += "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.check_completion()? span_green("<b>Успех!</b>") : span_red("Провал.")]"
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_cocon.type]", protect_cocon.check_completion()? "SUCCESS" : "FAIL"))
 	return text.Join("")
-
 
 /datum/team/xenomorph/declare_completion()
 	if(length(members))
@@ -246,7 +241,6 @@
 
 		log_and_message_admins("has [delay_xeno_end? "stopped" : "returned"] stopped delayed xeno win")
 
-
 /proc/spawn_aliens(spawn_count)
 	var/spawn_vectors = tgui_alert(usr, "Какой тип ксеноморфа заспавнить?", "Тип ксеноморфов", list("Вектор", "Грудолом")) == "Вектор"
 	var/list/vents = get_valid_vent_spawns(exclude_visible_by_mobs = TRUE)
@@ -265,7 +259,7 @@
 			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
-			new_xeno.key = C.key
+			new_xeno.possess_by_player(C.key)
 			new_xeno.move_into_vent(vent, FALSE)
 			if(first_spawn)
 				new_xeno.queen_maximum++
@@ -287,7 +281,7 @@
 			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
 			new_xeno.move_into_vent(vent, FALSE)
-			new_xeno.key = C.key
+			new_xeno.possess_by_player(C.key)
 			if(first_spawn)
 				new_xeno.queen_maximum++
 				first_spawn = FALSE

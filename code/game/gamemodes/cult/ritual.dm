@@ -17,11 +17,9 @@
 	force = 16
 	scribe_multiplier = 0.1
 
-
 /obj/item/melee/cultblade/dagger/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/melee/cultblade/dagger/ComponentInitialize()
 	. = ..()
@@ -33,7 +31,6 @@
 		swing_sound = SFX_KNIFE_SWING \
 	)
 
-
 /obj/item/melee/cultblade/dagger/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.dagger_icon
@@ -42,14 +39,12 @@
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 
-
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
 		. += span_cult("A dagger gifted by [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].")
 		. += span_cultitalic("Striking another cultist with it will purge holy water from them.")
 		. += span_cultitalic("Striking a noncultist will tear their flesh.")
-
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(iscultist(target))
@@ -65,7 +60,6 @@
 				add_attack_logs(user, target, "Hit with [src], removing the holy water from them")
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)
 	if(!iscultist(user))
@@ -116,7 +110,6 @@
 		to_chat(user, span_warning("You can't draw multiple runes at the same time!"))
 		return FALSE
 	return TRUE
-
 
 /obj/item/melee/cultblade/dagger/proc/scribe_rune(mob/living/user)
 	var/list/shields = list()

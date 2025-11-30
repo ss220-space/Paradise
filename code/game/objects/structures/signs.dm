@@ -8,12 +8,10 @@
 	var/random_number = FALSE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
-
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
 	if(does_emissive || random_number)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/structure/sign/update_overlays()
 	. = ..()
@@ -34,7 +32,6 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
 	if(istype(src, /obj/structure/sign/double))
 		return
@@ -51,7 +48,6 @@
 	S.sign_state = icon_state
 	qdel(src)
 
-
 /obj/item/sign
 	name = "sign"
 	desc = ""
@@ -66,9 +62,8 @@
 		DATIVE = "табличке",
 		ACCUSATIVE = "табличку",
 		INSTRUMENTAL = "табличкой",
-		PREPOSITIONAL = "табличке"
+		PREPOSITIONAL = "табличке",
 	)
-
 
 /obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
 	if(!isturf(loc))
@@ -99,7 +94,6 @@
 	qdel(src)
 	return TRUE
 
-
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "Фотография станции в рамке."
@@ -112,7 +106,7 @@
 		DATIVE = "карте станции",
 		ACCUSATIVE = "карту станции",
 		INSTRUMENTAL = "картой станции",
-		PREPOSITIONAL = "карте станции"
+		PREPOSITIONAL = "карте станции",
 	)
 
 /obj/structure/sign/double/map/left
@@ -357,14 +351,6 @@
 	name = "ТУАЛЕТ"
 	desc = "Тот самый знак, который все ищут в критический момент."
 	icon_state = "restroom"
-
-/obj/structure/sign/medbay
-	name = "МЕДБЭЙ"
-	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
-	icon_state = "bluecross"
-
-/obj/structure/sign/medbay/alt
-	icon_state = "bluecross2"
 
 /obj/structure/sign/directions/floor
 	name = "Этаж"

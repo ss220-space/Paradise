@@ -6,7 +6,6 @@
 	var/auth_need = 3
 	var/list/authorized = list()
 
-
 /obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -73,7 +72,6 @@
 
 	return ..()
 
-
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
 		var/time = SSshuttle.emergency.timeLeft()
@@ -86,7 +84,6 @@
 		)
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1
-
 
 /obj/docking_port/mobile/emergency
 	name = "emergency shuttle"
@@ -103,7 +100,6 @@
 	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
 	var/devil_on_shuttle = FALSE
 
-
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
 		return 0 //shuttle master not initialized
@@ -117,7 +113,6 @@
 		if(SSshuttle.emergency == src)
 			// If we're the selected emergency shuttle
 			SSshuttle.emergencyDeregister()
-
 
 	return ..()
 
@@ -207,7 +202,6 @@
 			return FALSE
 
 	return TRUE
-
 
 /obj/docking_port/mobile/emergency/check()
 	if(!timer)
@@ -372,14 +366,11 @@
 	icon_state = "dorm_available"
 	density = FALSE
 
-
 /obj/machinery/computer/shuttle/pod/update_icon_state()
 	icon_state = "dorm_[emagged ? "emag" : "available"]"
 
-
 /obj/machinery/computer/shuttle/pod/update_overlays()
 	. = list()
-
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user)
 	if(user)

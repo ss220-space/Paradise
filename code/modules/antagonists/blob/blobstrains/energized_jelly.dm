@@ -27,7 +27,6 @@
 	taste_description = "желатина"
 	color = "#EFD65A"
 
-
 /datum/reagent/blob/energized_jelly/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	. = ..()
 	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)

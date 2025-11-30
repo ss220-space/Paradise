@@ -32,7 +32,6 @@
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
 	update_health_hud()
 
-
 /mob/living/simple_animal/hostile/blob_minion/blobbernaut/experience_pressure_difference(pressure_difference, direction)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()

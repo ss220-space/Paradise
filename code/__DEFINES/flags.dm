@@ -5,7 +5,6 @@
 ///All the cardinal direction bitflags.
 #define ALL_CARDINALS (NORTH|SOUTH|EAST|WEST)
 
-
 // Flags for the flags var on /atom
 /// Conducts electricity (metal etc.)
 #define CONDUCT (1<<0)
@@ -35,6 +34,13 @@
 /// Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS (1<<11)
 
+// Bypass all adjacency checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<12)
+/// Bypass all can_perform_action checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY (1<<13)
+/// Bypass all adjacency and other checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS (INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT | INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY)
+
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
 #define UPDATE_NAME (1<<0)
@@ -51,6 +57,8 @@
 #define RICOCHET_SHINY (1<<0)
 /// If the thing can reflect matter (bullets/bomb shrapnel)
 #define RICOCHET_HARD (1<<1)
+/// If the thing can reflect ballistic bullets with low chance
+#define RICOCHET_BALLISTIC (1<<2)
 
 //Reagent flags
 #define REAGENT_NOREACT 1
@@ -87,7 +95,6 @@
 #define DIET_OMNI 2
 #define DIET_HERB 4
 
-
 //bitflags for door switches.
 #define OPEN (1<<0)
 #define IDSCAN (1<<1)
@@ -115,8 +122,6 @@
 
 #define PASSEVERYTHING (PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSDOOR|PASSVEHICLE|PASSITEM|LETPASSCLICKS)
 
-
-
 //Movement Types
 #define GROUND (1<<0)
 #define FLYING (1<<1)
@@ -129,7 +134,6 @@
 
 /// Combination flag for movetypes which, for all intents and purposes, mean the mob is not touching the ground
 #define MOVETYPES_NOT_TOUCHING_GROUND (FLYING|FLOATING|UPSIDE_DOWN)
-
 
 // for /datum/var/datum_flags
 #define DF_USE_TAG (1<<0)
@@ -197,7 +201,6 @@
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
 
-
 //Mob mobility var flags
 /// can move
 #define MOBILITY_MOVE (1<<0)
@@ -221,7 +224,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL)
 #define MOBILITY_FLAGS_CARBON_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
 #define MOBILITY_FLAGS_REST_CAPABLE_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
-
 
 // timed_action_flags parameter for [/proc/do_after()]
 /// Can do the action even if mob moves location.
@@ -248,5 +250,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// All ignore flags considered as default old do_after behavior.
 #define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)
 
+#define MAX_BITFIELD_SIZE 24
 
-
+//alternate appearance flags
+#define AA_TARGET_SEE_APPEARANCE (1<<0)
+#define AA_MATCH_TARGET_OVERLAYS (1<<1)

@@ -30,7 +30,6 @@
 		COMSIG_SIMPLE_ANIMAL_ATTACKEDBY,
 		COMSIG_ATOM_HITBY), PROC_REF(cancel_states))
 
-
 /datum/component/ninja_states_breaker/UnregisterFromParent()
 	UnregisterSignal(parent, list(
 		COMSIG_ATOM_BLOB_ACT,

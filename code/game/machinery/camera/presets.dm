@@ -8,7 +8,6 @@
 	. = ..(input_assembly = new_assembly)
 // X-RAY
 
-
 /obj/machinery/camera/xray/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
@@ -20,7 +19,6 @@
 	new_assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // ALL UPGRADES
-
 
 /obj/machinery/camera/all/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
@@ -41,7 +39,6 @@
 	c_tag = "[sanitize(camera_area.name)] #[++autonames_in_areas[camera_area]]" // increase the number, then print it (this is what ++ before does)
 	return ..() // We do this here so the camera is not added to the cameranet until it has a name.
 
-
 // CHECKS
 
 /obj/machinery/camera/proc/isEmpProof()
@@ -52,7 +49,6 @@
 
 /obj/machinery/camera/proc/isMotion()
 	return locate(/obj/item/assembly/prox_sensor) in assembly.upgrades
-
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

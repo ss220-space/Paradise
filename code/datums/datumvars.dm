@@ -36,13 +36,11 @@
 	datum_flags |= DF_VAR_EDITED
 	return TRUE
 
-
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
 		if(NAMEOF(src, vars))
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
-
 
 /datum/proc/can_vv_delete()
 	return TRUE
@@ -83,7 +81,6 @@
 	if(!D)
 		return
 
-
 	var/islist = islist(D)
 	var/isclient = isclient(D)
 	if(!islist && !isclient && !istype(D))
@@ -117,7 +114,6 @@
 	if(sprite)
 		sprite_text = "<img src='vv[hash].png'></td><td>"
 
-
 	var/list/atomsnowflake = list()
 	if(isatom(D))
 		var/atom/A = D
@@ -147,7 +143,6 @@
 		atomsnowflake += "<b>[formatted_type]</b>"
 		formatted_type = null
 
-
 	if(length(formatted_type) > 25)
 		var/middle_point = length(formatted_type) / 2
 		var/splitpoint = findtext(formatted_type, "/", middle_point)
@@ -156,11 +151,9 @@
 		else
 			formatted_type = "Type too long" //No suitable splitpoint (/) found.
 
-
 	var/marked
 	if(holder.marked_datum && holder.marked_datum == D)
 		marked = VV_MSG_MARKED
-
 
 	var/varedited_line = ""
 	if(isatom(D))
@@ -168,13 +161,11 @@
 		if(A.flags & ADMIN_SPAWNED)
 			varedited_line += VV_MSG_ADMIN_SPAWNED
 
-
 	if(!islist && (D.datum_flags & DF_VAR_EDITED))
 		varedited_line = VV_MSG_EDITED
 	var/deleted_line
 	if(!islist && D.gc_destroyed)
 		deleted_line = VV_MSG_DELETED
-
 
 	var/dropdownoptions = list()
 	if(islist)
@@ -184,11 +175,10 @@
 			"Remove Nulls" = "byond://?_src_=vars;listnulls=[refid]",
 			"Remove Dupes" = "byond://?_src_=vars;listdupes=[refid]",
 			"Set len" = "byond://?_src_=vars;listlen=[refid]",
-			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]"
+			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]",
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()
-
 
 	var/list/dropdownoptions_html = list()
 	for(var/name in dropdownoptions)
@@ -198,15 +188,12 @@
 		else
 			dropdownoptions_html += "<option value>[name]</option>"
 
-
 	var/list/names = list()
 	if(!islist)
 		for(var/V in D.vars)
 			names += V
 
-
 	sleep(1) // Without a sleep here, VV sometimes disconnects clients
-
 
 	var/ui_scale = usr.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE
 
@@ -496,7 +483,7 @@
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		item = "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "[name] = /icon (<span class='value'>[value]</span>) [icon2html(value, usr)]"
 		#else
 		item = "[name] = /icon (<span class='value'>[value]</span>)"
 		#endif
@@ -504,7 +491,7 @@
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [icon2html(value, usr)]"
 		#else
 		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
@@ -667,7 +654,6 @@
 
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
-
 	else if(href_list["mob_player_panel"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
@@ -713,7 +699,6 @@
 			var/chosenart = artnames[result]
 			var/datum/martial_art/MA = new chosenart
 			MA.teach(C)
-
 
 	else if(href_list["give_disease"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -1086,7 +1071,6 @@
 		var/turf/T = get_turf(A)
 		if(T)
 			usr.client.jumptoturf(T)
-
 
 	else if(href_list["rotatedatum"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
@@ -1626,7 +1610,7 @@
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
 			return TRUE
 
-		uniqueList_inplace(L)
+		unique_list_in_place(L)
 		log_world("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
 		log_admin("[key_name(src)] modified list's contents: CLEAR DUPES")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR DUPES")

@@ -2,17 +2,15 @@
 	. = ..()
 	if(.)
 		return TRUE
-		
+
 	if(ionpulse())
 		return TRUE
 
 	return FALSE
 
-
 /mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
-
 
 /mob/living/silicon/robot/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
 	. = ..()
@@ -22,7 +20,6 @@
 
 		if(ionpulse_on)
 			add_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
-
 
 /mob/living/silicon/robot/on_movement_type_flag_disabled(datum/source, flag, old_movement_type)
 	. = ..()

@@ -20,18 +20,15 @@
  *		Rubber Toolbox
  */
 
-
 /obj/item/toy
 	throw_speed = 4
 	throw_range = 20
 	var/unique_toy_rename = FALSE
 
-
 /obj/item/toy/examine(mob/user)
 	. = ..()
 	if(unique_toy_rename)
 		. += span_notice("Используй ручку на игрушке, чтобы переименовать её.")
-
 
 /obj/item/toy/attackby(obj/item/I, mob/user, params)
 	if(unique_toy_rename && is_pen(I))
@@ -43,7 +40,6 @@
 
 	return ..()
 
-
 /*
  * Balloons
  */
@@ -54,15 +50,12 @@
 	icon_state = "waterballoon-e"
 	item_state = "waterballoon-e"
 
-
 /obj/item/toy/balloon/New()
 	..()
 	create_reagents(10)
 
-
 /obj/item/toy/balloon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
@@ -80,14 +73,12 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/toy/balloon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
 		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
 		to_chat(user, span_notice("Вы наполняете шарик из [source.declent_ru(GENITIVE)]."))
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
 		update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
@@ -108,7 +99,6 @@
 
 	return ..()
 
-
 /obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(reagents.total_volume >= 1)
 		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] лопается!"), "Вы слышите хлопок и всплеск.")
@@ -120,7 +110,6 @@
 			if(src)
 				qdel(src)
 
-
 /obj/item/toy/balloon/update_icon_state()
 	if(reagents.total_volume >= 1)
 		icon_state = "waterballoon"
@@ -128,7 +117,6 @@
 	else
 		icon_state = "waterballoon-e"
 		item_state = "waterballoon-e"
-
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
@@ -206,7 +194,6 @@
 	add_fingerprint(user)
 	return
 
-
 /obj/item/toy/sword/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/sword))
 		add_fingerprint(user)
@@ -227,7 +214,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /*
  * Subtype of Double-Bladed Energy Swords
@@ -268,12 +254,11 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/katana/suicide_act(mob/user)
-	var/dmsg = pick("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он ломается! Выглядит так, будто [genderize_ru(user.gender,"он","она","оно","они")] умр[pluralize_ru(user.gender,"ёт","ут")] от стыда.",
-					"[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он гнётся и ломается пополам! Выглядит так, будто [genderize_ru(user.gender,"он","она","оно","они")] умр[pluralize_ru(user.gender,"ёт","ут")] от стыда.",
-					"[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся перерезать себе горло, но тупое пластиковое лезвие приводит к тому, что [genderize_ru(user.gender,"он","она","оно","они")] поскальзыва[pluralize_ru(user.gender,"ет","ют")]ся и лома[pluralize_ru(user.gender,"ет","ют")] шею с громким хрустом!")
-	user.visible_message(span_suicide("[dmsg] Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
+	var/dmsg = pick("[user] пыта[PLUR_ET_YUT(user)]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он ломается! Выглядит так, будто [GEND_HE_SHE(user)] умр[PLUR_YOT_UT(user)] от стыда.",
+					"[user] пыта[PLUR_ET_YUT(user)]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он гнётся и ломается пополам! Выглядит так, будто [GEND_HE_SHE(user)] умр[PLUR_YOT_UT(user)] от стыда.",
+					"[user] пыта[PLUR_ET_YUT(user)]ся перерезать себе горло, но тупое пластиковое лезвие приводит к тому, что [GEND_HE_SHE(user)] поскальзыва[PLUR_ET_YUT(user)]ся и лома[PLUR_ET_YUT(user)] шею с громким хрустом!")
+	user.visible_message(span_suicide("[dmsg] Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся покончить с собой."))
 	return BRUTELOSS
-
 
 /*
  * Snap pops viral shit
@@ -286,7 +271,6 @@
 	throwforce = 5.0
 	throw_speed = 10
 	throw_range = 30
-
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
@@ -307,14 +291,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
-
 /obj/item/toy/snappop/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/item/toy/snappop/proc/pop_burst(number = 3, cardinal_only = TRUE)
 	do_sparks(number, cardinal_only, src)
@@ -331,7 +313,6 @@
 	. = ..()
 	pop_burst()
 
-
 /obj/item/toy/snappop/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -343,7 +324,6 @@
 	if(is_silicon || arrived_mob.m_intent == MOVE_INTENT_RUN)
 		to_chat(arrived_mob, span_danger("Вы наступаете на хлопушку!"))
 		pop_burst(2, FALSE)
-
 
 /obj/item/toy/snappop/phoenix
 	name = "phoenix snap pop"
@@ -360,7 +340,6 @@
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
 	qdel(src)
-
 
 /*
  * Mech prizes
@@ -458,7 +437,6 @@
 	var/cooldown = 0
 	var/animation_stage = 0
 
-
 /obj/item/toy/nuke/update_icon_state()
 	switch(animation_stage)
 		if(1)
@@ -468,16 +446,14 @@
 		else
 			icon_state = initial(icon_state)
 
-
 /obj/item/toy/nuke/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = world.time + 3 MINUTES
-		user.visible_message(span_warning("[user] нажима[pluralize_ru(user.gender,"ет","ют")] кнопку на [declent_ru(GENITIVE)]"), span_notice("Вы активируете [declent_ru(NOMINATIVE)], раздаётся громкий звук!"), span_notice("Слышишь щелчок кнопки."))
+		user.visible_message(span_warning("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(GENITIVE)]"), span_notice("Вы активируете [declent_ru(NOMINATIVE)], раздаётся громкий звук!"), span_notice("Слышишь щелчок кнопки."))
 		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		var/timeleft = (cooldown - world.time)
 		to_chat(user, "[span_alert("Ничего не происходит, и число '")][round(timeleft/10)][span_alert("' появляется на маленьком дисплее.")]")
-
 
 /obj/item/toy/nuke/proc/async_animation()
 	animation_stage++
@@ -489,7 +465,6 @@
 	sleep(cooldown - world.time)
 	animation_stage = 0
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/toy/therapy
 	name = "therapy doll"
@@ -553,9 +528,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 
-
-//This should really be somewhere else but I don't know where. w/e
-
 /obj/item/inflatable_duck
 	name = "inflatable duck"
 	desc = "No bother to sink or swim when you can just float!"
@@ -567,7 +539,6 @@
 /*
  * Fake meteor
  */
-
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
 	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."
@@ -598,7 +569,6 @@
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
 
-
 // Attack mob
 /obj/item/toy/carpplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -606,12 +576,10 @@
 		return .
 	playsound(loc, bitesound, 20, TRUE)	// Play bite sound in local area
 
-
 // Attack self
 /obj/item/toy/carpplushie/attack_self(mob/user)
 	playsound(loc, bitesound, 20, TRUE)
 	return ..()
-
 
 /obj/random/carp_plushie
 	name = "Random Carp Plushie"
@@ -656,7 +624,6 @@
  * Plushie
  */
 
-
 /obj/item/toy/plushie
 	name = "plushie"
 	desc = "An adorable, soft, and cuddly plushie."
@@ -666,7 +633,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
-
 
 /obj/item/toy/plushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -681,7 +647,7 @@
 	playsound(get_turf(src), poof_sound, 30, TRUE)
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
-	var/cuddle_verb = pick("обнима[pluralize_ru(user.gender,"ет","ют")]", "тиска[pluralize_ru(user.gender,"ет","ют")]", "прижима[pluralize_ru(user.gender,"ет","ют")]")
+	var/cuddle_verb = pick("обнима[PLUR_ET_YUT(user)]", "тиска[PLUR_ET_YUT(user)]", "прижима[PLUR_ET_YUT(user)]")
 	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
 	play_poof_sound()
 	return ..()
@@ -808,7 +774,7 @@
 	if(. || !COOLDOWN_FINISHED(src, cooldown))
 		return .
 	var/razumisttext = pick("Я знаю всё обо всём, спроси меня о чём-нибудь!", "Сегодня я особенно мудр!", "Мяу!", "Мурр!")
-	user.visible_message("[bicon(src)] [span_notice(razumisttext)]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_notice(razumisttext)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/kotwithfunnyhat
@@ -822,7 +788,7 @@
 	if(. || !COOLDOWN_FINISHED(src, cooldown))
 		return .
 	var/ricetext = pick("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
-	user.visible_message("[bicon(src)] [span_notice(ricetext)]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_notice(ricetext)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/voxplushie
@@ -860,7 +826,7 @@
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 
-	user.visible_message("[bicon(src)] [span_notice(message)]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/rdplushie/attack_self(mob/user)
@@ -915,7 +881,7 @@
 	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
 
 	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
-	visible_message("[bicon(src)] [span_notice(message)]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
@@ -947,7 +913,7 @@
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
 	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
-	src.visible_message("[bicon(src)] [span_danger("AAAAAAХ!")]")
+	visible_message("[icon2html(src, viewers(loc))] [span_danger("AAAAAAХ!")]")
 	if(singed)
 		return
 	singed = TRUE
@@ -968,14 +934,14 @@
 	hug_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
 	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
-		visible_message("[bicon(src)] [span_danger("Ow...")]")
+		user.visible_message("[icon2html(src, viewers(user))] [span_danger("Ow...")]")
 	else//If the plushie has not touched water they'll say Greetings in wingdings.
-		visible_message("[bicon(src)] [span_danger("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎")]")
+		user.visible_message("[icon2html(src, viewers(user))] [span_danger("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎")]")
 
 /obj/item/toy/plushie/voxplushie/attack_self(mob/user)
 	if(!cooldown)
 		playsound(user, 'sound/voice/shriek1.ogg', 10, FALSE)
-		user.visible_message("[bicon(src)] [span_danger("Skreee!")]")
+		user.visible_message("[icon2html(src, viewers(user))] [span_danger("Skreee!")]")
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -987,7 +953,6 @@
 	icon_state = "plushie_ipc"
 	item_state = "plushie_ipc"
 
-
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/breadslice))
 		add_fingerprint(user)
@@ -998,7 +963,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/toy/plushie/shardplushie
 	name = "Shard plushie"
@@ -1014,16 +978,14 @@
 		return ..()
 
 	playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg'), 10, 1)
-	user.visible_message("[bicon(src)] [span_danger("ДЕСТАБИЛИЗАЦИЯ!")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_danger("ДЕСТАБИЛИЗАЦИЯ!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
-
 
 /obj/item/toy/plushie/shardplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg',), 10, TRUE)
-
 
 //New generation TG plushies
 
@@ -1046,7 +1008,6 @@
 	if(prob(50))
 		icon_state = "plushie_ashwalker2"
 
-
 /obj/item/toy/plushie/ashwalkerplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
@@ -1058,7 +1019,6 @@
 			playsound(loc, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
 								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip_short.ogg'), 40, TRUE)
 
-
 /obj/item/toy/plushie/ashwalkerplushie/attack_self(mob/user)
 	if(cooldown)
 		return ..()
@@ -1066,14 +1026,14 @@
 	switch(rand(1, 20))
 		if(1 to 12)
 			playsound(src, ashwalkerbite, 40, TRUE)
-			user.visible_message("[bicon(src)] [span_danger("Hsss!")]")
+			user.visible_message("[icon2html(src, viewers(user))] [span_danger("Hsss!")]")
 		if(13 to 19)
 			playsound(src, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
 								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip.ogg'), 40, 1)
-			user.visible_message("[bicon(src)] [span_danger("RAAAAAWR!")]")
+			user.visible_message("[icon2html(src, viewers(user))] [span_danger("RAAAAAWR!")]")
 		if(20)
 			playsound(src, pick('sound/voice/unathi/rumble.ogg', 'sound/voice/unathi/rumble2.ogg'), 40, 1)
-			user.visible_message("[bicon(src)] [span_notice("Пеплоходец выглядит расслабленным.")]")
+			user.visible_message("[icon2html(src, viewers(user))] [span_notice("Пеплоходец выглядит расслабленным.")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1097,19 +1057,17 @@
 	var/cooldown = FALSE
 	var/mothbite = 'sound/voice/scream_moth.ogg'
 
-
 /obj/item/toy/plushie/nianplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, mothbite, 10, TRUE)	// Play bite sound in local area
-
 
 /obj/item/toy/plushie/nianplushie/attack_self(mob/user)
 	if(cooldown)
 		return ..()
 
 	playsound(src, 'sound/voice/scream_moth.ogg', 10, FALSE)
-	user.visible_message("[bicon(src)] [span_danger("Buzzzz!")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Buzzzz!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1118,7 +1076,6 @@
 	desc = "An adorable stuffed toy that resembles a slime. It is practically just a hacky sack."
 	icon_state = "plushie_slime"
 	item_state = "plushie_slime"
-
 
 // Little cute Ninja plushie
 /obj/item/toy/plushie/ninja
@@ -1129,7 +1086,6 @@
 	item_state = "ninja_plushie_green"
 	var/cooldown = 0
 	var/plushie_color
-
 
 /obj/item/toy/plushie/ninja/update_icon_state()
 	switch(plushie_color)
@@ -1146,7 +1102,6 @@
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
 
-
 /obj/item/toy/plushie/ninja/attack_self(mob/user as mob)
 	. = ..()
 	if(cooldown < world.time)
@@ -1155,11 +1110,11 @@
 		update_icon(UPDATE_ICON_STATE)
 		switch(plushie_color)
 			if("green")
-				user.visible_message(span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Я не боюсь тьмы! Я сама тьма!\""))
+				user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Я не боюсь тьмы! Я сама тьма!\""))
 			if("blue")
-				user.visible_message(span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Твой жалкий свет меня не остановит!\""))
+				user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Твой жалкий свет меня не остановит!\""))
 			if("red")
-				user.visible_message(span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Ты можешь бежать, но не сможешь спрятаться!\""))
+				user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Ты можешь бежать, но не сможешь спрятаться!\""))
 		plushie_color = null
 
 //New toys from another builds
@@ -1179,19 +1134,17 @@
 	var/goatbite = 'sound/items/goatsound.ogg'
 	var/cooldown = FALSE
 
-
 /obj/item/toy/plushie/realgoat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, goatbite, 10, TRUE)	// Play bite sound in local area
-
 
 /obj/item/toy/plushie/realgoat/attack_self(mob/user)
 	if(cooldown)
 		return ..()
 
 	playsound(src, 'sound/items/goatsound.ogg', 10, FALSE)
-	user.visible_message("[bicon(src)] [span_danger("Baaaaah!")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Baaaaah!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1211,12 +1164,10 @@
 	var/fishbite = 'sound/weapons/bite.ogg'
 	var/cooldown = FALSE
 
-
 /obj/item/toy/plushie/blahaj/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, fishbite, 10, TRUE)	// Play bite sound in local area
-
 
 /obj/item/toy/plushie/blahaj/attack_self(mob/user)
 	if(cooldown)
@@ -1244,7 +1195,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/rawr.ogg', 25, FALSE)
-	user.visible_message("[bicon(src)] [span_boldnotice("Rawr!")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_boldnotice("Rawr!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1257,19 +1208,17 @@
 	var/axolotlbite = 'sound/items/axolotl.ogg'
 	var/cooldown = FALSE
 
-
 /obj/item/toy/plushie/axolotlplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, axolotlbite, 20, TRUE)	// Play bite sound in local area
-
 
 /obj/item/toy/plushie/axolotlplushie/attack_self(mob/user)
 	if(cooldown)
 		return ..()
 
 	playsound(src, 'sound/items/axolotl.ogg', 20, FALSE)
-	user.visible_message("[bicon(src)] [span_danger("Squeeek!")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Squeeek!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1285,7 +1234,6 @@
 	var/choice = pick(subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart))
 	new choice(loc)
 	return INITIALIZE_HINT_QDEL
-
 
 /obj/item/toy/plushie/plasmamanplushie/standart/sindie
 	name = "syndicate plasmaman plushie"
@@ -1336,13 +1284,12 @@
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pmanlbite, 20, TRUE)	// Play bite sound in local area
 
-
 /obj/item/toy/plushie/plasmamanplushie/attack_self(mob/user)
 	if(cooldown)
 		return ..()
 
 	playsound(src, 'sound/effects/extinguish.ogg', 20, FALSE)
-	user.visible_message("[bicon(src)] [span_danger("Плазззма Вечна!")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Плазззма Вечна!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1354,19 +1301,17 @@
 	var/rounibite = 'sound/items/Help.ogg'
 	var/cooldown = FALSE
 
-
 /obj/item/toy/plushie/rouny/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, rounibite, 10, TRUE)	// Play bite sound in local area
-
 
 /obj/item/toy/plushie/rouny/attack_self(mob/user)
 	if(cooldown)
 		return ..()
 
 	playsound(src, 'sound/items/Help.ogg', 10, FALSE)
-	user.visible_message("[bicon(src)] [span_danger("Бежиииииим!")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Бежиииииим!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1380,14 +1325,12 @@
 	desc = "What happens if I peel it?"
 	icon_state = "banana"
 
-
 /obj/item/toy/plushie/banbanana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	to_chat(target, span_danger("Вас забанил ХО$Т.\nПричина: Хонк."))
 	to_chat(target, span_danger("Это ПЕРМАНЕНТНЫЙ бан."))
 	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]"))
 	playsound(loc, 'sound/effects/adminhelp.ogg', 25)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/toy/plushie/pig
 	name = "rubber piggy"
@@ -1403,7 +1346,7 @@
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
-			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("[pluralize_ru(user.gender,"Ты","Вы")] [msg] [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы [msg] [declent_ru(ACCUSATIVE)]!"))
 			spawn(30)
 				message_spam_flag = 0
 		spawn(3)
@@ -1411,10 +1354,10 @@
 	return
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
-	oink(user, "сжал[genderize_ru(user.gender,"","а","о","и")]")
+	oink(user, "сжал[GEND_A_O_I(user)]")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("сжал[genderize_ru(user.gender,"","а","о","и")]", "раздавил[genderize_ru(user.gender,"","а","о","и")]", "ущипнул[genderize_ru(user.gender,"","а","о","и")]"))
+	oink(user, pick("сжал[GEND_A_O_I(user)]", "раздавил[GEND_A_O_I(user)]", "ущипнул[GEND_A_O_I(user)]"))
 
 /obj/item/toy/plushie/pig/Initialize(mapload)
 	. = ..()
@@ -1430,13 +1373,11 @@
 			name = "green rubber piggy"
 			desc = "Watch out for angry voxes!"
 
-
-/obj/item/toy/plushie/pig/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/toy/plushie/pig/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(over_object != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
@@ -1446,7 +1387,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /obj/item/toy/plushie/bubblegumplushie
 	name = "bubblegum plushie"
@@ -1458,19 +1398,17 @@
 	var/bubblestep = 'sound/effects/meteorimpact.ogg'
 	var/bubbleattack = 'sound/misc/demon_attack1.ogg'
 
-
 /obj/item/toy/plushie/bubblegumplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pick(bubblestep, bubbleattack), 40, TRUE)
-
 
 /obj/item/toy/plushie/bubblegumplushie/attack_self(mob/user)
 	if(cooldown)
 		return ..()
 
 	playsound(src, bubblestep, 40, TRUE)
-	user.visible_message("[bicon(src)] [span_danger("Бубльгум топает...")]")
+	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Бубльгум топает...")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1581,7 +1519,7 @@
 		DATIVE = "мокрой сове",
 		ACCUSATIVE = "мокрую сову",
 		INSTRUMENTAL = "мокрой совой",
-		PREPOSITIONAL = "мокрой сове"
+		PREPOSITIONAL = "мокрой сове",
 	)
 
 /obj/item/toy/plushie/wet_owl/water_act(volume, temperature, source, method)
@@ -1663,13 +1601,11 @@
 	item_state = "flashtool"
 	w_class = WEIGHT_CLASS_TINY
 
-
 /obj/item/toy/flash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	playsound(loc, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[initial(icon_state)]2", src)
-	user.visible_message(span_disarm("[user] ослепля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)] вспышкой флешера!"))
+	user.visible_message(span_disarm("[user] ослепля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] вспышкой флешера!"))
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /*
  * Toy big red button
@@ -1685,7 +1621,7 @@
 /obj/item/toy/redbutton/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
-		user.visible_message(span_warning("[user] нажима[pluralize_ru(user.gender,"ет","ют")] большую красную кнопку."), span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает."))
+		user.visible_message(span_warning("[user] нажима[PLUR_ET_YUT(user)] большую красную кнопку."), span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает."))
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 		for(var/mob/M in range(10, src)) // Checks range
 			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
@@ -1694,7 +1630,6 @@
 
 	else
 		to_chat(user, span_alert("Ничего не происходит."))
-
 
 /*
  * AI core prizes
@@ -1712,7 +1647,7 @@
 		var/message = generate_ion_law()
 		to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(GENITIVE)]."))
 		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
-		user.visible_message(span_danger("[bicon(src)] [message]"))
+		user.visible_message(span_danger("[icon2html(src, viewers(user))] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1734,7 +1669,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] нажима[pluralize_ru(user.gender,"ет","ют")] кнопку на [declent_ru(PREPOSITIONAL)]."),
+		span_notice("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(PREPOSITIONAL)]."),
 		span_notice("Вы нажимаете кнопку на [declent_ru(PREPOSITIONAL)]."),
 		span_sinister("Слышишь тихий щелчок."))
 
@@ -1751,7 +1686,7 @@
 	COOLDOWN_START(src, cooldown, 2 SECONDS)
 
 	for(var/message in messages)
-		user.loc.visible_message(span_danger("[bicon(src)] [message]"))
+		user.loc.visible_message(span_danger("[icon2html(src, viewers(user.loc))] [message]"))
 		sleep(1 SECONDS)
 
 	return
@@ -1769,7 +1704,7 @@
 		var/message = pick("На этот раз тебе не уйти, Гриффин!", "Стой, преступник!", "Ух! Ух!", "Я — ночь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
 		playsound(user, 'sound/creatures/hoot.ogg', 25, TRUE)
-		user.visible_message(span_danger("[bicon(src)] [message]"))
+		user.visible_message(span_danger("[icon2html(src, viewers(user))] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1788,7 +1723,7 @@
 		var/message = pick("Ты не остановишь меня, Сова!", "Мой план безупречен! Хранилище моё!", "Карррр!", "Меня никогда не поймаешь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
 		playsound(user, 'sound/creatures/caw.ogg', 25, TRUE)
-		user.visible_message(span_danger("[bicon(src)] [message]"))
+		user.visible_message(span_danger("[icon2html(src, viewers(user))] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1840,7 +1775,6 @@
 	new /obj/item/toy/character/wizard(src)
 	new /obj/item/toy/character/cthulhu(src)
 	new /obj/item/toy/character/lich(src)
-
 
 //Pet Rocks, just like from the 70's!
 
@@ -1897,24 +1831,22 @@
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
 		cooldown = world.time
 
-
 /obj/item/toy/minigibber/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/character))
 		add_fingerprint(user)
 		if(stored_minature)
 			to_chat(user, span_warning("Внутри уже есть [stored_minature.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
-		user.visible_message(span_notice("[user] вставляет [bicon(I)] [I.declent_ru(ACCUSATIVE)] в мини-приёмник [declent_ru(GENITIVE)]..."))
+		user.visible_message(span_notice("[user] вставляет [icon2html(I, viewers(I))] [I.declent_ru(ACCUSATIVE)] в мини-приёмник [declent_ru(GENITIVE)]..."))
 		if(!do_after(user, 1 SECONDS, src, category = DA_CAT_TOOL) || stored_minature)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("Вы вставили [bicon(I)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]!"))
+		to_chat(user, span_notice("Вы вставили [icon2html(I, user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]!"))
 		stored_minature = I
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /*
  * Xenomorph action figure
@@ -1930,19 +1862,16 @@
 	var/cooldown = 0
 	var/animating = FALSE
 
-
 /obj/item/toy/toy_xeno/update_icon_state()
 	icon_state = animating ? "[initial(icon_state)]_used" : initial(icon_state)
-
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
 	if(cooldown <= world.time)
 		cooldown = (world.time + 50) //5 second cooldown
-		user.visible_message(span_notice("[user] дергает[pluralize_ru(user.gender,"ет","ют")] верёвку на [declent_ru(PREPOSITIONAL)]."))
+		user.visible_message(span_notice("[user] дергает[PLUR_ET_YUT(user)] верёвку на [declent_ru(PREPOSITIONAL)]."))
 		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		to_chat(user, span_warning("Верёвка [declent_ru(GENITIVE)] еще не замоталась!"))
-
 
 /obj/item/toy/toy_xeno/proc/async_animation()
 	animating = TRUE
@@ -1954,7 +1883,6 @@
 	sleep(4.5 SECONDS)
 	animating = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
@@ -1977,7 +1905,7 @@
 	var/max_shots = 6
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] быстро заряжает шесть патронов в барабан [declent_ru(GENITIVE)], приставляет к виску и нажимает на курок! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
+	user.visible_message(span_suicide("[user] быстро заряжает шесть патронов в барабан [declent_ru(GENITIVE)], приставляет к виску и нажимает на курок! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся покончить с собой."))
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 	return BRUTELOSS
 
@@ -1993,10 +1921,8 @@
 		user.visible_message(span_warning("[user] крутит барабан [declent_ru(GENITIVE)]!"))
 		spin_cylinder()
 
-
 /obj/item/toy/russian_revolver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, flag, params)
 	if(flag)
@@ -2006,7 +1932,6 @@
 			return
 	user.changeNext_move(CLICK_CD_MELEE)
 	shoot_gun(user)
-
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullets_left = rand(1, max_shots)
@@ -2050,7 +1975,7 @@
 		DATIVE = "револьверу .357 калибра",
 		ACCUSATIVE = "револьвер .357 калибра",
 		INSTRUMENTAL = "револьвером .357 калибра",
-		PREPOSITIONAL = "револьвере .357 калибра"
+		PREPOSITIONAL = "револьвере .357 калибра",
 	)
 
 /obj/item/toy/russian_revolver/trick_revolver/New()
@@ -2059,7 +1984,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += span_notice("В запасе ещё [fake_bullets] патрон[declension_ru(fake_bullets, "", "а", "ов")].")
+	. += span_notice("В запасе ещё [fake_bullets] патрон[DECL_CREDIT(fake_bullets)].")
 	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
@@ -2096,7 +2021,6 @@
  * Action Figures
  */
 
-
 /obj/random/figure
 	name = "Random Action Figure"
 	desc = "This is a random toy action figure"
@@ -2105,7 +2029,6 @@
 
 /obj/random/figure/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/figure))
-
 
 /obj/item/toy/figure
 	name = "Non-Specific Action Figure action figure"
@@ -2123,7 +2046,7 @@
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
-		user.visible_message(span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] говорит \"[toysay]\"."))
+		user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит \"[toysay]\"."))
 		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 
 /obj/item/toy/figure/cmo
@@ -2364,8 +2287,8 @@
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
 	if(!cooldown)
 		var/answer = pick(possible_answers)
-		user.visible_message(span_notice("[user] сосредотачива[pluralize_ru(user.gender,"ет","ют")]ся на своём вопросе и [use_action]..."))
-		user.visible_message(span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] говорит: \"[answer]\""))
+		user.visible_message(span_notice("[user] сосредотачива[PLUR_ET_YUT(user)]ся на своём вопросе и [use_action]..."))
+		user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"[answer]\""))
 		spawn(30)
 			cooldown = 0
 		return
@@ -2422,7 +2345,6 @@
 		return
 	dir = turn(dir, 270)
 	return TRUE
-
 
 /obj/item/toy/desk/click_alt(mob/user)
 	rotate()

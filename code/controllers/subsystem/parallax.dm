@@ -22,14 +22,12 @@ SUBSYSTEM_DEF(parallax)
 		PARALLAX_NONE = 30,
 	)
 
-
 //These are cached per client so needs to be done asap so people joining at roundstart do not miss these.
 /datum/controller/subsystem/parallax/PreInit()
 	. = ..()
 	set_random_parallax_layer(pickweight(random_parallax_weights))
 	planet_y_offset = rand(100, 160)
 	planet_x_offset = rand(100, 160)
-
 
 /datum/controller/subsystem/parallax/fire(resumed = 0)
 	if(!resumed)
@@ -67,7 +65,6 @@ SUBSYSTEM_DEF(parallax)
 		if(MC_TICK_CHECK)
 			return
 	currentrun = null
-
 
 /// Generate a random layer for parallax
 /datum/controller/subsystem/parallax/proc/set_random_parallax_layer(picked_parallax)

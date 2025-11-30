@@ -31,7 +31,6 @@ SUBSYSTEM_DEF(events)
 
 	var/datum/event_meta/new_event = new
 
-
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
 	return SS_INIT_SUCCESS

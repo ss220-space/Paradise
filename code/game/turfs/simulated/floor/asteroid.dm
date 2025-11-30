@@ -25,7 +25,7 @@
 		DATIVE = "астероидному песку",
 		ACCUSATIVE = "астероидный песок",
 		INSTRUMENTAL = "астероидным песком",
-		PREPOSITIONAL = "астероидном песке"
+		PREPOSITIONAL = "астероидном песке",
 	)
 
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
@@ -62,7 +62,6 @@
 		else
 			icon_state =  initial(icon_state)
 
-
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
@@ -88,10 +87,8 @@
 		if(EXPLODE_DEVASTATE)
 			getDug()
 
-
 /turf/simulated/floor/plating/asteroid/can_have_cabling()
 	return FALSE
-
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/tile, mob/user, params)
 	if(!tile.use(1))
@@ -101,7 +98,6 @@
 	else
 		ChangeTurf(tile.turf_type, keep_icon = FALSE)
 	playsound(src, 'sound/weapons/Genhit.ogg', 50, TRUE)
-
 
 /turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -133,7 +129,6 @@
 			ore.attackby(bag, user, params)
 		return .|ATTACK_CHAIN_SUCCESS
 
-
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
 	return
 
@@ -156,7 +151,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		DATIVE = "вулканическому полу",
 		ACCUSATIVE = "вулканический пол",
 		INSTRUMENTAL = "вулканическим полом",
-		PREPOSITIONAL = "вулканическом поле"
+		PREPOSITIONAL = "вулканическом поле",
 	)
 
 /turf/simulated/floor/plating/asteroid/basalt/refill_dug()
@@ -172,15 +167,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	baseturf = /turf/simulated/floor/lava
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/plating/asteroid/ancient
-	digResult = /obj/item/stack/ore/glass/basalt/ancient
-	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
-
-/turf/simulated/floor/plating/asteroid/ancient/airless
 	temperature = TCMB
 	oxygen = 0
 	nitrogen = 0
@@ -249,7 +235,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		DATIVE = "снегу",
 		ACCUSATIVE = "снег",
 		INSTRUMENTAL = "снегом",
-		PREPOSITIONAL = "снеге"
+		PREPOSITIONAL = "снеге",
 	)
 
 /turf/simulated/floor/plating/asteroid/snow/broken_states()

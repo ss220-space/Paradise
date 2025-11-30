@@ -13,7 +13,6 @@
 	var/obj/structure/cable/last = null
 	var/obj/item/stack/cable_coil/loaded = null
 
-
 /obj/item/twohanded/rcl/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))
 		add_fingerprint(user)
@@ -38,7 +37,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/twohanded/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!loaded)
@@ -72,7 +70,6 @@
 	active = 0
 	return ..()
 
-
 /obj/item/twohanded/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
@@ -91,7 +88,6 @@
 		else
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
-
 
 /obj/item/twohanded/rcl/proc/is_empty(mob/user, loud = 1)
 	update_icon(UPDATE_ICON_STATE)

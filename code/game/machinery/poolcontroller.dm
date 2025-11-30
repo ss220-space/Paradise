@@ -148,8 +148,6 @@
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
 				drownee.visible_message(span_danger("\The [drownee] flails, almost like [drownee.p_they()] [drownee.p_are()] drowning!"),span_userdanger("You're lacking air!")) //*gasp* *gasp* *gasp* *gasp* *gasp*
 
-
-
 /obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
 	if(length(linkedmist))
 		return
@@ -162,7 +160,6 @@
 	for(var/obj/effect/mist/M in linkedmist)
 		qdel(M)
 	linkedmist.Cut()
-
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -194,7 +191,6 @@
 
 	temperature = val
 
-
 /obj/machinery/poolcontroller/proc/str_to_temp(str)
 	switch(str)
 		if("frigid")
@@ -213,14 +209,12 @@
 	if(temp)
 		set_temp(temp)
 
-
 /obj/machinery/poolcontroller/ui_data(mob/user)
 	var/list/data = list()
 	data["currentTemp"] = temp_to_str(temperature)
 	data["emagged"] = emagged
 
 	return data
-
 
 /obj/machinery/poolcontroller/ui_act(action, list/params)
 	if(..())

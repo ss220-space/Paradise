@@ -77,7 +77,6 @@
 		L.AdjustSilence(10 SECONDS)
 	return TRUE
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/lurker/spider_special_action()
 	if(prob(prob_ai_massweb))
 		for(var/turf/simulated/T in oview(2,get_turf(src)))

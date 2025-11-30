@@ -61,12 +61,10 @@
 	else
 		..()
 
-
 /mob/living/simple_animal/hostile/clockwork/marauder/CanAttack(atom/the_target)
 	if(isclocker(the_target))
 		return FALSE
 	return ..()
-
 
 /mob/living/simple_animal/hostile/clockwork/marauder/bullet_act(obj/projectile/P)
 	if(deflect_projectile(P))
@@ -118,7 +116,6 @@
 					a_intent = INTENT_DISARM
 		if(hud_used?.action_intent)
 			hud_used.action_intent.icon_state = "[a_intent]"
-
 
 /*MOUSE*/
 /mob/living/simple_animal/mouse/clockwork

@@ -15,7 +15,6 @@
 	var/buildstacktype = /obj/item/stack/rods
 	var/buildstackamount = 3
 
-
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	handle_layer()
@@ -27,13 +26,12 @@
 		AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/railing/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(ACCUSATIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(ACCUSATIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE
-
 
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
@@ -73,7 +71,6 @@
 		to_chat(user, span_notice("You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor."))
 	return TRUE
 
-
 /obj/structure/railing/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -84,12 +81,10 @@
 		return !density
 	return TRUE
 
-
 /obj/structure/railing/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!(to_dir & dir))
 		return TRUE
 	return ..()
-
 
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -112,7 +107,6 @@
 		return
 	leaving.Bump(src)
 	return COMPONENT_ATOM_BLOCK_EXIT
-
 
 /obj/structure/railing/do_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)

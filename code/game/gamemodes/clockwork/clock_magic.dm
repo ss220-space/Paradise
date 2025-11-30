@@ -156,10 +156,8 @@
 			item.deplete_spell() // to clear up actions if have
 			item.enchant_type = spell_enchant.enchantment
 			if(spell_enchant.spell_action)
-				var/datum/action/item_action/activate/enchant/E = new (item)
-				E.owner = owner
-				owner.actions += E
-				owner.update_action_buttons(TRUE)
+				var/datum/action/item_action/activate/enchant/enchant = new (item)
+				item.add_item_action(enchant)
 			item.add_enchant()
 			item.update_icon()
 			to_chat(owner, span_clock("You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!"))
@@ -248,7 +246,7 @@
 		hand_magic = null
 	return ..()
 
-/datum/action/innate/clockwork/hand_spell/IsAvailable()
+/datum/action/innate/clockwork/hand_spell/IsAvailable(feedback = FALSE)
 	if(!isclocker(owner) || owner.incapacitated())
 		return FALSE
 	return ..()

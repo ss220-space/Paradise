@@ -8,10 +8,8 @@
 	origin_tech = "combat=2"
 	var/open = FALSE
 
-
 /obj/item/conversion_kit/update_icon_state()
 	icon_state = "kit_[open]"
-
 
 /obj/item/conversion_kit/attack_self(mob/user)
 	open = !open

@@ -16,7 +16,6 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/brown(src)
 
-
 /obj/structure/closet/wardrobe/red
 	name = "security wardrobe"
 	icon_state = "secward"
@@ -122,7 +121,6 @@
 	new /obj/item/clothing/shoes/footwraps(src)
 	new /obj/item/clothing/shoes/footwraps(src)
 
-
 /obj/structure/closet/wardrobe/orange
 	name = "prison wardrobe"
 	desc = "It's a storage unit for Nanotrasen-regulation prisoner attire."
@@ -136,7 +134,6 @@
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
 
-
 /obj/structure/closet/wardrobe/yellow
 	name = "yellow wardrobe"
 	custom_door_overlay = "yellow"
@@ -148,7 +145,6 @@
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
-
 
 /obj/structure/closet/wardrobe/atmospherics_yellow
 	name = "atmospherics wardrobe"
@@ -170,8 +166,6 @@
 	new /obj/item/clothing/head/beret/atmos(src)
 	new /obj/item/clothing/head/beret/atmos(src)
 	new /obj/item/clothing/head/beret/atmos(src)
-
-
 
 /obj/structure/closet/wardrobe/engineering_yellow
 	name = "engineering wardrobe"
@@ -282,7 +276,6 @@
 	new /obj/item/clothing/shoes/slippers(src)
 	new /obj/item/clothing/shoes/slippers(src)
 
-
 /obj/structure/closet/wardrobe/toxins_white
 	name = "toxins wardrobe"
 	custom_door_overlay = "white"
@@ -346,7 +339,6 @@
 	new /obj/item/clothing/head/soft/black(src)
 	new /obj/item/clothing/head/soft/black(src)
 
-
 /obj/structure/closet/wardrobe/chemistry_white
 	name = "chemistry wardrobe"
 	icon_state = "chem"
@@ -369,7 +361,6 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/mask/gas(src)
 
-
 /obj/structure/closet/wardrobe/genetics_white
 	name = "genetics wardrobe"
 	custom_door_overlay = "white"
@@ -385,7 +376,6 @@
 	new /obj/item/storage/backpack/genetics(src)
 	new /obj/item/storage/backpack/satchel_gen(src)
 	new /obj/item/storage/backpack/satchel_gen(src)
-
 
 /obj/structure/closet/wardrobe/virology_white
 	name = "virology wardrobe"
@@ -406,7 +396,6 @@
 	new /obj/item/storage/backpack/virology(src)
 	new /obj/item/storage/backpack/satchel_vir(src)
 	new /obj/item/storage/backpack/satchel_vir(src)
-
 
 /obj/structure/closet/wardrobe/medic_white
 	name = "medical wardrobe"
@@ -481,7 +470,6 @@
 		new /obj/item/clothing/under/assistantformal(src)
 	if(prob(40))
 		new /obj/item/clothing/under/assistantformal(src)
-
 
 /obj/structure/closet/wardrobe/mixed
 	name = "mixed wardrobe"

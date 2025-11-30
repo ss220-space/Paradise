@@ -37,7 +37,6 @@ In practice this means that:
 	Everytime you do something minor like take a pen out of your pocket, we only update the in-hand overlay
 	etc...
 
-
 There are several things that need to be remembered:
 
 >	Whenever we do something that should cause an overlay to update (which doesn't use standard procs
@@ -62,7 +61,6 @@ There are several things that need to be remembered:
 	All of these are named after the variable they update from. They are defined at the mob/ level like
 	update_clothing was, so you won't cause undefined proc runtimes with usr.update_worn_id() if the usr is a
 	slime etc. Instead, it'll just return without doing any work. So no harm in calling it for slimes and such.
-
 
 >	There are also these special cases:
 		update_mutations()	//handles updating your appearance for certain mutations.  e.g TK head-glows
@@ -139,7 +137,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		damage_overlay.overlays += DI
 
 	apply_overlay(H_DAMAGE_LAYER)
-
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/update_body(rebuild_base = FALSE)
@@ -273,7 +270,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_hair()
 	update_fhair()
 
-
 //MARKINGS OVERLAY
 /mob/living/carbon/human/proc/update_markings()
 	//Reset our markings.
@@ -310,7 +306,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(body_marking_style.visible_over_uniform && istype(w_uniform, /obj/item/clothing/under))
 		update_worn_undersuit()
 
-
 //HEAD ACCESSORY OVERLAY
 /mob/living/carbon/human/proc/update_head_accessory()
 	//Reset our head accessory
@@ -344,7 +339,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		overlays_standing[HEAD_ACCESSORY_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACCESSORY_LAYER)
 		apply_overlay(HEAD_ACCESSORY_LAYER)
-
 
 //HAIR OVERLAY
 /mob/living/carbon/human/update_hair()
@@ -405,7 +399,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
 
-
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair()
 	//Reset our facial hair
@@ -452,7 +445,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		overlays_standing[FHAIR_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_LAYER)
 		apply_overlay(FHAIR_LAYER)
-
 
 /mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
@@ -539,8 +531,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_ssd_overlay()
 	update_unconscious_overlay()
 	SEND_SIGNAL(src, COMSIG_HUMAN_REGENERATE_ICONS)
-
-
 
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
@@ -970,7 +960,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(bodypart_tail.m_colours["tail"], ICON_ADD)
 
-
 	if(bodypart_tail.body_accessory)
 		if(bodypart_tail.body_accessory.try_restrictions(src))
 			var/icon/accessory_s = new/icon("icon" = bodypart_tail.body_accessory.icon, "icon_state" = bodypart_tail.body_accessory.icon_state)
@@ -1276,14 +1265,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	. = "[.][!!husk][!!hulk][!!skeleton]"
 
-
 /mob/living/carbon/human/update_ssd_overlay()
 	if(!isnull(player_logged))
 		overlays_standing[SSD_LAYER] = mutable_appearance('icons/effects/effects.dmi', "SSD", -SSD_LAYER, appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR)
 		apply_overlay(SSD_LAYER)
 	else
 		remove_overlay(SSD_LAYER)
-
 
 /mob/living/carbon/human/update_unconscious_overlay()
 	if(stat == UNCONSCIOUS && !HAS_TRAIT(src, TRAIT_FAKEDEATH))

@@ -100,7 +100,6 @@
 	else
 		to_chat(src, "No matches for that age range found.", confidential=TRUE)
 
-
 /client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Global Narrate"
@@ -152,9 +151,6 @@
 	log_and_message_admins("<span class='boldnotice'>directly narrated to [key_name_admin(M)]: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Direct Narrate")
 
-
-
-
 /client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
 	set name = "\[Admin\] Headset Message"
 
@@ -190,7 +186,6 @@
 
 	SEND_SOUND(H, sound('sound/effects/headset_message.ogg'))
 
-
 /client/proc/cmd_admin_godmode(mob/mob as mob in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_FUN
 	set name = "Godmode"
@@ -207,7 +202,6 @@
 	to_chat(usr, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential=TRUE)
 	log_and_message_admins("has toggled [key_name_admin(mob)]'s nodamage to [had_trait ? "Off" : "On"]")
 	BLACKBOX_LOG_ADMIN_VERB("Godmode")
-
 
 /proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	if(automute)
@@ -314,7 +308,6 @@
 		action = "enabled"
 		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled.</span>", confidential=TRUE)
 
-
 	log_and_message_admins("has [action] antagHUD usage for observers")
 
 /client/proc/toggle_antagHUD_restrictions()
@@ -391,7 +384,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 				//Now to give them their mind back.
 				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-				new_xeno.key = G_found.key
+				new_xeno.possess_by_player(G_found.key)
 				to_chat(new_xeno, "You have been fully respawned. Enjoy the game.")
 				log_and_message_admins("<span class='notice'>has respawned [new_xeno.key] as a filthy xeno.</span>")
 				return	//all done. The ghost is auto-deleted
@@ -445,7 +438,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else//If they have no records, we just do a random DNA for them, based on their random appearance/savefile.
 		new_character.dna.ready_dna(new_character)
 
-	new_character.key = G_found.key
+	new_character.possess_by_player(G_found.key)
 
 	/*
 	The code below functions with the assumption that the mob is already a traitor if they have a special role.
@@ -541,10 +534,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
 		else			return 0
 
-	new_xeno.ckey = ckey
+	new_xeno.possess_by_player(ckey)
 	log_and_message_admins("<span class='notice'>has spawned [ckey] as a filthy xeno [alien_caste].</span>")
 	return 1
-
 
 /client/proc/get_ghosts(notify = 0, what = 2)
 	// what = 1, return ghosts ass list.
@@ -631,8 +623,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	//the stuff on the list is |"report type" = "report title"|, if that makes any sense
 	var/list/message_type = list(
-		"Сообщение Центрального командования." = "Обновление Нанотрейзен.",
-		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
+		"Сообщение Центрального командования." = "Обновление \"Нанотрейзен\".",
+		"Официальное сообщение \"Синдиката\"." = "Сообщение \"Синдиката\".",
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
 		"Вражеское сообщение." = "Неизвестное сообщение.",
@@ -669,7 +661,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(input_message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.", HEADSET_FREQ_NAME)
+			radio_announce("Отчёт был загружен и распечатан на всех консолях связи.", "Консоль связи", COMM_FREQ)
 			print_command_report(input_message, "Секретно: [subtitle]")
 		else
 			return
@@ -838,7 +830,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "[t] [ADMIN_VV(t,"VV")] ", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
-
 /client/proc/toggle_view_range()
 	set category = STATPANEL_ADMIN_TOGGLES
 	set name = "Change View Range"
@@ -880,7 +871,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	log_admin("[key_name(usr)] changed their view range to [view].")
 	BLACKBOX_LOG_ADMIN_VERB("Change View Range")
-
 
 /client/proc/admin_call_shuttle()
 
@@ -988,7 +978,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSticker.toogle_gv = (SSticker.toogle_gv) ? FALSE : TRUE
 		log_and_message_admins("toggled ghost vision after greentext in [(SSticker.toogle_gv) ? "On" : "Off"].")
 
-
 /client/proc/everyone_random()
 	set category = STATPANEL_ADMIN_FUN
 	set name = "Make Everyone Random"
@@ -1006,7 +995,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.")
 		to_chat(usr, "Disabled.", confidential=TRUE)
 		return
-
 
 	var/notifyplayers = tgui_alert(src, "Do you want to notify the players?", "Options", list("Yes", "No", "Cancel"))
 	if(notifyplayers == "Cancel")
@@ -1154,7 +1142,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	popup.set_content(msg)
 	popup.open(FALSE)
 
-
 /client/proc/toggle_ert_calling()
 	set category = STATPANEL_ADMIN_TOGGLES
 	set name = "Toggle ERT"
@@ -1278,7 +1265,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	change_command_name(input)
 	log_and_message_admins("has changed Central Command's name to [input]")
 
-
 /client/proc/polymorph_all()
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Polymorph All"
@@ -1312,5 +1298,4 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(keep_name == "Да" && new_mob)
 			new_mob.name = name
 			new_mob.real_name = real_name
-
 

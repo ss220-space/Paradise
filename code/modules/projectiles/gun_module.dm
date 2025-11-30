@@ -17,13 +17,14 @@
 	var/buffered_overlay = null
 	//attached state variables
 	var/obj/item/gun/gun = null
+	/// Is module can detached
+	var/can_detach = TRUE
 
 /obj/item/gun_module/Destroy()
 	. = ..()
 	gun = null
 	if(buffered_overlay)
 		QDEL_NULL(buffered_overlay)
-
 
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
@@ -81,7 +82,6 @@
 /obj/item/gun_module/proc/on_detach(obj/item/gun/target_gun, mob/user)
 	return
 
-
 /**
  * MARK: Muzzle
  */
@@ -106,8 +106,11 @@
 		DATIVE = "универсальному глушителю",
 		ACCUSATIVE = "универсальный глушитель",
 		INSTRUMENTAL = "универсальным глушителем",
-		PREPOSITIONAL = "универсальном глушителе"
+		PREPOSITIONAL = "универсальном глушителе",
 	)
+
+/obj/item/gun_module/muzzle/suppressor/integrated
+	can_detach = FALSE
 
 /obj/item/gun_module/muzzle/suppressor/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = TRUE
@@ -124,11 +127,45 @@
 	target_gun.fire_sound = oldsound
 	target_gun.w_class = initial_w_class
 
+/obj/item/gun_module/muzzle/suppressor/shotgun
+	name = "shotgun suppressor"
+	desc = "Тяжёлый квадратный глушитель, предназначенный для дробовиков и ружей, позволяет значительно снизить шум от выстрелов и интенсивность вспышки."
+	icon_state = "suppshotgun"
+	overlay_state = "suppshotgun_o"
+	class = GUN_MODULE_CLASS_SHOTGUN_MUZZLE
+
+/obj/item/gun_module/muzzle/suppressor/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "ружейный глушитель",
+		GENITIVE = "ружейного глушителя",
+		DATIVE = "ружейному глушителю",
+		ACCUSATIVE = "ружейный глушитель",
+		INSTRUMENTAL = "ружейным глушителем",
+		PREPOSITIONAL = "ружейном глушителе"
+	)
+
+/obj/item/gun_module/muzzle/suppressor/heavy
+	name = "heavy suppressor"
+	desc = "Массивный глушитель, предназначенный для крупнокалиберных винтовок, снижает шум выстрелов и интенсивность вспышки."
+	icon_state = "suppheavy"
+	overlay_state = "suppheavy_o"
+	class = GUN_MODULE_CLASS_SNIPER_MUZZLE
+
+/obj/item/gun_module/muzzle/suppressor/heavy/get_ru_names()
+	return list(
+		NOMINATIVE = "тяжёлый глушитель",
+		GENITIVE = "тяжёлого глушителя",
+		DATIVE = "тяжёлому глушителю",
+		ACCUSATIVE = "тяжёлый глушитель",
+		INSTRUMENTAL = "тяжёлым глушителем",
+		PREPOSITIONAL = "тёжёлом глушителе"
+	)
 
 /obj/item/gun_module/muzzle/suppressor/handmade
 	name = "handmade suppressor"
 	desc = "Сделан из банки, скотча и куска металла. Неплохо глушит звук выстрела, но может в любой момент развалиться на части."
-	icon_state = "handmade_supp_"
+	icon_state = null
+	base_icon_state = "handmade_supp_"
 	overlay_state = "handmade_supp_1_o"
 	overlay_offset = list("x" = 0, "y" = 0)
 	var/variant = 1
@@ -141,8 +178,8 @@
 	update_icon()
 
 /obj/item/gun_module/muzzle/suppressor/handmade/update_icon_state()
-	icon_state = "[initial(icon_state)][variant]"
-	overlay_state = "[icon_state]_o"
+	icon_state = "[initial(base_icon_state)][variant]"
+	overlay_state = "[base_icon_state]_o"
 
 /obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
 	return list(
@@ -151,7 +188,7 @@
 		DATIVE = "самодельному глушителю",
 		ACCUSATIVE = "самодельный глушитель",
 		INSTRUMENTAL = "самодельным глушителем",
-		PREPOSITIONAL = "самодельном глушителе"
+		PREPOSITIONAL = "самодельном глушителе",
 	)
 
 /obj/item/gun_module/muzzle/suppressor/handmade/on_attach(obj/item/gun/target_gun, mob/user)
@@ -194,7 +231,7 @@
 		DATIVE = "универсальному компенсатору",
 		ACCUSATIVE = "универсальный компенсатор",
 		INSTRUMENTAL = "универсальным компенсатором",
-		PREPOSITIONAL = "универсальном компенсаторе"
+		PREPOSITIONAL = "универсальном компенсаторе",
 	)
 
 /obj/item/gun_module/muzzle/compensator/on_attach(obj/item/gun/target_gun, mob/user)
@@ -218,7 +255,6 @@
 	spread_decrease = 0
 	target_gun.recoil.strength = initial_recoil
 	initial_recoil = 0
-
 
 /**
  * MARK: Rail
@@ -277,7 +313,6 @@
 		human.remove_movespeed_modifier(movespeed_mod)
 		movespeed_mod = null
 
-
 /obj/item/gun_module/rail/scope/collimator
 	name = "collimator scope"
 	desc = "Коллиматорный прицел, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами. Повышает удобство и точность стрельбы."
@@ -298,7 +333,7 @@
 		DATIVE = "коллиматорному прицелу",
 		ACCUSATIVE = "коллиматорный прицел",
 		INSTRUMENTAL = "коллиматорным прицелом",
-		PREPOSITIONAL = "коллиматорном прицеле"
+		PREPOSITIONAL = "коллиматорном прицеле",
 	)
 
 /obj/item/gun_module/rail/scope/collimator/pistol
@@ -316,7 +351,7 @@
 		DATIVE = "пистолетному коллиматорному прицелу",
 		ACCUSATIVE = "пистолетный коллиматорный прицел",
 		INSTRUMENTAL = "пистолетным коллиматорным прицелом",
-		PREPOSITIONAL = "пистолетном коллиматорном прицеле"
+		PREPOSITIONAL = "пистолетном коллиматорном прицеле",
 	)
 
 /obj/item/gun_module/rail/scope/x4
@@ -339,7 +374,7 @@
 		DATIVE = "оптическому прицелу х4",
 		ACCUSATIVE = "оптический прицел х4",
 		INSTRUMENTAL = "оптическим прицелом х4",
-		PREPOSITIONAL = "оптическом прицеле х4"
+		PREPOSITIONAL = "оптическом прицеле х4",
 	)
 
 /obj/item/gun_module/rail/scope/x8
@@ -361,7 +396,7 @@
 		DATIVE = "оптическому прицелу х8",
 		ACCUSATIVE = "оптический прицел х8",
 		INSTRUMENTAL = "оптическим прицелом х8",
-		PREPOSITIONAL = "оптическом прицеле х8"
+		PREPOSITIONAL = "оптическом прицеле х8",
 	)
 
 /obj/item/gun_module/rail/scope/x16
@@ -384,7 +419,7 @@
 		DATIVE = "оптическому прицелу х16",
 		ACCUSATIVE = "оптический прицел х16",
 		INSTRUMENTAL = "оптическим прицелом х16",
-		PREPOSITIONAL = "оптическом прицеле х16"
+		PREPOSITIONAL = "оптическом прицеле х16",
 	)
 
 /obj/item/gun_module/rail/hud
@@ -435,7 +470,6 @@
 	var/datum/atom_hud/hud = GLOB.huds[hud_type]
 	hud.hide_from(user)
 
-
 /obj/item/gun_module/rail/hud/medical
 	name = "med hud scope"
 	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами."
@@ -454,7 +488,7 @@
 		DATIVE = "коллиматору с медицинским ИЛС",
 		ACCUSATIVE = "коллиматорс медицинским ИЛС",
 		INSTRUMENTAL = "коллиматором с медицинским ИЛС",
-		PREPOSITIONAL = "коллиматоре с медицинским ИЛС"
+		PREPOSITIONAL = "коллиматоре с медицинским ИЛС",
 	)
 
 /obj/item/gun_module/rail/hud/security
@@ -475,7 +509,7 @@
 		DATIVE = "коллиматору с охранным ИЛС",
 		ACCUSATIVE = "коллиматор с охранным ИЛС",
 		INSTRUMENTAL = "коллиматором с охранным ИЛС",
-		PREPOSITIONAL = "коллиматоре с охранным ИЛС"
+		PREPOSITIONAL = "коллиматоре с охранным ИЛС",
 	)
 
 /**
@@ -487,7 +521,6 @@
 /obj/item/gun_module/under/flashlight
 	var/obj/item/flashlight/seclite/internal
 	var/buffered_overlay_on
-
 
 /obj/item/gun_module/under/flashlight/Destroy()
 	. = ..()
@@ -552,7 +585,7 @@
 		DATIVE = "подствольному фонарю для пистолетов",
 		ACCUSATIVE = "подствольный фонарь для пистолетов",
 		INSTRUMENTAL = "подствольным фонарём для пистолетов",
-		PREPOSITIONAL = "подствольном фонаре для пистолетов"
+		PREPOSITIONAL = "подствольном фонаре для пистолетов",
 	)
 
 /obj/item/gun_module/under/flashlight/rifle
@@ -571,7 +604,7 @@
 		DATIVE = "подствольному фонарю",
 		ACCUSATIVE = "подствольный фонарь",
 		INSTRUMENTAL = "подствольным фонарём",
-		PREPOSITIONAL = "подствольном фонаре"
+		PREPOSITIONAL = "подствольном фонаре",
 	)
 
 /obj/item/gun_module/under/hand
@@ -610,7 +643,7 @@
 		DATIVE = "прямой рукоятке",
 		ACCUSATIVE = "прямая рукоятка",
 		INSTRUMENTAL = "прямой рукояткой",
-		PREPOSITIONAL = "прямой рукоятке"
+		PREPOSITIONAL = "прямой рукоятке",
 	)
 
 /obj/item/gun_module/under/hand/angle
@@ -630,7 +663,7 @@
 		DATIVE = "угловой рукоятке",
 		ACCUSATIVE = "угловая рукоятка",
 		INSTRUMENTAL = "угловой рукояткой",
-		PREPOSITIONAL = "угловой рукоятке"
+		PREPOSITIONAL = "угловой рукоятке",
 	)
 
 /obj/item/gun_module/under/laser
@@ -698,7 +731,6 @@
 	gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
 
-
 /obj/item/gun_module/under/laser/ray
 	name = "laser sight (ray)"
 	component_type = /datum/component/laser_sight/ray
@@ -710,7 +742,7 @@
 		DATIVE = "лазерному целеуказателю (луч)",
 		ACCUSATIVE = "лазерный целеуказатель (луч)",
 		INSTRUMENTAL = "лазерным целеуказателем (луч)",
-		PREPOSITIONAL = "лазерном целеуказателе (луч)"
+		PREPOSITIONAL = "лазерном целеуказателе (луч)",
 	)
 
 /obj/item/gun_module/under/laser/point
@@ -724,5 +756,5 @@
 		DATIVE = "лазерному целеуказателю (точка)",
 		ACCUSATIVE = "лазерный целеуказатель (точка)",
 		INSTRUMENTAL = "лазерным целеуказателем (точка)",
-		PREPOSITIONAL = "лазерном целеуказателе (точка)"
+		PREPOSITIONAL = "лазерном целеуказателе (точка)",
 	)

@@ -61,12 +61,11 @@
 		if(parent_machine.make_snowcloud(T))
 			return
 
-
 //Snow stuff below
-
 /obj/effect/snow
 	desc = "Perfect for making snow angels, or throwing at other people!"
-	icon_state = "snow"
+	icon_state = "snow1"
+	plane = FLOOR_PLANE
 	layer = ABOVE_ICYOVERLAY_LAYER
 
 /obj/effect/snow/New()
@@ -98,7 +97,6 @@
 	user.put_in_hands(SB)
 	to_chat(user, span_notice("You scoop up some snow and make \a [SB]!"))
 
-
 /obj/effect/snow/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shovel))
 		user.visible_message(
@@ -117,7 +115,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(capitalism)
 			complited_goals += goal
 
 	if(total_station_goal_bounty)
-		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития Нанотрейзен", base_account.owner_name)
+		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития \"Нанотрейзен\"", base_account.owner_name)
 		smart_job_payment(s_ex_personal_bounry)
 
 //status - TRUE/FALSE
@@ -79,8 +79,8 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
 	var/total_salary = 0
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-			total_salary += account.linked_job.salary
+		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
+			total_salary += account.linked_job.paycheck
 	return total_salary
 
 /datum/controller/subsystem/capitalism/proc/accounts_init()
@@ -104,10 +104,10 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/proc/payment_process()
 	. = TRUE
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
-				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.salary] кредитов\" (Невозможно Ответить)", FALSE)
-				total_salary_payment += account.linked_job.salary
+		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
+			if(payment_account.charge(account.linked_job.paycheck, account, "Выплата зарплаты персоналу.", "Отдел финансов \"Нанотрейзен\"" , "Поступление зарплаты.", "Поступление зарплаты" ,"Терминал Бизель №[rand(111,333)]"))
+				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.paycheck] кредитов\" (Невозможно Ответить)", FALSE)
+				total_salary_payment += account.linked_job.paycheck
 			else
 				return FALSE
 
@@ -126,7 +126,7 @@ SUBSYSTEM_DEF(capitalism)
 	bounty = round(money / length(list_payment_account))
 	for(var/datum/money_account/account in list_payment_account)
 		//It may be worth doing a type from the customer's company... But I'm too lazy
-		if(account.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
+		if(account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name))
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
 	return
 
@@ -134,7 +134,7 @@ SUBSYSTEM_DEF(capitalism)
 	. = FALSE //If nothing is paid to anyone
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
-			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
+			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Терминал Бизель №[rand(111,333)]", account.owner_name))
 				total_personal_bounty += jobs_payment[account.linked_job.title]
 				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
 				. = TRUE
@@ -155,13 +155,13 @@ SUBSYSTEM_DEF(capitalism)
 			. = TRUE
 
 	if(!length(list_payment_account))
-		base_account.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
+		base_account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
 		return TRUE
 
 	bounty = round(money / length(list_payment_account))
 	//If it did not find that, the payment of the station (well, or what is indicated in the base_account)
 	for(var/datum/money_account/account_pay in list_payment_account)
-		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
+		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
 	return
 
 #undef FREQUENCY_SALARY

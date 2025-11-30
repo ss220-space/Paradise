@@ -12,6 +12,7 @@
 // -----------------------------
 /obj/item/storage/secure
 	name = "secstorage"
+	icon = 'icons/obj/storage/boxes.dmi'
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
 	var/icon_opened = "secure0"
@@ -24,12 +25,10 @@
 	var/emagged = FALSE
 	var/open = FALSE
 
-
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		. += span_notice("The service panel is [open ? "open" : "closed"].")
-
 
 /obj/item/storage/secure/update_overlays()
 	. = ..()
@@ -38,11 +37,9 @@
 	else if(!locked)
 		. += icon_opened
 
-
 /obj/item/storage/secure/populate_contents()
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
-
 
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -50,7 +47,6 @@
 		return .
 	open = !open
 	to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
-
 
 /obj/item/storage/secure/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -73,7 +69,6 @@
 	l_setshort = TRUE
 	addtimer(VARSET_CALLBACK(src, l_setshort, FALSE), 8 SECONDS)
 
-
 /obj/item/storage/secure/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
@@ -93,7 +88,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/item/storage/secure/emag_act(mob/user, obj/weapon)
 	if(emagged)
@@ -115,13 +109,12 @@
 	else if(user)
 		to_chat(user, "You short out the lock on [src].")
 
-
 /obj/item/storage/secure/click_alt(mob/living/user)
 	if(!try_to_open(user))
 		return CLICK_ACTION_BLOCKING
 	return ..()
 
-/obj/item/storage/secure/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/storage/secure/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!try_to_open(usr))
 		return FALSE
 	return ..()
@@ -157,7 +150,6 @@
 	data["l_setshort"] = l_setshort
 	data["current_code"] = (code) ? (isnum(text2num(code))) ? code : "ERROR" : FALSE
 	return data
-
 
 /obj/item/storage/secure/ui_act(action, params)
 	if(..())
@@ -202,7 +194,10 @@
 	return FALSE
 
 /obj/item/storage/secure/hear_talk(mob/living/M, list/message_pieces)
-	return
+	if(locked)
+		return
+
+	..()
 
 /obj/item/storage/secure/hear_message(mob/living/M, msg)
 	return
@@ -245,7 +240,6 @@
 
 /obj/item/storage/secure/briefcase/captian/populate_contents()
 	new /obj/item/card/id/captains_spare(src)
-
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie

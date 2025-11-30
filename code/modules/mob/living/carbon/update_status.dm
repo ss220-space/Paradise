@@ -11,7 +11,6 @@
 			set_stat(CONSCIOUS)
 	return ..()
 
-
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
 	if(stam > DAMAGE_PRECISION && (max_stamina - stam) <= HEALTH_THRESHOLD_CRIT)
@@ -22,7 +21,6 @@
 	else
 		return
 	update_stamina_hud()
-
 
 /mob/living/carbon/can_hear()
 	. = ..()

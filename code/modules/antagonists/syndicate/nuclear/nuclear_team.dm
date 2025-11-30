@@ -15,7 +15,6 @@
 	var/leader_prefix
 	var/syndicate_name
 
-
 /datum/team/nuclear_team/New(list/starting_members)
 	. = ..()
 	leader_prefix = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
@@ -29,7 +28,6 @@
 	if(!nuke_spawn)
 		return
 	new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
-
 
 /datum/team/nuclear_team/proc/scale_telecrystals()
 	var/danger = GLOB.player_list.len
@@ -135,7 +133,7 @@
 
 	if(!disk_rescued && station_was_nuked && !syndies_didnt_escape)
 		SSticker.mode_result = "nuclear win - syndicate nuke"
-		text += span_fontsize3("<br><br><b>Полная победа Синдиката!</b>")
+		text += span_fontsize3("<br><br><b>Полная победа \"Синдиката\"!</b>")
 		text += "<br><b>Отряд оперативников [syndicate_name] уничтожил [station_name()]!</b>"
 
 	else if(!disk_rescued && station_was_nuked && syndies_didnt_escape)
@@ -165,12 +163,12 @@
 
 	else if(!disk_rescued && is_operatives_are_dead())
 		SSticker.mode_result = "nuclear loss - evacuation - disk not secured"
-		text += span_fontsize3("<br><br><b>Частичная победа Синдиката!</b>")
+		text += span_fontsize3("<br><br><b>Частичная победа \"Синдиката\"!</b>")
 		text += "<br><b>Персонал станции не смог сохранить диск ядерной аутентификации, но уничтожил весь отряд оперативников [syndicate_name]!</b>"
 
 	else if(!disk_rescued && crew_evacuated)
 		SSticker.mode_result = "nuclear halfwin - detonation averted"
-		text += span_fontsize3("<br><br><b>Частичная победа Синдиката!</b>")
+		text += span_fontsize3("<br><br><b>Частичная победа \"Синдиката\"!</b>")
 		text += "<br><b>Отряд оперативников [syndicate_name] заполучил диск ядерной аутентификации, но взрыва [station_name()] не произошло.</b> В следующий раз не теряйте диск!"
 
 	else if(!disk_rescued && !crew_evacuated)
@@ -178,7 +176,7 @@
 		text += span_fontsize3("<br><br><b>Ничья</b>")
 		text += "<br><b>Раунд был прерван по неизвестной причине!</b>"
 
-	text += span_fontsize3("<br><b>Ядерными Оперативниками Синдиката были:</b>")
+	text += span_fontsize3("<br><b>Ядерными Оперативниками \"Синдиката\" были:</b>")
 
 	var/TC_uses = 0
 
@@ -203,7 +201,7 @@
 	text += "<br>"
 
 	if(TC_uses == 0 && station_was_nuked && !is_operatives_are_dead())
-		text += span_fontsize4(bicon(icon('icons/misc/badass.dmi', "badass")))
+		text += span_fontsize4(icon2html(icon('icons/misc/badass.dmi', "badass"), world))
 
 	return text.Join("")
 
@@ -233,7 +231,6 @@
 	human.regenerate_icons()
 	human.update_body()
 
-
 /datum/team/nuclear_team/get_admin_texts()
 	. = ..()
 	if(!check_rights(R_ADMIN))
@@ -242,7 +239,6 @@
 	. += "<br/><a href='byond://?_src_=holder;team_command=set_tk_nuke;team=[UID()]'>Расчитать общее количество ТК как на старте</a><br>"
 	. += "<br/><a href='byond://?_src_=holder;team_command=set_tk_war;team=[UID()]'>Расчитать общее количество ТК как при объявлении войны</a><br>"
 	. += "<br/><a href='byond://?_src_=holder;team_command=scale_tk;team=[UID()]'>Разделить ТК между оперативниками</a><br>"
-
 
 /datum/team/nuclear_team/admin_topic(comand)
 	if(comand == "set_tk")
@@ -260,7 +256,6 @@
 	if(comand == "scale_tk")
 		share_telecrystals()
 		log_and_message_admins("shared team TC")
-
 
 /datum/team/nuclear_team/set_scoreboard_vars()
 	var/datum/scoreboard/scoreboard = SSticker.score
@@ -307,7 +302,6 @@
 	if(scoreboard.nuked)
 		scoreboard.crewscore -= scoreboard.nuked_penalty
 
-
 /datum/team/nuclear_team/get_scoreboard_stats()
 	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
@@ -340,7 +334,6 @@
 				diskdat += " в [O.declent_ru(DATIVE)]"
 			disk_loc = disk_loc.loc
 		diskdat += " в [disk_loc.loc?.declent_ru(DATIVE)]"
-
 
 	if(!diskdat)
 		diskdat = "ПРЕДУПРЕЖДЕНИЕ: Nuked_penalty не может быть найдено, подробнее в [__FILE__], [__LINE__]."

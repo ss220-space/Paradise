@@ -17,7 +17,6 @@
 	var/alerts_when_broken = FALSE
 	var/has_alerted = FALSE
 
-
 /obj/machinery/computer/syndicate_depot/Initialize(mapload)
 	. = ..()
 	depotarea = get_area(src)
@@ -122,7 +121,6 @@
 		raise_alert("[src] destroyed.")
 	return ..()
 
-
 /obj/machinery/computer/syndicate_depot/proc/primary(mob/user)
 	return FALSE
 
@@ -132,8 +130,6 @@
 /obj/machinery/computer/syndicate_depot/proc/raise_alert(reason)
 	if(istype(depotarea))
 		depotarea.increase_alert(reason)
-
-
 
 // Door Control Computer
 
@@ -180,7 +176,6 @@
 		to_chat(user, span_notice("False walls toggled."))
 		playsound(user, sound_yes, 50, FALSE)
 
-
 // Engineering AKA self destruct computer, no useful functions, just a trap for the people who can't resist pushing dangerous-sounding buttons.
 
 /obj/machinery/computer/syndicate_depot/selfdestruct
@@ -209,7 +204,6 @@
 	if(depotarea)
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
 		playsound(user, sound_click, 20, TRUE)
-
 
 // Shield computer, used to manipulate base shield, and armory shield
 
@@ -264,7 +258,6 @@
 		depotarea.perimeter_shield_status = TRUE
 	playsound(user, sound_yes, 50, FALSE)
 
-
 /obj/machinery/computer/syndicate_depot/shieldcontrol/secondary(mob/user)
 	if(!istype(depotarea))
 		return
@@ -273,7 +266,6 @@
 	else
 		depotarea.shields_up()
 	playsound(user, sound_yes, 50, FALSE)
-
 
 // Syndicate comms computer, used to activate visitor mode, and message syndicate. Traitor-only use.
 
@@ -377,7 +369,6 @@
 	if(!security_lockout && (stat & NOPOWER))
 		security_lockout = TRUE
 		raise_alert("[src] lost power.")
-
 
 // Syndicate teleporter control, used to manage incoming/outgoing teleports
 

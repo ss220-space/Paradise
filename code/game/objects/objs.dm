@@ -3,7 +3,8 @@
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
 	animate_movement = SLIDE_STEPS
-	var/sharp = FALSE		// whether this object cuts
+	/// Can this object cut?
+	var/sharp = FALSE
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
@@ -174,7 +175,6 @@
 		if(!ai_in_use && !is_in_use)
 			in_use = FALSE
 
-
 /**
  * Hidden uplink interaction proc. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
  *
@@ -208,7 +208,9 @@
 /obj/proc/hide(h)
 	return
 
-/obj/proc/hear_talk(mob/M, list/message_pieces)
+/obj/proc/hear_talk(mob/speaker, list/message_pieces)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
 	return
 
 /obj/proc/hear_message(mob/M, text)
@@ -309,7 +311,6 @@
 	if(!sharp && new_sharp_val)
 		AddComponent(/datum/component/surgery_initiator)
 
-
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
@@ -330,7 +331,6 @@
 
 	return locate(/obj) in A
 
-
 #define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
 
 /obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
@@ -339,7 +339,7 @@
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)

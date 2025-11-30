@@ -246,7 +246,6 @@
 		triggering = FALSE
 		log_and_message_admins("cancelled event ([type]).")
 
-
 /datum/event/proc/reroll_event_in_category(new_severity = severity)
 	if(new_severity == EVENT_LEVEL_NONE)
 		return

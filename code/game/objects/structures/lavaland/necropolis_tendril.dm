@@ -9,9 +9,10 @@
 	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 300
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
+	mob_types = list(
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 5,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5,
 	)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
@@ -29,7 +30,7 @@
 		DATIVE = "щупальцу некрополя",
 		ACCUSATIVE = "щупальце некрополя",
 		INSTRUMENTAL = "щупальцем некрополя",
-		PREPOSITIONAL = "щупальце некрополя"
+		PREPOSITIONAL = "щупальце некрополя",
 	)
 
 /obj/structure/spawner/lavaland/goliath
@@ -48,7 +49,7 @@
 		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril = 26,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 26,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 1,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20,
 	)
 	max_mobs = 5
 	spawn_time = 250 //they spawn a little faster
@@ -63,7 +64,7 @@
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 12,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 12,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 12,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14,
 	)
 	mob_gps_id = "CHAOS"
 	max_mobs = 7
@@ -88,22 +89,29 @@ GLOBAL_LIST_EMPTY(tendrils)
 	new /obj/structure/closet/crate/necropolis/tendril(loc)
 	return ..()
 
-
-/obj/structure/spawner/lavaland/Destroy()
-	var/last_tendril = TRUE
-	if(length(GLOB.tendrils)>1)
-		last_tendril = FALSE
-
-	if(last_tendril && !(flags & ADMIN_SPAWNED))
-		if(SSmedals.hub_enabled)
-			for(var/mob/living/L in view(7,src))
-				if(L.stat || !L.client)
-					continue
-				SSmedals.UnlockMedal("[BOSS_MEDAL_TENDRIL] [ALL_KILL_MEDAL]", L.client)
-				SSmedals.SetScore(TENDRIL_CLEAR_SCORE, L.client, 1)
+/obj/structure/spawner/lavaland/Destroy(force)
+	give_awards()
 	GLOB.tendrils -= src
 	QDEL_NULL(emitted_light)
 	return ..()
+
+/obj/structure/spawner/lavaland/proc/give_awards()
+	var/last_tendril = TRUE
+	if(length(GLOB.tendrils) > 1)
+		last_tendril = FALSE
+
+	if(!last_tendril || (flags & ADMIN_SPAWNED))
+		return
+
+	if(!SSachievements.achievements_enabled)
+		return
+
+	for(var/mob/living/mob in view(7, src))
+		if(mob.stat || !mob.client)
+			continue
+
+		mob.client.give_award(/datum/award/achievement/boss/tendril_exterminator, mob)
+		mob.client.give_award(/datum/award/score/tendril_score, mob) //Progresses score by one
 
 /obj/effect/light_emitter/tendril
 	light_range = 4
@@ -126,7 +134,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 		DATIVE = "разрушающемуся щупальцу некрополя",
 		ACCUSATIVE = "разрушающееся щупальце некрополя",
 		INSTRUMENTAL = "разрушающимся щупальцем некрополя",
-		PREPOSITIONAL = "разрушающемся щупальце некрополя"
+		PREPOSITIONAL = "разрушающемся щупальце некрополя",
 	)
 
 /obj/effect/collapse/Initialize(mapload)

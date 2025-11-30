@@ -1,7 +1,6 @@
 /// A malfunctioning AI has activated the doomsday device and wiped the station!
 /datum/cinematic/malf
 
-
 /datum/cinematic/malf/play_cinematic()
 	flick("intro_malf", screen)
 	stoplag(7.6 SECONDS)

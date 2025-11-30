@@ -97,7 +97,7 @@
 		"задерживает дыхание!",
 		"глубоко вдыхает кислород!")
 
-	speciesbox = /obj/item/storage/box/survival_vox
+	speciesbox = /obj/item/storage/box/survival/species/vox
 
 	toxic_food = NONE
 	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
@@ -112,11 +112,11 @@
 	)
 
 	autohiss_basic_map = list(
-			"ch" = list("ch", "chch", "chich"),
-			"k" = list("k", "kk", "kik"),
-			"ч" = list("ч", "чч", "чич"),
-			"к" = list("к", "кк", "кик")
-		)
+		"ch" = list("ch", "chch", "chich"),
+		"k" = list("k", "kk", "kik"),
+		"ч" = list("ч", "чч", "чич"),
+		"к" = list("к", "кк", "кик"),
+	)
 	autohiss_exempt = list("Вокс-пиджин")
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
@@ -128,10 +128,8 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
-
 /datum/species/vox/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, STRENGTH_LEVEL_STRONG, can_become_stronger)
-
 
 /datum/species/vox/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -203,10 +201,8 @@
 
 	return ..()
 
-
 /datum/species/vox/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	return 1 + (0.01*rand(-tolerance,tolerance))
-
 
 /datum/species/vox/armalis
 	name = SPECIES_VOX_ARMALIS
@@ -241,7 +237,6 @@
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
-
 
 	reagent_tag = PROCESS_ORG
 

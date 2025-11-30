@@ -169,7 +169,7 @@ mob
 
 		Output_Icon()
 			set name = "2. Output Icon"
-			to_chat(src, "Icon is: [bicon(getFlatIcon(src))]")
+			to_chat(src, "Icon is: [icon2base64html(getFlatIcon(src))]")
 
 		Label_Icon()
 			set name = "3. Label Icon"
@@ -217,21 +217,11 @@ world
 
 #define TO_HEX_DIGIT(n) ascii2text((n&15) + ((n&15)<10 ? 48 : 87))
 
-/icon/proc/MakeLying()
-	var/icon/I = new(src,dir=SOUTH)
-	I.BecomeLying()
-	return I
-
-/icon/proc/BecomeLying()
-	Turn(90)
-	Shift(SOUTH,6)
-	Shift(EAST,1)
-
-	// Multiply all alpha values by this float
-/icon/proc/ChangeOpacity(opacity = 1.0)
+/// Multiply all alpha values by this float
+/icon/proc/ChangeOpacity(opacity = 1)
 	MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,opacity, 0,0,0,0)
 
-	// Convert to grayscale
+/// Convert to grayscale
 /icon/proc/GrayScale()
 	MapColors(0.3,0.3,0.3, 0.59,0.59,0.59, 0.11,0.11,0.11, 0,0,0)
 
@@ -252,36 +242,36 @@ world
 		upper.MapColors((255-TONE[1])/(255-gray),0,0,0, 0,(255-TONE[2])/(255-gray),0,0, 0,0,(255-TONE[3])/(255-gray),0, 0,0,0,0, 0,0,0,1)
 		Blend(upper, ICON_ADD)
 
-	// Take the minimum color of two icons; combine transparency as if blending with ICON_ADD
+/// Take the minimum color of two icons; combine transparency as if blending with ICON_ADD
 /icon/proc/MinColors(icon)
-	var/icon/I = new(src)
-	I.Opaque()
-	I.Blend(icon, ICON_SUBTRACT)
-	Blend(I, ICON_SUBTRACT)
+	var/icon/new_icon = new(src)
+	new_icon.Opaque()
+	new_icon.Blend(icon, ICON_SUBTRACT)
+	Blend(new_icon, ICON_SUBTRACT)
 
-	// Take the maximum color of two icons; combine opacity as if blending with ICON_OR
+/// Take the maximum color of two icons; combine opacity as if blending with ICON_OR
 /icon/proc/MaxColors(icon)
-	var/icon/I
+	var/icon/new_icon
 	if(isicon(icon))
-		I = new(icon)
+		new_icon = new(icon)
 	else
 		// solid color
-		I = new(src)
-		I.Blend("#000000", ICON_OVERLAY)
-		I.SwapColor("#000000", null)
-		I.Blend(icon, ICON_OVERLAY)
-	var/icon/J = new(src)
-	J.Opaque()
-	I.Blend(J, ICON_SUBTRACT)
-	Blend(I, ICON_OR)
+		new_icon = new(src)
+		new_icon.Blend(COLOR_BLACK, ICON_OVERLAY)
+		new_icon.SwapColor(COLOR_BLACK, null)
+		new_icon.Blend(icon, ICON_OVERLAY)
+	var/icon/blend_icon = new(src)
+	blend_icon.Opaque()
+	new_icon.Blend(blend_icon, ICON_SUBTRACT)
+	Blend(new_icon, ICON_OR)
 
-	// make this icon fully opaque--transparent pixels become black
-/icon/proc/Opaque(background = "#000000")
+/// make this icon fully opaque--transparent pixels become black
+/icon/proc/Opaque(background = COLOR_BLACK)
 	SwapColor(null, background)
 	MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,0, 0,0,0,1)
 
-	// Change a grayscale icon into a white icon where the original color becomes the alpha
-	// I.e., black -> transparent, gray -> translucent white, white -> solid white
+/// Change a grayscale icon into a white icon where the original color becomes the alpha
+/// I.e., black -> transparent, gray -> translucent white, white -> solid white
 /icon/proc/BecomeAlphaMask()
 	SwapColor(null, "#000000ff")	// don't let transparent become gray
 	MapColors(0,0,0,0.3, 0,0,0,0.59, 0,0,0,0.11, 0,0,0,0, 1,1,1,0)
@@ -291,10 +281,10 @@ world
 	AddAlphaMask(mask)
 
 /icon/proc/AddAlphaMask(mask)
-		var/icon/M = new(mask)
-		M.Blend("#ffffff", ICON_SUBTRACT)
-		// apply mask
-		Blend(M, ICON_ADD)
+	var/icon/mask_icon = new(mask)
+	mask_icon.Blend("#ffffff", ICON_SUBTRACT)
+	// apply mask
+	Blend(mask_icon, ICON_ADD)
 
 /*
 	HSV format is represented as "#hhhssvv" or "#hhhssvvaa"
@@ -572,18 +562,6 @@ world
 /proc/BlendRGBasHSV(rgb1, rgb2, amount)
 	return HSVtoRGB(RGBtoHSV(rgb1), RGBtoHSV(rgb2), amount)
 
-//Returns the perceived brightness of a color.
-//https://en.wikipedia.org/wiki/Relative_luminance
-//https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
-/proc/getLuminance(color)
-	var/list/RGB = ReadRGB(color)
-	var/R = RGB[1]
-	var/G = RGB[2]
-	var/B =	RGB[2]
-
-	var/Y = (0.2126 * R) + (0.7152 * G) + (0.0722 * B)
-	return clamp((Y * 0.01), 0, 1) //Returns the brightness of a color in decimal percentage format. Can multiply light_power by this to receive 100% brightness or a lower brightness. Not a higher brightness.
-
 /proc/HueToAngle(hue)
 	// normalize hsv in case anything is screwy
 	if(hue < 0 || hue >= 1536) hue %= 1536
@@ -599,7 +577,6 @@ world
 	// Decompress hue
 	hue += round(hue / 255)
 	return hue
-
 
 // positive angle rotates forward through red->green->blue
 /proc/RotateHue(hsv, angle)
@@ -639,7 +616,6 @@ world
 
 	if(gray <= tone_gray) return BlendRGB("#000000", tone, gray/(tone_gray || 1))
 	else return BlendRGB(tone, "#ffffff", (gray-tone_gray)/((255-tone_gray) || 1))
-
 
 /*
 Get flat icon by DarkCampainger. As it says on the tin, will return an icon with all the overlays
@@ -822,33 +798,6 @@ The _flatIcons list is a cache for generated icon files.
 
 	#undef PROCESS_OVERLAYS_OR_UNDERLAYS
 
-/proc/getIconMask(atom/A)//By yours truly. Creates a dynamic mask for a mob/whatever. /N
-	var/icon/alpha_mask = new(A.icon,A.icon_state)//So we want the default icon and icon state of A.
-	for(var/V in A.overlays)//For every image in overlays. var/image/I will not work, don't try it.
-		var/image/I = V
-		if(I.layer>A.layer)
-			continue//If layer is greater than what we need, skip it.
-		var/icon/image_overlay = new(I.icon,I.icon_state)//Blend only works with icon objects.
-		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
-		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
-	return alpha_mask//And now return the mask.
-
-/mob/proc/AddCamoOverlay(atom/A)//A is the atom which we are using as the overlay.
-	var/icon/opacity_icon = new(A.icon, A.icon_state)//Don't really care for overlays/underlays.
-	//Now we need to culculate overlays+underlays and add them together to form an image for a mask.
-	//var/icon/alpha_mask = getFlatIcon(src)//Accurate but SLOW. Not designed for running each tick. Could have other uses I guess.
-	var/icon/alpha_mask = getIconMask(src)//Which is why I created that proc. Also a little slow since it's blending a bunch of icons together but good enough.
-	opacity_icon.AddAlphaMask(alpha_mask)//Likely the main source of lag for this proc. Probably not designed to run each tick.
-	opacity_icon.ChangeOpacity(0.4)//Front end for MapColors so it's fast. 0.5 means half opacity and looks the best in my opinion.
-	for(var/i=0,i<5,i++)//And now we add it as overlays. It's faster than creating an icon and then merging it.
-		var/image/I = image("icon" = opacity_icon, "icon_state" = A.icon_state, "layer" = layer+0.8)//So it's above other stuff but below weapons and the like.
-		switch(i)//Now to determine offset so the result is somewhat blurred.
-			if(1)	I.pixel_x--
-			if(2)	I.pixel_x++
-			if(3)	I.pixel_y--
-			if(4)	I.pixel_y++
-		add_overlay(I)	//And finally add the overlay.
-
 /proc/getHologramIcon(icon/A, safety=1)//If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A)//Has to be a new icon to not constantly change the same icon.
 	var/icon/alpha_mask
@@ -861,42 +810,15 @@ The _flatIcons list is a cache for generated icon files.
 	flat_icon.AddAlphaMask(alpha_mask)//Finally, let's mix in a distortion effect.
 	return flat_icon
 
-//For photo camera.
-/proc/build_composite_icon(atom/A)
-	var/icon/composite = icon(A.icon, A.icon_state, A.dir, 1)
-	for(var/O in A.overlays)
-		var/image/I = O
-		composite.Blend(icon(I.icon, I.icon_state, I.dir, 1), ICON_OVERLAY)
-	return composite
-
 /proc/adjust_brightness(color, value)
 	if(!color) return "#FFFFFF"
 	if(!value) return color
 
 	var/list/RGB = ReadRGB(color)
-	RGB[1] = clamp(RGB[1]+value,0,255)
-	RGB[2] = clamp(RGB[2]+value,0,255)
-	RGB[3] = clamp(RGB[3]+value,0,255)
-	return rgb(RGB[1],RGB[2],RGB[3])
-
-/proc/sort_atoms_by_layer(list/atoms)
-	// Comb sort icons based on levels
-	var/list/result = atoms.Copy()
-	var/gap = result.len
-	var/swapped = 1
-	while(gap > 1 || swapped)
-		swapped = 0
-		if(gap > 1)
-			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
-		if(gap < 1)
-			gap = 1
-		for(var/i = 1; gap + i <= length(result); i++)
-			var/atom/l = result[i]		//Fucking hate
-			var/atom/r = result[gap+i]	//how lists work here
-			if(l.layer > r.layer)		//no "result[i].layer" for me
-				result.Swap(i, gap + i)
-				swapped = 1
-	return result
+	RGB[1] = clamp(RGB[1] + value, 0, 255)
+	RGB[2] = clamp(RGB[2] + value, 0, 255)
+	RGB[3] = clamp(RGB[3] + value, 0, 255)
+	return rgb(RGB[1], RGB[2], RGB[3])
 
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
@@ -910,28 +832,6 @@ The _flatIcons list is a cache for generated icon files.
 	for(var/i=0;i<6;i++)
 		color = color+pick(colors)
 	return "#[color]"
-
-//Dwarf fortress style icons based on letters (defaults to the first letter of the Atom's name)
-//By vg's ComicIronic
-/proc/getLetterImage(atom/A, letter= "", uppercase = 0)
-	if(!A)
-		return
-
-	var/icon/atom_icon = new(A.icon, A.icon_state)
-
-	if(!letter)
-		letter = A.name[1]
-		if(uppercase == 1)
-			letter = uppertext(letter)
-		else if(uppercase == -1)
-			letter = lowertext(letter)
-
-	var/image/text_image = new(loc = A)
-	text_image.maptext = MAPTEXT("<span style='font-size: 24pt'>[letter]</span>")
-	text_image.pixel_x = 7
-	text_image.pixel_y = 5
-	qdel(atom_icon)
-	return text_image
 
 //Imagine removing pixels from the main icon that are covered by pixels from the mask icon.
 //Standard behaviour is to cut pixels from the main icon that are covered by pixels from the mask icon unless passed mask_ready, see below.
@@ -948,10 +848,8 @@ The _flatIcons list is a cache for generated icon files.
 		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
 		return main
 
-
 /// Cache of the width and height of icon files, to avoid repeating the same expensive operation
 GLOBAL_LIST_EMPTY(icon_dimensions)
-
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
@@ -965,7 +863,6 @@ GLOBAL_LIST_EMPTY(icon_dimensions)
 		var/icon/my_icon = icon(icon_path)
 		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
 	return GLOB.icon_dimensions[icon_path]
-
 
 ///Flickers an overlay on an atom
 /atom/proc/flick_overlay_static(overlay_image, duration)
@@ -1021,9 +918,9 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	WRITE_FILE(dummySave["dummy"], icon)
 	var/iconData = dummySave.ExportText("dummy")
 	var/list/partial = splittext(iconData, "{")
-	return replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
+	return replacetext(copytext(partial[2], 3, -5), "\n", "")
 
-/proc/bicon(obj, use_class = 1)
+/proc/icon2base64html(obj, use_class = TRUE)
 	var/class = use_class ? "class='icon misc'" : null
 	if(!obj)
 		return
@@ -1031,7 +928,6 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(isicon(obj))
 		if(!GLOB.bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
 			GLOB.bicon_cache["\ref[obj]"] = icon2base64(obj)
-
 		return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache["\ref[obj]"]]'>"
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
@@ -1043,7 +939,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			var/icon/temp = I
 			I = icon()
 			I.Insert(temp, dir = SOUTH)
-		GLOB.bicon_cache[key] = icon2base64(I, key)
+		GLOB.bicon_cache[key] = icon2base64(I)
+
 	if(use_class)
 		class = "class='icon [A.icon_state]'"
 
@@ -1133,102 +1030,6 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		return icon_path
 
 	return FALSE
-
-/**
- * generate an asset for the given icon or the icon of the given appearance for [thing], and send it to any clients in target.
- * Arguments:
- * * thing - either a /icon object, or an object that has an appearance (atom, image, mutable_appearance).
- * * target - either a reference to or a list of references to /client's or mobs with clients
- * * icon_state - string to force a particular icon_state for the icon to be used
- * * dir - dir number to force a particular direction for the icon to be used
- * * frame - what frame of the icon_state's animation for the icon being used
- * * moving - whether or not to use a moving state for the given icon
- * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
- * * extra_classes - string of extra css classes to use when returning the icon string
- *
- * You may also call is icon2html
- */
-/proc/icon2asset(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null)
-	if(!thing)
-		return
-
-	var/key
-	var/icon/icon2collapse = thing
-	if(!target)
-		return
-	if(target == world)
-		target = GLOB.clients
-	var/list/targets
-	if(!islist(target))
-		targets = list(target)
-	else
-		targets = target
-	if(!length(targets))
-		return
-
-	// Check if the given object is associated with a dmi file in the icons folder. if it is then we dont need to do a lot of work
-	// For asset generation to get around byond limitations
-	var/icon_path = get_icon_dmi_path(thing)
-
-	if(!isicon(icon2collapse))
-		if(isfile(thing)) //special snowflake
-			var/name = SANITIZE_FILENAME("[GENERATE_ASSET_NAME(thing)].png")
-			if(!SSassets.cache[name])
-				SSassets.transport.register_asset(name, thing)
-			for(var/thing2 in targets)
-				SSassets.transport.send_assets(thing2, name)
-			if(sourceonly)
-				return SSassets.transport.get_asset_url(name)
-			return "<img class='icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
-
-		// Its either an atom, image, or mutable_appearance, we want its icon var
-		icon2collapse = thing.icon
-		if(isnull(icon_state))
-			icon_state = thing.icon_state
-			// Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
-			if(isnull(icon_state) || (isatom(thing)))
-				icon_state = initial(thing.icon_state)
-				if(isnull(dir))
-					dir = initial(thing.dir)
-
-		if(isnull(dir))
-			dir = thing.dir
-
-		if(ishuman(thing)) // Shitty workaround for a BYOND issue.
-			var/icon/temp = icon2collapse
-			icon2collapse = icon()
-			icon2collapse.Insert(temp, dir = SOUTH)
-			dir = SOUTH
-
-	else
-		if(isnull(dir))
-			dir = SOUTH
-		if(isnull(icon_state))
-			icon_state = ""
-
-	icon2collapse = icon(icon2collapse, icon_state, dir, frame, moving)
-
-	var/list/name_and_ref = generate_and_hash_rsc_file(icon2collapse, icon_path) // Pretend that tuples exist
-
-	var/rsc_ref = name_and_ref[1] // Weird object thats not even readable to the debugger, represents a reference to the icons rsc entry
-	var/file_hash = name_and_ref[2]
-	key = "[name_and_ref[3]].png"
-	if(!SSassets.cache[key])
-		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
-	for(var/client_target in targets)
-		SSassets.transport.send_assets(client_target, key)
-	return key
-
-/// Costlier version of icon2asset() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
-/proc/costly_icon2asset(thing, target, sourceonly = FALSE)
-	if(!thing)
-		return
-
-	if(isicon(thing))
-		return icon2asset(thing, target)
-
-	var/icon/I = getFlatIcon(thing)
-	return icon2asset(I, target)
 
 /// Generate a filename for this asset
 /// The same asset will always lead to the same asset name
@@ -1330,6 +1131,17 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		return SSassets.transport.get_asset_url(key)
 	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
 
+//Costlier version of icon2html() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
+/proc/costly_icon2html(thing, target, sourceonly = FALSE)
+	if(!thing)
+		return
+
+	if(isicon(thing))
+		return icon2html(thing, target)
+
+	var/icon/flat_icon = getFlatIcon(thing)
+	return icon2html(flat_icon, target, sourceonly = sourceonly)
+
 #define CACHED_WIDTH_INDEX "width"
 #define CACHED_HEIGHT_INDEX "height"
 
@@ -1356,7 +1168,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
  * The y dimension of the icon file used in the image
  * eg: center_image(image_to_center, 32,32)
  * eg2: center_image(image_to_center, 96,96)
-**/
+ */
 /proc/center_image(image/image_to_center, x_dimension = 0, y_dimension = 0)
 	if(!image_to_center)
 		return
@@ -1409,3 +1221,38 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	alert_overlay.transform = alert_overlay.transform.Scale(scale)
 
 	return alert_overlay
+
+/// Perform a shake on an atom, resets its position afterwards
+/atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
+	var/initialpixelx = pixel_x
+	var/initialpixely = pixel_y
+	var/shiftx = rand(-pixelshiftx,pixelshiftx)
+	var/shifty = rand(-pixelshifty,pixelshifty)
+	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
+	pixel_x = initialpixelx
+	pixel_y = initialpixely
+
+/// Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
+/proc/pixel_shift_dir(dir, amount_x = 32, amount_y = 32)
+	amount_x = min(max(0, amount_x), 32) //No less than 0, no greater than 32.
+	amount_y = min(max(0, amount_x), 32)
+	var/list/shift = list("x" = 0, "y" = 0)
+	switch(dir)
+		if(NORTH)
+			shift["y"] = amount_y
+		if(SOUTH)
+			shift["y"] = -amount_y
+		if(EAST)
+			shift["x"] = amount_x
+		if(WEST)
+			shift["x"] = -amount_x
+		if(NORTHEAST)
+			shift = list("x" = amount_x, "y" = amount_y)
+		if(NORTHWEST)
+			shift = list("x" = -amount_x, "y" = amount_y)
+		if(SOUTHEAST)
+			shift = list("x" = amount_x, "y" = -amount_y)
+		if(SOUTHWEST)
+			shift = list("x" = -amount_x, "y" = -amount_y)
+
+	return shift

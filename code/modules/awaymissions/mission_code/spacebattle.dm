@@ -232,14 +232,12 @@
 	var/faction = null
 	var/safety_z_check = TRUE
 
-
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -263,13 +261,12 @@
 			triggered = TRUE
 	qdel(src)
 
-
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
 	icon = 'icons/obj/spacebattle.dmi'
+	icon_state = null
 	var/id = null
 	var/syndi_mob = null
-
 
 /mob/living/proc/spawn_alert(atom/A) // Вызывает появление восклицательного знака над головой при наступании на маркер
 	var/image/I
@@ -281,7 +278,6 @@
 	flick_overlay(I,viewing,8)
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
-
 
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee
 	name = "melee"
@@ -412,7 +408,6 @@
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange, SynSpace)
 	return .
 
-
 /mob/living/simple_animal/hostile/malf_drone/spacebattle
 	icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 	icon_state = "wisewill-Combat-roll"
@@ -491,7 +486,6 @@
 			K.name = "Corrupted drone morality core"
 			K.origin_tech = "syndicate=[rand(1,3)]"
 
-
 /mob/living/simple_animal/hostile/malf_drone/spacebattle/update_icons()
 	if(passive_mode)
 		icon_state = "wisewill-Combat"
@@ -503,7 +497,6 @@
 		icon_state = "wisewill-Combat"
 
 // Corpse and loot
-
 /obj/effect/mob_spawn/human/corpse/spacebattle
 	var/list/pocketloot = list(/obj/item/storage/fancy/cigarettes/cigpack_robust,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift,
@@ -558,7 +551,6 @@
 	uniform = /obj/item/clothing/under/color/random
 	shoes = /obj/item/clothing/shoes/black
 
-
 /obj/effect/mob_spawn/human/corpse/spacebattle/security
 	name = "Dead Officer"
 	mob_name = "Ship Officer"
@@ -578,20 +570,20 @@
 			suit_store = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
-				/obj/item/ammo_box/magazine/enforcer/lethal = 1
-				)
+				/obj/item/ammo_box/magazine/enforcer/lethal = 1,
+			)
 		if(8 to 9) //20%
 			suit_store = /obj/item/gun/projectile/automatic/wt550
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
-				/obj/item/ammo_box/magazine/wt550m9 = 1
-				)
+				/obj/item/ammo_box/magazine/wt550m9 = 1,
+			)
 		if(10) //10%
 			suit_store = /obj/item/gun/projectile/shotgun/riot/buckshot
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
-				/obj/item/ammo_box/shotgun/buck = 1
-				)
+				/obj/item/ammo_box/shotgun/buck = 1,
+			)
 	return ..()
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer
@@ -618,24 +610,24 @@
 	switch(engstaff)
 		if(1)
 			backpack_contents = list(
-			/obj/item/clothing/head/welding = 1,
-			/obj/item/weldingtool/largetank = 1,
-			/obj/item/stack/sheet/metal{amount = 10} = 1,
-			/obj/item/stack/rods{amount = 3} = 1
+				/obj/item/clothing/head/welding = 1,
+				/obj/item/weldingtool/largetank = 1,
+				/obj/item/stack/sheet/metal{amount = 10} = 1,
+				/obj/item/stack/rods{amount = 3} = 1,
 			)
 		if(2)
 			backpack_contents = list(
-			/obj/item/apc_electronics = 1,
-			/obj/item/stock_parts/cell/high = 1,
-			/obj/item/t_scanner = 1,
-			/obj/item/stack/cable_coil{amount = 7} = 1
+				/obj/item/apc_electronics = 1,
+				/obj/item/stock_parts/cell/high = 1,
+				/obj/item/t_scanner = 1,
+				/obj/item/stack/cable_coil{amount = 7} = 1,
 			)
 		if(3)
 			backpack_contents = list(
-			/obj/item/storage/briefcase/inflatable = 1,
-			/obj/item/stack/sheet/glass{amount = 5} = 1,
-			/obj/item/grenade/gas/oxygen = 1,
-			/obj/item/analyzer = 1
+				/obj/item/storage/briefcase/inflatable = 1,
+				/obj/item/stack/sheet/glass{amount = 5} = 1,
+				/obj/item/grenade/gas/oxygen = 1,
+				/obj/item/analyzer = 1,
 			)
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer/space
@@ -662,7 +654,7 @@
 		/obj/item/storage/pill_bottle/random_drug_bottle = 1,
 		/obj/item/reagent_containers/glass/bottle/random_reagent = 1,
 		/obj/item/reagent_containers/glass/bottle/random_chem = 1,
-		)
+	)
 	return ..()
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer
@@ -682,8 +674,8 @@
 		/obj/item/reagent_containers/food/pill/patch/silver_sulf/small = 1,
 		/obj/item/reagent_containers/food/pill/patch/styptic/small = 1,
 		/obj/item/stock_parts/cell/high = 1,
-		/obj/item/ammo_box/shotgun/buck = 1
-		)
+		/obj/item/ammo_box/shotgun/buck = 1,
+	)
 	return ..()
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/scientist
@@ -694,7 +686,6 @@
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 
-
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
@@ -704,16 +695,13 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	icon_state = "hardsuit1-syndi"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	on = TRUE
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/update_icon_state()
 	return
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/adjust_headgear(mob/living/carbon/human/user, toggle = FALSE)
 	if(user)
@@ -721,4 +709,3 @@
 		playsound(user, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
 	..()
-

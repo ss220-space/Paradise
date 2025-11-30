@@ -7,7 +7,6 @@
 	origin_tech = "materials=2"
 	var/darts = 5
 
-
 /obj/item/dart_cartridge/update_icon_state()
 	if(!darts)
 		icon_state = "darts-0"
@@ -16,11 +15,10 @@
 	else
 		icon_state = "darts-[darts]"
 
-
 /obj/item/gun/dartgun
 	name = "dart gun"
 	desc = "A small gas-powered dartgun, capable of delivering chemical cocktails swiftly across short distances."
-	icon_state = "dartgun-empty"
+	icon_state = "dartgun-e"
 
 	var/list/beakers = list() //All containers inside the gun.
 	var/list/mixing = list() //Containers being used for mixing.
@@ -29,7 +27,6 @@
 	var/dart_reagent_amount = 15
 	var/containers_type = /obj/item/reagent_containers/glass/beaker
 	var/list/starting_chems = null
-
 
 /obj/item/gun/dartgun/update_icon_state()
 	if(!cartridge)
@@ -43,7 +40,6 @@
 	else
 		icon_state = "dartgun-[cartridge.darts]"
 
-
 /obj/item/gun/dartgun/Initialize(mapload)
 	. = ..()
 
@@ -55,7 +51,6 @@
 	cartridge = new /obj/item/dart_cartridge(src)
 	update_icon()
 
-
 /obj/item/gun/dartgun/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
@@ -65,7 +60,6 @@
 				if(B.reagents && length(B.reagents.reagent_list))
 					for(var/datum/reagent/R in B.reagents.reagent_list)
 						. += span_notice("[R.volume] units of [R.name]")
-
 
 /obj/item/gun/dartgun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dart_cartridge))
@@ -106,7 +100,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/dartgun/can_shoot(mob/user)
 	if(!cartridge)
@@ -278,11 +271,9 @@
 	else
 		to_chat(usr, span_warning("[src] is empty."))
 
-
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
-	icon_state = "dartgun-e"
 
 /obj/item/gun/dartgun/vox/medical
 	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")
@@ -294,7 +285,7 @@
 	name = ""
 	desc = ""
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
+	icon_state = null
 
 /obj/effect/syringe_gun_dummy/Initialize(mapload)
 	. = ..()

@@ -20,7 +20,6 @@
  * * * Either world.time or stoppable timer cooldowns, depending on the other factors. Regular timer cooldowns do not support this.
 */
 
-
 /*
  * Cooldown system based on an datum-level associative lazylist using timers.
 */
@@ -90,7 +89,6 @@
 #define S_TIMER_COOLDOWN_RESET(cd_source, cd_index) reset_cooldown(cd_source, cd_index)
 
 #define S_TIMER_COOLDOWN_TIMELEFT(cd_source, cd_index) (timeleft(TIMER_COOLDOWN_RUNNING(cd_source, cd_index)))
-
 
 /*
  * Cooldown system based on storing world.time on a variable, plus the cooldown time.

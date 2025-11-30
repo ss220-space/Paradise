@@ -17,7 +17,7 @@
 		DATIVE = "самодельной взрывчатке",
 		ACCUSATIVE = "самодельную взрывчатку",
 		INSTRUMENTAL = "самодельной взрывчаткой",
-		PREPOSITIONAL = "самодельной взрывчатке"
+		PREPOSITIONAL = "самодельной взрывчатке",
 	)
 
 /obj/item/grenade/iedcasing/New()
@@ -40,11 +40,8 @@
 		can_underlay.plane = FLOAT_PLANE
 		underlays += can_underlay
 
-
 /obj/item/grenade/iedcasing/update_overlays()
 	. = ..()
-
-
 
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
@@ -90,7 +87,6 @@
 	if(burned_out)
 		. += span_notice("Looks like wick has burned out")
 
-
 /obj/item/grenade/iedsatchel/update_icon_state()
 	if(active)
 		icon_state = "[initial(icon_state)]_active"
@@ -100,11 +96,10 @@
 		return
 	icon_state = initial(icon_state)
 
-
 /obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity, params)
 	if(!proximity)
 		return
-	if(!iswallturf(T) && !istype(T, /obj/machinery/door/airlock))
+	if(!iswallturf(T) && !is_airlock(T))
 		return
 	to_chat(user, span_notice("You start planting the [src]."))
 
@@ -134,7 +129,6 @@
 		return
 	to_chat(user, span_notice("You tickled a makeshift wick made of wires, it looks like it needs to be set on fire."))
 
-
 /obj/item/grenade/iedsatchel/wirecutter_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return FALSE
@@ -148,7 +142,6 @@
 	set_anchored(FALSE)
 	target = null
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/grenade/iedsatchel/attackby(obj/item/I, mob/user, params)
 	if(active)
@@ -172,7 +165,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/grenade/iedsatchel/proc/trigger(mob/user)
 	if(burned_out)
@@ -203,7 +195,7 @@
 	update_mob()
 	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src)
 	if(target)
-		if(istype(target, /obj/machinery/door/airlock))
+		if(is_airlock(target))
 			var/obj/machinery/door/airlock/T = target
 			if((T.obj_integrity - 300) <= 0)
 				qdel(T)

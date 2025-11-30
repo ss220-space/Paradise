@@ -1,6 +1,7 @@
 //temporary visual effects(/obj/effect/temp_visual) used by cult stuff
 /obj/effect/temp_visual/cult
 	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = null
 	randomdir = FALSE
 
 /obj/effect/temp_visual/cult/sparks
@@ -46,10 +47,8 @@
 	invisibility = INVISIBILITY_RUNES
 	var/from_lava = FALSE
 
-
 /obj/effect/temp_visual/cult/portal/update_icon_state()
 	icon_state = from_lava ? "lava" : "space"
-
 
 /obj/effect/temp_visual/emp/cult
 	name = "cult emp sparks"

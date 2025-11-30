@@ -16,7 +16,6 @@
 	var/silent = FALSE
 	var/locked = TRUE
 
-
 /obj/item/mortar_shell/proc/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	var/old_loc = loc
 	forceMove(detonate_turf)
@@ -54,7 +53,6 @@
 		return
 	handle_fire()
 	return ..()
-
 
 /obj/item/mortar_shell/he
 	name = "80mm high explosive mortar shell"
@@ -187,7 +185,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()
 
-
 /obj/item/mortar_shell/custom/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) && !locked)
 		if(!warhead)
@@ -260,18 +257,15 @@
 	addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
 	QDEL_IN(src, 5.5 SECONDS)
 
-
 /obj/item/mortar_shell/proc/explode()
 	if(!prob(50))
 		detonate(get_turf(src), explosion_detonate = FALSE)
 	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 3, light_impact_range = 5)
 
-
 /obj/effect/warning
 	name = "warning"
 	icon = 'icons/effects/alert.dmi'
-	icon_state = "alert_greyscale"
-
+	icon_state = "red" // "alert_greyscale"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_OBJ_LAYER
 

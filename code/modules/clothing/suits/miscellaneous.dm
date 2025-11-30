@@ -27,8 +27,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armour"
@@ -48,8 +48,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /*
  * Costume
@@ -67,8 +67,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/pirate_black
 	name = "black pirate coat"
@@ -83,8 +83,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/hgpirate
 	name = "pirate captain coat"
@@ -93,7 +93,6 @@
 	item_state = "hgpirate"
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/cyborg_suit
 	name = "cyborg suit"
@@ -106,13 +105,11 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	undyeable = TRUE
 
-
 /obj/item/clothing/suit/greatcoat
 	name = "great coat"
 	desc = "A Nazi great coat."
 	icon_state = "nazi"
 	item_state = "nazi"
-
 
 /obj/item/clothing/suit/johnny_coat
 	name = "johnny~~ coat"
@@ -120,14 +117,12 @@
 	icon_state = "johnny"
 	item_state = "johnny"
 
-
 /obj/item/clothing/suit/justice
 	name = "justice suit"
 	desc = "this pretty much looks ridiculous"
 	icon_state = "justice"
 	item_state = "justice"
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/judgerobe
 	name = "judge's robe"
@@ -137,7 +132,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/storage/fancy/cigarettes,/obj/item/stack/spacecash)
 	flags_inv = HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/wcoat
 	name = "waistcoat"
@@ -154,8 +148,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/apron/overalls
 	name = "coveralls"
@@ -163,7 +157,6 @@
 	icon_state = "overalls"
 	item_state = "overalls"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
-
 
 /obj/item/clothing/suit/syndicatefake
 	name = "black and red space suit replica"
@@ -176,7 +169,6 @@
 	resistance_flags = NONE
 	undyeable = TRUE
 
-
 /obj/item/clothing/suit/hastur
 	name = "Hastur's robes"
 	desc = "Robes not meant to be worn by man."
@@ -184,7 +176,6 @@
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/imperium_monk
 	name = "imperium monk"
@@ -207,8 +198,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/corgisuit
 	name = "corgi suit"
@@ -223,11 +214,9 @@
 	name = "super-hero corgi suit"
 	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."
 
-
 /obj/item/clothing/suit/corgisuit/super_hero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
 	name = "super-hero E-N suit"
@@ -261,7 +250,6 @@
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
-
 /obj/item/clothing/suit/holidaypriest
 	name = "holiday priest"
 	desc = "This is a nice holiday my son."
@@ -281,18 +269,15 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/back
 
-
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		disguise(user)
 
-
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.remove_alt_appearance("standard_borg_disguise")
-
 
 /obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
 	if(istype(H))
@@ -302,7 +287,7 @@
 			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
 			I.override = 1
 			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
-			H.add_alt_appearance("standard_borg_disguise", I, GLOB.silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
+			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "standard_borg_disguise", I) //you look like a robot to robots! (including yourself because you're totally a robot)
 
 /obj/item/clothing/suit/snowman
 	name = "snowman outfit"
@@ -327,8 +312,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/head/hooded/carp_hood
 	name = "carp hood"
@@ -379,8 +364,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/draculacoat // Bleh!
 	name = "transylvanian coat"
@@ -410,8 +395,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
@@ -428,8 +413,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
@@ -607,8 +592,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/head/hooded/hood
 	name = "black hood"
@@ -624,8 +609,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 /obj/item/clothing/head/hooded/hood/blue
 	icon_state = "bluehood"
@@ -680,8 +665,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
@@ -696,10 +681,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
-
-
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //pyjamas
 //originally intended to be pinstripes >.>
@@ -726,18 +709,6 @@
 	resistance_flags = FIRE_PROOF
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
-/obj/item/clothing/suit/browncoat
-	name = "brown leather coat"
-	desc = "A long, brown leather coat."
-	icon_state = "browncoat"
-	item_state = "browncoat"
-
-/obj/item/clothing/suit/neocoat
-	name = "black coat"
-	desc = "A flowing, black coat."
-	icon_state = "neocoat"
-	item_state = "neocoat"
-
 /obj/item/clothing/suit/storage/browntrenchcoat
 	name = "brown trench coat"
 	desc = "It makes you stand out. Just the opposite of why it's typically worn. Nice try trying to blend in while wearing it."
@@ -751,8 +722,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/blacktrenchcoat
 	name = "black trench coat"
@@ -766,8 +737,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 	armor = list(melee = 5, bullet = 5, laser = 10, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 10, acid = 10)
 
 /obj/item/clothing/suit/storage/leather_trenchcoat/runner
@@ -784,8 +755,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //trackjackets
 
@@ -806,8 +777,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/tracksuit/green
 	name = "green tracksuit"
@@ -822,12 +793,6 @@
 	icon_state = "trackjacketwhite_open"
 
 //actual suits
-
-/obj/item/clothing/suit/creamsuit
-	name = "cream suit"
-	desc = "A cream coloured, genteel suit."
-	icon_state = "creamsuit"
-	item_state = "creamsuit"
 
 /obj/item/clothing/under/stripper/mankini
 	name = "the mankini"
@@ -872,8 +837,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 //swimsuit
 /obj/item/clothing/under/swimsuit/
@@ -931,7 +896,6 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
 
-
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
 	desc = "Aviators not included."
@@ -953,8 +917,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/jacket/pilot
 	name = "security bomber jacket"
@@ -998,8 +962,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
 /obj/item/clothing/suit/jacket/leather/overcoat
@@ -1026,8 +990,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/soldiercoat
 	name = "Clown Soldier's Coat"
@@ -1046,8 +1010,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/sovietcoat
 	name = "Soviet greatcoat"
@@ -1084,10 +1048,10 @@
 /obj/item/clothing/suit/fluff/noble_coat
 	name = "noble coat"
 	desc = "The livid blues, purples and greens are awesome enough to evoke a visceral response in you; it is not dissimilar to indigestion."
+	icon = 'icons/obj/clothing/suits.dmi'
 	icon_state = "noble_coat"
 	item_state = "noble_coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-
 
 ///Advanced Protective Suit, AKA, God Mode in wearable form.
 
@@ -1127,7 +1091,6 @@
 		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 		to_chat(usr, "You turn the suit's special processes on.")
 		START_PROCESSING(SSobj, src)
-
 
 /obj/item/clothing/suit/advanced_protective_suit/IsReflect()
 	return (on)
@@ -1259,8 +1222,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/head/hooded/hijab
 	name = "hijab hood"
@@ -1281,8 +1244,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 // Suragi start
 // Suragi parent
@@ -1426,9 +1389,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
-
 
 /obj/item/clothing/suit/hoodie
 	sprite_sheets = list(
@@ -1439,8 +1401,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/hoodie/plaidhoodie_green
 	name = "green plaid hoodie"
@@ -1488,7 +1450,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-
 /obj/item/clothing/suit/towel
 	name = "towel"
 	desc = "A soft cotton towel."
@@ -1508,21 +1469,18 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
-
 
 /obj/item/clothing/suit/towel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-
 
 /obj/item/clothing/suit/towel/attack_self(mob/living/carbon/user)
 	if(!istype(user) || !user.wetlevel)
 		return ..()
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
-
 
 /obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity, params)
 	. = ..()
@@ -1531,7 +1489,6 @@
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), target, user)
-
 
 /obj/item/clothing/suit/towel/proc/wipe_dry(mob/living/carbon/target, mob/user)
 	user.visible_message(span_warning("[user] begins to wipe [target == user ? target.p_themselves() : target] with [src]."))
@@ -1545,11 +1502,10 @@
 	target.wetlevel = 0
 	to_chat(user, span_notice("You wiped [target == user ? "yourself" : target] dry."))
 
-
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL
@@ -1559,12 +1515,9 @@
 	to_chat(user, span_notice("You tear [src] up."))
 	qdel(src)
 
-
-
 /obj/item/clothing/suit/towel/alt
 	icon_state = "towel_long_alt"
 	item_state = "towel_alt"
-
 
 /obj/item/clothing/suit/towel/alt/equipped(mob/user, slot, initial)
 	. = ..()
@@ -1575,7 +1528,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	user.wear_suit_update(src)
 
-
 /obj/item/clothing/suit/towel/alt/update_icon_state()
 	if(ishumanbasic(loc))
 		var/mob/living/carbon/human/user = loc
@@ -1583,13 +1535,11 @@
 
 	icon_state = "[initial(icon_state)][. ? "_woman" : null]"
 
-
 /obj/item/clothing/suit/towel/short
 	icon_state = "towel"
 	drop_amount = 2
 	slot_flags = ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD
 	body_parts_covered = LOWER_TORSO
-
 
 /obj/item/clothing/suit/towel/short/equipped(mob/user, slot, initial)
 	. = ..()
@@ -1598,7 +1548,6 @@
 
 	if(slot & (ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD))
 		update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/suit/towel/short/update_icon_state()
 	if(!isliving(loc))
@@ -1624,8 +1573,8 @@
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/get_ru_names()
 	return list(
@@ -1634,7 +1583,7 @@
 		DATIVE = "чёрному балахону",
 		ACCUSATIVE = "чёрный балахон",
 		INSTRUMENTAL = "чёрным балахоном",
-		PREPOSITIONAL = "чёрном балахоне"
+		PREPOSITIONAL = "чёрном балахоне",
 	)
 
 /obj/item/clothing/suit/hooded/update_icon_state()
@@ -1649,8 +1598,8 @@
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/head/hooded/ghostface/get_ru_names()
 	return list(
@@ -1659,7 +1608,7 @@
 		DATIVE = "чёрному капюшону",
 		ACCUSATIVE = "чёрный капюшон",
 		INSTRUMENTAL = "чёрным капюшоном",
-		PREPOSITIONAL = "чёрном капюшоне"
+		PREPOSITIONAL = "чёрном капюшоне",
 	)
 
 /obj/item/clothing/head/hooded/ghostface/true
@@ -1677,9 +1626,8 @@
 		DATIVE = "кроваво-чёрному балахону",
 		ACCUSATIVE = "кроваво-чёрный балахон",
 		INSTRUMENTAL = "кроваво-чёрным балахоном",
-		PREPOSITIONAL = "кроваво-чёрном балахоне"
+		PREPOSITIONAL = "кроваво-чёрном балахоне",
 	)
-
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/true
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
@@ -1702,8 +1650,8 @@
 		SPECIES_DRACONOID,
 		SPECIES_VOX,
 		SPECIES_VULPKANIN,
-		SPECIES_WRYN
-		)
+		SPECIES_WRYN,
+	)
 	hoodtype = /obj/item/clothing/head/hooded/penguin_hood
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -1711,7 +1659,7 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		)
+	)
 
 /obj/item/clothing/suit/hooded/penguin_costume/get_ru_names()
 	return list(
@@ -1720,7 +1668,7 @@
 		DATIVE = "костюму пингвина",
 		ACCUSATIVE = "костюм пингвина",
 		INSTRUMENTAL = "костюмом пингвина",
-		PREPOSITIONAL = "костюме пингвина"
+		PREPOSITIONAL = "костюме пингвина",
 	)
 
 /obj/item/clothing/head/hooded/penguin_hood
@@ -1734,8 +1682,8 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi'
-		)
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi',
+	)
 
 /obj/item/clothing/head/hooded/penguin_hood/get_ru_names()
 	return list(
@@ -1744,9 +1692,8 @@
 		DATIVE = "капюшону костюма пингвина",
 		ACCUSATIVE = "капюшон костюма пингвина",
 		INSTRUMENTAL = "капюшоном костюмома пингвина",
-		PREPOSITIONAL = "капюшоне костюма пингвина"
+		PREPOSITIONAL = "капюшоне костюма пингвина",
 	)
-
 
 /obj/item/clothing/suit/storage/bomber
 	name = "bomber"
@@ -1763,7 +1710,6 @@
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 
-
 /obj/item/clothing/suit/storage/bomber/get_ru_names()
 	return list(
 		NOMINATIVE = "толстовка",
@@ -1771,7 +1717,7 @@
 		DATIVE = "толстовке",
 		ACCUSATIVE = "толстовку",
 		INSTRUMENTAL = "толстовкой",
-		PREPOSITIONAL = "толстовке"
+		PREPOSITIONAL = "толстовке",
 	)
 
 /obj/item/clothing/suit/storage/zazalord
@@ -1787,7 +1733,7 @@
 		DATIVE = "заза-лорд бомберу",
 		ACCUSATIVE = "заза-лорд бомбера",
 		INSTRUMENTAL = "заза-лорд бомбером",
-		PREPOSITIONAL = "заза-лорд бомбере"
+		PREPOSITIONAL = "заза-лорд бомбере",
 	)
 
 /obj/item/clothing/under/chad
@@ -1806,5 +1752,5 @@
 		DATIVE = "костюму Гигачада",
 		ACCUSATIVE = "костюм Гигачада",
 		INSTRUMENTAL = "костюмом Гигачада",
-		PREPOSITIONAL = "костюме Гигачада"
+		PREPOSITIONAL = "костюме Гигачада",
 	)

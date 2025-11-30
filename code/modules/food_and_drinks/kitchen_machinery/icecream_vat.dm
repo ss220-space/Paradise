@@ -12,7 +12,6 @@
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/useramount = 15	//Last used amount
 
-
 /obj/machinery/icemachine/proc/generate_name(reagent_name)
 	var/name_prefix = pick("Mr.","Mrs.","Super","Happy","Whippy")
 	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ")
@@ -22,11 +21,9 @@
 	cone_name += "[reagent_name]"
 	return cone_name
 
-
 /obj/machinery/icemachine/Initialize(mapload)
 	. = ..()
 	create_reagents(500)
-
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -59,7 +56,6 @@
 
 	return ..()
 
-
 /obj/machinery/icemachine/proc/validexchange(reag)
 	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "water")
 		return 1
@@ -68,7 +64,6 @@
 			to_chat(usr, span_notice("[src] vibrates for a moment, apparently accepting the unknown liquid."))
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 		return 1
-
 
 /obj/machinery/icemachine/Topic(href, href_list)
 	if(..()) return
@@ -184,10 +179,8 @@
 		C.update_icon()
 	updateUsrDialog()
 
-
 /obj/machinery/icemachine/attack_ai(mob/user)
 	return attack_hand(user)
-
 
 /obj/machinery/icemachine/proc/show_toppings()
 	var/dat = ""
@@ -204,7 +197,6 @@
 		dat += "<a href='byond://?src=[UID()];createcone=1'>Cone</a><br>"
 	dat += "</center>"
 	return dat
-
 
 /obj/machinery/icemachine/proc/show_reagents(container)
 	//1 = beaker / 2 = internal
@@ -233,7 +225,6 @@
 	else
 		dat += "<br>SOMEONE ENTERED AN INVALID REAGENT CONTAINER; QUICK, BUG REPORT!<br>"
 	return dat
-
 
 /obj/machinery/icemachine/attack_hand(mob/user)
 	if(..()) return

@@ -35,7 +35,7 @@
 		return
 
 	infesting = TRUE
-	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
+	to_chat(user, "Вы подползаете к [target] и начинаете искать [GEND_HIS_HER(target)] слуховой проход...")
 
 	if(!do_after(user, cast_time, target, NONE))
 		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
@@ -97,7 +97,7 @@
 		to_chat(user, span_warning("Вы не можете позволить себе сделать это с тем, кто уже заражён.."))
 		return
 
-	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [genderize_ru(target.gender,"его","её","его","их" )] конечности волной первородного ужаса!"))
+	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [GEND_HIS_HER(target)] конечности волной первородного ужаса!"))
 	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
 	target.Weaken(weaken_time)
 

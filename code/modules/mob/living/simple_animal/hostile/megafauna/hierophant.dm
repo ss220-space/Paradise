@@ -36,7 +36,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
-	desc = "Массивный металлический клуб, зависающий в воздухе будто в ожидании. Он заставит вас танцевать под свой ритм."
+	desc = "Массивный металлический посох, зависающий в воздухе будто в ожидании. Он заставит вас танцевать под свой ритм."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "качает"
@@ -58,8 +58,9 @@ Difficulty: Hard
 	loot = list(/obj/item/hierophant_club, /obj/item/gem/purple)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman, /obj/item/gem/purple)
 	wander = FALSE
-	medal_type = BOSS_MEDAL_HIEROPHANT
-	score_type = HIEROPHANT_SCORE
+	achievement_type = /datum/award/achievement/boss/hierophant_kill
+	crusher_achievement_type = /datum/award/achievement/boss/hierophant_crusher
+	score_achievement_type = /datum/award/score/hierophant_score
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
@@ -68,7 +69,7 @@ Difficulty: Hard
 		/datum/action/innate/megafauna_attack/blink,
 		/datum/action/innate/megafauna_attack/chaser_swarm,
 		/datum/action/innate/megafauna_attack/cross_blasts,
-		/datum/action/innate/megafauna_attack/blink_spam
+		/datum/action/innate/megafauna_attack/blink_spam,
 	)
 
 	var/burst_range = 3 //range on burst aoe
@@ -94,7 +95,7 @@ Difficulty: Hard
 		DATIVE = "Иерофанту",
 		ACCUSATIVE = "Иерофанта",
 		INSTRUMENTAL = "Иерофантом",
-		PREPOSITIONAL = "Иерофанте"
+		PREPOSITIONAL = "Иерофанте",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
@@ -106,28 +107,28 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Прыжок к цели"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("Вы мгновенно переместитесь к цели.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/chaser_swarm
 	name = "Рой преследователей"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "hierophant_squares_indefinite"
 	chosen_message = span_colossus("Вы выпустите рой энергетических преследователей в цель.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/cross_blasts
 	name = "Перекрёстные взрывы"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "hierophant_blast_indefinite"
 	chosen_message = span_colossus("Вы атакуете цель перекрёстными взрывами.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blink_spam
 	name = "Преследующий прыжок"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "hierophant_club_ready_beacon"
 	chosen_message = span_colossus("Вы многократно телепортируетесь к цели.")
 	chosen_attack_num = 4
@@ -281,7 +282,6 @@ Difficulty: Hard
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
-
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
@@ -576,7 +576,7 @@ Difficulty: Hard
 		DATIVE = "энергии вортекса",
 		ACCUSATIVE = "энергию вортекса",
 		INSTRUMENTAL = "энергией вортекса",
-		PREPOSITIONAL = "энергии вортекса"
+		PREPOSITIONAL = "энергии вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/Initialize(mapload, new_caster)
@@ -614,7 +614,7 @@ Difficulty: Hard
 		DATIVE = "стене вортекса",
 		ACCUSATIVE = "стену вортекса",
 		INSTRUMENTAL = "стеной вортекса",
-		PREPOSITIONAL = "стене вортекса"
+		PREPOSITIONAL = "стене вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
@@ -625,7 +625,6 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/wall/Destroy()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
-
 
 /obj/effect/temp_visual/hierophant/wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -641,7 +640,6 @@ Difficulty: Hard
 			return .
 	if(mover != caster)
 		return FALSE
-
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98
@@ -748,7 +746,7 @@ Difficulty: Hard
 		DATIVE = "взрыву вортекса",
 		ACCUSATIVE = "взрыв вортекса",
 		INSTRUMENTAL = "взрывом вортекса",
-		PREPOSITIONAL = "взрыве вортекса"
+		PREPOSITIONAL = "взрыве вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
@@ -765,7 +763,6 @@ Difficulty: Hard
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -777,13 +774,11 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-
 /obj/effect/temp_visual/hierophant/blast/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(bursting)
 		INVOKE_ASYNC(src, PROC_REF(do_damage), get_turf(src))
-
 
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	if(!damage)
@@ -836,30 +831,27 @@ Difficulty: Hard
 		DATIVE = "маяку иерофанта",
 		ACCUSATIVE = "маяк иерофанта",
 		INSTRUMENTAL = "маяком иерофанта",
-		PREPOSITIONAL = "маяке иерофанта"
+		PREPOSITIONAL = "маяке иерофанта",
 	)
 
 /obj/effect/hierophant/update_icon_state()
 	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"
 
-
 /obj/effect/hierophant/ex_act()
 	return
 
-
 /obj/effect/hierophant/has_prints()
 	return TRUE
-
 
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))
 		add_fingerprint(user)
 		var/obj/item/hierophant_club/club = I
 		if(club.timer > world.time)
-			to_chat(user, span_hierophant_warning("Клуб перезаряжается."))
+			to_chat(user, span_hierophant_warning("Посох перезаряжается."))
 			return ATTACK_CHAIN_PROCEED
 		if(club.beacon != src)
-			to_chat(user, span_hierophant_warning("Вы касаетесь маяка клубом, но ничего не происходит."))
+			to_chat(user, span_hierophant_warning("Вы касаетесь маяка посохом, но ничего не происходит."))
 			return ATTACK_CHAIN_PROCEED
 		club.timer = world.time + 5.1 SECONDS
 		to_chat(user, span_notice("Вы начинаете извлекать маяк иерофанта..."))
@@ -870,7 +862,7 @@ Difficulty: Hard
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, 'sound/magic/blind.ogg', 200, TRUE, -4)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(loc, user)
-		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к клубу!"))
+		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к посоху!"))
 		club.beacon = null
 		user.update_action_buttons_icon()
 		qdel(src)

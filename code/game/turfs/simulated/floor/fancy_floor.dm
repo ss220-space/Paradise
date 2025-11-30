@@ -119,7 +119,6 @@
 /turf/simulated/floor/grass/update_icon_state()
 	icon_state = "grass[pick("1","2","3","4")]"
 
-
 /turf/simulated/floor/grass/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -148,7 +147,6 @@
 		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-
 // CARPETS
 /turf/simulated/floor/carpet
 	name = "carpet"
@@ -172,10 +170,8 @@
 	. = ..()
 	update_icon()
 
-
 /turf/simulated/floor/carpet/broken_states()
 	return list("damaged")
-
 
 /turf/simulated/floor/carpet/update_icon_state()
 	dir = NONE //Prevents wrong smoothing

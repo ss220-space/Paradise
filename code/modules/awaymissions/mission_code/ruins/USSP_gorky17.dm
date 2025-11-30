@@ -225,15 +225,15 @@
 	icon_state = "floorsafe-open"
 	lootdoubles = FALSE
 	loot = list(
-				/obj/structure/safe/floor/random_documents,
-				/obj/structure/safe/floor/random_researchnotes_MatBioProg
-				)
+		/obj/structure/safe/floor/random_documents,
+		/obj/structure/safe/floor/random_researchnotes_MatBioProg,
+	)
 
 /obj/item/paper/researchnotes/mat_bio_prog
 
 /obj/item/paper/researchnotes/mat_bio_prog/Initialize(mapload)
 	. = ..()
-	var/list/possible_techs = list("materials", "biotech", "programming")
+	var/list/possible_techs = list(RESEARCH_TREE_MATERIALS, RESEARCH_TREE_BIOTECH, RESEARCH_TREE_PROGRAMMING)
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(6, 8)
 	origin_tech = "[mytech]=[mylevel]"
@@ -266,7 +266,6 @@
 	var/cardrank
 	var/possiblerank = list("Советский турист", "Товарищ") // addition before name
 
-
 /obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -293,7 +292,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/computer/id_upgrader/ussp/proc/giverank(obj/item/card/id/D)
 	if(!cardholdername||!cardrank)
@@ -392,11 +390,9 @@
 	Ставка Главного Командования поручает Вам собрать боевую группу и уничтожить позицию врага, сохранив возможность последующего использования на благо СССП.\
 	<br> Время отведенное на выполнение задачи <b>72 часа</b> с момента получения директивы. <br><br><i>	Оперативный штаб специальных операций</i>"
 
-
 /obj/item/paper/gorky17/orders/Initialize(mapload)
 	. = ..()
 	stamp(/obj/item/stamp/ussp)
-
 
 /obj/item/paper/gorky17/report
 	name = "Доклад Центральному Комитету СССП"
@@ -482,7 +478,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 
 	backpack_contents = list(
-		/obj/item/storage/box/soviet = 1
+		/obj/item/storage/box/survival/soviet = 1,
 	)
 
 /obj/effect/mob_spawn/human/corpse/usspconscript
@@ -529,7 +525,6 @@
 
 /mob/living/simple_animal/hostile/carp/lostsoul/carp_randomify()
 	return
-
 
 //self destruct
 

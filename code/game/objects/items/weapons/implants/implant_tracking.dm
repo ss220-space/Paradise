@@ -10,11 +10,9 @@
 	var/warn_cooldown = 0
 	var/obj/item/gps/internal_gps = /obj/item/gps/internal/tracking_implant
 
-
 /obj/item/implant/tracking/Initialize(mapload)
 	. = ..()
 	GLOB.tracked_implants += src
-
 
 /obj/item/implant/tracking/Destroy()
 	if(!ispath(internal_gps))
@@ -22,12 +20,10 @@
 	GLOB.tracked_implants -= src
 	return ..()
 
-
 /obj/item/implant/tracking/implant(mob/target)
 	. = ..()
 	if(. && ispath(internal_gps, /obj/item/gps))
 		internal_gps = new internal_gps(src)
-
 
 /obj/item/implant/tracking/removed(mob/target)
 	. = ..()
@@ -35,16 +31,13 @@
 		QDEL_NULL(internal_gps)
 		internal_gps = initial(internal_gps)
 
-
 /obj/item/gps/internal/tracking_implant
 	gpstag = "TRACK0"
 	local = FALSE
 
-
 /obj/item/implanter/tracking
 	name = "bio-chip implanter (tracking)"
 	imp = /obj/item/implant/tracking
-
 
 /obj/item/implantcase/tracking
 	name = "bio-chip case - 'Tracking'"

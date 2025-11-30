@@ -29,9 +29,8 @@
 	desc = "Slices of neatly cut carrot."
 	icon_state = "carrot_wedges"
 
-
 /obj/item/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, span_notice("You have sharpen [src] into a shiv with [I]."))
 		var/obj/item/kitchen/knife/carrotshiv/shiv = new(drop_location())
 		transfer_fingerprints_to(shiv)
@@ -42,7 +41,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 // Parsnip
 /obj/item/seeds/carrot/parsnip
@@ -64,7 +62,6 @@
 	bitesize_mod = 2
 	tastes = list("parsnip" = 1)
 	wine_power = 0.35
-
 
 // White-Beet
 /obj/item/seeds/whitebeet

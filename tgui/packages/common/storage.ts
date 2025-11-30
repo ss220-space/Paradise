@@ -16,15 +16,15 @@ type StorageImplementation =
   | typeof IMPL_HUB_STORAGE
   | typeof IMPL_IFRAME_INDEXED_DB;
 
-const READ_ONLY = 'readonly';
-const READ_WRITE = 'readwrite';
-
 type StorageBackend = {
   impl: StorageImplementation;
   get(key: string): Promise<any>;
   set(key: string, value: any): Promise<void>;
   remove(key: string): Promise<void>;
   clear(): Promise<void>;
+  processChatMessages(messages): Promise<void>;
+  getChatMessages(): Promise<any>;
+  iframe_check(): Promise<boolean>;
 };
 
 const testGeneric = (testFn: () => boolean) => (): boolean => {
@@ -88,7 +88,10 @@ class HubStorageBackend implements StorageBackend {
   async processChatMessages(messages): Promise<void> {
     return new Promise((resolve) => {
       queueMicrotask(() => {
-        window.hubStorage.removeItem('paradise-chat-messages');
+        window.hubStorage.setItem(
+          'paradise-chat-messages',
+          JSON.stringify(messages)
+        );
         resolve();
       });
     });
@@ -105,6 +108,9 @@ class HubStorageBackend implements StorageBackend {
         }
       });
     });
+  }
+  async iframe_check(): Promise<boolean> {
+    return false;
   }
 }
 
@@ -198,6 +204,10 @@ export class IFrameIndexedDbBackend implements StorageBackend {
     this.documentElement = null;
     this.iframeWindow = null;
   }
+
+  async iframe_check(): Promise<boolean> {
+    return true;
+  }
 }
 
 /**
@@ -273,8 +283,20 @@ export class StorageProxy implements StorageBackend {
     return backend.clear();
   }
 
-  getBackendPromise() {
-    return this.backendPromise;
+  async processChatMessages(messages) {
+    const backend = await this.backendPromise;
+    return backend.processChatMessages(messages);
+  }
+
+  async getChatMessages(): Promise<any> {
+    const backend = await this.backendPromise;
+    return backend.getChatMessages();
+  }
+
+  async iframe_check(): Promise<boolean> {
+    const backend = await this.backendPromise;
+
+    return backend.iframe_check();
   }
 }
 

@@ -8,7 +8,6 @@
 	chemical_cost = 20
 	req_stat = UNCONSCIOUS
 
-
 /**
  * Heals the things that the other regenerative abilities don't.
  */
@@ -32,7 +31,7 @@
 	user.apply_status_effect(STATUS_EFFECT_PANACEA)
 
 	for(var/datum/disease/virus in user.diseases)
-		if(virus.severity == NONTHREAT)
+		if(virus.severity == DISEASE_SEVERITY_POSITIVE)
 			continue
 		virus.cure()
 

@@ -16,10 +16,14 @@ SUBSYSTEM_DEF(throwing)
 	var/list/currentrun
 	var/list/processing = list()
 
-
 /datum/controller/subsystem/throwing/get_stat_details()
 	return "P:[length(processing)]"
 
+/datum/controller/subsystem/throwing/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(processing)
+	.["custom"] = custom_data
 
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if(!resumed)
@@ -44,7 +48,6 @@ SUBSYSTEM_DEF(throwing)
 			return
 
 	currentrun = null
-
 
 /datum/thrownthing
 	///Defines the atom that has been thrown (Objects and Mobs, mostly.)
@@ -96,7 +99,6 @@ SUBSYSTEM_DEF(throwing)
 	///When this variable is `FALSE`, non dense mobs will be hit by a thrown thing.
 	var/dodgeable = TRUE
 
-
 /datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone, dodgeable)
 	. = ..()
 	src.thrownthing = thrownthing
@@ -116,7 +118,6 @@ SUBSYSTEM_DEF(throwing)
 	src.target_zone = target_zone
 	src.dodgeable = dodgeable
 
-
 /datum/thrownthing/Destroy()
 	if(SSthrowing)
 		SSthrowing.processing -= thrownthing
@@ -130,13 +131,11 @@ SUBSYSTEM_DEF(throwing)
 	target_turf = null
 	return ..()
 
-
 ///Defines the datum behavior on the thrownthing's qdeletion event.
 /datum/thrownthing/proc/on_thrownthing_qdel(atom/movable/source, force)
 	SIGNAL_HANDLER
 
 	qdel(src)
-
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -196,7 +195,6 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-
 /datum/thrownthing/proc/finalize(atom/hit_target)
 	set waitfor = FALSE
 
@@ -230,7 +228,6 @@ SUBSYSTEM_DEF(throwing)
 
 	qdel(src)
 
-
 /datum/thrownthing/proc/hitcheck()
 	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
 		if(obstacle == thrownthing || obstacle == thrower)
@@ -242,7 +239,6 @@ SUBSYSTEM_DEF(throwing)
 		if(obstacle == initial_target || (((obstacle.density && !(obstacle.flags & ON_BORDER)) || (isliving(obstacle) && !dodgeable)) && !(obstacle in thrownthing.buckled_mobs)))
 			finalize(obstacle)
 			return TRUE
-
 
 #undef MAX_THROWING_DIST
 #undef MAX_TICKS_TO_MAKE_UP

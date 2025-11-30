@@ -112,7 +112,6 @@
 /atom/movable/screen/alert/MouseEntered(location,control,params)
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
-
 /atom/movable/screen/alert/MouseExited()
 	closeToolTip(usr)
 
@@ -257,36 +256,30 @@
 	desc = "Вы уснули. Подождите немного, скоро вы проснётесь.<br>Если, конечно, не умрёте — ведь вы беспомощны."
 	icon_state = "asleep"
 
-
 /atom/movable/screen/alert/negative
 	name = "Обратная гравитация"
 	desc = "Вас тянет вверх. Хоть падение вниз вам больше не грозит, вы всё ещё можете упасть вверх!"
 	icon_state = "negative"
-
 
 /atom/movable/screen/alert/weightless
 	name = "Невесомость"
 	desc = "Гравитация перестала влиять на вас, и вы парите в пространстве.<br>Чтобы двигаться, вы можете оттолкнуться от ближайших объектов, кинуть что-то от себя или выстрелить в противоположную сторону.<br>Для комфортного перемещения используйте специальное снаряжение."
 	icon_state = "weightless"
 
-
 /atom/movable/screen/alert/highgravity
 	name = "Повышенная гравитация"
 	desc = "На вас действует высокая гравитация. Двигаться в таком состоянии непросто."
 	icon_state = "paralysis"
-
 
 /atom/movable/screen/alert/veryhighgravity
 	name = "Сокрушительная гравитация"
 	desc = "На вас действует невероятно высокая гравитация. Ощущение, будто вас буквально разрывает на части!"
 	icon_state = "paralysis"
 
-
 /atom/movable/screen/alert/fire
 	name = "В огне"
 	desc = "Вы горите!<br>Падайте, катайтесь или бегите в зону без кислорода, чтобы потушить пламя."
 	icon_state = "fire"
-
 
 /atom/movable/screen/alert/fire/Click()
 	if(!..())
@@ -306,7 +299,6 @@
 
 	return living_user.resist_fire()
 
-
 /atom/movable/screen/alert/direction_lock
 	name = "Блокировка поворота"
 	desc = "Вы можете смотреть только в одну сторону, что замедляет движение.<br>Кликните сюда, чтобы разблокировать поворот."
@@ -319,7 +311,6 @@
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.clear_forced_look()
-
 
 //ALIENS
 
@@ -536,7 +527,6 @@
 	icon_state = "guardian_instealth"
 	alerttooltipstyle = "parasite"
 
-
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages
 /atom/movable/screen/alert/notify_cloning
@@ -551,13 +541,11 @@
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
-
 /atom/movable/screen/alert/ghost
 	name = "Призрак"
 	desc = "Хотите стать призраком? Вы получите уведомление, когда ваше тело извлекут из гнезда."
 	icon_state = "template"
 	timeout = 5 MINUTES // longer than any infection should be
-
 
 /atom/movable/screen/alert/ghost/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
@@ -565,7 +553,6 @@
 	I.layer = FLOAT_LAYER
 	I.plane = FLOAT_PLANE
 	add_overlay(I)
-
 
 /atom/movable/screen/alert/ghost/Click()
 	var/mob/living/carbon/human/infected_user = usr
@@ -577,7 +564,6 @@
 		infected_user.clear_alert("ghost_nest")
 		return
 	infected_user.ghostize(TRUE)
-
 
 #define FLOAT_LAYER_TIME -1
 #define FLOAT_LAYER_STACKS -2
@@ -603,11 +589,9 @@
 	/// If set, on Click() it'll register the player as a candidate
 	var/datum/candidate_poll/poll
 
-
 /atom/movable/screen/alert/notify_action/Initialize(mapload)
 	. = ..()
 	signed_up_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "selector", FLOAT_LAYER_SELECTOR)
-
 
 /atom/movable/screen/alert/notify_action/Destroy()
 	target = null
@@ -616,7 +600,6 @@
 	QDEL_NULL(stacks_overlay)
 	poll = null
 	return ..()
-
 
 /atom/movable/screen/alert/notify_action/process()
 	if(show_time_left)
@@ -629,7 +612,6 @@
 		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 16)
 		time_left_overlay.layer = FLOAT_LAYER_TIME
 		add_overlay(time_left_overlay)
-
 
 /atom/movable/screen/alert/notify_action/Click()
 	if(!usr || !usr.client)
@@ -659,7 +641,6 @@
 			if(NOTIFY_FOLLOW)
 				observer.ManualFollow(target)
 
-
 /atom/movable/screen/alert/notify_action/Topic(href, href_list)
 	var/mob/dead/observer/observer = usr
 	if(!href_list["signup"] || !poll || !istype(observer))
@@ -672,13 +653,11 @@
 	if(success)
 		update_signed_up_alert(observer)
 
-
 /atom/movable/screen/alert/notify_action/proc/update_signed_up_alert(mob/user)
 	if(user in poll.signed_up)
 		add_overlay(signed_up_overlay)
 	else
 		cut_overlay(signed_up_overlay)
-
 
 /atom/movable/screen/alert/notify_action/proc/display_stacks(stacks = 1)
 	cut_overlay(stacks_overlay)
@@ -693,7 +672,6 @@
 #undef FLOAT_LAYER_TIME
 #undef FLOAT_LAYER_STACKS
 #undef FLOAT_LAYER_SELECTOR
-
 
 /atom/movable/screen/alert/notify_soulstone
 	name = "Камень душ"
@@ -714,7 +692,6 @@
 /atom/movable/screen/alert/notify_soulstone/Destroy()
 	stone = null
 	return ..()
-
 
 /atom/movable/screen/alert/notify_mapvote
 	name = "Голосование за карту"

@@ -9,7 +9,7 @@
 		DATIVE = "сундуку колосса",
 		ACCUSATIVE = "сундук колосса",
 		INSTRUMENTAL = "сундуком колосса",
-		PREPOSITIONAL = "сундуке колосса"
+		PREPOSITIONAL = "сундуке колосса",
 	)
 
 /obj/structure/closet/crate/necropolis/colossus/populate_contents()
@@ -29,7 +29,7 @@
 		DATIVE = "ангельскому сундуку колосса",
 		ACCUSATIVE = "ангельский сундук колосса",
 		INSTRUMENTAL = "ангельским сундуком колосса",
-		PREPOSITIONAL = "ангельском сундуке колосса"
+		PREPOSITIONAL = "ангельском сундуке колосса",
 	)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
@@ -62,7 +62,7 @@
 		DATIVE = "аномальному кристаллу",
 		ACCUSATIVE = "аномальный кристалл",
 		INSTRUMENTAL = "аномальным кристаллом",
-		PREPOSITIONAL = "аномальном кристалле"
+		PREPOSITIONAL = "аномальном кристалле",
 	)
 
 /obj/machinery/anomalous_crystal/Initialize(mapload)
@@ -129,7 +129,7 @@
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.drop_item_ground(W)
-		var/datum/job/clown/C = SSjobs.GetJob(JOB_TITLE_CLOWN)
+		var/datum/job/service/clown/C = SSjobs.GetJob(JOB_TITLE_CLOWN)
 		C.equip(H)
 		affected_targets.Add(H)
 
@@ -258,7 +258,6 @@
 					ADD_TRAIT(H, TRAIT_NO_CLONE, ANOMALOUS_CRYSTAL_TRAIT)
 					H.grab_ghost(force = TRUE)
 
-
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
 	var/ready_to_deploy = 0
 
@@ -274,7 +273,7 @@
 		if(be_helper != "Да")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
-		W.key = user.key
+		W.possess_by_player(user.key)
 
 /obj/machinery/anomalous_crystal/helpers/Topic(href, href_list)
 	if(href_list["ghostjoin"])
@@ -319,7 +318,7 @@
 		DATIVE = "духу света",
 		ACCUSATIVE = "духа света",
 		INSTRUMENTAL = "духом света",
-		PREPOSITIONAL = "духе света"
+		PREPOSITIONAL = "духе света",
 	)
 
 /mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
@@ -367,7 +366,6 @@
 	. = ..()
 	banned_items_typecache = typecacheof(banned_items_typecache)
 
-
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
 	if(..())
 		var/list/L = list()
@@ -414,7 +412,7 @@
 		DATIVE = "квантовому стазисному полю",
 		ACCUSATIVE = "квантовое стазисное поле",
 		INSTRUMENTAL = "квантовым стазисным полем",
-		PREPOSITIONAL = "квантовом стазисном поле"
+		PREPOSITIONAL = "квантовом стазисном поле",
 	)
 
 /obj/structure/closet/stasis/process()
@@ -430,7 +428,6 @@
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 
-
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived) && holder_animal)
@@ -438,7 +435,6 @@
 		mob.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.mind.transfer_to(holder_animal)
 		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
-
 
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
@@ -457,7 +453,6 @@
 /obj/structure/closet/stasis/ex_act()
 	return
 
-
 /obj/effect/proc_holder/spell/exit_possession
 	name = "Exit Possession"
 	desc = "Покинуть тело, которым вы овладели"
@@ -466,10 +461,8 @@
 	human_req = FALSE
 	action_icon_state = "exit_possession"
 
-
 /obj/effect/proc_holder/spell/exit_possession/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/exit_possession/cast(list/targets, mob/user = usr)
 	if(!isfloorturf(user.loc))

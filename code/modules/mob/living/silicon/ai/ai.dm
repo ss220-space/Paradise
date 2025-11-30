@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		/mob/living/silicon/proc/subsystem_atmos_control,
 		/mob/living/silicon/proc/subsystem_crew_monitor,
 		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor
+		/mob/living/silicon/proc/subsystem_power_monitor,
 	)
 
 	hat_offset_y = 3
@@ -229,12 +229,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.shuttle_caller_list += src
 	..()
 
-
 /mob/living/silicon/ai/Initialize(mapload)
 	. = ..()
 	add_traits(list(TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED), ROUNDSTART_TRAIT)
 	AddElement(/datum/element/high_value_item)
-
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<b>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</b>")
@@ -351,7 +349,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		malfhacking = null
 	malfhack = null
 	return ..()
-
 
 /*
 	The AI Power supply is a dummy object used for powering the AI since only machinery should be using power.
@@ -660,7 +657,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
-
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Звуковое оповещение"
 	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
@@ -704,7 +700,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(EXPLODE_LIGHT)
 			if(stat != 2)
 				apply_damage(30)
-
 
 /mob/living/silicon/ai/ratvar_act()
 	if(isclocker(src))
@@ -1059,7 +1054,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			else
 				display.friendc = FALSE
 
-
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
 	set name = "Сменить голограмму"
@@ -1208,7 +1202,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return
 
-
 //Toggles the luminosity and applies it by re-entereing the camera.
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	set name = "Подсветка камер"
@@ -1278,7 +1271,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	for(var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
 		for(var/z_key in chunk.cameras)
 			for(var/obj/machinery/camera/camera as anything in chunk.cameras[z_key])
-				if(!camera.can_use() || get_dist(camera, eyeobj) > 7)
+				if(!camera.can_use() || get_dist(camera, eyeobj) > 7 || !camera.internal_light)
 					continue
 				visible |= camera
 
@@ -1291,7 +1284,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	for(var/obj/machinery/camera/C in add)
 		C.Togglelight(TRUE)
 		lit_cameras |= C
-
 
 /mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -1308,7 +1300,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		span_notice("You have finished to [prev_state ? "unbolt" : "bolt"] [src]."),
 	)
 
-
 /mob/living/silicon/ai/welder_act()
 	return
 
@@ -1323,7 +1314,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "Accessing Subspace Transceiver control...")
 	if(aiRadio)
 		aiRadio.interact(src)
-
 
 /mob/living/silicon/ai/proc/check_unable(flags = 0)
 	if(stat == DEAD)
@@ -1378,7 +1368,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	eyeobj.setLoc(get_turf(C))
 	client.set_eye(eyeobj)
 	return TRUE
-
 
 /mob/living/silicon/ai/can_see(atom/A, length)
 	if(isturf(loc)) //AI in core, check if on cameras
@@ -1527,7 +1516,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/ExtinguishMob()
 	return
 
-
 /mob/living/silicon/ai/update_sight()
 	if(!client)
 		return
@@ -1547,7 +1535,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
 
 /mob/living/silicon/ai/ghostize(can_reenter_corpse)
 	var/old_turf = get_turf(eyeobj)

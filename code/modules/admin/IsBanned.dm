@@ -33,7 +33,7 @@
 	#endif
 
 	//Guest Checking
-	if(!GLOB.guests_allowed && IsGuestKey(key))
+	if(!GLOB.guests_allowed && is_guest_key(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
@@ -45,7 +45,6 @@
 		if(CONFIG_GET(string/banappeals))
 			mistakemessage = "\nIf you have to use one, request whitelisting at:  [CONFIG_GET(string/banappeals)]"
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
-
 
 	if(CONFIG_GET(flag/ban_legacy_system))
 		//Ban Checking

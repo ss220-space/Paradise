@@ -1,12 +1,10 @@
 /datum/action/item_action/advanced/ninja/ninja_sword_recall
 	name = "Recall Energy Katana"
 	desc = "Teleports the Energy Katana linked to this suit to its wearer. Energy cost: 200"
-	use_itemicon = FALSE
 	check_flags = FALSE
 	charge_max = 0.5 SECONDS
 	button_icon_state = "energy_katana_green"
-	icon_icon = 'icons/obj/ninjaobjects.dmi'
-	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	button_icon = 'icons/obj/ninjaobjects.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Katana Recall System"
 

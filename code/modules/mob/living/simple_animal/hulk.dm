@@ -36,8 +36,10 @@
 	)
 
 /mob/living/simple_animal/hulk/human
-	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_jump,
-	/obj/effect/proc_holder/spell/hulk_dash)
+	hulk_powers = list(
+		/obj/effect/proc_holder/spell/hulk_jump,
+		/obj/effect/proc_holder/spell/hulk_dash,
+	)
 
 //Clown Hulk
 
@@ -59,8 +61,10 @@
 	attack_sound = list('sound/items/bikehorn.ogg')
 	health_regen = 24
 
-	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_honk,
-	/obj/effect/proc_holder/spell/hulk_joke)
+	hulk_powers = list(
+		/obj/effect/proc_holder/spell/hulk_honk,
+		/obj/effect/proc_holder/spell/hulk_joke,
+	)
 
 //Godzilla
 
@@ -82,9 +86,11 @@
 	tts_seed = "Huskar"
 	attack_sound = list('sound/weapons/bite.ogg')
 
-	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_mill,
-	/obj/effect/proc_holder/spell/fireball/hulk_spit,
-	/obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor)
+	hulk_powers = list(
+		/obj/effect/proc_holder/spell/hulk_mill,
+		/obj/effect/proc_holder/spell/fireball/hulk_spit,
+		/obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor,
+	)
 
 /mob/living/simple_animal/hulk/Life()
 	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
@@ -137,7 +143,6 @@
 
 	..()
 
-
 /mob/living/simple_animal/hulk/death(gibbed)
 	unmutate()
 
@@ -183,7 +188,7 @@
 /mob/living/simple_animal/hulk/proc/attack_hulk(obj/machinery/door/D)
 	do_attack_animation(D)
 	changeNext_move(CLICK_CD_MELEE)
-	if(istype(D,/obj/machinery/door/airlock))
+	if(is_airlock(D))
 		var/obj/machinery/door/airlock/A = D
 		if(A.welded || A.locked)
 			if(hulk_scream(A, 75))

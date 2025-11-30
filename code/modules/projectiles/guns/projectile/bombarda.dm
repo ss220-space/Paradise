@@ -17,7 +17,6 @@
 	recoil = GUN_RECOIL_MEGA
 	var/opened = FALSE
 
-
 /obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/ammo_casing))
 		add_fingerprint(user)
@@ -35,15 +34,12 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/gun/projectile/bombarda/update_icon_state()
 	icon_state = initial(icon_state) + (opened ?  "_open" : "")
 	item_state = initial(item_state) + (opened ?  "_open" : "")
 
-
-/obj/item/gun/projectile/bombarda/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/projectile/bombarda/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	..(FALSE, empty_chamber)
-
 
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
@@ -58,7 +54,6 @@
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
-
 /obj/item/gun/projectile/bombarda/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
@@ -67,7 +62,6 @@
 		close_pump(user)
 		return
 	open_pump(user)
-
 
 /obj/item/gun/projectile/bombarda/proc/open_pump(mob/user)
 	if(opened)
@@ -105,7 +99,6 @@
 	..()
 	chamber_round(TRUE)
 
-
 /obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
 	if(!opened)
 		return FALSE
@@ -115,7 +108,6 @@
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
 	update_icon()
 	return TRUE
-
 
 // MARK: Security GL
 /obj/item/gun/projectile/bombarda/secgl
@@ -134,7 +126,7 @@
 		DATIVE = "ручному гранатомету GL-06",
 		ACCUSATIVE = "ручной гранатомет GL-06",
 		INSTRUMENTAL = "ручным гранатометом GL-06",
-		PREPOSITIONAL = "ручном гранатомете GL-06"
+		PREPOSITIONAL = "ручном гранатомете GL-06",
 	)
 
 /obj/item/gun/projectile/bombarda/secgl/x4
@@ -158,7 +150,7 @@
 		DATIVE = "ручному гранатомету GL-08-4",
 		ACCUSATIVE = "ручной гранатомет GL-08-4",
 		INSTRUMENTAL = "ручным гранатометом GL-08-4",
-		PREPOSITIONAL = "ручном гранатомете GL-08-4"
+		PREPOSITIONAL = "ручном гранатомете GL-08-4",
 	)
 
 /obj/item/gun/projectile/bombarda/secgl/x4/Initialize(mapload, ...)
@@ -180,7 +172,7 @@
 		DATIVE = "ручному гранатомету M79",
 		ACCUSATIVE = "ручной гранатомет M79",
 		INSTRUMENTAL = "ручным гранатометом M79",
-		PREPOSITIONAL = "ручном гранатомете M79"
+		PREPOSITIONAL = "ручном гранатомете M79",
 	)
 
 // MARK: Bombplet
@@ -199,7 +191,7 @@
 		DATIVE = "самодельному двуствольному гранатомету",
 		ACCUSATIVE = "самодельный двуствольный гранатомет",
 		INSTRUMENTAL = "самодельным двуствольным гранатометом",
-		PREPOSITIONAL = "самодельном двуствольном гранатомете"
+		PREPOSITIONAL = "самодельном двуствольном гранатомете",
 	)
 
 // MARK: Bombarda ammo
@@ -221,7 +213,6 @@
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
 		if(bullet.BB || countempties)
 			.++
-
 
 /obj/item/ammo_casing/a40mm/improvised
 	name = "Improvised shell"
@@ -253,6 +244,7 @@
 
 /obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 
@@ -284,12 +276,14 @@
 /datum/crafting_recipe/bombarda
 	name = "Bombarda"
 	result = /obj/item/gun/projectile/bombarda
-	reqs = list(/obj/item/restraints/handcuffs/cable = 2,
-				/obj/item/stack/tape_roll = 10,
-				/obj/item/pipe = 1,
-				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/stack/sheet/metal = 2,
-				/obj/item/weaponcrafting/stock = 1)
+	reqs = list(
+		/obj/item/restraints/handcuffs/cable = 2,
+		/obj/item/stack/tape_roll = 10,
+		/obj/item/pipe = 1,
+		/obj/item/weaponcrafting/receiver = 1,
+		/obj/item/stack/sheet/metal = 2,
+		/obj/item/weaponcrafting/stock = 1,
+	)
 	time = 6 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -315,11 +309,13 @@
 /datum/crafting_recipe/explosion_shell
 	name = "Improvised explosive shell"
 	result = /obj/item/ammo_casing/a40mm/improvised/exp_shell
-	reqs = list(/datum/reagent/blackpowder = 20,
-				/obj/item/grenade/iedcasing = 1,
-				/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/assembly/prox_sensor = 1)
+	reqs = list(
+		/datum/reagent/blackpowder = 20,
+		/obj/item/grenade/iedcasing = 1,
+		/obj/item/grenade/chem_grenade = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/assembly/prox_sensor = 1,
+	)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -333,13 +329,15 @@
 /datum/crafting_recipe/flame_shell
 	name = "Improvised flame shell"
 	result = /obj/item/ammo_casing/a40mm/improvised/flame_shell
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-					/obj/item/stack/cable_coil = 5,
-					/obj/item/stack/sheet/metal = 1,
-					/obj/item/assembly/igniter = 1,
-					/datum/reagent/fuel = 20,
-					/datum/reagent/consumable/sugar = 10,
-					/datum/reagent/plasma_dust = 10)
+	reqs = list(
+		/obj/item/grenade/chem_grenade = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/metal = 1,
+		/obj/item/assembly/igniter = 1,
+		/datum/reagent/fuel = 20,
+		/datum/reagent/consumable/sugar = 10,
+		/datum/reagent/plasma_dust = 10,
+	)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -353,12 +351,14 @@
 /datum/crafting_recipe/smoke_shell
 	name = "Improvised smoke shell"
 	result = /obj/item/ammo_casing/a40mm/improvised/smoke_shell
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/stack/sheet/metal = 1,
-				/datum/reagent/consumable/sugar = 10,
-				/datum/reagent/phosphorus = 10,
-				/obj/item/reagent_containers/spray/pestspray = 1)
+	reqs = list(
+		/obj/item/grenade/chem_grenade = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/metal = 1,
+		/datum/reagent/consumable/sugar = 10,
+		/datum/reagent/phosphorus = 10,
+		/obj/item/reagent_containers/spray/pestspray = 1,
+	)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -368,7 +368,6 @@
 	. = ..()
 	if(CONFIG_GET(flag/enable_bombarda_craft))
 		always_availible = TRUE
-
 
 // MARK: 40mm ammo
 /obj/item/ammo_box/magazine/internal/bombarda/secgl
@@ -394,11 +393,12 @@
 		DATIVE = "гранате (40 мм)",
 		ACCUSATIVE = "гранату (40 мм)",
 		INSTRUMENTAL = "гранатой (40 мм)",
-		PREPOSITIONAL = "гранате (40 мм)"
+		PREPOSITIONAL = "гранате (40 мм)",
 	)
 
 /obj/projectile/grenade/a40mm/secgl
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = "bullet"
 	hitsound_wall = "ricochet"
 	damage = 5
@@ -410,8 +410,6 @@
 	icon_state = "secgl_box_gas"
 	ammo_type = /obj/item/ammo_casing/a40mm/secgl
 	max_ammo = 4
-
-
 
 /obj/item/ammo_casing/a40mm/secgl/solid
 	name = "40mm grenade (rubber slug)"
@@ -425,7 +423,7 @@
 		DATIVE = "гранате (40 мм цельная резина)",
 		ACCUSATIVE = "гранату (40 мм цельная резина)",
 		INSTRUMENTAL = "гранатой (40 мм цельная резина)",
-		PREPOSITIONAL = "гранате (40 мм цельная резина)"
+		PREPOSITIONAL = "гранате (40 мм цельная резина)",
 	)
 
 /obj/projectile/grenade/a40mm/secgl/solid
@@ -449,9 +447,8 @@
 		DATIVE = "коробке гранат (40 мм цельная резина)",
 		ACCUSATIVE = "коробку гранат (40 мм цельная резина)",
 		INSTRUMENTAL = "коробкой гранат (40 мм цельная резина)",
-		PREPOSITIONAL = "коробке гранат (40 мм цельная резина)"
+		PREPOSITIONAL = "коробке гранат (40 мм цельная резина)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/flash
 	name = "40mm grenade (flashbang)"
@@ -467,7 +464,7 @@
 		DATIVE = "гранате (40 мм светошумовая)",
 		ACCUSATIVE = "гранату (40 мм светошумовая)",
 		INSTRUMENTAL = "гранатой (40 мм светошумовая)",
-		PREPOSITIONAL = "гранате (40 мм светошумовая)"
+		PREPOSITIONAL = "гранате (40 мм светошумовая)",
 	)
 
 /obj/projectile/grenade/a40mm/secgl/flash
@@ -499,9 +496,8 @@
 		DATIVE = "коробке гранат (40 мм светошумовая)",
 		ACCUSATIVE = "коробку гранат (40 мм светошумовая)",
 		INSTRUMENTAL = "коробкой гранат (40 мм светошумовая)",
-		PREPOSITIONAL = "коробке гранат (40 мм светошумовая)"
+		PREPOSITIONAL = "коробке гранат (40 мм светошумовая)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/gas
 	name = "40mm grenade (gatears)"
@@ -517,7 +513,7 @@
 		DATIVE = "гранате (40 мм слезоточивый газ)",
 		ACCUSATIVE = "гранату (40 мм слезоточивый газ)",
 		INSTRUMENTAL = "гранатой (40 мм слезоточивый газ)",
-		PREPOSITIONAL = "гранате (40 мм слезоточивый газ)"
+		PREPOSITIONAL = "гранате (40 мм слезоточивый газ)",
 	)
 
 /obj/projectile/grenade/a40mm/secgl/gas
@@ -540,9 +536,8 @@
 		DATIVE = "коробке гранат (40 мм слезоточивый газ)",
 		ACCUSATIVE = "коробку гранат (40 мм слезоточивый газ)",
 		INSTRUMENTAL = "коробкой гранат (40 мм слезоточивый газ)",
-		PREPOSITIONAL = "коробке гранат (40 мм слезоточивый газ)"
+		PREPOSITIONAL = "коробке гранат (40 мм слезоточивый газ)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/barricade
 	name = "40mm grenade (barricade)"
@@ -558,9 +553,8 @@
 		DATIVE = "гранате (40 мм баррикада)",
 		ACCUSATIVE = "гранату (40 мм баррикада)",
 		INSTRUMENTAL = "гранатой (40 мм баррикада)",
-		PREPOSITIONAL = "гранате (40 мм баррикада)"
+		PREPOSITIONAL = "гранате (40 мм баррикада)",
 	)
-
 
 /obj/projectile/grenade/a40mm/secgl/barricade
 	icon_state = "secgl_projectile_barricade"
@@ -583,9 +577,8 @@
 		DATIVE = "коробке гранат (40 мм баррикада)",
 		ACCUSATIVE = "коробку гранат (40 мм баррикада)",
 		INSTRUMENTAL = "коробкой гранат (40 мм баррикада)",
-		PREPOSITIONAL = "коробке гранат (40 мм баррикада)"
+		PREPOSITIONAL = "коробке гранат (40 мм баррикада)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/exp
 	name = "40mm grenade (frag)"
@@ -601,7 +594,7 @@
 		DATIVE = "гранате (40 мм осколочная)",
 		ACCUSATIVE = "гранату (40 мм осколочная)",
 		INSTRUMENTAL = "гранатой (40 мм осколочная)",
-		PREPOSITIONAL = "гранате (40 мм осколочная)"
+		PREPOSITIONAL = "гранате (40 мм осколочная)",
 	)
 
 /obj/projectile/grenade/a40mm/secgl/exp
@@ -629,9 +622,8 @@
 		DATIVE = "коробке гранат (40 мм осколочные)",
 		ACCUSATIVE = "коробку гранат (40 мм осколочные)",
 		INSTRUMENTAL = "коробкой гранат (40 мм осколочные)",
-		PREPOSITIONAL = "коробке гранат (40 мм осколочные)"
+		PREPOSITIONAL = "коробке гранат (40 мм осколочные)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/paint
 	name = "40mm grenade (paint)"
@@ -647,7 +639,7 @@
 		DATIVE = "гранате (40 мм краска)",
 		ACCUSATIVE = "гранату (40 мм краска)",
 		INSTRUMENTAL = "гранатой (40 мм краска)",
-		PREPOSITIONAL = "гранате (40 мм краска)"
+		PREPOSITIONAL = "гранате (40 мм краска)",
 	)
 
 /obj/projectile/grenade/a40mm/secgl/paint
@@ -681,7 +673,7 @@
 		DATIVE = "коробке гранат (40 мм краска)",
 		ACCUSATIVE = "коробку гранат (40 мм краска)",
 		INSTRUMENTAL = "коробкой гранат (40 мм краска)",
-		PREPOSITIONAL = "коробке гранат (40 мм краска)"
+		PREPOSITIONAL = "коробке гранат (40 мм краска)",
 	)
 
 /obj/effect/decal/cleanable/blood/paint
@@ -689,17 +681,19 @@
 	dryname = "dried paint"
 	desc = "Она густая и липкая. Возможно, кто то разлил тут краску?"
 	drydesc = "Она сухая и засохшая. Кто-то явно халтурит."
-	ru_names = list(
+	gender = FEMALE
+	blood_state = BLOOD_STATE_NOT_BLOODY
+	//drying_time = 1
+
+/obj/effect/decal/cleanable/blood/paint/get_ru_names()
+	return list(
 		NOMINATIVE = "краска",
 		GENITIVE = "краски",
 		DATIVE = "краске",
 		ACCUSATIVE = "краску",
 		INSTRUMENTAL = "краской",
-		PREPOSITIONAL = "краске"
+		PREPOSITIONAL = "краске",
 	)
-	gender = FEMALE
-	blood_state = BLOOD_STATE_NOT_BLOODY
-	//drying_time = 1
 
 /obj/effect/decal/cleanable/blood/paint/dry()
 	. = ..()
@@ -709,23 +703,25 @@
 		DATIVE = "краске",
 		ACCUSATIVE = "краску",
 		INSTRUMENTAL = "краской",
-		PREPOSITIONAL = "краске"
+		PREPOSITIONAL = "краске",
 	)
 
 /obj/effect/decal/cleanable/blood/drip/paint
 	name = "paint"
 	dryname = "dried paint"
 	desc = "Оно густое и липкое. Возможно, кто то разлил тут краску?"
-	ru_names = list(
+	blood_state = BLOOD_STATE_NOT_BLOODY
+	//drying_time = 1
+
+/obj/effect/decal/cleanable/blood/drip/paint/get_ru_names()
+	return list(
 		NOMINATIVE = "капли краска",
 		GENITIVE = "капель краски",
 		DATIVE = "каплям краски",
 		ACCUSATIVE = "капли краски",
 		INSTRUMENTAL = "каплями краски",
-		PREPOSITIONAL = "каплях краски"
+		PREPOSITIONAL = "каплях краски",
 	)
-	blood_state = BLOOD_STATE_NOT_BLOODY
-	//drying_time = 1
 
 /obj/effect/decal/cleanable/blood/drip/paint/dry()
 	. = ..()
@@ -735,5 +731,5 @@
 		DATIVE = "засохшей краске",
 		ACCUSATIVE = "засохшую краску",
 		INSTRUMENTAL = "засохшей краской",
-		PREPOSITIONAL = "засохшей краске"
+		PREPOSITIONAL = "засохшей краске",
 	)
