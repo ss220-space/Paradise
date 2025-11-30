@@ -55,3 +55,4 @@
 
 /obj/effect/temp_visual/nothing/warp
 	duration = 9
+	icon_state = "nothing"
