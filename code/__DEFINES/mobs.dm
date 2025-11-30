@@ -472,20 +472,20 @@
 #define SUIT_LAYER 30
 #define BELT_LAYER 29 //Possible make this an overlay of somethign required to wear a belt?
 #define NECK_LAYER 28
-#define SUIT_STORE_LAYER 27
-#define BACK_LAYER 26
-#define HEAD_ACCESSORY_LAYER 25
-#define FHAIR_LAYER 24
-#define GLASSES_LAYER 23
-#define HAIR_LAYER 22 //TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER 21 //Select-layer rendering.
-#define FHAIR_OVER_LAYER 20 //Select-layer rendering.
-#define GLASSES_OVER_LAYER 19 //Select-layer rendering.
-#define WING_LAYER 18
-#define TAIL_LAYER 17 //bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER 16
-#define OVER_MASK_LAYER 15 //Select-layer rendering.
-#define HEAD_LAYER 14
+#define BACK_LAYER 27
+#define HEAD_ACCESSORY_LAYER 26
+#define FHAIR_LAYER 25
+#define GLASSES_LAYER 24
+#define HAIR_LAYER 23 //TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER 22 //Select-layer rendering.
+#define FHAIR_OVER_LAYER 21 //Select-layer rendering.
+#define GLASSES_OVER_LAYER 20 //Select-layer rendering.
+#define WING_LAYER 19
+#define TAIL_LAYER 18 //bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER 17
+#define OVER_MASK_LAYER 16 //Select-layer rendering.
+#define HEAD_LAYER 15
+#define SUIT_STORE_LAYER 14
 #define OVER_HEAD_LAYER 13
 #define MUTANT_EARS_LAYER 12
 #define COLLAR_LAYER 11
