@@ -51,8 +51,8 @@
 /obj/effect/temp_visual/nothing
 	name = "nothing"
 	icon = 'icons/blanks/32x32.dmi'
-	icon_state = "nothing"
+	randomdir = FALSE
 
 /obj/effect/temp_visual/nothing/warp
 	duration = 9
-	icon_state = "nothing"
+
