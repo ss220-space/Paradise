@@ -2,8 +2,6 @@
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup
 	name = ""
 	desc = ""
-	gender = MALE
-	icon = 'icons/obj/drinks.dmi'
 	max_integrity = 20
 	var/has_cup = FALSE
 	var/cap_on = FALSE
@@ -23,7 +21,6 @@
 	base_icon_state = "coffeecup"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10,25,50)
-	volume = 50
 	has_cup = TRUE
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/get_ru_names()
@@ -87,7 +84,6 @@
 	base_icon_state = "coffeecup_small"
 	possible_transfer_amounts = list(10,30)
 	volume = 30
-	has_cup = FALSE
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/get_ru_names()
 	return list(
@@ -119,5 +115,4 @@
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
-	icon_state = "coffeecup_small"
 	list_reagents = list("coffee" = 30)

@@ -1252,12 +1252,7 @@
 	},
 /obj/structure/table,
 /obj/item/trash/plate,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
-	desc = "It's cold as dead body.";
-	pixel_x = 8;
-	pixel_y = 8;
-	volume = 15
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
@@ -2037,12 +2032,7 @@
 /area/shuttle/abandoned)
 "Pa" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
-	desc = "It's cold as dead body.";
-	pixel_x = 8;
-	pixel_y = 8;
-	volume = 15
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"

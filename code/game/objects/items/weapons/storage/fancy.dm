@@ -648,25 +648,22 @@
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)
 
-
-
 /*
- * Coffee condiments display
+ * MARK: Coffee condiments
  */
-
 /obj/item/storage/fancy/coffee_condi_display
 	name = "coffee condiments display"
-	desc = "Небольшая деревянная коробка, предназначенная для хранения \
-			и демонстрации добавок к кофе."
+	desc = "Небольшая деревянная коробка, предназначенная для хранения и демонстрации добавок к кофе."
 	gender = MALE
-	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "coffee_condi_display"
 	icon_type = "condiment pack"
 	storage_slots = 14
-	can_hold = list(/obj/item/reagent_containers/food/condiment/pack/sugar,
-					/obj/item/reagent_containers/food/condiment/pack/creamer,
-					/obj/item/reagent_containers/food/condiment/pack/aspartame,
-					/obj/item/reagent_containers/food/condiment/pack/chocolate)
+	can_hold = list(
+		/obj/item/reagent_containers/food/condiment/pack/sugar,
+		/obj/item/reagent_containers/food/condiment/pack/creamer,
+		/obj/item/reagent_containers/food/condiment/pack/aspartame,
+		/obj/item/reagent_containers/food/condiment/pack/chocolate,
+	)
 
 /obj/item/storage/fancy/coffee_condi_display/get_ru_names()
 	return list(
@@ -706,20 +703,19 @@
 	update_appearance()
 
 /*
- * Coffee cartridge rack
+ * MARK: Coffee cartridge rack
  */
-
 /obj/item/storage/fancy/coffee_cart_rack
 	name = "coffeemaker cartridge rack"
-	desc = "Небольшая стойка для хранения кофе-картриджей, \
-			совместимых с кофемашиной \"Моделло 3\"."
+	desc = "Небольшая стойка для хранения кофе-картриджей, совместимых с кофемашиной \"Моделло 3\"."
 	gender = FEMALE
-	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "coffee_cartrack0"
 	icon_type = "coffee cartridge"
 	storage_slots = 4
-	can_hold = list(/obj/item/coffee_cartridge,
-					/obj/item/blank_coffee_cartridge)
+	can_hold = list(
+		/obj/item/coffee_cartridge,
+		/obj/item/blank_coffee_cartridge,
+	)
 
 /obj/item/storage/fancy/coffee_cart_rack/get_ru_names()
 	return list(
@@ -728,7 +724,7 @@
 		DATIVE = "стойке для кофе-картриджей",
 		ACCUSATIVE = "стойку для кофе-картриджей",
 		INSTRUMENTAL = "стойкой для кофе-картриджей",
-		PREPOSITIONAL = "стойке для кофе-картриджей"
+		PREPOSITIONAL = "стойке для кофе-картриджей",
 	)
 
 /obj/item/storage/fancy/coffee_cart_rack/populate_contents()

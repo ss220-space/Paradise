@@ -29166,7 +29166,7 @@
 /area/medical/paramedic)
 "ddM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -38538,14 +38538,8 @@
 /area/hallway/secondary/exit)
 "dTt" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = -7;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/purple,
 /area/hallway/secondary/exit)
 "dTu" = (
@@ -50939,10 +50933,7 @@
 "gwr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "gwx" = (
@@ -68322,10 +68313,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = -7;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "kyY" = (
@@ -70449,7 +70437,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -98844,10 +98832,7 @@
 "rjA" = (
 /obj/structure/table,
 /obj/item/clothing/mask/cigarette/menthol,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/item/reagent_containers/syringe/steroids,
 /obj/item/reagent_containers/food/snacks/proteinbar_banana,
 /turf/simulated/floor/plating,
@@ -109816,11 +109801,7 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	list_reagents = list("honey" = 15);
-	pixel_x = 9;
-	pixel_y = 5
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -125604,7 +125585,7 @@
 /area/lawoffice)
 "xgP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -126789,10 +126770,7 @@
 /obj/machinery/door/window/westright{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "xuT" = (

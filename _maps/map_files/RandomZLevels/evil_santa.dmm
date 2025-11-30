@@ -885,14 +885,6 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
-"hp" = (
-/obj/structure/spider/stickyweb,
-/obj/item/paper/crumpled{
-	desc = "Полезть прятаться в шахте — самая тупая идея за последние пару дней. Ладно, надо затесаться среди этих макак, отпинаю одну и заберу ее форму, авось прокатит. Вот только где скинуть ствол...";
-	
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/vision_change_area/awaymission/evil_santa/mine)
 "hr" = (
 /obj/item/flashlight/lantern{
 	light_color = "#ffb366";
@@ -60284,7 +60276,7 @@ Zx
 Zx
 Zx
 xE
-hp
+xE
 kJ
 kJ
 kJ

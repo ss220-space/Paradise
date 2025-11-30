@@ -2091,7 +2091,7 @@
 "aTE" = (
 /obj/structure/table,
 /obj/item/clothing/head/soft/solgov,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -3936,12 +3936,7 @@
 /area/shuttle/ninja)
 "bQZ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
-	desc = "Its cold like the space outside noo!";
-	pixel_x = -6;
-	pixel_y = 8;
-	volume = 10
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/item/reagent_containers/food/drinks/cans/beer{
 	pixel_x = 6
 	},
@@ -9154,10 +9149,7 @@
 	desc = "Любимая игрушка-антистресс одной из представительниц вида таяран, когда-то работавшей главой персонала. Она была настолько занята выполнением своих обязанностей, что умерла голодной смертью прямо на своем рабочем месте. Не будьте как эта таяра. Кушайте регулярно.";
 	name = "Любимая игрушка бюрократов"
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 6;
-	pixel_y = 9
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "elS" = (
@@ -10093,7 +10085,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "eNb" = (

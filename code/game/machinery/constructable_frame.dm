@@ -604,10 +604,11 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stock_parts/micro_laser = 1)
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+	)
 
 /obj/item/circuitboard/coffeemaker/impressa
 	board_name = "Кофемашина \"Импресса Моделло 5\""
@@ -615,10 +616,11 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=3;magnets=3"
 	req_components = list(
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/capacitor/adv = 1,
-							/obj/item/stock_parts/micro_laser/high = 2)
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/capacitor/adv = 1,
+		/obj/item/stock_parts/micro_laser/high = 2,
+	)
 
 /obj/item/circuitboard/gibber
 	board_name = "Gibber"

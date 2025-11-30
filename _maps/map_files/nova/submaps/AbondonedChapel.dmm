@@ -687,10 +687,7 @@
 /obj/structure/table,
 /obj/item/folder/yellow,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
-	pixel_y = 6;
-	pixel_x = -15
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},

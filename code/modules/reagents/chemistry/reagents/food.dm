@@ -168,7 +168,6 @@
 	name = "Аспартам"
 	id = "aspartame"
 	description = "Искусственный подсластитель. В отличие от сахара, обладает нулевой калорийностью, благодаря чему его часто используют в продуктах \"для похудения\"."
-	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	nutriment_factor = 0
 	metabolization_rate = 2 * REAGENTS_METABOLISM
@@ -744,7 +743,6 @@
 	name = "Шоколадная посыпка"
 	id = "chocolate_sprinkle"
 	description = "Измельчённый шоколад. Такой часто добавляют в выпечку или кофе."
-	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM	//same as chocolate
 	color = "#2E2418"
 	taste_description = "измельчённого шоколада"

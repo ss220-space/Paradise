@@ -24776,10 +24776,7 @@
 /area/maintenance/apmaint)
 "dEm" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 3;
-	pixel_y = 7
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -49126,9 +49123,7 @@
 /area/maintenance/apmaint)
 "hgb" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_y = 7
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -73932,16 +73927,6 @@
 "kVb" = (
 /turf/simulated/wall,
 /area/crew_quarters/bar)
-"kVc" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_y = 9
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/security/processing)
 "kVf" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -88055,14 +88040,8 @@
 /area/security/permabrig)
 "mZZ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = -5;
-	pixel_y = 13
-	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 1
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/effect/spawner/lootdrop/maintenance{
 	pixel_x = -5;
 	pixel_y = -1
@@ -108050,14 +108029,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -108939,10 +108912,7 @@
 /obj/structure/table/glass,
 /obj/item/clipboard,
 /obj/item/toy/figure/virologist,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 10;
-	pixel_y = 4
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -138159,7 +138129,7 @@
 /area/engineering/break_room)
 "ulI" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -142138,10 +142108,7 @@
 /area/chapel/massdriver)
 "uRw" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
 "uRx" = (
@@ -157199,14 +157166,8 @@
 /area/crew_quarters/cabin1)
 "xdZ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 8;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 6;
-	pixel_y = 2
-	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel,
 /area/hallway/spacebridge/comcar)
 "xeh" = (
@@ -250801,7 +250762,7 @@ ykB
 hwK
 iTv
 wpR
-kVc
+ulI
 ulI
 pNR
 myP

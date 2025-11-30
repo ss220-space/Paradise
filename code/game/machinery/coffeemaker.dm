@@ -478,15 +478,17 @@
 	desc = "Преимального качества картридж, содержащий перемолотые кофейные зёрна. \
 			Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
-	ru_names = list(
+	icon_state = "cartridge_blend"
+
+/obj/item/coffee_cartridge/fancy/get_ru_names()
+	return list(
 		NOMINATIVE = "премиальный кофе-картридж \"Каффе Фантазиосо\"",
 		GENITIVE = "премиального кофе-картриджа \"Каффе Фантазиосо\"",
 		DATIVE = "премиальному кофе-картриджу \"Каффе Фантазиосо\"",
 		ACCUSATIVE = "премиальный кофе-картридж \"Каффе Фантазиосо\"",
 		INSTRUMENTAL = "премиальным кофе-картриджем \"Каффе Фантазиосо\"",
-		PREPOSITIONAL = "премиальном кофе-картридже \"Каффе Фантазиосо\""
+		PREPOSITIONAL = "премиальном кофе-картридже \"Каффе Фантазиосо\"",
 	)
-	icon_state = "cartridge_blend"
 
 // Yep, same reagent for every cartridge – that's intentional
 /obj/item/coffee_cartridge/fancy/Initialize(mapload)

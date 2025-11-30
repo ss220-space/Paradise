@@ -3512,10 +3512,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic/coffee_syrups
 	name = "Ящик кофейных сиропов"
-	contains = list(/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
-					/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
-					/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
-					/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur)
+	contains = list(
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
+	)
 	cost = 20
 	containername = "ящик кофейных сиропов"
 	container_ru_names = list(
@@ -3524,7 +3526,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику кофейных сиропов",
 		ACCUSATIVE = "ящик кофейных сиропов",
 		INSTRUMENTAL = "ящиком кофейных сиропов",
-		PREPOSITIONAL = "ящике кофейных сиропов"
+		PREPOSITIONAL = "ящике кофейных сиропов",
 	)
 
 /datum/supply_packs/organic/standard_coffeemachine
@@ -3538,7 +3540,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с кофемашиной \"Моделло 3\"",
 		ACCUSATIVE = "ящик с кофемашиной \"Моделло 3\"",
 		INSTRUMENTAL = "ящиком с кофемашиной \"Моделло 3\"",
-		PREPOSITIONAL = "ящике с кофемашиной \"Моделло 3\""
+		PREPOSITIONAL = "ящике с кофемашиной \"Моделло 3\"",
 	)
 
 /datum/supply_packs/organic/impressa_coffeemachine
@@ -3552,14 +3554,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с кофемашиной \"Импресса Моделло 5\"",
 		ACCUSATIVE = "ящик с кофемашиной \"Импресса Моделло 5\"",
 		INSTRUMENTAL = "ящиком с кофемашиной \"Импресса Моделло 5\"",
-		PREPOSITIONAL = "ящике с кофемашиной \"Импресса Моделло 5\""
+		PREPOSITIONAL = "ящике с кофемашиной \"Импресса Моделло 5\"",
 	)
 
 /datum/supply_packs/organic/coffee_cartridges
 	name = "Набор кофейных картриджей"
-	contains = list(/obj/item/coffee_cartridge,
-					/obj/item/coffee_cartridge,
-					/obj/item/coffee_cartridge)
+	contains = list(
+		/obj/item/coffee_cartridge,
+		/obj/item/coffee_cartridge,
+		/obj/item/coffee_cartridge,
+	)
 	cost = 25
 	containername = "ящик кофейных картриджей"
 	container_ru_names = list(
@@ -3568,14 +3572,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику кофейных картриджей",
 		ACCUSATIVE = "ящик кофейных картриджей",
 		INSTRUMENTAL = "ящиком кофейных картриджей",
-		PREPOSITIONAL = "ящике кофейных картриджей"
+		PREPOSITIONAL = "ящике кофейных картриджей",
 	)
 
 /datum/supply_packs/organic/coffee_cartridges_premiuim
 	name = "Набор премиальных кофейных картриджей"
-	contains = list(/obj/item/coffee_cartridge/fancy,
-					/obj/item/coffee_cartridge/fancy,
-					/obj/item/coffee_cartridge/fancy)
+	contains = list(
+		/obj/item/coffee_cartridge/fancy,
+		/obj/item/coffee_cartridge/fancy,
+		/obj/item/coffee_cartridge/fancy,
+	)
 	cost = 35
 	containername = "ящик премиальных кофейных картриджей"
 	container_ru_names = list(
@@ -3584,15 +3590,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику премиальных кофейных картриджей",
 		ACCUSATIVE = "ящик премиальных кофейных картриджей",
 		INSTRUMENTAL = "ящиком премиальных кофейных картриджей",
-		PREPOSITIONAL = "ящике премиальных кофейных картриджей"
+		PREPOSITIONAL = "ящике премиальных кофейных картриджей",
 	)
 
 /datum/supply_packs/organic/coffee_packs
 	name = "Набор пакетов кофе"
-	contains = list(/obj/item/storage/box/coffeepack,
-					/obj/item/storage/box/coffeepack,
-					/obj/item/storage/box/coffeepack/robusta,
-					/obj/item/storage/box/coffeepack/robusta)
+	contains = list(
+		/obj/item/storage/box/coffeepack,
+		/obj/item/storage/box/coffeepack,
+		/obj/item/storage/box/coffeepack/robusta,
+		/obj/item/storage/box/coffeepack/robusta,
+	)
 	cost = 30
 	containername = "ящик пакетов кофе"
 	container_ru_names = list(
@@ -3601,7 +3609,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пакетов кофе",
 		ACCUSATIVE = "ящик пакетов кофе",
 		INSTRUMENTAL = "ящиком пакетов кофе",
-		PREPOSITIONAL = "ящике пакетов кофе"
+		PREPOSITIONAL = "ящике пакетов кофе",
 	)
 
 //////// livestock
