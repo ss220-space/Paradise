@@ -37,7 +37,7 @@
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (is_sharp(I) || is_pointed(I)))
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (I.sharp || is_pointed(I)))
 		deconstruct(FALSE)
 
 /obj/structure/inflatable/attack_hand(mob/user)

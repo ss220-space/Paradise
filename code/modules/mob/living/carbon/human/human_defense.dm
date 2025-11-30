@@ -496,7 +496,7 @@ emp_act
 	if(armor >= 100)
 		return .
 
-	var/weapon_sharp = is_sharp(item)
+	var/weapon_sharp = item.sharp
 	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
 		weapon_sharp = FALSE
 

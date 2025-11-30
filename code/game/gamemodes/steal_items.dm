@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		if(!player.current)
 			continue
 
-		for(var/obj/item/item in player.current.GetAllContents())
+		for(var/obj/item/item in player.current.get_all_contents())
 			if((istype(item, typepath) || (item.type in altitems)) && check_special_completion(item))
 				return TRUE
 
@@ -473,7 +473,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 			if(istype(check, typepath) && check.stat != DEAD)
 				return TRUE
 
-		var/list/all_contents = player.current.GetAllContents()
+		var/list/all_contents = player.current.get_all_contents()
 		for(var/mob/living/animal in all_contents)
 			if(istype(animal, typepath) && animal.stat != DEAD)
 				return TRUE
@@ -650,7 +650,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		if(!length(temp_items))
 			break
 
-		for(var/obj/item/item in player.current.GetAllContents())
+		for(var/obj/item/item in player.current.get_all_contents())
 			var/is_found = FALSE
 			for(var/wanted_type in temp_items)
 				if(istype(item, wanted_type))

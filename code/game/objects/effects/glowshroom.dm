@@ -268,7 +268,7 @@
 	if(istype(item, /obj/item/scythe) && scythe.extend)
 		damage_dealt *= 20
 
-	else if(is_sharp(item) || item.damtype == BURN)
+	else if(item.sharp || item.damtype == BURN)
 		damage_dealt *= 4
 
 	take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)

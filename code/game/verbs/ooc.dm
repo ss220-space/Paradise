@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	if(!mob)
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(src, span_danger("Guests may not use OOC."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
@@ -124,7 +124,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	if(!mob)
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(src, span_danger("Guests may not use LOOC."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 

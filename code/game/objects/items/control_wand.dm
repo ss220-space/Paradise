@@ -25,7 +25,7 @@
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
 	ID.access += additional_access
-	ID.access = uniquelist(ID.access)
+	ID.access = unique_list(ID.access)
 
 /obj/item/door_remote/Destroy()
 	QDEL_NULL(ID)
