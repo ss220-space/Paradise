@@ -1505,7 +1505,7 @@
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL

@@ -621,7 +621,7 @@
 /mob/proc/is_general_slot(slot)
 	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_ACCESSORY))
 
-//GetAllContents that is reasonable and not stupid
+//get_all_contents that is reasonable and not stupid
 /mob/living/proc/get_all_gear(recursive = TRUE)
 	var/list/processing_list = get_equipped_items(TRUE, TRUE)
 	list_clear_nulls(processing_list) // handles empty hands

@@ -349,7 +349,7 @@
 	holder.update_integrity(holder.max_integrity)
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
-	if(!is_sharp(item))
+	if(!item.sharp)
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -548,7 +548,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return .
 
-	if(is_sharp(item) || item.damtype == BURN)
+	if(item.sharp || item.damtype == BURN)
 		damage_dealt *= 4
 
 	for(var/datum/spacevine_mutation/mutation as anything in mutations)

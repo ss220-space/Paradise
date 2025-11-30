@@ -11,7 +11,7 @@
 	return "data/player_saves/[copytext(user.ckey, 1, 2)]/[user.ckey]/pai.sav"
 
 /datum/paiCandidate/proc/savefile_save(mob/user)
-	if(IsGuestKey(user.key))
+	if(is_guest_key(user.key))
 		return FALSE
 
 	if(!src.name)	//Preventing false savings
@@ -34,7 +34,7 @@
 // returns 0 if savefile did not exist
 
 /datum/paiCandidate/proc/savefile_load(mob/user, silent = 1)
-	if(IsGuestKey(user.key))
+	if(is_guest_key(user.key))
 		return 0
 
 	var/path = savefile_path(user)

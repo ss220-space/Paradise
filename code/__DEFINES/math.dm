@@ -1,3 +1,6 @@
+#define IS_FINITE__UNSAFE(a) (!isinf(a) && !isnan(a))
+#define IS_FINITE(a) (isnum(a) && IS_FINITE__UNSAFE(a))
+
 #define NUM_E 2.71828183
 
 #define PI 3.1415

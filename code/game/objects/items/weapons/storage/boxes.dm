@@ -788,7 +788,7 @@
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(is_sharp(I))
+	if(I.sharp)
 		add_fingerprint(user)
 		if(length(contents))
 			to_chat(user, span_warning("You cannot modify [src] with the items inside!"))
