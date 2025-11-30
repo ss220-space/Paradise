@@ -848,13 +848,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		for(var/J in SSjobs.occupations)
 			var/datum/job/job = J
 
-			if(job.admin_only)
-				continue
-
-			if(job.hidden_from_job_prefs)
-				continue
-
-			if(!job.can_novice_play(user.client))
+			if(job.admin_only || job.hidden_from_job_prefs || !job.can_novice_play(user.client))
 				continue
 
 			index += 1
