@@ -37,33 +37,29 @@ SUBSYSTEM_DEF(jobs)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
-/// Department id getter for a certain role
-/datum/controller/subsystem/jobs/proc/getJobDepartment(datum/job/job)
-	if(job.is_command) return "command"
-	if(job.is_engineering) return "engineering"
-	if(job.is_science) return "science"
-	if(job.is_medical) return "medical"
-	if(job.is_security) return "security"
-	if(job.is_supply) return "supply"
-	if(job.is_service) return "service"
-	if(job.is_legal) return "legal"
-	return "other"
-
 /datum/controller/subsystem/jobs/proc/SetupOccupations()
 	occupations = list()
-	name_occupations = list()
-	type_occupations = list()
-
-	if(!length(GLOB.joblist))
-		to_chat(world, span_warning("Ошибка выдачи профессий: GLOB.joblist пуст."))
+	var/list/all_jobs = subtypesof(/datum/job)
+	if(!length(all_jobs))
+		to_chat(world, span_warning("Ошибка выдачи профессий, датумы профессий не найдены."))
 		return
 
-	/// Order of departments, used in occupation setup menu
+	/// Order of departments, used to sort jobs in "occupations" list
 	var/list/department_order = list(
-		"command", "engineering", "science", "medical", "security", "supply", "service", "legal", "other"
+		STATION_DEPARTMENT_COMMAND,
+		STATION_DEPARTMENT_ENGINEERING,
+		STATION_DEPARTMENT_SCIENCE,
+		STATION_DEPARTMENT_MEDICAL,
+		STATION_DEPARTMENT_SECURITY,
+		STATION_DEPARTMENT_SUPPLY,
+		STATION_DEPARTMENT_SERVICE,
+		STATION_DEPARTMENT_LEGAL,
+		STATION_DEPARTMENT_CIVILIAN,
+		STATION_DEPARTMENT_SILICON,
+		STATION_DEPARTMENT_OTHER,
 	)
 
-	/// Titles of roles, used to split jobs by their department in SetChoices proc
+	/// Titles of head roles, used to sort jobs in "occupations" list
 	var/list/head_titles = list(
 		JOB_TITLE_CAPTAIN, // Command
 		JOB_TITLE_CHIEF, // Engineering
@@ -72,47 +68,42 @@ SUBSYSTEM_DEF(jobs)
 		JOB_TITLE_HOS, // Security
 		JOB_TITLE_QUARTERMASTER, // Supply
 		JOB_TITLE_HOP, // Service
-		JOB_TITLE_JUDGE // Legal
+		JOB_TITLE_JUDGE, // Legal
+		JOB_TITLE_AI, // Silicon
 	)
 
 	var/list/department_groups = list()
 	for(var/department in department_order)
 		department_groups[department] = list()
 
-	for(var/title in GLOB.joblist)
-		var/datum/job/job = GLOB.joblist[title]
+	for(var/J in all_jobs)
+		var/datum/job/job = new J()
 
-		if(!job)
+		if(!job || !job.title) // to avoid adding special cod-only datums without title
 			continue
 
 		name_occupations[job.title] = job
-
-		if(job.admin_only || job.hidden_from_job_prefs)
-			continue
+		type_occupations[J] = job
 
 		// Splitting by departments
-		var/department = getJobDepartment(job)
-		if(department in department_groups)
+		var/department = job.department
+		for(department in department_groups)
 			department_groups[department] += job
-		else
-			if(!department_groups["other"])
-				department_groups["other"] = list()
-			department_groups["other"] += job
 
-	// Order: head_of_department -> department roles
+	// Order: head_of_department -> department jobs
 	for(var/department in department_groups)
-		var/list/jobs = department_groups[department]
+		var/list/department_jobs = department_groups[department]
 		var/datum/job/head_of_department = null
 
-		for(var/datum/job/job in jobs)
+		for(var/datum/job/job in department_jobs)
 			if(job.title in head_titles)
 				head_of_department = job
 				break
 
-		// Department head goes first
+		// Head goes first
 		if(head_of_department)
-			jobs -= head_of_department
-			jobs.Insert(1, head_of_department)
+			department_jobs -= head_of_department
+			department_jobs.Insert(1, head_of_department)
 
 	// Collecting a list in the right order
 	for(var/department in department_order)
