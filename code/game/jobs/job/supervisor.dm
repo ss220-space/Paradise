@@ -14,6 +14,7 @@
 	title = JOB_TITLE_CAPTAIN
 	flag = JOB_FLAG_CAPTAIN
 	department_flag = JOBCAT_ENGSEC
+	department = STATION_DEPARTMENT_COMMAND
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "должностными лицами \"Нанотрейзен\""
@@ -76,6 +77,7 @@
 	title = JOB_TITLE_REPRESENTATIVE
 	flag = JOB_FLAG_REPRESENTATIVE
 	department_flag = JOBCAT_KARMA
+	department = STATION_DEPARTMENT_COMMAND
 	selection_color = "#d1deff"
 	is_command = 1
 	transfer_allowed = FALSE
@@ -122,6 +124,7 @@
 	title = JOB_TITLE_BLUESHIELD
 	flag = JOB_FLAG_BLUESHIELD
 	department_flag = JOBCAT_KARMA
+	department = STATION_DEPARTMENT_COMMAND
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Представителем \"Нанотрейзен\""
@@ -178,9 +181,10 @@
 	title = JOB_TITLE_JUDGE
 	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
+	department = STATION_DEPARTMENT_LEGAL
 	supervisors = "верховным судом \"Нанотрейзен\""
 	department_head = list(JOB_TITLE_CAPTAIN)
-	selection_color = "#edccd7"
+	selection_color = "#db6d92"
 	is_legal = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 30
@@ -230,6 +234,7 @@
 	title = JOB_TITLE_LAWYER
 	flag = JOB_FLAG_LAWYER
 	department_flag = JOBCAT_SUPPORT
+	department = STATION_DEPARTMENT_LEGAL
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1
