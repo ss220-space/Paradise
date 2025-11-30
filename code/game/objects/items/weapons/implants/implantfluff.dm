@@ -162,3 +162,7 @@
 	life = "Lifetime warranty."
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
+/datum/implant_fluff/warp
+	name = "Cybersun Industries Warp-implant EX-27"
+	life = "Исследования показали, что имплант кратно повышает вероятность развития киберпсихоза."
+	function = "Обладает способностью искажать пространство-время."

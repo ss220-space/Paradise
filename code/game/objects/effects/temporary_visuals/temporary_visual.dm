@@ -47,3 +47,11 @@
 		var/matrix/M = new
 		M.Turn(get_angle(src, target))
 		transform = M
+
+/obj/effect/temp_visual/nothing
+	name = "nothing"
+	icon = 'icons/blanks/32x32.dmi'
+	icon_state = "nothing"
+
+/obj/effect/temp_visual/nothing/warp
+	duration = 9

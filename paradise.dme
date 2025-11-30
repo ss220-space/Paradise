@@ -1566,6 +1566,7 @@
 #include "code\game\objects\items\weapons\implants\implant_tracking.dm"
 #include "code\game\objects\items\weapons\implants\implant_traitor.dm"
 #include "code\game\objects\items\weapons\implants\implant_uplink.dm"
+#include "code\game\objects\items\weapons\implants\implant_warp.dm"
 #include "code\game\objects\items\weapons\implants\implant_weapon_auth.dm"
 #include "code\game\objects\items\weapons\implants\implantcase.dm"
 #include "code\game\objects\items\weapons\implants\implantchair.dm"
