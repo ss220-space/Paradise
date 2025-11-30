@@ -397,7 +397,7 @@
 
 	// Current build
 	if(being_built)
-		data["building"] = being_built.name
+		data["building"] = "\"[capitalize(being_built.build_object_name)]\""
 		data["buildStart"] = build_start
 		data["buildEnd"] = build_end
 		data["worldTime"] = world.time
