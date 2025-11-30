@@ -301,7 +301,8 @@
 	. = TRUE
 	if(operating)
 		return
-	if(!I.use_tool(src, user, 0, volume = 0))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * lockpick_mod, volume = 0))
 		return
 	try_to_crowbar(user, I)
 

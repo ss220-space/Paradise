@@ -200,7 +200,8 @@
 			user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_italics("Вы слышите звук сверления."))
-			if(!do_after(user, our_rpd.walldelay, src)) //Drilling into walls takes time
+			CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+			if(!do_after(user, our_rpd.walldelay * building_mod, src)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
@@ -213,7 +214,8 @@
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Разборка стены...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-		if(do_after(user, 4 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
+		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
@@ -446,7 +448,8 @@
 		WELDER_ATTEMPT_SLICING_MESSAGE
 	else
 		WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, time_required, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(I.use_tool(src, user, time_required * building_mod, volume = I.tool_volume))
 		if(intention == "Разобрать")
 			WELDER_SLICING_SUCCESS_MESSAGE
 			dismantle_wall()
@@ -469,7 +472,8 @@
 		playsound(src, I.usesound, 100, TRUE)
 
 		var/delay = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 12 SECONDS : 6 SECONDS
-		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL))
+		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		if(do_after(user, delay * I.toolspeed * building_mod, src, category = DA_CAT_TOOL))
 			to_chat(user, span_notice("Вы удаляете внешнюю обшивку."))
 			dismantle_wall()
 			visible_message(span_warning("[user] разреза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"), span_warning("Слышен звук разрезаемого металла."))

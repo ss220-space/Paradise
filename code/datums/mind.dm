@@ -91,6 +91,9 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	/// List of skill levels (associative map of type to level (number))
+	var/list/skills = list()
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -107,6 +110,7 @@
 
 		qdel(antag)
 
+	unregister_skill_signals_for_user(current)
 	current = null
 	soulOwner = null
 	return ..()
@@ -167,6 +171,8 @@
 
 	transfer_antag_huds(hud_to_transfer)				// inherit the antag HUD
 	transfer_actions(new_character, old_current)
+	unregister_skill_signals_for_user(old_current)
+	register_skill_signals_for_user(current)
 
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
@@ -3024,6 +3030,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	mind.register_skill_signals_for_user(src)
 	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 
 //HUMAN

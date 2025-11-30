@@ -54,7 +54,8 @@
 		return RCD_ACT_FAILED
 	to_chat(user, "Deconstructing window...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	if(!our_rcd.useResource(2, user))
@@ -183,7 +184,8 @@
 	. = TRUE
 	if(shock(user, 100))
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 		return
 	deconstruct()
 
@@ -193,7 +195,8 @@
 	. = TRUE
 	if(shock(user, 90))
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 		return
 	set_anchored(!anchored)
 	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
@@ -233,7 +236,8 @@
 			to_chat(user, span_notice("There is already a window facing this way there."))
 			return
 	to_chat(user, span_notice("You start placing the window..."))
-	if(do_after(user, 2 SECONDS, src))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(do_after(user, 2 SECONDS * building_mod, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)

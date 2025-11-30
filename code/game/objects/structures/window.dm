@@ -297,7 +297,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(decon_speed) // Only show this if it actually takes time
 		to_chat(user, span_notice("Вы начинаете [state == WINDOW_OUT_OF_FRAME ? "приподнимать окно для установки в раму" : "выводить окно из рамы"]..."))
-	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, decon_speed * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 	to_chat(user, span_notice("Вы [state == WINDOW_IN_FRAME ? "устанавливаете окно в раму" : "извлекаете окно из рамы"]."))
@@ -308,11 +309,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	. = TRUE
 	if(!can_be_reached(user))
 		return
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
 	if(reinf)
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)
 				to_chat(user, span_notice("Вы начинаете [state == WINDOW_SCREWED_TO_FRAME ? "откручивать окно от рамы" : "прикручивать окно к раме"]."))
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+			if(!I.use_tool(src, user, decon_speed * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
 			to_chat(user, span_notice("Вы [state == WINDOW_IN_FRAME ? "открутили окно от рамы" : "закрутили окно в раме"]."))
@@ -320,7 +322,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
 				to_chat(user, span_notice("Вы начинаете [anchored ? "откручивать раму от пола" : "прикручивать раму к полу"]..."))
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+			if(!I.use_tool(src, user, decon_speed * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			set_anchored(!anchored)
 			air_update_turf(TRUE)
@@ -330,7 +332,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else //if we're not reinforced, we don't need to check or update state
 		if(decon_speed)
 			to_chat(user, span_notice("Вы начинаете [anchored ? "откручивать окно от пола":"прикручивать окно к полу"]..."))
-		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
+		if(!I.use_tool(src, user, decon_speed * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		set_anchored(!anchored)
 		air_update_turf(TRUE)
@@ -347,7 +349,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(decon_speed)
 		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, decon_speed * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
 	G.add_fingerprint(user)
@@ -366,8 +369,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(!I.tool_use_check(user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 		update_integrity(max_integrity)
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		update_icon(UPDATE_OVERLAYS)

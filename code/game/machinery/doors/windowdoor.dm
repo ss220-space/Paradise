@@ -321,7 +321,8 @@
 			span_warning("[user] removes the electronics from the [name]."), \
 			"You start to remove electronics from the [name]..."
 		)
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
 				switch(base_state)
