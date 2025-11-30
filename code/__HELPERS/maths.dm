@@ -1,11 +1,10 @@
-// The quadratic formula. Returns a list with the solutions, or an empty list
-// if they are imaginary.
+/// The quadratic formula. Returns a list with the solutions, or an empty list if they are imaginary.
 /proc/SolveQuadratic(a, b, c)
 	ASSERT(a)
 	. = list()
-	var/d		= b*b - 4 * a * c
+	var/d = b*b - 4 * a * c
 	var/bottom  = 2 * a
-	if(d < 0)
+	if(d < 0 || !IS_FINITE__UNSAFE(d) || !IS_FINITE__UNSAFE(bottom))
 		return
 	var/root = sqrt(d)
 	. += (-b + root) / bottom
@@ -13,7 +12,7 @@
 		return
 	. += (-b - root) / bottom
 
-//Finds the shortest angle that angle A has to change to get to angle B. Aka, whether to move clock or counterclockwise.
+/// Finds the shortest angle that angle A has to change to get to angle B. Aka, whether to move clock or counterclockwise.
 /proc/closer_angle_difference(a, b)
 	if(!isnum(a) || !isnum(b))
 		return
@@ -27,30 +26,42 @@
 		dec += 360
 	. = inc > dec? -dec : inc
 
-//converts a uniform distributed random number into a normal distributed one
-//since this method produces two random numbers, one is saved for subsequent calls
-//(making the cost negligble for every second call)
-//This will return +/- decimals, situated about mean with standard deviation stddev
-//68% chance that the number is within 1stddev
-//95% chance that the number is within 2stddev
-//98% chance that the number is within 3stddev...etc
 #define ACCURACY 10000
+
+/**
+ * Converts a uniformly distributed random number into a normally distributed one using the Box-Muller transform
+ * Since this method produces two random numbers, one is saved for subsequent calls (making the cost negligible for every second call)
+ * This will return +/- decimals, situated about mean with standard deviation stddev
+ * 68% chance that the number is within 1stddev
+ * 95% chance that the number is within 2stddev
+ * 98% chance that the number is within 3stddev...etc
+ *
+ * Arguments:
+ * * mean - The mean (average) of the normal distribution
+ * * stddev - The standard deviation of the normal distribution
+ */
 /proc/gaussian(mean, stddev)
-	var/static/gaussian_next
-	var/R1;var/R2;var/working
-	if(gaussian_next != null)
-		R1 = gaussian_next
-		gaussian_next = null
+	var/static/saved_gaussian_value
+	var/first_random
+	var/second_random
+	var/calculated_value
+
+	if(saved_gaussian_value != null)
+		first_random = saved_gaussian_value
+		saved_gaussian_value = null
 	else
 		do
-			R1 = rand(-ACCURACY,ACCURACY)/ACCURACY
-			R2 = rand(-ACCURACY,ACCURACY)/ACCURACY
-			working = R1*R1 + R2*R2
-		while(working >= 1 || working==0)
-		working = sqrt(-2 * log(working) / working)
-		R1 *= working
-		gaussian_next = R2 * working
-	return (mean + stddev * R1)
+			first_random = rand(-ACCURACY, ACCURACY) / ACCURACY
+			second_random = rand(-ACCURACY, ACCURACY) / ACCURACY
+			calculated_value = first_random * first_random + second_random * second_random
+		while(calculated_value >= 1 || calculated_value == 0)
+
+		calculated_value = sqrt(-2 * log(calculated_value) / calculated_value)
+		first_random *= calculated_value
+		saved_gaussian_value = second_random * calculated_value
+
+	return (mean + stddev * first_random)
+
 #undef ACCURACY
 
 /proc/get_turf_in_angle(angle, turf/starting, increments = 1)
@@ -77,7 +88,7 @@
 	new_y = clamp(new_y, 0, world.maxy)
 	return locate(new_x, new_y, starting.z)
 
-// Returns a list where [1] is all x values and [2] is all y values that overlap between the given pair of rectangles
+/// Returns a list where [1] is all x values and [2] is all y values that overlap between the given pair of rectangles
 /proc/get_overlap(x1, y1, x2, y2, x3, y3, x4, y4)
 	var/list/region_x1 = list()
 	var/list/region_y1 = list()
@@ -102,25 +113,33 @@
 		return 1
 	return (power-- > 1 ? num * RaiseToPower(num, power) : num)
 
-// oof, what a mouthful
-// Used in status_procs' "adjust" to let them modify a status effect by a given
-// amount, without inadverdently increasing it in the wrong direction
-/proc/directional_bounded_sum(orig_val, modifier, bound_lower, bound_upper)
-	var/new_val = orig_val + modifier
-	if(modifier > 0)
-		if(new_val > bound_upper)
-			new_val = max(orig_val, bound_upper)
-	else if(modifier < 0)
-		if(new_val < bound_lower)
-			new_val = min(orig_val, bound_lower)
-	return new_val
+/**
+ * Adjusts a value by a given amount while respecting specified bounds
+ * Prevents inadvertently increasing the value in the wrong direction when at bounds
+ *
+ * Arguments:
+ * * original_value - The initial value to adjust
+ * * change_amount - The amount to add to the original value (can be positive or negative)
+ * * lower_bound - The minimum allowed value
+ * * upper_bound - The maximum allowed value
+ */
+/proc/directional_bounded_sum(original_value, change_amount, lower_bound, upper_bound)
+	var/new_value = original_value + change_amount
+	if(change_amount > 0)
+		if(new_value > upper_bound)
+			new_value = max(original_value, upper_bound)
+	else if(change_amount < 0)
+		if(new_value < lower_bound)
+			new_value = min(original_value, lower_bound)
+	return new_value
 
-// sqrt, but if you give it a negative number, you get 0 instead of a runtime
-/proc/sqrtor0(num)
-	if(num < 0)
+/// Calculates the square root of a number, returning 0 for negative inputs to avoid runtime errors
+/proc/sqrtor0(input_number)
+	if(input_number < 0)
 		return 0
-	return sqrt(num)
+	return sqrt(input_number)
 
+/// MARK: THIS DONT WORK!
 /proc/round_down(num)
 	if(round(num) != num)
 		return round(num--)
@@ -187,7 +206,7 @@
 	var/y_distance_sign = SIGN(y_distance)
 
 	var/x = abs_x_distance >> 1 //Counters for steps taken, setting to distance/2
-	var/y = abs_y_distance >> 1 //Bit-shifting makes me l33t.  It also makes get_line() unnessecarrily fast.
+	var/y = abs_y_distance >> 1 //Bit-shifting makes me l33t.  It also makes get_line() unnecessarily fast.
 
 	if(abs_x_distance >= abs_y_distance) //x distance is greater than y
 		for(var/distance_counter in 0 to (abs_x_distance - 1))//It'll take abs_x_distance steps to get there
@@ -211,60 +230,67 @@
 			line += locate(current_x_step, current_y_step, starting_z)
 	return line
 
-///Format a power value in W, kW, MW, or GW.
-/proc/display_power(powerused)
-	if(powerused < 1000) //Less than a kW
-		return "[powerused] W"
-	else if(powerused < 1000000) //Less than a MW
-		return "[round((powerused * 0.001),0.01)] kW"
-	else if(powerused < 1000000000) //Less than a GW
-		return "[round((powerused * 0.000001),0.001)] MW"
-	return "[round((powerused * 0.000000001),0.0001)] GW"
+/**
+ * Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
+ *
+ * Arguments:
+ * * energy_value - The energy value to format in joules
+ */
+/proc/display_joules(energy_value)
+	if(energy_value < 1000) // Less than a kJ
+		return "[round(energy_value, 0.1)] Дж"
+	else if(energy_value < 1000000) // Less than a MJ
+		return "[round(energy_value * 0.001, 0.01)] кДж"
+	else if(energy_value < 1000000000) // Less than a GJ
+		return "[round(energy_value * 0.000001, 0.001)] МДж"
+	return "[round(energy_value * 0.000000001, 0.0001)] ГДж"
 
-///Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
-/proc/display_joules(units)
-	if(units < 1000) // Less than a kJ
-		return "[round(units, 0.1)] J"
-	else if(units < 1000000) // Less than a MJ
-		return "[round(units * 0.001, 0.01)] kJ"
-	else if(units < 1000000000) // Less than a GJ
-		return "[round(units * 0.000001, 0.001)] MJ"
-	return "[round(units * 0.000000001, 0.0001)] GJ"
+/**
+ * Formats a power value in W, kW, MW, or GW.
+ *
+ * Arguments:
+ * * power_value - The power value to format in watts
+ */
+/proc/display_power(power_value)
+	if(power_value < 1000) // Less than a kW
+		return "[power_value] Вт"
+	else if(power_value < 1000000) // Less than a MW
+		return "[round((power_value * 0.001), 0.01)] кВт"
+	else if(power_value < 1000000000) // Less than a GW
+		return "[round((power_value * 0.000001), 0.001)] МВт"
+	return "[round((power_value * 0.000000001), 0.0001)] ГВт"
 
-///chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
+/**
+ * Generates a bit triplet by selecting three unique numbers from 1 to 9 and setting corresponding bits
+ * Returns a number with three bits set based on the selected numbers
+ */
+/proc/make_bit_triplet()
+	var/list/available_numbers = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	var/bit_triplet_value = 0
+	for(var/iteration = 0, iteration < 3, iteration++)
+		var/selected_number = pick(available_numbers)
+		available_numbers -= selected_number
+		bit_triplet_value += (1 << selected_number)
+	return bit_triplet_value
 
-///counts the number of bits in Byond's 16-bit width field, in constant time and memory!
-/proc/bit_count(bit_field)
-	var/temp = bit_field - ((bit_field >> 1) & 46811) - ((bit_field >> 2) & 37449) //0133333 and 0111111 respectively
-	temp = ((temp + (temp >> 3)) & 29127) % 63 //070707
-	return temp
+/**
+ * Ensures a value is between a minimum and maximum, clamping it if necessary
+ *
+ * Arguments:
+ * * low_bound - The minimum allowed value
+ * * middle_value - The value to clamp
+ * * high_bound - The maximum allowed value
+ */
+/proc/between(low_bound, middle_value, high_bound)
+	return max(min(middle_value, high_bound), low_bound)
 
-/// Returns the name of the mathematical tuple of same length as the number arg (rounded down).
-/proc/make_tuple(number)
-	var/static/list/units_prefix = list("", "un", "duo", "tre", "quattuor", "quin", "sex", "septen", "octo", "novem")
-	var/static/list/tens_prefix = list("", "decem", "vigin", "trigin", "quadragin", "quinquagin", "sexagin", "septuagin", "octogin", "nongen")
-	var/static/list/one_to_nine = list("monuple", "double", "triple", "quadruple", "quintuple", "sextuple", "septuple", "octuple", "nonuple")
-	number = round(number)
-	switch(number)
-		if(0)
-			return "empty tuple"
-		if(1 to 9)
-			return one_to_nine[number]
-		if(10 to 19)
-			return "[units_prefix[(number%10)+1]]decuple"
-		if(20 to 99)
-			return "[units_prefix[(number%10)+1]][tens_prefix[round((number % 100)/10)+1]]tuple"
-		if(100)
-			return "centuple"
-		else //It gets too tedious to use latin prefixes from here.
-			return "[number]-tuple"
-
-/// Returns a text string containing N prefixed with a series of zeros with length equal to max_zeros minus log(10, N), rounded down.
-/proc/prefix_zeros_to_number(number, max_zeros)
-	var/zeros = ""
-	var/how_many_zeros = max_zeros - round(log(10, number))
-	for(var/zero in 1 to how_many_zeros)
-		zeros += "0"
-	return "[zeros][number]"
+/**
+ * Clamps a number to the specified range
+ *
+ * Arguments:
+ * * low_bound - The minimum allowed value
+ * * high_bound - The maximum allowed value
+ * * input_number - The number to clamp
+ */
+/proc/dd_range(low_bound, high_bound, input_number)
+	return max(low_bound, min(high_bound, input_number))

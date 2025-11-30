@@ -355,7 +355,7 @@
 	. = ..()
 
 	// chocolate crumbles/pile
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)
 		return .
 
 	if(!isturf(loc))

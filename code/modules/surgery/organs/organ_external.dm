@@ -777,7 +777,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	var/mob/living/carbon/human/organ_owner = owner
 
-	if(!hasorgans(organ_owner))
+	if(!iscarbon(organ_owner))
 		return FALSE
 
 	var/organ_spilled = FALSE
@@ -810,7 +810,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return disembowel(BODY_ZONE_PRECISE_GROIN, silent)
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
 			balloon_alert(user, "внутри ничего нет!")

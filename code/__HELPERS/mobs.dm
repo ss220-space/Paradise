@@ -1,37 +1,54 @@
 /proc/GetOppositeDir(dir)
 	switch(dir)
-		if(NORTH)     return SOUTH
-		if(SOUTH)     return NORTH
-		if(EAST)      return WEST
-		if(WEST)      return EAST
-		if(SOUTHWEST) return NORTHEAST
-		if(NORTHWEST) return SOUTHEAST
-		if(NORTHEAST) return SOUTHWEST
-		if(SOUTHEAST) return NORTHWEST
+		if(NORTH)
+			return SOUTH
+		if(SOUTH)
+			return NORTH
+		if(EAST)
+			return WEST
+		if(WEST)
+			return EAST
+		if(SOUTHWEST)
+			return NORTHEAST
+		if(NORTHWEST)
+			return SOUTHEAST
+		if(NORTHEAST)
+			return SOUTHWEST
+		if(SOUTHEAST)
+			return NORTHWEST
 	return 0
 
 /proc/random_underwear(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = GLOB.underwear_m
-		if(FEMALE)	pick_list = GLOB.underwear_f
-		else		pick_list = GLOB.underwear_list
+		if(MALE)
+			pick_list = GLOB.underwear_m
+		if(FEMALE)
+			pick_list = GLOB.underwear_f
+		else
+			pick_list = GLOB.underwear_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 /proc/random_undershirt(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = GLOB.undershirt_m
-		if(FEMALE)	pick_list = GLOB.undershirt_f
-		else		pick_list = GLOB.undershirt_list
+		if(MALE)
+			pick_list = GLOB.undershirt_m
+		if(FEMALE)
+			pick_list = GLOB.undershirt_f
+		else
+			pick_list = GLOB.undershirt_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 /proc/random_socks(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = GLOB.socks_m
-		if(FEMALE)	pick_list = GLOB.socks_f
-		else		pick_list = GLOB.socks_list
+		if(MALE)
+			pick_list = GLOB.socks_m
+		if(FEMALE)
+			pick_list = GLOB.socks_f
+		else
+			pick_list = GLOB.socks_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 /proc/pick_species_allowed_underwear(list/all_picks, species)
@@ -46,12 +63,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(
-	gender,
-	datum/species/species,
-	datum/robolimb/robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"],
-	mob/living/carbon/human/human
-	)
+/proc/random_hair_style(gender, datum/species/species, datum/robolimb/robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"], mob/living/carbon/human/human)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 
@@ -203,55 +215,24 @@
 /proc/random_skin_tone(species = SPECIES_HUMAN)
 	if(species == SPECIES_HUMAN || species == SPECIES_DRASK)
 		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
-			if("caucasian")		. = -10
-			if("afroamerican")	. = -115
-			if("african")		. = -165
-			if("latino")		. = -55
-			if("albino")		. = 34
-			else				. = rand(-185, 34)
+			if("caucasian")
+				. = -10
+			if("afroamerican")
+				. = -115
+			if("african")
+				. = -165
+			if("latino")
+				. = -55
+			if("albino")
+				. = 34
+			else
+				. = rand(-185, 34)
 		return min(max(. + rand(-25, 25), -185), 34)
 	else if(species == SPECIES_VOX)
 		. = rand(1, 6)
 		return .
 
-/proc/skintone2racedescription(tone, species = SPECIES_HUMAN)
-	if(species == SPECIES_HUMAN)
-		switch(tone)
-			if(30 to INFINITY)		return "albino"
-			if(20 to 30)			return "pale"
-			if(5 to 15)				return "light skinned"
-			if(-10 to 5)			return "white"
-			if(-25 to -10)			return "tan"
-			if(-45 to -25)			return "darker skinned"
-			if(-65 to -45)			return "brown"
-			if(-INFINITY to -65)	return "black"
-			else					return "unknown"
-	else if(species == SPECIES_VOX)
-		switch(tone)
-			if(2)					return "dark green"
-			if(3)					return "brown"
-			if(4)					return "gray"
-			if(5)					return "emerald"
-			if(6)					return "azure"
-			else					return "green"
-	else
-		return "unknown"
-
-/proc/age2agedescription(age)
-	switch(age)
-		if(0 to 1)			return "infant"
-		if(1 to 3)			return "toddler"
-		if(3 to 13)			return "child"
-		if(13 to 19)		return "teenager"
-		if(19 to 30)		return "young adult"
-		if(30 to 45)		return "adult"
-		if(45 to 60)		return "middle-aged"
-		if(60 to 70)		return "aging"
-		if(70 to INFINITY)	return "elderly"
-		else				return "unknown"
-
 // TODO definise records fields or rewrite
-
 /proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name, law_level = LAW_LEVEL_BASE)
 	var/status = criminal_status
 	var/list/fields = target_records.fields
@@ -270,8 +251,8 @@
 		if(SEC_STATUS_EXECUTE, SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
-				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
-				usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized [span_warning("EXECUTION")] for [their_rank] [their_name], with comment: [comment]")
+				usr.investigate_log("[key_name_log(usr)] authorized [span_warning("EXECUTION")] for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			else
 				return FALSE
 
@@ -282,8 +263,8 @@
 			status = SEC_RECORD_STATUS_MONITOR
 
 		if(SEC_STATUS_DEMOTE, SEC_RECORD_STATUS_DEMOTE)
-			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
-			usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to [span_warning("DEMOTE")] for [their_rank] [their_name], with comment: [comment]")
+			usr.investigate_log("[key_name_log(usr)] authorized [span_warning("DEMOTE")] for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			status = SEC_RECORD_STATUS_DEMOTE
 
 		if(SEC_STATUS_INCARCERATED, SEC_RECORD_STATUS_INCARCERATED)
@@ -565,27 +546,29 @@
 
 	return locate(/mob) in A
 
+// Suppress the mouse macros
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return
 	if(!client.next_mouse_macro_warning) // Log once
-		log_and_message_admins("attempted to use a mouse macro: [verbused] [html_encode(params)]")
+		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
+		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
 		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
 
 /mob/verb/ClickSubstitute(params as command_text)
-	set hidden = 1
+	set hidden = TRUE
 	set name = ".click"
 	LogMouseMacro(".click", params)
 
 /mob/verb/DblClickSubstitute(params as command_text)
-	set hidden = 1
+	set hidden = TRUE
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
 
 /mob/verb/MouseSubstitute(params as command_text)
-	set hidden = 1
+	set hidden = TRUE
 	set name = ".mouse"
 	LogMouseMacro(".mouse", params)
 
@@ -593,24 +576,6 @@
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
-
-/proc/getviewsize(view)
-	if(!view) // Just to avoid any runtimes that could otherwise cause constant disconnect loops.
-		stack_trace("Missing value for 'view' in getviewsize(), defaulting to world.view!")
-		view = world.view
-
-	if(isnum(view))
-		var/totalviewrange = (view < 0 ? -1 : 1) + 2 * view
-		return list(totalviewrange, totalviewrange)
-	else
-		var/list/viewrangelist = splittext(view, "x")
-		return list(text2num(viewrangelist[1]), text2num(viewrangelist[2]))
-
-/proc/in_view_range(mob/user, atom/A)
-	var/list/view_range = getviewsize(user.client.view)
-	var/turf/source = get_turf(user)
-	var/turf/target = get_turf(A)
-	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[1], source.y + view_range[1])
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
@@ -705,7 +670,7 @@
 
 GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
-///Version of view() which ignores darkness, because BYOND doesn't have it.
+/// Version of view() which ignores darkness, because BYOND doesn't have it.
 /proc/dview(range = world.view, center, invis_flags = 0)
 	if(!center)
 		return
@@ -750,4 +715,188 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
 
-#define END_FOR_DVIEW GLOB.dview_mob.loc = null
+#define FOR_DVIEW_END GLOB.dview_mob.loc = null
+
+/// Facing failed
+#define FACING_FAILED 0
+/// Two mobs are facing the same direction
+#define FACING_SAME_DIR 1
+/// Two mobs are facing each others
+#define FACING_EACHOTHER 2
+/// Two mobs one is facing a person, but the other is perpendicular
+#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //Do I win the most informative but also most stupid define award?
+
+///Returns the direction that the initiator and the target are facing
+/proc/check_target_facings(mob/living/initator, mob/living/target)
+	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
+	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
+	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
+	if(!ismob(target) || target.body_position == LYING_DOWN)
+	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
+		return FACING_FAILED
+	if(initator.dir == target.dir) //mobs are facing the same direction
+		return FACING_SAME_DIR
+	if(is_source_facing_target(initator, target) && is_source_facing_target(target, initator)) //mobs are facing each other
+		return FACING_EACHOTHER
+	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
+		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+
+#undef FACING_FAILED
+#undef FACING_SAME_DIR
+#undef FACING_EACHOTHER
+#undef FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+
+/// Returns a list of all mobs that have an active client
+/proc/get_mob_with_client_list()
+	var/list/mobs_with_clients = list()
+	for(var/mob/mob_instance in GLOB.mob_list)
+		if(mob_instance.client)
+			mobs_with_clients += mob_instance
+	return mobs_with_clients
+
+/// When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
+/proc/freeborg()
+	var/selected_borg_name = null
+	var/list/available_borgs = list()
+	for(var/mob/living/silicon/robot/borg in GLOB.player_list)
+		if(borg.stat == DEAD || borg.connected_ai || borg.scrambledcodes || isdrone(borg) || iscogscarab(borg) || isclocker(borg))
+			continue
+		var/borg_name = "[borg.real_name] ([borg.modtype?.name] [borg.braintype])"
+		available_borgs[borg_name] = borg
+
+	if(length(available_borgs))
+		selected_borg_name = tgui_input_list(usr, "Unshackled borg signals detected:", "Borg selection", available_borgs, null)
+		return available_borgs[selected_borg_name]
+
+/// Returns a list of all active AIs that can be slaved to
+/proc/active_ais()
+	. = list()
+	for(var/mob/living/silicon/ai/ai in GLOB.alive_mob_list)
+		if(ai.stat == DEAD)
+			continue
+		if(ai.control_disabled)
+			continue
+		if(isclocker(ai)) // The active AIs list used for uploads. Avoid changing laws even if the AI is fully converted
+			continue
+		. += ai
+	return .
+
+/// Find an active AI with the least number of borgs
+/proc/select_active_ai_with_fewest_borgs()
+	var/mob/living/silicon/ai/selected_ai
+	var/list/active_ais = active_ais()
+	for(var/ai_candidate in active_ais)
+		var/mob/living/silicon/ai/current_ai = ai_candidate
+		if(!selected_ai || (length(selected_ai.connected_robots) > length(current_ai.connected_robots)))
+			selected_ai = current_ai
+
+	return selected_ai
+
+/**
+ * Presents a list of active AIs for selection, or picks one randomly if no user is provided
+ *
+ * Arguments:
+ * * user - The mob making the selection, or null for random selection
+ */
+/proc/select_active_ai(mob/user)
+	var/list/active_ai_list = active_ais()
+	if(length(active_ai_list))
+		if(user)
+			. = tgui_input_list(usr, "AI signals detected:", "AI selection", active_ai_list)
+		else
+			. = pick(active_ai_list)
+	return .
+
+/// Returns a sorted list of mobs by category and status
+/proc/get_sorted_mobs()
+	var/list/all_mobs = getmobs()
+	var/list/ai_mobs = list()
+	var/list/dead_mobs = list()
+	var/list/connected_mobs = list()
+	var/list/has_key_mobs = list()
+	var/list/logged_mobs = list()
+
+	for(var/mob_name in all_mobs)
+		var/mob/mob_instance = all_mobs[mob_name]
+		if(issilicon(mob_instance))
+			ai_mobs |= mob_instance
+		else if(isobserver(mob_instance) || mob_instance.stat == DEAD)
+			dead_mobs |= mob_instance
+		else if(mob_instance.key && mob_instance.client)
+			connected_mobs |= mob_instance
+		else if(mob_instance.key)
+			has_key_mobs |= mob_instance
+		else
+			logged_mobs |= mob_instance
+		all_mobs.Remove(mob_name)
+
+	var/list/sorted_mobs = list()
+	sorted_mobs += ai_mobs
+	sorted_mobs += connected_mobs
+	sorted_mobs += has_key_mobs
+	sorted_mobs += logged_mobs
+	sorted_mobs += dead_mobs
+
+	return sorted_mobs
+
+/// Returns a list of all mobs with their display names as keys
+/proc/getmobs()
+	var/list/all_mobs = sortmobs()
+	var/list/display_names = list()
+	var/list/mob_map = list()
+	var/list/name_counts = list()
+
+	for(var/mob/mob_instance in all_mobs)
+		var/base_name = mob_instance.name
+		if(base_name in display_names)
+			name_counts[base_name]++
+			base_name = "[base_name] ([name_counts[base_name]])"
+		else
+			display_names.Add(base_name)
+			name_counts[base_name] = 1
+
+		if(mob_instance.real_name && mob_instance.real_name != mob_instance.name)
+			base_name += " \[[mob_instance.real_name]\]"
+
+		if(mob_instance.stat == DEAD)
+			if(istype(mob_instance, /mob/dead/observer/))
+				base_name += " \[ghost\]"
+			else
+				base_name += " \[dead\]"
+
+		mob_map[base_name] = mob_instance
+
+	return mob_map
+
+/// Orders mobs by type then by name
+/proc/sortmobs()
+	var/list/mob_list = list()
+	var/list/sorted_mobs = sortAtom(GLOB.mob_list)
+	for(var/mob/living/silicon/ai/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+		if(mob_instance.eyeobj)
+			mob_list.Add(mob_instance.eyeobj)
+	for(var/mob/living/silicon/pai/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/living/silicon/robot/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/living/carbon/human/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/living/carbon/true_devil/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/living/carbon/brain/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/living/carbon/alien/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/dead/observer/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/new_player/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/living/simple_animal/slime/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/living/simple_animal/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+	for(var/mob/camera/blob/mob_instance in sorted_mobs)
+		mob_list.Add(mob_instance)
+
+	return mob_list

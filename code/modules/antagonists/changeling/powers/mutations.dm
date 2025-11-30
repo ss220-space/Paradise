@@ -480,10 +480,10 @@
 		return
 
 	var/obj/item/offarm_item = user.get_active_hand()
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		offarm_item = user.get_inactive_hand()
 
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		return
 
 	target.visible_message(span_danger("[user] impales [target] with [offarm_item]!"), \

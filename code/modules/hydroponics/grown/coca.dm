@@ -29,7 +29,7 @@
 	icon_state = "coca_packet"
 
 /obj/item/coca_packet/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card) || is_sharp(I))
+	if(istype(I, /obj/item/card) || I.sharp)
 		to_chat(user, span_notice("You have formed two trails of cocaine on the surface."))	// FBI OPEN UP
 		var/turf/our_turf = get_turf(src)
 		for(var/i = 1 to 2)

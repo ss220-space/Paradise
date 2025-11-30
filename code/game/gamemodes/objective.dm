@@ -326,7 +326,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(QDELETED(player.current))
 			continue // Maybe someone who's alive has the brain.
 
-		if(target.current in player.current.GetAllContents())
+		if(target.current in player.current.get_all_contents())
 			return TRUE
 
 	return FALSE
@@ -1032,7 +1032,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/player in owners)
 		if(!isliving(player.current))
 			continue
-		all_items += player.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		all_items += player.current.get_all_contents()	//this should get things in cheesewheels, books, etc.
 
 	for(var/obj/item in all_items) //Check for wanted items
 		if(is_type_in_typecache(item, wanted_items))
@@ -1062,7 +1062,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/player in owners)
 		if(!isliving(player.current))
 			continue
-		all_items += player.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		all_items += player.current.get_all_contents()	//this should get things in cheesewheels, books, etc.
 
 	for(var/obj/item in all_items) //Check for wanted items
 		if(istype(item, /obj/item/spellbook) && !istype(item, /obj/item/spellbook/oneuse))

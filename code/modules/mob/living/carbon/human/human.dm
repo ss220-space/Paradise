@@ -214,7 +214,7 @@
 	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
 	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
 
-	var/total_user_contents = GetAllContents() // cache it
+	var/total_user_contents = get_all_contents() // cache it
 	if(locate(/obj/item/gps) in total_user_contents)
 		var/turf/T = get_turf(src)
 		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
