@@ -385,6 +385,19 @@
 		PREPOSITIONAL = "пакетике острого соуса"
 	)
 
+// Animal feed
+/obj/item/reagent_containers/food/condiment/animalfeed
+	name = "pet food package"
+	desc = "Корм для домашних животных. Вы же точно не хотите это пробовать?.."
+	icon = 'icons/obj/pet_bowl.dmi'
+	icon_state = "pet_food"
+	volume = 80
+	list_reagents = list("afeed" = 80)
+
+/obj/item/reagent_containers/food/condiment/animalfeed/on_reagent_change()
+	return
+
+// MARK: Creamer pack
 /obj/item/reagent_containers/food/condiment/pack/creamer
 	name = "creamer pack"
 	originalname = "creamer"
@@ -400,6 +413,11 @@
 		PREPOSITIONAL = "пакетике сливок"
 	)
 
+/obj/item/reagent_containers/food/condiment/pack/creamer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "creamer")
+
+// MARK: Sugar pack
 /obj/item/reagent_containers/food/condiment/pack/sugar
 	name = "sugar pack"
 	originalname = "sugar"
@@ -415,6 +433,11 @@
 		PREPOSITIONAL = "пакетике сахара"
 	)
 
+/obj/item/reagent_containers/food/condiment/pack/sugar/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "sugar")
+
+// MARK: Aspartame pack
 /obj/item/reagent_containers/food/condiment/pack/aspartame
 	name = "aspartame pack"
 	originalname = "aspartame"
@@ -430,6 +453,11 @@
 		PREPOSITIONAL = "пакетике аспартама"
 	)
 
+/obj/item/reagent_containers/food/condiment/pack/aspartame/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "aspartame")
+
+// MARK: Chocolate sprinkle
 /obj/item/reagent_containers/food/condiment/pack/chocolate
 	name = "chocolate sprinkle pack"
 	originalname = "chocolate sprikle"
@@ -444,15 +472,3 @@
 		INSTRUMENTAL = "пакетиком шоколадной посыпки",
 		PREPOSITIONAL = "пакетике шоколадной посыпки"
 	)
-
-// Animal feed
-/obj/item/reagent_containers/food/condiment/animalfeed
-	name = "pet food package"
-	desc = "Корм для домашних животных. Вы же точно не хотите это пробовать?.."
-	icon = 'icons/obj/pet_bowl.dmi'
-	icon_state = "pet_food"
-	volume = 80
-	list_reagents = list("afeed" = 80)
-
-/obj/item/reagent_containers/food/condiment/animalfeed/on_reagent_change()
-	return

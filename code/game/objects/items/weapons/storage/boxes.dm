@@ -346,6 +346,10 @@
 		PREPOSITIONAL = "зёрнах кофе арабика"
 	)
 
+/obj/item/storage/box/coffeepack/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader)
+
 /obj/item/storage/box/coffeepack/populate_contents()
 	for(var/i in 1 to storage_slots)
 		var/obj/item/reagent_containers/food/snacks/grown/coffee/bean = new beantype(src)

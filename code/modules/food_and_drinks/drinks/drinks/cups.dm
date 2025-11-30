@@ -1,4 +1,4 @@
-// Coffee cups
+// MARK: Coffee cups
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup
 	name = ""
 	desc = ""
@@ -13,7 +13,7 @@
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-
+// MARK: Coffee cup
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal
 	name = "coffee cup"
 	desc = "Удобный бумажный стакан со снимаемой крышкой. Предназначен для питья кофе."
@@ -32,6 +32,10 @@
 		INSTRUMENTAL = "стаканом кофе",
 		PREPOSITIONAL = "стакане кофе"
 	)
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "cups")
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/examine(mob/user)
 	. = ..()
@@ -76,7 +80,7 @@
 			user.balloon_alert(user, "крышка снята")
 	update_appearance()
 
-
+// MARK: Small coffee cup
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small
 	name = "small coffee cup"
 	desc = "Небольшой бумажный стакан. Обычно в таких подают кофе. Далеко не самый удобный."
@@ -94,6 +98,10 @@
 		INSTRUMENTAL = "стаканчиком кофе",
 		PREPOSITIONAL = "стаканчике кофе"
 	)
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "cups")
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/update_overlays()
 	. = ..()
