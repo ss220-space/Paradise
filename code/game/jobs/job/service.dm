@@ -1,6 +1,7 @@
 /datum/job/head_of_staff/hop
 	title = JOB_TITLE_HOP
 	flag = JOB_FLAG_HOP
+	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
 	is_service = 1
 	blocked_race_for_job = list(SPECIES_VOX)
@@ -44,6 +45,7 @@
 	implants = list()
 
 /datum/job/service
+	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
 	is_service = 1
 	supervisors = "Главой персонала"

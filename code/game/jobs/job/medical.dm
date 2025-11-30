@@ -1,6 +1,7 @@
 /datum/job/head_of_staff/cmo
 	title = JOB_TITLE_CMO
 	flag = JOB_FLAG_CMO
+	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
 	selection_color = "#66c6ff"
@@ -35,6 +36,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 /datum/job/medical
+	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
 	supervisors = "Главным врачом"

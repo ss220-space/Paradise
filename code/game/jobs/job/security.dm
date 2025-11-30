@@ -1,6 +1,7 @@
 /datum/job/head_of_staff/hos
 	title = JOB_TITLE_HOS
 	flag = JOB_FLAG_HOS
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1
 	selection_color = "#c25656"
@@ -51,6 +52,7 @@
 	box = /obj/item/storage/box/survival/survival_security/hos
 
 /datum/job/security
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1
 	supervisors = "Главой службы безопасности"

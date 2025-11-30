@@ -2,6 +2,7 @@
 	title = JOB_TITLE_CIVILIAN
 	flag = JOB_FLAG_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
+	department = STATION_DEPARTMENT_CIVILIAN
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "Главой персонала"
