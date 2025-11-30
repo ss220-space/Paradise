@@ -576,6 +576,20 @@
 		source_list.Cut(chosen_index, chosen_index + 1) // Cut is far more efficient that Remove()
 
 /**
+ * Picks a random element by weight from the list and removes it from the list
+ *
+ * Arguments:
+ * * source_list - The weighted list to pick and remove from
+ */
+/proc/pick_weight_n_take(list/source_list)
+	RETURN_TYPE(source_list[_].type)
+	if(length(source_list) > 0)
+		var/selected_item = pick_weight_classic(source_list)
+		source_list -= selected_item
+		return selected_item
+	return null
+
+/**
  * Picks multiple unique elements from the suplied list.
  * If the given list has a length less than the amount given then it will return a list with an equal amount
  *

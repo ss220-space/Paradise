@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 
 #define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
 
-/// For objects that should embed, but make no sense being item.sharp or is_pointed e.g: rods
+/// For objects that should embed, but make no sense being sharp or is_pointed e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
 	/obj/item/pipe,
