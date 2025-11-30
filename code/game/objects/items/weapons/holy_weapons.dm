@@ -726,31 +726,6 @@
 	animate_fade_colored(hell_spawn, 2 SECONDS)
 	LAZYREMOVE(smited_clowns, hell_spawn)
 
-/obj/item/nullrod/rosary/bread/proc/animate_fade_grayscale(atom/target, time = 5)
-	if(!istype(target) && !isclient(target))
-		return
-
-	target.color = null
-	animate(
-		target,
-		color = MATRIX_GREYSCALE,
-		time = time,
-		easing = SINE_EASING,
-		flags = ANIMATION_PARALLEL
-	)
-
-/obj/item/nullrod/rosary/bread/proc/animate_fade_colored(atom/target, time = 5)
-	if(!istype(target) && !isclient(target))
-		return
-
-	animate(
-		target,
-		color = null,
-		time = time,
-		easing = SINE_EASING,
-		flags = ANIMATION_PARALLEL
-	)
-
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."

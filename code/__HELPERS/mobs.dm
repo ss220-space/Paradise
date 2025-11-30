@@ -546,6 +546,32 @@
 
 	return locate(/mob) in A
 
+// Suppress the mouse macros
+/mob/proc/LogMouseMacro(verbused, params)
+	if(!client)
+		return
+	if(!client.next_mouse_macro_warning) // Log once
+		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
+		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
+	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
+		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
+		client.next_mouse_macro_warning = world.time + 600
+
+/mob/verb/ClickSubstitute(params as command_text)
+	set hidden = TRUE
+	set name = ".click"
+	LogMouseMacro(".click", params)
+
+/mob/verb/DblClickSubstitute(params as command_text)
+	set hidden = TRUE
+	set name = ".dblclick"
+	LogMouseMacro(".dblclick", params)
+
+/mob/verb/MouseSubstitute(params as command_text)
+	set hidden = TRUE
+	set name = ".mouse"
+	LogMouseMacro(".mouse", params)
+
 /proc/update_all_mob_security_hud()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing

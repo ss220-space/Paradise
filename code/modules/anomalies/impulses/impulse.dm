@@ -36,47 +36,5 @@
 	if(do_shake)
 		animate_shake(src)
 
-/datum/anomaly_impulse/proc/animate_shake(atom/target, shake_count = 5, x_amplitude = 2, y_amplitude = 2)
-	// Wiggles the sprite around on its tile then returns it to normal
-	if(!istype(target))
-		return
-	if(!isnum(shake_count) || !isnum(x_amplitude) || !isnum(y_amplitude))
-		return
-
-	shake_count = max(1, min(shake_count, 50))
-	x_amplitude = max(-32, min(x_amplitude, 32))
-	y_amplitude = max(-32, min(y_amplitude, 32))
-
-	var/negative_x_amplitude = 0 - x_amplitude
-	var/negative_y_amplitude = 0 - y_amplitude
-
-	animate(
-		target,
-		transform = null,
-		pixel_y = rand(negative_y_amplitude, y_amplitude),
-		pixel_x = rand(negative_x_amplitude, x_amplitude),
-		time = 1,
-		loop = shake_count,
-		easing = ELASTIC_EASING,
-		flags = ANIMATION_PARALLEL
-	)
-
-	addtimer(CALLBACK(src, PROC_REF(reset_animation), target), shake_count)
-
-/datum/anomaly_impulse/proc/reset_animation(atom/target)
-	if(!istype(target))
-		return
-
-	animate(
-		target,
-		transform = null,
-		pixel_y = 0,
-		pixel_x = 0,
-		time = 1,
-		loop = 1,
-		easing = LINEAR_EASING,
-		flags = ANIMATION_PARALLEL
-	)
-
 /datum/anomaly_impulse/proc/scale_by_strength(l_val, r_val)
 	return round(l_val + (r_val - l_val) * owner.get_strength() / 100)

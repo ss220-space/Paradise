@@ -517,24 +517,6 @@
 				return TRUE
 	return FALSE
 
-/// Checks if an item can be embedded in something
-/proc/can_embed(obj/item/item)
-	if(is_sharp(item))
-		return TRUE
-	if(is_pointed(item))
-		return TRUE
-
-	if(is_type_in_typecache(item, GLOB.can_embed_types))
-		return TRUE
-
-/// Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/item/item)
-	if(!istype(item))
-		return FALSE
-	if(item.sharp)
-		return TRUE
-	return FALSE
-
 /// Returns the atom type in the specified loc
 /proc/get(atom/loc, type)
 	while(loc)
