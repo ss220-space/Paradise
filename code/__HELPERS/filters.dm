@@ -326,3 +326,22 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 /// Used to create rays on an item. Make sure to "remove_filter("rays")" when done with it
 /atom/proc/ray_filter_helper(_priority = 1, _size = 40, _color = "#FFFFFF", _factor = 6, _density = 20, _y = 0)
 	add_filter(name = "ray", priority = _priority, params = list(type = "rays", size = _size, color = _color , factor = _factor, density = _density, y = _y))
+
+/// Recursively applies a filter to a passed in static appearance, returns the modified appearance
+/proc/filter_appearance_recursive(mutable_appearance/filter, filter_to_apply)
+	var/mutable_appearance/modify = new(filter)
+	var/list/existing_filters = modify.filters.Copy()
+	modify.filters = list(filter_to_apply) + existing_filters
+
+	// Ideally this should be recursive to check for KEEP_APART elements that need this applied to it
+	// and RESET_COLOR flags but this is much simpler, and hopefully we don't have that point of layering here
+	if(modify.appearance_flags & KEEP_TOGETHER)
+		return modify
+
+	for(var/overlay_index in 1 to length(modify.overlays))
+		modify.overlays[overlay_index] = filter_appearance_recursive(modify.overlays[overlay_index], filter_to_apply)
+
+	for(var/underlay_index in 1 to length(modify.underlays))
+		modify.underlays[underlay_index] = filter_appearance_recursive(modify.underlays[underlay_index], filter_to_apply)
+
+	return modify
