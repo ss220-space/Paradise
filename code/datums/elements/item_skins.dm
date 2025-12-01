@@ -39,11 +39,6 @@
 	if(item.current_skin) //already exists skin, no reskin allowed
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(show_select_skins_radial_menu), item, user)
-	return CLICK_ACTION_SUCCESS
-
-
-/datum/element/item_skins/proc/show_select_skins_radial_menu(obj/item/item, mob/living/carbon/human/user)
 	var/list/skin_options = list()
 	for(var/datum/item_skin_data/skin as anything in item.skins)
 		if(skin.donation_tier > user.client.donator_level)
@@ -54,6 +49,11 @@
 		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
 		return
 
+	INVOKE_ASYNC(src, PROC_REF(show_select_skins_radial_menu), item, user, skin_options)
+	return CLICK_ACTION_SUCCESS
+
+
+/datum/element/item_skins/proc/show_select_skins_radial_menu(obj/item/item, mob/living/carbon/human/user, skin_options)
 	var/choice = show_radial_menu(user, item, skin_options, radius = 40, require_near = TRUE)
 
 	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated() || item.current_skin)

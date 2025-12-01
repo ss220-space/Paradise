@@ -197,8 +197,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
@@ -438,6 +436,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(action)
 		action.UpdateButtonIcon()
+
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 
 /**
  * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this

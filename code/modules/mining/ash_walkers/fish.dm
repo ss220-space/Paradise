@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 
 /obj/item/lavaland_fish/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/sharpness = is_sharp(I)
+	var/sharpness = I.sharp
 	if(sharpness && user.a_intent == INTENT_HELP && do_flop_animation)
 		fucking_dies()
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)

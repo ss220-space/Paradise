@@ -17,7 +17,7 @@
 	var/icon_off = "camera_off"
 	var/item_on = "camera"
 	var/item_off = "camera_off"
-	var/size = 3
+	var/picture_size = 3
 	var/see_ghosts = 0 //for the spoop of it
 	var/flashing_lights = TRUE
 
@@ -29,6 +29,13 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi',
 	)
+
+/obj/item/camera/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/shell,\
+	list(new /obj/item/circuit_component/camera,\
+	new /obj/item/circuit_component/remotecam/polaroid),\
+	SHELL_CAPACITY_SMALL)
 
 /obj/item/camera/examine(mob/user)
 	. = ..()
@@ -52,10 +59,10 @@
 	if(!issilicon(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))) // silicons have inbuilt cameras, that' why unique check here
 		return
 
-	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
-	if(nsize)
-		size = nsize
-		to_chat(user, span_notice("Camera will now take [size]x[size] photos."))
+	var/new_picture_size = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
+	if(new_picture_size)
+		picture_size = new_picture_size
+		to_chat(user, span_notice("Camera will now take [picture_size]x[picture_size] photos."))
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/camera/AltShiftClick(mob/user)
@@ -159,19 +166,19 @@
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user
-	if(user.client)		//To make shooting through security cameras possible
+	if(istype(user) && user.client)		//To make shooting through security cameras possible
 		viewer = user.client.eye
 	var/can_see = (T in view(viewer)) //No x-ray vision cameras.
 	return can_see
 
-/obj/item/camera/proc/captureimage(atom/target, mob/user)
+/obj/item/camera/proc/captureimage(atom/target, atom/user)
 	var/turf/target_turf = get_turf(target)
 	var/list/turfs = list()
 	var/log = "Made by [user.name] in [get_area(user)]. "
 	var/mobs = ""
 	var/get_blueprints = FALSE
-	var/range = size * 2 + 1
-	for(var/turf/placeholder as anything in CORNER_BLOCK_OFFSET(target_turf, range, range, -size, -size))
+	var/range = picture_size * 2 + 1
+	for(var/turf/placeholder as anything in CORNER_BLOCK_OFFSET(target_turf, range, range, -picture_size, -picture_size))
 		while(isopenspaceturf(placeholder)) //Multi-z photography
 			placeholder = GET_TURF_BELOW(placeholder)
 			if(!placeholder)
@@ -187,10 +194,10 @@
 	var/datum/picture/P = createpicture(target, user, turfs, mobs, log, get_blueprints)
 	printpicture(user, P)
 
-/obj/item/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, logs, have_blueprints = FALSE)
-	var/range = size * 2 + 1
+/obj/item/camera/proc/createpicture(atom/target, atom/user, list/turfs, mobs, logs, have_blueprints = FALSE)
+	var/range = picture_size * 2 + 1
 	var/clone_area = SSmapping.request_turf_block_reservation(range, range, 1)
-	var/icon/photoimage = camera_get_icon(turfs, target, user, size*32, clone_area, size, range)
+	var/icon/photoimage = camera_get_icon(turfs, target, user, picture_size * 32, clone_area, picture_size, range)
 	qdel(clone_area)
 	photoimage.Blend("#000", ICON_UNDERLAY)
 
@@ -204,7 +211,7 @@
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/datum/picture/P = new()
-	if(istype(src,/obj/item/camera/digital))
+	if(istype(src,/obj/item/camera/digital) && istype(user, /mob/living/carbon/human))
 		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
 	else
@@ -216,7 +223,7 @@
 	P.fields["desc"] = mobs
 	P.fields["pixel_x"] = rand(-10, 10)
 	P.fields["pixel_y"] = rand(-10, 10)
-	P.fields["size"] = size
+	P.fields["size"] = picture_size
 	P.fields["log"] = logs
 	P.fields["blueprints"] = have_blueprints
 
@@ -225,7 +232,7 @@
 /obj/item/camera/proc/printpicture(mob/user, datum/picture/P)
 	var/obj/item/photo/Photo = new/obj/item/photo()
 	Photo.loc = user.loc
-	if(!user.get_inactive_hand())
+	if(istype(user) && !user.get_inactive_hand())
 		user.put_in_inactive_hand(Photo)
 
 	Photo.construct(P)
@@ -295,8 +302,8 @@
 	var/log = "Made by [user.name] in [get_area(user)]. "
 	var/mobs = ""
 	var/get_blueprints = FALSE
-	var/range = size * 2 + 1
-	for(var/turf/placeholder as anything in CORNER_BLOCK_OFFSET(target_turf, range, range, -size, -size))
+	var/range = picture_size * 2 + 1
+	for(var/turf/placeholder as anything in CORNER_BLOCK_OFFSET(target_turf, range, range, -picture_size, -picture_size))
 		while(isopenspaceturf(placeholder)) //Multi-z photography
 			placeholder = GET_TURF_BELOW(placeholder)
 			if(!placeholder)
@@ -335,3 +342,67 @@
 	if(P)
 		saved_pictures -= P
 
+
+#define MIN_PICTURE_SIZE 1
+#define MAX_PICTURE_SIZE 7
+/obj/item/circuit_component/camera
+	display_name = "Камера"
+	desc = "Камера Polaroid, делающая снимки при вызове. \
+			Порты координат изображения определяются относительно положения камеры."
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	/// The atom that was photographed from either user click or trigger input.
+	var/datum/port/output/photographed_atom
+	/// The item that was added/removed.
+	var/datum/port/output/picture_taken
+	/// If set, the trigger input will target this atom.
+	var/datum/port/input/picture_target
+	/// If the above is unset, these coordinates will be used.
+	var/datum/port/input/picture_coord_x
+	var/datum/port/input/picture_coord_y
+	/// Adjusts the picture_size variable of the camera.
+	var/datum/port/input/adjust_size
+
+	/// The camera this circut is attached to.
+	var/obj/item/camera/camera
+
+/obj/item/circuit_component/camera/populate_ports()
+	picture_taken = add_output_port("Снимок сделан", PORT_TYPE_SIGNAL)
+	photographed_atom = add_output_port("Цель", PORT_TYPE_ATOM)
+
+	picture_target = add_input_port("Цель", PORT_TYPE_ATOM)
+	picture_coord_x = add_input_port("X", PORT_TYPE_NUMBER)
+	picture_coord_y = add_input_port("Y", PORT_TYPE_NUMBER)
+	adjust_size = add_input_port("Размер", PORT_TYPE_NUMBER, trigger = PROC_REF(sanitize_picture_size))
+
+/obj/item/circuit_component/camera/register_shell(atom/movable/shell)
+	. = ..()
+	camera = shell
+	RegisterSignal(shell, COMSIG_CAMERA_IMAGE_CAPTURED, PROC_REF(on_image_captured))
+
+/obj/item/circuit_component/camera/unregister_shell(atom/movable/shell)
+	UnregisterSignal(shell, COMSIG_CAMERA_IMAGE_CAPTURED)
+	camera = null
+	return ..()
+
+/obj/item/circuit_component/camera/proc/sanitize_picture_size()
+	camera.picture_size = clamp(adjust_size.value, MIN_PICTURE_SIZE, MAX_PICTURE_SIZE)
+
+
+/obj/item/circuit_component/camera/proc/on_image_captured(obj/item/camera/source, atom/target, mob/user)
+	SIGNAL_HANDLER
+	photographed_atom.set_output(target)
+	picture_taken.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/camera/input_received(datum/port/input/port)
+	var/atom/target = picture_target.value
+	if(!target)
+		var/turf/our_turf = get_location()
+		target = locate(our_turf.x + picture_coord_x.value, our_turf.y + picture_coord_y.value, our_turf.z)
+		if(!target)
+			return
+
+	INVOKE_ASYNC(camera, TYPE_PROC_REF(/obj/item/camera, captureimage), target, parent.shell)
+
+#undef MIN_PICTURE_SIZE
+#undef MAX_PICTURE_SIZE

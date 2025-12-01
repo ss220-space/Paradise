@@ -176,7 +176,7 @@ SUBSYSTEM_DEF(demo)
 	if(!length(src.marked_new) && !length(src.marked_dirty) && !length(src.marked_turfs) && !length(src.del_list))
 		return // nothing to do
 
-	last_queued = length(src.marked_new) + length(src.marked_dirty) + src.marked_turfs.len
+	last_queued = length(src.marked_new) + length(src.marked_dirty) + length(src.marked_turfs)
 	last_completed = 0
 
 	write_time()
@@ -430,10 +430,12 @@ SUBSYSTEM_DEF(demo)
 
 /datum/controller/subsystem/demo/get_metrics()
 	. = ..()
-	.["remaining_turfs"] = marked_turfs.len
-	.["remaining_new"] = marked_new.len
-	.["remaining_updated"] = marked_dirty.len
-	.["remaining_deleted"] = del_list.len
+	var/list/custom_data = list()
+	custom_data["remaining_turfs"] = length(marked_turfs)
+	custom_data["remaining_new"] = length(marked_new)
+	custom_data["remaining_updated"] = length(marked_dirty)
+	custom_data["remaining_deleted"] = length(del_list)
+	.["custom"] = custom_data
 
 /datum/controller/subsystem/demo/proc/mark_turf(turf/T)
 	if(!can_fire)

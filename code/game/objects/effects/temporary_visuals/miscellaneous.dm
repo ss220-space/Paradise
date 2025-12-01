@@ -2,6 +2,7 @@
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
+	icon_state = null
 	duration = 0.5 SECONDS
 	layer = ABOVE_ALL_MOB_LAYER
 	alpha = 200
@@ -17,10 +18,10 @@
 	splatter_visuals = new(src, /particles/splatter)
 	splatter_visuals.particles.velocity = list(x_component, y_component)
 	splatter_visuals.particles.color = blood_color
-
 	color = blood_color
 	icon_state = "[splatter_type][pick(1, 2, 3, 4, 5, 6)]"
-	..()
+
+	. = ..()
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(angle)
@@ -372,8 +373,9 @@
 	duration = 5
 
 /obj/effect/temp_visual/dir_setting/firing_effect
+	icon = 'icons/effects/projectile.dmi'
 	icon_state = "firing_effect"
-	duration = 2
+	duration = 0.2 SECONDS
 
 /obj/effect/temp_visual/dir_setting/firing_effect/setDir(newdir)
 	switch(newdir)
@@ -405,10 +407,6 @@
 
 /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	icon_state = "firing_effect_energy"
-	duration = 3
-
-/obj/effect/temp_visual/dir_setting/firing_effect/magic
-	icon_state = "shieldsparkles"
 	duration = 3
 
 /obj/effect/temp_visual/impact_effect

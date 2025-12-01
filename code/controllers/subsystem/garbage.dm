@@ -79,6 +79,22 @@ SUBSYSTEM_DEF(garbage)
 	#endif
 	return msg.Join("")
 
+/datum/controller/subsystem/garbage/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	if((delslasttick + gcedlasttick) == 0) // Account for DIV0
+		custom_data["gcr"] = 0
+	else
+		custom_data["gcr"] = (gcedlasttick / (delslasttick + gcedlasttick))
+	custom_data["total_harddels"] = totaldels
+	custom_data["total_softdels"] = totalgcs
+	var/index = 0
+	for(var/list/list in queues)
+		index++
+		custom_data["queue_[index]"] = length(list)
+
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/garbage/Shutdown()
 	//Adds the del() log to the qdel log file
 	var/list/dellog = list()

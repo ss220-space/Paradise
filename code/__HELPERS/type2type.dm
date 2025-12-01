@@ -41,27 +41,6 @@
 		num_list += text2num(x)
 	return num_list
 
-/proc/dir2text(direction)
-	switch(direction)
-		if(1.0)
-			return "north"
-		if(2.0)
-			return "south"
-		if(4.0)
-			return "east"
-		if(8.0)
-			return "west"
-		if(5.0)
-			return "northeast"
-		if(6.0)
-			return "southeast"
-		if(9.0)
-			return "northwest"
-		if(10.0)
-			return "southwest"
-
-	return NONE
-
 /// Returns a string the last bit of a type, without the preceeding '/'
 /proc/type2top(the_type)
 	// handle the builtins manually
@@ -83,23 +62,46 @@
 		else // regex everything else (works for /proc too)
 			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
 
+/// Turns a direction into eng text
+/proc/dir2text(direction)
+	switch(direction)
+		if(1)
+			return "north"
+		if(2)
+			return "south"
+		if(4)
+			return "east"
+		if(8)
+			return "west"
+		if(5)
+			return "northeast"
+		if(6)
+			return "southeast"
+		if(9)
+			return "northwest"
+		if(10)
+			return "southwest"
+
+	return NONE
+
+/// Turns a direction into ru text
 /proc/dir2rustext(direction)
 	switch(direction)
-		if(1.0)
+		if(1)
 			return "север"
-		if(2.0)
+		if(2)
 			return "юг"
-		if(4.0)
+		if(4)
 			return "восток"
-		if(8.0)
+		if(8)
 			return "запад"
-		if(5.0)
+		if(5)
 			return "северо-восток"
-		if(6.0)
+		if(6)
 			return "юго-восток"
-		if(9.0)
+		if(9)
 			return "северо-запад"
-		if(10.0)
+		if(10)
 			return "юго-запад"
 
 	return NONE
@@ -192,53 +194,93 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 /// Converts a blend_mode constant to one acceptable to icon.Blend()
 /proc/blendMode2iconMode(blend_mode)
 	switch(blend_mode)
-		if(BLEND_MULTIPLY) return ICON_MULTIPLY
-		if(BLEND_ADD)      return ICON_ADD
-		if(BLEND_SUBTRACT) return ICON_SUBTRACT
-		else               return ICON_OVERLAY
+		if(BLEND_MULTIPLY)
+			return ICON_MULTIPLY
+		if(BLEND_ADD)
+			return ICON_ADD
+		if(BLEND_SUBTRACT)
+			return ICON_SUBTRACT
+		else
+			return ICON_OVERLAY
 
 /// Converts a rights bitfield into a string
-/proc/rights2text(rights,seperator="")
-	if(rights & R_BUILDMODE)	. += "[seperator]+BUILDMODE"
-	if(rights & R_ADMIN)		. += "[seperator]+ADMIN"
-	if(rights & R_BAN)			. += "[seperator]+BAN"
-	if(rights & R_EVENT)		. += "[seperator]+EVENT"
-	if(rights & R_SERVER)		. += "[seperator]+SERVER"
-	if(rights & R_DEBUG)		. += "[seperator]+DEBUG"
-	if(rights & R_POSSESS)		. += "[seperator]+POSSESS"
-	if(rights & R_PERMISSIONS)	. += "[seperator]+PERMISSIONS"
-	if(rights & R_STEALTH)		. += "[seperator]+STEALTH"
-	if(rights & R_REJUVINATE)	. += "[seperator]+REJUVINATE"
-	if(rights & R_VAREDIT)		. += "[seperator]+VAREDIT"
-	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
-	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
-	if(rights & R_PROCCALL)		. += "[seperator]+PROCCALL"
-	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
-	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
-	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
-	if(rights & R_SKINS)		. += "[seperator]+SKINS"
+/proc/rights2text(rights, seperator = "")
+	if(rights & R_BUILDMODE)
+		. += "[seperator]+BUILDMODE"
+	if(rights & R_ADMIN)
+		. += "[seperator]+ADMIN"
+	if(rights & R_BAN)
+		. += "[seperator]+BAN"
+	if(rights & R_EVENT)
+		. += "[seperator]+EVENT"
+	if(rights & R_SERVER)
+		. += "[seperator]+SERVER"
+	if(rights & R_DEBUG)
+		. += "[seperator]+DEBUG"
+	if(rights & R_POSSESS)
+		. += "[seperator]+POSSESS"
+	if(rights & R_PERMISSIONS)
+		. += "[seperator]+PERMISSIONS"
+	if(rights & R_STEALTH)
+		. += "[seperator]+STEALTH"
+	if(rights & R_REJUVINATE)
+		. += "[seperator]+REJUVINATE"
+	if(rights & R_VAREDIT)
+		. += "[seperator]+VAREDIT"
+	if(rights & R_SOUNDS)
+		. += "[seperator]+SOUND"
+	if(rights & R_SPAWN)
+		. += "[seperator]+SPAWN"
+	if(rights & R_PROCCALL)
+		. += "[seperator]+PROCCALL"
+	if(rights & R_MOD)
+		. += "[seperator]+MODERATOR"
+	if(rights & R_MENTOR)
+		. += "[seperator]+MENTOR"
+	if(rights & R_VIEWRUNTIMES)
+		. += "[seperator]+VIEWRUNTIMES"
+	if(rights & R_SKINS)
+		. += "[seperator]+SKINS"
 	return .
 
 /proc/rights2text_tgui(rights)
 	. = list()
-	if(rights & R_BUILDMODE)	. += R_BUILDMODE_NAME
-	if(rights & R_ADMIN)		. += R_ADMIN_NAME
-	if(rights & R_BAN)			. += R_BAN_NAME
-	if(rights & R_EVENT)		. += R_EVENT_NAME
-	if(rights & R_SERVER)		. += R_SERVER_NAME
-	if(rights & R_DEBUG)		. += R_DEBUG_NAME
-	if(rights & R_POSSESS)		. += R_POSSESS_NAME
-	if(rights & R_PERMISSIONS)	. += R_PERMISSIONS_NAME
-	if(rights & R_STEALTH)		. += R_STEALTH_NAME
-	if(rights & R_REJUVINATE)	. += R_REJUVINATE_NAME
-	if(rights & R_VAREDIT)		. += R_VAREDIT_NAME
-	if(rights & R_SOUNDS)		. += R_SOUNDS_NAME
-	if(rights & R_SPAWN)		. += R_SPAWN_NAME
-	if(rights & R_PROCCALL)		. += R_PROCCALL_NAME
-	if(rights & R_MOD)			. += R_MOD_NAME
-	if(rights & R_MENTOR)		. += R_MENTOR_NAME
-	if(rights & R_VIEWRUNTIMES)	. += R_VIEWRUNTIMES_NAME
-	if(rights & R_SKINS)		. += R_SKINS_NAME
+	if(rights & R_BUILDMODE)
+		. += R_BUILDMODE_NAME
+	if(rights & R_ADMIN)
+		. += R_ADMIN_NAME
+	if(rights & R_BAN)
+		. += R_BAN_NAME
+	if(rights & R_EVENT)
+		. += R_EVENT_NAME
+	if(rights & R_SERVER)
+		. += R_SERVER_NAME
+	if(rights & R_DEBUG)
+		. += R_DEBUG_NAME
+	if(rights & R_POSSESS)
+		. += R_POSSESS_NAME
+	if(rights & R_PERMISSIONS)
+		. += R_PERMISSIONS_NAME
+	if(rights & R_STEALTH)
+		. += R_STEALTH_NAME
+	if(rights & R_REJUVINATE)
+		. += R_REJUVINATE_NAME
+	if(rights & R_VAREDIT)
+		. += R_VAREDIT_NAME
+	if(rights & R_SOUNDS)
+		. += R_SOUNDS_NAME
+	if(rights & R_SPAWN)
+		. += R_SPAWN_NAME
+	if(rights & R_PROCCALL)
+		. += R_PROCCALL_NAME
+	if(rights & R_MOD)
+		. += R_MOD_NAME
+	if(rights & R_MENTOR)
+		. += R_MENTOR_NAME
+	if(rights & R_VIEWRUNTIMES)
+		. += R_VIEWRUNTIMES_NAME
+	if(rights & R_SKINS)
+		. += R_SKINS_NAME
 	return .
 
 /proc/ui_style2icon(ui_style)
@@ -422,3 +464,182 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			else
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
+
+// Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
+/proc/slot_string_to_slot_bitfield(input_string)
+	switch(input_string)
+		if(ITEM_SLOT_EAR_LEFT_STRING)
+			return ITEM_SLOT_EAR_LEFT
+		if(ITEM_SLOT_EAR_RIGHT_STRING)
+			return ITEM_SLOT_EAR_RIGHT
+		if(ITEM_SLOT_BELT_STRING)
+			return ITEM_SLOT_BELT
+		if(ITEM_SLOT_BACK_STRING)
+			return ITEM_SLOT_BACK
+		if(ITEM_SLOT_CLOTH_OUTER_STRING)
+			return ITEM_SLOT_CLOTH_OUTER
+		if(ITEM_SLOT_CLOTH_INNER_STRING)
+			return ITEM_SLOT_CLOTH_INNER
+		if(ITEM_SLOT_EYES_STRING)
+			return ITEM_SLOT_EYES
+		if(ITEM_SLOT_MASK_STRING)
+			return ITEM_SLOT_MASK
+		if(ITEM_SLOT_HEAD_STRING)
+			return ITEM_SLOT_HEAD
+		if(ITEM_SLOT_FEET_STRING)
+			return ITEM_SLOT_FEET
+		if(ITEM_SLOT_ID_STRING)
+			return ITEM_SLOT_ID
+		if(ITEM_SLOT_NECK_STRING)
+			return ITEM_SLOT_NECK
+		if(ITEM_SLOT_GLOVES_STRING)
+			return ITEM_SLOT_GLOVES
+		if(ITEM_SLOT_SUITSTORE_STRING)
+			return ITEM_SLOT_SUITSTORE
+		if(ITEM_SLOT_HANDCUFFED_STRING)
+			return ITEM_SLOT_HANDCUFFED
+		if(ITEM_SLOT_LEGCUFFED_STRING)
+			return ITEM_SLOT_LEGCUFFED
+		if(ITEM_SLOT_ACCESSORY_STRING)
+			return ITEM_SLOT_ACCESSORY
+
+// Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
+/proc/slot_bitfield_to_slot_string(input_bitfield)
+	switch(input_bitfield)
+		if(ITEM_SLOT_EAR_LEFT)
+			return ITEM_SLOT_EAR_LEFT_STRING
+		if(ITEM_SLOT_EAR_RIGHT)
+			return ITEM_SLOT_EAR_RIGHT_STRING
+		if(ITEM_SLOT_BELT)
+			return ITEM_SLOT_BELT_STRING
+		if(ITEM_SLOT_BACK)
+			return ITEM_SLOT_BACK_STRING
+		if(ITEM_SLOT_CLOTH_OUTER)
+			return ITEM_SLOT_CLOTH_OUTER_STRING
+		if(ITEM_SLOT_CLOTH_INNER)
+			return ITEM_SLOT_CLOTH_INNER_STRING
+		if(ITEM_SLOT_GLOVES)
+			return ITEM_SLOT_GLOVES_STRING
+		if(ITEM_SLOT_EYES)
+			return ITEM_SLOT_EYES_STRING
+		if(ITEM_SLOT_MASK)
+			return ITEM_SLOT_MASK_STRING
+		if(ITEM_SLOT_HEAD)
+			return ITEM_SLOT_HEAD_STRING
+		if(ITEM_SLOT_FEET)
+			return ITEM_SLOT_FEET_STRING
+		if(ITEM_SLOT_ID)
+			return ITEM_SLOT_ID_STRING
+		if(ITEM_SLOT_NECK)
+			return ITEM_SLOT_NECK_STRING
+		if(ITEM_SLOT_SUITSTORE)
+			return ITEM_SLOT_SUITSTORE_STRING
+		if(ITEM_SLOT_HANDCUFFED)
+			return ITEM_SLOT_HANDCUFFED_STRING
+		if(ITEM_SLOT_LEGCUFFED)
+			return ITEM_SLOT_LEGCUFFED_STRING
+		if(ITEM_SLOT_ACCESSORY)
+			return ITEM_SLOT_ACCESSORY_STRING
+
+/**
+ * Returns the clean name of an audio channel.
+ *
+ * Arguments:
+ * * channel - The channel number.
+ */
+/proc/get_channel_name(channel)
+	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "Основные звуки"
+		if(CHANNEL_LOBBYMUSIC)
+			return "Музыка в лобби"
+		if(CHANNEL_ADMIN)
+			return "Админские MIDI"
+		if(CHANNEL_VOX)
+			return "Оповещения ИИ"
+		if(CHANNEL_JUKEBOX)
+			return "Танцевальные машины"
+		if(CHANNEL_HEARTBEAT)
+			return "Сердцебиение"
+		if(CHANNEL_BUZZ)
+			return "Белый шум"
+		if(CHANNEL_AMBIENCE)
+			return "Эмбиент"
+		if(CHANNEL_TTS_LOCAL)
+			return "TTS рядом"
+		if(CHANNEL_TTS_RADIO)
+			return "TTS в радиосвязи"
+		if(CHANNEL_RADIO_NOISE)
+			return "Звуки радиосвязи"
+		if(CHANNEL_INTERACTION_SOUNDS)
+			return "Звуки взаимодействия с предметами"
+		if(CHANNEL_BOSS_MUSIC)
+			return "Музыка боссов"
+
+///Get the dir to the RIGHT of dir if they were on a clock
+///NORTH --> NORTHEAST
+/proc/get_clockwise_dir(dir)
+	. = angle2dir(dir2angle(dir)+45)
+
+///Get the dir to the LEFT of dir if they were on a clock
+///NORTH --> NORTHWEST
+/proc/get_anticlockwise_dir(dir)
+	. = angle2dir(dir2angle(dir)-45)
+
+/proc/reverse_direction(dir)
+	switch(dir)
+		if(NORTH)
+			return SOUTH
+		if(NORTHEAST)
+			return SOUTHWEST
+		if(EAST)
+			return WEST
+		if(SOUTHEAST)
+			return NORTHWEST
+		if(SOUTH)
+			return NORTH
+		if(SOUTHWEST)
+			return NORTHEAST
+		if(WEST)
+			return EAST
+		if(NORTHWEST)
+			return SOUTHEAST
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
+
+/proc/parse_zone(zone)
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			return "голова"
+		if(BODY_ZONE_CHEST)
+			return "грудь"
+		if(BODY_ZONE_L_ARM)
+			return "левая рука"
+		if(BODY_ZONE_R_ARM)
+			return "правая рука"
+		if(BODY_ZONE_L_LEG)
+			return "левая нога"
+		if(BODY_ZONE_R_LEG)
+			return "правая нога"
+		if(BODY_ZONE_TAIL)
+			return "хвост"
+		if(BODY_ZONE_WING)
+			return "крылья"
+		if(BODY_ZONE_PRECISE_EYES)
+			return "глаза"
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return "рот"
+		if(BODY_ZONE_PRECISE_GROIN)
+			return "живот"
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return "левая кисть"
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return "правая кисть"
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return "левая ступня"
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return "правая ступня"
+		else
+			stack_trace("Wrong zone input.")

@@ -66,6 +66,13 @@ SUBSYSTEM_DEF(air)
 	msg += "AT/MS:[round((cost ? length(active_turfs)/cost : 0),0.1)]"
 	return msg.Join("")
 
+/datum/controller/subsystem/air/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["active_turfs"] = length(active_turfs)
+	custom_data["hotspots"] = length(hotspots)
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/air/Initialize()
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes

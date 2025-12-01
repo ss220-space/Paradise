@@ -116,7 +116,7 @@
 /obj/item/melee/ghost_sword/proc/ghost_check()
 	var/ghost_counter = 0
 	var/turf/T = get_turf(src)
-	var/list/contents = T.GetAllContents()
+	var/list/contents = T.get_all_contents()
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
@@ -223,7 +223,7 @@
 	agent = "Кровь дракона"
 	desc = "Какое отношение драконы имеют к Космической Станции 13?"
 	stage_prob = 20
-	severity = BIOHAZARD
+	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage1	= list("Ваши кости ноют.")
 	stage2	= list("Ваша кожа кажется чешуйчатой.")
 	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))

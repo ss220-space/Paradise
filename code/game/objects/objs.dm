@@ -3,7 +3,8 @@
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
 	animate_movement = SLIDE_STEPS
-	var/sharp = FALSE		// whether this object cuts
+	/// Can this object cut?
+	var/sharp = FALSE
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
@@ -207,7 +208,9 @@
 /obj/proc/hide(h)
 	return
 
-/obj/proc/hear_talk(mob/M, list/message_pieces)
+/obj/proc/hear_talk(mob/speaker, list/message_pieces)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
 	return
 
 /obj/proc/hear_message(mob/M, text)

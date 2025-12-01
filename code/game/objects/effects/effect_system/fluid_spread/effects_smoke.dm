@@ -524,6 +524,8 @@
 /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor
 	lifetime = 2 SECONDS
 
+#define REAGENT_EVAPORATION(amount) (round(amount * REAGENT_EVAPARATION_RATIO, 0.1))
+
 /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor/smoke_mob(mob/living/carbon/smoker, seconds_per_tick)
 	if(!istype(smoker))
 		return FALSE
@@ -535,6 +537,8 @@
 		smoker.AdjustLoseBreath(2 SECONDS)
 	reagents.copy_to(smoker, REAGENT_EVAPORATION(reagents.total_volume))
 	return TRUE
+
+#undef REAGENT_EVAPORATION
 
 /datum/effect_system/fluid_spread/smoke/chem/quick/vapor
 	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor

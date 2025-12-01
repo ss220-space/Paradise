@@ -465,7 +465,7 @@ SUBSYSTEM_DEF(jobs)
 		return human
 	var/list/L = list()
 	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
-	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_red(replacetext(job.supervisors,"the ",""))]. Особые обстоятельства могут это изменить.</b>")
+	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_notice(job.supervisors)]. </b>")
 	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
 		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
@@ -705,6 +705,8 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
+	if(human.client.donator_level > 0)
+		money_amount += human.client.donator_level * START_CREDITS_BY_DONATION_TIER
 	var/datum/money_account/M = create_account(human.real_name, money_amount, null, job, TRUE)
 	if(human.dna)
 		GLOB.dna2account[human.dna] = M

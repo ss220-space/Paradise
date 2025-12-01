@@ -36,11 +36,16 @@
 	for(var/i=0;i < metalAmount;i++)
 		new metal_type(get_turf(src))
 
+/// Melting Temperatures for various specific objects
+#define GIRDER_MELTING_TEMP 5000
+
 /obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
+
+#undef GIRDER_MELTING_TEMP
 
 /obj/structure/girder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -152,36 +157,6 @@
 		to_chat(user, span_notice("You have finalized the metal wall."))
 		var/turf/floor = loc
 		floor.ChangeTurf(/turf/simulated/wall/mineral/iron)
-		transfer_fingerprints_to(floor)
-		floor.add_fingerprint(user)
-		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/stack/ore/glass/basalt))
-		var/obj/item/stack/ore/glass/basalt/glass = stack
-		if(state == GIRDER_DISPLACED)
-			if(glass.get_amount() < 2)
-				to_chat(user, span_warning("You need at least two piles of [glass] to create a false wall!"))
-				return .
-			to_chat(user, span_notice("You start building a false wall..."))
-			if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(glass) || !glass.use(2))
-				return .
-			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
-			var/obj/structure/falsewall/mineral_ancient/falsewall = new(loc)
-			transfer_fingerprints_to(falsewall)
-			falsewall.add_fingerprint(user)
-			qdel(src)
-			return ATTACK_CHAIN_BLOCKED_ALL
-
-		if(glass.get_amount() < 2)
-			to_chat(user, span_warning("You need at least two piles of [glass] to finalize the wall!"))
-			return .
-		to_chat(user, span_notice("You start adding [glass]..."))
-		if(!do_after(user, 4 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(glass) || !glass.use(2))
-			return .
-		to_chat(user, span_notice("You have finalized basalt wall."))
-		var/turf/floor = loc
-		floor.ChangeTurf(/turf/simulated/mineral/ancient)
 		transfer_fingerprints_to(floor)
 		floor.add_fingerprint(user)
 		qdel(src)
