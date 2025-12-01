@@ -29,7 +29,7 @@
 	if(istype(I, /obj/item/soap))
 		add_fingerprint(user)
 		if(!dirty)
-			balloon_alert(user, ("миска чистая!"))
+			balloon_alert(user, "миска чистая!")
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_YUT(user)] мыть [declent_ru(ACCUSATIVE)]."),
@@ -48,10 +48,10 @@
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_TRIBAL_OVEN]))
 		add_fingerprint(user)
 		if(dirty)
-			balloon_alert(user, ("сначала помойте!"))
+			balloon_alert(user, "сначала помойте!")
 			return ATTACK_CHAIN_PROCEED
 		if(length(contents) >= max_n_of_items)
-			balloon_alert(user, span_warning("нет места!"))
+			balloon_alert(user, "нет места!")
 			return ATTACK_CHAIN_PROCEED
 		if(isstack(I) && I.get_amount() > 1)
 			var/obj/item/stack/to_add = I.split(user, 1)
@@ -79,7 +79,7 @@
 	if(is_type_in_list(I, containers))
 		add_fingerprint(user)
 		if(dirty)
-			balloon_alert(user, span_warning("нужно очистить!"))
+			balloon_alert(user, "нужно очистить!")
 			return ATTACK_CHAIN_PROCEED
 		if(!I.reagents)
 			balloon_alert(user, ("пусто!"))
@@ -173,7 +173,7 @@
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
-	balloon_alert(usr, span_notice("очищено"))
+	balloon_alert(usr, "очищено")
 	update_dialog(usr)
 
 /obj/item/mixing_bowl/proc/update_dialog(mob/user)

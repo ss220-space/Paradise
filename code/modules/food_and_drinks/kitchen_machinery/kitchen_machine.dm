@@ -79,7 +79,7 @@
 
 	add_fingerprint(user)
 	if(operating)
-		balloon_alert(user, span_warning("[declent_ru(NOMINATIVE)] работает."))
+		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает.")
 		return ATTACK_CHAIN_PROCEED
 
 	if(broken == BROKEN_NONE && dirty != MAX_DIRT && exchange_parts(user, I))
@@ -187,7 +187,7 @@
 		return .
 	if(broken == BROKEN_NONE)
 		if(dirty == MAX_DIRT)
-			balloon_alert(user, span_warning("[declent_ru(NOMINATIVE)] слишком грязная."))
+			balloon_alert(user, "нужно почистить!")
 			return .
 		return default_deconstruction_screwdriver(user, open_icon, off_icon, I)
 	if(broken != BROKEN_NEEDS_SCREWDRIVER)
