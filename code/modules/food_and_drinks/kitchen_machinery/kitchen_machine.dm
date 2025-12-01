@@ -79,7 +79,7 @@
 
 	add_fingerprint(user)
 	if(operating)
-		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает.")
+		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает")
 		return ATTACK_CHAIN_PROCEED
 
 	if(broken == BROKEN_NONE && dirty != MAX_DIRT && exchange_parts(user, I))
@@ -183,7 +183,7 @@
 	. = TRUE
 	add_fingerprint(user)
 	if(operating)
-		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает.")
+		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает")
 		return .
 	if(broken == BROKEN_NONE)
 		if(dirty == MAX_DIRT)
@@ -210,7 +210,7 @@
 	. = TRUE
 	add_fingerprint(user)
 	if(operating)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] работает!")
 		return .
 	if(broken == BROKEN_NONE)
 		return default_unfasten_wrench(user, I)
@@ -235,7 +235,7 @@
 	. = TRUE
 	add_fingerprint(user)
 	if(operating)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] работает!")
 		return .
 	return default_deconstruction_crowbar(user, I)
 

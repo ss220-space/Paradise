@@ -160,7 +160,7 @@
 	user.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] засовывать [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
 	add_fingerprint(user)
 	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message(span_danger("[user] запихиваPLUR_ET_YUT(user) [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_danger("[user] запихива[PLUR_ET_YUT(user)] [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
 
 		victim.forceMove(src)
 		occupant = victim
@@ -252,10 +252,11 @@
 		return
 
 	if(!occupant)
-		visible_message(span_danger("Вы слышите громкий металлический скрежещущий звук."))
+		balloon_alert(user, "мясорубка пуста")
 		return
 
 	use_power(1000)
+	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	visible_message(span_danger("Вы слышите громкий хлюпающий скрежещущий звук."))
 
 	operating = TRUE
