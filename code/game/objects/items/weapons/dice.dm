@@ -360,7 +360,8 @@
 			//Fueltank Explosion
 			explode(user)
 		if(8)
-
+			//Break bone
+			break_bone(user)
 		if(9)
 			//Cold
 			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] простудивш[GEND_IM_EI_IM_IMI(user)]ся!"))
@@ -549,3 +550,8 @@
 /obj/item/dice/d20/fate/proc/explode(mob/living/carbon/human/center)
 	center.visible_message(span_userdanger("Рядом с [center] происходит взрыв!"))
 	explosion(get_turf(center), devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flame_range = 2, cause = src)
+
+/obj/item/dice/d20/fate/proc/break_bone(mob/living/carbon/human/target)
+	var/obj/item/organ/external/limb = pick(target.bodyparts)
+	limb.fracture()
+	to_chat(target, span_userdanger("Вы чувствуете, как ваша [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] трескается и ломается!"))
