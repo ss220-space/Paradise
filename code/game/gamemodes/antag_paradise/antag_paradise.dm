@@ -98,7 +98,7 @@
 			for(var/i in 1 to special_antag_amount)
 				var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_THIEF])
 				if(special_antag)
-					listclearduplicates(special_antag, antag_possibilities[ROLE_THIEF])
+					list_clear_duplicates(special_antag, antag_possibilities[ROLE_THIEF])
 					special_antag.special_role = SPECIAL_ROLE_THIEF
 					special_antag.restricted_roles = restricted_jobs
 					pre_antags[special_antag] = ROLE_THIEF
@@ -193,7 +193,7 @@
 					var/datum/mind/thief = pick_n_take(antag_possibilities[ROLE_THIEF])
 					if(!thief)
 						continue
-					listclearduplicates(thief, antag_possibilities[ROLE_THIEF])
+					list_clear_duplicates(thief, antag_possibilities[ROLE_THIEF])
 					if(thief.special_role)
 						continue
 					thief.special_role = SPECIAL_ROLE_THIEF

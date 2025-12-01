@@ -45,9 +45,6 @@
 /proc/dmjit_hook_compile()
 	DMJIT_NATIVE
 
-/proc/auxtools_stack_trace(msg)
-	CRASH(msg)
-
 /proc/dmjit_compile_proc(name)
 	DMJIT_NATIVE
 
