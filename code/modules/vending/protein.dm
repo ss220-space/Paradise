@@ -19,6 +19,8 @@
 	panel_overlay = "cola-machine_panel"
 	screen_overlay = "protein_overlay"
 	refill_canister = /obj/item/vending_refill/protein
+	default_price = PAYCHECK_CREW
+	default_premium_price = PAYCHECK_COMMAND
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,

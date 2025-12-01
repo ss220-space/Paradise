@@ -7,15 +7,15 @@
 	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes_broken"
 	broken_lightmask_overlay = "clothes_broken_lightmask"
-
 	slogan_list = list(
 		"Приод+енься для усп+еха!",
 		"Пригот+овьтесь в+ыглядеть потряс+ающе!",
 		"Посмотр+ите на все +эти кл+ассные в+ещи!",
 		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуйте ClothesMate!",
 	)
-
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
+	default_price = PAYCHECK_MIN * 2
+	default_premium_price = PAYCHECK_CREW
 
 	product_categories = list(
 		list(

@@ -20,7 +20,9 @@
 		"ЧТО ТАК+ОЕ КИЛОМ+ЕТР, Ч+ЁРТ ВОЗЬМ+И!!!",
 		"ЗА СВОБ+ОДУ!!!"
 	)
-	vend_reply = "Зап+омни мо+ё +имя: Liberation Station!"
+	vend_reply = "Зап+омни мо+ё +имя: \"Liberation Station\"!"
+	all_products_free = TRUE
+
 	products = list(
 		/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
 		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,

@@ -15,6 +15,8 @@
 	broken_lightmask_overlay = "cart_broken_lightmask"
 	deny_overlay = "cart_deny"
 	refill_canister = /obj/item/vending_refill/cart
+	default_price = PAYCHECK_CREW
+	default_premium_price = PAYCHECK_COMMAND
 
 	products = list(
 		/obj/item/pda = 10,

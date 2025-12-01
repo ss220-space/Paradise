@@ -16,6 +16,8 @@
 	deny_overlay = "attachments_deny"
 	req_access = list(ACCESS_SECURITY)
 	refill_canister = /obj/item/vending_refill/gun_mods
+	default_price = PAYCHECK_COMMAND
+	default_premium_price = PAYCHECK_MAX
 
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 8,

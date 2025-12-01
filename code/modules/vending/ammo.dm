@@ -11,6 +11,8 @@
 	panel_overlay = "ammovend_panel"
 	screen_overlay = "ammovend_overlay"
 	refill_canister = /obj/item/vending_refill/ammo
+	all_products_free = TRUE
+	
 	product_categories = list(
 		list(
 			"name" = "Боеприпасы",

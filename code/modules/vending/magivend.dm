@@ -24,6 +24,7 @@
 		"АБРАКАД+АБРА!",
 	)
 	vend_reply = "Жел+аю вам чуд+есного в+ечера!"
+	all_products_free = TRUE
 
 	products = list(
 		/obj/item/clothing/head/wizard = 5,

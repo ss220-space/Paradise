@@ -27,6 +27,8 @@
 	broken_overlay = "cigs_broken"
 	broken_lightmask_overlay = "cigs_broken_lightmask"
 	refill_canister = /obj/item/vending_refill/cigarette
+	default_price = PAYCHECK_LOWER / 2
+	default_premium_price = PAYCHECK_CREW
 
 	product_categories = list(
 		list(
@@ -36,8 +38,6 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
-				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 			),
 		),
 		list(
@@ -46,7 +46,6 @@
 			"products" = list(
 				/obj/item/storage/box/matches = 10,
 				/obj/item/lighter/random = 4,
-				/obj/item/lighter/zippo = 4,
 			),
 		),
 		list(
@@ -57,6 +56,11 @@
 				/obj/item/storage/fancy/rollingpapers = 5,
 			),
 		),
+	)
+	premium = list(
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+		/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+		/obj/item/lighter/zippo = 4,
 	)
 	contraband = list(
 		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,

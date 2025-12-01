@@ -25,6 +25,8 @@
 	vend_overlay = "coffee_vend"
 	vend_lightmask = "coffee_vend_lightmask"
 	refill_canister = /obj/item/vending_refill/coffee
+	default_price = PAYCHECK_MIN * 0.7
+	default_premium_price = PAYCHECK_LOWER * 0.7
 
 	item_slot = TRUE
 	products = list(

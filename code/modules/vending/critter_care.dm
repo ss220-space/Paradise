@@ -21,6 +21,8 @@
 	broken_overlay = "crittercare_broken"
 	broken_lightmask_overlay = "crittercare_broken_lightmask"
 	refill_canister = /obj/item/vending_refill/crittercare
+	default_price = PAYCHECK_LOWER
+	default_premium_price = PAYCHECK_CREW
 
 	products = list(
 		/obj/item/clothing/accessory/petcollar = 5,

@@ -1,7 +1,6 @@
 /obj/machinery/vending/pai
 	name = "RoboFriends"
 	desc = "Потрясающий продавец ПИИ-друзей!"
-
 	icon_state = "paivend_off"
 	panel_overlay = "paivend_panel"
 	screen_overlay = "paivend"
@@ -17,6 +16,8 @@
 	)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/pai
+	default_price = PAYCHECK_LOWER
+	default_premium_price = PAYCHECK_COMMAND
 
 	products = list(
 		/obj/item/paicard = 10,

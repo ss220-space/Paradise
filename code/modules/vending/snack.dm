@@ -22,6 +22,8 @@
 	broken_overlay = "snack_broken"
 	broken_lightmask_overlay = "snack_broken_lightmask"
 	refill_canister = /obj/item/vending_refill/snack
+	default_price = PAYCHECK_MIN * 0.5
+	default_premium_price = PAYCHECK_LOWER * 0.5
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/candy/candybar = 6,
