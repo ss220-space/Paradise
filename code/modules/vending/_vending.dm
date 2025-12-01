@@ -175,11 +175,11 @@
 
 	/// If true, enforce access checks on customers. Disabled by messing with wires.
 	var/scan_id = TRUE
-	// TODO: change to PAYCHECK defines whey they're added
+
 	/// Default price of items if not overridden
-	var/default_price = 50
+	var/default_price = PAYCHECK_MIN
 	/// Default price of premium items if not overridden
-	var/extra_price = 100
+	var/default_premium_price = PAYCHECK_LOWER
 
 	var/datum/wires/vending/wires = null
 
@@ -395,7 +395,7 @@
 		. += span_warning("Его индикаторы зловеще мигают...")
 	if(credits_contained < CREDITS_DUMP_THRESHOLD && credits_contained > 0)
 		. += span_notice("Судя по объёму отсутствующих товаров, в отсеке для наличных должно быть <b>немного</b> кредитов.")
-	else if(credits_contained > 100) //TODO: change to PAYCHECK_CREW after paycheck values are converted into defines
+	else if(credits_contained > PAYCHECK_CREW)
 		. += span_notice("Судя по объёму отсутствующих товаров, в отсеке для наличных должно быть <b>много</b> кредитов.")
 		/**
 		 * Intentionally leaving out a case for zero credits as it should be covered by the vending machine's stock being full,
@@ -495,7 +495,7 @@
 		if(isnull(amount))
 			amount = 0
 
-		var/obj/item = new typepath(src)
+		var/obj/item/item = new typepath(src)
 		var/datum/data/vending_product/new_record = new /datum/data/vending_product()
 		new_record.name = capitalize(item.declent_ru(NOMINATIVE))
 		new_record.desc = item.desc
@@ -505,7 +505,13 @@
 			new_record.amount = amount
 		new_record.max_amount = amount
 
-		new_record.price = premium ? extra_price : default_price
+		var/custom_price = initial(item.custom_price)
+		if(!premium)
+			new_record.price = custom_price || default_price
+		else
+			var/custom_premium_price = initial(item.custom_premium_price)
+			new_record.price = custom_premium_price || default_premium_price
+
 		new_record.category = product_to_category[typepath]
 		recordlist += new_record
 
@@ -996,8 +1002,8 @@
 			ref = product_record.UID()
 		)
 
-		static_record["icon"] = initial(item.icon)
-		static_record["icon_state"] = initial(item.icon_state)
+		static_record["icon"] = item.icon
+		static_record["icon_state"] = item.icon_state
 
 		var/list/category = product_record.category || default_category
 		if(!isnull(category))
