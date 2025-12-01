@@ -252,7 +252,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 25
 	armour_penetration = 35
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE

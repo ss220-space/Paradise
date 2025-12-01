@@ -18486,7 +18486,12 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/structure/closet/loot_crate/ammo,
+/obj/structure/rack/gunrack,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
