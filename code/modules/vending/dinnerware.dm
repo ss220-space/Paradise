@@ -50,7 +50,7 @@
 	)
 	contraband = list(
 		/obj/item/kitchen/rollingpin = 2,
-		/obj/item/kitchen/knife/butcher = 2
+		/obj/item/kitchen/knife/butcher = 2,
 	)
 	refill_canister = /obj/item/vending_refill/dinnerware
 
