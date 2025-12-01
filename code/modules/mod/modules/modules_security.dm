@@ -209,10 +209,15 @@
 			поджигающего проходящие через него снаряды."
 	icon_state = "firewall"
 	overlay_state_inactive = "module_mirage_grenade"
+	incompatible_modules = list(
+		/obj/item/mod/module/anomaly_locked/firewall,
+		/obj/item/mod/module/dispenser/dropwall_module,
+		/obj/item/mod/module/dispenser/dropwall_syndie,
+		)
 	module_type = MODULE_ACTIVE
 	complexity = 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
-	cooldown_time = 20 SECONDS
+	cooldown_time = 25 SECONDS
 	required_slots = list(ITEM_SLOT_GLOVES)
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/atmospheric)
 	/// Path we dispense.
@@ -581,3 +586,68 @@
 /obj/item/mod/module/quick_cuff/on_part_deactivation(deleting = FALSE)
 	. = ..()
 	REMOVE_TRAIT(mod.wearer, TRAIT_FAST_CUFFING, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/mod/module/dispenser/dropwall_module
+	name = "MOD dropwall module"
+	desc = "Модуль МЭК, использующий энергию костюма для создания генератора энергощита, позволяющего безопасно обстреливать противника \
+			без риска ответного огня."
+	icon_state = "cryogrenade-core"
+	overlay_state_inactive = "module_dropwall"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 25
+	cooldown_time = 20 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
+	incompatible_modules = list(
+		/obj/item/mod/module/anomaly_locked/firewall,
+		/obj/item/mod/module/dispenser/dropwall_module,
+		/obj/item/mod/module/dispenser/dropwall_syndie,
+		)
+	dispense_type = /obj/item/grenade/barrier/dropwall
+
+/obj/item/mod/module/dispenser/dropwall_module/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль создания энергощита",
+		GENITIVE = "модуля создания энергощита",
+		DATIVE = "модулю создания энергощита",
+		ACCUSATIVE = "модуль создания энергощита",
+		INSTRUMENTAL = "модулем создания энергощита",
+		PREPOSITIONAL = "модуле создания энергощита",
+	)
+
+
+/obj/item/mod/module/dispenser/dropwall_module/on_use()
+	var/obj/item/grenade/barrier/dropwall/grenade = ..()
+	grenade.attack_self(mod.wearer)
+
+/obj/item/mod/module/dispenser/dropwall_syndie
+	name = "MOD bloodwall module"
+	desc = "Модуль МЭК, используемый \"Мародёрами Горлекса\", незаконная модификация стандартных генераторов энергощита. Данная модель создаёт \
+			усиленный вариант щита, который, однако, разряжается значительно быстрее, чем его аналоги."
+	icon_state = "bloodwall_module"
+	overlay_state_inactive = "bloodwall_module"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 15
+	cooldown_time = 15 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
+	incompatible_modules = list(
+		/obj/item/mod/module/anomaly_locked/firewall,
+		/obj/item/mod/module/dispenser/dropwall_module,
+		/obj/item/mod/module/dispenser/dropwall_syndie,
+		)
+	dispense_type = /obj/item/grenade/barrier/dropwall/syndie
+
+/obj/item/mod/module/dispenser/dropwall_syndie/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль создания военного энергощита",
+		GENITIVE = "модуля создания военного энергощита",
+		DATIVE = "модулю создания военного энергощита",
+		ACCUSATIVE = "модуль создания военного энергощита",
+		INSTRUMENTAL = "модулем создания военного энергощита",
+		PREPOSITIONAL = "модуле создания военного энергощита",
+	)
+
+/obj/item/mod/module/dispenser/dropwall_syndie/on_use()
+	var/obj/item/grenade/barrier/dropwall/syndie/grenade = ..()
+	grenade.attack_self(mod.wearer)

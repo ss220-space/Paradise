@@ -6,7 +6,7 @@
 #define WOOD 2
 #define SAND 3
 
-#define DROPWALL_UPTIME 3 MINUTES
+#define DROPWALL_UPTIME 1 MINUTES
 
 #define AUTO "автоматический"
 
@@ -278,6 +278,7 @@
 	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 10, ACID = 0) // Copied from the security barrier, but no melee armor
 	density = FALSE
 	directional_blockage = TRUE
+	max_integrity = 75 //3 shots from revolver
 	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
 	stacktype = null
 	/// This variable is used to tell the shield to ping it's owner when it is broke.
@@ -585,6 +586,27 @@
 	if(add_knockdown)
 		projectile.knockdown += 2 SECONDS
 
+/obj/item/grenade/barrier/dropwall/syndie
+	name = "bloodwall shield generator"
+	generator_type = /obj/structure/dropwall_generator/syndie
+	uptime = 20 SECONDS
+
+/obj/structure/dropwall_generator/syndie
+	name = "deployed firewall shield generator"
+	barricade_type = /obj/structure/barricade/dropwall/bloodwall
+
+/obj/structure/barricade/dropwall/bloodwall
+	max_integrity = 125 //5 shots from revolver
+
+/obj/structure/barricade/dropwall/bloodwall/Initialize(mapload, owner, core, dir_1, dir_2)
+	. = ..()
+	var/target_matrix = list( //unfortunatetly, normal coloring just don't work
+		2, 0, 0, 0,
+		0, 0, 0, 0,
+		1, 0, 0, 0,
+		0, 0, 0, 1
+	)
+	color = target_matrix
 
 #undef SINGLE
 #undef VERTICAL
