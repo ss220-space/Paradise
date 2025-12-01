@@ -188,3 +188,4 @@
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
 
+#define ARBITRARY_VIEWRANGE_NOHUD 2

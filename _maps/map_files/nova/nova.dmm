@@ -5194,7 +5194,7 @@
 /area/quartermaster/delivery)
 "aNw" = (
 /obj/structure/flora/rock/jungle,
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/crew_quarters/fitness)
 "aNx" = (
@@ -12165,7 +12165,7 @@
 /area/security/brigstaff)
 "bLs" = (
 /obj/structure/flora/rock/jungle,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
 /area/crew_quarters/fitness)
 "bLw" = (
@@ -17107,7 +17107,7 @@
 /area/hallway/secondary/entry)
 "cvM" = (
 /obj/structure/window/reinforced,
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/central/nw)
 "cvV" = (
@@ -39758,7 +39758,7 @@
 /area/atmos/control)
 "fMV" = (
 /obj/structure/flora/junglebush,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
 /area/crew_quarters/fitness)
 "fMX" = (
@@ -61729,7 +61729,7 @@
 /area/engineering/gravitygenerator)
 "jdN" = (
 /obj/structure/flora/grass/jungle,
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "jdP" = (
@@ -108819,8 +108819,8 @@
 /area/security/prisonershuttle)
 "qbg" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/grass/jungle/b,
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/grass/jungle,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/crew_quarters/fitness)
 "qbi" = (
@@ -130264,7 +130264,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "tfL" = (
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -144342,10 +144342,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/delivery)
-"vhM" = (
-/obj/structure/flora/junglebush/b,
-/turf/simulated/floor/grass,
-/area/crew_quarters/fitness)
 "vhN" = (
 /turf/simulated/wall,
 /area/crew_quarters/sleep)
@@ -207669,7 +207665,7 @@ pWK
 bXj
 gDO
 uUv
-vhM
+uky
 iQc
 mjC
 bzs

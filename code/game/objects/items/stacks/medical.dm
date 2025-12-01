@@ -188,7 +188,7 @@
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/item, mob/user, params)
-	if(is_sharp(item))
+	if(item.sharp)
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
 		if(!use(2))
@@ -264,7 +264,7 @@
 	)
 
 /obj/item/stack/medical/bruise_pack/military/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 

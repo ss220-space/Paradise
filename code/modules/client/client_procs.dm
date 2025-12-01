@@ -463,6 +463,8 @@
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
+#define REDIS_ANNOUNCER_NAME "Смотритель"
+
 /client/proc/announce_join()
 	if(!holder)
 		return
@@ -519,9 +521,11 @@
 		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
+#undef REDIS_ANNOUNCER_NAME
+
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -585,7 +589,7 @@
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -816,7 +820,7 @@
 /client/proc/link_forum_account(fromban)
 	if(!CONFIG_GET(string/forum_link_url))
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
 		return
 	if(prefs?.fuid)
@@ -1284,7 +1288,7 @@
 
 	if(!CONFIG_GET(string/discordurl))
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(usr, "Гостевой аккаунт не может быть связан.", confidential=TRUE)
 		return
 	if(prefs)

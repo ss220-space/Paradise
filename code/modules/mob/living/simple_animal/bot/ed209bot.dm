@@ -96,7 +96,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
-		var/datum/job/detective/J = new/datum/job/detective
+		var/datum/job/security/detective/J = new/datum/job/security/detective
 		access_card.access += J.get_access()
 		prev_access = access_card.access
 

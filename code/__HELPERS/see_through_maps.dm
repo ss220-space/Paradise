@@ -11,12 +11,14 @@
 /// Seethrough component for the ratvar wreck, in shape of the ratvar wreck
 #define SEE_THROUGH_MAP_RATVAR_WRECK "ratvar"
 
-/** global statics for the see_through_component coordinate maps
-* For ease of use, include a comment in the shape of the coordinate map, where O is nothing, X is a hidden tile and A is the object
-* List-coordinate layout is list(relative_x, relative_y, relative_z)
-* Turf finding algorithm needs the z and you can totally use it, but I can't think of any reason to ever do it
-* Also it'd be really cool if you could keep the list-coordinates in here represent their actual relative coords, dont use tabs though since their spacing can differ
-*/
+/**
+ * global statics for the see_through_component coordinate maps
+ * 
+ * For ease of use, include a comment in the shape of the coordinate map, where O is nothing, X is a hidden tile and A is the object
+ * List-coordinate layout is list(relative_x, relative_y, relative_z)
+ * Turf finding algorithm needs the z and you can totally use it, but I can't think of any reason to ever do it
+ * Also it'd be really cool if you could keep the list-coordinates in here represent their actual relative coords, dont use tabs though since their spacing can differ
+ */
 GLOBAL_LIST_INIT(see_through_maps, list(
 	// X
 	// A
