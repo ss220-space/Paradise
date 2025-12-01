@@ -27,6 +27,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	storage_slots = 3
 	max_combined_w_class = 7
+	custom_price = PAYCHECK_MAX
 	var/datum/martial_art/judo/style
 
 /obj/item/storage/belt/security/judobelt/get_ru_names()

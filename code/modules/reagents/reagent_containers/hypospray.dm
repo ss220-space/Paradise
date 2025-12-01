@@ -13,6 +13,7 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
+	custom_price = PAYCHECK_CREW
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
 	var/safety_hypo = FALSE

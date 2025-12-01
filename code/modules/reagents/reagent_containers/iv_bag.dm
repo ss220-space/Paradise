@@ -14,6 +14,7 @@
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
 	resistance_flags = ACID_PROOF
+	custom_price = PAYCHECK_LOWER
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target

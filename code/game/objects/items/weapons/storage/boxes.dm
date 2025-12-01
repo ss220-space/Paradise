@@ -621,6 +621,7 @@
 	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
 	use_sound = SFX_PATCHPACK
+	custom_price = PAYCHECK_MIN * 0.5
 
 /obj/item/storage/box/matches/get_ru_names()
 	return list(
