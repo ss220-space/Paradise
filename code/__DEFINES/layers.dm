@@ -1,7 +1,6 @@
 //Defines for atom layers and planes
 //KEEP THESE IN A NICE ACSCENDING ORDER, PLEASE
 
-
 //-------------------- PLANES ---------------------
 
 //NEVER HAVE ANYTHING BELOW THIS PLANE ADJUST IF YOU NEED MORE SPACE
@@ -28,7 +27,6 @@
 
 /// Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
 #define SEETHROUGH_PLANE -2
-
 
 #define RENDER_PLANE_GAME_WORLD -1
 
@@ -257,4 +255,8 @@
 
 #define SPLASHSCREEN_LAYER 33
 
+//-------------------- Radial ---------------------
 
+#define RADIAL_BACKGROUND_LAYER 0
+///1000 is an unimportant number, it's just to normalize copied layers
+#define RADIAL_CONTENT_LAYER 1000

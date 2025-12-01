@@ -61,19 +61,16 @@
 		update_icon()
 		playsound(loc, 'sound/machines/ping.ogg', 30, TRUE)
 
-
 /obj/machinery/computer/pandemic/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "mixer[beaker ? "1" : "0"]_b"
 		return
 	icon_state = "mixer[beaker ? "1" : "0"][(powered()) ? "" : "_nopower"]"
 
-
 /obj/machinery/computer/pandemic/update_overlays()
 	. = ..()
 	if(!(stat & BROKEN) && !wait)
 		. += "waitlight"
-
 
 /obj/machinery/computer/pandemic/Topic(href, href_list)
 	if(..())
@@ -188,7 +185,6 @@
 		disease = GLOB.archive_diseases[disease.GetDiseaseID()]//We know it's advanced no need to check
 		print_form(disease, usr)
 
-
 	else
 		close_window(usr, "pandemic")
 		updateUsrDialog()
@@ -212,7 +208,6 @@
 			var/datum/symptom/S = I
 			symptoms_list += S.name
 		var/symtoms = russian_list(symptoms_list)
-
 
 		var/signature
 		if(tgui_alert(user, "Вы хотите подписать этот документ?", "Подпись", list("Да","Нет")) == "Да")
@@ -298,7 +293,7 @@
 						if(!disease)
 							CRASH("We weren't able to get the advance disease from the archive.")
 
-						dat += "<b>Болезнетворный агент:</b> [disease?"[disease.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</a>":"нет"]<br>"
+						dat += "<b>Болезнетворный агент:</b> [disease?"[disease.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</a>":"нет"]<br>"
 						dat += "<b>Описание: </b> [(disease.desc||"нет")]<br>"
 						dat += "<b>Путь передачи:</b> [(disease.additional_info||"нет")]<br>"
 						dat += "<b>Возможное лекарство:</b> [(disease.cure_text||"нет")]<br>"
@@ -348,7 +343,6 @@
 	popup.open(0)
 	onclose(user, "pandemic")
 
-
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
@@ -371,7 +365,6 @@
 
 	return ..()
 
-
 /obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!beaker)
@@ -385,7 +378,6 @@
 	beaker = null
 	updateUsrDialog()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/computer/pandemic/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)

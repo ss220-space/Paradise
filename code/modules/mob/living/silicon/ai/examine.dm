@@ -25,7 +25,6 @@
 	. += msg
 	user.showLaws(src)
 
-
 /mob/proc/showLaws(mob/living/silicon/S)
 	return
 

@@ -54,7 +54,6 @@
 		STAMCRIT = CANSTAMCRIT,
 	)
 
-
 /datum/status_effect/effect_absorption/on_creation(
 	mob/living/new_owner,
 	source,
@@ -84,7 +83,6 @@
 
 	return ..()
 
-
 /datum/status_effect/effect_absorption/on_apply()
 	if(!effect_type)
 		CRASH("No effect_type passed for status effect absorption.")
@@ -99,7 +97,6 @@
 		RegisterSignal(owner, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK, PROC_REF(try_absorb_generic_effect))
 	return TRUE
 
-
 /datum/status_effect/effect_absorption/on_remove()
 	if(owner.mind || owner.client)
 		owner.create_log(ATTACK_LOG, "lost effect absorption (from: [source || "Unknown"])")
@@ -109,11 +106,9 @@
 	else
 		UnregisterSignal(owner, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK)
 
-
 /datum/status_effect/effect_absorption/get_examine_text()
 	if(examine_message && can_absorb_effect())
 		return replacetext(examine_message, "%EFFECT_OWNER_THEYRE", "[owner.p_they(TRUE)] [owner.p_are()]")
-
 
 /**
  * Signal proc for all the signals in var/static/list/status_effect_signals.
@@ -136,7 +131,6 @@
 
 	return COMPONENT_NO_EFFECT
 
-
 /**
  * Signal proc for [COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK].
  *
@@ -158,13 +152,11 @@
 
 	return COMPONENT_NO_EFFECT
 
-
 /// Simply checks if the owner of the effect is in a valid state to absorb effects.
 /datum/status_effect/effect_absorption/proc/can_absorb_effect()
 	if(seconds_of_effect_absorbed > max_seconds_of_effect_blocked)
 		return FALSE
 	return TRUE
-
 
 /**
  * Absorb a number of seconds of effect.
@@ -219,11 +211,9 @@
 
 	return TRUE
 
-
 /// Used in callbacks to "recharge" the effect after passing the max seconds of blocked time.
 /datum/status_effect/effect_absorption/proc/recharge_absorption(amount)
 	seconds_of_effect_absorbed = max(seconds_of_effect_absorbed - amount, 0)
-
 
 /**
  * [proc/apply_status_effect] wrapper specifically for [/datum/status_effect/effect_absorption],
@@ -298,7 +288,6 @@
 				delete_after_passing_max,
 				recharge_time,
 			)
-
 
 /**
  * Removes all effects absorptions of effect_type (or list of effect types) with the passed source.

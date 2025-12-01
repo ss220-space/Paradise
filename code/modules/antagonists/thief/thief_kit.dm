@@ -14,9 +14,11 @@
 /obj/item/thief_kit
 	name = "набор гильдии воров"
 	desc = "Ничем не примечательная увесистая коробка. Тяжелая. Набор вора-шредингера. Неизвестно что внутри, пока не заглянешь и не определишься."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	icon_state = "box_thief"
-	item_state = "syringe_kit"
+	item_state = "theif"
 	w_class = WEIGHT_CLASS_TINY
 	var/possible_uses = 2
 	var/uses = 0
@@ -162,7 +164,6 @@
 		SStgui.close_uis(src)
 		interact(usr)
 
-
 /obj/item/thief_kit/proc/randomKit(kit_type)
 	var/list/possible_kits = list()
 	for(var/datum/thief_kit/kit in all_kits)
@@ -181,7 +182,6 @@
 		if("[kit.type]" == kit_type)
 			return kit
 	return FALSE
-
 
 //=============== KITS ================
 /datum/thief_kit
@@ -330,7 +330,7 @@
 
 /datum/thief_kit/spai_kit
 	name = "Набор ПИИ"
-	desc = "Украденная технология персонального ИИ синдиката, которая была перепрошита под нужды гильдии воров."
+	desc = "Украденная технология персонального ИИ \"Синдиката\", которая была перепрошита под нужды гильдии воров."
 	item_list = list(
 		/obj/item/storage/box/syndie_kit/pai,
 	)

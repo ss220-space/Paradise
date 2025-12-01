@@ -10,15 +10,12 @@
 	pixel_x = -16
 	layer = 9
 
-
 /// Return a see_through_map, examples in seethrough.dm
 /obj/structure/flora/tree/proc/get_seethrough_map()
 	return SEE_THROUGH_MAP_DEFAULT
 
-
 /obj/structure/flora/tree/ComponentInitialize()
 	AddComponent(/datum/component/seethrough, get_seethrough_map())
-
 
 /obj/structure/flora/tree/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
@@ -92,7 +89,6 @@
 	. = ..()
 	icon_state = "snowgrass[rand(1, 3)]bb"
 
-
 /obj/structure/flora/grass/green
 	icon_state = "snowgrass1gb"
 
@@ -106,7 +102,6 @@
 /obj/structure/flora/grass/both/Initialize(mapload)
 	. = ..()
 	icon_state = "snowgrassall[rand(1, 3)]"
-
 
 //bushes
 /obj/structure/flora/bush
@@ -238,7 +233,6 @@
 	. = ..()
 	icon_state = "fullgrass_[rand(1, 3)]"
 
-
 /obj/item/twohanded/required/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
@@ -258,7 +252,6 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 
-
 /obj/item/twohanded/required/kirbyplants/New()
 	..()
 	if(prob(1))
@@ -277,12 +270,10 @@
 		set_light_range_power_color(l_range_init, l_power_init, LIGHT_COLOR_BRIGHT_YELLOW)
 		set_light_on(TRUE)
 
-
 /obj/item/twohanded/required/kirbyplants/Destroy()
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/twohanded/required/kirbyplants/extinguish_light(force = FALSE)
 	if(light_on)
@@ -290,7 +281,6 @@
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the plant. Perhaps shining a light will force it to clear?"
 		START_PROCESSING(SSobj, src)
-
 
 /obj/item/twohanded/required/kirbyplants/process()
 	var/turf/source_turf = get_turf(src)
@@ -301,7 +291,6 @@
 		return
 	light_process = 0
 
-
 /obj/item/twohanded/required/kirbyplants/proc/reset_light()
 	light_process = 0
 	set_light_on(TRUE)
@@ -309,14 +298,13 @@
 	desc = initial(desc)
 	STOP_PROCESSING(SSobj, src)
 
-
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()
 	if(!wielded)
 		return
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.override = 1
-	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
@@ -416,26 +404,21 @@
 	var/indestructable = FALSE
 	var/stump = 0
 
-
 /obj/structure/bush/Initialize(mapload)
 	. = ..()
 	if(prob(20))
 		set_opacity(TRUE)
 
-
 /obj/structure/bush/update_icon_state()
 	icon_state = stump ? "stump[stump]" : initial(icon_state)
-
 
 /obj/structure/bush/update_name(updates = ALL)
 	. = ..()
 	name = stump ? "cleared foliage" : initial(name)
 
-
 /obj/structure/bush/update_desc(updates = ALL)
 	. = ..()
 	desc = stump ? "There used to be dense undergrowth here." : initial(desc)
-
 
 /obj/structure/bush/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -474,25 +457,21 @@
 
 	return ..()
 
-
-//Jungle grass
-
+// MARK: Jungle grass
 /obj/structure/flora/grass/jungle
 	name = "jungle grass"
 	desc = "Thick alien flora."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "grassa"
-
+	icon_state = "grass1"
+	base_icon_state = "grass"
+	/// Controls how many variants of the sprite exists
+	var/variations = 10
 
 /obj/structure/flora/grass/jungle/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 5)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/grass/jungle/b
-	icon_state = "grassb"
-
-//Jungle rocks
-
+// MARK: Jungle rocks
 /obj/structure/flora/rock/jungle
 	icon_state = "rock"
 	desc = "A pile of rocks."
@@ -502,42 +481,38 @@
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,5)]"
 
-
-//Jungle bushes
-
+// MARK: Jungle bushes
 /obj/structure/flora/junglebush
 	name = "bush"
 	desc = "A wild plant that is found in jungles."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "busha"
+	icon_state = "bush1"
+	base_icon_state = "bush"
+	anchored = TRUE
+	/// Controls how many variants of the sprite exists
+	var/variations = 9
 
 /obj/structure/flora/junglebush/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 3)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/junglebush/b
-	icon_state = "bushb"
-
-/obj/structure/flora/junglebush/c
-	icon_state = "bushc"
-
 /obj/structure/flora/junglebush/large
-	icon_state = "bush"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -12
 	layer = ABOVE_ALL_MOB_LAYER
+	variations = 3
 
 /obj/structure/flora/rock/pile/largejungle
-	icon_state = "rocks"
+	icon_state = "rocks1"
+	base_icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -16
 
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
-	icon_state = "[initial(icon_state)][rand(1,3)]"
-
+	icon_state = "[initial(base_icon_state)][rand(1,3)]"
 
 //hellflora from shiptest
 /obj/structure/flora/firebush

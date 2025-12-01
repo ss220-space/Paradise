@@ -48,12 +48,10 @@ Key procs
 	/// Other modification datums this conflicts with.
 	var/conflicts_with
 
-
 /datum/movespeed_modifier/New()
 	. = ..()
 	if(!id)
 		id = "[type]" //We turn the path into a string.
-
 
 GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 
@@ -68,7 +66,6 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 	if(!M)
 		M = GLOB.movespeed_modification_cache[modtype] = new modtype
 	return M
-
 
 ///Add a move speed modifier to a mob. If a variable subtype is passed in as the first argument, it will make a new datum. If ID conflicts, it will overwrite the old ID.
 /mob/proc/add_movespeed_modifier(datum/movespeed_modifier/type_or_datum, update = TRUE)
@@ -89,7 +86,6 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 		update_movespeed()
 	return TRUE
 
-
 /// Remove a move speed modifier from a mob, whether static or variable.
 /mob/proc/remove_movespeed_modifier(datum/movespeed_modifier/type_id_datum, update = TRUE)
 	var/key
@@ -105,7 +101,6 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 	if(update)
 		update_movespeed()
 	return TRUE
-
 
 /*! Used for variable slowdowns like hunger/health loss/etc, works somewhat like the old list-based modification adds. Returns the modifier datum if successful
 	How this SHOULD work is:
@@ -147,7 +142,6 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 		update_movespeed()
 	return final
 
-
 ///Is there a movespeed modifier for this mob
 /mob/proc/has_movespeed_modifier(datum/movespeed_modifier/datum_type_id)
 	var/key
@@ -158,7 +152,6 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 	else
 		key = datum_type_id.id
 	return LAZYACCESS(movespeed_modification, key)
-
 
 /// Set or update the global movespeed config on a mob
 /mob/proc/update_config_movespeed()
@@ -176,13 +169,11 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 		return 0
 	return GLOB.mob_config_movespeed_type_lookup[type]
 
-
 /// Same as above but search by passed path
 /proc/get_config_multiplicative_speed_by_path(passed_path)
 	if(!ispath(passed_path) || !islist(GLOB.mob_config_movespeed_type_lookup) || !GLOB.mob_config_movespeed_type_lookup[passed_path])
 		return 0
 	return GLOB.mob_config_movespeed_type_lookup[passed_path]
-
 
 /// Go through the list of movespeed modifiers and calculate a final movespeed.
 /mob/proc/update_movespeed()
@@ -207,13 +198,11 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 	cached_multiplicative_slowdown = .
 	SEND_SIGNAL(src, COMSIG_MOB_MOVESPEED_UPDATED)
 
-
 /// Get the move speed modifiers list of the mob
 /mob/proc/get_movespeed_modifiers()
 	. = LAZYCOPY(movespeed_modification)
 	for(var/id in movespeed_mod_immunities)
 		. -= id
-
 
 /// Checks if a move speed modifier is valid and not missing any data
 /proc/movespeed_data_null_check(datum/movespeed_modifier/M) //Determines if a data list is not meaningful and should be discarded.

@@ -41,7 +41,6 @@
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
 
-
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
 
@@ -55,7 +54,6 @@
 
 	START_PROCESSING(SSobj, src)
 
-
 /**
  * Carp rifts always take heavy explosion damage. Discourages the use of maxcaps
  * and favours more weaker explosives to destroy the portal
@@ -63,7 +61,6 @@
  */
 /obj/structure/carp_rift/ex_act(severity, target)
 	return ..(min(EXPLODE_HEAVY, severity))
-
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()
@@ -75,10 +72,8 @@
 	if(isobserver(user))
 		. += span_notice("В этом разломе находится [carp_stored] карпов для вселения призраков.")
 
-
 /obj/structure/carp_rift/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src, 'sound/magic/lightningshock.ogg', 50, TRUE)
-
 
 /obj/structure/carp_rift/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -89,13 +84,11 @@
 	dragon = null
 	return ..()
 
-
 /obj/structure/carp_rift/update_icon_state()
 	if(charge_state == CHARGE_COMPLETED)
 		icon_state = "carp_rift_charged"
 		return
 	icon_state = (carp_stored > 0) ? "carp_rift_carpspawn" : "carp_rift"
-
 
 /obj/structure/carp_rift/process(seconds_per_tick)
 	// If we're fully charged, just start mass spawning carp.
@@ -113,13 +106,11 @@
 	last_carp_inc += seconds_per_tick
 	update_check()
 
-
 /obj/structure/carp_rift/attack_ghost(mob/user)
 	. = ..()
 	if(.)
 		return
 	summon_carp(user)
-
 
 /**
  * Does a series of checks based on the portal's status.
@@ -182,7 +173,6 @@
 			new_sound = 'sound/AI/commandreport.ogg'
 		)
 
-
 /**
  * Used to create carp controlled by ghosts when the option is available.
  *
@@ -227,7 +217,6 @@
 		light_color = LIGHT_COLOR_BLUE
 		update_light()
 	return TRUE
-
 
 #undef CHARGE_ONGOING
 #undef CHARGE_FINALWARNING

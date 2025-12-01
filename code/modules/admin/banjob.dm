@@ -34,7 +34,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		return 0
 
 	if(CONFIG_GET(flag/guest_jobban) && guest_jobbans(rank))
-		if(IsGuestKey(M.key))
+		if(is_guest_key(M.key))
 			return "Guest Job-ban"
 
 	if(GLOB.jobban_assoclist[M.ckey])
@@ -107,7 +107,6 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 /proc/ban_unban_log_save(formatted_log)
 	text2file(formatted_log,"data/ban_unban_log.txt")
-
 
 /proc/jobban_remove(X)
 	for(var/i = 1; i <= length(GLOB.jobban_keylist); i++)

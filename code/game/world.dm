@@ -4,9 +4,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
 
-/proc/enable_debugging(mode, port)
-	CRASH("auxtools not loaded")
-
 /world/New()
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
@@ -56,7 +53,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	log_world("Test runner enabled.")
 	#endif
 
-
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
@@ -75,7 +71,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	. = ..()
 
 	Master.Initialize(10, FALSE, TRUE)
-
 
 	#ifdef TEST_RUNNER
 	GLOB.test_runner = new
@@ -96,7 +91,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
 /// List of all world topic handler datums. Populated inside makeDatumRefLists()
 GLOBAL_LIST_EMPTY(world_topic_handlers)
-
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
@@ -317,7 +311,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
-
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
@@ -327,7 +320,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
 	..()
-
 
 /**
  * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.

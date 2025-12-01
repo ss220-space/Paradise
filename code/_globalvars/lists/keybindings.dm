@@ -2,7 +2,6 @@ GLOBAL_LIST_EMPTY(keybindings)
 GLOBAL_LIST_EMPTY(keybindings_by_name)
 GLOBAL_LIST_EMPTY(default_hotkeys)
 
-
 GLOBAL_LIST_INIT(keybindings_groups, list(
 	"Movement" = KB_CATEGORY_MOVEMENT,
 	"Communication" = KB_CATEGORY_COMMUNICATION,
@@ -24,14 +23,12 @@ GLOBAL_LIST_INIT(keybindings_groups, list(
 	"Custom Emotes (Character-based)" = KB_CATEGORY_EMOTE_CUSTOM,
 ))
 
-
 /// Creates and sorts all the keybinding datums
 /proc/init_keybindings()
 	for(var/datum/keybinding/keybinding_path as anything in subtypesof(/datum/keybinding))
 		if(!initial(keybinding_path.name))
 			continue
 		add_keybinding(new keybinding_path)
-
 
 /// Adds an instanced keybinding to the global tracker
 /proc/add_keybinding(datum/keybinding/instance)

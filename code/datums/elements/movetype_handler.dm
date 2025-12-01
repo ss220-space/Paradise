@@ -10,7 +10,6 @@
 	var/list/attached_atoms = list()
 	var/list/paused_floating_anim_atoms = list()
 
-
 /datum/element/movetype_handler/Attach(datum/target)
 	. = ..()
 	if(!ismovable(target))
@@ -29,7 +28,6 @@
 	if(movable_target.movement_type & (FLOATING|FLYING) && !HAS_TRAIT(movable_target, TRAIT_NO_FLOATING_ANIM))
 		DO_FLOATING_ANIM(movable_target)
 
-
 /datum/element/movetype_handler/Detach(datum/source)
 	var/list/signals_to_remove = list(
 		SIGNAL_ADDTRAIT(TRAIT_NO_FLOATING_ANIM),
@@ -45,7 +43,6 @@
 	STOP_FLOATING_ANIM(source)
 	return ..()
 
-
 /// Called when a movement type trait is added to the movable. Enables the relative bitflag.
 /datum/element/movetype_handler/proc/on_movement_type_trait_gain(atom/movable/source, trait)
 	SIGNAL_HANDLER
@@ -57,7 +54,6 @@
 	if(!(old_state & (FLOATING|FLYING)) && (source.movement_type & (FLOATING|FLYING)) && !paused_floating_anim_atoms[source] && !HAS_TRAIT(source, TRAIT_NO_FLOATING_ANIM))
 		DO_FLOATING_ANIM(source)
 	SEND_SIGNAL(source, COMSIG_MOVETYPE_FLAG_ENABLED, flag, old_state)
-
 
 /// Called when a movement type trait is removed from the movable. Disables the relative bitflag if it wasn't there in the compile-time bitfield.
 /datum/element/movetype_handler/proc/on_movement_type_trait_loss(atom/movable/source, trait)
@@ -74,19 +70,16 @@
 			pitfall.zFall(source)
 	SEND_SIGNAL(source, COMSIG_MOVETYPE_FLAG_DISABLED, flag, old_state)
 
-
 /// Called when the TRAIT_NO_FLOATING_ANIM trait is added to the movable. Stops it from bobbing up and down.
 /datum/element/movetype_handler/proc/on_no_floating_anim_trait_gain(atom/movable/source, trait)
 	SIGNAL_HANDLER
 	STOP_FLOATING_ANIM(source)
-
 
 /// Called when the TRAIT_NO_FLOATING_ANIM trait is removed from the mob. Restarts the bobbing animation.
 /datum/element/movetype_handler/proc/on_no_floating_anim_trait_loss(atom/movable/source, trait)
 	SIGNAL_HANDLER
 	if(source.movement_type & (FLOATING|FLYING) && !paused_floating_anim_atoms[source])
 		DO_FLOATING_ANIM(source)
-
 
 ///Pauses the floating animation for the duration of the timer... plus [tickrate - (world.time + timer) % tickrate] to be precise.
 /datum/element/movetype_handler/proc/pause_floating_anim(atom/movable/source, timer)
@@ -96,7 +89,6 @@
 		if(!length(paused_floating_anim_atoms))
 			START_PROCESSING(SSdcs, src) //1 second tickrate.
 		paused_floating_anim_atoms[source] = world.time + timer
-
 
 /datum/element/movetype_handler/process()
 	for(var/_paused in paused_floating_anim_atoms)

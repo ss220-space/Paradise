@@ -4,17 +4,14 @@
 #define ALIEN_RESIN_MEMBRANE "Resin Membrane (40)"
 #define ALIEN_RESIN_NEST "Resin Nest (30)"
 
-
 /obj/effect/proc_holder/spell/alien_spell/build_resin
 	name = "Secrete Resin"
 	desc = "Secrete tough malleable resin (Use Ctrl+Click on self)."
 	action_icon_state = "alien_resin"
 	var/in_process = FALSE
 
-
 /obj/effect/proc_holder/spell/alien_spell/build_resin/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/alien_spell/build_resin/cast(list/targets, mob/living/carbon/user)
 	var/mob/living/carbon/alien/host = user
@@ -93,7 +90,6 @@
 	host.visible_message(span_warning("[host] vomits up a thick purple substance and shapes it into the [alien_structure.name]!"), \
 						span_alertalien("You finished shaping vomited resin into the [alien_structure.name]."))
 
-
 /obj/effect/proc_holder/spell/alien_spell/build_resin/proc/check_availability(mob/living/carbon/user, plasma_amount)
 	if(!istype(user))
 		return FALSE
@@ -120,7 +116,6 @@
 
 	return TRUE
 
-
 /mob/living/carbon/alien/humanoid/CtrlClick(mob/living/carbon/alien/humanoid/alien)
 	if(!istype(alien) || src != alien)
 		return ..()
@@ -130,7 +125,6 @@
 		return
 
 	resin.try_perform(list(alien), alien)
-
 
 #undef ALIEN_RESIN_WALL
 #undef ALIEN_RESIN_DOOR

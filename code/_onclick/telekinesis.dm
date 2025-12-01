@@ -46,7 +46,6 @@
 	else
 		warning("Strange attack_tk(): TK([telekinesis]) empty hand([!user.get_active_hand()])")
 
-
 /mob/attack_tk(mob/user)
 	return // needs more thinking about
 
@@ -87,14 +86,12 @@
 			focus.forceMove(loc)
 	. = ..()
 
-
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	if(slot & ITEM_SLOT_HANDS)
 		return TRUE
 	qdel(src)
-
 
 /obj/item/tk_grab/attack_self(mob/user)
 	if(focus)
@@ -144,10 +141,8 @@
 		focus.throw_at(target, 10, 1, user)
 		last_throw = world.time
 
-
 /obj/item/tk_grab/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/tk_grab/is_equivalent(obj/item/I)
 	. = ..()
@@ -188,7 +183,6 @@
 	user.put_in_active_hand(src)
 	host = user
 	focus_object(target, user)
-
 
 /obj/item/tk_grab/update_overlays()
 	. = ..()

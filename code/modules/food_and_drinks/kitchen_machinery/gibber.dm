@@ -24,11 +24,9 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
-
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/gibber/Destroy()
 	if(length(contents))
@@ -40,7 +38,6 @@
 
 /obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
 	return
-
 
 /obj/machinery/gibber/update_overlays()
 	. = ..()
@@ -60,7 +57,6 @@
 	else
 		. += "gridle"
 
-
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
@@ -72,7 +68,6 @@
 	feedinTopanim()
 	addtimer(CALLBACK(src, PROC_REF(startgibbing), user), 33)
 	return OBLITERATION
-
 
 /obj/machinery/gibber/relaymove(mob/user)
 	if(locked)
@@ -95,7 +90,6 @@
 	add_fingerprint(user)
 	startgibbing(user)
 
-
 /obj/machinery/gibber/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE)
@@ -103,19 +97,14 @@
 	add_fingerprint(grabber)
 	move_into_gibber(grabber, grabbed_thing)
 
-
-
 /obj/machinery/gibber/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, "grinder_open", "grinder", I)
-
 
 /obj/machinery/gibber/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
 
-
 /obj/machinery/gibber/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/gibber/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -125,7 +114,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -195,7 +183,6 @@
 	occupant = null
 
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/gibber/proc/feedinTopanim()
 	if(!occupant)
@@ -316,10 +303,7 @@
 		operating = FALSE
 		update_icon(UPDATE_OVERLAYS)
 
-
-
 /* AUTOGIBBER */
-
 
 //gibs anything that stands on it's input
 
@@ -382,7 +366,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
 	return TRUE
-
 
 /obj/machinery/gibber/autogibber/proc/ejectclothes(mob/living/carbon/human/H)
 	if(!istype(H))

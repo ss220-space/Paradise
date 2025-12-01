@@ -95,7 +95,6 @@
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/cable/update_icon_state()
 	if(invisibility)
 		icon_state = "[d1]-[d2]-f"
@@ -106,7 +105,6 @@
 		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
 	else
 		SET_PLANE_IMPLICIT(src, GAME_PLANE)
-
 
 ////////////////////////////////////////////
 // Power related
@@ -156,7 +154,6 @@
 /obj/structure/cable/attack_tk(mob/user)
 	return
 
-
 /obj/structure/cable/attackby(obj/item/I, mob/user, params)
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
@@ -197,7 +194,6 @@
 
 	return ..()
 
-
 /obj/structure/cable/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
@@ -210,7 +206,7 @@
 
 /obj/structure/cable/proc/generate_power_message()
 	if(powernet && (powernet.avail > 0))
-		return chat_box_examine(span_notice("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nSurplus: [DisplayPower(surplus())]"))
+		return chat_box_examine(span_notice("Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nSurplus: [display_power(surplus())]"))
 	else
 		return span_warning("The cable is not powered.")
 
@@ -457,7 +453,6 @@
 		P_list = power_list(T1, src, turn(d1,180),0,cable_only = 1)	// what adjacently joins on to cut cable...
 
 	P_list += power_list(loc, src, d1, 0, cable_only = 1)//... and on turf
-
 
 	if(length(P_list) == 0)//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)

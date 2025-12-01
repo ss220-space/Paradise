@@ -17,13 +17,14 @@
 	var/buffered_overlay = null
 	//attached state variables
 	var/obj/item/gun/gun = null
+	/// Is module can detached
+	var/can_detach = TRUE
 
 /obj/item/gun_module/Destroy()
 	. = ..()
 	gun = null
 	if(buffered_overlay)
 		QDEL_NULL(buffered_overlay)
-
 
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
@@ -81,7 +82,6 @@
 /obj/item/gun_module/proc/on_detach(obj/item/gun/target_gun, mob/user)
 	return
 
-
 /**
  * MARK: Muzzle
  */
@@ -108,6 +108,9 @@
 		INSTRUMENTAL = "универсальным глушителем",
 		PREPOSITIONAL = "универсальном глушителе",
 	)
+
+/obj/item/gun_module/muzzle/suppressor/integrated
+	can_detach = FALSE
 
 /obj/item/gun_module/muzzle/suppressor/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = TRUE
@@ -161,7 +164,8 @@
 /obj/item/gun_module/muzzle/suppressor/handmade
 	name = "handmade suppressor"
 	desc = "Сделан из банки, скотча и куска металла. Неплохо глушит звук выстрела, но может в любой момент развалиться на части."
-	icon_state = "handmade_supp_"
+	icon_state = null
+	base_icon_state = "handmade_supp_"
 	overlay_state = "handmade_supp_1_o"
 	overlay_offset = list("x" = 0, "y" = 0)
 	var/variant = 1
@@ -174,8 +178,8 @@
 	update_icon()
 
 /obj/item/gun_module/muzzle/suppressor/handmade/update_icon_state()
-	icon_state = "[initial(icon_state)][variant]"
-	overlay_state = "[icon_state]_o"
+	icon_state = "[initial(base_icon_state)][variant]"
+	overlay_state = "[base_icon_state]_o"
 
 /obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
 	return list(
@@ -252,7 +256,6 @@
 	target_gun.recoil.strength = initial_recoil
 	initial_recoil = 0
 
-
 /**
  * MARK: Rail
  */
@@ -309,7 +312,6 @@
 	if(istype(human) && movespeed_mod)
 		human.remove_movespeed_modifier(movespeed_mod)
 		movespeed_mod = null
-
 
 /obj/item/gun_module/rail/scope/collimator
 	name = "collimator scope"
@@ -468,7 +470,6 @@
 	var/datum/atom_hud/hud = GLOB.huds[hud_type]
 	hud.hide_from(user)
 
-
 /obj/item/gun_module/rail/hud/medical
 	name = "med hud scope"
 	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами."
@@ -520,7 +521,6 @@
 /obj/item/gun_module/under/flashlight
 	var/obj/item/flashlight/seclite/internal
 	var/buffered_overlay_on
-
 
 /obj/item/gun_module/under/flashlight/Destroy()
 	. = ..()
@@ -730,7 +730,6 @@
 	gun.accuracy.add_accuracy(-bonus_accuracy)
 	gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
-
 
 /obj/item/gun_module/under/laser/ray
 	name = "laser sight (ray)"

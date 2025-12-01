@@ -28,7 +28,6 @@
 	if(stud)
 		. += span_notice("It is adorned with a single gem.")
 
-
 /obj/item/clothing/gloves/ring/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		add_fingerprint(user)
@@ -45,7 +44,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver

@@ -184,7 +184,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				announcer.announce(input)
 				message_cooldown = world.time + 600 //One minute
@@ -268,7 +268,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, span_notice("Запрос отправлен."))
@@ -290,7 +290,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				Centcomm_announce(input, ui.user)
 				print_centcom_report(input, station_time_timestamp() + " Сообщение капитана")
@@ -309,7 +309,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				Syndicate_announce(input, ui.user)
 				to_chat(ui.user, "Сообщение передано.")
@@ -373,7 +373,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для запрета вызова ОБР."))
 				return
 			ui.user.client.toggle_ert_calling()
-
 
 		if("view_fax")
 			if(!ADMIN_CHECK(ui.user))
@@ -618,7 +617,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 	return TRUE
 
-
 /proc/init_shift_change(mob/user, force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force && !check_shuttle_ability(user))
@@ -635,7 +633,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].")
 	return
 
-
 /proc/cancel_call_proc(mob/user)
 	if(GAMEMODE_IS_METEOR)
 		return
@@ -647,7 +644,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		to_chat(user, span_warning("Центральное командование отклонило запрос об отзыве эвакуационного шаттла!"))
 		add_game_logs("has tried and failed to recall the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
-
 
 /proc/post_status(mode, data1, data2)
 	if(usr && mode == STATUS_DISPLAY_MESSAGE)
@@ -666,7 +662,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		display.update()
 
-
 /obj/machinery/computer/communications/Destroy()
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
@@ -678,7 +673,8 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
+	if(SSticker?.current_state >= GAME_STATE_PLAYING)
+		SSshuttle.autoEvac()
 	return ..()
 
 /proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, datum/station_goal/goal = null)
@@ -703,7 +699,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-
 
 /obj/machinery/computer/communications/indestrusctable
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

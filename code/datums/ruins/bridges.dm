@@ -57,7 +57,6 @@
 	name = "Bridge spawner"
 	var/datum/map_template/ruin/bridge/template
 
-
 /obj/effect/spawner/bridge/Initialize(mapload)
 	. = ..()
 

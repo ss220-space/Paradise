@@ -184,7 +184,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	return M
 
-
 /datum/response_team
 	var/list/slots = list(
 		ERT_ROLE_COMMANDER = 0,
@@ -340,7 +339,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/responseteam
 
 	implants = list(/obj/item/implant/mindshield/ert)
 

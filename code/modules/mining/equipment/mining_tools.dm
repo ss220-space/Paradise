@@ -40,7 +40,6 @@
 		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
-
 /obj/item/pickaxe/emergency
 	name = "emergency disembarkation tool"
 	desc = "Кирка, предназначенная для спасения из затруднительных ситуаций."
@@ -155,7 +154,6 @@
 		PREPOSITIONAL = "кирке с алмазным наконечником",
 	)
 
-
 /obj/item/pickaxe/drill
 	name = "mining drill"
 	desc = "Электрическая буровая дрелль, используемая теми, для кого кирка слишком тяжела в обращении."
@@ -194,7 +192,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
-
 /obj/item/pickaxe/drill/diamonddrill
 	name = "diamond-tipped mining drill"
 	desc = "У тебя есть дрель, которая пронзит небеса!"
@@ -210,7 +207,6 @@
 		INSTRUMENTAL = "алмазной шахтёрской дрелью",
 		PREPOSITIONAL = "алмазной шахтёрской дрели",
 	)
-
 
 /obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP trait, and easier to change borg specific drill mechanics.
@@ -285,7 +281,6 @@
 		no_multi_hit = TRUE, \
 		swing_sound = SFX_BLUNT_SWING_LIGHT \
 	)
-
 
 /obj/item/shovel/spade
 	name = "spade"

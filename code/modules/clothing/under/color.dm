@@ -2,7 +2,6 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dying_key = DYE_REGISTRY_UNDER
 
-
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
 
@@ -22,7 +21,6 @@
 	icon_state = initial(new_color.icon_state)
 	item_state = initial(new_color.item_state)
 	item_color = initial(new_color.item_color)
-
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
@@ -46,12 +44,9 @@
 
 /obj/item/clothing/under/color/blue/dodgeball
 
-
 /obj/item/clothing/under/color/blue/dodgeball/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
@@ -68,11 +63,9 @@
 
 /obj/item/clothing/under/color/grey/greytide
 
-
 /obj/item/clothing/under/color/grey/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
@@ -91,7 +84,7 @@
 
 /obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
-	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	desc = "Старая одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
 	has_sensor = 2
 	sensor_mode = 3
 
@@ -107,7 +100,7 @@
 
 /obj/item/clothing/under/prison
 	name = "prison jumpsuit"
-	desc = "Cтандартная одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	desc = "Cтандартная одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
 	icon_state = "prison"
 	item_state = "prison"
 	item_color = "prison"
@@ -139,11 +132,9 @@
 
 /obj/item/clothing/under/color/red/dodgeball
 
-
 /obj/item/clothing/under/color/red/dodgeball/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"

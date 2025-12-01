@@ -25,7 +25,6 @@ SUBSYSTEM_DEF(area_contents)
 					total_clearing_from += length(to_clear.turfs_by_zlevel[area_zlevel])
 	return "A:[length(currentrun)] MR:[length(marked_for_clearing)] TC:[total_to_clear] CF:[total_clearing_from]"
 
-
 /datum/controller/subsystem/area_contents/fire(resumed)
 	if(!resumed)
 		currentrun = GLOB.areas.Copy()

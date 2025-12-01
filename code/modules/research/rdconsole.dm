@@ -26,12 +26,8 @@ cause a ton of data to be lost, an admin can go send it back.
 it's entirety. You can then take the disk to any R&D console and upload it's data to it. This method is a lot more secure (since it
 won't update every console in existence) but it's more of a hassle to do. Also, the disks can be stolen.
 
-
 */
 
-// Who likes #defines?
-// I don't!
-// but I gotta add 'em anyways because we have a bias against /const statements for some reason
 #define TECH_UPDATE_DELAY 50
 #define DESIGN_UPDATE_DELAY 50
 #define PROTOLATHE_CONSTRUCT_DELAY 32
@@ -66,37 +62,49 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_LAVENDER
 	circuit = /obj/item/circuitboard/rdconsole
-	var/datum/research/files							//Stores all the collected research data.
-	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.
-	var/obj/item/disk/design_disk/d_disk = null	//Stores the design disk.
+	/// Stores all the collected research data.
+	var/datum/research/files
+	/// Stores the technology disk.
+	var/obj/item/disk/tech_disk/t_disk = null
+	/// Stores the design disk.
+	var/obj/item/disk/design_disk/d_disk = null
 
-	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null	//Linked Destructive Analyzer
-	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
-	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
+	/// Linked Destructive Analyzer
+	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null
+	/// Linked Protolathe
+	var/obj/machinery/r_n_d/protolathe/linked_lathe = null
+	/// Linked Circuit Imprinter
+	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null
 
-	var/screen = 1.0	//Which screen is currently showing.
+	/// Which screen is currently showing.
+	var/screen = 1
 
 	var/menu = MENU_MAIN
 	var/submenu = SUBMENU_MAIN
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
-	var/syndicate = 0 //добавленный для синдибазы флаг
+	/// Flag for Syndicate base
+	var/syndicate = 0
 
-	var/id = 0			//ID of the computer (for server restrictions).
-	var/sync = TRUE		//If sync if FALSE, it doesn't show up on Server Control Console
-	///Range to search for rnd devices in proximity to console
+	/// ID of the computer (for server restrictions).
+	var/id = 0
+	/// If sync if FALSE, it doesn't show up on Server Control Console
+	var/sync = TRUE
+	/// Range to search for rnd devices in proximity to console
 	var/range = 3
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
-	var/list/datum/design/matching_designs = list() //for the search function
+	/// for the search function
+	var/list/datum/design/matching_designs = list()
 
-	var/ui_theme = "Nanotrasen" //Тема интерфейса
+	/// TGUI theme
+	var/ui_theme = "Nanotrasen"
 
-
-/proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
+/// A simple helper proc to find the name of a tech with a given ID.
+/proc/CallTechName(ID)
 	for(var/T in subtypesof(/datum/tech))
 		var/datum/tech/tt = T
 		if(initial(tt.id) == ID)
@@ -105,20 +113,31 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /proc/CallMaterialName(return_name)
 	switch(return_name)
 		if("plasma")
-			return_name = "Solid Plasma"
+			return_name = "Твёрдая плазма"
 		if("clown")
-			return_name = "Bananium"
+			return_name = "Бананиум"
 		if("mime")
-			return_name = "Tranquillite"
+			return_name = "Транквилит"
 		if("bluespace")
-			return_name = "Bluespace Mesh"
+			return_name = "Блюспейс-пыль"
 		else
 			var/datum/reagent/our_reagent = GLOB.chemical_reagents_list[return_name]
 			if(our_reagent && initial(our_reagent.id) == return_name)
 				return_name = initial(our_reagent.name)
 	return capitalize(return_name)
 
-/obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
+/obj/machinery/computer/rdconsole/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль НИО",
+		GENITIVE = "консоли НИО",
+		DATIVE = "консоли НИО",
+		ACCUSATIVE = "консоль НИО",
+		INSTRUMENTAL = "консолью НИО",
+		PREPOSITIONAL = "консоли НИО",
+	)
+
+/// Makes sure it is properly sync'ed up with the devices attached to it (if any).
+/obj/machinery/computer/rdconsole/proc/SyncRDevices()
 	for(var/obj/machinery/r_n_d/D in range(range, src))
 		if(!isnull(D.linked_console) || D.panel_open)
 			continue
@@ -137,8 +156,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
+				linked_imprinter.update_components_list()
 
-//Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
+/// Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
 	for(var/obj/machinery/r_n_d/server/centcom/C in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
 		files.push_data(C.files)
@@ -164,6 +184,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
 		update_icon()
+
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -199,11 +220,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(istype(I, /obj/item/disk))
 		add_fingerprint(user)
 		if(t_disk || d_disk)
-			to_chat(user, span_warning("Another disk is inserted into the machine."))
+			balloon_alert(user, "слот для дискеты занят!")
 			return ATTACK_CHAIN_PROCEED
 		var/tech_disk = istype(I, /obj/item/disk/tech_disk)
 		if(!tech_disk && !istype(I, /obj/item/disk/design_disk))
-			to_chat(user, span_warning("Machine cannot accept disks in that format."))
+			balloon_alert(user, "неподходящий формат!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -212,11 +233,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		else
 			d_disk = I
 		SStgui.update_uis(src)
-		to_chat(user, span_notice("You have inserted a disk into the machine."))
+		balloon_alert(user, "дискета вставлена")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/rdconsole/emag_act(mob/user)
 	if(!emagged)
@@ -225,7 +245,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		if(user)
-			to_chat(user, span_notice("You disable the security protocols"))
+			balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -247,7 +267,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/desired_num_sheets = 0
 	if(amount == "custom")
-		desired_num_sheets = tgui_input_number(usr, "How many sheets would you like to eject from the machine?", "How much?", 1)
+		desired_num_sheets = tgui_input_number(usr, "Сколько единиц материала вы хотите достать из машины?", "Извлечение материала", 1)
 		if(isnull(desired_num_sheets))
 			desired_num_sheets = 0
 	else
@@ -256,8 +276,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desired_num_sheets = max(0, round(desired_num_sheets)) // If you input too high of a number, the mineral datum will take care of it either way
 	if(desired_num_sheets)
 		machine.materials.retrieve_sheets(desired_num_sheets, material_id)
-
-
 
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
@@ -278,7 +296,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(S.disabled)
 			continue
 		if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
-			log_debug("[src.name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
+			log_debug("[name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
 			continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(S.files)
@@ -288,12 +306,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			server_processed = TRUE
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
+
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
+
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
 	clear_wait_message()
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
@@ -306,11 +330,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_destroy.busy)
-		to_chat(user, span_danger("[linked_destroy] is busy at the moment."))
+		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] в работе!"))
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(user, span_danger("[linked_destroy] appears to be empty."))
+		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -322,13 +346,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = tgui_alert(usr, "This item does not raise tech levels. Proceed destroying loaded item anyway?", , list("Proceed", "Cancel"))
-		if(choice == "Cancel" || !linked_destroy)
+		var/choice = tgui_alert(usr, "Этот объект обладает нулевым технологическим потенциалом. Вы точно хотите его разобрать?", , list("Разобрать", "Отмена"))
+		if(choice == "Отмена" || !linked_destroy)
 			return
 
 	linked_destroy.busy = TRUE
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
-	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
+	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
@@ -338,9 +362,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	for(var/material in linked_destroy.loaded_item.materials)
 		var/space = linked_lathe.materials.max_amount - linked_lathe.materials.total_amount
-		// as item rating increases, amount salvageable increases
+		/// As item rating increases, amount salvageable increases
 		var/salvageable = linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10)
-		// but you shouldn't salvage more than the raw materials amount
+		/// But you shouldn't salvage more than the raw materials amount
 		var/available = linked_destroy.loaded_item.materials[material]
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
@@ -352,7 +376,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, span_danger("[linked_destroy] appears to be empty."))
+			to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
 		else
 			var/tech_log
 			for(var/T in temp_tech)
@@ -363,7 +387,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 		send_mats()
 		linked_destroy.loaded_item = null
-
 
 	for(var/obj/I in linked_destroy.contents)
 		for(var/mob/M in I.contents)
@@ -386,27 +409,25 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
 
-
-
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
-		to_chat(usr, span_danger("No linked device detected."))
+		to_chat(usr, span_danger("Выбранное оборудование не подключено!"))
 		return
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
-		to_chat(usr, span_danger("Unexpected linked device type."))
+		to_chat(usr, span_danger("Неподходящий тип подключённого оборудования!"))
 		return
 
 	if(machine.busy)
-		to_chat(usr, span_danger("[machine] is busy at the moment."))
+		to_chat(usr, span_danger("[capitalize(machine.declent_ru(NOMINATIVE))] занят!"))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
-		to_chat(usr, span_danger("Unknown design specified."))
+		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
@@ -434,10 +455,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * being_built.lathe_time_factor * amount ** 0.8
 
 	if(is_lathe)
-		add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
+		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 	else
-		add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
+		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 
 	machine.busy = TRUE
@@ -450,12 +471,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/enough_materials = TRUE
 
 	if(!machine.materials.has_materials(efficient_mats, amount))
-		atom_say("Недостаточно материалов для завершения прототипа.")
+		balloon_alert_to_viewers("недостаточно материала для печати!")
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
 			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
-				atom_say("Недостаточно реагентов для завершения прототипа.")
+				balloon_alert_to_viewers("недостаточно реагентов для печати!")
 				enough_materials = FALSE
 
 	if(enough_materials)
@@ -472,7 +493,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			continue
 		if(istype(S, /obj/machinery/r_n_d/server/core) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			S.add_usage_log(usr, being_built, machine)
-
 
 /obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
@@ -494,6 +514,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(machine.loc)
 					real_item.forceMove(lockbox)
 					lockbox.name += " ([real_item.name])"
+					var/real_item_ru_name = capitalize(real_item.declent_ru(NOMINATIVE))
+					lockbox.ru_names = list(
+						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
+						GENITIVE = "защищённого кейса ([real_item_ru_name])",
+						DATIVE = "защищённому кейсу ([real_item_ru_name])",
+						ACCUSATIVE = "защищённый кейс ([real_item_ru_name])",
+						INSTRUMENTAL = "защищённым кейсом ([real_item_ru_name])",
+						PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
+					)
 					lockbox.origin_tech = real_item.origin_tech
 					lockbox.req_access = being_built.access_requirement
 					lockbox.w_class = real_item.w_class > lockbox.w_class ? real_item.w_class : lockbox.w_class
@@ -501,7 +530,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/list/lockbox_access
 					for(var/A in lockbox.req_access)
 						lockbox_access += "[get_access_desc(A)] "
-					lockbox.desc = "A locked box. It is locked to [lockbox_access]access."
+					lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \"[lockbox_access]\"."
 				else
 					new_item.loc = machine.loc
 
@@ -509,7 +538,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	clear_wait_message()
 	SStgui.update_uis(src)
-
 
 /obj/machinery/computer/rdconsole/ui_act(action, list/params)
 	if(..())
@@ -519,7 +547,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	add_fingerprint(usr)
-
 
 	switch(action)
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
@@ -557,10 +584,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					matching_designs.Add(D)
 			submenu = SUBMENU_LATHE_CATEGORY
 
-			selected_category = "Viewing Category [next_category]"
+			selected_category = "Выбранная категория — \"[next_category]\""
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
-			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
+			add_wait_message("Обновление базы данных...", TECH_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
 		if("clear_tech") //Erase data on the technology disk.
@@ -581,14 +608,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
 				var/datum/tech/new_known = known.copyTech()
-				t_disk.name = "[t_disk.default_name] \[[new_known]\]"
-				t_disk.desc = new_known.desc + " Level: '[new_known.level]'"
+				t_disk.name = "[t_disk.default_name] ([new_known])"
+				t_disk.ru_names = list(
+					NOMINATIVE = "дискета технологий ([new_known])",
+					GENITIVE = "дискеты технологий ([new_known])",
+					DATIVE = "дискете технологий ([new_known])",
+					ACCUSATIVE = "дискету технологий ([new_known])",
+					INSTRUMENTAL = "дискетой технологий ([new_known])",
+					PREPOSITIONAL = "дискете технологий ([new_known])"
+				)
+				t_disk.desc = new_known.desc + " <b>Уровень: \"[new_known.level]\"</b>."
 				t_disk.stored = new_known
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
-			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
+			add_wait_message("Обновление базы данных...", DESIGN_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), DESIGN_UPDATE_DELAY)
 
 		if("clear_design") //Erases data on the design disk.
@@ -615,7 +650,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, span_danger("[linked_destroy] is busy at the moment."))
+					to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] занят!"))
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
@@ -626,7 +661,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))=="No")
+			if(tgui_alert(usr, "Вы точно хотите повысить технологические уровни до максимума?", "Повышение тех. уровней", list("Да", "Нет"))=="Нет")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")
@@ -638,9 +673,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			if(!sync)
-				to_chat(usr, span_danger("You must connect to the network first!"))
+				to_chat(usr, span_danger("Консоль не подключена к сети НИО!"))
 			else
-				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
+				add_wait_message("Синхронизация базы данных...", SYNC_RESEARCH_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
 
@@ -696,15 +731,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
-			var/choice = tgui_alert(usr, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
-			if(choice == "Continue")
-				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
+			var/choice = tgui_alert(usr, "Вы точно хотите очистить локальную базу данных консоли? Восстановить утерянные данные без внешного источника будет невозможно.", "Очистка локальной БД", list("Очистить", "Отмена"))
+			if(choice == "Очистить")
+				add_wait_message("Очистка локальной базы данных...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)
 
 		if("search") //Search for designs with name matching pattern
 			var/query = params["to_search"]
 			var/compare
-
 
 			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
@@ -719,20 +753,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/datum/design/D = files.known_designs[v]
 				if(!(D.build_type & compare))
 					continue
-				if(findtext(D.name, query))
+				if(findtext(D.build_object_name, query))
 					matching_designs.Add(D)
 			submenu = SUBMENU_LATHE_CATEGORY
 
-			selected_category = "Search Results for '[query]'"
+			selected_category = "Результаты поиска по запросу \"[query]\""
 
 	return TRUE // update uis
-
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "отказано в доступе!")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return TRUE
 	ui_interact(user)
@@ -740,7 +773,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RndConsole", name)
+		ui = new(user, src, "RndConsole", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
@@ -770,12 +803,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
+			var/item_name = D.build_object_name
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
+			var/obj/item/created_object = D.build_path
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
-			design_list["name"] = D.name
+			design_list["name"] = item_name
+			design_list["desc"] = created_object.desc
+			design_list["icon"] = created_object.icon
+			design_list["icon_state"] = created_object.icon_state
 			var/can_build = is_imprinter ? 1 : 50
 
 			for(var/M in D.materials)
@@ -799,18 +837,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			design_list["can_build"] = can_build
 
 	else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
-		materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = machine.materials.amount(MAT_METAL))
-		materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = machine.materials.amount(MAT_GLASS))
-		materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = machine.materials.amount(MAT_GOLD))
-		materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
-		materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
-		materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
-		materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
-		materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
-		materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
-		materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
-		materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
-		materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
+		materials_list[++materials_list.len] = list("name" = "Сталь", "id" = MAT_METAL, "amount" = machine.materials.amount(MAT_METAL))
+		materials_list[++materials_list.len] = list("name" = "Стекло", "id" = MAT_GLASS, "amount" = machine.materials.amount(MAT_GLASS))
+		materials_list[++materials_list.len] = list("name" = "Золото", "id" = MAT_GOLD, "amount" = machine.materials.amount(MAT_GOLD))
+		materials_list[++materials_list.len] = list("name" = "Серебро", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
+		materials_list[++materials_list.len] = list("name" = "Твёрдая плазма", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
+		materials_list[++materials_list.len] = list("name" = "Уран", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
+		materials_list[++materials_list.len] = list("name" = "Алмаз", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
+		materials_list[++materials_list.len] = list("name" = "Бананиум", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
+		materials_list[++materials_list.len] = list("name" = "Транквилит", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
+		materials_list[++materials_list.len] = list("name" = "Титан", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
+		materials_list[++materials_list.len] = list("name" = "Пластик", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
+		materials_list[++materials_list.len] = list("name" = "Блюспейс-пыль", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
 	else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
 		for(var/datum/reagent/R in machine.reagents.reagent_list)
 			var/list/loaded_chemical = list()
@@ -818,7 +856,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			loaded_chemical["name"] = R.name
 			loaded_chemical["volume"] = R.volume
 			loaded_chemical["id"] = R.id
-
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)
@@ -896,13 +933,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/list/lathe_types = list()
 			disk_data["lathe_types"] = lathe_types
 			if(b_type)
-				if(b_type & IMPRINTER) lathe_types += "Circuit Imprinter"
-				if(b_type & PROTOLATHE) lathe_types += "Protolathe"
-				if(b_type & AUTOLATHE) lathe_types += "Autolathe"
-				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
-				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
-				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
-				if(b_type & SMELTER) lathe_types += "Smelter"
+				if(b_type & IMPRINTER) lathe_types += "Принтер плат"
+				if(b_type & PROTOLATHE) lathe_types += "Протолат"
+				if(b_type & AUTOLATHE) lathe_types += "Автолат"
+				if(b_type & MECHFAB) lathe_types += "Фабрикатор экзоскелетов"
+				if(b_type & PODFAB) lathe_types += "Фабрикатор челноков"
+				if(b_type & BIOGENERATOR) lathe_types += "Биогенератор"
+				if(b_type & SMELTER) lathe_types += "Плавильная печь"
 			var/list/materials = list()
 			disk_data["materials"] = materials
 			for(var/M in d_disk.blueprint.materials)
@@ -920,13 +957,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					continue
 				var/list/item = list()
 				to_copy[++to_copy.len] = item
-				item["name"] = D.name
+				item["name"] = D.build_object_name
 				item["id"] = D.id
-
 	else if(menu == MENU_DESTROY && linked_destroy?.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
-		loaded_item_list["name"] = linked_destroy.loaded_item.name
+		loaded_item_list["name"] = capitalize(linked_destroy.loaded_item.declent_ru(NOMINATIVE))
+		loaded_item_list["icon"] = initial(linked_destroy.loaded_item.icon)
+		loaded_item_list["icon_state"] = initial(linked_destroy.loaded_item.icon_state)
 		var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
 		var/list/tech_list = list()
 		loaded_item_list["origin_tech"] = tech_list
@@ -948,17 +986,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	return data
 
-//helper proc that guarantees the wait message will not freeze the UI
+/// Helper proc that guarantees the wait message will not freeze the UI
 /obj/machinery/computer/rdconsole/proc/add_wait_message(message, delay)
 	wait_message = message
 	wait_message_timer = addtimer(CALLBACK(src, PROC_REF(clear_wait_message)), delay, TIMER_UNIQUE | TIMER_STOPPABLE)
 
-// This is here to guarantee that we never lock the console, so long as the timer
-// process is running
-// So long as the spawns never runtime, though, the timer should be stopped
-// before it gets the chance to fire
-// Since the timer process can have significant delays, you should call this
-// in the operations that take time, once they complete
+/**
+ * This is here to guarantee that we never lock the console, so long as the timer
+ * process is running
+ * So long as the spawns never runtime, though, the timer should be stopped
+ * before it gets the chance to fire
+ * Since the timer process can have significant delays, you should call this
+ * in the operations that take time, once they complete
+ */
 /obj/machinery/computer/rdconsole/proc/clear_wait_message()
 	wait_message = ""
 	if(wait_message_timer)
@@ -971,8 +1011,20 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
-	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
+			управлению подключённым исследовательским оборудованием. \
+			Является основным узлом НИО."
 	id = 1
+
+/obj/machinery/computer/rdconsole/core/get_ru_names()
+	return list(
+		NOMINATIVE = "главная консоль НИО",
+		GENITIVE = "главной консоли НИО",
+		DATIVE = "главной консоли НИО",
+		ACCUSATIVE = "главную консоль НИО",
+		INSTRUMENTAL = "главной консолью НИО",
+		PREPOSITIONAL = "главной консоли НИО",
+	)
 
 /obj/machinery/computer/rdconsole/core/old_frame
 	icon = 'icons/obj/machines/computer3.dmi'
@@ -982,24 +1034,60 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/robotics
 	name = "robotics R&D console"
-	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
+			управлению подключённым исследовательским оборудованием. \
+			Специализированная версия, используемая в отделах робототехники."
 	id = 2
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
+/obj/machinery/computer/rdconsole/robotics/get_ru_names()
+	return list(
+		NOMINATIVE = "робототехническая консоль НИО",
+		GENITIVE = "робототехнической консоли НИО",
+		DATIVE = "робототехнической консоли НИО",
+		ACCUSATIVE = "робототехническую консоль НИО",
+		INSTRUMENTAL = "робототехнической консолью НИО",
+		PREPOSITIONAL = "робототехнической консоли НИО",
+	)
+
 /obj/machinery/computer/rdconsole/experiment
 	name = "E.X.P.E.R.I-MENTOR R&D console"
-	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
+			управлению подключённым исследовательским оборудованием. \
+			Специализированная версия, используемая для работы с \"Э.К.С.П.Е.Р.И-МЕНТОР\"."
 	id = 3
 	range = 5
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
+/obj/machinery/computer/rdconsole/experiment/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
+		GENITIVE = "консоли НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
+		DATIVE = "консоли НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
+		ACCUSATIVE = "консоль НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
+		INSTRUMENTAL = "консолью НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
+		PREPOSITIONAL = "консоли НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
+	)
+
 /obj/machinery/computer/rdconsole/mechanics
 	name = "mechanics R&D console"
-	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
+			управлению подключённым исследовательским оборудованием. \
+			Специализированная версия, используемая в мастерской для челноков."
 	id = 4
 	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
+
+/obj/machinery/computer/rdconsole/mechanics/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль НИО (Мастерская челноков)",
+		GENITIVE = "консоли НИО (Мастерская челноков)",
+		DATIVE = "консоли НИО (Мастерская челноков)",
+		ACCUSATIVE = "консоль НИО (Мастерская челноков)",
+		INSTRUMENTAL = "консолью НИО (Мастерская челноков)",
+		PREPOSITIONAL = "консоли НИО (Мастерская челноков)",
+	)
 
 /obj/machinery/computer/rdconsole/mechanics/old_frame
 	icon = 'icons/obj/machines/computer3.dmi'
@@ -1008,10 +1096,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
-	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
+			управлению подключённым исследовательским оборудованием. \
+			Специализированная версия без ограничений по уровню доступа пользователя."
 	id = 5
 	req_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
+
+/obj/machinery/computer/rdconsole/public/get_ru_names()
+	return list(
+		NOMINATIVE = "публичная консоль НИО",
+		GENITIVE = "публичной консоли НИО",
+		DATIVE = "публичной консоли НИО",
+		ACCUSATIVE = "публичную консоль НИО",
+		INSTRUMENTAL = "публичной консолью НИО",
+		PREPOSITIONAL = "публичной консоли НИО",
+	)
 
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY

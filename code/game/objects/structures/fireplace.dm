@@ -24,7 +24,6 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-
 /obj/structure/fireplace/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -105,11 +104,9 @@
 	)
 	ignite()
 
-
 /obj/structure/fireplace/update_desc(updates = ALL)
 	. = ..()
 	desc = lit ? "A large stone brick fireplace, warm and cozy." : initial(desc)
-
 
 /obj/structure/fireplace/update_overlays()
 	. = ..()
@@ -134,7 +131,6 @@
 	. += "[firepower]"
 	. += "fireplace_glow"
 
-
 /obj/structure/fireplace/proc/adjust_light()
 	if(!lit)
 		set_light_on(FALSE)
@@ -152,7 +148,6 @@
 		if(2001 to MAXIMUM_BURN_TIMER)
 			set_light(6, ,"#ffb366")
 
-
 /obj/structure/fireplace/process(seconds_per_tick)
 	if(!lit)
 		return
@@ -166,7 +161,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	adjust_light()
 
-
 /obj/structure/fireplace/extinguish()
 	. = ..()
 	if(lit)
@@ -174,7 +168,6 @@
 		flame_expiry_timer = 0
 		put_out()
 		adjust_fuel_timer(fuel)
-
 
 /obj/structure/fireplace/proc/adjust_fuel_timer(amount)
 	if(lit)
@@ -184,13 +177,11 @@
 	else
 		fuel_added = clamp(fuel_added + amount, 0, MAXIMUM_BURN_TIMER)
 
-
 /obj/structure/fireplace/proc/burn_time_remaining()
 	if(lit)
 		return max(0, flame_expiry_timer - world.time)
 	else
 		return max(0, fuel_added)
-
 
 /obj/structure/fireplace/proc/ignite()
 	lit = TRUE
@@ -199,12 +190,10 @@
 	update_appearance(UPDATE_OVERLAYS|UPDATE_DESC)
 	adjust_light()
 
-
 /obj/structure/fireplace/proc/put_out()
 	lit = FALSE
 	update_appearance(UPDATE_OVERLAYS|UPDATE_DESC)
 	adjust_light()
-
 
 #undef LOG_BURN_TIMER
 #undef PAPER_BURN_TIMER

@@ -23,7 +23,6 @@
 	/// Size when there's no contents
 	var/folded_size = WEIGHT_CLASS_NORMAL
 
-
 /obj/item/storage/belt/examine(mob/user)
 	. = ..()
 	if(storable || initial(w_class) == expanded_size)
@@ -135,10 +134,8 @@
 			continue
 		. += mutable_appearance(icon, item.belt_icon, color = item.color)
 
-
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
-
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
@@ -410,7 +407,7 @@
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
 		/obj/item/eftpos/sec,
-		/obj/item/stock_parts/cell/specter,
+		/obj/item/weapon_cell,
 		/obj/item/radio,
 	)
 
@@ -748,19 +745,18 @@
 /obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "lazarusbelt_[length(contents)]"
 
-
 /obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
 	desc = "Патронташ для хранения патронов к дробовику."
-	icon_state = "bandolier"
+	icon_state = "bandolier_0"
 	item_state = "bandolier"
+	base_icon_state = "bandolier"
 	storage_slots = 16
 	max_combined_w_class = 16
 	display_contents_with_number = TRUE
@@ -796,15 +792,13 @@
 	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon_state()
-	icon_state = "[initial(icon_state)]_[length(contents)]"
-
+	icon_state = "[base_icon_state]_[length(contents)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
 		update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
@@ -993,6 +987,7 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
+		/obj/item/handheld_defibrillator,
 	)
 
 /obj/item/storage/belt/bluespace/owlman
@@ -1055,10 +1050,8 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-
 /obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/storage/belt/bluespace/admin
 	name = "Admin's Tool-belt"
@@ -1293,7 +1286,6 @@
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/storage/belt/claymore/populate_contents()
 	new claymore_path(src)

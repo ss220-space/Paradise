@@ -61,7 +61,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/necropolis_gate/Destroy(force)
 	if(force)
 		qdel(sight_blocker, TRUE)
@@ -72,12 +71,10 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return 0
 
-
 /obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(border_dir != dir)
 		return TRUE
-
 
 /obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -94,7 +91,6 @@
 	if(density && dir == get_dir(leaving, newLoc))
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
-
 
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
@@ -231,7 +227,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 				to_chat(M, span_userdanger("Ваш разум наполняют диссонирующие шёпоты тысяч голосов. Каждый повторяет ваше имя снова и снова..."))
 				to_chat(M, span_userdanger("Выпущено нечто ужасающее!"))
 				M.playsound_local(T, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, sound_to_use = legion_sound)
-				flash_color(M, flash_color = "#FF0000", flash_time = 50)
+				flash_color(M, flash_color = "#FF0000", flash_duration = 50)
 		var/mutable_appearance/release_overlay = mutable_appearance('icons/effects/effects.dmi', "legiondoor")
 		notify_ghosts("Легион был выпущен в [get_area(src)]!", source = src, alert_overlay = release_overlay, action = NOTIFY_JUMP)
 
@@ -326,7 +322,6 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	toggle_fallen(FALSE, TRUE)
 
-
 /obj/structure/stone_tile/proc/toggle_fallen(new_fallen, init)
 	if(new_fallen == fallen && !init)
 		return
@@ -340,7 +335,6 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	else
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
 
-
 /obj/structure/stone_tile/Destroy(force)
 	if(force || fallen)
 		. = ..()
@@ -349,7 +343,6 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 /obj/structure/stone_tile/singularity_pull()
 	return
-
 
 /obj/structure/stone_tile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -374,7 +367,6 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 				INVOKE_ASYNC(src, PROC_REF(collapse))
 		if(UNIQUE_EFFECT)
 			INVOKE_ASYNC(src, PROC_REF(crossed_effect), arrived)
-
 
 /obj/structure/stone_tile/proc/collapse()
 	falling = TRUE

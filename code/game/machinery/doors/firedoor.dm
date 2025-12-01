@@ -36,11 +36,9 @@
 	var/active_alarm = FALSE
 	var/list/affecting_areas
 
-
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
 	CalculateAffectingAreas()
-
 
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
@@ -77,18 +75,15 @@
 	affecting_areas.Cut()
 	return ..()
 
-
 /obj/machinery/door/firedoor/crush()
 	if(!can_crush)
 		return
 	return ..()
 
-
 /obj/machinery/door/firedoor/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
 	if(panel_open || operating)
 		return ..(moving_atom, TRUE)
 	return ..(moving_atom, density)
-
 
 /obj/machinery/door/firedoor/proc/adjust_light()
 	if(stat & (NOPOWER|BROKEN))
@@ -99,12 +94,10 @@
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
-
 /obj/machinery/door/firedoor/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/door/firedoor/power_change(forced = FALSE)
 	. = ..()
@@ -114,7 +107,6 @@
 		return
 	adjust_light()
 	update_icon()
-
 
 /obj/machinery/door/firedoor/attack_hand(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
@@ -142,13 +134,11 @@
 			span_notice("You open [src]."))
 		open(auto_close = FALSE)
 
-
 /obj/machinery/door/firedoor/attackby(obj/item/I, mob/user, params)
 	if(operating)
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
 	return
@@ -241,7 +231,6 @@
 			flick("door_closing", src)
 			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, TRUE)
 
-
 /obj/machinery/door/firedoor/update_icon_state()
 	icon_state = "door_[density ? "closed" : "open"]"
 	SSdemo.mark_dirty(src)
@@ -255,7 +244,6 @@
 			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask", src)
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
 	SSdemo.mark_dirty(src)
-
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
@@ -321,7 +309,6 @@
 	flags = ON_BORDER
 	can_crush = FALSE
 
-
 /obj/machinery/door/firedoor/border_only/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -329,21 +316,17 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
 	density = TRUE
-
 
 /obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(dir != border_dir)
 		return TRUE
 
-
 /obj/machinery/door/firedoor/border_only/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir)
-
 
 /obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -361,12 +344,10 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
 	return TRUE
-
 
 /obj/machinery/door/firedoor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
@@ -430,7 +411,6 @@
 
 /obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
-
 
 /obj/structure/firelock_frame/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -519,7 +499,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/I)
 	if(!(constructionStep in list(CONSTRUCTION_WIRES_EXPOSED, CONSTRUCTION_PANEL_OPEN, CONSTRUCTION_GUTTED)))
@@ -621,7 +600,6 @@
 	else
 		new /obj/machinery/door/firedoor(get_turf(src))
 	qdel(src)
-
 
 /obj/structure/firelock_frame/welder_act(mob/user, obj/item/I)
 	if(constructionStep != CONSTRUCTION_NOCIRCUIT)

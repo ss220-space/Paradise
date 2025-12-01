@@ -32,7 +32,9 @@
 	var/alarm_on = FALSE
 	var/busy = FALSE
 
-	var/in_use_lights = 0 // TO BE IMPLEMENTED
+	///Boolean on whether the AI can even turn on this camera's light- borg cameras dont have one, for example.
+	var/internal_light = TRUE
+
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
 	var/list/localMotionTargets = list()
@@ -122,7 +124,6 @@
 		toggle_cam(null, 0)
 	..()
 
-
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -197,7 +198,6 @@
 
 	return ..()
 
-
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -242,13 +242,11 @@
 /obj/item/proc/camera_upgrade(obj/machinery/camera/target, power_use_update = FALSE)
 	target.setPowerUsage()
 
-
 /obj/item/analyzer/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)
 	..()
 	target.update_icon(UPDATE_ICON_STATE)
 	//Update what it can see.
 	GLOB.cameranet.updateVisibility(target, opacity_check = FALSE)
-
 
 /obj/item/assembly/prox_sensor/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)
 	..()
@@ -286,7 +284,6 @@
 			I.update_integrity(I.max_integrity * 0.5)
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
-
 
 /obj/machinery/camera/update_icon_state()
 	icon_state = isXRay() ? "xray[initial(icon_state)]" : initial(icon_state)
@@ -439,14 +436,12 @@
 		cam["z"] = 0
 	return cam
 
-
 /obj/machinery/camera/proc/can_AI_see(mob/living/silicon/ai/ai)
 	if(!ai)
 		return TRUE
 
 	var/list/tempnetwork = network & ai.network
 	return length(tempnetwork) > 0
-
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused

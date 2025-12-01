@@ -141,7 +141,6 @@
 	new /obj/item/ammo_box/secgl/barricade(src)
 	new /obj/item/ammo_box/secgl/paint(src)
 
-
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
@@ -206,6 +205,28 @@
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12
+	name = "security Sparkle-A12 gun cabinet"
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов А9 \"Искра\". Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		GENITIVE = "шкафа пистолет пулемёта А9 \"Искра\"",
+		DATIVE = "шкафу пистолет пулемёта А9 \"Искра\"",
+		ACCUSATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		INSTRUMENTAL = "шкафом пистолет пулемёта А9 \"Искра\"",
+		PREPOSITIONAL = "шкафе пистолет пулемёта А9 \"Искра\""
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
@@ -310,13 +331,11 @@
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/garmentbag/ntrep(src)
 
-
 /obj/structure/closet/secure_closet/security/cargo
 
 /obj/structure/closet/secure_closet/security/cargo/populate_contents()
 	new /obj/item/clothing/accessory/armband/cargo(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
-
 
 /obj/structure/closet/secure_closet/security/engine
 
@@ -324,13 +343,11 @@
 	new /obj/item/clothing/accessory/armband/engine(src)
 	new /obj/item/encryptionkey/headset_eng(src)
 
-
 /obj/structure/closet/secure_closet/security/science
 
 /obj/structure/closet/secure_closet/security/science/populate_contents()
 	new /obj/item/clothing/accessory/armband/science(src)
 	new /obj/item/encryptionkey/headset_sci(src)
-
 
 /obj/structure/closet/secure_closet/security/med
 
@@ -338,13 +355,10 @@
 	new /obj/item/clothing/accessory/armband/medgreen(src)
 	new /obj/item/encryptionkey/headset_med(src)
 
-
 /obj/structure/closet/secure_closet/cabinet/detective
 	name = "detective's cabinet"
 	icon_state = "cabinetdetective"
-	overlay_locker = "cd_locker"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
-
 
 /obj/structure/closet/secure_closet/cabinet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
@@ -366,7 +380,6 @@
 /obj/structure/closet/secure_closet/injection/populate_contents()
 	new /obj/item/reagent_containers/syringe/lethal(src)
 	new /obj/item/reagent_containers/syringe/lethal(src)
-
 
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
@@ -401,15 +414,6 @@
 	new /obj/item/clothing/suit/judgerobe (src)
 	new /obj/item/clothing/head/powdered_wig (src)
 	new /obj/item/storage/briefcase(src)
-
-
-/obj/structure/closet/secure_closet/wall //TODO: Add here sprites. (They do not exist)
-	name = "wall locker"
-	req_access = list(ACCESS_SECURITY)
-	icon_state = "wall-locker"
-
-	//too small to put a man in
-	large = FALSE
 
 /obj/structure/closet/secure_closet/magistrate
 	name = "Magistrate's locker"

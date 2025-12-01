@@ -16,7 +16,6 @@
 	var/datum/ui_module/poll_list_panel/panel_pollo = new(usr)
 	panel_pollo.ui_interact(usr)
 
-
 /datum/ui_module/poll_list_panel/ui_state(mob/user)
 	return GLOB.admin_state
 
@@ -90,7 +89,6 @@
 
 			var/start_index = text2num(params["startat"]) || 0
 			ui_client.holder.poll_results_panel(our_poll, start_index)
-
 
 /**
  * Shows the results for a poll

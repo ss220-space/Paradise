@@ -103,6 +103,9 @@
 		PREPOSITIONAL = "торговом автомате NanoMed Plus",
 	)
 
+/obj/machinery/vending/medical/free
+	prices = list()
+
 /obj/machinery/vending/medical/syndicate_access
 	name = "SyndiMed Plus"
 	icon_state = "syndi-big-med_off"
@@ -217,12 +220,14 @@
 		PREPOSITIONAL = "торговом автомате NanoMed",
 	)
 
+/obj/machinery/vending/wallmed/free
+	prices = list()
+
 /obj/machinery/vending/wallmed/syndicate
 	name = "SyndiWallMed"
 	desc = "<b>Злое</b> воплощение настенного раздатчика медицинских изделий."
 	screen_overlay = "syndimed"
 	deny_overlay = "syndimed_deny"
-
 
 	slogan_list = list(
 		"Ид+и и оборв+и н+есколько ж+изней!",

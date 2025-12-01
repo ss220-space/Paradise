@@ -125,7 +125,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 		recruitWindow(usr)
 
-
 /datum/paiController/proc/recruitWindow(mob/M as mob)
 	var/datum/paiCandidate/candidate
 	for(var/datum/paiCandidate/c in pai_candidates)
@@ -137,7 +136,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		candidate = new /datum/paiCandidate()
 		candidate.key = M.key
 		pai_candidates.Add(candidate)
-
 
 	var/dat = ""
 

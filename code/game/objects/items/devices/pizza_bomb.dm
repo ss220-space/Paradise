@@ -12,11 +12,9 @@
 	var/correct_wire
 	var/armer //Used for admin purposes
 
-
 /obj/item/pizza_bomb/Initialize(mapload)
 	. = ..()
 	correct_wire = pick(wires)
-
 
 /obj/item/pizza_bomb/update_icon_state()
 	if(disarmed)
@@ -27,14 +25,12 @@
 		return
 	icon_state = "pizzabox1"
 
-
 /obj/item/pizza_bomb/update_name(updates)
 	. = ..()
 	if(timer_set && !disarmed)
 		name = "pizza box"
 	else
 		name = "pizza bomb"
-
 
 /obj/item/pizza_bomb/update_desc(updates)
 	. = ..()
@@ -48,7 +44,6 @@
 		desc = "A box suited for pizzas."
 	else
 		desc = "It seems inactive."
-
 
 /obj/item/pizza_bomb/attack_self(mob/user)
 	if(disarmed)
@@ -85,7 +80,6 @@
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		addtimer(CALLBACK(src, PROC_REF(go_boom)), timer)
 
-
 /obj/item/pizza_bomb/proc/go_boom()
 	if(disarmed)
 		visible_message(span_danger("[icon2html(src, viewers(loc))] Sparks briefly jump out of the [correct_wire] wire on  [src], but it's disarmed!"))
@@ -94,7 +88,6 @@
 	visible_message(span_userdanger(" [src] violently explodes!"))
 	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2) //Identical to a minibomb
 	qdel(src)
-
 
 /obj/item/pizza_bomb/wirecutter_act(mob/living/user, obj/item/I)
 	if(!primed && !disarmed)	// its a secret!
@@ -134,7 +127,6 @@
 	disarmed = TRUE
 	primed = FALSE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-
 
 /obj/item/pizza_bomb/autoarm
 	timer_set = 1

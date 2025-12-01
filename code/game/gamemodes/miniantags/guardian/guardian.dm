@@ -70,17 +70,15 @@
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
-		var/image/holder = hud_list[HEALTH_HUD]
-		holder.icon_state = "hud[RoundHealth(summoner)]"
+		set_hud_image_state(HEALTH_HUD, "hud[RoundHealth(summoner)]")
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_status()
 	if(summoner)
-		var/image/holder = hud_list[STATUS_HUD]
-		holder.pixel_y = get_cached_height() - ICON_SIZE_Y
+		var/pixel_y = get_cached_height() - ICON_SIZE_Y
 		if(summoner.stat == DEAD)
-			holder.icon_state = STATUS_HUD_DEAD
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD, y_offset = pixel_y)
 		else
-			holder.icon_state = STATUS_HUD_HEALTHY
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY, y_offset = pixel_y)
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
@@ -135,7 +133,6 @@
 		return FALSE
 	to_chat(summoner, span_danger("Ваш [name] как-то умер!"))
 	summoner.death()
-
 
 /mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
@@ -239,10 +236,8 @@
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
-
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
-
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	set_light_on(!light_on)
@@ -250,7 +245,6 @@
 		to_chat(src, span_notice("Вы активировали свет."))
 	else
 		to_chat(src, span_notice("Вы выключили свет."))
-
 
 ////////Creation
 
@@ -488,7 +482,6 @@
 
 /obj/item/guardiancreator/biological/choose
 
-
 /obj/item/paper/guardian
 	name = "Справочник по голопаразитам"
 	icon_state = "paper_words"
@@ -516,7 +509,6 @@
 
 /obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "Набор инжектора голопаразита"

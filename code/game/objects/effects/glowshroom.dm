@@ -64,7 +64,6 @@
  * * mutate_stats - If the plant needs to mutate their stats
  * * spread - If the plant is a result of spreading, reduce its stats
  */
-
 /obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats, spread)
 	. = ..()
 	if(newseed)
@@ -251,7 +250,6 @@
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
 
-
 /obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!item.force)
@@ -270,13 +268,12 @@
 	if(istype(item, /obj/item/scythe) && scythe.extend)
 		damage_dealt *= 20
 
-	else if(is_sharp(item) || item.damtype == BURN)
+	else if(item.sharp || item.damtype == BURN)
 		damage_dealt *= 4
 
 	take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
-
 
 //Way to check glowshroom stats using plant analyzer
 /obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, params)
@@ -286,7 +283,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 #undef SPREAD_DELAY
 #undef DECAY_DELAY

@@ -9,7 +9,7 @@
 	density = TRUE
 
 	var/max_mobs = 5
-	var/spawn_time = 300 //30 seconds default
+	var/spawn_time = 30 SECONDS
 	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
 	var/spawn_text = "emerges from"
 	var/faction = list("hostile")
@@ -47,14 +47,12 @@
 		return
 	..()
 
-
 /obj/structure/spawner/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !scanner_taggable || !is_type_in_list(I, scanner_types))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	gps_tag(user)
-
 
 /// Tag the spawner, prefixing its GPS entry with an identifier - or giving it one, if nonexistent.
 /obj/structure/spawner/proc/gps_tag(mob/user)
@@ -68,7 +66,6 @@
 	var/obj/item/gps/internal = new /obj/item/gps/internal/tendril(src)
 	if(internal)
 		internal.gpstag = assigned_tag
-
 
 /obj/item/gps/internal/tendril
 	icon_state = null

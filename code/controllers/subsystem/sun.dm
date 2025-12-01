@@ -15,7 +15,6 @@ SUBSYSTEM_DEF(sun)
 	var/list/solars	= list()
 	var/solar_gen_rate = 1500
 
-
 /datum/controller/subsystem/sun/Initialize()
 	// Lets work out an angle for the "sun" to rotate around the station
 	angle = rand (0, 360)			// the station position to the sun is randomised at round start
@@ -30,10 +29,8 @@ SUBSYSTEM_DEF(sun)
 
 	return SS_INIT_SUCCESS
 
-
 /datum/controller/subsystem/sun/get_stat_details()
 	return "P:[length(solars)]"
-
 
 /datum/controller/subsystem/sun/fire()
 	angle = (360 + angle + rate * 6) % 360	 // increase/decrease the angle to the sun, adjusted by the rate

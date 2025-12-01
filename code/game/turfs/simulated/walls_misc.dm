@@ -23,18 +23,15 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult_fake
 
-
 /turf/simulated/wall/cult/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /turf/simulated/wall/cult/update_icon_state()
 	if(SSticker?.cultdat && !holy)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
 		return
 	icon_state = initial(icon_state)
-
 
 /turf/simulated/wall/cult_fake/Initialize(mapload)
 	. = ..()

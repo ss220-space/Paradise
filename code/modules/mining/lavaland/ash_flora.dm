@@ -70,12 +70,11 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-
 /obj/structure/flora/ash/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(is_sharp(I) && !harvested && needs_sharp_harvest)
+	if(I.sharp && !harvested && needs_sharp_harvest)
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_YUT(user)] собирать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
@@ -87,7 +86,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
@@ -408,7 +406,7 @@
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		if(!isturf(loc))
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете рубить [declent_ru(ACCUSATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc.declent_ru(PREPOSITIONAL)]"]."))
@@ -473,7 +471,6 @@
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list("nutriment" = 0.06, "vitfro" = 0.04, "nicotine" = 0.04)
-
 
 /obj/item/seeds/lavaland/inocybe
 	name = "pack of inocybe mycelium"

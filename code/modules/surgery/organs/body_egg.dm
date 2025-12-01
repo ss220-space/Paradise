@@ -9,14 +9,12 @@
 	..()
 	to_chat(finder, span_warning("Вы обнаружили неизвестный инопланетный организм в [GEND_HIS_HER(owner)] [GLOB.body_zone[parent_organ_zone][PREPOSITIONAL]]!"))
 
-
 /obj/item/organ/internal/body_egg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_XENO_HOST, GENERIC_TRAIT)
 	START_PROCESSING(SSobj, src)
 	owner.med_hud_set_status()
 	INVOKE_ASYNC(src, PROC_REF(AddInfectionImages), owner)
-
 
 /obj/item/organ/internal/body_egg/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	STOP_PROCESSING(SSobj, src)

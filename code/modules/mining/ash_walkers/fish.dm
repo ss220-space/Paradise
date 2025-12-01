@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 
 /obj/item/lavaland_fish/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/sharpness = is_sharp(I)
+	var/sharpness = I.sharp
 	if(sharpness && user.a_intent == INTENT_HELP && do_flop_animation)
 		fucking_dies()
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
@@ -291,7 +291,6 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		INSTRUMENTAL = "магмовой акулой-молотом",
 		PREPOSITIONAL = "магмовой акуле-молоте",
 	)
-
 
 /obj/item/lavaland_fish/deep_water/blind_reaper
 	name = "blind reaper"

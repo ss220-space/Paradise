@@ -47,7 +47,6 @@
 #define ALPHA_SOURCE_NINJA "ninja"
 #define ALPHA_SOURCE_CLOCKROBE "clockrobe"
 
-
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0
 #define LIGHTING_VIS_UPDATE 1
@@ -97,3 +96,9 @@ do { \
 		source.lum_b = 1; \
 	}; \
 } while(FALSE)
+
+// Defines that handle the current status of a light
+#define LIGHT_OK 0
+#define LIGHT_EMPTY 1
+#define LIGHT_BROKEN 2
+#define LIGHT_BURNED 3

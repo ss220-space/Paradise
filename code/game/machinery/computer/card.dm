@@ -38,27 +38,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/civilian/team3,
 		/datum/job/civilian/team2,
 		/datum/job/civilian/team1,
-		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
+		/datum/job/service/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
 	var/list/blacklisted_partial = list(
 		/datum/job/ai,
 		/datum/job/cyborg,
 		/datum/job/captain,
-		/datum/job/hop,
-		/datum/job/qm,
-		/datum/job/hos,
-		/datum/job/chief_engineer,
-		/datum/job/rd,
-		/datum/job/cmo,
-		/datum/job/judge,
+		/datum/job/head_of_staff/hop,
+		/datum/job/head_of_staff/qm,
+		/datum/job/head_of_staff/hos,
+		/datum/job/head_of_staff/chief_engineer,
+		/datum/job/head_of_staff/rd,
+		/datum/job/head_of_staff/cmo,
+		/datum/job/head_of_staff/judge,
 		/datum/job/blueshield,
-		/datum/job/nanotrasenrep,
-		/datum/job/pilot,
-		/datum/job/brigdoc,
-		/datum/job/mechanic,
-		/datum/job/chaplain,
-		/datum/job/officer,
+		/datum/job/head_of_staff/nanotrasenrep,
+		/datum/job/security/pilot,
+		/datum/job/security/brigdoc,
+		/datum/job/engineering/mechanic,
+		/datum/job/service/chaplain,
+		/datum/job/security/officer,
 	)
 
 	var/static/list/law_levels  = list(
@@ -152,7 +152,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
 
-
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !istype(id_card))
 		return ..()
@@ -173,7 +172,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	SStgui.update_uis(src)
 	attack_hand(user)
-
 
 //Check if you can't touch a job in any way whatsoever
 /obj/machinery/computer/card/proc/job_blacklisted_full(datum/job/job)
@@ -781,7 +779,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/delcount = SSjobs.delete_log_records(scan.registered_name, FALSE)
 			if(delcount)
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
-
 
 /obj/machinery/computer/card/centcom
 	name = "CentComm identification computer"

@@ -27,7 +27,6 @@
 		if(5)
 			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
-
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
@@ -44,7 +43,6 @@
 /obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
 	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
-
 
 // Spectral Blade
 
@@ -118,7 +116,7 @@
 /obj/item/melee/ghost_sword/proc/ghost_check()
 	var/ghost_counter = 0
 	var/turf/T = get_turf(src)
-	var/list/contents = T.GetAllContents()
+	var/list/contents = T.get_all_contents()
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
@@ -134,7 +132,6 @@
 
 	return ghost_counter
 
-
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	force = 0
 	var/ghost_counter = ghost_check()
@@ -144,7 +141,6 @@
 		span_notice("Вы бьёте с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
 	)
 	return ..()
-
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
@@ -227,7 +223,7 @@
 	agent = "Кровь дракона"
 	desc = "Какое отношение драконы имеют к Космической Станции 13?"
 	stage_prob = 20
-	severity = BIOHAZARD
+	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage1	= list("Ваши кости ноют.")
 	stage2	= list("Ваша кожа кажется чешуйчатой.")
 	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))

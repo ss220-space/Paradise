@@ -17,7 +17,6 @@
 	recoil = GUN_RECOIL_MEGA
 	var/opened = FALSE
 
-
 /obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/ammo_casing))
 		add_fingerprint(user)
@@ -35,15 +34,12 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/gun/projectile/bombarda/update_icon_state()
 	icon_state = initial(icon_state) + (opened ?  "_open" : "")
 	item_state = initial(item_state) + (opened ?  "_open" : "")
 
-
-/obj/item/gun/projectile/bombarda/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/projectile/bombarda/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	..(FALSE, empty_chamber)
-
 
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
@@ -58,7 +54,6 @@
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
-
 /obj/item/gun/projectile/bombarda/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
@@ -67,7 +62,6 @@
 		close_pump(user)
 		return
 	open_pump(user)
-
 
 /obj/item/gun/projectile/bombarda/proc/open_pump(mob/user)
 	if(opened)
@@ -105,7 +99,6 @@
 	..()
 	chamber_round(TRUE)
 
-
 /obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
 	if(!opened)
 		return FALSE
@@ -115,7 +108,6 @@
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
 	update_icon()
 	return TRUE
-
 
 // MARK: Security GL
 /obj/item/gun/projectile/bombarda/secgl
@@ -222,7 +214,6 @@
 		if(bullet.BB || countempties)
 			.++
 
-
 /obj/item/ammo_casing/a40mm/improvised
 	name = "Improvised shell"
 	desc = "Does something upon impact or after some time. If you see this, contact the coder."
@@ -253,6 +244,7 @@
 
 /obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 
@@ -377,7 +369,6 @@
 	if(CONFIG_GET(flag/enable_bombarda_craft))
 		always_availible = TRUE
 
-
 // MARK: 40mm ammo
 /obj/item/ammo_box/magazine/internal/bombarda/secgl
 	name = "security grenade launcher internal magazine"
@@ -407,6 +398,7 @@
 
 /obj/projectile/grenade/a40mm/secgl
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = "bullet"
 	hitsound_wall = "ricochet"
 	damage = 5
@@ -418,8 +410,6 @@
 	icon_state = "secgl_box_gas"
 	ammo_type = /obj/item/ammo_casing/a40mm/secgl
 	max_ammo = 4
-
-
 
 /obj/item/ammo_casing/a40mm/secgl/solid
 	name = "40mm grenade (rubber slug)"
@@ -459,7 +449,6 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм цельная резина)",
 		PREPOSITIONAL = "коробке гранат (40 мм цельная резина)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/flash
 	name = "40mm grenade (flashbang)"
@@ -510,7 +499,6 @@
 		PREPOSITIONAL = "коробке гранат (40 мм светошумовая)",
 	)
 
-
 /obj/item/ammo_casing/a40mm/secgl/gas
 	name = "40mm grenade (gatears)"
 	desc = "Граната калибра 40 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
@@ -551,7 +539,6 @@
 		PREPOSITIONAL = "коробке гранат (40 мм слезоточивый газ)",
 	)
 
-
 /obj/item/ammo_casing/a40mm/secgl/barricade
 	name = "40mm grenade (barricade)"
 	desc = "Граната калибра 40 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
@@ -568,7 +555,6 @@
 		INSTRUMENTAL = "гранатой (40 мм баррикада)",
 		PREPOSITIONAL = "гранате (40 мм баррикада)",
 	)
-
 
 /obj/projectile/grenade/a40mm/secgl/barricade
 	icon_state = "secgl_projectile_barricade"
@@ -593,7 +579,6 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм баррикада)",
 		PREPOSITIONAL = "коробке гранат (40 мм баррикада)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/exp
 	name = "40mm grenade (frag)"
@@ -639,7 +624,6 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм осколочные)",
 		PREPOSITIONAL = "коробке гранат (40 мм осколочные)",
 	)
-
 
 /obj/item/ammo_casing/a40mm/secgl/paint
 	name = "40mm grenade (paint)"

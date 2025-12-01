@@ -114,12 +114,6 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-
-
-
-
-
-
 #define LAST_SHARE_CHECK \
 	if(air.last_share > MINIMUM_AIR_TO_SUSPEND){\
 		excited_group.reset_cooldowns();\
@@ -288,7 +282,6 @@
 				decompression_direction = get_dir(turf, space_turf)
 			turf.consider_pressure_difference(src, difference, decompression_direction)
 
-
 /turf/simulated/proc/archive()
 	if(air) //For open space like floors
 		air.archive()
@@ -371,8 +364,6 @@
 		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 
-
-
 /datum/excited_group
 	var/list/turf_list = list()
 	var/breakdown_cooldown = 0
@@ -428,7 +419,6 @@
 		T.air.agent_b			= A.agent_b / turflen
 
 		T.update_visuals()
-
 
 /datum/excited_group/proc/dismantle()
 	for(var/turf/simulated/T in turf_list)

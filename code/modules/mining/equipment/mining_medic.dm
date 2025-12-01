@@ -4,10 +4,8 @@ Almost every mining medic related stuff
 
 /obj/machinery/camera/portable/no_ai
 
-
 /obj/machinery/camera/portable/no_ai/can_AI_see(ai)
 	return FALSE
-
 
 /obj/item/clothing/accessory/camera
 	name = "mining camera"
@@ -125,7 +123,7 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera/security
 	name = "security camera"
-	desc = "Небольшая нагрудная камера с логотипом Нанотрейзен. Окрашена в чёрные цвета. Позволяет демонстрировать ваше пренебрежение законом в прямом эфире. \
+	desc = "Небольшая нагрудная камера с логотипом \"Нанотрейзен\". Окрашена в чёрные цвета. Позволяет демонстрировать ваше пренебрежение законом в прямом эфире. \
 			Данный тип камер позволяет вести трансляцию как на планшет службы безопасности, так и в развлекательную сеть станции."
 	icon_state = "sec_camera"
 	item_state = "sec_camera"

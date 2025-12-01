@@ -1,15 +1,16 @@
 /obj/item/pod_parts
 	parent_type = /obj/item/mecha_parts
 	icon = 'icons/goonstation/pods/pod_parts.dmi'
+	icon_state = null
 
 /obj/item/pod_parts/core
-	name="Space Pod Core"
+	name = "Space Pod Core"
 	icon_state = "core"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 
 /obj/item/pod_parts/pod_frame
 	name = "Space Pod Frame"
-	icon_state = ""
+	icon_state = null
 	var/link_to = null
 	var/link_angle = 0
 
@@ -51,7 +52,6 @@
 			return 0
 	return connectedparts
 
-
 /obj/item/pod_parts/pod_frame/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
@@ -80,7 +80,6 @@
 
 	return ..()
 
-
 /obj/item/pod_parts/pod_frame/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -89,11 +88,9 @@
 	set_density(anchored)
 	to_chat(user, span_notice("Вы [anchored ? "закрепили [src.declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
 
-
 /obj/item/pod_parts/pod_frame/examine(mob/user)
 	. = ..()
 	. += span_notice("<b>Alt+ЛКМ</b> для поворота.")
-
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Повернуть каркас"
@@ -110,15 +107,12 @@
 	dir = turn(dir, -90)
 	return TRUE
 
-
 /obj/item/pod_parts/pod_frame/click_alt(mob/user)
 	rotate()
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/pod_parts/pod_frame/attack_hand()
 	return
-
 
 /obj/item/pod_parts/pod_frame/fore_port
 	name = "fore port pod frame"

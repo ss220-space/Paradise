@@ -25,8 +25,6 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-
-
 	speed = -1
 
 	AIStatus = AI_OFF
@@ -45,7 +43,6 @@
 
 	var/atom/currentlyEating //what the worm is currently eating
 	var/plasmaPoopPotential = 5 //this mainly exists for the name
-
 
 /mob/living/simple_animal/hostile/spaceWorm/Initialize(mapload)
 	. = ..()
@@ -88,7 +85,6 @@
 	var/list/totalWormSegments = list() //doesn't contain src
 	var/catastrophicDeathProb = 15 //15% chance for the death of the head to kill the whole thing
 
-
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/New(location, segments = spawnWithSegments)
 	..()
 
@@ -108,7 +104,6 @@
 	for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
 		SW.update_icon(UPDATE_ICON_STATE)
 
-
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/update_icon_state()
 	if(stat == CONSCIOUS || stat == UNCONSCIOUS)
 		icon_state = "spacewormhead[previousWorm ? "1" : "0"]"
@@ -121,7 +116,6 @@
 		if(SW == src)//incase src ends up in here we don't want an infinite loop
 			continue
 		SW.update_icon(UPDATE_ICON_STATE)
-
 
 //Try to move onto target's turf and eat them
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/AttackingTarget()
@@ -136,7 +130,6 @@
 
 //Attempt to eat things, only the head can eat
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(atom/noms)
-
 
 	if(currentlyEating == noms) //currentlyEating is always undefined at the end, so don't eat the same thing twice
 		return
@@ -190,7 +183,6 @@
 	else
 		currentlyEating = null //JIC
 
-
 //Harder to kill the head, but it can kill off the whole worm
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/death(gibbed)
 	// Only execute the below if we successfully died
@@ -200,7 +192,6 @@
 	if(prob(catastrophicDeathProb))
 		for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
 			SW.death()
-
 
 /mob/living/simple_animal/hostile/spaceWorm/Life(seconds, times_fired)
 	if(nextWorm && !(Adjacent(nextWorm)))
@@ -220,13 +211,11 @@
 
 	..() //Really high fuckin priority that this is at the bottom.
 
-
 //if a chunk a destroyed, make a new worm out of the split halves
 /mob/living/simple_animal/hostile/spaceWorm/Destroy()
 	if(previousWorm)
 		previousWorm.Detach(0)
 	return ..()
-
 
 //Move all segments if one piece moves.
 /mob/living/simple_animal/hostile/spaceWorm/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -236,7 +225,6 @@
 		if(previousWorm)
 			previousWorm.Move(segmentNextPos)
 		update_icon(UPDATE_ICON_STATE)
-
 
 //Update the appearence of this big weird chain-worm-thingy
 /mob/living/simple_animal/hostile/spaceWorm/update_icon_state()
@@ -249,8 +237,6 @@
 
 	else
 		icon_state = "spacewormdead"
-
-
 
 //Add a new worm segment
 /mob/living/simple_animal/hostile/spaceWorm/proc/Attach(mob/living/simple_animal/hostile/spaceWorm/toAttach)
@@ -283,7 +269,6 @@
 
 	update_icons()
 
-
 //Remove a worm segment
 /mob/living/simple_animal/hostile/spaceWorm/proc/Detach(die = 0)
 	var/mob/living/simple_animal/hostile/spaceWorm/wormHead/newHead = new /mob/living/simple_animal/hostile/spaceWorm/wormHead(loc,0)
@@ -305,7 +290,6 @@
 
 	qdel(src)
 
-
 /mob/living/simple_animal/hostile/spaceWorm/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..()
@@ -313,7 +297,6 @@
 		return FALSE
 	if(myHead)
 		myHead.totalWormSegments -= src
-
 
 //Process nom noms, things we've eaten have a chance to become plasma
 /mob/living/simple_animal/hostile/spaceWorm/proc/ProcessStomach()
@@ -336,7 +319,6 @@
 		for(var/atom/movable/stomachContent in contents)
 			contents -= stomachContent
 			stomachContent.loc = T
-
 
 //Jiggle the whole worm forwards towards the next segment
 /mob/living/simple_animal/hostile/spaceWorm/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)

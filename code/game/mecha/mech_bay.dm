@@ -67,14 +67,12 @@
 		MC += C.rating
 	max_charge = MC * 50
 
-
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
@@ -113,7 +111,6 @@
 			recharging_mecha = null
 			recharge_console.update_icon()
 
-
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
 	icon_keyboard = "tech_key"
@@ -121,7 +118,6 @@
 	light_color = LIGHT_COLOR_LAVENDER
 	circuit = /obj/item/circuitboard/mech_bay_power_console
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
-
 
 /obj/machinery/computer/mech_bay_power_console/update_overlays()
 	if(stat & (NOPOWER|BROKEN))
@@ -133,7 +129,6 @@
 		else
 			icon_screen = "recharge_comp_on" // now we working!
 	. = ..()
-
 
 /obj/machinery/computer/mech_bay_power_console/proc/reconnect()
 	if(recharge_port)
@@ -154,7 +149,6 @@
 			recharge_port.recharge_console = src
 		else
 			recharge_port = null
-
 
 /obj/machinery/computer/mech_bay_power_console/Destroy()
 	if(recharge_port)

@@ -6,7 +6,7 @@
 	name = "Nar'sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
-
+	icon_state = null
 	pixel_x = -89
 	pixel_y = -85
 	current_size = 9 // It moves/eats like a max-size singulo, aside from range. --NEO
@@ -24,6 +24,7 @@
 /obj/singularity/god/narsie/large
 	name = "Nar'Sie"
 	icon = 'icons/obj/narsie.dmi'
+	icon_state = "narsie"
 	// Pixel stuff centers Narsie.
 	pixel_x = -236
 	pixel_y = -256
@@ -31,11 +32,11 @@
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
-/obj/singularity/god/narsie/large/New()
-	..()
+/obj/singularity/god/narsie/large/Initialize(mapload, starting_energy)
+	. = ..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
-	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
+	to_chat(world,  span_fontsize3(span_red("<b> [uppertext(name)] HAS RISEN</b>")))
 	SEND_SOUND(world, sound('sound/effects/narsie_risen.ogg'))
 
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -47,12 +48,11 @@
 		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
-	narsie_spawn_animation()
-	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
-
+	INVOKE_ASYNC(src, PROC_REF(narsie_spawn_animation))
+	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse), name), 10 SECONDS)
 
 /obj/singularity/god/narsie/large/Destroy()
-	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
+	to_chat(world, span_fontsize3(span_red("<b> [uppertext(name)] HAS FALLEN</b>")))
 	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
@@ -74,18 +74,15 @@
 	if(prob(25))
 		mezzer()
 
-
 /obj/singularity/god/narsie/Bump(atom/bumped_atom, effect_applied = TRUE)//you dare stand before a god?!
 	. = ..()
 	if(.)
 		return .
 	godsmack(bumped_atom)
 
-
 /obj/singularity/god/narsie/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
 	. = ..()
 	godsmack(moving_atom)
-
 
 /obj/singularity/god/narsie/proc/godsmack(atom/A)
 	if(istype(A,/obj/))
@@ -103,7 +100,6 @@
 			if(!iscultist(M))
 				to_chat(M, span_warning("You feel your sanity crumble away in an instant as you gaze upon [src.name]..."))
 				M.Stun(6 SECONDS)
-
 
 /obj/singularity/god/narsie/consume(atom/A)
 	A.narsie_act(src)
@@ -147,7 +143,6 @@
 		acquire(pick(cultists))
 		return
 
-
 /obj/singularity/god/narsie/proc/acquire(mob/food)
 	if(food == target)
 		return
@@ -169,7 +164,6 @@
 		if(isturf(X) || istype(X, /atom/movable))
 			consume(X)
 	return
-
 
 /obj/singularity/god/narsie/proc/narsie_spawn_animation()
 	icon = 'icons/obj/narsie_spawn_anim.dmi'

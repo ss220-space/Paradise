@@ -1,5 +1,10 @@
 GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
+// Sibyl System limit level
+#define SIBYL_NONLETHAL 1
+#define SIBYL_LETHAL 2
+#define SIBYL_DESTRUCTIVE 3
+
 /obj/item/sibyl_system_mod
 	name = "модуль Sibyl System"
 	desc = "Проприетарный модуль от правоохранительной организации на энергетические оружия для подключения к системе Sibyl System"
@@ -201,7 +206,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			names += list(ammo.select_name)
 	return names.Join(", ")
 
-
 /obj/item/sibyl_system_mod/proc/sibyl_sound(mob/living/user, sound, time)
 	if(user && voice_is_enabled && !voice_cd)
 		user.playsound_local(get_turf(user), sound, 50, FALSE)
@@ -214,3 +218,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	weapon = null
 	auth_id = null
 	return ..()
+
+#undef SIBYL_NONLETHAL
+#undef SIBYL_LETHAL
+#undef SIBYL_DESTRUCTIVE

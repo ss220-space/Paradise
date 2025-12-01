@@ -1,6 +1,8 @@
 /obj/item/crowbar
 	name = "crowbar"
-	desc = "This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
+	desc = "Инструмент, предназначенный для использования в качестве рычага. \
+			Пригоден для широкого спектра задач: от поддевания напольных плит до вскрытия обесточенных шлюзов."
+	gender = FEMALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -14,7 +16,7 @@
 	throwforce = 10
 	materials = list(MAT_METAL=50)
 	drop_sound = 'sound/items/handling/drop/crowbar_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/crowbar_pickup.ogg'
+	pickup_sound = 'sound/items/handling/pickup/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("атаковал", "ударил", "огрел")
 	toolbox_radial_menu_compatibility = TRUE
@@ -22,13 +24,25 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
 
+/obj/item/crowbar/get_ru_names()
+	return list(
+		NOMINATIVE = "монтировка",
+		GENITIVE = "монтировки",
+		DATIVE = "монтировке",
+		ACCUSATIVE = "монтировку",
+		INSTRUMENTAL = "монтировкой",
+		PREPOSITIONAL = "монтировке"
+	)
+
 /obj/item/crowbar/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/crowbar/small
 	name = "miniature titanium crowbar"
-	desc = "Уменьшенная версия монтировки из титана. Хорошо лежит в руке."
+	desc = "Инструмент, предназначенный для использования в качестве рычага. \
+			Пригоден для широкого спектра задач: от поддевания напольных плит до вскрытия обесточенных шлюзов. \
+			Уменьшенная версия из титана."
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 7.5
 	materials = list(MAT_TITANIUM = 250)
@@ -36,6 +50,16 @@
 	item_state = "crowbar_titanium"
 	origin_tech = "materials=2"
 	toolspeed = 3
+
+/obj/item/crowbar/small/get_ru_names()
+	return list(
+		NOMINATIVE = "титановая мини-монтировка",
+		GENITIVE = "титановой мини-монтировки",
+		DATIVE = "титановой мини-монтировке",
+		ACCUSATIVE = "титановую мини-монтировку",
+		INSTRUMENTAL = "титановой мини-монтировкой",
+		PREPOSITIONAL = "титановой мини-монтировке"
+	)
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
@@ -47,15 +71,29 @@
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"
-	desc = "A brass crowbar. It feels faintly warm to the touch."
+	desc = "Инструмент, предназначенный для использования в качестве рычага. \
+			Пригоден для широкого спектра задач: от поддевания напольных плит до вскрытия обесточенных шлюзов. \
+			Слегка тёплая на ощупь."
 	icon_state = "crowbar_brass"
 	item_state = "crowbar_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/crowbar/brass/get_ru_names()
+	return list(
+		NOMINATIVE = "латунная монтировка",
+		GENITIVE = "латунной монтировки",
+		DATIVE = "латунной монтировке",
+		ACCUSATIVE = "латунную монтировку",
+		INSTRUMENTAL = "латунной монтировкой",
+		PREPOSITIONAL = "латунной монтировке"
+	)
+
 /obj/item/crowbar/abductor
 	name = "alien crowbar"
-	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
+	desc = "Инструмент, предназначенный для использования в качестве рычага. \
+			Пригоден для широкого спектра задач: от поддевания напольных плит до вскрытия обесточенных шлюзов. \
+			Кажется, что она движется сама, без усилий со стороны пользователя."
 	icon = 'icons/obj/abductor.dmi'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	item_state = "crowbar_alien"
@@ -64,9 +102,21 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
+/obj/item/crowbar/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "чужеродная монтировка",
+		GENITIVE = "чужеродной монтировки",
+		DATIVE = "чужеродной монтировке",
+		ACCUSATIVE = "чужеродную монтировку",
+		INSTRUMENTAL = "чужеродной монтировкой",
+		PREPOSITIONAL = "чужеродной монтировке"
+	)
+
 /obj/item/crowbar/large
 	name = "large crowbar"
-	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
+	desc = "Инструмент, предназначенный для использования в качестве рычага. \
+			Пригоден для широкого спектра задач: от поддевания напольных плит до вскрытия обесточенных шлюзов. \
+			Увеличенная версия, создающая большее давление."
 	force = 15
 	throwforce = 18
 	w_class = WEIGHT_CLASS_BULKY
@@ -77,15 +127,39 @@
 	item_state = "crowbar_large"
 	toolspeed = 0.5
 
+/obj/item/crowbar/large/get_ru_names()
+	return list(
+		NOMINATIVE = "большая монтировка",
+		GENITIVE = "большой монтировки",
+		DATIVE = "большой монтировке",
+		ACCUSATIVE = "большую монтировку",
+		INSTRUMENTAL = "большой монтировкой",
+		PREPOSITIONAL = "большой монтировке"
+	)
+
 /obj/item/crowbar/cyborg
 	name = "hydraulic crowbar"
-	desc = "A hydraulic prying tool, compact but powerful. Designed to replace crowbar in construction cyborgs."
+	desc = "Гидравлический инструмент, являющийся модифицированной версией монтировки. Предназначен для использования в качестве рычага. \
+			Пригоден для широкого спектра задач: от поддевания напольных плит до вскрытия обесточенных шлюзов. \
+			Специализированная версия для установки в роботизированные системы."
 	usesound = 'sound/items/jaws_pry.ogg'
 	toolspeed = 0.5
 
+/obj/item/crowbar/cyborg/get_ru_names()
+	return list(
+		NOMINATIVE = "гидравлическая монтировка",
+		GENITIVE = "гидравлической монтировки",
+		DATIVE = "гидравлической монтировке",
+		ACCUSATIVE = "гидравлическую монтировку",
+		INSTRUMENTAL = "гидравлической монтировкой",
+		PREPOSITIONAL = "гидравлической монтировке"
+	)
+
 /obj/item/crowbar/power
 	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
+	desc = "Гидравлический инструмент, предназначенный для использования в качестве рычага или для перерезания материалов. \
+			Изначально использовался для спасательных работ, откуда и получил своё название, \
+			но в дальнейшем получил развитие в качестве инженерного инструмента."
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 	belt_icon = "jaws_of_life"
@@ -93,7 +167,8 @@
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	toolspeed = 0.25
-	var/airlock_open_time = 100 // Time required to open powered airlocks
+	/// Time required to open powered airlocks
+	var/airlock_open_time = 100
 
 /obj/item/crowbar/power/get_ru_names()
 	return list(
@@ -105,18 +180,22 @@
 		PREPOSITIONAL = "челюстях жизни",
 	)
 
+/obj/item/crowbar/power/examine(mob/user)
+	. = ..()
+	. += span_notice("Установлена <b>поддевающая</b> насадка.")
+
 /obj/item/crowbar/power/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] помеща[PLUR_ET_YUT(user)] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!"))
-	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
-	return BRUTELOSS
-
 /obj/item/crowbar/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, span_notice("You attach the cutting jaws to [src]."))
+	balloon_alert(user, "установлена перерезающая насадка")
 	qdel(src)
 	user.put_in_active_hand(cutjaws)
+
+/obj/item/crowbar/power/suicide_act(mob/user)
+	user.visible_message(span_suicide("[user] помеща[PLUR_ET_YUT(user)] свою голову между лезвиями [declent_ru(GENITIVE)]. Это похоже на попытку самоубийства!"))
+	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
+	return BRUTELOSS

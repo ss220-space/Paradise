@@ -1,3 +1,5 @@
+#define INVISIBILITY_NONE 0
+
 ///Default see in dark. See in dark sucks.
 #define DEFAULT_SEE_IN_DARK 1e6
 
@@ -59,7 +61,6 @@
 #define VISOR_INVISVIEW (1<<4)
 #define VISOR_HUDTYPE (1<<5)
 #define VISOR_EXAM_EXTENTIONS (1<<6)
-
 
 #define VISOR_FULL_HUD (VISOR_HUDTYPE|VISOR_EXAM_EXTENTIONS)
 

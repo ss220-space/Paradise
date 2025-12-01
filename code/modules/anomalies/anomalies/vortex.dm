@@ -162,7 +162,6 @@
 		PREPOSITIONAL = "вихревой аномалии",
 	)
 
-
 /obj/effect/anomaly/vortex/tier3
 	name = "большая вихревая аномалия"
 	core_type = /obj/item/assembly/signaler/core/vortex/tier3

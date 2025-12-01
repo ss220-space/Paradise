@@ -1,7 +1,6 @@
 /datum/event/communications_blackout
 	var/syndicate = FALSE
 
-
 /datum/event/communications_blackout/announce(false_alarm)
 	var/alert = syndicate ? "Обнаружено враждебное вмешательство в работу телекоммуникаций." : "Обнаружены ионосферные аномалии."
 
@@ -23,7 +22,6 @@
 			message = alert_text
 		)
 
-
 /datum/event/communications_blackout/start()
 	var/time = rand(1800, 3000)
 	// This only affects the cores, relays should be unaffected imo
@@ -35,11 +33,9 @@
 	addtimer(CALLBACK(src, PROC_REF(toggle_monitors)), time)
 	GLOB.communications_blackout = TRUE
 
-
 /datum/event/communications_blackout/proc/toggle_monitors()
 	GLOB.communications_blackout = FALSE
 	return
-
 
 /datum/event/communications_blackout/syndicate
 	syndicate = TRUE

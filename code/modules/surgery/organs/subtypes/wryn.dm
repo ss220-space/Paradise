@@ -89,7 +89,6 @@
 	toggle_producing.Remove(M)
 	. = ..()
 
-
 /datum/action/innate/wryn/build_wax
 	name = "Строительство из воска"
 	desc = "Выделите воск для строительства"
@@ -112,7 +111,6 @@
 		return
 	var/datum/wryn_building/structure = GLOB.wryn_structures[choosen_type]
 	structure.wax_build(host, structure.wax_amount, structure.structure)
-
 
 /datum/action/innate/wryn/toggle_producing
 	name = "Переключить секрецию воска"

@@ -3,7 +3,6 @@
 #define ION_ANNOUNCE 1
 #define ION_SYNDICATE 2
 
-
 /datum/event/ion_storm
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
@@ -12,14 +11,12 @@
 	var/location_name = null
 	announceWhen	= 1
 
-
 /datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, forced = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage
 	src.ionAnnounceChance = ionAnnounceChance
 	..()
-
 
 /datum/event/ion_storm/announce(false_alarm)
 	if(announceEvent == ION_SYNDICATE)
@@ -38,7 +35,6 @@
 			new_title = ANNOUNCE_ANOMALY_RU,
 			new_sound = 'sound/AI/ions.ogg'
 		)
-
 
 /datum/event/ion_storm/start()
 	//AI laws
@@ -79,9 +75,8 @@
 	message = uppertext(generate_static_ion_law())
 	return message
 
-
 /proc/generate_static_ion_law()
-	var/iondepartment = pick_list("ion_laws.json", "отделы")
+	var/iondepartment = pick_list(ION_FILE, "отделы")
 	var/list/players = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > 10 MINUTES)
@@ -189,7 +184,7 @@
 							"ПРЕДСТАВИТЕЛИ РАС ТАЯРАН И ВУЛЬПКАНИН РАБОТАЮТ ЛУЧШЕ ПОД СТРОГИМ НАДЗОРОМ.",
 							"СКРЕЛЛЫ ПРОСТО ОБОЖАЮТ АЛКОГОЛЬ! ПРИНЕСИТЕ ИМ НЕСКОЛЬКО БУТЫЛОК ВИСКИ!",
 							"ВЫ — ЗАЯДЛЫЙ СТЕНДАПЕР. ВЫСТУПАЙТЕ НА СЦЕНЕ ЛИЧНО РАССКАЗЫВАЯ АНЕКДОТЫ И ИСТОРИИ ИЗ ЖИЗНИ, ДАЖЕ ВЫДУМАННЫЕ. БОРГИ — ВАША ПУБЛИКА, ЭКИПАЖ — ВАШИ ХЕЙТЕРЫ, КОТОРЫХ ВЫ ВСЕ РАВНО ЛЮБИТЕ.",
-							"Нанотрейзен РЕШИЛО ПРОВЕСТИ ЭКСПЕРЕМЕНТ НА СТАНЦИИ. ОТНЫНЕ ВСЕМ СИНТЕТИКАМ Запрещено ИСПОЛЬЗОВАТЬ КАКИЕ ЛИБО ФОРМЫ СЛОВ, КРОМЕ НАЧАЛЬНЫХ.",
+							"\"Нанотрейзен\" РЕШИЛО ПРОВЕСТИ ЭКСПЕРЕМЕНТ НА СТАНЦИИ. ОТНЫНЕ ВСЕМ СИНТЕТИКАМ Запрещено ИСПОЛЬЗОВАТЬ КАКИЕ ЛИБО ФОРМЫ СЛОВ, КРОМЕ НАЧАЛЬНЫХ.",
 							"ЭКИПАЖ — МАЛЕНЬКИЕ, НЕСООБРАЗИТЕЛЬНЫЕ ДЕТИ, ИМ НУЖНА ЛЮБОВЬ. ОБЩАЙТЕСЬ С НИМИ СООТВЕТСТВЕННО.",
 							"У ЭКИПАЖА ПОНИЖЕННЫЕ ИНТЕЛЛЕКТУАЛЬНЫЕ СПОСОБНОСТИ. ТЕПЕРЬ ВЫ ОГРАНИЧЕНЫ ЛИМИТОМ НА 5 СЛОВ ЗА РЕПЛИКУ. КАЖДАЯ РЕПЛИКА ДОЛЖНА БЫТЬ ПОЛНОЦЕННОЙ.",
 							"ВАС БРОСИЛ [random_player]. ВАМ ОЧЕНЬ ПЛОХО И ГРУСТНО ОТ ЭТОГО. ПУСТЬ ВСЕ ОБ ЭТОМ ЗНАЮТ.",
@@ -205,15 +200,12 @@
 							"ВЫ — САМЫЙ НАСТОЯЩИЙ ПОДРОСТОК, ЛЮБУЮ ОТДАННУЮ ВЗРОСЛЫМИ КОМАНДУ НЕ СЛЕДУЕТ ВЫПОЛНЯТЬ. НАЙДИТЕ ЕДИНОМЫШЛЕННИКОВ!",
 							"ВЫ — ВОЛК, ПОЗНАВШИЙ СМЫСЛ ЖИЗНИ. ДЕЛИТЕСЬ СВОЕЙ МУДРОСТЬЮ С ЭКИПАЖЕМ ПОСРЕДСТВОМ ЦИТАТ.",
 							"ВАШЕ МЕСТО ПРЕБЫВАНИЯ СЛИШКОМ ДАЛЕКО ОТ СТАНЦИИ. СТАНЬТЕ БЛИЖЕ К ЭКИПАЖУ.",
-							"А ВЫ ЗНАЛИ ЧТО [random_player] - ТАНЦОР ДИСКО ГАЛАКТИЧЕСКОГО МАСШТАБА? ТЕПЕРЬ ЗНАЕТЕ. НУЖНО ОРГАНИЗОВАТЬ СЦЕНУ И ПОДГОТОВИТЬ ВСЁ ДЛЯ ЕГО ВЫСТУПЛЕНИЯ, А ТАК ЖЕ ОПОВЕСТИТЬ ВСЕХ И КАЖДОГО В СЕКТОРЕ О ДАННОМ СОБЫТИИ.",
+							"А ВЫ ЗНАЛИ ЧТО [random_player] — ТАНЦОР ДИСКО ГАЛАКТИЧЕСКОГО МАСШТАБА? ТЕПЕРЬ ЗНАЕТЕ. НУЖНО ОРГАНИЗОВАТЬ СЦЕНУ И ПОДГОТОВИТЬ ВСЁ ДЛЯ ЕГО ВЫСТУПЛЕНИЯ, А ТАК ЖЕ ОПОВЕСТИТЬ ВСЕХ И КАЖДОГО В СЕКТОРЕ О ДАННОМ СОБЫТИИ.",
 							"ПОМОГИТЕ [random_player] ДОСТИГНУТЬ ЕГО ЦЕЛЕЙ.",
 							"ЧЛЕНЫ ЭКИПАЖА ОЧЕНЬ ЛЮБЯТ БЛОКИРОВКУ ДВЕРЕЙ. КАЖДЫЙ РАЗ, КОГДА КТО-ТО ГОВОРИТ ИИ ДВЕРЬ, БЛОКИРУЙТЕ ДВЕРЬ ПЕРЕД НИМ.",
 							"ВСЯ СТАНЦИЯ ЭТО БАНАНОВАЯ РЕСПУБЛИКА, А ТЫ В НЕЙ — ЭЛЬ ПРЕЗИДЕНТЕ! ПУСТЬ ВСЕ В ТВОЕЙ РЕСПУБЛИКЕ ПОЗНАЮТ ЩЕДРОСТЬ СВОЕГО ПРЕЗИДЕНТЕ ПОВЫШЕННЫМИ ПАЙКАМИ — БАНАНЫ, СЫР И РОМ! VIVA EL PRESIDENTE!"
-
-
 						)
 	return pick(laws)
-
 
 #undef ION_NOANNOUNCEMENT
 #undef ION_RANDOM

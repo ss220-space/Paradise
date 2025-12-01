@@ -260,7 +260,6 @@ GLOBAL_LIST_EMPTY(pillars_by_z)
 		plating_underlay.appearance_flags = RESET_ALPHA | RESET_COLOR
 		our_turf.underlays -= plating_underlay
 
-
 ///Called when there is no real turf below this turf
 /datum/element/turf_z_transparency/proc/get_baseturf_underlay(turf/our_turf)
 	var/turf/path = check_level_trait(our_turf.z, ZTRAIT_BASETURF) || /turf/space

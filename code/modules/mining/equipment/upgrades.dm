@@ -16,10 +16,8 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS) //you know...
 
-
 /obj/item/magmite_parts/update_icon_state()
 	icon_state = "upgrade_parts[inert ? "_inert" : ""]"
-
 
 /obj/item/magmite_parts/update_name(updates = ALL)
 	. = ..()
@@ -27,11 +25,9 @@
 	if(inert)
 		name = "inert [name]"
 
-
 /obj/item/magmite_parts/update_desc(updates = ALL)
 	. = ..()
 	desc = inert ? "Похоже, он потерял своё магматическое свечение." : initial(desc)
-
 
 /obj/item/magmite_parts/proc/go_inert()
 	if(inert)
@@ -40,14 +36,12 @@
 	inert = TRUE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
-
 /obj/item/magmite_parts/proc/restore()
 	if(!inert)
 		return
 	inert = FALSE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS)
-
 
 /obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)

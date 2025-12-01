@@ -102,7 +102,6 @@
 
 	return RITUAL_SUCCESSFUL
 
-
 /datum/ritual/devil/ascendetion
 	name = "Ритуал возвышения"
 	description = "Представляет собой улучшенный ритуал жертвоприношения, необходимый дьяволу, чтобы возвыситься до Архидьявола."
@@ -259,6 +258,7 @@
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
 			stage = EIGHTH_DEVIL_ASCEND_STAGE
+			invoker?.client.give_award(/datum/award/achievement/misc/arch_devil, invoker)
 
 		if(EIGHTH_DEVIL_ASCEND_STAGE)
 			SSweather.run_weather(/datum/weather/hell)
@@ -326,7 +326,6 @@
 	name = "Ритуал замены"
 	description = "Позволяет заменить одну из целей на жертвоприношение ценой души."
 
-
 /datum/ritual/devil/change/check_contents(mob/living/carbon/invoker, list/used_things)
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
@@ -376,7 +375,6 @@
 
 	return RITUAL_SUCCESSFUL
 
-
 /datum/ritual/devil/slave
 	name = "Ритуал порабощения"
 	description = "Воскрешает труп и подчиняет его вашей воле. Уничтожает имплант защиты разума."
@@ -424,7 +422,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/ritual/devil/slave/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)

@@ -27,7 +27,6 @@
 	to_chat(user, span_warning("The station AI is not to interact with these devices."))
 	return
 
-
 /obj/machinery/keycard_auth/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -58,13 +57,11 @@
 
 	return ..()
 
-
 /obj/machinery/keycard_auth/update_icon_state()
 	if(event_triggered_by || event_source)
 		icon_state = "auth_on"
 	else
 		icon_state = "auth_off"
-
 
 /obj/machinery/keycard_auth/update_overlays()
 	. = ..()
@@ -72,7 +69,6 @@
 
 	if(event_triggered_by || event_source)
 		underlays += emissive_appearance(icon, "auth_lightmask", src)
-
 
 /obj/machinery/keycard_auth/power_change(forced = FALSE)
 	if(!..())
@@ -92,7 +88,6 @@
 	if(!ui)
 		ui = new(user, src, "KeycardAuth", name)
 		ui.open()
-
 
 /obj/machinery/keycard_auth/ui_data()
 	var/list/data = list()
@@ -141,7 +136,6 @@
 	busy = FALSE
 	update_icon()
 
-
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
 	for(var/obj/machinery/keycard_auth/KA in SSmachines.get_by_type(/obj/machinery/keycard_auth))
@@ -151,14 +145,12 @@
 
 	addtimer(CALLBACK(src, PROC_REF(confirm_and_trigger)), confirm_delay)
 
-
 /obj/machinery/keycard_auth/proc/confirm_and_trigger()
 	if(event_confirmed_by)
 		trigger_event(event)
 		add_game_logs("triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
 		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
 	reset()
-
 
 /obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
 	if(stat & (BROKEN|NOPOWER))
@@ -172,7 +164,6 @@
 	update_icon()
 
 	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
-
 
 /obj/machinery/keycard_auth/proc/trigger_event()
 	SHOULD_NOT_SLEEP(TRUE) // trigger_armed_response_team sleeps, which can cause issues for procs that call trigger_event(). We want to avoid that
@@ -219,12 +210,10 @@
 				ert_reason = null
 				GLOB.ert_request_answered = TRUE
 
-
 /obj/machinery/keycard_auth/proc/remind_admins(old_reason, event_triggered_by)
 	if(GLOB.ert_request_answered)
 		return
 	ERT_Announce(old_reason, event_triggered_by, repeat_warning = TRUE)
-
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled

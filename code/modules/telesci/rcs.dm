@@ -87,7 +87,6 @@
 		pad = L[select]
 	playsound(src, 'sound/effects/pop.ogg', 25, TRUE) // And play a sound either way.
 
-
 /**
  * Returns a random location in a z level
  *
@@ -119,7 +118,6 @@
 			user.balloon_alert(user, "протокол безопасности отключен!")
 		return
 
-
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
 		user.balloon_alert(user, "уже используется!")
@@ -142,7 +140,6 @@
 
 	teleport(user, C, pad)
 	return TRUE
-
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
 	to_chat(user, span_notice("Телепортация [C.declent_ru(ACCUSATIVE)]..."))

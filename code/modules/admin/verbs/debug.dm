@@ -16,7 +16,6 @@
 
 	BLACKBOX_LOG_ADMIN_VERB("Debug Game")
 
-
 /* 21st Sept 2010
 Updated by Skie -- Still not perfect but better!
 Stuff you can't do:
@@ -127,7 +126,6 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 GLOBAL_LIST_EMPTY(AdminProcCallSpamPrevention)
 GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
-
 // Wrapper for proccalls where the datum is flagged as vareditted
 /proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target && procname == "Del")
@@ -192,22 +190,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!hascall(A,procname))
-		to_chat(usr, span_warning("Error: callproc_datum(): target has no such call [procname]."))
+		to_chat(usr, span_warning("Error: callproc_datum(): target has no such call [procname]."), confidential = TRUE)
 		return
 
 	var/list/lst = get_callproc_args()
 	if(!lst)
 		return
 
-	if(!A || !IsValidSrc(A))
-		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."))
+	if(!A || !is_valid_src(A))
+		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."), confidential = TRUE)
 		return
 	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"))
+		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"), confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Atom Proc-Call")
 
@@ -346,7 +344,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(src)] has gorillized [M.key].")
 	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
-
 /client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Superhero"
@@ -449,7 +446,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(isobserver(adminmob))
 		qdel(adminmob)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
-
 
 /client/proc/cmd_admin_areatest()
 	set category = "Debug.Mapping"
@@ -788,7 +784,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.set_content(dat)
 	popup.open(FALSE)
 
-
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
 		return
@@ -889,7 +884,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	log_and_message_admins("[SSachievements.achievements_enabled? "disabled" : "enabled"] the medal hub lockout.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
-
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
@@ -1004,14 +998,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.set_content(msg)
 	popup.open(FALSE)
 
-
 /client/proc/cmd_display_overlay_log()
 	set category = "Debug"
 	set name = "Display Overlay Log"
 	set desc = "Display SSoverlays log of everything that's passed through it."
 
 	render_stats(SSoverlays.stats, src)
-
 
 /client/proc/clear_dynamic_transit()
 	set category = "Debug"

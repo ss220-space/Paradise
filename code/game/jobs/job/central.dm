@@ -6,7 +6,7 @@
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the admins"
+	supervisors = "Администраторами"
 	selection_color = "#6865B3"
 	access = list()
 	law_level = LAW_LEVEL_CENTCOMM
@@ -18,7 +18,7 @@
 	return get_centcom_access(title)
 
 /datum/outfit/job/ntnavyofficer
-	name = "Nanotrasen Navy Officer"
+	name = JOB_TITLE_CCOFFICER
 	jobtype = /datum/job/ntnavyofficer
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
@@ -40,7 +40,7 @@
 		/obj/item/stamp/ploho = 1,
 		/obj/item/stamp/BIGdeny = 1,
 	)
-	box = /obj/item/storage/box/centcomofficer
+	box = /obj/item/storage/box/survival/centcomofficer
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 	)
@@ -57,7 +57,7 @@
 	outfit = /datum/outfit/job/ntnavyofficer/field
 
 /datum/outfit/job/ntnavyofficer/field
-	name = "Nanotrasen Navy Field Officer"
+	name = JOB_TITLE_CCFIELD
 	jobtype = /datum/job/ntnavyofficer/field
 
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/field
@@ -70,7 +70,7 @@
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the admins"
+	supervisors = "Администраторами"
 	selection_color = "#6865B3"
 	access = list()
 	law_level = LAW_LEVEL_CENTCOMM
@@ -83,7 +83,7 @@
 	return get_centcom_access(title)
 
 /datum/outfit/job/ntspecops
-	name = "Special Operations Officer"
+	name = JOB_TITLE_CCSPECOPS
 	jobtype = /datum/job/ntspecops
 	uniform = /obj/item/clothing/under/rank/centcom/captain
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
@@ -99,7 +99,7 @@
 	pda = /obj/item/pda/centcom
 	r_pocket = /obj/item/storage/box/matches
 	l_pocket = /obj/item/melee/baseball_bat/homerun/central_command
-	box = /obj/item/storage/box/centcomofficer
+	box = /obj/item/storage/box/survival/centcomofficer
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
@@ -128,7 +128,7 @@
 	outfit = /datum/outfit/job/ntspecops/supreme
 
 /datum/outfit/job/ntspecops/supreme
-	name = "Supreme Commander"
+	name = JOB_TITLE_CCSUPREME
 	jobtype = /datum/job/ntspecops/supreme
 
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/supreme
@@ -147,7 +147,7 @@
 	outfit = /datum/outfit/job/ntspecops/solgovspecops
 
 /datum/outfit/job/ntspecops/solgovspecops
-	name = "Solar Federation General"
+	name = JOB_TITLE_CCSOLGOV
 	uniform = /obj/item/clothing/under/rank/centcom/captain/solgov
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov

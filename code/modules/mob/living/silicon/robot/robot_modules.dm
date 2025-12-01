@@ -34,7 +34,6 @@
 
 	..()
 
-
 /obj/item/robot_module/Initialize(mapload)
 	. = ..()
 	add_default_robot_items()
@@ -296,7 +295,6 @@
 	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
 // can pierce through thick skin and hardsuits.
 
-
 	fix_modules()
 	handle_storages()
 
@@ -481,7 +479,6 @@
 
 	fix_modules()
 
-
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	module_type = "Janitor"
@@ -655,7 +652,6 @@
 	var/obj/item/gripper/service/G = locate() in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
-
 
 /obj/item/robot_module/miner
 	name = "Miner"
@@ -1001,7 +997,6 @@
 
 	fix_modules()
 
-
 /obj/item/robot_module/hunter
 	name = "Hunter"
 	module_type = "Standard"
@@ -1263,7 +1258,6 @@
 
 	return (src in robot.module.modules)
 
-
 /datum/robot_energy_storage
 	var/name = "Generic energy storage"
 	var/max_energy
@@ -1337,7 +1331,6 @@
 	max_energy = 160
 	recharge_rate = 2
 	name = "Wood Storage"
-
 
 /**
  * Called when the robot owner of this module has their power cell replaced.

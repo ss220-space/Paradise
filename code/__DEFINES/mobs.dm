@@ -29,7 +29,6 @@
 #define PULSE_THREADY 5 //occurs during hypovolemic shock
 //feel free to add shit to lists below
 
-
 //proc/get_pulse methods
 #define GETPULSE_HAND 0 //less accurate (hand)
 #define GETPULSE_TOOL 1 //more accurate (med scanner, sleeper, etc)
@@ -353,7 +352,6 @@
 /// Time it takes for a simple mob to be eaten.
 #define DEVOUR_TIME_ANIMAL (3 SECONDS)
 
-
 // Flags used by the flags parameter of electrocute act.
 /// Makes it so that the shock doesn't take gloves into account.
 #define SHOCK_NOGLOVES (1<<0)
@@ -435,6 +433,10 @@
 /// Allows pAIs to perform an action
 #define ALLOW_PAI (1<<11)
 
+//Lying angles, which way your head points
+#define LYING_ANGLE_EAST 90
+#define LYING_ANGLE_WEST 270
+
 ///Squash flags. For squashable element
 
 ///Whether or not the squashing requires the squashed mob to be lying down
@@ -449,3 +451,57 @@
 #define SCREWYHUD_CRIT 1
 #define SCREWYHUD_DEAD 2
 #define SCREWYHUD_HEALTHY 3
+
+// Carbon Overlays Indexes
+#define TOTAL_LAYERS 47
+#define MUTANTRACE_LAYER 45
+#define WING_UNDERLIMBS_LAYER 44
+#define TAIL_UNDERLIMBS_LAYER 43 //Tail split-rendering.
+#define LIMBS_LAYER 42
+#define INTORGAN_LAYER 41
+#define MARKINGS_LAYER 40
+#define UNDERWEAR_LAYER 39
+#define MUTATIONS_LAYER 38
+#define H_DAMAGE_LAYER 37
+#define UNIFORM_LAYER 36
+#define SHOES_LAYER 35
+#define OVER_SHOES_LAYER 34
+#define ID_LAYER 33
+#define GLOVES_LAYER 32
+#define EARS_LAYER 31
+#define SUIT_LAYER 30
+#define BELT_LAYER 29 //Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER 28
+#define BACK_LAYER 27
+#define HEAD_ACCESSORY_LAYER 26
+#define FHAIR_LAYER 25
+#define GLASSES_LAYER 24
+#define HAIR_LAYER 23 //TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER 22 //Select-layer rendering.
+#define FHAIR_OVER_LAYER 21 //Select-layer rendering.
+#define GLASSES_OVER_LAYER 20 //Select-layer rendering.
+#define WING_LAYER 19
+#define TAIL_LAYER 18 //bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER 17
+#define OVER_MASK_LAYER 16 //Select-layer rendering.
+#define HEAD_LAYER 15
+#define SUIT_STORE_LAYER 14
+#define OVER_HEAD_LAYER 13
+#define MUTANT_EARS_LAYER 12
+#define COLLAR_LAYER 11
+#define HANDCUFF_LAYER 10
+#define LEGCUFF_LAYER 9
+#define HANDS_LAYER 8
+#define TARGETED_LAYER 7 //BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER 6 //blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER 5 //If you're on fire
+#define MISC_LAYER 4
+#define SLEEP_LAYER 3
+#define FROZEN_LAYER 2
+#define SSD_LAYER 1
+
+/// Get the client from the var
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+
+/// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
+#define RESIZE_DEFAULT_SIZE 1

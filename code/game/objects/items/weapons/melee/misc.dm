@@ -77,7 +77,6 @@
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
-
 /obj/item/melee/rapier/syndie
 	name = "plastitanium rapier"
 	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
@@ -88,11 +87,9 @@
 	materials = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-
 /obj/item/melee/rapier/syndie/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/after_attack/attack_effect_sleep, 45, 5 SECONDS)
-
 
 /obj/item/melee/rapier/centcomm
 	name = "centcomm plastitanium rapier"
@@ -111,7 +108,6 @@
 	. = ..()
 	AddElement(/datum/element/after_attack/attack_effect_sleep, 100, 10 SECONDS)
 
-
 /obj/item/melee/rapier/centcomm/attack_self(mob/user)
 	. = ..()
 
@@ -125,7 +121,6 @@
 		ADD_TRAIT(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT)
 		to_chat(usr, span_warning("Вы сжимаете рукоятку [src] со всей силы. Теперь ничто не может выбить у вас оружие из рук!"))
 
-
 /obj/item/melee/mantisblade
 	name = "Gorlex mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
@@ -133,7 +128,6 @@
 	item_state = "syndie_mantis"
 	force = 25
 	throwforce = 20
-	block_chance = 35
 	armour_penetration = 40
 	sharp = TRUE
 	item_flags = NOSHARPENING
@@ -162,6 +156,11 @@
 	else
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
+	RegisterSignal(user, COMSIG_MOB_CLICKON, PROC_REF(lunge))
+
+/obj/item/melee/mantisblade/dropped(mob/user, slot, silent)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOB_CLICKON)
 
 /obj/item/melee/mantisblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -175,7 +174,6 @@
 
 	addtimer(CALLBACK(secondsword, PROC_REF(mantis_attack), target, user, params, def_zone), 0.2 SECONDS)
 
-
 /obj/item/melee/mantisblade/proc/mantis_attack(mob/living/target, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(target) || !user.is_in_hands(src) || !user.Adjacent(target))
 		return
@@ -184,7 +182,31 @@
 	attack(target, user, params, def_zone)
 	attack_in_progress = FALSE
 
+/obj/item/melee/mantisblade/proc/lunge(mob/living/user, turf/clicked_turf, list/modifiers)
+	SIGNAL_HANDLER
+	if(QDELETED(src) || !user.is_in_hands(src))
+		return
+	if(HAS_TRAIT_FROM(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT))
+		return
+	if(get_dist(user, clicked_turf) <= 1)
+		return
+	if(!LAZYACCESS(modifiers, LEFT_CLICK))
+		return
+	if(IS_HORIZONTAL(user))
+		return
+	if(HAS_TRAIT(user, TRAIT_IMMOBILIZED) || HAS_TRAIT(user, TRAIT_INCAPACITATED))
+		return
 
+	user.apply_status_effect(STATUS_EFFECT_LUNGING)
+	user.throw_at(clicked_turf, 4, 5, src, FALSE, TRUE, callback = CALLBACK(user, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_LUNGING))
+	ADD_TRAIT(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(allow_lunge), user), 6 SECONDS)
+
+/obj/item/melee/mantisblade/proc/allow_lunge(mob/living/user)
+	if(!HAS_TRAIT_FROM(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT))
+		return
+	REMOVE_TRAIT(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT)
+	user.balloon_alert(user, "выпад доступен")
 
 /obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
 	. = ..()
@@ -195,7 +217,7 @@
 	if(prob(25))
 		do_sparks(rand(1, 6), TRUE, loc)
 
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		var/obj/machinery/door/airlock/A = target
 
 		if(!A.requiresID() || A.allowed(user))
@@ -225,8 +247,6 @@
 	name = "Shellguard mantis blade"
 	force = 15
 	armour_penetration = 20
-	block_chance = 20
-	block_type = MELEE_ATTACKS
 	icon_state = "mantis"
 	item_state = "mantis"
 

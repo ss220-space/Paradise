@@ -25,16 +25,13 @@
 	QDEL_NULL(cell)
 	return ..()
 
-
 /obj/machinery/space_heater/update_icon_state()
 	icon_state = "sheater[on]"
-
 
 /obj/machinery/space_heater/update_overlays()
 	. = ..()
 	if(open)
 		. += "sheater-open"
-
 
 /obj/machinery/space_heater/examine(mob/user)
 	. = ..()
@@ -51,7 +48,6 @@
 	if(cell)
 		cell.emp_act(severity)
 	..(severity)
-
 
 /obj/machinery/space_heater/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -75,7 +71,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/space_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -125,7 +120,6 @@
 		update_icon()
 	return
 
-
 /obj/machinery/space_heater/Topic(href, href_list)
 	if(..())
 		return 1
@@ -149,7 +143,6 @@
 					cell = null
 					usr.visible_message(span_notice("[usr] removes the power cell from [src]."), span_notice("You remove the power cell from [src]."))
 
-
 			if("cellinstall")
 				if(open && !cell)
 					var/obj/item/stock_parts/cell/C = usr.get_active_hand()
@@ -165,8 +158,6 @@
 		close_window(usr, "spaceheater")
 		usr.unset_machine()
 	return
-
-
 
 /obj/machinery/space_heater/process()
 	if(on)

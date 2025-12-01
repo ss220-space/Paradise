@@ -176,7 +176,6 @@
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)
 
-
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"
 	desc = "Party time!"
@@ -185,7 +184,6 @@
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
 	mergeable_decal = FALSE
-
 
 /**
  * Used for the confetti gibspawner, moves in a direction leaving a trail of confetti.
@@ -200,7 +198,6 @@
 			new /obj/effect/decal/cleanable/confetti(loc)
 		if(!step_to(src, get_step(src, direction), 0))
 			break
-
 
 /obj/effect/decal/cleanable/insectguts
 	name = "cockroach guts"

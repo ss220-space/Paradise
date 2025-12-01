@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		beacon = A
 		balloon_alert(user, "синхронизация завершена")
 
-/obj/item/extraction_pack/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/extraction_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!..())
 		return FALSE
 	if(!(loc == usr && loc.Adjacent(over_object)))
@@ -165,7 +165,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(uses_left <= 0)
 				qdel(src)
 
-
 /obj/item/fulton_core
 	name = "extraction beacon signaller"
 	desc = "Излучает сигнал, на который могут ориентироваться устройства фултон. Активируйте в руке, чтобы создать маяк."
@@ -206,7 +205,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		PREPOSITIONAL = "маяке фултона",
 	)
 
-
 /obj/structure/extraction_point/Initialize(mapload)
 	. = ..()
 	var/random_value = "([rand(100, 999)]) ([get_location_name(src)])"
@@ -235,7 +233,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		var/mob/living/L = A
 		if(L.stat != DEAD)
 			return TRUE
-	for(var/thing in A.GetAllContents())
+	for(var/thing in A.get_all_contents())
 		if(isliving(A))
 			var/mob/living/L = A
 			if(L.stat != DEAD)

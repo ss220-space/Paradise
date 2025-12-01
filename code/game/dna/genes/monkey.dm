@@ -5,14 +5,11 @@
 	..()
 	block = GLOB.monkeyblock
 
-
 /datum/dna/gene/monkey/can_activate(mob/living/mutant, flags)
 	return ishuman(mutant) && !is_monkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
 
-
 /datum/dna/gene/monkey/can_deactivate(mob/living/mutant, flags)
 	return ishuman(mutant) && is_monkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
-
 
 /datum/dna/gene/monkey/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
@@ -24,7 +21,7 @@
 	mutant.invisibility = INVISIBILITY_ABSTRACT
 	var/has_primitive_form = mutant.dna.species.primitive_form // cache this
 	if(has_primitive_form)
-		mutant.set_species(has_primitive_form, keep_missing_bodyparts = TRUE)
+		mutant.set_species(has_primitive_form, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify(mutant.loc)
 	sleep(2.2 SECONDS)
@@ -41,7 +38,6 @@
 	mutant.balloon_alert(mutant, "вы трансформировались!")
 	to_chat(mutant, span_big("Вы трансформировались в [mutant.dna.species.name]."))
 
-
 /datum/dna/gene/monkey/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 
@@ -54,7 +50,7 @@
 	mutant.invisibility = INVISIBILITY_ABSTRACT
 	var/has_greater_form = mutant.dna.species.greater_form //cache this
 	if(has_greater_form)
-		mutant.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
+		mutant.set_species(has_greater_form, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify/humanify(mutant.loc)
 	sleep(2.2 SECONDS)

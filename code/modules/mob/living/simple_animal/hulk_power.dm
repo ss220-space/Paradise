@@ -8,10 +8,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_transform/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_transform/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
@@ -43,7 +41,6 @@
 	user.mind.transfer_to(Monster)
 	Monster.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 
-
 //HUMAN HULK
 
 //Dash
@@ -56,10 +53,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_dash/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_dash/cast(list/targets, mob/living/user)
 	var/turf/T = get_turf(get_step(user,user.dir))
@@ -80,7 +75,6 @@
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
 				M.stop_pulling()
-
 
 		user.visible_message("<span class='warning'><b>[user.name]</b> dashes forward!</span>")
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
@@ -223,10 +217,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_jump/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
 	var/failure = 0
@@ -344,10 +336,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_honk/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_honk/cast(list/targets, mob/user)
 	if(user.incapacitated())
@@ -374,7 +364,6 @@
 			var /turf/simulated/victim_loc = M.loc
 			victim_loc.MakeSlippery(TURF_WET_LUBE, 5 SECONDS)
 
-
 //Hulk Joke
 /obj/effect/proc_holder/spell/hulk_joke
 	name = "Joke"
@@ -385,10 +374,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_joke/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_joke/cast(list/targets,mob/user)
 	if(user.incapacitated())
@@ -405,7 +392,6 @@
 	smoke.start()
 	playsound(user,pick('sound/spookoween/scary_clown_appear.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_horn3.ogg'),CHANNEL_BUZZ, 100)
 
-
 //Zilla
 
 //Hulk Mill
@@ -418,10 +404,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_mill/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_mill/cast(list/targets, mob/user = usr)
 	if(user.incapacitated())
@@ -451,7 +435,6 @@
 				M.Knockdown(4 SECONDS)
 		sleep(1)
 
-
 //Harchok
 /obj/projectile/energy/hulkspit
 	name = "spit"
@@ -466,7 +449,6 @@
 		M.adjust_fire_stacks(20)
 		M.IgniteMob()
 
-
 /obj/effect/proc_holder/spell/fireball/hulk_spit
 	name = "Fire Spit"
 	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
@@ -479,16 +461,13 @@
 	base_cooldown = 25 SECONDS
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/fireball/hulk_spit/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated())
 		return FALSE
 	return ..()
 
-
 /obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon_state()
 	return
-
 
 //Laser
 

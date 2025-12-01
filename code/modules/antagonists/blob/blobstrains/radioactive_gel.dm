@@ -12,7 +12,6 @@
 	message_living = ", и вы чувствуете странное тепло изнутри"
 	reagent = /datum/reagent/blob/radioactive_gel
 
-
 /datum/blobstrain/reagent/radioactive_gel/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
 	if((damage_flag == ENERGY || damage_flag == LASER) && prob(40))
 		for(var/mob/living/l in range(5, B))

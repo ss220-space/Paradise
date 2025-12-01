@@ -1,7 +1,6 @@
 
 GLOBAL_LIST_EMPTY(assistant_occupations)
 
-
 GLOBAL_LIST_INIT(command_positions, list(
 	JOB_TITLE_CAPTAIN,
 	JOB_TITLE_HOP,
@@ -13,7 +12,6 @@ GLOBAL_LIST_INIT(command_positions, list(
 	JOB_TITLE_REPRESENTATIVE
 ))
 
-
 GLOBAL_LIST_INIT(engineering_positions, list(
 	JOB_TITLE_CHIEF,
 	JOB_TITLE_ENGINEER,
@@ -21,7 +19,6 @@ GLOBAL_LIST_INIT(engineering_positions, list(
 	JOB_TITLE_MECHANIC,
 	JOB_TITLE_ENGINEER_TRAINEE
 ))
-
 
 GLOBAL_LIST_INIT(medical_positions, list(
 	JOB_TITLE_CMO,
@@ -118,7 +115,6 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 	JOB_TITLE_JUDGE,
 	JOB_TITLE_PILOT,
 ))
-
 
 /proc/guest_jobbans(job)
 	return (job in GLOB.whitelisted_positions)

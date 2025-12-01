@@ -78,6 +78,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets,
 	/client/proc/achievements_cleanup,
+	/datum/admins/proc/view_all_circuits,
+	/client/proc/load_circuit,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -184,6 +186,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
+	/client/proc/cmd_controller_view_ui,
 #ifndef OPENDREAM
 	/client/proc/dmjit_debug_toggle_call_counts,
 	/client/proc/dmjit_debug_dump_call_count,
@@ -307,7 +310,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
-
 
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
@@ -729,7 +731,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
 
-
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Give Spell"
@@ -869,7 +870,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	update_byond_admin_configs(ckey, 0)
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
-
 
 /client/proc/readmin()
 	set name = "Re-admin self"

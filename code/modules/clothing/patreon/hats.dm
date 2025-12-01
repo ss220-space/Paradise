@@ -35,7 +35,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-
 /obj/item/clothing/head/fluff/goldtophat/blue
 	name = "Gold-trimmed Blue Top Hat"
 	desc = "Poshness incarnate. With blue."

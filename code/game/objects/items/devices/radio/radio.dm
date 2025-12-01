@@ -133,7 +133,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		PREPOSITIONAL = "коротковолновой рации",
 	)
 
-
 /obj/item/radio/Initialize(mapload)
 	wires = new(src)
 	. = ..()
@@ -160,7 +159,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	. = ..()
 	// this is just dummy. We minimalize memmory usage for this object
 	Destroy()
-
 
 //simple getters only because i NEED to enforce complex setter use for these vars for caching purposes but VAR_PROTECTED requires getter usage as well.
 //if another decorator is made that doesnt require getters feel free to nuke these and change these vars over to that
@@ -252,7 +250,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	if(listening && on)
 		radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
-
 
 /obj/item/radio/emag_act(mob/user)
 	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
@@ -492,7 +489,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	var/datum/radio_frequency/connection = message_mode
 
-
 	// ||-- The mob's name identity --||
 	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
 	var/voicemask = 0 // the speaker is wearing a voice mask
@@ -596,11 +592,15 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	qdel(tcm) // Delete the message datum
 	return FALSE
 
-
 /obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "говор%(ит,ят)%")
-	if(broadcasting)
-		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, message_pieces, null, genderize_decode(M, verb))
+	. = ..()
+	if(!broadcasting)
+		return
+
+	if(get_dist(src, M) > canhear_range)
+		return
+
+	talk_into(M, message_pieces, null, genderize_decode(M, verb))
 
 // To the person who asks "Why is this in a callback?"
 // You see, if you use QDEL_IN on the tcm and on broadcast_message()
@@ -770,7 +770,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			continue
 		channels[channel] = channels_configs[channel]
 
-
 /obj/item/radio/proc/reset_channels()
 	channels = list()
 	secure_radio_connections = null
@@ -842,7 +841,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-
 /obj/item/radio/borg/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/encryptionkey))
 		add_fingerprint(user)
@@ -858,7 +856,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	return ..()
 
-
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -868,7 +865,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		for(var/ch_name in channels)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 			LAZYSET(secure_radio_connections, ch_name, null)
-
 
 		if(keyslot)
 			var/turf/T = get_turf(user)

@@ -187,7 +187,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 			modeled_location.air.temperature += sharer_temperature_delta
 
-
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
 			var/delta_temperature = air.temperature - target.temperature

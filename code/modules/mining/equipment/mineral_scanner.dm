@@ -41,7 +41,6 @@
 		if(speaker)
 			playsound(src, pick(soundone, soundtwo), 35)
 
-
 //Debug item to identify all ore spread quickly
 /obj/item/mining_scanner/admin
 
@@ -86,11 +85,9 @@
 /obj/item/t_scanner/adv_mining_scanner/cyborg
 	speaker = FALSE //you know...
 
-
 /obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
@@ -113,11 +110,9 @@
 	cooldown = 50
 	speaker = FALSE
 
-
 /obj/item/mining_scanner/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
 
 /obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)
@@ -141,7 +136,6 @@
 	for(var/turf/simulated/mineral/mineral as anything in minerals)
 		mineral.add_overlay(image('icons/effects/ore_overlays.dmi', mineral.scan_state))
 		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlays)), 3.5 SECONDS)
-
 
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE
@@ -170,7 +164,6 @@
 	speaker = FALSE
 	range = 4
 	cooldown = 3 SECONDS
-
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/get_ru_names()
 	return list(

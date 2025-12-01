@@ -2,7 +2,6 @@
 ////////  Mecha wreckage   ////////
 ///////////////////////////////////
 
-
 /obj/structure/mecha_wreckage
 	name = "exosuit wreckage"
 	desc = "Remains of some unfortunate mecha. Completely unrepairable, but perhaps something can be salvaged."
@@ -141,7 +140,7 @@
 
 /obj/structure/mecha_wreckage/reticence
 	name = "Reticence wreckage"
-	icon_state = "reticence-broken"
+	icon_state = "mime-broken"
 	color = "#87878715"
 	desc = "..."
 
@@ -223,7 +222,6 @@
 /obj/structure/mecha_wreckage/phazon
 	name = "Phazon wreckage"
 	icon_state = "phazon-broken"
-
 
 /obj/structure/mecha_wreckage/odysseus
 	name = "Odysseus wreckage"

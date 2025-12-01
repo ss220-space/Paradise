@@ -51,7 +51,6 @@
 	var/obj/item/organ/external/L = null
 	repeatable = TRUE
 
-
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	L = surgery.organ_to_manipulate
@@ -68,7 +67,6 @@
 			chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 	return ..()
-
 
 /datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

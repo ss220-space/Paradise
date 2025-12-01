@@ -35,7 +35,6 @@
 	if(!visualsOnly)
 		link_to_console(H)
 
-
 /datum/outfit/abductor/agent
 	name = "Abductor Agent"
 	head = /obj/item/clothing/head/helmet/abductor

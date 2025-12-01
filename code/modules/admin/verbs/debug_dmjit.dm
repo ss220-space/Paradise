@@ -11,7 +11,6 @@
 
 	message_admins("[key_name_admin(usr)] dmJIT Hooks state is [result]")
 
-
 /client/proc/dmjit_debug_toggle_call_counts()
 	set category = "Debug.dmJIT"
 	set name = "dmJIT toggle call count"
