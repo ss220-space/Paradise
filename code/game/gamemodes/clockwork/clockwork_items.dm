@@ -1598,7 +1598,7 @@
 	icon_state = "shard"
 	sharp = TRUE //youch!!
 	force = 5
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/shard/Initialize(mapload)
 	. = ..()
