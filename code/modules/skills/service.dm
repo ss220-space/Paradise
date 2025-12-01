@@ -30,6 +30,9 @@
 
 /datum/skill/service/cooking/proc/get_extra_count_chance(mob/living/user, list/chances)
 	SIGNAL_HANDLER
+	GET_SKILL_LEVEL(user, src.type, level)
+	if(!level)
+		return
 	var/chance = extra_count_chance[level]
 	if(chance != null)
 		chances.Add(chance)

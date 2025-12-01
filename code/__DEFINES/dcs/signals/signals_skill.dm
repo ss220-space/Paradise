@@ -1,8 +1,8 @@
 // MARK: All skills signals
-/// Get skill level signal, return to levels list (mob/living/user, skill_type)
+/// Get skill level signal, return to levels list (mob/living/user, skill_type, list/levels)
 #define COMSIG_GET_SKILL_LEVEL "get_skill_level"
 /// Check skill available signal (mob/living/user, skill_type)
-#define COMSIG_SKILL_AVAILABLE "get_skill_level"
+#define COMSIG_SKILL_AVAILABLE "get_skill_available"
 	/// Skill not available (locked)
 	#define SKILL_NOT_AVAILABLE_RESULT (1<<0)
 	/// Skill available
@@ -28,4 +28,4 @@
 /// Get chance to extra cooking count for cooking skill (mob/living/user, list/chances)
 #define COMSIG_GET_COOKING_EXTRA_COUNT_CHANCE "get_cooking_extra_count_chance"
 /// Get modifier for mixing (mob/living/user, list/modifiers)
-#define COMSIG_GET_BUTCHERING_SPEED_MOD "get_butchering_speed"
+#define COMSIG_GET_DRINKS_MIXING_SPEED_MOD "get_drinks_mixing_speed"

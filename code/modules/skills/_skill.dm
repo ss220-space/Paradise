@@ -33,7 +33,6 @@ GLOBAL_LIST_EMPTY(skills)
 		SKILL_LEVEL_LEGEND = 3,
 		SKILL_LEVEL_UNAVAILABLE = 0.001,
 	)
-	var/level = SKILL_LEVEL_NONE
 
 /datum/skill/proc/apply_to_mob(mob/owner)
 	for(var/signal as anything in duration_mod_signals)
@@ -43,12 +42,16 @@ GLOBAL_LIST_EMPTY(skills)
 
 /datum/skill/proc/get_duration_mod_signal(mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
+	GET_SKILL_LEVEL(user, src.type, level)
+	if(!level)
+		return
 	var/mod = speed_modifiers[level]
 	if(mod != null)
 		modifiers.Add(mod)
 
 /datum/skill/proc/get_quality_mod_signal(mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
+	GET_SKILL_LEVEL(user, src.type, level)
 	if(!level)
 		return
 	var/mod = quality_modifiers[level]
@@ -58,3 +61,16 @@ GLOBAL_LIST_EMPTY(skills)
 /datum/skill/proc/remove_from_mob(mob/owner)
 	UnregisterSignal(owner, duration_mod_signals)
 	UnregisterSignal(owner, quality_mod_signals)
+
+
+// load job defined skills
+/datum/job/proc/apply_skills(mob/living/carbon/human/user)
+	if(!user.mind)
+		return
+	var/datum/mind/user_mind = user.mind
+	for(var/skill_name in GLOB.skills)
+		var/datum/skill/skill = GLOB.skills[skill_name]
+		var/level = get_skill_level(skill.type)
+		user_mind.set_skill_level(skill.type, level)
+		if(level != SKILL_LEVEL_UNAVAILABLE)
+			skill.apply_to_mob(user)

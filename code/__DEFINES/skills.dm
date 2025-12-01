@@ -21,7 +21,12 @@
 		mod *= modifier;\
 	}
 /// Get skill level by signal
-#define GET_SKILL_LEVEL(user, skill_type) SEND_SIGNAL(user, COMSIG_GET_SKILL_LEVEL, skill_type)
+#define GET_SKILL_LEVEL(user, skill_type, lvl) var/lvl = SKILL_LEVEL_BASIC;\
+	var/list/levels = list();\
+	SEND_SIGNAL(user, COMSIG_GET_SKILL_LEVEL, skill_type, levels);\
+	for(var/m_level in levels){\
+		lvl = m_level;\
+	}
 /// Get skill level by signal
 #define AVAILABLE_SKILL(user, skill_type) (SEND_SIGNAL(user, COMSIG_SKILL_AVAILABLE, skill_type) == SKILL_AVAILABLE_RESULT)
 
