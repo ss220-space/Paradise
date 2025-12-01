@@ -226,7 +226,8 @@
 		return
 	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, time, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		update_integrity(max_integrity)
 		update_icon()
@@ -242,8 +243,9 @@
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	if(!(obj_flags & NODECONSTRUCT))
+		CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
 		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
-		if(I.use_tool(src, user, time, volume = I.tool_volume))
+		if(I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
 			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
 			set_anchored(!anchored)
 		return TRUE

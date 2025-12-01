@@ -1002,7 +1002,8 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 		return
 	if(buildstage != AIR_ALARM_BUILDING)
 		return

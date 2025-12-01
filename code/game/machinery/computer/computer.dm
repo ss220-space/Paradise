@@ -207,7 +207,8 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(circuit && !(obj_flags & NODECONSTRUCT))
-		if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 
 /obj/machinery/computer/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)

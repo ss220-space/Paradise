@@ -48,7 +48,8 @@
 		to_chat(user, "[src] is bolted to the floor! You can't detach it like this.")
 		return .
 	to_chat(user, span_notice("You begin to unfasten [src]..."))
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || bolts)
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 4 SECONDS * construction_mod, volume = I.tool_volume) || bolts)
 		return .
 	user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
 	new /obj/item/pipe_gsensor(loc)

@@ -203,7 +203,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		new /obj/item/stack/sheet/plasteel(drop_location(), 3)
 		qdel(src)

@@ -155,15 +155,15 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe_list("Airlock assemblies", list(
-		new /datum/stack_recipe("High security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Vault door assembly", /obj/structure/door_assembly/door_assembly_vault, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("High security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("Vault door assembly", /obj/structure/door_assembly/door_assembly_vault, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
 	)),
 	null,
-	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE),
-	new /datum/stack_recipe("Bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
-	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 5 SECONDS, one_per_turf = TRUE),
-	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
-	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/plasteel
@@ -198,38 +198,38 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
  */
 
 GLOBAL_LIST_INIT(wood_recipes, list(
-	new /datum/stack_recipe("Apiary", /obj/structure/beebox, 40, time = 5 SECONDS),
-	new /datum/stack_recipe("Baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
-	new /datum/stack_recipe("Bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Сoat rack", /obj/structure/coatrack, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Display case chassis", /obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Dog bed", /obj/structure/bed/dogbed, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS),
-	new /datum/stack_recipe("Firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS),
-	new /datum/stack_recipe("Honey frame", /obj/item/honey_frame, 5, time = 1 SECONDS),
-	new /datum/stack_recipe("Loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS),
-	new /datum/stack_recipe("Rifle stock", /obj/item/weaponcrafting/stock, 10, time = 4 SECONDS),
-	new /datum/stack_recipe("Tribune", /obj/structure/tribune, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
-	new /datum/stack_recipe("Wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS),
+	new /datum/stack_recipe("Apiary", /obj/structure/beebox, 40, time = 5 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Сoat rack", /obj/structure/coatrack, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Display case chassis", /obj/structure/displaycase_chassis, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Dog bed", /obj/structure/bed/dogbed, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Honey frame", /obj/item/honey_frame, 5, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Rifle stock", /obj/item/weaponcrafting/stock, 10, time = 4 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Tribune", /obj/structure/tribune, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	new /datum/stack_recipe_list("Wooden railings", list(
-		new /datum/stack_recipe("Wooden railing", /obj/structure/railing/wooden, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE),
-		new /datum/stack_recipe("Wooden railing corner (right)", /obj/structure/railing/wooden/cornerr, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE),
-		new /datum/stack_recipe("Wooden railing corner (left)", /obj/structure/railing/wooden/cornerl, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE),
-		new /datum/stack_recipe("Wooden railing end (right)", /obj/structure/railing/wooden/endr, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE),
-		new /datum/stack_recipe("Wooden railing end (left)", /obj/structure/railing/wooden/endl, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing", /obj/structure/railing/wooden, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Wooden railing corner (right)", /obj/structure/railing/wooden/cornerr, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Wooden railing corner (left)", /obj/structure/railing/wooden/cornerl, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Wooden railing end (right)", /obj/structure/railing/wooden/endr, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Wooden railing end (left)", /obj/structure/railing/wooden/endl, 5, time = 4 SECONDS, on_floor = TRUE, one_per_turf = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe("Wooden sandals", /obj/item/clothing/shoes/sandal),
 	null,
 	new /datum/stack_recipe_list("Pews", list(
-		new /datum/stack_recipe("Pew (middle)", /obj/structure/chair/sofa/pew, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Pew (left)", /obj/structure/chair/sofa/pew/left, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Pew (right)", /obj/structure/chair/sofa/pew/right, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Pew (middle)", /obj/structure/chair/sofa/pew, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Pew (left)", /obj/structure/chair/sofa/pew/left, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Pew (right)", /obj/structure/chair/sofa/pew/right, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("Wooden floor tiles", list(
 		new /datum/stack_recipe("Wood floor tile", /obj/item/stack/tile/wood, res_amount = 4, max_res_amount = 20),
@@ -241,16 +241,16 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("Fancy birch floor tile", /obj/item/stack/tile/wood/fancy/birch, res_amount = 4, max_res_amount = 20),
 		new /datum/stack_recipe("Fancy cherry floor tile", /obj/item/stack/tile/wood/fancy/cherry, res_amount = 4, max_res_amount = 20)
 	)),
-	new /datum/stack_recipe("Wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS),
-	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wooden stool", /obj/structure/chair/stool/wooden, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 1 SECONDS),
-	new /datum/stack_recipe("Torch", /obj/item/flashlight/flare/torch, 5, time = 2 SECONDS),
-	new /datum/stack_recipe("Wooden crate", /obj/structure/closet/crate/wooden, 20, time = 1 SECONDS),
-	new /datum/stack_recipe("Wooden bed", /obj/structure/bed/wooden, 10, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wooden rack", /obj/structure/rack/wooden, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden stool", /obj/structure/chair/stool/wooden, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Torch", /obj/item/flashlight/flare/torch, 5, time = 2 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden crate", /obj/structure/closet/crate/wooden, 20, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden bed", /obj/structure/bed/wooden, 10, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wooden rack", /obj/structure/rack/wooden, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/wood
@@ -308,10 +308,10 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("Fake blindfold", /obj/item/clothing/glasses/sunglasses/blindfold_fake, 2),
 	new /datum/stack_recipe("Fingerless gloves", /obj/item/clothing/gloves/fingerless),
 	new /datum/stack_recipe("Empty sandbag", /obj/item/emptysandbag, 4),
-	new /datum/stack_recipe("punching bag", /obj/structure/punching_bag, 10, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("punching bag", /obj/structure/punching_bag, 10, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	new /datum/stack_recipe("Improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
 	new /datum/stack_recipe("Rag", /obj/item/reagent_containers/glass/rag),
-	new /datum/stack_recipe("Wicker Bed", /obj/structure/bed/wicker, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
+	new /datum/stack_recipe("Wicker Bed", /obj/structure/bed/wicker, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	new /datum/stack_recipe_list("Towels", list(
 		new /datum/stack_recipe("Short towel", /obj/item/clothing/suit/towel/short, 2),
 		new /datum/stack_recipe("Short towel alt", /obj/item/clothing/suit/towel/short/alt, 2),
@@ -344,11 +344,11 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
  */
 
 GLOBAL_LIST_INIT(durathread_recipes, list(
-	new/datum/stack_recipe("Durathread bandana", /obj/item/clothing/mask/bandana/durathread, time = 2.5 SECONDS),
-	new/datum/stack_recipe("Durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS),
-	new/datum/stack_recipe("Durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS),
-	new/datum/stack_recipe("Durathread duffelbag", /obj/item/storage/backpack/duffel/durathread, 6, time = 4 SECONDS),
-	new/datum/stack_recipe("Durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS),
+	new/datum/stack_recipe("Durathread bandana", /obj/item/clothing/mask/bandana/durathread, time = 2.5 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new/datum/stack_recipe("Durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new/datum/stack_recipe("Durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new/datum/stack_recipe("Durathread duffelbag", /obj/item/storage/backpack/duffel/durathread, 6, time = 4 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new/datum/stack_recipe("Durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/durathread
@@ -450,20 +450,20 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list(
-	new /datum/stack_recipe/cult("Runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("Runed girder (used to make cult walls)", /obj/structure/girder/cult, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("Pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("Forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("Archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("Altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("Runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Runed girder (used to make cult walls)", /obj/structure/girder/cult, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 GLOBAL_LIST_INIT(cult_fake_recipes, list(
-	new /datum/stack_recipe/cult("Runed door", /obj/machinery/door/airlock/cult_fake, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe/cult("Runed girder", /obj/structure/girder/cult_fake, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe/cult("Pylon", /obj/structure/cult/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe/cult("Forge", /obj/structure/cult/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe/cult("Archives", /obj/structure/cult/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe/cult("Altar", /obj/structure/cult/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe/cult("Runed door", /obj/machinery/door/airlock/cult_fake, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Runed girder", /obj/structure/girder/cult_fake, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Pylon", /obj/structure/cult/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Forge", /obj/structure/cult/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Archives", /obj/structure/cult/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/cult("Altar", /obj/structure/cult/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	new /datum/stack_recipe("Engraved floor tile", /obj/item/stack/tile/harsie, res_amount = 4, max_res_amount = 20),
 ))
 
@@ -541,39 +541,39 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
  */
 
 GLOBAL_LIST_INIT(brass_recipes, list(
-	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe("Herald's beacon", /obj/structure/clockwork/functional/beacon, 6, time = 8 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe("Cogscarab fabricator", /obj/structure/clockwork/functional/cogscarab_fabricator, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe("Wall gear", /obj/structure/clockwork/wall_gear, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Herald's beacon", /obj/structure/clockwork/functional/beacon, 6, time = 8 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Cogscarab fabricator", /obj/structure/clockwork/functional/cogscarab_fabricator, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wall gear", /obj/structure/clockwork/wall_gear, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	null,
 	new /datum/stack_recipe_list("Windows and furniture", list(
-		new /datum/stack_recipe("Brass chair", /obj/structure/chair/brass, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Brass chair", /obj/structure/chair/brass, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS, , modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
-		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork, 2, time = 3 SECONDS, on_floor = TRUE, check_direction = TRUE),
-		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockwork, on_floor = TRUE, check_direction = TRUE),
-		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork, 2, time = 3 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockwork, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
 	)),
 ))
 
 GLOBAL_LIST_INIT(fake_brass_recipes, list(
-	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/altar, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/workshop, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe("Herald's beacon", /obj/structure/clockwork/beacon, 6, time = 8 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
-	new /datum/stack_recipe("Wall gear", /obj/structure/clockwork/wall_gear/fake, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/altar, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/workshop, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Herald's beacon", /obj/structure/clockwork/beacon, 6, time = 8 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wall gear", /obj/structure/clockwork/wall_gear/fake, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	null,
 	new /datum/stack_recipe_list("Windows and furniture", list(
-		new /datum/stack_recipe("Brass chair", /obj/structure/chair/brass/fake, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass/fake, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Brass chair", /obj/structure/chair/brass/fake, one_per_turf = TRUE, on_floor = TRUE, time= 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass/fake, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
-		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 3 SECONDS, on_floor = TRUE, check_direction = TRUE),
-		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, check_direction = TRUE),
-		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 3 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
+		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_BUILDING_SPEED_MOD),
 	)),
 ))
 
@@ -706,11 +706,11 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
  */
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
-	new /datum/stack_recipe("Plastic ashtray", /obj/item/storage/ashtray/, 2, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Plastic ashtray", /obj/item/storage/ashtray/, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	new /datum/stack_recipe("Plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
 	new /datum/stack_recipe("Baggie", /obj/item/reagent_containers/glass/beaker/drugs, 1, on_floor = TRUE),
-	new /datum/stack_recipe("Plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Plastic flaps", /obj/structure/plasticflaps, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Plastic flaps", /obj/structure/plasticflaps, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	null,
 	new /datum/stack_recipe_list("Moulds", list(
 		new /datum/stack_recipe("Ball mould", /obj/item/kitchen/mould/ball, on_floor = TRUE),
@@ -723,57 +723,57 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("Worm mould", /obj/item/kitchen/mould/worm, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("Signs", list(
-		new /datum/stack_recipe("Barber shop", /obj/structure/sign/barber, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Biohazard", /obj/structure/sign/biohazard, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Botany", /obj/structure/sign/botany, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Cargo", /obj/structure/sign/cargo, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Cargo department", /obj/structure/sign/directions/cargo, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Chemistry", /obj/structure/sign/chemistry, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Chinese restaurant", /obj/structure/sign/chinese, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Custodian", /obj/structure/sign/custodian, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Dangerous alien life", /obj/structure/sign/xeno_warning_mining, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Deathsposal", /obj/structure/sign/deathsposal, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Drop pods", /obj/structure/sign/drop, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Engineering department", /obj/structure/sign/directions/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Engineering", /obj/structure/sign/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Escape arm", /obj/structure/sign/directions/evac, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Evacuation", /obj/structure/sign/evac, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Exam room", /obj/structure/sign/examroom, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Explosives", /obj/structure/sign/explosives, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Explosives alt", /obj/structure/sign/explosives/alt, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("External airlock", /obj/structure/sign/vacuum/external, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Fire", /obj/structure/sign/fire, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Green cross", /obj/structure/sign/greencross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Hazardous radiation", /obj/structure/sign/radiation, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("High voltage", /obj/structure/sign/electricshock, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Holy", /obj/structure/sign/holy, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Medical bay", /obj/structure/sign/directions/medical, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("No smoking", /obj/structure/sign/nosmoking_1, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("No smoking alt", /obj/structure/sign/nosmoking_2, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Pods", /obj/structure/sign/pods, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Radioactive area", /obj/structure/sign/radiation/rad_area, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Red cross", /obj/structure/sign/redcross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Research division", /obj/structure/sign/directions/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE), //да, они немного багнуты и я это знаю
-		new /datum/stack_recipe("Restroom", /obj/structure/sign/restroom, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Science", /obj/structure/sign/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Secure area", /obj/structure/sign/securearea, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Security", /obj/structure/sign/security, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Security department", /obj/structure/sign/directions/security, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Vacuum", /obj/structure/sign/vacuum, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Xenobio", /obj/structure/sign/xenobio, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Barber shop", /obj/structure/sign/barber, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Biohazard", /obj/structure/sign/biohazard, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Botany", /obj/structure/sign/botany, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Cargo", /obj/structure/sign/cargo, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Cargo department", /obj/structure/sign/directions/cargo, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Chemistry", /obj/structure/sign/chemistry, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Chinese restaurant", /obj/structure/sign/chinese, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Custodian", /obj/structure/sign/custodian, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Dangerous alien life", /obj/structure/sign/xeno_warning_mining, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Deathsposal", /obj/structure/sign/deathsposal, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Drop pods", /obj/structure/sign/drop, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Engineering department", /obj/structure/sign/directions/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Engineering", /obj/structure/sign/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Escape arm", /obj/structure/sign/directions/evac, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Evacuation", /obj/structure/sign/evac, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Exam room", /obj/structure/sign/examroom, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Explosives", /obj/structure/sign/explosives, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Explosives alt", /obj/structure/sign/explosives/alt, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("External airlock", /obj/structure/sign/vacuum/external, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Fire", /obj/structure/sign/fire, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Green cross", /obj/structure/sign/greencross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Hazardous radiation", /obj/structure/sign/radiation, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("High voltage", /obj/structure/sign/electricshock, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Holy", /obj/structure/sign/holy, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Medical bay", /obj/structure/sign/directions/medical, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("No smoking", /obj/structure/sign/nosmoking_1, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("No smoking alt", /obj/structure/sign/nosmoking_2, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Pods", /obj/structure/sign/pods, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Radioactive area", /obj/structure/sign/radiation/rad_area, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Red cross", /obj/structure/sign/redcross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Research division", /obj/structure/sign/directions/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD), //да, они немного багнуты и я это знаю
+		new /datum/stack_recipe("Restroom", /obj/structure/sign/restroom, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Science", /obj/structure/sign/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Secure area", /obj/structure/sign/securearea, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Security", /obj/structure/sign/security, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Security department", /obj/structure/sign/directions/security, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Vacuum", /obj/structure/sign/vacuum, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Xenobio", /obj/structure/sign/xenobio, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("Utensil", list(
-		new /datum/stack_recipe("Plastic fork", /obj/item/kitchen/utensil/pfork, on_floor = TRUE),
-		new /datum/stack_recipe("Plastic knife", /obj/item/kitchen/knife/plastic, on_floor = TRUE),
-		new /datum/stack_recipe("Plastic spoon", /obj/item/kitchen/utensil/pspoon, on_floor = TRUE),
-		new /datum/stack_recipe("Plastic spork", /obj/item/kitchen/utensil/pspork, on_floor = TRUE),
+		new /datum/stack_recipe("Plastic fork", /obj/item/kitchen/utensil/pfork, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Plastic knife", /obj/item/kitchen/knife/plastic, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Plastic spoon", /obj/item/kitchen/utensil/pspoon, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("Plastic spork", /obj/item/kitchen/utensil/pspork, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	)),
 	null,
-	new /datum/stack_recipe("Warning cone", /obj/item/clothing/head/cone, 5, on_floor = TRUE),
-	new /datum/stack_recipe("Wet floor sign", /obj/item/caution, 2),
+	new /datum/stack_recipe("Warning cone", /obj/item/clothing/head/cone, 5, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Wet floor sign", /obj/item/caution, 2, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	null,
-	new /datum/stack_recipe("Water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty, on_floor = TRUE),
-	new /datum/stack_recipe("Large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty, 3, on_floor = TRUE),
+	new /datum/stack_recipe("Water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty, 3, on_floor = TRUE, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/plastic
@@ -803,9 +803,9 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
  */
 
 GLOBAL_LIST_INIT(bamboo_recipes, list(
-	new /datum/stack_recipe("Bamboo spear", /obj/item/twohanded/bamboospear, 25, time = 9 SECONDS),
-	new /datum/stack_recipe("Blow gun", /obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS),
-	new /datum/stack_recipe("Punji sticks trap", /obj/structure/punji_sticks, 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Bamboo spear", /obj/item/twohanded/bamboospear, 25, time = 9 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Blow gun", /obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("Punji sticks trap", /obj/structure/punji_sticks, 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/bamboo
@@ -830,7 +830,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
  */
 
 GLOBAL_LIST_INIT(cheese_recipes, list(
-	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 10 SECONDS, on_floor = TRUE),
+	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 10 SECONDS, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/cheese
@@ -856,7 +856,7 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
  */
 
 GLOBAL_LIST_INIT(gingerbread_recipes, list(
-	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/gingerbread

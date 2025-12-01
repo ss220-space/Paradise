@@ -43,7 +43,8 @@
 
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * lockpick_mod, volume = I.tool_volume))
 		return .
 	open = !open
 	to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
@@ -57,7 +58,8 @@
 		return .
 	to_chat(user, span_notice("Now attempting to reset internal memory, please hold..."))
 	l_hacking = TRUE
-	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume) || !open)
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!I.use_tool(src, user, 10 SECONDS * lockpick_mod, volume = I.tool_volume) || !open)
 		l_hacking = FALSE
 		return .
 	l_hacking = FALSE

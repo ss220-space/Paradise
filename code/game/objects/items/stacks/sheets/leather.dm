@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
 	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
-	new/datum/stack_recipe("leather bed", /obj/structure/bed/leather, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
+	new/datum/stack_recipe("leather bed", /obj/structure/bed/leather, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1),
 	new/datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 2),
 	))

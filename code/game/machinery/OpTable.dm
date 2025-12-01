@@ -112,7 +112,8 @@
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 		user.balloon_alert(user, "разобрано")
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)

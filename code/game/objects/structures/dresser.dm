@@ -75,7 +75,8 @@
 	if(!I.use_tool(src, user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(disassembled = TRUE)
 

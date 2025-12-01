@@ -85,7 +85,8 @@
 	if(connected)
 		to_chat(user, span_warning("You can not rotate [src] while its open!"))
 		return .
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || length(contents) || connected)
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || length(contents) || connected)
 		return .
 	dir = turn(dir, 90)
 	to_chat(user, span_notice("You rotate [src]."))

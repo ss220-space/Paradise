@@ -44,7 +44,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		update_integrity(clamp(obj_integrity + 20, 0, max_integrity))
 		update_icon()
@@ -96,7 +97,8 @@
 			return ATTACK_CHAIN_PROCEED
 
 		to_chat(user, span_notice("You start adding [I] to [src]..."))
-		if(!do_after(user, 5 SECONDS, src) || QDELETED(wood) || !wood.use(5) || !isturf(loc))
+		CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(!do_after(user, 5 SECONDS * construction_mod, src) || QDELETED(wood) || !wood.use(5) || !isturf(loc))
 			return ATTACK_CHAIN_PROCEED
 
 		var/turf/our_turf = loc
@@ -115,7 +117,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return
 	deconstruct(TRUE)
 	TOOL_DISMANTLE_SUCCESS_MESSAGE

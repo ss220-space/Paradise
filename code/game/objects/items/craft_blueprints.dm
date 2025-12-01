@@ -134,7 +134,8 @@
 		balloon_alert(user, "не хватает компонентов")
 		return
 	to_chat(user, span_notice("Вы начинаете крафт предмета \"[crafting_name]\"..."))
-	if(!do_after(user, craft_duration, src))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!do_after(user, craft_duration * construction_mod, src))
 		return
 	surroundings = get_surroundings(user)
 	if(!check_tools(user, tools, surroundings))

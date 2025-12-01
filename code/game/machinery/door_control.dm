@@ -113,7 +113,8 @@
 	if(!(open || allowed(user)))
 		to_chat(user, span_warning("Access Denied. The cover plate will not open."))
 		return
-	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, delay = 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return
 
 	// Close the panel
@@ -144,7 +145,8 @@
 		to_chat(user, "You must take out the electronics first.")
 		return
 
-	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, delay = 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/door_control(get_turf(user))
