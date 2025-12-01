@@ -14,8 +14,8 @@
 /// Don't actually throw at the target, just tip it in place.
 #define VENDOR_TIP_IN_PLACE 2
 
-#define CREDITS_DUMP_THRESHOLD 50
-/// The amount of credits collected by the vending machine after buying the product
+#define CREDITS_DUMP_THRESHOLD 100
+/// The amount of credits collected by the vending machine when someone buys the product.
 #define VENDING_CREDITS_COLLECTION_AMOUNT 0.2
 
 // Names for default vending categories
@@ -45,7 +45,7 @@
 	 * Form should be list(/type/path = amount, /type/path2 = amount2)
 	 *
 	 * Be aware that categories will be inherited by children object,
-	 * and will overwrite it's list of products if children's categories aren't specified.
+	 * and will overwrite it's list of products if children's categories aren't `null`.
 	 */
 	var/category
 
@@ -232,7 +232,6 @@
 	  * Is this item on station or not
 	  *
 	  * if it doesn't originate from off-station during mapload, all_products_free gets automatically set to TRUE if it was unset previously.
-	  * if it's off-station during mapload, it's also safe from the brand intelligence event
 	  */
 	var/onstation = TRUE
 	/**
@@ -393,9 +392,9 @@
 			. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы поднять автомат.")
 	if(aggressive)
 		. += span_warning("Его индикаторы зловеще мигают...")
-	if(credits_contained < CREDITS_DUMP_THRESHOLD && credits_contained > 0)
+	if(credits_contained < PAYCHECK_LOWER && credits_contained > 0)
 		. += span_notice("Судя по объёму отсутствующих товаров, в отсеке для наличных должно быть <b>немного</b> кредитов.")
-	else if(credits_contained > PAYCHECK_CREW)
+	else if(credits_contained >= PAYCHECK_LOWER)
 		. += span_notice("Судя по объёму отсутствующих товаров, в отсеке для наличных должно быть <b>много</b> кредитов.")
 		/**
 		 * Intentionally leaving out a case for zero credits as it should be covered by the vending machine's stock being full,
@@ -705,9 +704,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
 
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
 	if(istype(I, refill_canister))
 		add_fingerprint(user)
 		if(stat & (BROKEN|NOPOWER))
@@ -736,8 +732,8 @@
 		insert_item(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	. = ..()
 	try_tilt(I, user)
-	return ..()
 
 /obj/machinery/vending/proc/try_tilt(obj/item/I, mob/user)
 	if(tiltable && !tilted && I.force)
@@ -754,9 +750,9 @@
 				freebie(user, 3)
 			if(6 to 15)
 				freebie(user, 2)
-			if(16 to 25)
+			if(16 to 50)
 				freebie(user, 1)
-			if(26 to 75)
+			if(50 to 75)
 				return
 			if(76 to 90)
 				tilt(user)

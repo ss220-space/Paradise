@@ -18,7 +18,6 @@
 		"М+ожет с+ами пр+имете?",
 	)
 	req_access = list(ACCESS_MEDICAL)
-	default_price = PAYCHECK_MIN
 	default_premium_price = PAYCHECK_CREW
 
 	product_categories = list(

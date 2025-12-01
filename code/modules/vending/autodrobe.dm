@@ -16,8 +16,6 @@
 	)
 	vend_delay = 15
 	vend_reply = "Спас+ибо за исп+ользование AutoDrobe!"
-	default_price = PAYCHECK_MIN
-	default_premium_price = PAYCHECK_LOWER
 
 	product_categories = list(
 
