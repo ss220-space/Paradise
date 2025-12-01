@@ -10966,9 +10966,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/computer/robotics,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -64349,6 +64346,9 @@
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
