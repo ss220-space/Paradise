@@ -59,7 +59,7 @@
 	if(target.get_int_organ(organ_type))
 		return
 
-	var/obj/item/organ/internal/temp = new organ_type(target)
+	new organ_type(target)
 
 /datum/reagent/organ_spawner/terror_eggs
 	name = "Яйца паука ужаса"
