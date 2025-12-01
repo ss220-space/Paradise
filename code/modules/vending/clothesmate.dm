@@ -14,8 +14,8 @@
 		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуйте ClothesMate!",
 	)
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
-	default_price = PAYCHECK_MIN * 2
-	default_premium_price = PAYCHECK_CREW
+	default_price = PAYCHECK_MIN
+	default_premium_price = PAYCHECK_LOWER
 
 	product_categories = list(
 		list(

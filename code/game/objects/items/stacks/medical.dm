@@ -253,7 +253,7 @@
 	max_amount = 1
 	heal_brute = 0
 	stop_bleeding = 300 SECONDS
-	custom_price = PAYCHECK_COMMAND
+	custom_premium_price = PAYCHECK_COMMAND
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -330,7 +330,7 @@
 	self_delay = 1.5 SECONDS
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
-	custom_price = PAYCHECK_LOWER * 2
+	custom_premium_price = PAYCHECK_LOWER * 2
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
 	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
@@ -414,7 +414,7 @@
 	self_delay = 1.5 SECONDS
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/extended
-	custom_price = PAYCHECK_LOWER * 2
+	custom_premium_price = PAYCHECK_LOWER * 2
 
 /obj/item/stack/medical/ointment/extended/update_icon_state()
 	icon_state = "extended_burn_kit_[round_down((amount+1) / 2, 1)]"

@@ -37,8 +37,8 @@
 		"Ну крас+авец!"
 	)
 	vend_reply = "Спас+ибо за исп+ользование автом+ата-пом+ощника в в+ыборе од+ежды отд+ела!"
-	default_price = PAYCHECK_LOWER / 2
-	default_premium_price = PAYCHECK_CREW
+	default_price = PAYCHECK_MIN
+	default_premium_price = PAYCHECK_LOWER
 
 /obj/machinery/vending/department_clothesmate/get_ru_names()
 	return list(
