@@ -1,11 +1,3 @@
-/// Use this to set the base and ACTUAL pixel offsets of an object at the same time
-/// You should always use this for pixel setting in typepaths, unless you want the map display to look different from in game
-#define SET_BASE_PIXEL(x, y) \
-	pixel_x = x; \
-	base_pixel_x = x; \
-	pixel_y = y; \
-	base_pixel_y = y;
-
 /**
  * Causes the passed atom / image to appear floating,
  * playing a simple animation where they move up and down by 2 pixels (looping)
