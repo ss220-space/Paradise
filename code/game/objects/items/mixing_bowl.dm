@@ -1,7 +1,7 @@
 
 /obj/item/mixing_bowl
 	name = "mixing bowl"
-	desc = "Смешать, перемешать, взболтать… и опять смешать."
+	desc = "Для смешивания всего, что может оказаться на кухне. И не только."
 	flags = OPENCONTAINER
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mixing_bowl"
@@ -29,7 +29,7 @@
 	if(istype(I, /obj/item/soap))
 		add_fingerprint(user)
 		if(!dirty)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] не грязная."))
+			balloon_alert(user, ("миска чистая!"))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_YUT(user)] мыть [declent_ru(ACCUSATIVE)]."),
@@ -48,10 +48,10 @@
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_TRIBAL_OVEN]))
 		add_fingerprint(user)
 		if(dirty)
-			to_chat(user, span_warning("Вам следует помыть [declent_ru(ACCUSATIVE)] перед приготовлением пищи."))
+			balloon_alert(user, ("сначала помойте!"))
 			return ATTACK_CHAIN_PROCEED
 		if(length(contents) >= max_n_of_items)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже полна ингредиентов, больше просто не помещается!"))
+			balloon_alert(user, span_warning("нет места!"))
 			return ATTACK_CHAIN_PROCEED
 		if(isstack(I) && I.get_amount() > 1)
 			var/obj/item/stack/to_add = I.split(user, 1)
@@ -79,10 +79,10 @@
 	if(is_type_in_list(I, containers))
 		add_fingerprint(user)
 		if(dirty)
-			to_chat(user, span_warning("Вам следует очистить [declent_ru(ACCUSATIVE)], прежде чем использовать его для приготовления пищи."))
+			balloon_alert(user, span_warning("нужно очистить!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!I.reagents)
-			to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] пуста!"))
+			balloon_alert(user, ("пусто!"))
 			return ATTACK_CHAIN_PROCEED
 		for(var/datum/reagent/reagent as anything in I.reagents.reagent_list)
 			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_TRIBAL_OVEN]))
@@ -173,7 +173,7 @@
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
-	to_chat(usr, span_notice("Вы выбросили содержимое [declent_ru(GENITIVE)]."))
+	balloon_alert(usr, span_notice("очищено"))
 	update_dialog(usr)
 
 /obj/item/mixing_bowl/proc/update_dialog(mob/user)

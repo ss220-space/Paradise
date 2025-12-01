@@ -1,6 +1,6 @@
 /obj/machinery/cooker/deepfryer
 	name = "deep fryer"
-	desc = "Здесь можно <i>зафритюрить</i> что угодно!"
+	desc = "Позволяет придать хрустящую корочку <i>чему угодно</i>. Буквально."
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "fryer_off"
 	thiscooktype = "обжарено во фритюре"

@@ -1,7 +1,7 @@
 
 /obj/machinery/kitchen_machine/microwave
 	name = "microwave"
-	desc = "Микроволновая печь, идеально подходящая для разогрева продуктов с помощью излучения."
+	desc = "Разогревает пищу с помощью СВЧ-излучения. Гарантирует, что ваша еда будет горячей снаружи и холодной внутри."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mw"
 	cook_verbs = list("Нагревается", "Греется")

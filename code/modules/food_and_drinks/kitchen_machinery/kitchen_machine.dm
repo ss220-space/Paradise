@@ -79,7 +79,7 @@
 
 	add_fingerprint(user)
 	if(operating)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, span_warning("[declent_ru(NOMINATIVE)] работает."))
 		return ATTACK_CHAIN_PROCEED
 
 	if(broken == BROKEN_NONE && dirty != MAX_DIRT && exchange_parts(user, I))
@@ -106,12 +106,12 @@
 			return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 		//Otherwise bad luck!!
-		to_chat(user, span_warning("Оно грязное!"))
+		balloon_alert(user, "нужно почистить!")
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
 	if(is_type_in_list(I, GLOB.cooking_ingredients[recipe_type]) || istype(I, /obj/item/mixing_bowl))
 		if(length(contents) >= max_n_of_items)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] переполнена ингредиентами, больше добавить невозможно."))
+			balloon_alert(user, "нет места!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		var/obj/item/stack/stack = I
 		if(!isstack(I) || stack.get_amount() <= 1)
@@ -183,11 +183,11 @@
 	. = TRUE
 	add_fingerprint(user)
 	if(operating)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает.")
 		return .
 	if(broken == BROKEN_NONE)
 		if(dirty == MAX_DIRT)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком грязная."))
+			balloon_alert(user, span_warning("[declent_ru(NOMINATIVE)] слишком грязная."))
 			return .
 		return default_deconstruction_screwdriver(user, open_icon, off_icon, I)
 	if(broken != BROKEN_NEEDS_SCREWDRIVER)
@@ -246,7 +246,7 @@
 	special_grab_attack(grabbed_thing, grabber)
 
 /obj/machinery/kitchen_machine/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
-	to_chat(grabber, span_warning("Это абсурдно. Вы не можете поместить [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	to_chat(grabber, span_warning("Абсурд. Вы не можете просто взять и поместить [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(I.loc == user)

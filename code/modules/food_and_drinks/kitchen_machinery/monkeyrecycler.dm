@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler
 	name = "Monkey Recycler"
-	desc = "Устройство для переработки мёртвых обезьян в обезьяньи кубики."
+	desc = "Экологично перерабатывает органику обратно в удобные для хранения обезьяньи кубики."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
 	density = TRUE
