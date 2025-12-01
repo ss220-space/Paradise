@@ -599,8 +599,8 @@
 	max_integrity = 125 //5 shots from revolver
 
 /obj/structure/barricade/dropwall/bloodwall/Initialize(mapload, owner, core, dir_1, dir_2)
-	. = ..()
-	var/target_matrix = list( //unfortunatetly, normal coloring just don't work
+	. = ..() //unfortunatetly, normal coloring just don't work
+	var/target_matrix = list(
 		2, 0, 0, 0,
 		0, 0, 0, 0,
 		1, 0, 0, 0,

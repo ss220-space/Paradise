@@ -213,7 +213,7 @@
 		/obj/item/mod/module/anomaly_locked/firewall,
 		/obj/item/mod/module/dispenser/dropwall_module,
 		/obj/item/mod/module/dispenser/dropwall_syndie,
-		)
+	)
 	module_type = MODULE_ACTIVE
 	complexity = 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
@@ -594,7 +594,6 @@
 	icon_state = "cryogrenade-core"
 	overlay_state_inactive = "module_dropwall"
 	module_type = MODULE_ACTIVE
-	complexity = 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 25
 	cooldown_time = 20 SECONDS
 	required_slots = list(ITEM_SLOT_GLOVES)
@@ -602,7 +601,7 @@
 		/obj/item/mod/module/anomaly_locked/firewall,
 		/obj/item/mod/module/dispenser/dropwall_module,
 		/obj/item/mod/module/dispenser/dropwall_syndie,
-		)
+	)
 	dispense_type = /obj/item/grenade/barrier/dropwall
 
 /obj/item/mod/module/dispenser/dropwall_module/get_ru_names()
@@ -627,7 +626,6 @@
 	icon_state = "bloodwall_module"
 	overlay_state_inactive = "bloodwall_module"
 	module_type = MODULE_ACTIVE
-	complexity = 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 15
 	cooldown_time = 15 SECONDS
 	required_slots = list(ITEM_SLOT_GLOVES)
@@ -635,7 +633,7 @@
 		/obj/item/mod/module/anomaly_locked/firewall,
 		/obj/item/mod/module/dispenser/dropwall_module,
 		/obj/item/mod/module/dispenser/dropwall_syndie,
-		)
+	)
 	dispense_type = /obj/item/grenade/barrier/dropwall/syndie
 
 /obj/item/mod/module/dispenser/dropwall_syndie/get_ru_names()
