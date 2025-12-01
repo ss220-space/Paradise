@@ -56,7 +56,7 @@
 		return
 	if(!iscarbon(target))
 		return
-	if(!target.get_int_organ(organ_type))
+	if(target.get_int_organ(organ_type))
 		return
 
 	var/obj/item/organ/internal/temp = new organ_type(target)
