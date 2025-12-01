@@ -35,25 +35,40 @@
 		M.Paralyse(10 SECONDS)
 	return ..() | update_flags
 
-#define REAGENT_UNITS_5 5
+/datum/reagent/organ_spawner
+	name = "Вы не должны видеть этого"
+	id = "spawner_template"
+	description = "Пациент, да у вас чужой"
+	can_synth = FALSE //stop arbuze
 
-//egg toxin for defiler
-/datum/reagent/terror_eggs
-	name = "Яйца паука ужаса"
-	id = "terror_eggs"
-	description = "Стремительно растущие паучьи яйца."
-	can_synth = FALSE
-	color = "#6b336b"
-	taste_mult = 0
+	var/obj/item/organ/internal/organ_type
+	var/need_volume_to_inject = 5
 
-/datum/reagent/terror_eggs/on_mob_life(mob/living/target)
-	if(volume > REAGENT_UNITS_5 && iscarbon(target))
-		if(!target.get_int_organ(/obj/item/organ/internal/body_egg))
-			new/obj/item/organ/internal/body_egg/terror_eggs(target)
-
-		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
-			new /obj/item/organ/internal/body_egg/terror_eggs/phantom(target)
+/datum/reagent/organ_spawner/on_mob_life(mob/living/target)
+	if(!organ_type)
+		return ..()
+	organ_inject(target)
 
 	return ..()
 
-#undef REAGENT_UNITS_5
+/datum/reagent/organ_spawner/proc/organ_inject(mob/living/target)
+	if(volume < need_volume_to_inject)
+		return
+	if(!iscarbon(target))
+		return
+	if(!target.get_int_organ(organ_type))
+		return
+
+	var/obj/item/organ/internal/temp = new organ_type(target)
+
+/datum/reagent/organ_spawner/terror_eggs
+	name = "Яйца паука ужаса"
+	id = "terror_eggs"
+	description = "Стремительно растущие паучьи яйца."
+	color = "#6b336b"
+	taste_mult = 0
+	organ_type = /obj/item/organ/internal/body_egg/terror_eggs
+
+/datum/reagent/organ_spawner/terror_eggs/phantom
+	id = "terror_phantom_eggs"
+	organ_type = /obj/item/organ/internal/body_egg/terror_eggs/phantom
