@@ -1,13 +1,14 @@
 /obj/item/melee/baton
-
 	icon = 'icons/obj/weapons/baton.dmi'
 	name = "police baton"
-	desc = "A wooden truncheon for beating criminal scum."
+	desc = "Несмертельное холодное оружие, представляющее собой деревянную палку. \
+			Используется охранными и силовыми структурами для обезвреживания преступных элементов. \
+			Несколько старомодно, но всё ещё относительно популярно в отдалённых частях Галактики."
 	gender = FEMALE
 	icon_state = "baton"
 	item_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
-	force = 12 //9 hit crit
+	force = 12
 	/// Whether this baton is active or not.
 	var/active = TRUE
 	/// Default wait time until can stun again.
@@ -40,6 +41,16 @@
 	var/log_stun_attack = TRUE
 	/// Cooldown timestamp
 	COOLDOWN_DECLARE(stun_cooldown)
+
+/obj/item/melee/baton/get_ru_names()
+	return list(
+		NOMINATIVE = "полицейская дубинка",
+		GENITIVE = "полицейской дубинки",
+		DATIVE = "полицейской дубинке",
+		ACCUSATIVE = "полицейскую дубинку",
+		INSTRUMENTAL = "полицейской дубинкой",
+		PREPOSITIONAL = "полицейской дубинке"
+	)
 
 /obj/item/melee/baton/New()
 	. = ..()
@@ -257,15 +268,27 @@
 
 /obj/item/melee/baton/ntcane
 	name = "fancy cane"
-	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
+	desc = "Инструмент для создания опоры при ходьбе, а также аристократический аксессуар. Рукоять отделана изящной гравировкой. \
+			Достаточно увесистая, благодарая чему может использоваться для самообороны."
 	icon_state = "cane_nt"
 	item_state = "cane_nt"
 	needs_permit = FALSE
 
+/obj/item/melee/baton/ntcane/get_ru_names()
+	return list(
+		NOMINATIVE = "парадная трость",
+		GENITIVE = "парадной трости",
+		DATIVE = "парадной трости",
+		ACCUSATIVE = "парадную трость",
+		INSTRUMENTAL = "парадной тростью",
+		PREPOSITIONAL = "парадной трости"
+	)
+
 // Telescopic baton
 /obj/item/melee/baton/telescopic
 	name = "telescopic baton"
-	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
+	desc = "Средство самообороны, представляющее собой несмертельное холодное оружие. \
+			Складывается и раскладывается, что облегчает ношение, в том числе скрытое."
 	icon_state = "telebaton"
 	item_state = null
 	w_class = WEIGHT_CLASS_SMALL
@@ -274,12 +297,22 @@
 	force = 0
 	attack_verb = "ткнул"
 	clumsy_knockdown_time = 15 SECONDS
-	/// The sound effecte played when our baton is extended.
+	/// The sound effect played when our baton is extended.
 	var/extend_sound = 'sound/weapons/batonextend.ogg'
 	/// The inhand iconstate used when our baton is extended.
 	var/extend_item_state = "telebaton"
 	/// The force on extension.
 	var/extend_force = 10
+
+/obj/item/melee/baton/telescopic/get_ru_names()
+	return list(
+		NOMINATIVE = "телескопическая дубинка",
+		GENITIVE = "телескопической дубинки",
+		DATIVE = "телескопической дубинке",
+		ACCUSATIVE = "телескопическую дубинку",
+		INSTRUMENTAL = "телескопической дубинкой",
+		PREPOSITIONAL = "телескопической дубинке"
+	)
 
 /obj/item/melee/baton/telescopic/ComponentInitialize()
 	. = ..()
@@ -312,4 +345,3 @@
 		balloon_alert(user, "[active ? "разложено" : "сложено"]")
 	playsound(src, extend_sound, 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
-
