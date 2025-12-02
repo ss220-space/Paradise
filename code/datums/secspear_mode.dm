@@ -6,7 +6,7 @@
 	var/damage_weided
 	var/armour_penetration
 	/// How much power does it cost to hit someone.
-	var/power_cost = 500
+	var/power_cost = 550
 	var/hit_sound = SFX_ENERGY_SWORD_SWING
 	var/next_mode
 	var/on_sound = 'sound/weapons/saberon.ogg'
@@ -55,16 +55,16 @@
 	name = "станнер"
 	next_mode = /datum/secspear_mode/burning_blade
 	damage_type = STAMINA
-	damage = 45
-	damage_weided = 50
+	damage = 25
+	damage_weided = 35
 	overlay_prefix = "_disabler"
 
 /datum/secspear_mode/burning_blade
 	name = "огненный клинок"
 	next_mode = /datum/secspear_mode/energy_blade
 	damage_type = BURN
-	damage = 25
-	damage_weided = 27
+	damage = 23
+	damage_weided = 26
 	armour_penetration = 30
 	power_cost = 650
 	overlay_prefix = "_taser"
