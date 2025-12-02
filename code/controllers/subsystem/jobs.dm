@@ -59,19 +59,6 @@ SUBSYSTEM_DEF(jobs)
 		STATION_DEPARTMENT_OTHER,
 	)
 
-	/// Titles of head roles, used to sort jobs in "occupations" list
-	var/list/head_titles = list(
-		JOB_TITLE_CAPTAIN, // Command
-		JOB_TITLE_CHIEF, // Engineering
-		JOB_TITLE_RD, // Science
-		JOB_TITLE_CMO, // Meducal
-		JOB_TITLE_HOS, // Security
-		JOB_TITLE_QUARTERMASTER, // Supply
-		JOB_TITLE_HOP, // Service
-		JOB_TITLE_JUDGE, // Legal
-		JOB_TITLE_AI, // Silicon
-	)
-
 	var/list/department_groups = list()
 	for(var/department in department_order)
 		department_groups[department] = list()
@@ -96,14 +83,16 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/head_of_department = null
 
 		for(var/datum/job/job in department_jobs)
-			if(job.title in head_titles)
+			if(job.head_position)
 				head_of_department = job
 				break
 
 		// Head goes first
-		if(head_of_department)
-			department_jobs -= head_of_department
-			department_jobs.Insert(1, head_of_department)
+		if(!head_of_department)
+			continue
+
+		department_jobs -= head_of_department
+		department_jobs.Insert(1, head_of_department)
 
 	// Collecting a list in the right order
 	for(var/department in department_order)
@@ -784,7 +773,7 @@ SUBSYSTEM_DEF(jobs)
 	human.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
-	if(job?.head_position)
+	if(job.head_position)
 		remembered_info = ""
 		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 

@@ -7,6 +7,7 @@
 	req_admin_notify = 1
 	exp_requirements = 3000
 	disabilities_allowed = 0
+	head_position = TRUE
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
 
@@ -31,6 +32,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
+	head_position = TRUE
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
@@ -82,6 +84,7 @@
 	is_command = 1
 	transfer_allowed = FALSE
 	blocked_race_for_job = list(SPECIES_VOX)
+	head_position = FALSE
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
 	access = list(

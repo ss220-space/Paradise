@@ -94,7 +94,7 @@
 	var/department = null
 
 	/// Whether this is a head position
-	var/head_position = 0
+	var/head_position = FALSE
 
 #define MAX_START_MONEY_MULTIPLIER 3
 

@@ -3,6 +3,7 @@
 	flag = JOB_FLAG_AI
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_SILICON
+	head_position = TRUE
 	total_positions = -1 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
 	spawn_positions = 1
 	selection_color = "#4c82bf"
