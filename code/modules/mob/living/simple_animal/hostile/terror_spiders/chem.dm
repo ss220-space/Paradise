@@ -47,15 +47,17 @@
 /datum/reagent/organ_spawner/on_mob_life(mob/living/target)
 	if(!organ_type)
 		return ..()
-	organ_inject(target)
 
+	organ_inject(target)
 	return ..()
 
 /datum/reagent/organ_spawner/proc/organ_inject(mob/living/target)
 	if(volume < need_volume_to_inject)
 		return
+
 	if(!iscarbon(target))
 		return
+
 	if(target.get_int_organ(organ_type))
 		return
 
