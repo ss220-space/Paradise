@@ -8,7 +8,7 @@
 	item_state = "bottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
-	custom_price = PAYCHECK_LOWER / 1.5
+	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/get_ru_names()
 	return list(

@@ -32,6 +32,7 @@
 	refill_canister = /obj/item/vending_refill/boozeomat
 	default_price = PAYCHECK_MIN * 0.6
 	default_premium_price = PAYCHECK_COMMAND // luxury alcohol
+
 	product_categories = list(
 		list(
 			"name" = "Алкогольные",

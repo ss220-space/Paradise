@@ -370,7 +370,7 @@
 	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
-	custom_premium_price = PAYCHECK_LOWER
+	custom_price = PAYCHECK_LOWER / 1.5
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Is it usable only on yourself?

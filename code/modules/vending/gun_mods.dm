@@ -16,7 +16,7 @@
 	deny_overlay = "attachments_deny"
 	req_access = list(ACCESS_SECURITY)
 	refill_canister = /obj/item/vending_refill/gun_mods
-	default_price = PAYCHECK_COMMAND
+	default_price = PAYCHECK_CREW
 	default_premium_price = PAYCHECK_MAX
 
 	products = list(
@@ -33,7 +33,6 @@
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 2,
-		/obj/item/gun_module/rail/scope/x4 = 2,
 	)
 
 /obj/machinery/vending/gun_mods/get_ru_names()
