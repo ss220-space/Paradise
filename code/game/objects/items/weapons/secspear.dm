@@ -12,7 +12,6 @@
 	base_icon_state = "secspear"
 	sharp = FALSE
 	materials = null
-	block_chance = 0
 	block_type = MELEE_ATTACKS
 	icon = 'icons/obj/secspear.dmi'
 	actions_types = list(/datum/action/item_action/switch_spear_mode, /datum/action/item_action/toggle_folded)
@@ -71,7 +70,7 @@
 	cell.emp_act(severity)
 
 /obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, params)
-	if(iscell(I) )
+	if(iscell(I))
 		var/obj/item/stock_parts/cell/new_cell = I
 
 		if(new_cell.maxcharge < spear_mode.power_cost)
