@@ -1,5 +1,5 @@
-#define _LOC 1
-#define _DIR 2
+#define WARP_LOC 1
+#define WARP_DIR 2
 
 /obj/item/implant/warp
 	name = "Варп имплант"
@@ -49,13 +49,13 @@
 
 	while(!position_queue.is_empty())
 		var/list/data = position_queue.dequeue()
-		if(!data?[_LOC] || !isturf(data?[_LOC]))
+		if(!data?[WARP_LOC] || !isturf(data?[WARP_LOC]))
 			continue
 
-		var/obj/effect/temp_visual/nothing/warp/temp = new /obj/effect/temp_visual/nothing/warp(data[_LOC])
+		var/obj/effect/temp_visual/nothing/warp/temp = new /obj/effect/temp_visual/nothing/warp(data[WARP_LOC])
 		temp.alpha = latest_alpha
 		temp.overlays = imp_in.overlays
-		temp.dir = data?[_DIR] ? data?[_DIR] : imp_in.dir
+		temp.dir = data?[WARP_DIR] ? data?[WARP_DIR] : imp_in.dir
 		latest_alpha -= delta_alpha
 
 		animate(temp, alpha = 0, time = 9)
@@ -63,14 +63,15 @@
 /obj/item/implant/warp/proc/teleport_owner()
 	while(!position_queue.is_empty()) //На случай если головной турф будет удален
 		var/list/data = position_queue.dequeue()
-		if(!data?[_LOC])
+		if(!data?[WARP_LOC])
 			continue
-		if(!do_teleport(imp_in, data[_LOC]))
+		if(!do_teleport(imp_in, data[WARP_LOC]))
 			continue
-		imp_in.dir = data?[_DIR] ? data?[_DIR] : imp_in.dir
+		imp_in.dir = data?[WARP_DIR] ? data?[WARP_DIR] : imp_in.dir
 		return
 
-	imp_in.balloon_alert(imp_in, "Ошибка телепортации!")
+	imp_in.balloon_alert(imp_in, "ошибка")
+	to_chat(imp_in, span_danger("Ошибка телепортации!"))
 
 /obj/item/implant/warp/activate()
 	. = ..()
@@ -88,5 +89,5 @@
 	name = "Implanter (warp)"
 	imp = /obj/item/implant/warp
 
-#undef _LOC
-#undef _DIR
+#undef WARP_LOC
+#undef WARP_DIR
