@@ -7,6 +7,7 @@
 			Применяется в тех случаях, когда энергетическое и огнестрельное оружие дальнего боя не подходит для выполнения задачи."
 	throwforce = 10
 	embed_chance = 0
+	item_flags = NOSHARPENING
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "secspear"
 	base_icon_state = "secspear"
