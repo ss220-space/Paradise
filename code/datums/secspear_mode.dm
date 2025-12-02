@@ -70,14 +70,13 @@
 	overlay_prefix = "_taser"
 
 /datum/secspear_mode/energy_blade
-	name = "энергитический клинок"
+	name = "энергетический клинок"
 	next_mode = /datum/secspear_mode/off
 	power_cost = 800
 	damage = 21
 	damage_weided = 24
 	armour_penetration = 10
 	overlay_prefix = "_lethal"
-
 
 /datum/secspear_mode/energy_blade/on_activate(obj/item/twohanded/spear/secspear/spear)
 	. = ..()
