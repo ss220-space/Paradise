@@ -68,7 +68,9 @@
 		if(!do_teleport(imp_in, data[_LOC]))
 			continue
 		imp_in.dir = data?[_DIR] ? data?[_DIR] : imp_in.dir
-		break
+		return
+
+	imp_in.balloon_alert(imp_in, "Ошибка телепортации!")
 
 /obj/item/implant/warp/activate()
 	. = ..()
