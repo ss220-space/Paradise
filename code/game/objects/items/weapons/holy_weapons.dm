@@ -492,7 +492,7 @@
 	block_chance = 40
 	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
