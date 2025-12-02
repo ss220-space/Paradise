@@ -429,6 +429,7 @@
 		/obj/item/melee/energy/sword/pirate,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/weldingtool/sword,
+		/obj/item/twohanded/spear/secspear,
 		/obj/item/dnainjector/hulkmut,
 		/obj/item/dnainjector/farvisionmut,
 		/obj/item/relict_production/strange_teleporter,

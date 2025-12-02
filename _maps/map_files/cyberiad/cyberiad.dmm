@@ -25485,17 +25485,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/paramedic)
-"bRg" = (
-/obj/structure/closet/paramedic,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/item/bodybag/environmental/nanotrasen,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/paramedic)
 "bRh" = (
 /turf/simulated/wall/r_wall,
 /area/assembly/chargebay)
@@ -42808,6 +42797,19 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"daw" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = -8
+	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/warden)
 "day" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -49832,6 +49834,17 @@
 	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/sw)
+"eqP" = (
+/obj/structure/closet/paramedic,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/item/bodybag/environmental/nanotrasen,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/paramedic)
 "eqR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
@@ -51712,6 +51725,16 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/qm)
+"fhb" = (
+/obj/structure/table/glass,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/security/medbay)
 "fho" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel,
@@ -54263,13 +54286,6 @@
 /obj/item/clothing/glasses/sunglasses/yeah,
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
-"gpC" = (
-/obj/machinery/suit_storage_unit/qm,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "gpV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -60299,16 +60315,6 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/maintenance/server)
-"jfE" = (
-/obj/structure/table/glass,
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = 5;
-	pixel_y = 13
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/security/medbay)
 "jgi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -61381,17 +61387,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology/lab)
-"jGC" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/structure/cable,
-/obj/item/flag/cargo,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "jHb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -62959,6 +62954,29 @@
 	icon_state = "tranquillite"
 	},
 /area/crew_quarters/bar/atrium)
+"krz" = (
+/obj/structure/sign/poster/official/twelve_gauge{
+	pixel_x = 32
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/item/mod/module/pepper_shoulders{
+	pixel_y = 9;
+	pixel_x = 6
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = 1;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/security/securearmory)
 "ksb" = (
 /obj/structure/closet/chefcloset,
 /obj/item/soap,
@@ -66704,21 +66722,6 @@
 	icon_state = "vault"
 	},
 /area/crew_quarters/dorms)
-"lYf" = (
-/obj/structure/table/glass,
-/obj/item/clipboard,
-/obj/item/toy/figure/cmo,
-/obj/item/lighter/zippo/cmo,
-/obj/item/stamp/cmo,
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = 7;
-	pixel_y = 12
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/medical/cmo)
 "lYi" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -70841,6 +70844,13 @@
 	},
 /turf/simulated/wall,
 /area/toxins/test_area)
+"nSt" = (
+/obj/machinery/suit_storage_unit/qm,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "nSy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
@@ -71542,6 +71552,49 @@
 /obj/item/trash/semki,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"omN" = (
+/obj/machinery/camera{
+	c_tag = "Secure Armory East";
+	dir = 8;
+	network = list("SS13","Security")
+	},
+/obj/structure/table/reinforced,
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/camera{
+	c_tag = "Secure Armory East";
+	dir = 8;
+	network = list("SS13","Security")
+	},
+/obj/structure/rack/gunrack,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/securearmory)
 "omS" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -73853,20 +73906,6 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
-"pqt" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/security/securearmory)
 "prj" = (
 /obj/effect/turf_decal/siding/blue,
 /turf/simulated/floor/plasteel{
@@ -74331,29 +74370,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/reception)
-"pCR" = (
-/obj/structure/sign/poster/official/twelve_gauge{
-	pixel_x = 32
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/item/mod/module/pepper_shoulders{
-	pixel_y = 9;
-	pixel_x = 6
-	},
-/obj/item/mod/module/hat_stabilizer{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/obj/item/mod/module/hat_stabilizer{
-	pixel_x = 1;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
-	},
-/area/security/securearmory)
 "pCX" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -81071,34 +81087,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"sAi" = (
-/obj/machinery/camera{
-	c_tag = "Secure Armory East";
-	dir = 8;
-	network = list("SS13","Security")
-	},
-/obj/structure/table/reinforced,
-/obj/item/mod/module/quick_cuff{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/mod/module/quick_cuff{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/item/mod/module/megaphone{
-	pixel_x = -8;
-	pixel_y = 8
-	},
-/obj/item/mod/module/megaphone{
-	pixel_x = 6;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/security/securearmory)
 "sAt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
@@ -83522,6 +83510,17 @@
 	icon_state = "white"
 	},
 /area/medical/research)
+"tAz" = (
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/structure/cable,
+/obj/item/flag/cargo,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "tBc" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -84455,19 +84454,6 @@
 "tUr" = (
 /turf/simulated/wall,
 /area/medical/medbay2)
-"tUB" = (
-/obj/structure/table,
-/obj/machinery/recharger,
-/obj/item/bodybag/environmental/prisoner/pressurized{
-	pixel_x = -8
-	},
-/obj/item/bodybag/environmental/prisoner/pressurized{
-	pixel_x = 7
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/security/warden)
 "tUD" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -88184,6 +88170,21 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay2)
+"vCu" = (
+/obj/structure/table/glass,
+/obj/item/clipboard,
+/obj/item/toy/figure/cmo,
+/obj/item/lighter/zippo/cmo,
+/obj/item/stamp/cmo,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 7;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/medical/cmo)
 "vCx" = (
 /obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/plasteel{
@@ -90812,6 +90813,20 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
+"wGV" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syndie_kit/dropwall{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/securearmory)
 "wHa" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
@@ -114707,7 +114722,7 @@ ylx
 ylx
 uTI
 cZA
-gpC
+nSt
 tBI
 wmw
 qsg
@@ -115226,7 +115241,7 @@ vnf
 vKy
 han
 sij
-jGC
+tAz
 qsg
 vvy
 rmn
@@ -119022,7 +119037,7 @@ adO
 aee
 afj
 aeI
-jfE
+fhb
 afp
 ash
 hdV
@@ -121335,7 +121350,7 @@ aep
 oJy
 ufx
 pMJ
-tUB
+daw
 afv
 aqC
 aqX
@@ -124148,9 +124163,9 @@ aiv
 abO
 aiv
 aiv
-pCR
-sAi
-pqt
+krz
+omN
+wGV
 oaf
 aiv
 ajr
@@ -127821,7 +127836,7 @@ bFW
 xxY
 bMT
 pCr
-bRg
+eqP
 bTH
 bUL
 bVx
@@ -133229,7 +133244,7 @@ sOn
 bWB
 bXP
 xZU
-lYf
+vCu
 ccC
 lXp
 cfO
