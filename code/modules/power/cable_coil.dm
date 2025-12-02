@@ -94,7 +94,7 @@
 
 
 #define CABLE_CRAFT_RESTRAINS "cable restraints (15)"
-#define CABLE_CRAFT_RESTRAINS "самодельный жгут (20)"
+#define CABLE_CRAFT_TOURNIQUET "самодельный жгут (20)"
 #define CABLE_CRAFT_MULTIZ_CABLE_HUB "multi z cable hub (10)"
 
 ///////////////////////////////////
@@ -106,7 +106,7 @@
 	var/image/multiz_icon = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge")
 	var/choices = list(
 		CABLE_CRAFT_RESTRAINS = restraints_icon,
-		//CABLE_CRAFT_RESTRAINS = tourniquet_icon, //TODO vakons: temp disable - await bleeding-part-3
+		//CABLE_CRAFT_TOURNIQUET = tourniquet_icon, //TODO vakons: temp disable - await bleeding-part-3
 		CABLE_CRAFT_MULTIZ_CABLE_HUB = multiz_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
@@ -142,7 +142,7 @@
 
 				cablecuff.icon_state = "cuff_[text_color]"
 
-		if(CABLE_CRAFT_RESTRAINS)
+		if(CABLE_CRAFT_TOURNIQUET)
 			if(get_amount() < 20)
 				balloon_alert(user, "недостаточно [20 - get_amount()] [declent_ru(GENITIVE)]!")
 
@@ -175,6 +175,10 @@
 	if(user.incapacitated() || user.get_active_hand() != src)
 		return FALSE
 	return TRUE
+
+#undef CABLE_CRAFT_RESTRAINS
+#undef CABLE_CRAFT_TOURNIQUET
+#undef CABLE_CRAFT_MULTIZ_CABLE_HUB
 
 //you can use wires to heal robotics
 /obj/item/stack/cable_coil/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
