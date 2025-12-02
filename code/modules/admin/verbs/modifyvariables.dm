@@ -420,7 +420,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			return
 
 		if(variable == "(CLEAR DUPES)")
-			L = uniqueList(L)
+			L = unique_list(L)
 			if(!O.vv_edit_var(objectvar, L))
 				to_chat(src, "Your edit was rejected by the object.")
 				return

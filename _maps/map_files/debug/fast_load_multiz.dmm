@@ -62,6 +62,10 @@
 /obj/machinery/light,
 /turf/simulated/openspace,
 /area/admin)
+"pn" = (
+/obj/machinery/computer/secure_data,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "qp" = (
 /obj/item/tank/jetpack/oxygen,
 /turf/simulated/floor/plasteel,
@@ -189,6 +193,10 @@
 "Me" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/indestructible/plating,
+/area/admin)
+"Nf" = (
+/obj/machinery/computer/account_database,
+/turf/simulated/floor/plasteel,
 /area/admin)
 "Pd" = (
 /obj/effect/landmark/spawner/late/crew,
@@ -2815,7 +2823,7 @@ ay
 ay
 ay
 jk
-HE
+pn
 HE
 HE
 HE
@@ -2881,7 +2889,7 @@ ay
 ay
 ay
 jk
-HE
+Nf
 nF
 HE
 HE

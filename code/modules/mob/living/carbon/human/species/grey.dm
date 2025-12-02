@@ -119,7 +119,7 @@
 
 	var/command_roles = FALSE
 
-	if(ismindshielded(H) || J.is_command || J.supervisors == "the captain")
+	if(ismindshielded(H) || J.is_command)
 		command_roles = TRUE
 
 	if(!translator_pref && !command_roles) // Not command and didn't want wingdings chip, so..

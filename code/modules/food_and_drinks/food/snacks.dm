@@ -216,7 +216,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I) || (slices_num <= 0 || !slices_num) || !slice_path)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || (slices_num <= 0 || !slices_num) || !slice_path)
 		return .
 
 	if(!isturf(loc))

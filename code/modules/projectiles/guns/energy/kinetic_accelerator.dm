@@ -162,7 +162,7 @@
 	if(!unique_frequency)
 		var/carried = 1	// The firing KA is already counted.
 
-		for(var/obj/item/gun/energy/kinetic_accelerator/K in loc.GetAllContents() - src)
+		for(var/obj/item/gun/energy/kinetic_accelerator/K in loc.get_all_contents() - src)
 			if(!K.unique_frequency)
 				carried++
 		recharge_time = recharge_time * carried

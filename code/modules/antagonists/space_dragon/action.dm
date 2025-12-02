@@ -112,6 +112,10 @@
 	return TRUE
 
 /datum/action/innate/lesser_carp_rift/proc/make_rift(atom/target_atom)
+	if(owner.Adjacent(target_atom))
+		owner.balloon_alert(owner, "слишком близко!")
+		return FALSE
+
 	var/turf/owner_turf = get_turf(owner)
 	var/turf/target_turf = get_turf(target_atom)
 	if(!target_turf)
@@ -124,7 +128,7 @@
 		open_exit_turfs += potential_exit
 
 	if(!length(open_exit_turfs))
-		to_chat(owner, span_warning("Нет выхода!"))
+		owner.balloon_alert(owner, "нет выхода!")
 		return FALSE
 	if(!target_turf.is_blocked_turf(exclude_mobs = TRUE))
 		open_exit_turfs += target_turf
@@ -139,7 +143,7 @@
 /obj/effect/temp_visual/lesser_carp_rift
 	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
-	icon_state = "carp_rift"
+	icon_state = "rift"
 	duration = 5 SECONDS
 	/// Holds a reference to a timer until this gets deleted
 	var/destroy_timer
@@ -206,4 +210,3 @@
 /obj/effect/temp_visual/lesser_carp_rift_dissipating/proc/setup_animation(new_alpha)
 	alpha = new_alpha
 	animate(src, alpha = 0, time = duration - 1)
-

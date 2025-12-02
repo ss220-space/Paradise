@@ -265,8 +265,7 @@
 /obj/effect/warning
 	name = "warning"
 	icon = 'icons/effects/alert.dmi'
-	icon_state = "alert_greyscale"
-
+	icon_state = "red" // "alert_greyscale"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_OBJ_LAYER
 

@@ -44,7 +44,7 @@ LINEN BINS
 	return
 
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		if(loc == user && !user.can_unEquip(src))
 			add_fingerprint(user)
 			return ATTACK_CHAIN_PROCEED

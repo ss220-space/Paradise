@@ -32,28 +32,6 @@
 		if(GUN_BURST_MODE)
 			. += "[initial(icon_state)]burst"
 
-/obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/magazine))
-		add_fingerprint(user)
-		var/obj/item/ammo_box/magazine/new_magazine = I
-		if(!istype(new_magazine, mag_type))
-			balloon_alert(user, "не совместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
-			return ..()
-		if(magazine)
-			magazine.forceMove(get_turf(src))
-			magazine.update_appearance()
-		playsound(loc, magin_sound, 50, TRUE)
-		balloon_alert(user, "заряжено")
-		magazine = new_magazine
-		chamber_round()
-		magazine.update_appearance()
-		update_appearance()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
 		toggle_firemode()

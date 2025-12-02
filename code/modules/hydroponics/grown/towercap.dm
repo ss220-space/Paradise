@@ -49,7 +49,7 @@
 	))
 
 /obj/item/grown/log/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		if(!isturf(loc))
 			add_fingerprint(user)
 			to_chat(user, span_warning("You cannot chop [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
