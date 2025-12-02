@@ -22,13 +22,23 @@
 	/// Cell to use, can be a path, to start loaded.
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/super
 
+/obj/item/twohanded/spear/secspear/get_ru_names()
+	return list(
+		NOMINATIVE = "телескопическое энергитическое копьё",
+		GENITIVE = "телескопического энергитического копья",
+		DATIVE = "телескопическому энергитическому копью",
+		ACCUSATIVE = "телескопическое энергитическое копьё",
+		INSTRUMENTAL = "телескопическим энергитическим копьём",
+		PREPOSITIONAL = "телескопическом энергитическом копье",
+	)
+
 /obj/item/twohanded/spear/secspear/Initialize(mapload)
 	cell = new cell(src)
 	add_traits(list(TRAIT_TWOHANDED_BLOCKED, TRAIT_CLEAVE_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 	. = ..()
 	spear_mode = GLOB.secspear_modes[spear_mode.name]
 	spear_mode.on_activate(src)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 
 /obj/item/twohanded/spear/secspear/examine(mob/user)
 	. = ..()
@@ -56,13 +66,22 @@
 
 	. += mutable_appearance(icon_file, "[item_state][spear_mode.overlay_prefix]")
 
+/obj/item/twohanded/spear/secspear/emp_act(severity)
+	. = ..()
+	cell.emp_act(severity)
+
 /obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, params)
-	if(iscell(I))
+	if(iscell(I) )
 		var/obj/item/stock_parts/cell/new_cell = I
 
 		if(new_cell.maxcharge < spear_mode.power_cost)
 			balloon_alert(user, "энергоёмкость недостаточна!")
 			return ATTACK_CHAIN_PROCEED
+
+		to_chat(user, span_notice("Вы начинаете подключать [new_cell.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]"))
+
+		if(!do_after(user, 10 SECONDS, src))
+			return
 
 		if(!user.drop_transfer_item_to_loc(new_cell, src))
 			return ..()
@@ -76,6 +95,14 @@
 	return ..()
 
 /obj/item/twohanded/spear/secspear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	. = ..()
+
+	if(!(. & ATTACK_CHAIN_SUCCESS))
+		return
+
+	power_usage()
+
+/obj/item/twohanded/spear/secspear/attack_obj(obj/object, mob/living/user, params)
 	. = ..()
 
 	if(!(. & ATTACK_CHAIN_SUCCESS))

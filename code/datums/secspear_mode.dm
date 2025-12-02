@@ -40,7 +40,7 @@
 	name = "выключен"
 	hit_sound = SFX_SWING_HIT
 	on_sound = 'sound/weapons/saberoff.ogg'
-	cleave_sound = SFX_GENERIC_SWING_HEAVY
+	cleave_sound = SFX_BLUNT_SWING_HEAVY
 	next_mode = /datum/secspear_mode/stunner
 	damage = 7
 	damage_weided = 10
@@ -82,9 +82,7 @@
 /datum/secspear_mode/energy_blade/on_activate(obj/item/twohanded/spear/secspear/spear)
 	. = ..()
 	spear.sharp = TRUE
-	spear.embed_chance = 40
 
 /datum/secspear_mode/energy_blade/on_deactivate(obj/item/twohanded/spear/secspear/spear)
 	. = ..()
 	spear.sharp = FALSE
-	spear.embed_chance = 0
