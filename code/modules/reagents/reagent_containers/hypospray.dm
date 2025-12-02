@@ -762,7 +762,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/sanguinius
 	name = "Sanguinius autoinjector"
-	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу Сангвиния для восстановления крови."
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу \"Сангвиния\" для экстренной помощи при кровопотерях."
 	icon_state = "redinjector"
 	amount_per_transfer_from_this = 15
 	volume = 15

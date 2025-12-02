@@ -1763,7 +1763,8 @@
 /datum/reagent/medicine/sanguinius
 	name = "Сангвиний"
 	id = "sanguinius"
-	description = "Кроваво-красная густая жидкость, способная имитировать любой тип крови. Повышает возможности организма восстанавливать кровь"
+	description = "Кроваво-красная густая жидкость, предназначенная для использования в случаях острой кровопотери. \
+					Временно повышает способности организма к кроветворению."
 	color = "#770101"
 	taste_description = "металла"
 	harmless = FALSE
@@ -1799,7 +1800,7 @@
 
 	if(volume < 20)
 		if(prob(10))
-			to_chat(user, span_warning("Вы кашляете запекшейся кровью."))
+			to_chat(user, span_warning("Вы кашляете запекшейся кровью!"))
 			user.vomit(0, VOMIT_BLOOD, 0)
 			user.AdjustBlood(-15)
 			return .
@@ -1807,12 +1808,12 @@
 		if(!prob(10))
 			return .
 
-		var/overdose_message = pick("На мгновение ваше зрение окрасилось в красный цвет.", "Вы слышите, как бьется ваше сердце.")
+		var/overdose_message = pick("На мгновение ваше зрение окрашивается в красный цвет.", "Вы слышите, как бьётся ваше сердце.")
 		to_chat(user, span_warning("[overdose_message]"))
 		return .
 
 	if(prob(10))
-		to_chat(user, span_danger("Вы захлёбываетесь своей запекшейся кровью!"))
+		to_chat(user, span_danger("Вы захлёбываетесь собственной кровью!"))
 		user.AdjustLoseBreath(2 SECONDS)
 		user.vomit(0, VOMIT_BLOOD, 0)
 		user.AdjustBlood(-30)
@@ -1821,7 +1822,7 @@
 	if(!prob(10))
 		return .
 
-	var/overdose_message = pick("Ваши глаза застилает кровавая пелена!", "Стук вашего сердца гремит в ушах", "Ваши вены вздуваются под кожей!")
+	var/overdose_message = pick("Ваши глаза застилает кровавая пелена!", "Стук вашего сердца гремит в ушах!", "Ваши вены вздуваются под кожей!")
 	to_chat(user, span_danger("[overdose_message]"))
 	user.adjustBruteLoss(6)
 	user.client.color = "red"

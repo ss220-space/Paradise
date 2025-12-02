@@ -1825,7 +1825,7 @@
 
 /datum/uplink_item/device_tools/sanguinius
 	name = "Инъектор с Сангвинием"
-	desc = "Одноразовый инъектор, содержащий одну дозу Сангвиния. \
+	desc = "Одноразовый инъектор, содержащий одну дозу \"Сангвиния\". \
 			Препарат используется для быстрого восстановления крови, пригоден для приёма в полевых условиях."
 	item = /obj/item/reagent_containers/hypospray/autoinjector/sanguinius
 	cost = 2
