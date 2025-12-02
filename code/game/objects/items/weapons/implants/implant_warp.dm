@@ -1,72 +1,74 @@
+#define _LOC 1
+#define _DIR 2
+
 /obj/item/implant/warp
-	name = "warp implant"
-	desc = "Warps you to where you were 10 seconds before when activated."
+	name = "Варп имплант"
+	desc = "Варп-имплант EX-27 при активации переносит пользователя на 150 метров назад."
 	icon_state = "warp"
 	implant_data = /datum/implant_fluff/warp
 
 	STATIC_COOLDOWN_DECLARE(cooldown)
-	var/total_delay = 10 SECONDS
-	var/last_use = 0
-	var/list/positions = list()
-	var/next_prune = 0
+	var/queue/position_queue = new()
+	var/max_warp_steps = 150
 
 /obj/item/implant/warp/Destroy()
-	positions = null
+	position_queue = null
 	return ..()
 
 /obj/item/implant/warp/implant(mob/living/target, mob/user, silent, force)
 	. = ..()
-	if(.)
-		update_position()
-		RegisterSignal(imp_in, COMSIG_MOVABLE_MOVED, PROC_REF(update_position))
+	if(!.)
+		return
+	RegisterSignal(imp_in, COMSIG_MOVABLE_MOVED, PROC_REF(update_position))
+	update_position()
 
 /obj/item/implant/warp/removed(mob/living/source, silent, special)
 	. = ..()
-	clear_positions()
 
-/obj/item/implant/warp/proc/update_position(datum/source)
+/obj/item/implant/warp/proc/update_position(datum/source = null)
+	SIGNAL_HANDLER
 	if(!isatom(imp_in.loc))
 		return
-	positions[num2text(world.time)] = list(imp_in.loc, imp_in.dir)
-	if(!((++next_prune) % 10))
-		prune()
+	inject_position(imp_in.loc)
+
+/obj/item/implant/warp/proc/inject_position(atom/new_loc)
+	if(!new_loc)
+		return
+	if(position_queue.count >= max_warp_steps)
+		position_queue.dequeue()
+	position_queue.enqueue(list(new_loc, imp_in.dir))
 
 /obj/item/implant/warp/proc/clear_positions()
-	positions = list()
-
-/obj/item/implant/warp/proc/get_tele_position()
-	prune()
-	return positions[positions[1]][1]
+	position_queue = null
+	position_queue = new()
+	update_position()
 
 /obj/item/implant/warp/proc/do_teleport_effects()
-	var/safety = 100
-	var/list/done = list()
-	var/time
-	var/turf/target
+	var/delta_alpha = round(225 / position_queue.count)
+	var/latest_alpha = 225
 
-	var/all_steps = min(length(positions), safety)
-	var/delta_alpha = round(200 / all_steps)
-	var/latest_alpha = 200
-
-	for(var/i in 1 to length(positions))
-		if(!--safety)
-			break
-		time = positions[i]
-		target = positions[time][1]
-		if(done[target])
-			continue
-		done[target] = TRUE
-		if(!istype(target))
+	while(!position_queue.is_empty())
+		var/list/data = position_queue.dequeue()
+		if(!data?[_LOC] || !isturf(data?[_LOC]))
 			continue
 
-		var/obj/effect/temp_visual/nothing/warp/temp = new /obj/effect/temp_visual/nothing/warp(target, positions[time][2])
-
+		var/obj/effect/temp_visual/nothing/warp/temp = new /obj/effect/temp_visual/nothing/warp(data[_LOC])
 		temp.alpha = latest_alpha
 		temp.overlays = imp_in.overlays
-		temp.dir = positions[time][2]
+		temp.dir = data?[_DIR] ? data?[_DIR] : imp_in.dir
 		latest_alpha -= delta_alpha
 
 		animate(temp, alpha = 0, time = 9)
+
+/obj/item/implant/warp/proc/teleport_owner()
+	while(!position_queue.is_empty()) //На случай если головной турф будет удален
+		var/list/data = position_queue.dequeue()
+		if(!data?[_LOC])
+			continue
+		if(!do_teleport(imp_in, data[_LOC]))
+			continue
+		imp_in.dir = data?[_DIR] ? data?[_DIR] : imp_in.dir
+		break
 
 /obj/item/implant/warp/activate()
 	. = ..()
@@ -75,25 +77,14 @@
 		imp_in.balloon_alert(imp_in, "перезарядка!")
 		return
 
-	last_use = world.time
-	prune()
-	do_teleport_effects()		//first.
-	do_teleport(imp_in, get_tele_position())
-
+	teleport_owner()
+	do_teleport_effects()
+	clear_positions()
 	COOLDOWN_START(src, cooldown, 30 SECONDS)
-
-/obj/item/implant/warp/proc/prune()
-	var/minimum_time = world.time - total_delay
-	var/remove = 0
-	for(var/i in 1 to length(positions))
-		if(!(text2num(positions[i]) < minimum_time))
-			break
-		remove++
-
-	if(!remove)
-		return
-	positions.Cut(1, remove + 1)
 
 /obj/item/implanter/warp
 	name = "Implanter (warp)"
 	imp = /obj/item/implant/warp
+
+#undef _LOC
+#undef _DIR
