@@ -4,9 +4,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
 
-/proc/enable_debugging(mode, port)
-	CRASH("auxtools not loaded")
-
 /world/New()
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled

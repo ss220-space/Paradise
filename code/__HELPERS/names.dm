@@ -1,4 +1,5 @@
 GLOBAL_VAR(church_name)
+/// Returns the current church name, generating one if not set
 /proc/church_name()
 	if(GLOB.church_name)
 		return GLOB.church_name
@@ -16,16 +17,22 @@ GLOBAL_VAR(church_name)
 	return name
 
 GLOBAL_VAR(command_name)
+/// Returns the current command name, falling back to the map's dock name if not set
 /proc/command_name()
 	return GLOB.command_name? GLOB.command_name : SSmapping.map_datum.dock_name
 
-/proc/change_command_name(name)
-
-	GLOB.command_name = name
-
-	return name
+/**
+ * Changes the command name to the specified value
+ *
+ * Arguments:
+ * * new_name - The new command name
+ */
+/proc/change_command_name(new_name)
+	GLOB.command_name = new_name
+	return new_name
 
 GLOBAL_VAR(religion_name)
+/// Returns the current religion name, generating one if not set
 /proc/religion_name()
 	if(GLOB.religion_name)
 		return GLOB.religion_name
@@ -37,24 +44,40 @@ GLOBAL_VAR(religion_name)
 
 	return capitalize(name)
 
+/// Returns the system name from the map datum
 /proc/system_name()
 	return SSmapping.map_datum.starsys_name
 
 GLOBAL_VAR(station_name)
+/// Returns the current station name, falling back to the map's station name if not set
 /proc/station_name()
 	return GLOB.station_name ? GLOB.station_name : SSmapping.map_datum.station_name
 
-/proc/change_station_name(designation)
-	GLOB.station_name = designation
+/**
+ * Changes the station name to the specified designation
+ *
+ * Arguments:
+ * * new_designation - The new station name
+ */
+/proc/change_station_name(new_designation)
+	GLOB.station_name = new_designation
 
 GLOBAL_VAR(english_station_name)
+/// Returns the English station name, falling back to appropriate defaults if not set
 /proc/english_station_name()
 	return GLOB.english_station_name ? GLOB.english_station_name : (SSmapping.map_datum.english_station_name ? SSmapping.map_datum.english_station_name : SSmapping.map_datum.station_name)
 
-/proc/change_english_station_name(designation)
-	GLOB.english_station_name = designation
+/**
+ * Changes the English station name and updates the world name
+ *
+ * Arguments:
+ * * new_designation - The new English station name
+ */
+/proc/change_english_station_name(new_designation)
+	GLOB.english_station_name = new_designation
 	update_world_name()
 
+/// Updates the world name based on server configuration and station name.
 /proc/update_world_name()
 	// We use english_station_name() to display correctly in the Byond hub.
 	var/current_station_name = english_station_name()
@@ -63,48 +86,49 @@ GLOBAL_VAR(english_station_name)
 	else
 		world.name = current_station_name
 
+/// Generates a new random station name.
 /proc/new_station_name()
-	var/random = rand(1,5)
-	var/name = ""
-	var/new_station_name = ""
+	var/name_category = rand(1, 5)
+	var/name_component = ""
+	var/full_station_name = ""
 
-	//Rare: Pre-Prefix
+	// Rare: Pre-Prefix
 	if(prob(10))
-		name = pick("Imperium", "Heretical", "Cuban", "Psychic", "Elegant", "Common", "Uncommon", "Rare", "Unique", "Houseruled", "Religious", "Atheist", "Traditional", "Houseruled", "Mad", "Super", "Ultra", "Secret", "Top Secret", "Deep", "Death", "Zybourne", "Central", "Main", "Government", "Uoi", "Fat", "Automated", "Experimental", "Augmented")
-		new_station_name = name + " "
-		name = ""
+		name_component = pick("Imperium", "Heretical", "Cuban", "Psychic", "Elegant", "Common", "Uncommon", "Rare", "Unique", "Houseruled", "Religious", "Atheist", "Traditional", "Houseruled", "Mad", "Super", "Ultra", "Secret", "Top Secret", "Deep", "Death", "Zybourne", "Central", "Main", "Government", "Uoi", "Fat", "Automated", "Experimental", "Augmented")
+		full_station_name = name_component + " "
+		name_component = ""
 
 	// Prefix
 	for(var/holiday_name in SSholiday.holidays)
 		if(holiday_name == "Friday the 13th")
-			random = 13
+			name_category = 13
 		var/datum/holiday/holiday = SSholiday.holidays[holiday_name]
-		name = holiday.getStationPrefix()
-		//get normal name
-	if(!name)
-		name = pick("", "Stanford", "Dorf", "Alium", "Prefix", "Clowning", "Aegis", "Ishimura", "Scaredy", "Death-World", "Mime", "Honk", "Rogue", "MacRagge", "Ultrameens", "Safety", "Paranoia", "Explosive", "Neckbear", "Donk", "Muppet", "North", "West", "East", "South", "Slant-ways", "Widdershins", "Rimward", "Expensive", "Procreatory", "Imperial", "Unidentified", "Immoral", "Carp", "Ork", "Pete", "Control", "Nettle", "Aspie", "Class", "Crab", "Fist","Corrogated","Skeleton","Race", "Fatguy", "Gentleman", "Capitalist", "Communist", "Bear", "Beard", "Derp", "Space", "Spess", "Star", "Moon", "System", "Mining", "Neckbeard", "Research", "Supply", "Military", "Orbital", "Battle", "Science", "Asteroid", "Home", "Production", "Transport", "Delivery", "Extraplanetary", "Orbital", "Correctional", "Robot", "Hats", "Pizza")
-	if(name)
-		new_station_name += name + " "
+		name_component = holiday.getStationPrefix()
+		// Get normal name if no holiday prefix
+	if(!name_component)
+		name_component = pick("", "Stanford", "Dorf", "Alium", "Prefix", "Clowning", "Aegis", "Ishimura", "Scaredy", "Death-World", "Mime", "Honk", "Rogue", "MacRagge", "Ultrameens", "Safety", "Paranoia", "Explosive", "Neckbear", "Donk", "Muppet", "North", "West", "East", "South", "Slant-ways", "Widdershins", "Rimward", "Expensive", "Procreatory", "Imperial", "Unidentified", "Immoral", "Carp", "Ork", "Pete", "Control", "Nettle", "Aspie", "Class", "Crab", "Fist","Corrogated","Skeleton","Race", "Fatguy", "Gentleman", "Capitalist", "Communist", "Bear", "Beard", "Derp", "Space", "Spess", "Star", "Moon", "System", "Mining", "Neckbeard", "Research", "Supply", "Military", "Orbital", "Battle", "Science", "Asteroid", "Home", "Production", "Transport", "Delivery", "Extraplanetary", "Orbital", "Correctional", "Robot", "Hats", "Pizza")
+	if(name_component)
+		full_station_name += name_component + " "
 
 	// Suffix
-	name = pick("Station", "Fortress", "Frontier", "Suffix", "Death-trap", "Space-hulk", "Lab", "Hazard","Spess Junk", "Fishery", "No-Moon", "Tomb", "Crypt", "Hut", "Monkey", "Bomb", "Trade Post", "Fortress", "Village", "Town", "City", "Edition", "Hive", "Complex", "Base", "Facility", "Depot", "Outpost", "Installation", "Drydock", "Observatory", "Array", "Relay", "Monitor", "Platform", "Construct", "Hangar", "Prison", "Center", "Port", "Waystation", "Factory", "Waypoint", "Stopover", "Hub", "HQ", "Office", "Object", "Fortification", "Colony", "Planet-Cracker", "Roost", "Fat Camp")
-	new_station_name += name + " "
+	name_component = pick("Station", "Fortress", "Frontier", "Suffix", "Death-trap", "Space-hulk", "Lab", "Hazard","Spess Junk", "Fishery", "No-Moon", "Tomb", "Crypt", "Hut", "Monkey", "Bomb", "Trade Post", "Fortress", "Village", "Town", "City", "Edition", "Hive", "Complex", "Base", "Facility", "Depot", "Outpost", "Installation", "Drydock", "Observatory", "Array", "Relay", "Monitor", "Platform", "Construct", "Hangar", "Prison", "Center", "Port", "Waystation", "Factory", "Waypoint", "Stopover", "Hub", "HQ", "Office", "Object", "Fortification", "Colony", "Planet-Cracker", "Roost", "Fat Camp")
+	full_station_name += name_component + " "
 
 	// ID Number
-	switch(random)
+	switch(name_category)
 		if(1)
-			new_station_name += "[rand(1, 99)]"
+			full_station_name += "[rand(1, 99)]"
 		if(2)
-			new_station_name += pick("Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega")
+			full_station_name += pick("Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega")
 		if(3)
-			new_station_name += pick("II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX")
+			full_station_name += pick("II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX")
 		if(4)
-			new_station_name += pick("Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray", "Yankee", "Zulu")
+			full_station_name += pick("Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray", "Yankee", "Zulu")
 		if(5)
-			new_station_name += pick("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen")
+			full_station_name += pick("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen")
 		if(13)
-			new_station_name += pick("13","XIII","Thirteen")
-	return new_station_name
+			full_station_name += pick("13","XIII","Thirteen")
+	return full_station_name
 
 //Traitors and traitor silicons will get these. Revs will not.
 GLOBAL_VAR(syndicate_code_phrase) //Code phrase for traitors.
@@ -195,18 +219,10 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 			else
 				. += ", "
 
-/proc/escape_regex_smart(text)
-	var/list/chars = list(".", "*", "+", "?", "^", "$", "(", ")", "[", "]", "{", "}", "|")
-	text = replacetext(text, "\\", "\\\\")
-	for(var/char in chars)
-		text = replacetext(text, char, "\\[char]")
-	for(var/char in chars)
-		text = replacetext(text, "\\\\\\[char]", "\\[char]")
-	return text
-
+/// Generates a random key by combining words and numbers
 /proc/GenerateKey()
-	var/newKey
-	newKey += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
-	newKey += pick("diamond", "beer", "mushroom", "civilian", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
-	newKey += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-	return newKey
+	var/new_key
+	new_key += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
+	new_key += pick("diamond", "beer", "mushroom", "civilian", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
+	new_key += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+	return new_key

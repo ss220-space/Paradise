@@ -33,7 +33,7 @@
 	#endif
 
 	//Guest Checking
-	if(!GLOB.guests_allowed && IsGuestKey(key))
+	if(!GLOB.guests_allowed && is_guest_key(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
