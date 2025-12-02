@@ -10,6 +10,8 @@
 	var/hit_sound = SFX_ENERGY_SWORD_SWING
 	var/next_mode
 	var/on_sound = 'sound/weapons/saberon.ogg'
+	var/light_color
+	var/light_on = TRUE
 
 	// Cleave params
 	var/arc_size = 90
@@ -27,6 +29,8 @@
 	spear.update_damage(damage_weided, damage)
 	spear.armour_penetration = armour_penetration
 	spear.hitsound = hit_sound
+	spear.light_color = light_color
+	spear.light_on = light_on
 	spear.update_cleave_component()
 
 /datum/secspear_mode/proc/on_deactivate(obj/item/twohanded/spear/secspear/spear)
@@ -50,14 +54,16 @@
 	slowdown_duration = 0
 	swing_speed_mod = 1.1
 	swing_speed_mod_weided = 1.2
+	light_on = FALSE
 
 /datum/secspear_mode/stunner
 	name = "станнер"
 	next_mode = /datum/secspear_mode/burning_blade
 	damage_type = STAMINA
-	damage = 25
-	damage_weided = 35
+	damage = 27
+	damage_weided = 37
 	overlay_prefix = "_disabler"
+	light_color = COLOR_SECSPEAR_BLUE
 
 /datum/secspear_mode/burning_blade
 	name = "огненный клинок"
@@ -68,6 +74,7 @@
 	armour_penetration = 30
 	power_cost = 650
 	overlay_prefix = "_taser"
+	light_color = COLOR_SECSPEAR_YELLOW
 
 /datum/secspear_mode/energy_blade
 	name = "энергетический клинок"
@@ -77,6 +84,7 @@
 	damage_weided = 24
 	armour_penetration = 10
 	overlay_prefix = "_lethal"
+	light_color = COLOR_SECSPEAR_RED
 
 /datum/secspear_mode/energy_blade/on_activate(obj/item/twohanded/spear/secspear/spear)
 	. = ..()

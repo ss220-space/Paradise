@@ -16,6 +16,12 @@
 	block_type = MELEE_ATTACKS
 	icon = 'icons/obj/secspear.dmi'
 	actions_types = list(/datum/action/item_action/switch_spear_mode, /datum/action/item_action/toggle_folded)
+
+	light_power = 2
+	light_range = 2
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
+
 	var/folded = TRUE
 	var/fold_sound = 'sound/weapons/batonextend.ogg'
 	var/datum/secspear_mode/spear_mode = /datum/secspear_mode/off
@@ -156,6 +162,10 @@
 	)
 
 /obj/item/twohanded/spear/secspear/proc/toggle_folded(mob/user = usr)
+	if(!user.is_in_hands(src))
+		to_chat(usr, span_notice("Разложить копьё можно только держа его в руках."))
+		return
+
 	playsound(get_turf(src), fold_sound, 50, TRUE)
 	folded = !folded
 
@@ -185,6 +195,10 @@
 	switch_spear_mode(/datum/secspear_mode/off)
 
 /obj/item/twohanded/spear/secspear/proc/swap_spear_mode(mob/user = usr)
+	if(!user.is_in_hands(src))
+		to_chat(usr, span_notice("Сменить режим копья можно только держа его в руках."))
+		return
+
 	var/datum/secspear_mode/next_mode = spear_mode.next_mode
 	if(cell.charge < next_mode.power_cost)
 		balloon_alert(user, "недостаточно энергии!")
