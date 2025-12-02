@@ -134,6 +134,7 @@
 			if(V.spread_flags < BLOOD)
 				continue
 
+			if(method == REAGENT_TOUCH)
 				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
 			else
 				V.Contract(M, need_protection_check = FALSE)
