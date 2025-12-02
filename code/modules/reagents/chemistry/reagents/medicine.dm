@@ -1821,7 +1821,7 @@
 	if(!prob(10))
 		return .
 
-	var/overdose_message = pick("Ваши глаза застелает кровавая пелена!", "Стук вашего сердца гремит в ушах", "Ваши вены вздуваются под кожей!")
+	var/overdose_message = pick("Ваши глаза застилает кровавая пелена!", "Стук вашего сердца гремит в ушах", "Ваши вены вздуваются под кожей!")
 	to_chat(user, span_danger("[overdose_message]"))
 	user.adjustBruteLoss(6)
 	user.client.color = "red"
