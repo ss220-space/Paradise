@@ -34934,16 +34934,6 @@
 	},
 /area/toxins/lab)
 "fdA" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/rack/gunrack,
 /obj/item/twohanded/spear/secspear,
 /obj/item/twohanded/spear/secspear,
@@ -39198,8 +39188,8 @@
 	pixel_y = 2
 	},
 /obj/item/mod/module/pepper_shoulders{
-	pixel_y = 9;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -56123,6 +56113,11 @@
 /area/maintenance/starboard)
 "ikW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syndie_kit/dropwall{
+	pixel_x = -2;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -75700,12 +75695,12 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/table/reinforced,
 /obj/item/mod/module/longfall{
-	pixel_y = 4;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /obj/item/mod/module/longfall{
-	pixel_y = 4;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /obj/item/mod/module/jump_jet{
 	pixel_x = -5;
