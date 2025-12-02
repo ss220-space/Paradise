@@ -83,7 +83,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = icon_off
 	damtype = BRUTE
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
 

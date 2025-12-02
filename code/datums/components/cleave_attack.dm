@@ -1,6 +1,4 @@
 /datum/component/cleave_attack
-	/// We can toggle the component ON and OFF with item action, by default its ON
-	var/toggled = TRUE
 	var/datum/action/item_action/toggle_cleave_attack/toggle_action
 	/// Size of the attack arc in degrees
 	var/arc_size
@@ -101,10 +99,9 @@
 /datum/component/cleave_attack/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
-	RegisterSignal(parent, COMSIG_TOGGLE_CLEAVE_ATTACK, PROC_REF(on_toggle_cleave_attack))
 
 /datum/component/cleave_attack/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_AFTERATTACK, COMSIG_TOGGLE_CLEAVE_ATTACK))
+	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_AFTERATTACK))
 
 /datum/component/cleave_attack/proc/on_examine(atom/examined_item, mob/user, list/examine_list)
 	var/arc_desc
@@ -120,7 +117,7 @@
 	examine_list += "Этим можно размахивать [arc_desc]."
 
 /datum/component/cleave_attack/proc/on_afterattack(obj/item/item, atom/target, mob/user, proximity_flag, click_parameters)
-	if(!toggled)
+	if(HAS_TRAIT(item, TRAIT_CLEAVE_BLOCKED))
 		return
 
 	if(proximity_flag || user.a_intent != INTENT_HARM)
@@ -131,9 +128,6 @@
 		return
 
 	perform_sweep(item, target, user, click_parameters)
-
-/datum/component/cleave_attack/proc/on_toggle_cleave_attack()
-	toggled = !toggled
 
 /datum/component/cleave_attack/proc/perform_sweep(obj/item/item, atom/target, mob/living/user, params)
 	if(user.next_move > world.time)
