@@ -396,3 +396,7 @@
 
 /// If any of the owner's robotic parts are being repaired right now
 #define TRAIT_REPAIRING_LIMB "repairing_limb"
+
+#define TRAIT_TWOHANDED_BLOCKED "twohandec_blocked"
+
+#define TRAIT_CLEAVE_BLOCKED "cleave_blocked"

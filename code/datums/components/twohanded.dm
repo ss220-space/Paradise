@@ -136,6 +136,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
+	RegisterSignal(parent, COMSIG_UPDATE_TWOHANDED_DAMAGE, PROC_REF(on_update_damage))
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -147,6 +148,7 @@
 		COMSIG_ATOM_UPDATE_ICON,
 		COMSIG_MOVABLE_MOVED,
 		COMSIG_ITEM_SHARPEN_ACT,
+		COMSIG_UPDATE_TWOHANDED_DAMAGE,
 	))
 
 /// Triggered on equip of the item containing the component
@@ -195,10 +197,11 @@
 /datum/component/two_handed/proc/wield(mob/living/carbon/user)
 	SIGNAL_HANDLER
 
+	if(wielded || HAS_TRAIT(parent, TRAIT_TWOHANDED_BLOCKED))
+		return
+
 	var/obj/item/check = parent
 	var/abstract_check = !(check.item_flags & ABSTRACT)
-	if(wielded)
-		return
 
 	if(is_monkeybasic(user))
 		if(require_twohands)
@@ -314,7 +317,7 @@
 /datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message = TRUE, can_drop = TRUE)
 	SIGNAL_HANDLER
 
-	if(!wielded)
+	if(!wielded || HAS_TRAIT(parent, TRAIT_TWOHANDED_BLOCKED))
 		return
 
 	//Dont ask
@@ -454,6 +457,19 @@
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 	sharpened_increase = min(amount, (max_amount - wielded_val))
 	return COMPONENT_BLOCK_SHARPEN_APPLIED
+
+/datum/component/two_handed/proc/on_update_damage(obj/item/item, force_wielded = 0, force_unwielded = 0, force_multiplier = 0)
+	SIGNAL_HANDLER
+	if(force_multiplier)
+		src.force_multiplier = force_multiplier
+
+	if(force_wielded)
+		src.force_wielded = force_wielded
+
+	if(!force_unwielded)
+		return
+
+	src.force_unwielded = force_unwielded
 
 /**
  * The offhand dummy item for two handed items

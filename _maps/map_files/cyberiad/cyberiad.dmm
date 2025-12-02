@@ -81045,7 +81045,11 @@
 	dir = 8;
 	network = list("SS13","Security")
 	},
-/obj/structure/table/reinforced,
+/obj/structure/rack/gunrack,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
