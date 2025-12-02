@@ -67,7 +67,7 @@
 	description = "Стремительно растущие паучьи яйца."
 	color = "#6b336b"
 	taste_mult = 0
-	organ_type = /obj/item/organ/internal/body_egg/terror_egg
+	organ_type = /obj/item/organ/internal/body_egg/terror_eggs
 
 /datum/reagent/organ_spawner/terror_eggs/phantom
 	id = "terror_phantom_eggs"
