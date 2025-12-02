@@ -134,7 +134,6 @@
 			if(V.spread_flags < BLOOD)
 				continue
 
-			if(method == REAGENT_TOUCH)
 				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
 			else
 				V.Contract(M, need_protection_check = FALSE)
@@ -145,9 +144,15 @@
 			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
 			C.reagents.del_reagent(id)
 
+	if(iscarbon(M))
+		data["method"] = method
+		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
+			to_chat(M, "<span class='warning'>[src] всё внутри вас замерзает!</span>")
+	..()
+
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(iscarbon(M) && M.bodytemperature < TCRYO)
+	if(M.bodytemperature < TCRYO && data["method"] == REAGENT_TOUCH)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-03, FALSE)
