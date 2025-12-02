@@ -72,6 +72,7 @@
 #define COLOR_CULT_RED "#960000"
 #define COLOR_BUBBLEGUM_RED "#950a0a"
 #define COLOR_CARP_RIFT_RED "#ff330030"
+#define COLOR_SECSPEAR_RED "#ed3f3f"
 
 // Yellow
 #define COLOR_YELLOW "#ffff00"
@@ -81,6 +82,7 @@
 #define COLOR_GOLD "#ffd700"
 #define COLOR_ETHIOPIA_YELLOW "#fcdd09"
 #define COLOR_LIGHT_YELLOW "#fffee0"
+#define COLOR_SECSPEAR_YELLOW "#edc73f"
 
 // Green
 #define COLOR_OLIVE "#808000"
@@ -126,6 +128,7 @@
 #define COLOR_BLUE_VERY_LIGHT "#ccecff"
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75a2bb"
+#define COLOR_SECSPEAR_BLUE "#3fc4ed"
 
 // Pink
 #define COLOR_PINK "#ffc0cb"
