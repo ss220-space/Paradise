@@ -650,6 +650,7 @@
 	else if(!hand_blocked && isliving(user))
 		var/mob/living/grabber = user
 		var/suppress_target_bodypart = left_hand ? grabber.left_hand_bleed_suppress_lib : grabber.right_hand_bleed_suppress_lib
+
 		if(suppress_target_bodypart)
 			. += hand_overlays[HAND_GRAB_SUPPRESS_BLOODLOSS]
 

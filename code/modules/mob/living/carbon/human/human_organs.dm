@@ -151,6 +151,7 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.has_arterial_bleeding())
 			bleeding_bodyparts += bodypart
+
 	return bleeding_bodyparts
 
 /mob/living/carbon/human/proc/update_splints()

@@ -512,23 +512,28 @@
 	if(user.get_active_hand())
 		user.balloon_alert(user, "рука занята!")
 		return FALSE
+
 	var/obj/item/organ/external/hand/hand = user.get_organ(user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	if(!hand || !hand.is_usable())
 		user.balloon_alert(user, "рука не работает!")
 		return FALSE
+
 	var/obj/item/organ/external/target_limb = user.get_organ(user.zone_selected)
 	if(target_limb.bleeding_amount <= 0)
 		user.balloon_alert(user, "кровотечения нет!")
 		return
+
 	user.balloon_alert(user, "кровотечение зажато!")
 	user.visible_message(
 			span_notice("[user] зажима[PLUR_ET_UT(user)] кровотечение на [target_limb.declent_ru(PREPOSITIONAL)]."),
 			ignored_mobs = user)
 	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] кровотечение на [target_limb.declent_ru(PREPOSITIONAL)]", "зажатие кровотечения на [target_limb.declent_ru(PREPOSITIONAL)]");
+
 	if(user.hand == ACTIVE_HAND_LEFT)
 		user.left_hand_bleed_suppress_lib = target_limb
 	else
 		user.right_hand_bleed_suppress_lib = target_limb
+
 	user.update_hands_HUD()
 
 

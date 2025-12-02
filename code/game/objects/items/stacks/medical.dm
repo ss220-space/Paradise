@@ -311,7 +311,7 @@
 	use_flags = DA_IGNORE_LYING
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
-	icon_state = "traumakit_[round_down((amount+1) / 2, 1)]"
+	icon_state = "traumakit_[round_down((amount + 1) / 2, 1)]"
 
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -397,7 +397,7 @@
 	merge_type = /obj/item/stack/medical/ointment/advanced
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
-	icon_state = "burnkit_[round_down((amount+1) / 2, 1)]"
+	icon_state = "burnkit_[round_down((amount + 1) / 2, 1)]"
 
 /obj/item/stack/medical/ointment/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -709,6 +709,7 @@
 		necrotize_warning_timer_id = null
 	if(!necrotize_timer_id)
 		return
+
 	deltimer(necrotize_timer_id)
 	necrotize_timer_id = null
 
@@ -738,61 +739,81 @@
 		balloon_alert(user, "уже наложен жгут!")
 		return .
 
-	var/selected_zone = user.zone_selected
 	if(human_target == user)
-		balloon_alert(user, "применение [declent_ru(GENITIVE)]...")
-		user.visible_message(
-			span_notice("[human_target] начина[PLUR_ET_UT(human_target)] применять на себе [declent_ru(ACCUSATIVE)]."),
-			ignored_mobs = user
-		)
-		if(!do_after(human_target, self_duration, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
+		if(!apply_to_self(human_target, affecting, addition_affecting))
 			return .
-		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
-		if(!affecting_rechecked)
-			balloon_alert(user, "часть тела отсутствует!")
-			return .
-		if(affecting_rechecked.tourniquet)
-			balloon_alert(user, "уже наложен жгут!")
-			return .
-		if(affecting_rechecked.is_robotic())
-			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
-			return .
-	else
-		user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)]...")
-		user.visible_message(
-			span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target]."),
-			ignored_mobs = user
-		)
-		user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...");
-		if(!do_after(user, other_duration, human_target) || applyed_bodypart)
-			return .
-		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
-		if(!affecting_rechecked)
-			balloon_alert(user, "часть тела отсутствует!")
-			return .
-		if(affecting_rechecked.tourniquet)
-			balloon_alert(user, "уже наложен жгут!")
-			return .
-		if(affecting_rechecked.is_robotic())
-			balloon_alert(user, "нельзя применить на протезе!")
-			return .
+	else if(!apply_to_other(user, human_target, affecting, addition_affecting))
+		return .
+
 	affecting.tourniquet = src
 	applyed_bodypart = affecting
 	if(addition_affecting)
 		addition_affecting.tourniquet = src
 		applyed_addition_bodypart = addition_affecting
+
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
-
 	user.balloon_alert_to_viewers("жгут наложен")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
 	necrotize_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs), target), necrotize_duration, TIMER_STOPPABLE)
 
+/obj/item/tourniquet/proc/apply_to_self(mob/living/carbon/human/user, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
+	var/selected_zone = user.zone_selected
+	balloon_alert(user, "применение [declent_ru(GENITIVE)]...")
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_UT(user)] применять на себе [declent_ru(ACCUSATIVE)]."),
+		ignored_mobs = user
+	)
+	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
+		return
+
+	var/obj/item/organ/external/affecting_rechecked = user.get_organ(selected_zone)
+	if(!affecting_rechecked)
+		balloon_alert(user, "часть тела отсутствует!")
+		return
+
+	if(affecting_rechecked.tourniquet)
+		balloon_alert(user, "уже наложен жгут!")
+		return
+
+	if(affecting_rechecked.is_robotic())
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
+		return
+
+	return TRUE
+
+/obj/item/tourniquet/proc/apply_to_other(mob/living/user, mob/living/carbon/human/human_target, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
+	var/selected_zone = user.zone_selected
+	user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)]...")
+	user.visible_message(
+		span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target]."),
+		ignored_mobs = user
+	)
+	user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...")
+	if(!do_after(user, other_duration, human_target) || applyed_bodypart)
+		return
+
+	var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
+	if(!affecting_rechecked)
+		balloon_alert(user, "часть тела отсутствует!")
+		return
+
+	if(affecting_rechecked.tourniquet)
+		balloon_alert(user, "уже наложен жгут!")
+		return
+
+	if(affecting_rechecked.is_robotic())
+		balloon_alert(user, "нельзя применить на протезе!")
+		return
+
+	return TRUE
+
 /obj/item/tourniquet/proc/necrotize_limbs_warning(mob/living/user)
 	if(!applyed_bodypart)
 		return
+
 	balloon_alert(user, "[applyed_bodypart.declent_ru(NOMINATIVE)] онемела!")
 	to_chat(user, span_danger("Вы ощущаете, как ваша [applyed_bodypart.declent_ru(NOMINATIVE)] теряет чувствительность!"))
 
@@ -801,21 +822,26 @@
 		applyed_bodypart.necrotize()
 	if(!applyed_addition_bodypart)
 		return
+
 	applyed_addition_bodypart.necrotize()
 
 /obj/item/tourniquet/proc/remove_from_bodypart(mob/living/user)
 	if(!applyed_bodypart)
 		return FALSE
+
 	user.balloon_alert_to_viewers("снятие жгута...")
 	if(!do_after(user, remove_duration, applyed_bodypart.owner) || !applyed_bodypart)
 		return FALSE
+
 	var/drop_loc = applyed_bodypart.drop_location()
 	src.forceMove(drop_loc)
 	applyed_bodypart.tourniquet = null
 	applyed_bodypart = null
+
 	if(applyed_addition_bodypart)
 		applyed_addition_bodypart.tourniquet = null
 		applyed_addition_bodypart = null
+
 	stop_apply_timers()
 	user.put_in_any_hand_if_possible(src)
 	user.balloon_alert_to_viewers("жгут снят")
@@ -824,16 +850,20 @@
 /obj/item/tourniquet/proc/acceptable_zone(zone_selected)
 	if(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)
 		return TRUE
+
 	if(zone_selected == BODY_ZONE_L_LEG || zone_selected == BODY_ZONE_R_LEG)
 		return TRUE
+
 	if(zone_selected == BODY_ZONE_HEAD)
 		return TRUE
+
 	return FALSE
 
 /mob/living/carbon/human/proc/exists_tourniquet()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.tourniquet)
 			return TRUE
+
 	return FALSE
 
 /mob/living/carbon/human/proc/cut_all_tourniquets(mob/living/user)
@@ -846,9 +876,11 @@
 		tourniquet.forceMove(drop_loc)
 		bodypart.tourniquet = null
 		tourniquet.applyed_bodypart = null
+
 		if(tourniquet.applyed_addition_bodypart)
 			tourniquet.applyed_addition_bodypart.tourniquet = null
 			tourniquet.applyed_addition_bodypart = null
+
 		tourniquet.stop_apply_timers()
 
 /obj/item/tourniquet/makeshift

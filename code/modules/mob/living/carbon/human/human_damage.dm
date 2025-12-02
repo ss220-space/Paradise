@@ -497,6 +497,7 @@ This function restores all organs.
 			return get_organ(BODY_ZONE_L_LEG)
 		if(BODY_ZONE_PRECISE_R_FOOT)
 			return get_organ(BODY_ZONE_R_LEG)
+
 	return null
 
 /mob/living/carbon/human/apply_damage(

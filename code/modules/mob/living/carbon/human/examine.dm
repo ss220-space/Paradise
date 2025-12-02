@@ -378,6 +378,7 @@
 			if(bodypart.bleedsuppress)
 				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
 			continue
+
 		var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 		if(suppressed)
 			msg += span_warning("[capitalize(GEND_HIS_HER(src))] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то окровавленным.\n")

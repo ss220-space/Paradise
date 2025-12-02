@@ -270,14 +270,18 @@
 	. = ..()
 	if(!.)
 		return FALSE
+
 	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 	if(affected.has_internal_bleeding())
 		return TRUE
+
 	if(affected.has_arterial_bleeding())
 		return TRUE
+
 	if(affected.bleeding_amount > 0)
 		return TRUE
+
 	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
 	// It's alright for intermediate surgeries, though, since they never get called like that.
 	user.balloon_alert(user, "сосуды в норме!")

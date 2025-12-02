@@ -532,11 +532,14 @@
 					bleeding += "артериальное "
 				else if(e.has_heavy_bleeding())
 					bleeding += "обильное "
+
 				bleeding += "кровотечение"
 			if(e.has_internal_bleeding())
 				if(bleeding == "")
 					internal_bleeding = "<br>"
+
 				internal_bleeding += "Внутреннее кровотечение"
+
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
@@ -549,6 +552,7 @@
 				robot = "Синтетическое"
 			if(e.open)
 				open = "Открыто"
+
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 					infected = "Лёгкая инфекция"

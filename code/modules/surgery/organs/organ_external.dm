@@ -174,8 +174,10 @@
 
 	QDEL_LIST(embedded_objects)
 	QDEL_NULL(hidden)
+
 	if(tourniquet && !QDELETED(tourniquet))
 		QDEL_NULL(tourniquet)
+
 	tourniquet = null
 
 	if(owner && !owner.has_embedded_objects())
@@ -442,19 +444,24 @@
 	//no allowed bleeding for robotic bodyparts
 	if(is_robotic())
 		return
+
 	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		return
+
 	if(has_arterial_bleeding())
 		return //has arterial bleeding, no more bleedings
+
 	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
 		var/basic_chance = 25 + basic_brute * 2.5
 		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
 		var/total_brute_chance = brute_dam >= remaining_health ? 25 : 0
 		var/bleeding_probe = min(100, basic_chance + already_bleeding_chance + total_brute_chance)
+
 		if(sharp || prob(bleeding_probe))
 			var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
 			if(sharp)
 				bleeding = bleeding * 2
+
 			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
 			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
 
@@ -688,13 +695,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/try_arterial_bleeding(inflicted_damage, sharp = FALSE, silent = FALSE)
 	if(inflicted_damage <= LIMB_ARTERIAL_BLEEDING_MIN_DMG)
 		return FALSE
+
 	if(brute_dam + burn_dam + inflicted_damage <= min_arterial_bleeding_damage)
 		return FALSE
+
 	if(!prob(inflicted_damage * LIMB_ARTERIAL_BLEEDING_CHANCE_MOD))
 		return FALSE
+
 	if(arterial_bleeding(silent))
 		add_attack_logs(owner, null, "Suffered arterial bleeding to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 		return TRUE
+
 	return FALSE
 
 // new damage icon system
@@ -984,13 +995,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return TRUE
 
 /obj/item/organ/external/proc/arterial_bleeding(silent = FALSE)
-	if(owner)
-		if(HAS_TRAIT(owner, TRAIT_GODMODE))
-			return FALSE
-		if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
-			return FALSE
+	if(owner && (HAS_TRAIT(owner, TRAIT_GODMODE) || HAS_TRAIT(owner, TRAIT_NO_BLOOD)))
+		return FALSE
+
 	if(is_robotic())
 		return FALSE
+
 	if(has_arterial_bleeding() || cannot_arterial_bleed)
 		return FALSE
 
@@ -1013,10 +1023,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/stop_arterial_bleeding()
 	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		return FALSE
+
 	if(is_robotic())
 		return FALSE
+
 	if(!has_arterial_bleeding())
 		return FALSE
+
 	bleeding_amount = 0.1 * max_bleeding_amount //low bleeding exists after stop arterial bleed
 	return TRUE
 
@@ -1323,6 +1336,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/remove_tourniquet(atom/drop_loc)
 	if(!tourniquet)
 		return
+
 	tourniquet.forceMove(drop_loc ? drop_loc : drop_location())
 	tourniquet = null
 

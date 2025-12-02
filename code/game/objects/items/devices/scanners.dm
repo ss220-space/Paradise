@@ -766,6 +766,7 @@ BODY SCANNERS
 			bleeding += "  в [limb]"
 			if(bodypart.bleeding_amount <= bodypart.bleedsuppress)
 				bleeding += " – остановлено"
+
 			bleedingList += bleeding
 
 	data["fractureList"] = fractureList
@@ -925,8 +926,10 @@ BODY SCANNERS
 				bleed_stat += "артериальное "
 			else if(bodypart.has_heavy_bleeding())
 				bleed_stat += "обильное "
+
 			if(bodypart.bleeding_amount <= bodypart.bleedsuppress)
 				bleed_stat += "остановленное "
+
 			scan_data += span_warning("Обнаружено [bleed_stat]кровотечение в [bodypart.declent_ru(PREPOSITIONAL)].")
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
@@ -1745,6 +1748,7 @@ BODY SCANNERS
 			robot = "Robotic:"
 		if(bodypart.open)
 			open = "Open:"
+
 		switch(bodypart.germ_level)
 			if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 				infected = "Mild Infection:"
@@ -1760,12 +1764,14 @@ BODY SCANNERS
 				infected = "Acute Infection++:"
 			if(INFECTION_LEVEL_THREE to INFINITY)
 				infected = "Septic:"
+
 		if(bodypart.bleeding_amount > 0)
 			bled = "[round(bodypart.bleeding_amount, 0.01)] "
 		if(LAZYLEN(bodypart.embedded_objects) || bodypart.hidden)
 			imp += "Unknown body present:"
 		if(!AN && !open && !infected && !imp)
 			AN = "None:"
+
 		dat += "<td>[bodypart.name]</td><td>[bodypart.burn_dam]</td><td>[bodypart.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"
 	for(var/obj/item/organ/internal/organ as anything in target.internal_organs)

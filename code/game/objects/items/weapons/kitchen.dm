@@ -177,19 +177,21 @@
 
 /obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
-		var/datum/martial_art/throwing/MA = user?.mind?.martial_art
-		if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
-			force = default_force + MA.knife_bonus_damage
+		var/datum/martial_art/throwing/martial_art = user?.mind?.martial_art
+		if(istype(martial_art) && is_type_in_list(src, martial_art.knife_types, FALSE))
+			force = default_force + martial_art.knife_bonus_damage
 			if(can_neck_cut(target, user))
 				. = ATTACK_CHAIN_BLOCKED_ALL
-				neck_cut(target, user, MA.neck_cut_delay)
+				neck_cut(target, user, martial_art.neck_cut_delay)
 				force = default_force
 				return
+
 		else if(can_neck_cut(target, user))
 			. = ATTACK_CHAIN_BLOCKED_ALL
 			neck_cut(target, user)
 			force = default_force
 			return
+
 	. = ..()
 	force = default_force
 
@@ -197,9 +199,11 @@
 	. = TRUE
 	if(!attacker.pulling || attacker.pulling != defender || attacker.grab_state < GRAB_NECK || !defender.dna || HAS_TRAIT(defender, TRAIT_NO_BLOOD))
 		return FALSE
+
 	var/selected_zone = attacker.zone_selected
 	if(selected_zone != BODY_ZONE_HEAD)
 		return FALSE
+
 	var/obj/item/organ/external/head = defender.get_organ(selected_zone)
 	if(!head)
 		if(!silence)
@@ -219,12 +223,15 @@
 		if(!head.arterial_bleeding())
 			balloon_alert(attacker, "не получилось!")
 			return FALSE
+
 	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume
+
 		for(var/i in 1 to 2)
-			var/obj/effect/decal/cleanable/blood/B = new(defender.loc)
-			B.blood_DNA[defender.dna.unique_enzymes] = defender.dna.blood_type
-			step(B, pick(GLOB.alldirs))
+			var/obj/effect/decal/cleanable/blood/blood_decal = new(defender.loc)
+			blood_decal.blood_DNA[defender.dna.unique_enzymes] = defender.dna.blood_type
+			step(blood_decal, pick(GLOB.alldirs))
+
 	attacker.stop_pulling()
 	var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg', 'sound/weapons/knife_holster/throat_slice2.ogg')
 	playsound(defender.loc, sound, 25, TRUE)

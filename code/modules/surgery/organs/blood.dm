@@ -138,6 +138,7 @@
 	//not calculate bleeding for fake dath
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return
+
 	var/current_bleed = 0
 	var/internal_bleeding_rate = 0
 	var/has_arterial_bleed = FALSE
@@ -145,57 +146,75 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.is_robotic())
 			continue
+
 		if(bodypart.tourniquet) //all bloodloss suppressed
 			if(bodypart.limb_zone == BODY_ZONE_HEAD)
 				apply_damage(OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD, OXY, spread_damage = TRUE, forced = TRUE)
 			continue
+
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
+
 		if(bodypart.has_arterial_bleeding() && left_hand_bleed_suppress_lib != bodypart && right_hand_bleed_suppress_lib != bodypart)
 			has_arterial_bleed = TRUE
+
 		if(bodypart.bleeding_amount > 0)
 			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
 			if(bodypart.bleedsuppress > bodypart.bleeding_amount)
 				bodypart.bleedsuppress = bodypart.bleeding_amount
+
 		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0)
 		bodypart_bleeding = bodypart_bleeding * BLEEDING_MODIFIER * bodypart.bleeding_mod
+
 		// suppress bleeding by hands
 		if(left_hand_bleed_suppress_lib == bodypart)
 			bodypart_bleeding = max(0, bodypart_bleeding - MAX_SUPPRESS_BLEEDING_BY_HAND)
+
 		if(right_hand_bleed_suppress_lib == bodypart)
 			bodypart_bleeding = max(0, bodypart_bleeding - MAX_SUPPRESS_BLEEDING_BY_HAND)
+
 		current_bleed += bodypart_bleeding
 		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
+
 		if(embedded_length && bodypart.bleedsuppress > 0)
 			current_bleed += EMBEDDED_ITEM_BLEEDING * embedded_length
+
 		if(bodypart.open)
 			current_bleed += OPEN_BODYPART_BLEEDING
+
 	// calculate bleed rate with regenretion and current bleed
 	var/prev_bleed_rate = bleed_rate
 	bleed_rate = current_bleed
 	//manage alert
 	if(prev_bleed_rate <= 0 && bleed_rate > 0)
 		throw_alert(ALERT_BLEEDING, /atom/movable/screen/alert/bleeding)
+
 	if(prev_bleed_rate > 0 && bleed_rate <= 0)
 		clear_alert(ALERT_BLEEDING)
+
 	// calculate addition bleeding from reagents
 	var/additional_bleed_mod = 1
 	var/heparin_amount = reagents.get_reagent_amount("heparin")
 	if(heparin_amount > 0)
 		additional_bleed_mod += round(clamp((heparin_amount / 20), 0, 1) * 0.75, 0.05) //heparin worsens existing bleeding
+
 	var/traneksam_amount = reagents.get_reagent_amount("traneksam_acid")
 	if(traneksam_amount > 0)
 		additional_bleed_mod -= round(clamp((traneksam_amount / 10), 0, 1) * 0.75, 0.05) //traneksam acid suppress existing bleeding
+
 	// calculate speed mod by blood volume
 	var/speed_by_volume = get_bloodloss_speed_mod_by_volume()
 	// calculate speed mod by body temperature
 	var/speed_by_bodytemperature = get_bloodloss_speed_mod_by_temperature()
+
 	// apply internal bleeding
 	if(internal_bleeding_rate)
 		bleed_internal(internal_bleeding_rate * additional_bleed_mod * speed_by_volume * speed_by_bodytemperature)
+
 	// apply bleeding
 	if(bleed_rate && !bleedsuppress)
 		bleed(bleed_rate * additional_bleed_mod * speed_by_volume * speed_by_bodytemperature)
+
 	// make bloodsplatter for arterial bleeding
 	if(has_arterial_bleed)
 		var/blood_color = dna.species.blood_color
@@ -210,8 +229,10 @@
 /mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_temperature()
 	if(bodytemperature >= BODYTEMP_NORMAL * 0.75)
 		return BLOODLOSS_SPEED_BY_TEMP_MAX
+
 	if(bodytemperature <= T0C)
 		return BLOODLOSS_SPEED_BY_TEMP_MIN
+
 	var/temperature_percent = clamp((bodytemperature - T0C) / (BODYTEMP_NORMAL * 0.75 - T0C), 0, 1)
 	return BLOODLOSS_SPEED_BY_TEMP_MIN + (BLOODLOSS_SPEED_BY_TEMP_MAX - BLOODLOSS_SPEED_BY_TEMP_MIN) * temperature_percent
 
