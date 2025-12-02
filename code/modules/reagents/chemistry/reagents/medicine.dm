@@ -1780,10 +1780,13 @@
 
 	if(user.blood_volume < BLOOD_VOLUME_NORMAL)
 		switch(current_cycle)
+
 			if(1)
 				user.AdjustBlood(1)
+
 			if(2 to 25)
 				user.AdjustBlood(3)
+
 			else
 				user.AdjustBlood(5)
 
@@ -1800,6 +1803,7 @@
 			user.vomit(0, VOMIT_BLOOD, 0)
 			user.AdjustBlood(-15)
 			return .
+
 		if(!prob(10))
 			return .
 
