@@ -11588,6 +11588,18 @@
 	icon_state = "blue"
 	},
 /area/crew_quarters/courtroom)
+"aOC" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/wood,
+/area/lawoffice)
 "aOH" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -22529,6 +22541,32 @@
 	icon_state = "white"
 	},
 /area/medical/chemistry)
+"bGu" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "robotics";
+	name = "Robotics Lab Shutters Control";
+	pixel_x = -24;
+	pixel_y = 24;
+	req_access = list(29)
+	},
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_y = -7
+	},
+/obj/item/multitool/circuit{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/multitool/circuit{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitered"
+	},
+/area/assembly/robotics)
 "bGw" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
@@ -48665,6 +48703,11 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/north)
+"dPA" = (
+/obj/machinery/vending/coffee,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
+/area/security/permabrig)
 "dPJ" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/extinguisher_cabinet{
@@ -51094,6 +51137,14 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"eUA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/security/permabrig)
 "eUN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -51477,21 +51528,6 @@
 	icon_state = "podfloor_dark"
 	},
 /area/maintenance/livingcomplex)
-"fbG" = (
-/obj/structure/closet/wardrobe/robotics_black,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
 "fbJ" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -52829,32 +52865,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
-"fKM" = (
-/obj/structure/table,
-/obj/machinery/door_control{
-	id = "robotics";
-	name = "Robotics Lab Shutters Control";
-	pixel_x = -24;
-	pixel_y = 24;
-	req_access = list(29)
-	},
-/obj/item/integrated_circuit/loaded/hello_world,
-/obj/item/integrated_circuit/loaded/speech_relay{
-	pixel_y = -7
-	},
-/obj/item/multitool/circuit{
-	pixel_x = 8;
-	pixel_y = 10
-	},
-/obj/item/multitool/circuit{
-	pixel_x = -8;
-	pixel_y = 10
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitered"
-	},
-/area/assembly/robotics)
 "fLc" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -60073,6 +60083,20 @@
 	icon_state = "darkred"
 	},
 /area/security/securearmory)
+"jaM" = (
+/obj/machinery/vending/cigarette,
+/obj/machinery/light_switch{
+	name = "south light switch";
+	pixel_y = -24
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/security/detectives_office)
 "jaW" = (
 /obj/effect/spawner/random_spawners/blood_20,
 /obj/effect/decal/cleanable/dirt,
@@ -61385,33 +61409,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
-"jHx" = (
-/obj/machinery/ai_status_display{
-	pixel_x = 32
-	},
-/obj/structure/table,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/compact_remote{
-	pixel_x = -8;
-	pixel_y = 7
-	},
-/obj/item/compact_remote{
-	pixel_x = 7;
-	pixel_y = 7
-	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
 "jHB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -69868,14 +69865,6 @@
 /obj/item/storage/pill_bottle/dice,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"nya" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
-/area/security/permabrig)
 "nyd" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -70375,6 +70364,33 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"nJp" = (
+/obj/machinery/ai_status_display{
+	pixel_x = 32
+	},
+/obj/structure/table,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/compact_remote{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/flash/synthetic,
+/obj/item/flash/synthetic,
+/obj/item/book/manual/sop_science{
+	pixel_y = -14
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "nJG" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -74254,11 +74270,6 @@
 /obj/item/pen,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"pAI" = (
-/obj/machinery/vending/coffee,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood,
-/area/security/permabrig)
 "pBT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -76520,6 +76531,22 @@
 /obj/item/target,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
+"qwh" = (
+/obj/machinery/camera{
+	c_tag = "Secure Armory East";
+	dir = 8;
+	network = list("SS13","Security")
+	},
+/obj/structure/rack/gunrack,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/securearmory)
 "qww" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -79068,18 +79095,6 @@
 	icon_state = "dark"
 	},
 /area/storage/eva)
-"rDj" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -26
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/wood,
-/area/lawoffice)
 "rDp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -81045,18 +81060,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"sAi" = (
-/obj/machinery/camera{
-	c_tag = "Secure Armory East";
-	dir = 8;
-	network = list("SS13","Security")
-	},
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/security/securearmory)
 "sAt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
@@ -82969,20 +82972,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"toS" = (
-/obj/machinery/vending/cigarette,
-/obj/machinery/light_switch{
-	name = "south light switch";
-	pixel_y = -24
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "tpi" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/machinery/light{
@@ -86029,6 +86018,21 @@
 	},
 /turf/space,
 /area/space)
+"uKm" = (
+/obj/structure/closet/wardrobe/robotics_black,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "uKx" = (
 /obj/machinery/light{
 	dir = 8
@@ -111508,7 +111512,7 @@ atO
 atO
 atO
 atO
-nya
+eUA
 qmz
 azU
 aBF
@@ -113304,7 +113308,7 @@ uTI
 uTI
 amW
 abN
-pAI
+dPA
 gOz
 rwJ
 atO
@@ -118467,7 +118471,7 @@ bax
 mgH
 avO
 bdY
-rDj
+aOC
 hLS
 yhP
 bmh
@@ -124095,7 +124099,7 @@ abO
 aiv
 aiv
 pCR
-sAi
+qwh
 pqt
 oaf
 aiv
@@ -124386,7 +124390,7 @@ axe
 axe
 aFz
 bxn
-toS
+jaM
 axe
 bFK
 aMj
@@ -138300,7 +138304,7 @@ bFr
 bwv
 iaJ
 kxm
-fKM
+bGu
 bId
 bId
 bLT
@@ -138816,12 +138820,12 @@ tGd
 kxm
 bGw
 nfv
-jHx
+nJp
 bLL
 bRs
 xND
 tag
-fbG
+uKm
 bUF
 wWc
 cal

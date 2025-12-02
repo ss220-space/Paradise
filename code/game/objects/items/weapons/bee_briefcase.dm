@@ -10,7 +10,7 @@
 	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "briefcase"
 	flags = CONDUCT
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 10
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY

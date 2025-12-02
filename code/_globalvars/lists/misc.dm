@@ -112,3 +112,5 @@ GLOBAL_LIST_INIT(permissions_name_to_flag, list(
 ))
 
 GLOBAL_LIST_EMPTY(exoframe_types)
+
+GLOBAL_LIST_EMPTY(secspear_modes)
