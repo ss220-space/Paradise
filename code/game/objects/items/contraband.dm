@@ -36,17 +36,17 @@
 /obj/item/reagent_containers/food/pill/random_drugs/Initialize(mapload)
 	icon_state = "pill" + pick("2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20")
 
-	name = "[pick_list("chemistry_tools.json", "CYBERPUNK_drug_prefixes")] [pick_list("chemistry_tools.json", "CYBERPUNK_drug_suffixes")]"
+	name = "[pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_prefixes")] [pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_suffixes")]"
 
 	var/primaries = rand(1,3)
 	var/adulterants = rand(2,4)
 
 	while(primaries > 0)
 		primaries--
-		reagents.add_reagent(pick_list("chemistry_tools.json", "CYBERPUNK_drug_primaries"), 6)
+		reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_primaries"), 6)
 	while(adulterants > 0)
 		adulterants--
-		reagents.add_reagent(pick_list("chemistry_tools.json", "CYBERPUNK_drug_adulterants"), 3)
+		reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_adulterants"), 3)
 
 	. = ..()
 

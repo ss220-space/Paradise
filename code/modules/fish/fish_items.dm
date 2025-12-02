@@ -161,7 +161,7 @@
 	icon_state = "catfish"
 
 /obj/item/fish/catfish/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/catfishmeat/meat = new(drop_location(), 2)
 		meat.add_fingerprint(user)
@@ -181,7 +181,7 @@
 	icon_state = "salmon"
 
 /obj/item/fish/salmon/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/salmonmeat/meat = new(drop_location(), 2)
 		meat.add_fingerprint(user)
@@ -198,7 +198,7 @@
 	force = 3
 
 /obj/item/fish/babycarp/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/carpmeat/meat = new(drop_location())	//just one fillet; this is a baby, afterall.
 		meat.add_fingerprint(user)

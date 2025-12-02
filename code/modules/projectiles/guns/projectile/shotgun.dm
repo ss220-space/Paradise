@@ -16,15 +16,9 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
-		add_fingerprint(user)
-		var/num_loaded = magazine.reload(I, user)
-		if(num_loaded)
-			update_appearance()
-			return ATTACK_CHAIN_BLOCKED_ALL
+/obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
+	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
-
 	return ..()
 
 /obj/item/gun/projectile/shotgun/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
