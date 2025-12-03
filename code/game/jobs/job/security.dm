@@ -1,6 +1,7 @@
 /datum/job/head_of_staff/hos
 	title = JOB_TITLE_HOS
 	flag = JOB_FLAG_HOS
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1
 	selection_color = "#c25656"
@@ -51,6 +52,7 @@
 	box = /obj/item/storage/box/survival/survival_security/hos
 
 /datum/job/security
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1
 	supervisors = "Главой службы безопасности"
@@ -219,6 +221,7 @@
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
+	selection_color = "#cee6ef"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Security Medic")
