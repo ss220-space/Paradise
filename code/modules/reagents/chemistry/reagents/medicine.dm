@@ -148,7 +148,7 @@
 	if(iscarbon(M))
 		data["method"] = method
 		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
-			to_chat(M, "<span class='warning'>[src] всё внутри вас замерзает!</span>")
+			to_chat(M, span_warning("Всё внутри вас замерзает!"))
 	..()
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
@@ -161,7 +161,7 @@
 		update_flags |= M.adjustFireLoss(-12, FALSE, affect_robotic = FALSE)
 		M.Stun(4 SECONDS)
 		if(M.stat == CONSCIOUS && prob(25))
-			to_chat(M, "<span class='warning'>Вы не можете пошевелиться, ваши мышцы замёрзли!</span>")
+			to_chat(M, span_warning("Ваши мышцы свело судуругой, вы не можете пошевелиться!"))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
