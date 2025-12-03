@@ -1,6 +1,7 @@
 /datum/job/head_of_staff/rd
 	title = JOB_TITLE_RD
 	flag = JOB_FLAG_RD
+	department = STATION_DEPARTMENT_SCIENCE
 	department_flag = JOBCAT_MEDSCI
 	is_science = 1
 	selection_color = "#aa66cc"
@@ -40,6 +41,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
 /datum/job/science
+	department = STATION_DEPARTMENT_SCIENCE
 	department_flag = JOBCAT_MEDSCI
 	is_science = 1
 	supervisors = "Научным руководителем"

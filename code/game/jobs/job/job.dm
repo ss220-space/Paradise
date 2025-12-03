@@ -1,7 +1,7 @@
 /datum/job
 
 	/// The name of the job
-	var/title = "NOPE"
+	var/title = ""
 
 	/// Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
 	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
@@ -94,7 +94,7 @@
 	var/department = null
 
 	/// Whether this is a head position
-	var/head_position = 0
+	var/head_position = FALSE
 
 #define MAX_START_MONEY_MULTIPLIER 3
 
