@@ -3,13 +3,13 @@
 
 /obj/item/implant/warp
 	name = "Варп имплант"
-	desc = "Варп-имплант EX-27 при активации переносит пользователя на 150 метров назад."
+	desc = "Варп-имплант EX-27 при активации переносит пользователя на 125 метров назад."
 	icon_state = "warp"
 	implant_data = /datum/implant_fluff/warp
 
 	STATIC_COOLDOWN_DECLARE(cooldown)
 	var/queue/position_queue = new()
-	var/max_warp_steps = 150
+	var/max_warp_steps = 125
 
 /obj/item/implant/warp/Destroy()
 	position_queue = null
