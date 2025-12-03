@@ -1474,6 +1474,7 @@
 /datum/status_effect/sanguinius_overdose
 	id="sanguinius_overdose"
 	duration = 6 SECONDS
+	alert_type = null
 
 /datum/status_effect/sanguinius_overdose/on_creation(mob/living/new_owner)
 	. = ..()
