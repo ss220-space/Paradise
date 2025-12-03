@@ -1,6 +1,7 @@
 // Cargo skills
 /datum/skill/cargo
 	category = "Карго"
+	category_color = "#b88646"
 
 /datum/skill/cargo/carring
 	id = "cargo.carrying"

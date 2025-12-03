@@ -7,6 +7,7 @@ GLOBAL_LIST_EMPTY(skills)
 /datum/skill
 	var/id
 	var/category
+	var/category_color = "#776f96"
 	var/name
 	var/desc
 	// Signals for subscribe
@@ -74,3 +75,12 @@ GLOBAL_LIST_EMPTY(skills)
 		user_mind.set_skill_level(skill.type, level)
 		if(level != SKILL_LEVEL_UNAVAILABLE)
 			skill.apply_to_mob(user)
+
+// Show skills window from verbs
+/mob/verb/view_skills_win()
+	set name = "Навыки персонажа"
+	set category = STATPANEL_IC
+	if(mind)
+		GLOB.skills_window.ui_interact(usr)
+	else
+		to_chat(src, "Произошла неизвестная ошибка, поэтому мы не можем показать вам ваши навыки.")

@@ -3467,6 +3467,7 @@
 #include "code\modules\skills\mind_skill.dm"
 #include "code\modules\skills\science.dm"
 #include "code\modules\skills\service.dm"
+#include "code\modules\skills\tgui\skills_win.dm"
 #include "code\modules\space_management\multiz_helper.dm"
 #include "code\modules\space_management\space_chunk.dm"
 #include "code\modules\space_management\space_level.dm"

@@ -1,6 +1,7 @@
 // Medical skills
 /datum/skill/medical
 	category = "Медицинские"
+	category_color = "#57b8f0"
 
 /datum/skill/medical/surgery
 	id = "medical.surgery"

@@ -1,6 +1,7 @@
 // Combat skills (Security)
 /datum/skill/combat
 	category = "Боевые"
+	category_color = "#dd3535"
 
 /datum/skill/combat/accuracy
 	id = "combat.accuracy"

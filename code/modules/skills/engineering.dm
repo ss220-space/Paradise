@@ -1,6 +1,7 @@
 // Engineering skills
 /datum/skill/engineering
 	category = "Инженерные"
+	category_color = "#f37746"
 
 /datum/skill/engineering/building
 	id = "engineering.building"

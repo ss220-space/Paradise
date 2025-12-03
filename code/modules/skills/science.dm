@@ -1,6 +1,7 @@
 // Science skills (R&D)
 /datum/skill/research
 	category = "Научные"
+	category_color = "#c68cfa"
 
 /datum/skill/research/research
 	id = "research.research"

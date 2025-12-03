@@ -1,6 +1,7 @@
 // Service skills
 /datum/skill/service
 	category = "Сервис"
+	category_color = "#6ca729"
 
 /datum/skill/service/cooking
 	id = "service.cooking"
