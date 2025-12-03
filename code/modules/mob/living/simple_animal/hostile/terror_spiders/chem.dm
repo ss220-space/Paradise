@@ -1,4 +1,4 @@
-#define DEFAULT_VOLUME_REAGENT_ORGAN_SPAWNER 5
+#define DEFAULT_EGGS_SPAWN_VOLUME 5
 // Terror Spider, Black, Deadly Venom
 
 /datum/reagent/terror_black_toxin
@@ -42,7 +42,7 @@
 	can_synth = FALSE //stop arbuze
 
 	var/obj/item/organ/internal/organ_type
-	var/need_volume_to_inject = DEFAULT_VOLUME_REAGENT_ORGAN_SPAWNER
+	var/need_volume_to_inject = DEFAULT_EGGS_SPAWN_VOLUME
 
 /datum/reagent/organ_spawner/on_mob_life(mob/living/target)
 	if(!organ_type)
@@ -75,4 +75,4 @@
 	id = "terror_phantom_eggs"
 	organ_type = /obj/item/organ/internal/body_egg/terror_eggs/phantom
 
-#undef DEFAULT_VOLUME_REAGENT_ORGAN_SPAWNER
+#undef DEFAULT_EGGS_SPAWN_VOLUME
