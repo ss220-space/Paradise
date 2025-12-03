@@ -1460,23 +1460,22 @@
 	. = ..()
 	deltimer(timerid)
 
-/mob/living/proc/apply_sanguinius_overdose()
-	var/datum/status_effect/sanguinius_overdose/overdose = has_status_effect(/datum/status_effect/sanguinius_overdose)
+/mob/living/proc/set_bloody_screen(time)
+	var/datum/status_effect/bloody_screen/overdose = has_status_effect(/datum/status_effect/bloody_screen)
 
 	if(QDELETED(overdose))
-		apply_status_effect(/datum/status_effect/sanguinius_overdose)
+		apply_status_effect(/datum/status_effect/bloody_screen)
 		return overdose
 
 	overdose.apply_debuff()
-	overdose.duration += 6 SECONDS
+	overdose.duration = time
 	return overdose
 
-/datum/status_effect/sanguinius_overdose
-	id="sanguinius_overdose"
-	duration = 6 SECONDS
+/datum/status_effect/bloody_screen
+	id="bloody_screen"
 	alert_type = null
 
-/datum/status_effect/sanguinius_overdose/on_creation(mob/living/new_owner)
+/datum/status_effect/bloody_screen/on_creation(mob/living/new_owner)
 	. = ..()
 
 	if(!.)
@@ -1484,11 +1483,11 @@
 
 	apply_debuff()
 
-/datum/status_effect/sanguinius_overdose/on_remove()
+/datum/status_effect/bloody_screen/on_remove()
 	remove_debuff()
 
-/datum/status_effect/sanguinius_overdose/proc/apply_debuff()
-	owner.overlay_fullscreen("bloody_vision", /atom/movable/screen/fullscreen/bloody_vision, 1)
+/datum/status_effect/bloody_screen/proc/apply_debuff()
+	owner.overlay_fullscreen("bloody_screen", /atom/movable/screen/fullscreen/bloody_screen, 1)
 
-/datum/status_effect/sanguinius_overdose/proc/remove_debuff()
-	owner.clear_fullscreen("bloody_vision", 50)
+/datum/status_effect/bloody_screen/proc/remove_debuff()
+	owner.clear_fullscreen("bloody_screen", 50)

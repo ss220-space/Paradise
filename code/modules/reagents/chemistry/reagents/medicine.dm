@@ -1825,5 +1825,5 @@
 	var/overdose_message = pick("Ваши глаза застилает кровавая пелена!", "Стук вашего сердца гремит в ушах!", "Ваши вены вздуваются под кожей!")
 	to_chat(user, span_danger("[overdose_message]"))
 	user.adjustBruteLoss(6)
-	user.apply_sanguinius_overdose()
+	user.set_bloody_screen(6 SECONDS)
 
