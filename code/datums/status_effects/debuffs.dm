@@ -1459,3 +1459,42 @@
 /obj/effect/temp_visual/curse/Initialize(mapload)
 	. = ..()
 	deltimer(timerid)
+
+/mob/living/proc/apply_sanguinius_overdose()
+	var/datum/status_effect/sanguinius_overdose/overdose = has_status_effect(/datum/status_effect/sanguinius_overdose)
+
+	if(QDELETED(overdose))
+		apply_status_effect(/datum/status_effect/sanguinius_overdose)
+		return overdose
+
+	overdose.apply_debuff()
+	overdose.duration += 6 SECONDS
+	return overdose
+
+/datum/status_effect/sanguinius_overdose
+	id="sanguinius_overdose"
+	duration = 6 SECONDS
+
+/datum/status_effect/sanguinius_overdose/on_creation(mob/living/new_owner)
+	. = ..()
+
+	if(!.)
+		return
+
+	apply_debuff()
+
+/datum/status_effect/sanguinius_overdose/on_remove()
+	remove_debuff()
+
+/datum/status_effect/sanguinius_overdose/proc/apply_debuff()
+	owner.overlay_fullscreen("bloody_vision", /atom/movable/screen/fullscreen/bloody_vision, 1)
+
+/datum/status_effect/sanguinius_overdose/proc/remove_debuff()
+	owner.clear_fullscreen("bloody_vision", 50)
+
+/obj/effect/temp_visual/bloody_vision
+	icon_state = "bloody_vision"
+
+/obj/effect/temp_visual/bloody_vision/Initialize(mapload)
+	. = ..()
+	deltimer(timerid)
