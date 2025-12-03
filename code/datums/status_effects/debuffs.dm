@@ -1491,10 +1491,3 @@
 
 /datum/status_effect/sanguinius_overdose/proc/remove_debuff()
 	owner.clear_fullscreen("bloody_vision", 50)
-
-/obj/effect/temp_visual/bloody_vision
-	icon_state = "bloody_vision"
-
-/obj/effect/temp_visual/bloody_vision/Initialize(mapload)
-	. = ..()
-	deltimer(timerid)
