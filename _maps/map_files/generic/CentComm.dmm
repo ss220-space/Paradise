@@ -9468,7 +9468,10 @@
 	dir = 8;
 	icon_state = "burst_l"
 	},
-/turf/simulated/wall/indestructible/fakeglass,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
 /area/shuttle/pod_3)
 "euh" = (
 /obj/effect/decal/syndie_logo{
@@ -10522,6 +10525,14 @@
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating/airless,
 /area/centcom/jail)
+"eVu" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l"
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/pod_3)
 "eVA" = (
 /obj/effect/turf_decal/stripes/asteroid/corner,
 /turf/simulated/floor/beach/sand{
@@ -108054,7 +108065,7 @@ qZa
 onc
 onc
 onc
-etQ
+eVu
 dBY
 etQ
 onc
