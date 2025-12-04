@@ -15,16 +15,16 @@
 
 /// Calculate skill modifier by signal
 #define CALCULATE_SKILL_MOD(user, signal, mod) var/mod = 1;\
-	var/list/mods = list();\
-	SEND_SIGNAL(user, signal, mods);\
-	for(var/modifier in mods){\
+	var/list/mod##_s = list();\
+	SEND_SIGNAL(user, signal, (mod##_s));\
+	for(var/modifier in (mod##_s)){\
 		mod *= modifier;\
 	}
 /// Get skill level by signal
 #define GET_SKILL_LEVEL(user, skill_type, lvl) var/lvl = SKILL_LEVEL_BASIC;\
-	var/list/levels = list();\
-	SEND_SIGNAL(user, COMSIG_GET_SKILL_LEVEL, skill_type, levels);\
-	for(var/m_level in levels){\
+	var/list/lvl##_s = list();\
+	SEND_SIGNAL(user, COMSIG_GET_SKILL_LEVEL, skill_type, (lvl##_s));\
+	for(var/m_level in (lvl##_s)){\
 		lvl = m_level;\
 	}
 /// Get skill level by signal
