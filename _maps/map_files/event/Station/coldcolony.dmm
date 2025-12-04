@@ -2337,10 +2337,7 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -2554,10 +2551,7 @@
 /area/coldcolony/ruin/syndie_outpost)
 "aTl" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/structure/rack,
 /obj/item/circuitboard/protolathe{
 	pixel_x = -4;
@@ -3461,10 +3455,7 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "bkG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/coldcolony/malta/civilian/vacantoffice)
 "bld" = (
@@ -4753,10 +4744,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "bKn" = (
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/camera{
 	c_tag = "Briefing Room North";
 	network = list("SS13","Security")
@@ -6098,9 +6086,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -6254,9 +6240,7 @@
 	pixel_y = 6;
 	req_access = list(160)
 	},
-/obj/machinery/light_switch{
-	pixel_y = -2
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -7757,10 +7741,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light_switch{
-	pixel_x = -8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Engine Room";
@@ -8873,10 +8854,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/light_switch{
-	pixel_x = -20;
-	pixel_y = 12
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -10043,10 +10021,7 @@
 	pixel_x = 24;
 	pixel_y = -8
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12772,9 +12747,7 @@
 /area/coldcolony/malta/maintenance/garden)
 "eBH" = (
 /obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/camera{
 	c_tag = "Departure Lounge Security";
 	network = list("SS13","Security")
@@ -17298,9 +17271,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -17747,9 +17718,7 @@
 /area/coldcolony/malta/hallway/service/central)
 "gwy" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
 "gwz" = (
@@ -18308,9 +18277,7 @@
 /obj/structure/closet/crate,
 /obj/item/stack/spacecash/c100,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/civilian/trading)
 "gHD" = (
@@ -18552,10 +18519,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/blue,
-/obj/machinery/light_switch{
-	pixel_x = -10;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -19333,10 +19297,7 @@
 	pixel_x = -24;
 	pixel_y = -8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -21;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -25720,9 +25681,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "jsi" = (
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -26086,10 +26045,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
 "jyB" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/door_control{
 	id = "brig_detprivacy";
 	name = "Detective Privacy Shutters Control";
@@ -26655,10 +26611,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "jIE" = (
 /obj/effect/decal/warning_stripes/red/partial,
-/obj/machinery/light_switch{
-	pixel_x = -22;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -27477,10 +27430,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -28215,10 +28165,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -29016,9 +28963,7 @@
 "kzm" = (
 /obj/machinery/roboquest_pad,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -30041,10 +29986,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/item/radio/intercom{
 	pixel_x = 28;
 	pixel_y = -8
@@ -31485,10 +31427,7 @@
 /area/coldcolony/malta/research/server)
 "lwY" = (
 /obj/structure/closet/secure_closet/medical2,
-/obj/machinery/light_switch{
-	pixel_x = -8;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/east)
 "lxa" = (
@@ -31724,10 +31663,7 @@
 	},
 /obj/item/stock_parts/scanning_module,
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/light_switch{
-	pixel_x = -21;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -33654,10 +33590,7 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "mnJ" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/structure/table/reinforced,
 /obj/item/mmi,
 /turf/simulated/floor/plasteel{
@@ -35832,10 +35765,7 @@
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/civilian/mrchangs)
 "naG" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/structure/table,
 /obj/item/radio,
 /obj/item/radio,
@@ -38373,9 +38303,7 @@
 "nZr" = (
 /obj/structure/statue/chickenstatue,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -39139,10 +39067,7 @@
 "olo" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/camera{
 	c_tag = "Engineering Lobby";
 	network = list("Engineering","SS13")
@@ -39162,10 +39087,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/machinery/light_switch{
-	pixel_x = -8;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -39525,10 +39447,7 @@
 	pixel_y = 9
 	},
 /obj/machinery/computer/robotics,
-/obj/machinery/light_switch{
-	pixel_x = -21;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/hor)
 "oti" = (
@@ -40842,10 +40761,7 @@
 	},
 /obj/structure/table,
 /obj/item/storage/belt/medical,
-/obj/machinery/light_switch{
-	pixel_x = -22;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
 "oQX" = (
@@ -42728,10 +42644,7 @@
 	name = "Tank Monitor";
 	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","air_sensor"="Air Mix","mix_sensor"="Gas Mix Tank")
 	},
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -44154,9 +44067,7 @@
 "qbF" = (
 /obj/random/toolbox,
 /obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -44489,10 +44400,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -45375,10 +45283,7 @@
 "qwH" = (
 /obj/machinery/computer/security/engineering,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/machinery/camera{
 	c_tag = "Engineering Monitoring";
 	dir = 4;
@@ -45410,10 +45315,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/chem_heater,
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/medical/chemistry)
 "qxx" = (
@@ -47442,10 +47344,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "rhz" = (
 /obj/machinery/vending/hydroseeds,
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -48632,10 +48531,7 @@
 	dir = 4;
 	network = list("SS13","Security")
 	},
-/obj/machinery/light_switch{
-	pixel_x = -20;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -50003,9 +49899,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -50897,9 +50791,7 @@
 	c_tag = "Cargo Office South-West";
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -51469,10 +51361,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/light_switch{
-	pixel_x = -12;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -51744,10 +51633,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/light_switch{
-	pixel_x = 12;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -51933,9 +51819,7 @@
 "sSa" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/sec,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -54364,10 +54248,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -54793,10 +54674,7 @@
 	pixel_x = -24;
 	pixel_y = -8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -21;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
@@ -55380,10 +55258,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/light_switch{
-	pixel_x = -8;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/biostorage)
 "ugn" = (
@@ -55624,10 +55499,7 @@
 	pixel_x = 26;
 	pixel_y = 7
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
 "ukB" = (
@@ -56703,10 +56575,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "uIZ" = (
 /obj/machinery/photocopier,
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57661,10 +57530,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -58478,10 +58344,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light_switch{
-	pixel_x = -22;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -59104,10 +58967,7 @@
 	name = "Unload"
 	},
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/sorting)
 "vyC" = (
@@ -59126,9 +58986,7 @@
 /area/coldcolony/malta/bridge)
 "vyO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_x = -22
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -61144,10 +61002,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/light_switch{
-	pixel_x = -20;
-	pixel_y = 12
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -62061,10 +61916,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -62848,10 +62700,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "wOC" = (
 /obj/machinery/constructable_frame/machine_frame,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 8
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"
@@ -63011,10 +62860,7 @@
 /obj/machinery/computer/operating{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = -22;
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -63447,10 +63293,7 @@
 	dir = 4;
 	pixel_x = 26
 	},
-/obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
 "xag" = (
@@ -66272,10 +66115,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = 5;
-	pixel_y = -26
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/machinery/light,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{

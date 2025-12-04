@@ -1,0 +1,8 @@
+help: "Use the specific directional subtypes for this light switch."
+/obj/machinery/light_switch:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/machinery/light_switch:
+  banned: TRUE

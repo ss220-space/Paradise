@@ -36,9 +36,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "aR" = (
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -133,9 +131,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "cW" = (
