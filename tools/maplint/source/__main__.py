@@ -16,7 +16,7 @@ def red(text):
 def process_dmm(map_filename, lints: dict[str, lint.Lint]) -> list[MaplintError]:
     problems: list[MaplintError] = []
 
-    with open(map_filename, "r") as file:
+    with open(map_filename, "r", encoding='utf-8') as file:
         try:
             map_data = dmm.parse_dmm(file)
         except MaplintError as error:
@@ -66,7 +66,7 @@ def main(args):
 
     for lint_filename in lint_filenames:
         try:
-            lints[lint_filename] = lint.Lint(yaml.safe_load(lint_filename.read_text()))
+            lints[lint_filename] = lint.Lint(yaml.safe_load(lint_filename.read_text(encoding='utf-8')))
         except MaplintError as error:
             print_maplint_error(error, github_error_style)
             any_failed = True
