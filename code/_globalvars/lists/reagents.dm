@@ -31,8 +31,7 @@ GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "
 // Drinks
 GLOBAL_LIST_INIT(drinks, subtypesof(/datum/reagent/consumable/drink/)\
 						+ subtypesof(/datum/reagent/consumable/ethanol)\
-						+ /datum/reagent/consumable/ethanol \
-						+ /datum/reagent/beer2)
+						+ /datum/reagent/consumable/ethanol)
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))
@@ -41,13 +40,13 @@ GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanid
 GLOBAL_LIST_INIT(blocked_chems, list( \
 	"polonium", "initropidril", "concentrated_initro",
 	"sodium_thiopental", "ketamine", "coniine",
-	"adminordrazine", "nanites", "hellwater",
+	"adminordrazine", "nanites", "hellwater", "beer2",
 	"mutationtoxin", "amutationtoxin", "venom",
 	"spore", "stimulants", "stimulative_agent",
 	"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 	"envenomed_filaments", "lexorin_jelly", "kinetic",
 	"cryogenic_liquid", "dark_matter", "b_sorium",
-	"reagent", "life","dragonsbreath", "nanocalcium", "bungotoxin", "fruit_wine"
+	"reagent", "life","dragonsbreath", "nanocalcium", "bungotoxin", "fruit_wine",
 ))
 
 GLOBAL_LIST_INIT(safe_chem_list, list( \

@@ -148,7 +148,7 @@
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
 			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
-			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
+			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
 	if(body_position != LYING_DOWN)
