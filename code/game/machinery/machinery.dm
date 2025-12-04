@@ -587,7 +587,8 @@
 /obj/machinery/proc/shock(mob/living/user, prb)
 	if(!istype(user) || inoperable())
 		return FALSE
-	if(!prob(prb))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(!prob(prb * prob_mod))
 		return FALSE
 	do_sparks(5, TRUE, src)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))

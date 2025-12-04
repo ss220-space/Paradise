@@ -231,7 +231,8 @@
 
 // shock the user with probability prb
 /obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
-	if(!prob(prb))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(!prob(prb * prob_mod))
 		return FALSE
 	if(electrocute_mob(user, powernet, src, siemens_coeff))
 		do_sparks(5, TRUE, src)

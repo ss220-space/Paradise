@@ -72,7 +72,8 @@
 	Totally not stolen from code\game\objects\structures\grille.dm
 */
 /obj/structure/fence/proc/shock(mob/user, prb)
-	if(!prob(prb))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(!prob(prb * prob_mod))
 		return FALSE
 	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
 		return FALSE

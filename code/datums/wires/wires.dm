@@ -124,6 +124,7 @@
 /datum/wires/ui_data(mob/user)
 	var/list/data = list()
 	var/list/replace_colors
+	GET_SKILL_LEVEL(user, /datum/skill/engineering/electrician, electricity_level)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -153,10 +154,16 @@
 			"attached" = is_attached(color) // Whether or not a signaler is attached to this wire.
 		))
 	data["wires"] = wires_list
+	if(electricity_level < SKILL_LEVEL_BEGINNER)
+		shuffle(wires_list)
 
 	// Get the information shown at the bottom of wire TGUI window, such as "The red light is blinking", etc.
 	// If the user is colorblind, we need to replace these colors as well.
-	var/list/status = get_status()
+	var/list/status
+	if(electricity_level < SKILL_LEVEL_BASIC)
+		status = list()
+	else
+		status = get_status()
 
 	if(replace_colors)
 		var/i
@@ -255,6 +262,10 @@
  */
 /datum/wires/proc/can_see_wire_info(mob/user)
 	if(user.can_admin_interact())
+		return TRUE
+	GET_SKILL_LEVEL(user, /datum/skill/engineering/electrician, electricity_level)
+	GET_SKILL_LEVEL(user, /datum/skill/engineering/lockpick, lockpick_level)
+	if(electricity_level >= SKILL_LEVEL_PROFESSIONAL || lockpick_level >= SKILL_LEVEL_PROFESSIONAL)
 		return TRUE
 
 	if(istype(user.get_active_hand(), /obj/item/multitool))

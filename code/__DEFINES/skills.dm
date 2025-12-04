@@ -29,6 +29,8 @@
 	}
 /// Get skill level by signal
 #define AVAILABLE_SKILL(user, skill_type) (SEND_SIGNAL(user, COMSIG_SKILL_AVAILABLE, skill_type) == SKILL_AVAILABLE_RESULT)
+/// Check level great than
+#define CHECK_SKILL_LEVEL(user, skill_type, req_level) (AVAILABLE_SKILL(user, skill_type) && SEND_SIGNAL(user, COMSIG_SKILL_AVAILABLE, skill_type) >= req_level)
 
 GLOBAL_LIST_INIT(skill_level_names, list(
 	"[SKILL_LEVEL_NONE]" = "нет навыка",

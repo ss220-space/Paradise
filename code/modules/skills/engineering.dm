@@ -19,7 +19,8 @@
 	id = "engineering.electrician"
 	name = "Электрика"
 	desc = "Влияет на работу с электричеством (шанс удара током)."
-	duration_mod_signals = list(COMSIG_GET_ELECTRICITY_SPEED_MOD)
+	duration_mod_signals = list(COMSIG_GET_ELECTRICITY_SPEED_MOD, COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD)
+	quality_modifiers = list(COMSIG_GET_ELECTRICITY_POSITIVE_CHANCE_MOD)
 
 /datum/skill/engineering/atmos
 	id = "engineering.atmos"
@@ -32,3 +33,4 @@
 	name = "Взлом"
 	desc = "Влияет на взлом шлюзов, ящиков и шкафчиков."
 	duration_mod_signals = list(COMSIG_GET_LOCKPICK_SPEED_MOD)
+	quality_modifiers = list(COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD)

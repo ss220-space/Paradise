@@ -15,10 +15,16 @@
 #define COMSIG_GET_CONSTRUCTING_SPEED_MOD "get_constructing_speed"
 /// Get speed modifier for electricity skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_ELECTRICITY_SPEED_MOD "get_electricity_speed"
+/// Get negative prob modifier for electricity skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD "get_electricity_negative_prob_mod"
+/// Get positive prob modifier for electricity skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_ELECTRICITY_POSITIVE_CHANCE_MOD "get_electricity_positive_prob_mod"
 /// Get speed modifier for atmos skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_ATMOS_SPEED_MOD "get_atmos_speed"
 /// Get speed modifier for lockpick skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_LOCKPICK_SPEED_MOD "get_lockpick_speed"
+/// Get positive prob modifier for lockpick skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD "get_lockpick_positive_prob_mod"
 
 // MARK: Service
 /// Get speed modifier for cooking skill (mob/living/user, list/modifiers)

@@ -331,7 +331,8 @@
 	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
-	if(prob(80)) // Good hacker!
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
+	if(prob(80 * prob_mod)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_WIRES_PREPARED)
 			return
 		balloon_alert(user, "провода подготовлены")
@@ -351,7 +352,8 @@
 	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
-	if(prob(80)) // Good hacker!
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
+	if(prob(80 * prob_mod)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_NO_BROKEN || broken == SECURE_CRATE_STAGE_OPENED)
 			return
 		balloon_alert(user, "взломано!")
