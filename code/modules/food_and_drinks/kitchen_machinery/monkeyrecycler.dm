@@ -116,7 +116,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 			cubename = "шимпанзе"
 			cycle_through = 0
-	balloon_alert(user, "тип кубика: <b>[cubename]</b>.")
+	balloon_alert(user, "тип кубика: <b>[cubename]</b>")
 
 /obj/machinery/monkey_recycler/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE

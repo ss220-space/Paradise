@@ -60,7 +60,7 @@
 	var/mob/living/carbon/human/victim = grabbed_thing
 	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
 	if(!head)
-		balloon_alert(grabber, span_warning("нет головы!"))
+		balloon_alert(grabber, "нет головы!")
 		return
 	add_fingerprint(grabber)
 	victim.visible_message(
