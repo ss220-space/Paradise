@@ -364,6 +364,9 @@
 /datum/action/item_action/remove_badge
 	name = "Снять голобейдж"
 
+/datum/action/item_action/change_holotool_color
+	name = "Сменить цвет голотула"
+
 // MARK: Cleave attack
 /datum/action/item_action/toggle_cleave_attack
 	name = "Переключить режим атаки со взмахом"
