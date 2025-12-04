@@ -19,8 +19,18 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
 	skill_levels = list(
+		//engineering
 		/datum/skill/engineering/building = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/engineering/construction = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/engineering/lockpick = SKILL_LEVEL_PROFESSIONAL,
+		//combat
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		//science
+		/datum/skill/research/mech_drive = SKILL_LEVEL_ADVANCED,
 	)
 
 /datum/outfit/job/chief_engineer
@@ -67,8 +77,14 @@
 	alt_titles = list("Maintenance Technician", "Engine Technician", "Electrician")
 	outfit = /datum/outfit/job/engineer
 	skill_levels = list(
+		//engineering
 		/datum/skill/engineering/building = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/engineering/construction = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/engineering/construction = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/lockpick = SKILL_LEVEL_ADVANCED,
+		//science
+		/datum/skill/research/mech_drive = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/engineer
@@ -103,8 +119,14 @@
 	outfit = /datum/outfit/job/engineer/trainee
 	paycheck = PAYCHECK_LOWER
 	skill_levels = list(
-		/datum/skill/engineering/building = SKILL_LEVEL_ADVANCED,
-		/datum/skill/engineering/construction = SKILL_LEVEL_ADVANCED,
+		//engineering
+		/datum/skill/engineering/building = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
+		//science
+		/datum/skill/research/mech_drive = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/engineer/trainee
@@ -144,14 +166,16 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
 	alt_titles = list("Atmospheric Technician")
 	outfit = /datum/outfit/job/atmos
-
-/datum/job/atmos/get_skill_level(skill_type)
-	switch(skill_type)
-		if(/datum/skill/engineering/building)
-			return SKILL_LEVEL_ADVANCED
-		if(/datum/skill/engineering/construction)
-			return SKILL_LEVEL_PROFESSIONAL
-	. = ..()
+	skill_levels = list(
+		//engineering
+		/datum/skill/engineering/building = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/lockpick = SKILL_LEVEL_BASIC,
+		//science
+		/datum/skill/research/mech_drive = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/atmos
 	name = JOB_TITLE_ATMOSTECH
@@ -179,8 +203,14 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mechanic
 	skill_levels = list(
-		/datum/skill/engineering/building = SKILL_LEVEL_ADVANCED,
-		/datum/skill/engineering/construction = SKILL_LEVEL_PROFESSIONAL,
+		//engineering
+		/datum/skill/engineering/building = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
+		//science
+		/datum/skill/research/mech_drive = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/mechanic
