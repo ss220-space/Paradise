@@ -36,6 +36,7 @@
 	var/spawndelay = RPD_COOLDOWN_TIME
 	var/walldelay = RPD_WALLBUILD_TIME
 	var/ranged = FALSE
+	var/use_duration = 1 SECONDS
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
 	var/obj/item/wrench/integrated_wrench = new
@@ -98,6 +99,9 @@
 	if(!can_dispense_pipe(whatpipe, RPD_ATMOS_MODE))
 		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected")) //Damn dirty apes -- I mean hackers
 		return
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T))
+		return
 	var/obj/item/pipe/P
 	if(whatpipe == PIPE_GAS_SENSOR)
 		P = new /obj/item/pipe_gsensor(T)
@@ -122,6 +126,9 @@
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
 		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected"))
 		return
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T))
+		return
 	var/rotate_dir = iconrotation ? iconrotation : user.dir
 	var/obj/structure/disposalconstruct/construct = new(T, whatdpipe, rotate_dir)
 	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
@@ -130,18 +137,27 @@
 		construct.wrench_act(user, integrated_wrench)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T))
+		return
 	for(var/obj/item/pipe/P in T)
 		P.rotate()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T))
+		return
 	for(var/obj/item/pipe/P in T)
 		P.flip()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T))
+		return
 	var/eaten
 	for(var/obj/item/pipe/P in T)
 		QDEL_NULL(P)
@@ -163,6 +179,9 @@
 		to_chat(user, span_notice("There were no loose pipes on [T]."))
 
 /obj/item/rpd/proc/delete_single_pipe(mob/user, obj/P) //Delete a single pipe
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, P))
+		return
 	to_chat(user, span_notice("[src] sucks up [P]."))
 	QDEL_NULL(P)
 	activate_rpd()
