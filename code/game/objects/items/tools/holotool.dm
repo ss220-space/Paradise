@@ -20,7 +20,6 @@
 	var/list/mode_names
 	var/list/radial_modes
 	item_state_color = "#48D1CC" // mediumturquoise
-	var/emagged = FALSE
 
 /obj/item/holotool/get_ru_names()
 	return list(

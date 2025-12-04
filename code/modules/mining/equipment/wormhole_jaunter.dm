@@ -9,7 +9,6 @@
 	throw_range = 5
 	origin_tech = "bluespace=2"
 	slot_flags = ITEM_SLOT_BELT
-	var/emagged = FALSE
 
 /obj/item/wormhole_jaunter/get_ru_names()
 	return list(
@@ -94,7 +93,6 @@
 	icon_state = "bhole3"
 	desc = "Стабильная дыра во вселенной, созданная генератором червоточин. Слово \"турбулентный\" не передаёт, насколько жёстким может быть прохождение через неё, но по крайней мере она всегда доставит вас куда-то рядом с маяком."
 	failchance = 0
-	var/emagged = FALSE
 
 /obj/effect/portal/jaunt_tunnel/get_ru_names()
 	return list(

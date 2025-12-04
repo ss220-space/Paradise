@@ -22,7 +22,6 @@
 	var/l_set = FALSE
 	var/l_setshort = FALSE
 	var/l_hacking = FALSE
-	var/emagged = FALSE
 	var/open = FALSE
 
 /obj/item/storage/secure/examine(mob/user)

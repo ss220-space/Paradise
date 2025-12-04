@@ -1035,7 +1035,6 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
 	)
-	var/emagged = FALSE
 
 // syndie pads can be created by emagging normal quantumpads
 /obj/item/circuitboard/quantumpad/emag_act(mob/user)

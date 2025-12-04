@@ -14,7 +14,6 @@
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/get_ru_names()
