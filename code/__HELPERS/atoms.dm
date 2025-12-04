@@ -19,7 +19,7 @@
 		if(istype(checked_atom, type))
 			. += checked_atom
 
-/// Like get_all_contents_type, but uses a typecache list as argument
+/// Like get_all_contents_type, but uses a typecache list as argument.
 /atom/proc/get_all_contents_ignoring(list/ignore_typecache)
 	if(!length(ignore_typecache))
 		return get_all_contents()
@@ -32,6 +32,27 @@
 			continue
 		processing += checked_atom.contents
 		. += checked_atom
+
+/// Recursively searches through all contents of the atom for the first instance of a specific type.
+/atom/proc/get_type_in_all_contents(target_type)
+	var/list/atoms_to_process = list(src)
+	var/list/processed_atoms = list()
+	var/atom/found_atom
+
+	while(length(atoms_to_process) && isnull(found_atom))
+		var/atom/current_atom = atoms_to_process[1]
+		if(istype(current_atom, target_type))
+			found_atom = current_atom
+
+		atoms_to_process -= current_atom
+
+		for(var/atom/contained_atom in current_atom)
+			if(!(contained_atom in processed_atoms))
+				atoms_to_process |= contained_atom
+
+		processed_atoms |= current_atom
+
+	return found_atom
 
 /// Returns true if the src countain the atom target
 /atom/proc/contains(atom/target)
