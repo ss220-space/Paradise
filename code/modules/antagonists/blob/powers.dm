@@ -381,12 +381,16 @@
 			var/image/strain_icon = image('icons/mob/blob.dmi', "blob_core")
 			strain_icon.color = initial(strain.color)
 
-			//var/info_text = span_boldnotice("[initial(strain.name)]")
-			//info_text += "<br>[span_notice("[initial(strain.analyzerdescdamage)]")]"
-			//if(!isnull(initial(strain.analyzerdesceffect)))
-				//info_text += "<br>[span_notice("[initial(strain.analyzerdesceffect)]")]"
+			var/info_text = span_boldnotice("[initial(strain.name)]")
+			info_text += "<br>[span_notice("[initial(strain.analyzerdescdamage)]")]"
+			if(!isnull(initial(strain.analyzerdesceffect)))
+				info_text += "<br>[span_notice("[initial(strain.analyzerdesceffect)]")]"
 
-			strain_choices[initial(strain.name)] = strain_icon
+			var/datum/radial_menu_choice/choice = new
+			choice.image = strain_icon
+			choice.info = info_text
+
+			strain_choices[initial(strain.name)] = choice
 
 	var/strain_result = show_radial_menu(src, src, strain_choices, radius = BLOB_REROLL_RADIUS)
 	if(isnull(strain_result))

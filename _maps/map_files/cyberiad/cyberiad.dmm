@@ -5865,7 +5865,7 @@
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "avj" = (
@@ -12316,10 +12316,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
-"aRP" = (
-/obj/structure/flora/grass/jungle/b,
-/turf/simulated/floor/grass,
-/area/security/permabrig)
 "aRS" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/grass,
@@ -20989,7 +20985,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/crew_quarters/bar/atrium)
@@ -22517,7 +22513,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
 	},
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/port)
 "bGn" = (
@@ -22568,12 +22564,18 @@
 	pixel_y = 24;
 	req_access = list(29)
 	},
-/obj/item/clothing/glasses/hud/diagnostic,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_y = -7
 	},
-/obj/item/clothing/glasses/welding,
+/obj/item/multitool/circuit{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/multitool/circuit{
+	pixel_x = -8;
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -38402,7 +38404,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cLy" = (
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/aft)
 "cLz" = (
@@ -45559,7 +45561,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/sign/poster/random{
@@ -48187,7 +48189,7 @@
 /area/atmos/control)
 "dCH" = (
 /obj/structure/railing,
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/effect/decal/warning_stripes/west{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
@@ -49522,10 +49524,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
-"ejf" = (
-/obj/structure/flora/junglebush/c,
-/turf/simulated/floor/grass,
-/area/maintenance/engineering)
 "ejC" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -55102,7 +55100,7 @@
 	},
 /area/engineering/hardsuitstorage)
 "gLH" = (
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/entry/lounge)
 "gMh" = (
@@ -55380,7 +55378,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/effect/decal/warning_stripes/west{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
@@ -55651,17 +55649,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"gYa" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding1"
-	},
-/obj/structure/flora/junglebush/b,
-/turf/simulated/floor/grass,
-/area/hallway/primary/port)
 "gYj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -55798,10 +55785,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/patients_rooms)
-"hbG" = (
-/obj/structure/flora/junglebush/c,
-/turf/simulated/floor/grass,
-/area/hallway/primary/aft)
 "hbM" = (
 /obj/machinery/door/airlock{
 	name = "Custodial Closet";
@@ -56904,10 +56887,6 @@
 	icon_state = "blue"
 	},
 /area/medical/cmostore)
-"hCf" = (
-/obj/structure/flora/junglebush/c,
-/turf/simulated/floor/grass,
-/area/hallway/primary/port)
 "hCU" = (
 /obj/structure/table/reinforced,
 /obj/structure/closet/fireaxecabinet{
@@ -58731,7 +58710,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding4"
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/port)
 "iwj" = (
@@ -61641,7 +61620,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "jOI" = (
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/port)
 "jOL" = (
@@ -65982,7 +65961,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/entry/lounge)
 "lMt" = (
@@ -67324,7 +67303,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/port)
 "mlU" = (
@@ -68140,7 +68119,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/port)
 "mFf" = (
@@ -68243,7 +68222,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
 	},
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/entry/lounge)
 "mHS" = (
@@ -68504,7 +68483,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/primary/port)
 "mOp" = (
@@ -69223,7 +69202,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -70390,11 +70369,19 @@
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
+/obj/item/compact_remote{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 7
 	},
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
+/obj/item/book/manual/sop_science{
+	pixel_y = -14
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -81058,7 +81045,11 @@
 	dir = 8;
 	network = list("SS13","Security")
 	},
-/obj/structure/table/reinforced,
+/obj/structure/rack/gunrack,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -83897,7 +83888,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding4"
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/entry/lounge)
 "tJL" = (
@@ -86029,6 +86020,15 @@
 /area/space)
 "uKm" = (
 /obj/structure/closet/wardrobe/robotics_black,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -111046,7 +111046,7 @@ bcT
 ylj
 qaT
 qCm
-hCf
+jOI
 rCT
 kym
 qOR
@@ -112038,7 +112038,7 @@ ppb
 aLi
 atO
 aPB
-aRP
+aPC
 qot
 aWZ
 aXW
@@ -112073,7 +112073,7 @@ icf
 bgD
 tBc
 gHv
-gYa
+qDH
 rRi
 kMP
 kym
@@ -112301,7 +112301,7 @@ aXa
 qlG
 aZP
 aXa
-aRP
+aPC
 bdS
 abN
 abN
@@ -112553,7 +112553,7 @@ aLp
 atO
 aPE
 aPC
-aRP
+aPC
 aPC
 qot
 iuV
@@ -113839,7 +113839,7 @@ abN
 qfY
 sWT
 epC
-aRP
+aPC
 aYf
 mqK
 avf
@@ -121637,7 +121637,7 @@ qgJ
 aDY
 cLi
 nTT
-ejf
+sbu
 cSU
 pbc
 cBj
@@ -122662,7 +122662,7 @@ iEH
 eys
 eys
 jvk
-hbG
+cLy
 cLi
 wTG
 rfG

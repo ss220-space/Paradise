@@ -2,7 +2,7 @@
 	name = "door"
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/doorint.dmi'
-	icon_state = "door1"
+	icon_state = null
 	anchored = TRUE
 	opacity = TRUE
 	density = TRUE
@@ -288,8 +288,9 @@
 			try_to_crowbar(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(!(I.item_flags & NOBLUDGEON))
-			try_to_activate_door(user)
+		if(I.item_flags & NOBLUDGEON)
+			return ..()
+		else if(try_to_activate_door(user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -450,6 +451,8 @@
 		sleep(1)
 		open()
 
+#define DOOR_CRUSH_DAMAGE 10
+
 /obj/machinery/door/proc/crush()
 	for(var/mob/living/L in get_turf(src))
 		L.visible_message(span_warning("[src] closes on [L], crushing [L.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
@@ -467,6 +470,8 @@
 		L.add_splatter_floor(location)
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
+
+#undef DOOR_CRUSH_DAMAGE
 
 /obj/machinery/door/proc/requiresID()
 	return 1
@@ -492,6 +497,7 @@
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
+	icon_state = "door1"
 
 /obj/machinery/door/proc/lock()
 	return

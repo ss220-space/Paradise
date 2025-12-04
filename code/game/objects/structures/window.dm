@@ -928,7 +928,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "alien window"
 	desc = "Окно из инопланетного сплава. Похоже, способно восстанавливать любые повреждения."
 	icon = 'icons/obj/smooth_structures/alien_window.dmi'
-	icon_state = "al_window"
+	icon_state = "alien_window-0"
 	base_icon_state = "alien_window"
 	glass_type = /obj/item/stack/sheet/abductorglass
 	heat_resistance = 1600

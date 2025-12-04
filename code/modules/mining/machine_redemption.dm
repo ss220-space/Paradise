@@ -85,8 +85,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	// Special access for built on Taipan machines
-	var/area/MyArea = getArea(src)
-	if(istype(MyArea, /area/syndicate/unpowered/syndicate_space_base))
+	var/area/area = get_area(src)
+	if(istype(area, /area/syndicate/unpowered/syndicate_space_base))
 		req_access = list(ACCESS_SYNDICATE)
 		req_access_claim = ACCESS_SYNDICATE
 

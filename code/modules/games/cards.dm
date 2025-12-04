@@ -321,7 +321,7 @@
 	desc = "Несколько игральных карт."
 	gender = PLURAL
 	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "empty"
+	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 20
@@ -329,7 +329,9 @@
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/maxcardlen = 20
+	/// If true, the cards will be face down.
 	var/concealed = FALSE
+	/// All of the cards in the deck.
 	var/list/cards = list()
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
 	var/direction = NORTH

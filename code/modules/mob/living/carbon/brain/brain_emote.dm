@@ -15,7 +15,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(!user.container || !istype(user.container, /obj/item/mmi))  // No MMI, no emotes
+	if(!user.container || !is_mmi(user.container))  // No MMI, no emotes
 		return FALSE
 
 /datum/emote/living/carbon/brain/alarm

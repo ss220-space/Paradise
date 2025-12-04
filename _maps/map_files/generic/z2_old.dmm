@@ -1533,7 +1533,7 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
 "bpg" = (
@@ -5844,7 +5844,7 @@
 	},
 /area/centcom/specops)
 "eFg" = (
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/effect/turf_decal/siding/green{
 	dir = 1
 	},
@@ -11510,7 +11510,7 @@
 "iGR" = (
 /obj/effect/turf_decal/siding/green,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
 "iGV" = (
@@ -12784,7 +12784,7 @@
 /area/vox_station)
 "jDO" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
 "jEq" = (
@@ -23351,7 +23351,7 @@
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/bush,
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
 "qYY" = (
@@ -31701,13 +31701,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"wTm" = (
-/obj/structure/flora/junglebush/c,
-/obj/effect/turf_decal/siding/green{
-	dir = 4
-	},
-/turf/simulated/floor/indestructible/grass,
-/area/ninja/outside)
 "wTs" = (
 /obj/structure/table/abductor{
 	color = "#99ff99";
@@ -69808,7 +69801,7 @@ oDk
 brC
 brC
 kro
-wTm
+bmG
 bmG
 blc
 blc

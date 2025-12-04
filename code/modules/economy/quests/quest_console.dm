@@ -73,7 +73,7 @@
 				"tech_id" = initial(tech.id)
 			))
 		data["purchased_techs"] = purchased_techs
-	var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
+	var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 	data["cargo_money"] = cargo_money_account.money
 	data["points"] = round(SSshuttle.points)
 	return data
@@ -182,7 +182,7 @@
 				to_chat(user, span_warning("Институт ЦК не может поделиться с вами данной технологий в данный момент."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
-			var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
+			var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 			var/attempt_pin = tgui_input_number(user, "Введите пароль", "Транзакция с ЦК")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
 				to_chat(user, span_warning("Не удаётся получить доступ к учётной записи: неверные учётные данные."))

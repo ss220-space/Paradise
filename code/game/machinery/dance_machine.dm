@@ -127,7 +127,7 @@
 			if(!active)
 				if(stop > world.time)
 					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
-					playsound(src, 'sound/misc/compiler-failure.ogg', 50, TRUE)
+					playsound(src, 'sound/machines/compiler/compiler-failure.ogg', 50, TRUE)
 					return
 				active = TRUE
 				update_icon()
@@ -236,7 +236,7 @@
 			spotlights+=L
 			continue
 		continue
-	END_FOR_DVIEW
+	FOR_DVIEW_END
 
 /obj/machinery/disco/proc/hierofunk()
 	for(var/i in 1 to 10)

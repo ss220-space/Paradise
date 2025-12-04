@@ -1,36 +1,50 @@
-///proc/get_area(atom/A)
-//	RETURN_TYPE(/area)
-//	if(isarea(A))
-//		return A
-//	var/turf/T = get_turf(A)
-//	return T ? T.loc : null
-
 #define MANUAL_PICK_MESSAGE(X) "Выберите игроков для спавна. Это будет продолжаться до тех пор, пока не останется призраков для выбора или пока [X] оставшихся слотов не будут заполнены."
 #define VETO_PICK_MESSAGE(X) "Выберите игроков. Это будет продолжаться до тех пор, пока не останется согласившихся призраков для выбора или пока [X] оставшихся слотов не будут заполнены."
 #define MANUAL_PICK_TITLE "Активные игроки"
 #define VETO_PICK_TITLE "Кандидаты"
 
-/proc/get_area_name(atom/X, format_text = FALSE)
-	var/area/A = isarea(X) ? X : get_area(X)
-	if(!A)
+/**
+ * Returns the name of the area the atom is in, with optional formatting
+ *
+ * Arguments:
+ * * target_atom - The atom to get the area name for
+ * * apply_formatting - Whether to apply text formatting to the area name
+ */
+/proc/get_area_name(atom/target_atom, apply_formatting = FALSE)
+	var/area/target_area = isarea(target_atom) ? target_atom : get_area(target_atom)
+	if(!target_area)
 		return null
-	return format_text ? format_text(A.name) : A.name
+	return apply_formatting ? format_text(target_area.name) : target_area.name
 
-/proc/get_location_name(atom/X, format_text = FALSE)
-	var/area/A = isarea(X) ? X : get_area(X)
-	if(!A)
+/**
+ * Returns the name of the area the atom is in, with optional formatting
+ *
+ * Arguments:
+ * * target_atom - The atom to get the area name for
+ * * apply_formatting - Whether to apply text formatting to the area name
+ */
+/proc/get_location_name(atom/target_atom, apply_formatting = FALSE)
+	var/area/target_area = isarea(target_atom) ? target_atom : get_area(target_atom)
+	if(!target_area)
 		return null
-	return format_text ? format_text(A.name) : A.name
+	return apply_formatting ? format_text(target_area.name) : target_area.name
 
-/proc/ff_cansee(atom/A, atom/B)
-	var/AT = get_turf(A)
-	var/BT = get_turf(B)
-	if(AT == BT)
-		return 1
-	for(var/turf/T as anything in get_line(A, B))
-		if(T == AT || T == BT)
+/**
+ * Checks if there is a clear line of sight between two atoms using field of view algorithm
+ *
+ * Arguments:
+ * * source_atom - The starting atom for line of sight check
+ * * target_atom - The target atom to check visibility to
+ */
+/proc/ff_cansee(atom/source_atom, atom/target_atom)
+	var/turf/source_turf = get_turf(source_atom)
+	var/turf/target_turf = get_turf(target_atom)
+	if(source_turf == target_turf)
+		return TRUE
+	for(var/turf/current_turf as anything in get_line(source_atom, target_atom))
+		if(current_turf == source_turf || current_turf == target_turf)
 			break
-		if(T.density)
+		if(current_turf.density)
 			return FALSE
 	return TRUE
 
@@ -84,80 +98,39 @@
 		if(is_mob || isobj(thing))
 			. |= recursive_mob_check(thing, ., 3, include_clientless, include_radio, FALSE)
 
-/proc/get_cardinal_step_away(atom/start, atom/finish) //returns the position of a step from start away from finish, in one of the cardinal directions
-	//returns only NORTH, SOUTH, EAST, or WEST
-	var/dx = finish.x - start.x
-	var/dy = finish.y - start.y
-	if(abs(dy) > abs (dx)) //slope is above 1:1 (move horizontally in a tie)
-		if(dy > 0)
-			return get_step(start, SOUTH)
-		else
-			return get_step(start, NORTH)
-	else
-		if(dx > 0)
-			return get_step(start, WEST)
-		else
-			return get_step(start, EAST)
-
-/proc/try_move_adjacent(atom/movable/AM)
-	var/turf/T = get_turf(AM)
+/**
+ * Attempts to move a movable atom to an adjacent tile in a random cardinal direction
+ *
+ * Arguments:
+ * * movable_atom - The movable atom to relocate
+ */
+/proc/try_move_adjacent(atom/movable/movable_atom)
+	var/turf/current_turf = get_turf(movable_atom)
 	for(var/direction in GLOB.cardinal)
-		if(AM.Move(get_step(T, direction)))
+		if(movable_atom.Move(get_step(current_turf, direction)))
 			break
 
-/proc/get_mob_by_key(key)
-	for(var/mob/M in GLOB.mob_list)
-		if(M.ckey == lowertext(key))
-			return M
+/**
+ * Finds a mob by their ckey (case-insensitive)
+ *
+ * Arguments:
+ * * player_key - The ckey to search for
+ */
+/proc/get_mob_by_key(player_key)
+	for(var/mob/mob_instance in GLOB.mob_list)
+		if(mob_instance.ckey == lowertext(player_key))
+			return mob_instance
 	return null
 
-/proc/get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/list/candidates = list()
-	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!length(candidates) && afk_bracket < 6000)
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			if(G.client != null)
-				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G,"Syndicate")))
-							if(override_age || player_old_enough_antag(G.client,be_special_type))
-								candidates += G.client
-		afk_bracket += 600 // Add a minute to the bracket, for every attempt
-
-	return candidates
-
-/proc/get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/list/candidates = list()
-	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!length(candidates) && afk_bracket < 6000)
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			if(G.client != null)
-				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G,"Syndicate")))
-							if(override_age || player_old_enough_antag(G.client,be_special_type))
-								candidates += G
-		afk_bracket += 600 // Add a minute to the bracket, for every attempt
-
-	return candidates
-
-/proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
-	if(!isobj(O))	O = new /atom/movable/screen/text()
-	O.maptext = maptext
-	O.maptext_height = maptext_height
-	O.maptext_width = maptext_width
-	O.screen_loc = screen_loc
-	return O
-
-/proc/Show2Group4Delay(obj/O, list/group, delay=0)
-	if(!isobj(O))	return
-	if(!group)	group = GLOB.clients
-	for(var/client/C in group)
-		C.screen += O
-	if(delay)
-		spawn(delay)
-			for(var/client/C in group)
-				C.screen -= O
+/// Return an object with a new maptext (not currently in use)
+/proc/screen_text(atom/movable/object_to_change, maptext = "", screen_loc = "CENTER-7,CENTER-7", maptext_height = 480, maptext_width = 480)
+	if(!istype(object_to_change))
+		object_to_change = new /atom/movable/screen/text()
+	object_to_change.maptext = MAPTEXT(maptext)
+	object_to_change.maptext_height = maptext_height
+	object_to_change.maptext_width = maptext_width
+	object_to_change.screen_loc = screen_loc
+	return object_to_change
 
 /// Adds an image to a client's `.images`. Useful as a callback.
 /proc/add_image_to_client(image/image_to_remove, client/add_to)
@@ -177,7 +150,7 @@
 	for(var/client/remove_from in hide_from)
 		remove_from.images -= image_to_remove
 
-///Add an image to a list of clients and calls a proc to remove it after a duration
+/// Add an image to a list of clients and calls a proc to remove it after a duration
 /proc/flick_overlay(image/image_to_show, list/show_to, duration)
 	if(!show_to || !length(show_to) || !image_to_show)
 		return
@@ -231,21 +204,6 @@
 /area/flick_overlay_view(mutable_appearance/display, duration)
 	return
 
-/proc/get_active_player_count()
-	// Get active players who are playing in the round
-	var/active_players = 0
-	for(var/i = 1; i <= length(GLOB.player_list); i++)
-		var/mob/M = GLOB.player_list[i]
-		if(M?.client)
-			if(isnewplayer(M)) // exclude people in the lobby
-				continue
-			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
-				var/mob/dead/observer/O = M
-				if(O.started_as_observer) // Exclude people who started as observers
-					continue
-			active_players++
-	return active_players
-
 /datum/projectile_data
 	var/src_x
 	var/src_y
@@ -266,6 +224,7 @@
 	src.dest_x = dest_x
 	src.dest_y = dest_y
 
+// telesci
 /proc/projectile_trajectory(src_x, src_y, rotation, angle, power)
 
 	// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
@@ -283,97 +242,156 @@
 
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 
-/proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
-	var/list/mobs_found[0]
-	var/area/our_area = get_area(the_area)
-	for(var/mob/M in moblist)
-		if(client_needed && !M.client)
+/**
+ * Returns a list of mobs in the specified area, optionally filtering by client presence
+ *
+ * Arguments:
+ * * target_area - The area to search for mobs in
+ * * require_client - If TRUE, only include mobs with clients
+ * * source_mob_list - The list of mobs to search through (default: GLOB.mob_list)
+ */
+/proc/mobs_in_area(area/target_area, require_client = FALSE, source_mob_list = GLOB.mob_list)
+	var/list/found_mobs = list()
+	var/area/target_area_instance = get_area(target_area)
+	for(var/mob/current_mob in source_mob_list)
+		if(require_client && !current_mob.client)
 			continue
-		if(our_area != get_area(M))
+		if(target_area_instance != get_area(current_mob))
 			continue
-		mobs_found += M
-	return mobs_found
+		found_mobs += current_mob
+	return found_mobs
 
-/proc/lavaland_equipment_pressure_check(turf/T)
+/**
+ * Checks if the pressure at a given turf is low enough for lavaland equipment effects
+ *
+ * Arguments:
+ * * target_turf - The turf to check pressure on
+ */
+/proc/lavaland_equipment_pressure_check(turf/target_turf)
 	. = FALSE
-	if(!istype(T))
+	if(!istype(target_turf))
 		return
-	var/datum/gas_mixture/environment = T.return_air()
+	var/datum/gas_mixture/environment = target_turf.return_air()
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
-/proc/pollCandidatesWithVeto(client/adminclient, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
-	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)
-	var/list/selected_ghosts = list()
+/**
+ * Polls candidates with admin veto selection from a list of willing ghosts
+ *
+ * Arguments:
+ * * admin_client - The client of the admin making the selection
+ * * max_slots - Maximum number of candidates to select
+ * * question - The poll question presented to ghosts
+ * * be_special_type - The special role type to check for
+ * * antag_age_check - Whether to check antag age restrictions
+ * * poll_time - Duration of the poll in seconds
+ * * ignore_respawnability - Whether to ignore respawnability checks
+ * * min_hours - Minimum hours required to participate
+ * * flashwindow - Whether to flash the window for candidates
+ * * check_antaghud - Whether to check antag HUD visibility
+ * * source - The source of the poll
+ * * role_cleanname - Clean name of the role for display
+ * * reason - Reason for the poll
+ */
+/proc/poll_candidates_with_veto(client/admin_client, max_slots, question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
+	var/list/willing_ghosts = SSghost_spawns.poll_candidates(question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)
+	var/list/selected_candidates = list()
 	if(!length(willing_ghosts))
-		return selected_ghosts
+		return selected_candidates
 
-	var/list/candidate_ghosts = willing_ghosts.Copy()
+	var/list/available_candidates = willing_ghosts.Copy()
 
-	to_chat(adminclient, "Candidate Ghosts:");
-	for(var/mob/dead/observer/G in candidate_ghosts)
-		if(G.key && G.client)
-			to_chat(adminclient, "- [G] ([G.key])");
+	to_chat(admin_client, "Candidate Ghosts:")
+	for(var/mob/dead/observer/ghost in available_candidates)
+		if(ghost.key && ghost.client)
+			to_chat(admin_client, "- [ghost] ([ghost.key])")
 		else
-			candidate_ghosts -= G
-	for(var/i = max_slots, (i > 0 && length(candidate_ghosts)), i--)
-		var/this_ghost = tgui_input_list(adminclient, VETO_PICK_MESSAGE(i), VETO_PICK_TITLE, candidate_ghosts)
-		if(!this_ghost)
+			available_candidates -= ghost
+	for(var/slot_count = max_slots, (slot_count > 0 && length(available_candidates)), slot_count--)
+		var/selected_ghost = tgui_input_list(admin_client, VETO_PICK_MESSAGE(slot_count), VETO_PICK_TITLE, available_candidates)
+		if(!selected_ghost)
 			continue
-		candidate_ghosts -= this_ghost
-		selected_ghosts += this_ghost
-	return selected_ghosts
+		available_candidates -= selected_ghost
+		selected_candidates += selected_ghost
+	return selected_candidates
 
-/proc/pick_candidates_manually(client/admin_client, teamsize)
-	var/list/possible_ghosts = list()
-	var/list/players_to_spawn = list()
-	for(var/mob/dead/observer/G in GLOB.player_list)
-		if(!G.client.is_afk())
-			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-				possible_ghosts += G
-	for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every member selected.
-		var/candidate = tgui_input_list(admin_client, MANUAL_PICK_MESSAGE(i), MANUAL_PICK_TITLE, possible_ghosts) // auto-picks if only one candidate
-		if(candidate == null)
-			break;
-		possible_ghosts -= candidate
-		players_to_spawn += candidate
-	return players_to_spawn
+/**
+ * Manually picks candidates from all available ghosts without a poll
+ *
+ * Arguments:
+ * * admin_client - The client of the admin making the selection
+ * * team_size - Number of team members to select
+ */
+/proc/pick_candidates_manually(client/admin_client, team_size)
+	var/list/available_ghosts = list()
+	var/list/selected_players = list()
+	for(var/mob/dead/observer/ghost in GLOB.player_list)
+		if(!ghost.client.is_afk())
+			if(!(ghost.mind && ghost.mind.current && ghost.mind.current.stat != DEAD))
+				available_ghosts += ghost
+	for(var/selection_count = team_size, (selection_count > 0 && length(available_ghosts)), selection_count--)
+		var/selected_candidate = tgui_input_list(admin_client, MANUAL_PICK_MESSAGE(selection_count), MANUAL_PICK_TITLE, available_ghosts)
+		if(selected_candidate == null)
+			break
+		available_ghosts -= selected_candidate
+		selected_players += selected_candidate
+	return selected_players
 
-/proc/pick_candidates_all_types(client/admin_client, max_slot, question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
-	var/type = tgui_alert(admin_client,"Как вы хотите выбрать членов команды? \n \
-	Случайно — призраки получат предложение занять роль. \
-	После его окончания, среди них будет рандомно выбрано [max_slot] кандидатов \n \
-	С вето — призраки получат предложение занять роль.\
-	После его окончания, вам необходимо среди них выбрать [max_slot] кандидатов \n \
-	Вручную — Вам необходимо выбрать [max_slot] кандидатов среди всех призраков. \
-	(не рекомендуется, вы можете выбрать игрока на роль против его воли).",
-	"Выберите способ.", list("Случайно", "С вето", "Вручную"))
-	switch(type)
+/**
+ * Presents admin with choice of candidate selection methods
+ *
+ * Arguments:
+ * * admin_client - The client of the admin making the selection
+ * * max_slots - Maximum number of candidates to select
+ * * question - The poll question presented to ghosts
+ * * be_special_type - The special role type to check for
+ * * antag_age_check - Whether to check antag age restrictions
+ * * poll_time - Duration of the poll in seconds
+ * * ignore_respawnability - Whether to ignore respawnability checks
+ * * min_hours - Minimum hours required to participate
+ * * flashwindow - Whether to flash the window for candidates
+ * * check_antaghud - Whether to check antag HUD visibility
+ * * source - The source of the poll
+ * * role_cleanname - Clean name of the role for display
+ * * reason - Reason for the poll
+ */
+/proc/pick_candidates_all_types(client/admin_client, max_slots, question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
+	var/selection_method = tgui_alert(admin_client, "Как вы хотите выбрать членов команды? \n \
+		Случайно — призраки получат предложение занять роль. \
+		После его окончания, среди них будет рандомно выбрано [max_slots] кандидатов \n \
+		С вето — призраки получат предложение занять роль.\
+		После его окончания, вам необходимо среди них выбрать [max_slots] кандидатов \n \
+		Вручную — Вам необходимо выбрать [max_slots] кандидатов среди всех призраков. \
+		(не рекомендуется, вы можете выбрать игрока на роль против его воли).",
+		"Выберите способ.", list("Случайно", "С вето", "Вручную")
+	)
+	switch(selection_method)
 		if("Случайно")
 			return SSghost_spawns.poll_candidates(question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)
 		if("С вето")
-			return pollCandidatesWithVeto(admin_client, max_slot, question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)
+			return poll_candidates_with_veto(admin_client, max_slots, question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)
 		if("Вручную")
-			return pick_candidates_manually(admin_client, max_slot)
+			return pick_candidates_manually(admin_client, max_slots)
 	return list()
 
-///sends a whatever to all playing players; use instead of to_chat(world, where needed)
+/// Sends a whatever to all playing players; use instead of to_chat(world, where needed)
 /proc/send_to_playing_players(thing)
 	for(var/player_mob in GLOB.player_list)
 		if(player_mob && !isnewplayer(player_mob))
 			to_chat(player_mob, thing)
 
-/proc/window_flash(client/C)
-	if(ismob(C))
-		var/mob/M = C
-		if(M.client)
-			C = M.client
-	if(!C || !(C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
+/// Flash the window of a player
+/proc/window_flash(client/flashed_client)
+	if(ismob(flashed_client))
+		var/mob/player_mob = flashed_client
+		if(player_mob.client)
+			flashed_client = player_mob.client
+	if(!flashed_client || !(flashed_client.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
 		return
-	winset(C, "mainwindow", "flash=5")
+	winset(flashed_client, "mainwindow", "flash=5")
 
 /**
  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments

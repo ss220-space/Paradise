@@ -34,7 +34,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		return 0
 
 	if(CONFIG_GET(flag/guest_jobban) && guest_jobbans(rank))
-		if(IsGuestKey(M.key))
+		if(is_guest_key(M.key))
 			return "Guest Job-ban"
 
 	if(GLOB.jobban_assoclist[M.ckey])

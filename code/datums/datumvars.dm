@@ -1610,7 +1610,7 @@
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
 			return TRUE
 
-		uniqueList_inplace(L)
+		unique_list_in_place(L)
 		log_world("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
 		log_admin("[key_name(src)] modified list's contents: CLEAR DUPES")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR DUPES")

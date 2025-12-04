@@ -79,8 +79,8 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
 	var/total_salary = 0
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-			total_salary += account.linked_job.salary
+		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
+			total_salary += account.linked_job.paycheck
 	return total_salary
 
 /datum/controller/subsystem/capitalism/proc/accounts_init()
@@ -104,10 +104,10 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/proc/payment_process()
 	. = TRUE
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Отдел финансов \"Нанотрейзен\"" , "Поступление зарплаты.", "Поступление зарплаты" ,"Терминал Бизель №[rand(111,333)]"))
-				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.salary] кредитов\" (Невозможно Ответить)", FALSE)
-				total_salary_payment += account.linked_job.salary
+		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
+			if(payment_account.charge(account.linked_job.paycheck, account, "Выплата зарплаты персоналу.", "Отдел финансов \"Нанотрейзен\"" , "Поступление зарплаты.", "Поступление зарплаты" ,"Терминал Бизель №[rand(111,333)]"))
+				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.paycheck] кредитов\" (Невозможно Ответить)", FALSE)
+				total_salary_payment += account.linked_job.paycheck
 			else
 				return FALSE
 

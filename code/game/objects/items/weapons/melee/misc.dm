@@ -217,7 +217,7 @@
 	if(prob(25))
 		do_sparks(rand(1, 6), TRUE, loc)
 
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		var/obj/machinery/door/airlock/A = target
 
 		if(!A.requiresID() || A.allowed(user))

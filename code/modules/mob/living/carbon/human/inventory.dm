@@ -586,6 +586,15 @@
 
 	return O.equip(src, visualsOnly)
 
+/mob/living/carbon/human/get_visible_items()
+	var/list/visible_items = ..()
+	var/obj/item/clothing/under/under = w_uniform
+
+	if(istype(under) && length(under.accessories) && (under in visible_items))
+		visible_items += under.accessories
+
+	return visible_items
+
 //delete all equipment without dropping anything
 /mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first

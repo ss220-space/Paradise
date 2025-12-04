@@ -61,6 +61,12 @@ SUBSYSTEM_DEF(machines)
 		if(found_machines)
 			. |= found_machines
 
+/datum/controller/subsystem/machines/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(processing)
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/machines/proc/makepowernets()
 	for(var/datum/powernet/PN in powernets)
 		qdel(PN)
