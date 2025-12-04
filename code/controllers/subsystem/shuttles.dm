@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
 
-	cargo_money_account = GLOB.department_accounts["Cargo"]
+	cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 
 	if(!emergency)
 		log_runtime(EXCEPTION("No /obj/docking_port/mobile/emergency placed on the map!"))
