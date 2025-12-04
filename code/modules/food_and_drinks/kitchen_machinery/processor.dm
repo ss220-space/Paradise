@@ -1,5 +1,6 @@
 /obj/machinery/processor
 	name = "Food Processor"
+	desc = "Высокоэффективный кухонный комбайн для стандартизации процесса приготовления. Автоматически нарезает, мнёт, формует и экструдирует."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
 	density = TRUE
@@ -175,7 +176,7 @@
 		return ..()
 
 	if(processing)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, "работает!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(exchange_parts(user, I))
@@ -184,7 +185,7 @@
 	add_fingerprint(user)
 	var/datum/food_processor_process/recipe = select_recipe(I)
 	if(!recipe)
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))], скорее всего, не измельчится."))
+		balloon_alert(user, "невозможно измельчить!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
@@ -192,25 +193,25 @@
 
 	user.visible_message(
 		span_notice("[user] помеща[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы поместили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
+		span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
 	)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/machinery/processor/screwdriver_act(mob/living/user, obj/item/I)
 	if(processing)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, "работает!")
 		return TRUE
 	return default_deconstruction_screwdriver(user, "processor_open", "processor", I)
 
 /obj/machinery/processor/wrench_act(mob/living/user, obj/item/I)
 	if(processing)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, "работает!")
 		return TRUE
 	return default_unfasten_wrench(user, I)
 
 /obj/machinery/processor/crowbar_act(mob/living/user, obj/item/I)
 	if(processing)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] работает."))
+		balloon_alert(user, "работает!")
 		return TRUE
 	return default_deconstruction_crowbar(user, I)
 
@@ -219,16 +220,16 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE)
 		return .
 	if(processing)
-		to_chat(grabber, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже что-то перерабатывает!"))
+		balloon_alert(grabber, "работает!")
 		return .
 	var/datum/food_processor_process/recipe = select_recipe(grabbed_thing)
 	if(!recipe)
-		to_chat(grabber, span_warning("Это вряд ли измельчится."))
+		balloon_alert(grabber, "невозможно измельчить!")
 		return .
 	add_fingerprint(grabber)
 	grabbed_thing.forceMove(src)
 	grabber.visible_message(
-		span_notice("[grabber] помеща[PLUR_ET_YUT(grabber)] [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("[grabber] помеща[PLUR_ET_YUT(grabber)] [grabbed_thing.name] в [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы помещаете [grabbed_thing.name] в [declent_ru(ACCUSATIVE)].")
 	)
 
@@ -237,16 +238,14 @@
 		return
 
 	if(processing)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже занят обработкой!"))
+		balloon_alert(user, "работает!")
 		return 1
 
 	if(length(contents) == 0)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пуст."))
+		balloon_alert(user, "пусто!")
 		return 1
 	processing = TRUE
-	user.visible_message("[user] включа[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)].",
-		span_notice("Вы включаете [declent_ru(ACCUSATIVE)]."),
-		span_italics("Вы слышите работу кухонного комбайна."))
+	user.balloon_alert_to_viewers("включа[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "включено")
 	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(500)
 	var/total_time = 0

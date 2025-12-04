@@ -148,12 +148,12 @@ export const KitchenMachine = (props) => {
                 <Stack.Item>
                   <Icon name="bottle-droplet" />
                 </Stack.Item>
-                <Stack.Item>Реагенты</Stack.Item>
+                <Stack.Item>Вещества</Stack.Item>
               </Stack>
             }
           >
             {reagents.length === 0 ? (
-              <Box italic>Реагенты не обнаружены</Box>
+              <Box italic>Вещества не обнаружены</Box>
             ) : (
               <LabeledList>
                 {reagents.map((reagent, i) => (

@@ -79,7 +79,7 @@
 
 	add_fingerprint(user)
 	if(operating)
-		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает")
+		balloon_alert(user, "работает!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(broken == BROKEN_NONE && dirty != MAX_DIRT && exchange_parts(user, I))
@@ -100,8 +100,8 @@
 			if(broken == BROKEN_NONE)
 				container_type = OPENCONTAINER
 			user.visible_message(
-				span_notice("[user] почистил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы почистили [declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] заканчива[PLUR_ET_YUT(user)] чистить [declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы заканчиваете чистить [declent_ru(ACCUSATIVE)]."),
 			)
 			return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
@@ -136,16 +136,16 @@
 	if(is_type_in_typecache(I, acceptable_containers))
 		var/obj/item/reagent_containers/container = I
 		if(!container.reagents || !container.reagents.total_volume)
-			to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] пуст."))
+			balloon_alert(user, "[container.declent_ru(NOMINATIVE)] пуст")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		for(var/datum/reagent/reagent as anything in container.reagents.reagent_list)
 			if(!(reagent.id in GLOB.cooking_reagents[recipe_type]))
-				to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] содержит компоненты, непригодные для готовки."))
+				balloon_alert(user, "содержит непригодные компоненты!")
 				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
 			span_notice("[user] добавля[PLUR_ET_YUT(user)] несколько ингредиентов из [container.declent_ru(GENITIVE)]."),
-			span_notice("Вы добавили несколько ингредиентов из [container.declent_ru(GENITIVE)]."),
+			span_notice("Вы добавляете несколько ингредиентов из [container.declent_ru(GENITIVE)]."),
 		)
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
@@ -156,7 +156,7 @@
 /obj/machinery/kitchen_machine/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += span_notice("\n<b>Alt+ЛКМ</b> для активации.<br/><b>Ctrl+Shift+ЛКМ</b> для удаления содержимого.")
+		. += span_notice("\nИспользуйте <b>Alt+ЛКМ</b> для активации.<br/><b>Ctrl+Shift+ЛКМ</b> для удаления содержимого.")
 
 /obj/machinery/kitchen_machine/click_alt(mob/living/carbon/human/human)
 	if(operating)
@@ -183,7 +183,7 @@
 	. = TRUE
 	add_fingerprint(user)
 	if(operating)
-		balloon_alert(user, "[declent_ru(NOMINATIVE)] работает")
+		balloon_alert(user, "работает!")
 		return .
 	if(broken == BROKEN_NONE)
 		if(dirty == MAX_DIRT)
@@ -202,15 +202,15 @@
 		broken = BROKEN_NEEDS_WRENCH // Fix it a bit
 	update_icon(UPDATE_ICON_STATE)
 	user.visible_message(
-		span_notice("[user] починил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы починили [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] заканчива[PLUR_ET_YUT(user)] чинить [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы заканчиваете чинить [declent_ru(ACCUSATIVE)]."),
 	)
 
 /obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
 	if(operating)
-		balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] работает!")
+		balloon_alert(user, "работает!")
 		return .
 	if(broken == BROKEN_NONE)
 		return default_unfasten_wrench(user, I)
@@ -227,15 +227,15 @@
 		container_type = OPENCONTAINER
 	update_icon(UPDATE_ICON_STATE)
 	user.visible_message(
-		span_notice("[user] починил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы починили [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] аканчива[PLUR_ET_YUT(user)] чинить [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы заканчиваете чинить [declent_ru(ACCUSATIVE)]."),
 	)
 
 /obj/machinery/kitchen_machine/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
 	if(operating)
-		balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] работает!")
+		balloon_alert(user, "работает!")
 		return .
 	return default_deconstruction_crowbar(user, I)
 
@@ -246,7 +246,7 @@
 	special_grab_attack(grabbed_thing, grabber)
 
 /obj/machinery/kitchen_machine/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
-	to_chat(grabber, span_warning("Абсурд. Вы не можете просто взять и поместить [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	to_chat(grabber, span_warning("Вы не можете просто взять и поместить [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(I.loc == user)

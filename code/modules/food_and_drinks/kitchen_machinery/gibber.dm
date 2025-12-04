@@ -90,11 +90,11 @@
 		return
 
 	if(operating)
-		to_chat(user, span_danger("Мясорубка заблокирована и работает, дождитесь завершения."))
+		balloon_alert(user, "мясорубка работает!")
 		return
 
 	if(locked)
-		to_chat(user, span_warning("Дождитесь завершения погрузки [occupant.declent_ru(ACCUSATIVE)]!"))
+		balloon_alert(user, "дождитесь завершения погрузки!")
 		return
 
 	add_fingerprint(user)
@@ -142,19 +142,19 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] переполнена, сначала опустошите её!"))
+		balloon_alert(user, "[declent_ru(NOMINATIVE)] переполнено!")
 		return
 
 	if(operating)
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] заблокирована и работает, дождитесь завершения."))
+		balloon_alert(user, "дождитесь завершения!")
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, span_danger("Это не подходит для [declent_ru(GENITIVE)]!"))
+		balloon_alert(user, "не подходит для [declent_ru(GENITIVE)]!")
 		return
 
 	if(victim.abiotic(1))
-		to_chat(user, span_danger("Объект не должен иметь абиотических предметов."))
+		balloon_alert(user, "обнаружена абиотика!")
 		return
 
 	user.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] засовывать [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
@@ -252,7 +252,7 @@
 		return
 
 	if(!occupant)
-		balloon_alert(user, "мясорубка пуста")
+		balloon_alert(user, "мясорубка пуста!")
 		return
 
 	use_power(1000)
@@ -353,7 +353,7 @@
 		victim_targets += H
 
 	if(length(victim_targets))
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] объявляет: \"Обнаружена еда!\""))
+		atom_say("Обнаружена еда!", FALSE)
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
@@ -419,6 +419,6 @@
 			spats++
 			sleep(1)
 	if(spats)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает еще больше вещей!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает ещё больше вещей!"))
 
 #undef GIBBER_ANIMATION_DELAY

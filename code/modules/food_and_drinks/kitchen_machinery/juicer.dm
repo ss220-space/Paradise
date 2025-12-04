@@ -1,6 +1,7 @@
 
 /obj/machinery/juicer
 	name = "Juicer"
+	desc = "Самая обычная соковыжималка. Принимает практически любой выращенный плод."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	density = TRUE
@@ -52,7 +53,7 @@
 	add_fingerprint(user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
-			to_chat(user, span_warning("[capitalize(beaker.declent_ru(NOMINATIVE))] уже внутри [declent_ru(GENITIVE)]."))
+			balloon_alert(user, "внутри уже есть ёмкость!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -63,7 +64,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!is_type_in_list(I, allowed_items))
-		to_chat(user, span_warning("Похоже, [I.declent_ru(NOMINATIVE)] не содержит сока."))
+		balloon_alert(user, "[I.declent_ru(NOMINATIVE)] не содержит сока!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))

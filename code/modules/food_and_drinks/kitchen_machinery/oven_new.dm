@@ -60,11 +60,11 @@
 	var/mob/living/carbon/human/victim = grabbed_thing
 	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
 	if(!head)
-		to_chat(grabber, span_warning("Кажется у н[GEND_HIS_HER(victim)] нет головы..."))
+		balloon_alert(grabber, span_warning("нет головы!"))
 		return
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] ударя[PLUR_ET_YUT(grabber)] головой [victim] о дверцу [declent_ru(GENITIVE)]!"),
+		span_danger("[grabber] ударя[PLUR_ET_YUT(grabber)] [victim] головой о дверцу [declent_ru(GENITIVE)]!"),
 		span_userdanger("[grabber] бь[PLUR_ET_YUT(grabber)] вашей головой о дверцу [declent_ru(GENITIVE)]! В духовке довольно жарко!"),
 	)
 	if(victim.has_pain())

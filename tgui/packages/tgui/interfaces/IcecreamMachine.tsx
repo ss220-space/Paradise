@@ -70,7 +70,7 @@ export const IcecreamMachine = (props) => {
               </LabeledList>
             ) : (
               <Box italic>
-                Вставьте ёмкость с реагентами, чтобы добавить их в мороженное.
+                Вставьте ёмкость с веществами, чтобы добавить их в мороженое.
               </Box>
             )}
           </Section>
@@ -103,7 +103,7 @@ export const IcecreamMachine = (props) => {
             </ProgressBar>
           </Section>
 
-          <Section title="Добавить наполнители">
+          <Section title="Наполнители">
             <Stack>
               <Stack.Item grow>
                 <Button
@@ -134,7 +134,7 @@ export const IcecreamMachine = (props) => {
                   icon="whiskey-glass"
                   onClick={() => act('synthcond', { type: 4 })}
                 >
-                  Добавить сливки
+                  Сливки
                 </Button>
               </Stack.Item>
               <Stack.Item grow>
@@ -143,7 +143,7 @@ export const IcecreamMachine = (props) => {
                   icon="glass-water"
                   onClick={() => act('synthcond', { type: 5 })}
                 >
-                  Добавить воду
+                  Вода
                 </Button>
               </Stack.Item>
             </Stack>

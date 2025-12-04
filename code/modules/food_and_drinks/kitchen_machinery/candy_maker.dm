@@ -1,7 +1,7 @@
 
 /obj/machinery/kitchen_machine/candy_maker
 	name = "candy machine"
-	desc = "Настоящий кошмар дантиста и лучший друг диабета. Хрустите."
+	desc = "Мощный смеситель, предназначенный для производства кондитерских изделий. Настоящий кошмар дантиста и лучший друг диабета."
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "candymaker_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")

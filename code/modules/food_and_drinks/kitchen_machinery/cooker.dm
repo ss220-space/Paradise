@@ -45,13 +45,13 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] всё ещё работает!"))
+		balloon_alert(user, "работает!")
 		return FALSE
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return TRUE
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	to_chat(user, span_notice("Можно обрабатывать только продукты!"))
+	balloon_alert(user, "только продукты!")
 	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
@@ -83,7 +83,15 @@
 	if(prob(firechance))
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"
-		oil.desc = "Ой-ой, похоже это жир из [declent_ru(GENITIVE)]"
+		oil.desc = "Ой-ой, похоже это жир из [declent_ru(GENITIVE)]."
+		oil.ru_names = list(
+			NOMINATIVE = "жир",
+			GENITIVE = "жира",
+			DATIVE = "жиру",
+			ACCUSATIVE = "жир",
+			INSTRUMENTAL = "жиром",
+			PREPOSITIONAL = "жире"
+		)
 		drop_turf.hotspot_expose(700, 50, 1)
 		//TODO have a chance of setting the tile on fire
 
@@ -129,14 +137,14 @@
 
 	add_fingerprint(user)
 	if(panel_open)
-		to_chat(user, span_warning("Сначала закройте панель!"))
+		balloon_alert(user, ("закройте панель!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!checkValid(I, user))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!burns && istype(I, /obj/item/reagent_containers/food/snacks) && checkCooked(I))
-		to_chat(user, span_warning("Оно уже [thiscooktype]!"))
+		to_chat(user, span_warning("уже обжаренно!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!putIn(I, user))

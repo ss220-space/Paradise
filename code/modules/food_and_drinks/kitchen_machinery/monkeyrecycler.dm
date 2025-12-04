@@ -14,6 +14,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/cube_production = 1
 	var/cycle_through = 0
 	var/obj/item/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+	var/cubename = "шимпанзе"
 	var/list/connected = list()
 
 /obj/machinery/monkey_recycler/get_ru_names()
@@ -25,6 +26,11 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		INSTRUMENTAL = "утилизатором обезьян",
 		PREPOSITIONAL = "утилизаторе обезьян"
 	)
+
+/obj/machinery/monkey_recycler/examine(mob/user)
+	. = ..()
+	. += span_notice("\nТип кубика: <b>[capitalize(cubename)]</b>")
+	. += span_notice("Осталось материала: <b>[grinded] ед.</b>")
 
 /obj/machinery/monkey_recycler/Initialize(mapload)
 	. = ..()
@@ -93,39 +99,38 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		to_chat(user, span_notice("Вы сохраняете [declent_ru(ACCUSATIVE)] в буфере [multitool.declent_ru(GENITIVE)]."))
 		return .
 	cycle_through++
-	var/cubename
 	switch(cycle_through)
 		if(1)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
-			cubename = "фарву"
+			cubename = "фарва"
 		if(2)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
-			cubename = "вульпина"
+			cubename = "вульпин"
 		if(3)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
-			cubename = "стока"
+			cubename = "сток"
 		if(4)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
-			cubename = "неару"
+			cubename = "неара"
 		if(5)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
-			cubename = "обезьяну"
+			cubename = "шимпанзе"
 			cycle_through = 0
-	to_chat(user, span_notice("Вы изменили тип кубика на [cubename]."))
+	balloon_alert(user, "тип кубика: <b>[cubename]</b>.")
 
 /obj/machinery/monkey_recycler/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || (stat & (NOPOWER|BROKEN)))
 		return .
 	if(!ishuman(grabbed_thing))
-		to_chat(grabber, span_warning("Эта машина принимает только гуманоидов!"))
+		balloon_alert(grabber, "только для гуманоидов!")
 		return .
 	var/mob/living/carbon/human/victim = grabbed_thing
 	if(!is_monkeybasic(victim))
-		to_chat(grabber, span_warning("Эта машина принимает только низшие формы жизни!"))
+		balloon_alert(grabber, "только для низших форм!")
 		return .
 	if(!victim.stat)
-		to_chat(grabber, span_warning("[capitalize(victim)] слишком сильно сопротивляется, чтобы поместить его в утилизатор."))
+		balloon_alert(grabber, "цель сопротивляется!")
 		return .
 	add_fingerprint(grabber)
 	to_chat(grabber, span_notice("Вы запихиваете [victim] в [declent_ru(ACCUSATIVE)]."))
@@ -138,7 +143,6 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	grinded++
 	sleep(5 SECONDS)
 	pixel_x = initial(pixel_x)
-	to_chat(grabber, span_notice("В машине теперь содержится материала на [grinded] кубик[DECL_SEC_MIN(grinded)]."))
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc
@@ -150,7 +154,6 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)
-		to_chat(user, span_notice("На дисплее машины мигает сообщение, что осталось материала на [grinded] кубик[DECL_CREDIT(grinded)]."))
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
-		to_chat(user, span_warning("Для производства [cube_production] кубик[DECL_SEC_MIN(cube_production)] машине требуется как минимум материал от [required_grind] обезьян[DECL_SEC_MIN(required_grind)]. Сейчас внутри: [grinded]."))
+		to_chat(user, span_warning("Для производства <b>[cube_production] кубик[declension_ru(cube_production, "а", "ов", "ов")]</b> машине требуется как минимум материал от <b>[required_grind] обезьян[declension_ru(required_grind, "ы", "", "")]</b>."))
 	return

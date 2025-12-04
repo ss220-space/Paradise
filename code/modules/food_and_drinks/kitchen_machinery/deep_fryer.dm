@@ -1,6 +1,6 @@
 /obj/machinery/cooker/deepfryer
 	name = "deep fryer"
-	desc = "Позволяет придать хрустящую корочку <i>чему угодно</i>. Буквально."
+	desc = "Промышленный аппарат для глубокой прожарки в раскалённом масле. Позволяет придать хрустящую корочку <i>чему угодно</i>. Буквально."
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "fryer_off"
 	thiscooktype = "обжарено во фритюре"
@@ -59,12 +59,12 @@
 	var/mob/living/carbon/human/victim = grabbed_thing
 	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
 	if(!head)
-		to_chat(grabber, span_warning("Кажется у н[GEND_HIS_HER(victim)] нет головы..."))
+		balloon_alert(grabber, span_warning("нет головы!"))
 		return
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] окуна[PLUR_ET_YUT(grabber)] лицо [victim] в [declent_ru(ACCUSATIVE)]!"),
-		span_userdanger("[grabber] окуна[PLUR_ET_YUT(grabber)] твое лицо в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[grabber] окуна[PLUR_ET_YUT(grabber)] [victim] лицом в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[grabber] окуна[PLUR_ET_YUT(grabber)] вас в [declent_ru(ACCUSATIVE)]!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")

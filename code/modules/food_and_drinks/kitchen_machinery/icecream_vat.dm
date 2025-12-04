@@ -3,6 +3,7 @@
 
 /obj/machinery/icemachine
 	name = "Cream-Master Deluxe"
+	desc = "Современный комплекс для синтеза замороженных молочных десертов. Гарантирует идеальную консистенцию и температуру готового продукта. Ром со вкусом детства."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/machines/cooking_machines.dmi'
@@ -28,7 +29,7 @@
 	var/cone_name = null	//Heart failure prevention.
 	cone_name += name_prefix
 	cone_name += name_suffix
-	cone_name += "[reagent_name]"
+	cone_name += " — [reagent_name]"
 	return cone_name
 
 /obj/machinery/icemachine/Initialize(mapload)
@@ -140,10 +141,17 @@
 
 		if("createcup")
 			var/name = generate_name(reagents.get_master_reagent_name())
-			name += " Chocolate Cone"
 			var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
 			C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcup(loc)
-			C.name = "[name]"
+			C.name = "мороженное в стаканчике [name]"
+			C.ru_names = list(
+				NOMINATIVE = "мороженое в стаканчике \"[name]\"",
+				GENITIVE = "мороженого в стаканчике \"[name]\"",
+				DATIVE = "мороженому в стаканчике \"[name]\"",
+				ACCUSATIVE = "мороженое в стаканчике \"[name]\"",
+				INSTRUMENTAL = "мороженым в стаканчике \"[name]\"",
+				PREPOSITIONAL = "мороженом в стаканчике \"[name]\""
+			)
 			C.pixel_x = rand(-8, 8)
 			C.pixel_y = -16
 			reagents.trans_to(C,30)
@@ -154,10 +162,17 @@
 
 		if("createcone")
 			var/name = generate_name(reagents.get_master_reagent_name())
-			name += " Cone"
 			var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
 			C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
-			C.name = "[name]"
+			C.name = "мороженное в рожке [name]"
+			C.ru_names = list(
+				NOMINATIVE = "мороженое в рожке \"[name]\"",
+				GENITIVE = "мороженого в рожке \"[name]\"",
+				DATIVE = "мороженому в рожке \"[name]\"",
+				ACCUSATIVE = "мороженое в рожке \"[name]\"",
+				INSTRUMENTAL = "мороженым в рожке \"[name]\"",
+				PREPOSITIONAL = "мороженом в рожке \"[name]\""
+			)
 			C.pixel_x = rand(-8, 8)
 			C.pixel_y = -16
 			reagents.trans_to(C,15)
@@ -173,24 +188,24 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(beaker)
-			to_chat(user, span_warning("[capitalize(beaker.declent_ru(NOMINATIVE))] уже внутри [declent_ru(GENITIVE)]."))
+			balloon_alert(user, "внутри уже есть ёмкость!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		to_chat(user, span_notice("Вы вставили [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
+		balloon_alert(user, "ёмкость вставлена")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		add_fingerprint(user)
 		if(I.reagents.has_reagent("sprinkles"))
-			to_chat(user, span_warning("На [I.declent_ru(PREPOSITIONAL)] уже есть посыпка."))
+			balloon_alert(user, "уже есть посыпка!")
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Вы добавили посыпку на [I.declent_ru(ACCUSATIVE)]."))
+		balloon_alert(user, "посыпка добавлена")
 		if(I.reagents.total_volume > 29)
 			I.reagents.remove_any(1)
 		I.reagents.add_reagent("sprinkles", 1)
-		I.name += " with sprinkles"
+		I.name += " c посыпкой"
 		I.desc += " С ароматной посыпкой."
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -201,7 +216,7 @@
 		return 1
 	else
 		if(reagents.total_volume < 500)
-			to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] вибрирует на мгновение, по-видимому принимая неизвестную жидкость."))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] вибрирует, принимая неизвестную жидкость."))
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 		return 1
 

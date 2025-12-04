@@ -39,8 +39,8 @@
 			return ATTACK_CHAIN_PROCEED
 		clean()
 		user.visible_message(
-			span_notice("[user] вымыл[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы вымыли [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] заканчива[PLUR_ET_YUT(user)] мыть [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы заканчиваете [declent_ru(ACCUSATIVE)]."),
 		)
 		update_dialog(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
