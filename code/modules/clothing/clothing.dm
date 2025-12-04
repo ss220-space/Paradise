@@ -274,7 +274,6 @@
 	/// List of things added to examine text, like security or medical records.
 	var/examine_extensions = EXAMINE_HUD_NONE
 
-	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = FALSE
 	var/prescription_upgradable = FALSE

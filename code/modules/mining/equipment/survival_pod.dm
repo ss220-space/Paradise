@@ -16,7 +16,6 @@
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
-	var/emagged = FALSE
 
 /obj/item/survivalcapsule/get_ru_names()
 	return list(

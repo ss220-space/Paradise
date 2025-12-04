@@ -19,8 +19,7 @@
 	var/list/modes_by_id
 	/// Data for radial menu display of modes
 	var/list/radial_modes
-	/// Whether the holotool has been emagged
-	var/emagged = FALSE
+	item_state_color = "#48D1CC" // mediumturquoise
 
 /obj/item/holotool/get_ru_names()
 	return list(
