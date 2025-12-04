@@ -31,8 +31,7 @@ GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "
 // Drinks
 GLOBAL_LIST_INIT(drinks, subtypesof(/datum/reagent/consumable/drink/)\
 						+ subtypesof(/datum/reagent/consumable/ethanol)\
-						+ /datum/reagent/consumable/ethanol \
-						+ /datum/reagent/beer2)
+						+ /datum/reagent/consumable/ethanol)
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))

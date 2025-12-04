@@ -572,27 +572,6 @@
 	affected_mob.adjust_fire_stacks(2 * REM * seconds_per_tick)
 	affected_mob.IgniteMob()
 
-/datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
-	name = "Пиво"
-	id = "beer2"
-	description = "Алкогольный напиток, приготовленный из солода, хмеля, дрожжей и воды."
-	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 0.1 * REAGENTS_METABOLISM
-	drink_icon ="beerglass"
-	drink_name = "стакан пива"
-	drink_desc = "Освежающая пинта пива."
-	taste_description = "мочи"
-
-/datum/reagent/beer2/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	switch(current_cycle)
-		if(1 to 50)
-			M.Sleeping(4 SECONDS)
-		if(51 to INFINITY)
-			M.Sleeping(4 SECONDS)
-			update_flags |= M.adjustToxLoss((current_cycle - 50) / 2, FALSE)
-	return ..() | update_flags
-
 /datum/reagent/polonium
 	name = "Полоний"
 	id = "polonium"
