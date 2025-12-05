@@ -32162,7 +32162,7 @@
 	},
 /area/syndicate_mothership)
 "oRV" = (
-/obj/item/toy/plushie/ManulPlushie,
+/obj/item/toy/plushie/manulplushie,
 /turf/simulated/floor/beach/sand,
 /area/centcom/evac)
 "oSm" = (

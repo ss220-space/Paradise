@@ -1574,13 +1574,21 @@
 
 #undef EVIL_MODE_CHANCE
 
-/obj/item/toy/plushie/ManulPlushie
-	name = "kotik plushie"
-	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка «Манул». Кто-то оставил эту игрушку здесь в память..."
+/obj/item/toy/plushie/manulplushie
+	name = "manul plushie"
+	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
 	icon_state = "kotik_plushie"
 	item_state = "kotik_hand"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
+/obj/item/toy/plushie/manulplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушка Манула",
+		GENITIVE = "игрушки Манула",
+		DATIVE = "игрушке Манула",
+		ACCUSATIVE = "игрушку Манула",
+		INSTRUMENTAL = "игрушкой Манула",
+		PREPOSITIONAL = "игрушке Манула",
+	)
 
 /*
  * Foam Armblade
