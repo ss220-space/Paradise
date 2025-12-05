@@ -497,6 +497,18 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"ayM" = (
+/obj/item/radio/intercom/specops/directional/west,
+/obj/machinery/camera{
+	c_tag = "CentComm ERT Shuttle";
+	dir = 4;
+	network = list("ERT","CentComm")
+	},
+/turf/simulated/floor/indestructible{
+	dir = 10;
+	icon_state = "darkgreynavyblue"
+	},
+/area/centcom/specops)
 "ayN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -914,6 +926,13 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone1)
+"aOg" = (
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/specops)
 "aOB" = (
 /obj/structure/rack/holorack,
 /obj/item/autoimplanter/old,
@@ -1294,6 +1313,13 @@
 	tag = "icon-snow"
 	},
 /area/holodeck/source_snowfield)
+"beZ" = (
+/obj/structure/closet/secure_closet/medical2,
+/obj/item/radio/intercom/specops/directional/south,
+/turf/simulated/floor/indestructible{
+	icon_state = "darkblue"
+	},
+/area/centcom/specops)
 "bfz" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1895,6 +1921,10 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"bEn" = (
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/indestructible/carpet,
+/area/centcom/specops)
 "bEx" = (
 /obj/machinery/light/spot{
 	dir = 4;
@@ -2042,6 +2072,12 @@
 	tag = "icon-wood_siding2 (EAST)"
 	},
 /area/holodeck/source_picnicarea)
+"bMn" = (
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "bMT" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -6;
@@ -2116,6 +2152,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"bOa" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -5
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/court)
 "bOp" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
@@ -2195,6 +2241,12 @@
 	},
 /turf/space/transit/north,
 /area/space)
+"bUt" = (
+/obj/item/radio/intercom/specops/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "bUG" = (
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
@@ -2298,6 +2350,13 @@
 	icon_state = "floor"
 	},
 /area/admin)
+"cac" = (
+/obj/structure/table/wood/poker,
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "woodalt"
+	},
+/area/centcom/specops)
 "caf" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -2387,12 +2446,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
-"cdf" = (
-/obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/evac)
 "cdk" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -2821,6 +2874,17 @@
 	icon_state = "sepia"
 	},
 /area/centcom/zone1)
+"cBH" = (
+/obj/structure/chair/comfy/red{
+	color = "#FFFFFF"
+	},
+/obj/effect/landmark/spawner/aroomwarp,
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/bridge)
 "cBM" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -3317,6 +3381,17 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"cNP" = (
+/obj/machinery/light/small{
+	brightness_range = 6;
+	dir = 4;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "cNR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
@@ -3600,13 +3675,6 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
-"daG" = (
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible{
-	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/centcom/bridge)
 "daV" = (
 /obj/structure/table/reinforced,
 /obj/item/beacon/syndicate/bomb{
@@ -3714,6 +3782,15 @@
 	icon_state = "iron0"
 	},
 /area/syndicate_mothership)
+"dhg" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/evac)
 "dhN" = (
 /obj/machinery/vending/hydroseeds{
 	contraband = list();
@@ -3992,27 +4069,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"dnq" = (
-/obj/structure/table/wood,
-/obj/machinery/door_control{
-	id = "commandcenter";
-	name = "Privacy Shutters";
-	pixel_x = -7;
-	pixel_y = -3;
-	req_access = list(153)
-	},
-/obj/machinery/door_control{
-	id = "syndicate_bridge";
-	name = "Bridge Blastdoor";
-	pixel_x = 7;
-	pixel_y = -3;
-	req_access = list(153)
-	},
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/syndicate_mothership)
 "dnA" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -4052,12 +4108,6 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
-"dog" = (
-/obj/item/radio/intercom/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "stairs-m"
-	},
-/area/centcom/evac)
 "dok" = (
 /obj/item/flag/ninja,
 /obj/effect/turf_decal/siding/wood{
@@ -4101,6 +4151,13 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
+"dqA" = (
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/indestructible{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/centcom/zone3)
 "drI" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -5590,6 +5647,26 @@
 	name = "floor"
 	},
 /area/vox_station)
+"euR" = (
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes/farwacubes,
+/obj/item/storage/box/monkeycubes/farwacubes,
+/obj/item/storage/box/monkeycubes/neaeracubes,
+/obj/item/storage/box/monkeycubes/neaeracubes,
+/obj/item/storage/box/monkeycubes/stokcubes,
+/obj/item/storage/box/monkeycubes/stokcubes,
+/obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/structure/table/reinforced,
+/obj/item/radio/intercom/specops/directional/north,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "evr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/candy/cotton/blue,
@@ -5638,16 +5715,6 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
-"ewW" = (
-/obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (WEST)"
-	},
-/obj/item/radio/intercom/syndicate/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "ewX" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -6018,16 +6085,6 @@
 /obj/item/bedsheet/black,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
-"eMv" = (
-/obj/structure/chair/comfy/red{
-	dir = 1
-	},
-/obj/item/radio/intercom/syndicate/directional/north,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/syndicate_mothership)
 "eMx" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -6245,6 +6302,12 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"eSe" = (
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/evac)
 "eSj" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/proto,
@@ -6264,17 +6327,6 @@
 	icon_state = "floor"
 	},
 /area/admin)
-"eSX" = (
-/obj/structure/sign/goldenplaque{
-	desc = "Лучший сотрудник века";
-	name = "Это Толя Раммфан";
-	pixel_x = 30
-	},
-/obj/structure/table/wood/poker,
-/turf/simulated/floor/indestructible{
-	icon_state = "woodalt"
-	},
-/area/centcom/specops)
 "eTZ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -6437,17 +6489,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"fas" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 1;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/obj/item/radio/intercom/syndicate/directional/north,
-/turf/simulated/floor/carpet,
-/area/wizard_station)
 "faG" = (
 /obj/structure/table/abductor,
 /obj/machinery/chem_dispenser/beer/upgraded{
@@ -6718,6 +6759,22 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
+"fha" = (
+/obj/item/radio/intercom/specops/directional/south,
+/obj/structure/table/wood,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 3;
+	pixel_y = 12
+	},
+/obj/item/pen/fancy,
+/obj/item/folder/blue,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -30
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "fhS" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/flashlight/lamp/green,
@@ -6771,6 +6828,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"fjP" = (
+/obj/structure/chair/sofa{
+	dir = 8
+	},
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
+	},
+/area/syndicate_mothership)
 "fjS" = (
 /obj/structure/kitchenspike,
 /obj/structure/window/reinforced{
@@ -6788,16 +6854,6 @@
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/arena)
-"fkt" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/surgery,
-/obj/item/radio/intercom/directional/west,
-/obj/item/clothing/gloves/color/latex/nitrile,
-/turf/simulated/floor/indestructible{
-	dir = 8;
-	icon_state = "white"
-	},
-/area/centcom/evac)
 "fku" = (
 /obj/structure/table/wood,
 /obj/item/tank/internals/nitrogen,
@@ -7420,12 +7476,6 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
-"fDK" = (
-/obj/item/radio/intercom/syndicate/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "fEa" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
@@ -7545,14 +7595,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"fJi" = (
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/evac)
 "fJp" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -7667,6 +7709,13 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"fNR" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/specops)
 "fOf" = (
 /obj/structure/toilet{
 	dir = 8
@@ -8090,13 +8139,6 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
-"ghO" = (
-/obj/machinery/computer/slot_machine,
-/obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/evac)
 "ghW" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -8176,6 +8218,13 @@
 /obj/effect/overlay/coconut,
 /turf/simulated/floor/indestructible/beach/sand,
 /area/centcom/evac)
+"gkA" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/srtops)
 "glr" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -8408,12 +8457,6 @@
 	icon_state = "wood"
 	},
 /area/trader_station/sol)
-"gvr" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/chair/sofa,
-/obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/indestructible/grass,
-/area/centcom/evac)
 "gvF" = (
 /turf/simulated/wall/shuttle,
 /area/ussp_ship)
@@ -8715,12 +8758,6 @@
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "bcarpet05"
-	},
-/area/centcom/zone1)
-"gHf" = (
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "wood"
 	},
 /area/centcom/zone1)
 "gHj" = (
@@ -9542,13 +9579,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
-"hmY" = (
-/obj/structure/closet/secure_closet/medical2,
-/obj/item/radio/intercom/specops/directional/south,
-/turf/simulated/floor/indestructible{
-	icon_state = "darkblue"
-	},
-/area/centcom/specops)
 "hnB" = (
 /obj/machinery/kitchen_machine/oven/upgraded,
 /turf/simulated/floor/indestructible{
@@ -9633,16 +9663,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/zone1)
-"hrp" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/radio/intercom/syndicate/directional/north,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/syndicate_mothership)
 "hsH" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/statue/hooker,
@@ -9932,14 +9952,6 @@
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
-"hCD" = (
-/obj/item/radio/intercom/directional/west,
-/obj/item/flag/nt,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/srtops)
 "hCF" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
@@ -10250,6 +10262,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"hMh" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/radio/intercom/specops/directional/south,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "hMK" = (
 /turf/simulated/floor/indestructible{
 	dir = 4;
@@ -10262,6 +10283,14 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
+"hNF" = (
+/obj/item/radio/intercom/specops/directional/east,
+/obj/structure/closet/secure_closet/reagents,
+/turf/simulated/floor/indestructible{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/centcom/specops)
 "hOj" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/structure/sign/poster/official/random{
@@ -10335,12 +10364,15 @@
 	icon_state = "floor"
 	},
 /area/admin)
-"hQw" = (
-/obj/structure/table/wood,
-/obj/effect/landmark/spawner/teleport_scroll,
-/obj/item/radio/intercom/syndicate/directional/south,
-/turf/simulated/floor/carpet/cyan,
-/area/wizard_station)
+"hQF" = (
+/obj/structure/bookcase/manuals,
+/obj/item/book/manual/engineering_construction,
+/obj/item/book/manual/engineering_construction,
+/obj/item/radio/intercom/specops/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "hQK" = (
 /obj/machinery/fishtank/wall,
 /turf/simulated/floor/indestructible{
@@ -10569,6 +10601,14 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
+"hZh" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/indestructible{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/centcom/zone3)
 "hZx" = (
 /turf/simulated/floor/indestructible{
 	dir = 5;
@@ -10803,13 +10843,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible/snow,
 /area/syndicate_mothership)
-"imo" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/item/radio/intercom/syndicate/directional/north,
-/turf/simulated/floor/carpet/black,
-/area/ninja/outpost)
 "imT" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -11360,15 +11393,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"iDU" = (
-/obj/structure/sink{
-	dir = 1
-	},
-/obj/item/radio/intercom/syndicate/directional/south,
-/turf/simulated/floor/indestructible{
-	icon_state = "freezerfloor"
-	},
-/area/syndicate_mothership)
 "iEl" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer/upgraded,
@@ -11517,12 +11541,6 @@
 	icon_state = "bcircuit"
 	},
 /area/centcom/zone2)
-"iKp" = (
-/obj/item/radio/intercom/syndicate/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/event_zone)
 "iLv" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -11617,19 +11635,6 @@
 "iMD" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/escape)
-"iOb" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/obj/machinery/light_switch{
-	pixel_x = 12;
-	pixel_y = -26
-	},
-/turf/simulated/floor/carpet,
-/area/wizard_station)
 "iOe" = (
 /obj/structure/table,
 /obj/random/tool,
@@ -12304,12 +12309,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
-"jnQ" = (
-/obj/item/radio/intercom/specops/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "darkblue"
-	},
-/area/centcom/zone2)
 "joi" = (
 /obj/structure/chair/comfy/red,
 /turf/simulated/floor/indestructible{
@@ -12702,6 +12701,13 @@
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
+"jCt" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "jDc" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -12847,12 +12853,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"jGQ" = (
-/obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "jGS" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
@@ -13141,12 +13141,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
-"jSE" = (
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "jSH" = (
 /obj/machinery/camera{
 	c_tag = "CentComm ERT Teleport Room";
@@ -13186,12 +13180,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
-"jUg" = (
-/obj/item/radio/intercom/specops/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "jUn" = (
 /obj/machinery/door/window{
 	dir = 8;
@@ -13466,12 +13454,6 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
-"keA" = (
-/obj/item/radio/intercom/specops/directional/north,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "kfe" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -13575,13 +13557,6 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/specops)
-"kjC" = (
-/obj/structure/closet/secure_closet/medical2,
-/obj/item/radio/intercom/syndicate/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "freezerfloor"
-	},
-/area/syndicate_mothership)
 "kjL" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/indestructible/carpet,
@@ -13686,6 +13661,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"kox" = (
+/obj/structure/closet/secure_closet/medical2,
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "freezerfloor"
+	},
+/area/syndicate_mothership)
 "koO" = (
 /obj/structure/cable,
 /turf/simulated/floor/indestructible{
@@ -14272,6 +14254,14 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/zone1)
+"kKN" = (
+/obj/structure/table/wood,
+/obj/item/megaphone,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/court)
 "kLa" = (
 /obj/structure/window/full/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -14316,6 +14306,23 @@
 	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
+"kMf" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Arrivals Bar";
+	dir = 1;
+	network = list("CentComm")
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/indestructible{
+	icon_state = "light_on_flicker4"
+	},
+/area/centcom/evac)
+"kMA" = (
+/obj/item/radio/intercom/specops/directional/north,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "kMR" = (
 /obj/machinery/door/airlock/public{
 	frequency = 1559;
@@ -14388,12 +14395,13 @@
 	icon_state = "wood"
 	},
 /area/centcom/evac)
-"kOD" = (
-/obj/item/radio/intercom/syndicate/directional/west,
+"kPm" = (
+/obj/machinery/computer/slot_machine,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/indestructible{
-	icon_state = "floorgrime"
+	icon_state = "grimy"
 	},
-/area/ninja/holding)
+/area/centcom/evac)
 "kPw" = (
 /obj/machinery/kitchen_machine/grill/upgraded,
 /turf/simulated/floor/indestructible{
@@ -14651,13 +14659,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"kWW" = (
-/obj/item/radio/intercom/specops/directional/south,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/specops)
 "kXa" = (
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdomehea";
@@ -14817,6 +14818,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"lde" = (
+/obj/structure/table/wood,
+/obj/effect/landmark/spawner/teleport_scroll,
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/carpet/cyan,
+/area/wizard_station)
 "ldk" = (
 /obj/machinery/computer/med_data,
 /turf/simulated/floor/indestructible{
@@ -14989,6 +14996,16 @@
 	icon_state = "rampbottom"
 	},
 /area/ussp_ship)
+"lhO" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (EAST)"
+	},
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "lhP" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -15042,14 +15059,6 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
-"lkC" = (
-/obj/item/flag/nt,
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/indestructible{
-	dir = 5;
-	icon_state = "darkred"
-	},
-/area/centcom/zone3)
 "lkJ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
@@ -15268,15 +15277,6 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
-"lrM" = (
-/obj/structure/chair/comfy/brown{
-	dir = 4
-	},
-/obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/evac)
 "lrS" = (
 /obj/structure/railing{
 	dir = 4
@@ -15457,6 +15457,14 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"lAO" = (
+/obj/item/flag/nt,
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/indestructible{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/centcom/zone3)
 "lBl" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -15676,6 +15684,14 @@
 	},
 /area/centcom/specops)
 "lDs" = (
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/bridge)
+"lDB" = (
+/obj/structure/table/wood,
+/obj/item/radio/intercom/specops/directional/north,
+/obj/item/book/manual/sop_command,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -15900,10 +15916,15 @@
 	icon_state = "floor"
 	},
 /area/admin)
-"lNE" = (
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible/carpet,
-/area/centcom/specops)
+"lNO" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/evac)
 "lOF" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -16485,6 +16506,12 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"mhP" = (
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "miK" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -16561,6 +16588,15 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
+"mkd" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/item/radio/intercom/specops/directional/east,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -16952,6 +16988,12 @@
 	icon_state = "sepia"
 	},
 /area/centcom/zone1)
+"mCd" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/chair/sofa,
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/evac)
 "mCp" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -17001,6 +17043,32 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"mDy" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/ashtray/glass{
+	pixel_x = -7;
+	pixel_y = -4
+	},
+/obj/machinery/door_control{
+	id = "ERT_director_office_shutters";
+	name = "ERT Director Office Shutters";
+	pixel_x = 7;
+	pixel_y = -3;
+	req_access = list(114)
+	},
+/obj/item/lighter/zippo/blue{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -4;
+	pixel_y = 9
+	},
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/specops)
 "mDD" = (
 /obj/structure/table/reinforced/brass,
 /obj/machinery/cell_charger,
@@ -17011,15 +17079,6 @@
 	name = "floor"
 	},
 /area/vox_station)
-"mDX" = (
-/obj/structure/chair/sofa/right{
-	dir = 4
-	},
-/obj/item/radio/intercom/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/evac)
 "mEE" = (
 /obj/machinery/shuttle_manipulator,
 /turf/simulated/floor/indestructible{
@@ -17332,6 +17391,20 @@
 "mPL" = (
 /turf/simulated/floor/indestructible/snow,
 /area/syndicate_mothership)
+"mQt" = (
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/machinery/light,
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
+	},
+/area/syndicate_mothership)
+"mQy" = (
+/obj/item/radio/intercom/specops/directional/west,
+/turf/simulated/floor/indestructible{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/centcom/zone2)
 "mQT" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/gun/advtaser{
@@ -17631,6 +17704,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"naQ" = (
+/obj/item/radio/intercom/specops/directional/north,
+/obj/structure/filingcabinet/security,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/bridge)
 "naR" = (
 /turf/simulated/floor/indestructible{
 	dir = 8;
@@ -18065,6 +18145,16 @@
 	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
+"nqj" = (
+/obj/structure/chair/comfy/red{
+	color = "#000000"
+	},
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/court)
 "nqk" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/barman_recipes,
@@ -18114,28 +18204,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
-"nrJ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/radio/intercom/specops/directional/south,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "nrS" = (
 /obj/structure/holowindow{
 	dir = 1
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
-"nrX" = (
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/specops)
 "nsq" = (
 /obj/effect/mapping_helpers/light{
 	light_power = 3
@@ -18431,15 +18505,6 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/specops)
-"nFi" = (
-/obj/structure/chair/sofa/left{
-	dir = 4
-	},
-/obj/item/radio/intercom/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/evac)
 "nFj" = (
 /obj/machinery/vending/medical{
 	req_access = list()
@@ -18475,6 +18540,16 @@
 "nFY" = (
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
+"nGA" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/item/radio/intercom/specops/directional/west,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -18584,6 +18659,13 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/source_plating)
+"nJb" = (
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/indestructible{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/centcom/bridge)
 "nJf" = (
 /obj/item/flag/syndi,
 /obj/structure/window/reinforced,
@@ -18792,6 +18874,13 @@
 	icon_state = "floor"
 	},
 /area/admin)
+"nPx" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/evac)
 "nPM" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/indestructible{
@@ -18853,6 +18942,18 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
+"nTh" = (
+/obj/structure/chair/comfy/red{
+	color = "#FFFFFF";
+	dir = 1
+	},
+/obj/effect/landmark/spawner/aroomwarp,
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/bridge)
 "nTz" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -18950,16 +19051,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
-"oaJ" = (
-/obj/structure/chair/comfy/red{
-	color = "#FFFFFF"
-	},
-/obj/item/radio/intercom/specops/directional/west,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/zone2)
 "obc" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -19034,17 +19125,6 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
-"oeb" = (
-/obj/machinery/camera{
-	c_tag = "CentComm Arrivals Bar";
-	dir = 1;
-	network = list("CentComm")
-	},
-/obj/item/radio/intercom/directional/south,
-/turf/simulated/floor/indestructible{
-	icon_state = "light_on_flicker4"
-	},
-/area/centcom/evac)
 "oeC" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/indestructible{
@@ -19158,6 +19238,12 @@
 	},
 /turf/simulated/floor/indestructible/snow,
 /area/syndicate_mothership)
+"ohw" = (
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
+	},
+/area/centcom/zone1)
 "ohz" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -19334,6 +19420,16 @@
 /obj/item/folder/yellow,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
+	},
+/area/centcom/zone2)
+"ouf" = (
+/obj/structure/chair/comfy/red{
+	color = "#FFFFFF"
+	},
+/obj/item/radio/intercom/specops/directional/west,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "ouh" = (
@@ -19650,6 +19746,12 @@
 	icon_state = "floor"
 	},
 /area/admin)
+"oDe" = (
+/obj/item/radio/intercom/specops/directional/north,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "oDk" = (
 /obj/effect/turf_decal/siding/green{
 	dir = 6
@@ -19711,14 +19813,27 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/zone1)
-"oIg" = (
+"oHN" = (
 /obj/structure/table/wood,
-/obj/item/radio/intercom/specops/directional/north,
-/obj/item/book/manual/sop_command,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
+/obj/machinery/door_control{
+	id = "commandcenter";
+	name = "Privacy Shutters";
+	pixel_x = -7;
+	pixel_y = -3;
+	req_access = list(153)
 	},
-/area/centcom/bridge)
+/obj/machinery/door_control{
+	id = "syndicate_bridge";
+	name = "Bridge Blastdoor";
+	pixel_x = 7;
+	pixel_y = -3;
+	req_access = list(153)
+	},
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/syndicate_mothership)
 "oIl" = (
 /obj/machinery/abductor/console{
 	team = 3
@@ -19748,17 +19863,6 @@
 "oKD" = (
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome1)
-"oKU" = (
-/obj/structure/chair/comfy/red{
-	color = "#FFFFFF"
-	},
-/obj/effect/landmark/spawner/aroomwarp,
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/bridge)
 "oLz" = (
 /obj/item/flag/wiz,
 /obj/machinery/light/small{
@@ -19769,6 +19873,12 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"oLF" = (
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "oMk" = (
 /obj/item/flag/nt,
 /obj/structure/sign/poster/official/random{
@@ -20510,26 +20620,6 @@
 	icon_state = "floor"
 	},
 /area/admin)
-"pkt" = (
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/structure/table/reinforced,
-/obj/item/radio/intercom/specops/directional/north,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "pkN" = (
 /obj/structure/table,
 /obj/item/card/id/centcom{
@@ -20866,6 +20956,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"pru" = (
+/obj/structure/chair/comfy/brown{
+	color = "#FF3300"
+	},
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/court)
 "prC" = (
 /obj/item/clothing/suit/space/syndicate/orange{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
@@ -21213,6 +21312,35 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"pCs" = (
+/obj/machinery/light/small{
+	brightness_range = 6;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/machinery/light_switch{
+	pixel_x = 12;
+	pixel_y = -26
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -3;
+	pixel_y = -30
+	},
+/obj/machinery/light/small{
+	brightness_range = 6;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/carpet,
+/area/wizard_station)
 "pCM" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
@@ -21657,13 +21785,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/centcom/specops)
-"pQW" = (
-/obj/structure/table/wood/poker,
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "pRk" = (
 /obj/machinery/door/poddoor/shutters{
@@ -22259,14 +22380,6 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/ninja/outside)
-"qlU" = (
-/obj/structure/table/wood,
-/obj/item/megaphone,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/court)
 "qmQ" = (
 /obj/mecha/combat/durand/old{
 	color = "#77895C";
@@ -22425,13 +22538,6 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
-"qsJ" = (
-/obj/item/radio/intercom/specops/directional/north,
-/obj/structure/filingcabinet/security,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/bridge)
 "qtE" = (
 /obj/item/shard,
 /obj/item/trash/sosjerky,
@@ -22479,15 +22585,6 @@
 	name = "Tatami"
 	},
 /area/ninja/outpost)
-"quB" = (
-/obj/structure/chair/comfy/brown{
-	color = "#FF3300"
-	},
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/court)
 "quI" = (
 /obj/machinery/door_control{
 	id = "CC_space_jail_cell";
@@ -22508,16 +22605,6 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
-"qvI" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/glass/beaker/waterbottle,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -5
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/court)
 "qwb" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -22680,15 +22767,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"qzS" = (
-/obj/structure/chair/comfy/brown{
-	color = "#3300FF"
-	},
-/obj/item/radio/intercom/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/court)
 "qAW" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 9
@@ -22954,13 +23032,6 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/zone3)
-"qLM" = (
-/obj/item/radio/intercom/syndicate/directional/south,
-/obj/machinery/light,
-/turf/simulated/floor/indestructible{
-	icon_state = "wood"
-	},
-/area/syndicate_mothership)
 "qMW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/indestructible{
@@ -23021,16 +23092,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
-"qPd" = (
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (EAST)"
-	},
-/obj/item/radio/intercom/syndicate/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "qPX" = (
 /obj/machinery/computer/mecha,
 /turf/simulated/floor/indestructible{
@@ -23344,12 +23405,6 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
-"raW" = (
-/obj/item/radio/intercom/specops/directional/north,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "rbV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -23613,16 +23668,6 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
-"rmG" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/item/radio/intercom/specops/directional/west,
-/obj/structure/sign/poster/official/random{
-	pixel_x = -30
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "rnO" = (
 /obj/structure/table/abductor,
 /obj/item/bonegel/alien,
@@ -23688,14 +23733,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone3)
-"rpC" = (
-/obj/item/radio/intercom/specops/directional/east,
-/obj/structure/closet/secure_closet/reagents,
-/turf/simulated/floor/indestructible{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/centcom/specops)
 "rqS" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/toy/plushie/voxplushie{
@@ -24037,6 +24074,15 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"rBb" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/evac)
 "rBz" = (
 /obj/structure/dresser,
 /turf/simulated/floor/indestructible{
@@ -24553,18 +24599,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"rST" = (
-/obj/structure/chair/comfy/red{
-	color = "#FFFFFF";
-	dir = 1
-	},
-/obj/effect/landmark/spawner/aroomwarp,
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/bridge)
 "rTc" = (
 /turf/simulated/floor/indestructible{
 	dir = 8;
@@ -24683,24 +24717,6 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/ferry)
-"rYT" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	brightness_range = 2;
-	dir = 8;
-	light_range = 2;
-	nightshift_light_range = 2;
-	tag = "icon-bulb1 (WEST)";
-	throw_range = 2
-	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/item/radio/intercom/syndicate/directional/west,
-/turf/simulated/floor/wood/fancy/light,
-/area/ninja/outpost)
 "rYV" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -25410,12 +25426,6 @@
 	icon_state = "rampbottom"
 	},
 /area/centcom/bridge)
-"svp" = (
-/obj/item/radio/intercom/syndicate/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "wood"
-	},
-/area/syndicate_mothership)
 "svW" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/syndicate,
@@ -25653,6 +25663,12 @@
 	icon_state = "iron11"
 	},
 /area/syndicate_mothership)
+"sEk" = (
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "stairs-m"
+	},
+/area/centcom/evac)
 "sFg" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -26064,6 +26080,16 @@
 	icon_state = "floor"
 	},
 /area/admin)
+"sSM" = (
+/obj/structure/chair/comfy/red{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/syndicate_mothership)
 "sSY" = (
 /obj/effect/decal/warning_stripes/east{
 	layer = 50
@@ -26447,12 +26473,6 @@
 /obj/structure/dresser,
 /turf/simulated/floor/indestructible/carpet,
 /area/centcom/zone1)
-"tkV" = (
-/obj/item/radio/intercom/syndicate/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "tlf" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -26571,6 +26591,24 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
+"tnS" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	brightness_range = 2;
+	dir = 8;
+	light_range = 2;
+	nightshift_light_range = 2;
+	tag = "icon-bulb1 (WEST)";
+	throw_range = 2
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "toA" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -26600,13 +26638,12 @@
 	icon_state = "floor"
 	},
 /area/admin)
-"tpv" = (
-/obj/item/radio/intercom/directional/south,
+"tpr" = (
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/indestructible{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "grimy"
 	},
-/area/centcom/zone3)
+/area/centcom/evac)
 "tqd" = (
 /obj/structure/table,
 /turf/simulated/floor/indestructible{
@@ -26680,6 +26717,12 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"tty" = (
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "ttV" = (
 /obj/structure/noticeboard{
 	pixel_y = -30
@@ -26746,6 +26789,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"tvh" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
+	},
+/area/syndicate_mothership)
 "tvm" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Zone 3 Hallway 2";
@@ -26808,14 +26861,6 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/assault_pod)
-"txQ" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/item/radio/intercom/directional/south,
-/turf/simulated/floor/indestructible{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/centcom/zone3)
 "tyk" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
@@ -27225,6 +27270,16 @@
 	tag = "icon-wood_siding1"
 	},
 /area/holodeck/source_picnicarea)
+"tOt" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/surgery,
+/obj/item/radio/intercom/directional/west,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/turf/simulated/floor/indestructible{
+	dir = 8;
+	icon_state = "white"
+	},
+/area/centcom/evac)
 "tPp" = (
 /obj/machinery/cryopod{
 	dir = 8
@@ -27290,13 +27345,6 @@
 /area/syndicate_mothership)
 "tRW" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/specops)
-"tSy" = (
-/obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -27632,13 +27680,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
-"ugB" = (
-/obj/item/radio/intercom/specops/directional/west,
-/turf/simulated/floor/indestructible{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/centcom/zone2)
 "ugR" = (
 /obj/structure/flora/rock/icy,
 /turf/simulated/floor/indestructible/snow,
@@ -27741,32 +27782,6 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
-"ujV" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/ashtray/glass{
-	pixel_x = -7;
-	pixel_y = -4
-	},
-/obj/machinery/door_control{
-	id = "ERT_director_office_shutters";
-	name = "ERT Director Office Shutters";
-	pixel_x = 7;
-	pixel_y = -3;
-	req_access = list(114)
-	},
-/obj/item/lighter/zippo/blue{
-	pixel_x = -5;
-	pixel_y = 8
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = -4;
-	pixel_y = 9
-	},
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/specops)
 "ujX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen{
@@ -27779,6 +27794,17 @@
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
+	},
+/area/centcom/specops)
+"ukm" = (
+/obj/structure/sign/goldenplaque{
+	desc = "Лучший сотрудник века";
+	name = "Это Толя Раммфан";
+	pixel_x = 30
+	},
+/obj/structure/table/wood/poker,
+/turf/simulated/floor/indestructible{
+	icon_state = "woodalt"
 	},
 /area/centcom/specops)
 "uku" = (
@@ -28146,6 +28172,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"uCR" = (
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "uDP" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Bathroom";
@@ -28289,15 +28321,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
-"uHY" = (
-/obj/structure/bookcase/manuals,
-/obj/item/book/manual/engineering_construction,
-/obj/item/book/manual/engineering_construction,
-/obj/item/radio/intercom/specops/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "uIh" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "bcircuit"
@@ -28772,6 +28795,14 @@
 	icon_state = "iron1"
 	},
 /area/syndicate_mothership)
+"vbk" = (
+/obj/item/radio/intercom/directional/west,
+/obj/item/flag/nt,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/srtops)
 "vbo" = (
 /obj/structure/sink{
 	dir = 1
@@ -28877,22 +28908,6 @@
 	icon_state = "floor"
 	},
 /area/admin)
-"veY" = (
-/obj/item/radio/intercom/specops/directional/south,
-/obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen{
-	pixel_x = 3;
-	pixel_y = 12
-	},
-/obj/item/pen/fancy,
-/obj/item/folder/blue,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -30
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "vfe" = (
 /obj/machinery/door_control{
 	id = "mauler_garage";
@@ -29456,6 +29471,15 @@
 	icon_state = "floor"
 	},
 /area/admin)
+"vAA" = (
+/obj/structure/chair/comfy/brown{
+	color = "#3300FF"
+	},
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/centcom/court)
 "vBi" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -29598,13 +29622,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/jail)
-"vFd" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/srtops)
 "vFf" = (
 /obj/structure/chair{
 	dir = 1
@@ -29705,16 +29722,6 @@
 /obj/item/cautery/alien,
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
-"vIb" = (
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
-	},
-/obj/item/radio/intercom/syndicate/directional/west,
-/turf/simulated/floor/indestructible{
-	icon_state = "wood"
-	},
-/area/syndicate_mothership)
 "vIn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -29834,17 +29841,6 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
-"vLj" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 4;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/obj/item/radio/intercom/syndicate/directional/east,
-/turf/simulated/floor/carpet/black,
-/area/wizard_station)
 "vLs" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/indestructible/vox{
@@ -29997,6 +29993,13 @@
 	icon_state = "carpet"
 	},
 /area/centcom/srtops)
+"vPH" = (
+/obj/item/radio/intercom/specops/directional/south,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/centcom/specops)
 "vPR" = (
 /turf/simulated/floor/indestructible{
 	dir = 10;
@@ -30370,18 +30373,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"wfx" = (
-/obj/item/radio/intercom/specops/directional/west,
-/obj/machinery/camera{
-	c_tag = "CentComm ERT Shuttle";
-	dir = 4;
-	network = list("ERT","CentComm")
-	},
-/turf/simulated/floor/indestructible{
-	dir = 10;
-	icon_state = "darkgreynavyblue"
-	},
-/area/centcom/specops)
 "wfy" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -30508,6 +30499,16 @@
 	icon_state = "floor"
 	},
 /area/admin)
+"wkd" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/indestructible{
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/syndicate_mothership)
 "wkH" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/security_space_law{
@@ -30737,12 +30738,6 @@
 	icon_state = "floor"
 	},
 /area/admin)
-"wsA" = (
-/obj/item/radio/intercom/syndicate/directional/north,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/syndicate_mothership)
 "wsG" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
@@ -30784,16 +30779,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"wtT" = (
-/obj/structure/chair/comfy/red{
-	color = "#000000"
-	},
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/indestructible{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/centcom/court)
 "wua" = (
 /turf/simulated/floor/indestructible{
 	dir = 8;
@@ -30860,6 +30845,12 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"wwa" = (
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/event_zone)
 "wwc" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -31297,6 +31288,16 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
+"wIt" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
 "wIx" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron4"
@@ -31414,6 +31415,12 @@
 	name = "plating"
 	},
 /area/centcom/specops)
+"wNp" = (
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
+	},
+/area/syndicate_mothership)
 "wNv" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/medal/silver,
@@ -31601,15 +31608,6 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
-"wTB" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/item/radio/intercom/specops/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "wTQ" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/indestructible{
@@ -31626,6 +31624,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"wUr" = (
+/obj/item/radio/intercom/specops/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "darkblue"
+	},
+/area/centcom/zone2)
 "wUC" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -32322,6 +32326,17 @@
 /obj/machinery/floodlight,
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/zone1)
+"xvG" = (
+/obj/machinery/light/small{
+	brightness_range = 6;
+	dir = 1;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/carpet,
+/area/wizard_station)
 "xwb" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "sandstone13"
@@ -32774,13 +32789,6 @@
 "xLW" = (
 /turf/simulated/wall/shuttle/overspace,
 /area/ussp_ship)
-"xMj" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/evac)
 "xMk" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "arust4"
@@ -33124,15 +33132,6 @@
 /obj/item/book/manual,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
-"yae" = (
-/obj/structure/chair/sofa{
-	dir = 8
-	},
-/obj/item/radio/intercom/syndicate/directional/east,
-/turf/simulated/floor/indestructible{
-	icon_state = "wood"
-	},
-/area/syndicate_mothership)
 "yaN" = (
 /obj/structure/curtain/open/shower/security,
 /turf/simulated/floor/indestructible{
@@ -33161,6 +33160,12 @@
 	icon_state = "stage_bleft"
 	},
 /area/centcom/jail)
+"ycO" = (
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/indestructible{
+	icon_state = "grimy"
+	},
+/area/syndicate_mothership)
 "yda" = (
 /obj/machinery/camera{
 	c_tag = "CentComm ERT Service Room";
@@ -33625,6 +33630,15 @@
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
+	},
+/area/syndicate_mothership)
+"yjU" = (
+/obj/structure/sink{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/indestructible{
+	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
 "ykd" = (
@@ -35771,7 +35785,7 @@ oor
 bym
 bym
 bym
-vLj
+cNP
 lZH
 bym
 bym
@@ -36022,12 +36036,12 @@ xUq
 jbM
 tZi
 esE
-fas
+xvG
 jmq
 jmq
 jmq
 jmq
-iOb
+pCs
 rWk
 tzl
 kQB
@@ -37061,7 +37075,7 @@ tQd
 ydA
 wak
 wak
-hQw
+lde
 tQd
 jbM
 lcX
@@ -39677,7 +39691,7 @@ tcz
 tcz
 lov
 abo
-qLM
+mQt
 aND
 sEj
 vaX
@@ -39930,7 +39944,7 @@ kia
 kia
 kia
 kia
-wsA
+ycO
 tcz
 lov
 pBo
@@ -43768,7 +43782,7 @@ xAa
 xAa
 xAa
 nSq
-svp
+wNp
 nSq
 xAa
 xrZ
@@ -44010,7 +44024,7 @@ mPL
 mKI
 iMk
 byO
-tkV
+uCR
 rkr
 qaB
 gAu
@@ -44273,7 +44287,7 @@ xyg
 njL
 njL
 njL
-ewW
+wIt
 njL
 njL
 rkr
@@ -44797,7 +44811,7 @@ slM
 slM
 njL
 jMl
-dnq
+oHN
 hBC
 raO
 ehc
@@ -45055,7 +45069,7 @@ slM
 njL
 nuC
 rzl
-eMv
+sSM
 raO
 raO
 eab
@@ -45321,7 +45335,7 @@ njL
 njL
 iCh
 wIx
-hrp
+wkd
 raO
 raO
 tlo
@@ -45815,7 +45829,7 @@ qaB
 njL
 njL
 njL
-qPd
+lhO
 njL
 njL
 rkr
@@ -46066,7 +46080,7 @@ mPL
 mKI
 iMk
 bEx
-fDK
+bMn
 rkr
 xyg
 fso
@@ -46338,7 +46352,7 @@ xAa
 xAa
 dks
 xAa
-vIb
+tvh
 xAa
 xAa
 iwc
@@ -49703,7 +49717,7 @@ kbg
 vMX
 pFs
 pFs
-iDU
+yjU
 rkr
 mPL
 mPL
@@ -50720,14 +50734,14 @@ rdj
 lWN
 uPA
 pjo
-yae
+fjP
 vKh
 kIf
 rkr
 sTX
 nKW
 sTX
-kjC
+kox
 gTh
 fxa
 coD
@@ -55283,7 +55297,7 @@ gHj
 aZe
 aZe
 aZe
-iKp
+wwa
 gHj
 cQQ
 xUq
@@ -64984,7 +64998,7 @@ ohS
 lDs
 opJ
 oAK
-oIg
+lDB
 qDg
 qDg
 qDg
@@ -64993,7 +65007,7 @@ qDg
 qDg
 qcp
 oAK
-qsJ
+naQ
 lDs
 ohS
 qcr
@@ -67029,7 +67043,7 @@ wwc
 wwc
 vQj
 mkc
-nrJ
+hMh
 noL
 noL
 noL
@@ -67280,7 +67294,7 @@ qcr
 iFw
 joi
 jtK
-jGQ
+mhP
 wwc
 wwc
 wwc
@@ -67554,14 +67568,14 @@ noL
 noL
 noL
 aAA
-jnQ
+wUr
 wwc
 wwc
 nsF
 pwg
 wwc
 wwc
-ugB
+mQy
 aAA
 noL
 noL
@@ -67575,7 +67589,7 @@ uZr
 vVh
 vVh
 vVh
-oaJ
+ouf
 pvh
 uFa
 vVh
@@ -68082,7 +68096,7 @@ wwc
 wwc
 qZw
 cLA
-rmG
+nGA
 rsL
 noL
 noL
@@ -68157,7 +68171,7 @@ blc
 blc
 blc
 blc
-imo
+jCt
 mxD
 blc
 blc
@@ -69116,7 +69130,7 @@ ovW
 mVv
 wwc
 wwc
-jUg
+bUt
 sQv
 vVh
 uFj
@@ -69366,7 +69380,7 @@ pXI
 uEN
 erl
 xcy
-wTB
+mkd
 jvL
 wwc
 mVv
@@ -70147,7 +70161,7 @@ wwc
 wwc
 ubs
 wwc
-uHY
+hQF
 noL
 noL
 noL
@@ -70622,7 +70636,7 @@ noL
 noL
 noL
 noL
-keA
+kMA
 kEQ
 wwc
 uEN
@@ -70966,7 +70980,7 @@ nIF
 aBs
 bfz
 cSR
-kOD
+oLF
 toZ
 dVx
 sxh
@@ -71666,14 +71680,14 @@ qcr
 tte
 qcr
 bMW
-oKU
+cBH
 oXT
 cFi
 qDg
 qDg
 dcD
 oXT
-rST
+nTh
 bMW
 qcr
 tte
@@ -71690,7 +71704,7 @@ lUG
 sxL
 mBa
 ngY
-veY
+fha
 noL
 noL
 wpY
@@ -71754,7 +71768,7 @@ xcJ
 jrE
 jrE
 jrE
-rYT
+tnS
 xZm
 xZm
 iTc
@@ -72182,7 +72196,7 @@ qcr
 oCr
 bMW
 bMW
-daG
+nJb
 qDg
 qDg
 pKK
@@ -72934,7 +72948,7 @@ noL
 kjL
 noL
 xcy
-jSE
+tty
 wwc
 wwc
 kSQ
@@ -73448,7 +73462,7 @@ tkG
 pIm
 noL
 aAA
-jUg
+bUt
 wwc
 kGa
 noL
@@ -76312,7 +76326,7 @@ xmH
 ybJ
 ybJ
 ybJ
-tpv
+dqA
 noL
 noL
 noL
@@ -77072,7 +77086,7 @@ pMa
 wjl
 wwk
 qgY
-quB
+pru
 bOp
 sFT
 wKD
@@ -77329,7 +77343,7 @@ pMo
 wjl
 wwk
 qfK
-qvI
+bOa
 qGO
 sFT
 wKD
@@ -78099,7 +78113,7 @@ qcr
 pPX
 wjl
 wjl
-wtT
+nqj
 fRT
 isN
 lqD
@@ -78356,7 +78370,7 @@ qcr
 pSQ
 wjl
 wjl
-qlU
+kKN
 qyV
 otf
 qUE
@@ -78871,7 +78885,7 @@ pMo
 wjl
 wwk
 qfK
-qvI
+bOa
 qGO
 sFT
 wKD
@@ -79128,7 +79142,7 @@ pMa
 wjl
 wwk
 qgY
-qzS
+vAA
 bOp
 sFT
 wKD
@@ -80424,7 +80438,7 @@ xmH
 ybJ
 ybJ
 ybJ
-txQ
+hZh
 noL
 noL
 uJB
@@ -82229,7 +82243,7 @@ ygs
 ygs
 ygs
 vmM
-hCD
+vbk
 wuj
 cdB
 qqY
@@ -82480,7 +82494,7 @@ rPX
 ybJ
 ybJ
 ybJ
-lkC
+lAO
 noL
 uxf
 ygs
@@ -83201,7 +83215,7 @@ wmI
 fwD
 fPu
 giA
-gHf
+ohw
 nnH
 nnH
 nnH
@@ -83793,14 +83807,14 @@ tai
 bcF
 bJJ
 noL
-pkt
+euR
 nEz
 kjB
 fuP
 mho
 dJo
 dJo
-hmY
+beZ
 noL
 "}
 (196,1,1) = {"
@@ -84284,7 +84298,7 @@ nSt
 uzl
 owd
 vjT
-vFd
+gkA
 vTl
 cDn
 jcb
@@ -84811,7 +84825,7 @@ noL
 noL
 noL
 noL
-raW
+oDe
 dJo
 ygV
 noL
@@ -85339,7 +85353,7 @@ nFj
 nEz
 bcF
 eFa
-rpC
+hNF
 tlj
 bZo
 cbm
@@ -85532,12 +85546,12 @@ kvS
 dEy
 lpj
 mgI
-mDX
+dhg
 mZk
 ncZ
 nek
 mZk
-nFi
+rBb
 nqC
 nUy
 dEy
@@ -86015,7 +86029,7 @@ tte
 tte
 tte
 dEy
-cdf
+tpr
 ehx
 fxF
 dEy
@@ -86275,7 +86289,7 @@ dEy
 xdo
 ehx
 ehx
-dog
+sEk
 xYH
 efo
 xYH
@@ -86283,7 +86297,7 @@ eMQ
 xYH
 efo
 xYH
-dog
+sEk
 xYH
 xYH
 xYH
@@ -86849,8 +86863,8 @@ xmH
 noL
 sIW
 vTv
-kWW
-ujV
+vPH
+mDy
 fJO
 dJo
 dJo
@@ -87852,7 +87866,7 @@ xaZ
 ntd
 xaZ
 xaZ
-oeb
+kMf
 dEy
 rIn
 ehx
@@ -87900,7 +87914,7 @@ jty
 jty
 aKY
 wll
-wfx
+ayM
 uku
 uku
 rjK
@@ -88083,7 +88097,7 @@ dEy
 dEy
 dEy
 dEy
-gvr
+mCd
 xYH
 wmH
 ygj
@@ -88100,7 +88114,7 @@ xYH
 xYH
 kAr
 dEy
-lrM
+lNO
 miX
 miX
 ylo
@@ -88337,7 +88351,7 @@ efG
 xRE
 mVQ
 fgs
-fkt
+tOt
 fDh
 dEy
 gyA
@@ -89099,7 +89113,7 @@ tte
 tte
 tte
 dEy
-cdf
+tpr
 ehx
 nlR
 dEy
@@ -89448,7 +89462,7 @@ noL
 noL
 noL
 hXo
-lNE
+bEn
 hvs
 lSb
 lSb
@@ -89899,7 +89913,7 @@ tPT
 hGZ
 hGZ
 dEy
-ghO
+kPm
 mje
 ehx
 mYZ
@@ -90165,7 +90179,7 @@ ehx
 ehx
 ehx
 ehx
-fJi
+eSe
 dEy
 tte
 tte
@@ -90422,7 +90436,7 @@ nfc
 nwN
 tMe
 nNV
-xMj
+nPx
 dEy
 tte
 tte
@@ -91507,7 +91521,7 @@ qcr
 qcm
 fAZ
 pdi
-pQW
+cac
 qlG
 fAZ
 qcm
@@ -91732,7 +91746,7 @@ noL
 sgy
 vTv
 tar
-nrX
+aOg
 iPw
 noL
 noL
@@ -91764,7 +91778,7 @@ qcr
 qcr
 ylm
 sQl
-eSX
+ukm
 sQl
 ylm
 qcr
@@ -91989,7 +92003,7 @@ noL
 siK
 sLV
 lXf
-tSy
+fNR
 siK
 noL
 noL
