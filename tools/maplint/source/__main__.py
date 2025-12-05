@@ -66,7 +66,7 @@ def main(args):
 
     for lint_filename in lint_filenames:
         try:
-            lints[lint_filename] = lint.Lint(yaml.safe_load(lint_filename.read_text()))
+            lints[lint_filename] = lint.Lint(yaml.safe_load(lint_filename.read_text(encoding='utf-8')))
         except MaplintError as error:
             print_maplint_error(error, github_error_style)
             any_failed = True
