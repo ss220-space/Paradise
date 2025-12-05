@@ -161,9 +161,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "aE" = (
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/locked/prison/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -494,10 +492,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	pixel_x = 30;
-	pixel_y = -4
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1571,10 +1566,7 @@
 	},
 /area/mine/living_quarters)
 "ft" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -1604,10 +1596,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull";
 	tag = "icon-whitebluefull"
@@ -1662,10 +1651,7 @@
 	},
 /area/mine/living_quarters)
 "fF" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -3429,10 +3415,7 @@
 	},
 /area/mine/laborcamp)
 "nI" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -4374,9 +4357,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "uZ" = (
@@ -4954,9 +4935,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = -32
-	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -5260,11 +5239,7 @@
 	},
 /area/mine/eva)
 "AJ" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_y = 30
-	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"

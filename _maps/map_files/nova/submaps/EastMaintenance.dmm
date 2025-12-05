@@ -3695,10 +3695,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "Od" = (
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/structure/bed,
 /obj/item/bedsheet/captain{
 	name = "Blueshield's bedsheet."

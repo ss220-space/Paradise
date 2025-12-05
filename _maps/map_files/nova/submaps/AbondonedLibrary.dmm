@@ -231,9 +231,7 @@
 	},
 /area/maintenance/electrical_shop)
 "mo" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

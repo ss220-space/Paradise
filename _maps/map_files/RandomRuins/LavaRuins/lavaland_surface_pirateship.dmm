@@ -1989,10 +1989,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small{
 	dir = 4;
@@ -2179,10 +2176,7 @@
 /obj/item/holder/parrot{
 	name = "pepper"
 	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)

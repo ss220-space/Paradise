@@ -3622,9 +3622,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
-"my" = (
-/turf/simulated/mineral/random,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "mz" = (
 /obj/machinery/door/window{
 	dir = 1
@@ -8186,9 +8183,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/ancientstation/theta_rnd)
-"Cg" = (
-/turf/simulated/mineral/random,
-/area/ruin/space/ancientstation/cowasteroid)
 "Ch" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -12951,9 +12945,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
-"SY" = (
-/turf/simulated/floor/plating/asteroid,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "Ta" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -18993,15 +18984,15 @@ ZE
 ZE
 ZE
 ZE
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
 WD
 WD
 WD
@@ -19115,15 +19106,15 @@ aM
 zg
 FL
 hx
-Cg
-Cg
 bw
 bw
 bw
 bw
-Cg
-Cg
-Cg
+bw
+bw
+bw
+bw
+bw
 WT
 WT
 WD
@@ -19244,8 +19235,8 @@ so
 Rl
 bw
 bw
-Cg
-Cg
+bw
+bw
 WT
 WD
 WD
@@ -19358,7 +19349,7 @@ ZE
 Sp
 pP
 ru
-my
+hx
 Mb
 CU
 Uu
@@ -19367,7 +19358,7 @@ ei
 jR
 bw
 bw
-Cg
+bw
 WT
 WT
 WD
@@ -19477,7 +19468,7 @@ zN
 zm
 zN
 eb
-SY
+zN
 uw
 nZ
 wz
@@ -19602,7 +19593,7 @@ ZE
 hL
 wh
 Wg
-SY
+zN
 rM
 jR
 jR
@@ -19724,7 +19715,7 @@ ZE
 Sp
 Sp
 iU
-my
+hx
 bw
 bw
 jR
@@ -19847,15 +19838,15 @@ bn
 bn
 bn
 hx
-Cg
+bw
 mp
 bw
 Uu
 Lr
 bw
 bw
-Cg
-Cg
+bw
+bw
 WT
 WT
 WD
@@ -19969,15 +19960,15 @@ xU
 wz
 bn
 ZE
-Cg
-Cg
+bw
+bw
 mp
 bw
 bw
 mp
 mp
-Cg
-Cg
+bw
+bw
 WD
 WD
 WD
@@ -20091,15 +20082,15 @@ ZE
 ZE
 ZE
 ZE
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
 WT
 WD
 WD

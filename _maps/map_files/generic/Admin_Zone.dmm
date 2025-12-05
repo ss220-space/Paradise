@@ -571,14 +571,12 @@
 	id = "flash";
 	name = "Thunderdome Flash"
 	},
-/obj/item/radio/intercom/pirate{
-	req_access = list(153)
-	},
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door";
 	simulated = 0
 	},
+/obj/item/radio/intercom/pirate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -2082,10 +2080,7 @@
 /area/admin)
 "wN" = (
 /obj/effect/landmark/spawner/tdomeadmin,
-/obj/item/radio/intercom/pirate{
-	pixel_y = -25;
-	req_access = list(153)
-	},
+/obj/item/radio/intercom/pirate/directional/south,
 /obj/machinery/door_control{
 	id = "thunderdome";
 	name = "Thunder start";
@@ -2980,6 +2975,7 @@
 	layer = 5;
 	pixel_y = -2
 	},
+/obj/item/radio/intercom/syndicate/directional/west,
 /turf/simulated/floor/wood,
 /area/admin)
 "Hu" = (
@@ -3478,14 +3474,12 @@
 	id = "flash";
 	name = "Thunderdome Flash"
 	},
-/obj/item/radio/intercom/pirate{
-	req_access = list(153)
-	},
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door";
 	simulated = 0
 	},
+/obj/item/radio/intercom/pirate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -3990,13 +3984,6 @@
 	icon_state = "navyblue"
 	},
 /area/adminconstruction)
-"Vm" = (
-/obj/structure/table/wood/poker,
-/obj/item/radio/intercom/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/admin)
 "Vq" = (
 /obj/structure/table/wood,
 /obj/item/radio/headset,
@@ -8339,7 +8326,7 @@ Ah
 Ep
 Ep
 Ah
-Vm
+Ah
 fE
 gD
 Ep

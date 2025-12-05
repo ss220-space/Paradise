@@ -9130,9 +9130,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -28
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

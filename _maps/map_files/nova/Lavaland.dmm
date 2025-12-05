@@ -122,9 +122,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "aE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/locked/prison/directional/north,
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -759,10 +757,7 @@
 	},
 /area/mine/necropolis)
 "fL" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -819,10 +814,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	pixel_x = 30;
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "fY" = (
@@ -867,9 +859,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "gk" = (
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -2215,9 +2205,7 @@
 /area/mine/eva)
 "nQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/locked/prison/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -2283,10 +2271,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ok" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -2490,16 +2475,6 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
-"pp" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
-/area/mine/lobby)
 "pv" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Maintenance";
@@ -2898,10 +2873,7 @@
 	pixel_y = 2
 	},
 /obj/item/clothing/mask/gas/explorer,
-/obj/item/radio/intercom{
-	pixel_x = 30;
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -6493,10 +6465,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "MA" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -4
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -6904,9 +6873,7 @@
 	},
 /area/mine/eva)
 "OQ" = (
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -28383,7 +28350,7 @@ se
 sZ
 iM
 tM
-pp
+ok
 IE
 un
 FT
