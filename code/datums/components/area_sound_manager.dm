@@ -13,17 +13,20 @@
 /datum/component/area_sound_manager/Initialize(area_loop_pairs, change_on, remove_on, acceptable_zs)
 	if(!ismovable(parent))
 		return
+
 	area_to_looping_type = area_loop_pairs
 	accepted_zs = acceptable_zs
 	change_the_track()
 
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(react_to_move))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(react_to_z_move))
+
 	// change on can be a list of signals
 	if(islist(change_on))
 		RegisterSignal(parent, change_on, PROC_REF(handle_change))
 	else if(!isnull(change_on))
 		RegisterSignal(parent, change_on, PROC_REF(handle_change))
+
 	// remove on can be a list of signals
 	if(islist(remove_on))
 		RegisterSignal(parent, remove_on, PROC_REF(handle_removal))
@@ -37,8 +40,10 @@
 /datum/component/area_sound_manager/proc/react_to_move(datum/source, atom/oldloc, dir, forced)
 	SIGNAL_HANDLER
 	var/list/loop_lookup = area_to_looping_type
+
 	if(loop_lookup[get_area(oldloc)] == loop_lookup[get_area(parent)])
 		return
+
 	change_the_track(TRUE)
 
 /datum/component/area_sound_manager/proc/react_to_z_move(datum/source, turf/old_turf, turf/new_turf)
@@ -57,6 +62,7 @@
 
 /datum/component/area_sound_manager/proc/change_the_track(skip_start = FALSE)
 	var/existing_loop_id = our_loop?.timer_id
+
 	if(existing_loop_id)
 		// Time left will sometimes return negative values, just ignore them and start a new sound loop now
 		next_loop_time = world.time + max(timeleft(existing_loop_id, SSsound_loops) || 0, 0)
@@ -65,6 +71,7 @@
 
 	var/area/our_area = get_area(parent)
 	var/new_loop_type = area_to_looping_type[our_area]
+
 	if(!new_loop_type)
 		return
 

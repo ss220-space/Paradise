@@ -13,6 +13,7 @@
 
 /datum/element/weather_listener/Attach(datum/target, w_type, trait, weather_playlist)
 	. = ..()
+
 	if(!weather_type)
 		weather_type = w_type
 		for(var/type in typesof(weather_type))
@@ -37,8 +38,10 @@
 /datum/element/weather_listener/proc/handle_z_level_change(datum/source, turf/old_loc, turf/new_loc)
 	SIGNAL_HANDLER
 	var/list/fitting_z_levels = levels_by_trait(weather_trait)
+
 	if(!(new_loc?.z in fitting_z_levels))
 		return
+
 	var/datum/component/our_comp = source.AddComponent(\
 		/datum/component/area_sound_manager, \
 		area_loop_pairs = playlist, \
