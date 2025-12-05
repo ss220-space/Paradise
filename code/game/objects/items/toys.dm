@@ -1577,7 +1577,6 @@
 /obj/item/toy/plushie/ManulPlushie
 	name = "kotik plushie"
 	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка «Манул». Кто-то оставил эту игрушку здесь в память..."
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "kotik_plushie"
 	item_state = "kotik_hand"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
