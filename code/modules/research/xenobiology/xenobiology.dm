@@ -780,6 +780,10 @@
 	var/freezerange = 1
 	var/duration = 140
 	alpha = 125
+	///Can our timestop freeze humans?
+	var/human_freeze = TRUE
+	///Can our timestop freeze projectiles?
+	var/projectile_freeze = TRUE
 
 /obj/effect/timestop/New()
 	..()
@@ -793,7 +797,7 @@
 	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
 	for(var/i in 1 to duration-1)
 		for(var/A in orange (freezerange, loc))
-			if(isliving(A))
+			if(isliving(A) && human_freeze)
 				var/mob/living/M = A
 				if(M in immune)
 					continue
@@ -804,7 +808,7 @@
 					H.AIStatus = AI_OFF
 					H.lose_target()
 				stopped_atoms |= M
-			else if(isprojectile(A))
+			else if(isprojectile(A) && projectile_freeze)
 				var/obj/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
@@ -839,7 +843,8 @@
 	timestop()
 
 /obj/effect/timestop/clockwork
-	duration = 80
+	duration = 160
+	human_freeze = FALSE
 
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"
