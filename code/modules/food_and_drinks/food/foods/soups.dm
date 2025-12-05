@@ -93,6 +93,15 @@
 		reagents.add_reagent("vitamin", 1)
 	. = ..()
 
+/obj/item/reagent_containers/food/snacks/soup/sawdustsoup
+	name = "sawdust soup"
+	desc = "ЧТООО как этот суп попал в мои опилки!?."
+	icon_state = "sawdustsoup"
+	filling_color = "#D3C28D"
+	list_reagents = list("nutriment" = 15)
+	tastes = list("wood" = 1)
+	foodtype = GROSS
+
 /obj/item/reagent_containers/food/snacks/soup/tomatosoup
 	name = "tomato soup"
 	desc = "Drinking this feels like being a vampire! A tomato vampire..."
