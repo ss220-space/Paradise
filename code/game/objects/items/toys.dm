@@ -2366,7 +2366,7 @@
 
 /obj/item/toy/desk/newtoncradle/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
 	on = !on
@@ -2384,7 +2384,7 @@
 
 /obj/item/toy/desk/fan/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/fan/attack_self(mob/user)
 	on = !on

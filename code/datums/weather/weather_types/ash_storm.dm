@@ -25,10 +25,10 @@
 
 	var/list/inside_areas = list()
 	var/list/outside_areas = list()
-	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
-	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(list(), FALSE, TRUE)
-	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
-	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
+	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(null, FALSE, TRUE)
+	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(null, FALSE, TRUE)
+	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(null, FALSE, TRUE)
+	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(null, FALSE, TRUE)
 
 /datum/weather/ash_storm/proc/is_shuttle_docked(shuttleId, dockId)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
