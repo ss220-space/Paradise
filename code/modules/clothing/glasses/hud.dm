@@ -185,10 +185,21 @@ MEDICAL
 
 /obj/item/clothing/glasses/hud/health/meson
 	name = "Medical-Meson HUD"
-	desc = "A medical heads-up display that comes with an optical meson scanner."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве \
+			и анализа состояния здоровья окружающих существ."
 	icon_state = "mesonhealth"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+/obj/item/clothing/glasses/hud/health/meson/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинские мезонные ИЛС-очки",
+		GENITIVE = "медицинских мезонных ИЛС-очков",
+		DATIVE = "медицинским мезонным ИЛС-очкам",
+		ACCUSATIVE = "медицинские мезонные ИЛС-очки",
+		INSTRUMENTAL = "медицинскими мезонными ИЛС-очками",
+		PREPOSITIONAL = "медицинских мезонных ИЛС-очках"
+	)
 
 /obj/item/clothing/glasses/hud/health/monocle
 	name = "Medical HUD Monocle"

@@ -14,7 +14,6 @@
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/get_ru_names()
@@ -758,4 +757,22 @@
 		ACCUSATIVE = "автоинъектор (Активированный уголь)",
 		INSTRUMENTAL = "автоинъектором (Активированный уголь)",
 		PREPOSITIONAL = "автоинъекторе (Активированный уголь)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguinius
+	name = "Sanguinius autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу \"Сангвиния\" для экстренной помощи при кровопотерях."
+	icon_state = "redinjector"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	list_reagents = list("sanguinius" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguinius/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Сангвиний)",
+		GENITIVE = "автоинъектора (Сангвиний)",
+		DATIVE = "автоинъектору (Сангвиний)",
+		ACCUSATIVE = "автоинъектор (Сангвиний)",
+		INSTRUMENTAL = "автоинъектором (Сангвиний)",
+		PREPOSITIONAL = "автоинъекторе (Сангвиний)",
 	)

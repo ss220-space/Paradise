@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicr
 // Standard medicines
 GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine","syntmorphine","epinephrine","space_drugs",
 								"mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
-								"salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol",
+								"salbutamol","perfluorodecalin", "cryoxadone","omnizine","synaptizine","haloperidol",
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(blocked_chems, list( \
 GLOBAL_LIST_INIT(safe_chem_list, list( \
 	"antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
 	"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
-	"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "synthflesh", "hydrocodone",
+	"spaceacillin", "salglu_solution", "sal_acid", "synthflesh", "hydrocodone",
 	"mitocholide", "rezadone"
 ))
 

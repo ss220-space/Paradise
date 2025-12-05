@@ -777,7 +777,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/living/immune = list() // the one who creates the timestop is immune
 	var/list/stopped_atoms = list()
-	var/freezerange = 2
+	var/freezerange = 1
 	var/duration = 140
 	alpha = 125
 

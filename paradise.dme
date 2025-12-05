@@ -514,6 +514,7 @@
 #include "code\datums\filter.dm"
 #include "code\datums\his_grace_tiers.dm"
 #include "code\datums\holocall.dm"
+#include "code\datums\holotool_mode.dm"
 #include "code\datums\http.dm"
 #include "code\datums\hud.dm"
 #include "code\datums\input_data.dm"

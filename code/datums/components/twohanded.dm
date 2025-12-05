@@ -278,7 +278,7 @@
 	if(sharp_when_wielded)
 		parent_item.set_sharpness(TRUE)
 
-	var/original_name = parent_item.name
+	var/original_name = parent_item.declent_ru(ACCUSATIVE)
 	parent_item.name = "[original_name] (Wielded)"
 	parent_item.update_appearance()
 	if(user)
