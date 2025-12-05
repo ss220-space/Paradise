@@ -6422,22 +6422,10 @@
 /turf/space,
 /area/solar/auxstarboard)
 "aXk" = (
-/obj/machinery/pdapainter,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom/directional/east,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/pdapainter,
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28
 	},
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/wood/fancy/light,
@@ -35907,6 +35895,7 @@
 	},
 /obj/machinery/suit_storage_unit/ce,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/chief)
 "dOB" = (
@@ -44482,31 +44471,11 @@
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "frL" = (
-/obj/machinery/camera{
-	c_tag = "Paramedic's Office";
-	dir = 1;
-	network = list("Medical","SS13")
-	},
 /obj/item/radio/intercom/directional/south,
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera{
 	c_tag = "Paramedic's Office";
 	dir = 1;
 	network = list("Medical","SS13")
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -57921,7 +57890,6 @@
 /area/security/podbay)
 "iBo" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69833,38 +69801,13 @@
 	},
 /area/chapel/main)
 "lyz" = (
-/obj/machinery/light_switch{
-	pixel_x = 5;
-	pixel_y = -23
-	},
-/obj/machinery/holosign_switch{
-	dir = 1;
-	id = "surgery1";
-	pixel_x = -6;
-	pixel_y = -23
-	},
 /obj/item/radio/intercom/directional/west,
-/obj/machinery/door_control{
-	id = "First Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_x = -25;
-	pixel_y = 7
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/holosign_switch{
 	dir = 1;
 	id = "surgery1";
 	pixel_x = -6;
 	pixel_y = -23
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28;
-	pixel_y = -8
 	},
 /obj/machinery/door_control{
 	id = "First Surgery Window";
@@ -70294,27 +70237,7 @@
 	},
 /area/medical/research/nhallway)
 "lDN" = (
-/obj/machinery/light_switch{
-	pixel_x = 5;
-	pixel_y = 25
-	},
-/obj/machinery/holosign_switch{
-	id = "surgery2";
-	pixel_x = -6;
-	pixel_y = 25
-	},
-/obj/machinery/door_control{
-	id = "Second Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_x = -25;
-	pixel_y = -7
-	},
 /obj/item/radio/intercom/directional/west,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light_switch/directional/north,
 /obj/machinery/holosign_switch{
 	id = "surgery2";
@@ -70326,9 +70249,6 @@
 	name = "Surgery Window Shutters Control";
 	pixel_x = -25;
 	pixel_y = -7
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -116778,29 +116698,9 @@
 /turf/simulated/floor/carpet/black,
 /area/bridge/vip)
 "wcC" = (
-/obj/structure/bed,
-/obj/item/bedsheet/hos,
 /obj/item/radio/intercom/directional/east,
-/obj/machinery/door_control{
-	id = "HoSPriv";
-	name = "HoS Office Privacy Shutters Control";
-	pixel_y = 24;
-	req_access = list(58)
-	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 24
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/bed,
 /obj/item/bedsheet/hos,
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
 /obj/machinery/door_control{
 	id = "HoSPriv";
 	name = "HoS Office Privacy Shutters Control";
@@ -150454,7 +150354,7 @@ bGz
 pss
 tMj
 dOu
-dos
+bGz
 bUh
 xLU
 dza

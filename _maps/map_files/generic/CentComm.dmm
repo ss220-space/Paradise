@@ -13841,35 +13841,6 @@
 	icon_state = "darkgrey"
 	},
 /area/syndicate_mothership)
-"gDI" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/obj/machinery/light_switch{
-	pixel_x = 12;
-	pixel_y = -26
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -3;
-	pixel_y = -30
-	},
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/simulated/floor/carpet,
-/area/wizard_station)
 "gDR" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/wall/indestructible/reinforced,
@@ -26614,6 +26585,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"mDV" = (
+/obj/machinery/light/small{
+	brightness_range = 6;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/carpet,
+/area/wizard_station)
 "mDW" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
@@ -103476,7 +103457,7 @@ jlR
 jlR
 jlR
 jlR
-gDI
+kYu
 cjS
 cjS
 kBr
@@ -104761,7 +104742,7 @@ jlR
 jlR
 jlR
 jlR
-kYu
+mDV
 cjS
 cjS
 lSb
