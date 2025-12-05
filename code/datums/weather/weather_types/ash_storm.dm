@@ -23,10 +23,6 @@
 
 	barometer_predictable = TRUE
 
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
-
-
 	var/list/weak_sounds = list()
 	var/list/strong_sounds = list()
 
@@ -46,11 +42,9 @@
 		if(istype(place, /area/shuttle)) // Don't play storm audio to shuttles that are not at lavaland
 			continue
 		if(place.outdoors)
-			outside_areas |= place
 			weak_sounds[place] = /datum/looping_sound/weak_outside_ashstorm
 			strong_sounds[place] = /datum/looping_sound/active_outside_ashstorm
 		else
-			inside_areas |= place
 			weak_sounds[place] = /datum/looping_sound/weak_inside_ashstorm
 			strong_sounds[place] = /datum/looping_sound/active_inside_ashstorm
 		CHECK_TICK
