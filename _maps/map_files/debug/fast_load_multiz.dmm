@@ -8,11 +8,6 @@
 /area/space)
 "bO" = (
 /obj/item/mod/control/pre_equipped/standard,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel,
 /area/admin)
