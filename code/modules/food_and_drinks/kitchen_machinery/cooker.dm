@@ -1,6 +1,6 @@
 /obj/machinery/cooker
 	name = "cooker"
-	desc = "You shouldn't be seeing this!"
+	desc = "Вы не должны были этого видеть. Пожалуйста, сообщите о нахождении этого предмета в #баг-репорты-v2"
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 5
@@ -51,7 +51,7 @@
 		return TRUE
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	balloon_alert(user, "только продукты!")
+	balloon_alert(user, "не является пищей!")
 	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)

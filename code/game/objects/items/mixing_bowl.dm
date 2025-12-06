@@ -40,7 +40,7 @@
 		clean()
 		user.visible_message(
 			span_notice("[user] заканчива[PLUR_ET_YUT(user)] мыть [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы заканчиваете [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы заканчиваете мыть [declent_ru(ACCUSATIVE)]."),
 		)
 		update_dialog(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -48,7 +48,7 @@
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_TRIBAL_OVEN]))
 		add_fingerprint(user)
 		if(dirty)
-			balloon_alert(user, "сначала помойте!")
+			balloon_alert(user, "нужно очистить!")
 			return ATTACK_CHAIN_PROCEED
 		if(length(contents) >= max_n_of_items)
 			balloon_alert(user, "нет места!")
@@ -82,18 +82,17 @@
 			balloon_alert(user, "нужно очистить!")
 			return ATTACK_CHAIN_PROCEED
 		if(!I.reagents)
-			balloon_alert(user, ("пусто!"))
+			balloon_alert(user, "пусто!")
 			return ATTACK_CHAIN_PROCEED
 		for(var/datum/reagent/reagent as anything in I.reagents.reagent_list)
 			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_TRIBAL_OVEN]))
 				to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] содержит компоненты, непригодные для готовки."))
 				return ATTACK_CHAIN_PROCEED
 		var/obj/item/reagent_containers/container = I
-		var/cached_name = "[container.declent_ru(GENITIVE)]"
 		var/transfered_amount = container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
-			span_notice("[user] перелива[PLUR_ET_YUT(user)] немного раствора из [cached_name] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы переливаете [transfered_amount] единиц[declension_ru(transfered_amount,"у","ы","")] раствора в [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] перелива[PLUR_ET_YUT(user)] содержимое [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы переливаете [transfered_amount] единиц[declension_ru(transfered_amount,"у","ы","")] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		update_dialog(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

@@ -136,11 +136,11 @@
 	if(is_type_in_typecache(I, acceptable_containers))
 		var/obj/item/reagent_containers/container = I
 		if(!container.reagents || !container.reagents.total_volume)
-			balloon_alert(user, "[container.declent_ru(NOMINATIVE)] пуст")
+			balloon_alert(user, "ёмкость пуста!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		for(var/datum/reagent/reagent as anything in container.reagents.reagent_list)
 			if(!(reagent.id in GLOB.cooking_reagents[recipe_type]))
-				balloon_alert(user, "содержит непригодные компоненты!")
+				balloon_alert(user, "содержит непригодные вещества!")
 				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
@@ -227,7 +227,7 @@
 		container_type = OPENCONTAINER
 	update_icon(UPDATE_ICON_STATE)
 	user.visible_message(
-		span_notice("[user] аканчива[PLUR_ET_YUT(user)] чинить [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] заканчива[PLUR_ET_YUT(user)] чинить [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы заканчиваете чинить [declent_ru(ACCUSATIVE)]."),
 	)
 

@@ -60,8 +60,8 @@
 	var/mob/living/carbon/human/victim = grabbed_thing
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] прижима[PLUR_ET_YUT(grabber)] [victim] к [declent_ru(DATIVE)], обжигая тело [victim]!"),
-		span_userdanger("[grabber] прижима[PLUR_ET_YUT(grabber)] вас к [declent_ru(DATIVE)]! Как же горячо!"),
+		span_danger("[grabber.declent_ru(NOMINATIVE)] прижима[PLUR_ET_YUT(grabber)] [victim.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], обжигая [GEND_HIS_HER(victim)] тело!"),
+		span_userdanger("[grabber.declent_ru(NOMINATIVE)] прижима[PLUR_ET_YUT(grabber)] вас к [declent_ru(DATIVE)]! Как же горячо!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")

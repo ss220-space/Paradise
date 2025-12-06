@@ -63,8 +63,8 @@
 		return
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] окуна[PLUR_ET_YUT(grabber)] [victim] лицом в [declent_ru(ACCUSATIVE)]!"),
-		span_userdanger("[grabber] окуна[PLUR_ET_YUT(grabber)] вас в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[grabber.declent_ru(NOMINATIVE)] окуна[PLUR_ET_YUT(grabber)] [victim.declent_ru(ACCUSATIVE)] лицом в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[grabber.declent_ru(NOMINATIVE)] окуна[PLUR_ET_YUT(grabber)] вас в [declent_ru(ACCUSATIVE)]!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")

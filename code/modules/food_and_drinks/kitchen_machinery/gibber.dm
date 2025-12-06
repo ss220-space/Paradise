@@ -142,7 +142,7 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		balloon_alert(user, "[declent_ru(NOMINATIVE)] переполнено!")
+		balloon_alert(user, "переполнено!")
 		return
 
 	if(operating)
@@ -150,17 +150,17 @@
 		return
 
 	if(!ishuman(victim))
-		balloon_alert(user, "не подходит для [declent_ru(GENITIVE)]!")
+		balloon_alert(user, "не является гуманоидом!")
 		return
 
 	if(victim.abiotic(1))
-		balloon_alert(user, "обнаружена абиотика!")
+		balloon_alert(user, "руки субъекта заняты!")
 		return
 
-	user.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] засовывать [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] начина[PLUR_ET_YUT(user)] засовывать [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
 	add_fingerprint(user)
 	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message(span_danger("[user] запихива[PLUR_ET_YUT(user)] [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] запихива[PLUR_ET_YUT(user)] [victim.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"))
 
 		victim.forceMove(src)
 		occupant = victim
@@ -252,7 +252,7 @@
 		return
 
 	if(!occupant)
-		balloon_alert(user, "мясорубка пуста!")
+		balloon_alert(user, "пусто!")
 		return
 
 	use_power(1000)
@@ -369,7 +369,7 @@
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(mob/living/carbon/human/victim)
 	if(!istype(victim))
 		return FALSE
-	visible_message(span_danger("[capitalize(victim.declent_ru(NOMINATIVE))] засасыва[PLUR_ET_YUT(victim)]ся в [declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[victim.declent_ru(NOMINATIVE)] засасыва[PLUR_ET_YUT(victim)]ся в [declent_ru(ACCUSATIVE)]!"))
 
 	victim.forceMove(src)
 	occupant = victim

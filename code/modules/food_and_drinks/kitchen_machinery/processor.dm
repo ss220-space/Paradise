@@ -1,6 +1,6 @@
 /obj/machinery/processor
 	name = "Food Processor"
-	desc = "Высокоэффективный кухонный комбайн для стандартизации процесса приготовления. Автоматически нарезает, мнёт, формует и экструдирует."
+	desc = "Высокоэффективный прибор для стандартизации процесса приготовления. Автоматически нарезает, мнёт, формует и экструдирует."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
 	density = TRUE
@@ -229,8 +229,8 @@
 	add_fingerprint(grabber)
 	grabbed_thing.forceMove(src)
 	grabber.visible_message(
-		span_notice("[grabber] помеща[PLUR_ET_YUT(grabber)] [grabbed_thing.name] в [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы помещаете [grabbed_thing.name] в [declent_ru(ACCUSATIVE)].")
+		span_notice("[grabber.declent_ru(NOMINATIVE)] помеща[PLUR_ET_YUT(grabber)] [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы помещаете [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
 	)
 
 /obj/machinery/processor/attack_hand(mob/user)
@@ -245,7 +245,7 @@
 		balloon_alert(user, "пусто!")
 		return 1
 	processing = TRUE
-	user.balloon_alert_to_viewers("включа[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "включено")
+	balloon_alert_to_viewers("включа[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "включено")
 	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(500)
 	var/total_time = 0
@@ -265,6 +265,6 @@
 		P.process_food(loc, O, src)
 	processing = FALSE
 
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] завершил обработку."),
-		span_notice("[capitalize(declent_ru(NOMINATIVE))] завершил обработку."),
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] завершает обработку."),
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] завершает обработку."),
 		span_notice("Вы слышите, как комбайн останавливается."))

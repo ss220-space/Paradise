@@ -1,7 +1,7 @@
 
 /obj/machinery/juicer
 	name = "Juicer"
-	desc = "Самая обычная соковыжималка. Принимает практически любой выращенный плод."
+	desc = "Машина для переработки твёрдых пищевых продуктов в форму сока. Принимает практически любой выращенный плод."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	density = TRUE
@@ -64,7 +64,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!is_type_in_list(I, allowed_items))
-		balloon_alert(user, "[I.declent_ru(NOMINATIVE)] не содержит сока!")
+		balloon_alert(user, "не подходит для выжимки!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
@@ -108,7 +108,7 @@
 		beaker_contents = "[capitalize(declent_ru(NOMINATIVE))] содержит ёмкость с чем-то внутри."
 		is_beaker_ready = 1
 	else
-		beaker_contents = "[capitalize(declent_ru(NOMINATIVE))] содержит ёмкость, и ёмкость полна!"
+		beaker_contents = "[capitalize(declent_ru(NOMINATIVE))] содержит заполненную ёмкость."
 
 	var/dat = {"<meta charset="UTF-8">
 <b>Камера обработки содержит:</b><br>
