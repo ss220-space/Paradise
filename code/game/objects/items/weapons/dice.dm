@@ -363,10 +363,8 @@
 			//Break bone
 			break_bone(user)
 		if(9)
-			//Cold
-			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] простудивш[GEND_IM_EI_IM_IMI(user)]ся!"))
-			var/datum/disease/virus/cold/D = new
-			D.Contract(user)
+			//random virus from disease outbreak
+			infect(user)
 		if(10)
 			//Nothing
 			T.visible_message(span_userdanger("Ничего не случилось."))
