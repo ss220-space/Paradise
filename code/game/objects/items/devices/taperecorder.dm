@@ -36,7 +36,7 @@
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
 		update_icon(UPDATE_ICON_STATE)
-	soundloop = new(list(src))
+	soundloop = new(src)
 	become_hearing_sensitive()
 
 /obj/item/taperecorder/Destroy()

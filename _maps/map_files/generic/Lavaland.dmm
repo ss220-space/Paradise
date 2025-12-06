@@ -532,9 +532,7 @@
 	},
 /area/mine/eva)
 "bv" = (
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -556,9 +554,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "by" = (
@@ -831,9 +827,7 @@
 	},
 /area/mine/laborcamp/security)
 "cb" = (
-/obj/machinery/light_switch{
-	pixel_y = 25
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -1437,9 +1431,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "dx" = (
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},

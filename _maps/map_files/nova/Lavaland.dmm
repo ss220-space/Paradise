@@ -3391,10 +3391,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light_switch{
-	pixel_y = 25;
-	pixel_x = -25
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -6337,9 +6334,7 @@
 	dir = 4;
 	pixel_y = 0
 	},
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "LK" = (

@@ -2386,9 +2386,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/light_switch{
-	pixel_y = 32
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredalt"
@@ -22800,10 +22798,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/obj/machinery/light_switch{
-	pixel_x = 12;
-	pixel_y = -26
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "kUi" = (
