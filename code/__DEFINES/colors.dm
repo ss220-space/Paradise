@@ -126,6 +126,7 @@
 #define COLOR_BLUE_VERY_LIGHT "#ccecff"
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75a2bb"
+#define COLOR_MEDIUM_TURQUOISE "#48d1cc"
 
 // Pink
 #define COLOR_PINK "#ffc0cb"
@@ -563,3 +564,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	0.33, 0.33, 0.33,\
 	0.33, 0.33, 0.33,\
 	0.33, 0.33, 0.33)
+
+// Security spear colors
+#define COLOR_SECSPEAR_RED "#ed3f3f"
+#define COLOR_SECSPEAR_BLUE "#3fc4ed"
+#define COLOR_SECSPEAR_YELLOW "#edc73f"

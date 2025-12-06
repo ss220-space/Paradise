@@ -248,6 +248,7 @@
 #define BLIND_LAYER 30.3
 #define CRIT_LAYER 30.4
 #define CURSE_LAYER 30.5
+#define BLOODY_SCREEN_LAYER 30.6
 
 #define HUD_LAYER 31
 #define BUILDMOD_LAYER 31.1

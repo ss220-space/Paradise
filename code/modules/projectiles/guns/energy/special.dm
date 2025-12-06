@@ -68,7 +68,6 @@
 	ammo_x_offset = 1
 	can_charge = FALSE
 	selfcharge = TRUE
-	var/emagged = FALSE
 	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
@@ -126,7 +125,8 @@
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
+	desc = "Компактное энергооружие, ценимое агентами \"Синдиката\" за бесшумность. \
+			Заряжается автоматически, идеально для точечных устранений."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -143,6 +143,16 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/get_ru_names()
+	return list(
+		NOMINATIVE = "мини энерго-арбалет",
+		GENITIVE = "мини энерго-арбалета",
+		DATIVE = "мини энерго-арбалету",
+		ACCUSATIVE = "мини энерго-арбалет",
+		INSTRUMENTAL = "мини энерго-арбалетом",
+		PREPOSITIONAL = "мини энерго-арбалете"
+)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/old
 	name = "old mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists. It looks very old."
@@ -150,7 +160,8 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
-	desc = "A reverse engineered weapon using syndicate technology."
+	desc = "Полноразмерная реплика арбалета \"Синдиката\", воссозданная методом обратной инженерии. \
+			Более громоздкий по сравнению с оригиналом."
 	icon_state = "crossbowlarge"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
@@ -158,6 +169,16 @@
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	accuracy = GUN_ACCURACY_RIFLE
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/large/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический арбалет",
+		GENITIVE = "энергетического арбалета",
+		DATIVE = "энергетическому арбалету",
+		ACCUSATIVE = "энергетический арбалет",
+		INSTRUMENTAL = "энергетическим арбалетом",
+		PREPOSITIONAL = "энергетическом арбалете"
+	)
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/toy
 	name = "toy energy crossbow"
@@ -170,6 +191,16 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/bolttoy)
 	accuracy = GUN_ACCURACY_DEFAULT
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/toy/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушечный энерго-арбалет",
+		GENITIVE = "игрушечного энерго-арбалета",
+		DATIVE = "игрушечному энерго-арбалету",
+		ACCUSATIVE = "игрушечный энерго-арбалет",
+		INSTRUMENTAL = "игрушечным энерго-арбалетом",
+		PREPOSITIONAL = "игрушечном энерго-арбалете"
+	)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
 	origin_tech = null
@@ -179,7 +210,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
-	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+	user.visible_message(span_suicide("[user] взводит [declent_ru(ACCUSATIVE)] и приставляет его к своему виску! Это похоже на попытку самоубийства!</b>"))
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
@@ -491,7 +522,6 @@
 	var/powercost = ""
 	var/powercostcolor = ""
 
-	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 

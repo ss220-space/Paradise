@@ -419,7 +419,7 @@
 /obj/machinery/light/proc/burnout()
 	status = LIGHT_BURNED
 
-	visible_message(span_boldwarning("[src] burns out!"))
+	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] сгорел[GEND_A_O_I(src)]!"))
 	do_sparks(2, TRUE, src)
 
 	on = FALSE

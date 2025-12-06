@@ -282,21 +282,42 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 /obj/item/clothing/under/rank/miner
-	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
 	name = "shaft miner's jumpsuit"
+	desc = "Стильный комбинезон с прочными подкладками. Покрыты тонким слоем грязи и пепла, \
+			который, видимо, уже никогда не смоется."
 	icon_state = "miner"
 	item_state = "miner"
 	item_color = "miner"
 
+/obj/item/clothing/under/rank/miner/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрский комбинезон",
+		GENITIVE = "шахтёрского комбинезона",
+		DATIVE = "шахтёрскому комбинезону",
+		ACCUSATIVE = "шахтёрский комбинезон",
+		INSTRUMENTAL = "шахтёрским комбинезоном",
+		PREPOSITIONAL = "шахтёрском комбинезоне"
+	)
+
 /obj/item/clothing/under/rank/miner/alt
-	desc = "Cozy, old-style work sweater."
 	name = "shaft miner's sweater"
+	desc = "Уютный рабочий свитер в старомодном стиле."
 	icon_state = "miner_alt"
 	item_state = "miner_alt"
 	item_color = "miner_alt"
 
+/obj/item/clothing/under/rank/miner/alt/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрский свитер",
+		GENITIVE = "шахтёрского свитера",
+		DATIVE = "шахтёрскому свитеру",
+		ACCUSATIVE = "шахтёрский свитер",
+		INSTRUMENTAL = "шахтёрским свитером",
+		PREPOSITIONAL = "шахтёрском свитере"
+	)
+
 /obj/item/clothing/under/rank/miner/lavaland
-	desc = "A green uniform for operating in hazardous environments."
+	desc = "Зелёная униформа, созданная для работы в опасных условиях."
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"

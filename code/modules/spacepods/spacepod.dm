@@ -866,7 +866,7 @@
 		balloon_alert(user, "слишком далеко!")
 		return FALSE
 
-	var/fukkendisk = user.get_all_contents_type(/obj/item/disk/nuclear)
+	var/fukkendisk = user.get_type_in_all_contents(/obj/item/disk/nuclear)
 	if(fukkendisk)
 		to_chat(user, span_danger("<b>Диск ядерной аутентификации блокирует двери! Похоже, он не хочет попасть в челнок.</b>"))
 		return FALSE

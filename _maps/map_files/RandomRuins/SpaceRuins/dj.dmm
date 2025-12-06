@@ -256,10 +256,7 @@
 	},
 /area/djstation)
 "bd" = (
-/obj/machinery/light_switch{
-	pixel_x = 32;
-	pixel_y = 9
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -627,9 +624,7 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
 "vE" = (
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -852,9 +847,7 @@
 	},
 /area/djstation)
 "Qo" = (
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -935,9 +928,7 @@
 	},
 /area/djstation)
 "UQ" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,

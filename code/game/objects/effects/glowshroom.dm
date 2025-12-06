@@ -11,6 +11,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	//replaced in Initialize()
 	icon_state = "glowshroom"
+	base_icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
 	/// Boolean to indicate if the shroom is on the floor/wall
 	var/is_on_floor = FALSE
@@ -38,12 +39,14 @@
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
 	icon_state = "glowcap"
+	base_icon_state = "glowcap"
 	myseed = /obj/item/seeds/glowshroom/glowcap
 
 /obj/structure/glowshroom/shadowshroom
 	name = "shadowshroom"
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
 	icon_state = "shadowshroom"
+	base_icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
 
 /obj/structure/glowshroom/shadowshroom/extinguish_light(force = FALSE)
@@ -83,7 +86,6 @@
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
 		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color, l_on = TRUE)
 	setDir(calc_dir())
-	var/base_icon_state = initial(icon_state)
 	if(!is_on_floor)
 		//offset to make it be on the wall rather than on the floor
 		switch(dir)

@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/wires/robot/wires = null
 
 	var/opened = FALSE
+	/// Has the robot been emagged?
 	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = FLASH_PROTECTION_NONE

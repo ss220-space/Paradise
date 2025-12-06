@@ -7575,9 +7575,7 @@
 	},
 /area/syndicate_mothership)
 "fJi" = (
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -11669,10 +11667,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/obj/machinery/light_switch{
-	pixel_x = 12;
-	pixel_y = -26
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "iOe" = (

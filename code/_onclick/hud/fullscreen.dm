@@ -187,6 +187,10 @@
 	icon_state = "curse"
 	layer = CURSE_LAYER
 
+/atom/movable/screen/fullscreen/bloody_screen
+	icon_state = "bloody_screen"
+	layer = BLOODY_SCREEN_LAYER
+
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/lighting_backdrop/lit
 	invisibility = INVISIBILITY_LIGHTING

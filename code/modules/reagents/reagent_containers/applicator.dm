@@ -18,7 +18,6 @@
 	temperature_max = 350
 	pass_open_check = TRUE
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
 
