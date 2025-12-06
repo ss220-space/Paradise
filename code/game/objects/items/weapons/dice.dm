@@ -555,3 +555,25 @@
 	var/obj/item/organ/external/limb = pick(target.bodyparts)
 	limb.fracture()
 	to_chat(target, span_userdanger("Вы чувствуете, как ваша [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] трескается и ломается!"))
+
+/obj/item/dice/d20/fate/proc/infect(mob/living/carbon/human/infected)
+	var/virus_type = pick(
+		1; /datum/disease/virus/anxiety,
+		1; /datum/disease/virus/beesease,
+		1; /datum/disease/virus/brainrot,
+		1; /datum/disease/virus/cold,
+		1; /datum/disease/virus/flu,
+		1; /datum/disease/virus/fluspanish,
+		1; /datum/disease/virus/fake_gbs,
+		1; /datum/disease/virus/loyalty,
+		1; /datum/disease/virus/lycan,
+		1; /datum/disease/virus/magnitis,
+		1; /datum/disease/virus/pierrot_throat,
+		1; /datum/disease/virus/pierrot_throat/advanced,
+		1; /datum/disease/virus/tuberculosis,
+		1; /datum/disease/virus/wizarditis,
+		1; /datum/disease/virus/babylonian_fever
+	)
+	var/datum/disease/virus/D = new virus_type()
+	if(D.Contract(infected, is_carrier = TRUE))
+		to_chat(infected, span_danger("На секунду вам становится трудно дышать"))
