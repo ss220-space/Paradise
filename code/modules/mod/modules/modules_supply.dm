@@ -63,8 +63,8 @@
 		return
 	if(!mod.wearer.Adjacent(target))
 		return
-	if(istype(target, /obj/structure/closet/crate))
-		var/obj/structure/closet/crate/picked_crate = target
+	if(istype(target, /obj/structure/closet/crate) || istype(target, /obj/structure/closet/critter/mecha))
+		var/obj/structure/closet/picked_crate = target
 		if(!check_crate_pickup(picked_crate))
 			return
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
@@ -85,6 +85,8 @@
 		if(target_turf.density)
 			return
 		var/obj/structure/closet/crate/dropped_crate = pop(stored_crates)
+		if(isnull(dropped_crate))
+			return
 		dropped_crate.forceMove(target_turf)
 		drain_power(use_energy_cost)
 	else
