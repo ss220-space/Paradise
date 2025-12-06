@@ -158,6 +158,10 @@
 	name = "Бежевая рукоять"
 	icon_state = "enforcer_tangrip"
 
+/datum/item_skin_data/enforcer/red_handle
+	name = "Красная рукоять"
+	icon_state = "enforcer_redgrip"
+
 /datum/item_skin_data/enforcer/blowngrip
 	name = "Деревянная рукоять"
 	icon_state = "enforcer_browngrip"
@@ -177,12 +181,6 @@
 	name = "Золотой затвор"
 	icon_state = "enforcer_gold"
 	donation_tier = 4
-
-
-
-/datum/item_skin_data/enforcer/red_handle
-	name = "Красная рукоять"
-	icon_state = "enforcer_redgrip"
 
 //MARK: SP-8
 /datum/item_skin_data/sp8
