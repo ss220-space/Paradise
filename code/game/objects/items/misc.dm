@@ -6,6 +6,7 @@
 	Cursor Drag Pointer
 	Beach Ball
 	Mouse Jetpack
+	Electronic Cigarette
 */
 
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -79,3 +80,135 @@
 	used = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	return TRUE
+
+
+/obj/item/ecig
+	name = "электронная сигарета"
+	desc = "Одноразовая электронная сигарета с никотином."
+	gender = FEMALE
+	icon = 'icons/obj/device.dmi'
+	icon_state = "ecig"
+	item_state = "ecig"
+	w_class = WEIGHT_CLASS_TINY
+	var/amount_left = 600
+	var/emagged = FALSE
+	var/applying = FALSE
+	var/list/reagent = list("nicotine")
+
+/obj/item/ecig/get_ru_names()
+	return list(
+		NOMINATIVE = "электронная сигарета",
+		GENITIVE = "электронной сигареты",
+		DATIVE = "электронной сигарете",
+		ACCUSATIVE = "электронную сигарету",
+		INSTRUMENTAL = "электронной сигаретой",
+		PREPOSITIONAL = "электронной сигарете"
+	)
+
+/obj/item/ecig/emag_act(mob/user)
+	if(emagged)
+		return
+	add_attack_logs(user, src, "emagged")
+	emagged = TRUE
+	if(user)
+		balloon_alert(user, "протоколы безопасности взломаны")
+
+/obj/item/ecig/examine(mob/user)
+	. = ..()
+	if(amount_left <= 0)
+		. += span_warning("\nЖидкость полностью исчерпана.")
+	else
+		. += span_notice("\nОсталось жидкости: [amount_left].")
+
+/obj/item/ecig/attack_self(mob/user)
+
+	if(!ishuman(user) || ismachineperson(user))
+		balloon_alert(user, "ошибка совместимости!")
+		return
+
+	if(amount_left <= 0)
+		playsound(loc, 'sound/machines/lightswitch.ogg', 25, TRUE)
+		balloon_alert(user, "никотин закончился!")
+		return
+
+	if(applying)
+		applying = FALSE
+		return
+
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] затягиваться [declent_ru(INSTRUMENTAL)]."),
+		span_notice("Вы начинаете затягиваться [declent_ru(INSTRUMENTAL)]."),
+	)
+
+	applying = TRUE
+	var/cycle_count = 0
+
+	while(do_after(user, 1 SECONDS, user, progress=TRUE, max_interact_count=1) && amount_left > 0 && applying)
+		cycle_count++
+		inject_nicotine(user, cycle_count)
+
+		if(QDELETED(src))
+			applying = FALSE
+			return
+
+	applying = FALSE
+
+	if(cycle_count > 0)
+		user.visible_message(
+			span_notice("[user] выпуска[PLUR_ET_YUT(user)] облако пара."),
+			span_notice("Вы выпускаете облако пара."),
+		)
+		if(prob(20))
+			if(user.gender == FEMALE)
+				playsound(loc, 'sound/misc/ecig_female.ogg', 10, TRUE)
+			else
+				playsound(loc, 'sound/misc/ecig_male.ogg', 10, TRUE)
+		var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
+		smoke.set_up(range = round(clamp(cycle_count/10, 0, 4)), location = loc)
+		smoke.start()
+
+/obj/item/ecig/proc/inject_nicotine(mob/living/carbon/H, cycle_count)
+	if(!H.reagents)
+		return
+	for(var/chem in reagent)
+		H.reagents.add_reagent(chem, 1)
+	playsound(loc, 'sound/misc/ecig.ogg', 50, TRUE)
+	amount_left = max(0, amount_left - 1)
+
+	if(cycle_count >= 10)
+		H.adjustToxLoss(2)
+		if(prob(10))
+			to_chat(H, span_warning("Голова кружится от такой долгой затяжки..."))
+	if (cycle_count >= 60)
+		H.client?.give_award(/datum/award/achievement/misc/deep_draw, H)
+	if(emagged && cycle_count >= 10)
+		applying = FALSE
+		to_chat(H, span_warning("[capitalize(declent_ru(NOMINATIVE))] становится обжигающе горячей!"))
+		sleep(15)
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает пищать и искрить!"))
+		do_sparks(4, TRUE, src)
+		playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
+		sleep(15)
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
+		sleep(7)
+		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+		explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 3, adminlog = TRUE, cause = H)
+		qdel(src)
+		return
+
+/obj/item/ecig/syndi
+	name = "подозрительная электронная сигарета"
+	desc = "Одноразовая электронная сигарета с никотином. На лицевой стороне нарисованна большая буква S."
+	icon_state = "ecig_syndi"
+	item_state = "ecig_syndi"
+	reagent = list("nicotine", "syndiezine")
+
+/obj/item/ecig/syndi/get_ru_names()
+	return list(
+		NOMINATIVE = "подозрительная электронная сигарета",
+		GENITIVE = "подозрительной электронной сигареты",
+		DATIVE = "подозрительной электронной сигарете",
+		ACCUSATIVE = "подозрительную электронную сигарету",
+		INSTRUMENTAL = "подозрительной электронной сигаретой",
+		PREPOSITIONAL = "подозрительной электронной сигарете"
+	)
