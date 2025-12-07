@@ -53,8 +53,6 @@
 
 	var/image/balloon_alert = image(loc = isturf(src) ? src : get_atom_on_turf(src), layer = ABOVE_MOB_LAYER)
 
-	if(QDELETED(balloon_alert.loc))
-		return
 
 	SET_PLANE_EXPLICIT(balloon_alert, BALLOON_CHAT_PLANE, src)
 	balloon_alert.alpha = 0
@@ -63,6 +61,9 @@
 	balloon_alert.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	WXH_TO_HEIGHT(viewer_client?.MeasureText(text, null, BALLOON_TEXT_WIDTH), balloon_alert.maptext_height)
 	balloon_alert.maptext_width = BALLOON_TEXT_WIDTH
+
+	if(QDELETED(balloon_alert.loc))
+		return
 
 	viewer_client?.images += balloon_alert
 
@@ -73,7 +74,6 @@
 		observe.client.images += balloon_alert
 
 	var/length_mult = 1 + max(0, length(strip_html_properly(text)) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN) * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
-
 	animate(
 		balloon_alert,
 		pixel_y = ICON_SIZE_Y * 1.2,

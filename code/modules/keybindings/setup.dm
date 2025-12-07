@@ -72,7 +72,7 @@
 	for(var/datum/action/action as anything in mob.actions)
 		if(action.full_key)
 			var/datum/keybinding/mob/trigger_action_button/linked_bind = action.full_key
-			active_keybindings[linked_bind.binded_to] += list(linked_bind)
+			active_keybindings[linked_bind] += list(linked_bind)
 
 	return active_keybindings
 
