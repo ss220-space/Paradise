@@ -489,8 +489,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	if(result != SS_INIT_NO_MESSAGE)
 		to_chat(world, span_danger("<small>\[[subsystem.name]]</small> [chat_message]"))
-
-	log_world("\[[subsystem.name]] [message]")
+	var/text = "\[[subsystem.name]] [message]"
+	SEND_TEXT(world.log, text)
+	log_world(text)
 
 /datum/controller/master/proc/SetRunLevel(new_runlevel)
 	var/old_runlevel = current_runlevel
