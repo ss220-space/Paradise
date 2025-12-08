@@ -3424,7 +3424,7 @@
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
-						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))\
+						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 
 						if(!(human.dna.species.blacklisted_disabilities & DISABILITY_FLAG_CATEARS))
 							human.force_gene_block(GLOB.cat_earsblock, TRUE, TRUE)
