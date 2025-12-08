@@ -708,6 +708,10 @@
 	if((!chosen_language && client.prefs.language != LANGUAGE_NONE) || (chosen_language && chosen_language.flags & RESTRICTED))
 		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
 		client.prefs.language = LANGUAGE_NONE
+		INVOKE_ASYNC(src, PROC_REF(save_character))
+
+/mob/new_player/proc/save_character()
+	client?.prefs?.save_character(client)
 
 /mob/new_player/proc/ViewManifest()
 	GLOB.generic_crew_manifest.ui_interact(usr)

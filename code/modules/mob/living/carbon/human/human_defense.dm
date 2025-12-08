@@ -191,7 +191,7 @@ emp_act
 	var/protection = 100
 	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/obj/item/clothing/cloth in clothing_items)
-		if(cloth.body_parts_covered & def_zone.limb_body_flag)
+		if((cloth.body_parts_covered & def_zone.limb_body_flag) && cloth.armor)
 			protection *= (100 - min(cloth.armor.getRating(attack_flag), 100)) * 0.01
 	protection *= (100 - min(physiology.armor.getRating(attack_flag), 100)) * 0.01
 	return 100 - protection
