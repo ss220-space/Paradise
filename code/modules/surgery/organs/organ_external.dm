@@ -1009,7 +1009,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(owner && !silent)
 		owner.custom_pain("Из ваш[GEND_HIS_HER(src)] [declent_ru(GENITIVE)] хлещет кровь!")
-		owner.visible_message(span_warning("Из [declent_ru(GENITIVE)] [owner] хлещет кровь!"))
+		owner.visible_message(span_warning("Из [declent_ru(GENITIVE)] [owner.declent_ru(PREPOSITIONAL)] хлещет кровь!"))
 
 	return TRUE
 

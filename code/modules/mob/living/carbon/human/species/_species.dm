@@ -524,10 +524,7 @@
 		return
 
 	user.balloon_alert(user, "кровотечение зажато!")
-	user.visible_message(
-			span_notice("[user] зажима[PLUR_ET_UT(user)] кровотечение на [target_limb.declent_ru(PREPOSITIONAL)]."),
-			ignored_mobs = user)
-	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] кровотечение на [target_limb.declent_ru(PREPOSITIONAL)]", "зажатие кровотечения на [target_limb.declent_ru(PREPOSITIONAL)]");
+	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] рану на [target_limb.declent_ru(PREPOSITIONAL)]", "зажатие раны на [target_limb.declent_ru(PREPOSITIONAL)]");
 
 	if(user.hand == ACTIVE_HAND_LEFT)
 		user.left_hand_bleed_suppress_lib = target_limb

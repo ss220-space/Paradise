@@ -214,15 +214,9 @@
 	if(!can_neck_cut(defender, attacker, FALSE))
 		return FALSE
 
-	attacker.visible_message(span_danger("[attacker] прикладывает нож к горлу [defender]!"), span_danger("Вы прикладываете нож к горлу [defender]!."))
+	attacker.balloon_alert_to_viewers("прикладывает нож к горлу!", "вы прикладываете нож к горлу!")
 	if(!do_after(attacker, neck_cut_delay, defender, max_interact_count = 1) || attacker.pulling != defender || attacker.grab_state < GRAB_NECK)
 		return FALSE
-
-	var/obj/item/organ/external/head = defender.get_organ(attacker.zone_selected)
-	if(!head.has_arterial_bleeding())
-		if(!head.arterial_bleeding())
-			balloon_alert(attacker, "не получилось!")
-			return FALSE
 
 	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume
@@ -236,7 +230,7 @@
 	var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg', 'sound/weapons/knife_holster/throat_slice2.ogg')
 	playsound(defender.loc, sound, 25, TRUE)
 	defender.apply_damage(2 * force, def_zone = BODY_ZONE_HEAD, sharp = TRUE, used_weapon = src)
-	attacker.balloon_alert_to_viewers("перерезает глотку [defender]", "горло перерезано!");
+	attacker.balloon_alert_to_viewers("перереза[PLUR_ET_YUT(attacker)] глотку", "горло перерезано!");
 	return TRUE
 
 /obj/item/kitchen/knife/attack_obj(obj/object, mob/living/user, params)

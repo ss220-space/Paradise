@@ -1772,7 +1772,7 @@ BODY SCANNERS
 		if(!AN && !open && !infected && !imp)
 			AN = "None:"
 
-		dat += "<td>[bodypart.name]</td><td>[bodypart.burn_dam]</td><td>[bodypart.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+		dat += "<td>[bodypart.declent_ru(NOMINATIVE)]</td><td>[bodypart.burn_dam]</td><td>[bodypart.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"
 	for(var/obj/item/organ/internal/organ as anything in target.internal_organs)
 		var/mech = organ.desc

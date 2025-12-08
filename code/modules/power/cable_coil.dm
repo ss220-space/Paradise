@@ -144,7 +144,7 @@
 
 		if(CABLE_CRAFT_TOURNIQUET)
 			if(get_amount() < 20)
-				balloon_alert(user, "недостаточно [20 - get_amount()] [declent_ru(GENITIVE)]!")
+				balloon_alert(user, "недостаточно проводов!")
 
 			if(use(20))
 				var/obj/item/tourniquet/makeshift/tourniquet = new(T)
