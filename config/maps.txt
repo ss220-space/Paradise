@@ -11,6 +11,9 @@ MAP_ROTATE vote
 ## notriples - if the current map and the previous one are identical, it cannot be chosen next
 MAP_VOTE_MODE all
 
+## Prohibits ghosts from voting
+VOTE_NO_DEAD
+
 ## Default server map
 DEFAULT_MAP /datum/map/delta
 
