@@ -166,7 +166,7 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_world(text)
 	#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
-		SEND_TEXT(world.log, text)
+	SEND_TEXT(world.log, text)
 	#else
 	if(config && CONFIG_GET(flag/enable_root_log))
 		SEND_TEXT(world.log, text)
