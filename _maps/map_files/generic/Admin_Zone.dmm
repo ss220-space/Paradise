@@ -249,9 +249,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "cB" = (
-/obj/machinery/light_switch{
-	pixel_x = 30
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood,
 /area/admin)
 "cD" = (
@@ -1770,9 +1768,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "tp" = (
-/obj/machinery/light_switch{
-	pixel_x = 30
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/carpet,
 /area/admin)
 "tq" = (

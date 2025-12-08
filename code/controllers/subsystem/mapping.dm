@@ -122,6 +122,7 @@ SUBSYSTEM_DEF(mapping)
 				maps += map_path
 
 		previous_maps = maps
+		qdel(query)
 
 /datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
@@ -412,7 +413,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/loadLavaland()
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
-	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/lava/mapping_lava)
+	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, ZTRAIT_ASHSTORM, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/lava/mapping_lava)
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = UNAFFECTED, traits = trait_list)
 	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")

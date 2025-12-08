@@ -820,10 +820,7 @@
 	pixel_x = 25;
 	pixel_y = -6
 	},
-/obj/machinery/light_switch{
-	pixel_x = -4;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)

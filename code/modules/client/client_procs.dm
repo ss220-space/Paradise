@@ -238,8 +238,10 @@
 
 	if(connection != "seeker") //Invalid connection type.
 		return null
+
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
+
 	if(byond_build < CONFIG_GET(number/minimum_client_build))
 		version_blocked = TRUE
 
@@ -262,6 +264,10 @@
 		persistent_client = new(ckey)
 		persistent_client.byond_build = byond_build
 		persistent_client.byond_version = byond_version
+
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "+find"))
+		winset(src, null, list("browser-options" = "+refresh"))
 
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
@@ -439,7 +445,7 @@
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 
-	persistent_client.client = null
+	persistent_client?.client = null
 
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out

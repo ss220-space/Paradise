@@ -3192,9 +3192,7 @@
 	pixel_y = 6;
 	pixel_x = -6
 	},
-/obj/machinery/light_switch{
-	pixel_y = -2
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},

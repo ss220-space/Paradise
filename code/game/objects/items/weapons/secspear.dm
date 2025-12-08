@@ -87,7 +87,7 @@
 		to_chat(user, span_notice("Вы начинаете подключать [new_cell.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]"))
 
 		if(!do_after(user, 10 SECONDS, src))
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(!user.drop_transfer_item_to_loc(new_cell, src))
 			return ..()
