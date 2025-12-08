@@ -45,7 +45,7 @@
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
 		/obj/item/stack/medical/bruise_pack/military = 5,
-		///obj/item/tourniquet/advanced = 5, //TODO vakons: temp disable - await bleeding-part-3
+		/obj/item/tourniquet/advanced = 5
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -60,7 +60,7 @@
 		/obj/item/flashlight/sectaclight = 299,
 		/obj/item/grenade/smokebomb = 249,
 		/obj/item/stack/medical/bruise_pack/military = 299,
-		///obj/item/tourniquet/advanced = 399, //TODO vakons: temp disable - await bleeding-part-3
+		/obj/item/tourniquet/advanced = 399,
 	)
 	refill_canister = /obj/item/vending_refill/security
 

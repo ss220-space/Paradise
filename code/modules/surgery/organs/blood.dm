@@ -39,8 +39,6 @@
 /// Suppressed bleeding modifier
 #define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
 /// Oxy damage if use tourniquet on head
-#define OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD 4
-/// Oxy damage if use tourniquet on head
 #define MAX_SUPPRESS_BLEEDING_BY_HAND 15
 
 // MARK: External organ procs
@@ -148,8 +146,6 @@
 			continue
 
 		if(bodypart.tourniquet) //all bloodloss suppressed
-			if(bodypart.limb_zone == BODY_ZONE_HEAD)
-				apply_damage(OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD, OXY, spread_damage = TRUE, forced = TRUE)
 			continue
 
 		if(bodypart.has_internal_bleeding())
@@ -594,5 +590,4 @@
 #undef BRUISE_PACK_SUPPRESS_BLEEDING_MOD
 #undef HEAVY_BLEEDING_RATE
 #undef BODYPART_INTERNAL_BLEEDING
-#undef OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD
 #undef MAX_SUPPRESS_BLEEDING_BY_HAND

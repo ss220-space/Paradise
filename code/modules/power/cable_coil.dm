@@ -102,11 +102,11 @@
 ///////////////////////////////////
 /obj/item/stack/cable_coil/attack_self(mob/user)
 	var/image/restraints_icon = image(icon = 'icons/obj/items.dmi', icon_state = "cuff_white")
-	//var/image/tourniquet_icon = image(icon = 'icons/obj/medicine/packs.dmi', icon_state = "makeshift_tourniquet") //TODO vakons: temp disable - await bleeding-part-3
+	var/image/tourniquet_icon = image(icon = 'icons/obj/medicine/packs.dmi', icon_state = "makeshift_tourniquet")
 	var/image/multiz_icon = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge")
 	var/choices = list(
 		CABLE_CRAFT_RESTRAINS = restraints_icon,
-		//CABLE_CRAFT_TOURNIQUET = tourniquet_icon, //TODO vakons: temp disable - await bleeding-part-3
+		CABLE_CRAFT_TOURNIQUET = tourniquet_icon,
 		CABLE_CRAFT_MULTIZ_CABLE_HUB = multiz_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))

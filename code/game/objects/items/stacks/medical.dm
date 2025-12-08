@@ -672,6 +672,7 @@
 	name = "tourniquet"
 	desc = "Медицинский турникет для экстренной остановки артериального и венозного кровотечения на конечностях. Не предназначен для наложения на другие части тела. Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
 	icon = 'icons/obj/medicine/packs.dmi'
+	icon_state = "tourniquet"
 	item_state = "tourniquet"
 	origin_tech = "biotech=3"
 	w_class = WEIGHT_CLASS_TINY
