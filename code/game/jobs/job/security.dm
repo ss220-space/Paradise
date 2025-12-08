@@ -111,12 +111,12 @@
 /datum/job/security/detective
 	title = JOB_TITLE_DETECTIVE
 	flag = JOB_FLAG_DETECTIVE
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	law_level = LAW_LEVEL_SEC
-	alt_titles = list("Forensic Technician")
+	alt_titles = list("Forensic Technician", "Criminal Pathologist")
 	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
 
@@ -126,7 +126,7 @@
 
 	uniform = /obj/item/clothing/under/det
 	suit = /obj/item/clothing/suit/storage/det_suit
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/color/black/forensics
 	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/det_hat
 	l_ear = /obj/item/radio/headset/headset_sec/alt
@@ -139,6 +139,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/baton/telescopic = 1,
+		/obj/item/security_voucher/detective = 1,
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
 	box = /obj/item/storage/box/survival/survival_security/detective

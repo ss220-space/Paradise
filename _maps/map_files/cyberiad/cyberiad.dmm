@@ -64243,6 +64243,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
+"lby" = (
+/obj/effect/landmark/start/detective,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/detectives_office)
 "lbH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -125046,7 +125052,7 @@ aDo
 axe
 buz
 aGD
-aHX
+lby
 aJl
 axe
 aMj

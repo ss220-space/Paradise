@@ -26,7 +26,7 @@ Quartermaster=1
 Shaft Miner=6
 
 Warden=1
-Detective=1
+Detective=2
 Security Officer=7
 
 Assistant=-1
