@@ -14,6 +14,8 @@
 	if(SSticker.current_state < GAME_STATE_PLAYING)
 		CRASH("Attempted to call a shuttle vote before the game starts!")
 	..()
+	no_dead_vote = TRUE
+	no_offstation_vote = TRUE
 
 /datum/vote/crew_transfer/handle_result(result)
 	if(result == CREW_TRANSFER_CHOICE)
