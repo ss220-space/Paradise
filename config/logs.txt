@@ -1,0 +1,56 @@
+## log OOC channel
+LOG_OOC
+
+## log client Say
+LOG_SAY
+
+## log admin actions
+LOG_ADMIN
+
+## log debug messages
+LOG_DEBUG
+
+## log admin chat
+LOG_ADMINCHAT
+
+## log client access (logon/logoff)
+LOG_ACCESS
+
+## log game actions (start of round, results, etc.)
+LOG_GAME
+
+## log mapmanip json + loaded submaps
+LOG_MAPMANIP
+
+## log player votes
+LOG_VOTE
+
+## log client Whisper
+LOG_WHISPER
+
+## log emotes
+LOG_EMOTE
+
+## log attack messages
+LOG_ATTACK
+
+## log conversion mobs
+LOG_CONVERSION
+
+## log pda messages
+LOG_PDA
+
+## log world.log and runtime errors to a file
+LOG_RUNTIME
+
+## log world.log messages
+LOG_WORLD_OUTPUT
+
+# Do not write world logs to DreamDaemon log window/stdout on Unix
+#DISABLE_ROOT_LOG
+
+## log all Topic() calls (for use by coders in tracking down Topic issues)
+# LOG_HREFS
+
+## log admin warning messages
+LOG_ADMINWARN
