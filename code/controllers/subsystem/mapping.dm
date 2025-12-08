@@ -122,6 +122,7 @@ SUBSYSTEM_DEF(mapping)
 				maps += map_path
 
 		previous_maps = maps
+		qdel(query)
 
 /datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
