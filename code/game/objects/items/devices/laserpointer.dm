@@ -137,7 +137,7 @@
 	is_pointing = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(stop_pointing)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
-	var/mutable_appearance/laser = mutable_appearance('icons/obj/weapons/projectiles.dmi', pointer_icon_state, target.layer + 0.01)
+	var/mutable_appearance/laser = mutable_appearance('icons/obj/weapons/guns/projectiles.dmi', pointer_icon_state, target.layer + 0.01)
 	var/list/modifiers = params2list(params)
 	if(modifiers)
 		if(LAZYACCESS(modifiers, ICON_X))

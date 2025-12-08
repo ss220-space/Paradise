@@ -173,11 +173,11 @@
 	icon_state = "mecha_pulse"
 	energy_drain = 120
 	origin_tech = "materials=3;combat=6;powerstorage=4"
-	projectile = /obj/projectile/beam/pulse/heavy
+	projectile = /obj/projectile/beam/pulse/hitscan/heavy
 	fire_sound = 'sound/weapons/gunshots/1pulse.ogg'
 	harmful = TRUE
 
-/obj/projectile/beam/pulse/heavy
+/obj/projectile/beam/pulse/hitscan/heavy
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 
