@@ -567,6 +567,11 @@
 	set category = STATPANEL_IC
 	stop_pulling()
 
+/mob/living/proc/stop_hand_bleedsuppress()
+	left_hand_bleed_suppress_lib = null
+	right_hand_bleed_suppress_lib = null
+	update_hands_HUD()
+
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated())
@@ -1924,6 +1929,7 @@
 /mob/living/proc/on_handsblocked_start()
 	drop_from_hands()
 	stop_pulling()
+	stop_hand_bleedsuppress()
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
 
 /// Proc to append behavior to the condition of being handsblocked. Called when the condition ends.

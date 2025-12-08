@@ -214,6 +214,7 @@
 		slipper.Immobilize(1 SECONDS)
 	else
 		slipper.stop_pulling()
+		slipper.stop_hand_bleedsuppress()
 		slipper.Knockdown(weaken_amount)
 
 	if(buckled_obj)

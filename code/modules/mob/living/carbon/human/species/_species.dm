@@ -509,6 +509,9 @@
 		return TRUE
 
 /datum/species/proc/try_self_supress_bleeding(mob/living/carbon/human/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
 	if(user.get_active_hand())
 		user.balloon_alert(user, "рука занята!")
 		return FALSE
