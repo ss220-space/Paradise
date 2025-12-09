@@ -90,10 +90,10 @@
 	icon_state = "ecig"
 	item_state = "ecig"
 	w_class = WEIGHT_CLASS_TINY
+	emagged = FALSE
 	var/amount_left = 600
-	var/emagged = FALSE
 	var/applying = FALSE
-	var/list/reagent = list("nicotine")
+	var/list/reagent = list(/datum/reagent/nicotine)
 
 /obj/item/ecig/get_ru_names()
 	return list(
@@ -116,19 +116,18 @@
 /obj/item/ecig/examine(mob/user)
 	. = ..()
 	if(amount_left <= 0)
-		. += span_warning("\nЖидкость полностью исчерпана.")
+		. += span_warning("Жидкость полностью исчерпана.")
 	else
-		. += span_notice("\nОсталось жидкости: [amount_left].")
+		. += span_notice("Осталось жидкости: [amount_left].")
 
 /obj/item/ecig/attack_self(mob/user)
-
 	if(!ishuman(user) || ismachineperson(user))
 		balloon_alert(user, "ошибка совместимости!")
 		return
 
 	if(amount_left <= 0)
 		playsound(loc, 'sound/machines/lightswitch.ogg', 25, TRUE)
-		balloon_alert(user, "никотин закончился!")
+		balloon_alert(user, "жидкость закончилась!")
 		return
 
 	if(applying)
@@ -143,7 +142,7 @@
 	applying = TRUE
 	var/cycle_count = 0
 
-	while(do_after(user, 1 SECONDS, user, progress=TRUE, max_interact_count=1) && amount_left > 0 && applying)
+	while(do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1) && amount_left > 0 && applying)
 		cycle_count++
 		inject_nicotine(user, cycle_count)
 
@@ -158,32 +157,32 @@
 			span_notice("[user] выпуска[PLUR_ET_YUT(user)] облако пара."),
 			span_notice("Вы выпускаете облако пара."),
 		)
-		if(prob(20))
+		if(cycle_count > 10 && prob(20))
 			if(user.gender == FEMALE)
-				playsound(loc, 'sound/misc/ecig_female.ogg', 10, TRUE)
+				playsound(loc, 'sound/misc/ecig_female.ogg', 5, TRUE)
 			else
-				playsound(loc, 'sound/misc/ecig_male.ogg', 10, TRUE)
+				playsound(loc, 'sound/misc/ecig_male.ogg', 5, TRUE)
 		var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
 		smoke.set_up(range = round(clamp(cycle_count/10, 0, 4)), location = loc)
 		smoke.start()
 
-/obj/item/ecig/proc/inject_nicotine(mob/living/carbon/H, cycle_count)
-	if(!H.reagents)
+/obj/item/ecig/proc/inject_nicotine(mob/living/carbon/user, cycle_count)
+	if(!user.reagents)
 		return
 	for(var/chem in reagent)
-		H.reagents.add_reagent(chem, 1)
+		user.reagents.add_reagent(chem, 1)
 	playsound(loc, 'sound/misc/ecig.ogg', 50, TRUE)
 	amount_left = max(0, amount_left - 1)
 
 	if(cycle_count >= 10)
-		H.adjustToxLoss(2)
+		user.adjustToxLoss(2)
 		if(prob(10))
-			to_chat(H, span_warning("Голова кружится от такой долгой затяжки..."))
+			to_chat(user, span_warning("Голова кружится от такой долгой затяжки..."))
 	if (cycle_count >= 60)
-		H.client?.give_award(/datum/award/achievement/misc/deep_draw, H)
+		user.client?.give_award(/datum/award/achievement/misc/deep_draw, user)
 	if(emagged && cycle_count >= 10)
 		applying = FALSE
-		to_chat(H, span_warning("[capitalize(declent_ru(NOMINATIVE))] становится обжигающе горячей!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] становится обжигающе горячей!"))
 		sleep(15)
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает пищать и искрить!"))
 		do_sparks(4, TRUE, src)
@@ -192,7 +191,7 @@
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 		sleep(7)
 		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
-		explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 3, adminlog = TRUE, cause = H)
+		explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 3, adminlog = TRUE, cause = user)
 		qdel(src)
 		return
 
@@ -201,7 +200,7 @@
 	desc = "Одноразовая электронная сигарета с никотином. На лицевой стороне нарисованна большая буква S."
 	icon_state = "ecig_syndi"
 	item_state = "ecig_syndi"
-	reagent = list("nicotine", "syndiezine")
+	reagent = list(/datum/reagent/nicotine, /datum/reagent/medicine/syndiezine)
 
 /obj/item/ecig/syndi/get_ru_names()
 	return list(

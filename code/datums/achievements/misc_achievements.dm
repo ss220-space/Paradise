@@ -83,7 +83,7 @@
 	name = "Глубокая затяжка"
 	desc = "Затянуться вейпом на 60 секунд."
 	database_id = MEDAL_DEEP_DRAW
-	icon_state = "de_kerberos_2"
+	icon_state = "deep_draw"
 
 //TODO Uncomment when be implemented
 /*
