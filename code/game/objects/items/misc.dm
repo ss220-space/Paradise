@@ -90,8 +90,8 @@
 	icon_state = "ecig"
 	item_state = "ecig"
 	w_class = WEIGHT_CLASS_TINY
-	emagged = FALSE
 	var/amount_left = 600
+	var/max_amount = 600
 	var/applying = FALSE
 	var/list/reagent = list(/datum/reagent/nicotine)
 
@@ -118,7 +118,8 @@
 	if(amount_left <= 0)
 		. += span_warning("Жидкость полностью исчерпана.")
 	else
-		. += span_notice("Осталось жидкости: [amount_left].")
+		var/percentage = round((amount_left / max_amount) * 100)
+		. += span_notice("Осталось жидкости: [percentage]%")
 
 /obj/item/ecig/attack_self(mob/user)
 	if(!ishuman(user) || ismachineperson(user))
