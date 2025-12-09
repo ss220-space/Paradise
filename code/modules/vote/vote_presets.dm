@@ -79,6 +79,7 @@
 /datum/vote/gamemode/New()
 	..()
 	no_dead_vote = FALSE
+	no_offstation_vote = FALSE
 
 /datum/vote/gamemode/generate_choices()
 	choices.Add(config.votable_modes)
