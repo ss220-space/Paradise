@@ -345,7 +345,7 @@
 	FB.original = target
 	FB.firer = user
 	var/turf/target_turf = get_turf(target)
-	FB.preparePixelProjectile(target, target_turf, user, targeting.click_params)
+	FB.preparePixelProjectile(target, user)
 	FB.fire()
 	user.newtonian_move(get_dir(target_turf, T))
 
