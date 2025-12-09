@@ -234,6 +234,12 @@
 			proj.yo = -20
 			proj.xo = 0
 
+	// The hardcode for projectiles to properly fly in this direction. I don't know why.
+	if(dir == WEST)
+		proj.pixel_x = -1
+	else if(dir == SOUTH)
+		proj.pixel_y = -1
+
 	last_shot = world.time
 	if(shot_number < 3)
 		fire_delay = 20
