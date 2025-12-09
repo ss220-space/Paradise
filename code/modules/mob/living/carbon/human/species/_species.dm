@@ -526,7 +526,6 @@
 		user.balloon_alert(user, "кровотечения нет!")
 		return
 
-	user.balloon_alert(user, "кровотечение зажато!")
 	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] рану на [target_limb.declent_ru(PREPOSITIONAL)]", "зажатие раны на [target_limb.declent_ru(PREPOSITIONAL)]");
 
 	if(user.hand == ACTIVE_HAND_LEFT)
