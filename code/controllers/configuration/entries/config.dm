@@ -85,7 +85,7 @@
 /datum/config_entry/flag/log_runtime
 
 /// disable writing world.log to log panel / root logger of DreamDaemon
-/datum/config_entry/flag/disable_root_log
+/datum/config_entry/flag/enable_root_log
 
 /// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 /datum/config_entry/flag/log_hrefs
