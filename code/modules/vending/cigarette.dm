@@ -76,7 +76,7 @@
 		/obj/item/clothing/mask/cigarette/cigar/havana = 999,
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
 		/obj/item/storage/fancy/cigarettes/cigpack_med = 499,
-		/obj/item/ecig = 599
+		/obj/item/ecig = 599,
 	)
 
 /obj/machinery/vending/cigarette/get_ru_names()

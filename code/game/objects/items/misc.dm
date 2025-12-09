@@ -179,7 +179,7 @@
 		user.adjustToxLoss(2)
 		if(prob(10))
 			to_chat(user, span_warning("Голова кружится от такой долгой затяжки..."))
-	if (cycle_count >= 60)
+	if(cycle_count >= 60)
 		user.client?.give_award(/datum/award/achievement/misc/deep_draw, user)
 	if(emagged && cycle_count >= 10)
 		applying = FALSE
@@ -192,7 +192,7 @@
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 		sleep(7)
 		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
-		explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 3, adminlog = TRUE, cause = user)
+		explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 1, adminlog = TRUE, cause = user)
 		qdel(src)
 		return
 
