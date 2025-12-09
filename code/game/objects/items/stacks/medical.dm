@@ -773,7 +773,7 @@
 		return
 
 	if(affecting_rechecked.tourniquet)
-		balloon_alert(user, "уже наложен турникет.")
+		balloon_alert(user, "уже наложен турникет")
 		return
 
 	if(affecting_rechecked.is_robotic())
@@ -784,26 +784,22 @@
 
 /obj/item/tourniquet/proc/apply_to_other(mob/living/user, mob/living/carbon/human/human_target, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
 	var/selected_zone = user.zone_selected
-	user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)].")
-	user.visible_message(
-		span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target]."),
-		ignored_mobs = user
-	)
+	user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)]")
 	user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...")
 	if(!do_after(user, other_duration, human_target) || applyed_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
 	if(!affecting_rechecked)
-		balloon_alert(user, "часть тела отсутствует.")
+		balloon_alert(user, "часть тела отсутствует")
 		return
 
 	if(affecting_rechecked.tourniquet)
-		balloon_alert(user, "уже наложен турникет.")
+		balloon_alert(user, "уже наложен турникет")
 		return
 
 	if(affecting_rechecked.is_robotic())
-		balloon_alert(user, "нельзя применить на протезе.")
+		balloon_alert(user, "нельзя применить на протезе")
 		return
 
 	return TRUE
