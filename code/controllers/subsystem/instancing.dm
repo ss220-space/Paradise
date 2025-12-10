@@ -61,8 +61,6 @@ SUBSYSTEM_DEF(instancing)
  * Updates the player cache in the DB. Different from heartbeat so we can force invoke it on player operations
  */
 /datum/controller/subsystem/instancing/proc/update_playercache(optional_ckey)
-	set waitfor = FALSE
-
 	// You may be wondering, why the fuck is an "optional ckey" variable here
 	// Well, this is invoked in client/New(), and needs to read from GLOB.clients
 	// However, this proc sleeps, and if you sleep during client/New() once the client is in GLOB.clients, stuff breaks bad
@@ -102,8 +100,6 @@ SUBSYSTEM_DEF(instancing)
  * Updates the heartbeat in the DB. Used so other servers can see when this one was alive
  */
 /datum/controller/subsystem/instancing/proc/update_heartbeat()
-	set waitfor = FALSE
-
 	// this could probably just go in fire() but clean code and profiler ease who cares
 	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=NOW() WHERE key_name='heartbeat' AND server_id=:sid", list(
 		"sid" = CONFIG_GET(string/instance_id)
@@ -118,8 +114,6 @@ SUBSYSTEM_DEF(instancing)
  * Updates the round time in the DB. Used so other servers' lobby could use this info
  */
 /datum/controller/subsystem/instancing/proc/update_roundtime()
-	set waitfor = FALSE
-
 	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:round_time WHERE key_name='round_time' AND server_id=:sid", list(
 		"sid" = CONFIG_GET(string/instance_id),
 		"round_time" = worldtime2text()
@@ -135,8 +129,6 @@ SUBSYSTEM_DEF(instancing)
  * This is called during world/New() instead of on initialize so it can be done *instantly*
  */
 /datum/controller/subsystem/instancing/proc/seed_data()
-	set waitfor = FALSE
-
 	// We need to seed a lot of keys, so lets just use a key-value-pair-map to do this easily
 	var/list/kvp_map = list()
 	kvp_map["server_name"] = CONFIG_GET(string/servername) // Name of the server

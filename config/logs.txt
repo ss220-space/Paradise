@@ -47,7 +47,7 @@ LOG_RUNTIME
 LOG_WORLD_OUTPUT
 
 # Do not write world logs to DreamDaemon log window/stdout on Unix
-DISABLE_ROOT_LOG
+#ENABLE_ROOT_LOG
 
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
 # LOG_HREFS
