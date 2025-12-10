@@ -75,7 +75,8 @@
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(drop_turf)
 	setRegents(props, burnt)
 	if(user && (user in viewers(5, src)))
-		to_chat(user, span_warning("Вы чувствуете запах гари из [declent_ru(GENITIVE)]!"))
+		to_chat(user, span_warning("Вы чувствуете запах гари от [declent_ru(ACCUSATIVE)]!"))
+	playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE)
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new // burning things makes smoke!
 	smoke.set_up(amount = 5, location = src)
 	smoke.start()
@@ -104,7 +105,8 @@
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, span_notice("Вы положили [tocook.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	balloon_alert(chef, "обработка")
+	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	on = 1
 
 // Override this with the correct snack type
@@ -137,14 +139,14 @@
 
 	add_fingerprint(user)
 	if(panel_open)
-		balloon_alert(user, ("закройте панель!"))
+		balloon_alert(user, "панель открыта!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!checkValid(I, user))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!burns && istype(I, /obj/item/reagent_containers/food/snacks) && checkCooked(I))
-		to_chat(user, span_warning("уже обжаренно!"))
+		balloon_alert(user, "уже обработано!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!putIn(I, user))

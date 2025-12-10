@@ -460,7 +460,10 @@
 	return 0
 
 /obj/machinery/kitchen_machine/proc/start()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] включается."), span_notice("Вы слышите [declent_ru(ACCUSATIVE)]."))
+	visible_message(
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] включается."),
+		span_notice("Вы слышите [declent_ru(ACCUSATIVE)].")
+	)
 	operating = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)

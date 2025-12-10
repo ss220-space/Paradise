@@ -65,7 +65,7 @@
 	add_fingerprint(grabber)
 	victim.visible_message(
 		span_danger("[grabber.declent_ru(NOMINATIVE)] ударя[PLUR_ET_YUT(grabber)] [victim.declent_ru(ACCUSATIVE)] головой о дверцу [declent_ru(GENITIVE)]!"),
-		span_userdanger("[grabber.declent_ru(NOMINATIVE)] бь[PLUR_ET_YUT(grabber)] вашей головой о дверцу [declent_ru(GENITIVE)]! В духовке довольно жарко!"),
+		span_userdanger("[grabber.declent_ru(NOMINATIVE)] бь[PLUR_ET_YUT(grabber)] вас головой о дверцу [declent_ru(GENITIVE)]! В духовке довольно жарко!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")

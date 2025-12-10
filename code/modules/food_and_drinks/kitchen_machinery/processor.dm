@@ -141,9 +141,11 @@
 	var/mob/living/carbon/human/lesser/monkey/O = what
 	if(O.client) //grief-proof
 		O.forceMove(loc)
-		O.visible_message(span_notice("Внезапно [O.declent_ru(NOMINATIVE)] выпрыгивает из комбайна!"),
+		O.visible_message(
+			span_notice("Внезапно [O.declent_ru(NOMINATIVE)] выпрыгивает из комбайна!"),
 			span_notice("Вы выпрыгиваете из комбайна."),
-			span_notice("Вы слышите странные звуки..."))
+			span_notice("Вы слышите странные звуки...")
+		)
 		return
 	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
@@ -265,6 +267,8 @@
 		P.process_food(loc, O, src)
 	processing = FALSE
 
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] завершает обработку."),
+	visible_message(
 		span_notice("[capitalize(declent_ru(NOMINATIVE))] завершает обработку."),
-		span_notice("Вы слышите, как комбайн останавливается."))
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] завершает обработку."),
+		span_notice("Вы слышите, как комбайн останавливается.")
+	)

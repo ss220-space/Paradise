@@ -2,7 +2,7 @@
 
 /obj/machinery/gibber
 	name = "Gibber"
-	desc = "Разве название недостаточно говорящее?"
+	desc = "Промышленная мясорубка для утилизации органических отходов. Эффективно перерабатывает биомассу гуманоидного типа в мясосодержащий продукт."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
 	density = TRUE
@@ -94,7 +94,7 @@
 		return
 
 	if(locked)
-		balloon_alert(user, "дождитесь завершения погрузки!")
+		balloon_alert(user, "в процессе загрузки!")
 		return
 
 	add_fingerprint(user)
@@ -146,7 +146,7 @@
 		return
 
 	if(operating)
-		balloon_alert(user, "дождитесь завершения!")
+		balloon_alert(user, "машина работает!")
 		return
 
 	if(!ishuman(victim))
@@ -257,7 +257,7 @@
 
 	use_power(1000)
 	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
-	visible_message(span_danger("Вы слышите громкий хлюпающий скрежещущий звук."))
+	visible_message(span_danger("Вы слышите громкий скрежет вперемешку с хлюпаньем."))
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS)
