@@ -17,7 +17,7 @@
 
 /obj/item/trash/raisins
 	name = "4no raisins"
-	icon_state= "4no_raisins"
+	icon_state= "1984_raisins"
 
 /obj/item/trash/candy
 	name = "Candy"
