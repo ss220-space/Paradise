@@ -111,8 +111,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
-	var/next_text_announcement
-
 	var/list/all_eyes = list()
 
 	silicon_subsystems = list(
@@ -134,6 +132,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	/// The cached AI annoucement help menu.
 	var/ai_announcement_string_menu
+	/// Cooldown for the AI's station text announcement
+	COOLDOWN_DECLARE(next_text_announcement)
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
@@ -591,8 +591,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(world.time < next_text_announcement)
-		to_chat(src, span_warning("Пожалуйста, подождите [(next_text_announcement - world.time) / 10] секунд[DECL_SEC_MIN((next_text_announcement - world.time) / 10)] между объявлениями."))
+	if(!COOLDOWN_FINISHED(src, next_text_announcement))
+		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_SEC_MIN(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
 		return
 
 	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE, encode = FALSE)
@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	announcer.announce(input)
-	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
+	COOLDOWN_START(src, next_text_announcement, TEXT_ANNOUNCEMENT_COOLDOWN)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN
 
@@ -1540,7 +1540,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
 
-/mob/living/silicon/ai/can_vv_get(var_name)
+/mob/living/silicon/ai/vv_edit_var(var_name, var_value)
 	if(!..())
 		return FALSE
 	if(var_name == "ai_announcement_string_menu") // This single var has over 80 thousand characters in it. Not something you really want when VVing the AI
