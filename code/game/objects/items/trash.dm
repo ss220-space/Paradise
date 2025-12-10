@@ -16,7 +16,7 @@
 	return TRUE
 
 /obj/item/trash/raisins
-	name = "4no raisins"
+	name = "raisins 1984"
 	icon_state= "1984_raisins"
 
 /obj/item/trash/candy
