@@ -60,8 +60,8 @@
 	selection_color = "#edcdcd"
 	minimal_player_age = 14
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
-	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	exp_requirements = 900
+	exp_type = EXP_TYPE_CREW
 	disabilities_allowed = 0
 	disabilities_allowed_slightly = 0
 	insurance_type = INSURANCE_TYPE_DELUXE

@@ -37,64 +37,6 @@ JOBS_HAVE_MINIMAL_ACCESS
 ##Allows admins to bypass job playtime requirements.
 USE_EXP_RESTRICTIONS_ADMIN_BYPASS
 
-## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.
-## See USE_AGE_RESTRICTION_FOR_JOBS for more information
-#USE_AGE_RESTRICTION_FOR_ANTAGS
-
-## log OOC channel
-LOG_OOC
-
-## log client Say
-LOG_SAY
-
-## log admin actions
-LOG_ADMIN
-
-## log debug messages
-LOG_DEBUG
-
-## log admin chat
-LOG_ADMINCHAT
-
-## log client access (logon/logoff)
-LOG_ACCESS
-
-## log game actions (start of round, results, etc.)
-LOG_GAME
-
-## log mapmanip json + loaded submaps
-LOG_MAPMANIP
-
-## log player votes
-LOG_VOTE
-
-## log client Whisper
-LOG_WHISPER
-
-## log emotes
-LOG_EMOTE
-
-## log attack messages
-LOG_ATTACK
-
-## log conversion mobs
-LOG_CONVERSION
-
-## log pda messages
-LOG_PDA
-
-## log world.log and runtime errors to a file
-LOG_RUNTIME
-
-## log world.log messages
-LOG_WORLD_OUTPUT
-
-## log all Topic() calls (for use by coders in tracking down Topic issues)
-# LOG_HREFS
-
-## log admin warning messages
-LOG_ADMINWARN
-
 ## Reports roundstart active turfs. Super needful and useful for mappers for optimization sanity.
 # REPORT_ACTIVE_TURFS
 
@@ -109,126 +51,6 @@ AUTO_CRYO_AFK 0
 
 ## Amount of minutes that a person has to be AFK before he will be despawned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
 AUTO_DESPAWN_AFK 0
-
-## probablities for game modes chosen in "secret" and "random" modes
-##
-## default probablity is 1, increase to make that mode more likely to be picked
-## set to 0 to disable that mode
-PROBABILITY ANTAG-PARADISE 3
-PROBABILITY EXTEND-A-TRAITORMONGOUS 3
-PROBABILITY TRAITOR 3
-PROBABILITY TRAITORCHAN 3
-PROBABILITY TRAITORVAMP 3
-PROBABILITY TRAITORTHIEF 3
-PROBABILITY TRAITORTHIEFVAMP 2
-PROBABILITY TRAITORTHIEFCHAN 2
-PROBABILITY THIEFCHAN 1
-PROBABILITY THIEFVAMP 1
-PROBABILITY THIEF 0
-PROBABILITY REVOLUTION 0
-PROBABILITY SHADOWLING 2
-PROBABILITY CULT 4
-PROBABILITY CHANGELING 3
-PROBABILITY CHANGELINGTHIEF 3
-PROBABILITY WIZARD 2
-PROBABILITY BLOB 1
-PROBABILITY RAGINMAGES 0
-PROBABILITY METEOR 0
-PROBABILITY HEIST 0
-PROBABILITY VAMPIRE 3
-PROBABILITY GOONVAMPIRE 0
-PROBABILITY VAMPIRETHIEF 3
-PROBABILITY EXTENDED 2
-PROBABILITY NUCLEAR 3
-PROBABILITY ABDUCTION 0
-PROBABILITY DEVIL 0
-PROBABILITY DEVILAGENTS 0
-
-MINPLAYERS ANTAG-PARADISE 10
-MINPLAYERS EXTEND-A-TRAITORMONGOUS 0
-MINPLAYERS TRAITOR 0
-MINPLAYERS TRAITORCHAN 10
-MINPLAYERS TRAITORVAMP 10
-MINPLAYERS TRAITORTHIEF 0
-MINPLAYERS TRAITORTHIEFVAMP 25
-MINPLAYERS TRAITORTHIEFCHAN 25
-MINPLAYERS THIEFCHAN 15
-MINPLAYERS THIEFVAMP 15
-MINPLAYERS THIEF 0
-MINPLAYERS REVOLUTION 20
-MINPLAYERS SHADOWLING 30
-MINPLAYERS CULT 30
-MINPLAYERS CHANGELING 15
-MINPLAYERS CHANGELINGTHIEF 10
-MINPLAYERS WIZARD 20
-MINPLAYERS BLOB 30
-MINPLAYERS RAGINMAGES 20
-MINPLAYERS METEOR 35
-MINPLAYERS HEIST 25
-MINPLAYERS VAMPIRE 15
-MINPLAYERS GOONVAMPIRE 15
-MINPLAYERS VAMPIRETHIEF 10
-MINPLAYERS EXTENDED 0
-MINPLAYERS NUCLEAR 30
-MINPLAYERS ABDUCTION 15
-MINPLAYERS DEVIL 2
-MINPLAYERS DEVILAGENTS 25
-
-## List of minor antags in ANTAG-PARADISE gamemode. Antags from this config will be picked for primary role (ANTAG_SINGLE), using correspoding weights.
-#ANTAG_PARADISE_SINGLE_ANTAGS TRAITOR 60
-#ANTAG_PARADISE_SINGLE_ANTAGS THIEF 0
-#ANTAG_PARADISE_SINGLE_ANTAGS VAMPIRE 20
-#ANTAG_PARADISE_SINGLE_ANTAGS CHANGELING 0
-
-## List of minor antags in ANTAG-PARADISE gamemode. Antags from this config will be picked for secondary role (ANTAG_DOUBLE), using correspoding weights.
-#ANTAG_PARADISE_DOUBLE_ANTAGS TRAITOR 60
-#ANTAG_PARADISE_DOUBLE_ANTAGS THIEF 0
-#ANTAG_PARADISE_DOUBLE_ANTAGS VAMPIRE 20
-#ANTAG_PARADISE_DOUBLE_ANTAGS CHANGELING 20
-
-## List of minor antags in ANTAG-PARADISE gamemode. Antags from this config will be picked for final role (ANTAG_TRIPPLE), using correspoding weights.
-#ANTAG_PARADISE_TRIPPLE_ANTAGS TRAITOR 60
-#ANTAG_PARADISE_TRIPPLE_ANTAGS THIEF 0
-#ANTAG_PARADISE_TRIPPLE_ANTAGS VAMPIRE 20
-#ANTAG_PARADISE_TRIPPLE_ANTAGS CHANGELING 20
-
-## Whitelist for minor antags in ANTAG-PARADISE gamemode. Only antags from below will be choosen for random mode subtype (ANTAG_RANDOM).
-#ANTAG_PARADISE_RANDOM_MODE_WHITELIST TRAITOR
-#ANTAG_PARADISE_RANDOM_MODE_WHITELIST VAMPIRE
-
-## Chances for ANTAG-PARADISE gamemode subtypes.
-#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_SINGLE 10
-#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_DOUBLE 10
-#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_TRIPPLE 10
-#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_RANDOM 10
-
-## Relative weights for each antag in gamemode subtypes for ANTAG-PARADISE gamemode. Works in pair with ANTAG_PARADISE_MODE_SUBTYPES.
-#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_SINGLE 6
-#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_DOUBLE 4
-#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_TRIPPLE 2
-
-## Weights for all special antags in ANTAG-PARADISE gamemode. Traitor Hijacker, Malfunctioning AI and Space Ninja currently. If Nothing is chosen special antag will not spawn.
-#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS HIJACKER 10
-#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS MALFAI 10
-#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS PRISONER 10
-#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NINJA 10
-#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NOTHING 30
-#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS DEVIL 0
-
-## Chance for traitors to roll additional antag role in ANTAG-PARADISE gamemode. Leave it commented for default 10% chance.
-#ANTAG_PARADISE_DOUBLE_ANTAG_CHANCE 10
-
-## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
-SHADOWLING_MAX_AGE 0
-
-## Hash out to disable random events during the round.
-ALLOW_RANDOM_EVENTS
-
-## How much does the amount of players get divided by to determine traitors. Set to 0 for hard limit traitors to 4.
-TRAITOR_SCALING 10
-
-## If security is prohibited from being most antagonists
-PROTECT_ROLES_FROM_ANTAGONIST
 
 ## Comment this out to stop admins being able to choose their personal ooccolor
 ALLOW_ADMIN_OOCCOLOR
@@ -438,27 +260,6 @@ GHOST_INTERACTION
 ## Expected round length in minutes
 EXPECTED_ROUND_LENGTH 120
 
-## The lower delay between events in minutes.
-## Affect mundane, moderate, and major events respectively
-EVENT_DELAY_LOWER EV_LEVEL_MUNDANE 10
-EVENT_DELAY_LOWER EV_LEVEL_MODERATE 30
-EVENT_DELAY_LOWER EV_LEVEL_MAJOR 50
-
-## The upper delay between events in minutes.
-## Affect mundane, moderate, and major events respectively
-EVENT_DELAY_UPPER EV_LEVEL_MUNDANE 15
-EVENT_DELAY_UPPER EV_LEVEL_MODERATE 45
-EVENT_DELAY_UPPER EV_LEVEL_MAJOR 70
-
-## The delay until the first time an event of the given severity runs in minutes.
-## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
-#EVENT_CUSTOM_START_MINOR LOWER 10
-#EVENT_CUSTOM_START_MINOR UPPER 15
-#EVENT_CUSTOM_START_MODERATE LOWER 30
-#EVENT_CUSTOM_START_MODERATE UPPER 45
-EVENT_CUSTOM_START_MAJOR LOWER 80
-EVENT_CUSTOM_START_MAJOR UPPER 100
-
 ## Starlight for exterior walls and breaches. Uncomment for starlight!
 ## This is disabled by default to make testing quicker, should be enabled on production servers or testing servers messing with lighting
 #STARLIGHT
@@ -497,13 +298,6 @@ PLAYER_REROUTE_CAP 0
 # and still qualify for re-entering the round. Defaults to 30.
 # Setting this to 0 will disable the penalty period
 #ROUND_ABANDON_PENALTY_PERIOD 30
-
-## Hub address for tracking stats
-## example: Hubmakerckey.Hubname
-#MEDAL_HUB_ADDRESS
-
-## Password for the hub page
-#MEDAL_HUB_PASSWORD
 
 ## Uncomment this if you want to disable usage of emoji in OOC
 #DISABLE_OOC_EMOJI
@@ -620,9 +414,6 @@ RESPAWN_DELAY_DRONE 10
 # Allow head to departments to assign civilian to his departament around Head of Personnel
 #ALLOW_HEAD_OF_DEPARTAMENTS_ASSIGN_CIVILIAN
 
-# Do not write world logs to DreamDaemon log window/stdout on Unix
-#DISABLE_ROOT_LOG
-
 # Log all timers on timer auto reset
 LOG_TIMERS_ON_BUCKET_RESET
 
@@ -641,19 +432,6 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 ## CPU Affinity for FFmpeg. Check out taskset man page.
 ## Example valid values: "0-3" or "1,4-7"
 #FFMPEG_CPUAFFINITY 0-3
-
-## Server map rotate strategy:
-##  none - select same map
-##  random - select random map
-##  rotate - select next map in list
-##  vote - players will decide what next map will be
-MAP_ROTATE none
-
-## Server map voting mode:
-## all - all maps can be selected
-## nodoubles - current map can't be selected as next
-## notriples - current map can't be selected as next if played twice in a row
-MAP_VOTE_MODE all
 
 ## Enable animations on item pickup and drop down
 # ITEM_ANIMATIONS_ENABLED
@@ -732,32 +510,8 @@ CACHE_ASSETS 0
 ## Enables loading titlescreen only after master has been loaded. Recommended to be used on local server for faster loading.
 #ENABLE_TITLESCREEN_LATELOAD
 
-## Disable the loading of "Taipan"
-#DISABLE_TAIPAN
-
-## Disable the loading of Lavaland
-#DISABLE_LAVALAND
-
-## Disable the loading of away missions
-#DISABLE_AWAY_MISSIONS
-
-## Disable the loading of space ruins
-#DISABLE_SPACE_RUINS
-
-## Default server map
-DEFAULT_MAP /datum/map/cyberiad
-
 ## Override server map by specified, uncomment to apply
 # OVERRIDE_MAP /datum/map/delta
-
-## Override away mission map. Spawns it even if it is not mentioned in away_mission_config.txt
-# OVERRIDE_AWAY_MISSION _maps/map_files/RandomZLevels/academy.dmm
-
-## Minimum number of space ruins levels to generate
-EXTRA_SPACE_RUIN_LEVELS_MIN 4
-
-## Maximum number of space ruins levels to generate
-EXTRA_SPACE_RUIN_LEVELS_MAX 8
 
 ## Tgui payloads larger than the 2kb limit for BYOND topic requests are split into roughly 1kb chunks and sent in sequence.
 ## This config option limits the maximum chunk count for which the server will accept a payload, default is 32
