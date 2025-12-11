@@ -21,7 +21,7 @@
 /datum/event/lone_operative/start()
 	processing = 0
 	var/list/check_list = num_station_players()
-	if(length(check_list) < 25)
+	if(num_station_players() < 25)
 		message_admins("[name] event failed to start. Not enough players.")
 		return
 	if(!get_operative())
