@@ -2,8 +2,7 @@
 	name = "Дрейфующий Контрактник Синдиката"
 
 /datum/event/drifting_contractor/start()
-	processing = 0
-	var/list/check_list = num_station_players()
+	processing = FALSE
 	if(num_station_players() < 20)
 		message_admins("[name] event failed to start. Not enough players.")
 		return
