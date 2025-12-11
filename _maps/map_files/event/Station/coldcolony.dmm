@@ -66387,6 +66387,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/security/detectives_office)
+"yjI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/smartfridge/secure/medbay_blood,
+/turf/simulated/floor/plasteel/white,
+/area/coldcolony/malta/medical/sleeper)
 "yjK" = (
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = 32
@@ -109004,7 +109009,7 @@ oYW
 hPu
 buk
 kBy
-ouk
+yjI
 kua
 kua
 kua
