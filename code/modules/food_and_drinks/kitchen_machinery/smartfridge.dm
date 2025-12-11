@@ -613,6 +613,48 @@
 	contents_overlay = "smartfridge-syndie"
 	req_access = list(ACCESS_SYNDICATE)
 
+
+/**
+ * # Secure Refrigerated Bloods Storage
+ *
+ * Secure, Medical refrigerator for blood iv bags
+ */
+/obj/machinery/smartfridge/secure/medbay_blood
+	req_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
+
+/obj/machinery/smartfridge/secure/medbay_blood/Initialize(mapload)
+	starting_items = list(
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis = 10,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 10,
+		/obj/item/reagent_containers/iv_bag/blood/ABPlus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/ABMinus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/APlus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/AMinus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/BPlus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/BMinus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/OPlus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/OMinus = 3,
+		/obj/item/reagent_containers/iv_bag/blood/skrell = 3,
+		/obj/item/reagent_containers/iv_bag/blood/tajaran = 3,
+		/obj/item/reagent_containers/iv_bag/blood/vulpkanin = 3,
+		/obj/item/reagent_containers/iv_bag/blood/unathi = 3,
+		/obj/item/reagent_containers/iv_bag/blood/kidan = 3,
+		/obj/item/reagent_containers/iv_bag/blood/grey = 3,
+		/obj/item/reagent_containers/iv_bag/blood/diona = 3,
+		/obj/item/reagent_containers/iv_bag/blood/wryn = 3,
+		/obj/item/reagent_containers/iv_bag/blood/nian = 3,
+	)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/storage/pill_bottle,
+		/obj/item/reagent_containers/food/pill,
+	))
+
+
+
 /**
  * # Smart Chemical Storage
  *
