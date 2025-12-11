@@ -299,6 +299,10 @@
 	board_name = "RD Console - Mechanics"
 	build_path = /obj/machinery/computer/rdconsole/mechanics
 
+/obj/item/circuitboard/rdconsole/cargo
+	board_name = "RD Console - cargo"
+	build_path = /obj/machinery/computer/rdconsole/cargo
+
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
