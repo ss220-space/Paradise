@@ -274,7 +274,6 @@
 	/// List of things added to examine text, like security or medical records.
 	var/examine_extensions = EXAMINE_HUD_NONE
 
-	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
@@ -628,7 +627,6 @@
 	update_icon(UPDATE_ICON_STATE)
 
 	if(up)
-		to_chat(user, span_notice("You push [src] out of the way."))
 		gas_transfer_coefficient = 1
 		permeability_coefficient = 1
 		if(adjusted_slot_flags)
@@ -645,7 +643,6 @@
 			clothing_flags &= ~AIRTIGHT
 
 	else
-		to_chat(user, span_notice("You push [src] back into place."))
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
 		slot_flags = initial(slot_flags)

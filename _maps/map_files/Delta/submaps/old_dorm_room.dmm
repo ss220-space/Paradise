@@ -69,9 +69,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "fv" = (
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "gb" = (

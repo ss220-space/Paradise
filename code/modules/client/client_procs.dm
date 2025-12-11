@@ -238,8 +238,10 @@
 
 	if(connection != "seeker") //Invalid connection type.
 		return null
+
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
+
 	if(byond_build < CONFIG_GET(number/minimum_client_build))
 		version_blocked = TRUE
 
@@ -262,6 +264,10 @@
 		persistent_client = new(ckey)
 		persistent_client.byond_build = byond_build
 		persistent_client.byond_version = byond_version
+
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "+find"))
+		winset(src, null, list("browser-options" = "+refresh"))
 
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
@@ -475,7 +481,7 @@
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 
-	persistent_client.client = null
+	persistent_client?.client = null
 
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
@@ -561,7 +567,7 @@
 
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -625,7 +631,7 @@
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -856,7 +862,7 @@
 /client/proc/link_forum_account(fromban)
 	if(!CONFIG_GET(string/forum_link_url))
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
 		return
 	if(prefs?.fuid)
@@ -1324,7 +1330,7 @@
 
 	if(!CONFIG_GET(string/discordurl))
 		return
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		to_chat(usr, "Гостевой аккаунт не может быть связан.", confidential=TRUE)
 		return
 	if(prefs)

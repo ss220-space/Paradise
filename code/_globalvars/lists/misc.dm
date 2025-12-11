@@ -112,3 +112,9 @@ GLOBAL_LIST_INIT(permissions_name_to_flag, list(
 ))
 
 GLOBAL_LIST_EMPTY(exoframe_types)
+
+GLOBAL_LIST_EMPTY(secspear_modes)
+
+GLOBAL_LIST_EMPTY(ash_storm_sounds)
+
+GLOBAL_LIST_EMPTY(snowstorm_sounds)

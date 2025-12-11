@@ -447,6 +447,10 @@ SUBSYSTEM_DEF(dbcore)
  * * log_error - Do we want to log errors this creates? Disable this if you are running sensitive queries where you dont want errors logged in plain text (EG: Auth token stuff)
  */
 /datum/db_query/proc/warn_execute(async = TRUE, log_error = TRUE)
+	// Don't try to run queries, if the database is not enabled.
+	if(!CONFIG_GET(flag/sql_enabled))
+		return
+
 	. = Execute(async, log_error)
 	if(!.)
 		SSdbcore.total_errors++

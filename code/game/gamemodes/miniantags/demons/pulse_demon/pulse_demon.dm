@@ -883,7 +883,7 @@
 /obj/item/organ/internal/heart/demon/pulse/on_life()
 	if(!owner)
 		return
-	for(var/obj/item/stock_parts/cell/cell_to_charge in owner.GetAllContents())
+	for(var/obj/item/stock_parts/cell/cell_to_charge in owner.get_all_contents())
 		var/newcharge = min(0.05 * cell_to_charge.maxcharge + cell_to_charge.charge, cell_to_charge.maxcharge)
 		if(cell_to_charge.charge < newcharge)
 			cell_to_charge.charge = newcharge

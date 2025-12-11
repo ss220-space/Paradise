@@ -158,9 +158,18 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/kitchen/utensil/fork)))
+	/obj/item/kitchen/utensil/fork,
+)))
 
 #define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
+
+/// For objects that should embed, but make no sense being sharp or is_pointed e.g: rods
+GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
+	/obj/item/stack/rods,
+	/obj/item/pipe,
+)))
+
+#define can_embed(item) (item?.sharp || is_pointed(item) || is_type_in_typecache(item, GLOB.can_embed_types))
 
 GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/glass,
@@ -169,7 +178,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/plasmarglass,
 	/obj/item/stack/sheet/titaniumglass,
 	/obj/item/stack/sheet/plastitaniumglass,
-	/obj/item/stack/sheet/abductorglass)))
+	/obj/item/stack/sheet/abductorglass,
+)))
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
@@ -296,8 +306,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isexternalorgan(A) (istype((A), /obj/item/organ/external))
 
-#define hasorgans(A) (iscarbon(A))
-
 #define is_admin(user) (check_rights(R_ADMIN, 0, (user)) != 0)
 
 #define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
@@ -336,3 +344,15 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
+
+#define iswelder(A) (istype(A, /obj/item/weldingtool))
+
+#define iswirecutter(A) (istype(A, /obj/item/wirecutters))
+
+#define ismultitool(A) (istype(A, /obj/item/multitool))
+
+#define iscoil(A) (istype(A, /obj/item/stack/cable_coil))
+
+#define ispowertool(A) (istype(A, /obj/item/crowbar/power) || istype(A, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+
+#define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))

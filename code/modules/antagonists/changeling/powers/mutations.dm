@@ -252,7 +252,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 25
 	armour_penetration = 35
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
@@ -480,10 +480,10 @@
 		return
 
 	var/obj/item/offarm_item = user.get_active_hand()
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		offarm_item = user.get_inactive_hand()
 
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		return
 
 	target.visible_message(span_danger("[user] impales [target] with [offarm_item]!"), \

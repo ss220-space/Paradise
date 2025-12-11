@@ -16,7 +16,6 @@
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
-	var/emagged = FALSE
 
 /obj/item/survivalcapsule/get_ru_names()
 	return list(
@@ -64,7 +63,7 @@
 		to_chat(user, span_notice("Ошибка. Попытка развертывания в секторе станции. Развертывание отменено."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
-	loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает трястись. Отойдите!"))
+	loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает вибрировать. Отойдите!"))
 	used = TRUE
 	addtimer(CALLBACK(src, PROC_REF(expand), user), 5 SECONDS)
 	return TRUE

@@ -2,6 +2,10 @@
 "ay" = (
 /turf/space,
 /area/space)
+"aJ" = (
+/obj/effect/landmark/observer_start,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "bj" = (
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
@@ -75,6 +79,10 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"sR" = (
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "tt" = (
@@ -2100,7 +2108,7 @@ jk
 HE
 Dp
 HE
-HE
+sR
 HE
 Cd
 WA
@@ -2365,8 +2373,8 @@ sw
 HE
 HE
 HE
-Md
-Pd
+HE
+HE
 HE
 HE
 HE
@@ -2497,9 +2505,9 @@ HE
 HE
 HE
 HE
-HE
-HE
-HE
+Pd
+aJ
+Md
 HE
 HE
 HE
@@ -2564,7 +2572,7 @@ HE
 HE
 HE
 HE
-Uj
+HE
 HE
 HE
 HE
@@ -2834,7 +2842,7 @@ HE
 HE
 HE
 HE
-HE
+Uj
 jk
 ay
 ay

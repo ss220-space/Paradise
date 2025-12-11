@@ -33,7 +33,6 @@
 
 /datum/vote/map/generate_choices()
 	var/list/map_pool = subtypesof(/datum/map)
-	/*
 	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
 		map_pool -= SSmapping.map_datum.type
 
@@ -42,7 +41,7 @@
 			var/current_map = SSmapping.map_datum.type
 			if(current_map == SSmapping.previous_maps[1])
 				map_pool -= current_map
-	*/
+
 	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only))
 			continue

@@ -805,7 +805,7 @@ SUBSYSTEM_DEF(ticker)
 		}\
 	</style>"
 	parts += span_header("Получененные достижения!<br>")
-	parts += "В раунде получены следующие достижения: [span_bold(length(GLOB.achievements_unlocked))]!<br>"
+	parts += "В раунде получены следующие достижения([span_bold("[length(GLOB.achievements_unlocked)]")]):!<br>"
 	parts += "<ul class='playerlist'>"
 	for(var/datum/achievement_report/cheevo_report in GLOB.achievements_unlocked)
 		parts += "<br>[cheevo_report.winner_key] был(а) [span_bold(cheevo_report.winner)] и заработал(а) достижение [span_greentext("\"[cheevo_report.cheevo]\"")] в [cheevo_report.award_location]!<br>"

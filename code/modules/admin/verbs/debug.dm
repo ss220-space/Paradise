@@ -190,22 +190,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!hascall(A,procname))
-		to_chat(usr, span_warning("Error: callproc_datum(): target has no such call [procname]."))
+		to_chat(usr, span_warning("Error: callproc_datum(): target has no such call [procname]."), confidential = TRUE)
 		return
 
 	var/list/lst = get_callproc_args()
 	if(!lst)
 		return
 
-	if(!A || !IsValidSrc(A))
-		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."))
+	if(!A || !is_valid_src(A))
+		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."), confidential = TRUE)
 		return
 	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"))
+		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"), confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Atom Proc-Call")
 
