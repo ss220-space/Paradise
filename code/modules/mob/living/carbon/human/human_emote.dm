@@ -513,7 +513,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	only_unintentional = TRUE
 	audio_cooldown = 1 MINUTES
 	cooldown = 10 SECONDS
 	species_type_blacklist_typecache = list(/datum/species/machine)
@@ -527,6 +526,18 @@
 		'sound/effects/mob_effects/fart5.ogg',
 		'sound/effects/mob_effects/fart6.ogg',
 	)
+
+/datum/emote/living/carbon/human/fart/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/organ/external/groin = user.get_organ(BODY_ZONE_PRECISE_GROIN)
+	if(prob(95))
+		return
+	user.emote("scream", ignore_cooldowns = TRUE)
+	groin.bleeding_amount += min(groin.bleeding_amount + 5, groin.max_bleeding_amount)
+	var/obj/effect/decal/cleanable/blood/splatter = new(user.loc)
+	splatter.blood_DNA[user.dna.unique_enzymes] = user.dna.blood_type
 
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
 	var/farted_on_something = FALSE

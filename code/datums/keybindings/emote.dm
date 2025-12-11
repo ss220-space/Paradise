@@ -459,6 +459,10 @@
 	linked_emote = /datum/emote/living/carbon/human/hem
 	name = "Хмыкнуть"
 
+/datum/keybinding/emote/carbon/human/fart
+	linked_emote = /datum/emote/living/carbon/human/fart
+	name = "Пёрнуть"
+
 /datum/keybinding/emote/carbon/human/scratch
 	linked_emote = /datum/emote/living/carbon/human/scratch
 	name = "Почесаться"

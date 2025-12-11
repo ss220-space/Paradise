@@ -99,6 +99,11 @@
 	set category = STATPANEL_EMOTIONS
 	emote("clap", intentional = TRUE)
 
+/mob/living/carbon/human/verb/emote_fart()
+	set name = "▷ Пернуть "
+	set category = "Эмоции"
+	emote("fart", intentional = TRUE)
+
 /mob/living/carbon/human/verb/emote_crack()
 	set name = "▷ Хрустеть пальцами "
 	set category = STATPANEL_EMOTIONS
