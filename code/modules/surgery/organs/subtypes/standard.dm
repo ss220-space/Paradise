@@ -219,6 +219,7 @@
 	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	max_damage = 30
 	max_bleeding_amount = 1.5
+	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
 	min_broken_damage = 15
 	bleeding_mod = 0.65
@@ -355,6 +356,7 @@
 	max_damage = 30
 	min_broken_damage = 15
 	max_bleeding_amount = 1.5
+	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
 	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
