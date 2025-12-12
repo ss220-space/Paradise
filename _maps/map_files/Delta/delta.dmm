@@ -89158,9 +89158,6 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/machinery/light_switch/directional/south{
-	pixel_y = -38
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -89235,6 +89232,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
