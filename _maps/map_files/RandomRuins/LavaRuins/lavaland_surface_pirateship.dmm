@@ -1153,6 +1153,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
 "vz" = (
@@ -1598,10 +1599,6 @@
 	pixel_x = -8;
 	pixel_y = -3
 	},
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = 10
-	},
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -1775,10 +1772,8 @@
 /area/ruin/unpowered/safe_cave)
 "DD" = (
 /obj/machinery/processor,
-/obj/structure/window/reinforced{
-	layer = 4.3
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;

@@ -539,14 +539,13 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "Rj" = (
+/obj/structure/chair/stool,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
-/obj/structure/chair/stool,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "Rs" = (
@@ -614,6 +613,13 @@
 /area/ruin/powered/beach)
 "Xc" = (
 /obj/effect/turf_decal/sand,
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered/beach)
+"Xp" = (
+/obj/structure/chair,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "Xr" = (
@@ -1217,7 +1223,7 @@ ya
 ya
 ya
 ya
-Qo
+Xp
 ya
 Vj
 mj
