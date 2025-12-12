@@ -1,7 +1,4 @@
-/*
- * MARK: AI Saycode
- */
-
+// MARK: AI Saycode
 /mob/living/silicon/ai/handle_track(message, verb = "говор%(ит,ят)%", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	if(hard_to_hear)
 		return
@@ -60,9 +57,7 @@
 
 	return track
 
-/*
- * MARK: AI VOX Announcements
- */
+// MARK: AI VOX Announcements
 GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 #define VOX_DELAY 100
 
@@ -71,24 +66,25 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	set desc = "Display a list of vocal words to announce to the crew."
 	set category = STATPANEL_AICOMMANDS
 
-	var/list/dat = list()
+	if(!ai_announcement_string_menu)
+		var/list/dat = list()
 
-	dat += "Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<br> \
-	<ul><li>You can also click on the word to preview it.</li>\
-	<li>You can only say 30 words for every announcement.</li>\
-	<li>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</li></ul>\
-	<font class='bad'>WARNING:</font><br>Misuse of the announcement system will get you job banned.<hr>"
+		dat += "Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<br> \
+		<ul><li>You can also click on the word to preview it.</li>\
+		<li>You can only say 30 words for every announcement.</li>\
+		<li>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</li></ul>\
+		<font class='bad'>WARNING:</font><br>Misuse of the announcement system will get you job banned.<hr>"
 
-	// Show alert and voice sounds separately
-	var/vox_words = GLOB.vox_sounds - GLOB.vox_alerts
-	dat += help_format(GLOB.vox_alerts)
-	dat += "<hr>"
-	dat += help_format(vox_words)
+		// Show alert and voice sounds separately
+		var/vox_words = GLOB.vox_sounds - GLOB.vox_alerts
+		dat += help_format(GLOB.vox_alerts)
+		dat += "<hr>"
+		dat += help_format(vox_words)
 
-	var/string_dat = dat.Join("")
+		ai_announcement_string_menu = dat.Join("")
 
 	var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
-	popup.set_content(string_dat)
+	popup.set_content(ai_announcement_string_menu)
 	popup.open()
 
 /mob/living/silicon/ai/proc/help_format(word_list)
@@ -103,7 +99,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		return
 
 	if(GLOB.announcing_vox > world.time)
-		to_chat(src, "<span class='warning'>Please wait [round((GLOB.announcing_vox - world.time) / 10)] seconds.</span>")
+		to_chat(src, span_warning("Please wait [round((GLOB.announcing_vox - world.time) / 10)] seconds."))
 		return
 
 	var/message = tgui_input_text(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement)
@@ -120,7 +116,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	var/list/incorrect_words = list()
 
 	if(length(words) > 30)
-		words.len = 30
+		words.Cut(31)
 
 	for(var/word in words)
 		word = lowertext(trim(word))
@@ -131,7 +127,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 			incorrect_words += word
 
 	if(length(incorrect_words))
-		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
+		to_chat(src, span_warning("These words are not available on the announcement system: [english_list(incorrect_words)]."))
 		return
 
 	GLOB.announcing_vox = world.time + VOX_DELAY
@@ -139,10 +135,8 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	add_game_logs("[key_name_log(src)] made a vocal announcement: [message].", src)
 	message_admins("[key_name_admin(src)] made a vocal announcement: [message].")
 
-	var/i = 0
 	for(var/word in words)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/play_vox_word, word, src.z, null), i, TIMER_CLIENT_TIME)
-		i++
+		play_vox_word(word, z, null)
 
 	ai_voice_announcement_to_text(words)
 
@@ -152,20 +146,17 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	var/formatted_message = announcer.format(words_string, "Объявление ИИ")
 
 	var/announce_sound = sound('sound/misc/notice2.ogg')
-	for(var/player in GLOB.player_list)
-		var/mob/M = player
-		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
-			var/turf/T = get_turf(M)
-			if(T && T.z == z && M.can_hear())
-				SEND_SOUND(M, announce_sound)
-				to_chat(M, formatted_message)
+	for(var/mob/player_mob as anything in GLOB.player_list)
+		if(player_mob.client && !(player_mob.client.prefs.sound & SOUND_AI_VOICE))
+			var/turf/player_turf = get_turf(player_mob)
+			if(player_turf && player_turf.z == z && player_mob.can_hear())
+				SEND_SOUND(player_mob, announce_sound)
+				to_chat(player_mob, formatted_message)
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
-
 	word = lowertext(word)
 
 	if(GLOB.vox_sounds[word])
-
 		var/sound_file = GLOB.vox_sounds[word]
 		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
@@ -173,14 +164,15 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
-			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
-					var/turf/T = get_turf(M)
-					if(T && T.z == z_level && M.can_hear())
-						voice.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_VOX)
-						M << voice
+			for(var/mob/player_mob as anything in GLOB.player_list)
+				if(player_mob.client && player_mob.client.prefs.sound & SOUND_AI_VOICE)
+					var/turf/player_turf = get_turf(player_mob)
+
+					if(player_turf && player_turf.z == z_level && player_mob.can_hear())
+						voice.volume = 100 * player_mob.client.prefs.get_channel_volume(CHANNEL_VOX)
+						SEND_SOUND(player_mob, voice)
 		else
-			only_listener << voice
+			SEND_SOUND(only_listener, voice)
 		return TRUE
 	return FALSE
 
