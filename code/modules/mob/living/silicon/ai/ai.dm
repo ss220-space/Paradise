@@ -111,8 +111,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
-	var/next_text_announcement
-
 	var/list/all_eyes = list()
 
 	silicon_subsystems = list(
@@ -131,6 +129,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/stored_locations[0]
 	var/message_cooldown = 0
 	var/current_camera = 0
+
+	/// The cached AI annoucement help menu.
+	var/ai_announcement_string_menu
+	/// Cooldown for the AI's station text announcement
+	COOLDOWN_DECLARE(next_text_announcement)
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
@@ -572,9 +575,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-hal"
 		else
 			icon_state = "ai"
-	//else
-//			to_chat(usr, "You can only change your display once!")
-			//return
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = STATPANEL_AICOMMANDS
 	show_station_manifest()
 
-#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
+#define TEXT_ANNOUNCEMENT_COOLDOWN (1 MINUTES)
 
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = STATPANEL_AICOMMANDS
@@ -591,19 +591,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(message_cooldown)
-		to_chat(src, span_warning("Please allow one minute to pass between announcements."))
+	if(!COOLDOWN_FINISHED(src, next_text_announcement))
+		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_SEC_MIN(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
 		return
 
 	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE, encode = FALSE)
 	if(!input)
 		return
 
-	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
-		return
-
 	announcer.announce(input)
-	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
+	COOLDOWN_START(src, next_text_announcement, TEXT_ANNOUNCEMENT_COOLDOWN)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN
 
@@ -1542,3 +1539,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isobserver(.))
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
+
+/mob/living/silicon/ai/vv_edit_var(var_name, var_value)
+	if(!..())
+		return FALSE
+	if(var_name == "ai_announcement_string_menu") // This single var has over 80 thousand characters in it. Not something you really want when VVing the AI
+		return FALSE
+	return TRUE

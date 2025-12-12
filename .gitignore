@@ -34,6 +34,10 @@ fast_paradise.dme
 /config/*
 !config/**/*/
 !config/emojis.txt
+!config/events.txt
+!config/game_modes.txt
+!config/logs.txt
+!config/maps.txt
 
 # ignore cfg, an internal BYOND folder
 /cfg/*
