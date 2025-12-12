@@ -751,7 +751,7 @@
 
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
-	user.balloon_alert_to_viewers("турникет наложен")
+	balloon_alert(user, "турникет наложен")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
@@ -759,11 +759,7 @@
 
 /obj/item/tourniquet/proc/apply_to_self(mob/living/carbon/human/user, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
 	var/selected_zone = user.zone_selected
-	user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)]...", "наложение [declent_ru(GENITIVE)]...")
-	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] применять на себе [declent_ru(ACCUSATIVE)]."),
-		ignored_mobs = user
-	)
+	user.balloon_alert_to_viewers("применя[PLUR_YOT_YUT(user)] [declent_ru(GENITIVE)] на себя...", "наложение [declent_ru(GENITIVE)]...")
 	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
 		return
 
@@ -773,7 +769,7 @@
 		return
 
 	if(affecting_rechecked.tourniquet)
-		balloon_alert(user, "уже наложен турникет")
+		balloon_alert(user, "турникет уже наложен!")
 		return
 
 	if(affecting_rechecked.is_robotic())
@@ -784,22 +780,22 @@
 
 /obj/item/tourniquet/proc/apply_to_other(mob/living/user, mob/living/carbon/human/human_target, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
 	var/selected_zone = user.zone_selected
-	user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)]")
-	user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...")
+	human_target.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на цели...", "применение [declent_ru(GENITIVE)] на цели...")
+
 	if(!do_after(user, other_duration, human_target) || applyed_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
 	if(!affecting_rechecked)
-		balloon_alert(user, "часть тела отсутствует")
+		balloon_alert(user, "конечность отсутствует!")
 		return
 
 	if(affecting_rechecked.tourniquet)
-		balloon_alert(user, "уже наложен турникет")
+		balloon_alert(user, "турникет уже наложен!")
 		return
 
 	if(affecting_rechecked.is_robotic())
-		balloon_alert(user, "нельзя применить на протезе")
+		balloon_alert(user, "неорганическая конечность!")
 		return
 
 	return TRUE
@@ -822,7 +818,7 @@
 	if(!applyed_bodypart)
 		return FALSE
 
-	user.balloon_alert_to_viewers("снятие турникета...")
+	balloon_alert(user, "снятие турникета...")
 	if(!do_after(user, remove_duration, applyed_bodypart.owner) || !applyed_bodypart)
 		return FALSE
 
@@ -837,7 +833,7 @@
 
 	stop_apply_timers()
 	user.put_in_any_hand_if_possible(src)
-	user.balloon_alert_to_viewers("турникет снят")
+	balloon_alert(user, "турникет снят")
 	return TRUE
 
 /obj/item/tourniquet/proc/acceptable_zone(zone_selected)
@@ -858,7 +854,6 @@
 	return FALSE
 
 /mob/living/carbon/human/proc/cut_all_tourniquets(mob/living/user)
-	src.balloon_alert_to_viewers("турникеты срезаны!")
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.tourniquet)
 			continue

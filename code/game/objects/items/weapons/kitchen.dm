@@ -214,7 +214,7 @@
 	if(!can_neck_cut(defender, attacker, FALSE))
 		return FALSE
 
-	attacker.balloon_alert_to_viewers("прикладывает нож к горлу!", "вы прикладываете нож к горлу!")
+	defender.balloon_alert_to_viewers("прикладывает нож к горлу!", "вы прикладываете нож к горлу!")
 	if(!do_after(attacker, neck_cut_delay, defender, max_interact_count = 1) || attacker.pulling != defender || attacker.grab_state < GRAB_NECK)
 		return FALSE
 
