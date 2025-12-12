@@ -359,6 +359,7 @@
 		return TRUE
 	return FALSE
 
+//MARK: Species gain
 /datum/species/proc/on_species_gain(mob/living/carbon/human/target) //Handles anything not already covered by basic species assignment.
 	SHOULD_CALL_PARENT(TRUE)
 
@@ -490,6 +491,7 @@
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, atom/source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 	return
 
+//MARK: Help
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
@@ -499,6 +501,7 @@
 	else
 		user.do_cpr(target)
 
+//MARK: Grab
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку захвата [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
@@ -658,6 +661,20 @@
 		else if(target.body_position == LYING_DOWN)
 			target.forcesay(GLOB.hit_appends)
 
+//MARK: Disarm
+#define DISARM_KNOCK_BASE_CHANCE_IN_HELP_INTENT 10
+#define DISARM_KNOCK_BASE_CHANCE_IN_OTHER_INTENT 5
+#define DISARM_KNOCK_DURATION 4 SECONDS
+#define DISARM_SHOVE_CHANCE_IN_HELP_INTENT 66
+#define DISARM_SHOVE_CHANCE_IN_OTHER_INTENT 25
+#define DISARM_SHOVE_CHECK_RESULT_NOT_AVAILABLE 0
+#define DISARM_SHOVE_CHECK_RESULT_INTERRUPT 1
+#define DISARM_SHOVE_CHECK_RESULT_NOT_MOVED 2
+#define DISARM_SHOVE_CHECK_RESULT_MOVED 3
+#define DISARM_SHOVE_CHECK_RESULT_INTO_WALL 4
+#define ITEM_DISARM_CHANCE_IN_HELP_INTENT 40
+#define ITEM_DISARM_CHANCE_IN_OTHER_INTENT 20
+
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
@@ -666,45 +683,76 @@
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
-	else
-		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
-		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		if(target.w_uniform)
-			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/randn = rand(1, 100)
-		var/extra_knock_chance = 0
-		if(user.gloves)
-			if(istype(user.gloves, /obj/item/clothing/gloves))
-				var/obj/item/clothing/gloves/gloves = user.gloves
-				extra_knock_chance = gloves.extra_knock_chance
-		if(randn <= 5 + extra_knock_chance)
-			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
-			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
-			return
 
-		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		if(target.move_resist > user.pull_force)
-			return FALSE
-		if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
-			return FALSE
-		if(target.anchored)
-			return FALSE
+	add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	if(target.w_uniform)
+		target.w_uniform.add_fingerprint(user)
+
+	var/knock_chance = calculate_disarm_knock_chance(user, target)
+	if(prob(knock_chance))
+		do_disarm_knock(user, target)
+		return
+
+	if(target.move_resist > user.pull_force)
+		return FALSE
+	if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
+		return FALSE
+	if(target.anchored)
+		return FALSE
+
+	if((target.a_intent == INTENT_HELP && prob(DISARM_SHOVE_CHANCE_IN_HELP_INTENT)) || (target.a_intent != INTENT_HELP && prob(DISARM_SHOVE_CHANCE_IN_OTHER_INTENT)))
 		if(target.buckled)
 			target.buckled.unbuckle_mob(target)
+		var/disarm_shove_result = do_disarm_shove(user, target)
+		switch(disarm_shove_result)
+			if(DISARM_SHOVE_CHECK_RESULT_INTERRUPT)
+				return TRUE
 
+			if(DISARM_SHOVE_CHECK_RESULT_NOT_AVAILABLE)
+				return FALSE
+
+			if(DISARM_SHOVE_CHECK_RESULT_INTO_WALL)
+				do_wall_knockdown(user, target)
+				target.stop_pulling()
+
+			if(DISARM_SHOVE_CHECK_RESULT_MOVED)
+				do_item_disarm(user, target)
+				target.stop_pulling()
+
+	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
+
+/datum/species/proc/calculate_disarm_knock_chance(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(target.a_intent == INTENT_HELP)
+		. = DISARM_KNOCK_BASE_CHANCE_IN_HELP_INTENT
+	else
+		. = DISARM_KNOCK_BASE_CHANCE_IN_OTHER_INTENT
+
+	if(!user.gloves)
+		return
+	if(!istype(user.gloves, /obj/item/clothing/gloves))
+		return
+
+	var/obj/item/clothing/gloves/gloves = user.gloves
+	. += gloves.extra_knock_chance
+
+/datum/species/proc/do_disarm_knock(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	var/obj/item/organ/external/affecting = target.get_organ(BODY_ZONE_CHEST)
+	target.apply_effect(DISARM_KNOCK_DURATION, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
+	playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
+	add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
+	target.LAssailant = null
+	if(iscarbon(user))
+		target.LAssailant = user
+
+/datum/species/proc/do_disarm_shove(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
 	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 	if(shove_to == user.loc)
-		return FALSE
+		return DISARM_SHOVE_CHECK_RESULT_NOT_AVAILABLE
 
 	//Directional checks to make sure that we're not shoving through a windoor or something like that
 	var/directional_blocked = FALSE
@@ -732,35 +780,53 @@
 	if(!directional_blocked)
 		for(var/atom/movable/AM in shove_to)
 			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
-				return TRUE
+				return DISARM_SHOVE_CHECK_RESULT_INTERRUPT
 
-	var/moved = TRUE
-	if(target.a_intent == INTENT_HELP || prob(25)) // Chance to move with shove
-		moved = target.Move(shove_to, shove_dir)
+	if(target.Move(shove_to, shove_dir))
+		return DISARM_SHOVE_CHECK_RESULT_MOVED
 
-	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
-	if(!moved) //they got pushed into a dense object
-		if(prob(75)) // Chance to knockdown on wall hit
-			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-			target.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"), \
-									span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
-									"Раздаётся глухой удар.")
-			if(!HAS_TRAIT(target, TRAIT_FLOORED))
-				target.Knockdown(3 SECONDS)
-				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
-			else if(!user.IsStunned())
-				target.Stun(0.5 SECONDS)
-	else
-		var/obj/item/I = target.get_active_hand()
-		if(I && prob(40)) // Chance to disarm target item
-			target.drop_from_active_hand()
-			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
-		else
-			if(I)
-				to_chat(target, span_warning("Ваша хватка на [I.declent_ru(NOMINATIVE)] ослабевает!"))
-			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
-	target.stop_pulling()
+	if(!directional_blocked)
+		return DISARM_SHOVE_CHECK_RESULT_INTO_WALL
+	return DISARM_SHOVE_CHECK_RESULT_NOT_MOVED
 
+/datum/species/proc/do_item_disarm(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	var/obj/item/item_in_hands = target.get_active_hand()
+	if(!item_in_hands)
+		return
+
+	if(target.a_intent == INTENT_HELP && prob(ITEM_DISARM_CHANCE_IN_HELP_INTENT) || (target.a_intent != INTENT_HELP && prob(ITEM_DISARM_CHANCE_IN_OTHER_INTENT)))
+		target.drop_from_active_hand()
+		add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
+		return
+
+	to_chat(target, span_warning("Ваша хватка на [item_in_hands.declent_ru(NOMINATIVE)] ослабевает!"))
+	add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
+
+/datum/species/proc/do_wall_knockdown(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
+	target.visible_message(span_warning("[DECLENT_RU_CAP(, user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"), \
+							span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
+							"Раздаётся глухой удар.")
+	if(!HAS_TRAIT(target, TRAIT_FLOORED))
+		target.Knockdown(3 SECONDS)
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
+	else if(!user.IsStunned())
+		target.Stun(0.5 SECONDS)
+
+#undef DISARM_KNOCK_BASE_CHANCE_IN_HELP_INTENT
+#undef DISARM_KNOCK_BASE_CHANCE_IN_OTHER_INTENT
+#undef DISARM_KNOCK_DURATION
+#undef DISARM_SHOVE_CHANCE_IN_HELP_INTENT
+#undef DISARM_SHOVE_CHANCE_IN_OTHER_INTENT
+#undef DISARM_SHOVE_CHECK_RESULT_NOT_AVAILABLE
+#undef DISARM_SHOVE_CHECK_RESULT_INTERRUPT
+#undef DISARM_SHOVE_CHECK_RESULT_NOT_MOVED
+#undef DISARM_SHOVE_CHECK_RESULT_INTO_WALL
+#undef DISARM_SHOVE_CHECK_RESULT_MOVED
+#undef ITEM_DISARM_CHANCE_IN_HELP_INTENT
+#undef ITEM_DISARM_CHANCE_IN_OTHER_INTENT
+
+//MARK: Spec attack hand
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
 		return
@@ -810,8 +876,7 @@
 /datum/species/proc/handle_npc(mob/living/carbon/human/H)
 	return
 
-//Species unarmed attacks
-
+//MARK: Species unarmed attacks
 /datum/unarmed_attack
 	var/attack_verb = list("ударил", "вмазал", "стукнул", "вдарил", "влепил")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
