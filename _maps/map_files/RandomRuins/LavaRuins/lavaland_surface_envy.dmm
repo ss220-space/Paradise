@@ -1,29 +1,110 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"b" = (
+/obj/structure/bookcase,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/book/manual/chef_recipes,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"d" = (
+/obj/item/clothing/gloves/ring/gold,
+/obj/item/clothing/head/fluff/goldtophat,
+/obj/item/clothing/shoes/fluff/noble_boot,
+/obj/item/clothing/under/noble_clothes,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/suit/victcoat,
+/obj/structure/closet/cabinet,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"e" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"f" = (
+/turf/simulated/openspace/lavaland,
+/area/lavaland/surface/outdoors)
+"j" = (
 /turf/simulated/mineral/random/volcanic/hard,
 /area/lavaland/surface/outdoors)
-"b" = (
+"k" = (
+/obj/structure/fans/tiny/invisible,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"l" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"m" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/lavaland/surface/outdoors)
+"n" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/lavaland/surface/outdoors)
+"p" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"r" = (
+/obj/effect/decal/cleanable/blood,
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = -28;
 	broken = 1
 	},
-/obj/item/stack/sheet/animalhide/human,
+/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
-"c" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/decal/cleanable/blood,
+"s" = (
+/obj/item/kitchen/knife/envy,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/structure/mirror{
+	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
+	icon_state = "mirror_broke";
+	pixel_x = 28;
+	broken = 1
+	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"f" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+"u" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
 /area/lavaland/surface/outdoors)
-"h" = (
+"w" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"y" = (
+/obj/structure/mirror{
+	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
+	icon_state = "mirror_broke";
+	pixel_x = 28;
+	broken = 1
+	},
+/obj/item/flashlight/lantern,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"z" = (
 /obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/candle,
 /obj/item/storage/box/matches,
@@ -31,14 +112,77 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
-"i" = (
-/obj/effect/decal/cleanable/blood,
+"A" = (
+/obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"k" = (
+"D" = (
+/turf/simulated/mineral/random/volcanic/hard/double,
+/area/lavaland/surface/outdoors)
+"E" = (
+/obj/item/clothing/suit/bloated_human,
+/obj/item/clothing/head/human_head,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"G" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"H" = (
+/turf/simulated/wall/mineral/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"I" = (
+/obj/structure/railing/wooden/endr,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"J" = (
+/obj/structure/mirror{
+	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
+	icon_state = "mirror_broke";
+	pixel_x = -28;
+	broken = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"K" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"L" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"N" = (
+/obj/structure/railing/wooden,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"O" = (
+/obj/effect/mob_spawn/human/corpse,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"P" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Q" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
@@ -55,326 +199,378 @@
 	icon_state = "wood-broken"
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"l" = (
-/turf/simulated/mineral/random/volcanic/hard/double,
-/area/lavaland/surface/outdoors)
-"n" = (
-/obj/item/clothing/suit/bloated_human,
-/obj/item/clothing/head/human_head,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered/misc_lavaruin)
-"o" = (
-/obj/structure/fans/tiny/invisible,
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered/misc_lavaruin)
-"p" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"t" = (
-/obj/structure/mirror{
-	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
-	icon_state = "mirror_broke";
-	pixel_x = -28;
-	broken = 1
-	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"u" = (
-/obj/structure/mirror{
-	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
-	icon_state = "mirror_broke";
-	pixel_x = 28;
-	broken = 1
-	},
-/obj/item/flashlight/lantern,
-/obj/effect/decal/cleanable/cobweb2,
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered/misc_lavaruin)
-"x" = (
-/obj/structure/railing/wooden/endr,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"y" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"z" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered/misc_lavaruin)
-"B" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"C" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"F" = (
-/obj/item/clothing/gloves/ring/gold,
-/obj/item/clothing/head/fluff/goldtophat,
-/obj/item/clothing/shoes/fluff/noble_boot,
-/obj/item/clothing/under/noble_clothes,
-/obj/item/clothing/glasses/monocle,
-/obj/item/clothing/suit/victcoat,
-/obj/structure/closet/cabinet,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered/misc_lavaruin)
-"G" = (
-/obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered/misc_lavaruin)
-"H" = (
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered/misc_lavaruin)
-"J" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"M" = (
-/obj/structure/railing/wooden,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"N" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"Q" = (
-/turf/simulated/wall/mineral/wood,
-/area/ruin/unpowered/misc_lavaruin)
 "R" = (
-/obj/item/kitchen/knife/envy,
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/structure/mirror{
-	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
-	icon_state = "mirror_broke";
-	pixel_x = 28;
-	broken = 1
-	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood,
+/area/lavaland/surface/outdoors)
 "T" = (
-/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/lavaland/surface/outdoors)
+"V" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = -28;
 	broken = 1
 	},
-/obj/effect/decal/cleanable/cobweb,
+/obj/item/stack/sheet/animalhide/human,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
-"V" = (
-/obj/structure/bookcase,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/book/manual/chef_recipes,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"W" = (
+"X" = (
 /obj/structure/railing/wooden/endl,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"X" = (
-/obj/effect/mob_spawn/human/corpse,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+"Y" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"Z" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
-f
-f
-a
-a
-a
-a
-a
-a
-y
-y
+p
+p
+j
+j
+j
+j
+j
+j
+e
+e
 "}
 (2,1,1) = {"
-a
-a
-l
-l
-l
-a
-a
-a
-a
-y
+j
+j
+D
+D
+D
+j
+j
+j
+j
+e
 "}
 (3,1,1) = {"
-a
-a
-l
-Q
-Q
-Q
-Q
-Q
-x
-y
+j
+j
+D
+H
+H
+H
+H
+H
+I
+e
 "}
 (4,1,1) = {"
-a
-l
-Q
-Q
-T
-t
-b
-Q
-W
-y
-"}
-(5,1,1) = {"
-a
-l
-Q
-n
-c
-z
-C
-o
-J
-y
-"}
-(6,1,1) = {"
-a
-l
-Q
-Q
-u
+j
+D
 H
-k
-Q
-x
-y
-"}
-(7,1,1) = {"
-a
-a
-l
-Q
-Q
-G
-Q
-Q
-M
-y
-"}
-(8,1,1) = {"
-f
-a
-l
-Q
+H
+r
+J
 V
 H
-F
-Q
-M
+X
+e
+"}
+(5,1,1) = {"
+j
+D
+H
+E
+Z
+Y
+A
+k
+P
+e
+"}
+(6,1,1) = {"
+j
+D
+H
+H
 y
+L
+Q
+H
+I
+e
+"}
+(7,1,1) = {"
+j
+j
+D
+H
+H
+w
+H
+H
+N
+e
+"}
+(8,1,1) = {"
+p
+j
+D
+H
+b
+L
+d
+H
+N
+e
 "}
 (9,1,1) = {"
-f
+p
+j
+D
+H
+K
+G
 a
-l
-Q
+H
 N
-B
-i
-Q
-M
-y
+e
 "}
 (10,1,1) = {"
-f
-a
-l
-Q
-h
-H
 p
-Q
-M
-y
+j
+D
+H
+z
+L
+l
+H
+N
+e
 "}
 (11,1,1) = {"
-f
-a
-a
-Q
-Q
-R
-Q
-Q
-M
-y
+p
+j
+j
+H
+H
+s
+H
+H
+N
+e
 "}
 (12,1,1) = {"
-f
-f
-a
-l
-Q
-Q
-Q
+p
+p
+j
+D
+H
+H
+H
+O
 X
-W
-a
+j
 "}
 (13,1,1) = {"
-f
-f
-a
-a
-a
-a
-a
-a
-a
-a
+p
+p
+j
+j
+j
+j
+j
+j
+j
+j
 "}
 (14,1,1) = {"
+p
+p
+p
+j
+j
+j
+j
+j
+j
+p
+"}
+
+(1,1,2) = {"
 f
 f
 f
-a
-a
-a
-a
-a
-a
+f
+f
+f
+f
+f
+f
+f
+"}
+(2,1,2) = {"
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+"}
+(3,1,2) = {"
+f
+f
+f
+R
+R
+R
+R
+m
+f
+f
+"}
+(4,1,2) = {"
+f
+f
+R
+T
+R
+R
+R
+R
+f
+f
+"}
+(5,1,2) = {"
+f
+f
+R
+R
+n
+R
+R
+R
+f
+f
+"}
+(6,1,2) = {"
+f
+f
+R
+R
+R
+R
+T
+R
+f
+f
+"}
+(7,1,2) = {"
+f
+f
+f
+R
+R
+R
+R
+R
+f
+f
+"}
+(8,1,2) = {"
+f
+f
+f
+R
+m
+R
+R
+R
+f
+f
+"}
+(9,1,2) = {"
+f
+f
+f
+R
+R
+R
+n
+R
+f
+f
+"}
+(10,1,2) = {"
+f
+f
+f
+R
+u
+R
+R
+R
+f
+f
+"}
+(11,1,2) = {"
+f
+f
+f
+R
+R
+T
+R
+R
+f
+f
+"}
+(12,1,2) = {"
+f
+f
+f
+f
+R
+R
+R
+f
+f
+f
+"}
+(13,1,2) = {"
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+"}
+(14,1,2) = {"
+f
+f
+f
+f
+f
+f
+f
+f
+f
 f
 "}

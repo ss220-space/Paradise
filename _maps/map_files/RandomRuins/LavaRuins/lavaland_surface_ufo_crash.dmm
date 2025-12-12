@@ -1,56 +1,21 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
+/turf/simulated/openspace/lavaland,
 /area/lavaland/surface/outdoors)
 "b" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"c" = (
-/obj/machinery/abductor/experiment{
-	stat = 1
-	},
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"d" = (
-/turf/simulated/wall/mineral/abductor,
-/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /turf/simulated/floor/mineral/abductor{
 	oxygen = 14;
 	temperature = 300;
 	nitrogen = 23
 	},
-/area/ruin/unpowered/misc_lavaruin)
-"g" = (
-/obj/machinery/abductor/pad,
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/lavaland/surface/outdoors)
 "h" = (
-/obj/item/hemostat/alien,
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
+/turf/simulated/wall/mineral/abductor,
 /area/ruin/unpowered/misc_lavaruin)
 "i" = (
-/obj/effect/mob_spawn/human/abductor,
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"j" = (
-/obj/structure/closet/abductor,
 /turf/simulated/floor/mineral/abductor{
 	oxygen = 14;
 	temperature = 300;
@@ -58,7 +23,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/item/hemostat/alien,
 /turf/simulated/floor/mineral/abductor{
 	oxygen = 14;
 	temperature = 300;
@@ -66,49 +31,17 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "l" = (
-/obj/machinery/optable/abductor,
-/obj/item/cautery/alien,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/mineral/abductor{
 	oxygen = 14;
 	temperature = 300;
 	nitrogen = 23
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"m" = (
-/obj/structure/table/abductor,
-/obj/item/storage/box/alienhandcuffs,
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"n" = (
-/obj/item/scalpel/alien,
-/obj/item/surgical_drapes,
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"o" = (
-/obj/item/retractor/alien,
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"p" = (
-/obj/machinery/abductor/gland_dispenser,
-/turf/simulated/floor/mineral/abductor{
-	oxygen = 14;
-	temperature = 300;
-	nitrogen = 23
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"q" = (
+"s" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"v" = (
 /obj/structure/table/abductor,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
@@ -118,7 +51,11 @@
 	nitrogen = 23
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"r" = (
+"y" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"A" = (
 /obj/structure/bed/abductor,
 /turf/simulated/floor/mineral/abductor{
 	oxygen = 14;
@@ -126,257 +63,330 @@
 	nitrogen = 23
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"s" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+"C" = (
+/obj/machinery/abductor/pad,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"J" = (
+/obj/item/retractor/alien,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"K" = (
+/obj/structure/closet/abductor,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
 "O" = (
+/obj/structure/table/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"P" = (
+/obj/machinery/optable/abductor,
+/obj/item/cautery/alien,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Q" = (
+/obj/effect/mob_spawn/human/abductor,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"T" = (
+/obj/item/scalpel/alien,
+/obj/item/surgical_drapes,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"V" = (
+/obj/machinery/abductor/experiment{
+	stat = 1
+	},
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"W" = (
+/obj/machinery/abductor/gland_dispenser,
+/turf/simulated/floor/mineral/abductor{
+	oxygen = 14;
+	temperature = 300;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"X" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
-a
-a
-a
-a
-O
-O
-O
-a
-a
-a
+s
+s
+s
+s
+X
+X
+X
+s
+s
+s
 "}
 (2,1,1) = {"
-a
-a
-a
-O
-O
-O
-O
-O
-a
-a
+s
+s
+s
+X
+X
+X
+X
+X
+s
+s
 "}
 (3,1,1) = {"
-a
-a
-a
-d
-O
-O
-O
-O
-a
-a
+s
+s
+s
+h
+X
+X
+X
+X
+s
+s
 "}
 (4,1,1) = {"
-a
-a
-d
-d
-O
-O
-O
-O
-O
-a
+s
+s
+h
+h
+X
+X
+X
+X
+X
+s
 "}
 (5,1,1) = {"
-a
-a
-d
-c
-e
-k
-O
-p
-d
-a
+s
+s
+h
+V
+i
+l
+X
+W
+h
+s
 "}
 (6,1,1) = {"
-a
-a
-d
-e
+s
+s
 h
-l
-n
-q
-d
-a
+i
+k
+P
+T
+v
+h
+s
 "}
 (7,1,1) = {"
-a
-a
-d
-g
+s
+s
+h
+C
+Q
 i
-e
-o
-r
-d
-a
+J
+A
+h
+s
 "}
 (8,1,1) = {"
-a
-a
-d
-d
-j
-m
-j
-d
-d
-a
+s
+s
+h
+h
+K
+O
+K
+h
+h
+s
 "}
 (9,1,1) = {"
-a
-a
 s
-d
-d
-d
-d
-d
 s
-a
+y
+h
+h
+h
+h
+h
+y
+s
 "}
 (10,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (11,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (12,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (13,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (14,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (15,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (16,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (17,1,1) = {"
-a
+s
+y
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-s
-s
-s
-a
-a
 "}
 (18,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
 s
 s
-s
-s
-a
-a
 "}
 (19,1,1) = {"
-a
-a
 s
 s
+y
+y
+y
+y
+y
+y
+y
 s
-s
-s
-s
-s
-a
 "}
 (20,1,1) = {"
-a
-a
+s
+s
 b
 b
 b
 b
 b
 b
-a
-a
+s
+s
 "}
 (21,1,1) = {"
-a
+s
 b
 b
 b
@@ -384,11 +394,11 @@ b
 b
 b
 b
-a
-a
+s
+s
 "}
 (22,1,1) = {"
-a
+s
 b
 b
 b
@@ -396,71 +406,71 @@ b
 b
 b
 b
-a
-a
+s
+s
 "}
 (23,1,1) = {"
-a
-a
+s
+s
 b
 b
 b
 b
 b
 b
-a
-a
+s
+s
 "}
 (24,1,1) = {"
-a
-a
+s
+s
 b
 b
 b
 b
 b
 b
-a
-a
+s
+s
 "}
 (25,1,1) = {"
-a
-a
+s
+s
 b
 b
 b
 b
 b
 b
-a
-a
+s
+s
 "}
 (26,1,1) = {"
-a
-a
+s
+s
 b
 b
 b
 b
 b
 b
-a
-a
+s
+s
 "}
 (27,1,1) = {"
-a
-a
+s
+s
 b
 b
 b
 b
 b
 b
-a
-a
+s
+s
 "}
 (28,1,1) = {"
-a
+s
 b
 b
 b
@@ -468,30 +478,391 @@ b
 b
 b
 b
-a
-a
+s
+s
 "}
 (29,1,1) = {"
+s
+b
+b
+b
+b
+b
+b
+b
+s
+s
+"}
+(30,1,1) = {"
+s
+b
+b
+b
+b
+b
+b
+b
+b
+s
+"}
+
+(1,1,2) = {"
 a
-b
-b
-b
-b
-b
-b
-b
+a
+a
+a
+a
+a
+a
+a
 a
 a
 "}
-(30,1,1) = {"
+(2,1,2) = {"
 a
-b
-b
-b
-b
-b
-b
-b
-b
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,2) = {"
+a
+a
+a
+e
+a
+a
+a
+a
+a
+a
+"}
+(4,1,2) = {"
+a
+a
+e
+e
+a
+a
+a
+a
+a
+a
+"}
+(5,1,2) = {"
+a
+a
+e
+e
+e
+e
+a
+e
+e
+a
+"}
+(6,1,2) = {"
+a
+a
+e
+e
+e
+e
+e
+e
+e
+a
+"}
+(7,1,2) = {"
+a
+a
+e
+e
+e
+e
+e
+e
+e
+a
+"}
+(8,1,2) = {"
+a
+a
+e
+e
+e
+e
+e
+e
+e
+a
+"}
+(9,1,2) = {"
+a
+a
+a
+e
+e
+e
+e
+e
+a
+a
+"}
+(10,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(11,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(12,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(13,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(14,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(15,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(16,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(17,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(18,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(19,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(20,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(21,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(22,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(23,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(24,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(25,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(26,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(27,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(28,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(29,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(30,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
 a
 "}

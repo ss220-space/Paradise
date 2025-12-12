@@ -1,18 +1,69 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/turf/template_noop,
-/area/template_noop)
-"ab" = (
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"ac" = (
-/obj/item/stack/medical/ointment,
+"ah" = (
 /obj/structure/table,
+/obj/item/storage/toolbox/electrical,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"as" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"at" = (
+/obj/structure/table,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/bruise_pack,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
-"ad" = (
+"aQ" = (
+/obj/machinery/door/airlock/silver,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"aV" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"bc" = (
+/obj/structure/bonfire/dense,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_cabin)
+"bK" = (
+/obj/structure/table,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"bP" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"cd" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"cK" = (
+/obj/structure/chair/sofa{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"cL" = (
+/obj/vehicle/ridden/atv,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"dg" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"dK" = (
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"eC" = (
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 1
@@ -20,31 +71,24 @@
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
-"ae" = (
-/obj/machinery/power/smes,
+"eW" = (
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
-"af" = (
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"ag" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+"fc" = (
 /obj/structure/table,
-/obj/item/key/atv,
-/turf/simulated/floor/plating,
+/obj/item/pen,
+/obj/item/paper,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"ah" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/plating,
+"gk" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/hooded/wintercoat/medical/science,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/gloves/fingerless,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"ai" = (
-/obj/structure/bonfire/dense,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_cabin)
-"aj" = (
+"ht" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -52,71 +96,100 @@
 /obj/item/reagent_containers/food/drinks/mug,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
-"ak" = (
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"al" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"am" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"an" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"ao" = (
-/turf/simulated/floor/plating/ice/smooth,
-/area/ruin/powered/snow_biodome)
-"ap" = (
-/obj/structure/flora/rock/icy,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"aq" = (
-/turf/simulated/wall/mineral/wood,
-/area/ruin/powered/snow_cabin)
-"ar" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/ruin/powered/snow_cabin)
-"as" = (
-/obj/item/flag/nt,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
-"at" = (
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
-"au" = (
-/obj/machinery/light{
-	dir = 4
-	},
+"hU" = (
+/obj/machinery/door/airlock/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/powered/snow_cabin)
-"av" = (
+"iG" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/ruin/powered/snow_cabin)
+"iO" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"jG" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"kv" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"lc" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"lP" = (
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"mS" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/ruin/powered/snow_cabin)
+"nr" = (
+/turf/simulated/wall/mineral/wood,
+/area/ruin/powered/snow_cabin)
+"ny" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"oe" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"op" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"oq" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"po" = (
+/obj/structure/table/wood,
+/obj/item/folder/blue,
+/obj/item/pen,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"pG" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
-"aw" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/electrical,
+"qa" = (
+/obj/structure/flora/bush,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"qF" = (
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/snow_biodome)
+"rm" = (
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"ax" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/wood,
+"rK" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/suit/hooded/wintercoat/cargo,
+/obj/item/clothing/suit/hooded/wintercoat/cargo/qm,
+/obj/item/clothing/suit/hooded/wintercoat/hydro,
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
-"ay" = (
+"rX" = (
+/obj/structure/chair/sofa/right,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"sq" = (
 /obj/structure/railing{
 	dir = 8
 	},
@@ -125,99 +198,82 @@
 	icon_state = "darkred"
 	},
 /area/ruin/powered/snow_cabin)
-"az" = (
-/obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+"sO" = (
+/obj/structure/dresser,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"ui" = (
+/turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
-"aA" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+"un" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"up" = (
+/turf/simulated/floor/engine/hull/reinforced,
+/area/lavaland/surface/outdoors)
+"uW" = (
+/obj/effect/decal/remains/robot,
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
 	},
-/area/ruin/powered/snow_cabin)
-"aB" = (
-/obj/structure/flora/rock/pile/icy,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"aC" = (
-/obj/structure/flora/tree/dead,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"aD" = (
-/obj/machinery/door/airlock/wood,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
-"aE" = (
-/obj/mecha/working/ripley/mining,
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
-"aH" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
-"aI" = (
-/obj/structure/flora/bush,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+"vs" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"aJ" = (
-/obj/vehicle/ridden/atv,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"aK" = (
+"vw" = (
 /obj/machinery/snow_machine,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
-"aL" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/suit/hooded/wintercoat/cargo,
-/obj/item/clothing/suit/hooded/wintercoat/cargo/qm,
-/obj/item/clothing/suit/hooded/wintercoat/hydro,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"aM" = (
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
-"aN" = (
-/obj/structure/bed/dogbed,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
-"aO" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"aP" = (
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"aQ" = (
-/obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"aR" = (
-/obj/structure/flora/tree/pine/xmas,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"aY" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"bi" = (
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_cabin)
-"bl" = (
-/obj/structure/railing/wooden,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_biodome)
-"bv" = (
+"vW" = (
+/obj/structure/chair/comfy/brown,
 /obj/machinery/light{
-	dir = 1
+	dir = 8
 	},
-/turf/simulated/floor/plating/ice/smooth,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"wd" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"bw" = (
+"wu" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"ww" = (
+/obj/machinery/door/airlock/wood,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"wx" = (
+/turf/simulated/openspace/lavaland,
+/area/lavaland/surface/outdoors)
+"wN" = (
+/obj/structure/filingcabinet,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"xa" = (
+/obj/structure/flora/rock/icy,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"xo" = (
+/obj/structure/toilet,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/snow_cabin)
+"xt" = (
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"xF" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"yn" = (
 /obj/machinery/shower{
 	dir = 4
 	},
@@ -226,258 +282,14 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/powered/snow_cabin)
-"bx" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredcorners"
-	},
-/area/ruin/powered/snow_cabin)
-"by" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"bz" = (
-/obj/machinery/light,
+"yz" = (
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
-"bB" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"bD" = (
-/obj/effect/spawner/window,
+"yV" = (
+/obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
-"bM" = (
-/obj/machinery/light,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/ruin/powered/snow_biodome)
-"bN" = (
-/obj/machinery/light,
-/turf/simulated/floor/plating/ice/smooth,
-/area/ruin/powered/snow_biodome)
-"cZ" = (
-/obj/structure/railing/wooden{
-	dir = 1
-	},
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_biodome)
-"dS" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"eb" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"eg" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"gh" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"gz" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"hk" = (
-/obj/machinery/door/airlock/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/ruin/powered/snow_cabin)
-"hA" = (
-/obj/machinery/light/built{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/snow_biodome)
-"iB" = (
-/obj/structure/chair/sofa/left{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"jF" = (
-/obj/effect/decal/remains/robot,
-/obj/machinery/mech_bay_recharge_port{
-	dir = 8
-	},
-/turf/simulated/floor/pod/light,
-/area/ruin/powered/snow_biodome)
-"kh" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"qt" = (
-/obj/machinery/door/airlock/silver,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"qI" = (
-/obj/machinery/light,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"rT" = (
-/obj/structure/table,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"sE" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"tb" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
-"tf" = (
-/obj/item/soap,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/ruin/powered/snow_cabin)
-"tg" = (
-/obj/structure/fans,
-/turf/simulated/wall/mineral/wood,
-/area/ruin/powered/snow_cabin)
-"tl" = (
-/turf/simulated/floor/pod/light,
-/area/ruin/powered/snow_biodome)
-"um" = (
-/obj/structure/chair/comfy/brown,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"xU" = (
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"yY" = (
-/obj/structure/railing/wooden,
-/obj/structure/railing/wooden,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_biodome)
-"zi" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
-	},
-/area/ruin/powered/snow_cabin)
-"zT" = (
-/obj/machinery/door/airlock/silver,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"AM" = (
-/obj/structure/table,
-/obj/item/pen,
-/obj/item/paper,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"Bz" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Cz" = (
-/obj/structure/bed,
-/obj/item/bedsheet/blue,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"CD" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_cabin)
-"Dd" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/hooded/wintercoat/medical/science,
-/obj/item/clothing/shoes/winterboots,
-/obj/item/clothing/gloves/fingerless,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"Ef" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"Ep" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Ez" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"Fr" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/ruin/powered/snow_cabin)
-"Fx" = (
-/obj/structure/toilet,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/ruin/powered/snow_cabin)
-"FL" = (
-/obj/structure/table,
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"Gc" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Gf" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/ruin/powered/snow_cabin)
-"HP" = (
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"HR" = (
-/obj/structure/closet/secure_closet/freezer/fridge/open,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"HZ" = (
-/obj/structure/chair/sofa/right{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Ir" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/ruin/powered/snow_cabin)
-"Jl" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
-	},
-/area/ruin/powered/snow_cabin)
-"JZ" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"Kn" = (
+"zq" = (
 /obj/structure/railing{
 	dir = 4
 	},
@@ -486,146 +298,203 @@
 	icon_state = "darkred"
 	},
 /area/ruin/powered/snow_cabin)
-"Ko" = (
-/obj/structure/chair/sofa/right,
-/obj/machinery/light{
-	dir = 1
+"zH" = (
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"zK" = (
+/obj/structure/flora/grass/both,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"zM" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
 	},
+/area/ruin/powered/snow_cabin)
+"Al" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
-"KS" = (
-/obj/structure/closet,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/twohanded/chainsaw_handmade,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"Lf" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Li" = (
-/obj/structure/sign/poster/official/random,
-/turf/simulated/wall/mineral/wood,
-/area/ruin/powered/snow_cabin)
-"Mp" = (
-/obj/item/clothing/mask/balaclava,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"MR" = (
-/obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/pen,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
-"Nh" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Oj" = (
-/obj/structure/table,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"OV" = (
-/obj/structure/table/wood,
-/obj/item/newspaper,
-/obj/item/reagent_containers/food/drinks/mug,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"PD" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"PK" = (
-/obj/structure/table,
-/obj/item/pen,
-/obj/item/paper_bin,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"Qa" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
-"Qi" = (
+"AB" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
-"QJ" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/beans,
-/turf/simulated/floor/carpet,
+"AD" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_cabin)
-"QK" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes/cigpack_carp,
-/turf/simulated/floor/pod/dark,
+"AN" = (
+/obj/mecha/working/ripley/mining,
+/turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
-"QN" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"RE" = (
-/obj/structure/table,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/bruise_pack,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
-"Sj" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"To" = (
-/obj/item/twohanded/required/kirbyplants,
+"Bm" = (
+/obj/structure/bed/dogbed,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
-"Ub" = (
-/obj/structure/filingcabinet,
-/turf/simulated/floor/pod/dark,
+"Bu" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
-"Uv" = (
-/turf/simulated/wall,
-/area/ruin/powered/snow_cabin)
-"UW" = (
-/obj/machinery/computer/mech_bay_power_console,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"VW" = (
-/obj/structure/chair/sofa{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Wg" = (
-/turf/simulated/wall/r_wall,
-/area/ruin/powered/snow_biodome)
-"WM" = (
-/obj/structure/dresser,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Ye" = (
-/obj/structure/table/wood,
-/obj/item/deck/cards/doublecards,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"Zo" = (
+"BX" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 4
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/snow_cabin)
+"CO" = (
+/obj/structure/railing/wooden,
+/obj/structure/railing/wooden,
+/turf/simulated/floor/wood/cold,
+/area/ruin/powered/snow_biodome)
+"CS" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Ds" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"DA" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
-"ZC" = (
+"Ea" = (
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"EH" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"EL" = (
+/obj/machinery/light/built{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/snow_biodome)
+"EO" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
-"ZZ" = (
+"Fp" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkredcorners"
+	},
+/area/ruin/powered/snow_cabin)
+"FS" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/key/atv,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"GF" = (
+/obj/structure/table,
+/obj/item/pen,
+/obj/item/paper_bin,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Ho" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/ruin/powered/snow_biodome)
+"HE" = (
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"HJ" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
+"HK" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"HT" = (
+/obj/structure/flora/tree/pine,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"HX" = (
+/obj/structure/table/wood,
+/obj/item/newspaper,
+/obj/item/reagent_containers/food/drinks/mug,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"It" = (
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"Jl" = (
+/turf/simulated/floor/plating/ice/smooth,
+/area/ruin/powered/snow_biodome)
+"Jv" = (
+/obj/structure/flora/tree/dead,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"JM" = (
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/powered/snow_cabin)
+"JV" = (
+/obj/structure/sign/poster/official/random,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/powered/snow_cabin)
+"Kz" = (
+/obj/structure/flora/rock/pile/icy,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"KL" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"KS" = (
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"Lf" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Lh" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"Ln" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"Ly" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/powered/snow_cabin)
+"LI" = (
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12;
@@ -638,1060 +507,2254 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/powered/snow_cabin)
+"Mb" = (
+/obj/machinery/door/airlock/silver,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Mw" = (
+/obj/machinery/light,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"Nh" = (
+/obj/structure/table/wood,
+/obj/item/deck/cards/doublecards,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"NA" = (
+/obj/structure/flora/tree/pine/xmas,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"NK" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"NU" = (
+/obj/structure/closet,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/twohanded/chainsaw_handmade,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Ob" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"Oq" = (
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"Ow" = (
+/turf/template_noop,
+/area/template_noop)
+"OK" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"OQ" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"Ph" = (
+/obj/item/stack/medical/ointment,
+/obj/structure/table,
+/obj/item/stack/medical/bruise_pack,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"Pv" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"PF" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating/ice/smooth,
+/area/ruin/powered/snow_biodome)
+"PI" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/snow_cabin)
+"QC" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
+	},
+/area/ruin/powered/snow_cabin)
+"Rt" = (
+/obj/item/soap,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/snow_cabin)
+"SH" = (
+/obj/structure/railing/wooden{
+	dir = 1
+	},
+/turf/simulated/floor/wood/cold,
+/area/ruin/powered/snow_biodome)
+"Tg" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/beans,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"TU" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"Uo" = (
+/obj/structure/table,
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"UJ" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_carp,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Vz" = (
+/obj/machinery/power/smes,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"Wk" = (
+/obj/structure/railing/wooden,
+/turf/simulated/floor/wood/cold,
+/area/ruin/powered/snow_biodome)
+"Ww" = (
+/obj/structure/fans,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/powered/snow_cabin)
+"Yg" = (
+/turf/simulated/wall,
+/area/ruin/powered/snow_cabin)
+"YS" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_cabin)
+"YY" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/powered/snow_biodome)
+"ZA" = (
+/obj/item/clothing/mask/balaclava,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-Qa
-Qa
-Qa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+ny
+ny
+ny
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-Qa
-Qa
-Qa
-Qa
-Qa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+ny
+ny
+ny
+ny
+ny
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
 "}
 (3,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-Wg
-Wg
-Wg
-Wg
-PD
-Wg
-Wg
-Wg
-Wg
-Wg
-Wg
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+YY
+YY
+YY
+YY
+Pv
+YY
+YY
+YY
+YY
+YY
+YY
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
 "}
 (4,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-Wg
-Wg
-Wg
-Wg
-Wg
-Dd
-gh
-HP
-tl
-gh
-HP
-Ub
-Wg
-Wg
-Wg
-Wg
-Wg
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+YY
+YY
+YY
+YY
+YY
+gk
+OK
+rm
+qF
+OK
+rm
+wN
+YY
+YY
+YY
+YY
+YY
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
 "}
 (5,1,1) = {"
-aa
-aa
-aa
-aa
-Wg
-Wg
-Wg
-aI
-by
-aQ
-Wg
-Dd
-HP
-HP
-tl
-PK
-gz
-HP
-Wg
-aE
-HP
-UW
-Wg
-Wg
-Wg
-tb
-tb
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+YY
+YY
+YY
+qa
+iO
+zK
+YY
+gk
+rm
+rm
+qF
+GF
+un
+rm
+YY
+AN
+rm
+HE
+YY
+YY
+YY
+HJ
+HJ
+Ow
+Ow
+Ow
+Ow
 "}
 (6,1,1) = {"
-aa
-aa
-aa
-Wg
-Wg
-ao
-ak
-ak
-ak
-aC
-Wg
-QN
-QN
-QN
-qt
-QN
-QN
-QN
-Wg
-jF
-tl
-aw
-Wg
-aK
-Wg
-Wg
-tb
-tb
-aa
-aa
-aa
+Ow
+Ow
+Ow
+YY
+YY
+Jl
+dK
+dK
+dK
+Jv
+YY
+xF
+xF
+xF
+Mb
+xF
+xF
+xF
+YY
+uW
+qF
+ah
+YY
+vw
+YY
+YY
+HJ
+HJ
+Ow
+Ow
+Ow
 "}
 (7,1,1) = {"
-aa
-aa
-Wg
-Wg
-ao
-ao
-ao
-ao
-ak
-ak
-by
-az
-ak
-aB
-ak
-ak
-ak
-aI
-Wg
-Wg
-kh
-Wg
-Wg
-aQ
-ak
-Wg
-Wg
-tb
-tb
-aa
-aa
+Ow
+Ow
+YY
+YY
+Jl
+Jl
+Jl
+Jl
+dK
+dK
+iO
+HT
+dK
+Kz
+dK
+dK
+dK
+qa
+YY
+YY
+EH
+YY
+YY
+zK
+dK
+YY
+YY
+HJ
+HJ
+Ow
+Ow
 "}
 (8,1,1) = {"
-aa
-aa
-Wg
-bv
-ao
-ao
-ao
-ao
-ao
-ao
-ao
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-by
-aQ
-ak
-ak
-ak
-ak
-ak
-ak
-Wg
-tb
-tb
-aa
-aa
+Ow
+Ow
+YY
+Ho
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+iO
+zK
+dK
+dK
+dK
+dK
+dK
+dK
+YY
+HJ
+HJ
+Ow
+Ow
 "}
 (9,1,1) = {"
-aa
-Wg
-Wg
-ap
-ak
-aI
-ao
-ao
-ao
-ao
-ao
-ao
-ao
-ak
-az
-ak
-aC
-ak
-ak
-aI
-aI
-ak
-ak
-ak
-ak
-bM
-Wg
-Wg
-tb
-aa
-aa
+Ow
+YY
+YY
+xa
+dK
+qa
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+dK
+HT
+dK
+Jv
+dK
+dK
+qa
+qa
+dK
+dK
+dK
+dK
+oe
+YY
+YY
+HJ
+Ow
+Ow
 "}
 (10,1,1) = {"
-aa
-Wg
-ak
-ak
-aQ
-ak
-ak
-ak
-ao
-ao
-ao
-ao
-ao
-ao
-ao
-ao
-ak
-ak
-ap
-aI
-ak
-aQ
-ak
-ak
-ak
-az
-ak
-Wg
-tb
-tb
-aa
+Ow
+YY
+dK
+dK
+zK
+dK
+dK
+dK
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+dK
+dK
+xa
+qa
+dK
+zK
+dK
+dK
+dK
+HT
+dK
+YY
+HJ
+HJ
+Ow
 "}
 (11,1,1) = {"
-aa
-Wg
-Wg
-Wg
-ak
-az
-ap
-aI
-ak
-aC
-ak
-ao
-ao
-ao
-ao
-ao
-ao
-ak
-ak
-ak
-ak
-aC
-ak
-ak
-ak
-ak
-ak
-Wg
-hA
-tb
-aa
+Ow
+YY
+YY
+YY
+dK
+HT
+xa
+qa
+dK
+Jv
+dK
+Jl
+Jl
+Jl
+Jl
+Jl
+Jl
+dK
+dK
+dK
+dK
+Jv
+dK
+dK
+dK
+dK
+dK
+YY
+EL
+HJ
+Ow
 "}
 (12,1,1) = {"
-Wg
-Wg
-al
-Wg
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aQ
-aI
-ao
-ao
-ao
-cZ
-yY
-ao
-ak
-ak
-ak
-ak
-ak
-ak
-Wg
-tb
-tb
-aa
+YY
+YY
+Lh
+YY
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+zK
+qa
+Jl
+Jl
+Jl
+SH
+CO
+Jl
+dK
+dK
+dK
+dK
+dK
+dK
+YY
+HJ
+HJ
+Ow
 "}
 (13,1,1) = {"
-Wg
-ac
-af
-aq
-aq
-aq
-aq
-aq
-bD
-bD
-aq
-aq
-aq
-aq
-ap
-ak
-ao
-ao
-cZ
-bl
-ao
-ao
-ao
-ak
-ak
-Wg
-Wg
-Wg
-Wg
-tb
-tb
+YY
+Ph
+ui
+nr
+nr
+nr
+nr
+nr
+HK
+HK
+nr
+nr
+nr
+nr
+xa
+dK
+Jl
+Jl
+SH
+Wk
+Jl
+Jl
+Jl
+dK
+dK
+YY
+YY
+YY
+YY
+HJ
+HJ
 "}
 (14,1,1) = {"
-Wg
-ad
-af
-aq
-bw
-tf
-ZZ
-aq
-aL
-WM
-aq
-sE
-Gc
-aq
-ak
-ak
-ak
-ao
-cZ
-bl
-ao
-ao
-ao
-ao
-bN
-Wg
-Dd
-Dd
-Wg
-tb
-tb
+YY
+eC
+ui
+nr
+yn
+Rt
+LI
+nr
+rK
+sO
+nr
+lc
+TU
+nr
+dK
+dK
+dK
+Jl
+SH
+Wk
+Jl
+Jl
+Jl
+Jl
+PF
+YY
+gk
+gk
+YY
+HJ
+HJ
 "}
 (15,1,1) = {"
-Wg
-RE
-af
-aq
-Fx
-au
-Fr
-hk
+YY
 at
-Gf
-aD
-Bz
-Bz
-bD
-ak
-ak
-ak
-ak
-cZ
-bl
-ak
-ak
-ao
-ao
-ao
-Wg
-Mp
-dS
-Wg
-tb
-tb
+ui
+nr
+xo
+BX
+PI
+hU
+yz
+mS
+ww
+KS
+KS
+HK
+dK
+dK
+dK
+dK
+SH
+Wk
+dK
+dK
+Jl
+Jl
+Jl
+YY
+ZA
+op
+YY
+HJ
+HJ
 "}
 (16,1,1) = {"
-Wg
-ae
-al
-aq
-aq
-aq
-aq
-Li
-Bz
-qI
-aq
-Zo
-aY
-aq
-ak
-ak
-ak
-ak
-cZ
-bl
-ak
-ak
-ak
-ao
-ao
-Wg
-tl
-tl
-Wg
-tb
-tb
+YY
+Vz
+Lh
+nr
+nr
+nr
+nr
+JV
+KS
+Mw
+nr
+as
+zH
+nr
+dK
+dK
+dK
+dK
+SH
+Wk
+dK
+dK
+dK
+Jl
+Jl
+YY
+qF
+qF
+YY
+HJ
+HJ
 "}
 (17,1,1) = {"
-Wg
-ae
-af
-aq
-ZC
-um
-Lf
-aq
-Cz
-Cz
-aq
-aq
-aD
-aq
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aO
-tl
-tl
-Ez
-tb
-tb
+YY
+Vz
+ui
+nr
+EO
+vW
+DA
+nr
+NK
+NK
+nr
+nr
+ww
+nr
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+CS
+qF
+qF
+dg
+HJ
+HJ
 "}
 (18,1,1) = {"
-Wg
-ag
-al
-aD
-at
-aA
-av
-aq
-aq
-aq
-aq
-aN
-at
-aq
-ak
-az
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aP
-tl
-tl
-aP
-tb
-tb
+YY
+FS
+Lh
+ww
+yz
+zM
+pG
+nr
+nr
+nr
+nr
+Bm
+yz
+nr
+dK
+HT
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+kv
+qF
+qF
+kv
+HJ
+HJ
 "}
 (19,1,1) = {"
-Wg
-ah
-af
-aq
-ax
-aH
-av
-av
-av
-MR
-To
-at
-Bz
-CD
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-az
-ak
-ak
-aC
-Wg
-tl
-tl
-Wg
-tb
-tb
+YY
+Ds
+ui
+nr
+Oq
+lP
+pG
+pG
+pG
+po
+Ob
+yz
+KS
+YS
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+HT
+dK
+dK
+Jv
+YY
+qF
+qF
+YY
+HJ
+HJ
 "}
 (20,1,1) = {"
-Wg
-rT
-af
-tg
-as
-at
-at
-aM
-Jl
-at
-Ir
-at
-Bz
-bi
-ak
-ab
-ak
-ak
-aC
-ak
-ak
-ak
-ak
-ak
-ak
-Wg
-HP
-dS
-Wg
-tb
-tb
+YY
+Ea
+ui
+Ww
+yV
+yz
+yz
+OQ
+QC
+yz
+JM
+yz
+KS
+AD
+dK
+Bu
+dK
+dK
+Jv
+dK
+dK
+dK
+dK
+dK
+dK
+YY
+rm
+op
+YY
+HJ
+HJ
 "}
 (21,1,1) = {"
-Wg
-Wg
-am
-Uv
-Kn
-bx
-at
-at
-at
-aH
-Gf
-at
-bz
-aq
-aJ
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-bM
-Wg
-QK
-AM
-Wg
-tb
-tb
+YY
+YY
+eW
+Yg
+zq
+iG
+yz
+yz
+yz
+lP
+mS
+yz
+xt
+nr
+cL
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+oe
+YY
+UJ
+fc
+YY
+HJ
+HJ
 "}
 (22,1,1) = {"
-Wg
-aj
-af
-Uv
-ai
-ar
-OV
-HZ
-at
-aq
-bD
-bD
-bD
-aq
-ak
-aI
-ak
-az
-ak
-ak
-ak
-ak
-az
-ak
-ak
-Wg
-Wg
-Wg
-Wg
-tb
-tb
+YY
+ht
+ui
+Yg
+bc
+Ly
+HX
+KL
+yz
+nr
+HK
+HK
+HK
+nr
+dK
+qa
+dK
+HT
+dK
+dK
+dK
+dK
+HT
+dK
+dK
+YY
+YY
+YY
+YY
+HJ
+HJ
 "}
 (23,1,1) = {"
-Wg
-Wg
-af
-Uv
-ay
-zi
-Ye
-VW
-bz
-aq
-ak
-ak
-ak
-ak
-aC
-ak
-ak
-ak
-ak
-aR
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-Wg
-tb
-tb
-aa
+YY
+YY
+ui
+Yg
+sq
+Fp
+Nh
+cK
+xt
+nr
+dK
+dK
+dK
+dK
+Jv
+dK
+dK
+dK
+dK
+NA
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+YY
+HJ
+HJ
+Ow
 "}
 (24,1,1) = {"
-aa
-Wg
-af
-aq
-Ko
-Ep
-QJ
-VW
-at
-bD
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aI
-ak
-ak
-aQ
-ak
-ak
-ak
-Wg
-hA
-tb
-aa
+Ow
+YY
+ui
+nr
+rX
+Al
+Tg
+cK
+yz
+HK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+dK
+qa
+dK
+dK
+zK
+dK
+dK
+dK
+YY
+EL
+HJ
+Ow
 "}
 (25,1,1) = {"
-aa
-Wg
-FL
-Li
-an
-Qi
-Nh
-iB
-Gf
-aq
-ak
-ak
-ak
-az
-ak
-aQ
-ak
-aC
-ak
-aI
-ak
-az
-aI
-aI
-ak
-ak
-ak
-Wg
-tb
-tb
-aa
+Ow
+YY
+Uo
+JV
+It
+AB
+bP
+aV
+mS
+nr
+dK
+dK
+dK
+HT
+dK
+zK
+dK
+Jv
+dK
+qa
+dK
+HT
+qa
+qa
+dK
+dK
+dK
+YY
+HJ
+HJ
+Ow
 "}
 (26,1,1) = {"
-aa
-Wg
-Wg
-aq
-aq
-bD
-bD
-bD
-aq
-aq
-ak
-ak
-ak
-aI
-ak
-ap
-ak
-ak
-ak
-ak
-ak
-ak
-aI
-aI
-ak
-bM
-Wg
-Wg
-tb
-aa
-aa
+Ow
+YY
+YY
+nr
+nr
+HK
+HK
+HK
+nr
+nr
+dK
+dK
+dK
+qa
+dK
+xa
+dK
+dK
+dK
+dK
+dK
+dK
+qa
+qa
+dK
+oe
+YY
+YY
+HJ
+Ow
+Ow
 "}
 (27,1,1) = {"
-aa
-aa
-Wg
-ap
-ak
-ak
-ak
-ak
-ak
-aQ
-ak
-ak
-ak
-aI
-ak
-ak
-ak
-ak
-aQ
-ak
-ak
-aB
-ak
-ak
-aC
-ak
-Wg
-tb
-tb
-aa
-aa
+Ow
+Ow
+YY
+xa
+dK
+dK
+dK
+dK
+dK
+zK
+dK
+dK
+dK
+qa
+dK
+dK
+dK
+dK
+zK
+dK
+dK
+Kz
+dK
+dK
+Jv
+dK
+YY
+HJ
+HJ
+Ow
+Ow
 "}
 (28,1,1) = {"
-aa
-aa
-Wg
-Wg
-ak
-ak
-az
-ak
-ak
-ak
-bB
-ak
-ak
-ak
-ak
-ak
-az
-ak
-bB
-ak
-ak
-az
-ak
-ak
-ak
-Wg
-Wg
-tb
-aa
-aa
-aa
+Ow
+Ow
+YY
+YY
+dK
+dK
+HT
+dK
+dK
+dK
+Ln
+dK
+dK
+dK
+dK
+dK
+HT
+dK
+Ln
+dK
+dK
+HT
+dK
+dK
+dK
+YY
+YY
+HJ
+Ow
+Ow
+Ow
 "}
 (29,1,1) = {"
-aa
-aa
-aa
-Wg
-Wg
-ak
-ak
-ak
-ak
-az
-Wg
-QN
-QN
-QN
-zT
-QN
-QN
-QN
-Wg
-ak
-ak
-ak
-ak
-ak
-Wg
-Wg
-tb
-tb
-aa
-aa
-aa
+Ow
+Ow
+Ow
+YY
+YY
+dK
+dK
+dK
+dK
+HT
+YY
+xF
+xF
+xF
+aQ
+xF
+xF
+xF
+YY
+dK
+dK
+dK
+dK
+dK
+YY
+YY
+HJ
+HJ
+Ow
+Ow
+Ow
 "}
 (30,1,1) = {"
-aa
-aa
-aa
-aa
-Wg
-Wg
-Wg
-ak
-bB
-ak
-Wg
-eg
-HP
-tl
-tl
-tl
-Sj
-xU
-Wg
-ak
-bB
-ak
-Wg
-Wg
-Wg
-tb
-tb
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+YY
+YY
+YY
+dK
+Ln
+dK
+YY
+cd
+rm
+qF
+qF
+qF
+Lf
+wu
+YY
+dK
+Ln
+dK
+YY
+YY
+YY
+HJ
+HJ
+Ow
+Ow
+Ow
+Ow
 "}
 (31,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-Wg
-Wg
-Wg
-Wg
-Wg
-HR
-eb
-gz
-Oj
-JZ
-KS
-Ef
-Wg
-Wg
-Wg
-Wg
-Wg
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+YY
+YY
+YY
+YY
+YY
+vs
+wd
+un
+bK
+oq
+NU
+jG
+YY
+YY
+YY
+YY
+YY
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
 "}
 (32,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-Wg
-Wg
-Wg
-Wg
-Wg
-Wg
-Wg
-Wg
-Wg
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+YY
+YY
+YY
+YY
+YY
+YY
+YY
+YY
+YY
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+Ow
+"}
+
+(1,1,2) = {"
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+"}
+(2,1,2) = {"
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+"}
+(3,1,2) = {"
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+"}
+(4,1,2) = {"
+wx
+wx
+wx
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+"}
+(5,1,2) = {"
+wx
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+wx
+"}
+(6,1,2) = {"
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+"}
+(7,1,2) = {"
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+"}
+(8,1,2) = {"
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+"}
+(9,1,2) = {"
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(10,1,2) = {"
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(11,1,2) = {"
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(12,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(13,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(14,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(15,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(16,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(17,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(18,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(19,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(20,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(21,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(22,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+"}
+(23,1,2) = {"
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(24,1,2) = {"
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(25,1,2) = {"
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(26,1,2) = {"
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+"}
+(27,1,2) = {"
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+"}
+(28,1,2) = {"
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+"}
+(29,1,2) = {"
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+"}
+(30,1,2) = {"
+wx
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+wx
+"}
+(31,1,2) = {"
+wx
+wx
+wx
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+"}
+(32,1,2) = {"
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+up
+up
+up
+up
+up
+up
+up
+up
+up
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
 "}
