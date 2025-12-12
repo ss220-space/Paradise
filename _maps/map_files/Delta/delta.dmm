@@ -14808,7 +14808,7 @@
 /area/security/securearmory)
 "bQe" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -149868,7 +149868,7 @@ bGz
 bMe
 bNX
 bQe
-dos
+bGz
 bUe
 xfX
 nAT
