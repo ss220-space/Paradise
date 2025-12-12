@@ -140,7 +140,7 @@
 
 /obj/structure/mecha_wreckage/reticence
 	name = "Reticence wreckage"
-	icon_state = "reticence-broken"
+	icon_state = "mime-broken"
 	color = "#87878715"
 	desc = "..."
 

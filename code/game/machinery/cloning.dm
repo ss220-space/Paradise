@@ -541,10 +541,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	countdown.stop()
 	var/turf/T = get_turf(src)
 	if(mess) //Clean that mess and dump those gibs!
-		for(var/i in missing_organs)
-			var/obj/I = i
-			I.forceMove(T)
-		missing_organs.Cut()
+		for(var/obj/organ as anything in missing_organs)
+			organ.forceMove(T)
+
+		LAZYCLEARLIST(missing_organs)
 		mess = FALSE
 		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
 		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
@@ -570,9 +570,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		occupant.flash_eyes(visual = TRUE)
 		clonemind = null
 
-	for(var/i in missing_organs)
-		qdel(i)
-	missing_organs.Cut()
+	for(var/organ in missing_organs)
+		qdel(organ)
+
+	LAZYCLEARLIST(missing_organs)
 	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
 	occupant.setOxyLoss(0)
 	for(var/datum/disease/critical/crit in occupant.diseases)
@@ -599,12 +600,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			message += "<i>Это и есть моя смерть? Да, это она.</i>"
 			to_chat(occupant, span_warning("[message]"))
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
-		for(var/i in missing_organs)
-			qdel(i)
-		missing_organs.Cut()
+
+		for(var/organ in missing_organs)
+			qdel(organ)
+
+		LAZYCLEARLIST(missing_organs)
 		clonemind = null
-		spawn(40)
-			qdel(occupant)
+		QDEL_IN(occupant, 4 SECONDS)
 
 	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
 	mess = TRUE
@@ -651,10 +653,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
-	LAZYINITLIST(missing_organs)
-	for(var/i in missing_organs)
-		qdel(i)
-	missing_organs.Cut()
+	for(var/organ in missing_organs)
+		qdel(organ)
+
+	LAZYCLEARLIST(missing_organs)
 
 	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)
@@ -669,7 +671,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		// Make this support stuff that turns into items when removed
 		if(!QDELETED(thing))
 			thing.forceMove(src)
-			missing_organs += thing
+			LAZYADD(missing_organs, thing)
 
 	var/static/list/zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	for(var/zone in zones)
@@ -677,7 +679,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		var/atom/movable/thing = bodypart.remove(H)
 		if(!QDELETED(thing))
 			thing.forceMove(src)
-			missing_organs += thing
+			LAZYADD(missing_organs, thing)
 
 	organs_number = LAZYLEN(missing_organs)
 	H.updatehealth()

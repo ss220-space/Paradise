@@ -23,7 +23,7 @@
 		to_chat(user, span_warning("You need to be standing next to a wall to place \the [src]."))
 		return
 
-	if(gotwallitem(get_turf(user), get_dir(on_wall,user)))
+	if(check_wall_item(get_turf(user), get_dir(on_wall,user)))
 		to_chat(user, span_warning("There's already an item on this wall!"))
 		return
 

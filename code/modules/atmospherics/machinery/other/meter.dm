@@ -18,6 +18,11 @@
 
 /obj/machinery/atmospherics/meter/Initialize(mapload)
 	. = ..(mapload)
+
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/atmos_meter,
+	))
+
 	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
@@ -133,3 +138,44 @@
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
+
+/obj/item/circuit_component/atmos_meter
+	display_name = "Атмосферный измеритель"
+	desc = "Позволяет считывать давление и температуру в трубопроводе."
+
+	///Signals the circuit to retrieve the pipenet's current pressure and temperature
+	var/datum/port/input/request_data
+
+	///Pressure of the pipenet
+	var/datum/port/output/pressure
+	///Temperature of the pipenet
+	var/datum/port/output/temperature
+
+	///The component parent object
+	var/obj/machinery/atmospherics/meter/connected_meter
+
+/obj/item/circuit_component/atmos_meter/populate_ports()
+	request_data = add_input_port("Запрос данных счётчика", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_meter_data))
+
+	pressure = add_output_port("Давление", PORT_TYPE_NUMBER)
+	temperature = add_output_port("Температура", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/atmos_meter/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(!istype(shell, /obj/machinery/atmospherics/meter))
+		return
+
+	connected_meter = shell
+
+/obj/item/circuit_component/atmos_meter/unregister_usb_parent(atom/movable/shell)
+	connected_meter = null
+	return ..()
+
+/obj/item/circuit_component/atmos_meter/proc/request_meter_data()
+	CIRCUIT_TRIGGER
+	if(!connected_meter)
+		return
+
+	var/datum/gas_mixture/environment = connected_meter.target.return_air()
+	pressure.set_output(environment.return_pressure())
+	temperature.set_output(environment.temperature)

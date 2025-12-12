@@ -655,9 +655,7 @@
 	},
 /area/mine/laborcamp/security)
 "cb" = (
-/obj/machinery/light_switch{
-	pixel_y = 25
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/item/cigbutt,
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -4371,9 +4369,7 @@
 "uS" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
@@ -8869,9 +8865,7 @@
 /turf/simulated/wall,
 /area/mine/production)
 "ZU" = (
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "ZV" = (

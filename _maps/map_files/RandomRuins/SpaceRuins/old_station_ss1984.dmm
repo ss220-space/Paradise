@@ -63,7 +63,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "an" = (
 /obj/structure/flora/rock/lava3,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "ao" = (
 /turf/simulated/floor/plasteel/airless{
@@ -441,13 +441,11 @@
 /turf/template_noop,
 /area/template_noop)
 "bw" = (
-/turf/simulated/mineral/ancient,
+/turf/simulated/mineral/random,
 /area/ruin/space/ancientstation/cowasteroid)
 "by" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1235,7 +1233,7 @@
 	name = "Corral"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "ec" = (
 /obj/structure/chair/wood{
@@ -1264,7 +1262,7 @@
 /area/ruin/space/ancientstation/theta_proto)
 "ei" = (
 /obj/effect/decal/remains/xeno,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "ej" = (
 /obj/item/clothing/shoes/black,
@@ -2206,7 +2204,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "hO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2275,10 +2273,7 @@
 /area/template_noop)
 "hY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/item/flag/nt,
 /obj/machinery/alarm/old{
 	dir = 1;
@@ -2625,10 +2620,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -2783,7 +2775,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "jR" = (
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "jS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3024,10 +3016,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "kL" = (
@@ -3305,10 +3294,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -3622,9 +3608,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
-"my" = (
-/turf/simulated/mineral/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "mz" = (
 /obj/machinery/door/window{
 	dir = 1
@@ -3708,10 +3691,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/ore_box,
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/item/paintkit/firefighter_zairjah,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
@@ -3988,7 +3968,7 @@
 /area/template_noop)
 "nZ" = (
 /obj/structure/flora/ausbushes/grassybush,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "oa" = (
 /turf/simulated/floor/plasteel{
@@ -4167,7 +4147,7 @@
 /area/template_noop)
 "oF" = (
 /obj/structure/flora/ausbushes/grassybush,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "oI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4684,9 +4664,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -4713,10 +4691,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -4799,10 +4774,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "qE" = (
@@ -4949,10 +4921,7 @@
 /area/template_noop)
 "rf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_exit)
 "rh" = (
@@ -5133,7 +5102,7 @@
 /area/ruin/space/ancientstation/theta_storage)
 "rM" = (
 /mob/living/simple_animal/cow,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "rO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5145,10 +5114,7 @@
 "rS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "rU" = (
@@ -5277,7 +5243,7 @@
 "so" = (
 /obj/effect/decal/cleanable/blood/gibs/xeno,
 /obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "sp" = (
 /obj/item/mop,
@@ -5847,7 +5813,7 @@
 /area/ruin/space/ancientstation/theta_storage)
 "uw" = (
 /obj/structure/flora/rock,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "uy" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -6056,9 +6022,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "vj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -6233,9 +6197,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -6301,10 +6263,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -6361,7 +6320,7 @@
 /area/template_noop)
 "wh" = (
 /obj/effect/decal/ants,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "wi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6527,10 +6486,7 @@
 "wD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"
@@ -6584,10 +6540,7 @@
 /obj/structure/sink/kitchen{
 	pixel_y = 22
 	},
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -6679,9 +6632,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -7230,10 +7181,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "yT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -8000,10 +7948,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -8186,9 +8131,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/ancientstation/theta_rnd)
-"Cg" = (
-/turf/simulated/mineral/random,
-/area/ruin/space/ancientstation/cowasteroid)
 "Ch" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -8687,10 +8629,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "DW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
@@ -10123,10 +10062,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "Jc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"
@@ -10488,9 +10424,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
 "Kv" = (
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "Kw" = (
@@ -10741,14 +10675,12 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
 "Lr" = (
 /obj/structure/flora/rock/lava2,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "Ls" = (
 /obj/effect/decal/cleanable/dirt,
@@ -10940,10 +10872,7 @@
 "LZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10959,7 +10888,7 @@
 /area/template_noop)
 "Mb" = (
 /obj/structure/flora/rock/jungle,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "Me" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11736,10 +11665,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
 "OJ" = (
@@ -12231,10 +12157,7 @@
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "Qr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -12484,10 +12407,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -12509,7 +12429,7 @@
 /area/template_noop)
 "Rl" = (
 /obj/structure/flora/ausbushes/leafybush,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "Rm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12519,9 +12439,7 @@
 	name = "Camera";
 	pictures_left = 30
 	},
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secintel)
 "Ro" = (
@@ -12951,9 +12869,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
-"SY" = (
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/ancientstation/charlie_hydroroom)
 "Ta" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -13128,7 +13043,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "TY" = (
 /obj/effect/decal/cleanable/blood/gibs/xeno,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "TZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13137,9 +13052,7 @@
 	pixel_x = -1;
 	pixel_y = 9
 	},
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
@@ -13255,7 +13168,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "Uu" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/cowasteroid)
 "Uw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -13452,9 +13365,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/vault{
 	req_access = list(271)
@@ -13679,7 +13590,7 @@
 /obj/item/camera_assembly,
 /obj/structure/flora/ausbushes/leafybush,
 /obj/effect/decal/straw/light,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "Wi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14356,10 +14267,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "Zc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_y = -26;
-	dir = 1
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -18993,15 +18901,15 @@ ZE
 ZE
 ZE
 ZE
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
 WD
 WD
 WD
@@ -19115,15 +19023,15 @@ aM
 zg
 FL
 hx
-Cg
-Cg
 bw
 bw
 bw
 bw
-Cg
-Cg
-Cg
+bw
+bw
+bw
+bw
+bw
 WT
 WT
 WD
@@ -19244,8 +19152,8 @@ so
 Rl
 bw
 bw
-Cg
-Cg
+bw
+bw
 WT
 WD
 WD
@@ -19358,7 +19266,7 @@ ZE
 Sp
 pP
 ru
-my
+hx
 Mb
 CU
 Uu
@@ -19367,7 +19275,7 @@ ei
 jR
 bw
 bw
-Cg
+bw
 WT
 WT
 WD
@@ -19477,7 +19385,7 @@ zN
 zm
 zN
 eb
-SY
+zN
 uw
 nZ
 wz
@@ -19602,7 +19510,7 @@ ZE
 hL
 wh
 Wg
-SY
+zN
 rM
 jR
 jR
@@ -19724,7 +19632,7 @@ ZE
 Sp
 Sp
 iU
-my
+hx
 bw
 bw
 jR
@@ -19847,15 +19755,15 @@ bn
 bn
 bn
 hx
-Cg
+bw
 mp
 bw
 Uu
 Lr
 bw
 bw
-Cg
-Cg
+bw
+bw
 WT
 WT
 WD
@@ -19969,15 +19877,15 @@ xU
 wz
 bn
 ZE
-Cg
-Cg
+bw
+bw
 mp
 bw
 bw
 mp
 mp
-Cg
-Cg
+bw
+bw
 WD
 WD
 WD
@@ -20091,15 +19999,15 @@ ZE
 ZE
 ZE
 ZE
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
+bw
 WT
 WD
 WD

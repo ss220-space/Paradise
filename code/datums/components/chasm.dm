@@ -139,7 +139,7 @@
 			if(dropped_living.incorporeal_move)
 				return CHASM_NOT_DROPPING
 			if(ishuman(dropped_mob))
-				var/obj/item/wormhole_jaunter/jaunter = locate() in dropped_mob.GetAllContents()
+				var/obj/item/wormhole_jaunter/jaunter = locate() in dropped_mob.get_all_contents()
 				if(jaunter)
 					var/turf/chasm = get_turf(dropped_mob)
 					var/fall_into_chasm = jaunter.chasm_react(dropped_mob)

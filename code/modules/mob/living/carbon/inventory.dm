@@ -390,6 +390,43 @@
 	if(head)
 		. |= ITEM_SLOT_HEAD
 
+// Returns items which are currently visible on the mob
+/mob/living/carbon/proc/get_visible_items()
+	var/static/list/visible_slots = list(
+		ITEM_SLOT_GLOVES,
+		ITEM_SLOT_EYES,
+		ITEM_SLOT_EARS,
+		ITEM_SLOT_MASK,
+		ITEM_SLOT_HEAD,
+		ITEM_SLOT_FEET,
+		ITEM_SLOT_ID,
+		ITEM_SLOT_PDA,
+		ITEM_SLOT_BELT,
+		ITEM_SLOT_BACK,
+		ITEM_SLOT_NECK,
+		ITEM_SLOT_HANDS,
+		ITEM_SLOT_BACKPACK,
+		ITEM_SLOT_SUITSTORE,
+		ITEM_SLOT_HANDCUFFED,
+		ITEM_SLOT_LEGCUFFED,
+	)
+	var/list/obscured = check_obscured_slots()
+	var/list/visible_items = list()
+
+	for(var/slot in visible_slots)
+		if(obscured & slot)
+			continue
+
+		var/obj/item/equipped = get_item_by_slot(slot)
+
+		if(equipped)
+			visible_items += equipped
+
+	for(var/obj/item/held in get_equipped_items(INCLUDE_HELD))
+		visible_items += held
+
+	return visible_items
+
 /mob/living/carbon/update_equipment_speed_mods()
 	. = ..()
 	update_limbless_slowdown()	// in case we get crutches

@@ -32,16 +32,6 @@
 			bound_width = ICON_SIZE_X
 			bound_height = width * ICON_SIZE_Y
 
-/obj/structure/grille/fence/east_west
-	//width=80
-	//height=42
-	icon='icons/obj/fence-ew.dmi'
-
-/obj/structure/grille/fence/north_south
-	//width=80
-	//height=42
-	icon='icons/obj/fence-ns.dmi'
-
 /obj/structure/grille/examine(mob/user)
 	. = ..()
 	if(anchored)

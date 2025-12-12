@@ -141,7 +141,7 @@
 /obj/item/card/id/security/clown
 	name = "Security-Clown ID"
 	registered_name = "Officer Clown"
-	icon_state = "security_clown"
+	icon_state = "clownsecurity"
 	desc = "Смотря на эту карту, вы понимаете что Центральное командование обладает специфичным чувством юмора."
 	access = list(ACCESS_SECURITY, ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 

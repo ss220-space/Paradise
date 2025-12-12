@@ -248,6 +248,7 @@
 #define BLIND_LAYER 30.3
 #define CRIT_LAYER 30.4
 #define CURSE_LAYER 30.5
+#define BLOODY_SCREEN_LAYER 30.6
 
 #define HUD_LAYER 31
 #define BUILDMOD_LAYER 31.1
@@ -255,3 +256,8 @@
 
 #define SPLASHSCREEN_LAYER 33
 
+//-------------------- Radial ---------------------
+
+#define RADIAL_BACKGROUND_LAYER 0
+///1000 is an unimportant number, it's just to normalize copied layers
+#define RADIAL_CONTENT_LAYER 1000

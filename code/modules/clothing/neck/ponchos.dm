@@ -124,7 +124,7 @@
 /obj/item/clothing/neck/poncho/ponchoshame
 	name = "poncho of shame"
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
-	icon_state = "shameponcho"
+	icon_state = "ponchoshame"
 	item_color = "shame"
 	undyeable = TRUE
 

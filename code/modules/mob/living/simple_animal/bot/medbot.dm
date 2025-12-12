@@ -159,7 +159,7 @@
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
-	var/datum/job/doctor/J = new /datum/job/doctor
+	var/datum/job/medical/doctor/J = new /datum/job/medical/doctor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 	qdel(J)
@@ -426,7 +426,7 @@
 		return
 
 	for(var/datum/disease/D as anything in C.diseases)
-		if(!(D.visibility_flags & HIDDEN_HUD) && D.discovered && D.severity != NONTHREAT)
+		if(!(D.visibility_flags & HIDDEN_HUD) && D.discovered && D.severity != DISEASE_SEVERITY_POSITIVE)
 			return TRUE //Medbots see viruses if they displayed on HUD, ignoring safe viruses
 
 /mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)
