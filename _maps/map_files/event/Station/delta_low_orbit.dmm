@@ -8016,16 +8016,6 @@
 	icon_state = "whiteredcorner"
 	},
 /area/security/medbay)
-"buR" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/window/brigdoor/southright{
-	dir = 8;
-	req_access = list(17,75)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/aisat/aihallway)
 "buY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet/royalblack,
@@ -26734,14 +26724,6 @@
 	icon_state = "purple"
 	},
 /area/assembly/chargebay)
-"eNL" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/aisat/aihallway)
 "eNR" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 9
@@ -134441,18 +134423,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/restroom)
-"xZH" = (
-/obj/machinery/light{
-	dir = 4;
-	pixel_x = -6
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/aisat/aihallway)
 "xZI" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -280096,13 +280066,13 @@ bgB
 mIQ
 kCQ
 kCQ
-eNL
-buR
-eNL
-xZH
-eNL
-eNL
-vtM
+bgB
+hBj
+bgB
+uQw
+bgB
+bgB
+qLA
 fpk
 fpk
 rww
