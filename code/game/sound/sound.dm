@@ -41,30 +41,39 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	var/maxdistance = SOUND_RANGE + extrarange
 	var/source_z = turf_source.z
 
-	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
+	if(vary && !frequency)
+		frequency = get_rand_frequency() // skips us having to do it per-sound later. should just make this a macro tbh
+
+	var/list/listeners
+	var/turf/above_turf = GET_TURF_ABOVE(turf_source)
+	var/turf/below_turf = GET_TURF_BELOW(turf_source)
 	var/audible_distance = CALCULATE_MAX_SOUND_AUDIBLE_DISTANCE(vol, maxdistance, falloff_distance, falloff_exponent)
 
-	if(!ignore_walls) // these sounds don't carry through walls
-		listeners = listeners & hearers(audible_distance, turf_source)
+	if(ignore_walls)
+		listeners = get_hearers_in_range(audible_distance, turf_source, RECURSIVE_CONTENTS_CLIENT_MOBS)
+		if(above_turf && istransparentturf(above_turf))
+			listeners += get_hearers_in_range(audible_distance, above_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
 
-	else
-		var/turf/above_turf = GET_TURF_ABOVE(turf_source)
+		if(below_turf && istransparentturf(turf_source))
+			listeners += get_hearers_in_range(audible_distance, below_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
 
-		if(above_turf?.transparent_floor)
-			listeners += SSmobs.clients_by_zlevel[above_turf.z]
+	else //these sounds don't carry through walls
+		listeners = get_hearers_in_view(audible_distance, turf_source, RECURSIVE_CONTENTS_CLIENT_MOBS)
 
-		var/turf/below_turf = GET_TURF_BELOW(turf_source)
+		if(above_turf && istransparentturf(above_turf))
+			listeners += get_hearers_in_view(audible_distance, above_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
 
-		if(below_turf?.transparent_floor)
-			listeners += SSmobs.clients_by_zlevel[below_turf.z]
+		if(below_turf && istransparentturf(turf_source))
+			listeners += get_hearers_in_view(audible_distance, below_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
 
-	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z]) // observers always hear through walls
-		if(!listening_mob.client)
-			continue
+		for(var/mob/listening_ghost as anything in SSmobs.dead_players_by_zlevel[source_z])
+			if(get_dist(listening_ghost, turf_source) <= audible_distance)
+				listeners += listening_ghost
 
-		if(get_dist(listening_mob, turf_source) <= audible_distance)
-			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb)
+	for(var/mob/listening_mob in listeners)//had nulls sneak in here, hence the typecheck
+		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb)
 
+	return listeners
 /**
  * Plays a sound with a specific point of origin for src mob
  * Affected by pressure, distance, terrain and environment (see arguments)
@@ -78,31 +87,30 @@ GLOBAL_LIST_EMPTY(cached_songs)
  * * falloff_exponent - Rate of falloff for the audio. Higher means quicker drop to low volume. Should generally be over 1 to indicate a quick dive to 0 rather than a slow dive.
  * * channel - Optional: The channel the sound is played at.
  * * pressure_affected - bool Whether or not difference in pressure affects the sound (E.g. if you can hear in space).
- * * sound - Optional: Will default to soundin when absent
+ * * sound_to_use - Optional: Will default to soundin when absent
  * * max_distance - number, determines the maximum distance of our sound
  * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
  * * distance_multiplier - Default 1, multiplies the maximum distance of our sound
  * * use_reverb - bool default TRUE, determines if our sound has reverb
  */
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
 	if(!client || !can_hear())
 		return
 
-	if(!sound)
-		sound = sound(get_sfx(soundin))
+	if(!sound_to_use)
+		sound_to_use = sound(get_sfx(soundin))
 
-	sound.wait = wait
-	sound.channel = channel || SSsounds.random_available_channel()
-	sound.volume = vol
-	//sound.environment = SOUND_ENVIRONMENT_NONE
+	sound_to_use.wait = wait
+	sound_to_use.channel = channel || SSsounds.random_available_channel()
+	sound_to_use.volume = vol
 
 	if(vary)
 		if(islist(vary)) // ???
-			sound.frequency = rand(vary[1], vary[2])
+			sound_to_use.frequency = rand(vary[1], vary[2])
 		else if(frequency)
-			sound.frequency = frequency
+			sound_to_use.frequency = frequency
 		else
-			sound.frequency = get_rand_frequency()
+			sound_to_use.frequency = get_rand_frequency()
 
 	var/distance = 0
 
@@ -113,7 +121,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 		distance = get_dist(turf_loc, turf_source) * distance_multiplier
 
 		if(max_distance) // If theres no max_distance we're not a 3D sound, so no falloff.
-			sound.volume -= CALCULATE_SOUND_VOLUME(vol, distance, max_distance, falloff_distance, falloff_exponent)
+			sound_to_use.volume -= CALCULATE_SOUND_VOLUME(vol, distance, max_distance, falloff_distance, falloff_exponent)
 
 		if(pressure_affected)
 			//Atmosphere affects sound
@@ -131,69 +139,59 @@ GLOBAL_LIST_EMPTY(cached_songs)
 			if(distance <= 1)
 				pressure_factor = max(pressure_factor, 0.15) //touching the source of the sound
 
-			sound.volume *= pressure_factor
+			sound_to_use.volume *= pressure_factor
 			//End Atmosphere affecting sound
 
-		if(sound.volume <= SOUND_AUDIBLE_VOLUME_MIN)
+		if(sound_to_use.volume <= SOUND_AUDIBLE_VOLUME_MIN)
 			return // No sound
 
 		var/dx = turf_source.x - turf_loc.x // Hearing from the right/left
-		sound.x = dx * distance_multiplier
+		sound_to_use.x = dx * distance_multiplier
 		var/dz = turf_source.y - turf_loc.y // Hearing from infront/behind
-		sound.z = dz * distance_multiplier
+		sound_to_use.z = dz * distance_multiplier
 		var/dy = (turf_source.z - turf_loc.z) * 5 * distance_multiplier // Hearing from  above / below, multiplied by 5 because we assume height is further along coords.
-		sound.y = dy
+		sound_to_use.y = dy
 
-		sound.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
+		sound_to_use.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
-		// Sounds can't have their own environment. A sound'sound environment will be:
+		// Sounds can't have their own environment. A sound's environment will be:
 		// 1. the mob's
 		// 2. the area's (defaults to SOUND_ENVRIONMENT_NONE)
 		if(sound_environment_override != SOUND_ENVIRONMENT_NONE)
-			sound.environment = sound_environment_override
+			sound_to_use.environment = sound_environment_override
 		else
 			var/area/area = get_area(src)
-			sound.environment = area.sound_environment
+			sound_to_use.environment = area.sound_environment
 
-		// I really don't understand why we have a function to turn off the reverberation of sounds and who the fuck might need it.
-		// A person would rather turn off ambient, etc., than turn off reverberation. It's garbage.
-		// I've commented it out in case there's a psycho who needs it. – LittleBoobs
-		//if(!(client?.prefs?.toggles2 & PREFTOGGLE_2_REVERB_DISABLE))
+		if(!use_reverb || sound_to_use.environment == SOUND_ENVIRONMENT_NONE)
+			sound_to_use.echo ||= new /list(18)
+			sound_to_use.echo[3] = -10000
+			sound_to_use.echo[4] = -10000
 
-		if(!use_reverb || sound.environment == SOUND_ENVIRONMENT_NONE)
-			sound.echo ||= new /list(18)
-			sound.echo[3] = -10000
-			sound.echo[4] = -10000
-
-	sound.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
+	sound_to_use.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
 	if(channel)
-		sound.volume *= USER_VOLUME(src, channel)
+		sound_to_use.volume *= USER_VOLUME(src, channel)
 
-	SEND_SOUND(src, sound)
-	return sound
+	SEND_SOUND(src, sound_to_use)
 
+/proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/sound_to_use)
+	if(!sound_to_use)
+		sound_to_use = sound(get_sfx(soundin))
 
-/proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/sound)
-	if(!sound)
-		sound = sound(get_sfx(soundin))
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(!isnewplayer(mob) && is_station_level(mob.z))
+			mob.playsound_local(mob, null, volume, vary, frequency, null, channel, pressure_affected, sound_to_use)
 
-	for(var/mob/m as anything in GLOB.player_list)
-		if(!isnewplayer(m) && is_station_level(m.z))
-			m.playsound_local(m, null, volume, vary, frequency, null, channel, pressure_affected, sound)
+/proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/sound_to_use)
+	if(!sound_to_use)
+		sound_to_use = sound(get_sfx(soundin))
 
-
-/proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/sound)
-	if(!sound)
-		sound = sound(get_sfx(soundin))
-
-	for(var/mob/mob in GLOB.player_list)
+	for(var/mob/mob as anything in GLOB.player_list)
 		if(!isnewplayer(mob))
-			mob.playsound_local(mob, null, volume, vary, frequency, null, channel, pressure_affected, sound)
-
+			mob.playsound_local(mob, null, volume, vary, frequency, null, channel, pressure_affected, sound_to_use)
 
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
-
 
 /mob/proc/set_sound_channel_volume(channel, volume)
 	var/sound/sound = sound(null, FALSE, FALSE, channel, volume)
@@ -215,7 +213,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 
 	var/url = SSticker.login_music_data["url"]
 	switch(CONFIG_GET(string/asset_transport))
-		if ("webroot")
+		if(ASSET_TRANSPORT_WEBROOT)
 			var/datum/asset/music/my_asset
 			var/filepath = SSticker.login_music_data["path"]
 			if(GLOB.cached_songs[filepath])

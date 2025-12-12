@@ -1,10 +1,7 @@
 /obj/item/paper/carbon
-	name = "paper"
 	icon_state = "paper_stack"
-	item_state = "paper"
 	var/copied = 0
 	var/iscopy = 0
-
 
 /obj/item/paper/carbon/update_icon_state()
 	if(iscopy)
@@ -22,7 +19,6 @@
 			icon_state = "paper_stack_words"
 			return
 		icon_state = "paper_stack"
-
 
 /obj/item/paper/carbon/verb/removecopy()
 	set name = "Удалить копию"
@@ -43,7 +39,7 @@
 		copy.name = "Copy - " + c.name
 		copy.fields = c.fields
 		copy.updateinfolinks()
-		to_chat(usr, "<span class='notice'>You tear off the carbon-copy!</span>")
+		to_chat(usr, span_notice("You tear off the carbon-copy!"))
 		c.copied = 1
 		copy.iscopy = 1
 		copy.update_icon()

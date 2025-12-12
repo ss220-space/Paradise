@@ -1,10 +1,6 @@
 // CAMERA NET
-//
 // The datum containing all the chunks.
 
-#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
-/// Takes a position, transforms it into a chunk bounded position. Indexes at 1 so it'll land on actual turfs always
-#define GET_CHUNK_COORD(v) (max((FLOOR(v, CHUNK_SIZE)), 1))
 GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 /datum/cameranet
@@ -68,7 +64,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	else
 		other_eyes = list()
 
-
 	for(var/mob/camera/aiEye/eye as anything in moved_eyes)
 		var/list/visibleChunks = list()
 		// 0xf = 15
@@ -79,7 +74,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 			var/y1 = max(1, eye_turf.y - static_range)
 			var/x2 = min(world.maxx, eye_turf.x + static_range)
 			var/y2 = min(world.maxy, eye_turf.y + static_range)
-
 
 			for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 				for(var/y = y1; y <= y2; y += CHUNK_SIZE)
@@ -103,7 +97,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 /datum/cameranet/proc/updateChunk(x, y, z)
 	var/datum/camerachunk/chunk = chunkGenerated(x, y, z)
-	if (!chunk)
+	if(!chunk)
 		return
 	chunk.hasChanged()
 
@@ -133,7 +127,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 // Setting the choice to 0 will remove the camera from the chunks.
 // If you want to update the chunks around an object, without adding/removing a camera, use choice 2.
 
-/datum/cameranet/proc/majorChunkChange(atom/c, var/choice)
+/datum/cameranet/proc/majorChunkChange(atom/c, choice)
 	if(QDELETED(c) && choice == 1)
 		CRASH("Tried to add a qdeleting camera to the net")
 
@@ -178,7 +172,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	var/turf/position = get_turf(target)
 	return checkTurfVis(position)
 
-/datum/cameranet/proc/checkTurfVis(var/turf/position)
+/datum/cameranet/proc/checkTurfVis(turf/position)
 	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z)
 	if(chunk)
 		if(chunk.changed)
@@ -186,3 +180,61 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 		if(chunk.visibleTurfs[position])
 			return TRUE
 	return FALSE
+
+/// Returns list of available cameras, ready to use for UIs displaying list of them
+/// The format is: list("name" = "camera.c_tag", x = camera.x, y = camera.y, z = camera.z, ref = camera.UID(), status = camera.status)
+/datum/cameranet/proc/get_available_cameras_data(list/networks_available, list/z_levels_available)
+	var/list/available_cameras_data = list()
+	for(var/obj/machinery/camera/camera as anything in get_filtered_and_sorted_cameras(networks_available, z_levels_available))
+		available_cameras_data += list(list(
+			name = camera.c_tag,
+			x = camera.x,
+			y = camera.y,
+			z = camera.z,
+			ref = camera.UID(),
+			status = camera.status
+		))
+
+	return available_cameras_data
+
+/**
+ * get_available_camera_by_tag_list
+ *
+ * Builds a list of all available cameras that can be seen to networks_available and in z_levels_available.
+ * Entries are stored in `c_tag[camera.can_use() ? null : " (Deactivated)"]` => `camera` format
+ * Args:
+ *  networks_available - List of networks that we use to see which cameras are visible to it.
+ *  z_levels_available - List of z levels to filter camera by. If empty, all z levels are considered valid.
+ *  sort_by_ctag - If the resulting list should be sorted by `c_tag`.
+ */
+/datum/cameranet/proc/get_available_camera_by_tag_list(list/networks_available, list/z_levels_available)
+	var/list/available_cameras_by_tag = list()
+	for(var/obj/machinery/camera/camera as anything in get_filtered_and_sorted_cameras(networks_available, z_levels_available))
+		available_cameras_by_tag["[camera.c_tag][camera.can_use() ? null : " (Deactivated)"]"] = camera
+
+	return available_cameras_by_tag
+
+/// Returns list of all cameras that passed `is_camera_available` filter and sorted by `cmp_camera_ctag_asc`
+/datum/cameranet/proc/get_filtered_and_sorted_cameras(list/networks_available, list/z_levels_available)
+	PRIVATE_PROC(TRUE)
+
+	var/list/filtered_cameras = list()
+	for(var/obj/machinery/camera/camera as anything in cameras)
+		if(!is_camera_available(camera, networks_available, z_levels_available))
+			continue
+
+		filtered_cameras += camera
+
+	return sortTim(filtered_cameras, GLOBAL_PROC_REF(cmp_camera_ctag_asc))
+
+/// Checks if the `camera_to_check` meets the requirements of availability.
+/datum/cameranet/proc/is_camera_available(obj/machinery/camera/camera_to_check, list/networks_available, list/z_levels_available)
+	PRIVATE_PROC(TRUE)
+
+	if(!camera_to_check.c_tag)
+		return FALSE
+
+	if(length(z_levels_available) && !(camera_to_check.z in z_levels_available))
+		return FALSE
+
+	return length(camera_to_check.network & networks_available) > 0

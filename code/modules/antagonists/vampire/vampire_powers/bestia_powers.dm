@@ -5,31 +5,30 @@
 \*======================================================================================================================================*/
 
 /// Max general organs vampire can get
-#define MAX_TROPHIES_PER_TYPE_GENERAL	10
+#define MAX_TROPHIES_PER_TYPE_GENERAL 10
 /// Max critical organs (lungs and heart) vampire can get
-#define MAX_TROPHIES_PER_TYPE_CRITICAL	6
+#define MAX_TROPHIES_PER_TYPE_CRITICAL 6
 
 /// Percent cap for different damage modifiers.
-#define TROPHIES_CAP_PROT_BRUTE			40
-#define TROPHIES_CAP_PROT_BURN			40
-#define TROPHIES_CAP_PROT_OXY			40
-#define TROPHIES_CAP_PROT_TOX			40
-#define TROPHIES_CAP_PROT_BRAIN			40
-#define TROPHIES_CAP_PROT_CLONE			40
-#define TROPHIES_CAP_PROT_STAMINA		40
+#define TROPHIES_CAP_PROT_BRUTE 40
+#define TROPHIES_CAP_PROT_BURN 40
+#define TROPHIES_CAP_PROT_OXY 40
+#define TROPHIES_CAP_PROT_TOX 40
+#define TROPHIES_CAP_PROT_BRAIN 40
+#define TROPHIES_CAP_PROT_CLONE 40
+#define TROPHIES_CAP_PROT_STAMINA 40
 
 /// Max blood cost reduce for spell.
-#define TROPHIES_CAP_BLOOD_REDUCE		20
+#define TROPHIES_CAP_BLOOD_REDUCE 20
 
 /// Amount of trophies required for certain passives.
-#define TROPHIES_EYES_FLASH				2
-#define TROPHIES_EYES_WELDING			4
-#define TROPHIES_EYES_XRAY				8
-#define TROPHIES_EARS_BANG_PROT			4
+#define TROPHIES_EYES_FLASH 2
+#define TROPHIES_EYES_WELDING 4
+#define TROPHIES_EYES_XRAY 8
+#define TROPHIES_EARS_BANG_PROT 4
 
 /// Suck rate increase per trophy.
-#define TROPHIES_SUCK_BONUS		0.2 SECONDS
-
+#define TROPHIES_SUCK_BONUS (0.2 SECONDS)
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -46,7 +45,6 @@
 		return .
 
 	. = vampire.damage_modifiers[damage_type]
-
 
 /datum/antagonist/vampire/proc/get_trophies(trophie_type)
 	var/datum/vampire_subclass/bestia = subclass
@@ -71,7 +69,6 @@
 			return bestia.trophies[INTERNAL_ORGAN_EARS]
 		else
 			stack_trace("Invalid trophie type!")
-
 
 /datum/antagonist/vampire/proc/adjust_trophies(trophie_type, amount)
 	var/datum/vampire_subclass/bestia = subclass
@@ -160,9 +157,8 @@
 		for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 			spell.on_trophie_update(src, trophie_type)
 
-
 /obj/effect/proc_holder/spell/vampire/proc/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-
+	return
 
 /obj/effect/proc_holder/spell/vampire/proc/do_blood_discount(datum/antagonist/vampire/vampire)
 	var/livers_amount = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
@@ -174,7 +170,6 @@
 	update_vampire_spell_name()
 	if(blood_cost_init - TROPHIES_CAP_BLOOD_REDUCE < 0)
 		stack_trace("Bestia Vampire spell [src] has initial cost below [TROPHIES_CAP_BLOOD_REDUCE]!")
-
 
 /proc/is_vampire_compatible(mob/living/victim, include_dead = FALSE, only_human = FALSE, include_IPC = FALSE, blood_required = FALSE)
 	if(!istype(victim))
@@ -190,7 +185,6 @@
 	if(issilicon(victim) || isbot(victim) || isswarmer(victim) || isguardian(victim))
 		return FALSE
 	return TRUE
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -213,21 +207,17 @@
 	if(t_eyes >= TROPHIES_EYES_XRAY)
 		add_ability(/datum/vampire_passive/xray)
 
-
 /datum/vampire_passive/ears_bang_protection
 	gain_desc = "Ваши барабанные перепонки стали прочнее. Вы можете не обращать внимания на высокочастотные звуки."
-
 
 /datum/vampire_passive/eyes_flash_protection
 	gain_desc = "Роговицы ваших глаз адаптировались к ярким вспышкам."
 
-
 /datum/vampire_passive/eyes_welding_protection
-	gain_desc = "Ваши глаза напитались силой собранных трофеев - теперь они невосприимчивы к воздействию яркого света."
-
+	gain_desc = "Ваши глаза напитались силой собранных трофеев — теперь они невосприимчивы к воздействию яркого света."
 
 /datum/vampire_passive/upgraded_grab
-	gain_desc = "Ваши мышцы наполняются силой поглощённой крови - жертвам будет труднее вырваться из захвата."
+	gain_desc = "Ваши мышцы наполняются силой поглощённой крови — жертвам будет труднее вырваться из захвата."
 	/// Time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
 	var/grab_speed = 2 SECONDS
 	/// Resist chance overrides for the victim.
@@ -237,7 +227,6 @@
 		MARTIAL_GRAB_KILL = 5,
 	)
 
-
 /datum/antagonist/vampire/proc/grab_act(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/old_grab_state = user.grab_state
 	var/grab_success = target.grabbedby(user, supress_message = TRUE)
@@ -246,15 +235,12 @@
 		add_attack_logs(user, target, "Melee attacked with vampire upgraded grab: aggressively grabbed", ATKLOG_ALL)
 	return TRUE
 
-
 /datum/vampire_passive/dissection_cap/on_apply(datum/antagonist/vampire/vampire)
 	vampire.subclass.dissect_cap++
 	vampire.subclass.crit_organ_cap += 2
 	gain_desc = "Теперь вы можете извлекать ещё один орган у одной и той же жертвы, но не более чем <b>[vampire.subclass.dissect_cap]</b>. Помимо того, новый предел для извлечения критических органов - <b>[vampire.subclass.crit_organ_cap]</b>."
 
-
 /datum/vampire_passive/dissection_cap/two
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -280,7 +266,6 @@
 		INTERNAL_ORGAN_EARS,
 	)
 
-
 /obj/effect/proc_holder/spell/vampire/self/dissect/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	. = ..()
 	if(!.)
@@ -290,7 +275,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/vampire/self/dissect/proc/special_check(mob/living/user, show_message, ignore_dissect = FALSE)
 	if(is_dissecting && !ignore_dissect)
@@ -323,7 +307,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/vampire/self/dissect/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = user.pulling
@@ -378,11 +361,11 @@
 				to_chat(user, span_notice("Эта жертва вам подойдёт. Стойте неподвижно..."))
 
 			if(2)
-				user.visible_message(span_warning("[user] выпуска[pluralize_ru(user.gender, "ет", "ют")] когти из пальцев!"), \
+				user.visible_message(span_warning("[user] выпуска[PLUR_ET_YUT(user)] когти из пальцев!"), \
 									span_notice("Вы вытягиваете из пальцев когти."))
 
 			if(3)
-				user.visible_message(span_danger("[user] пронза[pluralize_ru(user.gender, "ет", "ют")] когтями [target]!"), \
+				user.visible_message(span_danger("[user] пронза[PLUR_ET_YUT(user)] когтями [target]!"), \
 									span_notice("Вы пронзаете [target] когтями и начинаете процесс вскрытия..."))
 				to_chat(target, span_danger("Вы чувствуете острую колющую боль!"))
 				target.take_overall_damage(30)
@@ -400,7 +383,7 @@
 		return
 
 	if(target.stat == DEAD)	// grip was too strong mr. vampire
-		to_chat(user, span_warning("[target] [genderize_ru(target, "мёртв", "мертва", "мертво", "мертвы")] и больше не [genderize_ru(target, "пригоден", "пригодна", "пригодно", "пригодны")] для вскрытия."))
+		to_chat(user, span_warning("[target] мертв[GEND_A_O_Y(target)] и больше не пригод[GEND_EN_NA_NO_NY(target)] для вскрытия."))
 		return
 
 	var/datum/spell_handler/vampire/handler = custom_handler
@@ -452,10 +435,9 @@
 	if(msg)
 		to_chat(user, span_warning("Мы достигли максимально возможного количества <b>[msg]</b> для сбора!"))
 
-	user.visible_message(span_danger("[user] вырыва[pluralize_ru(user, "ет", "ют")] [organ_name] из тела [target]!"),
+	user.visible_message(span_danger("[user] вырыва[PLUR_ET_YUT(user)] [organ_name] из тела [target]!"),
 						span_notice("Вы вырываете <b>[organ_name]</b> из тела [target]."))
 	add_attack_logs(user, target, "Vampire removed [organ_name]. Skill: [src]")
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -472,14 +454,12 @@
 	create_attack_logs = FALSE
 	base_cooldown = 1 SECONDS
 
-
 /obj/effect/proc_holder/spell/vampire/self/dissect_info/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.stat == DEAD)
 		if(show_message)
 			balloon_alert(user, "вы мертвы!")
 		return FALSE
 	return ..()
-
 
 /obj/effect/proc_holder/spell/vampire/self/dissect_info/cast(list/targets, mob/user = usr)
 	ui_interact(user)
@@ -493,7 +473,6 @@
 		ui = new(user, src, "VampireTrophiesStatus", "Посмотреть трофеи")
 		ui.set_autoupdate(FALSE)
 		ui.open()
-
 
 /obj/effect/proc_holder/spell/vampire/self/dissect_info/ui_static_data(mob/user)
 	var/list/data = list()
@@ -536,7 +515,6 @@
 
 	return data
 
-
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
  * ------------------------------------------------------INFECTED TROPHY---------------------------------------------------------------- *
@@ -547,10 +525,8 @@
 	desc = "Призывает деформированный череп, заражающий жертву могильной лихорадкой. Чем больше трофеев вы собрали, тем сильнее будут эффекты."
 	gain_desc = "Теперь вы можете заражать жертв могильной лихорадкой. Чем больше вы собрали трофеев, тем сильнее будут эффекты."
 	action_icon_state = "infected_trophy"
-	base_cooldown = 10 SECONDS
 	required_blood = 30
 	deduct_blood_on_cast = FALSE
-
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated(INC_IGNORE_GRABBED))
@@ -558,7 +534,6 @@
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
 	return ..()
-
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/cast(list/targets, mob/living/user = usr)
 	if(user.get_active_hand())
@@ -569,11 +544,9 @@
 	var/obj/item/gun/magic/skull_gun/skull_gun = new(null, src)
 	user.put_in_active_hand(skull_gun)
 
-
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /**
  * SKULL GUN!
@@ -585,7 +558,6 @@
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
 	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
-	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/effects/pierce.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/skull_gun_casing
 	force = 0
@@ -604,33 +576,30 @@
 		DATIVE = "заражённому черепу",
 		ACCUSATIVE = "заражённый череп",
 		INSTRUMENTAL = "заражённым черепом",
-		PREPOSITIONAL = "заражённом черепе"
+		PREPOSITIONAL = "заражённом черепе",
 	)
 
 /obj/item/gun/magic/skull_gun/Initialize(mapload, spell)
 	. = ..()
 	parent_spell = spell
 
-
 /obj/item/gun/magic/skull_gun/Destroy()
 	parent_spell = null
 	return ..()
-
 
 /obj/item/gun/magic/skull_gun/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	parent_spell?.revert_cast()
 	qdel(src)
 
-
 /obj/item/gun/magic/skull_gun/run_drop_held_item(mob/user)
 	parent_spell?.revert_cast()
 	qdel(src)
 
-
 /obj/item/ammo_casing/magic/skull_gun_casing
 	name = "skull gun casing"
 	desc = "Что это за..."
-	icon_state = "skulls"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "ashen_skull"
 	projectile_type = /obj/projectile/skull_projectile
 	muzzle_flash_effect = null
 	caliber = "skulls"
@@ -642,7 +611,7 @@
 		DATIVE = "гильзе для черепного пистолета",
 		ACCUSATIVE = "гильзу для черепного пистолета",
 		INSTRUMENTAL = "гильзой для черепного пистолета",
-		PREPOSITIONAL = "гильзе для черепного пистолета"
+		PREPOSITIONAL = "гильзе для черепного пистолета",
 	)
 
 /obj/projectile/skull_projectile
@@ -654,7 +623,6 @@
 	range = 5
 	damage = 5
 	armour_penetration = 100
-	damage_type = BRUTE
 	hitsound = null
 
 /obj/projectile/skull_projectile/get_ru_names()
@@ -664,9 +632,8 @@
 		DATIVE = "заражённому черепу",
 		ACCUSATIVE = "заражённый череп",
 		INSTRUMENTAL = "заражённым черепом",
-		PREPOSITIONAL = "заражённом черепе"
+		PREPOSITIONAL = "заражённом черепе",
 	)
-
 
 /obj/projectile/skull_projectile/Destroy()
 	var/obj/item/gun/magic/skull_gun/skull_gun = locate() in firer
@@ -674,7 +641,6 @@
 		qdel(skull_gun)
 	QDEL_NULL(chain)
 	return ..()
-
 
 /obj/projectile/skull_projectile/fire(setAngle)
 	if(firer)
@@ -689,7 +655,6 @@
 			vampire.bloodusable -= blood_cost
 
 	return ..()
-
 
 /obj/projectile/skull_projectile/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
@@ -723,7 +688,6 @@
 			var/datum/disease/vampire/D = new
 			D.Contract(victim)	// grave fever
 
-
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
  * -----------------------------------------------------------LUNGE--------------------------------------------------------------------- *
@@ -742,13 +706,11 @@
 	var/blood_victim_lose = 0
 	var/effect_aoe = 0
 
-
 /obj/effect/proc_holder/spell/vampire/lunge/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/T = new()
 	var/new_range = 5 + bonus_range
 	T.range = new_range
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/lunge/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || user.buckled || (iscarbon(user) && user.legcuffed))
@@ -756,7 +718,6 @@
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
 	return ..()
-
 
 /obj/effect/proc_holder/spell/vampire/lunge/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1]
@@ -766,7 +727,7 @@
 	user.buckled?.unbuckle_mob(user, TRUE)
 	user.pulledby?.stop_pulling()
 
-	user.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] двигаться с неестественной скоростью!"), \
+	user.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] двигаться с неестественной скоростью!"), \
 						span_notice("Вы бросаетесь в сторону..."))
 
 	var/leap_range = targeting.range
@@ -869,8 +830,7 @@
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
 	if(blood_gained)
-		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[declension_ru(blood_gained, "у", "ы", "")] крови!"))
-
+		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[DECL_SEC_MIN(blood_gained)] крови!"))
 
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LUNGS || force)
@@ -881,7 +841,6 @@
 
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -899,7 +858,6 @@
 	required_blood = 25
 	var/range = 3
 
-
 /obj/effect/proc_holder/spell/vampire/mark/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
@@ -908,10 +866,8 @@
 	T.try_auto_target = FALSE
 	return T
 
-
 /obj/effect/proc_holder/spell/vampire/mark/valid_target(mob/living/target, user)
 	return target.affects_vampire(user) && is_vampire_compatible(target, include_IPC = TRUE)
-
 
 /obj/effect/proc_holder/spell/vampire/mark/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
@@ -919,7 +875,6 @@
 	if(!vampire || !vampire.subclass)
 		return
 	target.apply_status_effect(STATUS_EFFECT_MARK_PREY, vampire)
-
 
 /obj/effect/proc_holder/spell/vampire/mark/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_EYES || force)
@@ -930,7 +885,6 @@
 
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -952,15 +906,12 @@
 	var/mob/living/carbon/human/original_body
 	var/meta_path = /mob/living/simple_animal/hostile/vampire
 
-
 /obj/effect/proc_holder/spell/vampire/metamorphosis/Destroy()
 	original_body = null
 	return ..()
 
-
 /obj/effect/proc_holder/spell/vampire/metamorphosis/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/vampire/metamorphosis/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!ispath(meta_path))
@@ -997,13 +948,11 @@
 
 	return ..()
 
-
 /obj/effect/proc_holder/spell/vampire/metamorphosis/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!is_transformed && istype(user))
 		meta_transform(user)
 	else if(is_transformed && original_body)
 		meta_transform_back(user)
-
 
 /obj/effect/proc_holder/spell/vampire/metamorphosis/proc/meta_transform(mob/living/carbon/human/user)
 	var/list/restraints = list()
@@ -1028,11 +977,10 @@
 	if(sound_on_transform)
 		playsound(user.loc, sound_on_transform, 100, TRUE)
 
-
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/simple_animal/hostile/vampire/vampire_animal = new meta_path(user.loc, vampire, user, src)
 
-	user.visible_message(span_warning("Форма [user] становится размытой, прежде чем [genderize_ru(user.gender, "он", "она", "оно", "они")] принима[pluralize_ru(user.gender, "ет", "ют")] форму [vampire_animal]!"), \
+	user.visible_message(span_warning("Форма [user] становится размытой, прежде чем [GEND_HE_SHE(user)] принима[PLUR_ET_YUT(user)] форму [vampire_animal]!"), \
 						span_notice("Вы начинаете превращаться в [vampire_animal]."), \
 						span_italics("Вы слышите жуткий шум множества крыльев..."))
 
@@ -1059,7 +1007,6 @@
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 		spell.updateButtonIcon()
 
-
 /obj/effect/proc_holder/spell/vampire/metamorphosis/proc/meta_transform_back(mob/living/simple_animal/hostile/vampire/user, death_provoked = FALSE)
 	if(free_transform_back)
 		required_blood = prev_blood_cost
@@ -1068,7 +1015,7 @@
 		update_vampire_spell_name()
 
 	var/self_message = death_provoked ? span_userdanger("В таком состоянии вы не сможете поддерживать форму, она начнёт рассыпаться!") : span_notice("Вы начинаете превращаться обратно в первоначальную форму.")
-	user.visible_message(span_warning("Форма [user] становится нечёткой, прежде чем [genderize_ru(user.gender, "он", "она", "оно", "они")] прим[pluralize_ru(user.gender, "ет", "ут")] первоначальный облик!"), self_message, span_italics("Вы слышите жуткий шум множества крыльев..."))
+	user.visible_message(span_warning("Форма [user] становится нечёткой, прежде чем [GEND_HE_SHE(user)] прим[PLUR_ET_UT(user)] первоначальный облик!"), self_message, span_italics("Вы слышите жуткий шум множества крыльев..."))
 
 	user.set_density(FALSE)
 	original_body.dir = SOUTH
@@ -1104,17 +1051,15 @@
 		spell.updateButtonIcon()
 	original_body = null
 
-
 /obj/effect/proc_holder/spell/vampire/metamorphosis/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /**
  * Transform - Bats
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/bats
-	name = "Метаморфоза - Летучие мыши"
+	name = "Метаморфоза — Летучие мыши"
 	desc = "Превратитесь в рой злобных летучих мышей. Они умеют летать, наносят умеренный урон в ближнем бою и могут высасывать кровь при атаках."
 	gain_desc = "Вы получили возможность превращаться в рой летучих мышей. У них разные способности, в зависимости от трофеев."
 	action_icon_state = "bats_meta"
@@ -1122,12 +1067,11 @@
 	meta_path = /mob/living/simple_animal/hostile/vampire/bats
 	required_blood = 45
 
-
 /**
  * Transform - Hound
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound
-	name = "Метаморфоза - Гончая"
+	name = "Метаморфоза — Гончая"
 	desc = "Превратитесь в страшную ищейку. Это проворные, яростные звери, во всем превосходящие человека."
 	gain_desc = "Вы обрели способность превращаться в кровавую гончую. Это высшая форма блюспейс-сущности, овладевшей вами."
 	action_icon_state = "blood_hound"
@@ -1136,7 +1080,6 @@
 	meta_path = /mob/living/simple_animal/hostile/vampire/hound
 	required_blood = 60
 
-
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	var/obj/effect/proc_holder/spell/vampire/self/lunge_finale/finale = locate() in user.mob_spell_list
 	if(finale?.lunge_timer)
@@ -1144,7 +1087,6 @@
 			to_chat(user, span_warning("Вы не можете трансформироваться, пока длится [finale]!"))
 		return FALSE
 	return ..()
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -1160,10 +1102,9 @@
 	base_cooldown = 20 SECONDS
 	required_blood = 40
 
-
 /obj/effect/proc_holder/spell/vampire/self/bat_screech/cast(list/targets, mob/living/user = usr)
 
-	user.visible_message(span_warning("[user] изда[pluralize_ru(user.gender, "ёт", "ют")] душераздирающий вопль!"), \
+	user.visible_message(span_warning("[user] изда[PLUR_YOT_YUT(user)] душераздирающий вопль!"), \
 						span_notice("Вы громко кричите."), \
 						span_italics("Вы слышите мучительно громкий визг!"))
 
@@ -1209,11 +1150,9 @@
 			var/obj/structure/window/window = object
 			window.take_damage(rand(80, 100))
 
-
 /obj/effect/proc_holder/spell/vampire/self/bat_screech/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -1234,7 +1173,6 @@
 	/// Used to make lunges work on unique targets first.
 	var/list/same_targets = list()
 
-
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale/Destroy()
 	if(lunge_timer)
 		deltimer(lunge_timer)
@@ -1243,14 +1181,12 @@
 	same_targets.Cut()
 	return ..()
 
-
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(lunge_timer)
 		if(show_message)
 			balloon_alert(user, "уже используется!")
 		return FALSE
 	return ..()
-
 
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale/cast(list/targets, mob/living/user = usr)
 	lunge = new(null)
@@ -1269,7 +1205,6 @@
 	to_chat(user, span_notice("Приготовьтесь наброситься на любую жертву поблизости!"))
 
 	lunge_timer = addtimer(CALLBACK(src, PROC_REF(lunge_callback), user), 1 SECONDS, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
-
 
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale/proc/lunge_callback(mob/living/user)
 	if(QDELETED(user) || lunge_counter <= 0)
@@ -1314,11 +1249,9 @@
 
 	lunge_counter--
 
-
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -1335,7 +1268,6 @@
 	required_blood = 70
 	var/rejuvenation_time = 30 SECONDS
 
-
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated())
 		if(show_message)
@@ -1347,9 +1279,8 @@
 		return FALSE
 	return ..()
 
-
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/cast(list/targets, mob/living/user = usr)
-	user.visible_message(span_warning("Вы видите, как [user] начина[pluralize_ru(user.gender, "ет", "ют")] левитировать!"), \
+	user.visible_message(span_warning("Вы видите, как [user] начина[PLUR_ET_YUT(user)] левитировать!"), \
 						span_notice("Блюспейс сущность внутри вас начинает подготовку к ритуалу, заставляя вас левитировать..."))
 
 	var/turf/user_turf = get_turf(user)
@@ -1393,7 +1324,7 @@
 
 	user.set_stat(UNCONSCIOUS)
 	user.visible_message(
-		span_warning("Внезапно [user] пада[pluralize_ru(user.gender, "ет", "ют")] прямо в гроб, и он закрывается!"),
+		span_warning("Внезапно [user] пада[PLUR_ET_YUT(user)] прямо в гроб, и он закрывается!"),
 		span_notice("Блюспейс сущность бросает вас в гроб и запечатывает его. Процесс регенерации начался..."),
 	)
 
@@ -1420,7 +1351,6 @@
 
 	addtimer(CALLBACK(src, PROC_REF(release_vampire), coffin), rejuvenation_time)
 
-
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/proc/release_vampire(obj/structure/closet/coffin/vampire/coffin)
 	if(QDELETED(src) || QDELETED(coffin) || QDELETED(coffin.human_vampire))
 		return
@@ -1437,18 +1367,14 @@
 	STOP_PROCESSING(SSobj, coffin)
 	QDEL_IN(coffin, 2 SECONDS)
 
-
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /obj/effect/abstract/vampire
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
-	light_system = STATIC_LIGHT
-
 
 /**
  * "Mysterious" coffin.
@@ -1463,7 +1389,6 @@
 	obj_flags = NODECONSTRUCT
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/datum/gas_mixture/interior_air
 	var/obj/machinery/portable_atmospherics/canister/air/interior_tank
 	var/no_manipulation = FALSE
@@ -1494,9 +1419,8 @@
 		DATIVE = "таинственному гробу",
 		ACCUSATIVE = "таинственный гроб",
 		INSTRUMENTAL = "таинственным гробом",
-		PREPOSITIONAL = "таинственном гробе"
+		PREPOSITIONAL = "таинственном гробе",
 	)
-
 
 /obj/structure/closet/coffin/vampire/Initialize(mapload, mob/living/carbon/human/_human_vampire)
 	. = ..()
@@ -1509,7 +1433,6 @@
 		if(vampire)
 			update_trophies(vampire)
 	START_PROCESSING(SSobj, src)
-
 
 /obj/structure/closet/coffin/vampire/Destroy()
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает, оставляя после себя лишь кучку пепла..."))
@@ -1525,7 +1448,6 @@
 	QDEL_NULL(interior_air)
 	return ..()
 
-
 /obj/structure/closet/coffin/vampire/proc/create_interior()
 	interior_tank = new(null)	// we need to place it to the nullspace since its a closet
 	interior_air = new
@@ -1533,7 +1455,6 @@
 	interior_air.volume = 200
 	interior_air.oxygen = O2STANDARD*interior_air.volume/(R_IDEAL_GAS_EQUATION*interior_air.temperature)
 	interior_air.nitrogen = N2STANDARD*interior_air.volume/(R_IDEAL_GAS_EQUATION*interior_air.temperature)
-
 
 /obj/structure/closet/coffin/vampire/proc/update_trophies(datum/antagonist/vampire/vampire)
 	heal_brute += vampire.get_trophies(INTERNAL_ORGAN_HEART)						// 150 MAX
@@ -1552,7 +1473,6 @@
 	if(vampire.get_ability(/datum/vampire_passive/full))
 		fullpower_unlocked = TRUE
 
-
 /obj/structure/closet/coffin/vampire/proc/vampire_revenge()
 	var/turf/source_turf = get_turf(src)
 	human_vampire.forceMove(source_turf)
@@ -1567,7 +1487,7 @@
 
 	new /obj/effect/temp_visual/cult/sparks(source_turf)
 	playsound(loc, 'sound/effects/creepyshriek.ogg', 100, TRUE)
-	human_vampire.visible_message(span_danger("[human_vampire] выход[pluralize_ru(human_vampire.gender, "ит", "ят")] из разрушенного гроба и изда[pluralize_ru(human_vampire.gender, "ёт", "ют")] оглушительный вопль!"), \
+	human_vampire.visible_message(span_danger("[human_vampire] выход[PLUR_IT_YAT(human_vampire)] из разрушенного гроба и изда[PLUR_YOT_YUT(human_vampire)] оглушительный вопль!"), \
 								span_userdanger("Ваш гроб разрушен, и вы кричите в неистовой ярости!"), \
 								span_italics("Вы слышите чрезвычайно громкий визг!"))
 
@@ -1579,7 +1499,6 @@
 
 		victim.Weaken(4 SECONDS)
 		to_chat(victim, span_userdanger("Громкий визг ослабляет вас и заставляет упасть на землю!"))
-
 
 /obj/structure/closet/coffin/vampire/process()
 	if(QDELETED(human_vampire) || human_vampire.stat == DEAD)
@@ -1712,7 +1631,7 @@
 					organ.status = NONE
 
 		for(var/datum/disease/virus as anything in human_vampire.diseases)
-			if(virus.severity == NONTHREAT)
+			if(virus.severity == DISEASE_SEVERITY_POSITIVE)
 				continue
 			virus.cure(need_immunity = FALSE)
 
@@ -1760,28 +1679,22 @@
 			else
 				qdel(removed)
 
-
 /obj/structure/closet/coffin/vampire/remove_air(amount)
 	return interior_air.remove(amount)
-
 
 /obj/structure/closet/coffin/vampire/return_air()
 	return interior_air
 
-
 /obj/structure/closet/coffin/vampire/proc/return_temperature()
 	return interior_air.return_temperature()
 
-
 /obj/structure/closet/coffin/vampire/proc/return_pressure()
 	return interior_air.return_pressure()
-
 
 /obj/structure/closet/coffin/vampire/can_open()
 	if(no_manipulation)
 		return FALSE
 	return TRUE
-
 
 /obj/structure/closet/coffin/vampire/toggle(mob/living/carbon/human/user)
 	if(!no_manipulation)
@@ -1808,7 +1721,7 @@
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
 		user.Weaken(10 SECONDS)	// well, you were warned!
 		user.Jitter(20 SECONDS)
-		user.visible_message(span_warning("Как только [user] прикаса[pluralize_ru(user.gender, "ет", "ют")]ся к [declent_ru(DATIVE)], [genderize_ru(user.gender, "его", "её", "его", "их")] тело начнет биться в конвульсиях."), \
+		user.visible_message(span_warning("Как только [user] прикаса[PLUR_ET_YUT(user)]ся к [declent_ru(DATIVE)], [GEND_HIS_HER(user)] тело начнет биться в конвульсиях."), \
 							span_userdanger("Внутри вас что-то сжимается, и вы начинаете биться в конвульсиях!"))
 
 		if(!HAS_TRAIT(user, TRAIT_NO_BLOOD))
@@ -1820,12 +1733,10 @@
 
 	return FALSE
 
-
 /obj/structure/closet/coffin/vampire/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rcs))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /*
  * Magic...
@@ -1857,7 +1768,6 @@
 	required_blood = 50
 	var/num_bats = 1
 	var/bats_type = /mob/living/simple_animal/hostile/vampire/bats_summoned
-
 
 /obj/effect/proc_holder/spell/vampire/self/bats_spawn/cast(list/targets, mob/living/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -1894,11 +1804,9 @@
 
 	num_bats = initial(num_bats)
 
-
 /obj/effect/proc_holder/spell/vampire/self/bats_spawn/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -1921,12 +1829,8 @@
 	AIStatus = AI_OFF
 	status_flags = NONE
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = NO_SPAWN
 	speed = 0
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	harm_intent_damage = 5	// punching transformed vampire is pretty useless
-	a_intent = INTENT_HARM
-	universal_understand = TRUE	// yeah, we can understand anything now
 	universal_speak = TRUE	// and speak to anyone too
 	mob_size = MOB_SIZE_LARGE
 	nightvision = 8	// full night vision
@@ -1936,7 +1840,7 @@
 	var/datum/antagonist/vampire/vampire
 	var/mob/living/carbon/human/human_vampire
 	var/obj/effect/proc_holder/spell/vampire/metamorphosis/parent_spell
-
+	hud_possible = list(HEALTH_HUD, STATUS_HUD, SPECIALROLE_HUD, THOUGHT_HUD, DIABLERIE_AURA_HUD)
 
 /mob/living/simple_animal/hostile/vampire/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
@@ -1963,7 +1867,6 @@
 	parent_spell = null
 	return ..()
 
-
 /mob/living/simple_animal/hostile/vampire/death(gibbed)
 	if(dead_for_sure)
 		return
@@ -1973,7 +1876,6 @@
 		return
 	qdel(src)
 
-
 /mob/living/simple_animal/hostile/vampire/proc/transform_back()
 	var/mob/living/carbon/human/our_vampire = human_vampire
 	parent_spell.meta_transform_back(src, death_provoked = TRUE)
@@ -1981,7 +1883,6 @@
 	our_vampire.Stun(5 SECONDS)
 	our_vampire.AdjustConfused(5 SECONDS)
 	our_vampire.Jitter(6 SECONDS)
-
 
 /mob/living/simple_animal/hostile/vampire/examine(mob/user)
 	. = ..()
@@ -1999,9 +1900,8 @@
 			msgs += span_warning("Он весь в ранах!")
 		. += msgs.Join("<br>")
 
-
 /mob/living/simple_animal/hostile/vampire/proc/add_spells()
-
+	return
 
 /mob/living/simple_animal/hostile/vampire/update_sight()
 	if(!client)
@@ -2036,12 +1936,10 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-
 /mob/living/simple_animal/hostile/vampire/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && !visual_effect_icon)
 		visual_effect_icon = ATTACK_EFFECT_BITE
 	..()
-
 
 /**
  * Mr. Vampire in the bat form.
@@ -2066,7 +1964,6 @@
 	armour_penetration = 50	// default security armor is useless
 	pass_flags = PASSTABLE | PASSFENCE | PASSGRILLE
 
-
 /mob/living/simple_animal/hostile/vampire/bats/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
 
@@ -2083,12 +1980,10 @@
 	force_threshold += t_hearts * 2										// 15 MAX
 	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05)	// 30% MAX
 
-
 /mob/living/simple_animal/hostile/vampire/bats/add_spells()
 	var/obj/effect/proc_holder/spell/vampire/self/bat_screech/spell = new(null)
 	spell.on_trophie_update(vampire, force = TRUE)
 	AddSpell(spell)
-
 
 /mob/living/simple_animal/hostile/vampire/bats/AttackingTarget()
 	. = ..()
@@ -2118,7 +2013,6 @@
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max
 		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
 		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
-
 
 /**
  * Mr. Vampire in the hound form.
@@ -2173,7 +2067,6 @@
 	force_threshold += t_hearts * 3											// 28 MAX
 	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05)	// 30% MAX
 
-
 /mob/living/simple_animal/hostile/vampire/hound/Life(seconds, times_fired)
 	. = ..()
 	if(stat == DEAD || !vampire)
@@ -2194,7 +2087,6 @@
 	if(vampire.bloodusable <= 0)
 		death()
 
-
 /mob/living/simple_animal/hostile/vampire/hound/AttackingTarget()
 	. = ..()
 
@@ -2207,12 +2099,10 @@
 		l_target.Stun(1 SECONDS)
 		l_target.visible_message(span_danger("[src] пугает [l_target]!"))
 
-
 /mob/living/simple_animal/hostile/vampire/hound/add_spells()
 	var/obj/effect/proc_holder/spell/vampire/self/lunge_finale/spell = new(null)
 	spell.on_trophie_update(vampire, force = TRUE)
 	AddSpell(spell)
-
 
 /**
  * Summoned bats.
@@ -2248,7 +2138,6 @@
 	armour_penetration = 50
 	pass_flags = PASSTABLE | PASSFENCE | PASSMOB
 
-
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
 
@@ -2265,7 +2154,6 @@
 	melee_damage_upper += t_hearts											// 16 MAX
 	force_threshold += t_hearts												// 9 MAX
 	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.1)	// 0.4 MAX
-
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/AttackingTarget()
 	. = ..()
@@ -2293,7 +2181,6 @@
 		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
 		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
 
-
 /mob/living/simple_animal/hostile/vampire/bats_summoned/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isliving(target))
@@ -2303,14 +2190,12 @@
 	if(l_target.stat != CONSCIOUS && (!isvampire(user) && !isvampirethrall(user)))
 		GiveTarget(user)
 
-
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Found(atom/A)
 	if(isliving(A))
 		var/mob/living/victim = A
 		if(victim.mind && victim.stat != DEAD && (!isvampire(victim) && !isvampirethrall(victim)))	// target sentient first
 			return TRUE
 	return FALSE
-
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/attack_hand(mob/living/user)
 	if(!istype(user) || user.a_intent != INTENT_HELP || health <= 0 || (!isvampire(user) && !isvampirethrall(user)))
@@ -2325,10 +2210,9 @@
 	step(src, direction)
 	step(user, GetOppositeDir(direction))
 
-	visible_message(span_notice("[user] поменял[pluralize_ru(user.gender, "ся", "ись")] местами с [src]."), \
-					span_notice("[user] поменял[pluralize_ru(user.gender, "ся", "ись")] с вами местами."))
+	visible_message(span_notice("[user] поменял[GEND_SYA_AS_OS_IS(user)] местами с [src]."), \
+					span_notice("[user] поменял[GEND_SYA_AS_OS_IS(user)] с вами местами."))
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
 
 #undef MAX_TROPHIES_PER_TYPE_GENERAL
 #undef MAX_TROPHIES_PER_TYPE_CRITICAL

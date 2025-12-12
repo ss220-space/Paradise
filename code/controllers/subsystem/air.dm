@@ -45,7 +45,6 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = list()
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
-
 /datum/controller/subsystem/air/get_stat_details()
 	var/list/msg = list()
 	msg += "C:{"
@@ -58,15 +57,21 @@ SUBSYSTEM_DEF(air)
 	msg += "DPN:[round(cost_deferred_pipenets,1)]|"
 	msg += "AM:[round(cost_atmos_machinery,1)]"
 	msg += "} "
-	msg += "AT:[active_turfs.len]|"
-	msg += "EG:[excited_groups.len]|"
-	msg += "HS:[hotspots.len]|"
-	msg += "PN:[networks.len]|"
-	msg += "HP:[high_pressure_delta.len]|"
-	msg += "AS:[active_super_conductivity.len]|"
-	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
+	msg += "AT:[length(active_turfs)]|"
+	msg += "EG:[length(excited_groups)]|"
+	msg += "HS:[length(hotspots)]|"
+	msg += "PN:[length(networks)]|"
+	msg += "HP:[length(high_pressure_delta)]|"
+	msg += "AS:[length(active_super_conductivity)]|"
+	msg += "AT/MS:[round((cost ? length(active_turfs)/cost : 0),0.1)]"
 	return msg.Join("")
 
+/datum/controller/subsystem/air/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["active_turfs"] = length(active_turfs)
+	custom_data["hotspots"] = length(hotspots)
+	.["custom"] = custom_data
 
 /datum/controller/subsystem/air/Initialize()
 	setup_overlays() // Assign icons and such for gas-turf-overlays
@@ -94,7 +99,6 @@ SUBSYSTEM_DEF(air)
 	icon_manager = SSair.icon_manager
 	currentrun = SSair.currentrun
 	currentpart = SSair.currentpart
-
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -169,14 +173,13 @@ SUBSYSTEM_DEF(air)
 		resumed = 0
 	currentpart = SSAIR_DEFERREDPIPENETS
 
-
 /datum/controller/subsystem/air/proc/process_deferred_pipenets(resumed = 0)
 	if(!resumed)
 		src.currentrun = deferred_pipenet_rebuilds.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/obj/machinery/atmospherics/A = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/machinery/atmospherics/A = currentrun[length(currentrun)]
 		currentrun.len--
 		if(A)
 			A.build_network(remove_deferral = TRUE)
@@ -185,14 +188,13 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
 	if(!resumed)
 		src.currentrun = networks.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/datum/pipeline/thing = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/datum/pipeline/thing = currentrun[length(currentrun)]
 		currentrun.len--
 		if(thing)
 			thing.process()
@@ -201,41 +203,38 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	if(!resumed)
 		src.currentrun = atmos_machinery.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/obj/machinery/atmospherics/M = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/machinery/atmospherics/M = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!M || (M.process_atmos() == PROCESS_KILL))
 			atmos_machinery.Remove(M)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_super_conductivity(resumed = 0)
 	if(!resumed)
 		src.currentrun = active_super_conductivity.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/turf/simulated/T = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/turf/simulated/T = currentrun[length(currentrun)]
 		currentrun.len--
 		T.super_conduct()
 		if(MC_TICK_CHECK)
 			return
-
 
 /datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
 	if(!resumed)
 		src.currentrun = hotspots.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/obj/effect/hotspot/H = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/effect/hotspot/H = currentrun[length(currentrun)]
 		currentrun.len--
 		if(H)
 			H.process()
@@ -244,16 +243,14 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_high_pressure_delta(resumed = 0)
-	while(high_pressure_delta.len)
-		var/turf/simulated/T = high_pressure_delta[high_pressure_delta.len]
+	while(length(high_pressure_delta))
+		var/turf/simulated/T = high_pressure_delta[length(high_pressure_delta)]
 		high_pressure_delta.len--
 		T.high_pressure_movements()
 		T.pressure_difference = 0
 		if(MC_TICK_CHECK)
 			return
-
 
 /datum/controller/subsystem/air/proc/process_active_turfs(resumed = 0)
 	//cache for sanic speed
@@ -262,22 +259,21 @@ SUBSYSTEM_DEF(air)
 		src.currentrun = active_turfs.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/turf/simulated/T = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/turf/simulated/T = currentrun[length(currentrun)]
 		currentrun.len--
 		if(T)
 			T.process_cell(fire_count)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_excited_groups(resumed = 0)
 	if(!resumed)
 		src.currentrun = excited_groups.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/datum/excited_group/EG = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/datum/excited_group/EG = currentrun[length(currentrun)]
 		currentrun.len--
 		EG.breakdown_cooldown++
 		if(EG.breakdown_cooldown == EXCITED_GROUP_BREAKDOWN_CYCLES)
@@ -286,7 +282,6 @@ SUBSYSTEM_DEF(air)
 			EG.dismantle()
 		if(MC_TICK_CHECK)
 			return
-
 
 /datum/controller/subsystem/air/proc/remove_from_active(turf/simulated/T)
 	active_turfs -= T
@@ -297,7 +292,6 @@ SUBSYSTEM_DEF(air)
 		T.excited = 0
 		if(T.excited_group)
 			T.excited_group.garbage_collect()
-
 
 /datum/controller/subsystem/air/proc/add_to_active(turf/simulated/T, blockchanges = 1)
 	if(!initialized)
@@ -320,7 +314,6 @@ SUBSYSTEM_DEF(air)
 		for(var/turf/simulated/S in T.atmos_adjacent_turfs)
 			add_to_active(S)
 
-
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	// Clear active turfs - faster than removing every single turf in the world
 	// one-by-one, and Initialize_Atmos only ever adds `src` back in.
@@ -332,7 +325,6 @@ SUBSYSTEM_DEF(air)
 		T.Initialize_Atmos(time)
 		if(CHECK_TICK)
 			time--
-
 
 /turf/simulated/proc/resolve_active_graph()
 	. = list()
@@ -358,13 +350,11 @@ SUBSYSTEM_DEF(air)
 			ET.excited = 1
 			. += ET
 
-
 /datum/controller/subsystem/air/proc/setup_atmos_machinery(list/machines_to_init)
 	var/watch = start_watch()
 	log_startup_progress("Initializing atmospherics machinery...")
 	var/count = _setup_atmos_machinery(machines_to_init)
 	log_startup_progress("Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
-
 
 // this underscored variant is so that we can have a means of late initing
 // atmos machinery without a loud announcement to the world
@@ -375,7 +365,6 @@ SUBSYSTEM_DEF(air)
 		count++
 	return count
 
-
 //this can't be done with setup_atmos_machinery() because
 //	all atmos machinery has to initalize before the first
 //	pipenet can be built.
@@ -384,7 +373,6 @@ SUBSYSTEM_DEF(air)
 	log_startup_progress("Initializing pipe networks...")
 	var/count = _setup_pipenets(pipes)
 	log_startup_progress("Initialized [count] pipenets in [stop_watch(watch)]s.")
-
 
 // An underscored wrapper that exists for the same reason
 // the machine init wrapper does
@@ -395,11 +383,9 @@ SUBSYSTEM_DEF(air)
 		count++
 	return count
 
-
 /obj/effect/overlay/turf
 	icon = 'icons/effects/tile_effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
 	plane = ABOVE_GAME_PLANE
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
@@ -410,7 +396,6 @@ SUBSYSTEM_DEF(air)
 
 /obj/effect/overlay/turf/sleeping_agent
 	icon_state = "sleeping_agent"
-
 
 /datum/controller/subsystem/air/proc/setup_overlays()
 	for(var/i in 0 to SSmapping.max_plane_offset)
@@ -425,7 +410,7 @@ SUBSYSTEM_DEF(air)
 	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level
 	var/list/active_turfs_we_care_about = list()
 	var/z_level_to_exclude = 0
-	if(!CONFIG_GET(flag/disable_lavaland))
+	if(!CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		z_level_to_exclude = level_name_to_num(MINING)
 	for(var/turf/T in active_turfs)
 		if(T.z != z_level_to_exclude)
@@ -438,6 +423,7 @@ SUBSYSTEM_DEF(air)
 		stack_trace("[shouldnt_be_active] was active before init, turf x=[shouldnt_be_active.x], turf y=[shouldnt_be_active.y], turf z=[shouldnt_be_active.z], turf area=[shouldnt_be_active.loc]")
 		message_admins("[shouldnt_be_active] was active before init, [ADMIN_JMP(shouldnt_be_active)])")
 
+#undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY
 #undef SSAIR_ACTIVETURFS

@@ -40,13 +40,12 @@
 	if(speak_emote)
 		D.speak_emote = speak_emote
 
-/datum/dog_fashion/proc/get_overlay(var/dir)
+/datum/dog_fashion/proc/get_overlay(dir)
 	if(icon_file && obj_icon_state)
 		var/image/corgI = image(icon_file, obj_icon_state, dir = dir)
 		corgI.alpha = obj_alpha
 		corgI.color = obj_color
 		return corgI
-
 
 /datum/dog_fashion/head
 	icon_file = 'icons/mob/corgi_head.dmi'
@@ -65,7 +64,6 @@
 /datum/dog_fashion/head/chef
 	name = "Sous chef REAL_NAME"
 	desc = "Your food will be taste-tested.  All of it."
-
 
 /datum/dog_fashion/head/captain
 	name = "Captain REAL_NAME"
@@ -89,12 +87,10 @@
 	speak = list("le woof!", "le bark!", "JAPPE!!")
 	emote_see = list("cowers in fear.", "surrenders.", "plays dead.","looks as though there is a wall in front of him.")
 
-
 /datum/dog_fashion/head/detective
 	name = "Detective REAL_NAME"
 	desc = "NAME sees through your lies..."
 	emote_see = list("investigates the area.","sniffs around for clues.","searches for scooby snacks.","takes a candycorn from the hat.")
-
 
 /datum/dog_fashion/head/nurse
 	name = "Nurse REAL_NAME"

@@ -90,8 +90,6 @@
 									'sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg', 'sound/ambience/ambimaint.ogg',\
 									'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg', 'sound/ambience/ambiodd.ogg')
 
-
-
 #define CREEPY_SOUNDS list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/heart_beat.ogg', 'sound/effects/screech.ogg',\
 	'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
 	'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
@@ -321,3 +319,14 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_CIG_PACK_RUSTLE "cig_pack_rustle"
 #define SFX_CIG_PACK_THROW_DROP "cig_pack_throw_drop"
 #define	SFX_RORO_WARBLE "roro_warble"
+#define SFX_BEAKERPOUR_0_10 "beakerpour_0_10"
+#define SFX_BEAKERPOUR_10_25 "beakerpour_10_25"
+#define SFX_BEAKERPOUR_25_50 "beakerpour_25_50"
+#define SFX_BEAKERPOUR_50_INF "beakerpour_50_inf"
+#define SFX_DROPPERPOUR "dropperpour"
+#define SFX_SYRINGEPOUR "syringepour"
+#define SFX_LIQUID_SPLASH "liquid_splash"
+#define SFX_PICK_UP "pick_up"
+#define SFX_DROP "drop"
+#define SFX_EQUIP "equip"
+#define SFX_FART "fart"

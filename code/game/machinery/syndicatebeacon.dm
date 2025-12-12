@@ -3,7 +3,6 @@
 //	If he accepts there is a random chance he will be accepted, rejected, or rejected and killed
 //	Bringing certain items can help improve the chance to become a traitor
 
-
 /obj/machinery/syndicate_beacon
 	name = "ominous beacon"
 	desc = "This looks suspicious..."
@@ -17,7 +16,7 @@
 	var/selfdestructing = FALSE
 	var/charges = 1
 
-/obj/machinery/syndicate_beacon/attack_hand(var/mob/user as mob)
+/obj/machinery/syndicate_beacon/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<span style='color: #005500;'><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></span>"}
@@ -94,20 +93,16 @@
 			T.give_objectives = FALSE
 			N.mind.add_antag_datum(T)
 
-			to_chat(M, "<b>Вы вступили в ряды Синдиката и стали предателем!</b>")
+			to_chat(M, "<b>Вы вступили в ряды \"Синдиката\" и стали предателем!</b>")
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
-
 
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
 	return
 
-
 /obj/machinery/syndicate_beacon/proc/selfdestruct()
 	selfdestructing = TRUE
 	explosion(loc, devastation_range = rand(3, 8), heavy_impact_range = rand(1, 3), light_impact_range = 1, flash_range = 10)
-
-
 
 ////////////////////////////////////////
 //Singularity beacon
@@ -116,16 +111,12 @@
 	name = "ominous beacon"
 	desc = "This looks suspicious..."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
-	icon_state = "beacon"
-
+	icon_state = "beacon0"
+	base_icon_state = "beacon"
 	anchored = FALSE
 	density = TRUE
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
-	stat = 0
-
-	var/active = 0
-	var/icontype = "beacon"
-
+	var/active = FALSE
 
 /obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
 	if(surplus() < 1500)
@@ -136,36 +127,32 @@
 		var/obj/singularity/singulo = thing
 		if(singulo.z == z)
 			singulo.target = src
-	icon_state = "[icontype]1"
-	active = 1
+	icon_state = "[base_icon_state]1"
+	active = TRUE
 	START_PROCESSING(SSmachines, src)
 	if(user)
 		to_chat(user, span_notice("You activate the beacon."))
-
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
 	for(var/thing in GLOB.singularities)
 		var/obj/singularity/singulo = thing
 		if(singulo.target == src)
 			singulo.target = null
-	icon_state = "[icontype]0"
-	active = 0
+	icon_state = "[base_icon_state]0"
+	active = FALSE
 	if(user)
 		to_chat(user, span_notice("You deactivate the beacon."))
-
 
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user as mob)
 	return
 
-
-/obj/machinery/power/singularity_beacon/attack_hand(var/mob/user as mob)
+/obj/machinery/power/singularity_beacon/attack_hand(mob/user as mob)
 	if(anchored)
 		add_fingerprint(user)
 		return active ? Deactivate(user) : Activate(user)
 	else
 		to_chat(user, span_warning("You need to screw the beacon to the floor first!"))
 		return
-
 
 /obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -202,5 +189,5 @@
 		Deactivate()
 
 /obj/machinery/power/singularity_beacon/syndicate
-	icontype = "beaconsynd"
 	icon_state = "beaconsynd0"
+	base_icon_state = "beaconsynd"

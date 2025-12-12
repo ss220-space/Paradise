@@ -9,15 +9,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Небольшая машинка для работы с факсами. Не смотря на свой размер, обладает большой силой."
-	ru_names = list(
-		NOMINATIVE = "факс",
-		GENITIVE = "факса",
-		DATIVE = "факсу",
-		ACCUSATIVE = "факс",
-		INSTRUMENTAL = "факсом",
-		PREPOSITIONAL = "факсе"
-	)
-	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE
@@ -29,10 +20,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	/// Can we send messages off-station?
 	var/long_range_enabled = FALSE
 	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
-
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
 
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null
@@ -47,10 +34,20 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/cooldown_time_local = 50
 
 	/// Our department, determines whether this machine gets faxes sent to a department
-	var/department = "Unknown"
+	var/department = UNKNOWN_STATUS_RUS
 
 	/// Target department to send outgoing faxes to
 	var/destination
+
+/obj/machinery/photocopier/faxmachine/get_ru_names()
+	return list(
+		NOMINATIVE = "факс",
+		GENITIVE = "факса",
+		DATIVE = "факсу",
+		ACCUSATIVE = "факс",
+		INSTRUMENTAL = "факсом",
+		PREPOSITIONAL = "факсе",
+	)
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
@@ -58,7 +55,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	update_network()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments) || ("[department]" in GLOB.hidden_ussp)))
 			GLOB.alldepartments |= department
 
@@ -75,7 +72,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	//No point setting fax network, being emagged overrides that anyway.
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		GLOB.hidden_departments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp
@@ -87,7 +84,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	active_power_usage = 300
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		GLOB.hidden_ussp |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
@@ -99,7 +96,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
-
 
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -118,14 +114,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 		usr.drop_transfer_item_to_loc(I, src)
 		copyitem = I
-		playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
+		playsound(loc, 'sound/machines/fax_send.ogg', 50, FALSE)
 		to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		flick(insert_anim, src)
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
@@ -180,13 +175,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			data["sendError"] = "Перенастройка через [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "у", "ы")]"
 	return data
 
-
 /obj/machinery/photocopier/faxmachine/ui_act(action, params)
 	if(..())
 		return
 
 	// Do not let click buttons if you're ghost unless you're an admin.
-	if (isobserver(usr) && !is_admin(usr))
+	if(isobserver(usr) && !is_admin(usr))
 		return FALSE
 
 	var/is_authenticated = is_authenticated(usr)
@@ -221,7 +215,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 					usr.drop_transfer_item_to_loc(I, src)
 					copyitem = I
-					playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
+					playsound(loc, 'sound/machines/fax_send.ogg', 50, FALSE)
 					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 					flick(insert_anim, src)
 				else
@@ -232,7 +226,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/n_name = tgui_input_text(usr, "Как вы хотите подписать факс?", "Подпись факса:", copyitem.name)
 				if(!n_name)
 					return
-				if((copyitem && copyitem.loc == src && usr.stat == 0))
+				if(copyitem && copyitem.loc == src && usr.stat == 0)
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
 						copyitem.desc = "Бумага, подписанная как \"" + copyitem.name + "\"."
@@ -303,7 +297,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(.)
 		add_fingerprint(usr)
 
-
 /obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
@@ -336,7 +329,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	SStgui.update_uis(src)
 	return TRUE
 
-
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set name = "Достать ID-карту"
 	set src in oview(1)
@@ -353,7 +345,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		balloon_alert(usr, "нечего достать!")
 
-/obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
+/obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
 	use_power(active_power_usage)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
@@ -374,15 +366,15 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		atom_say("При отправке сообщения произошла ошибка.", FALSE)
 
-/obj/machinery/photocopier/faxmachine/proc/receivefax(var/obj/item/incoming)
+/obj/machinery/photocopier/faxmachine/proc/receivefax(obj/item/incoming)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
-	if(department == "Unknown")
+	if(department == UNKNOWN_STATUS_RUS)
 		return FALSE //You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
-	playsound(loc, 'sound/machines/fax_recieve.ogg', 50, TRUE)
+	playsound(loc, 'sound/machines/fax_receive.ogg', 50, TRUE)
 
 	// give the sprite some time to flick
 	sleep(20)
@@ -399,7 +391,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	use_power(active_power_usage)
 	return TRUE
 
-/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
+/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
 	use_power(active_power_usage)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
@@ -417,11 +409,11 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	//message badmins that a fax has arrived
 	switch(destination)
-		if("Центральное Командование")
+		if("Central Command")
 			message_admins(sender, "CENTCOM FAX", destination, copyitem, "#006100")
-		if("Синдикат")
+		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
-		if("Центральный Коммитет СССП")
+		if("USSP Central Committee")
 			message_admins(sender, "USSP FAX", destination, copyitem, "#b60226")
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
@@ -434,8 +426,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return 0
 	return round((sendcooldown - world.time) / 10)
 
-/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</a>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+/obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
+	// (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=[UID()]'>EVILFAX</a>) effects moved to smites.
+	var/msg = "[span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=\ref[sender][faxname == "USSP FAX" ? "USSPReply" : ""]=\ref[sender][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=\ref[sender]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")])")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
@@ -493,8 +486,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "<span class=\"paper_field\"></span>", "`_FIELD_`")
 
 	text = replacetext(text, "<h1>", "# ")
-	text = replacetext(text, "<H2>", "## ")
-	text = replacetext(text, "<H3>", "### ")
+	text = replacetext(text, "<h2>", "## ")
+	text = replacetext(text, "<h3>", "### ")
 
 	text = replacetext(text, "<li>", "- ")
 	text = replacetext(text, "<hr>", "\n`----- Horizontal Rule -----`\n")

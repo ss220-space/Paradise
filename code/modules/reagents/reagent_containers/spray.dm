@@ -1,14 +1,6 @@
 /obj/item/reagent_containers/spray
 	name = "spray bottle"
 	desc = "Бутылка с распылителем, с отвинчивающейся крышкой. Пшик-пшик."
-	ru_names = list(
-		NOMINATIVE = "распылитель",
-		GENITIVE = "распылителя",
-		DATIVE = "распылителю",
-		ACCUSATIVE = "распылитель",
-		INSTRUMENTAL = "распылителем",
-		PREPOSITIONAL = "распылителе"
-	)
 	gender = MALE
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
@@ -17,16 +9,23 @@
 	item_flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
-	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
+
+/obj/item/reagent_containers/spray/get_ru_names()
+	return list(
+		NOMINATIVE = "распылитель",
+		GENITIVE = "распылителя",
+		DATIVE = "распылителю",
+		ACCUSATIVE = "распылитель",
+		INSTRUMENTAL = "распылителем",
+		PREPOSITIONAL = "распылителе",
+	)
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user, proximity, params)
 	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
@@ -65,7 +64,7 @@
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)	//harmful temperature
 		attack_log_type = ATKLOG_MOST
 
-	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
+	if(length(reagents.reagent_list) == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
 		if(attack_log_type == ATKLOG_ALMOSTALL)
 			return
 
@@ -75,7 +74,6 @@
 
 	add_attack_logs(user, A, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
-
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
@@ -91,8 +89,7 @@
 		sleep(3)
 	qdel(D)
 
-
-/obj/item/reagent_containers/spray/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -107,29 +104,33 @@
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Произведено компанией \"BLAM!\"."
-	ru_names = list(
+	list_reagents = list("cleaner" = 250)
+
+/obj/item/reagent_containers/spray/cleaner/get_ru_names()
+	return list(
 		NOMINATIVE = "распылитель",
 		GENITIVE = "распылителя",
 		DATIVE = "распылителю",
 		ACCUSATIVE = "распылитель",
 		INSTRUMENTAL = "распылителем",
-		PREPOSITIONAL = "распылителе"
+		PREPOSITIONAL = "распылителе",
 	)
-	list_reagents = list("cleaner" = 250)
 
 /obj/item/reagent_containers/spray/cleaner/brig
 	name = "brig cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Идеально подойдёт для уборки брига после очередного допроса клоуна."
-	ru_names = list(
+	icon_state = "cleaner_brig"
+	item_state = "cleaner_brig"
+
+/obj/item/reagent_containers/spray/cleaner/brig/get_ru_names()
+	return list(
 		NOMINATIVE = "распылитель СБ",
 		GENITIVE = "распылителя СБ",
 		DATIVE = "распылителю СБ",
 		ACCUSATIVE = "распылитель СБ",
 		INSTRUMENTAL = "распылителем СБ",
-		PREPOSITIONAL = "распылителе СБ"
+		PREPOSITIONAL = "распылителе СБ",
 	)
-	icon_state = "cleaner_brig"
-	item_state = "cleaner_brig"
 
 /obj/item/reagent_containers/spray/cleaner/brig/empty
 	list_reagents = list()
@@ -137,16 +138,18 @@
 /obj/item/reagent_containers/spray/cleaner/chemical
 	name = "chemical cleaner"
 	desc = "Нет ничего безопаснее, чем смывать пролитый калий водой."
-	ru_names = list(
+	icon_state = "cleaner_chemical"
+	item_state = "cleaner_medchem"
+
+/obj/item/reagent_containers/spray/cleaner/chemical/get_ru_names()
+	return list(
 		NOMINATIVE = "химический распылитель",
 		GENITIVE = "химическего распылителя",
 		DATIVE = "химическому распылителю",
 		ACCUSATIVE = "химический распылитель",
 		INSTRUMENTAL = "химическим распылителем",
-		PREPOSITIONAL = "химическом распылителе"
+		PREPOSITIONAL = "химическом распылителе",
 	)
-	icon_state = "cleaner_chemical"
-	item_state = "cleaner_medchem"
 
 /obj/item/reagent_containers/spray/cleaner/chemical/empty
 	list_reagents = list()
@@ -154,16 +157,18 @@
 /obj/item/reagent_containers/spray/cleaner/janitor
 	name = "janitorial cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Стильный дизайн, специально для самого продуктивного работника станции!"
-	ru_names = list(
+	icon_state = "cleaner_janitor"
+	item_state = "cleaner_jan"
+
+/obj/item/reagent_containers/spray/cleaner/janitor/get_ru_names()
+	return list(
 		NOMINATIVE = "распылитель уборщика",
 		GENITIVE = "распылителя уборщика",
 		DATIVE = "распылителю уборщика",
 		ACCUSATIVE = "распылитель уборщика",
 		INSTRUMENTAL = "распылителем уборщика",
-		PREPOSITIONAL = "распылителе уборщика"
+		PREPOSITIONAL = "распылителе уборщика",
 	)
-	icon_state = "cleaner_janitor"
-	item_state = "cleaner_jan"
 
 /obj/item/reagent_containers/spray/cleaner/janitor/empty
 	list_reagents = list()
@@ -171,50 +176,56 @@
 /obj/item/reagent_containers/spray/cleaner/medical
 	name = "medical cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Дезинфицирующее средство для рук, пола и халата Главного Врача."
-	ru_names = list(
+	icon_state = "cleaner_medical"
+	item_state = "cleaner_med"
+
+/obj/item/reagent_containers/spray/cleaner/medical/get_ru_names()
+	return list(
 		NOMINATIVE = "медицинский распылитель",
 		GENITIVE = "медицинского распылителя",
 		DATIVE = "медицинскому распылителю",
 		ACCUSATIVE = "медицинский распылитель",
 		INSTRUMENTAL = "медицинским распылителем",
-		PREPOSITIONAL = "медицинском распылителе"
+		PREPOSITIONAL = "медицинском распылителе",
 	)
-	icon_state = "cleaner_medical"
-	item_state = "cleaner_med"
 
 /obj/item/reagent_containers/spray/cleaner/medical/empty
 	list_reagents = list()
 
 /obj/item/reagent_containers/spray/cleaner/tactical
 	name = "Tactical cleaner"
-	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами НаноТрейзен для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
-	ru_names = list(
+	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами \"Нанотрейзен\" для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
+	icon_state = "cleaner_tactical"
+	item_state = "cleaner_tactical"
+
+/obj/item/reagent_containers/spray/cleaner/tactical/get_ru_names()
+	return list(
 		NOMINATIVE = "тактический распылитель",
 		GENITIVE = "тактическего распылителя",
 		DATIVE = "тактическому распылителю",
 		ACCUSATIVE = "тактический распылитель",
 		INSTRUMENTAL = "тактическим распылителем",
-		PREPOSITIONAL = "тактическом распылителе"
+		PREPOSITIONAL = "тактическом распылителе",
 	)
-	icon_state = "cleaner_tactical"
-	item_state = "cleaner_tactical"
 
 /obj/item/reagent_containers/spray/blue_cleaner
 	name = "bluespace cleaner"
 	desc = "Распылитель с увеличенным объёмом, изготовленный с использованием блюспейс-технологий. Оно точно того стоило?"
-	ru_names = list(
-		NOMINATIVE = "блюспейс распылитель",
-		GENITIVE = "блюспейс распылителя",
-		DATIVE = "блюспейс распылителю",
-		ACCUSATIVE = "блюспейс распылитель",
-		INSTRUMENTAL = "блюспейс распылителем",
-		PREPOSITIONAL = "блюспейс распылителе"
-	)
 	icon_state = "cleaner_bluespace"
 	item_state = "cleaner_bs"
 	spray_maxrange = 4
 	spray_currentrange = 4
 	volume = 450
+
+/obj/item/reagent_containers/spray/blue_cleaner/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс распылитель",
+		GENITIVE = "блюспейс распылителя",
+		DATIVE = "блюспейс распылителю",
+		ACCUSATIVE = "блюспейс распылитель",
+		INSTRUMENTAL = "блюспейс распылителем",
+		PREPOSITIONAL = "блюспейс распылителе",
+	)
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Эта модель принимает внутрь только космочист и ничего более."
@@ -238,55 +249,60 @@
 	name = "spray tan"
 	volume = 50
 	desc = "Спрей-автозагар от бренда \"Gyaro\". Не попадите в глаза!"
-	ru_names = list(
+	list_reagents = list("spraytan" = 50)
+
+/obj/item/reagent_containers/spray/spraytan/get_ru_names()
+	return list(
 		NOMINATIVE = "спрей для авто-загара",
 		GENITIVE = "спрея для авто-загара",
 		DATIVE = "спрею для авто-загара",
 		ACCUSATIVE = "спрей для авто-загара",
 		INSTRUMENTAL = "спреем для авто-загара",
-		PREPOSITIONAL = "спрее для авто-загара"
+		PREPOSITIONAL = "спрее для авто-загара",
 	)
-	list_reagents = list("spraytan" = 50)
 
 //pepperspray
 /obj/item/reagent_containers/spray/pepper
 	name = "pepperspray"
 	desc = "Произведено компанией \"UhangInc\", используется для быстрого ослепления и обезвреживания противника."
-	ru_names = list(
-		NOMINATIVE = "перцовый баллончик",
-		GENITIVE = "перцового баллончика",
-		DATIVE = "перцовому баллончику",
-		ACCUSATIVE = "перцовый баллончик",
-		INSTRUMENTAL = "перцовым баллончиком",
-		PREPOSITIONAL = "перцовом баллончике"
-	)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
 	belt_icon = "pepperspray"
 	volume = 40
 	spray_maxrange = 4
-	amount_per_transfer_from_this = 5
 	list_reagents = list("condensedcapsaicin" = 40)
+
+/obj/item/reagent_containers/spray/pepper/get_ru_names()
+	return list(
+		NOMINATIVE = "перцовый баллончик",
+		GENITIVE = "перцового баллончика",
+		DATIVE = "перцовому баллончику",
+		ACCUSATIVE = "перцовый баллончик",
+		INSTRUMENTAL = "перцовым баллончиком",
+		PREPOSITIONAL = "перцовом баллончике",
+	)
 
 //water flower
 /obj/item/reagent_containers/spray/waterflower
 	name = "water flower"
 	desc = "Невинный на первый взгляд подсолнух... с изюминкой."
-	ru_names = list(
-		NOMINATIVE = "водяной подсолнух",
-		GENITIVE = "водяного подсолнуха",
-		DATIVE = "водяному подсолнуху",
-		ACCUSATIVE = "водяной подсолнух",
-		INSTRUMENTAL = "водяным подсолнухом",
-		PREPOSITIONAL = "водяном подсолнухе"
-	)
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
 	item_state = "sunflower"
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents = list("water" = 10)
+
+/obj/item/reagent_containers/spray/waterflower/get_ru_names()
+	return list(
+		NOMINATIVE = "водяной подсолнух",
+		GENITIVE = "водяного подсолнуха",
+		DATIVE = "водяному подсолнуху",
+		ACCUSATIVE = "водяной подсолнух",
+		INSTRUMENTAL = "водяным подсолнухом",
+		PREPOSITIONAL = "водяном подсолнухе",
+	)
 
 /obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
 	return
@@ -295,18 +311,9 @@
 /obj/item/reagent_containers/spray/chemsprayer
 	name = "chem sprayer"
 	desc = "Инструмент, используемый для распыления большого количества веществ в заданной области."
-	ru_names = list(
-		NOMINATIVE = "химический распылитель веществ",
-		GENITIVE = "химическего распылителя веществ",
-		DATIVE = "химическому распылителю веществ",
-		ACCUSATIVE = "химический распылитель веществ",
-		INSTRUMENTAL = "химическим распылителем веществ",
-		PREPOSITIONAL = "химическом распылителе веществ"
-	)
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7
@@ -314,8 +321,17 @@
 	volume = 600
 	origin_tech = "combat=3;materials=3;engineering=3"
 
+/obj/item/reagent_containers/spray/chemsprayer/get_ru_names()
+	return list(
+		NOMINATIVE = "химический распылитель веществ",
+		GENITIVE = "химическего распылителя веществ",
+		DATIVE = "химическому распылителю веществ",
+		ACCUSATIVE = "химический распылитель веществ",
+		INSTRUMENTAL = "химическим распылителем веществ",
+		PREPOSITIONAL = "химическом распылителе веществ",
+	)
 
-/obj/item/reagent_containers/spray/chemsprayer/spray(var/atom/A)
+/obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
 	var/Sprays[3]
 	for(var/i=1, i<=3, i++) // intialize sprays
 		if(reagents.total_volume < 1) break
@@ -333,7 +349,7 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=Sprays.len, i++)
+	for(var/i=1, i<=length(Sprays), i++)
 		spawn()
 			var/obj/effect/decal/chempuff/D = Sprays[i]
 			if(!D) continue
@@ -350,29 +366,26 @@
 				sleep(2)
 			qdel(D)
 
-
-
 /obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
-
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, span_notice("Вы настраиваете объём распыления. Теперь вы будете распылять по [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "е", "ы", "")] содержимого за раз."))
-
 
 // Plant-B-Gone
 /obj/item/reagent_containers/spray/plantbgone // -- Skie
 	name = "Plant-B-Gone"
 	desc = "Распылитель гербицидов для уничтожения этих надоедливых сорняков!"
-	ru_names = list(
-		NOMINATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
-		GENITIVE = "распылителя гербицидов \"Plant-B-Gone\"",
-		DATIVE = "распылителю гербицидов \"Plant-B-Gone\"",
-		ACCUSATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
-		INSTRUMENTAL = "распылителем гербицидов \"Plant-B-Gone\"",
-		PREPOSITIONAL = "распылителе гербицидов \"Plant-B-Gone\""
-	)
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
 
+/obj/item/reagent_containers/spray/plantbgone/get_ru_names()
+	return list(
+		NOMINATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
+		GENITIVE = "распылителя гербицидов \"Plant-B-Gone\"",
+		DATIVE = "распылителю гербицидов \"Plant-B-Gone\"",
+		ACCUSATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
+		INSTRUMENTAL = "распылителем гербицидов \"Plant-B-Gone\"",
+		PREPOSITIONAL = "распылителе гербицидов \"Plant-B-Gone\"",
+	)

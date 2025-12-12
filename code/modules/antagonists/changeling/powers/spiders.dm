@@ -8,7 +8,6 @@
 	req_dna = 5
 	power_type = CHANGELING_PURCHASABLE_POWER
 
-
 /datum/action/changeling/spiders/sting_action(mob/user)
 	for(var/i in 1 to 2)
 		var/obj/structure/spider/spiderling/spider = new(user.loc)

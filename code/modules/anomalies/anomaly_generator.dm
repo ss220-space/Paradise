@@ -2,15 +2,12 @@
 	name = "генератор аномалий"
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
 			генерации аномалий."
-	gender = MALE
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "generator_on"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
-	max_integrity = 200
 	integrity_failure = 100
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	processing_flags = START_PROCESSING_MANUALLY
@@ -37,9 +34,9 @@
 	var/speed = 1e4
 
 	/// A beacon located inside the anomaly generator.
-	var/obj/item/radio/beacon/beacon
+	var/obj/item/beacon/beacon
 	/// The beacon selected as a place for generating anomalies.
-	var/obj/item/radio/beacon/selected_beacon
+	var/obj/item/beacon/selected_beacon
 	/// Current anomaly generator datum.
 	var/datum/anomaly_gen_datum/cur_anomaly
 
@@ -60,7 +57,7 @@
 		DATIVE = "генератору аномалий", \
 		ACCUSATIVE = "генератор аномалий", \
 		INSTRUMENTAL = "генератором аномалий", \
-		PREPOSITIONAL = "генераторе аномалий"
+		PREPOSITIONAL = "генераторе аномалий",
 	)
 
 /obj/machinery/power/anomaly_generator/Initialize(mapload)
@@ -104,7 +101,7 @@
 	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
 		containment_limit += matter_bin.rating
 
-	while(containment.len > containment_limit)
+	while(length(containment) > containment_limit)
 		eject(pick(containment))
 
 	creating_range = 25
@@ -132,7 +129,7 @@
 
 	if(user.drop_transfer_item_to_loc(item, src))
 		add_fingerprint(user)
-		user.visible_message(span_warning("[user] поместил[genderize_ru(user.gender, "", "а", "о", "и")] [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."), \
+		user.visible_message(span_warning("[user] поместил[GEND_A_O_I(user)] [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."), \
 					span_warning("Вы поместили [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		containment.Add(item)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -168,7 +165,7 @@
 			generate()
 
 		if("eject_all")
-			while(containment.len)
+			while(length(containment))
 				eject(containment[1])
 
 		if("stop")
@@ -187,7 +184,7 @@
 
 		if("beakon")
 			var/list/options = list()
-			for(var/obj/item/radio/beacon/possible_beacon in GLOB.beacons)
+			for(var/obj/item/beacon/possible_beacon as anything in GLOB.beacons)
 				var/turf/T = get_turf(possible_beacon)
 				if(!T)
 					continue
@@ -200,8 +197,8 @@
 
 				options["[T.loc.name]"] = possible_beacon
 
-			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
-			if (choice == null)
+			var/obj/item/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
+			if(choice == null)
 				choice = beacon;
 
 			selected_beacon = choice
@@ -302,7 +299,7 @@
 	var/anomaly_datum_type = GLOB.anomaly_types["[selected_tier]"][selected_type]
 	anomaly = new anomaly_datum_type
 	var/list/possible_used = anomaly.get_used(containment)
-	if(!possible_used.len && anomaly.req_item != "-")
+	if(!length(possible_used) && anomaly.req_item != "-")
 		buzz()
 		atom_say("Недостаточно ресурсов!", FALSE)
 		return
@@ -376,7 +373,7 @@
 
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
-			генерации аномалий. В данной модели были использованы секретные разработки NanoTrasen."
+			генерации аномалий. В данной модели были использованы секретные разработки Nanotrasen."
 
 /obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/item)
 	default_unfasten_wrench(user, item)

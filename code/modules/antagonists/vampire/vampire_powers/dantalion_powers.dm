@@ -2,12 +2,9 @@
 	V.subclass.thrall_cap++
 	gain_desc = "Теперь вы можете подчинить себе ещё одного гуманоида, вплоть до <b>[V.subclass.thrall_cap]</b> ."
 
-
 /datum/vampire_passive/increment_thrall_cap/two
 
-
 /datum/vampire_passive/increment_thrall_cap/three
-
 
 /obj/effect/proc_holder/spell/vampire/enthrall
 	name = "Порабощение"
@@ -18,18 +15,16 @@
 	required_blood = 100
 	deduct_blood_on_cast = FALSE
 
-
 /obj/effect/proc_holder/spell/vampire/enthrall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.range = 1
 	T.click_radius = 0
 	return T
 
-
 /obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/target = targets[1]
-	user.visible_message(span_warning("[user] куса[pluralize_ru(user.gender, "ет", "ют")] [target] за шею!"), \
+	user.visible_message(span_warning("[user] куса[PLUR_ET_YUT(user)] [target] за шею!"), \
 						span_warning("Вы кусаете [target] за шею и впускаете поток силы."))
 	to_chat(target, span_warning("Вы чувствуете, как в ваш разум проникают потоки нечистой силы."))
 	if(do_after(user, 15 SECONDS, target, NONE))
@@ -41,7 +36,6 @@
 	else
 		revert_cast(user)
 		to_chat(user, span_warning("Вы или ваша цель сдвинулись с места."))
-
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	. = FALSE
@@ -65,17 +59,16 @@
 		return
 
 	if(ismindshielded(C) || isvampire(C) || isvampirethrall(C) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
-		C.visible_message(span_warning("Похоже, [C] сопротивля[pluralize_ru(user.gender, "ет", "ют")]ся захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Вы чувствуете знакомое ощущение в черепе, которое быстро проходит."))
 		return
 
 	if(C.mind.isholy)
-		C.visible_message(span_warning("Похоже, [C] сопротивля[pluralize_ru(user.gender, "ет", "ют")]ся захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Ваша вера в [SSticker.Bible_deity_name] сохранила ваш разум чистым от всякого зла."))
 		return
 
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
 	if(!istype(H))
@@ -88,7 +81,6 @@
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
-
 /obj/effect/proc_holder/spell/vampire/thrall_commune
 	name = "Телепатическая связь"
 	desc = "Общайтесь со своими рабами с помощью блюспейс-телепатии."
@@ -97,10 +89,8 @@
 	create_attack_logs = FALSE
 	base_cooldown = 2 SECONDS
 
-
 /obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_handler() //so thralls can use it
 	return
-
 
 /datum/spell_targeting/select_vampire_network/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network
 	var/list/mob/living/targets = list()
@@ -125,61 +115,62 @@
 	targets += V.owner.current
 	return targets
 
-
 /obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_targeting()
 	var/datum/spell_targeting/select_vampire_network/T = new
 	return T
 
-
 /obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
 	var/input = tgui_input_text(user, "Введите сообщение для передачи другим рабам", "Сообщение рабам")
-	if(! input)
+	if(!input)
 		revert_cast(user)
 		return
 
 	// if admins give this to a non vampire/thrall it is not my problem
 	var/is_thrall = isvampirethrall(user)
-	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : "<span class='dantalion'><font size='3'>(Мастер Вампир) [user.real_name]</font></span>"
-	var/message = is_thrall ? "<span class='dantalion'>[input]</span>" : "<span class='dantalion'><font size='3'><b>[input]</b></font></span>"
+	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : span_dantalion(span_fontsize3("(Мастер Вампир) [user.real_name]"))
+	var/message = is_thrall ? span_dantalion("[input]") : span_dantalion(span_fontsize3(span_bold("[input]")))
 
 	for(var/mob/player in targets)
-		to_chat(player, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> телепатезирует, [message]</span><i>")
+		to_chat(player, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
 	for(var/mob/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> ([ghost_follow_link(user, ghost)]) телепатезирует, [message]</span><i>")
+		to_chat(ghost, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] ([ghost_follow_link(user, ghost)]) телепатезирует, [message]<i>"))
 
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
 
-
 /obj/effect/proc_holder/spell/vampire/pacify
 	name = "Умиротворение"
-	desc = "Временно умиротворяет цель, делая её неспособной причинить вред."
+	desc = "Временно умиротворяет цель, делая её неспособной причинить вред. Возможно использовать сквозь стены."
 	gain_desc = "Вы обрели способность умиротворять агрессивные порывы гуманоида, не позволяя ему причинить кому-либо физический вред."
 	action_icon_state = "pacify"
-	base_cooldown = 10 SECONDS
 	required_blood = 10
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/vampire/pacify/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.range = 7
-	T.click_radius = 1
-	T.allowed_type = /mob/living/carbon/human
-	return T
-
+	var/datum/spell_targeting/click/targeting = new
+	targeting.range = 7
+	targeting.click_radius = 1
+	targeting.allowed_type = /mob/living/carbon/human
+	targeting.selection_type = SPELL_SELECTION_RANGE
+	return targeting
 
 /obj/effect/proc_holder/spell/vampire/pacify/cast(list/targets, mob/user)
-	for(var/mob/living/carbon/human/H as anything in targets)
-		to_chat(H, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
-		SEND_SOUND(H, sound('sound/hallucinations/i_see_you1.ogg'))
-		H.apply_status_effect(STATUS_EFFECT_PACIFIED)
+	var/sound/sound = sound('sound/magic/cult_spell.ogg')
+	sound.volume = 30
+	SEND_SOUND(user, sound)
+	for(var/mob/living/carbon/human/target as anything in targets)
+		if(!target.affects_vampire(user))
+			to_chat(user, span_warning("Вы чувствуете, что ваша способность не произвела никакого эффекта!"))
+			return
 
+		to_chat(target, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
+		SEND_SOUND(target, sound('sound/hallucinations/i_see_you1.ogg'))
+		target.apply_status_effect(STATUS_EFFECT_PACIFIED, user) // we wont to see, whom we already pacify
 
 /obj/effect/proc_holder/spell/vampire/switch_places
 	name = "Подпространственный обмен"
-	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации."
+	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации. Возможно использовать сквозь стены."
 	gain_desc = "Вы получили возможность меняться местами с выбранным существом."
 	centcom_cancast = FALSE
 	action_icon_state = "subspace_swap"
@@ -187,15 +178,14 @@
 	required_blood = 15
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/vampire/switch_places/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.range = 7
 	T.click_radius = 1
 	T.try_auto_target = FALSE
+	T.selection_type = SPELL_SELECTION_RANGE
 	T.allowed_type = /mob/living
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
@@ -203,13 +193,15 @@
 	var/turf/target_turf = get_turf(target)
 	target.forceMove(user_turf)
 	user.forceMove(target_turf)
+	var/sound/sound = sound('sound/magic/mindswap.ogg')
+	sound.volume = 30
+	SEND_SOUND(user, sound)
 
 	if(target.affects_vampire(user))
 		target.Slowed(4 SECONDS)
 		SEND_SOUND(target, sound('sound/hallucinations/behind_you1.ogg'))
 		target.flash_eyes(2, TRUE, affect_silicon = TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(user_turf, target, duration = 15 SECONDS, skip_nearby = FALSE)
-
 
 /obj/effect/proc_holder/spell/vampire/self/decoy
 	name = "Приманка"
@@ -219,7 +211,6 @@
 	required_blood = 30
 	base_cooldown = 20 SECONDS
 	var/duration = 6 SECONDS
-
 
 /obj/effect/proc_holder/spell/vampire/self/decoy/cast(list/targets, mob/user)
 	var/user_turf = get_turf(user)
@@ -231,7 +222,6 @@
 	playsound(user_turf, 'sound/hallucinations/look_up1.ogg', 50, TRUE)
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), duration)
 
-
 /obj/effect/proc_holder/spell/vampire/rally_thralls
 	name = "Сплотить рабов"
 	desc = "Снимает все обездвиживающие эффекты с находящихся рядом с вами рабов."
@@ -240,19 +230,16 @@
 	required_blood = 25
 	base_cooldown = 30 SECONDS
 
-
 /obj/effect/proc_holder/spell/vampire/rally_thralls/create_new_targeting()
 	var/datum/spell_targeting/aoe/thralls/T = new
 	T.allowed_type = /mob/living/carbon/human
 	T.range = 7
 	return T
 
-
 /datum/spell_targeting/aoe/thralls/valid_target(target, user, obj/effect/proc_holder/spell/spell, check_if_in_range)
 	if(!isvampirethrall(target))
 		return FALSE
 	return ..()
-
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls/cast(list/targets, mob/user)
 	for(var/mob/living/carbon/human/H as anything in targets)
@@ -262,7 +249,6 @@
 		H.add_overlay(I)
 		addtimer(CALLBACK(H, TYPE_PROC_REF(/atom, cut_overlay), I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
 
-
 /obj/effect/proc_holder/spell/vampire/self/share_damage
 	name = "Кровавые узы"
 	desc = "Создает сеть между вами и ближайшими рабами, которая равномерно распределяет весь получаемый урон."
@@ -270,14 +256,12 @@
 	action_icon_state = "blood_bond"
 	required_blood = 5
 
-
 /obj/effect/proc_holder/spell/vampire/self/share_damage/cast(list/targets, mob/living/user)
 	var/datum/status_effect/thrall_net/T = user.has_status_effect(STATUS_EFFECT_THRALL_NET)
 	if(!T)
 		user.apply_status_effect(STATUS_EFFECT_THRALL_NET, user.mind.has_antag_datum(/datum/antagonist/vampire))
 		return
 	qdel(T)
-
 
 /obj/effect/proc_holder/spell/vampire/hysteria
 	name = "Массовая истерия"
@@ -287,13 +271,11 @@
 	required_blood = 25
 	base_cooldown = 60 SECONDS
 
-
 /obj/effect/proc_holder/spell/vampire/hysteria/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
 	T.range = 8
 	T.allowed_type = /mob/living/carbon/human
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/hysteria/cast(list/targets, mob/user)
 	for(var/mob/living/carbon/human/target in targets)

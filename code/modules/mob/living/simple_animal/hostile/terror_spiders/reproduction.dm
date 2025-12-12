@@ -4,20 +4,7 @@
 // --------------------------------------------------------------------------------
 
 /obj/structure/spider/spiderling/terror_spiderling
-	name = "spiderling"
 	desc = "Быстро движущийся крошечный паук, склонный издавать агрессивные шипящие звуки. Надеюсь, оно не вырастет."
-	ru_names = list(
-		NOMINATIVE = "паучок",
-		GENITIVE = "паучка",
-		DATIVE = "паучку",
-		ACCUSATIVE = "паучка",
-		INSTRUMENTAL = "паучком",
-		PREPOSITIONAL = "паучке",
-	)
-	icon_state = "spiderling"
-	anchored = FALSE
-	layer = 2.75
-	max_integrity = 3
 	var/stillborn = FALSE
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
@@ -30,6 +17,16 @@
 	var/debug_ai_choices = FALSE
 	var/movement_disabled = FALSE
 	var/mob/asigned_ghost
+
+/obj/structure/spider/spiderling/terror_spiderling/get_ru_names()
+	return list(
+		NOMINATIVE = "паучок",
+		GENITIVE = "паучка",
+		DATIVE = "паучку",
+		ACCUSATIVE = "паучка",
+		INSTRUMENTAL = "паучком",
+		PREPOSITIONAL = "паучке",
+	)
 
 /obj/structure/spider/spiderling/terror_spiderling/Initialize(mapload)
 	. = ..()
@@ -72,14 +69,14 @@
 		if(A == src)
 			if(score > 0)
 				new /obj/effect/temp_visual/heart(T) // heart symbol, I am safe here, protected by a friendly spider
-			else if (score == 0)
+			else if(score == 0)
 				new /obj/effect/temp_visual/heal(T) // white "+" symbol, I am neutral here
 			else
 				new /obj/effect/temp_visual/at_shield(T) // octagon symbol, I am unsafe here, I need to flee
 		else
 			if(score > 0)
 				new /obj/effect/temp_visual/telekinesis(T) // blue sparks, this is a safe area, I want to go here
-			else if (score == 0)
+			else if(score == 0)
 				new /obj/effect/temp_visual/revenant(T) // purple sparks, this is a neutral area, an acceptable choice
 			else
 				new /obj/effect/temp_visual/cult/sparks(T) // red sparks, this is an unsafe area, I won't go here unless fleeing something worse
@@ -103,7 +100,7 @@
 		S.enemies = enemies
 
 		if(!spider_awaymission && asigned_ghost)
-			S.key = asigned_ghost.key
+			S.possess_by_player(asigned_ghost.key)
 			S.add_datum_if_not_exist()
 			asigned_ghost = null
 		else if(!spider_awaymission)
@@ -134,7 +131,7 @@
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
@@ -177,7 +174,7 @@
 							new_area.Entered(src)
 		else
 			frustration++
-			SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))
+			GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 			if(frustration > 2)
 				entry_vent = null
 	else if(prob(33))
@@ -192,10 +189,8 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))
+				GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 				break
-
-
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
@@ -284,7 +279,7 @@
 		DATIVE = "яйцам [ru_prefix]",
 		ACCUSATIVE = "яйца [ru_prefix]",
 		INSTRUMENTAL = "яйцами [ru_prefix]",
-		PREPOSITIONAL = "яйцах [ru_prefix]"
+		PREPOSITIONAL = "яйцах [ru_prefix]",
 	)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()
@@ -311,7 +306,7 @@
 	if(GLOB.global_degenerate && !spider_mymother.spider_awaymission && !QDELETED(src))
 		qdel(src)
 		return
-	if(grown_tick_count - amount_grown <= TERROR_VOTE_TICKS && !asigned_ghosts?.len \
+	if(grown_tick_count - amount_grown <= TERROR_VOTE_TICKS && !length(asigned_ghosts) \
 		&& !ghost_poll && !spider_mymother.spider_awaymission)
 		find_spider_owner()
 	if(amount_grown >= grown_tick_count && spider_mymother.spider_awaymission)  //x2 time for egg process, spiderlings grows instantly
@@ -327,7 +322,7 @@
 		S.spider_myqueen = spider_myqueen
 		S.spider_mymother = spider_mymother
 		S.enemies = enemies
-		if(asigned_ghosts.len)
+		if(length(asigned_ghosts))
 			S.asigned_ghost = pick_n_take(asigned_ghosts)
 		if(spider_growinstantly)
 			S.amount_grown = 250
@@ -335,14 +330,6 @@
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress
 	name = "empress egg cluster"
-	ru_names = list(
-		NOMINATIVE = "яйца Императрицы Ужаса",
-		GENITIVE = "яиц Императрицы Ужаса",
-		DATIVE = "яйцам Императрицы Ужаса",
-		ACCUSATIVE = "яйца Императрицы Ужаса",
-		INSTRUMENTAL = "яйцами Императрицы Ужаса",
-		PREPOSITIONAL = "яйцах Императрицы Ужаса",
-	)
 	spiderling_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	max_integrity = 1000
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -351,6 +338,15 @@
 	explosion_vertical_block = 100
 	var/save_burst = FALSE
 
+/obj/structure/spider/eggcluster/terror_eggcluster/empress/get_ru_names()
+	return list(
+		NOMINATIVE = "яйца Императрицы Ужаса",
+		GENITIVE = "яиц Императрицы Ужаса",
+		DATIVE = "яйцам Императрицы Ужаса",
+		ACCUSATIVE = "яйца Императрицы Ужаса",
+		INSTRUMENTAL = "яйцами Императрицы Ужаса",
+		PREPOSITIONAL = "яйцах Императрицы Ужаса",
+	)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress/Initialize(mapload, lay_type)
 	. = ..(mapload, spiderling_type)
@@ -373,7 +369,11 @@
 /obj/structure/spider/royaljelly
 	name = "royal jelly"
 	desc = "Пульсирующая масса слизи, желе, крови или сжиженных органов гуманоидов, которую Пауки Ужаса считают вкусной и очень питательной."
-	ru_names = list(
+	gender = NEUTER
+	icon_state = "spiderjelly"
+
+/obj/structure/spider/royaljelly/get_ru_names()
+	return list(
 		NOMINATIVE = "королевское желе",
 		GENITIVE = "королевского желе",
 		DATIVE = "королевскому желе",
@@ -381,5 +381,3 @@
 		INSTRUMENTAL = "королевским желе",
 		PREPOSITIONAL = "королевском желе",
 	)
-	gender = NEUTER
-	icon_state = "spiderjelly"

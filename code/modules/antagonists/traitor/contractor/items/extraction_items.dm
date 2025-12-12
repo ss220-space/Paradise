@@ -1,8 +1,8 @@
 /**
-  * # Contractor Extraction Flare
-  *
-  * Used to designate where the [/obj/effect/portal/redspace/contractor] should spawn during the extraction process.
-  */
+ * # Contractor Extraction Flare
+ *
+ * Used to designate where the [/obj/effect/portal/redspace/contractor] should spawn during the extraction process.
+ */
 /obj/effect/contractor_flare
 	name = "contractor extraction flare"
 	gender = MALE
@@ -16,7 +16,7 @@
 		DATIVE = "сигнальной ракете контрактника",
 		ACCUSATIVE = "сигнальную ракету контрактника",
 		INSTRUMENTAL = "сигнальной ракетой контрактника",
-		PREPOSITIONAL = "сигнальной ракете контрактника"
+		PREPOSITIONAL = "сигнальной ракете контрактника",
 	)
 
 /obj/effect/contractor_flare/Initialize(mapload)
@@ -28,22 +28,20 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	return ..()
 
-
 /obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/cigarette, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(cigarette) || cigarette.lit)
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
-	cigarette.light(span_rose("[user] привычным движением прикурива[pluralize_ru(user.gender, "ет", "ют")] заслуженную \
-					[genderize_ru(user.gender, "им", "ей", "им", "ими")] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
-
+	cigarette.light(span_rose("[user] привычным движением прикурива[PLUR_ET_YUT(user)] заслуженную \
+					[GEND_IM_EI_IM_IMI(user)] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
 
 /**
-  * # Prisoner Belongings Closet
-  *
-  * Cannot be opened. Contains the belongings of all kidnapped targets.
-  * Any item added inside stops processing and starts again when removed.
-  */
+ * # Prisoner Belongings Closet
+ *
+ * Cannot be opened. Contains the belongings of all kidnapped targets.
+ * Any item added inside stops processing and starts again when removed.
+ */
 /obj/structure/closet/secure_closet/contractor
 	anchored = TRUE
 	can_be_emaged = FALSE
@@ -59,7 +57,6 @@
 	if(!GLOB.prisoner_belongings)
 		GLOB.prisoner_belongings = src
 
-
 /obj/structure/closet/secure_closet/contractor/Destroy()
 	if(GLOB.prisoner_belongings == src)
 		GLOB.prisoner_belongings = null
@@ -69,11 +66,11 @@
 	return FALSE
 
 /**
-  * Tries to add an atom for temporary holding, suspending its processing.
-  *
-  * Arguments:
-  * * A - The atom to add.
-  */
+ * Tries to add an atom for temporary holding, suspending its processing.
+ *
+ * Arguments:
+ * * A - The atom to add.
+ */
 /obj/structure/closet/secure_closet/contractor/proc/give_item(atom/A)
 	if(ismob(A)) // No mobs allowed
 		return FALSE
@@ -87,11 +84,11 @@
 	return TRUE
 
 /**
-  * Removes an atom from temporary holding.
-  *
-  * Arguments:
-  * * A - The atom to remove.
-  */
+ * Removes an atom from temporary holding.
+ *
+ * Arguments:
+ * * A - The atom to remove.
+ */
 /obj/structure/closet/secure_closet/contractor/proc/remove_item(atom/A)
 	if(!(A in contents))
 		return

@@ -18,8 +18,6 @@
 	icon_dead = "snake_dead"
 	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
-	health = 20
-	maxHealth = 20
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	death_sound = 'sound/creatures/snake_death.ogg'
@@ -38,7 +36,6 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	holder_type = /obj/item/holder/snake
 	can_collar = TRUE
-
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
 	. = oview(vision_range, targets_from) //get list of things in vision range
@@ -68,11 +65,9 @@
 //Уникальный питомец Офицера Телекомов. Спрайты от Элл Гуда
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge
 	name = "Руж"
-	desc = "Уникальная трёхголовая змея Офицера Телекоммуникаций синдиката. Выращена в лаборатории. У каждой головы свой характер!"
+	desc = "Уникальная трёхголовая змея Офицера Телекоммуникаций \"Синдиката\". Выращена в лаборатории. У каждой головы свой характер!"
 	icon = 'icons/mob/pets.dmi'
-	mob_size = MOB_SIZE_SMALL
 	blood_volume = BLOOD_VOLUME_NORMAL
-	can_collar = TRUE
 	gender = FEMALE
 	icon_state = "rouge"
 	icon_living = "rouge"
@@ -83,16 +78,7 @@
 	speak_emote = list("шипит")
 	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
 	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
-	tts_seed = "Ladyvashj"
-	health = 20
-	maxHealth = 20
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	attacktext = "кусает"
-	melee_damage_lower = 5
-	melee_damage_upper = 6
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "steps on"
 	var/obj/item/inventory_head
 	var/list/strippable_inventory_slots = list()
 	faction = list("neutral", "syndicate")
@@ -111,7 +97,6 @@
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
 
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	switch(M.a_intent)
@@ -120,18 +105,15 @@
 		if(INTENT_HARM)
 			shh(-1, M)
 
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_lying_on_rest()
 	. = ..()
 	if(inventory_head)
 		regenerate_icons()
 
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_get_up()
 	. = ..()
 	if(inventory_head)
 		regenerate_icons()
-
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/shh(change, mob/M)
 	if(!M || stat)
@@ -200,9 +182,11 @@
 		if(health <= 0)
 			to_chat(user, span_notice("Безжизненный взгляд в глазах [real_name] никак не меняется, когда вы надеваете [item_to_add] на неё."))
 		else if(user)
-			user.visible_message(span_notice("[user] надевает [item_to_add] на центральную голову [real_name]. [src] смотрит на [user] и довольно шипит."),
+			user.visible_message(
+				span_notice("[user] надевает [item_to_add] на центральную голову [real_name]. [src] смотрит на [user] и довольно шипит."),
 				span_notice("Вы надеваете [item_to_add] на голову [real_name]. [src] озадачено смотрит на вас, пока другие головы смотрят на центральную с завистью."),
-				span_italics("Вы слышите дружелюбное шипение."))
+				span_italics("Вы слышите дружелюбное шипение.")
+			)
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_snek_fluff()
@@ -256,3 +240,26 @@
 			head_icon = SF.get_overlay()
 
 		add_overlay(head_icon)
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha
+	name = "Доктор Рираха"
+	desc = "Оранжевая змея в шапочке медсестры, от которой исходит аромат медицинской марихуаны."
+	icon_state = "riraha"
+	icon_living = "riraha"
+	icon_dead = "riraha_dead"
+	speak_emote = list("шипит")
+	tts_seed = "Xenia"
+	melee_damage_lower = 1
+	melee_damage_upper = 3
+	faction = list("neutral")
+	unique_pet = TRUE
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
+	return list(
+		NOMINATIVE = "доктор Рираха",
+		GENITIVE = "доктора Рираха",
+		DATIVE = "доктору Рираху",
+		ACCUSATIVE = "доктора Рираха",
+		INSTRUMENTAL = "доктором Рирахой",
+		PREPOSITIONAL = "докторе Рирахе",
+		)

@@ -28,13 +28,15 @@
 
 /obj/structure/closet/crate/necropolis/ancient/crusher
 	name = "alloyed ancient supply cache"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/ancient/crusher/get_ru_names()
+	return list(
 		NOMINATIVE = "древний тайник с припасами",
 		GENITIVE = "древнего тайника с припасами",
 		DATIVE = "древнему тайнику с припасами",
 		ACCUSATIVE = "древний тайник с припасами",
 		INSTRUMENTAL = "древним тайником с припасами",
-		PREPOSITIONAL = "древнем тайнике с припасами"
+		PREPOSITIONAL = "древнем тайнике с припасами",
 	)
 
 /obj/structure/closet/crate/necropolis/ancient/crusher/populate_contents()

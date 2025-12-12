@@ -5,7 +5,6 @@
 	desc = "Sturdy wooden tribune. When you look at it, you want to start making a speech."
 	flags = ON_BORDER
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
 	pass_flags_self = PASSGLASS
@@ -15,7 +14,6 @@
 	var/mover_dir = null
 	var/ini_dir = null
 
-
 /obj/structure/tribune/Initialize(mapload)
 	. = ..()
 	handle_layer()
@@ -24,7 +22,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/tribune/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
@@ -32,7 +29,7 @@
 /obj/structure/tribune/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
@@ -46,7 +43,6 @@
 
 /obj/structure/tribune/proc/after_rotation(mob/user)
 	add_fingerprint(user)
-
 
 /obj/structure/tribune/setDir(newdir)
 	. = ..()
@@ -70,12 +66,10 @@
 	after_rotation(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/structure/tribune/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(dir != border_dir || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
-
 
 /obj/structure/tribune/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -96,9 +90,7 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"
-	icon = 'icons/obj/tribune.dmi'
 	icon_state = "nt_tribune_cc"
 	desc = "A richly decorated tribune. Just looking at her makes your heart skip a beat."

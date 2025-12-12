@@ -7,7 +7,6 @@
 	item_state = "breath"
 	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
@@ -30,7 +29,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/breath/get_ru_names()
@@ -40,7 +39,7 @@
 		DATIVE = "дыхательной маске",
 		ACCUSATIVE = "дыхательную маску",
 		INSTRUMENTAL = "дыхательной маской",
-		PREPOSITIONAL = "дыхательной маске"
+		PREPOSITIONAL = "дыхательной маске",
 	)
 
 /obj/item/clothing/mask/breath/attack_self(mob/user)
@@ -56,7 +55,7 @@
 			Обладает минимальным коэффициентом проницаемости газов и практически не пропускает вредные вещества. \
 			Предназначена для анестезии при проведении хирургических операций путём ввода седативной дыхательной смеси."
 	icon_state = "medical"
-	item_state = "medical"
+	item_state = "m_mask"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
 
@@ -67,7 +66,7 @@
 		DATIVE = "медицинской маске",
 		ACCUSATIVE = "медицинскую маску",
 		INSTRUMENTAL = "медицинской маской",
-		PREPOSITIONAL = "медицинской маске"
+		PREPOSITIONAL = "медицинской маске",
 	)
 
 /obj/item/clothing/mask/breath/vox
@@ -89,7 +88,7 @@
 		DATIVE = "дыхательной маске для воксов",
 		ACCUSATIVE = "дыхательную маску для воксов",
 		INSTRUMENTAL = "дыхательной маской для воксов",
-		PREPOSITIONAL = "дыхательной маске для воксов"
+		PREPOSITIONAL = "дыхательной маске для воксов",
 	)
 
 /obj/item/clothing/mask/breath/vox/attack_self(mob/user)

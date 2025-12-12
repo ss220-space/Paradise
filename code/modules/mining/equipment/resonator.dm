@@ -1,24 +1,14 @@
-#define RESONATOR_MODE_AUTO   1
+#define RESONATOR_MODE_AUTO 1
 #define RESONATOR_MODE_MANUAL 2
 #define RESONATOR_MODE_MATRIX 3
 
 /**********************Resonator**********************/
 /obj/item/resonator
 	name = "resonator"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
 	origin_tech = "magnets=3;engineering=3"
 	desc = "Портативное устройство, создающее энергетические поля, которые резонируют до детонации, разрушая породу. Наносит повышенный урон в условиях низкого давления. Имеет два режима: автоматический и ручной подрыв."
-	ru_names = list(
-		NOMINATIVE = "резонатор",
-		GENITIVE = "резонатора",
-		DATIVE = "резонатору",
-		ACCUSATIVE = "резонатор",
-		INSTRUMENTAL = "резонатором",
-		PREPOSITIONAL = "резонаторе"
-	)
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	throwforce = 10
 	/// the mode of the resonator; has three modes: auto (1), manual (2), and matrix (3)
@@ -31,6 +21,16 @@
 	var/list/fields = list()
 	/// the number that is added to the failure_prob, which is the probability of whether it will spread or not
 	var/adding_failure = 50
+
+/obj/item/resonator/get_ru_names()
+	return list(
+		NOMINATIVE = "резонатор",
+		GENITIVE = "резонатора",
+		DATIVE = "резонатору",
+		ACCUSATIVE = "резонатор",
+		INSTRUMENTAL = "резонатором",
+		PREPOSITIONAL = "резонаторе",
+	)
 
 /obj/item/resonator/attack_self(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
@@ -50,7 +50,6 @@
 	if(LAZYLEN(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
 
-
 /obj/item/resonator/pre_attackby(atom/target, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !check_allowed_items(target, TRUE))
@@ -59,20 +58,10 @@
 	user.changeNext_move(attack_speed)
 	create_resonance(target, user)
 
-
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
 	name = "resonance field"
 	desc = "Энергетическое поле, наносящее значительный урон всему внутри при разрыве. Эффективнее в условиях низкого давления."
-	ru_names = list(
-		NOMINATIVE = "резонансное поле",
-		GENITIVE = "резонансного поля",
-		DATIVE = "резонансному полю",
-		ACCUSATIVE = "резонансное поле",
-		INSTRUMENTAL = "резонансным полем",
-		PREPOSITIONAL = "резонансном поле"
-	)
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 5 SECONDS
@@ -91,6 +80,16 @@
 	/// the number that is added to the failure_prob. Will default to 40
 	var/adding_failure
 
+/obj/effect/temp_visual/resonance/get_ru_names()
+	return list(
+		NOMINATIVE = "резонансное поле",
+		GENITIVE = "резонансного поля",
+		DATIVE = "резонансному полю",
+		ACCUSATIVE = "резонансное поле",
+		INSTRUMENTAL = "резонансным полем",
+		PREPOSITIONAL = "резонансном поле",
+	)
+
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, mode, set_failure = 40)
 	if(mode == RESONATOR_MODE_AUTO)
 		duration = 2 SECONDS
@@ -107,7 +106,7 @@
 	if(parent_resonator)
 		parent_resonator.fields += src
 	adding_failure = set_failure
-	playsound(src,'sound/weapons/resonator_fire.ogg',50,1)
+	playsound(src,'sound/weapons/resonator_fire.ogg',50, TRUE)
 	if(mode == RESONATOR_MODE_AUTO)
 		transform = matrix()*0.75
 		animate(src, transform = matrix()*1.5, time = duration)
@@ -137,13 +136,10 @@
 	var/turf/src_turf = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
-		if(isancientturf(src_turf))
-			visible_message(span_notice("Эта порода устойчива ко всем инструментам, кроме кирок!"))
-		else
-			var/turf/simulated/mineral/M = src_turf
-			M.attempt_drill(creator)
+		var/turf/simulated/mineral/mineral = src_turf
+		mineral.attempt_drill(creator)
 	check_pressure(src_turf)
-	playsound(src_turf,'sound/weapons/resonator_blast.ogg',50,1)
+	playsound(src_turf,'sound/weapons/resonator_blast.ogg',50, TRUE)
 	for(var/mob/living/L in src_turf)
 		if(creator)
 			add_attack_logs(creator, L, "Resonance field'ed")
@@ -174,19 +170,21 @@
 /obj/item/resonator/upgraded
 	name = "upgraded resonator"
 	desc = "Усовершенствованная версия резонатора, способная создавать больше полей одновременно без потери урона при раннем подрыве. Позволяет устанавливать \"резонансные матрицы\", срабатывающие рядом с целью."
-	ru_names = list(
-		NOMINATIVE = "улучшенный резонатор",
-		GENITIVE = "улучшенного резонатора",
-		DATIVE = "улучшенному резонатору",
-		ACCUSATIVE = "улучшенный резонатор",
-		INSTRUMENTAL = "улучшенным резонатором",
-		PREPOSITIONAL = "улучшенном резонаторе"
-	)
 	icon_state = "resonator_u"
 	fieldlimit = 6
 	quick_burst_mod = 1
 	adding_failure = 20
 	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
+
+/obj/item/resonator/upgraded/get_ru_names()
+	return list(
+		NOMINATIVE = "улучшенный резонатор",
+		GENITIVE = "улучшенного резонатора",
+		DATIVE = "улучшенному резонатору",
+		ACCUSATIVE = "улучшенный резонатор",
+		INSTRUMENTAL = "улучшенным резонатором",
+		PREPOSITIONAL = "улучшенном резонаторе",
+	)
 
 /obj/item/resonator/upgraded/attack_self(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)

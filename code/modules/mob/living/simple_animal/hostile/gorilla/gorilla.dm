@@ -29,7 +29,6 @@
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	gold_core_spawnable = HOSTILE_SPAWN
 	stat_attack = UNCONSCIOUS // Sleeping won't save you
-	a_intent = INTENT_HARM // Angrilla
 	tts_seed = "Mannoroth"
 	AI_delay_max = 0.5 SECONDS
 	/// Is the gorilla stood up or not?
@@ -49,6 +48,32 @@
 	/// Gorilla bipedal toggle.
 	var/datum/action/innate/gorilla/gorilla_toggle/gorilla_toggle
 
+	// Actions
+	description_info = "<b>Руководство по работе с гориллами для самых маленьких:</b>\nВсе гориллы любят бананы и наверняка захотят поработать, если Вы предоставите им несколько этих замечательных фруктов.\nЕсли горилла уже работает на Вас, используйте указатель (средняя кнопка мышки), чтобы отдать животному команду на перемещение или подбор/сброс ящиков в указанную точку.\nДо тех пор пока горилла не нашла себе друга она будет отзываться по имени.\nТакже животное способно понимать дополнительные голосовые приказы, если их использовать в одном предложении с именем животного.\n<b>Команды:</b>\n- \"сидеть\", \"опустись\", \"сядь\", \"садись\", \"сесть\"\n- \"встать\", \"встань\", \"поднимись\", \"стоять\", \"стой\", \"выпрямись\"\n- \"пошли\", \"идём\", \"за мной\" \n- \"жди\", \"ожидай\", \"ждать\" \n- \"брось\", \"выброси\", \"урони\"\n- \"носи ящики\", \"хватай ящики\"\n- \"толкай ящики\", \"двигай ящики\""
+	/// Сan gorilla have a master?
+	var/can_befriend = TRUE
+	/// What speech pieces make gorilla excited (turn off AI and make it follow the speaker). Works only without master and client.
+	var/list/attention_phrases = list("goril", "banana", "monkey", "горил", "банан", "обезьян")
+	/// Current gorilla master.
+	var/mob/living/carbon/human/master
+	/// Amount of bananas eaten.
+	var/bananas_eaten = 0
+	/// Timer used in befriend and excitement manipulations.
+	var/befriend_timer
+	/// Whether gorilla is currently waiting and will not follow its master.
+	var/is_waiting = FALSE
+	/// List of initial factions, gorilla has before befriend. We need this since initial value of a list is an empty list.
+	var/list/initial_faction
+	/// Associative list with key = user.UID(), value = bananas fed to gorilla. Used in befriending.
+	var/list/friend2bananas
+	/// Notify player about new powers.
+	var/enlighten_message_done = FALSE
+	/// Original target atom gorrilla's master pointed at.
+	var/atom/point_target
+	/// Turf adjacent to point_target, used in point movement manipulations.
+	var/turf/target_turf
+	/// Cooldown stamp used for various gorilla actions.
+	COOLDOWN_DECLARE(gorilla_actions_cooldown)
 
 /mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
 	. = ..()
@@ -70,32 +95,27 @@
 	QDEL_NULL(gorilla_toggle)
 	return ..()
 
-
 /mob/living/simple_animal/hostile/gorilla/Login()
 	var/need_reset = last_known_ckey != client.ckey
 	. = ..()
 	if(need_reset)
 		reset_behavior(play_emote = FALSE)
 
-
 /mob/living/simple_animal/hostile/gorilla/Logout()
 	. = ..()
 	// 60 seconds to relogin is a generous number
 	addtimer(CALLBACK(src, PROC_REF(delayed_reset)), 1 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
 
-
 /mob/living/simple_animal/hostile/gorilla/proc/delayed_reset()
 	if(!client)
 		reset_behavior()
 
-
 /datum/action/innate/gorilla/gorilla_toggle
 	name = "Toggle Stand"
 	desc = "Toggles between crawling and standing up. Use <b>Alt+Click</b> on self."
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_icon_state = "gorilla_toggle"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-
 
 /datum/action/innate/gorilla/gorilla_toggle/Activate()
 	. = ..()
@@ -119,20 +139,17 @@
 
 	gorilla.update_icon(UPDATE_ICON_STATE)
 
-
 /mob/living/simple_animal/hostile/gorilla/click_alt(mob/living/simple_animal/hostile/gorilla/user)
 	if(!istype(user) || src != user || !gorilla_toggle)
 		return NONE
 	gorilla_toggle.Activate()
 	return CLICK_ACTION_SUCCESS
 
-
 /**
  * Returns a list with phrases to which gorilla reacts as if it were their names. For clientless mobs only.
  */
 /mob/living/simple_animal/hostile/gorilla/proc/get_names()
 	. = list("[lowertext(name)]", "gorilla", "горилла")
-
 
 /**
  * Gorillas like to dismember limbs from unconscious mobs.
@@ -150,12 +167,10 @@
 		parts += bodypart
 	return parts
 
-
 /mob/living/simple_animal/hostile/gorilla/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	. = ..()
 	if(.)
 		oogaooga(100, rand(30, 100))
-
 
 /mob/living/simple_animal/hostile/gorilla/AttackingTarget()
 	if(client)
@@ -198,13 +213,11 @@
 		living_target.adjustStaminaLoss(stamina_damage)
 		visible_message(span_warning("[src] knocks [living_target] down!"))
 
-
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()
 	if(is_bipedal || LAZYLEN(crates_in_hand))
 		icon_state = "standing"
 		return
 	icon_state = initial(icon_state)
-
 
 /mob/living/simple_animal/hostile/gorilla/update_overlays()
 	. = ..()
@@ -216,34 +229,28 @@
 	. += crate_olay
 	. += mutable_appearance(icon, "standing_overlay")
 
-
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = get_target_bodyparts(target)
 	return ..() && !is_monkeybasic(the_target) && (!parts || length(parts) > 3)
 
-
 /mob/living/simple_animal/hostile/gorilla/CanSmashTurfs(turf/T)
 	return iswallturf(T)
-
 
 /mob/living/simple_animal/hostile/gorilla/handle_automated_speech(override)
 	if(speak_chance && (override || prob(speak_chance)))
 		oogaooga(100)
 	return ..()
 
-
 /mob/living/simple_animal/hostile/gorilla/proc/oogaooga(probability, volume = 50)
 	var/chance = probability ? prob(probability) : prob(rand(15, 35))
 	if(chance)
 		playsound(src, 'sound/creatures/gorilla.ogg', volume, TRUE)
-
 
 /mob/living/simple_animal/hostile/gorilla/special_hands_drop_action()
 	if(LAZYLEN(crates_in_hand))
 		drop_random_crate(drop_location())
 		return TRUE
 	return FALSE
-
 
 /mob/living/simple_animal/hostile/gorilla/death(gibbed)
 	if(LAZYLEN(crates_in_hand))
@@ -252,16 +259,13 @@
 		reset_behavior(play_emote = FALSE)
 	return ..()
 
-
 /mob/living/simple_animal/hostile/gorilla/examine(mob/user)
 	. = ..()
 	if(LAZYLEN(crates_in_hand))
-		var/crate_text = "<span class='notice'>[p_theyre(TRUE)] carrying the following:\n"
+		var/crate_text = span_notice("[p_theyre(TRUE)] carrying the following:\n")
 		for(var/atom/movable/crate in crates_in_hand)
-			crate_text += " - [crate.name]\n"
-		crate_text += "</span>"
+			crate_text += span_notice(" - [crate.name]\n")
 		. += crate_text
-
 
 /**
  * Proc that manipulated with passed object. Opens/closes a crate/closet or picks up a crate.
@@ -342,7 +346,6 @@
 		custom_emote(EMOTE_VISIBLE, "хвата%(ет,ют)% [target_object] в лапы.", intentional = TRUE)
 	return TRUE
 
-
 /**
  * Drops one random crates from our crate list.
  *
@@ -358,7 +361,6 @@
 	if(master)
 		oogaooga(100)
 		custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% ящик на пол.", intentional = TRUE)
-
 
 /**
  * Drops all the crates in our crate list.
@@ -376,16 +378,13 @@
 		oogaooga(100)
 		custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% все ящики на пол.", intentional = TRUE)
 
-
 /mob/living/simple_animal/hostile/gorilla/add_collar(obj/item/clothing/accessory/petcollar/collar, mob/user)
 	. = ..()
 	if(. && istext(collar.tagname))
 		attention_phrases |= lowertext(collar.tagname)
 
-
 /mob/living/simple_animal/hostile/gorilla/regenerate_icons()
 	return
-
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic
 	name = "каргорилла"
@@ -401,17 +400,14 @@
 	/// The ID card that the gorilla is currently wearing.
 	var/obj/item/card/id/access_card
 
-
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id/supply/cargo_gorilla(src)
 	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
 
-
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Destroy()
 	QDEL_NULL(access_card)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Login()
 	. = ..()
@@ -419,36 +415,29 @@
 	to_chat(src, span_boldnotice("В интенте \"HELP\" Вы можете подбирать ящики, щёлкнув по ним, и бросить их, щелкнув по открытому полу. Вы можете переносить [crate_limit] [declension_ru(crate_limit, "ящик", "ящика", "ящиков")] единовременно. В интенте \"HARM\" Вы можете толкать ящики, но не ломать их. Также Вы можете закрывать или открывать ящики используя Alt+Click."))
 	to_chat(src, span_boldnotice("Легенды гласят, что бананы заключают в себе просвещение..."))
 
-
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/get_access()
 	. = ..()
 	. |= access_card.GetAccess()
-
 
 /obj/item/card/id/supply/cargo_gorilla
 	name = "cargorilla ID"
 	registered_name = "Cargorilla"
 	desc = "A card used to provide ID and determine access across the station. A gorilla-sized ID for a gorilla-sized cargo technician."
 
-
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
 	name = "Марс"
 	real_name = "Марс"
-	gender = MALE
 	unique_pet = TRUE
 	attention_phrases = list("mars", "марс", "goril", "banan", "monkey", "горил", "банан", "обезьян", "карго")
-
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars/Initialize(mapload)
 	. = ..()
 	var/obj/structure/chair/chair = locate() in get_turf(src)
 	chair?.buckle_mob(src, TRUE, FALSE)
 
-
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars/get_names()
 	. = ..()
 	. += "mars"
-
 
 /mob/living/simple_animal/hostile/gorilla/rampaging
 	name = "Неистовая Горилла"
@@ -467,11 +456,9 @@
 	throw_onhit = 80
 	can_befriend = FALSE
 
-
 /mob/living/simple_animal/hostile/gorilla/rampaging/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /mob/living/simple_animal/hostile/gorilla/rampaging/update_overlays()
 	. = ..()

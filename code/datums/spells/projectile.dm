@@ -28,7 +28,6 @@
 	/// Lower = faster
 	var/proj_step_delay = 1
 
-
 /obj/effect/proc_holder/spell/projectile/cast(list/targets, mob/user = usr)
 
 	for(var/mob/living/target in targets)

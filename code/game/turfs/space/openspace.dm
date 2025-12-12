@@ -1,7 +1,6 @@
 /turf/space/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon = 'icons/turf/space.dmi'
 	icon_state = "openspace" //transparent
 	baseturf = /turf/space/openspace
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -101,7 +100,6 @@
 /turf/space/openspace/proc/CanBuildHere()
 	return can_build_on
 
-
 /turf/space/openspace/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -166,7 +164,6 @@
 		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /turf/space/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))

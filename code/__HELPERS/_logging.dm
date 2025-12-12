@@ -54,7 +54,7 @@ GLOBAL_PROTECT(log_end)
 /proc/log_mapmanip(text)
 	if(!CONFIG_GET(flag/log_mapmanip))
 		return
-	
+
 	WRITE_LOG(GLOB.mapmanip_log, "MAPMANIP: [text][GLOB.log_end]")
 
 /proc/log_vote(text)
@@ -165,8 +165,13 @@ GLOBAL_PROTECT(log_end)
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
 /proc/log_world(text)
-	if(config && !CONFIG_GET(flag/disable_root_log))
+	#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
+	SEND_TEXT(world.log, text)
+	#else
+	if(config && CONFIG_GET(flag/enable_root_log))
 		SEND_TEXT(world.log, text)
+	#endif
+
 	if(config && CONFIG_GET(flag/log_world_output))
 		WRITE_LOG(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
@@ -208,7 +213,6 @@ GLOBAL_PROTECT(log_end)
 			to_chat(C, "GC DEBUG: [text]")
 #endif
 
-
 /proc/log_sql(text)
 	WRITE_LOG(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
@@ -222,7 +226,7 @@ GLOBAL_PROTECT(log_end)
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
-/proc/log_after_setup(var/message)
+/proc/log_after_setup(message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
 		to_chat(world, span_danger("[message]"))
 		log_world(message)
@@ -233,14 +237,13 @@ GLOBAL_PROTECT(log_end)
 
 // Helper procs for building detailed log lines
 
-/proc/datum_info_line(var/datum/d)
+/proc/datum_info_line(datum/d)
 	if(!istype(d))
 		return
 	if(!istype(d, /mob))
 		return "[d] ([d.type])"
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"
-
 
 /proc/atom_loc_line(atom/A)
 	if(!istype(A))
@@ -254,7 +257,6 @@ GLOBAL_PROTECT(log_end)
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
-
 
 /mob/proc/simple_info_line()
 	return "[key_name(src)] ([x],[y],[z])"
@@ -332,7 +334,7 @@ GLOBAL_PROTECT(log_end)
 				loglevel = ATKLOG_ALMOSTALL
 		else
 			var/area/A = get_area(MT)
-			if(A && A.hide_attacklogs)
+			if(A?.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob

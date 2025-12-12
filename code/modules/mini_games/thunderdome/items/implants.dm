@@ -1,5 +1,3 @@
-#define DEFAULT_TIME_LIMIT 5 MINUTES
-
 /**
  *  Special implant that will definetly end brawler's life. Sad, but we have queue to go!
  */
@@ -15,12 +13,9 @@
 	name = "Suicide"
 	check_flags = FALSE
 
-
 /obj/item/implant/postponed_death/implant(mob/source, mob/user)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(activate)), time_to_live)
 
 /obj/item/implant/postponed_death/activate()
 	imp_in.melt()
-
-#undef DEFAULT_TIME_LIMIT

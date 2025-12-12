@@ -1,20 +1,20 @@
- /*
+/*
 What are the archived variables for?
 	Calculations are done using the archived variables with the results merged into the regular variables.
 	This prevents race conditions that arise based on the order of tile processing.
 */
 
-#define SPECIFIC_HEAT_TOXIN		200
-#define SPECIFIC_HEAT_AIR		20
-#define SPECIFIC_HEAT_CDO		30
-#define SPECIFIC_HEAT_N2O		40
-#define SPECIFIC_HEAT_AGENT_B	300
+#define SPECIFIC_HEAT_TOXIN 200
+#define SPECIFIC_HEAT_AIR 20
+#define SPECIFIC_HEAT_CDO 30
+#define SPECIFIC_HEAT_N2O 40
+#define SPECIFIC_HEAT_AGENT_B 300
 
 #define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b) \
 	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B)
 
-#define MINIMUM_HEAT_CAPACITY	0.0003
-#define QUANTIZE(variable)		(round(variable, 0.0001))
+#define MINIMUM_HEAT_CAPACITY 0.0003
+#define QUANTIZE(variable) (round(variable, 0.0001))
 
 /datum/gas_mixture
 	var/oxygen = 0
@@ -45,10 +45,8 @@ What are the archived variables for?
 /datum/gas_mixture/proc/heat_capacity()
 	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b)
 
-
 /datum/gas_mixture/proc/heat_capacity_archived()
 	return HEAT_CAPACITY_CALCULATION(oxygen_archived, carbon_dioxide_archived, nitrogen_archived, toxins_archived, sleeping_agent_archived, agent_b_archived)
-
 
 /datum/gas_mixture/proc/total_moles()
 	var/moles = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
@@ -63,21 +61,16 @@ What are the archived variables for?
 		return total_moles() * R_IDEAL_GAS_EQUATION * temperature / volume
 	return 0
 
-
 /datum/gas_mixture/proc/return_temperature()
 	return temperature
-
 
 /datum/gas_mixture/proc/return_volume()
 	return max(0, volume)
 
-
 /datum/gas_mixture/proc/thermal_energy()
 	return temperature * heat_capacity()
 
-
 //Procedures used for very specific events
-
 
 /datum/gas_mixture/proc/react()
 	var/reacting = 0 //set to 1 if a notable reaction occured (used by pipe_network)
@@ -141,44 +134,58 @@ What are the archived variables for?
 /datum/gas_mixture/proc/archive()
 	//Update archived versions of variables
 	//Returns: 1 in all cases
+	return
 
 /datum/gas_mixture/proc/merge(datum/gas_mixture/giver)
 	//Merges all air from giver into self. Deletes giver.
 	//Returns: 1 on success (no failure cases yet)
+	return
 
 /datum/gas_mixture/proc/remove(amount)
 	//Proportionally removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
+	return
 
 /datum/gas_mixture/proc/remove_ratio(ratio)
 	//Proportionally removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
+	return
 
 /datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
 	//Copies variables from sample
+	return
 
 /datum/gas_mixture/proc/copy_from_turf(turf/model)
 	//Copies all gas info from the turf into the gas list along with temperature
 	//Returns: 1 if we are mutable, 0 otherwise
+	return
 
 /datum/gas_mixture/proc/share(datum/gas_mixture/sharer)
 	//Performs air sharing calculations between two gas_mixtures assuming only 1 boundary length
 	//Return: amount of gas exchanged (+ if sharer received)
+	return
+
 /datum/gas_mixture/proc/mimic(turf/model) //I want this proc to die a painful death
 	//Similar to share(...), except the model is not modified
 	//Return: amount of gas exchanged
+	return
 
 /datum/gas_mixture/proc/check_turf(turf/model) //I want this proc to die a painful death
 	//Returns: 0 if self-check failed or 1 if check passes
+	return
 
 /datum/gas_mixture/proc/temperature_mimic(turf/model, conduction_coefficient) //I want this proc to die a painful death
+	return
 
 /datum/gas_mixture/proc/temperature_share(datum/gas_mixture/sharer, conduction_coefficient)
+	return
 
 /datum/gas_mixture/proc/temperature_turf_share(turf/simulated/sharer, conduction_coefficient)
+	return
 
 /datum/gas_mixture/proc/compare(datum/gas_mixture/sample)
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
+	return
 
 /datum/gas_mixture/archive()
 	oxygen_archived = oxygen
@@ -220,7 +227,6 @@ What are the archived variables for?
 		return null
 
 	var/datum/gas_mixture/removed = new
-
 
 	removed.oxygen = QUANTIZE((oxygen / sum) * amount)
 	removed.nitrogen = QUANTIZE((nitrogen/  sum) * amount)
@@ -570,8 +576,6 @@ What are the archived variables for?
 			return 0
 	return 1
 
-
-
 //Takes the amount of the gas you want to PP as an argument
 //So I don't have to do some hacky switches/defines/magic strings
 
@@ -583,7 +587,6 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/get_breath_partial_pressure(gas_pressure)
 	return (gas_pressure * R_IDEAL_GAS_EQUATION * temperature) / BREATH_VOLUME
-
 
 //Reverse of the above
 /datum/gas_mixture/proc/get_true_breath_pressure(breath_pp)
@@ -599,3 +602,12 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 10 = 2.5/5*20
 
 */
+
+#undef SPECIFIC_HEAT_TOXIN
+#undef SPECIFIC_HEAT_AIR
+#undef SPECIFIC_HEAT_CDO
+#undef SPECIFIC_HEAT_N2O
+#undef SPECIFIC_HEAT_AGENT_B
+#undef HEAT_CAPACITY_CALCULATION
+#undef MINIMUM_HEAT_CAPACITY
+#undef QUANTIZE

@@ -4,10 +4,7 @@
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall-0"
 	base_icon_state = "r_wall"
-	opacity = TRUE
-	density = TRUE
 	explosion_block = 2
-	explosion_vertical_block = 1
 	damage_cap = 600
 	max_temperature = 6000
 	hardness = 10
@@ -15,9 +12,6 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
-	smooth = SMOOTH_BITMASK
-	smoothing_groups = SMOOTH_GROUP_WALLS
-	canSmoothWith = SMOOTH_GROUP_WALLS
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
@@ -25,7 +19,6 @@
 	if(!is_station_level(z))
 		return
 	AddComponent(/datum/component/blob_turf_consuming, 3)
-
 
 /turf/simulated/wall/r_wall/examine(mob/user)
 	. = ..()
@@ -44,7 +37,6 @@
 			. += span_notice("The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.")
 		if(RWALL_SHEATH)
 			. += span_notice("The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.")
-
 
 /turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -83,7 +75,7 @@
 			return .
 		d_state = RWALL_INTACT
 		update_icon()
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		to_chat(user, span_notice("You repair the last of the damage."))
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -101,10 +93,9 @@
 		to_chat(user, span_notice("You add an additional layer of coating to the wall."))
 		ChangeTurf(/turf/simulated/wall/r_wall/coated)
 		update_icon()
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		can_be_reinforced = FALSE
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
 	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
@@ -213,7 +204,6 @@
 		to_chat(user, span_notice("You tighten the bolts anchoring the support rods."))
 	update_icon()
 
-
 /turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params)
 	if(d_state != RWALL_COVER && d_state != RWALL_SUPPORT_RODS)	//Plasma cutter only works in the deconstruction steps!
 		return FALSE
@@ -233,7 +223,6 @@
 	d_state = RWALL_SHEATH
 	update_icon()
 	return TRUE
-
 
 /turf/simulated/wall/r_wall/try_destroy(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
@@ -259,12 +248,10 @@
 			dismantle_wall()
 		return TRUE
 
-
 /turf/simulated/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(30))
 			dismantle_wall()
-
 
 /turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
@@ -273,8 +260,7 @@
 		clear_smooth_overlays()
 	else
 		smooth = SMOOTH_BITMASK
-		queue_smooth(src)
-
+		QUEUE_SMOOTH(src)
 
 /turf/simulated/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)

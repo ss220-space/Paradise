@@ -14,7 +14,6 @@
 		handle_robot_cell()
 		process_locks()
 
-
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
 		if(!is_component_functioning("power cell"))
@@ -55,9 +54,9 @@
 		uneq_all()
 
 	if(!is_component_functioning("radio") || stat == UNCONSCIOUS)
-		radio.on = 0
+		radio.set_on(FALSE)
 	else
-		radio.on = 1
+		radio.set_on(TRUE)
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state
@@ -129,13 +128,11 @@
 	else
 		ExtinguishMob()
 
-
 /mob/living/silicon/robot/update_fire()
 	var/static/robot_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "human_generic_burn")
 	cut_overlay(robot_fire_olay)
 	if(on_fire)
 		add_overlay(robot_fire_olay)
-
 
 /mob/living/silicon/robot/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them

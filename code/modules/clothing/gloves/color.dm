@@ -19,7 +19,7 @@
 		DATIVE = "изоляционным перчаткам",
 		ACCUSATIVE = "изоляционные перчатки",
 		INSTRUMENTAL = "изоляционными перчатками",
-		PREPOSITIONAL = "изоляционных перчатках"
+		PREPOSITIONAL = "изоляционных перчатках",
 	)
 
 /obj/item/clothing/gloves/color/yellow/power
@@ -29,7 +29,6 @@
 	var/last_shocked = 0
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
-
 
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -45,7 +44,6 @@
 	else
 		to_chat(user, span_biggerdanger("You feel like you have UNLIMITED POWER!!!"))
 
-
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 
@@ -57,7 +55,6 @@
 		old_mclick_override = null
 	else
 		user.middleClickOverride = null
-
 
 /obj/item/clothing/gloves/color/yellow/power/unlimited
 	name = "UNLIMITED POWER gloves"
@@ -73,7 +70,6 @@
 	if(Adjacent(user))
 		. += span_notice("They don't feel like rubber...")
 
-
 /obj/item/clothing/gloves/color/fyellow	 //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
@@ -87,7 +83,6 @@
 	toolspeedmod = 0.2
 	clothing_traits = list(TRAIT_NO_GUNS)
 
-
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
@@ -97,10 +92,10 @@
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
-	desc = "These gloves are fire-resistant."
+	desc = "Перчатки чёрного цвета из плотного материала. \
+			Обладают повышенной стойкостью к высоким температурам."
 	name = "black gloves"
 	icon_state = "black"
-	item_state = "bgloves"
 	item_color = "black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -109,6 +104,15 @@
 	resistance_flags = NONE
 	var/can_be_cut = 1
 
+/obj/item/clothing/gloves/color/black/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрные перчатки",
+		GENITIVE = "чёрных перчаток",
+		DATIVE = "чёрным перчаткам",
+		ACCUSATIVE = "чёрные перчатки",
+		INSTRUMENTAL = "чёрными перчатками",
+		PREPOSITIONAL = "чёрных перчатках"
+	)
 
 /obj/item/clothing/gloves/color/black/hos
 	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
@@ -118,7 +122,6 @@
 
 /obj/item/clothing/gloves/color/black/thief
 	pickpocket = TRUE
-
 
 /obj/item/clothing/gloves/color/black/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -141,7 +144,6 @@
 		new_gloves.pickpocket = FALSE
 	qdel(src)
 
-
 /obj/item/clothing/gloves/color/black/goliath
 	name = "goliath gloves"
 	desc = "Примитивные перчатки, которые облегчают переноску."
@@ -157,7 +159,7 @@
 		DATIVE = "перчаткам из шкуры голиафа",
 		ACCUSATIVE = "перчатки из шкуры голиафа",
 		INSTRUMENTAL = "перчатками из шкуры голиафа",
-		PREPOSITIONAL = "перчатках из шкуры голиафа"
+		PREPOSITIONAL = "перчатках из шкуры голиафа",
 	)
 
 /obj/item/clothing/gloves/color/black/ballistic
@@ -174,8 +176,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+	)
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
@@ -281,7 +283,7 @@
 		DATIVE = "латексным перчаткам",
 		ACCUSATIVE = "латексные перчатки",
 		INSTRUMENTAL = "латексными перчатками",
-		PREPOSITIONAL = "латексных перчатках"
+		PREPOSITIONAL = "латексных перчатках",
 	)
 
 /obj/item/clothing/gloves/color/latex/nitrile
@@ -302,7 +304,7 @@
 		DATIVE = "нитриловым перчаткам",
 		ACCUSATIVE = "нитриловые перчатки",
 		INSTRUMENTAL = "нитриловыми перчатками",
-		PREPOSITIONAL = "нитриловых перчатках"
+		PREPOSITIONAL = "нитриловых перчатках",
 	)
 
 /obj/item/clothing/gloves/color/latex/modified
@@ -322,7 +324,7 @@
 		DATIVE = "модифицированным медицинским перчаткам",
 		ACCUSATIVE = "модифицированные медицинские перчатки",
 		INSTRUMENTAL = "модифицированными медицинскими перчатками",
-		PREPOSITIONAL = "модифицированных медицинских перчатках"
+		PREPOSITIONAL = "модифицированных медицинских перчатках",
 	)
 
 /obj/item/clothing/gloves/color/latex/inugami
@@ -333,6 +335,8 @@
 	icon_state = "inugami_gl"
 	item_state = "inugami_gl"
 	item_color = null
+	var/active = FALSE
+	actions_types = list(/datum/action/item_action/toggle_defibrillator)
 	surgery_step_time = 0.5 SECONDS
 	surgery_germ_chance = 50
 
@@ -349,6 +353,15 @@
 /obj/item/clothing/gloves/color/latex/inugami/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
+
+/obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)
+	. = ..()
+	if(HAS_TRAIT_FROM(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT))
+		REMOVE_TRAIT(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT)
+		user.balloon_alert(user, "дефибриллятор активирован")
+		return
+	ADD_TRAIT(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT)
+	user.balloon_alert(user, "дефибриллятор деактивирован")
 
 /obj/item/clothing/gloves/color/latex/inugami/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -373,8 +386,10 @@
 	item_color = "mime"
 
 /obj/item/clothing/gloves/color/white/redcoat
-	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
-
+	///Exists for washing machines. Is not different from white gloves in any way.
+	item_color = "redcoat"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/gloves/color/captain
 	desc = "Regal blue gloves, with a nice gold trim. Swanky."

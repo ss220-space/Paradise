@@ -8,7 +8,6 @@
 	dna_cost = 1
 	req_human = TRUE //Monkeys can't grab
 
-
 /datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
 		return FALSE
@@ -39,7 +38,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
 	var/mob/living/carbon/human/target = user.pulling
@@ -75,7 +73,7 @@
 	if(ghost?.mind)
 		ghost.mind.transfer_to(user)
 		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
-		user.key = ghost.key
+		user.possess_by_player(ghost.key)
 	qdel(ghost)
 
 	user.Paralyse(4 SECONDS)

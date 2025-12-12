@@ -17,8 +17,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 	w_class = WEIGHT_CLASS_NORMAL
 	undyeable = TRUE
 
@@ -39,10 +39,8 @@
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
-	desc = "An armored vest that protects against some damage."
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
-	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -54,17 +52,13 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
-	icon_state = "armor"
-	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
-
 
 /obj/item/clothing/suit/armor/vest/security/update_icon_state()
 	icon_state = "armor[attached_badge ? "sec" : ""]"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
 	. = ..()
@@ -72,7 +66,6 @@
 		desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
 	else
 		desc = initial(desc)
-
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
@@ -91,7 +84,6 @@
 
 	return ..()
 
-
 /obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
@@ -105,7 +97,6 @@
 		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		return
 	..()
-
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
@@ -167,7 +158,6 @@
 	name = "Warden's armored jacket"
 	desc = "An armored jacket with silver rank pips and livery."
 	icon_state = "warden_jacket"
-	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
@@ -190,8 +180,6 @@
 	name = "captain's carapace"
 	desc = "An armored vest reinforced with ceramic plates and pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the station's finest, although it does chafe your nipples."
 	icon_state = "capcarapace"
-	item_state = "armor"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
@@ -227,8 +215,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -239,32 +227,32 @@
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/templar
 	name = "crusader armour"
@@ -275,15 +263,14 @@
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"
 	desc = "A vest made of durathread with strips of leather acting as trauma plates."
 	icon_state = "durathread"
 	item_state = "durathread"
-	strip_delay = 60
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 15, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
@@ -295,7 +282,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 45, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 70
 	put_on_delay = 50
 	sprite_sheets = list(
@@ -309,12 +296,12 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
-	desc = "Экспериментальный высокотехнологичный бронежилет, изготовленный из светоотражающего материала, предназначен для отражения энергетических лучей. Устаревшая амуниция, была снята с вооружения НаноТрейзен."
+	desc = "Экспериментальный высокотехнологичный бронежилет, изготовленный из светоотражающего материала, предназначен для отражения энергетических лучей. Устаревшая амуниция, была снята с вооружения \"Нанотрейзен\"."
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
@@ -329,7 +316,7 @@
 		DATIVE = "абляционному бронежилету",
 		ACCUSATIVE = "абляционный бронежилет",
 		INSTRUMENTAL = "абляционным бронежилетом",
-		PREPOSITIONAL = "абляционном бронежилете"
+		PREPOSITIONAL = "абляционном бронежилете",
 	)
 
 /obj/item/clothing/suit/armor/reflector
@@ -354,7 +341,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		)
+	)
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
 
@@ -365,14 +352,14 @@
 		DATIVE = "рефлекторному пальто",
 		ACCUSATIVE = "рефлекторное пальто",
 		INSTRUMENTAL = "рефлекторным пальто",
-		PREPOSITIONAL = "рефлекторном пальто"
+		PREPOSITIONAL = "рефлекторном пальто",
 	)
 
 /obj/item/clothing/suit/armor/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
 		return FALSE
 
-	if (prob(hit_reflect_chance))
+	if(prob(hit_reflect_chance))
 		return TRUE
 
 	return FALSE
@@ -386,11 +373,8 @@
 		return 1
 
 /obj/item/clothing/suit/armor/vest/det_suit
-	name = "armor"
 	desc = "An armored vest with a detective's badge on it."
 	icon_state = "detective-armor"
-	item_state = "armor"
-	blood_overlay_type = "armor"
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
@@ -409,11 +393,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
 
-
 /obj/item/clothing/suit/armor/reactive/update_icon_state()
 	icon_state =  "reactive[active ? "" : "off"]"
 	item_state =  "reactive[active ? "" : "off"]"
-
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	if(emp_d)
@@ -424,7 +406,6 @@
 	add_fingerprint(user)
 	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь [active ? "активен" : "неактивен"]."))
 	update_equipped_item()
-
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = FALSE
@@ -437,14 +418,12 @@
 		update_equipped_item()
 	..()
 
-
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	emp_d = FALSE
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
 		update_equipped_item()
 		to_chat(user, span_notice("Похоже, [declent_ru(NOMINATIVE)] снова функционирует нормально."))
-
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
@@ -476,7 +455,7 @@
 			if(T.y>world.maxy-tele_range || T.y<tele_range)
 				continue
 			turfs += T
-		if(!turfs.len)
+		if(!length(turfs))
 			turfs += pick(/turf in orange(tele_range, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
@@ -545,7 +524,6 @@
 
 //All of the armor below is mostly unused
 
-
 /obj/item/clothing/suit/armor/centcomm
 	name = "Cent. Com. armor"
 	desc = "A suit that protects against some damage."
@@ -576,7 +554,7 @@
 	hide_tail_by_species = list(SPECIES_VOX)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 /obj/item/clothing/suit/armor/tdome
@@ -595,7 +573,7 @@
 	item_state = "tdred"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 /obj/item/clothing/suit/armor/tdome/green
@@ -605,7 +583,7 @@
 	item_state = "tdgreen"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 //Non-hardsuit ERT armor.
@@ -613,7 +591,6 @@
 	name = "emergency response team armor"
 	desc = "A set of armor worn by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ertarmor_cmd"
-	item_state = "armor"
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
 
 //Commander
@@ -627,7 +604,6 @@
 	desc = "A set of armor worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "ertarmor_sec"
 
-
 /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	name = "emergency response team paranormal armor"
 	desc = "A set of armor worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
@@ -637,8 +613,8 @@
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 //Engineer
 /obj/item/clothing/suit/armor/vest/ert/engineer
@@ -689,8 +665,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/hooded/drake/get_ru_names()
@@ -700,7 +676,7 @@
 		DATIVE = "доспеху из дрейка",
 		ACCUSATIVE = "доспех из дрейка",
 		INSTRUMENTAL = "доспехом из дрейка",
-		PREPOSITIONAL = "доспехе из дрейка"
+		PREPOSITIONAL = "доспехе из дрейка",
 	)
 
 /obj/item/clothing/head/hooded/drake
@@ -712,7 +688,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/drake/get_ru_names()
@@ -722,7 +697,7 @@
 		DATIVE = "шлему из дрейка",
 		ACCUSATIVE = "шлем из дрейка",
 		INSTRUMENTAL = "шлемом из дрейка",
-		PREPOSITIONAL = "шлеме из дрейка"
+		PREPOSITIONAL = "шлеме из дрейка",
 	)
 
 /obj/item/clothing/suit/hooded/goliath
@@ -734,7 +709,7 @@
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	
+
 /obj/item/clothing/suit/hooded/goliath/get_ru_names()
 	return list(
 		NOMINATIVE = "накидка из голиафа",
@@ -742,7 +717,7 @@
 		DATIVE = "накидке из голиафа",
 		ACCUSATIVE = "накидку из голиафа",
 		INSTRUMENTAL = "накидкой из голиафа",
-		PREPOSITIONAL = "накидке из голиафа"
+		PREPOSITIONAL = "накидке из голиафа",
 	)
 
 /obj/item/clothing/head/hooded/goliath
@@ -751,7 +726,6 @@
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
-	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
@@ -761,7 +735,7 @@
 		DATIVE = "капюшону накидки из голиафа",
 		ACCUSATIVE = "капюшон накидки из голиафа",
 		INSTRUMENTAL = "капюшоном накидки из голиафа",
-		PREPOSITIONAL = "капюшоне накидки из голиафа"
+		PREPOSITIONAL = "капюшоне накидки из голиафа",
 	)
 
 /obj/item/clothing/suit/hooded/goliath/wizard
@@ -777,7 +751,6 @@
 	armor = list(MELEE = 60, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	magical = TRUE
 
-
 /obj/item/clothing/head/hooded/goliath/wizard/get_ru_names()
 	return list(
 		NOMINATIVE = "череп шамана",
@@ -785,7 +758,7 @@
 		DATIVE = "черепу шамана",
 		ACCUSATIVE = "череп шамана",
 		INSTRUMENTAL = "черепом шамана",
-		PREPOSITIONAL = "черепе шамана"
+		PREPOSITIONAL = "черепе шамана",
 	)
 
 //mob_size using for crusher mark
@@ -814,8 +787,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
@@ -825,7 +798,7 @@
 		DATIVE = "костяной броне",
 		ACCUSATIVE = "костяную броню",
 		INSTRUMENTAL = "костяной броней",
-		PREPOSITIONAL = "костяной броне"
+		PREPOSITIONAL = "костяной броне",
 	)
 
 /obj/item/clothing/suit/armor/makeshift_armor
@@ -845,7 +818,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		)
+	)
 
 /obj/item/clothing/suit/armor/cartilage //parent type, used in order not to copy-paste same lines in 3 same armors
 	name = "cartilage armor"
@@ -868,8 +841,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
 	return list(
@@ -878,9 +851,8 @@
 		DATIVE = "броне из хрящевых пластин",
 		ACCUSATIVE = "броню из хрящевых пластин",
 		INSTRUMENTAL = "броней из хрящевых пластин",
-		PREPOSITIONAL = "броне из хрящевых пластин"
+		PREPOSITIONAL = "броне из хрящевых пластин",
 	)
-
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads
 	name = "cartilage shoulder pads"
@@ -897,7 +869,7 @@
 		DATIVE = "наплечникам из хрящевых пластин",
 		ACCUSATIVE = "наплечники из хрящевых пластин",
 		INSTRUMENTAL = "наплечниками из хрящевых пластин",
-		PREPOSITIONAL = "наплечниках из хрящевых пластин"
+		PREPOSITIONAL = "наплечниках из хрящевых пластин",
 	)
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads/attackby(obj/item/I, mob/user, params)
@@ -929,7 +901,7 @@
 		DATIVE = "поножам из хрящевых пластин",
 		ACCUSATIVE = "поножи из хрящевых пластин",
 		INSTRUMENTAL = "поножами из хрящевых пластин",
-		PREPOSITIONAL = "поножах из хрящевых пластин"
+		PREPOSITIONAL = "поножах из хрящевых пластин",
 	)
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_greaves/attackby(obj/item/I, mob/user, params)

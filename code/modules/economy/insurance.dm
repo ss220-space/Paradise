@@ -47,13 +47,12 @@
 	var/from_insurance = min(acc.insurance, req)
 	var/from_money_acc = (req - from_insurance) * 2
 
-
 	if(from_money_acc)
 		if(!acc.insurance_auto_replen || !acc.charge(from_money_acc))
 			to_chat(user, span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено или провалилось."))
 			target.visible_message(
-				span_danger("[user] безуспешно пыта[pluralize_ru(user.gender, "ет", "ют")]ся списать страховку у [target]!"),
-				span_userdanger("[user] безуспешно пыта[pluralize_ru(user.gender, "ет", "ют")]ся списать вашу страховку!"),
+				span_danger("[user] безуспешно пыта[PLUR_ET_YUT(user)]ся списать страховку у [target]!"),
+				span_userdanger("[user] безуспешно пыта[PLUR_ET_YUT(user)]ся списать вашу страховку!"),
 				ignored_mobs = user,
 			)
 			return FALSE
@@ -75,8 +74,8 @@
 
 	to_chat(user, span_notice("Вы списали страховку у [target] в размере: [req]."))
 	target.visible_message(
-		span_danger("[user] списыва[pluralize_ru(user.gender, "ет", "ют")] страховку у [target] в размере: [req]."),
-		span_userdanger("[user] списыва[pluralize_ru(user.gender, "ет", "ют")] вашу страховку в размере: [req]."),
+		span_danger("[user] списыва[PLUR_ET_YUT(user)] страховку у [target] в размере: [req]."),
+		span_userdanger("[user] списыва[PLUR_ET_YUT(user)] вашу страховку в размере: [req]."),
 		ignored_mobs = user,
 	)
 	if(from_money_acc)
@@ -117,14 +116,14 @@
 	insurance += broken_bones * REQ_INSURANCE_BONE
 
 	var/missed_organs = 0
-	for (var/organ in user.dna.species.has_organ)
+	for(var/organ in user.dna.species.has_organ)
 		if(!(organ in user.internal_organs_slot))
 			missed_organs++
 
 	insurance += missed_organs * REQ_INSURANCE_LOST_ORGAN
 
 	var/missed_limbs = 0
-	for (var/limb in user.dna.species.has_limbs)
+	for(var/limb in user.dna.species.has_limbs)
 		if(!(user.bodyparts_by_name[limb] in user.bodyparts))
 			missed_limbs++
 

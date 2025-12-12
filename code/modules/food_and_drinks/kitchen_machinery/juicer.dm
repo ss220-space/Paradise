@@ -3,10 +3,7 @@
 	name = "Juicer"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
-	layer = 2.9
 	density = TRUE
-	anchored = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	pass_flags = PASSTABLE
@@ -38,7 +35,6 @@
 /obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
 
-
 /obj/machinery/juicer/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -65,7 +61,6 @@
 
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/juicer/attack_ai(mob/user)
 	return 0
@@ -119,7 +114,6 @@
 	onclose(user, "juicer")
 	return
 
-
 /obj/machinery/juicer/Topic(href, href_list)
 	if(..())
 		return
@@ -147,14 +141,14 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/juicer/proc/get_juice_id(obj/item/reagent_containers/food/snacks/grown/O)
-	for (var/i in allowed_items)
-		if (istype(O, i))
+	for(var/i in allowed_items)
+		if(istype(O, i))
 			return allowed_items[i]
 
 /obj/machinery/juicer/proc/get_juice_amount(obj/item/reagent_containers/food/snacks/grown/O)
 	if(!istype(O) || !O.seed)
 		return 5
-	else if (O.seed.potency == -1)
+	else if(O.seed.potency == -1)
 		return 5
 	else
 		return round(5*sqrt(O.seed.potency))

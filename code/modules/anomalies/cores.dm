@@ -2,7 +2,6 @@
 /obj/item/assembly/signaler/core
 	name = "anomaly core"
 	desc = "Нейтрализованное ядро ​​аномалии. Вероятно, оно пригодится для исследований."
-	gender = NEUTER
 	icon_state = "core_bluespace_t2"
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
@@ -24,11 +23,11 @@
 		DATIVE = "ядру аномалии", \
 		ACCUSATIVE = "ядро аномалии", \
 		INSTRUMENTAL = "ядром аномалии", \
-		PREPOSITIONAL = "ядре аномалии"
+		PREPOSITIONAL = "ядре аномалии",
 	)
 
 /obj/item/assembly/signaler/core/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] засовыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] себе в рот. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
+	user.visible_message(span_suicide("[user] засовыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в рот. Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся убить себя!"))
 	return OXYLOSS | BRUTELOSS
 
 /obj/item/assembly/signaler/core/examine(mob/user)
@@ -79,9 +78,8 @@
 		DATIVE = "пустому ядру малой аномалии", \
 		ACCUSATIVE = "пустое ядро малой аномалии", \
 		INSTRUMENTAL = "пустым ядром малой аномалии", \
-		PREPOSITIONAL = "пустом ядре малой аномалии"
+		PREPOSITIONAL = "пустом ядре малой аномалии",
 	)
-
 
 /obj/item/assembly/signaler/core/atmospheric/tier1
 	name = "ядро малой атмосферной аномалии"
@@ -98,7 +96,7 @@
 		DATIVE = "ядру малой атмосферной аномалии", \
 		ACCUSATIVE = "ядро малой атмосферной аномалии", \
 		INSTRUMENTAL = "ядром малой атмосферной аномалии", \
-		PREPOSITIONAL = "ядре малой атмосферной аномалии"
+		PREPOSITIONAL = "ядре малой атмосферной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/gravitational/tier1
@@ -116,7 +114,7 @@
 		DATIVE = "ядру малой гравитационной аномалии", \
 		ACCUSATIVE = "ядро малой гравитационной аномалии", \
 		INSTRUMENTAL = "ядром малой гравитационной аномалии", \
-		PREPOSITIONAL = "ядре малой гравитационной аномалии"
+		PREPOSITIONAL = "ядре малой гравитационной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/energetic/tier1
@@ -134,7 +132,7 @@
 		DATIVE = "ядру малой ​​энергетической аномалии", \
 		ACCUSATIVE = "ядро малой ​​энергетической аномалии", \
 		INSTRUMENTAL = "ядром малой ​​энергетической аномалии", \
-		PREPOSITIONAL = "ядре малой ​​энергетической аномалии"
+		PREPOSITIONAL = "ядре малой ​​энергетической аномалии",
 	)
 
 /obj/item/assembly/signaler/core/bluespace/tier1
@@ -152,7 +150,7 @@
 		DATIVE = "ядру малой ​​блюспейс аномалии", \
 		ACCUSATIVE = "ядро малой ​​блюспейс аномалии", \
 		INSTRUMENTAL = "ядром малой ​​блюспейс аномалии", \
-		PREPOSITIONAL = "ядре малой ​​блюспейс аномалии"
+		PREPOSITIONAL = "ядре малой ​​блюспейс аномалии",
 	)
 
 /obj/item/assembly/signaler/core/vortex/tier1
@@ -170,9 +168,8 @@
 		DATIVE = "ядру малой вихревой аномалии", \
 		ACCUSATIVE = "ядро малой вихревой аномалии", \
 		INSTRUMENTAL = "ядром малой вихревой аномалии", \
-		PREPOSITIONAL = "ядре малой вихревой аномалии"
+		PREPOSITIONAL = "ядре малой вихревой аномалии",
 	)
-
 
 // ============================ Tier 2 ===================================
 /obj/item/assembly/signaler/core/tier2
@@ -191,7 +188,7 @@
 		DATIVE = "пустому ядру аномалии", \
 		ACCUSATIVE = "пустое ядро аномалии", \
 		INSTRUMENTAL = "пустым ядром аномалии", \
-		PREPOSITIONAL = "пустом ядре аномалии"
+		PREPOSITIONAL = "пустом ядре аномалии",
 	)
 
 /obj/item/assembly/signaler/core/atmospheric/tier2
@@ -217,7 +214,7 @@
 		DATIVE = "ядру гравитационной аномалии", \
 		ACCUSATIVE = "ядро гравитационной аномалии", \
 		INSTRUMENTAL = "ядром гравитационной аномалии", \
-		PREPOSITIONAL = "ядре гравитационной аномалии"
+		PREPOSITIONAL = "ядре гравитационной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/energetic/tier2
@@ -235,13 +232,12 @@
 		DATIVE = "ядру ​​энергетической аномалии", \
 		ACCUSATIVE = "ядро ​​энергетической аномалии", \
 		INSTRUMENTAL = "ядром ​​энергетической аномалии", \
-		PREPOSITIONAL = "ядре ​​энергетической аномалии"
+		PREPOSITIONAL = "ядре ​​энергетической аномалии",
 	)
 
 /obj/item/assembly/signaler/core/bluespace/tier2
 	name = "bluespace anomaly core"
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
-	icon_state = "core_bluespace_t2"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	origin_tech = "bluespace=7"
 	tier = 2
@@ -253,7 +249,7 @@
 		DATIVE = "ядру ​​блюспейс аномалии", \
 		ACCUSATIVE = "ядро ​​блюспейс аномалии", \
 		INSTRUMENTAL = "ядром ​​блюспейс аномалии", \
-		PREPOSITIONAL = "ядре ​​блюспейс аномалии"
+		PREPOSITIONAL = "ядре ​​блюспейс аномалии",
 	)
 
 /obj/item/assembly/signaler/core/vortex/tier2
@@ -271,9 +267,8 @@
 		DATIVE = "ядру ​​вихревой аномалии", \
 		ACCUSATIVE = "ядро ​​вихревой аномалии", \
 		INSTRUMENTAL = "ядром ​​вихревой аномалии", \
-		PREPOSITIONAL = "ядре ​​вихревой аномалии"
+		PREPOSITIONAL = "ядре ​​вихревой аномалии",
 	)
-
 
 // ============================ Tier 3 ===================================
 /obj/item/assembly/signaler/core/tier3
@@ -292,7 +287,7 @@
 		DATIVE = "пустому ядру большой аномалии", \
 		ACCUSATIVE = "пустое ядро большой аномалии", \
 		INSTRUMENTAL = "пустым ядром большой аномалии", \
-		PREPOSITIONAL = "пустом ядре большой аномалии"
+		PREPOSITIONAL = "пустом ядре большой аномалии",
 	)
 
 /obj/item/assembly/signaler/core/atmospheric/tier3
@@ -310,7 +305,7 @@
 		DATIVE = "ядру большой атмосферной аномалии", \
 		ACCUSATIVE = "ядро большой атмосферной аномалии", \
 		INSTRUMENTAL = "ядром большой атмосферной аномалии", \
-		PREPOSITIONAL = "ядре большой атмосферной аномалии"
+		PREPOSITIONAL = "ядре большой атмосферной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/atmospheric/tier3/suicide_act(mob/living/user)
@@ -355,7 +350,6 @@
 	H.ExtinguishMob()
 	H.adjust_bodytemperature(-get_strength())
 
-
 /obj/item/assembly/signaler/core/gravitational/tier3
 	name = "ядро большой гравитационной аномалии"
 	desc = "Нейтрализованное ядро большой ​​гравитационной аномалии. Вы чувствуете сильное несоответствие веса многих окружающих предметов с их внешним видом."
@@ -372,12 +366,12 @@
 		DATIVE = "ядру большой гравитационной аномалии", \
 		ACCUSATIVE = "ядро большой гравитационной аномалии", \
 		INSTRUMENTAL = "ядром большой гравитационной аномалии", \
-		PREPOSITIONAL = "ядре большой гравитационной аномалии"
+		PREPOSITIONAL = "ядре большой гравитационной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/gravitational/tier3/suicide_act(mob/user)
 	..()
-	user.visible_message(span_suicide("[user] взрыва[pluralize_ru(user.gender,"ет","ют")]ся из-за возникшего гравитационного колодца!"), \
+	user.visible_message(span_suicide("[user] взрыва[PLUR_ET_YUT(user)]ся из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
 						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()
@@ -425,7 +419,7 @@
 		DATIVE = "ядру большой ​​энергетической аномалии", \
 		ACCUSATIVE = "ядро большой ​​энергетической аномалии", \
 		INSTRUMENTAL = "ядром большой ​​энергетической аномалии", \
-		PREPOSITIONAL = "ядре большой ​​энергетической аномалии"
+		PREPOSITIONAL = "ядре большой ​​энергетической аномалии",
 	)
 
 /obj/item/assembly/signaler/core/energetic/tier3/Bump(atom/bumped_atom)
@@ -434,17 +428,17 @@
 
 /obj/item/assembly/signaler/core/energetic/tier3/suicide_act(mob/living/user)
 	..()
-	user.electrocute_act(600, "[declent_ru(GENITIVE)]")
+	user.electrocute_act(600, src)
 	return FIRELOSS
 
 /obj/item/assembly/signaler/core/energetic/tier3/proc/try_shock(atom/target)
 	if(!iscarbon(target))
 		return FALSE
 
-	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно испустил[genderize_ru(gender, "", "а", "о", "и")] электрический разряд!"))
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно испустил[GEND_A_O_I(src)] электрический разряд!"))
 	var/mob/living/carbon/human/H = target
-	if(H.electrocute_act(charge, "[declent_ru(GENITIVE)]"))
-		do_sparks(max(1, charge / 20))
+	if(H.electrocute_act(charge, src))
+		do_sparks(max(1, charge / 20), FALSE, src)
 		return TRUE
 
 	return FALSE
@@ -457,7 +451,7 @@
 
 /obj/item/assembly/signaler/core/bluespace/tier3
 	name = "ядро большой ​​блюспейс аномалии"
-	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искревляется."
+	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искривляется."
 	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	origin_tech = "bluespace=8"
@@ -470,7 +464,7 @@
 		DATIVE = "ядру большой ​​блюспейс аномалии", \
 		ACCUSATIVE = "ядро большой ​​блюспейс аномалии", \
 		INSTRUMENTAL = "ядром большой ​​блюспейс аномалии", \
-		PREPOSITIONAL = "ядре большой ​​блюспейс аномалии"
+		PREPOSITIONAL = "ядре большой ​​блюспейс аномалии",
 	)
 
 /obj/item/assembly/signaler/core/bluespace/tier3/suicide_act(mob/user)
@@ -501,7 +495,6 @@
 	else
 		return FALSE
 
-
 /obj/item/assembly/signaler/core/vortex/tier3
 	name = "ядро большой вихревой аномалии"
 	desc = "Стабилизированное ядро большой ​​вихревой аномалии. Предметы вокруг ядра опасно подрагивают."
@@ -517,16 +510,14 @@
 		DATIVE = "ядру большой вихревой аномалии",
 		ACCUSATIVE = "ядро большой вихревой аномалии",
 		INSTRUMENTAL = "ядром большой вихревой аномалии",
-		PREPOSITIONAL = "ядре большой вихревой аномалии"
+		PREPOSITIONAL = "ядре большой вихревой аномалии",
 	)
-
 
 // ============================ Tier4 (admin spawn only) ===================================
 /obj/item/assembly/signaler/core/tier3/tier4
 	name = "пустое ядро колоссальной аномалии"
 	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
 			Вероятно, его можно как-то зарядить. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_empty_t3"
 	anomaly_type = null
 	origin_tech = "materials=10" // Sorry, not clonable by experimentor
 	tier = 4
@@ -538,13 +529,12 @@
 		DATIVE = "пустому ядру колоссальной аномалии", \
 		ACCUSATIVE = "пустое ядро колоссальной аномалии", \
 		INSTRUMENTAL = "пустым ядром колоссальной аномалии", \
-		PREPOSITIONAL = "пустом ядре колоссальной аномалии"
+		PREPOSITIONAL = "пустом ядре колоссальной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/atmospheric/tier3/tier4
 	name = "ядро колоссальной атмосферной аномалии"
 	desc = "Стабилизированное ядро колоссальной атмосферной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_atmos_t3"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier4
 	origin_tech = "plasmatech=11"
 	tier = 4
@@ -556,13 +546,12 @@
 		DATIVE = "ядру колоссальной атмосферной аномалии", \
 		ACCUSATIVE = "ядро колоссальной атмосферной аномалии", \
 		INSTRUMENTAL = "ядром колоссальной атмосферной аномалии", \
-		PREPOSITIONAL = "ядре колоссальной атмосферной аномалии"
+		PREPOSITIONAL = "ядре колоссальной атмосферной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/gravitational/tier3/tier4
 	name = "ядро колоссальной гравитационной аномалии"
 	desc = "Нейтрализованное ядро колоссальной ​​гравитационной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_grav_t3"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier4
 	origin_tech = "magnets=11"
 	tier = 4
@@ -574,13 +563,12 @@
 		DATIVE = "ядру колоссальной гравитационной аномалии", \
 		ACCUSATIVE = "ядро колоссальной гравитационной аномалии", \
 		INSTRUMENTAL = "ядром колоссальной гравитационной аномалии", \
-		PREPOSITIONAL = "ядре колоссальной гравитационной аномалии"
+		PREPOSITIONAL = "ядре колоссальной гравитационной аномалии",
 	)
 
 /obj/item/assembly/signaler/core/energetic/tier3/tier4
 	name = "ядро колоссальной ​​энергетической аномалии"
 	desc = "Стабилизированное ядро колоссальной ​​энергетической аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_energ_t3"
 	anomaly_type = /obj/effect/anomaly/energetic/tier4
 	origin_tech = "powerstorage=11"
 	tier = 4
@@ -592,13 +580,12 @@
 		DATIVE = "ядру колоссальной ​​энергетической аномалии", \
 		ACCUSATIVE = "ядро колоссальной ​​энергетической аномалии", \
 		INSTRUMENTAL = "ядром колоссальной ​​энергетической аномалии", \
-		PREPOSITIONAL = "ядре колоссальной ​​энергетической аномалии"
+		PREPOSITIONAL = "ядре колоссальной ​​энергетической аномалии",
 	)
 
 /obj/item/assembly/signaler/core/bluespace/tier3/tier4
 	name = "ядро колоссальной ​​блюспейс аномалии"
 	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier4
 	origin_tech = "bluespace=11"
 	tier = 4
@@ -610,13 +597,12 @@
 		DATIVE = "ядру колоссальной ​​блюспейс аномалии", \
 		ACCUSATIVE = "ядро колоссальной ​​блюспейс аномалии", \
 		INSTRUMENTAL = "ядром колоссальной ​​блюспейс аномалии", \
-		PREPOSITIONAL = "ядре колоссальной ​​блюспейс аномалии"
+		PREPOSITIONAL = "ядре колоссальной ​​блюспейс аномалии",
 	)
 
 /obj/item/assembly/signaler/core/vortex/tier3/tier4
 	name = "ядро колоссальной вихревой аномалии"
 	desc = "Стабилизированное ядро колоссальной ​​вихревой аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_vortex_t3"
 	anomaly_type = /obj/effect/anomaly/vortex/tier4
 	origin_tech = "engineering=11"
 	tier = 4
@@ -628,5 +614,5 @@
 		DATIVE = "ядру колоссальной вихревой аномалии", \
 		ACCUSATIVE = "ядро колоссальной вихревой аномалии", \
 		INSTRUMENTAL = "ядром колоссальной вихревой аномалии", \
-		PREPOSITIONAL = "ядре колоссальной вихревой аномалии"
+		PREPOSITIONAL = "ядре колоссальной вихревой аномалии",
 	)

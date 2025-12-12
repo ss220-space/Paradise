@@ -14,11 +14,9 @@
 	name = "Призвать великие вилы"
 	item_type = /obj/item/twohanded/pitchfork/demonic/greater
 
-
 /obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended
 	name = "Призвать вилы Архидьявола"
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
-
 
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Призвать золотую скрипку"
@@ -32,7 +30,6 @@
 
 	action_icon_state = "golden_violin"
 	action_background_icon_state = "bg_demon"
-
 
 /obj/effect/proc_holder/spell/summon_contract
 	name = "Призвать адский контракт"
@@ -51,10 +48,8 @@
 	base_cooldown = 15 SECONDS
 	cooldown_min = 1 SECONDS
 
-	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 	need_active_overlay = TRUE
-
 
 /obj/effect/proc_holder/spell/summon_contract/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -64,10 +59,8 @@
 	T.allowed_type = /mob/living/carbon
 	return T
 
-
 /obj/effect/proc_holder/spell/summon_contract/valid_target(mob/living/carbon/target, mob/user)
 	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind) && !HAS_TRAIT(target.mind, TRAIT_BAD_SOUL)
-
 
 /obj/effect/proc_holder/spell/summon_contract/cast(list/targets, mob/user = usr)
 	for(var/target in targets)
@@ -91,7 +84,6 @@
 			var/obj/item/paper/contract/infernal/contract = new(C.loc, C.mind, user.mind, GLOB.devil_contracts[contract_type_name])
 			C.put_in_hands(contract)
 
-
 /obj/effect/proc_holder/spell/take_soul
 	name = "Забрать душу"
 	desc = "Это заклинание забирает душу у выбраной цели."
@@ -109,7 +101,6 @@
 
 	base_cooldown = 5 SECONDS
 
-	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 	need_active_overlay = TRUE
 
@@ -120,7 +111,6 @@
 	T.click_radius = -1
 	T.allowed_type = /mob/living/carbon
 	return T
-
 
 /obj/effect/proc_holder/spell/take_soul/valid_target(mob/living/carbon/target, mob/user)
 	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind)
@@ -143,7 +133,6 @@
 	school = "conjuration"
 	base_cooldown = 5 SECONDS
 
-	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/return_soul/create_new_targeting()
@@ -173,14 +162,9 @@
 	name = "Адское пламя"
 	desc = "Это заклинание запускает сгусток адского пламени в цель."
 
-	school = "evocation"
 	base_cooldown = 15 SECONDS
 
-	clothes_req = FALSE
-	human_req = FALSE
-
 	invocation = "Quaeso, quemdam inter vos quaero!"
-	invocation_type = "shout"
 
 	fireball_type = /obj/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
@@ -193,7 +177,6 @@
 	desc = "Используйте адское пламя, чтобы выйти за границу материального мира."
 
 	base_cooldown = 20 SECONDS
-	cooldown_min = 0
 
 	overlay = null
 
@@ -223,7 +206,7 @@
 			continuing = TRUE
 		else
 			for(var/mob/living/C in orange(2, get_turf(user.loc))) //Can also phase in when nearby a potential buyer.
-				if (C.mind && C.mind.soulOwner == C.mind)
+				if(C.mind && C.mind.soulOwner == C.mind)
 					continuing = TRUE
 					break
 		if(continuing)
@@ -265,7 +248,6 @@
 	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
 	fakefireextinguish()
 
-
 /mob/living/proc/infernalphasein(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		to_chat(src, span_warning("Вы слишком заняты, чтобы совершить прыжок."))
@@ -279,13 +261,11 @@
 
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish), TRUE), 1.5 SECONDS)
 
-
 /obj/effect/proc_holder/spell/sintouch
 	name = "Прикосновение греха"
 	desc = "Данное заклинание тонко подталкивает смертных к греху."
 
 	base_cooldown = 180 SECONDS
-	cooldown_min = 0
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -299,12 +279,10 @@
 
 	var/max_targets = 3
 
-
 /obj/effect/proc_holder/spell/sintouch/ascended
 	name = "Великое прикосновение греха"
 	base_cooldown = 10 SECONDS
 	max_targets = 10
-
 
 /obj/effect/proc_holder/spell/sintouch/create_new_targeting()
 	var/datum/spell_targeting/targeted/targeting = new()
@@ -318,7 +296,6 @@
 	targeting.max_targets = 3
 
 	return targeting
-
 
 /obj/effect/proc_holder/spell/sintouch/cast(list/targets, mob/living/user = usr)
 	for(var/mob/living/carbon/human/human in targets)
@@ -354,14 +331,13 @@
 /obj/effect/proc_holder/spell/summon_dancefloor/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-
 /obj/effect/proc_holder/spell/summon_dancefloor/cast(list/targets, mob/user = usr)
 	LAZYINITLIST(dancefloor_turfs)
 	LAZYINITLIST(dancefloor_turfs_types)
 
 	if(dancefloor_exists)
 		dancefloor_exists = FALSE
-		for(var/i in 1 to dancefloor_turfs.len)
+		for(var/i in 1 to length(dancefloor_turfs))
 			var/turf/T = dancefloor_turfs[i]
 			T.ChangeTurf(dancefloor_turfs_types[i])
 	else
@@ -439,7 +415,6 @@
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "horror"
 
-
 	base_cooldown = 300 SECONDS
 	var/cast_time = 5 SECONDS
 	var/fail_cooldown = 5 SECONDS
@@ -474,7 +449,7 @@
 	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
-		cooldown_handler.recharge_time = world.time + fail_cooldown
+		cooldown_handler.start_recharge(fail_cooldown)
 		return
 
 	make_shadow(human, devil)
@@ -484,7 +459,7 @@
 
 /obj/effect/proc_holder/spell/dark_conversion/proc/make_shadow(mob/living/carbon/human/human, datum/antagonist/devil/devil)
 	human.set_species(/datum/species/shadow)
-	var/text = "Вы – создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
+	var/text = "Вы — создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
 	human.store_memory(text, TRUE)
 	to_chat(human, chat_box_red(text))
 
@@ -550,8 +525,6 @@
 	devil_rune.update_appearance(UPDATE_DESC)
 
 	return
-
-
 
 /obj/effect/proc_holder/spell/devil_panel
 	name = "Информация о дьяволе"

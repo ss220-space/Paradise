@@ -6,26 +6,23 @@
 	cooldown_min = 3 SECONDS //30 deciseconds reduction per rank
 	clothes_req = FALSE
 	human_req = FALSE
-	stat_allowed = CONSCIOUS
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"
 
-	selection_activated_message = "<span class='notice'>You start to quietly neigh an incantation. Click on or near a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You stop neighing to yourself.</span>"
+	selection_activated_message = span_notice("You start to quietly neigh an incantation. Click on or near a target to cast the spell.")
+	selection_deactivated_message = span_notice("You stop neighing to yourself.")
 
 	action_icon_state = "barn"
 	sound = 'sound/magic/HorseHead_curse.ogg'
 	need_active_overlay = TRUE
-
 
 /obj/effect/proc_holder/spell/horsemask/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	return T
 
-
 /obj/effect/proc_holder/spell/horsemask/cast(list/targets, mob/user = usr)
-	if(!targets.len)
+	if(!length(targets))
 		user.balloon_alert(user, "рядом нет подходящих целей!")
 		return
 

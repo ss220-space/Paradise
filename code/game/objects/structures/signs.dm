@@ -1,8 +1,6 @@
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -10,12 +8,10 @@
 	var/random_number = FALSE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
-
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
 	if(does_emissive || random_number)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/structure/sign/update_overlays()
 	. = ..()
@@ -36,7 +32,6 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
 	if(istype(src, /obj/structure/sign/double))
 		return
@@ -53,12 +48,10 @@
 	S.sign_state = icon_state
 	qdel(src)
 
-
 /obj/item/sign
 	name = "sign"
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
@@ -69,9 +62,8 @@
 		DATIVE = "табличке",
 		ACCUSATIVE = "табличку",
 		INSTRUMENTAL = "табличкой",
-		PREPOSITIONAL = "табличке"
+		PREPOSITIONAL = "табличке",
 	)
-
 
 /obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
 	if(!isturf(loc))
@@ -102,7 +94,6 @@
 	qdel(src)
 	return TRUE
 
-
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "Фотография станции в рамке."
@@ -115,7 +106,7 @@
 		DATIVE = "карте станции",
 		ACCUSATIVE = "карту станции",
 		INSTRUMENTAL = "картой станции",
-		PREPOSITIONAL = "карте станции"
+		PREPOSITIONAL = "карте станции",
 	)
 
 /obj/structure/sign/double/map/left
@@ -219,7 +210,7 @@
 
 /obj/structure/sign/goldenplaque
 	name = "награда \"Самый робастный мужчина\""
-	desc = "Робаст – это не действие или образ жизни, а состояние ума. Лишь те, чья воля крепка настолько, чтобы в час кризиса спасти друга от врага познали истинную суть робаста. Оставайтесь сильными, друзья."
+	desc = "Робаст — это не действие или образ жизни, а состояние ума. Лишь те, чья воля крепка настолько, чтобы в час кризиса спасти друга от врага познали истинную суть робаста. Оставайтесь сильными, друзья."
 	icon_state = "goldenplaque"
 
 /obj/structure/sign/kiddieplaque
@@ -229,7 +220,7 @@
 
 /obj/structure/sign/atmosplaque
 	name = "мемориальная доска отдела \"ZAS\""
-	desc = "Эта табличка установлена в память погибших атмосферников. Здесь увековечены те, кто пал жертвой неукротимой стихии – сгоревшие заживо, отравленные газами и раздавленные разгерметизацией. \"Они знали, на что шли\""
+	desc = "Эта табличка установлена в память погибших атмосферников. Здесь увековечены те, кто пал жертвой неукротимой стихии — сгоревшие заживо, отравленные газами и раздавленные разгерметизацией. \"Они знали, на что шли\""
 	icon_state = "atmosplaque"
 
 /obj/structure/sign/beautyplaque
@@ -361,14 +352,6 @@
 	desc = "Тот самый знак, который все ищут в критический момент."
 	icon_state = "restroom"
 
-/obj/structure/sign/medbay
-	name = "МЕДБЭЙ"
-	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
-	icon_state = "bluecross"
-
-/obj/structure/sign/medbay/alt
-	icon_state = "bluecross2"
-
 /obj/structure/sign/directions/floor
 	name = "Этаж"
 	desc = "Указательный знак, указывающий, на каком этаже вы находитесь."
@@ -413,8 +396,6 @@
 	icon_state = "explosives"
 
 /obj/structure/sign/explosives/alt
-	name = "ВЗРЫВЧАТЫЕ ВЕЩЕСТВА"
-	desc = "Предупреждающий знак с надписью \"ВЗРЫВЧАТЫЕ ВЕЩЕСТВА\""
 	icon_state = "explosives2"
 
 /obj/structure/sign/cave

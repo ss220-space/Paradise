@@ -14,20 +14,20 @@ GLOBAL_LIST_INIT(severity_to_string, list(
 	EVENT_LEVEL_NONE = "None",
 ))
 
-GLOBAL_LIST_INIT(string_to_severity, list(	//Config compatibility thing
+GLOBAL_LIST_INIT(string_to_severity, list(//Config compatibility thing
 	"ev_level_mundane" = EVENT_LEVEL_MUNDANE,
 	"ev_level_moderate" = EVENT_LEVEL_MODERATE,
 	"ev_level_major" = EVENT_LEVEL_MAJOR,
 	"ev_level_none" = EVENT_LEVEL_NONE
 ))
 
-GLOBAL_LIST_INIT(event_delay_lower, list(  //redacted by /datum/config_entry/keyed_list/event_delay_lower
+GLOBAL_LIST_INIT(event_delay_lower, list(//redacted by /datum/config_entry/keyed_list/event_delay_lower
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 30 MINUTES,
 	EVENT_LEVEL_MAJOR = 50 MINUTES
 ))
 
-GLOBAL_LIST_INIT(event_delay_upper, list( //redacted by /datum/config_entry/keyed_list/event_delay_upper
+GLOBAL_LIST_INIT(event_delay_upper, list(//redacted by /datum/config_entry/keyed_list/event_delay_upper
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 45 MINUTES,
 	EVENT_LEVEL_MAJOR = 70 MINUTES
@@ -77,9 +77,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		// If not, wait for one minute, instead of one tick, before checking again.
 		next_event_time += (60 * 10)
 
-
 /datum/event_container/proc/acquire_event()
-	if(available_events.len == 0)
+	if(length(available_events) == 0)
 		return
 	var/active_with_role = number_active_with_role()
 
@@ -99,7 +98,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		else
 			possible_events -= event_meta
 
-	if(possible_events.len == 0)
+	if(length(possible_events) == 0)
 		return null
 
 	// Select an event and remove it from the pool of available events
@@ -131,7 +130,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	// Otherwise, follow the standard setup process
 	else
 		var/playercount_modifier = 1
-		switch(GLOB.player_list.len)
+		switch(length(GLOB.player_list))
 			if(0 to 10)
 				playercount_modifier = 1.2
 			if(11 to 15)
@@ -186,7 +185,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					615),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					265),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ложная тревога",			/datum/event/falsealarm,				200,	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Скопление карпов",			/datum/event/carp_migration,			200,	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбойные дроны",			/datum/event/rogue_drone,				0,		list(ASSIGNMENT_SECURITY = 20)),
@@ -196,7 +195,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Мясной дождь",				/datum/event/dust/meaty,				0,		list(ASSIGNMENT_ENGINEER = 20)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Телекоммуникационный сбой",/datum/event/communications_blackout,	500,	list(ASSIGNMENT_AI = 150, ASSIGNMENT_SECURITY = 120)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Побег",					/datum/event/prison_break,				0,		list(ASSIGNMENT_SECURITY = 100)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Проклятое фортепиано",     /datum/event/ghostpiano,                500,    list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Проклятое фортепиано",     /datum/event/ghostpiano,                100,    list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",		/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Замыкание ЛКП",			/datum/event/apc_short,				200,	list(ASSIGNMENT_ENGINEER = 60)),
@@ -227,13 +226,14 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Космический ниндзя",		/datum/event/space_ninja,				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ядерный оперативник",		/datum/event/lone_operative,			40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Дрейфующий Контрактник",	/datum/event/drifting_contractor,		60,		list(ASSIGNMENT_SECURITY = 10)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Торговцы",					/datum/event/traders,					85,		is_one_shot = TRUE),
 	)
 
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Ничего",						/datum/event/nothing,					590),											// 57% on high pop (120+). 64.2% on lowpop (70+)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Ничего",						/datum/event/nothing,					390),											// 57% on high pop (120+). 64.2% on lowpop (70+)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Миграция карпов",				/datum/event/carp_migration,			10,		list(ASSIGNMENT_SECURITY =  3), TRUE),	// 4.8% on high pop, 3.4% on low pop
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",		/datum/event/prison_break/station,		0,		list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Перегрузка ЛКП",				/datum/event/apc_overload,				0),
@@ -248,7 +248,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",				/datum/event/spawn_floor_cluwne,		15,		is_one_shot = TRUE)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Космический Дракон",			/datum/event/space_dragon,				20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
 	)
-
 
 #undef ASSIGNMENT_ANY
 #undef ASSIGNMENT_AI

@@ -4,13 +4,11 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	item_state = "signmaker"
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
 	item_flags = NOBLUDGEON
+	toolbox_radial_menu_compatibility = TRUE
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
@@ -35,15 +33,15 @@
 				if(holocreator_busy)
 					balloon_alert(user, "уже в работе!")
 					return
-				if(signs.len < max_signs)
-					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
+				if(length(signs) < max_signs)
+					playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)
 					if(creation_time)
 						holocreator_busy = TRUE
 						if(!do_after(user, creation_time, target))
 							holocreator_busy = FALSE
 							return
 						holocreator_busy = FALSE
-						if(signs.len >= max_signs)
+						if(length(signs) >= max_signs)
 							return
 						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
@@ -53,13 +51,11 @@
 				else
 					to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] работает на максимальной мощности!"))
 
-
 /obj/item/holosign_creator/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-
 /obj/item/holosign_creator/attack_self(mob/user)
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")
@@ -71,7 +67,6 @@
 	name = "Janitorial Holosign projector"
 	desc = "Удобный голографический проектор, отображающий знак уборщика."
 	belt_icon = "sign_projector"
-	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/get_ru_names()
@@ -81,7 +76,7 @@
 		DATIVE = "голо-проектору уборщика",
 		ACCUSATIVE = "голо-проектор уборщика",
 		INSTRUMENTAL = "голо-проектором уборщика",
-		PREPOSITIONAL = "голо-проекторе уборщика"
+		PREPOSITIONAL = "голо-проекторе уборщика",
 	)
 
 /obj/item/holosign_creator/janitor/click_alt(mob/living/user)
@@ -124,7 +119,7 @@
 		DATIVE = "голо-проектору службы безопасности",
 		ACCUSATIVE = "голо-проектор службы безопасности",
 		INSTRUMENTAL = "голо-проектором службы безопасности",
-		PREPOSITIONAL = "голо-проекторе службы безопасности"
+		PREPOSITIONAL = "голо-проекторе службы безопасности",
 	)
 
 /obj/item/holosign_creator/engineering
@@ -143,7 +138,7 @@
 		DATIVE = "инженерному голо-проектору",
 		ACCUSATIVE = "инженерный голо-проектор",
 		INSTRUMENTAL = "инженерным голо-проектором",
-		PREPOSITIONAL = "инженерном голо-проекторе"
+		PREPOSITIONAL = "инженерном голо-проекторе",
 	)
 
 /obj/item/holosign_creator/atmos
@@ -152,7 +147,6 @@
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/atmos
-	creation_time = 0
 	max_signs = 3
 
 /obj/item/holosign_creator/atmos/get_ru_names()
@@ -162,8 +156,8 @@
 		DATIVE = "атмосферному голо-проектору",
 		ACCUSATIVE = "атмосферный голо-проектор",
 		INSTRUMENTAL = "атмосферным голо-проектором",
-		PREPOSITIONAL = "атмосферном голо-проекторе"
-	) 
+		PREPOSITIONAL = "атмосферном голо-проекторе",
+	)
 
 /obj/item/holosign_creator/cyborg
 	name = "Energy Barrier Projector"
@@ -180,8 +174,8 @@
 		DATIVE = "проектору энерго-барьера",
 		ACCUSATIVE = "проектор энерго-барьера",
 		INSTRUMENTAL = "проектором энерго-барьера",
-		PREPOSITIONAL = "проекторе энерго-барьера"
-	) 
+		PREPOSITIONAL = "проекторе энерго-барьера",
+	)
 
 /obj/item/holosign_creator/cyborg/attack_self(mob/user)
 	if(isrobot(user))
@@ -191,7 +185,7 @@
 			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg
 			creation_time = 5
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 0
@@ -200,17 +194,17 @@
 			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg/hacked
 			creation_time = 30
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 1
 			return
 		else
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 				balloon_alert(user, "голограммы удалены")
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")

@@ -9,7 +9,7 @@
 			msg += "It has loaded a [module.name].\n"
 	var/obj/act_module = get_active_hand()
 	if(act_module)
-		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
+		msg += "It is holding [icon2html(act_module, user)] \a [act_module].\n"
 	msg += "<span class='warning'>"
 
 	//Status effects
@@ -55,14 +55,14 @@
 			else
 				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
 	if(inventory_head)
-		msg += "\nНосит [bicon(inventory_head)] [inventory_head.name].\n"
+		msg += "\nНосит [icon2html(inventory_head, user)] [inventory_head.name].\n"
 	msg += "</span>"
 
 	if(print_flavor_text())
 		msg += "\n[print_flavor_text()]\n"
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 

@@ -3,7 +3,6 @@
 	desc = "Why it no open!!!"
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "n_beam"
-	density = FALSE
 	anchored = TRUE
 	var/id = 1.0
 
@@ -19,12 +18,10 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-
 /obj/structure/spacepoddoor/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(!isspacepod(mover) && !checkpass(mover))
 		return FALSE
-
 
 /obj/structure/spacepoddoor/invincible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

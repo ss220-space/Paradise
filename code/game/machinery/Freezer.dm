@@ -2,15 +2,11 @@
 	name = "охладитель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"
-	density = TRUE
 	var/min_temperature = 0
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	active_power_usage = 5000	//cooling down massive amounts of air's not cheap. This is still very low considering everything
 	power_channel = EQUIP
 	current_heat_capacity = 1000
 	layer = 3
-	plane = GAME_PLANE
 	resistance_flags = null
 	max_integrity = 300
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
@@ -56,14 +52,12 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/process()
 	return	// need to overwrite the parent or it returns PROCESS_KILL and it stops processing/using power
 
-
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -102,7 +96,6 @@
 		icon_state = "freezer_1"
 	else
 		icon_state = "freezer"
-
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ai(mob/user as mob)
 	attack_hand(user)
@@ -176,9 +169,7 @@
 	name = "нагреватель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "heater"
-	density = TRUE
 	var/max_temperature = 0
-	anchored = TRUE
 	layer = 3
 	current_heat_capacity = 1000
 	active_power_usage = 5000
@@ -233,14 +224,12 @@
 	max_temperature = T20C + (140 * T)
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
-
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -272,7 +261,6 @@
 	build_network()
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon_state()
 	if(panel_open)
 		icon_state = "heater-o"
@@ -280,7 +268,6 @@
 		icon_state = "heater_1"
 	else
 		icon_state = "heater"
-
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
 	attack_hand(user)
@@ -338,7 +325,6 @@
 			var/amount = params["temp"]
 			amount = text2num(amount)
 			current_temperature = clamp(amount, T20C, T20C + max_temperature)
-
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/power_change(forced = FALSE)
 	if(!..())

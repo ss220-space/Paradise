@@ -18,15 +18,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother
 	name = "goliath broodmother"
-	desc = "Пример полового диморфизма - эта самка голиафа сильно отличается от самцов своего вида. Однако она столь же опасна, если не опаснее."
-	ru_names = list(
-		NOMINATIVE = "матка голиафов",
-		GENITIVE = "матки голиафов",
-		DATIVE = "матке голиафов",
-		ACCUSATIVE = "матку голиафов",
-		INSTRUMENTAL = "маткой голиафов",
-		PREPOSITIONAL = "матке голиафов"
-	)
+	desc = "Пример полового диморфизма — эта самка голиафа сильно отличается от самцов своего вида. Однако она столь же опасна, если не опаснее."
 	gender = FEMALE
 	icon_state = "broodmother"
 	icon_living = "broodmother"
@@ -43,18 +35,29 @@
 	throw_message = "отскакивает от крепкой шкуры"
 	speed = 2
 	move_to_delay = 5
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "взрывается, разлетаясь на куски!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 	tts_seed = "Azalina"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
-								/datum/action/innate/elite_attack/spawn_children,
-								/datum/action/innate/elite_attack/rage,
-								/datum/action/innate/elite_attack/call_children)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/tentacle_patch,
+		/datum/action/innate/elite_attack/spawn_children,
+		/datum/action/innate/elite_attack/rage,
+		/datum/action/innate/elite_attack/call_children,
+	)
 
 	var/rand_tent = 0
 	var/list/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/children_list = list()
+
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother/get_ru_names()
+	return list(
+		NOMINATIVE = "матка голиафов",
+		GENITIVE = "матки голиафов",
+		DATIVE = "матке голиафов",
+		ACCUSATIVE = "матку голиафов",
+		INSTRUMENTAL = "маткой голиафов",
+		PREPOSITIONAL = "матке голиафов",
+	)
 
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Поле из щупалец"
@@ -65,7 +68,7 @@
 /datum/action/innate/elite_attack/spawn_children
 	name = "Выпуск выводка"
 	button_icon_state = "spawn_children"
-	chosen_message = span_boldwarning("Вы создаёте двух детёнышей для помощи в бою. Максимум - 8.")
+	chosen_message = span_boldwarning("Вы создаёте двух детёнышей для помощи в бою. Максимум – .")
 	chosen_attack_num = SPAWN_CHILDREN
 
 /datum/action/innate/elite_attack/rage
@@ -199,20 +202,10 @@
 					child.friends += mob
 			to_chat(src, span_notice("Вы добавили [mob.declent_ru(ACCUSATIVE)] в список друзей."))
 
-
-
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child
 	name = "baby goliath"
 	desc = "Молодой голиаф, недавно появившийся на свет. Хотя они вылупляются из яиц, эти яйца инкубируются в матери, пока не будут готовы к рождению."
-	ru_names = list(
-		NOMINATIVE = "детёныш голиафа",
-		GENITIVE = "детёныша голиафа",
-		DATIVE = "детёнышу голиафа",
-		ACCUSATIVE = "детёныша голиафа",
-		INSTRUMENTAL = "детёнышем голиафа",
-		PREPOSITIONAL = "детёныше голиафа"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_baby"
 	icon_living = "goliath_baby"
@@ -224,24 +217,30 @@
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
 	armour_penetration = 50
-	response_help = "гладит"
 	attacktext = "бьётся о"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "отскакивает от крепкой шкуры"
 	speed = 1.6
 	move_to_delay = 5
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "падает на землю."
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
 
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/get_ru_names()
+	return list(
+		NOMINATIVE = "детёныш голиафа",
+		GENITIVE = "детёныша голиафа",
+		DATIVE = "детёнышу голиафа",
+		ACCUSATIVE = "детёныша голиафа",
+		INSTRUMENTAL = "детёнышем голиафа",
+		PREPOSITIONAL = "детёныше голиафа",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/Destroy()
 	if(!QDELETED(mother))
 		mother.children_list -= src
 	mother = null
 	return ..()
-
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death(gibbed)
 	. = ..()
@@ -252,7 +251,6 @@
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)
-
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother
 	var/damage = 25
@@ -299,14 +297,6 @@
 /obj/item/crusher_trophy/broodmother_tongue
 	name = "broodmother tongue"
 	desc = "Язык матери целой стаи. На ощупь очень губчатый, интересно что будет если на него надавить? Может быть прикреплен на крушитель в качестве трофея."
-	ru_names = list(
-            NOMINATIVE = "материнский язык",
-            GENITIVE = "материнского языка",
-            DATIVE = "материнскому языку",
-            ACCUSATIVE = "материнский язык",
-            INSTRUMENTAL = "материнским языком",
-            PREPOSITIONAL = "материнском языке"
-	)
 	gender = MALE
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "broodmother_tongue"
@@ -314,6 +304,16 @@
 	bonus_value = 75 // same reasoning as legionnaire trophy, target if moving will dodge it, and things like hiero trophy does more anyway.
 	/// Time at which the item becomes usable again
 	var/use_time
+
+/obj/item/crusher_trophy/broodmother_tongue/get_ru_names()
+	return list(
+		NOMINATIVE = "материнский язык",
+		GENITIVE = "материнского языка",
+		DATIVE = "материнскому языку",
+		ACCUSATIVE = "материнский язык",
+		INSTRUMENTAL = "материнским языком",
+		PREPOSITIONAL = "материнском языке",
+	)
 
 /obj/item/crusher_trophy/broodmother_tongue/effect_desc()
 	return "Взрыв метки с <b>[bonus_value]%</b> шансом призывает поле щупалец под врагом"
@@ -337,7 +337,6 @@
 	addtimer(TRAIT_CALLBACK_REMOVE(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT), 20 SECONDS)
 	to_chat(user, span_notice("Вы сжимаете <b>[declent_ru(ACCUSATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
 	use_time = world.time + 60 SECONDS
-
 
 #undef TENTACLE_PATCH
 #undef SPAWN_CHILDREN

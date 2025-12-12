@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /********************
-    SUPPLY ORDER //доработать
+	SUPPLY ORDER //доработать
  ********************/
 /datum/syndie_supply_order
 
@@ -11,7 +11,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	var/orderedbyRank
 	var/comment = null
 	var/crates
-
 
 /datum/syndie_supply_order/proc/generateRequisition(atom/_loc)
 	if(!object)
@@ -35,7 +34,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
-/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/datum/syndie_data_storage/data_storage) // тут код создающий ящики
+/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, datum/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
 
@@ -53,7 +52,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	slip.ordernumber = ordernum
 
 	var/stationName = "Syndicate RaMSS 'Taipan' Supply Mannifest"
-	var/packagesAmt = data_storage?.shoppinglist?.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
+	var/packagesAmt = length(data_storage?.shoppinglist) + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 
@@ -92,12 +91,12 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
+	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lostAmt = max(round(crate.contents.len/10), 1)
+			var/lostAmt = max(round(length(crate.contents)/10), 1)
 			//lose some of the items
 			while(--lostAmt >= 0)
 				qdel(pick(crate.contents))
@@ -115,9 +114,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		LC.manifest = slip
 		LC.update_icon(UPDATE_OVERLAYS)
 
-
 /***************************
-    Хранилище данных.
+	Хранилище данных.
 	Консоли её находят и используют как сервер для снхронизации данных.
 	Если консоль построить в зоне без хранилища данных, консоль создаст новое хранилище данных в своей зоне при попытке синхронизации через кнопку "Link pads"
 	Такой подход позволяет игрокам построить собственное синдикарго
@@ -188,7 +186,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			linked_pads += P
 			continue
 	pads_cooldown = round(pads_cooldown)
-	if (length(receiving_pads) && length(linked_pads))
+	if(length(receiving_pads) && length(linked_pads))
 		telepads_status = "Pads ready"
 	else
 		if(usr) //Во избежание рантаймов по to_chat при автоматической раундстарт синхронизации синдипадов
@@ -205,7 +203,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			is_cooldown = FALSE
 		return wait_time
 	return 0
-
 
 /datum/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
@@ -250,7 +247,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	researchDesigns = null
 	return ..()
 /***************************
-    Консоль заказов синдикарго
+	Консоль заказов синдикарго
  **************************/
 /obj/machinery/computer/syndie_supplycomp
 	name = "Supply Pad Console"
@@ -294,9 +291,9 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		return
 
 	var/list/spawnTurfs = list()
-	var/list/recievingPads = data_storage.receiving_pads
-	for(var/j in 1 to length(recievingPads))
-		spawnTurfs += get_turf(recievingPads[j])
+	var/list/receivingPads = data_storage.receiving_pads
+	for(var/j in 1 to length(receivingPads))
+		spawnTurfs += get_turf(receivingPads[j])
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
 		if(!SO.object)
@@ -304,10 +301,10 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
-		for(var/obj/machinery/syndiepad/recieving_pad as anything in recievingPads)
-			recieving_pad.use_power(10000 / recieving_pad.power_efficiency)
-			flick("[initial(recieving_pad.icon_state)]-beam", recieving_pad)
-			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
+		for(var/obj/machinery/syndiepad/receiving_pad as anything in receivingPads)
+			receiving_pad.use_power(10000 / receiving_pad.power_efficiency)
+			flick("[initial(receiving_pad.icon_state)]-beam", receiving_pad)
+			playsound(get_turf(receiving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))
@@ -323,7 +320,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		SO.createObject(T, errors, data_storage) //А уже тут вызов штуки делающей коробки
 
 	data_storage.shoppinglist.Cut()
-
 
 /obj/machinery/computer/syndie_supplycomp/proc/sell() //Этот код ищет зоны где находятся телепады отправки и продаёт ящики и товар в них
 
@@ -354,7 +350,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			// Must be in a crate (or a critter crate)!
 			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 				data_storage.sold_atoms += ":"
-				if(!MA.contents.len)
+				if(!length(MA.contents))
 					data_storage.sold_atoms += " (empty)"
 				++crate_count
 
@@ -491,7 +487,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	data_storage.blackmarket_message += "[msg]<hr>"
 
-
 /obj/machinery/computer/syndie_supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Используется для оформления заказов у отдела снабжения"
@@ -504,8 +499,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	return
 
-
-/obj/machinery/computer/syndie_supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/syndie_supplycomp/attack_hand(mob/user as mob)
 	if(..())
 		return TRUE
 
@@ -516,7 +510,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	add_fingerprint(user)
 	ui_interact(user)
 	return
-
 
 /obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/living/carbon/human/user, params)
 	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
@@ -537,7 +530,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -725,9 +717,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			else if(money2add < 0)
 				data_storage.blackmarket_message += "[span_bad("[money2add]")]: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
 
-
 	add_fingerprint(usr)
-
 
 /obj/machinery/computer/syndie_supplycomp/proc/withdraw_cash(cash_sum, mob/user)
 	if(cash_sum <= data_storage.cash)

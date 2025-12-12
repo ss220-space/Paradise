@@ -4,18 +4,18 @@
 /obj/item/storage/backpack/shared
 	name = "paradox bag"
 	desc = "Каким-то образом, эта сумка существует в двух местах одновременно."
-	ru_names = list(
+	max_combined_w_class = 60
+	cant_hold = list(/obj/item/storage/backpack/shared)
+
+/obj/item/storage/backpack/shared/get_ru_names()
+	return list(
 		NOMINATIVE = "парадоксальная сумка",
 		GENITIVE = "парадоксальной сумки",
 		DATIVE = "парадоксальной сумке",
 		ACCUSATIVE = "парадоксальную сумку",
 		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке"
+		PREPOSITIONAL = "парадоксальной сумке",
 	)
-	max_combined_w_class = 60
-	max_w_class = WEIGHT_CLASS_NORMAL
-	cant_hold = list(/obj/item/storage/backpack/shared)
-
 
 /obj/item/storage/backpack/shared/can_be_inserted(obj/item/shared_storage/I, stop_messages = FALSE)
 	// basically we cannot put one bag in the storage if another one is already there
@@ -25,19 +25,10 @@
 		return FALSE
 	return ..()
 
-
 //External
 /obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Каким-то образом, эта сумка существует в двух местах одновременно."
-	ru_names = list(
-		NOMINATIVE = "парадоксальная сумка",
-		GENITIVE = "парадоксальной сумки",
-		DATIVE = "парадоксальной сумке",
-		ACCUSATIVE = "парадоксальную сумку",
-		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке"
-	)
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
 	slot_flags = ITEM_SLOT_BACK
@@ -47,6 +38,15 @@
 	/// Our evil clone
 	var/obj/item/shared_storage/twin_storage
 
+/obj/item/shared_storage/get_ru_names()
+	return list(
+		NOMINATIVE = "парадоксальная сумка",
+		GENITIVE = "парадоксальной сумки",
+		DATIVE = "парадоксальной сумке",
+		ACCUSATIVE = "парадоксальную сумку",
+		INSTRUMENTAL = "парадоксальной сумкой",
+		PREPOSITIONAL = "парадоксальной сумке",
+	)
 
 /obj/item/shared_storage/Initialize(mapload, twin_storage_init = FALSE)
 	. = ..()
@@ -57,7 +57,6 @@
 	twin_storage.bag = bag
 	twin_storage.twin_storage = src	// ~Xzibit
 
-
 /obj/item/shared_storage/Destroy()
 	if(!QDELETED(twin_storage))
 		bag = null
@@ -66,7 +65,6 @@
 		QDEL_NULL(bag)
 	twin_storage = null
 	return ..()
-
 
 /obj/item/shared_storage/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -81,12 +79,10 @@
 	bag.attackby(I, user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/shared_storage/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user.s_active == bag)
 		user.s_active.close(user)
-
 
 /obj/item/shared_storage/proc/open_bag(mob/user)
 	add_fingerprint(user)
@@ -100,13 +96,11 @@
 		bag.forceMove(user)
 	bag.attack_hand(user)
 
-
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
 	if(!bag || !iscarbon(user) || !user.is_in_hands(src))
 		return ..()
 
 	open_bag(user)
-
 
 /obj/item/shared_storage/click_alt(mob/user)
 	if(!bag || !iscarbon(user) || loc != user)
@@ -115,36 +109,35 @@
 	open_bag(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user) || !bag || loc != user)
 		return ..()
 
 	open_bag(user)
 
-
 //Book of Babel
 
 /obj/item/book_of_babel
 	name = "Book of Babel"
 	desc = "Древнейший фолиант, написанный на бесчисленном множестве языков."
-	ru_names = list(
+	icon = 'icons/obj/library.dmi'
+	icon_state = "book1"
+	w_class = 2
+
+/obj/item/book_of_babel/get_ru_names()
+	return list(
 		NOMINATIVE = "Вавилонская книга",
 		GENITIVE = "Вавилонской книги",
 		DATIVE = "Вавилонской книге",
 		ACCUSATIVE = "Вавилонскую книгу",
 		INSTRUMENTAL = "Вавилонской книгой",
-		PREPOSITIONAL = "Вавилонской книге"
+		PREPOSITIONAL = "Вавилонской книге",
 	)
-	icon = 'icons/obj/library.dmi'
-	icon_state = "book1"
-	w_class = 2
-
 
 /obj/item/book_of_babel/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
 		user.visible_message(
-			span_notice("[user] внезапно останавлива[pluralize_ru(user, "ет", "ют")]ся, недоумённо глядя на [declent_ru(GENITIVE)]."),
+			span_notice("[user] внезапно останавлива[PLUR_ET_YUT(user)]ся, недоумённо глядя на [declent_ru(GENITIVE)]."),
 			span_warning("Вы понятия не имеете, что это такое и что с этим делать.")
 		)
 
@@ -156,7 +149,6 @@
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
-
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
 /obj/item/reagent_containers/glass/bottle/potion
@@ -166,15 +158,17 @@
 /obj/item/reagent_containers/glass/bottle/potion/flight
 	name = "strange elixir"
 	desc = "Флакон с едва ли не святой аурой, исходящей от него. Вы пытаетесь прочитать надпись на бутылке, но текст неразборчив."
-	ru_names = list(
+	list_reagents = list("flightpotion" = 5)
+
+/obj/item/reagent_containers/glass/bottle/potion/flight/get_ru_names()
+	return list(
 		NOMINATIVE = "странный эликсир",
 		GENITIVE = "странного эликсира",
 		DATIVE = "странному эликсиру",
 		ACCUSATIVE = "странный эликсир",
 		INSTRUMENTAL = "странным эликсиром",
-		PREPOSITIONAL = "странном эликсире"
+		PREPOSITIONAL = "странном эликсире",
 	)
-	list_reagents = list("flightpotion" = 5)
 
 /obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
@@ -200,7 +194,7 @@
 
 		to_chat(H, span_danger("Невыносимая боль проходит через вашу спину, как вдруг оттуда вырываются крылья!"))
 		H.set_species(/datum/species/angel)
-		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
+		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
 		H.adjustBruteLoss(20)
 		H.emote("scream")
 	..()*/
@@ -208,16 +202,18 @@
 /obj/item/jacobs_ladder
 	name = "jacob's ladder"
 	desc = "Небесная лестница, нарушающая законы физики."
-	ru_names = list(
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder"
+
+/obj/item/jacobs_ladder/get_ru_names()
+	return list(
 		NOMINATIVE = "лестница Иакова",
 		GENITIVE = "лестницы Иакова",
 		DATIVE = "лестнице Иакова",
 		ACCUSATIVE = "лестницу Иакова",
 		INSTRUMENTAL = "лестницей Иакова",
-		PREPOSITIONAL = "лестнице Иакова"
+		PREPOSITIONAL = "лестнице Иакова",
 	)
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "ladder"
 
 /obj/item/jacobs_ladder/attack_self(mob/user)
 	var/turf/T = get_turf(src)
@@ -239,26 +235,21 @@
 /obj/structure/ladder/unbreakable/jacob
 	name = "jacob's ladder"
 	desc = "Нерушимая небесная лестница, нарушающая законы физики."
-	ru_names = list(
+
+/obj/structure/ladder/unbreakable/jacob/get_ru_names()
+	return list(
 		NOMINATIVE = "лестница Иакова",
 		GENITIVE = "лестницы Иакова",
 		DATIVE = "лестнице Иакова",
 		ACCUSATIVE = "лестницу Иакова",
 		INSTRUMENTAL = "лестницей Иакова",
-		PREPOSITIONAL = "лестнице Иакова"
+		PREPOSITIONAL = "лестнице Иакова",
 	)
+
 //Wisp Lantern
 /obj/item/wisp_lantern
 	name = "spooky lantern"
 	desc = "Эта лампа не источает света, но является пристанищем для дружелюбного духа."
-	ru_names = list(
-		NOMINATIVE = "жуткая лампа",
-		GENITIVE = "жуткой лампы",
-		DATIVE = "жуткой лампе",
-		ACCUSATIVE = "жуткую лампу",
-		INSTRUMENTAL = "жуткой лампой",
-		PREPOSITIONAL = "жуткой лампе"
-	)
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	item_state = "lantern"
@@ -269,14 +260,21 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
-
+/obj/item/wisp_lantern/get_ru_names()
+	return list(
+		NOMINATIVE = "жуткая лампа",
+		GENITIVE = "жуткой лампы",
+		DATIVE = "жуткой лампе",
+		ACCUSATIVE = "жуткую лампу",
+		INSTRUMENTAL = "жуткой лампой",
+		PREPOSITIONAL = "жуткой лампе",
+	)
 
 /obj/item/wisp_lantern/update_icon_state()
 	if(!wisp)
 		icon_state = "lantern"
 		return
 	icon_state = "lantern[wisp.loc == src ? "-blue" : ""]"
-
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
@@ -330,34 +328,38 @@
 /obj/effect/wisp
 	name = "friendly wisp"
 	desc = "Счастливо освещает вам путь."
-	ru_names = list(
-		NOMINATIVE = "дружелюбный дух",
-		GENITIVE = "дружелюбного духа",
-		DATIVE = "дружелюбному духу",
-		ACCUSATIVE = "дружелюбного духа",
-		INSTRUMENTAL = "дружелюбным духом",
-		PREPOSITIONAL = "дружелюбном духе"
-	)
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
 	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
 
+/obj/effect/wisp/get_ru_names()
+	return list(
+		NOMINATIVE = "дружелюбный дух",
+		GENITIVE = "дружелюбного духа",
+		DATIVE = "дружелюбному духу",
+		ACCUSATIVE = "дружелюбного духа",
+		INSTRUMENTAL = "дружелюбным духом",
+		PREPOSITIONAL = "дружелюбном духе",
+	)
+
 //Red/Blue Cubes
 /obj/item/warp_cube
 	name = "blue cube"
 	desc = "Мистический синий куб."
-	ru_names = list(
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "blue_cube"
+	var/obj/item/warp_cube/linked
+
+/obj/item/warp_cube/get_ru_names()
+	return list(
 		NOMINATIVE = "синий куб",
 		GENITIVE = "синего куба",
 		DATIVE = "синему кубу",
 		ACCUSATIVE = "синий куб",
 		INSTRUMENTAL = "синим кубом",
-		PREPOSITIONAL = "синем кубе"
+		PREPOSITIONAL = "синем кубе",
 	)
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "blue_cube"
-	var/obj/item/warp_cube/linked
 
 /obj/item/warp_cube/Destroy()
 	if(linked)
@@ -371,7 +373,7 @@
 		return
 
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
-		balloon_alert(user, "куб искрится и шипит.")
+		balloon_alert(user, "куб искрится и шипит")
 		return
 	if(do_after(user, 1.5 SECONDS, user))
 		var/datum/effect_system/fluid_spread/smoke/smoke = new
@@ -387,19 +389,20 @@
 	else
 		balloon_alert(user, "прервано из-за движения")
 
-
 /obj/item/warp_cube/red
 	name = "red cube"
 	desc = "Мистический красный куб."
-	ru_names = list(
+	icon_state = "red_cube"
+
+/obj/item/warp_cube/red/get_ru_names()
+	return list(
 		NOMINATIVE = "красный куб",
 		GENITIVE = "красного куба",
 		DATIVE = "красному кубу",
 		ACCUSATIVE = "красный куб",
 		INSTRUMENTAL = "красным кубом",
-		PREPOSITIONAL = "красном кубе"
+		PREPOSITIONAL = "красном кубе",
 	)
-	icon_state = "red_cube"
 
 /obj/item/warp_cube/red/New()
 	..()
@@ -413,14 +416,6 @@
 /obj/item/gun/magic/hook
 	name = "meat hook"
 	desc = "Ты погляди, свежее мясо!"
-	ru_names = list(
-		NOMINATIVE = "мясной крюк",
-		GENITIVE = "мясного крюка",
-		DATIVE = "мясному крюку",
-		ACCUSATIVE = "мясной крюк",
-		INSTRUMENTAL = "мясным крюком",
-		PREPOSITIONAL = "мясном крюке"
-	)
 	ammo_type = /obj/item/ammo_casing/magic/hook
 	icon_state = "hook"
 	item_state = "chain"
@@ -429,40 +424,53 @@
 	item_flags = NOBLUDGEON
 	force = 18
 
+/obj/item/gun/magic/hook/get_ru_names()
+	return list(
+		NOMINATIVE = "мясной крюк",
+		GENITIVE = "мясного крюка",
+		DATIVE = "мясному крюку",
+		ACCUSATIVE = "мясной крюк",
+		INSTRUMENTAL = "мясным крюком",
+		PREPOSITIONAL = "мясном крюке",
+	)
+
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
-	desc = "Это крюк."
-	ru_names = list(
-		NOMINATIVE = "крюк",
-		GENITIVE = "крюка",
-		DATIVE = "крюку",
-		ACCUSATIVE = "крюк",
-		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке"
-	)
+	desc = "Это хрюк."
 	projectile_type = /obj/projectile/hook
 	caliber = "hook"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hook"
 	muzzle_flash_effect = null
 
-/obj/projectile/hook
-	name = "hook"
-	ru_names = list(
+/obj/item/ammo_casing/magic/hook/get_ru_names()
+	return list(
 		NOMINATIVE = "крюк",
 		GENITIVE = "крюка",
 		DATIVE = "крюку",
 		ACCUSATIVE = "крюк",
 		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке"
+		PREPOSITIONAL = "крюке",
 	)
+
+/obj/projectile/hook
+	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
-	pass_flags = PASSTABLE
 	damage = 25
 	armour_penetration = 100
-	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 2 SECONDS
+
+/obj/projectile/hook/get_ru_names()
+	return list(
+		NOMINATIVE = "крюк",
+		GENITIVE = "крюка",
+		DATIVE = "крюку",
+		ACCUSATIVE = "крюк",
+		INSTRUMENTAL = "крюком",
+		PREPOSITIONAL = "крюке",
+	)
 
 /obj/projectile/hook/fire(setAngle)
 	if(firer)
@@ -476,7 +484,7 @@
 		var/turf/firer_turf = get_turf(firer)
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
-			L.visible_message(span_danger("[firer] зацепля[pluralize_ru(firer, "ет", "ют")] [L.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
+			L.visible_message(span_danger("[firer] зацепля[PLUR_ET_YUT(firer)] [L.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src)) // Ensures the hook does not hit the target multiple times
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
@@ -485,36 +493,34 @@
 	QDEL_NULL(chain)
 	return ..()
 
-
 //Immortality Talisman
 /obj/item/immortality_talisman
 	name = "Immortality Talisman"
 	desc = "Таинственный талисман, способный даровать неуязвимость."
-	ru_names = list(
-		NOMINATIVE = "талисман бессмертия",
-		GENITIVE = "талисмана бессмертия",
-		DATIVE = "талисману бессмертия",
-		ACCUSATIVE = "талисман бессмертия",
-		INSTRUMENTAL = "талисманом бессмертия",
-		PREPOSITIONAL = "талисмане бессмертия"
-	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
 	COOLDOWN_DECLARE(last_used_immortality_talisman)
 
+/obj/item/immortality_talisman/get_ru_names()
+	return list(
+		NOMINATIVE = "талисман бессмертия",
+		GENITIVE = "талисмана бессмертия",
+		DATIVE = "талисману бессмертия",
+		ACCUSATIVE = "талисман бессмертия",
+		INSTRUMENTAL = "талисманом бессмертия",
+		PREPOSITIONAL = "талисмане бессмертия",
+	)
 
 /datum/action/item_action/immortality
 	name = "Бессмертие"
-
 
 /obj/item/immortality_talisman/Destroy(force)
 	if(force)
 		. = ..()
 	else
 		return QDEL_HINT_LETMELIVE
-
 
 /obj/item/immortality_talisman/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_used_immortality_talisman))
@@ -527,7 +533,7 @@
 
 	COOLDOWN_START(src, last_used_immortality_talisman, 60 SECONDS)
 	SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1)
-	user.visible_message(span_danger("[user] исчеза[pluralize_ru(user, "ет", "ют")] из реальности, оставляя после себя дыру в пространстве!"))
+	user.visible_message(span_danger("[user] исчеза[PLUR_ET_YUT(user)] из реальности, оставляя после себя дыру в пространстве!"))
 
 	var/obj/effect/immortality_talisman/effect = new(source_turf)
 	effect.name = "дыра в пространстве"
@@ -537,7 +543,6 @@
 	user.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 
 	addtimer(CALLBACK(src, PROC_REF(reappear), user, effect), 10 SECONDS)
-
 
 /obj/item/immortality_talisman/proc/reappear(mob/user, obj/effect/immortality_talisman/effect)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(effect))
@@ -550,7 +555,7 @@
 
 	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(effect_turf)
-	user.visible_message(span_danger("[user] материализу[pluralize_ru(user.gender, "ет", "ют")]ся в пространстве, вновь возвращаясь в нашу реальность!"))
+	user.visible_message(span_danger("[user] материализу[PLUR_ET_YUT(user)]ся в пространстве, вновь возвращаясь в нашу реальность!"))
 	effect.can_destroy = TRUE
 
 	if(length(effect.contents))
@@ -561,28 +566,21 @@
 
 	qdel(effect)
 
-
 /obj/effect/immortality_talisman
 	icon_state = "blank"
-	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
-
 
 /obj/effect/immortality_talisman/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_PROCEED
 
-
 /obj/effect/immortality_talisman/ex_act()
 	return
-
 
 /obj/effect/immortality_talisman/singularity_act()
 	return
 
-
 /obj/effect/immortality_talisman/singularity_pull()
 	return 0
-
 
 /obj/effect/immortality_talisman/Destroy(force)
 	if(!can_destroy && !force)

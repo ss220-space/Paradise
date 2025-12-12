@@ -25,24 +25,21 @@
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
-	a_intent = INTENT_HARM
 	var/evented
 	var/datum/mind/origin
 	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
 	holder_type = /obj/item/holder/headslug
 
-
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
 		. += span_deadsay("It appears to be dead.")
 
-
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
 	egg.evented = evented
-	egg.insert(victim)
+	egg.insert(victim, ORGAN_MANIPULATION_NOEFFECT)
 	if(origin)
 		egg.origin = origin
 	else if(mind) // Let's make this a feature
@@ -50,7 +47,6 @@
 
 	visible_message(span_warning("[src] plants something in [victim]'s flesh!"), \
 					span_danger("We inject our egg into [victim]'s body!"))
-
 
 /mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
 	if(egg_layed || !istype(carbon_target) || carbon_target.stat != DEAD || !Adjacent(carbon_target) || is_monkeybasic(carbon_target))
@@ -86,7 +82,6 @@
 	to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
 	addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
 
-
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
@@ -94,7 +89,6 @@
 	var/datum/mind/origin
 	var/time = 0
 	var/evented
-
 
 /obj/item/organ/internal/body_egg/changeling_egg/egg_process()
 	// Changeling eggs grow in everyone
@@ -112,10 +106,9 @@
 		owner.adjustToxLoss(5)
 
 	if((time >= EGG_INCUBATION_DEAD_TIME && owner.stat == DEAD) || time >= EGG_INCUBATION_LIVING_TIME)
-		Pop()
 		STOP_PROCESSING(SSobj, src)
+		Pop()
 		qdel(src)
-
 
 /obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
 
@@ -135,7 +128,7 @@
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
 		cling.give_power(new /datum/action/changeling/humanform)
-		monka.key = origin.key
+		monka.possess_by_player(origin.key)
 		monka.revive() // better make sure some weird shit doesn't happen, because it has in the past P.S. some weird shit still happen
 		if(cling.absorbed_count == 0)
 			var/mob/living/carbon/human/rand_dna = new

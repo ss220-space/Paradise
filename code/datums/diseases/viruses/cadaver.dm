@@ -6,9 +6,8 @@
 	cures = list("calomel")
 	cure_prob = 6
 	stage_prob = 0.8
-	max_stages = 5
 	spread_flags = BLOOD
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 	discovery_threshold = 0.3 // 2 stage is visible
 
 /datum/disease/virus/cadaver/stage_act()

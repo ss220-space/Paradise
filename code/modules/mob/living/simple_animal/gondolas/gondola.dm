@@ -29,15 +29,15 @@
 		/obj/effect/decal/cleanable/blood/gibs = 1,
 	)
 
-	ru_names = list(
+/mob/living/simple_animal/pet/gondola/get_ru_names()
+	return list(
 		NOMINATIVE = "гандола",
 		GENITIVE = "гандолы",
 		DATIVE = "гандоле",
 		ACCUSATIVE = "гандолу",
 		INSTRUMENTAL = "гандолой",
-		PREPOSITIONAL = "гандоле"
+		PREPOSITIONAL = "гандоле",
 	)
-
 
 /mob/living/simple_animal/pet/gondola/Initialize(mapload)
 	. = ..()
@@ -66,7 +66,6 @@
 	add_overlay(body_overlay)
 	add_overlay(eyes_overlay)
 	add_overlay(moustache_overlay)
-
 
 #undef GONDOLA_HEIGHT
 #undef GONDOLA_COLOR

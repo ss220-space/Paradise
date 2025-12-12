@@ -37,9 +37,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
-	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	universal_speak = FALSE
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
@@ -75,7 +73,6 @@
 	if(jetpack)
 		remove_from_back(null)
 	. = ..()
-
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -122,7 +119,6 @@
 	if(is_type_in_list(src, animated_mouses, FALSE))
 		return TRUE
 
-
 /mob/living/simple_animal/mouse/New()
 	..()
 	pixel_x = rand(-6, 6)
@@ -134,7 +130,6 @@
 		add_verb(src, /mob/living/simple_animal/mouse/proc/scratch)
 		add_verb(src, /mob/living/simple_animal/mouse/proc/washup)
 
-
 /mob/living/simple_animal/mouse/update_icons()
 	if(!jetpack)
 		..()
@@ -143,12 +138,10 @@
 	icon_state = "[initial(icon_state)]_jet"
 	regenerate_icons()
 
-
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
-
 
 /mob/living/simple_animal/mouse/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -161,7 +154,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /mob/living/simple_animal/mouse/proc/place_on_back(obj/item/item_to_add, mob/living/user)
 	if(stat != CONSCIOUS)
@@ -177,21 +169,21 @@
 		return FALSE
 
 	jetpack = item_to_add
-	user.visible_message(span_notice("[user] put something on [src]."),
+	user.visible_message(
+		span_notice("[user] put something on [src]."),
 		span_notice("You equip [src] with a cool jetpack! Sick!"),
-		span_italics("You hear the roar of a small engine."))
+		span_italics("You hear the roar of a small engine.")
+	)
 
 	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
 	update_icons()
 	update_move_type(item_to_add)
 	return TRUE
 
-
 /mob/living/simple_animal/mouse/proc/delayed_jetpack_remove()
 	to_chat(src, span_notice("You start dragging jetpack from your back."))
 	if(do_after(src, 3 SECONDS, src, NONE))
 		remove_from_back(null)
-
 
 /mob/living/simple_animal/mouse/proc/remove_from_back(mob/living/user)
 	SIGNAL_HANDLER
@@ -213,10 +205,8 @@
 	update_icons()
 	update_move_type(removed_item)
 
-
 /mob/living/simple_animal/mouse/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return jetpack ? TRUE : ..()
-
 
 /mob/living/simple_animal/mouse/proc/update_move_type(obj/item/mouse_jetpack/jetpack)
 	if(src.jetpack)
@@ -247,7 +237,6 @@
 		ADD_TRAIT(src, initial(ventcrawler_trait), INNATE_TRAIT)
 		REMOVE_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
 
-
 /mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/pet/cat))
 		var/mob/living/simple_animal/pet/cat/C = M
@@ -265,17 +254,14 @@
 		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
-
 /mob/living/simple_animal/mouse/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	mouse_crossed(arrived)
 
-
 /mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
-
+		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -409,8 +395,6 @@
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"
 	desc = "Jerry the cat is not amused."
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -418,13 +402,11 @@
 	maxHealth = 10
 	health = 10
 
-
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
 	health = 100
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	gold_core_spawnable = NO_SPAWN
-
 
 /mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
 	. = ..()
@@ -466,9 +448,6 @@
 	icon_living = "mouse_clockwork"
 	icon_dead = "mouse_clockwork_dead"
 	icon_resting = "mouse_clockwork_sleep"
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stamps on"
 	gold_core_spawnable = NO_SPAWN
 	can_collar = FALSE
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
@@ -500,11 +479,9 @@
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 2)
 
-
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
-	desc = "Серая крыса. Не самый яркий представитель своего вида."
 
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"
@@ -536,28 +513,22 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 	icon_dead = "wooly_mouse_dead"
 	icon_resting = "wooly_mouse_rest"
 	gender = MALE
-	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/wooly/baby)
 	animal_species = /mob/living/simple_animal/mouse/wooly
 	holder_type = /obj/item/holder/wooly_mouse
-	gold_core_spawnable = FRIENDLY_SPAWN
-	tts_seed = "Gyro"
 	maxHealth = 10
 	health = 10 // kokok
-
 
 /mob/living/simple_animal/mouse/wooly/update_desc(updates)
 	. = ..()	// We get initial desc here.
 	desc += gender == MALE ? " Самец!" : " Самочка! Ох... Нет..."
-
 
 /mob/living/simple_animal/mouse/wooly/Initialize(mapload)
 	. = ..()
 	GLOB.wooly_mouse_count++
 	gender = prob(80) ? MALE : FEMALE
 	update_appearance(UPDATE_DESC)
-
 
 /mob/living/simple_animal/mouse/wooly/Destroy()
 	GLOB.wooly_mouse_count--
@@ -591,14 +562,11 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 	maxHealth = 3
 	var/amount_grown = 0
 	can_collar = FALSE
-	holder_type = /obj/item/holder/wooly_mouse
-
 
 /mob/living/simple_animal/mouse/wooly/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	if(!supress_message)
 		to_chat(src, span_warning("Вы слишком малы, чтобы что-то тащить."))
 	return FALSE
-
 
 /mob/living/simple_animal/mouse/wooly/baby/Life(seconds, times_fired)
 	. =..()
@@ -614,14 +582,13 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 		mind.transfer_to(A)
 	qdel(src)
 
-
 /mob/living/simple_animal/mouse/wooly/baby/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[bicon(src)] раздавл[genderize_ru(gender, "ен", "на", "но")]!"))
+		to_chat(arrived, span_notice("[icon2html(src, arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
 		death()
 		splat(user = arrived)
 
-
+#undef MAX_WOOLY_MOUSE
 
 #undef SNIFF
 #undef SHAKE

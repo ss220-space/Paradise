@@ -4,7 +4,7 @@
 	desc = "Неконтролируемый смех."
 	max_stages = 4
 	stage_prob = 5
-	severity = BIOHAZARD
+	severity = DISEASE_SEVERITY_UNCURABLE
 	visibility_flags = HIDDEN_PANDEMIC
 	curable = FALSE
 	can_immunity = FALSE
@@ -24,7 +24,7 @@
 		if(2)
 			if(prob(50))
 				affected_mob.emote("laugh")
-				affected_mob.visible_message(span_danger("[affected_mob] бесконтрольно сме[pluralize_ru(affected_mob.gender,"ётся","ются")]!"))
+				affected_mob.visible_message(span_danger("[affected_mob] бесконтрольно сме[PLUR_YOT_YUT(affected_mob)]ся!"))
 				affected_mob.Weaken(20 SECONDS)
 				affected_mob.Jitter(500 SECONDS)
 		if(3)
@@ -35,11 +35,11 @@
 				affected_mob.Weaken(20 SECONDS)
 				affected_mob.Jitter(500 SECONDS)
 				affected_mob.emote("laugh")
-				affected_mob.visible_message(span_danger("[affected_mob] бесконтрольно сме[pluralize_ru(affected_mob.gender,"ётся","ются")]!"))
+				affected_mob.visible_message(span_danger("[affected_mob] бесконтрольно сме[PLUR_YOT_YUT(affected_mob)]ся!"))
 		if(4)
 			if(prob(25))
 				to_chat(affected_mob, span_danger("Вы чувствуете, что сейчас умрёте!"))
 				affected_mob.apply_damages(brute = 75, oxy = 75, spread_damage = TRUE)
 				affected_mob.Weaken(20 SECONDS)
 				affected_mob.emote("laugh")
-				affected_mob.visible_message(span_danger("[affected_mob] бесконтрольно сме[pluralize_ru(affected_mob.gender,"ётся","ются")]!"))
+				affected_mob.visible_message(span_danger("[affected_mob] бесконтрольно сме[PLUR_YOT_YUT(affected_mob)]ся!"))

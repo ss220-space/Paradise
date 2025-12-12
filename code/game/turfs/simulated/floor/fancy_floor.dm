@@ -5,7 +5,6 @@
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
 	clawfootstep = FOOTSTEP_WOOD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/wood/broken_states()
 	return list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
@@ -109,7 +108,6 @@
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/grass/broken_states()
 	return list("sand")
@@ -120,7 +118,6 @@
 
 /turf/simulated/floor/grass/update_icon_state()
 	icon_state = "grass[pick("1","2","3","4")]"
-
 
 /turf/simulated/floor/grass/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -150,7 +147,6 @@
 		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-
 // CARPETS
 /turf/simulated/floor/carpet
 	name = "carpet"
@@ -164,7 +160,6 @@
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/carpet/airless
 	oxygen = 0
@@ -175,20 +170,18 @@
 	. = ..()
 	update_icon()
 
-
 /turf/simulated/floor/carpet/broken_states()
 	return list("damaged")
-
 
 /turf/simulated/floor/carpet/update_icon_state()
 	dir = NONE //Prevents wrong smoothing
 	if(!broken && !burnt)
 		if(smooth)
-			queue_smooth(src)
+			QUEUE_SMOOTH(src)
 	else
 		make_plating(FALSE)
 		if(smooth)
-			queue_smooth_neighbors(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/simulated/floor/carpet/break_tile()
 	broken = TRUE

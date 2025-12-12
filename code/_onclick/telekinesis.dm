@@ -46,7 +46,6 @@
 	else
 		warning("Strange attack_tk(): TK([telekinesis]) empty hand([!user.get_active_hand()])")
 
-
 /mob/attack_tk(mob/user)
 	return // needs more thinking about
 
@@ -87,14 +86,12 @@
 			focus.forceMove(loc)
 	. = ..()
 
-
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	if(slot & ITEM_SLOT_HANDS)
 		return TRUE
 	qdel(src)
-
 
 /obj/item/tk_grab/attack_self(mob/user)
 	if(focus)
@@ -144,17 +141,15 @@
 		focus.throw_at(target, 10, 1, user)
 		last_throw = world.time
 
-
 /obj/item/tk_grab/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/tk_grab/is_equivalent(obj/item/I)
 	. = ..()
 	if(!.)
 		return I == focus
 
-/obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/user)
+/obj/item/tk_grab/proc/focus_object(obj/target, mob/user)
 	if(!isobj(target))
 		return//Cant throw non objects atm might let it do mobs later
 	if(target.anchored || !isturf(target.loc))
@@ -189,7 +184,6 @@
 	host = user
 	focus_object(target, user)
 
-
 /obj/item/tk_grab/update_overlays()
 	. = ..()
 	if(!focus)
@@ -199,3 +193,5 @@
 	focus_overlay.layer = layer + 0.01
 	SET_PLANE_EXPLICIT(focus_overlay, ABOVE_HUD_PLANE, focus)
 	. += focus_overlay
+
+#undef TK_MAXRANGE

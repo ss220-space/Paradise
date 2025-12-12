@@ -2,7 +2,7 @@
 /datum/lootpanel/proc/open(turf/tile)
 	source_turf = tile
 
-#if !defined(UNIT_TESTS)
+#if !defined(GAME_TESTS)
 	if(!notified)
 		var/build = owner.byond_build
 		var/version = owner.byond_version
@@ -19,7 +19,6 @@
 
 	populate_contents()
 	ui_interact(owner.mob)
-
 
 /**
  * Called by SSlooting whenever this datum is added to its backlog.

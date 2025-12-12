@@ -17,4 +17,6 @@
 
 /datum/event/mass_hallucination/announce()
 	if(prob(40))
-		GLOB.minor_announcement.announce("Станция [station_name()] проходит через радиационное поле низкой интенсивности. Возможно появление галлюцинаций, но не более.")
+		GLOB.minor_announcement.announce(
+			message = "Станция [station_name()] проходит через радиационное поле низкой интенсивности. Возможно появление галлюцинаций, но не более."
+		)

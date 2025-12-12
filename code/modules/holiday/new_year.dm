@@ -7,10 +7,8 @@
 	icon = 'icons/obj/new_year/decorations.dmi'
 	icon_state = "garland_on"
 	max_integrity = 24 //can be removed easily (also, symbolism)
-	density = FALSE
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
-
 
 /obj/structure/garland/wirecutter_act(mob/living/user, obj/item/wirecutters/I)
 	. = TRUE
@@ -19,7 +17,6 @@
 	to_chat(user, span_notice("You cut garland apart."))
 	deconstruct()
 
-
 /obj/structure/garland/wrench_act(mob/living/user, obj/item/wrench/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -27,18 +24,14 @@
 	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "" : "un"]wrenched [src]"))
 
-
 /obj/item/clothing/head/new_year
 	name = "Red furhat"
 	desc = "Warm furhat for freezing weather"
 	icon_state = "red_furhat"
 	item_state = "red_furhat"
 	resistance_flags = INDESTRUCTIBLE
-	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
-	body_parts_covered = HEAD
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
-	flags_inv = NONE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -50,7 +43,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 /obj/item/clothing/suit/space/new_year
@@ -65,9 +58,6 @@
 	slowdown = FALSE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	flags_inv = NONE
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -77,7 +67,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 /obj/item/gun/magic/staff/frost
@@ -93,8 +83,10 @@
 
 /obj/item/gun/magic/staff/frost/attack_self(mob/user)
 	. = ..()
-	visible_message(span_darkmblue("[user] raises up [src], forming blizzard around it."), \
-	 span_darkmblue("You raise up [src] and start forming snowy blizzard..."))
+	visible_message(
+		span_darkmblue("[user] raises up [src], forming blizzard around it."), \
+		span_darkmblue("You raise up [src] and start forming snowy blizzard...")
+	)
 	if(do_after(user, 5 SECONDS, user))
 		for(var/turf/simulated/T in range(4, user))
 			if(T.density)
@@ -110,8 +102,6 @@
 	icon_state = "ice_2"
 	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
 	hitsound_wall = 'sound/effects/hit_on_shattered_glass.ogg'
-	armour_penetration = 100
-	flag = "magic"
 
 /obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
@@ -126,10 +116,6 @@
 	ice_state = "ice_shell"
 	duration = 20 SECONDS
 	can_melt = FALSE
-
-/obj/item/clothing/gloves/color/white/redcoat
-	siemens_coefficient = 0
-	permeability_coefficient = 0.01
 
 /obj/item/storage/backpack/santabag/ded_moroz
 	name = "Presents bag"

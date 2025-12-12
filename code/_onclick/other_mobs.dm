@@ -12,14 +12,12 @@
 	if(proximity_flag && istype(G) && G.Touch(A, proximity_flag))
 		return
 
-
 	if(buckled && isstructure(buckled))
 		var/obj/structure/S = buckled
 		if(S.prevents_buckled_mobs_attacking())
 			return
 
 	return A.attack_hand(src)
-
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
 	if(prob(get_bones_symptom_prob() * 3))
@@ -29,18 +27,12 @@
 			to_chat(src, span_danger("[used_item_name ? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"))
 			active_hand.fracture()
 
-
 /atom/proc/attack_hand(mob/user)
 	. = FALSE
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
-/*
-/mob/living/carbon/human/RestrainedClickOn(var/atom/A) -- Handled by carbons
-	return
-*/
-
-/mob/living/carbon/RestrainedClickOn(var/atom/A)
+/mob/living/carbon/RestrainedClickOn(atom/A)
 	return 0
 
 /mob/living/carbon/human/RangedAttack(atom/A, params)
@@ -50,7 +42,7 @@
 		if(istype(G) && G.Touch(A, 0)) // for magic gloves
 			return
 
-	if(!GLOB.pacifism_after_gt && !HAS_TRAIT(src, TRAIT_PACIFISM))
+	if(!GLOB.pacifism_after_gt && !(HAS_TRAIT(src, TRAIT_PACIFISM) || HAS_TRAIT(src, TRAIT_NO_GUNS)))
 		if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 			LaserEyes(A)
 
@@ -68,7 +60,6 @@
 /mob/living/proc/can_unarmed_attack()
 	return !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED)
 
-
 /mob/living/carbon/human/can_unarmed_attack()
 	. = ..()
 	if(!.)
@@ -84,7 +75,6 @@
 		if(!limb.is_usable())
 			to_chat(src, span_warning("Ваша [hand ? "левая рука" : "правая рука"] слишком травмирована."))
 			return FALSE
-
 
 /*
 	Animals & All Unspecified
@@ -140,7 +130,6 @@
 /mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag)
 	return atom.attack_alien(src)
 
-
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
 
@@ -180,7 +169,6 @@
 */
 /mob/new_player/ClickOn()
 	return
-
 
 // pAIs are not intended to interact with anything in the world
 /mob/living/silicon/pai/UnarmedAttack(atom/A, proximity_flag)

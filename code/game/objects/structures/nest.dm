@@ -15,7 +15,6 @@
 
 	move_resist = INFINITY
 	anchored = TRUE
-	density = FALSE
 
 	var/faction = list("hostile")	// If you spawn auto-attacking mobs, make sure that their faction and the nest's is the same
 	var/spawn_byproduct = list(/obj/item/stack/ore/glass, /obj/item/stack/ore/iron)	// When mobs spawn, these items also spawn on top of the tunnel
@@ -32,7 +31,7 @@
 		DATIVE = "туннелю",
 		ACCUSATIVE = "туннель",
 		INSTRUMENTAL = "туннелем",
-		PREPOSITIONAL = "туннеле"
+		PREPOSITIONAL = "туннеле",
 	)
 
 /obj/structure/nest/Initialize(mapload)
@@ -42,18 +41,15 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
 		. += span_warning("Изнутри доносится хаотичная какофония рычащего храпа.")
 
-
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)
 		return
 	..()
-
 
 /obj/structure/nest/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -65,7 +61,6 @@
 		return
 
 	try_spawn(arrived)
-
 
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)

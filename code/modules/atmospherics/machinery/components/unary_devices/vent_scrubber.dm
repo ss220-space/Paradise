@@ -7,7 +7,6 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 60
 
@@ -21,7 +20,6 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	on = FALSE
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
 	var/scrub_O2 = 0
 	var/scrub_N2 = 0
@@ -91,7 +89,7 @@
 		amount = active_power_usage
 
 	if(widenet)
-		amount += amount*(adjacent_turfs.len*(adjacent_turfs.len/2))
+		amount += amount*(length(adjacent_turfs)*(length(adjacent_turfs)/2))
 	use_power(amount, power_channel)
 	return 1
 
@@ -117,7 +115,6 @@
 
 	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
 	update_pipe_image()
-
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
 	if(..())
@@ -217,7 +214,7 @@
 	if(istype(T))
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
 	if(!tile || !istype(tile))
 		return 0
 
@@ -277,7 +274,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/hide(var/i) //to make the little pipe section invisible, the icon changes.
+/obj/machinery/atmospherics/unary/vent_scrubber/hide(i) //to make the little pipe section invisible, the icon changes.
 	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/receive_signal(datum/signal/signal)
@@ -352,7 +349,6 @@
 	id_tag = new_tag
 	broadcast_status()
 
-
 /obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
 	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
@@ -364,11 +360,9 @@
 	set_welded(FALSE)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
-
 
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE

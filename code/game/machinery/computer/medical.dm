@@ -1,8 +1,8 @@
-#define MED_DATA_R_LIST	2	// Record list
-#define MED_DATA_MAINT	3	// Records maintenance
-#define MED_DATA_RECORD	4	// Record
-#define MED_DATA_V_DATA	5	// Virus database
-#define MED_DATA_MEDBOT	6	// Medbot monitor
+#define MED_DATA_R_LIST 2 // Record list
+#define MED_DATA_MAINT 3 // Records maintenance
+#define MED_DATA_RECORD 4 // Record
+#define MED_DATA_V_DATA 5 // Virus database
+#define MED_DATA_MEDBOT 6 // Medbot monitor
 
 #define FIELD(N, V, E) list(field = N, value = V, edit = E)
 #define MED_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
@@ -32,7 +32,7 @@
 		DATIVE = "консоли медицинских записей",
 		ACCUSATIVE = "консоль медицинских записей",
 		INSTRUMENTAL = "консолью медицинских записей",
-		PREPOSITIONAL = "консоли медицинских записей"
+		PREPOSITIONAL = "консоли медицинских записей",
 	)
 
 /obj/machinery/computer/med_data/Initialize(mapload)
@@ -71,7 +71,6 @@
 	active2 = null
 	return ..()
 
-
 /obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -81,7 +80,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())
@@ -283,8 +281,8 @@
 					R.fields["name"] = active1.fields["name"]
 					R.fields["id"] = active1.fields["id"]
 					R.name = "Медицинская запись №[R.fields["id"]]"
-					R.fields["blood_type"] = "Неизвестно"
-					R.fields["b_dna"] = "Неизвестно"
+					R.fields["blood_type"] = UNKNOWN_STATUS_RUS
+					R.fields["b_dna"] = UNKNOWN_STATUS_RUS
 					R.fields["mi_dis"] = "Отсутствуют"
 					R.fields["mi_dis_d"] = "Незначительные отклонения не указаны."
 					R.fields["ma_dis"] = "Отсутствуют"
@@ -317,12 +315,12 @@
 				return FALSE
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/med_data/proc/ui_act_modal(action, params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
@@ -377,7 +375,7 @@
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
-						header = "Создатель записи - [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
+						header = "Создатель записи — [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
 						text = answer
 					))
 				else
@@ -386,8 +384,8 @@
 			return FALSE
 
 /**
-  * Called when the print timer finishes
-  */
+ * Called when the print timer finishes
+ */
 /obj/machinery/computer/med_data/proc/print_finish()
 	var/obj/item/paper/P = new /obj/item/paper(loc)
 	P.info = "<center></b>Медицинская запись</b></center><br>"
@@ -426,12 +424,12 @@
 	SStgui.update_uis(src)
 
 /**
-  * Sets a temporary message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * style - The style of the message: (color name), info, success, warning, danger, virus
-  */
+ * Sets a temporary message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * style - The style of the message: (color name), info, success, warning, danger, virus
+ */
 /obj/machinery/computer/med_data/proc/set_temp(text = "", style = "info", update_now = FALSE)
 	temp = list(text = text, style = style)
 	if(update_now)
@@ -445,7 +443,7 @@
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Мужской", "Женский", "Небинарный", "Множественный")
 				if(3)
@@ -484,7 +482,7 @@
 		DATIVE = "медицинскому ноутбуку",
 		ACCUSATIVE = "медицинский ноутбук",
 		INSTRUMENTAL = "медицинским ноутбуком",
-		PREPOSITIONAL = "медицинском ноутбуке"
+		PREPOSITIONAL = "медицинском ноутбуке",
 	)
 
 #undef MED_DATA_R_LIST

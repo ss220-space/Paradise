@@ -3,22 +3,22 @@
 #define TS_DAMAGE_BRUTE 2
 
 //TIER 1
-#define TS_DESC_KNIGHT "Рыцарь - ШТУРМ"
-#define TS_DESC_LURKER "Наблюдатель - ЗАСАДЫ"
-#define TS_DESC_HEALER "Лекарь - ЛЕЧЕНИЕ"
-#define TS_DESC_REAPER "Жнец - БОЙ"
-#define TS_DESC_BUILDER "Дрон - СТРОИТЕЛЬСТВО"
+#define TS_DESC_KNIGHT "Рыцарь — ШТУРМ"
+#define TS_DESC_LURKER "Наблюдатель — ЗАСАДЫ"
+#define TS_DESC_HEALER "Лекарь — ЛЕЧЕНИЕ"
+#define TS_DESC_REAPER "Жнец — БОЙ"
+#define TS_DESC_BUILDER "Дрон — СТРОИТЕЛЬСТВО"
 //TIER 2
-#define TS_DESC_WIDOW "Вдова - ОТРАВЛЕНИЕ"
-#define TS_DESC_GUARDIAN "Защитник - ОБОРОНА"
-#define TS_DESC_DESTROYER "Разрушитель - САБОТАЖ"
+#define TS_DESC_WIDOW "Вдова — ОТРАВЛЕНИЕ"
+#define TS_DESC_GUARDIAN "Защитник — ОБОРОНА"
+#define TS_DESC_DESTROYER "Разрушитель — САБОТАЖ"
 //TIER 3
-#define TS_DESC_PRINCE "Принц - КРОВАВАЯ БАНЯ"
-#define TS_DESC_PRINCESS "Принцесса - РАЗМНОЖЕНИЕ"
-#define TS_DESC_MOTHER "Мать - ПОДДЕРЖКА"
-#define TS_DESC_DEFILER "Осквернитель - ЗАРАЖЕНИЕ"
+#define TS_DESC_PRINCE "Принц — КРОВАВАЯ БАНЯ"
+#define TS_DESC_PRINCESS "Принцесса — РАЗМНОЖЕНИЕ"
+#define TS_DESC_MOTHER "Мать — ПОДДЕРЖКА"
+#define TS_DESC_DEFILER "Осквернитель — ЗАРАЖЕНИЕ"
 //TIER 4
-#define TS_DESC_QUEEN "Королева - ЛИДЕР"
+#define TS_DESC_QUEEN "Королева — ЛИДЕР"
 
 #define TS_TIER_1 1
 #define TS_TIER_2 2

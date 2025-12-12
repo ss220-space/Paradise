@@ -1,3 +1,5 @@
+#ifndef OPENDREAM
+
 /client/proc/dmjit_debug_toggle_hooks()
 	set category = "Debug.dmJIT"
 	set name = "dmJIT toggle hooks"
@@ -8,7 +10,6 @@
 	var/result = dmjit_toggle_hooks()
 
 	message_admins("[key_name_admin(usr)] dmJIT Hooks state is [result]")
-
 
 /client/proc/dmjit_debug_toggle_call_counts()
 	set category = "Debug.dmJIT"
@@ -50,3 +51,5 @@
 
 	dmjit_dump_deopts()
 	message_admins("[key_name_admin(usr)] Performed dmJIT deopt count dump")
+
+#endif

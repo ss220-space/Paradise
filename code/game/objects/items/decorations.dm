@@ -1,21 +1,16 @@
 /obj/item/decorations
 	icon = 'icons/obj/decorations.dmi'
 
-
 //duct tape decorations
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
 
-
-/obj/item/decorations/sticky_decorations/New()
+/obj/item/decorations/sticky_decorations/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ducttape, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
 
-
-
 /obj/item/decorations/sticky_decorations/flammable
 	resistance_flags = FLAMMABLE
-
 
 //Non-holiday decorations
 
@@ -43,7 +38,6 @@
 	name = "paper clock"
 	desc = "A paper clock. Right at least twice a day."
 	icon_state = "paper_clock"
-
 
 /obj/item/decorations/flag/soviet
 	name = "An old Soviet flag"
@@ -162,8 +156,6 @@
 
 //Valentines decorations
 
-
-
 /obj/item/decorations/sticky_decorations/flammable/arrowed_heart
 	name = "paper heart"
 	desc = "A paper heart. It's been shot through and Cupid is to blame!"
@@ -215,19 +207,14 @@
 /obj/item/decorations/sticky_decorations/flammable/easter_egg/orange
 	icon_state = "decoration_easter_egg_orange"
 
-
-
-
 ///////
 //Decorative structures
 ///////
-
 
 /obj/structure/decorative_structures
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 
 /obj/structure/decorative_structures/fireplace
@@ -248,7 +235,6 @@
 /obj/structure/decorative_structures/garland
 	density = FALSE
 	anchored = TRUE
-	max_integrity = 100
 	icon_state = "xmaslights"
 
 /obj/structure/decorative_structures/garland/Initialize(mapload)
@@ -288,11 +274,9 @@
 	desc = "Praise be to lady Tesla!"
 	icon_state = "tesla_monument"
 
-
 /obj/structure/decorative_structures/flammable
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-
 
 /obj/structure/decorative_structures/flammable/grandfather_clock
 	name = "grandfather clock"
@@ -304,12 +288,9 @@
 	desc = "The tomb of many a miner and possibly a home for much worse things."
 	icon_state = "lava_land_display"
 
-
-
 ///////
 //Decorative corpses
 ///////
-
 
 /obj/structure/decorative_structures/corpse
 	name = "Bloody body"
@@ -323,7 +304,7 @@
 	. = ..()
 
 /obj/structure/decorative_structures/corpse/Destroy()
-	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
+	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, FALSE)
 	var/turf/T = get_turf(src)
 	new /obj/effect/particle_effect/fluid/smoke/vomiting(T)
 	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
@@ -363,11 +344,10 @@
 			H.fakevomit()
 
 ///// jumping meat for body explotion effect
-
-/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(var/turf/T)
-	T = get_offset_target_turf(src.loc, rand(2)-rand(2), rand(2)-rand(2))
-	src.throw_at(T, 2, 1)
-	..()
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(mapload, turf/T)
+	. = ..()
+	T = get_offset_target_turf(loc, rand(2)-rand(2), rand(2)-rand(2))
+	throw_at(T, 2, 1)
 
 ////// Bouquets
 
@@ -407,7 +387,6 @@
 	. = ..()
 	set_light(2, 1, COLOR_RED)
 
-
 /obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -416,14 +395,13 @@
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
 
-
 /obj/structure/decorative_structures/cult_crystal/attack_hand(mob/living/user)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
 	..()
 
 /obj/structure/decorative_structures/cult_crystal/Destroy()
-	playsound(src, 'sound/effects/glassbr3.ogg', 30, 0)
+	playsound(src, 'sound/effects/glassbr3.ogg', 30, FALSE)
 	var/turf/T = get_turf(src)
 	var/mob/living/simple_animal/crystal_soul = new /mob/living/simple_animal/hostile/construct/armoured/hostile(T)
 	crystal_soul.loot = list(pick(

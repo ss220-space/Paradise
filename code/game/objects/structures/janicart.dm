@@ -5,7 +5,6 @@
 	desc = "This is the alpha and omega of sanitation."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
-	anchored = FALSE
 	density = TRUE
 	container_type = OPENCONTAINER
 	//copypaste sorry
@@ -16,7 +15,6 @@
 	var/obj/item/lightreplacer/myreplacer = null
 	var/signs = 0
 	var/const/max_signs = 4
-
 
 /obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
@@ -31,16 +29,13 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
 
-
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
@@ -108,7 +103,6 @@
 
 	return ..()
 
-
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!reagents || !reagents.total_volume)
@@ -126,7 +120,6 @@
 	)
 	reagents.reaction(loc)
 	reagents.clear_reagents()
-
 
 /obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -149,7 +142,6 @@
 			span_italics("You hear ratchet."),
 		)
 
-
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	add_fingerprint(user)
 	user.set_machine(src)
@@ -168,7 +160,6 @@
 	popup.set_content(dat)
 	popup.open()
 
-
 /obj/structure/janitorialcart/Topic(href, href_list)
 	if(!in_range(src, usr))
 		return
@@ -179,25 +170,25 @@
 		if(mybag)
 			mybag.forceMove_turf()
 			user.put_in_hands(mybag, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
+			to_chat(user, span_notice("You take [mybag] from [src]."))
 			mybag = null
 	if(href_list["mop"])
 		if(mymop)
 			mymop.forceMove_turf()
 			user.put_in_hands(mymop, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+			to_chat(user, span_notice("You take [mymop] from [src]."))
 			mymop = null
 	if(href_list["spray"])
 		if(myspray)
 			myspray.forceMove_turf()
 			user.put_in_hands(myspray, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
+			to_chat(user, span_notice("You take [myspray] from [src]."))
 			myspray = null
 	if(href_list["replacer"])
 		if(myreplacer)
 			myreplacer.forceMove_turf()
 			user.put_in_hands(myreplacer, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
+			to_chat(user, span_notice("You take [myreplacer] from [src]."))
 			myreplacer = null
 	if(href_list["sign"])
 		if(signs)
@@ -205,7 +196,7 @@
 			if(Sign)
 				Sign.forceMove_turf()
 				user.put_in_hands(Sign, ignore_anim = FALSE)
-				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
+				to_chat(user, span_notice("You take \a [Sign] from [src]."))
 				signs--
 			else
 				WARNING("Signs ([signs]) didn't match contents")
@@ -213,7 +204,6 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
-
 
 /obj/structure/janitorialcart/update_overlays()
 	. = ..()

@@ -4,7 +4,6 @@
 	name = "gravitational boots"
 	desc = "Эти экспериментальные магбутсы обходят замедление обычных, за счёт миниатюрных гравитационных в подошвах. \
 			К сожалению, для работы им необходимо ядро гравитационной аномалии."
-	gender = PLURAL
 	icon_state = "gravboots0"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //combination of magboots and jumpboots
 	strip_delay = 10 SECONDS
@@ -22,7 +21,6 @@
 	var/obj/item/assembly/signaler/core/gravitational/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
-
 /obj/item/clothing/shoes/magboots/gravity/get_ru_names()
 	return list(
 		NOMINATIVE = "гравитационные ботинки", \
@@ -30,13 +28,12 @@
 		DATIVE = "гравитационным ботинкам", \
 		ACCUSATIVE = "гравитационные ботинки", \
 		INSTRUMENTAL = "гравитационными ботинками", \
-		PREPOSITIONAL = "гравитационных ботинках"
+		PREPOSITIONAL = "гравитационных ботинках",
 	)
 
 /obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
 	. = ..()
 	style = new()
-
 
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
 	QDEL_NULL(style)
@@ -61,7 +58,6 @@
 
 	. += span_warning("В них не хватает ядра гравитационной аномалии и батарейки.")
 
-
 /obj/item/clothing/shoes/magboots/gravity/toggle_magpulse(mob/user, silent = FALSE)
 	if(silent && (!cell || !core || cell.charge <= power_consumption_rate && !magpulse))
 		return
@@ -79,7 +75,6 @@
 		return
 
 	return ..()
-
 
 /obj/item/clothing/shoes/magboots/gravity/process()
 	if(!cell) //There should be a cell here, but safety first
@@ -115,7 +110,6 @@
 	cell.update_icon()
 	update_icon()
 
-
 /obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/item, mob/user, params)
 	if(iscell(item))
 		add_fingerprint(user)
@@ -147,7 +141,6 @@
 	core = item
 	update_style(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/clothing/shoes/magboots/gravity/click_alt(mob/user)
 	if(!user.contains(src))
@@ -185,7 +178,6 @@
 
 	update_style(user)
 
-
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_FEET)
@@ -199,7 +191,6 @@
 		to_chat(user, span_notice("Как только вы сняли [declent_ru(NOMINATIVE)], они автоматически деактивировались."))
 
 	toggle_magpulse(user, silent = TRUE)
-
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
@@ -261,8 +252,8 @@
 	if(!cell || !core)
 		return ..()
 
-	user.visible_message(span_suicide("[user] прижима[pluralize_ru(user.gender,"ет","ют")] подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активиру[pluralize_ru(user.gender,"ет","ют")]. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]тся убить себя!"))
-	user.visible_message(span_suicide("[user] взрыва[pluralize_ru(user.gender,"ет","ют")]ся из-за возникшего гравитационного колодца!"), \
+	user.visible_message(span_suicide("[user] прижима[PLUR_ET_YUT(user)] подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активиру[PLUR_ET_YUT(user)]. Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]тся убить себя!"))
+	user.visible_message(span_suicide("[user] взрыва[PLUR_ET_YUT(user)]ся из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
 						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()

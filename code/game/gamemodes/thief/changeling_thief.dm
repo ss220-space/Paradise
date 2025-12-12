@@ -4,15 +4,12 @@
 	changeling_amount = 2 //hard limit if scaling is turned off
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
-	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	var/list/datum/mind/pre_thieves = list()
-
 
 /datum/game_mode/changeling/thief/announce()
 	to_chat(world, "<b>The current game mode is - Changeling+Thief!</b>")
 	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
-
 
 /datum/game_mode/changeling/thief/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -28,7 +25,6 @@
 		return ..()
 	else
 		return FALSE
-
 
 /datum/game_mode/changeling/thief/post_setup()
 	for(var/datum/mind/thief in pre_thieves)

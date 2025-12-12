@@ -1,6 +1,5 @@
 /obj/effect/anomaly/vortex
 	anomaly_type = ANOMALY_TYPE_VORTEX
-	icon_state = "bhole3"
 	/// Minimum radius at which surrounding objects are attracted.
 	var/grav_pull_range_low = 0
 	/// Maximum radius at which surrounding objects are attracted.
@@ -37,7 +36,7 @@
 	. = ..()
 
 /obj/effect/anomaly/vortex/proc/pull(atom/movable/atom)
-	if (QDELETED(atom))
+	if(QDELETED(atom))
 		return
 
 	// a - vector atom->src
@@ -126,7 +125,6 @@
 	grav_pull_range_low = 1
 	grav_pull_range_high = 2
 	grav_pull_strength = STAGE_THREE
-	collapse_range = 0
 
 /obj/effect/anomaly/vortex/tier1/get_ru_names()
 	return list(
@@ -135,7 +133,7 @@
 		DATIVE = "малой вихревой аномалии", \
 		ACCUSATIVE = "малую вихревую аномалию", \
 		INSTRUMENTAL = "малой вихревой аномалией", \
-		PREPOSITIONAL = "малой вихревой аномалии"
+		PREPOSITIONAL = "малой вихревой аномалии",
 	)
 
 /obj/effect/anomaly/vortex/tier2
@@ -161,9 +159,8 @@
 		DATIVE = "вихревой аномалии", \
 		ACCUSATIVE = "вихревую аномалию", \
 		INSTRUMENTAL = "вихревой аномалией", \
-		PREPOSITIONAL = "вихревой аномалии"
+		PREPOSITIONAL = "вихревой аномалии",
 	)
-
 
 /obj/effect/anomaly/vortex/tier3
 	name = "большая вихревая аномалия"
@@ -188,7 +185,7 @@
 		DATIVE = "большой вихревой аномалии", \
 		ACCUSATIVE = "большую вихревую аномалию", \
 		INSTRUMENTAL = "большой вихревой аномалией", \
-		PREPOSITIONAL = "большой вихревой аномалии"
+		PREPOSITIONAL = "большой вихревой аномалии",
 	)
 
 /obj/effect/anomaly/vortex/tier3/New()
@@ -229,7 +226,7 @@
 		DATIVE = "колоссальной вихревой аномалии", \
 		ACCUSATIVE = "колоссальную вихревую аномалию", \
 		INSTRUMENTAL = "колоссальной вихревой аномалией", \
-		PREPOSITIONAL = "колоссальной вихревой аномалии"
+		PREPOSITIONAL = "колоссальной вихревой аномалии",
 	)
 
 /obj/effect/anomaly/vortex/tier4/New()

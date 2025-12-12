@@ -19,14 +19,14 @@
 /* This comment bypasses grep checks */ /var/__rust_g
 
 /proc/__detect_rust_g()
-	if (world.system_type == UNIX)
-		if (fexists("./librust_g.so"))
+	if(world.system_type == UNIX)
+		if(fexists("./librust_g.so"))
 			// No need for LD_LIBRARY_PATH badness.
 			return __rust_g = "./librust_g.so"
-		else if (fexists("./rust_g"))
+		else if(fexists("./rust_g"))
 			// Old dumb filename.
 			return __rust_g = "./rust_g"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
+		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
 			// Old dumb filename in `~/.byond/bin`.
 			return __rust_g = "rust_g"
 		else
@@ -128,7 +128,6 @@
 #define rustg_dbp_generate(seed, accuracy, stamp_size, world_size, lower_range, upper_range) \
 	RUSTG_CALL(RUST_G, "dbp_generate")(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
 
-
 // DMI Operations //
 
 #define rustg_dmi_strip_metadata(fname) RUSTG_CALL(RUST_G, "dmi_strip_metadata")(fname)
@@ -224,7 +223,7 @@
 /// Spritesheet will contain all sprites listed within "sprites".
 /// "sprites" format:
 /// list(
-///     "sprite_name" = list( // <--- this list is a [SPRITE_OBJECT]
+///     "sprite_name" = list(// <--- this list is a [SPRITE_OBJECT]
 ///         icon_file = 'icons/path_to/an_icon.dmi',
 ///         icon_state = "some_icon_state",
 ///         dir = SOUTH,
@@ -436,7 +435,7 @@
 
 /proc/rustg_read_toml_file(path)
 	var/list/output = rustg_raw_read_toml_file(path)
-	if (output["success"])
+	if(output["success"])
 		return json_decode(output["content"])
 	else
 		CRASH(output["content"])
@@ -445,7 +444,7 @@
 
 /proc/rustg_toml_encode(value)
 	var/list/output = rustg_raw_toml_encode(value)
-	if (output["success"])
+	if(output["success"])
 		return output["content"]
 	else
 		CRASH(output["content"])
@@ -482,5 +481,4 @@
  */
 #define rustg_worley_generate(region_size, threshold, node_per_region_chance, size, node_min, node_max) \
 	RUSTG_CALL(RUST_G, "worley_generate")(region_size, threshold, node_per_region_chance, size, node_min, node_max)
-
 

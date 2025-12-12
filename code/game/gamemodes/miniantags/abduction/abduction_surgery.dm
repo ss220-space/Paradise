@@ -11,11 +11,9 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_organic_bodypart = TRUE
-	requires_bodypart = TRUE
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	. = ..()
@@ -40,15 +38,17 @@
 		if(istype(organ, /obj/item/organ/internal/heart))
 			IC = organ
 			break
-	user.visible_message("[user] starts to remove [target]'s organs.",
+	user.visible_message(
+		"[user] starts to remove [target]'s organs.",
 		span_notice("You start to remove [target]'s organs..."),
-		chat_message_type = MESSAGE_TYPE_COMBAT)
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
 	..()
 
 /datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/AB = target
 	if(IC)
-		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
+		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", span_notice("You pull [IC] out of [target]'s [target_zone]."))
 		IC.remove(target, ORGAN_MANIPULATION_NOEFFECT)
 		IC.forceMove(get_turf(target))
 		user.put_in_hands(IC, ignore_anim = FALSE)
@@ -61,7 +61,7 @@
 			)
 		return SURGERY_STEP_CONTINUE
 	else
-		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
+		to_chat(user, span_warning("You don't find anything in [target]'s [target_zone]!"))
 		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -112,11 +112,10 @@
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/internal/extract_organ/synth,
 		/datum/surgery_step/internal/gland_insert,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = FALSE
-	requires_bodypart = TRUE
 
 /datum/surgery_step/internal/extract_organ/synth
 	name = "remove cell"

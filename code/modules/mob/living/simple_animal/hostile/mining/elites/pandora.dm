@@ -20,14 +20,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora
 	name = "pandora"
 	desc = "Огромный магический ларец, чьи сила и дизайн схожи с Иерофантом. Если он откроется, закрыть его будет нелегко."
-	ru_names = list(
-		NOMINATIVE = "пандора",
-		GENITIVE = "пандоры",
-		DATIVE = "пандоре",
-		ACCUSATIVE = "пандору",
-		INSTRUMENTAL = "пандорой",
-		PREPOSITIONAL = "пандоре"
-	)
 	icon_state = "pandora"
 	icon_living = "pandora"
 	icon_aggro = "pandora"
@@ -44,21 +36,32 @@
 	ranged_cooldown_time = 20
 	speed = 2
 	move_to_delay = 10
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/magic/repulse.ogg'
 	deathmessage = "мерцает, после чего его верхняя часть с грохотом обрушивается."
 	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
 	tts_seed = "Zyra"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
-								/datum/action/innate/elite_attack/magic_box,
-								/datum/action/innate/elite_attack/pandora_teleport,
-								/datum/action/innate/elite_attack/aoe_squares)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/chaser_burst,
+		/datum/action/innate/elite_attack/magic_box,
+		/datum/action/innate/elite_attack/pandora_teleport,
+		/datum/action/innate/elite_attack/aoe_squares,
+	)
 
 	var/sing_shot_length = 8
 	var/cooldown_time = 2 SECONDS
 	var/chaser_speed = 3
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
+
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/get_ru_names()
+	return list(
+		NOMINATIVE = "пандора",
+		GENITIVE = "пандоры",
+		DATIVE = "пандоре",
+		ACCUSATIVE = "пандору",
+		INSTRUMENTAL = "пандорой",
+		PREPOSITIONAL = "пандоре",
+	)
 
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Преследователь"
@@ -142,7 +145,7 @@
 		C.damage = 30 * dif_mult
 		C.moving = 2
 		C.standard_moving_before_recalc = recalculation_speed
-		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
+		C.moving_dir = text2dir(pick(DIR_NAME_ENG_NORTH, DIR_NAME_ENG_SOUTH, DIR_NAME_ENG_EAST, DIR_NAME_ENG_WEST))
 		active_chasers += 1
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(procsleft, angleused, turf/T)
@@ -210,19 +213,10 @@
 	monster_damage_boost = FALSE
 	friendly_fire_check = TRUE
 
-
 //Pandora's loot: Hope //Hope I know what to make it do
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
 	desc = "Находится на дне Пандоры. Когда всё зло было выпущено, это единственное, что осталось внутри."
-	ru_names = list(
-		NOMINATIVE = "надежда",
-		GENITIVE = "надежды",
-		DATIVE = "надежде",
-		ACCUSATIVE = "надежду",
-		INSTRUMENTAL = "надеждой",
-		PREPOSITIONAL = "надежде"
-	)
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "hope"
 	item_state = "hope"
@@ -230,13 +224,21 @@
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/accessory/necklace/pandora_hope/get_ru_names()
+	return list(
+		NOMINATIVE = "надежда",
+		GENITIVE = "надежды",
+		DATIVE = "надежде",
+		ACCUSATIVE = "надежду",
+		INSTRUMENTAL = "надеждой",
+		PREPOSITIONAL = "надежде",
+	)
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
 	if(. && isliving(has_suit.loc))
 		var/mob/living/wearer = has_suit.loc
 		wearer.apply_status_effect(STATUS_EFFECT_HOPE)
-
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/detacher)
 	. = ..()
@@ -246,16 +248,13 @@
 			var/mob/living/wearer = old_suit.loc
 			wearer.remove_status_effect(STATUS_EFFECT_HOPE)
 
-
 /obj/item/clothing/accessory/necklace/pandora_hope/attached_equip(mob/living/user)
 	if(isliving(user))
 		user.apply_status_effect(STATUS_EFFECT_HOPE)
 
-
 /obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip(mob/living/user)
 	if(isliving(user))
 		user.remove_status_effect(STATUS_EFFECT_HOPE)
-
 
 #undef CHASER_BURST
 #undef MAGIC_BOX

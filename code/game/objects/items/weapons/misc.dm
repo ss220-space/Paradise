@@ -29,7 +29,6 @@
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("огрел", "проучил")
 
@@ -39,7 +38,6 @@
 /obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "c_tube"
 	hitsound = 'sound/items/cardboard_tube.ogg'
 	throwforce = 1
@@ -58,18 +56,15 @@
 /obj/item/gift
 	name = "gift"
 	desc = "A wrapped item."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gift3"
 	var/size = 3.0
 	var/obj/item/gift = null
 	item_state = "gift"
 	w_class = WEIGHT_CLASS_BULKY
 
-
 /obj/item/gift/Destroy()
 	QDEL_NULL(gift)
 	return ..()
-
 
 /obj/item/gift/attack_self(mob/user)
 	if(gift)
@@ -79,7 +74,6 @@
 	else
 		to_chat(user, span_notice("The gift was empty!"))
 	qdel(src)
-
 
 /obj/item/gift/emp_act(severity)
 	..()
@@ -98,15 +92,12 @@
 	desc = "test lightning"
 	var/angle
 
-
 /obj/item/lightning/Initialize(mapload)
 	. = ..()
 	icon_state = "1"
 
-
 /obj/item/lightning/update_icon_state()
 	icon_state = "[angle]"
-
 
 /obj/item/lightning/afterattack(atom/A, mob/living/user, flag, params)
 	var/angle = get_angle(A, user)
@@ -131,7 +122,6 @@
 /obj/item/phone
 	name = "red phone"
 	desc = "Should anything ever go wrong..."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
 	flags = CONDUCT
 	force = 3
@@ -179,7 +169,6 @@
 		if(do_after(user, 1 SECONDS, user))
 			active = TRUE
 			update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/nunchuck/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!active)

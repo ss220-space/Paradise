@@ -23,7 +23,6 @@ SUBSYSTEM_DEF(cleanup)
 	/// A list of global lists we want the subsystem to clean.
 	var/list/lists_to_clean
 
-
 /datum/controller/subsystem/cleanup/Initialize()
 	// If you want this subsystem to clean out nulls from a specific list, add it here.
 	lists_to_clean = list(
@@ -33,7 +32,7 @@ SUBSYSTEM_DEF(cleanup)
 		GLOB.alive_mob_list = "alive_mob_list",
 		GLOB.dead_mob_list = "dead_mob_list",
 		GLOB.human_list = "human_list",
-		GLOB.carbon_list = "carbon_list"
+		GLOB.carbon_list = "carbon_list",
 	)
 	return SS_INIT_SUCCESS
 
@@ -41,7 +40,7 @@ SUBSYSTEM_DEF(cleanup)
 	for(var/L in lists_to_clean)
 		var/list/_list = L
 		var/prev_length = length(_list)
-		listclearnulls(_list)
+		list_clear_nulls(_list)
 
 		if(length(_list) < prev_length)
 			stack_trace("Found a null value in GLOB.[lists_to_clean[_list]]!")

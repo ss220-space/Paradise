@@ -172,7 +172,6 @@
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
-
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
@@ -249,6 +248,9 @@
 	///For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
 
+	///Allows a datum to intercept all click calls this mob is the source of
+	var/datum/click_intercept
+
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
 	var/registered_z
@@ -276,3 +278,19 @@
 	/// The calculated mob action speed slowdown based on the modifiers list, sorted by category in associvative list
 	var/list/cached_multiplicative_actions_slowdown
 
+	/// Unused, used to adjust our next move on a linar skill world.time + (how_many_deciseconds + Next move adjust) = Next move
+	var/next_move_adjust = 0
+	/// Value to multiply action delays by, actually used world.time + (how_many_deciseconds * Next move Adjust) = Next move
+	var/next_move_modifier = 1
+	// 1 decisecond click delay (above and beyond mob/next_move)
+	/// This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move(), Controls the click delay. Changed with
+	var/next_click = 0
+
+	var/list/screens = list()
+
+	var/newPlayerType = /mob/new_player
+
+	var/suiciding = FALSE
+
+	/// It's like a client, but persists! Persistent clients will stick to a mob until the client in question is logged into a different mob.
+	var/datum/persistent_client/persistent_client

@@ -8,10 +8,8 @@
 
 	base_cooldown = 30 SECONDS
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
-	clothes_req = TRUE
 
 	action_icon_state = "mime_curse"
-
 
 /obj/item/melee/touch_attack/mime_malaise
 	name = "mime hand"
@@ -20,7 +18,6 @@
 	on_use_sound = null
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
-
 
 /obj/item/melee/touch_attack/mime_malaise/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -33,7 +30,6 @@
 	var/mob/living/carbon/human/H = target
 	H.mimetouched()
 	..()
-
 
 /mob/living/carbon/human/proc/mimetouched()
 	Weaken(14 SECONDS)

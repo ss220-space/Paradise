@@ -16,10 +16,8 @@
 	choose_icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/toy/prizeball/update_icon_state()
 	icon_state = opening ? "prizeconfetti" : choose_icon_state
-
 
 /obj/item/toy/prizeball/attack_self(mob/user)
 	if(opening)
@@ -69,8 +67,6 @@
 	singular_name = "prize ticket"
 	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "tickets_1"
-	force = 0
-	throwforce = 0
 	throw_speed = 1
 	throw_range = 1
 	w_class = WEIGHT_CLASS_TINY

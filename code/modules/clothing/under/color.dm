@@ -2,7 +2,6 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dying_key = DYE_REGISTRY_UNDER
 
-
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
 
@@ -22,7 +21,6 @@
 	icon_state = initial(new_color.icon_state)
 	item_state = initial(new_color.item_state)
 	item_color = initial(new_color.item_color)
-
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
@@ -46,12 +44,9 @@
 
 /obj/item/clothing/under/color/blue/dodgeball
 
-
 /obj/item/clothing/under/color/blue/dodgeball/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
@@ -68,11 +63,9 @@
 
 /obj/item/clothing/under/color/grey/greytide
 
-
 /obj/item/clothing/under/color/grey/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
@@ -89,12 +82,9 @@
 	item_state = "o_suit"
 	item_color = "orange"
 
-/obj/item/clothing/under/color/orange/prison 
+/obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
-	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания." 
-	icon_state = "orange"
-	item_state = "o_suit"
-	item_color = "orange"
+	desc = "Старая одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
 	has_sensor = 2
 	sensor_mode = 3
 
@@ -105,12 +95,12 @@
 		DATIVE = "старому тюремному комбинезону",
 		ACCUSATIVE = "старый тюремный комбинезон",
 		INSTRUMENTAL = "старым тюремным комбинезоном",
-		PREPOSITIONAL = "старом тюремном комбинезоне"
+		PREPOSITIONAL = "старом тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/prison
 	name = "prison jumpsuit"
-	desc = "Cтандартная одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	desc = "Cтандартная одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
 	icon_state = "prison"
 	item_state = "prison"
 	item_color = "prison"
@@ -124,7 +114,7 @@
 		DATIVE = "тюремному комбинезону",
 		ACCUSATIVE = "тюремный комбинезон",
 		INSTRUMENTAL = "тюремным комбинезоном",
-		PREPOSITIONAL = "тюремном комбинезоне"
+		PREPOSITIONAL = "тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/color/pink
@@ -142,11 +132,9 @@
 
 /obj/item/clothing/under/color/red/dodgeball
 
-
 /obj/item/clothing/under/color/red/dodgeball/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
@@ -172,8 +160,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
@@ -204,11 +192,6 @@
 	name = "light green jumpsuit"
 	icon_state = "lightgreen"
 	item_color = "lightgreen"
-
-/obj/item/clothing/under/color/lightblue
-	name = "light blue jumpsuit"
-	icon_state = "lightblue"
-	item_color = "lightblue"
 
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
@@ -244,12 +227,10 @@
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"
 	icon_state = "redjersey"
-	item_state = "r_suit"
 	item_color = "redjersey"
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "The jersey of the Nanotrasen Pi-rates!"
 	icon_state = "bluejersey"
-	item_state = "b_suit"
 	item_color = "bluejersey"

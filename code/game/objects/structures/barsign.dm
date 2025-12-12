@@ -10,7 +10,6 @@
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/emagged = FALSE
 	var/panel_open = FALSE
 
 /obj/structure/sign/barsign/Initialize(mapload)
@@ -25,7 +24,7 @@
 	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	icon_state = sign.icon
@@ -67,12 +66,12 @@
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+		to_chat(user, span_notice("You open the maintenance panel."))
 		set_sign(new /datum/barsign/hiddensigns/signoff)
 		panel_open = TRUE
 
 	else
-		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+		to_chat(user, span_notice("You close the maintenance panel."))
 		if(!broken && !emagged)
 			set_sign(pick(barsigns))
 		else if(emagged)
@@ -83,7 +82,6 @@
 		panel_open = FALSE
 
 	return TRUE
-
 
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -110,18 +108,17 @@
 
 	return ..()
 
-
 /obj/structure/sign/barsign/emp_act(severity)
-    set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = TRUE
+	set_sign(new /datum/barsign/hiddensigns/empbarsign)
+	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
+			to_chat(user, span_warning("Nothing interesting happens!"))
 		return
 	if(user)
-		to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+		to_chat(user, span_notice("You emag the barsign. Takeover in progress..."))
 	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()

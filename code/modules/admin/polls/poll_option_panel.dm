@@ -51,14 +51,13 @@
 	option_list["desc_max_text"] = option ? option.desc_max : ""
 	.["option"] = option_list
 
-
 /datum/ui_module/poll_option_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
 
 	var/client/ui_client = ui.user.client
-	switch (action)
+	switch(action)
 		if("submit_option")
 			option_list["text"] = params["text"]
 			option_list["default_percentage_calc"] = params["default_percentage_calc"]

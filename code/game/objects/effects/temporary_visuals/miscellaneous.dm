@@ -2,8 +2,8 @@
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
+	icon_state = null
 	duration = 0.5 SECONDS
-	randomdir = FALSE
 	layer = ABOVE_ALL_MOB_LAYER
 	alpha = 200
 	var/splatter_type = "splatter"
@@ -18,10 +18,10 @@
 	splatter_visuals = new(src, /particles/splatter)
 	splatter_visuals.particles.velocity = list(x_component, y_component)
 	splatter_visuals.particles.color = blood_color
-
 	color = blood_color
 	icon_state = "[splatter_type][pick(1, 2, 3, 4, 5, 6)]"
-	..()
+
+	. = ..()
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(angle)
@@ -87,8 +87,6 @@
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
 	icon_state = "ion_fade"
-	duration = 10
-	randomdir = FALSE
 	layer = MOB_LAYER - 0.2
 
 /obj/effect/temp_visual/dir_setting/ninja
@@ -204,7 +202,6 @@
 	icon_state = "3"
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
-	duration = 10
 	layer = MASSIVE_OBJ_LAYER
 	alpha = 250
 	blend_mode = BLEND_ADD
@@ -258,7 +255,6 @@
 	name = "kinetic explosion"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "kinetic_blast"
-	layer = ABOVE_MOB_LAYER
 	duration = 4
 
 /obj/effect/temp_visual/pka_explosion
@@ -280,7 +276,6 @@
 	duration = 6
 
 /obj/effect/temp_visual/removing_flora
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter2"
 	duration = 2
 
@@ -343,7 +338,6 @@
 	name = "bleed"
 	icon = 'icons/effects/bleed.dmi'
 	icon_state = "bleed0"
-	duration = 10
 	var/shrink = TRUE
 
 /obj/effect/temp_visual/bleed/Initialize(mapload, atom/size_calc_target)
@@ -365,13 +359,11 @@
 	duration = 12
 	shrink = FALSE
 
-
 /obj/effect/temp_visual/gib
 	name = "gib"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "gibbed-h"
 	duration = 1.5 SECONDS
-
 
 /obj/effect/temp_visual/small_smoke
 	icon_state = "smoke"
@@ -381,9 +373,9 @@
 	duration = 5
 
 /obj/effect/temp_visual/dir_setting/firing_effect
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/projectile.dmi'
 	icon_state = "firing_effect"
-	duration = 2
+	duration = 0.2 SECONDS
 
 /obj/effect/temp_visual/dir_setting/firing_effect/setDir(newdir)
 	switch(newdir)
@@ -417,10 +409,6 @@
 	icon_state = "firing_effect_energy"
 	duration = 3
 
-/obj/effect/temp_visual/dir_setting/firing_effect/magic
-	icon_state = "shieldsparkles"
-	duration = 3
-
 /obj/effect/temp_visual/impact_effect
 	icon_state = "impact_bullet"
 	duration = 5
@@ -446,6 +434,10 @@
 	icon_state = "impact_laser_purple"
 	duration = 4
 
+/obj/effect/temp_visual/impact_effect/orange_laser
+	icon_state = "impact_laser_orange"
+	duration = 4
+
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 6
@@ -462,7 +454,6 @@
 	name = "holo scan waves"
 	icon = 'icons/effects/holoscan.dmi'
 	icon_state = "scan_alpha_red"
-	layer = ABOVE_MOB_LAYER
 	pixel_x = -16
 	pixel_y = -8
 	duration = 2 SECONDS
@@ -506,9 +497,20 @@
 	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.8 SECONDS)
 
+/obj/effect/warp_effect/heart
+	var/range = 12
+
+/obj/effect/warp_effect/heart/Initialize(mapload)
+	. = ..()
+	if(GLOB.heart)
+		range = GLOB.heart.pulse_range * 4
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)
+	QDEL_IN(src, 0.1 * range SECONDS)
+
 /obj/effect/temp_visual/love_heart
 	name = "love heart"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "heart"
 	duration = 2.5 SECONDS
 

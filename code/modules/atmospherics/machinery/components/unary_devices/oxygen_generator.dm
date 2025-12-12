@@ -6,11 +6,6 @@
 	name = "oxygen generator"
 	desc = ""
 
-	dir = SOUTH
-	initialize_directions = SOUTH
-
-	on = FALSE
-
 	var/oxygen_content = 10
 
 /obj/machinery/atmospherics/unary/oxygen_generator/update_icon_state()

@@ -1,14 +1,14 @@
-#define SHEET_VOLUME 1000 //cm3
+
+#define TEMPERATURE_DIVISOR 40
+#define TEMPERATURE_CHANGE_MAX 20
 
 //Baseline portable generator. Has all the default handling. Not intended to be used on it's own (since it generates unlimited power).
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
 	desc = "A portable generator for emergency backup power"
-	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
 	density = TRUE
 	anchored = FALSE
-	use_power = NO_POWER_USE
 	var/datum/looping_sound/port_gen/soundloop
 
 	var/active = 0
@@ -20,7 +20,7 @@
 
 /obj/machinery/power/port_gen/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), active)
+	soundloop = new(src, active)
 
 /obj/machinery/power/port_gen/Destroy()
 	QDEL_NULL(soundloop)
@@ -68,9 +68,9 @@
 	. = ..()
 	if(!in_range(user, src))
 		if(active)
-			. += "<span class='notice'>The generator is on.</span>"
+			. += span_notice("The generator is on.")
 		else
-			. += "<span class='notice'>The generator is off.</span>"
+			. += span_notice("The generator is off.")
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes
@@ -93,9 +93,6 @@
 /obj/machinery/power/port_gen/proc/explode()
 	explosion(loc, devastation_range = -1, heavy_impact_range = 3, light_impact_range = 5, flash_range = -1, cause = src)
 	qdel(src)
-
-#define TEMPERATURE_DIVISOR 40
-#define TEMPERATURE_CHANGE_MAX 20
 
 //A power generator that runs on solid plasma sheets.
 /obj/machinery/power/port_gen/pacman
@@ -166,12 +163,12 @@
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>\The [src] appears to be producing [power_gen*power_output] W.</span>"
-	. += "<span class='notice'>There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.</span>"
+	. += span_notice("\The [src] appears to be producing [power_gen*power_output] W.")
+	. += span_notice("There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.")
 	if(IsBroken())
-		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
+		. += span_warning("\The [src] seems to have broken down.")
 	if(overheating)
-		. += "<span class='danger'>\The [src] is overheating!</span>"
+		. += span_danger("\The [src] is overheating!")
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	var/needed_sheets = power_output / time_per_sheet
@@ -282,7 +279,6 @@
 		emagged = 1
 		return 1
 
-
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -307,7 +303,6 @@
 
 	return ..()
 
-
 /obj/machinery/power/port_gen/pacman/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
@@ -317,7 +312,6 @@
 		return .
 	panel_open = !panel_open
 	to_chat(user, span_notice("You have [panel_open ? "opened" : "closed"] the access panel."))
-
 
 /obj/machinery/power/port_gen/pacman/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -334,7 +328,6 @@
 		to_chat(user, span_notice("You have unsecured [src] from the floor."))
 		disconnect_from_network()
 
-
 /obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
@@ -344,7 +337,6 @@
 		to_chat(user, span_warning("You cannot disassemble [src] while the access panel is closed."))
 		return .
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user)
 	..()
@@ -484,3 +476,6 @@
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
 	explosion(loc, devastation_range = 3, heavy_impact_range = 6, light_impact_range = 12, flash_range = 16, adminlog = TRUE, cause = src)
 	qdel(src)
+
+#undef TEMPERATURE_DIVISOR
+#undef TEMPERATURE_CHANGE_MAX

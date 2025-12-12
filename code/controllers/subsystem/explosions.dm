@@ -20,7 +20,6 @@ SUBSYSTEM_DEF(explosions)
 	var/sound/hull_creaking_sound
 	var/sound/explosion_echo_sound
 
-
 /datum/controller/subsystem/explosions/Initialize()
 	if(CONFIG_GET(flag/reactionary_explosions))
 		reactionary_explosions = TRUE
@@ -31,7 +30,6 @@ SUBSYSTEM_DEF(explosions)
 	explosion_echo_sound = sound('sound/effects/explosion_distant.ogg')
 	explosion_queue = new()
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/explosions/fire(resumed = 0)
 	while(!explosion_queue.is_empty())
@@ -70,7 +68,6 @@ SUBSYSTEM_DEF(explosions)
 				data.cached_exp_block[total_cords] = prev_block + turf_block
 
 			var/flame_distance = distance < data.flame_range
-
 
 			if(distance < data.devastation_range)
 				distance = EXPLODE_DEVASTATE
@@ -162,7 +159,7 @@ SUBSYSTEM_DEF(explosions)
 */
 /proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in prepare_explosion_turfs(range, epicenter))
-		tile.ex_act(2, epicenter)
+		tile.ex_act(EXPLODE_HEAVY, epicenter)
 
 /datum/explosion_data
 	var/orig_dev_range
@@ -249,7 +246,6 @@ SUBSYSTEM_DEF(explosions)
 	light_impact_range = clamp(light_impact_range, 0, GLOB.max_ex_light_range)
 	flash_range = clamp(flash_range, 0, GLOB.max_ex_flash_range)
 	flame_range = clamp(flame_range, 0, GLOB.max_ex_flame_range)
-
 
 /datum/explosion_data/proc/create_effect(smoke)
 	if(devastation_range > 0)
@@ -386,18 +382,18 @@ SUBSYSTEM_DEF(explosions)
 		var/base_shake_amount = sqrt(orig_max_distance / (distance + 1))
 
 		if(distance <= round(max_range + world.view - 2, 1)) // If you are close enough to see the effects of the explosion first-hand (ignoring walls)
-			listener.playsound_local(epicenter, null, 100, TRUE, frequency, sound = SSexplosions.explosion_sound)
+			listener.playsound_local(epicenter, null, 100, TRUE, frequency, sound_to_use = SSexplosions.explosion_sound)
 			if(base_shake_amount > 0)
 				shake_camera(listener, NEAR_SHAKE_DURATION, clamp(base_shake_amount, 0, NEAR_SHAKE_CAP))
 
 		else if(distance <= far_distance) // You can hear a far explosion if you are outside the blast radius. Small explosions shouldn't be heard throughout the station.
 			var/far_volume = clamp(far_distance / 2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and distance
 			if(creaking_explosion)
-				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, sound = SSexplosions.creaking_explosion_sound, distance_multiplier = 0)
+				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, sound_to_use = SSexplosions.creaking_explosion_sound, distance_multiplier = 0)
 			else if(prob(FAR_SOUND_PROB)) // Sound variety during meteor storm/tesloose/other bad event
-				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, sound = SSexplosions.far_explosion_sound, distance_multiplier = 0) // Far sound
+				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, sound_to_use = SSexplosions.far_explosion_sound, distance_multiplier = 0) // Far sound
 			else
-				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, sound = SSexplosions.explosion_echo_sound, distance_multiplier = 0) // Echo sound
+				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, sound_to_use = SSexplosions.explosion_echo_sound, distance_multiplier = 0) // Echo sound
 
 			if(base_shake_amount > 0 || devastation_range)
 				base_shake_amount = max(base_shake_amount, devastation_range * 3, 0) // Devastating explosions rock the station and ground
@@ -408,7 +404,7 @@ SUBSYSTEM_DEF(explosions)
 			if(devastation_range)
 				echo_volume = 60
 				shake_camera(listener, 10, clamp(devastation_range * 0.25, 0, FAR_SHAKE_CAP))
-			listener.playsound_local(epicenter, null, echo_volume, TRUE, frequency, sound = SSexplosions.explosion_echo_sound, distance_multiplier = 0)
+			listener.playsound_local(epicenter, null, echo_volume, TRUE, frequency, sound_to_use = SSexplosions.explosion_echo_sound, distance_multiplier = 0)
 
 		if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 			addtimer(CALLBACK(listener, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), TRUE, frequency, null, null, FALSE, SSexplosions.hull_creaking_sound, 0), CREAK_DELAY)
@@ -463,7 +459,7 @@ SUBSYSTEM_DEF(explosions)
 		upper_angle_limit = second_angle_limit
 		do_directional = TRUE
 		reverse_angle = FALSE
-	else if (first_angle_limit > second_angle_limit) // CASE C: When the arc crosses 0 degrees
+	else if(first_angle_limit > second_angle_limit) // CASE C: When the arc crosses 0 degrees
 		lower_angle_limit = second_angle_limit
 		upper_angle_limit = first_angle_limit
 		do_directional = TRUE

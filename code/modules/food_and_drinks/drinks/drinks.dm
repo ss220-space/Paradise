@@ -10,7 +10,6 @@
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	visible_transfer_rate = TRUE
-	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
 	var/chugging = FALSE
@@ -26,7 +25,6 @@
 
 /obj/item/reagent_containers/food/drinks/attack_self(mob/user)
 	return
-
 
 /obj/item/reagent_containers/food/drinks/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
@@ -59,7 +57,6 @@
 	if(isrobot(user) && length(transfer_data))
 		SynthesizeDrinkFromTransfer(user, transfer_data)
 
-
 /obj/item/reagent_containers/food/drinks/proc/SynthesizeDrinkFromTransfer(mob/user, list/transfer_data)
 
 	var/list/ids_data = list()
@@ -77,15 +74,15 @@
 			var/mob/living/silicon/robot/bro = user
 			var/chargeAmount = max(30,4*trans)
 			bro.cell.use(chargeAmount)
-			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[pluralize_ru(trans, "ы", "", "")] вещества..."))
+			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[declension_ru(trans, "ы", "", "")] вещества..."))
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] снова пол[genderize_ru(gender, "он", "на", "но", "ны")].")), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] снова полн[GEND_YI_AYA_OE_YE(src)].")), 30 SECONDS)
 		else
 			reagents.add_reagent_list(ids_data)
 	else
 		return
 
-/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params) //CHUG! CHUG! CHUG!
+/obj/item/reagent_containers/food/drinks/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!iscarbon(over_object) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return ..()
 	var/mob/living/carbon/chugger = over_object
@@ -96,7 +93,7 @@
 		balloon_alert(chugger, "ваш рот чем-то закрыт!")
 		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
-		chugger.visible_message(span_notice("[chugger] поднос[pluralize_ru(chugger.gender, "ит", "ят")] [declent_ru(ACCUSATIVE)] к своему рту и начина[pluralize_ru(chugger.gender, "ет", "ют")] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+		chugger.visible_message(span_notice("[chugger] поднос[PLUR_IT_YAT(chugger)] [declent_ru(ACCUSATIVE)] к своему рту и начина[PLUR_ET_YUT(chugger)] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
 			span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к своему рту и начинаете [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
 			span_notice("Вы слышите звуки, походящие на питьё чего-то."))
 		chugging = TRUE
@@ -104,7 +101,7 @@
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message(span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[pluralize_ru(chugger.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)]."),
+				chugger.visible_message(span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[PLUR_ET_YUT(chugger)] содержимое [declent_ru(GENITIVE)]."),
 					span_notice("Вы [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпиваете содержимое [declent_ru(GENITIVE)]."),
 					span_notice("Вы слышите громкие глотки и последующий громкий выдох."))
 				break
@@ -132,7 +129,8 @@
 		if(isrobot(user))
 			SynthesizeDrinkFromTransfer(user, transfer_data)
 
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества в [target.declent_ru(ACCUSATIVE)]."))
+		after_transfer(target)
+		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -174,15 +172,12 @@
 	name = "pewter cup"
 	desc = "Everyone gets a trophy."
 	icon_state = "pewter_cup"
-	w_class = WEIGHT_CLASS_TINY
 	force = 1
 	throwforce = 1
-	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
 	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
-	container_type = OPENCONTAINER
 	resistance_flags = FIRE_PROOF
 
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup
@@ -218,12 +213,10 @@
 	materials = list(MAT_METAL=400)
 	volume = 25
 
-
 ///////////////////////////////////////////////Drinks
 //Notes by Darem: Drinks are simply containers that start preloaded. Unlike condiments, the contents can be ingested directly
 //	rather then having to add it to something else first. They should only contain liquids. They have a default container size of 50.
 //	Formatting is the same as food.
-
 
 /obj/item/reagent_containers/food/drinks/coffee
 	name = "Robust Coffee"
@@ -240,12 +233,12 @@
 
 /obj/item/reagent_containers/food/drinks/ice/get_ru_names()
 	return list(
-        NOMINATIVE = "стаканчик льда",
-        GENITIVE = "стаканчика льда",
-        DATIVE = "стаканчику льда",
-        ACCUSATIVE = "стаканчик льда",
-        INSTRUMENTAL = "стаканчиком льда",
-        PREPOSITIONAL = "стаканчике льда"
+		NOMINATIVE = "стаканчик льда",
+		GENITIVE = "стаканчика льда",
+		DATIVE = "стаканчику льда",
+		ACCUSATIVE = "стаканчик льда",
+		INSTRUMENTAL = "стаканчиком льда",
+		PREPOSITIONAL = "стаканчике льда",
 	)
 
 /obj/item/reagent_containers/food/drinks/tea
@@ -318,14 +311,11 @@
 	possible_transfer_amounts = null
 	volume = 10
 
-
 /obj/item/reagent_containers/food/drinks/sillycup/update_icon_state()
 	icon_state = "water_cup[reagents.total_volume ? "" : "_e"]"
 
-
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
 	update_icon(UPDATE_ICON_STATE)
-
 
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
@@ -350,7 +340,6 @@
 	volume = 60
 
 /obj/item/reagent_containers/food/drinks/flask/barflask
-	name = "flask"
 	desc = "For those who can't be bothered to hang out at the bar to drink."
 	icon_state = "barflask"
 
@@ -392,7 +381,6 @@
 	icon_state = "lithiumflask"
 	volume = 50
 
-
 /obj/item/reagent_containers/food/drinks/britcup
 	name = "cup"
 	desc = "A cup with the british flag emblazoned on it."
@@ -409,7 +397,6 @@
 /obj/item/reagent_containers/food/drinks/oilcan/full
 	list_reagents = list("oil" = 100)
 
-
 /obj/item/reagent_containers/food/drinks/zaza
 	name = "Cherry Zaza"
 	desc = "I possess Zaza!"
@@ -420,10 +407,8 @@
 	container_type = NONE
 	list_reagents = list("zaza" = 80)
 
-
 /obj/item/reagent_containers/food/drinks/zaza/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/food/drinks/zaza/update_overlays()
 	. = ..()
@@ -449,7 +434,6 @@
 
 	if(!is_open_container())
 		. += "zaza_lid"
-
 
 /obj/item/reagent_containers/food/drinks/zaza/attack_self(mob/user)
 	if(!is_open_container())

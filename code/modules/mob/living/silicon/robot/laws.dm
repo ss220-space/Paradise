@@ -3,7 +3,7 @@
 	set name = "Список законов"
 	show_laws()
 
-/mob/living/silicon/robot/show_laws(var/everyone = 0)
+/mob/living/silicon/robot/show_laws(everyone = 0)
 	laws_sanity_check()
 	var/who
 
@@ -38,7 +38,6 @@
 		to_chat(who, "<b>Remember, you are not required to listen to the AI.</b>")
 	else
 		to_chat(who, "<b>Remember, you are not bound to any AI, you are not required to listen to them.</b>")
-
 
 /mob/living/silicon/robot/lawsync()
 	laws_sanity_check()

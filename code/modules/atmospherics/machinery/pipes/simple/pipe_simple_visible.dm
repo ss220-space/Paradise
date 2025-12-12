@@ -2,7 +2,6 @@
 	icon_state = "intact"
 	level = 2
 	// these are inherited, but it's nice to have them explicit here
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers
@@ -43,7 +42,6 @@
 	connect_types = list(1,2,3)
 	icon_state = "map_universal"
 
-
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_overlays()
 	. = list()
 	if(!check_icon_cache())
@@ -53,7 +51,6 @@
 
 	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
-
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()
 	if(!check_icon_cache())

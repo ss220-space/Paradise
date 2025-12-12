@@ -199,16 +199,15 @@
 /datum/action/vehicle/ridden
 	var/obj/vehicle/ridden/vehicle_ridden_target
 
-
 /datum/action/vehicle/ridden/ambulance/ambulance_alarm
 	name = "Toggle Sirens"
-	icon_icon = 'icons/obj/vehicles/vehicles.dmi'
+	button_icon = 'icons/obj/vehicles/vehicles.dmi'
 	button_icon_state = "docwagon2"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	COOLDOWN_DECLARE(ability_cooldown)
 	var/cooldown_time = 4 SECONDS
 
-/datum/action/vehicle/ridden/ambulance/ambulance_alarm/Trigger(left_click = TRUE)
+/datum/action/vehicle/ridden/ambulance/ambulance_alarm/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 
@@ -222,19 +221,17 @@
 
 	COOLDOWN_START(src, ability_cooldown, cooldown_time)
 
-	if(A.soundloop.muted)
-		A.soundloop.start()
-		A.set_light_on(TRUE)
-	else
+	if(A.soundloop in GLOB.looping_sounds)
 		A.soundloop.stop()
 		A.set_light_on(FALSE)
+	else
+		A.soundloop.start()
+		A.set_light_on(TRUE)
 
 /datum/looping_sound/ambulance_alarm
 	start_length = 0
 	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
 	mid_length = 14
-	volume = 100
-
 
 /*
 

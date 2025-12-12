@@ -13,17 +13,15 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "imp"
 	icon_living = "imp"
-	speed = 1
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("hell")
 	attacktext = "неистово терзает"
 	maxHealth = 200
 	health = 200
-	healable = 0
+	healable = FALSE
 	environment_smash = 1
 	obj_damage = 40
 	melee_damage_lower = 10
@@ -43,7 +41,7 @@
 		DATIVE = "бесу",
 		ACCUSATIVE = "беса",
 		INSTRUMENTAL = "бесом",
-		PREPOSITIONAL = "бесе"
+		PREPOSITIONAL = "бесе",
 	)
 
 /mob/living/simple_animal/imp/ritual
@@ -75,7 +73,6 @@
 /mob/living/simple_animal/imp/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	return FALSE
 
-
 /datum/antagonist/imp
 	name = "Бес"
 	antag_menu_name = "Бес"
@@ -85,13 +82,12 @@
 	show_in_roundend = FALSE
 	russian_wiki_name = "Торговец_душ"
 
-
 /datum/antagonist/imp/give_objectives()
 	add_objective(/datum/objective/imp)
 
 /datum/antagonist/imp/greet()
 	var/list/messages = list()
-	messages += span_big("<b>Вы – Бес!</b>")
+	messages += span_big("<b>Вы — Бес!</b>")
 	messages += "<b>Вы низший ранг в иерархии ада.</b>"
 	messages += "<b>Хотя вы не обязаны помогать, возможно, помогая высокопоставленному дьяволу, вы сможете получить повышение.</b>"
 	messages += "<b>Вы не способны преднамеренно причинить вред дьяволу или любой другой адской сущности</b>"
@@ -109,7 +105,7 @@
 
 /datum/antagonist/imp/demon/greet()
 	var/list/messages = list()
-	messages += span_big("<b>Вы – Демон!</b>")
+	messages += span_big("<b>Вы — Демон!</b>")
 	messages += "<b>Вы выше по рангу, чем бесы, но вы все еще можете получить повышение.</b>"
 	messages += "<b>Хотя вы не обязаны помогать, возможно, помогая высокопоставленному дьяволу, вы сможете получить повышение.</b>"
 	messages += "<b>Вы не способны преднамеренно причинить вред дьяволу или любой другой адской сущности</b>"

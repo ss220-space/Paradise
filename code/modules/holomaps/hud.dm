@@ -1,6 +1,3 @@
-/datum/hud
-	var/atom/movable/screen/holomap/holomap
-
 /datum/hud/New(mob/owner)
 	. = ..()
 
@@ -9,7 +6,6 @@
 	holomap.icon = null
 	holomap.screen_loc = ui_holomap
 	holomap.mouse_opacity = MOUSE_OPACITY_ICON
-
 
 /atom/movable/screen/holomap
 	/// The owner. Used to get z-level data.

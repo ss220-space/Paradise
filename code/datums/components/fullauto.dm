@@ -2,6 +2,7 @@
 #define AUTOFIRE_MOUSEDOWN 1
 
 /datum/component/automatic_fire
+	var/enable = TRUE
 	var/client/clicker
 	var/mob/living/shooter
 	var/atom/target
@@ -30,13 +31,13 @@
 	var/timerid
 	COOLDOWN_DECLARE(next_shot_cd)
 
-
 /datum/component/automatic_fire/Initialize(autofire_shot_delay, windup_autofire, windup_autofire_reduction_multiplier, windup_autofire_cap, windup_spindown, allow_akimbo = TRUE)
 	. = ..()
 	if(!isgun(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/obj/item/gun = parent
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(wake_up))
+	RegisterSignal(parent, COMSIG_GUN_TOGGLE_FIREMODE, PROC_REF(toggle_firemode))
 	if(autofire_shot_delay)
 		src.autofire_shot_delay = autofire_shot_delay
 	src.allow_akimbo = allow_akimbo
@@ -49,18 +50,17 @@
 		var/mob/user = gun.loc
 		wake_up(src, user)
 
-
 /datum/component/automatic_fire/Destroy()
 	autofire_off()
 	return ..()
 
-
 /datum/component/automatic_fire/process(seconds_per_tick)
+	if(!enable)
+		return
 	if(autofire_stat != AUTOFIRE_STAT_FIRING)
 		STOP_PROCESSING(SSprojectiles, src)
 		return
 	process_shot()
-
 
 /datum/component/automatic_fire/proc/wake_up(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
@@ -73,6 +73,8 @@
 	if(user.is_in_hands(parent))
 		autofire_on(user.client)
 
+/datum/component/automatic_fire/proc/toggle_firemode(datum/source, mob/user, firemode)
+	enable = firemode == GUN_AUTO_MODE
 
 // There is a gun and there is a user wielding it. The component now waits for the mouse click.
 /datum/component/automatic_fire/proc/autofire_on(client/user_client)
@@ -91,7 +93,6 @@
 	RegisterSignal(parent, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(autofire_off))
 	parent.RegisterSignal(src, COMSIG_AUTOFIRE_ONMOUSEDOWN, TYPE_PROC_REF(/obj/item/gun, autofire_bypass_check))
 	parent.RegisterSignal(parent, COMSIG_AUTOFIRE_SHOT, TYPE_PROC_REF(/obj/item/gun, do_autofire))
-
 
 /datum/component/automatic_fire/proc/autofire_off(datum/source)
 	SIGNAL_HANDLER
@@ -115,7 +116,6 @@
 	parent.UnregisterSignal(parent, COMSIG_AUTOFIRE_SHOT)
 	parent.UnregisterSignal(src, COMSIG_AUTOFIRE_ONMOUSEDOWN)
 
-
 /datum/component/automatic_fire/proc/on_client_login(mob/source)
 	SIGNAL_HANDLER
 	if(!source.client)
@@ -123,9 +123,11 @@
 	if(source.is_in_hands(parent))
 		autofire_on(source.client)
 
-
 /datum/component/automatic_fire/proc/on_mouse_down(client/source, atom/_target, turf/location, control, params)
 	SIGNAL_HANDLER
+
+	if(!enable)
+		return
 
 	var/list/modifiers = params2list(params) //If they're shift+clicking, for example, let's not have them accidentally shoot.
 
@@ -169,7 +171,6 @@
 	mouse_parameters = params
 	INVOKE_ASYNC(src, PROC_REF(start_autofiring))
 
-
 //Dakka-dakka
 /datum/component/automatic_fire/proc/start_autofiring()
 	if(autofire_stat == AUTOFIRE_STAT_FIRING)
@@ -200,16 +201,17 @@
 	START_PROCESSING(SSprojectiles, src)
 	RegisterSignal(clicker, COMSIG_CLIENT_MOUSEDRAG, PROC_REF(on_mouse_drag))
 
-
 /datum/component/automatic_fire/proc/on_mouse_up(datum/source, atom/object, turf/location, control, params)
 	SIGNAL_HANDLER
+
+	if(!enable)
+		return
 
 	UnregisterSignal(clicker, COMSIG_CLIENT_MOUSEUP)
 	mouse_status = AUTOFIRE_MOUSEUP
 	if(autofire_stat == AUTOFIRE_STAT_FIRING)
 		stop_autofiring()
 	return COMPONENT_CLIENT_MOUSEUP_INTERCEPT
-
 
 /datum/component/automatic_fire/proc/stop_autofiring(datum/source, atom/object, turf/location, control, params)
 	SIGNAL_HANDLER
@@ -229,9 +231,11 @@
 	target_loc = null
 	mouse_parameters = null
 
-
 /datum/component/automatic_fire/proc/on_mouse_drag(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
+
+	if(!enable)
+		return
 
 	if(isnull(over_location)) //This happens when the mouse is over an inventory or screen object, or on entering deep darkness, for example.
 		var/list/modifiers = params2list(params)
@@ -252,7 +256,6 @@
 	target = over_object
 	target_loc = get_turf(over_object)
 	mouse_parameters = params
-
 
 /datum/component/automatic_fire/proc/process_shot()
 	if(autofire_stat != AUTOFIRE_STAT_FIRING)
@@ -286,13 +289,11 @@
 	stop_autofiring()
 	return FALSE
 
-
 /// Reset for our windup, resetting everything back to initial values after a variable set amount of time (determined by var/windup_spindown).
 /datum/component/automatic_fire/proc/windup_reset(deltimer)
 	current_windup_reduction = initial(current_windup_reduction)
 	if(deltimer && timerid)
 		deltimer(timerid)
-
 
 // Gun procs.
 
@@ -304,19 +305,17 @@
 		shoot_with_empty_chamber(shooter)
 		return FALSE
 
-	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !shooter.has_inactive_hand() || (shooter.pulling && shooter.pull_hand != PULL_WITHOUT_HANDS)))
+	if(!HAS_TRAIT(shooter, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !shooter.has_inactive_hand() || (shooter.pulling && shooter.pull_hand != PULL_WITHOUT_HANDS)))
 		balloon_alert(shooter, "нужны обе руки!")
 		return FALSE
 
 	return TRUE
-
 
 /obj/item/gun/proc/autofire_bypass_check(datum/source, client/clicker, atom/target, turf/location, control, params)
 	SIGNAL_HANDLER
 
 	if(clicker.mob.get_active_hand() != src)
 		return COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS
-
 
 /obj/item/gun/proc/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
 	SIGNAL_HANDLER
@@ -331,17 +330,16 @@
 	INVOKE_ASYNC(src, PROC_REF(do_autofire_shot), source, target, shooter, allow_akimbo, params)
 	return COMPONENT_AUTOFIRE_SHOT_SUCCESS //All is well, we can continue shooting.
 
-
 /obj/item/gun/proc/do_autofire_shot(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
 	var/obj/item/gun/akimbo_gun = shooter.get_inactive_hand()
 	var/bonus_spread = 0
-	if(isgun(akimbo_gun) && weapon_weight < WEAPON_MEDIUM && allow_akimbo)
-		if(akimbo_gun.weapon_weight < WEAPON_MEDIUM && akimbo_gun.can_trigger_gun(shooter))
-			if(!HAS_TRAIT(shooter, TRAIT_BADASS))
+	var/badass = HAS_TRAIT(shooter, TRAIT_BADASS)
+	if(isgun(akimbo_gun) && (badass || weapon_weight < WEAPON_MEDIUM) && allow_akimbo)
+		if((badass || akimbo_gun.weapon_weight < WEAPON_MEDIUM) && akimbo_gun.can_trigger_gun(shooter))
+			if(!badass)
 				bonus_spread = accuracy.dual_wield_spread
 			addtimer(CALLBACK(akimbo_gun, TYPE_PROC_REF(/obj/item/gun, process_fire), target, shooter, TRUE, params, null, bonus_spread), 1)
 	process_fire(target, shooter, TRUE, params, null, bonus_spread)
-
 
 #undef AUTOFIRE_MOUSEUP
 #undef AUTOFIRE_MOUSEDOWN

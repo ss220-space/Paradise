@@ -13,11 +13,10 @@
 	if(z == initial(src.z)) //No launching pods that have already launched
 		return ..()
 
-
 /obj/docking_port/mobile/assault_pod/dock(obj/docking_port/stationary/S1, force, transit)
 	..()
 	if(!istype(S1, /obj/docking_port/stationary/transit))
-		playsound(get_turf(src.loc), 'sound/effects/explosion1.ogg',50,1)
+		playsound(get_turf(src.loc), 'sound/effects/explosion1.ogg',50, TRUE)
 
 /obj/item/assault_pod
 	name = "Assault Pod Targetting Device"

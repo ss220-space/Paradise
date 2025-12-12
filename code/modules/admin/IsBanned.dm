@@ -16,7 +16,7 @@
 	var/ckey = ckey(key)
 
 	var/client/C = GLOB.directory[ckey]
-	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
+	if(C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
 		return //don't recheck connected clients.
 
 	if((ckey in GLOB.admin_datums) || (ckey in GLOB.de_admins))
@@ -24,8 +24,16 @@
 		if(A && (A.rights & R_ADMIN))
 			admin = 1
 
+	// Lets see if they are logged in on another paradise server
+	#ifdef MULTIINSTANCE
+	if(!admin && SSdbcore.IsConnected()) // we allow admins to multijoin
+		var/other_server_login = SSinstancing.check_player(ckey)
+		if(other_server_login)
+			return list("reason"="duplicate login", "desc"="\nReason: You are already logged in on server '[other_server_login]'. Please contact the server host if you believe this is an error.")
+	#endif
+
 	//Guest Checking
-	if(!GLOB.guests_allowed && IsGuestKey(key))
+	if(!GLOB.guests_allowed && is_guest_key(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
@@ -37,7 +45,6 @@
 		if(CONFIG_GET(string/banappeals))
 			mistakemessage = "\nIf you have to use one, request whitelisting at:  [CONFIG_GET(string/banappeals)]"
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
-
 
 	if(CONFIG_GET(flag/ban_legacy_system))
 		//Ban Checking

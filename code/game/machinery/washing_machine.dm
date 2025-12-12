@@ -153,15 +153,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	/// Our sweet wires
 	var/datum/wires/washing_machine/wires
 
-/obj/machinery/washing_machine/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt-click</b> to start washing.")
-
 /obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
 	wires = new(src)
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/washing_machine/Destroy()
 	dump_contents(forced = TRUE)
@@ -169,11 +164,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	QDEL_NULL(wires)
 	return ..()
 
-
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
 	qdel(src)
-
 
 /// Dumps every movable atom in the machine's contents list
 /obj/machinery/washing_machine/proc/dump_contents(forced = FALSE)
@@ -191,7 +184,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(toggle_states)
 		toggle_state(toggle_states)
 
-
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
 	if(state & STATE_PANEL)
@@ -202,7 +194,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		. += span_warning("The red light on the panel is blinking...")
 	if(!(state & (STATE_OPENED|STATE_WORKING)) && (state & STATE_FULL))
 		. += span_notice("<b>Alt-click</b> to start the washing cycle.")
-
 
 /obj/machinery/washing_machine/process(seconds_per_tick)
 	if(!(state & STATE_WORKING))
@@ -222,16 +213,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		animate(src, transform = animatrix, time = 0.1 SECONDS)
 		animate(transform = matrix(), time = 0.1 SECONDS)
 
-
 /obj/machinery/washing_machine/relaymove(mob/living/user, direction)
 	container_resist(user)
-
 
 /obj/machinery/washing_machine/container_resist(mob/living/user)
 	if(!(state & STATE_WORKING))
 		add_fingerprint(user)
 		dump_contents()
-
 
 /**
  * Toggles machine bitflag for `state` variable and calls icon update.
@@ -244,7 +232,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	state ^= new_state
 	if(. != state)
 		update_icon(UPDATE_OVERLAYS)
-
 
 #define WASHER_OVERLAY_CLOSED 1
 #define WASHER_OVERLAY_CLOSED_FULL 2
@@ -308,7 +295,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 #undef WASHER_OVERLAY_WORKING_BLOODY
 #undef WASHER_OVERLAY_PANEL
 
-
 /obj/machinery/washing_machine/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
@@ -324,7 +310,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		panel_open = FALSE
 		to_chat(user, span_notice("You close the maintenance panel of [src]."))
 
-
 /obj/machinery/washing_machine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
@@ -334,7 +319,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		to_chat(user, span_warning("Close the maintenance panel first!"))
 		return .
 	default_unfasten_wrench(user, I, 5 SECONDS)
-
 
 /obj/machinery/washing_machine/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -348,7 +332,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return .
 	wires.Interact(user)
 
-
 /obj/machinery/washing_machine/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
@@ -361,17 +344,15 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return .
 	wires.Interact(user)
 
-
 /obj/machinery/washing_machine/emag_act(mob/user)
 	if(emagged)
 		return
 	emagged = TRUE
 	if(!wires.is_cut(WIRE_WASHER_HACK))
 		wires.cut(WIRE_WASHER_HACK)
-	do_sparks(3, 0, src)
+	do_sparks(3, FALSE, src)
 	add_attack_logs(user, src, "emagged")
 	. = ..()
-
 
 /obj/machinery/washing_machine/unemag()
 	if(!emagged)
@@ -379,7 +360,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	emagged = FALSE
 	if(wires.is_cut(WIRE_WASHER_HACK))
 		wires.cut(WIRE_WASHER_HACK)
-
 
 /obj/machinery/washing_machine/attack_hand(mob/living/user)
 	. = ..()
@@ -401,7 +381,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	dump_contents()
 
-
 /obj/machinery/washing_machine/clean_blood()
 	. = ..()
 	if(!(state & STATE_BLOODY))
@@ -413,7 +392,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else
 		if(usr)
 			to_chat(usr, span_warning("Open [src]'s hatch first!"))
-
 
 /obj/machinery/washing_machine/attackby(obj/item/I, mob/user, params)
 	var/is_mob_holder = istype(I, /obj/item/holder)
@@ -446,7 +424,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		toggle_state(STATE_FULL)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/washing_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !(state & STATE_OPENED) || !(state & STATE_HACKED) || !isanimal(grabbed_thing))
@@ -456,7 +433,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	grabbed_thing.forceMove(src)
 	if(!contents_len)
 		toggle_state(STATE_FULL)
-
 
 /// All generic checks with feedback for the user
 /obj/machinery/washing_machine/proc/generic_check(mob/living/user, states_to_ignore)
@@ -483,10 +459,8 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return FALSE
 	return TRUE
 
-
 /obj/machinery/washing_machine/attack_ai(mob/user)
 	turn_on(user)
-
 
 /obj/machinery/washing_machine/click_alt(mob/user)
 	if(!generic_check(user))
@@ -510,7 +484,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	START_PROCESSING(SSfastprocess, src)
 	return TRUE
 
-
 /// Ending of the machine wash cycle
 /obj/machinery/washing_machine/proc/wash_cycle_end()
 	for(var/atom/movable/thing as anything in contents)
@@ -523,31 +496,25 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	use_power = IDLE_POWER_USE
 	toggle_state(STATE_WORKING)
 
-
 /obj/machinery/washing_machine/proc/pulsed_callback(wire_check, state_check)
 	if(!wires.is_cut(wire_check) && (state & state_check))
 		toggle_state(state_check)
-
 
 /// What happens to this object when washed inside a washing machine
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/washer)
 	return
 
-
 /obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/washer)
 	new /obj/item/stack/sheet/wetleather(washer, amount)
 	qdel(src)
-
 
 /mob/living/simple_animal/machine_wash(obj/machinery/washing_machine/washer)
 	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
 	gib()
 
-
 /obj/item/machine_wash(obj/machinery/washing_machine/washer)
 	if(washer.color_source)
 		dye_item(washer.color_source.dye_color)
-
 
 /obj/item/clothing/shoes/orange/machine_wash(obj/machinery/washing_machine/washer)
 	if(shackles)
@@ -555,8 +522,21 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		set_shackles(null)
 	. = ..()
 
-
+/**
+ * Updates an item's appearance to mimic the appearance of another item in the dye_registry's dictionary
+ * what types of items (beanie, jumpsuit, shoes, etc) src is dyed into depends on the dye_key unless an
+ * overidden dye_key is specified. For example if our dye_key is DYE_REGISTRY_UNDER and we specify to dye to
+ * DYE_RED, our item's appearance would then mimic /obj/item/clothing/under/color/red; see [code/_globalvars/lists/dye_registry.dm] for this dictionary
+ *
+ * once everything is updated, the target type path that we dyed the item into is returned
+ *
+ * Arguments:
+ * - dye_color: the DYE_COLOR specifies which dye color we look up to copy apearances from in the dye_registry; cannot be null
+ * - dye_key_override: this overrides the items `dyeing_key` which allows you to force the proc to use a specific lookup key for the dye_registry; this can be null
+ */
 /obj/item/proc/dye_item(dye_color, dye_key_override)
+	if(!dye_color)
+		return
 	var/dye_key_selector = dye_key_override ? dye_key_override : dying_key
 	if(undyeable)
 		return FALSE
@@ -569,27 +549,23 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(!target_type)
 		return FALSE
 
-	name = initial(target_type.name)
-	desc = "[initial(target_type.desc)] The colors are a bit dodgy."
+	var/obj/item/target_obj = new target_type
+	icon = target_obj.icon
+	icon_state = target_obj.icon_state
+	item_state = target_obj.item_state
+	item_color = target_obj.item_color
+	lefthand_file = target_obj.lefthand_file
+	righthand_file = target_obj.righthand_file
 
-	icon = initial(target_type.icon)
-	icon_state = initial(target_type.icon_state)
-	item_state = initial(target_type.item_state)
-	item_color = initial(target_type.item_color)
+	if(target_obj.sprite_sheets || target_obj.onmob_sheets)
+		sprite_sheets = target_obj.sprite_sheets
+		onmob_sheets = target_obj.onmob_sheets
 
-	lefthand_file = initial(target_type.lefthand_file)
-	righthand_file = initial(target_type.righthand_file)
-
-	if(initial(target_type.sprite_sheets) || initial(target_type.onmob_sheets))
-		// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the target_type.
-		var/obj/item/dummy = new target_type(null)
-		sprite_sheets = dummy.sprite_sheets
-		onmob_sheets = dummy.onmob_sheets
-		qdel(dummy)
-
-	update_appearance()
-	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
-
+	name = target_obj.name
+	ru_names = target_obj.get_ru_names_cached()
+	desc = "[target_type.desc] Цвет выглядит блеклым."
+	qdel(target_obj)
+	return target_type
 
 #undef STATE_FULL
 #undef STATE_OPENED

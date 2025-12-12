@@ -4,22 +4,18 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"
 	item_state = "stamp"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=60)
 	item_color = "cargo" //Если у кого-то как у меня возникнет непонимание зачем вообще нужен этот параметр, то он нужен для окрашивания вещей в стиральной машине...
 	pressure_resistance = 2
 	attack_verb = list("опечатал")
 	var/list/stamp_sounds = list('sound/effects/stamp1.ogg','sound/effects/stamp2.ogg','sound/effects/stamp3.ogg')
 
-
 /obj/item/stamp/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pick(stamp_sounds), 35, TRUE, -1)
-
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead."))
@@ -35,7 +31,6 @@
 /obj/item/stamp/law
 	name = "Law office's rubber stamp"
 	icon_state = "stamp-law"
-	item_color = "cargo"
 	dye_color = DYE_LAW
 
 /obj/item/stamp/captain
@@ -81,7 +76,6 @@
 
 /obj/item/stamp/granted
 	name = "GRANTED rubber stamp"
-	icon_state = "stamp-ok"
 	item_color = "qm"
 
 /obj/item/stamp/denied
@@ -139,8 +133,6 @@
 /obj/item/stamp/syndicate/taipan
 	name = "taipan rubber stamp"
 	icon_state = "stamp-taipan"
-	item_color = "syndicate"
-	dye_color = DYE_SYNDICATE
 
 /obj/item/stamp/mime
 	name = "mime's rubber stamp"

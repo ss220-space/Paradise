@@ -3,15 +3,11 @@
 	config_tag = "thiefchan"
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 15
-	required_enemies = 1	// how many of each type are required
-	recommended_enemies = 3
 	var/protected_species_changeling = list(SPECIES_MACNINEPERSON)
-	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/thief/changeling/announce()
 	to_chat(world, "<b>The current game mode is - Thief+Changeling!</b>")
 	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
-
 
 /datum/game_mode/thief/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

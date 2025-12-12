@@ -104,7 +104,6 @@
 	splat_type = /obj/effect/decal/cleanable/blood/oil
 	filling_color = "#0000FF"
 
-
 // Bluespace Tomato
 /obj/item/seeds/tomato/blue/bluespace
 	name = "pack of bluespace tomato seeds"
@@ -113,7 +112,6 @@
 	species = "bluespacetomato"
 	plantname = "Bluespace Tomato Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace
-	yield = 2
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("lube" = 0.2, "singulo" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
@@ -128,7 +126,6 @@
 	origin_tech = "biotech=4;bluespace=5"
 	distill_reagent = null
 	wine_power = 0.8
-
 
 // Killer Tomato
 /obj/item/seeds/tomato/killer
@@ -158,18 +155,16 @@
 	origin_tech = "biotech=4;combat=5"
 	distill_reagent = "demonsblood"
 
-
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(awakening)
 		to_chat(user, span_warning("The tomato is twitching and shaking, preventing you from eating it."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack_self(mob/user)
 	if(awakening || isspaceturf(user.loc))
 		return
-	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
+	to_chat(user, span_notice("You begin to awaken the Killer Tomato..."))
 	awakening = 1
 
 	spawn(30)
@@ -181,7 +176,7 @@
 			K.melee_damage_upper += round(seed.potency / 10)
 			K.move_to_delay -= round(seed.production / 50)
 			K.health = K.maxHealth
-			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
+			K.visible_message(span_notice("The Killer Tomato growls as it suddenly awakens."))
 			if(user)
 				user.temporarily_remove_item_from_inventory(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")

@@ -4,11 +4,10 @@
 /datum/event/spawn_morph/proc/get_morph()
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Морфа?", ROLE_MORPH, TRUE, source = /mob/living/simple_animal/hostile/morph)
-		if(!candidates.len)
+		if(!length(candidates))
 			key_of_morph = null
 			kill()
 			return
-
 
 		var/mob/picked = pick(candidates)
 		key_of_morph = picked.key

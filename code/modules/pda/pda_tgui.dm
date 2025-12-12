@@ -9,7 +9,6 @@
 		ui = new(user, src, "PDA", name)
 		ui.open()
 
-
 /obj/item/pda/ui_data(mob/user)
 	var/list/data = list()
 
@@ -133,4 +132,4 @@
 
 	if((honkamt > 0) && (prob(60))) //For clown virus.
 		honkamt--
-		playsound(src, 'sound/items/bikehorn.ogg', 30, 1)
+		playsound(src, 'sound/items/bikehorn.ogg', 30, TRUE)

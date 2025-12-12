@@ -11,7 +11,6 @@
 #define BOTTOM_RIGHT 3
 #define BOTTOM_LEFT 4
 
-
 /*
 
 Vetus Speculator
@@ -48,14 +47,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
 	name = "Vetus Speculator"
 	desc = "Древний робот, принадлежащий к давно исчезнувшей цивилизации, способен адаптироваться к окружающей среде и всему, что в ней находится, что делает его идеальным бойцом."
-	ru_names = list(
-		NOMINATIVE = "Ветус Спекулятор",
-		GENITIVE = "Ветус Спекулятора",
-		DATIVE = "Ветус Спекулятору",
-		ACCUSATIVE = "Ветус Спекулятора",
-		INSTRUMENTAL = "Ветус Спекулятором",
-		PREPOSITIONAL = "Ветус Спекуляторе"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "сотрясает"
@@ -66,7 +57,6 @@ Difficulty: Very Hard
 	friendly = "пристально смотрит"
 	speak_emote = list("жужжит")
 	universal_speak = TRUE
-	universal_understand = TRUE
 	armour_penetration = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 20
@@ -79,8 +69,9 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
-	medal_type = BOSS_MEDAL_ROBOT
-	score_type = ROBOT_SCORE
+	achievement_type = /datum/award/achievement/boss/ancient_robot_kill
+	crusher_achievement_type = /datum/award/achievement/boss/ancient_robot_crusher
+	score_achievement_type = /datum/award/score/ancient_robot_score
 	deathmessage = "взрывается дождём из сплавов"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
@@ -100,6 +91,16 @@ Difficulty: Very Hard
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BR = null
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BL = null
 	var/obj/effect/abstract/beam = null
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/get_ru_names()
+	return list(
+		NOMINATIVE = "Ветус Спекулятор",
+		GENITIVE = "Ветус Спекулятора",
+		DATIVE = "Ветус Спекулятору",
+		ACCUSATIVE = "Ветус Спекулятора",
+		INSTRUMENTAL = "Ветус Спекулятором",
+		PREPOSITIONAL = "Ветус Спекуляторе",
+	)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
 	. = ..()
@@ -123,7 +124,6 @@ Difficulty: Very Hard
 	fix_specific_leg(BOTTOM_RIGHT)
 	fix_specific_leg(BOTTOM_LEFT)
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
 	QDEL_NULL(TR)
 	QDEL_NULL(TL)
@@ -141,12 +141,11 @@ Difficulty: Very Hard
 	self_destruct()
 	exploding = TRUE
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
 	..()
 	if(!exploding)
 		return
-	playsound(src, 'sound/items/timer.ogg', 70, 0)
+	playsound(src, 'sound/items/timer.ogg', 70, FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
 	var/core_type = null
@@ -181,7 +180,6 @@ Difficulty: Very Hard
 	TR.armour_penetration = 66
 	BL.armour_penetration = 66
 	BR.armour_penetration = 66
-
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/unrage()
 	. = ..()
@@ -277,21 +275,20 @@ Difficulty: Very Hard
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	setDir(dir)
 	SLEEP_CHECK_DEATH(src, delay)
 	revving_charge = FALSE
 	var/movespeed = 0.8
-	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	GLOB.move_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	SLEEP_CHECK_DEATH(src, get_dist(src, T) * movespeed)
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	charging = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/MeleeAction(patience = TRUE)
 	if(charging)
 		return
 	return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living)
 	. = ..()
@@ -309,7 +306,6 @@ Difficulty: Very Hard
 		var/atom/throw_target = get_edge_target_turf(bumped_living, get_dir(src, get_step_away(bumped_living, src)))
 		bumped_living.throw_at(throw_target, 3, 2)
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/body_shield()
 	body_shield_enabled = TRUE
 	visible_message(span_danger("[declent_ru(NOMINATIVE)] создаёт энергетический щит!"))
@@ -321,22 +317,20 @@ Difficulty: Very Hard
 	body_shield_enabled = FALSE
 	addtimer(CALLBACK(src, PROC_REF(body_shield)), BODY_SHIELD_COOLDOWN_TIME)
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/projectile/P)
 	if(!body_shield_enabled)
 		return ..()
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	visible_message(span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [P.declent_ru(ACCUSATIVE)] с искрами!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
 	if(P.damage)
 		disable_shield()
-
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	if(!body_shield_enabled)
 		return ..()
 
 	. = ATTACK_CHAIN_BLOCKED
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	visible_message(
 		span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [I.declent_ru(ACCUSATIVE)] с искрами!"),
 		span_warning("Ваш щит отражает атаку!"),
@@ -345,7 +339,6 @@ Difficulty: Very Hard
 	to_chat(user, span_danger("Щит [declent_ru(ACCUSATIVE)] отражает вашу атаку!"))
 	if(I.force)
 		disable_shield()
-
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
 	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher
@@ -479,8 +472,12 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message(span_biggerdanger("[declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
-	SSmove_manager.stop_looping(src)
-	playsound(src,'sound/machines/alarm.ogg',100,0,5)
+	GLOB.move_manager.stop_looping(src)
+	playsound(src,'sound/machines/alarm.ogg',100, FALSE,5)
+	var/datum/status_effect/crusher_damage/crusher_damage = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	grant_achievement(achievement_type, score_achievement_type, crusher_damage && crusher_damage.total_damage >= maxHealth * 0.6)
+	SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
+	elimination = TRUE
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
@@ -543,7 +540,6 @@ Difficulty: Very Hard
 		if(SOUTHEAST)
 			leg_walking_orderer(BOTTOM_LEFT, TOP_LEFT, BOTTOM_RIGHT, TOP_RIGHT)
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
 	addtimer(CALLBACK(src, PROC_REF(fix_specific_leg), A), 1)
 	addtimer(CALLBACK(src, PROC_REF(fix_specific_leg), B), 2)
@@ -594,32 +590,23 @@ Difficulty: Very Hard
 		if(VORTEX)
 			var/turf/T = get_turf(src)
 			for(var/atom/A in T)
-				A.ex_act(3) //Body is immune to explosions of this strength.
-			T.ex_act(3)
+				A.ex_act(EXPLODE_LIGHT) //Body is immune to explosions of this strength.
+			T.ex_act(EXPLODE_LIGHT)
 
 	if(beam && !QDELETED(beam))
 		beam.forceMove(get_turf(src))
 
 	return ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/mob_negates_gravity() //No more being thrown around like a spastic child by grav anomalies
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
 	desc = "Боевая опора с встроенной турелью, предназначенная для стрельбы и раздавливания мелких шахтёров вроде вас."
-	ru_names = list(
-		NOMINATIVE = "опора",
-		GENITIVE = "опоры",
-		DATIVE = "опоре",
-		ACCUSATIVE = "опору",
-		INSTRUMENTAL = "опорой",
-		PREPOSITIONAL = "опоре"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "leg"
 	maxHealth = INFINITY //it's fine trust me
@@ -653,6 +640,16 @@ Difficulty: Very Hard
 	var/fake_hp_regen = 2
 	var/transfer_rate = 0.75
 	var/who_am_i = null
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/get_ru_names()
+	return list(
+		NOMINATIVE = "опора",
+		GENITIVE = "опоры",
+		DATIVE = "опоре",
+		ACCUSATIVE = "опору",
+		INSTRUMENTAL = "опорой",
+		PREPOSITIONAL = "опоре",
+	)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
 	. = ..()
@@ -695,7 +692,6 @@ Difficulty: Very Hard
 	..()
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
 
-
 /mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -714,7 +710,6 @@ Difficulty: Very Hard
 		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
 	health_and_snap_check(FALSE)
 
-
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
@@ -729,8 +724,7 @@ Difficulty: Very Hard
 		core.fix_specific_leg(who_am_i)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed)
-	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-
+	GLOB.move_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)
 	. = ..()
@@ -747,7 +741,6 @@ Difficulty: Very Hard
 	playsound(living_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 	shake_camera(bumped_living, 4, 3)
 	shake_camera(src, 2, 3)
-
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/ex_act(severity, target)
 	switch(severity)
@@ -780,52 +773,52 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /obj/projectile/bullet/ancient_robot_bullet
 	damage = 8
-	damage_type = BRUTE
 
 /obj/projectile/bullet/rock
 	name = "thrown rock"
-	ru_names = list(
+	damage = 25
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small1"
+
+/obj/projectile/bullet/rock/get_ru_names()
+	return list(
 		NOMINATIVE = "брошенный камень",
 		GENITIVE = "брошенного камня",
 		DATIVE = "брошенному камню",
 		ACCUSATIVE = "брошенный камень",
 		INSTRUMENTAL = "брошенным камнем",
-		PREPOSITIONAL = "брошенном камне"
+		PREPOSITIONAL = "брошенном камне",
 	)
-	damage = 25
-	damage_type = BRUTE
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "small1"
 
 /obj/effect/temp_visual/rock
 	name = "floating rock"
 	desc = "Лучше сосредоточьтесь на уклонении, чем разглядывать его."
-	ru_names = list(
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small1"
+	duration = 20
+
+/obj/effect/temp_visual/rock/get_ru_names()
+	return list(
 		NOMINATIVE = "парящий камень",
 		GENITIVE = "парящего камня",
 		DATIVE = "парящему камню",
 		ACCUSATIVE = "парящий камень",
 		INSTRUMENTAL = "парящим камнем",
-		PREPOSITIONAL = "парящем камне"
+		PREPOSITIONAL = "парящем камне",
 	)
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "small1"
-	duration = 20
 
 /obj/projectile/energy/shock_revolver/ancient
 	damage = 5
-
 
 /obj/projectile/energy/shock_revolver/ancient/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/ancient_robot_leg))
 		return TRUE
-
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
 	icon_state = "target"
@@ -842,7 +835,6 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/beam_target/Initialize(mapload, target)
 	. = ..()
 	charge = Beam(target, "target_beam", 'icons/effects/effects.dmi', time=1.5 SECONDS, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
-
 
 /obj/effect/temp_visual/beam_target/Destroy()
 	QDEL_NULL(charge)
@@ -868,7 +860,6 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/fireball/rock
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
-
 
 #undef BODY_SHIELD_COOLDOWN_TIME
 #undef EXTRA_PLAYER_ANGER_NORMAL_CAP

@@ -9,7 +9,6 @@
 	response_harm   = "punches"
 	icon_dead = "shade_dead"
 	speed = 0
-	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
 	nightvision = 8
 	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
@@ -27,8 +26,8 @@
 	var/cult_icon_changing = TRUE //Changing the sprite from the type of cult
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/holy = FALSE
+	healable = FALSE
 	light_system = MOVABLE_LIGHT
-
 
 /mob/living/simple_animal/hostile/construct/New()
 	. = ..()
@@ -51,13 +50,17 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_HEALS_FROM_HOLY_PYLONS, TRAIT_NO_FLOATING_ANIM), INNATE_TRAIT)
+	if(holy)
+		ADD_TRAIT(src, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
+	else
+		ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/construct/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
-		minbodytemp = 223, \
+		minbodytemp = 0, \
 	)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
@@ -69,9 +72,9 @@
 
 	if(src.health < src.maxHealth)
 		if(src.health >= src.maxHealth/2)
-			. += "<span class='notice'>It looks slightly dented.</span>"
+			. += span_notice("It looks slightly dented.")
 		else
-			. += "<span class='warning'>It looks severely dented!</span>"
+			. += span_warning("It looks severely dented!")
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
@@ -79,28 +82,30 @@
 			adjustBruteLoss(-5)
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
-				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+				M.visible_message(
+					"<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
+					"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>"
+				)
 			else
-				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+				M.visible_message(
+					span_danger("[M] repairs some of its own dents."), \
+					"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>"
+				)
 		else
 			if(src != M)
 				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
 			else
-				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
+				to_chat(M, span_cult("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
 		return ..()
 
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
-/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /////////////////Juggernaut///////////////
-
-
 
 /mob/living/simple_animal/hostile/construct/armoured
 	name = "Juggernaut"
@@ -109,8 +114,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
-	maxHealth = 400
-	health = 400
+	maxHealth = 300
+	health = 300
 	response_harm   = "harmlessly punches"
 	harm_intent_damage = 0
 	obj_damage = 90
@@ -123,6 +128,8 @@
 	status_flags = 0
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
+	move_resist = MOVE_FORCE_STRONG
+	pull_force = MOVE_FORCE_STRONG
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
@@ -133,11 +140,11 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armoured/bullet_act(var/obj/projectile/P)
+/mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
-			if((P.damage_type == BRUTE || P.damage_type == BURN))
+			if(P.damage_type == BRUTE || P.damage_type == BURN)
 				adjustBruteLoss(P.damage * 0.5)
 			visible_message(span_danger("The [P.name] gets reflected by [src]'s shell!"), \
 							span_userdanger("The [P.name] gets reflected by [src]'s shell!"),
@@ -159,8 +166,6 @@
 
 ////////////////////////Wraith/////////////////////////////////////////////
 
-
-
 /mob/living/simple_animal/hostile/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
@@ -168,8 +173,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "floating"
 	icon_living = "floating"
-	maxHealth = 150
-	health = 150
+	maxHealth = 75
+	health = 75
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "рубит"
@@ -197,8 +202,6 @@
 
 /////////////////////////////Artificer/////////////////////////
 
-
-
 /mob/living/simple_animal/hostile/construct/builder
 	name = "Artificer"
 	real_name = "Artificer"
@@ -206,8 +209,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
-	maxHealth = 100
-	health = 100
+	maxHealth = 50
+	health = 50
 	response_harm = "viciously beats"
 	harm_intent_damage = 5
 	obj_damage = 80
@@ -219,20 +222,21 @@
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_type = "builder"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
+	construct_spells = list(
+		/obj/effect/proc_holder/spell/night_vision,
+		/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
+		/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone,
+	)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
 						<i>and, most important of all,</i> create new constructs by producing soulstones to capture souls, \
 						and shells to place those soulstones into.</b>"
 	hud_type = /datum/hud/construct/builder
-
 
 /mob/living/simple_animal/hostile/construct/builder/Found(atom/A) //what have we found here?
 	if(isconstruct(A)) //is it a construct?
@@ -250,7 +254,7 @@
 	if(Found(the_target) || ..()) //If we Found it or Can_Attack it normally, we Can_Attack it as long as it wasn't invisible
 		return 1 //as a note this shouldn't be added to base hostile mobs because it'll mess up retaliate hostile mobs
 
-/mob/living/simple_animal/hostile/construct/builder/MoveToTarget(var/list/possible_targets)
+/mob/living/simple_animal/hostile/construct/builder/MoveToTarget(list/possible_targets)
 	..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -282,16 +286,17 @@
 	icon_state = "holy_artificer"
 	icon_living = "holy_artificer"
 	holy = TRUE
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy)
+	construct_spells = list(
+		/obj/effect/proc_holder/spell/night_vision,
+		/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
+		/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/wall/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/floor/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/pylon/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy,
+	)
 
 /////////////////////////////Behemoth/////////////////////////
-
 
 /mob/living/simple_animal/hostile/construct/behemoth
 	name = "Behemoth"
@@ -321,7 +326,6 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-
 /////////////////////////////Harvester/////////////////////////
 
 /mob/living/simple_animal/hostile/construct/harvester
@@ -339,19 +343,19 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/smoke/disable)
+	construct_spells = list(
+		/obj/effect/proc_holder/spell/night_vision,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+		/obj/effect/proc_holder/spell/smoke/disable,
+	)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<b>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</b>"
 	hud_type = /datum/hud/construct/harvester
 
-
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -380,7 +384,6 @@
 				healths.icon_state = "juggernaut_health6"
 			else
 				healths.icon_state = "juggernaut_health7"
-
 
 /mob/living/simple_animal/hostile/construct/behemoth/update_health_hud()
 	if(!client)
@@ -426,8 +429,6 @@
 			else
 				healths.icon_state = "artificer_health7"
 
-
-
 /mob/living/simple_animal/hostile/construct/wraith/update_health_hud()
 	if(!client)
 		return
@@ -449,7 +450,6 @@
 				healths.icon_state = "wraith_health6"
 			else
 				healths.icon_state = "wraith_health7"
-
 
 /mob/living/simple_animal/hostile/construct/harvester/update_health_hud()
 	if(!client)

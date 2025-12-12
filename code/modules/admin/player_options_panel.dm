@@ -18,7 +18,7 @@
 		return
 	var/mob = null
 	// First we get mob. Check for ckey and client inside
-	if(findtext(M.ckey, "@" ) || M.ckey == "" || M.ckey == null)
+	if(findtext(M.ckey, "@") || M.ckey == "" || M.ckey == null)
 		// No ckey? No problem, We will manipulate clientless mob then.
 		mob = M
 	// But we still need to check out ckey so /ui_data will properly work
@@ -90,7 +90,6 @@
 /datum/vuap_personal/ui_status(mob/user, datum/ui_state/state)
 	. = (check_rights(R_ADMIN | R_MOD, user = user)) ? UI_INTERACTIVE : ..()
 
-
 /datum/vuap_personal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -158,7 +157,7 @@
 			usr.client.holder.Topic(null, list("Smite" = M.UID()))
 		// Message Section
 		if("pm")
-			if (!check_rights(NONE))
+			if(!check_rights(NONE))
 				return
 			usr.client.cmd_admin_pm(M.ckey)
 		if("sm")
@@ -255,7 +254,7 @@
 		if("cureAllDiseases")
 			if(!check_rights(R_EVENT))
 				return
-			if (istype(M, /mob/living))
+			if(istype(M, /mob/living))
 				var/mob/living/L = M
 				for(var/datum/disease/D in L.diseases) // cure all crit conditions
 					D.cure()
@@ -335,12 +334,11 @@
 		if("someadminbutton")
 			SEND_SOUND(usr, sound('sound/items/bikehorn.ogg'))
 
-
 /datum/vuap_personal/ui_state(mob/user)
 	return GLOB.admin_mod_state
 
 /datum/admins/proc/vuap_open(ckey, mob/M)
-	if (!check_rights(NONE))
+	if(!check_rights(NONE))
 		message_admins("[key_name(src)] attempted to use VUAP without sufficient rights.")
 		return
 	var/datum/vuap_personal/tgui = new(usr)

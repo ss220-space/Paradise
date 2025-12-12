@@ -1,3 +1,34 @@
+#define AALARM_MODE_SCRUBBING 1
+#define AALARM_MODE_VENTING 2 //makes draught
+#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
+#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
+#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
+#define AALARM_MODE_OFF 8
+#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
+
+#define AALARM_PRESET_HUMAN 1 // Default
+#define AALARM_PRESET_VOX 2 // Support Vox
+#define AALARM_PRESET_COLDROOM 3 // Kitchen coldroom
+#define AALARM_PRESET_SERVER 4 // Server coldroom
+
+#define AALARM_REPORT_TIMEOUT 100
+
+#define RCON_NO 1
+#define RCON_AUTO 2
+#define RCON_YES 3
+
+/// 1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
+#define MAX_ENERGY_CHANGE 1000
+
+#define MAX_TEMPERATURE 363.15 // 90C
+#define MIN_TEMPERATURE 233.15 // -40C
+
+#define AIR_ALARM_FRAME 0
+#define AIR_ALARM_BUILDING 1
+#define AIR_ALARM_READY 2
+
 // A datum for dealing with threshold limit values
 // used in /obj/machinery/alarm
 /datum/tlv
@@ -29,51 +60,11 @@
 	max1 = other.max1
 	max2 = other.max2
 
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
-#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
-#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
-#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
-#define AALARM_MODE_OFF 8
-#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
-
-#define AALARM_PRESET_HUMAN     1 // Default
-#define AALARM_PRESET_VOX       2 // Support Vox
-#define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
-#define AALARM_PRESET_SERVER    4 // Server coldroom
-
-#define AALARM_REPORT_TIMEOUT 100
-
-#define RCON_NO		1
-#define RCON_AUTO	2
-#define RCON_YES	3
-
-//1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
-#define MAX_ENERGY_CHANGE 1000
-
-#define MAX_TEMPERATURE 363.15 // 90C
-#define MIN_TEMPERATURE 233.15 // -40C
-
-#define AIR_ALARM_FRAME		0
-#define AIR_ALARM_BUILDING	1
-#define AIR_ALARM_READY		2
-
-//all air alarms in area are connected via magic
-/area
-	var/obj/machinery/alarm/master_air_alarm
-	var/list/air_vent_names = list()
-	var/list/air_scrub_names = list()
-	var/list/air_vent_info = list()
-	var/list/air_scrub_info = list()
-
 /obj/machinery/alarm
 	name = "alarm"
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
@@ -138,7 +129,7 @@
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
 
-/obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
+/obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
 	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
@@ -253,7 +244,6 @@
 		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
-
 /obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
 	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(exclude_self && AA == src)
@@ -318,7 +308,6 @@
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
 
-
 /obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
 	cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
@@ -358,7 +347,6 @@
 
 			environment.merge(gas)
 
-
 /obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
 		switch(buildstage)
@@ -385,7 +373,6 @@
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
-
 /obj/machinery/alarm/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -394,7 +381,6 @@
 		return
 
 	underlays += emissive_appearance(icon, "alarm_lightmask", src)
-
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name
@@ -725,7 +711,7 @@
 	data["preset"] = preset
 
 	var/list/vents = list()
-	if(alarm_area.air_vent_names.len)
+	if(length(alarm_area.air_vent_names))
 		for(var/id_tag in alarm_area.air_vent_names)
 			var/list/vent_info = list()
 			var/long_name = alarm_area.air_vent_names[id_tag]
@@ -739,7 +725,7 @@
 	data["vents"] = vents
 
 	var/list/scrubbers = list()
-	if(alarm_area.air_scrub_names.len)
+	if(length(alarm_area.air_scrub_names))
 		for(var/id_tag in alarm_area.air_scrub_names)
 			var/long_name = alarm_area.air_scrub_names[id_tag]
 			var/list/scrubber_data = alarm_area.air_scrub_info[id_tag]
@@ -777,24 +763,24 @@
 	for(var/g in gas_names)
 		thresholds += list(list("name" = gas_names[g], "settings" = list()))
 		selected = TLV[g]
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "min2", "selected" = selected.min2))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "min1", "selected" = selected.min1))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min2", "selected" = selected.min2))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min1", "selected" = selected.min1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["pressure"]
 	thresholds += list(list("name" = "Pressure", "settings" = list()))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["temperature"]
 	thresholds += list(list("name" = "Temperature", "settings" = list()))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
 
 	return thresholds
 
@@ -851,14 +837,13 @@
 				if(RCON_YES)
 					rcon_setting = RCON_YES
 
-
 		if("command")
 			if(!is_authenticated(usr, active_ui))
 				return
 
 			var/device_id = params["id_tag"]
 			switch(params["cmd"])
-				if ("power",
+				if("power",
 					"adjust_external_pressure",
 					"set_external_pressure",
 					"checks",
@@ -922,14 +907,12 @@
 			mode = params["mode"]
 			apply_mode()
 
-
 		if("preset")
 			if(!is_authenticated(usr, active_ui))
 				return
 
 			preset = params["preset"]
 			apply_preset()
-
 
 		if("temperature")
 			var/datum/tlv/selected = TLV["temperature"]
@@ -949,7 +932,6 @@
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
 
-
 /obj/machinery/alarm/ui_state(mob/user)
 	if(issilicon(user))
 		if(isAI(user))
@@ -966,7 +948,6 @@
 
 	return GLOB.default_state
 
-
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
@@ -974,7 +955,6 @@
 			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], disabling its safeties."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
-
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -1014,7 +994,6 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_BUILDING)
@@ -1077,12 +1056,10 @@
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	qdel(src)
 
-
 /obj/machinery/alarm/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon()
-
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()
@@ -1096,7 +1073,6 @@
 			I.update_integrity(I.max_integrity * 0.5)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
-
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
@@ -1130,7 +1106,6 @@
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
 		shorted = FALSE
@@ -1158,19 +1133,37 @@ Just an object used in constructing air alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-
-
-#undef AIR_ALARM_FRAME
-#undef AIR_ALARM_BUILDING
-#undef AIR_ALARM_READY
 
 //for oldstation
 
 /obj/machinery/alarm/old
-    name = "old air alarm"
-    desc = "This atmos control unit is too old, that it no longer requires access."
-    report_danger_level = FALSE
-    remote_control = FALSE
-    req_access = null
+	name = "old air alarm"
+	desc = "This atmos control unit is too old, that it no longer requires access."
+	report_danger_level = FALSE
+	remote_control = FALSE
+	req_access = null
+
+#undef AALARM_MODE_SCRUBBING
+#undef AALARM_MODE_VENTING
+#undef AALARM_MODE_PANIC
+#undef AALARM_MODE_REPLACEMENT
+#undef AALARM_MODE_SIPHON
+#undef AALARM_MODE_CONTAMINATED
+#undef AALARM_MODE_REFILL
+#undef AALARM_MODE_OFF
+#undef AALARM_MODE_FLOOD
+#undef AALARM_PRESET_HUMAN
+#undef AALARM_PRESET_VOX
+#undef AALARM_PRESET_COLDROOM
+#undef AALARM_PRESET_SERVER
+#undef AALARM_REPORT_TIMEOUT
+#undef RCON_NO
+#undef RCON_AUTO
+#undef RCON_YES
+#undef MAX_ENERGY_CHANGE
+#undef MAX_TEMPERATURE
+#undef MIN_TEMPERATURE
+#undef AIR_ALARM_FRAME
+#undef AIR_ALARM_BUILDING
+#undef AIR_ALARM_READY

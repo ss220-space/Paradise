@@ -1,15 +1,11 @@
-#define VV_MSG_MARKED "<br><font size='1' color='red'><b>Marked Object</b></font>"
-#define VV_MSG_EDITED "<br><font size='1' color='red'><b>Var Edited</b></font>"
-#define VV_MSG_ADMIN_SPAWNED "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
-#define VV_MSG_DELETED "<br><font size='1' color='red'><b>Deleted</b></font>"
-// reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
+// reference: /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 
 /**
-  * Proc to check if a datum allows proc calls on it
-  *
-  * Returns TRUE if you can call a proc on the datum, FALSE if you cant
-  *
-  */
+ * Proc to check if a datum allows proc calls on it
+ *
+ * Returns TRUE if you can call a proc on the datum, FALSE if you cant
+ *
+ */
 /datum/proc/CanProcCall(procname)
 	return TRUE
 
@@ -40,13 +36,11 @@
 	datum_flags |= DF_VAR_EDITED
 	return TRUE
 
-
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
 		if(NAMEOF(src, vars))
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
-
 
 /datum/proc/can_vv_delete()
 	return TRUE
@@ -87,7 +81,6 @@
 	if(!D)
 		return
 
-
 	var/islist = islist(D)
 	var/isclient = isclient(D)
 	if(!islist && !isclient && !istype(D))
@@ -121,7 +114,6 @@
 	if(sprite)
 		sprite_text = "<img src='vv[hash].png'></td><td>"
 
-
 	var/list/atomsnowflake = list()
 	if(isatom(D))
 		var/atom/A = D
@@ -151,7 +143,6 @@
 		atomsnowflake += "<b>[formatted_type]</b>"
 		formatted_type = null
 
-
 	if(length(formatted_type) > 25)
 		var/middle_point = length(formatted_type) / 2
 		var/splitpoint = findtext(formatted_type, "/", middle_point)
@@ -160,11 +151,9 @@
 		else
 			formatted_type = "Type too long" //No suitable splitpoint (/) found.
 
-
 	var/marked
 	if(holder.marked_datum && holder.marked_datum == D)
 		marked = VV_MSG_MARKED
-
 
 	var/varedited_line = ""
 	if(isatom(D))
@@ -172,13 +161,11 @@
 		if(A.flags & ADMIN_SPAWNED)
 			varedited_line += VV_MSG_ADMIN_SPAWNED
 
-
 	if(!islist && (D.datum_flags & DF_VAR_EDITED))
 		varedited_line = VV_MSG_EDITED
 	var/deleted_line
 	if(!islist && D.gc_destroyed)
 		deleted_line = VV_MSG_DELETED
-
 
 	var/dropdownoptions = list()
 	if(islist)
@@ -188,11 +175,10 @@
 			"Remove Nulls" = "byond://?_src_=vars;listnulls=[refid]",
 			"Remove Dupes" = "byond://?_src_=vars;listdupes=[refid]",
 			"Set len" = "byond://?_src_=vars;listlen=[refid]",
-			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]"
+			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]",
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()
-
 
 	var/list/dropdownoptions_html = list()
 	for(var/name in dropdownoptions)
@@ -202,22 +188,19 @@
 		else
 			dropdownoptions_html += "<option value>[name]</option>"
 
-
 	var/list/names = list()
 	if(!islist)
 		for(var/V in D.vars)
 			names += V
 
-
 	sleep(1) // Without a sleep here, VV sometimes disconnects clients
-
 
 	var/ui_scale = usr.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE
 
 	var/list/variable_html = list()
 	if(islist)
 		var/list/L = D
-		for(var/i in 1 to L.len)
+		for(var/i in 1 to length(L))
 			var/key = L[i]
 			var/value
 			if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -254,7 +237,7 @@
 				filter_text.focus();
 				filter_text.select();
 				var lastsearch = getCookie("[refid][cookieoffset]search");
-				if (lastsearch) {
+				if(lastsearch) {
 					filter_text.value = lastsearch;
 					updateSearch();
 				}
@@ -264,8 +247,8 @@
 				var ca = document.cookie.split(';');
 				for(var i=0; i<ca.length; i++) {
 					var c = ca\[i];
-					while (c.charAt(0)==' ') c = c.substring(1,c.length);
-					if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+					while(c.charAt(0)==' ') c = c.substring(1,c.length);
+					if(c.indexOf(name)==0) return c.substring(name.length,c.length);
 				}
 				return "";
 			}
@@ -276,30 +259,30 @@
 				var filter = document.getElementById('filter').value.toLowerCase();
 				var vars_ol = document.getElementById("vars");
 
-				if (filter === last_filter) {
+				if(filter === last_filter) {
 					// An event triggered an update but nothing has changed.
 					return;
-				} else if (filter.indexOf(last_filter) === 0) {
+				} else if(filter.indexOf(last_filter) === 0) {
 					// The new filter starts with the old filter, fast path by removing only.
 					var children = vars_ol.childNodes;
-					for (var i = children.length - 1; i >= 0; --i) {
+					for(var i = children.length - 1; i >= 0; --i) {
 						try {
 							var li = children\[i];
-							if (li.innerText.toLowerCase().indexOf(filter) == -1) {
+							if(li.innerText.toLowerCase().indexOf(filter) == -1) {
 								vars_ol.removeChild(li);
 							}
 						} catch(err) {}
 					}
 				} else {
 					// Remove everything and put back what matches.
-					while (vars_ol.hasChildNodes()) {
+					while(vars_ol.hasChildNodes()) {
 						vars_ol.removeChild(vars_ol.lastChild);
 					}
 
-					for (var i = 0; i < complete_list.length; ++i) {
+					for(var i = 0; i < complete_list.length; ++i) {
 						try {
 							var li = complete_list\[i];
-							if (!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
+							if(!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
 								vars_ol.appendChild(li);
 							}
 						} catch(err) {}
@@ -310,7 +293,7 @@
 				document.cookie="[refid][cookieoffset]search="+encodeURIComponent(filter);
 
 				var lis_new = vars_ol.getElementsByTagName("li");
-				for (var j = 0; j < lis_new.length; ++j) {
+				for(var j = 0; j < lis_new.length; ++j) {
 					lis_new\[j].style.backgroundColor = (j == 0) ? "#ffee88" : "white";
 				}
 			}
@@ -327,13 +310,13 @@
 
 			// onkeyup
 			function handle_keyup() {
-				if (event.keyCode == 13) {  //Enter / return
+				if(event.keyCode == 13) {  //Enter / return
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
+							if(li.style.backgroundColor == "#ffee88") {
 								alist = lis\[i].getElementsByTagName("a");
 								if(alist.length > 0) {
 									location.href=alist\[0].href;
@@ -344,11 +327,11 @@
 				} else if(event.keyCode == 38){  //Up arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
-								if (i > 0) {
+							if(li.style.backgroundColor == "#ffee88") {
+								if(i > 0) {
 									var li_new = lis\[i-1];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -360,11 +343,11 @@
 				} else if(event.keyCode == 40) {  //Down arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
-								if ((i+1) < lis.length) {
+							if(li.style.backgroundColor == "#ffee88") {
+								if((i+1) < lis.length) {
 									var li_new = lis\[i+1];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -381,7 +364,7 @@
 			// onchange
 			function handle_dropdown(list) {
 				var value = list.options\[list.selectedIndex].value;
-				if (value !== "") {
+				if(value !== "") {
 					location.href = value;
 				}
 				list.selectedIndex = 0;
@@ -475,15 +458,16 @@
 	src << output("[span]:[content]", "variables[D.UID()].browser:replace_span")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE, display_flags)
+/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE, display_flags)
 	var/header
 	if(DA)
 		if(islist(DA))
+			var/list/debug_list = DA
 			var/index = name
 			if(!isnull(value))
-				name = DA[name] // name is really the index until this line
+				name = debug_list[name] // name is really the index until this line
 			else
-				value = DA[name]
+				value = debug_list[name]
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
 		else
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
@@ -499,7 +483,7 @@
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		item = "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "[name] = /icon (<span class='value'>[value]</span>) [icon2html(value, usr)]"
 		#else
 		item = "[name] = /icon (<span class='value'>[value]</span>)"
 		#endif
@@ -507,7 +491,7 @@
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [icon2html(value, usr)]"
 		#else
 		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
@@ -527,8 +511,8 @@
 		var/list/L = value
 		var/list/items = list()
 
-		if(!(display_flags & VV_ALWAYS_CONTRACT_LIST) && L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
-			for(var/i in 1 to L.len)
+		if(!(display_flags & VV_ALWAYS_CONTRACT_LIST) && length(L) && !(name == "underlays" || name == "overlays" || name == "vars" || length(L) > (IS_NORMAL_LIST(L) ? 250 : 300)))
+			for(var/i in 1 to length(L))
 				var/key = L[i]
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -545,7 +529,7 @@
 				item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
@@ -592,7 +576,7 @@
 			return
 
 		var/new_name = reject_bad_name(sanitize(tgui_input_text(usr, "What would you like to name this mob?", "Input a name", M.real_name, encode = FALSE, max_length = MAX_NAME_LEN)), allow_numbers = TRUE)
-		if( !new_name || !M )
+		if(!new_name || !M)
 			return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -609,7 +593,7 @@
 			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential=TRUE)
 			return
 
-		if (!modify_variables(D, href_list["varnameedit"], 1))
+		if(!modify_variables(D, href_list["varnameedit"], 1))
 			return
 
 		switch(href_list["varnameedit"])
@@ -670,7 +654,6 @@
 
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
-
 	else if(href_list["mob_player_panel"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
@@ -716,7 +699,6 @@
 			var/chosenart = artnames[result]
 			var/datum/martial_art/MA = new chosenart
 			MA.teach(C)
-
 
 	else if(href_list["give_disease"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -828,7 +810,7 @@
 		if(!D)
 			to_chat(usr, "Unable to locate item!", confidential=TRUE)
 		admin_delete(D)
-		if (isturf(D))  // show the turf that took its place
+		if(isturf(D))  // show the turf that took its place
 			debug_variables(D)
 
 	else if(href_list["delall"])
@@ -984,16 +966,12 @@
 	else if(href_list["mark_object"])
 		if(!check_rights(0))	return
 
-		var/datum/D = locateUID(href_list["mark_object"])
-		if(!istype(D))
+		var/datum/datum = locateUID(href_list["mark_object"])
+		if(!istype(datum))
 			to_chat(usr, "This can only be done to instances of type /datum", confidential=TRUE)
 			return
 
-		src.holder.marked_datum = D
-		if(holder.marked_datum)
-			vv_update_display(holder.marked_datum, "marked", "")
-		holder.marked_datum = D
-		vv_update_display(D, "marked", VV_MSG_MARKED)
+		mark_datum(datum)
 
 	else if(href_list["proc_call"])
 		if(!check_rights(R_PROCCALL))
@@ -1093,7 +1071,6 @@
 		var/turf/T = get_turf(A)
 		if(T)
 			usr.client.jumptoturf(T)
-
 
 	else if(href_list["rotatedatum"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
@@ -1633,7 +1610,7 @@
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
 			return TRUE
 
-		uniqueList_inplace(L)
+		unique_list_in_place(L)
 		log_world("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
 		log_admin("[key_name(src)] modified list's contents: CLEAR DUPES")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR DUPES")
@@ -1647,7 +1624,7 @@
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
 			return TRUE
 
-		listclearnulls(L)
+		list_clear_nulls(L)
 		log_world("### ListVarEdit by [src]: /list contents: CLEAR NULLS")
 		log_admin("[key_name(src)] modified list's contents: CLEAR NULLS")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR NULLS")
@@ -1665,9 +1642,9 @@
 			return TRUE
 
 		L.len = value["value"]
-		log_world("### ListVarEdit by [src]: /list len: [L.len]")
-		log_admin("[key_name(src)] modified list's len: [L.len]")
-		message_admins("[key_name_admin(src)] modified list's len: [L.len]")
+		log_world("### ListVarEdit by [src]: /list len: [length(L)]")
+		log_admin("[key_name(src)] modified list's len: [length(L)]")
+		message_admins("[key_name_admin(src)] modified list's len: [length(L)]")
 		return TRUE
 
 	if(href_list["listshuffle"])

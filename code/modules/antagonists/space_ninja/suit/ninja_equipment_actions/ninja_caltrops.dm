@@ -3,15 +3,11 @@
 	name = "Energy Caltrops"
 	desc = "Scatters deadly caltrops behind the user. Great to slow enemies down. Don't step on them. Even metal legs will be damaged. Energy cost: 1500"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 1 SECONDS
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "caltrop"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Energy Caltrops Scattering Device"
-
 
 /obj/item/clothing/suit/space/space_ninja/proc/scatter_caltrops()
 	var/mob/living/carbon/human/ninja = affecting
@@ -55,7 +51,6 @@
 			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
 				prime_smoke(lowcost = TRUE)
 
-
 ///The caltrops object
 /obj/structure/energy_caltrops
 	name = "Caltrops"
@@ -64,15 +59,12 @@
 	icon_state = "caltrops"
 	resistance_flags = INDESTRUCTIBLE
 	max_integrity = 30
-	density = FALSE
 	anchored = TRUE
 	var/destroy_after = 10 SECONDS
 	var/self_destroy = TRUE
 
-
 /obj/structure/energy_caltrops/noselfdestroy
 	self_destroy = FALSE
-
 
 /obj/structure/energy_caltrops/Initialize(mapload)
 	. = ..()
@@ -82,7 +74,6 @@
 			qdel(other_caltrop)	//Не больше одной кучки калтропов на тайле!
 	if(self_destroy)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), destroy_after)
-
 
 /obj/structure/energy_caltrops/has_prints()
 	return FALSE

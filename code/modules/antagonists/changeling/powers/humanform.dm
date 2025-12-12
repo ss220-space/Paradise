@@ -7,11 +7,12 @@
 	max_genetic_damage = 3
 	chemical_cost = 5
 
-
 /**
  * Transform into a human.
  */
 /datum/action/changeling/humanform/sting_action(mob/living/carbon/human/user)
+	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
+		return FALSE
 
 	var/datum/dna/chosen_dna = cling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!chosen_dna || !user)

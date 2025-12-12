@@ -11,14 +11,13 @@
 	var/datum/player_panel_veth/tgui = new(usr)
 	tgui.ui_interact(usr)
 
-
 /datum/player_panel_veth/ //required for tgui component
 	var/title = "Veth's Ultimate Player Panel"
 
 /datum/player_panel_veth/ui_data(mob/user)
 	var/list/players = list()
 	for(var/mob/M in GLOB.mob_list)
-		if (M.ckey)
+		if(M.ckey)
 			players += list(list(
 				"name" = M.name || "No Character",
 				"job" = M.job || "No Job",

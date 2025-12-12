@@ -54,7 +54,6 @@
 	else
 		owner.flash_eyes(3, visual = TRUE)
 
-
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
@@ -101,13 +100,13 @@
 	. = ..()
 	if(HUDType)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.add_hud_to(M)
+		H.show_to(M)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(HUDType)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.remove_hud_from(M)
+		H.hide_from(M)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	name = "Medical HUD implant"

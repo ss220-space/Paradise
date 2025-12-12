@@ -7,30 +7,20 @@
 #define STORIES_PER_LOAD 9999 // TODO during QP...
 
 /**
-  * # Newscaster
-  *
-  * For all of the crew's news need. Includes reading, submitting and printing stories.
-  *
-  * Includes a security variant which can be used to issue wanted notices, censor channels and stories.
-  * Allows full access when aghosting.
-  */
+ * # Newscaster
+ *
+ * For all of the crew's news need. Includes reading, submitting and printing stories.
+ *
+ * Includes a security variant which can be used to issue wanted notices, censor channels and stories.
+ * Allows full access when aghosting.
+ */
 /obj/machinery/newscaster
 	name = "newscaster"
-	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах."
-	ru_names = list(
-			NOMINATIVE = "новостник",
-			GENITIVE = "новостника",
-			DATIVE = "новостнику",
-			ACCUSATIVE = "новостник",
-			INSTRUMENTAL = "новостником",
-			PREPOSITIONAL = "новостнике"
-	)
+	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано \"Нанотрейзен\" для использования на коммерческих объектах."
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
-	max_integrity = 200
 	integrity_failure = 50
-	light_range = 0
 	anchored = TRUE
 	/// The current screen index in the UI.
 	var/screen = NEWSCASTER_HEADLINES
@@ -43,7 +33,7 @@
 	/// The newcaster's index among all newscasters (GLOB.allNewscasters).
 	var/unit_number = 0
 	/// The name of the mob currently using the newscaster.
-	var/scanned_user = "Неизвестный"
+	var/scanned_user = UNKNOWN_NAME_RUS
 	/// The currently attached photo.
 	var/obj/item/photo/photo = null
 	/// The currently viewed channel.
@@ -59,19 +49,31 @@
 	/// Static, lazy list containing a user's last view time per channel.
 	var/static/last_views
 
+/obj/machinery/newscaster/get_ru_names()
+	return list(
+			NOMINATIVE = "новостник",
+			GENITIVE = "новостника",
+			DATIVE = "новостнику",
+			ACCUSATIVE = "новостник",
+			INSTRUMENTAL = "новостником",
+			PREPOSITIONAL = "новостнике",
+	)
+
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
-	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах. \
+	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано \"Нанотрейзен\" для использования на коммерческих объектах. \
 			Эта модель оснащена расширенным функционалом, специально для службы безопасности."
-	ru_names = list(
+	is_security = TRUE
+
+/obj/machinery/newscaster/security_unit/get_ru_names()
+	return list(
 			NOMINATIVE = "новостник службы безопасности",
 			GENITIVE = "новостника службы безопасности",
 			DATIVE = "новостнику службы безопасности",
 			ACCUSATIVE = "новостник службы безопасности",
 			INSTRUMENTAL = "новостником службы безопасности",
-			PREPOSITIONAL = "новостнике службы безопасности"
+			PREPOSITIONAL = "новостнике службы безопасности",
 	)
-	is_security = TRUE
 
 /obj/machinery/newscaster/Initialize(mapload)
 	. = ..()
@@ -86,13 +88,9 @@
 			/datum/job/ai,
 			/datum/job/cyborg,
 			/datum/job/captain,
-			/datum/job/judge,
+			/datum/job/head_of_staff/judge,
 			/datum/job/blueshield,
-			/datum/job/nanotrasenrep,
-			/datum/job/pilot,
-			/datum/job/brigdoc,
-			/datum/job/mechanic,
-			/datum/job/chaplain,
+			/datum/job/head_of_staff/nanotrasenrep,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntnavyofficer/field,
 			/datum/job/ntspecops/supreme,
@@ -100,7 +98,7 @@
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
 			/datum/job/civilian/prisoner,
-			/datum/job/syndicateofficer
+			/datum/job/syndicateofficer,
 		)
 
 /obj/machinery/newscaster/Destroy()
@@ -108,7 +106,6 @@
 	viewing_channel = null
 	QDEL_NULL(photo)
 	return ..()
-
 
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
@@ -136,18 +133,15 @@
 		if(51 to 75)
 			. += "crack1"
 
-
 /obj/machinery/newscaster/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -336,12 +330,12 @@
 	return data
 
 /**
-  * Returns a [/datum/feed_message] in a format that can be used as TGUI data.
-  *
-  * Arguments:
-  * * FM - The story to send
-  * * M - Optional. The user to send the story's photo to if it exists
-  */
+ * Returns a [/datum/feed_message] in a format that can be used as TGUI data.
+ *
+ * Arguments:
+ * * FM - The story to send
+ * * M - Optional. The user to send the story's photo to if it exists
+ */
 /obj/machinery/newscaster/proc/get_message_data(datum/feed_message/FM, mob/M)
 	if(!(FM.censor_flags & CENSOR_STORY) && M && FM.img)
 		M << browse_rsc(FM.img, "story_photo_[FM.UID()].png")
@@ -391,7 +385,7 @@
 				var/obj/item/photo/P = usr.get_active_hand()
 				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					usr.visible_message(span_notice("[usr] вставля[pluralize_ru(usr.gender, "ет", "ют")] [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."), \
+					usr.visible_message(span_notice("[usr] вставля[PLUR_ET_YUT(usr)] [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."), \
 					span_notice("Вы вставляете [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
@@ -465,12 +459,12 @@
 	add_fingerprint(usr)
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/newscaster/proc/ui_act_modal(action, list/params)
 	. = TRUE
 	var/id = params["id"]
@@ -524,7 +518,7 @@
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
-					else if (id == "manage_channel") // Channel management
+					else if(id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
@@ -605,11 +599,11 @@
 			return FALSE
 
 /**
-  * Ejects the photo currently held by the machine if there is one.
-  *
-  * Arguments:
-  * * user - The user to try to give the photo to.
-  */
+ * Ejects the photo currently held by the machine if there is one.
+ *
+ * Arguments:
+ * * user - The user to try to give the photo to.
+ */
 /obj/machinery/newscaster/proc/eject_photo(mob/user)
 	if(!photo)
 		return
@@ -624,25 +618,25 @@
 	SStgui.update_uis(src)
 
 /**
-  * Sets a temporary message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * style - The style of the message: (color name), info, success, warning, danger
-  */
+ * Sets a temporary message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * style - The style of the message: (color name), info, success, warning, danger
+ */
 /obj/machinery/newscaster/proc/set_temp(text = "", style = "info", update_now = FALSE)
 	temp_notice = list(text = text, style = style)
 	if(update_now)
 		SStgui.update_uis(src)
 
 /**
-  * Tries to obtain a mob's name and security access based on their ID.
-  *
-  * Arguments:
-  * * user - The user
-  */
+ * Tries to obtain a mob's name and security access based on their ID.
+ *
+ * Arguments:
+ * * user - The user
+ */
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
-	. = list(name = "Неизвестный", security = user.can_admin_interact())
+	. = list(name = UNKNOWN_NAME_RUS, security = user.can_admin_interact())
 	if(ishuman(user))
 		var/mob/living/carbon/human/M = user
 		// No ID, no luck
@@ -657,19 +651,19 @@
 		return list(name = "[ai_user.name] ([ai_user.job])", security = TRUE)
 
 /**
-  * Returns whether the machine's [/obj/machinery/newscaster/var/scanned_user] should update on interact.
-  *
-  * Arguments:
-  * * user - The user to check
-  */
+ * Returns whether the machine's [/obj/machinery/newscaster/var/scanned_user] should update on interact.
+ *
+ * Arguments:
+ * * user - The user to check
+ */
 /obj/machinery/newscaster/proc/can_scan(mob/user)
 	if(ishuman(user) || issilicon(user))
 		return TRUE
 	return FALSE
 
 /**
-  * Tries to print a newspaper with all of the content so far.
-  */
+ * Tries to print a newspaper with all of the content so far.
+ */
 /obj/machinery/newscaster/proc/print_newspaper()
 	if(paper_remaining <= 0 || is_printing)
 		return
@@ -682,8 +676,8 @@
 	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
-  * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
-  */
+ * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
+ */
 /obj/machinery/newscaster/proc/print_newspaper_finish()
 	is_printing = FALSE
 	SStgui.update_uis(src)
@@ -692,12 +686,12 @@
 	NP.forceMove(loc)
 
 /**
-  * Makes the newscaster say a message and change its icon state for a while.
-  *
-  * Arguments:
-  * * announcement - The message to say
-  * * wanted_notice - Whether the alert is a wanted notice notification (overrides announcement)
-  */
+ * Makes the newscaster say a message and change its icon state for a while.
+ *
+ * Arguments:
+ * * announcement - The message to say
+ * * wanted_notice - Whether the alert is a wanted notice notification (overrides announcement)
+ */
 /obj/machinery/newscaster/proc/alert_news(announcement, wanted_notice = FALSE)
 	if(!is_operational())
 		return
@@ -715,8 +709,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /**
-  * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
-  */
+ * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
+ */
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
 	update_icon(UPDATE_OVERLAYS)

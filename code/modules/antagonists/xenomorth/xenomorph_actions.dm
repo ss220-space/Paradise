@@ -1,7 +1,6 @@
 /datum/action/innate/start_evolve_to_empress
 	name = "ОШИБКА"
 	desc = "Начать процесс эволюции в Императрицу."
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "queen_evolve"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 	var/datum/weakref/xeno_team
@@ -49,7 +48,6 @@
 	addtimer(CALLBACK(src, PROC_REF(after_evolve), alien_walls, ghost, queen), TO_EMPRESS_EVOLVE_TIME)
 	Remove(queen)
 
-
 /datum/action/innate/start_evolve_to_empress/proc/after_evolve(list/alien_walls, mob/dead/observer/ghost, mob/living/carbon/alien/humanoid/queen/queen)
 	if(QDELETED(queen))
 		return
@@ -65,8 +63,6 @@
 	SEND_SIGNAL(new_xeno.mind, COMSIG_ALIEN_EVOLVE, queen.type, new_xeno.type)
 	QDEL_LIST(alien_walls)
 	qdel(queen)
-
-
 
 /obj/structure/alien/resin/wall/empress_cocon
 	max_integrity = 700

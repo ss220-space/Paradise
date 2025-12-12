@@ -5,7 +5,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 	multitool_menu_type = /datum/multitool_menu/idtag/airlock_electronics
@@ -17,12 +16,10 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
-
 /obj/item/airlock_electronics/examine(mob/user)
 	. = ..()
 	if(access_electronics)
 		. += span_notice("It has [access_electronics] attached. Use <b>screwdriver</b> to remove it.")
-
 
 /obj/item/airlock_electronics/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -44,7 +41,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/airlock_electronics/screwdriver_act(mob/living/user, obj/item/I)
 	if(!access_electronics)

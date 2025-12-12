@@ -3,12 +3,10 @@
 	desc = "Многофункциональный операционный стол, предназначенный для выполнения хирургических операций. \
 			Оснащён системой датчиков, подключаемых к хирургическому компьютеру для отслеживания жизненных показателей пациента в реальном времени. \
 			Встроенные анатомические фиксаторы исключают непроизвольные движения пациента и обеспечивают удобство для оперирующего хирурга."
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
 	var/mob/living/carbon/patient
@@ -25,7 +23,7 @@
 		DATIVE = "операционному столу",
 		ACCUSATIVE = "операционный стол",
 		INSTRUMENTAL = "операционным столом",
-		PREPOSITIONAL = "операционном столе"
+		PREPOSITIONAL = "операционном столе",
 	)
 
 /obj/machinery/optable/Initialize(mapload)
@@ -43,7 +41,6 @@
 	patient = null
 	return ..()
 
-
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
 		return
@@ -58,8 +55,8 @@
 	return TRUE
 
 /**
-  * Updates the `patient` var to be the mob occupying the table
-  */
+ * Updates the `patient` var to be the mob occupying the table
+ */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/patient_carbon = locate(/mob/living/carbon, loc)
 	if(patient_carbon && patient_carbon.body_position == LYING_DOWN)
@@ -69,10 +66,8 @@
 	if(!no_icon_updates)
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/optable/update_icon_state()
-	icon_state = "table2-[(patient && patient.pulse) ? "active" : "idle"]"
-
+	icon_state = "table2-[(patient?.pulse) ? "active" : "idle"]"
 
 /obj/machinery/optable/process()
 	update_patient()
@@ -89,12 +84,12 @@
 
 	if(new_patient == user)
 		user.visible_message(
-			"[user] забира[pluralize_ru(user.gender, "ет", "ют")]ся на [declent_ru(ACCUSATIVE)].",
+			"[user] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)].",
 			"Вы забираетесь на на [declent_ru(ACCUSATIVE)]."
 		)
 	else
 		visible_message(
-			span_alert("[user] укладыва[pluralize_ru(user.gender, "ет", "ют")] [new_patient] на [declent_ru(ACCUSATIVE)]."),
+			span_alert("[user] укладыва[PLUR_ET_YUT(user)] [new_patient] на [declent_ru(ACCUSATIVE)]."),
 			span_alert("Вы укладываете [new_patient] на [declent_ru(ACCUSATIVE)].")
 		)
 	if(user.pulling == new_patient)
@@ -113,7 +108,6 @@
 	add_fingerprint(grabber)
 	take_patient(grabbed_thing, grabber)
 
-
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
@@ -126,7 +120,7 @@
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		balloon_alert(usr, span_notice("уже занято!"))
+		balloon_alert(usr, "уже занято!")
 		return FALSE
 	else
 		return TRUE

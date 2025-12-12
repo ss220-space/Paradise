@@ -2,23 +2,14 @@
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
 
-#define SIGH	0
+#define SIGH 0
 #define ANNOYED 1
 #define DELIGHT 2
 
 /mob/living/simple_animal/bot/mulebot
 	name = "MULEbot"
 	desc = "Многофункциональный Узкоспециализированный Легкомоторный робот. Нет, это не просто случайные слова, подобранные для красивого написания. Честно."
-	ru_names = list(
-		NOMINATIVE = "МУЛбот",
-		GENITIVE = "МУЛбота",
-		DATIVE = "МУЛботу",
-		ACCUSATIVE = "МУЛбота",
-		INSTRUMENTAL = "МУЛботом",
-		PREPOSITIONAL = "МУЛботе",
-	)
 	icon_state = "mulebot0"
-	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	animate_movement = FORWARD_STEPS
 	health = 50
@@ -71,11 +62,20 @@
 	var/currentBloodColor = BLOOD_COLOR_RED
 	var/currentDNA = null
 
+/mob/living/simple_animal/bot/mulebot/get_ru_names()
+	return list(
+		NOMINATIVE = "МУЛбот",
+		GENITIVE = "МУЛбота",
+		DATIVE = "МУЛботу",
+		ACCUSATIVE = "МУЛбота",
+		INSTRUMENTAL = "МУЛботом",
+		PREPOSITIONAL = "МУЛботе",
+	)
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/mulebot(src)
-	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
+	var/datum/job/supply/cargo_tech/J = new/datum/job/supply/cargo_tech
 	access_card.access = J.get_access()
 	prev_access = access_card.access
 	cell = new /obj/item/stock_parts/cell/upgraded(src)
@@ -84,7 +84,6 @@
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
 	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering))
 
-
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	SStgui.close_uis(wires)
 	unload(0)
@@ -92,10 +91,8 @@
 	QDEL_NULL(cell)
 	return ..()
 
-
 /mob/living/simple_animal/bot/mulebot/get_cell()
 	return cell
-
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(_suffix)
 	suffix = _suffix
@@ -104,11 +101,9 @@
 	else
 		name = "MULEbot ([suffix])"
 
-
 /mob/living/simple_animal/bot/mulebot/bot_reset()
 	..()
 	reached_target = FALSE
-
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -145,14 +140,12 @@
 			span_danger("Вы столкнули [cached_load] с [declent_ru(GENITIVE)]!"),
 		)
 
-
 /// Chance to knock off the rider
 /mob/living/simple_animal/bot/mulebot/proc/knock_off(probability)
 	if(!ismob(load) || !prob(probability))
 		return FALSE
 	unload(NONE)
 	return TRUE
-
 
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -164,7 +157,6 @@
 	update_controls()
 	update_icon()
 
-
 /mob/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(health >= maxHealth)
@@ -172,13 +164,12 @@
 		balloon_alert(user, "ремонт не требуется")
 		return .
 	user.visible_message(
-		span_notice("[user] ремонтиру[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(GENITIVE)]."),
+		span_notice("[user] ремонтиру[PLUR_ET_YUT(user)] [declent_ru(GENITIVE)]."),
 		span_notice("Вы ремонтируете [declent_ru(GENITIVE)].")
 	)
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || health >= maxHealth)
 		return .
 	heal_damage_type(25, BRUTE)
-
 
 /mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -198,7 +189,6 @@
 	cell.forceMove(drop_location())
 	cell = null
 
-
 /mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!open)
@@ -208,7 +198,6 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	attack_hand(user)
-
 
 /mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -220,7 +209,6 @@
 		return .
 	attack_hand(user)
 
-
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(emagged < 1)
 		emagged = 1
@@ -230,13 +218,11 @@
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, FALSE)
 
-
 /mob/living/simple_animal/bot/mulebot/update_icon_state()
 	if(open)
 		icon_state="mulebot-hatch"
 	else
 		icon_state = "mulebot[wires.is_cut(WIRE_MOB_AVOIDANCE)]"
-
 
 /mob/living/simple_animal/bot/mulebot/update_overlays()
 	. = ..()
@@ -247,7 +233,6 @@
 			load_overlay.layer = layer + 0.1
 		load_overlay.overlays = load.overlays
 		. += load_overlay
-
 
 /mob/living/simple_animal/bot/mulebot/ex_act(severity, target)
 	unload(0)
@@ -260,7 +245,6 @@
 		if(EXPLODE_LIGHT)
 			wires.cut_random()
 
-
 /mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
 	if(..())
 		if(prob(50) && !isnull(load))
@@ -268,7 +252,6 @@
 		if(prob(25))
 			visible_message(span_danger("Что-то замыкается внутри [declent_ru(GENITIVE)]!"))
 			wires.cut_random()
-
 
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
 	if(..())
@@ -345,7 +328,6 @@
 			report_delivery = !report_delivery
 	update_controls()
 
-
 /mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
 	if(bot_core.allowed(user))
 		locked = !locked
@@ -354,7 +336,6 @@
 	else
 		balloon_alert(user, "отказано в доступе!")
 		return FALSE
-
 
 // TODO: remove this; PDAs currently depend on it
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
@@ -371,17 +352,17 @@
 		dat += "<div class='statusDisplay'>"
 		switch(mode)
 			if(BOT_IDLE)
-				dat += "<span class='good'>Готовность</span>"
+				dat += span_good("Готовность")
 			if(BOT_DELIVER)
-				dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
+				dat += span_good("[mode_name[BOT_DELIVER]]")
 			if(BOT_GO_HOME)
-				dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
+				dat += span_good("[mode_name[BOT_GO_HOME]]")
 			if(BOT_BLOCKED)
-				dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
+				dat += span_average("[mode_name[BOT_BLOCKED]]")
 			if(BOT_NAV,BOT_WAIT_FOR_NAV)
-				dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
+				dat += span_average("[mode_name[BOT_NAV]]")
 			if(BOT_NO_ROUTE)
-				dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
+				dat += span_bad("[mode_name[BOT_NO_ROUTE]]")
 		dat += "</div>"
 
 		dat += "<b>Груз</b> [load ? load.name : "<i>отсутствует</i>"]<br>"
@@ -417,15 +398,13 @@
 
 			wires.Interact(user)
 		else
-			dat += "<div class='notice'>Робот в режиме технического обслуживания - управление поведением заблокировано</div><br>"
+			dat += "<div class='notice'>Робот в режиме технического обслуживания — управление поведением заблокировано</div><br>"
 
 	return dat
-
 
 // returns true if the bot has power
 /mob/living/simple_animal/bot/mulebot/proc/has_power()
 	return !open && cell && cell.charge > 0 && !wires.is_cut(WIRE_MAIN_POWER1) && !wires.is_cut(WIRE_MAIN_POWER2)
-
 
 /mob/living/simple_animal/bot/mulebot/proc/buzz(type)
 	switch(type)
@@ -439,7 +418,6 @@
 			audible_message("[capitalize(declent_ru(NOMINATIVE))] восторженно звенит!")
 			playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 
-
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
@@ -449,7 +427,6 @@
 
 	load(AM)
 	return TRUE
-
 
 // called to load a crate
 /mob/living/simple_animal/bot/mulebot/proc/load(atom/movable/AM)
@@ -490,28 +467,24 @@
 	mode = BOT_IDLE
 	update_icon(UPDATE_OVERLAYS)
 
-
 /mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
 	can_buckle = TRUE
-	if(buckle_mob(M))
+	if(buckle_mob(M, check_loc = FALSE))
 		passenger = M
 		load = M
 		can_buckle = FALSE
 		return TRUE
 	return FALSE
 
-
 /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
 	target.pixel_y = target.base_pixel_y + 9
 	if(target.layer < layer)
 		target.layer = layer + 0.01
 
-
 /mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
 	load = null
 	target.layer = initial(target.layer)
 	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
-
 
 // called to unload the bot
 // argument is optional direction to unload
@@ -544,8 +517,6 @@
 			continue
 		thing.forceMove(loc)
 
-
-
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
 	var/area/dest_area
@@ -555,7 +526,6 @@
 		destination = format_text(dest_area.name)
 		pathset = TRUE //Indicates the AI's custom path is initialized.
 		start()
-
 
 /mob/living/simple_animal/bot/mulebot/handle_automated_action()
 	diag_hud_set_botmode()
@@ -570,7 +540,6 @@
 	step_delay = initial(step_delay) - wires.is_cut(WIRE_MOTOR1) * 0.5 SECONDS - wires.is_cut(WIRE_MOTOR2) * 0.5 SECONDS
 	if(!isprocessing)
 		START_PROCESSING(SSfastprocess, src)
-
 
 /mob/living/simple_animal/bot/mulebot/process()
 	if(!on)
@@ -636,13 +605,11 @@
 			mode = BOT_WAIT_FOR_NAV
 			INVOKE_ASYNC(src, PROC_REF(process_nav))
 
-
 /mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
 	calc_path(avoid = next)
 	if(length(path))
 		buzz(DELIGHT)
 	mode = BOT_BLOCKED
-
 
 /mob/living/simple_animal/bot/mulebot/proc/process_nav()
 	calc_path()
@@ -655,14 +622,12 @@
 		buzz(SIGH)
 		mode = BOT_NO_ROUTE
 
-
 /**
  * calculates a path to the current destination, given an optional turf to avoid.
  */
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid)
 	check_bot_access()
 	set_path(get_path_to(src, target, max_distance = 250, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL))
-
 
 /**
  * Sets the current destination. Signals all beacons matching the delivery code.
@@ -671,7 +636,6 @@
 /mob/living/simple_animal/bot/mulebot/proc/set_destination(new_dest)
 	new_destination = new_dest
 	get_nav()
-
 
 /**
  * Starts bot moving to current destination.
@@ -686,7 +650,6 @@
 	update_icon()
 	get_nav()
 
-
 /**
  * Starts bot moving to home. Sends a beacon query to find.
  */
@@ -695,12 +658,10 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(do_start_home))
 
-
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
 	mode = BOT_BLOCKED
 	update_icon()
-
 
 /**
  * Called when bot reaches current target.
@@ -715,8 +676,8 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!</span>")
-				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
+				to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!"))
+				playsound(calling_ai, 'sound/machines/chime.ogg',40, FALSE)
 				calling_ai = null
 				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.
 
@@ -751,7 +712,6 @@
 		else
 			bot_reset()	// otherwise go idle
 
-
 /mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 
@@ -760,7 +720,7 @@
 			var/obj/effect/decal/cleanable/blood/tracks/B = locate() in next
 			if(!B)
 				B = new /obj/effect/decal/cleanable/blood/tracks(loc)
-			if(blood_DNA && blood_DNA.len)
+			if(blood_DNA && length(blood_DNA))
 				B.blood_DNA |= blood_DNA.Copy()
 			B.basecolor = currentBloodColor
 			var/newdir = get_dir(next, loc)
@@ -775,7 +735,6 @@
 				B.setDir(newdir)
 			B.update_icon()
 			bloodiness--
-
 
 /**
  * Called when bot bumps into anything.
@@ -796,7 +755,6 @@
 	add_attack_logs(src, bumped_living, "Knocked down")
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сбивает [bumped_living]!"))
 	bumped_living.Weaken(16 SECONDS)
-
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
 	if(H.player_logged)//No running over SSD people
@@ -827,7 +785,6 @@
 		transfer_blood_dna(blood_dna)
 		currentBloodColor = H.dna.species.blood_color
 
-
 /mob/living/simple_animal/bot/mulebot/bot_control_message(command, mob/user, user_turf)
 	switch(command)
 		if("start")
@@ -845,7 +802,6 @@
 			return
 		else
 			..()
-
 
 /mob/living/simple_animal/bot/mulebot/receive_signal(datum/signal/signal)
 	if(wires.is_cut(WIRE_REMOTE_RX) || ..())
@@ -881,7 +837,6 @@
 		if("autopick")
 			auto_pickup = text2num(signal.data["value"])
 
-
 /**
  * Send a radio signal with multiple data key/values.
  */
@@ -889,7 +844,6 @@
 	if(wires.is_cut(WIRE_REMOTE_TX))
 		return
 	..()
-
 
 /**
  * Signals bot status etc. to controller.
@@ -909,7 +863,6 @@
 	)
 	post_signal_multiple(control_freq, key_values)
 
-
 /**
  * Player on mulebot attempted to move.
  */
@@ -920,7 +873,6 @@
 		return
 	if(load == user)
 		unload(0)
-
 
 /**
  * Update navigation data. Called when commanded to deliver, return home, or a route update is needed...
@@ -938,14 +890,12 @@
 			update_icon()
 			calc_path()
 
-
 /mob/living/simple_animal/bot/mulebot/emp_act(severity)
 	if(cell)
 		cell.emp_act(severity)
 	if(load)
 		load.emp_act(severity)
 	..()
-
 
 /mob/living/simple_animal/bot/mulebot/explode()
 	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
@@ -960,11 +910,10 @@
 		cell.update_icon()
 		cell = null
 
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	..()
-
+	return ..()
 
 /mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
 	if(loc)
@@ -972,19 +921,16 @@
 	else
 		return null
 
-
 /mob/living/simple_animal/bot/mulebot/run_resist()
 	. = ..()
 	if(load)
 		unload()
-
 
 /mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A)
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else
 		..()
-
 
 /mob/living/simple_animal/bot/mulebot/proc/on_entering(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -994,7 +940,6 @@
 
 	for(var/mob/living/carbon/human/mob in destination.contents)
 		RunOver(mob)
-
 
 #undef SIGH
 #undef ANNOYED

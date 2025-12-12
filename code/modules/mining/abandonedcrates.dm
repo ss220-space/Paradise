@@ -3,20 +3,30 @@
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
 	desc = "Что может быть внутри?"
-	ru_names = list(
-		NOMINATIVE = "заброшенный ящик",
-		GENITIVE = "заброшенного ящика",
-		DATIVE = "заброшенному ящику",
-		ACCUSATIVE = "заброшенный ящик",
-		INSTRUMENTAL = "заброшенным ящиком",
-		PREPOSITIONAL = "заброшенном ящике"
-	)
-	icon_state = "securecrate"
+	icon_state = "dangercrate"
 	var/code = null
 	var/lastattempt = null
 	var/attempts = 10
 	var/codelen = 4
 	integrity_failure = 0 //no breaking open the crate
+
+/obj/structure/closet/crate/secure/loot/can_close()
+	. = ..()
+	if(!.)
+		return
+
+	var/mob/living/mob = locate() in get_turf(src)
+	return !mob
+
+/obj/structure/closet/crate/secure/loot/get_ru_names()
+	return list(
+		NOMINATIVE = "заброшенный ящик",
+		GENITIVE = "заброшенного ящика",
+		DATIVE = "заброшенному ящику",
+		ACCUSATIVE = "заброшенный ящик",
+		INSTRUMENTAL = "заброшенным ящиком",
+		PREPOSITIONAL = "заброшенном ящике",
+	)
 
 /obj/structure/closet/crate/secure/loot/Initialize(mapload)
 	. = ..()
@@ -164,8 +174,8 @@
 		if(85)
 			new /obj/item/defibrillator/compact(src)
 		if(86)
-			new /obj/item/gun/projectile/automatic/pistol/specter(src)
-			new /obj/item/ammo_box/magazine/specter(src)
+			new /obj/item/gun/energy/specter(src)
+			new /obj/item/weapon_cell/specter(src)
 		if(87)
 			new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
 			new /obj/item/ammo_box/magazine/enforcer(src)
@@ -197,6 +207,7 @@
 			new /obj/item/pda/mime(src)
 			new /obj/item/clothing/gloves/color/white(src)
 			new /obj/item/clothing/mask/gas/mime(src)
+			new /obj/item/clothing/mask/gas/mime/old(src)
 			new /obj/item/clothing/head/beret(src)
 			new /obj/item/clothing/suit/suspenders(src)
 			new /obj/item/toy/crayon/mime(src)
@@ -246,7 +257,6 @@
 	else
 		return ..()
 
-
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/emag))
 		if(locked)
@@ -255,7 +265,6 @@
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	return ..()
-
 
 /obj/structure/closet/crate/secure/loot/multitool_act(mob/living/user, obj/item/I)
 	if(!locked)
@@ -285,7 +294,6 @@
 			else
 				++cows
 	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цифры","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цифры","правильных цифр")] на неправильных позициях."))
-
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
 	if(locked)

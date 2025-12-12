@@ -1,17 +1,7 @@
 /obj/item/storm_staff
 	name = "staff of storms"
 	desc = "Древний посох, извлечённый из останков Легиона. Ветер колышется, когда вы двигаете им."
-	ru_names = list(
-		NOMINATIVE = "посох бурь",
-		GENITIVE = "посоха бурь",
-		DATIVE = "посоху бурь",
-		ACCUSATIVE = "посох бурь",
-		INSTRUMENTAL = "посохом бурь",
-		PREPOSITIONAL = "посохе бурь"
-	)
 	icon_state = "staffofstorms"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "staffofstorms"
 	icon = 'icons/obj/weapons/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
@@ -26,6 +16,16 @@
 	var/static/list/excluded_areas = list(/area/space)
 	///This is a list of turfs currently being targeted.
 	var/list/targeted_turfs = list()
+
+/obj/item/storm_staff/get_ru_names()
+	return list(
+		NOMINATIVE = "посох бурь",
+		GENITIVE = "посоха бурь",
+		DATIVE = "посоху бурь",
+		ACCUSATIVE = "посох бурь",
+		INSTRUMENTAL = "посохом бурь",
+		PREPOSITIONAL = "посохе бурь",
+	)
 
 /obj/item/storm_staff/Destroy()
 	targeted_turfs = null
@@ -57,10 +57,10 @@
 				to_chat(user, span_warning("Буря уже стихает! Использовать посох сейчас было бы расточительством."))
 				return
 			user.visible_message(
-				span_warning("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
+				span_warning("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
 				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] к небу, рассеивая бурю!")
 			)
-			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
+			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
 			A.wind_down()
 			var/old_color = user.color
 			user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
@@ -117,14 +117,13 @@
 		new /obj/effect/temp_visual/electricity(T)
 		for(var/mob/living/hit_mob in T)
 			to_chat(hit_mob, span_userdanger("Вас поразила молния!"))
-			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), "штормового посоха", flags = SHOCK_NOGLOVES)
+			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_NOGLOVES)
 
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message(span_danger("Молния ударяет в [target.declent_ru(ACCUSATIVE)]!"))
 	explosion(target, devastation_range = -1, heavy_impact_range = -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
-
 
 /obj/effect/temp_visual/thunderbolt_targeting
 	icon_state = "target_circle"

@@ -30,7 +30,6 @@ Notes:
 	- After testing and discussion (Wire, Remie, MrPerson, AnturK) ToolTips are ok and work for /tg/station13
 */
 
-
 /datum/tooltip
 	var/client/owner
 	var/control = "mainwindow.tooltip"
@@ -39,14 +38,12 @@ Notes:
 	var/queueHide = 0
 	var/init = 0
 
-
 /datum/tooltip/New(client/C)
 	if(C)
 		owner = C
 		owner << browse(wrap_file2text(file), "window=[control]")
 
 	..()
-
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
 	if(!thing || !params || (!title && !content) || !owner || !isnum(ICON_SIZE_ALL))
@@ -67,6 +64,10 @@ Notes:
 	else if(!title && content)
 		content = "<p>[content]</p>"
 
+	// Strip macros from item names
+	title = replacetext(title, "\proper", "")
+	title = replacetext(title, "\improper", "")
+
 	//Make our dumb param object
 	params = {"{ "cursor": "[params]", "screenLoc": "[thing.screen_loc]" }"}
 
@@ -81,41 +82,35 @@ Notes:
 
 	return TRUE
 
-
 /datum/tooltip/proc/hide()
-	if(queueHide)
-		spawn(1)
-			winshow(owner, control, 0)
-	else
-		winshow(owner, control, 0)
-
 	queueHide = showing ? TRUE : FALSE
+
+	if(queueHide)
+		addtimer(CALLBACK(src, PROC_REF(do_hide)), 0.1 SECONDS)
+	else
+		do_hide()
 
 	return TRUE
 
-
-/* TG SPECIFIC CODE */
-
+/datum/tooltip/proc/do_hide()
+	winshow(owner, control, FALSE)
 
 //Open a tooltip for user, at a location based on params
 //Theme is a CSS class in tooltip.html, by default this wrapper chooses a CSS class based on the user's UI_style (Midnight, Plasmafire, Retro, etc)
 //Includes sanity.checks
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null, title = "", content = "", theme = "")
-	if(istype(user))
-		if(user.client && user.client.tooltips && (user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS))
-			if(!theme && user.client.prefs && user.client.prefs.UI_style)
-				theme = lowertext(user.client.prefs.UI_style)
-			if(!theme)
-				theme = "default"
-			// Strip macros from item names
-			title = replacetext(title, "\proper", "")
-			title = replacetext(title, "\improper", "")
-			user.client.tooltips.show(tip_src, params, title, content, theme)
-
+	if(!istype(user) || !user.client?.tooltips || !(user.client?.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS))
+		return
+	var/ui_style = user.client?.prefs?.UI_style
+	if(!theme && ui_style)
+		theme = lowertext(ui_style)
+	if(!theme)
+		theme = "default"
+	user.client.tooltips.show(tip_src, params, title, content, theme)
 
 //Arbitrarily close a user's tooltip
 //Includes sanity checks.
 /proc/closeToolTip(mob/user)
-	if(istype(user))
-		if(user.client && user.client.tooltips)
-			user.client.tooltips.hide()
+	if(!istype(user) || !user.client?.tooltips)
+		return
+	user.client.tooltips.hide()

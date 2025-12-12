@@ -4,7 +4,6 @@
 
 // Minimum pressure difference to fail building falsewalls.
 // Also affects admin alerts.
-#define FALSEDOOR_MAX_PRESSURE_DIFF 25.0
 
 /obj/structure/falsewall
 	name = "wall"
@@ -66,7 +65,6 @@
 	. = ..()
 	toggle(user)
 
-
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
 		return
@@ -93,7 +91,6 @@
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/falsewall/proc/do_the_flick()
 	if(density)
 		smooth = NONE
@@ -102,15 +99,13 @@
 	else
 		flick("fwall_closing", src)
 
-
 /obj/structure/falsewall/update_icon_state()
 	if(density)
 		icon_state = initial(icon_state)
 		smooth = SMOOTH_BITMASK
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 	else
 		icon_state = "fwall_open"
-
 
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)
@@ -118,7 +113,6 @@
 	if(delete)
 		qdel(src)
 	return T
-
 
 /obj/structure/falsewall/attackby(obj/item/I, mob/user, params)
 	if(opening)
@@ -139,7 +133,6 @@
 
 	return ..()
 
-
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!density)
@@ -159,7 +152,6 @@
 		span_warning("Вы затягиваете болты на стене."),
 	)
 	ChangeToWall()
-
 
 /obj/structure/falsewall/welder_act(mob/user, obj/item/I)
 	if(!density)
@@ -201,7 +193,6 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
-
 // Copy of `/turf/hit_by_thrown_carbon()`. A falsewall is just a wall after all.
 /obj/structure/falsewall/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
@@ -217,7 +208,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, hitby_react), AM), 0.2 SECONDS)
 
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
-
 
 /*
  * False R-Walls
@@ -273,7 +263,6 @@
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
 
-
 /*
  * Other misc falsewall types
  */
@@ -312,7 +301,6 @@
 	smoothing_groups = SMOOTH_GROUP_DIAMOND_WALLS
 	max_integrity = 800
 
-
 /obj/structure/falsewall/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definately a bad idea."
@@ -323,7 +311,6 @@
 	walltype = /turf/simulated/wall/mineral/plasma
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
-
 
 /obj/structure/falsewall/plasma/attackby(obj/item/I, mob/user, params)
 	if(opening)
@@ -336,7 +323,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
@@ -359,7 +345,6 @@
 	walltype = /turf/simulated/wall/mineral/abductor
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
-
 
 /obj/structure/falsewall/bananium
 	name = "bananium wall"
@@ -437,7 +422,6 @@
 	base_icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_TITANIUM_WALLS
 
@@ -448,7 +432,6 @@
 	base_icon_state = "plastitanium_wall"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
 
@@ -460,7 +443,6 @@
 	icon_state = "clockwork_wall-0"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
 	smoothing_groups = SMOOTH_GROUP_CLOCKWORK_WALLS
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
@@ -468,14 +450,7 @@
 	mineral = /obj/item/stack/sheet/brass
 
 /obj/structure/falsewall/brass/fake
-	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within. You feel a wind."
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall-0"
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	mineral_amount = 1
-	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
-	smoothing_groups = SMOOTH_GROUP_CLOCKWORK_WALLS
 	girder_type = /obj/structure/clockwork/wall_gear/fake/displaced
 	walltype = /turf/simulated/wall/clockwork/fake
 	mineral = /obj/item/stack/sheet/brass_fake
@@ -504,20 +479,5 @@
 	if(I.use_tool(src, user, 120, volume = I.tool_volume)) // 20% more than double normal wall.
 		dismantle(user, TRUE)
 
-
 /obj/structure/falsewall/clockwork/screwdriver_act(mob/living/user, obj/item/I)
 	return FALSE	// wall change is unavailable, idk why
-
-
-/obj/structure/falsewall/mineral_ancient
-	name = "ancient rock"
-	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	icon = 'icons/turf/smoothrocks.dmi'
-	base_icon_state = "smoothrocks"
-	icon_state = "rock_ancient"
-	color = COLOR_ANCIENT_ROCK
-	smooth = SMOOTH_BITMASK
-	smoothing_groups = SMOOTH_GROUP_MINERAL_WALLS
-	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
-	mineral = /obj/item/stack/ore/glass/basalt/ancient
-	walltype = /turf/simulated/mineral/ancient

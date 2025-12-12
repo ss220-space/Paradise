@@ -7,7 +7,7 @@
 	cure_text = "Правильное питание и сон"
 	cures = list("chicken_soup")
 	cure_prob = 100	//override in has_cure()
-	severity = MINOR
+	severity = DISEASE_SEVERITY_MINOR
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
@@ -47,7 +47,7 @@
 					affected_mob.adjust_nutrition(-rand(3,5))
 				else
 					to_chat(affected_mob, span_danger("Ваш желудок болезненно сводит!"))
-					affected_mob.visible_message(span_danger("[affected_mob] сдержива[pluralize_ru(affected_mob.gender,"ет","ют")] рвотный позыв, и выгляд[pluralize_ru(affected_mob.gender,"ит","ят")] очень бледным."))
+					affected_mob.visible_message(span_danger("[affected_mob] сдержива[PLUR_ET_YUT(affected_mob)] рвотный позыв, и выгляд[PLUR_IT_YAT(affected_mob)] очень бледным."))
 					affected_mob.Stun(rand(4 SECONDS, 8 SECONDS))
 					affected_mob.Weaken(rand(4 SECONDS, 8 SECONDS))
 

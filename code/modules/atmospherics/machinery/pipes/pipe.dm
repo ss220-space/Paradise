@@ -15,7 +15,6 @@
 	buckle_requires_restraints = TRUE
 	buckle_lying = 90
 
-
 /obj/machinery/atmospherics/pipe/New()
 	..()
 	//so pipes under walls are hidden
@@ -35,7 +34,7 @@
 	parent?.members.RemoveAll(src)
 	. = ..()
 	// if we're somehow by ourself
-	if(!QDELETED(parent) && parent?.members.len == 0)
+	if(!QDELETED(parent) && length(parent?.members) == 0)
 		qdel(parent)
 	parent = null
 
@@ -45,10 +44,8 @@
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
 	return parent
 
-
 /obj/machinery/atmospherics/pipe/return_pipenets()
 	return list(parent)
-
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
@@ -89,7 +86,7 @@
 /obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
 	parent = P
 
-/obj/machinery/atmospherics/pipe/color_cache_name(var/obj/machinery/atmospherics/node)
+/obj/machinery/atmospherics/pipe/color_cache_name(obj/machinery/atmospherics/node)
 	if(istype(node, /obj/machinery/atmospherics/pipe/manifold) || istype(node, /obj/machinery/atmospherics/pipe/manifold4w))
 		if(pipe_color == node.pipe_color)
 			return node.pipe_color

@@ -58,14 +58,12 @@
 	if(user.can_advanced_admin_interact())
 		SwitchState()
 
-
 /obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
-
 
 /obj/structure/mineral_door/CanAtmosPass(turf/T, vertical)
 	return !density
@@ -131,13 +129,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
-
 /obj/structure/mineral_door/update_icon_state()
 	if(state)
 		icon_state = "[initial_state]open"
 	else
 		icon_state = initial_state
-
 
 /obj/structure/mineral_door/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe))
@@ -163,7 +159,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
@@ -210,16 +205,14 @@
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
-
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, params)
 	var/hot_temp = I.get_heat()
 	if(hot_temp)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(hot_temp)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -242,9 +235,7 @@
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
-	hardness = 1
 	resistance_flags = FLAMMABLE
-	max_integrity = 200
 
 /obj/structure/mineral_door/wood/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
@@ -255,10 +246,6 @@
 	icon_state = "paperframe"
 	openSound = 'sound/effects/glider_door.ogg'
 	closeSound = 'sound/effects/glider_door.ogg'
-	sheetType = /obj/item/stack/sheet/wood
-	hardness = 1
-	resistance_flags = FLAMMABLE
-	max_integrity = 200
 
 /obj/structure/mineral_door/resin
 	name = "resin door"
@@ -282,4 +269,3 @@
 	sheetType = /obj/item/stack/sheet/gingerbread
 	hardness = 0.5
 	resistance_flags = FLAMMABLE
-	max_integrity = 200

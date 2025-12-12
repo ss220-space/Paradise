@@ -18,11 +18,11 @@
 GLOBAL_LIST_EMPTY(uid_log)
 
 /**
-  * Gets or creates the UID of a datum
-  *
-  * BYOND refs are recycled, so this system prevents that. If a datum does not have a UID when this proc is ran, one will be created
-  * Returns the UID of the datum
-  */
+ * Gets or creates the UID of a datum
+ *
+ * BYOND refs are recycled, so this system prevents that. If a datum does not have a UID when this proc is ran, one will be created
+ * Returns the UID of the datum
+ */
 /datum/proc/UID()
 	if(!unique_datum_id)
 		unique_datum_id = RUSTLIB_CALL(get_uuid, src)
@@ -36,19 +36,17 @@ GLOBAL_LIST_EMPTY(uid_log)
 
 	return target.UID()
 
-
 /**
-  * Locates a datum based off of the UID
-  *
-  * Replacement for locate() which takes a UID instead of a ref
-  * Returns the datum, if found
-  */
+ * Locates a datum based off of the UID
+ *
+ * Replacement for locate() which takes a UID instead of a ref
+ * Returns the datum, if found
+ */
 /proc/locateUID(uid)
 	if(!uid)
 		return
 
 	return RUSTLIB_CALL(get_by_uuid, uid)
-
 
 /**
  * If the list `L` contains a datum UID who's type matches `D`'s type, returns the UID of that datum in the list. Otherwise returns null.
@@ -62,12 +60,11 @@ GLOBAL_LIST_EMPTY(uid_log)
 		if(istype(D, A))
 			return datum_UID
 
-
 /**
-  * Opens a lof of UIDs
-  *
-  * In-round ability to view what has created a UID, and how many times a UID for that path has been declared
-  */
+ * Opens a lof of UIDs
+ *
+ * In-round ability to view what has created a UID, and how many times a UID for that path has been declared
+ */
 /client/proc/uid_log()
 	set name = "View UID Log"
 	set category = "Debug"

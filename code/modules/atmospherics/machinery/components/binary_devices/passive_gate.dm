@@ -9,7 +9,6 @@
 
 	can_unwrench = TRUE
 
-	on = FALSE
 	var/target_pressure = ONE_ATMOSPHERE
 
 	var/id = null
@@ -172,7 +171,6 @@
 			. = TRUE
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
-
 
 /obj/machinery/atmospherics/binary/passive_gate/wrench_act(mob/living/user, obj/item/I)
 	if(on)

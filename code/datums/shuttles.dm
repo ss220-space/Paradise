@@ -30,8 +30,6 @@
 	port_id = "admin"
 	name = "Base Shuttle Template (Admin)"
 
-
-
 // Shuttles start here:
 
 /datum/map_template/shuttle/emergency/bar
@@ -39,7 +37,6 @@
 	name = "The Emergency Escape Bar"
 	description = "Features include a bathroom, a quality lounge for the heads, and a \
 		small gambling table."
-
 
 /datum/map_template/shuttle/emergency/cyb
 	suffix = "cyb"
@@ -56,7 +53,6 @@
 	name = "emergency shuttle (military)"
 	description = "Troop transport with point defense turrets."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
-
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -102,7 +98,6 @@
 		constructs. Put players in constructs if you want them to move. \
 		Cloning pods in 'medbay' area are showcases and nonfunctional."
 
-
 /datum/map_template/shuttle/emergency/old
 	suffix = "old"
 	name = "Retired Station shuttle."
@@ -126,11 +121,6 @@
 		meatspike must be spawned in."
 
 //Комплекс неполноferrности калеки
-
-/datum/map_template/shuttle/ferry/base
-	suffix = "base"
-	name = "transport ferry"
-	description = "Standard issue Box/Metastation Centcom ferry."
 
 /datum/map_template/shuttle/ferry/cargo
 	suffix = "cargo"
@@ -163,18 +153,6 @@
 	description = "Особенный груз для зачистки.\
 	После подготовки, НЕМЕДЛЕННО ОТПРАВИТЬ во избежания несчастных случаев. \
 	Пассажиры крайне агрессивны"
-
-/datum/map_template/shuttle/ferry/meat
-	suffix = "meat"
-	name = "\"meat\" ferry"
-	description = "Ahoy! We got all kinds o' meat aft here. Meat from plant \
-		people, people who be dark, not in a racist way, just they're dark \
-		black. Oh and lizard meat too,mighty popular that is. Definitely \
-		100% fresh, just ask this guy here. *person on meatspike moans* See? \
-		Definitely high quality meat, nothin' wrong with it, nothin' added, \
-		definitely no zombifyin' reagents!"
-	admin_notes = "Meat currently contains no zombifying reagents, people on \
-		meatspike must be spawned in."
 
 /datum/map_template/shuttle/ferry/medical
 	suffix = "medical"
@@ -249,14 +227,14 @@
 /datum/map_template/shuttle/admin/club
 	suffix = "club"
 	name = "NKV Parnassus"
-	description = "Коммерческий шаттл нанотрейзен, направленный на получение прибыли при помощи сферы развлечений"
+	description = "Коммерческий шаттл \"Нанотрейзен\", направленный на получение прибыли при помощи сферы развлечений"
 
 /datum/map_template/shuttle/admin/interview
 	suffix = "interview"
 	name = "NAV Aphens"
-	description = "Административный шаттл нанотрейзен. Используется для проведения опросов и бесед."
+	description = "Административный шаттл \"Нанотрейзен\". Используется для проведения опросов и бесед."
 
 /datum/map_template/shuttle/admin/alien
 	suffix = "alien"
 	name = "NTV Troy"
-	description = "Некогда транспортный шаттл нанотрейзен, ныне охваченный выделениями чужих"
+	description = "Некогда транспортный шаттл \"Нанотрейзен\", ныне охваченный выделениями чужих."

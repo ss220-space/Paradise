@@ -19,7 +19,6 @@ BONUS
 	stealth = 3
 	resistance = 5
 	stage_speed = -3
-	transmittable = 0
 	level = 3
 
 /datum/symptom/viraladaptation/Activate(datum/disease/virus/advance/A)

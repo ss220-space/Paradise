@@ -77,7 +77,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
@@ -107,8 +106,11 @@
 	/// Messages currently seen by this client
 	var/list/seen_messages
 
-	/// list of tabs containing spells and abilities
+	/// list of tabs containing spells and abilities //TODO vakons actions: remove if not used
 	var/list/spell_tabs = list()
+
+	/// datum wrapper for client view
+	var/datum/view_data/view_size
 
 	/// our current tab
 	var/stat_tab
@@ -221,6 +223,30 @@
 	var/datum/lootpanel/loot_panel
 
 	var/tgui_panel_theme = "dark"
+
+	var/list/parallax_layers
+	var/list/parallax_layers_cached
+	var/atom/movable/screen/parallax_home/parallax_rock
+	var/atom/movable/movingmob
+	var/turf/previous_turf
+	/// world.time of when we can state animate()ing parallax again
+	var/dont_animate_parallax
+	/// Direction our current area wants to move parallax
+	var/parallax_movedir = 0
+	/// How many parallax layers to show our client
+	var/parallax_layers_max = 4
+	/// Timers for the area directional animation, one for each layer
+	var/list/parallax_animate_timers
+	/// Do we want to do parallax animations at all?
+	/// Exists to prevent laptop fires
+	var/do_parallax_animations = TRUE
+
+	var/list/ViewMods = list()
+	var/ViewModsActive = FALSE
+	var/ViewPreferedIconSize = 0
+
+	///these persist between logins/logouts during the same round.
+	var/datum/persistent_client/persistent_client
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

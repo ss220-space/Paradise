@@ -3,7 +3,6 @@
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	level = 2
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 	var/initialize_directions_he
 	var/surface = 2
@@ -59,7 +58,6 @@
 				var/mob/living/buckled_mob = m
 				buckled_mob.apply_damage(4 * log(pipe_air.temperature - heat_limit), BURN, BODY_ZONE_CHEST)
 
-
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/New()
 	..()
 	initialize_directions_he = initialize_directions	// The auto-detection from /pipe is good enough for a simple HE pipe
@@ -83,10 +81,9 @@
 							break
 		update_icon()
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
-	level=1
-	icon_state="intact-f"
-	plane = GAME_PLANE
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden // wtf is this?
+	level = 1
+	plane = FLOOR_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /////////////////////////////////
@@ -94,9 +91,7 @@
 /////////////////////////////////
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/junction.dmi'
-	icon_state = "intact"
 	pipe_icon = "hejunction"
-	level = 2
 	minimum_temperature_difference = 300
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 
@@ -130,8 +125,7 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden
-	level=1
-	icon_state="intact-f"
-	plane = GAME_PLANE
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden // wtf is this?
+	level = 1
+	plane = FLOOR_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER

@@ -1,11 +1,11 @@
 // channel numbers for power
-#define EQUIP           1
-#define LIGHT           2
-#define ENVIRON         3
-#define TOTAL           4	//for total power used only
-#define CHANNEL_STATIC_EQUIP    5
-#define CHANNEL_STATIC_LIGHT    6
-#define CHANNEL_STATIC_ENVIRON  7
+#define EQUIP 1
+#define LIGHT 2
+#define ENVIRON 3
+#define TOTAL 4 //for total power used only
+#define CHANNEL_STATIC_EQUIP 5
+#define CHANNEL_STATIC_LIGHT 6
+#define CHANNEL_STATIC_ENVIRON 7
 
 //Power use
 #define NO_POWER_USE 0
@@ -13,33 +13,32 @@
 #define ACTIVE_POWER_USE 2
 
 //APC charging
-/// APC is not recieving power
+/// APC is not receiving power
 #define APC_NOT_CHARGING 0
-/// APC is currently recieving power and storing it
+/// APC is currently receiving power and storing it
 #define APC_IS_CHARGING 1
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2
 
 //computer3 error codes, move lower in the file when it passes dev -Sayu
- #define PROG_CRASH				(1<<0)  // Generic crash
- #define MISSING_PERIPHERAL		(1<<1)  // Missing hardware
- #define BUSTED_ASS_COMPUTER	(1<<2)  // Self-perpetuating error.  BAC will continue to crash forever.
- #define MISSING_PROGRAM		(1<<3)  // Some files try to automatically launch a program.  This is that failing.
- #define FILE_DRM				(1<<4)  // Some files want to not be copied/moved.  This is them complaining that you tried.
- #define NETWORK_FAILURE		(1<<5)
+#define PROG_CRASH (1<<0) // Generic crash
+#define MISSING_PERIPHERAL (1<<1) // Missing hardware
+#define BUSTED_ASS_COMPUTER (1<<2) // Self-perpetuating error.  BAC will continue to crash forever.
+#define MISSING_PROGRAM (1<<3) // Some files try to automatically launch a program.  This is that failing.
+#define FILE_DRM (1<<4) // Some files want to not be copied/moved.  This is them complaining that you tried.
+#define NETWORK_FAILURE (1<<5)
 
-#define	IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/metal/chemicals
-#define	AUTOLATHE		(1<<2)	//Uses glass/metal only.
-#define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4)	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
-#define PODFAB			(1<<5)	//Used by the spacepod part fabricator. Same idea as the mechfab
-#define BIOGENERATOR	(1<<6)	//Uses biomass
-#define SMELTER			(1<<7) //uses various minerals
+#define	IMPRINTER (1<<0) //For circuits. Uses glass/chemicals.
+#define PROTOLATHE (1<<1) //New stuff. Uses glass/metal/chemicals
+#define	AUTOLATHE (1<<2) //Uses glass/metal only.
+#define CRAFTLATHE (1<<3) //Uses fuck if I know. For use eventually.
+#define MECHFAB (1<<4) //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define PODFAB (1<<5) //Used by the spacepod part fabricator. Same idea as the mechfab
+#define BIOGENERATOR (1<<6) //Uses biomass
+#define SMELTER (1<<7) //uses various minerals
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 #define HYDRO_SPEED_MULTIPLIER 1
-
 
 // Demotion Console (card/minor/*) departments
 #define TARGET_DEPT_GENERIC 1
@@ -51,14 +50,14 @@
 
 // These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
 // These are warning defines, they should trigger before the state, not after.
-#define SUPERMATTER_ERROR -1		// Unknown status, shouldn't happen but just in case.
-#define SUPERMATTER_INACTIVE 0		// No or minimal energy
-#define SUPERMATTER_NORMAL 1		// Normal operation
-#define SUPERMATTER_NOTIFY 2		// Ambient temp > 80% of CRITICAL_TEMPERATURE
-#define SUPERMATTER_WARNING 3		// Ambient temp > CRITICAL_TEMPERATURE OR integrity damaged
-#define SUPERMATTER_DANGER 4		// Integrity < 75%
-#define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
-#define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
+#define SUPERMATTER_ERROR -1 // Unknown status, shouldn't happen but just in case.
+#define SUPERMATTER_INACTIVE 0 // No or minimal energy
+#define SUPERMATTER_NORMAL 1 // Normal operation
+#define SUPERMATTER_NOTIFY 2 // Ambient temp > 80% of CRITICAL_TEMPERATURE
+#define SUPERMATTER_WARNING 3 // Ambient temp > CRITICAL_TEMPERATURE OR integrity damaged
+#define SUPERMATTER_DANGER 4 // Integrity < 75%
+#define SUPERMATTER_EMERGENCY 5 // Integrity < 50%
+#define SUPERMATTER_DELAMINATING 6 // Pretty obvious, Integrity < 25%
 
 // Status display maptext stuff
 #define DISPLAY_CHARS_PER_LINE 5
@@ -106,4 +105,102 @@
 /// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
 #define START_PROCESSING_MANUALLY (1<<1)
 
+#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
+
 #define ORE_REDEMPTION "Плавильная печь"
+
+// Research tree names
+#define RESEARCH_TREE_MATERIALS_NAME "Материаловедение"
+#define RESEARCH_TREE_ENGINEERING_NAME "Инженерные технологии"
+#define RESEARCH_TREE_PLASMA_NAME "Плазмотехнологии"
+#define RESEARCH_TREE_POWERSTORAGE_NAME "Энергетические системы"
+#define RESEARCH_TREE_BLUESPACE_NAME "Блюспейс-исследования"
+#define RESEARCH_TREE_BIOTECH_NAME "Биотехнологии"
+#define RESEARCH_TREE_COMBAT_NAME "Боевые системы"
+#define RESEARCH_TREE_MAGNETS_NAME "Электромагнитные технологии"
+#define RESEARCH_TREE_PROGRAMMING_NAME "Теория данных"
+#define RESEARCH_TREE_TOXINS_NAME "Токсинология"
+#define RESEARCH_TREE_ILLEGAL_NAME "Запрещённые технологии"
+#define RESEARCH_TREE_ALIEN_NAME "Инопланетные технологии"
+
+// Research tree ids
+#define RESEARCH_TREE_MATERIALS "materials"
+#define RESEARCH_TREE_ENGINEERING "engineering"
+#define RESEARCH_TREE_PLASMA "plasmatech"
+#define RESEARCH_TREE_POWERSTORAGE "powerstorage"
+#define RESEARCH_TREE_BLUESPACE "bluespace"
+#define RESEARCH_TREE_BIOTECH "biotech"
+#define RESEARCH_TREE_COMBAT "combat"
+#define RESEARCH_TREE_MAGNETS "magnets"
+#define RESEARCH_TREE_PROGRAMMING "programming"
+#define RESEARCH_TREE_TOXINS "toxins"
+#define RESEARCH_TREE_ILLEGAL "syndicate"
+#define RESEARCH_TREE_ALIEN "abductor"
+
+// Categories, used in different types of printers
+#define PRINTER_CATEGORY_INITIAL "initial"
+#define PRINTER_CATEGORY_HACKED "hacked"
+
+// Autolathe categories
+#define AUTOLATHE_CATEGORY_TOOLS "Инструменты"
+#define AUTOLATHE_CATEGORY_ELECTRONICS "Электроника"
+#define AUTOLATHE_CATEGORY_CONSTRUCTION "Конструирование"
+#define AUTOLATHE_CATEGORY_COMMUNICATION "Радиосвязь"
+#define AUTOLATHE_CATEGORY_SECURITY "Безопасность"
+#define AUTOLATHE_CATEGORY_MACHINERY "Машинерия"
+#define AUTOLATHE_CATEGORY_MEDICAL "Медицина"
+#define AUTOLATHE_CATEGORY_MISC "Разное"
+#define AUTOLATHE_CATEGORY_DINNERWARE "Посуда и утварь"
+#define AUTOLATHE_CATEGORY_IMPORTED "Импортированное"
+
+// Protolathe categories
+#define PROTOLATHE_CATEGORY_BLUESPACE "Блюспейс"
+#define PROTOLATHE_CATEGORY_EQUIPMENT "Снаряжение"
+#define PROTOLATHE_CATEGORY_JANITORIAL "Уборка"
+#define PROTOLATHE_CATEGORY_MINING "Шахтёрское дело"
+#define PROTOLATHE_CATEGORY_WEAPON "Вооружение"
+#define PROTOLATHE_CATEGORY_STOCK_PARTS "Компоненты машинерии"
+#define PROTOLATHE_CATEGORY_MEDICAL "Медицина"
+#define PROTOLATHE_CATEGORY_POWER "Электроэнергия"
+#define PROTOLATHE_CATEGORY_MISC "Разное"
+#define PROTOLATHE_CATEGORY_ILLEGAL "Контрабанда"
+#define PROTOLATHE_CATEGORY_CIRCUITRY "Интегральные схемы"
+
+// Circuit Imprinter categories
+#define CIRCUIT_IMPRINTER_CATEGORY_AI "Станционный ИИ"
+#define CIRCUIT_IMPRINTER_CATEGORY_COMPUTER "Компьютеры и консоли"
+#define CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING "Инженерные модули"
+#define CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT "Экзоскелеты"
+#define CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS "Гидропоника"
+#define CIRCUIT_IMPRINTER_CATEGORY_MEDICAL "Медицина"
+#define CIRCUIT_IMPRINTER_CATEGORY_POWER "Электроэнергия"
+#define CIRCUIT_IMPRINTER_CATEGORY_MISC "Разное"
+#define CIRCUIT_IMPRINTER_CATEGORY_RESEARCH "Наука и исследование"
+#define CIRCUIT_IMPRINTER_CATEGORY_TELECOMS "Телекоммуникация"
+#define CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION "Телепортация"
+#define CIRCUIT_IMPRINTER_CATEGORY_CIRCUIT "Компоненты схем"
+
+// Mech fabricator categories
+#define MECH_FAB_CATEGORY_CYBORG "Части роботов"
+#define MECH_FAB_CATEGORY_CYBORG_REPAIR "Компоненты роботов"
+#define MECH_FAB_CATEGORY_CYBORG_EQUIPMENT "Оборудование роботов"
+#define MECH_FAB_CATEGORY_IPC "КПБ"
+#define MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT "Оборудование экзоскелетов"
+#define MECH_FAB_CATEGORY_EXOSUIT_PAINTKITS "Наборы кастомизации экзоскелетов"
+#define MECH_FAB_CATEGORY_RIPLEY "Рипли"
+#define MECH_FAB_CATEGORY_FIREFIGHTER "Огнеборец"
+#define MECH_FAB_CATEGORY_CLARKE "Кларк"
+#define MECH_FAB_CATEGORY_ODYSSEUS "Одиссей"
+#define MECH_FAB_CATEGORY_GYGAX "Гигакс"
+#define MECH_FAB_CATEGORY_DURAND "Дюран"
+#define MECH_FAB_CATEGORY_HONKER "Х.О.Н.К."
+#define MECH_FAB_CATEGORY_RETICENCE "Молчун"
+#define MECH_FAB_CATEGORY_PHAZON "Фазон"
+#define MECH_FAB_CATEGORY_MISC "Разное"
+#define MECH_FAB_CATEGORY_ROVER "Странник"
+#define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
+#define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
+
+// Engine types
+#define ENGTYPE_SING "Сингулярность"
+#define ENGTYPE_TESLA "Тесла"

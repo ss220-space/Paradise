@@ -1,10 +1,7 @@
 /obj/effect/forcefield
 	desc = "A space wizard's magic wall."
 	name = "FORCEWALL"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "m_shield"
-	anchored = TRUE
-	opacity = FALSE
 	density = TRUE
 	var/lifetime = 30 SECONDS
 
@@ -23,18 +20,15 @@
 	. = ..()
 	wizard = summoner
 
-
 /obj/effect/forcefield/wizard/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(mover == wizard)
 		return TRUE
 
-
-
 ///////////Mimewalls///////////
 
 /obj/effect/forcefield/mime
-	icon_state = "empty"
+	icon_state = null
 	name = "invisible wall"
 	desc = "You have a bad feeling about this."
 
@@ -53,7 +47,6 @@
 	icon_state = "shield-red"
 	name = "Syndicate energy wall"
 	desc = "A slowly fading energy wall that blocks passage for every possible nanotrasen scum"
-
 
 /obj/effect/forcefield/mecha/syndicate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

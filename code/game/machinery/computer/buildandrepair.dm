@@ -15,7 +15,6 @@
 	var/list/req_components = null
 
 /obj/item/circuitboard/computer
-	board_type = "computer"
 
 /obj/item/circuitboard/machine
 	board_type = "machine"
@@ -44,7 +43,6 @@
 /obj/item/circuitboard/message_monitor
 	board_name = "Message Monitor"
 	build_path = /obj/machinery/computer/message_monitor
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/camera
 	board_name = "Camera Monitor"
@@ -175,11 +173,6 @@
 	build_path = /obj/machinery/computer/teleporter
 	origin_tech = "programming=3;bluespace=3;plasmatech=3"
 
-/obj/item/circuitboard/teleporter/robotics
-	board_name = "Robotics Teleporter Console"
-	build_path = /obj/machinery/computer/teleporter/robotics
-	origin_tech = "programming=2;bluespace=3;plasmatech=2"
-
 /obj/item/circuitboard/secure_data
 	board_name = "Security Records"
 	build_path = /obj/machinery/computer/secure_data
@@ -260,7 +253,6 @@
 /obj/item/circuitboard/powermonitor/secret
 	board_name = "Outdated Power Monitor"
 	build_path = /obj/machinery/computer/monitor/secret
-	origin_tech = "programming=2;powerstorage=2"
 
 /obj/item/circuitboard/olddoor
 	board_name = "DoorMex"
@@ -366,7 +358,6 @@
 /obj/item/circuitboard/syndicatesupplycomp/public
 	board_name = "Syndicate Public Supply Pad Console"
 	build_path = /obj/machinery/computer/syndie_supplycomp/public
-	origin_tech = "programming=3;syndicate=3"
 
 /obj/item/circuitboard/syndicate_teleporter
 	board_name = "Syndicate Redspace Teleporter"
@@ -450,7 +441,6 @@
 /obj/item/circuitboard/area_atmos
 	board_name = "Area Air Control"
 	build_path = /obj/machinery/computer/area_atmos
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/telesci_console
 	board_name = "Telepad Control Console"
@@ -467,15 +457,12 @@
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
-
 /obj/item/circuitboard/HONKputer
 	board_name = "HONKputer"
 	build_path = /obj/machinery/computer/HONKputer
-	origin_tech = "programming=2"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "bananium_board"
 	board_type = "HONKputer"
-
 
 /obj/item/circuitboard/broken
 	board_name = "Broken curcuit"
@@ -498,7 +485,6 @@
 
 	contraband_enabled = !contraband_enabled
 	playsound(src, 'sound/effects/pop.ogg', 50)
-
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -538,13 +524,12 @@
 
 	return ..()
 
-
 // Construction | Deconstruction
-#define STATE_EMPTY	 1 // Add a circuitboard		   | Weld to destroy
-#define STATE_CIRCUIT	 2 // Screwdriver the cover closed | Crowbar the circuit
-#define STATE_NOWIRES	 3 // Add wires					   | Screwdriver the cover open
-#define STATE_WIRES		 4 // Add glass					   | Remove wires
-#define STATE_GLASS		 5 // Screwdriver to complete	   | Crowbar glass out
+#define STATE_EMPTY 1 // Add a circuitboard | Weld to destroy
+#define STATE_CIRCUIT 2 // Screwdriver the cover closed | Crowbar the circuit
+#define STATE_NOWIRES 3 // Add wires | Screwdriver the cover open
+#define STATE_WIRES 4 // Add glass | Remove wires
+#define STATE_GLASS 5 // Screwdriver to complete | Crowbar glass out
 
 /obj/structure/computerframe
 	name = "computer frame"
@@ -557,14 +542,12 @@
 	var/obj/item/circuitboard/circuit = null
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
 
-
 /obj/structure/computerframe/Initialize(mapload, obj/item/circuitboard/circuit)
 	. = ..()
 
 	if(circuit)
 		src.circuit = new circuit(src)
 		state = STATE_GLASS	// Spawned during completed computer Init, so it's completed.
-
 
 /obj/structure/computerframe/examine(mob/user)
 	. = ..()
@@ -582,7 +565,6 @@
 			. += span_notice("The glass is <b>loosely connected</b> and needs to be <i>screwed into place</i>.")
 	if(!anchored)
 		. += span_notice("Alt-Click to rotate it.")
-
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -603,7 +585,6 @@
 
 	return ..() // will qdel the frame
 
-
 /obj/structure/computerframe/Destroy()
 	if(istype(circuit))
 		qdel(circuit)
@@ -612,7 +593,6 @@
 
 	return ..()
 
-
 /obj/structure/computerframe/click_alt(mob/user)
 	if(anchored)
 		to_chat(user, span_warning("The frame is anchored to the floor!"))
@@ -620,18 +600,14 @@
 	setDir(turn(dir, 90))
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/structure/computerframe/obj_break(damage_flag)
 	deconstruct()
-
 
 /obj/structure/computerframe/proc/drop_computer_materials(location)
 	new /obj/item/stack/sheet/metal(location, 5)
 
-
 /obj/structure/computerframe/update_icon_state()
 	icon_state = "comp_frame_[state]"
-
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
 	if(state != STATE_EMPTY)
@@ -645,14 +621,12 @@
 	WELDER_SLICING_SUCCESS_MESSAGE
 	deconstruct(TRUE)
 
-
 /obj/structure/computerframe/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "fasten the frame into place" : "unfasten the frame"]."))
-
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
 	if(state != STATE_CIRCUIT && state != STATE_GLASS)
@@ -675,7 +649,6 @@
 			state = STATE_WIRES
 			new /obj/item/stack/sheet/glass(drop_location(), 2)
 			update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/computerframe/screwdriver_act(mob/living/user, obj/item/I)
 	if(state != STATE_CIRCUIT && state != STATE_NOWIRES && state != STATE_GLASS)
@@ -708,7 +681,6 @@
 			else
 				to_chat(user, span_warning("You connect the monitor, but it doesn't work. Maybe the circuit is broken?"))
 
-
 /obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/I)
 	if(state != STATE_WIRES)
 		return FALSE
@@ -719,7 +691,6 @@
 	new /obj/item/stack/cable_coil(drop_location(), 5)
 	state = STATE_NOWIRES
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -790,35 +761,27 @@
 
 	return ..()
 
-
 /obj/structure/computerframe/proc/on_construction(obj/machinery/computer/computer)
 	forceMove(computer)
 
-
 /obj/structure/computerframe/proc/circuit_compatibility_check(obj/item/circuitboard/circuit)
 	return circuit.board_type == "computer"
-
 
 /obj/structure/computerframe/HONKputer
 	name = "Bananium Computer-frame"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 
-
 /obj/structure/computerframe/HONKputer/drop_computer_materials(location)
 	new /obj/item/stack/sheet/mineral/bananium(location, 20)
-
 
 /obj/structure/computerframe/HONKputer/circuit_compatibility_check(obj/item/circuitboard/circuit)
 	return circuit.board_type == "HONKputer"
 
-
 /obj/structure/computerframe/abductor
 	icon_state = "comp_frame_alien1"
 
-
 /obj/structure/computerframe/abductor/update_icon_state()
 	icon_state = "comp_frame_alien[state]"
-
 
 /obj/structure/computerframe/abductor/on_construction(obj/machinery/computer/computer)
 	..()
@@ -826,10 +789,8 @@
 	computer.max_integrity = 400
 	computer.update_integrity(400)
 
-
 /obj/structure/computerframe/abductor/drop_computer_materials(location)
 	new /obj/item/stack/sheet/mineral/abductor(location, 4)
-
 
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT

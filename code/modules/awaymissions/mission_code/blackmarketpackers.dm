@@ -2,8 +2,6 @@
 
 /area/awaymission/BMPship
 	name = "BMP Asteroids"
-	icon_state = "away"
-	report_alerts = FALSE
 	requires_power = FALSE
 	ambientsounds = list('sound/music/space.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambigen11.ogg', 'sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/traitor.ogg')
 
@@ -65,13 +63,13 @@
 	name = "BMP Chem Lab"
 	icon_state = "away8"
 	requires_power = TRUE
-	ambientsounds = "sound/ambience/ambifailure.ogg"
+	ambientsounds = 'sound/ambience/ambifailure.ogg'
 
 /area/awaymission/BMPship/Shelter
 	name = "BMP Shelter"
 	icon_state = "away9"
 	requires_power = TRUE
-	ambientsounds = "sound/ambience/ambifailure.ogg"
+	ambientsounds = 'sound/ambience/ambifailure.ogg'
 
 /area/awaymission/BMPship/Dormitories
 	name = "BMP Dormitories"
@@ -118,7 +116,7 @@
 	name = "BMP Trader Shuttle"
 	icon_state = "away16"
 	requires_power = TRUE
-	ambientsounds = "sound/spookoween/ghost_whisper.ogg"
+	ambientsounds = 'sound/spookoween/ghost_whisper.ogg'
 
 /area/awaymission/BMPship/Mining
 	name = "BMP Mining"
@@ -179,7 +177,6 @@
 	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "destroyed_target_prism"
 
-
 /obj/machinery/broken/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, span_notice("You begin prying the metal coverings off..."))
@@ -199,13 +196,11 @@
 		to_chat(user, span_notice("You have removed the turret but did not manage to salvage anything."))
 	qdel(src)
 
-
 // Активированная пожарная тревога, проgисать в зоне fire = TRUE
 
 /obj/machinery/firealarm/triggered_nosignals
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
-
 
 //Spieder spawner
 
@@ -215,7 +210,6 @@
 	icon_state = "eggs"
 	icon = 'icons/effects/effects.dmi'
 	max_integrity = 200
-	max_mobs = 5
 	spawn_time = 600
 	mob_types = list(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter)
 	spawn_text = "crawls out of"

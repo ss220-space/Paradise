@@ -75,7 +75,6 @@
 		for(var/mob/living/buckled as anything in climber.buckled_mobs)
 			buckled.pulling?.move_from_pull(buckled, loc, buckled.glide_size)
 
-
 /obj/structure/stairs/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(!.)
@@ -134,8 +133,6 @@
 	desc = "Everything you need to call something a staircase, aside from the stuff you actually step on."
 	icon = 'icons/obj/stairs.dmi'
 	icon_state = "stairs_frame"
-	density = FALSE
-	anchored = FALSE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	/// What type of stack will this drop on deconstruction?
 	var/frame_stack = /obj/item/stack/rods
@@ -188,7 +185,6 @@
 	new frame_stack(get_turf(src), frame_stack_amount)
 	qdel(src)
 
-
 /obj/structure/stairs_frame/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -223,7 +219,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 #undef STAIR_TERMINATOR_AUTOMATIC
 #undef STAIR_TERMINATOR_NO

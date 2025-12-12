@@ -1,14 +1,12 @@
-#define MAX_BOOK_FLAGS	3	// maximum number of times a book can be flagged before being removed from results
+#define MAX_BOOK_FLAGS 3 // maximum number of times a book can be flagged before being removed from results
 
 /obj/machinery/computer/library
 	name = "visitor computer"
-	desc = "Старый библиотечный компьютер с ограниченным функционалом – специально для посетителей книжного храма."
+	desc = "Старый библиотечный компьютер с ограниченным функционалом — специально для посетителей книжного храма."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
-	anchored = TRUE
-	density = TRUE
 	var/screenstate = 0
 	var/page_num = 1
 	var/num_pages = 0
@@ -22,7 +20,7 @@
 		DATIVE = "гостевому компьютеру",
 		ACCUSATIVE = "гостевой компьютер",
 		INSTRUMENTAL = "гостевым компьютером",
-		PREPOSITIONAL = "гостевом компьютере"
+		PREPOSITIONAL = "гостевом компьютере",
 	)
 
 /obj/machinery/computer/library/attack_animal(mob/living/simple_animal/M)
@@ -123,3 +121,5 @@
 
 /obj/machinery/computer/library/proc/getBookByID(id)
 	return GLOB.library_catalog.getBookByID(id)
+
+#undef MAX_BOOK_FLAGS

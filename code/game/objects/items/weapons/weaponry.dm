@@ -1,24 +1,20 @@
 /**
-  * # Banhammer
-  */
+ * # Banhammer
+ */
 /obj/item/banhammer
 	desc = "banhammer"
 	name = "banhammer"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
 	slot_flags = ITEM_SLOT_BELT
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
-	to_chat(viewers(user), span_suicide("[user] бь[pluralize_ru(user.gender,"ёт","ют")] себя [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] хоч[pluralize_ru(user.gender,"ет","ют")] заблокировать себя!"))
+	to_chat(viewers(user), span_suicide("[user] бь[PLUR_YOT_YUT(user)] себя [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] хоч[PLUR_ET_YUT(user)] заблокировать себя!"))
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 /obj/item/banhammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -52,12 +48,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
-	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/sord/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся насадить себя на [declent_ru(ACCUSATIVE)]! Выглядит как попытка суицида, если бы не было так жалко."), span_suicide("Вы пытаетесь насадить себя на [declent_ru(ACCUSATIVE)], но это БЕСПОЛЕЗНО..."))
+	user.visible_message(span_suicide("[user] пыта[PLUR_ET_YUT(user)]ся насадить себя на [declent_ru(ACCUSATIVE)]! Выглядит как попытка суицида, если бы не было так жалко."), span_suicide("Вы пытаетесь насадить себя на [declent_ru(ACCUSATIVE)], но это БЕСПОЛЕЗНО..."))
 	return SHAME
 
 /obj/item/melee/claymore
@@ -75,10 +70,8 @@
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -94,7 +87,7 @@
 	)
 
 /obj/item/melee/claymore/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] падает на [declent_ru(ACCUSATIVE)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
+	user.visible_message(span_suicide("[user] падает на [declent_ru(ACCUSATIVE)]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся покончить с собой."))
 	return BRUTELOSS
 
 /obj/item/melee/claymore/ceremonial
@@ -114,13 +107,11 @@
 	sharp = 1
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -154,9 +145,8 @@
 		DATIVE = "базальтовой катане",
 		ACCUSATIVE = "базальтовую катану",
 		INSTRUMENTAL = "базальтовой катаной",
-		PREPOSITIONAL = "базальтовой катане"
+		PREPOSITIONAL = "базальтовой катане",
 	)
-
 
 /obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
@@ -170,7 +160,6 @@
 	if(nemesis_faction)
 		force -= faction_bonus_force
 
-
 /obj/item/harpoon
 	name = "harpoon"
 	sharp = 1
@@ -181,7 +170,6 @@
 	item_state = "harpoon"
 	force = 20
 	throwforce = 15
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("уколол", "тыкнул")
 
 /obj/item/wirerod
@@ -192,10 +180,8 @@
 	flags = CONDUCT
 	force = 9
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("ударил", "огрел")
-
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shard))
@@ -232,7 +218,6 @@
 
 	return ..()
 
-
 /obj/item/throwing_star
 	name = "throwing star"
 	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts"
@@ -252,7 +237,6 @@
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
 	var/deflectmode = FALSE // deflect small/medium thrown objects
@@ -291,7 +275,7 @@
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
 			if(prob(10))
-				visible_message(span_boldwarning("[owner] отбива[pluralize_ru(owner.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"), span_boldwarning("[pluralize_ru(owner.gender,"Ты отбиваешь","Вы отбиваете")] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"))
+				visible_message(span_boldwarning("[owner] отбива[PLUR_ET_YUT(owner)] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"), span_boldwarning("Вы отбиваете [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"))
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
@@ -300,7 +284,7 @@
 					lastdeflect = world.time + 600
 				return TRUE
 			else if(prob(30))
-				visible_message(span_warning("[owner] замахива[pluralize_ru(owner.gender,"ет","ют")]ся... и промахива[pluralize_ru(owner.gender,"ет","ют")]ся! Как неловко..."), span_warning("[pluralize_ru(owner.gender,"Ты замахиваешься","Вы замахиваетесь")]... и промахивае[pluralize_ru(owner.gender,"шься","тесь")]! Вот чёрт!"))
+				visible_message(span_warning("[owner] замахива[PLUR_ET_YUT(owner)]ся... и промахива[PLUR_ET_YUT(owner)]ся! Как неловко..."), span_warning("Вы замахиваетесь... и промахиваетесь! Вот чёрт!"))
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
@@ -308,7 +292,7 @@
 					lastdeflect = world.time + 600
 				return FALSE
 			else
-				visible_message(span_warning("[owner] замахива[pluralize_ru(owner.gender,"ет","ют")]ся и отбивает [I.declent_ru(ACCUSATIVE)]!"), span_warning("[pluralize_ru(owner.gender,"Ты отбиваешь","Вы отбиваете")] [I.declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_warning("[owner] замахива[PLUR_ET_YUT(owner)]ся и отбивает [I.declent_ru(ACCUSATIVE)]!"), span_warning("Вы отбиваете [I.declent_ru(ACCUSATIVE)]!"))
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
@@ -332,12 +316,11 @@
 		to_chat(user, span_notice("Вы готовы к хоум-рану!"))
 		return ..()
 	to_chat(user, span_warning("Вы начинаете копить силу..."))
-	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
+	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, TRUE)
 	if(do_after(user, 9 SECONDS, user))
 		to_chat(user, span_userdanger("Вы накопили мощь! Пора сделать хоум-ран!"))
 		homerun_ready = 1
 	..()
-
 
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(deflectmode)
@@ -350,7 +333,7 @@
 		user.visible_message(span_userdanger("Это хоум-ран!"))
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(8, 10), 14, user)
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 		playsound(loc, 'sound/weapons/homerun.ogg', 100, TRUE)
 		if(!homerun_always_charged)
 			homerun_ready = FALSE
@@ -380,7 +363,6 @@
 		target.Knockdown(1 SECONDS)
 	next_throw_time = world.time + 10 SECONDS
 
-
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"
 	desc = "This bat is made of highly reflective, highly armored material."
@@ -399,10 +381,10 @@
 	return 1
 
 /obj/item/melee/baseball_bat/homerun/central_command
-	name = "тактическая бита Флота NanoTrasen"
+	name = "тактическая бита Флота Nanotrasen"
 	description_info = "Выдвижная тактическая бита Центрального командования Nanotrasen. \
 	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
-	Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса \
+	Выдаваясь только самым верным и эффективным офицерам Nanotrasen, это оружие является одновременно символом статуса \
 	и инструментом высшего правосудия."
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -428,7 +410,6 @@
 	/// Attack verbs when extended (created on Initialize)
 	var/list/attack_verb_on = list("шлёпнул", "ударил", "треснул", "поколотил")
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/srt
 	name = "тактическая бита ГСН"
 	desc = "Выдвижная тактическая бита Центрального командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
@@ -437,11 +418,9 @@
 	icon_state = "srt_bat_0"
 	icon_state_on = "srt_bat_1"
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/update_icon_state()
 	icon_state = on ? icon_state_on : initial(icon_state)
 	item_state = on ? item_state_on : initial(item_state)
-
 
 /obj/item/melee/baseball_bat/homerun/central_command/proc/toggle(mob/living/user)
 	on = !on
@@ -456,16 +435,15 @@
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 	if(on)
-		to_chat(user, span_userdanger("Вы активировали [name] - время для правосудия!"))
+		to_chat(user, span_userdanger("Вы активировали [name] — время для правосудия!"))
 	else
 		to_chat(user, span_notice("Вы деактивировали [name]."))
-
 
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
-		to_chat(user, span_cultlarge("\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\""))
+		to_chat(user, span_cultlarge("\"Это — оружие истинного правосудия. Тебе не дано обуздать его мощь.\""))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
@@ -474,10 +452,8 @@
 		return FALSE
 	return ..()
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
 	toggle(user)
-
 
 /obj/item/melee/claymore/bone
 	name = "bone sword"
@@ -486,7 +462,6 @@
 	item_state = "bone_sword"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 18
-	throwforce = 10
 	armour_penetration = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
@@ -498,7 +473,7 @@
 		DATIVE = "костяному мечу",
 		ACCUSATIVE = "костяной меч",
 		INSTRUMENTAL = "костяным мечом",
-		PREPOSITIONAL = "костяном мече"
+		PREPOSITIONAL = "костяном мече",
 	)
 
 /obj/item/melee/claymore/bone/ComponentInitialize()
@@ -522,7 +497,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 3
-	w_class = WEIGHT_CLASS_NORMAL
 	var/stamina_damage = 22
 
 /obj/item/melee/nutcracker/get_ru_names()
@@ -532,7 +506,7 @@
 		DATIVE = "колотушке",
 		ACCUSATIVE = "колотушку",
 		INSTRUMENTAL = "колотушкой",
-		PREPOSITIONAL = "колотушке"
+		PREPOSITIONAL = "колотушке",
 	)
 
 /obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)

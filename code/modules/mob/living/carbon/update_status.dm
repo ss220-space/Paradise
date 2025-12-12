@@ -5,12 +5,11 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || (health <= HEALTH_THRESHOLD_CRIT && check_death_method() && !dna.species.ignore_critical_condition))
 			set_stat(UNCONSCIOUS)
 		else
 			set_stat(CONSCIOUS)
 	return ..()
-
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
@@ -22,7 +21,6 @@
 	else
 		return
 	update_stamina_hud()
-
 
 /mob/living/carbon/can_hear()
 	. = ..()

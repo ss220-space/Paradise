@@ -1,13 +1,19 @@
-#define BEE_IDLE_ROAMING		70 //The value of idle at which a bee in a beebox will try to wander
-#define BEE_IDLE_GOHOME			0  //The value of idle at which a bee will try to go home
-#define BEE_PROB_GOHOME			35 //Probability to go home when idle is below BEE_IDLE_GOHOME
-#define BEE_PROB_GOROAM			5 //Probability to go roaming when idle is above BEE_IDLE_ROAMING
-#define BEE_TRAY_RECENT_VISIT	200	//How long in deciseconds until a tray can be visited by a bee again
-#define BEE_DEFAULT_COLOUR		"#e5e500" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
+///The value of idle at which a bee in a beebox will try to wander
+#define BEE_IDLE_ROAMING 70
+///The value of idle at which a bee will try to go home
+#define BEE_IDLE_GOHOME 0
+///Probability to go home when idle is below BEE_IDLE_GOHOME
+#define BEE_PROB_GOHOME 35
+///Probability to go roaming when idle is above BEE_IDLE_ROAMING
+#define BEE_PROB_GOROAM 5
+///How long in deciseconds until a tray can be visited by a bee again
+#define BEE_TRAY_RECENT_VISIT 200
+///The colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
+#define BEE_DEFAULT_COLOUR "#e5e500"
 
-#define BEE_POLLINATE_YIELD_CHANCE		33
-#define BEE_POLLINATE_PEST_CHANCE		33
-#define BEE_POLLINATE_POTENCY_CHANCE	50
+#define BEE_POLLINATE_YIELD_CHANCE 33
+#define BEE_POLLINATE_PEST_CHANCE 33
+#define BEE_POLLINATE_POTENCY_CHANCE 50
 
 /mob/living/simple_animal/hostile/poison/bees
 	name = "bee"
@@ -59,7 +65,11 @@
 	regenerate_icons()
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
-	AddElement(/datum/element/reagent_attack/bee)
+	AddElement( \
+		/datum/element/reagent_attack/bee, \
+		reagent_id = "beetoxin", \
+		reagent_amount = 5, \
+	)
 
 /mob/living/simple_animal/hostile/poison/bees/ComponentInitialize()
 	AddComponent( \
@@ -87,8 +97,7 @@
 /mob/living/simple_animal/hostile/poison/bees/examine(mob/user)
 	. = ..()
 	if(!bee_syndicate && !beehome)
-		. += "<span class='warning'>This bee is homeless!</span>"
-
+		. += span_warning("This bee is homeless!")
 
 /mob/living/simple_animal/hostile/poison/bees/ListTargets() // Bee processing is expessive, so we override them finding targets here.
 	if(!search_objects) //In case we want to have purely hostile bees
@@ -97,12 +106,11 @@
 	for(var/atom/movable/movable in oview(vision_range, targets_from))
 		. += movable
 
-
 /mob/living/simple_animal/hostile/poison/bees/regenerate_icons()
 	..()
 
 	var/col = BEE_DEFAULT_COLOUR
-	if(beegent && beegent.color)
+	if(beegent?.color)
 		col = beegent.color
 
 	var/image/greyscale
@@ -117,7 +125,6 @@
 		bee_icons["[initial(icon_state)]_wings"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[initial(icon_state)]_wings")
 	wings = bee_icons["[initial(icon_state)]_wings"]
 	add_overlay(wings)
-
 
 //We don't attack beekeepers/people dressed as bees/wryns //Todo: bee costume
 /mob/living/simple_animal/hostile/poison/bees/CanAttack(atom/the_target)
@@ -209,7 +216,7 @@
 						target = beehome
 		if(!beehome) //add ourselves to a beebox (of the same reagent) if we have no home
 			for(var/obj/structure/beebox/BB in view(vision_range, src))
-				if(reagent_incompatible(BB.queen_bee) || BB.bees.len >= BB.get_max_bees())
+				if(reagent_incompatible(BB.queen_bee) || length(BB.bees) >= BB.get_max_bees())
 					continue
 				BB.bees |= src
 				beehome = BB
@@ -221,7 +228,6 @@
 	desc = "She's the queen of bees, BZZ BZZ"
 	icon_state = "queen"
 	isqueen = TRUE
-
 
 //the Queen doesn't leave the box on her own, and she CERTAINLY doesn't pollinate by herself
 /mob/living/simple_animal/hostile/poison/bees/queen/Found(atom/A)
@@ -246,7 +252,6 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/queen_bee
 	name = "queen bee"
 	desc = "She's the queen of bees, BZZ BZZ"
@@ -255,16 +260,13 @@
 	icon = 'icons/mob/bees.dmi'
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
-
 /obj/item/queen_bee/bought/Initialize(mapload)
 	. = ..()
 	queen = new(src)
 
-
 /obj/item/queen_bee/Destroy()
 	QDEL_NULL(queen)
 	return ..()
-
 
 /obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
@@ -309,7 +311,6 @@
 
 	return ..()
 
-
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
 	if(!beehome || loc != beehome) // If bees are chilling in their nest, they're not actively looking for targets
 		return ..()
@@ -317,7 +318,6 @@
 	if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
 		forceMove(beehome.loc)
 		toggle_ai(AI_ON)
-
 
 //Syndicate Bees
 /mob/living/simple_animal/hostile/poison/bees/syndi
@@ -333,9 +333,9 @@
 	AI_delay_max = 0 SECONDS
 	var/list/master_and_friends = list()
 
-/mob/living/simple_animal/hostile/poison/bees/syndi/New()
+/mob/living/simple_animal/hostile/poison/bees/syndi/Initialize(mapload)
+	. = ..()
 	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
-	..()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()
@@ -368,3 +368,13 @@
 		var/mob/living/L = target
 		if(L.stat)
 			lose_target()
+
+#undef BEE_IDLE_ROAMING
+#undef BEE_IDLE_GOHOME
+#undef BEE_PROB_GOHOME
+#undef BEE_PROB_GOROAM
+#undef BEE_TRAY_RECENT_VISIT
+#undef BEE_DEFAULT_COLOUR
+#undef BEE_POLLINATE_YIELD_CHANCE
+#undef BEE_POLLINATE_PEST_CHANCE
+#undef BEE_POLLINATE_POTENCY_CHANCE

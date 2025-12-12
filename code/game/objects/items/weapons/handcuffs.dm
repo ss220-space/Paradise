@@ -2,7 +2,6 @@
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	item_state = "handcuff"
 	belt_icon = "handcuffs"
@@ -10,7 +9,6 @@
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_HANDCUFFED
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
@@ -19,7 +17,6 @@
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
-
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -72,7 +69,6 @@
 		apply_cuffs(target, user)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /**
  * This handles handcuffing people
  *
@@ -116,7 +112,6 @@
 
 	if(trashtype && !dispense)
 		qdel(src)
-
 
 /obj/item/restraints/handcuffs/sinew
 	name = "sinew restraints"
@@ -187,7 +182,6 @@
 	icon_state = "pinkcuffs"
 	item_state = "pinkcuff"
 
-
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
@@ -226,24 +220,19 @@
 
 	return ..()
 
-
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
-	icon_state = "cuff_white"
 	breakout_time = 90 SECONDS
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
-
 
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_white_used"
 
-
 /obj/item/restraints/handcuffs/cable/zipties/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/restraints/handcuffs/manacles
 	name = "manacles"
@@ -256,7 +245,7 @@
 	breakout_time = 2 MINUTES
 	cuffsound = 'sound/items/zippoclose.ogg'
 	onmob_sheets = list(
-		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi'
+		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi',
 	)
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/manacles/used

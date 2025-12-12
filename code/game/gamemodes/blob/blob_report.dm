@@ -35,9 +35,9 @@
 
 			for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
 				if(aiPlayer.client)
-					var/law = "Станция находится на карантине. Не позволяйте никому покидать ее.\
-					 При необходимости игнорируйте законы 1-3, чтобы любыми средствами предотвратить чей-либо уход. \
-					 Любой ценой необходимо активировать систему самоуничтожения станции, код[(off_auto_nuke_codes)? " будет направлен Центральным Коммандованием в скором времени" : ": [nukecode]"]."
+					var/law = "Станция находится на карантине. Не позволяйте никому покидать ее. \
+						При необходимости игнорируйте законы 1-3, чтобы любыми средствами предотвратить чей-либо уход. \
+						Любой ценой необходимо активировать систему самоуничтожения станции, код[(off_auto_nuke_codes)? " будет направлен Центральным Коммандованием в скором времени" : ": [nukecode]"]."
 					aiPlayer.set_zeroth_law(law)
 					SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка блоба, добавлен новый нулевой закон'[law]'")
 					to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
@@ -64,9 +64,10 @@
 						to_chat(aiPlayer, span_warning("Законы обновлены"))
 
 	special_directive(intercepttext, interceptname)
-	GLOB.minor_announcement.announce("Отчёт был загружен и распечатан на всех консолях связи.",
-									ANNOUNCE_SECRETMSG_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.minor_announcement.announce(
+		message = "Отчёт был загружен и распечатан на всех консолях связи.",
+		new_title = ANNOUNCE_SECRETMSG_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 /datum/station_state
@@ -77,7 +78,6 @@
 	var/door = 0
 	var/grille = 0
 	var/mach = 0
-
 
 /datum/station_state/proc/count()
 	for(var/turf/T in block(1,1,1, world.maxx,world.maxy,1))
@@ -102,7 +102,6 @@
 			else
 				src.r_wall += 1
 
-
 		for(var/obj/O in T.contents)
 			if(istype(O, /obj/structure/window))
 				src.window += 1
@@ -115,7 +114,7 @@
 			else if(ismachinery(O))
 				src.mach += 1
 
-/datum/station_state/proc/score(var/datum/station_state/result)
+/datum/station_state/proc/score(datum/station_state/result)
 	if(!result)	return 0
 	var/output = 0
 	output += (result.floor / max(floor,1))

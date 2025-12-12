@@ -22,8 +22,6 @@
 	var/obj/item/stock_parts/cell/cell = null    // Used for firing superheated rods.
 	var/list/possible_tensions = list(XBOW_TENSION_20, XBOW_TENSION_40, XBOW_TENSION_60, XBOW_TENSION_80, XBOW_TENSION_FULL)
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
-
 
 /obj/item/gun/throw/crossbow/get_cell()
 	return cell
@@ -31,7 +29,6 @@
 /obj/item/gun/throw/crossbow/emp_act(severity)
 	if(cell && severity)
 		emp_act(severity)
-
 
 /obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
@@ -41,7 +38,6 @@
 			icon_state = "[initial(icon_state)]-nocked"
 	else
 		icon_state = "[initial(icon_state)]-drawn"
-
 
 /obj/item/gun/throw/crossbow/update_overlays()
 	. = ..()
@@ -53,7 +49,6 @@
 	var/obj/item/arrow/bolt = to_launch
 	bolt_type += "_[bolt.overlay_prefix]"
 	. += image('icons/obj/weapons/crossbow_rod.dmi', bolt_type)
-
 
 /obj/item/gun/throw/crossbow/examine(mob/user)
 	. = ..()
@@ -76,7 +71,7 @@
 /obj/item/gun/throw/crossbow/get_throwrange()
 	return tension * range_multiplier
 
-/obj/item/gun/throw/crossbow/process_chamber()
+/obj/item/gun/throw/crossbow/handle_chamber()
 	..()
 	update_icon()
 
@@ -116,7 +111,6 @@
 	else
 		user.visible_message("[usr] struggles to draws back the string of [src]!","[src] string is too tense to draw manually!")
 
-
 /obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
 		add_fingerprint(user)
@@ -132,7 +126,6 @@
 
 	return ..()
 
-
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
@@ -143,12 +136,10 @@
 	balloon_alert(user, "батарейка извлечена")
 	cell = null
 
-
 /obj/item/gun/throw/crossbow/click_alt(mob/user)
 	if(src in user)
 		set_tension()
 		return CLICK_ACTION_SUCCESS
-
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Регулировка натяжения"
@@ -175,12 +166,10 @@
 
 	to_chat(usr, span_notice("You set the draw tension to <b>[choice]</b>."))
 
-
 /obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	..()
 	tension = 0
 	update_icon()
-
 
 /obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
@@ -195,8 +184,6 @@
 	desc = "It's got a tip for you - get the point?"
 	icon_state = "bolt"
 	item_state = "bolt"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	throwforce = 20
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
@@ -211,8 +198,6 @@
 	desc = "A sharpened metal rod that can be fired out of a crossbow."
 	icon_state = "metal-rod"
 	item_state = "metal-rod"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	throwforce = 10
 
 /obj/item/arrow/proc/modify_arrow()
@@ -241,7 +226,6 @@
 /obj/item/arrow/rod/fire
 	name = "Oiled bolt"
 	desc = "A sharpened metal rod that can be fired out of a crossbow. You can see cloth with oil substance on it."
-	throwforce = 10
 	icon = 'icons/obj/weapons/crossbow_rod.dmi'
 	icon_state = "oiled_rod"
 	resistance_flags = FIRE_PROOF
@@ -257,14 +241,15 @@
 /datum/crafting_recipe/oiled_makeshift_rod
 	name = "Oiled makeshift rod"
 	result = /obj/item/arrow/rod/fire
-	reqs = list(/datum/reagent/fuel = 10,
-				/obj/item/stack/sheet/cloth = 1,
-				/obj/item/arrow/rod = 1)
+	reqs = list(
+		/datum/reagent/fuel = 10,
+		/obj/item/stack/sheet/cloth = 1,
+		/obj/item/arrow/rod = 1,
+	)
 	blacklist = list(/obj/item/arrow/rod/fire)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-
 
 /obj/item/arrow/rod/fire/modify_arrow()
 	throwforce = 25
@@ -274,12 +259,10 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	superheated = 1
 
-
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
 		fire_up()
-
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)
 	icon_state = "flame_rod_act"

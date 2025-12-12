@@ -68,7 +68,7 @@
 		return
 
 	var/mob/dead/observer/chosen = pick(candidates)
-	slime.key = chosen.key
+	slime.possess_by_player(chosen.key)
 	slime.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 	add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", slime)
 
@@ -93,7 +93,7 @@
 		DATIVE = "малой атмосферной аномалии", \
 		ACCUSATIVE = "малую ​​атмосферную аномалию", \
 		INSTRUMENTAL = "малой ​атмосферной аномалией", \
-		PREPOSITIONAL = "малой ​​атмосферной аномалии"
+		PREPOSITIONAL = "малой ​​атмосферной аномалии",
 	)
 
 /obj/effect/anomaly/atmospheric/tier2
@@ -110,7 +110,6 @@
 
 	collapse_range = 5
 	collapse_gas_amount = 350
-	collapse_slimes_low = 0
 	collapse_slimes_high = 2
 
 /obj/effect/anomaly/atmospheric/tier2/get_ru_names()
@@ -120,7 +119,7 @@
 		DATIVE = "атмосферной аномалии", \
 		ACCUSATIVE = "​​атмосферную аномалию", \
 		INSTRUMENTAL = "​атмосферной аномалией", \
-		PREPOSITIONAL = "​​атмосферной аномалии"
+		PREPOSITIONAL = "​​атмосферной аномалии",
 	)
 
 /obj/effect/anomaly/atmospheric/tier3
@@ -136,7 +135,6 @@
 
 	collapse_range = 7
 	collapse_gas_amount = 700
-	collapse_slimes_low = 0
 	collapse_slimes_high = 3
 
 /obj/effect/anomaly/atmospheric/tier3/get_ru_names()
@@ -146,7 +144,7 @@
 		DATIVE = "большой атмосферной аномалии", \
 		ACCUSATIVE = "большую ​​атмосферную аномалию", \
 		INSTRUMENTAL = "большой ​атмосферной аномалией", \
-		PREPOSITIONAL = "большой ​​атмосферной аномалии"
+		PREPOSITIONAL = "большой ​​атмосферной аномалии",
 	)
 
 /obj/effect/anomaly/atmospheric/tier3/New()
@@ -167,7 +165,6 @@
 		paper.fire_act(null, 1000, 1000)
 
 	. = ..()
-
 
 //		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
 
@@ -196,7 +193,7 @@
 		DATIVE = "колоссальной атмосферной аномалии", \
 		ACCUSATIVE = "колосальную ​​атмосферную аномалию", \
 		INSTRUMENTAL = "колоссальной ​атмосферной аномалией", \
-		PREPOSITIONAL = "колоссальной ​атмосферной аномалии"
+		PREPOSITIONAL = "колоссальной ​атмосферной аномалии",
 	)
 
 /obj/effect/anomaly/atmospheric/tier4/do_move(dir)

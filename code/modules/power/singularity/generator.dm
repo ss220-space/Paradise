@@ -4,7 +4,6 @@
 	desc = "An odd device which produces a Gravitational Singularity when set up."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "TheSingGen"
-	anchored = FALSE
 	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
@@ -20,7 +19,6 @@
 		var/obj/singularity/S = new creation_type(T, 50)
 		transfer_fingerprints_to(S)
 		if(src) qdel(src)
-
 
 /obj/machinery/the_singularitygen/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

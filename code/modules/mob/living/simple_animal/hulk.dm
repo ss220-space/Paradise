@@ -23,9 +23,7 @@
 	sentience_type = SENTIENCE_OTHER
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	universal_speak = 1
-	universal_understand = 1
 	attack_sound = list('sound/weapons/punch1.ogg')
 	var/hulk_powers = list()
 	var/mob/living/original_body
@@ -38,16 +36,16 @@
 	)
 
 /mob/living/simple_animal/hulk/human
-	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_jump,
-	/obj/effect/proc_holder/spell/hulk_dash)
-	tts_seed = "Grunt"
+	hulk_powers = list(
+		/obj/effect/proc_holder/spell/hulk_jump,
+		/obj/effect/proc_holder/spell/hulk_dash,
+	)
 
 //Clown Hulk
 
 /mob/living/simple_animal/hulk/clown_hulk
 	name = "Champion of Honk"
 	real_name = "Champion of Honk"
-	icon = 'icons/mob/hulk.dmi'
 	icon_state = "Champion of Honk"
 	icon_living = "Champion of Honk"
 	maxHealth = 175
@@ -63,8 +61,10 @@
 	attack_sound = list('sound/items/bikehorn.ogg')
 	health_regen = 24
 
-	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_honk,
-	/obj/effect/proc_holder/spell/hulk_joke)
+	hulk_powers = list(
+		/obj/effect/proc_holder/spell/hulk_honk,
+		/obj/effect/proc_holder/spell/hulk_joke,
+	)
 
 //Godzilla
 
@@ -86,13 +86,15 @@
 	tts_seed = "Huskar"
 	attack_sound = list('sound/weapons/bite.ogg')
 
-	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_mill,
-	/obj/effect/proc_holder/spell/fireball/hulk_spit,
-	/obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor)
+	hulk_powers = list(
+		/obj/effect/proc_holder/spell/hulk_mill,
+		/obj/effect/proc_holder/spell/fireball/hulk_spit,
+		/obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor,
+	)
 
 /mob/living/simple_animal/hulk/Life()
 	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(src, "<span class='warning'>You don't want to harm other living beings, your angry is loss! You unmutate!</span>")
+		to_chat(src, span_warning("You don't want to harm other living beings, your angry is loss! You unmutate!"))
 		unmutate()
 		return
 
@@ -141,7 +143,6 @@
 
 	..()
 
-
 /mob/living/simple_animal/hulk/death(gibbed)
 	unmutate()
 
@@ -166,28 +167,28 @@
 	if(mind && original_body)
 		mind.transfer_to(original_body)
 	original_body.force_gene_block(GLOB.hulkblock, FALSE)
-	to_chat(original_body, "<span class='danger'>You suddenly feel very weak.</span>")
+	to_chat(original_body, span_danger("You suddenly feel very weak."))
 	qdel(src)
 
 /mob/living/proc/hulk_scream(obj/target, chance)
 	if(prob(chance))
-		visible_message("<span class='userdanger'>[src] has punched \the [target]!</span>",\
-		"<span class='userdanger'>You punch the [target]!</span>",\
-		"<span class='userdanger'>You feel some weird vibration!</span>")
+		visible_message(span_userdanger("[src] has punched \the [target]!"),\
+		span_userdanger("You punch the [target]!"),\
+		span_userdanger("You feel some weird vibration!"))
 		playsound(target, 'sound/effects/hulk_hit_airlock.ogg', CHANNEL_BUZZ, 75)
 		return 0
 	else
 		say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
-		visible_message("<span class='userdanger'>[src] has destroyed some mechanic in the [target]!</span>",\
-		"<span class='userdanger'>You destroy some mechanic in the [target] door, which holds it in place!</span>",\
-		"<span class='userdanger'>You feel some weird vibration!</span>")
+		visible_message(span_userdanger("[src] has destroyed some mechanic in the [target]!"),\
+		span_userdanger("You destroy some mechanic in the [target] door, which holds it in place!"),\
+		span_userdanger("You feel some weird vibration!"))
 		playsound(target, pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg'), CHANNEL_BUZZ)
 		return 1
 
 /mob/living/simple_animal/hulk/proc/attack_hulk(obj/machinery/door/D)
 	do_attack_animation(D)
 	changeNext_move(CLICK_CD_MELEE)
-	if(istype(D,/obj/machinery/door/airlock))
+	if(is_airlock(D))
 		var/obj/machinery/door/airlock/A = D
 		if(A.welded || A.locked)
 			if(hulk_scream(A, 75))
@@ -200,8 +201,7 @@
 				F.deconstruct(src);
 				return
 	if(D.density)
-		to_chat(src, "<span class='userdanger'>You force your fingers between \
-		 the doors and begin to pry them open...</span>")
+		to_chat(src, span_userdanger("You force your fingers between the doors and begin to pry them open..."))
 		playsound(D, 'sound/machines/airlock_force_open.ogg', CHANNEL_BUZZ, 30, null, -4)
 		D.open(1)
 

@@ -1,19 +1,16 @@
+#define HULL_BREACH 1
+#define BRIDGE_MODE 2
+#define FIX_TILE 3
+#define AUTO_TILE 4
+#define REPLACE_TILE 5
+#define TILE_EMAG 6
+
 //Floorbot
 /mob/living/simple_animal/bot/floorbot
 	name = "Floorbot"
 	desc = "Маленький робот для починки полов и обшивки. Он выглядит таким увлечённым!"
-	ru_names = list(
-		NOMINATIVE = "ремонтный робот",
-		GENITIVE = "ремонтного робота",
-		DATIVE = "ремонтному роботу",
-		ACCUSATIVE = "ремонтного робота",
-		INSTRUMENTAL = "ремонтным роботом",
-		PREPOSITIONAL = "ремонтном роботе",
-	)
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 
@@ -27,7 +24,7 @@
 	window_name = "Автоматическая Ремонтная Единица v1.1"
 	path_image_color = "#FFA500"
 
-	/// Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	/// Determines what to do when process_scan() receives a target. See process_scan() for details.
 	var/process_type
 	var/targetdirection
 	var/amount = 10
@@ -44,25 +41,26 @@
 	var/oldloc = null
 	var/toolbox_color = ""
 
-	#define HULL_BREACH		1
-	#define BRIDGE_MODE		2
-	#define FIX_TILE		3
-	#define AUTO_TILE		4
-	#define REPLACE_TILE	5
-	#define TILE_EMAG		6
-
+/mob/living/simple_animal/bot/floorbot/get_ru_names()
+	return list(
+		NOMINATIVE = "ремонтный робот",
+		GENITIVE = "ремонтного робота",
+		DATIVE = "ремонтному роботу",
+		ACCUSATIVE = "ремонтного робота",
+		INSTRUMENTAL = "ремонтным роботом",
+		PREPOSITIONAL = "ремонтном роботе",
+	)
 
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	toolbox_color = new_toolbox_color
 	update_icon()
-	var/datum/job/engineer/J = new/datum/job/engineer
+	var/datum/job/engineering/engineer/J = new/datum/job/engineering/engineer
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 	if(toolbox_color == "s")
 		health = 50
 		maxHealth = 50
-
 
 /mob/living/simple_animal/bot/floorbot/bot_reset()
 	..()
@@ -73,12 +71,10 @@
 	set_anchored(FALSE)
 	update_icon()
 
-
 /mob/living/simple_animal/bot/floorbot/set_custom_texts()
 	text_hack = "Вы взломали рабочие протоколы [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили рабочие протоколы [declent_ru(GENITIVE)]."
 	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] не отвечает на команды сброса настроек!"
-
 
 /mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
 	var/dat
@@ -107,7 +103,6 @@
 
 	return dat
 
-
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -121,20 +116,18 @@
 			return ATTACK_CHAIN_PROCEED
 		amount += loaded
 		balloon_alert(user, "плитки загружены")
-		to_chat(user, span_notice("Вы загрузили [loaded] плитки в [declent_ru(ACCUSATIVE)]. Текущее количество плиток - [amount]."))
+		to_chat(user, span_notice("Вы загрузили [loaded] плитки в [declent_ru(ACCUSATIVE)]. Текущее количество плиток — [amount]."))
 		nagged = FALSE
 		update_icon()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
 
-
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
 	..()
 	if(emagged == 2)
 		if(user)
 			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] жужжит и пищит."))
-
 
 /mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
 	if(..())
@@ -170,7 +163,6 @@
 				if("отключить")
 					targetdirection = null
 	update_controls()
-
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	if(!..())
@@ -273,7 +265,6 @@
 
 	oldloc = loc
 
-
 /mob/living/simple_animal/bot/floorbot/proc/inc_amount_callback()
 	if(QDELETED(src))
 		return
@@ -282,19 +273,16 @@
 	mode = BOT_IDLE
 	target = null
 
-
 /mob/living/simple_animal/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
 		speak("Запрашивается пополнение стройматериалов в локации <b>[get_area(src)]</b>!", radio_channel)
 		nagged = TRUE
-
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
 	if(t_area && (t_area.name == "Space" || findtext(t_area.name, "huttle")))
 		return FALSE
 	return TRUE
-
 
 /**
  * Floorbots, having several functions, need sort out special conditions here.
@@ -327,7 +315,6 @@
 			result = scan_target
 	return result
 
-
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
 	if(isspaceturf(target_turf))
 		//Must be a hull breach or in bridge mode to continue.
@@ -358,7 +345,6 @@
 		custom_emote(EMOTE_VISIBLE, "начинает ремонтировать пол.")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
-
 /mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
 	if(mode != BOT_REPAIRING)
 		return
@@ -370,7 +356,6 @@
 	update_icon()
 	set_anchored(FALSE)
 	target = null
-
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
 	if(QDELETED(src) || QDELETED(target_turf) || mode != BOT_REPAIRING)
@@ -385,14 +370,12 @@
 	set_anchored(FALSE)
 	target = null
 
-
 /mob/living/simple_animal/bot/floorbot/proc/start_eattile(obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	custom_emote(EMOTE_VISIBLE, "начинает собирать плитки.")
 	mode = BOT_REPAIRING
 	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
-
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
 	if(QDELETED(src) || QDELETED(T))
@@ -412,14 +395,12 @@
 	mode = BOT_IDLE
 	update_icon()
 
-
 /mob/living/simple_animal/bot/floorbot/proc/start_maketile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	custom_emote(EMOTE_VISIBLE, "начинает создавать плитки.")
 	mode = BOT_REPAIRING
 	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
-
 
 /mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
 	if(QDELETED(src))
@@ -437,7 +418,6 @@
 	mode = BOT_IDLE
 	update_icon()
 
-
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
 	if(mode == BOT_REPAIRING)
 		icon_state = "[toolbox_color]floorbot-c"
@@ -447,7 +427,6 @@
 		icon_state = "[toolbox_color]floorbot[on]"
 	else
 		icon_state = "[toolbox_color]floorbot[on]e"
-
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
@@ -468,8 +447,7 @@
 			amount = 0
 
 	do_sparks(3, TRUE, src)
-	..()
-
+	return ..()
 
 /mob/living/simple_animal/bot/floorbot/OnUnarmedAttack(atom/A)
 	if(isturf(A))
@@ -481,7 +459,12 @@
 	else
 		..()
 
-
 /obj/machinery/bot_core/floorbot
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
+#undef HULL_BREACH
+#undef BRIDGE_MODE
+#undef FIX_TILE
+#undef AUTO_TILE
+#undef REPLACE_TILE
+#undef TILE_EMAG

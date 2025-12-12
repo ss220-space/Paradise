@@ -10,11 +10,9 @@
 /obj/item/a_gift
 	name = "gift"
 	desc = "PRESENTS!!!! eek!"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gift1"
 	item_state = "gift1"
 	resistance_flags = FLAMMABLE
-
 
 /obj/item/a_gift/Initialize(mapload)
 	. = ..()
@@ -27,12 +25,10 @@
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
 
-
 /obj/effect/spresent/relaymove(mob/user)
 	if(user.stat)
 		return
 	to_chat(user, span_notice("You cannot move."))
-
 
 /obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -42,7 +38,6 @@
 	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
 		thing.forceMove(loc)
 	qdel(src)
-
 
 /obj/item/a_gift/attack_self(mob/user)
 	var/static/list/gift_types = list(/obj/item/sord,
@@ -90,6 +85,9 @@
 		/obj/item/id_decal/prisoner,
 		/obj/item/id_decal/centcom,
 		/obj/item/id_decal/emag,
+		/obj/item/id_decal/federal,
+		/obj/item/id_decal/comrad,
+		/obj/item/id_decal/syndie,
 		/obj/item/spellbook/oneuse/fake_gib,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/flash,
@@ -111,14 +109,12 @@
 	qdel(src)
 	user.put_in_hands(gift)
 
-
 /*
  * Wrapping Paper
  */
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "You can use this to wrap items in."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "wrap_paper"
 	singular_name = "wrapping paper"
 	item_flags = NOBLUDGEON
@@ -127,4 +123,4 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+	to_chat(user, span_notice("You need to use it on a package that has already been wrapped!"))

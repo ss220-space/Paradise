@@ -6,14 +6,12 @@
 	base_icon_state = "pdapainter"
 	density = TRUE
 	anchored = TRUE
-	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	var/static/list/colorlist
 	var/statusLabel
 	var/statusLabelCooldownTime = 0
 	var/statusLabelCooldownTimeSecondsToAdd = 20 // 20 deciseconds = 2 seconds, 1sec = 0.1 decisecond
 	var/allowErasePda = TRUE
-
 
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
@@ -43,11 +41,9 @@
 	new_color_list = sortAssoc(new_color_list)
 	colorlist = new_color_list
 
-
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
 	return ..()
-
 
 /obj/machinery/pdapainter/update_icon_state()
 	if(stat & BROKEN)
@@ -59,14 +55,12 @@
 	else
 		icon_state = "[base_icon_state]-off"
 
-
 /obj/machinery/pdapainter/update_overlays()
 	. = ..()
 	if(stat & BROKEN)
 		return
 	if(storedpda)
 		. += "[base_icon_state]-closed"
-
 
 /obj/machinery/pdapainter/on_deconstruction()
 	if(storedpda)
@@ -83,11 +77,9 @@
 		storedpda = null
 		update_icon()
 
-
 /obj/machinery/pdapainter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
-
 
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -105,7 +97,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/pdapainter/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -125,18 +116,15 @@
 
 	// Do not let click buttons if you're ghost unless you're an admin.
 	// TODO: To parent class or separate helper method?
-	if (isobserver(usr) && !is_admin(usr))
+	if(isobserver(usr) && !is_admin(usr))
 		return FALSE
 
 	ui_interact(user)
-
 
 /obj/machinery/pdapainter/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon()
-
-
 
 // TGUI Related.
 
@@ -217,7 +205,7 @@
 /obj/machinery/pdapainter/proc/erase_pda()
 	if(storedpda) // PDA is in machine.
 		if(ishuman(usr))
-			if (storedpda.id || storedpda.cartridge)
+			if(storedpda.id || storedpda.cartridge)
 				to_chat(usr, span_notice("Уберите карту и картридж из PDA."))
 				statusLabel = "Уберите карту и картридж"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
@@ -228,7 +216,7 @@
 				statusLabel = "PDA очищен"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 
-/obj/machinery/pdapainter/proc/eject_pda(var/obj/item/pda/pda = null)
+/obj/machinery/pdapainter/proc/eject_pda(obj/item/pda/pda = null)
 	if(storedpda) // PDA is in machine.
 		if(ishuman(usr))
 			storedpda.forceMove(get_turf(src))

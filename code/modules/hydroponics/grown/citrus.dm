@@ -25,10 +25,7 @@
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/lime
-	seed = /obj/item/seeds/lime
 	name = "lime"
-	desc = "It's so sour, your face will twist."
-	icon_state = "lime"
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 
@@ -114,14 +111,14 @@
 	wine_flavor = "fire"
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
+	user.visible_message(span_warning("[user] primes the [src]!"), span_userdanger("You prime the [src]!"))
 	investigate_log("[key_name_log(user)] primed a combustible lemon for detonation at [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
 	icon_state = "firelemon_active"
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/burn()
@@ -187,18 +184,15 @@
 	tastes = list("polygons" = 1, "oranges" = 1)
 	var/big_icon = TRUE
 
-
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/equipped(mob/user, slot, initial = FALSE)
 	big_icon = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()
 
-
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	big_icon = TRUE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/update_icon_state()
 	icon_state = big_icon ? "orang" : "orange"

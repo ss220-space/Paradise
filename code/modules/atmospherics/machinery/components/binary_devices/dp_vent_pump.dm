@@ -14,7 +14,6 @@
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
-	on = FALSE
 	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE
@@ -60,7 +59,6 @@
 	air1.volume = 1000
 	air2.volume = 1000
 
-
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_overlays()
 	. = ..()
 
@@ -83,7 +81,6 @@
 
 	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
 	update_pipe_image()
-
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())

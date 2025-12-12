@@ -15,15 +15,12 @@ SUBSYSTEM_DEF(http)
 	/// Total requests the SS has processed in a round
 	var/total_requests
 
-
 /datum/controller/subsystem/http/PreInit()
 	. = ..()
 	rustg_create_async_http_client() // Open the door
 
-
 /datum/controller/subsystem/http/get_stat_details()
 	return "P: [length(active_async_requests)] | T: [total_requests]"
-
 
 /datum/controller/subsystem/http/fire(resumed)
 	for(var/r in active_async_requests)
@@ -61,11 +58,11 @@ SUBSYSTEM_DEF(http)
 				WRITE_LOG(GLOB.http_log, replacetext_char(log_data.Join("\n[GLOB.log_end]"), CONFIG_GET(string/tts_token_silero), "TOKEN"))
 
 /**
-  * Async request creator
-  *
-  * Generates an async request, and adds it to the subsystem's processing list
-  * These should be used as they do not lock the entire DD process up as they execute inside their own thread pool inside RUSTG
-  */
+ * Async request creator
+ *
+ * Generates an async request, and adds it to the subsystem's processing list
+ * These should be used as they do not lock the entire DD process up as they execute inside their own thread pool inside RUSTG
+ */
 /datum/controller/subsystem/http/proc/create_async_request(method, url, body = "", list/headers, datum/callback/proc_callback)
 	var/datum/http_request/req = new()
 	req.prepare(method, url, body, headers)
@@ -91,11 +88,11 @@ SUBSYSTEM_DEF(http)
 	//	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
 /**
-  * Blocking request creator
-  *
-  * Generates a blocking request, executes it, logs the info then cleanly returns the response
-  * Exists as a proof of concept, and should never be used
-  */
+ * Blocking request creator
+ *
+ * Generates a blocking request, executes it, logs the info then cleanly returns the response
+ * Exists as a proof of concept, and should never be used
+ */
 /datum/controller/subsystem/http/proc/make_blocking_request(method, url, body = "", list/headers)
 	CRASH("Attempted use of a blocking HTTP request")
 	/*

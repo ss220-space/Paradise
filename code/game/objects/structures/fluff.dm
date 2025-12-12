@@ -6,10 +6,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "minibar"
 	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	var/deconstructible = TRUE
-
 
 /obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
 	if(!deconstructible)
@@ -28,7 +25,6 @@
 		span_notice("You break down [src] into scrap metal."),
 	)
 	qdel(src)
-
 
 /obj/structure/fluff/empty_terrarium //Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
 	name = "empty terrarium"
@@ -75,7 +71,7 @@
 		DATIVE = "статуе дрейка",
 		ACCUSATIVE = "статую дрейка",
 		INSTRUMENTAL = "статуей дрейка",
-		PREPOSITIONAL = "статуе дрейка"
+		PREPOSITIONAL = "статуе дрейка",
 	)
 
 /obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
@@ -85,7 +81,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
-	anchored = TRUE
+	icon_state = null
 	density = TRUE
 
 /obj/structure/fluff/divine/nexus
@@ -117,5 +113,5 @@
 		DATIVE = "пустой могиле",
 		ACCUSATIVE = "пустую могилу",
 		INSTRUMENTAL = "пустой могилой",
-		PREPOSITIONAL = "пустой могиле"
+		PREPOSITIONAL = "пустой могиле",
 	)

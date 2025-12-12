@@ -8,16 +8,10 @@
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
 	desc = "This part controls the density of the particles."
-	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
-	anchored = FALSE
-	density = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 500
 	active_power_usage = 10000
-	construction_state = 0
-	active = FALSE
 	dir = 1
 	var/strength_upper_limit = 2
 	var/interface_control = 1
@@ -85,7 +79,6 @@
 	active = FALSE
 	connected_parts = list()
 
-
 /obj/machinery/particle_accelerator/control_box/update_icon_state()
 	if(active)
 		icon_state = "[reference]p[strength]"
@@ -109,14 +102,12 @@
 		else
 			icon_state = "[reference]c"
 
-
-
 /obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/obj/structure/particle_accelerator/part in connected_parts)
 		part.strength = strength
 		part.update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/particle_accelerator/control_box/proc/add_strength(var/s)
+/obj/machinery/particle_accelerator/control_box/proc/add_strength(s)
 	if(!assembled)
 		return
 	strength++
@@ -131,7 +122,7 @@
 		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 	strength_change()
 
-/obj/machinery/particle_accelerator/control_box/proc/remove_strength(var/s)
+/obj/machinery/particle_accelerator/control_box/proc/remove_strength(s)
 	if(!assembled)
 		return
 
@@ -163,7 +154,6 @@
 		part.powered = FALSE
 		part.update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/particle_accelerator/control_box/process()
 	if(!active)
 		return
@@ -177,7 +167,6 @@
 		if(!emitter)
 			continue
 		emitter.emit_particle(strength)
-
 
 /obj/machinery/particle_accelerator/control_box/proc/part_scan()
 	dir_text = null
@@ -229,26 +218,25 @@
 		assembled = FALSE
 		return FALSE
 
-
 /obj/machinery/particle_accelerator/control_box/proc/check_part(turf/checked_turf, type, column, row)
 	if(!(checked_turf) || !(type))
 		return FALSE
 
 	var/obj/structure/particle_accelerator/accelerator = locate(/obj/structure/particle_accelerator) in checked_turf
-	if (!istype(accelerator, type))
+	if(!istype(accelerator, type))
 		layout[column][row]["status"] = "Not In Position"
 		layout[column][row]["dir"] = dir
 		return
 
-	if (!accelerator.connect_master(src))
-		if (accelerator)
+	if(!accelerator.connect_master(src))
+		if(accelerator)
 			layout[column][row]["status"] = "Wrong Orientation"
 			layout[column][row]["dir"] = accelerator.dir
 			layout[column][row]["icon_state"] = accelerator.icon_state
 		return
 
-	if (!accelerator.report_ready(src))
-		if (accelerator)
+	if(!accelerator.report_ready(src))
+		if(accelerator)
 			layout[column][row]["status"] = "Incomplete"
 			layout[column][row]["dir"] = accelerator.dir
 			layout[column][row]["icon_state"] = accelerator.icon_state
@@ -256,7 +244,6 @@
 
 	connected_parts |= accelerator
 	return TRUE
-
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
@@ -278,7 +265,6 @@
 			part.powered = FALSE
 			part.update_icon(UPDATE_ICON_STATE)
 	return TRUE
-
 
 /obj/machinery/particle_accelerator/control_box/ui_state(mob/user)
 	return GLOB.default_state
@@ -322,7 +308,7 @@
 		return
 
 	if(!interface_control)
-		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
+		to_chat(usr, span_error("ERROR: Request timed out. Check wire contacts."))
 		return
 
 	switch(action)

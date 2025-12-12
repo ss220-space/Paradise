@@ -10,18 +10,17 @@
 	combos = list(/datum/martial_combo/adminfu/healing_palm)
 	weight = 99999999
 
-/datum/martial_art/adminfu/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/adminfu/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
-		D.visible_message("<span class='warning'>[A] manifests a large glowing toolbox and shoves it in [D]'s chest!</span>", \
+		D.visible_message(span_warning("[A] manifests a large glowing toolbox and shoves it in [D]'s chest!"), \
 							"<spac class='userdanger'>[A] shoves a mystical toolbox in your chest!</span>")
 		D.death()
 
 		return TRUE
 
-
-/datum/martial_art/adminfu/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/adminfu/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
 	D.Weaken(50 SECONDS)
@@ -36,9 +35,9 @@
 	return TRUE
 
 /datum/martial_art/adminfu/explaination_header(user)
-	to_chat(user, "<span class='notice'>Grab</span>: Automatic Neck Grab.")
-	to_chat(user, "<span class='notice'>Disarm</span>: Stun/weaken")
-	to_chat(user, "<span class='notice'>Harm</span>: Death.")
+	to_chat(user, "[span_notice("Grab")]: Automatic Neck Grab.")
+	to_chat(user, "[span_notice("Disarm")]: Stun/weaken")
+	to_chat(user, "[span_notice("Harm")]: Death.")
 
 /obj/item/adminfu_scroll
 	name = "frayed scroll"
@@ -47,20 +46,16 @@
 	icon_state ="scroll2"
 	var/used = FALSE
 
-
 /obj/item/adminfu_scroll/update_icon_state()
 	icon_state = used ? "blankscroll" : initial(icon_state)
-
 
 /obj/item/adminfu_scroll/update_name(updates = ALL)
 	. = ..()
 	name = used ? "empty scroll" : initial(name)
 
-
 /obj/item/adminfu_scroll/update_desc(updates = ALL)
 	. = ..()
 	desc = used ? "It's completely blank." : initial(desc)
-
 
 /obj/item/adminfu_scroll/attack_self(mob/user)
 	if(!ishuman(user))

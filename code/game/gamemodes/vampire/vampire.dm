@@ -1,25 +1,17 @@
-/datum/game_mode
-	var/list/datum/mind/vampires = list()
-	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
-
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_CHAPLAIN, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_CHAPLAIN, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF)
 	protected_species = list(SPECIES_MACNINEPERSON, SPECIES_GOLEM_BASIC)
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
 	var/vampire_amount = 4
-	///list of minds of soon to be vampires
-	var/list/datum/mind/pre_vampires = list()
-
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<b>The current game mode is - Vampires!</b>")
 	to_chat(world, "<b>There are Bluespace Vampires infesting your fellow crewmates, keep your blood close and neck safe!</b>")
-
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -48,12 +40,10 @@
 	else
 		return FALSE
 
-
 /datum/game_mode/vampire/post_setup()
 	for(var/datum/mind/vampire in pre_vampires)
 		vampire.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 	..()
-
 
 /datum/game_mode/proc/auto_declare_completion_vampire()
 	if(!length(vampires))
@@ -110,7 +100,6 @@
 			text += "<br><font color='red'><b>The [special_role_text] has failed!</b></font>"
 			SSblackbox.record_feedback("tally", "vampire_success", 1, "FAIL")
 	return text.Join("")
-
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
 	if(!length(vampire_enthralled))

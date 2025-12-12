@@ -17,53 +17,43 @@
 	end_overlay = "light_snow"
 
 	area_type = /area/ruin/unpowered/coldcolony_outside
-	target_trait = STATION_LEVEL
+	target_trait = ZTRAIT_SNOWSTORM
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
-	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
-	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(list(), FALSE, TRUE)
-	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
-	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
+	var/list/weak_sounds = list()
+	var/list/strong_sounds = list()
 
 /datum/weather/snow_storm/proc/update_eligible_areas()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 
-	for(var/i in 1 to eligible_areas.len)
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
-			outside_areas |= place
+			weak_sounds[place] = /datum/looping_sound/weak_outside_ashstorm
+			strong_sounds[place] = /datum/looping_sound/active_outside_ashstorm
 		else
-			inside_areas |= place
+			weak_sounds[place] = /datum/looping_sound/weak_inside_ashstorm
+			strong_sounds[place] = /datum/looping_sound/active_inside_ashstorm
 		CHECK_TICK
 
 /datum/weather/snow_storm/proc/update_audio()
 	switch(stage)
 		if(STARTUP_STAGE)
-			sound_wo.start(outside_areas)
-			sound_wi.start(inside_areas)
+			GLOB.snowstorm_sounds += weak_sounds
 
 		if(MAIN_STAGE)
-			sound_wo.stop(outside_areas, TRUE)
-			sound_wi.stop(inside_areas, TRUE)
-
-			sound_ao.start(outside_areas)
-			sound_ai.start(inside_areas)
+			GLOB.snowstorm_sounds -= weak_sounds
+			GLOB.snowstorm_sounds += strong_sounds
 
 		if(WIND_DOWN_STAGE)
-			sound_ao.stop(outside_areas, TRUE)
-			sound_ai.stop(inside_areas, TRUE)
-
-			sound_wo.start(outside_areas)
-			sound_wi.start(inside_areas)
+			GLOB.snowstorm_sounds -= strong_sounds
+			GLOB.snowstorm_sounds += weak_sounds
 
 		if(END_STAGE)
-			sound_wo.stop(outside_areas, TRUE)
-			sound_wi.stop(inside_areas, TRUE)
+			GLOB.snowstorm_sounds -= weak_sounds
 
 /datum/weather/snow_storm/telegraph()
 	. = ..()
@@ -78,7 +68,6 @@
 /datum/weather/snow_storm/end()
 	. = ..()
 	update_audio()
-
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(10, 25)

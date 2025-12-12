@@ -4,7 +4,6 @@ do { \
 	_action?.emp_randomise(INFINITY); \
 } while(FALSE)
 
-
 // Cham jumpsuit
 /obj/item/clothing/under/chameleon
 	name = "black jumpsuit"
@@ -12,39 +11,30 @@ do { \
 	icon_state = "black"
 	item_state = "bl_suit"
 	item_color = "black"
-	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/jumpsuit)
 
-
 /obj/item/clothing/under/chameleon/broken
-
 
 /obj/item/clothing/under/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 /obj/item/clothing/under/plasmaman/chameleon
-	name = "plasma envirosuit"
 	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy."
-	sensor_mode = SENSOR_OFF
 	resistance_flags = NONE
 	random_sensor = FALSE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
 	actions_types = list(/datum/action/item_action/chameleon/change/jumpsuit)
 
-
 /obj/item/clothing/under/plasmaman/chameleon/broken
-
 
 /obj/item/clothing/under/plasmaman/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 // Cham suit
 /obj/item/clothing/suit/chameleon
@@ -65,14 +55,11 @@ do { \
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-
 /obj/item/clothing/suit/chameleon/broken
-
 
 /obj/item/clothing/suit/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 // Cham glasses
 /obj/item/clothing/glasses/chameleon
@@ -80,7 +67,6 @@ do { \
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
 	item_state = "meson"
-	resistance_flags = NONE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 	sprite_sheets = list(
@@ -94,14 +80,11 @@ do { \
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
-
 /obj/item/clothing/glasses/chameleon/broken
-
 
 /obj/item/clothing/glasses/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 /obj/item/clothing/glasses/chameleon/thermal
 	origin_tech = "magnets=3;syndicate=2"
@@ -110,24 +93,19 @@ do { \
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
-
 /obj/item/clothing/glasses/chameleon/meson
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	flash_protect = FLASH_PROTECTION_FLASH
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 
-
 /obj/item/clothing/glasses/hud/security/chameleon/broken
-
 
 /obj/item/clothing/glasses/hud/security/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 // Cham gloves
 /obj/item/clothing/gloves/chameleon
@@ -139,14 +117,11 @@ do { \
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/gloves)
 
-
 /obj/item/clothing/gloves/chameleon/broken
-
 
 /obj/item/clothing/gloves/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 // Cham hat
 /obj/item/clothing/head/chameleon
@@ -166,30 +141,23 @@ do { \
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-
 /obj/item/clothing/head/chameleon/broken
-
 
 /obj/item/clothing/head/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	actions_types = list(/datum/action/item_action/chameleon/change/hat)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 // Cham mask
 /obj/item/clothing/mask/chameleon
@@ -220,28 +188,23 @@ do { \
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 	var/obj/item/voice_changer/voice_changer
-
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
 	voice_changer = new(src)
 
-
 /obj/item/clothing/mask/chameleon/Destroy()
 	QDEL_NULL(voice_changer)
 	return ..()
 
-
 /obj/item/clothing/mask/chameleon/broken
-
 
 /obj/item/clothing/mask/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 // Cham shoes
 /obj/item/clothing/shoes/chameleon
@@ -254,93 +217,74 @@ do { \
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/shoes)
 
-
 /obj/item/clothing/shoes/chameleon/broken
-
 
 /obj/item/clothing/shoes/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 /obj/item/clothing/shoes/chameleon/noslip
 	clothing_traits = list(TRAIT_NO_SLIP_WATER)
 
-
 /obj/item/clothing/shoes/chameleon/noslip/broken
-
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 // Cham backpack
 /obj/item/storage/backpack/chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/backpack)
 
-
 /obj/item/storage/backpack/chameleon/broken
-
 
 /obj/item/storage/backpack/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 // Cham belt
 /obj/item/storage/belt/chameleon
 	name = "toolbelt"
 	desc = "Holds tools."
+	max_combined_w_class = 18
+	max_w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/chameleon/change/belt)
 
-
 /obj/item/storage/belt/chameleon/broken
-
 
 /obj/item/storage/belt/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 // Cham headset
 /obj/item/radio/headset/chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/headset)
 
-
 /obj/item/radio/headset/chameleon/broken
-
 
 /obj/item/radio/headset/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 // Cham PDA
 /obj/item/pda/chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/pda)
 
-
 /obj/item/pda/chameleon/broken
-
 
 /obj/item/pda/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
-
 // Cham Stamp
 /obj/item/stamp/chameleon
 	actions_types = list(/datum/action/item_action/chameleon/change/stamp)
 
-
 /obj/item/stamp/chameleon/broken
-
 
 /obj/item/stamp/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 // Cham neck-thing
 /obj/item/clothing/neck/chameleon
@@ -350,14 +294,11 @@ do { \
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/chameleon/change/neck)
 
-
 /obj/item/clothing/neck/chameleon/broken
-
 
 /obj/item/clothing/neck/chameleon/broken/Initialize(mapload)
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
-
 
 #undef BREAK_CHAMELEON_ACTION
 

@@ -3,7 +3,6 @@
 	desc = "A cart for transporting food and drinks."
 	icon = 'icons/obj/foodcart.dmi'
 	icon_state = "cart"
-	anchored = FALSE
 	density = TRUE
 	pull_push_slowdown = 1
 	//Food slots
@@ -23,12 +22,10 @@
 	//var/obj/item/reagent_containers/food/drinks/drink5 = null
 	//var/obj/item/reagent_containers/food/drinks/drink6 = null
 
-
 /obj/structure/foodcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
-
 
 /obj/structure/foodcart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
@@ -62,7 +59,6 @@
 
 	return ..()
 
-
 /obj/structure/foodcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(isinspace())
@@ -83,8 +79,6 @@
 			span_notice("You have loosened [name]'s casters."),
 			span_italics("You hear ratchet."),
 		)
-
-
 
 /obj/structure/foodcart/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -129,84 +123,84 @@
 			var/obj/item/food = food_slots[1]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[1] = null
 	if(href_list["f2"])
 		if(food_slots[2])
 			var/obj/item/food = food_slots[2]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[2] = null
 	if(href_list["f3"])
 		if(food_slots[3])
 			var/obj/item/food = food_slots[3]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[3] = null
 	if(href_list["f4"])
 		if(food_slots[4])
 			var/obj/item/food = food_slots[4]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[4] = null
 	if(href_list["f5"])
 		if(food_slots[5])
 			var/obj/item/food = food_slots[5]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[5] = null
 	if(href_list["f6"])
 		if(food_slots[6])
 			var/obj/item/food = food_slots[6]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[6] = null
 	if(href_list["d1"])
 		if(drink_slots[1])
 			var/obj/item/drink = drink_slots[1]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[1] = null
 	if(href_list["d2"])
 		if(drink_slots[2])
 			var/obj/item/drink = drink_slots[2]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[2] = null
 	if(href_list["d3"])
 		if(drink_slots[3])
 			var/obj/item/drink = drink_slots[3]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[3] = null
 	if(href_list["d4"])
 		if(drink_slots[4])
 			var/obj/item/drink = drink_slots[4]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[4] = null
 	if(href_list["d5"])
 		if(drink_slots[5])
 			var/obj/item/drink = drink_slots[5]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[5] = null
 	if(href_list["d6"])
 		if(drink_slots[6])
 			var/obj/item/drink = drink_slots[6]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[6] = null
 
 	updateUsrDialog()

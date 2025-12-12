@@ -1,14 +1,13 @@
 /obj/structure/closet/secure_closet/freezer
 	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
 
-/obj/structure/closet/secure_closet/freezer/ex_act(var/severity)
+/obj/structure/closet/secure_closet/freezer/ex_act(severity)
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
 
 	// Bomb in here? (using same search as space transits searching for nuke disk)
 	var/list/bombs = search_contents_for(/obj/item/transfer_valve)
 	if(!isemptylist(bombs)) // You're fucked.
 		..(severity)
-
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
@@ -20,7 +19,6 @@
 		new /obj/item/reagent_containers/food/condiment/flour(src)
 	new /obj/item/reagent_containers/food/condiment/rice(src)
 	new /obj/item/reagent_containers/food/condiment/sugar(src)
-
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -81,7 +79,6 @@
 	icon_state = "vault"
 	desc = "It's a card-locked storage unit. This one is lead-lined."
 	req_access = list(ACCESS_HEADS_VAULT)
-
 
 /obj/structure/closet/secure_closet/freezer/vault/populate_contents()
 	for(var/i in 1 to 3)

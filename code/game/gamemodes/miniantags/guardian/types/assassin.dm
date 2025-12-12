@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/guardian/assassin
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	armour_penetration = 0
 	tts_seed = "Spy"
 	playstyle_string = "Как тип <b>Ассасин</b> вы наносите катастрофический урон, но не имеете сопротивления урону. Вы можете входить в невидимость, увеличивая входящий по Вам урон, значительно увеличивая урон следующей атаки и заставляя ее игнорировать броню. Скрытность нарушается, когда вы атакуете или получаете урон"
 	magic_fluff_string = "...и вынимаете Космического Ниндзя, смертоносного, невидимого убийцу."
@@ -46,7 +45,6 @@
 			BP.fracture()
 	ToggleMode(1)
 
-
 /mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -57,7 +55,6 @@
 	. = ..()
 	if(. && amount > 0 && toggle)
 		ToggleMode(forced = TRUE)
-
 
 /mob/living/simple_animal/hostile/guardian/assassin/ToggleMode(forced = 0)
 	if(toggle)

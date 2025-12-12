@@ -19,19 +19,23 @@
 	layer = EDGED_TURF_LAYER
 	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
 	// Otherwise we'll draw under shit in weird ways
-	plane = GAME_PLANE
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
 	var/mineralAmt = 1
-	var/spread = 0 //will the seam spread?
-	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
-	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
+	/// Will the seam spread?
+	var/spread = 0
+	/// The percentual chance of an ore spreading to the neighbouring tiles
+	var/spreadChance = 0
+	/// Holder for the image we display when we're pinged by a mining scanner
+	var/scan_state = ""
 	var/defer_change = 0
-	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	/// Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	var/mine_time = 4 SECONDS
 	/// Should this be set to the normal rock colour on init?
 	var/should_reset_color = TRUE
-	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
+	/// How hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
+	var/hardness = 1
 	/// Typecache of all the instruments allowed to dig us.
 	/// Populated in [/turf/simulated/mineral/proc/generate_picks()].
 	var/static/list/list/allowed_picks_typecache = list()
@@ -44,9 +48,8 @@
 		DATIVE = "камню",
 		ACCUSATIVE = "камень",
 		INSTRUMENTAL = "камнем",
-		PREPOSITIONAL = "камне"
+		PREPOSITIONAL = "камне",
 	)
-
 
 /turf/simulated/mineral/Initialize(mapload)
 	. = ..()
@@ -77,13 +80,12 @@
 	))
 	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_BASE]
 
-
 /turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
 
 /turf/simulated/mineral/shuttleRotate(rotation)
 	setDir(angle2dir(rotation + dir2angle(dir)))
-	queue_smooth(src)
+	QUEUE_SMOOTH(src)
 
 /turf/simulated/mineral/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	if(turf_type)
@@ -91,7 +93,6 @@
 		underlay_appearance.icon_state = initial(turf_type.icon_state)
 		return TRUE
 	return ..()
-
 
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -118,12 +119,12 @@
 	attempt_drill(user)
 	SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.name)
 
-
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
 	var/cached_mineralType = mineralType
 	var/cached_mineralAmt = mineralAmt
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
+
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE) //beautiful destruction
@@ -135,14 +136,12 @@
 			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
 		SSblackbox.record_feedback("tally", "ore_mined", cached_mineralAmt, cached_mineralType)
 
-
 /turf/simulated/mineral/proc/attempt_drill(mob/user,triggered_by_explosion = FALSE, power = 1)
 	hardness -= power
 	if(hardness <= 0)
 		gets_drilled(user,triggered_by_explosion)
 	else
 		update_icon()
-
 
 /turf/simulated/mineral/update_overlays()
 	. = ..()
@@ -165,7 +164,6 @@
 		cracks.transform = M
 		. += cracks
 
-
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user)
 	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		attempt_drill()
@@ -177,7 +175,6 @@
 	if(do_after(M, 4 SECONDS, src))
 		to_chat(M, span_notice("Вы прорываете туннель в камне."))
 		attempt_drill(M)
-
 
 /turf/simulated/mineral/Bumped(atom/movable/moving_atom)
 	. = ..()
@@ -200,7 +197,6 @@
 		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/drill))
 			mecha.selected.action(src)
 
-
 /turf/simulated/mineral/acid_melt()
 	ChangeTurf(baseturf)
 
@@ -208,12 +204,12 @@
 	. = ..()
 	switch(severity)
 		if(EXPLODE_LIGHT)
-			if (prob(75))
+			if(prob(75))
 				attempt_drill(null,TRUE,2)
 			else if(prob(90))
 				attempt_drill(null,TRUE,1)
 		if(EXPLODE_HEAVY)
-			if (prob(90))
+			if(prob(90))
 				attempt_drill(null,TRUE,2)
 			else
 				attempt_drill(null,TRUE,1)
@@ -222,92 +218,6 @@
 
 /turf/simulated/mineral/blob_consume()
 	gets_drilled()
-
-/turf/simulated/mineral/ancient
-	name = "ancient rock"
-	desc = "Редкий астероидный камень, устойчивый ко всем инструментам, кроме кирок!"
-	smooth = SMOOTH_BITMASK
-	mine_time = 6 SECONDS
-	color = COLOR_ANCIENT_ROCK
-	layer = MAP_EDITOR_TURF_LAYER
-	real_layer = TURF_LAYER
-	should_reset_color = FALSE
-	mineralAmt = 2
-	mineralType = /obj/item/stack/ore/glass/basalt/ancient
-	baseturf = /turf/simulated/floor/plating/asteroid/ancient
-
-/turf/simulated/mineral/ancient/get_ru_names()
-	return list(
-		NOMINATIVE = "древний камень",
-		GENITIVE = "древнего камня",
-		DATIVE = "древнему камню",
-		ACCUSATIVE = "древний камень",
-		INSTRUMENTAL = "древним камнем",
-		PREPOSITIONAL = "древнем камне"
-	)
-
-
-/turf/simulated/mineral/ancient/generate_picks()
-	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT])
-		allowed_picks_typecache[MINERAL_TYPE_ANCIENT] = typecacheof(list(
-		/obj/item/pickaxe,
-	))
-	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT]
-
-
-/turf/simulated/mineral/ancient/burn_down()
-	return
-
-/turf/simulated/mineral/ancient/rpd_act()
-	return
-
-/turf/simulated/mineral/ancient/acid_act(acidpwr, acid_volume)
-	return
-
-/turf/simulated/mineral/ancient/ex_act(severity, target)
-	switch(severity)
-		if(EXPLODE_LIGHT)
-			return
-		if(EXPLODE_HEAVY)
-			if(prob(75))
-				gets_drilled(null, 1)
-		if(EXPLODE_DEVASTATE)
-			gets_drilled(null, 1)
-
-	return TRUE
-
-/turf/simulated/mineral/ancient/outer
-	name = "cold ancient rock"
-	desc = "Редкий плотный астероидный камень, неуязвимый для всего, кроме алмазных и звуковых инструментов! Не может быть использован для создания порталов в ад."
-	mine_time = 15 SECONDS
-	color = COLOR_COLD_ROCK
-	temperature = TCMB
-	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
-
-/turf/simulated/mineral/ancient/outer/get_ru_names()
-	return list(
-		NOMINATIVE = "холодный древний камень",
-		GENITIVE = "холодного древнего камня",
-		DATIVE = "холодному древнему камню",
-		ACCUSATIVE = "холодный древний камень",
-		INSTRUMENTAL = "холодным древним камнем",
-		PREPOSITIONAL = "холодном древнем камне"
-	)
-
-
-/turf/simulated/mineral/ancient/outer/generate_picks()
-	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER])
-		allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER] = typecacheof(list(
-		/obj/item/pickaxe/drill/jackhammer,
-		/obj/item/pickaxe/diamond,
-		/obj/item/pickaxe/drill/cyborg/diamond,
-		/obj/item/pickaxe/drill/diamonddrill,
-	))
-	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER]
-
-
-/turf/simulated/mineral/ancient/outer/ex_act(severity, target)
-	return
 
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(/turf/simulated/mineral/uranium = 5, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 10,
@@ -324,7 +234,7 @@
 	if(display_icon_state)
 		icon_state = display_icon_state
 	. = ..()
-	if (prob(mineralChance))
+	if(prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
 		var/turf/T = ChangeTurf(path, FALSE, TRUE)
 
@@ -425,7 +335,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/random/volcanic/hard/double
@@ -449,12 +359,11 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/random/volcanic/hard/double/high_chance
 	icon_state = "rock_highchance"
-	mineralChance = 60
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic/hard/double = 25, /turf/simulated/mineral/diamond/volcanic/hard/double = 7, /turf/simulated/mineral/gold/volcanic/hard/double = 45,
 		/turf/simulated/mineral/titanium/volcanic/hard/double = 45, /turf/simulated/mineral/silver/volcanic/hard/double = 20, /turf/simulated/mineral/plasma/volcanic/hard/double = 50,
@@ -490,7 +399,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/iron/volcanic/hard/double
@@ -506,7 +415,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/uranium
@@ -537,7 +446,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/uranium/volcanic/hard/double
@@ -553,12 +462,11 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/diamond
 	mineralType = /obj/item/stack/ore/diamond
-	spreadChance = 0
 	spread = 1
 	scan_state = "rock_diamond"
 
@@ -584,7 +492,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/diamond/volcanic/hard/double
@@ -600,7 +508,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/gold
@@ -631,7 +539,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/gold/volcanic/hard/double
@@ -647,7 +555,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/silver
@@ -678,7 +586,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/silver/volcanic/hard/double
@@ -694,7 +602,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/titanium
@@ -725,7 +633,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/titanium/volcanic/hard/double
@@ -741,7 +649,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/plasma
@@ -772,7 +680,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/plasma/volcanic/hard/double
@@ -788,14 +696,12 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/clown
 	mineralType = /obj/item/stack/ore/bananium
 	mineralAmt = 3
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_clown"
 
 /turf/simulated/mineral/clown/volcanic
@@ -820,7 +726,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/clown/volcanic/hard/double
@@ -836,14 +742,12 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/mime
 	mineralType = /obj/item/stack/ore/tranquillite
 	mineralAmt = 3
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_mime"
 
 /turf/simulated/mineral/mime/volcanic
@@ -868,7 +772,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/mime/volcanic/hard/double
@@ -884,14 +788,11 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/bscrystal
 	mineralType = /obj/item/stack/ore/bluespace_crystal
-	mineralAmt = 1
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_bscrystal"
 
 /turf/simulated/mineral/bscrystal/volcanic
@@ -916,7 +817,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/bscrystal/volcanic/hard/double
@@ -925,7 +826,6 @@
 	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
-
 /turf/simulated/mineral/bscrystal/volcanic/hard/double/get_ru_names()
 	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
@@ -933,13 +833,11 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/gem
 	mineralType = /obj/item/gem/random
-	spread = 0
-	mineralAmt = 1
 	scan_state = "rock_Gem"
 
 /turf/simulated/mineral/gem/volcanic
@@ -964,7 +862,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/gem/volcanic/hard/double
@@ -980,7 +878,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/volcanic
@@ -992,7 +890,6 @@
 	temperature = 300
 
 /turf/simulated/mineral/volcanic/lava_land_surface
-	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
 	defer_change = 1
@@ -1009,7 +906,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard/double
@@ -1025,14 +922,11 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 // Gibtonite
 /turf/simulated/mineral/gibtonite
-	mineralAmt = 1
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_gibtonite"
 	var/det_time = 8 //Countdown till explosion, but also rewards the player for how close you were to detonation when you defuse it
 	var/stage = GIBTONITE_UNSTRUCK //How far into the lifecycle of gibtonite we are
@@ -1043,7 +937,6 @@
 /turf/simulated/mineral/gibtonite/Initialize(mapload)
 	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
 	. = ..()
-
 
 /turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -1062,7 +955,6 @@
 		span_notice("You use [I] to locate where to cut off the chain reaction and attempt to stop it...")
 	)
 	defuse()
-
 
 /turf/simulated/mineral/gibtonite/proc/explosive_reaction(mob/user = null, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK)
@@ -1133,7 +1025,6 @@
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 
-
 /turf/simulated/mineral/gibtonite/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
@@ -1156,7 +1047,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/gibtonite/volcanic/hard/double
@@ -1172,7 +1063,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 #undef GIBTONITE_UNSTRUCK
@@ -1183,7 +1074,6 @@
 //magmite
 /turf/simulated/mineral/magmite
 	mineralType = /obj/item/magmite
-	spread = 0
 	scan_state = "rock_Magmite"
 
 /turf/simulated/mineral/magmite/gets_drilled(mob/user, triggered_by_explosion = FALSE)
@@ -1213,7 +1103,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/magmite/volcanic/hard/double
@@ -1229,7 +1119,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 #undef MINERAL_TYPE_BASE

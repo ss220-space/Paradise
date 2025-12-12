@@ -18,7 +18,6 @@
 		to_chat(src, span_notice("\The [D] acknowledges your signal."))
 		D.flush_count = D.flush_every_ticks
 
-
 /mob/living/silicon/robot/drone/verb/hide()
 	set name = "Спрятаться"
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
@@ -29,7 +28,6 @@
 		return
 
 	hide.Activate()
-
 
 /mob/living/silicon/robot/drone/verb/light()
 	set name = "Освещение"
@@ -66,7 +64,6 @@
 	else
 		H.item_state = "drone"
 	grabber.put_in_active_hand(H, ignore_anim = FALSE)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	grabber.update_held_items()
 
 	return H

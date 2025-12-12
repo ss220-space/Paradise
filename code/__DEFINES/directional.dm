@@ -1,17 +1,3 @@
-//Directions (already defined on BYOND natively, purely here for reference)
-//#define NORTH		1
-//#define SOUTH		2
-//#define EAST		4
-//#define WEST		8
-//#define NORTHEAST	5
-//#define SOUTHEAST 6
-//#define NORTHWEST 9
-//#define SOUTHWEST 10
-
-// Multi-z directions
-//#define UP 16
-//#define DOWN 32
-
 /// North direction as a string "[1]"
 #define TEXT_NORTH "[NORTH]"
 /// South direction as a string "[2]"
@@ -21,9 +7,9 @@
 /// West direction as a string "[8]"
 #define TEXT_WEST "[WEST]"
 
-/// for directions, each cardinal direction only has 1 TRUE bit, so `1000` or `0100` for example, so when you subtract 1
-/// from a cardinal direction it results in that directions initial TRUE bit always switching to FALSE, so if you & check it
-/// against its initial self, it will return false, indicating that the direction is straight and not diagonal
+// for directions, each cardinal direction only has 1 TRUE bit, so `1000` or `0100` for example, so when you subtract 1
+// from a cardinal direction it results in that directions initial TRUE bit always switching to FALSE, so if you & check it
+// against its initial self, it will return false, indicating that the direction is straight and not diagonal
 
 ///True if the dir is diagonal, false otherwise
 #define ISDIAGONALDIR(d) (d & (d-1))
@@ -34,11 +20,10 @@
 ///True if the dir is east/west, false otherwise
 #define EWCOMPONENT(d) (d & (EAST|WEST))
 
-
-/// Using the ^ operator or XOR, we can compared TRUE East and West bits against our direction,
-/// since XOR will only return TRUE if one bit is False and the other is True, if East is 0, that bit will return TRUE
-/// and if West is 1, then that bit will return 0
-/// hence  EAST (0010) XOR EAST|WEST (0011) --> WEST (0001)
+// Using the ^ operator or XOR, we can compared TRUE East and West bits against our direction,
+// since XOR will only return TRUE if one bit is False and the other is True, if East is 0, that bit will return TRUE
+// and if West is 1, then that bit will return 0
+// hence  EAST (0010) XOR EAST|WEST (0011) --> WEST (0001)
 
 ///Inverse direction, taking into account UP|DOWN if necessary.
 #define REVERSE_DIR(dir) (((dir & 85) << 1)|((dir & 170) >> 1))
@@ -46,3 +31,42 @@
 #define NSDIRFLIP(d) (d ^ (NORTH|SOUTH))
 ///Flips the dir for east/west directions
 #define EWDIRFLIP(d) (d ^ (EAST|WEST))
+
+/// Create directional subtypes for a path to simplify mapping.
+#define MAPPING_DIRECTIONAL_HELPERS(path, offset) \
+##path/directional/north {\
+	dir = NORTH; \
+	pixel_y = offset; \
+} \
+##path/directional/south {\
+	dir = SOUTH; \
+	pixel_y = -offset; \
+} \
+##path/directional/east {\
+	dir = EAST; \
+	pixel_x = offset; \
+} \
+##path/directional/west {\
+	dir = WEST; \
+	pixel_x = -offset; \
+}
+
+// Names for directions (English)
+#define DIR_NAME_ENG_NORTH "NORTH"
+#define DIR_NAME_ENG_SOUTH "SOUTH"
+#define DIR_NAME_ENG_EAST "EAST"
+#define DIR_NAME_ENG_WEST "WEST"
+#define DIR_NAME_ENG_NORTHEAST "NORTHEAST"
+#define DIR_NAME_ENG_SOUTHEAST "SOUTHEAST"
+#define DIR_NAME_ENG_NORTHWEST "NORTHWEST"
+#define DIR_NAME_ENG_SOUTHWEST "SOUTHWEST"
+
+// Names for directions (Russian)
+#define DIR_NAME_RUS_NORTH "СЕВЕР"
+#define DIR_NAME_RUS_SOUTH "ЮГ"
+#define DIR_NAME_RUS_EAST "ВОСТОК"
+#define DIR_NAME_RUS_WEST "ЗАПАД"
+#define DIR_NAME_RUS_NORTHEAST "СЕВЕРО-ВОСТОК"
+#define DIR_NAME_RUS_SOUTHEAST "ЮГО-ВОСТОК"
+#define DIR_NAME_RUS_NORTHWEST "СЕВЕРО-ЗАПАД"
+#define DIR_NAME_RUS_SOUTHWEST "ЮГО-ЗАПАД"

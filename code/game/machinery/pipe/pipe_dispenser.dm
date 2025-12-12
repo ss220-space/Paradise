@@ -1,6 +1,5 @@
 /obj/machinery/pipedispenser
 	name = "Pipe Dispenser"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
 	density = TRUE
 	anchored = TRUE
@@ -71,7 +70,6 @@
 	popup.open(0)
 	onclose(user, "pipedispenser")
 
-
 /obj/machinery/pipedispenser/Topic(href, href_list)
 	if(..() || !anchored)
 		return
@@ -93,7 +91,6 @@
 	if(href_list["makegsensor"])
 		new /obj/item/pipe_gsensor(loc)
 	return TRUE
-
 
 /obj/machinery/pipedispenser/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -117,7 +114,6 @@
 			span_italics("You hear ratchet."),
 		)
 
-
 /obj/machinery/pipedispenser/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -132,18 +128,15 @@
 
 	return ..()
 
-
 /obj/machinery/pipedispenser/disposal
 	name = "Disposal Pipe Dispenser"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "pipe_d"
 
 //Allow you to drag-drop disposal pipes into it
 /obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/user, params)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1 )
+	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1)
 		return
 
 	if(pipe.anchored)
@@ -179,7 +172,6 @@
 	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
 	if(!..())

@@ -10,24 +10,20 @@
 	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;engineering=2"
 
-
 /obj/item/mecha_parts/chassis
 	name="Mecha Chassis"
 	icon_state = "backbone"
 	var/datum/construction/construct
-	flags = CONDUCT
 
 /obj/item/mecha_parts/chassis/Destroy()
 	QDEL_NULL(construct)
 	return ..()
-
 
 /obj/item/mecha_parts/chassis/attackby(obj/item/I, mob/user, params)
 	if(construct?.action(I, user))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/mecha_parts/chassis/attack_hand()
 	return
@@ -37,8 +33,8 @@
 /obj/item/mecha_parts/chassis/ripley
 	name = "Ripley Chassis"
 
-/obj/item/mecha_parts/chassis/ripley/New()
-	..()
+/obj/item/mecha_parts/chassis/ripley/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/ripley_chassis(src)
 
 /obj/item/mecha_parts/part/ripley_torso
@@ -72,8 +68,8 @@
 /obj/item/mecha_parts/chassis/clarke
 	name = "Clarke Chassis"
 
-/obj/item/mecha_parts/chassis/clarke/New()
-	..()
+/obj/item/mecha_parts/chassis/clarke/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/clarke_chassis(src)
 
 /obj/item/mecha_parts/part/clarke_torso
@@ -117,8 +113,8 @@
 /obj/item/mecha_parts/chassis/gygax
 	name = "Gygax Chassis"
 
-/obj/item/mecha_parts/chassis/gygax/New()
-	..()
+/obj/item/mecha_parts/chassis/gygax/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/gygax_chassis(src)
 
 /obj/item/mecha_parts/part/gygax_torso
@@ -160,14 +156,13 @@
 	icon_state = "gygax_armour"
 	origin_tech = "materials=6;combat=4;engineering=4"
 
-
 //////////// Durand
 
 /obj/item/mecha_parts/chassis/durand
 	name = "Durand Chassis"
 
-/obj/item/mecha_parts/chassis/durand/New()
-	..()
+/obj/item/mecha_parts/chassis/durand/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/durand_chassis(src)
 
 /obj/item/mecha_parts/part/durand_torso
@@ -209,8 +204,8 @@
 /obj/item/mecha_parts/chassis/rover
 	name = "Rover Chassis"
 
-/obj/item/mecha_parts/chassis/rover/New()
-	..()
+/obj/item/mecha_parts/chassis/rover/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/rover_chassis(src)
 
 /obj/item/mecha_parts/part/rover_torso
@@ -253,8 +248,8 @@
 /obj/item/mecha_parts/chassis/darkgygax
 	name = "Dark Gygax Chassis"
 
-/obj/item/mecha_parts/chassis/darkgygax/New()
-	..()
+/obj/item/mecha_parts/chassis/darkgygax/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/darkgygax_chassis(src)
 
 /obj/item/mecha_parts/part/darkgygax_torso
@@ -296,14 +291,13 @@
 	icon_state = "darkgygax_armour"
 	origin_tech = "materials=6;combat=4;engineering=4;syndicate=2"
 
-
 ////////// Firefighter
 
 /obj/item/mecha_parts/chassis/firefighter
 	name = "Firefighter Chassis"
 
-/obj/item/mecha_parts/chassis/firefighter/New()
-	..()
+/obj/item/mecha_parts/chassis/firefighter/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/firefighter_chassis(src)
 
 ////////// HONK
@@ -311,8 +305,8 @@
 /obj/item/mecha_parts/chassis/honker
 	name = "H.O.N.K Chassis"
 
-/obj/item/mecha_parts/chassis/honker/New()
-	..()
+/obj/item/mecha_parts/chassis/honker/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/honker_chassis(src)
 
 /obj/item/mecha_parts/part/honker_torso
@@ -339,20 +333,19 @@
 	name="H.O.N.K Right Leg"
 	icon_state = "honker_r_leg"
 
-
 ////////// Reticence
 
 /obj/item/mecha_parts/chassis/reticence
 	name = "Reticence Chassis"
 
-/obj/item/mecha_parts/chassis/reticence/New()
-	..()
+/obj/item/mecha_parts/chassis/reticence/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/reticence_chassis(src)
 
 /obj/effect/dummy/mecha_emote_step
 	var/emote
 
-/obj/effect/dummy/mecha_emote_step/New(e)
+/obj/effect/dummy/mecha_emote_step/Initialize(mapload, e)
 	. = ..()
 	emote = e
 
@@ -388,22 +381,19 @@
 	name = "Reticence Right Leg"
 	icon_state = "reticence_r_leg"
 
-
 ////////// Phazon
 
 /obj/item/mecha_parts/chassis/phazon
 	name = "Phazon Chassis"
 
-/obj/item/mecha_parts/chassis/phazon/New()
-	..()
+/obj/item/mecha_parts/chassis/phazon/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
-
 
 /obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(iscore(I) && !iscorebluespace(I))
 		to_chat(user, span_warning("The anomaly core socket only accepts bluespace anomaly cores!"))
-
 
 /obj/item/mecha_parts/part/phazon_torso
 	name="Phazon Torso"
@@ -445,8 +435,8 @@
 /obj/item/mecha_parts/chassis/odysseus
 	name = "Odysseus Chassis"
 
-/obj/item/mecha_parts/chassis/odysseus/New()
-	..()
+/obj/item/mecha_parts/chassis/odysseus/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/odysseus_chassis(src)
 
 /obj/item/mecha_parts/part/odysseus_head
@@ -484,7 +474,6 @@
 	icon_state = "odysseus_armour"
 	origin_tech = "materials=3;engineering=3")*/
 
-
 ///////// Circuitboards
 
 /obj/item/circuitboard/mecha
@@ -496,9 +485,7 @@
 	throw_speed = 3
 	throw_range = 15
 
-
 /obj/item/circuitboard/mecha/ripley
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/mecha/ripley/main
 	board_name = "Ripley Central Control Module"
@@ -507,7 +494,6 @@
 /obj/item/circuitboard/mecha/ripley/peripherals
 	board_name = "Ripley Peripherals Control Module"
 	icon_state = "mcontroller"
-
 
 /obj/item/circuitboard/mecha/gygax
 	origin_tech = "programming=4;combat=3;engineering=3"
@@ -525,7 +511,6 @@
 	icon_state = "mcontroller"
 	origin_tech = "programming=4;combat=4"
 
-
 /obj/item/circuitboard/mecha/durand
 	origin_tech = "programming=4;combat=3;engineering=3"
 
@@ -542,7 +527,6 @@
 	icon_state = "mcontroller"
 	origin_tech = "programming=4;combat=4;engineering=3"
 
-
 /obj/item/circuitboard/mecha/phazon
 	origin_tech = "programming=5;plasmatech=4"
 
@@ -557,7 +541,6 @@
 /obj/item/circuitboard/mecha/phazon/targeting
 	board_name = "Phazon Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
-
 
 /obj/item/circuitboard/mecha/honker
 	origin_tech = "programming=3;engineering=3"
@@ -574,7 +557,6 @@
 	board_name = "H.O.N.K Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
 
-
 /obj/item/circuitboard/mecha/reticence
 	origin_tech = "programming=3;engineering=3"
 
@@ -590,7 +572,6 @@
 	board_name = "Reticence Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
 
-
 /obj/item/circuitboard/mecha/odysseus
 	origin_tech = "programming=3;biotech=3"
 
@@ -601,7 +582,6 @@
 /obj/item/circuitboard/mecha/odysseus/peripherals
 	board_name = "Odysseus Peripherals Control Module"
 	icon_state = "mcontroller"
-
 
 /obj/item/circuitboard/mecha/clarke
 	origin_tech = "programming=3"

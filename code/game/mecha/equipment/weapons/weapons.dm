@@ -70,7 +70,6 @@
 				var/atom/throw_target = get_edge_target_turf(living_target, chassis.dir)
 				living_target.throw_at(throw_target, pb_knockback, 2)
 
-	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	start_cooldown()
 
@@ -182,7 +181,6 @@
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
@@ -237,16 +235,15 @@
 			if(isobj(H.shoes) && !HAS_TRAIT(H.shoes, TRAIT_NODROP))
 				var/thingy = H.shoes
 				H.drop_item_ground(H.shoes)
-				SSmove_manager.move_away(thingy, chassis, 15, 2)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
-						SSmove_manager.stop_looping(thingy)
+						GLOB.move_manager.stop_looping(thingy)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
 
 	chassis.use_power(energy_drain)
-	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
 	add_game_logs("used a Mecha Honker in [COORD(T)]", chassis.occupant)
@@ -262,8 +259,14 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_module_equip_info()
-	return "\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='byond://?src=[UID()];rearm=1'>Rearm</a>":null]"
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC,
+		"max_ammo" = initial(projectiles),
+		"total_ammo" = projectiles
+	)
+
+	return data
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -272,16 +275,15 @@
 			projectiles++
 			projectiles_to_add--
 			chassis.use_power(projectile_energy_cost)
-	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-	log_message("Rearmed [name].")
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, TRUE)
 	return
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
-	..()
-	if(href_list["rearm"])
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/handle_ui_act(action, list/params)
+	if(action == "rearm")
 		rearm()
-	return
+		return TRUE
+
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	name = "FNX-99 \"Hades\" Carbine"
@@ -324,14 +326,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot
 	name = "LBX AC 9 \"Riot Scattershot\""
-	icon_state = "mecha_scatter"
 	origin_tech = "combat=2, materials=2"
-	equip_cooldown = 2 SECONDS
 	projectile = /obj/projectile/bullet/pellet/rubber
-	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	projectiles = 32
 	projectile_energy_cost = 75
-	projectiles_per_shot = 4
 	variance = 15
 	pb_knockback = 3
 	harmful = FALSE
@@ -339,16 +337,12 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
 	name = "LBX AC 11 \"Ram\""
 	desc = "Minotaur go brr right into your face!"
-	icon_state = "mecha_scatter"
-	origin_tech = "combat=4"
 	equip_cooldown = 0.8 SECONDS
 	projectile = /obj/projectile/bullet/pellet/flechette
-	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	projectiles = 50
 	projectile_energy_cost = 10 // сохраняется то же энергопотребление при увеличенном дпс
 	projectiles_per_shot = 5
 	variance = 15
-	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "Ultra AC 2"
@@ -367,17 +361,9 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
 	name = "AC 2 \"Special\""
 	desc = "Cr20c inside!"
-	icon_state = "mecha_uac2"
-	origin_tech = "combat=4"
 	equip_cooldown = 0.8 SECONDS
 	projectile = /obj/projectile/bullet/midbullet_AC2S
-	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
-	projectiles = 300
 	projectile_energy_cost = 14
-	projectiles_per_shot = 3
-	variance = 6
-	projectile_delay = 2
-	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
 	name = "XMG-9 Autocannon"
@@ -420,7 +406,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	add_game_logs("Fired a [src] in [COORD(T)]", chassis.occupant)
@@ -439,7 +424,7 @@
 		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
 		ACCUSATIVE = "тяжёлую пусковую ракетную установку SRX-13",
 		INSTRUMENTAL = "тяжёлой пусковой ракетной установкой SRX-13",
-		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13"
+		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
@@ -448,7 +433,6 @@
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 
-
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
 	return list(
 		NOMINATIVE = "пусковая ракетная установка SRM-8",
@@ -456,7 +440,7 @@
 		DATIVE = "пусковой ракетной установке SRM-8",
 		ACCUSATIVE = "пусковую ракетную установку SRM-8",
 		INSTRUMENTAL = "пусковой ракетной установкой SRM-8",
-		PREPOSITIONAL = "пусковой ракетной установке SRM-8"
+		PREPOSITIONAL = "пусковой ракетной установке SRM-8",
 	)
 
 /obj/item/missile
@@ -491,9 +475,7 @@
 	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
-	equip_cooldown = 6 SECONDS
 	var/det_time = 20
-	harmful = TRUE
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, params)
@@ -505,7 +487,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	F.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	spawn(det_time)
 		F.prime()
 	start_cooldown()
@@ -518,13 +499,20 @@
 	projectile = /obj/item/grenade/clusterbuster
 	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
 	equip_cooldown = 9 SECONDS
-	size = 1
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_module_equip_info()//Limited version of the clusterbang launcher that can't reload
-	return " \[[projectiles]\]"
+// Limited version of the clusterbang launcher that can't reload
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/projectiles/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC,
+		"max_ammo" = 0,
+		"total_ammo" = projectiles
+	)
 
+	return data
+
+//Extra bit of security
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
-	return//Extra bit of security
+	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	name = "Banana Mortar"
@@ -549,10 +537,9 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/grown/bananapeel/B = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	B.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Bananed from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
@@ -579,10 +566,9 @@
 		return FALSE
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
 	M.secured = 1
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
@@ -593,7 +579,6 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	projectiles = 10
 	missile_speed = 1
-	missile_range = 30
 	projectile_energy_cost = 50
 	equip_cooldown = 1 SECONDS
 	harmful = FALSE
@@ -613,7 +598,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
@@ -632,7 +616,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment)<M.max_equip)
 			return TRUE
 	return FALSE
 
@@ -645,7 +629,6 @@
 	size = 1
 	projectile = /obj/projectile/kinetic/mech
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
-	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/can_attach(obj/mecha/M)
 	if(istype(M))

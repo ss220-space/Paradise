@@ -21,7 +21,6 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/projectile/bullet/spike
 	muzzle_flash_effect = null
-	e_cost = 100
 	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
@@ -53,10 +52,8 @@
 	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/energy/noisecannon/update_icon_state()
 	return
-
 
 /obj/item/gun/energy/noisecannon/update_overlays()
 	return list()

@@ -1,22 +1,3 @@
-/client
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
-	var/atom/movable/screen/parallax_home/parallax_rock
-	var/atom/movable/movingmob
-	var/turf/previous_turf
-	/// world.time of when we can state animate()ing parallax again
-	var/dont_animate_parallax
-	/// Direction our current area wants to move parallax
-	var/parallax_movedir = 0
-	/// How many parallax layers to show our client
-	var/parallax_layers_max = 4
-	/// Timers for the area directional animation, one for each layer
-	var/list/parallax_animate_timers
-	/// Do we want to do parallax animations at all?
-	/// Exists to prevent laptop fires
-	var/do_parallax_animations = TRUE
-
-
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
@@ -67,13 +48,12 @@
 		plane_master.color = initial(plane_master.color)
 	C.parallax_layers = null
 
-
 /datum/hud/proc/apply_parallax_pref(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 	var/pref = C.prefs?.parallax || PARALLAX_HIGH
 	switch(pref)
-		if (PARALLAX_INSANE)
+		if(PARALLAX_INSANE)
 			C.parallax_layers_max = 5
 			C.do_parallax_animations = TRUE
 			return TRUE
@@ -83,19 +63,18 @@
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_MED)
+		if(PARALLAX_MED)
 			C.parallax_layers_max = 3
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_LOW)
+		if(PARALLAX_LOW)
 			C.parallax_layers_max = 1
 			C.do_parallax_animations = FALSE
 			return TRUE
 
-		if (PARALLAX_DISABLE)
+		if(PARALLAX_DISABLE)
 			return FALSE
-
 
 /datum/hud/proc/update_parallax_pref(mob/viewmob)
 	var/mob/screen_mob = viewmob || mymob
@@ -141,7 +120,7 @@
 
 		layer.transform = new_transform
 		animate(layer, transform = matrix(), time = scaled_time, easing = QUAD_EASING | (new_parallax_movedir ? EASE_IN : EASE_OUT))
-		if (new_parallax_movedir == NONE)
+		if(new_parallax_movedir == NONE)
 			continue
 		//queue up another animate so lag doesn't create a shutter
 		animate(transform = new_transform, time = 0)
@@ -165,7 +144,6 @@
 	var/scaled_time = (PARALLAX_LOOP_TIME / layer.speed) / 2
 	animate(layer, transform = new_transform, time = 0, loop = -1, flags = ANIMATION_END_NOW)
 	animate(transform = matrix(), time = scaled_time)
-
 
 /datum/hud/proc/update_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
@@ -243,11 +221,12 @@
 			animate(parallax_layer, pixel_w = round(parallax_layer.offset_x, 1), pixel_z = round(parallax_layer.offset_y, 1), time = glide_rate)
 
 /atom/movable/proc/update_parallax_contents()
-	if(length(client_mobs_in_contents))
-		for(var/thing in client_mobs_in_contents)
-			var/mob/M = thing
-			if(M && M.client && M.hud_used && length(M.client.parallax_layers))
-				M.hud_used.update_parallax()
+	if(!length(client_mobs_in_contents))
+		return
+
+	for(var/mob/client_mob as anything in client_mobs_in_contents)
+		if(length(client_mob?.client?.parallax_layers) && client_mob.hud_used)
+			client_mob.hud_used.update_parallax()
 
 // Root object for parallax, all parallax layers are drawn onto this
 INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_home)
@@ -270,7 +249,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	blend_mode = BLEND_ADD
 	plane = PLANE_SPACE_PARALLAX
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
 
 /atom/movable/screen/parallax_layer/Initialize(mapload, datum/hud/hud_owner, template = FALSE)
 	. = ..()
@@ -315,29 +293,23 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	cut_overlays()
 	add_overlay(new_overlays)
 
-
 // I left this so if the player re-enables parallax, it will correctly update parallax, instead "flicks" on the first move
 /atom/movable/screen/parallax_layer/proc/update_status(mob/M)
 	return
-
 
 /atom/movable/screen/parallax_layer/layer_1
 	icon_state = "layer1"
 	speed = 0.6
 	layer = 1
 
-
 /atom/movable/screen/parallax_layer/layer_2
 	icon_state = "layer2"
-	speed = 1
 	layer = 2
-
 
 /atom/movable/screen/parallax_layer/layer_3
 	icon_state = "layer3"
 	speed = 1.4
 	layer = 3
-
 
 /atom/movable/screen/parallax_layer/planet
 	icon_state = "planet"

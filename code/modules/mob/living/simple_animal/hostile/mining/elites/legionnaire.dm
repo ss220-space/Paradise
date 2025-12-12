@@ -19,14 +19,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire
 	name = "legionnaire"
 	desc = "Исполинский скелет, воплощающий ужасающую мощь Легиона."
-	ru_names = list(
-		NOMINATIVE = "легионер",
-		GENITIVE = "легионера",
-		DATIVE = "легионеру",
-		ACCUSATIVE = "легионера",
-		INSTRUMENTAL = "легионером",
-		PREPOSITIONAL = "легионере"
-	)
 	icon_state = "legionnaire"
 	icon_living = "legionnaire"
 	icon_aggro = "legionnaire"
@@ -41,8 +33,6 @@
 	attack_sound = 'sound/effects/hit_punch.ogg'
 	throw_message = "не наносит вреда"
 	speed = 0.5 //Since it is mainly melee, this *should* be right
-	move_to_delay = 3
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "протягивает руки перед тем, как рассыпаться безжизненной грудой костей."
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
@@ -50,10 +40,12 @@
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
 	tts_seed = "Volibear"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
-								/datum/action/innate/elite_attack/head_detach,
-								/datum/action/innate/elite_attack/bonfire_teleport,
-								/datum/action/innate/elite_attack/throw_bone)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/legionnaire_charge,
+		/datum/action/innate/elite_attack/head_detach,
+		/datum/action/innate/elite_attack/bonfire_teleport,
+		/datum/action/innate/elite_attack/throw_bone,
+	)
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/myhead = null
 	var/obj/structure/legionnaire_bonfire/mypile = null
@@ -62,6 +54,16 @@
 	var/charging = FALSE
 	var/charge_damage = 15
 	var/charge_damage_first = 25
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/get_ru_names()
+	return list(
+		NOMINATIVE = "легионер",
+		GENITIVE = "легионера",
+		DATIVE = "легионеру",
+		ACCUSATIVE = "легионера",
+		INSTRUMENTAL = "легионером",
+		PREPOSITIONAL = "легионере",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
 	. = ..()
@@ -87,7 +89,7 @@
 
 /datum/action/innate/elite_attack/throw_bone
 	name = "Бросок кости"
-	icon_icon = 'icons/obj/mining.dmi'
+	button_icon = 'icons/obj/mining.dmi'
 	button_icon_state = "bone"
 	chosen_message = span_boldwarning("Вы бросаете тяжёлую кость.")
 	chosen_attack_num = THROW_BONE
@@ -255,15 +257,7 @@
 //The legionnaire's head.  Basically the same as any legion head, but we have to tell our creator when we die so they can generate another head.
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead
 	name = "legionnaire head"
-	desc = "Отделившаяся голова Легионера. Не стоит подходить слишком близко, хотя если она вас увидела – выбора у вас уже нет."
-	ru_names = list(
-		NOMINATIVE = "голова легионера",
-		GENITIVE = "головы легионера",
-		DATIVE = "голове легионера",
-		ACCUSATIVE = "голову легионера",
-		INSTRUMENTAL = "головой легионера",
-		PREPOSITIONAL = "голове легионера"
-	)
+	desc = "Отделившаяся голова Легионера. Не стоит подходить слишком близко, хотя если она вас увидела — выбора у вас уже нет."
 	icon_state = "legionnaire_head"
 	icon_living = "legionnaire_head"
 	icon_aggro = "legionnaire_head"
@@ -278,12 +272,21 @@
 	throw_message = "пролетает мимо"
 	speed = 0
 	move_to_delay = 2
-	aggro_vision_range = 18
 	del_on_death = 1
 	deathmessage = "рассыпается в прах!"
 	faction = list()
 	ranged = FALSE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/body = null
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/get_ru_names()
+	return list(
+		NOMINATIVE = "голова легионера",
+		GENITIVE = "головы легионера",
+		DATIVE = "голове легионера",
+		ACCUSATIVE = "голову легионера",
+		INSTRUMENTAL = "головой легионера",
+		PREPOSITIONAL = "голове легионера",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death(gibbed)
 	. = ..()
@@ -294,24 +297,24 @@
 /obj/structure/legionnaire_bonfire
 	name = "bone pile"
 	desc = "Груда костей, которая иногда слегка шевелится. Вероятно, стоит разбить их."
-	ru_names = list(
-		NOMINATIVE = "груда костей",
-		GENITIVE = "груды костей",
-		DATIVE = "груде костей",
-		ACCUSATIVE = "груду костей",
-		INSTRUMENTAL = "грудой костей",
-		PREPOSITIONAL = "груде костей"
-	)
 	icon = 'icons/obj/lavaland/legionnaire_bonfire.dmi'
 	icon_state = "bonfire"
 	max_integrity = 100
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	anchored = TRUE
-	density = FALSE
 	light_range = 4
 	light_color = COLOR_SOFT_RED
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
+/obj/structure/legionnaire_bonfire/get_ru_names()
+	return list(
+		NOMINATIVE = "груда костей",
+		GENITIVE = "груды костей",
+		DATIVE = "груде костей",
+		ACCUSATIVE = "груду костей",
+		INSTRUMENTAL = "грудой костей",
+		PREPOSITIONAL = "груде костей",
+	)
 
 /obj/structure/legionnaire_bonfire/Initialize(mapload)
 	. = ..()
@@ -320,11 +323,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/legionnaire_bonfire/Destroy()
 	myowner?.mypile = null
 	return ..()
-
 
 /obj/structure/legionnaire_bonfire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -337,22 +338,23 @@
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 
-
 /obj/projectile/legionnaire
 	name = "bone"
-	ru_names = list(
-		NOMINATIVE = "кость",
-		GENITIVE = "кости",
-		DATIVE = "кости",
-		ACCUSATIVE = "кость",
-		INSTRUMENTAL = "костью",
-		PREPOSITIONAL = "кости"
-	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bone"
 	damage = 25
 	armour_penetration = 70
 	speed = 1.2
+
+/obj/projectile/legionnaire/get_ru_names()
+	return list(
+		NOMINATIVE = "кость",
+		GENITIVE = "кости",
+		DATIVE = "кости",
+		ACCUSATIVE = "кость",
+		INSTRUMENTAL = "костью",
+		PREPOSITIONAL = "кости",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
 	var/turf/startloc = get_turf(src)
@@ -366,7 +368,6 @@
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire
-	duration = 10
 
 /obj/effect/temp_visual/dragon_swoop/legionnaire/Initialize(mapload)
 	. = ..()
@@ -377,14 +378,6 @@
 /obj/item/crusher_trophy/legionnaire_spine
 	name = "legionnaire spine"
 	desc = "Позвоночник легионера. Может быть прикреплен на крушитель в качестве трофея. Или можете его потрясти, может что-то случится."
-	ru_names = list(
-            NOMINATIVE = "позвоночник легионера",
-            GENITIVE = "позвоночника легионера",
-            DATIVE = "позвоночнику легионера",
-            ACCUSATIVE = "позвоночник легионера",
-            INSTRUMENTAL = "позвоночником легионера",
-            PREPOSITIONAL = "позвоночнике легионера"
-	)
 	gender = MALE
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "legionnaire_spine"
@@ -392,6 +385,16 @@
 	bonus_value = 75 // listen this dies in one hit, this can be a high chance.
 	/// Time at which the item becomes usable again
 	var/next_use_time
+
+/obj/item/crusher_trophy/legionnaire_spine/get_ru_names()
+	return list(
+		NOMINATIVE = "позвоночник легионера",
+		GENITIVE = "позвоночника легионера",
+		DATIVE = "позвоночнику легионера",
+		ACCUSATIVE = "позвоночник легионера",
+		INSTRUMENTAL = "позвоночником легионера",
+		PREPOSITIONAL = "позвоночнике легионера",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire
 	health = 25
@@ -415,10 +418,10 @@
 		return
 	var/mob/living/LivingUser = user
 	if(next_use_time > world.time)
-		LivingUser.visible_message(span_warning("[LivingUser] тряс[pluralize_ru(LivingUser.gender,"ёт","ут")] <b>[declent_ru(ACCUSATIVE)]</b>. Ничего не произошло..."))
+		LivingUser.visible_message(span_warning("[LivingUser] тряс[PLUR_YOT_UT(LivingUser)] <b>[declent_ru(ACCUSATIVE)]</b>. Ничего не произошло..."))
 		balloon_alert(LivingUser, "перезарядка")
 		return
-	LivingUser.visible_message(span_warning("[LivingUser] тряс[pluralize_ru(LivingUser.gender,"ёт","ут")] <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!"))
+	LivingUser.visible_message(span_warning("[LivingUser] тряс[PLUR_YOT_UT(LivingUser)] <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()

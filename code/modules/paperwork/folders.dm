@@ -32,12 +32,10 @@
 	desc = "A white folder."
 	icon_state = "folder_white"
 
-
 /obj/item/folder/update_overlays()
 	. = ..()
-	if(contents.len)
+	if(length(contents))
 		. += "folder_paper"
-
 
 /obj/item/folder/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -64,7 +62,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/item/folder/attack_self(mob/user as mob)
 	var/dat = ""
@@ -115,7 +112,6 @@
 		attack_self(usr)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/folder/documents
 	name = "folder- 'TOP SECRET'"
 	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
@@ -159,6 +155,5 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/ussp
-	name = "folder"
 	desc = "A folder with a hammer and sickle seal."
 	icon_state = "folder_ussp"

@@ -13,11 +13,7 @@
 /obj/effect/particle_effect/fluid/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = FALSE
-	anchored = TRUE
-	density = FALSE
 	layer = EDGED_TURF_LAYER
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = NO_STEPS
 	/// The types of turfs that this foam cannot spread to.
 	var/static/list/blacklisted_turfs = typecacheof(list(
@@ -34,7 +30,6 @@
 	/// Whether or not this foam should be slippery.
 	var/slippery_foam = TRUE
 
-
 /obj/effect/particle_effect/fluid/foam/Initialize(mapload)
 	. = ..()
 	if(slippery_foam)
@@ -46,7 +41,7 @@
 
 /obj/effect/particle_effect/fluid/foam/Destroy()
 	SSfoam.stop_processing(src)
-	if (spread_bucket)
+	if(spread_bucket)
 		SSfoam.cancel_spread(src)
 	return ..()
 
@@ -55,7 +50,7 @@
  */
 /obj/effect/particle_effect/fluid/foam/proc/kill_foam()
 	SSfoam.stop_processing(src)
-	if (spread_bucket)
+	if(spread_bucket)
 		SSfoam.cancel_spread(src)
 	make_result()
 	flick("[icon_state]-disolve", src)
@@ -157,7 +152,6 @@
 		spread_foam.result_type = result_type
 		SSfoam.queue_spread(spread_foam)
 
-
 /obj/effect/particle_effect/fluid/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
 		kill_foam()
@@ -173,7 +167,6 @@
 	var/atom/movable/result_type = null
 
 	var/static/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
-
 
 /datum/effect_system/fluid_spread/foam/New()
 	..()
@@ -206,10 +199,9 @@
 	foam.add_atom_colour(foamcolor, FIXED_COLOUR_PRIORITY)
 	if(!isnull(result_type))
 		foam.result_type = result_type
-	if (log)
+	if(log)
 		help_out_the_admins(foam, holder, location)
 	SSfoam.queue_spread(foam)
-
 
 // Short-lived foam
 /// A foam variant which dissipates quickly.
@@ -229,7 +221,6 @@
 	effect_type = /obj/effect/particle_effect/fluid/foam/long_life
 	reagent_scale = FOAM_REAGENT_SCALE * (30 / 8)
 
-
 // Firefighting foam
 /// A variant of foam which absorbs plasma in the air if there is a fire.
 /obj/effect/particle_effect/fluid/foam/firefighting
@@ -237,7 +228,6 @@
 	lifetime = 20 //doesn't last as long as normal foam
 	result_type = /obj/effect/decal/cleanable/glass/plasma
 	allow_duplicate_results = FALSE
-	slippery_foam = TRUE
 	/// The amount of plasma gas this foam has absorbed. To be deposited when the foam dissipates.
 	var/absorbed_plasma = 0
 
@@ -257,11 +247,11 @@
 		return
 
 	var/datum/gas_mixture/air = location.air
-	if (air.toxins)
+	if(air.toxins)
 		var/scrub_amt = min(30, air.toxins) //Absorb some plasma
 		air.toxins -= scrub_amt
 		absorbed_plasma += scrub_amt
-	if (air.temperature > T20C)
+	if(air.temperature > T20C)
 		air.temperature = max(air.temperature / 2, T20C)
 	location.air_update_turf(FALSE, FALSE)
 
@@ -451,7 +441,6 @@
 		potential_tinder.ExtinguishMob()
 	for(var/obj/item/potential_tinder in location)
 		potential_tinder.extinguish()
-
 
 /obj/effect/spawner/foam_starter
 	var/datum/effect_system/fluid_spread/foam/foam_type = /datum/effect_system/fluid_spread/foam

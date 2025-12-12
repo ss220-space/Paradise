@@ -14,7 +14,6 @@
 	var/drop_mask = FALSE
 	var/tapegag_type = /obj/item/clothing/mask/muzzle/tapegag
 
-
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!ishuman(target)) //What good is a duct tape mask if you are unable to speak?
@@ -52,7 +51,6 @@
 	tapegag.add_fingerprint(user)
 	target.equip_to_slot_if_possible(tapegag, ITEM_SLOT_MASK, qdel_on_fail = TRUE)
 
-
 /obj/item/stack/tape_roll/update_icon_state()
 	var/amount = get_amount()
 	if((amount <= 2) && (amount > 0))
@@ -61,11 +59,10 @@
 		icon_state = "[initial(icon_state)]2"
 	if((amount <= 6) && (amount > 4))
 		icon_state = "[initial(icon_state)]3"
-	if((amount > 6))
+	if(amount > 6)
 		icon_state = "[initial(icon_state)]4"
 	else
 		icon_state = "[initial(icon_state)]4"
-
 
 /obj/item/stack/tape_roll/thick
 	name = "incredibly thick tape roll"

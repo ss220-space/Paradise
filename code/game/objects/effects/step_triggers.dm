@@ -5,8 +5,6 @@
 	var/stopper = TRUE // stops throwers
 	var/mobs_only = FALSE
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
-	anchored = TRUE
-
 
 /obj/effect/step_trigger/Initialize(mapload)
 	. = ..()
@@ -15,10 +13,8 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/step_trigger/proc/Trigger(atom/movable/A)
 	return FALSE
-
 
 /obj/effect/step_trigger/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -33,7 +29,6 @@
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(Trigger), arrived)
-
 
 /obj/effect/step_trigger/singularity_act()
 	return
@@ -102,11 +97,9 @@
 		if(AM)
 			step(AM, direction)
 
-
 	affecting.Remove(AM)
 	if(immobilize)
 		REMOVE_TRAIT(AM, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
-
 
 /* Stops things thrown by a thrower, doesn't do anything */
 
@@ -118,8 +111,6 @@
 	var/teleport_x = 0	// teleportation coordinates (if one is null, then no teleport!)
 	var/teleport_y = 0
 	var/teleport_z = 0
-	density = 0
-	opacity = 0
 
 /obj/effect/step_trigger/teleporter/Trigger(atom/movable/A)
 	if(teleport_x && teleport_y && teleport_z)
@@ -138,7 +129,7 @@
 		if(teleport_x_offset && teleport_y_offset && teleport_z_offset)
 
 			var/turf/T = locate(rand(teleport_x, teleport_x_offset), rand(teleport_y, teleport_y_offset), rand(teleport_z, teleport_z_offset))
-			if (T)
+			if(T)
 				A.forceMove(T)
 
 /* Fancy teleporter, creates sparks and smokes when used */
@@ -188,7 +179,6 @@
 	var/extra_range = 0 // eg World.view = 7, extra_range = 1, 7+1 = 8, 8 turfs radius
 	var/happens_once = 0
 	var/triggerer_only = 0 //Whether the triggerer is the only person who hears this
-
 
 /obj/effect/step_trigger/sound_effect/Trigger(atom/movable/A)
 	var/turf/T = get_turf(A)

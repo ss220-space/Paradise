@@ -9,10 +9,8 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "egg_scoop"
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 
 /obj/item/fish_net
 	name = "fish net"
@@ -20,13 +18,11 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "net"
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-	to_chat(viewers(user), "<span class='warning'>[user] places the [src.name] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), span_warning("[user] places the [src.name] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
 /obj/item/fishfood
@@ -37,7 +33,6 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 
 /obj/item/tank_brush
 	name = "aquarium brush"
@@ -45,14 +40,12 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "brush"
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	attack_verb = list("отдраил", "шлифанул", "поцарапал")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='warning'>[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), span_warning("[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
@@ -106,7 +99,6 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	force = 1
 	attack_verb = list("шлёпнул", "унизил", "ударил")
 	hitsound = 'sound/effects/snap.ogg'
@@ -117,7 +109,6 @@
 	icon_state = "glofish"
 	light_system = MOVABLE_LIGHT
 	light_range = 2
-	light_power = 1
 	light_color = "#99FF66"
 
 /obj/item/fish/electric_eel
@@ -132,7 +123,6 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-
 /obj/item/fish/shark/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
@@ -146,12 +136,10 @@
 	teeth.add_fingerprint(user)
 	qdel(src)
 
-
 /obj/item/fish/toothless_shark
 	name = "toothless shark"
 	desc = "Looks like someone ripped it's teeth out!"
 	icon_state = "shark"
-	hitsound = 'sound/effects/snap.ogg'
 
 /obj/item/shard/shark_teeth
 	name = "shark teeth"
@@ -172,9 +160,8 @@
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-
 /obj/item/fish/catfish/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/catfishmeat/meat = new(drop_location(), 2)
 		meat.add_fingerprint(user)
@@ -182,7 +169,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/fish/goldfish
 	name = "goldfish"
@@ -194,9 +180,8 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-
 /obj/item/fish/salmon/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/salmonmeat/meat = new(drop_location(), 2)
 		meat.add_fingerprint(user)
@@ -205,7 +190,6 @@
 
 	return ..()
 
-
 /obj/item/fish/babycarp
 	name = "baby space carp"
 	desc = "Substantially smaller than the space carp lurking outside the hull, but still unsettling."
@@ -213,9 +197,8 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-
 /obj/item/fish/babycarp/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/carpmeat/meat = new(drop_location())	//just one fillet; this is a baby, afterall.
 		meat.add_fingerprint(user)
@@ -223,7 +206,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/grown/bananapeel/clownfish
 	name = "clown fish"

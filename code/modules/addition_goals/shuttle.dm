@@ -1,8 +1,6 @@
 // Addition goals shuttle
 
-////////////////////////////////////////
 // MARK:	Machinery
-////////////////////////////////////////
 
 /area/shuttle/addition_goals
 	icon_state = "shuttle3"
@@ -14,12 +12,7 @@
 	shuttleId = "addition_goal"
 	possible_destinations = "graveyard_church;addition_goal_dock"
 
-
-
-
-////////////////////////////////////////
 // MARK:	System logic
-////////////////////////////////////////
 
 /// Try send shuttle to station (call shuttle)
 /datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station(mob/user)
@@ -46,11 +39,10 @@
 /datum/controller/subsystem/addition_goals/proc/set_funeral_shuttle_locked(locked)
 	funeral_shuttle.locked_move = locked
 
-
 /// Get text where shuttle docked
 /datum/controller/subsystem/addition_goals/proc/get_shuttle_location()
 	if(!shuttle)
-		return "Неизвестно"
+		return UNKNOWN_STATUS_RUS
 	var/dock_id = shuttle.getDockedId()
 	switch(dock_id)
 		if(AGS_SHUTTLE_CENTCOM_DOCK)
@@ -111,7 +103,7 @@
 				closet.open()
 		//delete all
 		for(var/atom/movable/content in turf.contents)
-			if(istype(content, /obj/machinery/door/airlock)) //this is airlock
+			if(is_airlock(content)) //this is airlock
 				continue
 			if(istype(content, /obj/machinery/light)) //this is shuttle lamps
 				continue
@@ -127,7 +119,7 @@
 			qdel(content)
 
 /datum/controller/subsystem/addition_goals/proc/is_highrisk_item(item)
-	for(var/highrisk_type as anything in GLOB.ungibbable_items_types)
+	for(var/highrisk_type in GLOB.ungibbable_items_types)
 		if(istype(item, highrisk_type))
 			return TRUE
 	return FALSE
@@ -147,8 +139,6 @@
 	var/datum/money_account/account = GLOB.station_account
 	account.credit(round(-1000), "Транспортировка важного предмета на станцию", "Дополнительная цель", account.owner_name)
 
-
-
 /datum/controller/subsystem/addition_goals/proc/teleportate_player_to_station(mob/living/user)
 	var/list/safe_turfs = get_safe_random_station_turf()
 	var/turf/teleport_target = pick(safe_turfs)
@@ -161,9 +151,6 @@
 	if(!account)
 		return
 	account.credit(round(-credits), "Транспортные расходы", "Дополнительная цель", account.owner_name)
-
-
-
 
 /// Only for test
 /datum/controller/subsystem/addition_goals/proc/toggle_shuttle(mob/user)

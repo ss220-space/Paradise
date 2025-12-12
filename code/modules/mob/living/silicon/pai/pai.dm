@@ -50,7 +50,6 @@
 		"Canine" = list("гавкает", "лает", "вопросительно тявкает")
 		)
 
-
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
 							// Keeping this separate from the laws var, it should be much more difficult to modify
@@ -203,7 +202,6 @@
 	if(card.upgrade)
 		ram += card.upgrade.extra_memory
 
-
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
 		icon_state = "[chassis]_dead"
@@ -216,23 +214,19 @@
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
-
 /mob/living/silicon/pai/init_subsystems()
 	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
-
 
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = show_silenced()
 
-
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
 		adjustBruteLoss(60)
 		return TRUE
 	return FALSE
-
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -324,7 +318,6 @@
 	force_fold_out()
 	visible_message(span_notice("[name] раскладывается, переходя в мобильную форму."), span_notice("Вы раскладываетесь в мобильную форму."))
 
-
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(ismob(card.loc))
 		var/mob/holder = card.loc
@@ -370,10 +363,10 @@
 		for(var/line in lines)
 		// split & clean up
 			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
+			if(length(Entry) < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
 				continue
 
 			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
@@ -381,7 +374,7 @@
 				my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = base_possible_chassis.Copy()
-	for(var/i = 1, i<=special_possible_chassis.len, i++)
+	for(var/i = 1, i<=length(special_possible_chassis), i++)
 		if(female_chassis && (special_possible_chassis[i] == "Female" || special_possible_chassis[i] == "Red Female"))
 			my_choices += special_possible_chassis.Copy(i, i+1)
 		if((syndipai || snake_chassis) && special_possible_chassis[i] == "Snake")
@@ -403,7 +396,6 @@
 
 	chassis = my_choices[choice]
 
-
 /mob/living/silicon/pai/proc/choose_verbs()
 	set category = STATPANEL_PAICOMMANDS
 	set name = "Модуляция речи"
@@ -413,18 +405,16 @@
 
 	var/list/sayverbs = possible_say_verbs[choice]
 	speak_statement = sayverbs[1]
-	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
-	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
+	speak_exclamation = sayverbs[(length(sayverbs)>1 ? 2 : length(sayverbs))]
+	speak_query = sayverbs[(length(sayverbs)>2 ? 3 : length(sayverbs))]
 
 	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
-
 
 /mob/living/silicon/pai/proc/pai_change_voice()
 	set name = "Сменить голос"
 	set desc = "Express yourself!"
 	set category = STATPANEL_PAICOMMANDS
 	change_voice()
-
 
 /mob/living/silicon/pai/post_lying_on_rest()
 	if(stat == DEAD)
@@ -433,22 +423,19 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 
-
 /mob/living/silicon/pai/post_get_up()
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 
-
 /mob/living/silicon/pai/verb/pAI_suicide()
 	set category = STATPANEL_PAICOMMANDS
 	set name = "Выгрузить личность"
-	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
+	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt.)"
 
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")
 		do_suicide()
 	else
 		balloon_alert(src, "протокол выгрузки отменён")
-
 
 /mob/living/silicon/pai/update_sight()
 	if(!client)
@@ -482,7 +469,6 @@
 
 	..()
 
-
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/nanopaste))
@@ -515,8 +501,8 @@
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
 		visible_message(
-			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] вас [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -524,8 +510,8 @@
 		playsound(loc, I.hitsound, I.get_clamped_volume(), TRUE, -1)
 	add_attack_logs(user, src, "Attacked with [I.name] ([uppertext(user.a_intent)]) ([uppertext(I.damtype)]), DMG: [I.force])", (ckey && I.force > 0 && I.damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 	visible_message(
-		span_danger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] вас [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] сильно бь[PLUR_YOT_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] сильно бь[PLUR_YOT_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]!"),
 	)
 
 	var/damage_type = I.damtype
@@ -538,8 +524,6 @@
 			close_up()
 
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
-
 
 /mob/living/silicon/pai/welder_act()
 	return
@@ -596,7 +580,7 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='notice'>"
+	var/msg = ""
 
 	switch(stat)
 		if(CONSCIOUS)
@@ -608,17 +592,16 @@
 			msg += span_deadsay("Оно явно не подлежит восстановлению...\n")
 
 	if(print_flavor_text())
-		msg += "[print_flavor_text()]\n"
+		msg += span_notice("[print_flavor_text()]\n")
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "It is [pose]"
-	msg += "</span>"
+		msg += span_notice("It is [pose]")
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)
@@ -630,7 +613,6 @@
 	return 0
 
 // Handle being picked up.
-
 
 /mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()
@@ -649,12 +631,11 @@
 	else
 		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	grabber.update_held_items()
 
 	return H
 
-/mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+/mob/living/silicon/pai/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 
@@ -667,7 +648,7 @@
 					to_chat(src, span_warning("Вам нужно подойти поближе."))
 
 			if("Нет")
-				to_chat(src, span_warning("[user] не хо[pluralize_ru(user.gender,"чет","тят")] вас подбирать..."))
+				to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
 	else
 		if(Adjacent(user))
 			get_scooped(user)
@@ -689,7 +670,7 @@
 /datum/action/innate/pai_soft
 	name = "Программное обеспечение"
 	desc = "Активация вашего внутреннего интерфейса для выбора программ."
-	icon_icon = 'icons/obj/aicards.dmi'
+	button_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
 	check_flags = AB_CHECK_CONSCIOUS
 

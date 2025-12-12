@@ -1,11 +1,11 @@
 /*
-	AI ClickOn()
-
-	The AI can double click to move the camera (this was already true but is cleaner),
-	or double click a mob to track them.
-
-	Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
-*/
+ * AI ClickOn()
+ *
+ * The AI can double click to move the camera (this was already true but is cleaner),
+ * or double click a mob to track them.
+ *
+ * Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
+ */
 /mob/living/silicon/ai/DblClickOn(atom/A, params)
 	if(client.click_intercept)
 		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
@@ -18,7 +18,6 @@
 		ai_actual_track(A)
 	else
 		A.move_camera_by_click()
-
 
 /mob/living/silicon/ai/ClickOn(atom/A, params)
 	if(client.click_intercept)
@@ -43,7 +42,6 @@
 		add_attack_logs(src, src, message, ATKLOG_ALL)
 		log_admin(message)
 		SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
-
 
 	var/turf_visible
 	if(pixel_turf)
@@ -146,7 +144,7 @@
 /mob/living/silicon/ai/CtrlClickOn(atom/A)
 	A.AICtrlClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
-    A.AIMiddleClick(src)
+	A.AIMiddleClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 
@@ -186,7 +184,6 @@
 /atom/proc/ai_click_alt(mob/living/silicon/ai/user)
 	return
 
-
 /atom/proc/AIMiddleClick(mob/living/user)
 	return
 
@@ -204,7 +201,6 @@
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
 	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T) && (get_dist(eyeobj, T) <= 7)) //not further than view distance
-
 
 // APC
 
@@ -261,7 +257,6 @@
 		electrify(-1, user, TRUE) // permanent shock
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
 	if(!ai_control_check(user))
 		return
@@ -282,10 +277,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.AICtrlClick(src)
@@ -294,10 +289,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.AIShiftClick(src)
@@ -306,10 +301,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.ai_click_alt(src)
@@ -318,10 +313,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.AIAltShiftClick(src)

@@ -1,22 +1,22 @@
 /obj/projectile/forcebolt
 	name = "force bolt"
-	ru_names = list(
+	icon_state = "ice_1"
+	damage = 20
+	flag = "energy"
+
+/obj/projectile/forcebolt/get_ru_names()
+	return list(
 		NOMINATIVE = "силовой импульс",
 		GENITIVE = "силового импульса",
 		DATIVE = "силовому импульсу",
 		ACCUSATIVE = "силовой импульс",
 		INSTRUMENTAL = "силовым импульсом",
-		PREPOSITIONAL = "силовом импульсе"
+		PREPOSITIONAL = "силовом импульсе",
 	)
-	icon = 'icons/obj/weapons/projectiles.dmi'
-	icon_state = "ice_1"
-	damage = 20
-	flag = "energy"
 
 /obj/projectile/forcebolt/strong
-	name = "force bolt"
 
-/obj/projectile/forcebolt/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/forcebolt/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(blocked < 100)
 		var/obj/T = target

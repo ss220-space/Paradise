@@ -1,5 +1,6 @@
 #define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
+
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
 	ss_id = "capitalism_subsystem"
@@ -31,11 +32,6 @@ SUBSYSTEM_DEF(capitalism)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/capitalism/fire()
-
-	//if(default_counter > 300)
-	//	GLOB.major_announcement.announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
-	//	SSsecurity_level.set_level(SEC_LEVEL_EPSILON)
-
 	//If there is enough money to pay salaries at least twice before the default is lifted
 	if(default_status && (payment_account.money > (potential_salary_payments() + EXTRA_MONEY)))
 		default_status = FALSE
@@ -61,28 +57,30 @@ SUBSYSTEM_DEF(capitalism)
 			complited_goals += goal
 
 	if(total_station_goal_bounty)
-		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития НаноТрейзен", base_account.owner_name)
+		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития \"Нанотрейзен\"", base_account.owner_name)
 		smart_job_payment(s_ex_personal_bounry)
 
 //status - TRUE/FALSE
 /datum/controller/subsystem/capitalism/proc/default_annonce()
 	if(default_status)
-		/* Both announcements are Minor because it happens all the time, because the system of capitalism is shit. */
-		GLOB.minor_announcement.announce("На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
-										ANNOUNCE_CAPITAL_DEFOLT_RU,
-										'sound/AI/commandreport.ogg'
+		// Both announcements are Minor because it happens all the time, because the system of capitalism is shit.
+		GLOB.minor_announcement.announce(
+			message = "На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
+			new_title = ANNOUNCE_CAPITAL_DEFOLT_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 	else
-		GLOB.minor_announcement.announce("На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
-										ANNOUNCE_CAPITAL_REPAY_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.minor_announcement.announce(
+			message = "На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
+			new_title = ANNOUNCE_CAPITAL_REPAY_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
 	var/total_salary = 0
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-			total_salary += account.linked_job.salary
+		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
+			total_salary += account.linked_job.paycheck
 	return total_salary
 
 /datum/controller/subsystem/capitalism/proc/accounts_init()
@@ -92,7 +90,7 @@ SUBSYSTEM_DEF(capitalism)
 	if(!GLOB.station_account)
 		create_station_account()
 
-	if(GLOB.department_accounts.len == 0)
+	if(length(GLOB.department_accounts) == 0)
 		for(var/department in GLOB.station_departments)
 			create_department_account(department)
 
@@ -106,14 +104,14 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/proc/payment_process()
 	. = TRUE
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
-				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.salary] кредитов\" (Невозможно Ответить)", FALSE)
-				total_salary_payment += account.linked_job.salary
+		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
+			if(payment_account.charge(account.linked_job.paycheck, account, "Выплата зарплаты персоналу.", "Отдел финансов \"Нанотрейзен\"" , "Поступление зарплаты.", "Поступление зарплаты" ,"Терминал Бизель №[rand(111,333)]"))
+				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.paycheck] кредитов\" (Невозможно Ответить)", FALSE)
+				total_salary_payment += account.linked_job.paycheck
 			else
 				return FALSE
 
-/datum/controller/subsystem/capitalism/proc/smart_bounty_payment(var/list/jobs_payment, var/money)
+/datum/controller/subsystem/capitalism/proc/smart_bounty_payment(list/jobs_payment, money)
 	. = FALSE //If nothing is paid to anyone
 	var/list_payment_account = list() //which people should I pay
 	var/bounty = 0 //What kind of money for each person
@@ -128,22 +126,22 @@ SUBSYSTEM_DEF(capitalism)
 	bounty = round(money / length(list_payment_account))
 	for(var/datum/money_account/account in list_payment_account)
 		//It may be worth doing a type from the customer's company... But I'm too lazy
-		if(account.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
+		if(account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name))
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
 	return
 
-/datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment)
+/datum/controller/subsystem/capitalism/proc/smart_job_payment(list/jobs_payment)
 	. = FALSE //If nothing is paid to anyone
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
-			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
+			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Терминал Бизель №[rand(111,333)]", account.owner_name))
 				total_personal_bounty += jobs_payment[account.linked_job.title]
 				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
 				. = TRUE
 	return
 
 // In short, as for beggars, but for departments
-/datum/controller/subsystem/capitalism/proc/smart_departament_payment(var/list/keys_departament, var/money)
+/datum/controller/subsystem/capitalism/proc/smart_departament_payment(list/keys_departament, money)
 	. = FALSE							//If nothing is paid to anyone
 	var/list_payment_account = list()	//which people should I pay
 	var/bounty = 0						//What kind of money for each department
@@ -157,11 +155,14 @@ SUBSYSTEM_DEF(capitalism)
 			. = TRUE
 
 	if(!length(list_payment_account))
-		base_account.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
+		base_account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
 		return TRUE
 
 	bounty = round(money / length(list_payment_account))
 	//If it did not find that, the payment of the station (well, or what is indicated in the base_account)
 	for(var/datum/money_account/account_pay in list_payment_account)
-		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
+		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
 	return
+
+#undef FREQUENCY_SALARY
+#undef EXTRA_MONEY

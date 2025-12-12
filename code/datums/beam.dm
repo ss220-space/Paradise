@@ -185,7 +185,6 @@
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
-	anchored = TRUE
 	var/emissive = FALSE
 	var/datum/beam/owner
 
@@ -329,12 +328,11 @@
 	target.adjustBruteLoss(5)
 	to_chat(target, span_danger("You cut yourself on the thorny vines."))
 
-
 /obj/effect/ebeam/vetus
 
 /obj/effect/ebeam/vetus/Destroy()
 	for(var/mob/living/mob in get_turf(src))
-		mob.electrocute_act(20, "электрической дуги", flags = SHOCK_NOGLOVES)
+		mob.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	return ..()
 
 /obj/effect/ebeam/vetus_leg
@@ -345,6 +343,10 @@
 
 /obj/effect/ebeam/medical
 	name = "medical beam"
+
+/obj/effect/ebeam/laser_sight
+	name = "laser sight"
+	layer = OBJ_LAYER
 
 /obj/effect/ebeam/reacting/deadly
 

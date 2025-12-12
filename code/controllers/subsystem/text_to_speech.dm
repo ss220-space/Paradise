@@ -1,7 +1,3 @@
-#define TTS_TRAIT_PITCH_WHISPER (1<<1)
-#define TTS_TRAIT_RATE_FASTER (1<<2)
-#define TTS_TRAIT_RATE_MEDIUM (1<<3)
-
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
 	init_order = INIT_ORDER_DEFAULT
@@ -164,12 +160,11 @@ SUBSYSTEM_DEF(tts)
 		"beautician" = "Косметолог",
 		"explorer" = "Исследователь",
 		"chaplain" = "Священник",
-		"syndicate officer" = "Офицер синдиката",
+		"syndicate officer" = "Офицер \"Синдиката\"",
 		"visitor" = "посетитель",
 		"mining medic" = "Шахтёрский врач",
 		"lavaland health officer" = "Медицинский работник Лазиса",
 	)
-
 
 /datum/controller/subsystem/tts/get_stat_details()
 	var/list/msg = list()
@@ -190,7 +185,6 @@ SUBSYSTEM_DEF(tts)
 
 	return msg.Join("")
 
-
 /datum/controller/subsystem/tts/PreInit()
 	. = ..()
 	for(var/path in subtypesof(/datum/tts_provider))
@@ -206,13 +200,11 @@ SUBSYSTEM_DEF(tts)
 		tts_seeds_names_by_donator_levels["[seed.donator_level]"] += list(seed.name)
 	tts_seeds_names = sortTim(tts_seeds_names, cmp = /proc/cmp_text_asc)
 
-
 /datum/controller/subsystem/tts/Initialize()
 	is_enabled = CONFIG_GET(flag/tts_enabled)
 	if(!is_enabled)
 		flags |= SS_NO_FIRE
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/tts/fire()
 	tts_rps = tts_rps_counter
@@ -223,13 +215,13 @@ SUBSYSTEM_DEF(tts)
 	tts_rrps_counter = 0
 
 	tts_rps_list += tts_rps
-	if(tts_rps_list.len > 15)
+	if(length(tts_rps_list) > 15)
 		tts_rps_list.Cut(1,2)
 
 	var/rps_sum = 0
 	for(var/rps in tts_rps_list)
 		rps_sum += rps
-	tts_sma_rps = round(rps_sum / tts_rps_list.len, 0.1)
+	tts_sma_rps = round(rps_sum / length(tts_rps_list), 0.1)
 
 	var/free_rps = clamp(tts_rps_limit - tts_rps, 0, tts_rps_limit)
 	var/requests = tts_requests_queue.Copy(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)
@@ -249,14 +241,12 @@ SUBSYSTEM_DEF(tts)
 		sanitized_messages_cache_hit = 0
 		sanitized_messages_cache_miss = 0
 
-
 /datum/controller/subsystem/tts/Recover()
 	is_enabled = SStts.is_enabled
 	tts_wanted = SStts.tts_wanted
 	tts_request_failed = SStts.tts_request_failed
 	tts_request_succeeded = SStts.tts_request_succeeded
 	tts_reused = SStts.tts_reused
-
 
 /datum/controller/subsystem/tts/proc/queue_request(text, datum/tts_seed/seed, datum/callback/proc_callback)
 	if(LAZYLEN(tts_requests_queue) > tts_requests_queue_limit)
@@ -272,7 +262,6 @@ SUBSYSTEM_DEF(tts)
 
 	tts_requests_queue += list(list(text, seed, proc_callback))
 	return TRUE
-
 
 /datum/controller/subsystem/tts/proc/get_tts(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	if(!is_enabled)
@@ -332,7 +321,6 @@ SUBSYSTEM_DEF(tts)
 	queue_request(text, seed, cb)
 	LAZYADD(tts_queue[filename], play_tts_cb)
 
-
 /datum/controller/subsystem/tts/proc/get_tts_callback(atom/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
 
@@ -375,7 +363,6 @@ SUBSYSTEM_DEF(tts)
 		tts_queue[filename] -= cb
 
 	tts_queue -= filename
-
 
 /datum/controller/subsystem/tts/proc/play_tts(atom/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null, whisper = FALSE)
 	if(isnull(listener) || !listener.client)
@@ -441,14 +428,13 @@ SUBSYSTEM_DEF(tts)
 	if(preSFX)
 		play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 
-	output = listener.playsound_local(turf_source, output, volume, sound = output, wait = TRUE, channel = channel)
+	output = listener.playsound_local(turf_source, output, volume, sound_to_use = output, wait = TRUE, channel = channel)
 
 	if(!output || output.volume <= 0)
 		return
 
 	if(postSFX)
 		play_sfx(listener, postSFX, output.channel, output.volume, output.environment)
-
 
 /datum/controller/subsystem/tts/proc/play_sfx(mob/listener, sfx, channel, volume, environment)
 	var/sound/output = sound(sfx)
@@ -459,7 +445,6 @@ SUBSYSTEM_DEF(tts)
 	output.environment = environment
 	SEND_SOUND(listener, output)
 
-
 /datum/controller/subsystem/tts/proc/get_local_channel_by_owner(owner)
 	var/channel = tts_local_channels_by_owner[owner]
 	if(isnull(channel))
@@ -467,10 +452,8 @@ SUBSYSTEM_DEF(tts)
 		tts_local_channels_by_owner[owner] = channel
 	return channel
 
-
 /datum/controller/subsystem/tts/proc/cleanup_tts_file(filename)
 	fdel(filename)
-
 
 /datum/controller/subsystem/tts/proc/get_available_seeds(owner)
 	var/list/_tts_seeds_names = list()
@@ -489,10 +472,8 @@ SUBSYSTEM_DEF(tts)
 			_tts_seeds_names -= tts_seeds_names_by_donator_levels["[donator_level]"]
 	return _tts_seeds_names
 
-
 /datum/controller/subsystem/tts/proc/get_random_seed(owner)
 	return pick(get_available_seeds(owner))
-
 
 /datum/controller/subsystem/tts/proc/sanitize_tts_input(message)
 	var/hash
@@ -516,10 +497,8 @@ SUBSYSTEM_DEF(tts)
 	if(sanitized_messages_caching)
 		sanitized_messages_cache[hash] = .
 
-
 /proc/tts_cast(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
-
 
 /proc/tts_word_replacer(word)
 	var/static/list/tts_replacement_list
@@ -586,7 +565,7 @@ SUBSYSTEM_DEF(tts)
 			"сс" = "Эс Эс",
 			"тесла" = "тэсла",
 			"трейзен" = "трэйзэн",
-			"нанотрейзен" = "нанотрэйзэн",
+			UNLINT("нанотрейзен") = "нанотрэйзэн",
 			"мед" = "м ед",
 			"кз" = "Кэ Зэ",
 			"днк" = "дэ эн ка",

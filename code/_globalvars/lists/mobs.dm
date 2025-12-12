@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(clients)							//list of all clients
 GLOBAL_LIST_EMPTY(admins)							//list of all clients whom are admins
 GLOBAL_LIST_EMPTY(de_admins)							//list of all admins who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(de_mentors)							//list of all mentors who have used the de-admin verb.
+GLOBAL_LIST_EMPTY(de_devs)								//list of all devs who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(directory)							//list of all ckeys with associated client
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
 
@@ -56,6 +57,8 @@ GLOBAL_LIST_EMPTY(emote_list)
 GLOBAL_LIST_EMPTY(uplink_items)
 
 GLOBAL_LIST_EMPTY(mining_vendor_items)
+
+GLOBAL_LIST_EMPTY(item_skins)
 
 GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
 

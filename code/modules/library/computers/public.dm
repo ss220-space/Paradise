@@ -1,15 +1,12 @@
 /obj/machinery/computer/library/public
-	name = "visitor computer"
 
 /obj/machinery/computer/library/public/attack_hand(mob/user)
 	if(..())
 		return
 	interact(user)
 
-
 /obj/machinery/computer/library/public/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
-
 
 /obj/machinery/computer/library/public/interact(mob/user)
 	if(interact_check(user))
@@ -52,7 +49,7 @@
 						<td>[CB.title]</td>
 						<td>[CB.category]</td>
 						<td>[CB.id]</td>
-						<td><A href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a></td>
+						<td><a href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a></td>
 					</tr>"}
 
 				dat += "</table><br />[pagelist]"

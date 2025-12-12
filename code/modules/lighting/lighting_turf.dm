@@ -24,16 +24,16 @@
 	var/totallums = 0
 	var/datum/lighting_corner/L
 	L = lighting_corner_NE
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_SE
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_SW
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_NW
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
@@ -54,10 +54,14 @@
 
 	return !(luminosity || dynamic_lumcount)
 
-
 /turf/proc/change_area(area/old_area, area/new_area)
 
 	old_area.contents -= src
+
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
+	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
+	old_area.turfs_to_uncontain_by_zlevel[z] += src
+	new_area.turfs_by_zlevel[z] += src
 	new_area.contents += src
 
 	var/old_force_no_grav = force_no_gravity
@@ -88,7 +92,6 @@
 		if(new_area.lighting_effects)
 			add_overlay(new_area.lighting_effects[index])
 
-
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)
 	LAZYADD(opacity_sources, new_source)
@@ -96,14 +99,12 @@
 		return
 	recalculate_directional_opacity()
 
-
 ///Proc to remove movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/remove_opacity_source(atom/movable/old_source)
 	LAZYREMOVE(opacity_sources, old_source)
 	if(opacity) //Still opaque, no need to worry on updating.
 		return
 	recalculate_directional_opacity()
-
 
 ///Calculate on which directions this turfs block view.
 /turf/proc/recalculate_directional_opacity()
@@ -123,7 +124,6 @@
 				break
 	if(. != directional_opacity && (. == ALL_CARDINALS || directional_opacity == ALL_CARDINALS))
 		reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
-
 
 /turf/set_opacity(new_opacity)
 	. = ..()

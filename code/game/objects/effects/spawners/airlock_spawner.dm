@@ -3,18 +3,18 @@ Spawners for mappers. Just plonk one down of the desired size and it will place 
 This spawner places pipe leading up to the interior door, you will need to finish it off yourself with a connector, canister, and pipe connecting the two. It also assumes you already put in wall and floor.
 */
 
-#define HALF_X	round((tiles_in_x_direction - 1) * 0.5) //These are required so that the airlock can be in the middle of the chamber wall
-#define HALF_Y	round((tiles_in_y_direction - 1) * 0.5)
-#define CHAMBER_LONG	1
-#define CHAMBER_SQUARE	2
-#define CHAMBER_BIGGER	3
+#define HALF_X round((tiles_in_x_direction - 1) * 0.5) //These are required so that the airlock can be in the middle of the chamber wall
+#define HALF_Y round((tiles_in_y_direction - 1) * 0.5)
+#define CHAMBER_LONG 1
+#define CHAMBER_SQUARE 2
+#define CHAMBER_BIGGER 3
 #define DOOR_NORMAL_PLACEMENT 1
 #define DOOR_FLIPPED_PLACEMENT 2
 
-#define AIRPUMP_TAG		"[id_to_link]_pump"
-#define SENSOR_TAG		"[id_to_link]_sensor"
-#define OUTER_DOOR_TAG	"[id_to_link]_outer"
-#define INNER_DOOR_TAG	"[id_to_link]_inner"
+#define AIRPUMP_TAG "[id_to_link]_pump"
+#define SENSOR_TAG "[id_to_link]_sensor"
+#define OUTER_DOOR_TAG "[id_to_link]_outer"
+#define INNER_DOOR_TAG "[id_to_link]_inner"
 
 /obj/effect/spawner/airlock
 	name = "1 by 1 airlock spawner (interior north, exterior south)"
@@ -153,6 +153,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		AS.pixel_x += 25
 		AS.pixel_y -= 9
 
+#define NORTH_OF_TURF(turf) locate(turf.x, turf.y + 1, turf.z)
+#define EAST_OF_TURF(turf) locate(turf.x + 1, turf.y, turf.z)
+
 /obj/effect/spawner/airlock/proc/handle_pipes_creation(turf/T) //This places all required piping down, then properly initializes it. T is the turf that the interior airlock occupies
 	var/turf/below_T = get_step(T, opposite_interior_direction)
 
@@ -200,6 +203,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 					interior_direction_cw)
 				put_thing_here = get_step(put_thing_here, opposite_interior_direction) //Now move the turf we're generating stuff from 1 forward
 
+#undef NORTH_OF_TURF
+#undef EAST_OF_TURF
+
 /obj/effect/spawner/airlock/proc/pipe_creation_helper(path, location, direction, initialization_directions) //Create some kind of atmospherics machinery and initialize it properly
 	var/obj/machinery/atmospherics/A = new path(location)
 	A.dir = direction
@@ -208,7 +214,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
-
 
 //Premade airlocks for mappers, probably won't need all of these but whatever
 /obj/effect/spawner/airlock/s_to_n
@@ -264,7 +269,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	name = "square airlock spawner (interior east, exterior south)"
 	icon_state = "2x2_E_to_S"
 	interior_direction = EAST
-	exterior_direction = SOUTH
 
 /obj/effect/spawner/airlock/long/square/wide
 	name = "rectangular airlock spawner (interior north, exterior south)"
@@ -286,8 +290,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/long/square/three
 	name = "3 by 3 square airlock spawner (interior north, exterior south)"
 	icon_state = "3x3_N_to_S"
-	interior_direction = NORTH
-	exterior_direction = SOUTH
 	tiles_in_x_direction = 3
 	tiles_in_y_direction = 3
 

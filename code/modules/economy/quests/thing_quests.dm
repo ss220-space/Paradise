@@ -1,6 +1,6 @@
 
 /datum/cargo_quest/thing
-	quest_type_name = "generic thing"
+	quest_type_name = "шаблонный предмет"
 	var/list/easy_items
 	var/list/normal_items
 	var/list/hard_items
@@ -29,17 +29,19 @@
 
 /datum/cargo_quest/thing/add_goal(difficultly)
 	var/list/difficult_list = generate_goal_list(difficultly)
-	var/obj/generated_item = pick(difficult_list)
+	var/obj/item_path = pick(difficult_list)
+	var/atom/AM = new item_path(locate(1, 1, 1))
+	var/object_name = AM.declent_ru(NOMINATIVE)
+	qdel(AM)
 
-	q_storage.reward += difficult_list[generated_item]
+	q_storage.reward += difficult_list[item_path]
 	if(unique_things)
-		difficult_list.Remove(generated_item)
+		difficult_list.Remove(item_path)
 
-	req_items += generated_item
+	req_items += item_path
 	current_list = req_items.Copy()
 
-	desc += "[capitalize(format_text(initial(generated_item.name)))] <br>"
-
+	desc += "[capitalize(object_name)]<br>"
 
 /datum/cargo_quest/thing/update_interface_icon()
 	if(item_for_show)
@@ -66,7 +68,7 @@
 	current_list = req_items.Copy()
 
 /datum/cargo_quest/thing/xenobio
-	quest_type_name = "Xenobiological extract"
+	quest_type_name = "Экстракты слаймов"
 	bounty_jobs = list(
 		JOB_TITLE_CMO,
 		JOB_TITLE_DOCTOR,
@@ -77,7 +79,7 @@
 		JOB_TITLE_VIROLOGIST,
 		JOB_TITLE_PARAMEDIC,
 		JOB_TITLE_CORONER,
-		JOB_TITLE_INTERN
+		JOB_TITLE_INTERN,
 	)
 	linked_departament = "Science"
 
@@ -100,19 +102,19 @@
 		/obj/item/slime_extract/green = 215,
 		/obj/item/slime_extract/red = 215,
 		/obj/item/slime_extract/pink = 215,
-		/obj/item/slime_extract/gold = 215
+		/obj/item/slime_extract/gold = 215,
 	)
 	hard_items = list(
 		/obj/item/slime_extract/adamantine = 270,
 		/obj/item/slime_extract/oil = 270,
 		/obj/item/slime_extract/black = 270,
 		/obj/item/slime_extract/lightpink = 270,
-		/obj/item/slime_extract/rainbow = 300
+		/obj/item/slime_extract/rainbow = 300,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/organs
-	quest_type_name = "Organ"
+	quest_type_name = "Органы"
 	bounty_jobs = list(
 		JOB_TITLE_CMO,
 		JOB_TITLE_DOCTOR,
@@ -123,7 +125,7 @@
 		JOB_TITLE_VIROLOGIST,
 		JOB_TITLE_PARAMEDIC,
 		JOB_TITLE_CORONER,
-		JOB_TITLE_INTERN
+		JOB_TITLE_INTERN,
 	)
 	linked_departament = "Medical"
 
@@ -133,7 +135,7 @@
 		/obj/item/organ/internal/headpocket = 175,
 		/obj/item/organ/internal/eyes/unathi = 175,
 		/obj/item/organ/internal/eyes/nian = 175,
-		/obj/item/organ/internal/liver/skrell = 175
+		/obj/item/organ/internal/liver/skrell = 175,
 	)
 	hard_items = list(
 		/obj/item/organ/internal/kidneys/grey = 350,
@@ -146,7 +148,7 @@
 		/obj/item/organ/internal/eyes/unathi/ash_walker_shaman = 350,
 		/obj/item/organ/internal/lantern = 400,
 		/obj/item/organ/internal/wryn/glands = 700,
-		/obj/item/organ/internal/heart/plasmaman = 750
+		/obj/item/organ/internal/heart/plasmaman = 750,
 	)
 	very_hard_items = list(
 		/obj/item/organ/internal/heart/cursed = 550,
@@ -157,12 +159,12 @@
 		/obj/item/organ/internal/xenos/acidgland/sentinel = 750,
 		/obj/item/organ/internal/xenos/acidgland/praetorian = 750,
 		/obj/item/organ/internal/xenos/resinspinner = 750,
-		/obj/item/organ/internal/xenos/neurotoxin = 850
+		/obj/item/organ/internal/xenos/neurotoxin = 850,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/foods
-	quest_type_name = "Food"
+	quest_type_name = "Продукты питания"
 	bounty_jobs = list(JOB_TITLE_CHEF)
 	linked_departament = "Support"
 
@@ -242,9 +244,8 @@
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/miner
-	quest_type_name = "Shaft Miner Loot"
+	quest_type_name = "Добыча с Лазиса"
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_departament = "Cargo"
 
 	easy_items = list(
 		/obj/item/crusher_trophy/legion_skull = 60,
@@ -277,9 +278,8 @@
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/minerals
-	quest_type_name = "Minerals"
+	quest_type_name = "Минералы"
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_departament = "Cargo"
 
 	var/list/required_minerals = list()
 	unique_things = FALSE
@@ -296,34 +296,36 @@
 		/obj/item/stack/sheet/mineral/diamond = list("reward" = 100, "amount" = 10),
 		/obj/item/stack/sheet/plasteel = list("reward" = 90, "amount" = 30),
 		/obj/item/stack/sheet/mineral/plasma = list("reward" = 120, "amount" = 40),
-		/obj/item/stack/sheet/mineral/silver = list("reward" = 90, "amount" = 25)
+		/obj/item/stack/sheet/mineral/silver = list("reward" = 90, "amount" = 25),
 	)
 	hard_items = list(
 		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
 		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5)
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5),
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
-
 /datum/cargo_quest/thing/minerals/add_goal(difficultly)
 	var/list/difficult_list = generate_goal_list(difficultly)
-	var/obj/item/generated_mineral = pick(difficult_list)
-	cargo_quest_reward = difficult_list[generated_mineral]["reward"]
+	var/obj/item/item_path = pick(difficult_list)
+	cargo_quest_reward = difficult_list[item_path]["reward"]
 	q_storage.reward += cargo_quest_reward
-	if(!required_minerals[generated_mineral])
-		required_minerals += generated_mineral
-	required_minerals[generated_mineral] += difficult_list[generated_mineral]["amount"]
+	if(!required_minerals[item_path])
+		required_minerals += item_path
+	required_minerals[item_path] += difficult_list[item_path]["amount"]
 	desc = list()
 	for(var/mineral in required_minerals)
-		var/obj/desc_mineral = mineral
-		desc += "[capitalize(format_text(initial(desc_mineral.name)))],<br>  amount: [required_minerals[mineral]]<br>"
-	if(generated_mineral in unique_minerals)
-		difficult_list.Remove(generated_mineral)
+		var/atom/AM = new item_path(locate(1, 1, 1))
+		var/object_name = AM.declent_ru(NOMINATIVE)
+		qdel(AM)
+
+		desc += "[capitalize(object_name)]<br>Объём: [required_minerals[item_path]]<br>"
+	if(item_path in unique_minerals)
+		difficult_list.Remove(item_path)
 	current_list = required_minerals.Copy()
 	if(unique_things)
-		difficult_list.Remove(generated_mineral)
+		difficult_list.Remove(item_path)
 
 /datum/cargo_quest/thing/minerals/check_required_item(atom/movable/check_item)
 	if(!length(required_minerals))
@@ -364,7 +366,7 @@
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL)
 
 /datum/cargo_quest/thing/seeds
-	quest_type_name = "Seeds"
+	quest_type_name = "Семена"
 	bounty_jobs = list(JOB_TITLE_BOTANIST)
 	linked_departament = "Support"
 
@@ -433,18 +435,17 @@
 		/obj/item/seeds/lavaland/porcini = 100,
 	)
 
-
 	very_hard_items = list(
 		/obj/item/seeds/kudzu = 460,
 		/obj/item/seeds/cherry/bomb = 640,
 		/obj/item/seeds/apple/poisoned = 640,
 		/obj/item/seeds/wheat/meat = 640,
-		/obj/item/seeds/gatfruit = 760
+		/obj/item/seeds/gatfruit = 760,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/botanygenes
-	quest_type_name = "Botany Genes on Disks"
+	quest_type_name = "Дискеты с генами растений"
 	item_for_show = /obj/item/disk/plantgene
 	req_items = list(/obj/item/disk/plantgene)
 	bounty_jobs = list(JOB_TITLE_BOTANIST)
@@ -514,7 +515,7 @@
 	current_list = required_genes.Copy()
 
 /datum/cargo_quest/thing/genes
-	quest_type_name = "DNA Genes"
+	quest_type_name = "Дискеты с генами гуманоидов"
 	item_for_show = /obj/item/dnainjector
 	req_items = list(/obj/item/dnainjector)
 	bounty_jobs = list(JOB_TITLE_GENETICIST)
@@ -618,10 +619,9 @@
 	. = TRUE
 	current_list = required_blocks.Copy()
 
-
 #define REQUIRED_BLOOD_AMOUNT 10
 /datum/cargo_quest/thing/virus
-	quest_type_name = "Viruses symptoms in vials (10u minimum)"
+	quest_type_name = "Вирусные симптомы в пробирках (минимум 10 ед.)"
 	item_for_show = /obj/item/reagent_containers/glass/beaker/vial
 	req_items = list(/obj/item/reagent_containers/glass/beaker/vial)
 	bounty_jobs = list(JOB_TITLE_VIROLOGIST)
@@ -691,7 +691,7 @@
 	required_symptoms[generated_symptom] = REQUIRED_BLOOD_AMOUNT
 	current_list = required_symptoms.Copy()
 
-	desc += "[capitalize(format_text(initial(generated_symptom.name)))], [REQUIRED_BLOOD_AMOUNT]u<br>"
+	desc += "[capitalize(format_text(initial(generated_symptom.name)))], [REQUIRED_BLOOD_AMOUNT] ед.<br>"
 
 /datum/cargo_quest/thing/virus/check_required_item(atom/movable/check_item)
 
@@ -727,14 +727,13 @@
 #undef REQUIRED_BLOOD_AMOUNT
 
 /datum/cargo_quest/thing/capsule
-	quest_type_name = "Mob in lazarus capsule"
+	quest_type_name = "Существо в капсуле Лазаря"
 	item_for_show = /obj/item/mobcapsule
 	req_items = list(/obj/item/mobcapsule)
 
 	var/list/required_mobs = list()
 	var/list/capsules
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_departament = "Cargo"
 
 	normal_items = list(
 		/mob/living/simple_animal/hostile/asteroid/goliath/beast = 180,
@@ -746,7 +745,7 @@
 		/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient = 450,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing = 330,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing = 350,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 350
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 350,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -755,16 +754,20 @@
 
 /datum/cargo_quest/thing/capsule/add_goal(difficultly)
 	var/list/difficult_list = generate_goal_list(difficultly)
-	var/mob/generated_mob = pick(difficult_list)
-	cargo_quest_reward = difficult_list[generated_mob]
+	var/mob/item_path = pick(difficult_list)
+	var/atom/AM = new item_path(locate(1, 1, 1))
+	var/object_name = AM.declent_ru(NOMINATIVE)
+	qdel(AM)
+
+	cargo_quest_reward = difficult_list[item_path]
 	q_storage.reward += cargo_quest_reward
 	if(unique_things)
-		difficult_list.Remove(generated_mob)
+		difficult_list.Remove(item_path)
 
-	required_mobs += generated_mob
+	required_mobs += item_path
 	current_list = required_mobs.Copy()
 
-	desc += "[capitalize(format_text(initial(generated_mob.name)))]<br>"
+	desc += "[capitalize(object_name)]<br>"
 
 /datum/cargo_quest/thing/capsule/check_required_item(atom/movable/check_item)
 
@@ -782,7 +785,6 @@
 			LAZYADD(capsules, capsule)
 			return TRUE
 	return FALSE
-
 
 /datum/cargo_quest/thing/capsule/after_check()
 	. = TRUE

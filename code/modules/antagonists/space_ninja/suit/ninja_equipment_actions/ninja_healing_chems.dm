@@ -6,9 +6,7 @@
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_CHARGES
 	charge_max = 3
-	use_itemicon = FALSE
 	button_icon_state = "chem_injector"
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green_active"
 	action_initialisation_text = "Integrated Restorative Cocktail Mixer"
@@ -35,7 +33,6 @@
 	desc = "Incredible... yet absurd thing. Who's gonna come out of it?"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "green_rift"
-	anchored = TRUE
 	var/mob/living/carbon/human/occupant	//mob holder
 	duration = 1 MINUTES
 	var/duration_min = 5 SECONDS

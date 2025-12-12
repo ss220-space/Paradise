@@ -28,7 +28,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/get_ru_names()
@@ -38,7 +38,7 @@
 		DATIVE = "противогазу",
 		ACCUSATIVE = "противогаз",
 		INSTRUMENTAL = "противогазом",
-		PREPOSITIONAL = "противогазе"
+		PREPOSITIONAL = "противогазе",
 	)
 
 // **** Welding gas mask ****
@@ -55,7 +55,6 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
 
@@ -66,17 +65,14 @@
 		DATIVE = "сварочному протовогазу",
 		ACCUSATIVE = "сварочный протовогаз",
 		INSTRUMENTAL = "сварочным протовогазом",
-		PREPOSITIONAL = "сварочном протовогазе"
+		PREPOSITIONAL = "сварочном протовогазе",
 	)
-
 
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
-
 /obj/item/clothing/mask/gas/welding/adjustmask(mob/living/carbon/human/user)
 	return
-
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
@@ -102,7 +98,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/explorer/get_ru_names()
@@ -112,24 +108,20 @@
 		DATIVE = "противогазу исследователя",
 		ACCUSATIVE = "противогаз исследователя",
 		INSTRUMENTAL = "противогазом исследователя",
-		PREPOSITIONAL = "противогазе исследователя"
+		PREPOSITIONAL = "противогазе исследователя",
 	)
-	
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
-
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-
 /obj/item/clothing/mask/gas/explorer/force_adjust_mask()
 	. = ..()
 	w_class = WEIGHT_CLASS_SMALL
-
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
@@ -155,7 +147,7 @@
 		DATIVE = "маске Бейна",
 		ACCUSATIVE = "маску Бейна",
 		INSTRUMENTAL = "маской Бейна",
-		PREPOSITIONAL = "маске Бейна"
+		PREPOSITIONAL = "маске Бейна",
 	)
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
@@ -174,7 +166,7 @@
 		DATIVE = "маске чумного доктора",
 		ACCUSATIVE = "маску чумного доктора",
 		INSTRUMENTAL = "маской чумного доктора",
-		PREPOSITIONAL = "маске чумного доктора"
+		PREPOSITIONAL = "маске чумного доктора",
 	)
 
 /obj/item/clothing/mask/gas/plaguedoctor/armoured
@@ -194,7 +186,7 @@
 		DATIVE = "маске спецназа",
 		ACCUSATIVE = "маску спецназа",
 		INSTRUMENTAL = "маской спецназа",
-		PREPOSITIONAL = "маске спецназа"
+		PREPOSITIONAL = "маске спецназа",
 	)
 
 /obj/item/clothing/mask/gas/syndicate
@@ -207,12 +199,12 @@
 
 /obj/item/clothing/mask/gas/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "маска Синдиката",
-		GENITIVE = "маски Синдиката",
-		DATIVE = "маске Синдиката",
-		ACCUSATIVE = "маску Синдиката",
-		INSTRUMENTAL = "маской Синдиката",
-		PREPOSITIONAL = "маске Синдиката"
+		NOMINATIVE = "маска \"Синдиката\"",
+		GENITIVE = "маски \"Синдиката\"",
+		DATIVE = "маске \"Синдиката\"",
+		ACCUSATIVE = "маску \"Синдиката\"",
+		INSTRUMENTAL = "маской \"Синдиката\"",
+		PREPOSITIONAL = "маске \"Синдиката\"",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -242,7 +234,7 @@
 		DATIVE = "клоунскому парику с маской",
 		ACCUSATIVE = "клоунский парик с маской",
 		INSTRUMENTAL = "клоунским париком с маской",
-		PREPOSITIONAL = "клоунском парике с маской"
+		PREPOSITIONAL = "клоунском парике с маской",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
@@ -270,7 +262,7 @@
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
-	desc = "Женственная клоунская маска для начинающих кроссдрессеров или женщин - артисток. Вы можете изменить её внешний вид в руках."
+	desc = "Женственная клоунская маска для начинающих кроссдрессеров или женщин — артисток. Вы можете изменить её внешний вид в руках."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 
@@ -281,7 +273,7 @@
 		DATIVE = "сексуальному клоунскому парику с маской",
 		ACCUSATIVE = "сексуальный клоунский парик с маской",
 		INSTRUMENTAL = "сексуальным клоунским париком с маской",
-		PREPOSITIONAL = "сексуальном клоунском парике с маской"
+		PREPOSITIONAL = "сексуальном клоунском парике с маской",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/joker
@@ -297,7 +289,7 @@
 		DATIVE = "клоунскому парику с маской настоящего безумца",
 		ACCUSATIVE = "клоунский парик с маской настоящего безумца",
 		INSTRUMENTAL = "клоунским париком с маской настоящего безумца",
-		PREPOSITIONAL = "клоунском парике с маской настоящего безумца"
+		PREPOSITIONAL = "клоунском парике с маской настоящего безумца",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow
@@ -307,7 +299,7 @@
 	item_state = "rainbow"
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow/get_ru_names()
@@ -317,7 +309,7 @@
 		DATIVE = "радужному клоунскому парику с маской",
 		ACCUSATIVE = "радужный клоунский парик с маской",
 		INSTRUMENTAL = "радужным клоунским париком с маской",
-		PREPOSITIONAL = "радужном клоунском парике с маской"
+		PREPOSITIONAL = "радужном клоунском парике с маской",
 	)
 
 /obj/item/clothing/mask/gas/clownwiz
@@ -336,17 +328,14 @@
 		DATIVE = "магическому клоунскому парику с маской",
 		ACCUSATIVE = "магический клоунский парик с маской",
 		INSTRUMENTAL = "магическим клоунским париком с маской",
-		PREPOSITIONAL = "магическом клоунском парике с маской"
+		PREPOSITIONAL = "магическом клоунском парике с маской",
 	)
 
-
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-
 
 /obj/item/clothing/mask/gas/clown_hat/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/mask/gas/mime
 	name = "happy mime mask"
@@ -378,7 +367,7 @@
 		DATIVE = "счастливой маске мима",
 		ACCUSATIVE = "счастливую маску мима",
 		INSTRUMENTAL = "счастливой маской мима",
-		PREPOSITIONAL = "счастливой маске мима"
+		PREPOSITIONAL = "счастливой маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/proc/mask_action(mob/user)
@@ -410,20 +399,19 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
+	//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
 	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
 		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
-			mask_spell = spell
+			//mask_spell = spell
 			continue
 		if(spell)
 			return
 
-	if(mask_spell)
-		mask_spell.action.enable_invisibility(FALSE)
-		return
+	// if(mask_spell)
+	// 	mask_spell.action.enable_invisibility(FALSE)
+	// 	return
 
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
-
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -435,9 +423,9 @@
 	if(!spell)
 		return
 
-	if(spell.cooldown_handler.is_on_cooldown())
-		spell.action.enable_invisibility(TRUE)
-		return
+	// if(spell.cooldown_handler.is_on_cooldown())
+	// 	spell.action.enable_invisibility(TRUE)
+	// 	return
 
 	if(user.mind.miming)
 		spell.cast(list(user))
@@ -454,7 +442,7 @@
 		DATIVE = "печальной маске мима",
 		ACCUSATIVE = "печальную маску мима",
 		INSTRUMENTAL = "печальной маской мима",
-		PREPOSITIONAL = "печальной маске мима"
+		PREPOSITIONAL = "печальной маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/angry
@@ -468,7 +456,7 @@
 		DATIVE = "злобной маске мима",
 		ACCUSATIVE = "злобную маску мима",
 		INSTRUMENTAL = "злобной маской мима",
-		PREPOSITIONAL = "злобной маске мима"
+		PREPOSITIONAL = "злобной маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/clueless
@@ -482,7 +470,7 @@
 		DATIVE = "равнодушной маске мима",
 		ACCUSATIVE = "равнодушную маску мима",
 		INSTRUMENTAL = "равнодушной маской мима",
-		PREPOSITIONAL = "равнодушной маске мима"
+		PREPOSITIONAL = "равнодушной маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/morutopia
@@ -496,7 +484,7 @@
 		DATIVE = "маске Трагика",
 		ACCUSATIVE = "маску Трагика",
 		INSTRUMENTAL = "маской Трагика",
-		PREPOSITIONAL = "маске Трагика"
+		PREPOSITIONAL = "маске Трагика",
 	)
 
 /obj/item/clothing/mask/gas/mime/wizard
@@ -512,16 +500,14 @@
 		DATIVE = "магической маске мима",
 		ACCUSATIVE = "магическую маску мима",
 		INSTRUMENTAL = "магической маской мима",
-		PREPOSITIONAL = "магической маске мима"
+		PREPOSITIONAL = "магической маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/nodrop
 
-
 /obj/item/clothing/mask/gas/mime/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -538,13 +524,12 @@
 		DATIVE = "маске обезьяны",
 		ACCUSATIVE = "маску обезьяны",
 		INSTRUMENTAL = "маской обезьяны",
-		PREPOSITIONAL = "маске обезьяны"
+		PREPOSITIONAL = "маске обезьяны",
 	)
 
 /obj/item/clothing/mask/gas/mime/sexy
 	name = "sexy mime mask"
 	desc = "Классическая женская маска мима."
-	gender = FEMALE
 	icon_state = "sexymime"
 	item_state = "sexymime"
 
@@ -555,7 +540,24 @@
 		DATIVE = "сексуальной маске мима",
 		ACCUSATIVE = "сексуальную маску мима",
 		INSTRUMENTAL = "сексуальной маской мима",
-		PREPOSITIONAL = "сексуальной маске мима"
+		PREPOSITIONAL = "сексуальной маске мима",
+	)
+
+/obj/item/clothing/mask/gas/mime/old
+
+	name = "classic mime mask"
+	desc = "Маска мима прямиком из 2568."
+	icon_state = "mime_old"
+	item_state = "mime_old"
+
+/obj/item/clothing/mask/gas/mime/old/get_ru_names()
+	return list(
+		NOMINATIVE = "классическая маска мима",
+		GENITIVE = "классической маски мима",
+		DATIVE = "классической маске мима",
+		ACCUSATIVE = "классическую маску мима",
+		INSTRUMENTAL = "классической маской мима",
+		PREPOSITIONAL = "классической маске мима",
 	)
 
 /obj/item/clothing/mask/gas/cyborg
@@ -571,7 +573,7 @@
 		DATIVE = "визору робота",
 		ACCUSATIVE = "визор робота",
 		INSTRUMENTAL = "визором робота",
-		PREPOSITIONAL = "визоре робота"
+		PREPOSITIONAL = "визоре робота",
 	)
 
 /obj/item/clothing/mask/gas/owl_mask
@@ -589,16 +591,14 @@
 		DATIVE = "маске совы",
 		ACCUSATIVE = "маску совы",
 		INSTRUMENTAL = "маской совы",
-		PREPOSITIONAL = "маске совы"
+		PREPOSITIONAL = "маске совы",
 	)
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero
 
-
 /obj/item/clothing/mask/gas/owl_mask/super_hero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
@@ -656,7 +656,7 @@
 		DATIVE = "противогазу службы безопасности",
 		ACCUSATIVE = "противогаз службы безопасности",
 		INSTRUMENTAL = "противогазом службы безопасности",
-		PREPOSITIONAL = "противогазе службы безопасности"
+		PREPOSITIONAL = "противогазе службы безопасности",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
@@ -664,11 +664,9 @@
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-
 /obj/item/clothing/mask/gas/sechailer/force_adjust_mask()
 	. = ..()
 	w_class = WEIGHT_CLASS_SMALL
-
 
 /obj/item/clothing/mask/gas/sechailer/folded/Initialize(mapload)
 	. = ..()
@@ -676,7 +674,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/tactical
 	name = "Security gas mask FCO-26"
-	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности НаноТрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
+	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией \"Стальная Гвардия\" специально для сотрудников станционной службы безопасности \"Нанотрейзен\". Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
 	aggressiveness = 3
@@ -691,7 +689,7 @@
 		DATIVE = "тактическому противогазу СБ",
 		ACCUSATIVE = "тактический противогаз СБ",
 		INSTRUMENTAL = "тактическим противогазом СБ",
-		PREPOSITIONAL = "тактическом противогазе СБ"
+		PREPOSITIONAL = "тактическом противогазе СБ",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/hos
@@ -711,7 +709,7 @@
 		DATIVE = "тактическому противогазу ГСБ",
 		ACCUSATIVE = "тактический противогаз ГСБ",
 		INSTRUMENTAL = "тактическим противогазом ГСБ",
-		PREPOSITIONAL = "тактическом противогазе ГСБ"
+		PREPOSITIONAL = "тактическом противогазе ГСБ",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/warden
@@ -731,7 +729,7 @@
 		DATIVE = "тактическому противогазу смотрителя",
 		ACCUSATIVE = "тактический противогаз смотрителя",
 		INSTRUMENTAL = "тактическим противогазом смотрителя",
-		PREPOSITIONAL = "тактическом противогазе смотрителя"
+		PREPOSITIONAL = "тактическом противогазе смотрителя",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/swat
@@ -750,7 +748,7 @@
 		DATIVE = "тактическому противогазу",
 		ACCUSATIVE = "тактический противогаз",
 		INSTRUMENTAL = "тактическим противогазом",
-		PREPOSITIONAL = "тактическом противогазе"
+		PREPOSITIONAL = "тактическом противогазе",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/blue
@@ -771,7 +769,7 @@
 		DATIVE = "синему тактическому противогазу",
 		ACCUSATIVE = "синий тактический противогаз",
 		INSTRUMENTAL = "синимтактическим противогазом",
-		PREPOSITIONAL = "синем тактическом противогазе"
+		PREPOSITIONAL = "синем тактическом противогазе",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
@@ -789,7 +787,7 @@
 		DATIVE = "мегафону службы безопасности",
 		ACCUSATIVE = "мегафон службы безопасности",
 		INSTRUMENTAL = "мегафоном службы безопасности",
-		PREPOSITIONAL = "мегафоне службы безопасности"
+		PREPOSITIONAL = "мегафоне службы безопасности",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -801,8 +799,8 @@
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 
-		if (!safety)
-			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
+		if(!safety)
+			to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
 			return
 
 		switch(aggressiveness)
@@ -810,30 +808,29 @@
 				phrase = (phrase < 6) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(2)
 				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(3)
 				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(4)
 				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			else
-				to_chat(user, "<span class='notice'>It's broken.</span>")
+				to_chat(user, span_notice("It's broken."))
 
 		var/datum/action/item_action/halt/halt_action = locate() in actions
 		if(halt_action)
 			halt_action.name = "[uppertext(key)]!"
 			halt_action.UpdateButtonIcon()
-
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -859,7 +856,6 @@
 		if(5)
 			to_chat(user, span_warning("You adjust the restrictor but nothing happens, probably because its broken."))
 
-
 /obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(aggressiveness == 5)
@@ -872,7 +868,6 @@
 		return .
 	aggressiveness = 5
 	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
-
 
 /obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
 	adjustmask(user)
@@ -887,7 +882,6 @@
 	var/key = phrase_list[phrase]
 	var/message = phrase_list[key]
 
-
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
 		if(!safety)
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
@@ -900,13 +894,11 @@
 		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
 
-
-
 // ********************************************************************
 
 /obj/item/clothing/mask/gas/ghostface
 	name = "Ghostface mask"
-	desc = "Вытянутая белая маска, рот которой открыт в немом крике. Но вот в чём вопрос - ужаса, или ярости?"
+	desc = "Вытянутая белая маска, рот которой открыт в немом крике. Но вот в чём вопрос — ужаса, или ярости?"
 	icon_state = "ghostface_mask"
 	item_state = "ghostface_mask"
 	flags_inv = HIDEGLASSES
@@ -920,7 +912,7 @@
 		DATIVE = "кричащей маске",
 		ACCUSATIVE = "кричащую маску",
 		INSTRUMENTAL = "кричащей маской",
-		PREPOSITIONAL = "кричащей маске"
+		PREPOSITIONAL = "кричащей маске",
 	)
 
 /obj/item/clothing/mask/gas/ghostface/equipped(mob/user, slot, initial)
@@ -971,5 +963,5 @@
 		DATIVE = "шахтёрскому респиратору",
 		ACCUSATIVE = "шахтёрский респиратор",
 		INSTRUMENTAL = "шахтёрским респиратоом",
-		PREPOSITIONAL = "шахтёрском распираторе"
+		PREPOSITIONAL = "шахтёрском распираторе",
 	)

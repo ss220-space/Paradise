@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
-	
+
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
 	else
@@ -178,7 +178,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				T.AfterChange(CHANGETURF_IGNORE_AIR|CHANGETURF_KEEP_CABLING)
 				CHECK_TICK
 		return bounds
-
 
 /**
  * Fill a given tile with its area/turf/objects/mobs
@@ -259,7 +258,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 		modelCache[model] = list(members, members_attributes)
 
-
 	////////////////
 	// Instanciation
 	////////////////
@@ -282,8 +280,10 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 		if(!new_z)
 			old_area = crds.loc
-			old_area.turfs_to_uncontain += crds
-			area_instance.contained_turfs.Add(crds)
+			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, crds.z, list())
+			LISTASSERTLEN(area_instance.turfs_by_zlevel, crds.z, list())
+			old_area.turfs_to_uncontain_by_zlevel[crds.z] += crds
+			area_instance.turfs_by_zlevel[crds.z] += crds
 		area_instance.contents.Add(crds)
 
 		if(GLOB.use_preloader && area_instance)
@@ -303,11 +303,10 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		else
 			T = instance_atom(members[first_turf_index], members_attributes[first_turf_index], xcrd, ycrd, zcrd)
 
-
 	if(T)
 		// if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
-		var/mlen = members.len - 1
+		var/mlen = length(members) - 1
 		while(index <= mlen) // Last item is an /area
 			var/underlay
 			if(isturf(T)) // I blame this on the stupid clown who coded the BYOND map editor
@@ -348,7 +347,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	return instance
 
-
 // text trimming (both directions) helper proc
 // optionally removes quotes before and after the text (for variable name)
 /datum/dmm_suite/proc/trim_text(what, trim_quotes = FALSE)
@@ -356,7 +354,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		return trimQuotesRegex.Replace(what, "")
 	else
 		return trimRegex.Replace(what, "")
-
 
 // find the position of the next delimiter, skipping whatever is comprised between opening_escape and closing_escape
 // returns 0 if reached the last delimiter
@@ -371,7 +368,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		next_opening = findtext(text, opening_escape, position, 0)
 
 	return next_delimiter
-
 
 // build a list from variables in text form (e.g {var1="derp"; var2; var3=7} => list(var1="derp", var2, var3=7))
 // return the filled list
@@ -404,7 +400,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	while(delimiter_position != 0)
 
 	return to_return
-
 
 /**
  * Tries to parse the given value_text. Will fallback on the value_text as a string if it fails
@@ -444,7 +439,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	else
 		. = value_text // Assume it is a string without quotes
 
-
 /datum/dmm_suite/Destroy()
 	..()
 	return QDEL_HINT_HARDDEL_NOW
@@ -460,7 +454,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/json_ready = 0
 
 /datum/dmm_suite/preloader/proc/setup(list/the_attributes, path)
-	if(the_attributes.len)
+	if(length(the_attributes))
 		json_ready = 0
 		if("map_json_data" in the_attributes)
 			json_ready = 1
@@ -480,7 +474,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]
 		if(islist(value))
-			value = deepCopyList(value)
+			value = deep_copy_list(value)
 		if(value == null)
 			continue
 		A.vars[attribute] = value
@@ -509,7 +503,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// If this parsed map doesn't have that area already, we check the global cache
 		area_instance = GLOB.areas_by_type[area_type]
 		// If the global list DOESN'T have this area it's either not a unique area, or it just hasn't been created yet
-		if (!area_instance)
+		if(!area_instance)
 			area_instance = new area_type(null)
 			if(!area_instance)
 				CRASH("[area_type] failed to be new'd, what'd you do?")
@@ -523,5 +517,4 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 /turf/template_noop
 	name = "Turf Passthrough"
 	icon_state = "noop" // now turf passthrought won't mess with other structures like lattice or plates in space on ruin maps in map editor. it was too much annoyng before the change. noop icon added in areas.dmi as well
-	blocks_air = FALSE
 	init_air = FALSE

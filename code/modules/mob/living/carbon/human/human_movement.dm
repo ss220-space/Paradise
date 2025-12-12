@@ -1,14 +1,12 @@
-#define PULL_STAMINADAM_WALK	4
-#define PULL_STAMINADAM_RUN		6
-#define PUSH_STAMINADAM_WALK	3
-#define PUSH_STAMINADAM_RUN		4
-
+#define PULL_STAMINADAM_WALK 4
+#define PULL_STAMINADAM_RUN 6
+#define PUSH_STAMINADAM_WALK 3
+#define PUSH_STAMINADAM_RUN 4
 
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!forced && (!old_loc || old_loc.no_gravity()) && get_gravity())
 		thunk()
-
 
 /mob/living/carbon/human/get_movespeed_modifiers()
 	var/list/considering = ..()
@@ -21,7 +19,6 @@
 		return .
 	return considering
 
-
 /mob/living/carbon/human/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	if(movement_type & FLYING)
 		return TRUE
@@ -29,6 +26,15 @@
 		return TRUE
 	return ..()
 
+/mob/living/carbon/human/proc/get_strength_level()
+	var/list/strength_list = list()
+	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
+	return !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
+
+/mob/living/carbon/human/proc/get_weak_mob_modifiers()
+	var/list/weak_mob_modifier = list()
+	SEND_SIGNAL(src, COMSIG_GET_WEAK_MOB_MODIFIERS, weak_mob_modifier)
+	return !length(weak_mob_modifier) ? 1 : weak_mob_modifier[1]
 
 /mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -51,10 +57,11 @@
 
 		// If we sooo weak to pull or push something, except items or tiny mobs, get stamina damage
 		var/weak_mob = FALSE
-		if((pulling || now_pushing) && (HAS_TRAIT(src, TRAIT_WEAK_PULLING)))
+		if((pulling || now_pushing) && (HAS_TRAIT(src, TRAIT_WEAK_PULLING) && (!no_gravity()) && (get_strength_level() != STRENGTH_LEVEL_SUPERHUMAN)))
 			weak_mob = TRUE
 
 		if(weak_mob)
+			var/weak_mob_modifier = get_weak_mob_modifiers()
 			var/stamina_damage = 0
 			var/small_pulled = FALSE
 			// Handle pulling all non /obj/item stuff or tiny mobs
@@ -65,9 +72,9 @@
 
 			if(pulling && !(small_pulled || isitem(pulling)))
 				if(m_intent == MOVE_INTENT_WALK)
-					stamina_damage += PULL_STAMINADAM_WALK
+					stamina_damage += (PULL_STAMINADAM_WALK * weak_mob_modifier)
 				else
-					stamina_damage += PULL_STAMINADAM_RUN
+					stamina_damage += (PULL_STAMINADAM_RUN * weak_mob_modifier)
 
 				if(staminaloss > 69)
 					balloon_alert(src, "слишком тяжело тащить!")
@@ -77,9 +84,9 @@
 			if(now_pushing)
 				if(!(isliving(now_pushing) && a_intent == INTENT_HELP))
 					if(m_intent == MOVE_INTENT_WALK)
-						stamina_damage += PUSH_STAMINADAM_WALK
+						stamina_damage += (PUSH_STAMINADAM_WALK * weak_mob_modifier)
 					else
-						stamina_damage += PUSH_STAMINADAM_RUN
+						stamina_damage += (PUSH_STAMINADAM_RUN * weak_mob_modifier)
 
 			apply_damage(stamina_damage, STAMINA)
 		// if our speed is connected to enviroment temperature
@@ -121,7 +128,7 @@
 			S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
 			if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(shoes, dir, T)
-			update_inv_shoes()
+			update_worn_shoes()
 	else if(hasfeet)
 		if(bloody_feet && bloody_feet[blood_state])
 			for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
@@ -130,15 +137,13 @@
 			bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
 			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(src, dir, T)
-			update_inv_shoes()
+			update_worn_shoes()
 	//End bloody footprints
-
 
 /mob/living/carbon/human/on_fall()
 	. = ..()
 	if(HAS_TRAIT_FROM(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT) && has_pain())
 		INVOKE_ASYNC(src, PROC_REF(emote), "scream")
-
 
 /mob/living/carbon/human/set_usable_legs(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -156,7 +161,6 @@
 
 	update_fractures_slowdown()
 
-
 /mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT, hand_index)
 	. = ..()
 	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
@@ -173,7 +177,6 @@
 
 	update_hands_HUD()
 
-
 /mob/living/carbon/human/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
 	. = ..()
 	if(movement_type & (FLYING|FLOATING) && !(old_movement_type & (FLYING|FLOATING)))
@@ -182,7 +185,6 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
 		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 		update_fat_slowdown()
-
 
 /mob/living/carbon/human/on_movement_type_flag_disabled(datum/source, flag, old_movement_type)
 	. = ..()
@@ -207,7 +209,6 @@
 		update_nutrition_slowdown()
 		update_fat_slowdown()
 
-
 /// Proc used to recalculate traits and slowdowns after species change.
 /mob/living/carbon/human/proc/recalculate_limbs_status()
 	if(usable_legs > 0) // gained leg usage
@@ -227,7 +228,6 @@
 	update_fractures_slowdown()
 	update_hands_HUD()
 
-
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
 	if(buckled || incorporeal_move || body_position == LYING_DOWN || mob_negates_gravity())
@@ -239,9 +239,8 @@
 	if(m_intent != MOVE_INTENT_RUN)
 		return
 
-	to_chat(src, span_userdanger("Gravity exhausts you!"))
-	apply_damage(35, STAMINA)
-
+	to_chat(src, span_userdanger("Гравитация впечатывает вас в пол!"))
+	Knockdown(1 SECONDS)
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))

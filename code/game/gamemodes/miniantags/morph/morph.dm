@@ -8,14 +8,11 @@
 	desc = "Отвратительная пульсирующая масса плоти."
 	speak_emote = list("булькает", "клокочет")
 	emote_hear = list("булькает", "клокочет")
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 1.5
-	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
@@ -25,7 +22,6 @@
 
 	maxHealth = 150
 	health = 150
-	environment_smash = 1
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -61,6 +57,8 @@
 	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
 	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
+	/// The spell the morph uses to open vent when crawling in them
+	var/obj/effect/proc_holder/spell/morph_spell/open_vent/open_vent_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -72,19 +70,19 @@
 		DATIVE = "морфу",
 		ACCUSATIVE = "морфа",
 		INSTRUMENTAL = "морфом",
-		PREPOSITIONAL = "морфе"
+		PREPOSITIONAL = "морфе",
 	)
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
-		GLOB.major_announcement.announce("Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/commandreport.ogg',
-										new_sound2 = 'sound/effects/siren-spooky.ogg'
+		GLOB.major_announcement.announce(
+			message = "Зафиксированы множественные биоугрозы 6-го уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/commandreport.ogg',
+			new_sound2 = 'sound/effects/siren-spooky.ogg'
 		)
 		GLOB.morphs_announced = TRUE
 		SSshuttle.emergency.cancel()
-
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
@@ -92,11 +90,23 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/morph_spell/open_vent)
+	open_vent_spell = new
+	AddSpell(open_vent_spell)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
+/mob/living/simple_animal/hostile/morph/Destroy()
+	RemoveSpell(mimic_spell)
+	mimic_spell = null
+	RemoveSpell(ambush_spell)
+	ambush_spell = null
+	RemoveSpell(open_vent_spell)
+	open_vent_spell = null
+	RemoveSpell(pass_airlock_spell)
+	pass_airlock_spell = null
+	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
 	AddComponent( \
@@ -135,7 +145,7 @@
 		DATIVE = "магическому морфу",
 		ACCUSATIVE = "магического морфа",
 		INSTRUMENTAL = "магическим морфом",
-		PREPOSITIONAL = "магическом морфе"
+		PREPOSITIONAL = "магическом морфе",
 	)
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
@@ -146,7 +156,6 @@
 	forcewall.human_req = FALSE
 	AddSpell(smoke)
 	AddSpell(forcewall)
-
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
@@ -228,7 +237,6 @@
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
 
-
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
 	ambush_prepared = TRUE
 	to_chat(src, span_sinister("Вы готовы к внезапной атаке. Ваш следующий удар нанесёт больше урона и ослабит цель! Движение прервёт концентрацию. Бездействие улучшит маскировку."))
@@ -246,11 +254,9 @@
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
 	to_chat(src, span_sinister("Вы стали совершенной копией... Они даже не заподозрят подмену."))
 
-
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
 	to_chat(src, span_warning("Вы покинули место засады!"))
-
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
@@ -269,7 +275,7 @@
 		to_chat(attacker, span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется немного другим, чем обычно... он кажется более... ") + span_userdanger("СЛИЗИСТЫМ?!"))
 		ambush_attack(attacker, TRUE)
 		return TRUE
-	else if (!morphed)
+	else if(!morphed)
 		to_chat(attacker, span_warning("Прикосновение к [declent_ru(DATIVE)] руками причиняет вам боль!"))
 		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
@@ -278,9 +284,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/proc/restore_form()
-	if (morphed)
+	if(morphed)
 		return mimic_spell.restore_form(src);
-
 
 /mob/living/simple_animal/hostile/morph/attackby(obj/item/item, mob/living/user)
 	if(stat == DEAD)
@@ -311,7 +316,6 @@
 	restore_form()
 	return ..()
 
-
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/animal)
 	if(animal.a_intent == INTENT_HELP && ambush_prepared)
 		to_chat(animal, span_notice("Вы трётесь о [declent_ru(GENITIVE)].") + span_danger(" И [declent_ru(NOMINATIVE)] трётся в ответ!"))
@@ -332,6 +336,9 @@
 /mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/M)
 	restore_form()
 
+/mob/living/simple_animal/hostile/morph/water_act(volume, temperature, source, method)
+	restore_form()
+	. = ..()
 
 /mob/living/simple_animal/hostile/morph/proc/ambush_attack(mob/living/dumbass, touched)
 	ambush_prepared = FALSE
@@ -345,7 +352,7 @@
 	dumbass.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, dumbass, "morph ambush attacked")
 	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [genderize_ru(dumbass.gender,"он","она","оно","они")] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [GEND_HE_SHE(dumbass)] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
 
 	restore_form()
 
@@ -364,7 +371,7 @@
 			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
-		if (picked_thing)
+		if(picked_thing)
 			mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
 			prepare_ambush() // They cheat okay
 
@@ -385,7 +392,6 @@
 	. = ..()
 	if(. && morphed)
 		restore_form()
-
 
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
 	enable_reproduce(TRUE)
@@ -425,18 +431,14 @@
 
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
-
 /mob/living/simple_animal/hostile/morph/get_examine_time()
 	return morphed ? mimic_spell.selected_form.examine_time : ..()
-
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()
 
-
 /mob/living/simple_animal/hostile/morph/get_visible_species()
 	return morphed ? mimic_spell.selected_form.examine_species : ..()
-
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST

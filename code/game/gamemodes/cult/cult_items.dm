@@ -6,22 +6,18 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "tome"
 	item_state = "book"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-
 
 /obj/item/tome/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/tome/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.tome_icon
 	else
 		icon_state = initial(icon_state)
-
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -37,11 +33,9 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/melee/cultblade/ComponentInitialize()
 	. = ..()
@@ -54,7 +48,6 @@
 		swing_sound = SFX_BLADE_SWING_HEAVY \
 	)
 
-
 /obj/item/melee/cultblade/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.sword_icon
@@ -62,7 +55,6 @@
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscultist(user))
@@ -75,7 +67,6 @@
 		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -93,12 +84,10 @@
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakout_time = 4 SECONDS
 	knockdown_amt = 2 SECONDS
-
 
 /obj/item/restraints/legcuffs/bola/cult/get_ru_names()
 	return list(
@@ -107,7 +96,7 @@
 		DATIVE = "рунической боле",
 		ACCUSATIVE = "руническую болу",
 		INSTRUMENTAL = "рунической болой",
-		PREPOSITIONAL = "рунической боле"
+		PREPOSITIONAL = "рунической боле",
 	)
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -131,7 +120,6 @@
 	icon_state = "cult_hoodalt"
 	item_state = "cult_hoodalt"
 
-
 /obj/item/clothing/suit/hooded/cultrobes
 	name = "cult robes"
 	desc = "A set of armored robes worn by the followers of a cult."
@@ -147,8 +135,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
@@ -164,8 +152,8 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+	)
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -174,14 +162,13 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	slowdown = 1
 	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
@@ -192,12 +179,11 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60)
 	flags_inv_transparent = HIDEGLOVES
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 /obj/item/clothing/head/hooded/cult_hoodie
@@ -205,7 +191,6 @@
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
-	body_parts_covered = HEAD
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
@@ -236,7 +221,6 @@
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, RAD = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -245,10 +229,9 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
-
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -262,11 +245,9 @@
 	else if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
-
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user?.remove_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
-
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -284,7 +265,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/whetstone/cult
@@ -294,12 +275,10 @@
 	increment = 5
 	max = 40
 	claws_increment = 4
-	gender = MALE
 	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
-
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -309,13 +288,11 @@
 	to_chat(user, span_notice("[src] crumbles to ashes."))
 	qdel(src)
 
-
 /obj/item/whetstone/cult/attack_self(mob/user)
 	. = ..()
 	if(!uses)
 		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
-
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -329,7 +306,6 @@
 	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
@@ -345,12 +321,22 @@
 		user.Knockdown(10 SECONDS)
 		user.EyeBlind(60 SECONDS)
 
+///how many times can the shuttle be cursed?
+#define MAX_SHUTTLE_CURSES 3
+///if the max number of shuttle curses are used within this duration, the entire cult gets an achievement
+#define SHUTTLE_CURSE_OMFG_TIMESPAN (10 SECONDS)
+
 /obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shuttlecurse"
-	var/global/curselimit = 0
+	///how many times has the shuttle been cursed so far?
+	var/static/totalcurses = 0
+	///when was the first shuttle curse?
+	var/static/first_curse_time
+	///curse messages that have already been used
+	var/static/list/remaining_curses
 
 /obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -358,27 +344,87 @@
 		user.Knockdown(10 SECONDS)
 		to_chat(user, span_warning("A powerful force shoves you away from [src]!"))
 		return
-	if(curselimit > 1)
-		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
+
+	if(totalcurses >= MAX_SHUTTLE_CURSES)
+		to_chat(user, span_warning("Вы пытаетесь разбить сферу, но она остаётся твёрдой, как камень!"))
+		to_chat(user, span_danger(span_big("Похоже, что культ крови исчерпал свои силы для наложения проклятий на эвакуационный шаттл. Создавать новые проклятые сферы или продолжать пытаться разбить эту — неразумно.")))
 		return
+
 	if(locate(/obj/singularity/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, span_danger("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
 		return
 
-	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-		var/cursetime = 3 MINUTES
-		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
-		SSshuttle.emergency.setTimer(timer)
-		to_chat(user,span_danger("You shatter the orb! A dark essence spirals into the air, then disappears."))
-		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
-		curselimit++
-		var/message = pick(CULT_CURSES)
-		var/curse_delay = cursetime / 600
-		GLOB.major_announcement.announce("[message] Шаттл задерживается на [curse_delay] минут[declension_ru(curse_delay, "у", "ы", "")].",
-										ANNOUNCE_SYSERROR_RU,
-										'sound/misc/notice1.ogg'
-		)
-		qdel(src)
+	if(SSshuttle.emergency.mode != SHUTTLE_CALL)
+		return
+
+	var/cursetime = 3 MINUTES
+	var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
+	var/security_num = SSsecurity_level.get_current_level_as_number()
+	var/set_coefficient = 1
+
+	if(totalcurses == 0)
+		first_curse_time = world.time
+
+	switch(security_num)
+		if(SEC_LEVEL_GREEN)
+			set_coefficient = 2
+		if(SEC_LEVEL_BLUE)
+			set_coefficient = 1
+		else
+			set_coefficient = 0.5
+
+	var/surplus = timer - (SSshuttle.emergencyCallTime * set_coefficient)
+	SSshuttle.emergency.setTimer(timer)
+
+	if(surplus > 0)
+		SSshuttle.block_recall(surplus)
+
+	totalcurses++
+	to_chat(user, span_danger("Вы разбиваете сферу! Тёмная сущность взвивается в воздух и исчезает."))
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
+
+	if(!remaining_curses)
+		remaining_curses = strings(CULT_SHUTTLE_CURSE, "curse_announce")
+
+	var/curse_message = pick_n_take(remaining_curses) || "Что-то пошло ужасающе неправильно..."
+	var/curse_delay = cursetime / 600
+	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_SEC_MIN(curse_delay)]."
+
+	GLOB.major_announcement.announce(
+		message = curse_message,
+		new_title = ANNOUNCE_SYSERROR_RU,
+		new_sound = 'sound/misc/notice1.ogg'
+	)
+
+	if((MAX_SHUTTLE_CURSES - totalcurses) <= 0)
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл больше нельзя проклясть. Создавать новые проклятые сферы было бы неразумно."))
+
+	else if((MAX_SHUTTLE_CURSES - totalcurses) == 1)
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё лишь один раз."))
+
+	else
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз[declension_ru(MAX_SHUTTLE_CURSES - totalcurses, "", "а", "")]."))
+
+	if(totalcurses >= MAX_SHUTTLE_CURSES && (world.time < first_curse_time + SHUTTLE_CURSE_OMFG_TIMESPAN))
+		var/omfg_message = pick_list(CULT_SHUTTLE_CURSE, "omfg_announce") || "ОСТАВЬТЕ НАС В ПОКОЕ!"
+		addtimer(CALLBACK(src, PROC_REF(omfg_announce), omfg_message), rand(2 SECONDS, 6 SECONDS))
+		for(var/mob/iter_player as anything in GLOB.player_list)
+			if(!iscultist(iter_player))
+				continue
+
+			iter_player.client?.give_award(/datum/award/achievement/misc/cult_shuttle_omfg, iter_player)
+	qdel(src)
+
+/obj/item/shuttle_curse/proc/omfg_announce(omfg_message)
+	GLOB.major_announcement.announce(
+		message = omfg_message,
+		new_title = ANNOUNCE_TITLE_CCDT,
+		new_subtitle = ANNOUNCE_PRIORITY_RU,
+		new_sound = 'sound/misc/notice1.ogg'
+	)
+
+#undef MAX_SHUTTLE_CURSES
+#undef SHUTTLE_CURSE_OMFG_TIMESPAN
 
 /obj/item/cult_shift
 	name = "veil shifter"
@@ -397,10 +443,8 @@
 	else
 		. += span_cultitalic("It seems drained.")
 
-
 /obj/item/cult_shift/update_icon_state()
 	icon_state = "shifter[uses > 0 ? "" : "_drained"]"
-
 
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
@@ -469,52 +513,41 @@
 	name = "eldritch sword"
 	item_flags = DROPDEL
 
-
 /obj/item/melee/cultblade/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/head/hooded/culthood/alt/ghost
-
 
 /obj/item/clothing/head/hooded/culthood/alt/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
-
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/shoes/cult/ghost
 	item_flags = DROPDEL
-
 
 /obj/item/clothing/shoes/cult/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/under/color/black/ghost
 	item_flags = DROPDEL
-
 
 /obj/item/clothing/under/color/black/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"
@@ -557,19 +590,19 @@
 	return ..()
 
 /**
-  * Reflect/Block/Shatter proc.
-  *
-  * Projectiles:
-  * If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
-  * By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in [/mob/living/carbon/human/bullet_act])
-  * For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
-  * If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.
-  *
-  * Melee and blocked projectiles:
-  * Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
-  * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
-  * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
-  */
+ * Reflect/Block/Shatter proc.
+ *
+ * Projectiles:
+ * If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
+ * By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in [/mob/living/carbon/human/bullet_act])
+ * For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
+ * If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.
+ *
+ * Melee and blocked projectiles:
+ * Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
+ * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
+ * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
+ */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(iscultist(owner)) // Cultist holding the shield
 
@@ -659,7 +692,6 @@
 	force_unwielded = 17
 	force_wielded = 24
 	throwforce = 40
-	throw_speed = 2
 	armour_penetration = 30
 	block_chance = 30
 	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
@@ -676,6 +708,18 @@
 
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+/obj/item/twohanded/cult_spear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	if(!iscultist(user))
+		user.Knockdown(10 SECONDS)
+		user.drop_item_ground(src, force = TRUE)
+		user.visible_message(
+			span_warning("A powerful force shoves [user] away from [target]!"),
+			span_cultlarge("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""),
+		)
+		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
@@ -721,7 +765,6 @@
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
-	background_icon_state = "bg_cult"
 	button_icon_state = "bloodspear"
 	var/obj/item/twohanded/cult_spear/spear
 	var/cooldown = 0
@@ -749,12 +792,14 @@
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
 	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	color = "#ff0000"
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
+	pickup_sound = 'sound/effects/splat.ogg'
+	drop_sound = 'sound/effects/splat.ogg'
 	item_flags = NOBLUDGEON|DROPDEL
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
@@ -768,7 +813,7 @@
 	name = "blood bolt"
 	icon_state = "blood_bolt"
 	damage_type = BRUTE
-	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
+	impact_effect_type = /obj/effect/temp_visual/cult/sparks
 	hitsound = 'sound/effects/splat.ogg'
 
 /obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)

@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			else
 				pai.name = candidate.name
 			pai.real_name = pai.name
-			pai.key = candidate.key
+			pai.possess_by_player(candidate.key)
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
 
@@ -125,8 +125,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 		recruitWindow(usr)
 
-
-/datum/paiController/proc/recruitWindow(var/mob/M as mob)
+/datum/paiController/proc/recruitWindow(mob/M as mob)
 	var/datum/paiCandidate/candidate
 	for(var/datum/paiCandidate/c in pai_candidates)
 		if(!istype(c) || !istype(M))
@@ -137,7 +136,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		candidate = new /datum/paiCandidate()
 		candidate.key = M.key
 		pai_candidates.Add(candidate)
-
 
 	var/dat = ""
 
@@ -198,7 +196,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 	popup.add_stylesheet("pai_recruit", 'html/css/pai_recruit.css')
 	popup.open(FALSE)
 
-/datum/paiController/proc/findPAI(var/obj/item/paicard/p, var/mob/user)
+/datum/paiController/proc/findPAI(obj/item/paicard/p, mob/user)
 	requestRecruits(p, user)
 	var/list/available = list()
 	for(var/datum/paiCandidate/c in GLOB.paiController.pai_candidates)
@@ -260,7 +258,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		notify_ghosts("[user] activated [user.p_their()] Syndicate pAI card, calling for your help!", enter_link="<a href='byond://?src=[UID()];signup=1'>(Click to Sign Up)</a>", source = P, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 		summon_cooldown = world.time + 60 SECONDS
 
-/datum/paiController/proc/check_recruit(var/mob/dead/observer/O)
+/datum/paiController/proc/check_recruit(mob/dead/observer/O)
 	if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O,"nonhumandept"))
 		return 0
 	if(!player_old_enough_antag(O.client,ROLE_PAI))
@@ -271,7 +269,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return 1
 	return 0
 
-/datum/paiController/proc/question(var/client/C)
+/datum/paiController/proc/question(client/C)
 	spawn(0)
 		if(!C)	return
 		asked.Add(C.key)

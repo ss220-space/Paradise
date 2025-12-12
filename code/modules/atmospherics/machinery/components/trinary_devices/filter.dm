@@ -54,7 +54,6 @@
 	set_max()
 	return ..()
 
-
 /obj/machinery/atmospherics/trinary/filter/proc/set_max()
 	if(powered())
 		target_pressure = MAX_OUTPUT_PRESSURE
@@ -114,7 +113,7 @@
 
 	var/output_starting_pressure = air3.return_pressure()
 
-	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure )
+	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure)
 		//No need to mix if target is already full!
 		return 1
 
@@ -161,7 +160,6 @@
 				removed.sleeping_agent = 0
 			else
 				filtered_out = null
-
 
 		air2.merge(filtered_out)
 		air3.merge(removed)
@@ -240,7 +238,6 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-
 /obj/machinery/atmospherics/trinary/filter/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -249,7 +246,6 @@
 
 	. |= ATTACK_CHAIN_SUCCESS
 	rename_interactive(user, I)
-
 
 #undef FILTER_NOTHING
 #undef FILTER_TOXINS

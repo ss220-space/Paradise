@@ -6,10 +6,10 @@
 	/// Explains what is this do in TGUI tooltip
 	var/info
 
-/datum/gear_tweak/proc/get_contents(var/metadata)
+/datum/gear_tweak/proc/get_contents(metadata)
 	return
 
-/datum/gear_tweak/proc/get_metadata(var/user, var/metadata)
+/datum/gear_tweak/proc/get_metadata(user, metadata)
 	return
 
 /datum/gear_tweak/proc/get_default()
@@ -21,7 +21,7 @@
 /datum/gear_tweak/proc/update_gear_intro()
 	return
 
-/datum/gear_tweak/proc/tweak_gear_data(var/metadata, var/datum/gear_data)
+/datum/gear_tweak/proc/tweak_gear_data(metadata, datum/gear_data)
 	return
 
 /datum/gear_tweak/proc/tweak_item(obj/item/gear, metadata)
@@ -134,7 +134,6 @@
 
 /datum/gear_tweak/rename/get_default()
 	return ""
-
 
 /datum/gear_tweak/rename/get_metadata(user, metadata)
 	var/new_name = tgui_input_text(user, "Переименуйте объект. При пустом поле будет выбрано стандартное название.", "Переименование предмета", metadata, MAX_NAME_LEN)

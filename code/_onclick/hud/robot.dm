@@ -40,7 +40,6 @@
 		var/mob/living/silicon/robot/R = usr
 		R.toggle_module(3)
 
-
 /atom/movable/screen/robot/radio
 	name = "radio"
 	icon_state = "radio"
@@ -91,17 +90,14 @@
 	name = "fast/slow toggle"
 	icon_state = "running"
 
-
 /atom/movable/screen/robot/mov_intent/Click()
 	usr.toggle_move_intent()
-
 
 /atom/movable/screen/robot/mov_intent/update_icon_state()
 	if(hud?.mymob)
 		icon_state = (hud.mymob.m_intent == MOVE_INTENT_RUN) ? "running" : "walking"
 	else
 		icon_state = initial(icon_state)
-
 
 /datum/hud/robot/New(mob/user)
 	..()
@@ -238,7 +234,7 @@
 		if(!R.robot_modules_background)
 			return
 
-		var/display_rows = CEILING(R.module.modules.len / 8, 1)
+		var/display_rows = CEILING(length(R.module.modules) / 8, 1)
 		R.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
 		screenmob.client?.screen += R.robot_modules_background
 
@@ -256,7 +252,7 @@
 				R.module.modules.Remove(R.module.emag)
 
 		for(var/atom/movable/A in R.module.modules)
-			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
+			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
 				//Module is not currently active
 				screenmob.client?.screen += A
 				if(x < 0)
@@ -275,12 +271,11 @@
 		screenmob.client?.screen -= module_store_icon
 
 		for(var/atom/A in R.module.modules)
-			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
+			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
 				//Module is not currently active
 				screenmob.client?.screen -= A
 		R.shown_robot_modules = 0
 		screenmob.client?.screen -= R.robot_modules_background
-
 
 /datum/hud/robot/persistent_inventory_update(mob/viewer)
 	if(!mymob)

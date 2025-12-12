@@ -6,7 +6,6 @@
 	icon_state = "glass_empty"
 	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
-	volume = 50
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
@@ -17,12 +16,12 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
 	return list(
-        NOMINATIVE = "стакан",
-        GENITIVE = "стакана",
-        DATIVE = "стакану",
-        ACCUSATIVE = "стакан",
-        INSTRUMENTAL = "стаканом",
-        PREPOSITIONAL = "стакане"
+		NOMINATIVE = "стакан",
+		GENITIVE = "стакана",
+		DATIVE = "стакану",
+		ACCUSATIVE = "стакан",
+		INSTRUMENTAL = "стаканом",
+		PREPOSITIONAL = "стакане",
 	)
 
 /obj/item/reagent_containers/food/drinks/set_APTFT()
@@ -32,7 +31,6 @@
 /obj/item/reagent_containers/food/drinks/empty()
 	set hidden = FALSE
 	..()
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
@@ -50,7 +48,6 @@
 
 	return ..()
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!reagents.total_volume)
 		return
@@ -60,13 +57,11 @@
 	reagents.clear_reagents()
 	extinguish()
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_icon_state()
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(check.drink_icon)
 			icon_state = check.drink_icon
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_overlays()
 	. = ..()
@@ -77,7 +72,6 @@
 	else
 		icon_state = initial(icon_state)
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_name(updates)
 	. = ..()
 	if(length(reagents.reagent_list))
@@ -85,7 +79,6 @@
 		name = check.drink_name
 	else
 		name = initial(name)
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/update_desc(updates)
 	. = ..()
@@ -95,15 +88,12 @@
 	else
 		desc = initial(desc)
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
 	update_appearance()
-
 
 // for /obj/machinery/vending/sovietsoda
 /obj/item/reagent_containers/food/drinks/drinkingglass/soda
 	list_reagents = list("sodawater" = 50)
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/cola
 	list_reagents = list("cola" = 50)

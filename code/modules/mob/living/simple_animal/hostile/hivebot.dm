@@ -1,6 +1,4 @@
 /obj/projectile/hivebotbullet
-	damage = 10
-	damage_type = BRUTE
 
 /mob/living/simple_animal/hostile/hivebot
 	name = "Hivebot"
@@ -36,7 +34,6 @@
 	)
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "Hivebot"
 	desc = "A smallish robot, this one is armed!"
 	ranged = 1
 	retreat_distance = 5
@@ -60,12 +57,11 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"
 	desc = "Some odd beacon thing"
-	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "def_radar-off"
 	icon_living = "def_radar-off"
 	health = 200
@@ -84,12 +80,12 @@
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	smoke.set_up(amount = 5, location = src.loc)
 	smoke.start()
-	visible_message("<span class='danger'>The [src] warps in!</span>")
+	visible_message(span_danger("The [src] warps in!"))
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, TRUE)
 
 /mob/living/simple_animal/hostile/hivebot/tele/proc/warpbots()
 	icon_state = "def_radar"
-	visible_message("<span class='warning'>The [src] turns on!</span>")
+	visible_message(span_warning("The [src] turns on!"))
 	while(bot_amt > 0)
 		bot_amt--
 		switch(bot_type)

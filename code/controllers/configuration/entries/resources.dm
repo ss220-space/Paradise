@@ -12,9 +12,9 @@
 	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/asset_cdn_webroot/ValidateAndSet(str_var)
-	if (!str_var || trim(str_var) == "")
+	if(!str_var || trim(str_var) == "")
 		return FALSE
-	if (str_var && str_var[length(str_var)] != "/")
+	if(str_var && str_var[length(str_var)] != "/")
 		str_var += "/"
 	return ..(str_var)
 
@@ -23,8 +23,12 @@
 	default = null
 
 /datum/config_entry/string/asset_cdn_url/ValidateAndSet(str_var)
-	if (!str_var || trim(str_var) == "")
+	if(!str_var || trim(str_var) == "")
 		return FALSE
-	if (str_var && str_var[length(str_var)] != "/")
+	if(str_var && str_var[length(str_var)] != "/")
 		str_var += "/"
 	return ..(str_var)
+
+/datum/config_entry/string/storage_cdn_iframe
+	protection = CONFIG_ENTRY_LOCKED
+	default = "https://ss220-space.github.io/Paradise/assets/iframe.html"

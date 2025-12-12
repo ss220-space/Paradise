@@ -32,12 +32,13 @@
 	return ..()
 
 /datum/powernet/proc/is_empty()
-	return !cables.len && !nodes.len
+	return !length(cables) && !nodes.len
 
 //remove a cable from the current powernet
 //if the powernet is then empty, delete it
 //Warning : this proc DON'T check if the cable exists
 /datum/powernet/proc/remove_cable(obj/structure/cable/C)
+	SEND_SIGNAL(C, COMSIG_CABLE_REMOVED_FROM_POWERNET)
 	cables -= C
 	C.powernet = null
 	if(is_empty())//the powernet is now empty...
@@ -52,7 +53,8 @@
 		else
 			C.powernet.remove_cable(C) //..remove it
 	C.powernet = src
-	cables +=C
+	cables += C
+	SEND_SIGNAL(C, COMSIG_CABLE_ADDED_TO_POWERNET)
 
 //remove a power machine from the current powernet
 //if the powernet is then empty, delete it
@@ -62,7 +64,6 @@
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
-
 
 //add a power machine to the current powernet
 //Warning : this proc DON'T check if the machine exists
@@ -81,7 +82,7 @@
 	//see if there's a surplus of power remaining in the powernet and stores unused power in the SMES
 	netexcess = avail - load
 
-	if(netexcess > 100 && nodes && nodes.len)		// if there was excess power last cycle
+	if(netexcess > 100 && nodes && length(nodes))		// if there was excess power last cycle
 		for(var/obj/machinery/power/smes/S in nodes)	// find the SMESes in the network
 			S.restore()				// and restore some of the power that was used
 
@@ -100,3 +101,7 @@
 		return clamp(20 + round(avail / 25000), 20, 195) + rand(-5, 5)
 	else
 		return 0
+
+// Mostly just a wrapper for sending the COMSIG_POWERNET_CIRCUIT_TRANSMISSION signal, but could be retooled in the future to give it other uses
+/datum/powernet/proc/data_transmission(list/data, encryption_key, datum/weakref/port)
+	SEND_SIGNAL(src, COMSIG_POWERNET_CIRCUIT_TRANSMISSION, list("data" = data, "enc_key" = encryption_key, "port" = port))

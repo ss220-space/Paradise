@@ -40,19 +40,16 @@
 	var/id = null
 	var/active = 0
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-
 /obj/machinery/holosign_switch/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detective_scanner))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/machinery/holosign_switch/attack_hand(mob/user as mob)
 	src.add_fingerprint(usr)
@@ -70,7 +67,6 @@
 			spawn( 0 )
 				M.toggle()
 				return
-
 
 /obj/machinery/holosign_switch/update_icon_state()
 	icon_state = "light[active]"

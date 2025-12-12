@@ -16,27 +16,29 @@
 
 /datum/gear/uniform/suit/jumpsuit/New()
 	..()
-	var/list/suits = list(/obj/item/clothing/under/color/grey,
-						  /obj/item/clothing/under/color/black,
-						  /obj/item/clothing/under/color/blue,
-						  /obj/item/clothing/under/color/green,
-						  /obj/item/clothing/under/color/orange,
-						  /obj/item/clothing/under/color/pink,
-						  /obj/item/clothing/under/color/red,
-						  /obj/item/clothing/under/color/white,
-						  /obj/item/clothing/under/color/yellow,
-						  /obj/item/clothing/under/color/lightblue,
-						  /obj/item/clothing/under/color/aqua,
-						  /obj/item/clothing/under/color/purple,
-						  /obj/item/clothing/under/color/lightpurple,
-						  /obj/item/clothing/under/color/lightgreen,
-						  /obj/item/clothing/under/color/lightblue,
-						  /obj/item/clothing/under/color/lightbrown,
-						  /obj/item/clothing/under/color/brown,
-						  /obj/item/clothing/under/color/yellowgreen,
-						  /obj/item/clothing/under/color/darkblue,
-						  /obj/item/clothing/under/color/lightred,
-						  /obj/item/clothing/under/color/darkred,)
+	var/list/suits = list(
+		/obj/item/clothing/under/color/grey,
+		/obj/item/clothing/under/color/black,
+		/obj/item/clothing/under/color/blue,
+		/obj/item/clothing/under/color/green,
+		/obj/item/clothing/under/color/orange,
+		/obj/item/clothing/under/color/pink,
+		/obj/item/clothing/under/color/red,
+		/obj/item/clothing/under/color/white,
+		/obj/item/clothing/under/color/yellow,
+		/obj/item/clothing/under/color/lightblue,
+		/obj/item/clothing/under/color/aqua,
+		/obj/item/clothing/under/color/purple,
+		/obj/item/clothing/under/color/lightpurple,
+		/obj/item/clothing/under/color/lightgreen,
+		/obj/item/clothing/under/color/lightblue,
+		/obj/item/clothing/under/color/lightbrown,
+		/obj/item/clothing/under/color/brown,
+		/obj/item/clothing/under/color/yellowgreen,
+		/obj/item/clothing/under/color/darkblue,
+		/obj/item/clothing/under/color/lightred,
+		/obj/item/clothing/under/color/darkred
+	)
 	gear_tweaks += new /datum/gear_tweak/path(suits, src, TRUE)
 
 /datum/gear/uniform/suit/soviet
@@ -46,6 +48,14 @@
 /datum/gear/uniform/suit/federal
 	index_name = "Solar Federation uniform"
 	path = /obj/item/clothing/under/solgov/civ
+
+/datum/gear/uniform/suit/federal/forest
+	index_name = "Solar Federation forest uniform"
+	path = /obj/item/clothing/under/solgov/forest/civ
+
+/datum/gear/uniform/suit/federal/urban
+	index_name = "Solar Federation urban uniform"
+	path = /obj/item/clothing/under/solgov/urban/civ
 
 /datum/gear/uniform/suit/kilt
 	index_name = "a kilt"
@@ -66,11 +76,12 @@
 
 /datum/gear/uniform/chaps/New()
 	..()
-	var/list/chaps = list(/obj/item/clothing/under/red_chaps,
-						  /obj/item/clothing/under/white_chaps,
-						  /obj/item/clothing/under/tan_chaps,
-						  /obj/item/clothing/under/brown_chaps,
-						  )
+	var/list/chaps = list(
+		/obj/item/clothing/under/red_chaps,
+		/obj/item/clothing/under/white_chaps,
+		/obj/item/clothing/under/tan_chaps,
+		/obj/item/clothing/under/brown_chaps,
+	)
 	gear_tweaks += new /datum/gear_tweak/path(chaps, src, TRUE)
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
@@ -91,11 +102,9 @@
 	index_name = "dyeable skirt, color"
 	path = /obj/item/clothing/under/colour/skirt
 
-
 /datum/gear/uniform/skirt/dyeable/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
-
 
 /datum/gear/uniform/skirt/plaid
 	index_name = "plaid skirt, select"
@@ -104,9 +113,11 @@
 
 /datum/gear/uniform/skirt/plaid/New()
 	..()
-	var/list/skirts = list(/obj/item/clothing/under/dress/plaid_blue,
-						   /obj/item/clothing/under/dress/plaid_purple,
-						   /obj/item/clothing/under/dress/plaid_red,)
+	var/list/skirts = list(
+		/obj/item/clothing/under/dress/plaid_blue,
+		/obj/item/clothing/under/dress/plaid_purple,
+		/obj/item/clothing/under/dress/plaid_red
+	)
 	gear_tweaks += new /datum/gear_tweak/path(skirts, src, TRUE)
 
 /datum/gear/uniform/skirt/redeveninggown
@@ -262,9 +273,11 @@
 
 /datum/gear/uniform/medical/scrubs/New()
 	..()
-	var/list/scrubs = list(/obj/item/clothing/under/rank/medical/purple,
-						   /obj/item/clothing/under/rank/medical/lightgreen,
-						   /obj/item/clothing/under/rank/medical/green,)
+	var/list/scrubs = list(
+		/obj/item/clothing/under/rank/medical/purple,
+		/obj/item/clothing/under/rank/medical/lightgreen,
+		/obj/item/clothing/under/rank/medical/green
+	)
 	gear_tweaks += new /datum/gear_tweak/path(scrubs, src, TRUE)
 
 /datum/gear/uniform/sec
@@ -315,11 +328,13 @@
 
 /datum/gear/uniform/shorts/New()
 	..()
-	var/list/shorts = list("red" = /obj/item/clothing/under/shorts/red,
-						   "green" = /obj/item/clothing/under/shorts/green,
-						   "blue" = /obj/item/clothing/under/shorts/blue,
-						   "black" = /obj/item/clothing/under/shorts/black,
-						   "grey" = /obj/item/clothing/under/shorts/grey,)
+	var/list/shorts = list(
+		"red" = /obj/item/clothing/under/shorts/red,
+		"green" = /obj/item/clothing/under/shorts/green,
+		"blue" = /obj/item/clothing/under/shorts/blue,
+		"black" = /obj/item/clothing/under/shorts/black,
+		"grey" = /obj/item/clothing/under/shorts/grey
+	)
 	gear_tweaks += new /datum/gear_tweak/path(shorts, src)
 
 /datum/gear/uniform/pants
@@ -332,11 +347,12 @@
 
 /datum/gear/uniform/pants/jeans/New()
 	..()
-	var/list/jeans = list(/obj/item/clothing/under/pants/classicjeans,
-						  /obj/item/clothing/under/pants/mustangjeans,
-						  /obj/item/clothing/under/pants/blackjeans,
-						  /obj/item/clothing/under/pants/youngfolksjeans,
-						  )
+	var/list/jeans = list(
+		/obj/item/clothing/under/pants/classicjeans,
+		/obj/item/clothing/under/pants/mustangjeans,
+		/obj/item/clothing/under/pants/blackjeans,
+		/obj/item/clothing/under/pants/youngfolksjeans,
+	)
 	gear_tweaks += new /datum/gear_tweak/path(jeans, src, TRUE)
 
 /datum/gear/uniform/pants/pants
@@ -346,15 +362,16 @@
 
 /datum/gear/uniform/pants/pants/New()
 	..()
-	var/list/pants = list(/obj/item/clothing/under/pants/white,
-						  /obj/item/clothing/under/pants/red,
-						  /obj/item/clothing/under/pants/black,
-						  /obj/item/clothing/under/pants/tan,
-						  /obj/item/clothing/under/pants/blue,
-						  /obj/item/clothing/under/pants/track,
-						  /obj/item/clothing/under/pants/khaki,
-						  /obj/item/clothing/under/pants/camo,
-						  )
+	var/list/pants = list(
+		/obj/item/clothing/under/pants/white,
+		/obj/item/clothing/under/pants/red,
+		/obj/item/clothing/under/pants/black,
+		/obj/item/clothing/under/pants/tan,
+		/obj/item/clothing/under/pants/blue,
+		/obj/item/clothing/under/pants/track,
+		/obj/item/clothing/under/pants/khaki,
+		/obj/item/clothing/under/pants/camo,
+	)
 	gear_tweaks += new /datum/gear_tweak/path(pants, src, TRUE)
 
 /datum/gear/uniform/suit/tacticool

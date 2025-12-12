@@ -4,7 +4,6 @@
 	school = "transmutation"
 	action_icon_state = "jaunt"
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	nonabstract_req = TRUE
 	centcom_cancast = FALSE //Prevent people from getting to centcom
@@ -17,18 +16,15 @@
 	var/jaunt_type_path = /obj/effect/dummy/spell_jaunt
 	var/jaunt_water_effect = TRUE
 
-
 /obj/effect/proc_holder/spell/ethereal_jaunt/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
-			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			to_chat(target, span_warning("You are somehow too bound to your current location to abandon it."))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
-
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/do_jaunt(mob/living/target)
 	playsound(get_turf(target), sound_in, 50, TRUE, -1)
@@ -90,32 +86,25 @@
 	REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	target.remove_CC()
 
-
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/jaunt_steam(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
 	steam.set_up(10, 0, mobloc)
 	steam.start()
 
-
 /obj/effect/dummy/spell_jaunt
 	name = "water"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = 60
-	density = FALSE
-	anchored = TRUE
 	var/reappearing = FALSE
 	var/movedelay = 0
 	var/movespeed = 2
-
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
 	for(var/atom/movable/AM in src)
 		AM.forceMove(get_turf(src))
 	return ..()
-
 
 /obj/effect/dummy/spell_jaunt/relaymove(mob/user, direction)
 	if((movedelay > world.time) || reappearing || !direction)
@@ -125,9 +114,8 @@
 	if(can_move(newLoc, user))
 		forceMove(newLoc)
 	else
-		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+		to_chat(user, span_warning("Something is blocking the way!"))
 	movedelay = world.time + movespeed
-
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/target_turf, mob/user)
 	if(target_turf.turf_flags & NOJAUNT)
@@ -138,25 +126,20 @@
 			return FALSE
 	return TRUE
 
-
 /obj/effect/dummy/spell_jaunt/ex_act(blah)
 	return
 
-
 /obj/effect/dummy/spell_jaunt/bullet_act(blah)
 	return
-
 
 /obj/effect/dummy/spell_jaunt/blood_pool
 	name = "sanguine pool"
 	desc = "a pool of living blood."
 	movespeed = 1.5
 
-
 /obj/effect/dummy/spell_jaunt/blood_pool/relaymove(mob/user, direction)
 	..()
 	new /obj/effect/decal/cleanable/blood(loc)
-
 
 /obj/effect/dummy/spell_jaunt/blood_pool/can_move(turf/target_turf)
 	if(isspaceturf(target_turf) || target_turf.density)

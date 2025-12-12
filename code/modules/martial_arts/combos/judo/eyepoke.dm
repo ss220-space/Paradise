@@ -3,7 +3,6 @@
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Ударьте противника по глазам, ослепив его на короткое время. Противники с защитой глаз все равно пострадают."
 
-
 /datum/martial_combo/judo/eyepoke/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
 	target.visible_message(span_warning("[user] бьёт [target] по глазам!"), \
 						span_userdanger("[user] бьёт вас по глазам!"))

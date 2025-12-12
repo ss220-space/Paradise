@@ -3,31 +3,28 @@
 /obj/machinery/mineral/labor_claim_console
 	name = "point claim console"
 	desc = "Консоль с электромагнитным записывающим устройством для учета добытой заключенными руды."
-	ru_names = list(
-		NOMINATIVE = "консоль учета добытой руды",
-		GENITIVE = "консоли учета добытой руды",
-		DATIVE = "консоли учета добытой руды",
-		ACCUSATIVE = "консоль учета добытой руды",
-		INSTRUMENTAL = "консолью учета добытой руды",
-		PREPOSITIONAL = "консоли учета добытой руды"
-	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/laborstacker/stacking_machine = null
 	var/machinedir = SOUTH
 	var/obj/item/card/id/prisoner/inserted_id
 	var/obj/machinery/door/airlock/release_door
 	var/door_tag = "prisonshuttle"
-	var/obj/item/radio/intercom/announcer
 	var/static/list/sheet_values
+
+/obj/machinery/mineral/labor_claim_console/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль учета добытой руды",
+		GENITIVE = "консоли учета добытой руды",
+		DATIVE = "консоли учета добытой руды",
+		ACCUSATIVE = "консоль учета добытой руды",
+		INSTRUMENTAL = "консолью учета добытой руды",
+		PREPOSITIONAL = "консоли учета добытой руды",
+	)
 
 /obj/machinery/mineral/labor_claim_console/Initialize(mapload)
 	. = ..()
-	announcer = new /obj/item/radio/intercom(null)
-	announcer.follow_target = src
-	announcer.config(list(SEC_FREQ_NAME = 0))
 
 	if(!sheet_values)
 		for(var/sheet_type in subtypesof(/obj/item/stack/sheet))
@@ -36,14 +33,6 @@
 				continue
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
 		sheet_values = sortTim(sheet_values, cmp = /proc/cmp_sheet_list)
-
-/obj/machinery/mineral/labor_claim_console/Destroy()
-	. = ..()
-	QDEL_NULL(announcer)
-
-/proc/cmp_sheet_list(list/a, list/b)
-	return a["value"] - b["value"]
-
 
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -62,7 +51,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
 	if(..())
@@ -137,7 +125,7 @@
 					else
 						if(!emagged)
 							var/message = "[inserted_id.registered_name] вернулся на станцию. Минералы и ID-карта заключенного готовы к выдаче."
-							announcer.autosay(message, "Labor Camp Controller", SEC_FREQ_NAME)
+							radio_announce(message, "Labor Camp Controller", SEC_FREQ, src)
 						to_chat(usr, span_notice("Сообщение получено, шаттл будет отправлен в ближайшее время."))
 						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 
@@ -154,7 +142,6 @@
 		if(user)
 			to_chat(user, span_warning("PZZTTPFFFT"))
 
-
 /**********************Prisoner Collection Unit**************************/
 /obj/machinery/mineral/stacking_machine/laborstacker
 	damage_deflection = 21
@@ -163,7 +150,6 @@
 /obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)
 	points += inp.point_value * inp.amount
 	..()
-
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -177,30 +163,29 @@
 
 	return ..()
 
-
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker
 	name = "points checking console"
 	desc = "Консоль для проверки заключенными прогресса выполнения квоты. Просто проведите картой заключенного."
-	ru_names = list(
+	icon = 'icons/obj/machines/mining_machines.dmi'
+	icon_state = "console"
+	anchored = TRUE
+
+/obj/machinery/mineral/labor_points_checker/get_ru_names()
+	return list(
 		NOMINATIVE = "консоль проверки очков",
 		GENITIVE = "консоли проверки очков",
 		DATIVE = "консоли проверки очков",
 		ACCUSATIVE = "консоль проверки очков",
 		INSTRUMENTAL = "консолью проверки очков",
-		PREPOSITIONAL = "консоли проверки очков"
+		PREPOSITIONAL = "консоли проверки очков",
 	)
-	icon = 'icons/obj/machines/mining_machines.dmi'
-	icon_state = "console"
-	density = FALSE
-	anchored = TRUE
 
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
 	user.examinate(src)
-
 
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

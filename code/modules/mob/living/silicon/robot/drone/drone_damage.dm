@@ -35,7 +35,6 @@
 			updatehealth("take overall damage")
 		return STATUS_UPDATE_HEALTH
 
-
 /mob/living/silicon/robot/drone/heal_overall_damage(
 	brute = 0,
 	burn = 0,
@@ -58,7 +57,6 @@
 			updatehealth("heal overall damage")
 		return STATUS_UPDATE_HEALTH
 
-
 /mob/living/silicon/robot/drone/take_organ_damage/take_organ_damage(
 	brute = 0,
 	burn = 0,
@@ -72,7 +70,6 @@
 )
 	return take_overall_damage(brute, burn, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
 
-
 /mob/living/silicon/robot/drone/heal_organ_damage(
 	brute = 0,
 	burn = 0,
@@ -82,10 +79,8 @@
 )
 	return heal_overall_damage(brute, burn, updating_health, affect_robotic = affect_robotic)
 
-
 /mob/living/silicon/robot/drone/getFireLoss()
 	return fireloss
-
 
 /mob/living/silicon/robot/drone/getBruteLoss()
 	return bruteloss

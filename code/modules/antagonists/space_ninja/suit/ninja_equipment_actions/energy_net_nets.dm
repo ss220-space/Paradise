@@ -9,11 +9,8 @@
 	icon_state = "energynet"
 
 	density = TRUE//Can't pass through.
-	opacity = FALSE //Can see through.
-	mouse_opacity = MOUSE_OPACITY_ICON //So you can hit it with stuff.
 	anchored = TRUE //Can't drag/grab the net.
 	layer = ABOVE_ALL_MOB_LAYER
-	plane = GAME_PLANE
 	max_integrity = 200 //How much health it has.
 	can_buckle = TRUE
 	buckle_lying = 0
@@ -48,10 +45,8 @@
 /obj/structure/energy_net/has_prints()
 	return FALSE
 
-
 /obj/structure/energy_net/user_buckle_mob(mob/living/target, mob/living/user, check_loc = TRUE)
 	return//We only want our target to be buckled
-
 
 /obj/structure/energy_net/user_unbuckle_mob(mob/living/target, mob/living/user)
 	return//The net must be destroyed to free the target

@@ -1,15 +1,9 @@
-/datum/game_mode
-	var/syndies_didnt_escape = 0
-	var/nuke_off_station = 0
-
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = NUKERS_COUNT
 	recommended_enemies = NUKERS_COUNT
-
-	var/list/datum/mind/syndicates = list()
 
 	var/const/agents_possible = NUKERS_COUNT //If we ever need more syndicate agents.
 
@@ -27,7 +21,7 @@
 	if(!length(possible_syndicates))
 		return FALSE
 
-	if(possible_syndicates.len > agents_possible)
+	if(length(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
@@ -49,14 +43,13 @@
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
 	return TRUE
 
-
 /datum/game_mode/nuclear/post_setup()
 	var/spawnpos = 1
 
 	var/datum/team/nuclear_team/team = new /datum/team/nuclear_team
 
 	for(var/datum/mind/synd_mind as anything in syndicates)
-		if(spawnpos > GLOB.nukespawn.len)
+		if(spawnpos > length(GLOB.nukespawn))
 			spawnpos = 2
 		synd_mind.current.loc = GLOB.nukespawn[spawnpos]
 		create_syndicate(synd_mind)

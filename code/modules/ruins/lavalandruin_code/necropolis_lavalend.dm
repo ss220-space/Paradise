@@ -48,7 +48,6 @@
 		else
 			room = east_necropolisroom_templates
 
-
 	var/datum/map_template/M = safepick(room)
 	if(M)
 		switch(dir)
@@ -61,7 +60,6 @@
 			else
 				east_necropolisroom_templates -= M
 	load(M)
-
 
 //----------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------door-------------------------------------------------------------
@@ -82,10 +80,10 @@
 	switch(animation)
 		if("opening")
 			flick("necropening", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 		if("closing")
 			flick("necrclosing", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/update_icon_state()
 	if(density)
@@ -98,46 +96,39 @@
 	return
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_crowbar(mob/user, obj/item/I)
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/UnlockBlastDoors(target_id_tag)
 	for(var/obj/machinery/door/poddoor/impassable/necropolisdoor/P in GLOB.airlocks)
 		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
 			P.open()
 
-
 //----------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------multi tile door-------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 
-
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/Initialize(mapload)
 	. = ..()
 	apply_opacity_to_my_turfs(opacity)
-
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/open()
 	. = ..()
 	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
-
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/close()
 	. = ..()
 	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
-
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/Destroy()
 	apply_opacity_to_my_turfs(FALSE)
 	return ..()
-
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
 	for(var/turf/turf as anything in locs)
 		turf.set_opacity(new_opacity)
 	update_freelook_sight()
-
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor
 	name = "Заваленный проход"
@@ -152,10 +143,10 @@
 	switch(animation)
 		if("opening")
 			flick("blocked_passage", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 		if("closing")
 			flick("blocked_passage", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor/update_icon_state()
 	if(density)

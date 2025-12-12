@@ -95,17 +95,14 @@
 /obj/item/pda/heads/ntrep
 	default_cartridge = /obj/item/cartridge/supervisor
 	default_request_console_cartridge = /obj/item/cartridge/request_console/ntrep
-	icon_state = "pda-h"
 
 /obj/item/pda/heads/magistrate
 	default_cartridge = /obj/item/cartridge/supervisor
 	default_request_console_cartridge = /obj/item/cartridge/request_console/magistrate
-	icon_state = "pda-h"
 
 /obj/item/pda/heads/blueshield
 	default_cartridge = /obj/item/cartridge/hos
 	default_request_console_cartridge = /obj/item/cartridge/request_console/blueshield
-	icon_state = "pda-h"
 
 /obj/item/pda/heads/ert
 
@@ -117,7 +114,6 @@
 
 /obj/item/pda/heads/ert/medical
 	icon_state = "pda-medical"
-
 
 /obj/item/pda/cargo
 	default_cartridge = /obj/item/cartridge/quartermaster
@@ -184,7 +180,7 @@
 	silent = TRUE
 
 /obj/item/pda/clear
-	icon_state = "pda-transp"
+	icon_state = "pda-clear"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition with a transparent case."
 	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
 
@@ -226,8 +222,7 @@
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"
 	desc = "A box of spare PDA microcomputers."
-	icon = 'icons/obj/pda.dmi'
-	icon_state = "pdabox"
+	icon_state = "box_pda"
 
 /obj/item/storage/box/PDAs/populate_contents()
 	new /obj/item/pda(src)

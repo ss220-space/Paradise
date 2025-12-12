@@ -13,7 +13,6 @@
 
 	return items
 
-
 /// Clicks an object from the contents. Validates the object and the user
 /datum/lootpanel/proc/grab(mob/user, list/params)
 	var/uid = params["uid"]
@@ -27,7 +26,7 @@
 
 	var/datum/search_object/index = locateUID(uid)
 	var/atom/thing = index?.item
-	
+
 	if(QDELETED(index) || QDELETED(thing)) // Obj is gone
 		return FALSE
 

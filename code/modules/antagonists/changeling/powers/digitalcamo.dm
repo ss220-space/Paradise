@@ -6,11 +6,9 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
 
-
 /datum/action/changeling/digitalcamo/Remove(mob/user)
 	REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
 	..()
-
 
 /**
  * Prevents AIs tracking you but makes you easily detectable to the human-eye.

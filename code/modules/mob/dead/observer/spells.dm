@@ -29,12 +29,9 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	human_req = FALSE
 	stat_allowed = UNCONSCIOUS
 	invocation = ""
-	invocation_type = "none"
 	need_active_overlay = TRUE
 	// no need to spam admins regarding boo casts
 	create_attack_logs = FALSE
-
-
 
 /obj/effect/proc_holder/spell/boo/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -42,14 +39,13 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	T.try_auto_target = FALSE
 	return T
 
-
 /obj/effect/proc_holder/spell/boo/cast(list/targets, mob/user = usr)
 	var/atom/target = targets[1]
 	ASSERT(istype(target))
 
 	if(target.get_spooked())
 		var/area/spook_zone = get_area(target)
-		if (spook_zone.is_haunted == TRUE)
+		if(spook_zone.is_haunted == TRUE)
 			to_chat(usr, span_shadowling("Завеса слаба в [spook_zone], потребовалось меньше усилий, чтобы воздействовать на [target]."))
 			cooldown_handler.start_recharge(cooldown_handler.recharge_duration / 2)
 		return

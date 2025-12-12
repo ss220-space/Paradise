@@ -7,13 +7,11 @@
 	var/species_custom_mime_messages = list()
 	var/tail_required = FALSE
 
-
 /datum/emote/living/carbon/human/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(. && tail_required && !user.get_organ(BODY_ZONE_TAIL))
 		to_chat(user, span_warning("You have no tail!"))
 		return FALSE
-
 
 /datum/emote/living/carbon/human/select_message_type(mob/living/carbon/human/user, msg, intentional)
 	. = ..()
@@ -30,14 +28,12 @@
 	if(custom_message)
 		return custom_message
 
-
 /datum/emote/living/carbon/human/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	if((emote_type & EMOTE_MOUTH) && !user.mind?.miming)
 		if(user.getOxyLoss() > 35 || user.AmountLoseBreath() >= 8 SECONDS)	// no screaming if you don't have enough breath to scream
 			user.emote("gasp")
 			return TRUE
 	return ..()
-
 
 /datum/emote/living/carbon/human/airguitar
 	key = "airguitar"
@@ -93,7 +89,6 @@
 		'sound/misc/clap4.ogg',
 	)
 
-
 /datum/emote/living/carbon/human/clap/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	var/obj/item/organ/external/left_arm = user.bodyparts_by_name[BODY_ZONE_L_ARM]
 	var/obj/item/organ/external/right_arm = user.bodyparts_by_name[BODY_ZONE_R_ARM]
@@ -115,7 +110,6 @@
 
 	return ..()
 
-
 /datum/emote/living/carbon/human/crack
 	key = "crack"
 	key_third_person = "cracks"
@@ -134,7 +128,6 @@
 		/datum/species/diona,
 	)
 
-
 /datum/emote/living/carbon/human/cry
 	key = "cry"
 	key_third_person = "cries"
@@ -145,7 +138,6 @@
 	age_based = TRUE
 	volume = 70
 
-
 /datum/emote/living/carbon/human/cry/get_sound(mob/living/carbon/human/user)
 	if(user.dna?.species)
 		if(user.gender == FEMALE)
@@ -155,13 +147,11 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
 	message = "приподнима%(ет,ют)% бровь."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
-
 
 /datum/emote/living/carbon/human/wince
 	key = "wince"
@@ -170,14 +160,12 @@
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
-
 /datum/emote/living/carbon/human/squint
 	key = "squint"
 	key_third_person = "squints"
 	message = "прищурива%(ет,ют)%ся."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
-
 
 /datum/emote/living/carbon/human/facepalm
 	key = "facepalm"
@@ -187,8 +175,6 @@
 	hands_use_check = TRUE
 	sound = 'sound/weapons/slap.ogg'
 	emote_type = EMOTE_AUDIBLE
-	volume = 50
-
 
 /datum/emote/living/carbon/human/palm
 	key = "palm"
@@ -196,19 +182,16 @@
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
-
 /datum/emote/living/carbon/human/grumble
 	key = "grumble"
 	key_third_person = "grumbles"
 	message = "ворч%(ит,ат)%!"
 	message_mime = "как будто ворч%(ит,ат)%!"
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("беспокойные")
 	age_based = TRUE
 	volume = 70
-
 
 /datum/emote/living/carbon/grumble/get_sound(mob/living/carbon/human/user)
 	if(user.dna?.species)
@@ -219,14 +202,12 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/human/hug
 	key = "hug"
 	key_third_person = "hugs"
 	message = "обнима%(ет,ют)% себя."
 	message_param = "обнима%(ет,ют)% %t."
 	hands_use_check = TRUE
-
 
 /datum/emote/living/carbon/human/mumble
 	key = "mumble"
@@ -237,14 +218,12 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 
-
 /datum/emote/living/carbon/human/nod
 	key = "nod"
 	key_third_person = "nods"
 	message = "кива%(ет,ют)%."
 	message_postfix = " %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
-
 
 /datum/emote/living/carbon/human/scream
 	key = "scream"
@@ -264,7 +243,6 @@
 		/datum/species/monkey,	// screech instead
 	)
 
-
 /datum/emote/living/carbon/human/scream/select_message_type(mob/living/carbon/human/user, msg, intentional)
 	var/scream_verb = user.dna?.species?.scream_verb
 	if(scream_verb)
@@ -275,7 +253,6 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/carbon/human/user)
 	if(user.dna?.species)
 		if(user.gender == FEMALE)
@@ -285,7 +262,6 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/human/gasp
 	key = "gasp"
 	key_third_person = "gasps"
@@ -294,7 +270,6 @@
 	emote_type = EMOTE_AUDIBLE  // Don't make this one a mouth emote since we don't want it to be caught by nobreath
 	unintentional_stat_allowed = UNCONSCIOUS
 	volume = 100
-
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/living/carbon/human/user)
 	if(user.is_muzzled())	// If you're muzzled you're not making noise
@@ -310,7 +285,6 @@
 		return safepick(user.dna.species.female_dying_gasp_sounds)
 
 	return safepick(user.dna.species.male_dying_gasp_sounds)
-
 
 /datum/emote/living/carbon/human/gasp/play_sound_effect(mob/living/carbon/human/user, intentional, sound_path, sound_volume)
 	var/volume_decrease = 0
@@ -329,7 +303,6 @@
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
 	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = user.get_age_pitch(), ignore_walls = !isnull(user.mind))
 
-
 /datum/emote/living/carbon/human/shake
 	key = "shake"
 	key_third_person = "shakes"
@@ -337,19 +310,16 @@
 	message_postfix = ", смотря на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
-
 /datum/emote/living/carbon/human/pale
 	key = "pale"
 	key_third_person = "pales"
 	message = "на секунду бледне%(ет,ют)%."
-
 
 /datum/emote/living/carbon/human/raise
 	key = "raise"
 	key_third_person = "raises"
 	message = "поднима%(ет,ют)% руку."
 	hands_use_check = TRUE
-
 
 /datum/emote/living/carbon/human/salute
 	key = "salute"
@@ -372,19 +342,16 @@
 		/obj/item/clothing/shoes/ducky,
 	)
 
-
 /datum/emote/living/carbon/human/salute/get_sound(mob/living/carbon/human/user)
 	if(is_type_in_list(user.shoes, serious_shoes))
 		return 'sound/effects/salute.ogg'
 	if(is_type_in_list(user.shoes, funny_shoes))
 		return 'sound/items/toysqueak1.ogg'
 
-
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
 	key_third_person = "shrugs"
 	message = "пожима%(ет,ют)% плечами."
-
 
 /datum/emote/living/carbon/human/johnny
 	key = "johnny"
@@ -394,7 +361,6 @@
 	target_behavior = EMOTE_TARGET_BHVR_DEFAULT_TO_BASE
 	emote_target_type = EMOTE_TARGET_MOB
 	cooldown = 8 SECONDS
-
 
 /datum/emote/living/carbon/human/johnny/select_param(mob/living/carbon/human/user, params, substitution, base_message)
 	if(!params)
@@ -409,7 +375,6 @@
 		msg = "говор%(ит,ят)%, \"[target.name], пожалуйста. У них была семья.\" <b>[user.name]</b> затягивается сигаретой и выдыха%(ет,ют)% дым в форме %(своего,их)% имени."
 	return msg
 
-
 /datum/emote/living/carbon/human/johnny/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	if(!istype(user.wear_mask, /obj/item/clothing/mask/cigarette))
 		to_chat(user, span_warning("You can't be that cool without a cigarette between your lips."))
@@ -422,8 +387,10 @@
 		return TRUE
 
 	if(user.getOxyLoss() > 30)
-		user.visible_message(span_warning("[user.name] gasps for air and swallows their cigarette!"),
-							span_warning("You gasp for air and accidentally swallow your [cig.name]!"))
+		user.visible_message(
+			span_warning("[user.name] gasps for air and swallows their cigarette!"),
+			span_warning("You gasp for air and accidentally swallow your [cig.name]!")
+		)
 		if(cig.lit)
 			to_chat(user, span_userdanger("The lit [cig.name] burns on the way down!"))
 			user.drop_item_ground(cig, force = TRUE)
@@ -431,7 +398,6 @@
 			user.adjustFireLoss(5)
 		return TRUE
 	return ..()
-
 
 /datum/emote/living/carbon/human/sneeze
 	key = "sneeze"
@@ -445,7 +411,6 @@
 	age_based = TRUE
 	volume = 70
 
-
 /datum/emote/living/carbon/human/sneeze/get_sound(mob/living/carbon/human/user)
 	if(user.dna?.species)
 		if(user.gender == FEMALE)
@@ -455,13 +420,11 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/human/slap
 	key = "slap"
 	key_third_person = "slaps"
 	hands_use_check = TRUE
 	cooldown = 3 SECONDS // to prevent endless table slamming
-
 
 /datum/emote/living/carbon/human/slap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -472,14 +435,12 @@
 	else
 		to_chat(user, span_warning("You're incapable of slapping in your current state."))
 
-
 /datum/emote/living/carbon/human/wink
 	key = "wink"
 	key_third_person = "winks"
 	message = "подмигива%(ет,ют)%."
 	message_postfix = " %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
-
 
 /datum/emote/living/carbon/human/highfive
 	key = "highfive"
@@ -489,12 +450,10 @@
 	/// Status effect to apply when this emote is used. Should be a subtype
 	var/status = STATUS_EFFECT_HIGHFIVE
 
-
 /datum/emote/living/carbon/human/highfive/can_run_emote(mob/living/carbon/user, status_check, intentional)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
-
 
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
@@ -504,18 +463,15 @@
 	user_carbon.apply_status_effect(status)
 	return ..()
 
-
 /datum/emote/living/carbon/human/highfive/dap
 	key = "dap"
 	key_third_person = "daps"
 	status = STATUS_EFFECT_DAP
 
-
 /datum/emote/living/carbon/human/highfive/handshake
 	key = "handshake"
 	key_third_person = "handshakes"
 	status = STATUS_EFFECT_HANDSHAKE
-
 
 /datum/emote/living/carbon/human/snap
 	key = "snap"
@@ -526,7 +482,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	sound = 'sound/effects/fingersnap.ogg'
 	emote_type = EMOTE_AUDIBLE
-
 
 /datum/emote/living/carbon/human/snap/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	var/obj/item/organ/external/left_arm = user.bodyparts_by_name[BODY_ZONE_L_ARM]
@@ -548,7 +503,6 @@
 		return TRUE
 
 	return ..()
-
 
 /datum/emote/living/carbon/human/fart
 	key = "fart"
@@ -574,7 +528,6 @@
 		'sound/effects/mob_effects/fart6.ogg',
 	)
 
-
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
 	var/farted_on_something = FALSE
 	for(var/atom/check in get_turf(user))
@@ -586,12 +539,10 @@
 			confettigibs(user)
 		return ..()
 
-
 /datum/emote/living/carbon/human/fart/get_volume(mob/living/user)
 	if(prob(5))	// critical success!
 		return rand(150, 250)
 	return rand(30, 100)
-
 
 /datum/emote/living/carbon/human/fart/machine
 	message = "изда%(ёт,ют)% звук пердежа."
@@ -600,16 +551,13 @@
 	species_type_blacklist_typecache = null
 	sound = 'sound/effects/mob_effects/fart_IPC.ogg'
 
-
 /datum/emote/living/carbon/sign/signal
 	key = "signal"
 	key_third_person = "signals"
 	message_param = "показыва%(ет,ют)% %t."
 	number_postfix = list("палец", "пальца", "пальцев")
-	param_desc = "number(0-10)"
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	mob_type_blacklist_typecache = null
-
 
 /datum/emote/living/carbon/human/whistle
 	key = "whistle"
@@ -622,12 +570,10 @@
 	muzzled_noises = list("свистящие", "громкие")
 	cooldown = 5 SECONDS
 
-
 /datum/emote/living/carbon/human/whistle/get_sound(mob/living/carbon/human/user)
 	if(user.dna?.species)
 		return safepick(user.dna.species.whistle_sound)
 	return ..()
-
 
 /datum/emote/living/carbon/human/snuffle
 	key = "snuffle"
@@ -638,7 +584,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 
-
 /datum/emote/living/carbon/human/hem
 	key = "hem"
 	key_third_person = "hems"
@@ -648,14 +593,12 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 
-
 /datum/emote/living/carbon/human/scratch
 	key = "scratch"
 	key_third_person = "scratch"
 	message = "чеш%(ет,ут)%ся."
 	message_param = "чеш%(ет,ут)% %t."
 	hands_use_check = TRUE
-
 
 /////////
 // Species-specific emotes
@@ -673,7 +616,6 @@
 	sound = 'sound/voice/plas_rattle.ogg'
 	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
 
-
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
@@ -684,21 +626,18 @@
 		/datum/species/unathi,
 		/datum/species/vulpkanin,
 		/datum/species/tajaran,
-		/datum/species/vox
+		/datum/species/vox,
 	)
-
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE, intentional)
 	. = ..()
 	if(. && !can_wag(user))
 		return FALSE
 
-
 /datum/emote/living/carbon/human/wag/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	. = ..()
 	if(.)
 		user.start_tail_wagging()
-
 
 /datum/emote/living/carbon/human/proc/can_wag(mob/living/carbon/human/user)
 	var/datum/species/species = user.dna?.species
@@ -712,25 +651,21 @@
 		return FALSE
 	return TRUE
 
-
 /datum/emote/living/carbon/human/wag/stop
 	key = "swag"  // B)
 	key_third_person = "swags"
 	message = "прекраща%(ет,ют)% махать хвостом."
-
 
 /datum/emote/living/carbon/human/wag/stop/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	. = ..()
 	if(.)
 		user.stop_tail_wagging()
 
-
 /**
  * Snowflake emotes only for le epic chimp
  */
 /datum/emote/living/carbon/human/monkey
 	species_type_whitelist_typecache = list(/datum/species/monkey)
-
 
 // Note: subtype of human scream, not monkey, so we need the overrides.
 /datum/emote/living/carbon/human/scream/screech
@@ -740,12 +675,10 @@
 	species_type_whitelist_typecache = list(/datum/species/monkey)
 	species_type_blacklist_typecache = null
 
-
 /datum/emote/living/carbon/human/scream/screech/roar
 	key = "roar"
 	key_third_person = "roars"
 	message = "рев%(ёт,ут)%!"
-
 
 /datum/emote/living/carbon/human/monkey/gnarl
 	key = "gnarl"
@@ -756,25 +689,21 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 
-
 /datum/emote/living/carbon/human/monkey/roll
 	key = "roll"
 	key_third_person = "rolls"
 	message = "крут%(ит,ят)%ся."
 	hands_use_check = TRUE
 
-
 /datum/emote/living/carbon/human/monkey/roll/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(.)
 		user.SpinAnimation(10, 1)
 
-
 /datum/emote/living/carbon/human/monkey/tail
 	key = "tail"
 	message = "маш%(ет,ут)% хвостом."
 	tail_required = TRUE
-
 
 ///////
 // More specific human species emotes
@@ -786,13 +715,11 @@
 	species_type_whitelist_typecache = list(/datum/species/moth)
 	var/wings_required = FALSE
 
-
 /datum/emote/living/carbon/human/moth/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(. && wings_required && !user.get_organ(BODY_ZONE_WING))
 		to_chat(user, span_warning("You have no wings!"))
 		return FALSE
-
 
 /datum/emote/living/carbon/human/moth/flap
 	key = "flap"
@@ -800,13 +727,10 @@
 	message = "маш%(ет,ут)% крыльями."
 	wings_required = TRUE
 
-
 /datum/emote/living/carbon/human/moth/flap/angry
 	key = "aflap"
 	key_third_person = "aflaps"
 	message = "агрессивно маш%(ет,ут)% крыльями!"
-	wings_required = TRUE
-
 
 /datum/emote/living/carbon/human/moth/flutter
 	key = "flutter"
@@ -814,13 +738,11 @@
 	message = "расправля%(ет,ют)% крылья."
 	wings_required = TRUE
 
-
 /**
  * Vox
  */
 /datum/emote/living/carbon/human/vox
 	species_type_whitelist_typecache = list(/datum/species/vox)
-
 
 /datum/emote/living/carbon/human/vox/quill
 	key = "quill"
@@ -834,14 +756,12 @@
 	// Credit to sound-ideas (freesfx.co.uk) for the sound.
 	sound = 'sound/effects/voxrustle.ogg'
 
-
 /**
  * Skrell
  */
 /datum/emote/living/carbon/human/skrell
 	species_type_whitelist_typecache = list(/datum/species/skrell)
 	age_based = TRUE
-
 
 /datum/emote/living/carbon/human/skrell/warble
 	key = "warble"
@@ -855,7 +775,6 @@
 	// Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 	sound = 'sound/effects/warble.ogg'
 
-
 /datum/emote/living/carbon/human/skrell/warble/sad
 	key = "warble_sad"
 	message = "изда%(ёт,ют)% грустную трель."
@@ -864,7 +783,6 @@
 		'sound/voice/skrell/sad_trill2.ogg',
 		'sound/voice/skrell/sad_trill3.ogg',
 	)
-
 
 /datum/emote/living/carbon/human/skrell/warble/joyfull
 	key = "warble_joyfull"
@@ -875,13 +793,11 @@
 		'sound/voice/skrell/joyfull_trill3.ogg',
 	)
 
-
 /datum/emote/living/carbon/human/skrell/croak
 	key = "croak"
 	key_third_person = "croaks"
 	message = "квака%(ет,ют)%."
 	message_mime = "надува%(ет,ют)% щёки."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("очень странные")
@@ -890,7 +806,6 @@
 		'sound/voice/skrell/croaking2.ogg',
 	)
 
-
 /datum/emote/living/carbon/human/skrell/discontent
 	key = "discontent"
 	message = "клад%(ёт,ут)% два пальца на подбородок."
@@ -898,20 +813,17 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	hands_use_check = TRUE
 
-
 /datum/emote/living/carbon/human/skrell/relax
 	key = "relax"
 	message = "раслабля%(ет,ют)% хвосты на голове."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
-
 /datum/emote/living/carbon/human/skrell/excitement
 	key = "excitement"
 	message = "приподнима%(ет,ют)% кончики боковых хвостов."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
-
 
 /datum/emote/living/carbon/human/skrell/confusion
 	key = "confusion"
@@ -920,14 +832,12 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	hands_use_check = TRUE
 
-
 /datum/emote/living/carbon/human/skrell/understand
 	key = "understand"
 	message = "клад%(ёт,ут)% руку на шею."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	hands_use_check = TRUE
-
 
 /datum/emote/living/carbon/human/skrell/smile
 	key = "smile"
@@ -937,7 +847,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	hands_use_check = TRUE
 
-
 /**
  * Kidan
  */
@@ -946,13 +855,11 @@
 	vary = TRUE
 	var/head_required = TRUE
 
-
 /datum/emote/living/carbon/human/kidan/can_run_emote(mob/living/carbon/human/user, status_check = TRUE, intentional = FALSE)
 	. = ..()
 	if(. && head_required && !user.get_organ(BODY_ZONE_HEAD))
-		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга[pluralize_ru(user.gender, "ет", "ют")]ся!")
+		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга[PLUR_ET_YUT(user)]ся!")
 		return FALSE
-
 
 /datum/emote/living/carbon/human/kidan/clack
 	key = "clack"
@@ -967,13 +874,11 @@
 	// Credit to DrMinky (freesound.org) for the sound.
 	sound = 'sound/effects/Kidanclack.ogg'
 
-
 /datum/emote/living/carbon/human/kidan/clack/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(.)
 		var/view = user.client ? user.client.view : world.view
 		mineral_scan_pulse(get_turf(user), view)
-
 
 /datum/emote/living/carbon/human/kidan/clack/click
 	key = "click"
@@ -982,7 +887,6 @@
 	message_mime = "дёрга%(ет,ют)% мандибулами."
 	// Credit to DrMinky (freesound.org) for the sound.
 	sound = 'sound/effects/kidanclack2.ogg'
-
 
 /datum/emote/living/carbon/human/kidan/wiggle
 	key = "wiggle"
@@ -998,7 +902,6 @@
 		'sound/voice/kidan/wiggles_antennae3.ogg',
 	)
 
-
 /datum/emote/living/carbon/human/kidan/waves_k
 	key = "wave_k"
 	message = "резко взмахива%(ет,ют)% усиками."
@@ -1012,21 +915,17 @@
 		'sound/voice/kidan/waves_antennae_sharply2.ogg',
 	)
 
-
 /**
  * Drask
  */
 /datum/emote/living/carbon/human/drask
 	species_type_whitelist_typecache = list(/datum/species/drask)
 
-
 /datum/emote/living/carbon/human/drask/drask_talk
 	emote_type = EMOTE_SOUND
 	age_based = TRUE
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	sound = 'sound/voice/drasktalk.ogg'
-
 
 /datum/emote/living/carbon/human/drask/drask_talk/drone
 	key = "drone"
@@ -1034,13 +933,11 @@
 	message = "гуд%(ит,ят)%."
 	message_mime = "дела%(ет,ют)% вид, что гуд%(ит,ят)%."
 
-
 /datum/emote/living/carbon/human/drask/drask_talk/hum
 	key = "hum"
 	key_third_person = "hums"
 	message = "грохоч%(ет,ут)%."
 	message_mime = "дела%(ет,ют)% вид, что грохоч%(ет,ут)%."
-
 
 /datum/emote/living/carbon/human/drask/drask_talk/rumble
 	key = "rumble"
@@ -1048,13 +945,11 @@
 	message = "урч%(ит,ат)%."
 	message_mime = "дела%(ет,ют)% вид, что урч%(ит,ат)%."
 
-
 /**
  * Unathi
  */
 /datum/emote/living/carbon/human/unathi
 	species_type_whitelist_typecache = list(/datum/species/unathi)
-
 
 /datum/emote/living/carbon/human/unathi/hiss
 	key = "hiss"
@@ -1069,7 +964,6 @@
 	audio_cooldown = 15 SECONDS
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = 'sound/effects/unathihiss.ogg'
-
 
 /datum/emote/living/carbon/human/unathi/roar
 	key = "roar"
@@ -1088,7 +982,6 @@
 		'sound/voice/unathi/roar3.ogg',
 	)
 
-
 /datum/emote/living/carbon/human/unathi/threat
 	key = "threat"
 	key_third_person = "threat"
@@ -1106,7 +999,6 @@
 		'sound/voice/unathi/threat2.ogg',
 	)
 
-
 /datum/emote/living/carbon/human/unathi/whip
 	key = "whip"
 	key_third_person = "whips"
@@ -1120,21 +1012,17 @@
 	audio_cooldown = 15 SECONDS
 	sound = 'sound/voice/unathi/whip_short.ogg'
 
-
 /datum/emote/living/carbon/human/unathi/whip/whip_l
 	key = "whip_l"
 	key_third_person = ""
 	message = "хлещ%(ет,ут)% хвостом."
-	audio_cooldown = 15 SECONDS
 	sound = 'sound/voice/unathi/whip.ogg'
-
 
 /**
  * Diona
  */
 /datum/emote/living/carbon/human/diona
 	species_type_whitelist_typecache = list(/datum/species/diona)
-
 
 /datum/emote/living/carbon/human/diona/creak
 	key = "creak"
@@ -1145,10 +1033,8 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
-	audio_cooldown = 15 SECONDS
 	//Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	sound = 'sound/voice/dionatalk1.ogg'
-
 
 /**
  * Slimepeople
@@ -1159,7 +1045,6 @@
 	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	audio_cooldown = 15 SECONDS
-
 
 /datum/emote/living/carbon/human/slime/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
@@ -1172,7 +1057,6 @@
 			return TRUE
 	return FALSE
 
-
 /datum/emote/living/carbon/human/slime/squish
 	key = "squish"
 	key_third_person = "squishes"
@@ -1180,7 +1064,6 @@
 	message_mime = "дела%(ет,ют)% вид, что хлюпа%(ет,ют)%."
 	// Credit to DrMinky (freesound.org) for the sound.
 	sound = 'sound/effects/mob_effects/slime_squish.ogg'
-
 
 /datum/emote/living/carbon/human/slime/bubble
 	key = "bubble"
@@ -1193,7 +1076,6 @@
 	sound = 'sound/effects/mob_effects/slime_bubble.ogg'
 	volume = 100
 
-
 /datum/emote/living/carbon/human/slime/pop
 	key = "pop"
 	key_third_person = "pops"
@@ -1203,13 +1085,11 @@
 	// https://freesound.org/people/greenvwbeetle/sounds/244653/
 	sound = 'sound/effects/mob_effects/slime_pop.ogg'
 
-
 /**
  * Vulpkanin
  */
 /datum/emote/living/carbon/human/vulpkanin
 	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
-
 
 /datum/emote/living/carbon/human/vulpkanin/howl
 	key = "howl"
@@ -1261,13 +1141,11 @@
 	volume = 80
 	sound = SFX_GROWL
 
-
 /**
  * Tajaran
  */
 /datum/emote/living/carbon/human/tajaran
 	species_type_whitelist_typecache = list(/datum/species/tajaran)
-
 
 /datum/emote/living/carbon/human/tajaran/hiss
 	key = "hiss"
@@ -1283,7 +1161,6 @@
 	sound = 'sound/voice/tajarahiss.mp3'
 	volume = 100
 
-
 /datum/emote/living/carbon/human/tajaran/purr
 	key = "purr"
 	key_third_person = "purrs"
@@ -1296,7 +1173,6 @@
 	volume = 80
 	sound = 'sound/voice/cat_purr.ogg'
 
-
 /datum/emote/living/carbon/human/tajaran/purr/purrl
 	key = "purrl"
 	key_third_person = ""
@@ -1304,7 +1180,6 @@
 	message_mime = "тихо утробно мурч%(ит,ат)%."
 	cooldown = 6 SECONDS
 	sound = 'sound/voice/cat_purr_long.ogg'
-
 
 /**
  * Cracking subtypes
@@ -1315,13 +1190,11 @@
 	species_type_whitelist_typecache = list(/datum/species/slime)
 	species_type_blacklist_typecache = null
 
-
 /datum/emote/living/carbon/human/crack/machine
 	message = "хруст%(ит,ят)% своими приводами!"
 	sound = 'sound/effects/mob_effects/ipc_crunch.ogg'
 	species_type_whitelist_typecache = list(/datum/species/machine)
 	species_type_blacklist_typecache = null
-
 
 /datum/emote/living/carbon/human/crack/diona
 	message = "хруст%(ит,ят)% веткой!"
@@ -1330,12 +1203,10 @@
 	species_type_blacklist_typecache = null
 	volume = 80  // the sound effect is a bit quiet
 
-
 /datum/emote/living/carbon/human/crack/skelly
 	message = "хруст%(ит,ят)% костями!"
 	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
 	species_type_blacklist_typecache = null
-
 
 /datum/emote/living/carbon/human/crack/skelly/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	var/obj/item/organ/external/bodypart = safepick(user.bodyparts)
@@ -1365,14 +1236,12 @@
 	message = "хруст%(ит,ят)% [translated]!"
 	return ..()
 
-
 //fucking rumble
 /datum/emote/living/carbon/human/unathi/rumble
 	key = "rumble"
 	key_third_person = "rumble"
 	message = "урч%(ит,ат)%."
 	message_mime = "тихо урч%(ит,ат)%."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("урчащие", "гортанные")

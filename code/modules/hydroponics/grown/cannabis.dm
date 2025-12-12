@@ -1,5 +1,3 @@
-
-      
 // Cannabis
 /obj/item/seeds/cannabis
 	name = "pack of cannabis seeds"
@@ -15,10 +13,11 @@
 	icon_grow = "cannabis-grow" // Uses one growth icons set for all the subtypes
 	icon_dead = "cannabis-dead" // Same for the dead icon
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/cannabis/rainbow,
-						/obj/item/seeds/cannabis/white)
+	mutatelist = list(
+		/obj/item/seeds/cannabis/rainbow,
+		/obj/item/seeds/cannabis/white,
+	)
 	reagents_add = list("thc" = 0.15, "cbd" = 0.15)
-
 
 /obj/item/seeds/cannabis/rainbow
 	name = "pack of rainbow weed seeds"
@@ -27,8 +26,10 @@
 	species = "megacannabis"
 	plantname = "Rainbow Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
-	mutatelist = list(/obj/item/seeds/cannabis/death,
-						/obj/item/seeds/cannabis/ultimate)
+	mutatelist = list(
+		/obj/item/seeds/cannabis/death,
+		/obj/item/seeds/cannabis/ultimate,
+	)
 	reagents_add = list("lsd" = 0.15, "thc" = 0.15, "cbd" = 0.15)
 	rarity = 40
 
@@ -50,11 +51,12 @@
 	species = "whitecannabis"
 	plantname = "Lifeweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/white
-	mutatelist = list(/obj/item/seeds/cannabis/death,
-						/obj/item/seeds/cannabis/ultimate)
+	mutatelist = list(
+		/obj/item/seeds/cannabis/death,
+		/obj/item/seeds/cannabis/ultimate,
+	)
 	reagents_add = list("omnizine" = 0.35, "thc" = 0.15, "cbd" = 0.15)
 	rarity = 40
-
 
 /obj/item/seeds/cannabis/ultimate
 	name = "pack of omega weed seeds"
@@ -84,7 +86,6 @@
 						"histamine" = 0.05)
 	rarity = 69
 
-
 // ---------------------------------------------------------------
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis
@@ -97,7 +98,6 @@
 	bitesize_mod = 2
 	tastes = list("cannabis" = 1)
 	wine_power = 0.2
-
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	seed = /obj/item/seeds/cannabis/rainbow

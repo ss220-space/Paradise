@@ -1,11 +1,11 @@
 /datum/event/meteor_wave/gore/announce()
-	GLOB.minor_announcement.announce("Неизвестный биологический мусор был обнаружен рядом с [station_name()], пожалуйста, будьте наготове.",
-									"Обломки."
+	GLOB.minor_announcement.announce(
+		message = "Неизвестный биологический мусор был обнаружен рядом с [station_name()], пожалуйста, будьте наготове.",
+		new_title = ANNOUNCE_DEBRIS
 	)
 
 /datum/event/meteor_wave/gore/setup()
 	waves = 3
-
 
 /datum/event/meteor_wave/gore/tick()
 	if(waves && activeFor >= next_meteor)
@@ -14,8 +14,8 @@
 		waves--
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
 
-
 /datum/event/meteor_wave/gore/end()
-	GLOB.minor_announcement.announce("Станция прошла через обломки.",
-									"Обломки."
+	GLOB.minor_announcement.announce(
+		message = "Станция прошла через обломки.",
+		new_title = ANNOUNCE_DEBRIS
 	)

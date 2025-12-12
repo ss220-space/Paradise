@@ -3,7 +3,7 @@
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	if(affected_mob?.stat == DEAD)
@@ -68,7 +68,7 @@
 					to_chat(affected_mob, span_danger("Вы чувствуете себя ужасно!"))
 
 				if(prob(5))
-					affected_mob.emote("faint", "collapse", "groan")
+					affected_mob.emote("groan")
 
 			if(3)
 				if(prob(1) && prob(10))
@@ -99,7 +99,7 @@
 	additional_info = "У пациента сердечный приступ"
 	max_stages = 3
 	stage_prob = 5
-	cures = list("atropine", "epinephrine", "heparin")
+	cures = list("atropine", "epinephrine", "heparin", "neuromatin")
 	cure_prob = 10
 	needs_all_cures = FALSE
 	required_organs = list(/obj/item/organ/internal/heart)
@@ -165,7 +165,6 @@
 	stage_prob = 1
 	cure_text = "Приём пищи или введение витаминов и питательных веществ"
 
-
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(HAS_TRAIT(affected_mob, TRAIT_NO_HUNGER) && !isvampire(affected_mob))
 		return TRUE
@@ -174,7 +173,6 @@
 		return TRUE
 
 	return ..()
-
 
 /datum/disease/critical/hypoglycemia/stage_act()
 	if(..())

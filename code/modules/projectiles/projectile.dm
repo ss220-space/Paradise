@@ -2,7 +2,6 @@
 	name = "projectile"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	pass_flags = PASSTABLE
@@ -122,14 +121,12 @@
 	/// Probability to hit lying non-dead mobs
 	var/hit_crawling_mobs_chance = 33
 
-
 /obj/projectile/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/projectile/proc/Range()
 	range--
@@ -146,22 +143,23 @@
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
 		on_range()
 
-
 /**
  * If we want there to be effects when they reach the end of their range
  */
 /obj/projectile/proc/on_range()
 	qdel(src)
 
-
 /obj/projectile/proc/prehit(atom/target)
 	return TRUE
-
 
 /obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
+
+	if(firer_source_atom)
+		SEND_SIGNAL(firer_source_atom, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle, hit_zone, blocked)
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, hit_zone, blocked)
 
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
@@ -218,7 +216,7 @@
 
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		if(L.has_limbs)
+		if(L.has_limbs && def_zone)
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)
@@ -227,11 +225,11 @@
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
-			var/hit_text = pick("получа[pluralize_ru(L.gender,"ет","ют")] попадание",
-								"ранен[genderize_ru(L.gender,"","а","о","ы")]",
-								"получа[pluralize_ru(L.gender,"ет","ют")] ранение",
-								"поражён[genderize_ru(L.gender,"","а","о","ы")]",
+				playsound(loc, hitsound, volume, TRUE, -1)
+			var/hit_text = pick("получа[PLUR_ET_YUT(L)] попадание",
+								"ранен[GEND_A_O_Y(L)]",
+								"получа[PLUR_ET_YUT(L)] ранение",
+								"поражён[GEND_A_O_Y(L)]",
 								"прошибает")
 			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
 								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
@@ -249,11 +247,8 @@
 
 	return were_affects_applied
 
-
-
 /obj/projectile/proc/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
 	return target.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
-
 
 /**
  * Checks whether the place we want to splatter blood is blocked (i.e. by windows).
@@ -267,13 +262,11 @@
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
 			return TRUE
 
-
 /obj/projectile/proc/vol_by_damage()
 	if(damage)
 		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
-
 
 /obj/projectile/Bump(atom/bumped_atom)
 	. = ..()
@@ -303,7 +296,7 @@
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(bumped_atom))
 		var/mob/living/carbon/human/bumped_human = bumped_atom
 		var/obj/item/organ/external/organ = bumped_human.get_organ(check_zone(def_zone))
@@ -325,20 +318,18 @@
 			LAZYADD(permutated, bumped_atom)
 		return FALSE
 	else
-		if(bumped_atom && bumped_atom.density && !ismob(bumped_atom) && !(bumped_atom.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
+		if(bumped_atom?.density && !ismob(bumped_atom) && !(bumped_atom.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
 			var/list/mobs_list = list()
 			for(var/mob/living/mob in bumped_turf)
 				mobs_list += mob
-			if(mobs_list.len)
+			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-
 /obj/projectile/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //Bullets don't drift in space
-
 
 /obj/projectile/process()
 	if(!loc || !trajectory)
@@ -358,10 +349,8 @@
 	for(var/i in 1 to required_moves)
 		pixel_move(1)
 
-
 /obj/projectile/proc/shrapnel_hit(atom/target)
 	return
-
 
 /obj/projectile/proc/pixel_move(trajectory_multiplier)
 	if(!loc || !trajectory)
@@ -401,14 +390,13 @@
 		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
 	Range()
 
-
 /obj/projectile/proc/fire(setAngle)
 	if(setAngle)
 		Angle = setAngle
 
 	if(!log_override && firer && original)
 		fire_log_text += "Projectile: <small>'[type]'</small> | Harm: [nodamage ? "<small>NO DAMAGE</small>" : "<small>[uppertext(damage_type)] = </small>[damage]"]"
-		if(reagents && reagents.reagent_list)
+		if(reagents?.reagent_list)
 			var/reagent_note
 			var/list/temp = reagents.reagent_list.Copy()
 			for(var/datum/reagent/R in temp)
@@ -438,7 +426,6 @@
 	START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)
 
-
 /obj/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
 	if(!starting)
 		return
@@ -460,13 +447,11 @@
 	hit_crawling_mobs_chance = 100
 	set_angle(get_angle(curloc, original))
 
-
 /obj/projectile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(arrived.density && !(pass_flags & PASSMOB) && isliving(arrived))
 		Bump(arrived)
-
 
 /obj/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
@@ -478,21 +463,17 @@
 	firer = null
 	return ..()
 
-
 /obj/projectile/proc/dumbfire(dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
-
 /obj/projectile/proc/on_ricochet(atom/A)
 	return
-
 
 /obj/projectile/proc/check_ricochet(atom/A)
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
-
 
 /obj/projectile/proc/check_ricochet_flag(atom/A)
 	if((flag == ENERGY || flag == LASER) && (A.flags_ricochet & RICOCHET_SHINY))
@@ -501,24 +482,23 @@
 	if((flag == BOMB || flag == BULLET) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
-	return FALSE
+	if(flag == BULLET && (A.flags_ricochet & RICOCHET_BALLISTIC))
+		return TRUE
 
+	return FALSE
 
 /obj/projectile/set_angle(new_angle)
 	..()
 	Angle = new_angle
 	trajectory.set_angle(new_angle)
 
-
 /obj/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
 	var/list/coordinates = trajectory.return_coordinates()
 	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
 
-
 /obj/projectile/experience_pressure_difference()
 	return
-
 
 /obj/projectile/forceMove(atom/target)
 	. = ..()
@@ -526,7 +506,6 @@
 		return
 	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
 		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
-
 
 /obj/projectile/proc/is_reflectable(desired_reflectability_level)
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not

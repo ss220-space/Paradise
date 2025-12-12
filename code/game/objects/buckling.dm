@@ -12,11 +12,9 @@
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
 
-
 /atom/movable/MouseDrop_T(mob/living/dropping, mob/living/user, params)
 	. = ..()
 	return mouse_buckle_handling(dropping, user)
-
 
 /atom/movable/attack_robot(mob/living/user)
 	. = ..()
@@ -32,7 +30,6 @@
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
 
-
 /**
  * Does some typechecks and then calls user_buckle_mob
  *
@@ -44,13 +41,11 @@
 	if(can_buckle && istype(target) && istype(user))
 		return user_buckle_mob(target, user, check_loc = FALSE)
 
-
 /**
  * Returns amount of mobs buckled to us.
  */
 /atom/movable/proc/has_buckled_mobs()
 	return length(buckled_mobs)
-
 
 /**
  * Set a mob as buckled to src
@@ -107,13 +102,11 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, target, force)
 	return TRUE
 
-
 /obj/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE)
 	. = ..()
 	if(. && (resistance_flags & ON_FIRE))	//Sets the mob on fire if you buckle them to a burning atom/movableect
 		target.adjust_fire_stacks(1)
 		target.IgniteMob()
-
 
 /atom/movable/proc/on_set_anchored(atom/movable/source, anchorvalue)
 	SIGNAL_HANDLER
@@ -123,7 +116,6 @@
 			ADD_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
 		else
 			REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
-
 
 /**
  * Set a mob as unbuckled from src
@@ -168,7 +160,6 @@
 		var/turf/pitfall = buckled_mob.loc
 		pitfall?.zFall(buckled_mob)
 
-
 /**
  * Call [/atom/movable/proc/unbuckle_mob] for all buckled mobs
  */
@@ -178,7 +169,6 @@
 	for(var/mob in buckled_mobs)
 		unbuckle_mob(mob, force)
 
-
 /**
  * Handle any extras after buckling.
  * Called on buckle_mob()
@@ -186,14 +176,12 @@
 /atom/movable/proc/post_buckle_mob(mob/living/target)
 	return
 
-
 /**
  * Handle any extras after unbuckling.
  * Called on unbuckle_mob()
  */
 /atom/movable/proc/post_unbuckle_mob(mob/living/target)
 	return
-
 
 /**
  * Simple helper proc that runs a suite of checks to test whether it is possible or not to buckle the target mob to src.
@@ -257,7 +245,6 @@
 
 	return TRUE
 
-
 /**
  * Simple helper proc that runs a suite of checks to test whether it is possible or not for user to buckle target mob to src.
  *
@@ -282,7 +269,6 @@
 
 	return TRUE
 
-
 /**
  * Handles a mob buckling another mob to src and sends a visible_message
  *
@@ -304,8 +290,8 @@
 
 	if(target != user) // Cheks if user interacts with himself
 		target.visible_message(
-			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся пристегнуть [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
-			span_userdanger("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся пристегнуть вас к [declent_ru(DATIVE)]!"),
+			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся пристегнуть [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся пристегнуть вас к [declent_ru(DATIVE)]!"),
 			span_italics("Слышен лязг металла."),
 		)
 		if(!do_after(user, 0.7 SECONDS, target, NONE))
@@ -321,17 +307,16 @@
 	if(.)
 		if(target == user)
 			target.visible_message(
-				span_notice("[target] пристегива[pluralize_ru(target.gender,"ет","ют")] себя к [declent_ru(DATIVE)]."),
+				span_notice("[target] пристегива[PLUR_ET_YUT(target)] себя к [declent_ru(DATIVE)]."),
 				span_notice("Вы пристегиваете себя к [declent_ru(DATIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
 		else
 			target.visible_message(
-				span_warning("[user] пристегива[pluralize_ru(target.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
-				span_warning("[user] пристегива[pluralize_ru(target.gender,"ет","ют")] вас к [declent_ru(DATIVE)]!"),
+				span_warning("[user] пристегива[PLUR_ET_YUT(target)] [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
+				span_warning("[user] пристегива[PLUR_ET_YUT(target)] вас к [declent_ru(DATIVE)]!"),
 				span_italics("Слышен лязг металла."),
 			)
-
 
 /**
  * Handles a user unbuckling a mob from src and sends a visible_message
@@ -349,13 +334,13 @@
 	if(buckled_mob)
 		if(buckled_mob != user)
 			buckled_mob.visible_message(
-				span_notice("[user] отстегива[pluralize_ru(target.gender,"ет","ют")] [buckled_mob] от [declent_ru(GENITIVE)]."),
-				span_notice("[user] отстегива[pluralize_ru(target.gender,"ет","ют")] вас от [declent_ru(GENITIVE)]."),
+				span_notice("[user] отстегива[PLUR_ET_YUT(target)] [buckled_mob] от [declent_ru(GENITIVE)]."),
+				span_notice("[user] отстегива[PLUR_ET_YUT(target)] вас от [declent_ru(GENITIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
 		else
 			buckled_mob.visible_message(
-				span_notice("[buckled_mob] отстегива[pluralize_ru(target.gender,"ет","ют")] себя от [declent_ru(GENITIVE)]."),
+				span_notice("[buckled_mob] отстегива[PLUR_ET_YUT(target)] себя от [declent_ru(GENITIVE)]."),
 				span_notice("Вы отстегиваете себя от [declent_ru(GENITIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
@@ -363,7 +348,6 @@
 		if(isliving(buckled_mob.pulledby))
 			buckled_mob.pulledby.set_pull_offsets(buckled_mob, buckled_mob.pulledby.grab_state)
 	return buckled_mob
-
 
 /mob/living/proc/check_buckled()
 	if(buckled && !(buckled in loc))

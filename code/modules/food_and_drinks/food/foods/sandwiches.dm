@@ -121,7 +121,6 @@
 	desc = "Its taste defies language."
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "mimeburger"
-	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "silence" = 2)
@@ -187,7 +186,6 @@
 
 /obj/item/reagent_containers/food/snacks/jellyburger/cherry
 	list_reagents = list("nutriment" = 6, "cherryjelly" = 5, "vitamin" = 1)
-
 
 //////////////////////
 //	Sandwiches		//

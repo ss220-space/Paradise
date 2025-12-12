@@ -6,17 +6,18 @@
 	icon_state = "orebox0"
 	name = "ore box"
 	desc = "Прочный деревянный ящик для хранения больших объёмов руды."
-	ru_names = list(
+	density = TRUE
+	pressure_resistance = 5 * ONE_ATMOSPHERE
+
+/obj/structure/ore_box/get_ru_names()
+	return list(
 		NOMINATIVE = "ящик для руды",
 		GENITIVE = "ящика для руды",
 		DATIVE = "ящику для руды",
 		ACCUSATIVE = "ящик для руды",
 		INSTRUMENTAL = "ящиком для руды",
-		PREPOSITIONAL = "ящике для руды"
+		PREPOSITIONAL = "ящике для руды",
 	)
-	density = TRUE
-	pressure_resistance = 5 * ONE_ATMOSPHERE
-
 
 /obj/structure/ore_box/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -39,7 +40,7 @@
 			storage.remove_from_storage(ore, src) //This will move the item to this item's contents
 			CHECK_TICK
 		if(!loaded)
-			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуст - здесь нет руды."))
+			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуст — здесь нет руды."))
 			return ATTACK_CHAIN_PROCEED
 		storage.update_appearance()	// just in case
 		to_chat(user, span_notice("Вы пересыпали руду из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
@@ -47,18 +48,16 @@
 
 	return ..()
 
-
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return .
 	user.visible_message(
-		span_notice("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] разбира[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы разбираете [declent_ru(ACCUSATIVE)]."),
 		span_italics("Слышен треск дерева."),
 	)
 	deconstruct(TRUE, user)
-
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))
@@ -123,7 +122,7 @@
 
 	add_fingerprint(usr)
 
-	if(contents.len < 1)
+	if(length(contents) < 1)
 		balloon_alert(usr, "груз отсутствует")
 		return
 

@@ -8,7 +8,6 @@
 
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
-	use_power = IDLE_POWER_USE
 
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
@@ -21,7 +20,6 @@
 	var/area/initial_loc
 	var/area_uid
 
-	on = FALSE
 	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
@@ -77,7 +75,6 @@
 	..()
 	air_contents.volume = 1000
 
-
 /obj/machinery/atmospherics/unary/vent_pump/update_overlays()
 	. = ..()
 	SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
@@ -104,7 +101,6 @@
 
 	update_pipe_image()
 
-
 /obj/machinery/atmospherics/unary/vent_pump/update_underlays()
 	if(..())
 		underlays.Cut()
@@ -118,7 +114,6 @@
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
 				add_underlay(T, direction = dir)
-
 
 /obj/machinery/atmospherics/unary/vent_pump/hide()
 	update_icon()
@@ -231,7 +226,6 @@
 
 	return 1
 
-
 /obj/machinery/atmospherics/unary/vent_pump/atmos_init()
 	..()
 	if(frequency)
@@ -300,7 +294,6 @@
 
 	if(signal.data["adjust_external_pressure"] != null)
 
-
 		external_pressure_bound = between(
 			0,
 			external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),
@@ -322,7 +315,6 @@
 	update_icon()
 	return
 
-
 /obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
 	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
@@ -333,7 +325,6 @@
 	)
 	set_welded(FALSE)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
-
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -353,11 +344,9 @@
 			return .
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
-
 
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
 	if(welded)
@@ -372,7 +361,6 @@
 		"You screwdriver the vent [open ? "open" : "shut"].",
 		"You hear a screwdriver.",
 	)
-
 
 /obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -393,7 +381,6 @@
 			span_notice("You unweld [src]!"),
 		)
 
-
 /obj/machinery/atmospherics/unary/vent_pump/attack_hand(mob/user)
 	if(welded || !open)
 		return ..()
@@ -407,7 +394,6 @@
 		if(istype(thing, /obj/item/paper) || istype(thing, /obj/item/stack/spacecash))
 			thing.forceMove(our_turf)
 			user.put_in_hands(thing, ignore_anim = FALSE)
-
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
 	. = ..()
@@ -435,3 +421,7 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
+
+#undef EXTERNAL_PRESSURE_BOUND
+#undef INTERNAL_PRESSURE_BOUND
+#undef PRESSURE_CHECKS

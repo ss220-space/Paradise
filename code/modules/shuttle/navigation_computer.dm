@@ -34,21 +34,20 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/CalculateAvailable_z_lvls() //Вынесла в отдельный прок, для удобства работы с VV
 	jumpto_ports = list()
 	var/list/levels = GLOB.space_manager.z_list.Copy()
-	var/iterator = 1
 	for(var/level in levels)
-		if(access_station && is_station_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		var/num_level = text2num(level)
+		if(access_station && is_station_level(num_level))
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_admin_zone && is_admin_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_mining && is_mining_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_taipan && is_taipan(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_away && is_away_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_derelict && is_explorable_space(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
-		iterator++
+			jumpto_ports += list("nav_z[level]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
 	. = ..()
@@ -56,12 +55,12 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))
-		to_chat(user,"<span class='warning'>Warning: Shuttle connection severed!</span>")
+		to_chat(user,span_warning("Warning: Shuttle connection severed!"))
 		return
 	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/GrantActions(mob/living/user)
-	if(jumpto_ports.len)
+	if(length(jumpto_ports))
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
 	/*	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
@@ -84,7 +83,7 @@
 
 	var/turf/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
 
-	if(jumpto_ports.len)
+	if(length(jumpto_ports))
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!S)
 				continue
@@ -143,23 +142,23 @@
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/landing_clear = checkLandingSpot()
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
-		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
+		to_chat(current_user, span_warning("Targeting transit location, please wait [DisplayTimeText(designate_time)]..."))
 		designating_target_loc = the_eye.loc
 		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
 		if(!wait_completed)
-			to_chat(current_user, "<span class='warning'>Operation aborted.</span>")
+			to_chat(current_user, span_warning("Operation aborted."))
 			return
 		landing_clear = checkLandingSpot()
 
 	if(landing_clear != SHUTTLE_DOCKER_LANDING_CLEAR)
 		switch(landing_clear)
 			if(SHUTTLE_DOCKER_BLOCKED)
-				to_chat(current_user, "<span class='warning'>Invalid transit location</span>")
+				to_chat(current_user, span_warning("Invalid transit location"))
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				to_chat(current_user, "<span class='warning'>Unknown object detected in landing zone. Please designate another location.</span>")
+				to_chat(current_user, span_warning("Unknown object detected in landing zone. Please designate another location."))
 		return
 
 	if(!my_port)
@@ -196,11 +195,11 @@
 
 	if(current_user.client)
 		current_user.client.images += the_eye.placed_images
-		to_chat(current_user, "<span class='notice'>Transit location designated</span>")
+		to_chat(current_user, span_notice("Transit location designated"))
 	return
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
-	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
+	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)))
 		return FALSE
 	return TRUE
 
@@ -208,7 +207,7 @@
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/list/image_cache = the_eye.placement_images
 	the_eye.setDir(turn(the_eye.dir, -90))
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/pic = image_cache[i]
 		var/list/coords = image_cache[pic]
 		var/Tmp = coords[1]
@@ -230,7 +229,7 @@
 	var/list/bounds = shuttle_port.return_coords(the_eye.x - x_offset, the_eye.y - y_offset, the_eye.dir)
 	var/list/overlappers = SSshuttle.get_dock_overlap(bounds[1], bounds[2], bounds[3], bounds[4], the_eye.z)
 	var/list/image_cache = the_eye.placement_images
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/I = image_cache[i]
 		var/list/coords = image_cache[I]
 		var/turf/T = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.z)
@@ -270,7 +269,7 @@
 		return SHUTTLE_DOCKER_BLOCKED
 
 	// Checking for overlapping dock boundaries
-	for(var/i in 1 to overlappers.len)
+	for(var/i in 1 to length(overlappers))
 		var/obj/docking_port/port = overlappers[i]
 		if(port == my_port || locate(port) in jumpto_ports)
 			continue
@@ -285,7 +284,7 @@
 				return SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/update_hidden_docking_ports(list/remove_images, list/add_images)
-	if(!see_hidden && current_user && current_user.client)
+	if(!see_hidden && current_user?.client)
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images
 
@@ -297,10 +296,8 @@
 		jumpto_ports[dock.id] = TRUE
 
 /mob/camera/aiEye/remote/shuttle_docker
-	visible_icon = FALSE
 	use_static = FALSE
 	simulated = FALSE
-	ai_detector_visible = FALSE	// The Shuttle Docker does not trigger the AI Detector
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
@@ -325,7 +322,7 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Повернуть"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/Activate()
@@ -338,7 +335,7 @@
 
 /datum/action/innate/shuttledocker_place
 	name = "Выбрать место"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/Activate()
@@ -351,7 +348,6 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Телепорт в локацию"
-	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))

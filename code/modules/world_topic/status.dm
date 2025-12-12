@@ -30,24 +30,24 @@
 		player_count++
 	status_info["players"] = player_count
 	status_info["admins"] = admin_count
-	status_info["map_name"] = SSmapping.map_datum ? SSmapping.map_datum.name : "Unknown"
+	status_info["map_name"] = SSmapping.map_datum ? SSmapping.map_datum.name : UNKNOWN_STATUS_RUS
 
 	if(SSticker)
 		status_info["ticker_state"] = SSticker.current_state
 
 	// Add more info if we are authed
 	if(key_valid)
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			status_info["real_mode"] = SSticker.mode.name
 			status_info["security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
 
-		if(SSshuttle && SSshuttle.emergency)
+		if(SSshuttle?.emergency)
 			// Shuttle status, see /__DEFINES/stat.dm
 			status_info["shuttle_mode"] = SSshuttle.emergency.mode
 			// Shuttle timer, in seconds
 			status_info["shuttle_timer"] = SSshuttle.emergency.timeLeft()
 
-		for(var/i in 1 to admins.len)
+		for(var/i in 1 to length(admins))
 			var/list/A = admins[i]
 			status_info["admin[i - 1]"] = A[1]
 			status_info["adminrank[i - 1]"] = A[2]

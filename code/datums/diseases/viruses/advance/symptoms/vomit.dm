@@ -25,7 +25,6 @@ Bonus
 	id = "vomit"
 	stealth = -2
 	resistance = -1
-	stage_speed = 0
 	transmittable = 1
 	level = 3
 	severity = 4
@@ -69,16 +68,12 @@ Bonus
 
 	name = "Рвота кровью"
 	id = "vomitblood"
-	stealth = -2
-	resistance = -1
 	stage_speed = -1
-	transmittable = 1
 	level = 4
 	severity = 5
 
 /datum/symptom/vomit/blood/Vomit(mob/living/carbon/M)
 	M.vomit(0, VOMIT_BLOOD)
-
 
 /*
 //////////////////////////////////////
@@ -102,7 +97,6 @@ Bonus
 
 	name = "Метание рвоты"
 	id = "vomitprojectile"
-	stealth = -2
 	level = 4
 
 /datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M)

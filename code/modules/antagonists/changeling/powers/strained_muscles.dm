@@ -9,21 +9,17 @@
 	button_icon_state = "strained_muscles"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	chemical_cost = 0
 	req_human = TRUE
-
 
 /datum/action/changeling/strained_muscles/Remove(mob/living/user)
 	user.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
 	..()
-
 
 /datum/action/changeling/strained_muscles/can_sting(mob/living/user, mob/target)
 	. = ..()
 	if(user.body_position == LYING_DOWN)
 		to_chat(user, span_warning("We are unable to use our legs, while lying!"))
 		return FALSE
-
 
 /datum/action/changeling/strained_muscles/sting_action(mob/living/carbon/user)
 	if(!user.has_status_effect(STATUS_EFFECT_SPEEDLEGS))

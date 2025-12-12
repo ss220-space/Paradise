@@ -24,10 +24,9 @@
 /obj/item/clothing/gloves/ring/examine(mob/user)
 	. = ..()
 	if(!fluff_material)
-		. += "<span class='notice'>This one is made of [material].</span>"
+		. += span_notice("This one is made of [material].")
 	if(stud)
-		. += "<span class='notice'>It is adorned with a single gem.</span>"
-
+		. += span_notice("It is adorned with a single gem.")
 
 /obj/item/clothing/gloves/ring/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
@@ -45,7 +44,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver

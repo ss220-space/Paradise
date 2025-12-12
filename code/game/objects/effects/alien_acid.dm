@@ -3,13 +3,9 @@
 	name = "acid"
 	desc = "Burbling corrosive stuff."
 	icon_state = "acid"
-	density = FALSE
-	opacity = FALSE
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = ABOVE_NORMAL_TURF_LAYER
 	var/turf/target
-
 
 /obj/effect/acid/Initialize(mapload, acid_pwr, acid_amt)
 	. = ..()
@@ -29,7 +25,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/acid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -57,7 +52,6 @@
 		qdel(src)
 		return 0
 
-
 /obj/effect/acid/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -78,11 +72,9 @@
 	playsound(arrived, 'sound/weapons/sear.ogg', 50, TRUE)
 	to_chat(arrived, span_userdanger("[src] burns you!"))
 
-
 //xenomorph corrosive acid
 /obj/effect/acid/alien
 	var/target_strength = 30
-
 
 /obj/effect/acid/alien/process()
 	. = ..()
@@ -91,17 +83,17 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 		target_strength--
 		if(target_strength <= 0)
-			target.visible_message("<span class='warning'>[target] collapses under its own weight into a puddle of goop and undigested debris!</span>")
+			target.visible_message(span_warning("[target] collapses under its own weight into a puddle of goop and undigested debris!"))
 			target.acid_melt()
 			qdel(src)
 		else
 
 			switch(target_strength)
 				if(24)
-					visible_message("<span class='warning'>[target] is holding up against the acid!</span>")
+					visible_message(span_warning("[target] is holding up against the acid!"))
 				if(16)
-					visible_message("<span class='warning'>[target] is being melted by the acid!</span>")
+					visible_message(span_warning("[target] is being melted by the acid!"))
 				if(8)
-					visible_message("<span class='warning'>[target] is struggling to withstand the acid!</span>")
+					visible_message(span_warning("[target] is struggling to withstand the acid!"))
 				if(4)
-					visible_message("<span class='warning'>[target] begins to crumble under the acid!</span>")
+					visible_message(span_warning("[target] begins to crumble under the acid!"))

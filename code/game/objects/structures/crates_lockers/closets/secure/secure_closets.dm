@@ -1,19 +1,14 @@
-#define CLOSET_BREAKOUT_TIME (2 MINUTES)
+#define CLOSET_BREAKOUT_TIME 2 MINUTES
 
 /obj/structure/closet/secure_closet
 	name = "secure locker"
 	desc = "It's an immobile card-locked storage unit."
-	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
-	density = TRUE
-	opened = FALSE
 	locked = TRUE
-	broken = FALSE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
-	wall_mounted = FALSE //never solid (You can always pass over it)
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -24,7 +19,6 @@
 	. = ..()
 	if(. && broken)
 		update_icon()
-
 
 /obj/structure/closet/secure_closet/emp_act(severity)
 	for(var/obj/object in src)
@@ -46,7 +40,6 @@
 			return
 		open()
 
-
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)
 		add_attack_logs(user, src, "emagged")
@@ -57,7 +50,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
 		if(user)
 			to_chat(user, span_notice("You break the lock on [src]."))
-
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
 	if(!istype(user))
@@ -83,15 +75,12 @@
 		to_chat(user, span_notice("Access Denied"))
 	add_fingerprint(user)
 
-
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
-
 
 /obj/structure/closet/secure_closet/click_alt(mob/user)
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	if(locked)
@@ -117,14 +106,12 @@
 	else
 		. += mutable_appearance(icon, overlay_unlocked, CLOSET_OLAY_LAYER_LOCK_INDICATOR)
 
-
 /obj/structure/closet/secure_closet/update_desc(updates = ALL)
 	. = ..()
 	if(broken)
 		desc = "It appears to be broken."
 	else
 		desc = initial(desc)
-
 
 /obj/structure/closet/secure_closet/container_resist(mob/living/user)
 	if(opened)
@@ -144,7 +131,6 @@
 		span_warning("You lean on the back of [src] and start pushing the door open. (this will take about [CLOSET_BREAKOUT_TIME / 10] minutes.)")
 	)
 	INVOKE_ASYNC(src, PROC_REF(resist_async), user)
-
 
 /obj/structure/closet/secure_closet/proc/resist_async(mob/living/user)
 	if(!do_after(user, CLOSET_BREAKOUT_TIME, src))
@@ -179,7 +165,6 @@
 		loc_as_obj.container_resist(user)
 
 	open()
-
 
 /obj/structure/closet/secure_closet/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -228,3 +213,5 @@
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
+
+#undef CLOSET_BREAKOUT_TIME

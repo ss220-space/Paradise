@@ -1,5 +1,5 @@
-#define BASE_MOVE_DELAY	8
-#define MAX_SPEED		2
+#define BASE_MOVE_DELAY 8
+#define MAX_SPEED 2
 
 /obj/machinery/power/treadmill
 	icon = 'icons/obj/machines/recycling.dmi'
@@ -7,16 +7,14 @@
 	name = "treadmill"
 	desc = "A power-generating treadmill."
 	layer = 2.2
-	use_power = NO_POWER_USE
 
 	var/speed = 0
-	var/friction = 0.15		// lose this much speed every ptick
-	var/inertia = 0.25		// multiplier to mob speed, when increasing treadmill speed
-	var/throw_dist = 2		// distance to throw the person, worst case
-	var/power_gen = 4000	// amount of power output at max speed
+	var/friction = 0.15 // lose this much speed every ptick
+	var/inertia = 0.25 // multiplier to mob speed, when increasing treadmill speed
+	var/throw_dist = 2 // distance to throw the person, worst case
+	var/power_gen = 4000 // amount of power output at max speed
 	var/list/mobs_running[0]
-	var/id = null			// for linking to monitor
-
+	var/id = null // for linking to monitor
 
 /obj/machinery/power/treadmill/Initialize(mapload)
 	. = ..()
@@ -27,7 +25,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/machinery/power/treadmill/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -40,17 +37,14 @@
 	else
 		mobs_running[arrived] = arrived.last_movement
 
-
 /obj/machinery/power/treadmill/proc/on_exited(datum/source, mob/living/departed, atom/newLoc)
 	SIGNAL_HANDLER
 
 	if(anchored && isliving(departed))
 		mobs_running -= departed
 
-
 /obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
-
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all
@@ -111,7 +105,6 @@
 		spawn(100)
 			stat &= ~BROKEN
 
-
 /obj/machinery/power/treadmill/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 
@@ -126,7 +119,6 @@
 	speed = 0
 	update_icon(UPDATE_ICON_STATE)
 
-
 #undef BASE_MOVE_DELAY
 #undef MAX_SPEED
 
@@ -136,9 +128,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = FALSE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	var/on = 0					// if we should be metering or not
@@ -214,7 +204,7 @@
 
 //Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
 // Stolen from status_display
-/obj/machinery/treadmill_monitor/proc/update_display(var/line1, var/line2)
+/obj/machinery/treadmill_monitor/proc/update_display(line1, line2)
 	line1 = uppertext(line1)
 	line2 = uppertext(line2)
 	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
@@ -228,14 +218,12 @@
 		new /obj/item/stack/tickets(get_turf(src), round(total_joules / J_per_ticket))
 		total_joules = 0
 
-
 /obj/machinery/treadmill_monitor/emp_act(severity)
 	..()
 	if(!(stat & BROKEN))
 		stat |= BROKEN
 		update_icon(UPDATE_OVERLAYS)
 		addtimer(CALLBACK(src, PROC_REF(delayed_turnon)), 10 SECONDS, TIMER_DELETE_ME)
-
 
 /obj/machinery/treadmill_monitor/proc/delayed_turnon()
 	stat &= ~BROKEN

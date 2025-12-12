@@ -86,7 +86,7 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
-	speciesbox = /obj/item/storage/box/survival_machine
+	speciesbox = /obj/item/storage/box/survival/species/machine
 
 	liked_food = NONE
 	disliked_food = NONE
@@ -99,7 +99,6 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
-
 /datum/species/machine/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
 	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
@@ -109,7 +108,7 @@
 		monitor.Grant(human)
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.remove_from_hud(human)
+	medhud.remove_atom_from_hud(human)
 
 	add_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,
@@ -119,10 +118,8 @@
 		/mob/living/carbon/human/proc/emote_yes,
 		/mob/living/carbon/human/proc/emote_no))
 
-
 /datum/species/machine/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
-
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -130,7 +127,7 @@
 	monitor?.Remove(human)
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.add_to_hud(human)
+	medhud.add_atom_to_hud(human)
 
 	remove_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,
@@ -189,9 +186,9 @@
 
 		for(var/line in lines)									// Looks for lines set up as screen:ckey:screen_name
 			var/list/Entry = splittext(line, ":")				// split lines
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])						// Cleans up lines
-				if(Entry.len != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
+				if(length(Entry) != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
 					continue
 				if(Entry[2] == H.ckey)							// They're in the list? Custom sprite time, var and icon change required
 					hair += Entry[3]							// Adds custom screen to list
@@ -210,6 +207,13 @@
 		if(new_color)
 			H.change_hair_color(new_color)
 
-
 /datum/species/machine/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	return 1 + (0.01*rand(-tolerance,tolerance))
+
+/datum/species/machine/job_pre_equip(mob/living/carbon/human/human)
+	if(human.client.prefs.exoframe_type)
+		var/exoframe_path = GLOB.exoframe_types[human.client.prefs.exoframe_type]
+		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new exoframe_path
+		exoframe.insert(human)
+
+	return ..()

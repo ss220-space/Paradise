@@ -16,14 +16,15 @@
 	move_to_delay = 6
 	del_on_death = TRUE
 	universal_speak = TRUE
-	loot = list(/obj/structure/flora/tree/pine/xmas,
-				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
-				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
-				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
-				/obj/item/toy/pet_rock/naughty_coal,
-				/obj/item/toy/pet_rock/naughty_coal,
-				/obj/item/pizzabox/mushroom,
-				)
+	loot = list(
+		/obj/structure/flora/tree/pine/xmas,
+		/obj/item/reagent_containers/food/snacks/gingercookie/ball,
+		/obj/item/reagent_containers/food/snacks/gingercookie/ball,
+		/obj/item/reagent_containers/food/snacks/gingercookie/ball,
+		/obj/item/toy/pet_rock/naughty_coal,
+		/obj/item/toy/pet_rock/naughty_coal,
+		/obj/item/pizzabox/mushroom,
+	)
 	deathmessage = "Grrrrraaaaa!"
 	death_sound = 'sound/misc/demon_dies.ogg'
 
@@ -32,8 +33,6 @@
 
 	speak = list("Your head will be my new ornament!", "I HATE HOLYDAYS!", "I WILL SMASH YOU!")
 	speak_chance = 20
-	turns_per_move = 1
-	turns_since_move = 0
 
 /mob/living/simple_animal/hostile/evil_pine/ComponentInitialize()
 	AddComponent( \

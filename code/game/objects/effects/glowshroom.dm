@@ -8,11 +8,10 @@
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
 	//replaced in Initialize()
 	icon_state = "glowshroom"
+	base_icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
 	/// Boolean to indicate if the shroom is on the floor/wall
 	var/is_on_floor = FALSE
@@ -40,12 +39,14 @@
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
 	icon_state = "glowcap"
+	base_icon_state = "glowcap"
 	myseed = /obj/item/seeds/glowshroom/glowcap
 
 /obj/structure/glowshroom/shadowshroom
 	name = "shadowshroom"
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
 	icon_state = "shadowshroom"
+	base_icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
 
 /obj/structure/glowshroom/shadowshroom/extinguish_light(force = FALSE)
@@ -59,14 +60,13 @@
 	. += span_notice("This is a [generation]\th generation [name]!")
 
 /**
-  *	Creates a new glowshroom structure.
-  *
-  * Arguments:
-  * * newseed - Seed of the shroom
-  * * mutate_stats - If the plant needs to mutate their stats
-  * * spread - If the plant is a result of spreading, reduce its stats
-  */
-
+ *	Creates a new glowshroom structure.
+ *
+ * Arguments:
+ * * newseed - Seed of the shroom
+ * * mutate_stats - If the plant needs to mutate their stats
+ * * spread - If the plant is a result of spreading, reduce its stats
+ */
 /obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats, spread)
 	. = ..()
 	if(newseed)
@@ -86,7 +86,6 @@
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
 		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color, l_on = TRUE)
 	setDir(calc_dir())
-	var/base_icon_state = initial(icon_state)
 	if(!is_on_floor)
 		//offset to make it be on the wall rather than on the floor
 		switch(dir)
@@ -105,12 +104,16 @@
 
 	addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 	addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
+	RegisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK, PROC_REF(on_cleave_attack))
 
 /obj/structure/glowshroom/Destroy(force)
 	if(!ispath(myseed))
 		QDEL_NULL(myseed)
+	UnregisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK)
 	. = ..()
 
+/obj/structure/glowshroom/proc/on_cleave_attack()
+	return ATOM_ALLOW_CLEAVE_ATTACK // don't have density, but still cleavable
 
 /obj/structure/glowshroom/proc/Spread()
 	//We could be deleted at any point and the timers might not be cleaned up
@@ -207,12 +210,12 @@
 	is_on_floor = TRUE
 	return NORTH
 /**
-  * Causes the glowshroom to decay by decreasing its endurance.
-  *
-  * Arguments:
-  * * spread - Boolean to indicate if the decay is due to spreading or natural decay.
-  * * amount - Amount of endurance to be reduced due to spread decay.
-  */
+ * Causes the glowshroom to decay by decreasing its endurance.
+ *
+ * Arguments:
+ * * spread - Boolean to indicate if the decay is due to spreading or natural decay.
+ * * amount - Amount of endurance to be reduced due to spread decay.
+ */
 /obj/structure/glowshroom/proc/Decay(spread, amount)
 	// Decay due to spread
 	if(spread)
@@ -249,7 +252,6 @@
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
 
-
 /obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!item.force)
@@ -266,16 +268,14 @@
 	var/obj/item/scythe/scythe = item
 	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
 	if(istype(item, /obj/item/scythe) && scythe.extend)
-		damage_dealt *= 10
-		for(var/obj/structure/glowshroom/shroom in (view(1, src) - src))
-			shroom.take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, shroom), item.armour_penetration)
-	else if(is_sharp(item) || item.damtype == BURN)
+		damage_dealt *= 20
+
+	else if(item.sharp || item.damtype == BURN)
 		damage_dealt *= 4
 
 	take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
-
 
 //Way to check glowshroom stats using plant analyzer
 /obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, params)
@@ -285,7 +285,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 #undef SPREAD_DELAY
 #undef DECAY_DELAY

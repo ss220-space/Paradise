@@ -8,8 +8,6 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 	/// An associative list of the readable flag and its true value
 	var/list/flags
 
-
-
 /datum/bitfield/can_vv_delete()
 	return FALSE
 
@@ -19,11 +17,10 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 /// Turns /datum/bitfield subtypes into a list for use in debugging
 /proc/generate_bitfields()
 	var/list/bitfields = list()
-	for (var/_bitfield in subtypesof(/datum/bitfield))
+	for(var/_bitfield in subtypesof(/datum/bitfield))
 		var/datum/bitfield/bitfield = new _bitfield
 		bitfields[bitfield.variable] = bitfield.flags
 	return bitfields
-
 
 /proc/translate_bitfield(variable_type, variable_name, variable_value)
 	if(variable_type != VV_BITFIELD)

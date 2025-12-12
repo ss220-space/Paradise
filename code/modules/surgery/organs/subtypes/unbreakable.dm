@@ -38,15 +38,6 @@
 	cannot_break = TRUE
 	encased = null
 
-/obj/item/organ/external/head/diona
-	cannot_break = TRUE
-	encased = null
-
-/obj/item/organ/external/chest/diona
-	cannot_break = TRUE
-	encased = null
-	convertable_children = list(/obj/item/organ/external/groin/diona)
-
 // Cannot dismember or break
 /obj/item/organ/external/chest/unbreakable/sturdy
 	cannot_amputate = TRUE

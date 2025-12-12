@@ -9,8 +9,6 @@
 	button_icon_state = "augmented_eyesight"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
-	chemical_cost = 0
-
 
 /datum/action/changeling/augmented_eyesight/on_purchase(mob/user, /datum/antagonist/changeling/antag)
 	if(!..())
@@ -18,7 +16,6 @@
 
 	var/obj/item/organ/internal/cyberimp/eyes/shield/ling/eyes = new(null)
 	eyes.insert(user)
-
 
 /datum/action/changeling/augmented_eyesight/sting_action(mob/living/carbon/user)
 	if(!istype(user))
@@ -35,21 +32,17 @@
 	eyes.insert(user)
 	return TRUE
 
-
 /obj/item/organ/internal/cyberimp/eyes/shield/ling
 	name = "protective membranes"
 	desc = "These variable transparency organic membranes will protect you from welders and flashes and heal your eye damage."
 	icon_state = "ling_eyeshield"
-	eye_colour = "#000000"
 	implant_overlay = null
 	slot = INTERNAL_ORGAN_EYE_LING
 	status = NONE
 	aug_message = "We adjust our eyes to protect them from bright lights."
 
-
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/emp_act(severity)
 	return
-
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
 	if(!QDELETED(owner))
@@ -68,12 +61,10 @@
 
 	return ..() | update_flags
 
-
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/prepare_eat()
 	var/obj/object = ..()
 	object.reagents.add_reagent("oculine", 15)
 	return object
-
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling
 	name = "heat receptors"
@@ -85,10 +76,8 @@
 	status = NONE
 	aug_message = "We adjust our eyes to sense prey through walls."
 
-
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/emp_act(severity)
 	return
-
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -97,7 +86,6 @@
 		h_owner.weakeyes = TRUE
 		if(!h_owner.vision_type)
 			h_owner.set_vision_override(/datum/vision_override/nightvision)
-
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))

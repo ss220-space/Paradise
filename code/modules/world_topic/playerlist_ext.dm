@@ -8,11 +8,10 @@
 
 	var/list/disconnected_observers = list()
 
-
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!M.last_known_ckey)
 			continue
-		if (M.client)
+		if(M.client)
 			continue
 		var/ckey = ckey(M.last_known_ckey)
 		disconnected_observers[ckey] = ckey

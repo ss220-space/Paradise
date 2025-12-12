@@ -1,25 +1,25 @@
 /obj/machinery/drone_fabricator
 	name = "drone fabricator"
-	ru_names = list(
-		NOMINATIVE = "фабрикатор дронов",
-		GENITIVE = "фабрикатора дронов",
-		DATIVE = "фабрикатору дронов",
-		ACCUSATIVE = "фабрикатор дронов",
-		INSTRUMENTAL = "фабрикатором дронов",
-		PREPOSITIONAL = "фабрикаторе дронов"
-	)
 	desc = "Большая автоматизированная фабрика для производства дронов обслуживания."
 	icon = 'icons/obj/machines/drone_fab.dmi'
 	icon_state = "drone_fab_idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
 	var/drone_progress = 0
 	var/produce_drones = TRUE
 	var/time_last_drone = 500
 
+/obj/machinery/drone_fabricator/get_ru_names()
+	return list(
+		NOMINATIVE = "фабрикатор дронов",
+		GENITIVE = "фабрикатора дронов",
+		DATIVE = "фабрикатору дронов",
+		ACCUSATIVE = "фабрикатор дронов",
+		INSTRUMENTAL = "фабрикатором дронов",
+		PREPOSITIONAL = "фабрикаторе дронов",
+	)
 
 /obj/machinery/drone_fabricator/update_icon_state()
 	if(stat & NOPOWER)
@@ -32,12 +32,10 @@
 
 	icon_state = "drone_fab_active"
 
-
 /obj/machinery/drone_fabricator/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/drone_fabricator/process()
 
@@ -72,7 +70,7 @@
 			drones++
 	return drones
 
-/obj/machinery/drone_fabricator/proc/create_drone(var/client/player)
+/obj/machinery/drone_fabricator/proc/create_drone(client/player)
 
 	if(stat & NOPOWER)
 		return
@@ -152,7 +150,7 @@
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
 		to_chat(usr, "Вы были мертвы в течении[pluralcheck] [deathtimeseconds] секунд.")
-		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[declension_ru(CONFIG_GET(number/respawn_delay_drone), "у", "ы", "")], чтобы возродиться как дрон!"))
+		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_SEC_MIN(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
 		return
 
 	if(tgui_alert(usr, "Вы уверены, что хотите возродиться как дрон?", "Вы уверены?", list("Да", "Нет")) != "Да")

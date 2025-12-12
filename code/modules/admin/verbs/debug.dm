@@ -16,7 +16,6 @@
 
 	BLACKBOX_LOG_ADMIN_VERB("Debug Game")
 
-
 /* 21st Sept 2010
 Updated by Skie -- Still not perfect but better!
 Stuff you can't do:
@@ -73,12 +72,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		//strip away everything but the proc name
 		var/list/proclist = splittext(procname, "/")
-		if (!length(proclist))
+		if(!length(proclist))
 			return
-		procname = proclist[proclist.len]
+		procname = proclist[length(proclist)]
 
 		var/proctype = "proc"
-		if ("verb" in proclist)
+		if("verb" in proclist)
 			proctype = "verb"
 
 		if(targetselected && !hascall(target,procname))
@@ -93,13 +92,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!target)
 				to_chat(usr, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
 				return
-			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
+			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
+			log_admin("[key_name(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+			message_admins("[key_name_admin(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+			log_admin("[key_name(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
@@ -126,7 +125,6 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 /// List to handle proc call spam prevention
 GLOBAL_LIST_EMPTY(AdminProcCallSpamPrevention)
 GLOBAL_PROTECT(AdminProcCallSpamPrevention)
-
 
 // Wrapper for proccalls where the datum is flagged as vareditted
 /proc/WrapAdminProcCall(datum/target, procname, list/arguments)
@@ -175,7 +173,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
 /proc/IsAdminAdvancedProcCall()
-#ifdef TESTING
+#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
 	return FALSE
 #else
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
@@ -192,22 +190,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!hascall(A,procname))
-		to_chat(usr, span_warning("Error: callproc_datum(): target has no such call [procname]."))
+		to_chat(usr, span_warning("Error: callproc_datum(): target has no such call [procname]."), confidential = TRUE)
 		return
 
 	var/list/lst = get_callproc_args()
 	if(!lst)
 		return
 
-	if(!A || !IsValidSrc(A))
-		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."))
+	if(!A || !is_valid_src(A))
+		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."), confidential = TRUE)
 		return
-	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"))
+		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"), confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Atom Proc-Call")
 
@@ -259,7 +257,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 	var/turf/T = mob.loc
 
-	if(!( istype(T, /turf) ))
+	if(!(istype(T, /turf)))
 		return
 
 	var/datum/gas_mixture/env = T.return_air()
@@ -346,8 +344,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(src)] has gorillized [M.key].")
 	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
-
-/client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Superhero"
 
@@ -397,7 +394,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins("has remade the powernets. makepowernets() called.")
 	BLACKBOX_LOG_ADMIN_VERB("Make Powernets")
 
-/client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_grantfullaccess(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admin\] Grant Full Access"
 
@@ -421,15 +418,15 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name
 			id.assignment = JOB_TITLE_CAPTAIN
-			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
+			id.name = "[id.registered_name]’s ID Card ([id.assignment])"
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
-			H.update_inv_wear_id()
+			H.update_worn_id()
 	else
 		tgui_alert(usr, "Invalid mob")
 	BLACKBOX_LOG_ADMIN_VERB("Grant Full Access")
 	log_and_message_admins(span_notice("has granted [M.key] full access."))
 
-/client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"
@@ -442,14 +439,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			return
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
-			ghost.ckey = M.ckey
+			ghost.possess_by_player(M.ckey)
 	log_and_message_admins(span_notice("assumed direct control of [M]."))
 	var/mob/adminmob = src.mob
-	M.ckey = src.ckey
-	if( isobserver(adminmob) )
+	M.possess_by_player(ckey)
+	if(isobserver(adminmob))
 		qdel(adminmob)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
-
 
 /client/proc/cmd_admin_areatest()
 	set category = "Debug.Mapping"
@@ -595,7 +591,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(tgui_alert(usr, "Нужно ли выбрасывать вещи из карманов? Выбор \"Нет\" удалит их.", "Выбор экипировки существа", "Да", "Нет") == "Нет")
 				delete_pocket = TRUE
 
-	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
+	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)
@@ -788,7 +784,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.set_content(dat)
 	popup.open(FALSE)
 
-
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
 		return
@@ -828,6 +823,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	to_chat(src, span_notice("You can now right click to use inspect on browsers."))
 	winset(src, null, list("browser-options" = "+devtools"))
+	winset(src, null, list("browser-options" = "+find"))
+	winset(src, null, list("browser-options" = "+refresh"))
 
 /client/proc/jump_to_ruin()
 	set category = STATPANEL_OOC
@@ -883,12 +880,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	SSmedals.hub_enabled = !SSmedals.hub_enabled
+	SSachievements.achievements_enabled = !SSachievements.achievements_enabled
 
-	message_admins(span_adminnotice("[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout."))
+	log_and_message_admins("[SSachievements.achievements_enabled? "disabled" : "enabled"] the medal hub lockout.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
-	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
-
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
@@ -1003,14 +998,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.set_content(msg)
 	popup.open(FALSE)
 
-
 /client/proc/cmd_display_overlay_log()
 	set category = "Debug"
 	set name = "Display Overlay Log"
 	set desc = "Display SSoverlays log of everything that's passed through it."
 
 	render_stats(SSoverlays.stats, src)
-
 
 /client/proc/clear_dynamic_transit()
 	set category = "Debug"

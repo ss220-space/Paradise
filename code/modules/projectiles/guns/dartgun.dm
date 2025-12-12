@@ -4,12 +4,8 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "darts-5"
 	item_state = "rcdammo"
-	opacity = FALSE
-	density = FALSE
-	anchored = FALSE
 	origin_tech = "materials=2"
 	var/darts = 5
-
 
 /obj/item/dart_cartridge/update_icon_state()
 	if(!darts)
@@ -19,11 +15,10 @@
 	else
 		icon_state = "darts-[darts]"
 
-
 /obj/item/gun/dartgun
 	name = "dart gun"
 	desc = "A small gas-powered dartgun, capable of delivering chemical cocktails swiftly across short distances."
-	icon_state = "dartgun-empty"
+	icon_state = "dartgun-e"
 
 	var/list/beakers = list() //All containers inside the gun.
 	var/list/mixing = list() //Containers being used for mixing.
@@ -32,7 +27,6 @@
 	var/dart_reagent_amount = 15
 	var/containers_type = /obj/item/reagent_containers/glass/beaker
 	var/list/starting_chems = null
-
 
 /obj/item/gun/dartgun/update_icon_state()
 	if(!cartridge)
@@ -46,7 +40,6 @@
 	else
 		icon_state = "dartgun-[cartridge.darts]"
 
-
 /obj/item/gun/dartgun/Initialize(mapload)
 	. = ..()
 
@@ -58,17 +51,15 @@
 	cartridge = new /obj/item/dart_cartridge(src)
 	update_icon()
 
-
 /obj/item/gun/dartgun/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		if(beakers.len)
-			. += "<span class='notice'>[src] contains:</span>"
+		if(length(beakers))
+			. += span_notice("[src] contains:")
 			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
-				if(B.reagents && B.reagents.reagent_list.len)
+				if(B.reagents && length(B.reagents.reagent_list))
 					for(var/datum/reagent/R in B.reagents.reagent_list)
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
-
+						. += span_notice("[R.volume] units of [R.name]")
 
 /obj/item/gun/dartgun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dart_cartridge))
@@ -110,7 +101,6 @@
 
 	return ..()
 
-
 /obj/item/gun/dartgun/can_shoot(mob/user)
 	if(!cartridge)
 		return FALSE
@@ -121,7 +111,7 @@
 
 /obj/item/gun/dartgun/proc/remove_cartridge()
 	if(cartridge)
-		to_chat(usr, "<span class='notice'>You pop the cartridge out of [src].</span>")
+		to_chat(usr, span_notice("You pop the cartridge out of [src]."))
 		var/obj/item/dart_cartridge/C = cartridge
 		C.forceMove(get_turf(src))
 		C.update_icon()
@@ -136,7 +126,7 @@
 
 	var/obj/item/reagent_containers/syringe/dart = new(src)
 
-	if(mixing.len)
+	if(length(mixing))
 		var/mix_amount = dart_reagent_amount/mixing.len
 		for(var/obj/item/reagent_containers/glass/beaker/B in mixing)
 			B.reagents.trans_to(dart,mix_amount)
@@ -151,10 +141,10 @@
 		var/obj/effect/syringe_gun_dummy/D = new/obj/effect/syringe_gun_dummy(get_turf(src))
 		var/obj/item/reagent_containers/syringe/S = get_mixed_syringe()
 		if(!S)
-			to_chat(user, "<span class='warning'>There are no darts in [src]!</span>")
+			to_chat(user, span_warning("There are no darts in [src]!"))
 			return
 		if(!S.reagents)
-			to_chat(user, "<span class='warning'>There are no reagents available!</span>")
+			to_chat(user, span_warning("There are no reagents available!"))
 			return
 		cartridge.darts--
 		update_icon()
@@ -185,7 +175,7 @@
 
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
-					to_chat(M, "<span class='danger'>You feel a slight prick.</span>")
+					to_chat(M, span_danger("You feel a slight prick."))
 
 					qdel(D)
 					break
@@ -209,11 +199,11 @@
 	user.set_machine(src)
 	var/dat = {"<b>[src] mixing control:</b><br><br>"}
 
-	if(beakers.len)
+	if(length(beakers))
 		var/i = 1
 		for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
 			dat += "Beaker [i] contains: "
-			if(B.reagents && B.reagents.reagent_list.len)
+			if(B.reagents && length(B.reagents.reagent_list))
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
 				if(check_beaker_mixing(B))
@@ -239,7 +229,7 @@
 	popup.open(TRUE)
 	onclose(user, "dartgun", src)
 
-/obj/item/gun/dartgun/proc/check_beaker_mixing(var/obj/item/B)
+/obj/item/gun/dartgun/proc/check_beaker_mixing(obj/item/B)
 	if(!mixing || !beakers)
 		return 0
 	for(var/obj/item/M in mixing)
@@ -251,21 +241,21 @@
 	src.add_fingerprint(usr)
 	if(href_list["stop_mix"])
 		var/index = text2num(href_list["stop_mix"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			for(var/obj/item/M in mixing)
 				if(M == beakers[index])
 					mixing -= M
 					break
 	else if(href_list["mix"])
 		var/index = text2num(href_list["mix"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			mixing += beakers[index]
 	else if(href_list["eject"])
 		var/index = text2num(href_list["eject"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			if(beakers[index])
 				var/obj/item/reagent_containers/glass/beaker/B = beakers[index]
-				to_chat(usr, "<span class='notice'>You remove [B] from [src].</span>")
+				to_chat(usr, span_notice("You remove [B] from [src]."))
 				mixing -= B
 				beakers -= B
 				B.forceMove(get_turf(src))
@@ -279,14 +269,11 @@
 		spawn(0)
 			fire_dart(target,user)
 	else
-		to_chat(usr, "<span class='warning'>[src] is empty.</span>")
-
+		to_chat(usr, span_warning("[src] is empty."))
 
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
-	icon = 'icons/obj/weapons/projectile.dmi'
-	icon_state = "dartgun-e"
 
 /obj/item/gun/dartgun/vox/medical
 	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")
@@ -298,9 +285,7 @@
 	name = ""
 	desc = ""
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
-	anchored = TRUE
-	density = FALSE
+	icon_state = null
 
 /obj/effect/syringe_gun_dummy/Initialize(mapload)
 	. = ..()

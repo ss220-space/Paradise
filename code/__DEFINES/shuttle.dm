@@ -1,10 +1,10 @@
 //Docking error flags
-#define DOCKING_SUCCESS				0
-#define DOCKING_BLOCKED				(1<<0)
-#define DOCKING_IMMOBILIZED			(1<<1)
-#define DOCKING_AREA_EMPTY			(1<<2)
-#define DOCKING_NULL_DESTINATION	(1<<3)
-#define DOCKING_NULL_SOURCE			(1<<4)
+#define DOCKING_SUCCESS 0
+#define DOCKING_BLOCKED (1<<0)
+#define DOCKING_IMMOBILIZED (1<<1)
+#define DOCKING_AREA_EMPTY (1<<2)
+#define DOCKING_NULL_DESTINATION (1<<3)
+#define DOCKING_NULL_SOURCE (1<<4)
 
 //Rotation params
 #define ROTATE_DIR 1
@@ -22,4 +22,4 @@ GLOBAL_LIST_INIT(blacklisted_turf_types_for_transit, list(
 	/turf/simulated/floor/chasm,
 	/turf/simulated/floor/lava,
 	/turf/simulated/floor/plating/asteroid
-	))
+))

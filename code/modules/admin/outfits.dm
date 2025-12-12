@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 		<tr>
 			<th>Uniform:</th>
 			<td>
-			   [uniform_select]
+				[uniform_select]
 			</td>
 		</tr>
 		<tr>
@@ -237,7 +237,6 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	popup.set_content(dat)
 	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
 	popup.open(FALSE)
-
 
 /datum/admins/proc/create_outfit_finalize(mob/admin, list/href_list)
 	var/datum/outfit/O = new

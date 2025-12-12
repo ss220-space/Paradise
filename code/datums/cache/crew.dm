@@ -52,9 +52,9 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
 
 		crewmemberData["sensor_type"] = C.sensor_mode
-		crewmemberData["name"] = H.get_authentification_name(if_no_id="Unknown")
-		crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
-		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
+		crewmemberData["name"] = H.get_authentification_name(if_no_id=UNKNOWN_STATUS_RUS)
+		crewmemberData["rank"] = H.get_authentification_rank(if_no_id=UNKNOWN_STATUS_RUS, if_no_job=NOJOB_STATUS_RUS)
+		crewmemberData["assignment"] = H.get_assignment(if_no_id=UNKNOWN_STATUS_RUS, if_no_job=NOJOB_STATUS_RUS)
 		crewmemberData["is_command"] = (crewmemberData["rank"] in bold_jobs)
 		crewmemberData["is_security"] = (crewmemberData["rank"] in security_jobs_list)
 		crewmemberData["is_shaft_miner"] = (crewmemberData["rank"] in mining_jobs_list)

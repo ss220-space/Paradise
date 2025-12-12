@@ -1,19 +1,25 @@
-/obj/var/list/req_access
-/obj/var/check_one_access = TRUE
-
 //returns 1 if this mob has sufficient access to use this object
-/obj/proc/allowed(mob/M)
+/obj/proc/allowed(mob/accessor)
+	var/result_bitflags = SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor)
+
+	if(result_bitflags & COMPONENT_OBJ_ALLOW)
+		return TRUE
+
+	if(result_bitflags & COMPONENT_OBJ_DISALLOW) // override all other checks
+		return FALSE
+
 	//check if we don't require any access at all
 	if(check_access())
-		return 1
+		return TRUE
 
-	if(!M)
-		return 0
+	if(!accessor)
+		return FALSE
 
-	var/acc = M.get_access() //see mob.dm
+	var/acc = accessor.get_access() //see mob.dm
 
-	if(acc == IGNORE_ACCESS || M.can_admin_interact())
-		return 1 //Mob ignores access
+	if(acc == IGNORE_ACCESS || accessor.can_admin_interact())
+		return TRUE //Mob ignores access
+
 	else
 		return check_access_list(acc)
 
@@ -105,28 +111,28 @@
 		if(VOX_TRADER)
 			return list(ACCESS_VOX)
 		if(SYNDICATE_COMMANDO)
-			return list(	ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_ENGINE)
+			return list(ACCESS_SYNDICATE,
+						ACCESS_SYNDICATE_LEADER,
+						ACCESS_SYNDICATE_COMMS_OFFICER,
+						ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+						ACCESS_SYNDICATE_SCIENTIST,
+						ACCESS_SYNDICATE_CARGO,
+						ACCESS_SYNDICATE_KITCHEN,
+						ACCESS_SYNDICATE_MEDICAL,
+						ACCESS_SYNDICATE_BOTANY,
+						ACCESS_SYNDICATE_ENGINE)
 		if(JOB_TITLE_SYNDICATE)
-			return list(	ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_SYNDICATE_COMMAND,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_ENGINE)
+			return list(ACCESS_SYNDICATE,
+						ACCESS_SYNDICATE_LEADER,
+						ACCESS_SYNDICATE_COMMAND,
+						ACCESS_SYNDICATE_COMMS_OFFICER,
+						ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+						ACCESS_SYNDICATE_SCIENTIST,
+						ACCESS_SYNDICATE_CARGO,
+						ACCESS_SYNDICATE_KITCHEN,
+						ACCESS_SYNDICATE_MEDICAL,
+						ACCESS_SYNDICATE_BOTANY,
+						ACCESS_SYNDICATE_ENGINE)
 
 /proc/get_all_accesses()
 	return list(ACCESS_MINISAT, ACCESS_AI_UPLOAD,  ACCESS_ARMORY, ACCESS_ATMOSPHERICS, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_BLUESHIELD,
@@ -209,7 +215,6 @@
 			return "CentComm"
 		if(REGION_TAIPAN) //Taipan
 			return "RAMSS Taipan"
-
 
 /proc/get_access_desc(A)
 	switch(A)
@@ -470,7 +475,7 @@
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
-	var/rankName = "Unknown"
+	var/rankName = UNKNOWN_STATUS_RUS
 	if(is_pda(src))
 		var/obj/item/pda/P = src
 		rankName = P.ownrank
@@ -514,7 +519,7 @@
 
 	return "Unknown" //Return unknown if none of the above apply
 
-/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
+/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_TAIPAN, list_to_form)
 	var/list/retval
 	for(var/region in num_min_region to num_max_region)
 		var/list/accesses = list()
@@ -523,9 +528,11 @@
 			available_accesses = get_all_centcom_access()
 		else
 			available_accesses = get_region_accesses(region)
+		if(list_to_form)
+			available_accesses &= list_to_form
 		for(var/access in available_accesses)
 			var/access_desc = get_region_access_desc(region, access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,
