@@ -27155,12 +27155,12 @@
 	},
 /area/medical/sleeper)
 "bWw" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west fire alarm";
 	pixel_x = -24
 	},
+/obj/machinery/smartfridge/secure/medbay_blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
