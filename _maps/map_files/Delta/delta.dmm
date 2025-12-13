@@ -14808,7 +14808,7 @@
 /area/security/securearmory)
 "bQe" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37958,24 +37958,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
-"dTT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/security/prison/cell_block/A)
 "dTW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -89250,6 +89232,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -149868,7 +149851,7 @@ bGz
 bMe
 bNX
 bQe
-dos
+bGz
 bUe
 xfX
 nAT
@@ -176838,7 +176821,7 @@ ubg
 wuf
 ojn
 gVB
-dTT
+pKE
 okq
 pZL
 llt

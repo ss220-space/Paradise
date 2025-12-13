@@ -129,6 +129,10 @@
 /// dead people can't vote (tbi)
 /datum/config_entry/flag/vote_no_dead
 
+/// offstation role people can't vote (tbi)
+/datum/config_entry/flag/vote_no_offstation_role
+	default = TRUE
+
 /// vote does not default to nochange/norestart (tbi)
 /datum/config_entry/flag/default_no_vote
 
