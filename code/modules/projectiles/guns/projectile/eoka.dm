@@ -36,19 +36,22 @@
 	)
 
 /obj/item/gun/projectile/eoka/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/ammo_casing))
-		add_fingerprint(user)
-		if(chambered)
-			balloon_alert(user, "уже заряжено!")
-			return ATTACK_CHAIN_PROCEED
-		var/loaded = magazine.reload(item, user, silent = TRUE)
-		if(loaded)
-			balloon_alert(user, "заряжено")
-			chambered = magazine.get_round(TRUE)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		balloon_alert(user, "не удалось!")
+	if(!istype(item, /obj/item/ammo_casing))
+		return ..()
+
+	add_fingerprint(user)
+	if(chambered)
+		balloon_alert(user, "уже заряжено!")
 		return ATTACK_CHAIN_PROCEED
-	return ..()
+
+	var/loaded = magazine.reload(item, user, silent = TRUE)
+	if(loaded)
+		balloon_alert(user, "заряжено")
+		chambered = magazine.get_round(TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	balloon_alert(user, "не удалось!")
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/projectile/eoka/welder_act(mob/user, obj/item/welder)
 	. = TRUE
@@ -74,8 +77,10 @@
 /obj/item/gun/projectile/eoka/can_shoot(mob/user)
 	if(broken)
 		return FALSE
+
 	if(!chambered)
 		return FALSE
+
 	return (chambered.BB ? TRUE : FALSE)
 
 /obj/item/gun/projectile/eoka/unload_act(mob/user)
@@ -86,6 +91,7 @@
 		casing = magazine.get_round(FALSE)
 		if(!casing)
 			continue
+
 		casing.forceMove(drop_loc)
 		casing.pixel_x = rand(-10, 10)
 		casing.pixel_y = rand(-10, 10)
@@ -93,41 +99,50 @@
 		casing.update_appearance()
 		casing.SpinAnimation(10, 1)
 		playsound(drop_loc, casing.casing_drop_sound, 60, TRUE)
+
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
 	update_icon()
 
 /obj/item/gun/projectile/eoka/chamber_round(spin = TRUE)
 	if(!magazine)
 		return
+
 	if(spin)
 		chambered = magazine.get_round(TRUE)
 		return
+
 	if(!length(magazine.stored_ammo))
 		return
+
 	chambered = magazine.stored_ammo[1]
 
 /obj/item/gun/projectile/eoka/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	playsound(src, 'sound/weapons/eoka/eoka-pistol-charge.ogg', 100, TRUE)
 	if(!do_after(user, EOKA_SHOT_DELAY, user, interaction_key = src, timed_action_flags = DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 		return
+
 	if(!prob(EOKA_SHOT_CHANCE)) //try again (with recusrion)
 		. = process_fire(target, user, message, params, zone_override, bonus_spread)
 		unload_act(user)
 		return
+
 	if(prob(EOKA_BROKE_CHANCE))
 		playsound(src, 'sound/weapons/eoka/eoka-pistol-fire.wav', 100, TRUE)
 		broken = TRUE
 		QDEL_NULL(chambered.BB)
 		unload_act(user)
 		return
+
 	if(prob(EOKA_SELF_FIRE_CHANCE))
 		. = ..(user, user, message, params, BODY_ZONE_HEAD, bonus_spread)
 		user.emote("scream")
 		return
+
 	if(prob(EOKA_MISFIRE_CHANCE))
 		balloon_alert(user, "осечка!")
 		playsound(src, 'sound/weapons/eoka/eoka-pistol-trigger.wav', 100, TRUE)
 		return
+
 	. = ..()
 	unload_act(user)
 
