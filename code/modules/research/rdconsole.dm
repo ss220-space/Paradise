@@ -1113,25 +1113,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		PREPOSITIONAL = "публичной консоли НИО",
 	)
 
-/obj/machinery/computer/rdconsole/cargo
-	name = "cargo R&D console"
-	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
-			управлению подключённым исследовательским оборудованием. \
-			Специализированная версия, используемая в грузщиками для получения дисков технологий."
-	id = 6
-	req_access = list(ACCESS_CARGO)
-	circuit = /obj/item/circuitboard/rdconsole/cargo
-
-/obj/machinery/computer/rdconsole/cargo/get_ru_names()
-	return list(
-		NOMINATIVE = "консоль НИО (Снабжение)",
-		GENITIVE = "консоли НИО (Снабжение)",
-		DATIVE = "консоли НИО (Снабжение)",
-		ACCUSATIVE = "консоль НИО (Снабжение)",
-		INSTRUMENTAL = "консолью НИО (Снабжение)",
-		PREPOSITIONAL = "консоли НИО (Снабжение)",
-	)
-
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY
 #undef PROTOLATHE_CONSTRUCT_DELAY

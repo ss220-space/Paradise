@@ -20325,6 +20325,9 @@
 /area/quartermaster/storage)
 "ctF" = (
 /obj/structure/filingcabinet/filingcabinet,
+/obj/structure/sign/poster/official/cargotech{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -20354,36 +20357,7 @@
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
+/obj/item/qm_quest_tablet/cargotech,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -95985,7 +95959,8 @@
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
-/obj/machinery/computer/rdconsole/cargo,
+/obj/structure/table,
+/obj/item/rcs,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
