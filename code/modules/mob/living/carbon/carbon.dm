@@ -316,11 +316,12 @@
 		if(bodypart.bleeding_amount)
 			if(brutedamage > 0 && burndamage > 0)
 				status += ", "
-			var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
 			var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 			if(suppressed)
 				status += " перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным"
-			else if(high_bleeding)
+			else if(bodypart.has_arterial_bleeding())
+				status += " хлещет кровь"
+			else if(bodypart.has_heavy_bleeding())
 				status += " обильно кровоточ[PLUR_IT_AT(bodypart)]"
 			else
 				status += " кровоточ[PLUR_IT_AT(bodypart)]"
@@ -340,6 +341,9 @@
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
 			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+
+		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applyed_bodypart)
+			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
 
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
