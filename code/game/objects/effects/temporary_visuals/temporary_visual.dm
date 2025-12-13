@@ -48,11 +48,7 @@
 		M.Turn(get_angle(src, target))
 		transform = M
 
-/obj/effect/temp_visual/nothing
-	name = "nothing"
-	icon = 'icons/blanks/32x32.dmi'
+/obj/effect/temp_visual/warp
+	name = "warp trace"
+	duration = 0.9 SECONDS
 	randomdir = FALSE
-
-/obj/effect/temp_visual/nothing/warp
-	duration = 9
-

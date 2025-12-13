@@ -1,14 +1,15 @@
+//Indexes for the queue
 #define WARP_LOC 1
 #define WARP_DIR 2
 
 /obj/item/implant/warp
-	name = "Варп имплант"
-	desc = "Варп-имплант EX-27 при активации переносит пользователя на 125 метров назад."
+	name = "warp implant"
+	desc = "При активации переносит пользователя на 125 метров назад."
 	icon_state = "warp"
 	implant_data = /datum/implant_fluff/warp
 
 	STATIC_COOLDOWN_DECLARE(cooldown)
-	var/queue/position_queue = new()
+	var/queue/position_queue
 	var/max_warp_steps = 125
 
 /obj/item/implant/warp/Destroy()
@@ -19,11 +20,14 @@
 	. = ..()
 	if(!.)
 		return
+
+	position_queue = new()
 	RegisterSignal(imp_in, COMSIG_MOVABLE_MOVED, PROC_REF(update_position))
 	update_position()
 
 /obj/item/implant/warp/removed(mob/living/source, silent, special)
 	. = ..()
+	position_queue = null
 
 /obj/item/implant/warp/proc/update_position(datum/source = null)
 	SIGNAL_HANDLER
@@ -47,21 +51,21 @@
 	var/delta_alpha = round(225 / position_queue.count)
 	var/latest_alpha = 225
 
-	while(!position_queue.is_empty())
+	while(!position_queue.count)
 		var/list/data = position_queue.dequeue()
 		if(!data?[WARP_LOC] || !isturf(data?[WARP_LOC]))
 			continue
 
-		var/obj/effect/temp_visual/nothing/warp/temp = new /obj/effect/temp_visual/nothing/warp(data[WARP_LOC])
+		var/obj/effect/temp_visual/warp/temp = new /obj/effect/temp_visual/warp(data[WARP_LOC])
 		temp.alpha = latest_alpha
 		temp.overlays = imp_in.overlays
 		temp.dir = data?[WARP_DIR] ? data?[WARP_DIR] : imp_in.dir
 		latest_alpha -= delta_alpha
 
-		animate(temp, alpha = 0, time = 9)
+		animate(temp, alpha = 0, time = 0.9 SECONDS)
 
 /obj/item/implant/warp/proc/teleport_owner()
-	while(!position_queue.is_empty()) //На случай если головной турф будет удален
+	while(!position_queue.count)
 		var/list/data = position_queue.dequeue()
 		if(!data?[WARP_LOC])
 			continue
