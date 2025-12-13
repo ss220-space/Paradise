@@ -254,6 +254,7 @@
 	max_amount = 1
 	heal_brute = 0
 	stop_bleeding = 300 SECONDS
+	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -307,6 +308,7 @@
 	stop_bleeding = 0
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
+	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	icon_state = "traumakit_[round_down((amount + 1) / 2, 1)]"
@@ -677,12 +679,15 @@
 // MARK: Tourniquet
 /obj/item/tourniquet
 	name = "tourniquet"
-	desc = "Медицинский турникет для экстренной остановки артериального и венозного кровотечения на конечностях. Не предназначен для наложения на другие части тела. Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
+	desc = "Медицинский турникет для экстренной остановки артериального и венозного кровотечения на конечностях. \
+			Не предназначен для наложения на другие части тела. \
+			Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
 	icon = 'icons/obj/medicine/packs.dmi'
 	icon_state = "tourniquet"
 	item_state = "tourniquet"
 	origin_tech = "biotech=3"
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = PAYCHECK_MIN
 	/// Duration to apply self
 	var/self_duration = 5 SECONDS
 	/// Duration to apply other mobs
@@ -878,7 +883,8 @@
 
 /obj/item/tourniquet/makeshift
 	name = "makeshift tourniquet"
-	desc = "Импровизированный турникет для временной остановки кровотечения на конечностях. Жутко неудобный, но со своей задачей справится. Не предназначен для длительного использования."
+	desc = "Импровизированный турникет для временной остановки кровотечения на конечностях. \
+			Жутко неудобный, но со своей задачей справится. Не предназначен для длительного использования."
 	icon_state = "makeshift_tourniquet"
 	item_state = "makeshift_tourniquet"
 	self_duration = 8 SECONDS
@@ -900,19 +906,22 @@
 
 /obj/item/tourniquet/advanced
 	name = "advanced tourniquet"
-	desc = "Медицинский турникет нового поколения для экстренной остановки артериального и венозного кровотечения на конечностях. Оснащён механизмом контроля давления, что повышает удобство использования и его эффективность по сравнению с ранними аналогами. Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
+	desc = "Медицинский турникет нового поколения для экстренной остановки артериального и венозного кровотечения на конечностях. \
+			Оснащён механизмом контроля давления, что повышает удобство использования и его эффективность по сравнению с ранними аналогами. \
+			Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
 	icon_state = "advanced_tourniquet"
 	item_state = "advanced_tourniquet"
 	self_duration = 3 SECONDS
 	other_duration = 2 SECONDS
 	remove_duration = 1 SECONDS
+	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/tourniquet/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "медицинский турникет",
-		GENITIVE = "медицинского турникета",
-		DATIVE = "медицинскому турникету",
-		ACCUSATIVE = "медицинский турникет",
-		INSTRUMENTAL = "медицинским турникетом",
-		PREPOSITIONAL = "медицинском турникете"
+		NOMINATIVE = "продвинутый турникет",
+		GENITIVE = "продвинутого турникета",
+		DATIVE = "продвинутому турникету",
+		ACCUSATIVE = "продвинутый турникет",
+		INSTRUMENTAL = "продвинутым турникетом",
+		PREPOSITIONAL = "продвинутом турникете"
 	)
