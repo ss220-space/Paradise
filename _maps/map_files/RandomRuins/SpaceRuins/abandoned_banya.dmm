@@ -71,11 +71,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
-"cP" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
-/area/ruin/USSP_SpaceBanya)
 "cZ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -749,6 +744,11 @@
 	},
 /turf/simulated/wall/mineral/wood,
 /area/ruin/USSP_SpaceBanya)
+"CW" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood,
+/area/ruin/USSP_SpaceBanya)
 "Dd" = (
 /turf/simulated/wall/mineral/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -812,20 +812,6 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/ruin/USSP_SpaceBanya)
-"II" = (
-/obj/machinery/door_control{
-	id = "Bar";
-	name = "Bar Privacy Shutters Control";
-	pixel_x = 25;
-	pixel_y = -6
-	},
-/obj/machinery/light_switch{
-	pixel_x = -4;
-	pixel_y = -24
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "Ja" = (
 /obj/structure/disposalpipe/segment,
@@ -1162,6 +1148,17 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mist,
 /turf/simulated/floor/wood/oak,
+/area/ruin/USSP_SpaceBanya)
+"YS" = (
+/obj/machinery/door_control{
+	id = "Bar";
+	name = "Bar Privacy Shutters Control";
+	pixel_x = 25;
+	pixel_y = -6
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "YY" = (
 /obj/machinery/power/apc{
@@ -1702,7 +1699,7 @@ kJ
 Gi
 Vs
 RV
-cP
+CW
 Dd
 FV
 vI
@@ -2003,7 +2000,7 @@ Tg
 Lc
 eQ
 yh
-II
+YS
 Dd
 sa
 Xo

@@ -531,15 +531,6 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
-"bv" = (
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
-/area/mine/eva)
 "bw" = (
 /obj/machinery/alarm{
 	pixel_y = 23
@@ -552,15 +543,6 @@
 	icon_state = "purple"
 	},
 /area/mine/production)
-"bx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
 "by" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -825,21 +807,6 @@
 	},
 /obj/machinery/firealarm{
 	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
-"cb" = (
-/obj/machinery/light_switch{
-	pixel_y = 25
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/item/cigbutt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -1436,15 +1403,6 @@
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
-"dx" = (
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/turf/simulated/floor/bluegrid,
-/area/mine/maintenance)
 "dy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -4875,6 +4833,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"sS" = (
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/item/cigbutt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
 "tb" = (
 /obj/structure/stone_tile/slab/cracked,
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
@@ -5279,6 +5250,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"xd" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel/dark,
+/area/mine/laborcamp)
 "xg" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
@@ -5690,6 +5665,13 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"AU" = (
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/mine/eva)
 "AY" = (
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5835,6 +5817,13 @@
 	icon_state = "green"
 	},
 /area/mine/laborcamp)
+"Ck" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Ct" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -6372,10 +6361,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
-"Il" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel/dark,
-/area/mine/laborcamp)
 "Iu" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -7388,6 +7373,13 @@
 /obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"RC" = (
+/obj/machinery/light_switch/directional/south,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid,
+/area/mine/maintenance)
 "RF" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -13005,7 +12997,7 @@ rj
 wh
 xM
 JV
-Il
+xd
 tZ
 aK
 aP
@@ -13787,7 +13779,7 @@ xR
 JZ
 tJ
 aq
-cb
+sS
 bh
 cG
 aj
@@ -16363,7 +16355,7 @@ hl
 ad
 cQ
 dj
-dx
+RC
 cQ
 gt
 er
@@ -19965,7 +19957,7 @@ hl
 cR
 fk
 ev
-bx
+Ck
 cM
 fD
 fK
@@ -25349,7 +25341,7 @@ aj
 aj
 bf
 aw
-bv
+AU
 bK
 cj
 ep

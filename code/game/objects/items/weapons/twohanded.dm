@@ -663,7 +663,7 @@
 
 /obj/item/twohanded/chainsaw_handmade/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
+	soundloop = new(src)
 
 /obj/item/twohanded/chainsaw_handmade/ComponentInitialize()
 	. = ..()
@@ -744,7 +744,7 @@
 
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
+	soundloop = new(src)
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()

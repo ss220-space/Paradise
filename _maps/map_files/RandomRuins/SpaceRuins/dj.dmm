@@ -135,19 +135,6 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"aH" = (
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/obj/machinery/vending/cigarette{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/djstation)
 "aI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -251,15 +238,6 @@
 	tag = "icon-shower (EAST)"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
-"bd" = (
-/obj/machinery/light_switch{
-	pixel_x = 32;
-	pixel_y = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -578,6 +556,12 @@
 	icon_state = "solarpanel"
 	},
 /area/space)
+"oi" = (
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
 "oE" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -625,14 +609,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/mineral/titanium/interior,
-/area/djstation)
-"vE" = (
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
 /area/djstation)
 "wt" = (
 /obj/structure/table,
@@ -694,6 +670,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
+"Bd" = (
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/machinery/vending/cigarette{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/djstation)
 "Bh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -707,6 +696,12 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
+"Bm" = (
+/obj/machinery/light_switch/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/djstation)
 "DI" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -851,16 +846,6 @@
 	icon_state = "bar"
 	},
 /area/djstation)
-"Qo" = (
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
 "Qy" = (
 /obj/structure/rack,
 /obj/item/newspaper{
@@ -877,6 +862,12 @@
 	},
 /obj/machinery/power/solar_control/autostart,
 /turf/simulated/floor/plating,
+/area/djstation)
+"RV" = (
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/djstation)
 "Sc" = (
 /obj/structure/rack,
@@ -934,14 +925,6 @@
 	icon_state = "grimy"
 	},
 /area/djstation)
-"UQ" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/djstation)
 "Wc" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -979,6 +962,14 @@
 "YA" = (
 /turf/space,
 /area/space)
+"ZG" = (
+/obj/machinery/light_switch/directional/north,
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
 "ZZ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1381,11 +1372,11 @@ am
 bw
 bw
 ao
-Qo
+ZG
 aM
 aM
 aT
-bd
+RV
 rA
 aS
 bR
@@ -1563,7 +1554,7 @@ iU
 AP
 iU
 aq
-UQ
+Bm
 ao
 aE
 aK
@@ -1602,7 +1593,7 @@ Rl
 aq
 bJ
 ao
-aH
+Bd
 kd
 bR
 FU
@@ -1751,7 +1742,7 @@ Bh
 cP
 YA
 ao
-vE
+oi
 sd
 eH
 ao

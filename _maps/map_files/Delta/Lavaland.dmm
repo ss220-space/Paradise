@@ -654,17 +654,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
-"cb" = (
-/obj/machinery/light_switch{
-	pixel_y = 25
-	},
-/obj/item/cigbutt,
-/obj/effect/baseturf_helper/lava_land/surface,
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
 "cc" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/bot/secbot/beepsky{
@@ -4368,17 +4357,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
-"uS" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/eva)
 "uZ" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -4919,6 +4897,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"yE" = (
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/bluegrid,
+/area/mine/maintenance)
 "yJ" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -4962,6 +4944,10 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"yS" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel/dark,
+/area/mine/laborcamp)
 "yT" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
@@ -6326,10 +6312,6 @@
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
-"Il" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel/dark,
-/area/mine/laborcamp)
 "Im" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/lavaland/coaltree,
@@ -7639,6 +7621,15 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"RP" = (
+/obj/machinery/light_switch/directional/north,
+/obj/item/cigbutt,
+/obj/effect/baseturf_helper/lava_land/surface,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
 "Sc" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -8804,6 +8795,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"Zo" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/light_switch/directional/east,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/eva)
 "Zp" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -8868,12 +8868,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall,
 /area/mine/production)
-"ZU" = (
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
-/turf/simulated/floor/bluegrid,
-/area/mine/maintenance)
 "ZV" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Bathroom";
@@ -13721,7 +13715,7 @@ rj
 wh
 Wt
 JV
-Il
+yS
 tZ
 nM
 aP
@@ -14503,7 +14497,7 @@ xR
 JZ
 tJ
 aq
-cb
+RP
 bh
 cG
 aj
@@ -21191,7 +21185,7 @@ fw
 La
 qk
 bQ
-ZU
+yE
 La
 Jk
 GZ
@@ -27115,7 +27109,7 @@ aR
 lC
 aR
 ZH
-uS
+Zo
 Id
 Mf
 Bu

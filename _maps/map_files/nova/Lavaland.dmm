@@ -607,6 +607,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"eF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light_switch/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
 "eI" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -3386,21 +3398,6 @@
 "uQ" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/mine/lobby)
-"uR" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light_switch{
-	pixel_y = 25;
-	pixel_x = -25
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
 "uS" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
@@ -5496,6 +5493,17 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Gt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/cigbutt{
+	pixel_y = 9
+	},
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/mine/laborcamp)
 "Gu" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/lavaland/coaltree,
@@ -6235,6 +6243,25 @@
 /obj/item/stack/fireproof_rods/twentyfive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Le" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4;
+	pixel_y = 0
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/bluegrid,
+/area/mine/maintenance)
 "Lg" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -6248,17 +6275,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"Ll" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/cigbutt{
-	pixel_y = 9
-	},
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/mine/laborcamp)
 "Lo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -6321,27 +6337,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/random/volcanic/hard,
 /area/lavaland/surface/outdoors)
-"LI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4;
-	pixel_y = 0
-	},
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
-/turf/simulated/floor/bluegrid,
-/area/mine/maintenance)
 "LK" = (
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 6
@@ -14256,7 +14251,7 @@ hr
 VG
 Zp
 ga
-Ll
+Gt
 Rt
 ve
 KU
@@ -14267,7 +14262,7 @@ RV
 aI
 pO
 ln
-uR
+eF
 iw
 nY
 OZ
@@ -22738,7 +22733,7 @@ Ne
 CO
 wc
 gE
-LI
+Le
 CO
 dA
 SG

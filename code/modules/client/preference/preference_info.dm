@@ -153,9 +153,6 @@ GLOBAL_LIST_EMPTY(preferences_info)
 /datum/preference_info/ghost_radio/get_preference_toggle()
 	return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_radio]
 
-/datum/preference_info/admin_radio/get_preference_toggle()
-	return GLOB.preference_toggles[/datum/preference_toggle/toggle_admin_radio]
-
 /datum/preference_info/ai_voice_announcements/get_preference_toggle()
 	return GLOB.preference_toggles[/datum/preference_toggle/toggle_ai_voice_annoucements]
 

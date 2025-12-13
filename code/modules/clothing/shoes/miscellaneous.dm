@@ -213,9 +213,19 @@
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
-	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
+	desc = "Шахтёрские ботинки со стальным носком для работы в опасных условиях. Отлично защищают пальцы от раздавливания."
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/shoes/workboots/mining/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрские ботинки",
+		GENITIVE = "шахтёрских ботинок",
+		DATIVE = "шахтёрским ботинкам",
+		ACCUSATIVE = "шахтёрские ботинки",
+		INSTRUMENTAL = "шахтёрскими ботинками",
+		PREPOSITIONAL = "шахтёрских ботинках"
+	)
 
 /obj/item/clothing/shoes/workboots/mining/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/knife/combat/survival))

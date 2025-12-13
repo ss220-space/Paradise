@@ -10,7 +10,6 @@
 	flags = CONDUCT
 
 	COOLDOWN_DECLARE(spamcheck)
-	var/emagged = FALSE
 
 /obj/item/hailer/attack_self(mob/living/carbon/user as mob)
 	hail(user)

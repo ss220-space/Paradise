@@ -5,6 +5,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	rotate_on_lying = TRUE
 	pull_hand = null
+	throw_range = 3
 	var/list/stomach_contents
 	var/list/processing_patches
 	var/list/internal_organs	= list()

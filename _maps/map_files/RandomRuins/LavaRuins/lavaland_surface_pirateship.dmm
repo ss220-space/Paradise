@@ -2375,10 +2375,7 @@
 	pixel_x = -8;
 	pixel_y = -3
 	},
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = 10
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},

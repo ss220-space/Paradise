@@ -1,29 +1,29 @@
-// the light switch
-// can have multiple per area
+/// The light switch. Can have multiple per area.
 /obj/machinery/light_switch
 	name = "light switch"
-	desc = "It turns lights on and off. What are you, simple?"
+	desc = "Выключатель для управления светом во всей комнате."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
-	/// Set this to a string, path, or area instance to control that area
-	/// instead of the switch's location.
+	/// Set this to a string, path, or area instance to control that area instead of the switch's location.
 	var/area/area = null
 	/// Should this lightswitch automatically rename itself to match the area it's in?
 	var/autoname = TRUE
 
-/obj/machinery/light_switch/Initialize(mapload, build_dir)
-	. = ..()
-	switch(build_dir)
-		if(NORTH)
-			pixel_y = 25
-		if(SOUTH)
-			pixel_y = -25
-		if(EAST)
-			pixel_x = 25
-		if(WEST)
-			pixel_x = -25
+/obj/machinery/light_switch/get_ru_names()
+	return list(
+		NOMINATIVE = "выключатель света",
+		GENITIVE = "выключателя света",
+		DATIVE = "выключателю света",
+		ACCUSATIVE = "выключатель света",
+		INSTRUMENTAL = "выключателем света",
+		PREPOSITIONAL = "выключателе света"
+	)
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
+
+/obj/machinery/light_switch/Initialize(mapload)
+	. = ..()
 	if(istext(area))
 		area = text2path(area)
 
@@ -34,7 +34,7 @@
 		area = get_area(src)
 
 	if(autoname)
-		name = "[name] ([area.name])"
+		name = "[declent_ru(NOMINATIVE)] ([area.name])"
 
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/light_switch,
@@ -110,7 +110,11 @@
 	. = TRUE
 	if(!tool.tool_use_check(user, 0))
 		return
-	user.visible_message(span_notice("[user] starts unwrenching [src] from the wall..."), span_notice("You are unwrenching [src] from the wall..."), span_warning("You hear ratcheting."))
+	user.visible_message(
+		span_notice("[user] starts unwrenching [src] from the wall..."),
+		span_notice("You are unwrenching [src] from the wall..."),
+		span_warning("You hear ratcheting.")
+	)
 	if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
@@ -119,7 +123,7 @@
 
 
 /obj/item/circuit_component/light_switch
-	display_name = "Выключатель света"
+	display_name = "выключатель света"
 	desc = "Позволяет управлять освещением."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 

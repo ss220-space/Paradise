@@ -248,12 +248,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
-"cB" = (
-/obj/machinery/light_switch{
-	pixel_x = 30
-	},
-/turf/simulated/floor/wood,
-/area/admin)
 "cD" = (
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
@@ -663,6 +657,10 @@
 /obj/item/gun/energy/pulse/cyborg,
 /turf/simulated/floor/wood,
 /area/admin)
+"gn" = (
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/carpet,
+/area/admin)
 "gp" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/boltaction,
@@ -927,6 +925,10 @@
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/toy,
 /turf/simulated/floor/carpet/arcade,
+/area/admin)
+"iM" = (
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/wood,
 /area/admin)
 "iQ" = (
 /turf/simulated/floor/plasteel{
@@ -1729,6 +1731,10 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
+"sO" = (
+/obj/machinery/vending/gun_mods/advanced,
+/turf/simulated/floor/carpet,
+/area/admin)
 "sZ" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/fireaxe,
@@ -1768,12 +1774,6 @@
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain/scattershot,
 /turf/simulated/floor/wood,
-/area/admin)
-"tp" = (
-/obj/machinery/light_switch{
-	pixel_x = 30
-	},
-/turf/simulated/floor/carpet,
 /area/admin)
 "tq" = (
 /obj/item/card/id/admin,
@@ -2139,10 +2139,6 @@
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol,
 /turf/simulated/floor/carpet/arcade,
-/area/admin)
-"xn" = (
-/obj/machinery/vending/gun_mods/advanced,
-/turf/simulated/floor/carpet,
 /area/admin)
 "xo" = (
 /turf/simulated/floor/holofloor{
@@ -4755,8 +4751,8 @@ kD
 gA
 sZ
 aU
-xn
-xn
+sO
+sO
 wP
 ui
 Us
@@ -8849,7 +8845,7 @@ Yq
 (18,1,1) = {"
 fE
 Oe
-cB
+iM
 Ep
 Ep
 iD
@@ -10922,7 +10918,7 @@ ZG
 ZG
 ZG
 ZG
-tp
+gn
 ZG
 ZG
 ZG
