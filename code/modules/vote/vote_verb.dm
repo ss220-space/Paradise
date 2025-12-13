@@ -75,6 +75,7 @@
 		return
 
 	SSvote.active_vote.no_dead_vote = !SSvote.active_vote.no_dead_vote
+	SSvote.active_vote.no_offstation_vote = !SSvote.active_vote.no_offstation_vote
 	if(SSvote.active_vote.no_dead_vote)
 		to_chat(world, "<b>Dead Vote has been disabled!</b>")
 	else
