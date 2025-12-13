@@ -11,6 +11,7 @@
  */
 /datum/data/customat_product
 	name = "generic"
+	var/desc = "description of the item"
 	///How many of this product we currently have
 	var/amount = 0
 	///The key by which the object is pushed into the machine's row
@@ -25,12 +26,13 @@
 	var/icon_state = ""
 
 /datum/data/customat_product/New(obj/item/I)
-	name = I.name
+	name = capitalize(I.declent_ru(NOMINATIVE))
+	desc = I.desc
 	amount = 0
 	containment = list()
 	price = 0
-	icon = icon(initial(I.icon))
-	icon_state = initial(I.icon_state)
+	icon = I.icon
+	icon_state = I.icon_state
 
 /obj/machinery/customat
 	name = "Customat"
@@ -150,6 +152,16 @@
 
 	/// Direct ref to the trunk pipe underneath us
 	var/obj/structure/disposalpipe/trunk/trunk
+
+/obj/machinery/customat/get_ru_names()
+	return list(
+		NOMINATIVE = "кастомат",
+		GENITIVE = "кастомата",
+		DATIVE = "кастомату",
+		ACCUSATIVE = "кастомат",
+		INSTRUMENTAL = "кастоматом",
+		PREPOSITIONAL = "кастомате"
+	)
 
 /obj/machinery/customat/proc/set_up_components()
 	component_parts = list()
@@ -431,7 +443,7 @@
 		return
 
 	if(isLocked())
-		to_chat(user, span_warning("[src] is locked."))
+		balloon_alert(user, "заблокировано!")
 		return
 
 	. = TRUE
@@ -493,7 +505,7 @@
 		products[key] = product
 
 	if(user)
-		to_chat(user, "You short out the product lock on [src]")
+		balloon_alert(user, "взломано")
 
 /obj/machinery/customat/attack_ai(mob/user)
 	return attack_hand(user)
@@ -528,7 +540,7 @@
 		data["user"] = list()
 		data["user"]["name"] = account.owner_name
 		data["userMoney"] = account.money
-		data["user"]["job"] = "Silicon"
+		data["user"]["job"] = "Силикон"
 
 	if(ishuman(user))
 		account = get_card_account(user)
@@ -536,22 +548,24 @@
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
-			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [S.amount] кредит[DECL_CREDIT(S.amount)]."
 		else if(istype(H))
 			var/obj/item/card/id/idcard = H.get_id_card()
 			if(istype(account))
 				data["user"] = list()
 				data["user"]["name"] = account.owner_name
 				data["userMoney"] = account.money
-				data["user"]["job"] = (istype(idcard) && idcard.rank) ? idcard.rank : "No Job"
+				data["user"]["job"] = (istype(idcard) && idcard.rank) ? idcard.rank : "Должность отсутствует"
 			else
-				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
+				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 
 	data["products"] = list()
 	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
 		var/list/data_pr = list(
+
 			name = product.name,
+			desc = product.desc,
 			price = product.price,
 			stock = product.amount,
 			icon = product.icon,
@@ -574,7 +588,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, span_warning("The vending machine refuses to interface with you, as you are not in its target demographic!"))
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 
 	switch(action)
@@ -585,15 +599,15 @@
 
 		if("vend")
 			if(!vend_ready)
-				to_chat(usr, span_warning("The vending machine is busy!"))
+				balloon_alert(usr, "торговый автомат занят!")
 				return
 			if(panel_open)
-				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
+				balloon_alert(usr, "техпанель открыта!")
 				return
 			var/key = params["Key"]
 			var/datum/data/customat_product/product = products[key]
 			if(product.amount <= 0)
-				to_chat(usr, "Sold out of [product.name].")
+				to_chat(usr, "Товар \"[product.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
 
@@ -610,7 +624,7 @@
 
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
-				to_chat(usr, "Vendor account offline. Unable to process transaction.")
+				to_chat(usr, "Удалённый сервер торговых автоматов отключён. Не удается обработать операцию.")
 				flick_vendor_overlay(FLICK_DENY)
 				vend_ready = TRUE
 				return
@@ -640,10 +654,10 @@
 		"Sale of [product.name]", customer_account.owner_name) || paid
 
 			else if(usr.can_advanced_admin_interact())
-				to_chat(usr, span_notice("Vending object due to admin interaction."))
+				to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] выдаёт товар в результате вмешательства администратора."))
 				paid = TRUE
 			else
-				to_chat(usr, span_warning("Payment failure: you have no ID or other method of payment."))
+				to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))
 				vend_ready = TRUE
 				flick_vendor_overlay(FLICK_DENY)
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
@@ -653,7 +667,7 @@
 				vend(currently_vending, usr)
 				. = TRUE
 			else
-				to_chat(usr, span_warning("Payment failure: unable to process payment."))
+				to_chat(usr, span_warning("Сбой платежа: не удаётся обработать платеж."))
 				vend_ready = TRUE
 
 	if(.)
