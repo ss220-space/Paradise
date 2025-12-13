@@ -336,17 +336,8 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 #undef OFFSET_ABSOLUTE
 #undef OFFSET_RELATIVE
 
-/client/proc/spawn_panel()
-	set name = "Spawn Panel"
-	set desc = "Spawn Panel (TGUI)."
-	set category = ADMIN_CATEGORY_EVENTS
-
-	if(!check_rights(R_SPAWN))
-		return
-
-	var/datum/spawnpanel/panel = get_spawnpanel_for_admin(usr)
-
+ADMIN_VERB(spawn_panel, R_SPAWN, "Spawn Panel", "Spawn Panel (TGUI).", ADMIN_CATEGORY_EVENTS)
+	var/datum/spawnpanel/panel = get_spawnpanel_for_admin(user.mob)
 	if(panel)
-		panel.ui_interact(usr)
-
+		panel.ui_interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Panel")

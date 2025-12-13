@@ -257,11 +257,11 @@
 			client.prefs.process_link(src, href_list)
 
 	if(href_list["change_picture"])
-		client.admin_change_title_screen()
+		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/admin_change_title_screen)
 		return
 
 	if(href_list["leave_notice"])
-		client.change_title_screen_notice()
+		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/change_title_screen_notice)
 		return
 
 	if(href_list["switch_server"])

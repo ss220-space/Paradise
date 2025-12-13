@@ -53,7 +53,7 @@
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			mob = get_mob_in_atom_with_warning(A)
 			if(mob)
-				client.holder.show_player_panel(mob)
+				SSadmin_verbs.dynamic_invoke_verb(client.holder, /datum/admin_verb/vuap_personal, mob)
 			return
 
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))

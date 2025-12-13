@@ -1,24 +1,9 @@
-//Verbs
+ADMIN_VERB(open_mentor_tickets, R_MENTOR, "Open Mentor Ticket Interface", "Opens the mhelp panel", ADMIN_CATEGORY_TICKETS)
+	SSmentor_tickets.showUI(user.mob)
 
-/client/proc/openMentorTicketUI()
-
-	set name = "Open Mentor Ticket Interface"
-	set category = ADMIN_CATEGORY_TICKETS
-
-	if(!check_rights(R_MENTOR))
+ADMIN_VERB(resolve_all_mentor_tickets, R_ADMIN, "Resolve All Open Mentor Tickets", "Resolves all open mhelps", ADMIN_CATEGORY_HIDDEN)
+	if(tgui_alert(user, "Are you sure you want to resolve ALL open mentor tickets?", "Resolve all open mentor tickets?", list("Yes", "No")) != "Yes")
 		return
-
-	SSmentor_tickets.showUI(usr)
-
-/client/proc/resolveAllMentorTickets()
-	set name = "Resolve All Open Mentor Tickets"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(tgui_alert(usr, "Are you sure you want to resolve ALL open mentor tickets?", "Resolve all open mentor tickets?", list("Yes", "No")) != "Yes")
-		return
-
 	SSmentor_tickets.resolveAllOpenTickets()
 
 /client/verb/openMentorUserUI()

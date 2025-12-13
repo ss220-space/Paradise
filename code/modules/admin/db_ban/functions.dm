@@ -430,18 +430,7 @@
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
 
-/client/proc/DB_ban_panel()
-	set category = ADMIN_CATEGORY_BAN
-	set name = "Banning Panel"
-	set desc = "DB Ban Panel"
-
-	if(!check_rights(R_BAN))
-		return
-
-	holder.DB_ban_panel()
-
 /datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)
-
 	if(!usr.client)
 		return
 

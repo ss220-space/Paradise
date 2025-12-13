@@ -533,6 +533,53 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
+/mob/dead/observer/proc/jump_to_ruin()
+	set category = STATPANEL_GHOST
+	set name = "Jump to Ruin"
+	set desc = "Displays a list of all placed ruins to teleport to."
+
+	if(!isobserver(usr))
+		to_chat(usr, "Not when you're not dead!")
+		return
+
+	var/list/names = list()
+	for(var/i in GLOB.ruin_landmarks)
+		var/obj/effect/landmark/ruin/ruin_landmark = i
+		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
+
+		var/count = 1
+		var/name = template.name
+		var/original_name = name
+
+		while(name in names)
+			count++
+			name = "[original_name] ([count])"
+
+		names[name] = ruin_landmark
+
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
+
+	var/obj/effect/landmark/ruin/landmark = names[ruinname]
+
+	if(istype(landmark))
+		var/datum/map_template/ruin/template = landmark.ruin_template
+		if(isobj(usr.loc))
+			var/obj/O = usr.loc
+			O.force_eject_occupant(usr)
+		admin_forcemove(usr, get_turf(landmark))
+
+		var/list/messages = list(
+			span_notice("Jumped to <b>[template.name]</b>:"),
+			span_notice("[template.description]")
+		)
+		to_chat(usr, chat_box_examine(messages.Join("\n")))
+
+		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
+		if(!isobserver(usr))
+			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]")
+
+		BLACKBOX_LOG_ADMIN_VERB("Jump To Ruin")
+
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = STATPANEL_GHOST
 	set name = "К существу"

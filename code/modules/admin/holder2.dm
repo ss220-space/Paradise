@@ -67,7 +67,7 @@ GLOBAL_PROTECT(href_token)
 		return
 	if(owner)
 		GLOB.admins -= owner
-		owner.hide_verbs()
+		SSadmin_verbs.dynamic_invoke_verb(owner, /datum/admin_verb/hide_verbs)
 		owner.init_verbs()
 		owner.holder = null
 		owner = null

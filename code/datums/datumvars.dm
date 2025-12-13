@@ -69,14 +69,11 @@
 	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
+ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Variables", datum/thing in world)
+	user.debug_variables(thing)
+
 /client/proc/debug_variables(datum/D in world)
-	set name = "\[Admin\] View Variables"
-
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
-
-	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>", confidential=TRUE)
-		return
 
 	if(!D)
 		return
@@ -655,27 +652,30 @@
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
 	else if(href_list["mob_player_panel"])
-		if(!check_rights(R_ADMIN|R_MOD))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
 		var/mob/M = locateUID(href_list["mob_player_panel"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.holder.show_player_panel(M)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/vuap_personal, M)
 
 	else if(href_list["give_spell"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["give_spell"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.give_spell(M)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/give_spell, M)
 
 	else if(href_list["givemartialart"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/carbon/C = locateUID(href_list["givemartialart"])
 		if(!istype(C))
@@ -708,7 +708,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.give_disease(M)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/give_disease, M)
 
 	else if(href_list["give_taipan_hud"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -734,7 +734,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.cmd_admin_godmode(M)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/godmode, M)
 
 	else if(href_list["gib"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -744,7 +744,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.cmd_admin_gib(M)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/gib_them, M)
 
 	else if(href_list["build_mode"])
 		if(!check_rights(R_BUILDMODE))	return
@@ -765,7 +765,7 @@
 			return
 
 		if(usr.client)
-			usr.client.cmd_admin_drop_everything(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/drop_everything, M)
 
 	else if(href_list["direct_control"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
@@ -776,7 +776,7 @@
 			return
 
 		if(usr.client)
-			usr.client.cmd_assume_direct_control(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_assume_direct_control, M)
 
 	else if(href_list["make_skeleton"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -951,7 +951,7 @@
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
 			return
 
-		src.cmd_admin_explosion(A)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/admin_explosion, A)
 
 	else if(href_list["emp"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
@@ -961,7 +961,7 @@
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
 			return
 
-		src.cmd_admin_emp(A)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/admin_emp, A)
 
 	else if(href_list["mark_object"])
 		if(!check_rights(0))	return
@@ -980,7 +980,7 @@
 		var/T = locateUID(href_list["proc_call"])
 
 		if(T)
-			callproc_datum(T)
+			SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/call_proc_datum, T)
 
 	if(href_list["addcomponent"])
 		if(!check_rights(R_DEBUG|R_EVENT))
@@ -1070,7 +1070,7 @@
 		var/atom/A = locateUID(href_list["jump_to"])
 		var/turf/T = get_turf(A)
 		if(T)
-			usr.client.jumptoturf(T)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/jump_to_turf, T)
 
 	else if(href_list["rotatedatum"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return

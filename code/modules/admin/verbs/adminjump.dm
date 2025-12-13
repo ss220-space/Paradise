@@ -1,43 +1,36 @@
-/client/proc/jump_to()
-	set name = "Jump to..."
-	set desc = "Area, Mob, Key or Coordinate"
-	set category = ADMIN_CATEGORY_MAIN
+ADMIN_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", ADMIN_CATEGORY_GAME)
 	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/chosen = tgui_input_list(src, "What to jump to?", "Jump to...", choices)
+	var/chosen = tgui_input_list(user, "What to jump to?", "Jump to...", choices)
 	if(!chosen)
 		return
 
 	var/jumping // Thing to jump to
 	switch(chosen)
 		if("Area")
-			jumping = tgui_input_list(src, "Area to jump to", "Jump to Area", get_sorted_areas())
+			jumping = tgui_input_list(user, "Area to jump to", "Jump to Area", get_sorted_areas())
 			if(jumping)
-				return jumptoarea(jumping)
+				return user.jump_to_area(jumping)
 		if("Mob")
-			jumping = tgui_input_list(src, "Mob to jump to", "Jump to Mob", GLOB.mob_list)
+			jumping = tgui_input_list(user, "Mob to jump to", "Jump to Mob", GLOB.mob_list)
 			if(jumping)
-				return jumptomob(jumping)
+				return user.jumptomob(jumping)
 		if("Key")
-			jumping = tgui_input_list(src, "Key to jump to", "Jump to Key", sortKey(GLOB.clients))
+			jumping = tgui_input_list(user, "Key to jump to", "Jump to Key", sortKey(GLOB.clients))
 			if(jumping)
-				return jumptokey(jumping)
+				return user.jump_to_key(jumping)
 		if("Coordinates")
-			var/x = tgui_input_number(src, "X Coordinate", "Jump to Coordinates")
+			var/x = tgui_input_number(user, "X Coordinate", "Jump to Coordinates")
 			if(!x)
 				return
-			var/y = tgui_input_number(src, "Y Coordinate", "Jump to Coordinates")
+			var/y = tgui_input_number(user, "Y Coordinate", "Jump to Coordinates")
 			if(!y)
 				return
-			var/z = tgui_input_number(src, "Z Coordinate", "Jump to Coordinates")
+			var/z = tgui_input_number(user, "Z Coordinate", "Jump to Coordinates")
 			if(!z)
 				return
-			return jumptocoord(x, y, z)
+			return user.jump_to_coord(x, y, z)
 
-/client/proc/jumptoarea(area/A)
+/client/proc/jump_to_area(area/A)
 	if(!A || !check_rights(R_ADMIN))
 		return
 
@@ -64,27 +57,20 @@
 		message_admins("[key_name_admin(usr)] jumped to [A]")
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Area")
 
-/client/proc/jumptoturf(turf/T in world)
-	set name = "\[Admin\] Jump to Turf"
+ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_turf, R_ADMIN, "Jump To Turf", turf/T in world)
+	if(isobj(user.mob.loc))
+		var/obj/O = user.mob.loc
+		O.force_eject_occupant(user.mob)
 
-	if(!check_rights(R_ADMIN))
-		return
+	log_admin("[key_name(user.mob)] jumped to [COORD(T)] in [T.loc]")
 
-	if(isobj(usr.loc))
-		var/obj/O = usr.loc
-		O.force_eject_occupant(usr)
+	if(!isobserver(user.mob))
+		message_admins("[key_name_admin(user.mob)] jumped to [COORD(T)] in [T.loc]")
 
-	log_admin("[key_name(usr)] jumped to [COORD(T)] in [T.loc]")
-
-	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]")
-
-	admin_forcemove(usr, T)
+	admin_forcemove(user.mob, T)
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Turf")
-	return
 
 /client/proc/jumptomob(mob/M)
-	set name = "\[Admin\] Jump to Mob"
 	if(!M || !check_rights(R_ADMIN))
 		return
 
@@ -103,7 +89,7 @@
 		else
 			to_chat(A, "This mob is not located in the game world.")
 
-/client/proc/jumptocoord(tx as num, ty as num, tz as num)
+/client/proc/jump_to_coord(tx as num, ty as num, tz as num)
 	if(!isobserver(usr) && !check_rights(R_ADMIN)) // Only admins can jump without being a ghost
 		return
 
@@ -125,7 +111,7 @@
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to coordinates [COORD(T)]")
 
-/client/proc/jumptokey(client/C)
+/client/proc/jump_to_key(client/C)
 	if(!C?.mob || !check_rights(R_ADMIN))
 		return
 	var/mob/M = C.mob
@@ -139,32 +125,20 @@
 
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Key")
 
-/client/proc/Getmob(mob/M in GLOB.mob_list)
-	set name = "\[Admin\] Get Mob"
-	set desc = "Mob to teleport"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB_AND_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME, mob/M in GLOB.mob_list)
 	log_and_message_admins("teleported [key_name_admin(M)]")
 
 	if(isobj(M.loc))
 		var/obj/O = M.loc
 		O.force_eject_occupant(M)
-	admin_forcemove(M, get_turf(usr))
+	admin_forcemove(M, get_turf(user.mob))
 	BLACKBOX_LOG_ADMIN_VERB("Get Mob")
 
-/client/proc/Getkey()
-	set name = "Get Key"
-	set desc = "Key to teleport"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB(get_key, R_ADMIN, "Get Key", "Teleport the player with the provided key to you.", ADMIN_CATEGORY_GAME)
 	var/list/keys = list()
 	for(var/mob/M in GLOB.player_list)
 		keys += M.client
-	var/selection = tgui_input_list(src, "Please, select a player!", "Admin Jumping", sortKey(keys))
+	var/selection = tgui_input_list(user, "Please, select a player!", "Admin Jumping", sortKey(keys))
 	if(!selection)
 		return
 	var/mob/M = selection:mob
@@ -176,18 +150,12 @@
 		if(isobj(M.loc))
 			var/obj/O = M.loc
 			O.force_eject_occupant(M)
-		admin_forcemove(M, get_turf(usr))
-		admin_forcemove(usr, M.loc)
+		admin_forcemove(M, get_turf(user.mob))
+		admin_forcemove(user.mob, M.loc)
 		BLACKBOX_LOG_ADMIN_VERB("Get Key")
 
-/client/proc/sendmob(mob/M in GLOB.mob_list)
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Send Mob"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/area/A = tgui_input_list(usr, "Pick an area.", "Pick an area", get_sorted_areas())
+ADMIN_VERB_AND_CONTEXT_MENU(sendmob, R_ADMIN, "Send Mob", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME, mob/M in GLOB.mob_list)
+	var/area/A = tgui_input_list(user, "Pick an area.", "Pick an area", get_sorted_areas())
 	if(!A)
 		return
 
@@ -195,8 +163,8 @@
 		var/obj/O = M.loc
 		O.force_eject_occupant(M)
 	admin_forcemove(M, pick(get_area_turfs(A)))
-	BLACKBOX_LOG_ADMIN_VERB("Send Mob")
 	log_and_message_admins("teleported [key_name_admin(M)] to [A]")
+	BLACKBOX_LOG_ADMIN_VERB("Send Mob")
 
 /proc/admin_forcemove(mob/mover, atom/newloc)
 	mover.forceMove(newloc)

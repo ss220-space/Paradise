@@ -434,7 +434,7 @@
 			return
 
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_alert_message, about_to_be_banned)
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client

@@ -1,20 +1,12 @@
-/client/proc/open_borgopanel(borgo in GLOB.silicon_mob_list)
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Show Borg Panel"
-	set desc = "Show borg panel"
-
-	if(!check_rights(R_ADMIN))
+ADMIN_VERB(borg_panel, R_ADMIN, "Show Borg Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, borgo in GLOB.silicon_mob_list)
+	if(!isrobot(borgo))
+		borgo = tgui_input_list(user, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
+	if(!isrobot(borgo))
+		to_chat(user, span_warning("Borg is required for borgpanel"))
 		return
 
-	if(!isrobot(borgo))
-		borgo = tgui_input_list(usr, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
-	if(!isrobot(borgo))
-		to_chat(usr, span_warning("Borg is required for borgpanel"))
-		return
-
-	var/datum/borgpanel/borgpanel = new(usr, borgo)
-
-	borgpanel.ui_interact(usr)
+	var/datum/borgpanel/borgpanel = new(user.mob, borgo)
+	borgpanel.ui_interact(user.mob)
 	log_and_message_admins("has opened [borgo]'s Borg Panel.")
 
 /datum/borgpanel

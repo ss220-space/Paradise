@@ -69,7 +69,7 @@
 
 		if("open_player_panel")
 			var/datum/mind/inserter = circuit.inserter_mind?.resolve()
-			usr.client?.holder?.show_player_panel(inserter?.current)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, inserter?.current)
 
 	return TRUE
 

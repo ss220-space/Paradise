@@ -346,7 +346,7 @@
 		return
 
 	client.update_active_keybindings()
-	client.hide_verbs()
+	SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/hide_verbs)
 	client.init_verbs()
 	client.add_admin_verbs()
 

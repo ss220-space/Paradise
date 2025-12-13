@@ -77,16 +77,19 @@ _ADMIN_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_categor
 
 // Admin verb categories
 #define ADMIN_CATEGORY_MAIN "Админ"
-#define ADMIN_CATEGORY_TICKETS "Админ.Помощь"
+#define ADMIN_CATEGORY_TICKETS "Админ.Админ/Ментор помощь" // Cursed name, because it should be at the top of the list.
 #define ADMIN_CATEGORY_TOGGLES "Админ.Переключаемое"
 #define ADMIN_CATEGORY_BAN "Админ.Бан"
-#define ADMIN_CATEGORY_EVENTS "Админ.Ивенты"
+#define ADMIN_CATEGORY_EVENTS "Админ.Ивент"
 #define ADMIN_CATEGORY_FUN "Админ.Веселье"
-#define ADMIN_CATEGORY_SOUNDS "Админ.Звуки"
-#define ADMIN_CATEGORY_DEBUG "Админ.Отладка"
+#define ADMIN_CATEGORY_SOUNDS "Админ.Звук"
+#define ADMIN_CATEGORY_GAME "Админ.Игра"
+#define ADMIN_CATEGORY_SHUTTLE "Админ.Шаттл"
 
 // Special categories that are separated
-#define ADMIN_CATEGORY_SERVER "Сервер"
+#define ADMIN_CATEGORY_DEBUG "Debug"
+#define ADMIN_CATEGORY_SERVER "Server"
+#define ADMIN_CATEGORY_MAPPING "Mapping"
 
 // Visibility flags
 #define ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG "Map-Debug"

@@ -1,10 +1,5 @@
-/client/proc/cmd_admin_drop_everything(mob/M as mob in GLOB.mob_list)
-	set name = "Drop Everything"
-
-	if(!check_rights(R_DEBUG|R_ADMIN))
-		return
-
-	var/confirm = tgui_alert(src, "Make [M] drop everything?", "Message", list("Yes", "No"))
+ADMIN_VERB(drop_everything, R_DEBUG|R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M as mob in GLOB.mob_list)
+	var/confirm = tgui_alert(user, "Make [M] drop everything?", "Message", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
 
@@ -14,16 +9,10 @@
 	log_and_message_admins("made [key_name_admin(M)] drop everything!")
 	BLACKBOX_LOG_ADMIN_VERB("Drop Everything")
 
-/client/proc/cmd_admin_prison(mob/M as mob in GLOB.mob_list)
-	set category = ADMIN_CATEGORY_FUN
-	set name = "Prison"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_FUN, mob/M as mob in GLOB.mob_list)
 	if(ismob(M))
 		if(istype(M, /mob/living/silicon/ai))
-			tgui_alert(usr, "The AI can't be sent to prison you jerk!")
+			tgui_alert(user, "The AI can't be sent to prison you jerk!")
 			return
 
 		var/turf/prison_cell = pick(GLOB.prisonwarp)
@@ -39,38 +28,25 @@
 		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
 		BLACKBOX_LOG_ADMIN_VERB("Prison")
 
-/client/proc/cmd_admin_subtle_message(mob/M as mob in GLOB.mob_list)
-	set name = "\[Admin\] Subtle Message"
-
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_EVENT, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M as mob in GLOB.mob_list)
 	if(!ismob(M))
 		return
 
-	if(!check_rights(R_EVENT))
-		return
-
-	var/msg = tgui_input_text(src, "Message:", text("Subtle PM to [M.key]"), multiline = TRUE, encode = FALSE)
+	var/msg = tgui_input_text(user, "Message:", text("Subtle PM to [M.key]"), multiline = TRUE, encode = FALSE)
 
 	if(!msg)
 		return
 
 	msg = admin_pencode_to_html(msg)
 
-	if(usr)
-		if(usr.client)
-			if(usr.client.holder)
-				to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
+	if(user.holder)
+		to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
 
 	log_and_message_admins("<span class='boldnotice'>sent subtle message to [key_name_admin(M)] : [msg]</span>")
 	BLACKBOX_LOG_ADMIN_VERB("Subtle Message")
 
-/client/proc/cmd_mentor_check_new_players()	//Allows mentors / admins to determine who the newer players are.
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Check new Players"
-
-	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
-		return
-
-	var/age = tgui_alert(src, "Age check", "Show accounts yonger then _____ days", list("7", "30" , "All"))
+ADMIN_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perform a player account age check.", ADMIN_CATEGORY_MAIN)
+	var/age = tgui_alert(user, "Age check", "Show accounts yonger then _____ days", list("7", "30" , "All"))
 
 	if(age == "All")
 		age = 9999999
@@ -84,30 +60,24 @@
 			missing_ages = 1
 			continue
 		if(C.player_age < age)
-			if(check_rights(R_ADMIN, 0))
+			if(check_rights(R_ADMIN, FALSE))
 				msg += "[key_name_admin(C.mob)]: [C.player_age] days old<br>"
 			else
 				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
 
 	if(missing_ages)
-		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present", confidential=TRUE)
+		to_chat(user, "Some accounts did not have proper ages set in their clients.  This function requires database to be present", confidential=TRUE)
 
 	if(msg != "")
-		var/datum/browser/popup = new(src, "player_age_check", "Player Age Check")
+		var/datum/browser/popup = new(user, "player_age_check", "Player Age Check")
 		popup.set_content(msg)
 		popup.open(FALSE)
 
 	else
-		to_chat(src, "No matches for that age range found.", confidential=TRUE)
+		to_chat(user, "No matches for that age range found.", confidential=TRUE)
 
-/client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Global Narrate"
-
-	if(!check_rights(R_SERVER|R_EVENT))
-		return
-
-	var/msg = tgui_input_text(usr, "Message:", "Enter the text you wish to appear to everyone:")
+ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a direct narration to all connected players.", ADMIN_CATEGORY_EVENTS)
+	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to everyone:")
 
 	if(!msg)
 		return
@@ -116,15 +86,10 @@
 	log_and_message_admins("<span class='boldnotice'>Sent Global Narrate: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
-/client/proc/cmd_admin_local_narrate(atom/A)
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Local Narrate"
-
-	if(!check_rights(R_SERVER|R_EVENT))
-		return
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/A)
 	if(!A)
 		return
-	var/msg = tgui_input_text(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
+	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to everyone within view:")
 	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
@@ -133,17 +98,14 @@
 	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
 
-/client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
-	if(!check_rights(R_SERVER|R_EVENT))
-		return
-
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M)
 	if(!M)
-		M = tgui_input_list(usr, "Direct narrate to who?", "Active Players", get_mob_with_client_list())
+		M = tgui_input_list(user, "Direct narrate to who?", "Active Players", get_mob_with_client_list())
 
 	if(!M)
 		return
 
-	var/msg = tgui_input_text(usr, "Message:", "Enter the text you wish to appear to your target:")
+	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to your target:")
 	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
@@ -151,17 +113,11 @@
 	log_and_message_admins("<span class='boldnotice'>directly narrated to [key_name_admin(M)]: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Direct Narrate")
 
-/client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
-	set name = "\[Admin\] Headset Message"
-
-	admin_headset_message(M)
+ADMIN_VERB_AND_CONTEXT_MENU(headset_message, R_EVENT, "Headset Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in GLOB.mob_list)
+	user.admin_headset_message(M)
 
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
 	var/mob/living/carbon/human/H = M
-
-	if(!check_rights(R_EVENT))
-		return
-
 	if(!istype(H))
 		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential=TRUE)
 		return
@@ -186,21 +142,15 @@
 
 	SEND_SOUND(H, sound('sound/effects/headset_message.ogg'))
 
-/client/proc/cmd_admin_godmode(mob/mob as mob in GLOB.mob_list)
-	set category = ADMIN_CATEGORY_FUN
-	set name = "Godmode"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB(godmode, R_ADMIN, "Godmode", "Toggles godmode on a mob.", ADMIN_CATEGORY_GAME, mob/mob as mob in GLOB.mob_list)
 	var/had_trait = HAS_TRAIT_FROM(mob, TRAIT_GODMODE, ADMIN_TRAIT)
 	if(had_trait)
 		REMOVE_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
 	else
 		ADD_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
 
-	to_chat(usr, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential=TRUE)
-	log_and_message_admins("has toggled [key_name_admin(mob)]'s nodamage to [had_trait ? "Off" : "On"]")
+	to_chat(user, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential=TRUE)
+	log_and_message_admins("has toggled [ADMIN_LOOKUPFLW(mob)]'s nodamage to [had_trait ? "Off" : "On"]")
 	BLACKBOX_LOG_ADMIN_VERB("Godmode")
 
 /proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
@@ -261,79 +211,60 @@
 	to_chat(M, "You have been [muteunmute] from [mute_string].", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Mute")
 
-/client/proc/cmd_admin_add_random_ai_law()
-	set category = ADMIN_CATEGORY_FUN
-	set name = "Add Random AI Law"
-
-	if(!check_rights(R_EVENT))
+ADMIN_VERB(add_random_ai_law, R_EVENT, "Add Random AI Law", "Add a random law to the AI.", ADMIN_CATEGORY_FUN)
+	var/confirm = tgui_alert(user, "You sure?", "Confirm", list("Yes", "No"))
+	if(confirm != "Yes")
 		return
+	log_admin("[key_name(user)] has added a random AI law.")
+	message_admins("[key_name_admin(user)] has added a random AI law.")
 
-	var/confirm = tgui_alert(src, "You sure?", "Confirm", list("Yes", "No"))
-	if(confirm != "Yes") return
-	log_admin("[key_name(src)] has added a random AI law.")
-	message_admins("[key_name_admin(src)] has added a random AI law.")
-
-	var/show_log = tgui_alert(src, "Show ion message?", "Message", list("Yes", "No"))
+	var/show_log = tgui_alert(user, "Show ion message?", "Message", list("Yes", "No"))
 	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Admin ([key_name(src)]) added random law.", /datum/event/ion_storm)
+	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Admin ([key_name(user)]) added random law.", /datum/event/ion_storm)
 	new /datum/event/ion_storm(EM = meta_info, botEmagChance = 0, announceEvent = announce_ion_laws)
 	BLACKBOX_LOG_ADMIN_VERB("Add Random AI Law")
 
-/client/proc/toggle_antagHUD_use()
-	set category = ADMIN_CATEGORY_TOGGLES
-	set name = "Toggle antagHUD usage"
-	set desc = "Toggles antagHUD usage for observers"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	var/action=""
+ADMIN_VERB(toggle_antaghud_use, R_SERVER, "Toggle antagHUD usage", "Toggles antagHUD usage for observers", ADMIN_CATEGORY_TOGGLES)
+	var/action = ""
 	if(CONFIG_GET(flag/allow_antag_hud))
-		for(var/mob/dead/observer/g in get_ghosts())
+		for(var/mob/dead/observer/g in user.get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = FALSE				// We'll allow them to respawn
 				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD.</span>")
 
 		CONFIG_SET(flag/allow_antag_hud, FALSE)
-		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled.</span>", confidential=TRUE)
+		to_chat(user, "<span class='danger'>AntagHUD usage has been disabled.</span>", confidential=TRUE)
 		action = "disabled"
 	else
-		for(var/mob/dead/observer/g in get_ghosts())
+		for(var/mob/dead/observer/g in user.get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
 				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD.</span>")// Notify all observers they can now use AntagHUD
 
 		CONFIG_SET(flag/allow_antag_hud, TRUE)
 		action = "enabled"
-		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled.</span>", confidential=TRUE)
+		to_chat(user, "<span class='boldnotice'>AntagHUD usage has been enabled.</span>", confidential=TRUE)
 
 	log_and_message_admins("has [action] antagHUD usage for observers")
 
-/client/proc/toggle_antagHUD_restrictions()
-	set category = ADMIN_CATEGORY_TOGGLES
-	set name = "Toggle antagHUD Restrictions"
-	set desc = "Restricts players that have used antagHUD from being able to join this round."
-
-	if(!check_rights(R_SERVER))
-		return
-
-	var/action=""
+ADMIN_VERB(toggle_antaghug_restrictions, R_SERVER, "Toggle antagHUD Restrictions", "Restricts players that have used antagHUD from being able to join this round.", ADMIN_CATEGORY_TOGGLES)
+	var/action = ""
 	if(CONFIG_GET(flag/antag_hud_restricted))
-		for(var/mob/dead/observer/g in get_ghosts())
+		for(var/mob/dead/observer/g in user.get_ghosts())
 			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD.</span>")
 		action = "lifted restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, FALSE)
-		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted.</span>", confidential=TRUE)
+		to_chat(user, "<span class='boldnotice'>AntagHUD restrictions have been lifted.</span>", confidential=TRUE)
 	else
-		for(var/mob/dead/observer/g in get_ghosts())
+		for(var/mob/dead/observer/g in user.get_ghosts())
 			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD.</span>")
 			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions.</span>")
 			g.antagHUD = FALSE
 			g.has_enabled_antagHUD = FALSE
 		action = "placed restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, TRUE)
-		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled.</span>", confidential=TRUE)
+		to_chat(user, "<span class='danger'>AntagHUD restrictions have been enabled.</span>", confidential=TRUE)
 
 	log_and_message_admins("has [action] on joining the round if they use AntagHUD")
 
@@ -342,15 +273,8 @@ If a guy was gibbed and you want to revive him, this is a good way to do so.
 Works kind of like entering the game with a new character. Character receives a new mind if they didn't have one.
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
-/client/proc/respawn_character()
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Respawn Character"
-	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
-
-	if(!check_rights(R_SPAWN))
-		return
-
-	var/input = ckey(tgui_input_text(src, "Please specify which key will be respawned.", "Key", "", encode = FALSE))
+ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player that has been round removed in some manner. They must be a ghost.", ADMIN_CATEGORY_GAME)
+	var/input = ckey(tgui_input_text(user, "Please specify which key will be respawned.", "Key", "", encode = FALSE))
 	if(!input)
 		return
 
@@ -361,23 +285,29 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			break
 
 	if(!G_found)//If a ghost was not found.
-		to_chat(usr, "<span style='color: red;'>There is no active key like that in the game or the person is not currently a ghost.</span>", confidential=TRUE)
+		to_chat(user, "<span style='color: red;'>There is no active key like that in the game or the person is not currently a ghost.</span>", confidential=TRUE)
 		return
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		//Check if they were an alien
 		if(G_found.mind.assigned_role=="Alien")
-			if(tgui_alert(usr, "This character appears to have been an alien. Would you like to respawn them as such?",, list("Yes", "No")) == "Yes")
+			if(tgui_alert(user, "This character appears to have been an alien. Would you like to respawn them as such?",, list("Yes", "No")) == "Yes")
 				var/turf/T
-				if(length(GLOB.xeno_spawn))	T = pick(GLOB.xeno_spawn)
-				else				T = pick(GLOB.latejoin)
+				if(length(GLOB.xeno_spawn))
+					T = pick(GLOB.xeno_spawn)
+				else
+					T = pick(GLOB.latejoin)
 
 				var/mob/living/carbon/alien/new_xeno
 				switch(G_found.mind.special_role)//If they have a mind, we can determine which caste they were.
-					if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
-					if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
-					if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
-					if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen(T)
+					if("Hunter")
+						new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
+					if("Sentinel")
+						new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
+					if("Drone")
+						new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
+					if("Queen")
+						new_xeno = new /mob/living/carbon/alien/humanoid/queen(T)
 					else//If we don't know what special role they have, for whatever reason, or they're a larva.
 						create_xeno(G_found.ckey)
 						return
@@ -476,14 +406,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					new_character = new_character.Robotize()
 					if(new_character.mind.special_role=="traitor")
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
-					SSticker?.score?.save_silicon_laws(new_character, src.mob, additional_info = "admin respawn", log_all_laws = TRUE)
+					SSticker?.score?.save_silicon_laws(new_character, user.mob, additional_info = "admin respawn", log_all_laws = TRUE)
 				if(JOB_TITLE_AI)
 					new_character = new_character.AIize()
 					var/mob/living/silicon/ai/ai_character = new_character
 					ai_character.moveToAILandmark()
 					if(new_character.mind.special_role=="traitor")
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
-					SSticker?.score?.save_silicon_laws(ai_character, src.mob, additional_info = "admin respawn", log_all_laws = TRUE)
+					SSticker?.score?.save_silicon_laws(ai_character, user.mob, additional_info = "admin respawn", log_all_laws = TRUE)
 				//Add aliens.
 				else
 					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
@@ -499,9 +429,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(tgui_alert(new_character,"Would you like an active AI to announce this character?",, list("Yes", "No")) == "Yes")
 				call(/mob/new_player/proc/AnnounceArrival)(new_character, new_character.mind.assigned_role)
 
-	log_and_message_admins("<span class='notice'>has respawned [key_name_admin(G_found)] as [new_character.real_name].</span>")
+	log_and_message_admins(span_notice("has respawned [key_name_admin(G_found)] as [new_character.real_name]."))
 
-	to_chat(new_character, "You have been fully respawned. Enjoy the game.")
+	to_chat(new_character, "You have been fully respawned. Enjoy the game.", confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Respawn Character")
 	return new_character
@@ -511,31 +441,43 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!ckey)
 		var/list/candidates = list()
 		for(var/mob/M in GLOB.player_list)
-			if(M.stat != DEAD)		continue	//we are not dead!
-			if(!(ROLE_ALIEN in M.client.prefs.be_special))	continue	//we don't want to be an alium
-			if(jobban_isbanned(M, "alien") || jobban_isbanned(M, "Syndicate")) continue //we are jobbanned
-			if(M.client.is_afk())	continue	//we are afk
-			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)	continue	//we have a live body we are tied to
+			if(M.stat != DEAD)
+				continue //we are not dead!
+			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+				continue //we don't want to be an alium
+			if(jobban_isbanned(M, "alien") || jobban_isbanned(M, "Syndicate"))
+				continue //we are jobbanned
+			if(M.client.is_afk())
+				continue //we are afk
+			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+				continue //we have a live body we are tied to
 			candidates += M.ckey
 		if(length(candidates))
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
-			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
-	if(!istext(ckey))	return 0
+			to_chat(usr, span_red("Error: create_xeno(): no suitable candidates."), confidential=TRUE)
+	if(!istext(ckey))
+		return 0
 
 	var/alien_caste = tgui_input_list(usr, "Please choose which caste to spawn.", "Pick a caste", list("Queen", "Hunter", "Sentinel", "Drone", "Larva"), null)
 	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)
-		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
-		if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
-		if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
-		if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
-		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
-		else			return 0
+		if("Queen")
+			new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
+		if("Hunter")
+			new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
+		if("Sentinel")
+			new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
+		if("Drone")
+			new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
+		if("Larva")
+			new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
+		else
+			return 0
 
 	new_xeno.possess_by_player(ckey)
-	log_and_message_admins("<span class='notice'>has spawned [ckey] as a filthy xeno [alien_caste].</span>")
+	log_and_message_admins(span_notice("has spawned [ckey] as a filthy xeno [alien_caste]."))
 	return 1
 
 /client/proc/get_ghosts(notify = 0, what = 2)
@@ -544,11 +486,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/list/mobs = list()
 	var/list/ghosts = list()
-	var/list/sortmob = sortAtom(GLOB.mob_list)                           // get the mob list.
+	var/list/sortmob = sortAtom(GLOB.mob_list) // get the mob list.
 	var/any=0
 	for(var/mob/dead/observer/M in sortmob)
-		mobs.Add(M)                                             //filter it where it's only ghosts
-		any = 1                                                 //if no ghosts show up, any will just be 0
+		mobs.Add(M) //filter it where it's only ghosts
+		any = 1 //if no ghosts show up, any will just be 0
 	if(!any)
 		if(notify)
 			to_chat(src, "There doesn't appear to be any ghosts for you to select.", confidential=TRUE)
@@ -556,71 +498,50 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	for(var/mob/M in mobs)
 		var/name = M.name
-		ghosts[name] = M                                        //get the name of the mob for the popup list
+		ghosts[name] = M //get the name of the mob for the popup list
 	if(what==1)
 		return ghosts
 	else
 		return mobs
 
-/client/proc/cmd_admin_add_freeform_ai_law()
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Add Custom AI law"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	var/input = tgui_input_text(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "", encode = FALSE)
+ADMIN_VERB(cmd_admin_add_freeform_ai_law, R_EVENT, "Add Custom AI Law", "Add a custom law to the Silicons.", ADMIN_CATEGORY_EVENTS)
+	var/input = tgui_input_text(user, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "", encode = FALSE)
 	if(!input)
 		return
 
-	log_admin("Admin [key_name(usr)] has added a new AI law - [input]")
-	message_admins("Admin [key_name_admin(usr)] has added a new AI law - [input]")
+	log_admin("Admin [key_name(user)] has added a new AI law - [input]")
+	message_admins("Admin [key_name_admin(user)] has added a new AI law - [input]")
 
-	var/show_log = tgui_alert(src, "Show ion message?", "Message", list("Yes", "No"))
+	var/show_log = tgui_alert(user, "Show ion message?", "Message", list("Yes", "No"))
 	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Admin ([key_name(src)]) added freeform law.", /datum/event/ion_storm)
+	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Admin ([key_name(user)]) added freeform law.", /datum/event/ion_storm)
 	new /datum/event/ion_storm(EM = meta_info, botEmagChance = 0, announceEvent = announce_ion_laws, ionMessage = input)
 
 	BLACKBOX_LOG_ADMIN_VERB("Add Custom AI Law")
 
-/client/proc/cmd_admin_rejuvenate(mob/living/M as mob in GLOB.mob_list)
-	set name = "\[Admin\] Rejuvenate"
-
-	if(!check_rights(R_REJUVINATE))
-		return
-
-	if(!mob)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "Rejuvenate", mob/living/M as mob in GLOB.mob_list)
+	if(!user.mob)
 		return
 	if(!istype(M))
-		tgui_alert(usr, "Cannot revive a ghost")
+		tgui_alert(user, "Cannot revive a ghost")
 		return
 	M.revive()
 
-	log_and_message_admins("<span class='warning'>healed / revived [key_name_admin(M)]!</span>")
+	log_and_message_admins(span_warning("healed / revived [key_name_admin(M)]!"))
 	BLACKBOX_LOG_ADMIN_VERB("Rejuvenate")
 
-/client/proc/cmd_admin_offer_control(mob/M as mob in GLOB.mob_list)
-	set name = "\[Admin\] Offer control to ghosts"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(!mob)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_offer_control, R_ADMIN, "Offer control to ghosts", mob/M as mob in GLOB.mob_list)
+	if(!user.mob)
 		return
 	if(!istype(M))
-		tgui_alert(src, "This can only be used on instances of type /mob")
+		tgui_alert(user, "This can only be used on instances of type /mob")
 		return
 	offer_control(M)
 
 #define CUSTOM_MESSAGE_TYPE "Свой тип."
-/client/proc/cmd_admin_create_centcom_report()
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Create Communications Report"
 
-	if(!check_rights(R_SERVER|R_EVENT))
-		return
-
+ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communications Report", "Send an IC announcement to the game world.", ADMIN_CATEGORY_EVENTS)
 	//the stuff on the list is |"report type" = "report title"|, if that makes any sense
 	var/list/message_type = list(
 		"Сообщение Центрального командования." = "Обновление \"Нанотрейзен\".",
@@ -637,21 +558,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg'
 	)
 
-	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")
+	var/type = tgui_input_list(user, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")
 
 	if(type == CUSTOM_MESSAGE_TYPE)
-		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
+		type = tgui_input_text(user, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
-	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", message_type[type], encode = FALSE)
+	var/subtitle = tgui_input_text(user, "Введите заголовок сообщения.", "Заголовок", message_type[type], encode = FALSE)
 	if(!subtitle)
 		return
-	var/input_message = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
+	var/input_message = tgui_input_text(user, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
 	if(!input_message)
 		return
 
-	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да", "Нет", "Отмена")))
+	switch(tgui_alert(user, "Должно ли это быть объявлено всем?", null, list("Да", "Нет", "Отмена")))
 		if("Да")
-			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", message_sound)
+			var/beepsound = tgui_input_list(user, "Какой звук должен издавать анонс?", "Звук анонса", message_sound)
 			GLOB.major_announcement.announce(
 				message = input_message,
 				new_title = type,
@@ -666,19 +587,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			return
 
-	log_admin("[key_name(src)] has created a communications report: [input_message]")
-	message_admins("[key_name_admin(src)] has created a communications report")
+	log_admin("[key_name(user)] has created a communications report: [input_message]")
+	message_admins("[key_name_admin(user)] has created a communications report")
 	BLACKBOX_LOG_ADMIN_VERB("Create Comms Report")
 
 #undef CUSTOM_MESSAGE_TYPE
 
-/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
-	set name = "\[Admin\] Delete"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	admin_delete(A)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_delete, R_ADMIN, "Delete", atom/A as obj|mob|turf in view())
+	user.admin_delete(A)
 
 /client/proc/admin_delete(datum/D)
 	if(istype(D) && !D.can_vv_delete())
@@ -708,140 +624,105 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(!QDELETED(D))
 				vv_update_display(D, "deleted", "")
 
-/client/proc/cmd_admin_list_open_jobs()
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "List free slots"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station jobs.", ADMIN_CATEGORY_MAIN)
 	if(SSjobs)
 		var/currentpositiontally
 		var/totalpositiontally
-		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b></span>", confidential=TRUE)
+		to_chat(user, span_notice("Job Name: Filled job slot / Total job slots <b>(Free job slots)</b>"), confidential=TRUE)
 		for(var/datum/job/job in SSjobs.occupations)
-			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
+			to_chat(user, span_notice("[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
-			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
+			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b>"))
 			if(job.total_positions != -1) // Only count position that isn't unlimited
 				currentpositiontally += job.current_positions
 				totalpositiontally += job.total_positions
-		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential=TRUE)
+		to_chat(user, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("List Free Slots")
 
-/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view(maxview()))
-	set category = ADMIN_CATEGORY_FUN
-	set name = "Explosion"
-
-	if(!check_rights(R_DEBUG|R_EVENT))
+ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/O as obj|mob|turf)
+	var/devastation = tgui_input_number(user, "Range of total devastation. -1 to none", "Input")
+	if(devastation == null)
 		return
-
-	var/devastation = tgui_input_number(usr, "Range of total devastation. -1 to none", "Input")
-	if(devastation == null) return
-	var/heavy = tgui_input_number(usr, "Range of heavy impact. -1 to none", "Input")
-	if(heavy == null) return
-	var/light = tgui_input_number(usr, "Range of light impact. -1 to none", "Input")
-	if(light == null) return
-	var/flash = tgui_input_number(usr, "Range of flash. -1 to none", "Input")
-	if(flash == null) return
-	var/flames = tgui_input_number(usr, "Range of flames. -1 to none", "Input")
-	if(flames == null) return
+	var/heavy = tgui_input_number(user, "Range of heavy impact. -1 to none", "Input")
+	if(heavy == null)
+		return
+	var/light = tgui_input_number(user, "Range of light impact. -1 to none", "Input")
+	if(light == null)
+		return
+	var/flash = tgui_input_number(user, "Range of flash. -1 to none", "Input")
+	if(flash == null)
+		return
+	var/flames = tgui_input_number(user, "Range of flames. -1 to none", "Input")
+	if(flames == null)
+		return
 
 	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
 		if((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
-			if(tgui_alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", list("Yes", "No")) == "No")
+			if(tgui_alert(user, "Are you sure you want to do this? It will laaag.", "Confirmation", list("Yes", "No")) == "No")
 				return
 
 		explosion(O, devastation_range = devastation, heavy_impact_range = heavy, light_impact_range = light, flash_range = flash, adminlog = null, ignorecap = null, flame_range = flames)
 		log_and_message_admins("created an explosion ([devastation],[heavy],[light],[flames]) at [COORD(O)]")
-		BLACKBOX_LOG_ADMIN_VERB("EXPL")
+		BLACKBOX_LOG_ADMIN_VERB("Explosion")
 		return
 	else
 		return
 
-/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view(maxview()))
-	set category = ADMIN_CATEGORY_FUN
-	set name = "EM Pulse"
-
-	if(!check_rights(R_DEBUG|R_EVENT))
+ADMIN_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", "Cause an electromagnetic pulse.", ADMIN_CATEGORY_FUN, atom/orignator as obj|mob|turf)
+	var/heavy = tgui_input_number(user, "Range of heavy pulse.", "Input")
+	if(heavy == null)
 		return
-
-	var/heavy = tgui_input_number(usr, "Range of heavy pulse.", "Input")
-	if(heavy == null) return
-	var/light = tgui_input_number(usr, "Range of light pulse.", "Input")
-	if(light == null) return
+	var/light = tgui_input_number(user, "Range of light pulse.", "Input")
+	if(light == null)
+		return
 
 	if(heavy || light)
+		empulse(orignator, heavy, light)
+		log_admin("[key_name(user)] created an EM Pulse ([heavy],[light]) at [AREACOORD(orignator)]")
+		message_admins("[key_name_admin(user)] created an EM Pulse ([heavy],[light]) at [AREACOORD(orignator)]")
+		BLACKBOX_LOG_ADMIN_VERB("EM Pulse")
 
-		empulse(O, heavy, light)
-		log_and_message_admins("created an EM pulse ([heavy], [light]) at [COORD(O)]")
-		BLACKBOX_LOG_ADMIN_VERB("EMP")
-
+ADMIN_VERB(gib_them, R_ADMIN|R_EVENT, "Gib", "Gibs a chosen mob.", ADMIN_CATEGORY_FUN, mob/M as mob in GLOB.mob_list)
+	var/confirm = tgui_alert(user, "You sure?", "Confirm", list("Yes", "No"))
+	if(confirm != "Yes")
 		return
-	else
-		return
-
-/client/proc/cmd_admin_gib(mob/M as mob in GLOB.mob_list)
-	set category = ADMIN_CATEGORY_FUN
-	set name = "Gib"
-
-	if(!check_rights(R_ADMIN|R_EVENT))
-		return
-
-	var/confirm = tgui_alert(src, "You sure?", "Confirm", list("Yes", "No"))
-	if(confirm != "Yes") return
 	//Due to the delay here its easy for something to have happened to the mob
-	if(!M)	return
+	if(!M)
+		return
 
 	log_and_message_admins("has gibbed [key_name_admin(M)]")
 
-	if(istype(M, /mob/dead/observer))
+	if(isobserver(M))
 		gibs(M.loc)
 		return
 
 	M.gib()
 	BLACKBOX_LOG_ADMIN_VERB("Gib")
 
-/client/proc/cmd_admin_gib_self()
-	set name = "Gibself"
-	set category = ADMIN_CATEGORY_FUN
-
-	if(!check_rights(R_ADMIN|R_EVENT))
+ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatment you give others.", ADMIN_CATEGORY_FUN)
+	var/confirm = tgui_alert(user, "You sure?", "Confirm", list("Yes", "No"))
+	if(confirm != "Yes")
 		return
 
-	var/confirm = tgui_alert(src, "You sure?", "Confirm", list("Yes", "No"))
-	if(confirm == "Yes")
-		if(istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
-			return
-		else
-			mob.gib()
+	var/mob/living/ourself = user.mob
+	if(istype(ourself))
+		ourself.gib()
 
-		log_and_message_admins("<span class='notice'>used gibself.</span>")
-		BLACKBOX_LOG_ADMIN_VERB("Gibself")
+	log_admin("[key_name(user)] used gibself.")
+	message_admins(span_adminnotice("[key_name_admin(user)] used gibself."))
+	BLACKBOX_LOG_ADMIN_VERB("Gib Self")
 
-/client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
-	set name = "\[Admin\] Check Contents"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB_AND_CONTEXT_MENU(admin_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/M as mob in GLOB.mob_list)
 	var/list/L = M.get_contents()
 	for(var/atom/t in L)
-		to_chat(usr, "[t] [ADMIN_VV(t,"VV")] ", confidential=TRUE)
+		to_chat(user, "[t] [ADMIN_VV(t,"VV")]", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
-/client/proc/toggle_view_range()
-	set category = ADMIN_CATEGORY_TOGGLES
-	set name = "Change View Range"
-	set desc = "switches between 1x and custom views"
+ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)
+	var/client_view = user.prefs.viewrange
 
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/client_view = prefs.viewrange
-
-	if(view == client_view)
-		var/input = tgui_input_list(usr, "Select view range:", "View Range", list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"MAX"), 7)
+	if(user.view == client_view)
+		var/input = tgui_input_list(user, "Select view range:", "View Range", list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"MAX"), 7)
 		if(!input)
 			return
 
@@ -862,31 +743,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/rounded_x = round(view_y * aspect_ratio)
 			view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
 
-		view = "[view_x]x[view_y]"
-
+		user.view = "[view_x]x[view_y]"
 	else
-		view = client_view
+		user.view = client_view
 
-	fit_viewport()
+	user.fit_viewport()
 
-	log_admin("[key_name(usr)] changed their view range to [view].")
+	log_admin("[key_name(user)] changed their view range to [user.view].")
 	BLACKBOX_LOG_ADMIN_VERB("Change View Range")
 
-/client/proc/admin_call_shuttle()
-
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Call Shuttle"
-
+ADMIN_VERB(call_shuttle, R_ADMIN, "Call Shuttle", "Force a shuttle call with additional modifiers.", ADMIN_CATEGORY_SHUTTLE)
 	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/confirm = tgui_alert(src, "You sure?", "Confirm", list("Yes", "No"))
+	var/confirm = tgui_alert(user, "You sure?", "Confirm", list("Yes", "No"))
 	if(confirm != "Yes") return
 
-	if(tgui_alert(usr, "Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", list("Yes", "No")) == "Yes")
+	if(tgui_alert(user, "Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", list("Yes", "No")) == "Yes")
 		SSshuttle.emergency.canRecall = TRUE
 	else
 		SSshuttle.emergency.canRecall = FALSE
@@ -897,28 +770,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSshuttle.emergency.request()
 
 	BLACKBOX_LOG_ADMIN_VERB("Call Shuttle")
-	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-called the emergency shuttle.</span>")
-	return
+	log_admin("[key_name(user)] admin-called the emergency shuttle.")
+	message_admins("<span class='adminnotice'>[key_name_admin(user)] admin-called the emergency shuttle.</span>")
 
-/client/proc/admin_cancel_shuttle()
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Cancel Shuttle"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(tgui_alert(src, "You sure?", "Confirm", list("Yes", "No")) != "Yes")
+ADMIN_VERB(cancel_shuttle, R_ADMIN, "Cancel Shuttle", "Recall the shuttle, regardless of circumstances.", ADMIN_CATEGORY_SHUTTLE)
+	if(tgui_alert(user, "You sure?", "Confirm", list("Yes", "No")) != "Yes")
 		return
 
 	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 
 	if(SSshuttle.emergency.canRecall == FALSE)
-		if(tgui_alert(usr, "Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", list("Yes", "No")) == "Yes")
+		if(tgui_alert(user, "Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", list("Yes", "No")) == "Yes")
 			return
 		else
-			var/keepStatus = tgui_alert(usr, "Maintain recall status on future shuttle calls?", "Maintain Status?", list("Yes", "No")) == "Yes" //Keeps or drops recallability
+			var/keepStatus = tgui_alert(user, "Maintain recall status on future shuttle calls?", "Maintain Status?", list("Yes", "No")) == "Yes" //Keeps or drops recallability
 			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
 			SSshuttle.emergency.cancel()
 			if(keepStatus)
@@ -927,25 +793,18 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSshuttle.emergency.cancel()
 
 	BLACKBOX_LOG_ADMIN_VERB("Cancel Shuttle")
-	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
-	return
+	log_admin("[key_name(user)] admin-recalled the emergency shuttle.")
+	message_admins("<span class='adminnotice'>[key_name_admin(user)] admin-recalled the emergency shuttle.</span>")
 
-/client/proc/toggle_pacifism_gt()
-	set name = "Toggle Pacifism After Greentext"
-	set category = ADMIN_CATEGORY_TOGGLES
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB(toggle_pacifism_gt, R_ADMIN, "Toggle Pacifism After Greentext", "Toggle Pacifism After Greentext.", ADMIN_CATEGORY_TOGGLES)
 	if(SSticker.current_state == GAME_STATE_FINISHED)
 		if(GLOB.pacifism_after_gt)
-			if(tgui_alert(src, "Вы готовы убрать пацифизм у всех?",, list("Да", "Нет")) == "Нет")
+			if(tgui_alert(user, "Вы готовы убрать пацифизм у всех?",, list("Да", "Нет")) == "Нет")
 				return
 			GLOB.pacifism_after_gt = FALSE
 			log_and_message_admins("removed pacifism from all mobs.")
 		else
-			if(tgui_alert(src, "Вы хотите вернуть пацифизм всем?",, list("Да", "Нет")) == "Нет")
+			if(tgui_alert(user, "Вы хотите вернуть пацифизм всем?",, list("Да", "Нет")) == "Нет")
 				return
 			GLOB.pacifism_after_gt = TRUE
 			log_and_message_admins("added pacifism to all mobs.")
@@ -956,105 +815,72 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Pacifism")
 
-/client/proc/toogle_ghost_vision()
-	set name = "Toggle Ghost Vision After Greentext"
-	set category = ADMIN_CATEGORY_TOGGLES
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB(toggle_ghost_vision, R_ADMIN, "Toggle Ghost Vision After Greentext", "Toggle Ghost Vision after greentext.", ADMIN_CATEGORY_TOGGLES)
 	if(SSticker.current_state == GAME_STATE_FINISHED)
 		if(!GLOB.observer_default_invisibility)
-			if(tgui_alert(src, "Вы хотите выключить видимость призраков?",, list("Да", "Нет")) == "Нет")
+			if(tgui_alert(user, "Вы хотите выключить видимость призраков?",, list("Да", "Нет")) == "Нет")
 				return
 			set_observer_default_invisibility(INVISIBILITY_OBSERVER)
 			log_and_message_admins("Ghosts are no longer visible.")
 		else
-			if(tgui_alert(src, "Вы хотите включить видимость призраков?",, list("Да", "Нет")) == "Нет")
+			if(tgui_alert(user, "Вы хотите включить видимость призраков?",, list("Да", "Нет")) == "Нет")
 				return
-			set_observer_default_invisibility(0)
+			set_observer_default_invisibility(INVISIBILITY_NONE)
 			log_and_message_admins("Ghosts are now visible.")
 	else
-		SSticker.toogle_gv = (SSticker.toogle_gv) ? FALSE : TRUE
-		log_and_message_admins("toggled ghost vision after greentext in [(SSticker.toogle_gv) ? "On" : "Off"].")
+		SSticker.toggle_gv = (SSticker.toggle_gv) ? FALSE : TRUE
+		log_and_message_admins("toggled ghost vision after greentext in [(SSticker.toggle_gv) ? "On" : "Off"].")
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Ghost Vision")
 
-/client/proc/everyone_random()
-	set category = ADMIN_CATEGORY_FUN
-	set name = "Make Everyone Random"
-	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
-
-	if(!check_rights(R_SERVER|R_EVENT))
-		return
-
-	if(SSticker?.mode)
-		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!", confidential=TRUE)
+ADMIN_VERB(everyone_random, R_SERVER|R_EVENT, "Make Everyone Random", "Make everyone have a random appearance. You can only use this before rounds!", ADMIN_CATEGORY_FUN)
+	if(SSticker.HasRoundStarted())
+		to_chat(user, "Nope you can't do this, the game's already started. This only works before rounds!", confidential=TRUE)
 		return
 
 	if(SSticker.random_players)
 		SSticker.random_players = 0
-		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.")
-		to_chat(usr, "Disabled.", confidential=TRUE)
+		message_admins("Admin [key_name_admin(user)] has disabled \"Everyone is Special\" mode.")
+		to_chat(user, "Disabled.", confidential=TRUE)
 		return
 
-	var/notifyplayers = tgui_alert(src, "Do you want to notify the players?", "Options", list("Yes", "No", "Cancel"))
+	var/notifyplayers = tgui_alert(user, "Do you want to notify the players?", "Options", list("Yes", "No", "Cancel"))
 	if(notifyplayers == "Cancel")
 		return
 
 	log_and_message_admins("has forced the players to have random appearances.")
 
 	if(notifyplayers == "Yes")
-		to_chat(world, "<span class='notice'><b>Admin [usr.key] has forced the players to have completely random identities!</span>")
+		to_chat(world, span_adminnotice("Admin [user.key] has forced the players to have completely random identities!"), confidential = TRUE)
 
-	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.", confidential=TRUE)
+	to_chat(user, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.", confidential=TRUE)
 
 	SSticker.random_players = 1
 	BLACKBOX_LOG_ADMIN_VERB("Make Everyone Random")
 
-/client/proc/toggle_random_events()
-	set category = ADMIN_CATEGORY_TOGGLES
-	set name = "Toggle random events on/off"
-
-	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
-	if(!check_rights(R_SERVER|R_EVENT))
-		return
-
+ADMIN_VERB(toggle_random_events, R_SERVER|R_EVENT, "Toggle Random Events", "Toggles random events on or off.", ADMIN_CATEGORY_TOGGLES)
 	if(!CONFIG_GET(flag/allow_random_events))
 		CONFIG_SET(flag/allow_random_events, TRUE)
-		to_chat(usr, "Random events enabled", confidential=TRUE)
+		to_chat(user, "Random events enabled", confidential=TRUE)
 		log_and_message_admins("has enabled random events.")
 	else
 		CONFIG_SET(flag/allow_random_events, FALSE)
-		to_chat(usr, "Random events disabled", confidential=TRUE)
+		to_chat(user, "Random events disabled", confidential=TRUE)
 		log_and_message_admins("has disabled random events.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Random Events")
 
-/client/proc/reset_all_tcs()
-	set category = ADMIN_CATEGORY_DEBUG
-	set name = "Reset NTTC Configuration"
-	set desc = "Resets NTTC to the default configuration."
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/confirm = tgui_alert(src, "You sure you want to reset NTTC?", "Confirm", list("Yes", "No"))
+ADMIN_VERB(reset_telecoms, R_ADMIN, "Reset NTTC Configuration", "Resets NTTC to the default configuration.", ADMIN_CATEGORY_GAME)
+	var/confirm = tgui_alert(user, "You sure you want to reset NTTC?", "Confirm", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
 
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		C.nttc.reset()
 
-	log_admin("[key_name(usr)] reset NTTC scripts.")
-	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
+	log_admin("[key_name(user)] reset NTTC scripts.")
+	message_admins("[key_name_admin(user)] reset NTTC scripts.")
 	BLACKBOX_LOG_ADMIN_VERB("Reset NTTC Configuration")
 
-/client/proc/list_ssds_afks()
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "List SSDs and AFKs"
-	set desc = "Lists SSD and AFK players"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+ADMIN_VERB(list_ssds_afks, R_ADMIN, "List SSDs and AFKs", "List SSDs and AFK players", ADMIN_CATEGORY_GAME)
 	/* ======== SSD Section ========= */
 	var/msg = ""
 	msg += "SSD Players:<br><table border='1'>"
@@ -1138,39 +964,24 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</a></td>"
 		msg += "</tr>"
 	msg += "</table>"
-	var/datum/browser/popup = new(src, "player_ssd_afk_check", "SSD & AFK Report", 600, 300)
+	var/datum/browser/popup = new(user, "player_ssd_afk_check", "SSD & AFK Report", 600, 300)
 	popup.set_content(msg)
 	popup.open(FALSE)
 
-/client/proc/toggle_ert_calling()
-	set category = ADMIN_CATEGORY_TOGGLES
-	set name = "Toggle ERT"
-
-	set desc = "Toggle the station's ability to call a response team."
-	if(!check_rights(R_EVENT))
-		return
-
+ADMIN_VERB(toggle_ert_calling, R_EVENT, "Toggle ERT", "Toggle the station's ability to call a response team.", ADMIN_CATEGORY_TOGGLES)
 	if(SSticker.mode.ert_disabled)
 		SSticker.mode.ert_disabled = 0
-		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>", confidential=TRUE)
-		log_admin("Admin [key_name(src)] has enabled ERT calling.")
+		to_chat(user, span_notice("ERT has been <b>Enabled</b>."), confidential=TRUE)
+		log_admin("Admin [key_name(user)] has enabled ERT calling.")
 		log_and_message_admins("has enabled ERT calling.")
 	else
 		SSticker.mode.ert_disabled = 1
-		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>", confidential=TRUE)
-		log_admin("Admin [key_name(src)] has disabled ERT calling.")
+		to_chat(user, span_warning("ERT has been <b>Disabled</b>."), confidential=TRUE)
+		log_admin("Admin [key_name(user)] has disabled ERT calling.")
 		log_and_message_admins("has disabled ERT calling.")
 
-/client/proc/show_tip()
-	set category = ADMIN_CATEGORY_FUN
-	set name = "Show Custom Tip"
-	set desc = "Sends a tip (that you specify) to all players. After all \
-		you're the experienced player here."
-
-	if(!check_rights(R_EVENT))
-		return
-
-	var/input = tgui_input_text(usr, "Please specify your tip that you want to send to the players.", "Tip", "", encode = FALSE, multiline = TRUE)
+ADMIN_VERB(show_tip, R_EVENT, "Show Tip", "Sends a tip to all players.", ADMIN_CATEGORY_FUN)
+	var/input = tgui_input_text(user, "Please specify your tip that you want to send to the players.", "Tip", "", encode = FALSE, multiline = TRUE)
 	if(!input)
 		return
 
@@ -1183,17 +994,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSticker.tipped)
 		SSticker.send_tip_of_the_round()
 
-	message_admins("[key_name_admin(usr)] sent a Tip of the round.")
-	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
+	message_admins("[key_name_admin(user)] sent a Tip of the round.")
+	log_admin("[key_name(user)] sent \"[input]\" as the Tip of the Round.")
+	BLACKBOX_LOG_ADMIN_VERB("Show Tip")
 
-/client/proc/modify_goals()
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Modify Station Goals"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	holder.modify_goals()
+ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for the shift.", ADMIN_CATEGORY_EVENTS)
+	user.holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
 	if(!SSticker || !SSticker.mode)
@@ -1252,36 +1058,25 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						return
 			REMOVE_TRAIT(D, chosen_trait, source)
 
-/client/proc/cmd_change_command_name()
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Change Command Name"
-
-	if(!check_rights(R_ADMIN | R_EVENT))
-		return
-
-	var/input = tgui_input_text(usr, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)
+ADMIN_VERB(change_command_name, R_ADMIN|R_EVENT, "Change Command Name", "Change the name of Central Command.", ADMIN_CATEGORY_EVENTS)
+	var/input = tgui_input_text(user, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)
 	if(!input)
 		return
 	change_command_name(input)
 	log_and_message_admins("has changed Central Command's name to [input]")
 
-/client/proc/polymorph_all()
-	set category = ADMIN_CATEGORY_EVENTS
-	set name = "Polymorph All"
-	set desc = "Applies the effects of the bolt of change to every single mob."
-
-	if(!holder)
-		return
-
-	var/confirm = tgui_alert(src, "Пожалуйста, подтвердите, что вы хотите полиморфировать всех?", "Подтверждение", list("Да", "Нет"))
+ADMIN_VERB(polymorph_all, R_ADMIN, "Polymorph All", "Applies the effects of the bolt of change to every single mob.", ADMIN_CATEGORY_FUN)
+	var/confirm = tgui_alert(user, "Пожалуйста, подтвердите, что вы хотите полиморфировать всех?", "Подтверждение", list("Да", "Нет"))
 	if(confirm != "Да")
 		return
 
-	var/keep_name = tgui_alert(src, "Вы хотите, чтобы существа сохранили свои имена?", "Сохранить имена?", list("Да", "Нет"))
+	var/keep_name = tgui_alert(user, "Вы хотите, чтобы существа сохранили свои имена?", "Сохранить имена?", list("Да", "Нет"))
 
 	var/list/mobs = shuffle(GLOB.alive_player_list.Copy()) // might change while iterating
+	var/who_did_it = key_name_admin(user)
 
 	log_and_message_admins("polymorphed ALL living mobs.")
+	BLACKBOX_LOG_ADMIN_VERB("Polymorph All")
 
 	for(var/mob/living/M in mobs)
 		CHECK_TICK
@@ -1289,7 +1084,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(!M || !M.name || !M.real_name)
 			continue
 
-		M.audible_message(span_italics("...ваббаджек...ваббаджек..."))
+		M.audible_message(span_hear("...ваббаджек...ваббаджек..."))
 		playsound(M.loc, 'sound/magic/Staff_Change.ogg', 50, TRUE, -1)
 		var/name = M.name
 		var/real_name = M.real_name
@@ -1299,3 +1094,4 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new_mob.name = name
 			new_mob.real_name = real_name
 
+	message_admins("Mass polymorph started by [who_did_it] is complete.")

@@ -88,7 +88,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 	switch(action)
 		if("pp")
 			var/mob/M = request.owner?.mob
-			usr.client.holder.show_player_panel(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, M)
 			return TRUE
 		if("vv")
 			var/mob/M = request.owner?.mob
@@ -96,35 +96,35 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			return TRUE
 		if("sm")
 			var/mob/M = request.owner?.mob
-			usr.client.cmd_admin_subtle_message(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, M)
 			return TRUE
 		if("tp")
 			if(!SSticker.HasRoundStarted())
 				tgui_alert(usr, "The game hasn't started yet!")
 				return TRUE
 			var/mob/M = request.owner?.mob
-			usr.client.holder.show_traitor_panel(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_traitor_panel, M)
 			return TRUE
 		if("logs")
 			var/mob/M = request.owner?.mob
 			if(!ismob(M))
 				to_chat(usr, "This can only be used on instances of type /mob.")
 				return TRUE
-			usr.client.open_logging_view(list(M), TRUE)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, list(M), TRUE)
 			return TRUE
 		if("bless")
 			if(!check_rights(R_EVENT))
 				to_chat(usr, "Insufficient permissions to bless, you require +EVENT")
 				return TRUE
 			var/mob/living/M = request.owner?.mob
-			usr.client.bless(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bless, M)
 			return TRUE
 		if("smite")
 			if(!check_rights(R_EVENT))
 				to_chat(usr, "Insufficient permissions to smite, you require +EVENT")
 				return TRUE
 			var/mob/living/M = request.owner?.mob
-			usr.client.smite(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, M)
 			return TRUE
 		if("rply")
 			if(request.req_type == REQUEST_PRAYER)
@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				to_chat(usr, span_notice("You sent [reason] to [H] via a secure channel."))
 				to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
 			else
-				usr.client.response_team()
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/dispatch_ert)
 
 		if("getcode")
 			if(request.req_type != REQUEST_NUKE)

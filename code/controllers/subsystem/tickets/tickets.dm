@@ -285,7 +285,7 @@ SUBSYSTEM_DEF(tickets)
 			if(!closeTicket(N))
 				to_chat(C, "Невозможно закрыть тикет.", confidential=TRUE)
 		if("Мужайся")
-			C.man_up(returnClient(N))
+			SSadmin_verbs.dynamic_invoke_verb(C, /datum/admin_verb/man_up, returnClient(N))
 			T.lastStaffResponse = "Автоматический ответ: [message_key]"
 			resolveTicket(N)
 			message_staff("[C] отправил автоматический ответ на тикет [ticket_owner] сообщением:[span_adminticketalt(" [message_key]")]")
@@ -712,9 +712,9 @@ SUBSYSTEM_DEF(tickets)
 
 	if(href_list["resolveall"])
 		if(ticket_system_name == MENTORHELP_SYSTEM_NAME)
-			usr.client.resolveAllMentorTickets()
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/resolve_all_mentor_tickets)
 		else
-			usr.client.resolveAllAdminTickets()
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/resolve_all_admin_tickets)
 
 	if(href_list["close"])
 		onCloseDetailUI(usr)

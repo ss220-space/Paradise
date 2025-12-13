@@ -97,7 +97,6 @@
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
-	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
 	var/devil_on_shuttle = FALSE
 
 /obj/docking_port/mobile/emergency/register()
@@ -303,7 +302,7 @@
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
 				var/destination_dock = "emergency_away"
-				if(is_hijacked() || forceHijacked)
+				if(is_hijacked())
 					destination_dock = "emergency_syndicate"
 					GLOB.major_announcement.announce(
 						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",

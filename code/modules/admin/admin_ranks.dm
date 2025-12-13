@@ -65,9 +65,9 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		return
 	//clear the datums references
 	GLOB.admin_datums.Cut()
-	for(var/client/C in GLOB.admins)
-		C.hide_verbs()
-		C.holder = null
+	for(var/client/client in GLOB.admins)
+		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/hide_verbs)
+		client.holder = null
 	GLOB.admins.Cut()
 
 	// Remove all profiler access
@@ -81,16 +81,20 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 		//process each line seperately
 		for(var/line in Lines)
-			if(!length(line))				continue
-			if(copytext(line,1,2) == "#")	continue
+			if(!length(line))
+				continue
+			if(copytext(line,1,2) == "#")
+				continue
 
 			//Split the line at every "-"
 			var/list/List = splittext(line, "-")
-			if(!length(List))					continue
+			if(!length(List))
+				continue
 
 			//ckey is before the first "-"
 			var/ckey = ckey(List[1])
-			if(!ckey)						continue
+			if(!ckey)
+				continue
 
 			//rank follows the first "-"
 			var/rank = ""
@@ -125,7 +129,8 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		while(query.NextRow())
 			var/ckey = query.item[1]
 			var/rank = query.item[2]
-			if(rank == DELETED_RANK)	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
+			if(rank == DELETED_RANK) // This person was de-adminned. They are only in the admin list for archive purposes.
+				continue
 
 			var/rights = query.item[4]
 			if(istext(rights))	rights = text2num(rights)

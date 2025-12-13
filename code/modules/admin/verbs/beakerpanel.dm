@@ -91,13 +91,6 @@
 
 	return grenade
 
-/client/proc/beaker_panel()
-	set name = "Spawn Reagent Container"
-	set desc = "Spawn a reagent container."
-	set category = ADMIN_CATEGORY_EVENTS
-
-	if(!check_rights(R_SPAWN))
-		return
-
+ADMIN_VERB(beaker_panel, R_SPAWN, "Spawn Reagent Container", "Spawn a reagent container.", ADMIN_CATEGORY_EVENTS)
 	var/datum/beaker_panel/panel = new
-	panel.ui_interact(usr)
+	panel.ui_interact(user.mob)
