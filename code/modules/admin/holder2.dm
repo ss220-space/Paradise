@@ -10,22 +10,19 @@ GLOBAL_PROTECT(href_token)
 		. += "[rand(10)]"
 
 /datum/admins
-	var/rank			= "Temporary Admin"
-	var/client/owner	= null
+	var/rank = "Temporary Admin"
+	var/client/owner = null
+	/// Bitflag containing the current rights this admin holder is assigned to
 	var/rights = 0
-	var/fakekey			= null
-	var/big_brother		= 0
-
+	var/fakekey = null
+	var/big_brother = 0
+	/// Was this auto-created for someone connecting from localhost?
+	var/is_localhost_autoadmin = FALSE
 	/// Unique-to-session randomly generated token given to each admin to help add detail to logs on admin interactions with hrefs
 	var/href_token
-
+	/// Our currently linked marked datum
 	var/datum/marked_datum
-
-	var/admincaster_screen = 0	//See newscaster.dm under machinery for a full description
-	var/datum/feed_message/admincaster_feed_message = new /datum/feed_message   //These two will act as holders.
-	var/datum/feed_channel/admincaster_feed_channel = new /datum/feed_channel
-	var/admincaster_signature	//What you'll sign the newsfeeds as
-
+	/// Tabs of secrets
 	var/current_tab = 0
 
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
@@ -37,7 +34,6 @@ GLOBAL_PROTECT(href_token)
 		error("Admin datum created without a ckey argument. Datum has been deleted")
 		qdel(src)
 		return
-	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
 	rank = initial_rank
 	rights = initial_rights
 	href_token = GenerateToken()

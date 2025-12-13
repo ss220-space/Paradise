@@ -26,8 +26,9 @@
 #define BANTYPE_ADMIN_PERMA 7
 #define BANTYPE_ADMIN_TEMP 8
 
-//Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
+/// Used for signifying that all admins can use this regardless of actual permissions
+#define R_NONE NONE
 #define R_BUILDMODE (1<<0)
 #define R_ADMIN (1<<1)
 #define R_BAN (1<<2)
