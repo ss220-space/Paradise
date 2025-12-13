@@ -6,7 +6,7 @@
 #define DEFAULT_DELAY 3
 
 /client/proc/drop_lightning_bolt()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Drop lightning bolt"
 	set desc = "Вызвать молнию различной силы под вами."
 

@@ -358,7 +358,7 @@
 	observer.update_admin_actions()
 
 /client/proc/edit_admin_permissions_new()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Permissions Panel (New)"
 	set desc = "Edit admin permissions"
 

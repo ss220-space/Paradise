@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set desc = "Отправляет на станцию ​Отряд Быстрого Реагирования."
 
 	if(!check_rights(R_EVENT))

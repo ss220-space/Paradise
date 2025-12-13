@@ -15,7 +15,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Drop Everything")
 
 /client/proc/cmd_admin_prison(mob/M as mob in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Prison"
 
 	if(!check_rights(R_ADMIN))
@@ -64,7 +64,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Subtle Message")
 
 /client/proc/cmd_mentor_check_new_players()	//Allows mentors / admins to determine who the newer players are.
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Check new Players"
 
 	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
@@ -101,7 +101,7 @@
 		to_chat(src, "No matches for that age range found.", confidential=TRUE)
 
 /client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Global Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -117,7 +117,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
 /client/proc/cmd_admin_local_narrate(atom/A)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Local Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -187,7 +187,7 @@
 	SEND_SOUND(H, sound('sound/effects/headset_message.ogg'))
 
 /client/proc/cmd_admin_godmode(mob/mob as mob in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Godmode"
 
 	if(!check_rights(R_ADMIN))
@@ -262,7 +262,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Mute")
 
 /client/proc/cmd_admin_add_random_ai_law()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Add Random AI Law"
 
 	if(!check_rights(R_EVENT))
@@ -281,7 +281,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Add Random AI Law")
 
 /client/proc/toggle_antagHUD_use()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set name = "Toggle antagHUD usage"
 	set desc = "Toggles antagHUD usage for observers"
 
@@ -311,7 +311,7 @@
 	log_and_message_admins("has [action] antagHUD usage for observers")
 
 /client/proc/toggle_antagHUD_restrictions()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set name = "Toggle antagHUD Restrictions"
 	set desc = "Restricts players that have used antagHUD from being able to join this round."
 
@@ -343,7 +343,7 @@ Works kind of like entering the game with a new character. Character receives a 
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
 /client/proc/respawn_character()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
 
@@ -563,7 +563,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return mobs
 
 /client/proc/cmd_admin_add_freeform_ai_law()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Add Custom AI law"
 
 	if(!check_rights(R_EVENT))
@@ -615,7 +615,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 #define CUSTOM_MESSAGE_TYPE "Свой тип."
 /client/proc/cmd_admin_create_centcom_report()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Create Communications Report"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -709,7 +709,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				vv_update_display(D, "deleted", "")
 
 /client/proc/cmd_admin_list_open_jobs()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "List free slots"
 
 	if(!check_rights(R_ADMIN))
@@ -730,7 +730,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	BLACKBOX_LOG_ADMIN_VERB("List Free Slots")
 
 /client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view(maxview()))
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Explosion"
 
 	if(!check_rights(R_DEBUG|R_EVENT))
@@ -760,7 +760,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view(maxview()))
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "EM Pulse"
 
 	if(!check_rights(R_DEBUG|R_EVENT))
@@ -782,7 +782,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_gib(mob/M as mob in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Gib"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
@@ -804,7 +804,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_gib_self()
 	set name = "Gibself"
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 
 	if(!check_rights(R_ADMIN|R_EVENT))
 		return
@@ -831,7 +831,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 /client/proc/toggle_view_range()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
@@ -874,7 +874,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/admin_call_shuttle()
 
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Call Shuttle"
 
 	if(EMERGENCY_AT_LEAST_DOCKED)
@@ -902,7 +902,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return
 
 /client/proc/admin_cancel_shuttle()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Cancel Shuttle"
 
 	if(!check_rights(R_ADMIN))
@@ -933,7 +933,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/toggle_pacifism_gt()
 	set name = "Toggle Pacifism After Greentext"
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -958,7 +958,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/toogle_ghost_vision()
 	set name = "Toggle Ghost Vision After Greentext"
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -979,7 +979,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_and_message_admins("toggled ghost vision after greentext in [(SSticker.toogle_gv) ? "On" : "Off"].")
 
 /client/proc/everyone_random()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Make Everyone Random"
 	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
 
@@ -1011,7 +1011,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	BLACKBOX_LOG_ADMIN_VERB("Make Everyone Random")
 
 /client/proc/toggle_random_events()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set name = "Toggle random events on/off"
 
 	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
@@ -1029,7 +1029,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Random Events")
 
 /client/proc/reset_all_tcs()
-	set category = STATPANEL_ADMIN_DEBUG
+	set category = ADMIN_CATEGORY_DEBUG
 	set name = "Reset NTTC Configuration"
 	set desc = "Resets NTTC to the default configuration."
 
@@ -1048,7 +1048,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	BLACKBOX_LOG_ADMIN_VERB("Reset NTTC Configuration")
 
 /client/proc/list_ssds_afks()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "List SSDs and AFKs"
 	set desc = "Lists SSD and AFK players"
 
@@ -1143,7 +1143,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	popup.open(FALSE)
 
 /client/proc/toggle_ert_calling()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set name = "Toggle ERT"
 
 	set desc = "Toggle the station's ability to call a response team."
@@ -1162,7 +1162,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_and_message_admins("has disabled ERT calling.")
 
 /client/proc/show_tip()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Show Custom Tip"
 	set desc = "Sends a tip (that you specify) to all players. After all \
 		you're the experienced player here."
@@ -1187,7 +1187,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
 
 /client/proc/modify_goals()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Modify Station Goals"
 
 	if(!check_rights(R_EVENT))
@@ -1253,7 +1253,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			REMOVE_TRAIT(D, chosen_trait, source)
 
 /client/proc/cmd_change_command_name()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Change Command Name"
 
 	if(!check_rights(R_ADMIN | R_EVENT))
@@ -1266,7 +1266,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_and_message_admins("has changed Central Command's name to [input]")
 
 /client/proc/polymorph_all()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Polymorph All"
 	set desc = "Applies the effects of the bolt of change to every single mob."
 

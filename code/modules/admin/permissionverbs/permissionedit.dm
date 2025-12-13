@@ -197,7 +197,7 @@
 
 //TODO remove with legacy admin system
 /client/proc/edit_admin_permissions()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Permissions Panel"
 	set desc = "Edit admin permissions"
 	if(!check_rights(R_PERMISSIONS))

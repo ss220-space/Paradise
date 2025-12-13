@@ -197,6 +197,7 @@
 #include "code\__DEFINES\tgui.dm"
 #include "code\__DEFINES\thief.dm"
 #include "code\__DEFINES\thunderdome.dm"
+#include "code\__DEFINES\tickets.dm"
 #include "code\__DEFINES\time.dm"
 #include "code\__DEFINES\tools.dm"
 #include "code\__DEFINES\toys.dm"

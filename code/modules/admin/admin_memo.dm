@@ -1,6 +1,6 @@
 /client/proc/admin_memo()
 	set name = "Memo"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	if(!check_rights(R_SERVER))
 		return
 	if(!SSdbcore.IsConnected())

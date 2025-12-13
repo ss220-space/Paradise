@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 /client/proc/spawn_panel()
 	set name = "Spawn Panel"
 	set desc = "Spawn Panel (TGUI)."
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(!check_rights(R_SPAWN))
 		return

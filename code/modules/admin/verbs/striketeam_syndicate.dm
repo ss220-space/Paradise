@@ -5,7 +5,7 @@
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 /client/proc/syndicate_strike_team()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Заспавнить Ударный Отряд \"Синдиката\""
 	set desc = "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК."
 	if(!src.holder)

@@ -1,7 +1,7 @@
 /client/proc/jump_to()
 	set name = "Jump to..."
 	set desc = "Area, Mob, Key or Coordinate"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
 
 	if(!check_rights(R_ADMIN))
@@ -181,7 +181,7 @@
 		BLACKBOX_LOG_ADMIN_VERB("Get Key")
 
 /client/proc/sendmob(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Send Mob"
 
 	if(!check_rights(R_ADMIN))

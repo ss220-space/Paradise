@@ -14,7 +14,7 @@
 		to_chat(src, "<b>Нет активного голосования!<b>")
 
 /client/proc/start_vote()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Start Vote"
 	set desc = "Start a vote on the server"
 
@@ -63,7 +63,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Start Vote")
 
 /datum/admins/proc/togglevotedead()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc = "Toggle Dead Vote."
 	set name = "Toggle Dead Vote"
 

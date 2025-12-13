@@ -461,7 +461,7 @@ SUBSYSTEM_DEF(tickets)
  */
 /datum/controller/subsystem/tickets/proc/returnUI(tab = TICKET_OPEN)
 	set name = "Open Ticket Interface"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 
 	//dat
 	var/trStyle = "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"

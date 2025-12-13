@@ -87,7 +87,7 @@
 		cmd_mentor_say(msg)
 
 /client/proc/toggle_mentor_chat()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set name = "Toggle Mentor Chat"
 	set desc = "Toggle whether mentors have access to the msay command"
 

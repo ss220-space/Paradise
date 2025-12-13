@@ -272,7 +272,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	BLACKBOX_LOG_ADMIN_VERB("Air Status (Location)")
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Make Robot"
 
 	if(!check_rights(R_SPAWN))
@@ -293,7 +293,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		tgui_alert(usr, "Invalid mob")
 
 /client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Make Simple Animal"
 
 	if(!check_rights(R_SPAWN))
@@ -316,7 +316,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		M.Animalize()
 
 /client/proc/cmd_admin_gorillize(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Make Gorilla"
 
 	if(!check_rights(R_SPAWN))
@@ -345,7 +345,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
 /client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Make Superhero"
 
 	if(!check_rights(R_SPAWN))
@@ -395,7 +395,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	BLACKBOX_LOG_ADMIN_VERB("Make Powernets")
 
 /client/proc/cmd_admin_grantfullaccess(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_DEBUG
+	set category = ADMIN_CATEGORY_DEBUG
 	set name = "\[Admin\] Grant Full Access"
 
 	if(!check_rights(R_EVENT))
@@ -427,7 +427,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins(span_notice("has granted [M.key] full access."))
 
 /client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_DEBUG
+	set category = ADMIN_CATEGORY_DEBUG
 	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"
 
@@ -645,7 +645,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return dresscode
 
 /client/proc/startSinglo()
-	set category = STATPANEL_ADMIN_DEBUG
+	set category = ADMIN_CATEGORY_DEBUG
 	set name = "Start Singularity"
 	set desc = "Sets up the singularity and all machines to get power flowing through the station"
 

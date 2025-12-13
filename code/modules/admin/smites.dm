@@ -532,7 +532,7 @@
 
 /// MARK: Admin smite proc
 /client/proc/smite(mob/living/mob as mob)
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Smite"
 	if(!check_rights(R_EVENT))
 		return

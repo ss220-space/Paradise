@@ -17,7 +17,7 @@
 /client/proc/getserverlogs()
 	set name = "Get Server Logs"
 	set desc = "View/retrieve logfiles."
-	set category = STATPANEL_ADMIN_DEBUG
+	set category = ADMIN_CATEGORY_DEBUG
 	var/path = browse_files("data/logs/")
 	if(!path)
 		return

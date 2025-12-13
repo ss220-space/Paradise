@@ -6,7 +6,7 @@
 // Category
 #define STATPANEL_OOC "OOC"
 #define STATPANEL_IC "IC"
-#define STATPANEL_OBJECT "Объекты" //todo
+#define STATPANEL_OBJECT "Объекты" // TODO: REMOVE
 #define STATPANEL_AICOMMANDS "ИИ команды"
 #define STATPANEL_SPECIALVERBS "Спецкоманды"
 #define STATPANEL_MARTIALARTS "Боевые искусства"
@@ -29,22 +29,3 @@
 #define STATPANEL_SWARMER "Свармер"
 #define STATPANEL_DOG "Пёс"
 #define STATPANEL_ANIMAL "Животное"
-
-// Admin Category
-#define STATPANEL_ADMIN_TICKETS "Админ.Админская и менторская помощь" // So that the subcategory is somewhere at the top
-#define STATPANEL_ADMIN_ADMIN "Админ.Админ"
-#define STATPANEL_ADMIN_TOGGLES "Админ.Переключаемое"
-#define STATPANEL_ADMIN_BAN "Админ.Бан"
-#define STATPANEL_ADMIN_EVENT "Админ.Ивент"
-#define STATPANEL_ADMIN_FUN "Админ.Веселье"
-#define STATPANEL_ADMIN_SOUNDS "Админ.Звуки"
-#define STATPANEL_ADMIN_DEBUG "Админ.Отладка"
-#define STATPANEL_SERVER "Сервер"
-
-// Admin and Mentor PM's
-#define MENTORHELP "Помощь Ментора"
-#define ADMINHELP "Помощь Админа"
-#define ADMINHELP_TICKET_NAME "Админ тикет"
-#define MENTORHELP_TICKET_NAME "Ментор тикет"
-#define MENTORHELP_SYSTEM_NAME "Запросы помощи Ментора"
-#define ADMINHELP_SYSTEM_NAME "Запросы помощи Админа"

@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!holder)
 		return
@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/show_verbs()
 	set name = "Adminverbs - Show"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!holder)
 		return
@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	BLACKBOX_LOG_ADMIN_VERB("Show Admin Verbs")
 
 /client/proc/admin_ghost()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Aghost"
 
 	if(!check_rights(R_ADMIN|R_MOD|R_POSSESS))
@@ -394,7 +394,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/invisimin()
 	set name = "Invisimin"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set desc = "Toggles ghost-like invisibility (Don't abuse this)"
 
 	if(!check_rights(R_ADMIN))
@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/player_panel_new()
 	set name = "Player Panel"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN | R_MOD))
 		return
@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/check_antagonists()
 	set name = "Check Antagonists"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -439,7 +439,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/check_security()
 	set name = "Check Security"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/antagonists_menu()
 	set name = "Antagonists Menu"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/ban_panel()
 	set name = "Ban Panel"
-	set category = STATPANEL_ADMIN_BAN
+	set category = ADMIN_CATEGORY_BAN
 
 	if(!check_rights(R_BAN))
 		return
@@ -485,7 +485,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/game_panel()
 	set name = "Game Panel"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(!check_rights(R_ADMIN | R_EVENT))
 		return
@@ -496,7 +496,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/secrets()
 	set name = "Secrets"
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 
 	if(!check_rights(R_ADMIN | R_EVENT))
 		return
@@ -520,7 +520,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	GLOB.stealthminID["[ckey]"] = "@[num2text(num)]"
 
 /client/proc/stealth()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Stealth Mode"
 
 	if(!check_rights(R_ADMIN))
@@ -541,7 +541,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	BLACKBOX_LOG_ADMIN_VERB("Stealth Mode")
 
 /client/proc/big_brother()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Big Brother Mode"
 
 	if(!check_rights(R_PERMISSIONS))
@@ -567,7 +567,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		BLACKBOX_LOG_ADMIN_VERB("Big Brother Mode")
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Drop Bomb"
 	set desc = "Вызвать взрыв различной силы под вами."
 
@@ -605,7 +605,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	BLACKBOX_LOG_ADMIN_VERB("Drop Bomb")
 
 /client/proc/bless(mob/living/M as mob)
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Bless"
 	if(!check_rights(R_EVENT))
 		return
@@ -732,7 +732,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
 
@@ -756,7 +756,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
 
 /client/proc/give_disease(mob/T in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
 
@@ -772,7 +772,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
 
 /client/proc/cure_disease(mob/T in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Cure Disease"
 	set desc = "Cures a Disease of a mob."
 
@@ -805,7 +805,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(!check_rights(R_EVENT))
 		return
@@ -833,7 +833,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	BLACKBOX_LOG_ADMIN_VERB("oSay")
 
 /client/proc/force_hijack()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set name = "Toggle Shuttle Force Hijack"
 	set desc = "Force shuttle fly to syndicate base."
 
@@ -850,7 +850,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/deadmin_self()
 	set name = "De-admin self"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN|R_MENTOR|R_VIEWRUNTIMES))
 		return
@@ -873,7 +873,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/readmin()
 	set name = "Re-admin self"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set desc = "Regain your admin powers."
 
 	var/datum/admins/D = GLOB.admin_datums[ckey]
@@ -976,7 +976,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/select_next_map()
 	set name = "Select next map"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(!check_rights(R_SERVER | R_EVENT))
 		return
@@ -1007,7 +1007,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/toggle_twitch_censor()
 	set name = "Toggle Twitch censor"
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 
 	if(!check_rights(R_SERVER))
 		return
@@ -1018,7 +1018,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -1027,7 +1027,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/manage_silicon_laws()
 	set name = "Manage Silicon Laws"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -1120,7 +1120,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/free_slot()
 	set name = "Free Job Slot"
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -1148,7 +1148,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	log_and_message_admins("told [key_name_log(T)] to man up and deal with it.")
 
 /client/proc/global_man_up()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Man Up Global"
 	set desc = "Tells everyone to man up and deal with it."
 
@@ -1167,7 +1167,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/toggle_advanced_interaction()
 	set name = "Toggle Advanced Admin Interaction"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set desc = "Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction."
 
 	if(!check_rights(R_ADMIN))
@@ -1180,7 +1180,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/cmd_admin_alert_message(mob/about_to_be_banned)
 	set name = "Send Alert Message"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!ismob(about_to_be_banned))
 		return

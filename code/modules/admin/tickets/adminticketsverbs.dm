@@ -3,7 +3,7 @@
 /client/proc/openAdminTicketUI()
 
 	set name = "Open Admin Ticket Interface"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
@@ -23,5 +23,5 @@
 
 /client/verb/openAdminUserUI()
 	set name = "Админ запросы"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 	SStickets.userDetailUI(usr)

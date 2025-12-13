@@ -8,7 +8,7 @@
 //ADMINVERBS
 /client/proc/investigate_show()
 	set name = "Investigate"
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	if(!check_rights(R_ADMIN))
 		return
 

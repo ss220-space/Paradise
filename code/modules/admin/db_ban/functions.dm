@@ -431,7 +431,7 @@
 	flag_account_for_forum_sync(pckey)
 
 /client/proc/DB_ban_panel()
-	set category = STATPANEL_ADMIN_BAN
+	set category = ADMIN_CATEGORY_BAN
 	set name = "Banning Panel"
 	set desc = "DB Ban Panel"
 

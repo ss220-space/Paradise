@@ -1,6 +1,6 @@
 // verb for admins to set custom event
 /client/proc/cmd_admin_change_custom_event()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Change Custom Event"
 
 	if(!check_rights(R_EVENT))

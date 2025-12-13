@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(devsays)
 /client/proc/view_msays()
 	set name = "View msays"
 	set desc = "View Msays from the current round."
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_MENTOR | R_ADMIN))
 		return
@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(devsays)
 /client/proc/view_devsays()
 	set name = "View devsays"
 	set desc = "View Devsays from the current round."
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
 		return
@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(devsays)
 /client/proc/view_asays()
 	set name = "View asays"
 	set desc = "View Asays from the current round."
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN | R_MOD))
 		return

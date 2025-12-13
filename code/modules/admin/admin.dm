@@ -320,7 +320,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Show Player Panel")
 
 /datum/admins/proc/PlayerNotes()
-	set category = STATPANEL_ADMIN_BAN
+	set category = ADMIN_CATEGORY_BAN
 	set name = "Player Notes"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -329,7 +329,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	show_note()
 
 /datum/admins/proc/show_player_notes(key as text)
-	set category = STATPANEL_ADMIN_BAN
+	set category = ADMIN_CATEGORY_BAN
 	set name = "Show Player Notes"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -338,7 +338,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	show_note(key)
 
 /datum/admins/proc/vpn_whitelist()
-	set category = STATPANEL_ADMIN_BAN
+	set category = ADMIN_CATEGORY_BAN
 	set name = "VPN Ckey Whitelist"
 	if(!check_rights(R_BAN))
 		return
@@ -389,7 +389,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 //i.e. buttons/verbs
 
 /datum/admins/proc/restart()
-	set category = STATPANEL_SERVER
+	set category = ADMIN_CATEGORY_SERVER
 	set name = "Restart"
 	set desc = "Restarts the world."
 
@@ -435,7 +435,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
 
 /datum/admins/proc/end_round()
-	set category = STATPANEL_SERVER
+	set category = ADMIN_CATEGORY_SERVER
 	set name = "End Round"
 	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
 
@@ -458,7 +458,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSticker.mode_result = "admin ended"
 
 /datum/admins/proc/announce()
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set name = "Announce"
 	set desc = "Announce your desires to the world"
 
@@ -480,7 +480,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 /datum/admins/proc/toggleooc()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc="Globally Toggles OOC"
 	set name="Toggle OOC"
 
@@ -492,7 +492,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle OOC")
 
 /datum/admins/proc/togglelooc()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc="Globally Toggles LOOC"
 	set name="Toggle LOOC"
 
@@ -509,7 +509,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle LOOC")
 
 /datum/admins/proc/toggledsay()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc="Globally Toggles DSAY"
 	set name="Toggle DSAY"
 
@@ -526,7 +526,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Deadchat")
 
 /datum/admins/proc/toggleoocdead()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc="Toggle Dead OOC."
 	set name="Toggle Dead OOC"
 
@@ -542,7 +542,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Dead OOC")
 
 /datum/admins/proc/toggleemoji()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc = "Toggle OOC Emoji"
 	set name = "Toggle OOC Emoji"
 
@@ -554,7 +554,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle OOC Emoji")
 
 /datum/admins/proc/startnow()
-	set category = STATPANEL_SERVER
+	set category = ADMIN_CATEGORY_SERVER
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
 
@@ -583,7 +583,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 /datum/admins/proc/toggleenter()
-	set category = STATPANEL_SERVER
+	set category = ADMIN_CATEGORY_SERVER
 	set desc="People can't enter"
 	set name="Toggle Entering"
 
@@ -600,7 +600,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Entering")
 
 /datum/admins/proc/toggleAI()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc="People can't be AI"
 	set name="Toggle AI"
 
@@ -617,7 +617,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle AI")
 
 /datum/admins/proc/toggleaban()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc="Toggle the ability for players to respawn."
 	set name="Toggle Respawn"
 
@@ -634,7 +634,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Respawn")
 
 /datum/admins/proc/delay()
-	set category = STATPANEL_SERVER
+	set category = ADMIN_CATEGORY_SERVER
 	set desc="Delay the game start/end"
 	set name="Delay"
 
@@ -778,14 +778,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	return ""
 
 /datum/admins/proc/spawn_atom(object as text)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set desc = "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Spawn"
 
 	return usr.client.spawn_atom_impl(object, FALSE)
 
 /datum/admins/proc/spawn_atom_adv(object as text)
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set desc = "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Advanced Spawn"
 
@@ -846,7 +846,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 
 /datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set desc = "Edit mobs's memory and role"
 	set name = "\[Admin\] Show Traitor Panel"
 
@@ -864,7 +864,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Show Traitor Panel")
 
 /datum/admins/proc/toggleguests()
-	set category = STATPANEL_ADMIN_TOGGLES
+	set category = ADMIN_CATEGORY_TOGGLES
 	set desc="Guests can't enter"
 	set name="Toggle Guests"
 
@@ -1069,7 +1069,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Enables an admin to upload a new titlescreen image.
  */
 /client/proc/admin_change_title_screen()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Title Screen: Change"
 
 	if(!check_rights(R_EVENT))
@@ -1094,7 +1094,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Sets a titlescreen notice, a big red text on the main screen.
  */
 /client/proc/change_title_screen_notice()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Title Screen: Set Notice"
 
 	if(!check_rights(R_EVENT))
@@ -1116,7 +1116,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * An admin debug command that enables you to change the HTML on the go.
  */
 /client/proc/change_title_screen_html()
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set name = "Title Screen: Set HTML"
 
 	if(!check_rights(R_DEBUG))

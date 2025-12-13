@@ -3,7 +3,7 @@
 /client/proc/openMentorTicketUI()
 
 	set name = "Open Mentor Ticket Interface"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 
 	if(!check_rights(R_MENTOR))
 		return
@@ -23,5 +23,5 @@
 
 /client/verb/openMentorUserUI()
 	set name = "Ментор запросы"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 	SSmentor_tickets.userDetailUI(usr)

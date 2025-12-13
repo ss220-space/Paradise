@@ -350,7 +350,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /client/proc/Set_Holiday(T as text|null)
 	set name = "Задать праздник"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	set desc = "Принудительно задать переменную \"Праздник\", чтобы игра считала, что сегодня определённый день."
 	if(!check_rights(R_SERVER))	return
 

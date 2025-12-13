@@ -112,7 +112,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = STATPANEL_ADMIN_DEBUG
+	set category = ADMIN_CATEGORY_DEBUG
 	set hidden = 1
 
 	if(!loc) return 0

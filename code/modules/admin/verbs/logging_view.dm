@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(open_logging_views)
 
 /client/proc/cmd_admin_open_logging_view()
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 	set name = "Logging View"
 	set desc = "Opens the detailed logging viewer"
 	open_logging_view()

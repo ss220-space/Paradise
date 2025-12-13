@@ -94,7 +94,7 @@
 /client/proc/beaker_panel()
 	set name = "Spawn Reagent Container"
 	set desc = "Spawn a reagent container."
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(!check_rights(R_SPAWN))
 		return

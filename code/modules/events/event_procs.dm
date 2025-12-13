@@ -1,7 +1,7 @@
 
 /client/proc/forceEvent()
 	set name = "Trigger Event"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(!check_rights(R_EVENT))
 		return
@@ -15,7 +15,7 @@
 
 /client/proc/event_manager_panel()
 	set name = "Event Manager Panel"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 	if(SSevents)
 		SSevents.Interact(usr)
 	BLACKBOX_LOG_ADMIN_VERB("Event Manager")

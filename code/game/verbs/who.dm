@@ -94,7 +94,7 @@
 
 /client/verb/adminwho()
 	set name = "В сети"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 
 	var/list/adminmsg = list()
 	var/list/mentormsg = list()

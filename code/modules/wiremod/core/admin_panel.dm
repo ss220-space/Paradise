@@ -1,6 +1,6 @@
 /// An admin verb to view all circuits, plus useful information
 /datum/admins/proc/view_all_circuits()
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "Просмотреть все схемы"
 
 	var/static/datum/circuit_admin_panel/circuit_admin_panel = new

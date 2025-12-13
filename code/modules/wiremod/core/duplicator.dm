@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 #define JSON_FROM_STRING "Прямой ввод"
 /client/proc/load_circuit()
 	set name = "Загрузка схемы"
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 
 	if(!check_rights(R_VAREDIT))
 		return

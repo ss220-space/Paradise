@@ -1,5 +1,5 @@
 /client/proc/aooc(msg as text)
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 	set name = "AOOC"
 	set desc = "Antagonist OOC"
 

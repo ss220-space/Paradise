@@ -72,7 +72,7 @@
 /client/proc/achievements_cleanup()
 	set name = "Achievements Admin Panel"
 	set desc = "View achievements management panel."
-	set category = STATPANEL_ADMIN_ADMIN
+	set category = ADMIN_CATEGORY_MAIN
 
 	if(!check_rights(R_ADMIN))
 		return

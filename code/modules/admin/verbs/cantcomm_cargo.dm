@@ -1,6 +1,6 @@
 /client/proc/centcom_podlauncher()
 	set name = "Launch Supplypod"
-	set category = STATPANEL_ADMIN_FUN
+	set category = ADMIN_CATEGORY_FUN
 	set desc = "Настройте и запустите капсулу снабжения, полную всего, что душе угодно!"
 
 	if(!check_rights(R_EVENT))

@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(sounds_cache)
 
 /client/proc/stop_global_admin_sounds()
-	set category = STATPANEL_ADMIN_SOUNDS
+	set category = ADMIN_CATEGORY_SOUNDS
 	set name = "Stop Global Admin Sounds"
 	if(!check_rights(R_SOUNDS))
 		return
@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		M << awful_sound
 
 /client/proc/play_sound(S as sound)
-	set category = STATPANEL_ADMIN_SOUNDS
+	set category = ADMIN_CATEGORY_SOUNDS
 	set name = "Play Global Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	BLACKBOX_LOG_ADMIN_VERB("Play Global Sound")
 
 /client/proc/play_local_sound(S as sound)
-	set category = STATPANEL_ADMIN_SOUNDS
+	set category = ADMIN_CATEGORY_SOUNDS
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	BLACKBOX_LOG_ADMIN_VERB("Play Local Sound")
 
 /client/proc/play_web_sound()
-	set category = STATPANEL_ADMIN_SOUNDS
+	set category = ADMIN_CATEGORY_SOUNDS
 	set name = "Play Internet Sound"
 	if(!check_rights(R_SOUNDS))
 		return
@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	BLACKBOX_LOG_ADMIN_VERB("Play Internet Sound")
 
 /client/proc/play_server_sound()
-	set category = STATPANEL_ADMIN_SOUNDS
+	set category = ADMIN_CATEGORY_SOUNDS
 	set name = "Play Server Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	BLACKBOX_LOG_ADMIN_VERB("Play Server Sound")
 
 /client/proc/play_intercomm_sound()
-	set category = STATPANEL_ADMIN_SOUNDS
+	set category = ADMIN_CATEGORY_SOUNDS
 	set name = "Play Sound via Intercomms"
 	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
 	if(!check_rights(R_SOUNDS))	return
@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		playsound(I, melody, cvol)
 
 /client/proc/play_direct_mob_sound(S as sound, mob/M)
-	set category = STATPANEL_ADMIN_SOUNDS
+	set category = ADMIN_CATEGORY_SOUNDS
 	set name = "Play Direct Mob Sound"
 	if(!check_rights(R_SOUNDS))
 		return
