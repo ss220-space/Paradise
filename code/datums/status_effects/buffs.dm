@@ -383,6 +383,7 @@
 		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.stop_internal_bleeding()
+				bodypart.stop_arterial_bleeding()
 				bodypart.mend_fracture()
 		else
 			to_chat(owner, span_warning("...Но ядро ослаблено, оно не достаточно близко к остальным легионам некрополя."))
@@ -842,9 +843,10 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/hum = owner
 		for(var/obj/item/organ/external/bodypart as anything in hum.bodyparts)
-			if(bodypart.has_internal_bleeding() && prob(7))
+			if((bodypart.has_internal_bleeding() || bodypart.has_arterial_bleeding()) && prob(7))
 				to_chat(hum, span_notice("Вы чувствуете сильное жжение в [bodypart.declent_ru(PREPOSITIONAL)], а затем облегчение. Судя по всему, ваши повреждённые кровеносные сосуды восстанавливаются!"))
 				bodypart.stop_internal_bleeding()
+				bodypart.stop_arterial_bleeding()
 
 /atom/movable/screen/alert/status_effect/lavaland_night_vision
 	name = "Ксено-сетчатка"

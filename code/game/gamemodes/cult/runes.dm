@@ -353,6 +353,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 					for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 						bodypart.mend_fracture()
 						bodypart.stop_internal_bleeding()
+						bodypart.stop_arterial_bleeding()
+						bodypart.stop_bleeding()
 					for(var/datum/disease/critical/crit in H.diseases) // cure all crit conditions
 						crit.cure()
 
