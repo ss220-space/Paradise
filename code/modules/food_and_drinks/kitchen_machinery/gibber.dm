@@ -90,7 +90,7 @@
 		return
 
 	if(operating)
-		balloon_alert(user, "мясорубка работает!")
+		balloon_alert(user, "машина работает!")
 		return
 
 	if(locked)

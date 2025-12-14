@@ -56,7 +56,7 @@
 	if(!P)
 		return
 
-	visible_message(span_notice("[capitalize(picked_slime.declent_ru(ACCUSATIVE))] затягивается внутрь [declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[capitalize(picked_slime.declent_ru(NOMINATIVE))] затягивается внутрь [declent_ru(GENITIVE)]."))
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
@@ -139,11 +139,12 @@
 
 /datum/food_processor_process/mob/monkey/process_food(loc, what, processor)
 	var/mob/living/carbon/human/lesser/monkey/O = what
+	var/obj/machinery/processor/combine = processor
 	if(O.client) //grief-proof
 		O.forceMove(loc)
 		O.visible_message(
-			span_notice("Внезапно [O.declent_ru(NOMINATIVE)] выпрыгивает из комбайна!"),
-			span_notice("Вы выпрыгиваете из комбайна."),
+			span_notice("Внезапно [O.declent_ru(NOMINATIVE)] выпрыгивает из [combine.declent_ru(GENITIVE)]!"),
+			span_notice("Вы выпрыгиваете из [combine.declent_ru(GENITIVE)]."),
 			span_notice("Вы слышите странные звуки...")
 		)
 		return
@@ -267,8 +268,4 @@
 		P.process_food(loc, O, src)
 	processing = FALSE
 
-	visible_message(
-		span_notice("[capitalize(declent_ru(NOMINATIVE))] завершает обработку."),
-		span_notice("[capitalize(declent_ru(NOMINATIVE))] завершает обработку."),
-		span_notice("Вы слышите, как комбайн останавливается.")
-	)
+	balloon_alert_to_viewers("обработка завершена")

@@ -43,7 +43,7 @@
 /obj/item/reagent_containers/food/snacks/no_raisin
 	name = "raisins 1984"
 	icon_state = "1984_raisins"
-	desc = "Лучший изюм во Вселенной. Со вкусом несправедливости."
+	desc = "Пачка сухого изюма производства \"DonkCo\". Слоган на упаковке гласит: \"Вы любите этот вкус. Вы всегда любили его. Даже не пытайтесь думать иначе\"."
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
 	junkiness = 25
