@@ -16,7 +16,7 @@ import { getLayoutState, LAYOUT, LayoutToggle } from 'common/LayoutToggle';
 
 type VendingData = {
   all_products_free: boolean;
-  onstation: boolean;
+  ad: string;
   vend_ready: boolean;
   user: UserData;
   product_records?: ProductRecord[];
@@ -63,7 +63,8 @@ type ProductDisplayProps = {
 export const Vending = (_props: unknown) => {
   const { act, data } = useBackend<VendingData>();
   const {
-    onstation,
+    all_products_free,
+    ad,
     product_records = [],
     premium_records = [],
     hidden_records = [],
@@ -110,15 +111,17 @@ export const Vending = (_props: unknown) => {
   );
 
   return (
-    <Window
-      width={470}
-      height={100 + Math.min(product_records.length * 38, 500)}
-    >
+    <Window width={431} height={635}>
       <Window.Content>
         <Stack fill vertical>
-          {!!onstation && (
+          {!all_products_free && (
             <Stack.Item>
               <UserDetails />
+            </Stack.Item>
+          )}
+          {ad && (
+            <Stack.Item>
+              <AdSection AdDisplay={ad} />
             </Stack.Item>
           )}
           {!!inserted_item_name && (
@@ -181,6 +184,18 @@ export const UserDetails = (props) => {
         <Stack.Item>
           {user ? `${user.name} | ${user.job}` : 'Пользователь не определён'}
         </Stack.Item>
+      </Stack>
+    </NoticeBox>
+  );
+};
+
+const AdSection = (props: { AdDisplay: string }) => {
+  const { AdDisplay } = props;
+
+  return (
+    <NoticeBox m={0} color={'green'}>
+      <Stack align="center">
+        <Stack.Item>{AdDisplay}</Stack.Item>
       </Stack>
     </NoticeBox>
   );
@@ -253,7 +268,7 @@ const Product = (props) => {
     !vend_ready ||
     remaining === 0 ||
     (!all_products_free && !user) ||
-    (!all_products_free && !free && product.price > (user && user.cash));
+    (!free && product.price > (user && user.cash));
 
   const baseProps = {
     base64: product.image,
@@ -289,7 +304,16 @@ const ProductGrid = (props) => {
   return (
     <ImageButton
       {...baseProps}
-      tooltip={`${product.name}. ${product.desc}`}
+      buttons={
+        <Button
+          width="22px"
+          color="transparent"
+          icon="info"
+          tooltip={product.desc}
+          tooltipPosition="top"
+        />
+      }
+      tooltip={`${product.name}`}
       buttonsAlt={
         <Stack fontSize={0.9}>
           <Stack.Item grow textAlign={'left'}>

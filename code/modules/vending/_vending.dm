@@ -14,6 +14,7 @@
 /// Don't actually throw at the target, just tip it in place.
 #define VENDOR_TIP_IN_PLACE 2
 
+/// Maximum credits dump threshold
 #define CREDITS_DUMP_THRESHOLD 100
 /// The amount of credits collected by the vending machine when someone buys the product.
 #define VENDING_CREDITS_COLLECTION_AMOUNT 0.2
@@ -24,7 +25,7 @@
 #define CATEGORY_NAME_CONTRABAND "Контрабанда"
 
 /**
- *  Datum used to hold information about a product in a vending machine
+ *  Datum used to hold information about a product in a vending machine.
  */
 /datum/data/vending_product
 	name = "generic"
@@ -41,11 +42,6 @@
 	/**
 	 * The category the product was in, if any.
 	 * Sourced directly from product_categories.
-	 *
-	 * Form should be list(/type/path = amount, /type/path2 = amount2)
-	 *
-	 * Be aware that categories will be inherited by children object,
-	 * and will overwrite it's list of products if children's categories aren't `null`.
 	 */
 	var/category
 
@@ -112,6 +108,8 @@
 	/**
 	 * List of products this machine sells, categorized.
 	 * Can only be used as an alternative to `products`, not alongside it.
+	 * Be aware that categories will be inherited by children object,
+	 * and will override it's `products` list if children's categories aren't set to `null`.
 	 *
 	 * Form should be list(
 	 ** 	"name" = "Category Name",
@@ -141,12 +139,14 @@
 	var/list/premium_records = list()
 
 	// Stuff relating vocalizations
-	/// List of slogans the vendor will say, optional
+	/// List of ads the vendor will say time to time.
 	var/list/slogan_list = list()
+	///List of ads to display in UI. Built from `slogan_list` upon Iniitialize()
+	var/list/ads_list = list()
 	/**
-	 * "Спас+ибо за пок+упку!" type phrases
+	 * "Спас+ибо за пок+упку!" type phrases, which are said when someone buys something.
 	 *
-	 * Place "+" before stressed syllables for better Text-to-speech pronunciation
+	 * Place "+" before stressed syllables for better Text-to-speech pronunciation.
 	 */
 	var/vend_reply
 	/// If true, prevent saying sales pitches
@@ -157,7 +157,7 @@
 	/// When did we last pitch?
 	var/last_slogan = 0
 	/// How long until we can pitch again?
-	var/slogan_delay = 6000
+	var/slogan_delay = 3000
 
 	/// The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister = null
@@ -258,8 +258,18 @@
 		PREPOSITIONAL = "торговом автомате",
 	)
 
+/**
+ * Initialize the vending machine
+ *
+ * Builds the vending machine inventory, sets up slogans and other such misc work
+ *
+ * This also sets the onstation var to:
+ * * FALSE — if the machine was maploaded on a zlevel that doesn't pass the is_station_level check
+ * * TRUE — all other cases
+ */
 /obj/machinery/vending/Initialize(mapload)
 	. = ..()
+
 	var/build_inv = FALSE
 	if(!refill_canister)
 		build_inv = TRUE
@@ -281,6 +291,10 @@
 		// The first time this machine says something will be at slogantime + this random value,
 		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is created.
 		last_slogan = world.time + rand(0, slogan_delay)
+
+		// deleting "+" symbols which are used by TTS only.
+		for(var/advertisement as anything in slogan_list)
+			ads_list += replacetext(advertisement, "+", "")
 
 	if(mapload) //check if it was initially created off station during mapload.
 		if(!is_station_level(z))
@@ -964,8 +978,9 @@
 
 /obj/machinery/vending/ui_static_data(mob/user)
 	var/list/data = list()
+	if(ads_list.len)
+		data["ad"] = ads_list[rand(1, ads_list.len)]
 
-	data["onstation"] = onstation
 	data["all_products_free"] = all_products_free
 	data["product_records"] = list()
 
@@ -1044,6 +1059,10 @@
 	data["speaker"] = shut_up ? FALSE : TRUE
 	data["item_slot"] = item_slot // boolean
 	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
+
+	if(prob(10) && ads_list.len)
+		data["ad"] = ads_list[rand(1, ads_list.len)]
+
 	return data
 
 /obj/machinery/vending/ui_act(action, list/params)
@@ -1221,8 +1240,8 @@
 	if(src.seconds_electrified > 0)
 		src.seconds_electrified--
 
-	//Pitch to the people!  Really sell it!
-	if(((last_slogan + src.slogan_delay) <= world.time) && (LAZYLEN(slogan_list)) && (!shut_up) && prob(5))
+	// Pitch to the people! Really sell it!
+	if(((last_slogan + src.slogan_delay) <= world.time) && (LAZYLEN(slogan_list)) && (!shut_up) && prob(10))
 		var/slogan = pick(src.slogan_list)
 		speak(slogan)
 		last_slogan = world.time
