@@ -109,6 +109,12 @@
 		/mob/living/captive_brain,
 	)
 
+/datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(.)
+		user.adjustStaminaLoss(100)
+		user.AdjustSilence(10 SECONDS)
+
 /datum/emote/living/deathgasp/select_message_type(mob/user, msg, intentional)
 	if(ishuman(user))
 		. = user.dna?.species?.death_message
