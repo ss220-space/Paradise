@@ -109,87 +109,6 @@
 	)
 	return .|ATTACK_CHAIN_SUCCESS
 
-/obj/item/stack/medical/proc/get_priority_targeting(mob/living/target, mob/living/user)
-	return user.zone_selected
-
-/obj/item/stack/medical/proc/get_max_bleeding_targeting(mob/living/target, mob/living/user)
-	. = user.zone_selected
-	if(!ishuman(target))
-		return
-
-	var/mob/living/carbon/human/human_target = target
-	var/obj/item/organ/external/target_bodypart = null
-	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
-		if(bodypart.is_robotic())
-			continue
-		if(bodypart.bleeding_amount <= 0 || bodypart.bleeding_amount <= bodypart.bleedsuppress)
-			continue
-		if(target_bodypart && bodypart.bleeding_amount <= target_bodypart.bleeding_amount)
-			continue
-		target_bodypart = bodypart
-
-	if(!target_bodypart)
-		return
-
-	return target_bodypart.limb_zone
-
-/obj/item/stack/medical/proc/get_max_brute_damage_targeting(mob/living/target, mob/living/user)
-	. = user.zone_selected
-	if(!ishuman(target))
-		return
-
-	var/mob/living/carbon/human/human_target = target
-	var/obj/item/organ/external/target_bodypart = null
-	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
-		if(bodypart.is_robotic() || bodypart.brute_dam <= 0)
-			continue
-		if(target_bodypart && bodypart.brute_dam <= target_bodypart.brute_dam)
-			continue
-		target_bodypart = bodypart
-
-	if(!target_bodypart)
-		return
-
-	return target_bodypart.limb_zone
-
-/obj/item/stack/medical/proc/get_max_burn_damage_targeting(mob/living/target, mob/living/user)
-	. = user.zone_selected
-	if(!ishuman(target))
-		return
-
-	var/mob/living/carbon/human/human_target = target
-	var/obj/item/organ/external/target_bodypart = null
-	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
-		if(bodypart.is_robotic() || bodypart.burn_dam <= 0)
-			continue
-		if(target_bodypart && bodypart.burn_dam <= target_bodypart.burn_dam)
-			continue
-		target_bodypart = bodypart
-
-	if(!target_bodypart)
-		return
-
-	return target_bodypart.limb_zone
-
-/obj/item/stack/medical/proc/get_max_damage_targeting(mob/living/target, mob/living/user)
-	. = user.zone_selected
-	if(!ishuman(target))
-		return
-
-	var/mob/living/carbon/human/human_target = target
-	var/obj/item/organ/external/target_bodypart = null
-	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
-		if(bodypart.is_robotic() || bodypart.burn_dam <= 0 && bodypart.brute_dam <= 0)
-			continue
-		if(target_bodypart && bodypart.burn_dam + bodypart.brute_dam <= target_bodypart.burn_dam + target_bodypart.brute_dam)
-			continue
-		target_bodypart = bodypart
-
-	if(!target_bodypart)
-		return
-
-	return target_bodypart.limb_zone
-
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
 	var/selected_zone = get_priority_targeting(target, user)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
@@ -247,6 +166,64 @@
 	if(check.type != merge_type)
 		return FALSE
 	. = ..()
+
+// MARK: Targeting filter
+
+/obj/item/stack/medical/proc/get_priority_targeting(mob/living/target, mob/living/user)
+	return user.zone_selected
+
+/obj/item/stack/medical/proc/get_priority_targeting_by_filter(mob/living/target, mob/living/user, filter_proc)
+	. = user.zone_selected
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/target_bodypart = null
+	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
+		var/accept = call(src, filter_proc)(arglist(list(current=bodypart, max=target_bodypart)))
+		if(accept)
+			target_bodypart = bodypart
+
+	if(!target_bodypart)
+		return
+
+	return target_bodypart.limb_zone
+
+/obj/item/stack/medical/proc/filter_max_bleeding_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.bleeding_amount <= 0 || current.bleeding_amount <= current.bleedsuppress)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.bleeding_amount > max.bleeding_amount)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_brute_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.brute_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.brute_dam > max.brute_dam)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_burn_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.burn_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.burn_dam > max.burn_dam)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.burn_dam <= 0 && current.brute_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.burn_dam + current.brute_dam > max.burn_dam + max.brute_dam)
+		return TRUE
+	return FALSE
 
 // MARK: Bruise Packs
 
@@ -316,7 +293,7 @@
 	update_icon()
 
 /obj/item/stack/medical/bruise_pack/get_priority_targeting(mob/living/target, mob/living/user)
-	return get_max_bleeding_targeting(target, user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_bleeding_bodypart))
 
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
@@ -402,7 +379,7 @@
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
 /obj/item/stack/medical/bruise_pack/advanced/get_priority_targeting(mob/living/target, mob/living/user)
-	return get_max_brute_damage_targeting(target, user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_brute_damage_bodypart))
 
 /obj/item/stack/medical/bruise_pack/extended
 	name = "extended trauma kit"
@@ -440,7 +417,7 @@
 	merge_type = /obj/item/stack/medical/ointment
 
 /obj/item/stack/medical/ointment/get_priority_targeting(mob/living/target, mob/living/user)
-	return get_max_burn_damage_targeting(target, user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_burn_damage_bodypart))
 
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -531,7 +508,7 @@
 	return
 
 /obj/item/stack/medical/bruise_pack/comfrey/get_priority_targeting(mob/living/target, mob/living/user)
-	return get_max_brute_damage_targeting(target, user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_brute_damage_bodypart))
 
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
@@ -715,7 +692,7 @@
 	update_icon()
 
 /obj/item/stack/medical/suture/get_priority_targeting(mob/living/target, mob/living/user)
-	return get_max_bleeding_targeting(target, user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_bleeding_bodypart))
 
 /obj/item/stack/medical/suture/advanced
 	name = "advanced suture kit"
@@ -768,7 +745,7 @@
 	icon_state = "synthkit_[round_down((amount+1) / 2, 1)]"
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/get_priority_targeting(mob/living/target, mob/living/user)
-	return get_max_damage_targeting(target, user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_damage_bodypart))
 
 
 // MARK: Tourniquet
