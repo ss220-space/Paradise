@@ -265,10 +265,7 @@
 	},
 /area/shuttle/escape)
 "aV" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -413,10 +410,7 @@
 	},
 /area/shuttle/escape)
 "bj" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
