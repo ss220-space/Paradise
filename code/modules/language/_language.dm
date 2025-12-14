@@ -1,20 +1,9 @@
-#define SCRAMBLE_CACHE_LEN 20
-/**
-	Datum based languages. Easily editable and modular.
+/// Last 50 spoken (uncommon) words will be cached before we start cycling them out (re-randomizing them)
+#define SCRAMBLE_CACHE_LEN 50
+/// Last 20 spoken sentences will be cached before we start cycling them out (re-randomizing them)
+#define SENTENCE_CACHE_LEN 20
 
-	Busy letters for language:
-	a b d f g j k o q v x y
-	aa as bo db fa fm fn fs vu
-
-	Busy symbols for language:
-	0 1 2 3 4 5 6 7 8 9
-	% ? ^
-
-	Also don't forget about code/__DEFINES/language.dm
-
-	CAUTION! The key must not repeat the key of the radio channel
-	and must not contain prohibited characters
-*/
+/// Datum based languages. Easily editable and modular.
 /datum/language
 	/// Fluff name of language if any.
 	var/name = "неизвестный язык"
@@ -25,6 +14,10 @@
 	var/key = "key"
 	/// Various language flags.
 	var/flags = NONE
+	/// Used when scrambling text for a non-speaker.
+	var/list/syllables
+	/// List of characters that will randomly be inserted between syllables.
+	var/list/special_characters
 
 	/// 'says', 'hisses', 'farts'.
 	var/list/speech_verbs = list("говор%(ит,ят)%")
@@ -151,106 +144,212 @@
 		return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 	return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 
-/datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
+
+/**
+ * Generates a random name this language would use.
+ *
+ * * gender: What gender to generate from, if neuter / plural coin flips between male and female
+ * * name_count: How many names to generate in, by default 2, for firstname lastname
+ * * syllable_count: How many syllables to generate in each name, min
+ * * syllable_max: How many syllables to generate in each name, max
+ * * force_use_syllables: If the name should be generated from the syllables list.
+ * Only used for subtypes which implement custom name lists. Also requires the language has syllables set.
+ */
+/datum/language/proc/get_random_name(
+	gender = NEUTER,
+	name_count = default_name_count,
+	syllable_min = default_name_syllable_min,
+	syllable_max = default_name_syllable_max,
+	force_use_syllables = FALSE,
+)
+	if(gender != MALE && gender != FEMALE)
+		gender = pick(MALE, FEMALE)
 	if(!length(syllables) || always_use_default_namelist)
-		if(gender==FEMALE)
-			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
-		else
-			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
+		return default_name(gender)
 
-	var/full_name = ""
-	var/new_name = ""
+	var/list/full_name = list()
+	for(var/i in 1 to name_count)
+		var/new_name = ""
+		for(var/j in 1 to rand(default_name_syllable_min, default_name_syllable_max))
+			new_name += pick_weight_recursive(syllables)
+		full_name += capitalize(LOWER_TEXT(new_name))
 
-	for(var/i = 0;i<name_count;i++)
-		new_name = ""
-		for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
-			new_name += pick(syllables)
-		full_name += " [capitalize(lowertext(new_name))]"
-	return "[trim(full_name)]"
+	return jointext(full_name, random_name_spacer)
 
-/datum/language/proc/scramble(input)
+/// Generates a random name, and attempts to ensure it is unique (IE, no other mob in the world has it)
+/datum/language/proc/get_random_unique_name(...)
+	var/result = get_random_name(arglist(args))
+	for(var/i in 1 to 10)
+		if(!findname(result))
+			break
+		result = get_random_name(arglist(args))
 
-	if(!syllables || !length(syllables))
-		return stars(input)
+	return result
 
-	// If the input is cached already, move it to the end of the cache and return it
-	if(input in scramble_cache)
-		var/n = scramble_cache[input]
-		scramble_cache -= input
-		scramble_cache[input] = n
-		return n
+/// Checks the word cache for a word
+/datum/language/proc/read_word_cache(input)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	// we generally want "The" and "the" to translate to the same thing.
+	// so we lowercase everything, making it case insensitive.
+	var/lowertext_input = LOWER_TEXT(input)
+	if(most_common_cache[lowertext_input])
+		return most_common_cache[lowertext_input]
 
-	var/input_size = length(input)
-	var/scrambled_text = ""
-	var/capitalize = TRUE
+	. = scramble_cache[lowertext_input]
+	if(. && scramble_cache[1] != lowertext_input)
+		// bumps it to the top of the cache
+		scramble_cache -= lowertext_input
+		scramble_cache[lowertext_input] = .
+	return .
 
-	while(length(scrambled_text) < input_size)
-		var/next = pick(syllables)
-		if(capitalize)
-			next = capitalize(next)
-			capitalize = FALSE
-		scrambled_text += next
-		var/chance = rand(100)
-		if(join_override)
-			scrambled_text += join_override
-		else if(chance <= 5)
-			scrambled_text += ". "
-			capitalize = TRUE
-		else if(chance > 5 && chance <= space_chance)
-			scrambled_text += " "
-
-	scrambled_text = trim(scrambled_text)
-	var/ending = copytext(scrambled_text, length(scrambled_text))
-	if(ending == "." || ending == "-")
-		scrambled_text = copytext(scrambled_text,1,length(scrambled_text)-1)
-	var/input_ending = copytext(input, input_size)
-	if(input_ending in list("!","?","."))
-		scrambled_text += input_ending
-
+/// Adds a word to the cache
+/datum/language/proc/write_word_cache(input, scrambled_text)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	var/lowertext_input = LOWER_TEXT(input)
+	// The most common words are always cached
+	if(GLOB.most_common_words_frequency[lowertext_input])
+		most_common_cache[lowertext_input] = scrambled_text
+		return
 	// Add it to cache, cutting old entries if the list is too long
-	scramble_cache[input] = scrambled_text
+	scramble_cache[lowertext_input] = scrambled_text
 	if(length(scramble_cache) > SCRAMBLE_CACHE_LEN)
-		scramble_cache.Cut(1, scramble_cache.len-SCRAMBLE_CACHE_LEN-1)
+		scramble_cache.Cut(1, scramble_cache.len - SCRAMBLE_CACHE_LEN + 1)
 
-	return scrambled_text
+/// Checks the sentence cache for a sentence
+/datum/language/proc/read_sentence_cache(input)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	// the only handling we do is capitalizing the first word, as say auto-capitalizes the first word anyway
+	// the actual structure of the sentence is otherwise case sensitive so it's preserved
+	var/input_capitalized = capitalize(input)
+	. = last_sentence_cache[input_capitalized]
+	if(. && last_sentence_cache[1] != input_capitalized)
+		// bumps it to the top of the cache (don't anticipate this happening often)
+		last_sentence_cache -= input_capitalized
+		last_sentence_cache[input_capitalized] = .
+	return .
 
-/datum/language/proc/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+/// Adds a sentence to the cache, though the sentence should be modified with a key
+/datum/language/proc/write_sentence_cache(input, key, result_scramble)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	var/input_capitalized = capitalize(input)
+	// Add to the cache (the cache being an assoc list of assoc lists), cutting old entries if the list is too long
+	LAZYSET(last_sentence_cache[input_capitalized], key, result_scramble)
+	if(length(last_sentence_cache) > SENTENCE_CACHE_LEN)
+		last_sentence_cache.Cut(1, last_sentence_cache.len - SENTENCE_CACHE_LEN + 1)
 
-/datum/language/proc/get_talkinto_msg_range(message)
-	// if you yell, you'll be heard from two tiles over instead of one
-	return (copytext(message, length(message)) == "!") ? 2 : 1
+/**
+ * Scramble a paragraph in this language.
+ *
+ * Takes into account any languages the hearer knows that has mutual understanding with this language.
+ */
+/datum/language/proc/scramble_paragraph(input, list/mutual_languages)
+	// perfect understanding, no need to scramble
+	if(mutual_languages?[type] >= 100)
+		return input
 
-/datum/language/proc/broadcast(mob/living/speaker, message, speaker_mask)
-	if(!check_can_speak(speaker))
-		return FALSE
+	var/static/regex/first_sentence = regex(@"(.+?(?:[\.!\?]|$))", "g")
+	var/list/new_paragraph = list()
+	while(first_sentence.Find(input))
+		new_paragraph += scramble_sentence(trim(first_sentence.group[1]), mutual_languages)
+	return jointext(new_paragraph, " ")
 
-	add_say_logs(speaker, message, language = "([name]-HIVE)")
+/**
+ * Scrambles a sentence in this language.
+ *
+ * Takes into account any languages the hearer knows that has mutual understanding with this language.
+ */
+/datum/language/proc/scramble_sentence(input, list/mutual_languages)
+	var/cache_key = "[mutual_languages?[type] || 0]-understanding"
+	var/list/cache = read_sentence_cache(input)
+	if(cache?[cache_key])
+		return cache[cache_key]
 
-	if(!speaker_mask)
-		speaker_mask = speaker.name
-	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
-	for(var/mob/player in GLOB.player_list)
-		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = span_gamesay("[name], [span_name("[speaker_mask]")] ([ghost_follow_link(speaker, ghost=player)]) [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
-			to_chat(player, msg_dead)
+	// List of words that will be recombined into a sentence
+	var/list/scrambled_words = list()
+	// List which indexes correspond to words in scrambled_words, records whether the word was translated
+	// Can't be a single assoc list because duplicates are expected
+	var/list/translated_index = list()
+	for(var/word in splittext(input, " "))
+		var/translate_prob = mutual_languages?[type] || 0
+		var/base_word = strip_outer_punctuation(word)
+		if(translate_prob > 0)
+			// the probability of managing to understand a word is based on how common it is (+10%, -15%)
+			// 1000 words in the list, so words outside the list are just treated as "the 1250th most common word"
+			var/commonness = GLOB.most_common_words_frequency[LOWER_TEXT(base_word)] || 1250
+			translate_prob += (10 * (1 - (min(commonness, 1250) / 500)))
+			if(prob(translate_prob))
+				scrambled_words += word
+				translated_index += FALSE
+				continue
+
+		var/scrambled_word = scramble_word(base_word)
+		scrambled_words += scrambled_word
+		translated_index += (scrambled_word != base_word)
+
+	// start building the new sentence. first word is capitalized and otherwise untouched
+	var/sentence = capitalize(scrambled_words[1])
+	for(var/i in 2 to length(scrambled_words))
+		var/word = scrambled_words[i]
+		// this was not translated so just throw it in
+		if(!translated_index[i])
+			sentence += " [word]"
 			continue
+		// if the last word was scrambled, always include a space
+		if(translated_index[i - 1] || prob(between_word_space_chance))
+			sentence += " "
+		// lastly try inserting a new sentence
+		else if(prob(between_word_sentence_chance))
+			sentence += ". "
+			word = capitalize(word)
 
-		else if(istype(player,/mob/dead) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
-			to_chat(player, msg)
+		sentence += word
 
-/datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
-	return TRUE
+	// scrambling the word will drop punctuation, so we need to re-add it at the end
+	// (however we don't need to do anything if the last word was not translated)
+	if(translated_index[length(scrambled_words)])
+		sentence += find_last_punctuation(input)
 
-/datum/language/proc/check_can_speak(mob/living/speaker)
-	return TRUE
+	write_sentence_cache(input, cache_key, sentence)
 
-/datum/language/proc/get_spoken_verb(msg_end)
-	switch(msg_end)
-		if("!")
-			return pick(exclaim_verbs)
-		if("?")
-			return pick(ask_verbs)
-	return pick(speech_verbs)
+	return sentence
+
+/**
+ * Scrambles a single word in this language.
+ */
+/datum/language/proc/scramble_word(input)
+	// If the input is cached already, move it to the end of the cache and return it
+	var/word = read_word_cache(input)
+	if(word)
+		return (is_uppercase(input) && length_char(input) >= 2) ? uppertext(word) : word
+
+	if(!length(syllables))
+		word = stars(input)
+
+	else
+		var/input_size = max(length_char(input) + rand(additional_syllable_low, additional_syllable_high), 1)
+		var/add_space = FALSE
+		var/add_period = FALSE
+		word = ""
+		while(length_char(word) < input_size)
+			// add in the last syllable's period or space first
+			if(add_period)
+				word += ". "
+			else if(add_space)
+				word += " "
+			// insert special chars if we're not at the start of the word
+			else if(word && prob(1) && length(special_characters))
+				word += pick(special_characters)
+			// generate the next syllable (capitalize if we just added a period)
+			var/next = pick_weight_recursive(syllables)
+			word += add_period ? capitalize(next) : next
+			// determine if the next syllable gets a period or space
+			add_period = prob(sentence_chance)
+			add_space = prob(space_chance)
+
+	write_word_cache(input, word)
+
+	// If they're shouting, we're shouting
+	return (is_uppercase(input) && length_char(input) >= 2) ? uppertext(word) : word
 
 #undef SCRAMBLE_CACHE_LEN
+#undef SENTENCE_CACHE_LEN
