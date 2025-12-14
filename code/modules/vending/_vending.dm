@@ -293,7 +293,7 @@
 		last_slogan = world.time + rand(0, slogan_delay)
 
 		// deleting "+" symbols which are used by TTS only.
-		for(var/advertisement as anything in slogan_list)
+		for(var/advertisement in slogan_list)
 			ads_list += replacetext(advertisement, "+", "")
 
 	if(mapload) //check if it was initially created off station during mapload.
