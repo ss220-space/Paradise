@@ -487,7 +487,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
-	if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH) || user == target)
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -507,6 +507,34 @@
 	else
 		target.grabbedby(user)
 		return TRUE
+
+/datum/species/proc/try_self_supress_bleeding(mob/living/carbon/human/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(user.get_active_hand())
+		user.balloon_alert(user, "рука занята!")
+		return FALSE
+
+	var/obj/item/organ/external/hand/hand = user.get_organ(user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	if(!hand || !hand.is_usable())
+		user.balloon_alert(user, "рука не работает!")
+		return FALSE
+
+	var/obj/item/organ/external/target_limb = user.get_organ(user.zone_selected)
+	if(target_limb.bleeding_amount <= 0)
+		user.balloon_alert(user, "кровотечения нет!")
+		return
+
+	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] рану на [target_limb.declent_ru(PREPOSITIONAL)]", "зажатие раны на [target_limb.declent_ru(PREPOSITIONAL)]");
+
+	if(user.hand == ACTIVE_HAND_LEFT)
+		user.left_hand_bleed_suppress_lib = target_limb
+	else
+		user.right_hand_bleed_suppress_lib = target_limb
+
+	user.update_hands_HUD()
+
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)

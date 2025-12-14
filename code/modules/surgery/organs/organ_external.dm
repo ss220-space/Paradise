@@ -8,6 +8,12 @@
 #define LIMB_FRACTURE_MIN_DMG 15
 /// Threshold needed to have a chance of inflicting internal bleeding
 #define LIMB_INT_BLEEDING_MIN_DMG 15
+/// Threshold needed to have a chance of inflicting arterial bleeding
+#define LIMB_ARTERIAL_BLEEDING_MIN_DMG 15
+/// Chance for arterial bleeding based on inflicting damage
+#define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.5
+/// Arterial bleeding size
+#define LIMB_ARTERIAL_BLEEDING_SIZE 21
 
 /****************************************************
 				EXTERNAL ORGANS
@@ -71,6 +77,8 @@
 	var/cannot_break = FALSE
 	/// Whether bodypart can have internal bleeding
 	var/cannot_internal_bleed = FALSE
+	/// Whether bodypart can have arterial bleeding
+	var/cannot_arterial_bleed = FALSE
 	/// Whether bodypart will drop if maximum damage is reached
 	var/dismember_at_max_damage = FALSE
 	// Does the organ take reduce damage from EMPs? IPC limbs get this by default
@@ -107,6 +115,9 @@
 	var/bleedsuppress_timer = null
 	/// Bleeding mod
 	var/bleeding_mod = 1
+	/// Applyed tourniquet, suppress any bloddloss, but can necrotize bodypart after timer
+	var/obj/item/tourniquet/tourniquet = null
+
 
 /obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -164,6 +175,11 @@
 	QDEL_LIST(embedded_objects)
 	QDEL_NULL(hidden)
 
+	if(tourniquet && !QDELETED(tourniquet))
+		QDEL_NULL(tourniquet)
+
+	tourniquet = null
+
 	if(owner && !owner.has_embedded_objects())
 		owner.clear_alert(ALERT_EMBEDDED)
 
@@ -206,6 +222,7 @@
 
 	remove_splint(silent = TRUE)
 	remove_all_embedded_objects()
+	remove_tourniquet()
 
 	. = ..()
 
@@ -331,6 +348,7 @@
 	if(!forced && owner)
 		// See if internal bleeding/fracture has place; distributed damage doesn't inflict it
 		try_internal_bleeding(brute, silent)
+		try_arterial_bleeding(brute, sharp, silent)
 		try_fracture(brute, silent)
 
 	// Need to update health, but need a reference in case the below checks cuts off a limb.
@@ -411,7 +429,7 @@
 				if(!limb_dropped && original_burn && prob(original_burn / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
 	if(burn >= MIN_BURN_DAMAGE_FOR_STOP_BLEEDING)
-		if(bleeding_amount > 0)
+		if(bleeding_amount > 0 && !has_arterial_bleeding()) //can not stop arterial bleeding
 			var/bleeding_heal = min(bleeding_amount, burn * BURN_DAMAGE_STOP_BLEEDING_MOD)
 			bleeding_amount = round(bleeding_amount - bleeding_heal, BLEEDING_PRECISION)
 
@@ -426,15 +444,24 @@
 	//no allowed bleeding for robotic bodyparts
 	if(is_robotic())
 		return
+
+	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+		return
+
+	if(has_arterial_bleeding())
+		return //has arterial bleeding, no more bleedings
+
 	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
 		var/basic_chance = 25 + basic_brute * 2.5
 		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
 		var/total_brute_chance = brute_dam >= remaining_health ? 25 : 0
 		var/bleeding_probe = min(100, basic_chance + already_bleeding_chance + total_brute_chance)
+
 		if(sharp || prob(bleeding_probe))
 			var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
 			if(sharp)
 				bleeding = bleeding * 2
+
 			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
 			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
 
@@ -663,6 +690,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(internal_bleeding(silent))
 		add_attack_logs(owner, null, "Suffered internal bleeding to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 		return TRUE
+	return FALSE
+
+/obj/item/organ/external/proc/try_arterial_bleeding(inflicted_damage, sharp = FALSE, silent = FALSE)
+	if(inflicted_damage <= LIMB_ARTERIAL_BLEEDING_MIN_DMG)
+		return FALSE
+
+	if(brute_dam + burn_dam + inflicted_damage <= min_arterial_bleeding_damage)
+		return FALSE
+
+	if(!prob(inflicted_damage * LIMB_ARTERIAL_BLEEDING_CHANCE_MOD))
+		return FALSE
+
+	if(arterial_bleeding(silent))
+		add_attack_logs(owner, null, "Suffered arterial bleeding to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
+		return TRUE
+
 	return FALSE
 
 // new damage icon system
@@ -950,6 +993,48 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_INT_BLEED
 
 	return TRUE
+
+/obj/item/organ/external/proc/arterial_bleeding(silent = FALSE)
+	if(owner && (HAS_TRAIT(owner, TRAIT_GODMODE) || HAS_TRAIT(owner, TRAIT_NO_BLOOD)))
+		return FALSE
+
+	if(is_robotic())
+		return FALSE
+
+	if(has_arterial_bleeding() || cannot_arterial_bleed)
+		return FALSE
+
+	bleeding_amount = LIMB_ARTERIAL_BLEEDING_SIZE
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
+
+	if(owner && !silent)
+		owner.custom_pain("Из ваш[GEND_HIS_HER(src)] [declent_ru(GENITIVE)] хлещет кровь!")
+		owner.visible_message(span_warning("Из [declent_ru(GENITIVE)] [owner.declent_ru(PREPOSITIONAL)] хлещет кровь!"))
+
+	return TRUE
+
+
+/obj/item/organ/external/proc/has_arterial_bleeding()
+	return bleeding_amount > max_bleeding_amount
+
+/obj/item/organ/external/proc/has_heavy_bleeding()
+	return bleeding_amount > 0.5 * max_bleeding_amount
+
+/obj/item/organ/external/proc/stop_arterial_bleeding()
+	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+		return FALSE
+
+	if(is_robotic())
+		return FALSE
+
+	if(!has_arterial_bleeding())
+		return FALSE
+
+	bleeding_amount = 0.1 * max_bleeding_amount //low bleeding exists after stop arterial bleed
+	return TRUE
+
+/obj/item/organ/external/proc/stop_bleeding()
+	bleeding_amount = 0
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))
@@ -1248,9 +1333,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(throw_alert)
 		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
+/obj/item/organ/external/proc/remove_tourniquet(atom/drop_loc)
+	if(!tourniquet)
+		return
+
+	tourniquet.forceMove(drop_loc ? drop_loc : drop_location())
+	tourniquet = null
+
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
 #undef LIMB_DMG_PROB
 #undef LIMB_FRACTURE_MIN_DMG
 #undef LIMB_INT_BLEEDING_MIN_DMG
-
+#undef LIMB_ARTERIAL_BLEEDING_MIN_DMG
+#undef LIMB_ARTERIAL_BLEEDING_CHANCE_MOD
+#undef LIMB_ARTERIAL_BLEEDING_SIZE

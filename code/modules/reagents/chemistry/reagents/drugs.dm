@@ -624,7 +624,7 @@
 	color = "#A42964"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 15
-	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
+	process_flags = ORGANIC | SYNTHETIC // Flipping for everyone!
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
@@ -632,68 +632,68 @@
 	chemdesc = "Вызывает неконтролируемое вращение."
 	chemuse = 50
 
-/datum/reagent/fliptonium/on_mob_life(mob/living/M)
+/datum/reagent/fliptonium/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle == 5)
-		M.SpinAnimation(speed = 11, loops = -1)
+		user.SpinAnimation(speed = 11, loops = -1, parallel = FALSE)
 	if(current_cycle == 10)
-		M.SpinAnimation(speed = 10, loops = -1)
+		user.SpinAnimation(speed = 10, loops = -1, parallel = FALSE)
 	if(current_cycle == 15)
-		M.SpinAnimation(speed = 9, loops = -1)
+		user.SpinAnimation(speed = 9, loops = -1, parallel = FALSE)
 	if(current_cycle == 20)
-		M.SpinAnimation(speed = 8, loops = -1)
+		user.SpinAnimation(speed = 8, loops = -1, parallel = FALSE)
 	if(current_cycle == 25)
-		M.SpinAnimation(speed = 7, loops = -1)
+		user.SpinAnimation(speed = 7, loops = -1, parallel = FALSE)
 	if(current_cycle == 30)
-		M.SpinAnimation(speed = 6, loops = -1)
+		user.SpinAnimation(speed = 6, loops = -1, parallel = FALSE)
 	if(current_cycle == 40)
-		M.SpinAnimation(speed = 5, loops = -1)
+		user.SpinAnimation(speed = 5, loops = -1, parallel = FALSE)
 	if(current_cycle == 50)
-		M.SpinAnimation(speed = 4, loops = -1)
+		user.SpinAnimation(speed = 4, loops = -1, parallel = FALSE)
 
-	M.AdjustDrowsy(-12 SECONDS)
-	M.AdjustParalysis(-3 SECONDS)
-	M.AdjustStunned(-3 SECONDS)
-	M.AdjustWeakened(-3 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
-	M.SetSleeping(0)
+	user.AdjustDrowsy(-12 SECONDS)
+	user.AdjustParalysis(-3 SECONDS)
+	user.AdjustStunned(-3 SECONDS)
+	user.AdjustWeakened(-3 SECONDS)
+	update_flags |= user.adjustStaminaLoss(-1.5, FALSE)
+	user.SetSleeping(0)
 	return ..() | update_flags
 
-/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/fliptonium/reaction_mob(mob/living/user, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
-		M.SpinAnimation(speed = 12, loops = -1)
+		user.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 	..()
 
-/datum/reagent/fliptonium/on_mob_delete(mob/living/M)
+/datum/reagent/fliptonium/on_mob_delete(mob/living/user)
 	. = ..()
-	M.SpinAnimation(speed = 12, loops = -1)
+	user.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 
-/datum/reagent/fliptonium/overdose_process(mob/living/M, severity)
+/datum/reagent/fliptonium/overdose_process(mob/living/user, severity)
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("Ноги [M] заплетаются!"))
-			M.AdjustConfused(66 SECONDS)
-			M.Weaken(4 SECONDS)
+			user.visible_message(span_warning("Ноги [user] заплетаются!"))
+			user.AdjustConfused(66 SECONDS)
+			user.Weaken(4 SECONDS)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
-			M.drop_l_hand()
-			M.drop_r_hand()
+			user.visible_message(span_warning("[user] маш[PLUR_ET_UT(user)] руками во все стороны, роняя предметы в руках!"))
+			user.drop_l_hand()
+			user.drop_r_hand()
 		else if(effect <= 7)
-			M.emote("laugh")
+			user.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
-			M.drop_l_hand()
-			M.drop_r_hand()
+			user.visible_message(span_warning("[user] маш[PLUR_ET_UT(user)] руками во все стороны, роняя предметы в руках!"))
+			user.drop_l_hand()
+			user.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] кача[PLUR_ET_YUT(M)]ся и вал[PLUR_IT_YAT(M)]ся на землю!"))
-			M.Jitter(10 SECONDS)
-			M.Weaken(10 SECONDS)
+			user.visible_message(span_warning("[user] кача[PLUR_ET_YUT(user)]ся и вал[PLUR_IT_YAT(user)]ся на землю!"))
+			user.Jitter(10 SECONDS)
+			user.Weaken(10 SECONDS)
 		else if(effect <= 7)
-			M.emote("laugh")
+			user.emote("laugh")
 	return list(effect, update_flags)
 
 /datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
