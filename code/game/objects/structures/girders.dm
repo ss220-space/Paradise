@@ -36,11 +36,16 @@
 	for(var/i=0;i < metalAmount;i++)
 		new metal_type(get_turf(src))
 
+/// Melting Temperatures for various specific objects
+#define GIRDER_MELTING_TEMP 5000
+
 /obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
+
+#undef GIRDER_MELTING_TEMP
 
 /obj/structure/girder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

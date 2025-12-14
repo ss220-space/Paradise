@@ -214,7 +214,7 @@
 	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
 	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
 
-	var/total_user_contents = GetAllContents() // cache it
+	var/total_user_contents = get_all_contents() // cache it
 	if(locate(/obj/item/gps) in total_user_contents)
 		var/turf/T = get_turf(src)
 		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
@@ -513,6 +513,13 @@
 					span_warning("[usr] с усилием извлека[PLUR_ET_YUT(usr)] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
+			return
+
+		if(href_list["tourniquet_object"])
+			var/obj/item/organ/external/bodypart = locateUID(href_list["limb"])
+			if(QDELETED(bodypart) || !bodypart.tourniquet)
+				return
+			bodypart.tourniquet.remove_from_bodypart(usr)
 			return
 
 	if(href_list["criminal"])

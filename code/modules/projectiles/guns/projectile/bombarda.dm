@@ -244,6 +244,7 @@
 
 /obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 
@@ -397,6 +398,7 @@
 
 /obj/projectile/grenade/a40mm/secgl
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = "bullet"
 	hitsound_wall = "ricochet"
 	damage = 5

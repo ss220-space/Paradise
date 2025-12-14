@@ -1,26 +1,7 @@
-/*
- * Holds procs designed to help with filtering text
- * Contains groups:
- *			SQL sanitization
- *			Text sanitization
- *			Text searches
- *			Text modification
- *			Misc
- */
-
 /proc/format_table_name(table as text)
 	return CONFIG_GET(string/feedback_tableprefix) + table
 
-/*
- * Text sanitization
- */
-// Can be used almost the same way as normal input for text
-/proc/clean_input(Message, Title, Default, mob/user=usr)
-	var/txt = input(user, Message, Title, Default) as text | null
-	if(txt)
-		return html_encode(txt)
-
-//Simply removes < and > and limits the length of the message
+/// Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(t, limit=MAX_MESSAGE_LEN)
 	var/list/strip_chars = list("<",">")
 	t = copytext(t,1,limit)
@@ -31,7 +12,7 @@
 			index = findtext(t, char)
 	return t
 
-//Removes a few problematic characters
+/// Removes a few problematic characters
 /proc/sanitize_simple(t, list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
@@ -57,31 +38,26 @@
 			index = findtext(t, char)
 	return t
 
-//Runs byond's sanitization proc along-side sanitize_simple
+/// Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(t, list/repl_chars = null)
 	return sanitize_censored_patterns(html_encode(sanitize_simple(t,repl_chars)))
 
-// Gut ANYTHING that isnt alphanumeric, or brackets
+/// Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/filename_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9._/-]", "g")
 	return alphanum_only.Replace(t, "")
 
-// Gut ANYTHING that isnt alphanumeric, or brackets
+/// Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
 
-// Less agressive, to allow discord features, such as <>, / and @
-/proc/not_as_paranoid_sanitize(t)
-	var/regex/alphanum_slashes_only = regex("\[^a-zA-Z0-9# ,.?!:;()/<>@]", "g")
-	return alphanum_slashes_only.Replace(t, "#")
-
-//Runs sanitize and strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
+/// Runs sanitize and strip_html_simple
+/// I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(t, limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
-// Used to get a properly sanitized multiline input, of max_length
+/// Used to get a properly sanitized multiline input, of max_length
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
 	var/name = input(user, message, title, default) as message|null
 	if(no_trim)
@@ -89,12 +65,12 @@
 	else
 		return trim(html_encode(name), max_length)
 
-//Runs byond's sanitization proc along-side strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
+/// Runs byond's sanitization proc along-side strip_html_simple
+/// I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(t, limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
-//Returns null if there is any bad text in the string
+/// Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length=512)
 	if(length_char(text) > max_length)	return			//message too long
 	var/non_whitespace = 0
@@ -107,14 +83,14 @@
 			else			non_whitespace = 1
 	if(non_whitespace)		return text		//only accepts the text if it has some non-spaces
 
-// Used to get a sanitized input.
+/// Used to get a sanitized input.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
 	var/name = html_encode(input(user, message, title, default) as text|null)
 	if(!no_trim)
 		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 	return copytext(name, 1, max_length)
 
-// Uses client.typing to check if the popup should appear or not
+/// Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
@@ -126,7 +102,7 @@
 		return null
 	return msg
 
-//Filters out undesirable characters from names
+/// Filters out undesirable characters from names
 /proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
 	// Decode so that names with characters like < are still rejected
 	t_in = html_decode(t_in)
@@ -192,61 +168,21 @@
 
 	return t_out
 
-//checks text for html tags
-//if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
-//relpaces < with &lt;
-/proc/checkhtml(t)
-	t = sanitize_simple(t, list("&#"="."))
-	var/p = findtext(t,"<",1)
-	while(p)	//going through all the tags
-		var/start = p++
-		var/tag = copytext(t,p, p+1)
-		if(tag != "/")
-			while(reject_bad_text(copytext(t, p, p+1), 1))
-				tag = copytext(t,start, p)
-				p++
-			tag = copytext(t,start+1, p)
-			if(!(tag in GLOB.paper_tag_whitelist))	//if it's unkown tag, disarming it
-				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
-		p = findtext(t,"<",p)
-	return t
-/*
- * Text searches
- */
-
-//Checks the beginning of a string for a specified sub-string
-//Returns the position of the substring or 0 if it was not found
-/proc/dd_hasprefix(text, prefix)
-	var/start = 1
-	var/end = length(prefix) + 1
-	return findtext_char(text, prefix, start, end)
-
-//Checks the beginning of a string for a specified sub-string. This proc is case sensitive
-//Returns the position of the substring or 0 if it was not found
+/// Checks the beginning of a string for a specified sub-string. This proc is case sensitive
+/// Returns the position of the substring or 0 if it was not found
 /proc/dd_hasprefix_case(text, prefix)
 	var/start = 1
 	var/end = length(prefix) + 1
 	return findtextEx_char(text, prefix, start, end)
 
-//Checks the end of a string for a specified substring.
-//Returns the position of the substring or 0 if it was not found
+/// Checks the end of a string for a specified substring.
+/// Returns the position of the substring or 0 if it was not found
 /proc/dd_hassuffix(text, suffix)
 	var/start = length(text) - length(suffix)
 	if(start)
 		return findtext_char(text, suffix, start, null)
 	return
 
-//Checks the end of a string for a specified substring. This proc is case sensitive
-//Returns the position of the substring or 0 if it was not found
-/proc/dd_hassuffix_case(text, suffix)
-	var/start = length(text) - length(suffix)
-	if(start)
-		return findtextEx_char(text, suffix, start, null)
-
-/*
- * Text modification
- */
-// See bygex.dm
 /proc/replace_characters(t, list/repl_chars, case_sensitive = FALSE)
 	for(var/char in repl_chars)
 		if(case_sensitive)
@@ -255,40 +191,20 @@
 			t = replacetext_char(t, char, repl_chars[char])
 	return t
 
-//Strips the first char and returns it and the new string as a list
-/proc/strip_first(t)
-	return list(copytext(t, 1, 2), copytext(t, 2, 0))
-
-//Strips the last char and returns it and the new string as a list
-/proc/strip_last(t)
-	return list(copytext(t, 1, length(t)), copytext(t, length(t)))
-
-//Adds 'u' number of zeros ahead of the text 't'
+/// Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
 	while(length(t) < u)
 		t = "0[t]"
 	return t
 
-//Adds 'u' number of spaces ahead of the text 't'
-/proc/add_lspace(t, u)
-	while(length(t) < u)
-		t = " [t]"
-	return t
-
-//Adds 'u' number of spaces behind the text 't'
-/proc/add_tspace(t, u)
-	while(length(t) < u)
-		t = "[t] "
-	return t
-
-//Returns a string with reserved characters and spaces before the first letter removed
+/// Returns a string with reserved characters and spaces before the first letter removed
 /proc/trim_left(text)
 	for(var/i = 1 to length(text))
 		if(text2ascii(text, i) != 32)
 			return copytext(text, i)
 	return ""
 
-//Returns a string with reserved characters and spaces after the last letter removed
+/// Returns a string with reserved characters and spaces after the last letter removed
 /proc/trim_right(text)
 	for(var/i = length(text), i > 0, i--)
 		if(text2ascii(text, i) != 32)
@@ -328,24 +244,7 @@
 	else
 		return more
 
-//Centers text by adding spaces to either side of the string.
-/proc/dd_centertext(message, length)
-	var/new_message = message
-	var/size = length(message)
-	var/delta = length - size
-	if(size == length)
-		return new_message
-	if(size > length)
-		return copytext(new_message, 1, length + 1)
-	if(delta == 1)
-		return new_message + " "
-	if(delta % 2)
-		new_message = " " + new_message
-		delta--
-	var/spaces = add_lspace("",delta/2-1)
-	return spaces + new_message + spaces
-
-//Limits the length of the text. Note: MAX_MESSAGE_LEN and MAX_NAME_LEN are widely used for this purpose
+/// Limits the length of the text. Note: MAX_MESSAGE_LEN and MAX_NAME_LEN are widely used for this purpose
 /proc/dd_limittext(message, length)
 	var/size = length(message)
 	if(size <= length)
@@ -353,17 +252,17 @@
 	return copytext(message, 1, length + 1)
 
 /proc/stringmerge(text,compare,replace = "*")
-//This proc fills in all spaces with the "replace" var (* by default) with whatever
-//is in the other string at the same spot (assuming it is not a replace char).
-//This is used for fingerprints
+	//This proc fills in all spaces with the "replace" var (* by default) with whatever
+	//is in the other string at the same spot (assuming it is not a replace char).
+	//This is used for fingerprints
 	var/newtext = text
 	if(length(text) != length(compare))
 		return 0
 	for(var/i = 1, i < length(text), i++)
 		var/a = copytext(text,i,i+1)
 		var/b = copytext(compare,i,i+1)
-//if it isn't both the same letter, or if they are both the replacement character
-//(no way to know what it was supposed to be)
+	//if it isn't both the same letter, or if they are both the replacement character
+	//(no way to know what it was supposed to be)
 		if(a != b)
 			if(a == replace) //if A is the replacement char
 				newtext = copytext(newtext,1,i) + b + copytext(newtext, i+1)
@@ -374,8 +273,8 @@
 	return newtext
 
 /proc/stringpercent(text,character = "*")
-//This proc returns the number of chars of the string that is the character
-//This is used for detective work to determine fingerprint completion.
+	//This proc returns the number of chars of the string that is the character
+	//This is used for detective work to determine fingerprint completion.
 	if(!text || !character)
 		return 0
 	var/count = 0
@@ -385,15 +284,9 @@
 			count++
 	return count
 
-/proc/reverse_text(text = "")
-	var/new_text = ""
-	for(var/i = length(text); i > 0; i--)
-		new_text += copytext(text, i, i+1)
-	return new_text
-
-//This proc strips html properly, but it's not lazy like the other procs.
-//This means that it doesn't just remove < and > and call it a day.
-//Also limit the size of the input, if specified.
+/// This proc strips html properly, but it's not lazy like the other procs.
+/// This means that it doesn't just remove < and > and call it a day.
+/// Also limit the size of the input, if specified.
 /proc/strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	if(!input)
 		return
@@ -421,8 +314,8 @@
 /proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	return trim(strip_html_properly(input, max_length, allow_lines))
 
-//Used in preferences' SetFlavorText and human's set_flavor verb
-//Previews a string of len or less length
+/// Used in preferences' SetFlavorText and human's set_flavor verb
+/// Previews a string of len or less length
 /proc/TextPreview(string, len=60)
 	if(length_char(string) <= len)
 		if(!length_char(string))
@@ -432,21 +325,13 @@
 	else
 		return "[copytext_preserve_html(string, 1, len-3)]..."
 
-//alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
+/// alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(text, first, last)
 	return html_encode(copytext_char(html_decode(text), first, last))
-
-//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
-//Best used for sanitize object names, window titles.
-//If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
-//this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
-/proc/sanitizeSafe(input, max_length = MAX_MESSAGE_LEN, encode = 1, trim = 1, extra = 1)
-	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
 	// Some coder will probably despise me for this, years down the line
-
 	var/list/repl_chars = list("#?qt;", "#?lbr;", "#?rbr;")
 	for(var/char in repl_chars)
 		var/index = findtext(text, char)
@@ -479,234 +364,208 @@
 			index = findtext(text, char)
 	return text
 
-//Checks if any of a given list of needles is in the haystack
-/proc/text_in_list(haystack, list/needle_list, start=1, end=0)
-	for(var/needle in needle_list)
-		if(findtext(haystack, needle, start, end))
-			return 1
-	return 0
+/**
+ * Converts pencode to HTML with various formatting options
+ *
+ * Arguments:
+ * * input_text - The text containing pencode to convert
+ * * user_mob - The mob using the pen (for signature and species)
+ * * pen_item - The pen item being used (can be null)
+ * * enable_formatting - Whether to enable basic formatting (headings, center, etc.)
+ * * enable_signature - Whether to enable signature replacement
+ * * enable_fields - Whether to enable field replacement
+ * * default_font - The default font to use
+ * * signature_font - The font to use for signatures
+ * * crayon_font - The font to use for crayons
+ * * disable_font - Whether to disable font styling entirely
+ */
+/proc/pencode_to_html(input_text, mob/user_mob, obj/item/pen/pen_item = null, enable_formatting = TRUE, enable_signature = TRUE, enable_fields = TRUE, default_font = PEN_FONT, signature_font = SIGNFONT, crayon_font = CRAYON_FONT, disable_font = FALSE)
+	input_text = replacetext(input_text, "\[b\]", "<b>")
+	input_text = replacetext(input_text, "\[/b\]", "</b>")
+	input_text = replacetext(input_text, "\[i\]", "<i>")
+	input_text = replacetext(input_text, "\[/i\]", "</i>")
+	input_text = replacetext(input_text, "\[u\]", "<u>")
+	input_text = replacetext(input_text, "\[/u\]", "</u>")
 
-//Like above, but case sensitive
-/proc/text_in_list_case(haystack, list/needle_list, start=1, end=0)
-	for(var/needle in needle_list)
-		if(findtextEx(haystack, needle, start, end))
-			return 1
-	return 0
-
-// Pencode
-/proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE)
-	text = replacetext(text, "\[b\]",		"<b>")
-	text = replacetext(text, "\[/b\]",		"</b>")
-	text = replacetext(text, "\[i\]",		"<i>")
-	text = replacetext(text, "\[/i\]",		"</i>")
-	text = replacetext(text, "\[u\]",		"<u>")
-	text = replacetext(text, "\[/u\]",		"</u>")
 	if(check_rights(R_EVENT))
-		text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
-		text = replacetext(text, "\[/signfont\]",		"</i></font>")
-	if(sign)
-		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
-	if(fields)
-		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
-	if(format)
-		text = replacetext(text, "\[h1\]",	"<h1>")
-		text = replacetext(text, "\[/h1\]",	"</h1>")
-		text = replacetext(text, "\[h2\]",	"<h2>")
-		text = replacetext(text, "\[/h2\]",	"</h2>")
-		text = replacetext(text, "\[h3\]",	"<h3>")
-		text = replacetext(text, "\[/h3\]",	"</h3>")
-		text = replacetext(text, "\n",			"<br>")
-		text = replacetext(text, "\[center\]",	"<center>")
-		text = replacetext(text, "\[/center\]",	"</center>")
-		text = replacetext(text, "\[br\]",		"<br>")
-		text = replacetext(text, "\[large\]",	"<font size=\"4\">")
-		text = replacetext(text, "\[/large\]",	"</font>")
+		input_text = replacetext(input_text, "\[signfont\]", "<font face=\"[signature_font]\"><i>")
+		input_text = replacetext(input_text, "\[/signfont\]", "</i></font>")
 
-	if(istype(P, /obj/item/toy/crayon) || !format) // If it is a crayon, and he still tries to use these, make them empty!
-		text = replacetext(text, "\[*\]",		"")
-		text = replacetext(text, "\[hr\]",		"")
-		text = replacetext(text, "\[small\]",	"")
-		text = replacetext(text, "\[/small\]",	"")
-		text = replacetext(text, "\[list\]",	"")
-		text = replacetext(text, "\[/list\]",	"")
-		text = replacetext(text, "\[table\]",	"")
-		text = replacetext(text, "\[/table\]",	"")
-		text = replacetext(text, "\[row\]",	"")
-		text = replacetext(text, "\[cell\]",	"")
-		text = replacetext(text, "\[logo\]",	"")
-		text = replacetext(text, "\[slogo\]",	"")
-		text = replacetext(text, "\[time\]",	"")
-		text = replacetext(text, "\[date\]",	"")
-		text = replacetext(text, "\[station\]", "")
-	if(istype(P, /obj/item/toy/crayon))
-		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
-	else	// They are using "not a crayon" - formatting is OK and such
-		text = replacetext(text, "\[*\]",		"<li>")
-		text = replacetext(text, "\[hr\]",		"<hr>")
-		text = replacetext(text, "\[small\]",	"<font size = \"1\">")
-		text = replacetext(text, "\[/small\]",	"</font>")
-		text = replacetext(text, "\[list\]",	"<ul>")
-		text = replacetext(text, "\[/list\]",	"</ul>")
-		text = replacetext(text, "\[table\]",	"<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
-		text = replacetext(text, "\[/table\]",	"</td></tr></table>")
-		text = replacetext(text, "\[grid\]",	"<table>")
-		text = replacetext(text, "\[/grid\]",	"</td></tr></table>")
-		text = replacetext(text, "\[row\]",		"</td><tr>")
-		text = replacetext(text, "\[cell\]",	"<td>")
-		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
-		text = replacetext(text, "\[slogo\]",	"&ZeroWidthSpace;<img src = syndielogo.png>")
-		text = replacetext(text, "\[ussplogo\]", "&ZeroWidthSpace;<img src = ussplogo.png>")
-		text = replacetext(text, "\[solgov\]", "&ZeroWidthSpace;<img src = solgovlogo.png>")
-		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
-		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
-		text = replacetext(text, "\[station\]", "[station_name()]")
-		text = replacetext(text, "\[gender\]", "[user ? user.gender : "neuter"]")
-		text = replacetext(text, "\[species\]", "[user?.dna?.species ? user.dna.species : UNKNOWN_STATUS_RUS]")
-		if(!no_font)
-			if(P)
-				text = "<font face=\"[P.fake_signing ? signfont : deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
-				if(P.fake_signing) //or this, or one string in Kmetres
-					text = "<i>[text]</i>"
+	if(enable_signature)
+		input_text = replacetext(input_text, "\[sign\]", "<font face=\"[signature_font]\"><i>[user_mob ? user_mob.real_name : "Anonymous"]</i></font>")
+
+	if(enable_fields)
+		input_text = replacetext(input_text, "\[field\]", "<span class=\"paper_field\"></span>")
+
+	if(enable_formatting)
+		input_text = replacetext(input_text, "\[h1\]", "<h1>")
+		input_text = replacetext(input_text, "\[/h1\]", "</h1>")
+		input_text = replacetext(input_text, "\[h2\]", "<h2>")
+		input_text = replacetext(input_text, "\[/h2\]", "</h2>")
+		input_text = replacetext(input_text, "\[h3\]", "<h3>")
+		input_text = replacetext(input_text, "\[/h3\]", "</h3>")
+		input_text = replacetext(input_text, "\n", "<br>")
+		input_text = replacetext(input_text, "\[center\]", "<center>")
+		input_text = replacetext(input_text, "\[/center\]", "</center>")
+		input_text = replacetext(input_text, "\[br\]", "<br>")
+		input_text = replacetext(input_text, "\[large\]", "<font size=\"4\">")
+		input_text = replacetext(input_text, "\[/large\]", "</font>")
+
+	// Crayon-specific handling - disable advanced formatting
+	if(istype(pen_item, /obj/item/toy/crayon) || !enable_formatting)
+		input_text = replacetext(input_text, "\[*\]", "")
+		input_text = replacetext(input_text, "\[hr\]", "")
+		input_text = replacetext(input_text, "\[small\]", "")
+		input_text = replacetext(input_text, "\[/small\]", "")
+		input_text = replacetext(input_text, "\[list\]", "")
+		input_text = replacetext(input_text, "\[/list\]", "")
+		input_text = replacetext(input_text, "\[table\]", "")
+		input_text = replacetext(input_text, "\[/table\]", "")
+		input_text = replacetext(input_text, "\[row\]", "")
+		input_text = replacetext(input_text, "\[cell\]", "")
+		input_text = replacetext(input_text, "\[logo\]", "")
+		input_text = replacetext(input_text, "\[slogo\]", "")
+		input_text = replacetext(input_text, "\[time\]", "")
+		input_text = replacetext(input_text, "\[date\]", "")
+		input_text = replacetext(input_text, "\[station\]", "")
+
+	// Apply crayon formatting if using a crayon
+	if(istype(pen_item, /obj/item/toy/crayon))
+		input_text = "<font face=\"[crayon_font]\" color=[pen_item ? pen_item.colour : "black"]><b>[input_text]</b></font>"
+	else
+		// Apply advanced formatting for non-crayon writing instruments
+		input_text = replacetext(input_text, "\[*\]", "<li>")
+		input_text = replacetext(input_text, "\[hr\]", "<hr>")
+		input_text = replacetext(input_text, "\[small\]", "<font size = \"1\">")
+		input_text = replacetext(input_text, "\[/small\]", "</font>")
+		input_text = replacetext(input_text, "\[list\]", "<ul>")
+		input_text = replacetext(input_text, "\[/list\]", "</ul>")
+		input_text = replacetext(input_text, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
+		input_text = replacetext(input_text, "\[/table\]", "</td></tr></table>")
+		input_text = replacetext(input_text, "\[grid\]", "<table>")
+		input_text = replacetext(input_text, "\[/grid\]", "</td></tr></table>")
+		input_text = replacetext(input_text, "\[row\]", "</td><tr>")
+		input_text = replacetext(input_text, "\[cell\]", "<td>")
+		input_text = replacetext(input_text, "\[logo\]", "&ZeroWidthSpace;<img src = ntlogo.png>")
+		input_text = replacetext(input_text, "\[slogo\]", "&ZeroWidthSpace;<img src = syndielogo.png>")
+		input_text = replacetext(input_text, "\[ussplogo\]", "&ZeroWidthSpace;<img src = ussplogo.png>")
+		input_text = replacetext(input_text, "\[solgov\]", "&ZeroWidthSpace;<img src = solgovlogo.png>")
+		input_text = replacetext(input_text, "\[time\]", "[station_time_timestamp()]")
+		input_text = replacetext(input_text, "\[date\]", "[GLOB.current_date_string]")
+		input_text = replacetext(input_text, "\[station\]", "[station_name()]")
+		input_text = replacetext(input_text, "\[gender\]", "[user_mob ? user_mob.gender : "neuter"]")
+		input_text = replacetext(input_text, "\[species\]", "[user_mob?.dna?.species ? user_mob.dna.species : UNKNOWN_STATUS_RUS]")
+
+		// Apply font styling unless disabled
+		if(!disable_font)
+			if(pen_item)
+				input_text = "<font face=\"[pen_item.fake_signing ? signature_font : default_font]\" color=[pen_item ? pen_item.colour : "black"]>[input_text]</font>"
+				if(pen_item.fake_signing)
+					input_text = "<i>[input_text]</i>"
 			else
-				text = "<font face=\"[deffont]\">[text]</font>"
+				input_text = "<font face=\"[default_font]\">[input_text]</font>"
 
-	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
-	return text
+	input_text = copytext(input_text, 1, MAX_PAPER_MESSAGE_LEN)
+	return input_text
 
-/proc/convert_pencode_arg(text, tag, arg)
-	arg = sanitize_simple(html_encode(arg), list("''"="","\""="", "?"=""))
-	arg = sanitize_censored_patterns(arg)
+/**
+ * Converts pencode arguments to HTML tags with safety checks
+ * Called by admin_pencode_to_html to handle custom tags
+ *
+ * Arguments:
+ * * original_text - The original text that matched the regex
+ * * tag_type - The type of tag (class, style, img)
+ * * tag_arguments - The arguments provided for the tag
+ */
+/proc/convert_pencode_arg(original_text, tag_type, tag_arguments)
+	tag_arguments = sanitize_simple(html_encode(tag_arguments), list("''"="", "\""="", "?"=""))
+	tag_arguments = sanitize_censored_patterns(tag_arguments)
+
 	// https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#rule-4---css-escape-and-strictly-validate-before-inserting-untrusted-data-into-html-style-property-values
-	var/list/style_attacks = list("javascript:", "expression", "byond:", "file:")
+	var/list/dangerous_patterns = list("javascript:", "expression", "byond:", "file:")
 
-	for(var/style_attack in style_attacks)
-		if(findtext(arg, style_attack))
-			// Do not attempt to render dangerous things
-			return text
+	for(var/dangerous_pattern in dangerous_patterns)
+		if(findtext(tag_arguments, dangerous_pattern))
+			// Do not attempt to render dangerous content
+			return original_text
 
-	if(tag == "class")
-		return "<span class='[arg]'>"
+	if(tag_type == "class")
+		return "<span class='[tag_arguments]'>"
 
-	if(tag == "style")
-		return "<span style='[arg]'>"
+	if(tag_type == "style")
+		return "<span style='[tag_arguments]'>"
 
-	if(tag == "img")
-		var/list/img_props = splittext(arg, ";")
-		if(length(img_props) == 3)
-			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(length(img_props) == 2)
-			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
-		return "<img src='[arg]'>"
+	if(tag_type == "img")
+		var/list/image_properties = splittext(tag_arguments, ";")
+		if(length(image_properties) == 3)
+			return "<img src='[image_properties[1]]' width='[image_properties[2]]' height='[image_properties[3]]'>"
+		if(length(image_properties) == 2)
+			return "<img src='[image_properties[1]]' width='[image_properties[2]]'>"
+		return "<img src='[tag_arguments]'>"
 
-	return text
+	return original_text
 
+/**
+ * Converts pencode to HTML with additional admin-specific formatting
+ * Handles custom classes, styles, and images in pencode
+ */
 /proc/admin_pencode_to_html()
-	var/text = pencode_to_html(arglist(args))
-	var/regex/R = new(@"\[(.*?) (.*?)\]", "ge")
-	text = R.Replace(text, /proc/convert_pencode_arg)
+	var/input_text = pencode_to_html(arglist(args))
+	var/regex/style_regex = new(@"\[(.*?) (.*?)\]", "ge")
+	input_text = style_regex.Replace(input_text, /proc/convert_pencode_arg)
 
-	text = replacetext(text, "\[/class\]", "</span>")
-	text = replacetext(text, "\[/style\]", "</span>")
-	text = replacetext(text, "\[/img\]", "</img>")
+	input_text = replacetext(input_text, "\[/class\]", "</span>")
+	input_text = replacetext(input_text, "\[/style\]", "</span>")
+	input_text = replacetext(input_text, "\[/img\]", "</img>")
 
-	return text
+	return input_text
 
-/proc/html_to_pencode(text)
-	text = replacetext(text, "<br>",								"\n")
-	text = replacetext(text, "<center>",							"\[center\]")
-	text = replacetext(text, "</center>",							"\[/center\]")
-	text = replacetext(text, "<br>",								"\[br\]")
-	text = replacetext(text, "<b>",									"\[b\]")
-	text = replacetext(text, "</b>",								"\[/b\]")
-	text = replacetext(text, "<i>",									"\[i\]")
-	text = replacetext(text, "</i>",								"\[/i\]")
-	text = replacetext(text, "<u>",									"\[u\]")
-	text = replacetext(text, "</u>",								"\[/u\]")
-	text = replacetext(text, "<font size=\"4\">",					"\[large\]")
-	text = replacetext(text, "<span class=\"paper_field\"></span>",	"\[field\]")
+/**
+ * Converts HTML back to pencode format
+ *
+ * Arguments:
+ * * input_text - The HTML text to convert to pencode
+ */
+/proc/html_to_pencode(input_text)
+	input_text = replacetext(input_text, "<br>", "\n")
+	input_text = replacetext(input_text, "<center>", "\[center\]")
+	input_text = replacetext(input_text, "</center>", "\[/center\]")
+	input_text = replacetext(input_text, "<br>", "\[br\]")
+	input_text = replacetext(input_text, "<b>", "\[b\]")
+	input_text = replacetext(input_text, "</b>", "\[/b\]")
+	input_text = replacetext(input_text, "<i>", "\[i\]")
+	input_text = replacetext(input_text, "</i>", "\[/i\]")
+	input_text = replacetext(input_text, "<u>", "\[u\]")
+	input_text = replacetext(input_text, "</u>", "\[/u\]")
+	input_text = replacetext(input_text, "<font size=\"4\">", "\[large\]")
+	input_text = replacetext(input_text, "<span class=\"paper_field\"></span>", "\[field\]")
 
-	text = replacetext(text, "<h1>",	"\[h1\]")
-	text = replacetext(text, "</h1>",	"\[/h1\]")
-	text = replacetext(text, "<h2>",	"\[h2\]")
-	text = replacetext(text, "</h2>",	"\[/h2\]")
-	text = replacetext(text, "<h3>",	"\[h3\]")
-	text = replacetext(text, "</h3>",	"\[/h3\]")
+	input_text = replacetext(input_text, "<h1>", "\[h1\]")
+	input_text = replacetext(input_text, "</h1>", "\[/h1\]")
+	input_text = replacetext(input_text, "<h2>", "\[h2\]")
+	input_text = replacetext(input_text, "</h2>", "\[/h2\]")
+	input_text = replacetext(input_text, "<h3>", "\[h3\]")
+	input_text = replacetext(input_text, "</h3>", "\[/h3\]")
 
-	text = replacetext(text, "<li>",					"\[*\]")
-	text = replacetext(text, "<hr>",					"\[hr\]")
-	text = replacetext(text, "<font size = \"1\">",		"\[small\]")
-	text = replacetext(text, "<ul>",					"\[list\]")
-	text = replacetext(text, "</ul>",					"\[/list\]")
-	text = replacetext(text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>",	"\[table\]")
-	text = replacetext(text, "</td></tr></table>",		"\[/table\]")
-	text = replacetext(text, "<table>",					"\[grid\]")
-	text = replacetext(text, "</td></tr></table>",		"\[/grid\]")
-	text = replacetext(text, "</td><tr>",				"\[row\]")
-	text = replacetext(text, "<td>",					"\[cell\]")
-	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
-	text = replacetext(text, "<img src = syndielogo.png>",	"\[slogo\]")
-	text = replacetext(text, "<img src = ussplogo.png>",	"\[ussplogo\]")
-	return text
+	input_text = replacetext(input_text, "<li>", "\[*\]")
+	input_text = replacetext(input_text, "<hr>", "\[hr\]")
+	input_text = replacetext(input_text, "<font size = \"1\">", "\[small\]")
+	input_text = replacetext(input_text, "<ul>", "\[list\]")
+	input_text = replacetext(input_text, "</ul>", "\[/list\]")
+	input_text = replacetext(input_text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>", "\[table\]")
+	input_text = replacetext(input_text, "</td></tr></table>", "\[/table\]")
+	input_text = replacetext(input_text, "<table>", "\[grid\]")
+	input_text = replacetext(input_text, "</td></tr></table>", "\[/grid\]")
+	input_text = replacetext(input_text, "</td><tr>", "\[row\]")
+	input_text = replacetext(input_text, "<td>", "\[cell\]")
+	input_text = replacetext(input_text, "<img src = ntlogo.png>", "\[logo\]")
+	input_text = replacetext(input_text, "<img src = syndielogo.png>", "\[slogo\]")
+	input_text = replacetext(input_text, "<img src = ussplogo.png>", "\[ussplogo\]")
 
-/datum/html/split_holder
-	var/list/opening
-	var/inner_text
-	var/list/closing
+	return input_text
 
-/datum/html/split_holder/New()
-	opening = list()
-	inner_text = ""
-	closing = list()
-
-/proc/split_html(raw_text="")
-	// gently borrowed and re-purposed from code/modules/pda/utilities.dm
-	// define a datum to hold our result
-	var/datum/html/split_holder/s = new()
-
-	// copy the raw_text to get started
-	var/text = copytext_char(raw_text, 1)
-
-	// search for tag brackets
-	var/tag_start = findtext_char(text, "<")
-	var/tag_stop = findtext_char(text, ">")
-
-	// until we run out of opening tags
-	while((tag_start != 0) && (tag_stop != 0))
-		// if the tag isn't at the beginning of the string
-		if(tag_start > 1)
-			// we've found our text, so copy it out
-			s.inner_text = copytext_char(text, 1, tag_start)
-			// and chop the text for the next round
-			text = copytext_char(text, tag_start)
-			break
-		// otherwise, we found an opening tag, so add it to the list
-		var/tag = copytext_char(text, tag_start, tag_stop+1)
-		s.opening.Add(tag)
-		// and chop the text for the next round
-		text = copytext_char(text, tag_stop+1)
-		// look for the next tag in what's left
-		tag_start = findtext(text, "<")
-		tag_stop = findtext(text, ">")
-
-	// search for tag brackets
-	tag_start = findtext(text, "<")
-	tag_stop = findtext(text, ">")
-
-	// until we run out of closing tags
-	while((tag_start != 0) && (tag_stop != 0))
-		// we found a closing tag, so add it to the list
-		var/tag = copytext_char(text, tag_start, tag_stop+1)
-		s.closing.Add(tag)
-		// and chop the text for the next round
-		text = copytext_char(text, tag_stop+1)
-		// look for the next tag in what's left
-		tag_start = findtext(text, "<")
-		tag_stop = findtext(text, ">")
-
-	// return the split html object to the caller
-	return s
-
-// Returns the rot13'ed text
+// MARK: TODO: DEL
+/// Returns the rot13'ed text
 /proc/rot13(text = "")
 	var/lentext = length(text)
 	var/char = ""
@@ -726,7 +585,7 @@
 				ascii -= 13
 		. += ascii2text(ascii)
 
-//Used for applying byonds text macros to strings that are loaded at runtime
+/// Used for applying byonds text macros to strings that are loaded at runtime
 /proc/apply_text_macros(string)
 	var/next_backslash = findtext(string, "\\")
 	if(!next_backslash)
@@ -816,3 +675,26 @@
 /proc/endswith(input_text, ending)
 	var/input_length = LAZYLEN(ending)
 	return !!findtext(input_text, ending, -input_length)
+
+/// Properly format a string of text by using replacetext()
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
+
+/// Picks a string of symbols to display as the law number for hacked or ion laws
+/proc/ionnum()
+	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
+
+/**
+ * Escapes regex special characters in a string for safe use in regular expressions
+ *
+ * Arguments:
+ * * input_text - The text to escape for regex
+ */
+/proc/escape_regex_smart(input_text)
+	var/list/special_chars = list(".", "*", "+", "?", "^", "$", "(", ")", "[", "]", "{", "}", "|")
+	input_text = replacetext(input_text, "\\", "\\\\")
+	for(var/current_char in special_chars)
+		input_text = replacetext(input_text, current_char, "\\[current_char]")
+	for(var/current_char in special_chars)
+		input_text = replacetext(input_text, "\\\\\\[current_char]", "\\[current_char]")
+	return input_text

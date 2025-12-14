@@ -85,7 +85,7 @@
 /datum/config_entry/flag/log_runtime
 
 /// disable writing world.log to log panel / root logger of DreamDaemon
-/datum/config_entry/flag/disable_root_log
+/datum/config_entry/flag/enable_root_log
 
 /// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 /datum/config_entry/flag/log_hrefs
@@ -128,6 +128,10 @@
 
 /// dead people can't vote (tbi)
 /datum/config_entry/flag/vote_no_dead
+
+/// offstation role people can't vote (tbi)
+/datum/config_entry/flag/vote_no_offstation_role
+	default = TRUE
 
 /// vote does not default to nochange/norestart (tbi)
 /datum/config_entry/flag/default_no_vote

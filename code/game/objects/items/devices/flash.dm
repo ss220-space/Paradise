@@ -76,7 +76,7 @@
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	visible_message(span_notice("The [src.name] burns out!"))
+	visible_message("[declent_ru(NOMINATIVE)] сгорел[GEND_A_O_I(src)]!")
 
 /obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!

@@ -171,7 +171,7 @@
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
-	if(is_sharp(I) && I.force)
+	if(I.sharp && I.force)
 		var/duration = (48 / I.force) * 2 //In seconds, for now.
 		if(istype(I, /obj/item/hatchet) || istype(I, /obj/item/twohanded/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.

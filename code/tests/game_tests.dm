@@ -18,6 +18,7 @@
 #include "test_get_turf_pixel.dm"
 #include "test_init_sanity.dm"
 #include "test_map_templates.dm"
+#include "test_missing_icons.dm"
 #include "test_orphaned_genturf.dm"
 #include "test_plane_double_transform.dm"
 #include "test_plane_dupe_detector.dm"

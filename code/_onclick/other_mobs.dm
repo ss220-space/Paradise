@@ -72,8 +72,13 @@
 		if(!limb)
 			to_chat(src, span_warning("Вы смотрите на то, что осталось от Вашей [hand ? "левой руки" : "правой руки"] и тяжко вздыхаете..."))
 			return FALSE
+
 		if(!limb.is_usable())
 			to_chat(src, span_warning("Ваша [hand ? "левая рука" : "правая рука"] слишком травмирована."))
+			return FALSE
+
+		if((hand == ACTIVE_HAND_RIGHT && right_hand_bleed_suppress_lib) || (hand == ACTIVE_HAND_LEFT && left_hand_bleed_suppress_lib))
+			to_chat(src, span_warning("Ваша [hand ? "левая рука" : "правая рука"] зажимает рану, сначала нужно отпустить."))
 			return FALSE
 
 /*

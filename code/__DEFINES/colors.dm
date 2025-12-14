@@ -126,6 +126,7 @@
 #define COLOR_BLUE_VERY_LIGHT "#ccecff"
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75a2bb"
+#define COLOR_MEDIUM_TURQUOISE "#48d1cc"
 
 // Pink
 #define COLOR_PINK "#ffc0cb"
@@ -558,3 +559,13 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 // Color matrix utilities.
 #define COLOR_MATRIX_ADD(C) list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, C)
 #define COLOR_MATRIX_OVERLAY(C) list(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, C)
+
+#define MATRIX_GREYSCALE list(\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33)
+
+// Security spear colors
+#define COLOR_SECSPEAR_RED "#ed3f3f"
+#define COLOR_SECSPEAR_BLUE "#3fc4ed"
+#define COLOR_SECSPEAR_YELLOW "#edc73f"

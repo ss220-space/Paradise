@@ -161,7 +161,7 @@
 	/// Positions that will be paid. (Noooo I won't do part of this in new)
 	var/list/bounty_jobs = list()
 	/// The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
-	var/linked_departament = "Cargo"
+	var/linked_departament = STATION_DEPARTMENT_SUPPLY
 
 /datum/cargo_quest/New(storage, read_datum = FALSE)
 	if(!read_datum)

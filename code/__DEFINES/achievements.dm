@@ -62,6 +62,12 @@
 #define BOSS_MEDAL_FROSTMINER_CRUSHER "Demonic-frost Miner Crusher"
 #define BOSS_MEDAL_WENDIGO_CRUSHER "Wendigo Crusher"
 
+// Donations medals
+#define MEDAL_DONATION_FIRST_TIME "Donation first time"
+#define MEDAL_DONATION_PERMANENT_SPONSOR "Donation permanent sponsor"
+#define MEDAL_DONATION_BRONZE_SPONSOR "Donation bronze sponsor"
+#define MEDAL_DONATION_PLATINUM_SPONSOR "Donation platinum sponsor"
+
 // Medal hub IDs for boss-kill scores
 #define BOSS_SCORE "Bosses Killed"
 #define MINER_SCORE "BDMs Killed"
@@ -98,3 +104,4 @@
 #define ACHIEVEMENT_CATEGORY_MISC "Разное"
 #define ACHIEVEMENT_CATEGORY_MAFIA "Мафия"
 #define ACHIEVEMENT_CATEGORY_SCORES "Статистика"
+#define ACHIEVEMENT_CATEGORY_DONATIONS "Пожертвования"

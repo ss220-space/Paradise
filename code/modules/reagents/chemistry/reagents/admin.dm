@@ -24,6 +24,8 @@
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			bodypart.mend_fracture()
 			bodypart.stop_internal_bleeding()
+			bodypart.stop_arterial_bleeding()
+			bodypart.stop_bleeding()
 		H.remove_all_parasites()
 	M.SetEyeBlind(0)
 	M.CureNearsighted(FALSE)

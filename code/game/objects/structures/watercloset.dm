@@ -378,7 +378,7 @@
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	if(building)
 		setDir(newdir)
 		pixel_x = 0

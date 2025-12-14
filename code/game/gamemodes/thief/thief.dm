@@ -30,7 +30,7 @@
 			if(!length(possible_thieves))
 				break
 			var/datum/mind/thief = pick(possible_thieves)
-			listclearduplicates(thief, possible_thieves)
+			list_clear_duplicates(thief, possible_thieves)
 			pre_thieves += thief
 			thief.special_role = SPECIAL_ROLE_THIEF
 			thief.restricted_roles = restricted_jobs

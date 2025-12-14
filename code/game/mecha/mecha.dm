@@ -44,7 +44,6 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/lights_color = -99999 // "NONSENSICAL_VALUE"
-	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	/// The internal storage of the exosuit. For the cargo module
@@ -1169,7 +1168,7 @@
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
 				to_chat(user, span_boldannounceic("ACCESS DENIED."))
 				return
-			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
+			AI.aiRestorePowerRoutine = POWER_RESTORATION_OFF // So the AI initially has power.
 			AI.control_disabled = TRUE
 			AI.aiRadio.disabledAi = TRUE
 			AI.forceMove(card)
@@ -1210,7 +1209,7 @@
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
-	AI.aiRestorePowerRoutine = 0
+	AI.aiRestorePowerRoutine = POWER_RESTORATION_OFF
 	AI.forceMove(src)
 	occupant = AI
 	update_icon(UPDATE_ICON_STATE)

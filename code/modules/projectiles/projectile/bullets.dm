@@ -432,7 +432,6 @@
 	damage = 15
 	damage_type = BURN
 	range = 10
-	icon_state = "dragonbreath"
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/get_ru_names()
 	return list(

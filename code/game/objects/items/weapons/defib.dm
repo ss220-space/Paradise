@@ -339,8 +339,9 @@
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
 	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
-	icon_state = "defibpaddles"
-	item_state = "defibpaddles"
+	icon_state = "defibpaddles0"
+	item_state = "defibpaddles0"
+	base_icon_state = "defibpaddles"
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
@@ -365,8 +366,9 @@
 /obj/item/twohanded/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
 	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони."
-	icon_state = "ntpaddles"
-	item_state = "ntpaddles"
+	icon_state = "ntpaddles0"
+	item_state = "ntpaddles0"
+	base_icon_state = "ntpaddles"
 
 /obj/item/twohanded/shockpaddles/advanced/get_ru_names()
 	return list(
@@ -382,8 +384,9 @@
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони. Одинаково хорошо подходят как для оживления мёртвых оперативников, так и для устранения противников."
-	icon_state = "syndiepaddles"
-	item_state = "syndiepaddles"
+	icon_state = "syndiepaddles0"
+	item_state = "syndiepaddles0"
+	base_icon_state = "syndiepaddles"
 
 /obj/item/twohanded/shockpaddles/syndicate/get_ru_names()
 	return list(
@@ -445,8 +448,8 @@
 
 /obj/item/twohanded/shockpaddles/update_icon_state()
 	var/is_wielded = HAS_TRAIT(src, TRAIT_WIELDED)
-	icon_state = "[initial(icon_state)][is_wielded][on_cooldown ? "_cooldown" : ""]"
-	item_state = "[initial(icon_state)][is_wielded]"
+	icon_state = "[base_icon_state][is_wielded][on_cooldown ? "_cooldown" : ""]"
+	item_state = "[base_icon_state][is_wielded]"
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] поднос[PLUR_IT_YAT(user)] включенные электроды к своей груди! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
@@ -483,8 +486,6 @@
 
 /obj/item/twohanded/shockpaddles/borg
 	desc = "Пара встроенных электродов с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
-	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
 	var/safety = TRUE
 
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)
@@ -518,5 +519,5 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/twohanded/shockpaddles/borg/update_icon_state()
-	icon_state = "[initial(icon_state)][on_cooldown ? "_cooldown" : ""]"
+	icon_state = "[base_icon_state][on_cooldown ? "_cooldown" : ""]"
 

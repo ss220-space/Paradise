@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/wires/robot/wires = null
 
 	var/opened = FALSE
+	/// Has the robot been emagged?
 	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = FLASH_PROTECTION_NONE
@@ -662,7 +663,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!module)
 		return
 
-	var/total_user_contents = GetAllContents()
+	var/total_user_contents = get_all_contents()
 	if(locate(/obj/item/gps) in total_user_contents)
 		status_tab_data[++status_tab_data.len] = show_gps_coords()
 

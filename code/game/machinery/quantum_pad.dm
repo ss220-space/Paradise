@@ -150,9 +150,6 @@
 			if(mob.buckled && mob.buckled.anchored)
 				continue
 
-		if(!isobserver(target))
-			continue
-
 		tele_success = do_teleport(target, get_turf(target_pad))
 
 	if(!tele_success)

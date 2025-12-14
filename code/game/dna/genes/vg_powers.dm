@@ -235,7 +235,7 @@
 		user.thoughts_hud_set(TRUE, say_test(say))
 		addtimer(CALLBACK(hud, TYPE_PROC_REF(/datum/atom_hud/thoughts/, manage_hud), target, THOUGHTS_HUD_DISPERSE), 3 SECONDS)
 		say = strip_html(say)
-		say = pencode_to_html(say, user, format = 0, fields = 0)
+		say = pencode_to_html(say, user, enable_formatting = FALSE, enable_fields = FALSE)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
 
@@ -305,7 +305,7 @@
 
 		target.thoughts_hud_set(TRUE, say_test(say))
 		say = strip_html(say)
-		say = pencode_to_html(say, target, format = 0, fields = 0)
+		say = pencode_to_html(say, target, enable_formatting = FALSE, enable_fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 
