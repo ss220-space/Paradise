@@ -180,7 +180,7 @@
 	var/mob/living/carbon/human/human_target = target
 	var/obj/item/organ/external/target_bodypart = null
 	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
-		var/accept = call(src, filter_proc)(arglist(list(current=bodypart, max=target_bodypart)))
+		var/accept = call(src, filter_proc)(arglist(list(current = bodypart, max = target_bodypart)))
 		if(accept)
 			target_bodypart = bodypart
 
