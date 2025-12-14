@@ -210,6 +210,12 @@
 	message = "тряс%(ёт,ут)%ся."
 	unintentional_stat_allowed = UNCONSCIOUS
 
+/datum/emote/living/bshake/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	user.Jitter(5 SECONDS)
+
 /datum/emote/living/shudder
 	key = "shudder"
 	key_third_person = "shudders"
