@@ -93,11 +93,11 @@
 	if(!fast_check_timer)
 		return
 	add_time()
-	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
+	if(world.time - time_start - 0.4 * quest_time + 300 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
-/datum/cargo_quests_storage/proc/add_time(time = 3 MINUTES)
+/datum/cargo_quests_storage/proc/add_time(time = 5 MINUTES)
 	var/timeleft = time_start + quest_time - world.time
 	deltimer(quest_check_timer)
 	quest_time += time
