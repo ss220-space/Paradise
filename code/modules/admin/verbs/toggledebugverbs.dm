@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 
 // Would be nice to make this a permanent admin pref so we don't need to click it each time
 /client/proc/enable_debug_verbs()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Debug verbs - Enable"
 
 	if(!check_rights(R_DEBUG))
@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	add_verb(src, GLOB.admin_verbs_show_debug_verbs + /client/proc/disable_debug_verbs)
 	
 /client/proc/disable_debug_verbs()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Debug verbs - Disable"
 
 	remove_verb(src, GLOB.admin_verbs_show_debug_verbs + /client/proc/disable_debug_verbs)

@@ -1,5 +1,5 @@
 /client/proc/Debug2()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Debug-Game"
 
 	if(!check_rights(R_DEBUG))
@@ -26,7 +26,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 */
 
 /client/proc/callproc()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Advanced ProcCall"
 
 	if(!check_rights(R_PROCCALL))
@@ -247,7 +247,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return lst
 
 /client/proc/Cell()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Air Status in Location"
 
 	if(!check_rights(R_DEBUG))
@@ -364,7 +364,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		tgui_alert(usr, "Invalid mob")
 
 /client/proc/cmd_debug_del_sing()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Del Singulo / Tesla"
 
 	if(!check_rights(R_DEBUG))
@@ -384,7 +384,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	BLACKBOX_LOG_ADMIN_VERB("Del Singulo/Tesla")
 
 /client/proc/cmd_debug_make_powernets()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Make Powernets"
 
 	if(!check_rights(R_DEBUG))
@@ -448,7 +448,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
 
 /client/proc/cmd_admin_areatest()
-	set category = "Debug.Mapping"
+	set category = STATPANEL_DEBUG_MAPPING
 	set name = "Test areas"
 
 	if(!check_rights(R_DEBUG))
@@ -693,7 +693,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			SMES.input_attempt = 1
 
 /client/proc/cmd_debug_mob_lists()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Debug Mob Lists"
 	set desc = "For when you just gotta know"
 
@@ -721,7 +721,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			to_chat(usr, jointext(GLOB.respawnable_list, ","))
 
 /client/proc/cmd_display_del_log()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Display del() Log"
 	set desc = "Display del's log of everything that's passed through it."
 
@@ -755,7 +755,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.open(FALSE)
 
 /client/proc/cmd_display_del_log_simple()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Display Simple del() Log"
 	set desc = "Display a compacted del's log."
 
@@ -802,7 +802,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		tgui_alert(usr, "Invalid mob")
 
 /client/proc/view_runtimes()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "View Runtimes"
 	set desc = "Open the Runtime Viewer"
 
@@ -812,7 +812,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	GLOB.error_cache.show_to(usr)
 
 /client/proc/allow_browser_inspect()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Allow Browser Inspect"
 	set desc = "Allow browser debugging via inspect"
 	if(!check_rights(R_DEBUG) || !isclient(src))
@@ -873,7 +873,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		BLACKBOX_LOG_ADMIN_VERB("Jump To Ruin")
 
 /client/proc/toggle_medal_disable()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Toggle Medal Disable"
 	set desc = "Toggles the safety lock on trying to contact the medal hub."
 
@@ -886,7 +886,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
 
 /client/proc/visualise_active_turfs()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Visualise Active Turfs"
 
 	if(!check_rights(R_DEBUG))
@@ -939,7 +939,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	vis.open(FALSE)
 
 /client/proc/view_pingstat()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "View Pingstat"
 	set desc = "Open the Pingstat Report"
 
@@ -999,14 +999,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	popup.open(FALSE)
 
 /client/proc/cmd_display_overlay_log()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Display Overlay Log"
 	set desc = "Display SSoverlays log of everything that's passed through it."
 
 	render_stats(SSoverlays.stats, src)
 
 /client/proc/clear_dynamic_transit()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Clear Dynamic Turf Reservations"
 	set desc = "Deallocates all reserved space, restoring it to round start \
 		conditions."
@@ -1020,7 +1020,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSmapping.wipe_reservations() //this goes after it's logged, incase something horrible happens.
 
 /client/proc/cmd_reload_polls()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Reload Polls"
 
 	if(!check_rights(R_DEBUG))
@@ -1037,3 +1037,31 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	log_and_message_admins("reloaded polls.")
 	BLACKBOX_LOG_ADMIN_VERB("Reload Polls")
+
+/client/proc/clear_legacy_asset_cache()
+	set name = "Clear Legacy Asset Cache"
+	set desc = "Clears the legacy asset cache, regenerating it immediately (may cause lag)."
+	set category = STATPANEL_DEBUG
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(!CONFIG_GET(flag/cache_assets))
+		to_chat(usr, span_warning("Asset caching is disabled in the config!"))
+		return
+
+	log_and_message_admins("starts asset cache regeneration.")
+	var/regenerated = 0
+
+	for(var/datum/asset/target_spritesheet as anything in subtypesof(/datum/asset))
+		if(!initial(target_spritesheet.cross_round_cachable))
+			continue
+
+		if(target_spritesheet == initial(target_spritesheet._abstract))
+			continue
+
+		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
+		asset_datum.regenerate()
+		regenerated++
+
+	to_chat(usr, span_notice("Regenerated [regenerated] asset\s."))
