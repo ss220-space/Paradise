@@ -685,7 +685,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	..()
 
 /datum/asset/simple/unregister()
-	for (var/asset_name in assets)
+	for(var/asset_name in assets)
 		SSassets.transport.unregister_asset(asset_name)
 
 /*
