@@ -1117,7 +1117,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		PREPOSITIONAL = "публичной консоли НИО",
 	)
 
-// Добавляем после других типов консолей
 /obj/machinery/computer/rdconsole/cargo
 	name = "cargo R&D console"
 	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
