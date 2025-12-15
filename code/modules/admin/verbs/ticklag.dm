@@ -1,7 +1,7 @@
 //Merged Doohl's and the existing ticklag as they both had good elements about them ~Carn
 
 /client/proc/ticklag()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Set Ticklag"
 	set desc = "Sets a new tick lag. Recommend you don't mess with this too much! Stable, time-tested ticklag value is 0.9"
 

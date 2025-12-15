@@ -1,6 +1,6 @@
 /client/proc/check_bomb_impacts()
 	set name = "Check Bomb Impact"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
 	var/zmode = alert("Use Multi-Z explosions?","Check Bomb Impact,", "Yes", "No")

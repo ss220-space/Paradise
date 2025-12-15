@@ -161,6 +161,14 @@
 #define BODY_ZONE_PRECISE_L_FOOT "l_foot"
 #define BODY_ZONE_PRECISE_R_FOOT "r_foot"
 
+GLOBAL_LIST_INIT(body_zones, list(
+	BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN,
+	BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG,
+	BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND,
+	BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT,
+	BODY_ZONE_TAIL,
+))
+
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
 //We will round to this value in bleeding calculations.
