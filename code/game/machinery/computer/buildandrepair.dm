@@ -303,6 +303,10 @@
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
 
+/obj/item/circuitboard/rdconsole/cargo
+	name = "RD Console - Cargo"
+	build_path = /obj/machinery/computer/rdconsole/cargo
+
 /obj/item/circuitboard/roboquest
 	board_name = "Robotics Request Console"
 	build_path = /obj/machinery/computer/roboquest

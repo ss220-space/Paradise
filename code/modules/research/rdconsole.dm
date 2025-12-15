@@ -87,6 +87,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	/// Flag for Syndicate base
 	var/syndicate = 0
 
+	var/cargo = FALSE
+
 	/// ID of the computer (for server restrictions).
 	var/id = 0
 	/// If sync if FALSE, it doesn't show up on Server Control Console
@@ -881,6 +883,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["src_ref"] = UID()
 	data["ui_theme"] = ui_theme
 
+	data["cargo"] = cargo
+
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
@@ -1111,6 +1115,28 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ACCUSATIVE = "публичную консоль НИО",
 		INSTRUMENTAL = "публичной консолью НИО",
 		PREPOSITIONAL = "публичной консоли НИО",
+	)
+
+// Добавляем после других типов консолей
+/obj/machinery/computer/rdconsole/cargo
+	name = "cargo R&D console"
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
+			управлению подключённым исследовательским оборудованием. \
+			Специализированная версия, используемая в отделе снабжения."
+	id = 6
+	req_access = list(ACCESS_CARGO)
+	circuit = /obj/item/circuitboard/rdconsole/cargo
+	cargo = TRUE
+	ui_theme = "cargo"
+
+/obj/machinery/computer/rdconsole/cargo/get_ru_names()
+	return list(
+		NOMINATIVE = "карго-консоль НИО",
+		GENITIVE = "карго-консоли НИО",
+		DATIVE = "карго-консоли НИО",
+		ACCUSATIVE = "карго-консоль НИО",
+		INSTRUMENTAL = "карго-консолью НИО",
+		PREPOSITIONAL = "карго-консоли НИО",
 	)
 
 #undef TECH_UPDATE_DELAY
