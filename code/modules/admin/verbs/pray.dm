@@ -1,5 +1,5 @@
 /mob/living/verb/pray(msg as text)
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Молиться"
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))

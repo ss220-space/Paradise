@@ -255,7 +255,7 @@
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
 	set name = "Говорить носителю"
-	set category = STATPANEL_BORER
+	set category = VERB_CATEGORY_BORER
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)

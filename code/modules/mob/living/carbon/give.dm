@@ -1,5 +1,5 @@
 /mob/living/carbon/verb/give(mob/living/carbon/target in oview(1))
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Передать"
 
 	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
@@ -56,7 +56,7 @@
  */
 /mob/living/carbon/verb/toggle_give()
 	set name = "Передать предмет"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return

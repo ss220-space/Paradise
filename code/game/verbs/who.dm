@@ -3,7 +3,7 @@
 
 /client/verb/who()
 	set name = "Список игроков"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	var/msg = "<b>Игроков онлайн:</b><br>"
 

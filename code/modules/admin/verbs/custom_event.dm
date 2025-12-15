@@ -18,7 +18,7 @@ ADMIN_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom ev
 
 // normal verb for players to view info
 /client/verb/cmd_view_custom_event()
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set name = "Специальный ивент"
 
 	var/list/custom_event_information = list()

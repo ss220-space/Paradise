@@ -410,7 +410,7 @@
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Осмотреть"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(!client)
 		return
@@ -467,7 +467,7 @@
 
 /mob/verb/memory()
 	set name = "Заметки"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	if(mind)
 		mind.show_memory(src)
 	else
@@ -475,7 +475,7 @@
 
 /mob/verb/add_memory(msg as message)
 	set name = "Добавить заметку"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
@@ -526,7 +526,7 @@
 
 /mob/verb/abandon_mob()
 	set name = "Возродиться"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	if(!GLOB.abandon_allowed)
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
@@ -595,7 +595,7 @@
 
 /mob/verb/cancel_camera()
 	set name = "Сбросить позицию камеры"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -749,7 +749,7 @@
 
 /mob/dead/observer/verb/respawn()
 	set name = "Играть за НИП"
-	set category = STATPANEL_GHOST
+	set category = VERB_CATEGORY_GHOST
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))

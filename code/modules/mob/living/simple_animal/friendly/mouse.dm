@@ -307,28 +307,28 @@
 /mob/living/simple_animal/mouse/proc/sniff()
 	set name = "Понюхать"
 	set desc = "Пытаешься что-то почуять"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("msniff", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/shake()
 	set name = "Дрожать"
 	set desc = "Дрожит или дрыгается"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("mshake", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/scratch()
 	set name = "Почесаться"
 	set desc = "Чешется"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("mscratch", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/washup()
 	set name = "Умыться"
 	set desc = "Умывается"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("mwashup", intentional = TRUE)
 

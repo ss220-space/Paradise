@@ -1194,7 +1194,7 @@
 
 /client/verb/toggle_fullscreen()
 	set name = "Полный экран"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	fullscreen = !fullscreen
 
@@ -1242,7 +1242,7 @@
 /client/verb/fit_viewport()
 	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1311,7 +1311,7 @@
 /client/verb/fix_title_screen()
 	set name = "Починить меню лобби"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1324,7 +1324,7 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))

@@ -472,7 +472,7 @@
 
 /mob/verb/move_up()
 	set name = "Подняться"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, UP)
@@ -500,7 +500,7 @@
 
 /mob/verb/move_down()
 	set name = "Опуститься"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, DOWN)

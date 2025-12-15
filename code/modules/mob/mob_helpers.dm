@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /mob/living/verb/mob_sleep()
 	set name = "Спать"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>Вы уже спите.</span>")

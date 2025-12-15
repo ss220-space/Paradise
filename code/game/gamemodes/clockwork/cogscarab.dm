@@ -279,7 +279,7 @@
 /mob/living/silicon/robot/cogscarab/verb/light()
 	set name = "Освещение"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = STATPANEL_COGSCARAB
+	set category = VERB_CATEGORY_COGSCARAB
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp

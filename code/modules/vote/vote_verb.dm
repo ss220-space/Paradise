@@ -1,5 +1,5 @@
 /client/verb/vote()
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set name = "Голосование"
 
 	if(SSvote.active_vote)
