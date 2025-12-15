@@ -836,12 +836,20 @@
 						icon_num = 4
 					if(damage > (comparison*4))
 						icon_num = 5
+					var/exists_bleeding = bodypart.bleeding_amount > 0 && bodypart.bleeding_amount > bodypart.bleedsuppress
 					if(istype(bodypart, /obj/item/organ/external/tail) && bodypart.dna?.species.tail)
 						new_overlays += "[bodypart.dna.species.tail][icon_num]"
+						if(exists_bleeding)
+							new_overlays += "[bodypart.dna.species.tail]_b"
+
 					if(istype(bodypart, /obj/item/organ/external/wing) && bodypart.dna?.species.tail)
 						new_overlays += "[bodypart.dna.species.wing][icon_num]"
+
 					else
 						new_overlays += "[bodypart.limb_zone][icon_num]"
+						if(exists_bleeding)
+							new_overlays += "[bodypart.limb_zone]_b"
+
 				healthdoll.add_overlay(new_overlays - cached_overlays)
 				healthdoll.cut_overlay(cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays

@@ -109,6 +109,14 @@
 		/mob/living/captive_brain,
 	)
 
+/datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return
+	
+	user.adjustStaminaLoss(100)
+	user.AdjustSilence(10 SECONDS)
+
 /datum/emote/living/deathgasp/select_message_type(mob/user, msg, intentional)
 	if(ishuman(user))
 		. = user.dna?.species?.death_message
@@ -209,6 +217,12 @@
 	key_third_person = "bshakes"
 	message = "тряс%(ёт,ут)%ся."
 	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/bshake/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	user.Jitter(5 SECONDS)
 
 /datum/emote/living/shudder
 	key = "shudder"

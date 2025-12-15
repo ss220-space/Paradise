@@ -1,7 +1,7 @@
 /client/proc/admin_redo_space_transitions()
 	set name = "Remake Space Transitions"
 	set desc = "Re-assigns all space transitions"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
@@ -20,7 +20,7 @@
 /client/proc/make_turf_space_map()
 	set name = "Make Space Map"
 	set desc = "Create a map of the space levels as turfs at your feet"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	if(!check_rights(R_ADMIN|R_DEBUG))
 		return

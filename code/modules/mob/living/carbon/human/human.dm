@@ -515,6 +515,13 @@
 				)
 			return
 
+		if(href_list["tourniquet_object"])
+			var/obj/item/organ/external/bodypart = locateUID(href_list["limb"])
+			if(QDELETED(bodypart) || !bodypart.tourniquet)
+				return
+			bodypart.tourniquet.remove_from_bodypart(usr)
+			return
+
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			if(usr.incapacitated())

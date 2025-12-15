@@ -113,7 +113,7 @@
 
 /client/proc/debugNatureMapGenerator()
 	set name = "Test Nature Map Generator"
-	set category = "Debug.Mapping"
+	set category = STATPANEL_DEBUG_MAPPING
 
 	var/datum/mapGenerator/nature/N = new()
 	var/startInput = tgui_input_text(usr, "Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")

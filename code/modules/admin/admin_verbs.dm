@@ -376,6 +376,8 @@ ADMIN_VERB(object_talk, R_EVENT, "OSay", "Display a message to everyone who can 
 ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-admin yourself.", ADMIN_CATEGORY_MAIN)
 	log_admin("[key_name(user)] deadmined themself.")
 	message_admins("[key_name_admin(user)] deadmined themself.")
+
+	// TODO: shit code, refactor deadmin
 	if(check_rights(R_ADMIN, FALSE))
 		GLOB.de_admins |= user.ckey
 	else if(check_rights(R_MENTOR, FALSE))
@@ -393,12 +395,13 @@ ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-a
 ADMIN_VERB(select_next_map, R_SERVER|R_EVENT, "Select next map", "Select the next map.", ADMIN_CATEGORY_EVENTS)
 	var/list/all_maps = subtypesof(/datum/map)
 	var/next_map = tgui_input_list(user, "Select next map:", "Next map", all_maps, SSmapping.map_datum.type)
+	if(!next_map)
+		return
 
-	if(next_map)
-		message_admins("[key_name_admin(user)] select [next_map] as next map")
-		log_admin("[key_name(user)] select [next_map] as next map")
-		SSmapping.next_map = new next_map
-		to_chat(world, "<b>The next map is - [SSmapping.next_map.name]!</b>")
+	message_admins("[key_name_admin(user)] select [next_map] as next map")
+	log_admin("[key_name(user)] select [next_map] as next map")
+	SSmapping.next_map = new next_map
+	to_chat(world, "<b>The next map is - [SSmapping.next_map.name]!</b>")
 
 ADMIN_VERB(toggle_log_hrefs, R_SERVER, "Toggle href logging", "Toggle href logging", ADMIN_CATEGORY_DEBUG)
 	if(!config)
@@ -412,9 +415,11 @@ ADMIN_VERB(toggle_log_hrefs, R_SERVER, "Toggle href logging", "Toggle href loggi
 		to_chat(user, "<b>Started logging hrefs</b>", confidential=TRUE)
 
 ADMIN_VERB(toggle_twitch_censor, R_SERVER, "Toggle Twitch censor", "Toggle Twitch censor.", ADMIN_CATEGORY_TOGGLES)
-	if(config)
-		CONFIG_SET(flag/twitch_censor, !CONFIG_GET(flag/twitch_censor))
-		to_chat(user, "<b>Twitch censor is [CONFIG_GET(flag/twitch_censor) ? "enabled" : "disabled"]</b>", confidential=TRUE)
+	if(!config)
+		return
+
+	CONFIG_SET(flag/twitch_censor, !CONFIG_GET(flag/twitch_censor))
+	to_chat(user, "<b>Twitch censor is [CONFIG_GET(flag/twitch_censor) ? "enabled" : "disabled"]</b>", confidential=TRUE)
 
 ADMIN_VERB(check_ai_laws, R_ADMIN, "Check AI Laws", "View the current AI laws.", ADMIN_CATEGORY_GAME)
 	user.holder.output_ai_laws()

@@ -823,3 +823,31 @@ ADMIN_VERB(cmd_reload_polls, R_DEBUG, "Reload Polls", "Reloading all polls.", AD
 
 	log_and_message_admins("reloaded polls.")
 	BLACKBOX_LOG_ADMIN_VERB("Reload Polls")
+
+/client/proc/clear_legacy_asset_cache()
+	set name = "Clear Legacy Asset Cache"
+	set desc = "Clears the legacy asset cache, regenerating it immediately (may cause lag)."
+	set category = STATPANEL_DEBUG
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(!CONFIG_GET(flag/cache_assets))
+		to_chat(usr, span_warning("Asset caching is disabled in the config!"))
+		return
+
+	log_and_message_admins("starts asset cache regeneration.")
+	var/regenerated = 0
+
+	for(var/datum/asset/target_spritesheet as anything in subtypesof(/datum/asset))
+		if(!initial(target_spritesheet.cross_round_cachable))
+			continue
+
+		if(target_spritesheet == initial(target_spritesheet._abstract))
+			continue
+
+		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
+		asset_datum.regenerate()
+		regenerated++
+
+	to_chat(usr, span_notice("Regenerated [regenerated] asset\s."))
