@@ -285,7 +285,7 @@
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
 	build_path = /obj/machinery/computer/rdconsole/core
 	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
-	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
+	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public", "Cargo")
 
 /obj/item/circuitboard/rdconsole/robotics
 	board_name = "RD Console - Robotics"
@@ -522,6 +522,9 @@
 			if("Public")
 				board_name = "RD Console - Public"
 				build_path = /obj/machinery/computer/rdconsole/public
+			if("Cargo")
+				board_name = "RD Console - Cargo"
+				build_path = /obj/machinery/computer/rdconsole/cargo
 		format_board_name()
 		to_chat(user, span_notice("Access protocols set to '[console_choice]'."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS

@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$cargo: hsl(28, 60%, 45%);
+$cargo: #946f31;
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
@@ -18,7 +18,7 @@ $cargo: hsl(28, 60%, 45%);
     '../components/Button.scss',
     $with: (
       'color-default': $cargo,
-      'color-transparent-text': hsl(35, 50%, 60%)
+      'color-transparent-text': rgba(255, 214, 198, 0.75)
     )
   );
   @include meta.load-css(
@@ -37,8 +37,4 @@ $cargo: hsl(28, 60%, 45%);
     '../layouts/TitleBar.scss',
     $with: ('background-color': color.scale($cargo, $lightness: -25%))
   );
-
-  .Layout__content {
-    background-image: url('../../assets/bg-cargo.svg');
-  }
 }
