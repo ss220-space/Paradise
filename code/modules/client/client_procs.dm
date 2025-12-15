@@ -405,6 +405,8 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			playercount += 1
+	spawn(10 SECONDS)
+		load_donations()
 
 	// Update the state of the panic bunker based on current playercount
 	var/threshold = CONFIG_GET(number/panic_bunker_threshold)
@@ -416,6 +418,40 @@
 	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
+
+/client/proc/load_donations()
+	UNTIL(SSdonations.initialized)
+	tgui_panel.window.send_message("donations/load_data", list(
+		"month_donations" = SSdonations.month_donations,
+		"target_donation" = SSdonations.target_donation,
+		"tts_target_donation" = SSdonations.tts_target_donation,
+		"donations_text" = SSdonations.donations_text,
+		"boosty_url" = SSdonations.boosty_url,
+		"kofi_url" = SSdonations.kofi_url,
+		"discord_url"= SSdonations.discord_url,
+	))
+	check_donator_achivements()
+
+/client/proc/check_donator_achivements()
+	var/count = SSdonations.get_donations_count(ckey)
+	var/amount = SSdonations.get_donations_amount(ckey)
+
+	if(!count)
+		return
+
+	if(count >= 0)
+		give_award(/datum/award/achievement/donations/first_time, mob)
+
+	if(count >= PERMANENT_SPONSOR_COUNT)
+		give_award(/datum/award/achievement/donations/permanent_sponsor, mob)
+
+	if(amount >= BRONZE_LEVEL)
+		give_award(/datum/award/achievement/donations/bronze_sponsor, mob)
+
+	if(amount < PLATINUM_LEVEL)
+		return
+
+	give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses

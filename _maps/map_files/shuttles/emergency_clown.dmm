@@ -166,10 +166,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aL" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aM" = (
@@ -193,10 +190,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "aQ" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
@@ -335,10 +329,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bi" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)

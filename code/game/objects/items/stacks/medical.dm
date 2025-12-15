@@ -32,7 +32,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		var/selected_zone = user.zone_selected
+		var/selected_zone = get_priority_targeting(target, user, def_zone)
 		var/obj/item/organ/external/affecting = human_target.get_organ(selected_zone)
 
 		if(isgolem(human_target))
@@ -110,7 +110,8 @@
 	return .|ATTACK_CHAIN_SUCCESS
 
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	user.visible_message(
 		span_green("[user] использу[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
 		span_green("Вы используете [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
@@ -166,6 +167,64 @@
 		return FALSE
 	. = ..()
 
+// MARK: Targeting filter
+
+/obj/item/stack/medical/proc/get_priority_targeting(mob/living/target, mob/living/user)
+	return user.zone_selected
+
+/obj/item/stack/medical/proc/get_priority_targeting_by_filter(mob/living/target, mob/living/user, filter_proc)
+	. = user.zone_selected
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/target_bodypart = null
+	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
+		var/accept = call(src, filter_proc)(arglist(list(current = bodypart, max = target_bodypart)))
+		if(accept)
+			target_bodypart = bodypart
+
+	if(!target_bodypart)
+		return
+
+	return target_bodypart.limb_zone
+
+/obj/item/stack/medical/proc/filter_max_bleeding_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.bleeding_amount <= 0 || current.bleeding_amount <= current.bleedsuppress)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.bleeding_amount > max.bleeding_amount)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_brute_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.brute_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.brute_dam > max.brute_dam)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_burn_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.burn_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.burn_dam > max.burn_dam)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.burn_dam <= 0 && current.brute_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.burn_dam + current.brute_dam > max.burn_dam + max.brute_dam)
+		return TRUE
+	return FALSE
+
 // MARK: Bruise Packs
 
 /obj/item/stack/medical/bruise_pack
@@ -212,7 +271,8 @@
 	if(!get_amount())
 		to_chat(user, span_danger("Не хватает медикаментов!"))
 		return ATTACK_CHAIN_PROCEED
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.open != ORGAN_CLOSED)
 		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь бинтами!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -231,6 +291,9 @@
 	human_heal(target, user)
 	target.UpdateDamageIcon()
 	update_icon()
+
+/obj/item/stack/medical/bruise_pack/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_bleeding_bodypart))
 
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
@@ -315,6 +378,9 @@
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
+/obj/item/stack/medical/bruise_pack/advanced/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_brute_damage_bodypart))
+
 /obj/item/stack/medical/bruise_pack/extended
 	name = "extended trauma kit"
 	singular_name = "extended trauma kit"
@@ -350,6 +416,8 @@
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/ointment
 
+/obj/item/stack/medical/ointment/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_burn_damage_bodypart))
 
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -363,7 +431,8 @@
 		to_chat(user, span_danger("Not enough medical supplies!"))
 		return ATTACK_CHAIN_PROCEED
 
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.open != ORGAN_CLOSED)
 		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь мазью!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -438,6 +507,9 @@
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
 
+/obj/item/stack/medical/bruise_pack/comfrey/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_brute_damage_bodypart))
+
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
@@ -484,7 +556,8 @@
 		to_chat(user, span_danger("No splints left!"))
 		return ATTACK_CHAIN_PROCEED
 
-	var/obj/item/organ/external/bodypart = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/bodypart = target.get_organ(selected_zone)
 	var/bodypart_name = bodypart.name
 
 	if(!(bodypart.limb_zone in available_splint_zones))
@@ -583,7 +656,9 @@
 	. = ATTACK_CHAIN_PROCEED
 	if(!ishuman(target))
 		return .
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.bleeding_amount <= 0)
 		user.balloon_alert(user, "нечего зашивать!")
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -615,6 +690,9 @@
 	user.balloon_alert(user, "зашито!")
 	target.UpdateDamageIcon()
 	update_icon()
+
+/obj/item/stack/medical/suture/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_bleeding_bodypart))
 
 /obj/item/stack/medical/suture/advanced
 	name = "advanced suture kit"
@@ -665,6 +743,9 @@
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
 	icon_state = "synthkit_[round_down((amount+1) / 2, 1)]"
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_damage_bodypart))
 
 
 // MARK: Tourniquet
