@@ -245,7 +245,6 @@
 	icon_state = "quest_console"
 	icon_screen = "quest"
 	icon_keyboard = null
-	accept_orders = FALSE
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
 

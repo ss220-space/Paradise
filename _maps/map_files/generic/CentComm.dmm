@@ -159,6 +159,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone3)
+"abC" = (
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "acc" = (
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
@@ -519,6 +525,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"ajh" = (
+/obj/machinery/vending/cigarette/syndicate,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/elite_squad)
 "aji" = (
 /obj/machinery/light{
 	dir = 8
@@ -540,18 +553,6 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/specops)
-"ajs" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = -10;
-	pixel_y = 35
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/specops)
 "ajx" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -596,6 +597,12 @@
 	icon_state = "white"
 	},
 /area/centcom/zone3)
+"akq" = (
+/obj/item/radio/intercom/specops/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/centcom/zone2)
 "akD" = (
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
@@ -1041,17 +1048,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
-"auB" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/surgery,
-/obj/item/radio/intercom{
-	pixel_x = -30
-	},
-/obj/item/clothing/gloves/color/latex/nitrile,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/centcom/zone1)
 "auF" = (
 /obj/effect/turf_decal/stripes/black{
 	dir = 5
@@ -1233,34 +1229,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone3)
-"ayR" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/simulated/floor/shuttle/objective_check{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkreddarkfull"
-	},
-/area/shuttle/escape)
 "azv" = (
 /turf/simulated/wall/indestructible/fakeglass{
 	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/jail)
-"azC" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -28
-	},
-/obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "azG" = (
 /obj/effect/turf_decal/bot_red,
 /turf/simulated/floor/indestructible/vox{
@@ -1268,14 +1242,6 @@
 	name = "floor"
 	},
 /area/vox_station)
-"azO" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -28
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "aAn" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -1293,14 +1259,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
-"aAz" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_l"
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
-/area/shuttle/pod_3)
 "aAF" = (
 /obj/effect/turf_decal/siding/yellow/corner,
 /turf/simulated/floor/carpet,
@@ -1615,6 +1573,12 @@
 	name = "floor"
 	},
 /area/vox_station)
+"aHs" = (
+/obj/structure/table/wood,
+/obj/effect/landmark/spawner/teleport_scroll,
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/carpet/cyan,
+/area/wizard_station)
 "aHO" = (
 /obj/structure/sink{
 	dir = 4;
@@ -1737,32 +1701,12 @@
 	name = "floor"
 	},
 /area/vox_station)
-"aKi" = (
-/obj/machinery/vending/cigarette,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/gold{
-	dir = 4
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "aKz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"aKB" = (
-/obj/structure/table/wood,
-/obj/item/radio/intercom,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/zone3)
 "aKD" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1847,6 +1791,13 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
+"aNh" = (
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/structure/closet/secure_closet/brig{
+	req_access = list(153)
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "aNr" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2046,6 +1997,13 @@
 	icon_state = "darkgrey"
 	},
 /area/shuttle/administration)
+"aRe" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
 "aRJ" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -2218,20 +2176,6 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/jail)
-"aWz" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/item/radio/intercom/specops{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/siding/blue/corner{
-	color = "#444444";
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/centcom/specops)
 "aWA" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 9
@@ -2303,12 +2247,6 @@
 /obj/item/toy/desk/fan,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
-"aXU" = (
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "aYk" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2360,6 +2298,13 @@
 	icon_state = "arrival"
 	},
 /area/centcom/evac)
+"bad" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "baG" = (
 /obj/item/trash/tastybread,
 /turf/simulated/floor/indestructible/vox{
@@ -2386,6 +2331,16 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
+"bbR" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkredalt"
+	},
+/area/centcom/jail)
 "bce" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -2646,16 +2601,6 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/outside)
-"bhW" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkjail"
-	},
-/area/syndicate_mothership/jail)
 "bif" = (
 /obj/effect/turf_decal/siding/red{
 	color = "#aa2222";
@@ -2665,6 +2610,21 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"bis" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen/multi/fountain,
+/obj/item/stamp/centcom{
+	pixel_x = -5;
+	pixel_y = -7
+	},
+/obj/item/radio/intercom/specops/directional/west,
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/centcom/specops)
 "biD" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/soup/beetsoup{
@@ -2878,10 +2838,6 @@
 	icon_state = "Dark"
 	},
 /area/shuttle/funeral)
-"bnX" = (
-/obj/item/toy/plushie/manulplushie,
-/turf/simulated/floor/beach/sand,
-/area/centcom/evac)
 "boc" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2995,10 +2951,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/ussp)
-"buc" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "bud" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -3312,14 +3264,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
-"bAP" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -32
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floorgrime"
-	},
-/area/ninja/holding)
 "bAT" = (
 /obj/structure/table/glass,
 /obj/item/pizzabox/vegetable,
@@ -3691,6 +3635,12 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/one)
+"bIR" = (
+/obj/item/radio/intercom/specops/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "bIU" = (
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate,
 /turf/simulated/floor/plasteel{
@@ -3823,6 +3773,19 @@
 	tag = "icon-vault (WEST)"
 	},
 /area/centcom/specops)
+"bNH" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo16"
+	},
+/obj/item/flag/syndi,
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/machinery/light,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
 "bNW" = (
 /obj/item/flashlight/lamp,
 /obj/structure/table/reinforced/brass,
@@ -4264,12 +4227,6 @@
 "bWH" = (
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/syndicate)
-"bWY" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone1)
 "bXc" = (
 /obj/effect/turf_decal/siding/wideplating/corner{
 	color = "#55391A";
@@ -4333,6 +4290,12 @@
 	underlay_floor_icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"bYm" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "bYH" = (
 /obj/machinery/cryopod{
 	dir = 8
@@ -4343,6 +4306,13 @@
 	name = "floor"
 	},
 /area/vox_station)
+"bYT" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/zone3)
 "bZc" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
 	dir = 1;
@@ -4494,6 +4464,12 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/specops)
+"ccQ" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "ccX" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -4503,6 +4479,13 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
+"cdp" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/zone3)
 "cdW" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -5019,6 +5002,15 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
+"cnT" = (
+/obj/machinery/vending/cola,
+/obj/structure/closet/medical_wall{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone1)
 "cnV" = (
 /obj/machinery/door_control/secure{
 	id = "nukeop_outside";
@@ -5884,6 +5876,15 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/syndicate)
+"cIl" = (
+/obj/machinery/vending/cigarette{
+	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/elite_squad)
 "cIn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
@@ -6173,6 +6174,12 @@
 	icon_state = "arrivalcorner"
 	},
 /area/centcom/evac)
+"cPT" = (
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/bridge)
 "cQm" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -6379,6 +6386,12 @@
 	name = "floor"
 	},
 /area/vox_station)
+"cVy" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/o2,
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
 "cVB" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6489,15 +6502,6 @@
 	name = "floor"
 	},
 /area/vox_station)
-"cYK" = (
-/obj/structure/table/wood,
-/obj/item/radio/intercom,
-/obj/item/megaphone,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/zone3)
 "cYM" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/black,
@@ -6555,6 +6559,12 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/specops)
+"cZw" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "cZK" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "applebush"
@@ -6875,25 +6885,6 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/outside)
-"dga" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
-/obj/structure/statue/sandstone/assistant{
-	anchored = 1;
-	desc = "Он точно спит на посту";
-	dir = 1;
-	icon = 'icons/mob/simple_human.dmi';
-	icon_state = "syndicate_smg";
-	max_integrity = 9999;
-	name = "Боба";
-	obj_integrity = 9999
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkjail"
-	},
-/area/syndicate_mothership/jail)
 "dgp" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444"
@@ -6993,6 +6984,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"dka" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/vending/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluealt"
+	},
+/area/centcom/specops)
 "dkg" = (
 /obj/structure/reagent_dispensers/beerkeg{
 	desc = "Собственность Шерлока Субботина"
@@ -7024,15 +7024,6 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone1)
-"dlS" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 30
-	},
-/turf/simulated/floor/carpet/black,
-/area/ninja/outpost)
 "dlT" = (
 /obj/structure/table,
 /obj/machinery/status_display/supply_display{
@@ -7104,16 +7095,6 @@
 	icon_state = "light-fancy-wood"
 	},
 /area/centcom/specops)
-"dok" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/vending/coffee,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/carpet/black,
-/area/centcom/zone2)
 "dov" = (
 /obj/structure/chair/stool,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -7137,10 +7118,6 @@
 	name = "floor"
 	},
 /area/vox_station)
-"dpy" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel/grimy,
-/area/trader_station/sol)
 "dpF" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 2
@@ -8016,6 +7993,16 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
+"dHa" = (
+/obj/machinery/light/small{
+	brightness_range = 6;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/carpet,
+/area/wizard_station)
 "dHE" = (
 /obj/machinery/computer/shuttle/ruins_civil_shuttle,
 /turf/simulated/floor/shuttle,
@@ -8066,10 +8053,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"dIG" = (
-/obj/machinery/vending/snack,
-/turf/simulated/floor/carpet/black,
-/area/wizard_station)
 "dIL" = (
 /obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
@@ -8609,6 +8592,13 @@
 	tag = "icon-stage_stairs"
 	},
 /area/syndicate_mothership)
+"dYk" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/donkpockets,
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/machinery/light/small,
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "dYp" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium"
@@ -8621,6 +8611,19 @@
 	},
 /turf/simulated/floor/wood/cherry,
 /area/ninja/outside)
+"dYG" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/directional/east,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
 "dYO" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -8857,6 +8860,11 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
+"ecP" = (
+/obj/structure/filingcabinet/employment,
+/obj/item/radio/intercom/specops/directional/north,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/centcom/bridge)
 "ecV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/supply)
@@ -9418,12 +9426,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
-"esw" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "esx" = (
 /obj/machinery/light{
 	dir = 1;
@@ -9484,6 +9486,16 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
+"etQ" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/pod_3)
 "euh" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo13"
@@ -9589,12 +9601,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
-"ewc" = (
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "ewj" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo12"
@@ -9685,12 +9691,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"ezq" = (
-/obj/machinery/vending/gun_mods/advanced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "ezH" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -9831,6 +9831,10 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"eEt" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel/grimy,
+/area/trader_station/sol)
 "eFc" = (
 /obj/machinery/light{
 	dir = 4
@@ -9982,6 +9986,13 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/trader_station/sol)
+"eJZ" = (
+/obj/effect/decal/warning_stripes/white,
+/obj/machinery/vending/gun_mods/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "eKa" = (
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/simulated/floor/carpet/green,
@@ -10035,13 +10046,6 @@
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
-"eLA" = (
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_3)
 "eLT" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -10057,17 +10061,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"eMa" = (
-/obj/machinery/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "navybluealtstrip"
-	},
-/area/centcom/specops)
 "eMl" = (
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
@@ -10219,16 +10212,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
-"eON" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_l"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/shuttle/pod_3)
 "eOT" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -10565,19 +10548,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
-"eUQ" = (
-/obj/machinery/vending/cigarette{
-	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "eVn" = (
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating/airless,
 /area/centcom/jail)
+"eVu" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l"
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/pod_3)
 "eVA" = (
 /obj/effect/turf_decal/stripes/asteroid/corner,
 /turf/simulated/floor/beach/sand{
@@ -10689,6 +10671,16 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/trade/sol)
+"eYT" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
+/area/shuttle/escape)
 "eZg" = (
 /obj/structure/chair/comfy/beige{
 	dir = 4;
@@ -10816,6 +10808,12 @@
 /obj/item/dice/d20,
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
+"fce" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/evac)
 "fcj" = (
 /obj/structure/railing{
 	dir = 1
@@ -10982,13 +10980,6 @@
 	icon_state = "darkyellowfull"
 	},
 /area/centcom/bridge)
-"fgj" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/vending/gun_mods/advanced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "fgq" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -11055,16 +11046,6 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/specops)
-"fhy" = (
-/obj/machinery/light/spot,
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_y = -26
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/transport)
 "fhO" = (
 /obj/effect/mapping_helpers/light{
 	light_power = 3
@@ -11204,6 +11185,14 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/bridge)
+"fmb" = (
+/obj/structure/chair/comfy/brown{
+	color = "#FF3300";
+	dir = 1
+	},
+/obj/item/radio/intercom/pirate/directional/north,
+/turf/simulated/floor/carpet,
+/area/centcom/zone3)
 "fmZ" = (
 /obj/machinery/door/airlock/centcom{
 	damage_deflection = 999;
@@ -11987,12 +11976,6 @@
 	name = "DAE 5.56 Compact GL";
 	pixel_x = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
-"fDa" = (
-/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13239,6 +13222,17 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
+"ggU" = (
+/obj/machinery/light/small{
+	brightness_range = 6;
+	dir = 1;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/carpet,
+/area/wizard_station)
 "ggV" = (
 /obj/effect/baseturf_helper/asteroid/snow{
 	baseturf = /turf/simulated/floor/indestructible/snow;
@@ -13282,15 +13276,6 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/ussp)
-"gjh" = (
-/obj/machinery/vending/cola,
-/obj/effect/turf_decal/stripes/gold{
-	dir = 4
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "gjn" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -13584,23 +13569,6 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/syndicate_mothership/control)
-"gsj" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi/fountain,
-/obj/item/stamp/centcom{
-	pixel_x = -5;
-	pixel_y = -7
-	},
-/obj/item/radio/intercom/specops{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/siding{
-	color = "#444444";
-	dir = 4
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/centcom/specops)
 "gsJ" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -13658,16 +13626,6 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/centcom/zone3)
-"guo" = (
-/obj/machinery/vending/snack,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/administration)
 "guv" = (
 /obj/machinery/vending/dinnerware{
 	req_access = list(102)
@@ -13764,6 +13722,13 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
+"gyk" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "gyV" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -13849,6 +13814,16 @@
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"gzF" = (
+/obj/item/radio/intercom/specops/directional/west,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 3;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/centcom/zone3)
 "gzR" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -14072,6 +14047,12 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"gGy" = (
+/obj/machinery/vending/chinese{
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/zone2)
 "gGM" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -14303,19 +14284,6 @@
 	icon_state = "arrival"
 	},
 /area/centcom/zone1)
-"gOl" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = -32;
-	pixel_y = 32
-	},
-/obj/item/paper_bin/nanotrasen{
-	pixel_x = 3;
-	pixel_y = 12
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/centcom/zone3)
 "gOv" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -14514,6 +14482,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
+"gUX" = (
+/obj/machinery/vending/cigarette/syndicate,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken6"
+	},
+/area/syndicate_mothership/infteam)
 "gVk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -15035,11 +15009,6 @@
 "hgc" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/bridge)
-"hgz" = (
-/obj/machinery/vending/cola,
-/obj/structure/window/reinforced,
-/turf/simulated/floor/wood,
-/area/centcom/zone1)
 "hgS" = (
 /obj/structure/spacepoddoor/invincible,
 /turf/simulated/floor/plasteel{
@@ -15413,6 +15382,12 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/zone3)
+"hto" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "htF" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15706,15 +15681,6 @@
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"hCb" = (
-/obj/machinery/vending/chinese,
-/obj/structure/curtain/black{
-	pixel_x = -32
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership)
 "hCl" = (
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
@@ -15965,14 +15931,6 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"hJc" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
-	},
-/area/centcom/specops)
 "hJl" = (
 /obj/structure/sign/poster/contraband/rebels_unite{
 	pixel_y = 32
@@ -16022,14 +15980,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/centcom/zone2)
-"hLB" = (
-/obj/effect/turf_decal/plaque,
-/obj/structure/chair/comfy/red{
-	color = "#222222";
-	dir = 8
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/zone3)
 "hLD" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -16289,6 +16239,18 @@
 /obj/item/lighter/zippo/blue,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
+"hSA" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/item/radio/intercom/specops/directional/east,
+/obj/effect/turf_decal/siding/blue/corner{
+	color = "#444444";
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/centcom/specops)
 "hSY" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -16344,6 +16306,13 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"hTE" = (
+/obj/item/radio/intercom/specops/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "hTK" = (
 /obj/machinery/conveyor{
 	dir = 5;
@@ -16359,13 +16328,6 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/zone2)
-"hUb" = (
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_4)
 "hUD" = (
 /obj/item/gun/energy/clown/security{
 	desc = "Поговаривают что это оружие сделано концерном Клоун-Варденов, может поэтому оно и спрятано?."
@@ -16548,15 +16510,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"ibQ" = (
-/obj/item/radio/intercom/specops{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
-	},
-/area/centcom/specops)
 "icm" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien16"
@@ -17027,23 +16980,6 @@
 	icon_state = "alien19"
 	},
 /area/abductor_ship)
-"ina" = (
-/obj/machinery/computer/shuttle/ert{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	req_access = list(109)
-	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/item/radio/intercom/specops{
-	pixel_x = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "navybluealt"
-	},
-/area/centcom/specops)
 "ine" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo8"
@@ -17346,6 +17282,14 @@
 	icon_state = "floor12"
 	},
 /area/shuttle/syndicate)
+"iuK" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkjail"
+	},
+/area/syndicate_mothership/jail)
 "iuR" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17851,6 +17795,12 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"iEQ" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/centcom/jail)
 "iEU" = (
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
@@ -18530,6 +18480,19 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/nt_droppod)
+"iZr" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/directional/west,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
 "iZX" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -18749,15 +18712,6 @@
 /obj/structure/dresser,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/zone1)
-"jec" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_2)
 "jed" = (
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
@@ -18795,19 +18749,6 @@
 /area/centcom/specops)
 "jel" = (
 /turf/simulated/floor/carpet/black,
-/area/wizard_station)
-"jew" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 30
-	},
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 1;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/turf/simulated/floor/carpet,
 /area/wizard_station)
 "jeE" = (
 /obj/effect/turf_decal/arrows/red{
@@ -19130,26 +19071,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/supply)
-"jlL" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	brightness_range = 2;
-	dir = 8;
-	light_range = 2;
-	nightshift_light_range = 2;
-	tag = "icon-bulb1 (WEST)";
-	throw_range = 2
-	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -32
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/ninja/outpost)
 "jlQ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -19294,6 +19215,11 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"jof" = (
+/obj/item/radio/intercom/directional/north,
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_4)
 "jok" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -19392,6 +19318,23 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
+"jqI" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "jrj" = (
 /obj/machinery/light,
 /turf/simulated/floor/carpet,
@@ -19444,6 +19387,12 @@
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"jsv" = (
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/indestructible{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "jsG" = (
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/indestructible/grass,
@@ -19859,6 +19808,13 @@
 /obj/item/book/manual/nuclear,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
+"jBU" = (
+/obj/item/radio/intercom/specops/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellow"
+	},
+/area/centcom/specops)
 "jBV" = (
 /obj/structure/filingcabinet/employment,
 /turf/simulated/floor/bluegrid,
@@ -19940,15 +19896,6 @@
 	icon_state = "darkgrey"
 	},
 /area/syndicate_mothership)
-"jEL" = (
-/obj/machinery/vending/cola,
-/obj/structure/closet/medical_wall{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone1)
 "jEO" = (
 /obj/item/storage/fancy/crayons,
 /obj/structure/table/wood{
@@ -20137,12 +20084,6 @@
 	name = "Tatami"
 	},
 /area/ninja/outpost)
-"jHE" = (
-/obj/machinery/vending/chinese{
-	pixel_y = 7
-	},
-/turf/simulated/floor/carpet/black,
-/area/centcom/zone2)
 "jHF" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
@@ -20634,12 +20575,6 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"jTS" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "jTW" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/structure/mirror{
@@ -20724,6 +20659,14 @@
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
+"jWo" = (
+/obj/structure/table/wood,
+/obj/item/megaphone,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/zone3)
 "jWu" = (
 /obj/item/melee/baton{
 	color = "#b30086"
@@ -21079,13 +21022,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership/infteam)
-"kgf" = (
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "kgk" = (
 /obj/machinery/door/airlock/hatch{
 	drain_act_protected = 1;
@@ -21634,6 +21570,14 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"kqE" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/centcom/specops)
 "kqK" = (
 /obj/structure/sign/greencross,
 /turf/simulated/wall/indestructible/reinforced,
@@ -21857,10 +21801,6 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/zone3)
-"kyJ" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel/grimy,
-/area/trader_station/sol)
 "kyM" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 10
@@ -21941,6 +21881,11 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"kAc" = (
+/obj/machinery/vending/cola,
+/obj/structure/window/reinforced,
+/turf/simulated/floor/wood,
+/area/centcom/zone1)
 "kAd" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
@@ -22541,15 +22486,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
-"kPn" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
-/obj/machinery/light/small,
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "kPx" = (
 /obj/machinery/chem_dispenser/beer/upgraded,
 /obj/structure/table/wood{
@@ -22669,6 +22605,17 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
+"kRf" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/item/radio/intercom/specops/directional/east,
+/obj/item/assault_pod/nt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "kRq" = (
 /obj/structure/chair/comfy/purp{
 	dir = 1
@@ -22711,15 +22658,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/supply)
-"kRJ" = (
-/obj/structure/table/wood,
-/obj/item/radio/intercom,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/zone3)
 "kRM" = (
 /obj/structure/bookcase,
 /obj/item/book/manual,
@@ -22779,6 +22717,12 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
+"kSV" = (
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
 "kTa" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -22907,6 +22851,10 @@
 "kWm" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone3)
+"kWv" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel/grimy,
+/area/trader_station/sol)
 "kWB" = (
 /obj/effect/turf_decal/loading_area/white{
 	dir = 4
@@ -23298,16 +23246,6 @@
 /obj/item/dart_cartridge,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
-"leN" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 4;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/turf/simulated/floor/carpet/black,
-/area/wizard_station)
 "lfz" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -23414,10 +23352,6 @@
 /obj/effect/turf_decal/stripes/gold,
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
-"lhQ" = (
-/obj/machinery/vending/snack,
-/turf/simulated/floor/plasteel/grimy,
-/area/trader_station/sol)
 "lhS" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -23588,6 +23522,24 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership/infteam)
+"llw" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	brightness_range = 2;
+	dir = 8;
+	light_range = 2;
+	nightshift_light_range = 2;
+	tag = "icon-bulb1 (WEST)";
+	throw_range = 2
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "llz" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 1
@@ -23738,15 +23690,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
-"lqC" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "navybluealt"
-	},
-/area/centcom/specops)
+"lqZ" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "lrJ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -24040,23 +23987,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/jail)
-"lwf" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/administration)
 "lwk" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealtstrip"
@@ -24130,6 +24060,13 @@
 /obj/machinery/vending/syndisnack,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
+"lyv" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/vending/gun_mods/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/supply)
 "lyB" = (
 /obj/machinery/door_control{
 	id = "syndicate_elite";
@@ -24609,14 +24546,6 @@
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"lIh" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/centcom/zone2)
 "lIw" = (
 /obj/effect/mapping_helpers/light{
 	light_power = 3
@@ -25392,10 +25321,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/centcom/specops)
-"mbE" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "mbZ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/plasmaman/wizard,
@@ -25483,12 +25408,6 @@
 /obj/structure/mineral_door,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
-"mdp" = (
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "mds" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood{
@@ -25862,6 +25781,14 @@
 	tag = "icon-wood-broken6"
 	},
 /area/wizard_station)
+"mmp" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/centcom/specops)
 "mmD" = (
 /obj/item/target,
 /obj/machinery/light/small{
@@ -25876,6 +25803,10 @@
 	tag = "icon-wood-broken7"
 	},
 /area/wizard_station)
+"mmV" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/carpet,
+/area/centcom/evac)
 "mmX" = (
 /obj/machinery/computer/security/wooden_tv{
 	network = list("SS13","Research  Outpost","Mining Outpost")
@@ -25920,6 +25851,15 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
+"mov" = (
+/obj/machinery/vending/chinese,
+/obj/structure/curtain/black{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "moN" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/machinery/door/poddoor/impassable/unhittable{
@@ -26191,12 +26131,6 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/zone2)
-"msM" = (
-/obj/machinery/vending/cigarette/syndicate,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken6"
-	},
-/area/syndicate_mothership/infteam)
 "msN" = (
 /obj/structure/table,
 /obj/item/storage/box/syndidonkpockets,
@@ -26263,21 +26197,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
-"muh" = (
-/obj/effect/turf_decal{
-	icon = 'icons/obj/syndie_logo.dmi';
-	icon_state = "logo16"
-	},
-/obj/item/flag/syndi,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -28
-	},
-/obj/machinery/light,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "plastitanium"
-	},
-/area/shuttle/syndicate)
 "muA" = (
 /obj/structure/table/wood,
 /obj/structure/mirror/magic{
@@ -26300,18 +26219,6 @@
 	dir = 5;
 	icon_state = "darkjail"
 	},
-/area/syndicate_mothership/jail)
-"muU" = (
-/obj/structure/table/wood,
-/obj/effect/landmark/spawner/teleport_scroll,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -30
-	},
-/turf/simulated/floor/carpet/cyan,
-/area/wizard_station)
-"muV" = (
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "mvd" = (
 /obj/structure/spacepoddoor/invincible{
@@ -27149,10 +27056,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"mMh" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/carpet,
-/area/centcom/evac)
 "mMj" = (
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_x = -32
@@ -27179,13 +27082,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/siberia)
-"mMF" = (
-/obj/machinery/vending/cigarette/syndicate,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "mNj" = (
 /turf/simulated/wall/indestructible/rock,
 /area/space)
@@ -27391,14 +27287,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"mRR" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/bridge)
 "mRT" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -28569,6 +28457,21 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership/elite_squad)
+"nrn" = (
+/obj/machinery/computer/shuttle/ert{
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	req_access = list(109)
+	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "nrC" = (
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
@@ -28756,12 +28659,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
-"nuw" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "nuz" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -28876,6 +28773,30 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/specops)
+"nwG" = (
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/structure/statue/sandstone/assistant{
+	anchored = 1;
+	desc = "Он точно спит на посту";
+	dir = 1;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_state = "syndicate_smg";
+	max_integrity = 9999;
+	name = "Боба";
+	obj_integrity = 9999
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkjail"
+	},
+/area/syndicate_mothership/jail)
+"nwX" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/elite_squad)
 "nwZ" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plating{
@@ -29437,6 +29358,12 @@
 	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
+"nIt" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/centcom/jail)
 "nIG" = (
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
@@ -29637,10 +29564,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"nMn" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel/grimy,
-/area/trader_station/sol)
 "nMp" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/grass/jungle,
@@ -29903,6 +29826,12 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/indestructible/beach/sand,
 /area/syndicate_mothership/outside)
+"nTo" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "nTJ" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/pod_4)
@@ -30748,6 +30677,16 @@
 	icon_state = "barber"
 	},
 /area/centcom/jail)
+"omq" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/vending/coffee,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/zone2)
 "omz" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light,
@@ -31728,6 +31667,15 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"oKi" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
 "oKt" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -31819,22 +31767,17 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/supply)
-"oMa" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -5
-	},
-/obj/item/reagent_containers/glass/beaker/waterbottle,
-/turf/simulated/floor/carpet,
-/area/centcom/zone3)
 "oMf" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/pod_4)
+"oMj" = (
+/obj/machinery/vending/gun_mods/advanced,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "oMz" = (
 /obj/machinery/airlock_sensor{
 	frequency = 1331;
@@ -32083,16 +32026,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
-"oPU" = (
-/obj/machinery/computer/station_alert,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/radio/intercom/specops{
-	pixel_y = 32
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/specops)
 "oQl" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -32174,6 +32107,10 @@
 	icon_state = "darkgrey"
 	},
 /area/syndicate_mothership)
+"oRV" = (
+/obj/item/toy/plushie/manulplushie,
+/turf/simulated/floor/beach/sand,
+/area/centcom/evac)
 "oSm" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
@@ -32327,6 +32264,13 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma)
+"oUM" = (
+/obj/item/radio/intercom/specops/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkgreen"
+	},
+/area/centcom/specops)
 "oUX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -32714,6 +32658,18 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/bridge)
+"pix" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -5
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/zone3)
 "piE" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/mining)
@@ -32734,6 +32690,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
+/area/centcom/zone1)
+"pkm" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/wood,
 /area/centcom/zone1)
 "pko" = (
 /obj/effect/turf_decal{
@@ -32759,15 +32719,6 @@
 	icon_state = "darkredalt"
 	},
 /area/syndicate_mothership/control)
-"ple" = (
-/obj/machinery/vending/cigarette,
-/obj/structure/curtain/black{
-	pixel_x = -32
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership)
 "plq" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/machinery/light/small{
@@ -32838,6 +32789,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"pni" = (
+/obj/machinery/vending/chinese,
+/obj/effect/turf_decal/stripes/gold{
+	dir = 5
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/syndicate_mothership/infteam)
 "pnL" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -33138,12 +33098,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
-"pua" = (
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluealt"
-	},
-/area/centcom/specops)
 "pub" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -33312,13 +33266,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
-"pxy" = (
-/obj/structure/filingcabinet/employment,
-/obj/item/radio/intercom/specops{
-	pixel_y = -32
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/centcom/bridge)
 "pxJ" = (
 /obj/structure/table,
 /obj/item/grenade/plastic/c4{
@@ -33372,6 +33319,12 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
+"pyi" = (
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
 "pyu" = (
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
@@ -33542,15 +33495,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone3)
-"pDE" = (
-/obj/machinery/computer/account_database{
-	name = "Admin Accounts Database"
-	},
-/obj/item/radio/intercom/specops{
-	pixel_x = 32
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/centcom/specops)
 "pDH" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -33715,13 +33659,6 @@
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
-"pIU" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/carpet/black,
-/area/ninja/outpost)
 "pJe" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery{
@@ -34624,6 +34561,13 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"qcS" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/elite_squad)
 "qcY" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
@@ -35171,15 +35115,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/funeral)
-"qqG" = (
-/obj/structure/bed/roller,
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/shuttle/escape)
 "qqS" = (
 /obj/structure/sink{
 	dir = 4;
@@ -35291,17 +35226,6 @@
 	icon_state = "darkfull"
 	},
 /area/centcom/jail)
-"qsJ" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = 28;
-	pixel_y = -42
-	},
-/obj/effect/turf_decal/siding{
-	color = "#444444";
-	dir = 9
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/centcom/specops)
 "qsK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -35389,6 +35313,10 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
+"qtH" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel/grimy,
+/area/trader_station/sol)
 "qtP" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/machinery/door/poddoor/impassable/unhittable{
@@ -35408,6 +35336,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/jail)
+"quh" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluealt"
+	},
+/area/centcom/specops)
 "quv" = (
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3";
@@ -35771,6 +35705,23 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"qBs" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "qBE" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/beach/water{
@@ -35793,13 +35744,6 @@
 	icon_state = "darkred"
 	},
 /area/syndicate_mothership/elite_squad)
-"qBZ" = (
-/obj/effect/decal/warning_stripes/white,
-/obj/machinery/vending/gun_mods/advanced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "qCc" = (
 /obj/effect/baseturf_helper{
 	baseturf = /turf/simulated/floor/indestructible/asteroid;
@@ -35894,19 +35838,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
-"qEp" = (
-/obj/structure/table,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/melee/icepick,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership/jail)
 "qED" = (
 /obj/machinery/light{
 	dir = 4
@@ -35939,18 +35870,6 @@
 	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
-"qFm" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/escape)
 "qFu" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
@@ -36046,18 +35965,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone2)
-"qIt" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/escape)
 "qIR" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -36352,6 +36259,13 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/engine,
 /area/centcom/specops)
+"qOU" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_1)
 "qPh" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/sushimat,
@@ -37041,6 +36955,15 @@
 	icon_state = "darkred"
 	},
 /area/syndicate_mothership/infteam)
+"reS" = (
+/obj/machinery/vending/cola,
+/obj/structure/curtain/black{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "reY" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -37976,12 +37899,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
-"rCI" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/evac)
 "rCS" = (
 /obj/structure/shuttle/engine/platform{
 	dir = 1;
@@ -38568,6 +38485,13 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"rNM" = (
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredalt"
+	},
+/area/centcom/jail)
 "rOb" = (
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
@@ -38827,15 +38751,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"rUL" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_1)
 "rUV" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -39055,23 +38970,6 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/jail)
-"rZn" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/administration)
 "rZo" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -39111,6 +39009,13 @@
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"saF" = (
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/shuttle/escape)
 "saH" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -39358,6 +39263,14 @@
 	icon_state = "vault";
 	tag = "icon-vault (WEST)"
 	},
+/area/centcom/specops)
+"shA" = (
+/obj/item/radio/intercom/specops/directional/east,
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 9
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "shB" = (
 /obj/structure/flora/rock/jungle,
@@ -40280,6 +40193,12 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/centcom/evac)
+"sGv" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "sGK" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -40539,15 +40458,6 @@
 /area/syndicate_mothership/control)
 "sNX" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/shuttle/escape)
-"sOe" = (
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -40948,21 +40858,6 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
-"sWd" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
-/area/shuttle/escape)
 "sWw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -41242,21 +41137,6 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/specops)
-"sZH" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
-/obj/machinery/light/spot{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
-/area/shuttle/escape)
 "sZJ" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -41430,6 +41310,13 @@
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
+"tdl" = (
+/obj/machinery/computer/account_database{
+	name = "Admin Accounts Database"
+	},
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/wood/fancy/light,
+/area/centcom/specops)
 "tdy" = (
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
@@ -41882,10 +41769,6 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
-"tmS" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/wood,
-/area/centcom/zone1)
 "tmU" = (
 /obj/item/robot_parts/robot_component{
 	desc = "Некая блюспейс сущность, обещала когда нибудь его доделать...";
@@ -41899,15 +41782,6 @@
 /obj/structure/curtain/open/shower/centcom,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/zone2)
-"tnt" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
-/obj/structure/closet/secure_closet/brig{
-	req_access = list(153)
-	},
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "tnF" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo19"
@@ -41964,12 +41838,6 @@
 	icon_state = "darkbluecornersalt"
 	},
 /area/centcom/specops)
-"toh" = (
-/obj/structure/chair/comfy/brown{
-	color = "#3300FF"
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/zone3)
 "toL" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -42092,15 +41960,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/centcom/bridge)
-"trp" = (
-/obj/item/radio/intercom/specops{
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkgreen"
-	},
-/area/centcom/specops)
 "trB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredalt"
@@ -42179,19 +42038,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
-"ttN" = (
-/obj/structure/table/reinforced{
-	color = "#444444"
-	},
-/obj/item/radio/intercom/specops{
-	pixel_x = 30
-	},
-/obj/item/assault_pod/nt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "navybluealt"
-	},
-/area/centcom/specops)
 "ttO" = (
 /obj/machinery/hydroponics/constructable{
 	layer = 3.2
@@ -42353,12 +42199,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
-"txX" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/centcom/jail)
 "txY" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -42729,6 +42569,15 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/jail)
+"tEo" = (
+/obj/machinery/vending/cola,
+/obj/effect/turf_decal/stripes/gold{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/syndicate_mothership/infteam)
 "tEB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowaltstrip"
@@ -42957,18 +42806,16 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"tIA" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/vending/cola,
-/turf/simulated/floor/carpet/black,
-/area/ninja/outpost)
 "tIC" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
+"tIE" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "tIM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -43088,20 +42935,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"tKQ" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -3;
-	pixel_y = -30
-	},
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/simulated/floor/carpet,
-/area/wizard_station)
 "tKZ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave/upgraded{
@@ -43645,15 +43478,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
-"tYF" = (
-/obj/machinery/vending/cola,
-/obj/structure/curtain/black{
-	pixel_x = -32
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership)
 "tZe" = (
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -43683,6 +43507,12 @@
 /obj/structure/falsewall/reinforced,
 /turf/simulated/floor/plating,
 /area/centcom/supply)
+"uad" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/vending/cola,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "uah" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -43720,6 +43550,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
+"uaX" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone1)
 "ubx" = (
 /obj/machinery/photocopier,
 /obj/structure/window/reinforced,
@@ -43868,6 +43704,18 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone2)
+"uez" = (
+/obj/machinery/vending/cigarette,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/syndicate_mothership/infteam)
 "ueA" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
@@ -43935,12 +43783,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/zone3)
-"ufv" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "ufP" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
@@ -44129,15 +43971,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
-"ujZ" = (
-/obj/machinery/vending/chinese,
-/obj/effect/turf_decal/stripes/gold{
-	dir = 5
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "ukh" = (
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#55391A";
@@ -44263,6 +44096,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"unU" = (
+/obj/machinery/light/small{
+	brightness_range = 6;
+	dir = 4;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "unV" = (
 /obj/item/gun/projectile/automatic/c20r{
 	pixel_x = -3;
@@ -44630,6 +44474,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"uvy" = (
+/obj/effect/turf_decal/plaque,
+/obj/structure/chair/comfy/red{
+	color = "#222222";
+	dir = 8
+	},
+/obj/item/radio/intercom/pirate/directional/north,
+/turf/simulated/floor/carpet,
+/area/centcom/zone3)
 "uvE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -44732,6 +44585,14 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/trade/sol)
+"uyH" = (
+/obj/machinery/computer/station_alert,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/radio/intercom/specops/directional/north,
+/turf/simulated/floor/carpet,
+/area/centcom/specops)
 "uyZ" = (
 /obj/effect/turf_decal/stripes/line{
 	color = "darkgray";
@@ -44778,13 +44639,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
-"uzx" = (
-/obj/structure/chair/comfy/brown{
-	color = "#FF3300";
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/zone3)
 "uzP" = (
 /turf/simulated/floor/carpet/red,
 /area/centcom/specops)
@@ -44844,6 +44698,14 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone2)
+"uAV" = (
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
 "uBe" = (
 /obj/effect/turf_decal/box/red,
 /obj/machinery/door/window/brigdoor{
@@ -45145,6 +45007,12 @@
 	icon_state = "ninja_walls_direction"
 	},
 /area/shuttle/ninja)
+"uHv" = (
+/obj/machinery/vending/gun_mods/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/supply)
 "uHO" = (
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#55391A";
@@ -45192,14 +45060,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealt"
-	},
-/area/centcom/specops)
-"uJU" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/centcom/specops)
 "uJV" = (
@@ -45259,6 +45119,15 @@
 	icon_state = "warnwhite"
 	},
 /area/centcom/zone1)
+"uLa" = (
+/obj/item/radio/intercom/specops/directional/north,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
 "uLd" = (
 /obj/structure/shuttle/engine/platform{
 	dir = 1;
@@ -45473,12 +45342,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"uNB" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/centcom/jail)
 "uNF" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -45523,6 +45386,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
+"uOg" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/surgery,
+/obj/item/radio/intercom/directional/west,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/centcom/zone1)
 "uOj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer/upgraded,
@@ -45609,13 +45481,6 @@
 /obj/item/book/manual/sop_security,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
-"uQn" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "uQx" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -45990,6 +45855,13 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"uZY" = (
+/obj/structure/chair/comfy/brown{
+	color = "#3300FF"
+	},
+/obj/item/radio/intercom/pirate/directional/west,
+/turf/simulated/floor/carpet,
+/area/centcom/zone3)
 "vad" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/carpet/black,
@@ -46003,11 +45875,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"vap" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/vending/snack,
-/turf/simulated/floor/carpet/black,
-/area/ninja/outpost)
 "vaw" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 9
@@ -46106,16 +45973,6 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/two)
-"vdH" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bot"
-	},
-/area/shuttle/escape)
 "vdO" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -24;
@@ -46172,14 +46029,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
-"veO" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/o2,
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
 "veQ" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
@@ -46200,6 +46049,13 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/syndicate_mothership/control)
+"vfr" = (
+/obj/structure/bed/roller,
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
 "vfD" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -46804,6 +46660,23 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"vuq" = (
+/obj/structure/closet/crate/medical,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/storage/box/beakers,
+/obj/item/robot_parts/l_arm,
+/obj/item/robot_parts/r_arm,
+/obj/item/clothing/mask/surgical,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/r_leg,
+/obj/item/radio/intercom/syndicate/directional/west,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
 "vuA" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 6
@@ -46813,15 +46686,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"vuF" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluealt"
-	},
-/area/centcom/specops)
 "vvr" = (
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
@@ -46848,6 +46712,12 @@
 	icon_state = "warnwhite"
 	},
 /area/centcom/zone1)
+"vvK" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "vvX" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/decal/cleanable/dirt,
@@ -47101,6 +46971,15 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"vCX" = (
+/obj/machinery/vending/cigarette,
+/obj/structure/curtain/black{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "vDj" = (
 /obj/structure/mirror{
 	pixel_x = -30
@@ -47120,25 +46999,6 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"vDz" = (
-/obj/structure/closet/crate/medical,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/storage/box/beakers,
-/obj/item/robot_parts/l_arm,
-/obj/item/robot_parts/r_arm,
-/obj/item/clothing/mask/surgical,
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
-/obj/item/robot_parts/l_leg,
-/obj/item/robot_parts/r_leg,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -28
-	},
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
-/area/shuttle/syndicate)
 "vDI" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -47300,16 +47160,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
-"vIl" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/light_switch/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredalt"
-	},
-/area/centcom/jail)
 "vIN" = (
 /obj/item/storage/toolbox/electrical,
 /obj/item/storage/toolbox/emergency,
@@ -47743,14 +47593,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"vRW" = (
-/obj/item/radio/intercom/specops{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "navybluealt"
-	},
-/area/centcom/specops)
 "vSs" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/stamp/ussp,
@@ -47875,6 +47717,14 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/three)
+"vUt" = (
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
 "vUy" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/airlock/gold/glass{
@@ -48780,6 +48630,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"wtf" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "wtY" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/pod_3)
@@ -49584,6 +49438,14 @@
 	icon_state = "ninja_walls_direction"
 	},
 /area/shuttle/ninja)
+"wQQ" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
 "wQS" = (
 /obj/structure/flora/tree/jungle,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -49595,15 +49457,6 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
-"wRR" = (
-/obj/item/radio/intercom/specops{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredalt"
-	},
-/area/centcom/jail)
 "wRW" = (
 /obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_x = -32
@@ -49894,6 +49747,11 @@
 	icon_state = "plastitanium"
 	},
 /area/shuttle/syndicate)
+"wXE" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/vending/snack,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "wXY" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -50100,12 +49958,6 @@
 	icon_state = "plastitanium"
 	},
 /area/shuttle/syndicate)
-"xbA" = (
-/obj/machinery/vending/gun_mods/advanced,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership)
 "xbE" = (
 /obj/effect/turf_decal/number/number_2{
 	dir = 8
@@ -50163,6 +50015,16 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"xcI" = (
+/obj/machinery/vending/snack,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "xcN" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	closingLayer = 5;
@@ -50209,6 +50071,17 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
+	},
+/area/centcom/specops)
+"xdy" = (
+/obj/machinery/vending/wallmed{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
 "xdH" = (
@@ -50393,13 +50266,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
-"xhn" = (
-/obj/structure/filingcabinet/employment,
-/obj/item/radio/intercom/specops{
-	pixel_y = 32
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/centcom/bridge)
 "xho" = (
 /turf/simulated/wall/indestructible/iron,
 /area/syndicate_mothership/jail)
@@ -50443,17 +50309,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/bridge)
-"xie" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/item/radio/intercom/specops{
-	pixel_x = 32
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/specops)
 "xig" = (
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/administration)
@@ -50795,14 +50650,6 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/zone2)
-"xpA" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 28
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "xpQ" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -50926,14 +50773,6 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/specops)
-"xsC" = (
-/obj/machinery/vending/chinese,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
-	},
-/area/centcom/specops)
 "xsR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
@@ -51054,6 +50893,16 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/shuttle/trade/sol)
+"xvG" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/radio/intercom/directional/south,
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
 "xvJ" = (
 /obj/effect/turf_decal{
 	icon = 'icons/obj/syndie_logo.dmi';
@@ -51152,6 +51001,12 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_1)
+"xxn" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone2)
 "xxs" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
@@ -51200,12 +51055,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
-"xze" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone2)
 "xzg" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -51637,6 +51486,11 @@
 	icon_state = "plastitanium"
 	},
 /area/shuttle/syndicate)
+"xJi" = (
+/obj/structure/filingcabinet/employment,
+/obj/item/radio/intercom/specops/directional/south,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/centcom/bridge)
 "xJo" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
@@ -51845,6 +51699,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"xPa" = (
+/obj/structure/table,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/melee/icepick,
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "xPb" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood{
@@ -51920,6 +51785,10 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/zone2)
+"xRe" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel/grimy,
+/area/trader_station/sol)
 "xRh" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -51971,6 +51840,10 @@
 	icon_state = "neutral"
 	},
 /area/centcom/evac)
+"xRV" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "xSg" = (
 /obj/structure/falsewall/reinforced{
 	layer = 5;
@@ -52014,6 +51887,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"xTK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/south,
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
 "xTM" = (
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/mindshield,
@@ -52132,6 +52015,12 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/vox)
+"xYm" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "xYo" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -52381,6 +52270,11 @@
 	icon_state = "darkredcorners"
 	},
 /area/centcom/specops)
+"yeD" = (
+/obj/item/radio/intercom/directional/north,
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_3)
 "yeO" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -56130,10 +56024,10 @@ fRH
 nhY
 lOM
 lOM
-ujZ
+pni
 ovA
-aKi
-gjh
+uez
+tEo
 pFA
 pFA
 pFA
@@ -58197,7 +58091,7 @@ moV
 moV
 reR
 swP
-msM
+gUX
 khv
 laU
 sAg
@@ -60782,9 +60676,9 @@ keo
 keo
 keo
 keo
-hCb
-tYF
-ple
+mov
+reS
+vCX
 qNy
 qNy
 tly
@@ -64364,7 +64258,7 @@ xqR
 yiJ
 yiJ
 xqR
-vDz
+vuq
 aHh
 uca
 qTw
@@ -65130,7 +65024,7 @@ yiJ
 bUu
 xKT
 xKT
-xpA
+kSV
 xKT
 xKT
 xKT
@@ -65640,7 +65534,7 @@ xaN
 xiW
 xuG
 xHG
-muh
+bNH
 xqR
 xak
 xKT
@@ -66419,7 +66313,7 @@ yiJ
 xqR
 yiJ
 xKT
-azC
+vUt
 xqR
 nGh
 yiJ
@@ -66929,7 +66823,7 @@ yiJ
 bUu
 xKT
 xKT
-azO
+pyi
 xKT
 xKT
 xKT
@@ -67976,7 +67870,7 @@ wlI
 vZf
 mxA
 keo
-xbA
+oMj
 xGb
 xGb
 tkm
@@ -73385,8 +73279,8 @@ dfm
 tun
 xho
 aVE
-mbE
-muV
+xRV
+wtf
 xho
 ivl
 wpJ
@@ -74671,7 +74565,7 @@ dfm
 wVt
 nKg
 nKg
-kPn
+dYk
 xho
 iEU
 iEU
@@ -74893,7 +74787,7 @@ nsi
 nMF
 odT
 mZB
-uQn
+nwX
 pbN
 pbN
 pbN
@@ -75181,7 +75075,7 @@ xho
 bSL
 dfm
 dfm
-dga
+nwG
 xho
 xho
 xho
@@ -75664,7 +75558,7 @@ kKP
 kKP
 oeH
 mZB
-eUQ
+cIl
 pbN
 pbN
 pbN
@@ -76211,7 +76105,7 @@ dfm
 dfm
 cja
 xho
-buc
+tIE
 plV
 uUC
 xho
@@ -76727,7 +76621,7 @@ dfm
 wVt
 nKg
 nKg
-tnt
+aNh
 xho
 ooP
 dfm
@@ -77206,7 +77100,7 @@ kKP
 kKP
 oeH
 mZB
-mMF
+ajh
 pbN
 pbN
 pbN
@@ -77234,7 +77128,7 @@ iEU
 duS
 vPe
 xho
-bhW
+iuK
 dfm
 dfm
 pBc
@@ -77977,7 +77871,7 @@ nvU
 lGE
 omB
 mZB
-kgf
+qcS
 pbN
 pbN
 pbN
@@ -79552,7 +79446,7 @@ oPc
 jOQ
 xYN
 dLM
-qEp
+xPa
 lvV
 hdT
 xho
@@ -84021,7 +83915,7 @@ ggV
 qim
 qim
 qim
-pIU
+gyk
 hFk
 ykS
 nVI
@@ -84278,7 +84172,7 @@ eRk
 eRk
 gxr
 kuh
-vap
+wXE
 hFk
 ykS
 ykS
@@ -84535,7 +84429,7 @@ ghk
 gpK
 lKY
 kuh
-tIA
+uad
 hFk
 hFk
 hFk
@@ -85816,7 +85710,7 @@ hFk
 hFk
 hFk
 hFk
-dlS
+bad
 gtO
 hFk
 hFk
@@ -88046,7 +87940,7 @@ nAN
 nAN
 fzV
 fzV
-lwf
+qBs
 ijs
 alw
 rRG
@@ -88266,13 +88160,13 @@ onc
 iRb
 wrq
 rFb
-jec
+aRe
 iRb
 onc
 vMQ
 sEb
 rmm
-rUL
+qOU
 vMQ
 onc
 onc
@@ -88302,7 +88196,7 @@ dcl
 nAN
 nAN
 fzV
-rZn
+jqI
 jJA
 jJA
 jJA
@@ -88559,7 +88453,7 @@ ePN
 nAN
 nAN
 vtH
-guo
+xcI
 jJA
 jJA
 jJA
@@ -88625,7 +88519,7 @@ dMb
 bHo
 ceS
 bRx
-bAP
+jsv
 bRM
 dnL
 duf
@@ -89068,7 +88962,7 @@ nAN
 nSu
 llT
 lGL
-fhy
+uAV
 nSu
 nAN
 nAN
@@ -89318,7 +89212,7 @@ wiU
 kmM
 tqr
 tLb
-ttN
+kRf
 lHs
 uho
 nAN
@@ -89413,7 +89307,7 @@ gQs
 mhN
 mhN
 mhN
-jlL
+llw
 eRk
 eRk
 evL
@@ -90826,13 +90720,13 @@ nWB
 cSN
 hMi
 eNW
-auB
+uOg
 jmW
 onc
 vTI
 iJo
 sIC
-mMh
+mmV
 onc
 wUF
 tZe
@@ -90848,7 +90742,7 @@ pLN
 ewA
 onc
 uDo
-lIh
+akq
 rnN
 tOu
 vlQ
@@ -91888,7 +91782,7 @@ pUa
 lwk
 jJr
 iUy
-gOl
+gzF
 vOq
 kWm
 vtr
@@ -92644,7 +92538,7 @@ rfO
 onc
 csN
 oQO
-jHE
+gGy
 ahD
 vES
 vES
@@ -93206,7 +93100,7 @@ pqb
 pqb
 pqb
 pqb
-vIl
+bbR
 myp
 trB
 pqb
@@ -93685,7 +93579,7 @@ xpx
 aRW
 pUa
 lwk
-jTS
+vvK
 kWm
 aSp
 wqj
@@ -93942,7 +93836,7 @@ bwf
 aRW
 pUa
 lwk
-aXU
+cZw
 kWm
 wAE
 rnv
@@ -94157,7 +94051,7 @@ ajO
 qIR
 tvL
 gOi
-jEL
+cnT
 onc
 nQb
 rou
@@ -94190,7 +94084,7 @@ oCh
 nOe
 mOu
 lYZ
-dok
+omq
 ihz
 aXP
 eyb
@@ -94199,7 +94093,7 @@ bwf
 aRW
 pUa
 lwk
-xze
+bYm
 kWm
 aSp
 rnv
@@ -94460,8 +94354,8 @@ oHS
 kWm
 xap
 kaz
-oMa
-kRJ
+cdp
+pix
 kzB
 qbx
 qYE
@@ -94483,7 +94377,7 @@ kXg
 qMf
 cAH
 cko
-wRR
+rNM
 hpD
 gRK
 pqb
@@ -94717,15 +94611,15 @@ iwS
 kWm
 kWm
 pDz
-toh
+uZY
 oxw
 bCT
-cYK
-hLB
+jWo
+uvy
 iyb
 cDS
-aKB
-uzx
+bYT
+fmb
 eRR
 aiz
 gDR
@@ -94945,7 +94839,7 @@ jWT
 jWT
 uMu
 onc
-bWY
+uaX
 wUF
 tZe
 tZe
@@ -94971,7 +94865,7 @@ aRW
 pUa
 xIm
 wde
-nuw
+xxn
 kWm
 kWm
 wbe
@@ -96008,11 +95902,11 @@ nLd
 ccq
 mSp
 nAN
-esw
-ufv
+xYm
+ccQ
 nnM
-fDa
-mdp
+hto
+sGv
 vxR
 nAN
 wMU
@@ -96209,7 +96103,7 @@ iIs
 xbI
 vOg
 xGO
-rCI
+fce
 nIj
 nIj
 xbI
@@ -98086,7 +97980,7 @@ pqb
 fvx
 pIg
 hwc
-txX
+iEQ
 pqb
 dGN
 dGN
@@ -98343,7 +98237,7 @@ pqb
 vTR
 aeY
 hwc
-uNB
+nIt
 pqb
 fJR
 fJR
@@ -98569,7 +98463,7 @@ jQb
 aBX
 sOT
 llm
-mRR
+cPT
 aBX
 jBV
 fMQ
@@ -98860,7 +98754,7 @@ qTB
 pgu
 nAN
 xUz
-xsC
+mmp
 bNp
 iXk
 wyB
@@ -99863,7 +99757,7 @@ omd
 omd
 ulG
 fMQ
-xhn
+ecP
 oks
 ovk
 aBX
@@ -99871,7 +99765,7 @@ iLs
 aBX
 jgg
 dgp
-pxy
+xJi
 fMQ
 fDP
 fDP
@@ -100923,7 +100817,7 @@ mFD
 gCw
 fls
 qCI
-hJc
+kqE
 nAN
 nnW
 pwb
@@ -101187,7 +101081,7 @@ nAN
 rwv
 jzh
 ifB
-ibQ
+jBU
 nAN
 nAN
 nAN
@@ -101423,13 +101317,13 @@ csZ
 hmX
 hqZ
 raf
-gsj
+bis
 nbP
 xLE
 itf
 nAN
 aiQ
-lqC
+hTE
 qto
 qto
 qgi
@@ -101633,7 +101527,7 @@ dsj
 ueb
 ihM
 onc
-tmS
+pkm
 bBI
 eNm
 ePS
@@ -101951,7 +101845,7 @@ mzs
 mzs
 jJS
 fAg
-vRW
+bIR
 nAN
 pXf
 oTI
@@ -103308,7 +103202,7 @@ kgJ
 jel
 jel
 jel
-leN
+unU
 lFP
 jel
 jel
@@ -103454,7 +103348,7 @@ rFp
 iNI
 jBK
 uCT
-pDE
+tdl
 hSv
 oTM
 nYX
@@ -103482,7 +103376,7 @@ vNv
 nBb
 oIc
 oIc
-qsJ
+shA
 wAs
 ooy
 tmQ
@@ -103495,7 +103389,7 @@ mTv
 oXE
 kZY
 nAN
-qBZ
+eJZ
 bfo
 lhS
 xin
@@ -103559,12 +103453,12 @@ mVX
 mVX
 cjS
 cjS
-jew
+ggU
 jlR
 jlR
 jlR
 jlR
-tKQ
+kYu
 cjS
 cjS
 kBr
@@ -103827,7 +103721,7 @@ cBk
 jel
 jel
 jel
-dIG
+lqZ
 cjS
 mVX
 mVX
@@ -103970,7 +103864,7 @@ xyc
 wNL
 eFN
 rFC
-fgj
+lyv
 oDO
 afP
 lzS
@@ -104505,7 +104399,7 @@ jJS
 fAg
 kZY
 hmX
-aWz
+hSA
 lvI
 drr
 fnT
@@ -104598,7 +104492,7 @@ cjS
 lPp
 mal
 mal
-muU
+aHs
 cjS
 mVX
 mVX
@@ -104782,7 +104676,7 @@ nAN
 nAN
 nAN
 nAN
-trp
+oUM
 xkB
 vFy
 hoD
@@ -104849,7 +104743,7 @@ jlR
 jlR
 jlR
 jlR
-kYu
+dHa
 cjS
 cjS
 lSb
@@ -104991,7 +104885,7 @@ nQW
 gbo
 kBa
 jHX
-ezq
+uHv
 jEU
 uym
 gXM
@@ -105478,7 +105372,7 @@ aZX
 kic
 xbI
 onc
-tmS
+pkm
 kAE
 ekH
 onc
@@ -105516,7 +105410,7 @@ oLW
 tgA
 tyO
 nAN
-oPU
+uyH
 fjj
 apC
 fAg
@@ -105850,7 +105744,7 @@ aEA
 aEA
 acc
 aNX
-dpy
+kWv
 jrL
 jrL
 jrL
@@ -106107,7 +106001,7 @@ nvh
 dDl
 acc
 aNX
-nMn
+eEt
 jrL
 jrL
 jrL
@@ -106247,7 +106141,7 @@ mby
 foN
 pyu
 gKX
-rCI
+fce
 onc
 lNA
 bBI
@@ -106364,7 +106258,7 @@ dqZ
 dDs
 acc
 aNX
-kyJ
+qtH
 jrL
 jrL
 jrL
@@ -106621,7 +106515,7 @@ deK
 deK
 cOF
 aNX
-lhQ
+xRe
 jrL
 jrL
 eAN
@@ -106818,8 +106712,8 @@ mHv
 fAg
 kZY
 nAN
-fDa
-ufv
+hto
+ccQ
 nAN
 nAN
 nAN
@@ -107012,7 +106906,7 @@ pyu
 gKX
 xQr
 wXY
-bnX
+oRV
 kwV
 xQr
 foN
@@ -107032,7 +106926,7 @@ oKG
 tak
 pqn
 rXF
-hgz
+kAc
 kAE
 oKG
 sdz
@@ -107863,7 +107757,7 @@ hOe
 mzs
 wJo
 mzs
-eMa
+xdy
 nAN
 ajk
 rTL
@@ -108061,9 +107955,9 @@ qZa
 onc
 onc
 onc
-aAz
+eVu
 dBY
-eON
+etQ
 onc
 afP
 sbw
@@ -108122,7 +108016,7 @@ nAN
 qJo
 qJo
 nAN
-pua
+quh
 rTL
 rTL
 rTL
@@ -108369,7 +108263,7 @@ kwn
 bGQ
 nAN
 nAN
-ina
+nrn
 hHu
 mzs
 mzs
@@ -108379,14 +108273,14 @@ aoW
 erZ
 erZ
 waZ
-vuF
+dka
 rTL
 rTL
 rTL
 rTL
 tAi
 fAg
-ewc
+nTo
 nAN
 axT
 ook
@@ -108569,13 +108463,13 @@ mVX
 mVX
 onc
 nTJ
-hUb
+jof
 puY
 eTN
 nTJ
 onc
 wtY
-eLA
+yeD
 jkW
 eqe
 wtY
@@ -108636,7 +108530,7 @@ nAN
 nAN
 nAN
 nAN
-pua
+quh
 rTL
 rTL
 rTL
@@ -109140,7 +109034,7 @@ nAN
 nAN
 usR
 usR
-ajs
+uLa
 taZ
 aLg
 evp
@@ -109659,7 +109553,7 @@ taZ
 taZ
 taZ
 taZ
-xie
+oKi
 kQO
 hVq
 hQV
@@ -109671,7 +109565,7 @@ rHW
 nAN
 iXF
 xfD
-uJU
+abC
 fXf
 nAN
 nAN
@@ -110090,17 +109984,17 @@ mVX
 wkN
 rpQ
 rOi
-ayR
+eYT
 sms
 wkN
 sMr
-sWd
+iZr
 izX
 izX
 izX
 izX
 dNe
-sWd
+iZr
 dNe
 uOA
 wkN
@@ -111371,7 +111265,7 @@ bud
 vcC
 qfz
 qfz
-qFm
+xvG
 vAA
 jlQ
 wTK
@@ -111635,7 +111529,7 @@ rRm
 rRm
 wkN
 vAA
-sOe
+saF
 sWw
 tsj
 tTF
@@ -111646,7 +111540,7 @@ sWw
 dNe
 uPe
 wkN
-vdH
+wQQ
 vqK
 vJp
 vSD
@@ -112406,7 +112300,7 @@ kph
 kph
 wkN
 vAA
-sOe
+saF
 hsz
 tzJ
 oPx
@@ -112417,7 +112311,7 @@ hsz
 dNe
 uPe
 wkN
-veO
+cVy
 vst
 vst
 lnZ
@@ -112656,7 +112550,7 @@ bud
 nCH
 qhG
 qhG
-qIt
+xTK
 vAA
 tEN
 rUk
@@ -112915,7 +112809,7 @@ qlQ
 qwd
 umm
 vAA
-qqG
+vfr
 til
 wLl
 soN
@@ -113949,13 +113843,13 @@ rYn
 sra
 wkN
 sRl
-sZH
+dYG
 izX
 izX
 izX
 izX
 izX
-sZH
+dYG
 uKc
 uOA
 wkN

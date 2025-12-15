@@ -328,12 +328,6 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/trading)
-"dQ" = (
-/obj/machinery/vending/chinese{
-	pixel_y = 0
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
 "dV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2306,6 +2300,12 @@
 	icon_state = "tranquillite"
 	},
 /area/maintenance/backstage)
+"Ac" = (
+/obj/machinery/vending/chinese{
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedoffices)
 "Ad" = (
 /obj/effect/turf_decal/siding/blue,
 /turf/simulated/floor/carpet/black,
@@ -2801,6 +2801,14 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"EV" = (
+/obj/item/radio/intercom/directional/east,
+/obj/structure/bed,
+/obj/item/bedsheet/captain{
+	name = "Blueshield's bedsheet."
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/blueshield)
 "Fb" = (
 /turf/template_noop,
 /area/template_noop)
@@ -3517,6 +3525,13 @@
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"LV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/wood,
+/area/maintenance/backstage)
 "LY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3685,17 +3700,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
-"Od" = (
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
-/obj/structure/bed,
-/obj/item/bedsheet/captain{
-	name = "Blueshield's bedsheet."
-	},
-/turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
 "Og" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
@@ -3811,13 +3815,6 @@
 	icon_state = "floorgrime"
 	},
 /area/maintenance/abandonedoffices)
-"PM" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/wood,
-/area/maintenance/backstage)
 "PO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -7173,7 +7170,7 @@ Fb
 Fb
 KM
 FD
-Od
+EV
 Nx
 Jp
 Sz
@@ -7197,7 +7194,7 @@ Fb
 Fb
 KM
 FD
-Od
+EV
 Nx
 gT
 PQ
@@ -7251,7 +7248,7 @@ Nx
 Nx
 Ft
 Ft
-dQ
+Ac
 tj
 Fj
 Jn
@@ -7615,7 +7612,7 @@ Fb
 Fb
 wb
 QE
-PM
+LV
 Su
 Ft
 iy
@@ -7639,7 +7636,7 @@ Fb
 Fb
 wb
 QE
-PM
+LV
 Su
 Ft
 iy
