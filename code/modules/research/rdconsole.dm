@@ -1119,14 +1119,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/cargo
 	name = "cargo R&D console"
-	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
-			управлению подключённым исследовательским оборудованием. \
-			Специализированная версия, используемая в отделе снабжения."
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий Специализированная версия, используемая в отделе снабжения."
 	id = 6
 	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/rdconsole/cargo
 	cargo = TRUE
 	ui_theme = "cargo"
+	icon_state = "cargocomp"
+	icon_screen = "cargocomp_screen"
+	icon_keyboard = ""
 
 /obj/machinery/computer/rdconsole/cargo/get_ru_names()
 	return list(

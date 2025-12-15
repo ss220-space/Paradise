@@ -20030,6 +20030,14 @@
 	pixel_y = 22
 	},
 /obj/item/qm_quest_tablet/cargotech,
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -95328,7 +95336,7 @@
 	pixel_y = 30
 	},
 /obj/structure/table,
-/obj/item/rcs,
+/obj/machinery/computer/rdconsole/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
