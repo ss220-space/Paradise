@@ -103,6 +103,7 @@
 		if(isobserver(mob))
 			var/mob/dead/observer/observer = mob
 			observer.update_admin_actions()
+		to_chat(src, span_interface("You are now an admin."), confidential = TRUE)
 		BLACKBOX_LOG_ADMIN_VERB("Re-admin")
 		return
 	else

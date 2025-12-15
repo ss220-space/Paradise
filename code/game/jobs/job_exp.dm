@@ -46,13 +46,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 ))
 
 // Admin Verbs
-
-/client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Check Player Playtime"
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
-		return
-	var/msg = ""
+/// Allows admins to determine who the newer players are.
+ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "Return a playtime report.", ADMIN_CATEGORY_MAIN)
+	var/list/msg = list()
+	msg += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
 	var/jtext
 	msg += "<table border='1'><tr><th>Player</th><th>Job</th><th>Crew</th>"
@@ -60,8 +57,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		msg += "<th>[thisdept]</th>"
 	msg += "</tr>"
 	for(var/client/C in GLOB.clients)
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
 		msg += "<tr>"
-		if(check_rights(R_ADMIN, 0))
+		if(check_rights(R_ADMIN, FALSE))
 			msg += "<td>[key_name_admin(C.mob)]</td>"
 		else
 			msg += "<td>[key_name_mentor(C.mob)]</td>"
@@ -78,8 +77,8 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		msg += "</tr>"
 
 	msg += "</table>"
-	var/datum/browser/popup = new(src, "player_playtime_check", "Playtime Report", 1000, 300)
-	popup.set_content(msg)
+	var/datum/browser/popup = new(user, "player_playtime_check", "Playtime Report", 1000, 300)
+	popup.set_content(msg.Join(""))
 	popup.open(FALSE)
 
 /datum/admins/proc/cmd_mentor_show_exp_panel(client/C)

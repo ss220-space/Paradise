@@ -12,11 +12,11 @@
 			to_chat(usr, "Unable to locate the AI job")
 			return
 		if(SSticker.triai)
-			SSticker.triai = 0
+			SSticker.triai = FALSE
 			to_chat(usr, "Only one AI will be spawned at round start.")
 			log_and_message_admins("<span class='notice'>has toggled off triple AIs at round start.</span>")
 		else
-			SSticker.triai = 1
+			SSticker.triai = TRUE
 			to_chat(usr, "There will be an AI Triumvirate at round start.")
 			log_and_message_admins("<span class='notice'>has toggled on triple AIs at round start.</span>")
 	return

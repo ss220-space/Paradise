@@ -537,7 +537,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(admin_smite, R_EVENT, "Smite", "Smite a player with 
 		return
 
 	var/datum/smite_ui/ui = new(player_mob)
-	ui.ui_interact(user)
+	ui.ui_interact(user.mob)
 
 // MARK: TGUI
 /datum/smite_ui

@@ -86,10 +86,12 @@ _ADMIN_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_categor
 #define ADMIN_CATEGORY_GAME "Админ.Игра"
 #define ADMIN_CATEGORY_SHUTTLE "Админ.Шаттл"
 
+
 // Special categories that are separated
-#define ADMIN_CATEGORY_DEBUG "Debug"
 #define ADMIN_CATEGORY_SERVER "Server"
-#define ADMIN_CATEGORY_MAPPING "Mapping"
+#define ADMIN_CATEGORY_DEBUG "Debug"
+#define ADMIN_CATEGORY_MAPPING "Debug.Mapping"
+#define ADMIN_CATEGORY_DMJIT "Debug.dmJIT"
 
 // Visibility flags
 #define ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG "Map-Debug"

@@ -562,28 +562,26 @@ SUBSYSTEM_DEF(dbcore)
 		stoplag()
 
 // Verb that lets admins force reconnect the DB
-/client/proc/reestablish_db_connection()
-	set category = STATPANEL_DEBUG
-	set name = "Reestablish DB Connection"
+ADMIN_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", ADMIN_CATEGORY_DEBUG)
 	if(!CONFIG_GET(flag/sql_enabled))
-		to_chat(usr, span_warning("The Database is not enabled in the server configuration!"))
+		to_chat(user, span_warning("The Database is not enabled in the server configuration!"))
 		return
 
 	if(SSdbcore.IsConnected())
 		if(!check_rights(R_ADMIN, FALSE) || !check_rights(R_DEBUG, FALSE)) //we dont want coders to deal with db
-			to_chat(usr, span_warning("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
+			to_chat(user, span_warning("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
 			return
 
-		var/reconnect = alert("The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
+		var/reconnect = alert(user, "The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
 		if(reconnect != "Force Reconnect")
 			return
 
 		SSdbcore.Disconnect()
-		log_admin("[key_name(usr)] has forced the database to disconnect")
-		message_admins("[key_name_admin(usr)] has <b>forced</b> the database to disconnect!!!")
+		log_admin("[key_name(user)] has forced the database to disconnect")
+		message_admins("[key_name_admin(user)] has <b>forced</b> the database to disconnect!!!")
 
-	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
-	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
+	log_admin("[key_name(user)] is attempting to re-establish the DB Connection")
+	message_admins("[key_name_admin(user)] is attempting to re-establish the DB Connection")
 	BLACKBOX_LOG_ADMIN_VERB("Force Reconnect DB")
 
 	SSdbcore.failed_connections = 0 // Reset this

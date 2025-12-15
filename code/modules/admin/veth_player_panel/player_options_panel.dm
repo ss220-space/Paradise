@@ -149,7 +149,7 @@
 				return
 			var/sound = input(usr, "", "Select a sound file",) as null|sound
 			if(sound)
-				usr.client.play_direct_mob_sound(sound, selected_mob)
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/play_direct_mob_sound, sound, selected_mob)
 				return
 		if("sendalert")
 			usr.client.holder.Topic(null, list("adminalert" = selected_mob.UID()))

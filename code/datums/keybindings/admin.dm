@@ -54,7 +54,7 @@
 	. = ..()
 	if(.)
 		return .
-	user.cmd_admin_pm_panel()
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/cmd_admin_pm_panel)
 	return TRUE
 
 /datum/keybinding/admin/invisimin

@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: No mob or ckey detected."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", mob/M)
+ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", "Legacy Player Panel don't recomended.", ADMIN_CATEGORY_FUN, mob/M)
 	if(!M)
 		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
 		return

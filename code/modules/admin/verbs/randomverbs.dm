@@ -28,7 +28,7 @@ ADMIN_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_
 		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
 		BLACKBOX_LOG_ADMIN_VERB("Prison")
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_EVENT, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M as mob in GLOB.mob_list)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_EVENT, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in world)
 	if(!ismob(M))
 		return
 
@@ -42,7 +42,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_EVENT, "Subtle Message",
 	if(user.holder)
 		to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
 
-	log_and_message_admins("<span class='boldnotice'>sent subtle message to [key_name_admin(M)] : [msg]</span>")
+	log_and_message_admins(span_adminnotice("<b> SubtleMessage: [key_name_admin(user)] -> [key_name_admin(M)] :</b> [msg]"))
 	BLACKBOX_LOG_ADMIN_VERB("Subtle Message")
 
 ADMIN_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perform a player account age check.", ADMIN_CATEGORY_MAIN)
@@ -78,43 +78,48 @@ ADMIN_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perf
 
 ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a direct narration to all connected players.", ADMIN_CATEGORY_EVENTS)
 	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to everyone:")
-
 	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
-	to_chat(world, msg)
-	log_and_message_admins("<span class='boldnotice'>Sent Global Narrate: [msg]<br></span>")
+	to_chat(world, "[msg]", confidential = TRUE)
+	log_admin("GlobalNarrate: [key_name(user)] : [msg]")
+	message_admins(span_adminnotice("[key_name_admin(user)] Sent a global narrate"))
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/A)
-	if(!A)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/locale in world)
+	var/range = tgui_input_text(user, "Range:", "Narrate to mobs within how many tiles:", 7)
+	if(!range)
+		return
+	if(!locale)
 		return
 	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to everyone within view:")
 	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
-	for(var/mob/living/M in view(7,A))
-		to_chat(M, msg)
-	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<br></span>")
+	for(var/mob/M in view(range, locale))
+		to_chat(M, msg, confidential = TRUE)
+	log_admin("LocalNarrate: [key_name(user)] at [AREACOORD(locale)]: [msg]")
+	message_admins(span_adminnotice("<b> LocalNarrate: [key_name_admin(user)] at [ADMIN_VERBOSEJMP(locale)]:</b> [msg]<br>"))
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M)
-	if(!M)
-		M = tgui_input_list(user, "Direct narrate to who?", "Active Players", get_mob_with_client_list())
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target)
+	if(!target)
+		target = tgui_input_list(user, "Direct narrate to who?", "Active Players", get_mob_with_client_list())
 
-	if(!M)
+	if(!target)
 		return
 
 	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to your target:")
 	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
-	to_chat(M, msg)
-	log_and_message_admins("<span class='boldnotice'>directly narrated to [key_name_admin(M)]: [msg]<br></span>")
+	to_chat(target, msg, confidential = TRUE)
+	log_admin("DirectNarrate: [key_name(user)] to ([key_name(target)]): [msg]")
+	msg = span_adminnotice("<b> DirectNarrate: [key_name_admin(user)] to ([key_name_admin(target)]):</b> [msg]<br>")
 	BLACKBOX_LOG_ADMIN_VERB("Direct Narrate")
 
-ADMIN_VERB_AND_CONTEXT_MENU(headset_message, R_EVENT, "Headset Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in GLOB.mob_list)
-	user.admin_headset_message(M)
+ADMIN_VERB_AND_CONTEXT_MENU(headset_message, R_EVENT, "Headset Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+	user.admin_headset_message(target)
 
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
 	var/mob/living/carbon/human/H = M
@@ -161,10 +166,10 @@ ADMIN_VERB(godmode, R_ADMIN, "Godmode", "Toggles godmode on a mob.", ADMIN_CATEG
 		if(!usr || !usr.client)
 			return
 		if(!check_rights(R_ADMIN|R_MOD))
-			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: You don't have permission to do this.</span>", confidential=TRUE)
+			to_chat(usr, span_red("Error: cmd_admin_mute: You don't have permission to do this."), confidential=TRUE)
 			return
 		if(!M.client)
-			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</span>", confidential=TRUE)
+			to_chat(usr, span_red("Error: cmd_admin_mute: This mob doesn't have a client tied to it."), confidential=TRUE)
 	if(!M.client)
 		return
 
@@ -712,10 +717,10 @@ ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatme
 	message_admins(span_adminnotice("[key_name_admin(user)] used gibself."))
 	BLACKBOX_LOG_ADMIN_VERB("Gib Self")
 
-ADMIN_VERB_AND_CONTEXT_MENU(admin_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/M as mob in GLOB.mob_list)
-	var/list/L = M.get_contents()
-	for(var/atom/t in L)
-		to_chat(user, "[t] [ADMIN_VV(t,"VV")]", confidential=TRUE)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/target as mob in GLOB.mob_list)
+	var/list/mob_contents = target.get_contents()
+	for(var/atom/content in mob_contents)
+		to_chat(user, "[content] [ADMIN_VV(content, "VV")]", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)

@@ -1495,7 +1495,7 @@
 		if(!isliving(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /living"), confidential=TRUE)
 			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_check_contents, M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_check_contents, M)
 
 	else if(href_list["man_up"])
 		if(!check_rights(R_ADMIN))
@@ -1546,19 +1546,19 @@
 		if(!check_rights(R_ADMIN | R_MOD))
 			return
 
-		usr.client.view_asays()
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_asays)
 
 	else if(href_list["msays"])
 		if(!check_rights(R_ADMIN | R_MENTOR))
 			return
 
-		usr.client.view_msays()
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_msays)
 
 	else if(href_list["devsays"])
 		if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
 			return
 
-		usr.client.view_devsays()
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_devsays)
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_EVENT))

@@ -1820,7 +1820,6 @@
 #include "code\modules\admin\verbs\beakerpanel.dm"
 #include "code\modules\admin\verbs\bluespacearty.dm"
 #include "code\modules\admin\verbs\borgpanel.dm"
-#include "code\modules\admin\verbs\BrokenInhands.dm"
 #include "code\modules\admin\verbs\cantcomm_cargo.dm"
 #include "code\modules\admin\verbs\cinematic.dm"
 #include "code\modules\admin\verbs\custom_event.dm"

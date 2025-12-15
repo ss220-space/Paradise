@@ -357,18 +357,11 @@
 	var/mob/dead/observer/observer = mob
 	observer.update_admin_actions()
 
-/client/proc/edit_admin_permissions_new()
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Permissions Panel (New)"
-	set desc = "Edit admin permissions"
-
-	if(!check_rights(R_PERMISSIONS))
-		return
-
+ADMIN_VERB(edit_admin_permissions_new, R_PERMISSIONS, "Permissions Panel (New)", "Edit admin permissions.", ADMIN_CATEGORY_MAIN)
 	if(!SSdbcore.IsConnected())
-		edit_admin_permissions()
+		user.holder.edit_admin_permissions()
 		return
 
-	var/datum/ui_module/permissions_edit/panel = new(src)
-	panel.ui_interact(usr)
+	var/datum/ui_module/permissions_edit/panel = new(user)
+	panel.ui_interact(user.mob)
 	qdel(panel)

@@ -347,14 +347,15 @@ ADMIN_VERB(cure_disease, R_EVENT, "Cure Disease", ADMIN_VERB_NO_DESCRIPTION, ADM
 	choosen_disease.cure()
 
 ADMIN_VERB_ONLY_CONTEXT_MENU(make_sound, R_SOUNDS, "Make Sound", obj/O in view())
-	if(O)
-		var/message = tgui_input_text(user, "What do you want the message to be?", "Make Sound")
-		if(!message)
-			return
-		for(var/mob/V in hearers(O))
-			V.show_message(admin_pencode_to_html(message), 2)
-		log_and_message_admins("made [O] at [COORD(O)] make a sound")
-		BLACKBOX_LOG_ADMIN_VERB("Make Sound")
+	if(!O)
+		return
+	var/message = tgui_input_text(user, "What do you want the message to be?", "Make Sound")
+	if(!message)
+		return
+	for(var/mob/V in hearers(O))
+		V.show_message(admin_pencode_to_html(message), 2)
+	log_and_message_admins("made [O] at [COORD(O)] make a sound")
+	BLACKBOX_LOG_ADMIN_VERB("Make Sound")
 
 ADMIN_VERB(build_mode_self, R_EVENT, "Toggle Build Mode Self", "Toggle build mode for yourself.", ADMIN_CATEGORY_EVENTS)
 	if(user.mob)
@@ -374,9 +375,6 @@ ADMIN_VERB(object_talk, R_EVENT, "OSay", "Display a message to everyone who can 
 	BLACKBOX_LOG_ADMIN_VERB("OSay")
 
 ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-admin yourself.", ADMIN_CATEGORY_MAIN)
-	log_admin("[key_name(user)] deadmined themself.")
-	message_admins("[key_name_admin(user)] deadmined themself.")
-
 	// TODO: shit code, refactor deadmin
 	if(check_rights(R_ADMIN, FALSE))
 		GLOB.de_admins |= user.ckey
@@ -389,7 +387,10 @@ ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-a
 	add_verb(user, /client/proc/readmin)
 	user.update_active_keybindings()
 	update_byond_admin_configs(user.ckey, 0)
+
 	to_chat(user, span_interface("You are now a normal player."), confidential=TRUE)
+	log_admin("[key_name(user)] deadmined themself.")
+	message_admins("[key_name_admin(user)] deadmined themself.")
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
 
 ADMIN_VERB(select_next_map, R_SERVER|R_EVENT, "Select next map", "Select the next map.", ADMIN_CATEGORY_EVENTS)
@@ -480,7 +481,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "C.M.A. - Se
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	BLACKBOX_LOG_ADMIN_VERB("CMA - Self")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, NONE, "AObserve", mob/target, look_into_inventory = FALSE)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObserve", mob/target, look_into_inventory = FALSE)
 	if(isnewplayer(user.mob))
 		to_chat(user, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Сначала зайдите в раунд (как игрок или как призрак)."))
 		return
@@ -521,13 +522,13 @@ ADMIN_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.",
 		message_admins("[key_name_admin(user)] has freed a job slot for [selected_job].")
 	BLACKBOX_LOG_ADMIN_VERB("Free Job Slot")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(man_up, R_ADMIN, "Man Up", mob/player_mob as mob in GLOB.player_list)
+ADMIN_VERB(man_up, R_ADMIN, "Man Up", "Tells to man up and deal with it.", ADMIN_CATEGORY_FUN, mob/player_mob as mob in GLOB.player_list)
 	to_chat(player_mob, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
 	SEND_SOUND(player_mob, sound('sound/voice/manup1.ogg'))
 
 	log_and_message_admins("told [key_name_log(player_mob)] to man up and deal with it.")
 
-ADMIN_VERB(global_man_up, R_ADMIN, "Man Up Global", "Tells everyone to man up and deal with it.", ADMIN_CATEGORY_FUN)
+ADMIN_VERB(global_man_up, R_ADMIN, "Man Up Global", "Tells EVERYONE to man up and deal with it.", ADMIN_CATEGORY_FUN)
 	var/confirm = tgui_alert(user, "Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No"))
 	if(confirm == "Yes")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')

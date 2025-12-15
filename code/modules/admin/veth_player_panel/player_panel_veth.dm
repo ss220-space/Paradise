@@ -20,7 +20,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Show Player Panel", "Player
 	else
 		user.selectedPlayerCkey = target.ckey
 		user.VUAP_selected_mob = target
-		var/datum/vuap_personal/tgui = new(user.mob)
+		var/datum/vuap_personal/tgui = new(user)
 		tgui.ui_interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("VUAP_personal")
 

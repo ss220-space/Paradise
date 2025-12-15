@@ -111,6 +111,9 @@
 /mob/proc/GetAltName()
 	return ""
 
+/**
+ * Some kind of debug verb that gives atmosphere environment details
+ */
 /mob/proc/Cell()
 	set category = ADMIN_CATEGORY_DEBUG
 	set hidden = TRUE
@@ -129,7 +132,7 @@
 	t+= span_notice("N2O: [environment.sleeping_agent] \n")
 	t+= span_notice("Agent B: [environment.agent_b] \n")
 
-	usr.show_message(t, 1)
+	to_chat(usr, t)
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 

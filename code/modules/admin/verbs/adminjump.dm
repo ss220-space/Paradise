@@ -62,10 +62,10 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_turf, R_ADMIN, "Jump To Turf", turf/T in wo
 		var/obj/O = user.mob.loc
 		O.force_eject_occupant(user.mob)
 
-	log_admin("[key_name(user.mob)] jumped to [COORD(T)] in [T.loc]")
+	log_admin("[key_name(user)] jumped to [COORD(T)] in [T.loc]")
 
 	if(!isobserver(user.mob))
-		message_admins("[key_name_admin(user.mob)] jumped to [COORD(T)] in [T.loc]")
+		message_admins("[key_name_admin(user)] jumped to [COORD(T)] in [T.loc]")
 
 	admin_forcemove(user.mob, T)
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Turf")

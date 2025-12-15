@@ -1,10 +1,7 @@
 /// An admin verb to view all circuits, plus useful information
-/datum/admins/proc/view_all_circuits()
-	set category = ADMIN_CATEGORY_MAIN
-	set name = "Просмотреть все схемы"
-
+ADMIN_VERB(view_all_circuits, R_ADMIN, "View All Circuits", "List all circuits in the game.", ADMIN_CATEGORY_GAME)
 	var/static/datum/circuit_admin_panel/circuit_admin_panel = new
-	circuit_admin_panel.ui_interact(usr)
+	circuit_admin_panel.ui_interact(user.mob)
 
 /datum/circuit_admin_panel
 
