@@ -3425,16 +3425,15 @@
 					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
-						var/obj/item/clothing/head/kitty/hat = new
+
+						if(!(human.dna.species.blacklisted_disabilities & DISABILITY_FLAG_CATEARS))
+							human.force_gene_block(GLOB.cat_earsblock, TRUE, TRUE)
+
 						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
 						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
 						human.drop_item_ground(human.w_uniform, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
-						human.drop_item_ground(human.head, TRUE, FALSE, TRUE)
-						human.equip_to_slot_or_del(hat, hat.slot_flags)
-
 						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)
-						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
 					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
 					var/list/names = splittext(human.real_name," ")
 					var/newname = "[names[length(names)]]-[pick(honorifics[human.gender])]"

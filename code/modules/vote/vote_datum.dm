@@ -15,6 +15,8 @@
 	var/is_custom = FALSE
 	/// Is dead players allowed to vote
 	var/no_dead_vote = FALSE
+	/// Is offstation role players allowed to vote
+	var/no_offstation_vote = FALSE
 	/// Is we muted OOC for vote, and it should be enabled
 	var/ooc_auto_muted = 0
 	/// Choices available in the vote
@@ -36,6 +38,7 @@
 	is_custom = _is_custom
 
 	no_dead_vote = CONFIG_GET(flag/vote_no_dead)
+	no_offstation_vote = CONFIG_GET(flag/vote_no_offstation_role)
 
 	// If we have no choices, dynamically generate them
 	if(!length(choices))
@@ -190,6 +193,9 @@
 		return
 
 	if(no_dead_vote && (usr.stat == DEAD || isanimal((usr))) && !usr.client.holder)
+		return FALSE
+
+	if(no_offstation_vote && usr.mind && usr.mind.offstation_role && !check_rights(R_ADMIN))
 		return FALSE
 
 	. = TRUE

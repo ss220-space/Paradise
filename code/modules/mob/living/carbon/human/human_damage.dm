@@ -479,6 +479,27 @@ This function restores all organs.
 		zone = BODY_ZONE_HEAD
 	return bodyparts_by_name[zone]
 
+/mob/living/carbon/human/proc/get_affecting_limb_bodypart(obj/item/organ/external/affecting)
+	switch(affecting.limb_zone)
+		if(BODY_ZONE_L_ARM)
+			return get_organ(BODY_ZONE_PRECISE_L_HAND)
+		if(BODY_ZONE_R_ARM)
+			return get_organ(BODY_ZONE_PRECISE_R_HAND)
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return get_organ(BODY_ZONE_L_ARM)
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return get_organ(BODY_ZONE_R_ARM)
+		if(BODY_ZONE_L_LEG)
+			return get_organ(BODY_ZONE_PRECISE_L_FOOT)
+		if(BODY_ZONE_R_LEG)
+			return get_organ(BODY_ZONE_PRECISE_R_FOOT)
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return get_organ(BODY_ZONE_L_LEG)
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return get_organ(BODY_ZONE_R_LEG)
+
+	return null
+
 /mob/living/carbon/human/apply_damage(
 	damage = 0,
 	damagetype = BRUTE,

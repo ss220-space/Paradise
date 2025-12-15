@@ -279,7 +279,7 @@
 
 /obj/item/storage/backpack/justice/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
+	soundloop = new(src)
 
 /obj/item/storage/backpack/justice/Destroy(force)
 	QDEL_NULL(soundloop)

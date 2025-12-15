@@ -14,6 +14,8 @@
 	if(SSticker.current_state < GAME_STATE_PLAYING)
 		CRASH("Attempted to call a shuttle vote before the game starts!")
 	..()
+	no_dead_vote = TRUE
+	no_offstation_vote = TRUE
 
 /datum/vote/crew_transfer/handle_result(result)
 	if(result == CREW_TRANSFER_CHOICE)
@@ -33,7 +35,6 @@
 
 /datum/vote/map/generate_choices()
 	var/list/map_pool = subtypesof(/datum/map)
-	/*
 	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
 		map_pool -= SSmapping.map_datum.type
 
@@ -42,7 +43,7 @@
 			var/current_map = SSmapping.map_datum.type
 			if(current_map == SSmapping.previous_maps[1])
 				map_pool -= current_map
-	*/
+
 	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only))
 			continue
@@ -77,6 +78,7 @@
 /datum/vote/gamemode/New()
 	..()
 	no_dead_vote = FALSE
+	no_offstation_vote = FALSE
 
 /datum/vote/gamemode/generate_choices()
 	choices.Add(config.votable_modes)

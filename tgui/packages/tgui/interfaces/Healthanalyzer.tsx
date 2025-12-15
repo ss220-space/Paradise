@@ -49,6 +49,7 @@ type ScanData = {
   damageLocalization: DamageLocalization[];
   fractureList: string[];
   infectedList: string[];
+  bleedingList: string[];
   extraFacture: boolean;
   extraBleeding: boolean;
   insuranceType: string;
@@ -69,6 +70,8 @@ type DamageLocalization = {
   name: string;
   burn: number;
   brute: number;
+  bleed: number;
+  high_bleed: number;
 };
 
 type DamageLevels = {
@@ -362,6 +365,7 @@ export const Healthanalyzer = (props: unknown) => {
                 (!!scan_data.damageLocalization ||
                   !!scan_data.fractureList[0] ||
                   scan_data.infectedList[0] ||
+                  scan_data.bleedingList[0] ||
                   !!scan_data.extraFacture) ? (
                   <Section title="Локализация повреждений">
                     {!!scan_data.damageLocalization && (
@@ -391,6 +395,15 @@ export const Healthanalyzer = (props: unknown) => {
                         {scan_data.fractureList.map((local, index) => (
                           <Box key={index} color="#c51e1e" mt={1}>
                             Обнаружен перелом в {local}.
+                          </Box>
+                        ))}
+                      </Box>
+                    )}
+                    {!!scan_data.bleedingList[0] && (
+                      <Box>
+                        {scan_data.bleedingList.map((local, index) => (
+                          <Box key={index} color="#c51e1e" mt={1}>
+                            {local}.
                           </Box>
                         ))}
                       </Box>
@@ -428,6 +441,15 @@ export const Healthanalyzer = (props: unknown) => {
                           {scan_data.fractureList.map((local, index) => (
                             <Box key={index} color="#c51e1e" mt={1}>
                               Обнаружен перелом в {local}.
+                            </Box>
+                          ))}
+                        </Box>
+                      )}
+                      {!!scan_data.bleedingList[0] && (
+                        <Box>
+                          {scan_data.bleedingList.map((local, index) => (
+                            <Box key={index} color="#c51e1e" mt={1}>
+                              {local}.
                             </Box>
                           ))}
                         </Box>
