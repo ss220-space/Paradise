@@ -52,7 +52,6 @@ export const SettingsMenu = (properties) => {
                 Отключиться от сети НИО
               </Button>
 
-              {/* Скрываем меню подключения оборудования для CARGO консоли */}
               {!cargo && (
                 <RndNavButton
                   disabled={!sync}
@@ -74,7 +73,6 @@ export const SettingsMenu = (properties) => {
         )}
       />
 
-      {/* Скрываем меню подключения оборудования для CARGO консоли */}
       {!cargo && (
         <RndRoute
           submenu={SUBMENU.SETTINGS_DEVICES}
