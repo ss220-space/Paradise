@@ -145,7 +145,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 48000)
 	build_path = /obj/item/ammo_box/expansive45colt
-	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
 /datum/design/lmag
 	id = "lmag"
