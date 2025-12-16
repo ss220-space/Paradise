@@ -335,7 +335,7 @@
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	visor_flags_inv = HIDEMASK|HIDEGLASSES|HIDENAME|HIDETAIL
-	visor_clothing_flags = STOPSPRESSUREDMAGE
+	visor_clothing_flags = STOPSPRESSUREDMAGE|AIRTIGHT
 	var/combat_rad = 50
 	var/combat_slow = 0
 	var/eva_slow = 1
@@ -398,12 +398,12 @@
 
 	if(linkedsuit.on)
 		linkedsuit.slowdown = eva_slow
-		linkedsuit.clothing_flags |= STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags |= STOPSPRESSUREDMAGE|AIRTIGHT
 		linkedsuit.cold_protection |= (UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		linkedsuit.armor.rad = 100
 	else
 		linkedsuit.slowdown = combat_slow
-		linkedsuit.clothing_flags &= ~STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags &= ~STOPSPRESSUREDMAGE|AIRTIGHT
 		linkedsuit.cold_protection &= ~(UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		linkedsuit.armor.rad = combat_rad
 
@@ -741,7 +741,7 @@
 	icon_state = "hardsuit-singuloth"
 	item_state = "singuloth_hardsuit"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE|AIRTIGHT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
 
