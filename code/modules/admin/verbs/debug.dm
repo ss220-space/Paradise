@@ -747,6 +747,7 @@ ADMIN_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Inter
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
 
+ADMIN_VERB_VISIBILITY(view_pingstat, ADMIN_VERB_VISIBLITY_FLAG_HOST)
 ADMIN_VERB(view_pingstat, R_HOST, "View Pingstat", "Open the Pingstat Report.", ADMIN_CATEGORY_DEBUG)
 	var/msg = ""
 	var/color

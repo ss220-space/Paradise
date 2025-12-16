@@ -45,11 +45,13 @@
 
 GLOBAL_VAR_INIT(profiler_enabled, FALSE)
 
+ADMIN_VERB_VISIBILITY(profiler_start, ADMIN_VERB_VISIBLITY_FLAG_HOST)
 ADMIN_VERB(profiler_start, R_HOST, "Tracy Profiler Start", "Starts the tracy profiler and writes the data to the server's data directory.", ADMIN_CATEGORY_DEBUG)
 	switch(alert(user, "Are you sure? Tracy will remain active until the server restarts.", "Tracy Init", "No", "Yes"))
 		if("Yes")
 			prof_init()
 
+ADMIN_VERB_VISIBILITY(profiler_stop, ADMIN_VERB_VISIBLITY_FLAG_HOST)
 ADMIN_VERB(profiler_stop, R_HOST, "Tracy Profiler Stop", "Stop the tracy profiler.", ADMIN_CATEGORY_DEBUG)
 	switch(alert(user, "Are you sure?", "Tracy Stop", "No", "Yes"))
 		if("Yes")
