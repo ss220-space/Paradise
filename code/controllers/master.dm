@@ -151,7 +151,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /client/proc/cmd_controller_view_ui()
 	set name = "Controller Overview"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "View the current states of the Subsystem Controllers."
 
 	if(!check_rights(R_SERVER|R_DEBUG))

@@ -810,7 +810,7 @@ SUBSYSTEM_DEF(spatial_grid)
 
 /client/proc/paint_grids()
 	set name = "Paint Grid Map"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	if(!check_rights(R_DEBUG))
 		return

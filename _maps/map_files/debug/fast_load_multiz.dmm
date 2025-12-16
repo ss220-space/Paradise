@@ -2,6 +2,10 @@
 "ay" = (
 /turf/space,
 /area/space)
+"az" = (
+/obj/item/gun/magic/wand/death/debug,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "aJ" = (
 /obj/effect/landmark/observer_start,
 /turf/simulated/floor/plasteel,
@@ -23,6 +27,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/tranquillite,
+/area/admin)
+"gW" = (
+/obj/machinery/power/emitter{
+	anchored = 1;
+	state = 2
+	},
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plasteel,
 /area/admin)
 "jk" = (
 /turf/simulated/wall/indestructible/metal,
@@ -70,8 +82,45 @@
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"po" = (
+/obj/machinery/power/emitter{
+	dir = 4;
+	anchored = 1;
+	state = 2
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "qp" = (
 /obj/item/tank/jetpack/oxygen,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"qC" = (
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/port_gen/pacman/mrs/upgraded{
+	anchored = 1
+	},
+/obj/item/stack/sheet/mineral/diamond/fifty,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "sw" = (
@@ -113,6 +162,10 @@
 /obj/spacepod/sec,
 /turf/space,
 /area/space)
+"wT" = (
+/obj/item/gun/energy/plasmacutter/adv,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "xj" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -177,6 +230,18 @@
 "JC" = (
 /turf/simulated/floor/plasteel/grimy,
 /area/admin)
+"Ks" = (
+/obj/machinery/power/emitter{
+	dir = 1;
+	anchored = 1;
+	state = 2
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "KP" = (
 /obj/structure/ladder,
 /obj/structure/railing{
@@ -214,6 +279,18 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/space/openspace,
 /area/space)
+"TS" = (
+/obj/machinery/power/emitter{
+	dir = 8;
+	anchored = 1;
+	state = 2
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "Uj" = (
 /obj/spacepod/sec,
 /turf/simulated/floor/plasteel,
@@ -2443,8 +2520,8 @@ HE
 HE
 HE
 HE
-HE
-HE
+wT
+TS
 HE
 HE
 jk
@@ -2509,9 +2586,9 @@ Pd
 aJ
 Md
 HE
-HE
-HE
-HE
+Ks
+qC
+gW
 HE
 jk
 ay
@@ -2575,8 +2652,8 @@ HE
 HE
 HE
 HE
-HE
-HE
+az
+po
 HE
 HE
 jk

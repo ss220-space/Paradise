@@ -54,7 +54,8 @@
 /* //uncomment to enable forced reactions.
 /obj/machinery/r_n_d/experimentor/verb/forceReaction()
 	set name = "Force Experimentor Reaction"
-	set category = STATPANEL_ADMIN_DEBUG	set src in oview(1)
+	set category = STATPANEL_ADMIN_DEBUG
+	set src in oview(1)
 	var/reaction = tgui_input_list(usr, "What reaction?", , list(SCANTYPE_POKE, SCANTYPE_IRRADIATE, SCANTYPE_GAS, SCANTYPE_HEAT, SCANTYPE_COLD, SCANTYPE_OBLITERATE))
 	var/oldReaction = item_reactions["[loaded_item.type]"]
 	item_reactions["[loaded_item.type]"] = reaction

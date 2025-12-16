@@ -206,14 +206,10 @@
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/bullet/gyro))
+		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = "[proj.type] fired by [key_name(proj.firer)] (hit turf)")
 	if(istype(proj, /obj/projectile/beam/pulse))
 		ex_act(EXPLODE_HEAVY)
-	..()
-	return FALSE
-
-/turf/bullet_act(obj/projectile/proj)
-	if(istype(proj, /obj/projectile/bullet/gyro))
-		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = proj)
 	..()
 	return FALSE
 

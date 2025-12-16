@@ -105,7 +105,6 @@
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
-	var/manual = 0
 	var/global/gl_uid = 1
 	var/custom_aghost_alerts=0
 	var/panel_open = 0

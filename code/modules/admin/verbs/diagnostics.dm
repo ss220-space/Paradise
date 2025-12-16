@@ -1,5 +1,5 @@
 /client/proc/air_status(turf/target as turf)
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Display Air Status"
 
 	if(!check_rights(R_DEBUG))
@@ -23,7 +23,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Display Air Status")
 
 /client/proc/fix_next_move()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Unfreeze Everyone"
 
 	if(!check_rights(R_DEBUG))
@@ -63,7 +63,7 @@
 	return
 
 /client/proc/radio_report()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Radio report"
 
 	if(!check_rights(R_DEBUG))
@@ -124,7 +124,7 @@
 /client/proc/print_jobban_old()
 	set name = "Print Jobban Log"
 	set desc = "This spams all the active jobban entries for the current round to standard output."
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	if(!check_rights(R_DEBUG))
 		return
