@@ -91,6 +91,38 @@
 		PREPOSITIONAL = "левой руке",
 	)
 
+/obj/item/organ/external/arm/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
 /obj/item/organ/external/arm/emp_act(severity)
 	if(emp_shielded(severity))
 		return
@@ -382,6 +414,38 @@
 		INSTRUMENTAL = "левой кистью",
 		PREPOSITIONAL = "левой кисти",
 	)
+
+/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
 
 /obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -718,6 +782,7 @@
 	max_damage = 30
 	min_broken_damage = 15
 	cannot_arterial_bleed = TRUE
+	cannot_break = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = WING
 	amputation_point = "спину"
