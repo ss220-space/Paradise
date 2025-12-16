@@ -333,3 +333,4 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_MELEE_BLOCK "melee_block"
 #define SFX_BULLET_BLOCK "bullet_block"
 #define SFX_LASER_BLOCK "laser_block"
+#define SFX_CBATON_BLOCK "cbaton_block"

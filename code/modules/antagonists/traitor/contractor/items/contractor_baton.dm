@@ -16,7 +16,7 @@
 	extend_force = 20
 	block_chance = 30
 	force_say_chance = 80 //very high force say chance because it's funny
-	melee_blocksound = list('sound/weapons/effects/block/contractorblock_1.ogg', 'sound/weapons/effects/block/contractorblock_2.ogg')
+	melee_blocksound = SFX_CBATON_BLOCK
 	on_stun_sound = 'sound/weapons/contractorbatonhit.ogg'
 	extend_sound = 'sound/weapons/contractorbatonextend.ogg'
 	extend_item_state = "contractor_baton_extended"
