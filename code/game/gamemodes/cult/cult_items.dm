@@ -698,6 +698,7 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 

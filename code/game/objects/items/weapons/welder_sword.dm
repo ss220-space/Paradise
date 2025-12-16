@@ -11,6 +11,9 @@
 	force_enabled = 30
 	low_fuel_changes_icon = FALSE
 	block_chance = 50
+	melee_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	bullet_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	laser_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
 	item_flags = NOSHARPENING
 	sharp = 1
 	tool_behaviour = NONE

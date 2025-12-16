@@ -100,6 +100,7 @@
 	materials = null
 	force = 25
 	throwforce = 20
+	melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
 	block_chance = 95
 	armour_penetration = 100
 	actions_types = list(/datum/action/item_action/toggle_rapier_nodrop)

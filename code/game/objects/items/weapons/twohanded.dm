@@ -280,6 +280,9 @@
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
+	melee_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	bullet_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	laser_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
 	armour_penetration = 35
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")

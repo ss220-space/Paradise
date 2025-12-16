@@ -22,6 +22,7 @@
 	throwforce = 20
 	block_chance = 50
 	armour_penetration = 50
+	melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK

@@ -10,6 +10,9 @@
 	damtype = BURN
 	armour_penetration = 40
 	block_chance = 50
+	melee_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	bullet_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	laser_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	toolspeed = 0.5

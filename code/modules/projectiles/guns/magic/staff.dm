@@ -89,3 +89,4 @@
 	block_type = MELEE_ATTACKS
 	sharp = 1
 	max_charges = 4
+	melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')

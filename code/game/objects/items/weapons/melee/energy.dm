@@ -128,6 +128,9 @@
 	armour_penetration = 35
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
+	melee_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	bullet_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
+	laser_blocksound = list('sound/weapons/effects/block/bladeblock.ogg')
 	sharp = 1
 	var/hacked = FALSE
 

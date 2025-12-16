@@ -47,3 +47,30 @@
 		var/matrix/M = new
 		M.Turn(get_angle(src, target))
 		transform = M
+
+/obj/effect/temp_visual/block
+	name = "block"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "slash"
+	duration = 6.7
+	layer = ABOVE_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/temp_visual/block_shield
+	name = "block shield"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "punch"
+	duration = 6.7
+	layer = ABOVE_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/temp_visual/block/Initialize(mapload, color)
+	. = ..()
+	if(color)
+		src.color = color
+	if(prob(50))
+		var/matrix/flip_matrix = matrix()
+		flip_matrix.Scale(-1, 1)
+		src.transform = flip_matrix
+	animate(src, alpha = 200, time = 1, easing = SINE_EASING)
+	animate(alpha = 0, time = duration-1, easing = SINE_EASING)
