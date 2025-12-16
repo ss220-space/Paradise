@@ -469,7 +469,7 @@
 	)
 
 /datum/sound_effect/cbaton_block
-	key = SFX_LASER_BLOCK
+	key = SFX_CBATON_BLOCK
 	file_paths = list(
 		'sound/weapons/effects/block/contractorblock_1.ogg',
 		'sound/weapons/effects/block/contractorblock_2.ogg',
