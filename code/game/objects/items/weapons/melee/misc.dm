@@ -101,7 +101,6 @@
 	materials = null
 	force = 25
 	throwforce = 20
-	melee_blocksound = SFX_MELEE_BLOCK
 	block_chance = 95
 	armour_penetration = 100
 	actions_types = list(/datum/action/item_action/toggle_rapier_nodrop)
