@@ -356,6 +356,7 @@
 	desc = "Вызывает рост кошачьих ушей у вас из головы."
 	activation_message = list("Из вашей головы вырастают кошачьи уши.")
 	deactivation_message = list("Ваши кошачьи уши отпадают.")
+	instability = -GENE_INSTABILITY_MINOR
 
 /datum/dna/gene/disability/catears/New()
 	. = ..()
@@ -366,12 +367,26 @@
 	ADD_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
+	mutant.setBrainLoss(30)
 
 /datum/dna/gene/disability/catears/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
+
+	var/obj/item/organ/internal/brain/brain = mutant.get_organ(BODY_ZONE_HEAD, /obj/item/organ/internal/brain)
+	if(brain)
+		brain.max_damage = initial(brain.max_damage)
+		brain.update_health()
+
+/datum/dna/gene/disability/catears/OnMobLife(mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+
+	var/obj/item/organ/internal/brain/brain = H.get_organ(BODY_ZONE_HEAD, /obj/item/organ/internal/brain)
+	if(brain && H.getBrainLoss() < 30)
+		H.setBrainLoss(30)
 
 // /datum/dna/gene/disability/catears/OnDrawUnderlays(mob/M, g)
 //	return "catears_s"
