@@ -15,9 +15,8 @@
 /// Arterial bleeding size
 #define LIMB_ARTERIAL_BLEEDING_SIZE 21
 
-/****************************************************
-				EXTERNAL ORGANS
-****************************************************/
+// MARK: External organs
+
 /obj/item/organ/external
 	name = "external"
 	max_damage = 0
@@ -264,9 +263,7 @@
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
 
-/****************************************************
-				DAMAGE PROCS
-****************************************************/
+// MARK: Damage procs
 
 /**
  * Applies damage to external organs.
@@ -587,12 +584,9 @@ This function completely restores a damaged organ to perfect condition.
 	if(flags_to_heal & ORGAN_DISFIGURED)
 		undisfigure()
 
-/****************************************************
-				PROCESSING & UPDATING
-****************************************************/
+// MARK: Processing & Updating
 
 //Determines if we even need to process this organ.
-
 /obj/item/organ/external/process()
 	if(owner)
 		//Chem traces slowly vanish
@@ -733,9 +727,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		tbrute = 3
 	return "[tbrute][tburn]"
 
-/****************************************************
-				DISMEMBERMENT
-****************************************************/
+// MARK: Dismemberment
+
 /obj/item/organ/external/proc/droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, ignore_children = FALSE, nodamage = FALSE, silent = FALSE)
 	if(!owner || cannot_amputate)
 		return
@@ -936,9 +929,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(need_compile)
 		compile_icon()
 
-/****************************************************
-				HELPERS
-****************************************************/
+// MARK: Helpers
+
 /obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder, silent = FALSE)
 	if(!holder)
 		holder = owner
