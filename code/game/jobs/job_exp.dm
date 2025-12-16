@@ -49,7 +49,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 /// Allows admins to determine who the newer players are.
 ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "Return a playtime report.", ADMIN_CATEGORY_MAIN)
 	var/list/msg = list()
-	msg += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
 	var/jtext
 	msg += "<table border='1'><tr><th>Player</th><th>Job</th><th>Crew</th>"

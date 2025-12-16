@@ -34,6 +34,7 @@ SUBSYSTEM_DEF(admin_verbs)
 /datum/controller/subsystem/admin_verbs/proc/setup_verb_list()
 	if(length(admin_verbs_by_type))
 		CRASH("Attempting to setup admin verbs twice!")
+
 	for(var/datum/admin_verb/verb_type as anything in subtypesof(/datum/admin_verb))
 		var/datum/admin_verb/verb_singleton = new verb_type
 		if(!verb_singleton.__avd_check_should_exist())
@@ -41,10 +42,13 @@ SUBSYSTEM_DEF(admin_verbs)
 			continue
 
 		admin_verbs_by_type[verb_type] = verb_singleton
-		if(verb_singleton.visibility_flag)
-			if(!(verb_singleton.visibility_flag in admin_verbs_by_visibility_flag))
-				admin_verbs_by_visibility_flag[verb_singleton.visibility_flag] = list()
-			admin_verbs_by_visibility_flag[verb_singleton.visibility_flag] |= list(verb_singleton)
+		if(!verb_singleton.visibility_flag)
+			continue
+
+		if(!(verb_singleton.visibility_flag in admin_verbs_by_visibility_flag))
+			admin_verbs_by_visibility_flag[verb_singleton.visibility_flag] = list()
+
+		admin_verbs_by_visibility_flag[verb_singleton.visibility_flag] |= list(verb_singleton)
 
 /datum/controller/subsystem/admin_verbs/proc/get_valid_verbs_for_admin(client/admin)
 	if(isnull(admin.holder))
@@ -64,7 +68,9 @@ SUBSYSTEM_DEF(admin_verbs)
 		var/verb_permissions = verb_singleton.permissions
 		if(verb_permissions == R_NONE)
 			valid_verbs |= list(verb_singleton)
-		else for(var/permission_flag in bitfield_to_list(verb_permissions))
+			continue
+
+		for(var/permission_flag in bitfield_to_list(verb_permissions))
 			if(!has_permission["[permission_flag]"])
 				continue
 			valid_verbs |= list(verb_singleton)
@@ -85,6 +91,7 @@ SUBSYSTEM_DEF(admin_verbs)
 	// they lost the flag, iterate over verbs with that flag and yoink em
 	for(var/datum/admin_verb/verb_singleton as anything in admin_verbs_by_visibility_flag[flag])
 		verb_singleton.unassign_from_client(admin)
+
 	admin.init_verbs()
 
 /datum/controller/subsystem/admin_verbs/proc/dynamic_invoke_verb(client/admin, datum/admin_verb/verb_type, ...)
@@ -98,6 +105,7 @@ SUBSYSTEM_DEF(admin_verbs)
 
 	if(!ispath(verb_type, /datum/admin_verb) || verb_type == /datum/admin_verb)
 		CRASH("Attempted to dynamically invoke admin verb with invalid typepath '[verb_type]'.")
+
 	if(isnull(admin.holder))
 		CRASH("Attempted to dynamically invoke admin verb '[verb_type]' with a non-admin.")
 
@@ -134,10 +142,13 @@ SUBSYSTEM_DEF(admin_verbs)
 	admin_visibility_flags[admin.ckey] ||= list()
 	if(admin.holder.is_localhost_autoadmin) // NOT WORKING!
 		admin_visibility_flags[admin.ckey] |= list(ADMIN_VERB_VISIBLITY_FLAG_LOCALHOST)
+
 	if(admin.holder.rights == R_HOST)
 		admin_visibility_flags[admin.ckey] |= list(ADMIN_VERB_VISIBLITY_FLAG_HOST)
+
 	for(var/datum/admin_verb/verb_singleton as anything in get_valid_verbs_for_admin(admin))
 		verb_singleton.assign_to_client(admin)
+
 	admin.init_verbs()
 
 /**
@@ -152,4 +163,5 @@ SUBSYSTEM_DEF(admin_verbs)
 	UnregisterSignal(admin, COMSIG_CLIENT_MOB_LOGIN)
 	for(var/datum/admin_verb/verb_type as anything in admin_verbs_by_type)
 		admin_verbs_by_type[verb_type].unassign_from_client(admin)
+
 	admin_visibility_flags -= list(admin.ckey)

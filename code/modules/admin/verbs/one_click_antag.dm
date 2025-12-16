@@ -1,6 +1,8 @@
 ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice.", ADMIN_CATEGORY_EVENTS)
-	if(user.holder)
-		user.holder.one_click_antag()
+	if(!user.holder)
+		return
+
+	user.holder.one_click_antag()
 
 /datum/admins/proc/one_click_antag()
 	var/dat = {"<b>One-click Antagonist</b><br>

@@ -1,4 +1,4 @@
-ADMIN_VERB(borg_panel, R_ADMIN, "Show Borg Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, borgo in GLOB.silicon_mob_list)
+ADMIN_VERB(borg_panel, R_ADMIN, "Show Borg Panel", "Open Borg Panel.", ADMIN_CATEGORY_EVENTS, mob/living/silicon/robot/borgo)
 	if(!isrobot(borgo))
 		borgo = tgui_input_list(user, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
 	if(!isrobot(borgo))

@@ -1,48 +1,54 @@
-ADMIN_VERB(drop_everything, R_DEBUG|R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M as mob in GLOB.mob_list)
-	var/confirm = tgui_alert(user, "Make [M] drop everything?", "Message", list("Yes", "No"))
+ADMIN_VERB(drop_everything, R_DEBUG|R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/dropee as mob in GLOB.mob_list)
+	var/confirm = tgui_alert(user, "Make [dropee] drop everything?", "Message", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
 
-	for(var/obj/item/W in M)
-		M.drop_item_ground(W)
+	for(var/obj/item/item in dropee)
+		dropee.drop_item_ground(item)
 
-	log_and_message_admins("made [key_name_admin(M)] drop everything!")
+	log_admin("[key_name(user)] made [key_name(dropee)] drop everything!")
+	message_admins("[key_name_admin(user)] made [ADMIN_LOOKUPFLW(dropee)] drop everything!")
 	BLACKBOX_LOG_ADMIN_VERB("Drop Everything")
 
-ADMIN_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_FUN, mob/M as mob in GLOB.mob_list)
-	if(ismob(M))
-		if(istype(M, /mob/living/silicon/ai))
-			tgui_alert(user, "The AI can't be sent to prison you jerk!")
-			return
-
-		var/turf/prison_cell = pick(GLOB.prisonwarp)
-
-		if(!prison_cell)
-			return
-
-		var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
-		pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
-		pod.target = M
-		new /obj/effect/pod_landingzone(M, pod)
-
-		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
-		BLACKBOX_LOG_ADMIN_VERB("Prison")
-
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_EVENT, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in world)
-	if(!ismob(M))
+ADMIN_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_FUN, mob/victim as mob in GLOB.mob_list)
+	if(!istype(victim))
 		return
 
-	var/msg = tgui_input_text(user, "Message:", text("Subtle PM to [M.key]"), multiline = TRUE, encode = FALSE)
+	if(isAI(victim))
+		tgui_alert(user, "The AI can't be sent to prison you jerk!")
+		return
+
+	var/turf/prison_cell = pick(GLOB.prisonwarp)
+
+	if(!prison_cell)
+		return
+
+	var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
+	pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
+	pod.target = victim
+	new /obj/effect/pod_landingzone(victim, pod)
+
+	log_and_message_admins(span_notice("sent [key_name_admin(victim)] to the prison station."))
+	BLACKBOX_LOG_ADMIN_VERB("Prison")
+
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in world)
+	if(!ismob(target))
+		return
+
+	message_admins("[key_name_admin(user)] has started answering [ADMIN_LOOKUPFLW(target)]'s prayer.")
+	var/msg = tgui_input_text(user, "Message:", text("Subtle PM to [target.key]"), multiline = TRUE, encode = FALSE)
 
 	if(!msg)
+		message_admins("[key_name_admin(user)] decided not to answer [ADMIN_LOOKUPFLW(target)]'s prayer")
 		return
 
 	msg = admin_pencode_to_html(msg)
 
-	if(user.holder)
-		to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
+	target.balloon_alert(target, "you hear a voice")
+	to_chat(target, "<i>You hear a voice in your head... <b>[msg]</i></b>", confidential = TRUE)
 
-	log_and_message_admins(span_adminnotice("<b> SubtleMessage: [key_name_admin(user)] -> [key_name_admin(M)] :</b> [msg]"))
+	log_admin("SubtlePM: [key_name(user)] -> [key_name(target)] : [msg]")
+	message_admins(span_adminnotice("<b> SubtleMessage: [key_name_admin(user)] -> [key_name_admin(target)] :</b> [msg]"))
 	BLACKBOX_LOG_ADMIN_VERB("Subtle Message")
 
 ADMIN_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perform a player account age check.", ADMIN_CATEGORY_MAIN)
@@ -87,17 +93,21 @@ ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a 
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/locale in world)
+	if(!locale)
+		return
+
 	var/range = tgui_input_text(user, "Range:", "Narrate to mobs within how many tiles:", 7)
 	if(!range)
 		return
-	if(!locale)
-		return
+
 	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to everyone within view:")
 	if(!msg)
 		return
+
 	msg = admin_pencode_to_html(msg)
-	for(var/mob/M in view(range, locale))
-		to_chat(M, msg, confidential = TRUE)
+	for(var/mob/target in view(range, locale))
+		to_chat(target, msg, confidential = TRUE)
+
 	log_admin("LocalNarrate: [key_name(user)] at [AREACOORD(locale)]: [msg]")
 	message_admins(span_adminnotice("<b> LocalNarrate: [key_name_admin(user)] at [ADMIN_VERBOSEJMP(locale)]:</b> [msg]<br>"))
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
@@ -112,13 +122,14 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct 
 	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to your target:")
 	if(!msg)
 		return
+
 	msg = admin_pencode_to_html(msg)
 	to_chat(target, msg, confidential = TRUE)
 	log_admin("DirectNarrate: [key_name(user)] to ([key_name(target)]): [msg]")
-	msg = span_adminnotice("<b> DirectNarrate: [key_name_admin(user)] to ([key_name_admin(target)]):</b> [msg]<br>")
+	message_admins(span_adminnotice("<b> DirectNarrate: [key_name_admin(user)] to ([key_name_admin(target)]):</b> [msg]<br>"))
 	BLACKBOX_LOG_ADMIN_VERB("Direct Narrate")
 
-ADMIN_VERB_AND_CONTEXT_MENU(headset_message, R_EVENT, "Headset Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_headset_message, R_EVENT, "Headset Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	user.admin_headset_message(target)
 
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
@@ -147,15 +158,16 @@ ADMIN_VERB_AND_CONTEXT_MENU(headset_message, R_EVENT, "Headset Message", ADMIN_V
 
 	SEND_SOUND(H, sound('sound/effects/headset_message.ogg'))
 
-ADMIN_VERB(godmode, R_ADMIN, "Godmode", "Toggles godmode on a mob.", ADMIN_CATEGORY_GAME, mob/mob as mob in GLOB.mob_list)
-	var/had_trait = HAS_TRAIT_FROM(mob, TRAIT_GODMODE, ADMIN_TRAIT)
+ADMIN_VERB(cmd_admin_godmode, R_ADMIN, "Godmode", "Toggles godmode on a mob.", ADMIN_CATEGORY_GAME, mob/target as mob in GLOB.mob_list)
+	var/had_trait = HAS_TRAIT_FROM(target, TRAIT_GODMODE, ADMIN_TRAIT)
 	if(had_trait)
-		REMOVE_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
+		REMOVE_TRAIT(target, TRAIT_GODMODE, ADMIN_TRAIT)
 	else
-		ADD_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
+		ADD_TRAIT(target, TRAIT_GODMODE, ADMIN_TRAIT)
 
-	to_chat(user, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential=TRUE)
-	log_and_message_admins("has toggled [ADMIN_LOOKUPFLW(mob)]'s nodamage to [had_trait ? "Off" : "On"]")
+	to_chat(user, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential = TRUE)
+	log_admin("[key_name(user)] has toggled [key_name(target)]'s nodamage to [had_trait ? "Off" : "On"]")
+	message_admins("[key_name_admin(user)] has toggled [ADMIN_LOOKUPFLW(target)]'s nodamage to [had_trait ? "Off" : "On"]")
 	BLACKBOX_LOG_ADMIN_VERB("Godmode")
 
 /proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
@@ -598,8 +610,8 @@ ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communicat
 
 #undef CUSTOM_MESSAGE_TYPE
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_delete, R_ADMIN, "Delete", atom/A as obj|mob|turf in view())
-	user.admin_delete(A)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_delete, R_ADMIN, "Delete", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/target as obj|mob|turf in world)
+	user.admin_delete(target)
 
 /client/proc/admin_delete(datum/D)
 	if(istype(D) && !D.can_vv_delete())
@@ -644,19 +656,23 @@ ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station j
 		to_chat(user, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("List Free Slots")
 
-ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/O as obj|mob|turf)
+ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/orignator as obj|mob|turf)
 	var/devastation = tgui_input_number(user, "Range of total devastation. -1 to none", "Input")
 	if(devastation == null)
 		return
+
 	var/heavy = tgui_input_number(user, "Range of heavy impact. -1 to none", "Input")
 	if(heavy == null)
 		return
+
 	var/light = tgui_input_number(user, "Range of light impact. -1 to none", "Input")
 	if(light == null)
 		return
+
 	var/flash = tgui_input_number(user, "Range of flash. -1 to none", "Input")
 	if(flash == null)
 		return
+
 	var/flames = tgui_input_number(user, "Range of flames. -1 to none", "Input")
 	if(flames == null)
 		return
@@ -666,17 +682,15 @@ ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPT
 			if(tgui_alert(user, "Are you sure you want to do this? It will laaag.", "Confirmation", list("Yes", "No")) == "No")
 				return
 
-		explosion(O, devastation_range = devastation, heavy_impact_range = heavy, light_impact_range = light, flash_range = flash, adminlog = null, ignorecap = null, flame_range = flames)
-		log_and_message_admins("created an explosion ([devastation],[heavy],[light],[flames]) at [COORD(O)]")
+		explosion(orignator, devastation_range = devastation, heavy_impact_range = heavy, light_impact_range = light, flash_range = flash, adminlog = null, ignorecap = null, flame_range = flames)
+		log_and_message_admins("created an explosion ([devastation],[heavy],[light],[flames]) at [AREACOORD(orignator)]")
 		BLACKBOX_LOG_ADMIN_VERB("Explosion")
-		return
-	else
-		return
 
-ADMIN_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", "Cause an electromagnetic pulse.", ADMIN_CATEGORY_FUN, atom/orignator as obj|mob|turf)
+ADMIN_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/orignator as obj|mob|turf)
 	var/heavy = tgui_input_number(user, "Range of heavy pulse.", "Input")
 	if(heavy == null)
 		return
+
 	var/light = tgui_input_number(user, "Range of light pulse.", "Input")
 	if(light == null)
 		return
@@ -687,21 +701,22 @@ ADMIN_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", "Cause an electromagnetic pul
 		message_admins("[key_name_admin(user)] created an EM Pulse ([heavy],[light]) at [AREACOORD(orignator)]")
 		BLACKBOX_LOG_ADMIN_VERB("EM Pulse")
 
-ADMIN_VERB(gib_them, R_ADMIN|R_EVENT, "Gib", "Gibs a chosen mob.", ADMIN_CATEGORY_FUN, mob/M as mob in GLOB.mob_list)
+ADMIN_VERB(gib_them, R_ADMIN|R_EVENT, "Gib", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/victim as mob in GLOB.mob_list)
 	var/confirm = tgui_alert(user, "You sure?", "Confirm", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
+
 	//Due to the delay here its easy for something to have happened to the mob
-	if(!M)
+	if(isnull(victim))
 		return
 
-	log_and_message_admins("has gibbed [key_name_admin(M)]")
+	log_and_message_admins("has gibbed [key_name_admin(victim)]")
 
-	if(isobserver(M))
-		gibs(M.loc)
+	if(isobserver(victim))
+		gibs(victim.loc)
 		return
 
-	M.gib()
+	victim.gib()
 	BLACKBOX_LOG_ADMIN_VERB("Gib")
 
 ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatment you give others.", ADMIN_CATEGORY_FUN)
@@ -720,7 +735,7 @@ ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatme
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/target as mob in GLOB.mob_list)
 	var/list/mob_contents = target.get_contents()
 	for(var/atom/content in mob_contents)
-		to_chat(user, "[content] [ADMIN_VV(content, "VV")]", confidential=TRUE)
+		to_chat(user, "[content] [ADMIN_VV(content, "VV")]", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)
@@ -756,50 +771,6 @@ ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x a
 
 	log_admin("[key_name(user)] changed their view range to [user.view].")
 	BLACKBOX_LOG_ADMIN_VERB("Change View Range")
-
-ADMIN_VERB(call_shuttle, R_ADMIN, "Call Shuttle", "Force a shuttle call with additional modifiers.", ADMIN_CATEGORY_SHUTTLE)
-	if(EMERGENCY_AT_LEAST_DOCKED)
-		return
-
-	var/confirm = tgui_alert(user, "You sure?", "Confirm", list("Yes", "No"))
-	if(confirm != "Yes") return
-
-	if(tgui_alert(user, "Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", list("Yes", "No")) == "Yes")
-		SSshuttle.emergency.canRecall = TRUE
-	else
-		SSshuttle.emergency.canRecall = FALSE
-
-	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
-		SSshuttle.emergency.request(coefficient = 0.5, redAlert = TRUE)
-	else
-		SSshuttle.emergency.request()
-
-	BLACKBOX_LOG_ADMIN_VERB("Call Shuttle")
-	log_admin("[key_name(user)] admin-called the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(user)] admin-called the emergency shuttle.</span>")
-
-ADMIN_VERB(cancel_shuttle, R_ADMIN, "Cancel Shuttle", "Recall the shuttle, regardless of circumstances.", ADMIN_CATEGORY_SHUTTLE)
-	if(tgui_alert(user, "You sure?", "Confirm", list("Yes", "No")) != "Yes")
-		return
-
-	if(EMERGENCY_AT_LEAST_DOCKED)
-		return
-
-	if(SSshuttle.emergency.canRecall == FALSE)
-		if(tgui_alert(user, "Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", list("Yes", "No")) == "Yes")
-			return
-		else
-			var/keepStatus = tgui_alert(user, "Maintain recall status on future shuttle calls?", "Maintain Status?", list("Yes", "No")) == "Yes" //Keeps or drops recallability
-			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
-			SSshuttle.emergency.cancel()
-			if(keepStatus)
-				SSshuttle.emergency.canRecall = FALSE // restores original status
-	else
-		SSshuttle.emergency.cancel()
-
-	BLACKBOX_LOG_ADMIN_VERB("Cancel Shuttle")
-	log_admin("[key_name(user)] admin-recalled the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(user)] admin-recalled the emergency shuttle.</span>")
 
 ADMIN_VERB(toggle_pacifism_gt, R_ADMIN, "Toggle Pacifism After Greentext", "Toggle Pacifism After Greentext.", ADMIN_CATEGORY_TOGGLES)
 	if(SSticker.current_state == GAME_STATE_FINISHED)

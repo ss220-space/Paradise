@@ -62,6 +62,11 @@ ADMIN_VERB(invisimin, R_ADMIN, "Invisimin", "Toggles ghost-like invisibility.", 
 		log_admin("[key_name(user)] has turned Invisimin ON")
 	BLACKBOX_LOG_ADMIN_VERB("Invisimin")
 
+ADMIN_VERB(check_security, R_ADMIN, "Check Security", "See all security for the round.", ADMIN_CATEGORY_GAME)
+	user.holder.check_security()
+	log_admin("[key_name(user)] checked security")
+	BLACKBOX_LOG_ADMIN_VERB("Check Securitys")
+
 ADMIN_VERB(check_antagonists, R_ADMIN, "Check Antagonists", "See all antagonists for the round.", ADMIN_CATEGORY_GAME)
 	user.holder.check_antagonists()
 	log_admin("[key_name(user)] checked antagonists.")
@@ -69,12 +74,7 @@ ADMIN_VERB(check_antagonists, R_ADMIN, "Check Antagonists", "See all antagonists
 		message_admins("[key_name_admin(user)] checked antagonists.")
 	BLACKBOX_LOG_ADMIN_VERB("Check Antagonists")
 
-ADMIN_VERB(check_security, R_ADMIN, "Check Security", "See all security for the round.", ADMIN_CATEGORY_GAME)
-	user.holder.check_security()
-	log_admin("[key_name(user)] checked security")
-	BLACKBOX_LOG_ADMIN_VERB("Check Securitys")
-
-ADMIN_VERB(antagonists_menu, R_ADMIN, "Antagonists Menu", "Opens the antagonists menu.", ADMIN_CATEGORY_GAME)
+ADMIN_VERB(check_antagonists_tgui, R_ADMIN, "Antagonists Menu", "Opens the antagonists menu.", ADMIN_CATEGORY_GAME)
 	if(!SSticker)
 		to_chat(user, span_warning("Игра еще не началась!"))
 		return
@@ -156,55 +156,66 @@ ADMIN_VERB(big_brother, R_PERMISSIONS, "Big Brother Mode", "Toggle Big Brother m
 		log_admin("[key_name(user)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		BLACKBOX_LOG_ADMIN_VERB("Big Brother Mode")
 
+#define SMALL_BOMB "Маленькая бомба (1, 2, 3, 3)"
+#define MEDIUM_BOMB "Средняя бомба (2, 3, 4, 4)"
+#define BIG_BOMB "Большая бомба (3, 5, 7, 5)"
+#define CUSTOM_BOMB "Настраиваемая бомба"
+
 ADMIN_VERB(drop_bomb, R_EVENT, "Drop Bomb", "Cause an explosion of varying strength at your location.", ADMIN_CATEGORY_FUN)
 	var/turf/epicenter = user.mob.loc
-	var/list/choices = list("Маленькая бомба (1, 2, 3, 3)", "Средняя бомба (2, 3, 4, 4)", "Большая бомба (3, 5, 7, 5)", "Настраиваемая бомба")
+	var/list/choices = list(SMALL_BOMB, MEDIUM_BOMB, BIG_BOMB, CUSTOM_BOMB)
 	var/choice = tgui_input_list(user, "Взрыв какого размера вы хотели бы произвести? ПРИМЕЧАНИЕ: Вы можете сделать все это в IC поле (используя крылатые ракеты!) с помощью кнопки Launch Supplypod.", items = choices)
 	switch(choice)
 		if(null)
 			return 0
-		if("Маленькая бомба (1, 2, 3, 3)")
+		if(SMALL_BOMB)
 			explosion(epicenter, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 3, cause = user.mob)
-		if("Средняя бомба (2, 3, 4, 4)")
+		if(MEDIUM_BOMB)
 			explosion(epicenter, devastation_range = 2, heavy_impact_range = 3, light_impact_range = 4, flash_range = 4, cause = user.mob)
-		if("Большая бомба (3, 5, 7, 5)")
+		if(BIG_BOMB)
 			explosion(epicenter, devastation_range = 3, heavy_impact_range = 5, light_impact_range = 7, flash_range = 5, cause = user.mob)
-		if("Настраиваемая бомба")
-			var/devastation_range = tgui_input_number(user, "Дальность тотального разрушения. (в тайлах):", "Настраиваемая бомба", max_value = 255)
+		if(CUSTOM_BOMB)
+			var/devastation_range = tgui_input_number(user, "Дальность тотального разрушения. (в тайлах):", CUSTOM_BOMB, max_value = 255)
 			if(isnull(devastation_range))
 				return
-			var/heavy_impact_range = tgui_input_number(user, "Дальность сильного удара. (в тайлах):", "Настраиваемая бомба", max_value = 255)
+			var/heavy_impact_range = tgui_input_number(user, "Дальность сильного удара. (в тайлах):", CUSTOM_BOMB, max_value = 255)
 			if(isnull(heavy_impact_range))
 				return
-			var/light_impact_range = tgui_input_number(user, "Дальность легкого удара. (в тайлах):", "Настраиваемая бомба", max_value = 255)
+			var/light_impact_range = tgui_input_number(user, "Дальность легкого удара. (в тайлах):", CUSTOM_BOMB, max_value = 255)
 			if(isnull(light_impact_range))
 				return
-			var/flash_range = tgui_input_number(user, "Дальность вспышки. (в тайлах):", "Настраиваемая бомба", max_value = 255)
+			var/flash_range = tgui_input_number(user, "Дальность вспышки. (в тайлах):", CUSTOM_BOMB, max_value = 255)
 			if(isnull(flash_range))
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = TRUE, cause = user.mob)
+
 	message_admins("[ADMIN_LOOKUPFLW(user.mob)] creating an admin explosion at [epicenter.loc].")
 	log_admin("[key_name(user)] created an admin explosion at [epicenter.loc].")
 	BLACKBOX_LOG_ADMIN_VERB("Drop Bomb")
 
+#undef SMALL_BOMB
+#undef MEDIUM_BOMB
+#undef BIG_BOMB
+#undef CUSTOM_BOMB
+
 ADMIN_VERB(bless, R_EVENT, "Bless", "Allows you to make different bless.", ADMIN_CATEGORY_FUN, mob/living/M as mob)
 	if(!istype(M))
-		to_chat(user, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
+		to_chat(user, span_warning("This can only be used on instances of type /mob/living"), confidential = TRUE)
 		return
-	var/btypes = list("To Arrivals", "Moderate Heal")
+	var/bless_types = list("To Arrivals", "Moderate Heal")
 	var/mob/living/carbon/human/H
 	if(ishuman(M))
 		H = M
-		btypes += "Spawn Cookie"
-		btypes += "Heal Over Time"
-		btypes += "Permanent Regeneration"
-		btypes += "Super Powers"
-		btypes += "Scarab Guardian"
-		btypes += "Human Protector"
-		btypes += "Sentient Pet"
-		btypes += "All Access"
-	var/blessing = tgui_input_list(user, "How would you like to bless [M]?", "Its good to be good...", btypes)
-	if(!(blessing in btypes))
+		bless_types += "Spawn Cookie"
+		bless_types += "Heal Over Time"
+		bless_types += "Permanent Regeneration"
+		bless_types += "Super Powers"
+		bless_types += "Scarab Guardian"
+		bless_types += "Human Protector"
+		bless_types += "Sentient Pet"
+		bless_types += "All Access"
+	var/blessing = tgui_input_list(user, "How would you like to bless [M]?", "Its good to be good...", bless_types)
+	if(!(blessing in bless_types))
 		return
 	var/logmsg = null
 	switch(blessing)
@@ -327,34 +338,36 @@ ADMIN_VERB(give_spell, R_EVENT, "Give Spell", ADMIN_VERB_NO_DESCRIPTION, ADMIN_C
 	BLACKBOX_LOG_ADMIN_VERB("Give Spell")
 	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
 
-ADMIN_VERB(give_disease, R_EVENT, "Give Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/T in GLOB.mob_list)
+ADMIN_VERB(give_disease, R_EVENT, "Give Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	var/choosen_disease = tgui_input_list(user, "Choose the disease to give to that guy", "ACHOO", GLOB.diseases)
 	if(!choosen_disease)
 		return
-	var/datum/disease/D = new choosen_disease()
-	D.Contract(T)
+
+	var/datum/disease/disease = new choosen_disease()
+	disease.Contract(target)
 	BLACKBOX_LOG_ADMIN_VERB("Give Disease")
-	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
+	log_and_message_admins("gave [key_name_log(target)] the disease [disease].")
 
-ADMIN_VERB(cure_disease, R_EVENT, "Cure Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/T in GLOB.mob_list)
-	if(!T.diseases)
-		to_chat(user, span_warning("[T] doesn't have any diseases!"))
+ADMIN_VERB(cure_disease, R_EVENT, "Cure Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+	if(!target.diseases)
+		to_chat(user, span_warning("[target] doesn't have any diseases!"))
 
-	var/datum/disease/choosen_disease = tgui_input_list(user, "Choose the disease to cure", "BLESS YA", T.diseases)
+	var/datum/disease/choosen_disease = tgui_input_list(user, "Choose the disease to cure", "BLESS YA", target.diseases)
 	if(!choosen_disease)
 		return
-	log_and_message_admins("cured [choosen_disease] for [key_name(T)].")
+
+	log_and_message_admins("cured [choosen_disease] for [key_name(target)].")
 	choosen_disease.cure()
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(make_sound, R_SOUNDS, "Make Sound", obj/O in view())
-	if(!O)
+ADMIN_VERB_ONLY_CONTEXT_MENU(make_sound, R_SOUNDS, "Make Sound", obj/target in view())
+	if(!target)
 		return
 	var/message = tgui_input_text(user, "What do you want the message to be?", "Make Sound")
 	if(!message)
 		return
-	for(var/mob/V in hearers(O))
-		V.show_message(admin_pencode_to_html(message), 2)
-	log_and_message_admins("made [O] at [COORD(O)] make a sound")
+	for(var/mob/viewer in hearers(target))
+		viewer.show_message(admin_pencode_to_html(message), 2)
+	log_and_message_admins("made [target] at [AREACOORD(target)] make a sound")
 	BLACKBOX_LOG_ADMIN_VERB("Make Sound")
 
 ADMIN_VERB(build_mode_self, R_EVENT, "Toggle Build Mode Self", "Toggle build mode for yourself.", ADMIN_CATEGORY_EVENTS)
@@ -362,7 +375,7 @@ ADMIN_VERB(build_mode_self, R_EVENT, "Toggle Build Mode Self", "Toggle build mod
 		togglebuildmode(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Build Mode")
 
-ADMIN_VERB(object_talk, R_EVENT, "OSay", "Display a message to everyone who can hear the target.", ADMIN_CATEGORY_EVENTS, msg as text)
+ADMIN_VERB_AND_CONTEXT_MENU(object_say, R_EVENT, "OSay", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, msg as text)
 	var/datum/component/object_possession/possession_comp = user.mob.GetComponent(/datum/component/object_possession)
 
 	if(!possession_comp || !possession_comp.possessed || !msg)
@@ -481,7 +494,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "C.M.A. - Se
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	BLACKBOX_LOG_ADMIN_VERB("CMA - Self")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObserve", mob/target, look_into_inventory = FALSE)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD, "AObserve", mob/target as mob, look_into_inventory = FALSE)
 	if(isnewplayer(user.mob))
 		to_chat(user, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Сначала зайдите в раунд (как игрок или как призрак)."))
 		return
@@ -490,9 +503,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObs
 		to_chat(user, span_warning("[target] сейчас находится в лобби."))
 		return
 
-	if(!isobserver(user))
-		if(!check_rights(R_ADMIN | R_MOD)) // Need to be mod or admin to aghost
-			return
+	if(!isobserver(user.mob))
 		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
 
 	if(!istype(target))
@@ -501,11 +512,13 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObs
 
 	addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
 
-	if(look_into_inventory)
-		if(!target.client)
-			to_chat(user, span_warning("[target] не имеет за собой игрока(Disconnected)."))
-			return
-		addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob/dead/observer, do_observe), target), 10 DECISECONDS)
+	if(!look_into_inventory)
+		return
+
+	if(!target.client)
+		to_chat(user, span_warning("[target] не имеет за собой игрока(Disconnected)."))
+		return
+	addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob/dead/observer, do_observe), target), 10 DECISECONDS)
 
 ADMIN_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.", ADMIN_CATEGORY_GAME)
 	var/list/jobs = list()
@@ -587,3 +600,12 @@ ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", "Send an admi
 
 ADMIN_VERB(debug_statpanel, R_DEBUG, "Debug Stat Panel", "Toggles local debug of the stat panel.", ADMIN_CATEGORY_DEBUG)
 	user.stat_panel.send_message("create_debug")
+
+ADMIN_VERB(force_hijack, R_EVENT, "Toggle Shuttle Force Hijack", "Force shuttle fly to syndicate base.", ADMIN_CATEGORY_TOGGLES)
+	var/obj/docking_port/mobile/emergency/shuttle = locate()
+	if(!shuttle)
+		return
+
+	shuttle.force_hijacked = !shuttle.force_hijacked
+	log_and_message_admins("[shuttle.force_hijacked ? "enabled" : "disabled"] forced shuttle hijack.")
+	BLACKBOX_LOG_ADMIN_VERB("Shuttle Force Hijack")

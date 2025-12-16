@@ -118,6 +118,7 @@
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
+#define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
 #define	is_organ(A) (istype((A), /obj/item/organ))
 

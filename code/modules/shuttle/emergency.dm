@@ -94,9 +94,13 @@
 	height = 11
 	dir = 4
 	roundstart_move = "emergency_away"
-	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
-
-	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
+	/// If the launch sound has been sent to all players on the shuttle itself
+	var/sound_played = FALSE
+	/// No bad condom, do not recall the crew transfer shuttle!
+	var/canRecall = TRUE
+	/// Forced change of arrival at the syndicate base
+	var/force_hijacked = FALSE
+	/// Is devil on shuttle?
 	var/devil_on_shuttle = FALSE
 
 /obj/docking_port/mobile/emergency/register()
@@ -250,7 +254,7 @@
 					"Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
-				sound_played = 0
+				sound_played = FALSE
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
@@ -258,7 +262,7 @@
 					"Шаттл заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
-				sound_played = 0
+				sound_played = FALSE
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 100) // 9 seconds left - start requesting transit zones for emergency and pods
@@ -267,7 +271,7 @@
 				check_transit_zone()
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
-				sound_played = 1
+				sound_played = TRUE
 				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
 				for(var/area/shuttle/escape/E in GLOB.areas)
 					SEND_SOUND(E, hyperspace_sound)
@@ -310,7 +314,7 @@
 						new_sound = 'sound/misc/announce_syndi.ogg'
 					)
 
-				if(devil_on_shuttle)
+				if(devil_on_shuttle || force_hijacked)
 					GLOB.major_announcement.announce(
 						message = "Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
 						new_title = ANNOUNCE_PRIORITY_RU,

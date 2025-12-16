@@ -531,7 +531,7 @@
 	to_chat(target, span_userdanger("Вы чувствуете что стали на пару сантиметров выше. К чему бы это? Может это наказание за [reason]?"))
 
 // MARK: Admin smite proc
-ADMIN_VERB_AND_CONTEXT_MENU(admin_smite, R_EVENT, "Smite", "Smite a player with divine power.", ADMIN_CATEGORY_FUN, mob/living/player_mob as mob)
+ADMIN_VERB_AND_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", "Smite a player with divine power.", ADMIN_CATEGORY_FUN, mob/living/player_mob as mob in GLOB.player_list)
 	if(!istype(player_mob))
 		to_chat(user, span_warning("Покарать можно только существ с типом начинающимся на /mob/living"), confidential = TRUE)
 		return

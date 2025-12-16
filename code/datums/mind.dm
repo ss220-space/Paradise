@@ -2344,15 +2344,9 @@
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
 			if("borgpanel")
-				var/mob/living/silicon/robot/R = current
-				var/datum/borgpanel/B = new(usr, R)
-				B.ui_interact(usr)
-				log_and_message_admins("has opened [R]'s Borg Panel.")
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locate(href_list["borgpanel"]))
 			if("lawmanager")
-				var/mob/living/silicon/S = current
-				var/datum/ui_module/law_manager/L = new(S)
-				L.ui_interact(usr)
-				log_and_message_admins("has opened [S]'s law manager.")
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/open_law_manager)
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
 				if(!istype(R))

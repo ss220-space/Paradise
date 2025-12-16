@@ -528,7 +528,7 @@ SUBSYSTEM_DEF(dbcore)
 			last_error = "offline"
 			return FALSE
 
-// Just tells the admins if a query timed out, and asks if the server hung to help error reporting
+/// Just tells the admins if a query timed out, and asks if the server hung to help error reporting
 /datum/db_query/proc/slow_query_check()
 	message_admins("HEY! A database query timed out. Did the server just hang? <a href='byond://?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='byond://?_src_=holder;slowquery=no'>\[NO\]</a>")
 
@@ -547,11 +547,11 @@ SUBSYSTEM_DEF(dbcore)
 	else
 		return FALSE
 
-// Simple helper to get the last error a query had
+/// Simple helper to get the last error a query had
 /datum/db_query/proc/ErrorMsg()
 	return last_error
 
-// Simple proc to null out data to aid GC
+/// Simple proc to null out data to aid GC
 /datum/db_query/proc/Close()
 	rows = null
 	item = null

@@ -125,13 +125,13 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_turf, R_ADMIN, "Jump To Turf", turf/T in wo
 
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Key")
 
-ADMIN_VERB_AND_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME, mob/M in GLOB.mob_list)
-	log_and_message_admins("teleported [key_name_admin(M)]")
+ADMIN_VERB_AND_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME, mob/target in GLOB.mob_list)
+	log_and_message_admins("teleported [key_name_admin(target)]")
 
-	if(isobj(M.loc))
-		var/obj/O = M.loc
-		O.force_eject_occupant(M)
-	admin_forcemove(M, get_turf(user.mob))
+	if(isobj(target.loc))
+		var/obj/target_loc = target.loc
+		target_loc.force_eject_occupant(target)
+	admin_forcemove(target, get_turf(user.mob))
 	BLACKBOX_LOG_ADMIN_VERB("Get Mob")
 
 ADMIN_VERB(get_key, R_ADMIN, "Get Key", "Teleport the player with the provided key to you.", ADMIN_CATEGORY_GAME)
@@ -154,16 +154,16 @@ ADMIN_VERB(get_key, R_ADMIN, "Get Key", "Teleport the player with the provided k
 		admin_forcemove(user.mob, M.loc)
 		BLACKBOX_LOG_ADMIN_VERB("Get Key")
 
-ADMIN_VERB_AND_CONTEXT_MENU(sendmob, R_ADMIN, "Send Mob", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME, mob/M in GLOB.mob_list)
-	var/area/A = tgui_input_list(user, "Pick an area.", "Pick an area", get_sorted_areas())
-	if(!A)
+ADMIN_VERB_AND_CONTEXT_MENU(sendmob, R_ADMIN, "Send Mob", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME, mob/target in GLOB.mob_list)
+	var/area/picked_area = tgui_input_list(user, "Pick an area.", "Pick an area", get_sorted_areas())
+	if(!picked_area)
 		return
 
-	if(isobj(M.loc))
-		var/obj/O = M.loc
-		O.force_eject_occupant(M)
-	admin_forcemove(M, pick(get_area_turfs(A)))
-	log_and_message_admins("teleported [key_name_admin(M)] to [A]")
+	if(isobj(target.loc))
+		var/obj/target_loc = target.loc
+		target_loc.force_eject_occupant(target)
+	admin_forcemove(target, pick(get_area_turfs(picked_area)))
+	log_and_message_admins("teleported [key_name_admin(target)] to [picked_area]")
 	BLACKBOX_LOG_ADMIN_VERB("Send Mob")
 
 /proc/admin_forcemove(mob/mover, atom/newloc)

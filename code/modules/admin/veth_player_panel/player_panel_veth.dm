@@ -4,7 +4,7 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 	to_chat(user, span_interface("VUAP has been opened!"), confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("VUAP")
 
-ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Show Player Panel", "Player options panel for a mob.", ADMIN_CATEGORY_GAME, mob/target in GLOB.player_list)
+ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player options panel for a mob.", ADMIN_CATEGORY_GAME, mob/target in GLOB.player_list)
 	if(!target)
 		to_chat(user, span_warning("Could not find desired target mob!"), type = MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		return
@@ -20,7 +20,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Show Player Panel", "Player
 	else
 		user.selectedPlayerCkey = target.ckey
 		user.VUAP_selected_mob = target
-		var/datum/vuap_personal/tgui = new(user)
+		var/datum/vuap_personal/tgui = new(user.mob)
 		tgui.ui_interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("VUAP_personal")
 

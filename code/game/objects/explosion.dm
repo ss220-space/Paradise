@@ -86,8 +86,7 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(wipe_color_and_text), wipe_colours), 10 SECONDS)
 
 /proc/wipe_color_and_text(list/atom/wiping)
-	for(var/i in wiping)
-		var/atom/A = i
-		A.color = null
-		A.maptext = ""
+	for(var/atom/wiping_atom as anything in wiping)
+		wiping_atom.color = null
+		wiping_atom.maptext = ""
 

@@ -14,10 +14,6 @@
 		to_chat(src, "<b>Нет активного голосования!<b>")
 
 ADMIN_VERB(start_vote, R_ADMIN, "Start Vote", "Start a vote on the server.", ADMIN_CATEGORY_MAIN)
-	if(SSvote.active_vote)
-		to_chat(user, "A vote is already in progress")
-		return
-
 	// Ask admins which type of vote they want to start
 	var/vote_types = subtypesof(/datum/vote)
 	vote_types |= "\[CUSTOM\]"

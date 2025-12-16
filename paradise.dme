@@ -1817,6 +1817,7 @@
 #include "code\modules\admin\verbs\adminjump.dm"
 #include "code\modules\admin\verbs\adminpm.dm"
 #include "code\modules\admin\verbs\adminsay.dm"
+#include "code\modules\admin\verbs\adminshuttle.dm"
 #include "code\modules\admin\verbs\antag-ooc.dm"
 #include "code\modules\admin\verbs\antagonist_menu.dm"
 #include "code\modules\admin\verbs\asays.dm"

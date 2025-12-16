@@ -978,9 +978,12 @@
 			qdel(C)
 
 	else if(href_list["open_logging_view"])
-		var/mob/M = locateUID(href_list["open_logging_view"])
-		if(ismob(M))
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, list(M), TRUE)
+		var/mob/target = locateUID(href_list["open_logging_view"])
+		if(!ismob(target))
+			to_chat(usr, "This can only be used on instances of type /mob.", confidential = TRUE)
+			return
+
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, target, TRUE)
 
 	else if(href_list["geoip"])
 		if(!check_rights(R_ADMIN))
@@ -1916,13 +1919,16 @@
 			usr.client.holder.Topic(null, list("showdna" = H.UID()))
 
 	else if(href_list["observeinventory"])
-		var/client/C = usr.client
-		var/mob/M = locateUID(href_list["observeinventory"])
-
-		if(!ismob(M))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+		if(!check_rights(R_ADMIN|R_MOD))
 			return
-		SSadmin_verbs.dynamic_invoke_verb(C, /datum/admin_verb/admin_observe_target, M, TRUE)
+
+		var/client/client = usr.client
+		var/mob/target = locateUID(href_list["observeinventory"])
+		if(!ismob(target))
+			to_chat(usr, span_warning("This can only be used on instances of type /mob"))
+			return
+
+		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/admin_observe_target, target, TRUE)
 
 	else if(href_list["adminplayeropts"])
 		var/mob/selected_mob = locateUID(href_list["adminplayeropts"])
@@ -2830,17 +2836,23 @@
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, M)
 
 	else if(href_list["traitor"])
-		if(!check_rights(R_ADMIN|R_MOD))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
-		if(!SSticker || !SSticker.mode)
+		if(SSticker.current_state < GAME_STATE_PLAYING)
 			tgui_alert(usr, "The game hasn't started yet!")
 			return
 
-		var/mob/M = locateUID(href_list["traitor"])
-		if(!istype(M, /mob))
+		var/mob/target = locateUID(href_list["traitor"])
+		if(!ismob(target))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
 			return
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/show_traitor_panel, M)
+
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_traitor_panel, target)
+
+	else if(href_list["borgpanel"])
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locate(href_list["borgpanel"]))
+		return
 
 	else if(href_list["spawn_panel"])
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/spawn_panel)

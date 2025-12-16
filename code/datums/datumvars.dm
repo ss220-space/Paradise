@@ -727,14 +727,15 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		M.give_taipan_hud(role = selected_role)
 
 	else if(href_list["godmode"])
-		if(!check_rights(R_REJUVINATE))	return
+		if(!check_rights(R_REJUVINATE))
+			return
 
-		var/mob/M = locateUID(href_list["godmode"])
-		if(!istype(M))
+		var/mob/target = locateUID(href_list["godmode"])
+		if(!istype(target))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/godmode, M)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/cmd_admin_godmode, target)
 
 	else if(href_list["gib"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return

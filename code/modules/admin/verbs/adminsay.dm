@@ -137,9 +137,11 @@ ADMIN_VERB(cmd_dev_say, R_VIEWRUNTIMES|R_ADMIN, "Devsay", "Send a message to oth
 	BLACKBOX_LOG_ADMIN_VERB("Devsay")
 
 /client/proc/get_dev_team_say()
-	if(check_rights(R_VIEWRUNTIMES|R_ADMIN))
-		var/msg = tgui_input_text(src, null, "devsay \"text\"", encode = FALSE)
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/cmd_dev_say, msg)
+	if(!check_rights(R_VIEWRUNTIMES|R_ADMIN))
+		return
+
+	var/msg = tgui_input_text(src, null, "devsay \"text\"", encode = FALSE)
+	SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/cmd_dev_say, msg)
 
 #undef SAY_ENABLED
 #undef SAY_DISABLED

@@ -1,8 +1,17 @@
 /atom/proc/investigate_log(message, subject)
-	if(!message || !subject)
+	if(!message)
 		return
+
+	if(!subject)
+		CRASH("No subject provided for investigate_log")
+
 	var/file = wrap_file("[GLOB.log_directory]/[subject].html")
-	WRITE_FILE(file, "[time_stamp()] [UID()] [ADMIN_COORDJMP(src)] || [src] [message]<br>")
+	var/source = "[src]"
+	if(isliving(src))
+		var/mob/living/source_mob = src
+		source += " ([source_mob.ckey ? source_mob.ckey : "*no key*"])"
+
+	WRITE_FILE(file, "[time_stamp()] [UID()] ([x],[y],[z]) || [source] [message]<br>")
 
 ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed logs.", ADMIN_CATEGORY_GAME)
 	var/list/investigates = list(
@@ -50,7 +59,7 @@ ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed lo
 		if("watchlist")
 			user.watchlist_show()
 
-		if("hrefs")				//persistant logs and stuff
+		if("hrefs") //persistant logs and stuff
 			if(config && CONFIG_GET(flag/log_hrefs))
 				if(GLOB.world_href_log)
 					var/datum/browser/popup = new(user, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
@@ -64,11 +73,12 @@ ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed lo
 				return
 
 		else //general one-round-only stuff
-			var/F = file("[GLOB.log_directory]/[selected].html")
-			if(!fexists(F))
+			var/file = file("[GLOB.log_directory]/[selected].html")
+			if(!fexists(file))
 				to_chat(user, span_danger("No [selected] logfile was found."), confidential = TRUE)
 				return
-			F = wrap_file2text(F)
+
+			file = wrap_file2text(file)
 			var/datum/browser/popup = new(user, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
-			popup.set_content(F)
+			popup.set_content(file)
 			popup.open(FALSE)

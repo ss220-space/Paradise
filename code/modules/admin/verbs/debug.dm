@@ -236,12 +236,17 @@ ADMIN_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local a
 	user.mob.show_message(t, 1)
 	BLACKBOX_LOG_ADMIN_VERB("Air Status (Location)")
 
-ADMIN_VERB(cmd_admin_robotize, R_SPAWN, "Make Robot", "Turn the target into a borg.", ADMIN_CATEGORY_EVENTS, mob/M in GLOB.mob_list)
-	if(!SSticker)
+ADMIN_VERB(cmd_admin_robotize, R_SPAWN, "Make Robot", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target)
+	if(!SSticker.HasRoundStarted())
 		tgui_alert(user, "Wait until the game starts")
 		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/human = M
+
+	if(issilicon(target))
+		tgui_alert(user, "They are already a robot.")
+		return
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/human = target
 		log_admin("[key_name(user)] has robotized [human.key].")
 		spawn(10)
 			var/mob/living/silicon/robot/new_robot = human.Robotize()

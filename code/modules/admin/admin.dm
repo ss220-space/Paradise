@@ -673,15 +673,15 @@ ADMIN_VERB(spawn_atom_adv, R_SPAWN, "Advanced Spawn", "(путь атома) С�
 	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 
-ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", "Edit mobs's memory and role.", ADMIN_CATEGORY_GAME, mob/M in GLOB.mob_list)
-	if(!istype(M))
-		to_chat(user, "This can only be used on instances of type /mob", confidential=TRUE)
+ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", "Edit mobs's memory and role.", ADMIN_CATEGORY_GAME, mob/target_mob in GLOB.mob_list)
+	var/datum/mind/target_mind = target_mob.mind
+	if(!target_mind)
+		to_chat(user, "This mob has no mind!", confidential = TRUE)
 		return
-	if(!M.mind)
-		to_chat(user, "This mob has no mind!", confidential=TRUE)
+	if(!istype(target_mob) && !istype(target_mind))
+		to_chat(user, "This can only be used on instances of type /mob and /mind", confidential = TRUE)
 		return
-
-	M.mind.edit_memory()
+	target_mind.edit_memory()
 	BLACKBOX_LOG_ADMIN_VERB("Show Traitor Panel")
 
 ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for guests to enter the game.", ADMIN_CATEGORY_TOGGLES)
