@@ -799,6 +799,14 @@
 /obj/structure/computerframe/abductor/drop_computer_materials(location)
 	new /obj/item/stack/sheet/mineral/abductor(location, 4)
 
+/obj/structure/computerframe/cargo
+	name = "cargo R&D console frame"
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "cargocomp_unscrewed"
+
+/obj/structure/computerframe/cargo/update_icon()
+	icon_state = "cargocomp_unscrewed"
+
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT
 #undef STATE_NOWIRES

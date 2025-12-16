@@ -86,7 +86,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	/// Flag for Syndicate base
 	var/syndicate = 0
-
+	/// Flag for Cargo console
 	var/cargo = FALSE
 
 	/// ID of the computer (for server restrictions).
@@ -236,6 +236,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			d_disk = I
 		SStgui.update_uis(src)
 		balloon_alert(user, "дискета вставлена")
+		if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+			var/obj/machinery/computer/rdconsole/cargo/console = src
+			console.disk_loading = FALSE
+			console.update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -288,6 +292,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		files.AddTech2Known(tech_copy)
 	SStgui.update_uis(src)
 	griefProtection() //Update centcom too
+	if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+		var/obj/machinery/computer/rdconsole/cargo/console = src
+		console.disk_loading = FALSE
+		console.update_icon()
 
 /obj/machinery/computer/rdconsole/proc/sync_research()
 	if(!sync)
@@ -590,6 +598,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
 			add_wait_message("Обновление базы данных...", TECH_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				var/obj/machinery/computer/rdconsole/cargo/console = src
+				console.disk_loading = TRUE
+				console.update_icon()
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
 		if("clear_tech") //Erase data on the technology disk.
@@ -604,6 +616,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				t_disk = null
 			menu = MENU_MAIN
 			submenu = SUBMENU_MAIN
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				var/obj/machinery/computer/rdconsole/cargo/console = src
+				console.disk_loading = FALSE
+				console.update_icon()
 
 		if("copy_tech") //Copy some technology data from the research holder to the disk.
 			// Now with COPYING data actually
@@ -626,6 +642,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Обновление базы данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				var/obj/machinery/computer/rdconsole/cargo/console = src
+				console.disk_loading = TRUE
+				console.update_icon()
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), DESIGN_UPDATE_DELAY)
 
 		if("clear_design") //Erases data on the design disk.
@@ -640,9 +660,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				d_disk = null
 			menu = MENU_MAIN
 			submenu = SUBMENU_MAIN
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				var/obj/machinery/computer/rdconsole/cargo/console = src
+				console.disk_loading = FALSE
+				console.update_icon()
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
+			add_wait_message("Загрузка данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				var/obj/machinery/computer/rdconsole/cargo/console = src
+				console.disk_loading = TRUE
+				console.update_icon()
 			var/datum/design/design = files.known_designs[params["id"]]
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
@@ -678,6 +707,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				to_chat(usr, span_danger("Консоль не подключена к сети НИО!"))
 			else
 				add_wait_message("Синхронизация базы данных...", SYNC_RESEARCH_DELAY)
+				if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+					var/obj/machinery/computer/rdconsole/cargo/console = src
+					console.disk_loading = TRUE
+					console.update_icon()
 				griefProtection() //Putting this here because I dont trust the sync process
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
 
@@ -884,7 +917,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["ui_theme"] = ui_theme
 
 	data["cargo"] = cargo
-
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
@@ -1011,7 +1043,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		deltimer(wait_message_timer)
 		wait_message_timer = null
 	SStgui.update_uis(src)
-
+	if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+		var/obj/machinery/computer/rdconsole/cargo/console = src
+		console.update_icon()
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
@@ -1119,25 +1153,37 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/cargo
 	name = "cargo R&D console"
-	desc = "Компьютер, обеспечивающий доступ к базе данных технологий Специализированная версия, используемая в отделе снабжения."
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий. Специализированная версия, используемая в отделе Снабжения."
 	id = 6
 	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/rdconsole/cargo
+	frame = /obj/structure/computerframe/cargo
+	/// Flag for tracking disk inside
+	var/disk_loading = FALSE
 	cargo = TRUE
 	ui_theme = "cargo"
 	icon_state = "cargocomp"
-	icon_screen = "cargocomp_screen"
-	icon_keyboard = ""
+	icon_screen = "cargocomp_screen_passive"
+	icon_keyboard = null
 
 /obj/machinery/computer/rdconsole/cargo/get_ru_names()
 	return list(
-		NOMINATIVE = "карго-консоль НИО",
-		GENITIVE = "карго-консоли НИО",
-		DATIVE = "карго-консоли НИО",
-		ACCUSATIVE = "карго-консоль НИО",
-		INSTRUMENTAL = "карго-консолью НИО",
-		PREPOSITIONAL = "карго-консоли НИО",
+		NOMINATIVE = "консоль НИО отдела Снабжения",
+		GENITIVE = "консоли НИО отдела Снабжения",
+		DATIVE = "консоли НИО отдела Снабжения",
+		ACCUSATIVE = "консоль НИО отдела Снабжения",
+		INSTRUMENTAL = "консолью НИО отдела Снабжения",
+		PREPOSITIONAL = "консоли НИО отдела Снабжения"
 	)
+
+/obj/machinery/computer/rdconsole/cargo/update_icon()
+	if(disk_loading)
+		icon_screen = "cargocomp_screen_loading"
+	else if(t_disk || d_disk)
+		icon_screen = "cargocomp_screen_disk"
+	else
+		icon_screen = "cargocomp_screen_passive"
+	..()
 
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY
