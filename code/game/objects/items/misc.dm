@@ -83,8 +83,8 @@
 
 
 /obj/item/ecig
-	name = "электронная сигарета"
-	desc = "Одноразовая электронная сигарета с никотином."
+	name = "electronic cigarette"
+	desc = "Гладкий никотиновый испаритель в сдержанном зелёном корпусе. Создаёт плотное, но быстро рассеивающееся облако пара. Одобрен для рабочих зон: дым без пепла и характерного запаха."
 	gender = FEMALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ecig"
@@ -119,7 +119,7 @@
 		. += span_warning("Жидкость полностью исчерпана.")
 	else
 		var/percentage = round((amount_left / max_amount) * 100)
-		. += span_notice("Осталось жидкости: [percentage]%")
+		. += span_notice("Осталось жидкости: <b>[percentage]%</b>")
 
 /obj/item/ecig/attack_self(mob/user)
 	if(!ishuman(user) || ismachineperson(user))
@@ -197,8 +197,8 @@
 		return
 
 /obj/item/ecig/syndi
-	name = "подозрительная электронная сигарета"
-	desc = "Одноразовая электронная сигарета с никотином. На лицевой стороне нарисованна большая буква S."
+	name = "suspicious e-cigarette"
+	desc = "Гладкий никотиновый испаритель в подозрительном красном корпусе. Выдаёт плотное облако пара с лёгким химическим оттенком."
 	icon_state = "ecig_syndi"
 	item_state = "ecig_syndi"
 	reagent = list(/datum/reagent/nicotine, /datum/reagent/medicine/syndiezine)

@@ -2280,7 +2280,7 @@
 
 /datum/uplink_item/badass/syndieecig
 	name = "Электронная сигарета \"Синдиката\""
-	desc = "С двойный яблочком."
+	desc = "Со вкусом \"Двойное яблочко\"."
 	item = /obj/item/ecig/syndi
 	cost = 6
 
