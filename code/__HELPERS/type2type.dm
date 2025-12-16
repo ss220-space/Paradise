@@ -166,8 +166,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return WEST
 
 /// returns the north-zero clockwise angle in degrees, given a direction
-/proc/dir2angle(D)
-	switch(D)
+/proc/dir2angle(dir)
+	switch(dir)
 		if(NORTH)
 			return 0
 		if(SOUTH)

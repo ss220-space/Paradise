@@ -675,9 +675,11 @@ SUBSYSTEM_DEF(ticker)
 
 	return TRUE
 
+/// Whether the game has started, including roundend.
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
 
+///Whether the game is currently in progress, excluding roundend
 /datum/controller/subsystem/ticker/proc/IsRoundInProgress()
 	return current_state == GAME_STATE_PLAYING
 
