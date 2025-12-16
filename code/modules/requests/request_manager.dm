@@ -95,6 +95,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			usr.client.debug_variables(M)
 			return TRUE
 		if("sm")
+			if(!check_rights(R_EVENT))
+				to_chat(usr, "Insufficient permissions to smite, you require +EVENT")
+				return TRUE
 			var/mob/M = request.owner?.mob
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, M)
 			return TRUE
