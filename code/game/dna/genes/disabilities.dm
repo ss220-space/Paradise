@@ -380,13 +380,13 @@
 		brain.max_damage = initial(brain.max_damage)
 		brain.update_health()
 
-/datum/dna/gene/disability/catears/OnMobLife(mob/living/carbon/human/H)
-	if(!istype(H))
+/datum/dna/gene/disability/catears/OnMobLife(mob/living/carbon/human/human_mob)
+	if(!istype(human_mob))
 		return
 
-	var/obj/item/organ/internal/brain/brain = H.get_organ(BODY_ZONE_HEAD, /obj/item/organ/internal/brain)
-	if(brain && H.getBrainLoss() < 30)
-		H.setBrainLoss(30)
+	var/obj/item/organ/internal/brain/brain_organ  = human_mob.get_organ(BODY_ZONE_HEAD, /obj/item/organ/internal/brain)
+	if(brain_organ  && human_mob.getBrainLoss() < 30)
+		human_mob.setBrainLoss(30)
 
 // /datum/dna/gene/disability/catears/OnDrawUnderlays(mob/M, g)
 //	return "catears_s"
