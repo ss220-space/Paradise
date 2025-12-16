@@ -66257,8 +66257,8 @@
 /obj/machinery/door_control{
 	id = "First Surgery Window";
 	name = "Surgery Window Shutters Control";
-	pixel_x = 9;
-	pixel_y = -27
+	pixel_x = -25;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -112509,8 +112509,8 @@
 /obj/machinery/door_control{
 	id = "Second Surgery Window";
 	name = "Surgery Window Shutters Control";
-	pixel_x = 9;
-	pixel_y = 26
+	pixel_x = -25;
+	pixel_y = -7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
