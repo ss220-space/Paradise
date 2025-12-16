@@ -45,8 +45,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	/// Used in attackby() to say how something was attacked "[x] [z.attack_verb][GEND_A_O_Y(x)] [y.declent_ru(ACCUSATIVE)], используя [z.declent_ru(ACCUSATIVE)]."
 	var/list/attack_verb
-	/// Sound played when you hit something with the item.
+	/// Sound plays when you block something with this item.
 	var/hitsound
+	/// Sound played when you block
+	var/list/melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
+	var/list/bullet_blocksound = list('sound/weapons/effects/block/bulletblock_1.ogg', 'sound/weapons/effects/block/bulletblock_2.ogg', 'sound/weapons/effects/block/bulletblock_3.ogg')
+	var/list/laser_blocksound = list('sound/weapons/effects/block/laserblock_1.ogg', 'sound/weapons/effects/block/laserblock_2.ogg', 'sound/weapons/effects/block/laserblock_3.ogg')
 	/// Used for hit sound cooldown
 	COOLDOWN_DECLARE(sound_cooldown)
 	/// Played when the item is used, for example tools.
@@ -620,6 +624,23 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+
+		var/list/block_sounds
+		switch(attack_type)
+			if(ITEM_ATTACK)
+				balloon_alert_to_viewers(ITEM_ATTACK)
+				block_sounds = melee_blocksound
+			if(PROJECTILE_ATTACK)
+				balloon_alert_to_viewers(PROJECTILE_ATTACK)
+				if(istype(hitby, /obj/projectile/energy) || istype(hitby, /obj/projectile/beam))
+					block_sounds = laser_blocksound
+				else if(istype(hitby, /obj/projectile/bullet))
+					block_sounds = bullet_blocksound
+		playsound(owner.loc, pick(block_sounds), 50, TRUE)
+
+		// var/obj/effect/temp_visual/block_effect/effect = new /obj/effect/temp_visual/block_effect(owner.loc)
+		// effect.layer = owner.layer + 0.1
+
 		return signal_result
 	return FALSE
 
