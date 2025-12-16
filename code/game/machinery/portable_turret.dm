@@ -83,6 +83,11 @@
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
 
+	/// What lethal mode projectile with the turret start with?
+	var/initial_eprojectile = null
+	/// What non-lethal mode projectile with the turret start with?
+	var/initial_projectile = null
+
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
 
@@ -161,8 +166,14 @@
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)
-			eprojectile = /obj/projectile/beam/pulse
+			eprojectile = /obj/projectile/beam/pulse/hitscan
 			eshot_sound = 'sound/weapons/pulse.ogg'
+
+	if(initial_eprojectile)
+		eprojectile = initial_eprojectile
+
+	if(initial_projectile)
+		projectile = initial_projectile
 
 /obj/machinery/porta_turret/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return (stat & BROKEN) || !pass_info.is_living

@@ -66254,12 +66254,6 @@
 	pixel_x = -6;
 	pixel_y = -23
 	},
-/obj/machinery/door_control{
-	id = "First Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_x = -25;
-	pixel_y = 7
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -82237,6 +82231,11 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
+	},
+/obj/machinery/door_control{
+	id = "Second Surgery Window";
+	name = "Surgery Window Shutters Control";
+	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -110933,8 +110932,10 @@
 	dir = 4;
 	pixel_x = 26
 	},
-/obj/structure/sign/nosmoking_1{
-	pixel_y = 32
+/obj/machinery/door_control{
+	id = "First Surgery Window";
+	name = "Surgery Window Shutters Control";
+	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -112505,12 +112506,6 @@
 	id = "surgery2";
 	pixel_x = -6;
 	pixel_y = 25
-	},
-/obj/machinery/door_control{
-	id = "Second Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_x = -25;
-	pixel_y = -7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
