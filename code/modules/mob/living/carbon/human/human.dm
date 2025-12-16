@@ -1935,7 +1935,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
-		modifier += 2
+		switch(bodypart.fracture_state)
+			if(FRACTURE_TYPE_CRACK)
+				modifier += 0.5
+			if(FRACTURE_TYPE_CLOSED)
+				modifier += 1
+			if(FRACTURE_TYPE_OPEN)
+				modifier += 2
 
 	if(modifier)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
