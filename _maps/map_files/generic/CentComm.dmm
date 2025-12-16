@@ -37058,7 +37058,6 @@
 	},
 /area/centcom/supply)
 "rha" = (
-/obj/item/radio/intercom/specops/directional/east,
 /obj/effect/turf_decal/siding{
 	color = "#444444";
 	dir = 9
@@ -48920,6 +48919,7 @@
 	color = "#444444";
 	dir = 8
 	},
+/obj/item/radio/intercom/specops/directional/east,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "wAz" = (
