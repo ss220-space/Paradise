@@ -1113,6 +1113,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!has_fracture())
 		return FALSE
 
+	if(fracture_state == FRACTURE_TYPE_OPEN)
+		balloon_alert(usr, "вы не знаете, как наложить шину на торчащую кость!")
+		return FALSE
+
 	status |= ORGAN_SPLINTED
 	if(owner)
 		LAZYOR(owner.splinted_limbs, src)
