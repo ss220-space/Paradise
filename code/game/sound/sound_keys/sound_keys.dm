@@ -444,3 +444,26 @@
 		'sound/machines/computer/keyboard_clicks_6.ogg',
 		'sound/machines/computer/keyboard_clicks_7.ogg',
 	)
+
+/datum/sound_effect/melee_block
+	key = SFX_MELEE_BLOCK
+	file_paths = list(
+		'sound/weapons/effects/block/meleeblock_1.ogg',
+		'sound/weapons/effects/block/meleeblock_2.ogg'
+	)
+
+/datum/sound_effect/bullet_block
+	key = SFX_BULLET_BLOCK
+	file_paths = list(
+		'sound/weapons/effects/block/bulletblock_1.ogg',
+		'sound/weapons/effects/block/bulletblock_2.ogg',
+		'sound/weapons/effects/block/bulletblock_3.ogg'
+	)
+
+/datum/sound_effect/laser_block
+	key = SFX_LASER_BLOCK
+	file_paths = list(
+		'sound/weapons/effects/block/laserblock_1.ogg',
+		'sound/weapons/effects/block/laserblock_2.ogg',
+		'sound/weapons/effects/block/laserblock_3.ogg'
+	)

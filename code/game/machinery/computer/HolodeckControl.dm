@@ -389,7 +389,7 @@
 	icon_state = "claymore"
 	item_state = "claymore"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
+	melee_blocksound = SFX_MELEE_BLOCK
 	force = 40
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY

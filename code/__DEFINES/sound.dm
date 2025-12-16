@@ -96,6 +96,8 @@
 	'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 	'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
 
+#define SFX_MELEE_BLOCK list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
+
 //default byond sound environments
 #define SOUND_ENVIRONMENT_NONE -1
 #define SOUND_ENVIRONMENT_GENERIC 0
@@ -330,3 +332,6 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_DROP "drop"
 #define SFX_EQUIP "equip"
 #define SFX_FART "fart"
+#define SFX_MELEE_BLOCK "melee_block"
+#define SFX_BULLET_BLOCK "bullet_block"
+#define SFX_LASER_BLOCK "laser_block"

@@ -4,7 +4,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	obj_integrity = 380
 	max_integrity = 380
-	block_effect = /obj/effect/temp_visual/block_shield
+	block_effect = /obj/effect/temp_visual/block/shield
 	melee_blocksound = list('sound/weapons/effects/block/shieldblock.ogg')
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)

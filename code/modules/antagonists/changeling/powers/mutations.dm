@@ -151,7 +151,7 @@
 	armour_penetration = -30
 	block_chance = 50
 	block_type = MELEE_ATTACKS
-	melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
+	melee_blocksound = SFX_MELEE_BLOCK
 	hitsound = 'sound/weapons/armblade.ogg'
 	throw_range = 0
 	throw_speed = 0

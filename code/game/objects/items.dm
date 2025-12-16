@@ -49,8 +49,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/hitsound
 	/// Sound played when you block
 	var/list/melee_blocksound
-	var/list/bullet_blocksound = list('sound/weapons/effects/block/bulletblock_1.ogg', 'sound/weapons/effects/block/bulletblock_2.ogg', 'sound/weapons/effects/block/bulletblock_3.ogg')
-	var/list/laser_blocksound = list('sound/weapons/effects/block/laserblock_1.ogg', 'sound/weapons/effects/block/laserblock_2.ogg', 'sound/weapons/effects/block/laserblock_3.ogg')
+	var/list/bullet_blocksound = SFX_BULLET_BLOCK
+	var/list/laser_blocksound = SFX_LASER_BLOCK
 
 	var/block_effect = /obj/effect/temp_visual/block
 

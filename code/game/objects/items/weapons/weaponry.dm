@@ -69,7 +69,7 @@
 	embed_chance = 20
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
-	melee_blocksound = list('sound/weapons/effects/block/meleeblock_1.ogg', 'sound/weapons/effects/block/meleeblock_2.ogg')
+	melee_blocksound = SFX_MELEE_BLOCK
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
