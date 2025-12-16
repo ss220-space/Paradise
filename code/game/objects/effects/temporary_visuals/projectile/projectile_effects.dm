@@ -43,17 +43,21 @@
 	look.appearance_flags = RESET_COLOR | RESET_ALPHA
 	look.pixel_x = p_x
 	look.pixel_y = p_y
+
 	if(color_override)
 		look.color = color_override
 		look.appearance_flags = RESET_ALPHA
 	else
 		look.appearance_flags = RESET_COLOR | RESET_ALPHA
+
 	icon_state = null
 	add_overlay(look)
 	scale_to(1, scaling, FALSE)
 	turn_to(angle_override, FALSE)
-	if(!isnull(new_loc)) //If you want to null it just delete it...
+
+	if(!isnull(new_loc)) // If you want to null it just delete it...
 		forceMove(new_loc)
+
 	for(var/i in 1 to increment)
 		pixel_x += round((sin(angle_override) + 16 * sin(angle_override) * 2), 1)
 		pixel_y += round((cos(angle_override) + 16 * cos(angle_override) * 2), 1)

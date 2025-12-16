@@ -135,12 +135,15 @@
 	if(state != EMITTER_WELDED)
 		to_chat(user, span_warning("[src] needs to be firmly secured to the floor first."))
 		return TRUE
+
 	if(!powernet)
 		to_chat(user, span_warning("The emitter isn't connected to a wire."))
 		return TRUE
+
 	if(panel_open)
 		to_chat(user, span_warning("The maintenance panel needs to be closed!"))
 		return
+
 	if(locked)
 		to_chat(user, span_warning("The controls are locked!"))
 		return
@@ -168,6 +171,7 @@
 		user.visible_message(span_warning("[user] rips [src] free from its moorings!"))
 	else
 		. = ..()
+
 	if(. && !anchored)
 		step(src, get_dir(user, src))
 
@@ -180,13 +184,7 @@
 		update_appearance()
 		return
 
-	if(!active_power_usage || surplus() >= active_power_usage)
-		add_load(active_power_usage)
-		if(!powered)
-			powered = TRUE
-			update_appearance()
-			investigate_log("regained power and turned ON at [AREACOORD(src)]", INVESTIGATE_ENGINE)
-	else
+	if(active_power_usage && surplus() < active_power_usage)
 		if(powered)
 			powered = FALSE
 			update_appearance()
@@ -194,8 +192,15 @@
 			log_game("[src] lost power in [AREACOORD(src)]")
 		return
 
+	add_load(active_power_usage)
+	if(!powered)
+		powered = TRUE
+		update_appearance()
+		investigate_log("regained power and turned ON at [AREACOORD(src)]", INVESTIGATE_ENGINE)
+
 	if(!check_delay())
 		return FALSE
+
 	fire_beam()
 
 /obj/machinery/power/emitter/proc/check_delay()
@@ -204,56 +209,29 @@
 	return FALSE
 
 /obj/machinery/power/emitter/proc/fire_beam()
-	var/obj/projectile/proj = new projectile_type(get_turf(src))
+	var/obj/projectile/projectile = new projectile_type(get_turf(src))
 	playsound(src, projectile_sound, 50, TRUE)
 	if(prob(35))
 		sparks.start()
-	switch(dir)
-		if(NORTH)
-			proj.yo = 20
-			proj.xo = 0
-		if(NORTHEAST)
-			proj.yo = 20
-			proj.xo = 20
-		if(EAST)
-			proj.yo = 0
-			proj.xo = 20
-		if(SOUTHEAST)
-			proj.yo = -20
-			proj.xo = 20
-		if(WEST)
-			proj.yo = 0
-			proj.xo = -20
-		if(SOUTHWEST)
-			proj.yo = -20
-			proj.xo = -20
-		if(NORTHWEST)
-			proj.yo = 20
-			proj.xo = -20
-		else // Any other
-			proj.yo = -20
-			proj.xo = 0
+	projectile.firer_source_atom = src
+	projectile.Angle = dir2angle(dir)
+	projectile.fire((dir2angle(dir)))
 
 	// The hardcode for projectiles to properly fly in this direction. I don't know why.
 	if(dir == WEST)
-		proj.pixel_x = -1
+		projectile.pixel_x = -1
 	else if(dir == SOUTH)
-		proj.pixel_y = -1
+		projectile.pixel_y = -1
 
 	last_shot = world.time
 	if(shot_number < 3)
 		fire_delay = 20
-		shot_number++
+		shot_number ++
 	else
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
 
-	proj.setDir(dir)
-	proj.firer_source_atom = src
-	proj.starting = loc
-	proj.Angle = null
-	proj.fire()
-	return proj
+	return projectile
 
 /obj/machinery/power/emitter/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

@@ -23,6 +23,7 @@
 	var/tracer_count = 0
 	for(var/obj/effect/projectile/tracer/existing_tracer in midpoint_position.return_turf())
 		tracer_count++
+
 	if(tracer_count >= 3)
 		return // Damage still happens, this should stop engineers with looping emitters doing shenanigans that makes the server cry
 
@@ -31,13 +32,13 @@
 		lighting_color_override = tracer_color
 
 	tracer_instance.apply_vars(
-		angle_between_points(starting_position, ending_position),
-		midpoint_position.return_px(),
-		midpoint_position.return_py(),
-		tracer_color,
-		pixel_length_between_points(starting_position, ending_position) / ICON_SIZE_ALL,
-		midpoint_position.return_turf(),
-		0
+		angle_override = angle_between_points(starting_position, ending_position),
+		p_x = midpoint_position.return_px(),
+		p_y = midpoint_position.return_py(),
+		color_override = tracer_color,
+		scaling = pixel_length_between_points(starting_position, ending_position) / ICON_SIZE_ALL,
+		new_loc = midpoint_position.return_turf(),
+		increment = 0
 	)
 	. = tracer_instance
 
@@ -54,7 +55,6 @@
 		QDEL_IN(new /obj/effect/projectile_lighting(current_turf, lighting_color_override, lighting_range, lighting_intensity, lighting_instance_key), deletion_delay > 0 ? deletion_delay : 5)
 
 	line_of_sight = null
-
 	if(deletion_delay)
 		QDEL_IN(tracer_instance, deletion_delay)
 

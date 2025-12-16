@@ -609,16 +609,20 @@
 	//Safety here is to make hitscan stop if something goes wrong. Why is it equal to range * 10, when range is the maximum amount of tiles it can go? No clue.
 	var/safety = range * 10
 	record_hitscan_start(RETURN_POINT_VECTOR_INCREMENT(src, Angle, MUZZLE_EFFECT_PIXEL_INCREMENT, 1))
+
 	while(loc && !QDELETED(src))
 		if(paused)
 			stoplag(1)
 			continue
-		if(safety-- <= 0)
+
+		safety--
+		if(safety <= 0)
 			if(loc)
 				Bump(loc)
 			if(!QDELETED(src))
 				qdel(src)
 			return //Kill!
+
 		pixel_move(1, TRUE)
 		// No kevinz I do not care that this is a hitscan weapon, it is not allowed to travel 100 turfs in a tick
 		if(CHECK_TICK && QDELETED(src))
@@ -634,35 +638,66 @@
 	if(!length(beam_segments))
 		return
 
-	if(tracer_type)
-		var/tempuid = UID()
-		for(var/datum/point_precise/beam_point in beam_segments)
-			generate_tracer_between_points(beam_point, beam_segments[beam_point], tracer_type, color, duration, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity, tempuid)
-
-	if(muzzle_type && duration > 0)
-		var/datum/point_precise/start_point = beam_segments[1]
-		var/atom/movable/muzzle_effect = new muzzle_type
-		start_point.move_atom_to_src(muzzle_effect)
-		var/matrix/matrix = new
-		matrix.Turn(original_angle)
-		muzzle_effect.transform = matrix
-		muzzle_effect.color = color
-		muzzle_effect.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
-		QDEL_IN(muzzle_effect, duration)
-
-	if(impacting && impact_type && duration > 0)
-		var/datum/point_precise/last_point = beam_segments[beam_segments[length(beam_segments)]]
-		var/atom/movable/impact_effect = new impact_type
-		last_point.move_atom_to_src(impact_effect)
-		var/matrix/matrix = new
-		matrix.Turn(Angle)
-		impact_effect.transform = matrix
-		impact_effect.color = color
-		impact_effect.set_light(impact_light_range, impact_light_intensity, impact_light_color_override? impact_light_color_override : color)
-		QDEL_IN(impact_effect, duration)
+	generate_tracers(duration)
+	generate_muzzle_effect(duration)
+	generate_impact_effect(duration, impacting)
 
 	if(cleanup)
 		cleanup_beam_segments()
+
+/obj/projectile/proc/generate_tracers(duration)
+	if(!tracer_type)
+		return
+
+	var/tempuid = UID()
+	for(var/datum/point_precise/beam_point in beam_segments)
+		generate_tracer_between_points(
+			beam_point,
+			beam_segments[beam_point],
+			tracer_type,
+			color,
+			duration,
+			hitscan_light_range,
+			hitscan_light_color_override,
+			hitscan_light_intensity,
+			tempuid
+		)
+
+/obj/projectile/proc/generate_muzzle_effect(duration)
+	if(!muzzle_type || duration <= 0)
+		return
+
+	var/datum/point_precise/start_point = beam_segments[1]
+	var/atom/movable/muzzle_effect = new muzzle_type
+	start_point.move_atom_to_src(muzzle_effect)
+
+	var/matrix/matrix = new
+	matrix.Turn(original_angle)
+	muzzle_effect.transform = matrix
+	muzzle_effect.color = color
+
+	var/light_color = muzzle_flash_color_override ? muzzle_flash_color_override : color
+	muzzle_effect.set_light(muzzle_flash_range, muzzle_flash_intensity, light_color)
+
+	QDEL_IN(muzzle_effect, duration)
+
+/obj/projectile/proc/generate_impact_effect(duration, impacting)
+	if(!impacting || !impact_type || duration <= 0)
+		return
+
+	var/datum/point_precise/last_point = beam_segments[beam_segments[length(beam_segments)]]
+	var/atom/movable/impact_effect = new impact_type
+	last_point.move_atom_to_src(impact_effect)
+
+	var/matrix/matrix = new
+	matrix.Turn(Angle)
+	impact_effect.transform = matrix
+	impact_effect.color = color
+
+	var/light_color = impact_light_color_override ? impact_light_color_override : color
+	impact_effect.set_light(impact_light_range, impact_light_intensity, light_color)
+
+	QDEL_IN(impact_effect, duration)
 
 /obj/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
