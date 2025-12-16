@@ -255,56 +255,56 @@ ADMIN_VERB(cmd_admin_robotize, R_SPAWN, "Make Robot", ADMIN_VERB_NO_DESCRIPTION,
 	else
 		tgui_alert(user, "Invalid mob")
 
-ADMIN_VERB(cmd_admin_animalize, R_SPAWN, "Make Simple Animal", "Turn the target into a simple animal.", ADMIN_CATEGORY_EVENTS, mob/M in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_animalize, R_SPAWN, "Make Simple Animal", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
 
-	if(!M)
+	if(!target)
 		tgui_alert(user, "That mob doesn't seem to exist, close the panel and try again.")
 		return
 
-	if(isnewplayer(M))
+	if(isnewplayer(target))
 		tgui_alert(user, "The mob must not be a new_player.")
 		return
 
-	log_admin("[key_name(user)] has animalized [M.key].")
-	spawn(10)
-		M.Animalize()
+	log_admin("[key_name(user)] has animalized [target.key].")
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, Animalize)), 1 SECONDS)
 
-ADMIN_VERB(cmd_admin_gorillize, R_SPAWN, "Make Gorilla", "Turn the target mob into a Gorilla.", ADMIN_CATEGORY_EVENTS, mob/M in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_gorillize, R_SPAWN, "Make Gorilla", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
 
-	if(!M)
+	if(!target)
 		tgui_alert(user, "That mob doesn't seem to exist, close the panel and try again.")
 		return
 
-	if(isnewplayer(M))
+	if(isnewplayer(target))
 		tgui_alert(user, "The mob must not be a new_player.")
 		return
 
-	if(tgui_alert(user, "Confirm make gorilla?",, list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "Confirm make gorilla?", null, list("Yes", "No")) != "Yes")
 		return
 
-	var/gorilla_type = tgui_alert(user, "What kind of gorilla?", , list("Normal", "Enraged", "Cargorilla"))
+	var/gorilla_type = tgui_alert(user, "What kind of gorilla?", null, list("Normal", "Enraged", "Cargorilla"))
 	if(!gorilla_type)
 		return
 
-	log_admin("[key_name(user)] has gorillized [M.key].")
-	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
+	log_admin("[key_name(user)] has gorillized [target.key].")
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
-ADMIN_VERB(cmd_admin_super, R_SPAWN, "Make Superhero", "Turn the target mob into a superhero.", ADMIN_CATEGORY_EVENTS, mob/M in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_super, R_SPAWN, "Make Superhero", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
-	if(ishuman(M))
+
+	if(ishuman(target))
 		var/type = tgui_input_list(user, "Pick the Superhero", "Superhero", GLOB.all_superheroes)
-		var/datum/superheroes/S = GLOB.all_superheroes[type]
-		if(S)
-			S.create(M)
-		log_and_message_admins(span_notice("made [key_name(M)] into a Superhero."))
+		var/datum/superheroes/superhero = GLOB.all_superheroes[type]
+		if(superhero)
+			superhero.create(target)
+		log_and_message_admins(span_notice("made [key_name(target)] into a Superhero."))
 	else
 		tgui_alert(user, "Invalid mob")
 
