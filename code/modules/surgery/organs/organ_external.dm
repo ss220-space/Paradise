@@ -6,6 +6,12 @@
 #define LIMB_DMG_PROB 5
 /// Threshold needed to have a chance of inflicting fracture
 #define LIMB_FRACTURE_MIN_DMG 15
+/// Threshold needed to have a chance of inflicting bone crack
+#define LIMB_BONE_CRACK_MIN_DMG 8
+/// Threshold needed to have a chance of inflicting closed fracture
+#define LIMB_CLOSED_FRACTURE_MIN_DMG 20
+/// Threshold needed to have a chance of inflicting open fracture
+#define LIMB_OPEN_FRACTURE_MIN_DMG 35
 /// Threshold needed to have a chance of inflicting internal bleeding
 #define LIMB_INT_BLEEDING_MIN_DMG 15
 /// Threshold needed to have a chance of inflicting arterial bleeding
@@ -69,6 +75,8 @@
 	var/burn_dam = 0
 	/// Damage equal to brute damage after bodypart breaks. Used to calculate bodypart overall damage
 	var/perma_injury = 0
+	/// Fracture type
+	var/fracture_state = FALSE
 
 	/// Whether bodypart can be amputated
 	var/cannot_amputate = FALSE
@@ -664,14 +672,25 @@ Note that amputating the affected organ does in fact remove the infection from t
 		germ_level += germs_amount
 		owner.adjustToxLoss(1)
 
+
 /obj/item/organ/external/proc/try_fracture(inflicted_damage, silent = FALSE)
-	if(inflicted_damage <= LIMB_FRACTURE_MIN_DMG)
-		return FALSE
+	if(inflicted_damage < LIMB_BONE_CRACK_MIN_DMG)
+		return FALSE //too low damage - no fracture
+
 	if(brute_dam + burn_dam + inflicted_damage <= min_broken_damage)
-		return FALSE
+		return FALSE //bodypart is not damaged enough - no fracture
+
 	if(!prob(inflicted_damage * owner.dna.species.bonefragility * owner.physiology.bone_fragility))
-		return FALSE
-	if(fracture(silent))
+		return FALSE // bad luck - no fracture
+
+	var/fracture_type = FRACTURE_TYPE_OPEN
+	if(inflicted_damage < LIMB_CLOSED_FRACTURE_MIN_DMG)
+		fracture_type = FRACTURE_TYPE_CRACK
+
+	if(inflicted_damage < LIMB_OPEN_FRACTURE_MIN_DMG)
+		fracture_type = FRACTURE_TYPE_CLOSED
+
+	if(fracture(silent, fracture_type))
 		add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 		return TRUE
 	return FALSE
@@ -1030,14 +1049,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/stop_bleeding()
 	bleeding_amount = 0
 
-/obj/item/organ/external/proc/fracture(silent = FALSE)
+/obj/item/organ/external/proc/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
 	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
-	if(is_robotic())
+	if(is_robotic() || cannot_break)
 		return FALSE
-	if(has_fracture() || cannot_break)
+	if(has_fracture(fracture_type) && fracture_state >= fracture_type)
 		return FALSE
 
 	if(owner && !silent)
@@ -1053,15 +1072,25 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(owner.has_pain())
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
+	fracture_state = fracture_type
 	status |= ORGAN_BROKEN
+
 	broken_description = pick("Смещение кости", "Перелом", "Микротрещина")
+	switch(fracture_type)
+		if(FRACTURE_TYPE_CRACK)
+			broken_description = "Микротрещина"
+		if(FRACTURE_TYPE_CLOSED)
+			broken_description = "Закрытый перелом"
+		if(FRACTURE_TYPE_OPEN)
+			broken_description = "Открытый перелом"
+
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
 		release_restraints(silent = silent)
 
-	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE)
+	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE, fracture_type)
 	return TRUE
 
 /obj/item/organ/external/proc/has_fracture()
@@ -1074,6 +1103,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	status &= ~ORGAN_BROKEN
+	fracture_state = FALSE
 	perma_injury = 0
 	remove_splint()
 

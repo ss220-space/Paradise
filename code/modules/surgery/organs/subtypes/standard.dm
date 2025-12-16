@@ -155,7 +155,7 @@
 	. = ..()
 	user.update_fractures_slowdown()
 
-/obj/item/organ/external/leg/fracture(silent = FALSE)
+/obj/item/organ/external/leg/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
 	. = ..()
 	if(!. || !owner)
 		return .
@@ -261,7 +261,7 @@
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
-/obj/item/organ/external/foot/fracture(silent = FALSE)
+/obj/item/organ/external/foot/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
 	. = ..()
 	if(!. || !owner)
 		return .
