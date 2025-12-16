@@ -1,99 +1,61 @@
-# CONTRIBUTING
+# ВКЛАД В ПРОЕКТ
 
-## Introduction
+## Вступление
 
-This is the contribution guide for Paradise Station. These guidelines apply to
-both new issues and new pull requests. If you are making a pull request, please refer to
-the [Pull request](#pull-requests) section, and if you are making an issue report, please
-refer to the [Issue Report](#issues) section, as well as the
-[Issue Report Template](ISSUE_TEMPLATE.md).
+Перед вами руководство по внесению вклада в билд **Paradise** проекта **SS1984**. Здесь вы найдёте как советы по работе с Github, так и стандарты разработки/написания кода.
 
-## Commenting
+## Комментарии
 
-If you comment on an active pull request, or issue report, make sure your comment is
-concise and to the point. Comments on issue reports or pull requests should be relevant
-and friendly, not attacks on the author or adages about something minimally relevant.
-If you believe an issue report is not a "bug", please report it to the Maintainers, or
-point out specifically and concisely your reasoning in a comment on the issue report.
+Если вы оставляете комментарий под чьим-то Pull Request'ом (далее **"PR"**), убедитесь, что он ёмко и лаконично выражает вашу мысль. Не следует писать на отвлечённые темы или выражать агрессию/токсичность по отношению к автору — будьте **дружелюбны** и пишите **по теме** PR'а.
 
-## Issues
+## Pull Request'ы
 
-The Issues section is not a place to request features, or ask for things to be changed
-because you think they should be that way; The Issues section is specifically for
-reporting bugs in the code. Refer to ISSUE_TEMPLATE for the exact format that your Issue
-should be in.
+Вклад в разработку проекта и создание PR'ов игроками приветствуется и поощряется. Учтите, что ваш PR может не получить одобрение от **Ведущего Разработчика**, либо вас попросят его доработать. Это особенно актуально для PR'ов большого размера или тех, которые затрагивают баланс. Совещайтесь с другими разработчиками и задавайте вопросы. Вы же не хотите потратить своё время и силы на работу, которую в итоге забракуют.
 
-#### Guidelines:
+#### Правила:
 
-- Issue reports should be as detailed as possible, and if applicable, should include
-  instructions on how to reproduce the bug.
+- PR'ы должны быть **атомизированы**. Разбивайте значимые изменения на отдельные commit'ы. Благодаря такому подходу, в случае необходимости модификации/удаления определённого изменения вы можете работать только с соответствующим commit'ом. Хотя следование этому правилу не всегда является возможным из-за ограничений движка, старайтесь не пренебрегать им по возможности.
 
-## Pull requests
+- Тщательно **документируйте** и **объясняйте** свои PR's. Это особенно актуально, если вы портируете PR с другой кодбазы (**TG station**, например), структура кода которой может разительно отличаться от нашей. Чем лучше вы подходите к документированию своих работ, тем легче членам ревью-команды проверять ваши PR'ы и понимать ваш ход принятия решений. Иногда даже небольшая ремарка может значительно ускорить **процесс одобрения** ваших изменений.
 
-Players are welcome to participate in the development of this fork and submit their own
-pull requests. If the work you are submitting is a new feature, or affects balance, it is
-strongly recommended you get approval/traction for it from our forums before starting the
-actual development.
+- PR'ы не должны иметь каких-либо **merge-конфликтов**. Используйте `git rebase` или `git reset`, чтобы обновлять свои ветки, не `git pull`.
 
-#### Guidelines:
-
-- Pull requests should be atomic; Make one commit for each distinct change, so if a part
-  of a pull request needs to be removed/changed, you may simply modify that single commit.
-  Due to limitations of the engine, this may not always be possible; but do try your best.
-
-- Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
-  we question why changes were made. This is especially important if you're porting a PR
-  from another codebase (i.e. TG) and divert from the original. Explaining with single
-  comment on why you've made changes will help us review the PR faster and understand your
-  decision making process.
-
-- Any pull request must have a changelog, this is to allow us to know when a PR is deployed
-  on the live server. Inline changelogs are supported through the format described
-  [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
-  and should be used rather than manually edited .yml file changelogs.
-
-- Pull requests should not have any merge commits except in the case of fixing merge
-  conflicts for an existing pull request. New pull requests should not have any merge
-  commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
-
-- Please explain why you are submitting the pull request, and how you think your change will be beneficial to the game. Failure to do so will be grounds for rejecting the PR.
-
-- If your pull request is not finished make sure it is at least testable in a live environment. Pull requests that do not at least meet this requirement may be closed at maintainer discretion. You may request a maintainer reopen the pull request when you're ready, or make a new one.
-
-- While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality _before_ you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes.
+- Всегда объясняйте, почему ваши PR должен быть **одобрен** и какую **ценность** для проекта несут данные изменения. Этим правилом можно пренебречь, если вы считаете, что польза PR'а очевидна и не требует каких-либо дополнительных пояснений. Тем не менее, дополнительная информация никогда не будет лишней.
 
 #### Использование Changelog
 
-Перед вашим заголовком PR, требуется поставить корректный тэг, чтобы в игре Changelog его правильно отображал.
+Перед заголовком вашего PR'а требуется поставить корректный **тег**, что необходимо для корректного отображения оного в Changelog-меню игры, а также для сортировки PR'ов на Github. Названия PR'а рекомендуется писать на русском, хотя это не является обязательным (особенно для чисто технических изменений).
 
-Пример:
+Учтите, что вы можете использовать **мульти-теги**, прописывая теги PR'а через `/`.
+
+**Пример**:
 
 ```
-bugfix: clothing removes itself trying to adjust it.
-add: new lavaland elite mob
+bugfix: пропажа спрайта одежды при смене её внешнего вида
+add/local: новый босс для Лазиса + локализация старых боссов
 ```
 
-Список тегов для PRa:
+**Список тегов для PRa**:
 
-- **add:** Вы добавляете что-то новое.
-- **admin:** Вы меняете что-то связанное с администрацией. (кнопки, управление, панели, щитспавн и т.д.)
+- **add:** Вы добавляете новый контент в игру.
+- **admin:** Вы меняете что-то, связанное с администрацией (кнопки, управление, панели, щитспавн и т.д.)
 - **balance:** Вы производите балансировку в игре.
-- **bugfix:** Вы исправили некий баг.
+- **bugfix:** Вы исправляете некий баг.
 - **code_imp:** Вы имплементируете новое для билда, не меняя при этом ничего в самой игре.
 - **config:** Вы меняете конфиг или работу SQL.
-- **del:** Вы удаляете что-то из игры.
-- **experiment:** Ваш ПР сделан с целью какого-то эксперимента.
+- **del:** Вы удаляете контент из игры.
+- **experiment:** Ваш PR создан с целью какого-то эксперимента.
 - **map** Вы меняете только карту.
-- **local** Вы делаете добавляете новый текст на русском или переводите на русский.
-- **imageadd:**  Вы добавили новый спрайт.
-- **imagedel:**  Вы удалили старый спрайт.
-- **soundadd:** Вы добавили новый звук.
-- **sounddel:** Вы удалили старый звук.
-- **spellcheck:** Вы исправили опечатку.
-- **tweak:** Вы внесли незначительную правку.
-- **refactor:** Вы полностью переписали старый код, улучшив его, НО не изменив функционал.
+- **local** Вы только переводите контент игры с английского на русский.
+- **imageadd:**  Вы добавляете новый спрайт.
+- **imagedel:**  Вы удаляете старый спрайт.
+- **soundadd:** Вы добавляете новый звук.
+- **sounddel:** Вы удаляете старый звук.
+- **spellcheck:** Вы исправляете опечатку в тексте.
+- **tweak:** Вы вносите незначительную правку в баланс/контент игры.
+- **refactor:** Вы полностью переписываете старый код, улучшая его, но не изменяя функционал.
 - **server:** Вы меняете что-то связанное с серверной частью или Github.
-- **wip:** Ваш PR в драфте и планируется длительная разработка.
+- **wip:** Вы планиурете разрабатывать ваш PR в течении длительного времени.
 
 ## Specifications
 
