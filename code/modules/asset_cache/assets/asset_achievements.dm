@@ -1,6 +1,5 @@
 /datum/asset/spritesheet/simple/achievements
 	name = "achievements"
-	cross_round_cachable = FALSE
 
 /datum/asset/spritesheet/simple/achievements/create_spritesheets()
 	InsertAll("achievement", ACHIEVEMENTS_SET)

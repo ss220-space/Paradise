@@ -208,6 +208,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/allow_browser_inspect, // XSS prevention
 	/client/proc/change_title_screen_html,
 	/client/proc/paint_grids,
+	/client/proc/clear_legacy_asset_cache,
 ))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -992,7 +993,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"
-	set category = "Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 
 	if(!check_rights(R_SERVER))
 		return
@@ -1227,6 +1228,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/debugstatpanel()
 	set name = "Debug Stat Panel"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	src.stat_panel.send_message("create_debug")

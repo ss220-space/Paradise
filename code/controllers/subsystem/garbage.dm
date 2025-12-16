@@ -645,7 +645,7 @@ SUBSYSTEM_DEF(garbage)
 #undef REFSEARCH_RECURSE_LIMIT
 
 /datum/proc/find_refs()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Find References"
 
 	if(!check_rights(R_DEBUG))
@@ -653,7 +653,7 @@ SUBSYSTEM_DEF(garbage)
 	find_references()
 
 /datum/proc/qdel_then_find_references()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "qdel() then Find References"
 	if(!check_rights(R_DEBUG))
 		return
@@ -663,7 +663,7 @@ SUBSYSTEM_DEF(garbage)
 		find_references(TRUE)
 
 /datum/proc/qdel_then_if_fail_find_references()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "qdel() then Find References if GC failure"
 	if(!check_rights(R_DEBUG))
 		return
