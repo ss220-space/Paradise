@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(profiler_enabled, FALSE)
 
 /client/proc/profiler_start()
 	set name = "Tracy Profiler Start"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "Starts the tracy profiler and writes the data to the server's data directory."
 
 	if(holder && holder.rights != R_HOST)
@@ -59,7 +59,7 @@ GLOBAL_VAR_INIT(profiler_enabled, FALSE)
 
 /client/proc/profiler_stop()
 	set name = "Tracy Profiler Stop"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "Stop the tracy profiler."
 
 	if(holder && holder.rights != R_HOST)
