@@ -71,7 +71,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc = "Edit player (respawn, ban, heal, etc)"
 
 	if(!M)
-		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -85,7 +85,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/show_old_player_panel(mob/M)
 
 	if(!M)
-		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -579,7 +579,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		BLACKBOX_LOG_ADMIN_VERB("Start Game")
 		return 1
 	else
-		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
+		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential = TRUE)
 		return
 
 /datum/admins/proc/toggleenter()
@@ -854,10 +854,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	if(!istype(M))
-		to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+		to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 		return
 	if(!M.mind)
-		to_chat(usr, "This mob has no mind!", confidential=TRUE)
+		to_chat(usr, "This mob has no mind!", confidential = TRUE)
 		return
 
 	M.mind.edit_memory()
@@ -908,7 +908,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential=TRUE)
+	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential = TRUE)
 
 	log_and_message_admins("checked the AI laws")
 
@@ -957,7 +957,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(kick_only_afk && !C.is_afk())	//Ignore clients who are not afk
 				continue
 			if(message)
-				to_chat(C, message, confidential=TRUE)
+				to_chat(C, message, confidential = TRUE)
 			kicked_client_names.Add("[C.ckey]")
 			qdel(C)
 	return kicked_client_names

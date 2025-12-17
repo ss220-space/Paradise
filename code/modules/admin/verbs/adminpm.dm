@@ -62,7 +62,7 @@
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, type = "PM", ticket_id = -1)
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, span_danger("Error: Private-Message: You are unable to use PM-s (muted)."), confidential=TRUE)
+		to_chat(src, span_danger("Error: Private-Message: You are unable to use PM-s (muted)."), confidential = TRUE)
 		return
 
 	var/client/C
@@ -73,7 +73,7 @@
 
 	if(!C)
 		if(holder)
-			to_chat(src, span_danger("Error: Private-Message: Client not found."), confidential=TRUE)
+			to_chat(src, span_danger("Error: Private-Message: Client not found."), confidential = TRUE)
 		else
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
@@ -122,7 +122,7 @@
 			return
 		if(!C)
 			if(holder)
-				to_chat(src, span_danger("Error: Admin-PM: Client not found."), confidential=TRUE)
+				to_chat(src, span_danger("Error: Admin-PM: Client not found."), confidential = TRUE)
 			else
 				adminhelp(msg) //admin we are replying to has vanished, adminhelp instead
 			return
@@ -145,7 +145,7 @@
 		receive_pm_type = holder.rank
 
 	else if(!C.holder)
-		to_chat(src, span_danger("Error: Admin-PM: Non-admin to non-admin PM communication is forbidden."), confidential=TRUE)
+		to_chat(src, span_danger("Error: Admin-PM: Non-admin to non-admin PM communication is forbidden."), confidential = TRUE)
 		return
 
 	var/receive_message = ""
@@ -156,7 +156,7 @@
 		receive_message = "<span class='[receive_span]' size='3'>-- Click the [receive_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
 			window_flash(C)
-			to_chat(C, receive_message, confidential=TRUE)
+			to_chat(C, receive_message, confidential = TRUE)
 			C.adminhelped = 0
 
 		//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
@@ -239,11 +239,11 @@
 
 /client/proc/cmd_admin_discord_pm()
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, span_danger("Error: Private-Message: You are unable to use PMs (muted)."), confidential=TRUE)
+		to_chat(src, span_danger("Error: Private-Message: You are unable to use PMs (muted)."), confidential = TRUE)
 		return
 
 	if(last_discord_pm_time > world.time)
-		to_chat(usr, span_warning("Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord."), confidential=TRUE)
+		to_chat(usr, span_warning("Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord."), confidential = TRUE)
 		return
 
 	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
@@ -257,8 +257,8 @@
 	sanitize(msg)
 
 	if(length(msg) > 400) // Dont want them super spamming
-		to_chat(src, span_warning("Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"), confidential=TRUE)
-		to_chat(src, span_notice("[msg]"), confidential=TRUE)
+		to_chat(src, span_warning("Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"), confidential = TRUE)
+		to_chat(src, span_notice("[msg]"), confidential = TRUE)
 		return
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
@@ -270,7 +270,7 @@
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential=TRUE)
+			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential = TRUE)
 
 /client/verb/open_pms_ui()
 	set name = "ЛС"
@@ -443,7 +443,7 @@
 			C.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
 			C.pm_tracker.show_ui(C.mob)
-			to_chat(usr, span_notice("Forced open [C]'s messages window."), confidential=TRUE)
+			to_chat(usr, span_notice("Forced open [C]'s messages window."), confidential = TRUE)
 		return
 
 	if(href_list["reply"])

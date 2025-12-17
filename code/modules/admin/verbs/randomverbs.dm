@@ -90,7 +90,7 @@
 				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
 
 	if(missing_ages)
-		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present", confidential=TRUE)
+		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present", confidential = TRUE)
 
 	if(msg != "")
 		var/datum/browser/popup = new(src, "player_age_check", "Player Age Check")
@@ -98,7 +98,7 @@
 		popup.open(FALSE)
 
 	else
-		to_chat(src, "No matches for that age range found.", confidential=TRUE)
+		to_chat(src, "No matches for that age range found.", confidential = TRUE)
 
 /client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
 	set category = STATPANEL_ADMIN_EVENT
@@ -163,10 +163,10 @@
 		return
 
 	if(!istype(H))
-		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential=TRUE)
+		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential = TRUE)
 		return
 	if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-		to_chat(usr, "The person you are trying to contact is not wearing a headset", confidential=TRUE)
+		to_chat(usr, "The person you are trying to contact is not wearing a headset", confidential = TRUE)
 		return
 
 	if(!sender)
@@ -199,7 +199,7 @@
 	else
 		ADD_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
 
-	to_chat(usr, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential=TRUE)
+	to_chat(usr, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential = TRUE)
 	log_and_message_admins("has toggled [key_name_admin(mob)]'s nodamage to [had_trait ? "Off" : "On"]")
 	BLACKBOX_LOG_ADMIN_VERB("Godmode")
 
@@ -211,10 +211,10 @@
 		if(!usr || !usr.client)
 			return
 		if(!check_rights(R_ADMIN|R_MOD))
-			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: You don't have permission to do this.</span>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: You don't have permission to do this.</span>", confidential = TRUE)
 			return
 		if(!M.client)
-			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</span>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</span>", confidential = TRUE)
 	if(!M.client)
 		return
 
@@ -246,7 +246,7 @@
 		force_add_mute(M.client.ckey, mute_type)
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(M)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(M)] from [mute_string].")
-		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.", confidential=TRUE)
+		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.", confidential = TRUE)
 		BLACKBOX_LOG_ADMIN_VERB("Automute")
 		return
 
@@ -258,7 +258,7 @@
 		muteunmute = "unmuted"
 
 	log_and_message_admins("has [muteunmute] [key_name_admin(M)] from [mute_string].")
-	to_chat(M, "You have been [muteunmute] from [mute_string].", confidential=TRUE)
+	to_chat(M, "You have been [muteunmute] from [mute_string].", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Mute")
 
 /client/proc/cmd_admin_add_random_ai_law()
@@ -297,7 +297,7 @@
 				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD.</span>")
 
 		CONFIG_SET(flag/allow_antag_hud, FALSE)
-		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled.</span>", confidential=TRUE)
+		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled.</span>", confidential = TRUE)
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
@@ -306,7 +306,7 @@
 
 		CONFIG_SET(flag/allow_antag_hud, TRUE)
 		action = "enabled"
-		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled.</span>", confidential=TRUE)
+		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled.</span>", confidential = TRUE)
 
 	log_and_message_admins("has [action] antagHUD usage for observers")
 
@@ -324,7 +324,7 @@
 			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD.</span>")
 		action = "lifted restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, FALSE)
-		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted.</span>", confidential=TRUE)
+		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted.</span>", confidential = TRUE)
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD.</span>")
@@ -333,7 +333,7 @@
 			g.has_enabled_antagHUD = FALSE
 		action = "placed restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, TRUE)
-		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled.</span>", confidential=TRUE)
+		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled.</span>", confidential = TRUE)
 
 	log_and_message_admins("has [action] on joining the round if they use AntagHUD")
 
@@ -361,7 +361,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			break
 
 	if(!G_found)//If a ghost was not found.
-		to_chat(usr, "<span style='color: red;'>There is no active key like that in the game or the person is not currently a ghost.</span>", confidential=TRUE)
+		to_chat(usr, "<span style='color: red;'>There is no active key like that in the game or the person is not currently a ghost.</span>", confidential = TRUE)
 		return
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
@@ -520,7 +520,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(length(candidates))
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
-			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential = TRUE)
 	if(!istext(ckey))	return 0
 
 	var/alien_caste = tgui_input_list(usr, "Please choose which caste to spawn.", "Pick a caste", list("Queen", "Hunter", "Sentinel", "Drone", "Larva"), null)
@@ -551,7 +551,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		any = 1                                                 //if no ghosts show up, any will just be 0
 	if(!any)
 		if(notify)
-			to_chat(src, "There doesn't appear to be any ghosts for you to select.", confidential=TRUE)
+			to_chat(src, "There doesn't appear to be any ghosts for you to select.", confidential = TRUE)
 		return
 
 	for(var/mob/M in mobs)
@@ -682,7 +682,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/admin_delete(datum/D)
 	if(istype(D) && !D.can_vv_delete())
-		to_chat(src, "[D] rejected your deletion", confidential=TRUE)
+		to_chat(src, "[D] rejected your deletion", confidential = TRUE)
 		return
 	var/atom/A = D
 	var/coords = ""
@@ -718,7 +718,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSjobs)
 		var/currentpositiontally
 		var/totalpositiontally
-		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b></span>", confidential=TRUE)
+		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b></span>", confidential = TRUE)
 		for(var/datum/job/job in SSjobs.occupations)
 			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
@@ -726,7 +726,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(job.total_positions != -1) // Only count position that isn't unlimited
 				currentpositiontally += job.current_positions
 				totalpositiontally += job.total_positions
-		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential=TRUE)
+		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("List Free Slots")
 
 /client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view(maxview()))
@@ -827,7 +827,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/list/L = M.get_contents()
 	for(var/atom/t in L)
-		to_chat(usr, "[t] [ADMIN_VV(t,"VV")] ", confidential=TRUE)
+		to_chat(usr, "[t] [ADMIN_VV(t,"VV")] ", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 /client/proc/toggle_view_range()
@@ -987,13 +987,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(SSticker?.mode)
-		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!", confidential=TRUE)
+		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!", confidential = TRUE)
 		return
 
 	if(SSticker.random_players)
 		SSticker.random_players = 0
 		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.")
-		to_chat(usr, "Disabled.", confidential=TRUE)
+		to_chat(usr, "Disabled.", confidential = TRUE)
 		return
 
 	var/notifyplayers = tgui_alert(src, "Do you want to notify the players?", "Options", list("Yes", "No", "Cancel"))
@@ -1005,7 +1005,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(notifyplayers == "Yes")
 		to_chat(world, "<span class='notice'><b>Admin [usr.key] has forced the players to have completely random identities!</span>")
 
-	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.", confidential=TRUE)
+	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.", confidential = TRUE)
 
 	SSticker.random_players = 1
 	BLACKBOX_LOG_ADMIN_VERB("Make Everyone Random")
@@ -1020,11 +1020,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(!CONFIG_GET(flag/allow_random_events))
 		CONFIG_SET(flag/allow_random_events, TRUE)
-		to_chat(usr, "Random events enabled", confidential=TRUE)
+		to_chat(usr, "Random events enabled", confidential = TRUE)
 		log_and_message_admins("has enabled random events.")
 	else
 		CONFIG_SET(flag/allow_random_events, FALSE)
-		to_chat(usr, "Random events disabled", confidential=TRUE)
+		to_chat(usr, "Random events disabled", confidential = TRUE)
 		log_and_message_admins("has disabled random events.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Random Events")
 
@@ -1152,12 +1152,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(SSticker.mode.ert_disabled)
 		SSticker.mode.ert_disabled = 0
-		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>", confidential=TRUE)
+		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>", confidential = TRUE)
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		log_and_message_admins("has enabled ERT calling.")
 	else
 		SSticker.mode.ert_disabled = 1
-		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>", confidential=TRUE)
+		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>", confidential = TRUE)
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		log_and_message_admins("has disabled ERT calling.")
 
@@ -1197,7 +1197,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /datum/admins/proc/modify_goals()
 	if(!SSticker || !SSticker.mode)
-		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>", confidential=TRUE)
+		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>", confidential = TRUE)
 		return
 
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}

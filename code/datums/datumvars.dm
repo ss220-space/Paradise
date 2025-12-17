@@ -75,7 +75,7 @@
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
 	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>", confidential=TRUE)
+		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>", confidential = TRUE)
 		return
 
 	if(!D)
@@ -572,7 +572,7 @@
 
 		var/mob/M = locateUID(href_list["rename"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		var/new_name = reject_bad_name(sanitize(tgui_input_text(usr, "What would you like to name this mob?", "Input a name", M.real_name, encode = FALSE, max_length = MAX_NAME_LEN)), allow_numbers = TRUE)
@@ -590,7 +590,7 @@
 
 		var/datum/D = locateUID(href_list["datumedit"])
 		if(!isdatum(D) && !isclient(D))
-			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential = TRUE)
 			return
 
 		if(!modify_variables(D, href_list["varnameedit"], 1))
@@ -624,10 +624,10 @@
 
 		var/atom/D = locateUID(href_list["subject"])
 		if(!isdatum(D) && !isclient(D))
-			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential = TRUE)
 			return
 		if(!(href_list["var"] in D.vars))
-			to_chat(usr, "Unable to find variable specified.", confidential=TRUE)
+			to_chat(usr, "Unable to find variable specified.", confidential = TRUE)
 			return
 		var/value = D.vars[href_list["var"]]
 		value ^= 1 << text2num(href_list["togbit"])
@@ -639,7 +639,7 @@
 
 		var/D = locateUID(href_list["datumchange"])
 		if(!isdatum(D) && !isclient(D))
-			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential = TRUE)
 			return
 
 		modify_variables(D, href_list["varnamechange"], 0)
@@ -649,7 +649,7 @@
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
-			to_chat(usr, "This can only be used on instances of type /atom", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /atom", confidential = TRUE)
 			return
 
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
@@ -659,7 +659,7 @@
 
 		var/mob/M = locateUID(href_list["mob_player_panel"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		src.holder.show_player_panel(M)
@@ -669,7 +669,7 @@
 
 		var/mob/M = locateUID(href_list["give_spell"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		src.give_spell(M)
@@ -679,7 +679,7 @@
 
 		var/mob/living/carbon/C = locateUID(href_list["givemartialart"])
 		if(!istype(C))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon", confidential = TRUE)
 			return
 
 		var/list/artpaths = subtypesof(/datum/martial_art)
@@ -692,7 +692,7 @@
 		if(!usr)
 			return
 		if(QDELETED(C))
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 
 		if(result)
@@ -705,7 +705,7 @@
 
 		var/mob/M = locateUID(href_list["give_disease"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		src.give_disease(M)
@@ -715,12 +715,12 @@
 
 		var/mob/living/M = locateUID(href_list["give_taipan_hud"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob/living", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob/living", confidential = TRUE)
 			return
 		var/selected_job = tgui_input_list(usr, "Select a job", "Hud Job Selection", GLOB.all_taipan_jobs)
 
 		if(!selected_job)
-			to_chat(usr, "No job selected!", confidential=TRUE)
+			to_chat(usr, "No job selected!", confidential = TRUE)
 			return
 
 		var/selected_role = M.find_taipan_hud_number_by_job(job = selected_job)
@@ -731,7 +731,7 @@
 
 		var/mob/M = locateUID(href_list["godmode"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		src.cmd_admin_godmode(M)
@@ -741,7 +741,7 @@
 
 		var/mob/M = locateUID(href_list["gib"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		src.cmd_admin_gib(M)
@@ -751,7 +751,7 @@
 
 		var/mob/M = locateUID(href_list["build_mode"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		togglebuildmode(M)
@@ -761,7 +761,7 @@
 
 		var/mob/M = locateUID(href_list["drop_everything"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		if(usr.client)
@@ -772,7 +772,7 @@
 
 		var/mob/M = locateUID(href_list["direct_control"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 
 		if(usr.client)
@@ -783,7 +783,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["make_skeleton"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		var/confirm = tgui_alert(usr, "Are you sure you want to turn this mob into a skeleton?", "Confirm Skeleton Transformation", list("Yes", "No"))
@@ -798,7 +798,7 @@
 
 		var/mob/M = locateUID(href_list["offer_control"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /mob", confidential = TRUE)
 			return
 		offer_control(M)
 
@@ -808,7 +808,7 @@
 
 		var/datum/D = locateUID(href_list["delete"])
 		if(!D)
-			to_chat(usr, "Unable to locate item!", confidential=TRUE)
+			to_chat(usr, "Unable to locate item!", confidential = TRUE)
 		admin_delete(D)
 		if(isturf(D))  // show the turf that took its place
 			debug_variables(D)
@@ -818,7 +818,7 @@
 
 		var/obj/O = locateUID(href_list["delall"])
 		if(!isobj(O))
-			to_chat(usr, "This can only be used on instances of type /obj", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /obj", confidential = TRUE)
 			return
 
 		var/action_type = tgui_alert(usr, "Strict type ([O.type]) or type and all subtypes?",, list("Strict type", "Type and subtypes", "Cancel"))
@@ -840,7 +840,7 @@
 						i++
 						qdel(Obj)
 				if(!i)
-					to_chat(usr, "No objects of this type exist", confidential=TRUE)
+					to_chat(usr, "No objects of this type exist", confidential = TRUE)
 					return
 				log_and_message_admins("deleted all objects of type [O_type] ([i] objects deleted)")
 			if("Type and subtypes")
@@ -850,7 +850,7 @@
 						i++
 						qdel(Obj)
 				if(!i)
-					to_chat(usr, "No objects of this type exist", confidential=TRUE)
+					to_chat(usr, "No objects of this type exist", confidential = TRUE)
 					return
 				log_and_message_admins("deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
@@ -948,7 +948,7 @@
 
 		var/atom/A = locateUID(href_list["explode"])
 		if(!isobj(A) && !ismob(A) && !isturf(A))
-			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential = TRUE)
 			return
 
 		src.cmd_admin_explosion(A)
@@ -958,7 +958,7 @@
 
 		var/atom/A = locateUID(href_list["emp"])
 		if(!isobj(A) && !ismob(A) && !isturf(A))
-			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential = TRUE)
 			return
 
 		src.cmd_admin_emp(A)
@@ -968,7 +968,7 @@
 
 		var/datum/datum = locateUID(href_list["mark_object"])
 		if(!istype(datum))
-			to_chat(usr, "This can only be done to instances of type /datum", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /datum", confidential = TRUE)
 			return
 
 		mark_datum(datum)
@@ -998,13 +998,13 @@
 		if(!usr || result == "---Components---" || result == "---Elements---")
 			return
 		if(QDELETED(target))
-			to_chat(usr, "That thing doesn't exist anymore!", confidential=TRUE)
+			to_chat(usr, "That thing doesn't exist anymore!", confidential = TRUE)
 			return
 		var/list/lst = get_callproc_args()
 		if(!lst)
 			return
 		if(QDELETED(target))
-			to_chat(usr, "That thing doesn't exist anymore!", confidential=TRUE)
+			to_chat(usr, "That thing doesn't exist anymore!", confidential = TRUE)
 			return
 		var/datumname = "error"
 		lst.Insert(1, result)
@@ -1077,7 +1077,7 @@
 
 		var/atom/A = locateUID(href_list["rotatedatum"])
 		if(!istype(A))
-			to_chat(usr, "This can only be done to instances of type /atom", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /atom", confidential = TRUE)
 			return
 
 		switch(href_list["rotatedir"])
@@ -1092,14 +1092,14 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makemonkey"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
 			return
 
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		holder.Topic(href, list("monkeyone"=href_list["makemonkey"]))
 
@@ -1108,14 +1108,14 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
 			return
 
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		holder.Topic(href, list("makerobot"=href_list["makerobot"]))
 
@@ -1124,13 +1124,13 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
 			return
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		holder.Topic(href, list("makealien"=href_list["makealien"]))
 
@@ -1139,13 +1139,13 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
 			return
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		holder.Topic(href, list("makeslime"=href_list["makeslime"]))
 
@@ -1154,14 +1154,14 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
 			return
 
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		holder.Topic(href, list("makesuper"=href_list["makesuper"]))
 
@@ -1170,13 +1170,13 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
 			return
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		holder.Topic(href, list("makeai"=href_list["makeai"]))
 
@@ -1185,7 +1185,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["setspecies"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential = TRUE)
 			return
 
 		var/new_species = tgui_input_list(usr, "Please choose a new species.","Species", GLOB.all_species)
@@ -1194,23 +1194,23 @@
 			return
 
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 
 		var/datum/species/S = GLOB.all_species[new_species]
 		if(H.set_species(S.type))
-			to_chat(usr, "Set species of [H] to [H.dna.species].", confidential=TRUE)
+			to_chat(usr, "Set species of [H] to [H.dna.species].", confidential = TRUE)
 			H.regenerate_icons()
 			log_and_message_admins("has changed the species of [key_name_admin(H)] to [new_species]")
 		else
-			to_chat(usr, "Failed! Something went wrong.", confidential=TRUE)
+			to_chat(usr, "Failed! Something went wrong.", confidential = TRUE)
 
 	else if(href_list["addlanguage"])
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/H = locateUID(href_list["addlanguage"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob", confidential = TRUE)
 			return
 
 		var/new_language = tgui_input_list(usr, "Please choose a language to add.","Language", GLOB.all_languages)
@@ -1219,25 +1219,25 @@
 			return
 
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 
 		if(H.add_language(new_language))
-			to_chat(usr, "Added [new_language] to [H].", confidential=TRUE)
+			to_chat(usr, "Added [new_language] to [H].", confidential = TRUE)
 			log_and_message_admins("has given [key_name_admin(H)] the language [new_language]")
 		else
-			to_chat(usr, "Mob already knows that language.", confidential=TRUE)
+			to_chat(usr, "Mob already knows that language.", confidential = TRUE)
 
 	else if(href_list["remlanguage"])
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/H = locateUID(href_list["remlanguage"])
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob", confidential = TRUE)
 			return
 
 		if(!LAZYLEN(H.languages))
-			to_chat(usr, "This mob knows no languages (Perhaps because he was stricken with Babylonian Fewer).", confidential=TRUE)
+			to_chat(usr, "This mob knows no languages (Perhaps because he was stricken with Babylonian Fewer).", confidential = TRUE)
 			return
 
 		var/datum/language/rem_language = tgui_input_list(usr, "Please choose a language to remove.","Language", H.languages)
@@ -1246,14 +1246,14 @@
 			return
 
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 
 		if(H.remove_language(rem_language.name))
-			to_chat(usr, "Removed [rem_language] from [H].", confidential=TRUE)
+			to_chat(usr, "Removed [rem_language] from [H].", confidential = TRUE)
 			log_and_message_admins("has removed language [rem_language] from [key_name(H)]")
 		else
-			to_chat(usr, "Mob doesn't know that language.", confidential=TRUE)
+			to_chat(usr, "Mob doesn't know that language.", confidential = TRUE)
 
 	else if(href_list["grantalllanguage"])
 		if(!check_rights(R_SPAWN))	return
@@ -1261,12 +1261,12 @@
 		var/mob/H = locateUID(href_list["grantalllanguage"])
 
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob", confidential = TRUE)
 			return
 
 		H.grant_all_languages()
 
-		to_chat(usr, "Added all languages to [H].", confidential=TRUE)
+		to_chat(usr, "Added all languages to [H].", confidential = TRUE)
 		log_and_message_admins("has given [key_name(H)] all languages")
 
 	else if(href_list["changevoice"])
@@ -1275,7 +1275,7 @@
 		var/mob/H = locateUID(href_list["changevoice"])
 
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob", confidential = TRUE)
 			return
 
 		var/old_tts_seed = H.tts_seed
@@ -1283,8 +1283,8 @@
 		if(!new_tts_seed)
 			return
 
-		to_chat(usr, "Changed voice from [old_tts_seed] to [new_tts_seed] for [H].", confidential=TRUE)
-		to_chat(H, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential=TRUE)
+		to_chat(usr, "Changed voice from [old_tts_seed] to [new_tts_seed] for [H].", confidential = TRUE)
+		to_chat(H, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential = TRUE)
 		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["addverb"])
@@ -1293,7 +1293,7 @@
 		var/mob/living/H = locateUID(href_list["addverb"])
 
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living", confidential = TRUE)
 			return
 		var/list/possibleverbs = list()
 		possibleverbs += "Cancel"								// One for the top...
@@ -1310,7 +1310,7 @@
 
 		var/verb = tgui_input_list(usr, "Select a verb!", "Verbs", possibleverbs, null)
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		if(!verb || verb == "Cancel")
 			return
@@ -1324,11 +1324,11 @@
 		var/mob/H = locateUID(href_list["remverb"])
 
 		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob", confidential = TRUE)
 			return
 		var/verb = tgui_input_list(usr, "Please choose a verb to remove.","Verbs", H.verbs)
 		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 		if(!verb)
 			return
@@ -1341,18 +1341,18 @@
 
 		var/mob/living/carbon/M = locateUID(href_list["addorgan"])
 		if(!istype(M))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon", confidential = TRUE)
 			return
 
 		var/new_organ = tgui_input_list(usr, "Please choose an organ to add.","Organ", subtypesof(/obj/item/organ)-/obj/item/organ)
 		if(!new_organ) return
 
 		if(!M)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 
 		if(locate(new_organ) in M.internal_organs)
-			to_chat(usr, "Mob already has that organ.", confidential=TRUE)
+			to_chat(usr, "Mob already has that organ.", confidential = TRUE)
 			return
 		new new_organ(M)
 		M.regenerate_icons()
@@ -1363,20 +1363,20 @@
 
 		var/mob/living/carbon/M = locateUID(href_list["remorgan"])
 		if(!istype(M))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon", confidential = TRUE)
 			return
 
 		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", M.internal_organs)
 
 		if(!M)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 
 		if(!(rem_organ in M.internal_organs))
-			to_chat(usr, "Mob does not have that organ.", confidential=TRUE)
+			to_chat(usr, "Mob does not have that organ.", confidential = TRUE)
 			return
 
-		to_chat(usr, "Removed [rem_organ] from [M].", confidential=TRUE)
+		to_chat(usr, "Removed [rem_organ] from [M].", confidential = TRUE)
 		rem_organ.remove(M)
 		log_and_message_admins("has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
@@ -1386,7 +1386,7 @@
 
 		var/mob/M = locateUID(href_list["regenerateicons"])
 		if(!ismob(M))
-			to_chat(usr, "This can only be done to instances of type /mob", confidential=TRUE)
+			to_chat(usr, "This can only be done to instances of type /mob", confidential = TRUE)
 			return
 		M.regenerate_icons()
 
@@ -1401,7 +1401,7 @@
 		var/amount = tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss", 0, 1000, -1000)
 
 		if(!L)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
+			to_chat(usr, "Mob doesn't exist anymore", confidential = TRUE)
 			return
 
 		var/newamt
@@ -1436,7 +1436,7 @@
 				L.adjustStaminaLoss(amount)
 				newamt = L.getStaminaLoss()
 			else
-				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]", confidential=TRUE)
+				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]", confidential = TRUE)
 				return
 
 		if(amount != 0)
@@ -1548,7 +1548,7 @@
 
 		var/list/L = locate(href_list["listedit"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return
 
 		mod_list(L, null, "list", "contents", index, autodetect_class = TRUE)
@@ -1563,7 +1563,7 @@
 
 		var/list/L = locate(href_list["listchange"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return
 
 		mod_list(L, null, "list", "contents", index, autodetect_class = FALSE)
@@ -1578,7 +1578,7 @@
 
 		var/list/L = locate(href_list["listremove"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return
 
 		var/variable = L[index]
@@ -1596,7 +1596,7 @@
 			return
 		var/list/L = locate(href_list["listadd"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return TRUE
 
 		mod_list_add(L, null, "list", "contents")
@@ -1607,7 +1607,7 @@
 			return
 		var/list/L = locate(href_list["listdupes"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return TRUE
 
 		unique_list_in_place(L)
@@ -1621,7 +1621,7 @@
 			return
 		var/list/L = locate(href_list["listnulls"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return TRUE
 
 		list_clear_nulls(L)
@@ -1635,7 +1635,7 @@
 			return
 		var/list/L = locate(href_list["listlen"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return TRUE
 		var/value = vv_get_value(VV_NUM)
 		if(value["class"] != VV_NUM)
@@ -1653,7 +1653,7 @@
 
 		var/list/L = locate(href_list["listshuffle"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
+			to_chat(usr, "This can only be used on instances of type /list", confidential = TRUE)
 			return TRUE
 
 		shuffle_inplace(L)

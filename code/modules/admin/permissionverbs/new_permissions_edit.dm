@@ -201,7 +201,7 @@
 	var/datum/admins/admin_datum
 
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "Warning, MYSQL database is not connected.", confidential=TRUE)
+		to_chat(src, "Warning, MYSQL database is not connected.", confidential = TRUE)
 		return
 
 	var/datum/db_query/admin_read = SSdbcore.NewQuery(

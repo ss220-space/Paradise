@@ -14,7 +14,7 @@
 	if(!check_rights(NONE))
 		return
 	if(!M)
-		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential = TRUE)
 		return
 	var/mob = null
 	// First we get mob. Check for ckey and client inside
