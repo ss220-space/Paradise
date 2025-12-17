@@ -8,7 +8,7 @@
 	item_state = "bottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
-	custom_price = PAYCHECK_MIN
+	custom_price = PAYCHECK_MIN * 0.6
 
 /obj/item/reagent_containers/glass/bottle/get_ru_names()
 	return list(
@@ -78,6 +78,7 @@
 	name = "atropine bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится атропин."
 	list_reagents = list("atropine" = 30)
+	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/atropine/get_ru_names()
 	return list(
@@ -259,6 +260,7 @@
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
 	list_reagents = list("morphine" = 30)
+	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/morphine/get_ru_names()
 	return list(
@@ -634,6 +636,7 @@
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
 	list_reagents = list("oculine" = 30)
+	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/reagent_containers/glass/bottle/oculine/get_ru_names()
 	return list(

@@ -240,7 +240,7 @@
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/bruise_pack
-	custom_price = PAYCHECK_MIN
+	custom_price = PAYCHECK_MIN * 0.4
 
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -373,7 +373,7 @@
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 	use_flags = DA_IGNORE_LYING
-	custom_price = PAYCHECK_MIN * 2
+	custom_price = PAYCHECK_MIN * 1.5
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	icon_state = "traumakit_[round_down((amount + 1) / 2, 1)]"
@@ -419,7 +419,7 @@
 	energy_type = /datum/robot_energy_storage/medical
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/ointment
-	custom_price = PAYCHECK_MIN
+	custom_price = PAYCHECK_MIN * 0.4
 
 /obj/item/stack/medical/ointment/get_priority_targeting(mob/living/target, mob/living/user)
 	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_burn_damage_bodypart))
@@ -467,7 +467,7 @@
 	max_amount = 8
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
-	custom_price = PAYCHECK_MIN * 2
+	custom_price = PAYCHECK_MIN * 1.5
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
 	icon_state = "burnkit_[round_down((amount + 1) / 2, 1)]"
@@ -553,7 +553,7 @@
 	)
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/splint
-	custom_price = PAYCHECK_LOWER
+	custom_price = PAYCHECK_MIN
 
 /obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -646,7 +646,7 @@
 	use_flags = DA_IGNORE_LYING
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
-	custom_price = PAYCHECK_LOWER
+	custom_price = PAYCHECK_MIN
 
 /obj/item/stack/medical/suture/get_ru_names()
 	return list(
@@ -718,7 +718,7 @@
 	self_delay = 2 SECONDS
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/suture/advanced
-	custom_price = PAYCHECK_CREW
+	custom_premium_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/suture/advanced/get_ru_names()
 	return list(
@@ -750,7 +750,7 @@
 	use_duration = 1.5 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
-	custom_price = PAYCHECK_CREW
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
 	icon_state = "synthkit_[round_down((amount+1) / 2, 1)]"
@@ -770,7 +770,7 @@
 	item_state = "tourniquet"
 	origin_tech = "biotech=3"
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = PAYCHECK_MIN
+	custom_price = PAYCHECK_MIN * 0.6
 	/// Duration to apply self
 	var/self_duration = 5 SECONDS
 	/// Duration to apply other mobs

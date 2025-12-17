@@ -18,6 +18,7 @@
 		"М+ожет с+ами пр+имете?",
 	)
 	req_access = list(ACCESS_MEDICAL)
+	default_price = PAYCHECK_MIN * 0.5
 	default_premium_price = PAYCHECK_CREW
 
 	product_categories = list(
@@ -76,15 +77,14 @@
 				/obj/item/reagent_containers/glass/bottle/potassium_iodide = 5,
 				/obj/item/reagent_containers/glass/bottle/atropine = 5,
 				/obj/item/reagent_containers/glass/bottle/diphenhydramine = 5,
-				/obj/item/reagent_containers/glass/bottle/toxin = 5,
 			),
 		),
 		list(
 			"name" = "Оборудование",
 			"icon" = "pager",
 			"products" = list(
-				/obj/item/healthanalyzer = 4,
-				/obj/item/healthupgrade = 4,
+				/obj/item/healthanalyzer = 5,
+				/obj/item/healthupgrade = 5,
 				/obj/item/reagent_containers/hypospray/safety = 3,
 				/obj/item/sensor_device = 2,
 				/obj/item/pinpointer/crew = 2,

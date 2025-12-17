@@ -28,10 +28,10 @@
 		/obj/item/reagent_containers/syringe = 5,
 	)
 	premium = list(
-		/obj/item/storage/bag/plants = 3,
+		/obj/item/storage/bag/plants = 5,
 		/obj/item/cultivator = 5,
 		/obj/item/shovel/spade = 5,
-		/obj/item/plant_analyzer = 3,
+		/obj/item/plant_analyzer = 5,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/glass/bottle/ammonia = 10,
