@@ -359,7 +359,7 @@
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
-	item_state = null
+	item_state = "wormhole_projector1"
 	icon_state = "wormhole_projector1"
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
@@ -384,20 +384,20 @@
 		blue = null
 		orange?.target = null
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/projectile)
-
-	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), null, src)
-
-	if(projectile.is_orange)
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/wormhole_beam, turf/target)
+	var/obj/effect/portal/wormhole_projector/new_portal = new(get_turf(wormhole_beam), null, src)
+	if(wormhole_beam.is_orange)
 		if(!QDELETED(orange))
 			qdel(orange)
-		orange = portal
-		portal.is_orange = TRUE
-		portal.update_icon(UPDATE_ICON_STATE)
+		orange = new_portal
+		new_portal.is_orange = TRUE
+		new_portal.update_icon(UPDATE_ICON_STATE)
+		new_portal.set_light_color(COLOR_MOSTLY_PURE_ORANGE)
+		new_portal.update_light()
 	else
 		if(!QDELETED(blue))
 			qdel(blue)
-		blue = portal
+		blue = new_portal
 
 	if(orange && blue)
 		blue.target = get_turf(orange)
