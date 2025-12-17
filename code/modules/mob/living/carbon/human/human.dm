@@ -1978,6 +1978,27 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	else
 		remove_actionspeed_modifier(/datum/actionspeed_modifier/fractures)
 
+/mob/living/carbon/human/proc/update_fractures_fall()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+
+	var/exists_fracure = FALSE
+	for(var/zone in possible_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		exists_fracure = TRUE
+		break
+
+	if(exists_fracure)
+		ADD_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
+
 /mob/living/carbon/human/can_pull(hand_to_check, supress_message = FALSE)
 	if(pull_hand == PULL_WITHOUT_HANDS)
 		return TRUE
