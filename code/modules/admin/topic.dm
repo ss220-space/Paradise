@@ -1914,7 +1914,7 @@
 		var/block = text2num(href_list["block"])
 		usr.client.cmd_admin_toggle_block(H,block)
 		if(source == "old")
-			SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/show_old_player_panel, H)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_old_player_panel, H)
 		else
 			usr.client.holder.Topic(null, list("showdna" = H.UID()))
 
@@ -1937,7 +1937,7 @@
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/vuap_personal, selected_mob)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["adminplayerobservefollow"])
 		var/client/client = usr.client
@@ -2102,7 +2102,7 @@
 				team.admin_remove_member(usr, member)
 
 			if("view_member")
-				SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/vuap_personal, member.current)
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, member.current)
 
 			if("add_objective")
 				team.admin_add_objective(usr)

@@ -43,4 +43,4 @@ ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAM
 	var/msg = tgui_input_text(src, null, "dsay \"text\"", encode = FALSE)
 	if(isnull(msg))
 		return
-	SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/dsay, msg)
+	SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/dsay, msg)

@@ -668,7 +668,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/vuap_personal, M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, M)
 
 	else if(href_list["give_spell"])
 		if(!check_rights(R_SERVER|R_EVENT))
@@ -679,7 +679,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/give_spell, M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_spell, M)
 
 	else if(href_list["givemartialart"])
 		if(!check_rights(R_ADMIN|R_EVENT))
@@ -716,7 +716,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/give_disease, M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_disease, M)
 
 	else if(href_list["give_taipan_hud"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -743,7 +743,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/cmd_admin_godmode, target)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_godmode, target)
 
 	else if(href_list["gib"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -753,7 +753,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/gib_them, M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/gib_them, M)
 
 	else if(href_list["build_mode"])
 		if(!check_rights(R_BUILDMODE))	return
@@ -960,7 +960,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/admin_explosion, A)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_explosion, A)
 
 	else if(href_list["emp"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
@@ -970,7 +970,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/admin_emp, A)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_emp, A)
 
 	else if(href_list["mark_object"])
 		if(!check_rights(0))	return
@@ -989,7 +989,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		var/T = locateUID(href_list["proc_call"])
 
 		if(T)
-			SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/call_proc_datum, T)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/call_proc_datum, T)
 
 	if(href_list["addcomponent"])
 		if(!check_rights(R_DEBUG|R_EVENT))
