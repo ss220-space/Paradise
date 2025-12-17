@@ -76,11 +76,6 @@
 	dir = 8
 	},
 /obj/item/storage/belt/utility/full/multitool,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "lI" = (
@@ -204,11 +199,6 @@
 "JW" = (
 /obj/item/mod/control/pre_equipped/standard,
 /obj/machinery/light_switch/directional/west,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light{
 	dir = 8
 	},
