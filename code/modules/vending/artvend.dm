@@ -19,6 +19,8 @@
 	lightmask_overlay = "artvend_lightmask"
 	broken_overlay = "artvend_broken"
 	broken_lightmask_overlay = "artvend_broken_lightmask"
+	default_price = PAYCHECK_MIN * 0.4
+	default_premium_price = PAYCHECK_LOWER * 0.5
 
 	products = list(
 		/obj/item/toy/crayon/spraycan = 2,

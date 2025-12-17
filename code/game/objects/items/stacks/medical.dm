@@ -317,6 +317,7 @@
 	max_amount = 1
 	heal_brute = 0
 	stop_bleeding = 300 SECONDS
+	merge_type = /obj/item/stack/medical/bruise_pack/military
 	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
@@ -371,6 +372,7 @@
 	stop_bleeding = 0
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
+	use_flags = DA_IGNORE_LYING
 	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()

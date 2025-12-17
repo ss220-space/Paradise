@@ -15,6 +15,7 @@
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
 	light_on = FALSE
+	custom_price = PAYCHECK_MIN
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
@@ -150,6 +151,7 @@
 	icon_off = "zippo"
 	lefthand_file = 'icons/mob/inhands/zippo_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/zippo_righthand.dmi'
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/lighter/zippo/get_ru_names()
 	return list(

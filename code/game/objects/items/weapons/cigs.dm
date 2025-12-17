@@ -429,6 +429,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	chem_volume = 120
 	list_reagents = list("nicotine" = 120)
 	muhtar_fashion = /datum/muhtar_fashion/mask/cigar
+	custom_price = PAYCHECK_CREW
 
 /obj/item/clothing/mask/cigarette/cigar/get_ru_names()
 	return list(
@@ -446,7 +447,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
-
+	custom_premium_price = PAYCHECK_COMMAND
 /obj/item/clothing/mask/cigarette/cigar/cohiba/get_ru_names()
 	return list(
 		NOMINATIVE = "Сигара Коиба Робусто",
@@ -466,6 +467,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 450
 	chem_volume = 180
 	list_reagents = list("nicotine" = 180)
+	custom_premium_price = PAYCHECK_MAX * 2 // cause they're expensive as hell
 
 /obj/item/clothing/mask/cigarette/cigar/havana/get_ru_names()
 	return list(

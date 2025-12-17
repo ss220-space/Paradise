@@ -1246,6 +1246,7 @@
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/radio,
 	)
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/storage/belt/chef/artist
 	name = "delicate apron"

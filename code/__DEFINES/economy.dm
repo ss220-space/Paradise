@@ -8,4 +8,4 @@
 /// Paygrade for Heads of Staff and some low-tier VIPs.
 #define PAYCHECK_COMMAND 400
 /// Paygrade for Captain and some high-tier VIPs.
-#define PAYCHECK_MAX 500
+#define PAYCHECK_MAX 750

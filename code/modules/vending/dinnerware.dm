@@ -16,7 +16,7 @@
 	lightmask_overlay = "dinnerware_lightmask"
 	broken_overlay = "dinnerware_broken"
 	broken_lightmask_overlay = "dinnerware_broken_lightmask"
-	default_price = PAYCHECK_LOWER
+	default_price = PAYCHECK_MIN * 2
 	default_premium_price = PAYCHECK_CREW
 
 	products = list(

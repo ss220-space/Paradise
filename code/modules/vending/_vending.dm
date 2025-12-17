@@ -157,7 +157,7 @@
 	/// When did we last pitch?
 	var/last_slogan = 0
 	/// How long until we can pitch again?
-	var/slogan_delay = 3000
+	var/slogan_delay = 4500
 
 	/// The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister = null
@@ -1120,7 +1120,7 @@
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
-			if(!(ishuman(usr) || issilicon(usr)) || product_record.price <= 0)
+			if(!(ishuman(usr) || issilicon(usr)) || product_record.price <= 0 || all_products_free)
 				// Either the purchaser is not human nor silicon, or the item is free.
 				// Skip all payment logic.
 				vend(product_record, usr)
