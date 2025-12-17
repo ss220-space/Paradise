@@ -563,40 +563,39 @@ ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", "Send an admi
 	if(!ismob(about_to_be_banned))
 		return
 
-	var/alert_type = tgui_alert(user, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?",, list("Yes", "No", "Custom Message"))
-	switch(alert_type)
-		if("Yes")
-			var/message = "Администратор пытается связаться с тобой! \nОткрой диалоговое окно с администратором, нажав на его сикей в чате, в случае игнорирования, вы можете получить бан!"
-			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
-			log_admin("[key_name(user)] sent a default admin alert to [key_name(about_to_be_banned)].")
-			message_admins("[key_name(user)] sent a default admin alert to [key_name(about_to_be_banned)].")
+	var/default_message = "Администратор пытается связаться с Вами! \nОткройте диалоговое окно с администратором, нажав на его сикей в чате, в случае игнорирования, вы можете получить бан!"
+	var/custom_message = tgui_input_text(user, "Введите сообщение или используйте стандартное:", "Админ-сообщение", default_message, 500, TRUE)
 
-		if("Custom Message")
-			var/message = tgui_input_text(user, "Input your custom admin alert text:", "Message", encode = FALSE)
-			if(!message)
-				return
+	if(!custom_message)
+		return
 
-			message = strip_html(message, 500)
-			var/message_color = tgui_input_color(user, "Input your message color:", "Color Selector")
-			if(isnull(message_color))
-				return
+	if(custom_message == default_message)
+		show_blurb(about_to_be_banned, 15, custom_message, null, "center", "center", COLOR_RED, null, null, 1)
+		log_admin("[key_name(user)] sent a default admin alert to [key_name(about_to_be_banned)].")
+		message_admins("[key_name(user)] sent a default admin alert to [key_name(about_to_be_banned)].")
+		return
 
-			var/alert_type2 = tgui_alert(user, "Do you wish to change speed of an admin alert to? (No - default speed)",, list("Yes", "No"))
-			switch(alert_type2)
-				if("Yes")
-					var/speedmsg = tgui_input_text(user, "Input speed (0.5 - 2x faster. 2 - 2x slower):", "speedmsg", encode = FALSE)
-					if(!speedmsg)
-						return
-					speedmsg = text2num(speedmsg)
-					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, speedmsg)
-					log_admin("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
-					message_admins("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
-				if("No")
-					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
-					log_admin("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
-					message_admins("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
-				else
-					return
+	custom_message = strip_html(custom_message, 500)
+
+	var/message_color = tgui_input_color(user, "Выберите цвет сообщения:", "Выбор цвета", COLOR_RED)
+	if(isnull(message_color))
+		return
+
+	var/speed_choice = tgui_alert(user, "Изменить скорость отображения сообщения? (Нет — стандартная скорость)", null, list("Да", "Нет"))
+	if(speed_choice == "Да")
+		var/speed_input = tgui_input_text(user, "Введите множитель скорости (0.5 — в 2 раза быстрее, 2 — в 2 раза медленнее):", "Скорость", encode = FALSE)
+		if(!speed_input)
+			return
+		var/speed_mult = text2num(speed_input)
+		show_blurb(about_to_be_banned, 15, custom_message, null, "center", "center", message_color, null, null, speed_mult)
+	else if(speed_choice == "Нет")
+		show_blurb(about_to_be_banned, 15, custom_message, null, "center", "center", message_color, null, null, 1)
+	else
+		return
+
+	log_admin("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[custom_message]\".")
+	message_admins("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[custom_message]\".")
+	BLACKBOX_LOG_ADMIN_VERB("Send Alert Message")
 
 ADMIN_VERB(debug_statpanel, R_DEBUG, "Debug Stat Panel", "Toggles local debug of the stat panel.", ADMIN_CATEGORY_DEBUG)
 	user.stat_panel.send_message("create_debug")

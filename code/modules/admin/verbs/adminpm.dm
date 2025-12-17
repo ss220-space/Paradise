@@ -420,10 +420,10 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		return
 
 	if(href_list["adminalert"])
-		if(!check_rights(R_ADMIN))
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		if(!istype(about_to_be_banned))
 			return
 
-		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_alert_message, about_to_be_banned)
 
 	if(href_list["ping"])

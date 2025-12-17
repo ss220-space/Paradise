@@ -86,6 +86,7 @@ ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a 
 	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to everyone:")
 	if(!msg)
 		return
+
 	msg = admin_pencode_to_html(msg)
 	to_chat(world, "[msg]", confidential = TRUE)
 	log_admin("GlobalNarrate: [key_name(user)] : [msg]")
@@ -93,9 +94,6 @@ ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a 
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/locale in world)
-	if(!locale)
-		return
-
 	var/range = tgui_input_text(user, "Range:", "Narrate to mobs within how many tiles:", 7)
 	if(!range)
 		return
