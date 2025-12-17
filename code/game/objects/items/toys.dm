@@ -898,6 +898,77 @@
 
 	interaction(user)
 
+/obj/item/toy/plushie/cmoplushie
+	name = "CMO doll"
+	desc = "Аккуратная плюшевая кукла со светлыми волосами в миниатюрном синем халате. От неё пахнет антисептиком и... карамелью?"
+	icon_state = "CMO_doll"
+	item_state = "CMO_doll"
+	var/tired = 0
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/cmoplushie/proc/interaction(mob/user)
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	var/message
+	if(tired < 100)
+		tired++
+		playsound(loc, 'sound/items/greetings-emote.ogg', 30, TRUE)
+		message = pick("Мой рекорд — 32 шва за 5 минут. Хотите попробовать побить?",
+			"Вы уверены, что это был \"несчастный случай\" с торговым автоматом?",
+			"Не кушайте неизвестные таблетки!",
+			"Ваши жизненные показатели стабильны. Мне можно верить. Я врач.",
+			"Артериальное кровотечение — не проблема!",
+			"В день по яблоку — и доктора не надо!"
+			"Наши борги дают леденцы. Сосите!")
+
+	else
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		playsound(loc, 'sound/items/shyness-emote.ogg', 30, TRUE)
+		message = pick("В вашем теле ровно 5.2 литра крови. Сдайте всё до последней капли.",
+			"Знаете, что общего между пациентом и трупом? Отношение врачей.",
+			"Я начала видеть диагнозы, просто глядя на людей.",
+			"Кто-то опять украл весь запас крови...",
+			"Химики опять взорвали отдел...",
+			"Чего говоришь? Поскользнулся и упал на огурец?",
+			"Датчики вызывают рак.")
+
+	user.visible_message("[icon2html(src, viewers(user))] [span_notice(message)]")
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+
+/obj/item/toy/plushie/cmoplushie/attack_self(mob/user)
+	. = ..()
+
+	interaction(user)
+
+/obj/item/toy/plushie/cmoplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+	. = ..()
+
+	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	interaction(user)
+
+/obj/item/toy/plushie/cmoplushie/update_icon_state()
+	. = ..()
+
+	if(tired < 100)
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+		return
+
+	icon_state = "CMO_doll_tired"
+	item_state = "CMO_doll_tired"
+
+/obj/item/toy/plushie/cmoplushie/update_desc()
+	. = ..()
+
+	if(tired < 100)
+		desc = initial(desc)
+		return
+
+	desc = "Аккуратная плюшевая кукла со светлыми волосами в миниатюрном синем халате. От неё пахнет антисептиком и... никотином?"
+
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
 	desc = "Плюшевая кукла грея в толстовке. Кукла входит в серию \"Пришелец\" и имеет свитер, большую голову и мультяшные глаза. Любит мехов."
