@@ -1,316 +1,257 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aw" = (
+/obj/effect/landmark/observer_start,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "ay" = (
 /turf/space,
 /area/space)
-"az" = (
-/obj/item/gun/magic/wand/death/debug,
-/turf/simulated/floor/plasteel,
-/area/admin)
 "aJ" = (
-/obj/effect/landmark/observer_start,
-/turf/simulated/floor/plasteel,
-/area/admin)
+/obj/effect/landmark/spawner/late/crew,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "bj" = (
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
 /area/space)
 "dE" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"en" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"et" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"eC" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"eW" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "fP" = (
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"gm" = (
-/obj/machinery/light{
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"gL" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/stairs{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
-"gW" = (
-/obj/machinery/power/emitter{
-	anchored = 1;
-	state = 2
-	},
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plasteel,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"he" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"hq" = (
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "jk" = (
 /turf/simulated/wall/indestructible/metal,
-/area/admin)
+/area/fastload/blue)
 "jD" = (
 /turf/space/openspace,
 /area/space)
-"jZ" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
-"lM" = (
+"jO" = (
 /obj/structure/ladder,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"mk" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"ks" = (
+/obj/structure/holosign/barrier/atmos,
+/turf/space/openspace,
+/area/space)
+"ku" = (
+/obj/machinery/door/airlock/engineering,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"kM" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
-"na" = (
-/obj/structure/stairs{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "nx" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"nF" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "oJ" = (
 /obj/machinery/light,
-/turf/simulated/openspace,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "pn" = (
-/obj/machinery/computer/secure_data,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"po" = (
-/obj/machinery/power/emitter{
-	dir = 4;
-	anchored = 1;
-	state = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
+/obj/spacepod/sec,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "qp" = (
 /obj/item/tank/jetpack/oxygen,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"qC" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/port_gen/pacman/mrs/upgraded{
-	anchored = 1
-	},
-/obj/item/stack/sheet/mineral/diamond/fifty,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"sw" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"sP" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/autoname,
-/turf/simulated/floor/plasteel,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "sR" = (
-/obj/machinery/light_switch/directional/west,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"tt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/stairs{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"vI" = (
 /obj/machinery/light{
-	dir = 4
+	dir = 8
 	},
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"uJ" = (
+/turf/simulated/wall/indestructible/reinforced,
+/area/fastload)
+"vI" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "vR" = (
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
-"wq" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "ww" = (
 /obj/spacepod/sec,
 /turf/space,
 /area/space)
-"wT" = (
-/obj/item/gun/energy/plasmacutter/adv,
-/turf/simulated/floor/plasteel,
-/area/admin)
 "xj" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"xQ" = (
-/obj/structure/ladder,
-/obj/structure/railing{
-	dir = 4
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"xL" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 8
 	},
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
-"zt" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"yS" = (
+/obj/effect/landmark/spawner/late/cyborg,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"zP" = (
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "An" = (
 /turf/simulated/openspace,
-/area/admin)
-"BI" = (
-/obj/machinery/light{
+/area/fastload/purple)
+"AX" = (
+/obj/effect/decal/warning_stripes/arrow{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"By" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"BO" = (
+/turf/simulated/wall/indestructible/metal,
+/area/fastload/purple)
 "Cd" = (
 /obj/item/clothing/suit/space/hardsuit,
-/turf/simulated/floor/plasteel,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "CV" = (
 /obj/item/tank/internals/oxygen,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Dp" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"GN" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
-"Ha" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/openspace,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Fv" = (
+/obj/machinery/door/airlock/engineering,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Hi" = (
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "HE" = (
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Jn" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/simulated/openspace,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "JC" = (
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
-"Ks" = (
-/obj/machinery/power/emitter{
-	dir = 1;
-	anchored = 1;
-	state = 2
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"KP" = (
-/obj/structure/ladder,
-/obj/structure/railing{
+/obj/machinery/computer/account_database,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Kj" = (
+/obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
-"LZ" = (
-/obj/structure/railing,
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
-"Mc" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Md" = (
-/obj/effect/landmark/spawner/late/cyborg,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Me" = (
-/obj/machinery/door/airlock/engineering,
-/turf/simulated/floor/indestructible/plating,
-/area/admin)
-"Nf" = (
-/obj/machinery/computer/account_database,
-/turf/simulated/floor/plasteel,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"LF" = (
+/obj/machinery/computer/secure_data,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Nb" = (
+/obj/structure/ladder,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "Pd" = (
-/obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Qw" = (
-/obj/structure/holosign/barrier/atmos,
-/turf/space/openspace,
-/area/space)
-"TS" = (
-/obj/machinery/power/emitter{
-	dir = 8;
-	anchored = 1;
-	state = 2
-	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
+/turf/simulated/openspace,
+/area/fastload)
+"PE" = (
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Qa" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Tl" = (
+/obj/structure/ladder,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Uj" = (
-/obj/spacepod/sec,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"VO" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/admin)
-"WA" = (
-/obj/item/tank/internals/emergency_oxygen/double/vox,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Zx" = (
-/obj/structure/railing{
+/obj/effect/decal/warning_stripes/arrow{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/tranquillite,
-/area/admin)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"WA" = (
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Xa" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"YB" = (
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Zk" = (
+/obj/effect/decal/warning_stripes/southwest,
+/obj/structure/stairs{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"ZW" = (
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"ZY" = (
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 
 (1,1,1) = {"
 ay
@@ -1788,7 +1729,7 @@ ay
 ay
 ay
 ay
-ww
+ay
 ay
 ay
 ay
@@ -1983,7 +1924,7 @@ ay
 ay
 ay
 ay
-ay
+ww
 ay
 ay
 ay
@@ -2050,11 +1991,11 @@ ay
 ay
 ay
 ay
-ay
-ay
-ay
-ay
 bj
+ay
+ay
+ay
+ay
 ay
 ay
 ay
@@ -2114,13 +2055,13 @@ ay
 ay
 ay
 ay
-ay
+jk
+jk
+Fv
 jk
 jk
 jk
 jk
-jk
-Me
 jk
 jk
 jk
@@ -2180,10 +2121,10 @@ ay
 ay
 ay
 ay
-ay
 jk
+jO
 HE
-Dp
+HE
 HE
 sR
 HE
@@ -2192,7 +2133,7 @@ WA
 CV
 qp
 nx
-Dp
+HE
 HE
 jk
 ay
@@ -2246,9 +2187,9 @@ ay
 ay
 ay
 ay
-ay
 jk
-lM
+HE
+HE
 HE
 HE
 HE
@@ -2312,8 +2253,8 @@ ay
 ay
 ay
 ay
-ay
 jk
+HE
 HE
 HE
 HE
@@ -2378,8 +2319,8 @@ ay
 ay
 ay
 ay
-ay
 jk
+HE
 HE
 HE
 HE
@@ -2444,9 +2385,9 @@ ay
 ay
 ay
 ay
-ay
 jk
-sw
+en
+HE
 HE
 HE
 HE
@@ -2510,7 +2451,6 @@ ay
 ay
 ay
 ay
-ay
 jk
 HE
 HE
@@ -2519,9 +2459,10 @@ HE
 HE
 HE
 HE
+aJ
 HE
-wT
-TS
+HE
+HE
 HE
 HE
 jk
@@ -2576,19 +2517,19 @@ ay
 ay
 ay
 ay
-ay
 jk
 HE
 HE
 HE
 HE
-Pd
-aJ
-Md
 HE
-Ks
-qC
-gW
+HE
+aw
+HE
+HE
+HE
+HE
+HE
 HE
 jk
 ay
@@ -2642,18 +2583,18 @@ ay
 ay
 ay
 ay
-ay
 jk
 HE
 HE
 HE
 HE
 HE
+yS
 HE
 HE
 HE
-az
-po
+HE
+HE
 HE
 HE
 jk
@@ -2708,9 +2649,9 @@ ay
 ay
 ay
 ay
-ay
 jk
-Mc
+en
+HE
 HE
 HE
 HE
@@ -2774,8 +2715,8 @@ ay
 ay
 ay
 ay
-ay
 jk
+HE
 HE
 HE
 HE
@@ -2840,10 +2781,7 @@ ay
 ay
 ay
 ay
-ay
 jk
-tt
-tt
 HE
 HE
 HE
@@ -2854,6 +2792,9 @@ HE
 HE
 HE
 HE
+zP
+eW
+gL
 jk
 ay
 ay
@@ -2906,8 +2847,8 @@ ay
 ay
 ay
 ay
-ay
 jk
+HE
 pn
 HE
 HE
@@ -2917,7 +2858,7 @@ HE
 HE
 HE
 HE
-HE
+Qa
 HE
 Uj
 jk
@@ -2972,19 +2913,19 @@ ay
 ay
 ay
 ay
-ay
 jk
-Nf
-nF
 HE
 HE
 HE
 HE
+Kj
 HE
 HE
 HE
+Kj
+Kj
+Qa
 HE
-nF
 HE
 jk
 ay
@@ -3038,7 +2979,7 @@ ay
 ay
 ay
 ay
-ay
+jk
 jk
 jk
 jk
@@ -6339,21 +6280,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
 jD
 jD
 jD
@@ -6405,21 +6346,21 @@ jD
 jD
 jD
 jD
-jD
-jk
+BO
+Nb
+YB
+YB
+YB
+kM
+YB
+YB
+YB
+kM
+YB
+YB
+YB
 JC
-mk
-JC
-JC
-JC
-JC
-JC
-JC
-JC
-JC
-mk
-JC
-jk
+BO
 jD
 jD
 jD
@@ -6471,21 +6412,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-KP
-zt
-JC
-JC
-zt
-zt
-zt
-JC
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+LF
+BO
 jD
 jD
 jD
@@ -6537,21 +6478,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-na
-na
-An
-An
-An
-VO
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+BO
 jD
 jD
 jD
@@ -6603,21 +6544,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-An
-An
-An
-An
-An
-VO
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+BO
 jD
 jD
 jD
@@ -6669,21 +6610,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-Ha
-An
-An
-An
-An
-An
-An
-VO
-JC
-JC
-JC
+BO
+et
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
 dE
-jk
+BO
 jD
 jD
 jD
@@ -6735,21 +6676,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-An
-An
-An
-An
-An
-VO
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+BO
 jD
 jD
 jD
@@ -6801,21 +6742,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-An
-An
-An
-An
-An
-VO
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+PE
+BO
 jD
 jD
 jD
@@ -6867,21 +6808,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-An
-An
-An
-An
-An
-VO
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+BO
 jD
 jD
 jD
@@ -6933,21 +6874,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-Ha
-An
-An
-An
-An
-An
-An
-VO
-JC
-JC
-JC
+BO
+et
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
 dE
-jk
+BO
 jD
 jD
 jD
@@ -6999,21 +6940,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-An
-An
-An
-An
-An
-JC
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+AX
+AX
+BO
 jD
 jD
 jD
@@ -7065,21 +7006,21 @@ jD
 jD
 jD
 jD
-jD
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+hq
+Zk
 An
-An
-An
-An
-An
-An
-An
-JC
-JC
-JC
-JC
-JC
-jk
+BO
 jD
 jD
 jD
@@ -7131,21 +7072,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-JC
-JC
-GN
-GN
-GN
-GN
-GN
-JC
-JC
-JC
-JC
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+YB
+ZY
+he
+An
+BO
 jD
 jD
 jD
@@ -7197,21 +7138,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-JC
-BI
-JC
-JC
-JC
-JC
-JC
-JC
-JC
-JC
-BI
-JC
-jk
+BO
+YB
+YB
+YB
+YB
+eC
+YB
+YB
+YB
+eC
+YB
+An
+An
+An
+BO
 jD
 jD
 jD
@@ -7263,21 +7204,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
+BO
 jD
 jD
 jD
@@ -10564,21 +10505,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
 jD
 jD
 jD
@@ -10630,21 +10571,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-vR
-gm
+uJ
+Tl
 vR
 vR
 vR
+By
+vR
+vR
+vR
+By
 vR
 vR
 vR
 vR
-vR
-gm
-vR
-jk
+uJ
 jD
 jD
 jD
@@ -10695,23 +10636,23 @@ jD
 jD
 jD
 jD
+ks
+ku
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+uJ
 jD
-jD
-jk
-xQ
-wq
-vR
-vR
-vR
-vR
-vR
-wq
-wq
-wq
-wq
-wq
-Me
-Qw
 jD
 jD
 jD
@@ -10762,21 +10703,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-Jn
-An
+uJ
 vR
 vR
-LZ
-An
-An
-An
-An
-An
-jk
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+uJ
 jD
 jD
 jD
@@ -10828,21 +10769,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-jZ
+uJ
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
-An
-jk
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+uJ
 jD
 jD
 jD
@@ -10894,21 +10835,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-Ha
-An
-jZ
+uJ
+sP
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
 oJ
-jk
+uJ
 jD
 jD
 jD
@@ -10960,21 +10901,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-jZ
+uJ
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
-An
-jk
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+uJ
 jD
 jD
 jD
@@ -11026,21 +10967,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-jZ
+uJ
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
-An
-jk
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+uJ
 jD
 jD
 jD
@@ -11092,21 +11033,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-jZ
+uJ
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
-An
-jk
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+uJ
 jD
 jD
 jD
@@ -11158,21 +11099,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-Ha
-An
-jZ
+uJ
+sP
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
 oJ
-jk
+uJ
 jD
 jD
 jD
@@ -11224,21 +11165,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-An
-An
-jZ
+uJ
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
-An
-jk
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+vR
+uJ
 jD
 jD
 jD
@@ -11290,21 +11231,21 @@ jD
 jD
 jD
 jD
-jD
-jk
+uJ
 vR
 vR
 vR
 vR
 vR
 vR
-LZ
-An
-An
-An
-An
-An
-jk
+vR
+vR
+vR
+vR
+Pd
+Pd
+Pd
+uJ
 jD
 jD
 jD
@@ -11356,8 +11297,7 @@ jD
 jD
 jD
 jD
-jD
-jk
+uJ
 vR
 vR
 vR
@@ -11365,12 +11305,13 @@ vR
 vR
 vR
 vR
-Zx
 vR
 vR
 vR
-Zx
-jk
+ZW
+xL
+Pd
+uJ
 jD
 jD
 jD
@@ -11422,21 +11363,21 @@ jD
 jD
 jD
 jD
-jD
-jk
+uJ
 vR
+vR
+vR
+vR
+Xa
+vR
+vR
+vR
+Xa
+vR
+Hi
 vI
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vI
-vR
-jk
+Pd
+uJ
 jD
 jD
 jD
@@ -11488,21 +11429,21 @@ jD
 jD
 jD
 jD
-jD
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
-jk
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
+uJ
 jD
 jD
 jD

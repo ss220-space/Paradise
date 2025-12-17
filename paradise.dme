@@ -971,6 +971,7 @@
 #include "code\game\shuttle_engines.dm"
 #include "code\game\world.dm"
 #include "code\game\area\areas.dm"
+#include "code\game\area\fastload.dm"
 #include "code\game\area\ss13_areas.dm"
 #include "code\game\area\vision_reset_areas.dm"
 #include "code\game\area\areas\depot-areas.dm"

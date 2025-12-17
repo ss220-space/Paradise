@@ -1475,9 +1475,7 @@
 /area/maintenance/library)
 "aou" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -3286,9 +3284,7 @@
 /area/maintenance/bar)
 "aBK" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -32;
 	pixel_y = null
@@ -15644,9 +15640,7 @@
 /area/security/nuke_storage)
 "bVq" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -15657,9 +15651,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -18541,9 +18533,7 @@
 	pixel_x = -32
 	},
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -24280,9 +24270,7 @@
 /area/bridge)
 "cNe" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28589,9 +28577,7 @@
 /obj/structure/table,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -28774,8 +28760,7 @@
 "dhb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office";
-	pixel_y = 2
+	department = "Quartermaster's Office"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -29698,8 +29683,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office";
-	pixel_y = 2
+	department = "Chief Engineer's Office"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -33012,9 +32996,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37078,7 +37060,6 @@
 	id = "chapel";
 	name = "Privacy Shutters Control";
 	pixel_x = 26;
-	pixel_y = 0;
 	req_access = list(22)
 	},
 /turf/simulated/floor/carpet,
@@ -39622,8 +39603,7 @@
 	pixel_y = 10
 	},
 /obj/item/compact_remote{
-	pixel_x = 7;
-	pixel_y = 0
+	pixel_x = 7
 	},
 /obj/item/compact_remote{
 	pixel_x = -4;
@@ -41459,9 +41439,7 @@
 /area/crew_quarters/cabin2)
 "eFi" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -24
 	},
@@ -41988,9 +41966,7 @@
 /area/medical/surgery/south)
 "eLr" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/item/melee/chainofcommand{
 	pixel_x = 5;
 	pixel_y = 5
@@ -42370,9 +42346,7 @@
 "eOC" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46561,9 +46535,7 @@
 /area/security/podbay)
 "fSq" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -49212,9 +49184,7 @@
 /area/crew_quarters/theatre)
 "gzr" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "gzs" = (
@@ -55740,9 +55710,7 @@
 "iad" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;
 	pixel_y = -28
@@ -57323,9 +57291,7 @@
 /area/crew_quarters/locker)
 "itv" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -60175,9 +60141,7 @@
 /area/maintenance/banya)
 "jdn" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "jdo" = (
@@ -67250,14 +67214,6 @@
 	tag = "icon-wood-broken3"
 	},
 /area/maintenance/tourist)
-"kNZ" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/obj/item/radio/intercom/directional/west,
-/turf/simulated/floor/plasteel,
-/area/toxins/launch)
 "kOi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -68596,9 +68552,7 @@
 /area/security/medbay)
 "lhe" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -70330,9 +70284,7 @@
 /area/quartermaster/office)
 "lCN" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -74486,9 +74438,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "mAE" = (
@@ -75038,8 +74988,7 @@
 "mFi" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 2
+	department = "NT Representative's Office"
 	},
 /obj/machinery/camera{
 	c_tag = "NT Representative's Office";
@@ -75096,8 +75045,7 @@
 /obj/item/radio/intercom/directional/east,
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office";
-	pixel_y = 2
+	department = "Magistrate's Office"
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -77246,9 +77194,7 @@
 /area/crew_quarters/fitness)
 "nfN" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -24
@@ -80687,9 +80633,7 @@
 /area/hallway/secondary/entry)
 "nTz" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -86230,9 +86174,7 @@
 /area/medical/morgue)
 "phI" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -87001,9 +86943,7 @@
 /area/engineering/break_room)
 "prh" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;
 	pixel_y = -28
@@ -106135,9 +106075,7 @@
 "tHl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/item/reagent_containers/food/drinks/coffee{
 	list_reagents = list("honey" = 15);
 	pixel_x = 9;
@@ -108290,7 +108228,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)
 "ueJ" = (
@@ -110700,9 +110637,7 @@
 /area/medical/virology)
 "uHW" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;
 	pixel_y = -28
@@ -112342,9 +112277,7 @@
 "vbL" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
 	pixel_y = 24
@@ -112416,6 +112349,7 @@
 /area/engineering/hardsuitstorage)
 "vcw" = (
 /obj/machinery/photocopier,
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)
 "vcx" = (
@@ -121387,8 +121321,7 @@
 "xfT" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office";
-	pixel_y = 2
+	department = "Captain's Office"
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = -26;
@@ -121655,9 +121588,7 @@
 /area/crew_quarters/courtroom)
 "xiB" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -123074,6 +123005,7 @@
 "xxJ" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/closet/l3closet/scientist,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
 "xxK" = (
@@ -125067,8 +124999,7 @@
 	pixel_x = -30
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office";
-	pixel_y = 2
+	department = "Chief Medical Officer's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -125832,8 +125763,7 @@
 "yak" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office";
-	pixel_y = 2
+	department = "Head of Security's Office"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -153995,7 +153925,7 @@ jrc
 pzS
 lbz
 vli
-kNZ
+oNa
 oNa
 vlG
 nSW
