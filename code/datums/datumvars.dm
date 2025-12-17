@@ -7,9 +7,15 @@
  *
  */
 /datum/proc/CanProcCall(procname)
+	if((datum_protecting_flags & DPF_CANPROCCALL) && !check_rights(R_PERMISSIONS, FALSE))
+		return FALSE
 	return TRUE
 
 /datum/proc/can_vv_get(var_name)
+	if((datum_protecting_flags & DPF_CAN_VV_GET) && !check_rights(R_PERMISSIONS, FALSE))
+		return FALSE
+	if(var_name == NAMEOF(src, vars))
+		return FALSE
 	return TRUE
 
 /mob/can_vv_get(var_name)
@@ -30,6 +36,8 @@
 
 /// Called when a var is edited with the new value to change to
 /datum/proc/vv_edit_var(var_name, var_value)
+	if((datum_protecting_flags & DPF_VV_EDIT_VAR) && !check_rights(R_PERMISSIONS, FALSE) && var_name == "datum_protecting_flags")
+		return FALSE
 	if(var_name == NAMEOF(src, vars))
 		return FALSE
 	vars[var_name] = var_value
