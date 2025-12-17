@@ -1,5 +1,4 @@
 ADMIN_VERB(centcom_podlauncher, R_EVENT, "Launch Supplypod", "Настройте и запустите капсулу снабжения, полную всего, что душе угодно!", ADMIN_CATEGORY_EVENTS)
-	new /datum/centcom_podlauncher(user.mob)
 	if(!SSticker)
 		to_chat(user, span_warning("Игра ещё не началась!"))
 		return
