@@ -6,12 +6,15 @@
 	fire_sound_text = "laser blast"
 	ammo_x_offset = 2
 
-	var/obj/item/stock_parts/cell/cell	//What type of power cell this uses
+	/// What type of power cell this uses
+	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell/laser
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
-	var/select = 1	//The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	/// The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	var/select = 1
 	var/modifystate = FALSE
-	var/shaded_charge = FALSE	//if this gun uses a stateful charge bar for more detail
+	/// If this gun uses a stateful charge bar for more detail
+	var/shaded_charge = FALSE
 	var/selfcharge = FALSE
 	/// Recharge rate if self-charging
 	var/recharge_rate = 100
@@ -25,8 +28,8 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
-
-	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
+	/// If a sibyl system's mod can be added or removed if it already has one
+	var/can_add_sibyl_system = TRUE
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
 	var/isclockwork = FALSE
 

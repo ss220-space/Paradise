@@ -20,7 +20,7 @@
 //- Check if the area has too much empty space. If so, make it smaller and replace the rest with maintenance tunnels.
 
 /obj/effect/debugging/marker
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "yellow"
 
 /obj/effect/debugging/marker/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)

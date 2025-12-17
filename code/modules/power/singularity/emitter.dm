@@ -213,9 +213,31 @@
 	playsound(src, projectile_sound, 50, TRUE)
 	if(prob(35))
 		sparks.start()
-	projectile.firer_source_atom = src
-	projectile.Angle = dir2angle(dir)
-	projectile.fire((dir2angle(dir)))
+	switch(dir)
+		if(NORTH)
+			projectile.yo = 20
+			projectile.xo = 0
+		if(NORTHEAST)
+			projectile.yo = 20
+			projectile.xo = 20
+		if(EAST)
+			projectile.yo = 0
+			projectile.xo = 20
+		if(SOUTHEAST)
+			projectile.yo = -20
+			projectile.xo = 20
+		if(WEST)
+			projectile.yo = 0
+			projectile.xo = -20
+		if(SOUTHWEST)
+			projectile.yo = -20
+			projectile.xo = -20
+		if(NORTHWEST)
+			projectile.yo = 20
+			projectile.xo = -20
+		else // Any other
+			projectile.yo = -20
+			projectile.xo = 0
 
 	// The hardcode for projectiles to properly fly in this direction. I don't know why.
 	if(dir == WEST)
@@ -230,6 +252,12 @@
 	else
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
+
+	projectile.setDir(dir)
+	projectile.starting = loc
+	projectile.firer_source_atom = src
+	projectile.Angle = null
+	projectile.fire()
 
 	return projectile
 

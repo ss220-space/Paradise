@@ -455,7 +455,7 @@
 		qdel(src)
 	var/obj/item/gun/energy/wormhole_projector/gun = firer_source_atom
 	if(!(locate(/obj/effect/portal) in get_turf(target)))
-		gun.create_portal(src)
+		gun.create_portal(src, get_turf(src))
 
 /obj/projectile/bullet/frag12
 	name ="explosive slug"

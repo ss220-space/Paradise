@@ -63,7 +63,7 @@
 
 	if(BB)
 		BB.fire()
-	materials = list(MAT_METAL=0)
+	materials = list(MAT_METAL = 0)
 	BB = null
 
 	return TRUE
