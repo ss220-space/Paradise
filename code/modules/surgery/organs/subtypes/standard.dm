@@ -178,34 +178,40 @@
 /obj/item/organ/external/leg/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
@@ -277,6 +283,7 @@
 	if(is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1, special)
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
@@ -284,6 +291,7 @@
 	if(is_usable())
 		user.set_usable_legs(user.usable_legs - 1, special)
 	user.update_fractures_slowdown()
+	owner.update_fractures_fall()
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
@@ -292,24 +300,28 @@
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/necrotize(silent = FALSE)
 	. = ..()

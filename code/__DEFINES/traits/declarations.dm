@@ -425,3 +425,6 @@
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 
 #define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"
+
+/// If human exists fracture in legs or foors (for optimisation)
+#define TRAIT_FRACTURE_FALL "fracture_fall"
