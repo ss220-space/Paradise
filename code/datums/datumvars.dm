@@ -663,14 +663,14 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 
-		var/mob/M = locateUID(href_list["mob_player_panel"])
-		if(!istype(M))
+		var/mob/selected_mob = locateUID(href_list["mob_player_panel"])
+		if(!istype(selected_mob))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		usr.client.VUAP_selected_mob = M
-		usr.client.selectedPlayerCkey = M.ckey
-		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, M)
+		usr.client.VUAP_selected_mob = selected_mob
+		usr.client.selectedPlayerCkey = selected_mob.ckey
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["give_spell"])
 		if(!check_rights(R_SERVER|R_EVENT))
@@ -750,22 +750,22 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 	else if(href_list["gib"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
 
-		var/mob/M = locateUID(href_list["gib"])
-		if(!istype(M))
+		var/mob/target = locateUID(href_list["gib"])
+		if(!istype(target))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/gib_them, M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/gib_them, target)
 
 	else if(href_list["build_mode"])
 		if(!check_rights(R_BUILDMODE))	return
 
-		var/mob/M = locateUID(href_list["build_mode"])
-		if(!istype(M))
+		var/mob/target = locateUID(href_list["build_mode"])
+		if(!istype(target))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		togglebuildmode(M)
+		togglebuildmode(target)
 
 	else if(href_list["drop_everything"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
@@ -955,24 +955,10 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		try_open_reagent_editor(A)
 
 	else if(href_list["explode"])
-		if(!check_rights(R_DEBUG|R_EVENT))	return
-
-		var/atom/A = locateUID(href_list["explode"])
-		if(!isobj(A) && !ismob(A) && !isturf(A))
-			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_explosion, A)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_explosion, locateUID(href_list["explode"]))
 
 	else if(href_list["emp"])
-		if(!check_rights(R_DEBUG|R_EVENT))	return
-
-		var/atom/A = locateUID(href_list["emp"])
-		if(!isobj(A) && !ismob(A) && !isturf(A))
-			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_emp, A)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_emp, locateUID(href_list["emp"]))
 
 	else if(href_list["mark_object"])
 		if(!check_rights(0))	return
@@ -1115,20 +1101,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		holder.Topic(href, list("monkeyone"=href_list["makemonkey"]))
 
 	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
-			return
-
-		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
-			return
-
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
-			return
-		holder.Topic(href, list("makerobot"=href_list["makerobot"]))
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_robotize, locateUID(href_list["makerobot"]))
 
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))	return

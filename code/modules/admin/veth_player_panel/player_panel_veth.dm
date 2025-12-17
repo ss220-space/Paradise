@@ -1,31 +1,10 @@
 ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Player Panel with TGUI.", ADMIN_CATEGORY_GAME)
 	var/datum/player_panel_veth/tgui = new(user.mob)
 	tgui.ui_interact(user.mob)
-	to_chat(user, span_interface("VUAP has been opened!"), confidential = TRUE)
+	to_chat(user, span_interface("VUAP has been opened!"), type = MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("VUAP")
 
-ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player options panel for a mob.", ADMIN_CATEGORY_GAME, mob/target in GLOB.player_list)
-	if(!target)
-		to_chat(user, span_warning("Could not find desired target mob!"), type = MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
-		return
-	if(!length(target.ckey) || target.ckey[1] == "@")
-		var/mob/player = target
-		var/datum/mind/player_mind = get_mind(player, include_last = TRUE)
-		var/player_mind_ckey = ckey(player_mind.key)
-		user.selectedPlayerCkey = player_mind_ckey
-		user.VUAP_selected_mob = target
-		var/datum/vuap_personal/tgui = new(user.mob)
-		tgui.ui_interact(user.mob)
-		tgui_alert(user, "WARNING! This mob has no associated Mind! Most actions will not work. Last ckey to control this mob is [player_mind_ckey].", "No Mind!")
-	else
-		user.selectedPlayerCkey = target.ckey
-		user.VUAP_selected_mob = target
-		var/datum/vuap_personal/tgui = new(user.mob)
-		tgui.ui_interact(user.mob)
-	BLACKBOX_LOG_ADMIN_VERB("VUAP_personal")
-
 /datum/player_panel_veth/ /* required for tgui component */
-	var/title = "Veth's Ultimate Player Panel"
 
 /datum/player_panel_veth/proc/player_ui_data(mob/player)
 #ifndef TESTING
@@ -66,7 +45,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 			return
 		if("sendPrivateMessage")
 			usr.client.cmd_admin_pm(selected_mob.ckey)
-			SSblackbox.record_feedback("tally", "VUAP", 1, "PM")
+			BLACKBOX_LOG_VUAP("PM")
 			return
 		if("follow")
 			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_mob.UID()))
@@ -113,7 +92,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(!ui)
-		ui = new(user, src, "VethPlayerPanel", title)
+		ui = new(user, src, "VethPlayerPanel", "Veth's Ultimate Player Panel")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

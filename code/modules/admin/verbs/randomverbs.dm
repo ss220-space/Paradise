@@ -18,6 +18,10 @@ ADMIN_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_
 		tgui_alert(user, "The AI can't be sent to prison you jerk!")
 		return
 
+	if(!length(GLOB.prisonwarp))
+		tgui_alert(user, "No prison warps!")
+		return
+
 	var/turf/prison_cell = pick(GLOB.prisonwarp)
 
 	if(!prison_cell)
@@ -28,7 +32,8 @@ ADMIN_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_
 	pod.target = victim
 	new /obj/effect/pod_landingzone(victim, pod)
 
-	log_and_message_admins(span_notice("sent [key_name_admin(victim)] to the prison station."))
+	log_admin("[key_name(user)] sent [key_name(victim)] to the prison station.")
+	message_admins(span_adminnotice("[key_name_admin(user)] sent [key_name_admin(victim)] to the prison station."))
 	BLACKBOX_LOG_ADMIN_VERB("Prison")
 
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in world)

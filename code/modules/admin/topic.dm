@@ -7,7 +7,7 @@
 		return
 
 	if(SSticker.mode && SSticker.mode.check_antagonists_topic(href, href_list))
-		check_antagonists()
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
 		return
 
 	if(href_list["rejectadminhelp"])
@@ -978,12 +978,7 @@
 			qdel(C)
 
 	else if(href_list["open_logging_view"])
-		var/mob/target = locateUID(href_list["open_logging_view"])
-		if(!ismob(target))
-			to_chat(usr, "This can only be used on instances of type /mob.", confidential = TRUE)
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, target, TRUE)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, locateUID(href_list["open_logging_view"]), TRUE)
 
 	else if(href_list["geoip"])
 		if(!check_rights(R_ADMIN))
@@ -1363,28 +1358,7 @@
 		message_admins(span_notice("[key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]"))
 
 	else if(href_list["sendtoprison"])
-		if(!check_rights(R_ADMIN))	return
-
-		if(tgui_alert(usr, "Отправить в админскую тюрьму на остаток раунда?", "Подтверждение", list("Да", "Нет")) != "Да")
-			return
-
-		var/mob/M = locateUID(href_list["sendtoprison"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("Это можно использовать только на объектах типа /mob"), confidential=TRUE)
-			return
-		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, span_warning("Это нельзя использовать на объектах типа /mob/living/silicon/ai"), confidential=TRUE)
-			return
-
-		var/turf/prison_cell = pick(GLOB.prisonwarp)
-		if(!prison_cell)	return
-
-		var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
-		pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
-		pod.target = M
-		new /obj/effect/pod_landingzone(M, pod)
-
-		log_and_message_admins("sent [key_name_admin(M)] to the prison station.")
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/imprison, locateUID(href_list["sendtoprison"]))
 
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
@@ -1471,54 +1445,20 @@
 		M.client.prefs.save_character(M.client)
 
 	else if(href_list["cma_admin"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["cma_admin"])
-		if(!ishuman(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /human"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/change_human_appearance_admin, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/change_human_appearance_admin, locateUID(href_list["cma_admin"]))
 
 	else if(href_list["cma_self"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["cma_self"])
-		if(!ishuman(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /human"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/change_human_appearance_self, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/change_human_appearance_self, locateUID(href_list["cma_self"]))
 
 	else if(href_list["check_contents"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["check_contents"])
-		if(!isliving(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /living"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_check_contents, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_check_contents, locateUID(href_list["check_contents"]))
 
 	else if(href_list["man_up"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["man_up"])
-		if(!ismob(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/man_up, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/man_up, locateUID(href_list["man_up"]))
 
 	else if(href_list["select_equip"])
-		if(!check_rights(R_EVENT))
-			return
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/select_equipment, locateUID(href_list["select_equip"]))
 
-		var/mob/M = locateUID(href_list["select_equip"])
-		if(!ishuman(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /human"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/select_equipment, M)
 	else if(href_list["change_voice"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1546,22 +1486,13 @@
 		usr.client.update_mob_sprite(M)
 
 	else if(href_list["asays"])
-		if(!check_rights(R_ADMIN | R_MOD))
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_asays)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_asays)
 
 	else if(href_list["msays"])
-		if(!check_rights(R_ADMIN | R_MENTOR))
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_msays)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_msays)
 
 	else if(href_list["devsays"])
-		if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_devsays)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_devsays)
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_EVENT))
@@ -1805,41 +1736,13 @@
 		SSticker?.score?.save_silicon_laws(ai_character, usr, "admin AIzed user", log_all_laws = TRUE)
 
 	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
-		if(!istype(H))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
-			return
-
-		if(tgui_alert(usr, "Confirm make superhero?",, list("Yes", "No")) != "Yes")
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_super, H)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_super, locateUID(href_list["makesuper"]))
 
 	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
-		if(!istype(H))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
-			return
-		if(tgui_alert(usr, "Confirm make robot?",, list("Yes", "No")) != "Yes")
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_robotize, H)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_robotize, locateUID(href_list["makerobot"]))
 
 	else if(href_list["makeanimal"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/M = locateUID(href_list["makeanimal"])
-		if(isnewplayer(M))
-			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"), confidential=TRUE)
-			return
-		if(tgui_alert(usr, "Confirm make animal?",, list("Yes", "No")) != "Yes")
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_animalize, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_animalize, locateUID(href_list["makeanimal"]))
 
 	else if(href_list["makePAI"])
 		if(!check_rights(R_SPAWN))
@@ -1870,15 +1773,7 @@
 		H.paize(name, bespai)
 
 	else if(href_list["makegorilla"])
-		if(!check_rights(R_SPAWN))
-			return
-
-		var/mob/M = locateUID(href_list["makegorilla"])
-		if(isnewplayer(M))
-			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"), confidential=TRUE)
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_gorillize, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_gorillize, locateUID(href_list["makegorilla"]))
 
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))
@@ -1919,36 +1814,19 @@
 			usr.client.holder.Topic(null, list("showdna" = H.UID()))
 
 	else if(href_list["observeinventory"])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-
-		var/client/client = usr.client
-		var/mob/target = locateUID(href_list["observeinventory"])
-		if(!ismob(target))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"))
-			return
-
-		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/admin_observe_target, target, TRUE)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["observeinventory"]), TRUE)
 
 	else if(href_list["adminplayeropts"])
 		var/mob/selected_mob = locateUID(href_list["adminplayeropts"])
-
-		if(!ismob(selected_mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-
 		usr.client.VUAP_selected_mob = selected_mob
 		usr.client.selectedPlayerCkey = selected_mob.ckey
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["adminplayerobservefollow"])
-		var/client/client = usr.client
-		var/mob/mob = locateUID(href_list["adminplayerobservefollow"])
-
-		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/admin_observe_target, mob)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]))
 
 	else if(href_list["check_antagonist"])
-		check_antagonists()
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
 
 	else if(href_list["check_teams"])
 		if(!check_rights(R_ADMIN))
@@ -2104,7 +1982,10 @@
 				team.admin_remove_member(usr, member)
 
 			if("view_member")
-				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, member.current)
+				var/mob/selected_mob = member.current
+				usr.client.VUAP_selected_mob = selected_mob
+				usr.client.selectedPlayerCkey = selected_mob.ckey
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 			if("add_objective")
 				team.admin_add_objective(usr)
@@ -2324,18 +2205,13 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 
 	else if(href_list["adminplayerobservecoodjump"])
-		var/client/client = usr.client
-		if(!isobserver(usr))
-			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
-				return
-			SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/admin_ghost)
-
-		var/x = text2num(href_list["X"])
-		var/y = text2num(href_list["Y"])
-		var/z = text2num(href_list["Z"])
-
-		sleep(2)
-		client.jump_to_coord(x, y, z)
+		return SSadmin_verbs.dynamic_invoke_verb(
+			usr,
+			/datum/admin_verb/jump_to_coord,
+			text2num(href_list["X"]),
+			text2num(href_list["Y"]),
+			text2num(href_list["Z"]),
+		)
 
 	else if(href_list["adminchecklaws"])
 		if(!check_rights(R_ADMIN|R_MENTOR))
@@ -2373,10 +2249,7 @@
 		to_chat(H, span_notice("Your prayers have been answered!! You received the <b>best cookie</b>!"))
 
 	else if(href_list["BlueSpaceArtillery"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
-
-		var/mob/living/M = locateUID(href_list["BlueSpaceArtillery"])
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bluespace_artillery, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bluespace_artillery, locateUID(href_list["BlueSpaceArtillery"]))
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))
@@ -2446,22 +2319,13 @@
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
+
 	else if(href_list["Bless"])
-		if(!check_rights(R_EVENT))
-			return
-		var/mob/living/M = locateUID(href_list["Bless"])
-		if(!istype(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bless)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bless, locateUID(href_list["Bless"]))
+
 	else if(href_list["Smite"])
-		if(!check_rights(R_EVENT))
-			return
-		var/mob/living/M = locateUID(href_list["Smite"])
-		if(!istype(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, locateUID(href_list["Smite"]))
+
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2766,6 +2630,7 @@
 			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
 			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).")
 		return
+
 	else if(href_list["AdminFaxNotify"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2775,6 +2640,7 @@
 			to_chat(sender, span_specialnotice("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
 			sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		return
+
 	else if(href_list["refreshfaxpanel"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2784,58 +2650,28 @@
 	else if(href_list["getplaytimewindow"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/M = locateUID(href_list["getplaytimewindow"])
-		if(!istype(M, /mob))
+
+		var/mob/target = locateUID(href_list["getplaytimewindow"])
+		if(!ismob(target))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
 			return
-		cmd_mentor_show_exp_panel(M.client)
+
+		cmd_mentor_show_exp_panel(target.client)
 
 	else if(href_list["jumpto"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/M = locateUID(href_list["jumpto"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		usr.client.jumptomob(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/jump_to_mob, locateUID(href_list["jumpto"]))
 
 	else if(href_list["getmob"])
-		if(!check_rights(R_ADMIN))	return
-
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")	return
-		var/mob/M = locateUID(href_list["getmob"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/get_mob, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/get_mob, locateUID(href_list["getmob"]))
 
 	else if(href_list["sendmob"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/M = locateUID(href_list["sendmob"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/sendmob, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/send_mob, locateUID(href_list["sendmob"]))
 
 	else if(href_list["narrateto"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/M = locateUID(href_list["narrateto"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_direct_narrate, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_direct_narrate, locateUID(href_list["narrateto"]))
 
 	else if(href_list["subtlemessage"])
-		if(!check_rights(R_EVENT))
-			return
-
-		var/mob/M = locateUID(href_list["subtlemessage"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, locateUID(href_list["subtlemessage"]))
 
 	else if(href_list["traitor"])
 		if(!check_rights(R_ADMIN|R_MOD))
@@ -2847,25 +2683,31 @@
 
 		var/mob/target = locateUID(href_list["traitor"])
 		if(!ismob(target))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
+			var/datum/mind/mind = target
+			if(!istype(mind))
+				to_chat(usr, "This can only be used on instances of type /mob and /mind", confidential = TRUE)
+				return
+
+			mind.edit_memory()
 			return
 
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_traitor_panel, target)
 
 	else if(href_list["borgpanel"])
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locate(href_list["borgpanel"]))
-		return
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locateUID(href_list["borgpanel"]))
 
 	else if(href_list["spawn_panel"])
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/spawn_panel)
-		return
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/spawn_panel)
 
 	else if(href_list["dupe_marked_datum"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
+
 		return DuplicateObject(marked_datum, perfectcopy=1, newloc=get_turf(usr))
 
-	else if(href_list["object_list"])			//this is the laggiest thing ever
-		if(!check_rights(R_SPAWN))	return
+	else if(href_list["object_list"]) //this is the laggiest thing ever
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/atom/loc = usr.loc
 
@@ -3887,11 +3729,7 @@
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
 
 	else if(href_list["adminalert"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_alert_message, about_to_be_banned)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_alert_message, locateUID(href_list["adminalert"]))
 
 	else if(href_list["resultspoll"])
 		var/datum/poll_question/poll = locate(href_list["resultspoll"]) in GLOB.polls

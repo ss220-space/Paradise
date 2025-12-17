@@ -568,7 +568,7 @@ ADMIN_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "For
 		return
 
 	if(SSdbcore.IsConnected())
-		if(!check_rights(R_ADMIN, FALSE) || !check_rights(R_DEBUG, FALSE)) //we dont want coders to deal with db
+		if(!check_rights_client(R_DEBUG|R_ADMIN, FALSE, user)) //we dont want coders to deal with db
 			to_chat(user, span_warning("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
 			return
 

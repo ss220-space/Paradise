@@ -87,54 +87,56 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 
 	switch(action)
 		if("pp")
-			usr.client.selectedPlayerCkey = request.owner?.mob.ckey
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal)
+			var/mob/selected_mob = request.owner?.mob
+			usr.client.VUAP_selected_mob = selected_mob
+			usr.client.selectedPlayerCkey = selected_mob.ckey
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 			return TRUE
 		if("vv")
-			var/mob/M = request.owner?.mob
-			usr.client.debug_variables(M)
+			var/mob/selected_mob = request.owner?.mob
+			usr.client.debug_variables(selected_mob)
 			return TRUE
 		if("sm")
 			if(!check_rights(R_EVENT))
 				to_chat(usr, "Insufficient permissions to smite, you require +EVENT")
 				return TRUE
-			var/mob/M = request.owner?.mob
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, M)
+			var/mob/selected_mob = request.owner?.mob
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, selected_mob)
 			return TRUE
 		if("tp")
 			if(!SSticker.HasRoundStarted())
 				tgui_alert(usr, "The game hasn't started yet!")
 				return TRUE
-			var/mob/M = request.owner?.mob
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_traitor_panel, M)
+			var/mob/selected_mob = request.owner?.mob
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_traitor_panel, selected_mob)
 			return TRUE
 		if("logs")
-			var/mob/M = request.owner?.mob
-			if(!ismob(M))
+			var/mob/selected_mob = request.owner?.mob
+			if(!ismob(selected_mob))
 				to_chat(usr, "This can only be used on instances of type /mob.")
 				return TRUE
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, list(M), TRUE)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, list(selected_mob), TRUE)
 			return TRUE
 		if("bless")
 			if(!check_rights(R_EVENT))
 				to_chat(usr, "Insufficient permissions to bless, you require +EVENT")
 				return TRUE
-			var/mob/living/M = request.owner?.mob
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bless, M)
+			var/mob/living/selected_mob = request.owner?.mob
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bless, selected_mob)
 			return TRUE
 		if("smite")
 			if(!check_rights(R_EVENT))
 				to_chat(usr, "Insufficient permissions to smite, you require +EVENT")
 				return TRUE
-			var/mob/living/M = request.owner?.mob
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, M)
+			var/mob/living/selected_mob = request.owner?.mob
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, selected_mob)
 			return TRUE
 		if("rply")
 			if(request.req_type == REQUEST_PRAYER)
 				to_chat(usr, "Cannot reply to a prayer")
 				return TRUE
-			var/mob/M = request.owner?.mob
-			usr.client.admin_headset_message(M, request.req_type == REQUEST_SYNDICATE ? "Syndicate" : "Centcomm")
+			var/mob/selected_mob = request.owner?.mob
+			usr.client.admin_headset_message(selected_mob, request.req_type == REQUEST_SYNDICATE ? "Syndicate" : "Centcomm")
 			return TRUE
 		if("ertreply")
 			if(request.req_type != REQUEST_ERT)

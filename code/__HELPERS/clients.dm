@@ -28,6 +28,10 @@
 	if(!player_key)
 		return
 
+	var/mob/persistent_mob = GLOB.persistent_clients_by_ckey[player_key]?.mob
+	if(persistent_mob)
+		return persistent_mob
+
 	for(var/mob/mob_instance as anything in GLOB.player_list)
 		if(mob_instance.ckey != player_key)
 			continue

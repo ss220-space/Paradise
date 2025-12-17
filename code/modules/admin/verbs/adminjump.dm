@@ -1,24 +1,29 @@
+#define JUMP_TO_AREA "Area"
+#define JUMP_TO_MOB "Mob"
+#define JUMP_TO_KEY "Key"
+#define JUMP_TO_COORDINATES "Coordinates"
+
 ADMIN_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", ADMIN_CATEGORY_GAME)
-	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
+	var/list/choices = list(JUMP_TO_AREA, JUMP_TO_MOB, JUMP_TO_KEY, JUMP_TO_COORDINATES)
 	var/chosen = tgui_input_list(user, "What to jump to?", "Jump to...", choices)
 	if(!chosen)
 		return
 
 	var/jumping // Thing to jump to
 	switch(chosen)
-		if("Area")
+		if(JUMP_TO_AREA)
 			jumping = tgui_input_list(user, "Area to jump to", "Jump to Area", get_sorted_areas())
 			if(jumping)
-				return user.jump_to_area(jumping)
-		if("Mob")
+				return SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/jump_to_area, jumping)
+		if(JUMP_TO_MOB)
 			jumping = tgui_input_list(user, "Mob to jump to", "Jump to Mob", GLOB.mob_list)
 			if(jumping)
-				return user.jumptomob(jumping)
-		if("Key")
-			jumping = tgui_input_list(user, "Key to jump to", "Jump to Key", sortKey(GLOB.clients))
+				return SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/jump_to_mob, jumping)
+		if(JUMP_TO_KEY)
+			jumping = tgui_input_list(user, "Key to jump to", "Jump to Key", sort_key(GLOB.clients))
 			if(jumping)
-				return user.jump_to_key(jumping)
-		if("Coordinates")
+				return SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/jump_to_key, jumping)
+		if(JUMP_TO_COORDINATES)
 			var/x = tgui_input_number(user, "X Coordinate", "Jump to Coordinates")
 			if(!x)
 				return
@@ -28,147 +33,124 @@ ADMIN_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", ADMIN
 			var/z = tgui_input_number(user, "Z Coordinate", "Jump to Coordinates")
 			if(!z)
 				return
-			return user.jump_to_coord(x, y, z)
+			return SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/jump_to_coord, x, y, z)
 
-/client/proc/jump_to_area(area/A)
-	if(!A || !check_rights(R_ADMIN))
+#undef JUMP_TO_AREA
+#undef JUMP_TO_MOB
+#undef JUMP_TO_KEY
+#undef JUMP_TO_COORDINATES
+
+ADMIN_VERB(jump_to_area, R_ADMIN, "Jump To Area", "Jumps to the specified area.", ADMIN_CATEGORY_GAME, area/target in world)
+	if(!isobserver(user.mob))
+		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
+
+	var/turf/drop_location
+	top_level:
+		for(var/list/zlevel_turfs as anything in target.get_zlevel_turf_lists())
+			for(var/turf/area_turf as anything in zlevel_turfs)
+				drop_location = area_turf
+				break top_level
+
+	if(isnull(drop_location))
+		to_chat(user, span_warning("No valid drop location found in the area!"))
 		return
 
-	var/list/turfs = list()
-	for(var/turf/T in A)
-		if(T.density)
-			continue
-		if(locate(/obj/structure/grille) in T) // Quick check to not spawn in windows
-			continue
-		turfs += T
-
-	var/turf/T = safepick(turfs)
-	if(!T)
-		to_chat(src, "Nowhere to jump to!")
-		return
-
-	if(isobj(usr.loc))
-		var/obj/O = usr.loc
-		O.force_eject_occupant(usr)
-
-	admin_forcemove(usr, T)
-	log_admin("[key_name(usr)] jumped to [A]")
-	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [A]")
+	user.mob.abstract_move(drop_location)
+	log_admin("[key_name(user)] jumped to [AREACOORD(drop_location)]")
+	message_admins("[key_name_admin(user)] jumped to [AREACOORD(drop_location)]")
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Area")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_turf, R_ADMIN, "Jump To Turf", turf/T in world)
-	if(isobj(user.mob.loc))
-		var/obj/O = user.mob.loc
-		O.force_eject_occupant(user.mob)
-
-	log_admin("[key_name(user)] jumped to [COORD(T)] in [T.loc]")
-
+ADMIN_VERB_AND_CONTEXT_MENU(jump_to_turf, R_ADMIN, "Jump To Turf", "Jump to any turf in the game. This will lag your client.", ADMIN_CATEGORY_GAME, turf/locale in world)
 	if(!isobserver(user.mob))
-		message_admins("[key_name_admin(user)] jumped to [COORD(T)] in [T.loc]")
-
-	admin_forcemove(user.mob, T)
+		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
+	log_admin("[key_name(user)] jumped to [AREACOORD(locale)]")
+	message_admins("[key_name_admin(user)] jumped to [AREACOORD(locale)]")
+	user.mob.abstract_move(locale)
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Turf")
 
-/client/proc/jumptomob(mob/M)
-	if(!M || !check_rights(R_ADMIN))
+ADMIN_VERB_AND_CONTEXT_MENU(jump_to_mob, R_ADMIN, "Jump To Mob", "Jump to any mob in the game.", ADMIN_CATEGORY_GAME, mob/target in world)
+	if(!isobserver(user.mob))
+		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
+	user.mob.abstract_move(target.loc)
+	log_admin("[key_name(user)] jumped to [key_name(target)]")
+	message_admins("[key_name_admin(user)] jumped to [ADMIN_LOOKUPFLW(target)] at [AREACOORD(target)]")
+	BLACKBOX_LOG_ADMIN_VERB("Jump To Mob")
+
+ADMIN_VERB(jump_to_coord, R_ADMIN, "Jump To Coordinate", "Jump to a specific coordinate in the game world.", ADMIN_CATEGORY_GAME, cx as num, cy as num, cz as num)
+	if(!isobserver(user.mob))
+		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
+
+	var/turf/where_we_droppin = locate(cx, cy, cz)
+	if(isnull(where_we_droppin))
+		to_chat(user, span_warning("Invalid coordinates."))
 		return
 
-	log_admin("[key_name(usr)] jumped to [key_name(M)]")
-	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]")
-	if(isobj(usr.loc))
-		var/obj/O = usr.loc
-		O.force_eject_occupant(usr)
-	if(src.mob)
-		var/mob/A = src.mob
-		var/turf/T = get_turf(M)
-		if(T && isturf(T))
-			BLACKBOX_LOG_ADMIN_VERB("Jump To Mob")
-			admin_forcemove(A, M.loc)
-		else
-			to_chat(A, "This mob is not located in the game world.")
+	user.mob.abstract_move(where_we_droppin)
+	message_admins("[key_name_admin(user)] jumped to coordinates [cx], [cy], [cz]")
+	BLACKBOX_LOG_ADMIN_VERB("Jump To Coordiate")
 
-/client/proc/jump_to_coord(tx as num, ty as num, tz as num)
-	if(!isobserver(usr) && !check_rights(R_ADMIN)) // Only admins can jump without being a ghost
+ADMIN_VERB(jump_to_key, R_ADMIN, "Jump To Key", "Jump to a specific player.", ADMIN_CATEGORY_GAME)
+	if(!isobserver(user.mob))
+		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
+
+	var/list/keys = list()
+	for(var/mob/player in GLOB.player_list)
+		keys += player.client
+
+	var/client/selection = input(user, "Please, select a player!", "Admin Jumping") as null | anything in sort_key(keys)
+	if(!selection)
+		to_chat(user, "No keys found.", confidential = TRUE)
 		return
 
-	var/turf/T = locate(tx, ty, tz)
-
-	if(T)
-		if(isobj(usr.loc))
-			var/obj/O = usr.loc
-			O.force_eject_occupant(usr)
-
-		admin_forcemove(usr, T)
-
-		if(isobserver(usr))
-			var/mob/dead/observer/O = usr
-			O.ManualFollow(T)
-
-		BLACKBOX_LOG_ADMIN_VERB("Jump To Coordinate")
-
-	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to coordinates [COORD(T)]")
-
-/client/proc/jump_to_key(client/C)
-	if(!C?.mob || !check_rights(R_ADMIN))
-		return
-	var/mob/M = C.mob
-	log_admin("[key_name(usr)] jumped to [key_name(M)]")
-	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]")
-	if(isobj(usr.loc))
-		var/obj/O = usr.loc
-		O.force_eject_occupant(usr)
-	admin_forcemove(usr, M.loc)
-
+	var/mob/target = selection.mob
+	log_admin("[key_name(user)] jumped to [key_name(target)]")
+	message_admins("[key_name_admin(user)] jumped to [ADMIN_LOOKUPFLW(target)]")
+	user.mob.abstract_move(target.loc)
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Key")
 
-ADMIN_VERB_AND_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME, mob/target in GLOB.mob_list)
-	log_and_message_admins("teleported [key_name_admin(target)]")
-
-	if(isobj(target.loc))
-		var/obj/target_loc = target.loc
-		target_loc.force_eject_occupant(target)
-	admin_forcemove(target, get_turf(user.mob))
+ADMIN_VERB_AND_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME, mob/target in world)
+	var/atom/loc = get_turf(user.mob)
+	target.admin_teleport(loc)
 	BLACKBOX_LOG_ADMIN_VERB("Get Mob")
 
 ADMIN_VERB(get_key, R_ADMIN, "Get Key", "Teleport the player with the provided key to you.", ADMIN_CATEGORY_GAME)
 	var/list/keys = list()
-	for(var/mob/M in GLOB.player_list)
-		keys += M.client
-	var/selection = tgui_input_list(user, "Please, select a player!", "Admin Jumping", sortKey(keys))
+	for(var/mob/target in GLOB.player_list)
+		keys += target.client
+
+	var/client/selection = input(user, "Please, select a player!", "Admin Jumping") as null | anything in sort_key(keys)
 	if(!selection)
 		return
-	var/mob/M = selection:mob
 
-	if(!M)
-		return
-	log_and_message_admins("teleported [key_name(M)]")
-	if(M)
-		if(isobj(M.loc))
-			var/obj/O = M.loc
-			O.force_eject_occupant(M)
-		admin_forcemove(M, get_turf(user.mob))
-		admin_forcemove(user.mob, M.loc)
-		BLACKBOX_LOG_ADMIN_VERB("Get Key")
-
-ADMIN_VERB_AND_CONTEXT_MENU(sendmob, R_ADMIN, "Send Mob", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME, mob/target in GLOB.mob_list)
-	var/area/picked_area = tgui_input_list(user, "Pick an area.", "Pick an area", get_sorted_areas())
-	if(!picked_area)
+	var/mob/selected_mob = selection.mob
+	if(!selected_mob)
 		return
 
-	if(isobj(target.loc))
-		var/obj/target_loc = target.loc
-		target_loc.force_eject_occupant(target)
-	admin_forcemove(target, pick(get_area_turfs(picked_area)))
-	log_and_message_admins("teleported [key_name_admin(target)] to [picked_area]")
+	selected_mob.forceMove(get_turf(user))
+	log_admin("[key_name(user)] teleported [key_name(selected_mob)]")
+	message_admins("[key_name_admin(usr)] teleported [ADMIN_LOOKUPFLW(selected_mob)]")
+	BLACKBOX_LOG_ADMIN_VERB("Get Key")
+
+ADMIN_VERB_AND_CONTEXT_MENU(send_mob, R_ADMIN, "Send Mob", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME, mob/jumper)
+	var/list/sorted_areas = get_sorted_areas()
+	if(!length(sorted_areas))
+		to_chat(user, "No areas found.", confidential = TRUE)
+		return
+
+	var/area/target_area = tgui_input_list(user, "Pick an area", "Send Mob", sorted_areas)
+	if(!istype(target_area)) //MONKE EDIT istype basically does isnull as well
+		return
+
+	var/list/turfs = get_area_turfs(target_area)
+	if(length(turfs) && jumper.forceMove(pick(turfs)))
+		log_admin("[key_name(user)] teleported [key_name(jumper)] to [AREACOORD(jumper)]")
+		message_admins("[key_name_admin(user)] teleported [ADMIN_LOOKUPFLW(jumper)] to [AREACOORD(jumper)]")
+	else
+		to_chat(user, "Failed to move mob to a valid location.", confidential = TRUE)
+
 	BLACKBOX_LOG_ADMIN_VERB("Send Mob")
 
-/proc/admin_forcemove(mob/mover, atom/newloc)
-	mover.forceMove(newloc)
-	mover.on_forcemove(newloc)
-
-/mob/proc/on_forcemove(atom/newloc)
-	return
+/mob/admin_teleport(atom/new_location)
+	var/turf/location = get_turf(new_location)
+	message_admins("[key_name_admin(usr)] teleported [ADMIN_LOOKUPFLW(src)] to [isnull(new_location) ? "nullspace" : ADMIN_VERBOSEJMP(location)]")
+	return ..()

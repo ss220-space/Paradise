@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(admin_verbs)
 
 	var/list/has_permission = list()
 	for(var/permission_flag in GLOB.bitflags)
-		if(check_rights_for(admin, permission_flag)) // its must be check_rights_client from Paradise
+		if(check_rights_client(permission_flag, FALSE, admin))
 			has_permission["[permission_flag]"] = TRUE
 
 	var/list/valid_verbs = list()
@@ -115,7 +115,7 @@ SUBSYSTEM_DEF(admin_verbs)
 	if(isnull(verb_singleton))
 		CRASH("Attempted to dynamically invoke admin verb '[verb_type]' that doesn't exist.")
 
-	if(!check_rights_for(admin, verb_singleton.permissions)) // its must be check_rights_client from Paradise
+	if(!check_rights_client(verb_singleton.permissions, FALSE, admin))
 		to_chat(admin, span_adminnotice("You lack the permissions to do this."))
 		return
 

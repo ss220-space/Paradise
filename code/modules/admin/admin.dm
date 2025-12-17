@@ -411,7 +411,7 @@ ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.",
 	if(!message)
 		return
 
-	if(!check_rights(R_SERVER, FALSE))
+	if(!check_rights_client(R_SERVER, FALSE, user))
 		message = adminscrub(message, 500)
 
 	message = handleDiscordEmojis(message)
@@ -861,7 +861,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 /proc/staff_countup(rank_mask = R_BAN)
 	var/list/result = list(0, 0, 0)
 	for(var/client/X in GLOB.admins)
-		if(rank_mask && !check_rights_for(X, rank_mask))
+		if(rank_mask && !check_rights_client(rank_mask, FALSE, X))
 			result[2]++
 			continue
 		if(X.holder.fakekey)

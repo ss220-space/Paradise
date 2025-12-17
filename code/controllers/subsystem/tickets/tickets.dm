@@ -551,7 +551,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/client/client as anything in GLOB.admins)
 		if(ckey(client.ckey) == ckey(T.client_ckey))
 			continue
-		if(!check_rights_for(client, rights_needed))
+		if(!check_rights_client(rights_needed, FALSE, client))
 			continue
 		for(var/key in client.pm_tracker.pms)
 			if(ckey(key) != ckey(T.client_ckey))

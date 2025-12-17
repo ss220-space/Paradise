@@ -655,13 +655,6 @@
 		else
 			return ..()
 
-/mob/living/silicon/pai/on_forcemove(atom/newloc)
-	if(card)
-		card.loc = newloc
-	else //something went very wrong.
-		CRASH("pAI without card")
-	loc = card
-
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
 	set_light_on(FALSE)

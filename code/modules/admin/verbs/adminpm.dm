@@ -30,7 +30,7 @@ ADMIN_VERB(cmd_admin_pm_panel, R_ADMIN|R_MENTOR, "Admin PM", "Show a list of cli
 ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by key.", ADMIN_CATEGORY_MAIN)
 	var/list/client/targets = list()
 	for(var/client/T)
-		if(T?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // normal admins can't see BB
+		if(T?.holder?.big_brother && !check_rights_client(R_PERMISSIONS, FALSE, user)) // normal admins can't see BB
 			continue
 		if(T.mob)
 			if(isnewplayer(T.mob))

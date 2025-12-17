@@ -135,7 +135,11 @@
 			if(QDELETED(mind.current))
 				to_chat(ui.user, span_warning("У разума нет соответствующего моба."))
 				return
-			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/vuap_personal, mind.current)
+
+			var/mob/selected_mob = mind.current
+			usr.client.VUAP_selected_mob = selected_mob
+			usr.client.selectedPlayerCkey = selected_mob.ckey
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/vuap_personal, selected_mob)
 		if("pm")
 			ui.user.client.cmd_admin_pm(params["ckey"], null)
 		if("follow")

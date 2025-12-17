@@ -1,4 +1,24 @@
-/datum/vuap_personal
+ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player options panel for a mob.", ADMIN_CATEGORY_GAME, mob/target in GLOB.player_list)
+	if(!target)
+		to_chat(user, span_warning("Could not find desired target mob!"), type = MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+		return
+	if(!length(target.ckey) || target.ckey[1] == "@")
+		var/mob/player = target
+		var/datum/mind/player_mind = get_mind(player, include_last = TRUE)
+		var/player_mind_ckey = ckey(player_mind.key)
+		user.selectedPlayerCkey = player_mind_ckey
+		user.VUAP_selected_mob = target
+		var/datum/vuap_personal/tgui = new(user.mob)
+		tgui.ui_interact(user.mob)
+		tgui_alert(user, "WARNING! This mob has no associated Mind! Most actions will not work. Last ckey to control this mob is [player_mind_ckey].", "No Mind!")
+	else
+		user.selectedPlayerCkey = target.ckey
+		user.VUAP_selected_mob = target
+		var/datum/vuap_personal/tgui = new(user.mob)
+		tgui.ui_interact(user.mob)
+	BLACKBOX_LOG_ADMIN_VERB("VUAP_personal")
+
+/datum/vuap_personal /* required for tgui component */
 
 /datum/vuap_personal/ui_data(mob/user)
 	var/ckey = user.client?.selectedPlayerCkey
@@ -54,8 +74,8 @@
 					"emote" = check_mute(player.client.ckey, MUTE_EMOTE),
 					"all" = check_mute(player.client.ckey, MUTE_ALL)
 				)
-	player_data["adminRights"] = rights2text(user.client.holder.rights)
-	return player_data
+		player_data["adminRights"] = rights2text(user.client.holder.rights)
+		return player_data
 
 /datum/vuap_personal/ui_status(mob/user, datum/ui_state/state)
 	. = (check_rights(R_ADMIN|R_MOD, user = user)) ? UI_INTERACTIVE : ..()
@@ -134,6 +154,7 @@
 			return
 		if("smite")
 			usr.client.holder.Topic(null, list("Smite" = selected_mob.UID()))
+			return
 		// Message Section
 		if("pm")
 			usr.client.cmd_admin_pm(selected_mob.ckey)
@@ -248,21 +269,21 @@
 		//health section
 		if("healthscan")
 			healthscan(usr, selected_mob, TRUE)
-			SSblackbox.record_feedback("tally", "VUAP", 1, "HealthScan")
+			BLACKBOX_LOG_VUAP("HealthScan")
 		if("chemscan")
 			chemscan(usr, selected_mob)
-			SSblackbox.record_feedback("tally", "VUAP", 1, "ChemScan")
+			BLACKBOX_LOG_VUAP("ChemScan")
 		if("aheal")
 			usr.client.holder.Topic(null, list("revive" = selected_mob.UID()))
 			to_chat(usr, "Adminhealed  [selected_mob.ckey].", confidential = TRUE)
 			return
 		if("giveDisease")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_disease, selected_mob)
-			SSblackbox.record_feedback("tally", "VUAP", 1, "GiveDisease")
+			BLACKBOX_LOG_VUAP("GiveDisease")
 			return
 		if("cureDisease")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cure_disease, selected_mob)
-			SSblackbox.record_feedback("tally", "VUAP", 1, "CureDisease")
+			BLACKBOX_LOG_VUAP("CureDisease")
 			return
 		if("cureAllDiseases")
 			if(!check_rights(R_EVENT))
@@ -273,7 +294,7 @@
 					disease.cure()
 			log_and_message_admins("Cured all diseases on [selected_mob.ckey].")
 			to_chat(usr, "Cured all negative diseases on [selected_mob.ckey].", confidential = TRUE)
-			SSblackbox.record_feedback("tally", "VUAP", 1, "CureAllDiseases")
+			BLACKBOX_LOG_VUAP("CureAllDiseases")
 			return
 		if("mutate")
 			usr.client.holder.Topic(null, list("showdna" = selected_mob.UID()))
@@ -377,6 +398,7 @@
 
 		if("someadminbutton")
 			SEND_SOUND(usr, sound('sound/items/bikehorn.ogg'))
+			return
 
 /datum/vuap_personal/ui_state(mob/user)
 	return GLOB.admin_mod_state

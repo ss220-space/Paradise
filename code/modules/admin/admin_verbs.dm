@@ -1,6 +1,6 @@
 /client/proc/add_admin_verbs()
 	SSadmin_verbs.assosciate_admin(src)
-	if(check_rights(R_ADMIN|R_DEBUG|R_VIEWRUNTIMES, FALSE, src))
+	if(check_rights_client(R_ADMIN|R_DEBUG|R_VIEWRUNTIMES, FALSE, src))
 		// This setting exposes the profiler & client side tools
 		spawn(1)
 			control_freak = 0
@@ -505,10 +505,6 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD, "AObserve", mo
 
 	if(!isobserver(user.mob))
 		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
-
-	if(!istype(target))
-		to_chat(user, span_warning("Это можно сделать только с объектами типа /mob"), confidential = TRUE)
-		return
 
 	addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
 

@@ -683,11 +683,11 @@
 
 // MARK: TODO: REF
 //Mergesort: divides up the list into halves to begin the sort
-/proc/sortKey(list/client/L, order = 1)
+/proc/sort_key(list/client/L, order = 1)
 	if(isnull(L) || length(L) < 2)
 		return L
 	var/middle = length(L) / 2 + 1
-	return mergeKey(sortKey(L.Copy(0,middle)), sortKey(L.Copy(middle)), order)
+	return mergeKey(sort_key(L.Copy(0,middle)), sort_key(L.Copy(middle)), order)
 
 // MARK: TODO: REF
 //Mergsort: does the actual sorting and returns the results back to sortAtom

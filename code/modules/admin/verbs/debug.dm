@@ -687,7 +687,7 @@ ADMIN_VERB(display_del_log_simple, R_DEBUG, "Display Simple del() Log", "Display
 		tgui_alert(usr, "Invalid mob")
 
 ADMIN_VERB(view_runtimes, R_DEBUG|R_VIEWRUNTIMES, "View Runtimes", "Opens the runtime viewer.", ADMIN_CATEGORY_DEBUG)
-	GLOB.error_cache.show_to(user)
+	GLOB.error_cache.show_to(user.mob)
 
 ADMIN_VERB(allow_browser_inspect, R_DEBUG, "Allow Browser Inspect", "Allow browser debugging via inspect.", ADMIN_CATEGORY_DEBUG)
 	if(user.byond_version < 516)

@@ -533,18 +533,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
-/mob/dead/observer/proc/jump_to_ruin()
-	set category = VERB_CATEGORY_GHOST
-	set name = "Jump to Ruin"
-	set desc = "Displays a list of all placed ruins to teleport to."
-
-	if(!isobserver(usr))
-		to_chat(usr, "Not when you're not dead!")
-		return
-
+ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed ruins to teleport to.", ADMIN_CATEGORY_DEBUG)
 	var/list/names = list()
-	for(var/i in GLOB.ruin_landmarks)
-		var/obj/effect/landmark/ruin/ruin_landmark = i
+	for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
 		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
 
 		var/count = 1
@@ -557,28 +548,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		names[name] = ruin_landmark
 
-	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
-
+	var/ruinname = input(user, "Select ruin", "Jump to Ruin") as null | anything in sort_list(names)
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
-
 	if(istype(landmark))
-		var/datum/map_template/ruin/template = landmark.ruin_template
-		if(isobj(usr.loc))
-			var/obj/O = usr.loc
-			O.force_eject_occupant(usr)
-		admin_forcemove(usr, get_turf(landmark))
+		return
 
-		var/list/messages = list(
-			span_notice("Jumped to <b>[template.name]</b>:"),
-			span_notice("[template.description]")
-		)
-		to_chat(usr, chat_box_examine(messages.Join("\n")))
-
-		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
-		if(!isobserver(usr))
-			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]")
-
-		BLACKBOX_LOG_ADMIN_VERB("Jump To Ruin")
+	var/datum/map_template/ruin/template = landmark.ruin_template
+	user.mob.forceMove(get_turf(landmark))
+	to_chat(user, span_name("[template.name]"), confidential = TRUE)
+	to_chat(user, span_italics("[template.description]"), confidential = TRUE)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = VERB_CATEGORY_GHOST
