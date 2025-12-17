@@ -111,9 +111,15 @@ jobs:
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: ./DMCompiler_linux-x64/DMCompiler paradise.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
 
-      - name: Run Map Lint
+      - name: Run Map Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: python -m tools.maplint.source --github
+        run: |
+          tools/bootstrap/python -m mapmerge2.dmm_test
+          python -m tools.maplint.source --github
+
+      - name: Run DMI Tests
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: tools/bootstrap/python -m dmi.test
 
       - name: Run JSON Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
