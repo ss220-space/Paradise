@@ -66,7 +66,9 @@ ADMIN_VERB(view_all_circuits, R_ADMIN, "View All Circuits", "List all circuits i
 
 		if("open_player_panel")
 			var/datum/mind/inserter = circuit.inserter_mind?.resolve()
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, inserter?.current)
+			usr.client.VUAP_selected_mob = inserter?.current
+			usr.client.selectedPlayerCkey = inserter?.current?.ckey
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal)
 
 	return TRUE
 

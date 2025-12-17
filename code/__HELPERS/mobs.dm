@@ -520,7 +520,7 @@
 
 	to_chat(user, chat_box_examine(exportable_text), confidential = TRUE)
 
-// Gets the first mob contained in an atom, and warns the user if there's not exactly one
+/// Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
 	if(!istype(A))
 		return null
@@ -532,10 +532,10 @@
 		if(!.)
 			. = M
 		else
-			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			to_chat(user, span_warning("Multiple mobs in [A], using first mob found..."))
 			break
 	if(!.)
-		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+		to_chat(user, span_warning("No mob located in [A]."))
 
 // Gets the first mob contained in an atom but doesn't warn the user at all
 /proc/get_mob_in_atom_without_warning(atom/A)

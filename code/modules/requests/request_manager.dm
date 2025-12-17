@@ -87,8 +87,8 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 
 	switch(action)
 		if("pp")
-			var/mob/M = request.owner?.mob
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, M)
+			usr.client.selectedPlayerCkey = request.owner?.mob.ckey
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal)
 			return TRUE
 		if("vv")
 			var/mob/M = request.owner?.mob

@@ -668,7 +668,9 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, M)
+		usr.client.VUAP_selected_mob = M
+		usr.client.selectedPlayerCkey = M.ckey
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, M)
 
 	else if(href_list["give_spell"])
 		if(!check_rights(R_SERVER|R_EVENT))

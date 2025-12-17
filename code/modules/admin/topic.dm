@@ -1937,7 +1937,9 @@
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
 			return
 
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
+		usr.client.VUAP_selected_mob = selected_mob
+		usr.client.selectedPlayerCkey = selected_mob.ckey
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["adminplayerobservefollow"])
 		var/client/client = usr.client
