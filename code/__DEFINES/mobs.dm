@@ -505,3 +505,9 @@
 
 /// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
 #define RESIZE_DEFAULT_SIZE 1
+
+//Mob AI Status
+#define POWER_RESTORATION_OFF 0
+#define POWER_RESTORATION_START 1
+#define POWER_RESTORATION_SEARCH_APC 2
+#define POWER_RESTORATION_APC_FOUND 3

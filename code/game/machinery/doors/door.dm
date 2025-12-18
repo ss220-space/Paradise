@@ -497,6 +497,7 @@
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
+	icon_state = "door1"
 
 /obj/machinery/door/proc/lock()
 	return

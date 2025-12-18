@@ -216,7 +216,7 @@
 
 /obj/effect/old_anomaly/bluespace
 	name = "bluespace anomaly"
-	icon = 'icons/obj/weapons/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
 	var/mass_teleporting = TRUE

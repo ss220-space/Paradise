@@ -54,7 +54,8 @@
 /* //uncomment to enable forced reactions.
 /obj/machinery/r_n_d/experimentor/verb/forceReaction()
 	set name = "Force Experimentor Reaction"
-	set category = STATPANEL_ADMIN_DEBUG	set src in oview(1)
+	set category = STATPANEL_ADMIN_DEBUG
+	set src in oview(1)
 	var/reaction = tgui_input_list(usr, "What reaction?", , list(SCANTYPE_POKE, SCANTYPE_IRRADIATE, SCANTYPE_GAS, SCANTYPE_HEAT, SCANTYPE_COLD, SCANTYPE_OBLITERATE))
 	var/oldReaction = item_reactions["[loaded_item.type]"]
 	item_reactions["[loaded_item.type]"] = reaction
@@ -777,7 +778,7 @@
 
 /obj/item/relict_production/perfect_mix/New()
 	. = ..()
-	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer, /datum/reagent/beer2))
+	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer))
 
 /obj/item/relict_production/perfect_mix/afterattack(atom/target, mob/user, proximity)
 	if(istype(target, /obj/item/reagent_containers/glass))

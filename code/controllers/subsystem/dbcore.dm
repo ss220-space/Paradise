@@ -447,6 +447,10 @@ SUBSYSTEM_DEF(dbcore)
  * * log_error - Do we want to log errors this creates? Disable this if you are running sensitive queries where you dont want errors logged in plain text (EG: Auth token stuff)
  */
 /datum/db_query/proc/warn_execute(async = TRUE, log_error = TRUE)
+	// Don't try to run queries, if the database is not enabled.
+	if(!CONFIG_GET(flag/sql_enabled))
+		return
+
 	. = Execute(async, log_error)
 	if(!.)
 		SSdbcore.total_errors++
@@ -559,7 +563,7 @@ SUBSYSTEM_DEF(dbcore)
 
 // Verb that lets admins force reconnect the DB
 /client/proc/reestablish_db_connection()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Reestablish DB Connection"
 	if(!CONFIG_GET(flag/sql_enabled))
 		to_chat(usr, span_warning("The Database is not enabled in the server configuration!"))

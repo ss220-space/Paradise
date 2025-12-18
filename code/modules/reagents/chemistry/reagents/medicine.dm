@@ -146,14 +146,23 @@
 			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
 			C.reagents.del_reagent(id)
 
+	if(iscarbon(M))
+		data["method"] = method
+		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
+			to_chat(M, span_warning("Всё внутри вас замерзает!"))
+	..()
+
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(iscarbon(M) && M.bodytemperature < TCRYO)
-		update_flags |= M.adjustCloneLoss(-1, FALSE)
-		update_flags |= M.adjustOxyLoss(-2, FALSE)
-		update_flags |= M.adjustToxLoss(-0.5, FALSE)
-		update_flags |= M.adjustBruteLoss(-2, FALSE, affect_robotic = FALSE)
-		update_flags |= M.adjustFireLoss(-4, FALSE, affect_robotic = FALSE)
+	if(M.bodytemperature < TCRYO && data["method"] == REAGENT_TOUCH)
+		update_flags |= M.adjustCloneLoss(-4, FALSE)
+		update_flags |= M.adjustOxyLoss(-10, FALSE)
+		update_flags |= M.adjustToxLoss(-03, FALSE)
+		update_flags |= M.adjustBruteLoss(-12, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-12, FALSE, affect_robotic = FALSE)
+		M.Stun(4 SECONDS)
+		if(M.stat == CONSCIOUS && prob(25))
+			to_chat(M, span_warning("Ваши мышцы свело судуругой, вы не можете пошевелиться!"))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
@@ -1765,3 +1774,71 @@
 		M.reagents.add_reagent("epinephrine", 0.2)
 		M.reagents.add_reagent("heparin", 0,4)
 	return ..()
+
+/datum/reagent/medicine/sanguinius
+	name = "Сангвиний"
+	id = "sanguinius"
+	description = "Кроваво-красная густая жидкость, предназначенная для использования в случаях острой кровопотери. \
+					Временно повышает способности организма к кроветворению."
+	color = "#770101"
+	taste_description = "металла"
+	harmless = FALSE
+	overdose_threshold = 15
+
+/datum/reagent/medicine/sanguinius/on_mob_life(mob/living/user)
+	. = list(0, STATUS_UPDATE_NONE)
+
+	if(!ishuman(user))
+		return ..()
+
+	if(HAS_TRAIT(user, TRAIT_NO_BLOOD) || HAS_TRAIT(user, TRAIT_NO_BLOOD_RESTORE))
+		return ..()
+
+	if(user.blood_volume < BLOOD_VOLUME_NORMAL)
+		switch(current_cycle)
+
+			if(1)
+				user.AdjustBlood(1)
+
+			if(2 to 25)
+				user.AdjustBlood(3)
+
+			else
+				user.AdjustBlood(5)
+
+	return ..()
+
+/datum/reagent/medicine/sanguinius/overdose_process(mob/living/M, severity)
+	. = list(0, STATUS_UPDATE_NONE)
+
+	var/mob/living/carbon/human/user = M
+
+	if(volume < 20)
+		if(prob(10))
+			to_chat(user, span_warning("Вы кашляете запекшейся кровью!"))
+			user.vomit(0, VOMIT_BLOOD, 0)
+			user.AdjustBlood(-15)
+			return .
+
+		if(!prob(10))
+			return .
+
+		var/overdose_message = pick("На мгновение ваше зрение окрашивается в красный цвет.", "Вы слышите, как бьётся ваше сердце.")
+		to_chat(user, span_warning("[overdose_message]"))
+		return .
+
+	if(prob(10))
+		to_chat(user, span_danger("Вы захлёбываетесь собственной кровью!"))
+		user.AdjustLoseBreath(2 SECONDS)
+		user.vomit(0, VOMIT_BLOOD, 0)
+		user.AdjustBlood(-30)
+		return .
+
+	if(!prob(10))
+		return .
+
+	var/overdose_message = pick("Ваши глаза застилает кровавая пелена!", "Стук вашего сердца гремит в ушах!", "Ваши вены вздуваются под кожей!")
+	to_chat(user, span_danger("[overdose_message]"))
+	user.adjustBruteLoss(6)
+	user.set_bloody_screen(6 SECONDS)
+

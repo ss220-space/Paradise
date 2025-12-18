@@ -1598,7 +1598,6 @@
 	icon_state = "shard"
 	sharp = TRUE //youch!!
 	force = 5
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clockwork/shard/Initialize(mapload)
 	. = ..()
@@ -1774,6 +1773,8 @@
 	var/mob/living/carbon/human/H = clocker
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		bodypart.stop_internal_bleeding()
+		bodypart.stop_arterial_bleeding()
+		bodypart.stop_bleeding()
 		bodypart.mend_fracture()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/curse(mob/living/target)

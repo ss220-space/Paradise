@@ -81,17 +81,6 @@
 	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
 	blackbox_message = "Toggle GhostRadio"
 
-/datum/preference_toggle/toggle_admin_radio
-	name = "Админ-радио"
-	description = "Включает слышимость всех радиосообщений."
-	preftoggle_bitflag = PREFTOGGLE_CHAT_RADIO
-	preftoggle_toggle = PREFTOGGLE_SOUND
-	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_ADMIN
-	enable_message = "Теперь вы не будете слышать все радиосообщения."
-	disable_message = "Теперь вы будете слышать все радиосообщения."
-	blackbox_message = "Toggle RadioChatter"
-
 /datum/preference_toggle/toggle_ai_voice_annoucements
 	name = "Слышимость аудио-оповещений ИИ"
 	description = "Включает слышимость звуковых оповещений ИИ."

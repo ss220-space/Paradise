@@ -2,7 +2,7 @@
 //TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
 
 /client/proc/restart_controller(controller in list("Master", "Failsafe"))
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
 
@@ -19,7 +19,7 @@
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 
 /client/proc/debug_controller(controller in list("Configuration", "pAI", "Cameras", "Space Manager"))
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Debug Misc Controller"
 	set desc = "Debug the various non-subsystem controllers for the game (be careful!)"
 
@@ -42,7 +42,7 @@
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
 
 /client/proc/toggle_npcpool_suspension()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Toggle NPCpool suspension"
 	set desc = "Toggles NPCpool suspension, when there are no alive players in sector, NPC's are not processed."
 	if(!check_rights(R_DEBUG))
@@ -53,7 +53,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Toggle NPCpool suspension")
 
 /client/proc/toggle_Idlenpcpool_suspension()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Toggle IdleNPCpool suspension"
 	set desc = "Toggles IdleNPCpool suspension, when there are no alive players in sector, Idle NPC's are not processed."
 	if(!check_rights(R_DEBUG))
@@ -64,7 +64,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Toggle IdleNPCpool suspension")
 
 /client/proc/toggle_mobs_suspension()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Toggle Mobs suspension"
 	set desc = "Toggles Mobs suspension, when there are no alive players in sector, mobs are not processed."
 	if(!check_rights(R_DEBUG))
