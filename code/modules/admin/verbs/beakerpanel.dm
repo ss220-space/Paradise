@@ -1,7 +1,7 @@
 /datum/beaker_panel
 
 /datum/beaker_panel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/beaker_panel/ui_close()
 	qdel(src)

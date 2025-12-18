@@ -60,7 +60,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_REQUESTS, data)
 
 /datum/request_manager/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/request_manager/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

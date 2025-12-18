@@ -26,7 +26,7 @@ ADMIN_VERB(drop_lightning_bolt, R_EVENT, "Drop lightning bolt", "Вызвать 
 	var/reason
 
 /datum/drop_lightning_bolt_ui/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/drop_lightning_bolt_ui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

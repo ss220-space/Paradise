@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 /datum/spawnpanel/ui_state(mob/user)
 	if(user.client.ckey != owner_ckey)
 		return GLOB.never_state
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/spawnpanel/ui_act(action, params)
 	if(..())

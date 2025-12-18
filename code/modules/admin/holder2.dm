@@ -79,28 +79,30 @@ GLOBAL_PROTECT(href_token)
  * Check if the current user has admin rights
  *
  * Checks if usr is an admin with at least ONE of the flags in rights_required.
- * If rights_required == 0, simply checks if they are an admin. If the check fails
- * and show_msg is 1, prints a message explaining why.
+ * If rights_required == FALSE, simply checks if they are an admin. If the check fails
+ * and show_msg is TRUE, prints a message explaining why.
  *
  * Note: This checks usr, not src. To check someone else's rank in a proc they didn't
  * call, use `if(client.holder.rights & R_ADMIN)` directly.
  *
  * Arguments:
- * * rights_required - Bitflags of required admin rights (0 for any admin)
- * * show_msg - If 1, shows a message to the user on failure
+ * * rights_required - Bitflags of required admin rights (FALSE for any admin)
+ * * show_msg - If TRUE, shows a message to the user on failure
+ * * user - The mob to check rights for (defaults to usr)
+ * * all - If TRUE, requires ALL flags in rights_required instead of ANY
  */
 /proc/check_rights(rights_required, show_msg = TRUE, mob/user = usr, all = FALSE)
-	if(user?.client)
+	if(user && user.client)
 		return check_rights_ckey(rights_required, show_msg, user.ckey, all)
 	return FALSE
 
-/// As above, for a /client
+/// Check if a /client has admin rights
 /proc/check_rights_client(rights_required, show_msg, client/user_client, all = FALSE)
 	if(user_client)
 		return check_rights_ckey(rights_required, show_msg, user_client.ckey, all)
 	return FALSE
 
-/// As above, for a ckey
+/// Check if a ckey has admin rights
 /proc/check_rights_ckey(rights_required, show_msg, ckey, all)
 	var/datum/admins/holder = GLOB.admin_datums[ckey]
 	if(!holder)

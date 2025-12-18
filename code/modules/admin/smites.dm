@@ -549,7 +549,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", "Smite a play
 	var/mob/victim_mob
 
 /datum/smite_ui/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/smite_ui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -12,7 +12,7 @@ ADMIN_VERB(poll_panel, R_SERVER, "Server Poll Management", "View and manage poll
 	BLACKBOX_LOG_ADMIN_VERB("Server Poll Management")
 
 /datum/ui_module/poll_list_panel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ui_module/poll_list_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

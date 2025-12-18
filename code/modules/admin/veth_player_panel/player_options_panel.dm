@@ -77,9 +77,6 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 		player_data["adminRights"] = rights2text(user.client.holder.rights)
 		return player_data
 
-/datum/vuap_personal/ui_status(mob/user, datum/ui_state/state)
-	. = (check_rights(R_ADMIN|R_MOD, user = user)) ? UI_INTERACTIVE : ..()
-
 /datum/vuap_personal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -401,4 +398,4 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 			return
 
 /datum/vuap_personal/ui_state(mob/user)
-	return GLOB.admin_mod_state
+	return ADMIN_STATE(R_ADMIN|R_MOD)

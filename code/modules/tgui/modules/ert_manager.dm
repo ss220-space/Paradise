@@ -10,7 +10,7 @@
 	var/cyborg_slots = 0
 
 /datum/ui_module/ert_manager/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ui_module/ert_manager/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
