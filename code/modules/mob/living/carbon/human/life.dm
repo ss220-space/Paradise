@@ -237,7 +237,7 @@
 				if(chest)
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 		else
-			radiation = clamp(radiation, 0, 200)
+			clamp(radiation, 0, 200)
 			radiation = max(radiation - 1, 0) // Passive radiation drain for rad-immune species
 
 /// Used by nucleations
