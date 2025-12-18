@@ -27,6 +27,9 @@
 	)
 
 /obj/projectile/beam/laser
+	tracer_type = /obj/effect/projectile/tracer/laser
+	muzzle_type = /obj/effect/projectile/muzzle/laser
+	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/light
 	damage = 18
@@ -35,6 +38,9 @@
 	name = "heavy laser"
 	icon_state = "heavylaser"
 	damage = 50
+	tracer_type = /obj/effect/projectile/tracer/heavy_laser
+	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
+	impact_type = /obj/effect/projectile/impact/heavy_laser
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 
 /obj/projectile/beam/laser/heavylaser/get_ru_names()
@@ -120,6 +126,9 @@
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
+	tracer_type = /obj/effect/projectile/tracer/xray
+	muzzle_type = /obj/effect/projectile/muzzle/xray
+	impact_type = /obj/effect/projectile/impact/xray
 
 /obj/projectile/beam/xray/get_ru_names()
 	return list(
@@ -141,7 +150,10 @@
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_CYAN
+	light_color = LIGHT_COLOR_BLUE
+	tracer_type = /obj/effect/projectile/tracer/disabler
+	muzzle_type = /obj/effect/projectile/muzzle/disabler
+	impact_type = /obj/effect/projectile/impact/disabler
 
 /obj/projectile/beam/disabler/get_ru_names()
 	return list(
@@ -178,7 +190,10 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	hitsound_wall = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_DARK_BLUE
+	light_color = LIGHT_COLOR_BLUE
+	tracer_type = /obj/effect/projectile/tracer/pulse
+	muzzle_type = /obj/effect/projectile/muzzle/pulse
+	impact_type = /obj/effect/projectile/impact/pulse
 
 /obj/projectile/beam/pulse/get_ru_names()
 	return list(
@@ -189,6 +204,19 @@
 		INSTRUMENTAL = "импульсным зарядом",
 		PREPOSITIONAL = "импульсном заряде",
 	)
+
+/obj/projectile/beam/pulse/hitscan
+	impact_effect_type = null
+	light_color = null
+	hitscan = TRUE
+	hitscan_light_intensity = 3
+	hitscan_light_color_override = LIGHT_COLOR_BLUE
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_BLUE
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = LIGHT_COLOR_BLUE
 
 /obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
@@ -225,6 +253,21 @@
 		PREPOSITIONAL = "импульсе излучателя",
 	)
 
+/obj/projectile/beam/emitter/hitscan
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
+	tracer_type = /obj/effect/projectile/tracer/laser/emitter
+	impact_type = /obj/effect/projectile/impact/laser/emitter
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_color_override = COLOR_LIME
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = COLOR_LIME
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = COLOR_LIME
+
 /obj/projectile/beam/emitter/singularity_pull()
 	return //don't want the emitters to miss
 
@@ -259,27 +302,27 @@
 				M.apply_damage(34, STAMINA)
 	return 1
 
-/obj/projectile/beam/lasertag/omni
-
-/obj/projectile/beam/lasertag/omni/get_ru_names()
-	return list(
-		NOMINATIVE = "лазертаг",
-		GENITIVE = "лазертага",
-		DATIVE = "лазертагу",
-		ACCUSATIVE = "лазертаг",
-		INSTRUMENTAL = "лазертагом",
-		PREPOSITIONAL = "лазертаге",
-	)
-
 /obj/projectile/beam/lasertag/redtag
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = COLOR_SOFT_RED
+	tracer_type = /obj/effect/projectile/tracer/laser
+	muzzle_type = /obj/effect/projectile/muzzle/laser
+	impact_type = /obj/effect/projectile/impact/laser
+
+/obj/projectile/beam/lasertag/redtag/hitscan
+	hitscan = TRUE
 
 /obj/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
+	tracer_type = /obj/effect/projectile/tracer/laser/blue
+	muzzle_type = /obj/effect/projectile/muzzle/laser/blue
+	impact_type = /obj/effect/projectile/impact/laser/blue
+
+/obj/projectile/beam/lasertag/bluetag/hitscan
+	hitscan = TRUE
 
 /obj/projectile/beam/sniper
 	name = "sniper beam"
@@ -385,6 +428,22 @@
 		INSTRUMENTAL = "лёгким импульсом иммолятора",
 		PREPOSITIONAL = "лёгком импульсе иммолятора",
 	)
+
+/obj/projectile/beam/immolator/weak/hitscan
+	color = LIGHT_COLOR_FIRE
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/laser
+	tracer_type = /obj/effect/projectile/tracer/laser
+	impact_type = /obj/effect/projectile/impact/laser
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_color_override = LIGHT_COLOR_FIRE
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_FIRE
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = LIGHT_COLOR_FIRE
 
 /obj/projectile/beam/immolator/mech
 	name = "mecha immolation beam"

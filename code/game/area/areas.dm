@@ -1,3 +1,8 @@
+/**
+ * # area
+ *
+ * A grouping of tiles into a logical space, mostly used by map editors
+ */
 /area
 	var/fire = null
 	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
@@ -6,7 +11,7 @@
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
 	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
