@@ -807,6 +807,16 @@
 	var/tired = 0
 	COOLDOWN_DECLARE(cooldown)
 
+/obj/item/toy/plushie/rdplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "кукла директора исследований",
+		GENITIVE = "куклы директора исследований",
+		DATIVE = "кукле директора исследований",
+		ACCUSATIVE = "куклу директора исследований",
+		INSTRUMENTAL = "куклой директора исследований",
+		PREPOSITIONAL = "кукле директора исследований"
+	)
+
 /obj/item/toy/plushie/rdplushie/proc/interaction(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
@@ -872,6 +882,16 @@
 	item_state = "GSBussy_doll"
 	COOLDOWN_DECLARE(cooldown)
 
+/obj/item/toy/plushie/gsbplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "кукла главы службы безопасности",
+		GENITIVE = "куклы главы службы безопасности",
+		DATIVE = "кукле главы службы безопасности",
+		ACCUSATIVE = "куклу главы службы безопасности",
+		INSTRUMENTAL = "куклой главы службы безопасности",
+		PREPOSITIONAL = "кукле главы службы безопасности"
+	)
+
 /obj/item/toy/plushie/gsbplushie/proc/interaction(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
@@ -905,6 +925,16 @@
 	item_state = "CMO_doll"
 	var/tired = 0
 	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/cmoplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "кукла главного врача",
+		GENITIVE = "куклы главного врача",
+		DATIVE = "кукле главного врача",
+		ACCUSATIVE = "куклу главного врача",
+		INSTRUMENTAL = "куклой главного врача",
+		PREPOSITIONAL = "кукле главного врача"
+	)
 
 /obj/item/toy/plushie/cmoplushie/proc/interaction(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
