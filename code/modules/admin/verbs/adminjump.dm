@@ -97,7 +97,7 @@ ADMIN_VERB(jump_to_key, R_ADMIN, "Jump To Key", "Jump to a specific player.", AD
 	for(var/mob/player in GLOB.player_list)
 		keys += player.client
 
-	var/client/selection = input(user, "Please, select a player!", "Admin Jumping") as null | anything in sort_key(keys)
+	var/client/selection = tgui_input_list(user, "Please, select a player!", "Admin Jumping", sort_key(keys))
 	if(!selection)
 		to_chat(user, "No keys found.", confidential = TRUE)
 		return
@@ -118,7 +118,7 @@ ADMIN_VERB(get_key, R_ADMIN, "Get Key", "Teleport the player with the provided k
 	for(var/mob/target in GLOB.player_list)
 		keys += target.client
 
-	var/client/selection = input(user, "Please, select a player!", "Admin Jumping") as null | anything in sort_key(keys)
+	var/client/selection = tgui_input_list(user, "Please, select a player!", "Admin Jumping", sort_key(keys))
 	if(!selection)
 		return
 

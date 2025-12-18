@@ -28,9 +28,9 @@ ADMIN_VERB(play_sound, R_SOUNDS, "Play Global Sound", "Play a sound to all conne
 
 	BLACKBOX_LOG_ADMIN_VERB("Play Global Sound")
 
-ADMIN_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Plays a sound only you can hear.", ADMIN_CATEGORY_SOUNDS, S as sound)
-	log_and_message_admins("played a local sound [S]")
-	playsound(get_turf(user.mob), S, 50, FALSE, 0)
+ADMIN_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Plays a sound only you can hear.", ADMIN_CATEGORY_SOUNDS, sound as sound)
+	log_and_message_admins("played a local sound [sound]")
+	playsound(get_turf(user.mob), sound, 50, FALSE, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Play Local Sound")
 
 ADMIN_VERB_CUSTOM_EXIST_CHECK(play_web_sound)
@@ -200,12 +200,12 @@ ADMIN_VERB(play_intercomm_sound, R_SOUNDS, "Play Sound via Intercomms", "Plays a
 			continue
 		playsound(I, melody, cvol)
 
-ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sound directly to a mob.", ADMIN_CATEGORY_SOUNDS, S as sound, mob/M in world)
-	if(!M)
-		M = tgui_input_list(user, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound", sort_names(GLOB.player_list))
-	if(!M || QDELETED(M))
+ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sound directly to a mob.", ADMIN_CATEGORY_SOUNDS, sound as sound, mob/target in world)
+	if(!target)
+		target = tgui_input_list(user, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound", sort_names(GLOB.player_list))
+	if(QDELETED(target))
 		return
-
-	log_and_message_admins("played a direct mob sound [S] to [M].")
-	SEND_SOUND(M, S)
+	log_admin("[key_name(user)] played a direct mob sound [sound] to [key_name_admin(target)].")
+	message_admins("[key_name_admin(user)] played a direct mob sound [sound] to [ADMIN_LOOKUPFLW(target)].")
+	SEND_SOUND(target, sound)
 	BLACKBOX_LOG_ADMIN_VERB("Play Direct Mob Sound")

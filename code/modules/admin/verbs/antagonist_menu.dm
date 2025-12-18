@@ -6,7 +6,7 @@
 /datum/ui_module/admin/antagonist_menu/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AdminAntagMenu")
+		ui = new(user, src, "AdminAntagMenu", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

@@ -88,7 +88,7 @@ GLOBAL_PROTECT(href_token)
  * Arguments:
  * * rights_required - Bitflags of required admin rights (FALSE for any admin)
  * * show_msg - If TRUE, shows a message to the user on failure
- * * user - The mob to check rights for (defaults to usr)
+ * * user - The mob to check rights for(defaults to usr)
  * * all - If TRUE, requires ALL flags in rights_required instead of ANY
  */
 /proc/check_rights(rights_required, show_msg = TRUE, mob/user = usr, all = FALSE)
