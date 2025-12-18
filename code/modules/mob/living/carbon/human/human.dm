@@ -522,6 +522,23 @@
 			bodypart.tourniquet.remove_from_bodypart(usr)
 			return
 
+		if(href_list["open_fracture_limb"])
+			var/obj/item/organ/external/bodypart = locateUID(href_list["open_fracture_limb"])
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture_state != FRACTURE_TYPE_OPEN)
+				return
+			if(!do_after(usr, 10 SECONDS, src, max_interact_count = 1))
+				return
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture_state != FRACTURE_TYPE_OPEN)
+				return
+			if(prob(30)) //success
+				bodypart.fracture_state = FRACTURE_TYPE_CLOSED
+			else //fail
+				bodypart.owner.emote("scream")
+				bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
+				bodypart.external_receive_damage(brute = 10)
+				bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
+			return
+
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			if(usr.incapacitated())
