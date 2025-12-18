@@ -536,7 +536,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", "Smite a play
 		to_chat(user, span_warning("Покарать можно только существ с типом начинающимся на /mob/living"), confidential = TRUE)
 		return
 
-	var/datum/smite_ui/ui = new(user)
+	var/datum/smite_ui/ui = new(user.mob)
 	ui.ui_interact(user.mob)
 
 // MARK: TGUI
