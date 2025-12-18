@@ -1,6 +1,7 @@
 /datum/job/head_of_staff/cmo
 	title = JOB_TITLE_CMO
 	flag = JOB_FLAG_CMO
+	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
 	selection_color = "#66c6ff"
@@ -35,6 +36,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 /datum/job/medical
+	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
 	supervisors = "Главным врачом"
@@ -244,7 +246,7 @@
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
 
-/datum/job/psychiatrist
+/datum/job/medical/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
 	flag = JOB_FLAG_PSYCHIATRIST
 	total_positions = 1
@@ -256,7 +258,7 @@
 
 /datum/outfit/job/psychiatrist
 	name = JOB_TITLE_PSYCHIATRIST
-	jobtype = /datum/job/psychiatrist
+	jobtype = /datum/job/medical/psychiatrist
 
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat

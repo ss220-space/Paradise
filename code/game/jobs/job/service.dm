@@ -1,10 +1,11 @@
 /datum/job/head_of_staff/hop
 	title = JOB_TITLE_HOP
 	flag = JOB_FLAG_HOP
+	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
 	is_service = 1
 	blocked_race_for_job = list(SPECIES_VOX)
-	selection_color = "#d1e8d3"
+	selection_color = "#6bef76"
 	access = list(
 		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
@@ -44,6 +45,7 @@
 	implants = list()
 
 /datum/job/service
+	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
 	is_service = 1
 	supervisors = "Главой персонала"

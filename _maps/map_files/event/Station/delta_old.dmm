@@ -112488,6 +112488,18 @@
 	},
 /turf/simulated/floor/carpet,
 /area/civilian/pet_store)
+"xlJ" = (
+/obj/structure/rack/gunrack,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/securearmory)
 "xlL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -171067,7 +171079,7 @@ tNa
 tNa
 xmw
 tsW
-vuE
+xlJ
 urn
 vuE
 vYt

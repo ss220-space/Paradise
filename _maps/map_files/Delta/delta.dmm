@@ -10961,19 +10961,6 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"bxo" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/computer/robotics,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkpurple"
-	},
-/area/bridge)
 "bxq" = (
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
@@ -18150,14 +18137,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"cgc" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "cge" = (
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -40556,6 +40535,35 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
+"eif" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
+/obj/item/integrated_circuit/loaded/hello_world{
+	pixel_x = -2;
+	pixel_y = -5
+	},
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_x = 6;
+	pixel_y = 10
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 0
+	},
+/obj/item/compact_remote{
+	pixel_x = -4;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/toxins/lab)
 "ein" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -53807,6 +53815,20 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"how" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/obj/structure/rack/gunrack,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/obj/item/twohanded/spear/secspear,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "hox" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -54092,6 +54114,16 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/explab)
+"hrs" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/computer/robotics,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkpurple"
+	},
+/area/bridge)
 "hrt" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/warning_stripes/yellow,
@@ -64350,16 +64382,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/storage)
-"jQa" = (
-/obj/machinery/computer/monitor,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
-	},
-/area/bridge)
 "jQn" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -81477,6 +81499,19 @@
 	icon_state = "green"
 	},
 /area/medical/virology/lab)
+"nUa" = (
+/obj/machinery/computer/monitor,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellow"
+	},
+/area/bridge)
 "nUq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -85277,35 +85312,6 @@
 	icon_state = "red"
 	},
 /area/security/main)
-"oNS" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/light,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
-/obj/item/integrated_circuit/loaded/hello_world{
-	pixel_x = -2;
-	pixel_y = -5
-	},
-/obj/item/integrated_circuit/loaded/speech_relay{
-	pixel_y = 10;
-	pixel_x = 6
-	},
-/obj/item/compact_remote{
-	pixel_x = 7;
-	pixel_y = 0
-	},
-/obj/item/compact_remote{
-	pixel_x = -4;
-	pixel_y = 13
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/toxins/lab)
 "oNV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -163271,7 +163277,7 @@ kSR
 kSR
 naR
 yjq
-oNS
+eif
 vvY
 dfn
 wGs
@@ -166300,7 +166306,7 @@ kow
 luQ
 aaq
 pGI
-jQa
+nUa
 bwd
 rum
 lQL
@@ -166816,7 +166822,7 @@ coE
 coE
 coE
 bwe
-bxo
+hrs
 mge
 byU
 tLy
@@ -180445,7 +180451,7 @@ uqu
 sei
 vXH
 ryd
-cgc
+how
 lhS
 mpW
 tLv

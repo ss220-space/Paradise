@@ -78,6 +78,12 @@
 /obj/item/twohanded/proc/unwield(obj/item/source, mob/living/carbon/user)
 	return
 
+/obj/item/twohanded/proc/update_damage(force_wielded = src.force_wielded, force_unwielded = src.force_unwielded, force_multiplier)
+	src.force_wielded = force_wielded
+	src.force_unwielded = force_unwielded
+	force = wielded ? force_wielded : force_unwielded
+	SEND_SIGNAL(src, COMSIG_UPDATE_TWOHANDED_DAMAGE, force_wielded, force_unwielded, force_multiplier)
+
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/twohanded/required
@@ -286,7 +292,7 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
+	var/static/list/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 /obj/item/twohanded/dualsaber/Initialize(mapload)
 	. = ..()
@@ -316,7 +322,7 @@
 	w_class = w_class_on
 
 /obj/item/twohanded/dualsaber/unwield(obj/item/source, mob/living/carbon/user)
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	w_class = initial(w_class)
 
 /obj/item/twohanded/dualsaber/IsReflect()
@@ -443,6 +449,7 @@
 	..()
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity, params)
+	. = ..()
 	if(!proximity)
 		return
 	if(isturf(AM)) //So you can actually melee with it
@@ -647,7 +654,7 @@
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -681,7 +688,7 @@
 
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 
 /obj/item/twohanded/chainsaw/update_icon_state()
@@ -763,7 +770,7 @@
 
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
