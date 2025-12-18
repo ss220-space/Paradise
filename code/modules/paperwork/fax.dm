@@ -21,8 +21,9 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	GLOB.adminfaxes += src
 
 ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "View and respond to faxes sent to CC.", ADMIN_CATEGORY_EVENTS)
-	if(user.holder)
-		user.holder.fax_panel(user)
+	if(!user.holder)
+		return
+	user.holder.fax_panel(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Fax Panel")
 
 /datum/admins/proc/fax_panel(mob/living/user)
