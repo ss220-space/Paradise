@@ -22,7 +22,8 @@
 		TRAIT_NO_SCAN,
 		TRAIT_NO_PAIN,
 		TRAIT_NO_PAIN_HUD,
-		TRAIT_RADIMMUNE,
+		TRAIT_RADIATION_HEALING,
+		TRAIT_NO_RADIATION_EFFECTS,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NO_GERMS,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
@@ -67,12 +68,6 @@
 	H.light_color = null
 	H.set_light_on(FALSE)
 
-
-/datum/species/nucleation/handle_life(mob/living/carbon/human/H)
-	. = ..()
-
-	if(H.radiation)
-		H.process_radiation_healing()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/human)
 	if(human.health <= HEALTH_THRESHOLD_DEAD) // Needed to prevent brain gib on surgery debrain

@@ -41,6 +41,9 @@
 	return ..()
 
 /datum/weather/rad_storm/weather_act(mob/living/target)
+	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+		return
+
 	var/resist = target.getarmor(attack_flag = RAD)
 	target.apply_effect(20, IRRADIATE, resist)
 

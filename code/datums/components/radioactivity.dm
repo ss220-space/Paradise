@@ -220,6 +220,9 @@
 		if(QDELETED(target))
 			continue
 
+		if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+			continue
+
 		var/resist = target.getarmor(attack_flag = RAD)
 		target.apply_effect(rad_damage, IRRADIATE, resist, negate_armor)
 

@@ -184,7 +184,7 @@
 						gib()
 
 	if(radiation)
-		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE))
+		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE) && !HAS_TRAIT(src, TRAIT_NO_RADIATION_EFFECTS))
 			radiation = clamp(radiation, 0, 200)
 
 			var/autopsy_damage = 0
@@ -236,11 +236,11 @@
 				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)
 				if(chest)
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
-		else
-			clamp(radiation, 0, 200)
-			radiation = max(radiation - 1, 0) // Passive radiation drain for rad-immune species
 
-/// Used by nucleations
+		if(HAS_TRAIT(src, TRAIT_RADIATION_HEALING))
+			process_radiation_healing()
+
+/// Used by trait "Radiation Healing"
 /mob/living/carbon/human/proc/process_radiation_healing()
 	radiation = clamp(radiation, 0, 200)
 
@@ -287,6 +287,9 @@
 		if(limb.has_fracture())//double check... just in case
 			limb.mend_fracture()
 			radiation = max(radiation - heal_cost, 0)
+
+	radiation = max(radiation - 1, 0)//passive radiation drain
+
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
