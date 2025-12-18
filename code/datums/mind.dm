@@ -180,6 +180,10 @@
 	for(var/datum/antagonist/antag in antag_datums)	// Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 
+	if(iscarbon(new_character))
+		var/mob/living/carbon/carbon = new_character
+		carbon.last_mind = src
+
 	if(active)
 		new_character.possess_by_player(key)		// now transfer the key to link the client to our new body
 
@@ -3023,6 +3027,7 @@
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
 	..()
+	last_mind = mind
 	if(!mind.assigned_role)
 		mind.assigned_role = JOB_TITLE_CIVILIAN	//defualt
 

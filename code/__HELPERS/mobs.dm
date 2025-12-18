@@ -916,10 +916,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		var/mob/mob_target = target
 		if(!QDELETED(mob_target.mind))
 			return mob_target.mind
-		//if(include_last && iscarbon(mob_target))
-		//	var/mob/living/carbon/carbon_target = mob_target
-		//	if(!QDELETED(carbon_target.last_mind))
-		//		return carbon_target.last_mind
+		if(include_last && iscarbon(mob_target))
+			var/mob/living/carbon/carbon_target = mob_target
+			if(!QDELETED(carbon_target.last_mind))
+				return carbon_target.last_mind
 
 	if(is_internal_organ_brain(target))
 		var/obj/item/organ/internal/brain/brain = target
