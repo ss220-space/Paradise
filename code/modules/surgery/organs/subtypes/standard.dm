@@ -52,6 +52,7 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
+	cannot_break = TRUE
 	amputation_point = "поясницу"
 	gendered_icon = TRUE
 
