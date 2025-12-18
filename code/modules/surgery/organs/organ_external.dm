@@ -324,7 +324,11 @@
 			burn *= owner.get_incoming_damage_modifier(burn, BURN, limb_zone, sharp, used_weapon)
 
 		// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
-		if(LAZYLEN(internal_organs) && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
+		var/pass_internal_organ_damage = brute_dam >= max_damage
+		pass_internal_organ_damage = pass_internal_organ_damage || (prob(LIMB_DMG_PROB) && ((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG))
+		pass_internal_organ_damage = pass_internal_organ_damage || (has_fracture() && fracture_state != FRACTURE_TYPE_CRACK)
+		pass_internal_organ_damage = pass_internal_organ_damage && LAZYLEN(internal_organs)
+		if(pass_internal_organ_damage)
 			var/obj/item/organ/internal/internal_organ = pick(internal_organs)
 			// Pass full damage if an internal organ is dead
 			var/internal_damage = min(internal_organ.max_damage - internal_organ.damage, brute * 0.5)
