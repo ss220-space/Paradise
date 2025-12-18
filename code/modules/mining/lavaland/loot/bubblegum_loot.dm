@@ -444,7 +444,7 @@
 		return
 	COOLDOWN_START(src, attack_cooldown, 3 SECONDS)
 	var/obj/projectile/projectile = new /obj/projectile/soulscythe(get_turf(src))
-	projectile.preparePixelProjectile(attacked_atom, get_turf(attacked_atom), soul)
+	projectile.preparePixelProjectile(attacked_atom, soul)
 	projectile.firer = soul
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)

@@ -230,15 +230,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
-"mo" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/maintenance/electrical_shop)
 "my" = (
 /obj/structure/table/wood,
 /obj/item/airlock_electronics,
@@ -246,6 +237,13 @@
 /obj/machinery/light_construct{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/electrical_shop)
+"ne" = (
+/obj/item/radio/intercom/directional/west,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -743,16 +741,6 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/maintenance/trading)
-"KD" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light_switch/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/electrical_shop)
 "Lq" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dust,
@@ -949,6 +937,16 @@
 /obj/item/clothing/under/barber,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
+/area/maintenance/electrical_shop)
+"RE" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light_switch/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "RM" = (
 /obj/machinery/papershredder,
@@ -1247,7 +1245,7 @@ DQ
 IQ
 lW
 my
-mo
+ne
 pl
 Lx
 Rx
@@ -1379,7 +1377,7 @@ tY
 pC
 yS
 tC
-KD
+RE
 kL
 hZ
 hZ

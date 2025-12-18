@@ -138,7 +138,7 @@
 	var/turf/startloc = get_turf(src)
 	if(!is_teleshot)
 		var/obj/projectile/herald/H = new(startloc)
-		H.preparePixelProjectile(marker, marker, src)
+		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.damage = H.damage * dif_mult_dmg
 		if(target)
@@ -149,7 +149,7 @@
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
 		var/obj/projectile/herald/teleshot/H = new(startloc)
-		H.preparePixelProjectile(marker, marker, src)
+		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.damage = H.damage * dif_mult_dmg
 		if(target)

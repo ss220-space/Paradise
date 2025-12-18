@@ -19,7 +19,7 @@
 
 /obj/projectile/energy/electrode
 	name = "electrode"
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	shockbull = TRUE
 	nodamage = TRUE
 	confused = 2.5 SECONDS
@@ -28,6 +28,9 @@
 	jitter = 30 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 6
+	tracer_type = /obj/effect/projectile/tracer/stun
+	muzzle_type = /obj/effect/projectile/muzzle/stun
+	impact_type = /obj/effect/projectile/impact/stun
 	///Damage will be handled on the MOB side, to prevent window shattering.
 	var/tasered_duration = 8 SECONDS
 
@@ -504,7 +507,7 @@
 		process_effects(target)
 
 /obj/projectile/energy/sphere/proc/process_effects(mob/living/target)
-		target.Beam(src, beam_icon, 'icons/obj/weapons/projectiles.dmi', time = 1 SECONDS, maxdistance = 2)
+		target.Beam(src, beam_icon, 'icons/obj/weapons/guns/projectiles.dmi', time = 1 SECONDS, maxdistance = 2)
 
 /obj/projectile/energy/sphere/attack
 	damage = 75

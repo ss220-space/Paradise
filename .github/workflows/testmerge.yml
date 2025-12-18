@@ -70,7 +70,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22.11.0
           cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
@@ -158,7 +158,7 @@ jobs:
             git config --local user.name "TGUI bundle Generation"
             git commit -m "Testmerge TGUI bundle build generation"
           fi
-          
+
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
 
           # Output the list of merged PRs
