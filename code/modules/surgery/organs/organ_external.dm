@@ -565,6 +565,7 @@ This function completely restores a damaged organ to perfect condition.
 	bleeding_amount = 0
 	bleedsuppress = 0
 	open = ORGAN_CLOSED //Closing all wounds.
+	fracture_state = 0
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -1056,7 +1057,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 	if(is_robotic() || cannot_break)
 		return FALSE
-	if(has_fracture(fracture_type) && fracture_state >= fracture_type)
+	if(has_fracture() && fracture_state >= fracture_type)
 		return FALSE
 
 	if(owner && !silent)
