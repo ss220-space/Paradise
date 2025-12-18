@@ -54,7 +54,8 @@
 /* //uncomment to enable forced reactions.
 /obj/machinery/r_n_d/experimentor/verb/forceReaction()
 	set name = "Force Experimentor Reaction"
-	set category = STATPANEL_ADMIN_DEBUG	set src in oview(1)
+	set category = STATPANEL_ADMIN_DEBUG
+	set src in oview(1)
 	var/reaction = tgui_input_list(usr, "What reaction?", , list(SCANTYPE_POKE, SCANTYPE_IRRADIATE, SCANTYPE_GAS, SCANTYPE_HEAT, SCANTYPE_COLD, SCANTYPE_OBLITERATE))
 	var/oldReaction = item_reactions["[loaded_item.type]"]
 	item_reactions["[loaded_item.type]"] = reaction
@@ -168,7 +169,7 @@
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
 
-		if(istype(I, /obj/item/relic) || (techs_sum > MAX_DUPE_TECH || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
+		if(HAS_TRAIT(I, TRAIT_NO_CLONE_IN_EXPERIMENTATOR) || (techs_sum > MAX_DUPE_TECH || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
 			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
 
@@ -777,7 +778,7 @@
 
 /obj/item/relict_production/perfect_mix/New()
 	. = ..()
-	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer, /datum/reagent/beer2))
+	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer))
 
 /obj/item/relict_production/perfect_mix/afterattack(atom/target, mob/user, proximity)
 	if(istype(target, /obj/item/reagent_containers/glass))
@@ -869,5 +870,6 @@
 
 /obj/item/relic/New()
 	..()
+	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
 	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","suspicious tech","gear")]"

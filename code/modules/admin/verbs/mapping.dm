@@ -38,14 +38,14 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	desc = "I am a mappers mistake."
 
 /obj/effect/debugging/marker
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "yellow"
 
 /obj/effect/debugging/marker/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	return FALSE
 
 /client/proc/camera_view()
-	set category = "Debug.Mapping"
+	set category = STATPANEL_DEBUG_MAPPING
 	set name = "Camera Range Display"
 
 	if(!check_rights(R_DEBUG))
@@ -65,7 +65,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Camera Range Display")
 
 /client/proc/sec_camera_report()
-	set category = "Debug.Mapping"
+	set category = STATPANEL_DEBUG_MAPPING
 	set name = "Camera Report"
 
 	if(!check_rights(R_DEBUG))
@@ -106,7 +106,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Camera Report")
 
 /client/proc/intercom_view()
-	set category = "Debug.Mapping"
+	set category = STATPANEL_DEBUG_MAPPING
 	set name = "Intercom Range Display"
 
 	if(!check_rights(R_DEBUG))
@@ -129,7 +129,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Intercom Range Display")
 
 /client/proc/count_objects_on_z_level()
-	set category = "Debug.Mapping"
+	set category = STATPANEL_DEBUG_MAPPING
 	set name = "Count Objects On Level"
 
 	if(!check_rights(R_DEBUG))
@@ -167,7 +167,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Count Objects (On Level)")
 
 /client/proc/count_objects_all()
-	set category = "Debug.Mapping"
+	set category = STATPANEL_DEBUG_MAPPING
 	set name = "Count Objects All"
 
 	if(!check_rights(R_DEBUG))

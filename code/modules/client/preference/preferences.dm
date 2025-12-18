@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	max_gear_slots = CONFIG_GET(number/max_loadout_points)
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
-		if(!IsGuestKey(C.key))
+		if(!is_guest_key(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
@@ -779,7 +779,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += "<tr><td colspan=4><br></td></tr>"
 
 	dat += "<hr><center>"
-	if(!IsGuestKey(user.key))
+	if(!is_guest_key(user.key))
 		dat += "<a href='byond://?_src_=prefs;preference=load'>Отменить изменения</a> – "
 		dat += "<a href='byond://?_src_=prefs;preference=save'>Сохранить изменения</a> – "
 
@@ -816,7 +816,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	metadata["[tweak]"] = new_metadata
 	tweak.update_gear_intro(new_metadata)
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_RD, JOB_TITLE_JUDGE), widthPerColumn = 400, height = 700)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_CMO, JOB_TITLE_QUARTERMASTER, JOB_TITLE_JUDGE), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
@@ -848,13 +848,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		for(var/J in SSjobs.occupations)
 			var/datum/job/job = J
 
-			if(job.admin_only)
-				continue
-
-			if(job.hidden_from_job_prefs)
-				continue
-
-			if(!job.can_novice_play(user.client))
+			if(job.admin_only || job.hidden_from_job_prefs || !job.can_novice_play(user.client))
 				continue
 
 			index += 1
@@ -2596,7 +2590,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					clear_character_slot(user)
 
 				if("open_load_dialog")
-					if(!IsGuestKey(user.key))
+					if(!is_guest_key(user.key))
 						open_load_dialog(user)
 						return 1
 

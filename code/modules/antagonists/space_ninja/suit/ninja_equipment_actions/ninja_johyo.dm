@@ -75,6 +75,7 @@
 	projectile_type = /obj/projectile/johyo
 	muzzle_flash_effect = null
 	caliber = "kunai"
+	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "kunai"
 
 /obj/projectile/johyo

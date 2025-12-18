@@ -562,12 +562,12 @@
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
 			newtonian_move(get_dir(targeted_atom, targets_from))
 		P.original = targeted_atom
-		P.preparePixelProjectile(targeted_atom, get_turf(targeted_atom), src)
+		P.preparePixelProjectile(targeted_atom, startloc)
 		P.fire()
 		return P
 
 /mob/living/simple_animal/hostile/proc/CanSmashTurfs(turf/T)
-	return iswallturf(T) || (ismineralturf(T) && !istype(T, /turf/simulated/mineral/ancient/outer))
+	return (iswallturf(T) || ismineralturf(T))
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))

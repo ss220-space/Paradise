@@ -162,7 +162,7 @@
 				var/obj/machinery/door/door = target
 				if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
 					return
-				if(istype(door, /obj/machinery/door/airlock))
+				if(is_airlock(door))
 					var/obj/machinery/door/airlock/A = door
 					A.unlock(TRUE)	//forced because it's magic!
 				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -1598,7 +1598,6 @@
 	icon_state = "shard"
 	sharp = TRUE //youch!!
 	force = 5
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clockwork/shard/Initialize(mapload)
 	. = ..()
@@ -1774,6 +1773,8 @@
 	var/mob/living/carbon/human/H = clocker
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		bodypart.stop_internal_bleeding()
+		bodypart.stop_arterial_bleeding()
+		bodypart.stop_bleeding()
 		bodypart.mend_fracture()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/curse(mob/living/target)

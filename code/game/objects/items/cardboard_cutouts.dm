@@ -44,7 +44,7 @@
 		var/image/I = image(icon = src.icon , icon_state = src.icon_state, loc = user)
 		I.override = 1
 		I.color = color
-		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+		add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
 		return
 	user.remove_alt_appearance("sneaking_mission")
 

@@ -106,7 +106,6 @@
 #define span_mentor_channel(str) ("<span class='mentor_channel'>" + str + "</span>")
 #define span_all_admin_ping(str) ("<span class='all_admin_ping'>" + str + "</span>")
 
-// MARK: Radio
 /**
  * MARK: Radio
  * TODO: Check and delete if it can be replaced.

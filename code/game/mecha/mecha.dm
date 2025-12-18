@@ -44,7 +44,6 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/lights_color = -99999 // "NONSENSICAL_VALUE"
-	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	/// The internal storage of the exosuit. For the cargo module
@@ -246,6 +245,7 @@
 			. += span_notice("[icon2html(ME, user)] [ME]")
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
+	. = ..()
 	if(M == occupant && radio.get_broadcasting())
 		radio.talk_into(M, message_pieces)
 
@@ -874,7 +874,7 @@
 			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[name]' using [I]")
 		return ..()
 
-	if(istype(I, /obj/item/mmi))
+	if(is_mmi(I))
 		add_fingerprint(user)
 		if(!mmi_move_inside(I, user))
 			to_chat(user, "[name]-MMI interface initialization failed.")
@@ -1168,7 +1168,7 @@
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
 				to_chat(user, span_boldannounceic("ACCESS DENIED."))
 				return
-			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
+			AI.aiRestorePowerRoutine = POWER_RESTORATION_OFF // So the AI initially has power.
 			AI.control_disabled = TRUE
 			AI.aiRadio.disabledAi = TRUE
 			AI.forceMove(card)
@@ -1209,7 +1209,7 @@
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
-	AI.aiRestorePowerRoutine = 0
+	AI.aiRestorePowerRoutine = POWER_RESTORATION_OFF
 	AI.forceMove(src)
 	occupant = AI
 	update_icon(UPDATE_ICON_STATE)
@@ -1452,7 +1452,7 @@
 	if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
-	if(istype(mob_container, /obj/item/mmi))
+	if(is_mmi(mob_container))
 		return TRUE
 	return FALSE
 
@@ -1537,7 +1537,7 @@
 	if(mob_container.forceMove(newloc))//ejecting mob container
 		close_window(L, "exosuit")
 
-		if(istype(mob_container, /obj/item/mmi))
+		if(is_mmi(mob_container))
 			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
 				L.forceMove(mmi)

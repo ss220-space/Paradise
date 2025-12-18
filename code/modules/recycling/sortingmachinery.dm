@@ -64,7 +64,7 @@
 		return
 	var/holding_crate = istype(wrapped, /obj/structure/closet/crate)
 	if(giftwrapped)
-		icon_state = holding_crate ? "giftcrate" : "giftcloset"
+		icon_state = holding_crate ? "deliverycrate_gift" : "deliverycloset_gift"
 		return
 	icon_state = "delivery[holding_crate ? "crate" : "closet"][(sortTag || cc_tag) ? "_labeled" : ""]"	// label should be an overlay
 
@@ -134,8 +134,10 @@
 	name = "small parcel"
 	desc = "A small wrapped package."
 	icon = 'icons/obj/storage/boxes.dmi'
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	icon_state = "deliverycrate1"
-	item_state = "deliverypackage"
+	item_state = "delivery_crate5"
 	var/obj/item/wrapped
 	var/giftwrapped = FALSE
 	var/sortTag = 0
@@ -419,8 +421,11 @@
 /obj/item/shippingPackage
 	name = "Shipping package"
 	desc = "A pre-labeled package for shipping an item to coworkers."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	icon_state = "shippack"
+	item_state = "shippack"
 	var/obj/item/wrapped = null
 	var/sortTag = 0
 	var/sealed = FALSE

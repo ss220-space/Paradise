@@ -141,7 +141,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/Shutdown()
 	processing = FALSE
 	sortTim(subsystems, cmp = /proc/cmp_subsystem_init)
-	reverseRange(subsystems)
+	reverse_range(subsystems)
 	for(var/datum/controller/subsystem/ss in subsystems)
 		log_world("Shutting down [ss.name] subsystem...")
 		if(ss.fire_sleep_count > 0)
@@ -151,7 +151,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /client/proc/cmd_controller_view_ui()
 	set name = "Controller Overview"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "View the current states of the Subsystem Controllers."
 
 	if(!check_rights(R_SERVER|R_DEBUG))
@@ -173,7 +173,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/ui_close(mob/user)
 	var/valid_found = FALSE
-	for(var/datum/tgui/open_ui as anything in SStgui.open_uis_by_src[src.UID()])
+	for(var/datum/tgui/open_ui as anything in open_uis)
 		if(open_ui.user == user)
 			continue
 		valid_found = TRUE

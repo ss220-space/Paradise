@@ -98,7 +98,7 @@
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
 	if(isitem(AM0))
-		to_eat += AM0.GetAllContents()
+		to_eat += AM0.get_all_contents()
 	var/items_recycled = 0
 
 	for(var/i in to_eat)

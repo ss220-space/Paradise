@@ -3425,16 +3425,15 @@
 					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
-						var/obj/item/clothing/head/kitty/hat = new
+
+						if(!(human.dna.species.blacklisted_disabilities & DISABILITY_FLAG_CATEARS))
+							human.force_gene_block(GLOB.cat_earsblock, TRUE, TRUE)
+
 						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
 						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
 						human.drop_item_ground(human.w_uniform, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
-						human.drop_item_ground(human.head, TRUE, FALSE, TRUE)
-						human.equip_to_slot_or_del(hat, hat.slot_flags)
-
 						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)
-						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
 					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
 					var/list/names = splittext(human.real_name," ")
 					var/newname = "[names[length(names)]]-[pick(honorifics[human.gender])]"
@@ -3497,68 +3496,6 @@
 						survivor_probability = 100
 
 				rightandwrong(SUMMON_MAGIC, usr, survivor_probability)
-			// The ert armory & tdomereset functions are disabled because they are not needed and the cc is rebuilt.
-			/* if("armotyreset")
-				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
-				if(delete_mobs == "Cancel")
-					return
-				var/area/ertarmory = locate(/area/centcom/ertarmory)
-				if(delete_mobs == "Yes")
-					for(var/mob/living/mob in ertarmory)
-						qdel(mob) //Clear mobs
-				for(var/obj/obj in ertarmory)
-					if(!istype(obj,/obj/machinery/camera) && !istype(obj,/obj/machinery/door/poddoor/impassable) && !istype(obj,/obj/machinery/door_control))
-						qdel(obj) //Clear objects
-				var/area/template = locate(/area/centcom/reset)
-				template.copy_contents_to(ertarmory)
-				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
-				message_admins(span_adminnotice("[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs]."))
-			if("armotyreset1")
-				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
-				if(delete_mobs == "Cancel")
-					return
-				var/area/ertarmory = locate(/area/centcom/ertarmory)
-				if(delete_mobs == "Yes")
-					for(var/mob/living/mob in ertarmory)
-						qdel(mob) //Clear mobs
-				for(var/obj/obj in ertarmory)
-					if(!istype(obj,/obj/machinery/camera) && !istype(obj,/obj/machinery/door/poddoor/impassable) && !istype(obj,/obj/machinery/door_control))
-						qdel(obj) //Clear objects
-				var/area/template = locate(/area/centcom/reset1)
-				template.copy_contents_to(ertarmory)
-				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
-				message_admins(span_adminnotice("[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs]."))
-			if("armotyreset2")
-				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
-				if(delete_mobs == "Cancel")
-					return
-				var/area/ertarmory = locate(/area/centcom/ertarmory)
-				if(delete_mobs == "Yes")
-					for(var/mob/living/mob in ertarmory)
-						qdel(mob) //Clear mobs
-				for(var/obj/obj in ertarmory)
-					if(!istype(obj,/obj/machinery/camera) && !istype(obj,/obj/machinery/door/poddoor/impassable) && !istype(obj,/obj/machinery/door_control))
-						qdel(obj) //Clear objects
-				var/area/template = locate(/area/centcom/reset2)
-				template.copy_contents_to(ertarmory)
-				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
-				message_admins(span_adminnotice("[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs]."))
-			if("armotyreset3")
-				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
-				if(delete_mobs == "Cancel")
-					return
-				var/area/ertarmory = locate(/area/centcom/ertarmory)
-				if(delete_mobs == "Yes")
-					for(var/mob/living/mob in ertarmory)
-						qdel(mob) //Clear mobs
-				for(var/obj/obj in ertarmory)
-					if(!istype(obj,/obj/machinery/camera) && !istype(obj,/obj/machinery/door/poddoor/impassable) && !istype(obj,/obj/machinery/door_control))
-						qdel(obj) //Clear objects
-				var/area/template = locate(/area/centcom/reset3)
-				template.copy_contents_to(ertarmory)
-				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
-				message_admins(span_adminnotice("[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs]."))
-			*/
 			if("tdomereset")
 				var/delete_mobs = tgui_alert(usr, "Clear all mobs?", "Confirm", list("Yes", "No", "Cancel"))
 				if(delete_mobs == "Cancel")

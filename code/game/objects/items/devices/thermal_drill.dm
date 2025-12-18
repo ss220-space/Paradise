@@ -14,7 +14,7 @@
 /obj/item/thermal_drill/New()
 	..()
 	song = new(src, SSinstruments.synthesizer_instrument_ids)
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(1, 0, src)
 	spark_system.attach(src)

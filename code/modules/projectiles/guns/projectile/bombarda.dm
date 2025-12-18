@@ -38,7 +38,7 @@
 	icon_state = initial(icon_state) + (opened ?  "_open" : "")
 	item_state = initial(item_state) + (opened ?  "_open" : "")
 
-/obj/item/gun/projectile/bombarda/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/projectile/bombarda/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	..(FALSE, empty_chamber)
 
 /obj/item/gun/projectile/bombarda/chamber_round()
@@ -244,6 +244,7 @@
 
 /obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 
@@ -397,6 +398,7 @@
 
 /obj/projectile/grenade/a40mm/secgl
 	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = null
 	hitsound = "bullet"
 	hitsound_wall = "ricochet"
 	damage = 5

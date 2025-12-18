@@ -56,7 +56,7 @@
 	var/channel_already_updated = FALSE
 	// special handling for looping sounds, especially if they're decreasing
 	for(var/datum/looping_sound/D in GLOB.looping_sounds)
-		if(channel == D.channel)
+		if(channel == D.sound_channel)
 			S = sound(null, channel = channel, volume = D.volume * volume / 100)
 			S.status = SOUND_UPDATE
 			SEND_SOUND(parent, S)
