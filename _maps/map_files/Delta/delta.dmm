@@ -95270,7 +95270,7 @@
 /obj/structure/table,
 /obj/machinery/computer/rdconsole/cargo{
 	pixel_y = 6
-},
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
