@@ -279,11 +279,6 @@
 		add_splatter_floor(loc, small_drip = TRUE)
 		return .
 
-	// +2.5% chance per internal bleeding site that we'll cough up blood on a given tick.
-	// Must be bleeding internally in more than one place to have a chance at this.
-	if(amt >= 1 && prob(5 * amt))
-		vomit(mode = VOMIT_BLOOD)
-
 /mob/living/carbon/human/bleed_internal(amt)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
