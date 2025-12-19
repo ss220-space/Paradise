@@ -415,7 +415,7 @@
 			attack_ghost(ghost)
 
 	if(href_list["borer_use_chem"])
-		locate(href_list["src"])
+		locateUID(href_list["src"])
 		if(!istype(src, /mob/living/simple_animal/borer))
 			return
 

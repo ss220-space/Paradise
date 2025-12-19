@@ -360,7 +360,7 @@
 
 	for(var/obj/machinery/computer/cloning/cloner in SSmachines.get_by_type(/obj/machinery/computer/cloning))
 		for(var/datum/dna2/record/R in cloner.records)
-			if(occupant.mind == locate(R.mind))
+			if(occupant.mind == R.mind.resolve())
 				cloner.records.Remove(R)
 
 	//Delete all items not on the preservation list.
