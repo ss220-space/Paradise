@@ -656,13 +656,13 @@
 	if(current_cycle == 50)
 		user.SpinAnimation(speed = 4, loops = -1, parallel = FALSE)
 
-	M.AdjustDrowsy(-12 SECONDS)
-	M.AdjustParalysis(-3 SECONDS)
-	M.AdjustStunned(-3 SECONDS)
-	M.AdjustWeakened(-3 SECONDS)
-	M.AdjustKnockdown(-3 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
-	M.SetSleeping(0)
+	user.AdjustDrowsy(-12 SECONDS)
+	user.AdjustParalysis(-3 SECONDS)
+	user.AdjustStunned(-3 SECONDS)
+	user.AdjustWeakened(-3 SECONDS)
+	user.AdjustKnockdown(-3 SECONDS)
+	update_flags |= user.adjustStaminaLoss(-1.5, FALSE)
+	user.SetSleeping(0)
 	return ..() | update_flags
 
 /datum/reagent/fliptonium/reaction_mob(mob/living/user, method = REAGENT_TOUCH, volume)
