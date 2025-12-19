@@ -1,4 +1,4 @@
-ADMIN_VERB(open_mentor_tickets, R_MENTOR, "Open Mentor Ticket Interface", "Opens the mhelp panel", ADMIN_CATEGORY_TICKETS)
+ADMIN_VERB(open_mentor_tickets, R_MENTOR|R_ADMIN, "Open Mentor Ticket Interface", "Opens the mhelp panel", ADMIN_CATEGORY_TICKETS)
 	SSmentor_tickets.showUI(user.mob)
 
 ADMIN_VERB(resolve_all_mentor_tickets, R_ADMIN, "Resolve All Open Mentor Tickets", "Resolves all open mhelps", ADMIN_CATEGORY_HIDDEN)

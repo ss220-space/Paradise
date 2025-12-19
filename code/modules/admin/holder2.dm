@@ -92,7 +92,7 @@ GLOBAL_PROTECT(href_token)
  * * all - If TRUE, requires ALL flags in rights_required instead of ANY
  */
 /proc/check_rights(rights_required, show_msg = TRUE, mob/user = usr, all = FALSE)
-	if(user && user.client)
+	if(user?.client)
 		return check_rights_ckey(rights_required, show_msg, user.ckey, all)
 	return FALSE
 

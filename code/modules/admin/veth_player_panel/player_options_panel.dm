@@ -1,4 +1,4 @@
-ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player options panel for a mob.", ADMIN_CATEGORY_GAME, mob/target in world)
+ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player options panel for a mob.", ADMIN_CATEGORY_GAME, mob/target in GLOB.mob_list)
 	if(!target)
 		to_chat(user, span_warning("Could not find desired target mob!"), type = MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		return
@@ -155,6 +155,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 		// Message Section
 		if("pm")
 			usr.client.cmd_admin_pm(selected_mob.ckey)
+			BLACKBOX_LOG_VUAP("PM")
 			return
 		if("sm")
 			usr.client.holder.Topic(null, list("subtlemessage" = selected_mob.UID()))
@@ -197,6 +198,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 		// Info Section
 		if("vv")
 			usr.client.debug_variables(selected_mob)
+			BLACKBOX_LOG_VUAP("VV")
 			return
 		if("tp")
 			usr.client.holder.Topic(null, list("traitor" = selected_mob.UID()))

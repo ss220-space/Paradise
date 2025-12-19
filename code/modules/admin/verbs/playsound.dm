@@ -200,7 +200,7 @@ ADMIN_VERB(play_intercomm_sound, R_SOUNDS, "Play Sound via Intercomms", "Plays a
 			continue
 		playsound(I, melody, cvol)
 
-ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sound directly to a mob.", ADMIN_CATEGORY_SOUNDS, sound as sound, mob/target in world)
+ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sound directly to a mob.", ADMIN_CATEGORY_SOUNDS, sound as sound, mob/target in GLOB.mob_list)
 	if(!target)
 		target = tgui_input_list(user, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound", sort_names(GLOB.player_list))
 	if(QDELETED(target))

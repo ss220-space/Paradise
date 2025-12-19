@@ -22,7 +22,7 @@
 	var/static/list/protected_vars = list(
 		"lastKnownIP", "computer_id", "attack_log_old"
 	)
-	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
@@ -30,7 +30,7 @@
 	var/static/list/protected_vars = list(
 		"address", "chatOutput", "computer_id", "connection", "jbh", "pm_tracker", "related_accounts_cid", "related_accounts_ip", "watchlisted"
 	)
-	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
@@ -82,6 +82,10 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 
 /client/proc/debug_variables(datum/D in world)
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
+
+	if(!usr.client || !usr.client.holder) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
+		to_chat(usr, span_danger("You need to be an administrator to access this."), confidential = TRUE)
+		return
 
 	if(!D)
 		return
@@ -452,6 +456,9 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 	</body>
 </html>
 	"}
+
+	if(istype(D, /datum))
+		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
 
 	var/size_string = "size=475x650";
 	if(ui_scale && window_scaling)
