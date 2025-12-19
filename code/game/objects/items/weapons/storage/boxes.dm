@@ -1215,7 +1215,7 @@
 	name = "tech data disks box"
 	icon_state = "box_disc"
 
-/obj/item/storage/box/disks_tech/New()
+/obj/item/storage/box/disks_tech/populate_contents()
 	..()
 	for(var/i in 1 to 8)
 		new /obj/item/disk/tech_disk(src)
