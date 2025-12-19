@@ -1864,8 +1864,8 @@
 			bodypart.stop_internal_bleeding()
 		if(bodypart.bleeding_amount <= 0)
 			continue
-		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 0.5) //heal 0.5 bleeding per tick
+		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 1) //heal 1 bleeding per tick (10 tick for stop arterial bleeding)
 		update_flags |= STATUS_UPDATE_HEALTH
 
-	human.adjust_nutrition(-3) // nutrition per tick (1 unit -> 30 nutrition, 10 units -> 300 nutrition by 100 ticks)
+	human.adjust_nutrition(-2) // nutrition per tick (1 unit -> 20 nutrition, 10 units -> 200 nutrition by 100 ticks)
 	return ..() | update_flags
