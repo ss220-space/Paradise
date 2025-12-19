@@ -103,7 +103,7 @@
 /obj/item/storage/box/survival/survival_syndi/populate_contents()
 	. = ..()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/zagustin(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/stack/medical/bruise_pack/military(src)
 
