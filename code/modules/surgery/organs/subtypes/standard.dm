@@ -188,7 +188,7 @@
 /obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_slowdown()
-	owner.update_fractures_fall()
+	user.update_fractures_fall()
 
 /obj/item/organ/external/leg/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
 	. = ..()
@@ -298,7 +298,7 @@
 	if(is_usable())
 		user.set_usable_legs(user.usable_legs - 1, special)
 	user.update_fractures_slowdown()
-	owner.update_fractures_fall()
+	user.update_fractures_fall()
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
