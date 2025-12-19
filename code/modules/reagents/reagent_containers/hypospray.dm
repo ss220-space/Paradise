@@ -781,7 +781,6 @@
 	name = "zagustin autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу загустина. Военный препарат для быстрой остановки кровотечений. Имеет побочные эффекты."
 	icon_state = "hemostatic"
-	amount_per_transfer_from_this = 10
 	volume = 30
 	list_reagents = list("zagustin" = 30)
 	var/count_of_use = 3
