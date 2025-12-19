@@ -4,8 +4,6 @@
 #define LIMB_THRESH_INT_DMG 10
 /// Probability of taking internal damage from sufficient force, while otherwise healthy
 #define LIMB_DMG_PROB 5
-/// Threshold needed to have a chance of inflicting fracture
-#define LIMB_FRACTURE_MIN_DMG 15
 /// Threshold needed to have a chance of inflicting bone crack
 #define LIMB_BONE_CRACK_MIN_DMG 0
 /// Threshold needed to have a chance of inflicting closed fracture
@@ -1374,8 +1372,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
 #undef LIMB_DMG_PROB
-#undef LIMB_FRACTURE_MIN_DMG
 #undef LIMB_INT_BLEEDING_MIN_DMG
 #undef LIMB_ARTERIAL_BLEEDING_MIN_DMG
 #undef LIMB_ARTERIAL_BLEEDING_CHANCE_MOD
 #undef LIMB_ARTERIAL_BLEEDING_SIZE
+#undef LIMB_BONE_CRACK_MIN_DMG
+#undef LIMB_CLOSED_FRACTURE_MIN_DMG
+#undef LIMB_OPEN_FRACTURE_MIN_DMG
