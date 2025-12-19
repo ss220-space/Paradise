@@ -1332,9 +1332,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	<b>Activated Modules</b>
 	<br>
 	<table border='0'>
-	<tr><td>Module 1:</td><td>[module_state_1 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_1]'>[module_state_1]</a>" : "No Module"]</td></tr>
-	<tr><td>Module 2:</td><td>[module_state_2 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_2]'>[module_state_2]</a>" : "No Module"]</td></tr>
-	<tr><td>Module 3:</td><td>[module_state_3 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_3]'>[module_state_3]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 1:</td><td>[module_state_1 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_1)]'>[module_state_1]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 2:</td><td>[module_state_2 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_2)]'>[module_state_2]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 3:</td><td>[module_state_3 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_3)]'>[module_state_3]</a>" : "No Module"]</td></tr>
 	</table><br>
 	<b>Installed Modules</b><br><br>
 
@@ -1347,21 +1347,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			dat += "<tr><td>[obj]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += "<tr><td>[obj]</td><td><a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a></td></tr>"
+			dat += "<tr><td>[obj]</td><td><a href='byond://?src=[UID()];act=[UID_of(obj)]'>Activate</a></td></tr>"
 
 	if(emagged || weapons_unlock)
 		if(activated(module.emag))
 			dat += "<tr><td>[module.emag]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += "<tr><td>[module.emag]</td><td><a href='byond://?src=[UID()];act=\ref[module.emag]'>Activate</a></td></tr>"
+			dat += "<tr><td>[module.emag]</td><td><a href='byond://?src=[UID()];act=[module.emag.UID()]'>Activate</a></td></tr>"
 
 	dat += "</table>"
 /*
 		if(activated(obj))
-			dat += "[obj]: \[<b>Activated</b> | <a href='byond://?src=[UID()];deact=\ref[obj]'>Deactivate</a>\]<br>"
+			dat += "[obj]: \[<b>Activated</b> | <a href='byond://?src=[UID()];deact=[obj.UID()]'>Deactivate</a>\]<br>"
 		else
-			dat += "[obj]: \[<a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a> | <b>Deactivated</b>\]<br>"
+			dat += "[obj]: \[<a href='byond://?src=[UID()];act=[obj.UID()]'>Activate</a> | <b>Deactivated</b>\]<br>"
 */
 	var/datum/browser/popup = new(src, "robotmod", "Modules")
 	popup.set_content(dat)
@@ -1399,13 +1399,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["mod"])
-		var/obj/item/O = locate(href_list["mod"])
+		var/obj/item/O = locateUID(href_list["mod"])
 		if(istype(O) && (O.loc == src))
 			O.attack_self(src)
 		return TRUE
 
 	if(href_list["act"])
-		var/obj/item/O = locate(href_list["act"])
+		var/obj/item/O = locateUID(href_list["act"])
 		if(!istype(O) || !(O.loc == src || O.loc == src.module))
 			return TRUE
 
@@ -1419,7 +1419,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["deact"])
-		var/obj/item/O = locate(href_list["deact"])
+		var/obj/item/O = locateUID(href_list["deact"])
 
 		if(activated(O))
 			if(module_state_1 == O)
@@ -1738,7 +1738,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	switch(notifytype)
 		if(ROBOT_NOTIFY_AI_CONNECTED) //New Cyborg
-			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=[connected_ai.UID()];track=[UID()]'>[name]</a>")]<br>")
 		if(ROBOT_NOTIFY_AI_MODULE) //New Module
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(ROBOT_NOTIFY_AI_NAME) //New Name

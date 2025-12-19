@@ -135,7 +135,7 @@
 		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
-		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
+		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("[UID()]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
 			A.icon = ui_style2icon(player_client.prefs.UI_style)
 
@@ -480,7 +480,7 @@
 		smoke.set_up(amount = 5, location = target.loc)
 		smoke.start()
 
-	C.faction |= "\ref[user]"
+	C.faction |= PERSONAL_FACTION(user)
 	C.possess_by_player(target.key)
 	if(user && iscultist(user) || cult_override)
 		SSticker.mode.add_cultist(C.mind)
@@ -503,7 +503,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	log_game("[S.key] has become [S.name] with [purified ? "holy" : "corrupted"] essence.")
 	if(user)
-		S.faction |= "\ref[user]" //Add the master as a faction, allowing inter-mob cooperation
+		S.faction |= PERSONAL_FACTION(user)//Add the master as a faction, allowing inter-mob cooperation
 
 		if(S.mind)
 			if(iswizard(user))

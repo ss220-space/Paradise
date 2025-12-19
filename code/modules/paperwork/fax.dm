@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	GLOB.faxes += src
 
 /datum/fax/admin
-	var/list/reply_to = null
+	var/reply_to = null
 
 /datum/fax/admin/New()
 	GLOB.adminfaxes += src
@@ -45,19 +45,19 @@ ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "View and respond to faxes sent to C
 			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=\ref[A.message]'>View</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(A.message)]'>View</a></td>"
 		if(!A.reply_to)
 			if(A.from_department == "Administrator")
 				html += "<td>N/A</td>"
 			else
-				html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</a>"
+				html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxCreate=[UID_of(A.sent_by)];originfax=[UID_of(A.origin)];faxtype=[A.to_department];replyto=[UID_of(A.message)]'>Reply</a>"
 				if(A.sent_by)
-					html += "<br><a align='right' href='byond://?src=[UID()];AdminFaxNotify=\ref[A.sent_by]'>Notify</a>"
+					html += "<br><a align='right' href='byond://?src=[UID()];AdminFaxNotify=[UID_of(A.sent_by)]'>Notify</a>"
 				html += "</td>"
 			html += "<td>N/A</td>"
 		else
 			html += "<td>N/A</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=\ref[A.reply_to]'>Original</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(A.reply_to)]'>Original</a></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
@@ -77,7 +77,7 @@ ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "View and respond to faxes sent to C
 			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=\ref[F.message]'>View</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(F.message)]'>View</a></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"

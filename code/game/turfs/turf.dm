@@ -835,7 +835,7 @@
 	underlay_appearance.icon_state = "0"
 	SET_PLANE(underlay_appearance, PLANE_SPACE, generate_for)
 	if(!generate_for.render_target)
-		generate_for.render_target = ref(generate_for)
+		generate_for.render_target = generate_for.UID()
 	var/atom/movable/emissive_blocker/em_block = new(null, generate_for)
 	underlay_appearance.overlays += em_block
 	// We used it because it's convienient and easy, but it's gotta go now or it'll hang refs

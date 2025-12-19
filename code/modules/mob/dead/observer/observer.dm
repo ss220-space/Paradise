@@ -347,7 +347,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(message)
 		to_chat(src, span_ghostalert("[message]"))
 		if(source)
-			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
+			var/atom/movable/screen/alert/A = throw_alert("[source.UID()]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
 				if(client?.prefs && client.prefs.UI_style)
 					A.icon = ui_style2icon(client.prefs.UI_style)
@@ -662,7 +662,7 @@ ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed
 		return
 
 	if(href_list["track"])
-		var/atom/target = locate(href_list["track"])
+		var/atom/target = locateUID(href_list["track"])
 		if(target)
 			ManualFollow(target)
 
@@ -672,10 +672,10 @@ ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed
 			ManualFollow(target)
 
 	if(href_list["jump"])
-		var/mob/target = locate(href_list["jump"])
+		var/mob/target = locateUID(href_list["jump"])
 		var/mob/A = usr
 		to_chat(A, "Телепорт к [target]...")
-		//var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
+		//var/mob/living/silicon/ai/A = locateUID(href_list["track2"])
 		if(target && target != usr)
 			spawn(0)
 				var/turf/pos = get_turf(A)

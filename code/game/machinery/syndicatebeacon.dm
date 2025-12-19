@@ -31,7 +31,7 @@
 				honorific = "Ms."
 			dat += "<span style='color: red;'><i>Identity not found in operative database. What can the Syndicate do for you today, [honorific] [user.name]?</i></span><br>"
 			if(!selfdestructing)
-				dat += "<br><br><a href='byond://?src=[UID()];betraitor=1;traitormob=\ref[user]'>\"[pick("I want to switch teams.", "I want to work for you.", "Let me join you.", "I can be of use to you.", "You want me working for you, and here's why...", "Give me an objective.", "How's the 401k over at the Syndicate?")]\"</a><br>"
+				dat += "<br><br><a href='byond://?src=[UID()];betraitor=1;traitormob=[user.UID()]'>\"[pick("I want to switch teams.", "I want to work for you.", "Let me join you.", "I can be of use to you.", "You want me working for you, and here's why...", "Give me an objective.", "How's the 401k over at the Syndicate?")]\"</a><br>"
 	dat += temptext
 	var/datum/browser/popup = new(user, "syndbeacon", "Syndicate Beacon")
 	popup.set_content(dat)
@@ -45,7 +45,7 @@
 		if(charges < 1)
 			src.updateUsrDialog()
 			return
-		var/mob/M = locate(href_list["traitormob"])
+		var/mob/M = locateUID(href_list["traitormob"])
 		if(M.mind.special_role)
 			temptext = "<i>В данный момент вы нам не нужны. Приятного дня.</i><br>"
 			src.updateUsrDialog()

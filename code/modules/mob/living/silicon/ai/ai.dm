@@ -755,7 +755,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(href_list["track"])
-		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_list
+		var/mob/living/target = locateUID(href_list["track"])
 		if(istype(target) && target.can_track())
 			ai_actual_track(target)
 		else
@@ -763,7 +763,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(href_list["trackbot"])
-		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
+		var/mob/living/simple_animal/bot/target = locateUID(href_list["trackbot"])
 		if(target)
 			ai_actual_track(target)
 		else
@@ -771,7 +771,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(href_list["callbot"]) //Command a bot to move to a selected location.
-		Bot = locate(href_list["callbot"]) in GLOB.bots_list
+		Bot = locateUID(href_list["callbot"])
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 		waypoint_mode = 1
@@ -779,7 +779,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in GLOB.bots_list
+		Bot = locateUID(href_list["interface"])
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return
 		Bot.attack_ai(src)
@@ -790,7 +790,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["ai_take_control"]) //Mech domination
 
-		var/obj/mecha/M = locate(href_list["ai_take_control"])
+		var/obj/mecha/M = locateUID(href_list["ai_take_control"])
 
 		if(!M)
 			return
@@ -820,8 +820,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
 	else if(href_list["faketrack"])
-		var/mob/target = locate(href_list["track"]) in GLOB.mob_list
-		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
+		var/mob/target = locateUID(href_list["track"])
+		var/mob/living/silicon/ai/A = locateUID(href_list["track2"])
 		if(A && target)
 
 			A.cameraFollow = target
@@ -835,7 +835,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				continue
 
 	else if(href_list["open"])
-		var/mob/target = locate(href_list["open"]) in GLOB.mob_list
+		var/mob/target = locateUID(href_list["open"])
 		if(target)
 			open_nearest_door(target)
 
@@ -885,7 +885,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/d
 	var/area/bot_area
-	d += "<a href='byond://?src=[UID()];botrefresh=\ref[Bot]'>Query network status</a><br>"
+	var/bot_uid = Bot.UID()
+	d += "<a href='byond://?src=[UID()];botrefresh=[bot_uid]'>Query network status</a><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for(var/mob/living/simple_animal/bot/Bot in GLOB.bots_list)
@@ -895,8 +896,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
 			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? span_average("[ Bot.mode_name[Bot.mode] ]"): span_good("Idle")]" : span_bad("Inactive")]</td>"
 			d += "<td width='30%'>[bot_area.name]</td>"
-			d += "<td width='10%'><a href='byond://?src=[UID()];interface=\ref[Bot]'>Interface</a></td>"
-			d += "<td width='10%'><a href='byond://?src=[UID()];callbot=\ref[Bot]'>Call</a></td>"
+			d += "<td width='10%'><a href='byond://?src=[UID()];interface=[bot_uid]'>Interface</a></td>"
+			d += "<td width='10%'><a href='byond://?src=[UID()];callbot=[bot_uid]'>Call</a></td>"
 			d += "</tr>"
 			d = format_text(d)
 

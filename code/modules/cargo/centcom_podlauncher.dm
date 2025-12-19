@@ -792,7 +792,7 @@
 	customDropoff = dataToLoad["customDropoff"]
 	var/list/cords = dataToLoad["reverse_dropoff_coords"]
 	if(length(cords))
-		var/turf/dropoff =locate(cords[1], cords[2], cords[3])
+		var/turf/dropoff = locate(cords[1], cords[2], cords[3])
 		setDropoff(dropoff)
 	renderLighting = dataToLoad["renderLighting"]
 	launchClone = dataToLoad["launchClone"] //Do we launch the actual items in the bay or just launch clones of them?
