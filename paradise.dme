@@ -785,6 +785,7 @@
 #include "code\datums\elements\openspace_item_click_handler.dm"
 #include "code\datums\elements\pet_bonus.dm"
 #include "code\datums\elements\pref_viewer.dm"
+#include "code\datums\elements\radiation_healing.dm"
 #include "code\datums\elements\ranged_attacks.dm"
 #include "code\datums\elements\reagent_attack.dm"
 #include "code\datums\elements\ridable.dm"
