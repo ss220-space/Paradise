@@ -738,6 +738,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/accessory/storage/webbing(src)
 	new /obj/item/storage/belt/military/assault(src)
 	new /obj/item/clothing/mask/balaclava(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/zagustin(src)
 
 /obj/item/storage/box/syndie_kit/combat_baking
 	name = "combat bakery kit"

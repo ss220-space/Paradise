@@ -1832,11 +1832,23 @@
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 6
 
+/datum/uplink_item/badass/bandage
+	name = "Военный перевязочный пакет"
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	item = /obj/item/stack/medical/bruise_pack/military
+	cost = 1
+
 /datum/uplink_item/device_tools/sanguinius
 	name = "Инъектор с Сангвинием"
 	desc = "Одноразовый инъектор, содержащий одну дозу \"Сангвиния\". \
 			Препарат используется для быстрого восстановления крови, пригоден для приёма в полевых условиях."
 	item = /obj/item/reagent_containers/hypospray/autoinjector/sanguinius
+	cost = 2
+
+/datum/uplink_item/badass/zagustin
+	name = "Трехразовый автоинъектор \"Загустин\""
+	desc = "Специальный военный инъектор на три использования. Содержит реагент для быстрой остановки кровотечения пока оно находится в крови. Не рекомендуется колоть все сразу, имеет побочные эффекты."
+	item = /obj/item/reagent_containers/hypospray/autoinjector/zagustin
 	cost = 2
 
 /datum/uplink_item/device_tools/syndicate_teleporter
@@ -2424,12 +2436,6 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
-/datum/uplink_item/badass/bandage
-	name = "Военный перевязочный пакет"
-	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
-	item = /obj/item/stack/medical/bruise_pack/military
-	cost = 1
-
 /**
  * MARK: Bundles & TC
  */
@@ -2461,7 +2467,7 @@
 
 /datum/uplink_item/bundles_TC/medical
 	name = "Медицинский набор"
-	desc = "Сумка, в которой находятся: боевая аптечка \"Синдиката\", автомендор с синтплотью, боевой гипоспрей, боевой компактный дефибриллятор, боевой ручной дефибриллятор, \
+	desc = "Сумка, в которой находятся: боевая аптечка \"Синдиката\", автомендор с синтплотью, боевой гипоспрей, автоинъектор \"Загустин\", боевой компактный дефибриллятор, боевой ручной дефибриллятор, \
 			имплант медицинской лучевой пушки, имплант хирургических инструментов, отвертка, автоимплантер, элитный МЭК \"Синдиката\", портативный анализатор тела, \
 			медицинская шина, инъектор с нанокальцием."
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
