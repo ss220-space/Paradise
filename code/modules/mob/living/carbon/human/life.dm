@@ -240,57 +240,6 @@
 		if(HAS_TRAIT(src, TRAIT_RADIATION_HEALING))
 			process_radiation_healing()
 
-/// Used by trait "Radiation Healing"
-/mob/living/carbon/human/proc/process_radiation_healing()
-	radiation = clamp(radiation, 0, 200)
-
-	//external healing in high priority
-	var/heal_cost = 0
-	var/heal_brute = 0
-	var/heal_burn = 0
-
-	if(getBruteLoss() > 0)
-		heal_cost += 2
-		heal_brute = 3
-
-	if(getFireLoss() > 0)
-		heal_cost += 1
-		heal_burn = 3
-
-	var/heal_mod = 1
-
-	if(isInCrit() && radiation >= heal_cost * 2)
-		heal_mod = 2
-
-	if(radiation >= heal_cost * heal_mod)
-		radiation = max(radiation - heal_cost * heal_mod, 0)
-		heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
-
-	//internal healing in medium priority. Using radium won't heal internal damage while healing external damage
-	var/list/obj/item/organ/internal/int_damaged_organs = get_damaged_organs(flags = AFFECT_ORGANIC_INTERNAL_PARTS)
-	var/int_damaged_organs_amount = length(int_damaged_organs)
-	var/heal_amount = 3
-	heal_cost = 3
-
-	if(int_damaged_organs_amount && radiation >= heal_cost)
-		for(var/obj/item/organ/internal/organ in int_damaged_organs)
-			organ.unnecrotize()
-			organ.heal_internal_damage(heal_amount / int_damaged_organs_amount)
-		radiation = max(radiation - heal_cost, 0)
-
-	//healing fractures in low priotiry. Won't heal fractures while healing internal or external damage with radium
-	var/list/obj/item/organ/external/fractured_limbs = check_fractures()
-	heal_cost = 10
-
-	if(radiation >= heal_cost && length(fractured_limbs))
-		var/obj/item/organ/external/limb = pick(fractured_limbs)
-		if(limb.has_fracture())//double check... just in case
-			limb.mend_fracture()
-			radiation = max(radiation - heal_cost, 0)
-
-	radiation = max(radiation - 1, 0)//passive radiation drain
-
-
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
 		..()
