@@ -35,12 +35,12 @@
 	var/heal_burn = 0
 
 	if(human.getBruteLoss() > 0)
-		heal_cost += 2
-		heal_brute = 3
+		heal_cost += BRUTE_HEAL_COST
+		heal_brute = BRUTE_HEAL_AMOUNT
 
 	if(human.getFireLoss() > 0)
-		heal_cost += 1
-		heal_burn = 3
+		heal_cost += BURN_HEAL_COST
+		heal_burn = BURN_HEAL_AMOUNT
 
 	var/heal_mod = 1
 
@@ -54,8 +54,8 @@
 	//internal healing in medium priority. Using radium won't heal internal damage while healing external damage
 	var/list/obj/item/organ/internal/int_damaged_organs = human.get_damaged_organs(flags = AFFECT_ORGANIC_INTERNAL_PARTS)
 	var/int_damaged_organs_amount = length(int_damaged_organs)
-	var/heal_amount = 3
-	heal_cost = 3
+	var/heal_amount = INTERNAL_HEAL_AMOUNT
+	heal_cost = INTERNAL_HEAL_COST
 
 	if(int_damaged_organs_amount && human.radiation >= heal_cost)
 		for(var/obj/item/organ/internal/organ in int_damaged_organs)
@@ -65,7 +65,7 @@
 
 	//healing fractures in low priotiry. Won't heal fractures while healing internal or external damage with radium
 	var/list/obj/item/organ/external/fractured_limbs = human.check_fractures()
-	heal_cost = 10
+	heal_cost = FRACTURE_HEAL_COST
 
 	if(human.radiation >= heal_cost && length(fractured_limbs))
 		var/obj/item/organ/external/limb = pick(fractured_limbs)

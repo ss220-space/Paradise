@@ -62,12 +62,13 @@
 	. = ..()
 	H.light_color = "#afaf21"
 	H.set_light_range(2)
+	AddElement(/datum/element/radiation_healing)
 
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.light_color = null
 	H.set_light_on(FALSE)
-
+	RemoveElement(/datum/element/radiation_healing)
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/human)
 	if(human.health <= HEALTH_THRESHOLD_DEAD) // Needed to prevent brain gib on surgery debrain
