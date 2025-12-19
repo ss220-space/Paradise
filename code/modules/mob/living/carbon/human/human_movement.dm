@@ -249,6 +249,29 @@
 	to_chat(src, span_userdanger("Гравитация впечатывает вас в пол!"))
 	Knockdown(1 SECONDS)
 
+/mob/living/carbon/human/get_fracture_spread_bonus()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+	)
+
+	var/bonus_spread = 0
+	for(var/zone in possible_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		switch(bodypart.fracture_state)
+			if(FRACTURE_TYPE_CRACK)
+				bonus_spread = max(12, bonus_spread)
+			if(FRACTURE_TYPE_CLOSED)
+				bonus_spread = max(23, bonus_spread)
+			if(FRACTURE_TYPE_OPEN)
+				bonus_spread = max(45, bonus_spread)
+
+	return bonus_spread
+
 /mob/living/carbon/human/proc/fracture_fall_check()
 	var/static/list/possible_limbs = list(
 		BODY_ZONE_L_LEG,
@@ -256,6 +279,9 @@
 		BODY_ZONE_PRECISE_L_FOOT,
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
+
+	if(body_position == LYING_DOWN)
+		return
 
 	var/fall_chance = 0
 	for(var/zone in possible_limbs)

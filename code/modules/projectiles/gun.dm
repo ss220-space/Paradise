@@ -362,6 +362,7 @@
 	if(semicd)
 		return
 
+	bonus_spread += user.get_fracture_spread_bonus()
 	if(user.buckled)
 		bonus_spread += 45
 
