@@ -175,7 +175,6 @@
 	human_ninja.equip_to_slot(new /obj/item/clothing/shoes/space_ninja, ITEM_SLOT_FEET, initial = TRUE)
 	human_ninja.equip_to_slot(new /obj/item/clothing/gloves/space_ninja, ITEM_SLOT_GLOVES, initial = TRUE)
 	human_ninja.equip_to_slot(new /obj/item/clothing/head/helmet/space/space_ninja, ITEM_SLOT_HEAD, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/tank/internals/emergency_oxygen/ninja, ITEM_SLOT_POCKET_RIGHT, initial = TRUE)
 
 	var/obj/item/storage/backpack/ninja/my_backpack = new
 	human_ninja.equip_to_slot(my_backpack, ITEM_SLOT_BACK, initial = TRUE)
