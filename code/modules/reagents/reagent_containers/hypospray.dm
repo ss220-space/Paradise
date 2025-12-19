@@ -776,3 +776,38 @@
 		INSTRUMENTAL = "автоинъектором (Сангвиний)",
 		PREPOSITIONAL = "автоинъекторе (Сангвиний)",
 	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zagustin
+	name = "zagustin autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу загустина. Военный препарат для быстрой остановки кровотечений. Имеет побочные эффекты."
+	icon_state = "hemostatic"
+	amount_per_transfer_from_this = 10
+	volume = 30
+	list_reagents = list("zagustin" = 30)
+	var/count_of_use = 3
+
+/obj/item/reagent_containers/hypospray/autoinjector/zagustin/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Загустин)",
+		GENITIVE = "автоинъектора (Загустин)",
+		DATIVE = "автоинъектору (Загустин)",
+		ACCUSATIVE = "автоинъектор (Загустин)",
+		INSTRUMENTAL = "автоинъектором (Загустин)",
+		PREPOSITIONAL = "автоинъекторе (Загустин)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zagustin/update_icon_state()
+	icon_state = "[icon_state][count_of_use > 0 ? "" : "0"]"
+
+/obj/item/reagent_containers/hypospray/autoinjector/zagustin/update_overlays()
+	. = ..()
+	if(count_of_use > 0)
+		. += "[icon_state][count_of_use]"
+
+/obj/item/reagent_containers/hypospray/autoinjector/zagustin/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(count_of_use <= 0)
+		return
+	count_of_use--
+	spent = count_of_use <= 0
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)

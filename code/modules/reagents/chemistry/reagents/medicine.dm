@@ -1840,3 +1840,32 @@
 	user.adjustBruteLoss(6)
 	user.set_bloody_screen(6 SECONDS)
 
+
+/datum/reagent/medicine/zagustin
+	name = "Загустин"
+	id = "zagustin"
+	description = "Военный препарат. Ингибирует активаторы профибринолизина и тормозит его превращение в фибринолизин. Временно останавливает кровотечение и повышает устойчивость к новым. Имеет побочные эффекты. Приводит к сильной дегидратации."
+	reagent_state = LIQUID
+	color = "#4d0e42"
+	penetrates_skin = TRUE
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	taste_description = "металла"
+
+/datum/reagent/medicine/zagustin/on_mob_life(mob/living/user)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!ishuman(user))
+		return ..()
+
+	var/mob/living/carbon/human/human = user
+	var/heal_internal_bleed = prob(25) ? TRUE : FALSE  // 25% to heal one internal bleeding per tick
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
+		if(heal_internal_bleed && bodypart.has_internal_bleeding())
+			heal_internal_bleed = FALSE
+			bodypart.stop_internal_bleeding()
+		if(bodypart.bleeding_amount <= 0)
+			continue
+		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 0.5) //heal 0.5 bleeding per tick
+		update_flags |= STATUS_UPDATE_HEALTH
+
+	human.adjust_nutrition(-3) // nutrition per tick (1 unit -> 30 nutrition, 10 units -> 300 nutrition by 100 ticks)
+	return ..() | update_flags
