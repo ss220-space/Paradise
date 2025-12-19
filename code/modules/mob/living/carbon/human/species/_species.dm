@@ -827,13 +827,13 @@
 		add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		return
 
-	to_chat(target, span_warning("Ваша хватка на [item_in_hands.declent_ru(NOMINATIVE)] ослабевает!"))
+	to_chat(target, span_warning("Ваша хватка на [item_in_hands.declent_ru(ACCUSATIVE)] ослабевает!"))
 	add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 
 /datum/species/proc/do_wall_knockdown(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-	target.visible_message(span_warning("[DECLENT_RU_CAP(, user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"), \
-							span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
+	target.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] в препятствие!"), \
+							span_userdanger("[DECLENT_RU_CAP(user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] вас в препятствие!"), \
 							"Раздаётся глухой удар.")
 	if(!HAS_TRAIT(target, TRAIT_FLOORED))
 		target.Knockdown(3 SECONDS)
