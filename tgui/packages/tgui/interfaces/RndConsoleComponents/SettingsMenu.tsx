@@ -6,14 +6,20 @@ import { MENU, SUBMENU } from '../RndConsole';
 type SettingsMenuData = {
   sync: boolean;
   admin: boolean;
-  cargo: boolean;
+  disk_only: boolean;
 } & RndData;
 
 export const SettingsMenu = (properties) => {
   const { data, act } = useBackend<SettingsMenuData>();
 
-  const { sync, admin, linked_destroy, linked_lathe, linked_imprinter, cargo } =
-    data;
+  const {
+    sync,
+    admin,
+    linked_destroy,
+    linked_lathe,
+    linked_imprinter,
+    disk_only,
+  } = data;
 
   return (
     <Box>
@@ -52,7 +58,7 @@ export const SettingsMenu = (properties) => {
                 Отключиться от сети НИО
               </Button>
 
-              {!cargo && (
+              {!disk_only && (
                 <RndNavButton
                   disabled={!sync}
                   icon="link"
@@ -73,7 +79,7 @@ export const SettingsMenu = (properties) => {
         )}
       />
 
-      {!cargo && (
+      {!disk_only && (
         <RndRoute
           submenu={SUBMENU.SETTINGS_DEVICES}
           render={() => (

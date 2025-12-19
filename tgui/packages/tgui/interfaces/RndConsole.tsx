@@ -34,12 +34,12 @@ export const SUBMENU = {
 type RNDConsoleData = {
   ui_theme: string;
   wait_message: string;
-  cargo: boolean;
+  disk_only: boolean;
 };
 
 export const RndConsole = (_properties) => {
   const { data } = useBackend<RNDConsoleData>();
-  const { wait_message, cargo } = data;
+  const { wait_message, disk_only } = data;
 
   return (
     <Window width={1000} height={555} theme={data.ui_theme}>
@@ -50,14 +50,14 @@ export const RndConsole = (_properties) => {
           <RndRoute menu={MENU.LEVELS} render={() => <CurrentLevels />} />
           <RndRoute menu={MENU.DISK} render={() => <DataDiskMenu />} />
 
-          {!cargo && (
+          {!disk_only && (
             <RndRoute
               menu={MENU.DESTROY}
               render={() => <DeconstructionMenu />}
             />
           )}
 
-          {!cargo && (
+          {!disk_only && (
             <RndRoute
               menu={(n) => n === MENU.LATHE || n === MENU.IMPRINTER}
               render={() => <LatheMenu />}

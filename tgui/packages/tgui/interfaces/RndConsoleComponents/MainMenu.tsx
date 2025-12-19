@@ -13,7 +13,7 @@ export const MainMenu = (properties) => {
     linked_lathe,
     linked_imprinter,
     tech_levels,
-    cargo,
+    disk_only,
   } = data;
 
   return (
@@ -31,7 +31,7 @@ export const MainMenu = (properties) => {
         >
           Операции с дискетами
         </RndNavButton>
-        {!cargo && (
+        {!disk_only && (
           <RndNavButton
             disabled={!linked_destroy}
             menu={MENU.DESTROY}
@@ -41,7 +41,7 @@ export const MainMenu = (properties) => {
             Деструктивный анализатор
           </RndNavButton>
         )}
-        {!cargo && (
+        {!disk_only && (
           <RndNavButton
             disabled={!linked_lathe}
             menu={MENU.LATHE}
@@ -51,7 +51,7 @@ export const MainMenu = (properties) => {
             Протолат
           </RndNavButton>
         )}
-        {!cargo && (
+        {!disk_only && (
           <RndNavButton
             disabled={!linked_imprinter}
             menu={MENU.IMPRINTER}
