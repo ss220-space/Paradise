@@ -369,11 +369,11 @@
 	required_minerals[item_path] += difficult_list[item_path]["amount"]
 	desc = list()
 	for(var/mineral in required_minerals)
-		var/atom/AM = new item_path(locate(1, 1, 1))
+		var/atom/AM = new mineral(locate(1, 1, 1))
 		var/object_name = AM.declent_ru(NOMINATIVE)
 		qdel(AM)
 
-		desc += "[capitalize(object_name)]<br>Объём: [required_minerals[item_path]]<br>"
+		desc += "[capitalize(object_name)]<br>Объём: [required_minerals[mineral]]<br>"
 	if(item_path in unique_minerals)
 		difficult_list.Remove(item_path)
 	current_list = required_minerals.Copy()
