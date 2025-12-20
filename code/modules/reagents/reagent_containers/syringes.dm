@@ -12,11 +12,11 @@
 	volume = 15
 	sharp = TRUE
 	pass_open_check = TRUE
+	materials = list(MAT_METAL=10, MAT_GLASS=20)
+	container_type = TRANSPARENT
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
-	materials = list(MAT_METAL=10, MAT_GLASS=20)
-	container_type = TRANSPARENT
 	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
 	var/penetrates_thick = FALSE
 	///If this variable is true, the syringe will work through unathi skin
