@@ -1,6 +1,6 @@
 /// Allows right clicking mobs to send an admin PM to their client.
 /// Forwards the selected mob's client to cmd_admin_pm.
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_pm_context, R_ADMIN|R_MENTOR, "Admin PM Mob", mob/target in world)
+ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_pm_context, R_ADMIN|R_MENTOR, "Admin PM Mob", mob/target in GLOB.player_list)
 	if(!ismob(target) || !target.client)
 		return
 	user.cmd_admin_pm(target.client, null)

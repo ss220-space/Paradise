@@ -36,7 +36,7 @@ ADMIN_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_
 	message_admins(span_adminnotice("[key_name_admin(user)] sent [key_name_admin(victim)] to the prison station."))
 	BLACKBOX_LOG_ADMIN_VERB("Prison")
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in world)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.player_list)
 	if(!ismob(target))
 		return
 
@@ -115,10 +115,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Na
 	message_admins(span_adminnotice("<b> LocalNarrate: [key_name_admin(user)] at [ADMIN_VERBOSEJMP(locale)]:</b> [msg]<br>"))
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target)
-	if(!target)
-		target = tgui_input_list(user, "Direct narrate to who?", "Active Players", get_mob_with_client_list())
-
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.player_list)
 	if(!target)
 		return
 

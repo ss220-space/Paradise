@@ -12,10 +12,10 @@ GLOBAL_PROTECT(href_token)
 
 /datum/admins
 	var/rank = "No Rank"
-	var/client/owner = null
+	var/client/owner
 	/// Bitflag containing the current rights this admin holder is assigned to
 	var/rights = 0
-	var/fakekey = null
+	var/fakekey
 	var/big_brother	= FALSE
 	/// Was this auto-created for someone connecting from localhost?
 	var/is_localhost_autoadmin = FALSE
@@ -70,7 +70,7 @@ GLOBAL_PROTECT(href_token)
 		return
 	if(owner)
 		GLOB.admins -= owner
-		SSadmin_verbs.dynamic_invoke_verb(owner, /datum/admin_verb/hide_verbs)
+		owner.remove_admin_verbs()
 		owner.init_verbs()
 		owner.holder = null
 		owner = null

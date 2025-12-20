@@ -1,4 +1,3 @@
-ADMIN_VERB_VISIBILITY(trigger_event, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
 ADMIN_VERB(trigger_event, R_EVENT, "Trigger Event", "Trigger Event.", ADMIN_CATEGORY_EVENTS, event_type in SSevents.allEvents)
 	var/datum/event/type = tgui_input_list(user, "Выберите событие для запуска", "Выбор события", SSevents.allEvents)
 	if(!ispath(type))

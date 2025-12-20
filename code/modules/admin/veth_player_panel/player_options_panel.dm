@@ -1,4 +1,4 @@
-ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player options panel for a mob.", ADMIN_CATEGORY_GAME, mob/target in GLOB.mob_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/target in GLOB.mob_list)
 	if(!target)
 		to_chat(user, span_warning("Could not find desired target mob!"), type = MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		return
@@ -87,9 +87,8 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 /datum/vuap_personal/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	if(!check_rights(R_ADMIN))
-		return
-	var/mob/selected_mob = get_mob_by_ckey(ui.user.client.selectedPlayerCkey)
+	var/mob/selected_mob = get_mob_by_ckey(ui.user.client.selectedPlayerCkey) || ui.user.client.VUAP_selected_mob
+	var/mob/selected_VUAP_mob = ui.user.client.VUAP_selected_mob
 	if(!selected_mob)
 		tgui_alert(usr, "Selected player not found!")
 		return
@@ -181,7 +180,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(vuap_personal, R_ADMIN, "Open TGUI PP", "Player opti
 			usr.client.holder.Topic(null, list("jumpto" = selected_mob.UID()))
 			return
 		if("get")
-			usr.client.holder.Topic(null, list("getmob" = selected_mob.UID()))
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/get_mob, selected_VUAP_mob)
 			return
 		if("send")
 			usr.client.holder.Topic(null, list("sendmob" = selected_mob.UID()))

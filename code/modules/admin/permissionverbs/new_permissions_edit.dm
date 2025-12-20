@@ -186,7 +186,7 @@
 		log_and_message_admins("attempted to edit admin ranks via advanced proc-call")
 		return
 
-	if(permissions & R_DEBUG || permissions & R_VIEWRUNTIMES)
+	if(permissions & (R_DEBUG|R_VIEWRUNTIMES))
 		world.SetConfig("APP/admin", ckey, "role=admin")
 		return
 
@@ -346,7 +346,7 @@
 		return
 
 	client.update_active_keybindings()
-	SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/hide_verbs)
+	client.remove_admin_verbs()
 	client.init_verbs()
 	client.add_admin_verbs()
 

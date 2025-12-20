@@ -36,8 +36,6 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 /datum/player_panel_veth/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	if(!check_rights(R_ADMIN))
-		return
 	var/mob/selected_mob = get_mob_by_ckey(params["selectedPlayerCkey"]) //gets the mob datum from the ckey in client datum which we've saved. if there's a better way to do this please let me know
 	switch(action) //switch for all the actions from the frontend - all of the Topic() calls check rights & log inside themselves.
 		if("refresh")
@@ -97,4 +95,4 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 		ui.open()
 
 /datum/player_panel_veth/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN)
+	return ADMIN_STATE(R_ADMIN|R_MOD)
