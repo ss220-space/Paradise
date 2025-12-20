@@ -238,10 +238,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			d_disk = I
 		SStgui.update_uis(src)
 		balloon_alert(user, "дискета вставлена")
-		if(istype(src, /obj/machinery/computer/rdconsole/cargo))
-			var/obj/machinery/computer/rdconsole/cargo/console = src
-			console.disk_loading = FALSE
-			console.update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -650,10 +646,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				d_disk = null
 			menu = MENU_MAIN
 			submenu = SUBMENU_MAIN
-			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
-				var/obj/machinery/computer/rdconsole/cargo/console = src
-				console.disk_loading = FALSE
-				console.update_icon()
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
@@ -1029,9 +1021,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		deltimer(wait_message_timer)
 		wait_message_timer = null
 	SStgui.update_uis(src)
-	if(istype(src, /obj/machinery/computer/rdconsole/cargo))
-		var/obj/machinery/computer/rdconsole/cargo/console = src
-		console.update_icon()
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
@@ -1144,8 +1133,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/rdconsole/cargo
 	frame = /obj/structure/computerframe/cargo
-	/// Flag for tracking disk inside
-	var/disk_loading = FALSE
 	disk_only = TRUE
 	ui_theme = "cargo"
 	icon_state = "cargocomp"
