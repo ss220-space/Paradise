@@ -110,6 +110,7 @@
 		return
 	add_attack_logs(user, src, "emagged")
 	emagged = TRUE
+
 	if(user)
 		balloon_alert(user, "протоколы безопасности взломаны")
 
@@ -143,7 +144,8 @@
 	applying = TRUE
 	var/cycle_count = 0
 
-	while(do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1) && amount_left > 0 && applying)
+	while(amount_left > 0 && applying)
+		do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1)
 		cycle_count++
 		inject_nicotine(user, cycle_count)
 
@@ -179,8 +181,10 @@
 		user.adjustToxLoss(2)
 		if(prob(10))
 			to_chat(user, span_warning("Голова кружится от такой долгой затяжки..."))
+
 	if(cycle_count >= 60)
 		user.client?.give_award(/datum/award/achievement/misc/deep_draw, user)
+
 	if(emagged && cycle_count >= 10)
 		applying = FALSE
 		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] становится обжигающе горячей!"))
