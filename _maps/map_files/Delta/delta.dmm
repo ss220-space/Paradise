@@ -121324,8 +121324,8 @@
 	department = "Captain's Office"
 	},
 /obj/machinery/keycard_auth{
-	pixel_x = -26;
-	pixel_y = 22
+	pixel_x = -36;
+	pixel_y = 24
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)

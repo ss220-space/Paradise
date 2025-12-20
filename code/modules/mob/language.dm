@@ -758,7 +758,7 @@
 		if(drone_only && !(isdrone(S)||iscogscarab(S)))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'>[span_name("[speaker.name]")]</a>"
+			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>"
 		else if(!S.binarycheck())
 			continue
 

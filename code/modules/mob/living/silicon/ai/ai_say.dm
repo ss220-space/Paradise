@@ -47,13 +47,13 @@
 			track = "[speaker_name] ([jobname])"
 	else
 		if(isbot(follow_target))
-			track = "<a href='byond://?src=[UID()];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
+			track = "<a href='byond://?src=[UID()];trackbot=[follow_target.UID()]'>[speaker_name] ([jobname])</a>"
 		else
 			mob_to_track = speaker
 
 	if(mob_to_track)
-		track = "<a href='byond://?src=[UID()];track=\ref[mob_to_track]'>[speaker_name] ([jobname])</a>"
-		track += "&nbsp;<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[Open\]</a>"
+		track = "<a href='byond://?src=[UID()];track=[mob_to_track.UID()]'>[speaker_name] ([jobname])</a>"
+		track += "&nbsp;<a href='byond://?src=[UID()];open=[mob_to_track.UID()]'>\[Open\]</a>"
 
 	return track
 
