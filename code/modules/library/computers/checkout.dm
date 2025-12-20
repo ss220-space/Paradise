@@ -61,7 +61,7 @@
 			// Inventory
 			dat += "<h3>Inventory</h3>"
 			for(var/obj/item/book/b in inventory)
-				dat += "[b.name] <a href='byond://?src=[UID()];delbook=\ref[b]'>(Delete)</a><br>"
+				dat += "[b.name] <a href='byond://?src=[UID()];delbook=[b.UID()]'>(Delete)</a><br>"
 			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(2)
 			// Checked Out
@@ -80,7 +80,7 @@
 					timedue = round(timedue)
 
 				dat += {"\"[b.bookname]\", Checked out to: [b.mobname]<br>--- Taken: [timetaken] minutes ago, Due: in [timedue] minutes<br>
-					<a href='byond://?src=[UID()];checkin=\ref[b]'>(Check In)</a><br><br>"}
+					<a href='byond://?src=[UID()];checkin=[b.UID()]'>(Check In)</a><br><br>"}
 			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(3)
 			// Check Out a Book
@@ -378,10 +378,10 @@
 		b.duedate = world.time + (checkoutperiod * 600)
 		checkouts.Add(b)
 	if(href_list["checkin"])
-		var/datum/borrowbook/b = locate(href_list["checkin"])
+		var/datum/borrowbook/b = locateUID(href_list["checkin"])
 		checkouts.Remove(b)
 	if(href_list["delbook"])
-		var/obj/item/book/b = locate(href_list["delbook"])
+		var/obj/item/book/b = locateUID(href_list["delbook"])
 		inventory.Remove(b)
 	if(href_list["uploadauthor"])
 		var/newauthor = tgui_input_text(usr, "Enter the author's name: ", max_length = MAX_MESSAGE_LEN)

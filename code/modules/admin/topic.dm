@@ -2422,7 +2422,7 @@
 		if(!customname)
 			customname = "paper"
 		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
-		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/obj/machinery/photocopier/faxmachine/fax = locateUID(href_list["originfax"])
 
 		P.name = "Central Command - [customname]"
 		P.info = "<b>You <i>really</i> should've known better.</b>"
@@ -2486,7 +2486,7 @@
 			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
 			return
 		var/obj/item/paper/P = new /obj/item/paper(null)
-		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/obj/machinery/photocopier/faxmachine/fax = locateUID(href_list["originfax"])
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
 		var/stype = tgui_input_list(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?", "Выберите этот документ", stypes)
@@ -2573,7 +2573,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/obj/item/fax = locate(href_list["AdminFaxView"])
+		var/obj/item/fax = locateUID(href_list["AdminFaxView"])
 		if(istype(fax, /obj/item/paper))
 			var/obj/item/paper/P = fax
 			P.show_content(usr,1)
@@ -2588,7 +2588,7 @@
 
 			for(var/page = 1 to length(bundle.papers))
 				var/obj/pageobj = bundle.papers[page]
-				data += "<a href='byond://?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[bundle]'>Page [page] - [pageobj.name]</a><br>"
+				data += "<a href='byond://?src=[UID()];AdminFaxViewPage=[page];paper_bundle=[bundle.UID()]'>Page [page] - [pageobj.name]</a><br>"
 
 			var/datum/browser/popup = new(usr, "PaperBundle[bundle.UID()]", "Fax View")
 			popup.include_default_stylesheet = FALSE
@@ -2602,7 +2602,7 @@
 			return
 
 		var/page = text2num(href_list["AdminFaxViewPage"])
-		var/obj/item/paper_bundle/bundle = locate(href_list["paper_bundle"])
+		var/obj/item/paper_bundle/bundle = locateUID(href_list["paper_bundle"])
 
 		if(!bundle) return
 
@@ -2618,10 +2618,10 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/sender = locate(href_list["AdminFaxCreate"])
-		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/mob/sender = locateUID(href_list["AdminFaxCreate"])
+		var/obj/machinery/photocopier/faxmachine/fax = locateUID(href_list["originfax"])
 		var/faxtype = href_list["faxtype"]
-		var/reply_to = locate(href_list["replyto"])
+		var/reply_to = locateUID(href_list["replyto"])
 		var/destination
 		var/notify
 		var/obj/item/paper/P
@@ -2754,15 +2754,15 @@
 				sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
-			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=[P.UID()]'>VIEW</a>).")
 		else
 			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
-			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).")
+			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=[P.UID()]'>VIEW</a>).")
 		return
 	else if(href_list["AdminFaxNotify"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/sender = locate(href_list["AdminFaxNotify"])
+		var/mob/sender = locateUID(href_list["AdminFaxNotify"])
 		var/mob/living/carbon/human/H = sender
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(sender, span_specialnotice("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
@@ -3848,12 +3848,12 @@
 	else if(href_list["delete_outfit"])
 		if(!check_rights(R_EVENT))
 			return
-		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
+		var/datum/outfit/O = locateUID(href_list["chosen_outfit"])
 		delete_outfit(usr,O)
 	else if(href_list["save_outfit"])
 		if(!check_rights(R_EVENT))
 			return
-		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
+		var/datum/outfit/O = locateUID(href_list["chosen_outfit"])
 		save_outfit(usr,O)
 	else if(href_list["open_ccDB"])
 		if(!check_rights(R_ADMIN))
@@ -3881,7 +3881,7 @@
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
 	else if(href_list["resultspoll"])
-		var/datum/poll_question/poll = locate(href_list["resultspoll"]) in GLOB.polls
+		var/datum/poll_question/poll = locateUID(href_list["resultspoll"])
 		var/start_index = text2num(href_list["startat"]) || 0
 		poll_results_panel(poll, start_index)
 
