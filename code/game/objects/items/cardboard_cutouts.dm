@@ -7,10 +7,16 @@
 	item_flags = NO_PIXEL_RANDOM_DROP
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
-	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
-		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
-		"Deathsquad Officer", "Ian", "Slaughter Demon",
-		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
+	var/list/possible_appearances = list("Assistant", "Clown", "Mime", "Ian", //разное
+		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist", "Revolutionary", "Wizard","Security Officer",  "Shadowling", //карбоны антагонисты
+		"Swarmer", "Swarmer starter", "Swarmer rover", "Swarmer bilder", "Swarmer combat", //свармеры
+		"Xenomorph Maid", "Xenomorph", "larva", //кесноморфы
+		"Terror Spider", "Terror Spider allblack", //тероры
+		"Behemoth", "Floating", "Artificer", //конструкты
+		"Goliath", "Weaver", "Weaver ice", "Legion", "Goldgrub", //фауна лаваленда
+		"Blobbernaut", "TechRose", "Bloodhound","Slaughter Demon", "Laughter Demon", //прочие симпл антаги
+		
+		)
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
 	var/lastattacker = null
@@ -163,17 +169,33 @@
 			if(prob(10))
 				alpha = 75 //Spooky sneaking!
 		if("Swarmer")
-			name = "Swarmer ([rand(1, 999)])"
-			desc = "A cardboard cutout of a swarmer."
+			name = "Свармер ([rand(1, 999)])"
+			desc = "Картонная фигурка свармера генералиста."
 			icon_state = "cutout_swarmer"
+		if("Swarmer starter")
+			name = "Свармер ([rand(1, 999)])"
+			desc = "Картонная фигурка маленького свармера."
+			icon_state = "cutout_starter"
+		if("Swarmer rover")
+			name = "Свармер ([rand(1, 999)])"
+			desc = "Картонная фигурка ровера."
+			icon_state = "cutout_rover"
+		if("Swarmer bilder")
+			name = "Свармер ([rand(1, 999)])"
+			desc = "Картонная фигурка свармера строителя."
+			icon_state = "cutout_bilder"
+		if("Swarmer combat")
+			name = "Swarmer ([rand(1, 999)])"
+			desc = "Картонная фигурка боевого свармера."
+			icon_state = "cutout_combat"
 		//if("Ash Walker")
 		//	name = random_name(pick(MALE,FEMALE),"Unathi")
 		//	desc = "A cardboard cutout of an ash walker."
 		//	icon_state = "cutout_free_antag"
-		if("Deathsquad Officer")
-			name = pick(GLOB.commando_names)
-			desc = "A cardboard cutout of a death commando."
-			icon_state = "cutout_deathsquad"
+		//if("Deathsquad Officer")
+		//	name = pick(GLOB.commando_names)
+		//	desc = "A cardboard cutout of a death commando."
+		//	icon_state = "cutout_deathsquad"
 		if("Ian")
 			name = "Ian"
 			desc = "A cardboard cutout of the HoP's beloved corgi."
@@ -198,6 +220,58 @@
 			name = "Gray Terror Spider"
 			desc = "A cardboard cutout of a terror spider."
 			icon_state = "cutout_terror"
+		if("Terror Spider allblack")
+			name = "Принц ужаса"
+			desc = "Картонная фигурка принца ужаса."
+			icon_state = "cutout_allblack"
+		if("larva")
+			name = "Грудолом"
+			desc = "Картонная фигурка грудолома ксеноморфов."
+			icon_state = "cutout_larva0"
+		if("Behemoth")
+			name = "Джагернаут"
+			desc = "Картонная фигурка джагернаута культа"
+			icon_state = "cutout_behemoth"
+		if("Floating")
+			name = "Фантом"
+			desc = "Картонная фигурка фантома культа."
+			icon_state = "cutout_floating"
+		if("Artificer")
+			name = "Созидатель"
+			desc = "Картонная фигурка созидателя культа."
+			icon_state = "cutout_artificer"
+		if("Blobbernaut")
+			name = "Блобернаут"
+			desc = "Картонная фигурка Блобернаута."
+			icon_state = "cutout_blobbernaut"
+		if("TechRose")
+			name = "Голопаразит"
+			desc = "Картонная фигурка голопаразита."
+			icon_state = "cutout_techRose"
+		if("Bloodhound")
+			name = "Киборг синдиката"
+			desc = "Картонная фигурка киборга синдиката."
+			icon_state = "cutout_bloodhound"
+		if("Weaver")
+			name = "Костномозговой ткач"
+			desc = "Картонная фигурка костномозговова ткача."
+			icon_state = "cutout_weaver"
+		if("Weaver ice")
+			name = "Морозный костномозговой ткач"
+			desc = "Картонная фигурка морозного костномозговова ткача."
+			icon_state = "cutout_weaver_ice"
+		if("Legion")
+			name = "Легион"
+			desc = "Картонная фигурка легиона."
+			icon_state = "cutout_legion"
+		if("Goliath")
+			name = "Голиаф"
+			desc = "Картонная фигурка голиафа."
+			icon_state = "cutout_goliath"
+		if("Goldgrub")
+			name = "Златожор"
+			desc = "Картонная фигурка златожора."
+			icon_state = "cutout_Goldgrub"
 
 	return 1
 
