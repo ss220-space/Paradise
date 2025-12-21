@@ -1,11 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Section,
-  Stack,
-} from '../components';
+import { Box, Button, Dropdown, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type TeleporterData = {
@@ -50,8 +44,12 @@ export const Teleporter = (_props: unknown) => {
             {(!powerstation || !teleporterhub) && (
               <Section fill title="Error">
                 {teleporterhub}
-                {!powerstation && <Box color="bad"> Powerstation not linked </Box>}
-                {powerstation && !teleporterhub && <Box color="bad"> Teleporter hub not linked </Box>}
+                {!powerstation && (
+                  <Box color="bad"> Powerstation not linked </Box>
+                )}
+                {powerstation && !teleporterhub && (
+                  <Box color="bad"> Teleporter hub not linked </Box>
+                )}
               </Section>
             )}
             {powerstation && teleporterhub && (
@@ -120,7 +118,9 @@ export const Teleporter = (_props: unknown) => {
                       tooltip="One-way teleport."
                       tooltipPosition="top"
                       color={regime === REGIME_TELEPORT ? 'good' : null}
-                      onClick={() => act('setregime', { regime: REGIME_TELEPORT })}
+                      onClick={() =>
+                        act('setregime', { regime: REGIME_TELEPORT })
+                      }
                     />
                   </Stack.Item>
                   <Stack.Item grow textAlign="center">
@@ -143,13 +143,18 @@ export const Teleporter = (_props: unknown) => {
                     {target !== 'None' && (
                       <Stack fill>
                         <Stack.Item width={15.8} textAlign="center" mt={0.5}>
-                          {(calibrating && <Box color="average">In Progress</Box>) ||
-                            ((calibrated || accuracy >= 3) && <Box color="good">Optimal</Box>) || <Box color="bad">Sub-Optimal</Box>}
+                          {(calibrating && (
+                            <Box color="average">In Progress</Box>
+                          )) ||
+                            ((calibrated || accuracy >= 3) && (
+                              <Box color="good">Optimal</Box>
+                            )) || <Box color="bad">Sub-Optimal</Box>}
                         </Stack.Item>
                         <Stack.Item grow>
                           <Button
                             icon="sync-alt"
-                            tooltip="Calibrates the hub. Accidents may occur when the  calibration is not optimal."
+                            tooltip="Calibrates the hub. Accidents may occur \
+                            when the  calibration is not optimal."
                             tooltipPosition="bottom-end"
                             disabled={calibrated || calibrating ? true : false}
                             onClick={() => act('calibrate')}
@@ -157,12 +162,19 @@ export const Teleporter = (_props: unknown) => {
                         </Stack.Item>
                       </Stack>
                     )}
-                    {target === 'None' && <Box lineHeight="21px">No target set</Box>}
+                    {target === 'None' && (
+                      <Box lineHeight="21px">No target set</Box>
+                    )}
                   </Stack.Item>
                 </Stack>
               </Section>
             )}
-            {!!(locked && powerstation && teleporterhub && regime === REGIME_GPS) && (
+            {!!(
+              locked &&
+              powerstation &&
+              teleporterhub &&
+              regime === REGIME_GPS
+            ) && (
               <Section title="GPS">
                 <Stack>
                   <Button
@@ -171,7 +183,12 @@ export const Teleporter = (_props: unknown) => {
                     icon="upload"
                     onClick={() => act('load')}
                   />
-                  <Button content="Eject" tooltip="Ejects the GPS device" icon="eject" onClick={() => act('eject')} />
+                  <Button
+                    content="Eject"
+                    tooltip="Ejects the GPS device"
+                    icon="eject"
+                    onClick={() => act('eject')}
+                  />
                 </Stack>
               </Section>
             )}
