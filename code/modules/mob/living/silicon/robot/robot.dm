@@ -2109,9 +2109,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	for(var/mob/living/buckled_mob as anything in buckled_mobs)
 		buckled_mob.visible_message(span_warning("[buckled_mob] вылетает из кресла [src]!"))
-		buckled_mob.Knockdown(1 SECONDS)
 		var/atom/target = get_edge_target_turf(src, dir)
-		var/mob/living/victim = buckled_mob //save him for... future time
+		var/mob/living/victim = buckled_mob //save him for future time
 		unbuckle_mob(buckled_mob)
 		victim.throw_at(target, 5, 10)
 	do_sparks(5, 0, src)
