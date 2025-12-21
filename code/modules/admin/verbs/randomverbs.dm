@@ -1034,7 +1034,7 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 						return
 			REMOVE_TRAIT(D, chosen_trait, source)
 
-ADMIN_VERB(change_command_name, R_ADMIN|R_EVENT, "Change Command Name", "Change the name of Central Command.", ADMIN_CATEGORY_EVENTS)
+ADMIN_VERB(change_command_name, R_EVENT, "Change Command Name", "Change the name of Central Command.", ADMIN_CATEGORY_EVENTS)
 	var/input = tgui_input_text(user, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)
 	if(!input)
 		return
