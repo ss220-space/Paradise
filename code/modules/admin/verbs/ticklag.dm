@@ -15,5 +15,5 @@
 		BLACKBOX_LOG_ADMIN_VERB("Set Ticklag")
 
 	else
-		to_chat(src, "<span class='warning'>Error: ticklag(): Invalid world.ticklag value. No changes made.</span>")
+		to_chat(src, span_warning("Error: ticklag(): Invalid world.ticklag value. No changes made."))
 

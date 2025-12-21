@@ -32,9 +32,11 @@
 #define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>" + str + "</span>")
 #define span_typing(str) ("<span class='typing'>" + str + "</span>")
+#define span_value(str) ("<span class='value'>" + str + "</span>")
+#define span_body(str) ("<span class='body'>" + str + "</span>")
 
 /**
- * MARK: GENERAL STUFF
+ * MARK: General Stuff
  */
 #define span_italics(str) ("<span class='italic'>" + str + "</span>")
 #define span_bold(str) ("<span class='bold'>" + str + "</span>")

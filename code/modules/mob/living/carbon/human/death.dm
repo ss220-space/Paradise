@@ -34,7 +34,7 @@
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
 		M.forceMove(drop_loc)
-		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+		visible_message(span_danger("[M] bursts out of [src]!"))
 
 	if(!ismachineperson(src))
 		flick("gibbed-h", animation)

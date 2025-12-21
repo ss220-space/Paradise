@@ -4,7 +4,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 
 	if(!target_ckey)
@@ -33,7 +33,7 @@
 
 	if(!ckey_found)
 		if(usr)
-			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+			to_chat(usr, span_redtext("[target_ckey] has not been seen before, you can only add notes to known players."))
 		return
 
 	var/crew_number = 0
@@ -80,7 +80,7 @@
 	var/adminckey
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -114,7 +114,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -219,7 +219,7 @@
 		if(!query_list_notes.warn_execute())
 			qdel(query_list_notes)
 			return
-		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		to_chat(usr, span_notice("Started regex note search for [search]. Please wait for results..."))
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
