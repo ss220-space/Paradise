@@ -155,7 +155,6 @@
 #include "code\__DEFINES\reagents.dm"
 #include "code\__DEFINES\redis.dm"
 #include "code\__DEFINES\regex.dm"
-#include "code\__DEFINES\request.dm"
 #include "code\__DEFINES\request_consoles.dm"
 #include "code\__DEFINES\rituals.dm"
 #include "code\__DEFINES\robot.dm"

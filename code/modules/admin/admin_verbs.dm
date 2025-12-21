@@ -494,7 +494,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "C.M.A. - Se
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	BLACKBOX_LOG_ADMIN_VERB("CMA - Self")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD, "AObserve", mob/target as mob, look_into_inventory = FALSE)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObserve", mob/target as mob, look_into_inventory = FALSE)
 	if(isnewplayer(user.mob))
 		to_chat(user, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Сначала зайдите в раунд (как игрок или как призрак)."))
 		return

@@ -87,9 +87,9 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 /datum/vuap_personal/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	var/mob/selected_mob = get_mob_by_ckey(ui.user.client.selectedPlayerCkey) || ui.user.client.VUAP_selected_mob
-	var/mob/selected_VUAP_mob = ui.user.client.VUAP_selected_mob
-	if(!selected_mob)
+	var/mob/selected_player = get_mob_by_ckey(ui.user.client.selectedPlayerCkey) || ui.user.client.VUAP_selected_mob
+	var/mob/selected_mob = ui.user.client.VUAP_selected_mob
+	if(!selected_player)
 		tgui_alert(usr, "Selected player not found!")
 		return
 	//pretty much all of these actions use the Topic() admin call. This admin call is secure, checks rights, and does stuff the way the old player panel did.
@@ -100,20 +100,20 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 			ui.send_update()
 			return
 		if("old_pp")
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_old_player_panel, selected_mob)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_old_player_panel, selected_player)
 			return
 		if("playtime")
-			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_player.UID()))
 			return
 		if("relatedbycid")
-			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = selected_mob.client?.UID()))
+			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = selected_player.client?.UID()))
 			return
 		if("relatedbyip")
-			usr.client.holder.Topic(null, list("showrelatedacc" = "ip", "client" = selected_mob.client?.UID()))
+			usr.client.holder.Topic(null, list("showrelatedacc" = "ip", "client" = selected_player.client?.UID()))
 			return
 		// Punish Section
 		if("kick")
-			usr.client.holder.Topic(null, list("boot2" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("boot2" = selected_player.UID()))
 			return
 		if("ban")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -121,7 +121,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 				return
 			if(!check_rights(R_BAN))
 				return
-			usr.client.holder.Topic(null, list("newban" = selected_mob.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
+			usr.client.holder.Topic(null, list("newban" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
 			return
 		if("jobban")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -129,7 +129,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 				return
 			if(!check_rights(R_BAN))
 				return
-			usr.client.holder.Topic(null, list("jobban2" = selected_mob.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
+			usr.client.holder.Topic(null, list("jobban2" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
 			return
 		if("appban")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -137,7 +137,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 				return
 			if(!check_rights(R_BAN))
 				return
-			usr.client.holder.Topic(null, list("appearanceban" = selected_mob.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
+			usr.client.holder.Topic(null, list("appearanceban" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
 			return
 		if("watchlist")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -146,250 +146,251 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 			usr.client.watchlist_add(ui.user.client.selectedPlayerCkey)
 			return
 		if("bless")
-			usr.client.holder.Topic(null, list("Bless" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("Bless" = selected_player.UID()))
 			return
 		if("smite")
 			usr.client.holder.Topic(null, list("Smite" = selected_mob.UID()))
+			to_chat(usr, "Smiting [selected_player.ckey].", confidential = TRUE)
 			return
 		// Message Section
 		if("pm")
-			usr.client.cmd_admin_pm(selected_mob.ckey)
+			usr.client.cmd_admin_pm(selected_player.ckey)
 			BLACKBOX_LOG_VUAP("PM")
 			return
 		if("sm")
-			usr.client.holder.Topic(null, list("subtlemessage" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("subtlemessage" = selected_player.UID()))
 			return
 		if("narrate")
-			usr.client.holder.Topic(null, list("narrateto" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("narrateto" = selected_player.UID()))
 			return
 		if("playsoundto")
 			if(!check_rights(R_SOUNDS))
 				return
 			var/sound = input(usr, "", "Select a sound file",) as null|sound
 			if(sound)
-				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/play_direct_mob_sound, sound, selected_mob)
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/play_direct_mob_sound, sound, selected_player)
 				return
 		if("sendalert")
-			usr.client.holder.Topic(null, list("adminalert" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("adminalert" = selected_player.UID()))
 			return
 		if("manup")
-			usr.client.holder.Topic(null, list("man_up" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("man_up" = selected_player.UID()))
 			return
 		// Movement Section
 		if("jumpto")
-			usr.client.holder.Topic(null, list("jumpto" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("jumpto" = selected_player.UID()))
 			return
 		if("get")
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/get_mob, selected_VUAP_mob)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/get_mob, selected_mob)
 			return
 		if("send")
-			usr.client.holder.Topic(null, list("sendmob" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("sendmob" = selected_player.UID()))
 			return
 		if("lobby")
-			usr.client.holder.Topic(null, list("sendbacktolobby" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("sendbacktolobby" = selected_player.UID()))
 			return
 		if("flw")
-			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_player.UID()))
 			return
 		if("cryo")
-			usr.client.holder.Topic(null, list("cryossd" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("cryossd" = selected_player.UID()))
 			return
 		// Info Section
 		if("vv")
-			usr.client.debug_variables(selected_mob)
+			usr.client.debug_variables(selected_player)
 			BLACKBOX_LOG_VUAP("VV")
 			return
 		if("tp")
-			usr.client.holder.Topic(null, list("traitor" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("traitor" = selected_player.UID()))
 			return
 		if("obs")
-			usr.client.holder.Topic(null, list("observeinventory" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("observeinventory" = selected_player.UID()))
 			return
 		if("logs")
-			usr.client.holder.Topic(null, list("open_logging_view" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("open_logging_view" = selected_player.UID()))
 			return
 		if("notes")
-			usr.client.holder.Topic(null, list("shownoteckey" = selected_mob.ckey))
+			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey))
 			return
 		if("playtime")
-			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_player.UID()))
 			return
 		if("geoip")
-			usr.client.holder.Topic(null, list("geoip" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("geoip" = selected_player.UID()))
 			return
 		if("ccdb")
-			usr.client.holder.Topic(null, list("open_ccDB" = selected_mob.ckey))
+			usr.client.holder.Topic(null, list("open_ccDB" = selected_player.ckey))
 			return
 		// Transformation Section
 		if("makeghost")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "observer",
-				"mob" = selected_mob.UID()
+				"mob" = selected_player.UID()
 			))
 			ui.send_update()
 			return
 		if("makehuman")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "human",
-				"mob" = selected_mob.UID()
+				"mob" = selected_player.UID()
 			))
 			ui.send_update()
 			return
 		if("makemonkey")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "monkey",
-				"mob" = selected_mob.UID()
+				"mob" = selected_player.UID()
 			))
 			ui.send_update()
 			return
 		if("makeborg")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "robot",
-				"mob" = selected_mob.UID()
+				"mob" = selected_player.UID()
 			))
 			ui.send_update()
 			return
 		if("makeanimal")
-			usr.client.holder.Topic(null, list("makeanimal" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("makeanimal" = selected_player.UID()))
 			ui.send_update()
 			return
 		if("makeai")
-			usr.client.holder.Topic(null, list("makeai" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("makeai" = selected_player.UID()))
 			ui.send_update()
 			return
 		//observer section
 		if("reviveghost")
-			usr.client.holder.Topic(null, list("incarn_ghost" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("incarn_ghost" = selected_player.UID()))
 			return
 		if("respawnability")
-			usr.client.holder.Topic(null, list("togglerespawnability" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("togglerespawnability" = selected_player.UID()))
 			return
 		//health section
 		if("healthscan")
-			healthscan(usr, selected_mob, TRUE)
+			healthscan(usr, selected_player, TRUE)
 			BLACKBOX_LOG_VUAP("HealthScan")
 		if("chemscan")
-			chemscan(usr, selected_mob)
+			chemscan(usr, selected_player)
 			BLACKBOX_LOG_VUAP("ChemScan")
 		if("aheal")
-			usr.client.holder.Topic(null, list("revive" = selected_mob.UID()))
-			to_chat(usr, "Adminhealed  [selected_mob.ckey].", confidential = TRUE)
+			usr.client.holder.Topic(null, list("revive" = selected_player.UID()))
+			to_chat(usr, "Adminhealed  [selected_player.ckey].", confidential = TRUE)
 			return
 		if("giveDisease")
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_disease, selected_mob)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_disease, selected_player)
 			BLACKBOX_LOG_VUAP("GiveDisease")
 			return
 		if("cureDisease")
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cure_disease, selected_mob)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cure_disease, selected_player)
 			BLACKBOX_LOG_VUAP("CureDisease")
 			return
 		if("cureAllDiseases")
 			if(!check_rights(R_EVENT))
 				return
-			if(isliving(selected_mob))
-				var/mob/living/living = selected_mob
+			if(isliving(selected_player))
+				var/mob/living/living = selected_player
 				for(var/datum/disease/disease in living.diseases) // cure all crit conditions
 					disease.cure()
-			log_and_message_admins("Cured all diseases on [selected_mob.ckey].")
-			to_chat(usr, "Cured all negative diseases on [selected_mob.ckey].", confidential = TRUE)
+			log_and_message_admins("Cured all diseases on [selected_player.ckey].")
+			to_chat(usr, "Cured all negative diseases on [selected_player.ckey].", confidential = TRUE)
 			BLACKBOX_LOG_VUAP("CureAllDiseases")
 			return
 		if("mutate")
-			usr.client.holder.Topic(null, list("showdna" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("showdna" = selected_player.UID()))
 			return
 		//mob manipulation section
 		if("randomizename")
-			usr.client.holder.Topic(null, list("randomizename" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("randomizename" = selected_player.UID()))
 			return
 		if("userandomname")
-			usr.client.holder.Topic(null, list("userandomname" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("userandomname" = selected_player.UID()))
 			return
 		if("eraseflavortext")
-			usr.client.holder.Topic(null, list("eraseflavortext" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("eraseflavortext" = selected_player.UID()))
 			return
 		if("selectequip")
-			usr.client.holder.Topic(null, list("select_equip" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("select_equip" = selected_player.UID()))
 			return
 		if("changevoice")
-			usr.client.holder.Topic(null, list("change_voice" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("change_voice" = selected_player.UID()))
 			return
 		if("checkcontents")
-			usr.client.holder.Topic(null, list("check_contents" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("check_contents" = selected_player.UID()))
 			return
 		if("mirroradmin")
-			usr.client.holder.Topic(null, list("cma_admin" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("cma_admin" = selected_player.UID()))
 			return
 		if("mirrorplayer")
-			usr.client.holder.Topic(null, list("cma_self" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("cma_self" = selected_player.UID()))
 			return
 		// Misc Section
 		if("forcesay")
-			usr.client.holder.Topic(null, list("forcespeech" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("forcespeech" = selected_player.UID()))
 			return
 		if("adminroom")
-			usr.client.holder.Topic(null, list("aroomwarp" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("aroomwarp" = selected_player.UID()))
 			return
 		if("thunderdome1")
-			usr.client.holder.Topic(null, list("tdome1" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("tdome1" = selected_player.UID()))
 			return
 		if("thunderdome2")
-			usr.client.holder.Topic(null, list("tdome2" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("tdome2" = selected_player.UID()))
 			return
 		if("thunderdomeadmin")
-			usr.client.holder.Topic(null, list("tdomeadmin" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("tdomeadmin" = selected_player.UID()))
 			return
 		if("thunderdomeobserve")
-			usr.client.holder.Topic(null, list("tdomeobserve" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("tdomeobserve" = selected_player.UID()))
 			return
 		if("contrastop")
-			usr.client.holder.Topic(null, list("contractor_stop" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("contractor_stop" = selected_player.UID()))
 			return
 		if("contrastart")
-			usr.client.holder.Topic(null, list("contractor_start" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("contractor_start" = selected_player.UID()))
 			return
 		if("contrarelease")
-			usr.client.holder.Topic(null, list("contractor_release" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("contractor_release" = selected_player.UID()))
 			return
 		if("prison")
-			usr.client.holder.Topic(null, list("sendtoprison" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("sendtoprison" = selected_player.UID()))
 			return
 		if("spawncookie")
-			usr.client.holder.Topic(null, list("adminspawncookie" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("adminspawncookie" = selected_player.UID()))
 			return
 		// Mute Controls
 		if("toggleMute")
 			var/muteType = params["type"]
 			switch(muteType)
 				if("ic")
-					cmd_admin_mute(selected_mob, MUTE_IC)
+					cmd_admin_mute(selected_player, MUTE_IC)
 					ui.send_update()
 					return
 				if("ooc")
-					cmd_admin_mute(selected_mob, MUTE_OOC)
+					cmd_admin_mute(selected_player, MUTE_OOC)
 					ui.send_update()
 					return
 				if("pray")
-					cmd_admin_mute(selected_mob, MUTE_PRAY)
+					cmd_admin_mute(selected_player, MUTE_PRAY)
 					ui.send_update()
 					return
 				if("adminhelp")
-					cmd_admin_mute(selected_mob, MUTE_ADMINHELP)
+					cmd_admin_mute(selected_player, MUTE_ADMINHELP)
 					ui.send_update()
 					return
 				if("deadchat")
-					cmd_admin_mute(selected_mob, MUTE_DEADCHAT)
+					cmd_admin_mute(selected_player, MUTE_DEADCHAT)
 					ui.send_update()
 					return
 				if("tts")
-					cmd_admin_mute(selected_mob, MUTE_TTS)
+					cmd_admin_mute(selected_player, MUTE_TTS)
 					ui.send_update()
 					return
 				if("emote")
-					cmd_admin_mute(selected_mob, MUTE_EMOTE)
+					cmd_admin_mute(selected_player, MUTE_EMOTE)
 					ui.send_update()
 					return
 				if("all")
-					cmd_admin_mute(selected_mob, MUTE_ALL)
+					cmd_admin_mute(selected_player, MUTE_ALL)
 					ui.send_update()
 					return
 			return

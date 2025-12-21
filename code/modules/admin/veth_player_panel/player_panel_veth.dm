@@ -36,22 +36,23 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 /datum/player_panel_veth/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	var/mob/selected_mob = get_mob_by_ckey(params["selectedPlayerCkey"]) //gets the mob datum from the ckey in client datum which we've saved. if there's a better way to do this please let me know
+	var/mob/selected_player = get_mob_by_ckey(params["selectedPlayerCkey"]) //gets the mob datum from the ckey in client datum which we've saved. if there's a better way to do this please let me know
+	var/mob/selected_mob = params["VUAP_selected_mob"]
 	switch(action) //switch for all the actions from the frontend - all of the Topic() calls check rights & log inside themselves.
 		if("refresh")
 			ui.send_update()
 			return
 		if("sendPrivateMessage")
-			usr.client.cmd_admin_pm(selected_mob.ckey)
+			usr.client.cmd_admin_pm(selected_player.ckey)
 			BLACKBOX_LOG_VUAP("PM")
 			return
 		if("follow")
-			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_mob.UID()))
-			to_chat(usr, "Now following [selected_mob.ckey].", confidential = TRUE)
+			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_player.UID()))
+			to_chat(usr, "Now following [selected_player.ckey].", confidential = TRUE)
 			return
 		if("smite")
 			usr.client.holder.Topic(null, list("Smite" = selected_mob.UID()))
-			to_chat(usr, "Smiting [selected_mob.ckey].", confidential = TRUE)
+			to_chat(usr, "Smiting [selected_player.ckey].", confidential = TRUE)
 		if("checkAntags")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
 			return
@@ -62,26 +63,26 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/game_panel)
 			return
 		if("openAdditionalPanel")
-			var/mob/target = selected_mob
+			var/mob/target = selected_player
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, target)
 			return
 		if("createCommandReport")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_create_centcom_report)
 			return
 		if("logs")
-			usr.client.holder.Topic(null, list("open_logging_view" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("open_logging_view" = selected_player.UID()))
 			return
 		if("notes")
-			usr.client.holder.Topic(null, list("shownoteckey" = selected_mob.ckey))
+			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey))
 			return
 		if("vv")
-			usr.client.debug_variables(selected_mob)
+			usr.client.debug_variables(selected_player)
 			return
 		if("tp")
-			usr.client.holder.Topic(null, list("traitor" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("traitor" = selected_player.UID()))
 			return
 		if("obs")
-			usr.client.holder.Topic(null, list("observeinventory" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("observeinventory" = selected_player.UID()))
 			return
 		if("adminaiinteract")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/toggle_advanced_interaction)
