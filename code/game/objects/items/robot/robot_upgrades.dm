@@ -807,8 +807,11 @@
 	)
 
 /obj/item/borg/upgrade/mounted_seat/emag_act(mob/user)
-	emagged = TRUE
-	to_chat(user, span_notice("Вы разблокируете регуляторы мощности сервоприводов спинки кресла"))
+	if(!emagged)
+		emagged = TRUE
+		to_chat(user, span_notice("Вы разблокируете регуляторы мощности сервоприводов спинки кресла"))
+	else
+		to_chat(user, span_notice("Нечего не произошло"))
 
 
 
@@ -863,3 +866,6 @@
 
 	var/mob/living/silicon/robot/R = usr
 	R.eject_riders_harmfull()
+
+/obj/item/borg/upgrade/mounted_seat/pre_emaged
+	emagged = TRUE
