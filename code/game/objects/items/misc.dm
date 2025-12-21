@@ -97,7 +97,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/amount_left = 600
 	var/applying = FALSE
-	var/list/reagent = list(/datum/reagent/nicotine)
+	var/list/reagent = list("nicotine")
 
 /obj/item/ecig/get_ru_names()
 	return list(
@@ -236,7 +236,7 @@
 	desc = "Гладкий никотиновый испаритель в подозрительном красном корпусе. Выдаёт плотное облако пара с лёгким химическим оттенком."
 	icon_state = "ecig_syndi"
 	item_state = "ecig_syndi"
-	reagent = list(/datum/reagent/nicotine, /datum/reagent/medicine/syndiezine)
+	reagent = list("nicotine", "syndiezine")
 
 /obj/item/ecig/syndi/get_ru_names()
 	return list(
@@ -247,3 +247,7 @@
 		INSTRUMENTAL = "подозрительной электронной сигаретой",
 		PREPOSITIONAL = "подозрительной электронной сигарете"
 	)
+
+#undef MAX_AMOUNT
+#undef SAFE_THRESHOLD
+#undef AWARD_THRESHOLD
