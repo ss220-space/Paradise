@@ -9,6 +9,11 @@
 	Electronic Cigarette
 */
 
+// E-cig defines
+#define MAX_AMOUNT 600
+#define SAFE_THRESHOLD 10
+#define AWARD_THRESHOLD 60
+
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 /obj/item/beach_ball
@@ -91,7 +96,6 @@
 	item_state = "ecig"
 	w_class = WEIGHT_CLASS_TINY
 	var/amount_left = 600
-	var/max_amount = 600
 	var/applying = FALSE
 	var/list/reagent = list(/datum/reagent/nicotine)
 
@@ -108,19 +112,24 @@
 /obj/item/ecig/emag_act(mob/user)
 	if(emagged)
 		return
+
 	add_attack_logs(user, src, "emagged")
 	emagged = TRUE
 
-	if(user)
-		balloon_alert(user, "протоколы безопасности взломаны")
+	if(!user)
+		return
+
+	balloon_alert(user, "протоколы безопасности взломаны")
 
 /obj/item/ecig/examine(mob/user)
 	. = ..()
+
 	if(amount_left <= 0)
 		. += span_warning("Жидкость полностью исчерпана.")
-	else
-		var/percentage = round((amount_left / max_amount) * 100)
-		. += span_notice("Осталось жидкости: <b>[percentage]%</b>")
+		return
+
+	var/percentage = round((amount_left / MAX_AMOUNT) * 100)
+	. += span_notice("Осталось жидкости: <b>[percentage]%</b>")
 
 /obj/item/ecig/attack_self(mob/user)
 	if(!ishuman(user) || ismachineperson(user))
@@ -144,8 +153,7 @@
 	applying = TRUE
 	var/cycle_count = 0
 
-	while(amount_left > 0 && applying)
-		do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1)
+	while(do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1) && amount_left > 0 && applying)
 		cycle_count++
 		inject_nicotine(user, cycle_count)
 
@@ -160,45 +168,68 @@
 			span_notice("[user] выпуска[PLUR_ET_YUT(user)] облако пара."),
 			span_notice("Вы выпускаете облако пара."),
 		)
-		if(cycle_count > 10 && prob(20))
+		if(cycle_count > SAFE_THRESHOLD && prob(20))
 			if(user.gender == FEMALE)
 				playsound(loc, 'sound/misc/ecig_female.ogg', 5, TRUE)
 			else
 				playsound(loc, 'sound/misc/ecig_male.ogg', 5, TRUE)
-		var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
-		smoke.set_up(range = round(clamp(cycle_count/10, 0, 4)), location = loc)
-		smoke.start()
+		create_smoke(cycle_count)
 
 /obj/item/ecig/proc/inject_nicotine(mob/living/carbon/user, cycle_count)
 	if(!user.reagents)
 		return
+
 	for(var/chem in reagent)
 		user.reagents.add_reagent(chem, 1)
+
 	playsound(loc, 'sound/misc/ecig.ogg', 50, TRUE)
 	amount_left = max(0, amount_left - 1)
 
-	if(cycle_count >= 10)
+	if(cycle_count >= SAFE_THRESHOLD)
 		user.adjustToxLoss(2)
 		if(prob(10))
 			to_chat(user, span_warning("Голова кружится от такой долгой затяжки..."))
 
-	if(cycle_count >= 60)
+	if(cycle_count >= AWARD_THRESHOLD)
 		user.client?.give_award(/datum/award/achievement/misc/deep_draw, user)
 
-	if(emagged && cycle_count >= 10)
+	if(emagged && cycle_count >= SAFE_THRESHOLD)
 		applying = FALSE
 		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] становится обжигающе горячей!"))
-		sleep(15)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает пищать и искрить!"))
-		do_sparks(4, TRUE, src)
-		playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
-		sleep(15)
-		playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
-		sleep(7)
-		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
-		explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 1, adminlog = TRUE, cause = user)
-		qdel(src)
+		addtimer(CALLBACK(src, PROC_REF(perform_sparks)), 15)
+		addtimer(CALLBACK(src, PROC_REF(play_buzz_sound)), 30)
+		addtimer(CALLBACK(src, PROC_REF(explode_ecig), user), 40)
 		return
+
+/obj/item/ecig/proc/perform_sparks()
+	if(!src)
+		return
+
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает пищать и искрить!"))
+	do_sparks(4, TRUE, src)
+	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
+
+/obj/item/ecig/proc/play_buzz_sound()
+	if(!src)
+		return
+
+	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
+
+/obj/item/ecig/proc/explode_ecig(mob/user)
+	if(!src)
+		return
+
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 1, adminlog = TRUE, cause = user)
+	qdel(src)
+
+/obj/item/ecig/proc/create_smoke(cycle_count)
+	if(!src)
+		return
+
+	var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
+	smoke.set_up(range = round(clamp(cycle_count/10, 0, 4)), location = loc)
+	smoke.start()
 
 /obj/item/ecig/syndi
 	name = "suspicious e-cigarette"
