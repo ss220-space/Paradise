@@ -101,7 +101,6 @@
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
-	M.AdjustKnockdown(-1 SECONDS)
 	if(prob(5))
 		to_chat(M, span_notice("[smoke_message]"))
 	return ..() | update_flags
@@ -660,7 +659,6 @@
 	user.AdjustParalysis(-3 SECONDS)
 	user.AdjustStunned(-3 SECONDS)
 	user.AdjustWeakened(-3 SECONDS)
-	user.AdjustKnockdown(-3 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-1.5, FALSE)
 	user.SetSleeping(0)
 	return ..() | update_flags

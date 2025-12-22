@@ -877,8 +877,6 @@
 	if(prob(20))
 		M.AdjustWeakened(-2 SECONDS)
 	if(prob(5))
-		M.AdjustKnockdown(-2 SECONDS)
-	if(prob(5))
 		M.SetSleeping(0)
 	if(prob(5))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
