@@ -609,6 +609,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		set waitfor = FALSE
 		to_chat(user, span_cult("[mob_to_revive] was revived, but their mind is lost! Seeking a lost soul to replace it."))
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
+		
+		if(QDELETED(mob_to_revive))
+			return
+		
 		if(length(candidates))
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive, span_biggerdanger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))

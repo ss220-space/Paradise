@@ -8,6 +8,7 @@
 	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах \"Нанотрейзен\"."
 	icon = 'icons/obj/contraband.dmi'
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
@@ -95,6 +96,14 @@
 		original_name = name
 		name = "Постер — [name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
+		ru_names = list(
+			NOMINATIVE = "постер \"[name]\"",
+			GENITIVE = "постера \"[name]\"",
+			DATIVE = "постеру \"[name]\"",
+			ACCUSATIVE = "постер \"[name]\"",
+			INSTRUMENTAL = "постером \"[name]\"",
+			PREPOSITIONAL = "постере \"[name]\"",
+		)
 
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
@@ -545,6 +554,11 @@
 	name = "Освоил грейтайд"
 	desc = "Изображение ассистента, который демонстрирует свои достижения в освоении  техники: бомбарды, станпрода, копья."
 	icon_state = "poster_graytide"
+
+/obj/structure/sign/poster/contraband/imposter
+	name = "Я — постер"
+	desc = "Этот постер висит здесь явно не предвещая о добрых вестях. Возможно, среди нас есть предатель?"
+	icon_state = "im_poster"
 
 //MARK: Official posters
 /obj/structure/sign/poster/official

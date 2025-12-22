@@ -351,6 +351,9 @@
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите стать духом талисмана защиты [user.real_name]?", ROLE_PAI, FALSE, 15 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
+	
+	if(QDELETED(slave) || QDELETED(src))
+		return
 
 	if(length(candidates))
 		theghost = pick(candidates)

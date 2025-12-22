@@ -702,7 +702,7 @@
  */
 /datum/syndicate_contract/proc/clean_up(clean_pod = TRUE)
 	QDEL_NULL(extraction_flare)
-	if(clean_pod)
+	if(clean_pod && pod)
 		pod.reversing = FALSE
 		pod.startExitSequence(pod)
 	deltimer(extraction_timer_handle)

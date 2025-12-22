@@ -91,31 +91,23 @@
 	key_third_person = "deathgasps"
 	emote_type = EMOTE_AUDIBLE|EMOTE_VISIBLE  // make sure deathgasp gets runechatted regardless
 	age_based = TRUE
-	cooldown = 10 SECONDS
+	cooldown = 60 SECONDS
 	volume = 40
 	unintentional_stat_allowed = DEAD
 	muzzle_ignore = TRUE // makes sure that sound is played upon death
 	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
-	message = "цепене%(ет,ют)% и расслабля%(ет,ют)%ся, %(его,её,его,их)% взгляд становится пустым и безжизненным..."
-	message_robot = "на мгновение вздрагива%(ет,ют)% и замира%(ет,ют)%, %(его,её,его,их)% глаза медленно темнеют..."
-	message_AI = "скрип%(ит,ят)% и мерца%(ет,ют)% экраном, пока %(его,её,его,их)% системы медленно отключаются..."
-	message_alien = "изда%(ёт,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
-	message_larva = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
-	message_monkey = "изда%(ёт,ют)% тихий визг, пада%(ет,ют)% и переста%(ёт,ют)% двигаться..."
+	message = "замира%(ет,ют)% с пустым, безжизненным взглядом..."
+	message_robot = "вздрагива%(ет,ют)% и гас%(нет,нут)%..."
+	message_AI = "мерца%(ет,ют)% и замолка%(ет,ют)%..."
+	message_alien = "изда%(ёт,ют)% хрип и истека%(ет,ют)% зелёной кровью..."
+	message_larva = "шип%(ит,ят)% и обмяка%(ет,ют)%..."
+	message_monkey = "визж%(ит,ят)% и затиха%(ет,ют)%..."
 	message_simple = "переста%(ёт,ют)% двигаться..."
 
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
 		/mob/living/captive_brain,
 	)
-
-/datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
-	. = ..()
-	if(!.)
-		return
-	
-	user.adjustStaminaLoss(100)
-	user.AdjustSilence(10 SECONDS)
 
 /datum/emote/living/deathgasp/select_message_type(mob/user, msg, intentional)
 	if(ishuman(user))

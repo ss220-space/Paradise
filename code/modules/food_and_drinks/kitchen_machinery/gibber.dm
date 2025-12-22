@@ -70,7 +70,8 @@
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message(span_danger("[user] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)] и включает её!</b>"))
+		
+	user.visible_message(span_danger("[user] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)] и включает её!"))
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user

@@ -262,7 +262,7 @@
 	if(istype(item))
 		item.wielded = TRUE
 
-	ADD_TRAIT(parent, TRAIT_WIELDED, ref(src))
+	ADD_TRAIT(parent, TRAIT_WIELDED, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
 	wield_callback?.Invoke(parent, user)
 
@@ -329,7 +329,7 @@
 	wielded = FALSE
 	UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
-	REMOVE_TRAIT(parent, TRAIT_WIELDED, ref(src))
+	REMOVE_TRAIT(parent, TRAIT_WIELDED, UNIQUE_TRAIT_SOURCE(src))
 	unwield_callback?.Invoke(parent, user)
 
 	// update item stats

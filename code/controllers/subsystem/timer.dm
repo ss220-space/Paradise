@@ -594,7 +594,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  */
 /client/proc/timer_log()
 	set name = "View Timer Log"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "Shows the log of what types created timers this round"
 
 	if(!check_rights(R_DEBUG))
@@ -612,7 +612,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 
 /client/proc/debug_timers()
 	set name = "Debug Timers"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "Shows currently active timers, grouped by callback"
 
 	var/list/timers = list()

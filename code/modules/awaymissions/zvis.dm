@@ -107,7 +107,7 @@
 
 // for second floor showing floor below
 /turf/simulated/floor/indestructible/upperlevel
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "dark128"
 	layer = AREA_LAYER + 0.5
 	appearance_flags = TILE_BOUND|KEEP_TOGETHER|LONG_GLIDE

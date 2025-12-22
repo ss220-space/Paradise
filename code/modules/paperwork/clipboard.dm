@@ -77,12 +77,12 @@
 	var/dat = {"<meta charset="UTF-8"><title>[src]</title>"}
 	dat += "<a href='byond://?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
 	if(toppaper)
-		dat += "<a href='byond://?src=[UID()];remove=\ref[toppaper]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=\ref[toppaper]'>[toppaper.name]</a><br><hr>"
+		dat += "<a href='byond://?src=[UID()];remove=[toppaper.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[toppaper.UID()]'>[toppaper.name]</a><br><hr>"
 	for(var/obj/item/P in src)
 		if(isPaperwork(P) == PAPERWORK && P != toppaper)
-			dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><a href='byond://?src=[UID()];topPaper=\ref[P]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
+			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];topPaper=[P.UID()]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
 		if(isPaperwork(P) == PHOTO)
-			dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
+			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
 	var/datum/browser/popup = new(user, "clipboard", "[src]", 400, 400)
 	popup.set_content(dat)
 	popup.open()
@@ -161,14 +161,14 @@
 		else
 			penPlacement(usr, containedpen, FALSE)
 	else if(href_list["remove"])
-		var/obj/item/P = locate(href_list["remove"]) in src
+		var/obj/item/P = locateUID(href_list["remove"])
 		if(isPaperwork(P))
 			P.forceMove_turf()
 			usr.put_in_hands(P, ignore_anim = FALSE)
 			to_chat(usr, span_notice("You remove [P] from [src]."))
 			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
 	else if(href_list["viewOrWrite"])
-		var/obj/item/P = locate(href_list["viewOrWrite"]) in src
+		var/obj/item/P = locateUID(href_list["viewOrWrite"])
 		if(!isPaperwork(P))
 			return
 		if(is_pen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
@@ -179,7 +179,7 @@
 			var/obj/item/photo/Ph = P
 			Ph.show(usr)
 	else if(href_list["topPaper"])
-		var/obj/item/P = locate(href_list["topPaper"]) in src
+		var/obj/item/P = locateUID(href_list["topPaper"])
 		if(P == toppaper)
 			return
 		to_chat(usr, span_notice("You flick the pages so that [P] is on top."))

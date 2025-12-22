@@ -137,7 +137,7 @@ SUBSYSTEM_DEF(tickets)
 		key_and_name = key_name(M, TRUE, ticket_help_type, ticket_id = ticketNum)
 
 	var/list/L = list()
-	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name][one_line ? " " : "<br>"]</span>"
+	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span>[span_boldnotice("[key_and_name][one_line ? " " : "<br>"]")]"
 	if(M)
 		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
 	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(tickets)
 			convert_ticket(T)
 		else
 			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
-			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>", confidential=TRUE)//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> [span_adminticketalt("[response_phrases[message_key]]")]", confidential=TRUE)//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:[span_adminticketalt(" [message_key]")]") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)

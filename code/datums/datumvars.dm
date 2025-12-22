@@ -75,7 +75,7 @@
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
 	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("You need to be an administrator to access this."), confidential=TRUE)
 		return
 
 	if(!D)
@@ -476,28 +476,28 @@
 
 	var/item
 	if(isnull(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("null")]"
 
 	else if(istext(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("\"[VV_HTML_ENCODE(value)]\"")]"
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		item = "[name] = /icon (<span class='value'>[value]</span>) [icon2html(value, usr)]"
+		item = "[name] = /icon ([span_value("[value]")]) [icon2html(value, usr)]"
 		#else
-		item = "[name] = /icon (<span class='value'>[value]</span>)"
+		item = "[name] = /icon ([span_value("[value]")])"
 		#endif
 
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [icon2html(value, usr)]"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image ([span_value("[value]")]) [icon2html(value, usr)]"
 		#else
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image ([span_value("[value]")])"
 		#endif
 
 	else if(isfile(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>'[value]'</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("'[value]'")]"
 
 	else if(isdatum(value))
 		var/datum/D = value
@@ -532,10 +532,10 @@
 			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]")]"
 
 	else
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("[VV_HTML_ENCODE(value)]")]"
 
 	return "[header][item]</li>"
 
@@ -1284,7 +1284,7 @@
 			return
 
 		to_chat(usr, "Changed voice from [old_tts_seed] to [new_tts_seed] for [H].", confidential=TRUE)
-		to_chat(H, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential=TRUE)
+		to_chat(H, span_notice("Your voice has been changed from [old_tts_seed] to [new_tts_seed]."), confidential=TRUE)
 		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["addverb"])

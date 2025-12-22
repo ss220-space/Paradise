@@ -165,7 +165,7 @@ SUBSYSTEM_DEF(verb_manager)
 	verb_queue = SSverb_manager.verb_queue
 
 /client/proc/force_verb_bypass()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Enable Forced Verb Execution"
 
 	if(!check_rights(R_DEBUG))
