@@ -132,6 +132,10 @@
 	if(new_borg.mind && !new_borg.client && !new_borg.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(new_borg)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a malfunctioning cyborg?", ROLE_MALF_AI, poll_time = 15 SECONDS)
+		
+		if(QDELETED(new_borg))
+			return
+		
 		if(!length(candidates))
 			return
 		var/mob/dead/observer/observer = pick(candidates)

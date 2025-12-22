@@ -555,8 +555,10 @@
 			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade)
 		if(length(consenting_candidates))
 			chosen_ghost = pick(consenting_candidates)
-	if(!M)
+			
+	if(QDELETED(M) || QDELETED(src))
 		return FALSE
+		
 	if(!chosen_ghost)
 		to_chat(user, span_danger("There were no spirits willing to become a shade."))
 		return FALSE

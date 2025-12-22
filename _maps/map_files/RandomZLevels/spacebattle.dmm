@@ -634,19 +634,6 @@
 "bZ" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
-"ca" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/vending/cola,
-/obj/structure/door_assembly/door_assembly_public{
-	anchored = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "cc" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4;
@@ -1213,10 +1200,6 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
-"dN" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/sec_storage)
 "dO" = (
 /obj/item/kitchen/utensil/fork,
 /obj/item/kitchen/utensil/spoon,
@@ -1299,15 +1282,6 @@
 	calibrated = 0;
 	layer = 4
 	},
-/turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/cruiser)
-"eb" = (
-/obj/machinery/gateway{
-	dir = 4;
-	layer = 4
-	},
-/obj/machinery/field/containment,
-/obj/structure/lattice,
 /turf/simulated/floor/fakespace,
 /area/awaymission/spacebattle/cruiser)
 "ec" = (
@@ -1422,6 +1396,19 @@
 	icon_state = "bar"
 	},
 /area/awaymission/spacebattle/kitchen)
+"eo" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/vending/cola,
+/obj/structure/door_assembly/door_assembly_public{
+	anchored = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
 "ep" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -1635,15 +1622,6 @@
 "eZ" = (
 /turf/space,
 /area/awaymission/spacebattle/hallway11)
-"fa" = (
-/obj/machinery/vending/snack,
-/obj/structure/sign/poster/ripped{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/awaymission/spacebattle/kitchen)
 "fb" = (
 /obj/structure/chair/comfy/shuttle/dark,
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
@@ -1659,6 +1637,10 @@
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/freezing)
+"fd" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/sec_storage)
 "ff" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "spacebattlestorage";
@@ -2265,6 +2247,16 @@
 /obj/item/gun/projectile/shotgun/lethal,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
+"gz" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light/small,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "gA" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -2755,12 +2747,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/hallway5)
-"hV" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/awaymission/spacebattle/hallway12)
 "hW" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -4309,13 +4295,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway11)
-"mr" = (
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 9
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "ms" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/table/reinforced,
@@ -4728,16 +4707,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/hallway6)
-"nx" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/light/small,
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "ny" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -4966,6 +4935,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway5)
+"oe" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "mining_internal";
+	name = "Smelting";
+	pixel_x = -10
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/sec_storage)
 "og" = (
 /obj/machinery/light_construct{
 	dir = 1
@@ -5111,14 +5092,6 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
-"oE" = (
-/obj/item/stack/sheet/metal,
-/obj/machinery/conveyor/inverted{
-	id = "mining_internal";
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/sec_storage)
 "oH" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -5217,15 +5190,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
-"oS" = (
-/obj/machinery/gateway{
-	dir = 8;
-	layer = 4
-	},
-/obj/machinery/field/containment,
-/obj/structure/lattice,
-/turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/cruiser)
 "oT" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -6465,6 +6429,14 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway13)
+"sF" = (
+/obj/machinery/light/small,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "sG" = (
 /obj/machinery/door/airlock/security{
 	name = "Turret Room"
@@ -7135,6 +7107,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
+"up" = (
+/obj/structure/closet/crate/secure/weapon,
+/obj/item/gun/energy/laser/retro/old,
+/obj/item/gun/energy/laser/retro/old,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "uq" = (
 /obj/machinery/door_control{
 	id = "BR";
@@ -7266,6 +7248,14 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/awaymission/spacebattle/hallway5)
+"uF" = (
+/obj/machinery/gateway{
+	dir = 8;
+	layer = 4
+	},
+/obj/structure/lattice,
+/turf/simulated/floor/fakespace,
+/area/awaymission/spacebattle/cruiser)
 "uG" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -7994,18 +7984,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
-"wG" = (
-/obj/structure/plasticflaps/mining,
-/obj/structure/closet/crate/secure/engineering,
-/obj/item/flashlight,
-/obj/item/flashlight/emp,
-/obj/item/flashlight,
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "wH" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 6;
@@ -8050,14 +8028,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/prhallway4)
-"wM" = (
-/obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "wN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor_switch/oneway{
@@ -9952,6 +9922,16 @@
 /obj/effect/turf_decal/stripes,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate3)
+"BO" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/conveyor/inverted{
+	dir = 6;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "BP" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10006,14 +9986,6 @@
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/freezing)
-"BV" = (
-/obj/machinery/light/small,
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "BW" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo12"
@@ -10500,16 +10472,6 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/spacebattle/engine)
-"Du" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/conveyor/inverted{
-	id = "cargodeliverySB";
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "Dv" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/turf_decal/arrows,
@@ -10832,16 +10794,6 @@
 	icon_state = "floor3"
 	},
 /area/awaymission/spacebattle/syndicate1)
-"En" = (
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/energy/laser/retro/old,
-/obj/item/gun/energy/laser/retro/old,
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "Eo" = (
 /turf/simulated/floor/mineral/titanium{
 	icon_state = "titanium_dam5"
@@ -11085,6 +11037,14 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway11)
+"EY" = (
+/obj/machinery/gateway{
+	dir = 4;
+	layer = 4
+	},
+/obj/structure/lattice,
+/turf/simulated/floor/fakespace,
+/area/awaymission/spacebattle/cruiser)
 "EZ" = (
 /obj/structure/table,
 /turf/simulated/floor/shuttle{
@@ -11203,17 +11163,6 @@
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
-"Fp" = (
-/obj/machinery/gateway{
-	dir = 1;
-	layer = 4
-	},
-/obj/machinery/field/containment{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/cruiser)
 "Fq" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable/yellow{
@@ -11322,6 +11271,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
+"FD" = (
+/obj/structure/plasticflaps/mining,
+/obj/structure/closet/crate/secure/engineering,
+/obj/item/flashlight,
+/obj/item/flashlight/emp,
+/obj/item/flashlight,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "FE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -11950,6 +11911,13 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/prhallway4)
+"Hk" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "Hl" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
@@ -12299,6 +12267,13 @@
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate1)
+"Iq" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "Ir" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 5;
@@ -12824,6 +12799,12 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
+"JS" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/hallway12)
 "JT" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -13962,6 +13943,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
+"Nd" = (
+/obj/machinery/conveyor{
+	dir = 9;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "Ne" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -14181,13 +14169,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway7)
-"NI" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
-	},
-/area/awaymission/spacebattle/bridge)
 "NJ" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -14686,6 +14667,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
+"OW" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/awaymission/spacebattle/bridge)
 "OX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -15391,6 +15379,12 @@
 	icon_state = "bar"
 	},
 /area/awaymission/spacebattle/kitchen)
+"QJ" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate1)
 "QK" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -15654,6 +15648,14 @@
 	icon_state = "blue"
 	},
 /area/awaymission/spacebattle/bridge)
+"Rt" = (
+/obj/item/stack/sheet/metal,
+/obj/machinery/conveyor/inverted{
+	dir = 5;
+	id = "mining_internal"
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/sec_storage)
 "Ru" = (
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret4)
@@ -15745,6 +15747,15 @@
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate3)
+"RK" = (
+/obj/machinery/vending/snack,
+/obj/structure/sign/poster/ripped{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "RL" = (
 /obj/machinery/vending/assist,
 /turf/simulated/floor/plasteel,
@@ -16638,6 +16649,14 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/spacebattle/syndicate4)
+"Uo" = (
+/obj/machinery/gateway{
+	dir = 1;
+	layer = 4
+	},
+/obj/structure/lattice,
+/turf/simulated/floor/fakespace,
+/area/awaymission/spacebattle/cruiser)
 "Up" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 1
@@ -17408,12 +17427,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/awaymission/spacebattle/hallway11)
-"Wr" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/awaymission/spacebattle/syndicate1)
 "Ws" = (
 /obj/machinery/door/airlock/engineering,
 /obj/structure/cable{
@@ -17607,13 +17620,6 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/spacebattle/hallway11)
-"WV" = (
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
 "WW" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo5"
@@ -17930,6 +17936,14 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/spacebattle/engineering)
+"XS" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "cargodeliverySB"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "XT" = (
 /obj/structure/shuttle/engine/router,
 /obj/structure/shuttle/engine/heater{
@@ -18177,18 +18191,6 @@
 /obj/effect/turf_decal/stripes/black,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
-"YD" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 4
-	},
-/obj/machinery/conveyor_switch/oneway{
-	id = "mining_internal";
-	name = "Smelting";
-	pixel_x = -10;
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/sec_storage)
 "YE" = (
 /obj/structure/closet/walllocker/emerglocker/north,
 /obj/item/ammo_box/shotgun/buck{
@@ -18386,13 +18388,6 @@
 "Zm" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/sec_storage)
-"Zn" = (
-/obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "Zo" = (
 /obj/machinery/power/grounding_rod{
@@ -37236,7 +37231,7 @@ Em
 YS
 Em
 dy
-Wr
+QJ
 bj
 bv
 dy
@@ -40636,7 +40631,7 @@ eH
 Ui
 IC
 Ui
-hV
+JS
 eH
 tp
 Yg
@@ -42435,7 +42430,7 @@ vH
 xL
 eH
 SO
-oS
+uF
 DD
 eH
 BZ
@@ -42451,7 +42446,7 @@ qJ
 gO
 GD
 hi
-Zn
+Hk
 eH
 Rq
 vh
@@ -42691,7 +42686,7 @@ NT
 uu
 fk
 eH
-Fp
+Uo
 ea
 ek
 er
@@ -42708,7 +42703,7 @@ tY
 nR
 zN
 Ta
-Zn
+Hk
 eH
 Cm
 Xn
@@ -42949,7 +42944,7 @@ Rn
 tm
 eH
 HH
-eb
+EY
 el
 eH
 jB
@@ -42965,7 +42960,7 @@ Ne
 SG
 jP
 pS
-Zn
+Hk
 eH
 Pw
 Cg
@@ -43222,7 +43217,7 @@ et
 Qn
 mO
 pS
-nx
+gz
 eH
 Yo
 Ra
@@ -43463,7 +43458,7 @@ SN
 pG
 Rb
 eH
-oE
+Rt
 vU
 Cw
 vv
@@ -43479,7 +43474,7 @@ TG
 SG
 mO
 Tg
-Zn
+Hk
 eH
 Yx
 CC
@@ -43736,7 +43731,7 @@ Fc
 Fc
 VW
 Be
-Zn
+Hk
 eH
 Pw
 Rr
@@ -43978,7 +43973,7 @@ NT
 YQ
 eH
 Fo
-YD
+oe
 dE
 dR
 KS
@@ -43993,7 +43988,7 @@ uM
 KE
 mO
 Tg
-Zn
+Hk
 eH
 Oo
 Xb
@@ -44250,7 +44245,7 @@ wB
 WZ
 mO
 Tg
-En
+up
 eH
 Pw
 Xn
@@ -44507,7 +44502,7 @@ wB
 Ay
 mO
 pS
-Zn
+Hk
 eH
 VQ
 Cf
@@ -44764,7 +44759,7 @@ et
 et
 GQ
 Tg
-Zn
+Hk
 eH
 yQ
 Xn
@@ -45021,7 +45016,7 @@ wN
 tK
 sT
 Tg
-BV
+sF
 eH
 Yo
 Xn
@@ -45261,7 +45256,7 @@ uu
 NT
 Mi
 eH
-dN
+fd
 bK
 bK
 Mx
@@ -45272,13 +45267,13 @@ kj
 bK
 bK
 Ee
-wG
-mr
+FD
+Nd
 HI
 et
 Zq
 pf
-En
+up
 eH
 Pw
 Xn
@@ -45530,11 +45525,11 @@ cH
 wo
 MY
 et
-Du
-WV
-wM
-WV
-WV
+BO
+Iq
+XS
+Iq
+Iq
 hy
 eH
 Yu
@@ -49370,7 +49365,7 @@ EX
 WH
 MV
 bJ
-ca
+eo
 nt
 nt
 Dw
@@ -49892,7 +49887,7 @@ ew
 qQ
 cX
 vi
-fa
+RK
 Fu
 eH
 uq
@@ -51433,7 +51428,7 @@ EI
 de
 GK
 Ht
-NI
+OW
 eK
 mW
 iY

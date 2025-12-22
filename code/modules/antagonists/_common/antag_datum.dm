@@ -122,6 +122,9 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [name]?", job_rank, TRUE, 10 SECONDS)
 	if(!length(candidates))
 		return FALSE
+		
+	if(QDELETED(owner.current))
+		return
 
 	var/mob/dead/observer/chosen = pick(candidates)
 	to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
