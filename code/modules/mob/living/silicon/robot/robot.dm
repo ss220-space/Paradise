@@ -15,7 +15,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
-	can_buckle = FALSE
 
 	var/sight_mode = 0
 	var/custom_name = ""

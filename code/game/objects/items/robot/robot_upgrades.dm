@@ -792,7 +792,6 @@
 	icon_state = "seat_module"
 	require_module = TRUE
 	origin_tech = "engineering=3;materials=3;"
-	emagged = FALSE
 	var/datum/action/innate/toggle_seat/toggle_action = new
 	var/datum/action/innate/launch_riders/launch_action = new
 
