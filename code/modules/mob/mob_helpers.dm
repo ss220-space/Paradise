@@ -114,7 +114,10 @@
 		question += ", [offer_mob.mind?.special_role ? offer_mob.mind?.special_role : "Нет спец-роли"]"
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = offer_mob)
 	var/mob/dead/observer/theghost = null
-
+	
+	if(QDELETED(offer_mob))
+		return
+		
 	REMOVE_TRAIT(offer_mob, TRAIT_BEING_OFFERED, ADMIN_OFFER_TRAIT)
 
 	if(LAZYLEN(candidates))

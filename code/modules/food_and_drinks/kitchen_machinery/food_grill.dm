@@ -1,15 +1,25 @@
 /obj/machinery/cooker/foodgrill
 	name = "grill"
-	desc = "Backyard grilling, IN SPACE."
+	desc = "Настоящий гриль. Аромат шашлыка в космосе — вот что по-настоящему сближает экипаж."
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "grill_off"
-	thiscooktype = "grilled"
+	thiscooktype = "обжарено в гриле"
 	burns = 1
 	firechance = 20
 	cooktime = 50
 	foodcolor = "#A34719"
 	onicon = "grill_on"
 	officon = "grill_off"
+
+/obj/machinery/cooker/foodgrill/get_ru_names()
+	return list(
+		NOMINATIVE = "гриль",
+		GENITIVE = "гриля",
+		DATIVE = "грилю",
+		ACCUSATIVE = "гриль",
+		INSTRUMENTAL = "грилем",
+		PREPOSITIONAL = "гриле"
+	)
 
 /obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
 	..()

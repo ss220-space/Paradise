@@ -294,6 +294,10 @@
 	balloon_alert(user, "ты поднимаешь косу...")
 	ADD_TRAIT(src, TRAIT_NODROP, type)
 	var/mob/chosen_one = safepick(SSghost_spawns.poll_candidates(question = "Вы хотите сыгрыть за косу душ?", role = ROLE_PAI, poll_time = 20 SECONDS, source = src, role_cleanname = src.declent_ru(ACCUSATIVE)))
+
+	if(QDELETED(src) || QDELETED(user))
+		return
+
 	on_poll_concluded(user, chosen_one)
 
 /// Ghost poll has concluded and a candidate has been chosen.

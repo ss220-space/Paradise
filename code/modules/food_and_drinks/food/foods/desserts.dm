@@ -5,13 +5,23 @@
 
 /obj/item/reagent_containers/food/snacks/icecream
 	name = "ice cream"
-	desc = "Delicious ice cream."
+	desc = "Вкусное мороженое."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "icecream_cone"
 	bitesize = 3
 	list_reagents = list("nutriment" = 1, "sugar" = 3)
 	tastes = list("ice cream" = 1)
 	foodtype = SUGAR | DAIRY
+
+/obj/item/reagent_containers/food/snacks/icecream/get_ru_names()
+	return list(
+		NOMINATIVE = "мороженое",
+		GENITIVE = "мороженого",
+		DATIVE = "мороженому",
+		ACCUSATIVE = "мороженое",
+		INSTRUMENTAL = "мороженым",
+		PREPOSITIONAL = "мороженом"
+	)
 
 /obj/item/reagent_containers/food/snacks/icecream/update_overlays()
 	. = ..()

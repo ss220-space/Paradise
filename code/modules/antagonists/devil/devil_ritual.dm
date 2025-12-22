@@ -29,6 +29,10 @@
 	ritual_lock = TRUE
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", ROLE_DEVIL, TRUE, role_cleanname = "беса")
 	ritual_lock = FALSE
+	
+	if(QDELETED(ritual_object))
+		return
+	
 	if(!LAZYLEN(candidates))
 		ritual_object.balloon_alert(invoker, "призыв проигнорирован")
 		return RITUAL_FAILED_ON_PROCEED
