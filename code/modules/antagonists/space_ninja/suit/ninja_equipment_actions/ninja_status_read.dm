@@ -1,7 +1,7 @@
 /datum/action/item_action/ninjastatus
 	check_flags = NONE
 	name = "Status Readout"
-	desc = "Gives a detailed readout about your current status."
+	desc = "Выводит вам полную информацию о вашем текущем состоянии."
 	button_icon_state = "healthstatus"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon = 'icons/mob/actions/actions_ninja.dmi'

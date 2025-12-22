@@ -3,7 +3,7 @@
 
 /datum/action/item_action/advanced/ninja/ninjaboost
 	name = "Adrenaline Boost"
-	desc = "Inject a secret chemical that will counteract all movement-impairing effect."
+	desc = "Вводит химикат, который нейтрализует все эффекты замедления и усталости."
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_CHARGES
 	charge_max = 1

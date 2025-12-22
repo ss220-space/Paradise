@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninja_sword_recall
 	name = "Recall Energy Katana"
-	desc = "Teleports the Energy Katana linked to this suit to its wearer. Energy cost: 200"
+	desc = "Телепортирует вашу энерго-катану к вам. Затрата энергии: 200"
 	check_flags = FALSE
 	charge_max = 0.5 SECONDS
 	button_icon_state = "energy_katana_green"
@@ -20,7 +20,7 @@
 	var/inview = TRUE
 
 	if(!energyKatana)
-		to_chat(ninja, span_warning("Could not locate your Energy Katana!"))
+		balloon_alert(ninja, "Не удалось найти!")
 		return
 
 	if(energyKatana in ninja)
@@ -47,7 +47,7 @@
 				return
 			energyKatana.spark_system.start()
 			playsound(ninja, SFX_SPARKS, 50, TRUE, -9)
-			ninja.visible_message(span_danger("\the [energyKatana] flies towards [ninja]!"),span_warning("You hold out your hand and \the [energyKatana] flies towards you!"))
+			ninja.visible_message(span_danger(" [energyKatana] летит навстречу [ninja]!"),span_warning("Ты протягиваешь руку и [energyKatana] летит к тебе!"))
 			energyKatana.throw_at(ninja, distance+1, energyKatana.throw_speed)
 
 		else //Else just TP it to us.

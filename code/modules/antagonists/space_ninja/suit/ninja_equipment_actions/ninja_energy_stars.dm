@@ -2,7 +2,7 @@
 
 /datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode
 	name = "Energy shuriken emitter"
-	desc = "Enable special suit system that generates Shurikens made of pure energy and capable of slowing and damaging enemies far away from you! Energy cost: 300 per burst"
+	desc = "Активирует специальную систему костюма, которая генерирует сюрикены из концентрированной энергии, способные замедлять и наносить урон врагам на расстоянии! Затрата энергии: 300 за залп"
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -26,7 +26,7 @@
 
 /obj/item/gun/energy/shuriken_emitter
 	name = "shuriken emitter"
-	desc = "A device sneakily hidden inside Spider Clans ninja suits. Shoots 3 energy shurikens that slows and temporary blinds their targets"
+	desc = "Спрятанный в костюме ниндзи девайс. Выпускает 3 энергетических сюрикена, которые замедляют и временно ослепляют цели. Затрата энергии: 300 за залп"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "shuriken_emitter"
 	item_state = ""

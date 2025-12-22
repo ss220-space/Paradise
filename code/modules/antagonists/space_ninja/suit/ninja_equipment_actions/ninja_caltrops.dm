@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/ninja_caltrops
 
 	name = "Energy Caltrops"
-	desc = "Scatters deadly caltrops behind the user. Great to slow enemies down. Don't step on them. Even metal legs will be damaged. Energy cost: 1500"
+	desc = "Разбрасывает смертельные шипы позади вас. Отлично замедляет врагов. Не наступайте на них. Даже металлические конечности будут повреждены. Затрата энергии: 1500"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_max = 1 SECONDS
 	button_icon_state = "caltrop"
@@ -54,7 +54,7 @@
 ///The caltrops object
 /obj/structure/energy_caltrops
 	name = "Caltrops"
-	desc = "Made of condensed energy! Don't step on this. Even metal legs will be damaged!"
+	desc = "Шипы созданные из концентрированной энергии. Даже металлические конечности будут повреждены!"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "caltrops"
 	resistance_flags = INDESTRUCTIBLE

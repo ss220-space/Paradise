@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/johyo
 	name = "Integrated Jōhyō"
-	desc = "A rope dagger conveniently hidden inside your suit. \
-	Has a pulse launcher that allowes you to shot it at an incredible speed, and grab your victims to get them right next to you! Energy cost: 500"
+	desc = "Верёвочный кинжал, спрятанный внутри костюма. \
+	Укомплектован стреляющий механизмом , позволяющим выстреливать кинжал с невероятной скоростью и захватывать жертв! Затрата энергии: 500"
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 5 SECONDS
 	button_icon_state = "kunai"
@@ -28,7 +28,7 @@
 
 /obj/item/gun/magic/johyo
 	name = "Integrated Jōhyō"
-	desc = "GET OVER HERE!"
+	desc = "ИДИ СЮДА!"
 	ammo_type = /obj/item/ammo_casing/magic/johyo
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "kunai_inhand"
@@ -71,7 +71,7 @@
 
 /obj/item/ammo_casing/magic/johyo
 	name = "Jōhyō"
-	desc = "In other words - Kunai on a rope."
+	desc = "Другими словами - Кунай на верёвке.."
 	projectile_type = /obj/projectile/johyo
 	muzzle_flash_effect = null
 	caliber = "kunai"
@@ -89,7 +89,7 @@
 
 /obj/projectile/johyo/fire(setAngle)
 	if(firer)
-		firer.say(pick("Get over here!", "Come here!"))
+		firer.say(pick("Иди сюда!", "Сюда!"))
 		chain = firer.Beam(src, icon_state = "chain_dark", time = INFINITY, maxdistance = INFINITY)
 	. = ..()
 
@@ -99,7 +99,7 @@
 		var/mob/living/target_living = target
 		var/turf/firer_turf = get_turf(firer)
 		if(!target_living.anchored && target_living.loc)
-			target_living.visible_message(span_danger("[target_living] is snagged by [firer]'s chain!"))
+			target_living.visible_message(span_danger("[target_living] зацепился за цепь [firer]!"))
 			ADD_TRAIT(target_living, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
 			target_living.forceMove(firer_turf)
 			REMOVE_TRAIT(target_living, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))

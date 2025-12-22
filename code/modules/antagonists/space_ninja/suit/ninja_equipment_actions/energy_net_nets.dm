@@ -4,7 +4,7 @@
  */
 /obj/structure/energy_net
 	name = "energy net"
-	desc = "It's a net made of green energy."
+	desc = "Сетка созданная из концентрированной энергии."
 	icon = 'icons/mob/actions/actions_ninja.dmi'
 	icon_state = "energynet"
 
@@ -35,9 +35,9 @@
 /obj/structure/energy_net/Destroy()
 	if(!QDELETED(affected_mob))
 		affected_mob.visible_message(
-			span_notice("[affected_mob.name] is recovered from the energy net!"),
-			span_notice("You are recovered from the energy net!"),
-			span_italics("You hear a grunt."),
+			span_notice("[affected_mob.name] выбирается из энергетической сети!"),
+			span_notice("Вы выбираетесь из энергетической сети!"),
+			span_italics("Вы слышите стон."),
 		)
 	affected_mob = null
 	return ..()

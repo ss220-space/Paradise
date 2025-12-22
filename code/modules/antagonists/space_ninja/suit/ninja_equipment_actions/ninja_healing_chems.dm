@@ -1,8 +1,8 @@
 /datum/action/item_action/advanced/ninja/ninjaheal
 	name = "Restorative Cocktail"
-	desc = "Injects an experimental chemical that will heal most of the user's injuries, purges other reagents, cures internal damage, regrows limbs and bones. \
-			It operates by rewinding your bodyparts to their perfect state in the past. Cause of that healing comes with a price of rare time paradox occuring! \
-			DO NOT overdose it! Overdose threshold: 30"
+	desc = "Вводит экспериментальное химическое вещество, которое лечит большую часть травм пользователя, удаляет другие реагенты, лечит внутренние повреждения, восстанавливает конечности и кости. \
+			Он действует путем перемотки частей вашего тела в их идеальное состояние в прошлом. Так как происходит взаимодействия со временем, вы можете попасть в временной парадакс на некоторое время! \
+			НЕ передозируйте! Порог передозировки: 30"
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_CHARGES
 	charge_max = 3
@@ -16,7 +16,7 @@
 		return
 	var/mob/living/carbon/human/ninja = affecting
 	ninja.reagents.add_reagent("chiyurizine", 25)	//The 25 dose is important. Reagent won't work if you add less. And it will overdose if you add 30 or more
-	to_chat(ninja, span_notice("Реагенты успешно введены в пользователя."))
+	balloon_alert(ninja, "Реагенты введены.")
 	atom_say("Spider-OS напоминает вам, вы можете отслеживать количество реагента в крови с помощью встроенных сканеров.")
 	add_attack_logs(ninja, null, "Activated healing chems.")
 	for(var/datum/action/item_action/advanced/ninja/ninjaheal/ninja_action in actions)
@@ -30,7 +30,7 @@
 // Created via the "chiyurizine" reagent.
 /obj/effect/temp_visual/ninja_rend
 	name = "A somewhat stable rend in reality"
-	desc = "Incredible... yet absurd thing. Who's gonna come out of it?"
+	desc = "Невероятно... но абсурдно. Кто может выйти из этого?"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "green_rift"
 	var/mob/living/carbon/human/occupant	//mob holder
