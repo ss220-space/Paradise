@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	))
 	add_verb(src, /client/proc/show_verbs)
 
-	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>", confidential=TRUE)
+	to_chat(src, span_interface("Almost all of your adminverbs have been hidden."), confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Hide Admin Verbs")
 	return
 
@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	remove_verb(src, /client/proc/show_verbs)
 	add_admin_verbs()
 
-	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>", confidential=TRUE)
+	to_chat(src, span_interface("All of your adminverbs are now visible."), confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Show Admin Verbs")
 
 /client/proc/admin_ghost()
@@ -406,12 +406,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(mob.invisibility == INVISIBILITY_OBSERVER)
 		mob.invisibility = initial(mob.invisibility)
 		mob.add_to_all_human_data_huds()
-		to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>", confidential=TRUE)
+		to_chat(mob, span_danger("Invisimin off. Invisibility reset."), confidential=TRUE)
 		log_admin("[key_name(mob)] has turned Invisimin OFF")
 	else
 		mob.invisibility = INVISIBILITY_OBSERVER
 		mob.remove_from_all_data_huds()
-		to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>", confidential=TRUE)
+		to_chat(mob, span_notice("Invisimin on. You are now as invisible as a ghost."), confidential=TRUE)
 		log_admin("[key_name(mob)] has turned Invisimin ON")
 	BLACKBOX_LOG_ADMIN_VERB("Invisimin")
 
@@ -602,7 +602,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = TRUE, cause = "Admin Drop Bomb")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] created an admin explosion at [epicenter.loc]"))
 	BLACKBOX_LOG_ADMIN_VERB("Drop Bomb")
 
 /client/proc/bless(mob/living/M as mob)
@@ -611,7 +611,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_EVENT))
 		return
 	if(!istype(M))
-		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>", confidential=TRUE)
+		to_chat(usr, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
 		return
 	var/btypes = list("To Arrivals", "Moderate Heal")
 	var/mob/living/carbon/human/H
@@ -641,7 +641,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))
-			to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>", confidential=TRUE)
+			to_chat(M, span_userdanger("You are abruptly pulled through space!"), confidential=TRUE)
 			logmsg = "a teleport to arrivals."
 		if("Moderate Heal")
 			var/update = NONE
@@ -649,7 +649,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			update |= M.heal_damages(tox = 25, oxy = 25, updating_health = FALSE)
 			if(update)
 				M.updatehealth()
-			to_chat(M,"<span class='userdanger'>You feel invigorated!</span>", confidential=TRUE)
+			to_chat(M,span_userdanger("You feel invigorated!"), confidential=TRUE)
 			logmsg = "a moderate heal."
 		if("Heal Over Time")
 			H.reagents.add_reagent("salglu_solution", 30)
@@ -713,7 +713,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 							P.mind.name = newname
 				logmsg = "pet ([P])."
 			else
-				to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play the special event pet.</span>", confidential=TRUE)
+				to_chat(usr, span_warning("WARNING: Nobody volunteered to play the special event pet."), confidential=TRUE)
 				logmsg = "pet (no volunteers)."
 		if("Human Protector")
 			usr.client.create_eventmob_for(H, 0)
@@ -727,7 +727,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 						// don't have it - add it
 						I.access |= this_access
 			else
-				to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>", confidential=TRUE)
+				to_chat(usr, span_warning("ERROR: [H] is not wearing an ID card."), confidential=TRUE)
 			logmsg = "all access."
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
@@ -869,7 +869,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
 	update_byond_admin_configs(ckey, 0)
-	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
+	to_chat(src, span_interface("You are now a normal player."), confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
 
 /client/proc/readmin()
