@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	/// the range which mobs can hear this radio from
 	var/canhear_range = 3
 	var/datum/wires/radio/wires = null
-	var/b_stat = 0
+	var/b_stat = FALSE
 
 	///if FALSE, broadcasting and listening dont matter and this radio shouldnt do anything
 	VAR_PRIVATE/on = TRUE

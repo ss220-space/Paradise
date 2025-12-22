@@ -15,8 +15,8 @@
 	var/unique_handling = FALSE //some things give a special prompt, do we want to bypass some checks in parent?
 	var/stop_bleeding = 0
 	var/bleedsuppress = 0
-	var/healverb = "bandage"
 	var/use_duration = 3 SECONDS
+	var/use_flags = DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING
 	merge_type = null // do not merge if not defined in subtype
 
 /obj/item/stack/medical/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -32,7 +32,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		var/selected_zone = user.zone_selected
+		var/selected_zone = get_priority_targeting(target, user, def_zone)
 		var/obj/item/organ/external/affecting = human_target.get_organ(selected_zone)
 
 		if(isgolem(human_target))
@@ -52,11 +52,8 @@
 			return .
 
 		if(human_target == user && !unique_handling)
-			user.visible_message(
-				span_notice("[human_target] начина[PLUR_ET_YUT(human_target)] применять [declension_ru(NOMINATIVE)] на себе."),
-				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
-			)
-			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
+			user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]...", "применение [declent_ru(GENITIVE)]...");
+			if(!do_after(human_target, self_delay, human_target, use_flags, max_interact_count = 1))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -76,6 +73,7 @@
 				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
+			user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]...", "применение [declent_ru(GENITIVE)]...");
 			if(use_duration && !do_after(user, use_duration, human_target))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
@@ -112,7 +110,8 @@
 	return .|ATTACK_CHAIN_SUCCESS
 
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	user.visible_message(
 		span_green("[user] использу[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
 		span_green("Вы используете [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
@@ -168,6 +167,64 @@
 		return FALSE
 	. = ..()
 
+// MARK: Targeting filter
+
+/obj/item/stack/medical/proc/get_priority_targeting(mob/living/target, mob/living/user)
+	return user.zone_selected
+
+/obj/item/stack/medical/proc/get_priority_targeting_by_filter(mob/living/target, mob/living/user, filter_proc)
+	. = user.zone_selected
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/target_bodypart = null
+	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
+		var/accept = call(src, filter_proc)(arglist(list(current = bodypart, max = target_bodypart)))
+		if(accept)
+			target_bodypart = bodypart
+
+	if(!target_bodypart)
+		return
+
+	return target_bodypart.limb_zone
+
+/obj/item/stack/medical/proc/filter_max_bleeding_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.bleeding_amount <= 0 || current.bleeding_amount <= current.bleedsuppress)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.bleeding_amount > max.bleeding_amount)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_brute_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.brute_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.brute_dam > max.brute_dam)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_burn_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.burn_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.burn_dam > max.burn_dam)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/medical/proc/filter_max_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(current.is_robotic() || current.burn_dam <= 0 && current.brute_dam <= 0)
+		return FALSE
+	if(!max)
+		return TRUE
+	if(current.burn_dam + current.brute_dam > max.burn_dam + max.brute_dam)
+		return TRUE
+	return FALSE
+
 // MARK: Bruise Packs
 
 /obj/item/stack/medical/bruise_pack
@@ -178,7 +235,7 @@
 	item_state = "gauze"
 	origin_tech = "biotech=2"
 	heal_brute = 5
-	bleedsuppress = 5
+	bleedsuppress = 2
 	stop_bleeding = 180 SECONDS
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
@@ -214,7 +271,8 @@
 	if(!get_amount())
 		to_chat(user, span_danger("Не хватает медикаментов!"))
 		return ATTACK_CHAIN_PROCEED
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.open != ORGAN_CLOSED)
 		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь бинтами!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -227,9 +285,15 @@
 	affecting.germ_level = 0
 	if(stop_bleeding && affecting.bleeding_amount > affecting.bleedsuppress)	//so you can't stack bleed suppression
 		affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
+		var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
+		if(addition_affecting)
+			addition_affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
 	human_heal(target, user)
 	target.UpdateDamageIcon()
 	update_icon()
+
+/obj/item/stack/medical/bruise_pack/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_bleeding_bodypart))
 
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
@@ -252,6 +316,7 @@
 	max_amount = 1
 	heal_brute = 0
 	stop_bleeding = 300 SECONDS
+	merge_type = /obj/item/stack/medical/bruise_pack/military
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -299,18 +364,22 @@
 	icon_state = "traumakit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 40
-	amount = 4
-	max_amount = 4
+	heal_brute = 20
+	amount = 8
+	max_amount = 8
 	stop_bleeding = 0
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
+	use_flags = DA_IGNORE_LYING
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
-	icon_state = "traumakit_[amount]"
+	icon_state = "traumakit_[round_down((amount + 1) / 2, 1)]"
 
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
+
+/obj/item/stack/medical/bruise_pack/advanced/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_brute_damage_bodypart))
 
 /obj/item/stack/medical/bruise_pack/extended
 	name = "extended trauma kit"
@@ -319,13 +388,14 @@
 	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 40
+	heal_brute = 30
 	amount = 10
 	max_amount = 10
 	stop_bleeding = 0
 	use_duration = 0
 	self_delay = 1.5 SECONDS
 	use_duration = 0.7 SECONDS
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
@@ -340,11 +410,14 @@
 	singular_name = "ointment"
 	icon_state = "ointment_3"
 	origin_tech = "biotech=2"
-	healverb = "salve"
 	heal_burn = 10
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/ointment
+
+/obj/item/stack/medical/ointment/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_burn_damage_bodypart))
 
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -358,7 +431,8 @@
 		to_chat(user, span_danger("Not enough medical supplies!"))
 		return ATTACK_CHAIN_PROCEED
 
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.open != ORGAN_CLOSED)
 		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь мазью!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -383,14 +457,14 @@
 	icon_state = "burnkit_4"
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 40
-	amount = 4
-	max_amount = 4
+	heal_burn = 20
+	amount = 8
+	max_amount = 8
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
-	icon_state = "burnkit_[amount]"
+	icon_state = "burnkit_[round_down((amount + 1) / 2, 1)]"
 
 /obj/item/stack/medical/ointment/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -402,7 +476,7 @@
 	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 40
+	heal_burn = 30
 	amount = 10
 	max_amount = 10
 	self_delay = 1.5 SECONDS
@@ -426,11 +500,15 @@
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/comfrey
-	var/max_heal = 40
+	var/max_heal = 30
 
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
+
+/obj/item/stack/medical/bruise_pack/comfrey/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_brute_damage_bodypart))
 
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
@@ -441,7 +519,7 @@
 	color = "#4CC5C7"
 	heal_burn = 12
 	merge_type = /obj/item/stack/medical/ointment/aloe
-	var/max_heal = 40
+	var/max_heal = 30
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return
@@ -466,6 +544,7 @@
 		BODY_ZONE_PRECISE_L_FOOT,
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/splint
 
 /obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
@@ -477,7 +556,8 @@
 		to_chat(user, span_danger("No splints left!"))
 		return ATTACK_CHAIN_PROCEED
 
-	var/obj/item/organ/external/bodypart = target.get_organ(user.zone_selected)
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/bodypart = target.get_organ(selected_zone)
 	var/bodypart_name = bodypart.name
 
 	if(!(bodypart.limb_zone in available_splint_zones))
@@ -552,9 +632,10 @@
 	item_state = "suture"
 	origin_tech = "biotech=3"
 	var/bleeding_heal = 5
-	var/damage = 10
+	var/damage = 5
 	self_delay = 3 SECONDS
 	use_duration = 2 SECONDS
+	use_flags = DA_IGNORE_LYING
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
 
@@ -575,7 +656,9 @@
 	. = ATTACK_CHAIN_PROCEED
 	if(!ishuman(target))
 		return .
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.bleeding_amount <= 0)
 		user.balloon_alert(user, "нечего зашивать!")
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -600,10 +683,16 @@
 	affecting.germ_level = 0
 	if(affecting.bleeding_amount > 0)	//so you can't stack bleed suppression
 		affecting.heal_bleeding(user, target, bleeding_heal, damage)
+		var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
+		if(addition_affecting)
+			addition_affecting.heal_bleeding(user, target, bleeding_heal, 0)
 		target.updatehealth("[name] heal")
 	user.balloon_alert(user, "зашито!")
 	target.UpdateDamageIcon()
 	update_icon()
+
+/obj/item/stack/medical/suture/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_bleeding_bodypart))
 
 /obj/item/stack/medical/suture/advanced
 	name = "advanced suture kit"
@@ -643,13 +732,261 @@
 	icon_state = "synthkit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 20
-	heal_burn = 20
-	amount = 4
-	max_amount = 4
+	heal_brute = 12
+	heal_burn = 12
+	amount = 8
+	max_amount = 8
 	stop_bleeding = 0
 	use_duration = 1.5 SECONDS
+	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
-	icon_state = "synthkit_[amount]"
+	icon_state = "synthkit_[round_down((amount+1) / 2, 1)]"
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_damage_bodypart))
+
+
+// MARK: Tourniquet
+/obj/item/tourniquet
+	name = "tourniquet"
+	desc = "Медицинский турникет для экстренной остановки артериального и венозного кровотечения на конечностях. Не предназначен для наложения на другие части тела. Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
+	icon = 'icons/obj/medicine/packs.dmi'
+	icon_state = "tourniquet"
+	item_state = "tourniquet"
+	origin_tech = "biotech=3"
+	w_class = WEIGHT_CLASS_TINY
+	/// Duration to apply self
+	var/self_duration = 5 SECONDS
+	/// Duration to apply other mobs
+	var/other_duration = 3 SECONDS
+	/// Removing duration
+	var/remove_duration = 3 SECONDS
+	/// Bodypart where applyed tourniquet
+	var/obj/item/organ/external/applyed_bodypart = null
+	/// Addition bodypart where applyed tourniquet (hand for arm, foot for leg)
+	var/obj/item/organ/external/applyed_addition_bodypart = null
+	/// Duration of limb necrotize warning in chat
+	var/necrotize_warning_duration = 2 MINUTES
+	/// Limb necrotize warning timer identifier
+	var/necrotize_warning_timer_id = null
+	/// Duration of limb necrotize if apply tourniquet
+	var/necrotize_duration = 3 MINUTES
+	/// Limb necrotize timer identifier if apply tourniquet
+	var/necrotize_timer_id = null
+
+/obj/item/tourniquet/Destroy()
+	. = ..()
+	applyed_bodypart = null
+	applyed_addition_bodypart = null
+	stop_apply_timers()
+
+/obj/item/tourniquet/proc/stop_apply_timers()
+	if(necrotize_warning_timer_id)
+		deltimer(necrotize_warning_timer_id)
+		necrotize_warning_timer_id = null
+	if(!necrotize_timer_id)
+		return
+
+	deltimer(necrotize_timer_id)
+	necrotize_timer_id = null
+
+/obj/item/tourniquet/get_ru_names()
+	return list(
+		NOMINATIVE = "турникет",
+		GENITIVE = "турникета",
+		DATIVE = "турникету",
+		ACCUSATIVE = "турникет",
+		INSTRUMENTAL = "турникетом",
+		PREPOSITIONAL = "турникете"
+	)
+
+/obj/item/tourniquet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!ishuman(target))
+		return .
+
+	if(!acceptable_zone(user.zone_selected))
+		balloon_alert(user, "не является конечностью!")
+		return .
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/affecting = human_target.get_organ(user.zone_selected)
+	var/obj/item/organ/external/addition_affecting = human_target.get_affecting_limb_bodypart(affecting)
+	if(affecting.tourniquet)
+		balloon_alert(user, "уже наложено!")
+		return .
+
+	if(human_target == user)
+		if(!apply_to_self(human_target, affecting, addition_affecting))
+			return .
+	else if(!apply_to_other(user, human_target, affecting, addition_affecting))
+		return .
+
+	affecting.tourniquet = src
+	applyed_bodypart = affecting
+	if(addition_affecting)
+		addition_affecting.tourniquet = src
+		applyed_addition_bodypart = addition_affecting
+
+	user.drop_item_ground(src)
+	src.forceMove(affecting)
+	balloon_alert(user, "турникет наложен")
+	target.UpdateDamageIcon()
+	update_icon()
+	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
+	necrotize_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs), target), necrotize_duration, TIMER_STOPPABLE)
+
+/obj/item/tourniquet/proc/apply_to_self(mob/living/carbon/human/user, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
+	var/selected_zone = user.zone_selected
+	user.balloon_alert_to_viewers("применя[PLUR_YOT_YUT(user)] [declent_ru(GENITIVE)] на себя...", "наложение [declent_ru(GENITIVE)]...")
+	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
+		return
+
+	var/obj/item/organ/external/affecting_rechecked = user.get_organ(selected_zone)
+	if(!affecting_rechecked)
+		balloon_alert(user, "конечность отсутствует!")
+		return
+
+	if(affecting_rechecked.tourniquet)
+		balloon_alert(user, "турникет уже наложен!")
+		return
+
+	if(affecting_rechecked.is_robotic())
+		balloon_alert(user, "неорганическая конечность!")
+		return
+
+	return TRUE
+
+/obj/item/tourniquet/proc/apply_to_other(mob/living/user, mob/living/carbon/human/human_target, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
+	var/selected_zone = user.zone_selected
+	human_target.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на цели...", "применение [declent_ru(GENITIVE)] на цели...")
+
+	if(!do_after(user, other_duration, human_target) || applyed_bodypart)
+		return
+
+	var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
+	if(!affecting_rechecked)
+		balloon_alert(user, "конечность отсутствует!")
+		return
+
+	if(affecting_rechecked.tourniquet)
+		balloon_alert(user, "турникет уже наложен!")
+		return
+
+	if(affecting_rechecked.is_robotic())
+		balloon_alert(user, "неорганическая конечность!")
+		return
+
+	return TRUE
+
+/obj/item/tourniquet/proc/necrotize_limbs_warning(mob/living/user)
+	if(!applyed_bodypart)
+		return
+
+	balloon_alert(user, "ваш[GEND_A_E_I(user)] [applyed_bodypart.declent_ru(NOMINATIVE)] немеет!")
+
+/obj/item/tourniquet/proc/necrotize_limbs(mob/living/target)
+	if(applyed_bodypart)
+		applyed_bodypart.necrotize()
+	if(!applyed_addition_bodypart)
+		return
+
+	applyed_addition_bodypart.necrotize()
+
+/obj/item/tourniquet/proc/remove_from_bodypart(mob/living/user)
+	if(!applyed_bodypart)
+		return FALSE
+
+	balloon_alert(user, "снятие турникета...")
+	if(!do_after(user, remove_duration, applyed_bodypart.owner) || !applyed_bodypart)
+		return FALSE
+
+	var/drop_loc = applyed_bodypart.drop_location()
+	src.forceMove(drop_loc)
+	applyed_bodypart.tourniquet = null
+	applyed_bodypart = null
+
+	if(applyed_addition_bodypart)
+		applyed_addition_bodypart.tourniquet = null
+		applyed_addition_bodypart = null
+
+	stop_apply_timers()
+	user.put_in_any_hand_if_possible(src)
+	balloon_alert(user, "турникет снят")
+	return TRUE
+
+/obj/item/tourniquet/proc/acceptable_zone(zone_selected)
+	// allow arms
+	if(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)
+		return TRUE
+	// allow legs
+	if(zone_selected == BODY_ZONE_L_LEG || zone_selected == BODY_ZONE_R_LEG)
+		return TRUE
+	// not accept for chest, groin, head
+	return FALSE
+
+/mob/living/carbon/human/proc/exists_tourniquet()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.tourniquet)
+			return TRUE
+
+	return FALSE
+
+/mob/living/carbon/human/proc/cut_all_tourniquets(mob/living/user)
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.tourniquet)
+			continue
+		var/obj/item/tourniquet/tourniquet = bodypart.tourniquet
+		var/drop_loc = bodypart.drop_location()
+		tourniquet.forceMove(drop_loc)
+		bodypart.tourniquet = null
+		tourniquet.applyed_bodypart = null
+
+		if(tourniquet.applyed_addition_bodypart)
+			tourniquet.applyed_addition_bodypart.tourniquet = null
+			tourniquet.applyed_addition_bodypart = null
+
+		tourniquet.stop_apply_timers()
+
+/obj/item/tourniquet/makeshift
+	name = "makeshift tourniquet"
+	desc = "Импровизированный турникет для временной остановки кровотечения на конечностях. Жутко неудобный, но со своей задачей справится. Не предназначен для длительного использования."
+	icon_state = "makeshift_tourniquet"
+	item_state = "makeshift_tourniquet"
+	self_duration = 8 SECONDS
+	other_duration = 5 SECONDS
+
+/obj/item/tourniquet/makeshift/remove_from_bodypart(mob/living/user)
+	if(..())
+		QDEL_NULL(src)
+
+/obj/item/tourniquet/makeshift/get_ru_names()
+	return list(
+		NOMINATIVE = "самодельный турникет",
+		GENITIVE = "самодельного турникета",
+		DATIVE = "самодельному турникету",
+		ACCUSATIVE = "самодельный турникет",
+		INSTRUMENTAL = "самодельным турникетом",
+		PREPOSITIONAL = "самодельном турникете"
+	)
+
+/obj/item/tourniquet/advanced
+	name = "advanced tourniquet"
+	desc = "Медицинский турникет нового поколения для экстренной остановки артериального и венозного кровотечения на конечностях. Оснащён механизмом контроля давления, что повышает удобство использования и его эффективность по сравнению с ранними аналогами. Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
+	icon_state = "advanced_tourniquet"
+	item_state = "advanced_tourniquet"
+	self_duration = 3 SECONDS
+	other_duration = 2 SECONDS
+	remove_duration = 1 SECONDS
+
+/obj/item/tourniquet/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский турникет",
+		GENITIVE = "медицинского турникета",
+		DATIVE = "медицинскому турникету",
+		ACCUSATIVE = "медицинский турникет",
+		INSTRUMENTAL = "медицинским турникетом",
+		PREPOSITIONAL = "медицинском турникете"
+	)

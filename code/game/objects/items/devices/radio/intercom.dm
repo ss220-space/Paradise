@@ -3,21 +3,23 @@
 #define INTERCOM_BUILD_WIRED 2
 #define INTERCOM_BUILD_SECURED 3
 
+// MARK: General
 /obj/item/radio/intercom
 	name = "station intercom (General)"
 	desc = "Станционный интерком общего назначения. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта."
 	gender = MALE
-	icon_state = "intercom"
+	icon_state = "intercom_on"
+	base_icon_state = "intercom"
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	blocks_emissive = FALSE
+	dog_fashion = null
 	var/circuitry_installed = TRUE
 	/// Current buildstage of the object
 	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
-	dog_fashion = null
 
 /obj/item/radio/intercom/get_ru_names()
 	return list(
@@ -29,15 +31,12 @@
 		PREPOSITIONAL = "станционном интеркоме (Общий)",
 	)
 
-/obj/item/radio/intercom/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+/obj/item/radio/intercom/Initialize(mapload, buildstage = INTERCOM_BUILD_SECURED)
 	. = ..()
 	src.buildstage = buildstage
 	if(buildstage)
 		update_operating_status()
 	else
-		if(direction)
-			setDir(direction)
-			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat = TRUE
 		set_on(FALSE)
 	GLOB.global_intercoms |= src
@@ -68,6 +67,16 @@
 		if(!(syndiekey))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
 	return canhear_range
+
+/obj/item/radio/intercom/examine(mob/user)
+	. = ..()
+	switch(buildstage)
+		if(INTERCOM_BUILD_NO_CIRCUIT)
+			. += span_notice("Каркас <b>приварен</b> к стене, но в нём отсутствует <i>электронная плата</i>.")
+		if(INTERCOM_BUILD_CIRCUIT)
+			. += span_notice("Динамик необходимо <i>подключить</i>, а плату можно <b>вытащить</b>.")
+		if(INTERCOM_BUILD_WIRED)
+			. += span_notice("Интерком <b>подключён</b>, а сервисная панель <i>открыта</i>.")
 
 /obj/item/radio/intercom/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tape_roll)) //eww
@@ -164,9 +173,9 @@
 
 /obj/item/radio/intercom/update_icon_state()
 	if(!circuitry_installed)
-		icon_state="intercom-frame"
+		icon_state = "[base_icon_state]_frame"
 		return
-	icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
+	icon_state = "[base_icon_state][on ? "_on" : "_off"][b_stat ? "_open" : ""]"
 
 /obj/item/radio/intercom/update_overlays()
 	. = ..()
@@ -189,7 +198,6 @@
  * Normally called after the intercom's area receives the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
  *
  * Arguments:
- *
  * source - the area that just had a power change.
  */
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
@@ -200,6 +208,7 @@
 		set_on(current_area.powered(EQUIP)) // set "on" to the equipment power status of our area.
 	update_icon()
 
+// MARK: Custom
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
 	should_be_listening = FALSE
@@ -214,6 +223,7 @@
 		PREPOSITIONAL = "станционном интеркоме (Персонализированный)",
 	)
 
+// MARK: Interrogation
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -232,6 +242,7 @@
 		PREPOSITIONAL = "станционном интеркоме (Допросный)",
 	)
 
+// MARK: Private
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -250,6 +261,7 @@
 		PREPOSITIONAL = "станционном интеркоме (Приватный)",
 	)
 
+// MARK: Command
 /obj/item/radio/intercom/command
 	name = "station intercom (Command)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -268,6 +280,7 @@
 		PREPOSITIONAL = "станционном интеркоме (Командный)",
 	)
 
+// MARK: Special Operations
 /obj/item/radio/intercom/specops
 	name = "Special Operations intercom"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -289,6 +302,7 @@
 /obj/item/radio/intercom/department
 	canhear_range = 5
 
+// MARK: Medbay
 /obj/item/radio/intercom/department/medbay
 	name = "station intercom (Medbay)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -307,6 +321,7 @@
 		PREPOSITIONAL = "станционном интеркоме (Медицинский)",
 	)
 
+// MARK: Security
 /obj/item/radio/intercom/department/security
 	name = "station intercom (Security)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -331,8 +346,9 @@
 /obj/item/radio/intercom/department/security/get_internal_channels()
 	return GLOB.default_security_channels
 
+// MARK: Syndicate
 /obj/item/radio/intercom/syndicate
-	name = "illicit intercom"
+	name = "syndicate intercom"
 	desc = "Модернизированный вариант стандартного интеркома. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Помимо стандартного телекоммуникацонного оборудования, \
 			внутри установлен специальный ключ шифрования, позволяющий прослушивать закрытые каналы \"Нанотрейзен\", \
@@ -353,6 +369,7 @@
 /obj/item/radio/intercom/syndicate/get_internal_channels()
 	return GLOB.default_syndicate_channels
 
+// MARK: Pirate
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "Самодельный интерком, собранный из разнообразных дешёвых радиокомпонентов. Представляет собой кустарное устройство из низкокачественно \
@@ -398,6 +415,7 @@
 /obj/item/radio/intercom/locked
 	freqlock = TRUE
 
+// MARK: AI private
 /obj/item/radio/intercom/locked/ai_private
 	name = "AI intercom"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -416,6 +434,7 @@
 		PREPOSITIONAL = "интеркоме ИИ",
 	)
 
+// MARK: Confessional
 /obj/item/radio/intercom/locked/confessional
 	name = "confessional intercom"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -434,6 +453,7 @@
 		PREPOSITIONAL = "исповедальном интеркоме",
 	)
 
+// MARK: Prison
 /obj/item/radio/intercom/locked/prison
 	name = "prison intercom"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
@@ -450,7 +470,7 @@
 		PREPOSITIONAL = "тюремном интеркоме",
 	)
 
-/obj/item/radio/intercom/locked/prison/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+/obj/item/radio/intercom/locked/prison/Initialize(mapload, buildstage = INTERCOM_BUILD_SECURED)
 	. = ..()
 	wires.cut(WIRE_RADIO_TRANSMIT)
 
@@ -458,3 +478,18 @@
 #undef INTERCOM_BUILD_CIRCUIT
 #undef INTERCOM_BUILD_WIRED
 #undef INTERCOM_BUILD_SECURED
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/custom, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/interrogation, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/private, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/command, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/specops, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/department/medbay, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/department/security, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/syndicate, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/pirate, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/ai_private, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/confessional, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/prison, 27)

@@ -89,3 +89,5 @@ GLOBAL_LIST_EMPTY(robot_skins)
 
 /// List of all /datum/nutrition_level
 GLOBAL_LIST_EMPTY(nutrition_levels)
+
+GLOBAL_LIST_EMPTY(permanent_radio_listeners)

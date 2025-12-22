@@ -4,7 +4,7 @@
 	register_init_signals()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(src)
-	faction += "\ref[src]"
+	faction += PERSONAL_FACTION(src)
 	determine_move_and_pull_forces()
 	gravity_setup()
 	if(unique_name)
@@ -566,6 +566,11 @@
 	set name = "Прекратить тащить"
 	set category = STATPANEL_IC
 	stop_pulling()
+
+/mob/living/proc/stop_hand_bleedsuppress()
+	left_hand_bleed_suppress_lib = null
+	right_hand_bleed_suppress_lib = null
+	update_hands_HUD()
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
@@ -1924,6 +1929,7 @@
 /mob/living/proc/on_handsblocked_start()
 	drop_from_hands()
 	stop_pulling()
+	stop_hand_bleedsuppress()
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
 
 /// Proc to append behavior to the condition of being handsblocked. Called when the condition ends.
