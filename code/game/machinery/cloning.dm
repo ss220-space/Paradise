@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
 	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
 		return 0
-	clonemind = locate(R.mind)
+	clonemind = R.mind.resolve()
 	if(!istype(clonemind))	//not a mind
 		return 0
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body

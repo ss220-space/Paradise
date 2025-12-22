@@ -239,10 +239,10 @@
 	for(var/datum/objective/objective in get_all_objectives())
 		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
 		if(admin)
-			. += " <a href='byond://?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
-			. += "<a href='byond://?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
+			. += " <a href='byond://?src=[UID()];obj_edit=[objective.UID()]'>Edit</a> " // Edit
+			. += "<a href='byond://?src=[UID()];obj_delete=[objective.UID()]'>Delete</a> " // Delete
 
-			. += "<a href='byond://?src=[UID()];obj_completed=\ref[objective]'>" // Mark Completed
+			. += "<a href='byond://?src=[UID()];obj_completed=[objective.UID()]'>" // Mark Completed
 			. += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
 			. += "</a>"
 		. += "<br>"
@@ -856,7 +856,7 @@
 		var/def_value
 
 		if(href_list["obj_edit"])
-			objective = locate(href_list["obj_edit"])
+			objective = locateUID(href_list["obj_edit"])
 			if(!objective)
 				return
 
@@ -1274,7 +1274,7 @@
 		message_admins("[key_name_admin(usr)] has updated [key_name_admin(current)]'s objectives: [new_objective]")
 
 	else if(href_list["obj_delete"])
-		var/datum/objective/objective = locate(href_list["obj_delete"])
+		var/datum/objective/objective = locateUID(href_list["obj_delete"])
 		if(!istype(objective))
 			return
 
@@ -1283,7 +1283,7 @@
 		remove_objective(objective)
 
 	else if(href_list["obj_completed"])
-		var/datum/objective/objective = locate(href_list["obj_completed"])
+		var/datum/objective/objective = locateUID(href_list["obj_completed"])
 		if(!istype(objective))
 			return
 		objective.completed = !objective.completed

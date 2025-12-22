@@ -459,7 +459,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			//ticker.mode.learn_basic_spells(new_character)
 			SSticker.mode.equip_wizard(new_character)
 		if("Syndicate")
-			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
+			var/obj/effect/landmark/synd_spawn = locate(/obj/effect/landmark/spawner/syndie)
 			if(synd_spawn)
 				new_character.forceMove(get_turf(synd_spawn))
 			var/datum/antagonist/nuclear_operative/datum = new_character.mind.has_antag_datum(/datum/antagonist/nuclear_operative)

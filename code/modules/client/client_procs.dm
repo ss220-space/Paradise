@@ -421,6 +421,10 @@
 
 /client/proc/load_donations()
 	UNTIL(SSdonations.initialized)
+
+	if(!SSdbcore.IsConnected())
+		return
+
 	tgui_panel.window.send_message("donations/load_data", list(
 		"month_donations" = SSdonations.month_donations,
 		"target_donation" = SSdonations.target_donation,

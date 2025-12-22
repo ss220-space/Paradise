@@ -41,7 +41,7 @@
 /obj/effect/laser
 	name = "laser"
 	desc = "IT BURNS!!!"
-	icon = 'icons/obj/weapons/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	var/damage = 0
 	var/range = 10
 
