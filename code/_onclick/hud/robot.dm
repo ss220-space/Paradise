@@ -105,8 +105,8 @@
 
 /atom/movable/screen/robot/state_laws/Click()
 	if(issilicon(usr))
-		var/mob/living/silicon/robot/R = usr
-		R.subsystem_law_manager()
+		var/mob/living/silicon/robot/robot = usr
+		robot.subsystem_law_manager()
 
 /datum/hud/robot/New(mob/user)
 	..()
