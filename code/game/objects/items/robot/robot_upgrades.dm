@@ -812,8 +812,6 @@
 	else
 		to_chat(user, span_notice("Нечего не произошло"))
 
-
-
 /obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
 	if(!..())
 		return FALSE
