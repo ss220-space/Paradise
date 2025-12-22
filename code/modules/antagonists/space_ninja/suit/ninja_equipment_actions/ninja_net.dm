@@ -62,10 +62,10 @@
 		return
 	for(var/turf/between_turf in get_line(get_turf(ninja), get_turf(target)))
 		if(between_turf.density)//Don't want them shooting nets through walls. It's kind of cheesy.
-			balloon_alert(ninja, "Невозможно!")
+			balloon_alert(ninja, "невозможно!")
 			return
 	if(locate(/obj/structure/energy_net) in get_turf(target))//Check if they are already being affected by an energy net.
-		balloon_alert(ninja, "Цель уже запутана!")
+		balloon_alert(ninja, "цель уже запутана!")
 		return
 	if(!my_suit.ninjacost(4000, N_STEALTH_CANCEL))
 		ninja.Beam(target, "n_beam", time = 15)

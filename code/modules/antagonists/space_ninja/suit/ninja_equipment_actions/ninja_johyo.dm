@@ -71,7 +71,7 @@
 
 /obj/item/ammo_casing/magic/johyo
 	name = "Jōhyō"
-	desc = "Другими словами - Кунай на верёвке.."
+	desc = "Другими словами — Кунай на верёвке.."
 	projectile_type = /obj/projectile/johyo
 	muzzle_flash_effect = null
 	caliber = "kunai"

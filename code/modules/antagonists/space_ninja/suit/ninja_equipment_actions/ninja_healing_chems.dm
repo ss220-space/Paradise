@@ -16,7 +16,7 @@
 		return
 	var/mob/living/carbon/human/ninja = affecting
 	ninja.reagents.add_reagent("chiyurizine", 25)	//The 25 dose is important. Reagent won't work if you add less. And it will overdose if you add 30 or more
-	balloon_alert(ninja, "Реагенты введены.")
+	balloon_alert(ninja, "реагенты введены!")
 	atom_say("Spider-OS напоминает вам, вы можете отслеживать количество реагента в крови с помощью встроенных сканеров.")
 	add_attack_logs(ninja, null, "Activated healing chems.")
 	for(var/datum/action/item_action/advanced/ninja/ninjaheal/ninja_action in actions)

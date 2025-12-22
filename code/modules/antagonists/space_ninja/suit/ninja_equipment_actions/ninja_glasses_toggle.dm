@@ -19,7 +19,7 @@
 			vision_flags &= ~SEE_MOBS
 			icon_state = "[initial(icon_state)]"
 			item_state = "[initial(item_state)]"
-			balloon_alert(user, "Ночное видинье")
+			balloon_alert(user, "ночное видинье")
 		if(NINJA_THERMALS)
 			see_in_dark = 2
 			lighting_alpha = 220
@@ -27,7 +27,7 @@
 			vision_flags |= SEE_MOBS
 			icon_state = "[initial(icon_state)]_red"
 			item_state = "[initial(item_state)]_red"
-			balloon_alert(user, "Термальное видинье")
+			balloon_alert(user, "термальное видинье")
 		if(NINJA_FLASHPROTECTION)
 			see_in_dark = 2
 			lighting_alpha = null
@@ -35,7 +35,7 @@
 			vision_flags &= ~SEE_MOBS
 			icon_state = "[initial(icon_state)]_blue"
 			item_state = "[initial(item_state)]_blue"
-			balloon_alert(user, "Защита от ослепления")
+			balloon_alert(user, "защита от ослепления")
 
 	if(n_mask && istype(user.wear_mask, /obj/item/clothing/mask/gas/space_ninja))
 		n_mask.icon_state = "ninja_mask_[n_mask.visuals_type]_[current_mode]"

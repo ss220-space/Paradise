@@ -11,7 +11,7 @@
 /obj/item/clothing/suit/space/space_ninja/proc/ninjacost(cost = 0, extraCheckFlag = 0)
 	var/mob/living/carbon/human/ninja = affecting
 	if(cost && cell.charge < cost)
-		balloon_alert(ninja, "Недостаточно энергии!")
+		balloon_alert(ninja, "недостаточно энергии!")
 		return TRUE
 	else
 		cell.use(cost)
@@ -25,11 +25,11 @@
 				cancel_spirit_form()	//And another one!
 		if(N_ADRENALINE)
 			if(!a_boost.charge_counter)
-				balloon_alert(ninja, "Недостаточно адреналина!")
+				balloon_alert(ninja, "недостаточно адреналина!")
 				return TRUE
 		if(N_HEAL)
 			if(!heal_chems.charge_counter)
-				balloon_alert(ninja, "Недостаточно химикатов!")
+				balloon_alert(ninja, "недостаточно химикатов!")
 				return TRUE
 	// 'return' below is no longer used to check the suit cooldown,
 	// cause it was abolished and replaced by the cooldown per action system

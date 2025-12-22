@@ -14,7 +14,7 @@
 	// Check if ninja is trapped in a rend
 	for(var/obj/effect/temp_visual/ninja_rend/rend in world)
 		if(rend.occupant == ninja)
-			balloon_alert(ninja, "Невозможно!")
+			balloon_alert(ninja, "невозможно!")
 			return
 	if(!is_teleport_allowed(ninja.z))
 		src.visible_message(span_warning("Костюм начинает светиться... Но потом останавливается!"))

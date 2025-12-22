@@ -29,7 +29,7 @@
 		cancel_spirit_form()
 	else
 		if(cell.charge <= 0)
-			balloon_alert(ninja, "Недостаточно энергии!")
+			balloon_alert(ninja, "недостаточно энергии!")
 			return
 		if(ninja.pulling && ninja.grab_state > GRAB_PASSIVE)
 			ninja.stop_pulling()

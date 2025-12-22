@@ -84,7 +84,7 @@
 	if(!s_busy)
 		s_busy = TRUE
 		if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			balloon_alert(ninja, "Сканирование прервано!")
+			balloon_alert(ninja, "сканирование прервано!")
 			s_busy = FALSE
 			return
 		s_busy = FALSE
@@ -108,7 +108,7 @@
 		if(!s_busy)
 			s_busy = TRUE
 			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-				balloon_alert(ninja, "Вы прервали маскировку!")
+				balloon_alert(ninja, "вы прервали маскировку!")
 				s_busy = FALSE
 				do_sparks(3, FALSE, ninja)
 				qdel(my_scan_effect)

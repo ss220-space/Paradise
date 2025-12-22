@@ -20,7 +20,7 @@
 	var/inview = TRUE
 
 	if(!energyKatana)
-		balloon_alert(ninja, "Не удалось найти!")
+		balloon_alert(ninja, "не удалось найти!")
 		return
 
 	if(energyKatana in ninja)

@@ -22,12 +22,12 @@
 		cancel_stealth()
 	else
 		if(cell.charge <= 0)
-			balloon_alert(ninja, "Недостаточно энергии!")
+			balloon_alert(ninja, "недостаточно энергии!")
 			return
 		if(!s_busy)
 			s_busy = TRUE
 			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-				balloon_alert(ninja, "Вы прервали невидимость!")
+				balloon_alert(ninja, "вы прервали невидимость!")
 				s_busy = FALSE
 				return
 			stealth = !stealth

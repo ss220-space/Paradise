@@ -21,10 +21,10 @@
 	var/mob/living/carbon/human/ninja = affecting
 	var/obj/item/throwing_star/stamina/ninja/ninja_star = new(ninja)
 	if(ninja.put_in_hands(ninja_star))
-		balloon_alert(ninja, "Создано!")
+		balloon_alert(ninja, "создано!")
 	else
 		qdel(ninja_star)
-		balloon_alert(ninja, "Руки заняты!")
+		balloon_alert(ninja, "руки заняты!")
 
 /**
  * # Ninja Throwing Star
