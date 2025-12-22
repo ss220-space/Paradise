@@ -57,21 +57,19 @@ add/local: новый босс для Лазиса + локализация ст
 - **server:** Вы меняете что-то связанное с серверной частью или Github.
 - **wip:** Вы планиурете разрабатывать ваш PR в течении длительного времени.
 
-## Specifications
+## Спецификации
 
-As mentioned before, you are expected to follow these specifications in order to make everyone's lives easier. It'll save both your time and ours, by making
-sure you don't have to make any changes and we don't have to ask you to. Thank you for reading this section!
+Ниже перечислены стандарты написания кода и разработки в общем. Вы обязаны им следовать, чтобы в билд попадал только качественно написанный код, удобный для дальнейшней разработки. Чем лучше ваш PR соответствует этим правилам, тем больше своего и чужого времени вы сэкономите и тем быстрее ваши изменения попадут в билд. **Большое спасибо за ознакомления с этим разделом**!
 
-### Object Oriented Code
+### Объектно-ориентированный код
 
-As BYOND's Dream Maker (henceforth "DM") is an object-oriented language, code must be object-oriented when possible in order to be more flexible when adding
-content to it. If you don't know what "object-oriented" means, we highly recommend you do some light research to grasp the basics.
+Dream Maker, язык движка BYOND, (далее **"DM"**) — **объекто-ориентированный язык**, поэтому написанный вами код должен соответстовать стандартам ООП по воможности. Если "ООП" вам ни о чём не говорит, крайне рекомендуем вам поискать материалы по данной теме, чтобы иметь хотя бы базовое понимание.
 
-### All BYOND paths must contain the full path
+### Все пути должны быть полноценными
 
-(i.e. absolute pathing)
+Иными словами, пути должны быть **абсолютными**.
 
-DM will allow you nest almost any type keyword into a block, such as:
+DM позволит вам поместить почти что любое ключевое слово в блок, например:
 
 ```DM
 datum
@@ -98,10 +96,11 @@ datum
         code
 ```
 
-The use of this is not allowed in this project _unless the majority of the file is already relatively pathed_ as it makes finding definitions via full text
-searching next to impossible. The only exception is the variables of an object may be nested to the object, but must not nest further.
+Тем не менее, использование такого подхода **запрещено**.
 
-The previous code made compliant:
+**Исключение** из данного правила: большая часть объектов в файле имеет *относительные* пути, что делает нахождение определений через текст по полному пути практически невозможным.
+
+Вот исправленная версия кода выше с использованием абсолютных путей:
 
 ```DM
 /datum/datum1
@@ -123,76 +122,38 @@ The previous code made compliant:
   code
 ```
 
-### User Interfaces
+### Пользовательские интерфейсы (UI)
 
-All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the `tgui/docs` folder.
-This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
+Все новые пользовательские интерфейсы (они же **"UI"**), добавляемые в игру, должны быть созданы с помощью **TGUI фреймворка**. Соответствующая документация может быть найдена в папке `tgui/docs`. Это необходимо для того, чтобы все игровые UI были работоспособными и удобными для использования.
+**Исключение**: если конкретный UI предназначен только для OOC поля (админ. функционал, к примеру), то требованием к TGUI можно пренебречь. Тем не менее, если вы сделаете TGUI, то хуже не будет.
 
-### No overriding type safety checks
+### Не переопределяйте проверки типов
 
-The use of the : operator to override type safety checks is not allowed. You must cast the variable to the proper type.
+Использовать `:` оператор, чтобы переопределить проверку на тип объекта **запрещено**. Вы должны приводить переменную к корректному типу.
 
-### Type paths must begin with a /
+### Пути объектов должны начинаться с `/`
 
-eg: `/datum/thing`, not `datum/thing`
+То есть: `/datum/thing`, но не `datum/thing`.
 
-### Datum type paths must began with "datum"
+### Пути `datum` объектов должны начинаться с "datum"
 
-In DM, this is optional, but omitting it makes finding definitions harder. To be specific, you can declare the path `/arbitrary`, but it
-will still be, in actuality, `/datum/arbitrary`. Write your code to reflect this.
+Хоть это и опционально в DM, но использование именно такого стиля облегчает обнаружение и поик определений объектов в коде. Для понимания, путь `/arbitrary` функционально идентичен пути `/datum/arbitrary`. И всё же, определяйте пути по примеру второго объекта.
 
-### Do not use text/string based type paths
+### Не используйте строковое определение путей
 
-It is rarely allowed to put type paths in a text format, as there are no compile errors if the type path no longer exists. Here is an example:
+Пример:
 
 ```DM
-//Good
+// Хорошо
 var/path_type = /obj/item/baseball_bat
 
-//Bad
+// Плохо
 var/path_type = "/obj/item/baseball_bat"
 ```
 
-### Do not use `\The`.
+В редких случаях это разрешается, т.к. в таком случае компилятор не выдаст ошибку, если такой путь более не существует.
 
-The `\The` macro doesn't actually do anything when used in the format `\The [atom reference]`. Directly referencing an atom in an embedded string
-will automatically prefix `The` or `the` to it as appropriate. As an extension, when referencing an atom, don't use `[atom.name]`, use `[atom]`.
-The only exception to this rule is when dealing with items "belonging" to a mob, in which case you should use `[mob]'s [atom.name]` to avoid `The`
-ever forming.
-
-```DM
-//Good
-var/atom/A
-"[A]"
-
-//Bad
-"\The [A]"
-```
-
-### Use the pronoun library instead of `\his` macros.
-
-We have a system in code/\_\_HELPERS/pronouns.dm for addressing all forms of pronouns. This is useful in a number of ways;
-
-- BYOND's \his macro can be unpredictable on what object it references.
-  Take this example: `"[user] waves \his [user.weapon] around, hitting \his opponents!"`.
-  This will end up referencing the user's gender in the first occurence, but what about the second?
-  It'll actually print the gender set on the weapon he's carrying, which is unintended - and there's no way around this.
-- It always prints the real `gender` variable of the atom it's referencing. This can lead to exposing a mob's gender even when their face is covered,
-  which would normally prevent it's gender from being printed.
-
-The way to avoid these problems is to use the pronoun system. Instead of `"[user] waves \his arms."`, you can do `"[user] waves [user.p_their()] arms."`
-
-```
-//Good
-"[H] waves [H.p_their()] hands!"
-"[user] waves [H.p_their()] [user.weapon] around, hitting [H.p_their()] opponents!"`
-
-//Bad
-"[H] waves \his hands!"
-"[user] waves \his [user.weapon] around, hitting \his opponents!"
-```
-
-### Use `[A.UID()]` over `\ref[A]`
+### Используйте `[A.UID()]` вместо `\ref[A]`
 
 BYOND has a system to pass "soft references" to datums, using the format `"\ref[datum]"` inside a string. This allows you to find the object just based
 off of a text string, which is especially useful when dealing with the bridge between BYOND code and HTML/JS in UIs. It's resolved back into an object
