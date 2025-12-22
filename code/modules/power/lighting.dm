@@ -39,11 +39,11 @@
 	if(get_dist(user, src) <= 2)
 		switch(stage)
 			if(STAGE_EMPTY)
-				. += "<span class='notice'>It's an empty frame <b>bolted</b> to the wall. It needs to be <i>wired</i>.</span>"
+				. += span_notice("It's an empty frame <b>bolted</b> to the wall. It needs to be <i>wired</i>.")
 			if(STAGE_WIRED)
-				. += "<span class='notice'>The frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.</span>"
+				. += span_notice("The frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.")
 			if(STAGE_COMPLETED)
-				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
+				. += span_notice("The casing is <b>screwed</b> shut.")
 
 /obj/machinery/light_construct/update_icon_state()
 	icon_state = (stage == STAGE_WIRED) ? "[fixture_type]-construct-stage2" : "[fixture_type]-construct-stage1"
@@ -441,7 +441,7 @@
 				. += span_notice("It is turned [on ? "on" : "off"].")
 			if(LIGHT_EMPTY)
 				. += span_notice("The [fitting] has been removed.")
-				. += "<span class='notice'>The casing can be <b>unscrewed</b>.</span>"
+				. += span_notice("The casing can be <b>unscrewed</b>.")
 			if(LIGHT_BURNED)
 				. += span_notice("The [fitting] is burnt out.")
 			if(LIGHT_BROKEN)
