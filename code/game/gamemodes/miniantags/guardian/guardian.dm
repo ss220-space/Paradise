@@ -314,6 +314,10 @@
 			return
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть за [mob_name] ([guardian_type]) у [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
+	
+	if(QDELETED(user))
+		return
+		
 	var/mob/dead/observer/theghost = null
 
 	if(length(candidates))
