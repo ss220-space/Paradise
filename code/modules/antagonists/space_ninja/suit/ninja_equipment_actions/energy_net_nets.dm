@@ -35,7 +35,7 @@
 /obj/structure/energy_net/Destroy()
 	if(!QDELETED(affected_mob))
 		affected_mob.visible_message(
-			span_notice("[affected_mob.name] выбирается из энергетической сети!"),
+			span_notice("[affected_mob.name] выбира[PLUR_YOT_YUT(affected_mob)]ся из энергетической сети!"),
 			span_notice("Вы выбираетесь из энергетической сети!"),
 			span_italics("Вы слышите стон."),
 		)

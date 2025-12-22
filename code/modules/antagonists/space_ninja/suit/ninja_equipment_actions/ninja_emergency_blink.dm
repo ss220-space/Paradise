@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/ninja_emergency_blink
 	name = "Emergency Blink"
 	desc = "Телепортирует вас в случайное близлежащее место. Потребляет большое количество энергии. Используйте с умом. Затрата энергии: 1500"
-	check_flags = NONE
+	check_flags = AB_CHECK_CONSCIOUS
 	charge_max = 3 SECONDS
 	button_icon_state = "emergency_blink"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -11,13 +11,8 @@
 //Наглейший копипаст из кода блюспейс кристаллов ^v^
 /obj/item/clothing/suit/space/space_ninja/proc/emergency_blink()
 	var/mob/living/carbon/human/ninja = affecting
-	// Check if ninja is trapped in a rend
-	for(var/obj/effect/temp_visual/ninja_rend/rend in world)
-		if(rend.occupant == ninja)
-			balloon_alert(ninja, "невозможно!")
-			return
 	if(!is_teleport_allowed(ninja.z))
-		src.visible_message(span_warning("Костюм начинает светиться... Но потом останавливается!"))
+		visible_message(span_warning("Костюм начинает светиться... Но потом останавливается!"))
 		return
 	if(!ninjacost(1500))
 		var/turf/T = get_turf(ninja)

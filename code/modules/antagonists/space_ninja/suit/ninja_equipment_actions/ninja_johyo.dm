@@ -28,7 +28,7 @@
 
 /obj/item/gun/magic/johyo
 	name = "Integrated Jōhyō"
-	desc = "ИДИ СЮДА!"
+	desc = "GET OVER HERE!"
 	ammo_type = /obj/item/ammo_casing/magic/johyo
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "kunai_inhand"
@@ -89,7 +89,7 @@
 
 /obj/projectile/johyo/fire(setAngle)
 	if(firer)
-		firer.say(pick("Иди сюда!", "Сюда!"))
+		firer.say(pick("Get over here!", "Come here!"))
 		chain = firer.Beam(src, icon_state = "chain_dark", time = INFINITY, maxdistance = INFINITY)
 	. = ..()
 

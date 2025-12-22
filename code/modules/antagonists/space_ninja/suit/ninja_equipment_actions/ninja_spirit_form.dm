@@ -82,14 +82,14 @@
 	var/obj/restraint
 	if(ninja.handcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
-		restraint.visible_message(span_warning("[restraint] падают сквозь руки [ninja] после того как он становится нестабильным!"))
+		restraint.visible_message(span_warning("[restraint.declent_ru(NOMINATIVE)] падают сквозь руки [ninja] после того как он становится нестабильным!"))
 	if(ninja.legcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
-		restraint.visible_message(span_warning("[restraint] падают сквозь руки [ninja] после того как он становится нестабильным!"))
+		restraint.visible_message(span_warning("[restraint.declent_ru(NOMINATIVE)] падают сквозь руки [ninja] после того как он становится нестабильным!"))
 	ninja.uncuff()
 	if(istype(ninja.loc, /obj/structure/closet))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))
 			return FALSE
 		ninja.forceMove(get_turf(restraint_closet))
-		ninja.visible_message(span_warning("[ninja] проходит сквозь [restraint_closet] после того как он становится нестабильным!"))
+		ninja.visible_message(span_warning("[ninja] проходит сквозь [restraint_closet.declent_ru(ACCUSATIVE)] после того как он становится нестабильным!"))
