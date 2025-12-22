@@ -37,6 +37,10 @@
 			to_chat(teacher, span_notice("Apprentice waiting..."))
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
+			
+			if(QDELETED(teacher))
+				return
+				
 			if(length(candidates))
 				var/mob/C = pick(candidates)
 				new /obj/effect/particle_effect/fluid/smoke(teacher.loc)

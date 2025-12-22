@@ -1243,9 +1243,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 				span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(src)]ся в кровавую кашу!"),
 				span_italics("Вы слышите тошнотворный звук.")
 			)
+		owner.update_hud_set()
 
 	status |= ORGAN_DISFIGURED
-	owner.update_hud_set()
 
 	return TRUE
 
