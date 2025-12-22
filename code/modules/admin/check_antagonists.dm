@@ -65,10 +65,10 @@
 		dat += "<br><b><span style='color: green;'>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</span></b>"
 		dat += "<br><b><span style='color: red;'>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</span></b>"
 		if(other_players)
-			dat += "<br><span class='userdanger'>[other_players] players in invalid state or the statistics code is bugged!</span>"
+			dat += "<br>[span_userdanger("[other_players] players in invalid state or the statistics code is bugged!")]"
 		dat += "<br>"
-		dat +="<br><b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>"
-		dat +="<br><b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
+		dat +="<br><b>Code Phrases:</b> [span_codephrases("[GLOB.syndicate_code_phrase]")]"
+		dat +="<br><b>Code Responses:</b> [span_coderesponses("[GLOB.syndicate_code_response]")]"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 
