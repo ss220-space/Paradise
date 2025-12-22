@@ -35,7 +35,7 @@
 		if(SP.speaking)
 			piece = SP.speaking.format_message(piece, speaker)
 		else
-			piece = "<span class='message'><span class='body'>[piece]</span></span>"
+			piece = span_message(span_body("[piece]"))
 		msg += (piece + " ")
 
 	if(msg == "")

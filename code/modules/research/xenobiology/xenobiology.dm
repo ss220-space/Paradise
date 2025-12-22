@@ -248,8 +248,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(SM, "<span class='notice'>Ваше новое имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(SM, span_notice("Ваше новое имя - <b>\"[new_name]\"</b>!"))
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
@@ -299,8 +299,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(SM, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(SM, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
@@ -349,8 +349,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(LF, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(LF, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
 				LF.real_name = new_name
 				LF.name = new_name
 
