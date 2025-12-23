@@ -557,7 +557,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 	if(!check_rights(R_ADMIN|R_MOD, FALSE) \
 		&& !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)) \
 		&& !((href_list["proc_call"]) && check_rights(R_PROCCALL, FALSE)))
-		to_chat(usr, "У вас недостаточно прав для доступа к VV.", confidential = TRUE)
+		to_chat(usr, span_warning("У вас недостаточно прав для доступа к VV."), confidential = TRUE)
 		return
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings

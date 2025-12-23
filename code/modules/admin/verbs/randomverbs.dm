@@ -268,17 +268,17 @@ ADMIN_VERB(toggle_antaghud_use, R_SERVER, "Toggle antagHUD usage", "Toggles anta
 ADMIN_VERB(toggle_antaghug_restrictions, R_SERVER, "Toggle antagHUD Restrictions", "Restricts players that have used antagHUD from being able to join this round.", ADMIN_CATEGORY_TOGGLES)
 	var/action = ""
 	if(CONFIG_GET(flag/antag_hud_restricted))
-		for(var/mob/dead/observer/g in user.get_ghosts())
-			to_chat(g, span_boldnotice("The administrator has lifted restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
+		for(var/mob/dead/observer/ghost in user.get_ghosts())
+			to_chat(ghost, span_boldnotice("The administrator has lifted restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
 		action = "lifted restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, FALSE)
 		to_chat(user, span_boldnotice("AntagHUD restrictions have been lifted"), confidential = TRUE)
 	else
-		for(var/mob/dead/observer/g in user.get_ghosts())
-			to_chat(g, span_danger("The administrator has placed restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
-			to_chat(g, span_danger("Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions."), confidential = TRUE)
-			g.antagHUD = FALSE
-			g.has_enabled_antagHUD = FALSE
+		for(var/mob/dead/observer/ghost in user.get_ghosts())
+			to_chat(ghost, span_danger("The administrator has placed restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
+			to_chat(ghost, span_danger("Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions."), confidential = TRUE)
+			ghost.antagHUD = FALSE
+			ghost.has_enabled_antagHUD = FALSE
 		action = "placed restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, TRUE)
 		to_chat(user, span_danger("AntagHUD restrictions have been enabled."), confidential = TRUE)
