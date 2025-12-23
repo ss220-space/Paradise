@@ -272,9 +272,9 @@ ADMIN_VERB(toggle_antaghug_restrictions, R_SERVER, "Toggle antagHUD Restrictions
 			to_chat(g, span_boldnotice("The administrator has lifted restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
 		action = "lifted restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, FALSE)
-		to_chat(client, span_boldnotice("AntagHUD restrictions have been lifted"), confidential = TRUE)
+		to_chat(user, span_boldnotice("AntagHUD restrictions have been lifted"), confidential = TRUE)
 	else
-		for(var/mob/dead/observer/g in client.get_ghosts())
+		for(var/mob/dead/observer/g in user.get_ghosts())
 			to_chat(g, span_danger("The administrator has placed restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
 			to_chat(g, span_danger("Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions."), confidential = TRUE)
 			g.antagHUD = FALSE
