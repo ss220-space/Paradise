@@ -256,6 +256,10 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	end_month = JANUARY
 	eventChance = 20
 
+/datum/holiday/xmas/celebrate()
+	. = ..()
+	GLOB.new_year_celebration = TRUE
+
 /datum/holiday/xmas/greet()
 	var/greeting = "Счастливого Рождества!"
 	if(prob(30))
@@ -266,6 +270,10 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	name = "День подарков"
 	begin_day = 26
 	begin_month = DECEMBER
+
+/datum/holiday/boxing/celebrate()
+	. = ..()
+	GLOB.new_year_celebration = TRUE
 
 /datum/holiday/friday_thirteenth
 	name = "Пятница, 13-е"
