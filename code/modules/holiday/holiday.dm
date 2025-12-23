@@ -84,9 +84,9 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /datum/holiday/new_year
 	name = NEW_YEAR
-	begin_day = 30 // 1 day early
+	begin_day = 18 // 13 days early
 	begin_month = DECEMBER
-	end_day = 10 //9 days extra
+	end_day = 6
 	end_month = JANUARY
 
 /datum/holiday/new_year/celebrate()
@@ -250,10 +250,8 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /datum/holiday/xmas
 	name = CHRISTMAS
-	begin_day = 18 //7 days early
-	begin_month = DECEMBER
-	end_day = 8 //14 days extra, christmas is important
-	end_month = JANUARY
+	begin_day = 7
+	begin_month = JANUARY
 	eventChance = 20
 
 /datum/holiday/xmas/celebrate()
@@ -265,15 +263,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	if(prob(30))
 		greeting += "<br><br>В честь праздника выберите случайного члена экипажа из манифеста объекта и подарите ему подарок!"
 	return greeting
-
-/datum/holiday/boxing
-	name = "День подарков"
-	begin_day = 26
-	begin_month = DECEMBER
-
-/datum/holiday/boxing/celebrate()
-	. = ..()
-	GLOB.new_year_celebration = TRUE
 
 /datum/holiday/friday_thirteenth
 	name = "Пятница, 13-е"
