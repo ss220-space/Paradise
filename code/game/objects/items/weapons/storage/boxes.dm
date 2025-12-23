@@ -416,6 +416,26 @@
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/storage/box/warmdonkpockets
+	name = "box of warm donk-pockets"
+	desc = "Коробка с уже разогретыми Донк-покетами. Ням-ням!"
+	icon_state = "donk_kit"
+
+/obj/item/storage/box/warmdonkpockets/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка с разогретыми Донк-покетами",
+		GENITIVE = "коробки с разогретыми Донк-покетами",
+		DATIVE = "коробке с разогретыми Донк-покетами",
+		ACCUSATIVE = "коробку с разогретыми Донк-покетами",
+		INSTRUMENTAL = "коробкой с разогретыми Донк-покетами",
+		PREPOSITIONAL = "коробке с разогретыми Донк-покетами",
+	)
+
+/obj/item/storage/box/warmdonkpockets/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/warmdonkpocket(src)
+
+
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "Эта коробка кажется немного тёплой на ощупь."

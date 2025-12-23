@@ -367,13 +367,10 @@
 			infect(user)
 		if(10)
 			//Nothing
-			T.visible_message(span_userdanger("Ничего не случилось."))
+			T.visible_message(span_userdanger("Вы ничего не заслужили, и это - уже заслуга."))
 		if(11)
-			//Cookie
-			T.visible_message(span_userdanger("В воздухе появилась печенька!"))
-			var/obj/item/reagent_containers/food/snacks/cookie/C = new(drop_location())
-			create_smoke(2)
-			C.name = "Печенька Судьбы"
+			//Warm Donk pockets
+			pockets(user)
 		if(12)
 			//Healing
 			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] совершенно здоров[GEND_YM_OI_YM_YMI(user)]!"))
@@ -575,3 +572,8 @@
 	var/datum/disease/virus/D = new virus_type()
 	if(D.Contract(infected, is_carrier = TRUE))
 		to_chat(infected, span_danger("На секунду вам становится трудно дышать"))
+
+/obj/item/dice/d20/fate/proc/pockets(mob/living/carbon/human/gifted)
+	to_chat(gifted, span_notice("Наконец то, ваши старания признали."))
+	var/box = new /obj/item/storage/box/warmdonkpockets
+	gifted.put_in_hands(box)
