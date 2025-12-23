@@ -6,20 +6,23 @@ GLOBAL_VAR_INIT(ert_request_answered, TRUE)
 GLOBAL_LIST_EMPTY(ert_request_messages)
 
 ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an CentComm response team to the station.", ADMIN_CATEGORY_EVENTS)
+	user.send_response_team()
+
+/client/proc/send_response_team()
 	if(!SSticker)
-		to_chat(user, span_warning("Игра ещё не началась!"))
+		to_chat(usr, span_warning("Игра ещё не началась!"))
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(user, span_warning("Раунд ещё не начался!"))
+		to_chat(usr, span_warning("Раунд ещё не начался!"))
 		return
 
 	if(GLOB.send_emergency_team)
-		to_chat(user, span_warning("Центральное командование уже направило Отряд Быстрого Реагирования!"))
+		to_chat(usr, span_warning("Центральное командование уже направило Отряд Быстрого Реагирования!"))
 		return
 
 	var/datum/ui_module/ert_manager/ert_manager = new()
-	ert_manager.ui_interact(user.mob)
+	ert_manager.ui_interact(usr)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)

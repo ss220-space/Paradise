@@ -2438,7 +2438,7 @@
 			to_chat(owner, span_notice("You sent [reason] to [H] via a secure channel."))
 			to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
 		else
-			SSadmin_verbs.dynamic_invoke_verb(owner, /datum/admin_verb/dispatch_ert)
+			owner.send_response_team()
 
 	else if(href_list["AdminFaxView"])
 		if(!check_rights(R_ADMIN))

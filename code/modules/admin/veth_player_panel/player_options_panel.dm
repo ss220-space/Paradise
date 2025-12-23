@@ -213,7 +213,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey))
 			return
 		if("playtime")
-			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_mob.UID()))
 			return
 		if("geoip")
 			usr.client.holder.Topic(null, list("geoip" = selected_player.UID()))

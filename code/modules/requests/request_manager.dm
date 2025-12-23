@@ -248,7 +248,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				to_chat(usr, span_notice("You sent [reason] to [H] via a secure channel."), confidential = TRUE)
 				to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]", confidential = TRUE)
 			else
-				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/dispatch_ert)
+				usr.client.send_response_team()
 
 		if("getcode")
 			if(request.req_type != REQUEST_NUKE)

@@ -340,7 +340,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			if(!ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки ОБР."))
 				return
-			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/dispatch_ert)
+			ui.user.client.send_response_team()
 
 		if("send_nuke_codes")
 			if(!ADMIN_CHECK(ui.user))
