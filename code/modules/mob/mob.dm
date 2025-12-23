@@ -529,11 +529,11 @@
 	set category = VERB_CATEGORY_OOC
 
 	if(!GLOB.abandon_allowed)
-		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
+		to_chat(usr, span_warning("Respawning is disabled."))
 		return
 
 	if(stat != DEAD || !SSticker)
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
+		to_chat(usr, span_boldnotice("You must be dead to use this!"))
 		return
 
 	if(!(usr in GLOB.respawnable_list))
@@ -544,7 +544,7 @@
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
-			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			to_chat(usr, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 			return
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -559,7 +559,7 @@
 
 	if(deathtimeminutes < GLOB.respawn_delay)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!</span>")
+		to_chat(usr, span_warning("You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!"))
 		return
 
 	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
@@ -567,7 +567,7 @@
 
 	add_game_logs("has respawned.", usr)
 
-	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
+	to_chat(usr, span_boldnotice("Make sure to play a different character, and please roleplay correctly!"))
 
 	if(!client)
 		add_game_logs("respawn failed due to disconnect.", usr)
@@ -799,7 +799,7 @@
 	var/timedifference = world.time - client.time_joined_as_mouse
 	if(client.time_joined_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after last spawn. You have [timedifference_text] left.</span>")
+		to_chat(src, span_warning("You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after last spawn. You have [timedifference_text] left."))
 		return
 
 	//find a viable mouse candidate
@@ -813,7 +813,7 @@
 		host.possess_by_player(ckey)
 		to_chat(host, span_notice("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
-		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+		to_chat(src, span_warning("Unable to find any unwelded vents to spawn mice at."))
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5
@@ -841,11 +841,11 @@
 	if(issimulatedturf(location))
 		if(green)
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>","<span class='warning'>Вас вырвало зелёной липкой массой!</span>")
+				visible_message(span_warning("[src.name] вырвало зелёной липкой массой!"),span_warning("Вас вырвало зелёной липкой массой!"))
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] наблевал[GEND_A_O_I(src)] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
+				visible_message(span_warning("[src.name] наблевал[GEND_A_O_I(src)] на себя!"),span_warning("Вы наблевали на себя!"))
 			location.add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/spell)

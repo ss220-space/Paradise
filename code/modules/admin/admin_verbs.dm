@@ -230,7 +230,7 @@ ADMIN_VERB(bless, R_EVENT, "Bless", "Allows you to make different bless.", ADMIN
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))
-			to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>", confidential=TRUE)
+			to_chat(M, span_userdanger("You are abruptly pulled through space!"), confidential=TRUE)
 			logmsg = "a teleport to arrivals."
 		if("Moderate Heal")
 			var/update = NONE
@@ -238,7 +238,7 @@ ADMIN_VERB(bless, R_EVENT, "Bless", "Allows you to make different bless.", ADMIN
 			update |= M.heal_damages(tox = 25, oxy = 25, updating_health = FALSE)
 			if(update)
 				M.updatehealth()
-			to_chat(M,"<span class='userdanger'>You feel invigorated!</span>", confidential=TRUE)
+			to_chat(M,span_userdanger("You feel invigorated!"), confidential=TRUE)
 			logmsg = "a moderate heal."
 		if("Heal Over Time")
 			H.reagents.add_reagent("salglu_solution", 30)
@@ -276,6 +276,10 @@ ADMIN_VERB(bless, R_EVENT, "Bless", "Allows you to make different bless.", ADMIN
 				return
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 			var/mob/dead/observer/theghost = null
+
+			if(QDELETED(H))
+				return
+
 			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)
@@ -316,7 +320,7 @@ ADMIN_VERB(bless, R_EVENT, "Bless", "Allows you to make different bless.", ADMIN
 						// don't have it - add it
 						I.access |= this_access
 			else
-				to_chat(user, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>", confidential=TRUE)
+				to_chat(user, span_warning("ERROR: [H] is not wearing an ID card."), confidential = TRUE)
 			logmsg = "all access."
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")

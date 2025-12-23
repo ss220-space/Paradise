@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				sleep(50)
 				QDEL_NULL(borer)
 				sleep(rand(60, 90))
-				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня…")]</span>")
+				to_chat(T, span_changeling("<i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня…")]"))
 				break
 			sleep(4)
 		if(!QDELETED(borer))

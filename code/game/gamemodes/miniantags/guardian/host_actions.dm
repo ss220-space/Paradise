@@ -85,7 +85,10 @@
 
 	to_chat(owner, span_danger("Поиск подходящего призрака..."))
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
-
+	
+	if(QDELETED(guardian) || QDELETED(owner))
+		return
+	
 	if(!LAZYLEN(candidates))
 		to_chat(owner, span_danger("Не нашлось призраков, готовых взять управление вашим хранителем. Попробуйте снова через 5 минут."))
 		log_game("[owner](ckey: [owner.ckey]) has tried to replace their guardian, but there were no candidates willing to enroll.")

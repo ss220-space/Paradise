@@ -249,19 +249,19 @@ ADMIN_VERB(toggle_antaghud_use, R_SERVER, "Toggle antagHUD usage", "Toggles anta
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = FALSE				// We'll allow them to respawn
-				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD.</span>")
+				to_chat(g, span_danger("The Administrator has disabled AntagHUD."))
 
 		CONFIG_SET(flag/allow_antag_hud, FALSE)
-		to_chat(user, "<span class='danger'>AntagHUD usage has been disabled.</span>", confidential=TRUE)
+		to_chat(user, span_danger("AntagHUD usage has been disabled."), confidential = TRUE)
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in user.get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
-				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD.</span>")// Notify all observers they can now use AntagHUD
+				to_chat(g, span_boldnotice("The Administrator has enabled AntagHUD."))// Notify all observers they can now use AntagHUD
 
 		CONFIG_SET(flag/allow_antag_hud, TRUE)
 		action = "enabled"
-		to_chat(user, "<span class='boldnotice'>AntagHUD usage has been enabled.</span>", confidential=TRUE)
+		to_chat(user, span_boldnotice("AntagHUD usage has been enabled."), confidential = TRUE)
 
 	log_and_message_admins("has [action] antagHUD usage for observers")
 
@@ -269,19 +269,19 @@ ADMIN_VERB(toggle_antaghug_restrictions, R_SERVER, "Toggle antagHUD Restrictions
 	var/action = ""
 	if(CONFIG_GET(flag/antag_hud_restricted))
 		for(var/mob/dead/observer/g in user.get_ghosts())
-			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD.</span>")
+			to_chat(g, span_boldnotice("The administrator has lifted restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
 		action = "lifted restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, FALSE)
-		to_chat(user, "<span class='boldnotice'>AntagHUD restrictions have been lifted.</span>", confidential=TRUE)
+		to_chat(client, span_boldnotice("AntagHUD restrictions have been lifted"), confidential = TRUE)
 	else
-		for(var/mob/dead/observer/g in user.get_ghosts())
-			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD.</span>")
-			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions.</span>")
+		for(var/mob/dead/observer/g in client.get_ghosts())
+			to_chat(g, span_danger("The administrator has placed restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
+			to_chat(g, span_danger("Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions."), confidential = TRUE)
 			g.antagHUD = FALSE
 			g.has_enabled_antagHUD = FALSE
 		action = "placed restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, TRUE)
-		to_chat(user, "<span class='danger'>AntagHUD restrictions have been enabled.</span>", confidential=TRUE)
+		to_chat(user, span_danger("AntagHUD restrictions have been enabled."), confidential = TRUE)
 
 	log_and_message_admins("has [action] on joining the round if they use AntagHUD")
 
@@ -333,7 +333,7 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
 				new_xeno.possess_by_player(G_found.key)
 				to_chat(new_xeno, "You have been fully respawned. Enjoy the game.")
-				log_and_message_admins("<span class='notice'>has respawned [new_xeno.key] as a filthy xeno.</span>")
+				log_and_message_admins(span_notice("has respawned [new_xeno.key] as a filthy xeno."))
 				return	//all done. The ghost is auto-deleted
 
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
@@ -645,7 +645,7 @@ ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station j
 	if(SSjobs)
 		var/currentpositiontally
 		var/totalpositiontally
-		to_chat(user, span_notice("Job Name: Filled job slot / Total job slots <b>(Free job slots)</b>"), confidential=TRUE)
+		to_chat(user, span_notice("Job Name: Filled job slot / Total job slots <b>(Free job slots)</b>"), confidential = TRUE)
 		for(var/datum/job/job in SSjobs.occupations)
 			to_chat(user, span_notice("[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
@@ -979,7 +979,7 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 
 /datum/admins/proc/modify_goals()
 	if(!SSticker || !SSticker.mode)
-		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("This verb can only be used if the round has started."), confidential=TRUE)
 		return
 
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}

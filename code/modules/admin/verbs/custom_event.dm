@@ -13,7 +13,7 @@ ADMIN_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom ev
 
 	to_chat(world, "<h1 class='alert'>Custom Event</h1>")
 	to_chat(world, "<h2 class='alert'>A custom event is starting. OOC Info:</h2>")
-	to_chat(world, "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>")
+	to_chat(world, span_alert("[html_encode(GLOB.custom_event_msg)]"))
 	to_chat(world, "<br>")
 
 // normal verb for players to view info
@@ -30,5 +30,5 @@ ADMIN_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom ev
 
 	custom_event_information += "<h1 class='alert'>Custom Event</h1>"
 	custom_event_information += "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>"
-	custom_event_information += "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>"
+	custom_event_information += span_alert("[html_encode(GLOB.custom_event_msg)]")
 	to_chat(src, chat_box_regular(custom_event_information.Join("<br>")))

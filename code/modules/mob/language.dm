@@ -116,7 +116,7 @@
 	return scrambled_text
 
 /datum/language/proc/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return span_message("<span class='[colour]'>[message]</span>")
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -747,7 +747,7 @@
 	add_say_logs(speaker, message, language = "ROBOT")
 
 	var/message_start = "<i><span class='game say'>[name], [span_name("[speaker.name]")]"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i>[span_robot("\"[message]\"")]</span></span>"
+	var/message_body = span_message("[speaker.say_quote(message)]:</i>[span_robot("\"[message]\"")]</span>")
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
@@ -842,7 +842,7 @@
 		. += " narsiesmall"
 
 /datum/language/angel/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[get_spans(speaker)]'>[message]</span></span>"
+	return span_message("<span class='[get_spans(speaker)]'>[message]</span>")
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)

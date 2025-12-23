@@ -33,7 +33,7 @@ ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins
 				msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
 			msg = span_emojienabled("[msg]")
-			to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(user, 1)]</span> ([admin_jump_link(user.mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
+			to_chat(C, span_admin_channel("ADMIN: [span_name("[key_name(user, 1)]")] ([admin_jump_link(user.mob)]): [span_message("[msg]")]"), MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Asay")
 
@@ -72,7 +72,7 @@ ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to ot
 				else
 					display_name = user.holder.fakekey
 			msg = span_emojienabled("[msg]")
-			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(user.mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: [span_name("[display_name]")] ([admin_jump_link(user.mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("MSay")
 
@@ -132,7 +132,7 @@ ADMIN_VERB(cmd_dev_say, R_VIEWRUNTIMES|R_ADMIN, "Devsay", "Send a message to oth
 				else
 					display_name = user.holder.fakekey
 			msg = span_emojienabled("[msg]")
-			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(user.mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: [span_name("[display_name]")] ([admin_jump_link(user.mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Devsay")
 

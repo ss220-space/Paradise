@@ -22,9 +22,9 @@ ADMIN_VERB(map_template_load, R_DEBUG|R_EVENT, "Map Template - Place", "Place a 
 	user.images += preview
 	if(tgui_alert(user, "Confirm location.", "Template Confirm", list("Yes", "No")) == "Yes")
 		var/timer = start_watch()
-		log_and_message_admins("<span class='adminnotice'>has started to place the map template ([template.name]) at [ADMIN_COORDJMP(T)]</span>")
+		log_and_message_admins(span_adminnotice("has started to place the map template ([template.name]) at [ADMIN_COORDJMP(T)]"))
 		if(template.load(T, centered = TRUE))
-			log_and_message_admins("<span class='adminnotice'>has placed a map template ([template.name]) at [ADMIN_COORDJMP(T)]. Took [stop_watch(timer)]s.</span>")
+			log_and_message_admins(span_adminnotice("has placed a map template ([template.name]) at [ADMIN_COORDJMP(T)]. Took [stop_watch(timer)]s."))
 		else
 			to_chat(user, "Failed to place map", confidential = TRUE)
 	user.images -= preview
@@ -38,11 +38,11 @@ ADMIN_VERB(map_template_upload, R_DEBUG|R_EVENT, "Map Template - Upload", "Uploa
 		return
 
 	var/timer = start_watch()
-	message_admins("<span class='adminnotice'>[key_name_admin(user)] has begun uploading a map template ([map])</span>")
+	message_admins(span_adminnotice("[key_name_admin(user)] has begun uploading a map template ([map])"))
 	var/datum/map_template/M = new(map = map, rename = "[map]")
 	if(M.preload_size(map))
 		to_chat(user, "Map template '[map]' ready to place ([M.width]x[M.height])")
 		GLOB.map_templates[M.name] = M
-		message_admins("<span class='adminnotice'>[key_name_admin(user)] has uploaded a map template ([map]). Took [stop_watch(timer)]s.</span>")
+		message_admins(span_adminnotice("[key_name_admin(user)] has uploaded a map template ([map]). Took [stop_watch(timer)]s."))
 	else
 		to_chat(user, "Map template '[map]' failed to load properly")

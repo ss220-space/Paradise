@@ -401,7 +401,7 @@ ADMIN_VERB(end_round, R_SERVER, "End Round", "Instantly ends the round and bring
 
 	log_and_message_admins("has admin ended the round[announcement ? " with message: '[announcement]'" : ""]")
 	if(announcement)
-		to_chat(world, "<span class='warning'><big><b>[announcement]</b></big></span>")
+		to_chat(world, span_warning("<big><b>[announcement]</b></big>"))
 	SSticker.force_ending = TRUE
 	BLACKBOX_LOG_ADMIN_VERB("End Round")
 	SSticker.mode_result = "admin ended"
@@ -479,7 +479,7 @@ ADMIN_VERB(start_now, R_SERVER, "Start Now", "Start the round RIGHT NOW.", ADMIN
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[user.key] has started the game.[msg]</span>")
+		message_admins(span_darkmblue("[user.key] has started the game.[msg]"))
 		BLACKBOX_LOG_ADMIN_VERB("Start Game")
 		return 1
 	else
