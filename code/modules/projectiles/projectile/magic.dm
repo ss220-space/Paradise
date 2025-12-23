@@ -288,7 +288,7 @@
 		var/briefing_msg
 		var/is_new_mind = FALSE
 
-		var/randomize = pick("РОБОТ", "ТЕРРОР", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
+		var/randomize = pick("РОБОТ", "ТЕРРОР", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ", "ЗАЖИГАЛКА")
 		switch(randomize)
 			if("РОБОТ")
 				is_new_mind = TRUE
@@ -388,7 +388,11 @@
 					else
 						is_new_mind = TRUE
 						briefing_msg = "Вы разумная мартышка, и вам хочется бананов."
-
+			if("ЗАЖИГАЛКА")
+				is_new_mind = TRUE
+				new_mob = new /mob/living/simple_animal/human_lighter(M.loc)
+				new_mob.universal_speak = TRUE
+				briefing_msg = "Вы теперь живая зажигалка! Живите в этом проклятом мире."
 			else
 				return
 
