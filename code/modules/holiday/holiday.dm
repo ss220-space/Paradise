@@ -93,6 +93,18 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	. = ..()
 	GLOB.new_year_celebration = TRUE
 
+/datum/holiday/xmas
+	name = CHRISTMAS
+	begin_day = 7
+	begin_month = JANUARY
+	eventChance = 20
+
+/datum/holiday/xmas/greet()
+	var/greeting = "Счастливого Рождества!"
+	if(prob(30))
+		greeting += "<br><br>В честь праздника выберите случайного члена экипажа из манифеста объекта и подарите ему подарок!"
+	return greeting
+
 /datum/holiday/groundhog
 	name = "День сурка"
 	begin_day = 2
@@ -247,18 +259,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	name = "День обезьяны"
 	begin_day = 14
 	begin_month = DECEMBER
-
-/datum/holiday/xmas
-	name = CHRISTMAS
-	begin_day = 7
-	begin_month = JANUARY
-	eventChance = 20
-
-/datum/holiday/xmas/greet()
-	var/greeting = "Счастливого Рождества!"
-	if(prob(30))
-		greeting += "<br><br>В честь праздника выберите случайного члена экипажа из манифеста объекта и подарите ему подарок!"
-	return greeting
 
 /datum/holiday/friday_thirteenth
 	name = "Пятница, 13-е"
