@@ -277,7 +277,7 @@
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(!src)
+		if(QDELETED(src) || QDELETED(SM))
 			return
 
 		if(length(candidates))
@@ -333,12 +333,12 @@
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(!src)
+		if(QDELETED(src) || QDELETED(LF))
 			return
 
 		if(length(candidates))
 			var/mob/C = pick(candidates)
-			LF.key = C.key
+			LF.possess_by_player(C.key)
 			LF.faction = user.faction
 			LF.master_commander = user
 			LF.mind.madeby_sentience_potion = TRUE

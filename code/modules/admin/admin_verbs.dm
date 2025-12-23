@@ -687,6 +687,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 			var/mob/dead/observer/theghost = null
+			
+			if(QDELETED(H))
+				return
+			
 			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)

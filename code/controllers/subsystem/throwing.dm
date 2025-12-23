@@ -119,9 +119,8 @@ SUBSYSTEM_DEF(throwing)
 	src.dodgeable = dodgeable
 
 /datum/thrownthing/Destroy()
-	if(SSthrowing)
-		SSthrowing.processing -= thrownthing
-		SSthrowing.currentrun -= thrownthing
+	SSthrowing.processing -= thrownthing
+	SSthrowing.currentrun -= thrownthing
 	thrownthing.throwing = null
 	thrownthing = null
 	thrower = null

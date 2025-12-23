@@ -141,7 +141,7 @@
 		return
 
 /obj/item/gun/energy/emp_act(severity)
-	cell.use(round(cell.charge / severity))
+	cell?.use(round(cell.charge / severity))
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
