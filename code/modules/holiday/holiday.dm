@@ -254,10 +254,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	begin_month = JANUARY
 	eventChance = 20
 
-/datum/holiday/xmas/celebrate()
-	. = ..()
-	GLOB.new_year_celebration = TRUE
-
 /datum/holiday/xmas/greet()
 	var/greeting = "Счастливого Рождества!"
 	if(prob(30))
