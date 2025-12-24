@@ -327,13 +327,13 @@ ADMIN_VERB(cmd_debug_make_powernets, R_DEBUG, "Make Powernets", "Regenerates all
 	log_and_message_admins("has remade the powernets. makepowernets() called.")
 	BLACKBOX_LOG_ADMIN_VERB("Make Powernets")
 
-ADMIN_VERB_VISIBILITY(cmd_admin_grantfullaccess, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
-ADMIN_VERB(cmd_admin_grantfullaccess, R_EVENT, "Grant Full Access", "Grant full access to a mob.", ADMIN_CATEGORY_DEBUG, mob/M in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_grantfullaccess, R_EVENT, "Grant Full Access", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
 		var/obj/item/card/id/id = null
 		if(H.wear_id)
 			id = H.wear_id.GetID()
@@ -341,7 +341,7 @@ ADMIN_VERB(cmd_admin_grantfullaccess, R_EVENT, "Grant Full Access", "Grant full 
 			id.icon_state = "gold"
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 		if(!H.wear_id || !istype(id))
-			id = new/obj/item/card/id(M)
+			id = new/obj/item/card/id(target)
 			id.icon_state = "gold"
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name
@@ -352,27 +352,50 @@ ADMIN_VERB(cmd_admin_grantfullaccess, R_EVENT, "Grant Full Access", "Grant full 
 	else
 		tgui_alert(user, "Invalid mob")
 	BLACKBOX_LOG_ADMIN_VERB("Grant Full Access")
-	log_and_message_admins(span_notice("has granted [M.key] full access."))
+	log_admin("[key_name(user)] has granted [target.key] full access.")
+	message_admins(span_adminnotice("[key_name_admin(user)] has granted [target.key] full access."))
 
-ADMIN_VERB_VISIBILITY(cmd_assume_direct_control, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
-ADMIN_VERB(cmd_assume_direct_control, R_DEBUG|R_ADMIN, "Assume Direct Control", "Assume direct control of a mob.", ADMIN_CATEGORY_DEBUG, mob/M in GLOB.mob_list)
-	if(M.ckey)
-		if(tgui_alert(user, "This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.",, list("Yes", "No")) != "Yes")
+ADMIN_VERB_VISIBILITY(cmd_admin_grantfullaccess_in_list, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(cmd_admin_grantfullaccess_in_list, R_EVENT, "Grant Full Access", "Grant full access to a mob.", ADMIN_CATEGORY_DEBUG)
+	var/mob/target = tgui_input_list(user, "Please, select a player!", "Grant Full Access", GLOB.mob_list)
+	if(!target)
+		return
+
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/cmd_admin_grantfullaccess, target)
+
+ADMIN_VERB(cmd_assume_direct_control, R_DEBUG|R_ADMIN, "Assume Direct Control", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+	if(target.ckey)
+		if(tgui_alert(user, "This mob is being controlled by [target.ckey]. Are you sure you wish to assume control of it? [target.ckey] will be made a ghost.", null, list("Yes", "No")) != "Yes")
 			return
-		else
-			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
-			ghost.possess_by_player(M.ckey)
-	log_and_message_admins(span_notice("assumed direct control of [M]."))
+	if(!target || QDELETED(target))
+		to_chat(user, span_warning("The target mob no longer exists."))
+		return
+	message_admins(span_adminnotice("[key_name_admin(user)] assumed direct control of [target]."))
+	log_admin("[key_name(user)] assumed direct control of [target].")
 	var/mob/adminmob = user.mob
-	M.possess_by_player(user.ckey)
+	if(target.ckey)
+		target.ghostize(FALSE)
+
+	target.possess_by_player(user.key)
+	user.init_verbs()
 	if(isobserver(adminmob))
 		qdel(adminmob)
+
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
 
+ADMIN_VERB(cmd_assume_direct_control_in_list, R_DEBUG|R_ADMIN, "Assume Direct Control", "Assume direct control of a mob.", ADMIN_CATEGORY_DEBUG)
+	var/mob/target = tgui_input_list(user, "Please, select a player!", "Assume Direct Control", GLOB.mob_list)
+	if(!target)
+		return
+
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/cmd_assume_direct_control, target)
+
 ADMIN_VERB_VISIBILITY(cmd_admin_areatest, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
-ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for various machinery.", ADMIN_CATEGORY_MAPPING)
+ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for various machinery.", ADMIN_CATEGORY_MAPPING, on_station as num, filter_maint as num)
+	var/list/dat = list()
 	var/list/areas_all = list()
 	var/list/areas_with_APC = list()
+	var/list/areas_with_multiple_APCs = list()
 	var/list/areas_with_air_alarm = list()
 	var/list/areas_with_RC = list()
 	var/list/areas_with_light = list()
@@ -380,61 +403,102 @@ ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for vario
 	var/list/areas_with_intercom = list()
 	var/list/areas_with_camera = list()
 
-	var/list/areas_with_multiple_APCs = list()
-	var/list/areas_with_multiple_air_alarms = list()
+	if(SSticker.current_state == GAME_STATE_STARTUP)
+		to_chat(user, "Game still loading, please hold!", confidential = TRUE)
+		return
+
+	var/log_message
+	if(on_station)
+		dat += "<b>Only checking areas on station z-levels.</b><br><br>"
+		log_message = "station z-levels"
+	else
+		log_message = "all z-levels"
+	if(filter_maint)
+		dat += "<b>Maintenance Areas Filtered Out</b>"
+		log_message += ", with no maintenance areas"
+
+	message_admins(span_adminnotice("[key_name_admin(user)] used the Test Areas debug command checking [log_message]."))
+	log_admin("[key_name(user)] used the Test Areas debug command checking [log_message].")
 
 	for(var/area/A as anything in GLOB.areas)
-		areas_all |= A.type
+		if(on_station)
+			var/list/area_turfs = get_area_turfs(A.type)
+			if(!length(area_turfs))
+				continue
+			var/turf/picked = pick(area_turfs)
+			if(is_station_level(picked.z))
+				if(!(A.type in areas_all))
+					if(filter_maint && istype(A, /area/maintenance))
+						continue
+					areas_all.Add(A.type)
+		else if(!(A.type in areas_all))
+			areas_all.Add(A.type)
+		CHECK_TICK
 
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/APC = thing
-		var/area/A = get_area(APC)
+	for(var/obj/machinery/power/apc/APC as anything in SSmachines.get_by_type(/obj/machinery/power/apc))
+		var/area/A = APC.area
 		if(!A)
+			dat += "Skipped over [APC] in invalid location, [APC.loc]."
 			continue
 		if(!(A.type in areas_with_APC))
-			areas_with_APC |= A.type
-		else
-			areas_with_multiple_APCs |= A.type
+			areas_with_APC.Add(A.type)
+		else if(A.type in areas_all)
+			areas_with_multiple_APCs.Add(A.type)
+		CHECK_TICK
 
-	for(var/thing in GLOB.air_alarms)
-		var/obj/machinery/alarm/alarm = thing
-		var/area/A = get_area(alarm)
-		if(!A)
+	for(var/obj/machinery/alarm/AA in GLOB.air_alarms)
+		var/area/A = get_area(AA)
+		if(!A) //Make sure the target isn't inside an object, which results in runtimes.
+			dat += "Skipped over [AA] in invalid location, [AA.loc].<br>"
 			continue
 		if(!(A.type in areas_with_air_alarm))
-			areas_with_air_alarm |= A.type
-		else
-			areas_with_multiple_air_alarms |= A.type
+			areas_with_air_alarm.Add(A.type)
+		CHECK_TICK
 
 	for(var/obj/machinery/requests_console/RC in SSmachines.get_by_type(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
+			dat += "Skipped over [RC] in invalid location, [RC.loc].<br>"
 			continue
-		areas_with_RC |= A.type
+		if(!(A.type in areas_with_RC))
+			areas_with_RC.Add(A.type)
+		CHECK_TICK
 
-	for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
+	for(var/obj/machinery/light/L as anything in SSmachines.get_by_type(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
+			dat += "Skipped over [L] in invalid location, [L.loc].<br>"
 			continue
-		areas_with_light |= A.type
+		if(!(A.type in areas_with_light))
+			areas_with_light.Add(A.type)
+		CHECK_TICK
 
-	for(var/obj/machinery/light_switch/LS in SSmachines.get_by_type(/obj/machinery/light_switch))
+	for(var/obj/machinery/light_switch/LS as anything in SSmachines.get_by_type(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
+			dat += "Skipped over [LS] in invalid location, [LS.loc].<br>"
 			continue
-		areas_with_LS |= A.type
+		if(!(A.type in areas_with_LS))
+			areas_with_LS.Add(A.type)
+		CHECK_TICK
 
 	for(var/obj/item/radio/intercom/I in GLOB.global_radios)
 		var/area/A = get_area(I)
 		if(!A)
+			dat += "Skipped over [I] in invalid location, [I.loc].<br>"
 			continue
-		areas_with_intercom |= A.type
+		if(!(A.type in areas_with_intercom))
+			areas_with_intercom.Add(A.type)
+		CHECK_TICK
 
 	for(var/obj/machinery/camera/C in SSmachines.get_by_type(/obj/machinery/camera))
 		var/area/A = get_area(C)
 		if(!A)
+			dat += "Skipped over [C] in invalid location, [C.loc].<br>"
 			continue
-		areas_with_camera |= A.type
+		if(!(A.type in areas_with_camera))
+			areas_with_camera.Add(A.type)
+		CHECK_TICK
 
 	var/list/areas_without_APC = areas_all - areas_with_APC
 	var/list/areas_without_air_alarm = areas_all - areas_with_air_alarm
@@ -444,41 +508,60 @@ ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for vario
 	var/list/areas_without_intercom = areas_all - areas_with_intercom
 	var/list/areas_without_camera = areas_all - areas_with_camera
 
-	to_chat(world, "<b>AREAS WITHOUT AN APC:</b>")
-	for(var/areatype in areas_without_APC)
-		to_chat(world, "* [areatype]")
+	if(areas_without_APC.len)
+		dat += "<h1>AREAS WITHOUT AN APC:</h1>"
+		for(var/areatype in areas_without_APC)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITHOUT AN AIR ALARM:</b>")
-	for(var/areatype in areas_without_air_alarm)
-		to_chat(world, "* [areatype]")
+	if(areas_with_multiple_APCs.len)
+		dat += "<h1>AREAS WITH MULTIPLE APCS:</h1>"
+		for(var/areatype in areas_with_multiple_APCs)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITH TOO MANY APCS:</b>")
-	for(var/areatype in areas_with_multiple_APCs)
-		to_chat(world, "* [areatype]")
+	if(areas_without_air_alarm.len)
+		dat += "<h1>AREAS WITHOUT AN AIR ALARM:</h1>"
+		for(var/areatype in areas_without_air_alarm)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITH TOO MANY AIR ALARMS:</b>")
-	for(var/areatype in areas_with_multiple_air_alarms)
-		to_chat(world, "* [areatype]")
+	if(areas_without_RC.len)
+		dat += "<h1>AREAS WITHOUT A REQUEST CONSOLE:</h1>"
+		for(var/areatype in areas_without_RC)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITHOUT A REQUEST CONSOLE:</b>")
-	for(var/areatype in areas_without_RC)
-		to_chat(world, "* [areatype]")
+	if(areas_without_light.len)
+		dat += "<h1>AREAS WITHOUT ANY LIGHTS:</h1>"
+		for(var/areatype in areas_without_light)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITHOUT ANY LIGHTS:</b>")
-	for(var/areatype in areas_without_light)
-		to_chat(world, "* [areatype]")
+	if(areas_without_LS.len)
+		dat += "<h1>AREAS WITHOUT A LIGHT SWITCH:</h1>"
+		for(var/areatype in areas_without_LS)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITHOUT A LIGHT SWITCH:</b>")
-	for(var/areatype in areas_without_LS)
-		to_chat(world, "* [areatype]")
+	if(areas_without_intercom.len)
+		dat += "<h1>AREAS WITHOUT ANY INTERCOMS:</h1>"
+		for(var/areatype in areas_without_intercom)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITHOUT ANY INTERCOMS:</b>")
-	for(var/areatype in areas_without_intercom)
-		to_chat(world, "* [areatype]")
+	if(areas_without_camera.len)
+		dat += "<h1>AREAS WITHOUT ANY CAMERAS:</h1>"
+		for(var/areatype in areas_without_camera)
+			dat += "[areatype]<br>"
+			CHECK_TICK
 
-	to_chat(world, "<b>AREAS WITHOUT ANY CAMERAS:</b>")
-	for(var/areatype in areas_without_camera)
-		to_chat(world, "* [areatype]")
+	if(!(areas_with_APC.len || areas_with_multiple_APCs.len || areas_with_air_alarm.len || areas_with_RC.len || areas_with_light.len || areas_with_LS.len || areas_with_intercom.len || areas_with_camera.len))
+		dat += "<b>No problem areas!</b>"
+
+	var/datum/browser/popup = new(user.mob, "testareas", "Test Areas", 500, 750)
+	popup.set_content(dat.Join())
+	popup.open()
 
 ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/living/carbon/human/M in GLOB.mob_list)
 	if(!ishuman(M) && !isobserver(M))

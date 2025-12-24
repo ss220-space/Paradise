@@ -103,13 +103,12 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", mob/target in GLOB.mob
 	target.admin_teleport(loc)
 	BLACKBOX_LOG_ADMIN_VERB("Get Mob")
 
-ADMIN_VERB(get_mob_list, R_ADMIN, "Get Mob List", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME)
-	var/mob/selected_mob = tgui_input_list(user, "Select mob to get", "Get Mob", GLOB.mob_list)
+ADMIN_VERB(get_mob_in_list, R_ADMIN, "Get Mob", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME)
+	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Get Mob", GLOB.mob_list)
 	if(!selected_mob)
 		return
 
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/get_mob, selected_mob)
-	BLACKBOX_LOG_ADMIN_VERB("Get Mob List")
 
 ADMIN_VERB(get_key, R_ADMIN, "Get Key", "Teleport the player with the provided key to you.", ADMIN_CATEGORY_GAME)
 	var/list/keys = list()
@@ -148,13 +147,38 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(send_mob, R_ADMIN, "Send Mob", mob/jumper in GLOB.m
 
 	BLACKBOX_LOG_ADMIN_VERB("Send Mob")
 
-ADMIN_VERB(send_mob_list, R_ADMIN, "Send Mob List", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME)
-	var/mob/selected_mob = tgui_input_list(user, "Select mob to send", "Send Mob", GLOB.mob_list)
+ADMIN_VERB(send_mob_in_list, R_ADMIN, "Send Mob", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME)
+	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Send Mob", GLOB.mob_list)
 	if(!selected_mob)
 		return
 
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/send_mob, selected_mob)
-	BLACKBOX_LOG_ADMIN_VERB("Send Mob List")
+
+ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed ruins to teleport to.", ADMIN_CATEGORY_GAME)
+	var/list/names = list()
+	for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
+		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
+
+		var/count = 1
+		var/name = template?.name
+		var/original_name = name
+
+		while(name in names)
+			count++
+			name = "[original_name] ([count])"
+
+		names[name] = ruin_landmark
+
+	var/ruinname = tgui_input_list(user, "Select ruin", "Jump to Ruin", sort_list(names))
+	var/obj/effect/landmark/ruin/landmark = names[ruinname]
+	if(!istype(landmark))
+		return
+
+	var/list/messages = list(
+		span_name("Jumped to <b>[landmark.ruin_template?.name]</b>:"),
+		span_italics("[landmark.ruin_template?.description]"),
+	)
+	to_chat(user, chat_box_examine(messages.Join("<br/>")), confidential = TRUE)
 
 /mob/admin_teleport(atom/new_location)
 	var/turf/location = get_turf(new_location)

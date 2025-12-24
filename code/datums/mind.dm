@@ -2348,7 +2348,7 @@
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
 			if("borgpanel")
-				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locate(href_list["borgpanel"]))
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locateUID(href_list["borgpanel"]))
 			if("lawmanager")
 				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/open_law_manager)
 			if("unemag")

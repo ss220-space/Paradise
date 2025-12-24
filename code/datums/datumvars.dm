@@ -799,7 +799,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/drop_everything, M)
 
 	else if(href_list["direct_control"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["direct_control"])
 		if(!istype(M))

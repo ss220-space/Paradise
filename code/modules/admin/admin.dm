@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: No mob or ckey detected."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
-ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", "Legacy Player Panel don't recomended.", ADMIN_CATEGORY_FUN, mob/M)
+ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in GLOB.mob_list)
 	if(!M)
 		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
 		return
@@ -613,10 +613,10 @@ ADMIN_VERB(delay, R_SERVER, "Delay Pre-Game", "Delay the game start.", ADMIN_CAT
 
 	return ""
 
-ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным.", ADMIN_CATEGORY_DEBUG, object as text)
+ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным.", ADMIN_CATEGORY_EVENTS, object as text)
 	return user.spawn_atom_impl(object, FALSE)
 
-ADMIN_VERB(spawn_atom_adv, R_SPAWN, "Advanced Spawn", "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным.", ADMIN_CATEGORY_DEBUG, object as text)
+ADMIN_VERB(spawn_atom_adv, R_SPAWN, "Advanced Spawn", "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным.", ADMIN_CATEGORY_EVENTS, object as text)
 	return user.spawn_atom_impl(object, TRUE)
 
 /client/proc/spawn_atom_impl(object, params)
@@ -673,7 +673,7 @@ ADMIN_VERB(spawn_atom_adv, R_SPAWN, "Advanced Spawn", "(путь атома) С�
 	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 
-ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", "Edit mobs's memory and role.", ADMIN_CATEGORY_GAME, mob/target_mob in GLOB.mob_list)
+ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target_mob in GLOB.mob_list)
 	var/datum/mind/target_mind = target_mob.mind
 	if(!target_mind)
 		to_chat(user, "This mob has no mind!", confidential = TRUE)

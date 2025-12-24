@@ -188,31 +188,33 @@ Works together with spawning an observer, noted above.
 	return 1
 
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
-	if(key)
-		if(GLOB.non_respawnable_keys[ckey])
-			flags &= ~GHOST_CAN_REENTER
+	if(!key)
+		return
 
-		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
-		if(client)
-			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
+	if(GLOB.non_respawnable_keys[ckey])
+		flags &= ~GHOST_CAN_REENTER
 
-		var/recordable_time = world.time
-		var/mob/living/former_mob = ghost.mind?.current
-		if(isliving(former_mob))
-			recordable_time = former_mob.timeofdeath
+	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
+	if(client)
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
 
-		ghost.persistent_client?.time_of_death = recordable_time
-		GLOB.respawnable_list -= src
+	var/recordable_time = world.time
+	var/mob/living/former_mob = ghost.mind?.current
+	if(isliving(former_mob))
+		recordable_time = former_mob.timeofdeath
 
-		if(ghost.can_reenter_corpse)
-			GLOB.respawnable_list += ghost
-		else
-			GLOB.non_respawnable_keys[ckey] = 1
+	ghost.persistent_client?.time_of_death = recordable_time
+	GLOB.respawnable_list -= src
 
-		ghost.possess_by_player(key)
-		ghost.client?.init_verbs()
-		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
-		return ghost
+	if(ghost.can_reenter_corpse)
+		GLOB.respawnable_list += ghost
+	else
+		GLOB.non_respawnable_keys[ckey] = 1
+
+	ghost.possess_by_player(key)
+	ghost.client?.init_verbs()
+	SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
+	return ghost
 
 /mob/proc/ManualFollow(atom/movable/target)
 	if(!target)
@@ -532,31 +534,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
-
-ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed ruins to teleport to.", ADMIN_CATEGORY_DEBUG)
-	var/list/names = list()
-	for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
-		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
-
-		var/count = 1
-		var/name = template.name
-		var/original_name = name
-
-		while(name in names)
-			count++
-			name = "[original_name] ([count])"
-
-		names[name] = ruin_landmark
-
-	var/ruinname = tgui_input_list(user, "Select ruin", "Jump to Ruin", sort_list(names))
-	var/obj/effect/landmark/ruin/landmark = names[ruinname]
-	if(istype(landmark))
-		return
-
-	var/datum/map_template/ruin/template = landmark.ruin_template
-	user.mob.forceMove(get_turf(landmark))
-	to_chat(user, span_name("[template.name]"), confidential = TRUE)
-	to_chat(user, span_italics("[template.description]"), confidential = TRUE)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = VERB_CATEGORY_GHOST

@@ -198,7 +198,7 @@ ADMIN_VERB(drop_bomb, R_EVENT, "Drop Bomb", "Cause an explosion of varying stren
 #undef BIG_BOMB
 #undef CUSTOM_BOMB
 
-ADMIN_VERB(bless, R_EVENT, "Bless", "Allows you to make different bless.", ADMIN_CATEGORY_FUN, mob/living/M as mob)
+ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/M as mob)
 	if(!istype(M))
 		to_chat(user, span_warning("This can only be used on instances of type /mob/living"), confidential = TRUE)
 		return
@@ -559,7 +559,10 @@ ADMIN_VERB(toggle_advanced_interaction, R_ADMIN, "Toggle Advanced Admin Interact
 	log_admin("[key_name(user)] has [user.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(user)] has [user.advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 
-ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", "Send an admin alert to player.", ADMIN_CATEGORY_MAIN, mob/about_to_be_banned)
+ADMIN_VERB(show_watchlist, R_ADMIN, "Show Watchlist", "Show the watchlist.", ADMIN_CATEGORY_MAIN)
+	user.watchlist_show()
+
+ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/about_to_be_banned in GLOB.mob_list)
 	if(!ismob(about_to_be_banned))
 		return
 
@@ -596,6 +599,13 @@ ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", "Send an admi
 	log_admin("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[custom_message]\".")
 	message_admins("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[custom_message]\".")
 	BLACKBOX_LOG_ADMIN_VERB("Send Alert Message")
+
+ADMIN_VERB(cmd_admin_alert_message_in_list, R_ADMIN, "Send Alert Message", "Send an admin alert to player.", ADMIN_CATEGORY_MAIN)
+	var/mob/about_to_be_banned = tgui_input_list(user, "Please, select a player!", "Send Alert Message", GLOB.mob_list)
+	if(!about_to_be_banned)
+		return
+
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/cmd_admin_alert_message, about_to_be_banned)
 
 ADMIN_VERB(debug_statpanel, R_DEBUG, "Debug Stat Panel", "Toggles local debug of the stat panel.", ADMIN_CATEGORY_DEBUG)
 	user.stat_panel.send_message("create_debug")
