@@ -810,7 +810,7 @@
 		emagged = TRUE
 		to_chat(user, span_notice("Вы разблокируете регуляторы мощности сервоприводов спинки кресла"))
 	else
-		to_chat(user, span_notice("Нечего не произошло"))
+		to_chat(user, span_notice("Ничего не произошло"))
 
 /obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
 	if(!..())
