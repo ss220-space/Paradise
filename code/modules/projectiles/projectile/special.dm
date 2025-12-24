@@ -504,11 +504,35 @@
 		forcedodge = 0
 
 /obj/projectile/plasma/adv
+	name = "plasma blast adv"
+	icon_state = "plasmacutter_adv"
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/adv
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/adv
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/adv
 	damage = 7
 	range = 5
 
 /obj/projectile/plasma/adv/mega
+	name = "plasma blast mega"
 	icon_state = "plasmacutter_mega"
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/mega
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/mega
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/mega
+	hitscan_light_color_override = COLOR_FIRE_LIGHT_RED
+	muzzle_flash_color_override = COLOR_FIRE_LIGHT_RED
+	impact_light_color_override = COLOR_FIRE_LIGHT_RED
+>>>>>>> Stashed changes
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	range = 7
 
