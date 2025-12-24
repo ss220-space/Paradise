@@ -1,8 +1,10 @@
+#define ACTIVATION_DAMAGE 5
+#define BURNING_DAMAGE 2
+
 /mob/living/simple_animal/human_lighter
-	name = "human lighter"
-	real_name = "человек-зажигала"
-	desc = "Кожанная зажигалка."
-	gender = MALE
+	name = "человек-зажигалка"
+	real_name = "Человек-зажигалка"
+	desc = "Некогда разумное существо, теперь обречённое служить источником огня. Его пламя питается самой душой заключённого внутри создания."
 	icon = 'icons/obj/lighters.dmi'
 	icon_state = "human_zippo"
 	icon_living = "human_zippo"
@@ -15,14 +17,10 @@
 	health = 50
 	blood_volume = BLOOD_VOLUME_SURVIVE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/humanoid/human = 1)
-	response_help  = "гладит"
-	response_disarm = "тычет пальцем в глаз"
-	response_harm   = "бьёт"
 	density = FALSE
 	mobility_flags = NONE
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSMOB
-	melee_damage_type = BRUTE
 	melee_damage_lower = 2
 	melee_damage_upper = 6
 	attack_sound = 'sound/items/trayhit1.ogg'
@@ -33,6 +31,7 @@
 	light_on = FALSE
 	var/lit = FALSE
 	var/next_toggle
+	var/last_burn_damage = 0
 
 /mob/living/simple_animal/human_lighter/get_ru_names()
 	return list(
@@ -49,7 +48,7 @@
 	update_attack_params()
 	update_icon()
 
-/mob/living/simple_animal/human_lighter/update_icon()
+/mob/living/simple_animal/human_lighter/update_icon_state()
 	if(stat == DEAD)
 		icon_state = "human_zippo"
 		icon_living = "human_zippo"
@@ -64,10 +63,10 @@
 		set_light_on(FALSE)
 
 	if(istype(loc, /obj/item/holder/human_lighter))
-		var/obj/item/holder/human_lighter/H = loc
-		if(H.lit != lit)
-			H.lit = lit
-			H.update_icon()
+		var/obj/item/holder/human_lighter/lighter = loc
+		if(lighter.lit != lit)
+			lighter.lit = lit
+			lighter.update_icon()
 
 /mob/living/simple_animal/human_lighter/proc/update_attack_params()
 	if(lit)
@@ -81,11 +80,11 @@
 
 /mob/living/simple_animal/human_lighter/proc/toggle_lighter(mob/living/user)
 	if((stat == DEAD) && user)
-		user.balloon_alert(user, "мертв!")
+		to_chat(user, span_warning("Кажеться, огонь его души угас..."))
 		return
 
 	if((next_toggle > world.time) && user)
-		to_chat(user, span_warning("Зажигалка не готова к переключению!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] сопротивляется переключению!"))
 		return
 
 	if(!lit)
@@ -95,11 +94,12 @@
 	turn_off_lighter(user)
 
 /mob/living/simple_animal/human_lighter/proc/turn_on_lighter(mob/living/user)
-	if((stat == DEAD) && user)
-		user.balloon_alert(user, "мертв!")
+	if(lit)
 		return
 
-	if(lit)
+	apply_damage(ACTIVATION_DAMAGE, BRUTE)
+
+	if(stat == DEAD)
 		return
 
 	lit = TRUE
@@ -107,11 +107,8 @@
 	update_icon()
 	update_attack_params()
 
-	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 25, TRUE)
+	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 20, TRUE)
 	playsound(src, 'sound/items/zippolight.ogg', 25, TRUE)
-
-	if(user)
-		user.balloon_alert(user, "включено")
 
 /mob/living/simple_animal/human_lighter/proc/turn_off_lighter(mob/living/user)
 	if(!lit)
@@ -122,11 +119,8 @@
 	update_icon()
 	update_attack_params()
 
-	playsound(src, 'sound/goonstation/voice/male_scream_reverse.ogg', 25, TRUE)
+	playsound(src, 'sound/goonstation/voice/male_scream_reverse.ogg', 20, TRUE)
 	playsound(src, 'sound/items/zippoclose.ogg', 25, TRUE)
-
-	if(user)
-		user.balloon_alert(user, "выключено")
 
 /mob/living/simple_animal/human_lighter/death(gibbed)
 	. = ..()
@@ -134,17 +128,32 @@
 		if(lit)
 			lit = FALSE
 			update_icon()
+			visible_message(span_danger("Пламя [declent_ru(GENITIVE)] гаснет вместе с его жизнью."))
 			playsound(src, 'sound/items/zippoclose.ogg', 25, TRUE)
 
-/mob/living/simple_animal/human_lighter/get_scooped(mob/living/carbon/grabber)
-	var/obj/item/holder/H = ..()
+/mob/living/simple_animal/human_lighter/Life(seconds, times_fired)
+	. = ..()
+	if(!.)
+		return
 
-	if(istype(H, /obj/item/holder/human_lighter))
-		var/obj/item/holder/human_lighter/HL = H
-		HL.lit = lit
-		HL.update_icon()
-		to_chat(grabber, span_notice("Вы подобрали [src]."))
-	return H
+	if(lit && stat != DEAD)
+		if(world.time > last_burn_damage + 2 SECONDS)
+			apply_damage(BURNING_DAMAGE, BURN)
+			last_burn_damage = world.time
+
+		var/turf/location = get_turf(src)
+		if(location)
+			location.hotspot_expose(700, 5)
+
+/mob/living/simple_animal/human_lighter/get_scooped(mob/living/carbon/grabber)
+	var/obj/item/holder/hold = ..()
+
+	if(istype(hold, /obj/item/holder/human_lighter))
+		var/obj/item/holder/human_lighter/lighter = hold
+		lighter.lit = lit
+		lighter.update_icon()
+		to_chat(grabber, span_notice("Вы подобрали [declent_ru(ACCUSATIVE)]."))
+	return hold
 
 /mob/living/simple_animal/human_lighter/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
@@ -166,15 +175,24 @@
 
 /obj/item/holder/human_lighter
 	name = "human lighter"
-	desc = "Кожанная зажигалка."
+	desc = "Некогда разумное существо, теперь обречённое служить источником огня. Его пламя питается самой душой заключённого внутри создания."
 	icon = 'icons/obj/lighters.dmi'
 	icon_state = "human_zippo"
 	item_state = "human_zippo"
-	origin_tech = "biotech=2"
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
 	light_on = FALSE
 	var/lit = FALSE
+
+/obj/item/holder/human_lighter/get_ru_names()
+	return list(
+		NOMINATIVE = "человек-зажигалка",
+		GENITIVE = "человека-зажигалки",
+		DATIVE = "человеку-зажигалке",
+		ACCUSATIVE = "человека-зажигалку",
+		INSTRUMENTAL = "человеком-зажигалкой",
+		PREPOSITIONAL = "человеке-зажигалке",
+	)
 
 /obj/item/holder/human_lighter/Initialize(mapload)
 	. = ..()
@@ -202,7 +220,7 @@
 	var/mob/living/simple_animal/human_lighter/L = locate() in contents
 	if(L)
 		if(L.stat == DEAD)
-			user.balloon_alert(user, "мертв!")
+			to_chat(user, span_warning("Кажеться, огонь его души угас..."))
 			return
 
 		L.toggle_lighter(user)
@@ -210,21 +228,21 @@
 		update_icon()
 
 /obj/item/holder/human_lighter/container_resist(mob/living/L)
-	var/mob/living/simple_animal/human_lighter/HL = locate() in contents
-	if(HL && HL.lit != lit)
-		HL.lit = lit
-		HL.update_icon()
+	var/mob/living/simple_animal/human_lighter/lighter = locate() in contents
+	if(lighter && lighter.lit != lit)
+		lighter.lit = lit
+		lighter.update_icon()
 	..()
 
 /obj/item/holder/human_lighter/process()
 	. = ..()
 
-	var/mob/living/simple_animal/human_lighter/L = locate() in contents
-	if(L)
-		if(L.stat == DEAD && lit)
+	var/mob/living/simple_animal/human_lighter/lighter = locate() in contents
+	if(lighter)
+		if(lighter.stat == DEAD && lit)
 			lit = FALSE
 			update_icon()
 
-		else if(L.lit != lit)
-			L.lit = lit
-			L.update_icon()
+		else if(lighter.lit != lit)
+			lighter.lit = lit
+			lighter.update_icon()

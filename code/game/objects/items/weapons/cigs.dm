@@ -205,6 +205,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light(span_notice("[user] прикурива[PLUR_ET_YUT(user)] свою [declent_ru(ACCUSATIVE)] другой [cigarette.declent_ru(INSTRUMENTAL)]. Бедолага..."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
+	if(istype(item, /obj/item/holder/human_lighter))
+		add_fingerprint(user)
+		var/obj/item/holder/human_lighter/lighter = item
+		if(!lighter.lit)
+			return ..()
+		light(span_notice("Лёгким движением руки, [user] прикурива[PLUR_ET_YUT(user)] свою [declent_ru(ACCUSATIVE)] пламенем души [lighter.declent_ru(GENITIVE)]. Жуть..."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 /obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity, params)
@@ -528,6 +536,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/static/list/acceptable_lighters = typecacheof(list(
 		/obj/item/lighter/zippo,
 		/obj/item/match,
+		/obj/item/holder/human_lighter,
 	))
 	if(!is_type_in_typecache(item, lighters))
 		return ..()

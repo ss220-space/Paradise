@@ -288,7 +288,7 @@
 		var/briefing_msg
 		var/is_new_mind = FALSE
 
-		var/randomize = pick("РОБОТ", "ТЕРРОР", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ", "ЗАЖИГАЛКА")
+		var/randomize = pick("РОБОТ", "ТЕРРОР", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
 		switch(randomize)
 			if("РОБОТ")
 				is_new_mind = TRUE
@@ -367,32 +367,34 @@
 				сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна — утолить свой голод."
 				new_mob.universal_speak = TRUE
 			if("ЧЕЛОВЕК")
-				if(prob(50))
-					new_mob = new /mob/living/carbon/human(M.loc)
-					var/mob/living/carbon/human/H = new_mob
-					var/datum/preferences/A = new()	//Randomize appearance for the human
-					A.species = get_random_species(TRUE)
-					A.copy_to(new_mob)
-					randomize = H.dna.species.name
-					if(ishuman(M))
-						briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
-						но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
-					else
+				var/form_type = pick("human", "monkey", "zippo")
+				switch(form_type)
+					if("human")
+						new_mob = new /mob/living/carbon/human(M.loc)
+						var/mob/living/carbon/human/H = new_mob
+						var/datum/preferences/A = new()	//Randomize appearance for the human
+						A.species = get_random_species(TRUE)
+						A.copy_to(new_mob)
+						randomize = H.dna.species.name
+						if(ishuman(M))
+							briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
+							но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+						else
+							is_new_mind = TRUE
+							briefing_msg = "Вы превратились в разумного гуманоида, знакомым с устройством мира и НТ."
+					if("monkey")
+						new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
+						if(ishuman(M))
+							briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
+							но у вас по прежнему память о своей прошлой жизни..."
+						else
+							is_new_mind = TRUE
+							briefing_msg = "Вы разумная мартышка, и вам хочется бананов."
+					if("zippo")
 						is_new_mind = TRUE
-						briefing_msg = "Вы превратились в разумного гуманоида, знакомым с устройством мира и НТ."
-				else
-					new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
-					if(ishuman(M))
-						briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
-						но у вас по прежнему память о своей прошлой жизни..."
-					else
-						is_new_mind = TRUE
-						briefing_msg = "Вы разумная мартышка, и вам хочется бананов."
-			if("ЗАЖИГАЛКА")
-				is_new_mind = TRUE
-				new_mob = new /mob/living/simple_animal/human_lighter(M.loc)
-				new_mob.universal_speak = TRUE
-				briefing_msg = "Вы теперь живая зажигалка! Живите в этом проклятом мире."
+						new_mob = new /mob/living/simple_animal/human_lighter(M.loc)
+						new_mob.universal_speak = TRUE
+						briefing_msg = "Вы теперь живая зажигалка! Живите в этом проклятом мире."
 			else
 				return
 
