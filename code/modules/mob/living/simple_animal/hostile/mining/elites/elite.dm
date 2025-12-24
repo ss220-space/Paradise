@@ -300,6 +300,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 						clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
+	if(QDELETED(src) || QDELETED(loc))
+		return
+	
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
