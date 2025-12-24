@@ -205,7 +205,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 			human.mind.special_role = SPECIAL_ROLE_FREE_GOLEM
 	human.real_name = get_random_name()
 	human.name = human.real_name
-	to_chat(human, info_text)
+	var/golem_info = get_info_text()
+	to_chat(human, golem_info)
 
 	var/list/heal_material_types_list = get_heal_material_types_cached()
 	human.AddElement(/datum/element/material_heal, heal_material_types_list, amount_required_for_heal, material_heal, self_heal_delay)
