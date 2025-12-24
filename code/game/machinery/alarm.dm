@@ -740,7 +740,7 @@
 /obj/machinery/alarm/proc/get_console_data(mob/user)
 	var/list/data = list()
 	data["name"] = readd_quote(sanitize(name))
-	data["ref"] = "\ref[src]"
+	data["ref"] = UID()
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
 	var/area/A = get_area(src)
 	data["area"] = readd_quote(sanitize(A.name))

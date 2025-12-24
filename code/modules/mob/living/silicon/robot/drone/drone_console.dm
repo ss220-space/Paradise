@@ -50,7 +50,7 @@
 		dat += "<br>[D.real_name] ([D.stat == 2 ? "<font color='red'>НЕАКТИВЕН" : "<font color='green'>АКТИВЕН"]</font>)"
 		dat += "<br>Заряд батареи: [D.cell.charge]/[D.cell.maxcharge]."
 		dat += "<br>Текущее местоположение: [get_area(D)]."
-		dat += "<br><a href='byond://?src=[UID()];resync=\ref[D]'>Синхронизировать</a> | <a href='byond://?src=[UID()];shutdown=\ref[D]'>Отключить</a>"
+		dat += "<br><a href='byond://?src=[UID()];resync=[D.UID()]'>Синхронизировать</a> | <a href='byond://?src=[UID()];shutdown=[D.UID()]'>Отключить</a>"
 
 	dat += "<br><b><a href='byond://?src=[UID()];request_help=1'>Запросить нового дрона</a></b>"
 
@@ -111,7 +111,7 @@
 
 	else if(href_list["resync"])
 
-		var/mob/living/silicon/robot/drone/D = locate(href_list["resync"])
+		var/mob/living/silicon/robot/drone/D = locateUID(href_list["resync"])
 
 		if(D.stat != 2)
 			to_chat(usr, span_warning("Вы отправляете директиву на синхронизацию законов для дрона."))
@@ -119,7 +119,7 @@
 
 	else if(href_list["shutdown"])
 
-		var/mob/living/silicon/robot/drone/D = locate(href_list["shutdown"])
+		var/mob/living/silicon/robot/drone/D = locateUID(href_list["shutdown"])
 
 		if(D.stat != 2)
 			to_chat(usr, span_warning("Вы отправляете команду на уничтожение несчастного дрона."))

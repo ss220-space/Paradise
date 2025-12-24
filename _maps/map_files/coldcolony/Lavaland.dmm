@@ -2070,9 +2070,7 @@
 /area/mine/production)
 "qB" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/item/radio/intercom{
-	pixel_x = -32
-	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "rb" = (

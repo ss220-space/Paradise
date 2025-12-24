@@ -465,7 +465,7 @@
 		LAZYCLEARLIST(friend2bananas)
 		initial_faction = faction.Copy()
 		faction = list("neutral", "monkey", "jungle")
-		faction += "\ref[user]"
+		faction += PERSONAL_FACTION(user)
 		master = user
 		toggle_ai(AI_OFF)
 		RegisterSignal(user, COMSIG_MOB_POINTED, PROC_REF(check_pointed))

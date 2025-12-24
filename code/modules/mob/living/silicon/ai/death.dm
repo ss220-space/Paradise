@@ -39,3 +39,5 @@
 
 	if(istype(loc, /obj/item/aicard))
 		loc.icon_state = "aicard-404"
+
+	send_ai_alarm("Обнаружена потеря сигнала ИИ.")

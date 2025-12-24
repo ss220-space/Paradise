@@ -1,7 +1,7 @@
 /client/proc/view_instances()
 	set name = "View Server Instances"
 	set desc = "View the running server instances"
-	set category = STATPANEL_ADMIN_DEBUG
+	set category = STATPANEL_DEBUG
 
 	if(!check_rights(R_DEBUG))
 		return

@@ -556,7 +556,7 @@ SUBSYSTEM_DEF(timer)
 /datum/timedevent/proc/getTimerInfo()
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
 	if(!name)
-		name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
+		name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield_to_list(flags, bitfield_flags), ", ")], \
 			callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
 			callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
 	return name
@@ -594,7 +594,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  */
 /client/proc/timer_log()
 	set name = "View Timer Log"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "Shows the log of what types created timers this round"
 
 	if(!check_rights(R_DEBUG))
@@ -612,7 +612,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 
 /client/proc/debug_timers()
 	set name = "Debug Timers"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "Shows currently active timers, grouped by callback"
 
 	var/list/timers = list()

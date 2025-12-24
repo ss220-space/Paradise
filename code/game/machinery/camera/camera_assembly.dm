@@ -90,7 +90,7 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(tgui_input_text(user, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/camera = new(loc, uniquelist(tempnetwork), input, src)
+	var/obj/machinery/camera/camera = new(loc, unique_list(tempnetwork), input, src)
 	forceMove(camera)
 	camera.auto_turn()
 

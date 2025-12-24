@@ -4,6 +4,7 @@
 	title = JOB_TITLE_CCOFFICER
 	flag = JOB_FLAG_CENTCOM
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
+	department = STATION_DEPARTMENT_OTHER
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "Администраторами"
@@ -68,6 +69,7 @@
 	title = JOB_TITLE_CCSPECOPS
 	flag = JOB_FLAG_CENTCOM
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
+	department = STATION_DEPARTMENT_OTHER
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "Администраторами"
@@ -122,7 +124,6 @@
 		return
 	H.mind?.offstation_role = TRUE
 
-// Верховное командование для самых больших проблем
 /datum/job/ntspecops/supreme
 	title = JOB_TITLE_CCSUPREME
 	outfit = /datum/outfit/job/ntspecops/supreme

@@ -169,6 +169,14 @@
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)
 
+/datum/design/small_crowbar
+	id = "small_crowbar"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 1000)
+	build_path = /obj/item/crowbar/small
+	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)
+
 /datum/design/handdrill
 	id = "handdrill"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ENGINEERING = 6)

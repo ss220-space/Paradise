@@ -311,7 +311,7 @@
 		return
 	if(IsAdminAdvancedProcCall())
 		return
-	var/datum/poll_option/option = locate(href_list["voteoptionref"]) in poll.options
+	var/datum/poll_option/option = locateUID(href_list["voteoptionref"])
 	if(!option)
 		to_chat(src, span_danger("No option was selected."))
 		return
@@ -392,7 +392,7 @@
 
 	var/sql_votes = list()
 	for(var/h in href_list)
-		var/datum/poll_option/option = locate(h) in poll.options
+		var/datum/poll_option/option = locateUID(h)
 		sql_votes += list(list(
 			"id" = votes["[option.option_id]"],
 			"pollid" = sql_poll_id,
@@ -430,7 +430,7 @@
 			to_chat(src, span_danger("Allowed option count exceeded, only the first [poll.options_allowed] selected options have been saved."))
 			break
 		vote_count++
-		var/datum/poll_option/option = locate(h) in poll.options
+		var/datum/poll_option/option = locateUID(h)
 		sql_votes += list(list(
 			"pollid" = sql_poll_id,
 			"optionid" = option.option_id,

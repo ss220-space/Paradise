@@ -32,7 +32,7 @@
 				msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
 			msg = span_emojienabled("[msg]")
-			to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
+			to_chat(C, span_admin_channel("ADMIN: [span_name("[key_name(usr, 1)]")] ([admin_jump_link(mob)]): [span_message("[msg]")]"), MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Asay")
 
@@ -77,7 +77,7 @@
 				else
 					display_name = holder.fakekey
 			msg = span_emojienabled("[msg]")
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: [span_name("[display_name]")] ([admin_jump_link(mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Msay")
 
@@ -158,6 +158,6 @@
 				else
 					display_name = holder.fakekey
 			msg = span_emojienabled("[msg]")
-			to_chat(C, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+			to_chat(C, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: [span_name("[display_name]")] ([admin_jump_link(mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Devsay")

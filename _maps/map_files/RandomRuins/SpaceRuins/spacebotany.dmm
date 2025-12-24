@@ -116,9 +116,7 @@
 	},
 /area/ruin/space/spacebotany/Dorm)
 "bQ" = (
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitegreen"
@@ -1620,9 +1618,7 @@
 "vb" = (
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /mob/living/simple_animal/hostile/venus_human_trap,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1975,9 +1971,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/WestGarden)
 "Ac" = (
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -2822,9 +2816,7 @@
 /area/ruin/space/spacebotany/Garden)
 "Ls" = (
 /obj/structure/spacevine,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3402,9 +3394,7 @@
 	},
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)

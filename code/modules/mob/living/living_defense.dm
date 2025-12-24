@@ -69,12 +69,13 @@
 			return FALSE
 	if(shock_damage < 1)
 		return FALSE
+	var/is_atom_source = istype(source)
 	if(!(flags & SHOCK_ILLUSION))
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
 		if(shock_damage > 200)
 			visible_message(
-				span_danger("[capitalize(source.declent_ru(NOMINATIVE))] поразил электрической дугой [declent_ru(ACCUSATIVE)]!"),
-				span_userdanger("Электрическая дуга от [source.declent_ru(GENITIVE)] вспыхивает и убивает вас!"),
+				span_danger("[capitalize(is_atom_source? source.declent_ru(NOMINATIVE) : "[source]")] поразил электрической дугой [declent_ru(ACCUSATIVE)]!"),
+				span_userdanger("Электрическая дуга от [is_atom_source? source.declent_ru(GENITIVE) : "[source]" ] вспыхивает и убивает вас!"),
 				span_italics("Вы слышите треск, похожий на молнию!")
 			)
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
@@ -83,7 +84,7 @@
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			span_danger("[capitalize(source.declent_ru(NOMINATIVE))] ударил[GEND_A_O_I(source)] током [declent_ru(ACCUSATIVE)]!"),
+			span_danger("[capitalize(is_atom_source? source.declent_ru(NOMINATIVE) : "[source]")] ударил[is_atom_source? GEND_A_O_I(source) : ""] током [declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы чувствуете как через ваше тело проходит электрический разряд!"),
 			span_hear("Вы слышите громкий электрический треск."),
 		)
@@ -140,7 +141,7 @@
 		return
 
 	var/armor = run_armor_check(zone, MELEE, "Броня защитила [GLOB.body_zone[zone][ACCUSATIVE]].", "Ваша броня смягчила удар по [GLOB.body_zone[zone][DATIVE]].", thrown_item.armour_penetration)
-	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
+	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.sharp, thrown_item)
 
 	if(QDELETED(src)) //Damage can delete the mob.
 		return

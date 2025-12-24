@@ -1,6 +1,6 @@
 /proc/getbrokeninhands()
 	set name = "Broken Sprite List"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	var/text
 	for(var/A in typesof(/obj/item))

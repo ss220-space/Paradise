@@ -30,7 +30,7 @@
 	. += deconstruction_hints(user)
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
+	return span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
 
 /obj/structure/lattice/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -117,7 +117,7 @@
 	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
+	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))
 
 /obj/structure/lattice/catwalk/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc

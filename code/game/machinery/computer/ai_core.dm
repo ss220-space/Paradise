@@ -13,36 +13,7 @@
 	QDEL_NULL(laws)
 	QDEL_NULL(circuit)
 	QDEL_NULL(brain)
-	if(state == AI_READY_CORE)
-		INVOKE_ASYNC(src, PROC_REF(death_alarm))
-
 	return ..()
-
-/obj/structure/AIcore/proc/death_alarm()
-	var/static/msg = "Внимание! Обнаружено повреждение внутренних систем станционного ИИ. \
-					Требуется срочное вмешательство."
-	var/static/sender = "Автоматическая система оповещений"
-	radio_announce(msg, sender, COMM_FREQ, src)
-
-	var/obj/item/pda/dummy_pda = new /obj/item/pda()
-	dummy_pda.owner = sender
-	var/datum/data/pda/app/messenger/sender_messenger = dummy_pda.find_program(/datum/data/pda/app/messenger)
-	var/obj/machinery/message_server/message_server = find_pda_server()
-
-	if(!message_server)
-		return
-
-	for(var/obj/item/pda/pda in GLOB.PDAs)
-		if(!(pda.ownjob in GLOB.ai_death_alarm_jobs))
-			continue
-
-		var/datum/data/pda/app/messenger/messenger = pda.find_program(/datum/data/pda/app/messenger)
-		if(!messenger?.can_receive())
-			continue
-
-		sender_messenger.create_message(pda, message = msg)
-
-	qdel(dummy_pda)
 
 /obj/structure/AIcore/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

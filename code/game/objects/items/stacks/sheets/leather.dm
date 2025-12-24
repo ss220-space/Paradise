@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 //Step one - dehairing.
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		add_fingerprint(user)
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED

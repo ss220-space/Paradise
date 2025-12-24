@@ -206,7 +206,7 @@
 
 /obj/structure/cable/proc/generate_power_message()
 	if(powernet && (powernet.avail > 0))
-		return chat_box_examine(span_notice("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nSurplus: [DisplayPower(surplus())]"))
+		return chat_box_examine(span_notice("Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nSurplus: [display_power(surplus())]"))
 	else
 		return span_warning("The cable is not powered.")
 
