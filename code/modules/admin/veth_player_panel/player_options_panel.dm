@@ -87,8 +87,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 /datum/vuap_personal/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	var/mob/selected_player = get_mob_by_ckey(ui.user.client.selectedPlayerCkey) || ui.user.client.VUAP_selected_mob
 	var/mob/selected_mob = ui.user.client.VUAP_selected_mob
+	var/mob/selected_player = get_mob_by_ckey(ui.user.client.selectedPlayerCkey) || selected_mob
 	if(!selected_player)
 		tgui_alert(usr, "Selected player not found!")
 		return
