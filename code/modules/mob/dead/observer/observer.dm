@@ -614,22 +614,32 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return ..()
 
+/**
+ * Generates follow links for ghosts to track specific atoms, with special handling for AIs and observer mobs
+ *
+ * Arguments:
+ * * target - The atom to create a follow link for
+ * * ghost - The ghost mob that will use the follow link
+ */
 /proc/ghost_follow_link(atom/target, atom/ghost)
-	if((!target) || (!ghost)) return
-	if(isAI(target)) // AI core/eye follow links
-		var/mob/living/silicon/ai/A = target
-		. = "<a href='byond://?src=[ghost.UID()];follow=[A.UID()]'>ядро</a>"
-		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>око</a>"
+	if(!istype(target) || !istype(ghost))
 		return
-	else if(istype(target, /mob/dead/observer))
-		var/mob/dead/observer/O = target
-		. = "<a href='byond://?src=[ghost.UID()];follow=[target.UID()]'>следовать</a>"
-		if(O.mind && O.mind.current)
-			. += "|<a href='byond://?src=[ghost.UID()];follow=[O.mind.current.UID()]'>тело</a>"
+
+	if(isAI(target)) // AI core/eye follow links
+		var/mob/living/silicon/ai/ai = target
+		. = FOLLOW_LINK_WITH_DISPLAY(ghost, ai, "ядро")
+		if(ai.client && ai.eyeobj) // No point following clientless AI eyes
+			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, ai.eyeobj, "глаз")]"
+		return
+
+	else if(isobserver(target))
+		var/mob/dead/observer/observer = target
+		. = FOLLOW_LINK_WITH_DISPLAY(ghost, target, "следовать")
+		if(observer.mind && observer.mind.current)
+			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, observer.mind.current, "тело")]"
 		return
 	else
-		return "<a href='byond://?src=[ghost.UID()];follow=[target.UID()]'>следовать</a>"
+		return FOLLOW_LINK_WITH_DISPLAY(ghost, target, "следовать")
 
 //BEGIN TELEPORT HREF CODE
 /mob/dead/observer/Topic(href, href_list)
@@ -820,18 +830,30 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 /**
+ * Handles the pointing action for observer mobs, notifying nearby mobs and adding a follow link for invisible ghosts
+ *
  * This is a mob verb instead of atom for performance reasons.
  * See /mob/verb/examinate() in mob.dm for more info.
  * Overriden here and in /mob/living for different point span classes and sanity checks.
+ *
+ * Arguments:
+ * * target - The atom that the observer is pointing at
  */
 /mob/dead/observer/run_pointed(atom/target)
 	if(!..())
 		return FALSE
-	var/follow_link
-	if(invisibility) // Only show the button if the ghost is not visible to the living
-		follow_link = " ([ghost_follow_link(target, src)])"
-	usr.visible_message(span_deadsay("<b>[src]</b> указывает на [target][follow_link]."))
-	add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
+
+	for(var/mob/current_mob in range(7, src))
+		if(current_mob.see_invisible < invisibility)
+			continue // can't view the invisible
+
+		var/follow_button
+		if(invisibility) // Only show the button if the ghost is not visible to the living
+			follow_button = "([ghost_follow_link(target, current_mob)])" // Ghost needs to be link clicker, otherwise it breaks
+
+		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_button] [target]."), EMOTE_VISIBLE)
+		add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
+
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost(use_old_mind=FALSE)
