@@ -81,7 +81,7 @@
 		var/datum/pai_software/software_instance = new software_type()
 		if(GLOB.pai_software_by_key[software_instance.id])
 			var/datum/pai_software/existing_software = GLOB.pai_software_by_key[software_instance.id]
-			to_chat(world, "<span class='warning'>pAI software module [software_instance.name] has the same key as [existing_software.name]!</span>")
+			to_chat(world, span_warning("pAI software module [software_instance.name] has the same key as [existing_software.name]!"))
 			continue
 		GLOB.pai_software_by_key[software_instance.id] = software_instance
 

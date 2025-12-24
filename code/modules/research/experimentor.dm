@@ -237,13 +237,14 @@
 		var/list/D = ConvertReqString2List(loaded_item.origin_tech)
 		for(var/T in D)
 			dat += "[T]<br>"
+		var/item_uid = loaded_item.UID()
 		dat += "<br><br>Available tests:"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</a></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_POKE]'>Poke</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_IRRADIATE];'>Irradiate</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_GAS]'>Gas</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_HEAT]'>Burn</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_COLD]'>Freeze</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_OBLITERATE]'>Destroy</a></b><br>"
 		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</a>"
 	else
 		dat += "<b>Nothing loaded.</b>"
@@ -681,7 +682,7 @@
 	usr.set_machine(src)
 
 	var/scantype = href_list["function"]
-	var/obj/item/process = locate(href_list["item"]) in src
+	var/obj/item/process = locateUID(href_list["item"])
 
 	if(href_list["close"])
 		close_window(usr, "experimentor")
