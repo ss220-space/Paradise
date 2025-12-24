@@ -246,3 +246,6 @@
 		else if(lighter.lit != lit)
 			lighter.lit = lit
 			lighter.update_icon()
+
+#undef ACTIVATION_DAMAGE
+#undef BURNING_DAMAGE
