@@ -751,7 +751,7 @@
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost=M)])<i><span class='game say'>[name], [span_name("[speaker.name]")]")
+			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)])<i><span class='game say'>[name], [span_name("[speaker.name]")]")
 			var/list/dead_message = message_start_dead + message_body
 			M.show_message(dead_message.Join(" "), 2)
 
@@ -778,7 +778,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'>[span_name("synthesised voice")] [span_message("beeps, \"beep beep beep\"")]</span></i>",2)
+		M.show_message("<i>[span_gamesay("[span_name("synthesised voice")] [span_message("beeps, \"beep beep beep\"")]")]</i>", 2)
 
 /datum/language/binary/drone
 	name = LANGUAGE_DRONE_BINARY
