@@ -168,9 +168,6 @@
 	if(usr != src)
 		return
 
-	if(world.time < next_toggle)
-		return
-
 	toggle_lighter(src)
 
 /obj/item/holder/human_lighter
