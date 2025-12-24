@@ -458,6 +458,6 @@
 
 /obj/machinery/r_n_d/server/robotics
 	name = "Robotics and Mechanic R&D Server"
-	id_with_upload_string = "1;2;4"
-	id_with_download_string = "1;2;4"
+	id_with_upload_string = "1;2;4;6"
+	id_with_download_string = "1;2;4;6"
 	server_id = 2

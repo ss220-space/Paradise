@@ -6,7 +6,13 @@
 	Cursor Drag Pointer
 	Beach Ball
 	Mouse Jetpack
+	Electronic Cigarette
 */
+
+// E-cig defines
+#define MAX_AMOUNT 600
+#define SAFE_THRESHOLD 10
+#define AWARD_THRESHOLD 60
 
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
@@ -79,3 +85,176 @@
 	used = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	return TRUE
+
+
+/obj/item/ecig
+	name = "electronic cigarette"
+	desc = "Гладкий никотиновый испаритель в сдержанном зелёном корпусе. Создаёт плотное, но быстро рассеивающееся облако пара. Одобрен для рабочих зон: дым без пепла и характерного запаха."
+	gender = FEMALE
+	icon = 'icons/obj/device.dmi'
+	icon_state = "ecig"
+	item_state = "ecig"
+	w_class = WEIGHT_CLASS_TINY
+	var/amount_left = 600
+	var/applying = FALSE
+	var/list/reagent = list("nicotine")
+
+/obj/item/ecig/get_ru_names()
+	return list(
+		NOMINATIVE = "электронная сигарета",
+		GENITIVE = "электронной сигареты",
+		DATIVE = "электронной сигарете",
+		ACCUSATIVE = "электронную сигарету",
+		INSTRUMENTAL = "электронной сигаретой",
+		PREPOSITIONAL = "электронной сигарете"
+	)
+
+/obj/item/ecig/emag_act(mob/user)
+	if(emagged)
+		return
+
+	add_attack_logs(user, src, "emagged")
+	emagged = TRUE
+
+	if(!user)
+		return
+
+	balloon_alert(user, "протоколы безопасности взломаны")
+
+/obj/item/ecig/examine(mob/user)
+	. = ..()
+
+	if(amount_left <= 0)
+		. += span_warning("Жидкость полностью исчерпана.")
+		return
+
+	var/percentage = round((amount_left / MAX_AMOUNT) * 100)
+	. += span_notice("Осталось жидкости: <b>[percentage]%</b>")
+
+/obj/item/ecig/attack_self(mob/user)
+	if(!ishuman(user) || ismachineperson(user))
+		balloon_alert(user, "ошибка совместимости!")
+		return
+
+	if(!get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH))
+		balloon_alert(user, "ваш рот закрыт!")
+		return
+
+	if(amount_left <= 0)
+		playsound(loc, 'sound/machines/lightswitch.ogg', 25, TRUE)
+		balloon_alert(user, "жидкость закончилась!")
+		return
+
+	if(applying)
+		applying = FALSE
+		return
+
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] затягиваться [declent_ru(INSTRUMENTAL)]."),
+		span_notice("Вы начинаете затягиваться [declent_ru(INSTRUMENTAL)]."),
+	)
+
+	applying = TRUE
+	var/cycle_count = 0
+
+	while(amount_left > 0 && applying)
+		if(!do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1))
+			break
+
+		cycle_count++
+		inject_nicotine(user, cycle_count)
+
+		if(QDELETED(src))
+			applying = FALSE
+			return
+
+	applying = FALSE
+
+	if(cycle_count > 0)
+		user.visible_message(
+			span_notice("[user] выпуска[PLUR_ET_YUT(user)] облако пара."),
+			span_notice("Вы выпускаете облако пара."),
+		)
+		if(cycle_count > SAFE_THRESHOLD && prob(20))
+			if(user.gender == FEMALE)
+				playsound(loc, 'sound/misc/ecig_female.ogg', 5, TRUE)
+			else
+				playsound(loc, 'sound/misc/ecig_male.ogg', 5, TRUE)
+		create_smoke(cycle_count)
+
+/obj/item/ecig/proc/inject_nicotine(mob/living/carbon/user, cycle_count)
+	if(!user.reagents)
+		return
+
+	for(var/chem in reagent)
+		user.reagents.add_reagent(chem, 1)
+
+	playsound(loc, 'sound/misc/ecig.ogg', 50, TRUE)
+	amount_left = max(0, amount_left - 1)
+
+	if(cycle_count >= SAFE_THRESHOLD)
+		user.adjustToxLoss(2)
+		if(prob(10))
+			to_chat(user, span_warning("Голова кружится от такой долгой затяжки..."))
+
+	if(cycle_count >= AWARD_THRESHOLD)
+		user.client?.give_award(/datum/award/achievement/misc/deep_draw, user)
+
+	if(emagged && cycle_count >= SAFE_THRESHOLD)
+		applying = FALSE
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] становится обжигающе горячей!"))
+		addtimer(CALLBACK(src, PROC_REF(perform_sparks)), 15)
+		addtimer(CALLBACK(src, PROC_REF(play_buzz_sound)), 30)
+		addtimer(CALLBACK(src, PROC_REF(explode_ecig), user), 40)
+		return
+
+/obj/item/ecig/proc/perform_sparks()
+	if(!src)
+		return
+
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает пищать и искрить!"))
+	do_sparks(4, TRUE, src)
+	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
+
+/obj/item/ecig/proc/play_buzz_sound()
+	if(!src)
+		return
+
+	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
+
+/obj/item/ecig/proc/explode_ecig(mob/user)
+	if(!src)
+		return
+
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 1, adminlog = TRUE, cause = user)
+	qdel(src)
+
+/obj/item/ecig/proc/create_smoke(cycle_count)
+	if(!src)
+		return
+
+	var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
+	smoke.set_up(range = round(clamp(cycle_count/10, 0, 4)), location = loc)
+	smoke.start()
+
+/obj/item/ecig/syndi
+	name = "suspicious e-cigarette"
+	desc = "Гладкий никотиновый испаритель в подозрительном красном корпусе. Выдаёт плотное облако пара с лёгким химическим оттенком."
+	icon_state = "ecig_syndi"
+	item_state = "ecig_syndi"
+	reagent = list("nicotine", "syndiezine")
+
+/obj/item/ecig/syndi/get_ru_names()
+	return list(
+		NOMINATIVE = "подозрительная электронная сигарета",
+		GENITIVE = "подозрительной электронной сигареты",
+		DATIVE = "подозрительной электронной сигарете",
+		ACCUSATIVE = "подозрительную электронную сигарету",
+		INSTRUMENTAL = "подозрительной электронной сигаретой",
+		PREPOSITIONAL = "подозрительной электронной сигарете"
+	)
+
+#undef MAX_AMOUNT
+#undef SAFE_THRESHOLD
+#undef AWARD_THRESHOLD

@@ -1208,6 +1208,18 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
+/*
+ *  Tech Disks Box
+ */
+/obj/item/storage/box/disks_tech
+	name = "tech data disks box"
+	icon_state = "box_disc"
+
+/obj/item/storage/box/disks_tech/populate_contents()
+	..()
+	for(var/i in 1 to 8)
+		new /obj/item/disk/tech_disk(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
