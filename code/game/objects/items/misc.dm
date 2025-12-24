@@ -136,6 +136,10 @@
 		balloon_alert(user, "ошибка совместимости!")
 		return
 
+	if(!get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH))
+		balloon_alert(user, "ваш рот закрыт!")
+		return
+
 	if(amount_left <= 0)
 		playsound(loc, 'sound/machines/lightswitch.ogg', 25, TRUE)
 		balloon_alert(user, "жидкость закончилась!")
@@ -153,7 +157,10 @@
 	applying = TRUE
 	var/cycle_count = 0
 
-	while(do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1) && amount_left > 0 && applying)
+	while(amount_left > 0 && applying)
+		if(!do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1))
+			break
+
 		cycle_count++
 		inject_nicotine(user, cycle_count)
 
