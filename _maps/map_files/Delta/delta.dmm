@@ -20014,17 +20014,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
-"ctI" = (
-/obj/structure/table,
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
-/obj/item/qm_quest_tablet/cargotech,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "ctJ" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel{
@@ -40696,6 +40685,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
+"evE" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/hos)
 "evI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -43876,10 +43874,6 @@
 	icon_state = "red"
 	},
 /area/security/prison/cell_block/A)
-"fha" = (
-/obj/machinery/vending/cart,
-/turf/simulated/floor/wood/fancy/light,
-/area/crew_quarters/heads/hop)
 "fhb" = (
 /obj/structure/closet/secure_closet/brig/evidence,
 /obj/structure/window/reinforced{
@@ -49505,18 +49499,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
-"gDc" = (
-/obj/item/radio/intercom/directional/west,
-/obj/machinery/light_switch/directional/north,
-/obj/machinery/holosign_switch{
-	id = "surgery2";
-	pixel_x = -6;
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
-	},
-/area/medical/surgery/south)
 "gDm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -57121,21 +57103,6 @@
 /obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"irv" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
-/obj/machinery/door_control{
-	id = "First Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/surgery/north)
 "irC" = (
 /obj/structure/chair/sofa/right{
 	dir = 4
@@ -64279,13 +64246,6 @@
 "kaX" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/assembly/chargebay)
-"kbo" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
-	},
-/area/security/permabrig)
 "kbF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -66235,6 +66195,20 @@
 /obj/item/cane,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/cabin4)
+"kCm" = (
+/obj/item/radio/intercom/directional/west,
+/obj/machinery/light_switch/directional/south,
+/obj/machinery/holosign_switch{
+	dir = 1;
+	id = "surgery1";
+	pixel_x = -6;
+	pixel_y = -23
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/surgery/north)
 "kCn" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -71754,6 +71728,18 @@
 	icon_state = "white"
 	},
 /area/toxins/test_chamber)
+"lVV" = (
+/obj/structure/table,
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/obj/item/qm_quest_tablet/cargotech,
+/obj/item/storage/box/disks_tech,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "lWa" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -76683,21 +76669,6 @@
 	icon_state = "neutralfull"
 	},
 /area/bridge/checkpoint/south)
-"mZq" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
-/obj/machinery/door_control{
-	id = "Second Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_y = -25
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/surgery/south)
 "mZA" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -78789,14 +78760,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
-"nwS" = (
-/obj/effect/decal/warning_stripes/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/security/permabrig)
 "nxa" = (
 /obj/structure/chair/comfy/teal{
 	dir = 1
@@ -82201,6 +82164,21 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/west)
+"omQ" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/machinery/door_control{
+	id = "Second Surgery Window";
+	name = "Surgery Window Shutters Control";
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/surgery/south)
 "omU" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/power/apc{
@@ -87413,20 +87391,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
-"pwl" = (
-/obj/item/radio/intercom/directional/west,
-/obj/machinery/light_switch/directional/south,
-/obj/machinery/holosign_switch{
-	dir = 1;
-	id = "surgery1";
-	pixel_x = -6;
-	pixel_y = -23
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/surgery/north)
 "pwo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -88216,14 +88180,6 @@
 /obj/machinery/computer/teleporter,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
-"pEt" = (
-/obj/machinery/light,
-/obj/machinery/vending/coffee,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/lawoffice)
 "pEz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -89477,15 +89433,6 @@
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"pTn" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/hos)
 "pTt" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -91511,11 +91458,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"qpB" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel,
-/area/security/brigstaff)
 "qpC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -92354,6 +92296,11 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery/north)
+"qxb" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel,
+/area/security/brigstaff)
 "qxd" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
@@ -93930,6 +93877,14 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery/south)
+"qPY" = (
+/obj/effect/decal/warning_stripes/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/security/permabrig)
 "qQc" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -95313,17 +95268,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/test_chamber)
-"rgm" = (
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
-/obj/structure/table,
-/obj/item/rcs,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "rgp" = (
 /obj/structure/curtain/open,
 /obj/structure/cable{
@@ -97675,10 +97619,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/nhallway)
-"rJs" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "rJJ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/radiation,
@@ -102607,6 +102547,19 @@
 	icon_state = "brown"
 	},
 /area/crew_quarters/chief)
+"sRp" = (
+/obj/machinery/newscaster{
+	pixel_y = 30
+	},
+/obj/structure/table,
+/obj/machinery/computer/rdconsole/cargo{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "sRr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -110897,6 +110850,21 @@
 	icon_state = "red"
 	},
 /area/security/processing)
+"uKo" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/machinery/door_control{
+	id = "First Surgery Window";
+	name = "Surgery Window Shutters Control";
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/surgery/north)
 "uKu" = (
 /obj/structure/table,
 /obj/item/radio{
@@ -112432,6 +112400,14 @@
 	icon_state = "darkred"
 	},
 /area/security/securearmory)
+"vdR" = (
+/obj/machinery/light,
+/obj/machinery/vending/coffee,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/fancy/cherry,
+/area/lawoffice)
 "vdW" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -112453,6 +112429,18 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/paramedic)
+"vel" = (
+/obj/item/radio/intercom/directional/west,
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/holosign_switch{
+	id = "surgery2";
+	pixel_x = -6;
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner"
+	},
+/area/medical/surgery/south)
 "veO" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "RnDChem";
@@ -116042,6 +116030,10 @@
 	icon_state = "cmo"
 	},
 /area/medical/ward)
+"vUk" = (
+/obj/machinery/vending/cart,
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/heads/hop)
 "vUq" = (
 /obj/item/folder{
 	pixel_x = -4
@@ -116456,6 +116448,13 @@
 	icon_state = "grimy"
 	},
 /area/chapel/office)
+"vYS" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "vYT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -120493,6 +120492,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/north)
+"wVz" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/security/detectives_office)
 "wVA" = (
 /obj/structure/window/reinforced,
 /obj/structure/transit_tube/cap{
@@ -162354,7 +162357,7 @@ bwf
 xOa
 qMD
 bSE
-fha
+vUk
 man
 dxf
 dxf
@@ -167953,7 +167956,7 @@ cal
 bFK
 qvt
 dmq
-ctI
+lVV
 bYJ
 eZs
 aAK
@@ -168210,7 +168213,7 @@ cae
 bFK
 ciu
 dmq
-rgm
+sRp
 csH
 dqw
 bkS
@@ -169591,9 +169594,9 @@ ucf
 pSM
 rFB
 diD
-pwl
+kCm
 qwC
-gDc
+vel
 wRX
 oqp
 tZh
@@ -170568,7 +170571,7 @@ iHx
 owg
 gNR
 jun
-pEt
+vdR
 xnx
 xnx
 vrl
@@ -171129,7 +171132,7 @@ cYN
 wVd
 uLv
 qsc
-irv
+uKo
 qwZ
 dRq
 lZb
@@ -171139,7 +171142,7 @@ fjs
 exn
 unn
 uFO
-mZq
+omQ
 qwC
 qxs
 whc
@@ -173910,7 +173913,7 @@ xgu
 ycJ
 mAv
 fvg
-rJs
+wVz
 xmo
 iOk
 irq
@@ -181083,7 +181086,7 @@ guG
 uPb
 hZW
 uPb
-kbo
+vYS
 qbt
 kVa
 cfz
@@ -183416,7 +183419,7 @@ sCY
 xYa
 tWn
 uxL
-qpB
+qxb
 usD
 kas
 sut
@@ -184157,7 +184160,7 @@ aru
 aru
 aru
 dCr
-nwS
+qPY
 wSo
 xan
 dXG
@@ -184196,7 +184199,7 @@ pDQ
 xDp
 scP
 mOq
-pTn
+evE
 pKm
 bzg
 vTL

@@ -38,6 +38,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 8,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 8,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 8,
+				/obj/item/ecig = 4,
 			),
 		),
 		list(
