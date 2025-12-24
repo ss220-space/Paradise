@@ -28,6 +28,14 @@
 	name = "plasma impact"
 	icon_state = "impact_plasmacutter"
 
+/obj/effect/projectile/impact/plasma_cutter/adv
+	name = "plasma impact adv"
+	icon_state = "impact_plasmacutter_adv"
+
+/obj/effect/projectile/impact/plasma_cutter/mega
+	name = "plasma impact mega"
+	icon_state = "impact_plasmacutter_mega"
+
 /obj/effect/projectile/impact/stun
 	name = "stun impact"
 	icon_state = "impact_stun"
