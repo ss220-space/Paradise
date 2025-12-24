@@ -106,6 +106,7 @@
 /atom/movable/screen/robot/state_laws/Click()
 	if(!isrobot(usr))
 		return
+
 	var/mob/living/silicon/robot/robot = usr
 	robot.subsystem_law_manager()
 
