@@ -436,7 +436,7 @@
 			for(var/mob/living/carbon/human/prisoner in target)
 				var/mob/living/simple_animal/hostile/statue/statue = new(target.loc, firer)
 				statue.name = "statue of [prisoner.real_name]"
-				statue.faction = list("\ref[firer]")
+				statue.faction = list(PERSONAL_FACTION(firer))
 				statue.icon = target.icon
 				if(prisoner.mind)
 					prisoner.mind.transfer_to(statue)

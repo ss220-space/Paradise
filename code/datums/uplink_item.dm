@@ -2278,6 +2278,12 @@
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 
+/datum/uplink_item/badass/syndieecig
+	name = "Электронная сигарета \"Синдиката\""
+	desc = "Со вкусом \"Двойное яблочко\"."
+	item = /obj/item/ecig/syndi
+	cost = 6
+
 /datum/uplink_item/badass/syndiecards
 	name = "Игральные карты \"Синдиката\""
 	desc = "У них очень острые края, поэтому во время игры можно легко пораниться. Обычные игральные карты."

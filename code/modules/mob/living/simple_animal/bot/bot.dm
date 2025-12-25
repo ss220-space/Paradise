@@ -563,8 +563,10 @@
 /mob/living/simple_animal/bot/proc/speak(message, channel) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if(!on || !message)
 		return
+
+	var/radio_freq = channel == HEADSET_MODE ? PUB_FREQ : SSradio.radiochannels[channel]
 	if(channel)
-		radio_announce(message, name, channel == HEADSET_MODE ? PUB_FREQ : channel, src)
+		radio_announce(message, name, channel == HEADSET_MODE ? PUB_FREQ : radio_freq, src)
 	else
 		say(message)
 

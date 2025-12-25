@@ -37,7 +37,7 @@
 
 /datum/orbit_menu/proc/handle_orbit_action(list/params)
 	var/ref = params["ref"]
-	var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
+	var/atom/movable/poi = locateUID(ref)
 
 	if(!poi)
 		return
@@ -111,7 +111,7 @@
 			stack_trace("getpois returned something under a non-string name [name] - [pois[name]] - [M.type]")
 			continue
 
-		serialized["ref"] = "\ref[M]"
+		serialized["ref"] = M.UID()
 		var/orbiters = 0
 		if(ismob(M))
 			orbiters = M.ghost_orbiting

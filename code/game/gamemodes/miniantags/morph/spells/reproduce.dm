@@ -36,6 +36,10 @@
 	to_chat(user, span_sinister("Вы готовитесь разделиться на две части, что временно лишит вас возможности ползать по вентиляции!"))
 	REMOVE_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Морфа?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
+	
+	if(QDELETED(user))
+		return
+	
 	if(!length(candidates))
 		to_chat(user, span_warning("Ваше тело отказывается разделяться сейчас. Попробуйте позже."))
 		revert_cast(user)
