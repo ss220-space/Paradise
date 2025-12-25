@@ -133,7 +133,7 @@
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost=player)])[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
+			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)])[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
@@ -765,8 +765,8 @@
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/borg = S
 			if(borg.connected_ai?.name == speaker.name)
-				var/list/big_font_prefix = list("<font size=4>")
-				var/list/big_font_suffix = list("</font>")
+				var/list/big_font_prefix = list("<span style='font-size: 18px;'>")
+				var/list/big_font_suffix = list("</span>")
 				message_start = big_font_prefix + message_start
 				message_body = message_body + big_font_suffix
 		var/list/final_message = message_start + message_body
