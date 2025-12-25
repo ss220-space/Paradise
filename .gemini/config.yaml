@@ -1,4 +1,2 @@
-code_review:
-  pull_request_opened:
-    summary: false
-    code_review: false # I don't want to get a review if I didn't ask for it.
+# Okay, this is a Gemini config, but the default values ​​are fine for us.
+# Here's the link if anyone ever wants to change anything: https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github?hl=ru
