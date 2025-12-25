@@ -403,7 +403,7 @@ ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-a
 	user.deadmin()
 	add_verb(user, /client/proc/readmin)
 	user.update_active_keybindings()
-	update_byond_admin_configs(user.ckey, 0)
+	update_byond_admin_configs(user.ckey, R_NONE)
 
 	to_chat(user, span_interface("You are now a normal player."), confidential=TRUE)
 	log_admin("[key_name(user)] deadmined themself.")

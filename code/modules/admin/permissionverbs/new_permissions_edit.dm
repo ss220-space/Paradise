@@ -249,7 +249,7 @@
 	var/client/client = GLOB.directory[ckey]
 	client?.deadmin()
 	update_buttons(client)
-	update_byond_admin_configs(ckey, 0)
+	update_byond_admin_configs(ckey, R_NONE)
 	var/datum/admins/admin_datum = GLOB.admin_datums[ckey]
 
 	if(!QDELETED(admin_datum))
@@ -277,7 +277,7 @@
 
 	client.deadmin()
 	update_buttons(client)
-	update_byond_admin_configs(client.ckey, 0)
+	update_byond_admin_configs(client.ckey, R_NONE)
 	add_verb(client, /client/proc/readmin)
 	to_chat(client, span_interface("You are now a normal player."), confidential = TRUE)
 	log_and_message_admins("force de-admin [ckey].")

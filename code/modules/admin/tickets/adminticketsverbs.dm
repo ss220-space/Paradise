@@ -1,4 +1,4 @@
-ADMIN_VERB(open_admin_tickets, R_ADMIN, "Open Admin Ticket Interface", "Open the ahelp panel.", ADMIN_CATEGORY_TICKETS)
+ADMIN_VERB(open_admin_tickets, R_ADMIN|R_MOD, "Open Admin Ticket Interface", "Open the ahelp panel.", ADMIN_CATEGORY_TICKETS)
 	SStickets.showUI(user.mob)
 
 ADMIN_VERB(resolve_all_admin_tickets, R_ADMIN, "Resolve All Open Admin Tickets", "Resolve All Open Admin Tickets", ADMIN_CATEGORY_HIDDEN)

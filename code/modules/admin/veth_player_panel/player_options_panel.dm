@@ -207,7 +207,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 			usr.client.holder.Topic(null, list("observeinventory" = selected_player.UID()))
 			return
 		if("logs")
-			usr.client.holder.Topic(null, list("open_logging_view" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("open_logging_view" = selected_mob.UID()))
 			return
 		if("notes")
 			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey))

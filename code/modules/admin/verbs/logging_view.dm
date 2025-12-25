@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(open_logging_views)
 
-ADMIN_VERB(logging_view, R_ADMIN, "Logging View", "Opens the detailed logging viewer.", ADMIN_CATEGORY_TICKETS, mob/target as null, clear_view as null)
+ADMIN_VERB(logging_view, R_ADMIN|R_MOD, "Logging View", "Opens the detailed logging viewer.", ADMIN_CATEGORY_TICKETS, mob/target as null, clear_view as null)
 	var/datum/log_viewer/cur_view = GLOB.open_logging_views[user.ckey]
 	if(!cur_view)
 		cur_view = new /datum/log_viewer()
