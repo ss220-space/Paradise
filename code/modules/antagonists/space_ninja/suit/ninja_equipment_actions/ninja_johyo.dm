@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/johyo
 	name = "Integrated Jōhyō"
 	desc = "Верёвочный кинжал, спрятанный внутри костюма. \
-	Укомплектован стреляющий механизмом , позволяющим выстреливать кинжал с невероятной скоростью и захватывать жертв! Затрата энергии: 500"
+	Укомплектован стреляющим механизмом, позволяющим выстреливать кинжал с невероятной скоростью и захватывать жертв! Затрата энергии: 500"
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 5 SECONDS
 	button_icon_state = "kunai"
@@ -71,7 +71,7 @@
 
 /obj/item/ammo_casing/magic/johyo
 	name = "Jōhyō"
-	desc = "Другими словами — Кунай на верёвке.."
+	desc = "Другими словами — Кунай на верёвке."
 	projectile_type = /obj/projectile/johyo
 	muzzle_flash_effect = null
 	caliber = "kunai"

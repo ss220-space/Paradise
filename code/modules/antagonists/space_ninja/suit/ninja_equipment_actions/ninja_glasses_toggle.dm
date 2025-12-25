@@ -19,7 +19,7 @@
 			vision_flags &= ~SEE_MOBS
 			icon_state = "[initial(icon_state)]"
 			item_state = "[initial(item_state)]"
-			balloon_alert(user, "ночное видинье")
+			balloon_alert(user, "ночное видение")
 		if(NINJA_THERMALS)
 			see_in_dark = 2
 			lighting_alpha = 220
@@ -27,7 +27,7 @@
 			vision_flags |= SEE_MOBS
 			icon_state = "[initial(icon_state)]_red"
 			item_state = "[initial(item_state)]_red"
-			balloon_alert(user, "термальное видинье")
+			balloon_alert(user, "термальное видение")
 		if(NINJA_FLASHPROTECTION)
 			see_in_dark = 2
 			lighting_alpha = null

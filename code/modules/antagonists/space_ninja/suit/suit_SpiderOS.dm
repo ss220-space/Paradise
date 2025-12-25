@@ -5,7 +5,7 @@
 //Кнопка для вызова интерфейса
 /datum/action/item_action/advanced/ninja/SpiderOS
 	name = "SpiderOS"
-	desc = "Персональный ИИ интегрированый в костюм, который поможет вам в выполнении вашей миссии!"
+	desc = "Персональный ИИ интегрированный в костюм, который поможет вам в выполнении вашей миссии!"
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "spider_green"
