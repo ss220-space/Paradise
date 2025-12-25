@@ -190,6 +190,7 @@
 	new /obj/item/detonator(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore/bigger(src)
+	new /obj/item/mining_satchel_upgrade(src)
 
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
