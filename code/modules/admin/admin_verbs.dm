@@ -507,7 +507,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObs
 		to_chat(user, span_warning("[target] сейчас находится в лобби."))
 		return
 
-	if(!isobserver(user.mob))
+	if(!isobserver(user.mob) && !check_rights(R_MENTOR, FALSE, user))
 		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
 
 	addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
