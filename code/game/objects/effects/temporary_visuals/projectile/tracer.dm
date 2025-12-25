@@ -85,6 +85,14 @@
 	name = "plasma blast"
 	icon_state = "plasmacutter"
 
+/obj/effect/projectile/tracer/plasma_cutter/adv
+	name = "plasma blast adv"
+	icon_state = "plasmacutter_adv"
+
+/obj/effect/projectile/tracer/plasma_cutter/mega
+	name = "plasma blast mega"
+	icon_state = "plasmacutter_mega"
+
 /obj/effect/projectile/tracer/stun
 	name = "stun beam"
 	icon_state = "stun"

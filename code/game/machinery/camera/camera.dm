@@ -425,7 +425,7 @@
 	var/turf/T = get_turf(src)
 	cam["name"] = sanitize(c_tag)
 	cam["deact"] = !can_use()
-	cam["camera"] = "\ref[src]"
+	cam["camera"] = UID()
 	if(T)
 		cam["x"] = T.x
 		cam["y"] = T.y
