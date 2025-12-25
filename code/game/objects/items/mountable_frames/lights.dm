@@ -51,3 +51,13 @@
 	metal_sheets_refunded = 3
 	buildon_types = list(/turf/simulated/floor)
 	allow_floor_mounting = TRUE
+
+/obj/item/mounted/frame/light_fixture/floor/get_ru_names()
+	return list(
+		NOMINATIVE = "каркас напольного светильника",
+		GENITIVE = "каркаса напольного светильника",
+		DATIVE = "каркасу напольного светильника",
+		ACCUSATIVE = "каркас напольного светильника",
+		INSTRUMENTAL = "каркасом напольного светильника",
+		PREPOSITIONAL = "каркасе напольного светильника"
+	)
