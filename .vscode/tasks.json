@@ -31,7 +31,7 @@
 		},
 		{
 			"label": "Remove FAST_LOAD DME",
-			"dependsOn": "Create FAST_LOAD DME",
+			"dependsOn": "Build FAST_LOAD DME",
 			"type": "shell",
 			"command": "cmd",
 			"args": [
