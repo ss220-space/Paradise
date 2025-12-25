@@ -14,6 +14,9 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
 /area/space)
+"bP" = (
+/turf/simulated/wall/r_wall,
+/area/fastload)
 "dE" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -44,6 +47,12 @@
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"gC" = (
+/obj/structure/rack,
+/obj/item/mounted/frame/alarm_frame,
+/obj/item/mounted/frame/intercom,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "gL" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/stairs{
@@ -141,6 +150,10 @@
 /obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"ze" = (
+/obj/machinery/vending/nta/ertarmory/engineer,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "zP" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -154,6 +167,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Bc" = (
+/obj/machinery/vending/engivend,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "By" = (
 /obj/machinery/light{
 	dir = 8
@@ -163,6 +180,10 @@
 "BO" = (
 /turf/simulated/wall/indestructible/metal,
 /area/fastload/purple)
+"Cc" = (
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Cd" = (
 /obj/item/clothing/suit/space/hardsuit,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -203,17 +224,28 @@
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"Pd" = (
-/turf/simulated/openspace,
-/area/fastload)
-"PE" = (
+"ND" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 4
+	},
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Pd" = (
+/turf/simulated/openspace,
+/area/fastload)
 "Qa" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"RQ" = (
+/obj/item/stack/sheet/plasteel/fifty,
+/obj/structure/rack,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/rglass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Tl" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -6755,7 +6787,7 @@ YB
 YB
 YB
 YB
-PE
+YB
 BO
 jD
 jD
@@ -6953,7 +6985,7 @@ YB
 YB
 YB
 AX
-AX
+ND
 BO
 jD
 jD
@@ -10584,7 +10616,7 @@ By
 vR
 vR
 vR
-vR
+Bc
 uJ
 jD
 jD
@@ -10648,9 +10680,9 @@ vR
 vR
 vR
 vR
+bP
 vR
-vR
-vR
+ze
 uJ
 jD
 jD
@@ -10716,7 +10748,7 @@ vR
 vR
 vR
 vR
-vR
+RQ
 uJ
 jD
 jD
@@ -10782,7 +10814,7 @@ vR
 vR
 vR
 vR
-vR
+gC
 uJ
 jD
 jD
@@ -11178,7 +11210,7 @@ vR
 vR
 vR
 vR
-vR
+Cc
 uJ
 jD
 jD
