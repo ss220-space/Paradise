@@ -16,3 +16,17 @@
 		INSTRUMENTAL = "улучшением сумок для руды",
 		PREPOSITIONAL = "улучшении сумок для руды",
 	)
+
+/obj/item/storage/bag/ore/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/mining_satchel_upgrade) && src.aoe == 0)
+		add_fingerprint(user)
+		to_chat(user, span_notice("Вы улучшили сумку для руды!"))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+		src.aoe = TRUE
+		src.desc += " Сумка улучшена."
+		qdel(I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	if(istype(I, /obj/item/mining_satchel_upgrade) && src.aoe == 1)
+		to_chat(user, span_notice("Сумка уже улучшена!"))
+		return ..()
+	return ..()
