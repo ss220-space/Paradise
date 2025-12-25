@@ -366,32 +366,20 @@
 			//random virus from disease outbreak
 			infect(user)
 		if(10)
-			//Nothing
+			//Medal (will add later)
 			T.visible_message(span_userdanger("Вы ничего не заслужили, и это - уже заслуга."))
 		if(11)
 			//Warm Donk pockets
 			pockets(user)
 		if(12)
-			//Healing
-			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] совершенно здоров[GEND_YM_OI_YM_YMI(user)]!"))
-			user.revive()
+			//5000 credits
+			money(user)
 		if(13)
-			//Mad Dosh
-			T.visible_message(span_userdanger("Из [declent_ru(GENITIVE)] вылетает куча денег!"))
-			var/turf/Start = get_turf(src)
-			for(var/direction in GLOB.alldirs)
-				var/turf/dirturf = get_step(Start,direction)
-				if(rand(0,1))
-					new /obj/item/stack/spacecash/c1000(dirturf)
-				else
-					var/obj/item/storage/bag/money/M = new(dirturf)
-					for(var/i in 1 to rand(5,50))
-						new /obj/item/coin/gold(M)
+			//Captain ID
+			spare_id(user)
 		if(14)
-			//Free Gun
-			T.visible_message(span_userdanger("Появилось впечатляющее оружие!"))
-			create_smoke(2)
-			new /obj/item/gun/projectile/revolver/mateba(drop_location())
+			//Revive
+			revive(user)
 		if(15)
 			//Random One-use spellbook
 			T.visible_message(span_userdanger("Магическая книга упала на пол!"))
@@ -577,3 +565,17 @@
 	to_chat(gifted, span_notice("Наконец то, ваши старания признали."))
 	var/box = new /obj/item/storage/box/warmdonkpockets
 	gifted.put_in_hands(box)
+
+/obj/item/dice/d20/fate/proc/money(mob/living/carbon/human/gifted)
+	to_chat(gifted, span_boldnotice("ДЖЕКПОТ!!!"))
+	var/case = new /obj/item/storage/secure/briefcase/syndie
+	gifted.put_in_hands(case)
+
+/obj/item/dice/d20/fate/proc/spare_id(mob/living/carbon/human/gifted)
+	to_chat(gifted, span_boldnotice("Теперь я капитан этой посудины!"))
+	var/id = new /obj/item/card/id/captains_spare
+	gifted.put_in_hands(id)
+
+/obj/item/dice/d20/fate/proc/revive(mob/living/carbon/human/revived)
+	revived.visible_message(span_boldnotice("[revived] выгляд[PLUR_IT_YAT(revived)] полностью здоров[GEND_YM_OI_YM_YMI(revived)]"))
+	revived.revive()
