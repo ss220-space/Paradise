@@ -114,10 +114,10 @@
 		question += ", [offer_mob.mind?.special_role ? offer_mob.mind?.special_role : "Нет спец-роли"]"
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = offer_mob)
 	var/mob/dead/observer/theghost = null
-	
+
 	if(QDELETED(offer_mob))
 		return
-		
+
 	REMOVE_TRAIT(offer_mob, TRAIT_BEING_OFFERED, ADMIN_OFFER_TRAIT)
 
 	if(LAZYLEN(candidates))
@@ -487,7 +487,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					else										// Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
 				lname = "[span_name("[lname]")] "
-			to_chat(M, span_deadsay("[lname][follow][message]"))
+			to_chat(M, span_deadsay("[follow][lname][message]"))
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in GLOB.player_list)
