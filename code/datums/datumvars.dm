@@ -637,7 +637,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		usr?.client.open_matrix_tester(atom)
 
 	else if(href_list["togbit"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_VAREDIT))
+			return
 
 		var/atom/D = locateUID(href_list["subject"])
 		if(!isdatum(D) && !isclient(D))
@@ -652,7 +653,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		D.vars[href_list["var"]] = value
 
 	else if(href_list["varnamechange"] && href_list["datumchange"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_VAREDIT))
+			return
 
 		var/D = locateUID(href_list["datumchange"])
 		if(!isdatum(D) && !isclient(D))
@@ -662,7 +664,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		modify_variables(D, href_list["varnamechange"], 0)
 
 	else if(href_list["varnamemass"] && href_list["datummass"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_VAREDIT))
+			return
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
@@ -723,7 +726,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			MA.teach(C)
 
 	else if(href_list["give_disease"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["give_disease"])
 		if(!istype(M))
@@ -733,7 +737,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_disease, M)
 
 	else if(href_list["give_taipan_hud"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/M = locateUID(href_list["give_taipan_hud"])
 		if(!istype(M))
@@ -760,7 +765,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_godmode, target)
 
 	else if(href_list["gib"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/target = locateUID(href_list["gib"])
 		if(!istype(target))
@@ -770,7 +776,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/gib_them, target)
 
 	else if(href_list["build_mode"])
-		if(!check_rights(R_BUILDMODE))	return
+		if(!check_rights(R_BUILDMODE))
+			return
 
 		var/mob/target = locateUID(href_list["build_mode"])
 		if(!istype(target))
@@ -780,7 +787,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		togglebuildmode(target)
 
 	else if(href_list["drop_everything"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["drop_everything"])
 		if(!istype(M))
@@ -802,7 +810,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_assume_direct_control, M)
 
 	else if(href_list["make_skeleton"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["make_skeleton"])
 		if(!istype(H))
@@ -817,7 +826,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		log_and_message_admins("has turned [key_name_admin(H)] into a skeleton")
 
 	else if(href_list["offer_control"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["offer_control"])
 		if(!istype(M))
@@ -826,7 +836,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		offer_control(M)
 
 	else if(href_list["delete"])
-		if(!check_rights(R_DEBUG, 0))
+		if(!check_rights(R_DEBUG, FALSE))
 			return
 
 		var/datum/D = locateUID(href_list["delete"])
@@ -837,7 +847,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			debug_variables(D)
 
 	else if(href_list["delall"])
-		if(!check_rights(R_DEBUG|R_SERVER))	return
+		if(!check_rights(R_DEBUG|R_SERVER))
+			return
 
 		var/obj/O = locateUID(href_list["delall"])
 		if(!isobj(O))
@@ -952,7 +963,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/atom/A = locateUID(href_list["addreagent"])
 
@@ -973,7 +985,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_emp, locateUID(href_list["emp"]))
 
 	else if(href_list["mark_object"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_NONE))
+			return
 
 		var/datum/datum = locateUID(href_list["mark_object"])
 		if(!istype(datum))
@@ -1082,7 +1095,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/jump_to_turf, T)
 
 	else if(href_list["rotatedatum"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/atom/A = locateUID(href_list["rotatedatum"])
 		if(!istype(A))
@@ -1097,7 +1111,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		vv_update_display(A, "dir", dir2text(A.dir))
 
 	else if(href_list["makemonkey"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makemonkey"])
 		if(!istype(H))
@@ -1116,7 +1131,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_robotize, locateUID(href_list["makerobot"]))
 
 	else if(href_list["makealien"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
@@ -1131,7 +1147,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		holder.Topic(href, list("makealien"=href_list["makealien"]))
 
 	else if(href_list["makeslime"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
@@ -1146,7 +1163,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		holder.Topic(href, list("makeslime"=href_list["makeslime"]))
 
 	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
@@ -1162,7 +1180,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		holder.Topic(href, list("makesuper"=href_list["makesuper"]))
 
 	else if(href_list["makeai"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
@@ -1177,7 +1196,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		holder.Topic(href, list("makeai"=href_list["makeai"]))
 
 	else if(href_list["setspecies"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["setspecies"])
 		if(!istype(H))
@@ -1202,7 +1222,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "Failed! Something went wrong.", confidential=TRUE)
 
 	else if(href_list["addlanguage"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["addlanguage"])
 		if(!istype(H))
@@ -1225,7 +1246,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "Mob already knows that language.", confidential=TRUE)
 
 	else if(href_list["remlanguage"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["remlanguage"])
 		if(!istype(H))
@@ -1252,7 +1274,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "Mob doesn't know that language.", confidential=TRUE)
 
 	else if(href_list["grantalllanguage"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["grantalllanguage"])
 
@@ -1266,7 +1289,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		log_and_message_admins("has given [key_name(H)] all languages")
 
 	else if(href_list["changevoice"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["changevoice"])
 
@@ -1284,7 +1308,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["addverb"])
-		if(!check_rights(R_DEBUG))			return
+		if(!check_rights(R_DEBUG))
+			return
 
 		var/mob/living/H = locateUID(href_list["addverb"])
 
@@ -1315,7 +1340,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			log_and_message_admins("has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
-		if(!check_rights(R_DEBUG))			return
+		if(!check_rights(R_DEBUG))
+			return
 
 		var/mob/H = locateUID(href_list["remverb"])
 
@@ -1333,7 +1359,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			log_and_message_admins("has removed verb [verb] from [key_name(H)]")
 
 	else if(href_list["addorgan"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/M = locateUID(href_list["addorgan"])
 		if(!istype(M))
@@ -1355,7 +1382,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		log_and_message_admins("has given [key_name(M)] the organ [new_organ]")
 
 	else if(href_list["remorgan"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/M = locateUID(href_list["remorgan"])
 		if(!istype(M))
@@ -1378,7 +1406,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		qdel(rem_organ)
 
 	else if(href_list["regenerateicons"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_NONE))
+			return
 
 		var/mob/M = locateUID(href_list["regenerateicons"])
 		if(!ismob(M))
@@ -1387,7 +1416,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		M.regenerate_icons()
 
 	else if(href_list["adjustDamage"] && href_list["mobToDamage"])
-		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/L = locateUID(href_list["mobToDamage"])
 		if(!istype(L)) return

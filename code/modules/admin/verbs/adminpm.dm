@@ -162,7 +162,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 						adminhelp(reply) //sender has left, adminhelp instead
 				return
 
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link
 	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	if(ticket_id != -1)
@@ -173,9 +173,9 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 
 	var/emoji_msg = span_emojienabled("[msg]")
 	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
-	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
+	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, C.mob))
 		receive_window_link = ticket_link
-	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, C.mob))
+	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, FALSE, C.mob))
 		receive_window_link = ticket_link
 	receive_message = "<span class='[receive_span]'>[type] from-<b>[receive_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [receive_window_link] [alert_link]" : ""]</span>"
 	if(message_type == MESSAGE_TYPE_MENTORPM)
@@ -185,9 +185,9 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	to_chat(C, receive_message)
 	if(C != src)
 		var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
+		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, mob))
 			send_window_link = ticket_link
-		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
+		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, FALSE, mob))
 			send_window_link = ticket_link
 		var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]"
 		if(message_type == MESSAGE_TYPE_MENTORPM)
@@ -218,10 +218,10 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 			continue
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
-				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
+				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, X.mob))
 					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
 			else
-				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
+				if(check_rights(R_ADMIN|R_MOD, FALSE, X.mob))
 					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
 
 	if(length(tickets))
@@ -259,7 +259,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
-		if(check_rights(R_ADMIN, 0, X.mob))
+		if(check_rights(R_ADMIN, FALSE, X.mob))
 			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential=TRUE)
 
 /client/verb/open_pms_ui()

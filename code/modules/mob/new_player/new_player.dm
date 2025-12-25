@@ -33,7 +33,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	if(!(SSticker && SSticker.current_state == GAME_STATE_PREGAME && check_rights(R_ADMIN, 0, src)))
+	if(!(SSticker && SSticker.current_state == GAME_STATE_PREGAME && check_rights(R_ADMIN, FALSE, src)))
 		return .
 	status_tab_data[++status_tab_data.len] = list("Список игроков:", "")
 	for(var/mob/new_player/player in GLOB.player_list)
@@ -283,11 +283,16 @@
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
-	if(!job)	return 0
-	if(!job.is_position_available()) return 0
-	if(jobban_isbanned(src,rank))	return 0
-	if(!job.player_old_enough(client))	return 0
-	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
+	if(!job)
+		return 0
+	if(!job.is_position_available())
+		return 0
+	if(jobban_isbanned(src,rank))
+		return 0
+	if(!job.player_old_enough(client))
+		return 0
+	if(job.admin_only && !(check_rights(R_ADMIN, FALSE)))
+		return 0
 	if(job.available_in_playtime(client))
 		return 0
 	if(!job.can_novice_play(client))
@@ -730,7 +735,7 @@
 	close_window(src, "mob_occupation") //closes job selection
 
 /mob/new_player/proc/has_admin_rights()
-	return check_rights(R_ADMIN, 0, src)
+	return check_rights(R_ADMIN, FALSE, src)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

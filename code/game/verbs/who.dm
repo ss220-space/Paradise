@@ -133,7 +133,7 @@
 			num_admins_online++
 			adminmsg += jointext(line, "")
 
-		else if(check_rights((R_MENTOR || R_MOD), FALSE, client.mob)) // Is this client a mentor or moderator?
+		else if(check_rights(R_MENTOR|R_MOD, FALSE, client.mob)) // Is this client a mentor or moderator?
 			num_mentors_online++
 			mentormsg += jointext(line, "")
 

@@ -830,7 +830,7 @@ ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed
 	return FALSE
 
 /mob/dead/observer/can_admin_interact()
-	return check_rights(R_ADMIN, 0, src)
+	return check_rights(R_ADMIN, FALSE, src)
 
 /mob/dead/observer/can_advanced_admin_interact()
 	if(!can_admin_interact())

@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  */
 /proc/message_mentorTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, FALSE, C.mob))
+		if(check_rights(R_ADMIN|R_MENTOR|R_MOD, FALSE, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
 				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
@@ -174,12 +174,12 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", "Legac
 		<a href='byond://?_src_=holder;getmob=[M.UID()]'>Get</a> |
 		<a href='byond://?_src_=holder;sendmob=[M.UID()]'>Send To</a>
 		<br><br>
-		[check_rights(R_ADMIN,0) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
+		[check_rights(R_ADMIN, FALSE) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
 		<a href='byond://?_src_=holder;narrateto=[M.UID()]'>Narrate to</a> |
 		[ADMIN_SM(M,"Subtle message")]
 	"}
 
-	if(check_rights(R_EVENT, 0))
+	if(check_rights(R_EVENT, FALSE))
 		body += {" | <a href='byond://?_src_=holder;Bless=[M.UID()]'>Bless</a> | <a href='byond://?_src_=holder;Smite=[M.UID()]'>Smite</a>"}
 
 	if(isLivingSSD(M))
@@ -777,8 +777,8 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 		return //extra sanity check to make sure only observers are shoved into things
 
 	//same as assume-direct-control perm requirements.
-	if(!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
-		if(!check_rights(R_ADMIN|R_DEBUG,0)) //if they don't have r_admin and r_debug, return
+	if(!check_rights(R_VAREDIT, FALSE)) //no varedit, check if they have r_admin and r_debug
+		if(!check_rights(R_ADMIN|R_DEBUG, FALSE)) //if they don't have r_admin and r_debug, return
 			return FALSE //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
 
 	if(!frommob.ckey)

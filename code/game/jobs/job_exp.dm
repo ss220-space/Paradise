@@ -102,7 +102,7 @@ ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "R
 		return 0
 	if(!CONFIG_GET(flag/use_exp_restrictions))
 		return 0
-	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, 0, C.mob))
+	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, FALSE, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -124,7 +124,7 @@ ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "R
 		return 0
 	if(!CONFIG_GET(flag/use_exp_restrictions))
 		return 0
-	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, 0, C.mob))
+	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, FALSE, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -168,7 +168,7 @@ ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "R
 				return_text += "<li>Exempt (all jobs auto-unlocked)</li>"
 			else if(exp_data[EXP_TYPE_LIVING] > 0)
 				return_text += "<li>[dep]: [get_exp_format(exp_data[dep])]</li>"
-	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, 0, mob))
+	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, FALSE, mob))
 		return_text += "<li>Admin</li>"
 	return_text += "</ul>"
 	if(CONFIG_GET(flag/use_exp_restrictions))
