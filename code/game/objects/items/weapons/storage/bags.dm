@@ -133,6 +133,7 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
+	var/obj/item/storage/bag/ore/aoe = FALSE
 
 /obj/item/storage/bag/ore/get_ru_names()
 	return list(
@@ -143,6 +144,20 @@
 		INSTRUMENTAL = "шахтёрской сумкой",
 		PREPOSITIONAL = "шахтёрской сумке",
 	)
+
+/obj/item/storage/bag/ore/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/mining_satchel_upgrade) && src.aoe == 0)
+		add_fingerprint(user)
+		to_chat(user, span_notice("Вы улучшили сумку для руды!"))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+		src.aoe = TRUE
+		src.desc += " Сумка улучшена."
+		qdel(I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	if(istype(I, /obj/item/mining_satchel_upgrade) && src.aoe == 1)
+		to_chat(user, span_notice("Сумка уже улучшена!"))
+		return ..()
+	return ..()
 
 /obj/item/storage/bag/ore/bigger
 	name = "industrial mining satchel"
