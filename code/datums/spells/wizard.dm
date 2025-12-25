@@ -315,7 +315,7 @@
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 
-	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b></span>"
+	selection_activated_message		= span_notice("Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message	= span_notice("You extinguish your fireball...for now.")
 
 	var/fireball_type = /obj/projectile/magic/fireball
@@ -345,7 +345,7 @@
 	FB.original = target
 	FB.firer = user
 	var/turf/target_turf = get_turf(target)
-	FB.preparePixelProjectile(target, target_turf, user, targeting.click_params)
+	FB.preparePixelProjectile(target, user)
 	FB.fire()
 	user.newtonian_move(get_dir(target_turf, T))
 

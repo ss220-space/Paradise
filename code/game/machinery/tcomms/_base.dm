@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_hearers_in_radio_ranges(radios) | GLOB.dead_player_list | GLOB.current_observers_list
+	var/list/receive = get_hearers_in_radio_ranges(radios) | GLOB.permanent_radio_listeners
 
 	/* ###### Organize the receivers into categories for displaying the message ###### */
 
@@ -346,10 +346,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		/* --- Loop through the receivers and categorize them --- */
 
-		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
+		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
-		if(isobserver(R) && R.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
+		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
 
 		// --- Can understand the speech ---

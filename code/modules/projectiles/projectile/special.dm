@@ -412,8 +412,12 @@
 	icon_state = "spark"
 	hitsound = SFX_SPARKS
 	damage = 0
-	color = "#33CCFF"
 	nodamage = TRUE
+	color = COLOR_BLUE_LIGHT
+	tracer_type = /obj/effect/projectile/tracer/wormhole
+	impact_type = /obj/effect/projectile/impact/wormhole
+	muzzle_type = /obj/effect/projectile/muzzle/wormhole
+	hitscan = TRUE
 	var/is_orange = FALSE
 
 /obj/projectile/beam/wormhole/get_ru_names()
@@ -451,7 +455,7 @@
 		qdel(src)
 	var/obj/item/gun/energy/wormhole_projector/gun = firer_source_atom
 	if(!(locate(/obj/effect/portal) in get_turf(target)))
-		gun.create_portal(src)
+		gun.create_portal(src, get_turf(src))
 
 /obj/projectile/bullet/frag12
 	name ="explosive slug"
@@ -471,18 +475,30 @@
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, cause = src)
+	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, cause = "frag 12 fired by [key_name(firer)]")
 	return 1
 
 /obj/projectile/plasma
 	name = "plasma blast"
 	icon_state = "plasmacutter"
 	damage = 5
-	hitsound = SFX_BULLET
 	range = 3
 	dismemberment = 20
 	dismember_limbs = TRUE
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	hitsound = SFX_BULLET
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter
+	impact_type = /obj/effect/projectile/impact/plasma_cutter
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	hitscan_light_intensity = 3
+	hitscan_light_color_override = LIGHT_COLOR_CYAN
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_CYAN
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = LIGHT_COLOR_CYAN
 
 /obj/projectile/plasma/get_ru_names()
 	return list(
@@ -498,17 +514,26 @@
 	. = ..()
 	if(ismineralturf(target))
 		forcedodge = 1
-		var/turf/simulated/mineral/M = target
-		M.attempt_drill(firer)
+		var/turf/simulated/mineral/mineral = target
+		mineral.attempt_drill(firer)
 	else
 		forcedodge = 0
 
 /obj/projectile/plasma/adv
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/adv
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/adv
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/adv
 	damage = 7
 	range = 5
 
 /obj/projectile/plasma/adv/mega
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/mega
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/mega
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/mega
 	icon_state = "plasmacutter_mega"
+	hitscan_light_color_override = COLOR_FIRE_LIGHT_RED
+	muzzle_flash_color_override = COLOR_FIRE_LIGHT_RED
+	impact_light_color_override = COLOR_FIRE_LIGHT_RED
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	range = 7
 

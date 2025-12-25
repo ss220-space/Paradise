@@ -1,5 +1,5 @@
 /client/proc/air_status(turf/target as turf)
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Display Air Status"
 
 	if(!check_rights(R_DEBUG))
@@ -15,7 +15,7 @@
 		if(T.active_hotspot)
 			burning = 1
 
-	to_chat(usr, "<span class='notice'>@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] N2O: [GM.sleeping_agent] Agent B: [GM.agent_b] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("<span class='warning'>BURNING</span>"):(null)]</span>")
+	to_chat(usr, span_notice("@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] N2O: [GM.sleeping_agent] Agent B: [GM.agent_b] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning) ? span_warning("BURNING") : (null)]"))
 
 	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
 	log_admin("[key_name(usr)] has checked the air status of [target]")
@@ -23,7 +23,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Display Air Status")
 
 /client/proc/fix_next_move()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Unfreeze Everyone"
 
 	if(!check_rights(R_DEBUG))
@@ -63,7 +63,7 @@
 	return
 
 /client/proc/radio_report()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Radio report"
 
 	if(!check_rights(R_DEBUG))
@@ -124,7 +124,7 @@
 /client/proc/print_jobban_old()
 	set name = "Print Jobban Log"
 	set desc = "This spams all the active jobban entries for the current round to standard output."
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	if(!check_rights(R_DEBUG))
 		return
@@ -170,7 +170,7 @@
 
 	var/datum/D = locate(refstring)
 	if(!D)
-		to_chat(usr, "<span class='warning'>That ref string does not correspond to any datum.</span>")
+		to_chat(usr, span_warning("That ref string does not correspond to any datum."))
 		return
 
 	debug_variables(D)

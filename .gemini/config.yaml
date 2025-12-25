@@ -1,0 +1,4 @@
+code_review:
+  pull_request_opened:
+    summary: false
+    code_review: false # I don't want to get a review if I didn't ask for it.

@@ -1558,15 +1558,17 @@
 				body_part.mend_fracture()
 				break
 
-	// internal bleedings
+	// bleedings
 	if(chance_stop_internal_bleeding)
 		for(var/obj/item/organ/external/body_part as anything in human_vampire.bodyparts)
 			if(QDELETED(body_part))
 				continue
-			if(!body_part.has_internal_bleeding())
+			if(!body_part.has_internal_bleeding() && !body_part.has_arterial_bleeding())
 				continue
 			if(prob(chance_stop_internal_bleeding))
 				body_part.stop_internal_bleeding()
+				body_part.stop_arterial_bleeding()
+				body_part.stop_bleeding()
 				break
 
 	// regrowing limbs

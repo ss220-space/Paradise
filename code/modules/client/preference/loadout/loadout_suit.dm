@@ -151,7 +151,7 @@
 
 /datum/gear/suit/sec_rps
 	index_name = "security belt-shoulder system"
-	path = /obj/item/clothing/suit/armor/vest/sec_rps
+	path = /obj/item/clothing/suit/storage/sec_rps
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 //SURAGI JACKET

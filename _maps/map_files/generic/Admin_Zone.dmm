@@ -248,10 +248,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
-"cB" = (
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/wood,
-/area/admin)
 "cD" = (
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
@@ -559,29 +555,6 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"fl" = (
-/obj/machinery/camera{
-	c_tag = "Thunderdome Arena";
-	network = list("Thunderdome");
-	pixel_x = 10
-	},
-/obj/machinery/flasher{
-	id = "flash";
-	name = "Thunderdome Flash"
-	},
-/obj/item/radio/intercom/pirate{
-	req_access = list(153)
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkgrey"
-	},
-/area/tdome/arena_source)
 "fp" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/minebot,
@@ -733,6 +706,10 @@
 	dir = 6;
 	icon_state = "darkgrey"
 	},
+/area/admin)
+"gY" = (
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/carpet,
 /area/admin)
 "ha" = (
 /obj/structure/rack,
@@ -899,6 +876,15 @@
 	dir = 6;
 	icon_state = "darkgrey"
 	},
+/area/admin)
+"iG" = (
+/obj/structure/chair/comfy/beige{
+	dir = 8;
+	layer = 5;
+	pixel_y = -2
+	},
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/wood,
 /area/admin)
 "iH" = (
 /obj/structure/chair/stool/holostool,
@@ -1704,6 +1690,17 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
+"rI" = (
+/obj/effect/landmark/spawner/tdomeadmin,
+/obj/item/radio/intercom/pirate/directional/south,
+/obj/machinery/door_control{
+	id = "thunderdome";
+	name = "Thunder start";
+	pixel_y = -32;
+	req_access = list(153)
+	},
+/turf/simulated/floor/carpet/black,
+/area/tdome/tdomeadmin)
 "rK" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/door,
@@ -1766,10 +1763,6 @@
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain/scattershot,
 /turf/simulated/floor/wood,
-/area/admin)
-"tp" = (
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/carpet,
 /area/admin)
 "tq" = (
 /obj/item/card/id/admin,
@@ -2076,20 +2069,6 @@
 	icon_state = "darkgrey"
 	},
 /area/admin)
-"wN" = (
-/obj/effect/landmark/spawner/tdomeadmin,
-/obj/item/radio/intercom/pirate{
-	pixel_y = -25;
-	req_access = list(153)
-	},
-/obj/machinery/door_control{
-	id = "thunderdome";
-	name = "Thunder start";
-	pixel_y = -32;
-	req_access = list(153)
-	},
-/turf/simulated/floor/carpet/black,
-/area/tdome/tdomeadmin)
 "wO" = (
 /obj/structure/railing{
 	dir = 4
@@ -2408,6 +2387,27 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"An" = (
+/obj/machinery/camera{
+	c_tag = "Thunderdome Arena";
+	network = list("Thunderdome");
+	pixel_x = 10
+	},
+/obj/machinery/flasher{
+	id = "flash";
+	name = "Thunderdome Flash"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "thunderdome";
+	name = "Thunderdome Blast Door";
+	simulated = 0
+	},
+/obj/item/radio/intercom/pirate/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkgrey"
+	},
+/area/tdome/arena_source)
 "AJ" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/resurrection,
@@ -2970,14 +2970,6 @@
 /obj/item/gun/projectile/automatic/toy/pistol/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
-"Hi" = (
-/obj/structure/chair/comfy/beige{
-	dir = 8;
-	layer = 5;
-	pixel_y = -2
-	},
-/turf/simulated/floor/wood,
-/area/admin)
 "Hu" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
@@ -3464,29 +3456,10 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"Ob" = (
-/obj/machinery/camera{
-	c_tag = "Thunderdome Arena";
-	network = list("Thunderdome");
-	pixel_x = 10
-	},
-/obj/machinery/flasher{
-	id = "flash";
-	name = "Thunderdome Flash"
-	},
-/obj/item/radio/intercom/pirate{
-	req_access = list(153)
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkgrey"
-	},
-/area/tdome/arena)
+"NX" = (
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/wood,
+/area/admin)
 "Oe" = (
 /obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
@@ -3718,6 +3691,27 @@
 /obj/item/gun/projectile/automatic/l6_saw,
 /turf/simulated/floor/wood,
 /area/admin)
+"RI" = (
+/obj/machinery/camera{
+	c_tag = "Thunderdome Arena";
+	network = list("Thunderdome");
+	pixel_x = 10
+	},
+/obj/machinery/flasher{
+	id = "flash";
+	name = "Thunderdome Flash"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "thunderdome";
+	name = "Thunderdome Blast Door";
+	simulated = 0
+	},
+/obj/item/radio/intercom/pirate/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkgrey"
+	},
+/area/tdome/arena)
 "Sc" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping,
@@ -3986,13 +3980,6 @@
 	icon_state = "navyblue"
 	},
 /area/adminconstruction)
-"Vm" = (
-/obj/structure/table/wood/poker,
-/obj/item/radio/intercom/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/admin)
 "Vq" = (
 /obj/structure/table/wood,
 /obj/item/radio/headset,
@@ -8335,7 +8322,7 @@ Ah
 Ep
 Ep
 Ah
-Vm
+Ah
 fE
 gD
 Ep
@@ -8591,7 +8578,7 @@ MF
 Ep
 Ep
 Ep
-Hi
+iG
 zH
 fE
 fE
@@ -8845,7 +8832,7 @@ Yq
 (18,1,1) = {"
 fE
 Oe
-cB
+NX
 Ep
 Ep
 iD
@@ -10918,7 +10905,7 @@ ZG
 ZG
 ZG
 ZG
-tp
+gY
 ZG
 ZG
 ZG
@@ -62310,7 +62297,7 @@ Ou
 Ou
 Ou
 Ou
-Ob
+RI
 Ou
 Ou
 Ou
@@ -62318,7 +62305,7 @@ Ou
 Fi
 Xy
 Hx
-wN
+rI
 Fi
 Yq
 Fi
@@ -62330,7 +62317,7 @@ Zs
 Zs
 Zs
 Zs
-fl
+An
 Zs
 Zs
 Zs

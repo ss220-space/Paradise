@@ -3176,27 +3176,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
-"iv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "rightpirat_blast";
-	name = "Right BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = 6
-	},
-/obj/machinery/door_control{
-	id = "leftpirat_blast";
-	name = "Left BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = -6
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "ix" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -9097,6 +9076,27 @@
 /obj/item/storage/box/syndie_kit/chameleon,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
+"zF" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rightpirat_blast";
+	name = "Right BlastDoor";
+	req_access = list(160);
+	pixel_y = 6;
+	pixel_x = 6
+	},
+/obj/machinery/door_control{
+	id = "leftpirat_blast";
+	name = "Left BlastDoor";
+	req_access = list(160);
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
 "zH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9124,18 +9124,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
-"zQ" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 4
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "zR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -11333,6 +11321,16 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
+"Gn" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
 "Go" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -22153,7 +22151,7 @@ qc
 qc
 qc
 ey
-iv
+zF
 FU
 sK
 FK
@@ -22257,7 +22255,7 @@ qc
 ey
 WE
 vJ
-zQ
+Gn
 wI
 DE
 bh

@@ -259,6 +259,9 @@
 	else if(hand_id == ITEM_SLOT_HAND_RIGHT && !has_right_hand())
 		return FALSE
 
+	if((hand_id == ITEM_SLOT_HAND_RIGHT && right_hand_bleed_suppress_lib) || (hand_id == ITEM_SLOT_HAND_LEFT && left_hand_bleed_suppress_lib))
+		return FALSE
+
 	if(!isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && ((hand_id == ITEM_SLOT_HAND_LEFT && pull_hand == PULL_HAND_LEFT) || (hand_id == ITEM_SLOT_HAND_RIGHT && pull_hand == PULL_HAND_RIGHT)))
 		return FALSE
 

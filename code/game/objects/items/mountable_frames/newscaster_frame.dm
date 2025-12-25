@@ -3,26 +3,10 @@
 	desc = "Used to build newscasters, just secure to the wall."
 	icon_state = "newscaster"
 	item_state = "syringe_kit"
-	materials = list(MAT_METAL=14000, MAT_GLASS=8000)
-	mount_reqs = list("simfloor", "nospace")
-
-/obj/item/mounted/frame/newscaster_frame/try_build(turf/on_wall, mob/user)
-	if(..())
-		var/turf/loc = get_turf(usr)
-		var/area/A = loc.loc
-		if(!isfloorturf(loc))
-			to_chat(usr, span_alert("Newscaster cannot be placed on this spot."))
-			return
-		if(A.requires_power == 0 || A.name == "Space")
-			to_chat(usr, span_alert("Newscaster cannot be placed in this area."))
-			return
-
-		for(var/obj/machinery/newscaster/T in loc)
-			to_chat(usr, span_alert("There is another newscaster here."))
-			return
-
-		return 1
-	return
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 3
+	glass_sheets_refunded = 1
 
 /obj/item/mounted/frame/newscaster_frame/do_build(turf/on_wall, mob/user)
 	var/obj/machinery/newscaster/N = new /obj/machinery/newscaster(get_turf(src), get_dir(on_wall, user), 1)

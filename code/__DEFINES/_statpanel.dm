@@ -39,6 +39,9 @@
 #define STATPANEL_ADMIN_FUN "Админ.Веселье"
 #define STATPANEL_ADMIN_SOUNDS "Админ.Звуки"
 #define STATPANEL_ADMIN_DEBUG "Админ.Отладка"
+#define STATPANEL_DEBUG "Debug"
+#define STATPANEL_DEBUG_DMJIT "Debug.dmJIT"
+#define STATPANEL_DEBUG_MAPPING "Debug.Mapping"
 #define STATPANEL_SERVER "Сервер"
 
 // Admin and Mentor PM's

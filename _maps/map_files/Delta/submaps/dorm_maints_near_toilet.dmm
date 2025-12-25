@@ -341,10 +341,7 @@
 "pe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "pU" = (
@@ -497,9 +494,7 @@
 	},
 /area/template_noop)
 "yu" = (
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -7;
