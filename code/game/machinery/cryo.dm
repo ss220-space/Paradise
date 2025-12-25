@@ -46,7 +46,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		set_light_on(FALSE)
 	else
-		set_light(2)
+		set_light(1.5, 1, LIGHT_COLOR_CYAN)
 
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
 	. = ..()

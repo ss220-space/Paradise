@@ -29,6 +29,7 @@
 	active_power_usage = 2500
 
 	light_color = LIGHT_COLOR_CYAN
+	light_power = 0.5
 
 /obj/machinery/sleeper/get_ru_names()
 	return list(

@@ -13,9 +13,12 @@
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_on = FALSE
-	var/on = FALSE
-	var/togglesound = 'sound/weapons/empty.ogg'
+	light_color = COLOR_LIGHT_YELLOW
 	toolbox_radial_menu_compatibility = TRUE
+	/// Should the flashlight start turned on?
+	var/on = FALSE
+	/// The sound the light makes when it's turned on/off
+	var/togglesound = 'sound/weapons/empty.ogg'
 
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"
@@ -159,12 +162,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list()
 	on = TRUE
+	light_color = "#fff4bb"
 
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
+	light_color = "#aaffaa"
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -172,9 +177,9 @@
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
+	light_color = "#f7ff57"
 
 // FLARES
-
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."

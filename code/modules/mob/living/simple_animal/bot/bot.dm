@@ -5,6 +5,8 @@
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
 	light_range = 3
+	light_power = 0.5
+	light_color = "#f3ffbb"
 	stop_automated_movement = TRUE
 	wander = FALSE
 	healable = FALSE

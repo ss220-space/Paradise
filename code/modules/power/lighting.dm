@@ -192,7 +192,7 @@
 	/// Light intensity
 	var/brightness_power = 1
 	/// Light colour when on
-	var/brightness_color = "#FFFFFF"
+	var/brightness_color = COLOR_WHITE
 	/// Light fixture status (LIGHT_OK | LIGHT_EMPTY | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	/// Is the light currently flickering?
@@ -222,9 +222,9 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#FFDDCC"
+	var/nightshift_light_color = "#e0eeff"
 	/// The colour of the light while it's in emergency mode
-	var/bulb_emergency_colour = "#FF3232"
+	var/bulb_emergency_colour = "#ff4e4e"
 
 	/// If true, the light is in emergency mode
 	var/emergency_mode = FALSE
@@ -244,8 +244,9 @@
 	base_icon_state = "bulb"
 	fitting = "bulb"
 	brightness_range = 4
-	brightness_color = "#a0a080"
+	brightness_color = "#ffebb0"
 	nightshift_light_range = 4
+	nightshift_light_color = "#ffefa0"
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
@@ -510,9 +511,12 @@
 		status = new_light.status
 		switchcount = new_light.switchcount
 		rigged = new_light.rigged
-		brightness_range = new_light.brightness_range
-		brightness_power = new_light.brightness_power
-		brightness_color = new_light.brightness_color
+		if(new_light.brightness_range)
+			brightness_range = new_light.brightness_range
+		if(new_light.brightness_power)
+			new_light.brightness_power = new_light.brightness_power
+		if(new_light.brightness_color)
+			brightness_color = new_light.brightness_color
 		lightmaterials = new_light.materials
 		on = has_power()
 		update()
@@ -652,7 +656,7 @@
 		update_icon()
 		return
 	emergency_mode = TRUE
-	set_light(3, 1.7, bulb_emergency_colour, l_on = TRUE)
+	set_light((fitting == "tube" ? 3 : 2), 1, bulb_emergency_colour, l_on = TRUE)
 	update_icon()
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
@@ -933,7 +937,6 @@
 	base_icon_state = "lbulb"
 	item_state = "contvapour"
 	brightness_range = 5
-	brightness_color = "#a0a080"
 
 /obj/item/light/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
