@@ -388,17 +388,13 @@
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
-	item_state = "slime"
+	icon_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	light_range = 6
 	light_system = MOVABLE_LIGHT
 	light_color = "#FFBF00"
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
-
-/obj/item/flashlight/slime/update_icon_state()
-	return
 
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.

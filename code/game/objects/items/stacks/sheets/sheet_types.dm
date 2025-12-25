@@ -1,21 +1,4 @@
-/* Different misc types of sheets
- * Contains:
- * Metal
- * Plasteel
- * Wood
- * Cloth
- * Plastic
- * Cardboard
- * Runed Metal (cult)
- * Brass (clockwork cult)
- * Bamboo
- * Cheese
- */
-
-/*
- * Metal
- */
-
+// MARK: METAL
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("Stool", /obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE),
@@ -65,6 +48,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe("Floor tile", /obj/item/stack/tile/plasteel, TRUE, 4, 20),
 	new /datum/stack_recipe/rods("Metal rod", /obj/item/stack/rods, TRUE, 2, 50),
+	new /datum/stack_recipe("floor light fixture frame", /obj/item/mounted/frame/light_fixture/floor, 3),
 	null,
 	new /datum/stack_recipe("Computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -149,10 +133,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. = ..()
 	recipes = GLOB.metal_recipes
 
-/*
- * Plasteel
- */
-
+// MARK: PLASTEEL
 GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe_list("Airlock assemblies", list(
 		new /datum/stack_recipe("High security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -193,10 +174,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	. = ..()
 	recipes = GLOB.plasteel_recipes
 
-/*
- * Wood
- */
-
+// MARK: WOOD
 GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Apiary", /obj/structure/beebox, 40, time = 5 SECONDS),
 	new /datum/stack_recipe("Baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
@@ -276,10 +254,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	. = ..()
 	recipes = GLOB.wood_recipes
 
-/*
- * Cloth
- */
-
+// MARK: CLOTH
 GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("White beanie", /obj/item/clothing/head/beanie, 2),
 	new /datum/stack_recipe("White gloves", /obj/item/clothing/gloves/color/white, 3),
@@ -339,10 +314,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
-/*
- * Durathread
- */
-
+// MARK: DURATHREAD
 GLOBAL_LIST_INIT(durathread_recipes, list(
 	new/datum/stack_recipe("Durathread bandana", /obj/item/clothing/mask/bandana/durathread, time = 2.5 SECONDS),
 	new/datum/stack_recipe("Durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS),
@@ -356,7 +328,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
-	//item_state = "sheet-cloth"
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -389,10 +360,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
 
-/*
- * Cardboard
- */
-
+// MARK: CARDBOARD
 GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe_list("Small boxes", list(
 		new /datum/stack_recipe("box", /obj/item/storage/box),
@@ -445,10 +413,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	. = ..()
 	recipes = GLOB.cardboard_recipes
 
-/*
- * Runed Metal
- */
-
+// MARK: RUNED METAL
 GLOBAL_LIST_INIT(cult_recipes, list(
 	new /datum/stack_recipe/cult("Runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("Runed girder (used to make cult walls)", /obj/structure/girder/cult, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -457,6 +422,7 @@ GLOBAL_LIST_INIT(cult_recipes, list(
 	new /datum/stack_recipe/cult("Archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("Altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 ))
+
 GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	new /datum/stack_recipe/cult("Runed door", /obj/machinery/door/airlock/cult_fake, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
 	new /datum/stack_recipe/cult("Runed girder", /obj/structure/girder/cult_fake, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
@@ -536,10 +502,7 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	. = ..()
 	recipes = GLOB.cult_fake_recipes
 
-/*
- * Brass
- */
-
+// MARK: BRASS
 GLOBAL_LIST_INIT(brass_recipes, list(
 	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -701,10 +664,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		PREPOSITIONAL = "бритвенно-острых зубах",
 	)
 
-/*
- * Plastic
- */
-
+// MARK: PLASTIC
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("Plastic ashtray", /obj/item/storage/ashtray/, 2, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
@@ -798,10 +758,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 /obj/item/stack/sheet/plastic/five
 	amount = 5
 
-/*
- * Bamboo
- */
-
+// MARK: BAMBOO
 GLOBAL_LIST_INIT(bamboo_recipes, list(
 	new /datum/stack_recipe("Bamboo spear", /obj/item/twohanded/bamboospear, 25, time = 9 SECONDS),
 	new /datum/stack_recipe("Blow gun", /obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS),
@@ -813,7 +770,6 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	desc = "Finely cut bamboo sticks."
 	singular_name = "cut bamboo"
 	icon_state = "sheet-bamboo"
-	//item_state = "sheet-bamboo"
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
@@ -825,10 +781,10 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	. = ..()
 	recipes = GLOB.bamboo_recipes
 
-/*
- * Cheese
- */
+/obj/item/stack/sheet/bamboo/fifty
+	amount = 50
 
+// MARK: CHEESE
 GLOBAL_LIST_INIT(cheese_recipes, list(
 	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 10 SECONDS, on_floor = TRUE),
 ))
@@ -837,7 +793,6 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 	name = "reinforced cheese"
 	desc = "A stack of cheese that seems sturdier than regular cheese."
 	icon_state = "sheet-cheese"
-	//item_state = "sheet-cheese"
 	singular_name = "reinforced cheese block"
 	sheettype = "cheese"
 	max_amount = 15
@@ -851,10 +806,7 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 /obj/item/stack/sheet/cheese/fifteen
 	amount = 15
 
-/*
- * Gingerbread
- */
-
+// MARK: GINGERBREAD
 GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
@@ -863,7 +815,6 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	name = "gingerbread"
 	desc = "A brick of gingerbread that seems sturdier than regular one."
 	icon_state = "sheet-gingerbread"
-	//item_state = "sheet-gingerbread"
 	singular_name = "gingerbread block"
 	sheettype = "gingerbread"
 	force = 1
