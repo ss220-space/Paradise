@@ -10,7 +10,7 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "TD_CloseCombat"
 	},
-/turf/simulated/floor/indestructible/grass,
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome)
 "ah" = (
 /obj/structure/table/wood/poker,
@@ -69,16 +69,6 @@
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/wood,
 /area/admin)
-"aN" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "aO" = (
 /obj/structure/table/wood,
 /obj/item/dnainjector/antiblind,
@@ -615,12 +605,6 @@
 /obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/wood,
 /area/admin)
-"ga" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "ge" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/fingergun/fake,
@@ -830,10 +814,12 @@
 	},
 /area/adminconstruction)
 "iy" = (
-/obj/effect/turf_decal{
-	dir = 10;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 1;
+	tag = "icon-snow_corner (NORTH)"
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
@@ -1041,9 +1027,8 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "jI" = (
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium"
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome)
@@ -1307,13 +1292,6 @@
 /obj/item/grenade/clusterbuster/mega_syndieminibomb,
 /turf/simulated/floor/wood,
 /area/admin)
-"mN" = (
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "mO" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/chainsaw,
@@ -1567,12 +1545,10 @@
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "qg" = (
-/obj/effect/turf_decal{
-	dir = 10;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
-/turf/simulated/floor/indestructible/grass,
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome/CQC)
 "qi" = (
 /turf/simulated/floor/holofloor{
@@ -1580,10 +1556,12 @@
 	},
 /area/holodeck/source_boxingcourt)
 "qr" = (
-/obj/effect/turf_decal{
-	dir = 6;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 1;
+	tag = "icon-snow_corner (NORTH)"
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
@@ -1603,12 +1581,6 @@
 	icon_state = "darkgrey"
 	},
 /area/admin)
-"qw" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "qx" = (
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
@@ -2054,10 +2026,8 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "wE" = (
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome)
@@ -2227,7 +2197,7 @@
 	},
 /area/admin)
 "yQ" = (
-/turf/simulated/floor/indestructible/grass,
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome/CQC)
 "yT" = (
 /obj/structure/table/wood,
@@ -2678,13 +2648,13 @@
 	},
 /area/adminconstruction)
 "Du" = (
-/turf/simulated/floor/indestructible/grass,
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome)
 "Dz" = (
-/obj/effect/turf_decal{
-	dir = 9;
-	icon_state = "grass_edge_medium"
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
+/obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
 "DF" = (
@@ -2721,9 +2691,9 @@
 	},
 /area/holodeck/source_basketball)
 "Ef" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 1;
+	tag = "icon-snow_corner (NORTH)"
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome)
@@ -2764,11 +2734,10 @@
 /turf/space,
 /area/adminconstruction)
 "EL" = (
-/obj/effect/turf_decal{
-	dir = 5;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
 	},
+/obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
 "EU" = (
@@ -2838,13 +2807,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_boxingcourt)
-"FE" = (
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "FF" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2929,9 +2891,8 @@
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
 "GP" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
 /turf/simulated/wall/indestructible/mineral_rock,
 /area/tdome/newtdome)
@@ -3679,13 +3640,6 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/wood,
 /area/admin)
-"RA" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "RF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw,
@@ -4064,9 +4018,7 @@
 /obj/structure/table/reinforced{
 	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
 	},
-/obj/item/reagent_containers/food/snacks/charred_krill{
-	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"
-	},
+/obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
 "VO" = (
@@ -4297,11 +4249,10 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "Yf" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
+/obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome)
 "Yl" = (
@@ -4351,8 +4302,8 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "YS" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium_corner"
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
 /turf/simulated/wall/indestructible/sandstone,
 /area/tdome/newtdome/CQC)
@@ -61327,9 +61278,9 @@ yQ
 yQ
 yQ
 qr
-FE
 cD
-RA
+cD
+cD
 EL
 yQ
 yQ
@@ -61587,7 +61538,7 @@ Ie
 cD
 cD
 cD
-ga
+VM
 EL
 yQ
 yQ
@@ -61839,13 +61790,13 @@ ad
 yQ
 yQ
 qr
-FE
+cD
 cD
 Ie
 cD
-ga
+VM
 cD
-RA
+cD
 EL
 yQ
 yQ
@@ -62095,7 +62046,6 @@ Du
 ad
 yQ
 qr
-FE
 cD
 cD
 cD
@@ -62103,7 +62053,8 @@ cD
 cD
 cD
 cD
-RA
+cD
+cD
 EL
 yQ
 ad
@@ -62609,7 +62560,6 @@ Du
 ad
 yQ
 iy
-qw
 cD
 cD
 cD
@@ -62617,7 +62567,8 @@ cD
 cD
 cD
 cD
-mN
+cD
+cD
 Dz
 yQ
 ad
@@ -62867,13 +62818,13 @@ ad
 yQ
 yQ
 iy
-qw
+cD
 cD
 Ie
 cD
-ga
+VM
 cD
-mN
+cD
 Dz
 yQ
 yQ
@@ -63129,7 +63080,7 @@ YS
 cD
 cD
 cD
-aN
+VM
 Dz
 yQ
 yQ
@@ -63383,9 +63334,9 @@ yQ
 yQ
 qg
 iy
-qw
 cD
-mN
+cD
+cD
 Dz
 yQ
 yQ

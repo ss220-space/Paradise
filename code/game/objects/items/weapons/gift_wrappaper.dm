@@ -40,6 +40,12 @@
 	qdel(src)
 
 /obj/item/a_gift/attack_self(mob/user)
+	user.balloon_alert(user, "открытие подарка")
+	
+	if(!do_after(user, 4 SECONDS, target = src))
+		user.balloon_alert(user, "прервано!")
+		return
+	
 	var/static/list/gift_types = list(/obj/item/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,
@@ -101,6 +107,32 @@
 		/obj/item/stack/tile/fakespace/loaded,
 		/obj/item/toy/pet_rock/naughty_coal,
 		/obj/item/reagent_containers/food/snacks/sugar_coal,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+		/obj/item/gun/projectile/automatic/toy,
+		/obj/item/toy/toolbox,
+		/obj/item/ammo_box/magazine/toy/enforcer,
+		/obj/item/melee/candy_sword,
+		/obj/item/clothing/suit/space/new_year,
+		/obj/item/clothing/head/new_year,
+		/obj/item/clothing/suit/storage/zazalord,
+		/obj/item/toy/plushie/gsbplushie,
+		/obj/item/toy/plushie/rdplushie,
+		/obj/item/fluff/rapid_wheelchair_kit,
+		/obj/item/clothing/neck/cloak/spacecloak,
+		/obj/item/clothing/glasses/meson/heart,
+		/obj/item/clothing/accessory/head_strip/frog,
+		/obj/item/clothing/accessory/head_strip/fox,
+		/obj/item/clothing/accessory/head_strip/black_cat,
+		/obj/item/clothing/accessory/head_strip/triforce,
+		/obj/item/clothing/accessory/head_strip/deathsquad,
+		/obj/item/clothing/accessory/head_strip/greytide,
+		/obj/item/clothing/accessory/head_strip/federal,
+		/obj/item/clothing/accessory/head_strip/comrad,
+		/obj/item/clothing/accessory/head_strip/syndicate,
+		/obj/item/clothing/mask/face/fawkes,
+		/obj/item/grenade/confetti,
+		
+
 	)
 
 	var/new_gift_type = pick(gift_types)
