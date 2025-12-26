@@ -131,8 +131,6 @@
 		/obj/item/clothing/accessory/head_strip/syndicate,
 		/obj/item/clothing/mask/face/fawkes,
 		/obj/item/grenade/confetti,
-		
-
 	)
 
 	var/new_gift_type = pick(gift_types)
