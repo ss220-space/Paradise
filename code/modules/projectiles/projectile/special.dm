@@ -520,10 +520,16 @@
 		forcedodge = 0
 
 /obj/projectile/plasma/adv
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/adv
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/adv
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/adv
 	damage = 7
 	range = 5
 
 /obj/projectile/plasma/adv/mega
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/mega
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/mega
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/mega
 	icon_state = "plasmacutter_mega"
 	hitscan_light_color_override = COLOR_FIRE_LIGHT_RED
 	muzzle_flash_color_override = COLOR_FIRE_LIGHT_RED

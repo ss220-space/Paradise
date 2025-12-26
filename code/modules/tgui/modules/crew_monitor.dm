@@ -29,7 +29,7 @@
 
 	switch(action)
 		if("track")
-			var/mob/living/carbon/human/human = locate(params["track"]) in GLOB.human_list
+			var/mob/living/carbon/human/human = locateUID(params["track"])
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				if(hassensorlevel(human, SUIT_SENSOR_TRACKING))

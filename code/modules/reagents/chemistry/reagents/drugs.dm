@@ -244,6 +244,7 @@
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
+	M.AdjustKnockdown(-4 SECONDS)
 	if(prob(15))
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
@@ -405,6 +406,7 @@
 	user.AdjustParalysis(-4 SECONDS)
 	user.AdjustStunned(-4 SECONDS)
 	user.AdjustWeakened(-4 SECONDS)
+	user.AdjustKnockdown(-4 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7, FALSE)
 	user.SetSleeping(0)
 	if(prob(50))
@@ -483,6 +485,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(check < 8 && head_organ.h_style != "Very Long Beard")
 			head_organ.h_style = "Very Long Hair"
@@ -608,6 +611,7 @@
 	if(prob(10))
 		M.AdjustConfused(-10 SECONDS)
 		M.SetWeakened(0, FALSE)
+		M.SetKnockdown(0, FALSE)
 	if(volume >= 70 && prob(25))
 		if(M.reagents.get_reagent_amount("thc") <= 20)
 			M.Drowsy(20 SECONDS)
@@ -883,6 +887,7 @@
 	user.AdjustParalysis(-4 SECONDS)
 	user.AdjustStunned(-4 SECONDS)
 	user.AdjustWeakened(-4 SECONDS)
+	user.AdjustKnockdown(-4 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7, FALSE)
 	user.Jitter(6 SECONDS)
 	update_flags |= user.adjustBrainLoss(0.5, FALSE)
@@ -976,6 +981,7 @@
 	M.AdjustParalysis(-8 SECONDS)
 	M.AdjustStunned(-8 SECONDS)
 	M.AdjustWeakened(-8 SECONDS)
+	M.AdjustKnockdown(-8 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
 	if(prob(5))
 		var/high_message = pick("Вы чувствуете себя спокойно.", "Вы чувствуете себя собранным.", "Вы чувствуете, что вам нужно расслабиться.")
@@ -1077,6 +1083,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 	if(prob(50))
 		update_flags |= M.adjustHeartLoss(1, FALSE)
 	return ..() | update_flags
@@ -1118,6 +1125,7 @@
 	M.SetParalysis(0)
 	M.SetStunned(0)
 	M.SetWeakened(0)
+	M.SetKnockdown(0)
 	if(prob(25))
 		update_flags |= M.adjustHeartLoss(1, FALSE)
 	return ..() | update_flags
@@ -1165,6 +1173,7 @@
 	M.AdjustParalysis(-3 SECONDS)
 	M.AdjustStunned(-3 SECONDS)
 	M.AdjustWeakened(-3 SECONDS)
+	M.AdjustKnockdown(-3 SECONDS)
 	M.SetSleeping(0)
 	return ..() | update_flags
 

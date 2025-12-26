@@ -66,6 +66,10 @@ h2.alert {
   text-align: center;
 }
 
+.small {
+  font-size: 60%;
+}
+
 .big {
   font-size: 150%;
 }
@@ -423,6 +427,11 @@ h2.alert {
   font-weight: bold;
 }
 
+.announce {
+  color: hsl(0, 73.6%, 44.5%);
+  font-weight: bold;
+}
+
 .danger {
   color: hsl(0, 74%, 45%);
   font-weight: bold;
@@ -455,6 +464,25 @@ h2.alert {
 
 .boldnotice {
   color: hsl(227, 88%, 68%);
+  font-weight: bold;
+}
+
+.hear {
+  color: hsl(227, 87.7%, 68%);
+  font-style: italic;
+}
+
+.adminnotice {
+  color: hsl(227, 87.7%, 68%);
+}
+
+.adminhelp {
+  color: hsl(0, 100%, 50%);
+  font-weight: bold;
+}
+
+.unconscious {
+  color: hsl(213.6, 37.9%, 74.1%);
   font-weight: bold;
 }
 
@@ -607,6 +635,10 @@ h2.alert {
 
 .shadowling {
   color: hsl(281, 39%, 59%);
+}
+
+.holoparasite {
+  color: hsl(257.1, 12.4%, 55.7%);
 }
 
 // MARK: Cults

@@ -128,11 +128,11 @@
 		handle_player_polling()
 
 	if(href_list["viewpoll"])
-		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.active_polls
+		var/datum/poll_question/poll = locateUID(href_list["viewpoll"])
 		poll_player(poll)
 
 	if(href_list["votepollref"])
-		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.active_polls
+		var/datum/poll_question/poll = locateUID(href_list["votepollref"])
 		vote_on_poll_handler(poll, href_list)
 
 	if(href_list["refresh"])
@@ -166,7 +166,7 @@
 
 			observer.started_as_observer = 1
 			close_spawn_windows()
-			var/obj/O = locate("landmark*Observer-Start")
+			var/obj/O = locate(/obj/effect/landmark/observer_start)
 			to_chat(src, span_notice("Телепортация."))
 			observer.abstract_move(get_turf(O))
 			client.prefs.update_preview_icon(1)

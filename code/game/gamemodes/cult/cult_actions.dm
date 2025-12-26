@@ -43,14 +43,14 @@
 
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/demon/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
+		my_message = span_cultlarge("<b>Harbringer of the Slaughter:</b> [message]")
 	else
-		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]</span>"
+		my_message = span_cultspeech("<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, span_cultspeech(" <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
 
 	add_say_logs(user, message, language = "CULT")
 
@@ -71,7 +71,7 @@
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, span_cultspeech(" <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
 
 //Objectives
 /datum/action/innate/cult/check_progress
