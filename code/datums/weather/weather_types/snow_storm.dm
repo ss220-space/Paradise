@@ -1,3 +1,5 @@
+#define KRAMPUS_SPAWN_PROBABILITY 40
+
 /datum/weather/snow_storm
 	name = "snow storm"
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
@@ -6,6 +8,8 @@
 	telegraph_message = span_warning("Drifting particles of snow begin to dust the surrounding area...")
 	telegraph_duration = 40 SECONDS
 	telegraph_overlay = "light_snow"
+	telegraph_sound = 'sound/ambience/weather/snowstorm/snow_start.ogg'
+	telegraph_sound_vol = /datum/looping_sound/snowstorm::volume + 10
 
 	weather_message = span_userdanger("<i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i>")
 	weather_overlay = "snow_storm"
@@ -15,62 +19,92 @@
 	end_duration = 10 SECONDS
 	end_message = span_boldannounceic("The snowfall dies down, it should be safe to go outside again.")
 	end_overlay = "light_snow"
+	end_sound = 'sound/ambience/weather/snowstorm/snow_end.ogg'
+	end_sound_vol = /datum/looping_sound/snowstorm::volume + 10
 
-	area_type = /area/ruin/unpowered/coldcolony_outside
+	area_type = /area
 	target_trait = ZTRAIT_SNOWSTORM
+	protected_areas = list(
+		/area/maintenance,
+		/area/turret_protected/ai_upload,
+		/area/turret_protected/ai_upload_foyer,
+		/area/turret_protected/ai,
+		/area/storage/emergency,
+		/area/storage/emergency2,
+		/area/solar,
+		/area/toxins/test_area,
+		/area/engineering/engine,
+		/area/crew_quarters/sleep,
+		/area/security/brig,
+		/area/shuttle,
+		/area/space,
+		/area/coldcolony/malta,
+	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 
+	weather_cooldown_upper = 20 MINUTES
+	weather_cooldown_lower = 10 MINUTES
+
+	var/list/affected_turfs_list
+
 	var/list/weak_sounds = list()
 	var/list/strong_sounds = list()
+
+	var/snow_per_tick = 60
+
 
 /datum/weather/snow_storm/proc/update_eligible_areas()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 
-	for(var/i in 1 to length(eligible_areas))
-		var/area/place = eligible_areas[i]
-		if(place.outdoors)
-			weak_sounds[place] = /datum/looping_sound/weak_outside_ashstorm
-			strong_sounds[place] = /datum/looping_sound/active_outside_ashstorm
-		else
-			weak_sounds[place] = /datum/looping_sound/weak_inside_ashstorm
-			strong_sounds[place] = /datum/looping_sound/active_inside_ashstorm
-		CHECK_TICK
-
-/datum/weather/snow_storm/proc/update_audio()
-	switch(stage)
-		if(STARTUP_STAGE)
-			GLOB.snowstorm_sounds += weak_sounds
-
-		if(MAIN_STAGE)
-			GLOB.snowstorm_sounds -= weak_sounds
-			GLOB.snowstorm_sounds += strong_sounds
-
-		if(WIND_DOWN_STAGE)
-			GLOB.snowstorm_sounds -= strong_sounds
-			GLOB.snowstorm_sounds += weak_sounds
-
-		if(END_STAGE)
-			GLOB.snowstorm_sounds -= weak_sounds
-
 /datum/weather/snow_storm/telegraph()
 	. = ..()
+	affected_turfs_list = generate_turf_list()
 	if(.)
 		update_eligible_areas()
-		update_audio()
 
-/datum/weather/snow_storm/wind_down()
-	. = ..()
-	update_audio()
+/datum/weather/snow_storm/start()
+	GLOB.snowstorm_sounds.Cut() // it's passed by ref
+	for(var/area/impacted_area as anything in impacted_areas)
+		GLOB.snowstorm_sounds[impacted_area] = /datum/looping_sound/snowstorm
+	return ..()
+
+/datum/weather/snow_storm/fire()
+	for(var/i in 1 to snow_per_tick)
+		var/turf/turf = pick(affected_turfs_list)
+		var/turf_hotness = T0C
+		if(issimulatedturf(turf))
+			var/turf/simulated/simulated = turf
+			turf_hotness = simulated.air.temperature
+
+		if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
+			continue
+
+		try_to_snowturf(turf, turf_hotness)
+
+/datum/weather/snow_storm/proc/try_to_snowturf(turf/turf, turf_hotness = T0C)
+	if(locate(/obj/effect/snow, turf))
+		return
+
+	if(prob(75 + turf_hotness - T0C)) //Colder turf = more chance of snow
+		return
+
+	new /obj/effect/snow/slowdown(turf)
 
 /datum/weather/snow_storm/end()
 	. = ..()
-	update_audio()
+
+	if(GLOB.new_year_celebration)
+		for(var/obj/structure/flora/tree/pine/xmas/xmas_tree in GLOB.world_flora)
+			xmas_tree.spawn_gifts()
+		spawn_krampus(affected_turfs_list)
+
+	GLOB.snowstorm_sounds.Cut()
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
-	var/temp_drop = -rand(10, 25)
+	var/temp_drop = -rand(15, 45)
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
@@ -83,3 +117,22 @@
 		temp_drop *= cold_protection
 
 	target.adjust_bodytemperature(temp_drop)
+
+/datum/weather/snow_storm/proc/spawn_krampus(list/possible_turfs)
+	set waitfor = FALSE
+
+	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
+		return
+
+	var/image/krampus_image = image(/mob/living/carbon/true_devil/krampus::icon, /mob/living/carbon/true_devil/krampus::icon_state)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Крампуса?", ROLE_DEVIL, FALSE, 30 SECONDS, source = krampus_image, role_cleanname = "Крампус")
+
+	if(!length(candidates))
+		return
+
+	var/mob/living/carbon/true_devil/krampus/krampus = new(pick(possible_turfs))
+	var/mob/dead/observer/candidate = pick(candidates)
+	krampus.possess_by_player(candidate.ckey)
+	krampus.mind.add_antag_datum(/datum/antagonist/krampus)
+
+#undef KRAMPUS_SPAWN_PROBABILITY

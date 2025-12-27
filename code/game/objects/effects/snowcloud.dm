@@ -67,11 +67,12 @@
 	icon_state = "snow1"
 	plane = FLOOR_PLANE
 	layer = ABOVE_ICYOVERLAY_LAYER
+	var/critical_temp = T0C
 
-/obj/effect/snow/New()
+/obj/effect/snow/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	icon_state = "snow[rand(1,6)]"
-	..()
 
 /obj/effect/snow/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -124,6 +125,24 @@
 	if(severity <= EXPLODE_LIGHT && prob(50))
 		return
 	qdel(src)
+
+/obj/effect/snow/slowdown/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/snow/slowdown/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(QDELETED(arrived))
+		return
+
+	if(!istype(arrived))
+		return
+
+	arrived.AdjustSlowedDuration(1 SECONDS, bound_upper = 20 SECONDS)
 
 /obj/item/snowball
 	name = "snowball"

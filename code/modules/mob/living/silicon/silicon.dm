@@ -18,7 +18,7 @@
 	var/designation = ""
 	var/obj/item/camera/siliconcam/aiCamera = null //photography
 //Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
-	var/speak_statement = "states"
+	var/speak_statement = "заявляет"
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
