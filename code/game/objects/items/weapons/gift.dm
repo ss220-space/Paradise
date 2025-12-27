@@ -46,7 +46,7 @@
 /obj/item/gift/attack_self(mob/user)
 	user.balloon_alert(user, "открытие подарка...")
 
-	if(!do_after(user, 4 SECONDS, target = src))
+	if(!do_after(user, 2.5 SECONDS, target = user))
 		user.balloon_alert(user, "прервано!")
 		return
 
