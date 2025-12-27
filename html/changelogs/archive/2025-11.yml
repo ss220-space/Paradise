@@ -1,0 +1,214 @@
+'2025-11-04':
+  Bess:
+  - tweak: Cоздание бикаридина и келотана в химии, аптечка унати (#7968)
+  Ksaikok:
+  - bugfix: Сингулярность корректно отклоняет снаряды (#7991)
+  NightDawnFox:
+  - balance: слизни (симплмобы) более не станят в принципе (#7929)
+  PiroMage:
+  - map: Nova fixes (#7986)
+  PlayerUnknown14:
+  - local: локализация праздников (#7975)
+  - del: удаление буклетов для Кербероса (#7990)
+  - spellcheck: опечатки заказов снабжения (#7988)
+  - bugfix: Хамелеон-пояс работает, как задумано (#7973)
+  VladimirKonstantinov:
+  - add: новые спрайты снайперок и глушителя для дробовиков и снайперок (#7974)
+  - balance: Добавлен шанс на Knockdown при использовании огнетушителя для ускорения
+      (#7992)
+  - tweak: Использование радиального меню при попытке вытащить модуль с оружия (#7977)
+  - tweak: Осмотр куклы на правую кнопку мыши (#7972)
+  littleboobs:
+  - server/refactor: Multiline checks (#7995)
+  spaghetti:
+  - balance: нерф буллетпруф брони (#7982)
+'2025-11-05':
+  makaroshka:
+  - balance: замена Weaken на Knockdown у Годзилы (#7997)
+'2025-11-06':
+  NightDawnFox:
+  - bugfix: кого-то сегодня за это перманули бтв (#8003)
+  VladimirKonstantinov:
+  - tweak: Использование строительной сумки, как заменителя деталей, но с прогрессбаром
+      (#7877)
+  littleboobs:
+  - add: MC Overview Controller TGUI (#8002)
+  - experiment: Guide link in timed out alert (#8001)
+'2025-11-07':
+  NightDawnFox:
+  - add: новый мидраунд антагонист - дрейфующий контрактник (#8004)
+  PlayerUnknown14:
+  - local: локализация инженерных инструментов + доработка balloon_alert (#7978)
+  Vadim7222:
+  - tweak: Небольшой бафф синди шкафомеха (#7970)
+  VladimirKonstantinov:
+  - balance/add: Рикошет и баланс дальнего оружия (#7969)
+  - add: Новый пистолет пулемет для СБ (#7976)
+  dependabot[bot]:
+  - unknown: bump actions/upload-artifact from 4 to 5 (#8006)
+  - unknown: bump actions/checkout from 4 to 5 (#8007)
+  - unknown: bump crazy-max/ghaction-github-pages from 2 to 4 (#8008)
+  - unknown: bump actions/setup-node from 4 to 6 (#8010)
+  - unknown: bump eps1lon/actions-label-merge-conflict from 3.0.2 to 3.0.3 (#8011)
+  - unknown: bump actions/setup-python from 5 to 6 (#8012)
+  - unknown: bump cirrus-actions/rebase from 1.5 to 1.8 (#8013)
+  - unknown: bump actions/labeler from 5 to 6 (#8014)
+  - unknown: bump actions/github-script from 7 to 8 (#8015)
+  littleboobs:
+  - server/refactor: Some grep improve (#8005)
+  - server: CI Suite (#7996)
+  spaghetti:
+  - balance: убирает блок у клинков богомола, добавляет выпад (#7981)
+'2025-11-08':
+  NightDawnFox:
+  - balance: контрактору добавлена аптечка и блокировщик помех, обновлен доступ (#8017)
+  littleboobs:
+  - refactor: Crusade against whitespaces (#8019)
+'2025-11-09':
+  VladimirKonstantinov:
+  - bugfix: Исправление бага с печатью магазина на новую ПП искру (#8016)
+'2025-11-11':
+  VladimirKonstantinov:
+  - bugfix: Исправлен баг с сообщением в чате о том какое пда снимается при раздевании
+      (#7993)
+  - bugfix: Удаление механоебства с полным лечением при смене формы с низшего на высший
+      и обратно (#8021)
+  shah:
+  - local: кибер лёгкие поменявшие свой гендер на сердце (#8022)
+'2025-11-13':
+  Bess:
+  - bugfix: Исправление опечатки в наименовании таблетки (#8026)
+  dageavtobusnick:
+  - bugfix: Экранирование реджекс символов в имени кукл (#8030)
+  - spellcheck: Изменение текстов анонсов после призыва бога (#8031)
+'2025-11-15':
+  Dimempers:
+  - spellcheck: Доспутить -> Допустить в анонсе с призывом бога. (#8032)
+  PiroMage:
+  - map: Nova fix (#8033)
+'2025-11-16':
+  Bess:
+  - tweak: Наномеды и другие вендоры теперь бесплатные в зоне ОБР (#8029)
+  NightDawnFox:
+  - balance: нерф таймстопа культа (#8025)
+  VladimirKonstantinov:
+  - bugfix/balance: Исправления спектра (#7971)
+  - refactor: Исправление коробок для выживания, учитывание расы и профессии корректно
+      (#8024)
+  - add/refactor: Добавление скинов телескопичкам и рефактор изменения скинов для
+      всех предметов  (#7985)
+  littleboobs:
+  - server: OD linter fix (#8034)
+'2025-11-17':
+  VladimirKonstantinov:
+  - qol: Показ оверлей букв какие патроны заряжены в магазинах (#8036)
+  - refactor: порт actions (#7843)
+'2025-11-18':
+  VladimirKonstantinov:
+  - bugfix: Исправление бага с наблюдением из гостов (#8041)
+  dageavtobusnick:
+  - bugfix: persistent_client fix (#8042)
+'2025-11-21':
+  PiroMage:
+  - add: Добавление пистолетов-пулеметов A9 "Искра" и SP-91 в список доступных заказов
+      в карго (#8038)
+  PlayerUnknown14:
+  - bugfix: фиксы кругового меню ящика для инструментов (#8043)
+  - local/refactor: локализация и улучшение НИО машинерии (#7984)
+  VladimirKonstantinov:
+  - bugfix: Исправлен баг со скинами станбатона (#8045)
+'2025-11-22':
+  PlayerUnknown14:
+  - add: описания товаров в торговых автоматах (#8053)
+  Vitalya:
+  - unknown: Респрайт консолей + багфикс автолата СБ (#8051)
+  dependabot[bot]:
+  - unknown: bump actions/checkout from 5 to 6 (#8050)
+  nasend:
+  - balance: Реворк уничтожения боргов (#7931)
+  shah:
+  - bugfix/tweak: хирургический вынос мозга нуклеаций (#8040)
+'2025-11-23':
+  Bess:
+  - add: Улучшенный ручной дефибриллятор (#8028)
+  PlayerUnknown14:
+  - bugfix: починка интерфейсов торгоматов (#8054)
+  - spellcheck: Нанотрейзен -> \"Нанотрейзен\" и всякое (#7989)
+  - bugfix/local: фиксы TGUI НИО машинерии + локализация печи для руды (#8055)
+  VladimirKonstantinov:
+  - refactor/add: Элемент ржавых пушек и осечки (#8049)
+  - add: Новый револьвер СБ, вариант к ваучерным пушкам (#8035)
+  - balance: Баланс лута в косморуинах (#8046)
+  dageavtobusnick:
+  - add/bugfix: Исправление старых ачивок и добавление новых (#8058)
+  - balance: Обновление тирлистов dk2 (#8059)
+  shah:
+  - bugfix: баг с розывыми волосами у нуклеаций (#8056)
+'2025-11-24':
+  Bess:
+  - bugfix: Починка желтых дефибов в автолате при новой локализации РНД (#8060)
+  - bugfix: СПИИ контрактника больше нельзя поменять на ТК (#8063)
+  PlayerUnknown14:
+  - config: обновление приветственного сообщения (#8062)
+  - local/refactor: локализация фабрикатора экзокостюмов (#8061)
+'2025-11-25':
+  NightDawnFox:
+  - image: обновленные спрайты у ящиков (#8069)
+  - bugfix: исправление двух спрайтов у ящиков (#8071)
+  PlayerUnknown14:
+  - image: новые спрайты хим. машинерии (#8067)
+  VladimirKonstantinov:
+  - image: Респрайт коробок (#8065)
+'2025-11-26':
+  NightDawnFox:
+  - bugfix: выключение эмиссивок у ящиков, которые не должны светиться (#8077)
+  PlayerUnknown14:
+  - spellcheck: правки examine (#8072)
+'2025-11-27':
+  chomasuke:
+  - add: Интегральные схемы, пара новых худов (#6810)
+'2025-11-28':
+  Bess:
+  - bugfix: Починка спрайта улучшенного ручного дефиба (#8090)
+  Etrnlmelancholy:
+  - tweak: '[BOUNTY] Старая маска мима (#8083)'
+  LussatTheVulpa:
+  - image: исправления спрайтов коробок (#8075)
+  - image/balance: Респрайт дробовиков, новые спрайты и размер комбата. (#8091)
+  - image: стандартный ящик стал более "стальным" (#8100)
+  NightDawnFox:
+  - bugfix: корзина с мусором теперь не пропадает при открытии (#8099)
+  PlayerUnknown14:
+  - refactor/balance: рефакторинг датумов ролей и небольшой ребаланс джобок (#8093)
+  Vitalya:
+  - image: респрайт тулбоксов (опять) (#8096)
+  VladimirKonstantinov:
+  - balance: Баланс холоупоинтов дека (#8076)
+  - balance: Нерф урона нового ревика (#8073)
+  - tweak: Бонусные 500 кредитов на счете за каждый тир доната при старте игры (#8079)
+  chomasuke:
+  - bugfix: квантум пады вновь работают (#8097)
+  dageavtobusnick:
+  - bugfix: Ачивка за убийства архидьявола давалась за обычного (#8095)
+  littleboobs:
+  - del/map: Cere, Cele & Tower [MDB IGNORE] (#8086)
+  - add: SSmetric sanity, emotes and some one new unit tests (#8092)
+  - bugfix/refactor: Missing icons unit test [MDB IGNORE] (#8078)
+  - refactor: Sorting and remove code/__DEFINES/misc.dm (#8094)
+  - bugfix: Fix some icon_state (#8098)
+'2025-11-29':
+  LussatTheVulpa:
+  - image: исправление спрайта комбат дробовика на слоте рюкзака в положении лево.
+      (#8103)
+  - bugfix: изменение порядка рендера предметов в suit_storage. (#8105)
+  PlayerUnknown14:
+  - bugfix: название печатаемого объекта в экзофабе (#8104)
+  VladimirKonstantinov:
+  - add: Добавление прогрессбара перезарядки магазинов и спидлоадеров (#8074)
+  - bugfix: Исправление кд кликов для эшкн кнопок (#8101)
+'2025-11-30':
+  Vitalya:
+  - image: респрайт ящиков  (#8109)
+  - image: Твики спрайтов ящиков (#8111)
+  littleboobs:
+  - refactor: Sorting and remove code/__HELPERS/unsorted.dm (#8108)

@@ -1,0 +1,220 @@
+'2025-12-01':
+  Dimempers:
+  - tweak: Теперь под консолью повер монитора есть узел провода на мостике. (#8117)
+  LussatTheVulpa:
+  - image: Фикс+респрайт дробовиков на спине, и обреза в руках. (#8114)
+'2025-12-02':
+  LussatTheVulpa:
+  - image: чёрные перчатки теперь чёрные а не серые. (#8116)
+  dageavtobusnick:
+  - add: Телескопическое энергетическое копье (#8120)
+  - spellcheck: энергитическое -> энергетическое (#8121)
+  - spellcheck: энергитическое -> энергетическое ч2 (#8122)
+  - server: Маплинт теперь указываеь проблемную строку в проверке parse_var_edit (#8123)
+  - bugfix: Энергокопье теперь нельзя заточить (#8124)
+  - balance: Нерф телескопического энергокопья (#8125)
+  - tweak/bugfix: Апдейт визуала энергtтического копья + фикс багов (#8127)
+  p4el007:
+  - balance: врины неуязвимы к космосу (#8027)
+'2025-12-03':
+  Dimempers:
+  - tweak: Почему то забыли поменять window у движков 3 эскейп пода (#8129)
+  Pelmenik123:
+  - bugfix: Яица терроров (#8126)
+  PlayerUnknown14:
+  - bugfix/refactor: сортировка датумов джобок для меню выбора профессий (#8106)
+'2025-12-04':
+  Bess:
+  - del: Перенос пива2 в щитспавн, сервисный борг получает синдикатский тесак (#8132)
+  - tweak: Мини-монтировку можно сделать в протолате (#8133)
+  - add: Порт Sanguine reagent - Сангвиний (#8088)
+  Dimempers:
+  - spellcheck: '] в сообщении о падении (#8131)'
+  Hexed Bug:
+  - balance: Ослабление таймстопа Ратвара (#8118)
+  LussatTheVulpa:
+  - balance: Усиление криоксадона. (#8110)
+  VladimirKonstantinov:
+  - bugfix: Исправлен баг консоли карго (#8134)
+  anon1mka:
+  - local: Перевод шахтёрских штучек (#8047)
+  dageavtobusnick:
+  - bugfix/del: Исправление ошибки с отсутствием гострадио у обзерверов + удаление
+      ненужного админского префа (#8141)
+  - bugfix: Исправление ошибки с застрявшей куклой при клонировании (#8140)
+  littleboobs:
+  - bugfix: Нулевой спрайт морг двери (#8135)
+  - bugfix: В спейспод можно залезть (#8136)
+  - refactor: Moved emagged var to be object level (#8139)
+  - bugfix: Don't try to run queries, if the database is not enabled. (#8138)
+  - bugfix/refactor: Хардкод голотула (#8137)
+  - bugfix: Fixing UnicodeDecodeError in map linting (#8142)
+'2025-12-05':
+  dageavtobusnick:
+  - refactor: Звуковые циклы и отдельная сабсистема для них (#8145)
+  littleboobs:
+  - refactor/map: Directional light switch (#8143)
+'2025-12-07':
+  PlayerUnknown14:
+  - bugfix: починка требований к часам для ролей (#8153)
+  dageavtobusnick:
+  - bugfix: Исправление рантаймов и ошибок разной степени критичности (#8154)
+  p4el007:
+  - imageadd: инхэды ботинков и шляпы рефлеткорки (#8151)
+'2025-12-08':
+  Vadim7222:
+  - bugfix/config: Изменения веса ратварикам (#8168)
+  dageavtobusnick:
+  - bugfix: Асинхронный мультиинстанс + фикс неудаляемого запроса к бд (#8161)
+  - tweak: Вынос части конфигов в репозиторий + ребаланс ивентов (#8162)
+  - config: Отключение рут лога (#8163)
+  - config: Актуализация весов режимов (#8164)
+  - config: Переименование настройки рут лога (#8165)
+  - bugfix: Постоянный root_log для тестов (#8166)
+  - bugfix: Исправление кейбиндов экшенов (#8169)
+  - bugfix: Исправление рантайма в тестах (#8170)
+  - bugfix: Исправление гена кошкоушек (#8167)
+'2025-12-09':
+  dageavtobusnick:
+  - bugfix: откат асинхронного мультиинстанса (#8173)
+'2025-12-10':
+  littleboobs:
+  - del/map: z2_old [MDB IGNORE] (#8149)
+'2025-12-11':
+  Dimempers:
+  - add: Manul plushie(Press F) (#8146)
+  VladimirKonstantinov:
+  - qol: security belt-shoulder system будет иметь карманы (#8177)
+  - add: Холодильники с кровью в мед с мед доступом (#8178)
+  - balance: Уменьшена дальность бросков тел (#8179)
+  - balance: Удаляем прогрессбар на перезарядку оружия обратно (#8175)
+  dageavtobusnick:
+  - bugfix: Исправление ошибок в ролле ивентов (#8181)
+  littleboobs:
+  - bugfix/refactor: Станционное объявление ИИ снова имеет кулдаун в минуту (#8174)
+  - bugfix/tweak: parallel = FALSE for fliptonium spinning (#8172)
+  - server: Skip maplint (#8156)
+'2025-12-13':
+  Dimempers:
+  - map: Больше нет переключателей света в стекле на дельте (#8184)
+  VladimirKonstantinov:
+  - add: Обновление кровотечений (часть 2) (#7691)
+  - tweak: Удалена возможность голосования за автошаттл для гостов и гост-ролей (#8158)
+  dageavtobusnick:
+  - add: баннер с расходами на содержание сервера + ачивки за донат (#8107)
+  dependabot[bot]:
+  - unknown: bump actions/cache from 4 to 5 (#8185)
+  littleboobs:
+  - bugfix/add: AI alarm now working (#8186)
+'2025-12-14':
+  VladimirKonstantinov:
+  - qol: Добавлено автонаведение на самую пострадавшую часть тела при использовании
+      бинтов, китов и зашивалок (#8176)
+  anon1mka:
+  - tweak: deathgasp stun (#8189)
+  - tweak: bshake трясун (#8190)
+  - bugfix: Customat TGUI (#8188)
+  littleboobs:
+  - refactor/map: Directional intercom and resprite (#8147)
+  Иван Пилюгин:
+  - balance: ребаланс отдела снабжения (#8183)
+'2025-12-15':
+  Dimempers:
+  - map: Интеркомы больше не в воздухе и не загораживают кнопки (#8192)
+  VladimirKonstantinov:
+  - bugfix: Удален рецепт экспансивных пуль тауруса их автолата (#8191)
+  - qol: Оверлей кровотечения на healthdoll (#8194)
+  dageavtobusnick:
+  - config/balance: Вынос админрангов, настроек слотов хайпопа и лоупопа (#8198)
+  - server: Обновление node в тестах и линтере (#8200)
+  - add/refactor: Дебаг кнопка для перегенерации ассетов (#8195)
+  dependabot[bot]:
+  - unknown: bump actions/upload-artifact from 5 to 6 (#8196)
+  - unknown: bump actions/download-artifact from 6 to 7 (#8197)
+'2025-12-16':
+  anon1mka:
+  - tweak: deathgasp cooldown (#8203)
+  littleboobs:
+  - map/bugfix: Интеркомы не перекрывают кнопки в медбее (#8201)
+  - add/refactor: Hitscan (#8171)
+'2025-12-17':
+  littleboobs:
+  - bugfix: preparePixelProjectile runtime fixes (#8215)
+  - server: DMI and DMM linter on (#8213)
+  - map/refactor: Fast load map cleaning (#8212)
+  - add/bugfix: Emitter beam and portals light (#8208)
+  - bugfix/map: Intercom fixes in capitain room and toxins (#8216)
+'2025-12-18':
+  Bess:
+  - tweak: Добавляет мини-монтировку в случайный лут техов (#8221)
+  - tweak: Больший выбор проф для имплантов (#8220)
+  - tweak: Обновление доступов медицинского отдела (#8219)
+  Dimempers:
+  - map: Кнопки не будут загорожены интеркомами v2 (#8193)
+  anon1mka:
+  - add: Новый постер – i'm poster (#8209)
+'2025-12-19':
+  VladimirKonstantinov:
+  - bugfix: Добавлен канал заключенных для сб борга (#8224)
+  dageavtobusnick:
+  - bugfix: Исправление ошибки, из-за которой onclose у datum/browser мог не работать
+      (#8225)
+  - refactor: \ref to UID (#8226)
+'2025-12-20':
+  dageavtobusnick:
+  - bugfix: Исправление префа гострадио и анонсов от ботов (#8227)
+  - refactor: Решение конфликта на тестмердже (#8229)
+'2025-12-22':
+  LussatTheVulpa:
+  - balance: Навык гемомансера "Чутьё охотника" теперь накладывает Нокдаун вместо
+      хардстана. (#8231)
+  - balance: Вещества помогающие от Weaken помогают и от Knockdown. (#8130)
+  VladimirKonstantinov:
+  - bugfix: Исправление названия карго заказов (#8222)
+  anon1mka:
+  - local: Перевод кухонной машинерии + TGUI (#8064)
+  dageavtobusnick:
+  - bugfix/refactor: Фикс множества рантаймов (#8238)
+  littleboobs:
+  - refactor: spans again (#8235)
+  - bugfix/refactor: Teleporter TGUI update (#8234)
+  - tweak: Some miss CSS style for selectors (#8232)
+'2025-12-23':
+  littleboobs:
+  - bugfix: Golem runtime (#8241)
+  - bugfix: Shockpaddles borg fix (#8242)
+'2025-12-24':
+  Arceniu:
+  - add/del: expand garland days by changing new year and xmas date, removed "boxing"
+      holiday (#8239)
+  Buravka:
+  - tweak: UI киборгов теперь позволяет открывать диспетчер законов (#8230)
+  LussatTheVulpa:
+  - image: респрите хитсканов каттера (#8244)
+  VladimirKonstantinov:
+  - bugfix: Исправление бага с горением турели (#8245)
+  anon1mka:
+  - add: RnD Cargo Console (#8202)
+  - add: Электронка (#8152)
+  dageavtobusnick:
+  - bugfix: Исправление отсутствия раундэнда у дьявола (#8248)
+  littleboobs:
+  - bugfix/refactor: Intercom and light switch constructions fix (#8246)
+'2025-12-25':
+  littleboobs:
+  - tweak: Follow links (#8247)
+  - server: Gemini review (#8251)
+  - server: Gemini promt fix (#8254)
+  - server: Gemini promt improve (#8255)
+'2025-12-26':
+  littleboobs:
+  - server: Gemini promt improve again [ci skip] (#8256)
+'2025-12-27':
+  PlayerUnknown14:
+  - bugfix: Офицер Синдиката снова доступен для выбора (#8258)
+  Testmerge Worker:
+  - add: МЭКи [IDB IGNORE]  (#7500) [testmerge][2cd1d61]
+  - add/balance: торгоматы апдейт (порт с TG) (#8080) [testmerge][6500bbe]
+  - refactor/admin: Admin Verb Datums (#8206) [testmerge][ded97ef]
+  littleboobs:
+  - server/bugfix: Launch fast_load task (#8250)
