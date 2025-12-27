@@ -869,7 +869,7 @@
 
 /obj/structure/sign/poster/official/qm
 	name = "Квартермейстерша" //Мне нравиться как это звучит
-	desc = "Изображение квартирмейстерши, которая призывает работать в карго."
+	desc = "Изображение Квартирмейстерши, которая призывает работать в Отделе Снабжения."
 	icon_state = "poster_qm"
 
 /obj/structure/sign/poster/official/minegem
