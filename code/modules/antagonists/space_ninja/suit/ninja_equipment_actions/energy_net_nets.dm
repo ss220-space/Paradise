@@ -45,7 +45,7 @@
 	if(!QDELETED(affected_mob))
 		affected_mob.visible_message(
 			span_notice("[affected_mob.name] выбира[PLUR_ET_YUT(affected_mob)]ся из энергетической сети!"),
-			span_notice("Вы выбираетесь из [declent_ru(ACCUSATIVE)]!"),
+			span_notice("Вы выбираетесь из [declent_ru(GENITIVE)]!"),
 			span_italics("Вы слышите стон."),
 		)
 	affected_mob = null
