@@ -43,18 +43,6 @@
 /mob/living/carbon/true_devil/ascended/ex_act(severity, ex_target)
 	return FALSE
 
-/mob/living/carbon/true_devil/ascended/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/flamer_fire_act(damage)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/handle_flamer_fire_crossed(obj/flamer_fire/fire)
-	return FALSE
-
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
 		dna = dna_source.dna.Clone()
@@ -208,8 +196,17 @@
 		adjustBruteLoss(b_loss)
 	return ..()
 
+/mob/living/carbon/true_devil/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	return FALSE
+
 /mob/living/carbon/true_devil/flamer_fire_act(damage)
-	return
+	return FALSE
+
+/mob/living/carbon/true_devil/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
+	return FALSE
+
+/mob/living/carbon/true_devil/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	return FALSE
 
 /mob/living/carbon/true_devil/handle_critical_condition()
 	if(health > 0)
@@ -220,8 +217,8 @@
 	name = "Krampus"
 	desc = "Он пришел тебя наказать. Лучше беги."
 	icon_state = "arch_krampus"
-	health = 800
-	maxHealth = 800
+	health = 900
+	maxHealth = 900
 	var/list/bag_content
 	var/static/list/spell_list = list(
 		/obj/effect/proc_holder/spell/conjure_item/krampus_bag,

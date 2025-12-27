@@ -1501,6 +1501,10 @@ This applies to all STANDARD station areas
 	name = "Atrium"
 	icon_state = "bar"
 
+/area/crew_quarters/bar/atrium/safe
+	name = "Atrium New Year Tree"
+	icon_state = "bar"
+
 /area/crew_quarters/theatre
 	name = "Theatre"
 	icon_state = "Theatre"

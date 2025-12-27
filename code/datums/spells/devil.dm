@@ -25,6 +25,7 @@
 	action_icon = 'icons/obj/items.dmi'
 	action_background_icon_state = "bg_demon"
 	base_cooldown = 10 SECONDS
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Призвать золотую скрипку"
