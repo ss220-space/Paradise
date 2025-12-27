@@ -15169,6 +15169,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -15218,6 +15221,9 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "bRY" = (
@@ -24161,6 +24167,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
 "cKv" = (
@@ -51636,6 +51645,9 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "gPK" = (
@@ -55154,6 +55166,8 @@
 	dir = 8;
 	pixel_x = 22
 	},
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -78027,6 +78041,8 @@
 /area/medical/research/nhallway)
 "mZK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
