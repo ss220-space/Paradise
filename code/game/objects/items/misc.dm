@@ -286,7 +286,7 @@
 	var/mob/living/carbon/true_devil/krampus/krampus = user
 
 	if(!istype(krampus) || !COOLDOWN_FINISHED(src, coal_cooldown))
-		balloon_alert(user, "невозможно использовать.")
+		balloon_alert(user, "невозможно использовать")
 		return ..()
 
 	COOLDOWN_START(src, coal_cooldown, 1 MINUTES)
@@ -296,18 +296,18 @@
 
 /obj/item/krampus_bag/attack(mob/living/M, mob/user, params, def_zone, skip_attack_anim = FALSE)
 	if((M.stat || M?.health <= (HEALTH_THRESHOLD_CRIT + 30)) && do_after(user, 5 SECONDS, M))
-		consume(M)
+		consume(M, user)
 		return
 	..()
 
-/obj/item/krampus_bag/proc/consume(mob/living/victim)
+/obj/item/krampus_bag/proc/consume(mob/living/victim, mob/user)
 	if(QDELETED(victim))
 		return
 
-	var/mob/living/carbon/true_devil/krampus/krampus = usr
+	var/mob/living/carbon/true_devil/krampus/krampus = user
 
 	if(!istype(krampus))
-		balloon_alert(usr, "невозможно использовать.")
+		balloon_alert(user, "невозможно использовать.")
 		return
 
 	victim.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] открывается нараспашку и захватывает [victim.declent_ru(ACCUSATIVE)]!"), span_his_grace("[span_big("[declent_ru(NOMINATIVE)] захватывает вас!")]"))

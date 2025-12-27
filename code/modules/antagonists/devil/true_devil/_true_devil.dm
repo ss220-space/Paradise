@@ -219,7 +219,6 @@
 /mob/living/carbon/true_devil/krampus
 	name = "Krampus"
 	desc = "Он пришел тебя наказать. Лучше беги."
-	icon = 'icons/mob/32x64.dmi'
 	icon_state = "arch_krampus"
 	health = 800
 	maxHealth = 800

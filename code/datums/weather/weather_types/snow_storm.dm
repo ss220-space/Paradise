@@ -1,4 +1,4 @@
-#define KRAMPUS_SPAWN_PROBABILITY 100
+#define KRAMPUS_SPAWN_PROBABILITY 40
 
 /datum/weather/snow_storm
 	name = "snow storm"
@@ -38,7 +38,7 @@
 		/area/security/brig,
 		/area/shuttle,
 		/area/space,
-		/area/coldcolony/malta
+		/area/coldcolony/malta,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE

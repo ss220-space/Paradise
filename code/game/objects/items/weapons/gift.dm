@@ -201,7 +201,7 @@
 
 /obj/item/gift/santa_special
 	var/static/list/possible_tiers = list(
-		/datum/loot_tier/third = 60,
+		/datum/loot_tier/first = 60,
 		/datum/loot_tier/second = 35,
 		/datum/loot_tier/third = 5,
 	)
@@ -209,7 +209,7 @@
 /obj/item/gift/santa_special/spawn_reward(mob/user)
 	var/tier_type = pick_weight_classic(possible_tiers)
 	var/datum/loot_tier/loot_tier = new tier_type
-	loot_tier.on_start_open(usr, get_turf(usr))
+	loot_tier.on_start_open(user, get_turf(user))
 
 	user.visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] что-то интересное!"))
 	user.investigate_log("has unwrapped a present containing [loot_tier.name].", INVESTIGATE_PRESENTS)

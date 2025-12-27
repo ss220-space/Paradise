@@ -211,8 +211,6 @@
 	head = /obj/item/clothing/head/jester
 	l_pocket = /obj/item/grown/bananapeel
 
-/obj/structure/flora/tree/pine/xmas
-
 /obj/effect/spawner/lootdrop/evil_santa_gift
 	name = "evil santa reward gift spawner 1 to 3"
 	icon_state = "evil_santa_gift"
