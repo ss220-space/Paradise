@@ -1923,7 +1923,7 @@
 		var/mob/M = locateUID(href_list["observeinventory"])
 
 		if(!ismob(M))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			to_chat(usr, span_warning("This can only be used on instances of type /mob"))
 			return
 		C.admin_observe_target(M, TRUE)
 
@@ -3337,20 +3337,20 @@
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)
-										M.show_message(text("<span class='notice'>You shudder as if cold...</span>"), 1)
+										M.show_message(span_notice("You shudder as if cold..."), 1)
 									if(2)
-										M.show_message(text("<span class='notice'>You feel something gliding across your back...</span>"), 1)
+										M.show_message(span_notice("You feel something gliding across your back..."), 1)
 									if(3)
-										M.show_message(text("<span class='notice'>Your eyes twitch, you feel like something you can't see is here...</span>"), 1)
+										M.show_message(span_notice("Your eyes twitch, you feel like something you can't see is here..."), 1)
 									if(4)
-										M.show_message(text("<span class='notice'>You notice something moving out of the corner of your eye, but nothing is there...</span>"), 1)
+										M.show_message(span_notice("You notice something moving out of the corner of your eye, but nothing is there..."), 1)
 								for(var/obj/W in orange(5,M))
 									if(prob(25) && !W.anchored)
 										step_rand(W)
 					sleep(rand(100,1000))
 				for(var/mob/M in GLOB.player_list)
 					if(M.stat != 2)
-						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
+						M.show_message(span_notice("The chilling wind suddenly stops..."), 1)
 			if("lightout")
 				if(!you_realy_want_do_this())
 					return
@@ -3995,25 +3995,33 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(atom/target)
-	if(!target) return
+/**
+ * Generates admin follow links for tracking specific atoms, with special handling for clients, AIs, and observer mobs
+ *
+ * Arguments:
+ * * target_atom - The atom to create an admin follow link for
+ */
+/proc/admin_jump_link(atom/target_atom)
+	if(!target_atom)
+		return
+
 	// The way admin jump links handle their src is weirdly inconsistent...
+	if(isclient(target_atom))
+		var/client/target_client = target_atom
+		if(target_client.mob)
+			target_atom = target_client.mob
 
-	if(isclient(target))
-		var/client/C = target
-		if(C.mob)
-			target = C.mob
+	. = ADMIN_FLW(target_atom, "FLW")
 
-	. = ADMIN_FLW(target, "FLW")
+	if(isAI(target_atom)) // AI core/eye follow links
+		var/mob/living/silicon/ai/ai_instance = target_atom
+		if(ai_instance.client && ai_instance.eyeobj) // No point following clientless AI eyes
+			. += "|[ADMIN_FLW(ai_instance.eyeobj, "EYE")]"
 
-	if(isAI(target)) // AI core/eye follow links
-		var/mob/living/silicon/ai/A = target
-		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"
-	else if(istype(target, /mob/dead/observer))
-		var/mob/dead/observer/O = target
-		if(O.mind && O.mind.current)
-			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
+	else if(isobserver(target_atom))
+		var/mob/dead/observer/observer_instance = target_atom
+		if(observer_instance.mind && observer_instance.mind.current)
+			. += "|[ADMIN_FLW(observer_instance.mind.current, "BDY")]"
 
 /proc/you_realy_want_do_this(mob/user)
 	user = user || usr

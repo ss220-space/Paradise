@@ -1545,6 +1545,10 @@
 	searching = TRUE
 	to_chat(user, span_notice("You're trying to boot up [src] as the gears inside start to hum."))
 	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /mob/living/silicon/robot/cogscarab)
+	
+	if(QDELETED(src))
+		return
+		
 	if(length(candidates))
 		var/mob/dead/observer/O = pick(candidates)
 		var/mob/living/silicon/robot/cogscarab/cog = new /mob/living/silicon/robot/cogscarab(get_turf(src))
@@ -1688,6 +1692,10 @@
 /obj/item/clockwork/shard/proc/give_ghost(mob/living/carbon/human/golem)
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
+	
+	if(QDELETED(golem))
+		return
+		
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		golem.ghostize(FALSE)

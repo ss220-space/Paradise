@@ -492,7 +492,7 @@
 
 /obj/structure/sign/poster/contraband/frag12
 	name = "FRAG12"
-	desc = "Общий план конструкции и наполнения особо опасного снаряда FRAG12.  Красным шрифтом выделена часть о ущербе что наносит этот патрон."
+	desc = "Общий план конструкции и наполнения особо опасного снаряда FRAG12. Красным шрифтом выделена часть о ущербе что наносит этот патрон."
 	icon_state = "poster_frag12"
 
 /obj/structure/sign/poster/contraband/incammo

@@ -1497,7 +1497,7 @@
 #include "code\game\objects\items\weapons\fishing_rod.dm"
 #include "code\game\objects\items\weapons\flamethrower.dm"
 #include "code\game\objects\items\weapons\garrote.dm"
-#include "code\game\objects\items\weapons\gift_wrappaper.dm"
+#include "code\game\objects\items\weapons\gift.dm"
 #include "code\game\objects\items\weapons\handcuffs.dm"
 #include "code\game\objects\items\weapons\highlander_swords.dm"
 #include "code\game\objects\items\weapons\holosign.dm"
