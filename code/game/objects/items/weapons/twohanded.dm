@@ -1066,6 +1066,18 @@
 	force_unwielded = 100
 	force_wielded = 500000 // Kills you DEAD.
 
+/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+
+	if(is_airlock(target))
+		var/obj/machinery/door/airlock/airlock = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
+		airlock.deconstruct()
+		return TRUE
+	..()
+
 /obj/item/twohanded/pitchfork/update_icon_state()
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 

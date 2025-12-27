@@ -39,6 +39,7 @@
 		/area/shuttle,
 		/area/space,
 		/area/coldcolony/malta,
+		/area/crew_quarters/bar/atrium/safe,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
@@ -88,20 +89,16 @@
 	if(locate(/obj/effect/snow, turf))
 		return
 
-	if(prob(75 + turf_hotness - T0C)) //Colder turf = more chance of snow
-		return
-
 	new /obj/effect/snow/slowdown(turf)
 
 /datum/weather/snow_storm/end()
+	GLOB.snowstorm_sounds.Cut()
 	. = ..()
 
 	if(GLOB.new_year_celebration)
 		for(var/obj/structure/flora/tree/pine/xmas/xmas_tree in GLOB.world_flora)
 			xmas_tree.spawn_gifts()
 		spawn_krampus(affected_turfs_list)
-
-	GLOB.snowstorm_sounds.Cut()
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(15, 45)

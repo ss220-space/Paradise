@@ -49,7 +49,7 @@
 			strong_sounds[place] = /datum/looping_sound/active_inside_ashstorm
 		CHECK_TICK
 
-/datum/weather/ash_storm/proc/update_audio()
+/datum/weather/ash_storm/proc/update_audio(next_stage)
 	switch(stage)
 		if(STARTUP_STAGE)
 			GLOB.ash_storm_sounds += weak_sounds
@@ -69,19 +69,23 @@
 	. = ..()
 	if(.)
 		update_eligible_areas()
-		update_audio()
+		update_audio(STARTUP_STAGE)
+
+/datum/weather/ash_storm/start()
+	update_audio(MAIN_STAGE)
+	. = ..()
 
 /datum/weather/ash_storm/wind_down()
+	update_audio(WIND_DOWN_STAGE)
 	. = ..()
-	update_audio()
 
 /datum/weather/ash_storm/end()
+	update_audio(END_STAGE)
 	. = ..()
 	for(var/turf/simulated/floor/plating/asteroid/basalt/basalt as anything in GLOB.dug_up_basalt)
 		if(!(basalt.loc in impacted_areas) || !(basalt.z in impacted_z_levels))
 			continue
 		basalt.refill_dug()
-	update_audio()
 
 /datum/weather/ash_storm/can_weather_act(mob/living/mob_to_check)
 	. = ..()
