@@ -147,4 +147,12 @@
 	)
 
 /obj/machinery/vending/medical/syndicate_access/beamgun
-	premium = list(/obj/item/gun/medbeam = 1)
+	premium = list(
+		/obj/item/reagent_containers/applicator/brute = 5,
+		/obj/item/reagent_containers/applicator/burn = 5,
+		/obj/item/stack/medical/bruise_pack/extended = 5,
+		/obj/item/stack/medical/ointment/extended = 5,
+		/obj/item/stack/medical/suture/advanced = 5,
+		/obj/item/stack/medical/bruise_pack/military = 5,
+		/obj/item/gun/medbeam = 1,
+	)
