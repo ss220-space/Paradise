@@ -6,30 +6,30 @@
 		add_fingerprint(ninja)
 		var/obj/item/stack/sheet/mineral/uranium/uranium_stack = I
 		if(a_boost.charge_counter >= a_boost.charge_max)
-			balloon_alert(ninja, "уже полно!")
+			balloon_alert(ninja, "отсек полон!")
 			return ATTACK_CHAIN_PROCEED
 		if(!uranium_stack.use(a_transfer))
-			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] лист[DECL_CREDIT(a_transfer)] урана для восполнения адреналина."))
+			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] лист[DECL_CREDIT(a_transfer)] урана для восполнения запаса адреналина."))
 			return ATTACK_CHAIN_PROCEED
 		a_boost.action_ready = TRUE
 		a_boost.toggle_button_on_off()
 		a_boost.recharge_action()
-		balloon_alert(ninja, "пополнено!")
+		balloon_alert(ninja, "пополнено")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
 		add_fingerprint(ninja)
 		var/obj/item/stack/ore/bluespace_crystal/crystal_stack = I
 		if(heal_chems.charge_counter >= heal_chems.charge_max)
-			balloon_alert(ninja, "уже полно!")
+			balloon_alert(ninja, "уже полно")
 			return ATTACK_CHAIN_PROCEED
 		if(!crystal_stack.use(a_transfer))
-			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] блюспейс кристалл[DECL_CREDIT(a_transfer)] для восполнения химикатов."))
+			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] блюспейс-кристалл[DECL_CREDIT(a_transfer)] для восполнения запаса химикатов."))
 			return ATTACK_CHAIN_PROCEED
 		heal_chems.action_ready = TRUE
 		heal_chems.toggle_button_on_off()
 		heal_chems.recharge_action()
-		balloon_alert(ninja, "пополнено!")
+		balloon_alert(ninja, "пополнено")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(iscell(I))
