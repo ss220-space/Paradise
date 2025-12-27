@@ -7,6 +7,8 @@
 	lightmask_overlay = "cola-machine_lightmask"
 	broken_overlay = "cola-machine_broken"
 	broken_lightmask_overlay = "cola-machine_broken_lightmask"
+	default_price = PAYCHECK_MIN * 0.6
+	default_premium_price = PAYCHECK_LOWER * 0.6
 
 	slogan_list = list(
 		"Освеж+ает!",
@@ -26,28 +28,16 @@
 		/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
 		/obj/item/reagent_containers/food/drinks/cans/space_up = 10,
 		/obj/item/reagent_containers/food/drinks/cans/grape_juice = 10,
+	)
+	premium = list(
 		/obj/item/reagent_containers/food/drinks/cans/energy = 10,
 		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 10,
 		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 10,
 		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 10,
+		/obj/item/reagent_containers/food/drinks/zaza = 5,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5,
-		/obj/item/reagent_containers/food/drinks/zaza = 1,
-	)
-	prices = list(
-		/obj/item/reagent_containers/food/drinks/cans/cola = 19,
-		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 19,
-		/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 19,
-		/obj/item/reagent_containers/food/drinks/cans/starkist = 19,
-		/obj/item/reagent_containers/food/drinks/cans/space_up = 19,
-		/obj/item/reagent_containers/food/drinks/cans/grape_juice = 19,
-		/obj/item/reagent_containers/food/drinks/cans/energy = 39,
-		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 39,
-		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 39,
-		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 39,
-		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 79,
-		/obj/item/reagent_containers/food/drinks/zaza = 199,
 	)
 	refill_canister = /obj/item/vending_refill/cola
 
@@ -60,6 +50,3 @@
 		INSTRUMENTAL = "торговым автоматом Robust Softdrinks",
 		PREPOSITIONAL = "торговом автомате Robust Softdrinks",
 	)
-
-/obj/machinery/vending/cola/free
-	prices = list()

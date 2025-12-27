@@ -213,7 +213,7 @@
 /area/ruin/unpowered)
 "Fu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Fy" = (
@@ -438,7 +438,7 @@
 /area/ruin/powered)
 "TU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "TW" = (

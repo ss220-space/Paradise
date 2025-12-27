@@ -11,6 +11,8 @@
 	deny_lightmask = "engi_deny_lightmask"
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	refill_canister = /obj/item/vending_refill/engineering
+	default_price = PAYCHECK_CREW
+	default_premium_price = PAYCHECK_COMMAND
 
 	products = list(
 		/obj/item/clothing/under/rank/chief_engineer = 4,

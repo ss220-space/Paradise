@@ -74,7 +74,7 @@
 /area/awaymission/academy/headmaster)
 "av" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "escape"
@@ -3154,7 +3154,7 @@
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "pX" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "escape"
@@ -3866,7 +3866,7 @@
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "wP" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/vending/cigarette/syndicate,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "wT" = (
@@ -5608,7 +5608,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
 "Pu" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "Pv" = (

@@ -6311,7 +6311,7 @@
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "Il" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "Iu" = (

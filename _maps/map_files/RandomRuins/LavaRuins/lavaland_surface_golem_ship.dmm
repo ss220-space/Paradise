@@ -121,7 +121,7 @@
 /area/lavaland/surface/outdoors)
 "fw" = (
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "gr" = (
@@ -765,7 +765,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "PF" = (

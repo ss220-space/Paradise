@@ -327,7 +327,7 @@
 	},
 /area/derelict/bridge)
 "aS" = (
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
@@ -2386,7 +2386,7 @@
 	layer = 2.1;
 	name = "suspicious button"
 	},
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/wood{
@@ -3096,7 +3096,7 @@
 /area/derelict/dock)
 "hM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/effect/decal/cleanable/cobweb2,
@@ -5159,7 +5159,7 @@
 /turf/space,
 /area/space/nearstation)
 "mY" = (
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
@@ -6384,7 +6384,7 @@
 	},
 /area/derelict/arrival)
 "ql" = (
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{

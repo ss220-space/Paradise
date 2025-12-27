@@ -30,16 +30,6 @@
 	premium = list(
 		/obj/item/clothing/head/soft/rainbow = 1,
 	)
-	prices = list(
-		/obj/item/clothing/head/bowlerhat = 39,
-		/obj/item/clothing/head/beaverhat = 39,
-		/obj/item/clothing/head/boaterhat = 39,
-		/obj/item/clothing/head/fedora = 39,
-		/obj/item/clothing/head/fez = 39,
-		/obj/item/clothing/head/beret = 39,
-		/obj/item/clothing/head/bearpelt = 99,
-		/obj/item/clothing/head/helmet/biker = 499,
-	)
 
 /obj/machinery/vending/hatdispenser/get_ru_names()
 	return list(

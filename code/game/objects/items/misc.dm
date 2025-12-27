@@ -95,6 +95,7 @@
 	icon_state = "ecig"
 	item_state = "ecig"
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = PAYCHECK_CREW
 	var/amount_left = 600
 	var/applying = FALSE
 	var/list/reagent = list("nicotine")

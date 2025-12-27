@@ -17,6 +17,7 @@
 	temperature_min = 270
 	temperature_max = 350
 	pass_open_check = TRUE
+	custom_premium_price = PAYCHECK_LOWER
 	var/ignore_flags = FALSE
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.

@@ -368,6 +368,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	breakout_time = 4 SECONDS
 	reusable = FALSE
+	custom_price = PAYCHECK_MIN * 1.2
 
 /obj/item/restraints/legcuffs/bola/energy/get_ru_names()
 	return list(

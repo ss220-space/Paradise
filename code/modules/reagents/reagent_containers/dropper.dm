@@ -11,6 +11,7 @@
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
 	pass_open_check = TRUE
+	custom_price = PAYCHECK_MIN * 0.2
 
 /obj/item/reagent_containers/dropper/get_ru_names()
 	return list(

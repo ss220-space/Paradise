@@ -11,6 +11,8 @@
 	deny_lightmask = "robotics_deny_lightmask"
 	req_access = list(ACCESS_ROBOTICS)
 	refill_canister = /obj/item/vending_refill/robotics
+	default_price = PAYCHECK_LOWER
+	default_premium_price = PAYCHECK_CREW
 
 	products = list(
 		/obj/item/clothing/suit/storage/labcoat = 4,

@@ -7,14 +7,12 @@
 	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes_broken"
 	broken_lightmask_overlay = "clothes_broken_lightmask"
-
 	slogan_list = list(
 		"Приод+енься для усп+еха!",
 		"Пригот+овьтесь в+ыглядеть потряс+ающе!",
 		"Посмотр+ите на все +эти кл+ассные в+ещи!",
 		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуйте ClothesMate!",
 	)
-
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
 
 	product_categories = list(

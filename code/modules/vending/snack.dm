@@ -22,6 +22,8 @@
 	broken_overlay = "snack_broken"
 	broken_lightmask_overlay = "snack_broken_lightmask"
 	refill_canister = /obj/item/vending_refill/snack
+	default_price = PAYCHECK_MIN * 0.5
+	default_premium_price = PAYCHECK_LOWER * 0.5
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/candy/candybar = 6,
@@ -39,20 +41,6 @@
 	contraband = list(
 		/obj/item/reagent_containers/food/snacks/syndicake = 6,
 	)
-	prices = list(
-		/obj/item/reagent_containers/food/snacks/candy/candybar = 19,
-		/obj/item/reagent_containers/food/drinks/dry_ramen = 29,
-		/obj/item/reagent_containers/food/snacks/doshik = 29,
-		/obj/item/reagent_containers/food/snacks/doshik_spicy = 149,
-		/obj/item/reagent_containers/food/snacks/chips = 19,
-		/obj/item/reagent_containers/food/snacks/sosjerky = 29,
-		/obj/item/reagent_containers/food/snacks/no_raisin = 19,
-		/obj/item/reagent_containers/food/snacks/pistachios = 29,
-		/obj/item/reagent_containers/food/snacks/spacetwinkie = 29,
-		/obj/item/reagent_containers/food/snacks/cheesiehonkers = 19,
-		/obj/item/reagent_containers/food/snacks/tastybread = 29,
-		/obj/item/reagent_containers/food/snacks/syndicake = 49,
-	)
 
 /obj/machinery/vending/snack/get_ru_names()
 	return list(
@@ -63,6 +51,3 @@
 		INSTRUMENTAL = "торговым автоматом Getmore Chocolate Corp",
 		PREPOSITIONAL = "торговом автомате Getmore Chocolate Corp",
 	)
-
-/obj/machinery/vending/snack/free
-	prices = list()

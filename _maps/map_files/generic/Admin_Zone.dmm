@@ -2116,7 +2116,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "xn" = (
-/obj/machinery/vending/gun_mods/free,
+/obj/machinery/vending/gun_mods/advanced,
 /turf/simulated/floor/carpet,
 /area/admin)
 "xo" = (

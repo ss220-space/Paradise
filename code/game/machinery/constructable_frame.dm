@@ -330,6 +330,8 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=1"
 	build_path = /obj/machinery/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
+	/// whether or not the circuit board will build into a vendor whose products cost nothing (used for offstation vending machines mostly)
+	var/all_products_free = FALSE
 
 	var/static/list/station_vendors = list(
 		"Booze-O-Mat" = /obj/machinery/vending/boozeomat,

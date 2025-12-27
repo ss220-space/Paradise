@@ -21,6 +21,8 @@
 	broken_overlay = "crittercare_broken"
 	broken_lightmask_overlay = "crittercare_broken_lightmask"
 	refill_canister = /obj/item/vending_refill/crittercare
+	default_price = PAYCHECK_LOWER
+	default_premium_price = PAYCHECK_CREW
 
 	products = list(
 		/obj/item/clothing/accessory/petcollar = 5,
@@ -41,25 +43,6 @@
 		/obj/item/reagent_containers/food/condiment/animalfeed = 5,
 		/obj/item/reagent_containers/glass/pet_bowl = 3,
 	)
-	prices = list(
-		/obj/item/clothing/accessory/petcollar = 49,
-		/obj/item/storage/firstaid/aquatic_kit/full = 59,
-		/obj/item/fish_eggs/goldfish = 9,
-		/obj/item/fish_eggs/clownfish = 9,
-		/obj/item/fish_eggs/shark = 9,
-		/obj/item/fish_eggs/feederfish = 9,
-		/obj/item/fish_eggs/salmon = 9,
-		/obj/item/fish_eggs/catfish = 9,
-		/obj/item/fish_eggs/glofish = 9,
-		/obj/item/fish_eggs/electric_eel = 9,
-		/obj/item/fish_eggs/crayfish = 49,
-		/obj/item/fish_eggs/shrimp = 9,
-		/obj/item/toy/pet_rock = 99,
-		/obj/item/pet_carrier/normal = 249,
-		/obj/item/pet_carrier = 99,
-		/obj/item/reagent_containers/food/condiment/animalfeed = 99,
-		/obj/item/reagent_containers/glass/pet_bowl = 49,
-	)
 	contraband = list(
 		/obj/item/fish_eggs/babycarp = 5,
 	)
@@ -77,6 +60,3 @@
 		INSTRUMENTAL = "торговым автоматом CritterCare",
 		PREPOSITIONAL = "торговом автомате CritterCare",
 	)
-
-/obj/machinery/vending/crittercare/free
-	prices = list()

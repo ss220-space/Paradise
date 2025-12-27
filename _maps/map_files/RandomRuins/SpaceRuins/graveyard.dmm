@@ -135,7 +135,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "cW" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "cY" = (
@@ -1423,7 +1423,7 @@
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/graveyard/church)
 "Gt" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},

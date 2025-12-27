@@ -30,6 +30,8 @@
 		"Тост: \"За прогр+есс!\""
 	)
 	refill_canister = /obj/item/vending_refill/boozeomat
+	default_price = PAYCHECK_MIN * 0.6
+	default_premium_price = PAYCHECK_COMMAND // luxury alcohol
 
 	product_categories = list(
 		list(
@@ -42,7 +44,7 @@
 				/obj/item/reagent_containers/food/drinks/bottle/vermouth = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/rum = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/wine = 5,
-				/obj/item/reagent_containers/food/drinks/bottle/arrogant_green_rat = 3,
+				/obj/item/reagent_containers/food/drinks/bottle/arrogant_green_rat = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/cognac = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/kahlua = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/champagne = 5,
@@ -52,11 +54,11 @@
 				/obj/item/reagent_containers/food/drinks/bottle/sheridan = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/bluecuracao = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/sambuka = 5,
-				/obj/item/reagent_containers/food/drinks/bottle/bitter = 3,
+				/obj/item/reagent_containers/food/drinks/bottle/bitter = 5,
 				/obj/item/reagent_containers/food/drinks/bottle/gin = 5,
-				/obj/item/reagent_containers/food/drinks/cans/beer = 6,
-				/obj/item/reagent_containers/food/drinks/cans/ale = 6,
-				/obj/item/reagent_containers/food/drinks/cans/synthanol = 15,
+				/obj/item/reagent_containers/food/drinks/cans/beer = 7,
+				/obj/item/reagent_containers/food/drinks/cans/ale = 7,
+				/obj/item/reagent_containers/food/drinks/cans/synthanol = 7,
 			),
 		),
 
@@ -64,15 +66,15 @@
 			"name" = "Безалкогольные",
 			"icon" = "glass-water",
 			"products" = list(
-				/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer = 6,
 				/obj/item/reagent_containers/food/drinks/bottle/orangejuice = 4,
 				/obj/item/reagent_containers/food/drinks/bottle/tomatojuice = 4,
 				/obj/item/reagent_containers/food/drinks/bottle/limejuice = 4,
 				/obj/item/reagent_containers/food/drinks/bottle/cream = 4,
-				/obj/item/reagent_containers/food/drinks/cans/tonic = 8,
-				/obj/item/reagent_containers/food/drinks/cans/cola = 8,
-				/obj/item/reagent_containers/food/drinks/cans/sodawater = 15,
-				/obj/item/reagent_containers/food/drinks/ice = 9,
+				/obj/item/reagent_containers/food/drinks/cans/tonic = 7,
+				/obj/item/reagent_containers/food/drinks/cans/cola = 7,
+				/obj/item/reagent_containers/food/drinks/cans/sodawater = 7,
+				/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer = 7,
+				/obj/item/reagent_containers/food/drinks/ice = 5,
 			),
 		),
 
@@ -80,8 +82,8 @@
 			"name" = "Тара",
 			"icon" = "wine-glass-empty",
 			"products" = list(
-				/obj/item/reagent_containers/food/drinks/drinkingglass = 30,
-				/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 30,
+				/obj/item/reagent_containers/food/drinks/drinkingglass = 15,
+				/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 15,
 			),
 		),
 	)

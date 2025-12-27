@@ -137,6 +137,7 @@
 	item_state = "beaker"
 	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
+	custom_price = PAYCHECK_MIN / 0.6
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = TRUE
 

@@ -51,7 +51,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "t" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/wood{
 	oxygen = 14;
 	nitrogen = 23;
@@ -132,7 +132,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "Z" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 

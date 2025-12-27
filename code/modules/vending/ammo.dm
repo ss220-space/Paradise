@@ -11,6 +11,8 @@
 	panel_overlay = "ammovend_panel"
 	screen_overlay = "ammovend_overlay"
 	refill_canister = /obj/item/vending_refill/ammo
+	all_products_free = TRUE
+
 	product_categories = list(
 		list(
 			"name" = "Боеприпасы",
@@ -55,13 +57,6 @@
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/storage/box/teargas = 2,
 		/obj/item/ammo_box/a357 = 1,
-	)
-
-	prices = list(
-		/obj/item/storage/box/flashbangs = 99,
-		/obj/item/storage/box/barrier = 69,
-		/obj/item/storage/box/teargas = 99,
-		/obj/item/ammo_box/a357 = 299,
 	)
 
 /obj/machinery/vending/ammo/get_ru_names()

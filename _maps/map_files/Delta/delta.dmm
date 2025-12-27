@@ -33903,7 +33903,7 @@
 	},
 /area/crew_quarters/heads/hop)
 "dFb" = (
-/obj/machinery/vending/cart/free,
+/obj/machinery/vending/cart,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "dFc" = (
@@ -55037,7 +55037,7 @@
 /area/quartermaster/miningdock)
 "hQA" = (
 /obj/machinery/light,
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -75020,7 +75020,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "mEK" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel,
 /area/security/brigstaff)
@@ -95533,7 +95533,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -101372,7 +101372,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "sAG" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -106426,7 +106426,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "tKI" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "tKK" = (
@@ -114938,7 +114938,7 @@
 "vEB" = (
 /obj/effect/decal/warning_stripes/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

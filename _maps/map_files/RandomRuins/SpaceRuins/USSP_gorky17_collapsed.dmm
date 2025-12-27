@@ -6142,7 +6142,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "sJ" = (
-/obj/machinery/vending/chinese/free,
+/obj/machinery/vending/chinese,
 /obj/machinery/atmospherics/unary/vent_pump,
 /turf/simulated/floor/plasteel{
 	dir = 1;

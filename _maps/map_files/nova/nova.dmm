@@ -73568,7 +73568,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "kXT" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -104126,7 +104126,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "pAj" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "pAn" = (
@@ -107361,7 +107361,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/theatre)
 "pXs" = (
-/obj/machinery/vending/cart/free,
+/obj/machinery/vending/cart,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads)
 "pXx" = (
@@ -110674,7 +110674,7 @@
 	},
 /area/engineering/engine/monitor)
 "qxA" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -144801,7 +144801,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/mechanic_workshop/hangar)
 "vvy" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "vvB" = (
