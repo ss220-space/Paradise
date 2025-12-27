@@ -11,7 +11,7 @@
 	/// Whether to use the special Evil Santa gift list
 	var/evil_santa_reward = FALSE
 
-	/// Legacy shit, need to del it
+	/// Legacy shit for storage, useless, need to del it
 	var/obj/item/gift = null
 
 /obj/item/gift/get_ru_names()
@@ -44,6 +44,12 @@
 	return BRUTELOSS
 
 /obj/item/gift/attack_self(mob/user)
+	user.balloon_alert(user, "открытие подарка...")
+
+	if(!do_after(user, 4 SECONDS, target = src))
+		user.balloon_alert(user, "прервано!")
+		return
+
 	var/obj/item/thing = new contains_type(get_turf(user))
 
 	if(QDELETED(thing)) // might contain something like metal rods that might merge with a stack on the ground
@@ -64,52 +70,73 @@
 
 	if(isnull(gift_type_list))
 		gift_type_list = list(
-			/obj/item/sord,
-			/obj/item/storage/wallet,
-			/obj/item/storage/photo_album,
-			/obj/item/storage/box/snappops,
-			/obj/item/storage/fancy/crayons,
-			/obj/item/storage/belt/champion,
-			/obj/item/soap/deluxe,
-			/obj/item/pickaxe/silver,
-			/obj/item/pen/invisible,
-			/obj/item/lipstick/random,
-			/obj/item/grenade/smokebomb,
-			/obj/item/grown/corncob,
-			/obj/item/poster/random_contraband,
-			/obj/item/bikehorn,
+			/obj/item/ammo_box/magazine/toy/enforcer,
+			/obj/item/banhammer,
 			/obj/item/beach_ball,
 			/obj/item/beach_ball/holoball,
-			/obj/item/banhammer,
-			/obj/item/gun/projectile/shotgun/toy/crossbow,
-			/obj/item/gun/projectile/revolver/capgun,
-			/obj/random/mech,
-			/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
-			/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
-			/obj/item/paicard,
-			/obj/item/instrument/violin,
-			/obj/item/instrument/guitar,
-			/obj/item/storage/belt/utility/full,
+			/obj/item/bikehorn,
+			/obj/item/clothing/accessory/head_strip/black_cat,
+			/obj/item/clothing/accessory/head_strip/comrad,
+			/obj/item/clothing/accessory/head_strip/deathsquad,
+			/obj/item/clothing/accessory/head_strip/federal,
+			/obj/item/clothing/accessory/head_strip/fox,
+			/obj/item/clothing/accessory/head_strip/frog,
+			/obj/item/clothing/accessory/head_strip/greytide,
+			/obj/item/clothing/accessory/head_strip/syndicate,
+			/obj/item/clothing/accessory/head_strip/triforce,
 			/obj/item/clothing/accessory/horrible,
-			/obj/random/carp_plushie,
-			/obj/random/plushie,
-			/obj/random/figure,
+			/obj/item/clothing/glasses/meson/heart,
 			/obj/item/clothing/head/blob,
-			/obj/item/id_decal/gold,
-			/obj/item/id_decal/silver,
-			/obj/item/id_decal/prisoner,
+			/obj/item/clothing/head/new_year,
+			/obj/item/clothing/mask/face/fawkes,
+			/obj/item/clothing/neck/cloak/spacecloak,
+			/obj/item/clothing/suit/space/new_year,
+			/obj/item/clothing/suit/storage/zazalord,
+			/obj/item/clothing/under/syndicate/tacticool,
+			/obj/item/deck/cards,
+			/obj/item/fluff/rapid_wheelchair_kit,
+			/obj/item/grenade/confetti,
+			/obj/item/grenade/smokebomb,
+			/obj/item/grown/corncob,
+			/obj/item/gun/projectile/automatic/toy,
+			/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+			/obj/item/gun/projectile/revolver/capgun,
+			/obj/item/gun/projectile/shotgun/toy/crossbow,
+			/obj/item/gun/projectile/shotgun/toy/tommygun,
 			/obj/item/id_decal/centcom,
+			/obj/item/id_decal/comrad,
 			/obj/item/id_decal/emag,
 			/obj/item/id_decal/federal,
-			/obj/item/id_decal/comrad,
+			/obj/item/id_decal/gold,
+			/obj/item/id_decal/prisoner,
+			/obj/item/id_decal/silver,
 			/obj/item/id_decal/syndie,
-			/obj/item/spellbook/oneuse/fake_gib,
-			/obj/item/deck/cards,
-			/obj/item/clothing/under/syndicate/tacticool,
-			/obj/item/storage/box/fakesyndiesuit,
-			/obj/item/gun/projectile/shotgun/toy/tommygun,
-			/obj/item/stack/tile/fakespace/loaded,
+			/obj/item/instrument/guitar,
+			/obj/item/instrument/violin,
+			/obj/item/lipstick/random,
+			/obj/item/melee/candy_sword,
+			/obj/item/paicard,
+			/obj/item/pen/invisible,
+			/obj/item/pickaxe/silver,
+			/obj/item/poster/random_contraband,
+			/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
+			/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
 			/obj/item/reagent_containers/food/snacks/sugar_coal,
+			/obj/item/soap/deluxe,
+			/obj/item/sord,
+			/obj/item/spellbook/oneuse/fake_gib,
+			/obj/item/stack/tile/fakespace/loaded,
+			/obj/item/storage/belt/champion,
+			/obj/item/storage/belt/utility/full,
+			/obj/item/storage/box/fakesyndiesuit,
+			/obj/item/storage/box/snappops,
+			/obj/item/storage/fancy/crayons,
+			/obj/item/storage/photo_album,
+			/obj/item/storage/wallet,
+			/obj/random/carp_plushie,
+			/obj/random/figure,
+			/obj/random/mech,
+			/obj/random/plushie,
 		)
 
 		gift_type_list += subtypesof(/obj/item/clothing/head/collectable)
