@@ -1984,6 +1984,7 @@
 #include "code\modules\antagonists\devil\devil_rank.dm"
 #include "code\modules\antagonists\devil\devil_ritual.dm"
 #include "code\modules\antagonists\devil\helper_procs.dm"
+#include "code\modules\antagonists\devil\krampus.dm"
 #include "code\modules\antagonists\devil\sintouched.dm"
 #include "code\modules\antagonists\devil\contracts\friend.dm"
 #include "code\modules\antagonists\devil\imp\imp.dm"

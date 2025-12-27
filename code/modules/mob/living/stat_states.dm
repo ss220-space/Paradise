@@ -7,7 +7,7 @@
 // death() is used to make a mob die
 
 // handles revival through other means than cloning or adminbus (defib, IPC repair)
-/mob/living/proc/update_revive(updating = TRUE, force = FALSE)
+/mob/living/proc/update_revive(updating = TRUE, force = FALSE, defib_revive = FALSE)
 	if(stat != DEAD)
 		return FALSE
 	if(!force && !can_be_revived())

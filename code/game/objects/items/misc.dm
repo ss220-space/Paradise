@@ -258,3 +258,60 @@
 #undef MAX_AMOUNT
 #undef SAFE_THRESHOLD
 #undef AWARD_THRESHOLD
+
+/obj/item/krampus_bag
+	name = "krampus bag"
+	desc = "Старый потрепаный мешок. На нем видны следы засохшей крови и ... угля?"
+	icon_state = "krampus_bag"
+	COOLDOWN_DECLARE(coal_cooldown)
+
+/obj/item/krampus_bag/equipped(mob/user, slot, initial)
+	if(!iskrampus(user))
+		user.drop_item_ground()
+		return
+	. = ..()
+
+
+/obj/item/krampus_bag/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок Крампуса",
+		GENITIVE = "мешка Крампуса",
+		DATIVE = "мешку Крампуса",
+		ACCUSATIVE = "мешок Крампуса",
+		INSTRUMENTAL = "мешком Крампуса",
+		PREPOSITIONAL = "мешке Крампуса",
+	)
+
+/obj/item/krampus_bag/attack_self(mob/user)
+	var/mob/living/carbon/true_devil/krampus/krampus = user
+
+	if(!istype(krampus) || !COOLDOWN_FINISHED(src, coal_cooldown))
+		balloon_alert(user, "невозможно использовать")
+		return ..()
+
+	COOLDOWN_START(src, coal_cooldown, 1 MINUTES)
+	new /obj/item/toy/pet_rock/naughty_coal(get_turf(user))
+	. = ..()
+
+
+/obj/item/krampus_bag/attack(mob/living/M, mob/user, params, def_zone, skip_attack_anim = FALSE)
+	if((M.stat || M?.health <= (HEALTH_THRESHOLD_CRIT + 30)) && do_after(user, 5 SECONDS, M))
+		consume(M, user)
+		return
+	..()
+
+/obj/item/krampus_bag/proc/consume(mob/living/victim, mob/user)
+	if(QDELETED(victim))
+		return
+
+	var/mob/living/carbon/true_devil/krampus/krampus = user
+
+	if(!istype(krampus))
+		balloon_alert(user, "невозможно использовать")
+		return
+
+	victim.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] открывается нараспашку и захватывает [victim.declent_ru(ACCUSATIVE)]!"), span_his_grace("[span_big("[declent_ru(NOMINATIVE)] захватывает вас!")]"))
+	victim.death()
+
+	LAZYADD(krampus.bag_content, victim)
+	victim.forceMove(krampus)
