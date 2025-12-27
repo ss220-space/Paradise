@@ -121,10 +121,24 @@
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
-	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
+	desc = "Космический Санта использует его, чтобы доставлять игрушки всем милым детям в космосе на Рождество! Ух ты, какой он большой!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	max_combined_w_class = 400 // can store a ton of shit!
+	max_combined_w_class = 60
+
+/obj/item/storage/backpack/santabag/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок с подарками",
+		GENITIVE = "мешка с подарками",
+		DATIVE = "мешку с подарками",
+		ACCUSATIVE = "мешок с подарками",
+		INSTRUMENTAL = "мешком с подарками",
+		PREPOSITIONAL = "мешке с подарками"
+	)
+
+/obj/item/storage/backpack/santabag/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] надева[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на свою голову и туго затягива[PLUR_ET_UT(user)]! Похоже, [GEND_HE_SHE(user)] не в праздничном настроении..."))
+	return OXYLOSS
 
 /obj/item/storage/backpack/santabag/update_icon_state()
 	var/items_count = length(contents)

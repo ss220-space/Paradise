@@ -211,70 +211,14 @@
 	head = /obj/item/clothing/head/jester
 	l_pocket = /obj/item/grown/bananapeel
 
-/obj/item/a_gift/evil_santa_reward
-
-/obj/item/a_gift/evil_santa_reward/attack_self(mob/M as mob)
-	var/gift_type = pick(
-		/obj/item/storage/box/syndie_kit/mr_chang_technique,
-		/obj/item/documents/syndicate/yellow/trapped,
-		/obj/item/documents/nanotrasen,
-		/obj/item/documents/syndicate/mining,
-		/obj/item/paper/researchnotes,
-		/obj/item/melee/energy/sword/pirate,
-		/obj/item/stack/spacecash/c5000,
-		/obj/item/stack/spacecash/c1000,
-		/obj/item/storage/box/wizard/hardsuit,
-		/obj/item/storage/box/syndie_kit/hardsuit,
-		/obj/item/clothing/suit/space/hardsuit/champion/templar/premium,
-		/obj/item/clothing/suit/space/hardsuit/soviet,
-		/obj/item/clothing/suit/space/hardsuit/ancient,
-		/obj/item/clothing/suit/space/eva/pirate/leader,
-		/obj/item/clothing/head/helmet/space/eva/pirate/leader,
-		/obj/item/hardsuit_shield/syndi,
-		/obj/item/hardsuit_shield/wizard,
-		/obj/vehicle/ridden/speedbike/red,
-		/obj/vehicle/ridden/speedbike/red,
-		/obj/vehicle/ridden/speedbike,
-		/obj/vehicle/ridden/speedbike,
-		/obj/vehicle/ridden/motorcycle,
-		/obj/vehicle/ridden/motorcycle,
-		/obj/vehicle/ridden/snowmobile/blue/key,
-		/obj/vehicle/ridden/snowmobile/key,
-		/obj/vehicle/ridden/car,
-		/obj/item/dnainjector/insulation,
-		/obj/item/dnainjector/nobreath,
-		/obj/item/dnainjector/runfast,
-		/obj/item/dnainjector/hulkmut,
-		/obj/item/dnainjector/morph,
-		/obj/item/dnainjector/xraymut,
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti,
-		/obj/item/toy/plushie/pig,
-		/obj/item/toy/plushie/pig,
-		/obj/item/toy/plushie/pig,
-		/obj/item/toy/xmas_cracker,
-		/obj/item/toy/xmas_cracker,
-		/obj/item/toy/pet_rock/naughty_coal,
-		/obj/item/reagent_containers/food/snacks/sugar_coal,
-	)
-
-	if(!ispath(gift_type,/obj/item))	return
-
-	var/obj/item/I = new gift_type(M)
-	M.temporarily_remove_item_from_inventory(src, force = TRUE)
-	M.put_in_hands(I)
-	I.add_fingerprint(M)
-	qdel(src)
-	return
-
 /obj/effect/spawner/lootdrop/evil_santa_gift
 	name = "evil santa reward gift spawner 1 to 3"
 	icon_state = "evil_santa_gift"
 	lootdoubles = FALSE
 
 	loot = list(
-		/obj/item/a_gift/evil_santa_reward = 33,
-		/obj/item/a_gift = 67,
+		/obj/item/gift/evil_santa_reward = 33,
+		/obj/item/gift = 67,
 	)
 
 /obj/item/paper/journal_scrap_1
