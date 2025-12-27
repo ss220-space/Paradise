@@ -863,7 +863,7 @@
 	icon_state = "poster_cargofriends"
 
 /obj/structure/sign/poster/official/mge
-	name = "Накачаный карготехник"
+	name = "Мускулистый Грузчик"
 	desc = "Изображение каргонца, демонстрирующего тотальное превосходство над соплячками, которые не могут заказать цель смены."
 	icon_state = "poster_mge"
 
