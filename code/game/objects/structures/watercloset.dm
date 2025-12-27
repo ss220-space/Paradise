@@ -820,17 +820,6 @@
 	icon_state = "shower"
 	item_state = "buildpipe"
 
-/obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
-	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
-	if(!on_wall || !user)
-		return
-	if(proximity_flag != 1) //if we aren't next to the wall
-		return
-	if(!(get_dir(on_wall, user) in GLOB.cardinal))
-		to_chat(user, span_warning("You need to be standing next to a wall to place \the [src]."))
-		return
-	return 1
-
 /obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
 	var/obj/machinery/shower/S = new(get_turf(user), get_dir(on_wall, user), TRUE)
 	transfer_fingerprints_to(S)

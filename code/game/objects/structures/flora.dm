@@ -2,6 +2,14 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
 
+/obj/structure/flora/Initialize(mapload)
+	. = ..()
+	GLOB.world_flora |= src
+
+/obj/structure/flora/Destroy(force)
+	GLOB.world_flora -= src
+	. = ..()
+
 //trees
 /obj/structure/flora/tree
 	name = "tree"
@@ -35,6 +43,37 @@
 	name = "xmas tree"
 	icon_state = "pine_c"
 	randomize_tree = FALSE
+	var/gifts_count = 20
+	var/list/possible_turfs
+
+/obj/structure/flora/tree/pine/xmas/Initialize(mapload)
+	. = ..()
+	recalculate_spawns()
+
+/obj/structure/flora/tree/pine/xmas/proc/recalculate_spawns()
+	if(!isturf(loc))
+		return
+
+	LAZYCLEARLIST(possible_turfs)
+
+	var/list/new_possible_gifts = RANGE_TURFS(1, loc) - loc
+
+	for(var/turf/turf in new_possible_gifts)
+		if(turf.density || is_space_or_openspace(turf))
+			continue
+
+		LAZYADD(possible_turfs, turf)
+
+/obj/structure/flora/tree/pine/xmas/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	recalculate_spawns()
+
+/obj/structure/flora/tree/pine/xmas/proc/spawn_gifts()
+	if(!length(possible_turfs))
+		return
+
+	for(var/i in 1 to gifts_count)
+		new /obj/effect/spawner/lootdrop/evil_santa_gift(pick(possible_turfs))
 
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'

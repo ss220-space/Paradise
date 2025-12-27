@@ -133,7 +133,7 @@
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = span_gamesay("[name], [span_name("[speaker_mask]")] ([ghost_follow_link(speaker, ghost=player)]) [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
+			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)])[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
@@ -746,23 +746,31 @@
 
 	add_say_logs(speaker, message, language = "ROBOT")
 
-	var/message_start = "<i><span class='game say'>[name], [span_name("[speaker.name]")]"
-	var/message_body = span_message("[speaker.say_quote(message)]:</i>[span_robot("\"[message]\"")]</span>")
+	var/list/message_start = list("<i><span class='game say'>[name], [span_name("[speaker.name]")]") //Strings as lists lets you add blocks of text much easier
+	var/list/message_body = list(span_message("[speaker.say_quote(message)],</i>[span_robot("\"[message]\"")]</span>"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], [span_name("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]"
-			M.show_message("[message_start_dead] [message_body]", 2)
+			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)])<i><span class='game say'>[name], [span_name("[speaker.name]")]")
+			var/list/dead_message = message_start_dead + message_body
+			M.show_message(dead_message.Join(" "), 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !(isdrone(S)||iscogscarab(S)))
+		if(!S.binarycheck())
+			continue
+		else if(drone_only && !(isdrone(S) || iscogscarab(S)))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>"
-		else if(!S.binarycheck())
-			continue
-
-		S.show_message("[message_start] [message_body]", 2)
+			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>")
+		else if(isrobot(S))
+			var/mob/living/silicon/robot/borg = S
+			if(borg.connected_ai?.name == speaker.name)
+				var/list/big_font_prefix = list("<span style='font-size: 18px;'>")
+				var/list/big_font_suffix = list("</span>")
+				message_start = big_font_prefix + message_start
+				message_body = message_body + big_font_suffix
+		var/list/final_message = message_start + message_body
+		S.show_message(final_message.Join(" "), 2)
 
 	var/list/listening = hearers(1, src)
 	listening -= src
@@ -770,7 +778,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message(span_gamesay("<i>[span_name("синтезированный голос")] [span_message("сообщает: \"бип бип бип\"")]</i>"),2)
+		M.show_message("<i>[span_gamesay("[span_name("synthesised voice")] [span_message("beeps, \"beep beep beep\"")]")]</i>", 2)
 
 /datum/language/binary/drone
 	name = LANGUAGE_DRONE_BINARY

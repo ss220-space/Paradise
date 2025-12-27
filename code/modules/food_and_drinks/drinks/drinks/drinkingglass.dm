@@ -103,3 +103,6 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine
+	list_reagents = list("mulled_wine" = 50)

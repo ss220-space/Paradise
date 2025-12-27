@@ -9,6 +9,7 @@ import './styles/main.scss';
 import './styles/themes/abductor.scss';
 import './styles/themes/admin.scss';
 import './styles/themes/cardtable.scss';
+import './styles/themes/cargo.scss';
 import './styles/themes/changeling.scss';
 import './styles/themes/clockwork.scss';
 import './styles/themes/infernal.scss';

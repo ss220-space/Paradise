@@ -170,7 +170,7 @@
 		if(!isobserver(mob) || !mob.client || !HASBIT(mob.client.prefs.toggles, PREFTOGGLE_CHAT_GHOSTPDA))
 			continue
 
-		var/ghost_message = "[span_name("[pda.owner]")] ([ghost_follow_link(pda, ghost = mob)]) [span_gamesay("Сообщение на КПК")] --> [span_name("[recipient_pda.owner]")] ([ghost_follow_link(recipient_pda, ghost = mob)]): [span_message("[message]")]"
+		var/ghost_message = "([ghost_follow_link(pda, ghost = mob)])[span_name("[pda.owner]")] [span_gamesay("Сообщение на КПК")] --> ([ghost_follow_link(recipient_pda, ghost = mob)])[span_name("[recipient_pda.owner]")]: [span_message("[message]")]"
 		to_chat(mob, "[ghost_message]")
 
 /datum/data/pda/app/messenger/proc/can_send_message(message, sender, recipient_pda, useMS)
