@@ -853,7 +853,7 @@
 	icon_state = "poster_cargo"
 
 /obj/structure/sign/poster/official/cargogorilas
-	name = "Карго Горилаз"
+	name = "Каргорилаз"
 	desc = "На постере изображена обложка рок-группы \"Карго Горилаз\". Вероятно, на фоне успеха данной группы, \"Нанотрейзен\" снабдила все свои станции питомцем по имени Марс."
 	icon_state = "poster_cargogorilas"
 
