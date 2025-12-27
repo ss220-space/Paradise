@@ -14,4 +14,5 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 	company_name = "\"Нанотрейзен\""
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
+	traits = list(MAIN_STATION, STATION_CONTACT, STATION_LEVEL, REACHABLE, AI_OK, ZTRAIT_SNOWSTORM)
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/deltastation/"

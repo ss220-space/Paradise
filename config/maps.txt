@@ -18,7 +18,7 @@ VOTE_NO_DEAD
 DEFAULT_MAP /datum/map/delta
 
 ## Override away mission map. Spawns it even if it is not mentioned in away_mission_config.txt
-# OVERRIDE_AWAY_MISSION _maps/map_files/RandomZLevels/academy.dmm
+OVERRIDE_AWAY_MISSION _maps/map_files/RandomZLevels/evil_santa.dmm
 
 ## Minimum number of space ruins levels to generate
 EXTRA_SPACE_RUIN_LEVELS_MIN 4

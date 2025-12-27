@@ -19990,6 +19990,7 @@
 	id_tag = "Bar";
 	name = "Bar Privacy Shutters"
 	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20012,8 +20013,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/item/gift,
-/obj/item/gift,
+/obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "crJ" = (
@@ -22263,6 +22263,12 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/xenobiology)
+"cCy" = (
+/obj/item/gift,
+/obj/item/gift,
+/obj/effect/spawner/lootdrop/evil_santa_gift,
+/turf/simulated/floor/carpet/green,
+/area/crew_quarters/bar/atrium)
 "cCz" = (
 /obj/structure/table/reinforced,
 /obj/item/extinguisher/mini{
@@ -32444,6 +32450,7 @@
 	name = "Bar Privacy Shutters"
 	},
 /obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33898,6 +33905,7 @@
 /obj/machinery/camera{
 	c_tag = "Kitchen South"
 	},
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -44394,6 +44402,19 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"ffN" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "Bar";
+	name = "Bar Privacy Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/bar)
 "ffP" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -48643,6 +48664,7 @@
 	name = "Kitchen Shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/item/reagent_containers/food/snacks/oliviersalad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -53296,6 +53318,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
+"hkz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/largecrate/tangerines,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "hkF" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
@@ -55462,8 +55491,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "hLK" = (
-/obj/item/gift,
-/obj/item/gift,
+/obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "hLL" = (
@@ -58218,6 +58246,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"iug" = (
+/obj/structure/largecrate/tangerines,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/library)
 "iuh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/west,
@@ -58331,6 +58365,7 @@
 	dir = 1;
 	icon_state = "grass_edge_medium_corner"
 	},
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/fpmaint)
 "iuN" = (
@@ -58404,6 +58439,19 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/cryo)
+"ivr" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "Bar";
+	name = "Bar Privacy Shutters"
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/bar)
 "ivw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -60710,6 +60758,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
+"iYq" = (
+/turf/simulated/floor/carpet/green,
+/area/crew_quarters/bar/atrium)
 "iYw" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -85805,8 +85856,6 @@
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
-/obj/item/gift,
-/obj/item/gift,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "oLH" = (
@@ -86477,6 +86526,13 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/maintenance/fpmaint)
+"oUO" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/oliviersalad,
+/turf/simulated/floor/carpet/orange,
+/area/crew_quarters/serviceyard)
 "oUP" = (
 /obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
@@ -91497,6 +91553,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
@@ -95530,6 +95587,7 @@
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/fork,
 /obj/item/kitchen/utensil/spoon,
+/obj/item/reagent_containers/food/snacks/oliviersalad,
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/bar/atrium)
 "qRt" = (
@@ -104552,6 +104610,7 @@
 /area/bridge/vip)
 "sUZ" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -106619,8 +106678,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/gift,
-/obj/item/gift,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "tuK" = (
@@ -111707,6 +111764,13 @@
 	icon_state = "wood-broken6"
 	},
 /area/maintenance/kitchen)
+"uym" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/largecrate/tangerines,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "uyo" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -114676,8 +114740,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/gift,
-/obj/item/gift,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "vhQ" = (
@@ -115816,8 +115878,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/gift,
-/obj/item/gift,
+/obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "vvG" = (
@@ -123787,6 +123848,7 @@
 	dir = 8;
 	pixel_x = 12
 	},
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/wood,
 /area/maintenance/bar)
 "xlY" = (
@@ -157855,7 +157917,7 @@ wQX
 pWT
 pWT
 mJv
-pWT
+iug
 pWT
 rUu
 pWT
@@ -162118,7 +162180,7 @@ tOp
 cFO
 nlF
 xHA
-bxt
+oUO
 dFv
 bxt
 nsi
@@ -162392,7 +162454,7 @@ xBC
 bKU
 bdz
 bKU
-yai
+jYe
 wVn
 aEp
 bog
@@ -163918,7 +163980,7 @@ aFA
 aFA
 bwk
 crB
-big
+ffN
 big
 aHE
 dWe
@@ -164691,7 +164753,7 @@ dBv
 beW
 bOF
 cyt
-dPF
+ivr
 aSV
 eoM
 fUv
@@ -164956,7 +165018,7 @@ ddk
 fYR
 aPO
 tuE
-hLK
+cCy
 imC
 crF
 dId
@@ -165205,7 +165267,7 @@ nWB
 cdy
 aXA
 cvQ
-dPF
+ivr
 aSV
 eoM
 fUv
@@ -165471,7 +165533,7 @@ fYR
 kiz
 gYJ
 oLF
-hLK
+iYq
 iWC
 aXF
 kJm
@@ -169820,7 +169882,7 @@ ctF
 bYJ
 djV
 aAK
-djV
+hkz
 bot
 bqn
 aDL
@@ -170594,7 +170656,7 @@ bkU
 djV
 cOF
 bOI
-djV
+hkz
 rup
 gOW
 eZs
@@ -171885,7 +171947,7 @@ sZV
 djV
 cGl
 eZs
-vKa
+uym
 oKL
 dRj
 cSf
