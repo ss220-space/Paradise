@@ -1,5 +1,5 @@
 /// Gifts to give to players, will contain a nice toy or other fun item for them to play with.
-/obj/item/a_gift
+/obj/item/gift
 	name = "gift"
 	desc = "Ураа!! Подарочееек!"
 	icon = 'icons/obj/storage/wrapping.dmi'
@@ -14,7 +14,7 @@
 	/// Legacy shit, need to del it
 	var/obj/item/gift = null
 
-/obj/item/a_gift/get_ru_names()
+/obj/item/gift/get_ru_names()
 	return list(
 		NOMINATIVE = "подарок",
 		GENITIVE = "подарка",
@@ -24,7 +24,7 @@
 		PREPOSITIONAL = "подарке"
 	)
 
-/obj/item/a_gift/Initialize(mapload)
+/obj/item/gift/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
@@ -35,15 +35,15 @@
 	if(isnull(contains_type))
 		contains_type = get_gift_type()
 
-/obj/item/a_gift/Destroy()
+/obj/item/gift/Destroy()
 	QDEL_NULL(gift)
 	return ..()
 
-/obj/item/a_gift/suicide_act(mob/living/user)
+/obj/item/gift/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] заглядывает в [declent_ru(ACCUSATIVE)] и плачет до смерти! Похоже, [GEND_HE_SHE(user)] попал в список непослушных..."))
 	return BRUTELOSS
 
-/obj/item/a_gift/attack_self(mob/user)
+/obj/item/gift/attack_self(mob/user)
 	var/obj/item/thing = new contains_type(get_turf(user))
 
 	if(QDELETED(thing)) // might contain something like metal rods that might merge with a stack on the ground
@@ -56,7 +56,7 @@
 
 	qdel(src)
 
-/obj/item/a_gift/proc/get_gift_type()
+/obj/item/gift/proc/get_gift_type()
 	if(evil_santa_reward)
 		return get_evil_santa_gift()
 
@@ -118,7 +118,7 @@
 	var/gift_type = pick(gift_type_list)
 	return gift_type
 
-/obj/item/a_gift/proc/get_evil_santa_gift()
+/obj/item/gift/proc/get_evil_santa_gift()
 	var/static/list/evil_santa_gifts = list(
 		/obj/item/storage/box/syndie_kit/mr_chang_technique,
 		/obj/item/documents/syndicate/yellow/trapped,
@@ -164,7 +164,7 @@
 	)
 	return pick(evil_santa_gifts)
 
-/obj/item/a_gift/evil_santa_reward
+/obj/item/gift/evil_santa_reward
 	evil_santa_reward = TRUE
 
 /*

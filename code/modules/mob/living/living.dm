@@ -698,7 +698,7 @@
 		//for(var/obj/item/storage/S in Storage.return_inv()) //Check for storage items
 		//	L += get_contents(S)
 
-		for(var/obj/item/a_gift/G in Storage.return_inv()) //Check for gift-wrapped items
+		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
 			if(isstorage(G.gift))
 				L += get_contents(G.gift)
@@ -720,7 +720,7 @@
 			L += get_contents(S)
 		for(var/obj/item/implant/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
-		for(var/obj/item/a_gift/G in contents) //Check for gift-wrapped items
+		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
 			if(isstorage(G.gift))
 				L += get_contents(G.gift)

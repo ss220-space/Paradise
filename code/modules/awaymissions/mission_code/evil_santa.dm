@@ -217,8 +217,8 @@
 	lootdoubles = FALSE
 
 	loot = list(
-		/obj/item/a_gift/evil_santa_reward = 33,
-		/obj/item/a_gift = 67,
+		/obj/item/gift/evil_santa_reward = 33,
+		/obj/item/gift = 67,
 	)
 
 /obj/item/paper/journal_scrap_1

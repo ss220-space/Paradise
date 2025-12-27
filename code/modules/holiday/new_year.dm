@@ -125,7 +125,7 @@
 
 /obj/item/storage/backpack/santabag/ded_moroz/populate_contents()
 	for(var/i in 1 to 50)
-		new /obj/item/a_gift(src)
+		new /obj/item/gift(src)
 	update_icon()
 
 /datum/outfit/ded_moroz
