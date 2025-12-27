@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/ninja_caltrops
 
-	name = "Energy Caltrops"
-	desc = "Разбрасывает смертельные шипы позади вас. Отлично замедляет врагов. Не наступайте на них. Даже металлические конечности будут повреждены. Затрата энергии: 1500"
+	name = "Энергетические шипы"
+	desc = "Разбрасывает смертельные шипы позади вас. Отлично замедляет врагов. Пробивают даже костюм ниндзи и металлические конечности. Затраты энергии: 1500"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_max = 1 SECONDS
 	button_icon_state = "caltrop"
@@ -54,7 +54,7 @@
 ///The caltrops object
 /obj/structure/energy_caltrops
 	name = "Caltrops"
-	desc = "Шипы созданные из концентрированной энергии. Даже металлические конечности будут повреждены!"
+	desc = "Шипы, созданные из концентрированной энергии. Чрезвычайно острые."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "caltrops"
 	resistance_flags = INDESTRUCTIBLE
@@ -62,6 +62,16 @@
 	anchored = TRUE
 	var/destroy_after = 10 SECONDS
 	var/self_destroy = TRUE
+
+/obj/structure/energy_caltrops/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетические шипы",
+		GENITIVE = "энергетических шипов",
+		DATIVE = "энергетическим шипам",
+		ACCUSATIVE = "энергетические шипы",
+		INSTRUMENTAL = "энергетическими шипами",
+		PREPOSITIONAL = "энергетических шипах",
+	)
 
 /obj/structure/energy_caltrops/noselfdestroy
 	self_destroy = FALSE

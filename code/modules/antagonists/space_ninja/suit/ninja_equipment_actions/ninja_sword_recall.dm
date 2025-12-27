@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninja_sword_recall
-	name = "Recall Energy Katana"
-	desc = "Телепортирует вашу энерго-катану к вам. Затрата энергии: 200"
+	name = "Призыв энерго-катаны"
+	desc = "Телепортирует вашу энерго-катану к вам. Затраты энергии: 200"
 	check_flags = FALSE
 	charge_max = 0.5 SECONDS
 	button_icon_state = "energy_katana_green"
@@ -47,7 +47,7 @@
 				return
 			energyKatana.spark_system.start()
 			playsound(ninja, SFX_SPARKS, 50, TRUE, -9)
-			ninja.visible_message(span_danger(" [energyKatana.declent_ru(NOMINATIVE)] летит навстречу [ninja]!"),span_warning("Вы протягиваете руку и [energyKatana.declent_ru(NOMINATIVE)] летит к вам!"))
+			ninja.visible_message(span_danger(" [capitalize(energyKatana.declent_ru(NOMINATIVE))] летит навстречу [ninja.declent_ru(DATIVE)]!"),span_warning("Вы протягиваете руку и [energyKatana.declent_ru(NOMINATIVE)] летит к вам!"))
 			energyKatana.throw_at(ninja, distance+1, energyKatana.throw_speed)
 
 		else //Else just TP it to us.

@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninjanet
-	name = "Energy Net"
-	desc = "Захватывает противника в сеть из энергии. Затрата энергии: 4000"
+	name = "Энергетическая сеть"
+	desc = "Захватывает противника в сеть из энергии. Затраты энергии: 4000"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "energynet"
@@ -33,6 +33,17 @@
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninjanet/my_action = null
+
+/obj/item/ninja_net_emitter/get_ru_names()
+	return list(
+		NOMINATIVE = "энергосетемёт",
+		GENITIVE = "энергосетемёта",
+		DATIVE = "энергосетемёту",
+		ACCUSATIVE = "энергосетемёт",
+		INSTRUMENTAL = "энергосетемётом",
+		PREPOSITIONAL = "энергосетемёте",
+	)
+
 
 /obj/item/ninja_net_emitter/Destroy()
 	. = ..()
@@ -71,7 +82,7 @@
 		ninja.Beam(target, "n_beam", time = 15)
 		var/obj/structure/energy_net/net = new /obj/structure/energy_net(target.drop_location())
 		net.affected_mob = target
-		ninja.visible_message(span_danger("[ninja] запутывает [target] энергетической сетью!"),span_notice("Вы запутываете [target] энергетической сетью!"))
+		ninja.visible_message(span_danger("[ninja.declent_ru(NOMINATIVE)] запутыва[PLUR_ET_YUT(ninja)] [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"),span_notice("Вы запутываете [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 		if(target.buckled)
 			target.buckled.unbuckle_mob(target, TRUE)
 		net.buckle_mob(target, TRUE) //No moving for you!

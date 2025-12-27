@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninja_clones
-	name = "Energy Clones"
-	desc = "Создает двух клонов пользователя, чтобы сбить с толку врагов в бою. Также после этого меняется ваше положение и положение клонов. Затрата энергии: 4000"
+	name = "Энергетические клоны"
+	desc = "Создаёт двух ваших клонов, незамедлительно вступающих в бой с противником. Также меняет вас и одного из клонов местами. Затраты энергии: 4000"
 	check_flags = AB_CHECK_CONSCIOUS
 	charge_max = 8 SECONDS
 	button_icon_state = "ninja_clones"

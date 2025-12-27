@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninja_emergency_blink
-	name = "Emergency Blink"
-	desc = "Телепортирует вас в случайное близлежащее место. Потребляет большое количество энергии. Используйте с умом. Затрата энергии: 1500"
+	name = "Экстренная телепортация"
+	desc = "Телепортирует вас в случайное близлежащее место. Затраты энергии: 1500"
 	check_flags = AB_CHECK_CONSCIOUS
 	charge_max = 3 SECONDS
 	button_icon_state = "emergency_blink"

@@ -1,8 +1,8 @@
 /datum/action/item_action/advanced/ninja/ninjaheal
-	name = "Restorative Cocktail"
-	desc = "Вводит экспериментальное химическое вещество, которое лечит большую часть травм пользователя, удаляет другие реагенты, лечит внутренние повреждения, восстанавливает конечности и кости. \
-			Он действует путем перемотки частей вашего тела в их идеальное состояние в прошлом. Так как происходит взаимодействия со временем, вы можете попасть в временной парадокс на некоторое время! \
-			НЕ передозируйте! Порог передозировки: 30"
+	name = "Восстановительный коктейль"
+	desc = "Вводит в кровь 25 ед. химиката \"Чиюризин\", который лечит все виды травм и повреждений, очищает кровоток и восстанавливает части тела. \
+			Действует путём прямого взаимодействия с пространственно-временным континуумом, что создаёт небольшой риск временного парадокса. \
+			Порог передозировки: 30 единиц."
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_CHARGES
 	charge_max = 3
@@ -16,7 +16,7 @@
 		return
 	var/mob/living/carbon/human/ninja = affecting
 	ninja.reagents.add_reagent("chiyurizine", 25)	//The 25 dose is important. Reagent won't work if you add less. And it will overdose if you add 30 or more
-	balloon_alert(ninja, "реагенты введены!")
+	balloon_alert(ninja, "чиюризин введен!")
 	atom_say("Spider-OS напоминает вам, вы можете отслеживать количество реагента в крови с помощью встроенных сканеров.")
 	add_attack_logs(ninja, null, "Activated healing chems.")
 	for(var/datum/action/item_action/advanced/ninja/ninjaheal/ninja_action in actions)
@@ -41,6 +41,16 @@
 	light_power = 5
 	light_range = 3
 	light_color = "#55ff63"
+
+/obj/effect/temp_visual/ninja_rend/get_ru_names()
+	return list(
+		NOMINATIVE = "разлом реальности",
+		GENITIVE = "разлома реальности",
+		DATIVE = "разлому реальности",
+		ACCUSATIVE = "разлом реальности",
+		INSTRUMENTAL = "разломом реальности",
+		PREPOSITIONAL = "разломе реальности",
+	)
 
 /obj/effect/temp_visual/ninja_rend/Initialize(mapload)
 	for(var/obj/effect/temp_visual/ninja_rend/other_rend in src.loc.contents)

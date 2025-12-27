@@ -1,8 +1,8 @@
 //Automatically dusts ninja if enabled!
 
 /datum/action/item_action/advanced/ninja/ninja_autodust
-	name = "Auto-Dust"
-	desc = "Автоматически превращает вас в пыль при смерти!"
+	name = "Автосжигание"
+	desc = "Автоматически превращает вас в пыль при смерти."
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "dust"

@@ -1,9 +1,9 @@
 /datum/action/item_action/advanced/ninja/ninja_spirit_form
-	name = "Toggle Spirit Form"
-	desc = "Переключает мощную экспериментальную технологию, которая трансформирует вас в более нестабильную форму. \
-	Позволяет проходить почти сквозь всё, но требует значительного увеличения потребления энергии. \
-	Все ограничивающие эффекты, такие как наручники, упадут с вас! \
-	Помните, этот модуль всё ещё прототип и не сделает вас неуязвимым! Пассивно увеличивает потребление энергии костюма."
+	name = "Переключение безтелесной формы"
+	desc = "При активации трансформирует пользователя в безтелесную форму. \
+	Позволяет проходить сквозь твёрдые объекты. \
+	При активации устраняет любые ограничивающие передвижение факторы. \
+	Не понижает входящий по пользователю урон от каких-либо источников. Пассивно увеличивает энергозатраты костюма."
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 25 SECONDS
@@ -69,7 +69,7 @@
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_NORMAL), ALPHA_SOURCE_NINJA)
 			ninja.visible_message(span_warning("[ninja.name] становится стабильным!"), span_notice("Вы теряете способность проходить сквозь материальные объекты...")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
-			to_chat(ninja, span_notice("Вы теряете способность проходить сквозь материальные объекты...")) // Если же невидимы — пишем только себе
+			to_chat(ninja, span_notice("Вы теряете способность проходить сквозь материальные объекты.")) // Если же невидимы — пишем только себе
 		ninja.pass_flags = 0	//Отнимать этот флаг - "PASS_EVERYTHING" по нормальному он не хочет, значит сделаем полный сброс.
 		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
 			ninja_action.action_ready = FALSE
@@ -82,14 +82,14 @@
 	var/obj/restraint
 	if(ninja.handcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
-		restraint.visible_message(span_warning("[restraint.declent_ru(NOMINATIVE)] падают сквозь руки [ninja] после того как он становится нестабильным!"))
+		restraint.visible_message(span_warning("[capitalize(restraint.declent_ru(NOMINATIVE))] спада[PLUR_ET_YUT(restraint)] с рук [ninja.declent_ru(GENITIVE)]!"))
 	if(ninja.legcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
-		restraint.visible_message(span_warning("[restraint.declent_ru(NOMINATIVE)] падают сквозь руки [ninja] после того как он становится нестабильным!"))
+		restraint.visible_message(span_warning("[capitalize(restraint.declent_ru(NOMINATIVE))] спада[PLUR_ET_YUT(restraint)] с ног [ninja.declent_ru(GENITIVE)]!"))
 	ninja.uncuff()
 	if(istype(ninja.loc, /obj/structure/closet))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))
 			return FALSE
 		ninja.forceMove(get_turf(restraint_closet))
-		ninja.visible_message(span_warning("[ninja] проходит сквозь [restraint_closet.declent_ru(ACCUSATIVE)] после того как он становится нестабильным!"))
+		ninja.visible_message(span_warning("[ninja.declent_ru(NOMINATIVE)] проходит сквозь [restraint_closet.declent_ru(ACCUSATIVE)]!"))

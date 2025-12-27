@@ -2,7 +2,7 @@
 // Оригинальная версия абилки создающей сюрикены в руках с ТГ
 /datum/action/item_action/ninjastar
 	name = "Create Throwing Stars"
-	desc = "Создаёт метательную звёзду в вашей руке, если это возможно."
+	desc = "Создаёт энергетический сюрикен в вашей руке."
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -21,7 +21,7 @@
 	var/mob/living/carbon/human/ninja = affecting
 	var/obj/item/throwing_star/stamina/ninja/ninja_star = new(ninja)
 	if(ninja.put_in_hands(ninja_star))
-		balloon_alert(ninja, "создано!")
+		balloon_alert(ninja, "сюрикен создан")
 	else
 		qdel(ninja_star)
 		balloon_alert(ninja, "руки заняты!")

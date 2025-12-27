@@ -140,9 +140,9 @@
 	if(user.put_in_active_hand(src))
 		msg = "Ваша энергетическая катана телепортируется к вам в руки!"
 	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, disable_warning = TRUE))
-		msg = "Ваша энергетическая катана телепортируется к вам на пояс, прячась там!"
+		msg = "Ваша энергетическая катана телепортируется к вам на пояс!"
 	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_SUITSTORE, disable_warning = TRUE))
-		msg = "Ваша энергетическая катана телепортируется к вам на спину, прячась там!"
+		msg = "Ваша энергетическая катана телепортируется к вам на спину!"
 	else
 		msg = "Ваша энергетическая катана телепортируется к вам!"
 
