@@ -246,9 +246,8 @@
 /obj/structure/largecrate/tangerines/crowbar_act(mob/living/user, obj/item/I)
 	var/turf/cached_loc = get_turf(loc)
 	. = ..()
-	for(var i in 1 to TANGERINES_COUNT)
+	for(var/i in 1 to TANGERINES_COUNT)
 		new /obj/item/reagent_containers/food/snacks/grown/citrus/tangerine(cached_loc)
-
 
 #undef TANGERINES_COUNT
 
