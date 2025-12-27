@@ -61,7 +61,7 @@
 
 	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
+	for(var/obj/item/a_gift/G in src)
 		L += G.gift
 		if(isstorage(G.gift))
 			L += G.gift:return_inv()

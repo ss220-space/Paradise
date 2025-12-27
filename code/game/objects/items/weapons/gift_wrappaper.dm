@@ -1,18 +1,28 @@
-/* Gifts and wrapping paper
- * Contains:
- *		Gifts
- *		Wrapping Paper
- */
-
-/*
- * Gifts
- */
+/// Gifts to give to players, will contain a nice toy or other fun item for them to play with.
 /obj/item/a_gift
 	name = "gift"
-	desc = "PRESENTS!!!! eek!"
-	icon_state = "gift1"
-	item_state = "gift1"
+	desc = "Ураа!! Подарочееек!"
+	icon = 'icons/obj/storage/wrapping.dmi'
+	icon_state = "giftdeliverypackage3"
+	item_state = "gift"
 	resistance_flags = FLAMMABLE
+	/// What type of thing are we guaranteed to spawn in with?
+	var/obj/item/contains_type = null
+	/// Whether to use the special Evil Santa gift list
+	var/evil_santa_reward = FALSE
+
+	/// Legacy shit, need to del it
+	var/obj/item/gift = null
+
+/obj/item/a_gift/get_ru_names()
+	return list(
+		NOMINATIVE = "подарок",
+		GENITIVE = "подарка",
+		DATIVE = "подарку",
+		ACCUSATIVE = "подарок",
+		INSTRUMENTAL = "подарком",
+		PREPOSITIONAL = "подарке"
+	)
 
 /obj/item/a_gift/Initialize(mapload)
 	. = ..()
@@ -20,107 +30,167 @@
 	pixel_y = rand(-10,10)
 	base_pixel_x = pixel_x
 	base_pixel_y = pixel_y
-	if(w_class > 0 && w_class < 4)
-		icon_state = "gift[w_class]"
-	else
-		icon_state = "gift[pick(1, 2, 3)]"
+	icon_state = "giftdeliverypackage[rand(1, 5)]"
 
-/obj/effect/spresent/relaymove(mob/user)
-	if(user.stat)
-		return
-	to_chat(user, span_notice("You cannot move."))
+	if(isnull(contains_type))
+		contains_type = get_gift_type()
 
-/obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return .
-	to_chat(user, span_notice("You cut open the present."))
-	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
-		thing.forceMove(loc)
-	qdel(src)
+/obj/item/a_gift/Destroy()
+	QDEL_NULL(gift)
+	return ..()
+
+/obj/item/a_gift/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] заглядывает в [declent_ru(ACCUSATIVE)] и плачет до смерти! Похоже, [GEND_HE_SHE(user)] попал в список непослушных..."))
+	return BRUTELOSS
 
 /obj/item/a_gift/attack_self(mob/user)
-	var/static/list/gift_types = list(/obj/item/sord,
-		/obj/item/storage/wallet,
-		/obj/item/storage/photo_album,
-		/obj/item/storage/box/snappops,
-		/obj/item/storage/fancy/crayons,
-		/obj/item/storage/belt/champion,
-		/obj/item/soap/deluxe,
-		/obj/item/pickaxe/silver,
-		/obj/item/pen/invisible,
-		/obj/item/lipstick/random,
-		/obj/item/grenade/smokebomb,
-		/obj/item/grown/corncob,
-		/obj/item/poster/random_contraband,
-		/obj/item/bikehorn,
-		/obj/item/beach_ball,
-		/obj/item/beach_ball/holoball,
-		/obj/item/banhammer,
-		/obj/item/toy/balloon,
-		/obj/item/toy/blink,
-		/obj/item/gun/projectile/shotgun/toy/crossbow,
-		/obj/item/gun/projectile/revolver/capgun,
-		/obj/item/toy/katana,
-		/obj/random/mech,
-		/obj/item/toy/spinningtoy,
-		/obj/item/toy/sword,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
-		/obj/item/paicard,
-		/obj/item/instrument/violin,
-		/obj/item/instrument/guitar,
-		/obj/item/storage/belt/utility/full,
-		/obj/item/clothing/accessory/horrible,
-		/obj/random/carp_plushie,
-		/obj/random/plushie,
-		/obj/random/figure,
-		/obj/item/toy/minimeteor,
-		/obj/item/toy/redbutton,
-		/obj/item/toy/owl,
-		/obj/item/toy/griffin,
-		/obj/item/clothing/head/blob,
-		/obj/item/id_decal/gold,
-		/obj/item/id_decal/silver,
-		/obj/item/id_decal/prisoner,
-		/obj/item/id_decal/centcom,
-		/obj/item/id_decal/emag,
-		/obj/item/id_decal/federal,
-		/obj/item/id_decal/comrad,
-		/obj/item/id_decal/syndie,
-		/obj/item/spellbook/oneuse/fake_gib,
-		/obj/item/toy/foamblade,
-		/obj/item/toy/flash,
-		/obj/item/toy/minigibber,
-		/obj/item/toy/nuke,
-		/obj/item/deck/cards,
-		/obj/item/toy/AI,
-		/obj/item/clothing/under/syndicate/tacticool,
-		/obj/item/storage/box/fakesyndiesuit,
-		/obj/item/gun/projectile/shotgun/toy/tommygun,
-		/obj/item/stack/tile/fakespace/loaded,
+	var/obj/item/thing = new contains_type(get_turf(user))
+
+	if(QDELETED(thing)) // might contain something like metal rods that might merge with a stack on the ground
+		user.visible_message(span_danger("О нет! В подарке, который открыл[GEND_A_O_I(user)] [user], ничего не оказалось!"))
+	else
+		user.visible_message(span_notice("[user] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] внутри [thing.declent_ru(ACCUSATIVE)]!"))
+		user.investigate_log("has unwrapped a present containing [thing.type].", INVESTIGATE_PRESENTS)
+		user.put_in_hands(thing)
+		thing.add_fingerprint(user)
+
+	qdel(src)
+
+/obj/item/a_gift/proc/get_gift_type()
+	if(evil_santa_reward)
+		return get_evil_santa_gift()
+
+	var/static/list/gift_type_list = null
+
+	if(isnull(gift_type_list))
+		gift_type_list = list(
+			/obj/item/sord,
+			/obj/item/storage/wallet,
+			/obj/item/storage/photo_album,
+			/obj/item/storage/box/snappops,
+			/obj/item/storage/fancy/crayons,
+			/obj/item/storage/belt/champion,
+			/obj/item/soap/deluxe,
+			/obj/item/pickaxe/silver,
+			/obj/item/pen/invisible,
+			/obj/item/lipstick/random,
+			/obj/item/grenade/smokebomb,
+			/obj/item/grown/corncob,
+			/obj/item/poster/random_contraband,
+			/obj/item/bikehorn,
+			/obj/item/beach_ball,
+			/obj/item/beach_ball/holoball,
+			/obj/item/banhammer,
+			/obj/item/gun/projectile/shotgun/toy/crossbow,
+			/obj/item/gun/projectile/revolver/capgun,
+			/obj/random/mech,
+			/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
+			/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+			/obj/item/paicard,
+			/obj/item/instrument/violin,
+			/obj/item/instrument/guitar,
+			/obj/item/storage/belt/utility/full,
+			/obj/item/clothing/accessory/horrible,
+			/obj/random/carp_plushie,
+			/obj/random/plushie,
+			/obj/random/figure,
+			/obj/item/clothing/head/blob,
+			/obj/item/id_decal/gold,
+			/obj/item/id_decal/silver,
+			/obj/item/id_decal/prisoner,
+			/obj/item/id_decal/centcom,
+			/obj/item/id_decal/emag,
+			/obj/item/id_decal/federal,
+			/obj/item/id_decal/comrad,
+			/obj/item/id_decal/syndie,
+			/obj/item/spellbook/oneuse/fake_gib,
+			/obj/item/deck/cards,
+			/obj/item/clothing/under/syndicate/tacticool,
+			/obj/item/storage/box/fakesyndiesuit,
+			/obj/item/gun/projectile/shotgun/toy/tommygun,
+			/obj/item/stack/tile/fakespace/loaded,
+			/obj/item/reagent_containers/food/snacks/sugar_coal,
+		)
+
+		gift_type_list += subtypesof(/obj/item/clothing/head/collectable)
+		gift_type_list += subtypesof(/obj/item/toy)
+
+	var/gift_type = pick(gift_type_list)
+	return gift_type
+
+/obj/item/a_gift/proc/get_evil_santa_gift()
+	var/static/list/evil_santa_gifts = list(
+		/obj/item/storage/box/syndie_kit/mr_chang_technique,
+		/obj/item/documents/syndicate/yellow/trapped,
+		/obj/item/documents/nanotrasen,
+		/obj/item/documents/syndicate/mining,
+		/obj/item/paper/researchnotes,
+		/obj/item/melee/energy/sword/pirate,
+		/obj/item/stack/spacecash/c5000,
+		/obj/item/stack/spacecash/c1000,
+		/obj/item/storage/box/wizard/hardsuit,
+		/obj/item/storage/box/syndie_kit/hardsuit,
+		/obj/item/clothing/suit/space/hardsuit/champion/templar/premium,
+		/obj/item/clothing/suit/space/hardsuit/soviet,
+		/obj/item/clothing/suit/space/hardsuit/ancient,
+		/obj/item/clothing/suit/space/eva/pirate/leader,
+		/obj/item/clothing/head/helmet/space/eva/pirate/leader,
+		/obj/item/hardsuit_shield/syndi,
+		/obj/item/hardsuit_shield/wizard,
+		/obj/vehicle/ridden/speedbike/red,
+		/obj/vehicle/ridden/speedbike/red,
+		/obj/vehicle/ridden/speedbike,
+		/obj/vehicle/ridden/speedbike,
+		/obj/vehicle/ridden/motorcycle,
+		/obj/vehicle/ridden/motorcycle,
+		/obj/vehicle/ridden/snowmobile/blue/key,
+		/obj/vehicle/ridden/snowmobile/key,
+		/obj/vehicle/ridden/car,
+		/obj/item/dnainjector/insulation,
+		/obj/item/dnainjector/nobreath,
+		/obj/item/dnainjector/runfast,
+		/obj/item/dnainjector/hulkmut,
+		/obj/item/dnainjector/morph,
+		/obj/item/dnainjector/xraymut,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/toy/plushie/pig,
+		/obj/item/toy/plushie/pig,
+		/obj/item/toy/plushie/pig,
+		/obj/item/toy/xmas_cracker,
+		/obj/item/toy/xmas_cracker,
 		/obj/item/toy/pet_rock/naughty_coal,
 		/obj/item/reagent_containers/food/snacks/sugar_coal,
 	)
+	return pick(evil_santa_gifts)
 
-	var/new_gift_type = pick(gift_types)
-	var/obj/item/gift = new new_gift_type(drop_location())
-	gift.add_fingerprint(user)
-	qdel(src)
-	user.put_in_hands(gift)
+/obj/item/a_gift/evil_santa_reward
+	evil_santa_reward = TRUE
 
 /*
  * Wrapping Paper
  */
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
-	desc = "You can use this to wrap items in."
+	desc = "Оберните подарки этой праздничной бумагой."
 	icon_state = "wrap_paper"
-	singular_name = "wrapping paper"
 	item_flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/wrapping_paper
+	singular_name = "wrapping paper"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/stack/wrapping_paper/get_ru_names()
+	return list(
+		NOMINATIVE = "обёрточная бумага",
+		GENITIVE = "обёрточной бумаги",
+		DATIVE = "обёрточной бумаге",
+		ACCUSATIVE = "обёрточную бумагу",
+		INSTRUMENTAL = "обёрточной бумагой",
+		PREPOSITIONAL = "обёрточной бумаге"
+	)
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, span_notice("You need to use it on a package that has already been wrapped!"))
+	to_chat(user, span_notice("Её нужно использовать на уже упакованной посылке!"))

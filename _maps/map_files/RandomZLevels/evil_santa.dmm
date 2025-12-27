@@ -5075,7 +5075,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "QX" = (
-/obj/item/gift,
+/obj/item/a_gift,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -5114,7 +5114,7 @@
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Rn" = (
-/obj/item/gift,
+/obj/item/a_gift,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -5460,7 +5460,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "TW" = (
-/obj/item/gift,
+/obj/item/a_gift,
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
@@ -6033,7 +6033,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Zb" = (
-/obj/item/gift,
+/obj/item/a_gift,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},

@@ -38855,7 +38855,7 @@
 /area/syndicate_mothership/elite_squad)
 "rVH" = (
 /obj/structure/table,
-/obj/item/gift,
+/obj/item/a_gift,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "rVN" = (
