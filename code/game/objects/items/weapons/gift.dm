@@ -40,7 +40,7 @@
 	return ..()
 
 /obj/item/gift/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] заглядыва[PLUR_YET_YUT(user)] в [declent_ru(ACCUSATIVE)] и плачет до смерти! Похоже, [GEND_HE_SHE(user)] попал в список непослушных..."))
+	user.visible_message(span_suicide("[user] заглядыва[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)] и плачет до смерти! Похоже, [GEND_HE_SHE(user)] попал в список непослушных..."))
 	return BRUTELOSS
 
 /obj/item/gift/attack_self(mob/user)
