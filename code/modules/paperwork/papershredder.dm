@@ -78,7 +78,7 @@
 
 /obj/machinery/papershredder/verb/empty_contents()
 	set name = "Опустошить корзину"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in range(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

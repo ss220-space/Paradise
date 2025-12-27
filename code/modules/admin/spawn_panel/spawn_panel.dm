@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 /datum/spawnpanel/ui_state(mob/user)
 	if(user.client.ckey != owner_ckey)
 		return GLOB.never_state
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/spawnpanel/ui_act(action, params)
 	if(..())
@@ -336,17 +336,8 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 #undef OFFSET_ABSOLUTE
 #undef OFFSET_RELATIVE
 
-/client/proc/spawn_panel()
-	set name = "Spawn Panel"
-	set desc = "Spawn Panel (TGUI)."
-	set category = STATPANEL_ADMIN_EVENT
-
-	if(!check_rights(R_SPAWN))
-		return
-
-	var/datum/spawnpanel/panel = get_spawnpanel_for_admin(usr)
-
+ADMIN_VERB(spawn_panel, R_SPAWN, "Spawn Panel", "Spawn Panel (TGUI).", ADMIN_CATEGORY_EVENTS)
+	var/datum/spawnpanel/panel = get_spawnpanel_for_admin(user.mob)
 	if(panel)
-		panel.ui_interact(usr)
-
+		panel.ui_interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Panel")

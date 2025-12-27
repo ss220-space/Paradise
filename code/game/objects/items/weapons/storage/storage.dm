@@ -836,7 +836,7 @@
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Режим сбора"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
@@ -847,7 +847,7 @@
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Выбросить содержимое"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

@@ -1,20 +1,14 @@
-//allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
-/client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
-	set name = "\[Admin\] Admin PM Mob"
-	if(!check_rights(R_ADMIN|R_MENTOR))
+/// Allows right clicking mobs to send an admin PM to their client.
+/// Forwards the selected mob's client to cmd_admin_pm.
+ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_pm_context, R_ADMIN|R_MENTOR, "Admin PM Mob", mob/target in GLOB.player_list)
+	if(!ismob(target) || !target.client)
 		return
-	if(!ismob(M) || !M.client)
-		return
-	cmd_admin_pm(M.client,null)
+	user.cmd_admin_pm(target.client, null)
 	BLACKBOX_LOG_ADMIN_VERB("Admin PM Mob")
 
-//shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
-/client/proc/cmd_admin_pm_panel()
-	set category = STATPANEL_ADMIN_ADMIN
-	set name = "Admin PM Name"
-	if(!check_rights(R_ADMIN|R_MENTOR))
-		return
-	var/list/client/targets[0]
+/// Shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm.
+ADMIN_VERB(cmd_admin_pm_panel, R_ADMIN|R_MENTOR, "Admin PM", "Show a list of clients to PM", ADMIN_CATEGORY_MAIN)
+	var/list/client/targets = list()
 	for(var/client/T)
 		if(T.mob)
 			if(isnewplayer(T.mob))
@@ -26,21 +20,17 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = tgui_input_list(src,"To whom shall we send a message?","Admin PM", sorted)
+	var/target = tgui_input_list(user, "To whom shall we send a message?","Admin PM", sorted)
 	if(!target)
 		return
-	cmd_admin_pm(targets[target],null)
-	BLACKBOX_LOG_ADMIN_VERB("Admin PM Name")
+	user.cmd_admin_pm(targets[target], null)
+	BLACKBOX_LOG_ADMIN_VERB("Admin PM")
 
-//shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
-/client/proc/cmd_admin_pm_by_key_panel()
-	set category = STATPANEL_ADMIN_ADMIN
-	set name = "Admin PM Key"
-	if(!check_rights(R_ADMIN|R_MENTOR))
-		return
-	var/list/client/targets[0]
+/// Shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm.
+ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM by key.", ADMIN_CATEGORY_MAIN)
+	var/list/client/targets = list()
 	for(var/client/T)
-		if(T?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // normal admins can't see BB
+		if(T?.holder?.big_brother && !check_rights_client(R_PERMISSIONS, FALSE, user)) // normal admins can't see BB
 			continue
 		if(T.mob)
 			if(isnewplayer(T.mob))
@@ -52,10 +42,10 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = tgui_input_list(src, "To whom shall we send a message?", "Admin PM", sorted)
+	var/target = tgui_input_list(user, "To whom shall we send a message?", "Admin PM", sorted)
 	if(!target)
 		return
-	cmd_admin_pm(targets[target],null)
+	user.cmd_admin_pm(targets[target], null)
 	BLACKBOX_LOG_ADMIN_VERB("Admin PM Key")
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
@@ -172,7 +162,7 @@
 						adminhelp(reply) //sender has left, adminhelp instead
 				return
 
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link
 	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	if(ticket_id != -1)
@@ -183,9 +173,9 @@
 
 	var/emoji_msg = span_emojienabled("[msg]")
 	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
-	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
+	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, C.mob))
 		receive_window_link = ticket_link
-	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, C.mob))
+	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, FALSE, C.mob))
 		receive_window_link = ticket_link
 	receive_message = "<span class='[receive_span]'>[type] from-<b>[receive_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [receive_window_link] [alert_link]" : ""]</span>"
 	if(message_type == MESSAGE_TYPE_MENTORPM)
@@ -195,9 +185,9 @@
 	to_chat(C, receive_message)
 	if(C != src)
 		var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
+		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, mob))
 			send_window_link = ticket_link
-		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
+		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, FALSE, mob))
 			send_window_link = ticket_link
 		var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]"
 		if(message_type == MESSAGE_TYPE_MENTORPM)
@@ -228,10 +218,10 @@
 			continue
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
-				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
+				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, X.mob))
 					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
 			else
-				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
+				if(check_rights(R_ADMIN|R_MOD, FALSE, X.mob))
 					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
 
 	if(length(tickets))
@@ -269,12 +259,12 @@
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
-		if(check_rights(R_ADMIN, 0, X.mob))
+		if(check_rights(R_ADMIN, FALSE, X.mob))
 			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential=TRUE)
 
 /client/verb/open_pms_ui()
 	set name = "ЛС"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)
@@ -430,11 +420,11 @@
 		return
 
 	if(href_list["adminalert"])
-		if(!check_rights(R_ADMIN))
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		if(!istype(about_to_be_banned))
 			return
 
-		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_alert_message, about_to_be_banned)
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client
