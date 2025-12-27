@@ -124,7 +124,6 @@
 	desc = "Космический Санта использует его, чтобы доставлять игрушки всем милым детям в космосе на Рождество! Ух ты, какой он большой!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 60
 
 /obj/item/storage/backpack/santabag/get_ru_names()
