@@ -69,6 +69,9 @@
 	recalculate_spawns()
 
 /obj/structure/flora/tree/pine/xmas/proc/spawn_gifts()
+	if(!length(possible_turfs))
+		return
+
 	for(var/i in 1 to gifts_count)
 		new /obj/effect/spawner/lootdrop/evil_santa_gift(pick(possible_turfs))
 
