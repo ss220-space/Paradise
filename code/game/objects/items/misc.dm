@@ -307,7 +307,7 @@
 	var/mob/living/carbon/true_devil/krampus/krampus = user
 
 	if(!istype(krampus))
-		balloon_alert(user, "невозможно использовать.")
+		balloon_alert(user, "невозможно использовать")
 		return
 
 	victim.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] открывается нараспашку и захватывает [victim.declent_ru(ACCUSATIVE)]!"), span_his_grace("[span_big("[declent_ru(NOMINATIVE)] захватывает вас!")]"))
