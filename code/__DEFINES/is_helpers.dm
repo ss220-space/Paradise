@@ -37,6 +37,8 @@
 
 #define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
 
+#define iskrampus(A) (istype(A, /mob/living/carbon/true_devil/krampus))
+
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
 #define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
