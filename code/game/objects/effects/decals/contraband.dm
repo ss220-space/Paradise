@@ -859,7 +859,7 @@
 
 /obj/structure/sign/poster/official/cargofriends
 	name = "Карго друзья"
-	desc = "Постер демонстрирует, что карго — это не просто работа, а способ завести новых друзей."
+	desc = "Постер демонстрирует, что снабжение — это не просто работа, а способ завести новых друзей."
 	icon_state = "poster_cargofriends"
 
 /obj/structure/sign/poster/official/mge
