@@ -3995,25 +3995,33 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(atom/target)
-	if(!target) return
+/**
+ * Generates admin follow links for tracking specific atoms, with special handling for clients, AIs, and observer mobs
+ *
+ * Arguments:
+ * * target_atom - The atom to create an admin follow link for
+ */
+/proc/admin_jump_link(atom/target_atom)
+	if(!target_atom)
+		return
+
 	// The way admin jump links handle their src is weirdly inconsistent...
+	if(isclient(target_atom))
+		var/client/target_client = target_atom
+		if(target_client.mob)
+			target_atom = target_client.mob
 
-	if(isclient(target))
-		var/client/C = target
-		if(C.mob)
-			target = C.mob
+	. = ADMIN_FLW(target_atom, "FLW")
 
-	. = ADMIN_FLW(target, "FLW")
+	if(isAI(target_atom)) // AI core/eye follow links
+		var/mob/living/silicon/ai/ai_instance = target_atom
+		if(ai_instance.client && ai_instance.eyeobj) // No point following clientless AI eyes
+			. += "|[ADMIN_FLW(ai_instance.eyeobj, "EYE")]"
 
-	if(isAI(target)) // AI core/eye follow links
-		var/mob/living/silicon/ai/A = target
-		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"
-	else if(istype(target, /mob/dead/observer))
-		var/mob/dead/observer/O = target
-		if(O.mind && O.mind.current)
-			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
+	else if(isobserver(target_atom))
+		var/mob/dead/observer/observer_instance = target_atom
+		if(observer_instance.mind && observer_instance.mind.current)
+			. += "|[ADMIN_FLW(observer_instance.mind.current, "BDY")]"
 
 /proc/you_realy_want_do_this(mob/user)
 	user = user || usr
