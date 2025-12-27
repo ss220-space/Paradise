@@ -858,7 +858,7 @@
 	icon_state = "poster_cargogorilas"
 
 /obj/structure/sign/poster/official/cargofriends
-	name = "Карго друзья"
+	name = "Грузчики"
 	desc = "Постер демонстрирует, что снабжение — это не просто работа, а способ завести новых друзей."
 	icon_state = "poster_cargofriends"
 
