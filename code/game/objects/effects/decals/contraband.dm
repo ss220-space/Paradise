@@ -909,7 +909,7 @@
 	icon_state = "poster3_secret"
 
 /obj/structure/sign/poster/secret/sexiqm
-	name = "Скромная квартермейстерша"
+	name = "Скромная Квартермейстерша"
 	desc = "На постере изображена скромная девушка в платье Квартирмейстера, которая сидит на том самом ящике."
 	icon_state = "poster4_secret"
 
