@@ -532,6 +532,11 @@
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, span_warning("[I] can't be made any faster!</span>"))
 				return
+		if(ismodcontrol(O))
+			var/obj/item/mod/control/C = O
+			if(C.active)
+				balloon_alert(user, "сначала выключите костюм!")
+				return
 		I.slowdown /= 2
 		I.item_flags |= SPEEDPOTION_APPLIED
 		I.update_equipped_item()

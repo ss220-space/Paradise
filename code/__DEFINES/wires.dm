@@ -80,6 +80,10 @@
 #define WIRE_WASHER_HACK "Hack"
 #define WIRE_WASHER_DISABLE "Disable"
 
+// MODsuits
+#define WIRE_HACK "Hack"
+#define WIRE_DISABLE "Disable"
+#define WIRE_INTERFACE "Interface"
 #define WIRE_RECEIVE (1<<0) //Allows pulse(FALSE) to call Activate()
 #define WIRE_PULSE (1<<1) //Allows pulse(FALSE) to act on the holder
 #define WIRE_PULSE_SPECIAL (1<<2) //Allows pulse(FALSE) to act on the holders special assembly

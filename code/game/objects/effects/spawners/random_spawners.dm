@@ -307,7 +307,7 @@
 	result = list(
 		/datum/nothing = 27,
 		/obj/item/storage/box/syndie_kit/space = 1,
-		/obj/item/storage/box/syndie_kit/hardsuit = 1,
+		/obj/item/mod/control/pre_equipped/traitor = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,
 		/obj/item/clothing/suit/armor/vest/combat = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
@@ -332,6 +332,8 @@
 		/obj/item/stack/sheet/mineral/plasma{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/silver{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1,
+		/obj/item/mod/module/magboot/advanced = 1,
+		/obj/item/mod/module/visor/night = 1,
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
@@ -365,6 +367,9 @@
 		/obj/item/batterer = 1,
 		/obj/item/toy/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1,
+		/obj/item/mod/module/visor/thermal = 1,
+		/obj/item/mod/module/stealth = 1,
+		/obj/item/mod/module/power_kick = 1,
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
@@ -384,6 +389,7 @@
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
 		/obj/item/grenade/plastic/x4 = 1,
+		/obj/item/mod/control/pre_equipped/traitor_elite = 1,
 	)
 
 // Layout-affecting spawns
@@ -433,6 +439,22 @@
 	result = list(
 		/datum/nothing = 60,
 		/obj/item/clothing/head/scorched_skull = 40,
+	)
+
+/obj/effect/spawner/random_spawners/mod
+	name = "MOD module spawner"
+	icon_state = "circuit"
+
+/obj/effect/spawner/random_spawners/mod/maint
+	name = "maint MOD module spawner"
+	result = list(
+		/obj/item/mod/module/springlock = 2,
+		/obj/item/mod/module/balloon = 1,
+		/obj/item/mod/module/stamp = 1,
+		/obj/item/mod/module/paper_dispenser = 1,
+		/obj/item/mod/module/hat_stabilizer = 2,
+		/obj/item/mod/module/bikehorn = 1,
+		/obj/item/mod/module/dispenser = 1,
 	)
 
 // Security armory random guns

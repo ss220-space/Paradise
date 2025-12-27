@@ -192,13 +192,19 @@
 	damage_type = TOX
 
 /obj/projectile/bullet/incendiary
+	immolate = 4
+	/// If TRUE, leaves a trail of hotspots as it flies, very very chaotic
+	var/leaves_fire_trail = FALSE
 
-/obj/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/incendiary/Move()
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(4)
-		M.IgniteMob()
+
+	if(!leaves_fire_trail)
+		return
+	var/turf/location = get_turf(src)
+	if(location)
+		new /obj/effect/hotspot(location)
+		location.hotspot_expose(700, 50, 1)
 
 /obj/projectile/bullet/incendiary/firebullet
 	damage = 10
@@ -206,6 +212,27 @@
 /obj/projectile/bullet/incendiary/foursix
 	damage = 10
 	armour_penetration = 10
+
+/// Incendiary bullet that more closely resembles a real flamethrower sorta deal, no visible bullet, just flames.
+/obj/projectile/bullet/incendiary/fire
+	damage = 15
+	range = 6
+	alpha = 0
+	pass_flags = PASSTABLE | PASSMOB
+	impact_effect_type = null
+	suppressed = TRUE
+	damage_type = BURN
+	flag = BOMB
+	speed = 0.8
+	immolate = 3
+	leaves_fire_trail = TRUE
+
+/obj/projectile/bullet/incendiary/fire/on_hit(atom/target, blocked = 0, pierce_hit)
+	. = ..()
+	var/turf/location = get_turf(target)
+	if(location && !location.density)
+		new /obj/effect/hotspot(location)
+		location.hotspot_expose(700, 50, 1)
 
 /obj/projectile/bullet/armourpiercing
 	damage = 18
@@ -372,11 +399,9 @@
 	damage = 27
 	armour_penetration = 40
 
-/obj/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
-	if(..(target, blocked))
-		var/mob/living/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
+
+/obj/projectile/bullet/midbullet3/fire
+	immolate = 1
 
 //5.56mm bullet casing
 /obj/projectile/bullet/heavybullet

@@ -31,6 +31,8 @@ GLOBAL_LIST_EMPTY(closets)
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
+	//Time to breakout
+	var/breakout_time = 2 MINUTES
 	var/large = TRUE
 	var/can_be_emaged = FALSE
 	var/can_weld_shut = TRUE
@@ -47,6 +49,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/close_sound_volume = 50
 	var/sparking_duration = 1 SECONDS
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
+	var/mob_storage_capacity //if null, than not limited
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
 	var/ignore_shoves = FALSE
@@ -148,8 +151,14 @@ GLOBAL_LIST_EMPTY(closets)
 	if(throwing)
 		throwing.finalize()
 
+/obj/structure/closet/proc/before_open()
+	return TRUE
+
 /obj/structure/closet/proc/open()
 	if(opened || !can_open())
+		return FALSE
+
+	if(!before_open())
 		return FALSE
 
 	dump_contents()
@@ -176,6 +185,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return FALSE
 
 	var/itemcount = 0
+	var/mobcount = 0
 
 	//Cham Projector Exception
 	for(var/obj/effect/dummy/chameleon/AD in loc)
@@ -194,6 +204,8 @@ GLOBAL_LIST_EMPTY(closets)
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
 			break
+		if(!isnull(mob_storage_capacity) && (mobcount >= mob_storage_capacity))
+			break
 		if(istype(M, /mob/dead/observer))
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
@@ -207,6 +219,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 		M.forceMove(src)
 		itemcount++
+		mobcount++
 
 	opened = FALSE
 	update_icon()
@@ -279,6 +292,30 @@ GLOBAL_LIST_EMPTY(closets)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/structure/closet/proc/togglelock(mob/living/user)
+	if(!istype(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		balloon_alert(user, "невозможно!")
+		return
+	if(opened)
+		balloon_alert(user, "нужно закрыть!")
+		return
+	if(broken)
+		balloon_alert(user, "сломано!")
+		return
+	if(user.loc == src)
+		balloon_alert(user, "невозможно изнутри!")
+		return
+	if(allowed(user))
+		locked = !locked
+		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
+		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_UT(user)] замок", "замок [locked ? "за" : "от"]крыт")
+		update_icon()
+	else
+		balloon_alert(user, "нет доступа!")
+	add_fingerprint(user)
 
 // What happens when the closet is attacked by a random item not on harm mode
 /obj/structure/closet/proc/closed_item_click(mob/user)
@@ -431,30 +468,28 @@ GLOBAL_LIST_EMPTY(closets)
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/container_resist(mob/living/L)
-	var/breakout_time = 2 //2 minutes by default
+/obj/structure/closet/container_resist(mob/living/user)
 	if(opened)
-		if(L.loc == src)
-			L.forceMove(get_turf(src)) // Let's just be safe here
+		if(user.loc == src)
+			user.forceMove(get_turf(src)) // Let's just be safe here
 		return //Door's open... wait, why are you in it's contents then?
 	if(!welded)
 		if(isobj(loc))
 			var/obj/loc_as_obj = loc
-			loc_as_obj.container_resist(L)
+			loc_as_obj.container_resist(user)
 			return
 		open() //for cardboard boxes
 		return //closed but not welded...
-	//	else Meh, lets just keep it at 2 minutes for now
-	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, span_warning("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)"))
-	for(var/mob/O in viewers(usr.loc))
-		O.show_message(span_danger("The [src] begins to shake violently!"), 1)
+
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
+	balloon_alert_to_viewers("начинает трястись!", "вы сопротивляетесь!")
 
 	spawn(0)
-		if(do_after(L, breakout_time * 6 MINUTES, src))
-			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+		if(do_after(user, breakout_time, src))
+			if(!src || !user || user.stat != CONSCIOUS || user.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 
 			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
@@ -464,15 +499,16 @@ GLOBAL_LIST_EMPTY(closets)
 			//Well then break it!
 			welded = FALSE
 			update_icon()
-			to_chat(usr, span_warning("You successfully break out!"))
-			for(var/mob/O in viewers(L.loc))
-				O.show_message(span_danger("\the [usr] successfully broke out of \the [src]!"), 1)
+			user.visible_message(
+				span_danger("[user.declent_ru(NOMINATIVE)] успешно выбира[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
+				span_notice("Вы успешно выбираетесь из [declent_ru(GENITIVE)]!")
+			)
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
-				BD.attack_hand(usr)
+				BD.attack_hand(user)
 			if(isobj(loc))
 				var/obj/loc_as_obj = loc
-				loc_as_obj.container_resist(L)
+				loc_as_obj.container_resist(user)
 			open()
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)

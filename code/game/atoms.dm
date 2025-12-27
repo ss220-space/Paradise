@@ -74,6 +74,8 @@
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
+	/// Currently used color filter - cached because its applied to all of our overlays because BYOND is horrific
+	var/list/cached_color_filter
 
 	///Light systems, both shouldn't be active at the same time.
 	var/light_system = STATIC_LIGHT
@@ -428,6 +430,7 @@
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, volume, temperature, source, method)
 	return TRUE
 
 /atom/proc/bullet_act(obj/projectile/P, def_zone)
@@ -825,8 +828,8 @@
 /atom/proc/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	return TRUE
 
-/// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
-/atom/proc/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
+/// This proc applies special effects of a mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
+/atom/proc/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
 	return
 
 /atom/proc/hitby_react(atom/movable/AM)
@@ -1699,10 +1702,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(gravity_turf.force_no_gravity)
 		return FALSE
 
+	var/list/forced_gravity = list()
+
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+
+	if(length(forced_gravity))
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
+
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
+
 	var/result_gravity = 0
 	var/list/gravity_deltas = list()
-	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, gravity_deltas)
-	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, gravity_deltas)
 
 	var/area/turf_area = gravity_turf.loc
 
@@ -1725,6 +1741,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/atom/ext_loc = src
 	while(!isturf(ext_loc.loc))
 		ext_loc = ext_loc.loc
+		if(!ext_loc)
+			return
 
 	return ext_loc
 

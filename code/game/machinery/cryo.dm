@@ -200,6 +200,12 @@
 	if(abs(temperature_archived-air_contents.temperature) > 1)
 		parent.update = 1
 
+/obj/machinery/atmospherics/unary/cryo_cell/return_temperature()
+	if(air_contents.total_moles() < 10)
+		return
+
+	return air_contents.temperature
+
 /obj/machinery/atmospherics/unary/cryo_cell/AllowDrop()
 	return FALSE
 

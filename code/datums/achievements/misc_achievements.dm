@@ -58,6 +58,11 @@
 	database_id = MEDAL_CULT_SHUTTLE_OMFG
 	icon_state = "cult_shuttle_omfg"
 
+/datum/award/achievement/misc/springlock
+	name = "ЭТО ЧТО, УКУС 87-ОГО????"
+	desc = "Проигнорируйте предупреждение пружинного модуля для МЭК."
+	database_id = MEDAL_SPRINGLOCK
+	icon_state = "springlock"
 
 /datum/award/achievement/misc/arch_devil
 	name = "Адский босс"
@@ -65,13 +70,11 @@
 	database_id = MEDAL_ARCH_DEVIL
 	icon_state = "arch_devil"
 
-
 /datum/award/achievement/misc/no_hell_today
 	name = "Никакого Ада сегодня"
 	desc = "Вы совершили практически невозможное. Изгнать архидьявола и спасти мир от Ада удаётся не каждому."
 	database_id = MEDAL_NO_HELL_TODAY
 	icon_state = "no_hell_today"
-
 
 /datum/award/achievement/misc/kerberos_master
 	name = "Мастер Кербероса"

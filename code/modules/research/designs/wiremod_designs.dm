@@ -578,14 +578,15 @@
 		PROTOLATHE_CATEGORY_CIRCUITRY,
 	)
 
-// /datum/design/mod_module_shell
-// 	id = "module_shell"
-// 	materials = list(MAT_GLASS = 1000)
-// 	build_path = /obj/item/mod/module/circuit
-// 	build_type = PROTOLATHE
-// 	category = list(
-// 		PROTOLATHE_CATEGORY_CIRCUITRY,
-// 	)
+/datum/design/mod_module_shell
+	id = "module_shell"
+	req_tech = list("materials" = 2, "programming" = 2)
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/mod/module/circuit
+	build_type = PROTOLATHE
+	category = list(
+		PROTOLATHE_CATEGORY_CIRCUITRY,
+	)
 
 // /datum/design/undertile_shell
 // 	id = "undertile_shell"

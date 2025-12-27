@@ -173,6 +173,8 @@
 
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
 
+#define MODSUIT_TRAIT "modsuit_trait"
+
 #define TASER_TRAIT "taser"
 
 #define BUTTON_TRAIT "button"

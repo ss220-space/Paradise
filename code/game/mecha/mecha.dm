@@ -1266,7 +1266,7 @@
 		. = t_air.return_pressure()
 
 //skytodo: //No idea what you want me to do here, mate.
-/obj/mecha/proc/return_temperature()
+/obj/mecha/return_temperature()
 	var/datum/gas_mixture/t_air = return_air()
 	if(t_air)
 		. = t_air.return_temperature()

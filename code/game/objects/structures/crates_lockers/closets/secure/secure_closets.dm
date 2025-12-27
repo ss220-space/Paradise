@@ -51,30 +51,6 @@
 		if(user)
 			to_chat(user, span_notice("You break the lock on [src]."))
 
-/obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
-	if(!istype(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(opened)
-		to_chat(user, span_notice("Close the locker first."))
-		return
-	if(broken)
-		to_chat(user, span_warning("The locker appears to be broken."))
-		return
-	if(user.loc == src)
-		to_chat(user, span_notice("You can't reach the lock from inside."))
-		return
-	if(allowed(user))
-		locked = !locked
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		visible_message(span_notice("The locker has been [locked ? null : "un"]locked by [user]."))
-		update_icon()
-	else
-		to_chat(user, span_notice("Access Denied"))
-	add_fingerprint(user)
-
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
 
@@ -126,14 +102,15 @@
 		return
 
 	//okay, so the closet is either welded or locked... resist!!!
+	balloon_alert_to_viewers("начинает трястись!", "вы сопротивляетесь...")
 	visible_message(
 		span_danger("[src] begins to shake violently!"),
-		span_warning("You lean on the back of [src] and start pushing the door open. (this will take about [CLOSET_BREAKOUT_TIME / 10] minutes.)")
+		span_warning("Вы упираетесь спиной в внутреннюю стенку [declent_ru(ACCUSATIVE)] и начинаете толкать дверь...")
 	)
 	INVOKE_ASYNC(src, PROC_REF(resist_async), user)
 
 /obj/structure/closet/secure_closet/proc/resist_async(mob/living/user)
-	if(!do_after(user, CLOSET_BREAKOUT_TIME, src))
+	if(!do_after(user, breakout_time, src))
 		return
 
 	//closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
@@ -151,9 +128,9 @@
 	locked = FALSE
 	welded = FALSE
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
-	visible_message(
-		span_danger("[user] successfully broke out of [src]!"),
-		span_warning("You successfully break out!"),
+	user.visible_message(
+		span_danger("[user.declent_ru(NOMINATIVE)] успешно выбира[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
+		span_notice("Вы успешно выбираетесь из [declent_ru(GENITIVE)]!")
 	)
 
 	if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)

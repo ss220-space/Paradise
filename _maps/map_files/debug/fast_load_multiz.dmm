@@ -17,6 +17,13 @@
 "bP" = (
 /turf/simulated/wall/r_wall,
 /area/fastload)
+"cY" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "dE" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -115,6 +122,8 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "sR" = (
+/obj/item/mod/control/pre_equipped/standard,
+/obj/machinery/light_switch/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -2165,7 +2174,7 @@ WA
 CV
 qp
 nx
-HE
+cY
 HE
 jk
 ay
@@ -2358,7 +2367,7 @@ HE
 HE
 HE
 HE
-HE
+aJ
 HE
 HE
 HE
@@ -2490,7 +2499,7 @@ HE
 HE
 HE
 HE
-HE
+aJ
 aJ
 HE
 HE

@@ -388,6 +388,9 @@
 		addtimer(CALLBACK(src, PROC_REF(update_gravity), TRUE), 5 SECONDS)
 
 	var/atom/new_owner = get_external_loc()
+	if(!new_owner)
+		return
+
 	if(old_owner == new_owner && old_owner.get_gravity() == -1)
 		return
 

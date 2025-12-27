@@ -668,6 +668,45 @@
 
 	return out_ckey
 
+///Returns a list of strings for a given slot flag.
+/proc/parse_slot_flags(slot_flags)
+	var/list/slot_strings = list()
+	if(slot_flags & ITEM_SLOT_BACK)
+		slot_strings += "спина"
+	if(slot_flags & ITEM_SLOT_MASK)
+		slot_strings += "маска"
+	if(slot_flags & ITEM_SLOT_NECK)
+		slot_strings += "шея"
+	if(slot_flags & ITEM_SLOT_HANDCUFFED)
+		slot_strings += "наручники"
+	if(slot_flags & ITEM_SLOT_LEGCUFFED)
+		slot_strings += "кандалы"
+	if(slot_flags & ITEM_SLOT_BELT)
+		slot_strings += "пояс"
+	if(slot_flags & ITEM_SLOT_ID)
+		slot_strings += "ID"
+	if(slot_flags & ITEM_SLOT_EARS)
+		slot_strings += "уши"
+	if(slot_flags & ITEM_SLOT_EYES)
+		slot_strings += "очки"
+	if(slot_flags & ITEM_SLOT_GLOVES)
+		slot_strings += "перчатки"
+	if(slot_flags & ITEM_SLOT_HEAD)
+		slot_strings += "голова"
+	if(slot_flags & ITEM_SLOT_FEET)
+		slot_strings += "ботинки"
+	if(slot_flags & ITEM_SLOT_CLOTH_OUTER)
+		slot_strings += "нагрудник"
+	if(slot_flags & ITEM_SLOT_CLOTH_INNER)
+		slot_strings += "костюм" //TODO modsuit: cursed
+	if(slot_flags & ITEM_SLOT_SUITSTORE)
+		slot_strings += "хранилище костюма"
+	if(slot_flags & (ITEM_SLOT_POCKET_LEFT|ITEM_SLOT_POCKET_RIGHT))
+		slot_strings += "карман"
+	if(slot_flags & ITEM_SLOT_HANDS)
+		slot_strings += "руки"
+	return slot_strings
+
 GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /// Version of view() which ignores darkness, because BYOND doesn't have it.

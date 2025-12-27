@@ -149,6 +149,11 @@
 			if(backpack.can_be_inserted(I, stop_messages = TRUE))
 				backpack.handle_item_insertion(I, prevent_warning = TRUE)
 				return
+		if(ismodcontrol(back))
+			var/obj/item/mod/control/control = back
+			if(control.can_be_inserted(I, stop_messages = TRUE))
+				control.bag.handle_item_insertion(I, prevent_warning = TRUE)
+				return
 		var/turf/T = get_turf(src)
 		if(istype(T))
 			I.forceMove(T)
@@ -572,6 +577,7 @@
 		I.dropped(src, slot, silent, newloc)
 
 	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	if(!not_handled)
 		update_equipment_speed_mods()
 	return TRUE

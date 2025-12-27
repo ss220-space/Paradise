@@ -17435,6 +17435,10 @@
 /obj/item/phone,
 /obj/item/lighter/zippo/cmo,
 /obj/effect/turf_decal/siding/wood,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = -11;
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
 "cBv" = (
@@ -24097,6 +24101,10 @@
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = 32
 	},
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = -13;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -26711,6 +26719,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/carpet/royalblack,
 /area/quartermaster/qm)
 "dXw" = (
@@ -36459,6 +36469,19 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = 1;
+	pixel_y = -6
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/mod/module/pepper_shoulders{
+	pixel_x = 6;
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -54906,6 +54929,10 @@
 	},
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -55279,6 +55306,11 @@
 /area/maintenance/starboard)
 "ikW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syndie_kit/dropwall{
+	pixel_x = -2;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -80389,6 +80421,12 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/toy/russian_revolver,
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = -8
+	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkbluealt"
@@ -92226,9 +92264,23 @@
 /area/quartermaster/sorting)
 "nMX" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/item/videocam,
-/obj/item/videocam,
-/obj/structure/closet/crate,
+/obj/structure/table/reinforced,
+/obj/item/mod/module/longfall{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/mod/module/longfall{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/mod/module/jump_jet{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/mod/module/jump_jet{
+	pixel_x = -5;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94740,6 +94792,23 @@
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
 "ogm" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -128844,8 +128913,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "tdg" = (
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/sloth/paperwork,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -163882,10 +163949,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ylF" = (
-/obj/item/flag/cargo,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/machinery/suit_storage_unit/qm,
 /turf/simulated/floor/wood,
 /area/quartermaster/qm)
 "ylG" = (

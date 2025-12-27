@@ -213,3 +213,8 @@
 	variable = TRUE
 	movetypes = GROUND
 	blacklisted_movetypes = (FLOATING|FLYING)
+
+/datum/movespeed_modifier/robot_magboots_on
+	multiplicative_slowdown = 2
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)
