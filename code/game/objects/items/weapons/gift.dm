@@ -32,8 +32,9 @@
 	base_pixel_y = pixel_y
 	icon_state = "giftdeliverypackage[rand(1, 5)]"
 
-	if(isnull(contains_type))
-		contains_type = get_gift_type()
+	if(!isnull(contains_type))
+		return
+	contains_type = get_gift_type()
 
 /obj/item/gift/Destroy()
 	QDEL_NULL(gift)

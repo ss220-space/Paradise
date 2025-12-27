@@ -34,9 +34,11 @@
 	. = TRUE
 	if(!item.use_tool(src, user, volume = item.tool_volume))
 		return
+
 	user.balloon_alert(user, "подарок открыт!")
 	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
 		thing.forceMove(loc)
+
 	qdel(src)
 
 /obj/effect/mark
