@@ -222,7 +222,7 @@
 	var/list/bag_content
 	var/static/list/spell_list = list(
 		/obj/effect/proc_holder/spell/conjure_item/krampus_bag,
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
+		/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus,
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,

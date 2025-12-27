@@ -18,6 +18,10 @@
 	name = "Призвать вилы Архидьявола"
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
 
+/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus
+	name = "Призвать вилы Крампуса"
+	item_type = /obj/item/twohanded/pitchfork/demonic/greater/krampus
+
 /obj/effect/proc_holder/spell/conjure_item/krampus_bag
 	name = "Призвать мешок Крампуса"
 	item_type = /obj/item/krampus_bag
