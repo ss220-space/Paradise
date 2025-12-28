@@ -197,3 +197,22 @@
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/update_icon_state()
 	icon_state = big_icon ? "orang" : "orange"
 
+/obj/item/reagent_containers/food/snacks/grown/citrus/tangerine
+	name = "tangerine"
+	desc = "Очень ароматный, вкусный и полезный фрукт. Жаль, что достать его можно только в новогодние праздники."
+	icon_state = "tangerine"
+	filling_color = "#FFA500"
+	tastes = list("новый год" = 1)
+	list_reagents = list("adminordrazine" = 1, "vitamin" = 2, "orangejuice" = 5, "nutriment" = 5)
+	antable = FALSE
+	bitecount = 3
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/tangerine/get_ru_names()
+		return list(
+		NOMINATIVE = "мандарин",
+		GENITIVE = "мандарина",
+		DATIVE = "мандарину",
+		ACCUSATIVE = "мандарин",
+		INSTRUMENTAL = "мандарином",
+		PREPOSITIONAL = "мандарине",
+	)

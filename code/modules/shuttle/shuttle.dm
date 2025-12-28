@@ -433,7 +433,7 @@
 
 	//remove area surrounding docking port
 	if(length(areaInstance.contents))
-		var/area/A0 = locate("[area_type]")
+		var/area/A0 = locate(area_type)
 		if(!A0)
 			A0 = new area_type(null)
 		for(var/turf/T0 in L0)
@@ -512,7 +512,7 @@
 
 	//remove area surrounding docking port
 	if(length(areaInstance.contents))
-		var/area/A0 = locate("[area_type]")
+		var/area/A0 = locate(area_type)
 		if(!A0)
 			A0 = new area_type(null)
 		for(var/turf/oldT in old_turfs)

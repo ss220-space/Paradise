@@ -84,7 +84,7 @@
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><center><table>"}
 	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='byond://?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='byond://?src=[UID()];retrieve=[P.UID()]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
 	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
 	popup.set_content(dat)
@@ -114,7 +114,7 @@
 		close_window(usr, "filingcabinet")		// Close the menu
 
 		//var/retrieveindex = text2num(href_list["retrieve"])
-		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
+		var/obj/item/P = locateUID(href_list["retrieve"])//contents[retrieveindex]
 		if(istype(P) && (P.loc == src) && src.Adjacent(usr))
 			P.forceMove_turf()
 			usr.put_in_hands(P, ignore_anim = FALSE)

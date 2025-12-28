@@ -41,9 +41,9 @@
 	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/no_raisin
-	name = "4no Raisins"
-	icon_state = "4no_raisins"
-	desc = "Best raisins in the universe. Not sure why."
+	name = "raisins 1984"
+	icon_state = "1984_raisins"
+	desc = "Пачка сухого изюма производства \"DonkCo\". Слоган на упаковке гласит: \"Вы любите этот вкус. Вы всегда любили его. Даже не пытайтесь думать иначе\"."
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
 	junkiness = 25
@@ -51,6 +51,16 @@
 	list_reagents = list("plantmatter" = 2, "sugar" = 2)
 	tastes = list("dried raisins" = 1)
 	foodtype = JUNKFOOD | FRUIT
+
+/obj/item/reagent_containers/food/snacks/no_raisin/get_ru_names()
+	return list(
+		NOMINATIVE = "изюм \"1984\"",
+		GENITIVE = "изюма \"1984\"",
+		DATIVE = "изюму \"1984\"",
+		ACCUSATIVE = "изюм \"1984\"",
+		INSTRUMENTAL = "изюмом \"1984\"",
+		PREPOSITIONAL = "изюме \"1984\""
+	)
 
 /obj/item/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"

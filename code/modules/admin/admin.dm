@@ -452,7 +452,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	log_and_message_admins("has admin ended the round[announcement ? " with message: '[announcement]'" : ""]")
 	if(announcement)
-		to_chat(world, "<span class='warning'><big><b>[announcement]</b></big></span>")
+		to_chat(world, span_warning("<big><b>[announcement]</b></big>"))
 	SSticker.force_ending = TRUE
 	BLACKBOX_LOG_ADMIN_VERB("End Round")
 	SSticker.mode_result = "admin ended"
@@ -471,7 +471,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			message = adminscrub(message,500)
 		message = handleDiscordEmojis(message)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
+		to_chat(world, chat_box_notice(span_notice("<b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p>")))
 		log_admin("Announce: [key_name(usr)] : [message]")
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
@@ -575,7 +575,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
+		message_admins(span_darkmblue("[usr.key] has started the game.[msg]"))
 		BLACKBOX_LOG_ADMIN_VERB("Start Game")
 		return 1
 	else

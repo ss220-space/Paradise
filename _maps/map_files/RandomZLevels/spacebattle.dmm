@@ -1306,7 +1306,6 @@
 	dir = 4;
 	layer = 4
 	},
-/obj/machinery/field/containment,
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
 /area/awaymission/spacebattle/cruiser)
@@ -4311,8 +4310,8 @@
 /area/awaymission/spacebattle/hallway11)
 "mr" = (
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 9
+	dir = 9;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -4733,8 +4732,8 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small,
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
+	dir = 4;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -5114,8 +5113,8 @@
 "oE" = (
 /obj/item/stack/sheet/metal,
 /obj/machinery/conveyor/inverted{
-	id = "mining_internal";
-	dir = 5
+	dir = 5;
+	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -5222,7 +5221,6 @@
 	dir = 8;
 	layer = 4
 	},
-/obj/machinery/field/containment,
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
 /area/awaymission/spacebattle/cruiser)
@@ -8001,8 +7999,8 @@
 /obj/item/flashlight/emp,
 /obj/item/flashlight,
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 1
+	dir = 1;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -8053,8 +8051,8 @@
 "wM" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 1
+	dir = 1;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -10009,8 +10007,8 @@
 "BV" = (
 /obj/machinery/light/small,
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
+	dir = 4;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -10505,8 +10503,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor/inverted{
-	id = "cargodeliverySB";
-	dir = 6
+	dir = 6;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -10837,8 +10835,8 @@
 /obj/item/gun/energy/laser/retro/old,
 /obj/item/gun/energy/laser/retro/old,
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
+	dir = 4;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -11207,9 +11205,6 @@
 /obj/machinery/gateway{
 	dir = 1;
 	layer = 4
-	},
-/obj/machinery/field/containment{
-	dir = 4
 	},
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
@@ -17609,8 +17604,8 @@
 /area/awaymission/spacebattle/hallway11)
 "WV" = (
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 1
+	dir = 1;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -18182,10 +18177,10 @@
 	dir = 4
 	},
 /obj/machinery/conveyor_switch/oneway{
+	dir = 8;
 	id = "mining_internal";
 	name = "Smelting";
-	pixel_x = -10;
-	dir = 8
+	pixel_x = -10
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -18389,8 +18384,8 @@
 /area/awaymission/spacebattle/sec_storage)
 "Zn" = (
 /obj/machinery/conveyor{
-	id = "cargodeliverySB";
-	dir = 4
+	dir = 4;
+	id = "cargodeliverySB"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)

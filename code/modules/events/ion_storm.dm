@@ -49,7 +49,7 @@
 				to_chat(ai_player, "<br>")
 
 				for(var/ghost in GLOB.dead_mob_list)
-					to_chat(ghost, span_deadsay("<b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> получил новый закон:\n<b>'[message]'</b>"))
+					to_chat(ghost, span_deadsay("([ghost_follow_link(ai_player, ghost)])<b>[ai_player]</b> получил новый закон:\n<b>'[message]'</b>"))
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)

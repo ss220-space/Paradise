@@ -20020,6 +20020,7 @@
 	pixel_y = 22
 	},
 /obj/item/qm_quest_tablet/cargotech,
+/obj/item/storage/box/disks_tech,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -95267,7 +95268,9 @@
 	pixel_y = 30
 	},
 /obj/structure/table,
-/obj/item/rcs,
+/obj/machinery/computer/rdconsole/cargo{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -121324,8 +121327,8 @@
 	department = "Captain's Office"
 	},
 /obj/machinery/keycard_auth{
-	pixel_x = -26;
-	pixel_y = 22
+	pixel_x = -36;
+	pixel_y = 24
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)

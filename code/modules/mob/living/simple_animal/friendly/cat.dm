@@ -297,7 +297,7 @@
 	var/new_name = tgui_input_text(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change", name)
 	if(!new_name)
 		return
-	to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
+	to_chat(src, span_notice("Your name is now <b>\"[new_name]\"</b>!"))
 	name = new_name
 
 /mob/living/simple_animal/pet/cat/white

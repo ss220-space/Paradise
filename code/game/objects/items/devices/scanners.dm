@@ -382,15 +382,21 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type][blood_species_text].<br>"
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type][blood_species_text].<br>"
 		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]]."
+			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	if(scan_data["timeofdeath"])
 		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
@@ -404,7 +410,7 @@ BODY SCANNERS
 		P.header += "<hr>"
 		P.header += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:<br>"
 		for(var/damage in scan_data["damageLocalization"])
-			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <span style='color: red;'><font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
+			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
 
 	if(scan_data["bleedingList"])
 		for(var/bleeding in scan_data["bleedingList"])
@@ -429,7 +435,7 @@ BODY SCANNERS
 		for(var/reagent in scan_data["reagentList"])
 			P.header += "&emsp;[reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - <b>ПЕРЕДОЗИРОВКА</b>" : "."]<br>"
 	else
-		P.header += "Реагенты не обнаружены.<br>"
+		P.header += "<br>Реагенты не обнаружены.<br>"
 
 	if(scan_data["addictionList"])
 		P.header += "<b>Обнаружены зависимости от реагентов:</b><br>"
@@ -468,14 +474,14 @@ BODY SCANNERS
 	if(scan_data["brainWorms"])
 		P.header += "<font color='#d82020'>Обнаружены отклонения в работе мозга.</font><br>"
 
-	if(scan_data["brainDamage"] >= 100)
+	if(scan_data["brainDamage"] == "LESS")
+		P.header += "<font color='#d82020'><b>Мозг не обнаружен.</b></font><br>"
+	else if(scan_data["brainDamage"] >= 100)
 		P.header += "<font color='#d82020'><b>Мозг мёртв.</b></font><br>"
 	else if(scan_data["brainDamage"] >= 60)
 		P.header += "<font color='#d82020'><b>Обнаружено серьёзное повреждение мозга.</b></font><br>"
 	else if(scan_data["brainDamage"] >= 10)
 		P.header += "<font color='#d82020'>Обнаружено значительное повреждение мозга.</font><br>"
-	else if(scan_data["brainDamage"] == "LESS")
-		P.header += "<font color='#d82020'><b>Мозг не обнаружен.</b></font><br>"
 
 	if(scan_data["implantDetect"])
 		P.header += "Обнаружены кибернетические модификации:<br>"
@@ -959,21 +965,27 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
 				blood_type = R.name
 			else
 				blood_type = blood_id
+
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else
-			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	scan_data += "Пульс: <font color='[H.pulse == PULSE_NORM ? "#0080ff" : "red"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
 	var/list/implant_detect = list()

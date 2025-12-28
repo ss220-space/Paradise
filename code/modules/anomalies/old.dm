@@ -338,6 +338,10 @@
 	slime.set_nutrition(slime.get_max_nutrition())
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = slime, role_cleanname = "pyroclastic anomaly slime")
+	
+	if(QDELETED(slime))
+		return
+	
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/chosen = pick(candidates)
 		slime.possess_by_player(chosen.key)
