@@ -218,7 +218,14 @@
 
 	loot = list(
 		/obj/item/gift/evil_santa_reward = 28,
-		/obj/item/gift = 67,
+		/obj/item/gift = 57,
+		/obj/item/gift/santa_special = 15,
+	)
+
+/obj/effect/spawner/lootdrop/evil_santa_gift/xmas_tree
+	loot = list(
+		/obj/item/gift/evil_santa_reward = 18,
+		/obj/item/gift = 77,
 		/obj/item/gift/santa_special = 5,
 	)
 

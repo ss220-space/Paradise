@@ -100,6 +100,9 @@
 
 	if(GLOB.new_year_celebration)
 		for(var/obj/structure/flora/tree/pine/xmas/xmas_tree in GLOB.world_flora)
+			var/turf/tree_loc = get_turf(xmas_tree)
+			if(!(tree_loc.z in impacted_z_levels))
+				continue
 			xmas_tree.spawn_gifts()
 		spawn_krampus(affected_turfs_list)
 
