@@ -337,3 +337,5 @@
 
 /datum/action/item_action/krampus_bag
 	name = "Достать из мешка"
+
+#undef COAL_CHOICE
