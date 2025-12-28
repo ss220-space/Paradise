@@ -22,7 +22,7 @@
 		auto_dust = TRUE
 		user.show_message("Вы включили программу [span_warning("\"Автосжигания\"")] текущий режим \
 						[health_threshold==-90 ? span_green("\"Обнаружение смерти\"") : span_green("\"Обнаружение критического состояния\"") ]")
-		var/choise = alert("Переключить режим?",, "Да","Нет")
+		var/choise = tgui_alert(user, "Переключить режим?", "Режимы автосжигания", list("Да", "Нет"))
 		if(choise == "Да")
 			if(health_threshold == 0 && auto_dust)
 				health_threshold = -90
