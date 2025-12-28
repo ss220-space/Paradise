@@ -228,6 +228,16 @@
 		/obj/effect/proc_holder/spell/infernal_jaunt,
 	)
 
+/mob/living/carbon/true_devil/krampus/get_ru_names()
+	return list(
+		NOMINATIVE = "Крампус",
+		GENITIVE = "Крампуса",
+		DATIVE = "Крампусу",
+		ACCUSATIVE = "Крампуса",
+		INSTRUMENTAL = "Крампусом",
+		PREPOSITIONAL = "Крампусе",
+	)
+
 /mob/living/carbon/true_devil/krampus/Initialize(mapload, mob/living/carbon/dna_source)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SNOWSTORM_IMMUNE, INNATE_TRAIT)
@@ -248,15 +258,9 @@
 
 	. = ..()
 
-/mob/living/carbon/true_devil/krampus/get_ru_names()
-	return list(
-		NOMINATIVE = "Крампус",
-		GENITIVE = "Крампуса",
-		DATIVE = "Крампусу",
-		ACCUSATIVE = "Крампуса",
-		INSTRUMENTAL = "Крампусом",
-		PREPOSITIONAL = "Крампусе",
-	)
+/mob/living/carbon/true_devil/krampus/Login()
+	. = ..()
+	mind.add_antag_datum(/datum/antagonist/krampus)
 
 /mob/living/carbon/true_devil/krampus/death(gibbed)
 	if(!gibbed)

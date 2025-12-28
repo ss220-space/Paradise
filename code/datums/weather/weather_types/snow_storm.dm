@@ -1,7 +1,3 @@
-#define KRAMPUS_SPAWN_PROBABILITY 30
-#define KRAMPUS_MIN_PLAYERS 13
-#define MAX_KRAMPUS_COUNT 1
-
 /datum/weather/snow_storm
 	name = "snow storm"
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
@@ -101,10 +97,11 @@
 	if(GLOB.new_year_celebration)
 		for(var/obj/structure/flora/tree/pine/xmas/xmas_tree in GLOB.world_flora)
 			var/turf/tree_loc = get_turf(xmas_tree)
+
 			if(!(tree_loc.z in impacted_z_levels))
 				continue
+
 			xmas_tree.spawn_gifts()
-		spawn_krampus(affected_turfs_list)
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(20, 50)
@@ -121,49 +118,3 @@
 		temp_drop *= cold_protection
 
 	target.adjust_bodytemperature(temp_drop)
-
-/datum/weather/snow_storm/proc/can_spawn_krampus()
-	var/players_count = num_station_players()
-	var/krampus_count = get_krampus_count()
-
-	if(players_count < KRAMPUS_MIN_PLAYERS)
-		return FALSE
-
-	if(krampus_count > MAX_KRAMPUS_COUNT)
-		return FALSE
-
-	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
-		return FALSE
-
-	return TRUE
-
-/datum/weather/snow_storm/proc/spawn_krampus(list/possible_turfs)
-	set waitfor = FALSE
-
-	if(!(can_spawn_krampus()))
-		return
-
-	var/image/krampus_image = image(/mob/living/carbon/true_devil/krampus::icon, /mob/living/carbon/true_devil/krampus::icon_state)
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Крампуса?", ROLE_DEVIL, FALSE, 30 SECONDS, source = krampus_image, role_cleanname = "Крампус")
-
-	if(!length(candidates))
-		return
-
-	var/mob/living/carbon/true_devil/krampus/krampus = new(pick(possible_turfs))
-	var/mob/dead/observer/candidate = pick(candidates)
-	krampus.possess_by_player(candidate.ckey)
-	krampus.mind.add_antag_datum(/datum/antagonist/krampus)
-
-/datum/weather/snow_storm/proc/get_krampus_count()
-	var/count = 0
-	for(var/datum/antagonist/krampus/krampus in GLOB.antagonists)
-
-		if(QDELETED(krampus.owner?.current) || krampus.owner.current.stat == DEAD)
-			continue
-
-		count++
-	return count
-
-#undef KRAMPUS_SPAWN_PROBABILITY
-#undef KRAMPUS_MIN_PLAYERS
-#undef MAX_KRAMPUS_COUNT
