@@ -1111,7 +1111,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind) || isdevil(living_user))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind) || isdevil(user))
 		return .
 
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))
