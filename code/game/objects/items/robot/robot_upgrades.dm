@@ -785,3 +785,35 @@
 	robot.module.modules += new /obj/item/reagent_containers/glass/bucket(robot.module)
 	robot.module.rebuild()
 	return TRUE
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr
+	name = "cyborg mining satchel of holding upgrade"
+	desc = "Улучшение, позволяющее собирать руду в области 3 на 3."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "materials=3;engineering=2"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/obj/item/storage/bag/ore/holding/cyborg/orebag = locate() in robot.module.modules
+	if(!orebag)
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no mining satchel in this unit!")]")
+		return FALSE
+
+	orebag.aoe = TRUE
+	orebag.desc += " Улучшена!"
+	return TRUE
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/obj/item/storage/bag/ore/holding/cyborg/orebag = locate() in robot.module.modules
+
+	orebag.aoe = FALSE
+	orebag.desc = initial(orebag.desc)
+	return TRUE

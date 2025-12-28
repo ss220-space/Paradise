@@ -1388,6 +1388,7 @@
 #include "code\game\objects\items\his_grace.dm"
 #include "code\game\objects\items\hourglass.dm"
 #include "code\game\objects\items\latexballoon.dm"
+#include "code\game\objects\items\robot\robot_upgrades.dm"
 #include "code\game\objects\items\weapons\mining_satchel_upgrade.dm"
 #include "code\game\objects\items\misc.dm"
 #include "code\game\objects\items\mixing_bowl.dm"
