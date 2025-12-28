@@ -1,5 +1,6 @@
 #define KRAMPUS_SPAWN_PROBABILITY 30
-#define KRAMPUS_PER_PLAYER 13
+#define KRAMPUS_MIN_PLAYERS 13
+#define MAX_KRAMPUS_COUNT 1
 
 /datum/weather/snow_storm
 	name = "snow storm"
@@ -41,6 +42,7 @@
 		/area/space,
 		/area/coldcolony/malta,
 		/area/crew_quarters/bar/atrium/safe,
+		/area/toxins/xenobiology,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
@@ -121,12 +123,10 @@
 	var/players_count = num_station_players()
 	var/krampus_count = get_krampus_count()
 
-	if(players_count < KRAMPUS_PER_PLAYER)
+	if(players_count < KRAMPUS_MIN_PLAYERS)
 		return FALSE
 
-	var/krampus_need = round(players_count / KRAMPUS_PER_PLAYER)
-
-	if(krampus_count > krampus_need)
+	if(krampus_count > MAX_KRAMPUS_COUNT)
 		return FALSE
 
 	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
@@ -162,4 +162,5 @@
 	return count
 
 #undef KRAMPUS_SPAWN_PROBABILITY
-#undef KRAMPUS_PER_PLAYER
+#undef KRAMPUS_MIN_PLAYERS
+#undef MAX_KRAMPUS_COUNT

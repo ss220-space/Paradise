@@ -244,8 +244,7 @@
 			continue
 
 		var/mob/living/mob = atom
-		mob.update_revive(force = TRUE)
-		mob.update_stat("krampus death")
+		mob.revive()
 
 	. = ..()
 
