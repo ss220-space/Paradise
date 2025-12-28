@@ -51,17 +51,21 @@
 		user.balloon_alert(user, "прервано!")
 		return
 
+	spawn_reward(user)
+
+	qdel(src)
+
+/obj/item/gift/proc/spawn_reward(mob/user)
 	var/obj/item/thing = new contains_type(get_turf(user))
 
 	if(QDELETED(thing)) // might contain something like metal rods that might merge with a stack on the ground
 		user.visible_message(span_danger("О нет! В подарке, который открыл[GEND_A_O_I(user)] [user], ничего не оказалось!"))
-	else
-		user.visible_message(span_notice("[user] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] внутри [thing.declent_ru(ACCUSATIVE)]!"))
-		user.investigate_log("has unwrapped a present containing [thing.type].", INVESTIGATE_PRESENTS)
-		user.put_in_hands(thing)
-		thing.add_fingerprint(user)
+		return
 
-	qdel(src)
+	user.visible_message(span_notice("[user] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] внутри [thing.declent_ru(ACCUSATIVE)]!"))
+	user.investigate_log("has unwrapped a present containing [thing.type].", INVESTIGATE_PRESENTS)
+	user.put_in_hands(thing)
+	thing.add_fingerprint(user)
 
 /obj/item/gift/proc/get_gift_type()
 	if(evil_santa_reward)
@@ -194,6 +198,22 @@
 
 /obj/item/gift/evil_santa_reward
 	evil_santa_reward = TRUE
+
+/obj/item/gift/santa_special
+	var/static/list/possible_tiers = list(
+		/datum/loot_tier/first = 60,
+		/datum/loot_tier/second = 35,
+		/datum/loot_tier/third = 5,
+	)
+
+/obj/item/gift/santa_special/spawn_reward(mob/user)
+	var/tier_type = pick_weight_classic(possible_tiers)
+	var/datum/loot_tier/loot_tier = new tier_type
+	loot_tier.on_start_open(user, get_turf(user))
+
+	user.visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] что-то интересное!"))
+	user.investigate_log("has unwrapped a present containing [loot_tier.name].", INVESTIGATE_PRESENTS)
+
 
 /*
  * Wrapping Paper
