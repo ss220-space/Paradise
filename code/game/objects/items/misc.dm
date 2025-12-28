@@ -289,7 +289,7 @@
 	var/mob/living/carbon/true_devil/krampus/krampus = user
 
 	if(!istype(krampus) || !COOLDOWN_FINISHED(src, bag_cooldown))
-		balloon_alert(user, "невозможно использовать")
+		balloon_alert(user, "не открывается")
 		return ..()
 
 	COOLDOWN_START(src, bag_cooldown, 1 MINUTES)
