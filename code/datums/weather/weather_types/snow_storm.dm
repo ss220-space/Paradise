@@ -1,4 +1,4 @@
-#define KRAMPUS_SPAWN_PROBABILITY 40
+#define KRAMPUS_SPAWN_PROBABILITY 30
 #define KRAMPUS_PER_PLAYER 13
 
 /datum/weather/snow_storm

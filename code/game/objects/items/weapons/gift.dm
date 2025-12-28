@@ -202,8 +202,7 @@
 /obj/item/gift/santa_special
 	var/static/list/possible_tiers = list(
 		/datum/loot_tier/first = 60,
-		/datum/loot_tier/second = 35,
-		/datum/loot_tier/third = 5,
+		/datum/loot_tier/second = 15,
 	)
 
 /obj/item/gift/santa_special/spawn_reward(mob/user)
