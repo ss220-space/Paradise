@@ -6,6 +6,7 @@
 	icon_state = "giftdeliverypackage3"
 	item_state = "gift"
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_BULKY
 	/// What type of thing are we guaranteed to spawn in with?
 	var/obj/item/contains_type = null
 	/// Whether to use the special Evil Santa gift list
