@@ -336,7 +336,6 @@
 	smoke.start()
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
-	var/turf/T = get_turf(src)
 	switch(roll)
 		if(1)
 			//Damnation. This person never existed
@@ -367,7 +366,7 @@
 			infect(user)
 		if(10)
 			//Medal (will add later)
-			T.visible_message(span_userdanger("Вы ничего не заслужили, и это - уже заслуга."))
+			medal(user)
 		if(11)
 			//Warm Donk pockets
 			pockets(user)
@@ -381,57 +380,23 @@
 			//Revive
 			revive(user)
 		if(15)
-			//Random One-use spellbook
-			T.visible_message(span_userdanger("Магическая книга упала на пол!"))
-			create_smoke(2)
-			new /obj/item/spellbook/oneuse/random(drop_location())
+			//Unica, 2 speedloaders and holster
+			unica(user)
 		if(16)
-			//Servant & Servant Summon
-			T.visible_message(span_userdanger("Из облака дыма выходит волшебный слуга!"))
-			var/mob/living/carbon/human/H = new(drop_location())
-			create_smoke(2)
-
-			H.equipOutfit(/datum/outfit/butler)
-			var/datum/mind/servant_mind = new /datum/mind()
-			var/datum/objective/O = new
-			O.owner = servant_mind
-			O.target = user.mind
-			O.explanation_text = "Служить [user.real_name]."
-			O.antag_menu_name = "Служить"
-			servant_mind.objectives += O
-			servant_mind.transfer_to(H)
-
-			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 30 SECONDS, source = H)
-			if(LAZYLEN(candidates))
-				var/mob/dead/observer/C = pick(candidates)
-				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
-				H.possess_by_player(C.key)
-				to_chat(H, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(user)] приказы."))
-
-			var/obj/effect/proc_holder/spell/summonmob/S = new
-			S.target_mob = H
-			user.mind.AddSpell(S)
-
+			//2 random one use spellbooks
+			books()
 		if(17)
-			//Choose from 1 of 3 random syndie bundles
-			T.visible_message(span_userdanger("Появился подозрительный радио маяк!"))
-			new /obj/item/beacon/syndicate/bundle/magical(drop_location())
-			create_smoke(2)
-		if(18)
-			//Captain ID
-			T.visible_message(span_userdanger("Появилась золотая айди карта!"))
-			new /obj/item/card/id/captains_spare(drop_location())
-			create_smoke(2)
-		if(19)
 			//Instrinct Resistance
-			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] очень крепко!"))
-			user.physiology.brute_mod *= 0.5
-			user.physiology.burn_mod *= 0.5
-
+			resistance(user)
+		if(18)
+			//Choose from 1 of 3 random syndie bundles
+			random_bundle()
+		if(19)
+			//Coin that can summon servant
+			magic_coin(user)
 		if(20)
 			//Free wizard!
-			T.visible_message(span_userdanger("Потоки магической энергии вылетают из [declent_ru(GENITIVE)] в сторону [user]!"))
-			user.mind.make_Wizard()
+			become_wizard(user)
 
 /obj/item/dice/d20/fate/proc/Damnation(mob/living/carbon/human/damned)
 	damned.visible_message(span_colossus("Damnatio memoriae."))
@@ -561,6 +526,11 @@
 	if(D.Contract(infected, is_carrier = TRUE))
 		to_chat(infected, span_danger("На секунду вам становится трудно дышать"))
 
+/obj/item/dice/d20/fate/proc/medal(mob/living/carbon/human/awarded)
+	var/medal = new /obj/item/clothing/accessory/medal/gold/nothing_award
+	awarded.put_in_hands(medal)
+	awarded.visible_message(span_userdanger("ALWAYS BET ON NOTHING."))
+
 /obj/item/dice/d20/fate/proc/pockets(mob/living/carbon/human/gifted)
 	to_chat(gifted, span_notice("Наконец то, ваши старания признали."))
 	var/box = new /obj/item/storage/box/warmdonkpockets
@@ -579,3 +549,43 @@
 /obj/item/dice/d20/fate/proc/revive(mob/living/carbon/human/revived)
 	revived.visible_message(span_boldnotice("[revived] выгляд[PLUR_IT_YAT(revived)] полностью здоров[GEND_YM_OI_YM_YMI(revived)]"))
 	revived.revive()
+
+//IDK where to put this so it will be here
+/obj/item/storage/box/unica_kit
+	icon_state = "box_hos"
+
+/obj/item/storage/box/unica_kit/populate_contents()
+	new /obj/item/gun/projectile/revolver/mateba(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/dice/d20/fate/proc/unica(mob/living/carbon/human/gifted)
+	to_chat(gifted, span_boldnotice("Пиу-пау!"))
+	var/box = new /obj/item/storage/box/unica_kit
+	gifted.put_in_hands(box)
+
+/obj/item/dice/d20/fate/proc/books()
+	src.visible_message(span_userdanger("Две магические книги упали на пол!"))
+	create_smoke(2)
+	new /obj/item/spellbook/oneuse/random(loc)
+	new /obj/item/spellbook/oneuse/random(loc)
+
+/obj/item/dice/d20/fate/proc/resistance(mob/living/carbon/human/user)
+	user.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] очень крепко!"))
+	user.physiology.brute_mod *= 0.5
+	user.physiology.burn_mod *= 0.5
+
+/obj/item/dice/d20/fate/proc/random_bundle()
+	src.visible_message(span_userdanger("Появился подозрительный радио маяк!"))
+	new /obj/item/beacon/syndicate/bundle/magical(loc)
+	create_smoke(2)
+
+/obj/item/dice/d20/fate/proc/magic_coin(mob/living/carbon/human/gifted)
+	gifted.visible_message(span_userdanger("В руках у [gifted] появилась странная монета!"))
+	var/coin = new /obj/item/coin/magic
+	gifted.put_in_hands(coin)
+
+/obj/item/dice/d20/fate/proc/become_wizard(mob/living/carbon/human/wizard)
+	wizard.visible_message(span_userdanger("Потоки магической энергии вылетают из [declent_ru(GENITIVE)] в сторону [wizard]!"))
+	wizard.mind.make_Wizard()
