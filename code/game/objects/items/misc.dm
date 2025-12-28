@@ -308,6 +308,10 @@
 		return ..()
 
 	var/mob/mob_choice = choice
+
+	if(!istype(mob_choice))
+		return ..()
+
 	mob_choice.forceMove(move_turf)
 	krampus.bag_content -= mob_choice
 	. = ..()
