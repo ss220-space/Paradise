@@ -102,16 +102,16 @@
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(20, 50)
-	var/simulatuon_protection = T0C + temp_drop
+	var/simulatuon_temp = T0C + temp_drop
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		var/cold_protection = 1 - human_target.get_cold_protection(simulatuon_protection)
+		var/cold_protection = 1 - human_target.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection
 
 	else if(istype(target, /mob/living/simple_animal/borer))
 		var/mob/living/simple_animal/borer/borer = target
-		var/cold_protection = 1 - borer.host?.get_cold_protection(simulatuon_protection)
+		var/cold_protection = 1 - borer.host?.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection
 
 	target.adjust_bodytemperature(temp_drop)
