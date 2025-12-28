@@ -259,11 +259,14 @@
 #undef SAFE_THRESHOLD
 #undef AWARD_THRESHOLD
 
+#define COAL_CHOICE "Уголь"
+
 /obj/item/krampus_bag
 	name = "krampus bag"
 	desc = "Старый потрепаный мешок. На нем видны следы засохшей крови и ... угля?"
 	icon_state = "krampus_bag"
-	COOLDOWN_DECLARE(coal_cooldown)
+	actions_types = list(/datum/action/item_action/krampus_bag)
+	COOLDOWN_DECLARE(bag_cooldown)
 
 /obj/item/krampus_bag/equipped(mob/user, slot, initial)
 	if(!iskrampus(user))
@@ -285,12 +288,32 @@
 /obj/item/krampus_bag/attack_self(mob/user)
 	var/mob/living/carbon/true_devil/krampus/krampus = user
 
-	if(!istype(krampus) || !COOLDOWN_FINISHED(src, coal_cooldown))
-		balloon_alert(user, "невозможно использовать")
+	if(!istype(krampus) || !COOLDOWN_FINISHED(src, bag_cooldown))
+		balloon_alert(user, "не открывается")
 		return ..()
 
-	COOLDOWN_START(src, coal_cooldown, 1 MINUTES)
-	new /obj/item/toy/pet_rock/naughty_coal(get_turf(user))
+	COOLDOWN_START(src, bag_cooldown, 1 MINUTES)
+	var/choice = tgui_input_list(user, "Что вы хотите достать из мешка?", "Мешок Крампуса", krampus.bag_content + COAL_CHOICE)
+
+	if(isnull(choice))
+		return ..()
+
+	var/turf/move_turf = get_turf(user)
+
+	if(!istype(move_turf))
+		return ..()
+
+	if(choice == COAL_CHOICE)
+		new /obj/item/toy/pet_rock/naughty_coal(move_turf)
+		return ..()
+
+	var/mob/mob_choice = choice
+
+	if(!istype(mob_choice))
+		return ..()
+
+	mob_choice.forceMove(move_turf)
+	krampus.bag_content -= mob_choice
 	. = ..()
 
 
@@ -315,3 +338,8 @@
 
 	LAZYADD(krampus.bag_content, victim)
 	victim.forceMove(krampus)
+
+/datum/action/item_action/krampus_bag
+	name = "Достать из мешка"
+
+#undef COAL_CHOICE

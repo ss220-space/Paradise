@@ -104,6 +104,9 @@
 #define FIRE_HELM_MIN_TEMP_PROTECT 60 //Cold protection for fire helmets
 #define FIRE_HELM_MAX_TEMP_PROTECT 30000 //for fire helmet quality items (red and white hardhats)
 
+#define COAT_MIN_TEMP_PROTECT (T0C - 60) //Cold protection for coats
+#define COAT_HOOD_MIN_TEMP_PROTECT (T0C - 60) //Cold protection for coat hoods
+
 #define FIRE_IMMUNITY_MAX_TEMP_PROTECT 35000 //what max_heat_protection_temperature is set to for firesuit quality suits and helmets. MUST NOT BE 0.
 
 #define HELMET_MIN_TEMP_PROTECT 160 //For normal helmets

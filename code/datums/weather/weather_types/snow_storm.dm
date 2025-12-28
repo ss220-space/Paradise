@@ -1,4 +1,5 @@
 #define KRAMPUS_SPAWN_PROBABILITY 40
+#define KRAMPUS_PER_PLAYER 13
 
 /datum/weather/snow_storm
 	name = "snow storm"
@@ -39,6 +40,7 @@
 		/area/shuttle,
 		/area/space,
 		/area/coldcolony/malta,
+		/area/crew_quarters/bar/atrium/safe,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
@@ -88,12 +90,10 @@
 	if(locate(/obj/effect/snow, turf))
 		return
 
-	if(prob(75 + turf_hotness - T0C)) //Colder turf = more chance of snow
-		return
-
 	new /obj/effect/snow/slowdown(turf)
 
 /datum/weather/snow_storm/end()
+	GLOB.snowstorm_sounds.Cut()
 	. = ..()
 
 	if(GLOB.new_year_celebration)
@@ -101,27 +101,43 @@
 			xmas_tree.spawn_gifts()
 		spawn_krampus(affected_turfs_list)
 
-	GLOB.snowstorm_sounds.Cut()
-
 /datum/weather/snow_storm/weather_act(mob/living/target)
-	var/temp_drop = -rand(15, 45)
+	var/temp_drop = -rand(20, 50)
+	var/simulatuon_temp = T0C + temp_drop
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		var/cold_protection = 2 - human_target.get_cold_protection()
+		var/cold_protection = 1 - human_target.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection
 
 	else if(istype(target, /mob/living/simple_animal/borer))
 		var/mob/living/simple_animal/borer/borer = target
-		var/cold_protection = 2 - borer.host?.get_cold_protection()
+		var/cold_protection = 1 - borer.host?.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection
 
 	target.adjust_bodytemperature(temp_drop)
 
+/datum/weather/snow_storm/proc/can_spawn_krampus()
+	var/players_count = num_station_players()
+	var/krampus_count = get_krampus_count()
+
+	if(players_count < KRAMPUS_PER_PLAYER)
+		return FALSE
+
+	var/krampus_need = round(players_count / KRAMPUS_PER_PLAYER)
+
+	if(krampus_count > krampus_need)
+		return FALSE
+
+	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
+		return FALSE
+
+	return TRUE
+
 /datum/weather/snow_storm/proc/spawn_krampus(list/possible_turfs)
 	set waitfor = FALSE
 
-	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
+	if(!(can_spawn_krampus()))
 		return
 
 	var/image/krampus_image = image(/mob/living/carbon/true_devil/krampus::icon, /mob/living/carbon/true_devil/krampus::icon_state)
@@ -135,4 +151,15 @@
 	krampus.possess_by_player(candidate.ckey)
 	krampus.mind.add_antag_datum(/datum/antagonist/krampus)
 
+/datum/weather/snow_storm/proc/get_krampus_count()
+	var/count = 0
+	for(var/datum/antagonist/krampus/krampus in GLOB.antagonists)
+
+		if(QDELETED(krampus.owner?.current) || krampus.owner.current.stat == DEAD)
+			continue
+
+		count++
+	return count
+
 #undef KRAMPUS_SPAWN_PROBABILITY
+#undef KRAMPUS_PER_PLAYER

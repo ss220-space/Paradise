@@ -126,6 +126,9 @@
 		return
 	qdel(src)
 
+/obj/effect/snow/slowdown
+	critical_temp = T0C + 5
+
 /obj/effect/snow/slowdown/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
