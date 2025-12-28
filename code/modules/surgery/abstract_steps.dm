@@ -109,7 +109,6 @@
 			possible_any_surgery = S
 			starting_tools.Add(SURGERY_TOOL_ANY)
 
-
 		for(var/allowed in first_step.allowed_tools)
 			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
 				next_surgery = S
@@ -122,7 +121,6 @@
 	if(!next_surgery)
 		if((SURGERY_TOOL_ANY in starting_tools) && tool)
 			next_surgery = possible_any_surgery
-
 
 	// If this is set to true, the tool in use will force the next step in the main surgery.
 	var/overridden_tool = FALSE
@@ -244,15 +242,13 @@
 		// insert at the current step number since we're not trying to bump it up
 		running_surgery.steps.Insert(running_surgery.step_number, following_steps)
 
-
 	return .
-
 
 // Some intermediate surgeries
 /datum/surgery/intermediate/bleeding
 	// don't worry about these names, they won't appear anywhere.
 	name = "Внутреннее кровотечение — абстрактное"
-	desc = "Промежуточная операция для лечения внутреннего кровотечения, пока над пациентом проводится другая операция."
+	desc = "Промежуточная операция для лечения кровотечения, пока над пациентом проводится другая операция."
 	steps = list(/datum/surgery_step/fix_vein)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -274,10 +270,18 @@
 	. = ..()
 	if(!.)
 		return FALSE
+
 	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 	if(affected.has_internal_bleeding())
 		return TRUE
+
+	if(affected.has_arterial_bleeding())
+		return TRUE
+
+	if(affected.bleeding_amount > 0)
+		return TRUE
+
 	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
 	// It's alright for intermediate surgeries, though, since they never get called like that.
 	user.balloon_alert(user, "сосуды в норме!")
@@ -306,7 +310,6 @@
 /datum/surgery/intermediate/mendbone/plasma
 	name = "Сращивание костей (Плазмолюд) – абстрактное"
 	steps = list(/datum/surgery_step/glue_bone/plasma)
-
 
 /datum/surgery/intermediate/mendbone/can_start(mob/user, mob/living/carbon/target)
 	. = ..()

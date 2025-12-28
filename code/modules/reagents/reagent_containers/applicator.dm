@@ -18,7 +18,6 @@
 	temperature_max = 350
 	pass_open_check = TRUE
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
 
@@ -58,10 +57,8 @@
 				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
 	update_icon()
 
-
 /obj/item/reagent_containers/applicator/update_icon_state()
 	icon_state = "mender[applying ? "-active" : ""]"
-
 
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
@@ -77,7 +74,6 @@
 		if(0)
 			applicator_bar.icon_state = "app_e"
 	. += applicator_bar
-
 
 /obj/item/reagent_containers/applicator/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -144,7 +140,6 @@
 	add_attack_logs(user, target, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	applying = FALSE
 	update_icon()
-
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier

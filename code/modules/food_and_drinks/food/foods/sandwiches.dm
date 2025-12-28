@@ -187,7 +187,6 @@
 /obj/item/reagent_containers/food/snacks/jellyburger/cherry
 	list_reagents = list("nutriment" = 6, "cherryjelly" = 5, "vitamin" = 1)
 
-
 //////////////////////
 //	Sandwiches		//
 //////////////////////

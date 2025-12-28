@@ -15,7 +15,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 
-
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
@@ -47,7 +46,6 @@
 	ammo_x_offset = 3
 	selfcharge = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	unique_reskin = TRUE
 	var/high_risk = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
@@ -57,10 +55,9 @@
 	if(high_risk)
 		AddElement(/datum/element/high_value_item)
 
-/obj/item/gun/energy/laser/captain/update_gun_skins()
-	add_skin("The Original", "caplaser")
-	add_skin("Restored", "caplaser_new")
-	add_skin("Alternative", "caplaser_newer")
+/obj/item/gun/energy/laser/captain/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -70,10 +67,8 @@
 	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = FALSE
-	unique_reskin = FALSE
 	high_risk = FALSE
 	accuracy = GUN_ACCURACY_SHOTGUN
-
 
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -145,7 +140,6 @@
 	armour_penetration = min(armour_penetration, 50)
 	forcedodge = min(forcedodge, 20)
 
-
 /obj/item/gun/energy/lasercannon/cyborg
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
@@ -192,19 +186,16 @@
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 
-
 /obj/item/gun/energy/immolator/multi/update_overlays()
 	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/append = shot.select_name
 	. += image(icon, icon_state = "multilensimmolator-[append]")
 
-
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
 	attachable_allowed = GUN_MODULE_CLASS_NONE
-
 
 ////////Laser Tag////////////////////
 

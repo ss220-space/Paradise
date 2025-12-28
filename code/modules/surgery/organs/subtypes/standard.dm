@@ -10,7 +10,7 @@
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
-	max_bleeding_amount = 10
+	max_bleeding_amount = 5
 	w_class = WEIGHT_CLASS_HUGE
 	limb_body_flag = UPPER_TORSO
 	vital = TRUE
@@ -48,7 +48,7 @@
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
-	max_bleeding_amount = 10
+	max_bleeding_amount = 5
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
@@ -72,7 +72,7 @@
 	icon_name = "l_arm"
 	limb_zone = BODY_ZONE_L_ARM
 	max_damage = 50
-	max_bleeding_amount = 5
+	max_bleeding_amount = 2.5
 	bleeding_mod = 0.8
 	limb_body_flag = ARM_LEFT
 	amputation_point = "левое плечо"
@@ -125,7 +125,7 @@
 	icon_name = "l_leg"
 	limb_zone = BODY_ZONE_L_LEG
 	max_damage = 50
-	max_bleeding_amount = 5
+	max_bleeding_amount = 2.5
 	bleeding_mod = 0.8
 	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
@@ -147,11 +147,9 @@
 	. = ..()
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/fracture(silent = FALSE)
 	. = ..()
@@ -159,13 +157,11 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/apply_splint()
 	. = ..()
@@ -173,13 +169,11 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
@@ -224,7 +218,9 @@
 	icon_name = "l_foot"
 	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	max_damage = 30
-	max_bleeding_amount = 2.5
+	max_bleeding_amount = 1.5
+	cannot_internal_bleed = TRUE
+	cannot_arterial_bleed = TRUE
 	min_broken_damage = 15
 	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
@@ -250,7 +246,6 @@
 		owner.set_usable_legs(owner.usable_legs + 1, special)
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.set_num_legs(user.num_legs - 1)
@@ -260,13 +255,11 @@
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
-
 /obj/item/organ/external/foot/fracture(silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/foot/mend_fracture()
 	. = ..()
@@ -274,20 +267,17 @@
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
 
-
 /obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-
 
 /obj/item/organ/external/foot/necrotize(silent = FALSE)
 	. = ..()
@@ -297,7 +287,6 @@
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs - 1)
 
-
 /obj/item/organ/external/foot/unnecrotize()
 	. = ..()
 	if(isnull(.) || !owner)
@@ -305,7 +294,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1)
-
 
 /obj/item/organ/external/foot/mutate(silent = FALSE)
 	. = ..()
@@ -315,7 +303,6 @@
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs - 1)
 
-
 /obj/item/organ/external/foot/unmutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -323,7 +310,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1)
-
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
@@ -340,7 +326,6 @@
 			owner.AdjustWeakened(8 SECONDS)
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
-
 
 /obj/item/organ/external/foot/right
 	name = "right foot"
@@ -370,7 +355,9 @@
 	limb_zone = BODY_ZONE_PRECISE_L_HAND
 	max_damage = 30
 	min_broken_damage = 15
-	max_bleeding_amount = 2.5
+	max_bleeding_amount = 1.5
+	cannot_internal_bleed = TRUE
+	cannot_arterial_bleed = TRUE
 	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = HAND_LEFT
@@ -394,7 +381,6 @@
 	if(is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
 
-
 /obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.set_num_hands(user.num_hands - 1)
@@ -404,7 +390,6 @@
 		user.drop_item_ground(user.gloves, force = TRUE)
 		user.drop_item_ground(limb_zone == BODY_ZONE_PRECISE_L_HAND ? user.l_hand : user.r_hand, force = TRUE)
 
-
 /obj/item/organ/external/hand/necrotize(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -412,7 +397,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
-
 
 /obj/item/organ/external/hand/unnecrotize()
 	. = ..()
@@ -422,7 +406,6 @@
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
-
 /obj/item/organ/external/hand/mutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -431,7 +414,6 @@
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
 
-
 /obj/item/organ/external/hand/unmutate(silent = FALSE)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -439,7 +421,6 @@
 
 	if(. != is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
-
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
@@ -450,7 +431,6 @@
 		owner.drop_item_ground(hand)
 		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, выбрасывая удерживаемый предмет!"))
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% удерживаемый предмет,, %(его,её,его,их)% кисть выходит из строя!")
-
 
 /obj/item/organ/external/hand/right
 	name = "right hand"
@@ -479,7 +459,7 @@
 	icon_name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	max_bleeding_amount = 7.5
+	max_bleeding_amount = 3.75
 	bleeding_mod = 1.1
 	limb_body_flag = HEAD
 	gendered_icon = TRUE
@@ -537,11 +517,9 @@
 		owner.update_markings()
 	. = ..()
 
-
 /obj/item/organ/external/head/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	name = limb_zone
 	. = ..()
-
 
 /obj/item/organ/external/head/external_receive_damage(
 	brute = 0,
@@ -557,7 +535,6 @@
 	. = ..()
 	if(brute_dam + burn_dam > 50)
 		disfigure(silent)
-
 
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
@@ -606,8 +583,9 @@
 	icon_name = "tail"
 	max_damage = 30
 	min_broken_damage = 15
-	max_bleeding_amount = 2.5
+	max_bleeding_amount = 1.25
 	bleeding_mod = 0.65
+	cannot_arterial_bleed = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = TAIL
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -727,6 +705,7 @@
 	limb_zone = BODY_ZONE_WING
 	max_damage = 30
 	min_broken_damage = 15
+	cannot_arterial_bleed = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = WING
 	amputation_point = "спину"

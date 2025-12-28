@@ -29,7 +29,6 @@
 	healable = FALSE
 	light_system = MOVABLE_LIGHT
 
-
 /mob/living/simple_animal/hostile/construct/New()
 	. = ..()
 	if(cult_icon_changing)
@@ -84,17 +83,17 @@
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
 				M.visible_message(
-					"<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-					"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>"
+					span_danger("[M] repairs some of \the <b>[src]'s</b> dents."), \
+					span_cult("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.")
 				)
 			else
 				M.visible_message(
 					span_danger("[M] repairs some of its own dents."), \
-					"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>"
+					span_cult("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.")
 				)
 		else
 			if(src != M)
-				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
+				to_chat(M, span_cult("You cannot repair <b>[src]'s</b> dents, as it has none!"))
 			else
 				to_chat(M, span_cult("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
@@ -107,8 +106,6 @@
 	return FALSE
 
 /////////////////Juggernaut///////////////
-
-
 
 /mob/living/simple_animal/hostile/construct/armoured
 	name = "Juggernaut"
@@ -169,8 +166,6 @@
 
 ////////////////////////Wraith/////////////////////////////////////////////
 
-
-
 /mob/living/simple_animal/hostile/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
@@ -207,8 +202,6 @@
 
 /////////////////////////////Artificer/////////////////////////
 
-
-
 /mob/living/simple_animal/hostile/construct/builder
 	name = "Artificer"
 	real_name = "Artificer"
@@ -244,7 +237,6 @@
 						<i>and, most important of all,</i> create new constructs by producing soulstones to capture souls, \
 						and shells to place those soulstones into.</b>"
 	hud_type = /datum/hud/construct/builder
-
 
 /mob/living/simple_animal/hostile/construct/builder/Found(atom/A) //what have we found here?
 	if(isconstruct(A)) //is it a construct?
@@ -306,7 +298,6 @@
 
 /////////////////////////////Behemoth/////////////////////////
 
-
 /mob/living/simple_animal/hostile/construct/behemoth
 	name = "Behemoth"
 	real_name = "Behemoth"
@@ -334,7 +325,6 @@
 /mob/living/simple_animal/hostile/construct/behemoth/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
-
 
 /////////////////////////////Harvester/////////////////////////
 
@@ -364,10 +354,8 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</b>"
 	hud_type = /datum/hud/construct/harvester
 
-
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -396,7 +384,6 @@
 				healths.icon_state = "juggernaut_health6"
 			else
 				healths.icon_state = "juggernaut_health7"
-
 
 /mob/living/simple_animal/hostile/construct/behemoth/update_health_hud()
 	if(!client)
@@ -442,8 +429,6 @@
 			else
 				healths.icon_state = "artificer_health7"
 
-
-
 /mob/living/simple_animal/hostile/construct/wraith/update_health_hud()
 	if(!client)
 		return
@@ -465,7 +450,6 @@
 				healths.icon_state = "wraith_health6"
 			else
 				healths.icon_state = "wraith_health7"
-
 
 /mob/living/simple_animal/hostile/construct/harvester/update_health_hud()
 	if(!client)

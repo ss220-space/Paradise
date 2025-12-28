@@ -11,15 +11,6 @@
 
 	var/list/required_reagents = list()
 	var/list/repeated_reagents = list(
-			// Botanic order
-			"thc" = list("volume" = 30, "reward" = 100),
-			"moonlin" = list("volume" = 30, "reward" = 100),
-			"growthserum" = list("volume" = 15, "reward" = 100),
-			"tirizene" = list("volume" = 30, "reward" = 125),
-			"synaptizine" = list("volume" = 30, "reward" = 125),
-			"weak_omnizine" = list("volume" = 30, "reward" = 125),
-			"earthsblood" = list("volume" = 30, "reward" = 150),
-
 			// Chemist order
 			"pyrosium" = list("volume" = 30, "reward" = 75),
 			"napalm" = list("volume" = 30, "reward" = 75),
@@ -84,7 +75,6 @@
 /datum/cargo_quest/reagents/length_quest()
 	return length(required_reagents)
 
-
 /datum/cargo_quest/reagents/drinks
 	quest_type_name = "Drink"
 	bounty_jobs = list(JOB_TITLE_BARTENDER)
@@ -126,7 +116,6 @@
 		"zazafizzy" = list("volume" = 30, "reward" = 30),
 	)
 	unique_reagents = list()
-
 
 /datum/cargo_quest/reagents/drinks/update_interface_icon()
 	for(var/reagent_id in required_reagents)

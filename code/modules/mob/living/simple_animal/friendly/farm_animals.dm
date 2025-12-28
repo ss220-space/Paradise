@@ -44,7 +44,6 @@
 		PREPOSITIONAL = "козле",
 	)
 
-
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
 	. = ..()
@@ -72,7 +71,6 @@
 				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
 					step_with_glide(step)
 
-
 /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
 	if(stat == CONSCIOUS)
@@ -86,7 +84,6 @@
 	. = ..()
 	if(!stat)
 		eat_plants()
-
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -102,7 +99,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /mob/living/simple_animal/hostile/retaliate/goat/proc/eat_plants()
 	var/eaten = FALSE
@@ -202,7 +198,6 @@
 	udder = null
 	return ..()
 
-
 /mob/living/simple_animal/cow/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -236,7 +231,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /mob/living/simple_animal/cow/Life(seconds, times_fired)
 	. = ..()
@@ -404,7 +398,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count -= 1
 
-
 /mob/living/simple_animal/chicken/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -428,7 +421,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /mob/living/simple_animal/chicken/Life(seconds, times_fired)
 	. = ..()
@@ -736,7 +728,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 	if(prob(probability))
 		reagents.add_reagent("milk", rand(5, 10))
-
 
 /obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/glass/container, mob/user)
 	if(!container.reagents)

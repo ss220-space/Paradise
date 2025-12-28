@@ -36,7 +36,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 
 	return target.UID()
 
-
 /**
  * Locates a datum based off of the UID
  *
@@ -48,7 +47,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 		return
 
 	return RUSTLIB_CALL(get_by_uuid, uid)
-
 
 /**
  * If the list `L` contains a datum UID who's type matches `D`'s type, returns the UID of that datum in the list. Otherwise returns null.
@@ -62,7 +60,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 		if(istype(D, A))
 			return datum_UID
 
-
 /**
  * Opens a lof of UIDs
  *
@@ -70,7 +67,7 @@ GLOBAL_LIST_EMPTY(uid_log)
  */
 /client/proc/uid_log()
 	set name = "View UID Log"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set desc = "Shows the log of created UIDs this round"
 
 	if(!check_rights(R_DEBUG))

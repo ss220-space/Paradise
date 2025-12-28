@@ -19,7 +19,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-
 /obj/machinery/prize_counter/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "prize_counter-broken"
@@ -29,7 +28,6 @@
 		icon_state = "prize_counter-off"
 	else
 		icon_state = "prize_counter-on"
-
 
 /obj/machinery/prize_counter/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -46,7 +44,6 @@
 
 	return ..()
 
-
 /obj/machinery/prize_counter/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!panel_open)
@@ -59,7 +56,6 @@
 	to_chat(user, span_notice("You disassemble [src]."))
 	deconstruct(TRUE)
 
-
 /obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return FALSE
@@ -67,13 +63,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-
 /obj/machinery/snow_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!panel_open)
 		return .
 	default_unfasten_wrench(user, I)
-
 
 /obj/machinery/prize_counter/attack_hand(mob/user)
 	if(..())

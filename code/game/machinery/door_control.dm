@@ -37,7 +37,6 @@
 	*/
 	var/specialfunctions = OPEN
 
-
 /obj/machinery/door_control/Initialize(mapload, direction = null, building = FALSE)
 	. = ..()
 	if(building)
@@ -47,7 +46,6 @@
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 	update_icon()
 
-
 /obj/machinery/door_control/attack_ai(mob/user)
 	if(open)
 		return
@@ -55,7 +53,6 @@
 		return attack_hand(user)
 	else
 		to_chat(user, "Error, no route to host.")
-
 
 /obj/machinery/door_control/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detective_scanner))
@@ -110,7 +107,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/door_control/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -251,7 +247,6 @@
 	if(device)
 		INVOKE_ASYNC(device, TYPE_PROC_REF(/obj/item/assembly, activate))
 
-
 /obj/machinery/door_control/proc/animate_activation()
 	if(is_animating)
 		return
@@ -259,17 +254,14 @@
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(finish_animation)), 1.5 SECONDS)
 
-
 /obj/machinery/door_control/proc/finish_animation()
 	is_animating = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/door_control/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon()
-
 
 /obj/machinery/door_control/update_icon_state()
 	if(open)
@@ -279,7 +271,6 @@
 		icon_state = "[base_icon_state]-p"
 		return
 	icon_state = is_animating ? "[base_icon_state]-inuse" : base_icon_state
-
 
 /obj/machinery/door_control/update_overlays()
 	. = ..()
@@ -300,7 +291,6 @@
 
 	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
-
 /obj/machinery/door_control/secure //Use icon_state = "altdoorctrl" if you just want cool icon for your button on map. This button is created for Admin-zones.
 	icon_state = "altdoorctrl"
 	base_icon_state = "altdoorctrl"
@@ -315,16 +305,13 @@
 	. = TRUE
 	to_chat(user, span_notice("[src] is highly secured. You cannot open the cover plate."))
 
-
 // hidden mimic button
 /obj/machinery/door_control/mimic
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern"
 
-
 /obj/machinery/door_control/mimic/animate_activation()
 	audible_message("Something clicked.", hearing_distance = 1)
-
 
 /obj/machinery/door_control/mimic/update_icon_state()
 	return

@@ -1,31 +1,5 @@
-#define MILLISECONDS *0.01
-
-#define DECISECONDS *1 //the base unit all of these defines are scaled by, because byond uses that as a unit of measurement for some fucking reason
-
-// So you can be all 10 SECONDS
-#define SECONDS *10
-
-#define MINUTES SECONDS*60
-
-#define HOURS MINUTES*60
-
-#define TICKS *world.tick_lag
-
-#define MS2DS(T) ((T) MILLISECONDS)
-
-#define DS2MS(T) ((T) * 100)
-
-#define SECONDS_TO_LIFE_CYCLES /2
-
-#define DS2TICKS(DS) ((DS)/world.tick_lag)
-
-#define TICKS2DS(T) ((T) TICKS)
-
-#define ROUND_TIME_TEXT(...) ( "[world.time - SSticker.round_start_time > MIDNIGHT_ROLLOVER ? "[round((world.time - SSticker.round_start_time)/MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]" )
-
-#define SHIFT_TIME_TEXT(...) ( "[SSticker.round_start_time > MIDNIGHT_ROLLOVER ? "[round(SSticker.round_start_time/MIDNIGHT_ROLLOVER)]:[shifttime2text()]" : shifttime2text()]" )
-
-/* This proc should only be used for world/Topic.
+/**
+ * This proc should only be used for world/Topic.
  * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
  * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
  */
@@ -33,11 +7,11 @@
 	time = (SSticker.round_start_time ? (time - SSticker.round_start_time) : (time - world.time))
 	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
 
-//Returns the world time in english
+/// Returns the world time in english
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
 
-//Returns the world time in english
+/// Returns the world time in english
 /proc/roundtime2text()
 	return gameTimestamp("hh:mm:ss", world.time - SSticker.time_game_started)
 
@@ -79,29 +53,34 @@
 			if(0)
 				. += splits[i] SECONDS
 
-/* This is used for displaying the "station time" equivelent of a world.time value
-* Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
-* - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
-*   which is much more useful for a player)*/
+/**
+ * This is used for displaying the "station time" equivelent of a world.time value
+ * Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
+ * - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date which is much more useful for a player)
+ */
 /proc/station_time(time=world.time, display_only=FALSE)
 	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
 
-/proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
+/proc/station_time_timestamp(format = "hh:mm:ss", time = world.time)
 	return time2text(station_time(time, TRUE), format)
 
-/* Returns 1 if it is the selected month and day */
-/proc/isDay(month, day)
-	if(isnum(month) && isnum(day))
-		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
-		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
-		if(month == MM && day == DD)
-			return 1
+/**
+ * Converts a time expressed in deciseconds (like world.time) to the 12-hour time format.
+ * the format arg is the format passed down to time2text() (e.g. "hh:mm" is hours and minutes but not seconds).
+ * the timezone is the time value offset from the local time. It's to be applied outside time2text() to get the AM/PM right.
+ */
+/proc/time_to_twelve_hour(format = "hh:mm:ss", time = world.time)
+	time = station_time(time, TRUE)
+	var/am_pm = "AM"
+	if(time > 12 HOURS)
+		am_pm = "PM"
+		if(time > 13 HOURS)
+			time -= 12 HOURS // e.g. 4:16 PM but not 00:42 PM
+	else if(time < 1 HOURS)
+		time += 12 HOURS // e.g. 12.23 AM
+	return "[time2text(time, format)] [am_pm]"
 
-		// Uncomment this out when debugging!
-		//else
-			//return 1
-
-//returns timestamp in a sql and ISO 8601 friendly format
+/// Returns timestamp in a sql and ISO 8601 friendly format
 /proc/SQLtime()
 	return time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 
@@ -118,21 +97,18 @@
 /proc/stop_watch(wh)
 	return round(0.1 * (REALTIMEOFDAY - wh), 0.1)
 
-/proc/numberToMonthName(number)
-	return GLOB.month_names.Find(number)
-
-//Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
+/// Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
 /proc/seconds_to_time(seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
 	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
-//Take a value in seconds and makes it display like a clock
+/// Take a value in seconds and makes it display like a clock
 /proc/seconds_to_clock(seconds as num)
 	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
-///Takes a value of time in deciseconds.
-///Returns a text value of that number in hours, minutes, or seconds.
+/// Takes a value of time in deciseconds.
+/// Returns a text value of that number in hours, minutes, or seconds.
 /proc/DisplayTimeText(time_value, round_seconds_to = 0.1)
 	var/second = FLOOR(time_value * 0.1, round_seconds_to)
 	if(!second)
@@ -159,7 +135,6 @@
 	if(hour)
 		hourT = " and [hour] hour[(hour != 1)? "s":""]"
 	return "[day] day[(day != 1)? "s":""][hourT][minuteT][secondT]"
-
 
 GLOBAL_VAR_INIT(midnight_rollovers, 0)
 GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)

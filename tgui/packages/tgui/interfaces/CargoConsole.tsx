@@ -21,7 +21,7 @@ export const CargoConsole = (_props: unknown) => {
   const [contentsModalTitle, setContentsModalTitle] = useState<string>(null);
 
   return (
-    <Window width={1000} height={800}>
+    <Window width={1000} height={800} theme="cargo">
       <Window.Content>
         <Stack fill vertical>
           <ContentsModal

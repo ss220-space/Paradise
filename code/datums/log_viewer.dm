@@ -143,7 +143,7 @@ if(!result || result.ckey != __ckey){\
 		if(QDELETED(M))
 			selected_mobs -= i
 			continue
-		dat += "<a href='byond://?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
+		dat += "<a href='byond://?src=[UID()];remove_mob=[M.UID()]'>[get_display_name(M)]</a>"
 	dat += "<a href='byond://?src=[UID()];add_mob=1'>Add Mob</a>"
 	dat += "<a href='byond://?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<br>"
@@ -260,7 +260,7 @@ if(!result || result.ckey != __ckey){\
 		add_ckey(usr, ckey_choice)
 		return
 	if(href_list["remove_mob"])
-		var/mob/M = locate(href_list["remove_mob"])
+		var/mob/M = locateUID(href_list["remove_mob"])
 		if(M)
 			selected_mobs -= M
 		show_ui(usr)

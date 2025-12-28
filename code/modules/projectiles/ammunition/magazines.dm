@@ -3,11 +3,9 @@
 	desc = "Oh god, this shouldn't be here!"
 	can_fast_load = TRUE
 
-
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
 /obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/new_casing, replace_spent = TRUE, count_chambered = FALSE, mob/user)
 	. = ..()
-
 
 // Revolver internal mags
 /obj/item/ammo_box/magazine/internal/cylinder
@@ -15,20 +13,17 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = CALIBER_DOT_357
 
-
 /obj/item/ammo_box/magazine/internal/cylinder/Initialize(mapload)
 	. = ..()
 	if(start_empty)
 		for(var/i in 1 to max_ammo)
 			stored_ammo += null	// thats right, we fill empty cylinders with nulls
 
-
 /obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = TRUE)
 	. = 0
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
 		if(bullet.BB || countempties)
 			.++
-
 
 /obj/item/ammo_box/magazine/internal/cylinder/get_round(keep = FALSE)
 	rotate()
@@ -47,7 +42,6 @@
 /obj/item/ammo_box/magazine/internal/cylinder/proc/spin()
 	for(var/i in 1 to rand(0, max_ammo*2))
 		rotate()
-
 
 /obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/new_casing, replace_spent = FALSE, count_chambered = FALSE, mob/user)
 	if(!ammo_suitability(new_casing))
@@ -73,7 +67,6 @@
 
 	return FALSE
 
-
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	name = "detective revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/c38
@@ -87,6 +80,12 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 	ammo_type = /obj/item/ammo_casing/c38/invisible/fake
+
+/obj/item/ammo_box/magazine/internal/cylinder/taurus
+	name = "taurus revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	caliber = CALIBER_DOT_45_COLT
+	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "nagant revolver cylinder"
@@ -109,12 +108,10 @@
 	caliber = list(CALIBER_DOT_257)
 	max_ammo = 4
 
-
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/new_casing)
 	if(!new_casing || !(new_casing.caliber in caliber))
 		return FALSE
 	return TRUE
-
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
 	name = "steel bullet cylinder"
@@ -140,15 +137,12 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	caliber = CALIBER_12X70
 	max_ammo = 4
-	multiload = FALSE
-
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = TRUE)
 	. = 0
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
 		if(bullet.BB || countempties)
 			.++
-
 
 /obj/item/ammo_box/magazine/internal/shot/tube
 	name = "dual feed shotgun internal tube"
@@ -216,18 +210,15 @@
 	multiload = FALSE
 	start_empty = TRUE
 
-
 /obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
 	. = ..()
 	stored_ammo += new ammo_type(src)	// We only want 1 bullet in there
-
 
 /obj/item/ammo_box/magazine/internal/rus357/ammo_count(countempties = TRUE)
 	. = 0
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
 		if(bullet.BB || countempties)
 			.++
-
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
@@ -253,6 +244,7 @@
 /obj/item/ammo_box/magazine
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
+	use_bullet_type_overlay = TRUE
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
@@ -370,7 +362,6 @@
 	if(ammo_count() && is_rubber())
 		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-r")
 
-
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
@@ -443,7 +434,7 @@
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
 	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный патронами калибра 4,6x30 мм."
-	icon_state = "46x30mmt-20"
+	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = CALIBER_4_DOT_6X30MM
 	max_ammo = 30
@@ -556,7 +547,6 @@
 
 /obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()
 	icon_state = "[initial(icon_state)][ammo_count() > 0 ? "" : "-e"]"
-
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
@@ -1140,10 +1130,8 @@
 		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (пенный патрон)",
 	)
 
-
 /obj/item/ammo_box/magazine/toy/enforcer/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-
 
 /obj/item/ammo_box/magazine/toy/enforcer/update_overlays()
 	. = ..()
@@ -1152,7 +1140,6 @@
 		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
 		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
-
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
@@ -1231,6 +1218,9 @@
 	caliber = CALIBER_LASER
 	max_ammo = 12
 
+/obj/item/ammo_box/magazine/lr30mag/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/lr30mag/get_ru_names()
 	return list(
 		NOMINATIVE = "автоматный магазин LR-30 (лазерный)",
@@ -1243,7 +1233,6 @@
 
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
 	icon_state = "lmag-[CEILING(ammo_count(), 3)]"
-
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 

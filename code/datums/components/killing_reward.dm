@@ -4,21 +4,17 @@
 	/// Reward that will be given to humans near the died owner.
 	var/reward
 
-
 /datum/component/killing_reward/Initialize(reward)
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.reward = reward
 
-
 /datum/component/killing_reward/RegisterSignal(datum/target, sig_type_or_types, proctype, override)
 	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
-
 /datum/component/killing_reward/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_DEATH)
-
 
 /datum/component/killing_reward/proc/on_death()
 	SIGNAL_HANDLER
@@ -40,13 +36,12 @@
 
 	var/bounty = round(reward / length(killers_accs))
 	for(var/datum/money_account/account as anything in killers_accs)
-		if(!account.charge(bounty, account, "Выплата вознаграждения персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
+		if(!account.charge(bounty, account, "Выплата вознаграждения персоналу.", "Отдел финансов \"Нанотрейзен\"" , "Поступление зарплаты.", "Поступление зарплаты" , "Терминал Бизель №[rand(111,333)]"))
 			continue
 
 		account.notify_pda_owner("<b>Поступление вознаграждения </b>\"На ваш привязанный аккаунт поступил[declension_ru(bounty, "", "о", "о")] [bounty] кредит[DECL_CREDIT(bounty)].\" (Невозможно Ответить)", FALSE)
 
 	qdel(src)
-
 
 /datum/component/killing_reward/InheritComponent(old_comp, original, reward)
 	if(!original)

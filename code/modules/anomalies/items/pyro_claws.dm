@@ -58,7 +58,7 @@
 	if(prob(60))
 		do_sparks(rand(1,6), TRUE, loc)
 
-	if(!istype(target, /obj/machinery/door/airlock))
+	if(!is_airlock(target))
 		return
 
 	var/obj/machinery/door/airlock/airlock = target
@@ -165,7 +165,6 @@
 	ADD_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	used = TRUE
 	do_sparks(rand(1,6), TRUE, loc)
-
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/item, mob/user, params)
 	if(!iscoreatmos(item))

@@ -85,7 +85,7 @@
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<br><span class='danger'><b>[themission]</b></span>")
+		to_chat(H, "<br>[span_danger("<b>[themission]</b>")]")
 		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)
@@ -94,7 +94,6 @@
 		players_spawned++
 		if(players_spawned >= teamsize)
 			break
-
 
 	log_and_message_admins("used Spawn Gimmick Team.")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Gimmick Team")

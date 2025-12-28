@@ -4,13 +4,18 @@ SUBSYSTEM_DEF(weather)
 	flags = SS_BACKGROUND
 	wait = 10
 	runlevels = RUNLEVEL_GAME
-	offline_implications = "Ash storms will no longer trigger.  No immediate action is needed."
+	offline_implications = "Ash storms will no longer trigger. No immediate action is needed."
 	ss_id = "weather"
 	var/list/processing = list()
 	var/list/eligible_zlevels = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
 	cpu_display = SS_CPUDISPLAY_LOW
 
+/datum/controller/subsystem/weather/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(processing)
+	.["custom"] = custom_data
 
 /datum/controller/subsystem/weather/fire()
 	// process active weather
@@ -18,8 +23,8 @@ SUBSYSTEM_DEF(weather)
 		var/datum/weather/our_event = V
 		if(our_event.aesthetic || our_event.stage != MAIN_STAGE)
 			continue
+		our_event.fire()
 		if(our_event.self_fire)
-			our_event.fire()
 			continue
 		for(var/mob/living/act_on as anything in GLOB.mob_living_list)
 			if(our_event.can_weather_act(act_on))
@@ -28,13 +33,12 @@ SUBSYSTEM_DEF(weather)
 	// start random weather on relevant levels
 	for(var/z in eligible_zlevels)
 		var/possible_weather = eligible_zlevels[z]
-		var/datum/weather/W = pickweight(possible_weather)
+		var/datum/weather/weather = pickweight(possible_weather)
 		eligible_zlevels -= z
-		if(run_weather(W, list(text2num(z))))
-			var/randTime = rand(3000, 6000)
-			addtimer(CALLBACK(src, PROC_REF(make_eligible), z, possible_weather), randTime + initial(W.weather_duration_upper), TIMER_UNIQUE) //Around 5-10 minutes between weathers
-			next_hit_by_zlevel["[z]"] = world.time + randTime + initial(W.telegraph_duration)
-
+		if(run_weather(weather, list(text2num(z))))
+			var/randTime = rand(weather.weather_cooldown_lower, weather.weather_cooldown_upper)
+			addtimer(CALLBACK(src, PROC_REF(make_eligible), z, possible_weather), randTime + initial(weather.weather_duration_upper), TIMER_UNIQUE) //Around 5-10 minutes between weathers
+			next_hit_by_zlevel["[z]"] = world.time + randTime + initial(weather.telegraph_duration)
 
 /datum/controller/subsystem/weather/Initialize()
 	for(var/V in subtypesof(/datum/weather))
@@ -48,7 +52,6 @@ SUBSYSTEM_DEF(weather)
 				LAZYINITLIST(eligible_zlevels["[z]"])
 				eligible_zlevels["[z]"][W] = probability
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/weather/proc/run_weather(datum/weather/weather_datum_type, z_levels)
 	if(istext(weather_datum_type))
@@ -70,11 +73,9 @@ SUBSYSTEM_DEF(weather)
 	var/datum/weather/W = new weather_datum_type(z_levels)
 	return W.telegraph()
 
-
 /datum/controller/subsystem/weather/proc/make_eligible(z, possible_weather)
 	eligible_zlevels[z] = possible_weather
 	next_hit_by_zlevel["[z]"] = null
-
 
 /datum/controller/subsystem/weather/proc/get_weather(z, area_path)
 	var/datum/weather/A

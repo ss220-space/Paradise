@@ -1,6 +1,5 @@
 GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all tribbles, not just the new one being made.
 
-
 /mob/living/simple_animal/tribble
 	name = "tribble"
 	desc = "It's a small furry creature that makes a soft trill."
@@ -25,7 +24,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	var/gestation = 0
 	var/maxtribbles = 50     //change this to change the max limit
 
-
 /mob/living/simple_animal/tribble/New()
 	..()
 	var/list/types = list("tribble1","tribble2","tribble3")
@@ -36,7 +34,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 	GLOB.totaltribbles += 1
-
 
 /mob/living/simple_animal/tribble/attack_hand(mob/user)
 	..()
@@ -50,7 +47,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 			user.put_in_active_hand(T)
 			qdel(src)
 
-
 /mob/living/simple_animal/tribble/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/scalpel))
 		to_chat(user, span_notice("You try to neuter the tribble, but it's moving too much and you fail!"))
@@ -58,14 +54,12 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 		to_chat(user, span_notice("You try to un-neuter the tribble, but it's moving too much and you fail!"))
 	return ..()
 
-
 /mob/living/simple_animal/tribble/proc/procreate()
 	if(GLOB.totaltribbles <= maxtribbles)
 		for(var/mob/living/simple_animal/tribble/F in src.loc)
 			if(!F || F == src)
 				new /mob/living/simple_animal/tribble(src.loc)
 				gestation = 0
-
 
 /mob/living/simple_animal/tribble/Life(seconds, times_fired)
 	..()
@@ -77,14 +71,12 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 				if(prob(80))
 					src.procreate()
 
-
 /mob/living/simple_animal/tribble/death(gibbed) // Gotta make sure to remove tribbles from the list on death
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
 	GLOB.totaltribbles -= 1
-
 
 //||Item version of the trible ||
 /obj/item/toy/tribble
@@ -112,7 +104,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	to_chat(user, span_notice("The tribble gets up and wanders around."))
 	. = ..()
 
-
 /obj/item/toy/tribble/attackby(obj/item/I, mob/user, params) //neutering and un-neutering
 	. = ..()
 
@@ -128,7 +119,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 		gestation = 0
 		to_chat(user, span_notice("You fuse some recently cut tubes together, it should be able to reproduce again."))
 
-
 //||Fur and Fur Products ||
 
 /obj/item/stack/sheet/fur //basic fur sheets (very lumpy furry piles of sheets)
@@ -138,7 +128,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "sheet-fur"
 	origin_tech = "materials=2"
-
 
 /obj/item/clothing/ears/earmuffs/tribblemuffs //earmuffs but with tribbles
 	icon = 'icons/mob/tribbles.dmi'

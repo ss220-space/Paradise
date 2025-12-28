@@ -16,9 +16,6 @@
 	icon = 'icons/obj/kitchen.dmi'
 	origin_tech = "materials=1"
 
-
-
-
 /*
  * Utensils
  */
@@ -33,7 +30,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	var/max_contents = 1
 
-
 /obj/item/kitchen/utensil/Initialize(mapload)
 	. = ..()
 
@@ -41,7 +37,6 @@
 		set_base_pixel_y(rand(0, 4))
 
 	create_reagents(5)
-
 
 /obj/item/kitchen/utensil/update_overlays()
 	. = ..()
@@ -51,7 +46,6 @@
 		food_olay.pixel_w = pixel_x
 		food_olay.pixel_z = pixel_y
 		. += food_olay
-
 
 /obj/item/kitchen/utensil/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
@@ -83,7 +77,6 @@
 		toEat.On_Consume(target, user)
 		update_icon(UPDATE_OVERLAYS)
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /obj/item/kitchen/utensil/fork
 	name = "fork"
@@ -158,7 +151,6 @@
 	default_force = force
 	default_throwforce = throwforce
 
-
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
 						span_suicide("[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
@@ -169,7 +161,6 @@
 	. = ..()
 	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, TRUE)
 
-
 /obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
@@ -178,24 +169,69 @@
 		shields_penetration = initial(shields_penetration) + MA.shields_penetration_bonus
 	return ..()
 
-
 /obj/item/kitchen/knife/after_throw(datum/callback/callback)
 	embed_chance = initial(embed_chance)
 	throwforce = default_throwforce
 	shields_penetration = initial(shields_penetration)
 	return ..()
 
-
 /obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
-	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
-		force = default_force + MA.knife_bonus_damage
-		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
-			if(MA.neck_cut(target, user))
-				return ATTACK_CHAIN_PROCEED_SUCCESS
+	if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
+		var/datum/martial_art/throwing/martial_art = user?.mind?.martial_art
+		if(istype(martial_art) && is_type_in_list(src, martial_art.knife_types, FALSE))
+			force = default_force + martial_art.knife_bonus_damage
+			if(can_neck_cut(target, user))
+				. = ATTACK_CHAIN_BLOCKED_ALL
+				neck_cut(target, user, martial_art.neck_cut_delay)
+				force = default_force
+				return
+
+		else if(can_neck_cut(target, user))
+			. = ATTACK_CHAIN_BLOCKED_ALL
+			neck_cut(target, user)
+			force = default_force
+			return
+
 	. = ..()
 	force = default_force
 
+/obj/item/kitchen/knife/proc/can_neck_cut(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, silence = TRUE)
+	. = TRUE
+	if(!attacker.pulling || attacker.pulling != defender || attacker.grab_state < GRAB_NECK || !defender.dna || HAS_TRAIT(defender, TRAIT_NO_BLOOD))
+		return FALSE
+
+	var/selected_zone = attacker.zone_selected
+	if(selected_zone != BODY_ZONE_HEAD)
+		return FALSE
+
+	var/obj/item/organ/external/head = defender.get_organ(selected_zone)
+	if(!head)
+		if(!silence)
+			balloon_alert(attacker, "голова отсутствует!")
+		return FALSE
+
+/obj/item/kitchen/knife/proc/neck_cut(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, neck_cut_delay = 5 SECONDS)
+	if(!can_neck_cut(defender, attacker, FALSE))
+		return FALSE
+
+	defender.balloon_alert_to_viewers("прикладывает нож к горлу!", "вы прикладываете нож к горлу!")
+	if(!do_after(attacker, neck_cut_delay, defender, max_interact_count = 1) || attacker.pulling != defender || attacker.grab_state < GRAB_NECK)
+		return FALSE
+
+	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
+		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume
+
+		for(var/i in 1 to 2)
+			var/obj/effect/decal/cleanable/blood/blood_decal = new(defender.loc)
+			blood_decal.blood_DNA[defender.dna.unique_enzymes] = defender.dna.blood_type
+			step(blood_decal, pick(GLOB.alldirs))
+
+	attacker.stop_pulling()
+	var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg', 'sound/weapons/knife_holster/throat_slice2.ogg')
+	playsound(defender.loc, sound, 25, TRUE)
+	defender.apply_damage(2 * force, def_zone = BODY_ZONE_HEAD, sharp = TRUE, used_weapon = src)
+	attacker.balloon_alert_to_viewers("перереза[PLUR_ET_YUT(attacker)] глотку", "горло перерезано!");
+	return TRUE
 
 /obj/item/kitchen/knife/attack_obj(obj/object, mob/living/user, params)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
@@ -203,7 +239,6 @@
 		force = default_force + MA.knife_bonus_damage
 	. = ..()
 	force = default_force
-
 
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
@@ -419,7 +454,6 @@
 	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 	var/size
 
-
 /obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
 	. = ..()
 	if(sh)
@@ -428,10 +462,8 @@
 		size = pick("large", "medium", "small")
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/kitchen/knife/glassshiv/update_icon_state()
 	icon_state = "[size]_[initial(icon_state)]"
-
 
 /obj/item/kitchen/knife/glassshiv/plasma
 	name = "plasma glass shiv"
@@ -487,7 +519,6 @@
 		INSTRUMENTAL = "старым ржавым ножом",
 		PREPOSITIONAL = "старом ржавом ноже",
 	)
-
 
 /*
  * Rolling Pins
@@ -572,8 +603,6 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("закатил", "треснул")
-
-
 
 /// circular cutter by Ume
 

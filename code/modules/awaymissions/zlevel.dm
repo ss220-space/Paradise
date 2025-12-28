@@ -5,7 +5,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	empty_region(block(low_x, low_y, z, hi_x, hi_y, z))
 	log_debug("Took [stop_watch(timer)]s")
 
-
 /proc/empty_region(list/turfs)
 	for(var/thing in turfs)
 		var/turf/T = thing
@@ -29,14 +28,14 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	var/map_z_level
 	var/list/map_z_levels = list()
 	if(total_z == 1)
-		map_z_level = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER))
+		map_z_level = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT))
 		map_z_levels += map_z_level
 	else
-		map_z_level = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER, ZTRAIT_UP))
+		map_z_level = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, ZTRAIT_UP))
 		map_z_levels += map_z_level
 		for(var/i in 2 to total_z-1)
-			map_z_levels += GLOB.space_manager.add_new_zlevel(AWAY_MISSION + "([i])", linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER, ZTRAIT_UP, ZTRAIT_DOWN))
-		map_z_levels += GLOB.space_manager.add_new_zlevel(AWAY_MISSION  + "([total_z])", linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER, ZTRAIT_DOWN))
+			map_z_levels += GLOB.space_manager.add_new_zlevel(AWAY_MISSION + "([i])", linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, ZTRAIT_UP, ZTRAIT_DOWN))
+		map_z_levels += GLOB.space_manager.add_new_zlevel(AWAY_MISSION  + "([total_z])", linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, ZTRAIT_DOWN))
 
 	GLOB.maploader.load_map(file, z_offset = map_z_level)
 	log_world("  Away mission loaded: [map]")
@@ -44,7 +43,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	for(var/level in map_z_levels)
 		smooth_zlevel(level)
 	log_startup_progress_global("Mapping", "Away mission loaded in [stop_watch(watch)]s.")
-
 
 /proc/generateMapList(filename)
 	var/list/potentialMaps = list()

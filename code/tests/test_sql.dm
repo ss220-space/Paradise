@@ -43,4 +43,3 @@
 	if(SSdbcore.total_errors > 0)
 		TEST_FAIL("SQL errors occured on startup. Please fix them.")
 
-

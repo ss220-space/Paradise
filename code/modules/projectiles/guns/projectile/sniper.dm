@@ -80,6 +80,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper
 	//speed = 0.75
@@ -96,7 +97,6 @@
 		target.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
 
 	return ..()
-
 
 //Sleepy ammo
 /obj/item/ammo_box/magazine/sniper_rounds/soporific
@@ -194,6 +194,7 @@
 	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
@@ -219,6 +220,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	knockdown = 4 SECONDS
@@ -261,7 +263,6 @@
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon_state()
 	return
 
-
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
@@ -270,10 +271,9 @@
 	else if(ammo)
 		. += ".50mag-f"
 
-
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
 	name = "axmc sniper rifle"
-	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний Нанотрейзен. Обладает схожими со снайперской винтовкой Синдиката характеристиками."
+	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний \"Нанотрейзен\". Обладает схожими со снайперской винтовкой \"Синдиката\" характеристиками."
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "AXMC"
 	item_state = "AXMC"
@@ -349,6 +349,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/a338
 	damage = 80
@@ -449,9 +450,9 @@
 	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/penetrator/a338
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator/a338
-
 
 /obj/item/ammo_box/a338
 	name = "Box of sniper rounds (.338)"
@@ -460,7 +461,6 @@
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a338
 	max_ammo = 20
-
 
 /obj/item/ammo_box/a338/get_ru_names()
 	return list(

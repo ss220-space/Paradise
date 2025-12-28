@@ -11,7 +11,6 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 	var/data = json_decode(json_data)
 	return list_to_object_arbitrary_vars(data, position)
 
-
 /proc/list_to_object_arbitrary_vars(list/data, position)
 	if(!islist(data))
 		throw EXCEPTION("Not a list.")
@@ -95,6 +94,9 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 		return locate(X)
 
 	return locate(X, Y, Z)
+	
+/proc/_locateUID(uid)
+	return locate(uid)
 
 /proc/_log(X, Y)
 	return log(X, Y)

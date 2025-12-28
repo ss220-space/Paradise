@@ -5,9 +5,10 @@
 
 /obj/item/poster
 	name = "rolled-up poster"
-	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах Нанотрейзен."
+	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах \"Нанотрейзен\"."
 	icon = 'icons/obj/contraband.dmi'
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
@@ -95,6 +96,14 @@
 		original_name = name
 		name = "Постер — [name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
+		ru_names = list(
+			NOMINATIVE = "постер \"[name]\"",
+			GENITIVE = "постера \"[name]\"",
+			DATIVE = "постеру \"[name]\"",
+			ACCUSATIVE = "постер \"[name]\"",
+			INSTRUMENTAL = "постером \"[name]\"",
+			PREPOSITIONAL = "постере \"[name]\"",
+		)
 
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
@@ -206,7 +215,6 @@
 	balloon_alert(user, "постер упал!")
 	D.roll_and_drop(temp_loc, user)
 
-
 // MARK: Poster variations
 
 /obj/structure/sign/poster/ripped
@@ -234,7 +242,7 @@
 // MARK: Contraband posters
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
-	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах Нанотрейзен."
+	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах \"Нанотрейзен\"."
 
 /obj/structure/sign/poster/contraband/get_ru_names()
 	return list(
@@ -294,17 +302,17 @@
 
 /obj/structure/sign/poster/contraband/missing_gloves
 	name = "Пропавшие перчатки"
-	desc = "Этот постер ссылается на возмущение, вызванное сокращением финансирования Нанотрейзен на покупку изолированных перчаток."
+	desc = "Этот постер ссылается на возмущение, вызванное сокращением финансирования \"Нанотрейзен\" на покупку изолированных перчаток."
 	icon_state = "poster9"
 
 /obj/structure/sign/poster/contraband/hacking_guide
 	name = "Руководство по взлому"
-	desc = "Этот постер подробно описывает внутреннюю работу стандартного шлюза Нанотрейзен. К сожалению, он устарел."
+	desc = "Этот постер подробно описывает внутреннюю работу стандартного шлюза \"Нанотрейзен\". К сожалению, он устарел."
 	icon_state = "poster10"
 
 /obj/structure/sign/poster/contraband/rip_badger
 	name = "Покойся с миром, Барсук"
-	desc = "Этот мятежный постер ссылается на геноцид Нанотрейзен целой космической станции, полной барсуков."
+	desc = "Этот мятежный постер ссылается на геноцид \"Нанотрейзен\" целой космической станции, полной барсуков."
 	icon_state = "poster11"
 
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris
@@ -364,12 +372,12 @@
 
 /obj/structure/sign/poster/contraband/rebels_unite
 	name = "Повстанцы, объединяйтесь"
-	desc = "Постер, призывающий восстать против Нанотрейзен."
+	desc = "Постер, призывающий восстать против \"Нанотрейзен\"."
 	icon_state = "poster23"
 
 /obj/structure/sign/poster/contraband/c20r
 	name = "C-20r"
-	desc = "Постер, рекламирующий пистолет-пулемёт C-20r от \"Скарборо Армс\"."
+	desc = "Постер, рекламирующий пистолет-пулемёт C-20r от концерна \"Скарборо\"."
 	icon_state = "poster24"
 
 /obj/structure/sign/poster/contraband/have_a_puff
@@ -388,8 +396,8 @@
 	icon_state = "poster27"
 
 /obj/structure/sign/poster/contraband/syndicate_pistol
-	name = "Пистолет Синдиката"
-	desc = "Этот постер рекламирует вам ахуенно-шикарные пистолеты синдиката."
+	name = "Пистолет \"Синдиката\""
+	desc = "Этот постер рекламирует вам ахуенно-шикарные пистолеты \"Синдиката\"."
 	icon_state = "poster28"
 
 /obj/structure/sign/poster/contraband/energy_swords
@@ -484,7 +492,7 @@
 
 /obj/structure/sign/poster/contraband/frag12
 	name = "FRAG12"
-	desc = "Общий план конструкции и наполнения особо опасного снаряда FRAG12.  Красным шрифтом выделена часть о ущербе что наносит этот патрон."
+	desc = "Общий план конструкции и наполнения особо опасного снаряда FRAG12. Красным шрифтом выделена часть о ущербе что наносит этот патрон."
 	icon_state = "poster_frag12"
 
 /obj/structure/sign/poster/contraband/incammo
@@ -547,10 +555,15 @@
 	desc = "Изображение ассистента, который демонстрирует свои достижения в освоении  техники: бомбарды, станпрода, копья."
 	icon_state = "poster_graytide"
 
+/obj/structure/sign/poster/contraband/imposter
+	name = "Я — постер"
+	desc = "Этот постер висит здесь явно не предвещая о добрых вестях. Возможно, среди нас есть предатель?"
+	icon_state = "im_poster"
+
 //MARK: Official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
-	poster_item_desc = "Официальный постер от Нанотрейзен, призванный воспитывать покорную и послушную рабочую силу. Оснащён передовой клеевой основой для удобного крепления на любую вертикальную поверхность."
+	poster_item_desc = "Официальный постер от \"Нанотрейзен\", призванный воспитывать покорную и послушную рабочую силу. Оснащён передовой клеевой основой для удобного крепления на любую вертикальную поверхность."
 	poster_item_icon_state = "rolled_poster_legit"
 
 /obj/structure/sign/poster/official/get_ru_names()
@@ -575,8 +588,8 @@
 	icon_state = "poster1_legit"
 
 /obj/structure/sign/poster/official/nanotrasen_logo
-	name = "Логотип Нанотрейзен"
-	desc = "Постер с изображением логотипа Нанотрейзен."
+	name = "Логотип \"Нанотрейзен\""
+	desc = "Постер с изображением логотипа \"Нанотрейзен\"."
 	icon_state = "poster2_legit"
 
 /obj/structure/sign/poster/official/cleanliness
@@ -696,7 +709,7 @@
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
 	name = "Винтажная репродукция к 50-летию"
-	desc = "Репродукция постера 2505 года, посвящённая 50-летию \"НаноПостер\", дочерней компании Нанотрейзен."
+	desc = "Репродукция постера 2505 года, посвящённая 50-летию \"НаноПостер\", дочерней компании \"Нанотрейзен\"."
 	icon_state = "poster26_legit"
 
 /obj/structure/sign/poster/official/fruit_bowl
@@ -706,12 +719,12 @@
 
 /obj/structure/sign/poster/official/pda_ad
 	name = "Реклама КПК"
-	desc = "Постер, рекламирующий последнюю модель КПК от поставщиков Нанотрейзен."
+	desc = "Постер, рекламирующий последнюю модель КПК от поставщиков \"Нанотрейзен\"."
 	icon_state = "poster28_legit"
 
 /obj/structure/sign/poster/official/enlist
 	name = "Вступайте"
-	desc = "Вступайте в резерв ОБР Нанотрейзен сегодня!"
+	desc = "Вступайте в резерв ОБР \"Нанотрейзен\" сегодня!"
 	icon_state = "poster29_legit"
 
 /obj/structure/sign/poster/official/nanomichi_ad
@@ -741,7 +754,7 @@
 
 /obj/structure/sign/poster/official/kill_syndicate
 	name = "Убивайте Синдикат"
-	desc = "Постер, требующий, чтобы весь экипаж был готов сражаться с Синдикатом."
+	desc = "Постер, требующий, чтобы весь экипаж был готов сражаться с \"Синдикатом\"."
 	icon_state = "poster35_legit"
 
 /obj/structure/sign/poster/official/air1
@@ -861,7 +874,7 @@
 	icon_state = "poster1_secret"
 
 /obj/structure/sign/poster/secret/Viper
-	name = "Разыскивается офицер Синдиката"
+	name = "Разыскивается офицер \"Синдиката\""
 	desc = "На постере изображён: рыжеволосый мужчина в авиаторских очках, чуть за 30, с сигарой во рту, одетый в шубу поверх тактической водолазки."
 	icon_state = "poster2_secret"
 

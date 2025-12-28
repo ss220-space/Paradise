@@ -143,7 +143,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/spider_growinstantly = FALSE
 	var/spider_debug = FALSE
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
@@ -193,7 +192,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				F.open()
 		else
 			to_chat(src, "Закрытие противопожарных дверей не помогает.")
-	else if(istype(target, /obj/machinery/door/airlock))
+	else if(is_airlock(target))
 		var/obj/machinery/door/airlock/A = target
 		try_open_airlock(A)
 	else if(isliving(target) && (!client || a_intent == INTENT_HARM))
@@ -341,7 +340,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/object)
-	if(istype(object, /obj/machinery/door/airlock))
+	if(is_airlock(object))
 		var/obj/machinery/door/airlock/airlock = object
 		if(airlock.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
 			return try_open_airlock(airlock)
@@ -390,14 +389,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			D.close(TRUE)
 		return TRUE
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
 	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
 	if(!.)
 		for(var/obj/structure/spider/spider_thing in range(1, get_turf(src)))
 			return spider_thing
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -430,12 +427,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/projectile/terrorspider))
 		return TRUE
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))

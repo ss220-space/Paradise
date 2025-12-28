@@ -1,7 +1,6 @@
 /datum/event/lone_operative
 	name = "Ядерный Оперативник — Одиночка"
 
-
 /datum/event/lone_operative/proc/get_operative()
 	processing = 0
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ядерного оперативника — Одиночки?", ROLE_OPERATIVE, TRUE, source = image('icons/mob/simple_human.dmi', "syndicate_space_sword"))
@@ -20,9 +19,8 @@
 	return TRUE
 
 /datum/event/lone_operative/start()
-	processing = 0
-	var/list/check_list = GLOB.player_list - GLOB.new_player_mobs
-	if(length(check_list) < 25)
+	processing = FALSE
+	if(num_station_players() < 25)
 		message_admins("[name] event failed to start. Not enough players.")
 		return
 	if(!get_operative())

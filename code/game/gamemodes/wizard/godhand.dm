@@ -21,17 +21,14 @@
 	/// Current owner of the item
 	var/mob/living/carbon/owner
 
-
 /obj/item/melee/touch_attack/New(spell, owner)
 	attached_spell = spell
 	src.owner = owner
 	..()
 
-
 /obj/item/melee/touch_attack/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-
 
 /obj/item/melee/touch_attack/Destroy()
 	if(owner)
@@ -45,7 +42,6 @@
 
 	return ..()
 
-
 /obj/item/melee/touch_attack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user)) //Look ma, no hands
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
@@ -53,7 +49,6 @@
 		to_chat(user, span_warning("You can't reach out!"))
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	return ..()
-
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity, params)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -65,7 +60,6 @@
 		attached_spell.perform(list())
 	qdel(src)
 
-
 /obj/item/melee/touch_attack/disintegrate
 	name = "disintegrating touch"
 	desc = "This hand of mine glows with an awesome power!"
@@ -73,7 +67,6 @@
 	on_use_sound = 'sound/magic/disintegrate.ogg'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-
 
 /obj/item/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //exploding after touching yourself would be bad
@@ -83,7 +76,6 @@
 	M.gib()
 	return ..()
 
-
 /obj/item/melee/touch_attack/fleshtostone
 	name = "petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
@@ -91,7 +83,6 @@
 	on_use_sound = 'sound/magic/fleshtostone.ogg'
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
-
 
 /obj/item/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
@@ -104,7 +95,6 @@
 	new /obj/structure/closet/statue(L.loc, L)
 	..()
 
-
 /obj/item/melee/touch_attack/fake_disintegrate
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."
@@ -114,14 +104,12 @@
 	item_state = "disintegrate"
 	needs_permit = FALSE
 
-
 /obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
 		return
 	do_sparks(4, FALSE, target.loc)
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 	return ..()
-
 
 /obj/item/melee/touch_attack/cluwne
 	name = "cluwne touch"
@@ -130,7 +118,6 @@
 	on_use_sound = 'sound/misc/sadtrombone.ogg'
 	icon_state = "cluwnecurse"
 	item_state = "cluwnecurse"
-
 
 /obj/item/melee/touch_attack/cluwne/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //clowning around after touching yourself would unsurprisingly, be bad

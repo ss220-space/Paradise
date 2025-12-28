@@ -57,7 +57,6 @@
 	qdel(user)
 	return OBLITERATION
 
-
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(world.time < timer)
@@ -119,18 +118,15 @@
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health
 		blast_range -= round(health_percent * 10) //one additional range for each missing 10% of health
 
-
 /obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 	item_state = icon_state
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/hierophant_club/proc/prepare_icon_update()
 	update_icon(UPDATE_ICON_STATE)
 	sleep(timer - world.time)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/hierophant_club/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
@@ -349,13 +345,15 @@
 			to_chat(user, span_hierophant("Этот талисман уже ваш! ЧЕГО ЕЩЁ ВЫ ХОТИТЕ!?"))
 		return
 
-
 	to_chat(user, span_hierophant("Вы пытаетесь пробудить мою сущность..."))
 
 	possessed = TRUE
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите стать духом талисмана защиты [user.real_name]?", ROLE_PAI, FALSE, 15 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
+
+	if(QDELETED(slave) || QDELETED(src))
+		return
 
 	if(length(candidates))
 		theghost = pick(candidates)
@@ -387,11 +385,9 @@
 		to_chat(user, span_hierophant("Талисман дремлет... Попробуйте позже..."))
 		possessed = FALSE
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/update_icon_state()
 	icon_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
 	item_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
-
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/Initialize(mapload)
 	.=..()
@@ -529,8 +525,7 @@
 	to_chat(usr, span_hierophant("Вы говорите в разум [choice]:</b> [msg]"))
 	to_chat(choice, "[span_deadsay(span_hierophant("Странные, магические и одновременно чуждые мысли обращаются к вам..."))] [span_hierophant("[msg]")]")
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		G.show_message(span_hierophant("Послание Иерофанта от <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) к <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")) //what the fuck...
-
+		G.show_message(span_hierophant("Послание Иерофанта от ([ghost_follow_link(usr, ghost = G)])<b>[usr]</b> к \[[ghost_follow_link(choice, ghost = G)]\]<b>[choice]</b>: [msg]</i>")) //what the fuck...
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
@@ -538,25 +533,21 @@
 		return .
 	toggle_spell_actions(TRUE)
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/detacher)
 	. = ..()
 	if(!slave)
 		return .
 	toggle_spell_actions(FALSE)
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip(mob/user)
 	if(!ishuman(user) || !slave || slave.master != user.ckey)
 		return
 	toggle_spell_actions(TRUE)
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip(mob/user)
 	if(!slave)
 		return
 	toggle_spell_actions(FALSE)
-
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/proc/toggle_spell_actions(add_actions)
 	if(add_actions)
@@ -573,6 +564,5 @@
 		spell_heal.action.Remove(slave)
 		spell_teleport.action.Remove(slave)
 		spell_message.action.Remove(slave)
-
 
 #undef HIEROPHANT_CLUB_CARDINAL_DAMAGE

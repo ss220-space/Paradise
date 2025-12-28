@@ -184,7 +184,6 @@
 /obj/item/gun/syringe/rapidsyringe/experimental/preloaded
 	core = new /obj/item/assembly/signaler/core/vortex/tier2()
 
-
 /datum/crafting_recipe/rapidsyringe_experimental
 	name = "Experemintal syringe gun"
 	result = /obj/item/gun/syringe/rapidsyringe/experimental

@@ -1,6 +1,5 @@
 //Items for nuke theft, supermatter theft traitor objective
 
-
 // STEALING THE NUKE
 #define SEAL_TIME 10 SECONDS
 //the nuke core, base item
@@ -37,10 +36,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/item/nuke_core/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/nuke_core/process()
 	if(cooldown < world.time - 2 SECONDS)
@@ -106,7 +103,6 @@
 	else // Not cracked or dented.
 		. += "Мелким шрифтом на коробке написано: \"Защищённый контейнер Cybersun Industries - гарантированная устойчивость к термиту, ассистентам и взрывам!\""
 
-
 /obj/item/nuke_core_container/update_icon_state()
 	if(sealed)
 		icon_state = "core_container_sealed"
@@ -116,13 +112,11 @@
 	else
 		icon_state = cracked ? "core_container_cracked_empty" : "core_container_empty"
 
-
 /obj/item/nuke_core_container/attack_hand(mob/user)
 	if(cracked && core)
 		unload(user)
 	else
 		return ..()
-
 
 /obj/item/nuke_core_container/proc/load(obj/item/nuke_core/plutonium/new_core, mob/user)
 	if(core || !istype(new_core) || cracked)
@@ -138,7 +132,6 @@
 	addtimer(CALLBACK(src, PROC_REF(seal)), SEAL_TIME)
 	return TRUE
 
-
 /obj/item/nuke_core_container/proc/unload(mob/user)
 	core.add_fingerprint(user)
 	user.put_in_active_hand(core)
@@ -148,7 +141,7 @@
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
 		STOP_PROCESSING(SSobj, core)
-		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
+		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
@@ -163,7 +156,7 @@
 
 /obj/item/nuke_core_container/proc/unseal(mob/user)
 	START_PROCESSING(SSobj, core)
-	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
+	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 	sealed = FALSE
 	playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
@@ -179,17 +172,16 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/nuke_core_container/proc/crack_open()
 	visible_message(span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] распахивается!"))
 	if(core)
 		START_PROCESSING(SSobj, core)
-		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
+		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 	cracked = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/paper/guides/antag/nuke_instructions
-	info = "Как вскрыть ядерную боеголовку Нанотрейзен и вытащить из нее плутониевое ядро:<br>\
+	info = "Как вскрыть ядерную боеголовку \"Нанотрейзен\" и вытащить из нее плутониевое ядро:<br>\
 	<ul>\
 	<li>Добудьте себе одежду, способную защитить от радиации в связи с высокой радиоактивностью ядра.</li>\
 	<li>Используйте предоставленную вам отвертку с очень тонким наконечником для того, чтобы открутить переднюю панель терминала боеголовки.</li>\
@@ -242,7 +234,6 @@
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(atom/movable/puller, grab_state, force, supress_message) // no drag memes
 	return FALSE
 
-
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
@@ -272,7 +263,6 @@
 	qdel(I)
 	qdel(src)
 
-
 /obj/item/nuke_core/supermatter_sliver/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
 		return ..()
@@ -298,7 +288,6 @@
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(src)
 
-
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
@@ -316,7 +305,6 @@
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.gib()
 	return FALSE
-
 
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
@@ -337,7 +325,6 @@
 	QDEL_NULL(sliver)
 	return ..()
 
-
 /obj/item/nuke_core_container/supermatter/update_name(updates = ALL)
 	. = ..()
 	name = cracked ? "broken supermatter bin" : initial(name)
@@ -350,7 +337,6 @@
 			INSTRUMENTAL = "разбитым контейнером для суперматерии",
 			PREPOSITIONAL = "разбитом контейнере для суперматерии",
 		)
-
 
 /obj/item/nuke_core_container/supermatter/update_icon_state()
 	if(sealed)
@@ -378,7 +364,7 @@
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
-		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, ref(src))
+		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -395,7 +381,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("Вы осторожно поднимаете [I.sliver.declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(INSTRUMENTAL)]."))
 
-
 /obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user, params)
 	if(istype(tongs))
 		add_fingerprint(user)
@@ -408,7 +393,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/nuke_core_container/supermatter/attack_hand(mob/user)
 	if(cracked && sliver) //What did we say about touching the shard...
@@ -430,12 +414,11 @@
 	else
 		return ..()
 
-
 /obj/item/nuke_core_container/supermatter/crack_open()
 	visible_message(span_boldnotice("[src] распахивается!"))
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
-		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, ref(src))
+		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 	cracked = TRUE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
@@ -487,12 +470,10 @@
 	QDEL_NULL(sliver)
 	return ..()
 
-
 /obj/item/retractor/supermatter/update_icon_state()
 	icon_state = "supermatter_tongs[sliver ? "_loaded" : ""]"
 	item_state = "supermatter_tongs[sliver ? "_loaded" : ""]"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/retractor/supermatter/afterattack(atom/O, mob/user, proximity, params)
 	. = ..()

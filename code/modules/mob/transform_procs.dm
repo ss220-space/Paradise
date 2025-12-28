@@ -33,7 +33,7 @@
 
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
 	O.invisibility = 0
-	O.aiRestorePowerRoutine = 0
+	O.aiRestorePowerRoutine = POWER_RESTORATION_OFF
 
 	if(mind)
 		mind.transfer_to(O)
@@ -51,8 +51,6 @@
 
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
-
-
 
 /**
 	For transforming humans into robots (cyborgs).
@@ -162,7 +160,6 @@
 
 	new_mob.possess_by_player(key)
 	new_mob.a_intent = INTENT_HARM
-
 
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	qdel(src)

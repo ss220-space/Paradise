@@ -29,7 +29,7 @@
 
 	switch(action)
 		if("track")
-			var/mob/living/carbon/human/human = locate(params["track"]) in GLOB.human_list
+			var/mob/living/carbon/human/human = locateUID(params["track"])
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				if(hassensorlevel(human, SUIT_SENSOR_TRACKING))
@@ -66,7 +66,6 @@
 		if("clear_highlighted_names")
 			highlighted_names = list()
 
-
 /datum/ui_module/crew_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 
@@ -99,7 +98,6 @@
 /datum/ui_module/crew_monitor/ui_data(mob/user)
 	var/list/data = list()
 	var/turf/T = get_turf(ui_host())
-
 
 	data["tabIndex"] = tab_index
 	data["zoom"] = zoom

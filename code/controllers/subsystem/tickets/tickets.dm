@@ -44,6 +44,12 @@ SUBSYSTEM_DEF(tickets)
 	/// Who has what tickets open? Maps client -> open ticket number.
 	var/list/open_detail_uis = list()
 
+/datum/controller/subsystem/tickets/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["tickets"] = length(allTickets) // Not a perf metric but I want to see a graph where SSair usage spikes and 20 tickets come in
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/tickets/Initialize()
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
 				span_boldmessage("Пожалуйста, постарайтесь в тикетах вести себя спокойно, излагать проблему ясно и описательно. Не предполагайте что администратор видел какие-либо связанные события, и чётко укажите имена тех, о ком вы сообщаете. Если вы задали вопрос, то убедитесь, что из него понятно, о чём именно вы спрашиваете."),
@@ -131,7 +137,7 @@ SUBSYSTEM_DEF(tickets)
 		key_and_name = key_name(M, TRUE, ticket_help_type, ticket_id = ticketNum)
 
 	var/list/L = list()
-	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name][one_line ? " " : "<br>"]</span>"
+	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span>[span_boldnotice("[key_and_name][one_line ? " " : "<br>"]")]"
 	if(M)
 		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
 	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
@@ -288,7 +294,7 @@ SUBSYSTEM_DEF(tickets)
 			convert_ticket(T)
 		else
 			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
-			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>", confidential=TRUE)//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> [span_adminticketalt("[response_phrases[message_key]]")]", confidential=TRUE)//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:[span_adminticketalt(" [message_key]")]") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)

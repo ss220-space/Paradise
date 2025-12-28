@@ -27,7 +27,6 @@
 		PREPOSITIONAL = "Шкафомехе",
 	)
 
-
 /obj/mecha/makeshift/Destroy()
 	new /obj/structure/closet(loc)
 	return ..()

@@ -19,7 +19,6 @@
 	weapon_weight = WEAPON_HEAVY
 	can_holster = FALSE
 
-
 /obj/item/gun/pneumatic_rifle/Initialize(mapload)
 	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
@@ -40,7 +39,6 @@
 		if(isBelted)
 			. += span_notice("It has a strap, now you can hold [src] on your back.")
 
-
 /obj/item/gun/pneumatic_rifle/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!tank)
@@ -53,7 +51,6 @@
 	user.put_in_hands(tank, ignore_anim = FALSE)
 	tank = null
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/gun/pneumatic_rifle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/cable_coil))
@@ -101,7 +98,6 @@
 
 	return ..()
 
-
 /obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(target == loc)
@@ -127,7 +123,7 @@
 	to_chat(user, span_notice("You unload [S] from \the [src]!"))
 	return TRUE
 
-/obj/item/gun/pneumatic_rifle/process_chamber()
+/obj/item/gun/pneumatic_rifle/handle_chamber()
 	if(!length(syringes) || chambered.BB)
 		return
 
@@ -160,7 +156,6 @@
 	if(tank)
 		return tank.return_analyzable_air()
 
-
 /datum/crafting_recipe/pneumatic_rifle
 	name = "Pneumatic Rifle"
 	result = /obj/item/gun/pneumatic_rifle
@@ -175,7 +170,6 @@
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-
 
 /obj/item/gun/pneumatic_rifle/update_overlays()
 	. = ..()

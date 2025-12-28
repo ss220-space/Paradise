@@ -23,7 +23,6 @@
 
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 
-
 /datum/weather/blob_storm/telegraph()
 	var/list/blobs = SSticker?.mode?.blobs["infected"] + SSticker?.mode?.blobs["offsprings"]
 	var/color
@@ -47,7 +46,6 @@
 		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
-
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)
 	if(prob(50))
 		return FALSE
@@ -62,7 +60,6 @@
 		return FALSE
 	return ..()
 
-
 /datum/weather/blob_storm/weather_act(mob/living/target)
 	var/datum_type = target.mind.get_blob_infected_type()
 	var/datum/antagonist/blob_infected/blob_datum = new datum_type()
@@ -70,7 +67,6 @@
 	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
 	target.mind.add_antag_datum(blob_datum)
-
 
 /datum/weather/blob_storm/end()
 	if(..())

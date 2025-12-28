@@ -81,6 +81,15 @@
 	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
 	blackbox_message = "Toggle GhostRadio"
 
+/datum/preference_toggle/toggle_ghost_radio/set_toggles(client/user)
+	. = ..()
+	var/mob/client_mob = user.mob
+	if(user.prefs.toggles & PREFTOGGLE_CHAT_GHOSTRADIO || !isobserver(client_mob))
+		GLOB.permanent_radio_listeners -= client_mob
+		return
+
+	GLOB.permanent_radio_listeners |= client_mob
+
 /datum/preference_toggle/toggle_admin_radio
 	name = "Админ-радио"
 	description = "Включает слышимость всех радиосообщений."
@@ -91,6 +100,7 @@
 	enable_message = "Теперь вы не будете слышать все радиосообщения."
 	disable_message = "Теперь вы будете слышать все радиосообщения."
 	blackbox_message = "Toggle RadioChatter"
+
 
 /datum/preference_toggle/toggle_ai_voice_annoucements
 	name = "Слышимость аудио-оповещений ИИ"
@@ -177,7 +187,6 @@
 	. = ..()
 	if(user.prefs.sound & ~SOUND_LOBBY)
 		usr.stop_sound_channel(CHANNEL_ADMIN)
-
 
 /datum/preference_toggle/toggle_end_of_round_sound
 	name = "Отключение звука в конце раунда"
@@ -669,7 +678,6 @@
 	disable_message = "Теперь содержимое UI не маштабируется."
 	blackbox_message = "Переключение маштабирования UI"
 
-
 /datum/preference_toggle/ui_scale/set_toggles(client/user)
 	. = ..()
 	if(!istype(user))
@@ -679,7 +687,6 @@
 		INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
 		user.tgui_say?.load()
 		user.fix_title_screen()
-
 
 /datum/preference_toggle/pain_blurb
 	name = "Переключить вывод боли на экран"

@@ -76,7 +76,6 @@
 			set_varspeed(initial(speed))
 			poison_per_bite = initial(poison_per_bite)
 
-
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/AttackingTarget()
 	. = ..()
 	if(. && isliving(target))

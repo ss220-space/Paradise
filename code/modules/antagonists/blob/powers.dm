@@ -15,7 +15,6 @@
 	add_points(-cost)
 	return TRUE
 
-
 /** Moves the core elsewhere. */
 /mob/camera/blob/proc/transport_core()
 	if(blob_core)
@@ -38,7 +37,6 @@
 	var/obj/structure/blob/special/node/chosen_node = nodes[node_name]
 	if(chosen_node)
 		forceMove(chosen_node.loc)
-
 
 /** Places important blob structures */
 /mob/camera/blob/proc/create_special(price, blobstrain, min_separation, needs_node, turf/tile)
@@ -80,7 +78,6 @@
 
 	var/obj/structure/blob/node = blob.change_to(blobstrain, src)
 	return node
-
 
 /mob/camera/blob/proc/node_check(turf/tile)
 	if(is_there_multiz())
@@ -165,6 +162,10 @@
 		source = blobbernaut_image,
 		role_cleanname = "blobbernaut",
 	)
+	
+	if(QDELETED(factory))
+		return
+	
 	if(length(candidates))
 		var/mob/chosen_one = pick(candidates)
 		on_poll_concluded(factory, chosen_one)
@@ -295,7 +296,6 @@
 	else
 		last_attack = world.time + CLICK_CD_RAPID
 
-
 /** Finds cardinal and diagonal attack directions */
 /mob/camera/blob/proc/directional_attack(turf/tile, list/possible_blobs, attack_success = FALSE)
 	var/list/cardinal_blobs = list()
@@ -334,7 +334,6 @@
 		blob_mob.lose_target()
 		blob_mob.Goto(pick(surrounding_turfs), blob_mob.move_to_delay)
 
-
 /mob/camera/blob/proc/split_consciousness()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -366,7 +365,6 @@
 	new /obj/structure/blob/special/core/ (get_turf(N), null, TRUE)
 	qdel(N)
 
-
 /** Opens the reroll menu to change strains */
 /mob/camera/blob/proc/strain_reroll()
 	if(!free_strain_rerolls && blob_points < BLOB_POWER_REROLL_COST)
@@ -387,12 +385,16 @@
 			var/image/strain_icon = image('icons/mob/blob.dmi', "blob_core")
 			strain_icon.color = initial(strain.color)
 
-			//var/info_text = span_boldnotice("[initial(strain.name)]")
-			//info_text += "<br>[span_notice("[initial(strain.analyzerdescdamage)]")]"
-			//if(!isnull(initial(strain.analyzerdesceffect)))
-				//info_text += "<br>[span_notice("[initial(strain.analyzerdesceffect)]")]"
+			var/info_text = span_boldnotice("[initial(strain.name)]")
+			info_text += "<br>[span_notice("[initial(strain.analyzerdescdamage)]")]"
+			if(!isnull(initial(strain.analyzerdesceffect)))
+				info_text += "<br>[span_notice("[initial(strain.analyzerdesceffect)]")]"
 
-			strain_choices[initial(strain.name)] = strain_icon
+			var/datum/radial_menu_choice/choice = new
+			choice.image = strain_icon
+			choice.info = info_text
+
+			strain_choices[initial(strain.name)] = choice
 
 	var/strain_result = show_radial_menu(src, src, strain_choices, radius = BLOB_REROLL_RADIUS)
 	if(isnull(strain_result))

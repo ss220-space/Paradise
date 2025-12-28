@@ -18,10 +18,8 @@
 
 	id_access = SYNDICATE_OPERATIVE
 
-
-
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival/survival_syndi = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
@@ -46,7 +44,7 @@
 	l_hand = null
 
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival/survival_syndi = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
@@ -81,7 +79,7 @@
 	r_hand = /obj/item/tank/internals/plasmaman
 	internals_slot = ITEM_SLOT_HAND_RIGHT
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival/survival_syndi = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
@@ -98,7 +96,7 @@
 	r_hand = /obj/item/tank/internals/plasmaman
 	internals_slot = ITEM_SLOT_HAND_RIGHT
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival/survival_syndi = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,

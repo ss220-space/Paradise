@@ -6,7 +6,6 @@
  *		Barcode Scanner
  */
 
-
 /*
  * Bookcase
  */
@@ -298,7 +297,6 @@
 	else
 		to_chat(user, "Эта книга полностью пуста!")
 
-
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(carved)
 		add_fingerprint(user)
@@ -314,7 +312,7 @@
 		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в \"[title]\"."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_sharp(I))
+	if(I.sharp)
 		add_fingerprint(user)
 		if(!carve_book(user, I))
 			return ATTACK_CHAIN_PROCEED
@@ -390,10 +388,8 @@
 
 	return ..()
 
-
 /obj/item/book/wirecutter_act(mob/user, obj/item/I)
 	return carve_book(user, I)
-
 
 /obj/item/book/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent == INTENT_HELP)
@@ -404,11 +400,10 @@
 		attack_verb = list("ударил", "огрел")
 	return ..()
 
-
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
 		return FALSE
-	if(!is_sharp(I))
+	if(I.sharp)
 		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)
@@ -420,7 +415,6 @@
 	balloon_alert(user, "страницы вырезаны")
 	carved = TRUE
 	return TRUE
-
 
 /*
  * Barcode Scanner

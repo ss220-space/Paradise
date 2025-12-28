@@ -26,7 +26,6 @@
 	var/obj/item/uplink/hidden/hidden_uplink = null
 	var/antag_sound = 'sound/ambience/antag/tatoralert.ogg'
 
-
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
 	if(!owner.som)
@@ -90,14 +89,11 @@
 
 	return ..()
 
-
 /datum/antagonist/traitor/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
 
-
 /datum/antagonist/traitor/remove_owner_from_gamemode()
 	SSticker.mode.traitors -= owner
-
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
@@ -106,7 +102,6 @@
 		antag_hud_name = syndicate_antag_hud_name
 	return ..()
 
-
 /datum/antagonist/traitor/give_objectives()
 
 	// delete these start
@@ -114,7 +109,6 @@
 	var/hijacker_antag = (GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise") ? is_hijacker : prob(10)
 
 	// delete these end
-
 
 	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && length(SSticker.mode.traitors) >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
@@ -152,7 +146,6 @@
 	var/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/escape)
-
 
 /**
  * Assigning exchange role.
@@ -198,7 +191,6 @@
 		where = "In your [equipped_slot]"
 	to_chat(mob, span_notice("<br><br>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.<br>"))
 	mob.update_icons()
-
 
 /**
  * Give traitors their uplink. Play the traitor an alert sound.
@@ -312,7 +304,6 @@
 
 	return FALSE
 
-
 /datum/antagonist/traitor/roundend_report_footer()
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
@@ -321,7 +312,6 @@
 					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
 
 	return message
-
 
 /datum/antagonist/traitor/proc/announce_uplink_info()
 
@@ -340,7 +330,6 @@
 
 	else
 		to_chat(owner.current, span_warning("Unfortunately, the Syndicate wasn't able to get you a radio."))
-
 
 /**
  * Takes any datum `source` and checks it for traitor datum.
@@ -361,6 +350,5 @@
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/traitor)
-
 
 #undef EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED

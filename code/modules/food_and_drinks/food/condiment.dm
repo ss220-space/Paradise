@@ -41,7 +41,6 @@
 	set hidden = FALSE
 	..()
 
-
 /obj/item/reagent_containers/food/condiment/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()
@@ -79,7 +78,6 @@
 	reagents.trans_to(target, 10)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	return .|ATTACK_CHAIN_SUCCESS
-
 
 /obj/item/reagent_containers/food/condiment/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
@@ -305,10 +303,8 @@
 		"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
 	)
 
-
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
-
 
 /obj/item/reagent_containers/food/condiment/pack/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
@@ -329,7 +325,6 @@
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			qdel(src)
 
-
 /obj/item/reagent_containers/food/condiment/pack/update_desc(updates = ALL)
 	. = ..()
 	if(length(reagents.reagent_list))
@@ -341,7 +336,6 @@
 			desc = "A small condiment pack. The label says it contains [originalname]."
 	else
 		desc = "A small condiment pack. It is empty."
-
 
 /obj/item/reagent_containers/food/condiment/pack/update_icon_state()
 	. = ..()
@@ -355,10 +349,8 @@
 	else
 		icon_state = "condi_empty"
 
-
 /obj/item/reagent_containers/food/condiment/pack/on_reagent_change()
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-
 
 //Ketchup
 /obj/item/reagent_containers/food/condiment/pack/ketchup

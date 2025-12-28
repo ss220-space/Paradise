@@ -216,7 +216,6 @@
 		mob.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
 		to_chat(mob, span_energetic_anomaly("Вы слышите тихое потрескивание в воздухе. Подозрительно похоже на статическое электричество."))
 
-
 /obj/effect/energy_ball
 	name = "энергетический шар"
 	desc = "Миниатюрная, отностилельно стабильная шаровая молния. Обычно появляется вместе с энергетическими аномалиями."
@@ -309,7 +308,6 @@
 /obj/effect/energy_ball/verybig
 	size = 1.5
 	spawn_type = /obj/effect/anomaly/energetic/tier2
-
 
 //			 TIER 4 ADMIN SPAWN ONLY
 

@@ -11,7 +11,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 
-	var/emagged = FALSE
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
 	/// Set if allowed to teleport to even if on zlevel2
@@ -277,7 +276,6 @@
 								/obj/item/storage/belt/military/traitor = 1,                                // 2 TK
 								/obj/item/storage/toolbox/syndisuper = 1,)                                  // 8 TK
 	)
-
 
 /obj/item/beacon/syndicate/bundle/magical //for d20 dice of fate
 	used = TRUE

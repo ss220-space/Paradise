@@ -36,13 +36,11 @@
 	datum_flags |= DF_VAR_EDITED
 	return TRUE
 
-
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
 		if(NAMEOF(src, vars))
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
-
 
 /datum/proc/can_vv_delete()
 	return TRUE
@@ -77,12 +75,11 @@
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
 	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("You need to be an administrator to access this."), confidential=TRUE)
 		return
 
 	if(!D)
 		return
-
 
 	var/islist = islist(D)
 	var/isclient = isclient(D)
@@ -117,7 +114,6 @@
 	if(sprite)
 		sprite_text = "<img src='vv[hash].png'></td><td>"
 
-
 	var/list/atomsnowflake = list()
 	if(isatom(D))
 		var/atom/A = D
@@ -147,7 +143,6 @@
 		atomsnowflake += "<b>[formatted_type]</b>"
 		formatted_type = null
 
-
 	if(length(formatted_type) > 25)
 		var/middle_point = length(formatted_type) / 2
 		var/splitpoint = findtext(formatted_type, "/", middle_point)
@@ -156,11 +151,9 @@
 		else
 			formatted_type = "Type too long" //No suitable splitpoint (/) found.
 
-
 	var/marked
 	if(holder.marked_datum && holder.marked_datum == D)
 		marked = VV_MSG_MARKED
-
 
 	var/varedited_line = ""
 	if(isatom(D))
@@ -168,13 +161,11 @@
 		if(A.flags & ADMIN_SPAWNED)
 			varedited_line += VV_MSG_ADMIN_SPAWNED
 
-
 	if(!islist && (D.datum_flags & DF_VAR_EDITED))
 		varedited_line = VV_MSG_EDITED
 	var/deleted_line
 	if(!islist && D.gc_destroyed)
 		deleted_line = VV_MSG_DELETED
-
 
 	var/dropdownoptions = list()
 	if(islist)
@@ -189,7 +180,6 @@
 	else
 		dropdownoptions = D.vv_get_dropdown()
 
-
 	var/list/dropdownoptions_html = list()
 	for(var/name in dropdownoptions)
 		var/link = dropdownoptions[name]
@@ -198,15 +188,12 @@
 		else
 			dropdownoptions_html += "<option value>[name]</option>"
 
-
 	var/list/names = list()
 	if(!islist)
 		for(var/V in D.vars)
 			names += V
 
-
 	sleep(1) // Without a sleep here, VV sometimes disconnects clients
-
 
 	var/ui_scale = usr.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE
 
@@ -489,28 +476,28 @@
 
 	var/item
 	if(isnull(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("null")]"
 
 	else if(istext(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("\"[VV_HTML_ENCODE(value)]\"")]"
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		item = "[name] = /icon (<span class='value'>[value]</span>) [icon2html(value, usr)]"
+		item = "[name] = /icon ([span_value("[value]")]) [icon2html(value, usr)]"
 		#else
-		item = "[name] = /icon (<span class='value'>[value]</span>)"
+		item = "[name] = /icon ([span_value("[value]")])"
 		#endif
 
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [icon2html(value, usr)]"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image ([span_value("[value]")]) [icon2html(value, usr)]"
 		#else
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image ([span_value("[value]")])"
 		#endif
 
 	else if(isfile(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>'[value]'</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("'[value]'")]"
 
 	else if(isdatum(value))
 		var/datum/D = value
@@ -545,10 +532,10 @@
 			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]")]"
 
 	else
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("[VV_HTML_ENCODE(value)]")]"
 
 	return "[header][item]</li>"
 
@@ -667,7 +654,6 @@
 
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
-
 	else if(href_list["mob_player_panel"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
@@ -713,7 +699,6 @@
 			var/chosenart = artnames[result]
 			var/datum/martial_art/MA = new chosenart
 			MA.teach(C)
-
 
 	else if(href_list["give_disease"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -1087,7 +1072,6 @@
 		if(T)
 			usr.client.jumptoturf(T)
 
-
 	else if(href_list["rotatedatum"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
@@ -1300,7 +1284,7 @@
 			return
 
 		to_chat(usr, "Changed voice from [old_tts_seed] to [new_tts_seed] for [H].", confidential=TRUE)
-		to_chat(H, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential=TRUE)
+		to_chat(H, span_notice("Your voice has been changed from [old_tts_seed] to [new_tts_seed]."), confidential=TRUE)
 		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["addverb"])
@@ -1626,7 +1610,7 @@
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
 			return TRUE
 
-		uniqueList_inplace(L)
+		unique_list_in_place(L)
 		log_world("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
 		log_admin("[key_name(src)] modified list's contents: CLEAR DUPES")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR DUPES")

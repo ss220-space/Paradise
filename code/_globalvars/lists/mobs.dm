@@ -58,6 +58,8 @@ GLOBAL_LIST_EMPTY(uplink_items)
 
 GLOBAL_LIST_EMPTY(mining_vendor_items)
 
+GLOBAL_LIST_EMPTY(item_skins)
+
 GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
 
 GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
@@ -87,3 +89,5 @@ GLOBAL_LIST_EMPTY(robot_skins)
 
 /// List of all /datum/nutrition_level
 GLOBAL_LIST_EMPTY(nutrition_levels)
+
+GLOBAL_LIST_EMPTY(permanent_radio_listeners)

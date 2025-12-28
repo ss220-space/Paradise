@@ -265,14 +265,12 @@
 		return
 	gripped_item ? usr.DblClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
-
 /obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
 	if(!gripped_item)
 		return ATTACK_CHAIN_PROCEED
 	. = gripped_item.attackby(weapon, user, params)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
-
 
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
 	if(!gripped_item)
@@ -282,10 +280,8 @@
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
-
 /obj/item/gripper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
@@ -293,7 +289,6 @@
 
 /obj/item/gripper/proc/isEmpty()
 	return isnull(gripped_item)
-
 
 /obj/item/gripper/melee_attack_chain(mob/user, atom/target, params)	// this shit requires massive refactoring
 	. = ATTACK_CHAIN_PROCEED
@@ -329,7 +324,6 @@
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
 		. |= ATTACK_CHAIN_SUCCESS
-
 
 /obj/item/gripper/proc/handle_item_moving()
 	SIGNAL_HANDLER
@@ -380,7 +374,6 @@
 /obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-
 /obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity) return //Not adjacent.
 
@@ -412,18 +405,17 @@
 	if(!module)
 		module = new /obj/item/robot_module/drone(src)
 
-	var/dat = {"<meta charset="UTF-8"><head><title>Модули дрона</title><meta HTTP-EQUIV='Refresh' CONTENT='10'></head><body>\n"}
+	var/list/dat = list()
 	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Закрыть</a>
 	<br>
 	<br>
 	<b>Активированные модули</b>
 	<br>
-	Модуль 1: [module_state_1 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
-	Модуль 2: [module_state_2 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
-	Модуль 3: [module_state_3 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
+	Модуль 1: [module_state_1 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_1)]>[module_state_1]<a>" : "Нет модуля"]<br>
+	Модуль 2: [module_state_2 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_2)]>[module_state_2]<a>" : "Нет модуля"]<br>
+	Модуль 3: [module_state_3 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_3)]>[module_state_3]<a>" : "Нет модуля"]<br>
 	<br>
 	<b>Установленные модули</b><br><br>"}
-
 
 	var/tools = "<b>Инструменты и устройства</b><br>"
 	var/resources = "<br><b>Рекурсы</b><br>"
@@ -437,7 +429,7 @@
 		else if(activated(O))
 			module_string += text("[O]: <b>Активирован</b><br>")
 		else
-			module_string += text("[O]: <a href=byond://?src=[UID()];act=\ref[O]>Активировать</a><br>")
+			module_string += text("[O]: <a href=byond://?src=[UID()];act=[UID_of(O)]>Активировать</a><br>")
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -452,11 +444,11 @@
 		else if(activated(module.emag))
 			dat += text("[module.emag]: <b>Активирован</b><br>")
 		else
-			dat += text("[module.emag]: <a href=byond://?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
+			dat += text("[module.emag]: <a href=byond://?src=[UID()];act=[module.emag.UID()]>Активировать</a><br>")
 
 	dat += resources
 
-	var/datum/browser/popup = new(src, "robotmod", "Drone modules")
+	var/datum/browser/popup = new(src, "robotmod", "Модули дрона")
 	popup.set_content(dat)
 	popup.set_window_options("can_close=0;")
 	popup.open(FALSE)

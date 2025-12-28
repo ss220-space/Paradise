@@ -64,6 +64,10 @@
 	slime.set_nutrition(slime.get_max_nutrition())
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за слайма из атмосферной аномалии?", ROLE_SENTIENT, FALSE, 100, source = slime, role_cleanname = "pyroclastic anomaly slime")
+	
+	if(QDELETED(slime))
+		return
+	
 	if(!LAZYLEN(candidates))
 		return
 
@@ -165,7 +169,6 @@
 		paper.fire_act(null, 1000, 1000)
 
 	. = ..()
-
 
 //		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
 

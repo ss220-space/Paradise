@@ -49,7 +49,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 			continue
 		if((pos.z != T.z) && !(is_station_level(pos.z) && is_station_level(T.z)) && !(HAS_TRAIT(H, TRAIT_MULTIZ_SUIT_SENSORS))) // same z_level or both on STATION_LEVEL or has special trait
 			continue
-		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
+		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = H.UID())
 
 		crewmemberData["sensor_type"] = C.sensor_mode
 		crewmemberData["name"] = H.get_authentification_name(if_no_id=UNKNOWN_STATUS_RUS)

@@ -14,11 +14,22 @@
 	name = "Призвать великие вилы"
 	item_type = /obj/item/twohanded/pitchfork/demonic/greater
 
-
 /obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended
 	name = "Призвать вилы Архидьявола"
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
 
+/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus
+	name = "Призвать вилы Крампуса"
+	item_type = /obj/item/twohanded/pitchfork/demonic/greater/krampus
+
+/obj/effect/proc_holder/spell/conjure_item/krampus_bag
+	name = "Призвать мешок Крампуса"
+	item_type = /obj/item/krampus_bag
+	action_icon_state = "krampus_bag"
+	action_icon = 'icons/obj/items.dmi'
+	action_background_icon_state = "bg_demon"
+	base_cooldown = 10 SECONDS
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Призвать золотую скрипку"
@@ -32,7 +43,6 @@
 
 	action_icon_state = "golden_violin"
 	action_background_icon_state = "bg_demon"
-
 
 /obj/effect/proc_holder/spell/summon_contract
 	name = "Призвать адский контракт"
@@ -54,7 +64,6 @@
 	action_background_icon_state = "bg_demon"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/summon_contract/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.try_auto_target = FALSE
@@ -63,10 +72,8 @@
 	T.allowed_type = /mob/living/carbon
 	return T
 
-
 /obj/effect/proc_holder/spell/summon_contract/valid_target(mob/living/carbon/target, mob/user)
 	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind) && !HAS_TRAIT(target.mind, TRAIT_BAD_SOUL)
-
 
 /obj/effect/proc_holder/spell/summon_contract/cast(list/targets, mob/user = usr)
 	for(var/target in targets)
@@ -89,7 +96,6 @@
 
 			var/obj/item/paper/contract/infernal/contract = new(C.loc, C.mind, user.mind, GLOB.devil_contracts[contract_type_name])
 			C.put_in_hands(contract)
-
 
 /obj/effect/proc_holder/spell/take_soul
 	name = "Забрать душу"
@@ -118,7 +124,6 @@
 	T.click_radius = -1
 	T.allowed_type = /mob/living/carbon
 	return T
-
 
 /obj/effect/proc_holder/spell/take_soul/valid_target(mob/living/carbon/target, mob/user)
 	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind)
@@ -171,7 +176,6 @@
 	desc = "Это заклинание запускает сгусток адского пламени в цель."
 
 	base_cooldown = 15 SECONDS
-
 
 	invocation = "Quaeso, quemdam inter vos quaero!"
 
@@ -257,7 +261,6 @@
 	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
 	fakefireextinguish()
 
-
 /mob/living/proc/infernalphasein(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		to_chat(src, span_warning("Вы слишком заняты, чтобы совершить прыжок."))
@@ -270,7 +273,6 @@
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish), TRUE), 1.5 SECONDS)
-
 
 /obj/effect/proc_holder/spell/sintouch
 	name = "Прикосновение греха"
@@ -290,12 +292,10 @@
 
 	var/max_targets = 3
 
-
 /obj/effect/proc_holder/spell/sintouch/ascended
 	name = "Великое прикосновение греха"
 	base_cooldown = 10 SECONDS
 	max_targets = 10
-
 
 /obj/effect/proc_holder/spell/sintouch/create_new_targeting()
 	var/datum/spell_targeting/targeted/targeting = new()
@@ -309,7 +309,6 @@
 	targeting.max_targets = 3
 
 	return targeting
-
 
 /obj/effect/proc_holder/spell/sintouch/cast(list/targets, mob/living/user = usr)
 	for(var/mob/living/carbon/human/human in targets)
@@ -344,7 +343,6 @@
 
 /obj/effect/proc_holder/spell/summon_dancefloor/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/summon_dancefloor/cast(list/targets, mob/user = usr)
 	LAZYINITLIST(dancefloor_turfs)
@@ -429,7 +427,6 @@
 
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "horror"
-
 
 	base_cooldown = 300 SECONDS
 	var/cast_time = 5 SECONDS
@@ -541,8 +538,6 @@
 	devil_rune.update_appearance(UPDATE_DESC)
 
 	return
-
-
 
 /obj/effect/proc_holder/spell/devil_panel
 	name = "Информация о дьяволе"

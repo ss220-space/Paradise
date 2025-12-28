@@ -10,10 +10,10 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Restore SpacemanDMM cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm-${{ hashFiles('tools/ci/install_build_deps.sh') }}
@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22.11.0
           cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
@@ -43,6 +43,14 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 9.x
+
+      - name: Install OpenDream
+        uses: robinraju/release-downloader@v1.12
+        with:
+          repository: "OpenDreamProject/OpenDream"
+          tag: "latest"
+          fileName: "DMCompiler_linux-x64.tar.gz"
+          extract: true
 
       - name: Give Linters A Go
         id: linter-setup
@@ -99,22 +107,19 @@ jobs:
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
-      # Do not raise the OD installation higher, otherwise check_grep and unticked_files will check it! :/
-      - name: Install OpenDream
-        uses: robinraju/release-downloader@v1.12
-        with:
-          repository: "OpenDreamProject/OpenDream"
-          tag: "latest"
-          fileName: "DMCompiler_linux-x64.tar.gz"
-          extract: true
-
       - name: Run OpenDream
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: ./DMCompiler_linux-x64/DMCompiler paradise.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
 
-      - name: Run Map Lint
+      - name: Run Map Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: python -m tools.maplint.source --github
+        run: |
+          tools/bootstrap/python -m mapmerge2.dmm_test
+          python -m tools.maplint.source --github
+
+      - name: Run DMI Tests
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: tools/bootstrap/python -m dmi.test
 
       - name: Run JSON Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()

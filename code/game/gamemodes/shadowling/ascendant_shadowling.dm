@@ -31,7 +31,6 @@
 
 	faction = list("faithless")
 
-
 /mob/living/simple_animal/ascendant_shadowling/Initialize(mapload)
 	. = ..()
 
@@ -57,14 +56,12 @@
 /mob/living/simple_animal/ascendant_shadowling/singularity_act()
 	return 0 //Well hi, fellow god! How are you today?
 
-
 /mob/living/simple_animal/ascendant_shadowling/update_overlays()
 	. = ..()
 	. += "shadowling_ascended_ms"
 
-
 /mob/living/simple_animal/ascendant_shadowling/proc/announce(text, size = 4, new_sound = null)
-	var/message = "<font size=[size]><span class='shadowling'><b>\"[text]\"</font></span>"
+	var/message = "<font size=[size]>[span_shadowling("<b>\"[text]\"</font>")]"
 	for(var/mob/M in GLOB.player_list)
 		M.hear_say()
 		if(!isnewplayer(M) && M.client)

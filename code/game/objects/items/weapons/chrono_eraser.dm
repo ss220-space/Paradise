@@ -36,7 +36,6 @@
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
-
 /obj/item/gun/energy/chrono_gun
 	name = "T.E.D. Projection Apparatus"
 	desc = "It's as if they never existed in the first place."
@@ -80,15 +79,14 @@
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
+			to_chat(user, span_alert("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
 		src.field_disconnect(F)
 	else
 		startpos = get_turf(src)
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
-
+			to_chat(user, span_notice("Connection established with target: <b>[F.captured]</b>"))
 
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
 	if(F && field == F)
@@ -96,7 +94,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
+			to_chat(user, span_alert("Disconnected from target: <b>[F.captured]</b>"))
 	field = null
 	startpos = null
 
@@ -113,7 +111,6 @@
 /obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
 	if(TED)
 		TED.pass_mind(M)
-
 
 /obj/projectile/energy/chrono_beam
 	name = "eradication beam"
@@ -143,6 +140,7 @@
 	name = "eradication beam"
 	projectile_type = /obj/projectile/energy/chrono_beam
 	muzzle_flash_color = null
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "chronobolt"
 	e_cost = 0
 
@@ -231,7 +229,6 @@
 	else
 		qdel(src)
 
-
 /obj/structure/chrono_field/bullet_act(obj/projectile/P)
 	if(istype(P, /obj/projectile/energy/chrono_beam))
 		var/obj/projectile/energy/chrono_beam/beam = P
@@ -262,7 +259,6 @@
 
 /obj/structure/chrono_field/blob_act(obj/structure/blob/B)
 	return
-
 
 #undef CHRONO_BEAM_RANGE
 #undef CHRONO_FRAME_COUNT

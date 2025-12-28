@@ -4,8 +4,6 @@
 	name = "Energy shuriken emitter"
 	desc = "Enable special suit system that generates Shurikens made of pure energy and capable of slowing and damaging enemies far away from you! Energy cost: 300 per burst"
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
@@ -44,7 +42,6 @@
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/my_action = null
 
-
 /obj/item/gun/energy/shuriken_emitter/Destroy()
 	. = ..()
 	my_suit?.shuriken_emitter = null
@@ -53,14 +50,11 @@
 	my_action?.use_action()
 	my_action = null
 
-
 /obj/item/gun/energy/shuriken_emitter/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
 
-
 /obj/item/gun/energy/shuriken_emitter/run_drop_held_item(mob/user)
 	qdel(src)
-
 
 /obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
 	return !my_suit.ninjacost(cost*burst_size)

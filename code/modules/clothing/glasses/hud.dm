@@ -6,7 +6,6 @@
 	/// The visual icons granted by wearing these glasses.
 	var/HUDType = null
 
-
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
@@ -21,7 +20,6 @@
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
 	hud.show_to(user)
 
-
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
@@ -35,7 +33,6 @@
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
 	hud.hide_from(user)
-
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	if(!emagged)
@@ -188,10 +185,21 @@ MEDICAL
 
 /obj/item/clothing/glasses/hud/health/meson
 	name = "Medical-Meson HUD"
-	desc = "A medical heads-up display that comes with an optical meson scanner."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве \
+			и анализа состояния здоровья окружающих существ."
 	icon_state = "mesonhealth"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+/obj/item/clothing/glasses/hud/health/meson/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинские мезонные ИЛС-очки",
+		GENITIVE = "медицинских мезонных ИЛС-очков",
+		DATIVE = "медицинским мезонным ИЛС-очкам",
+		ACCUSATIVE = "медицинские мезонные ИЛС-очки",
+		INSTRUMENTAL = "медицинскими мезонными ИЛС-очками",
+		PREPOSITIONAL = "медицинских мезонных ИЛС-очках"
+	)
 
 /obj/item/clothing/glasses/hud/health/monocle
 	name = "Medical HUD Monocle"

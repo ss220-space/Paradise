@@ -12,14 +12,12 @@
 	if(proximity_flag && istype(G) && G.Touch(A, proximity_flag))
 		return
 
-
 	if(buckled && isstructure(buckled))
 		var/obj/structure/S = buckled
 		if(S.prevents_buckled_mobs_attacking())
 			return
 
 	return A.attack_hand(src)
-
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
 	if(prob(get_bones_symptom_prob() * 3))
@@ -62,7 +60,6 @@
 /mob/living/proc/can_unarmed_attack()
 	return !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED)
 
-
 /mob/living/carbon/human/can_unarmed_attack()
 	. = ..()
 	if(!.)
@@ -75,10 +72,14 @@
 		if(!limb)
 			to_chat(src, span_warning("Вы смотрите на то, что осталось от Вашей [hand ? "левой руки" : "правой руки"] и тяжко вздыхаете..."))
 			return FALSE
+
 		if(!limb.is_usable())
 			to_chat(src, span_warning("Ваша [hand ? "левая рука" : "правая рука"] слишком травмирована."))
 			return FALSE
 
+		if((hand == ACTIVE_HAND_RIGHT && right_hand_bleed_suppress_lib) || (hand == ACTIVE_HAND_LEFT && left_hand_bleed_suppress_lib))
+			to_chat(src, span_warning("Ваша [hand ? "левая рука" : "правая рука"] зажимает рану, сначала нужно отпустить."))
+			return FALSE
 
 /*
 	Animals & All Unspecified
@@ -134,7 +135,6 @@
 /mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag)
 	return atom.attack_alien(src)
 
-
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
 
@@ -174,7 +174,6 @@
 */
 /mob/new_player/ClickOn()
 	return
-
 
 // pAIs are not intended to interact with anything in the world
 /mob/living/silicon/pai/UnarmedAttack(atom/A, proximity_flag)

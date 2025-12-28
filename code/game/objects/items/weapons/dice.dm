@@ -35,11 +35,9 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
-
 /obj/item/storage/box/dice
 	name = "Коробка игральных костей"
 	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
-
 
 /obj/item/storage/box/dice/populate_contents()
 	new /obj/item/dice/d2(src)
@@ -49,7 +47,6 @@
 	new /obj/item/dice/d00(src)
 	new /obj/item/dice/d12(src)
 	new /obj/item/dice/d20(src)
-
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] игра[PLUR_ET_YUT(user)] со смертью! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_YUT(user)]ся покончить жизнь самоубийством!"))
@@ -80,18 +77,15 @@
 		PREPOSITIONAL = "игральной кости",
 	)
 
-
 /obj/item/dice/Initialize(mapload)
 	. = ..()
 	if(!result)
 		result = roll(sides)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/dice/update_overlays()
 	. = ..()
 	. += "[icon_state][result]"
-
 
 /obj/item/dice/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] играет со смертью! Похоже [user.p_theyre()] пытается покончить жизнь самоубийством!"))
@@ -165,10 +159,8 @@
 	icon_state = "d100"
 	sides = 100
 
-
 /obj/item/dice/d100/update_overlays()
 	return list()
-
 
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
@@ -239,7 +231,6 @@
 	add_game_logs("threw E20, detonating at [AREACOORD(epicenter)] with a roll of [actual_result].", user)
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
 	explosion(epicenter, devastation_range = round(result * 0.25), heavy_impact_range = round(result * 0.5), light_impact_range = round(result), flash_range = round(result * 1.5), adminlog = TRUE, ignorecap = capped, cause = (key_name(user)+" E20"))
-
 
 // Die of Fate
 /obj/item/dice/d20/fate

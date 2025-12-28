@@ -33,7 +33,6 @@
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return
 
-
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!iscarbon(target))
@@ -52,7 +51,6 @@
 	user.drop_transfer_item_to_loc(src, target)
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
@@ -415,7 +413,7 @@
 	icon_state = "pill6"
 	list_reagents = list("kelotane" = 10)
 
-/obj/item/reagent_containers/food/pill/bicaridine/get_ru_names()
+/obj/item/reagent_containers/food/pill/kelotane/get_ru_names()
 	return list(
 		NOMINATIVE = "таблетка (Келотан)",
 		GENITIVE = "таблетки (Келотан)",

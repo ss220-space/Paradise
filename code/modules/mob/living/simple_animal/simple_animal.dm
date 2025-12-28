@@ -49,7 +49,6 @@
 	/// Minimum force required to deal any damage.
 	var/force_threshold = 0
 
-
 	/// If the mob can catch fire
 	var/can_be_on_fire = FALSE
 	/// Damage the mob will take if it is on fire
@@ -216,7 +215,6 @@
 /mob/living/simple_animal/ComponentInitialize()
 	AddComponent(/datum/component/animal_temperature)
 
-
 ///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
 /mob/living/simple_animal/proc/tamed(whomst)
 	return
@@ -234,24 +232,20 @@
 	if(IsSleeping())
 		. += span_notice("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] спящ[GEND_IM_EI_IM_IMI(user)].")
 
-
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
 	. = ..()
 	set_health(clamp(health, 0, maxHealth))
 	med_hud_set_health()
-
 
 /mob/living/simple_animal/on_lying_down(new_lying_angle)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 
-
 /mob/living/simple_animal/on_standing_up()
 	. = ..()
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
-
 
 /mob/living/simple_animal/update_icons()
 	if(stat == DEAD)
@@ -267,7 +261,6 @@
 		if(collar_type)
 			collar_type = initial(collar_type)
 	regenerate_icons()
-
 
 /mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -291,7 +284,6 @@
 	set waitfor = FALSE
 	return
 
-
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
 	if(stop_automated_movement || !wander)
@@ -311,7 +303,6 @@
 		step_with_glide(direction = anydir)
 		turns_since_move = 0
 	return TRUE
-
 
 /mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
@@ -347,7 +338,6 @@
 						custom_emote(EMOTE_VISIBLE, pick(emote_see))
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
-
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	if(leash)
@@ -412,24 +402,19 @@
 		pcollar = null
 	..()
 
-
 /mob/living/simple_animal/say_quote(message)
 	if(length(speak_emote))
 		return get_verb(speak_emote)
 	return ..()
 
-
 /mob/living/simple_animal/proc/set_varspeed(var_value)
 	speed = var_value
 	update_simplemob_varspeed()
-
 
 /mob/living/simple_animal/proc/update_simplemob_varspeed()
 	if(speed == 0)
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
-
-
 
 /mob/living/simple_animal/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -440,7 +425,6 @@
 	if(length(loot))
 		for(var/i in loot)
 			new i(loc)
-
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -470,7 +454,6 @@
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -513,7 +496,6 @@
 		return
 	return ..()
 
-
 /mob/living/simple_animal/update_fire()
 	if(!can_be_on_fire)
 		return
@@ -522,14 +504,12 @@
 	if(on_fire)
 		add_overlay(simple_mob_fire_olay)
 
-
 /mob/living/simple_animal/revive()
 	..()
 	health = maxHealth
 	icon = initial(icon)
 	update_icons()
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-
 
 /mob/living/simple_animal/proc/check_if_child(mob/possible_child)
 	for(var/childpath in childtype)
@@ -586,7 +566,6 @@
 				return FALSE
 			return TRUE
 
-
 /mob/living/simple_animal/equip_to_slot(obj/item/item, slot, initial)
 	if(!istype(item))
 		return FALSE
@@ -606,7 +585,6 @@
 		if(ITEM_SLOT_NECK)
 			add_collar(item)
 
-
 /mob/living/simple_animal/do_unEquip(obj/item/item, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !item)
@@ -617,12 +595,10 @@
 		if(!QDELETED(src))
 			regenerate_icons()
 
-
 /mob/living/simple_animal/get_access()
 	. = ..()
 	if(pcollar)
 		. |= pcollar.GetAccess()
-
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF)
@@ -655,7 +631,6 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(AIStatus == togglestatus)
 		return
@@ -687,13 +662,11 @@
 	if(pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
 
-
 /mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
 	if(old_turf && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
 		toggle_ai(initial(AIStatus))
-
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
@@ -727,7 +700,6 @@
 
 	return old_collar
 
-
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
 	if(pcollar && collar_type)
@@ -748,12 +720,10 @@
 	. = ..()
 	toggle_ai(AI_ON)
 
-
 /mob/living/simple_animal/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	. = ..()
 	if(. && length(talk_sound))
 		playsound(src, pick(talk_sound), 75, TRUE)
-
 
 /mob/living/simple_animal/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(item.force && (item.get_final_force(user) < force_threshold || item.damtype == STAMINA))
@@ -768,7 +738,6 @@
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && item.force && length(damaged_sound))
 		playsound(loc, pick(damaged_sound), 40, TRUE)
-
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -808,14 +777,12 @@
 /mob/living/simple_animal/proc/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
-
 /mob/living/simple_animal/update_movespeed()
 	. = ..()
 	if(cached_multiplicative_slowdown > END_GLIDE_SPEED)
 		ADD_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
 	else
 		REMOVE_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
-
 
 /mob/living/simple_animal/proc/step_with_glide(atom/newloc, direction, speed_override)
 	if(client)

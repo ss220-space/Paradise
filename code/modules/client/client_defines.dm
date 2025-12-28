@@ -77,7 +77,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
@@ -107,8 +106,11 @@
 	/// Messages currently seen by this client
 	var/list/seen_messages
 
-	/// list of tabs containing spells and abilities
+	/// list of tabs containing spells and abilities //TODO vakons actions: remove if not used
 	var/list/spell_tabs = list()
+
+	/// datum wrapper for client view
+	var/datum/view_data/view_size
 
 	/// our current tab
 	var/stat_tab

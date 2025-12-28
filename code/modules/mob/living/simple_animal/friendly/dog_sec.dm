@@ -35,8 +35,6 @@
 	icon_dead = "german_shep2_dead"
 	tts_seed = "pantheon"
 
-
-
 /mob/living/simple_animal/pet/dog/security/Initialize(mapload)
 	. = ..()
 	regenerate_icons()
@@ -65,7 +63,6 @@
 /mob/living/simple_animal/pet/dog/security/death(gibbed)
 	..(gibbed)
 	regenerate_icons()
-
 
 /mob/living/simple_animal/pet/dog/security/place_on_head(obj/item/item_to_add, mob/user)
 
@@ -148,7 +145,6 @@
 			DF.obj_alpha = inventory_head.alpha
 		if(!DF.obj_color)
 			DF.obj_color = inventory_head.color
-
 
 		if(icon_state == icon_resting)
 			head_icon = DF.get_overlay()

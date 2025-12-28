@@ -68,7 +68,6 @@
 	else
 		agent = preset_agent
 
-
 	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.offstation_role = TRUE
@@ -231,7 +230,6 @@
 /obj/effect/landmark/abductor/agent
 /obj/effect/landmark/abductor/scientist
 
-
 // OBJECTIVES
 /datum/objective/experiment
 	needs_target = FALSE
@@ -249,7 +247,6 @@
 
 /datum/objective/experiment/New()
 	explanation_text = "Проведите эксперимент на [target_amount] гуманоид[declension_ru(target_amount, "е", "ах", "ах")]."
-
 
 /datum/objective/experiment/check_completion()
 	var/ab_team = abductor_team_number
@@ -269,7 +266,6 @@
 				return FALSE
 
 	return FALSE
-
 
 /datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
 	if(abductor_mind in abductors)

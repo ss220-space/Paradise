@@ -3,7 +3,7 @@
 	name = "Arcade Game"
 	desc = "One of the most generic arcade games ever."
 	icon = 'icons/obj/machines/arcade.dmi'
-	icon_state = "clawmachine_on"
+	icon_state = "clawmachine_1_on"
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 40
@@ -26,13 +26,13 @@
 		. += span_notice("Someone enabled freeplay on this machine!")
 	else
 		if(token_price)
-			. += span_notice("\The [src.name] costs [token_price] credits per play.")
+			. += "[src] costs [token_price] credits per play."
 		if(!tokens)
-			. += span_notice("\The [src.name] has no available play credits. Better feed the machine!")
+			. += "[src] has no available play credits. Better feed the machine!"
 		else if(tokens == 1)
-			. += span_notice("\The [src.name] has only 1 play credit left!")
+			. += "[src] has only 1 play credit left!"
 		else
-			. += span_notice("\The [src.name] has [tokens] play credits!")
+			. += "[src] has [tokens] play credits!"
 
 /obj/machinery/arcade/attack_hand(mob/user)
 	if(..())
@@ -78,7 +78,6 @@
 
 	return ..()
 
-
 /obj/machinery/arcade/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return FALSE
@@ -86,13 +85,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-
 /obj/machinery/arcade/crowbar_act(mob/living/user, obj/item/I)
 	if(!component_parts || !panel_open)
 		return FALSE
 	default_deconstruction_crowbar(user, I)
 	return TRUE
-
 
 /obj/machinery/arcade/proc/start_play(mob/user)
 	user.set_machine(src)

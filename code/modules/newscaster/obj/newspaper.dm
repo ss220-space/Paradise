@@ -9,7 +9,7 @@
  */
 /obj/item/newspaper
 	name = "newspaper"
-	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах Нанотрейзен."
+	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах \"Нанотрейзен\"."
 	gender = FEMALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"
@@ -61,7 +61,6 @@
 		INSTRUMENTAL = "газетой",
 		PREPOSITIONAL = "газете",
 	)
-
 
 /obj/item/newspaper/Initialize(mapload)
 	. = ..()

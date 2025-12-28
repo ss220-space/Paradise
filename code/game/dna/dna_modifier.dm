@@ -17,8 +17,13 @@
 	var/id = null
 	var/implant = null
 	var/ckey = null
-	var/mind = null
+	var/datum/weakref/mind = null
 	var/languages = null
+
+/datum/dna2/record/Destroy(force)
+	dna = null
+	mind = null
+	. = ..()
 
 /datum/dna2/record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)
@@ -46,7 +51,6 @@
 	newrecord.languages = languages
 	newrecord.implant = implant
 	return newrecord
-
 
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
@@ -178,7 +182,6 @@
 	put_in(L, user)
 	return TRUE
 
-
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -201,7 +204,6 @@
 
 	return ..()
 
-
 /obj/machinery/dna_scannernew/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
@@ -221,7 +223,6 @@
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
-
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -367,7 +368,6 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/machinery/computer/scan_consolenew/Initialize(mapload)
 	. = ..()

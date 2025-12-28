@@ -192,7 +192,6 @@
 		return
 	return ..()
 
-
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -230,7 +229,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -335,7 +333,7 @@
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(is_monkeybasic(M) && M.stat)
-				M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
+				M.visible_message("[capitalize(M.declent_ru(NOMINATIVE))] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 				recycler.use_power(500)
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
@@ -536,10 +534,9 @@
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)
-			M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
+			M.visible_message("[capitalize(M.declent_ru(NOMINATIVE))] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)
-
 
 #undef MAX_SLIME_IN_CONSOLE

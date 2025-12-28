@@ -39,7 +39,6 @@
 			PREPOSITIONAL = "прото-кинетическом крушителе",
 	)
 
-
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
 	return ..()
@@ -55,7 +54,6 @@
 			var/obj/item/crusher_trophy/T = t
 			. += span_notice("[icon2html(t, user)] <b>[capitalize(T.declent_ru(NOMINATIVE))]</b>: [T.effect_desc()].")
 
-
 /obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/crusher_trophy))
 		var/obj/item/crusher_trophy/trophy = I
@@ -64,7 +62,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/twohanded/kinetic_crusher/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -77,7 +74,6 @@
 			T.remove_from(src, user)
 	else
 		balloon_alert(user, "нет трофеев!")
-
 
 /obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
@@ -108,7 +104,6 @@
 	if(!QDELETED(damage_track) && !QDELETED(target))
 		damage_track.total_damage += target_health - target.health //we did some damage, but let's not assume how much we did
 
-
 /obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
@@ -129,7 +124,8 @@
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
-		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
+		var/modifiers = params2list(clickparams)
+		D.preparePixelProjectile(target, user, modifiers)
 		D.firer = user
 		D.firer_source_atom = src
 		D.hammer_synced = src
@@ -189,14 +185,12 @@
 	else
 		item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-
 /obj/item/twohanded/kinetic_crusher/update_overlays()
 	. = ..()
 	if(!charged)
 		. += "[icon_state]_uncharged"
 	if(light_on)
 		. += "[icon_state]_lit"
-
 
 //destablizing force
 /obj/projectile/destabilizer
@@ -234,12 +228,9 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		if(isancientturf(target_turf))
-			visible_message(span_notice("Похоже, что эту породу возьмёт только кирка!"))
-		else
-			var/turf/simulated/mineral/M = target_turf
-			new /obj/effect/temp_visual/kinetic_blast(M)
-			M.attempt_drill(firer)
+		var/turf/simulated/mineral/mineral = target_turf
+		new /obj/effect/temp_visual/kinetic_blast(mineral)
+		mineral.attempt_drill(firer)
 	..()
 
 //trophies
@@ -268,7 +259,6 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-
 /obj/item/crusher_trophy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/twohanded/kinetic_crusher))
 		add_fingerprint(user)
@@ -276,7 +266,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/crusher_trophy/proc/add_to(obj/item/twohanded/kinetic_crusher/crusher, mob/living/user)
 	for(var/obj/item/crusher_trophy/crusher_trophy as anything in crusher.trophies)
@@ -795,10 +784,7 @@
 /obj/projectile/destabilizer/mega/on_hit(atom/target, blocked = FALSE)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		if(isancientturf(target_turf))
-			visible_message(span_notice("Похоже, что эту породу возьмёт только кирка!"))
-			forcedodge = 0
-		else if(istype(target_turf, /turf/simulated/mineral/gibtonite))
+		if(istype(target_turf, /turf/simulated/mineral/gibtonite))
 			var/turf/simulated/mineral/gibtonite/gib = target
 			if(gib.stage == 0)
 				gib.defuse()

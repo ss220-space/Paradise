@@ -187,7 +187,6 @@
 		spawn_pos?.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
 		spawn_pos?.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
 
-
 /datum/anomaly_impulse/atmosfastmove
 	name = "Рывок"
 	desc = "Аномалия быстро двигается в определенном направлении сжигая все на своем пути."

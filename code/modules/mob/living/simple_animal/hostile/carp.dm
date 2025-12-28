@@ -69,7 +69,6 @@
 		PREPOSITIONAL = "космокарпе",
 	)
 
-
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify(rarechance)
@@ -186,7 +185,6 @@
 	melee_damage_upper += rand(10, 20)
 	maxHealth += rand(60, 90)
 
-
 /mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -197,7 +195,6 @@
 	. = ..()
 	if(. && amount > 0)
 		regen_cooldown = world.time + REGENERATION_DELAY
-
 
 /mob/living/simple_animal/hostile/carp/megacarp/Life()
 	..()

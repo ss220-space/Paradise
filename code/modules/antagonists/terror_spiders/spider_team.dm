@@ -24,7 +24,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	RegisterSignal(SSdcs, COMSIG_GLOB_IFECTION_CREATED, PROC_REF(on_terror_infection_created))
 	RegisterSignal(SSdcs, COMSIG_GLOB_IFECTION_REMOVED, PROC_REF(on_terror_infection_removed))
 
-
 /datum/team/terror_spiders/Destroy(force)
 	. = ..()
 	UnregisterSignal(SSdcs, list(COMSIG_GLOB_EMPRESS_EGG_DESTROYED, COMSIG_GLOB_IFECTION_REMOVED, COMSIG_GLOB_EMPRESS_EGG_BURST, COMSIG_GLOB_IFECTION_CREATED))
@@ -80,7 +79,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		if(!QDELETED(spider) && spider?.current?.stat != DEAD)
 			return TRUE
 	return FALSE
-
 
 /datum/team/terror_spiders/proc/on_terror_infection_created(source, eggs)
 	SIGNAL_HANDLER
@@ -138,7 +136,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	ASYNC
 		SSshuttle?.remove_hostile_environment(mind)
 
-
 /datum/team/terror_spiders/proc/on_terror_infection_removed(source, eggs)
 	SIGNAL_HANDLER
 	terror_infections -= eggs
@@ -150,7 +147,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		SEND_SIGNAL(spider, COMSIG_EMPRESS_EGG_LAYED)
 	give_protect_egg_objective()
 	addtimer(CALLBACK(src, PROC_REF(egg_announce)), TIME_TO_ANNOUNCE)
-
 
 /datum/team/terror_spiders/proc/give_protect_egg_objective()
 	if(!protect_egg)
@@ -194,7 +190,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	for(var/egg in terror_eggs)
 		qdel(egg)
 
-
 /datum/team/terror_spiders/proc/delay_terror_win()
 	delay_terror_end = TRUE
 
@@ -237,7 +232,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		text += "<br/>Защита яйца: [protect_egg.explanation_text] [completed ? span_green("<b>Успех!</b>"): span_red("Провал.")]"
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_egg.type]", completed ? "SUCCESS" : "FAIL"))
 	return text
-
 
 /datum/team/terror_spiders/declare_completion()
 	var/list/terror_queens = main_spiders[TERROR_QUEEN]
@@ -312,7 +306,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 		log_and_message_admins("has [delay_terror_end? "stopped" : "returned"] stopped delayed terror win")
 
-
 /proc/create_terror_spiders(type, count)
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_type = get_spider_type(type)
 
@@ -345,7 +338,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		log_game("[spider.key] has become [spider].")
 
 	return successSpawn
-
 
 /proc/get_spider_type(text_type)
 	switch(text_type)

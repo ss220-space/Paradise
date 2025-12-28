@@ -189,7 +189,6 @@
 		busy = FALSE
 		return
 
-
 	if(target.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = target.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!heart || heart.is_dead())
@@ -264,7 +263,7 @@
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 
-		target.update_revive(TRUE, TRUE)
+		target.update_revive(updating = TRUE, force = FALSE, defib_revive = TRUE)
 		target.Paralyse(12 SECONDS)
 		target.emote("gasp")
 

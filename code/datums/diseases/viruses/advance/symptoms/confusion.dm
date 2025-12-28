@@ -26,7 +26,6 @@ Bonus
 	level = 3
 	severity = 2
 
-
 /datum/symptom/confusion/Activate(datum/disease/virus/advance/A)
 	..()
 	var/mob/living/carbon/M = A.affected_mob

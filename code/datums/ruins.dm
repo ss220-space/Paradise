@@ -26,7 +26,6 @@
 	mappath = prefix + suffix
 	..(path = mappath)
 
-
 /datum/map_template/ruin/proc/check_specials()
 	return
 

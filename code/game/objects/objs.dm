@@ -1,46 +1,61 @@
 /obj
-	var/obj_flags = NONE
-	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/crit_fail = FALSE
 	animate_movement = SLIDE_STEPS
-	var/sharp = FALSE		// whether this object cuts
-	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-	var/damtype = "brute"
+	var/obj_flags = NONE
+	/// Used by R&D to determine what research bonuses it grants.
+	var/origin_tech = null
+	var/crit_fail = FALSE
+	/// Can this object cut?
+	var/sharp = FALSE
+	/// If we have a user using us, this will become `TRUE`. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+	var/in_use = FALSE
+	/// What type of damage does this object deal?
+	var/damtype = BRUTE
+	/// How much damage this object does in melee.
 	var/force = 0
 	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
 	// which would be converted to armor datum during initialization.
 	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
 	var/datum/armor/armor
-	var/obj_integrity	//defaults to max_integrity
+	/// Health of the object. If unspecified, defaults to `max_integrity`.
+	var/obj_integrity
+	/// Maximum health of the object, and default value of `obj_integrity`.
 	var/max_integrity = 500
-	var/integrity_failure = 0 //0 if we have no special broken behavior
-	///Damage under this value will be completely ignored
+	/// Health threshold below which the object will break. Defaults to 0 for no special broken behavior.
+	var/integrity_failure = 0
+	/// Damage under this value will be completely ignored.
 	var/damage_deflection = 0
-
-	var/resistance_flags = NONE // INDESTRUCTIBLE
-	/// Update_fire_overlay will check if a different icon state should be used
+	/// Flags that make this object harder to destroy, e.g. [ACID_PROOF], [FIRE_PROOF], [INDESTRUCTIBLE].
+	var/resistance_flags = NONE
+	/// If provided, a custom overlay representing being the object being on fire.
 	var/custom_fire_overlay
-
-	var/acid_level = 0 //how much acid is on that obj
-
+	/// How much acid is on this object?
+	var/acid_level = 0
+	/// Is this object currently being zapped by lightning?
 	var/being_shocked = FALSE
+	/// Should this object speed process? Greatly increases the frequency of process events (5 times more frequent).
 	var/speed_process = FALSE
-
-	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
-	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
-
-	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
+	/// Are we visible on the station blueprints at roundstart?
+	var/on_blueprints = FALSE
+	/// Does this object require you to hold it to commit suicide with it?
+	var/suicidal_hands = FALSE
+	/// Typepath of a datum/multitool_menu subtype or null.
+	var/multitool_menu_type = null
 	var/datum/multitool_menu/multitool_menu
 
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
+	/// List of accesses needed to use this object: The user must possess all accesses in this list in order to use the object.
+	/// Example: If req_access = list(ACCESS_ENGINE, ACCESS_CE)- then the user must have both ACCESS_ENGINE and ACCESS_CE in order to use the object.
 	var/list/req_access
 	var/check_one_access = TRUE
 
 	/// Icon to use as a 32x32 preview in crafting menus and such
 	var/icon_preview
 	var/icon_state_preview
+
+	/// Is this object emagged?
+	var/emagged = FALSE
 
 /obj/Initialize(mapload)
 	. = ..()
@@ -174,7 +189,6 @@
 		if(!ai_in_use && !is_in_use)
 			in_use = FALSE
 
-
 /**
  * Hidden uplink interaction proc. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
  *
@@ -208,7 +222,9 @@
 /obj/proc/hide(h)
 	return
 
-/obj/proc/hear_talk(mob/M, list/message_pieces)
+/obj/proc/hear_talk(mob/speaker, list/message_pieces)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
 	return
 
 /obj/proc/hear_message(mob/M, text)
@@ -309,7 +325,6 @@
 	if(!sharp && new_sharp_val)
 		AddComponent(/datum/component/surgery_initiator)
 
-
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
@@ -329,7 +344,6 @@
 		return A
 
 	return locate(/obj) in A
-
 
 #define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
 

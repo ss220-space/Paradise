@@ -7,7 +7,7 @@
 	var/modules_spawn_chance = 0
 
 /datum/loot_tier/proc/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)
-	if(!istype(crate))
+	if(!isatom(crate))
 		return
 
 	for(var/i in 1 to loot_count)
@@ -118,9 +118,9 @@
 		/obj/item/gun/energy/xray,
 		list(
 			/obj/item/gun/energy/specter,
-			/obj/item/stock_parts/cell/specter,
-			/obj/item/stock_parts/cell/specter,
-			/obj/item/stock_parts/cell/specter,
+			/obj/item/weapon_cell/specter,
+			/obj/item/weapon_cell/specter,
+			/obj/item/weapon_cell/specter,
 		),
 		list(
 			/obj/item/gun/projectile/revolver/ga12,
@@ -129,7 +129,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/ppsh,
+			/obj/item/gun/projectile/automatic/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 		),
@@ -144,6 +144,14 @@
 			/obj/item/ammo_box/shotgun,
 			/obj/item/ammo_box/shotgun/buck,
 			/obj/item/ammo_box/speedloader/shotgun,
+		),
+		list(
+			/obj/item/gun/projectile/revolver/taurus,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/c45colt,
+			/obj/item/ammo_box/c45colt,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/pistol,
@@ -203,6 +211,12 @@
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
+		),
+		list(
+			/obj/item/gun/projectile/automatic/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
 		),
 		/obj/item/gun/syringe/rapidsyringe/experimental/preloaded,
 		/obj/item/storage/belt/security/judobelt,
@@ -303,7 +317,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/aksu,
+			/obj/item/gun/projectile/automatic/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
@@ -415,6 +429,7 @@
 		/obj/item/melee/energy/sword/pirate,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/weldingtool/sword,
+		/obj/item/twohanded/spear/secspear,
 		/obj/item/dnainjector/hulkmut,
 		/obj/item/dnainjector/farvisionmut,
 		/obj/item/relict_production/strange_teleporter,
@@ -738,10 +753,16 @@
 			/obj/item/ammo_box/shotgun/improvised,
 		),
 		CALIBER_SPECTER = list(
-			/obj/item/stock_parts/cell/specter,
+			/obj/item/weapon_cell/specter,
 		),
 		CALIBER_5_DOT_56X45MM = list(
 			/obj/item/ammo_box/a556,
+		),
+		CALIBER_DOT_45_COLT = list(
+			/obj/item/ammo_box/c45colt,
+			/obj/item/ammo_box/rubber45colt,
+			/obj/item/ammo_box/expansive45colt,
+			/obj/item/ammo_box/ap45colt,
 		),
 		CALIBER_5_DOT_45X39MM = list(
 			/obj/item/ammo_box/ak814/fusty,

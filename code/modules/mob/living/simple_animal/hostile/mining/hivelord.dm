@@ -39,7 +39,6 @@
 		PREPOSITIONAL = "рое",
 	)
 
-
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(loc)
@@ -112,7 +111,6 @@
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
 
-
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
 	desc = "Живая нить из крови и чужеродных материалов."
@@ -148,13 +146,13 @@
 		transfer_reagents(target, 1)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_hand(mob/living/carbon/human/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
@@ -178,7 +176,7 @@
 	reagents.trans_to(C, volume)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/C)
-	faction = list("\ref[src]", "\ref[C]") // Hostile to everyone except the host.
+	faction = list(PERSONAL_FACTION(src), PERSONAL_FACTION(C)) // Hostile to everyone except the host.
 	C.transfer_blood_to(src, 30)
 	color = mix_color_from_reagents(reagents.reagent_list)
 
@@ -430,7 +428,6 @@
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	. = ..()
 	H.force_gene_block(GLOB.smallsizeblock, TRUE)
-
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))

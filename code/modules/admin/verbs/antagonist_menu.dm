@@ -124,7 +124,6 @@
 		temp_list["max_health"] = player.maxHealth
 		cached_data["security"] += list(temp_list)
 
-
 /datum/ui_module/admin/antagonist_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return

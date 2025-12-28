@@ -15,9 +15,9 @@
 	. = ..()
 	switch(state)
 		if(PLASTIC_FLAPS_NORMAL)
-			. += "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>"
+			. += span_notice("[src] are <b>screwed</b> to the floor.")
 		if(PLASTIC_FLAPS_DETACHED)
-			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
+			. += span_notice("[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.")
 
 /obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -53,7 +53,6 @@
 		P.add_fingerprint(user)
 		qdel(src)
 
-
 /obj/structure/plasticflaps/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 
@@ -79,7 +78,6 @@
 		if(living_mover.body_position != LYING_DOWN && living_mover.mob_size != MOB_SIZE_TINY && !is_ventcrawler(living_mover))	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
 
-
 /obj/structure/plasticflaps/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(pass_info.is_living)
 		if(pass_info.is_bot)
@@ -90,7 +88,6 @@
 	if(pass_info.pulling_info)
 		return CanAStarPass(to_dir, pass_info.pulling_info)
 	return TRUE //diseases, stings, etc can pass
-
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

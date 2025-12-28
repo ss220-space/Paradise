@@ -37,25 +37,25 @@
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 			if(anchored)
-				. += "<span class='notice'>The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.</span>"
+				. += span_notice("The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.")
 			else
-				. += "<span class='notice'>The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.</span>"
+				. += span_notice("The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.")
 		if(AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-			. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
+			. += span_notice("The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.")
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-			. += "<span class='notice'>The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			. += span_notice("The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.")
 			if(access_electronics)
 				. += span_notice("The access control circuit is connected to its slot.")
 			else
 				. += span_notice("The access control slot is empty.")
 	if(!mineral && !glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.")
 	else if(!mineral && glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for mineral covers.</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for mineral covers.")
 	else if(mineral && !glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.")
 	else
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname].")
 
 /obj/structure/door_assembly/attack_hand(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
@@ -64,7 +64,6 @@
 		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	. = ..()
-
 
 /obj/structure/door_assembly/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -211,7 +210,6 @@
 
 	return ..()
 
-
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
@@ -263,6 +261,14 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 
+	if(access_electronics?.shell)
+		door.AddComponent( \
+			/datum/component/shell, \
+			unremovable_circuit_components = list(new /obj/item/circuit_component/airlock, new /obj/item/circuit_component/airlock_access_event), \
+			capacity = SHELL_CAPACITY_LARGE, \
+			shell_flags = SHELL_FLAG_ALLOW_FAILURE_ACTION|SHELL_FLAG_REQUIRE_ANCHOR \
+		)
+
 	door.airlock_electronics = airlock_electronics
 	door.id_tag = airlock_electronics.id
 	airlock_electronics.forceMove(door)
@@ -282,7 +288,6 @@
 	door.update_appearance()
 	qdel(src)
 
-
 /obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
@@ -296,7 +301,6 @@
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
-
 
 /obj/structure/door_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -352,7 +356,6 @@
 		to_chat(user, span_notice("You disassemble the airlock assembly."))
 		deconstruct(TRUE)
 
-
 /obj/structure/door_assembly/update_overlays()
 	. = ..()
 	if(!glass)
@@ -360,7 +363,6 @@
 	else if(glass)
 		. += get_airlock_overlay("glass_construction", overlays_file)
 	. += get_airlock_overlay("panel_c[state+1]", overlays_file)
-
 
 /obj/structure/door_assembly/update_name(updates = ALL)
 	. = ..()
@@ -374,7 +376,6 @@
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 			name = "near finished "
 	name += "[heat_proof_finished ? "heat-proofed " : ""][glass ? "window " : ""][base_name] assembly"
-
 
 /obj/structure/door_assembly/proc/transfer_assembly_vars(obj/structure/door_assembly/source, obj/structure/door_assembly/target, previous = FALSE)
 	target.glass = source.glass

@@ -8,8 +8,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team1
 	insurance_type = INSURANCE_TYPE_NONE
-	min_start_money = 0
-	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
@@ -30,7 +28,6 @@
 	name = "Команда 1"
 	jobtype = /datum/job/civilian/team1
 
-
 	uniform = /obj/item/clothing/under/color/green
 	shoes = /obj/item/clothing/shoes/green
 	l_ear = /obj/item/radio/headset/green
@@ -45,8 +42,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team2
 	insurance_type = INSURANCE_TYPE_NONE
-	min_start_money = 0
-	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
@@ -72,8 +67,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team3
 	insurance_type = INSURANCE_TYPE_NONE
-	min_start_money = 0
-	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE

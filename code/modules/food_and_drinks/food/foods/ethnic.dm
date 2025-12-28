@@ -24,7 +24,6 @@
 	tastes = list("torilla" = 2, "meat" = 3)
 	foodtype = MEAT | VEGETABLES
 
-
 /obj/item/reagent_containers/food/snacks/chimichanga
 	name = "chimichanga"
 	desc = "Time to eat a chimi-f***ing-changa."
@@ -197,7 +196,6 @@
 	tastes = list("rice" = 1)
 	foodtype = FRIED | GRAIN | VEGETABLES
 
-
 //////////////////////
 //	Japanese		//
 //////////////////////
@@ -222,7 +220,6 @@
 	filling_color = "#8B1105"
 	tastes = list("sweet potato" = 1)
 	foodtype = VEGETABLES | SUGAR
-
 
 //////////////////////
 //	Middle Eastern	//

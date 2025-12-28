@@ -97,7 +97,6 @@
 	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
-
 /obj/item/organ/internal/brain/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
 
 	name = "[initial(name)]"
@@ -133,15 +132,12 @@
 
 	..(target, special)
 
-
 /obj/item/organ/internal/brain/internal_receive_damage(amount = 0, silent = FALSE) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
 	owner?.apply_damage(amount, BRAIN)
-
 
 /obj/item/organ/internal/brain/necrotize(silent = FALSE) //Brain also has special handling for when it necrotizes
 	if(..() && owner && vital)
 		owner.setBrainLoss(120)
-
 
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.

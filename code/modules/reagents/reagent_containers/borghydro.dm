@@ -35,7 +35,7 @@
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
-	desc = "Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования. Специальная версия, производимая Синдикатом для установки в боевых роботов поддержики, оснащённая передовыми лечебными препаратами."
+	desc = "Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования. Специальная версия, производимая \"Синдикатом\" для установки в боевых роботов поддержики, оснащённая передовыми лечебными препаратами."
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
@@ -90,7 +90,6 @@
 	set hidden = TRUE
 	return
 
-
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	for(var/R in reagent_ids)
 		add_reagent(R)
@@ -98,11 +97,9 @@
 
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/reagent_containers/borghypo/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	charge_tick++
@@ -129,7 +126,6 @@
 	//update_icon()
 	return TRUE
 
-
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/add_reagent(reagent)
 	reagent_ids |= reagent
@@ -140,14 +136,12 @@
 	var/datum/reagents/R = reagent_list[length(reagent_list)]
 	R.add_reagent(reagent, 30)
 
-
 /obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
 		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
 		R.cell.use(charge_cost)
 		return TRUE
 	return FALSE
-
 
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -174,10 +168,8 @@
 	add_attack_logs(user, target, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
 	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)]. В хранилище осталось ещё <b>[our_reagents.total_volume]</b> единиц[declension_ru(our_reagents.total_volume, "а", "ы", "")] вещества."))
 
-
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	radial_menu(user)
-
 
 /obj/item/reagent_containers/borghypo/proc/radial_menu(mob/user)
 	var/list/choices = list()
@@ -192,7 +184,6 @@
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
 	to_chat(user, span_notice("Конфигурация синтезатора обновлена. Активирован синтез вещества \"[R.name]\"."))
-
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()
@@ -211,7 +202,6 @@
 
 		if(empty)
 			. += span_notice("Пусто.")
-
 
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
@@ -254,12 +244,11 @@
 
 /obj/item/reagent_containers/borghypo/emagged
 	name = "ERR3NU1l_INJ3C70R"
-	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом Синдиката. Кто бы мог подумать, что роботы Нанотрейзен способы синтезировать такое?"
+	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом \"Синдиката\". Кто бы мог подумать, что роботы \"Нанотрейзен\" способы синтезировать такое?"
 	item_state = "borghypo_emag"
 	icon_state = "borghypo_emag"
 	amount_per_transfer_from_this = 10
-	// volume = 30
-	var/emagged = TRUE
+	emagged = TRUE
 	var/safety_hypo = FALSE
 	reagent_ids = list( \
 		"amanitin" = list('icons/obj/hydroponics/harvest.dmi', "amanita"), \

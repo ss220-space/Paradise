@@ -84,7 +84,6 @@
 		GLOB.morphs_announced = TRUE
 		SSshuttle.emergency.cancel()
 
-
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	mimic_spell = new
@@ -108,7 +107,6 @@
 	RemoveSpell(pass_airlock_spell)
 	pass_airlock_spell = null
 	return ..()
-
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
 	AddComponent( \
@@ -158,7 +156,6 @@
 	forcewall.human_req = FALSE
 	AddSpell(smoke)
 	AddSpell(forcewall)
-
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
@@ -240,7 +237,6 @@
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
 
-
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
 	ambush_prepared = TRUE
 	to_chat(src, span_sinister("Вы готовы к внезапной атаке. Ваш следующий удар нанесёт больше урона и ослабит цель! Движение прервёт концентрацию. Бездействие улучшит маскировку."))
@@ -258,11 +254,9 @@
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
 	to_chat(src, span_sinister("Вы стали совершенной копией... Они даже не заподозрят подмену."))
 
-
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
 	to_chat(src, span_warning("Вы покинули место засады!"))
-
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
@@ -293,7 +287,6 @@
 	if(morphed)
 		return mimic_spell.restore_form(src);
 
-
 /mob/living/simple_animal/hostile/morph/attackby(obj/item/item, mob/living/user)
 	if(stat == DEAD)
 		restore_form()
@@ -322,7 +315,6 @@
 
 	restore_form()
 	return ..()
-
 
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/animal)
 	if(animal.a_intent == INTENT_HELP && ambush_prepared)
@@ -401,7 +393,6 @@
 	if(. && morphed)
 		restore_form()
 
-
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
 	enable_reproduce(TRUE)
 	mind.assigned_role = SPECIAL_ROLE_MORPH
@@ -440,18 +431,14 @@
 
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
-
 /mob/living/simple_animal/hostile/morph/get_examine_time()
 	return morphed ? mimic_spell.selected_form.examine_time : ..()
-
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()
 
-
 /mob/living/simple_animal/hostile/morph/get_visible_species()
 	return morphed ? mimic_spell.selected_form.examine_species : ..()
-
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST

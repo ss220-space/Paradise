@@ -99,7 +99,6 @@
 	nutritional_value = 10, \
 	)
 
-
 //ACCESSORY
 /obj/item/clothing/accessory/add_eatable_component()
 	AddComponent( \
@@ -160,7 +159,6 @@
 	nutritional_value = 5, \
 	is_only_grab_intent = TRUE, \
 	)
-
 
 //GLOVES
 /obj/item/clothing/gloves/add_eatable_component()
@@ -226,7 +224,6 @@
 	nutritional_value = 10, \
 	)
 
-
 //MASK
 /obj/item/clothing/mask/bandana/add_eatable_component()
 	AddComponent( \
@@ -236,7 +233,6 @@
 	integrity_bite = 20, \
 	nutritional_value = 10, \
 	)
-
 
 //HEAD
 /obj/item/clothing/head/add_eatable_component()
@@ -374,7 +370,6 @@
 	nutritional_value = 10, \
 	)
 
-
 //SUIT
 /obj/item/clothing/suit/add_eatable_component()
 	AddComponent( \
@@ -476,8 +471,6 @@
 	integrity_bite = 20, \
 	nutritional_value = 10, \
 	)
-
-
 
 //Full Costume
 /obj/item/clothing/head/cardborg/add_eatable_component()

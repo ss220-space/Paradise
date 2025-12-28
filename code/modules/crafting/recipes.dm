@@ -417,7 +417,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
 	result = /obj/item/twohanded/chainsaw_handmade
@@ -455,7 +454,6 @@
 	time = 4 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-
 
 /datum/crafting_recipe/handmade_suppressor
 	name = "Самодельный глушитель"
@@ -2118,7 +2116,6 @@
 	)
 	category = CAT_MISC
 
-
 /datum/crafting_recipe/advanced_burn_kit
 	name = "Набор для лечения терм. повреждений"
 	result = /obj/item/stack/medical/ointment/advanced
@@ -2127,7 +2124,6 @@
 		/datum/reagent/medicine/silver_sulfadiazine = 120,
 	)
 	category = CAT_MISC
-
 
 /datum/crafting_recipe/suture_kit
 	name = "Набор для зашивания ран"

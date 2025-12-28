@@ -10,7 +10,8 @@
 	desc = "Один из самых популярных способов осветить пространство в средневековых замках."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "torch_holder_item"
-	mount_reqs = list("simfloor", "nospace")
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 0
 
 /obj/item/mounted/frame/torch_holder/get_ru_names()
 	return list(
@@ -253,7 +254,6 @@
 	desc = "Красиво выглядящее крепление для факела. Поверхность проржавела от времени, а сам факел практически прирос к креплению."
 	icon_state = "torch_holder_complete"
 	ancient = TRUE
-
 
 /obj/structure/torch_holder/mapping/get_ru_names()
 	return list(

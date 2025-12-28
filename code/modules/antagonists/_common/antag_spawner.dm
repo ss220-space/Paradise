@@ -101,7 +101,7 @@
 	poll_icon_file = 'icons/mob/robots.dmi'
 	poll_icon_state = "syndi-engi-preview"
 
-#define SYNDICATE_CYBORG "Борг Синдиката"
+#define SYNDICATE_CYBORG "Борг \"Синдиката\""
 #define NUCLEAR_OPERATIVE "Ядерный Оперативник"
 #define CANCER_SWITCH_ROLES_CHOICE "Не активировать этот робот-телепортатор"
 
@@ -188,7 +188,10 @@
 	if(demon_type == /mob/living/simple_animal/demon/slaughter/laughter)
 		type = "laughter"
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
-
+	
+	if(QDELETED(src) || QDELETED(loc))
+		return
+	
 	if(length(candidates) > 0)
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
@@ -199,7 +202,6 @@
 	else
 		used = FALSE
 		to_chat(user, span_notice("The demons do not respond to your summon. Perhaps you should try again later."))
-
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
@@ -234,7 +236,6 @@
 	objective_verb = "Hug and tickle"
 	demon_type = /mob/living/simple_animal/demon/slaughter/laughter
 
-
 /obj/item/antag_spawner/slaughter_demon/shadow
 	name = "vial of shadow"
 	desc = "A magically infused bottle of pure darkness, distilled from \
@@ -244,7 +245,6 @@
 	veil_msg = span_warning("You sense a dark presence \
 		lurking in the shadows...")
 	demon_type = /mob/living/simple_animal/demon/shadow
-
 
 ///////////MORPH
 
@@ -272,7 +272,10 @@
 	to_chat(user, span_notice("You break the seal on the bottle, calling upon the dire sludge to awaken..."))
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 10 SECONDS, source = morph_type)
-
+	
+	if(QDELETED(src) || QDELETED(loc))
+		return
+	
 	if(length(candidates) > 0)
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
@@ -304,7 +307,6 @@
 	var/list/messages = M.mind.prepare_announce_objectives()
 	to_chat(M, chat_box_red(messages.Join("<br>")))
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
-
 
 ///////////Pulse Demon
 
@@ -338,6 +340,9 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
+	if(QDELETED(T))
+		return
+	
 	if(!length(candidates))
 		used = FALSE
 		to_chat(user, span_notice("The creature does not come to life. Perhaps you should try again later."))

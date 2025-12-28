@@ -6,7 +6,6 @@
 #define DNA_EMPTY_DATA "Пустой"
 #define DNA_UNKNOWN_DISABILITY_DATA "Неизвестная болезнь"
 
-
 /obj/item/dna_notepad
 	name = "genetic notepad"
 	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
@@ -279,7 +278,6 @@
 		if(istype(gene, /datum/dna/gene/basic))
 			color = DNA_COLOR_POWER
 		write_dna_data(gene.block, gene.name, color)
-
 
 #undef DNA_COUNT
 #undef DNA_COLOR_UNKNOWN

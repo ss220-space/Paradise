@@ -21,7 +21,6 @@
 	/// Aditional text of question
 	var/question_text
 
-
 /datum/component/ghost_direct_control/Initialize(
 	ban_type = ROLE_SENTIENT,
 	role_name = null,
@@ -182,7 +181,6 @@
 	to_chat(harbinger, span_boldnotice(assumed_control_message))
 	after_assumed_control?.Invoke(harbinger)
 	qdel(src)
-
 
 /datum/component/ghost_direct_control/proc/on_ghost_controlable_check(mob/user)
 	SIGNAL_HANDLER

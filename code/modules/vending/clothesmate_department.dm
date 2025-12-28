@@ -124,7 +124,7 @@
 				/obj/item/clothing/suit/tracksuit/red = 5,
 				/obj/item/clothing/suit/hooded/wintercoat/security = 5,
 				/obj/item/clothing/suit/jacket/pilot = 5,
-				/obj/item/clothing/suit/armor/vest/sec_rps = 5,
+				/obj/item/clothing/suit/storage/sec_rps = 5,
 				/obj/item/clothing/suit/armor/secjacket = 5,
 				/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
 				/obj/item/clothing/suit/storage/brigdoc = 3,
@@ -749,7 +749,6 @@
 		INSTRUMENTAL = "торговым автоматом Departament Service ClothesMate Chaplain",
 		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Chaplain",
 	)
-
 
 /obj/machinery/vending/department_clothesmate/service/botanical
 	name = "Departament Service ClothesMate Botanical"

@@ -12,11 +12,9 @@
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
 
-
 /atom/movable/MouseDrop_T(mob/living/dropping, mob/living/user, params)
 	. = ..()
 	return mouse_buckle_handling(dropping, user)
-
 
 /atom/movable/attack_robot(mob/living/user)
 	. = ..()
@@ -32,7 +30,6 @@
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
 
-
 /**
  * Does some typechecks and then calls user_buckle_mob
  *
@@ -44,13 +41,11 @@
 	if(can_buckle && istype(target) && istype(user))
 		return user_buckle_mob(target, user, check_loc = FALSE)
 
-
 /**
  * Returns amount of mobs buckled to us.
  */
 /atom/movable/proc/has_buckled_mobs()
 	return length(buckled_mobs)
-
 
 /**
  * Set a mob as buckled to src
@@ -107,13 +102,11 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, target, force)
 	return TRUE
 
-
 /obj/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE)
 	. = ..()
 	if(. && (resistance_flags & ON_FIRE))	//Sets the mob on fire if you buckle them to a burning atom/movableect
 		target.adjust_fire_stacks(1)
 		target.IgniteMob()
-
 
 /atom/movable/proc/on_set_anchored(atom/movable/source, anchorvalue)
 	SIGNAL_HANDLER
@@ -123,7 +116,6 @@
 			ADD_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
 		else
 			REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
-
 
 /**
  * Set a mob as unbuckled from src
@@ -168,7 +160,6 @@
 		var/turf/pitfall = buckled_mob.loc
 		pitfall?.zFall(buckled_mob)
 
-
 /**
  * Call [/atom/movable/proc/unbuckle_mob] for all buckled mobs
  */
@@ -178,7 +169,6 @@
 	for(var/mob in buckled_mobs)
 		unbuckle_mob(mob, force)
 
-
 /**
  * Handle any extras after buckling.
  * Called on buckle_mob()
@@ -186,14 +176,12 @@
 /atom/movable/proc/post_buckle_mob(mob/living/target)
 	return
 
-
 /**
  * Handle any extras after unbuckling.
  * Called on unbuckle_mob()
  */
 /atom/movable/proc/post_unbuckle_mob(mob/living/target)
 	return
-
 
 /**
  * Simple helper proc that runs a suite of checks to test whether it is possible or not to buckle the target mob to src.
@@ -257,7 +245,6 @@
 
 	return TRUE
 
-
 /**
  * Simple helper proc that runs a suite of checks to test whether it is possible or not for user to buckle target mob to src.
  *
@@ -281,7 +268,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /**
  * Handles a mob buckling another mob to src and sends a visible_message
@@ -332,7 +318,6 @@
 				span_italics("Слышен лязг металла."),
 			)
 
-
 /**
  * Handles a user unbuckling a mob from src and sends a visible_message
  *
@@ -363,7 +348,6 @@
 		if(isliving(buckled_mob.pulledby))
 			buckled_mob.pulledby.set_pull_offsets(buckled_mob, buckled_mob.pulledby.grab_state)
 	return buckled_mob
-
 
 /mob/living/proc/check_buckled()
 	if(buckled && !(buckled in loc))

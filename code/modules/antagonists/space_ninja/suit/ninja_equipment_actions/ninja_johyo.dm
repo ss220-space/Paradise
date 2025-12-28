@@ -4,8 +4,6 @@
 	Has a pulse launcher that allowes you to shot it at an incredible speed, and grab your victims to get them right next to you! Energy cost: 500"
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 5 SECONDS
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "kunai"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
@@ -49,7 +47,6 @@
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/johyo/my_action = null
 
-
 /obj/item/gun/magic/johyo/Destroy()
 	. = ..()
 	my_suit.integrated_harpoon = null
@@ -58,17 +55,14 @@
 	my_action.toggle_button_on_off()
 	my_action = null
 
-
 /obj/item/gun/magic/johyo/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
-
 
 /obj/item/gun/magic/johyo/run_drop_held_item(mob/user)
 	qdel(src)
 
-
 /obj/item/gun/magic/johyo/can_trigger_gun(mob/living/user)
-	if(!my_action.IsAvailable(show_message = TRUE, ignore_ready = TRUE))
+	if(!my_action.IsAvailable(feedback = TRUE))
 		return FALSE
 	if(!my_suit.ninjacost(cost*burst_size))
 		my_action.use_action()
@@ -81,6 +75,7 @@
 	projectile_type = /obj/projectile/johyo
 	muzzle_flash_effect = null
 	caliber = "kunai"
+	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "kunai"
 
 /obj/projectile/johyo

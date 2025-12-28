@@ -17,13 +17,11 @@
 		COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON = PROC_REF(on_initialized),
 	)
 
-
 /datum/proximity_monitor/New(atom/_host, range, _ignore_if_not_on_turf = TRUE)
 	ignore_if_not_on_turf = _ignore_if_not_on_turf
 	if(range)
 		current_range = range
 	set_host(_host)
-
 
 /datum/proximity_monitor/proc/set_host(atom/new_host, atom/new_receiver)
 	if(new_host == host)
@@ -49,18 +47,15 @@
 	RegisterSignal(host, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_z_change))
 	set_range(current_range, TRUE)
 
-
 /datum/proximity_monitor/proc/on_host_or_receiver_del(datum/source)
 	SIGNAL_HANDLER
 
 	qdel(src)
 
-
 /datum/proximity_monitor/Destroy()
 	host = null
 	hasprox_receiver = null
 	return ..()
-
 
 /datum/proximity_monitor/proc/set_range(range, force_rebuild = FALSE)
 	if(!force_rebuild && range == current_range)
@@ -71,19 +66,16 @@
 	// If the connect_range component exists already, this will just update its range. No errors or duplicates.
 	AddComponent(/datum/component/connect_range, host, loc_connections, range, !ignore_if_not_on_turf)
 
-
 /datum/proximity_monitor/proc/on_moved(atom/movable/source, atom/old_loc)
 	SIGNAL_HANDLER
 
 	if(source == host)
 		hasprox_receiver?.HasProximity(host)
 
-
 /datum/proximity_monitor/proc/on_z_change()
 	SIGNAL_HANDLER
 
 	return
-
 
 /datum/proximity_monitor/proc/set_ignore_if_not_on_turf(does_ignore = TRUE)
 	if(ignore_if_not_on_turf == does_ignore)
@@ -92,19 +84,16 @@
 	// Update the ignore_if_not_on_turf
 	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, !ignore_if_not_on_turf)
 
-
 /datum/proximity_monitor/proc/on_uncrossed()
 	SIGNAL_HANDLER
 
 	return // Used by the advanced subtype for effect fields.
-
 
 /datum/proximity_monitor/proc/on_entered(atom/source, atom/movable/arrived, turf/old_loc)
 	SIGNAL_HANDLER
 
 	if(source != host)
 		hasprox_receiver?.HasProximity(arrived)
-
 
 /datum/proximity_monitor/proc/on_initialized(turf/location, atom/created, init_flags)
 	SIGNAL_HANDLER

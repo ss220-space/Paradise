@@ -47,7 +47,6 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/I, mob/user, params)
 	if(I.force && prob(melee_block_chance))
 		user.do_attack_animation(src)
@@ -56,7 +55,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
@@ -64,7 +62,6 @@
 		visible_message(span_danger("[src] blocks [Proj] with its shield!"), projectile_message = TRUE)
 		return FALSE
 	return ..()
-
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list()//no loot, its gonna delete and gib.
@@ -97,7 +94,6 @@
 	name = "[name] [pick(GLOB.last_names_male)]"
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
-
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
 	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
@@ -200,14 +196,12 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return TRUE
 	if(isliving(mover))
 		return faction_check_mob(mover)
-
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
 	name = "Syndicate Officer"
@@ -285,7 +279,6 @@
 			O.shield_key = TRUE
 			depotarea.shields_up()
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space
 	name = "Syndicate Backup"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -303,7 +296,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
 	name = "Syndicate Commando"
@@ -331,7 +323,7 @@
 	icon_living = "syndicate_smg"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r/rusted)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicate_space_smg"
@@ -339,7 +331,7 @@
 	name = "Syndicate Commando"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r/rusted)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/ComponentInitialize()
 	AddComponent( \

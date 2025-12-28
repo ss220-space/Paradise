@@ -153,7 +153,6 @@
 		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
 	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
-
 /// Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/carbon/human/user)
 	SHOULD_CALL_PARENT(TRUE)
@@ -164,7 +163,6 @@
 	if(tags & REAGENT_TAG_ANTI_STUN)
 		ADD_TRAIT(user, TRAIT_ANTI_STUN_REAGENT, id)
 
-
 /// Called when this reagent is removed while inside a mob
 /datum/reagent/proc/on_mob_delete(mob/living/carbon/human/user)
 	SHOULD_CALL_PARENT(TRUE)
@@ -174,7 +172,6 @@
 
 	if(tags & REAGENT_TAG_ANTI_STUN)
 		REMOVE_TRAIT(user, TRAIT_ANTI_STUN_REAGENT, id)
-
 
 /datum/reagent/proc/on_move(mob/M)
 	return
@@ -324,7 +321,6 @@
 			to_chat(M, span_warning("Вы готовы СДОХНУТЬ ради одной дозы [name]!"))
 	return update_flags
 
-
 /datum/reagent/proc/fakedeath(mob/living/M)
 	if(HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
@@ -336,7 +332,6 @@
 	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
 	M.updatehealth("fakedeath reagent")
 
-
 /datum/reagent/proc/fakerevive(mob/living/M)
 	if(!HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
@@ -345,7 +340,6 @@
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
-
 
 /datum/reagent/proc/taste_amplification(mob/living/user)
 	. = list()

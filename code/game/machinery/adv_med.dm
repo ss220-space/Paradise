@@ -37,7 +37,6 @@
 	else
 		set_light_on(FALSE)
 
-
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
 	if(occupant)
@@ -48,13 +47,11 @@
 	if(Adjacent(user))
 		. += span_notice("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
-
 /obj/machinery/bodyscanner/update_icon_state()
 	if(occupant)
 		icon_state = "bodyscanner"
 	else
 		icon_state = "bodyscanner-open"
-
 
 /obj/machinery/bodyscanner/process()
 	for(var/mob/M in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
@@ -72,7 +69,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
-
 
 /obj/machinery/bodyscanner/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -103,7 +99,6 @@
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
 
-
 /obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -111,7 +106,6 @@
 /obj/machinery/bodyscanner/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I))
 		return TRUE
-
 
 /obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -125,7 +119,6 @@
 		return
 
 	setDir(turn(dir, -90))
-
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
@@ -337,6 +330,9 @@
 			organData["maxHealth"] = E.max_damage
 			organData["bruised"] = E.min_bruised_damage
 			organData["broken"] = E.min_broken_damage
+			organData["bleed"] = round(E.bleeding_amount, 0.01)
+			organData["bleed_supp"] = "[(E.bleeding_amount <= E.bleedsuppress) ? "остановлено" : ""]"
+			organData["bleed_type"] = "[E.has_arterial_bleeding() ? "артериальное" : (E.has_heavy_bleeding() ? "обильное" : "")]"
 
 			var/shrapnelData[0]
 			for(var/obj/item/I in E.embedded_objects)
@@ -525,10 +521,25 @@
 			var/robot = ""
 			var/imp = ""
 			var/splint = ""
+			var/bleeding = ""
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
+			if(e.bleeding_amount > 0)
+				bleeding = "<br>"
+				if(e.bleeding_amount <= e.bleedsuppress)
+					bleeding += "остановленное "
+				if(e.has_arterial_bleeding())
+					bleeding += "артериальное "
+				else if(e.has_heavy_bleeding())
+					bleeding += "обильное "
+
+				bleeding += "кровотечение"
 			if(e.has_internal_bleeding())
-				internal_bleeding = "<br>Внутреннее кровотечение"
+				if(bleeding == "")
+					internal_bleeding = "<br>"
+
+				internal_bleeding += "Внутреннее кровотечение"
+
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
@@ -541,6 +552,7 @@
 				robot = "Синтетическое"
 			if(e.open)
 				open = "Открыто"
+
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 					infected = "Лёгкая инфекция"
@@ -559,9 +571,9 @@
 
 			if(LAZYLEN(e.embedded_objects) || e.hidden)
 				imp += "Обнаружено инородное тело"
-			if(!AN && !open && !infected && !imp && !internal_bleeding && !lung_ruptured)
+			if(!AN && !open && !infected && !imp && !bleeding && !internal_bleeding && !lung_ruptured)
 				AN = "Отсутствуют"
-			dat += "<td>[e.declent_ru(NOMINATIVE)]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
+			dat += "<td>[e.declent_ru(NOMINATIVE)]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [bleeding] [internal_bleeding] [lung_ruptured] [dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/robot = ""

@@ -57,23 +57,19 @@
 	colour = pick(lipstick_colors)
 	name = "[colour] lipstick"
 
-
 /obj/item/lipstick/update_icon_state()
 	. = ..()
 	icon_state = "lipstick[open ? "_uncap" : ""]"
-
 
 /obj/item/lipstick/update_overlays()
 	. = ..()
 	if(open)
 		. += mutable_appearance(icon, icon_state = "lipstick_uncap_color", color = lipstick_colors[colour])
 
-
 /obj/item/lipstick/attack_self(mob/user)
 	user.balloon_alert(user, "колпачок [open ? "надет" : "снят"]")
 	open = !open
 	update_icon()
-
 
 /obj/item/lipstick/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -83,7 +79,6 @@
 	if(!ishuman(target) || !target.get_organ(BODY_ZONE_HEAD))
 		to_chat(user, span_notice("Where are the lips on that?"))
 		return .
-
 
 	if(target.lip_style)	// If they already have lipstick on
 		to_chat(user, span_notice("You need to wipe off the old lipstick first!"))
@@ -115,7 +110,6 @@
 	target.update_body()
 	return .|ATTACK_CHAIN_SUCCESS
 
-
 /obj/item/razor
 	name = "electric razor"
 	desc = "The latest and greatest power razor born from the science of shaving."
@@ -123,7 +117,6 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	usesound = 'sound/items/welder2.ogg'
-
 
 /obj/item/razor/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || (user.zone_selected != BODY_ZONE_PRECISE_MOUTH && user.zone_selected != BODY_ZONE_HEAD))

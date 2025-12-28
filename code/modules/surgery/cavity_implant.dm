@@ -22,7 +22,6 @@
 	)
 	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
 
-
 /datum/surgery/cavity_implant/soft
 	desc = "Имплантация объекта в полость, не защищённую костями."
 	steps = list(
@@ -125,7 +124,6 @@
 		/datum/surgery/intermediate/open_cavity/extract,
 		/datum/surgery/intermediate/bleeding,
 	)
-
 
 /datum/surgery_step/proxy/cavity_manipulation/robotic
 	name = "Полостная манипуляция (Синтетик) – прокси"
@@ -258,7 +256,6 @@
 
 	return SURGERY_STEP_CONTINUE
 
-
 /datum/surgery_step/cavity/remove_item
 	name = "извлечение объекта"
 	begin_sound = 'sound/surgery/organ2.ogg'
@@ -315,7 +312,6 @@
 
 	time = 3.2 SECONDS
 
-
 /datum/surgery_step/cavity/place_item/tool_check(mob/user, obj/item/tool)
 	if(istype(tool, /obj/item/disk/nuclear))
 		to_chat(user, span_danger("Центральное Командование убьёт вас, если узнает, что вы имплантировали ядерный диск в чьё-то тело!"))
@@ -339,7 +335,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/surgery_step/cavity/place_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

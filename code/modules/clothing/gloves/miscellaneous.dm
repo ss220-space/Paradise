@@ -65,7 +65,6 @@
 	icon_state = "black"
 	item_state = "r_hands"
 
-
 /obj/item/clothing/gloves/color/black/forensics
 	name = "forensics gloves"
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
@@ -140,24 +139,15 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
-/obj/item/clothing/gloves/batmangloves
-	desc = "Used for handling all things bat related."
-	name = "batgloves"
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color = "bmgloves"
-
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
 	desc = "These things smell terrible, and they're all lumpy. Gross."
 	icon_state = "latex"
 	item_state = "lgloves"
 
-
 /obj/item/clothing/gloves/cursedclown/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
@@ -212,13 +202,11 @@
 			return TRUE
 	return FALSE
 
-
 /obj/item/clothing/gloves/color/yellow/stun/update_overlays()
 	. = ..()
 	. += "gloves_wire"
 	if(cell)
 		. += "gloves_cell"
-
 
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))
@@ -234,7 +222,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -280,7 +267,6 @@
 	L.dirslash_enabled = !L.dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
 
-
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
 
@@ -315,7 +301,6 @@
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
 
-
 /obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	if(razor_damage_low > initial(razor_damage_low))
 		to_chat(user, span_warning("[src] has already been refined before. It cannot be sharpened further!"))
@@ -323,7 +308,6 @@
 	razor_damage_low = clamp(razor_damage_low + whetstone.increment, 0, whetstone.max)
 	razor_damage_high = clamp(razor_damage_high + whetstone.increment, 0, whetstone.max)
 	return TRUE
-
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
@@ -470,7 +454,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
 	)
 
-
 /obj/item/clothing/gloves/combat/swat/syndicate
 	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Show these NT pigs on your fingers who's the boss here!"
 	name = "syndicate armored gloves"
@@ -517,7 +500,7 @@
 	name = "reflector hat"
 	desc = "Высокотехнологичная шляпа, изготовленная из светоотражающего материала, предназначена для отражения энергетических лучей. В неё встроен защитный визор, который обладает повышенной устойчивостью к кислотам."
 	icon_state = "reflector"
-	item_state = "reflector"
+	item_state = "reflectorhat"
 	flags_inv = HIDEHEADSETS
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	dog_fashion = null
@@ -562,7 +545,7 @@
 	name = "reflector boots"
 	desc = "Высокотехнологичные ботинки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Довольно лёгкая, но не очень удобная обувь."
 	icon_state = "reflector"
-	item_state = "reflector"
+	item_state = "reflectorboots"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(

@@ -42,13 +42,11 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	update_transform()
-
 
 /mob/living/carbon/alien/humanoid/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
 	. = ..()

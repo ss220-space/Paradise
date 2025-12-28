@@ -38,7 +38,6 @@
 #define PLASTIC_FLAPS_NORMAL 0
 #define PLASTIC_FLAPS_DETACHED 1
 
-
 //ai core defines
 #define EMPTY_CORE 0
 #define CIRCUIT_CORE 1
@@ -70,3 +69,9 @@
 #define MAX_STACK_SIZE 50
 //maximum amount of cable in a coil
 #define MAXCOIL 30
+//Determines how much material is contained in one sheet
+#define SHEET_VOLUME 1000 //cm3
+
+// Mounted Frames BITMASK
+#define MOUNTED_FRAME_SIMFLOOR (1<<0)
+#define MOUNTED_FRAME_NOSPACE (1<<1)

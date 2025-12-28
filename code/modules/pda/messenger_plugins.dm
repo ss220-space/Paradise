@@ -4,7 +4,6 @@
 /datum/data/pda/messenger_plugin/proc/user_act(mob/user as mob, obj/item/pda/P)
 	return
 
-
 /datum/data/pda/messenger_plugin/virus
 	name = "*Send Virus*"
 
@@ -16,7 +15,6 @@
 		return 1
 	return 0
 
-
 /datum/data/pda/messenger_plugin/virus/clown
 	icon = "star"
 
@@ -27,7 +25,6 @@
 		P.honkamt = (rand(15,20))
 		P.ttone = "honk"
 
-
 /datum/data/pda/messenger_plugin/virus/mime
 	icon = "arrow-circle-down"
 
@@ -37,7 +34,6 @@
 		user.show_message(span_notice("Virus sent!"), 1)
 		P.silent = TRUE
 		P.ttone = "silence"
-
 
 /datum/data/pda/messenger_plugin/virus/detonate
 	name = "*Detonate*"

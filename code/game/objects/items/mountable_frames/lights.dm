@@ -3,8 +3,10 @@
 	desc = "Used for building lights."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube-construct-item"
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR
+	wall_external = TRUE
+	/// Specifies which type of light fixture this frame will build
 	var/fixture_type = "tube"
-	mount_reqs = list("simfloor")
 
 /obj/item/mounted/frame/light_fixture/do_build(turf/on_wall, mob/user)
 	to_chat(user, "You begin attaching [src] to \the [on_wall].")
@@ -26,8 +28,10 @@
 	newlight.fingerprintshidden = src.fingerprintshidden
 	newlight.fingerprintslast = src.fingerprintslast
 
-	user.visible_message("[user] attaches \the [src] to \the [on_wall].", \
-		"You attach \the [src] to \the [on_wall].")
+	user.visible_message(
+		"[user] attaches \the [src] to \the [on_wall].",
+		"You attach \the [src] to \the [on_wall].",
+	)
 	qdel(src)
 
 /obj/item/mounted/frame/light_fixture/small
@@ -35,4 +39,4 @@
 	desc = "Used for building small lights."
 	icon_state = "bulb-construct-item"
 	fixture_type = "bulb"
-	sheets_refunded = 1
+	metal_sheets_refunded = 1

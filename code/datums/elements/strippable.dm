@@ -61,7 +61,6 @@
 	/// The STRIPPABLE_ITEM_* key
 	var/key
 
-
 /// Gets the item from the given source.
 /datum/strippable_item/proc/get_item(atom/source)
 	return

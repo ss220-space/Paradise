@@ -338,7 +338,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null, "VIEW VARIABLES (all)", null))
 
-
 /datum/sdql2_query
 	var/list/query_tree
 	var/state = SDQL2_STATE_IDLE
@@ -369,7 +368,6 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 	//Statclick
 	var/obj/effect/statclick/SDQL2_delete/delete_click
 	var/obj/effect/statclick/SDQL2_action/action_click
-
 
 /datum/sdql2_query/New(list/tree, SU = FALSE, admin_interact = TRUE, _options = SDQL2_OPTIONS_DEFAULT, finished_qdel = FALSE)
 	if(IsAdminAdvancedProcCall() || !LAZYLEN(tree))
@@ -1063,7 +1061,8 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		if(lowertext(copytext(expression[start + 1], 1, 3)) != "0x") //3 == length("0x") + 1
 			to_chat(usr, span_danger("Invalid pointer syntax: [expression[start + 1]]"), confidential=TRUE)
 			return null
-		var/datum/located = locate("\[[expression[start + 1]]]")
+		var/pointer = "\[[expression[start + 1]]]"
+		var/datum/located = locate(pointer) || locateUID(pointer)
 		if(!istype(located))
 			to_chat(usr, span_danger("Invalid pointer: [expression[start + 1]] - null or not datum"), confidential=TRUE)
 			return null

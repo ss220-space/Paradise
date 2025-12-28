@@ -8,9 +8,8 @@
 	spread_flags = CONTACT
 	cure_text = "Отдых или инъекция мутадона"
 	cure_prob = 6
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 	permeability_mod = 0.4
-
 
 /datum/disease/virus/dna_retrovirus/New()
 	..()
@@ -18,7 +17,6 @@
 	//else cure is rest
 	if(prob(40))
 		cures = list("mutadone")
-
 
 /datum/disease/virus/dna_retrovirus/stage_act()
 	if(!..())
@@ -64,5 +62,4 @@
 		if(affected_mob.body_position == LYING_DOWN)
 			return prob(33)
 		return FALSE
-
 

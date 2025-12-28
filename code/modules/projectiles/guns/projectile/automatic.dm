@@ -13,7 +13,6 @@
 		actions_types = null
 	. = ..()
 
-
 /obj/item/gun/projectile/automatic/ComponentInitialize()
 	. = ..()
 	if(fire_modes != GUN_MODE_SINGLE_BURST_AUTO)
@@ -22,10 +21,8 @@
 	burst_size = 1
 	AddComponent(/datum/component/automatic_fire, autofire_delay)
 
-
 /obj/item/gun/projectile/automatic/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/update_overlays()
 	. = ..()
@@ -34,30 +31,6 @@
 			. += "[initial(icon_state)]semi"
 		if(GUN_BURST_MODE)
 			. += "[initial(icon_state)]burst"
-
-
-/obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/magazine))
-		add_fingerprint(user)
-		var/obj/item/ammo_box/magazine/new_magazine = I
-		if(!istype(new_magazine, mag_type))
-			balloon_alert(user, "не совместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
-			return ..()
-		if(magazine)
-			magazine.forceMove(get_turf(src))
-			magazine.update_appearance()
-		playsound(loc, magin_sound, 50, TRUE)
-		balloon_alert(user, "заряжено")
-		magazine = new_magazine
-		chamber_round()
-		magazine.update_appearance()
-		update_appearance()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
@@ -96,6 +69,14 @@
 
 /obj/item/gun/projectile/automatic/can_shoot(mob/user)
 	return get_ammo()
+
+/obj/item/gun/projectile/automatic/CtrlClick(mob/user)
+	if(user.is_in_hands(src) && chambered)
+		process_chamber(TRUE, TRUE)
+		balloon_alert(user, "патрон извлечён")
+		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+		return
+	. = ..()
 
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
@@ -141,7 +122,6 @@
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.25 SECONDS
 
-
 /obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -152,7 +132,6 @@
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
-
 
 //C-20rm Full auto
 /obj/item/gun/projectile/automatic/c20r/auto
@@ -173,6 +152,25 @@
 		PREPOSITIONAL = "пистолет-пулемете C-20rm",
 	)
 
+/obj/item/gun/projectile/automatic/c20r/rusted
+	name = "C-20r SMG (Rusted)"
+	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемет C-20r (ржавый)",
+		GENITIVE = "пистолет-пулемета C-20r (ржавый)",
+		DATIVE = "пистолет-пулемету C-20r (ржавый)",
+		ACCUSATIVE = "пистолет-пулемету C-20r (ржавый)",
+		INSTRUMENTAL = "пистолет-пулеметом C-20r (ржавый)",
+		PREPOSITIONAL = "пистолет-пулемете C-20r (ржавый)",
+	)
+
+/obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
@@ -202,7 +200,6 @@
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
-
 //"SP-91-RC//
 /obj/item/gun/projectile/automatic/sp91rc
 	name = "SP-91-RC"
@@ -227,7 +224,6 @@
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
-
 
 // MARK: Sparkle-A12
 /obj/item/gun/projectile/automatic/sparkle_a12
@@ -265,7 +261,6 @@
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
 	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
 
-
 /*Type-U3 Uzi
 name = "Пистолет-пулемёт Uzi"
 desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.
@@ -288,7 +283,6 @@ TODO Use this name and desc for localisation*/
 	recoil = GUN_RECOIL_LOW
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
-
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
 	name = "M-90gl Carbine"
@@ -310,19 +304,16 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
-
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
 	. = ..()
 	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
-
 
 /obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 0)
 		underbarrel.afterattack(target, user, flag, params)
 	else
 		..()
-
 
 /obj/item/gun/projectile/automatic/m90/attackby(obj/item/I, mob/user, params)
 	if(istype(I, underbarrel.magazine.ammo_type))
@@ -335,14 +326,12 @@ TODO Use this name and desc for localisation*/
 
 	return ..()
 
-
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
 		item_state = "m90-[CEILING(get_ammo(FALSE)/7.5, 1)]"
 	else
 		item_state = "m90-0"
-
 
 /obj/item/gun/projectile/automatic/m90/update_overlays()
 	. = ..()
@@ -353,7 +342,6 @@ TODO Use this name and desc for localisation*/
 			. += "[initial(icon_state)]gren"
 		if(GUN_BURST_MODE)
 			.  += "[initial(icon_state)]burst"
-
 
 /obj/item/gun/projectile/automatic/m90/toggle_firemode()
 	var/mob/living/carbon/human/user = usr
@@ -368,6 +356,20 @@ TODO Use this name and desc for localisation*/
 			balloon_alert(user, "подствольный гранатомёт")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
+
+/obj/item/gun/projectile/automatic/m90/rusted
+	name = "M-90gl Carbine (Rusted)"
+	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
+	. = ..()
+	QDEL_NULL(underbarrel.chambered)
+
+/obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //Tommy Gun//
 /obj/item/gun/projectile/automatic/tommygun
@@ -466,16 +468,13 @@ TODO Use this name and desc for localisation*/
 	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
 	color = COLOR_ASSEMBLY_BROWN
 
-
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_overlays()
 	. = ..()
 	if(magazine)
 		. += "[magazine.icon_state]"
-
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_weight()
 	if(magazine)
@@ -485,7 +484,6 @@ TODO Use this name and desc for localisation*/
 			w_class = WEIGHT_CLASS_NORMAL
 	else
 		w_class = WEIGHT_CLASS_NORMAL
-
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box/magazine/m12g/XtrLrg) && isstorage(loc))	// To prevent inventory exploits
@@ -547,10 +545,8 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/automatic/cats/update_icon_state()
 	icon_state = "tla_cats[magazine ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/cats/examine(mob/user)
 	. = ..()
@@ -623,10 +619,8 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
-
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
 
 //Aussec Armory M-52
 

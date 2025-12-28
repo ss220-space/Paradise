@@ -31,19 +31,12 @@
 	. = ..()
 	chamber_round(TRUE)
 
-/obj/item/gun/projectile/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/projectile/revolver/handle_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	return ..()
 
-/obj/item/gun/projectile/revolver/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
-		add_fingerprint(user)
-		var/num_loaded = magazine.reload(I, user)
-		if(num_loaded)
-			update_icon()
-			chamber_round(FALSE)
-			return ATTACK_CHAIN_BLOCKED_ALL
+/obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, params)
+	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
-
 	return ..()
 
 /obj/item/gun/projectile/revolver/unload_act(mob/user)
@@ -145,18 +138,44 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	unique_reskin = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
 
-/obj/item/gun/projectile/revolver/detective/update_gun_skins()
-	add_skin("The Original", "detective")
-	add_skin("Leopard Spots", "detective_leopard")
-	add_skin("Black Panther", "detective_panther")
-	add_skin("White Gold", "detective_gold")
-	add_skin("Gold Wood", "detective_gold_alt")
-	add_skin("The Peacemaker", "detective_peacemaker")
-	add_skin("Silver", "detective_silver")
+/obj/item/gun/projectile/revolver/detective/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+
+//Security revolver
+/obj/item/gun/projectile/revolver/taurus
+	name = "Taurus revolver"
+	desc = "Револьвер под калибр .45 Colt, используемый силовыми структурами \"Нанотрейзен\". \
+			Отличается простотой конструкции, высокой надёжностью и минимальным количеством движущихся частей. Произведён \"Оружейной Ауссек\"."
+	icon_state = "taurus"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/taurus
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+	)
+
+/obj/item/gun/projectile/revolver/taurus/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/gun/projectile/revolver/taurus/get_ru_names()
+	return list(
+		NOMINATIVE = "револьвер \"Таурус\"",
+		GENITIVE = "револьвера \"Таурус\"",
+		DATIVE = "револьверу \"Таурус\"",
+		ACCUSATIVE = "револьверу \"Таурус\"",
+		INSTRUMENTAL = "револьвером \"Таурус\"",
+		PREPOSITIONAL = "револьвере \"Таурус\"",
+	)
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "finger gun"
@@ -525,20 +544,15 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
-	unique_reskin = TRUE
 	pb_knockback = 3
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	can_air_shoot = FALSE
 
-/obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
-	add_skin("Default", "dshotgun")
-	add_skin("Dark Red Finish", "dshotgun-d")
-	add_skin("Ash", "dshotgun-f")
-	add_skin("Faded Grey", "dshotgun-g")
-	add_skin("Maple", "dshotgun-l")
-	add_skin("Rosewood", "dshotgun-p")
+/obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
@@ -593,7 +607,6 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = FALSE
-	unique_reskin = FALSE
 	pb_knockback = 0
 	var/slung = FALSE
 	accuracy = GUN_ACCURACY_MINIMAL

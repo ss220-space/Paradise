@@ -44,14 +44,13 @@
 		var/image/I = image(icon = src.icon , icon_state = src.icon_state, loc = user)
 		I.override = 1
 		I.color = color
-		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+		add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
 		return
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/twohanded/cardboard_cutout/dropped(mob/living/user)
 	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
-
 
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
@@ -82,8 +81,6 @@
 
 	if(prob(I.force))
 		push_over()
-
-
 
 /obj/item/twohanded/cardboard_cutout/bullet_act(obj/projectile/P)
 	visible_message(span_danger("[src] is hit by [P]!"), projectile_message = TRUE)
@@ -204,10 +201,8 @@
 
 	return 1
 
-
 /obj/item/twohanded/cardboard_cutout/setDir(newdir)
 	return ..(SOUTH)
-
 
 /obj/item/twohanded/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 	deceptive = TRUE

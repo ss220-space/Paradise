@@ -60,6 +60,7 @@
 		TRAIT_NO_SCAN,
 		TRAIT_TEMPERATURE_MOVEMENT,
 		TRAIT_STRONG_PULLING,
+		TRAIT_RESIST_COLD,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
@@ -83,7 +84,6 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
-
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions
@@ -91,10 +91,8 @@
 		wryn_sting = new
 		wryn_sting.Grant(H)
 
-
 /datum/species/wryn/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
-
 
 /datum/species/wryn/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -114,8 +112,7 @@
 	name = "wryn action"
 	button_icon = 'icons/mob/actions/actions_wryn.dmi'
 	background_icon_state = "bg_wryn"
-	icon_icon = 'icons/mob/actions/actions_wryn.dmi'
-
+	button_icon = 'icons/mob/actions/actions_wryn.dmi'
 
 //Define the Sting Action
 /datum/action/innate/wryn/wryn_sting
@@ -126,7 +123,7 @@
 	var/button_on = FALSE
 
 //What happens when you click the Button?
-/datum/action/innate/wryn/wryn_sting/Trigger(left_click = TRUE)
+/datum/action/innate/wryn/wryn_sting/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner
@@ -150,11 +147,9 @@
 	if(button_on)
 		button_icon_state = "sting_on"
 		name = "Жало врина \[ГОТОВО\]"
-		button.name = name
 	else
 		button_icon_state = "sting_off"
 		name = "Жало врина"
-		button.name = name
 	..()
 
 //Select a Target from a List

@@ -100,7 +100,6 @@
 
 	qdel(src)
 
-
 /obj/effect/old_anomaly/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))
@@ -217,7 +216,7 @@
 
 /obj/effect/old_anomaly/bluespace
 	name = "bluespace anomaly"
-	icon = 'icons/obj/weapons/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
 	var/mass_teleporting = TRUE
@@ -339,6 +338,10 @@
 	slime.set_nutrition(slime.get_max_nutrition())
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = slime, role_cleanname = "pyroclastic anomaly slime")
+	
+	if(QDELETED(slime))
+		return
+	
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/chosen = pick(candidates)
 		slime.possess_by_player(chosen.key)

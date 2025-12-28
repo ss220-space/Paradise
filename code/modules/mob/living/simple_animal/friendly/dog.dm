@@ -150,7 +150,6 @@
 			armorval += inventory_back.armor.getRating(attack_flag)
 	return armorval * 0.5
 
-
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -182,7 +181,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
@@ -681,7 +679,7 @@
 	bark_sound = null	//No robo-bjork...
 	yelp_sound = null	//Or robo-Yelp.
 	tts_seed = "Glados"
-	var/emagged = 0
+	var/emagged = FALSE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1
@@ -734,7 +732,6 @@
 		if(target)
 			shootAt(target)
 
-
 /mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -754,7 +751,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/death(gibbed)
 	// Only execute the below if we successfully died

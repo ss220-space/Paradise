@@ -16,7 +16,6 @@
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
-	var/emagged = FALSE
 
 /obj/item/survivalcapsule/get_ru_names()
 	return list(
@@ -64,7 +63,7 @@
 		to_chat(user, span_notice("Ошибка. Попытка развертывания в секторе станции. Развертывание отменено."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
-	loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает трястись. Отойдите!"))
+	loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает вибрировать. Отойдите!"))
 	used = TRUE
 	addtimer(CALLBACK(src, PROC_REF(expand), user), 5 SECONDS)
 	return TRUE
@@ -194,10 +193,8 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
-
 /obj/structure/window/reinforced/survival_pod/unhittable
 	obj_flags = IGNORE_HITS
-
 
 //Floors
 /turf/simulated/floor/pod
@@ -303,7 +300,6 @@
 	pixel_y = -32
 	move_resist = MOVE_FORCE_STRONG
 
-
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
@@ -317,7 +313,6 @@
 	transfer_prints_to(gps)
 	gps.add_fingerprint(user)
 	qdel(src)
-
 
 /obj/item/gps/computer/ui_state(mob/user)
 	return GLOB.default_state
@@ -406,7 +401,6 @@
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
-
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
@@ -417,7 +411,6 @@
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return .
 	deconstruct()
-
 
 /obj/structure/fans/tiny
 	name = "tiny fan"
@@ -443,7 +436,7 @@
 //Signs
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
-	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов Нанотрейзен."
+	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов \"Нанотрейзен\"."
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
 
@@ -493,7 +486,6 @@
 	transfer_prints_to(rods)
 	rods.add_fingerprint(user)
 	qdel(src)
-
 
 /obj/item/fakeartefact
 	name = "expensive forgery"

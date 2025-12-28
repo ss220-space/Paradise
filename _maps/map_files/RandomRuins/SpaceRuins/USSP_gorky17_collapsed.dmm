@@ -232,11 +232,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/rusted/ppsh{
-	malf_counter = 70;
-	malf_high_bound = 70;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/ppsh/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "aY" = (
@@ -451,10 +447,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "bK" = (
 /obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/toolbox/fluff/lunchbox,
 /turf/simulated/floor/plasteel{
@@ -1041,10 +1034,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "dw" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -2343,10 +2333,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	malf_high_bound = 80;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/aksu/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "hn" = (
@@ -3562,10 +3549,7 @@
 	req_access = list(123)
 	},
 /obj/item/ammo_box/magazine/aksu,
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	malf_high_bound = 80;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/aksu/rusted,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -6220,10 +6204,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -6648,9 +6629,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "tZ" = (
@@ -7278,10 +7257,7 @@
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -8909,9 +8885,7 @@
 /obj/machinery/light/small{
 	flickering = 1
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9235,9 +9209,7 @@
 "Bi" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Bj" = (
@@ -9318,10 +9290,7 @@
 	name = "Gorky17 security camera";
 	network = list("USSP_gorky17")
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood/airless{
 	icon_state = "wood-broken7"
 	},
@@ -13774,10 +13743,7 @@
 "OA" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/drinks/mug/sec,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitered"
@@ -14011,10 +13977,7 @@
 "Pf" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/alarm{
 	alarm_frequency = 1520;
 	dir = 8;
@@ -15965,10 +15928,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	malf_high_bound = 80;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/aksu/rusted,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16179,11 +16139,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/rusted/ppsh{
-	malf_counter = 70;
-	malf_high_bound = 70;
-	malf_low_bound = 50
-	},
+/obj/item/gun/projectile/automatic/ppsh/rusted,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -16775,9 +16731,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "XD" = (
 /obj/structure/table/wood,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "XE" = (
@@ -16935,9 +16889,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -17222,9 +17174,7 @@
 "Zl" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Zm" = (

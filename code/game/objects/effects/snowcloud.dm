@@ -61,18 +61,18 @@
 		if(parent_machine.make_snowcloud(T))
 			return
 
-
 //Snow stuff below
-
 /obj/effect/snow
 	desc = "Perfect for making snow angels, or throwing at other people!"
-	icon_state = "snow"
+	icon_state = "snow1"
+	plane = FLOOR_PLANE
 	layer = ABOVE_ICYOVERLAY_LAYER
+	var/critical_temp = T0C
 
-/obj/effect/snow/New()
+/obj/effect/snow/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	icon_state = "snow[rand(1,6)]"
-	..()
 
 /obj/effect/snow/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -98,7 +98,6 @@
 	user.put_in_hands(SB)
 	to_chat(user, span_notice("You scoop up some snow and make \a [SB]!"))
 
-
 /obj/effect/snow/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shovel))
 		user.visible_message(
@@ -118,7 +117,6 @@
 
 	return ..()
 
-
 /obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	qdel(src)
@@ -127,6 +125,27 @@
 	if(severity <= EXPLODE_LIGHT && prob(50))
 		return
 	qdel(src)
+
+/obj/effect/snow/slowdown
+	critical_temp = T0C + 5
+
+/obj/effect/snow/slowdown/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/snow/slowdown/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(QDELETED(arrived))
+		return
+
+	if(!istype(arrived))
+		return
+
+	arrived.AdjustSlowedDuration(1 SECONDS, bound_upper = 20 SECONDS)
 
 /obj/item/snowball
 	name = "snowball"

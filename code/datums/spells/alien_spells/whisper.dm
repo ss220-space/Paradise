@@ -5,7 +5,6 @@
 	action_icon_state = "alien_whisper"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/alien_spell/whisper/create_new_targeting() // Yeah this is copy and pasted code from cryoken and it's good enough
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
@@ -14,7 +13,6 @@
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.include_user = TRUE
 	return T
-
 
 /obj/effect/proc_holder/spell/alien_spell/whisper/cast(list/targets, mob/living/carbon/user)
 	var/mob/living/target = targets[1]
@@ -27,5 +25,5 @@
 	to_chat(target, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'> [msg]")
 	to_chat(user, span_noticealien("You said: [msg] to [target]"))
 	for(var/mob/dead/observer/ghosts in GLOB.player_list)
-		ghosts.show_message("<i>Alien message from <b>[user]</b> ([ghost_follow_link(user, ghost=ghosts)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=ghosts)]): [msg]</i>")
+		ghosts.show_message("<i>Alien message from ([ghost_follow_link(user, ghost = ghosts)])<b>[user]</b> to ([ghost_follow_link(target, ghost=ghosts)])<b>[target]</b>: [msg]</i>")
 

@@ -71,7 +71,6 @@
 	active2 = null
 	return ..()
 
-
 /obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -81,7 +80,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())
@@ -114,7 +112,7 @@
 					data["records"] = records
 					for(var/datum/data/record/R in sortRecord(GLOB.data_core.general))
 						records[++records.len] = list(
-							"ref" = "\ref[R]",
+							"ref" = R.UID(),
 							"name" = R.fields["name"],
 							"id" = R.fields["id"],
 							"rank" = R.fields["rank"],
@@ -263,7 +261,7 @@
 					set_temp("Запись удалена.")
 					qdel(active2)
 			if("view_record")
-				var/datum/data/record/general_record = locate(params["view_record"] || "")
+				var/datum/data/record/general_record = locateUID(params["view_record"] || "")
 				if(!GLOB.data_core.general.Find(general_record))
 					set_temp("Запись не найдена.", "danger")
 					return

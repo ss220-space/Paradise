@@ -4,7 +4,7 @@
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/circulator.dmi'
-	icon_state = "circ1-off"
+	icon_state = "circ8-off"
 	vent_movement = VENTCRAWL_CAN_SEE
 
 	var/side = CIRC_LEFT
@@ -106,11 +106,9 @@
 	to_chat(user, span_notice("You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side."))
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-
 /obj/machinery/atmospherics/binary/circulator/update_desc(updates = ALL)
 	. = ..()
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
-
 
 /obj/machinery/atmospherics/binary/circulator/update_icon_state() //this gets called everytime atmos is updated in the circulator (alot)
 	..()

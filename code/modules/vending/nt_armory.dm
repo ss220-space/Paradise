@@ -105,7 +105,6 @@
 
 	underlays += emissive_appearance(icon, "nta_lightmask", src)
 
-
 /obj/machinery/vending/nta/ertarmory/blue
 	name = "NT ERT Medium Gear & Ammunition"
 	desc = "Автомат-помощник по выдаче снаряжения среднего класса."
@@ -342,6 +341,7 @@
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
 		/obj/item/storage/belt/medical/surgery/loaded = 2,
 		/obj/item/storage/belt/medical/response_team = 3,
+		/obj/item/handheld_defibrillator/advanced = 2,
 		/obj/item/storage/pill_bottle/ert = 4,
 		/obj/item/reagent_containers/food/pill/mannitol = 10,
 		/obj/item/reagent_containers/food/pill/salbutamol = 10,

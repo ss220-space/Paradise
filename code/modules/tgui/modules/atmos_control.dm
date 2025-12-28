@@ -7,7 +7,7 @@
 
 	switch(action)
 		if("open_alarm")
-			var/obj/machinery/alarm/alarm = locate(params["aref"]) in GLOB.air_alarms
+			var/obj/machinery/alarm/alarm = locateUID(params["aref"])
 			if(alarm)
 				alarm.ui_interact(usr)
 

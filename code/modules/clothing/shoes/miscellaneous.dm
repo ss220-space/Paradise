@@ -126,11 +126,9 @@
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
 
-
 /obj/item/clothing/shoes/clown_shoes/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
@@ -215,10 +213,19 @@
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
-	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
+	desc = "Шахтёрские ботинки со стальным носком для работы в опасных условиях. Отлично защищают пальцы от раздавливания."
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/shoes/workboots/mining/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрские ботинки",
+		GENITIVE = "шахтёрских ботинок",
+		DATIVE = "шахтёрским ботинкам",
+		ACCUSATIVE = "шахтёрские ботинки",
+		INSTRUMENTAL = "шахтёрскими ботинками",
+		PREPOSITIONAL = "шахтёрских ботинках"
+	)
 
 /obj/item/clothing/shoes/workboots/mining/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/knife/combat/survival))
@@ -233,7 +240,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
 	set category = STATPANEL_OBJECT
@@ -329,14 +335,12 @@
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
 
-
 /obj/item/clothing/shoes/fluff/noble_boot
 	name = "noble boots"
 	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
 	icon_state = "noble_boot"
 	item_color = "noble_boot"
 	item_state = "noble_boot"
-
 
 /obj/item/clothing/shoes/sandal/white
 	name = "White Sandals"
@@ -362,7 +366,6 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-
 
 /obj/item/clothing/shoes/cursedclown/Initialize(mapload)
 	. = ..()
@@ -511,11 +514,9 @@
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
 
-
 /obj/item/clothing/shoes/bhop/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
-
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user))
@@ -549,11 +550,9 @@
 		to_chat(user, span_warning("Something prevents you from dashing forward!"))
 		after_jump(user)
 
-
 /obj/item/clothing/shoes/bhop/proc/after_jump(mob/user)
 	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_JUMP_BOOTS_TRAIT)
 	last_jump = null
-
 
 /obj/item/clothing/shoes/bhop/clown
 	name = "clown shoes"

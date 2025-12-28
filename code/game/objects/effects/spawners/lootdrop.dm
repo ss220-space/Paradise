@@ -16,18 +16,6 @@
 		lootcount--
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/spawner/lootdrop/armory_contraband
-	name = "armory contraband gun spawner"
-	icon_state ="stechkin"
-	lootdoubles = FALSE
-
-	loot = list(
-		/obj/item/gun/projectile/automatic/pistol = 8,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 5,
-		/obj/item/gun/projectile/revolver/mateba,
-		/obj/item/gun/projectile/automatic/pistol/deagle,
-	)
-
 /obj/effect/spawner/lootdrop/maintenance
 	name = "maintenance loot spawner"
 	icon_state = "x1"
@@ -98,6 +86,7 @@
 		/obj/item/poster/random_contraband = 10,
 		/obj/item/crowbar = 10,
 		/obj/item/crowbar/red = 10,
+		/obj/item/crowbar/small = 10,
 		/obj/item/restraints/handcuffs/toy = 5,
 		/obj/item/extinguisher = 90,
 		/obj/item/storage/box/fakesyndiesuit = 3,
@@ -200,7 +189,6 @@
 		/obj/item/grenade/clusterbuster/smoke = 50,
 		/obj/item/clothing/mask/holo_cigar = 50,
 	)
-
 
 /obj/effect/spawner/lootdrop/trade_sol/serv
 	name = "1. Service gear"

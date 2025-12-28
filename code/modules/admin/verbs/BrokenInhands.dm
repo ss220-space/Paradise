@@ -1,6 +1,6 @@
 /proc/getbrokeninhands()
 	set name = "Broken Sprite List"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	var/text
 	for(var/A in typesof(/obj/item))
@@ -18,7 +18,6 @@
 		if(!Rstates.Find(O.icon_state) && !Rstates.Find(O.item_state))
 			if(O.icon_state)
 				text += "[O.type] is missing right hand icon called \"[O.icon_state]\".\n"
-
 
 		if(O.icon_state)
 			if(!istates.Find(O.icon_state))

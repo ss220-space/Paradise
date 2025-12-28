@@ -19,10 +19,8 @@ SUBSYSTEM_DEF(idlenpcpool)
 	var/list/currentrun = list()
 	var/static/list/idle_mobs_by_zlevel[][]
 
-
 /datum/controller/subsystem/idlenpcpool/get_stat_details()
 	return "IdleNPCS:[length(GLOB.simple_animals[AI_IDLE])]|Z:[length(GLOB.simple_animals[AI_Z_OFF])]"
-
 
 /datum/controller/subsystem/idlenpcpool/proc/MaxZChanged()
 	if(!islist(idle_mobs_by_zlevel))
@@ -30,7 +28,6 @@ SUBSYSTEM_DEF(idlenpcpool)
 	while(length(SSidlenpcpool.idle_mobs_by_zlevel) < world.maxz)
 		SSidlenpcpool.idle_mobs_by_zlevel.len++
 		SSidlenpcpool.idle_mobs_by_zlevel[length(idle_mobs_by_zlevel)] = list()
-
 
 /datum/controller/subsystem/idlenpcpool/fire(resumed = FALSE)
 	var/list/idlelist = GLOB.simple_animals[AI_IDLE]
@@ -62,7 +59,6 @@ SUBSYSTEM_DEF(idlenpcpool)
 
 		if(MC_TICK_CHECK)
 			return
-
 
 #undef DEFAULT_CHECKS_DELAY
 

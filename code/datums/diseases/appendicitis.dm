@@ -5,7 +5,7 @@
 	desc = "Если не лечить это заболевание, то у пациента могут возникнуть серьёзные проблемы со здоровьем, включая общую слабость и частые приступы рвоты."
 	cure_text = "Хирургическое вмешательство"
 	stage_prob = 2
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_MEDIUM
 	curable = FALSE
 	can_immunity = FALSE
 	visibility_flags = HIDDEN_PANDEMIC
@@ -115,7 +115,6 @@
 				H.Stun(rand(2 SECONDS, 4 SECONDS))
 				H.Jitter(10 SECONDS)
 
-
 /datum/disease/appendicitis/proc/rupture(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)
 	ruptured = TRUE
 	A.necrotize()
@@ -145,7 +144,4 @@
 	to_chat(H, span_danger("Вы чувствуете слабость... Нужно поспать."))
 	H.SetSleeping(40 SECONDS)
 	H.Slowed(200 SECONDS, 10)
-
-
-
 

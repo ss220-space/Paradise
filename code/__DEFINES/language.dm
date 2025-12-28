@@ -40,7 +40,6 @@
 #define LANGUAGE_MONKEY_VULPKANIN "Вульпинский"
 #define LANGUAGE_ANGEL "Ангельское пение"
 
-
 // Language flags
 #define WHITELISTED (1<<0) // Language is available if the speaker is whitelisted
 #define RESTRICTED (1<<1) // Language can only be accquired by spawning or an admin

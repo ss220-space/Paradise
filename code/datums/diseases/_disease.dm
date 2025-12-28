@@ -1,4 +1,4 @@
-
+GLOBAL_LIST_INIT_TYPED(viruses_severity, /datum/virus_severity, generate_viruses_severity())
 GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease
@@ -21,8 +21,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	//Visibility
 	var/visibility_flags = VISIBLE
-	/// If NONTHREAT, not marked on HUD
-	var/severity = NONTHREAT
+	/// If nonthreat, not marked on HUD
+	var/severity = DISEASE_SEVERITY_NONTHREAT
 
 	/// The fraction of stages the disease must at least be at to show up on medical HUDs. Rounded up.
 	var/discovery_threshold = 0.5
@@ -76,7 +76,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Infectable mob types, that can only be carriers
 	var/list/carrier_mobtypes = list()
 
-
 /datum/disease/New()
 	if(!cure_text)
 		var/reagents = list()
@@ -90,7 +89,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	affected_mob = null
 	GLOB.active_diseases.Remove(src)
 	return ..()
-
 
 /**
  * Main disease process, that executed every tick
@@ -123,7 +121,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			return FALSE
 	return TRUE
 
-
 /datum/disease/proc/try_increase_stage()
 	if(prob(stage_prob))
 		stage = min(stage + 1, max_stages)
@@ -147,7 +144,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(. <= 0 || (needs_all_cures && . < length(cures)))
 		return 0
 
-
 /datum/disease/proc/cure(id = type, need_immunity = TRUE)
 	if(affected_mob)
 		if(can_immunity && need_immunity)
@@ -157,7 +153,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		if(cured_message)
 			to_chat(affected_mob, span_notice(cured_message))
 	qdel(src)
-
 
 /**
  * Basic checks of the possibility of infecting a mob
@@ -208,17 +203,14 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	D.affected_mob.med_hud_set_status()
 	return D
 
-
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(src.type == D.type)
 		return TRUE
 	return FALSE
 
-
 /datum/disease/proc/Copy()
 	var/datum/disease/D = new type()
 	return D
-
 
 /datum/disease/proc/GetDiseaseID()
 	return type
@@ -247,4 +239,69 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		new_disease.Contract(affected_mob)
 		qdel(src)
 		return TRUE
+
+/datum/disease/proc/set_severity(new_severity)
+	// subtract 2 because indexing is zero based and we want to exclude /datum/virus_severity/uncurable
+	new_severity = clamp(new_severity, 0, length(GLOB.viruses_severity) - 2)
+
+	for(var/severity_string in GLOB.viruses_severity)
+		var/datum/virus_severity/virus_severity = GLOB.viruses_severity[severity_string]
+		var/current_severity = virus_severity.severity
+		if(current_severity != new_severity)
+			continue
+
+		severity = severity_string
+		return
+
+/proc/generate_viruses_severity()
+	var/list/desease_by_key = list()
+	for(var/datum/virus_severity/type as anything in subtypesof(/datum/virus_severity))
+		desease_by_key[initial(type.name)] = new type()
+
+	return desease_by_key
+
+/datum/virus_severity
+	var/name
+	var/hud_state
+	var/severity
+
+/datum/virus_severity/positive
+	name = DISEASE_SEVERITY_POSITIVE
+	hud_state = "hudbuff"
+	severity = 0
+
+/datum/virus_severity/nonthreat
+	name = DISEASE_SEVERITY_NONTHREAT
+	hud_state = "hudill0"
+	severity = 1
+
+/datum/virus_severity/minor
+	name = DISEASE_SEVERITY_MINOR
+	hud_state = "hudill1"
+	severity = 2
+
+/datum/virus_severity/medium
+	name = DISEASE_SEVERITY_MEDIUM
+	hud_state = "hudill2"
+	severity = 3
+
+/datum/virus_severity/harmful
+	name = DISEASE_SEVERITY_HARMFUL
+	hud_state = "hudill3"
+	severity = 4
+
+/datum/virus_severity/dangerous
+	name = DISEASE_SEVERITY_DANGEROUS
+	hud_state = "hudill4"
+	severity = 5
+
+/datum/virus_severity/biohazard
+	name = DISEASE_SEVERITY_BIOHAZARD
+	hud_state = "hudill5"
+	severity = 6
+
+/datum/virus_severity/uncurable
+	name = DISEASE_SEVERITY_UNCURABLE
+	hud_state = "hudill6"
+	severity = -1
 

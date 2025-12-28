@@ -21,7 +21,6 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-
 	// Ask admins which type of vote they want to start
 	var/vote_types = subtypesof(/datum/vote)
 	vote_types |= "\[CUSTOM]"
@@ -76,6 +75,7 @@
 		return
 
 	SSvote.active_vote.no_dead_vote = !SSvote.active_vote.no_dead_vote
+	SSvote.active_vote.no_offstation_vote = !SSvote.active_vote.no_offstation_vote
 	if(SSvote.active_vote.no_dead_vote)
 		to_chat(world, "<b>Dead Vote has been disabled!</b>")
 	else

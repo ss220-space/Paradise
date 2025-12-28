@@ -110,7 +110,6 @@
 	master = C
 	master.active_dummy = src
 
-
 /obj/effect/dummy/chameleon/proc/notify_disrupt(mob/attacker, mob/defender, obj/item)
 	to_chat(defender, span_danger("Your chameleon projector deactivates."))
 	add_attack_logs(attacker, defender, "disrupt [master] by [item ? item : "attack"]")

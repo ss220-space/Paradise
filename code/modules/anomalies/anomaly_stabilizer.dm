@@ -83,7 +83,6 @@
 	else
 		cur_ammo_type = /obj/item/ammo_casing/energy/anomaly
 
-
 /obj/item/gun/energy/anomaly_stabilizer/proc/eject_core(index, mob/user)
 	if(user)
 		user.put_in_hands(cores[index])
@@ -92,7 +91,6 @@
 
 	cores.Remove(cores[index])
 	update_cores()
-
 
 /obj/item/gun/energy/anomaly_stabilizer/proc/insert_core(obj/item/assembly/signaler/core/core, mob/user)
 	add_fingerprint(user)
@@ -172,7 +170,6 @@
 
 	return insert_core(item, user)
 
-
 /obj/item/gun/energy/anomaly_stabilizer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -236,12 +233,10 @@
 	. += span_notice("Индикатор заряда сообщает: [cell.charge]\\[cell.maxcharge].")
 	. += span_notice("Этого хватит на [shots] [declension_ru(shots, "выстрел", "выстрела", "выстрелов")] и изменение стабильности аномалии на [shots * stability_delta] [declension_ru(shots * stability_delta, "единицу", "единицы", "единиц")] при текущих настройках.")
 
-
 /obj/item/gun/energy/anomaly_stabilizer/proc/get_req_ecost()
 	var/cost = /obj/item/ammo_casing/energy/anomaly::e_cost
 	cost *= max(1, stability_delta * stability_delta)
 	return cost
-
 
 /obj/item/gun/energy/anomaly_stabilizer/update_overlays()
 	. = list()

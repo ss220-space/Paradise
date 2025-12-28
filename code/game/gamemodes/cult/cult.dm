@@ -164,7 +164,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(H, span_danger("You have a [item_name] in your [where]."))
 		return TRUE
 
-
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind)
 	if(!istype(cult_mind))
 		return FALSE
@@ -214,7 +213,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_objs.study(cult_mind.current)
 		return TRUE
 
-
 /datum/game_mode/proc/check_cult_size()
 	if(cult_ascendant)
 		return
@@ -246,7 +244,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		)
 		log_game("Blood cult reveal. Powergame allowed.")
 
-
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
@@ -262,7 +259,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
-
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
 	if(cult_mind in cult)
@@ -317,7 +313,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 			dagger.Grant(cult_mind.current)
 		cult_mind.current.update_action_buttons(TRUE)
 
-
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
@@ -346,7 +341,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	to_chat(world, endtext.Join(""))
 	..()
-
 
 /proc/iscultist(mob/living/user)
 	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.cult)

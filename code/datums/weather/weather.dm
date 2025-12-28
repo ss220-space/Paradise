@@ -6,7 +6,10 @@
 
 	var/telegraph_message = span_warning("The wind begins to pick up.") //The message displayed in chat to foreshadow the weather's beginning
 	var/telegraph_duration = 30 SECONDS //In deciseconds, how long from the beginning of the telegraph until the weather begins
-	var/telegraph_sound //The sound file played to everyone on an affected z-level
+	/// The sound file played to everyone on an affected z-level
+	var/telegraph_sound
+	/// Volume of the telegraph sound
+	var/telegraph_sound_vol
 	var/telegraph_overlay //The overlay applied to all tiles on the z-level
 
 	var/weather_message = span_userdanger("The wind begins to blow ferociously!") //Displayed in chat once the weather begins in earnest
@@ -20,6 +23,8 @@
 	var/end_message = span_danger("The wind relents its assault.") //Displayed once the wather is over
 	var/end_duration = 30 SECONDS //In deciseconds, how long the "wind-down" graphic will appear before vanishing entirely
 	var/end_sound
+	/// Volume of the sound that plays while weather is ending
+	var/end_sound_vol
 	var/end_overlay
 
 	var/area_type = /area/space //Types of area to affect
@@ -50,6 +55,8 @@
 	var/next_hit_time = 0 //For barometers to know when the next storm will hit
 	/// Has special firing
 	var/self_fire = FALSE
+	var/weather_cooldown_upper = 10 MINUTES
+	var/weather_cooldown_lower = 5 MINUTES
 
 /datum/weather/New(z_levels)
 	..()
@@ -65,6 +72,15 @@
 		if(A.z in impacted_z_levels)
 			impacted_areas |= A
 		CHECK_TICK
+
+/datum/weather/proc/generate_turf_list()
+	var/list/affected_turfs_list = list()
+	for(var/area/area as anything in impacted_areas)
+		for(var/turf/turf in area.get_turfs_from_all_zlevels())
+			if(is_space_or_openspace(turf) || turf.density)
+				continue
+			affected_turfs_list += turf
+	return affected_turfs_list
 
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
@@ -130,7 +146,6 @@
 	for(var/area/impacted_area as anything in impacted_areas)
 		SEND_SIGNAL(impacted_area, COMSIG_WEATHER_ENDED_IN_AREA(type), src)
 
-
 /// Can this weather impact a mob?
 /datum/weather/proc/can_weather_act(mob/living/mob_to_check)
 	var/turf/mob_turf = get_turf(mob_to_check)
@@ -160,7 +175,6 @@
 /datum/weather/proc/weather_act(mob/living/target) //What effect does this weather have on the hapless mob?
 	return
 
-
 /datum/weather/proc/update_areas()
 	var/list/new_overlay_cache = generate_overlay_cache()
 	for(var/area/impacted as anything in impacted_areas)
@@ -181,7 +195,6 @@
 		// save the old blend mode state
 		impacted_areas_blend_modes[impacted] = impacted.blend_mode
 		impacted.blend_mode = BLEND_OVERLAY
-
 
 	overlay_cache = new_overlay_cache
 

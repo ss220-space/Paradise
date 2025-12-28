@@ -4,7 +4,6 @@
 	if(. && old_evo_points != evolution_points)
 		update_icons()
 
-
 /mob/living/carbon/alien/larva/update_stat(reason = "none given", should_log = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()

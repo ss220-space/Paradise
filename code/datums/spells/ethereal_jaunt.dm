@@ -16,10 +16,8 @@
 	var/jaunt_type_path = /obj/effect/dummy/spell_jaunt
 	var/jaunt_water_effect = TRUE
 
-
 /obj/effect/proc_holder/spell/ethereal_jaunt/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
@@ -27,7 +25,6 @@
 			to_chat(target, span_warning("You are somehow too bound to your current location to abandon it."))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
-
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/do_jaunt(mob/living/target)
 	playsound(get_turf(target), sound_in, 50, TRUE, -1)
@@ -89,12 +86,10 @@
 	REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	target.remove_CC()
 
-
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/jaunt_steam(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
 	steam.set_up(10, 0, mobloc)
 	steam.start()
-
 
 /obj/effect/dummy/spell_jaunt
 	name = "water"
@@ -105,13 +100,11 @@
 	var/movedelay = 0
 	var/movespeed = 2
 
-
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
 	for(var/atom/movable/AM in src)
 		AM.forceMove(get_turf(src))
 	return ..()
-
 
 /obj/effect/dummy/spell_jaunt/relaymove(mob/user, direction)
 	if((movedelay > world.time) || reappearing || !direction)
@@ -124,7 +117,6 @@
 		to_chat(user, span_warning("Something is blocking the way!"))
 	movedelay = world.time + movespeed
 
-
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/target_turf, mob/user)
 	if(target_turf.turf_flags & NOJAUNT)
 		return FALSE
@@ -134,25 +126,20 @@
 			return FALSE
 	return TRUE
 
-
 /obj/effect/dummy/spell_jaunt/ex_act(blah)
 	return
 
-
 /obj/effect/dummy/spell_jaunt/bullet_act(blah)
 	return
-
 
 /obj/effect/dummy/spell_jaunt/blood_pool
 	name = "sanguine pool"
 	desc = "a pool of living blood."
 	movespeed = 1.5
 
-
 /obj/effect/dummy/spell_jaunt/blood_pool/relaymove(mob/user, direction)
 	..()
 	new /obj/effect/decal/cleanable/blood(loc)
-
 
 /obj/effect/dummy/spell_jaunt/blood_pool/can_move(turf/target_turf)
 	if(isspaceturf(target_turf) || target_turf.density)

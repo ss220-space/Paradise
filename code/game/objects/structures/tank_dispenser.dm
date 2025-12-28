@@ -38,7 +38,6 @@
 		var/obj/item/tank/internals/oxygen/O = new(src)
 		stored_oxygen_tanks.Add(O)
 
-
 /obj/structure/dispenser/update_overlays()
 	. = ..()
 	var/oxy_tank_amount = LAZYLEN(stored_oxygen_tanks)
@@ -54,7 +53,6 @@
 			. += "plasma-[pla_tank_amount]"
 		if(5 to INFINITY)
 			. += "plasma-5"
-
 
 /obj/structure/dispenser/attack_hand(mob/user)
 	if(..())
@@ -94,14 +92,12 @@
 	add_fingerprint(usr)
 	return TRUE
 
-
 /obj/structure/dispenser/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
 	to_chat(user, span_notice("[anchored ? "You wrench [src] into place." : "You lean down and unwrench [src]."]"))
-
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -120,7 +116,6 @@
 
 	return ..()
 
-
 /// Called when the user clicks on the oxygen or plasma tank UI buttons, and tries to withdraw a tank.
 /obj/structure/dispenser/proc/try_remove_tank(mob/living/user, list/tank_list)
 	if(!LAZYLEN(tank_list))
@@ -134,7 +129,6 @@
 
 	to_chat(user, span_notice("You have taken [tank] out of [src]."))
 	update_icon(UPDATE_OVERLAYS)
-
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/tank)
@@ -151,7 +145,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	to_chat(user, span_notice("You have put [tank] into [src]."))
 	SStgui.update_uis(src)
-
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

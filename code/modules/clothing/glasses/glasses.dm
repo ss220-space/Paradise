@@ -4,7 +4,6 @@
 		// Pre-upgraded upgradable glasses
 		upgrade_prescription()
 
-
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
 	if(!ishuman(user) || user.incapacitated())
 		return ..()
@@ -24,11 +23,9 @@
 
 	return ..()
 
-
 /obj/item/clothing/glasses/update_name(updates = ALL)
 	. = ..()
 	name = prescription ? "prescription [initial(name)]" : initial(name)
-
 
 /obj/item/clothing/glasses/proc/upgrade_prescription(obj/item/I, mob/living/carbon/human/user)
 	if(!I)
@@ -41,7 +38,6 @@
 		to_chat(user, span_notice("You fit [src] with lenses from [I]."))
 		if(user.glasses == src)
 			user.update_nearsighted_effects()
-
 
 /obj/item/clothing/glasses/proc/remove_prescription(mob/living/carbon/human/user)
 	var/obj/item/clothing/glasses/regular/prescription_glasses = locate() in src
@@ -60,7 +56,6 @@
 		if(user.glasses == src)
 			user.update_nearsighted_effects()
 
-
 /obj/item/clothing/glasses/screwdriver_act(mob/living/user, obj/item/I)
 	if(!prescription)
 		to_chat(user, span_notice("There are no prescription lenses in [src]."))
@@ -69,7 +64,6 @@
 		return TRUE
 	remove_prescription(user)
 	return TRUE
-
 
 /obj/item/clothing/glasses/visor_toggling(mob/user)
 	. = ..()
@@ -82,10 +76,9 @@
 	if(visor_vars_to_toggle & VISOR_INVISVIEW)
 		invis_view ^= initial(invis_view)
 
-
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
-	desc = "Used for seeing walls, floors, and stuff through anything."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве."
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
@@ -105,6 +98,16 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
+/obj/item/clothing/glasses/meson/get_ru_names()
+	return list(
+		NOMINATIVE = "мезонные очки",
+		GENITIVE = "мезонных очков",
+		DATIVE = "мезонным очкам",
+		ACCUSATIVE = "мезонные очки",
+		INSTRUMENTAL = "мезонными очками",
+		PREPOSITIONAL = "мезонных очках"
+	)
+
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "Meson Sunglasses"
 	desc = "An Optical Meson Scanner that protects your eyes"
@@ -121,7 +124,8 @@
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
-	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
+			Данная модель оснащена светочувствительной матрицей, повышающей видимость в условиях ограниченного освещения."
 	icon_state = "nvgmeson"
 	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
@@ -129,20 +133,41 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	prescription_upgradable = FALSE
 
+/obj/item/clothing/glasses/meson/night/get_ru_names()
+	return list(
+		NOMINATIVE = "мезонные очки ночного видения",
+		GENITIVE = "мезонных очков ночного видения",
+		DATIVE = "мезонным очкам ночного видения",
+		ACCUSATIVE = "мезонные очки ночного видения",
+		INSTRUMENTAL = "мезонными очками ночного видения",
+		PREPOSITIONAL = "мезонных очках ночного видения"
+	)
+
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
+			Обладают уникальным дизайном."
 	icon_state = "garm"
 	item_state = "garm"
-	desc = "Do the impossible, see the invisible!"
 	force = 10
 	throwforce = 10
 	throw_speed = 4
 	attack_verb = list("полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
+
+/obj/item/clothing/glasses/meson/gar/get_ru_names()
+	return list(
+		NOMINATIVE = "гар-мезонные очки",
+		GENITIVE = "гар-мезонных очков",
+		DATIVE = "гар-мезонным очкам",
+		ACCUSATIVE = "гар-мезонные очки",
+		INSTRUMENTAL = "гар-мезонными очками",
+		PREPOSITIONAL = "гар-мезонных очках"
+	)
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -151,7 +176,6 @@
 	item_state = "eyepatch"
 	flags_cover = NONE
 	prescription_upgradable = FALSE
-
 
 /obj/item/clothing/glasses/meson/cyber/Initialize(mapload)
 	. = ..()
@@ -345,11 +369,9 @@
 	item_state = "eyepatch"
 	flags_cover = NONE
 
-
 /obj/item/clothing/glasses/material/cyber/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/glasses/material/lighting
 	name = "Neutron Goggles"
@@ -358,11 +380,9 @@
 	vision_flags = NONE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 
-
 /obj/item/clothing/glasses/material/lighting/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
@@ -504,7 +524,6 @@
 
 	COOLDOWN_START(src, use_cooldown, 5 MINUTES)
 
-
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
@@ -534,11 +553,9 @@
 	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
 	name = "high-tech sunglasses"
 
-
 /obj/item/clothing/glasses/sunglasses/lasers/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial = FALSE) //grant them laser eyes upon equipping it.
 	. = ..()
@@ -546,13 +563,11 @@
 		ADD_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
 		user.update_mutations()
 
-
 /obj/item/clothing/glasses/sunglasses/lasers/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_EYES)
 		REMOVE_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
 		user.update_mutations()
-
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
@@ -700,11 +715,9 @@
 	icon_state = "cybereye-red"
 	item_state = "eyepatch"
 
-
 /obj/item/clothing/glasses/thermal/cyber/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/glasses/hud/godeye
 	name = "eye of god"
@@ -730,16 +743,13 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
-
 /obj/item/clothing/glasses/hud/godeye/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/glasses/hud/godeye/update_icon_state()
 	icon_state = "[double_eye ? "double" : ""]godeye"
 	item_state = "[double_eye ? "double" : ""]godeye"
-
 
 /obj/item/clothing/glasses/hud/godeye/update_desc(updates = ALL)
 	. = ..()
@@ -747,7 +757,6 @@
 		desc = initial(desc)
 		return
 	desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
-
 
 /obj/item/clothing/glasses/hud/godeye/attackby(obj/item/I, mob/user, params)
 	if(istype(I, type) && I != src && I.loc == user)
@@ -762,7 +771,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clothing/glasses/tajblind
 	name = "embroidered veil"
@@ -793,17 +801,14 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	var/flash_protect_up = FLASH_PROTECTION_NONE
 
-
 /obj/item/clothing/glasses/tajblind/eng/sunglasses
 	flash_protect_up = FLASH_PROTECTION_FLASH
 	tint_up = 1
-
 
 /obj/item/clothing/glasses/tajblind/eng/toggle_veil(mob/user)
 	. = ..()
 	if(.)
 		flash_protect = up ? flash_protect_up : initial(flash_protect)
-
 
 /obj/item/clothing/glasses/tajblind/sci
 	name = "hi-tech veil"
@@ -830,10 +835,8 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
-
 /obj/item/clothing/glasses/tajblind/attack_self(mob/user)
 	toggle_veil(user)
-
 
 /obj/item/clothing/glasses/proc/toggle_veil(mob/living/carbon/human/user)
 	if(user.incapacitated())
@@ -844,7 +847,6 @@
 	if(user.glasses == src)
 		to_chat(user, span_notice("[up ? "You activate [src], allowing you to see." : "You deactivate [src], obscuring your vision."]"))
 		user.wear_glasses_update(src)
-
 
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."

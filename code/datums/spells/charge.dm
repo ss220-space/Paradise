@@ -10,10 +10,8 @@
 	cooldown_min = 40 SECONDS //50 deciseconds reduction per rank
 	action_icon_state = "charge"
 
-
 /obj/effect/proc_holder/spell/charge/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
 	var/charge_result = NONE

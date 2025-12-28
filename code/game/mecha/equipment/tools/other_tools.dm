@@ -33,7 +33,6 @@
 	energy_drain = 1000
 	tele_precision = 1
 
-
 ////////////////////////////////////////////// WORMHOLE GENERATOR //////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator
@@ -136,7 +135,6 @@
 			add_game_logs("used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
 			start_cooldown()
 
-
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_snowflake_data()
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
@@ -172,7 +170,6 @@
 		start_cooldown()
 	return TRUE
 
-
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "Armor Booster Module (Ranged Weaponry)"
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
@@ -189,7 +186,6 @@
 	if(action_checks(src))
 		start_cooldown()
 		return TRUE
-
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
@@ -289,7 +285,6 @@
 	if(pow_chan)
 		return 1000 //making magic
 
-
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(area/A)
 	var/pow_chan
 	if(A)
@@ -349,7 +344,6 @@
 	var/power_per_cycle = 30
 	/// Generator is generating
 	var/generation = FALSE
-
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -425,12 +419,10 @@
 		occupant_message(span_warning("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return FALSE
 
-
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(obj/item/I, mob/user, params)
 	if(load_fuel(I))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/mecha_parts/mecha_equipment/generator/critfail()
 	..()
@@ -572,8 +564,6 @@
 		var/obj/mecha/working/W = loc
 		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
 		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
-
-
 
 // SCS-3 CAGE
 
@@ -772,7 +762,6 @@
 			break
 
 	current_stage = stage_define
-
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/set_supress_effect(mob/living/carbon/target)
 	supress_effect = new(target.loc)

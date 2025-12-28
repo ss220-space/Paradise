@@ -51,7 +51,6 @@
 	user.dust()
 	return OBLITERATION
 
-
 /obj/item/storage/bible/fart_act(mob/living/user)
 	if(QDELETED(user) || user.stat == DEAD)
 		return FALSE
@@ -61,7 +60,6 @@
 	do_sparks(3, TRUE, user)
 	user.gib()
 	return TRUE // Don't run the fart emote
-
 
 /obj/item/storage/bible/booze
 
@@ -82,7 +80,6 @@
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 
-
 //BS12 EDIT
 // All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
@@ -102,11 +99,9 @@
 		if(update_damage_icon)
 			M.UpdateDamageIcon()
 
-
 /obj/item/storage/bible/proc/god_forgive()
 	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
 	last_used = world.time
-
 
 /obj/item/storage/bible/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -190,7 +185,6 @@
 		user.Knockdown(10 SECONDS)
 		to_chat(user, span_userdanger("Вы злоупотребили волей Бога и были за это наказаны!"))
 
-
 /obj/item/storage/bible/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
@@ -200,7 +194,7 @@
 		if(user.mind?.isholy)
 			for(var/obj/O in target)
 				O.cult_reveal()
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		to_chat(user, span_notice("Вы ударяете шлюз [declent_ru(INSTRUMENTAL)]."))
 		if(user.mind?.isholy)
 			var/obj/airlock = target

@@ -3,7 +3,7 @@
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	icon_state = "violin"
 	item_state = "violin"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	allowed_instrument_ids = "violin"
 
 /obj/item/instrument/violin/golden
@@ -12,17 +12,6 @@
 	icon_state = "golden_violin"
 	item_state = "golden_violin"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-
-/obj/item/instrument/piano_synth
-	name = "synthesizer"
-	desc = "An advanced electronic synthesizer that can be used as various instruments."
-	icon_state = "synth"
-	item_state = "synth"
-	allowed_instrument_ids = "piano"
-
-/obj/item/instrument/piano_synth/Initialize(mapload)
-	. = ..()
-	song.allowed_instrument_ids = SSinstruments.synthesizer_instrument_ids
 
 /obj/item/instrument/banjo
 	name = "banjo"
@@ -84,12 +73,10 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-
 /obj/item/instrument/trumpet/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/saxophone
 	name = "saxophone"
@@ -108,12 +95,10 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-
 /obj/item/instrument/saxophone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/saxophone/En4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/trombone
 	name = "trombone"
@@ -127,17 +112,14 @@
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
 	force = 0
 
-
 /obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
-
 
 /obj/item/instrument/trombone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/Cn4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/recorder
 	name = "recorder"

@@ -44,7 +44,6 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/lights_color = -99999 // "NONSENSICAL_VALUE"
-	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	/// The internal storage of the exosuit. For the cargo module
@@ -246,6 +245,7 @@
 			. += span_notice("[icon2html(ME, user)] [ME]")
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
+	. = ..()
 	if(M == occupant && radio.get_broadcasting())
 		radio.talk_into(M, message_pieces)
 
@@ -406,7 +406,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
@@ -574,7 +573,6 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, TRUE)
 
-
 /obj/mecha/Bump(atom/bumped_atom)
 	if(!throwing)
 		. = ..()
@@ -637,8 +635,6 @@
 				crashing = get_distant_turf(get_turf(src), dir, 3)//don't use get_dir(src, obstacle) or the mech will stop if he bumps into a one-direction window on his tile.
 				throw_at(crashing, 50, throw_speed)
 
-
-
 ///////////////////////////////////
 ////////  Internal damage  ////////
 ///////////////////////////////////
@@ -663,7 +659,6 @@
 /obj/mecha/proc/hasInternalDamage(int_dam_flag=null)
 	return int_dam_flag ? internal_damage&int_dam_flag : internal_damage
 
-
 /obj/mecha/proc/setInternalDamage(int_dam_flag)
 	internal_damage |= int_dam_flag
 	SEND_SOUND(occupant, sound('sound/machines/warning-buzzer.ogg'))
@@ -679,7 +674,6 @@
 		if(MECHA_INT_TANK_BREACH)
 			occupant_message(span_notice("Damaged internal tank has been sealed."))
 	diag_hud_set_mechstat()
-
 
 ////////////////////////////////////////
 ////////  Health related procs  ////////
@@ -744,7 +738,6 @@
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message(span_notice("[user] hits [name]. Nothing happens."), span_notice("You hit [name] with no visible effect."))
-
 
 /obj/mecha/attack_alien(mob/living/carbon/alien/user)
 	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
@@ -881,7 +874,7 @@
 			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[name]' using [I]")
 		return ..()
 
-	if(istype(I, /obj/item/mmi))
+	if(is_mmi(I))
 		add_fingerprint(user)
 		if(!mmi_move_inside(I, user))
 			to_chat(user, "[name]-MMI interface initialization failed.")
@@ -1027,7 +1020,6 @@
 
 	to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
 
-
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
 	if(maintenance_progress != MECHA_LOOSE_BOLTS && maintenance_progress != MECHA_OPEN_HATCH && !(maintenance_progress == MECHA_UNSECURE_CELL && occupant))
 		return
@@ -1127,7 +1119,6 @@
 	if(user)
 		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 
-
 /////////////////////////////////////
 //////////// AI piloting ////////////
 /////////////////////////////////////
@@ -1143,7 +1134,7 @@
 			to_chat(user, "[B.get_mecha_info_text()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=[UID()]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
 	else
 		examine(user)
 		if(occupant)
@@ -1158,7 +1149,7 @@
 		if(!can_control_mech)
 			to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 			return
-		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=[UID()]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
 
 /obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
@@ -1177,7 +1168,7 @@
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
 				to_chat(user, span_boldannounceic("ACCESS DENIED."))
 				return
-			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
+			AI.aiRestorePowerRoutine = POWER_RESTORATION_OFF // So the AI initially has power.
 			AI.control_disabled = TRUE
 			AI.aiRadio.disabledAi = TRUE
 			AI.forceMove(card)
@@ -1218,7 +1209,7 @@
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
-	AI.aiRestorePowerRoutine = 0
+	AI.aiRestorePowerRoutine = POWER_RESTORATION_OFF
 	AI.forceMove(src)
 	occupant = AI
 	update_icon(UPDATE_ICON_STATE)
@@ -1359,7 +1350,6 @@
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
 	return TRUE
 
-
 /obj/mecha/proc/put_in(mob/user)
 	if(do_after(user, mech_enter_time, src, category = DA_CAT_TOOL))
 		if(obj_integrity <= 0)
@@ -1374,7 +1364,6 @@
 			moved_inside(user)
 	else
 		to_chat(user, span_warning("You stop entering the exosuit!"))
-
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
 	if(H?.client && (H in range(1)))
@@ -1463,7 +1452,7 @@
 	if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
-	if(istype(mob_container, /obj/item/mmi))
+	if(is_mmi(mob_container))
 		return TRUE
 	return FALSE
 
@@ -1548,7 +1537,7 @@
 	if(mob_container.forceMove(newloc))//ejecting mob container
 		close_window(L, "exosuit")
 
-		if(istype(mob_container, /obj/item/mmi))
+		if(is_mmi(mob_container))
 			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
 				L.forceMove(mmi)
@@ -1589,13 +1578,11 @@
 			return TRUE
 	return FALSE
 
-
 /obj/mecha/proc/internals_access_allowed(mob/living/carbon/human/H)
 	for(var/atom/ID in H.get_access_locations())
 		if(check_access(ID, internals_req_access))
 			return TRUE
 	return FALSE
-
 
 /obj/mecha/check_access(obj/item/I, list/access_list)
 	if(!istype(access_list))
@@ -1666,7 +1653,6 @@
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_emptycell)
 	else
 		occupant.throw_alert("charge", /atom/movable/screen/alert/mech_nocell)
-
 
 //////////////////////////////////////////
 ////////  Mecha global iterators  ////////
@@ -1756,7 +1742,6 @@
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
 
-
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
@@ -1842,7 +1827,6 @@
 	if(L.incapacitated())
 		return FALSE
 	return TRUE
-
 
 /obj/mecha/update_icon_state()
 	var/init_icon_state = initial_icon ? initial_icon : initial(icon_state)

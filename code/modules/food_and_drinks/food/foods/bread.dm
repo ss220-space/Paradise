@@ -132,7 +132,6 @@
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
 
-
 /obj/item/reagent_containers/food/snacks/breadslice/stale
 	name = "stale bread"
 	desc = "Похоже, ваши похитители позаботились о вашем питании."
@@ -195,7 +194,6 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("bread" = 10, "cheese" = 10)
 	foodtype = GRAIN | DAIRY
-
 
 //////////////////////
 //		Misc		//
@@ -316,5 +314,4 @@
 	filling_color = "#E6DEB5"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	foodtype = GRAIN | SUGAR
-
 

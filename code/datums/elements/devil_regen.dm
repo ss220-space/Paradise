@@ -175,11 +175,11 @@
 		mob.dna.struc_enzymes = mob.dna.struc_enzymes_original
 		for(var/obj/item/organ/external/organ as anything in mob.bodyparts)
 			organ.stop_internal_bleeding()
+			organ.stop_arterial_bleeding()
+			organ.stop_bleeding()
 			organ.mend_fracture()
 			organ.open = ORGAN_CLOSED
 			organ.germ_level = 0
-
-
 
 	playsound(get_turf(human), pick(sounds), 50, FALSE, 1)
 	regen_cycles_count += DEVIL_REGEN_BOOST
@@ -232,13 +232,11 @@
 		mob.update_eyes()
 		mob.update_dna()
 
-
 /datum/action/innate/remove_hand
 	name = "Оторвать себе руку"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/human_races/r_human.dmi'
+	button_icon = 'icons/mob/human_races/r_human.dmi'
 	button_icon_state = "l_arm"
-
 
 /datum/action/innate/remove_hand/Grant(mob/user)
 	if(!ishuman(user))
@@ -250,8 +248,7 @@
 		return
 	. = ..()
 
-
-/datum/action/innate/remove_hand/IsAvailable()
+/datum/action/innate/remove_hand/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!ishuman(owner))
 		return FALSE

@@ -36,7 +36,7 @@
 		var/race = H.dna.species.name
 		switch(race)
 			if(SPECIES_HUMAN)
-				box = /obj/item/storage/box/soviet
+				box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_general
 	name = "Генерал СССП"
@@ -88,7 +88,7 @@
 		var/race = H.dna.species.name
 		switch(race)
 			if(SPECIES_HUMAN)
-				box = /obj/item/storage/box/soviet
+				box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_engineer
 	name = "Инженер СССП"
@@ -139,7 +139,7 @@
 		var/race = H.dna.species.name
 		switch(race)
 			if(SPECIES_HUMAN)
-				box = /obj/item/storage/box/soviet
+				box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_security
 	name = "Сотрудник безопасности СССП"
@@ -181,7 +181,7 @@
 		var/race = H.dna.species.name
 		switch(race)
 			if(SPECIES_HUMAN)
-				box = /obj/item/storage/box/soviet
+				box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_scientist
 	name = "Учёный СССП"
@@ -221,7 +221,6 @@
 
 	empty.dir = WEST
 	return ..()
-
 
 // Wall safe with areaeditor
 /obj/item/storage/secure/safe/ussp_blueprints

@@ -153,6 +153,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		AS.pixel_x += 25
 		AS.pixel_y -= 9
 
+#define NORTH_OF_TURF(turf) locate(turf.x, turf.y + 1, turf.z)
+#define EAST_OF_TURF(turf) locate(turf.x + 1, turf.y, turf.z)
+
 /obj/effect/spawner/airlock/proc/handle_pipes_creation(turf/T) //This places all required piping down, then properly initializes it. T is the turf that the interior airlock occupies
 	var/turf/below_T = get_step(T, opposite_interior_direction)
 
@@ -200,6 +203,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 					interior_direction_cw)
 				put_thing_here = get_step(put_thing_here, opposite_interior_direction) //Now move the turf we're generating stuff from 1 forward
 
+#undef NORTH_OF_TURF
+#undef EAST_OF_TURF
+
 /obj/effect/spawner/airlock/proc/pipe_creation_helper(path, location, direction, initialization_directions) //Create some kind of atmospherics machinery and initialize it properly
 	var/obj/machinery/atmospherics/A = new path(location)
 	A.dir = direction
@@ -208,7 +214,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
-
 
 //Premade airlocks for mappers, probably won't need all of these but whatever
 /obj/effect/spawner/airlock/s_to_n

@@ -23,7 +23,6 @@ SUBSYSTEM_DEF(cleanup)
 	/// A list of global lists we want the subsystem to clean.
 	var/list/lists_to_clean
 
-
 /datum/controller/subsystem/cleanup/Initialize()
 	// If you want this subsystem to clean out nulls from a specific list, add it here.
 	lists_to_clean = list(

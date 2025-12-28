@@ -39,7 +39,6 @@
 
 	return data
 
-
 /obj/machinery/computer/mecha/ui_act(action, params)
 	if(..())
 		return
@@ -74,7 +73,7 @@
 		return FALSE
 	var/obj/mecha/M = loc
 	var/list/answer[0]
-	answer["reference"] = "\ref[src]"
+	answer["reference"] = UID()
 	answer["name"] = sanitize(replacetext(M.name,"\"","'")) // Double apostrophes break JSON
 	if(M.cell)
 		answer["cell"] = 1

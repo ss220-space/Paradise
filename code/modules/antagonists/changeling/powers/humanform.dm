@@ -7,7 +7,6 @@
 	max_genetic_damage = 3
 	chemical_cost = 5
 
-
 /**
  * Transform into a human.
  */
