@@ -309,7 +309,8 @@
 /obj/item/storage/box/warmdonkpockets
 	name = "box of warm donk-pockets"
 	desc = "Коробка с уже разогретыми Донк-покетами. Ням-ням!"
-	icon_state = "donk_kit"
+	icon_state = "donkpocket_box"
+	item_state = "donks"
 
 /obj/item/storage/box/warmdonkpockets/get_ru_names()
 	return list(
