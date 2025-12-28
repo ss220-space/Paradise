@@ -1,4 +1,5 @@
 #define KRAMPUS_SPAWN_PROBABILITY 40
+#define KRAMPUS_PER_PLAYER 13
 
 /datum/weather/snow_storm
 	name = "snow storm"
@@ -115,10 +116,27 @@
 
 	target.adjust_bodytemperature(temp_drop)
 
+/datum/weather/snow_storm/proc/can_spawn_krampus()
+	var/players_count = num_station_players()
+	var/krampus_count = get_krampus_count()
+
+	if(players_count < KRAMPUS_PER_PLAYER)
+		return FALSE
+
+	var/krampus_need = round(players_count / KRAMPUS_PER_PLAYER)
+
+	if(krampus_count > krampus_need)
+		return FALSE
+
+	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
+		return FALSE
+
+	return TRUE
+
 /datum/weather/snow_storm/proc/spawn_krampus(list/possible_turfs)
 	set waitfor = FALSE
 
-	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
+	if(!(can_spawn_krampus()))
 		return
 
 	var/image/krampus_image = image(/mob/living/carbon/true_devil/krampus::icon, /mob/living/carbon/true_devil/krampus::icon_state)
@@ -132,4 +150,15 @@
 	krampus.possess_by_player(candidate.ckey)
 	krampus.mind.add_antag_datum(/datum/antagonist/krampus)
 
+/datum/weather/snow_storm/proc/get_krampus_count()
+	var/count = 0
+	for(var/datum/antagonist/krampus/krampus in GLOB.antagonists)
+
+		if(QDELETED(krampus.owner?.current) || krampus.owner.current.stat == DEAD)
+			continue
+
+		count++
+	return count
+
 #undef KRAMPUS_SPAWN_PROBABILITY
+#undef KRAMPUS_PER_PLAYER

@@ -217,8 +217,8 @@
 	name = "Krampus"
 	desc = "Он пришел тебя наказать. Лучше беги."
 	icon_state = "arch_krampus"
-	health = 900
-	maxHealth = 900
+	health = 800
+	maxHealth = 800
 	var/list/bag_content
 	var/static/list/spell_list = list(
 		/obj/effect/proc_holder/spell/conjure_item/krampus_bag,
