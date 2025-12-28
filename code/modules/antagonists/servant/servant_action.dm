@@ -13,7 +13,7 @@
 		qdel(src)
 	serv_datum = servant.mind.has_antag_datum(/datum/antagonist/servant, FALSE)
 
-/datum/action/summon_servant/Trigger(left_click)
+/datum/action/summon_servant/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(serv_datum.in_owner)
 		servant.forceMove(owner.loc)
@@ -37,7 +37,7 @@
 		qdel(src)
 	serv_datum = owner.mind.has_antag_datum(/datum/antagonist/servant, FALSE)
 
-/datum/action/servant_self_summon/Trigger(left_click)
+/datum/action/servant_self_summon/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(serv_datum.in_owner)
 		owner.forceMove(master.loc)
