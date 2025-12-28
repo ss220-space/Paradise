@@ -301,7 +301,11 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
-/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_EXTERNAL_PARTS)
+/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, int_damage, flags = AFFECT_ALL_EXTERNAL_PARTS)
+	// returns a list of damaged organs that meet the given criteria
+	// brute and burn are minimum damage thresholds and only applied to external organs(bodyparts)
+	// int_damage is minimum damage for internal organs must have to be included in the returned list
+	// flags determine what kind of organs to include, by default is set tp all external parts
 	var/list/obj/item/organ/organs = list()
 	var/list/obj/item/organ/parts = list()
 	if(AFFECT_EXTERNAL_ORGANS & flags)
@@ -316,7 +320,7 @@
 			damaged = (bodypart.brute_dam >= brute || bodypart.burn_dam >= burn)
 		else
 			var/obj/item/organ/internal/int_organ = organ
-			damaged = int_organ.damage
+			damaged = int_organ.damage >= int_damage
 		if(damaged)
 			if(!(flags & AFFECT_ROBOTIC_ORGAN) && organ.is_robotic())
 				continue
