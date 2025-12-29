@@ -7,7 +7,7 @@
 	var/modules_spawn_chance = 0
 
 /datum/loot_tier/proc/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)
-	if(!istype(crate))
+	if(!isatom(crate))
 		return
 
 	for(var/i in 1 to loot_count)
