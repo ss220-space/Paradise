@@ -1206,7 +1206,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/effectiveness = min(volume / BASE_WATER_VOLUME, 1)
 
 
-	var/final_change = min(temperature_diff_abs, MAX_WATER_TEMPERATURE_CHANGE) * effectiveness
+	var/final_change = min(min(temperature_diff_abs, MAX_WATER_TEMPERATURE_CHANGE) * effectiveness, temperature_diff_abs)
 
 	final_change = (temperature_diff > 0)? final_change : -final_change
 
