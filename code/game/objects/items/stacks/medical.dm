@@ -57,7 +57,7 @@
 				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)]."),
 				ignored_mobs = user,
 			)
-			target.balloon_alert(user, "применение на [affecting.declent_ru(PREPOSITIONAL)]...")
+			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]]...")
 
 			if(!do_after(human_target, self_delay, human_target, use_flags, max_interact_count = 1))
 				return .
@@ -79,7 +79,7 @@
 				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [human_target.declent_ru(PREPOSITIONAL)]."),
 				ignored_mobs = user,
 			)
-			target.balloon_alert(user, "применение на [affecting.declent_ru(PREPOSITIONAL)] цели...")
+			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]] цели...")
 
 			if(use_duration && !do_after(user, use_duration, human_target))
 				return .
@@ -113,7 +113,7 @@
 	target.heal_organ_damage(heal_brute, heal_burn)
 
 	user.visible_message(
-		span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] к [target]."),
+		span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [target.declent_ru(PREPOSITIONAL)]."),
 		ignored_mobs = user,
 	)
 	target.balloon_alert(user, "применено")
@@ -171,7 +171,7 @@
 			span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [target.declent_ru(GENITIVE)]."),
 			ignored_mobs = user,
 		)
-		target.balloon_alert(user, "применение на [affecting.declent_ru(PREPOSITIONAL)] цели")
+		target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]] цели")
 	if(should_update_health)
 		target.updatehealth("[name] heal")
 	if(update_damage_icon)
@@ -758,7 +758,7 @@
 			span_hear("Вы слышите, как что-то оборачивают вокруг чего."),
 			ignored_mobs = user,
 		)
-		target.balloon_alert(user, "наложение шины на [affecting.declent_ru(ACCUSATIVE)]...")
+		target.balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
 
 	if(target == user && !do_after(user, self_delay, target, NONE))
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -1027,7 +1027,7 @@
 		blind_message = span_hear("Вы слышите звук стягивания чего-то."),
 		ignored_mobs = user,
 	)
-	balloon_alert(user, "наложение турникета...")
+	balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
 
 	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applied_bodypart)
 		return
@@ -1055,7 +1055,7 @@
 		blind_message = span_hear("Вы слышите звук стягивания чего-то."),
 		ignored_mobs = user,
 	)
-	human_target.balloon_alert(user, "наложение турникета...")
+	human_target.balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
 
 	if(!do_after(user, other_duration, human_target) || applied_bodypart)
 		return
