@@ -1,4 +1,3 @@
-// Mode constants
 #define MODE_RESOURCE "resource"
 #define MODE_CARTRIDGE "cartridge"
 #define MODE_BEAN "bean"
@@ -138,3 +137,7 @@
 
 		machine.update_appearance(UPDATE_OVERLAYS)
 		return COMSIG_ITEM_COFFEEMAKER_ACCEPTED
+
+#undef MODE_RESOURCE
+#undef MODE_CARTRIDGE
+#undef MODE_BEAN

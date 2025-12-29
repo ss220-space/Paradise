@@ -46,7 +46,6 @@
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
 	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
 	icon = 'icons/obj/doors/mineral_doors.dmi';
 	icon_state = "gingerbread";
 	name = "Lift door"
@@ -740,7 +739,6 @@
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
 	desc = "Looks locked and bolted.";
-	description_info = null;
 	icon = 'icons/obj/doors/mineral_doors.dmi';
 	icon_state = "gingerbread";
 	name = "Security room"
@@ -1766,7 +1764,6 @@
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
 	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
 	icon = 'icons/obj/doors/mineral_doors.dmi';
 	icon_state = "gingerbread";
 	name = "Lift door"
@@ -2326,7 +2323,6 @@
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
 	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
 	icon = 'icons/obj/doors/mineral_doors.dmi';
 	icon_state = "gingerbread";
 	name = "Lift door"
@@ -2427,12 +2423,6 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "tp" = (
-/obj/structure/spider/stickyweb,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/spider/stickyweb,
 /obj/item/paper/crumpled{
 	desc = "Полезть прятаться в шахте — самая тупая идея за последние пару дней. Ладно, надо затесаться среди этих макак, отпинаю одну и заберу ее форму, авось прокатит. Вот только где скинуть ствол...";
@@ -3006,7 +2996,6 @@
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
 	desc = "Looks locked and bolted.";
-	description_info = null;
 	icon = 'icons/obj/doors/mineral_doors.dmi';
 	icon_state = "gingerbread";
 	name = "Security room"
@@ -6132,7 +6121,6 @@
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
 	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
 	icon = 'icons/obj/doors/mineral_doors.dmi';
 	icon_state = "gingerbread";
 	name = "Lift door"
