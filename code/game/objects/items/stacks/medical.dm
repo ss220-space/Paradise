@@ -54,7 +54,7 @@
 
 		if(human_target == user && !unique_handling)
 			user.visible_message(
-				span_notice("[user] применя[pluralize_ru(PLUR_ET_YUT(user))] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)]."),
+				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)]."),
 				ignored_mobs = user,
 			)
 			target.balloon_alert(user, "применение на [affecting.declent_ru(PREPOSITIONAL)]...")
@@ -76,7 +76,7 @@
 				return .
 		else
 			user.visible_message(
-				span_notice("[user] применя[pluralize_ru(PLUR_ET_YUT(user))] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [human_target.declent_ru(PREPOSITIONAL)]."),
+				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [human_target.declent_ru(PREPOSITIONAL)]."),
 				ignored_mobs = user,
 			)
 			target.balloon_alert(user, "применение на [affecting.declent_ru(PREPOSITIONAL)] цели...")
@@ -1020,7 +1020,7 @@
 	var/selected_zone = user.zone_selected
 
 	user.visible_message(
-		span_notice("[user] накладыва[pluralize_ru(PLUR_ET_UT(user))] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] накладыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)]."),
 		blind_message = span_hear("Вы слышите звук стягивания чего-то."),
 		ignored_mobs = user,
 	)
@@ -1048,7 +1048,7 @@
 	var/selected_zone = user.zone_selected
 
 	user.visible_message(
-		span_notice("[user] накладыва[pluralize_ru(PLUR_ET_UT(user))] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [human_target.declent_ru(GENITIVE)]."),
+		span_notice("[user] накладыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [human_target.declent_ru(GENITIVE)]."),
 		blind_message = span_hear("Вы слышите звук стягивания чего-то."),
 		ignored_mobs = user,
 	)
