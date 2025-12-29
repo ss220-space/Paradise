@@ -298,8 +298,8 @@
 /datum/recipe/microwave/sawdustsoup
 	reagents = list("water" = 20)
 	items = list(
-		/obj/item/stack/planks,
-		/obj/item/stack/planks,
+		/obj/item/stack/sheet/wood,
+		/obj/item/stack/sheet/wood,
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/sawdustsoup
 
