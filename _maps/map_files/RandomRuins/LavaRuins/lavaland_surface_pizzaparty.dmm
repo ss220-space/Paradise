@@ -206,7 +206,7 @@
 "z" = (
 /obj/structure/table/wood,
 /obj/structure/glowshroom/single,
-/obj/item/a_gift,
+/obj/item/gift,
 /turf/simulated/floor/wood{
 	oxygen = 14;
 	nitrogen = 23;
@@ -327,7 +327,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "M" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/a_gift,
+/obj/item/gift,
 /turf/simulated/floor/wood{
 	oxygen = 14;
 	nitrogen = 23;
