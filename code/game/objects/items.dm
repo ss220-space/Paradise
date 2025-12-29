@@ -1094,7 +1094,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = ..()
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
 		var/mob/user = usr
-		if(user.client.prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS)
+		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS))
 			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), 0.8 SECONDS, TIMER_STOPPABLE)
 
 		if(QDELETED(src))
@@ -1104,7 +1104,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return
 
 		var/mob/living/living_user = user
-		if(istype(living_user) && user.incapacitated())
+		if(istype(living_user) && living_user.incapacitated())
 			apply_outline(living_user, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
 			apply_outline(living_user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
