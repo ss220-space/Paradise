@@ -644,15 +644,15 @@ SUBSYSTEM_DEF(garbage)
 
 #undef REFSEARCH_RECURSE_LIMIT
 
-ADMIN_VERB(find_refs, R_DEBUG, "Find References", "Find references.", ADMIN_CATEGORY_DEBUG)
+ADMIN_VERB(find_refs, R_DEBUG, "Find References", "Find references.", ADMIN_CATEGORY_DEBUG, datum/target in world)
 	find_references()
 
-ADMIN_VERB(qdel_then_find_references, R_DEBUG, "qdel() then Find References", "qdel() then Find References", ADMIN_CATEGORY_DEBUG)
-	qdel(user, TRUE) //force a qdel
+ADMIN_VERB(qdel_then_find_references, R_DEBUG, "qdel() then Find References", "qdel() then Find References", ADMIN_CATEGORY_DEBUG, datum/target in world)
+	qdel(target, TRUE) //force a qdel
 	if(!running_find_references)
 		find_references(TRUE)
 
-ADMIN_VERB(qdel_then_if_fail_find_references, R_DEBUG, "qdel() then Find References if GC failure", "qdel() then Find References if GC failure", ADMIN_CATEGORY_DEBUG)
-	qdel_and_find_ref_if_fail(user, TRUE)
+ADMIN_VERB(qdel_then_if_fail_find_references, R_DEBUG, "qdel() then Find References if GC failure", "qdel() then Find References if GC failure", ADMIN_CATEGORY_DEBUG, datum/target in world)
+	qdel_and_find_ref_if_fail(target, TRUE)
 
 #endif

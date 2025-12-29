@@ -2348,7 +2348,10 @@
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
 			if("borgpanel")
-				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locateUID(href_list["borgpanel"]))
+				var/mob/living/silicon/robot/robot = current
+				if(!istype(robot))
+					return
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, current)
 			if("lawmanager")
 				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/open_law_manager)
 			if("unemag")

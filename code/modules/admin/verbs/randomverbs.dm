@@ -44,7 +44,7 @@ ADMIN_VERB(imprison_in_list, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_C
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/imprison, victim)
 	BLACKBOX_LOG_ADMIN_VERB("Prison")
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.player_list)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	if(!ismob(target))
 		return
 
@@ -57,8 +57,8 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message",
 
 	msg = admin_pencode_to_html(msg)
 
-	target.balloon_alert(target, "you hear a voice")
-	to_chat(target, "<i>You hear a voice in your head... <b>[msg]</i></b>", confidential = TRUE)
+	target.balloon_alert(target, "вы слышите голос...")
+	to_chat(target, span_italics("Вы слышите голос в своей голове... [span_bold(msg)]"), confidential = TRUE)
 
 	log_admin("SubtlePM: [key_name(user)] -> [key_name(target)] : [msg]")
 	message_admins(span_adminnotice("<b> SubtleMessage: [key_name_admin(user)] -> [key_name_admin(target)] :</b> [msg]"))
@@ -1069,18 +1069,18 @@ ADMIN_VERB(polymorph_all, R_ADMIN, "Polymorph All", "Applies the effects of the 
 	log_and_message_admins("polymorphed ALL living mobs.")
 	BLACKBOX_LOG_ADMIN_VERB("Polymorph All")
 
-	for(var/mob/living/M in mobs)
+	for(var/mob/living/selected_mob in mobs)
 		CHECK_TICK
 
-		if(!M || !M.name || !M.real_name)
+		if(!selected_mob || !selected_mob.name || !selected_mob.real_name)
 			continue
 
-		M.audible_message(span_hear("...ваббаджек...ваббаджек..."))
-		playsound(M.loc, 'sound/magic/Staff_Change.ogg', 50, TRUE, -1)
-		var/name = M.name
-		var/real_name = M.real_name
+		selected_mob.audible_message(span_hear("...ваббаджек...ваббаджек..."))
+		playsound(selected_mob.loc, 'sound/magic/Staff_Change.ogg', 50, TRUE, -1)
+		var/name = selected_mob.name
+		var/real_name = selected_mob.real_name
 
-		var/mob/living/new_mob = wabbajack(M)
+		var/mob/living/new_mob = wabbajack(selected_mob)
 		if(keep_name == "Да" && new_mob)
 			new_mob.name = name
 			new_mob.real_name = real_name
