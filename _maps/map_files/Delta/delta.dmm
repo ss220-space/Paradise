@@ -20021,7 +20021,7 @@
 	},
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/carpet/green,
-/area/crew_quarters/bar/atrium/safe)
+/area/crew_quarters/bar/atrium)
 "crJ" = (
 /obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -22274,7 +22274,7 @@
 /obj/item/gift,
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/carpet/green,
-/area/crew_quarters/bar/atrium/safe)
+/area/crew_quarters/bar/atrium)
 "cCz" = (
 /obj/structure/table/reinforced,
 /obj/item/extinguisher/mini{
@@ -55507,7 +55507,7 @@
 "hLK" = (
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/carpet/green,
-/area/crew_quarters/bar/atrium/safe)
+/area/crew_quarters/bar/atrium)
 "hLL" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -57584,7 +57584,7 @@
 "imC" = (
 /obj/structure/flora/tree/pine/xmas,
 /turf/simulated/floor/carpet/green,
-/area/crew_quarters/bar/atrium/safe)
+/area/crew_quarters/bar/atrium)
 "imD" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -115896,7 +115896,7 @@
 	},
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/carpet/green,
-/area/crew_quarters/bar/atrium/safe)
+/area/crew_quarters/bar/atrium)
 "vvG" = (
 /obj/structure/cable{
 	icon_state = "1-8"
