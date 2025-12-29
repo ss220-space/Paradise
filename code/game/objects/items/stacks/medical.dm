@@ -123,10 +123,13 @@
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
 	var/selected_zone = get_priority_targeting(target, user)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
+
 	user.visible_message(
 		span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [target.declent_ru(GENITIVE)]."),
 		ignored_mobs = user,
 	)
+	target.balloon_alert(user, "применено")
+
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
 	var/nrembrute = rembrute
@@ -1096,11 +1099,11 @@
 
 	var/drop_loc = applied_bodypart.drop_location()
 	src.forceMove(drop_loc)
+	applied_bodypart.owner.balloon_alert(user, "турникет снят")
 	applied_bodypart.tourniquet = null
 	applied_bodypart = null
 
 	if(applied_addition_bodypart)
-		applied_bodypart.owner.balloon_alert(user, "турникет снят")
 		applied_addition_bodypart.tourniquet = null
 		applied_addition_bodypart = null
 
