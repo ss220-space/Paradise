@@ -227,7 +227,7 @@
 #include "code\__DEFINES\dcs\signals\signals_blob.dm"
 #include "code\__DEFINES\dcs\signals\signals_bot.dm"
 #include "code\__DEFINES\dcs\signals\signals_circuit.dm"
-#include "code\__DEFINES\dcs\signals\signals_coffemaker.dm"
+#include "code\__DEFINES\dcs\signals\signals_coffeemaker.dm"
 #include "code\__DEFINES\dcs\signals\signals_lazy_templates.dm"
 #include "code\__DEFINES\dcs\signals\signals_object.dm"
 #include "code\__DEFINES\dcs\signals\signals_silicon.dm"

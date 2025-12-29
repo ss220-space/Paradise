@@ -188,19 +188,19 @@
 	var/list/radial_menu_choices = list()
 
 	// Always available brewing option
-	radial_menu_choices[RADIAL_MENU_BREW] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_brew")
+	radial_menu_choices[RADIAL_MENU_BREW] = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_brew")
 
 	// Special actions based on machine state
 	if(coffeepot)
-		radial_menu_choices[RADIAL_MENU_EJECT_POT] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_eject_pot")
+		radial_menu_choices[RADIAL_MENU_EJECT_POT] = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_eject_pot")
 	if(cartridge)
-		radial_menu_choices[RADIAL_MENU_EJECT_CARTRIDGE] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_eject_cartridge")
+		radial_menu_choices[RADIAL_MENU_EJECT_CARTRIDGE] = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_eject_cartridge")
 
 	// Dynamically add options for available resources
 	for(var/resource_id in resources)
 		var/datum/coffeemaker_resource/resource = resources[resource_id]
 		if(resource.can_take(user))
-			radial_menu_choices[resource.radial_name] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_take_[resource_id]")
+			radial_menu_choices[resource.radial_name] = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_take_[resource_id]")
 
 	var/selected_choice = show_radial_menu(user, src, radial_menu_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	choice_processing(user, selected_choice)

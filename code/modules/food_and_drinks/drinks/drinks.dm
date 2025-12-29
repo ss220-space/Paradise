@@ -432,8 +432,8 @@
 /obj/item/reagent_containers/food/drinks/zaza/attack_self(mob/user)
 	if(!is_open_container())
 		container_type |= OPENCONTAINER
-		to_chat(user, span_notice("You put the lid off [src]."))
+		to_chat(user, span_notice("Вы сняли крышку с [src]."))
 	else
-		to_chat(user, span_notice("You take the lid on [src]."))
+		to_chat(user, span_notice("Вы надели крышку на [src]."))
 		container_type &= ~OPENCONTAINER
 	update_icon(UPDATE_OVERLAYS)

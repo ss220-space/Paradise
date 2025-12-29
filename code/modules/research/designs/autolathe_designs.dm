@@ -322,7 +322,7 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
 	build_path = /obj/item/reagent_containers/glass/coffeepot
-	category = list("initial","Dinnerware")
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/syrup_bottle
 	name = "Бутылка сиропа"
@@ -330,7 +330,7 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 500)
 	build_path = /obj/item/reagent_containers/glass/bottle/syrup_bottle
-	category = list("initial","Dinnerware")
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/cultivator
 	id = "cultivator"

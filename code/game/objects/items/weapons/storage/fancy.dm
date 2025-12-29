@@ -680,16 +680,22 @@
 
 /obj/item/storage/fancy/coffee_condi_display/update_overlays()
 	. = list()
+	var/list/added_overlays = list()
 
-	for(var/thing in contents)
-		if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/sugar))
-			. += mutable_appearance(icon, "condi_display_sugar")
-		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/aspartame))
-			. += mutable_appearance(icon, "condi_display_sweetener")
-		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/creamer))
-			. += mutable_appearance(icon, "condi_display_creamer")
-		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/chocolate))
-			. += mutable_appearance(icon, "condi_display_chocolate")
+	for(var/obj/item/reagent_containers/food/condiment/pack/pack in contents)
+		var/overlay_name
+		if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/sugar))
+			overlay_name = "condi_display_sugar"
+		else if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/aspartame))
+			overlay_name = "condi_display_sweetener"
+		else if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/creamer))
+			overlay_name = "condi_display_creamer"
+		else if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/chocolate))
+			overlay_name = "condi_display_chocolate"
+
+		if(overlay_name && !(overlay_name in added_overlays))
+			. += mutable_appearance(icon, overlay_name)
+			added_overlays += overlay_name
 
 /obj/item/storage/fancy/coffee_condi_display/populate_contents()
 	for(var/i in 1 to 4)
@@ -733,5 +739,5 @@
 		new /obj/item/coffee_cartridge(src)
 	update_appearance()
 
-/obj/item/storage/fancy/update_icon_state()
+/obj/item/storage/fancy/coffee_cart_rack/update_icon_state()
 	icon_state = "coffee_cartrack[length(contents)]"

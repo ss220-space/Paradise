@@ -3575,7 +3575,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике кофейных картриджей",
 	)
 
-/datum/supply_packs/organic/coffee_cartridges_premiuim
+/datum/supply_packs/organic/coffee_cartridges_premium
 	name = "Набор премиальных кофейных картриджей"
 	contains = list(
 		/obj/item/coffee_cartridge/fancy,

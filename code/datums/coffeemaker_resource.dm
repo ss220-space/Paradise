@@ -3,9 +3,9 @@
  */
 /datum/coffeemaker_resource
 	/// Unique identifier for the resource
-	var/id = "Я багулечка."
+	var/id
 	// Name of resource
-	var/resource_name = "Я багулечка."
+	var/resource_name
 	/// Current amount of the resource
 	var/current_amount = 0
 	/// Maximum capacity for this resource
@@ -15,14 +15,14 @@
 	/// Type of item to create when taking
 	var/item_type
 	/// Display name for radial menu
-	var/radial_name = "Я багулечка."
+	var/radial_name
 	/// The name of the resource in the compartment
-	var/section_name = "Я багулечка."
+	var/section_name
 
 /datum/coffeemaker_resource/New()
 	. = ..()
 	if(!item_type)
-		CRASH("Coffeemaker resource [type] created without item_type")
+		CRASH("Coffeemaker resource [type] created without 'item_type'.")
 
 /**
  * Check if resource can be taken
@@ -93,7 +93,7 @@
 
 // MARK: Small Coffee Cup
 /datum/coffeemaker_resource/cups/small
-	id = "cups"
+	id = "cup"
 	current_amount = 15
 	max_amount = 15
 	icon_state = "cup"
@@ -113,7 +113,7 @@
 
 // MARK: Normal Coffee Cup
 /datum/coffeemaker_resource/cups/normal
-	id = "cups"
+	id = "cup"
 	current_amount = 15
 	max_amount = 15
 	icon_state = "cup"

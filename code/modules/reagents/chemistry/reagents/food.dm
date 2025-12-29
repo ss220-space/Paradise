@@ -175,7 +175,7 @@
 	taste_mult = 8
 	taste_description = "сладости"
 
-/datum/reagent/consumable/astrotame/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
+/datum/reagent/consumable/aspartame/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
 	if(affected_mob.AmountDisgust() >= 80)
 		return
