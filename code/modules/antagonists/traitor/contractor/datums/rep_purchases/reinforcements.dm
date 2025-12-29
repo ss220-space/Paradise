@@ -47,6 +47,10 @@
 	to_chat(user, span_notice("Аплинк тихо вибрирует, соединяясь с ближайшими агентами..."))
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_sit")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за Агента поддержки Контрактника [user.real_name]?", ROLE_TRAITOR, FALSE, 150, source = source)
+	
+	if(QDELETED(src))
+		return
+	
 	if(length(candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))

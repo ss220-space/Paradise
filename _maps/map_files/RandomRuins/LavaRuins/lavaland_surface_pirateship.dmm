@@ -1979,27 +1979,6 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
-"Gj" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	dir = 1;
-	name = "Broken Computer"
-	},
-/obj/item/dice/d2,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "Gz" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/lavaland/surface/outdoors)
@@ -2082,6 +2061,34 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"IN" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/pill/zoom{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/trash/spentcasing{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/trash/spentcasing{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/item/trash/spentcasing{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/pill/zoom{
+	pixel_x = -8;
+	pixel_y = -3
+	},
+/obj/machinery/light_switch/directional/east,
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/engine,
+/area/ruin/powered/pirateship)
 "IZ" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable/cyan{
@@ -2139,6 +2146,19 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Jx" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	dir = 1;
+	name = "Broken Computer"
+	},
+/obj/item/holder/parrot{
+	name = "pepper"
+	},
+/obj/item/radio/intercom/directional/east,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/engine,
+/area/ruin/powered/pirateship)
 "JM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2170,22 +2190,6 @@
 /obj/structure/flora/ausbushes/ywflowers/hell,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Kb" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	dir = 1;
-	name = "Broken Computer"
-	},
-/obj/item/holder/parrot{
-	name = "pepper"
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
 "Kl" = (
 /obj/structure/railing{
 	dir = 8
@@ -2352,34 +2356,6 @@
 	oxygen = 14;
 	temperature = 300
 	},
-/area/ruin/powered/pirateship)
-"Ng" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/pill/zoom{
-	pixel_x = 4;
-	pixel_y = -3
-	},
-/obj/item/trash/spentcasing{
-	pixel_x = 7;
-	pixel_y = 7
-	},
-/obj/item/trash/spentcasing{
-	pixel_x = -5;
-	pixel_y = 2
-	},
-/obj/item/trash/spentcasing{
-	pixel_x = -7;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/pill/zoom{
-	pixel_x = -8;
-	pixel_y = -3
-	},
-/obj/machinery/light_switch/directional/east,
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
 "Nt" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -3165,6 +3141,24 @@
 	oxygen = 14;
 	temperature = 300
 	},
+/area/ruin/powered/pirateship)
+"Xs" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	dir = 1;
+	name = "Broken Computer"
+	},
+/obj/item/dice/d2,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/item/radio/intercom/directional/east,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
 "XA" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -4862,7 +4856,7 @@ cb
 Gg
 Lq
 oE
-Ng
+IN
 eG
 VX
 QL
@@ -4918,8 +4912,8 @@ cb
 cb
 QL
 Gg
-Kb
-Gj
+Jx
+Xs
 eG
 VX
 QL

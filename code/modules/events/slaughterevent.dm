@@ -1,6 +1,6 @@
-#define SLAUGHTER_MINPLAYERS 30
-#define LAUGHTER_MINPLAYERS 30
-#define SHADOW_MINPLAYERS 40
+#define SLAUGHTER_MINPLAYERS 25
+#define LAUGHTER_MINPLAYERS 25
+#define SHADOW_MINPLAYERS 30
 
 /datum/event/spawn_slaughter
 	var/key_of_slaughter

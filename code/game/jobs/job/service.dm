@@ -52,7 +52,7 @@
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	exp_requirements = 300
-	exp_type = EXP_TYPE_SERVICE
+	exp_type = EXP_TYPE_CREW
 	paycheck = PAYCHECK_CREW
 
 /datum/job/service/bartender

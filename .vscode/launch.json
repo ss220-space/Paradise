@@ -15,8 +15,8 @@
             "type": "byond",
             "request": "launch",
             "name": "Fast Launch DreamSeeker(no CC)",
-            "preLaunchTask": "dm: build - fast_${command:CurrentDME}",
-            "dmb": "${workspaceFolder}/fast_${command:CurrentDMB}",
+            "preLaunchTask": "dm: build - fast_paradise.dme",
+            "dmb": "${workspaceFolder}/fast_paradise.dmb",
         }
     ]
 }

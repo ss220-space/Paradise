@@ -563,7 +563,7 @@ SUBSYSTEM_DEF(dbcore)
 
 // Verb that lets admins force reconnect the DB
 /client/proc/reestablish_db_connection()
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 	set name = "Reestablish DB Connection"
 	if(!CONFIG_GET(flag/sql_enabled))
 		to_chat(usr, span_warning("The Database is not enabled in the server configuration!"))

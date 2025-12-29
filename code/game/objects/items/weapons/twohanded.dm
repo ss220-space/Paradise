@@ -558,7 +558,7 @@
 	..()
 	if(!proximity)
 		return
-	user.faction |= "greytide(\ref[user])"
+	user.faction |= "greytide([user.UID()])"
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
@@ -1066,6 +1066,18 @@
 	force_unwielded = 100
 	force_wielded = 500000 // Kills you DEAD.
 
+/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+
+	if(is_airlock(target))
+		var/obj/machinery/door/airlock/airlock = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
+		airlock.deconstruct()
+		return TRUE
+	..()
+
 /obj/item/twohanded/pitchfork/update_icon_state()
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -1080,7 +1092,7 @@
 
 	var/mob/living/living_user = user
 
-	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind) //Burn hands unless they are a devil or have sold their soul
+	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind || isdevil(living_user)) //Burn hands unless they are a devil or have sold their soul
 		return
 
 	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[PLUR_ET_YUT(living_user)] [declent_ru(ACCUSATIVE)], [GEND_HIS_HER(living_user)] руки на мгновение загораются."), \
@@ -1099,7 +1111,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind) || isdevil(user))
 		return .
 
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))

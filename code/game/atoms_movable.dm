@@ -154,7 +154,7 @@
 				managed_overlays = flat
 
 		if(EMISSIVE_BLOCK_UNIQUE)
-			render_target = ref(src)
+			render_target = UID()
 			em_block = new(null, src)
 			overlays += em_block
 			if(managed_overlays)
@@ -215,7 +215,7 @@
 			return fast_emissive_blocker(src)
 		if(EMISSIVE_BLOCK_UNIQUE)
 			if(!em_block && !QDELETED(src))
-				render_target = ref(src)
+				render_target = UID()
 				em_block = new(null, src)
 			return em_block
 

@@ -206,14 +206,10 @@
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/bullet/gyro))
+		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = "[proj.type] fired by [key_name(proj.firer)] (hit turf)")
 	if(istype(proj, /obj/projectile/beam/pulse))
 		ex_act(EXPLODE_HEAVY)
-	..()
-	return FALSE
-
-/turf/bullet_act(obj/projectile/proj)
-	if(istype(proj, /obj/projectile/bullet/gyro))
-		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = proj)
 	..()
 	return FALSE
 
@@ -839,7 +835,7 @@
 	underlay_appearance.icon_state = "0"
 	SET_PLANE(underlay_appearance, PLANE_SPACE, generate_for)
 	if(!generate_for.render_target)
-		generate_for.render_target = ref(generate_for)
+		generate_for.render_target = generate_for.UID()
 	var/atom/movable/emissive_blocker/em_block = new(null, generate_for)
 	underlay_appearance.overlays += em_block
 	// We used it because it's convienient and easy, but it's gotta go now or it'll hang refs

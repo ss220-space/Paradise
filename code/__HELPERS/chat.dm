@@ -5,8 +5,8 @@
 		if(isnull(source))
 			to_chat(observer, "[message]", type = message_type)
 			continue
-		var/link = FOLLOW_LINK(observer, source)
-		to_chat(observer, "[link] [message]", type = message_type)
+		var/link = ghost_follow_link(observer, source)
+		to_chat(observer, "([link]) [message]", type = message_type)
 
 /// Sends a message to everyone within the list, as well as all observers.
 /proc/relay_to_list_and_observers(message, list/mob_list, source, message_type = null)

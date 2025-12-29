@@ -463,7 +463,9 @@
 		/obj/item/stack/medical/bruise_pack,
 		/obj/item/stack/medical/ointment,
 		/obj/item/stack/medical/suture,
+		/obj/item/tourniquet,
 	)
+	storage_slots = 9
 
 /obj/item/storage/firstaid/crew/get_ru_names()
 	return list(

@@ -503,39 +503,49 @@
 		steps--
 
 /**
- * Checks for wall-mounted items at a given location and direction
+ * Check if there is already a wall item on the turf loc
  *
  * Arguments:
- * * location - The turf to check for wall items
- * * direction - The direction to check for wall items
+ * * floor_loc - floor tile in front of the wall
+ * * dir_toward_wall - direction from the floor tile in front of the wall towards the wall
+ * * check_external - truthy if we should be checking against items coming out of the wall, rather than visually on top of the wall.
  */
-/proc/check_wall_item(turf/location, direction)
-	for(var/obj/current_object in location)
-		if(is_type_in_typecache(current_object, GLOB.wall_items))
+/proc/check_wall_item(floor_loc, dir_toward_wall, check_external = FALSE)
+	var/wall_loc = get_step(floor_loc, dir_toward_wall)
+	for(var/obj/checked_object in floor_loc)
+		if(!check_external)
+			if(!is_type_in_typecache(checked_object, GLOB.wallitems_interior))
+				continue
+
 			// Direction works sometimes
-			if(current_object.dir == direction)
+			if(checked_object.dir == dir_toward_wall)
 				return TRUE
 
 			// Some stuff doesn't use dir properly, so we need to check pixel instead
-			switch(direction)
-				if(SOUTH)
-					if(current_object.pixel_y > 10)
-						return TRUE
-				if(NORTH)
-					if(current_object.pixel_y < -10)
-						return TRUE
-				if(WEST)
-					if(current_object.pixel_x > 10)
-						return TRUE
-				if(EAST)
-					if(current_object.pixel_x < -10)
-						return TRUE
-
-	// Some stuff is placed directly on the wallturf (signs)
-	for(var/obj/nearby_object in get_step(location, direction))
-		if(is_type_in_typecache(nearby_object, GLOB.wall_items))
-			if(abs(nearby_object.pixel_x) <= 10 && abs(nearby_object.pixel_y) <= 10)
+			// That's exactly what get_turf_pixel() does
+			if(get_turf_pixel(checked_object) == wall_loc)
 				return TRUE
+
+			continue
+
+		if(!is_type_in_typecache(checked_object, GLOB.wallitems_exterior))
+			continue
+
+		if(checked_object.dir == dir_toward_wall)
+			return TRUE
+
+	// Some stuff is placed directly on the wallturf (signs).
+	// If we're only checking for external entities, we don't need to look though these.
+	if(check_external)
+		return FALSE
+
+	for(var/obj/checked_object in wall_loc)
+		if(!is_type_in_typecache(checked_object, GLOB.wallitems_interior))
+			continue
+
+		if(checked_object.pixel_x == 0 && checked_object.pixel_y == 0)
+			return TRUE
+
 	return FALSE
 
 /// Returns the atom type in the specified loc

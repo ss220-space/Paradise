@@ -2705,9 +2705,7 @@
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hE" = (
-/obj/item/radio/intercom{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/directional/north,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},

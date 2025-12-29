@@ -209,7 +209,10 @@
 	set_hud_image_state(ismachineperson(src) ? DIAG_HUD : HEALTH_HUD, "hud[RoundHealth(src)]")
 
 /// Called when a carbon changes stat, virus or XENO_HOST
-/mob/living/proc/med_hud_set_status()
+/mob/proc/med_hud_set_status()
+	return
+
+/mob/living/med_hud_set_status()
 	if(stat == DEAD)
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD)
 	else if(has_virus())
