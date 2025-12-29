@@ -81,6 +81,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	stage = LIGHT_CONSTRUCT_COMPLETED
+	update_icon(UPDATE_ICON_STATE)
 	user.visible_message(
 		span_notice("[user] has closed [src]'s casing."),
 		span_notice("You have closed [src]'s casing."),
