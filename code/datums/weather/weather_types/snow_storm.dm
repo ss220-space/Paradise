@@ -103,6 +103,20 @@
 
 			xmas_tree.spawn_gifts()
 
+
+/datum/weather/snow_storm/can_weather_act(mob/living/mob_to_check)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	var/mob/living/simple_animal/animal_to_check = mob_to_check
+
+	if(istype(animal_to_check) && animal_to_check.unique_pet)
+		return FALSE
+
+	return TRUE
+
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(20, 50)
 	var/simulatuon_temp = T0C + temp_drop
