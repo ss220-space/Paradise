@@ -202,13 +202,15 @@
 	return FALSE
 
 /mob/living/proc/ExtinguishMob()
-	if(on_fire)
-		on_fire = FALSE
-		fire_stacks = 0
-		set_light_range(max(0,light_range - 3))
-		set_light_color(initial(light_color))
-		clear_alert("fire")
-		update_fire()
+	if(!on_fire)
+		return
+
+	on_fire = FALSE
+	fire_stacks = 0
+	set_light_range(max(0,light_range - 3))
+	set_light_color(initial(light_color))
+	clear_alert("fire")
+	update_fire()
 
 /mob/living/proc/update_fire()
 	return
