@@ -300,8 +300,6 @@
 		target.balloon_alert(user, "неэффективно для такой раны!")
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
-	if(stop_bleeding && affecting.bleeding_amount <= affecting.bleedsuppress)	//so you can't stack bleed suppression
-		balloon_alert(user, "кровотечения нет")
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
@@ -705,7 +703,7 @@
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/splint
 
-/obj/item/stack/medical/suture/advanced/get_ru_names()
+/obj/item/stack/medical/splint/get_ru_names()
 	return list(
 		NOMINATIVE = "медицинская шина",
 		GENITIVE = "медицинской шины",
@@ -716,20 +714,30 @@
 	)
 
 /obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+
+	if(!ishuman(target))
+		return .
+
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
+
+	if(!affecting.has_fracture())
+		target.balloon_alert(user, "нечего фиксировать!")
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
+
 	. = ..()
-	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
+
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
 	if(!get_amount())
-		to_chat(user, span_danger("No splints left!"))
+		target.balloon_alert(user, "недостаточно!")
 		return ATTACK_CHAIN_PROCEED
 
-	var/selected_zone = get_priority_targeting(target, user, def_zone)
-	var/obj/item/organ/external/bodypart = target.get_organ(selected_zone)
-	var/bodypart_name = bodypart.name
-
-	if(!(bodypart.limb_zone in available_splint_zones))
-		to_chat(user, span_danger("You can't apply a splint there!"))
+	if(!(affecting.limb_zone in available_splint_zones))
+		target.balloon_alert(user, "не является конечностью!")
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
@@ -1092,12 +1100,12 @@
 	applied_bodypart = null
 
 	if(applied_addition_bodypart)
+		applied_bodypart.owner.balloon_alert(user, "турникет снят")
 		applied_addition_bodypart.tourniquet = null
 		applied_addition_bodypart = null
 
 	stop_apply_timers()
 	user.put_in_any_hand_if_possible(src)
-	applied_bodypart.owner.balloon_alert(user, "турникет снят")
 	return TRUE
 
 /obj/item/tourniquet/proc/acceptable_zone(zone_selected)
