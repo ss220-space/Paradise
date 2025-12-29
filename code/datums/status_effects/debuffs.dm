@@ -1459,3 +1459,35 @@
 /obj/effect/temp_visual/curse/Initialize(mapload)
 	. = ..()
 	deltimer(timerid)
+
+/mob/living/proc/set_bloody_screen(time)
+	var/datum/status_effect/bloody_screen/overdose = has_status_effect(/datum/status_effect/bloody_screen)
+
+	if(QDELETED(overdose))
+		apply_status_effect(/datum/status_effect/bloody_screen)
+		return overdose
+
+	overdose.apply_debuff()
+	overdose.duration = time
+	return overdose
+
+/datum/status_effect/bloody_screen
+	id="bloody_screen"
+	alert_type = null
+
+/datum/status_effect/bloody_screen/on_creation(mob/living/new_owner)
+	. = ..()
+
+	if(!.)
+		return
+
+	apply_debuff()
+
+/datum/status_effect/bloody_screen/on_remove()
+	remove_debuff()
+
+/datum/status_effect/bloody_screen/proc/apply_debuff()
+	owner.overlay_fullscreen("bloody_screen", /atom/movable/screen/fullscreen/bloody_screen, 1)
+
+/datum/status_effect/bloody_screen/proc/remove_debuff()
+	owner.clear_fullscreen("bloody_screen", 50)

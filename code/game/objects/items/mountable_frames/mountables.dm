@@ -1,33 +1,40 @@
 /obj/item/mounted
 	var/list/buildon_types = list(/turf/simulated/wall)
+	/// For frames that are external to the wall they are placed on, like light fixtures and cameras.
+	var/wall_external = FALSE
 
-/obj/item/mounted/afterattack(atom/A, mob/user, proximity_flag)
-	var/found_type = 0
-	for(var/turf_type in src.buildon_types)
-		if(istype(A, turf_type))
-			found_type = 1
-			break
+/obj/item/mounted/afterattack(atom/target, mob/user)
+	if(is_type_in_list(target, buildon_types))
+		if(try_build(target, user))
+			return do_build(target, user)
+	..()
 
-	if(found_type)
-		if(try_build(A, user, proximity_flag))
-			return do_build(A, user)
-	else
-		..()
+/**
+ * Check if we can build on this support structure
+ *
+ * Arguments
+ * * atom/support - the atom we are trying to mount on
+ * * mob/user - the player attempting to do the mount
+*/
+/obj/item/mounted/proc/try_build(atom/support, mob/user)
+	if(!support || !user)
+		return FALSE
 
-/obj/item/mounted/proc/try_build(turf/on_wall, mob/user, proximity_flag, params) //checks
-	if(!on_wall || !user)
-		return
-	if(proximity_flag != 1) //if we aren't next to the wall
-		return
-	if(!( get_dir(on_wall,user) in GLOB.cardinal))
-		to_chat(user, span_warning("You need to be standing next to a wall to place \the [src]."))
-		return
+	if(get_dist(support, user) > 1)
+		balloon_alert(user, "вы слишком далеко!")
+		return FALSE
 
-	if(check_wall_item(get_turf(user), get_dir(on_wall,user)))
-		to_chat(user, span_warning("There's already an item on this wall!"))
-		return
+	var/floor_to_support = get_dir(support, user)
+	if(!(floor_to_support in GLOB.cardinal))
+		balloon_alert(user, "встаньте лицом к стене!")
+		return FALSE
 
-	return 1
+	var/turf/wall_location = get_turf(user)
+	if(check_wall_item(wall_location, floor_to_support, wall_external))
+		balloon_alert(user, "здесь уже что-то есть!")
+		return FALSE
+
+	return TRUE
 
 /obj/item/mounted/proc/do_build(turf/on_wall, mob/user) //the buildy bit after we pass the checks
 	return

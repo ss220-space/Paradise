@@ -35,14 +35,6 @@
 /obj/structure/fence/door,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
-"aR" = (
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
-	},
-/area/ruin/space/graveyard/church)
 "aZ" = (
 /obj/effect/clockwork/overlay/floor/bloodcult,
 /obj/item/flashlight/lantern,
@@ -77,6 +69,15 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
+"bW" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "cf" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet,
@@ -127,17 +128,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
-"cP" = (
-/obj/effect/turf_decal{
-	dir = 10;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
 "cW" = (
 /obj/machinery/vending/coffee/free,
 /turf/simulated/floor/carpet/red,
@@ -451,6 +441,12 @@
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"km" = (
+/obj/machinery/light_switch/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "kq" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
@@ -700,14 +696,6 @@
 /obj/effect/clockwork/overlay/floor/bloodcult,
 /obj/structure/cult/archives,
 /turf/simulated/floor/plating,
-/area/ruin/space/graveyard/church)
-"qp" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "qs" = (
 /obj/structure/closet/toolcloset,
@@ -963,6 +951,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
+"wc" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "wm" = (
 /obj/machinery/light/small{
@@ -1330,15 +1326,6 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/carpet/black,
-/area/ruin/space/graveyard/church)
-"DJ" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/flashlight/lamp/green,
-/turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "DP" = (
 /obj/effect/decal/cleanable/dust,
@@ -1922,6 +1909,27 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"RA" = (
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
+	},
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/paper/crumpled{
+	info = "Дебилы! Как вы меня уже достали! Хватит пытаться заменить лампочку! Если кто-нибудь еще сунет свои рученки — отправится к господу богу...";
+	desc = "Старая помятая бумажка"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "RE" = (
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
@@ -2056,27 +2064,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
-"Ub" = (
-/obj/item/stack/sheet/wood{
-	amount = 50
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 20
-	},
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/item/flashlight/lantern,
-/obj/item/flashlight/lantern,
-/obj/item/paper/crumpled{
-	info = "Дебилы! Как вы меня уже достали! Хватит пытаться заменить лампочку! Если кто-нибудь еще сунет свои рученки — отправится к господу богу...";
-	desc = "Старая помятая бумажка"
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "Uj" = (
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
@@ -2211,6 +2198,15 @@
 /area/ruin/space/graveyard/church)
 "Wj" = (
 /obj/structure/spirit_board,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/graveyard/church)
+"Wk" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "Wl" = (
@@ -2885,7 +2881,7 @@ vN
 vN
 JV
 Vd
-Ub
+RA
 wu
 vN
 rb
@@ -2932,7 +2928,7 @@ vN
 vN
 lv
 Hi
-aR
+km
 vN
 vN
 vN
@@ -3682,7 +3678,7 @@ yA
 ew
 yA
 ew
-cP
+bW
 it
 Hp
 qA
@@ -3945,7 +3941,7 @@ ts
 rb
 RT
 HY
-DJ
+Wk
 rb
 Bz
 qA
@@ -4141,7 +4137,7 @@ it
 it
 it
 rb
-qp
+wc
 ow
 ow
 ow

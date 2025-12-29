@@ -1574,6 +1574,22 @@
 
 #undef EVIL_MODE_CHANCE
 
+/obj/item/toy/plushie/manulplushie
+	name = "manul plushie"
+	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
+	icon_state = "kotik_plushie"
+	item_state = "kotik_hand"
+
+/obj/item/toy/plushie/manulplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушка Манула",
+		GENITIVE = "игрушки Манула",
+		DATIVE = "игрушке Манула",
+		ACCUSATIVE = "игрушку Манула",
+		INSTRUMENTAL = "игрушкой Манула",
+		PREPOSITIONAL = "игрушке Манула",
+	)
+
 /*
  * Foam Armblade
  */
@@ -1787,7 +1803,7 @@
 	force = 5
 	throwforce = 5
 	attack_verb = list("атаковал", "ударил", "окаменил")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 
 /obj/item/toy/pet_rock/fred
 	name = "fred"
@@ -1892,7 +1908,7 @@
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -2366,7 +2382,7 @@
 
 /obj/item/toy/desk/newtoncradle/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
 	on = !on
@@ -2384,7 +2400,7 @@
 
 /obj/item/toy/desk/fan/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/fan/attack_self(mob/user)
 	on = !on

@@ -273,10 +273,7 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "fa" = (
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = -22
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
@@ -1339,10 +1336,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/ussp_xeno/out)
 "uw" = (
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = -22
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1695,10 +1689,7 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "xN" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/light_switch{
-	pixel_x = 21;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1936,10 +1927,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
-/obj/machinery/light_switch{
-	pixel_x = -11;
-	pixel_y = 23
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -1989,10 +1977,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = 21
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2927,10 +2912,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/alien/weeds,
-/obj/machinery/light_switch{
-	pixel_x = 21;
-	pixel_y = -9
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3184,10 +3166,7 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/machinery/light_switch{
-	pixel_x = -21;
-	pixel_y = 10
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/camera{
 	c_tag = "Xeno laboratory 2";
 	dir = 5;
@@ -3483,10 +3462,7 @@
 "UO" = (
 /obj/machinery/computer/slot_machine,
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/light_switch{
-	pixel_x = -19;
-	pixel_y = -9
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"

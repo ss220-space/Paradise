@@ -7,6 +7,7 @@
 	req_admin_notify = 1
 	exp_requirements = 3000
 	disabilities_allowed = 0
+	head_position = TRUE
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
 
@@ -14,6 +15,7 @@
 	title = JOB_TITLE_CAPTAIN
 	flag = JOB_FLAG_CAPTAIN
 	department_flag = JOBCAT_ENGSEC
+	department = STATION_DEPARTMENT_COMMAND
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "должностными лицами \"Нанотрейзен\""
@@ -30,6 +32,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
+	head_position = TRUE
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
@@ -76,10 +79,12 @@
 	title = JOB_TITLE_REPRESENTATIVE
 	flag = JOB_FLAG_REPRESENTATIVE
 	department_flag = JOBCAT_KARMA
+	department = STATION_DEPARTMENT_COMMAND
 	selection_color = "#d1deff"
 	is_command = 1
 	transfer_allowed = FALSE
 	blocked_race_for_job = list(SPECIES_VOX)
+	head_position = FALSE
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
 	access = list(
@@ -122,6 +127,7 @@
 	title = JOB_TITLE_BLUESHIELD
 	flag = JOB_FLAG_BLUESHIELD
 	department_flag = JOBCAT_KARMA
+	department = STATION_DEPARTMENT_COMMAND
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Представителем \"Нанотрейзен\""
@@ -178,9 +184,10 @@
 	title = JOB_TITLE_JUDGE
 	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
+	department = STATION_DEPARTMENT_LEGAL
 	supervisors = "верховным судом \"Нанотрейзен\""
 	department_head = list(JOB_TITLE_CAPTAIN)
-	selection_color = "#edccd7"
+	selection_color = "#db6d92"
 	is_legal = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 30
@@ -230,6 +237,7 @@
 	title = JOB_TITLE_LAWYER
 	flag = JOB_FLAG_LAWYER
 	department_flag = JOBCAT_SUPPORT
+	department = STATION_DEPARTMENT_LEGAL
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1

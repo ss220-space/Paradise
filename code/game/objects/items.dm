@@ -257,11 +257,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		item_flags |= IN_STORAGE
 
 	if(!hitsound)
-		if(damtype == "fire")
+		if(damtype == FIRE)
 			hitsound = 'sound/items/welder.ogg'
 
-		if(damtype == "brute")
-			hitsound = "swing_hit"
+		if(damtype == BRUTE)
+			hitsound = SFX_SWING_HIT
 
 	// Handle adding item associated actions
 	for(var/path in actions_types)

@@ -201,6 +201,7 @@
 						if(prob(stop_internal_bleeding_chance))
 							external_organ_heal_done = TRUE
 							body_part.stop_internal_bleeding()
+							body_part.stop_arterial_bleeding()
 							break
 
 				else
@@ -211,6 +212,7 @@
 						if(prob(stop_internal_bleeding_chance))
 							external_organ_heal_done = TRUE
 							body_part.stop_internal_bleeding()
+							body_part.stop_arterial_bleeding()
 							break
 
 		if(should_show_effect && (external_organ_heal_done || old_health < candidate.maxHealth))

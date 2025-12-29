@@ -89,7 +89,7 @@
 
 /// Called by the blob creation power to give us a mind and a basic task orientation
 /mob/living/simple_animal/hostile/blob_minion/blobbernaut/minion/proc/assign_key(ckey, datum/blobstrain/blobstrain)
-	key = ckey
+	possess_by_player(ckey)
 	flick("blobbernaut_produce", src)
 	SEND_SOUND(src, sound('sound/effects/blobattack.ogg'))
 	SEND_SOUND(src, sound('sound/effects/attackblob.ogg'))

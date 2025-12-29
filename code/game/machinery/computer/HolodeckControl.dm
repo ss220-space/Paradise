@@ -407,7 +407,7 @@
 	name = "Holographic Energy Sword"
 	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
@@ -447,7 +447,7 @@
 		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] can now be concealed."))

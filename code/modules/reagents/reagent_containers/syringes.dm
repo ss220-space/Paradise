@@ -12,11 +12,11 @@
 	volume = 15
 	sharp = TRUE
 	pass_open_check = TRUE
+	materials = list(MAT_METAL=10, MAT_GLASS=20)
+	container_type = TRANSPARENT
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
-	materials = list(MAT_METAL=10, MAT_GLASS=20)
-	container_type = TRANSPARENT
 
 /obj/item/reagent_containers/syringe/get_ru_names()
 	return list(

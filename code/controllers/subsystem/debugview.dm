@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(debugview)
 // Make a verb for dumping full SS stats
 /client/proc/ss_breakdown()
 	set name = "SS Info Breakdown"
-	set category = "Debug"
+	set category = STATPANEL_DEBUG
 
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return

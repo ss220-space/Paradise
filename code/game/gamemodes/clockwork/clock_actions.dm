@@ -42,12 +42,12 @@
 	else
 		prefix = "Automaton"
 
-	var/my_message = "<span class='clockspeech'><b>[prefix] [user.real_name]:</b> [message]</span>"
+	var/my_message = span_clockspeech("<b>[prefix] [user.real_name]:</b> [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(isclocker(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='clockspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, span_clockspeech(" <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
 
 	add_say_logs(user, message, language = "CLOCKCULT")
 

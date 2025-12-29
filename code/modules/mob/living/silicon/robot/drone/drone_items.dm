@@ -405,15 +405,15 @@
 	if(!module)
 		module = new /obj/item/robot_module/drone(src)
 
-	var/dat = {"<meta charset="UTF-8"><head><title>Модули дрона</title><meta HTTP-EQUIV='Refresh' CONTENT='10'></head><body>\n"}
+	var/list/dat = list()
 	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Закрыть</a>
 	<br>
 	<br>
 	<b>Активированные модули</b>
 	<br>
-	Модуль 1: [module_state_1 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
-	Модуль 2: [module_state_2 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
-	Модуль 3: [module_state_3 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
+	Модуль 1: [module_state_1 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_1)]>[module_state_1]<a>" : "Нет модуля"]<br>
+	Модуль 2: [module_state_2 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_2)]>[module_state_2]<a>" : "Нет модуля"]<br>
+	Модуль 3: [module_state_3 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_3)]>[module_state_3]<a>" : "Нет модуля"]<br>
 	<br>
 	<b>Установленные модули</b><br><br>"}
 
@@ -429,7 +429,7 @@
 		else if(activated(O))
 			module_string += text("[O]: <b>Активирован</b><br>")
 		else
-			module_string += text("[O]: <a href=byond://?src=[UID()];act=\ref[O]>Активировать</a><br>")
+			module_string += text("[O]: <a href=byond://?src=[UID()];act=[UID_of(O)]>Активировать</a><br>")
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -444,11 +444,11 @@
 		else if(activated(module.emag))
 			dat += text("[module.emag]: <b>Активирован</b><br>")
 		else
-			dat += text("[module.emag]: <a href=byond://?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
+			dat += text("[module.emag]: <a href=byond://?src=[UID()];act=[module.emag.UID()]>Активировать</a><br>")
 
 	dat += resources
 
-	var/datum/browser/popup = new(src, "robotmod", "Drone modules")
+	var/datum/browser/popup = new(src, "robotmod", "Модули дрона")
 	popup.set_content(dat)
 	popup.set_window_options("can_close=0;")
 	popup.open(FALSE)

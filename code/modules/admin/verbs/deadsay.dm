@@ -9,11 +9,11 @@
 		return
 
 	if(check_mute(ckey, MUTE_DEADCHAT))
-		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
+		to_chat(src, span_warning("You cannot send DSAY messages (muted)."))
 		return
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+		to_chat(src, span_warning("You have deadchat muted."))
 		return
 
 	if(handle_spam_prevention(msg,MUTE_DEADCHAT))
@@ -41,7 +41,7 @@
 	var/prefix = "[stafftype] ([src.key])"
 	if(holder.fakekey)
 		prefix = "Administrator"
-	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
+	say_dead_direct(span_name("[prefix]</span> says, <span class='message'>\"[msg]\""))
 
 	BLACKBOX_LOG_ADMIN_VERB("Dsay")
 

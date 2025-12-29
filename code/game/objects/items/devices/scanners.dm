@@ -132,17 +132,17 @@ BODY SCANNERS
 			if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
 				continue
 
-		var/turf/T = get_turf(in_turf_atom)
-		var/image/I = new(loc = T)
+		var/turf/turf = get_turf(in_turf_atom)
+		var/image/img = new(loc = turf)
 		var/mutable_appearance/MA = new(in_turf_atom)
 		MA.alpha = isliving(in_turf_atom) ? 255 : 128
 		MA.dir = in_turf_atom.dir
 		if(MA.layer < TURF_LAYER)
 			MA.layer += TRAY_SCAN_LAYER_OFFSET
 		MA.plane = GAME_PLANE
-		SET_PLANE_EXPLICIT(MA, GAME_PLANE, T)
-		I.appearance = MA
-		t_ray_images += I
+		SET_PLANE_EXPLICIT(MA, GAME_PLANE, turf)
+		img.appearance = MA
+		t_ray_images += img
 
 	if(length(t_ray_images))
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
@@ -382,15 +382,21 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type][blood_species_text].<br>"
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type][blood_species_text].<br>"
 		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]]."
+			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	if(scan_data["timeofdeath"])
 		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
@@ -404,7 +410,11 @@ BODY SCANNERS
 		P.header += "<hr>"
 		P.header += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:<br>"
 		for(var/damage in scan_data["damageLocalization"])
-			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <span style='color: red;'><font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
+			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
+
+	if(scan_data["bleedingList"])
+		for(var/bleeding in scan_data["bleedingList"])
+			P.header += span_red("Кровотечение в [bleeding].<br>")
 
 	if(scan_data["fractureList"])
 		for(var/fracture in scan_data["fractureList"])
@@ -425,7 +435,7 @@ BODY SCANNERS
 		for(var/reagent in scan_data["reagentList"])
 			P.header += "&emsp;[reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - <b>ПЕРЕДОЗИРОВКА</b>" : "."]<br>"
 	else
-		P.header += "Реагенты не обнаружены.<br>"
+		P.header += "<br>Реагенты не обнаружены.<br>"
 
 	if(scan_data["addictionList"])
 		P.header += "<b>Обнаружены зависимости от реагентов:</b><br>"
@@ -464,14 +474,14 @@ BODY SCANNERS
 	if(scan_data["brainWorms"])
 		P.header += "<font color='#d82020'>Обнаружены отклонения в работе мозга.</font><br>"
 
-	if(scan_data["brainDamage"] >= 100)
+	if(scan_data["brainDamage"] == "LESS")
+		P.header += "<font color='#d82020'><b>Мозг не обнаружен.</b></font><br>"
+	else if(scan_data["brainDamage"] >= 100)
 		P.header += "<font color='#d82020'><b>Мозг мёртв.</b></font><br>"
 	else if(scan_data["brainDamage"] >= 60)
 		P.header += "<font color='#d82020'><b>Обнаружено серьёзное повреждение мозга.</b></font><br>"
 	else if(scan_data["brainDamage"] >= 10)
 		P.header += "<font color='#d82020'>Обнаружено значительное повреждение мозга.</font><br>"
-	else if(scan_data["brainDamage"] == "LESS")
-		P.header += "<font color='#d82020'><b>Мозг не обнаружен.</b></font><br>"
 
 	if(scan_data["implantDetect"])
 		P.header += "Обнаружены кибернетические модификации:<br>"
@@ -739,30 +749,45 @@ BODY SCANNERS
 
 	var/list/fractureList = list()
 	var/list/infectedList = list()
+	var/list/bleedingList = list()
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		var/limb = e.name
-		if(e.has_fracture())
+		var/limb = bodypart.declent_ru(PREPOSITIONAL)
+		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-			if((e.limb_zone in check_list) && !e.is_splinted())
+			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
 				fractureList += "[limb]"
-		if(e.has_infected_wound())
+		if(bodypart.has_infected_wound())
 			infectedList += "[limb]"
+		if(bodypart.bleeding_amount > 0)
+			var/bleeding = ""
+			if(bodypart.has_arterial_bleeding())
+				bleeding += "Артериальное кровотечение"
+			else if(bodypart.has_heavy_bleeding())
+				bleeding += "Обильное кровотечение"
+			else
+				bleeding += "Кровотечение"
+			bleeding += "  в [limb]"
+			if(bodypart.bleeding_amount <= bodypart.bleedsuppress)
+				bleeding += " – остановлено"
+
+			bleedingList += bleeding
 
 	data["fractureList"] = fractureList
 	data["infectedList"] = infectedList
+	data["bleedingList"] = bleedingList
 
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		if(e.has_fracture())
+		if(bodypart.has_fracture())
 			data["extraFacture"] = TRUE
 			break
-	for(var/obj/item/organ/external/e as anything in H.bodyparts)
-		if(e.has_internal_bleeding())
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		if(bodypart.has_internal_bleeding())
 			data["extraBleeding"] = TRUE
 			break
 
@@ -887,26 +912,40 @@ BODY SCANNERS
 		scan_data += span_warning(">Мозг не обнаружен.")
 
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		var/limb = e.name
-		if(e.has_fracture())
+		var/limb = bodypart.name
+		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-			if((e.limb_zone in check_list) && !e.is_splinted())
+			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
 				scan_data += span_warning("Обнаружен перелом в [limb].")
-		if(e.has_infected_wound())
+		if(bodypart.has_infected_wound())
 			scan_data += span_warning("Заражение в [limb].")
-
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		if(e.has_fracture())
+		if(bodypart.bleeding_amount > 0)
+			var/bleed_stat = ""
+			if(bodypart.has_arterial_bleeding())
+				bleed_stat += "артериальное "
+			else if(bodypart.has_heavy_bleeding())
+				bleed_stat += "обильное "
+
+			if(bodypart.bleeding_amount <= bodypart.bleedsuppress)
+				bleed_stat += "остановленное "
+
+			scan_data += span_warning("Обнаружено [bleed_stat]кровотечение в [bodypart.declent_ru(PREPOSITIONAL)].")
+	for(var/name in H.bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
+			continue
+		if(bodypart.has_fracture())
 			scan_data += span_warning("Обнаружены переломы. Локализация невозможна.")
 			break
-	for(var/obj/item/organ/external/e as anything in H.bodyparts)
-		if(e.has_internal_bleeding())
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		if(bodypart.has_internal_bleeding())
 			scan_data += span_warning("Обнаружено внутреннее кровотечение. Локализация невозможна.")
 			break
 	var/blood_id = H.get_blood_id()
@@ -926,21 +965,27 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
 				blood_type = R.name
 			else
 				blood_type = blood_id
+
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else
-			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	scan_data += "Пульс: <font color='[H.pulse == PULSE_NORM ? "#0080ff" : "red"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
 	var/list/implant_detect = list()
@@ -1705,7 +1750,7 @@ BODY SCANNERS
 	dat += "<th>Other Wounds</th>"
 	dat += "</tr>"
 
-	for(var/obj/item/organ/external/e as anything in target.bodyparts)
+	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
 		dat += "<tr>"
 		var/AN = ""
 		var/open = ""
@@ -1716,19 +1761,20 @@ BODY SCANNERS
 		var/splint = ""
 		var/internal_bleeding = ""
 		var/lung_ruptured = ""
-		if(e.has_internal_bleeding())
+		if(bodypart.has_internal_bleeding())
 			internal_bleeding = "<br>Internal bleeding"
-		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
+		if(istype(bodypart, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"
-		if(e.is_splinted())
+		if(bodypart.is_splinted())
 			splint = "Splinted:"
-		if(e.has_fracture())
-			AN = "[e.broken_description]:"
-		if(e.is_robotic())
+		if(bodypart.has_fracture())
+			AN = "[bodypart.broken_description]:"
+		if(bodypart.is_robotic())
 			robot = "Robotic:"
-		if(e.open)
+		if(bodypart.open)
 			open = "Open:"
-		switch(e.germ_level)
+
+		switch(bodypart.germ_level)
 			if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 				infected = "Mild Infection:"
 			if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
@@ -1744,11 +1790,14 @@ BODY SCANNERS
 			if(INFECTION_LEVEL_THREE to INFINITY)
 				infected = "Septic:"
 
-		if(LAZYLEN(e.embedded_objects) || e.hidden)
+		if(bodypart.bleeding_amount > 0)
+			bled = "[round(bodypart.bleeding_amount, 0.01)] "
+		if(LAZYLEN(bodypart.embedded_objects) || bodypart.hidden)
 			imp += "Unknown body present:"
 		if(!AN && !open && !infected && !imp)
 			AN = "None:"
-		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+
+		dat += "<td>[bodypart.declent_ru(NOMINATIVE)]</td><td>[bodypart.burn_dam]</td><td>[bodypart.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"
 	for(var/obj/item/organ/internal/organ as anything in target.internal_organs)
 		var/mech = organ.desc
