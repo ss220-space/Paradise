@@ -261,7 +261,7 @@
 		DATIVE = "рулону марли",
 		ACCUSATIVE = "рулон марли",
 		INSTRUMENTAL = "рулоном марли",
-		PREPOSITIONAL = "рулон марли"
+		PREPOSITIONAL = "рулоне марли"
 	)
 
 /obj/item/stack/medical/bruise_pack/syndicate
@@ -664,7 +664,7 @@
 	merge_type = /obj/item/stack/medical/ointment/aloe
 	var/max_heal = 30
 
-/obj/item/stack/medical/suture/advanced/get_ru_names()
+/obj/item/stack/medical/ointment/aloe/get_ru_names()
 	return list(
 		NOMINATIVE = "лист алоэ-вера",
 		GENITIVE = "листа алоэ-вера",
@@ -806,7 +806,7 @@
 	merge_type = /obj/item/stack/medical/splint/makeshift
 
 
-/obj/item/stack/medical/suture/advanced/get_ru_names()
+/obj/item/stack/medical/splint/makeshift/get_ru_names()
 	return list(
 		NOMINATIVE = "импровизированная шина",
 		GENITIVE = "импровизированной шины",
