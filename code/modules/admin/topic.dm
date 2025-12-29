@@ -1,3 +1,9 @@
+#define POWER_ALL "Power all APCs"
+#define REPAIR_ALL "Repair all APCs"
+#define REPAIR_AND_POWER_ALL "Repair and Power APCs"
+#define DEPOWER_ALL "Depower all APCs"
+#define SHORT_OUT "Short out APCs"
+
 /datum/admins/Topic(href, href_list)
 	..()
 
@@ -3211,21 +3217,26 @@
 					area.gravitychange()
 
 			if("power")
-				switch(tgui_alert(usr, "What Would You Like to Do?", "Make All Areas Powered", list("Power all APCs", "Repair all APCs", "Repair and Power APCs")))
-					if("Power all APCs")
+				if(!you_realy_want_do_this())
+					return
+				switch(tgui_alert(usr, "What Would You Like to Do?", "Make All Areas Powered", list(POWER_ALL, REPAIR_ALL, REPAIR_AND_POWER_ALL)))
+					if(POWER_ALL)
 						power_restore(TRUE, POWER_RESTORE_ONLY)
 						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power all APCs")
 						log_and_message_admins(span_adminnotice("[key_name_admin(usr)] powered all APCs"))
-					if("Repair all APCs")
+					if(REPAIR_ALL)
 						power_restore(TRUE, APC_REPAIR_ONLY)
 						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair all APCs")
 						log_and_message_admins(span_adminnotice("[key_name_admin(usr)] repaired all APCs"))
-					if("Repair and Power APCs")
+					if(REPAIR_AND_POWER_ALL)
 						power_restore(TRUE, APC_REPAIR_AND_CHARGE)
 						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair and Power all APCs")
 						log_and_message_admins(span_adminnotice("[key_name_admin(usr)] repaired and powered all APCs"))
+
 			if("unpower")
-				if(tgui_alert(usr, "What Would You Like to Do?", "Make All Areas Unpowered", list("Depower all APCs", "Short out APCs")) == "Depower all APCs")
+				if(!you_realy_want_do_this())
+					return
+				if(tgui_alert(usr, "What Would You Like to Do?", "Make All Areas Unpowered", list(DEPOWER_ALL, SHORT_OUT)) == DEPOWER_ALL)
 					depower_apcs()
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower all APCs")
 					log_and_message_admins(span_adminnotice("[key_name_admin(usr)] made all areas unpowered"))
@@ -3233,7 +3244,10 @@
 					power_failure(TRUE, 100)
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Short out APCs")
 					log_and_message_admins(span_adminnotice("[key_name_admin(usr)] has shorted APCs"))
+
 			if("quickpower")
+				if(!you_realy_want_do_this())
+					return
 				power_restore_quick()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins(span_adminnotice("[key_name(usr)] made all SMESs powered"))
@@ -3945,6 +3959,12 @@
 		popup.set_window_options("can_close=1;window=related_[M];")
 		popup.open()
 		onclose(usr, "show_dna")
+
+#undef POWER_ALL
+#undef REPAIR_ALL
+#undef REPAIR_AND_POWER_ALL
+#undef DEPOWER_ALL
+#undef SHORT_OUT
 
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))

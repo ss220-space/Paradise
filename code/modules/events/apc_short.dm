@@ -113,69 +113,67 @@
  * * power_type - Type of restoration (POWER_RESTORE_ONLY, APC_REPAIR_ONLY, APC_REPAIR_AND_CHARGE)
  */
 /proc/power_restore(announce = TRUE, power_type)
-	if(power_type == POWER_RESTORE_ONLY)
-		if(announce)
-			GLOB.minor_announcement.announce(
-				message = "Все работающие ЛКП на станции [station_name()] были полностью заряжены.",
-				new_title = ANNOUNCE_APC_REPAIR_RU,
-				new_sound = 'sound/AI/power_restore.ogg'
-			)
+	switch(power_type)
+		if(POWER_RESTORE_ONLY)
+			if(announce)
+				GLOB.minor_announcement.announce(
+					message = "Все работающие ЛКП на станции [station_name()] были полностью заряжены.",
+					new_title = ANNOUNCE_APC_REPAIR_RU,
+					new_sound = 'sound/AI/power_restore.ogg'
+				)
 
-		var/affected_apc_count = 0
-		for(var/thing in GLOB.apcs)
-			var/obj/machinery/power/apc/apc = thing
-			if(!is_station_level(apc.z))
-				continue
+			var/affected_apc_count = 0
+			for(var/thing in GLOB.apcs)
+				var/obj/machinery/power/apc/apc = thing
+				if(!is_station_level(apc.z))
+					continue
 
-			var/area/current_area = get_area(apc)
-			if(!length(apc.wires.cut_wires) && apc.operating && !apc.shorted)
+				var/area/current_area = get_area(apc)
+				if(!length(apc.wires.cut_wires) && apc.operating && !apc.shorted)
+					apc.recharge_apc()
+					affected_apc_count++
+				current_area.power_change()
+
+			log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
+
+		if(APC_REPAIR_ONLY)
+			if(announce)
+				GLOB.minor_announcement.announce(
+					message = "Все ЛКП на станции [station_name()] были восстановлены.",
+					new_title = ANNOUNCE_APC_REPAIR_RU,
+					new_sound = 'sound/AI/power_restore.ogg'
+				)
+
+			for(var/thing in GLOB.apcs)
+				var/obj/machinery/power/apc/apc = thing
+				if(!is_station_level(apc.z))
+					continue
+
+				var/area/current_area = get_area(apc)
+				apc.repair_apc()
+				current_area.power_change()
+
+			log_and_message_admins("Power has been restored to all APCs.")
+
+		if(APC_REPAIR_AND_CHARGE)
+			if(announce)
+				GLOB.minor_announcement.announce(
+					message = "Все ЛКП на станции [station_name()] были полностью заряжены и восстановлены. Приносим извинения за доставленные неудобства.",
+					new_title = ANNOUNCE_APC_REPAIR_RU,
+					new_sound = 'sound/AI/power_restore.ogg'
+				)
+
+			for(var/thing in GLOB.apcs)
+				var/obj/machinery/power/apc/apc = thing
+				if(!is_station_level(apc.z))
+					continue
+
+				var/area/current_area = get_area(apc)
+				apc.repair_apc()
 				apc.recharge_apc()
-				affected_apc_count++
-			current_area.power_change()
+				current_area.power_change()
 
-		log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
-		return
-
-	if(power_type == APC_REPAIR_ONLY)
-		if(announce)
-			GLOB.minor_announcement.announce(
-				message = "Все ЛКП на станции [station_name()] были восстановлены.",
-				new_title = ANNOUNCE_APC_REPAIR_RU,
-				new_sound = 'sound/AI/power_restore.ogg'
-			)
-
-		for(var/thing in GLOB.apcs)
-			var/obj/machinery/power/apc/apc = thing
-			if(!is_station_level(apc.z))
-				continue
-
-			var/area/current_area = get_area(apc)
-			apc.repair_apc()
-			current_area.power_change()
-
-		log_and_message_admins("Power has been restored to all APCs.")
-		return
-
-	if(power_type == APC_REPAIR_AND_CHARGE)
-		if(announce)
-			GLOB.minor_announcement.announce(
-				message = "Все ЛКП на станции [station_name()] были полностью заряжены и восстановлены. Приносим извинения за доставленные неудобства.",
-				new_title = ANNOUNCE_APC_REPAIR_RU,
-				new_sound = 'sound/AI/power_restore.ogg'
-			)
-
-		for(var/thing in GLOB.apcs)
-			var/obj/machinery/power/apc/apc = thing
-			if(!is_station_level(apc.z))
-				continue
-
-			var/area/current_area = get_area(apc)
-			apc.repair_apc()
-			apc.recharge_apc()
-			current_area.power_change()
-
-		log_and_message_admins("Power has been restored to all APCs.")
-		return
+			log_and_message_admins("Power has been restored to all APCs.")
 
 /**
  * Quickly restores all SMES units to full capacity and maximum output

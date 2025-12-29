@@ -81,6 +81,7 @@
 #define COLOR_GOLD "#ffd700"
 #define COLOR_ETHIOPIA_YELLOW "#fcdd09"
 #define COLOR_LIGHT_YELLOW "#fffee0"
+#define COLOR_PALE_YELLOW "#fff4bb"
 
 // Green
 #define COLOR_OLIVE "#808000"
@@ -102,6 +103,9 @@
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964a"
 #define COLOR_PAI_GREEN "#00ff88"
 #define COLOR_PALE_GREEN "#20e28e"
+#define COLOR_PALE_LIME "#f3ffbb"
+#define COLOR_LIGHT_GREEN "#aaffaa"
+#define COLOR_BRIGHT_LIME "#f7ff57"
 
 // Blue
 #define COLOR_CYAN "#00ffff"

@@ -942,10 +942,6 @@
 	..()
 	shatter()
 
-/obj/item/light/New()
-	..()
-	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-
 /obj/item/light/update_icon_state()
 	switch(status)
 		if(LIGHT_OK)

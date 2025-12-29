@@ -162,14 +162,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list()
 	on = TRUE
-	light_color = "#fff4bb"
+	light_color = COLOR_PALE_YELLOW
 
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
-	light_color = "#aaffaa"
+	light_color = COLOR_LIGHT_GREEN
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -177,7 +177,7 @@
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
-	light_color = "#f7ff57"
+	light_color = COLOR_BRIGHT_LIME
 
 // FLARES
 /obj/item/flashlight/flare
