@@ -99,7 +99,7 @@ Notes:
 //Theme is a CSS class in tooltip.html, by default this wrapper chooses a CSS class based on the user's UI_style (Midnight, Plasmafire, Retro, etc)
 //Includes sanity.checks
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null, title = "", content = "", theme = "")
-	if(!istype(user) || !user.client?.tooltips || !(user.client?.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS))
+	if(!istype(user) || !user.client?.tooltips)
 		return
 	var/ui_style = user.client?.prefs?.UI_style
 	if(!theme && ui_style)
