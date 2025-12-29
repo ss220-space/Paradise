@@ -124,10 +124,6 @@
 	var/selected_zone = get_priority_targeting(target, user)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 
-	user.visible_message(
-		span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [target.declent_ru(GENITIVE)]."),
-		ignored_mobs = user,
-	)
 	target.balloon_alert(user, "применено")
 
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
@@ -746,25 +742,10 @@
 
 	if(affecting.is_splinted())
 		target.balloon_alert(user, "здесь уже есть шина!")
-		if(tgui_alert(user, "Вы хотите снять шину с [affecting.declent_ru(GENITIVE)] [target]?", "Снятие шины", list("Да", "Нет")) != "Да" || !target.Adjacent(user))
+		if(tgui_alert(user, "Вы хотите снять шину с [affecting.declent_ru(GENITIVE)] [target.declent_ru(GENITIVE)]?", "Снятие шины", list("Да", "Нет")) != "Да" || !target.Adjacent(user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		affecting.remove_splint()
 		target.balloon_alert(user, "шина снята")
-		return .
-
-	if((target == user && self_delay > 0) || (target != user && use_duration > 0))
-		user.visible_message(
-			span_notice("[user] начина[PLUR_ET_YUT(user)] накладывать [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)][target == user ? "" : " [target.declent_ru(GENITIVE)]"]."),
-			span_hear("Вы слышите, как что-то оборачивают вокруг чего."),
-			ignored_mobs = user,
-		)
-		target.balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
-
-	if(target == user && !do_after(user, self_delay, target, NONE))
-		. &= ~ATTACK_CHAIN_SUCCESS
-		return .
-	else if(use_duration && !do_after(user, use_duration, target, NONE))
-		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
 	if(!use(1))
