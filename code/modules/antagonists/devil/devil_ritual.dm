@@ -29,10 +29,10 @@
 	ritual_lock = TRUE
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", ROLE_DEVIL, TRUE, role_cleanname = "беса")
 	ritual_lock = FALSE
-	
+
 	if(QDELETED(ritual_object))
 		return
-	
+
 	if(!LAZYLEN(candidates))
 		ritual_object.balloon_alert(invoker, "призыв проигнорирован")
 		return RITUAL_FAILED_ON_PROCEED
@@ -252,7 +252,9 @@
 			stage = SEVENTH_DEVIL_ASCEND_STAGE
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
+			var/client/devil_client = invoker?.client
 			devil.try_update_rank(TRUE)
+			invoker = devil_client?.mob
 			GLOB.major_announcement.announce(
 				message = "Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
@@ -262,7 +264,7 @@
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
 			stage = EIGHTH_DEVIL_ASCEND_STAGE
-			invoker?.client.give_award(/datum/award/achievement/misc/arch_devil, invoker)
+			devil_client?.give_award(/datum/award/achievement/misc/arch_devil, invoker)
 
 		if(EIGHTH_DEVIL_ASCEND_STAGE)
 			SSweather.run_weather(/datum/weather/hell)

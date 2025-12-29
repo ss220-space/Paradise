@@ -79,6 +79,12 @@
 	database_id = MEDAL_KERBEROS_MASTER
 	icon_state = "de_kerberos_2"
 
+/datum/award/achievement/misc/deep_draw
+	name = "Глубокая затяжка"
+	desc = "Затянуться вейпом на 60 секунд."
+	database_id = MEDAL_DEEP_DRAW
+	icon_state = "deep_draw"
+
 //TODO Uncomment when be implemented
 /*
 /datum/award/achievement/misc/round_and_full

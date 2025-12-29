@@ -158,7 +158,7 @@
 		else
 			to_chat(src, "[span_name(speaker.name)] что-то говор[PLUR_IT_YAT(speaker)], но вы ничего не слышите!")
 	else
-		to_chat(src, span_gamesay("[span_name(speaker_name)][speaker.GetAltName()] [track][verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
+		to_chat(src, span_gamesay("[track][span_name(speaker_name)][speaker.GetAltName()] [verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99

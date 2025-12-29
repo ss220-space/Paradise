@@ -37,6 +37,8 @@
 
 #define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
 
+#define iskrampus(A) (istype(A, /mob/living/carbon/true_devil/krampus))
+
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
 #define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
@@ -357,3 +359,5 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ispowertool(A) (istype(A, /obj/item/crowbar/power) || istype(A, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
 
 #define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
+
+#define isspacearea(A)	(istype(A, /area/space))

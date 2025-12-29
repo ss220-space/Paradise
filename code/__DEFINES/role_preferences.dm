@@ -25,6 +25,7 @@
 #define ROLE_HOG_GOD "hand of god: god" // We're prolly gonna port this one day or another
 #define ROLE_HOG_CULTIST "hand of god: cultist"
 #define ROLE_DEVIL "devil"
+#define ROLE_KRAMPUS "krampus"
 #define ROLE_RAIDER "vox raider"
 #define ROLE_TRADER "trader"
 #define ROLE_VAMPIRE "vampire"
