@@ -600,7 +600,7 @@ ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", ADMIN_VERB_NO
 	message_admins("[key_name(user)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[custom_message]\".")
 	BLACKBOX_LOG_ADMIN_VERB("Send Alert Message")
 
-ADMIN_VERB(cmd_admin_alert_message_in_list, R_ADMIN, "Send Alert Message", "Send an admin alert to player.", ADMIN_CATEGORY_MAIN)
+ADMIN_VERB(cmd_admin_alert_message_in_list, R_ADMIN, "Send Alert Message in List", "Send an admin alert to player.", ADMIN_CATEGORY_MAIN)
 	var/mob/about_to_be_banned = tgui_input_list(user, "Please, select a player!", "Send Alert Message", GLOB.mob_list)
 	if(!about_to_be_banned)
 		return

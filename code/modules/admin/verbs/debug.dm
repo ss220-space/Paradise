@@ -356,7 +356,7 @@ ADMIN_VERB(cmd_admin_grantfullaccess, R_EVENT, "Grant Full Access", ADMIN_VERB_N
 	message_admins(span_adminnotice("[key_name_admin(user)] has granted [target.key] full access."))
 
 ADMIN_VERB_VISIBILITY(cmd_admin_grantfullaccess_in_list, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
-ADMIN_VERB(cmd_admin_grantfullaccess_in_list, R_EVENT, "Grant Full Access", "Grant full access to a mob.", ADMIN_CATEGORY_DEBUG)
+ADMIN_VERB(cmd_admin_grantfullaccess_in_list, R_EVENT, "Grant Full Access in List", "Grant full access to a mob.", ADMIN_CATEGORY_DEBUG)
 	var/mob/target = tgui_input_list(user, "Please, select a player!", "Grant Full Access", GLOB.mob_list)
 	if(!target)
 		return
@@ -383,7 +383,7 @@ ADMIN_VERB(cmd_assume_direct_control, R_DEBUG|R_ADMIN, "Assume Direct Control", 
 
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
 
-ADMIN_VERB(cmd_assume_direct_control_in_list, R_DEBUG|R_ADMIN, "Assume Direct Control", "Assume direct control of a mob.", ADMIN_CATEGORY_DEBUG)
+ADMIN_VERB(cmd_assume_direct_control_in_list, R_DEBUG|R_ADMIN, "Assume Direct Control in List", "Assume direct control of a mob.", ADMIN_CATEGORY_DEBUG)
 	var/mob/target = tgui_input_list(user, "Please, select a player!", "Assume Direct Control", GLOB.mob_list)
 	if(!target)
 		return

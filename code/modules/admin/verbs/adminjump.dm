@@ -103,7 +103,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", mob/target in GLOB.mob
 	target.admin_teleport(loc)
 	BLACKBOX_LOG_ADMIN_VERB("Get Mob")
 
-ADMIN_VERB(get_mob_in_list, R_ADMIN, "Get Mob", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME)
+ADMIN_VERB(get_mob_in_list, R_ADMIN, "Get Mob in List", "Teleport a mob to your location.", ADMIN_CATEGORY_GAME)
 	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Get Mob", GLOB.mob_list)
 	if(!selected_mob)
 		return
@@ -147,7 +147,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(send_mob, R_ADMIN, "Send Mob", mob/jumper in GLOB.m
 
 	BLACKBOX_LOG_ADMIN_VERB("Send Mob")
 
-ADMIN_VERB(send_mob_in_list, R_ADMIN, "Send Mob", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME)
+ADMIN_VERB(send_mob_in_list, R_ADMIN, "Send Mob in List", "Teleport the specified mob to an area of your choosing.", ADMIN_CATEGORY_GAME)
 	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Send Mob", GLOB.mob_list)
 	if(!selected_mob)
 		return

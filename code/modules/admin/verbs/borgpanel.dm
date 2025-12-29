@@ -2,7 +2,7 @@ ADMIN_VERB(borg_panel, R_ADMIN, "Show Borg Panel", ADMIN_VERB_NO_DESCRIPTION, AD
 	var/datum/borgpanel/borgpanel = new(user.mob, borgo)
 	borgpanel.ui_interact(user.mob)
 
-ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel", "Open Borg Panel.", ADMIN_CATEGORY_EVENTS)
+ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Panel.", ADMIN_CATEGORY_EVENTS)
 	var/mob/borgo = tgui_input_list(user, "Please, select a player!", "Grant Full Access", GLOB.silicon_mob_list)
 	if(!borgo)
 		return

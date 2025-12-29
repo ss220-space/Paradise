@@ -540,7 +540,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", mob/living/t
 	ui.ui_interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Smite")
 
-ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite", "Smite a player with divine power.", ADMIN_CATEGORY_FUN)
+ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite in List", "Smite a player with divine power.", ADMIN_CATEGORY_FUN)
 	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Smite", GLOB.mob_list)
 	if(!selected_mob)
 		return

@@ -36,13 +36,12 @@ ADMIN_VERB(imprison, R_ADMIN, "Prison", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGOR
 	message_admins(span_adminnotice("[key_name_admin(user)] sent [key_name_admin(victim)] to the prison station."))
 	BLACKBOX_LOG_ADMIN_VERB("Prison")
 
-ADMIN_VERB(imprison_in_list, R_ADMIN, "Prison", "Send a mob to prison.", ADMIN_CATEGORY_FUN)
+ADMIN_VERB(imprison_in_list, R_ADMIN, "Prison in List", "Send a mob to prison.", ADMIN_CATEGORY_FUN)
 	var/mob/victim = tgui_input_list(user, "Please, select a player!", "Prison", GLOB.mob_list)
 	if(!victim)
 		return
 
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/imprison, victim)
-	BLACKBOX_LOG_ADMIN_VERB("Prison")
 
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	if(!ismob(target))
@@ -178,7 +177,7 @@ ADMIN_VERB(cmd_admin_godmode, R_ADMIN, "Godmode", ADMIN_VERB_NO_DESCRIPTION, ADM
 	message_admins("[key_name_admin(user)] has toggled [ADMIN_LOOKUPFLW(target)]'s nodamage to [had_trait ? "Off" : "On"]")
 	BLACKBOX_LOG_ADMIN_VERB("Godmode")
 
-ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode", "Toggles godmode on a mob.", ADMIN_CATEGORY_GAME)
+ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode in List", "Toggles godmode on a mob.", ADMIN_CATEGORY_GAME)
 	var/mob/target = tgui_input_list(user, "Please, select a player!", "Godmode", GLOB.mob_list)
 	if(!target)
 		return
