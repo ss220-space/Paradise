@@ -498,7 +498,6 @@
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader)
 
-// blank cartridge for crafting's sake, can be made at the service lathe
 /obj/item/blank_coffee_cartridge
 	name = "blank coffee cartridge"
 	desc = "Пустой картридж для перемолотых кофейных зёрен. \
