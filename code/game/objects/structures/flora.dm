@@ -73,7 +73,7 @@
 		return
 
 	for(var/i in 1 to gifts_count)
-		new /obj/effect/spawner/lootdrop/evil_santa_gift(pick(possible_turfs))
+		new /obj/effect/spawner/lootdrop/evil_santa_gift/xmas_tree(pick(possible_turfs))
 
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'

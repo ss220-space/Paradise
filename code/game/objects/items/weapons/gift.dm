@@ -6,6 +6,7 @@
 	icon_state = "giftdeliverypackage3"
 	item_state = "gift"
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_BULKY
 	/// What type of thing are we guaranteed to spawn in with?
 	var/obj/item/contains_type = null
 	/// Whether to use the special Evil Santa gift list
@@ -203,8 +204,7 @@
 /obj/item/gift/santa_special
 	var/static/list/possible_tiers = list(
 		/datum/loot_tier/first = 60,
-		/datum/loot_tier/second = 35,
-		/datum/loot_tier/third = 5,
+		/datum/loot_tier/second = 15,
 	)
 
 /obj/item/gift/santa_special/spawn_reward(mob/user)

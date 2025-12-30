@@ -33,7 +33,7 @@
 	var/heat_capacity = 1
 
 	//Properties for both
-	var/temperature = T20C - 10
+	var/temperature = T20C
 
 	//If set TRUE, won't init gas_mixture/air and shouldn't interact with atmos.
 	var/blocks_air = FALSE
