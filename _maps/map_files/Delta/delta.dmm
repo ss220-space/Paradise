@@ -15172,6 +15172,7 @@
 /obj/item/shovel,
 /obj/item/shovel,
 /obj/item/shovel,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -15224,6 +15225,7 @@
 /obj/item/shovel,
 /obj/item/shovel,
 /obj/item/shovel,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "bRY" = (
@@ -24170,6 +24172,7 @@
 /obj/item/shovel,
 /obj/item/shovel,
 /obj/item/shovel,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
 "cKv" = (
@@ -51648,6 +51651,7 @@
 /obj/item/shovel,
 /obj/item/shovel,
 /obj/item/shovel,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "gPK" = (
@@ -78043,6 +78047,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/shovel,
 /obj/item/shovel,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
