@@ -509,9 +509,9 @@
 		if(D.wielded && D.force)
 			visible_message(span_danger("[name] impales [throwned_mob] with [D], before dropping them on the ground!"))
 			throwned_mob.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
-			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
-			C.Weaken(2 SECONDS)
-			D.melee_attack_chain(src, C) //attack animation / jedi spin
+			throwned_mob.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			throwned_mob.Weaken(2 SECONDS)
+			D.melee_attack_chain(src, throwned_mob) //attack animation / jedi spin
 			C.emote("scream")
 			return
 	*/

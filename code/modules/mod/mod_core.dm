@@ -136,7 +136,7 @@
 	var/obj/item/stock_parts/cell/charge_source = charge_source()
 	return charge_source?.charge || 0
 
-/obj/item/mod/core/standard/max_charge_amount(amount)
+/obj/item/mod/core/standard/max_charge_amount()
 	var/obj/item/stock_parts/cell/charge_source = charge_source()
 	return charge_source?.maxcharge || 1
 

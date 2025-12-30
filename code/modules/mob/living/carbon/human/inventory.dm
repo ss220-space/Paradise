@@ -90,12 +90,12 @@
 	if(toggle_off && internal && !has_airtight_items())
 		internal = null
 		update_action_buttons_icon()
-
+	var/hide_hair_flags = HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR
 	if(forced || \
-		(check_item.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
-		(initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
-		(check_item.visor_flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
-		(initial(check_item.visor_flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
+		(check_item.flags_inv & hide_hair_flags) || \
+		(initial(check_item.flags_inv) & hide_hair_flags) || \
+		(check_item.visor_flags_inv & hide_hair_flags) || \
+		(initial(check_item.visor_flags_inv) & hide_hair_flags))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()

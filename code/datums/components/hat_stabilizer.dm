@@ -44,8 +44,6 @@
 
 	if(!isnull(use_worn_icon))
 		src.use_worn_icon = use_worn_icon
-	if(!isnull(use_worn_icon))
-		src.use_worn_icon = use_worn_icon
 	if(!isnull(pixel_z_offset))
 		src.pixel_z_offset = pixel_z_offset
 	if(!isnull(loose_hat))

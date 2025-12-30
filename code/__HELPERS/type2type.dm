@@ -466,9 +466,9 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	return text2path(copytext(string_type, 1, last_slash))
 
 /proc/text2bool(input)
-	if(input == "true")
-		return TRUE
-	return FALSE //
+	if(!input)
+		return FALSE
+	return lowertext(input) in list("true", "1")
 
 // Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
 /proc/slot_string_to_slot_bitfield(input_string)

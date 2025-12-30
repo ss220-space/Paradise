@@ -60,13 +60,12 @@
 
 /obj/item/mod/module/springlock/bite_of_87/Initialize(mapload)
 	. = ..()
-	var/obj/item/mod/module/dna_lock/the_dna_lock_behind_the_slaughter = new /obj/item/mod/module/dna_lock
-	name = the_dna_lock_behind_the_slaughter.name
-	desc = the_dna_lock_behind_the_slaughter.desc
-	icon_state = the_dna_lock_behind_the_slaughter.icon_state
-	complexity = the_dna_lock_behind_the_slaughter.complexity
-	use_energy_cost = the_dna_lock_behind_the_slaughter.use_energy_cost
-	qdel(the_dna_lock_behind_the_slaughter)
+	var/obj/item/mod/module/dna_lock/the_dna_lock_behind_the_slaughter = /obj/item/mod/module/dna_lock
+	name = initial(the_dna_lock_behind_the_slaughter.name)
+	desc = initial(the_dna_lock_behind_the_slaughter.desc)
+	icon_state = initial(the_dna_lock_behind_the_slaughter.icon_state)
+	complexity = initial(the_dna_lock_behind_the_slaughter.complexity)
+	use_energy_cost = initial(the_dna_lock_behind_the_slaughter.use_energy_cost)
 
 /obj/item/mod/module/springlock/bite_of_87/get_ru_names()
 	return list(
@@ -80,13 +79,12 @@
 
 /obj/item/mod/module/holster/hidden/Initialize(mapload)
 	. = ..()
-	var/obj/item/mod/module/grappling_hook/fake = new /obj/item/mod/module/grappling_hook
-	name = fake.name
-	desc = fake.desc
-	icon_state = fake.icon_state
-	complexity = fake.complexity //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
-	use_energy_cost = fake.use_energy_cost
-	qdel(fake)
+	var/obj/item/mod/module/grappling_hook/fake = /obj/item/mod/module/grappling_hook
+	name = initial(fake.name)
+	desc = initial(fake.desc)
+	icon_state = initial(fake.icon_state)
+	complexity = initial(fake.complexity)
+	use_energy_cost = initial(fake.use_energy_cost)
 
 /obj/item/mod/module/holster/hidden/get_ru_names()
 	return list(
@@ -725,7 +723,7 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 	var/obj/projectile/flame = new /obj/projectile/bullet/incendiary/fire(mod.wearer.loc)
 	flame.original = target
 	flame.firer = mod.wearer
-	flame.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	flame.preparePixelProjectile(target, mod.wearer)
 	flame.fire()
 	playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 75, TRUE)
 	INVOKE_ASYNC(flame, TYPE_PROC_REF(/obj/projectile, fire))

@@ -1,3 +1,8 @@
+#define MOD_WIRE_STATUS_ELECTRIFIED(state) "Оранжевая лампочка [state ? "" : "не"] горит."
+#define MOD_WIRE_STATUS_MALFUNCTIONING(state) "Красная лампочка [state ? "не горит" : "мигает"]."
+#define MOD_WIRE_STATUS_LOCKED(state) "Зелёная лампочка [state ? "" : "не"] горит."
+#define MOD_WIRE_STATUS_BROKEN(state) "Жёлтая лампочка [state ? "не" : ""] горит."
+
 /datum/wires/mod
 	holder_type = /obj/item/mod/control
 	randomize = TRUE //Every modsuit is personalised
@@ -21,10 +26,10 @@
 /datum/wires/mod/get_status()
 	var/obj/item/mod/control/mod = holder
 	var/list/status = list()
-	status += "Оранжевая лампочка [mod.seconds_electrified ? "" : "не"] горит."
-	status += "Красная лампочка [mod.malfunctioning ? "не горит" : "мигает"]."
-	status += "Зелёная лампочка [mod.locked ? "" : "не"] горит."
-	status += "Жёлтая лампочка [mod.interface_break ? "не" : ""] горит."
+	status += MOD_WIRE_STATUS_ELECTRIFIED(mod.seconds_electrified)
+	status += MOD_WIRE_STATUS_MALFUNCTIONING(mod.malfunctioning)
+	status += MOD_WIRE_STATUS_LOCKED(mod.locked)
+	status += MOD_WIRE_STATUS_BROKEN(mod.interface_break)
 	return status
 
 /datum/wires/mod/on_pulse(wire)
@@ -60,3 +65,8 @@
 	if(!issilicon(usr) && mod.seconds_electrified && mod.shock(usr))
 		return FALSE
 	return ..()
+
+#undef MOD_WIRE_STATUS_ELECTRIFIED
+#undef MOD_WIRE_STATUS_MALFUNCTIONING
+#undef MOD_WIRE_STATUS_LOCKED
+#undef MOD_WIRE_STATUS_BROKEN

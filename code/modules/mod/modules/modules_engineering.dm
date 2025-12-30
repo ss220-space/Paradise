@@ -281,7 +281,7 @@
 	var/obj/projectile/tether = new /obj/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer
-	tether.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	tether.preparePixelProjectile(target, mod.wearer)
 	tether.fire()
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
 	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile/tether, make_chain))
@@ -439,10 +439,7 @@
 			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 			playsound(src, 'sound/items/syringeproj.ogg', 40, 1)
-			for(var/counter in 1 to 5)
-				step_towards(A, target)
-				sleep(2)
-			A.Smoke()
+			move_nanofrost(A, target)
 
 		if(METAL_FOAM)
 			if(!is_adjacent|| !isturf(target))
@@ -458,10 +455,20 @@
 			F.start()
 			reagents.remove_any(10)
 			metal_synthesis_charge--
-			addtimer(CALLBACK(src, PROC_REF(decrease_metal_charge)), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(regenerate_metal_charge)), 5 SECONDS)
 
-/obj/item/extinguisher/mini/mod/proc/decrease_metal_charge()
+/obj/item/extinguisher/mini/mod/proc/regenerate_metal_charge()
 	metal_synthesis_charge++
+
+/obj/item/extinguisher/mini/mod/proc/move_nanofrost(obj/effect/nanofrost_container/A, atom/target, steps_left = 5)
+	if(!A || !target)
+		return
+	if(steps_left <= 0) //no more steps
+		A.Smoke()
+		return
+
+	step_towards(A, target)
+	addtimer(CALLBACK(src, PROC_REF(move_nanofrost), A, target, steps_left - 1), 2)
 
 #undef EXTINGUISHER
 #undef NANOFROST

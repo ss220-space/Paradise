@@ -572,6 +572,7 @@
 	bomb.preparePixelProjectile(target, get_turf(target), mod.wearer)
 	bomb.fire()
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 75, TRUE)
+	INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_energy_cost)
 
 /obj/item/mod/module/sphere_transform/on_active_process()
