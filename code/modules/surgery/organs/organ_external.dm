@@ -687,11 +687,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE // bad luck - no fracture
 
 	var/fracture_type = FRACTURE_TYPE_OPEN
-	if(inflicted_damage < LIMB_CLOSED_FRACTURE_MIN_DMG)
-		fracture_type = FRACTURE_TYPE_CRACK
-
 	if(inflicted_damage < LIMB_OPEN_FRACTURE_MIN_DMG)
 		fracture_type = FRACTURE_TYPE_CLOSED
+
+	if(inflicted_damage < LIMB_CLOSED_FRACTURE_MIN_DMG)
+		fracture_type = FRACTURE_TYPE_CRACK
 
 	if(fracture(silent, fracture_type))
 		add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
@@ -1078,7 +1078,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	fracture_state = fracture_type
 	status |= ORGAN_BROKEN
 
-	broken_description = pick("Смещение кости", "Перелом", "Микротрещина")
 	switch(fracture_type)
 		if(FRACTURE_TYPE_CRACK)
 			broken_description = "Микротрещина"
@@ -1119,7 +1118,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	if(fracture_state == FRACTURE_TYPE_OPEN)
-		balloon_alert(usr, "вы не знаете, как наложить шину на торчащую кость!")
+		balloon_alert(usr, "наложение шины невозможно!")
 		return FALSE
 
 	status |= ORGAN_SPLINTED
