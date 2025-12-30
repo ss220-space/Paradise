@@ -436,10 +436,10 @@
 				return
 			COOLDOWN_START(src, nanofrost_cooldown, 10 SECONDS)
 			reagents.remove_any(100)
-			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+			var/obj/effect/nanofrost_container/nanofrost = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 			playsound(src, 'sound/items/syringeproj.ogg', 40, 1)
-			move_nanofrost(A, target)
+			move_nanofrost(nanofrost, target)
 
 		if(METAL_FOAM)
 			if(!is_adjacent|| !isturf(target))
@@ -450,9 +450,9 @@
 			if(reagents.total_volume < 10)
 				balloon_alert(user, "мало воды!")
 				return
-			var/datum/effect_system/fluid_spread/foam/metal/F = new()
-			F.set_up(amount = 0, location = get_turf(target))
-			F.start()
+			var/datum/effect_system/fluid_spread/foam/metal/metal_foam = new()
+			metal_foam.set_up(amount = 0, location = get_turf(target))
+			metal_foam.start()
 			reagents.remove_any(10)
 			metal_synthesis_charge--
 			addtimer(CALLBACK(src, PROC_REF(regenerate_metal_charge)), 5 SECONDS)
@@ -460,15 +460,15 @@
 /obj/item/extinguisher/mini/mod/proc/regenerate_metal_charge()
 	metal_synthesis_charge++
 
-/obj/item/extinguisher/mini/mod/proc/move_nanofrost(obj/effect/nanofrost_container/A, atom/target, steps_left = 5)
-	if(!A || !target)
+/obj/item/extinguisher/mini/mod/proc/move_nanofrost(obj/effect/nanofrost_container/our_nanofrost, atom/target, steps_left = 5)
+	if(!our_nanofrost || !target)
 		return
 	if(steps_left <= 0) //no more steps
-		A.Smoke()
+		our_nanofrost.Smoke()
 		return
 
-	step_towards(A, target)
-	addtimer(CALLBACK(src, PROC_REF(move_nanofrost), A, target, steps_left - 1), 2)
+	step_towards(our_nanofrost, target)
+	addtimer(CALLBACK(src, PROC_REF(move_nanofrost), our_nanofrost, target, steps_left - 1), 2)
 
 #undef EXTINGUISHER
 #undef NANOFROST

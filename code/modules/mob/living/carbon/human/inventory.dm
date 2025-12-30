@@ -50,8 +50,8 @@
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
-	if((mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
-		(initial(mask.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
+	if((mask.flags_inv & HIDE_ALL_HAIR) || \
+		(initial(mask.flags_inv) & HIDE_ALL_HAIR))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -90,12 +90,11 @@
 	if(toggle_off && internal && !has_airtight_items())
 		internal = null
 		update_action_buttons_icon()
-	var/hide_hair_flags = HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR
 	if(forced || \
-		(check_item.flags_inv & hide_hair_flags) || \
-		(initial(check_item.flags_inv) & hide_hair_flags) || \
-		(check_item.visor_flags_inv & hide_hair_flags) || \
-		(initial(check_item.visor_flags_inv) & hide_hair_flags))
+		(check_item.flags_inv & HIDE_ALL_HAIR) || \
+		(initial(check_item.flags_inv) & HIDE_ALL_HAIR) || \
+		(check_item.visor_flags_inv & HIDE_ALL_HAIR) || \
+		(initial(check_item.visor_flags_inv) & HIDE_ALL_HAIR))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
