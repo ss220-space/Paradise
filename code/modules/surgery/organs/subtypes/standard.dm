@@ -420,10 +420,6 @@
 		PREPOSITIONAL = "левой кисти",
 	)
 
-/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-	. = ..()
-	owner.update_fractures_workspeed()
-
 /obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_workspeed()
@@ -454,6 +450,7 @@
 
 /obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
+	owner.update_fractures_workspeed()
 	owner.set_num_hands(owner.num_hands + 1)
 	if(is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
