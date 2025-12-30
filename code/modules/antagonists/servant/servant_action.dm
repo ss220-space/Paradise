@@ -1,7 +1,7 @@
 /datum/action/summon_servant
 	name = "Вызвать слугу"
 	desc = "Вызывает вашегу слугу к вам или отзывает его."
-	button_icon = 'icons/obj/wizard.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "summons"
 	var/datum/antagonist/servant/serv_datum
 	var/mob/living/carbon/human/servant
@@ -25,7 +25,7 @@
 /datum/action/servant_self_summon
 	name = "Вернуться к мастеру"
 	desc = "Перемещает вас к мастеру."
-	button_icon = 'icons/obj/wizard.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "summons"
 	var/datum/antagonist/servant/serv_datum
 	var/mob/living/carbon/human/master
