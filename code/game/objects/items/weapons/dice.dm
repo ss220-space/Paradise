@@ -303,7 +303,7 @@
 	. = ..()
 	if(!used)
 		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-			to_chat(user, span_warning("Магией этого кубика могут воспользоваться только простые люди!"))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
 			return
 
 		if(!reusable)
