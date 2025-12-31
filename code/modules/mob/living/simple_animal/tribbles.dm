@@ -42,30 +42,29 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	if(stat == DEAD)
 		return
 
-	new /obj/item/toy/tribble(user.loc)
-	for(var/obj/item/toy/tribble/T in user.loc)
-		T.icon_state = icon_state
-		T.item_state = icon_state
-		T.gestation = gestation
-		T.pickup(user)
-		user.put_in_active_hand(T)
-		qdel(src)
+	var/obj/item/toy/tribble/new_tribble = new /obj/item/toy/tribble(user.loc)
+	new_tribble.icon_state = icon_state
+	new_tribble.item_state = icon_state
+	new_tribble.gestation = gestation
+	new_tribble.pickup(user)
+	user.put_in_active_hand(new_tribble)
+	qdel(src)
 
 /mob/living/simple_animal/tribble/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/scalpel))
 		to_chat(user, span_notice("You try to neuter the tribble, but it's moving too much and you fail!"))
-		return ..()
-	if(istype(I, /obj/item/cautery))
+	else if(istype(I, /obj/item/cautery))
 		to_chat(user, span_notice("You try to un-neuter the tribble, but it's moving too much and you fail!"))
-		return ..()
 	return ..()
 
 /mob/living/simple_animal/tribble/proc/procreate()
 	if(GLOB.totaltribbles >= MAX_TRIBBLES)
 		return
 
-	for(var/turf/possible_loc as anything in RANGE_TURFS(1, src))
+	var/list/possible_turfs = RANGE_TURFS(1, src)
+	shuffle(possible_turfs)
 
+	for(var/turf/possible_loc in possible_turfs)
 		if(locate(type) in possible_loc)
 			continue
 
