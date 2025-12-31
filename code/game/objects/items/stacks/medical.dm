@@ -603,6 +603,7 @@
 	use_duration = 1.5 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/get_ru_names()
 	return list(
