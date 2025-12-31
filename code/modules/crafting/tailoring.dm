@@ -421,7 +421,7 @@
 	name = "Headband"
 	result = list(/obj/item/clothing/head/colour/headband)
 	reqs = list(/obj/item/stack/sheet/cloth = 1)
-	time = 5
+	time = 0.5 SECONDS
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/flower_crown
