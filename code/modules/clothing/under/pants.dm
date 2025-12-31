@@ -40,7 +40,7 @@
 
 /obj/item/clothing/under/pants/lowjeans
 	name = "low-rise jeans"
-	desc = "Бунтарсие джинсы."
+	desc = "Бунтарские джинсы."
 	icon_state = "lowjeans"
 	item_color = "lowjeans"
 	species_restricted = list(SPECIES_HUMAN)
