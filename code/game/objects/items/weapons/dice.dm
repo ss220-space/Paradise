@@ -283,7 +283,7 @@
 
 /obj/item/dice/d20/fate/cursed
 	name = "cursed Die of Fate"
-	desc = "Кость с двадцатью гранями. Вы чувствуете, что бросать его ОЧЕНЬ плохая идея."
+	desc = "Кость с двадцатью гранями. Вы чувствуете, что бросать её это ОЧЕНЬ плохая идея."
 	color = "#00BB00"
 
 	rigged = DICE_TOTALLY_RIGGED
