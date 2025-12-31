@@ -30,7 +30,7 @@
 	return T
 
 /mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Список камер"
 
 	if(src.stat == 2)
@@ -46,7 +46,7 @@
 	return
 
 /mob/living/silicon/ai/proc/ai_store_location(loc as text)
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Сохранить позицию"
 	set desc = "Stores your current camera location by the given name"
 
@@ -75,7 +75,7 @@
 	return sortList(stored_locations)
 
 /mob/living/silicon/ai/proc/ai_goto_location(loc in sorted_stored_locations())
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "К сохранненной позиции"
 	set desc = "Returns to the selected camera location"
 
@@ -87,7 +87,7 @@
 	src.eyeobj.setLoc(L)
 
 /mob/living/silicon/ai/proc/ai_remove_location(loc in sorted_stored_locations())
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Удалить сохраненную позицию"
 	set desc = "Deletes the selected camera location"
 
@@ -142,7 +142,7 @@
 	return targets
 
 /mob/living/silicon/ai/proc/ai_camera_track(target_name in trackable_mobs())
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Режим слежения"
 	set desc = "Select who you would like to track."
 

@@ -26,8 +26,9 @@
 #define BANTYPE_ADMIN_PERMA 7
 #define BANTYPE_ADMIN_TEMP 8
 
-//Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
+/// Used for signifying that all admins can use this regardless of actual permissions
+#define R_NONE NONE
 #define R_BUILDMODE (1<<0)
 #define R_ADMIN (1<<1)
 #define R_BAN (1<<2)
@@ -107,6 +108,7 @@
 /// Used in logging uses of admin verbs (and sometimes some non-admin or debug verbs) to the blackbox.
 /// Only pass it a string key, the verb being used.
 #define BLACKBOX_LOG_ADMIN_VERB(the_verb) SSblackbox.record_feedback("tally", "admin_verb", 1, the_verb)
+#define BLACKBOX_LOG_VUAP(the_verb) SSblackbox.record_feedback("tally", "VUAP", 1, the_verb)
 
 //How many things you can spawn at once with spawn verb/create panel
 #define ADMIN_SPAWN_CAP 100

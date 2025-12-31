@@ -20,16 +20,11 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 /datum/fax/admin/New()
 	GLOB.adminfaxes += src
 
-// Fax panel - lets admins check all faxes sent during the round
-/client/proc/fax_panel()
-	set name = "Fax Panel"
-	set category = STATPANEL_ADMIN_TICKETS
-	if(!check_rights(R_ADMIN))
+ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "View and respond to faxes sent to CC.", ADMIN_CATEGORY_EVENTS)
+	if(!user.holder)
 		return
-	if(holder)
-		holder.fax_panel(usr)
+	user.holder.fax_panel(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Fax Panel")
-	return
 
 /datum/admins/proc/fax_panel(mob/living/user)
 	var/html = "<a align='right' href='byond://?src=[UID()];refreshfaxpanel=1'>Refresh</a>"

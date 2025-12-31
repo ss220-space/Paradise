@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	SStgui.close_uis(src)
 
 /obj/item/pda/verb/verb_reset_pda()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Сброс КПК"
 	set src in usr
 
@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/verb/verb_remove_id()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь ID-карту"
 	set src in usr
 
@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		to_chat(usr, span_notice("You cannot do this while restrained."))
 
 /obj/item/pda/verb/verb_remove_pen()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь ручку"
 	set src in usr
 	remove_pen(usr)

@@ -18,6 +18,19 @@
 	name = "Призвать вилы Архидьявола"
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
 
+/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus
+	name = "Призвать вилы Крампуса"
+	item_type = /obj/item/twohanded/pitchfork/demonic/greater/krampus
+
+/obj/effect/proc_holder/spell/conjure_item/krampus_bag
+	name = "Призвать мешок Крампуса"
+	item_type = /obj/item/krampus_bag
+	action_icon_state = "krampus_bag"
+	action_icon = 'icons/obj/items.dmi'
+	action_background_icon_state = "bg_demon"
+	base_cooldown = 10 SECONDS
+	human_req = FALSE
+
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Призвать золотую скрипку"
 	desc = "Призывает/отзывает дьявольскую золотую скрипку."

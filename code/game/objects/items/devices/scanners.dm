@@ -314,7 +314,7 @@ BODY SCANNERS
 
 /obj/item/healthanalyzer/proc/print_report_verb()
 	set name = "Печать отчёта"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src = usr
 
 	var/mob/user = usr
@@ -1017,7 +1017,7 @@ BODY SCANNERS
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Вкл/Выкл локализацию"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

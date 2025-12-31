@@ -65,7 +65,7 @@
 
 /obj/structure/inflatable/verb/hand_deflate()
 	set name = "Сдуть"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

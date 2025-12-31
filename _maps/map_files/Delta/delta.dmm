@@ -20044,6 +20044,9 @@
 /area/storage/eva)
 "ctS" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/structure/sign/poster/official/qm{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -20188,7 +20191,7 @@
 /area/quartermaster/storage)
 "cuz" = (
 /obj/structure/chair/sofa/right,
-/obj/structure/sign/poster/contraband/commando{
+/obj/structure/sign/poster/official/cargogorilas{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet/black,
@@ -20233,7 +20236,7 @@
 "cuS" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/photocopier,
-/obj/structure/sign/poster/contraband/red_rum{
+/obj/structure/sign/poster/official/mge{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet/black,
@@ -20629,6 +20632,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mimeoffice)
+"cwJ" = (
+/obj/structure/sign/poster/official/minegem,
+/turf/simulated/wall,
+/area/quartermaster/qm)
 "cwK" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -30961,6 +30968,9 @@
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #3";
 	suffix = "#4"
+	},
+/obj/structure/sign/poster/official/cargofriends{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -86235,6 +86245,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -119198,10 +119209,10 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "wFL" = (
-/obj/structure/sign/poster/official/random{
+/obj/machinery/computer/supplyquest,
+/obj/structure/sign/poster/secret/sexiqm{
 	pixel_x = 32
 	},
-/obj/machinery/computer/supplyquest,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -170033,7 +170044,7 @@ lzu
 nit
 pRX
 lBB
-dDb
+cwJ
 bSH
 dJl
 mfh

@@ -683,11 +683,11 @@
 
 // MARK: TODO: REF
 //Mergesort: divides up the list into halves to begin the sort
-/proc/sortKey(list/client/L, order = 1)
+/proc/sort_key(list/client/L, order = 1)
 	if(isnull(L) || length(L) < 2)
 		return L
 	var/middle = length(L) / 2 + 1
-	return mergeKey(sortKey(L.Copy(0,middle)), sortKey(L.Copy(middle)), order)
+	return mergeKey(sort_key(L.Copy(0,middle)), sort_key(L.Copy(middle)), order)
 
 // MARK: TODO: REF
 //Mergsort: does the actual sorting and returns the results back to sortAtom
@@ -850,6 +850,8 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
+#define MAX_BITFIELD_BITS 24
+
 /**
  * Converts a bitfield to a list of numbers (or words if a wordlist is provided)
  *
@@ -860,19 +862,21 @@
 /proc/bitfield_to_list(input_bitfield = 0, list/word_list)
 	var/list/result_list = list()
 	if(islist(word_list))
-		var/max_index = min(length(word_list), 24)
+		var/max_index = min(length(word_list), MAX_BITFIELD_BITS)
 		var/current_bit = 1
 		for(var/current_index in 1 to max_index)
 			if(input_bitfield & current_bit)
 				result_list += word_list[current_index]
 			current_bit = current_bit << 1
 	else
-		for(var/bit_position = 0 to 23)
+		for(var/bit_position = 0 to (MAX_BITFIELD_BITS - 1))
 			var/bit_value = 1 << bit_position
 			if(input_bitfield & bit_value)
 				result_list += bit_value
 
 	return result_list
+
+#undef MAX_BITFIELD_BITS
 
 /// Returns the key based on the index
 #define KEYBYINDEX(L, index) (((index <= length(L)) && (index > 0)) ? L[index] : null)

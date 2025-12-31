@@ -1283,7 +1283,7 @@
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Рисовать кровью"
 	set desc = "Используйте кровь на ваших руках, чтобы рисовать ею на полу и на стенах."
 
@@ -1899,14 +1899,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/verb/pose()
 	set name = "Задать позу"
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Описание внешности"
 	set desc = "Устанавливает подробное описание внешности вашего персонажа."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	update_flavor_text()
 

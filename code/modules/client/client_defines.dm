@@ -248,6 +248,12 @@
 	///these persist between logins/logouts during the same round.
 	var/datum/persistent_client/persistent_client
 
+	// This is needed to hold the selected player ckey for moving to and from pp/vuap
+	/// This is used to hold the ckey of the selected player for moving to and from the player panel and vuap
+	var/selectedPlayerCkey = ""
+	/// This is used to hold the mob of the selected player in case the ckey can't be found (this enables pp'ing soulless mobs)
+	var/VUAP_selected_mob = null
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
