@@ -24516,6 +24516,7 @@
 /turf/simulated/floor/plating,
 /area/medical/biostorage)
 "cPO" = (
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -43491,6 +43492,7 @@
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -48124,12 +48126,6 @@
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/computer/supplyquest,
 /obj/structure/sign/poster/secret/sexiqm{
 	pixel_x = 32
 	},
@@ -76714,6 +76710,7 @@
 	dir = 4
 	},
 /obj/structure/decorative_structures/garland,
+/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -88109,7 +88106,6 @@
 /area/medical/medbay)
 "pta" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/structure/largecrate/tangerines,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -100840,13 +100836,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint4)
-"sga" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/largecrate/tangerines,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/storage)
 "sgj" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
@@ -170697,7 +170686,7 @@ bkU
 djV
 cOF
 bOI
-sLz
+djV
 rup
 wlh
 eZs
@@ -171988,7 +171977,7 @@ sZV
 djV
 cGl
 eZs
-sga
+vKa
 jfV
 dRj
 cSf
