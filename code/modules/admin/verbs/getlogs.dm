@@ -13,11 +13,11 @@
 	codebase for the entire /TG/station commuity a TONNE easier :3 Thanks for your help!
 */
 
+ADMIN_VERB(get_server_logs, R_ADMIN, "Get Server Logs", "View or retrieve logfiles.", ADMIN_CATEGORY_DEBUG)
+	user.browseserverlogs()
+
 //This proc allows download of past server logs saved within the data/logs/ folder.
-/client/proc/getserverlogs()
-	set name = "Get Server Logs"
-	set desc = "View/retrieve logfiles."
-	set category = STATPANEL_ADMIN_DEBUG
+/client/proc/browseserverlogs()
 	var/path = browse_files("data/logs/")
 	if(!path)
 		return
@@ -37,5 +37,4 @@
 			src << ftp(wrap_file(path))
 		else
 			return
-	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.")
-	return
+	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.", confidential = TRUE)

@@ -1,5 +1,3 @@
-#define KRAMPUS_SPAWN_PROBABILITY 40
-
 /datum/weather/snow_storm
 	name = "snow storm"
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
@@ -40,6 +38,7 @@
 		/area/space,
 		/area/coldcolony/malta,
 		/area/crew_quarters/bar/atrium/safe,
+		/area/toxins/xenobiology,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
@@ -97,39 +96,39 @@
 
 	if(GLOB.new_year_celebration)
 		for(var/obj/structure/flora/tree/pine/xmas/xmas_tree in GLOB.world_flora)
+			var/turf/tree_loc = get_turf(xmas_tree)
+
+			if(!(tree_loc.z in impacted_z_levels))
+				continue
+
 			xmas_tree.spawn_gifts()
-		spawn_krampus(affected_turfs_list)
+
+
+/datum/weather/snow_storm/can_weather_act(mob/living/mob_to_check)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	var/mob/living/simple_animal/animal_to_check = mob_to_check
+
+	if(istype(animal_to_check) && animal_to_check.unique_pet)
+		return FALSE
+
+	return TRUE
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
-	var/temp_drop = -rand(15, 45)
+	var/temp_drop = -rand(20, 50)
+	var/simulatuon_temp = T0C + temp_drop
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		var/cold_protection = 2 - human_target.get_cold_protection()
+		var/cold_protection = 1 - human_target.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection
 
 	else if(istype(target, /mob/living/simple_animal/borer))
 		var/mob/living/simple_animal/borer/borer = target
-		var/cold_protection = 2 - borer.host?.get_cold_protection()
+		var/cold_protection = 1 - borer.host?.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection
 
 	target.adjust_bodytemperature(temp_drop)
-
-/datum/weather/snow_storm/proc/spawn_krampus(list/possible_turfs)
-	set waitfor = FALSE
-
-	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
-		return
-
-	var/image/krampus_image = image(/mob/living/carbon/true_devil/krampus::icon, /mob/living/carbon/true_devil/krampus::icon_state)
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Крампуса?", ROLE_DEVIL, FALSE, 30 SECONDS, source = krampus_image, role_cleanname = "Крампус")
-
-	if(!length(candidates))
-		return
-
-	var/mob/living/carbon/true_devil/krampus/krampus = new(pick(possible_turfs))
-	var/mob/dead/observer/candidate = pick(candidates)
-	krampus.possess_by_player(candidate.ckey)
-	krampus.mind.add_antag_datum(/datum/antagonist/krampus)
-
-#undef KRAMPUS_SPAWN_PROBABILITY

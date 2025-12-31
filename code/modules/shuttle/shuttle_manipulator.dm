@@ -73,7 +73,7 @@
 	return ..()
 
 /obj/machinery/shuttle_manipulator/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

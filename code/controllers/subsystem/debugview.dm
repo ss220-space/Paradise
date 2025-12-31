@@ -70,15 +70,8 @@ SUBSYSTEM_DEF(debugview)
 	maptext_height = 480 // If we ever change view size, increase this
 	maptext_width = 480
 
-// Make a verb for dumping full SS stats
-/client/proc/ss_breakdown()
-	set name = "SS Info Breakdown"
-	set category = STATPANEL_DEBUG
-
-	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
-		return
-
-	var/datum/browser/popup = new(usr, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
+ADMIN_VERB(ss_breakdown, R_DEBUG|R_VIEWRUNTIMES, "SS Info Breakdown", "Dump stats of all subsystems", ADMIN_CATEGORY_DEBUG)
+	var/datum/browser/popup = new(user, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
 
 	var/list/html = list()
 	html += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"
@@ -88,7 +81,7 @@ SUBSYSTEM_DEF(debugview)
 		if((SS.flags & SS_NO_FIRE) || !SS.can_fire)
 			continue
 
-		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% [SS.get_stat_details() ? "| [SS.get_stat_details()] " : ""]| <a href='byond://?_src_=vars;Vars=[SS.UID()]'>VV Edit</a>"
+		html += "[SS.state_colour()]\[[SS.state_letter()]\][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% [SS.get_stat_details() ? "| [SS.get_stat_details()] " : ""]| <a href='byond://?_src_=vars;Vars=[SS.UID()]'>VV Edit</a>"
 
 	popup.set_content(html.Join("<br>"))
 	popup.open(FALSE)
