@@ -207,7 +207,7 @@
 				if(!ghost.client)
 					continue
 				if((ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) && !(ghost in viewers(user_turf, null)))
-					ghost.show_message(span_emote("([ghost_follow_link(ghost, user)])<b>[user]</b> [msg]"), chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+					ghost.show_message(span_emote("([ghost_follow_link(user, ghost)])<b>[user]</b> [msg]"), chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))

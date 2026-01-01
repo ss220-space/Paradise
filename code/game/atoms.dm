@@ -1314,7 +1314,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
-	if(user && (check_rights(R_ADMIN, 0, user) || override))
+	if(user && (check_rights(R_ADMIN, FALSE, user) || override))
 		tts_seeds = SStts.tts_seeds_names
 	else
 		tts_seeds = SStts.get_available_seeds(src)
@@ -1429,14 +1429,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
 
+/// Are you allowed to drop stuff inside this atom
 /atom/proc/AllowDrop()
 	return FALSE
 
+/// Where atoms should drop if taken from this atom
 /atom/proc/drop_location()
-	var/atom/L = loc
-	if(!L)
+	var/atom/location = loc
+	if(!location)
 		return null
-	return L.AllowDrop() ? L : get_turf(L)
+	return location.AllowDrop() ? location : location.drop_location()
 
 /**
  * An atom has entered this atom's contents

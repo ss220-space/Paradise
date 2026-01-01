@@ -7,7 +7,7 @@
  * @return returns a list with the found points of interest
  */
 /proc/getpois(mobs_only = FALSE, skip_mindless = FALSE, force_include_bots = FALSE, force_include_cameras = FALSE)
-	var/list/sorted_mobs = sortmobs()
+	var/list/sorted_mobs = sort_mobs()
 	var/list/used_names = list()
 	var/list/points_of_interest = list()
 	var/list/name_counts = list()

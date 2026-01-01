@@ -176,7 +176,7 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/verb/rotate()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Повернуть трубу"
 	set src in view(1)
 
@@ -192,7 +192,7 @@
 	fixdir()
 
 /obj/item/pipe/verb/flip()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Перевернуть трубу"
 	set src in view(1)
 

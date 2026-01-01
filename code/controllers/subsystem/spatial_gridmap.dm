@@ -808,23 +808,16 @@ SUBSYSTEM_DEF(spatial_grid)
 			RegisterSignal(thing, COMSIG_MOVABLE_MOVED, PROC_REF(update_color))
 		CHECK_TICK
 
-/client/proc/paint_grids()
-	set name = "Paint Grid Map"
-	set category = STATPANEL_DEBUG
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB(paint_grids, R_DEBUG, "Paint Grid Map", "Painting the world based on the cell its located in.", ADMIN_CATEGORY_DEBUG)
 	if(!SSspatial_grid)
 		return
 
 	SSspatial_grid.paint_grids()
 
 	log_and_message_admins("paint grid map")
-
 	BLACKBOX_LOG_ADMIN_VERB("Paint Grid Map")
 
-//A debugging proc that colors objects based on what grid they belong to
+///A debugging proc that colors objects based on what grid they belong to
 /datum/controller/subsystem/spatial_grid/proc/update_color(atom/movable/thing)
 	SIGNAL_HANDLER
 

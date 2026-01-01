@@ -440,7 +440,7 @@
 
 /obj/item/tape/verb/wipe()
 	set name = "Стереть плёнку"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr
