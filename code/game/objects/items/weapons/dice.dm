@@ -318,7 +318,7 @@
 	. = ..()
 
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-		to_chat(user, span_warning("Магией этого кубика могут воспользоваться только простые люди! Вы должны оставить его здесь."))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
 		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
