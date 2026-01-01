@@ -429,8 +429,8 @@
 	butchered.adjustBruteLoss(100, def_zone = BODY_ZONE_CHEST)
 	if(ismachineperson(butchered))
 		butchered.visible_message(
-			span_userdanger("Корпус [butchered] разваливается на части, и [GEND_HIS_HER(butchered)] компоненты вываливаются наружу!"),
-			span_userdanger("Вы не успели ничего осознать, как ваши части вывалились наружу."),
+			span_userdanger("Корпус [butchered.declent_ru(GENITIVE)] разваливается на части, и [GEND_HIS_HER(butchered)] компоненты вываливаются наружу!"),
+			span_userdanger("Ваши компоненты отваливаются от вашего корпуса прямо на глазах!"),
 			span_userdanger("Вы слышите звук вываливающихся запчастей и разрывающихся проводов.")
 		)
 		return
