@@ -310,7 +310,7 @@
 			used = TRUE
 
 		var/turf/T = get_turf(src)
-		T.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] ярко вспыхива[PLUR_ET_YUT(src)]."))
+		T.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] ярко вспыхива[PLUR_ET_YUT(src)]!"))
 
 		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
