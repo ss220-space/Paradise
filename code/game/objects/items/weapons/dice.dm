@@ -415,7 +415,7 @@
 			continue
 		for(var/datum/mind/user in obj.get_owners())
 			if(QDELETED(obj))
-				to_chat(user, span_userdanger("Вам кажется, что вы что-то забыли!"))
+				to_chat(user, span_userdanger("Вам кажется, что вы что-то забыли..."))
 				SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
 				continue
 			var/list/messages = list()
