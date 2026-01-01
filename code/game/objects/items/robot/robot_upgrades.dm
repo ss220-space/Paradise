@@ -810,7 +810,7 @@
 		emagged = TRUE
 		balloon_alert(user, "регуляторы мощности взломаны!")
 	else
-		balloon_alert(user, "Нет эффекта!")
+		balloon_alert(user, "нет эффекта!")
 
 /obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
 	if(!..())
