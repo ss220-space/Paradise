@@ -2090,11 +2090,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	switch(can_buckle)
 		if(FALSE)
 			eject_riders()
-			to_chat(src, span_notice("вы задвинули сидение внутрь своего корпуса"))
+			balloon_alert(src, "сидение задвинуто")
 			playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 		if(TRUE)
-			to_chat(src, span_notice("вы выдвигаете кресло из своего корпуса"))
+			balloon_alert(src, "сидение выдвинуто")
 			playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
 /mob/living/silicon/robot/proc/eject_riders()
@@ -2108,11 +2108,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!length(buckled_mobs))
 		return
 	for(var/mob/living/buckled_mob as anything in buckled_mobs)
-		buckled_mob.visible_message(span_warning("[buckled_mob] вылетает из кресла [src]!"))
 		var/atom/target = get_edge_target_turf(src, dir)
 		var/mob/living/victim = buckled_mob //save him for future time
 		unbuckle_mob(buckled_mob)
 		victim.throw_at(target, 5, 10)
+		victim.visible_message(span_warning("[victim.declent_ru(NOMINATIVE)] вылетает из кресла [src.declent_ru(GENITIVE)]!"))
 	do_sparks(5, 0, src)
 
 /mob/living/silicon/robot/can_see_reagents()

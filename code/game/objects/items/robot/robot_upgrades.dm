@@ -797,20 +797,20 @@
 
 /obj/item/borg/upgrade/mounted_seat/get_ru_names()
 	return list(
-		NOMINATIVE = "Модификация встроенного сидения",
-		GENITIVE = "Модификации встроенного сидения",
-		DATIVE = "Модификацию встроенного сидения",
-		ACCUSATIVE = "Модификацию встроенного сидения",
-		INSTRUMENTAL = "Модификацией встроенного сидения",
-		PREPOSITIONAL = "Модификации встроенного сидения",
+		NOMINATIVE = "Модуль встроенного сидения",
+		GENITIVE = "Модуля встроенного сидения",
+		DATIVE = "Модулю встроенного сидения",
+		ACCUSATIVE = "Модуль встроенного сидения",
+		INSTRUMENTAL = "Модулем встроенного сидения",
+		PREPOSITIONAL = "Модуле встроенного сидения",
 	)
 
 /obj/item/borg/upgrade/mounted_seat/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, span_notice("Вы разблокируете регуляторы мощности сервоприводов спинки кресла"))
+		balloon_alert(user, "регуляторы мощности взломаны!")
 	else
-		to_chat(user, span_notice("Ничего не произошло"))
+		balloon_alert(user, "Нет эффекта!")
 
 /obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
 	if(!..())
@@ -835,16 +835,14 @@
 	name = "Выдвинуть/Задвинуть cидение"
 	desc = "Переключите режим своего встроенного сидения."
 	button_icon_state = "seat_on"
-	var/seat_mode = TRUE //TRUE if armed, FALSE if not
 
 /datum/action/innate/toggle_seat/Activate()
-	if(!issilicon(usr))
+	if(!isrobot(usr))
 		return
 
-	var/mob/living/silicon/robot/R = usr
-	R.toggle_seat()
-	seat_mode = !seat_mode
-	switch(seat_mode)
+	var/mob/living/silicon/robot/robot = usr
+	robot.toggle_seat()
+	switch(robot.can_buckle)
 		if(TRUE)
 			button_icon_state = "seat_on"
 			UpdateButtonIcon()
@@ -854,15 +852,15 @@
 
 /datum/action/innate/launch_riders
 	name = "Выкинуть всех пассажиров"
-	desc = "Используйте свое встроенное сидение в качестве катапульты, что-бы отправить всех усевшихся на вашей шее спиногрызов в незабываемый полет лицом в ближайшею стену."
+	desc = "Скидывает пассажиров, сидящих на вашем сидении."
 	button_icon_state = "launch_riders"
 
 /datum/action/innate/launch_riders/Activate()
-	if(!issilicon(usr))
+	if(!isrobot(usr))
 		return
 
-	var/mob/living/silicon/robot/R = usr
-	R.eject_riders_harmfull()
+	var/mob/living/silicon/robot/robot = usr
+	robot.eject_riders_harmfull()
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
 	emagged = TRUE

@@ -1907,7 +1907,7 @@
 
 /datum/uplink_item/device_tools/cyborg_seatmod
 	name = "Модуль встроенного сидения робота"
-	desc = "Позволяет использовать робота в качестве транспорта. Поставляется с уже расширенными возможностями"
+	desc = "Позволяет использовать робота в качестве транспорта. Поставляется с уже расширенными возможностями."
 	item = /obj/item/borg/upgrade/mounted_seat/pre_emaged
 	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
