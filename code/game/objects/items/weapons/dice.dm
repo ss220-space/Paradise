@@ -515,7 +515,7 @@
 	)
 	var/datum/disease/virus/D = new virus_type()
 	if(D.Contract(infected, is_carrier = TRUE))
-		to_chat(infected, span_danger("На секунду вам становится трудно дышать"))
+		to_chat(infected, span_danger("На секунду вам становится трудно дышать!"))
 
 /obj/item/dice/d20/fate/proc/medal(mob/living/carbon/human/awarded)
 	var/medal = new /obj/item/clothing/accessory/medal/gold/nothing_award
