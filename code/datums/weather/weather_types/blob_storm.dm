@@ -43,7 +43,7 @@
 	GLOB.major_announcement.announce(
 		message = "Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
 		new_title = ANNOUNCE_BIOHAZARD_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)

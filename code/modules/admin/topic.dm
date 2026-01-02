@@ -3422,7 +3422,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
-					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
+					SEND_SOUND(human, sound(ANNOUNCER_ANIMES))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 
@@ -3450,7 +3450,7 @@
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.announce(
 					message = "Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
-					new_sound = 'sound/AI/commandreport.ogg'
+					new_sound = SSstation.announcer.get_rand_report_sound(),
 				)
 			if("onlyone")
 				if(!you_realy_want_do_this())

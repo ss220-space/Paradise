@@ -36,7 +36,7 @@
 	GLOB.major_announcement.announce(
 		message = "Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.",
 		new_title = ANNOUNCE_BIOHAZARD_RU,
-		new_sound2 = 'sound/AI/outbreak7.ogg'
+		new_sound2 = ANNOUNCER_OUTBREAK7,
 	)
 
 /datum/event/disease_outbreak/start()

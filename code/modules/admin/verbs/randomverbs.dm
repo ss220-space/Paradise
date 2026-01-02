@@ -633,8 +633,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/list/message_sound = list(
 		"Уведомление *бип*" = 'sound/misc/notice2.ogg',
-		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
-		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg'
+		"Перехвачены вражеские сообщения" = ANNOUNCER_INTERCEPT,
+		"Составлен отчёт о новой команде" = SSstation.announcer.get_rand_report_sound(),
 	)
 
 	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")

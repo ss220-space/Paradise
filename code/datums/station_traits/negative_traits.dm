@@ -12,13 +12,11 @@
 	weight = 3
 	show_in_report = TRUE
 	report_message = "Из-за чрезвычайного происшествия с шаттлом поставок, все цены в карго повышены."
-	blacklist = list(/datum/station_trait/strong_supply_lines)
+	//blacklist = list(/datum/station_trait/strong_supply_lines)
 
 /datum/station_trait/distant_supply_lines/on_round_start()
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(get_supply_group_name(pack.group) != category)
-			continue
 		pack.cost *= 1.2
 
 /datum/station_trait/late_arrivals
@@ -28,5 +26,5 @@
 	show_in_report = TRUE
 	report_message = "Из-за ошибки в расчетах маршрута, прибытие на станцию произошло гораздо позже, чем ожидалось."
 	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
-	blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
+	//blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
 

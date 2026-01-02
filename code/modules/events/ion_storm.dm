@@ -23,7 +23,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.",
 			new_title = ANNOUNCE_ANOMALY_RU,
-			new_sound = 'sound/AI/ions.ogg'
+			new_sound = ANNOUNCER_IONSTORM,
 		)
 		var/message = "Malicious Interference with standard AI-Subsystems detected. Investigation recommended.<br><br>"
 		message += (location_name ? "Signal traced to <b>[location_name]</b>.<br>" : "Signal untracable.<br>")
@@ -33,7 +33,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.",
 			new_title = ANNOUNCE_ANOMALY_RU,
-			new_sound = 'sound/AI/ions.ogg'
+			new_sound = ANNOUNCER_IONSTORM,
 		)
 
 /datum/event/ion_storm/start()

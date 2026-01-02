@@ -13,7 +13,7 @@
 		GLOB.minor_announcement.announce(
 			message = "На пути станции были обнаружены мясориты.",
 			new_title = "Мясориты.",
-			new_sound = 'sound/AI/meteors.ogg'
+			new_sound = ANNOUNCER_METEORS,
 		)
 
 /datum/event/dust/meaty/start()

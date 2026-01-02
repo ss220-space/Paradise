@@ -251,7 +251,7 @@
 	GLOB.major_announcement.announce(
 		message = "Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
 		new_title = ANNOUNCE_ANOMALY_RU,
-		new_sound = 'sound/AI/aimalf.ogg'
+		new_sound = ANNOUNCER_AIMALF,
 	)
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE

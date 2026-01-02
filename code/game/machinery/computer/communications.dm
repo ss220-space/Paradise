@@ -388,7 +388,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				GLOB.major_announcement.announce(
 					message = params["text"],
 					new_title = ANNOUNCE_CCMSG_RU,
-					new_sound = 'sound/AI/commandreport.ogg',
+					new_sound = SSstation.announcer.get_rand_report_sound(),
 					new_subtitle = params["subtitle"]
 				)
 				print_command_report(params["text"], params["subtitle"])
@@ -441,7 +441,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	GLOB.minor_announcement.announce(
 		message = "Отчёт был загружен и распечатан на всех консолях связи.",
 		new_title = ANNOUNCE_SECRETMSG_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 /obj/machinery/computer/communications/emag_act(user as mob)

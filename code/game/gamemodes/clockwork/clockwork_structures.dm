@@ -386,7 +386,7 @@
 			return ATTACK_CHAIN_PROCEED
 		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар.",
 										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg')
+										SSstation.announcer.get_rand_report_sound())
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual(user)

@@ -36,6 +36,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		new_subtitle = null
 	)
 
+	if(!new_sound)
+		new_sound = SSstation.announcer.get_rand_welcome_sound()
+
 	if(!message)
 		return
 

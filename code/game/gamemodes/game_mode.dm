@@ -732,10 +732,10 @@
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
-	
+
 	if(QDELETED(player))
 		return
-	
+
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
@@ -900,14 +900,14 @@
 	GLOB.major_announcement.announce(
 		message = "Обнаружена вторжение внепространственного бога по имени [god_name]. Помощь и инструкции по противодействию будут направлены в ближайшее время. Всему лояльному экипажу — не допустить распространения угрозы.",
 		new_title = ANNOUNCE_CCPARANORMAL_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 	sleep(50 SECONDS)
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	GLOB.major_announcement.announce(
 		message = "Помощь в пути. Всему лояльному экипажу следует закрепиться на текущих позициях и ожидать прибытия подкрепления.",
 		new_title = ANNOUNCE_CCPARANORMAL_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 	sleep(30 SECONDS)
 
@@ -917,7 +917,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Сенсоры более не фиксируют признаков угрозы. Санкционирована экстренная эвакуация.",
 			new_title = ANNOUNCE_CCPARANORMAL_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound()
 		)
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE

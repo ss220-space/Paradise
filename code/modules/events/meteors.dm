@@ -12,7 +12,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Зафиксировано движение астероидов на встречном со станцией курсе.",
 			new_title = ANNOUNCE_METEOR_RU,
-			new_sound = 'sound/AI/meteors.ogg'
+			new_sound = ANNOUNCER_METEORS,
 		)
 	else
 		GLOB.minor_announcement.announce(

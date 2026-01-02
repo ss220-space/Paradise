@@ -40,7 +40,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.",
 			new_title = "Сбой системы питания",
-			new_sound = 'sound/AI/attention.ogg'
+			new_sound = ANNOUNCER_POWEROFF
 		)
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
@@ -71,7 +71,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Питание на станции [station_name()] было восстановлено. Приносим извинения за неудобства.",
 			new_title = ANNOUNCE_APC_REPAIR_RU,
-			new_sound = 'sound/AI/power_restore.ogg'
+			new_sound = ANNOUNCER_POWERON
 		)
 	// recharge the APCs
 	for(var/thing in GLOB.apcs)
@@ -87,7 +87,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Все СКАНы на станции [station_name()] были перезаряжены. Приносим извинения за неудобства.",
 			new_title = ANNOUNCE_APC_REPAIR_RU,
-			new_sound = 'sound/AI/power_restore.ogg'
+			new_sound = ANNOUNCER_POWERON
 		)
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in SSmachines.get_by_type(/obj/machinery/power/smes))

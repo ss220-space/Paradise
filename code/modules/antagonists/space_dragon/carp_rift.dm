@@ -142,7 +142,7 @@
 		GLOB.major_announcement.announce(
 			message = "Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
 			new_title = ANNOUNCE_WILDNATURE_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
 		max_integrity = INFINITY
 		update_integrity(INFINITY)
@@ -170,7 +170,7 @@
 		GLOB.major_announcement.announce(
 			message = "Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
 			new_title = ANNOUNCE_WILDNATURE_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
 
 /**
