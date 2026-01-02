@@ -436,12 +436,12 @@
 		return
 	butchered.visible_message(
 		span_userdanger("Тонкая красная линия появляется на груди [butchered], и спустя мгновение [GEND_HIS_HER(butchered)] органы вываливаются наружу!"),
-		span_userdanger("Вы не успели ничего осознать, как ваши органы вывалились наружу."),
+		span_userdanger("Ваши органы вываливаются из вас прямо на глазах!"),
 		span_userdanger("Вы слышите звук вываливающихся органов.")
 	)
 
 /obj/item/dice/d20/fate/proc/mob_swarm(mob/living/carbon/human/swarmed)
-	src.visible_message(span_userdanger("На месте кубика появился портал, из которого выходят адские отродья!"))
+	src.visible_message(span_userdanger("На месте [declent_ru[GENITIVE]] появился портал, из которого выходят адские отродья!"))
 	var/spawned_hounds = 0
 	var/spawned_t_hounds = 0
 	var/list/spawned_turfs = list()
@@ -468,7 +468,7 @@
 	swarmed.Weaken(2 SECONDS)
 
 /obj/item/dice/d20/fate/proc/purify(mob/living/carbon/human/purified)
-	purified.visible_message(span_userdanger("[purified] выгляд[PLUR_IT_YAT(purified)] очистившим[PLUR_I(purified)]ся!"))
+	purified.visible_message(span_userdanger("[purified.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(purified)] очистившим[PLUR_I(purified)]ся!"))
 	for(var/obj/item/I in purified)
 		if(istype(I, /obj/item/organ))
 			continue
@@ -479,21 +479,21 @@
 			purified.force_gene_block(gene.block, FALSE)
 
 /obj/item/dice/d20/fate/proc/slow(mob/living/carbon/human/slowed)
-	slowed.visible_message(span_userdanger("[slowed] начал[GEND_A_O_I(slowed)] двигаться медленнее!"))
+	slowed.visible_message(span_userdanger("[slowed.declent_ru(NOMINATIVE)] начал[GEND_A_O_I(slowed)] двигаться медленнее!"))
 	slowed.add_movespeed_modifier(/datum/movespeed_modifier/die_of_fate)
 
 /obj/item/dice/d20/fate/proc/monkefy(mob/living/carbon/human/monkeyed)
-	monkeyed.visible_message(span_userdanger("[monkeyed] превраща[PLUR_ET_YUT(monkeyed)]ся в обезьяну!"))
+	monkeyed.visible_message(span_userdanger("[monkeyed.declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(monkeyed)]ся в обезьяну!"))
 	monkeyed.monkeyize()
 
 /obj/item/dice/d20/fate/proc/explode(mob/living/carbon/human/center)
-	center.visible_message(span_userdanger("Рядом с [center] происходит взрыв!"))
+	center.visible_message(span_userdanger("Рядом с [center.declent_ru(INSTRUMENTAL)] происходит взрыв!"))
 	explosion(get_turf(center), devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flame_range = 2, cause = src)
 
 /obj/item/dice/d20/fate/proc/break_bone(mob/living/carbon/human/target)
 	var/obj/item/organ/external/limb = pick(target.bodyparts)
 	limb.fracture()
-	to_chat(target, span_userdanger("Вы чувствуете, как ваша [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] трескается и ломается!"))
+	to_chat(target, span_userdanger("Вы чувствуете, как ваш[GEND_A_E_I(limb)] [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] треска[PLUR_ET_YUT(limb)]ся и лома[PLUR_ET_YUT(limb)]ся!"))
 
 /obj/item/dice/d20/fate/proc/infect(mob/living/carbon/human/infected)
 	var/virus_type = pick(
@@ -538,7 +538,7 @@
 	gifted.put_in_hands(id)
 
 /obj/item/dice/d20/fate/proc/revive(mob/living/carbon/human/revived)
-	revived.visible_message(span_boldnotice("[revived] выгляд[PLUR_IT_YAT(revived)] полностью здоров[GEND_YM_OI_YM_YMI(revived)]"))
+	revived.visible_message(span_boldnotice("[revived.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(revived)] полностью здоров[GEND_YM_OI_YM_YMI(revived)]"))
 	revived.revive()
 
 //IDK where to put this so it will be here
@@ -557,13 +557,13 @@
 	gifted.put_in_hands(box)
 
 /obj/item/dice/d20/fate/proc/books()
-	src.visible_message(span_userdanger("Две магические книги упали на пол!"))
+	src.visible_message(span_userdanger("Две магические книги падают на пол!"))
 	create_smoke(2)
 	new /obj/item/spellbook/oneuse/random(loc)
 	new /obj/item/spellbook/oneuse/random(loc)
 
 /obj/item/dice/d20/fate/proc/resistance(mob/living/carbon/human/user)
-	user.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] очень крепко!"))
+	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(user)] очень крепко!"))
 	user.physiology.brute_mod *= 0.5
 	user.physiology.burn_mod *= 0.5
 
@@ -573,10 +573,10 @@
 	create_smoke(2)
 
 /obj/item/dice/d20/fate/proc/magic_coin(mob/living/carbon/human/gifted)
-	gifted.visible_message(span_userdanger("В руках у [gifted] появилась странная монета!"))
+	gifted.visible_message(span_userdanger("В руках у [gifted.declent_ru(GENITIVE)] появляется странная монета!"))
 	var/coin = new /obj/item/coin/magic
 	gifted.put_in_hands(coin)
 
 /obj/item/dice/d20/fate/proc/become_wizard(mob/living/carbon/human/wizard)
-	wizard.visible_message(span_userdanger("Потоки магической энергии вылетают из [declent_ru(GENITIVE)] в сторону [wizard]!"))
+	wizard.visible_message(span_userdanger("Потоки магической энергии вылетают из [declent_ru(GENITIVE)] в сторону [wizard.declent_ru(GENITIVE)]!"))
 	wizard.mind.make_Wizard()

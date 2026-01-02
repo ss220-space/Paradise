@@ -718,14 +718,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, COIN_SUMMON_COOLDOWN))
 		return
-	to_chat(user, span_warning("Вы подкидываете монету в руке, и та начинает нагреваться"))
+	to_chat(user, span_warning("Вы подкидываете [declent_ru(ACCUSATIVE)] в руке, и та начинает нагреваться"))
 	var/mob/living/carbon/human/Servant = new(user.loc)
 	Servant.equipOutfit(/datum/outfit/butler)
 	Servant.forceMove(user)
 	COOLDOWN_START(src, COIN_SUMMON_COOLDOWN, 10 SECONDS)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 10 SECONDS, source = Servant)
 	if(!LAZYLEN(candidates))
-		to_chat(user, span_warning("Монета остывает у вас в руке. Возможно, стоит попробовать позже."))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] остывает у вас в руке. Возможно, стоит попробовать позже."))
 		qdel(Servant)
 		return
 
