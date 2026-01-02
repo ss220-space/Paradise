@@ -30,9 +30,9 @@
 	AddComponent(/datum/component/shell, null, SHELL_CAPACITY_VERY_LARGE, SHELL_FLAG_REQUIRE_ANCHOR|SHELL_FLAG_USB_PORT)
 
 /obj/item/circuit_component/wiremod_manipulator
-  display_name = "Манипулятор"
+	display_name = "Манипулятор"
 	desc = "Используется для перемещения объектов."
-  circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
   /// End point coordinates
   var/datum/port/input/image_pixel_x
@@ -63,24 +63,24 @@
 	if(!attached_bot)
 		return
   
-  var/atom/target_atom = target.value
-  var/target_x = image_pixel_x.value
-  var/target_y = image_pixel_y.value
-  if(!target_atom || get_dist(attached_bot, target_atom) > 1 || attached_bot.z != target_atom.z)
-    return
+	var/atom/target_atom = target.value
+	var/target_x = image_pixel_x.value
+	var/target_y = image_pixel_y.value
+	if(!target_atom || get_dist(attached_bot, target_atom) > 1 || attached_bot.z != target_atom.z)
+		return
 
-  if((!isliving(target_atom) && !isstructure(target_atom)) || can_move_mobs_and_machinery)
-    if(!target_atom.anchored)
-      visible_message(span_notice("[src] хватает [target_atom]."))
-      addtimer(CALLBACK(src, PROC_REF(move_object), target_atom, target_x, target_y), move_speed)
+	if((!isliving(target_atom) && !isstructure(target_atom)) || can_move_mobs_and_machinery)
+		if(!target_atom.anchored)
+			visible_message(span_notice("[src] хватает [target_atom]."))
+			addtimer(CALLBACK(src, PROC_REF(move_object), target_atom, target_x, target_y), move_speed)
 
 /obj/structure/wiremod_manipulator/proc/move_object(atom/target_atom, target_pos_x, target_pos_y)
-  if(!target_atom)
-    return
+	if(!target_atom)
+		return
   
-  var/turf/target_turf = locate(target_pos_x, target_pos_y, target_atom.z)
-  target_atom.forceMove(target_turf)
-  visible_message(span_notice("[src] с громким жужжанием перемещает [target_atom]."))
+	var/turf/target_turf = locate(target_pos_x, target_pos_y, target_atom.z)
+	target_atom.forceMove(target_turf)
+	visible_message(span_notice("[src] с громким жужжанием перемещает [target_atom]."))
 
 /obj/structure/server/wrench_act(mob/living/user, obj/item/tool)
 	set_anchored(!anchored)
