@@ -9,7 +9,7 @@
 /client/verb/toggle_autohiss()
 	set name = "Авто-акцент"
 	set desc = "Переключает автоматический акцент вашей расы при общении."
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	prefs.autohiss_mode = (prefs.autohiss_mode + 1) % AUTOHISS_NUM
 	switch(prefs.autohiss_mode)

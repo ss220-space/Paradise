@@ -27,6 +27,9 @@
 
 	var/wetlevel = 0 //how wet the mob is
 
+	/// Last mind to control this mob, for blood-based cloning
+	var/datum/mind/last_mind = null
+
 	var/co2overloadtime = null
 	var/dreaming = 0 //How many dream images we have left to send
 	var/nightmare = 0

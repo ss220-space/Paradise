@@ -8,21 +8,15 @@
 
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
-/client/proc/freeze(atom/movable/M in view(maxview()))
-	set name = "\[Admin\] Freeze"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	M.admin_Freeze(src)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_freeze, R_ADMIN, "Freeze", atom/movable/target in view())
+	target.admin_Freeze(user)
 
 /// Created here as a base proc. Override as needed for any type of object or mob you want able to be frozen.
 /atom/movable/proc/admin_Freeze(client/admin)
-	to_chat(admin, "<span class='warning'>Freeze is not able to be called on this type of object.</span")
+	to_chat(admin, span_warning("Freeze is not able to be called on this type of object."))
 	return
 
-///mob freeze procs
-
+//mob freeze procs
 /mob/living/admin_Freeze(client/admin, skip_overlays = FALSE, mech = null)
 	if(!istype(admin))
 		return

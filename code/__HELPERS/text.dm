@@ -387,7 +387,7 @@
 	input_text = replacetext(input_text, "\[u\]", "<u>")
 	input_text = replacetext(input_text, "\[/u\]", "</u>")
 
-	if(check_rights(R_EVENT))
+	if((findtext(input_text, "\[signfont\]") || findtext(input_text, "\[/signfont\]")) && check_rights(R_EVENT)) // Make sure the text is there before giving off an error
 		input_text = replacetext(input_text, "\[signfont\]", "<font face=\"[signature_font]\"><i>")
 		input_text = replacetext(input_text, "\[/signfont\]", "</i></font>")
 

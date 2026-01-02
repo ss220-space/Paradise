@@ -366,7 +366,7 @@
 
 /obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
 	set name = "Конвертация в семена"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Activate to convert your plants into plantable seeds."
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -633,7 +633,7 @@
 
 /obj/item/storage/bag/tray/cyborg/verb/select_placement_radius()
 	set name = "Радиус размещения"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	var/new_radius = tgui_input_number(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12)
