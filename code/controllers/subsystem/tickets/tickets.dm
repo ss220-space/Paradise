@@ -139,8 +139,8 @@ SUBSYSTEM_DEF(tickets)
 	var/list/L = list()
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span>[span_boldnotice("[key_and_name][one_line ? " " : "<br>"]")]"
 	if(M)
-		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
-	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
+		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)]) "
+	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>)"
 	L += "[isAI(M) ? "(<a href='byond://?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
 	L += "(<a href='byond://?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='byond://?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
 	L += "(<a href='byond://?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[one_line ? " " : "<br><br>"][msg]</span>"
@@ -285,7 +285,7 @@ SUBSYSTEM_DEF(tickets)
 			if(!closeTicket(N))
 				to_chat(C, "Невозможно закрыть тикет.", confidential=TRUE)
 		if("Мужайся")
-			C.man_up(returnClient(N))
+			SSadmin_verbs.dynamic_invoke_verb(C, /datum/admin_verb/man_up, returnClient(N))
 			T.lastStaffResponse = "Автоматический ответ: [message_key]"
 			resolveTicket(N)
 			message_staff("[C] отправил автоматический ответ на тикет [ticket_owner] сообщением:[span_adminticketalt(" [message_key]")]")
@@ -461,7 +461,7 @@ SUBSYSTEM_DEF(tickets)
  */
 /datum/controller/subsystem/tickets/proc/returnUI(tab = TICKET_OPEN)
 	set name = "Open Ticket Interface"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 
 	//dat
 	var/trStyle = "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
@@ -551,7 +551,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/client/client as anything in GLOB.admins)
 		if(ckey(client.ckey) == ckey(T.client_ckey))
 			continue
-		if(!check_rights_for(client, rights_needed))
+		if(!check_rights_client(rights_needed, FALSE, client))
 			continue
 		for(var/key in client.pm_tracker.pms)
 			if(ckey(key) != ckey(T.client_ckey))
@@ -565,7 +565,7 @@ SUBSYSTEM_DEF(tickets)
 			break
 
 	dat += "<br />"
-	dat += "<a href='byond://?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='byond://?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, FALSE) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='byond://?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
@@ -712,9 +712,9 @@ SUBSYSTEM_DEF(tickets)
 
 	if(href_list["resolveall"])
 		if(ticket_system_name == MENTORHELP_SYSTEM_NAME)
-			usr.client.resolveAllMentorTickets()
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/resolve_all_mentor_tickets)
 		else
-			usr.client.resolveAllAdminTickets()
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/resolve_all_admin_tickets)
 
 	if(href_list["close"])
 		onCloseDetailUI(usr)
@@ -741,7 +741,7 @@ SUBSYSTEM_DEF(tickets)
 	var/static/list/protected_vars = list(
 		"allTickets"
 	)
-	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 

@@ -1,22 +1,13 @@
 GLOBAL_LIST_EMPTY(sounds_cache)
 
-/client/proc/stop_global_admin_sounds()
-	set category = STATPANEL_ADMIN_SOUNDS
-	set name = "Stop Global Admin Sounds"
-	if(!check_rights(R_SOUNDS))
-		return
-
+ADMIN_VERB(stop_global_admin_sounds, R_SOUNDS, "Stop Global Admin Sounds", "Stop all playing admin sounds.", ADMIN_CATEGORY_SOUNDS)
 	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = CHANNEL_ADMIN)
 
 	log_and_message_admins("stopped admin sounds.")
 	for(var/mob/M in GLOB.player_list)
 		M << awful_sound
 
-/client/proc/play_sound(S as sound)
-	set category = STATPANEL_ADMIN_SOUNDS
-	set name = "Play Global Sound"
-	if(!check_rights(R_SOUNDS))	return
-
+ADMIN_VERB(play_sound, R_SOUNDS, "Play Global Sound", "Play a sound to all connected players.", ADMIN_CATEGORY_SOUNDS, S as sound)
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
 	uploaded_sound.priority = 250
 
@@ -37,30 +28,24 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	BLACKBOX_LOG_ADMIN_VERB("Play Global Sound")
 
-/client/proc/play_local_sound(S as sound)
-	set category = STATPANEL_ADMIN_SOUNDS
-	set name = "Play Local Sound"
-	if(!check_rights(R_SOUNDS))	return
-
-	log_and_message_admins("played a local sound [S]")
-	playsound(get_turf(src.mob), S, 50, FALSE, 0)
+ADMIN_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Plays a sound only you can hear.", ADMIN_CATEGORY_SOUNDS, sound as sound)
+	log_and_message_admins("played a local sound [sound]")
+	playsound(get_turf(user.mob), sound, 50, FALSE, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Play Local Sound")
 
-/client/proc/play_web_sound()
-	set category = STATPANEL_ADMIN_SOUNDS
-	set name = "Play Internet Sound"
-	if(!check_rights(R_SOUNDS))
-		return
+ADMIN_VERB_CUSTOM_EXIST_CHECK(play_web_sound)
+	return !!CONFIG_GET(string/invoke_youtubedl)
 
-	if(!tgui_panel || !SSassets.initialized)
+ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given internet sound to all players.", ADMIN_CATEGORY_SOUNDS)
+	if(!user.tgui_panel || !SSassets.initialized)
 		return
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)
-		to_chat(src, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
+		to_chat(user, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
 		return
 
-	var/web_sound_input = tgui_input_text(usr, "Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp", encode = FALSE)
+	var/web_sound_input = tgui_input_text(user, "Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp", encode = FALSE)
 	if(istext(web_sound_input))
 		var/web_sound_path = ""
 		var/web_sound_url = ""
@@ -69,8 +54,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		if(length(web_sound_input))
 			web_sound_input = trim(web_sound_input)
 			if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
-				to_chat(src, span_boldwarning("Non-http(s) URIs are not allowed."), confidential=TRUE)
-				to_chat(src, span_warning("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."), confidential=TRUE)
+				to_chat(user, span_boldwarning("Non-http(s) URIs are not allowed."), confidential=TRUE)
+				to_chat(user, span_warning("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."), confidential=TRUE)
 				return
 			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
 			var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[shell_scrubbed_input]\"")
@@ -82,8 +67,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				try
 					data = json_decode(stdout)
 				catch(var/exception/e)
-					to_chat(src, span_boldwarning("yt-dlp JSON parsing FAILED:"), confidential=TRUE)
-					to_chat(src, span_warning("[e]: [stdout]"), confidential=TRUE)
+					to_chat(user, span_boldwarning("yt-dlp JSON parsing FAILED:"), confidential=TRUE)
+					to_chat(user, span_warning("[e]: [stdout]"), confidential=TRUE)
 					return
 
 				if(data["url"])
@@ -101,7 +86,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					music_extra_data["upload_date"] = data["upload_date"]
 					music_extra_data["album"] = data["album"]
 
-					var/res = tgui_alert(usr, "Показать игрокам название и ссылку?\n[title]",, list("Нет", "Да", "Отмена"))
+					var/res = tgui_alert(user, "Показать игрокам название и ссылку?\n[title]",, list("Нет", "Да", "Отмена"))
 					switch(res)
 						if("Да")
 							music_extra_data["title"] = data["title"]
@@ -114,27 +99,27 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 						if("Отмена")
 							return
 
-					var/anon = tgui_alert(usr, "Показывать, кто запустил?", "Указывать себя?", list("Нет", "Да", "Отмена"))
+					var/anon = tgui_alert(user, "Показывать, кто запустил?", "Указывать себя?", list("Нет", "Да", "Отмена"))
 					switch(anon)
 						if("Yes")
 							if(res == "Yes")
-								to_chat(world, span_boldannounceooc("[src] запустил: [webpage_url]"), confidential = TRUE)
+								to_chat(world, span_boldannounceooc("[user] запустил: [webpage_url]"), confidential = TRUE)
 							else
-								to_chat(world, span_boldannounceooc("[src] запустил музыку"), confidential = TRUE)
+								to_chat(world, span_boldannounceooc("[user] запустил музыку"), confidential = TRUE)
 						if("No")
 							if(res == "Yes")
 								to_chat(world, span_boldannounceooc("Запущено админом: [webpage_url]"), confidential = TRUE)
 
-					SSblackbox.record_feedback("nested tally", "played_url", 1, list("[ckey]", "[web_sound_input]"))
-					log_admin("[key_name(src)] played web sound: [web_sound_input]")
-					message_admins("[key_name(src)] played web sound: [web_sound_input]")
+					SSblackbox.record_feedback("nested tally", "played_url", 1, list("[user.ckey]", "[web_sound_input]"))
+					log_admin("[key_name(user)] played web sound: [web_sound_input]")
+					message_admins("[key_name(user)] played web sound: [web_sound_input]")
 			else
-				to_chat(src, span_boldwarning("yt-dlp URL retrieval FAILED:"), confidential=TRUE)
-				to_chat(src, span_warning("[stderr]"), confidential=TRUE)
+				to_chat(user, span_boldwarning("yt-dlp URL retrieval FAILED:"), confidential=TRUE)
+				to_chat(user, span_warning("[stderr]"), confidential=TRUE)
 
 		else //pressed ok with blank
-			log_admin("[key_name(src)] stopped web sound")
-			message_admins("[key_name(src)] stopped web sound")
+			log_admin("[key_name(user)] stopped web sound")
+			message_admins("[key_name(user)] stopped web sound")
 			web_sound_path = null
 			stop_web_sounds = TRUE
 			SSticker.music_available = 0
@@ -165,49 +150,44 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	BLACKBOX_LOG_ADMIN_VERB("Play Internet Sound")
 
-/client/proc/play_server_sound()
-	set category = STATPANEL_ADMIN_SOUNDS
-	set name = "Play Server Sound"
-	if(!check_rights(R_SOUNDS))	return
-
+ADMIN_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to players.", ADMIN_CATEGORY_SOUNDS)
 	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
-	if(!melody)	return
+	var/melody = tgui_input_list(user, "Select a sound from the server to play", "Server sound list", sounds)
+	if(!melody)
+		return
 
-	play_sound(melody)
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/play_sound, melody)
 	BLACKBOX_LOG_ADMIN_VERB("Play Server Sound")
 
-/client/proc/play_intercomm_sound()
-	set category = STATPANEL_ADMIN_SOUNDS
-	set name = "Play Sound via Intercomms"
-	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
-	if(!check_rights(R_SOUNDS))	return
-
-	var/A = alert(usr, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
-	if(A != "Yep")	return
+ADMIN_VERB(play_intercomm_sound, R_SOUNDS, "Play Sound via Intercomms", "Plays a sound at every intercomm on the station z level. Works best with small sounds.", ADMIN_CATEGORY_SOUNDS)
+	var/A = alert(user, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
+	if(A != "Yep")
+		return
 
 	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
-	if(!melody)	return
+	var/melody = tgui_input_list(user, "Select a sound from the server to play", "Server sound list", sounds)
+	if(!melody)
+		return
 
 	var/cvol = 35
-	var/inputvol = tgui_input_number(usr, "How loud would you like this to be? (1-70)", "Volume", cvol, min_value = 1, max_value = 70)
-	if(!inputvol)	return
+	var/inputvol = tgui_input_number(user, "How loud would you like this to be? (1-70)", "Volume", cvol, min_value = 1, max_value = 70)
+	if(!inputvol)
+		return
 	if(inputvol)
 		cvol = inputvol
 
 	//Allows for override to utilize intercomms on all z-levels
-	var/B = alert("Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
+	var/B = alert(user, "Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
 	var/ignore_z = 0
 	if(B == "All")
 		ignore_z = 1
 
 	//Allows for override to utilize incomplete and unpowered intercomms
-	var/C = alert("Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
+	var/C = alert(user, "Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
 	var/ignore_power = 0
 	if(C == "Yep")
 		ignore_power = 1
@@ -220,16 +200,12 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			continue
 		playsound(I, melody, cvol)
 
-/client/proc/play_direct_mob_sound(S as sound, mob/M)
-	set category = STATPANEL_ADMIN_SOUNDS
-	set name = "Play Direct Mob Sound"
-	if(!check_rights(R_SOUNDS))
+ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sound directly to a mob.", ADMIN_CATEGORY_SOUNDS, sound as sound, mob/target in GLOB.mob_list)
+	if(!target)
+		target = tgui_input_list(user, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound", sort_names(GLOB.player_list))
+	if(QDELETED(target))
 		return
-
-	if(!M)
-		M = tgui_input_list(usr, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound", sort_names(GLOB.player_list))
-	if(!M || QDELETED(M))
-		return
-
-	log_and_message_admins("played a direct mob sound [S] to [M].")
-	SEND_SOUND(M, S)
+	log_admin("[key_name(user)] played a direct mob sound [sound] to [key_name_admin(target)].")
+	message_admins("[key_name_admin(user)] played a direct mob sound [sound] to [ADMIN_LOOKUPFLW(target)].")
+	SEND_SOUND(target, sound)
+	BLACKBOX_LOG_ADMIN_VERB("Play Direct Mob Sound")

@@ -4,6 +4,7 @@
 	report_alerts = FALSE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
+	has_gravity = TRUE
 
 /area/vision_change_area/awaymission/evil_santa_storm
 	name = "Evil santa forest"
@@ -12,6 +13,7 @@
 	report_alerts = FALSE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
+	has_gravity = TRUE
 	ambientsounds = list(
 		'sound/ambience/spooky/haunting_ambience.ogg',
 		'sound/ambience/spooky/suspenseful_ambience.ogg',
@@ -26,6 +28,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_ne
 	name = "Evil santa spawn north east"
 	icon_state = "awaycontent2"
+
 /area/vision_change_area/awaymission/evil_santa/spawn_nw
 	name = "Evil santa spawn north west"
 	icon_state = "awaycontent3"

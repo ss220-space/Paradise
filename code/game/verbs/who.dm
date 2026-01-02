@@ -3,7 +3,7 @@
 
 /client/verb/who()
 	set name = "Список игроков"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	var/msg = "<b>Игроков онлайн:</b><br>"
 
@@ -94,7 +94,7 @@
 
 /client/verb/adminwho()
 	set name = "В сети"
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 
 	var/list/adminmsg = list()
 	var/list/mentormsg = list()
@@ -133,7 +133,7 @@
 			num_admins_online++
 			adminmsg += jointext(line, "")
 
-		else if(check_rights((R_MENTOR || R_MOD), FALSE, client.mob)) // Is this client a mentor or moderator?
+		else if(check_rights(R_MENTOR|R_MOD, FALSE, client.mob)) // Is this client a mentor or moderator?
 			num_mentors_online++
 			mentormsg += jointext(line, "")
 

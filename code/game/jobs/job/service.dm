@@ -325,7 +325,7 @@
 
 /mob/living/carbon/human/proc/mimicking(mob/living/carbon/human/H)
 	set name = "Имитировать голос"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	if(!H)
 		to_chat(usr, span_notice("Используйте <b>ПКМ</b> для выбора цели."))
 	var/datum/action/innate/mimicking/mimic = locate(/datum/action/innate/mimicking) in usr.actions

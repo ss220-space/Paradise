@@ -190,12 +190,12 @@
 
 /client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
-		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
+		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, FALSE))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
 			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_SEC_MIN(wait_time)] перед отправкой нового сообщения."), confidential=TRUE)
 			return 1
 		last_message_time = world.time
-	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
+	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, FALSE) && last_message == message)
 		last_message_count++
 		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
 			return FALSE
@@ -577,7 +577,7 @@
 	if(!SSdbcore.IsConnected())
 		return
 
-	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
+	if(check_rights(R_ADMIN, FALSE, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
 		donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
 		return
@@ -1186,20 +1186,15 @@
 /// Attempts to make the client orbit the given object, for administrative purposes.
 /// If they are not an observer, will try to aghost them.
 /client/proc/admin_follow(atom/movable/target)
-	var/can_ghost = TRUE
-
 	if(!isobserver(mob))
-		can_ghost = admin_ghost()
-
-	if(!can_ghost)
-		return FALSE
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_ghost)
 
 	var/mob/dead/observer/observer = mob
 	observer.ManualFollow(target)
 
 /client/verb/toggle_fullscreen()
 	set name = "Полный экран"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	fullscreen = !fullscreen
 
@@ -1247,7 +1242,7 @@
 /client/verb/fit_viewport()
 	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1316,7 +1311,7 @@
 /client/verb/fix_title_screen()
 	set name = "Починить меню лобби"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1329,7 +1324,7 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))

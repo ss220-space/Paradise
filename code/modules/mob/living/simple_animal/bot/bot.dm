@@ -1186,7 +1186,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/verb/show_laws()
 	set name = "Набор законов"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	to_chat(src, "<b>Набор законов:</b>")
 	if(paicard?.pai && paicard.pai.master && paicard.pai.pai_law0)
