@@ -16,7 +16,7 @@
 	weight = 1
 	show_in_report = TRUE
 	report_message = "Мы наняли его из другого сектора, поэтому, вероятно, он не совсем знает наш язык."
-	blacklist = list(/datum/station_trait/announcement_medbot, /datum/centcom_announcer/intern_ru) //datum/station_trait/birthday)
+	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern_ru) //datum/station_trait/birthday)
 
 /datum/station_trait/announcement_intern/New()
 	. = ..()
