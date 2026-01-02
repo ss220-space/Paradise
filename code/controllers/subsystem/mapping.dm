@@ -807,3 +807,7 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT
+
+/// Returns true if the map we're playing on is on a planet
+/datum/controller/subsystem/mapping/proc/is_planetary()
+	return SSmapping.map_datum.planetary

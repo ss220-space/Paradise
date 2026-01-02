@@ -38,3 +38,6 @@
 
 	/// Used to disable ruins, lavaland, etc. for a specific map.
 	var/disables = NONE
+
+	/// Boolean that tells us if this is a planetary station. (like Malta)
+	var/planetary = FALSE

@@ -176,3 +176,5 @@
 #define TASER_TRAIT "taser"
 
 #define BUTTON_TRAIT "button"
+
+#define STATION_TRAIT "station-trait"

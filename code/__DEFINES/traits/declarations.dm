@@ -400,3 +400,7 @@
 #define TRAIT_TWOHANDED_BLOCKED "twohandec_blocked"
 
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
+
+/// Traits given by station traits
+#define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
+#define STATION_TRAIT_LATE_ARRIVALS "station_trait_late_arrivals"

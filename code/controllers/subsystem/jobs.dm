@@ -572,7 +572,7 @@ SUBSYSTEM_DEF(jobs)
 		else
 			mark_spawn = pick(GLOB.latejoin)
 
-	if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
+	if(!mark_spawn || HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS)) // still no spawn, fall back to the arrivals shuttle
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
 		else
