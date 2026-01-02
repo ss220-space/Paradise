@@ -724,39 +724,19 @@
 	linked_emote = /datum/emote/living/silicon/scream
 	name = "Кричать"
 
-/datum/keybinding/emote/silicon/scream2
-	linked_emote = /datum/emote/living/silicon/scream
-	name = "Кричать"
-
 /datum/keybinding/emote/silicon/ping
 	linked_emote = /datum/emote/living/silicon/ping
 	name = "Звенеть"
 
-/datum/keybinding/emote/silicon/ping2
-	linked_emote = /datum/emote/living/silicon/ping
-	name = "Звенеть"
-
-/datum/keybinding/emote/silicon/buzz1
+/datum/keybinding/emote/silicon/buzz
 	linked_emote = /datum/emote/living/silicon/buzz1
-	name = "Жужжать"
-
-/datum/keybinding/emote/silicon/buzz12
-	linked_emote = /datum/emote/living/silicon/buzz12
 	name = "Жужжать"
 
 /datum/keybinding/emote/silicon/buzz2
 	linked_emote = /datum/emote/living/silicon/buzz2
 	name = "Жужжать раздражённо"
 
-/datum/keybinding/emote/silicon/buzz22
-	linked_emote = /datum/emote/living/silicon/buzz22
-	name = "Жужжать раздражённо"
-
 /datum/keybinding/emote/silicon/beep
-	linked_emote = /datum/emote/living/silicon/beep
-	name = "Бипать"
-
-/datum/keybinding/emote/silicon/beep2
 	linked_emote = /datum/emote/living/silicon/beep
 	name = "Бипать"
 
@@ -764,15 +744,7 @@
 	linked_emote = /datum/emote/living/silicon/boop
 	name = "Бупать"
 
-/datum/keybinding/emote/silicon/boop2
-	linked_emote = /datum/emote/living/silicon/boop
-	name = "Бупать"
-
 /datum/keybinding/emote/silicon/yes
-	linked_emote = /datum/emote/living/silicon/yes
-	name = "Утвердительно"
-
-/datum/keybinding/emote/silicon/yes2
 	linked_emote = /datum/emote/living/silicon/yes
 	name = "Утвердительно"
 
@@ -780,15 +752,7 @@
 	linked_emote = /datum/emote/living/silicon/no
 	name = "Отрицательно"
 
-/datum/keybinding/emote/silicon/no2
-	linked_emote = /datum/emote/living/silicon/no
-	name = "Отрицательно"
-
 /datum/keybinding/emote/silicon/law
-	linked_emote = /datum/emote/living/silicon/law
-	name = "Указать кто здесь закон"
-
-/datum/keybinding/emote/silicon/law2
 	linked_emote = /datum/emote/living/silicon/law
 	name = "Указать кто здесь закон"
 

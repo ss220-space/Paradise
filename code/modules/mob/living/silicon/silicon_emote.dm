@@ -30,7 +30,7 @@
 	sound = 'sound/goonstation/voice/robot_scream.ogg'
 	volume = 80
 
-/datum/emote/living/silicon/scream2
+/datum/emote/living/silicon/scream_ru
 	key = "scream"
 	key_third_person = "screams"
 	message = "громко сигнал%(ит,ят)%!"
@@ -54,7 +54,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/ping.ogg'
 
-/datum/emote/living/silicon/ping2
+/datum/emote/living/silicon/ping_ru
 	key = "ping"
 	key_third_person = "pings"
 	message = "звен%(ит,ят)%."
@@ -74,7 +74,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/buzz-sigh.ogg'
 
-/datum/emote/living/silicon/buzz12
+/datum/emote/living/silicon/buzz1_ru
 	key = "buzz"
 	key_third_person = "buzzes"
 	message = "жужж%(ит,ат)%."
@@ -93,7 +93,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/buzz-two.ogg'
 
-/datum/emote/living/silicon/buzz22
+/datum/emote/living/silicon/buzz2_ru
 	key = "buzz2"
 	message = "изда%(ёт,ют)% раздраженный жужжащий звук."
 	message_mime = "тихо раздражённо жужж%(ит,ат)%."
@@ -112,7 +112,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/twobeep.ogg'
 
-/datum/emote/living/silicon/beep2
+/datum/emote/living/silicon/beep_ru
 	key = "beep"
 	key_third_person = "beeps"
 	message = "пищ%(ит,ат)%."
@@ -132,7 +132,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/boop.ogg'
 
-/datum/emote/living/silicon/boop2
+/datum/emote/living/silicon/boop_ru
 	key = "boop"
 	key_third_person = "boops"
 	message = "изда%(ёт,ют)% короткий гудок."
@@ -151,7 +151,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/synth_yes.ogg'
 
-/datum/emote/living/silicon/yes2
+/datum/emote/living/silicon/yes_ru
 	key = "yes"
 	message = "изда%(ёт,ют)% утвердительный сигнал."
 	message_mime = "утвердительно сверка%(ет,ют)% лампочками."
@@ -169,7 +169,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/synth_no.ogg'
 
-/datum/emote/living/silicon/no2
+/datum/emote/living/silicon/no_ru
 	key = "no"
 	message = "изда%(ёт,ют)% отрицательный сигнал."
 	message_mime = "отрицательно сверка%(ет,ют)% лампочками."
@@ -186,7 +186,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/biamthelaw.ogg'
 
-/datum/emote/living/silicon/law2
+/datum/emote/living/silicon/law_ru
 	key = "law"
 	message = "указыва%(ет,ют)% на штрих-код службы безопасноти."
 	message_postfix = ", смотря на %t."
