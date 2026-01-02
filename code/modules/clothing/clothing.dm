@@ -307,7 +307,7 @@
 
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
 	set name = "Подогнать очки"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Adjust your eyewear to be worn over or under a mask."
 	set src in usr
 
@@ -508,7 +508,7 @@
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Датчики костюма"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 	set_sensors(usr)
 
@@ -1231,7 +1231,7 @@
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Убрать аксессуар"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 	handle_accessories_removal(usr)
 
@@ -1277,7 +1277,7 @@
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Сменить стиль униформы"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(!ishuman(usr))

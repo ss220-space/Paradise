@@ -483,7 +483,7 @@
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
 	set name = "Перекинуть ремешок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

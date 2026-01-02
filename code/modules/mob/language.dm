@@ -879,7 +879,7 @@
 
 /mob/verb/check_languages()
 	set name = "Меню языков"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set src = usr
 
 	var/datum/browser/popup = new(src, "checklanguage", "Меню языков", 420, 470)

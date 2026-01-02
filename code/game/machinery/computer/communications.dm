@@ -334,13 +334,13 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			if(!FULL_ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
-			ui.user.client.cmd_admin_create_centcom_report()
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/cmd_admin_create_centcom_report)
 
 		if("dispatch_ert")
 			if(!ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки ОБР."))
 				return
-			ui.user.client.send_response_team()// check_rights is handled on the other side, if someone does get ahold of this
+			ui.user.client.send_response_team()
 
 		if("send_nuke_codes")
 			if(!ADMIN_CHECK(ui.user))
@@ -372,13 +372,13 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			if(!FULL_ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для запрета вызова ОБР."))
 				return
-			ui.user.client.toggle_ert_calling()
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/toggle_ert_calling)
 
 		if("view_fax")
 			if(!ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для открытия факс панели."))
 				return
-			ui.user.client.fax_panel()
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/fax_panel)
 
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))

@@ -12,7 +12,8 @@
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 2 SECONDS
-	var/unique_handling = FALSE //some things give a special prompt, do we want to bypass some checks in parent?
+	/// Some things give a special prompt, do we want to bypass some checks in parent?
+	var/unique_handling = FALSE
 	var/stop_bleeding = 0
 	var/bleedsuppress = 0
 	var/use_duration = 3 SECONDS
@@ -23,11 +24,11 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!iscarbon(target) && !isanimal(target))
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] не может быть применен к [target]!"))
+		target.balloon_alert(user, "неподходящая цель!")
 		return .
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, span_danger("Вам не хватает навыков чтобы использовать [declent_ru(NOMINATIVE)]!"))
+		target.balloon_alert(user, "вы слишком неуклюжи для этого!")
 		return .
 
 	if(ishuman(target))
@@ -36,44 +37,50 @@
 		var/obj/item/organ/external/affecting = human_target.get_organ(selected_zone)
 
 		if(isgolem(human_target))
-			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя оприменить на големах!"))
+			target.balloon_alert(user, "неподходящая цель!")
 			return .
 
 		if(human_target.covered_with_thick_material(selected_zone))
-			to_chat(user, span_danger("Здесь слишком толстый слой материала для применения [declent_ru(NOMINATIVE)]."))
+			target.balloon_alert(user, "часть тела чем-то перекрыта!")
 			return .
 
 		if(!affecting)
-			to_chat(user, span_danger("Часть тела отсутствует!"))
+			target.balloon_alert(user, "часть тела отсутствует!")
 			return .
 
 		if(affecting.is_robotic())
-			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
+			target.balloon_alert(user, "часть тела неорганическая!")
 			return .
 
 		if(human_target == user && !unique_handling)
-			user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]...", "применение [declent_ru(GENITIVE)]...");
+			user.visible_message(
+				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)]."),
+				ignored_mobs = user,
+			)
+			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]]...")
+
 			if(!do_after(human_target, self_delay, human_target, use_flags, max_interact_count = 1))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
 			if(!affecting_rechecked)
-				to_chat(human_target, span_danger("Часть тела отсутствует!"))
+				target.balloon_alert(user, "часть тела отсутствует!")
 				return .
 
 			if(human_target.covered_with_thick_material(selected_zone))
-				to_chat(human_target, span_danger("Здесь слишком толстый слой материала для применения [declent_ru(NOMINATIVE)]."))
+				target.balloon_alert(user, "часть тела чем-то перекрыта!")
 				return .
 
 			if(affecting_rechecked.is_robotic())
-				to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
+				target.balloon_alert(user, "часть тела неорганическая!")
 				return .
 		else
 			user.visible_message(
-				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [human_target]."),
-				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
+				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [human_target.declent_ru(PREPOSITIONAL)]."),
+				ignored_mobs = user,
 			)
-			user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]...", "применение [declent_ru(GENITIVE)]...");
+			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]] цели...")
+
 			if(use_duration && !do_after(user, use_duration, human_target))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
@@ -81,21 +88,22 @@
 	if(isanimal(target))
 		var/mob/living/simple_animal/critter = target
 		if(!(critter.healable))
-			to_chat(user, span_danger("Вы не можете использовать [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]!"))
+			target.balloon_alert(user, "неподходящая цель!")
 			return .
 		if(critter.health == critter.maxHealth)
-			to_chat(user, span_danger("[capitalize(critter.declent_ru(NOMINATIVE))] полностью здоров."))
+			target.balloon_alert(user, "цель не нуждается в лечении!")
 			return .
 		if(heal_brute < 1)
-			to_chat(user, span_danger("[capitalize(critter.declent_ru(NOMINATIVE))] никак не поможет [critter.declent_ru(DATIVE)]."))
+			target.balloon_alert(user, "применение бессмысленно!")
 			return .
 		if(!use(1))
 			return .
 		critter.heal_organ_damage(heal_brute, heal_burn)
 		user.visible_message(
-			span_green("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
-			span_green("Вы применяете [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
+			span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [critter.declent_ru(PREPOSITIONAL)]."),
+			ignored_mobs = user,
 		)
+		target.balloon_alert(user, "применение на цели...")
 
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -103,19 +111,21 @@
 		return .
 
 	target.heal_organ_damage(heal_brute, heal_burn)
+
 	user.visible_message(
-		span_green("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] к [target]."),
-		span_green("Вы применяете [declent_ru(NOMINATIVE)] к [target]."),
+		span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [target.declent_ru(PREPOSITIONAL)]."),
+		ignored_mobs = user,
 	)
+	target.balloon_alert(user, "применено")
+
 	return .|ATTACK_CHAIN_SUCCESS
 
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
 	var/selected_zone = get_priority_targeting(target, user)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
-	user.visible_message(
-		span_green("[user] использу[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
-		span_green("Вы используете [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
-	)
+
+	target.balloon_alert(user, "применено")
+
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
 	var/nrembrute = rembrute
@@ -154,9 +164,10 @@
 		rembrute = nrembrute
 		remburn = nremburn
 		user.visible_message(
-			span_green("[user] обрабатыва[PLUR_ET_YUT(user)] раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
-			span_green("Вы обрабатываете раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
+			span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)] [target.declent_ru(GENITIVE)]."),
+			ignored_mobs = user,
 		)
+		target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]] цели")
 	if(should_update_health)
 		target.updatehealth("[name] heal")
 	if(update_damage_icon)
@@ -179,10 +190,10 @@
 
 	var/mob/living/carbon/human/human_target = target
 	var/obj/item/organ/external/target_bodypart = null
-	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
-		var/accept = call(src, filter_proc)(arglist(list(current = bodypart, max = target_bodypart)))
+	for(var/obj/item/organ/external/affecting as anything in human_target.bodyparts)
+		var/accept = call(src, filter_proc)(arglist(list(current = affecting, max = target_bodypart)))
 		if(accept)
-			target_bodypart = bodypart
+			target_bodypart = affecting
 
 	if(!target_bodypart)
 		return
@@ -230,7 +241,8 @@
 /obj/item/stack/medical/bruise_pack
 	name = "roll of gauze"
 	singular_name = "gauze length"
-	desc = "Some sterile gauze to wrap around bloody stumps."
+	desc = "Отрезок марли, скатанный в аккуратный рулон с фиксаторами на конце. \
+			Используется для обработки механически повреждённых тканей и остановки кровотечения."
 	icon_state = "gauze_3"
 	item_state = "gauze"
 	origin_tech = "biotech=2"
@@ -241,6 +253,16 @@
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/bruise_pack
 
+/obj/item/stack/medical/bruise_pack/get_ru_names()
+	return list(
+		NOMINATIVE = "рулон марли",
+		GENITIVE = "рулона марли",
+		DATIVE = "рулону марли",
+		ACCUSATIVE = "рулон марли",
+		INSTRUMENTAL = "рулоном марли",
+		PREPOSITIONAL = "рулоне марли"
+	)
+
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
@@ -249,14 +271,14 @@
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
 		if(!use(2))
-			to_chat(user, span_warning("Вам нужно минимум 2 кусочка бинтов чтобы сделать это!"))
+			balloon_alert(user, "слишком мало для разрезания!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/stack/sheet/cloth/cloth = new(drop_loc)
 		cloth.add_fingerprint(user)
 		user.visible_message(
-			span_notice("[user] разрезает [declent_ru(ACCUSATIVE)] на куски ткани при помощи [item.declent_ru(INSTRUMENTAL)]."),
-			span_notice("Вы разрезаете [declent_ru(ACCUSATIVE)] на куски ткани при помощи [item.declent_ru(INSTRUMENTAL)]."),
-			span_italics("Слышно звук разрезания."),
+			span_notice("[user] разреза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на куски ткани, используя [item.declent_ru(ACCUSATIVE)]."),
+			blind_message = span_hear("Вы слышите звук рвущейся ткани."),
+			ignored_mobs = user,
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
@@ -269,16 +291,14 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
 	if(!get_amount())
-		to_chat(user, span_danger("Не хватает медикаментов!"))
+		target.balloon_alert(user, "недостаточно!")
 		return ATTACK_CHAIN_PROCEED
 	var/selected_zone = get_priority_targeting(target, user, def_zone)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.open != ORGAN_CLOSED)
-		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь бинтами!"))
+		target.balloon_alert(user, "неэффективно для такой раны!")
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
-	if(stop_bleeding && affecting.bleeding_amount <= affecting.bleedsuppress)	//so you can't stack bleed suppression
-		balloon_alert(user, "кровотечения нет")
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
@@ -298,10 +318,21 @@
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
-	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
+	desc = "Отрезок ткани, скатанный в некое подобие бинта. \
+			Способен остановить кровотечение, но не более того."
 	stop_bleeding = 90 SECONDS
 	icon_state = "gauze_imp_3"
 	merge_type = /obj/item/stack/medical/bruise_pack/improvised
+
+/obj/item/stack/medical/bruise_pack/improvised/get_ru_names()
+	return list(
+		NOMINATIVE = "импровизированный бинт",
+		GENITIVE = "импровизированного бинта",
+		DATIVE = "импровизированному бинту",
+		ACCUSATIVE = "импровизированный бинт",
+		INSTRUMENTAL = "импровизированным бинтом",
+		PREPOSITIONAL = "импровизированном бинте"
+	)
 
 /obj/item/stack/medical/bruise_pack/improvised/update_icon_state()
 	icon_state = "gauze_imp_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
@@ -309,7 +340,8 @@
 /obj/item/stack/medical/bruise_pack/military
 	name = "military emergency bandage"
 	singular_name = "emergency bandage"
-	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. \
+			Используется сотрудниками силовых и охранных структур."
 	icon_state = "bandage"
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
@@ -360,7 +392,8 @@
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
 	singular_name = "advanced trauma kit"
-	desc = "An advanced trauma kit for severe injuries."
+	desc = "Стандартный набор первой помощи, предназначенный для лечения повреждений механического характера. \
+			Включает в себя комплект гелей, антисептиков, заживляющих мембран и лечебных пластырей."
 	icon_state = "traumakit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
@@ -371,6 +404,16 @@
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 	use_flags = DA_IGNORE_LYING
+
+/obj/item/stack/medical/bruise_pack/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "набор для лечения травм",
+		GENITIVE = "набора для лечения травм",
+		DATIVE = "набору для лечения травм",
+		ACCUSATIVE = "набор для лечения травм",
+		INSTRUMENTAL = "набором для лечения травм",
+		PREPOSITIONAL = "наборе для лечения травм"
+	)
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	icon_state = "traumakit_[round_down((amount + 1) / 2, 1)]"
@@ -384,7 +427,9 @@
 /obj/item/stack/medical/bruise_pack/extended
 	name = "extended trauma kit"
 	singular_name = "extended trauma kit"
-	desc = "An extended trauma kit for severe injuries."
+	desc = "Продвинутый набор первой помощи, предназначенный для лечения тяжёлых повреждений механического характера. \
+			Включает в себя комплект гелей, антисептиков, заживляющих мембран, \
+			лечебных пластырей, местных обезболивающих и травматических повязок."
 	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
@@ -398,6 +443,16 @@
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 
+/obj/item/stack/medical/bruise_pack/extended/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый набор для лечения травм",
+		GENITIVE = "продвинутого набора для лечения травм",
+		DATIVE = "продвинутому набору для лечения травм",
+		ACCUSATIVE = "продвинутый набор для лечения травм",
+		INSTRUMENTAL = "продвинутым набором для лечения травм",
+		PREPOSITIONAL = "продвинутом наборе для лечения травм"
+	)
+
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
 	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
 
@@ -405,8 +460,9 @@
 
 /obj/item/stack/medical/ointment
 	name = "ointment"
-	desc = "Used to treat those nasty burns."
-	gender = PLURAL
+	desc = "Тюбик медицинской мази, предназначенной для местного применения при лечении ожогов различного характера. \
+			Обладает антисептическим, обезболивающим и охлаждающим действием."
+	gender = FEMALE
 	singular_name = "ointment"
 	icon_state = "ointment_3"
 	origin_tech = "biotech=2"
@@ -415,6 +471,16 @@
 	energy_type = /datum/robot_energy_storage/medical
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/ointment
+
+/obj/item/stack/medical/ointment/get_ru_names()
+	return list(
+		NOMINATIVE = "мазь от ожогов",
+		GENITIVE = "мази от ожогов",
+		DATIVE = "мази от ожогов",
+		ACCUSATIVE = "мазь от ожогов",
+		INSTRUMENTAL = "мазью от ожогов",
+		PREPOSITIONAL = "мази от ожогов"
+	)
 
 /obj/item/stack/medical/ointment/get_priority_targeting(mob/living/target, mob/living/user)
 	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_burn_damage_bodypart))
@@ -428,13 +494,13 @@
 		return .
 
 	if(!get_amount())
-		to_chat(user, span_danger("Not enough medical supplies!"))
+		target.balloon_alert(user, "недостаточно!")
 		return ATTACK_CHAIN_PROCEED
 
 	var/selected_zone = get_priority_targeting(target, user, def_zone)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 	if(affecting.open != ORGAN_CLOSED)
-		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь мазью!"))
+		target.balloon_alert(user, "неэффективно для такой раны!")
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
@@ -453,7 +519,9 @@
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
-	desc = "An advanced treatment kit for severe burns."
+	desc = "Стандартный набор первой помощи, предназначенный для лечения ожогов различного характера. \
+			Включает в себя комплект гелей, антисептиков, заживляющих мембран и лечебных пластырей."
+	gender = MALE
 	icon_state = "burnkit_4"
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
@@ -462,6 +530,16 @@
 	max_amount = 8
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
+
+/obj/item/stack/medical/ointment/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "набор для лечения ожогов",
+		GENITIVE = "набора для лечения ожогов",
+		DATIVE = "набору для лечения ожогов",
+		ACCUSATIVE = "набор для лечения ожогов",
+		INSTRUMENTAL = "набором для лечения ожогов",
+		PREPOSITIONAL = "наборе для лечения ожогов"
+	)
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
 	icon_state = "burnkit_[round_down((amount + 1) / 2, 1)]"
@@ -472,7 +550,10 @@
 /obj/item/stack/medical/ointment/extended
 	name = "extended burn kit"
 	singular_name = "extended burn kit"
-	desc = "An extended treatment kit for severe burns."
+	desc = "Продвинутый набор первой помощи, предназначенный для лечения тяжёлых ожогов различного характера. \
+			Включает в себя комплект гелей, антисептиков, заживляющих мембран, \
+			лечебных пластырей и местных обезболивающих."
+	gender = MALE
 	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
@@ -483,15 +564,63 @@
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/extended
 
+/obj/item/stack/medical/ointment/extended/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый набор для лечения ожогов",
+		GENITIVE = "продвинутого набора для лечения ожогов",
+		DATIVE = "продвинутому набору для лечения ожогов",
+		ACCUSATIVE = "продвинутый набор для лечения ожогов",
+		INSTRUMENTAL = "продвинутым набором для лечения ожогов",
+		PREPOSITIONAL = "продвинутом наборе для лечения ожогов"
+	)
+
 /obj/item/stack/medical/ointment/extended/update_icon_state()
 	icon_state = "extended_burn_kit_[round_down((amount+1) / 2, 1)]"
+
+// MARK: Synthflesh kit
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit
+	name = "synthflesh trauma kit"
+	singular_name = "synthflesh trauma kit"
+	desc = "Набор первой помощи, предназначенный для заживления \
+			механических и термических повреждений. Включает в себя комплект \
+			гелей, антисептиков, заживляющих мембран и лечебных пластырей на основе синтплоти."
+	icon_state = "synthkit_4"
+	item_state = "traumakit"
+	belt_icon = "advanced_trauma_kit"
+	heal_brute = 12
+	heal_burn = 12
+	amount = 8
+	max_amount = 8
+	stop_bleeding = 0
+	use_duration = 1.5 SECONDS
+	use_flags = DA_IGNORE_LYING
+	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "набор для лечения из синтплоти",
+		GENITIVE = "набора для лечения из синтплоти",
+		DATIVE = "набору для лечения из синтплоти",
+		ACCUSATIVE = "набор для лечения из синтплоти",
+		INSTRUMENTAL = "набором для лечения из синтплоти",
+		PREPOSITIONAL = "наборе для лечения из синтплоти"
+	)
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
+	icon_state = "synthkit_[round_down((amount+1) / 2, 1)]"
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_damage_bodypart))
 
 // MARK: Medical Herbs
 
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "Comfrey leaf"
 	singular_name = "Comfrey leaf"
-	desc = "A soft leaf that is rubbed on bruises."
+	desc = "Крупный зелёный лист, покрытый шершавыми волосками. \
+			Обладает противовоспалительным и обезболивающим эффектом при локальном применении, \
+			ускоряет заживление тканей при механических повреждениях."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
@@ -504,6 +633,16 @@
 	merge_type = /obj/item/stack/medical/bruise_pack/comfrey
 	var/max_heal = 30
 
+/obj/item/stack/medical/bruise_pack/comfrey/get_ru_names()
+	return list(
+		NOMINATIVE = "лист окопника",
+		GENITIVE = "листа окопника",
+		DATIVE = "листу окопника",
+		ACCUSATIVE = "лист окопника",
+		INSTRUMENTAL = "листом окопника",
+		PREPOSITIONAL = "листе окопника"
+	)
+
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
 
@@ -513,13 +652,26 @@
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
-	desc = "A cold leaf that is rubbed on burns."
+	desc = "Вытянутый лист зелёного цвета с маленькими колючками на краях. \
+			Обладает увлажняющим и противовоспалительным эффектом при локальном применении, \
+			ускоряет заживление тканей при термических повреждениях."
+	gender = MALE
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "aloe"
 	color = "#4CC5C7"
 	heal_burn = 12
 	merge_type = /obj/item/stack/medical/ointment/aloe
 	var/max_heal = 30
+
+/obj/item/stack/medical/ointment/aloe/get_ru_names()
+	return list(
+		NOMINATIVE = "лист алоэ-вера",
+		GENITIVE = "листа алоэ-вера",
+		DATIVE = "листу алоэ-вера",
+		ACCUSATIVE = "лист алоэ-вера",
+		INSTRUMENTAL = "листом алоэ-вера",
+		PREPOSITIONAL = "листе алоэ-вера"
+	)
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return
@@ -529,6 +681,9 @@
 /obj/item/stack/medical/splint
 	name = "medical splints"
 	singular_name = "medical splint"
+	desc = "Стандартная медицинская шина, предназначенная для \
+			иммобилизации сломанных конечностей до получения полноценной медицинской помощи."
+	gender = FEMALE
 	icon_state = "splint"
 	item_state = "splint"
 	unique_handling = TRUE
@@ -547,44 +702,50 @@
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/splint
 
+/obj/item/stack/medical/splint/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинская шина",
+		GENITIVE = "медицинской шины",
+		DATIVE = "медицинской шине",
+		ACCUSATIVE = "медицинскую шину",
+		INSTRUMENTAL = "медицинской шиной",
+		PREPOSITIONAL = "медицинской шине"
+	)
+
 /obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+
+	if(!ishuman(target))
+		return .
+
+	var/selected_zone = get_priority_targeting(target, user, def_zone)
+	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
+
+	if(!affecting.has_fracture())
+		target.balloon_alert(user, "нечего фиксировать!")
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
+
 	. = ..()
-	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
+
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
 	if(!get_amount())
-		to_chat(user, span_danger("No splints left!"))
+		target.balloon_alert(user, "недостаточно!")
 		return ATTACK_CHAIN_PROCEED
 
-	var/selected_zone = get_priority_targeting(target, user, def_zone)
-	var/obj/item/organ/external/bodypart = target.get_organ(selected_zone)
-	var/bodypart_name = bodypart.name
-
-	if(!(bodypart.limb_zone in available_splint_zones))
-		to_chat(user, span_danger("You can't apply a splint there!"))
+	if(!(affecting.limb_zone in available_splint_zones))
+		target.balloon_alert(user, "не является конечностью!")
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
-	if(bodypart.is_splinted())
-		to_chat(user, span_danger("[target]'s [bodypart_name] is already splinted!"))
-		if(tgui_alert(user, "Would you like to remove the splint from [target]'s [bodypart_name]?", "Splint removal", list("Yes", "No")) != "Yes" || !target.Adjacent(user))
+	if(affecting.is_splinted())
+		target.balloon_alert(user, "здесь уже есть шина!")
+		if(tgui_alert(user, "Вы хотите снять шину с [affecting.declent_ru(GENITIVE)] [target.declent_ru(GENITIVE)]?", "Снятие шины", list("Да", "Нет")) != "Да" || !target.Adjacent(user))
 			return ATTACK_CHAIN_BLOCKED_ALL
-		bodypart.remove_splint()
-		to_chat(user, span_notice("You remove the splint from [target]'s [bodypart_name]."))
-		return .
-
-	if((target == user && self_delay > 0) || (target != user && use_duration > 0))
-		user.visible_message(
-			span_notice("[user] starts to apply [src] to [target == user ? "[user.p_their()]" : "[target]'s"] [bodypart_name]."),
-			span_notice("You start to apply [src] to [target == user ? "your" : "[target]'s"] [bodypart_name]."),
-			span_italics("You hear something being wrapped."),
-		)
-
-	if(target == user && !do_after(user, self_delay, target, NONE))
-		. &= ~ATTACK_CHAIN_SUCCESS
-		return .
-	else if(use_duration && !do_after(user, use_duration, target, NONE))
-		. &= ~ATTACK_CHAIN_SUCCESS
+		affecting.remove_splint()
+		target.balloon_alert(user, "шина снята")
 		return .
 
 	if(!use(1))
@@ -592,42 +753,61 @@
 		return .
 
 	user.visible_message(
-		span_notice("[user] applies [src] to [target == user ? "[user.p_their()]" : "[target]'s"] [bodypart_name]."),
-		span_notice("You apply [src] to [target == user ? "your" : "[target]'s"] [bodypart_name]."),
+		span_notice("[user] накладыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)][target == user ? "" : " [target.declent_ru(GENITIVE)]"]."),
+		ignored_mobs = user,
 	)
+	target.balloon_alert(user, "шина наложена")
 
-	bodypart.apply_splint()
+	affecting.apply_splint()
 
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"
+	desc = "Примитивная медицинская шина, созданная из пары костей, перевязанных связками Наблюдателя. \
+			Предназначена для иммобилизации сломанных конечностей до получения полноценной медицинской помощи, \
+			если таковая вообще возможна в суровых условиях Лазиса."
 	icon_state = "tribal_splint"
 	use_duration = 5 SECONDS
 	merge_type = /obj/item/stack/medical/splint/tribal
 
 /obj/item/stack/medical/splint/tribal/get_ru_names()
 	return list(
-		NOMINATIVE = "племенная шина",
-		GENITIVE = "племенной шины",
-		DATIVE = "племенной шине",
-		ACCUSATIVE = "племенную шину",
-		INSTRUMENTAL = "племенной шиной",
-		PREPOSITIONAL = "племенной шине",
+		NOMINATIVE = "костяная шина",
+		GENITIVE = "костяной шины",
+		DATIVE = "костяной шине",
+		ACCUSATIVE = "костяную шину",
+		INSTRUMENTAL = "костяной шиной",
+		PREPOSITIONAL = "костяной шине",
 	)
 
 /obj/item/stack/medical/splint/makeshift
 	name = "makeshift splints"
-	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
+	desc = "Самодельная медицинская шина, созданная из пары деревянных палок, перевязанных кусками ткани. \
+			Предназначена для иммобилизации сломанных конечностей до получения полноценной медицинской помощи. \
+			Сильно уступает стандартным аналогам в плане качества."
 	icon_state = "makeshift_splint"
 	use_duration = 5 SECONDS
 	self_delay = 15 SECONDS
 	merge_type = /obj/item/stack/medical/splint/makeshift
+
+
+/obj/item/stack/medical/splint/makeshift/get_ru_names()
+	return list(
+		NOMINATIVE = "импровизированная шина",
+		GENITIVE = "импровизированной шины",
+		DATIVE = "импровизированной шине",
+		ACCUSATIVE = "импровизированную шину",
+		INSTRUMENTAL = "импровизированной шиной",
+		PREPOSITIONAL = "импровизированной шине"
+	)
+
 
 // MARK: Suture
 
 /obj/item/stack/medical/suture
 	name = "suture kit"
 	singular_name = "suture thread"
-	desc = "Набор с хирургической иглой и специальной нитью для сшивания ран. Останавливает кровотечение, но лучше использовать под обезбаливающими."
+	desc = "Набор с хирургической иглой и специальной нитью для сшивания ран \
+			в полевых условиях. Использование без обезболивающего не рекомендуется."
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
@@ -654,25 +834,29 @@
 
 /obj/item/stack/medical/suture/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
 	if(!ishuman(target))
 		return .
 
 	var/selected_zone = get_priority_targeting(target, user, def_zone)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
+
 	if(affecting.bleeding_amount <= 0)
-		user.balloon_alert(user, "нечего зашивать!")
+		target.balloon_alert(user, "нечего зашивать!")
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
+
 	. = ..()
+
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
 	if(!get_amount())
-		to_chat(user, span_danger("Не хватает ниток!"))
+		target.balloon_alert(user, "недостаточно!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(affecting.open != ORGAN_CLOSED)
-		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, это уже не сшить без помощи хирургических инструментов!"))
+		target.balloon_alert(user, "неэффективно для такой раны!")
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
@@ -687,7 +871,7 @@
 		if(addition_affecting)
 			addition_affecting.heal_bleeding(user, target, bleeding_heal, 0)
 		target.updatehealth("[name] heal")
-	user.balloon_alert(user, "зашито!")
+	target.balloon_alert(user, "рана зашита")
 	target.UpdateDamageIcon()
 	update_icon()
 
@@ -697,7 +881,8 @@
 /obj/item/stack/medical/suture/advanced
 	name = "advanced suture kit"
 	singular_name = "advanced suture thread"
-	desc = "Хирургический набор для сшивания ран. Останавливает все виды кровотечений, кроме артериальных или внутренних."
+	desc = "Набор с хирургической иглой и специальной нитью для сшивания ран. \
+			Позволяет эффективно устранять открытые кровотечения и механические повреждения."
 	icon_state = "advanced_suture"
 	item_state = "advanced_suture"
 	origin_tech = "biotech=5"
@@ -723,35 +908,12 @@
 /obj/item/stack/medical/suture/advanced/update_icon_state()
 	icon_state = "advanced_suture[amount < max_amount ? "_open" : ""]"
 
-// MARK: Synthflesh kit
-
-/obj/item/stack/medical/bruise_pack/synthflesh_kit
-	name = "synthflesh trauma kit"
-	singular_name = "synthflesh trauma kit"
-	desc = "Продвинутый набор для мех. и терм. повреждений."
-	icon_state = "synthkit_4"
-	item_state = "traumakit"
-	belt_icon = "advanced_trauma_kit"
-	heal_brute = 12
-	heal_burn = 12
-	amount = 8
-	max_amount = 8
-	stop_bleeding = 0
-	use_duration = 1.5 SECONDS
-	use_flags = DA_IGNORE_LYING
-	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
-
-/obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
-	icon_state = "synthkit_[round_down((amount+1) / 2, 1)]"
-
-/obj/item/stack/medical/bruise_pack/synthflesh_kit/get_priority_targeting(mob/living/target, mob/living/user)
-	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_damage_bodypart))
-
-
 // MARK: Tourniquet
 /obj/item/tourniquet
 	name = "tourniquet"
-	desc = "Медицинский турникет для экстренной остановки артериального и венозного кровотечения на конечностях. Не предназначен для наложения на другие части тела. Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
+	desc = "Медицинский турникет для экстренной остановки артериального и венозного кровотечения на конечностях. \
+			Не предназначен для наложения на другие части тела. \
+			Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
 	icon = 'icons/obj/medicine/packs.dmi'
 	icon_state = "tourniquet"
 	item_state = "tourniquet"
@@ -763,10 +925,10 @@
 	var/other_duration = 3 SECONDS
 	/// Removing duration
 	var/remove_duration = 3 SECONDS
-	/// Bodypart where applyed tourniquet
-	var/obj/item/organ/external/applyed_bodypart = null
-	/// Addition bodypart where applyed tourniquet (hand for arm, foot for leg)
-	var/obj/item/organ/external/applyed_addition_bodypart = null
+	/// Bodypart where applied tourniquet
+	var/obj/item/organ/external/applied_bodypart = null
+	/// Addition bodypart on which tourniquet is applied  (hand for arm, foot for leg)
+	var/obj/item/organ/external/applied_addition_bodypart = null
 	/// Duration of limb necrotize warning in chat
 	var/necrotize_warning_duration = 2 MINUTES
 	/// Limb necrotize warning timer identifier
@@ -778,8 +940,8 @@
 
 /obj/item/tourniquet/Destroy()
 	. = ..()
-	applyed_bodypart = null
-	applyed_addition_bodypart = null
+	applied_bodypart = null
+	applied_addition_bodypart = null
 	stop_apply_timers()
 
 /obj/item/tourniquet/proc/stop_apply_timers()
@@ -808,14 +970,14 @@
 		return .
 
 	if(!acceptable_zone(user.zone_selected))
-		balloon_alert(user, "не является конечностью!")
+		target.balloon_alert(user, "не является конечностью!")
 		return .
 
 	var/mob/living/carbon/human/human_target = target
 	var/obj/item/organ/external/affecting = human_target.get_organ(user.zone_selected)
 	var/obj/item/organ/external/addition_affecting = human_target.get_affecting_limb_bodypart(affecting)
 	if(affecting.tourniquet)
-		balloon_alert(user, "уже наложено!")
+		target.balloon_alert(user, "уже наложено!")
 		return .
 
 	if(human_target == user)
@@ -825,14 +987,14 @@
 		return .
 
 	affecting.tourniquet = src
-	applyed_bodypart = affecting
+	applied_bodypart = affecting
 	if(addition_affecting)
 		addition_affecting.tourniquet = src
-		applyed_addition_bodypart = addition_affecting
+		applied_addition_bodypart = addition_affecting
 
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
-	balloon_alert(user, "турникет наложен")
+	target.balloon_alert(user, "турникет наложен")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
@@ -840,8 +1002,15 @@
 
 /obj/item/tourniquet/proc/apply_to_self(mob/living/carbon/human/user, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
 	var/selected_zone = user.zone_selected
-	user.balloon_alert_to_viewers("применя[PLUR_YOT_YUT(user)] [declent_ru(GENITIVE)] на себя...", "наложение [declent_ru(GENITIVE)]...")
-	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
+
+	user.visible_message(
+		span_notice("[user] накладыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)]."),
+		blind_message = span_hear("Вы слышите звук стягивания чего-то."),
+		ignored_mobs = user,
+	)
+	balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
+
+	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applied_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = user.get_organ(selected_zone)
@@ -861,60 +1030,66 @@
 
 /obj/item/tourniquet/proc/apply_to_other(mob/living/user, mob/living/carbon/human/human_target, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
 	var/selected_zone = user.zone_selected
-	human_target.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на цели...", "применение [declent_ru(GENITIVE)] на цели...")
 
-	if(!do_after(user, other_duration, human_target) || applyed_bodypart)
+	user.visible_message(
+		span_notice("[user] накладыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [human_target.declent_ru(GENITIVE)]."),
+		blind_message = span_hear("Вы слышите звук стягивания чего-то."),
+		ignored_mobs = user,
+	)
+	human_target.balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
+
+	if(!do_after(user, other_duration, human_target) || applied_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
 	if(!affecting_rechecked)
-		balloon_alert(user, "конечность отсутствует!")
+		human_target.balloon_alert(user, "конечность отсутствует!")
 		return
 
 	if(affecting_rechecked.tourniquet)
-		balloon_alert(user, "турникет уже наложен!")
+		human_target.balloon_alert(user, "турникет уже наложен!")
 		return
 
 	if(affecting_rechecked.is_robotic())
-		balloon_alert(user, "неорганическая конечность!")
+		human_target.balloon_alert(user, "неорганическая конечность!")
 		return
 
 	return TRUE
 
 /obj/item/tourniquet/proc/necrotize_limbs_warning(mob/living/user)
-	if(!applyed_bodypart)
+	if(!applied_bodypart)
 		return
 
-	balloon_alert(user, "ваш[GEND_A_E_I(user)] [applyed_bodypart.declent_ru(NOMINATIVE)] немеет!")
+	to_chat(user, span_danger("Ваш[GEND_A_E_I(user)] [applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!"))
 
 /obj/item/tourniquet/proc/necrotize_limbs(mob/living/target)
-	if(applyed_bodypart)
-		applyed_bodypart.necrotize()
-	if(!applyed_addition_bodypart)
+	if(applied_bodypart)
+		applied_bodypart.necrotize()
+	if(!applied_addition_bodypart)
 		return
 
-	applyed_addition_bodypart.necrotize()
+	applied_addition_bodypart.necrotize()
 
 /obj/item/tourniquet/proc/remove_from_bodypart(mob/living/user)
-	if(!applyed_bodypart)
+	if(!applied_bodypart)
 		return FALSE
 
-	balloon_alert(user, "снятие турникета...")
-	if(!do_after(user, remove_duration, applyed_bodypart.owner) || !applyed_bodypart)
+	applied_bodypart.owner.balloon_alert(user, "снятие турникета...")
+	if(!do_after(user, remove_duration, applied_bodypart.owner) || !applied_bodypart)
 		return FALSE
 
-	var/drop_loc = applyed_bodypart.drop_location()
+	var/drop_loc = applied_bodypart.drop_location()
 	src.forceMove(drop_loc)
-	applyed_bodypart.tourniquet = null
-	applyed_bodypart = null
+	applied_bodypart.owner.balloon_alert(user, "турникет снят")
+	applied_bodypart.tourniquet = null
+	applied_bodypart = null
 
-	if(applyed_addition_bodypart)
-		applyed_addition_bodypart.tourniquet = null
-		applyed_addition_bodypart = null
+	if(applied_addition_bodypart)
+		applied_addition_bodypart.tourniquet = null
+		applied_addition_bodypart = null
 
 	stop_apply_timers()
 	user.put_in_any_hand_if_possible(src)
-	balloon_alert(user, "турникет снят")
 	return TRUE
 
 /obj/item/tourniquet/proc/acceptable_zone(zone_selected)
@@ -928,31 +1103,32 @@
 	return FALSE
 
 /mob/living/carbon/human/proc/exists_tourniquet()
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if(bodypart.tourniquet)
+	for(var/obj/item/organ/external/affecting as anything in bodyparts)
+		if(affecting.tourniquet)
 			return TRUE
 
 	return FALSE
 
 /mob/living/carbon/human/proc/cut_all_tourniquets(mob/living/user)
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if(!bodypart.tourniquet)
+	for(var/obj/item/organ/external/affecting as anything in bodyparts)
+		if(!affecting.tourniquet)
 			continue
-		var/obj/item/tourniquet/tourniquet = bodypart.tourniquet
-		var/drop_loc = bodypart.drop_location()
+		var/obj/item/tourniquet/tourniquet = affecting.tourniquet
+		var/drop_loc = affecting.drop_location()
 		tourniquet.forceMove(drop_loc)
-		bodypart.tourniquet = null
-		tourniquet.applyed_bodypart = null
+		affecting.tourniquet = null
+		tourniquet.applied_bodypart = null
 
-		if(tourniquet.applyed_addition_bodypart)
-			tourniquet.applyed_addition_bodypart.tourniquet = null
-			tourniquet.applyed_addition_bodypart = null
+		if(tourniquet.applied_addition_bodypart)
+			tourniquet.applied_addition_bodypart.tourniquet = null
+			tourniquet.applied_addition_bodypart = null
 
 		tourniquet.stop_apply_timers()
 
 /obj/item/tourniquet/makeshift
 	name = "makeshift tourniquet"
-	desc = "Импровизированный турникет для временной остановки кровотечения на конечностях. Жутко неудобный, но со своей задачей справится. Не предназначен для длительного использования."
+	desc = "Импровизированный турникет для временной остановки кровотечения на конечностях. \
+			Жутко неудобный, но со своей задачей справится. Не предназначен для длительного использования."
 	icon_state = "makeshift_tourniquet"
 	item_state = "makeshift_tourniquet"
 	self_duration = 8 SECONDS
@@ -974,7 +1150,9 @@
 
 /obj/item/tourniquet/advanced
 	name = "advanced tourniquet"
-	desc = "Медицинский турникет нового поколения для экстренной остановки артериального и венозного кровотечения на конечностях. Оснащён механизмом контроля давления, что повышает удобство использования и его эффективность по сравнению с ранними аналогами. Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
+	desc = "Медицинский турникет нового поколения для экстренной остановки артериального и венозного кровотечения на конечностях. \
+			Оснащён механизмом контроля давления, что повышает удобство применения и его эффективность по сравнению с аналогами. \
+			Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
 	icon_state = "advanced_tourniquet"
 	item_state = "advanced_tourniquet"
 	self_duration = 3 SECONDS
@@ -983,10 +1161,10 @@
 
 /obj/item/tourniquet/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "медицинский турникет",
-		GENITIVE = "медицинского турникета",
-		DATIVE = "медицинскому турникету",
-		ACCUSATIVE = "медицинский турникет",
-		INSTRUMENTAL = "медицинским турникетом",
-		PREPOSITIONAL = "медицинском турникете"
+		NOMINATIVE = "продвинутый турникет",
+		GENITIVE = "продвинутого турникета",
+		DATIVE = "продвинутому турникету",
+		ACCUSATIVE = "продвинутый турникет",
+		INSTRUMENTAL = "продвинутым турникетом",
+		PREPOSITIONAL = "продвинутом турникете"
 	)

@@ -1,10 +1,5 @@
-/client/proc/air_status(turf/target as turf)
-	set category = STATPANEL_DEBUG
-	set name = "Display Air Status"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(debug_air_status, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(debug_air_status, R_DEBUG, "Debug Air Status", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, turf/target as turf)
 	if(!isturf(target))
 		return
 
@@ -15,22 +10,16 @@
 		if(T.active_hotspot)
 			burning = 1
 
-	to_chat(usr, span_notice("@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] N2O: [GM.sleeping_agent] Agent B: [GM.agent_b] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning) ? span_warning("BURNING") : (null)]"))
+	to_chat(user, span_notice("@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] N2O: [GM.sleeping_agent] Agent B: [GM.agent_b] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning) ? span_warning("BURNING") : (null)]"))
 
-	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
-	log_admin("[key_name(usr)] has checked the air status of [target]")
-
+	message_admins("[key_name_admin(user)] has checked the air status of [target]")
+	log_admin("[key_name(user)] has checked the air status of [target]")
 	BLACKBOX_LOG_ADMIN_VERB("Display Air Status")
 
-/client/proc/fix_next_move()
-	set category = STATPANEL_DEBUG
-	set name = "Unfreeze Everyone"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	message_admins("[key_name_admin(usr)] has unfrozen everyone")
-	log_admin("[key_name(usr)] has unfrozen everyone")
+ADMIN_VERB_VISIBILITY(fix_next_move, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(fix_next_move, R_DEBUG, "Fix Next Move", "Unfreezes all frozen mobs.", ADMIN_CATEGORY_DEBUG)
+	message_admins("[key_name_admin(user)] has unfrozen everyone")
+	log_admin("[key_name(user)] has unfrozen everyone")
 
 	var/largest_move_time = 0
 	var/largest_click_time = 0
@@ -55,20 +44,13 @@
 		M.next_move = 1
 		M.next_click = 0
 
-	message_admins("[key_name_admin(largest_move_mob)] had the largest move delay with [largest_move_time] frames / [largest_move_time/10] seconds!")
-	message_admins("[key_name_admin(largest_click_mob)] had the largest click delay with [largest_click_time] frames / [largest_click_time/10] seconds!")
+	message_admins("[ADMIN_LOOKUPFLW(largest_move_mob)] had the largest move delay with [largest_move_time] frames / [DisplayTimeText(largest_move_time)]!")
+	message_admins("[ADMIN_LOOKUPFLW(largest_click_mob)] had the largest click delay with [largest_click_time] frames / [DisplayTimeText(largest_click_time)]!")
 	message_admins("world.time = [world.time]")
-
 	BLACKBOX_LOG_ADMIN_VERB("Unfreeze Everyone")
-	return
 
-/client/proc/radio_report()
-	set category = STATPANEL_DEBUG
-	set name = "Radio report"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(radio_report, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(radio_report, R_DEBUG, "Radio Report", "Shows a report of all radio devices and their filters.", ADMIN_CATEGORY_DEBUG)
 	var/filters = list(
 		"1" = "RADIO_TO_AIRALARM",
 		"2" = "RADIO_FROM_AIRALARM",
@@ -99,78 +81,50 @@
 				else
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device]<br>"
 
-	var/datum/browser/popup = new(usr, "radioreport", "Radio Report")
+	var/datum/browser/popup = new(user, "radioreport", "Radio Report")
 	popup.set_content(output)
 	popup.open(FALSE)
 
-	message_admins("[key_name_admin(usr)] has generated a radio report")
-	log_admin("[key_name(usr)] has generated a radio report")
+	message_admins("[key_name_admin(user)] has generated a radio report")
+	log_admin("[key_name(user)] has generated a radio report")
+	BLACKBOX_LOG_ADMIN_VERB("Show Radio Report")
 
-	BLACKBOX_LOG_ADMIN_VERB("Radio Report")
+ADMIN_VERB(reload_admins, R_SERVER, "Reload Admins", "Reloads all admins from the database.", ADMIN_CATEGORY_SERVER)
+	message_admins("[key_name_admin(user)] has manually reloaded admins")
+	log_admin("[key_name(user)] has manually reloaded admins")
 
-/client/proc/reload_admins()
-	set name = "Reload Admins"
-	set category = STATPANEL_ADMIN_ADMIN
+	load_admins(run_async = TRUE)
+	BLACKBOX_LOG_ADMIN_VERB("Reload All Admins")
 
-	if(!check_rights(R_SERVER))
-		return
-
-	message_admins("[key_name_admin(usr)] has manually reloaded admins")
-	log_admin("[key_name(usr)] has manually reloaded admins")
-
-	load_admins(run_async=TRUE)
-	BLACKBOX_LOG_ADMIN_VERB("Reload Admins")
-
-/client/proc/print_jobban_old()
-	set name = "Print Jobban Log"
-	set desc = "This spams all the active jobban entries for the current round to standard output."
-	set category = STATPANEL_DEBUG
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
+ADMIN_VERB(print_jobban_old, R_ADMIN, "Print Jobban Log", "This spams all the active jobban entries for the current round to standard output.", ADMIN_CATEGORY_BAN)
+	to_chat(user, "<b>Jobbans active in this round.</b>")
 	for(var/t in GLOB.jobban_keylist)
-		to_chat(usr, "[t]")
+		to_chat(user, "[t]")
 
-	message_admins("[key_name_admin(usr)] has printed the jobban log")
-	log_admin("[key_name(usr)] has printed the jobban log")
+	message_admins("[key_name_admin(user)] has printed the jobban log")
+	log_admin("[key_name(user)] has printed the jobban log")
 
-/client/proc/print_jobban_old_filter()
-	set name = "Search Jobban Log"
-	set desc = "This searches all the active jobban entries for the current round and outputs the results to standard output."
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	var/filter = tgui_input_text(usr, "Contains what?", "Filter")
+ADMIN_VERB(print_jobban_old_filter, R_ADMIN, "Search Jobban Log", "This searches all the active jobban entries for the current round and outputs the results to standard output.", ADMIN_CATEGORY_BAN)
+	var/filter = tgui_input_text(user, "Contains what?", "Filter")
 	if(!filter)
 		return
 
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
+	to_chat(user, "<b>Jobbans active in this round.</b>")
 	for(var/t in GLOB.jobban_keylist)
 		if(findtext(t, filter))
-			to_chat(usr, "[t]")
+			to_chat(user, "[t]")
 
-	message_admins("[key_name_admin(usr)] has searched the jobban log for [filter]")
-	log_admin("[key_name(usr)] has searched the jobban log for [filter]")
+	message_admins("[key_name_admin(user)] has searched the jobban log for [filter]")
+	log_admin("[key_name(user)] has searched the jobban log for [filter]")
 
-/client/proc/vv_by_ref()
-	set name = "VV by Ref"
-	set desc = "Give this a ref string, and you will see its corresponding VV panel if it exists"
-	set category = STATPANEL_ADMIN_DEBUG
-	// It's gated by "Debug Verbs", so might as well gate it to the debug permission
-	if(!check_rights(R_DEBUG))
-		return
-
-	var/refstring = tgui_input_text(usr, "Which reference?", "Ref")
+ADMIN_VERB(vv_by_ref, R_DEBUG, "VV by Ref", "Give this a ref string, and you will see its corresponding VV panel if it exists.", ADMIN_CATEGORY_DEBUG)
+	var/refstring = tgui_input_text(user, "Which reference?", "Ref")
 	if(!refstring)
 		return
 
 	var/datum/D = locate(refstring)
 	if(!D)
-		to_chat(usr, span_warning("That ref string does not correspond to any datum."))
+		to_chat(user, span_warning("That ref string does not correspond to any datum."))
 		return
 
-	debug_variables(D)
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/debug_variables, D)

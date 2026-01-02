@@ -248,6 +248,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/current_skin
 	/// Exists change skin
 	var/exists_skin_change = FALSE
+	//can you put this item in closets
+	var/can_put_in_closet = TRUE
 
 /obj/item/Initialize(mapload)
 	. = ..()
