@@ -246,6 +246,7 @@
 
 	SScargo_quests.roll_start_quests()
 	generate_station_goals()
+	generate_traits_list()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 	return TRUE
@@ -964,6 +965,18 @@
 
 /datum/game_mode/proc/late_join(mob/new_player/player)
 	return FALSE
+
+/datum/game_mode/proc/generate_traits_list()
+	var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
+
+	var/list/trait_list_strings = list()
+	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
+		if(!station_trait.show_in_report)
+			continue
+		trait_list_strings += "[station_trait.get_report()]<BR>"
+	if(trait_list_strings.len > 0)
+		message_text += "<hr><b>Выявленные особенности текущей смены:</b><BR>" + trait_list_strings.Join()
+	print_command_report(message_text, "Информация о состоянии [command_name()]", FALSE)
 
 #undef ROUNDSTART_LOGOUT_REPORT_TIME
 #undef STATION_GOAL_BUDGET

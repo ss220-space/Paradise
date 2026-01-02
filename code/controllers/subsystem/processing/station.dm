@@ -3,6 +3,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME
 	wait = 5 SECONDS
+	offline_implications = "Station traits will no longer process. No intervention needed at this time."
 
 	///A list of currently active station traits
 	var/list/station_traits = list()
@@ -19,6 +20,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	SetupTraits()
 	announcer = new announcer() //Initialize the station's announcer datum
 	SSparallax.post_station_setup() //Apply station effects that parallax might have
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/processing/station/Recover()
 	station_traits = SSstation.station_traits
