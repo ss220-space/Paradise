@@ -64,7 +64,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/ping.ogg'
 
-/datum/emote/living/silicon/buzz1
+/datum/emote/living/silicon/buzz
 	key = "бзз"
 	key_third_person = "buzzes"
 	message = "жужж%(ит,ат)%."
@@ -74,7 +74,7 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/buzz-sigh.ogg'
 
-/datum/emote/living/silicon/buzz1_ru
+/datum/emote/living/silicon/buzz_ru
 	key = "buzz"
 	key_third_person = "buzzes"
 	message = "жужж%(ит,ат)%."

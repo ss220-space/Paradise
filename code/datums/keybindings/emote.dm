@@ -729,7 +729,7 @@
 	name = "Звенеть"
 
 /datum/keybinding/emote/silicon/buzz
-	linked_emote = /datum/emote/living/silicon/buzz1
+	linked_emote = /datum/emote/living/silicon/buzz
 	name = "Жужжать"
 
 /datum/keybinding/emote/silicon/buzz2
