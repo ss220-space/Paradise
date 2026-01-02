@@ -441,7 +441,7 @@
 	)
 
 /obj/item/dice/d20/fate/proc/mob_swarm(mob/living/carbon/human/swarmed)
-	src.visible_message(span_userdanger("На месте [declent_ru[GENITIVE]] появился портал, из которого выходят адские отродья!"))
+	src.visible_message(span_userdanger("На месте [declent_ru(GENITIVE)] появился портал, из которого выходят адские отродья!"))
 	var/spawned_hounds = 0
 	var/spawned_t_hounds = 0
 	var/list/spawned_turfs = list()
