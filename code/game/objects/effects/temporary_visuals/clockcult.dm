@@ -84,7 +84,5 @@
 	icon_state = "replica_fabricator_create"
 	layer = ABOVE_ALL_MOB_LAYER
 	plane = ABOVE_GAME_PLANE
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	duration = 1 SECONDS
 

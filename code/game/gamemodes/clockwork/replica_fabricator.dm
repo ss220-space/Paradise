@@ -1,10 +1,9 @@
 #define BRASS_POWER_COST 200
-#define REGULAR_POWER_COST (BRASS_POWER_COST / 4)
+#define REGULAR_POWER_COST ((BRASS_POWER_COST) / 4)
 
 /obj/item/clockwork/replica_fabricator
 	name = "replica fabricator"
 	desc = "A strange, brass device with many twisting cogs and vents."
-	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "replica_fabricator"
 	item_state = "replica_fabricator"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -62,13 +61,15 @@
 		return
 
 	var/turf/creation_turf = get_turf(target)
+	if(isnull(creation_turf))
+		return
 	var/atom/movable/possible_replaced
 	if(locate(selected_output.to_create_path) in creation_turf)
 		to_chat(user, span_clockitalic("There is already one of these on this tile!"))
 		return
 
 	if(selected_output.replace_types_of && istype(selected_output, /datum/replica_fabricator_output/turf_output))
-		if(!isturf(target) && !(locate(creation_turf) in selected_output.replace_types_of))
+		if(!isturf(target) && !(locate(selected_output.to_create_path) in selected_output.replace_types_of))
 			return
 	else if(selected_output.replace_types_of)
 		for(var/checked_type in selected_output.replace_types_of)
@@ -158,11 +159,11 @@
 /// Attempt to convert the targeted item into power, if it's a sheet item
 /obj/item/clockwork/replica_fabricator/proc/attempt_convert_materials(atom/attacking_item, mob/user)
 	if(istype(attacking_item, /obj/item/stack/sheet/brass) || istype(attacking_item, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/bronze_stack = attacking_item
-		GLOB.clockwork_power += bronze_stack.amount * BRASS_POWER_COST
-		qdel(bronze_stack)
+		var/obj/item/stack/fullcost_stack = attacking_item
+		GLOB.clockwork_power += fullcost_stack.amount * BRASS_POWER_COST
+		qdel(fullcost_stack)
 		playsound(src, 'sound/machines/click.ogg', 50, 1)
-		to_chat(user, span_clockitalic("You convert [bronze_stack.amount] bronze into [bronze_stack.amount * BRASS_POWER_COST] watts of power."))
+		to_chat(user, span_clockitalic("You convert [fullcost_stack.amount] bronze into [fullcost_stack.amount * BRASS_POWER_COST] watts of power."))
 
 		return TRUE
 
