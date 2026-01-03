@@ -71,7 +71,7 @@
 	var/target_y = image_pixel_y.value
 	var/obj/target_obj = target.value
 	var/turf/target_turf = locate(target_x, target_y, target_atom.z)
-	if(!target_atom || get_dist(attached_bot, target_atom) > 1 || attached_bot.z != target_atom.z)
+	if(!target_atom || get_dist(attached_bot, target_atom) > 1 || attached_bot.z != target_atom.z || iswallturf(target_turf))
 		return
 
 	if(!target_obj.anchored && attached_bot.anchored && get_dist(attached_bot, target_turf) <= 1)
@@ -86,7 +86,7 @@
 		
 		attached_bot.visible_message(span_danger("[attached_bot] с громким жужжанием перемещает [target_atom]"))
 		target_obj.forceMove(target_turf)
-		target_obj.SpinAnimation(speed = 3, loops = 1, parallel = FALSE)
+		target_obj.SpinAnimation(speed = 5, loops = 1, parallel = FALSE)
 
 /obj/structure/wiremod_manipulator/wrench_act(mob/living/user, obj/item/tool)
 	set_anchored(!anchored)
