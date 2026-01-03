@@ -428,6 +428,7 @@
 		finish_copying()
 	if (count_of_copies) // if the number of copies was more than one
 		playsound(loc, pick(print_sounds), 50, TRUE)
+		return
 	balloon_alert(usr, "нельзя отсканировать!")
 
 /obj/machinery/photocopier/proc/finish_copying()
