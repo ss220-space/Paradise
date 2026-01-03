@@ -10,8 +10,8 @@
 /datum/emote
 	/// What calls the emote.
 	var/key = ""
-	/// What calls the emote, but in Russian (optional)
-	var/key_ru = ""
+	/// Alternative keys
+	var/list/additional_keys
 	/// This will also call the emote.
 	var/key_third_person = ""
 	/// Message displayed when emote is used. Might be a list with different messages.
