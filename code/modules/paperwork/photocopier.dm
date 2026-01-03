@@ -426,7 +426,7 @@
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечен[GEND_A_O_Y(copyitem)]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
 		finish_copying()
-	if (count_of_copies > 0) // if the number of copies was more than one
+	if(count_of_copies) // if there is at least one copy
 		playsound(loc, pick(print_sounds), 50, TRUE)
 		return
 	balloon_alert(usr, "нельзя отсканировать!")
