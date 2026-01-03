@@ -66,7 +66,7 @@
 	if(!attached_bot)
 		return
 
-	var/atom/target_atom = target.value
+	var/atom/movable/target_atom = target.value
 	var/target_x = image_pixel_x.value
 	var/target_y = image_pixel_y.value
 	if(!target_atom || !target_x || !target_y)
@@ -82,9 +82,9 @@
 		var/delay = attached_bot.target_move_delay
 		if(isliving(target_atom) || isstructure(target_atom))
 			delay *= 2
-		add_timer(CALLBACK(src, PROC_REF(finish_move), target_atom, target_turf), delay)
+		addtimer(CALLBACK(src, PROC_REF(finish_move), target_atom, target_turf), delay)
 
-/obj/item/circuit_component/wiremod_manipulator/proc/finish_move(atom/movable target_atom, turf/target_turf)
+/obj/item/circuit_component/wiremod_manipulator/proc/finish_move(atom/movable/target_atom, turf/target_turf)
 	if(!target_atom || target_atom.anchored || !attached_bot?.anchored || get_dist(attached_bot, target_atom) > 1)
 		return
 	
