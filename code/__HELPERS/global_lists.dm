@@ -270,6 +270,12 @@
 		if(emote_instance.key)
 			if(!.[emote_instance.key])
 				.[emote_instance.key] = list(emote_instance)
+
+				if(emote_instance.key_ru)
+					if(!.[emote_instance.key_ru])
+						.[emote_instance.key_ru] = list(emote_instance)
+					else
+						.[emote_instance.key_ru] += emote_instance
 			else
 				.[emote_instance.key] += emote_instance
 		else if(emote_instance.message) // Assuming all non-base emotes have this

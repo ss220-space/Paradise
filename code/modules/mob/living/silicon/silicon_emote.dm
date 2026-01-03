@@ -17,21 +17,8 @@
 			return FALSE
 
 /datum/emote/living/silicon/scream
-	key = "крик"
-	key_third_person = "screams"
-	message = "громко сигнал%(ит,ят)%!"
-	message_mime = "ярко сверка%(ет,ют)% лампочками!"
-	message_postfix = ", смотря на %t!"
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	cooldown = 5 SECONDS
-	unintentional_audio_cooldown = 3.5 SECONDS
-	vary = TRUE
-	sound = 'sound/goonstation/voice/robot_scream.ogg'
-	volume = 80
-
-/datum/emote/living/silicon/scream_ru
 	key = "scream"
+	key_ru = "крик"
 	key_third_person = "screams"
 	message = "громко сигнал%(ит,ят)%!"
 	message_mime = "ярко сверка%(ет,ют)% лампочками!"
@@ -45,17 +32,8 @@
 	volume = 80
 
 /datum/emote/living/silicon/ping
-	key = "пинг"
-	key_third_person = "pings"
-	message = "звен%(ит,ят)%."
-	message_mime = "тихо звен%(ит,ят)%."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/machines/ping.ogg'
-
-/datum/emote/living/silicon/ping_ru
 	key = "ping"
+	key_ru = "пинг"
 	key_third_person = "pings"
 	message = "звен%(ит,ят)%."
 	message_mime = "тихо звен%(ит,ят)%."
@@ -65,17 +43,8 @@
 	sound = 'sound/machines/ping.ogg'
 
 /datum/emote/living/silicon/buzz
-	key = "бзз"
-	key_third_person = "buzzes"
-	message = "жужж%(ит,ат)%."
-	message_mime = "тихо жужж%(ит,ат)%."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/machines/buzz-sigh.ogg'
-
-/datum/emote/living/silicon/buzz_ru
 	key = "buzz"
+	key_ru = "бзз"
 	key_third_person = "buzzes"
 	message = "жужж%(ит,ат)%."
 	message_mime = "тихо жужж%(ит,ат)%."
@@ -85,16 +54,8 @@
 	sound = 'sound/machines/buzz-sigh.ogg'
 
 /datum/emote/living/silicon/buzz2
-	key = "бзз2"
-	message = "изда%(ёт,ют)% раздраженный жужжащий звук."
-	message_mime = "тихо раздражённо жужж%(ит,ат)%."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/machines/buzz-two.ogg'
-
-/datum/emote/living/silicon/buzz2_ru
 	key = "buzz2"
+	key_ru = "бзз2"
 	message = "изда%(ёт,ют)% раздраженный жужжащий звук."
 	message_mime = "тихо раздражённо жужж%(ит,ат)%."
 	message_postfix = ", смотря на %t."
@@ -103,17 +64,8 @@
 	sound = 'sound/machines/buzz-two.ogg'
 
 /datum/emote/living/silicon/beep
-	key = "бип"
-	key_third_person = "beeps"
-	message = "пищ%(ит,ат)%."
-	message_mime = "тихо пищ%(ит,ат)%."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/machines/twobeep.ogg'
-
-/datum/emote/living/silicon/beep_ru
 	key = "beep"
+	key_ru = "бип"
 	key_third_person = "beeps"
 	message = "пищ%(ит,ат)%."
 	message_mime = "тихо пищ%(ит,ат)%."
@@ -123,17 +75,8 @@
 	sound = 'sound/machines/twobeep.ogg'
 
 /datum/emote/living/silicon/boop
-	key = "буп"
-	key_third_person = "boops"
-	message = "изда%(ёт,ют)% короткий гудок."
-	message_mime = "тихо гуд%(ит,ят)%."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/machines/boop.ogg'
-
-/datum/emote/living/silicon/boop_ru
 	key = "boop"
+	key_ru = "буп"
 	key_third_person = "boops"
 	message = "изда%(ёт,ют)% короткий гудок."
 	message_mime = "тихо гуд%(ит,ят)%."
@@ -143,16 +86,8 @@
 	sound = 'sound/machines/boop.ogg'
 
 /datum/emote/living/silicon/yes
-	key = "да"
-	message = "изда%(ёт,ют)% утвердительный сигнал."
-	message_mime = "утвердительно сверка%(ет,ют)% лампочками."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/machines/synth_yes.ogg'
-
-/datum/emote/living/silicon/yes_ru
 	key = "yes"
+	key_ru = "да"
 	message = "изда%(ёт,ют)% утвердительный сигнал."
 	message_mime = "утвердительно сверка%(ет,ют)% лампочками."
 	message_postfix = ", смотря на %t."
@@ -161,16 +96,8 @@
 	sound = 'sound/machines/synth_yes.ogg'
 
 /datum/emote/living/silicon/no
-	key = "нет"
-	message = "изда%(ёт,ют)% отрицательный сигнал."
-	message_mime = "отрицательно сверка%(ет,ют)% лампочками."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/machines/synth_no.ogg'
-
-/datum/emote/living/silicon/no_ru
 	key = "no"
+	key_ru = "нет"
 	message = "изда%(ёт,ют)% отрицательный сигнал."
 	message_mime = "отрицательно сверка%(ет,ют)% лампочками."
 	message_postfix = ", смотря на %t."
@@ -179,15 +106,8 @@
 	sound = 'sound/machines/synth_no.ogg'
 
 /datum/emote/living/silicon/law
-	key = "закон"
-	message = "указыва%(ет,ют)% на штрих-код службы безопасноти."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/voice/biamthelaw.ogg'
-
-/datum/emote/living/silicon/law_ru
 	key = "law"
+	key_ru = "закон"
 	message = "указыва%(ет,ют)% на штрих-код службы безопасноти."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
@@ -206,6 +126,7 @@
 
 /datum/emote/living/silicon/halt
 	key = "halt"
+	key_ru = "халт"
 	message = "ор%(ёт,ут)% \"СТОЯТЬ! СЛУЖБА БЕЗОПАСНОСТИ!\" через динамики!"
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/halt.ogg'
