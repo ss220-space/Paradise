@@ -377,7 +377,7 @@
 	icon_state = "brassshot"
 	damage = 70
 	armour_penetration = 60
-	weaken = 2
+	knockdown = 2 SECONDS
 
 /obj/projectile/energy/rat/snipe/get_ru_names()
 	return list(
