@@ -109,7 +109,8 @@
 #undef MAX_START_MONEY_MULTIPLIER
 
 /// Only override this proc
-/datum/job/proc/after_spawn(mob/living/carbon/human/H)
+/datum/job/proc/after_spawn(mob/living/carbon/human/spawning)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, spawning)
 	return
 
 /datum/job/proc/announce(mob/living/carbon/human/H)

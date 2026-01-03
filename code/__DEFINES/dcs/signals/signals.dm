@@ -1587,3 +1587,6 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+/// job datum has been called to deal with the aftermath of a spawn
+#define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"

@@ -108,7 +108,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/list/selectable_traits = selectable_traits_by_types[trait_sign]
 	while(budget)
 		///Remove any station trait with a cost bigger than the budget
-		for(var/datum/station_trait/proto_trait as anything in selectable_traits)
+		for(var/datum/station_trait/proto_trait as anything in selectable_traits.Copy())
 			if(initial(proto_trait.cost) > budget)
 				selectable_traits -= proto_trait
 		///We have spare budget but no trait that can be bought with what's left of it

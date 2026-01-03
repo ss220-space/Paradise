@@ -562,10 +562,29 @@ SUBSYSTEM_DEF(jobs)
 	else
 		mark_spawn = get_default_spawn_landmark(rank)
 
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS))
+		if(rank == JOB_TITLE_PRISONER)
+			mark_spawn = get_safe_random_station_turf(typesof(/area/security))  || pick(GLOB.latejoin_prisoner)
+		else
+			mark_spawn = get_safe_random_station_turf()  || pick(GLOB.latejoin) //change to (typesof(/area/hallway))
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		if(rank == JOB_TITLE_PRISONER)
+			return
+
+		var/obj/effect/landmark/start/hangover_spawn_point
+		for(var/obj/effect/landmark/start/hangover/hangover_landmark in GLOB.start_landmarks_list)
+			hangover_spawn_point = hangover_landmark
+			if(hangover_landmark.used) //so we can revert to spawning them on top of eachother if something goes wrong
+				continue
+			hangover_landmark.used = TRUE
+			break
+		mark_spawn = hangover_spawn_point || pick(GLOB.latejoin)
+
 	if(!mark_spawn)
 		mark_spawn = locate("start*[rank]") // use old stype
 
-	if(!mark_spawn || HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS)) // No spawn, then spawn on latejoin mark
+	if(!mark_spawn) // No spawn, then spawn on latejoin mark
 		log_runtime(EXCEPTION("No landmark start for [rank]."))
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = pick(GLOB.latejoin_prisoner)
@@ -582,6 +601,10 @@ SUBSYSTEM_DEF(jobs)
 	if(isturf(mark_spawn))
 		turf_spawn = mark_spawn
 
+	else if(istype(mark_spawn, /obj/effect/landmark/start/hangover))
+		mark_spawn.JoinPlayerHere(human)
+		return
+
 	else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
 		turf_spawn = mark_spawn.loc
 
@@ -591,7 +614,7 @@ SUBSYSTEM_DEF(jobs)
 	if(!turf_spawn)
 		return
 
-	human.forceMove(turf_spawn)
+	turf_spawn.JoinPlayerHere(human)
 	// Moving wheelchair if they have one
 	if(!human.buckled || !istype(human.buckled, /obj/vehicle/ridden/wheelchair))
 		return
@@ -1049,3 +1072,7 @@ SUBSYSTEM_DEF(jobs)
 	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
 
 	Debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
+
+/atom/proc/JoinPlayerHere(mob/joining_mob)
+	// By default, just place the mob on the same turf as the marker or whatever.
+	joining_mob.forceMove(get_turf(src))

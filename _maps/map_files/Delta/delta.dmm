@@ -22638,6 +22638,21 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/port)
+"cEW" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/medbay)
 "cFb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	name = "Из скрабберов на фильтрацию"
@@ -171413,7 +171428,7 @@ vqL
 qwC
 qwC
 tTW
-xFU
+cEW
 nSp
 rCy
 pmd

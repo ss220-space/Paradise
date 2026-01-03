@@ -976,7 +976,7 @@
 		trait_list_strings += "[station_trait.get_report()]<BR>"
 	if(trait_list_strings.len > 0)
 		message_text += "<hr><b>Выявленные особенности текущей смены:</b><BR>" + trait_list_strings.Join()
-	print_command_report(message_text, "Информация о состоянии [command_name()]", FALSE)
+	print_command_report(message_text, "Информация о состоянии станции", FALSE)
 
 #undef ROUNDSTART_LOGOUT_REPORT_TIME
 #undef STATION_GOAL_BUDGET

@@ -26,5 +26,45 @@
 	show_in_report = TRUE
 	report_message = "Из-за ошибки в расчетах маршрута, прибытие на станцию произошло гораздо позже, чем ожидалось."
 	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
-	//blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
+	blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
 
+/datum/station_trait/random_spawns
+	name = "Экстренное приземление"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	show_in_report = TRUE
+	report_message = "Из-за ошибки с нашей стороны, мы пролетели станцию на несколько световых секунд, поэтому нам пришлось отправить вас на десантных подах. Расходы за высадку лягут на вас."
+	trait_to_give = STATION_TRAIT_RANDOM_ARRIVALS
+	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/hangover)
+
+/datum/station_trait/hangover
+	name = "Похмелье"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	show_in_report = TRUE
+	report_message = "Мммм... Обязательный для посещения корпоратив по случаю... мххггг... Возможно мы переборщили с алкоголем..."
+	trait_to_give = STATION_TRAIT_HANGOVER
+	force = TRUE
+	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/random_spawns)
+
+/datum/station_trait/hangover/New()
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned_mob)
+	SIGNAL_HANDLER
+
+	if(!prob(35))
+		return
+
+	var/obj/item/hat = pick(
+		/obj/item/clothing/head/sombrero/green,
+		/obj/item/clothing/head/fedora,
+		/obj/item/clothing/mask/balaclava,
+		/obj/item/clothing/head/ushanka,
+		/obj/item/clothing/head/cardborg,
+		/obj/item/clothing/head/pirate,
+		/obj/item/clothing/head/cone,
+		)
+	hat = new hat(spawned_mob)
+	spawned_mob.equip_to_slot_or_del(hat, ITEM_SLOT_HEAD)

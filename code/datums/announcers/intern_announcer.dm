@@ -34,7 +34,7 @@
 		ANNOUNCER_IONSTORM = 'sound/announcer/intern_ru/ionstorm.ogg',
 		ANNOUNCER_METEORS = 'sound/announcer/intern_ru/meteors.ogg',
 		ANNOUNCER_OUTBREAK5 = 'sound/announcer/intern_ru/outbreak5.ogg',
-		ANNOUNCER_OUTBREAK7 = 'sound/announcer/intern_ru/outbreak5.ogg', //og was unfunny
+		ANNOUNCER_OUTBREAK7 = 'sound/announcer/intern_ru/outbreak5.ogg',
 		ANNOUNCER_POWEROFF = 'sound/announcer/intern_ru/poweroff.ogg',
 		ANNOUNCER_POWERON = 'sound/announcer/intern_ru/poweron.ogg',
 		ANNOUNCER_RADIATION = 'sound/announcer/intern_ru/radiation.ogg',
