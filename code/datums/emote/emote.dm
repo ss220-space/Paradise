@@ -10,7 +10,7 @@
 /datum/emote
 	/// What calls the emote.
 	var/key = ""
-
+	/// What calls the emote, but in Russian (optional)
 	var/key_ru = ""
 	/// This will also call the emote.
 	var/key_third_person = ""

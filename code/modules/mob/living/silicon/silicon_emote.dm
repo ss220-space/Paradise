@@ -126,7 +126,7 @@
 
 /datum/emote/living/silicon/halt
 	key = "halt"
-	key_ru = "халт"
+	key_ru = "стой"
 	message = "ор%(ёт,ут)% \"СТОЯТЬ! СЛУЖБА БЕЗОПАСНОСТИ!\" через динамики!"
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/halt.ogg'
