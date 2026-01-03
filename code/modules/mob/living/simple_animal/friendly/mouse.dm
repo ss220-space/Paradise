@@ -147,7 +147,7 @@
 	if(!Proj)
 		return -1
 
-	if(Proj?.original == src || Proj.firer.a_intent == INTENT_HARM)
+	if(Proj?.original == src || (Proj.firer && Proj.firer.a_intent == INTENT_HARM))
 		return ..()
 
 	return -1
