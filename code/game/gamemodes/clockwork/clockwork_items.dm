@@ -944,6 +944,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 	)
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/clothing/suit/hooded/clockrobe_fake
 	name = "clock robes"
