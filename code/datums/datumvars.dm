@@ -7,16 +7,22 @@
  *
  */
 /datum/proc/CanProcCall(procname)
+	if((datum_protecting_flags & DPF_CANPROCCALL) && !check_rights(R_PERMISSIONS, FALSE))
+		return FALSE
 	return TRUE
 
 /datum/proc/can_vv_get(var_name)
+	if((datum_protecting_flags & DPF_CAN_VV_GET) && !check_rights(R_PERMISSIONS, FALSE))
+		return FALSE
+	if(var_name == NAMEOF(src, vars))
+		return FALSE
 	return TRUE
 
 /mob/can_vv_get(var_name)
 	var/static/list/protected_vars = list(
 		"lastKnownIP", "computer_id", "attack_log_old"
 	)
-	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
@@ -24,12 +30,14 @@
 	var/static/list/protected_vars = list(
 		"address", "chatOutput", "computer_id", "connection", "jbh", "pm_tracker", "related_accounts_cid", "related_accounts_ip", "watchlisted"
 	)
-	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
 /// Called when a var is edited with the new value to change to
 /datum/proc/vv_edit_var(var_name, var_value)
+	if((datum_protecting_flags & DPF_VV_EDIT_VAR) && !check_rights(R_PERMISSIONS, FALSE) && var_name == "datum_protecting_flags")
+		return FALSE
 	if(var_name == NAMEOF(src, vars))
 		return FALSE
 	vars[var_name] = var_value
@@ -69,13 +77,14 @@
 	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
-/client/proc/debug_variables(datum/D in world)
-	set name = "\[Admin\] View Variables"
+ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Variables", datum/thing in world)
+	user.debug_variables(thing)
 
+/client/proc/debug_variables(datum/D in world)
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
-	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, span_warning("You need to be an administrator to access this."), confidential=TRUE)
+	if(!usr.client || !usr.client.holder) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
+		to_chat(usr, span_danger("You need to be an administrator to access this."), confidential = TRUE)
 		return
 
 	if(!D)
@@ -448,6 +457,9 @@
 </html>
 	"}
 
+	if(istype(D, /datum))
+		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
+
 	var/size_string = "size=475x650";
 	if(ui_scale && window_scaling)
 		size_string = "size=[475 * window_scaling]x[650 * window_scaling]"
@@ -542,6 +554,11 @@
 #undef VV_HTML_ENCODE
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
+	if(!check_rights(R_ADMIN|R_MOD, FALSE) \
+		&& !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)) \
+		&& !((href_list["proc_call"]) && check_rights(R_PROCCALL, FALSE)))
+		to_chat(usr, span_warning("У вас недостаточно прав для доступа к VV."), confidential = TRUE)
+		return
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
 		return
@@ -620,7 +637,8 @@
 		usr?.client.open_matrix_tester(atom)
 
 	else if(href_list["togbit"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_VAREDIT))
+			return
 
 		var/atom/D = locateUID(href_list["subject"])
 		if(!isdatum(D) && !isclient(D))
@@ -635,7 +653,8 @@
 		D.vars[href_list["var"]] = value
 
 	else if(href_list["varnamechange"] && href_list["datumchange"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_VAREDIT))
+			return
 
 		var/D = locateUID(href_list["datumchange"])
 		if(!isdatum(D) && !isclient(D))
@@ -645,7 +664,8 @@
 		modify_variables(D, href_list["varnamechange"], 0)
 
 	else if(href_list["varnamemass"] && href_list["datummass"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_VAREDIT))
+			return
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
@@ -655,27 +675,32 @@
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
 	else if(href_list["mob_player_panel"])
-		if(!check_rights(R_ADMIN|R_MOD))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
-		var/mob/M = locateUID(href_list["mob_player_panel"])
-		if(!istype(M))
+		var/mob/selected_mob = locateUID(href_list["mob_player_panel"])
+		if(!istype(selected_mob))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.holder.show_player_panel(M)
+		usr.client.VUAP_selected_mob = selected_mob
+		usr.client.selectedPlayerCkey = selected_mob.ckey
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["give_spell"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["give_spell"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.give_spell(M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_spell, M)
 
 	else if(href_list["givemartialart"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/carbon/C = locateUID(href_list["givemartialart"])
 		if(!istype(C))
@@ -701,17 +726,19 @@
 			MA.teach(C)
 
 	else if(href_list["give_disease"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["give_disease"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.give_disease(M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_disease, M)
 
 	else if(href_list["give_taipan_hud"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/M = locateUID(href_list["give_taipan_hud"])
 		if(!istype(M))
@@ -727,37 +754,41 @@
 		M.give_taipan_hud(role = selected_role)
 
 	else if(href_list["godmode"])
-		if(!check_rights(R_REJUVINATE))	return
+		if(!check_rights(R_REJUVINATE))
+			return
 
-		var/mob/M = locateUID(href_list["godmode"])
-		if(!istype(M))
+		var/mob/target = locateUID(href_list["godmode"])
+		if(!istype(target))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.cmd_admin_godmode(M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_godmode, target)
 
 	else if(href_list["gib"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
-		var/mob/M = locateUID(href_list["gib"])
-		if(!istype(M))
+		var/mob/target = locateUID(href_list["gib"])
+		if(!istype(target))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		src.cmd_admin_gib(M)
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/gib_them, target)
 
 	else if(href_list["build_mode"])
-		if(!check_rights(R_BUILDMODE))	return
+		if(!check_rights(R_BUILDMODE))
+			return
 
-		var/mob/M = locateUID(href_list["build_mode"])
-		if(!istype(M))
+		var/mob/target = locateUID(href_list["build_mode"])
+		if(!istype(target))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		togglebuildmode(M)
+		togglebuildmode(target)
 
 	else if(href_list["drop_everything"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["drop_everything"])
 		if(!istype(M))
@@ -765,10 +796,11 @@
 			return
 
 		if(usr.client)
-			usr.client.cmd_admin_drop_everything(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/drop_everything, M)
 
 	else if(href_list["direct_control"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["direct_control"])
 		if(!istype(M))
@@ -776,10 +808,11 @@
 			return
 
 		if(usr.client)
-			usr.client.cmd_assume_direct_control(M)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_assume_direct_control, M)
 
 	else if(href_list["make_skeleton"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["make_skeleton"])
 		if(!istype(H))
@@ -794,7 +827,8 @@
 		log_and_message_admins("has turned [key_name_admin(H)] into a skeleton")
 
 	else if(href_list["offer_control"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["offer_control"])
 		if(!istype(M))
@@ -803,7 +837,7 @@
 		offer_control(M)
 
 	else if(href_list["delete"])
-		if(!check_rights(R_DEBUG, 0))
+		if(!check_rights(R_DEBUG, FALSE))
 			return
 
 		var/datum/D = locateUID(href_list["delete"])
@@ -814,7 +848,8 @@
 			debug_variables(D)
 
 	else if(href_list["delall"])
-		if(!check_rights(R_DEBUG|R_SERVER))	return
+		if(!check_rights(R_DEBUG|R_SERVER))
+			return
 
 		var/obj/O = locateUID(href_list["delall"])
 		if(!isobj(O))
@@ -929,7 +964,8 @@
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/atom/A = locateUID(href_list["addreagent"])
 
@@ -944,27 +980,14 @@
 		try_open_reagent_editor(A)
 
 	else if(href_list["explode"])
-		if(!check_rights(R_DEBUG|R_EVENT))	return
-
-		var/atom/A = locateUID(href_list["explode"])
-		if(!isobj(A) && !ismob(A) && !isturf(A))
-			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
-			return
-
-		src.cmd_admin_explosion(A)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_explosion, locateUID(href_list["explode"]))
 
 	else if(href_list["emp"])
-		if(!check_rights(R_DEBUG|R_EVENT))	return
-
-		var/atom/A = locateUID(href_list["emp"])
-		if(!isobj(A) && !ismob(A) && !isturf(A))
-			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf", confidential=TRUE)
-			return
-
-		src.cmd_admin_emp(A)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_emp, locateUID(href_list["emp"]))
 
 	else if(href_list["mark_object"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_NONE))
+			return
 
 		var/datum/datum = locateUID(href_list["mark_object"])
 		if(!istype(datum))
@@ -980,7 +1003,7 @@
 		var/T = locateUID(href_list["proc_call"])
 
 		if(T)
-			callproc_datum(T)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/call_proc_datum, T)
 
 	if(href_list["addcomponent"])
 		if(!check_rights(R_DEBUG|R_EVENT))
@@ -1070,10 +1093,11 @@
 		var/atom/A = locateUID(href_list["jump_to"])
 		var/turf/T = get_turf(A)
 		if(T)
-			usr.client.jumptoturf(T)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/jump_to_turf, T)
 
 	else if(href_list["rotatedatum"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/atom/A = locateUID(href_list["rotatedatum"])
 		if(!istype(A))
@@ -1088,7 +1112,8 @@
 		vv_update_display(A, "dir", dir2text(A.dir))
 
 	else if(href_list["makemonkey"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makemonkey"])
 		if(!istype(H))
@@ -1104,23 +1129,11 @@
 		holder.Topic(href, list("monkeyone"=href_list["makemonkey"]))
 
 	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
-			return
-
-		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
-			return
-
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
-			return
-		holder.Topic(href, list("makerobot"=href_list["makerobot"]))
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_robotize, locateUID(href_list["makerobot"]))
 
 	else if(href_list["makealien"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
@@ -1135,7 +1148,8 @@
 		holder.Topic(href, list("makealien"=href_list["makealien"]))
 
 	else if(href_list["makeslime"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
@@ -1150,7 +1164,8 @@
 		holder.Topic(href, list("makeslime"=href_list["makeslime"]))
 
 	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
@@ -1166,7 +1181,8 @@
 		holder.Topic(href, list("makesuper"=href_list["makesuper"]))
 
 	else if(href_list["makeai"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
@@ -1181,7 +1197,8 @@
 		holder.Topic(href, list("makeai"=href_list["makeai"]))
 
 	else if(href_list["setspecies"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["setspecies"])
 		if(!istype(H))
@@ -1206,7 +1223,8 @@
 			to_chat(usr, "Failed! Something went wrong.", confidential=TRUE)
 
 	else if(href_list["addlanguage"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["addlanguage"])
 		if(!istype(H))
@@ -1229,7 +1247,8 @@
 			to_chat(usr, "Mob already knows that language.", confidential=TRUE)
 
 	else if(href_list["remlanguage"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["remlanguage"])
 		if(!istype(H))
@@ -1256,7 +1275,8 @@
 			to_chat(usr, "Mob doesn't know that language.", confidential=TRUE)
 
 	else if(href_list["grantalllanguage"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["grantalllanguage"])
 
@@ -1270,7 +1290,8 @@
 		log_and_message_admins("has given [key_name(H)] all languages")
 
 	else if(href_list["changevoice"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/H = locateUID(href_list["changevoice"])
 
@@ -1288,7 +1309,8 @@
 		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["addverb"])
-		if(!check_rights(R_DEBUG))			return
+		if(!check_rights(R_DEBUG))
+			return
 
 		var/mob/living/H = locateUID(href_list["addverb"])
 
@@ -1319,7 +1341,8 @@
 			log_and_message_admins("has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
-		if(!check_rights(R_DEBUG))			return
+		if(!check_rights(R_DEBUG))
+			return
 
 		var/mob/H = locateUID(href_list["remverb"])
 
@@ -1337,7 +1360,8 @@
 			log_and_message_admins("has removed verb [verb] from [key_name(H)]")
 
 	else if(href_list["addorgan"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/M = locateUID(href_list["addorgan"])
 		if(!istype(M))
@@ -1359,7 +1383,8 @@
 		log_and_message_admins("has given [key_name(M)] the organ [new_organ]")
 
 	else if(href_list["remorgan"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/M = locateUID(href_list["remorgan"])
 		if(!istype(M))
@@ -1382,7 +1407,8 @@
 		qdel(rem_organ)
 
 	else if(href_list["regenerateicons"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_NONE))
+			return
 
 		var/mob/M = locateUID(href_list["regenerateicons"])
 		if(!ismob(M))
@@ -1391,7 +1417,8 @@
 		M.regenerate_icons()
 
 	else if(href_list["adjustDamage"] && href_list["mobToDamage"])
-		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/L = locateUID(href_list["mobToDamage"])
 		if(!istype(L)) return

@@ -1,3 +1,7 @@
+#define MAX_WATER_TEMPERATURE_CHANGE 10
+#define MIN_TEMPERATURE_DIFF 10
+#define BASE_WATER_VOLUME 1
+
 /datum/species
 	var/name                     // Species name.
 	var/name_plural			 // Pluralized name (since "[name]s" is not always valid)
@@ -1193,8 +1197,20 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	human.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
-	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.adjust_bodytemperature((temperature - M.bodytemperature) * 0.5)	// Approximation for gradual heating or cooling.
+	var/temperature_diff = temperature - M.bodytemperature
+	var/temperature_diff_abs = abs(temperature_diff)
+
+	if(temperature_diff_abs <= MIN_TEMPERATURE_DIFF)
+		return
+
+	var/effectiveness = min(volume / BASE_WATER_VOLUME, 1)
+
+
+	var/final_change = min(min(temperature_diff_abs, MAX_WATER_TEMPERATURE_CHANGE) * effectiveness, temperature_diff_abs)
+
+	final_change = (temperature_diff > 0)? final_change : -final_change
+
+	M.adjust_bodytemperature(final_change)
 
 /datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
@@ -1264,3 +1280,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		blood_overlays = icon_states(blood_mask)
 
 	return blood_overlays
+
+#undef MAX_WATER_TEMPERATURE_CHANGE
+#undef MIN_TEMPERATURE_DIFF
+#undef BASE_WATER_VOLUME

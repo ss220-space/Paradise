@@ -47,49 +47,53 @@
 
 /obj/machinery/portable_atmospherics/pump/process_atmos()
 	..()
-	if(on)
-		var/datum/gas_mixture/environment
-		if(holding)
-			environment = holding.air_contents
-		else
-			environment = loc.return_air()
-		if(direction == DIRECTION_OUT)
-			var/pressure_delta = target_pressure - environment.return_pressure()
-			//Can not have a pressure delta that would cause environment pressure > tank pressure
+	var/datum/milla_safe/portable_pump_process/milla = new()
+	milla.invoke_async(src)
 
-			var/transfer_moles = 0
-			if(air_contents.temperature > 0)
-				transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+/datum/milla_safe/portable_pump_process
 
-				//Actually transfer the gas
-				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
+/datum/milla_safe/portable_pump_process/on_run(obj/machinery/portable_atmospherics/pump/pump)
+	if(!pump.on)
+		return
 
-				if(holding)
-					environment.merge(removed)
-				else
-					loc.assume_air(removed)
-					air_update_turf()
-		else
-			var/pressure_delta = target_pressure - air_contents.return_pressure()
-			//Can not have a pressure delta that would cause environment pressure > tank pressure
+	var/datum/gas_mixture/environment
 
-			var/transfer_moles = 0
-			if(environment.temperature > 0)
-				transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
+	if(pump.holding)
+		environment = pump.holding.air_contents
+	else
+		var/turf/turf = get_turf(pump)
+		environment = get_turf_air(turf)
 
-				//Actually transfer the gas
-				var/datum/gas_mixture/removed
-				if(holding)
-					removed = environment.remove(transfer_moles)
-				else
-					removed = loc.remove_air(transfer_moles)
-					air_update_turf()
+	if(pump.direction == DIRECTION_OUT)
+		var/pressure_delta = pump.target_pressure - environment.return_pressure()
+		//Can not have a pressure delta that would cause environment pressure > tank pressure
 
-				air_contents.merge(removed)
+		var/transfer_moles = 0
+		if(pump.air_contents.temperature() > 0)
+			transfer_moles = pressure_delta * environment.volume / (pump.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 
-	return
+			//Actually transfer the gas
+			var/datum/gas_mixture/removed = pump.air_contents.remove(transfer_moles)
 
-/obj/machinery/portable_atmospherics/pump/return_air()
+			environment.merge(removed)
+		return
+	var/pressure_delta = pump.target_pressure - pump.air_contents.return_pressure()
+	//Can not have a pressure delta that would cause environment pressure > tank pressure
+
+	var/transfer_moles = 0
+	if(environment.temperature() <= 0)
+		return
+
+	transfer_moles = pressure_delta * pump.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
+
+	//Actually transfer the gas
+	var/datum/gas_mixture/removed
+	removed = environment.remove(transfer_moles)
+
+	pump.air_contents.merge(removed)
+
+/obj/machinery/portable_atmospherics/pump/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)

@@ -40,9 +40,17 @@
 		handle_heartattack()
 
 	//Handle temperature/pressure differences between body and environment
-	var/datum/gas_mixture/environment = loc.return_air()
-	if(environment)
-		handle_environment(environment)
+	var/datum/gas_mixture/readonly_environment = null
+	if(isobj(loc))
+		var/obj/object = loc
+		readonly_environment = object.return_obj_air()
+
+	if(isnull(readonly_environment))
+		var/turf/location = get_turf(src)
+		if(!isnull(location))
+			readonly_environment = location.get_readonly_air()
+
+	handle_environment(readonly_environment)
 
 	handle_fire()
 

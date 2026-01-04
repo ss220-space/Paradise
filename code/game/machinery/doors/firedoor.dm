@@ -27,6 +27,8 @@
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = TRUE
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -344,10 +346,15 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T, vertical)
-	if(get_dir(loc, T) == dir)
+/obj/machinery/door/firedoor/border_only/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
 	return TRUE
+
+/obj/machinery/door/firedoor/border_only/get_superconductivity(direction)
+	if(direction == dir && density)
+		return FALSE
+	return ..()
 
 /obj/machinery/door/firedoor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
@@ -392,6 +399,7 @@
 	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "frame1"
 	density = TRUE
+	cares_about_temperature = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 

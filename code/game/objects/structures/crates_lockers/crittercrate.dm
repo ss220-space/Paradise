@@ -12,10 +12,10 @@
 /obj/structure/closet/critter/proc/updateEnv()
 	if(!env)
 		env = new/datum/gas_mixture()
-	env.oxygen = MOLES_O2STANDARD
-	env.nitrogen = MOLES_N2STANDARD
-	env.carbon_dioxide = 0
-	env.temperature = T20C
+	env.set_oxygen(MOLES_O2STANDARD)
+	env.set_nitrogen(MOLES_N2STANDARD)
+	env.set_carbon_dioxide(0)
+	env.set_temperature(T20C)
 
 /obj/structure/closet/critter/Initialize(mapload)
 	. = ..()
@@ -25,13 +25,7 @@
 	. = ..()
 	QDEL_NULL(env)
 
-/obj/structure/closet/critter/return_air()
-	return env
-
-/obj/structure/closet/critter/assume_air(datum/gas_mixture/giver)
-	return null
-
-/obj/structure/closet/critter/remove_air(amount)
+/obj/structure/closet/critter/return_obj_air()
 	return env
 
 /obj/structure/closet/critter/return_analyzable_air()

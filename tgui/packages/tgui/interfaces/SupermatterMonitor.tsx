@@ -20,6 +20,8 @@ type SupermatterMonitorData = {
   SM_gas_CO2: number;
   SM_gas_N2: number;
   SM_gas_PL: number;
+  SM_gas_H2: number;
+  SM_gas_H2O: number;
   SM_gas_OTHER: number;
 };
 
@@ -71,7 +73,7 @@ const pressureToColor = (pressure: number) => {
 const SupermatterMonitorListView = (_props: unknown) => {
   const { act, data } = useBackend<SupermatterMonitorData>();
   return (
-    <Window width={600} height={325}>
+    <Window width={600} height={400}>
       <Window.Content scrollable>
         <Section
           title="Detected Supermatter Shards"
@@ -176,6 +178,12 @@ const SupermatterMonitorDataView = (_props: unknown) => {
             </LabeledList.Item>
             <LabeledList.Item label="Plasma">
               {data.SM_gas_PL}%
+            </LabeledList.Item>
+            <LabeledList.Item label="Hydrogen">
+              {data.SM_gas_H2}%
+            </LabeledList.Item>
+            <LabeledList.Item label="Water Vapor">
+              {data.SM_gas_H2O}%
             </LabeledList.Item>
             <LabeledList.Item label="Other">
               {data.SM_gas_OTHER}%

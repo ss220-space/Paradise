@@ -97,7 +97,7 @@
 	var/face_mouse = FALSE
 
 	var/pressure_resistance = 10
-	var/last_high_pressure_movement_air_cycle = 0
+	var/last_high_pressure_movement_time = 0
 
 	var/atom/orbiting = null
 	var/cached_transform = null

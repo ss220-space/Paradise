@@ -199,35 +199,29 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 
 #define JSON_FROM_FILE "Файл"
 #define JSON_FROM_STRING "Прямой ввод"
-/client/proc/load_circuit()
-	set name = "Загрузка схемы"
-	set category = STATPANEL_ADMIN_FUN
-
-	if(!check_rights(R_VAREDIT))
-		return
-
+ADMIN_VERB(load_circuit, R_VAREDIT, "Load Circuit", "Loads a circuit from a file or direct input.", ADMIN_CATEGORY_FUN)
 	var/list/errors = list()
 
-	var/option = tgui_alert(usr, "Загрузить из файла или напрямую?", "Загрузка схемы", list(JSON_FROM_FILE, JSON_FROM_STRING))
+	var/option = tgui_alert(user, "Загрузить из файла или напрямую?", "Загрузка схемы", list(JSON_FROM_FILE, JSON_FROM_STRING))
 	var/txt
 	switch(option)
 		if(JSON_FROM_FILE)
-			txt = file2text(input(usr, "Укажите файл") as null|file)
+			txt = file2text(input(user, "Укажите файл") as null|file)
 		if(JSON_FROM_STRING)
-			txt = input(usr, "Введите JSON-строку", "Прямой ввод") as message|null
+			txt = input(user, "Введите JSON-строку", "Прямой ввод") as message|null
 
 	if(!txt)
 		return
 
-	var/obj/item/integrated_circuit/loaded/circuit = new(mob.drop_location())
+	var/obj/item/integrated_circuit/loaded/circuit = new(user.mob.drop_location())
 	circuit.load_circuit_data(txt, errors)
 
 	if(!length(errors))
 		return
 
-	to_chat(src, span_warning("<b>При компиляции данных схемы были обнаружены следующие ошибки:</b>"))
+	to_chat(user, span_warning("<b>При компиляции данных схемы были обнаружены следующие ошибки:</b>"))
 	for(var/error in errors)
-		to_chat(src, span_warning(error))
+		to_chat(user, span_warning(error))
 
 #undef JSON_FROM_FILE
 #undef JSON_FROM_STRING

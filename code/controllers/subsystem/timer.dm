@@ -592,29 +592,18 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  *
  * In-round ability to view what has created a timer, and how many times a timer for that path has been created
  */
-/client/proc/timer_log()
-	set name = "View Timer Log"
-	set category = STATPANEL_DEBUG
-	set desc = "Shows the log of what types created timers this round"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log of what types created timers this round.", ADMIN_CATEGORY_DEBUG)
 	var/list/sorted = sortTim(GLOB.timers_by_type, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	var/datum/browser/popup = new(usr, "timerlog", "Timer Log")
+	var/datum/browser/popup = new(user, "timerlog", "Timer Log")
 	popup.set_content(text.Join())
 	popup.open(FALSE)
 
-/client/proc/debug_timers()
-	set name = "Debug Timers"
-	set category = STATPANEL_DEBUG
-	set desc = "Shows currently active timers, grouped by callback"
-
+ADMIN_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently active timers, grouped by callback.", ADMIN_CATEGORY_DEBUG)
 	var/list/timers = list()
 	for(var/id in SStimer.timer_id_dict)
 		var/datum/timedevent/T = SStimer.timer_id_dict[id]
@@ -646,7 +635,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 		text += "<li>[key] - [sorted2[key]]</li>"
 
 	text += "</ul>"
-	var/datum/browser/popup = new(usr, "timerdebug", "Timer Debug")
+	var/datum/browser/popup = new(user, "timerdebug", "Timer Debug")
 	popup.set_content(text.Join())
 	popup.open(FALSE)
 

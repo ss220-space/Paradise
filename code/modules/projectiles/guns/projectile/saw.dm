@@ -98,8 +98,10 @@
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
-		location.hotspot_expose(700, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		location.hotspot_expose(700, 50)
 
 /obj/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)
 	. = ..()

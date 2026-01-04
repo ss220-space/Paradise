@@ -5,19 +5,13 @@
 #define DEFAULT_RADIUS 3
 #define DEFAULT_DELAY 3
 
-/client/proc/drop_lightning_bolt()
-	set category = STATPANEL_ADMIN_FUN
-	set name = "Drop lightning bolt"
-	set desc = "Вызвать молнию различной силы под вами."
-
-	if(!check_rights(R_EVENT))
-		return
+ADMIN_VERB(drop_lightning_bolt, R_EVENT, "Drop lightning bolt", "Вызвать молнию различной силы под вами.", ADMIN_CATEGORY_FUN)
 	if(!SSticker || !SSticker.mode)
-		tgui_alert(usr, "Нельзя вызывать молнии до начала раунда!", "Предупреждение")
+		tgui_alert(user, "Нельзя вызывать молнии до начала раунда!", "Предупреждение")
 		return
 
 	var/datum/drop_lightning_bolt_ui/editor = new()
-	editor.ui_interact(mob)
+	editor.ui_interact(user.mob)
 
 /datum/drop_lightning_bolt_ui
 	var/client/client = null
@@ -32,7 +26,7 @@
 	var/reason
 
 /datum/drop_lightning_bolt_ui/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/drop_lightning_bolt_ui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

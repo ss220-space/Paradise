@@ -156849,7 +156849,7 @@
 /area/crew_quarters/bar/atrium)
 "xlf" = (
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

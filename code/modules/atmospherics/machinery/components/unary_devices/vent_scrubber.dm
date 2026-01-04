@@ -20,15 +20,17 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
-	var/scrub_O2 = 0
-	var/scrub_N2 = 0
-	var/scrub_CO2 = 1
-	var/scrub_Toxins = 0
-	var/scrub_N2O = 0
+	var/scrubbing = TRUE //FALSE = siphoning, TRUE = scrubbing
+	var/scrub_O2 = FALSE
+	var/scrub_N2 = FALSE
+	var/scrub_CO2 = TRUE
+	var/scrub_Toxins = FALSE
+	var/scrub_N2O = FALSE
+	var/scrub_H2 = FALSE
+	var/scrub_H2O = FALSE
 
 	var/volume_rate = 200
-	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
+	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
 
 	var/area_uid
 	var/radio_filter_out
@@ -43,8 +45,8 @@
 	scrub_N2O = TRUE
 	scrub_Toxins = TRUE
 
-/obj/machinery/atmospherics/unary/vent_scrubber/New()
-	..()
+/obj/machinery/atmospherics/unary/vent_scrubber/Initialize(mapload)
+	. = ..()
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
@@ -162,6 +164,8 @@
 		"filter_co2" = scrub_CO2,
 		"filter_toxins" = scrub_Toxins,
 		"filter_n2o" = scrub_N2O,
+		"filter_h2" = scrub_H2,
+		"filter_h2o" = scrub_H2O,
 		"sigtype" = "status"
 	)
 	if(frequency == ATMOS_VENTSCRUB)
@@ -216,63 +220,112 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
 	if(!tile || !istype(tile))
-		return 0
+		return FALSE
 
-	var/datum/gas_mixture/environment = tile.return_air()
+	if(scrubbing && !should_scrub(tile.get_readonly_air()))
+		return FALSE
 
-	if(scrubbing)
-		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.sleeping_agent) || (environment.agent_b))
-			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
+	var/datum/milla_safe/vent_scrubber_process/milla = new()
+	milla.invoke_async(src, tile)
+
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/should_scrub(datum/gas_mixture/environment)
+	if(scrub_O2 && environment.oxygen() > 0.001)
+		return TRUE
+
+	if(scrub_N2 && environment.nitrogen() > 0.001)
+		return TRUE
+
+	if(scrub_CO2 && environment.carbon_dioxide() > 0.001)
+		return TRUE
+
+	if(scrub_Toxins && environment.toxins() > 0.001)
+		return TRUE
+
+	if(environment.sleeping_agent() > 0.001)
+		return TRUE
+
+	if(environment.agent_b() > 0.001)
+		return TRUE
+
+	if(environment.hydrogen() > 0.001)
+		return TRUE
+
+	if(environment.water_vapor() > 0.001)
+		return TRUE
+
+	return FALSE
+
+/datum/milla_safe/vent_scrubber_process
+
+/datum/milla_safe/vent_scrubber_process/on_run(obj/machinery/atmospherics/unary/vent_scrubber/scrubber, turf/simulated/tile)
+	if(!tile || !istype(tile))
+		return FALSE
+
+	var/datum/gas_mixture/environment = get_turf_air(tile)
+
+	if(scrubber.scrubbing)
+		if(scrubber.should_scrub(environment))
+			var/transfer_moles = min(1, scrubber.volume_rate / environment.volume) * environment.total_moles()
 
 			//Take a gas sample
-			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 			if(isnull(removed)) //in space
 				return
 
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new
-			filtered_out.temperature = removed.temperature
-			if(scrub_O2)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
-			if(scrub_N2)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
-			if(scrub_Toxins)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
-			if(scrub_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
+			filtered_out.set_temperature(removed.temperature())
+			if(scrubber.scrub_O2)
+				filtered_out.set_oxygen(removed.oxygen())
+				removed.set_oxygen(0)
 
-			if(removed.agent_b)
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
+			if(scrubber.scrub_N2)
+				filtered_out.set_nitrogen(removed.nitrogen())
+				removed.set_nitrogen(0)
 
-			if(scrub_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+			if(scrubber.scrub_Toxins)
+				filtered_out.set_toxins(removed.toxins())
+				removed.set_toxins(0)
+
+			if(scrubber.scrub_CO2)
+				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+				removed.set_carbon_dioxide(0)
+
+			if(removed.agent_b())
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
+
+			if(scrubber.scrub_N2O)
+				filtered_out.set_sleeping_agent(removed.sleeping_agent())
+				removed.set_sleeping_agent(0)
+
+			if(scrubber.scrub_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
+
+			if(scrubber.scrub_H2O)
+				filtered_out.set_water_vapor(removed.water_vapor())
+				removed.set_water_vapor(0)
 
 			//Remix the resulting gases
-			air_contents.merge(filtered_out)
+			scrubber.air_contents.merge(filtered_out)
 
-			tile.assume_air(removed)
-			tile.air_update_turf()
+			environment.merge(removed)
 
 	else //Just siphoning all air
-		if(air_contents.return_pressure()>=50*ONE_ATMOSPHERE)
+		if(scrubber.air_contents.return_pressure() >= (50 * ONE_ATMOSPHERE))
 			return
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume)
+		var/transfer_moles = environment.total_moles() * (scrubber.volume_rate / environment.volume)
 
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 
-		air_contents.merge(removed)
-		tile.air_update_turf()
+		scrubber.air_contents.merge(removed)
 
-	parent?.update = 1
+	if(!QDELETED(scrubber.parent))
+		scrubber.parent.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/vent_scrubber/hide(i) //to make the little pipe section invisible, the icon changes.
 	update_icon()
@@ -298,42 +351,50 @@
 	if(signal.data["toggle_scrubbing"])
 		scrubbing = !scrubbing
 
-	if(signal.data["o2_scrub"] != null)
-		scrub_O2 = text2num(signal.data["o2_scrub"])
-	if(signal.data["toggle_o2_scrub"])
+	if(signal.data["scrub_o2"] != null)
+		scrub_O2 = text2num(signal.data["scrub_o2"])
+	if(signal.data["toggle_scrub_o2"])
 		scrub_O2 = !scrub_O2
 
-	if(signal.data["n2_scrub"] != null)
-		scrub_N2 = text2num(signal.data["n2_scrub"])
-	if(signal.data["toggle_n2_scrub"])
+	if(signal.data["scrub_n2"] != null)
+		scrub_N2 = text2num(signal.data["scrub_n2"])
+	if(signal.data["toggle_scrub_n2"])
 		scrub_N2 = !scrub_N2
 
-	if(signal.data["co2_scrub"] != null)
-		scrub_CO2 = text2num(signal.data["co2_scrub"])
-	if(signal.data["toggle_co2_scrub"])
+	if(signal.data["scrub_co2"] != null)
+		scrub_CO2 = text2num(signal.data["scrub_co2"])
+	if(signal.data["toggle_scrub_co2"])
 		scrub_CO2 = !scrub_CO2
 
-	if(signal.data["tox_scrub"] != null)
-		scrub_Toxins = text2num(signal.data["tox_scrub"])
-	if(signal.data["toggle_tox_scrub"])
+	if(signal.data["scrub_toxins"] != null)
+		scrub_Toxins = text2num(signal.data["scrub_toxins"])
+	if(signal.data["toggle_scrub_toxinsb"])
 		scrub_Toxins = !scrub_Toxins
 
-	if(signal.data["n2o_scrub"] != null)
-		scrub_N2O = text2num(signal.data["n2o_scrub"])
-	if(signal.data["toggle_n2o_scrub"])
+	if(signal.data["scrub_n2o"] != null)
+		scrub_N2O = text2num(signal.data["scrub_n2o"])
+	if(signal.data["toggle_scrub_n2o"])
 		scrub_N2O = !scrub_N2O
+
+	if(signal.data["scrub_h2"] != null)
+		scrub_H2 = text2num(signal.data["scrub_h2"])
+	if(signal.data["toggle_scrub_h2"])
+		scrub_H2 = !scrub_H2
+
+	if(signal.data["scrub_h2o"] != null)
+		scrub_H2O = text2num(signal.data["scrub_h2o"])
+	if(signal.data["toggle_scrub_h2o"])
+		scrub_H2O = !scrub_H2O
 
 	if(signal.data["init"] != null)
 		name = signal.data["init"]
 		return
 
 	if(signal.data["status"] != null)
-		spawn(2)
-			broadcast_status()
+		addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
 		return //do not update_icon
 
-	spawn(2)
-		broadcast_status()
+	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
 	update_icon()
 	return
 
