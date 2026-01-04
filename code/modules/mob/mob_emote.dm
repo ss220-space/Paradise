@@ -106,6 +106,7 @@
 				all_keys += P.key
 			if(P.additional_keys)
 				for(var/a_key in P.additional_keys)
+					full_key = a_key
 					if(a_key in all_keys)
 						continue
 					if(P.can_run_emote(user, status_check = FALSE, intentional = TRUE))

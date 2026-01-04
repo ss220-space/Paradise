@@ -276,11 +276,11 @@
 			stack_trace("Keyless emote: [emote_instance.type]")
 
 		if(emote_instance.additional_keys)
-			for(var/key in emote_instance.additional_keys)
-				if(!.[key])
-					.[key] = list(emote_instance)
+			for(var/a_key in emote_instance.additional_keys)
+				if(!.[a_key])
+					.[a_key] = list(emote_instance)
 				else
-					.[key] += emote_instance
+					.[a_key] += emote_instance
 
 		if(emote_instance.key_third_person) // This one is optional
 			if(!.[emote_instance.key_third_person])
