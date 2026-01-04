@@ -7,7 +7,7 @@
 
 /mob/verb/whisper(message as text)
 	set name = "Шептать"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	return
 
 /mob/proc/whisper_say(list/message_pieces, verb = "whispers")
@@ -15,7 +15,7 @@
 
 /mob/verb/say_verb(message as text)
 	set name = "Сказать"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	//Let's try to make users fix their errors - we try to detect single, out-of-place letters and 'unintended' words
 	/*
@@ -39,7 +39,7 @@
 
 /mob/verb/me_verb(message as text)
 	set name = "Эмоция"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	message = strip_html_properly(message)
 

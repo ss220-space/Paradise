@@ -233,6 +233,10 @@
 	if(moving_diagonally) //no mob swap during diagonal moves.
 		return TRUE
 
+	if(has_status_effect(STATUS_EFFECT_UNBALANCED))
+		// Don't swap while being shoved by air.
+		return TRUE
+
 	// if bumped mob is anchored or we are pulling dense object, lets just skip to pushing
 	if(bumped_mob.anchored || (isobj(pulling) && pulling.density))
 		return FALSE
@@ -565,7 +569,7 @@
 
 /mob/living/verb/stop_pulling1()
 	set name = "Прекратить тащить"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	stop_pulling()
 
 /mob/living/proc/stop_hand_bleedsuppress()
@@ -878,7 +882,7 @@
 
 /mob/living/proc/Examine_OOC()
 	set name = "Мета-инфа (OOC)"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set src in view()
 
 	if(CONFIG_GET(flag/allow_metadata))
@@ -888,6 +892,11 @@
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
+
+/mob/living/get_spacemove_backup(movement_dir)
+	if(movement_dir == 0 && has_status_effect(STATUS_EFFECT_UNBALANCED))
+		return
+	return ..()
 
 /mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(lying_angle != 0 && !buckled)
@@ -993,35 +1002,11 @@
 	else
 		return pick("trails_1", "trails_2")
 
-/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+/mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(buckled || mob_negates_gravity())
 		return FALSE
-	if(client && client.move_delay >= world.time + world.tick_lag * 2)
-		pressure_resistance_prob_delta -= 30
-
-	var/list/turfs_to_check = list()
-
-	if(has_limbs)
-		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if(T)
-			turfs_to_check += T
-
-		T = get_step(src, angle2dir(dir2angle(direction) - 90))
-		if(T)
-			turfs_to_check += T
-
-		for(var/t in turfs_to_check)
-			T = t
-			if(T.density)
-				pressure_resistance_prob_delta -= 20
-				continue
-			for(var/atom/movable/AM in T)
-				if(AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 20
-					break
-
-	..(pressure_difference, direction, pressure_resistance_prob_delta)
+	. = ..()
 
 /*//////////////////////
 	START RESIST PROCS
@@ -1036,7 +1021,7 @@
 
 /mob/living/verb/resist()
 	set name = "Сопротивляться"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
 
@@ -1394,19 +1379,35 @@
 	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	var/loc_temp = environment ? environment.temperature : T0C
-	if(isobj(loc))
-		var/obj/oloc = loc
-		var/obj_temp = oloc.return_temperature()
-		if(obj_temp != null)
-			loc_temp = obj_temp
-	else if(isspaceturf(get_turf(src)))
+	if(istype(loc, /obj/structure/closet/critter))
+		return environment.temperature()
+	if(ismecha(loc))
+		var/obj/mecha/mecha = loc
+		var/datum/gas_mixture/cabin = mecha.return_obj_air()
+		if(cabin)
+			return cabin.temperature()
+		return environment.temperature()
+	if(isvampirecoffin(loc))
+		var/obj/structure/closet/coffin/vampire/coffin = loc
+		var/datum/gas_mixture/coffin_air = coffin.return_obj_air()
+		return coffin_air.temperature()
+	if(isspacepod(loc))
+		var/obj/spacepod/pod = loc
+		return pod.cabin_air.temperature()
+	if(istype(loc, /obj/structure/transit_tube_pod))
+		return environment.temperature()
+	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-	if(ismovable(loc))
-		var/atom/movable/occupied_space = loc
-		loc_temp = ((1 - occupied_space.contents_thermal_insulation) * loc_temp) + (occupied_space.contents_thermal_insulation * bodytemperature)
-	return loc_temp
+		return heat_turf.temperature
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
+		if(C.air_contents.total_moles() < 10)
+			return environment.temperature()
+		else
+			return C.air_contents.temperature()
+	if(environment)
+		return environment.temperature()
+	return T0C
 
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)
@@ -2000,7 +2001,7 @@
 
 /mob/living/proc/toggle_resting()
 	set name = "Лечь"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	set_resting(!resting, silent = FALSE)
 

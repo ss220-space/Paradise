@@ -126,7 +126,7 @@
  */
 /mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
 	set name = "Указать на"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return

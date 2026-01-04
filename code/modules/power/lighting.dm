@@ -163,6 +163,7 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
+	cares_about_temperature = TRUE
 	/// Is the light on or off?
 	var/on = FALSE
 	/// If the light state has changed since the last 'update()', also update the power requirements
@@ -796,9 +797,9 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/temperature_expose(temperature, volume)
 	..()
-	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
+	if(prob(max(0, temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 
 // explode the light

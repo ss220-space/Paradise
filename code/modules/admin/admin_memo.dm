@@ -1,15 +1,11 @@
-/client/proc/admin_memo()
-	set name = "Memo"
-	set category = STATPANEL_ADMIN_ADMIN
-	if(!check_rights(R_SERVER))
-		return
+ADMIN_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", ADMIN_CATEGORY_SERVER)
 	if(!SSdbcore.IsConnected())
-		to_chat(src, span_danger("Failed to establish database connection."), confidential=TRUE)
+		to_chat(user, span_danger("Failed to establish database connection."), confidential=TRUE)
 		return
-	var/memotask = tgui_input_list(usr, "Choose task.", "Memo", list("Show", "Write", "Edit", "Remove"))
+	var/memotask = tgui_input_list(user, "Choose task.", "Memo", list("Show", "Write", "Edit", "Remove"))
 	if(!memotask)
 		return
-	admin_memo_output(memotask)
+	user.admin_memo_output(memotask)
 
 /client/proc/admin_memo_output(task, checkrights = 1, silent = 0)
 	if(checkrights && !check_rights(R_SERVER))

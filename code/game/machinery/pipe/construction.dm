@@ -12,8 +12,8 @@
 	item_state = "buildpipe"
 	var/flipped = 0
 
-/obj/item/pipe/New(loc, pipe_type, dir, obj/machinery/atmospherics/make_from)
-	..()
+/obj/item/pipe/Initialize(mapload, pipe_type, dir, obj/machinery/atmospherics/make_from)
+	. = ..()
 	if(make_from)
 		src.dir = make_from.dir
 		src.pipename = make_from.name
@@ -176,7 +176,7 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/verb/rotate()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Повернуть трубу"
 	set src in view(1)
 
@@ -192,7 +192,7 @@
 	fixdir()
 
 /obj/item/pipe/verb/flip()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Перевернуть трубу"
 	set src in view(1)
 

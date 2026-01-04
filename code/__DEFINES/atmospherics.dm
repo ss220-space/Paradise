@@ -4,6 +4,8 @@
 #define GAS_CO2 (1 << 3)
 #define GAS_N2O (1 << 4)
 #define GAS_A_B (1 << 5)
+#define GAS_H2 (1 << 6)
+#define GAS_H20 (1 << 7)
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -46,11 +48,15 @@
 
 //HEAT TRANSFER COEFFICIENTS
 //Must be between 0 and 1. Values closer to 1 equalize temperature faster
-//Should not exceed 0.4 else strange heat flow occur
-#define FLOOR_HEAT_TRANSFER_COEFFICIENT 0.15
+//Capped at OPEN_HEAT_TRANSFER_COEFFICIENT, both here and in Rust.
+
 #define WALL_HEAT_TRANSFER_COEFFICIENT 0.0
+#define DOOR_HEAT_TRANSFER_COEFFICIENT 0.001
 #define OPEN_HEAT_TRANSFER_COEFFICIENT 0.4
-#define WINDOW_HEAT_TRANSFER_COEFFICIENT 0.1 //a hack for now
+#define WINDOW_HEAT_TRANSFER_COEFFICIENT 0.001
+// This looks silly, but it's for clarity when reading elsewhere.
+#define ZERO_HEAT_TRANSFER_COEFFICIENT 0.0
+
 #define HEAT_CAPACITY_VACUUM 700000 //a hack to help make vacuums "cold", sacrificing realism for gameplay
 
 //FIRE
@@ -74,6 +80,17 @@
 #define MIN_TOXIC_GAS_DAMAGE 1
 #define MAX_TOXIC_GAS_DAMAGE 10
 #define MOLES_PLASMA_VISIBLE 0.5 //Moles in a standard cell after which plasma is visible
+#define MOLES_WATER_VAPOR_VISIBLE 2.0 //Moles in a standard cell after which water vapor is visible
+
+//HYDROGEN
+#define HYDROGEN_BURN_ENERGY 2500000
+#define HYDROGEN_MIN_IGNITE_TEMP 500
+
+//WATER VAPOR
+#define WATER_VAPOR_PER_PLASMA_BURNT 6
+#define WATER_VAPOR_REACTION_ENERGY 200
+#define H2_NEEDED_FOR_H2O 2
+#define O2_NEEDED_FOR_H2O 1
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE 550 //This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
@@ -144,9 +161,6 @@
 #define ATMOS_ALARM_WARNING 1
 #define ATMOS_ALARM_DANGER 2
 
-//LAVALAND
-#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
-
 // Ventcrawling bitflags, handled in var/vent_movement
 ///Allows for ventcrawling to occur. All atmospheric machines have this flag on by default. Cryo is the exception
 #define VENTCRAWL_ALLOWED (1<<0)
@@ -165,6 +179,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_COMPOSITION_NITROGEN (1<<4)
 #define SENSOR_COMPOSITION_CO2 (1<<5)
 #define SENSOR_COMPOSITION_N2O (1<<6)
+#define SENSOR_COMPOSITION_H2 (1<<7)
+#define SENSOR_COMPOSITION_H2O (1<<8)
 
 /// Maximum germ level you can reach by standing still
 #define GERM_LEVEL_AMBIENT 110
@@ -181,3 +197,119 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define LINDA_SPAWN_N2O (1<<6)
 #define LINDA_SPAWN_AGENT_B (1<<7)
 #define LINDA_SPAWN_AIR (1<<8)
+#define LINDA_SPAWN_COLD (1<<9)
+#define LINDA_SPAWN_HYDROGEN (1<<10)
+#define LINDA_SPAWN_WATER_VAPOR (1<<11)
+
+//LAVALAND
+#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
+#define LAVALAND_TEMPERATURE 500
+#define LAVALAND_OXYGEN 8
+#define LAVALAND_NITROGEN 14
+
+
+// Reactions
+#define N2O_DECOMPOSITION_MIN_ENERGY 1400
+#define N2O_DECOMPOSITION_ENERGY_RELEASED 200000
+/// The coefficient a for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_A 1.376651173e10
+/// The coefficient c for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition rate close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_C 115930.77913
+/// Agent B starts working at this temperature
+#define AGENT_B_CONVERSION_MIN_TEMP 900
+/// Agent B released this much energy per mole of CO2 converted to O2
+#define AGENT_B_CONVERSION_ENERGY_RELEASED 20000
+
+// From milla/src/lib.rs
+#define ATMOS_MODE_SPACE 0
+#define ATMOS_MODE_SEALED 1
+#define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2
+
+/// Lavaland environment: hot, low pressure.
+#define ENVIRONMENT_LAVALAND "lavaland"
+/// Temperate environment: Normal atmosphere, 20 C.
+#define ENVIRONMENT_TEMPERATE "temperate"
+/// Cold environment: Normal atmosphere, -93 C.
+#define ENVIRONMENT_COLD "cold"
+
+/// How far away should we load the pressure HUD data from MILLA?
+#define PRESSURE_HUD_LOAD_RADIUS 15
+
+/// How far away should we send the pressure HUD to the player?
+#define PRESSURE_HUD_RADIUS 12
+
+
+#define DONT_PASS_EXTERNAL_PRESURE_BOUND (1<<0)
+#define DONT_PASS_INPUT_PRESURE_MIN (1<<1)
+#define DONT_PASS_OUTPUT_PRESURE_MAX (1<<2)
+
+
+// MILLA
+
+// Indexes for Tiles and InterestingTiles
+// Must match the order in milla/src/model.rs
+#define MILLA_INDEX_AIRTIGHT_DIRECTIONS 1
+#define MILLA_INDEX_OXYGEN 2
+#define MILLA_INDEX_CARBON_DIOXIDE 3
+#define MILLA_INDEX_NITROGEN 4
+#define MILLA_INDEX_TOXINS 5
+#define MILLA_INDEX_SLEEPING_AGENT 6
+#define MILLA_INDEX_AGENT_B 7
+#define MILLA_INDEX_HYDROGEN 8
+#define MILLA_INDEX_WATER_VAPOR 9
+#define MILLA_INDEX_ATMOS_MODE 10
+#define MILLA_INDEX_ENVIRONMENT_ID 11
+#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH 12
+#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST 13
+#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH 14
+#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST 15
+#define MILLA_INDEX_INNATE_HEAT_CAPACITY 16
+#define MILLA_INDEX_TEMPERATURE 17
+#define MILLA_INDEX_HOTSPOT_TEMPERATURE 18
+#define MILLA_INDEX_HOTSPOT_VOLUME 19
+#define MILLA_INDEX_WIND_X 20
+#define MILLA_INDEX_WIND_Y 21
+#define MILLA_INDEX_FUEL_BURNT 22
+
+/// The number of values per tile.
+#define MILLA_TILE_SIZE MILLA_INDEX_FUEL_BURNT
+
+// These are only for InterestingTiles.
+#define MILLA_INDEX_TURF 23
+#define MILLA_INDEX_INTERESTING_REASONS 24
+#define MILLA_INDEX_AIRFLOW_X 25
+#define MILLA_INDEX_AIRFLOW_Y 26
+
+/// The number of values per interesting tile.
+#define MILLA_INTERESTING_TILE_SIZE MILLA_INDEX_AIRFLOW_Y
+/// Interesting because it needs a display update.
+#define MILLA_INTERESTING_REASON_DISPLAY (1 << 0)
+/// Interesting because it's hot enough to start a fire. Excludes normal-temperature Lavaland tiles without an active fire.
+#define MILLA_INTERESTING_REASON_HOT (1 << 1)
+/// Interesting because it has wind that can push stuff around.
+#define MILLA_INTERESTING_REASON_WIND (1 << 2)
+#define MILLA_NORTH (1 << 0)
+#define MILLA_EAST (1 << 1)
+#define MILLA_SOUTH (1 << 2)
+#define MILLA_WEST (1 << 3)
+
+// Vent pump modes
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2
+
+#define TLV_O2 "oxygen"
+#define TLV_N2 "nitrogen"
+#define TLV_PL "plasma"
+#define TLV_CO2 "carbon_dioxide"
+#define TLV_N2O "nitrous_oxide"
+#define TLV_H2 "hydrogen"
+#define TLV_H2O "water_vapor"
+#define TLV_AGENT_B "agent_b"
+#define TLV_OTHER "other"
+#define TLV_PRESSURE "pressure"
+#define TLV_TEMPERATURE "temperature"
+

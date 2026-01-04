@@ -369,7 +369,7 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.tourniquet)
 			continue
-		if(bodypart.tourniquet.applyed_bodypart != bodypart)
+		if(bodypart.tourniquet.applied_bodypart != bodypart)
 			continue
 		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 

@@ -208,6 +208,15 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
+/obj/item/clothing/glasses/meson/atmos
+	name = "atmospherics scanner goggles"
+	desc = "Used by atmospherics techs to visualize pressure and see station structure."
+	icon_state = "trayson-pressure"
+	item_state =  null
+	origin_tech = "materials=3;magnets=2;engineering=2"
+	clothing_traits = list(TRAIT_PRESSURE_VISION)
+
+
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."

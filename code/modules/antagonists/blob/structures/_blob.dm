@@ -48,7 +48,7 @@
 		link_to_overmind(owner_overmind)
 	setDir(pick(GLOB.cardinal))
 	if(atmosblock)
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 	ConsumeTile()
 	update_blob()
 
@@ -60,7 +60,7 @@
 /obj/structure/blob/Destroy()
 	if(atmosblock)
 		atmosblock = FALSE
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 	GLOB.blobs -= src
 	SSticker?.mode?.legit_blobs -= src
 	if(overmind)
@@ -90,11 +90,13 @@
 						result++
 		. -= result - 1
 
-/obj/structure/blob/BlockSuperconductivity()
-	return atmosblock
-
 /obj/structure/blob/CanAtmosPass(turf/T, vertical)
 	return !atmosblock
+
+/obj/structure/blob/get_superconductivity(direction)
+	if(atmosblock)
+		return FALSE
+	return ..()
 
 /obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
 	. = ..()

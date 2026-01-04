@@ -48,23 +48,23 @@
 	if(output_starting_pressure >= min(target_pressure,input_starting_pressure-10))
 		//No need to pump gas if target is already reached or input pressure is too low
 		//Need at least 10 KPa difference to overcome friction in the mechanism
-		return 1
+		return TRUE
 
 	//Calculate necessary moles to transfer using PV = nRT
-	if((air1.total_moles() > 0) && (air1.temperature>0))
+	if((air1.total_moles() > 0) && (air1.temperature() > 0))
 		var/pressure_delta = min(target_pressure - output_starting_pressure, (input_starting_pressure - output_starting_pressure)/2)
 		//Can not have a pressure delta that would cause output_pressure > input_pressure
 
-		var/transfer_moles = pressure_delta*air2.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+		var/transfer_moles = pressure_delta * air2.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 		air2.merge(removed)
 
-		parent1.update = 1
+		parent1.update = TRUE
 
-		parent2.update = 1
-	return 1
+		parent2.update = TRUE
+	return TRUE
 
 /obj/machinery/atmospherics/binary/passive_gate/proc/broadcast_status()
 	if(!radio_connection)

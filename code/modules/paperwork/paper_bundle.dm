@@ -267,7 +267,7 @@
 
 /obj/item/paper_bundle/verb/rename()
 	set name = "Переименовать пачку"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	var/n_name = tgui_input_text(usr, "What would you like to label the bundle?", "Bundle Labelling", name)
@@ -279,7 +279,7 @@
 
 /obj/item/paper_bundle/verb/remove_all()
 	set name = "Распустить пачку"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	to_chat(usr, span_notice("You loosen the bundle."))

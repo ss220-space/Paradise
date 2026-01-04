@@ -6,6 +6,7 @@
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = HEAT_CAPACITY_VACUUM
+	atmos_mode = ATMOS_MODE_SPACE
 
 	flags = NO_SCREENTIPS
 
@@ -17,9 +18,6 @@
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
 
-	var/destination_z
-	var/destination_x
-	var/destination_y
 	plane = PLANE_SPACE
 	footstep = null
 	barefootstep = null
@@ -28,6 +26,10 @@
 	force_no_gravity = TRUE
 
 	transparent_floor = TURF_FULLTRANSPARENT
+
+	var/destination_z
+	var/destination_x
+	var/destination_y
 
 	//when this be added to vis_contents of something it be associated with something on clicking,
 	//important for visualisation of turf in openspace and interraction with openspace that show you turf.

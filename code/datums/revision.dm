@@ -43,7 +43,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 /client/verb/get_revision_info()
 	set name = "Информация о сборке"
 	set desc = "Retrieve technical information about the server"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	var/list/msg = list()
 	msg += span_notice("<b>Server Revision Info</b>")

@@ -7,22 +7,22 @@
 /area/lavaland/surface/outdoors)
 "d" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "e" = (
 /obj/structure/mirror{
 	pixel_x = -32
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "f" = (
 /obj/structure/mirror{
 	pixel_x = 32
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "g" = (
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "j" = (
 /obj/structure/mirror{
@@ -31,7 +31,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "k" = (
 /obj/structure/mirror{
@@ -40,7 +40,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "l" = (
 /obj/structure/mirror{
@@ -50,7 +50,7 @@
 	brightness_range = 3;
 	dir = 8
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "m" = (
 /obj/structure/mirror{
@@ -59,16 +59,16 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "r" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "y" = (
 /obj/machinery/door/airlock/diamond,
 /obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/mineral/silver/lavaland_air,
 /area/ruin/powered/pride)
 "G" = (
 /turf/simulated/wall/mineral/diamond,

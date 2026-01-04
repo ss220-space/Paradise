@@ -359,7 +359,7 @@
 /mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
 	var/list/valid_species = new()
 	for(var/current_species_name in GLOB.all_species)
-		if(check_whitelist && !check_rights(R_ADMIN, 0, src)) //If we're using the whitelist, make sure to check it!
+		if(check_whitelist && !check_rights(R_ADMIN, FALSE, src)) //If we're using the whitelist, make sure to check it!
 			if(length(whitelist) && !(current_species_name in whitelist))
 				continue
 			if(length(blacklist) && (current_species_name in blacklist))
