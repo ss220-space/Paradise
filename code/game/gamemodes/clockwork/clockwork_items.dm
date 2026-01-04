@@ -1724,7 +1724,7 @@
 	var/can_adv_heal = TRUE
 	var/robo_affect_heal = TRUE
 	var/radius = 4
-	var/heal = 60
+	var/heal = 40
 	var/is_rat_act = TRUE
 	var/heal_marauders = FALSE
 	var/do_emp = FALSE
