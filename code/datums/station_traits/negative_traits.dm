@@ -107,7 +107,7 @@
 	RegisterSignal(SSjobs, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(set_overflow_job_override))
 
 /datum/station_trait/overflow_job_bureaucracy/get_report()
-	return "[name] - Из-за ошибки с нашей стороны на одну из должностей станции было открыто слишком много слотов. Судя по всему, это [chosen_job_name]. Постарайтесь исправить ситуацию, если это возможно."
+	return "[name] — Из-за ошибки с нашей стороны на одну из должностей станции было открыто слишком много слотов. Судя по всему, это [chosen_job_name]. Постарайтесь исправить ситуацию, если это возможно."
 
 /datum/station_trait/overflow_job_bureaucracy/proc/set_overflow_job_override(datum/source)
 	SIGNAL_HANDLER
@@ -135,3 +135,80 @@
 	show_in_report = TRUE
 	report_message = "Из-за ионного шторма, произошедшего на станции, у всех станционных ботов сгорела языковая матрица. Ожидайте сообщения от ботов на странных языках."
 	trait_to_give = STATION_TRAIT_BOTS_GLITCHED
+
+// Abstract station trait used for traits that modify a random event in some way (their weight or max occurrences).
+// I fucking hate event container system
+/datum/station_trait/random_event_weight_modifier
+	name = "Модификатор рандомных ивентов"
+	report_message = "Один из ивентов был модифицирован. Интересно, как это скажется на игре??"
+	show_in_report = TRUE
+	abstract_type = /datum/station_trait/random_event_weight_modifier
+	weight = 0
+
+	/// The names of the event we modify.
+	var/list/event_names = list()
+	/// The severity of the event we modify.
+	var/datum/event_container/event_severity
+	/// Multiplier applied to the weight of the event. may want to apply to scaling as well
+	var/weight_multiplier = 1
+	/// Do we want to turn off is one shot?
+	var/disable_is_one_shot = FALSE
+
+/datum/station_trait/random_event_weight_modifier/on_round_start()
+	. = ..()
+	for(var/datum/event_container/event_sever in SSevents.event_containers)
+		if(istype(event_sever, event_severity))
+			event_severity = event_sever
+	var/modified_event = FALSE
+
+	for(var/datum/event_meta/event_meta in event_severity.available_events)
+		for(var/i in event_names)
+			if(event_meta.name == i)
+				event_meta.weight *= weight_multiplier
+				for(var/role_weight in event_meta.role_weights)
+					event_meta.role_weights[role_weight] *= weight_multiplier
+				if(disable_is_one_shot == TRUE)
+					event_meta.one_shot = FALSE
+				modified_event = TRUE
+
+	if(!modified_event)
+		CRASH("[type] could not find a round event controller to modify on round start (likely has an invalid event_name or event_severity set, or an admin removed the event from the list)!")
+
+/datum/station_trait/random_event_weight_modifier/ion_storms
+	name = "Ионная буря"
+	report_message = "Станция была расположена в эпицентре ионизированной туманности. Ожидайте повышенную вероятность ионных штормов, влияющих на работу ИИ и киборгов."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 3
+	event_names = ("Ионный тайфун")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 5 //500 instead of 100
+	//blacklist = list(/datum/station_trait/unique_ai)
+
+/datum/station_trait/random_event_weight_modifier/rad_storms
+	name = "Радиационная буря"
+	report_message = "Станция была расположена в эпицентре радиоактивной туманности. Ожидайте повышенную вероятность радиационных штормов."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	event_names = list("Радиационный шторм")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 4 //100 instead of 25
+	disable_is_one_shot = TRUE
+
+/datum/station_trait/random_event_weight_modifier/meteor_showers
+	name = "Метеорный вал"
+	report_message = "Станция была расположена на астероидном кольце. Ожидайте повышенную вероятность попадания по станции метеоритов."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	event_names = list("Метеорный дождь")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 5 //50 instead of 10. Probably much more, idk event containers SUCK
+
+/datum/station_trait/random_event_weight_modifier/anomaly_storms
+	name = "Аномальное созвездие"
+	report_message = "Пространство вокруг станции зафиксировало множество неизвестных сигналов и аномалий. Будьте предельно осторожны."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	event_names = list("Аномалия")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 3 ///1500 instead of 500. Oh god
+

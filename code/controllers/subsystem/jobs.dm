@@ -1080,7 +1080,7 @@ SUBSYSTEM_DEF(jobs)
 		return overflow_jobs
 
 	overflow_jobs = list()
-	for(var/datum/job/check_job)
+	for(var/datum/job/check_job in occupations)
 		if(check_job.admin_only)
 			continue
 		if(!check_job.allow_bureaucratic_error)
