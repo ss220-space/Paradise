@@ -20,6 +20,14 @@
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2
 
+// Definitions for power restoration types
+/// Charging without repair
+#define POWER_RESTORE_ONLY 0
+/// Repair without charging
+#define APC_REPAIR_ONLY 1
+/// Repair and charging
+#define APC_REPAIR_AND_CHARGE 2
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
 #define PROG_CRASH (1<<0) // Generic crash
 #define MISSING_PERIPHERAL (1<<1) // Missing hardware
