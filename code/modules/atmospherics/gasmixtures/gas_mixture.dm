@@ -9,7 +9,7 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_CDO 30
 #define SPECIFIC_HEAT_N2O 40
 #define SPECIFIC_HEAT_AGENT_B 300
-#define SPECIFIC_HEAT_HYDROGEN  15
+#define SPECIFIC_HEAT_HYDROGEN 15
 #define SPECIFIC_HEAT_WATER_VAPOR 33
 
 #define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, innate_heat_capacity) \
@@ -23,7 +23,7 @@ What are the archived variables for?
 	innate_heat_capacity)
 
 #define MINIMUM_HEAT_CAPACITY 0.0003
-#define MINIMUM_MOLE_COUNT		0.01
+#define MINIMUM_MOLE_COUNT 0.01
 #define QUANTIZE(variable) (round(variable, 0.0001))
 
 /datum/gas_mixture

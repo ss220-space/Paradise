@@ -50,12 +50,12 @@
 //Must be between 0 and 1. Values closer to 1 equalize temperature faster
 //Capped at OPEN_HEAT_TRANSFER_COEFFICIENT, both here and in Rust.
 
-#define WALL_HEAT_TRANSFER_COEFFICIENT		0.0
-#define DOOR_HEAT_TRANSFER_COEFFICIENT		0.001
-#define OPEN_HEAT_TRANSFER_COEFFICIENT		0.4
-#define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.001
+#define WALL_HEAT_TRANSFER_COEFFICIENT 0.0
+#define DOOR_HEAT_TRANSFER_COEFFICIENT 0.001
+#define OPEN_HEAT_TRANSFER_COEFFICIENT 0.4
+#define WINDOW_HEAT_TRANSFER_COEFFICIENT 0.001
 // This looks silly, but it's for clarity when reading elsewhere.
-#define ZERO_HEAT_TRANSFER_COEFFICIENT		0.0
+#define ZERO_HEAT_TRANSFER_COEFFICIENT 0.0
 
 #define HEAT_CAPACITY_VACUUM 700000 //a hack to help make vacuums "cold", sacrificing realism for gameplay
 
@@ -83,14 +83,14 @@
 #define MOLES_WATER_VAPOR_VISIBLE 2.0 //Moles in a standard cell after which water vapor is visible
 
 //HYDROGEN
-#define HYDROGEN_BURN_ENERGY				2500000
-#define HYDROGEN_MIN_IGNITE_TEMP			500
+#define HYDROGEN_BURN_ENERGY 2500000
+#define HYDROGEN_MIN_IGNITE_TEMP 500
 
 //WATER VAPOR
-#define WATER_VAPOR_PER_PLASMA_BURNT        6
-#define WATER_VAPOR_REACTION_ENERGY         200
-#define H2_NEEDED_FOR_H2O					2
-#define O2_NEEDED_FOR_H2O					1
+#define WATER_VAPOR_PER_PLASMA_BURNT 6
+#define WATER_VAPOR_REACTION_ENERGY 200
+#define H2_NEEDED_FOR_H2O 2
+#define O2_NEEDED_FOR_H2O 1
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE 550 //This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
@@ -179,8 +179,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_COMPOSITION_NITROGEN (1<<4)
 #define SENSOR_COMPOSITION_CO2 (1<<5)
 #define SENSOR_COMPOSITION_N2O (1<<6)
-#define SENSOR_COMPOSITION_H2 	(1<<7)
-#define SENSOR_COMPOSITION_H2O 	(1<<8)
+#define SENSOR_COMPOSITION_H2 (1<<7)
+#define SENSOR_COMPOSITION_H2O (1<<8)
 
 /// Maximum germ level you can reach by standing still
 #define GERM_LEVEL_AMBIENT 110
@@ -209,8 +209,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 
 // Reactions
-#define N2O_DECOMPOSITION_MIN_ENERGY		1400
-#define N2O_DECOMPOSITION_ENERGY_RELEASED	200000
+#define N2O_DECOMPOSITION_MIN_ENERGY 1400
+#define N2O_DECOMPOSITION_ENERGY_RELEASED 200000
 /// The coefficient a for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
 /// And a decomposition close to 0 at 1400 Kelvin
 #define N2O_DECOMPOSITION_COEFFICIENT_A 1.376651173e10
@@ -221,8 +221,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define AGENT_B_CONVERSION_MIN_TEMP 900
 /// Agent B released this much energy per mole of CO2 converted to O2
 #define AGENT_B_CONVERSION_ENERGY_RELEASED 20000
-
-
 
 // From milla/src/lib.rs
 #define ATMOS_MODE_SPACE 0
@@ -252,50 +250,50 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 // Indexes for Tiles and InterestingTiles
 // Must match the order in milla/src/model.rs
-#define MILLA_INDEX_AIRTIGHT_DIRECTIONS 	1
-#define MILLA_INDEX_OXYGEN					2
-#define MILLA_INDEX_CARBON_DIOXIDE			3
-#define MILLA_INDEX_NITROGEN				4
-#define MILLA_INDEX_TOXINS					5
-#define MILLA_INDEX_SLEEPING_AGENT			6
-#define MILLA_INDEX_AGENT_B					7
-#define MILLA_INDEX_HYDROGEN				8
-#define MILLA_INDEX_WATER_VAPOR				9
-#define MILLA_INDEX_ATMOS_MODE				10
-#define MILLA_INDEX_ENVIRONMENT_ID			11
-#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH	12
-#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST	13
-#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH	14
-#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST	15
-#define MILLA_INDEX_INNATE_HEAT_CAPACITY	16
-#define MILLA_INDEX_TEMPERATURE				17
-#define MILLA_INDEX_HOTSPOT_TEMPERATURE		18
-#define MILLA_INDEX_HOTSPOT_VOLUME			19
-#define MILLA_INDEX_WIND_X					20
-#define MILLA_INDEX_WIND_Y					21
-#define MILLA_INDEX_FUEL_BURNT				22
+#define MILLA_INDEX_AIRTIGHT_DIRECTIONS 1
+#define MILLA_INDEX_OXYGEN 2
+#define MILLA_INDEX_CARBON_DIOXIDE 3
+#define MILLA_INDEX_NITROGEN 4
+#define MILLA_INDEX_TOXINS 5
+#define MILLA_INDEX_SLEEPING_AGENT 6
+#define MILLA_INDEX_AGENT_B 7
+#define MILLA_INDEX_HYDROGEN 8
+#define MILLA_INDEX_WATER_VAPOR 9
+#define MILLA_INDEX_ATMOS_MODE 10
+#define MILLA_INDEX_ENVIRONMENT_ID 11
+#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH 12
+#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST 13
+#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH 14
+#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST 15
+#define MILLA_INDEX_INNATE_HEAT_CAPACITY 16
+#define MILLA_INDEX_TEMPERATURE 17
+#define MILLA_INDEX_HOTSPOT_TEMPERATURE 18
+#define MILLA_INDEX_HOTSPOT_VOLUME 19
+#define MILLA_INDEX_WIND_X 20
+#define MILLA_INDEX_WIND_Y 21
+#define MILLA_INDEX_FUEL_BURNT 22
 
 /// The number of values per tile.
-#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
+#define MILLA_TILE_SIZE MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF					23
-#define MILLA_INDEX_INTERESTING_REASONS		24
-#define MILLA_INDEX_AIRFLOW_X				25
-#define MILLA_INDEX_AIRFLOW_Y				26
+#define MILLA_INDEX_TURF 23
+#define MILLA_INDEX_INTERESTING_REASONS 24
+#define MILLA_INDEX_AIRFLOW_X 25
+#define MILLA_INDEX_AIRFLOW_Y 26
 
 /// The number of values per interesting tile.
-#define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y
+#define MILLA_INTERESTING_TILE_SIZE MILLA_INDEX_AIRFLOW_Y
 /// Interesting because it needs a display update.
-#define MILLA_INTERESTING_REASON_DISPLAY	(1 << 0)
+#define MILLA_INTERESTING_REASON_DISPLAY (1 << 0)
 /// Interesting because it's hot enough to start a fire. Excludes normal-temperature Lavaland tiles without an active fire.
-#define MILLA_INTERESTING_REASON_HOT		(1 << 1)
+#define MILLA_INTERESTING_REASON_HOT (1 << 1)
 /// Interesting because it has wind that can push stuff around.
-#define MILLA_INTERESTING_REASON_WIND		(1 << 2)
-#define MILLA_NORTH	(1 << 0)
-#define MILLA_EAST	(1 << 1)
-#define MILLA_SOUTH	(1 << 2)
-#define MILLA_WEST	(1 << 3)
+#define MILLA_INTERESTING_REASON_WIND (1 << 2)
+#define MILLA_NORTH (1 << 0)
+#define MILLA_EAST (1 << 1)
+#define MILLA_SOUTH (1 << 2)
+#define MILLA_WEST (1 << 3)
 
 // Vent pump modes
 /// Don't go over the external pressure

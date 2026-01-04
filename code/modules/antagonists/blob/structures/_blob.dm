@@ -93,6 +93,11 @@
 /obj/structure/blob/CanAtmosPass(turf/T, vertical)
 	return !atmosblock
 
+/obj/structure/blob/get_superconductivity(direction)
+	if(atmosblock)
+		return FALSE
+	return ..()
+
 /obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
 	. = ..()
 	if(overmind)

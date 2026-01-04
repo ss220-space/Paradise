@@ -12,7 +12,7 @@
 /// Nitrous oxide only.
 #define FILTER_N2O 4
 /// Hydrogen only.
-#define FILTER_H2  5
+#define FILTER_H2 5
 /// Water vapor only.
 #define FILTER_H2O 6
 

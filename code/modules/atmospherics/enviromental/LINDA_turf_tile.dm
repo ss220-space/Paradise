@@ -153,7 +153,6 @@
 	was_pulling.pulledby = src
 
 /obj/effect/wind
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/tile_effects.dmi'
 	icon_state = "wind"
