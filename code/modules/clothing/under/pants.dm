@@ -40,7 +40,7 @@
 
 /obj/item/clothing/under/pants/lowjeans
 	name = "low-rise jeans"
-	desc = "Бунтарские джинсы."
+	desc = "Джинсы с низкой посадкой. Для бунтарей и желающих показать своё исподнее окружающим."
 	icon_state = "lowjeans"
 	item_color = "lowjeans"
 	species_restricted = list(SPECIES_HUMAN)
@@ -48,12 +48,12 @@
 
 /obj/item/clothing/under/pants/lowjeans/get_ru_names()
 	return list(
-		NOMINATIVE = "низко посаженные джинсы",
-		GENITIVE = "низко посаженных джинсов",
-		DATIVE = "низко посаженным джинсам",
-		ACCUSATIVE = "низко посаженные джинсы",
-		INSTRUMENTAL = "низко посаженными джинсами",
-		PREPOSITIONAL = "низко посаженных джинсах",
+		NOMINATIVE = "заниженные джинсы",
+		GENITIVE = "заниженных джинсов",
+		DATIVE = "заниженным джинсам",
+		ACCUSATIVE = "заниженные джинсы",
+		INSTRUMENTAL = "заниженными джинсами",
+		PREPOSITIONAL = "заниженных джинсах",
 	)
 
 /obj/item/clothing/under/pants/white
