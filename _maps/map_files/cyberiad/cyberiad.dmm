@@ -11122,16 +11122,16 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/stamp/denied{
-	pixel_y = 10;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 10
 	},
 /obj/item/stamp/granted{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -50275,13 +50275,6 @@
 /area/security/permabrig)
 "fmm" = (
 /obj/machinery/suit_storage_unit/qm,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/flag/cargo,
-/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -54300,16 +54293,16 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/stamp/granted{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /obj/item/stamp/denied{
-	pixel_y = 10;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -77609,8 +77602,8 @@
 	pixel_y = 4
 	},
 /obj/item/storage/box/donkpockets{
-	pixel_y = 4;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_y = 8
@@ -79774,8 +79767,8 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/pen{
 	pixel_y = 7
@@ -87993,16 +87986,16 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/stamp/denied{
-	pixel_y = 10;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 10
 	},
 /obj/item/stamp/granted{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
