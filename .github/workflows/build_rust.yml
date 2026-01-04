@@ -88,9 +88,6 @@ jobs:
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
 
-
-
-
         cd rust
 
         WINDOWS_TARGET="i686-pc-windows-gnu"
@@ -102,13 +99,15 @@ jobs:
         fi
 
         cargo build --release --target $LINUX_TARGET
-        cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs_ci_515.so
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_515.so
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs.so
         cargo clean
         cargo build --release --target $LINUX_TARGET --no-default-features --features byond-516
-        cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs_ci_516.so
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_516.so
 
         cargo build --release --target $WINDOWS_TARGET
         cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_515.dll
+        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs.dll
         cargo clean
         cargo build --release --target $WINDOWS_TARGET --no-default-features --features byond-516
         cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516.dll
@@ -117,7 +116,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git add --force librustlibs.so rustlibs.dll librustlibs_ci_515.so librustlibs_ci_516.so rustlibs_515.dll rustlibs_516.dll
+        git add --force librustlibs.so rustlibs.dll librustlibs_515.so librustlibs_516.so rustlibs_515.dll rustlibs_516.dll
         git commit -m "Build Rust library"
         git push origin
 
