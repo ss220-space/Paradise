@@ -182,8 +182,8 @@ SUBSYSTEM_DEF(air)
 	setup_turfs()
 	setup_atmos_machinery(SSmachines.get_by_type(/obj/machinery/atmospherics))
 	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics))
-	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
-		A.initialize_atmos_network()
+	for(var/obj/machinery/atmospherics/atmos_machine in machinery_to_construct)
+		atmos_machine.initialize_atmos_network()
 
 	in_milla_safe_code = FALSE
 	return SS_INIT_SUCCESS
@@ -355,12 +355,12 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
-		var/obj/machinery/atmospherics/A = currentrun[length(currentrun)]
+		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
-		if(A)
-			A.build_network(remove_deferral = TRUE)
+		if(atmos_machine)
+			atmos_machine.build_network(remove_deferral = TRUE)
 		else
-			pipenets_to_build.Remove(A)
+			pipenets_to_build.Remove(atmos_machine)
 		if(MC_TICK_CHECK)
 			return
 
@@ -381,27 +381,36 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	var/seconds = wait * 0.1
+
 	if(!resumed)
 		src.currentrun = atmos_machinery.Copy()
+
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/list/supermatters = list()
+
 	while(length(currentrun))
-		var/obj/machinery/atmospherics/M = currentrun[length(currentrun)]
+		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
-		if(istype(M, /obj/machinery/power/supermatter_shard))
-			supermatters += M
-		else if(isnull(M) || (M.process_atmos(seconds) == PROCESS_KILL))
-			atmos_machinery -= M
+
+		if(istype(atmos_machine , /obj/machinery/power/supermatter_shard))
+			supermatters += atmos_machine
+
+		else if(isnull(atmos_machine ) || (atmos_machine .process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery -= atmos_machine
+
 		if(MC_TICK_CHECK)
-			for(var/SM in supermatters)
-				currentrun += SM
+			for(var/supermatter_shard in supermatters)
+				currentrun += supermatter_shard
 			return
+
 	while(length(supermatters))
-		var/obj/machinery/power/supermatter_shard/SM = supermatters[length(supermatters)]
+		var/obj/machinery/power/supermatter_shard/supermatter_shard = supermatters[length(supermatters)]
 		supermatters.len--
-		if(isnull(SM) || (SM.process_atmos(seconds) == PROCESS_KILL))
-			atmos_machinery -= SM
+
+		if(isnull(supermatter_shard) || (supermatter_shard.process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery -= supermatter_shard
+
 		if(MC_TICK_CHECK)
 			for(var/other_sm in supermatters)
 				currentrun += other_sm
@@ -417,8 +426,8 @@ SUBSYSTEM_DEF(air)
 	while(length(currentrun))
 		// Pop a tile off the list.
 		var/offset = length(currentrun) - MILLA_INTERESTING_TILE_SIZE
-		var/turf/T = currentrun[offset + MILLA_INDEX_TURF]
-		if(!istype(T))
+		var/turf/turf = currentrun[offset + MILLA_INDEX_TURF]
+		if(!istype(turf))
 			currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 			if(MC_TICK_CHECK)
 				return
@@ -429,18 +438,18 @@ SUBSYSTEM_DEF(air)
 		// Bind the MILLA tile we got, if needed.
 		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
 			var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
-			if(isnull(T.bound_air))
-				bind_turf(T, milla_tile)
-			else if(T.bound_air.lastread < milla_tick)
-				T.bound_air.copy_from_milla(milla_tile)
-				T.bound_air.lastread = milla_tick
-				T.bound_air.readonly = null
-				T.bound_air.dirty = FALSE
-				T.bound_air.synchronized = FALSE
+			if(isnull(turf.bound_air))
+				bind_turf(turf, milla_tile)
+			else if(turf.bound_air.lastread < milla_tick)
+				turf.bound_air.copy_from_milla(milla_tile)
+				turf.bound_air.lastread = milla_tick
+				turf.bound_air.readonly = null
+				turf.bound_air.dirty = FALSE
+				turf.bound_air.synchronized = FALSE
 
-			var/turf/simulated/S = T
-			if(istype(S))
-				S.update_visuals()
+			var/turf/simulated/simulated_turf = turf
+			if(istype(simulated_turf))
+				simulated_turf.update_visuals()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
@@ -448,24 +457,24 @@ SUBSYSTEM_DEF(air)
 			var/hotspot_temperature = currentrun[offset + MILLA_INDEX_HOTSPOT_TEMPERATURE]
 			var/hotspot_volume = currentrun[offset + MILLA_INDEX_HOTSPOT_VOLUME]
 
-			var/turf/simulated/S = T
-			if(istype(S))
-				if(isnull(S.active_hotspot))
+			var/turf/simulated/simulated_turf = turf
+			if(istype(simulated_turf))
+				if(isnull(simulated_turf.active_hotspot))
 					// Wasn't an active hotspot before, add it.
-					hotspots += S
+					hotspots += simulated_turf
 				else
-					S.active_hotspot.temperature = temperature
-					S.active_hotspot.fuel_burnt = fuel_burnt
-					S.active_hotspot.data_tick = milla_tick
+					simulated_turf.active_hotspot.temperature = temperature
+					simulated_turf.active_hotspot.fuel_burnt = fuel_burnt
+					simulated_turf.active_hotspot.data_tick = milla_tick
 					if(hotspot_volume > 0)
-						S.active_hotspot.temperature = hotspot_temperature
-						S.active_hotspot.volume = hotspot_volume * CELL_VOLUME
+						simulated_turf.active_hotspot.temperature = hotspot_temperature
+						simulated_turf.active_hotspot.volume = hotspot_volume * CELL_VOLUME
 					else
-						S.active_hotspot.temperature = temperature
-						S.active_hotspot.volume = CELL_VOLUME
+						simulated_turf.active_hotspot.temperature = temperature
+						simulated_turf.active_hotspot.volume = CELL_VOLUME
 
-				T.temperature_expose(temperature)
-				for(var/atom/movable/item in T)
+				turf.temperature_expose(temperature)
+				for(var/atom/movable/item in turf)
 					if(item.cares_about_temperature || !isnull(item.reagents))
 						item.temperature_expose(temperature, CELL_VOLUME)
 
@@ -473,15 +482,15 @@ SUBSYSTEM_DEF(air)
 			var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]
 			var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y]
 
-			var/turf/simulated/S = T
-			if(istype(S))
-				if(isnull(S.wind_tick))
+			var/turf/simulated/simulated_turf = turf
+			if(istype(simulated_turf))
+				if(isnull(simulated_turf.wind_tick))
 					// Didn't have wind before, add it.
-					windy_tiles += S
-				S.wind_tick = milla_tick
-				S.wind_x = x_flow
-				S.wind_y = y_flow
-			T.high_pressure_movements(x_flow, y_flow)
+					windy_tiles += simulated_turf
+				simulated_turf.wind_tick = milla_tick
+				simulated_turf.wind_x = x_flow
+				simulated_turf.wind_y = y_flow
+			turf.high_pressure_movements(x_flow, y_flow)
 
 		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 		if(MC_TICK_CHECK)
@@ -492,18 +501,19 @@ SUBSYSTEM_DEF(air)
 		src.currentrun = hotspots
 		new_hotspots = list()
 		hotspot_count = length(src.currentrun)
+
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
-		var/turf/simulated/S = currentrun[length(currentrun)]
+		var/turf/simulated/simulated_turf = currentrun[length(currentrun)]
 
-		if(!istype(S))
+		if(!istype(simulated_turf))
 			currentrun.len--
 			continue
 
-		if(S.update_hotspot())
+		if(simulated_turf.update_hotspot())
 			// Is still a hotspot, keep it.
-			new_hotspots += S
+			new_hotspots += simulated_turf
 
 		currentrun.len--
 
@@ -519,15 +529,15 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
-		var/turf/simulated/S = currentrun[length(currentrun)]
+		var/turf/simulated/simulated_turf = currentrun[length(currentrun)]
 		currentrun.len--
 
-		if(!istype(S))
+		if(!istype(simulated_turf))
 			continue
 
-		if(S.update_wind())
+		if(simulated_turf.update_wind())
 			// Still has wind, keep it.
-			new_windy_tiles += S
+			new_windy_tiles += simulated_turf
 
 		if(MC_TICK_CHECK)
 			return
@@ -538,6 +548,7 @@ SUBSYSTEM_DEF(air)
 	if(!resumed)
 		currentrun = list(get_tracked_pressure_tiles(), pressure_hud_users)
 		pressure_hud_users = list()
+
 	//cache for sanic speed (lists are references anyways)
 	var/list/tracked_tiles = currentrun[1]
 	while(length(tracked_tiles))
@@ -553,8 +564,10 @@ SUBSYSTEM_DEF(air)
 			var/ratio = pressure / ONE_ATMOSPHERE
 			pressure_overlay.overlay.color = rgb((1 - ratio) * 255, 0, ratio * 255)
 			pressure_overlay.overlay.alpha = pressure_overlay_alpha
+
 		if(MC_TICK_CHECK)
 			return
+
 	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
 	//cache for sanic speed (lists are references anyways)
 	var/list/users = currentrun[2]
@@ -562,8 +575,10 @@ SUBSYSTEM_DEF(air)
 		var/mob/user = users[length(users)]
 		var/turf/oldloc = users[user]
 		users.len--
+
 		if(!istype(user) || QDELETED(user) || isnull(user.client) || !istype(oldloc))
 			continue
+
 		if(user in hud.hud_users_all_z_levels)
 			var/turf/newloc = get_turf(user)
 			if(oldloc == newloc)
@@ -574,14 +589,18 @@ SUBSYSTEM_DEF(air)
 			pressure_hud_users[user] = newloc
 		else
 			clear_pressure_hud(user, oldloc, TRUE)
+
 		if(MC_TICK_CHECK)
 			return
+
 	for(var/mob/user in hud.hud_users_all_z_levels)
 		if(isnull(user.client))
 			continue
+
 		track_pressure_tiles(user, PRESSURE_HUD_LOAD_RADIUS)
 		if(!(user in pressure_hud_users))
 			pressure_hud_users[user] = get_turf(user)
+
 	// Clean up currentrun so we don't confuse the next step.
 	currentrun = list()
 
@@ -593,6 +612,7 @@ SUBSYSTEM_DEF(air)
 		full_clear = TRUE
 	else if(oldloc.z != newloc.z)
 		full_clear = TRUE
+
 	for(var/x in oldloc.x - PRESSURE_HUD_RADIUS to oldloc.x + PRESSURE_HUD_RADIUS)
 		if(x < 1 || x > world.maxx)
 			continue
@@ -648,12 +668,12 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/setup_turfs(turf/low_corner = locate(1, 1, 1), turf/high_corner = locate(world.maxx, world.maxy, world.maxz))
-	for(var/turf/T as anything in block(low_corner, high_corner))
-		T.Initialize_Atmos(milla_tick)
+	for(var/turf/turf as anything in block(low_corner, high_corner))
+		turf.Initialize_Atmos(milla_tick)
 	milla_load_turfs(low_corner, high_corner)
-	for(var/turf/T as anything in block(low_corner, high_corner))
-		T.milla_data.len = 0
-		T.milla_data = null
+	for(var/turf/turf as anything in block(low_corner, high_corner))
+		turf.milla_data.len = 0
+		turf.milla_data = null
 
 /datum/controller/subsystem/air/proc/setup_atmos_machinery(list/machines_to_init)
 	var/watch = start_watch()
@@ -665,8 +685,8 @@ SUBSYSTEM_DEF(air)
 // atmos machinery without a loud announcement to the world
 /datum/controller/subsystem/air/proc/_setup_atmos_machinery(list/machines_to_init)
 	var/count = 0
-	for(var/obj/machinery/atmospherics/A in machines_to_init)
-		A.atmos_init()
+	for(var/obj/machinery/atmospherics/atmos_machine in machines_to_init)
+		atmos_machine.atmos_init()
 		count++
 		CHECK_TICK
 	return count
@@ -716,22 +736,22 @@ SUBSYSTEM_DEF(air)
 		SET_PLANE_W_SCALAR(water_vapor, water_vapor.plane, i)
 		GLOB.wvmaster["[i]"] += water_vapor
 
-/datum/controller/subsystem/air/proc/bind_turf(turf/T, list/milla_tile = null)
-	var/datum/gas_mixture/bound_to_turf/B = new()
-	T.bound_air = B
-	B.bound_turf = T
+/datum/controller/subsystem/air/proc/bind_turf(turf/tile, list/milla_tile = null)
+	var/datum/gas_mixture/bound_to_turf/turf_air = new()
+	tile.bound_air = turf_air
+	turf_air.bound_turf = tile
 	if(isnull(milla_tile))
 		milla_tile = new/list(MILLA_TILE_SIZE)
-		get_tile_atmos(T, milla_tile)
-	B.copy_from_milla(milla_tile)
-	B.lastread = src.milla_tick
-	B.readonly = null
-	B.dirty = FALSE
-	B.synchronized = FALSE
+		get_tile_atmos(tile, milla_tile)
+	turf_air.copy_from_milla(milla_tile)
+	turf_air.lastread = src.milla_tick
+	turf_air.readonly = null
+	turf_air.dirty = FALSE
+	turf_air.synchronized = FALSE
 
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
-/datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/CB)
+/datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/callback)
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 
@@ -742,21 +762,21 @@ SUBSYSTEM_DEF(air)
 		var/was_safe = SSair.in_milla_safe_code
 		SSair.in_milla_safe_code = TRUE
 		// This is one of four intended places to call this otherwise-unsafe proc.
-		CB.private_unsafe_invoke()
+		callback.private_unsafe_invoke()
 		SSair.in_milla_safe_code = was_safe
 		return
 
-	waiting_for_sync += CB
+	waiting_for_sync += callback
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode. This version allows for sleeping if it's absolutely necessary.
-/datum/controller/subsystem/air/proc/sleepable_synchronize(datum/milla_safe_must_sleep/CB)
+/datum/controller/subsystem/air/proc/sleepable_synchronize(datum/milla_safe_must_sleep/callback)
 	if(length(sleepers))
-		sleepers += CB
+		sleepers += callback
 		// This is one of four intended places to call this otherwise-unsafe proc.
-		CB.private_unsafe_invoke()
-		sleepers -= CB
+		callback.private_unsafe_invoke()
+		sleepers -= callback
 		return
-	sleepable_waiting_for_sync += CB
+	sleepable_waiting_for_sync += callback
 
 /datum/controller/subsystem/air/proc/is_in_milla_safe_code()
 	return in_milla_safe_code || length(sleepers) > 0
@@ -769,19 +789,19 @@ SUBSYSTEM_DEF(air)
 	// Just in case someone is naughty and decides to sleep, make sure that this method runs fully anyway.
 	set waitfor = FALSE
 	in_milla_safe_code = TRUE
-	for(var/datum/milla_safe/CB as anything in waiting_for_sync)
+	for(var/datum/milla_safe/callback as anything in waiting_for_sync)
 		// This is one of four intended places to call this otherwise-unsafe proc.
-		CB.private_unsafe_invoke()
+		callback.private_unsafe_invoke()
 	waiting_for_sync.Cut()
 	in_milla_safe_code = FALSE
 
 /datum/controller/subsystem/air/proc/run_sleeping_callbacks()
 	in_milla_safe_code = TRUE
-	for(var/datum/milla_safe_must_sleep/CB as anything in sleepable_waiting_for_sync)
-		sleepers += CB
+	for(var/datum/milla_safe_must_sleep/callback as anything in sleepable_waiting_for_sync)
+		sleepers += callback
 		// This is one of four intended places to call this otherwise-unsafe proc.
-		CB.private_unsafe_invoke()
-		sleepers -= CB
+		callback.private_unsafe_invoke()
+		sleepers -= callback
 	sleepable_waiting_for_sync.Cut()
 	in_milla_safe_code = FALSE
 
@@ -806,8 +826,8 @@ SUBSYSTEM_DEF(air)
 	// Disable firing.
 	SSair.flags |= SS_NO_FIRE
 	// Disable fire, too.
-	for(var/turf/simulated/S in SSair.hotspots)
-		QDEL_NULL(S.active_hotspot)
+	for(var/turf/simulated/simuleated_turf in SSair.hotspots)
+		QDEL_NULL(simuleated_turf .active_hotspot)
 
 /// condenses water on a tile at the specified coordinates
 /proc/condense_water(water_phase, x, y, z)
