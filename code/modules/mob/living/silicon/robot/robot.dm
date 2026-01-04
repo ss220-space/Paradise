@@ -2112,7 +2112,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		var/mob/living/victim = buckled_mob //save him for future time
 		unbuckle_mob(buckled_mob)
 		victim.throw_at(target, 5, 10)
-		victim.visible_message(span_warning("[victim.declent_ru(NOMINATIVE)] вылетает из кресла [src.declent_ru(GENITIVE)]!"))
+		victim.visible_message(span_warning("[victim.declent_ru(NOMINATIVE)] вылета[PLUR_ET_YUT(victim)] из кресла [src.declent_ru(GENITIVE)]!"))
 	do_sparks(5, 0, src)
 
 /mob/living/silicon/robot/can_see_reagents()
