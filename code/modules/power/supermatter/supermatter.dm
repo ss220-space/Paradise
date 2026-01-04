@@ -1,5 +1,5 @@
 #define NITROGEN_RETARDATION_FACTOR 0.15 //Higher == N2 slows reaction more
-#define THERMAL_RELEASE_MODIFIER 10000 //Higher == more heat released during reaction
+#define THERMAL_RELEASE_MODIFIER 2000 //Higher == more heat released during reaction
 #define PLASMA_RELEASE_MODIFIER 1500 //Higher == less phor.. plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 15000 //Higher == less oxygen released at high temperature/power
 #define REACTION_POWER_MODIFIER 1.1 //Higher == more overall power
@@ -83,6 +83,11 @@
 
 	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
 
+	/// How often do we want to process the crystal?
+	var/ticks_per_run = 5
+	/// How long has it been since we processed the crystal?
+	var/tick_counter = 0
+
 /obj/machinery/power/supermatter_shard/crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -145,12 +150,27 @@
 	return
 
 /obj/machinery/power/supermatter_shard/process_atmos()
-	var/turf/L = loc
+	tick_counter += SSair.wait
 
-	if(isnull(L))		// We have a null turf...something is wrong, stop processing this entity.
+	if(tick_counter < ticks_per_run)
+		return
+
+	var/datum/milla_safe/supermatter_process/milla = new()
+	milla.invoke_async(src)
+	tick_counter -= ticks_per_run
+
+/datum/milla_safe/supermatter_process
+
+/datum/milla_safe/supermatter_process/on_run(obj/machinery/power/supermatter_shard/supermatter)
+	var/turf/location = get_turf(supermatter)
+	var/datum/gas_mixture/env = get_turf_air(location)
+	supermatter.process_atmos_safely(location, env)
+
+/obj/machinery/power/supermatter_shard/proc/process_atmos_safely(turf/location, datum/gas_mixture/env)
+	if(isnull(location))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!istype(L))	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
+	if(!isturf(loc))	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
 		return  //Yeah just stop.
 
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
@@ -178,10 +198,9 @@
 
 		if(damage > explosion_point)
 			if(get_turf(src))
-				var/turf/position = get_turf(src)
 				for(var/mob/living/mob in GLOB.alive_mob_list)
 					var/turf/mob_pos = get_turf(mob)
-					if(mob_pos && mob_pos.z == position.z)
+					if(mob_pos && mob_pos.z == location.z)
 						if(ishuman(mob))
 							//Hilariously enough, running into a closet should make you get hit the hardest.
 							var/mob/living/carbon/human/H = mob
@@ -195,20 +214,18 @@
 			return
 
 	if(damage > warning_point && world.timeofday > last_zap)
-		last_zap = world.timeofday + rand(80,200)
+		last_zap = world.timeofday + rand(80, 200)
 		supermatter_zap()
 
-	//Ok, get the air from the turf
-	var/datum/gas_mixture/env = L.return_air()
 	//And, get part of that air
 	var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles())
 
 	//ensure that damage doesn't increase too quickly due to super high temperatures resulting from no coolant, for example. We dont want the SM exploding before anyone can react.
 	//We want the cap to scale linearly with power (and explosion_point). Let's aim for a cap of 5 at power = 300 (based on testing, equals roughly 5% per SM alert announcement).
-	var/damage_inc_limit = (power/300)*(explosion_point/1000)*DAMAGE_RATE_LIMIT
+	var/damage_inc_limit = (power / 300) * (explosion_point / 1000) * DAMAGE_RATE_LIMIT
 
 	if(!env || !removed || !removed.total_moles())
-		damage += max((power - 15*POWER_FACTOR)/10, 0)
+		damage += max((power - 15 * POWER_FACTOR) / 10, 0)
 	else
 		damage_archived = damage
 
@@ -216,14 +233,14 @@
 		//Placeholder, which representates vacuum
 		removed = new
 
-	damage = max(0, damage + between(-DAMAGE_RATE_LIMIT, (removed.temperature - CRITICAL_TEMPERATURE) / 150, damage_inc_limit))
+	damage = max(0, damage + between(-DAMAGE_RATE_LIMIT, (removed.temperature() - CRITICAL_TEMPERATURE) / 150, damage_inc_limit))
 
 	//Maxes out at 100% oxygen pressure
 	if(!removed.total_moles())
 		oxygen = 0
 	else
 		//Result of this formula is undefined if we (total moles of removed) -> 0. So, let's roll with zero if no gas was removed.
-		oxygen = clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
+		oxygen = clamp((removed.oxygen() - (removed.nitrogen() * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
 
 	var/temp_factor
 	var/equilibrium_power
@@ -237,32 +254,30 @@
 		icon_state = base_icon_state
 
 	temp_factor = ((equilibrium_power / DECAY_FACTOR) ** 3) / 800
-	power = round(max((removed.temperature * temp_factor) * oxygen + power, 0), 0.01)
+	power = round(max((removed.temperature() * temp_factor) * oxygen + power, 0), 0.01)
 
 	var/device_energy = round(power * REACTION_POWER_MODIFIER, 0.01)
 
 	var/old_heat_capacity = removed.heat_capacity()
 
 	if(device_energy)
-		removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
-		removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+		removed.set_toxins(removed.toxins() + max(device_energy / PLASMA_RELEASE_MODIFIER, 0))
+		removed.set_oxygen(removed.oxygen() + max((device_energy + removed.temperature() - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
 	var/heat_capacity = removed.heat_capacity()
 
 	var/thermal_power = THERMAL_RELEASE_MODIFIER * device_energy
 	if(debug)
 		visible_message("[src]: Releasing [round(thermal_power)] W.")
-		visible_message("[src]: Releasing additional [round((heat_capacity - old_heat_capacity)*removed.temperature)] W with exhaust gasses.")
+		visible_message("[src]: Releasing additional [round((heat_capacity - old_heat_capacity) * removed.temperature())] W with exhaust gasses.")
 
-	//deltaT = deltaQ / heat_capacity (deltaQ equals thermal_power)
-	//We are assuming here, that volume does not change here
-	removed.temperature += (thermal_power / heat_capacity)
-
-	removed.temperature = max(TCMB, removed.temperature)
+	if(removed.total_moles())
+		var/produced_joules = max(0, (thermal_power))
+		produced_joules *= (heat_capacity / removed.total_moles())
+		removed.set_temperature((removed.thermal_energy() + produced_joules) / heat_capacity)
 
 	env.merge(removed)
 
-	air_update_turf()
 	transfer_energy()
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(sqrt(power/6)))))
@@ -287,7 +302,7 @@
 
 	handle_admin_warnings()
 
-	return 1
+	return TRUE
 
 /obj/machinery/power/supermatter_shard/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
@@ -375,11 +390,10 @@
 		)
 		power += 200 //well...
 		var/turf/shard_loc = get_turf(src)
-		var/datum/gas_mixture/shard_env = shard_loc.return_air()
 		var/datum/gas_mixture/new_mixture = new
-		new_mixture.toxins = 10000
-		new_mixture.temperature += power * SHARD_CUT_COEF
-		shard_env.merge(new_mixture)
+		new_mixture.set_toxins(10000)
+		new_mixture.set_temperature(new_mixture.temperature() + power * SHARD_CUT_COEF)
+		shard_loc.blind_release_air(new_mixture)
 		scalpel.uses_left--
 		if(!scalpel.uses_left)
 			to_chat(user, span_boldwarning("A tiny piece of [I] falls off, rendering it useless!"))
@@ -526,7 +540,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return SUPERMATTER_ERROR
-	var/datum/gas_mixture/air = T.return_air()
+	var/datum/gas_mixture/air = T.get_readonly_air()
 	if(!air)
 		return SUPERMATTER_ERROR
 
@@ -539,10 +553,10 @@
 	if(get_internal_integrity() < 75)
 		return SUPERMATTER_DANGER
 
-	if((get_internal_integrity() < 100) || (air.temperature > CRITICAL_TEMPERATURE))
+	if((get_internal_integrity() < 100) || (air.temperature() > CRITICAL_TEMPERATURE))
 		return SUPERMATTER_WARNING
 
-	if(air.temperature > (CRITICAL_TEMPERATURE * 0.8))
+	if(air.temperature() > (CRITICAL_TEMPERATURE * 0.8))
 		return SUPERMATTER_NOTIFY
 
 	if(power > 5)

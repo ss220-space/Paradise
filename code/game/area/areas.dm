@@ -109,8 +109,8 @@
 	/// Whether the turfs in the area should be drawn onto the "base" holomap.
 	var/holomap_should_draw = TRUE
 
-	//all air alarms in area are connected via magic
-	var/obj/machinery/alarm/master_air_alarm
+	/// The air alarms present in this area.
+	var/list/air_alarms = list()
 	var/list/air_vent_names = list()
 	var/list/air_scrub_names = list()
 	var/list/air_vent_info = list()

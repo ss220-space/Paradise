@@ -32,6 +32,8 @@
 
 	clothing_traits = list(TRAIT_NO_BREATH)
 
+	cares_about_temperature = TRUE
+
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
 	var/sterile = FALSE
@@ -101,9 +103,9 @@
 		if(sterile)
 			. += span_boldannounceic("Похоже хоботок [GEND_HIS_HER(src)] удалили.")
 
-/obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/clothing/mask/facehugger/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		Die()
 
 /obj/item/clothing/mask/facehugger/equipped(mob/living/user, slot, initial = FALSE)

@@ -335,6 +335,6 @@ Thus, the two variables affect pump operation are set in New():
 	var/datum/gas_mixture/air_output = connected_pump.air2
 	input_pressure.set_output(air_input.return_pressure())
 	output_pressure.set_output(air_output.return_pressure())
-	input_temperature.set_output(air_input.return_temperature())
-	output_temperature.set_output(air_output.return_temperature())
+	input_temperature.set_output(air_input.temperature())
+	output_temperature.set_output(air_output.temperature())
 

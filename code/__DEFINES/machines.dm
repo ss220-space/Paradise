@@ -204,3 +204,22 @@
 // Engine types
 #define ENGTYPE_SING "Сингулярность"
 #define ENGTYPE_TESLA "Тесла"
+
+#define AALARM_MODE_FILTERING 1
+/// Makes draught
+#define AALARM_MODE_DRAUGHT 2
+/// Like siphon, but stronger (enables widenet)
+#define AALARM_MODE_PANIC 3
+/// Sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_CYCLE 4
+/// Scrubbers suck air
+#define AALARM_MODE_SIPHON 5
+/// Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_CONTAMINATED 6
+/// Just like normal, but disables low pressure check until normalized, then switches to normal
+#define AALARM_MODE_REFILL 7
+#define AALARM_MODE_OFF 8
+/// Emagged mode; turns off scrubbers and pressure checks on vents
+#define AALARM_MODE_FLOOD 9
+#define AALARM_MODE_CUSTOM 10
+

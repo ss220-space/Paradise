@@ -1,5 +1,9 @@
 
 #define MAX_RATE 10 * ONE_ATMOSPHERE
+/// The pump will be siphoning gas.
+#define DIRECTION_IN 0
+/// The pump will be pumping gas out.
+#define DIRECTION_OUT 1
 
 /obj/machinery/portable_atmospherics/scrubber
 	name = "Portable Air Scrubber"
@@ -37,59 +41,66 @@
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()
-
 	if(!on)
 		return
-	scrub(loc)
-	if(widenet)
-		var/turf/T = loc
-		if(istype(T))
-			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(TRUE))
-				scrub(tile)
-
-/obj/machinery/portable_atmospherics/scrubber/proc/scrub(turf/simulated/tile)
-	var/datum/gas_mixture/environment
 	if(holding)
-		environment = holding.air_contents
-	else
-		environment = tile.return_air()
-	var/transfer_moles = min(1,volume_rate/environment.volume)*environment.total_moles()
+		scrub(holding.air_contents)
+		return
+
+	var/datum/milla_safe/portable_scrubber_scrub/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/portable_scrubber_scrub
+
+/datum/milla_safe/portable_scrubber_scrub/on_run(obj/machinery/portable_atmospherics/scrubber/scrubber)
+
+	var/turf/turf = get_turf(scrubber)
+	scrubber.scrub(get_turf_air(turf))
+	if(scrubber.widenet)
+		for(var/turf/simulated/tile in turf.GetAtmosAdjacentTurfs(alldir = 1))
+			scrubber.scrub(get_turf_air(tile))
+
+/obj/machinery/portable_atmospherics/scrubber/proc/scrub(datum/gas_mixture/environment)
+	var/transfer_moles = min(1, volume_rate / environment.volume) * environment.total_moles()
 
 	//Take a gas sample
 	var/datum/gas_mixture/removed
-	if(holding)
-		removed = environment.remove(transfer_moles)
-	else
-		removed = loc.remove_air(transfer_moles)
+	removed = environment.remove(transfer_moles)
 
 	//Filter it
-	if(removed)
-		var/datum/gas_mixture/filtered_out = new
+	if(!removed)
+		return
 
-		filtered_out.temperature = removed.temperature
+	var/datum/gas_mixture/filtered_out = new
 
-		filtered_out.toxins = removed.toxins
-		removed.toxins = 0
+	filtered_out.set_temperature(removed.temperature())
 
-		filtered_out.carbon_dioxide = removed.carbon_dioxide
-		removed.carbon_dioxide = 0
 
-		filtered_out.sleeping_agent = removed.sleeping_agent
-		removed.sleeping_agent = 0
+	filtered_out.set_toxins(removed.toxins())
+	removed.set_toxins(0)
 
-		filtered_out.agent_b = removed.agent_b
-		removed.agent_b = 0
+	filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+	removed.set_carbon_dioxide(0)
+
+	filtered_out.set_sleeping_agent(removed.sleeping_agent())
+	removed.set_sleeping_agent(0)
+
+	filtered_out.set_agent_b(removed.agent_b())
+	removed.set_agent_b(0)
+
+	filtered_out.set_hydrogen(removed.hydrogen())
+	removed.set_hydrogen(0)
+
+	filtered_out.set_water_vapor(removed.water_vapor())
+	removed.set_water_vapor(0)
 
 	//Remix the resulting gases
-		air_contents.merge(filtered_out)
+	air_contents.merge(filtered_out)
 
-		if(holding)
-			environment.merge(removed)
-		else
-			tile.assume_air(removed)
-			tile.air_update_turf()
+	environment.merge(removed)
 
-/obj/machinery/portable_atmospherics/scrubber/return_air()
+/obj/machinery/portable_atmospherics/scrubber/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/machinery/portable_atmospherics/scrubber/return_analyzable_air()
@@ -200,3 +211,5 @@
 	stationary = 1
 
 #undef MAX_RATE
+#undef DIRECTION_IN
+#undef DIRECTION_OUT

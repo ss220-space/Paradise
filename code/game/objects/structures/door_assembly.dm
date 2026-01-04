@@ -4,6 +4,7 @@
 	icon_state = "construction"
 	density = TRUE
 	max_integrity = 200
+	cares_about_temperature = TRUE
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral

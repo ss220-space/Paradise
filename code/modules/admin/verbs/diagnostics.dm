@@ -3,14 +3,14 @@ ADMIN_VERB(debug_air_status, R_DEBUG, "Debug Air Status", ADMIN_VERB_NO_DESCRIPT
 	if(!isturf(target))
 		return
 
-	var/datum/gas_mixture/GM = target.return_air()
+	var/datum/gas_mixture/GM = target.get_readonly_air()
 	var/burning = 0
 	if(issimulatedturf(target))
 		var/turf/simulated/T = target
 		if(T.active_hotspot)
 			burning = 1
 
-	to_chat(user, span_notice("@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] N2O: [GM.sleeping_agent] Agent B: [GM.agent_b] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning) ? span_warning("BURNING") : (null)]"))
+	to_chat(user, span_notice("@[target.x],[target.y]: O:[GM.oxygen()] T:[GM.toxins()] N:[GM.nitrogen()] C:[GM.carbon_dioxide()] N2O: [GM.sleeping_agent()] Agent B: [GM.agent_b()] Hydrogen: [GM.hydrogen()] Water Vapor: [GM.water_vapor()] w [GM.temperature()] Kelvin, [GM.return_pressure()] kPa [(burning)? (span_warning("BURNING")) : (null)]"))
 
 	message_admins("[key_name_admin(user)] has checked the air status of [target]")
 	log_admin("[key_name(user)] has checked the air status of [target]")

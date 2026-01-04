@@ -9,10 +9,10 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	#warn USE_BYOND_TRACY is enabled
 	prof_init()
 #endif
-
+/*
 #ifndef OPENDREAM
 	dmjit_hook_main_init()
-#endif
+#endif*/
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.

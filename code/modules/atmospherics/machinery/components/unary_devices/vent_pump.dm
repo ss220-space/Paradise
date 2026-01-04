@@ -21,6 +21,7 @@
 	var/area_uid
 
 	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
+	var/max_transfer_joules = 200 /*kPa*/ * 2 * ONE_ATMOSPHERE
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
@@ -57,22 +58,25 @@
 	on = TRUE
 	icon_state = "map_vent_in"
 
-/obj/machinery/atmospherics/unary/vent_pump/New()
-	..()
+/obj/machinery/atmospherics/unary/vent_pump/Initialize(mapload)
+	. = ..()
 	GLOB.all_vent_pumps += src
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
-	if(!id_tag)
-		assign_uid()
-		id_tag = num2text(uid)
+
+	if(id_tag)
+		return
+
+	assign_uid()
+	id_tag = num2text(uid)
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
 	power_channel = EQUIP
 
-/obj/machinery/atmospherics/unary/vent_pump/high_volume/New()
-	..()
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/Initialize(mapload)
+	. = ..()
 	air_contents.volume = 1000
 
 /obj/machinery/atmospherics/unary/vent_pump/update_overlays()
@@ -120,59 +124,70 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/unary/vent_pump/process_atmos()
-	..()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
+	if(QDELETED(parent))
+		// We're orphaned!
+		return FALSE
+	var/turf/T = get_turf(src)
+	if(T.density) //No, you should not be able to get free air from walls
+		return
 	if(!node)
 		on = FALSE
-		// The state has changed, do some updates
-		broadcast_status()
-		update_icon()
-	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 	if(!on)
 		return FALSE
 
 	if(welded)
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
-			visible_message(span_danger("The welded cover of [src] bursts open!"))
+			visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
 			for(var/mob/living/M in range(1))
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
-			set_welded(FALSE)
+			welded = FALSE
+			update_icon()
 		return FALSE
 
-	var/datum/gas_mixture/environment = loc.return_air()
-	var/environment_pressure = environment.return_pressure()
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(releasing) //internal -> external
 		var/pressure_delta = 10000
-		if(pressure_checks & 1)
-			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
-		if(pressure_checks & 2)
+		if(pressure_checks == ONLY_CHECK_EXT_PRESSURE)
+			// Only checks difference between set pressure and environment pressure
+			pressure_delta = min(pressure_delta, (external_pressure_bound - environment.return_pressure()))
+		if(pressure_checks == ONLY_CHECK_INT_PRESSURE)
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
-		if(pressure_delta > 0.5 && air_contents.temperature > 0)
-			var/transfer_moles = pressure_delta * environment.volume / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
+		if(pressure_delta > 0.5 && air_contents.temperature() > 0)
+			// 1kPa * 1L = 1J
+			var/wanted_joules = pressure_delta * environment.volume
+			var/transfer_moles = min(max_transfer_joules, wanted_joules) / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-			loc.assume_air(removed)
-			air_update_turf()
-			parent?.update = TRUE
-
-	else //external -> internal
-		var/pressure_delta = 10000
-		if(pressure_checks & 1)
-			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
-		if(pressure_checks & 2)
-			pressure_delta = min(pressure_delta, (internal_pressure_bound - air_contents.return_pressure()))
-
-		if(pressure_delta > 0.5 && environment.temperature > 0)
-			var/transfer_moles = pressure_delta * air_contents.volume / (environment.temperature * R_IDEAL_GAS_EQUATION)
-			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-			if(isnull(removed)) //in space
-				return
-			air_contents.merge(removed)
-			air_update_turf()
+			// This isn't exactly "blind", but using the data from last tick is good enough for a vent.
+			T.blind_release_air(removed)
 			parent.update = TRUE
 
+	else //external -> internal
+		var/datum/milla_safe/vent_pump_siphon/milla = new()
+		milla.invoke_async(src)
+
 	return TRUE
+
+/datum/milla_safe/vent_pump_siphon
+
+/datum/milla_safe/vent_pump_siphon/on_run(obj/machinery/atmospherics/unary/vent_pump/vent_pump)
+	var/turf/T = get_turf(vent_pump)
+	var/datum/gas_mixture/environment = get_turf_air(T)
+	var/pressure_delta = 10000
+	if(vent_pump.pressure_checks == ONLY_CHECK_EXT_PRESSURE)
+		pressure_delta = min(pressure_delta, (environment.return_pressure() - vent_pump.external_pressure_bound))
+	if(vent_pump.pressure_checks == ONLY_CHECK_INT_PRESSURE)
+		pressure_delta = min(pressure_delta, (vent_pump.internal_pressure_bound - vent_pump.air_contents.return_pressure()))
+
+	if(pressure_delta > 0.5 && environment.temperature() > 0)
+		// 1kPa * 1L = 1J
+		var/wanted_joules = pressure_delta * environment.volume
+		var/transfer_moles = min(vent_pump.max_transfer_joules, wanted_joules) / (environment.temperature() * R_IDEAL_GAS_EQUATION)
+		var/datum/gas_mixture/removed = environment.remove(transfer_moles)
+		vent_pump.air_contents.merge(removed)
+		vent_pump.parent.update = TRUE
 
 //Radio remote control
 
@@ -305,13 +320,11 @@
 		return
 
 	if(signal.data["status"] != null)
-		spawn(2)
-			broadcast_status()
+		addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
 		return //do not update_icon
 
 		//log_admin("DEBUG \[[world.timeofday]\]: vent_pump/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
-	spawn(2)
-		broadcast_status()
+	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
 	update_icon()
 	return
 
