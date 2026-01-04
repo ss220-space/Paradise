@@ -793,7 +793,7 @@
 	charge_speed = 10 SECONDS
 	pb_knockback = 0
 	haveKnockback = FALSE
-	fire_delay = 40
+	fire_delay = 2 SECONDS
 
 	def_bullet = /obj/item/ammo_casing/energy/rat/snipe
 	emp_bullet = /obj/item/ammo_casing/energy/rat/snipe/emp
