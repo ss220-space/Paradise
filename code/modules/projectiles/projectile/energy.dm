@@ -377,7 +377,7 @@
 	icon_state = "brassshot"
 	damage = 70
 	armour_penetration = 60
-	weaken = 2
+	knockdown = 2 SECONDS
 
 /obj/projectile/energy/rat/snipe/get_ru_names()
 	return list(
@@ -399,7 +399,6 @@
 /obj/projectile/energy/rat/snipe/emp
 	name = "brass sniper EMP bullet"
 	icon_state = "brassslug_emp" // there is no "brassshot_emp"
-	weaken = 0
 	damage = 0
 
 /obj/projectile/energy/rat/snipe/emp/get_ru_names()
@@ -426,7 +425,6 @@
 	name = "brass sniper heal bullet"
 	icon_state = "brassshot_heal"
 	damage = 0
-	weaken = 0
 
 /obj/projectile/energy/rat/snipe/heal/get_ru_names()
 	return list(

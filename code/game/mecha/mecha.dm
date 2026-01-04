@@ -878,9 +878,9 @@
 	if(is_mmi(I))
 		add_fingerprint(user)
 		if(!mmi_move_inside(I, user))
-			to_chat(user, "[name]-MMI interface initialization failed.")
+			to_chat(user, span_notice("[name]-MMI interface initialization failed."))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, "[name]-MMI interface initialized successfuly")
+		to_chat(user, span_notice("[name]-MMI interface initialized successfuly"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment))
@@ -909,7 +909,7 @@
 				if(!operation_allowed(user))
 					return ATTACK_CHAIN_PROCEED
 				id_lock_on = !id_lock_on
-				to_chat(user, "Теперь ID [id_lock_on ? "" : "не"] требуется для управления.")
+				to_chat(user, span_notice("Теперь ID [id_lock_on ? "" : "не"] требуется для управления."))
 			if(TOGGLE_MAINTENANCE)
 				toggle_maintenance(user)
 
@@ -1002,24 +1002,24 @@
 
 /obj/mecha/proc/toggle_maintenance(mob/user)
 	if(!maint_access)
-		to_chat(user, "Режим техобслуживания заблокирован.")
+		to_chat(user, span_notice("Режим техобслуживания заблокирован."))
 		return
 
 	switch(maintenance_progress)
 		if(MECHA_LOCKED)
 			maintenance_progress = MECHA_SECURE_BOLTS
-			to_chat(user, "Крепежные болты зафиксированы.")
+			to_chat(user, span_notice("Крепежные болты зафиксированы."))
 			if(occupant)
 				occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 			return
 		if(MECHA_SECURE_BOLTS)
 			maintenance_progress = MECHA_LOCKED
-			to_chat(user, "Крепежные болты убраны.")
+			to_chat(user, span_notice("Крепежные болты убраны."))
 			if(occupant)
 				occupant.clear_alert("locked")
 			return
 
-	to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
+	to_chat(user, span_notice("[declent_ru(NOMINATIVE)] не готов к взаимодействию."))
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
 	if(maintenance_progress != MECHA_LOOSE_BOLTS && maintenance_progress != MECHA_OPEN_HATCH && !(maintenance_progress == MECHA_UNSECURE_CELL && occupant))
@@ -1029,15 +1029,21 @@
 		return
 	if(maintenance_progress == MECHA_LOOSE_BOLTS)
 		maintenance_progress = MECHA_OPEN_HATCH
-		to_chat(user, "You open the hatch to the power unit")
+		to_chat(user, span_notice("You open the hatch to the power unit"))
 	else if(maintenance_progress == MECHA_OPEN_HATCH)
 		maintenance_progress = MECHA_LOOSE_BOLTS
-		to_chat(user, "You close the hatch to the power unit")
+		to_chat(user, span_notice( "You close the hatch to the power unit"))
 	else if(ishuman(occupant))
-		user.visible_message("[user] begins levering out the driver from the [src].", "You begin to lever out the driver from the [src].")
+		user.visible_message(
+			"[user] begins levering out the driver from the [src].",
+			"You begin to lever out the driver from the [src]."
+		)
 		to_chat(occupant, span_warning("[user] is prying you out of the exosuit!"))
 		if(I.use_tool(src, user, 80, volume = I.tool_volume))
-			user.visible_message(span_notice("[user] pries the driver out of the [src]!"), span_notice("You finish removing the driver from the [src]!"))
+			user.visible_message(
+				span_notice("[user] pries the driver out of the [src]!"),
+				span_notice("You finish removing the driver from the [src]!")
+			)
 			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
@@ -1075,10 +1081,10 @@
 		return
 	if(maintenance_progress == MECHA_SECURE_BOLTS)
 		maintenance_progress = MECHA_LOOSE_BOLTS
-		to_chat(user, "You undo the securing bolts.")
+		to_chat(user, span_notice("You undo the securing bolts."))
 	else
 		maintenance_progress = MECHA_SECURE_BOLTS
-		to_chat(user, "You tighten the securing bolts.")
+		to_chat(user, span_notice("You tighten the securing bolts."))
 
 /obj/mecha/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -1100,9 +1106,15 @@
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
-			user.visible_message(span_notice("[user] repairs the damaged gas tank."), span_notice("You repair the damaged gas tank."))
+			user.visible_message(
+				span_notice("[user] repairs the damaged gas tank."),
+				span_notice("You repair the damaged gas tank.")
+			)
 		else if(obj_integrity < max_integrity)
-			user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [name]."))
+			user.visible_message(
+				span_notice("[user] repairs some damage to [name]."),
+				span_notice("You repair some damage to [name].")
+			)
 			repair_damage(min(10, max_integrity - obj_integrity))
 		else
 			to_chat(user, span_notice("[src] is at full integrity!"))
@@ -1177,7 +1189,7 @@
 			AI.controlled_mech = null
 			AI.remote_control = null
 			update_icon(UPDATE_ICON_STATE)
-			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
+			to_chat(AI, span_notice("You have been downloaded to a mobile storage device. Wireless connection offline."))
 			to_chat(user, "[span_boldnotice("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
