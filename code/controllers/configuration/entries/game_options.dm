@@ -91,3 +91,7 @@
 /datum/config_entry/number/cubemonkey_cap
 	default = 20
 	min_val = 0
+
+/datum/config_entry/number/overflow_cap
+	default = 20
+	min_val = -1

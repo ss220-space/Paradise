@@ -585,6 +585,16 @@
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
+"akD" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/permahallway)
 "all" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -898,6 +908,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
+"aqM" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/security/lobby)
 "aqS" = (
 /obj/effect/landmark/start/security_officer,
 /turf/simulated/floor/plasteel{
@@ -1258,6 +1272,14 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/permahallway)
+"avQ" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/coldcolony/malta/resid_serv/library/game_zone)
 "avS" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/cane,
@@ -1503,6 +1525,18 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/engineering/chief)
+"aAo" = (
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
+	},
+/obj/structure/curtain/open/shower,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "aAq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1708,6 +1742,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -2626,6 +2661,10 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
+"aUv" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/wood/fancy/birch,
+/area/coldcolony/malta/bridge/checkpoint)
 "aUA" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -4827,6 +4866,7 @@
 "bMA" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -5478,6 +5518,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
+"bVl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/coldcolony/malta/quartermaster/storage)
 "bVL" = (
 /obj/item/clothing/suit/bio_suit/scientist,
 /obj/structure/closet/crate/sci,
@@ -6343,6 +6391,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -6981,6 +7030,11 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/ruin/abandoned_garage)
+"cyZ" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet,
+/area/coldcolony/malta/resid_serv/bar/atrium)
 "czc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -7577,6 +7631,12 @@
 /obj/item/seeds/tomato,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/security/permabrig)
+"cIE" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/processing)
 "cIY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7857,6 +7917,11 @@
 	dir = 8;
 	icon_state = "caution"
 	},
+/area/coldcolony/malta/engineering/atmos)
+"cOI" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "cOL" = (
 /obj/structure/cable/orange{
@@ -8432,6 +8497,7 @@
 "cYU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom/directional/west,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -9003,6 +9069,11 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
+"diJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/research)
 "diM" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
@@ -9319,6 +9390,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -9600,6 +9672,12 @@
 	icon_state = "whiteblue"
 	},
 /area/coldcolony/malta/medical/sleeper)
+"dvb" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "dvd" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1
@@ -9616,6 +9694,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -11018,6 +11097,13 @@
 	icon_state = "red"
 	},
 /area/coldcolony/malta/security/prison/cell_block/A)
+"dXF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/service/south)
 "dXJ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -11850,6 +11936,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "emD" = (
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12384,6 +12471,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -12411,6 +12499,7 @@
 /area/coldcolony/malta/security/hos)
 "exE" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -12886,6 +12975,18 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
+"eFL" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/exit)
 "eFN" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/hydroponics/soil,
@@ -13203,6 +13304,13 @@
 	tag = "icon-wood-broken7"
 	},
 /area/coldcolony/malta/research/test_chamber)
+"eMC" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/coldcolony/malta/resid_serv/kitchen)
 "eMP" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -13214,6 +13322,12 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/execution)
+"eMR" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/main)
 "eMS" = (
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/bar/atrium)
@@ -13285,6 +13399,21 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
+"eNJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "eNN" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/resid_serv/kitchen)
@@ -13635,6 +13764,11 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
+"eSE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/engineering/break_room)
 "eSF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -14012,6 +14146,14 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/service/east)
+"eZk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/coldcolony/malta/quartermaster/office)
 "eZJ" = (
 /obj/machinery/atmospherics/unary/tank/toxins{
 	dir = 1;
@@ -14868,6 +15010,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "fuJ" = (
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -16270,6 +16413,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "neutral"
@@ -16524,6 +16668,13 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/coldcolony/malta/security/magistrateoffice)
+"gbo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/bridge/meeting_room)
 "gbq" = (
 /obj/item/stack/ore/gold{
 	amount = 8
@@ -16954,6 +17105,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/wood/fancy/cherry{
 	icon_state = "fancy-wood-cherry-broken3"
 	},
@@ -18951,6 +19103,14 @@
 "gSQ" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
+"gSZ" = (
+/obj/structure/chair,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "neutral"
+	},
+/area/coldcolony/malta/resid_serv/kitchen)
 "gTe" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -19187,6 +19347,13 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/resid_serv/library)
+"gXV" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/coldcolony/malta/quartermaster/sorting)
 "gYb" = (
 /obj/structure/table/wood{
 	color = "brown"
@@ -19805,6 +19972,14 @@
 	tag = "icon-wood-broken7"
 	},
 /area/coldcolony/malta/research/test_chamber)
+"hkk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/coldcolony/malta/resid_serv/crew_quarters/locker)
 "hkt" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
@@ -21409,6 +21584,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/security/magistrateoffice)
 "hPY" = (
@@ -22903,6 +23079,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -23453,6 +23630,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24372,6 +24550,18 @@
 "iXR" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/engineering/engine)
+"iXS" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "Kitchen Dinner Windows";
+	name = "Kitchen Shutters"
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/coldcolony/malta/resid_serv/kitchen)
 "iXU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -24853,6 +25043,19 @@
 	icon_state = "darkpurple"
 	},
 /area/coldcolony/malta/bridge/vip)
+"jgg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/coldcolony/malta/security/brig)
 "jgl" = (
 /turf/simulated/wall,
 /area/coldcolony/malta/bridge/hop)
@@ -24969,6 +25172,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "jiI" = (
@@ -25193,6 +25397,7 @@
 	c_tag = "Bar";
 	dir = 8
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "jmm" = (
@@ -25687,6 +25892,12 @@
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
+"jvg" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/wood/fancy/light{
+	color = "orange"
+	},
+/area/coldcolony/malta/security/magistrateoffice)
 "jvi" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stock_parts/matter_bin{
@@ -26974,6 +27185,13 @@
 	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
+"jTM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/coldcolony/malta/resid_serv/kitchen)
 "jTT" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
@@ -27832,6 +28050,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/wood/fancy/light{
 	icon_state = "light-fancy-wood-broken3"
 	},
@@ -28109,10 +28328,12 @@
 "klL" = (
 /obj/machinery/optable,
 /obj/machinery/light,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "kmf" = (
 /obj/structure/chair/sofa/right,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "kmi" = (
@@ -30650,10 +30871,20 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
+"liL" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/service/north)
 "ljc" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/bridge)
 "ljo" = (
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32268,6 +32499,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
+"lQt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/coldcolony/malta/quartermaster/sorting)
 "lQv" = (
 /obj/structure/sign/poster/random{
 	pixel_x = 32
@@ -32530,6 +32771,12 @@
 "lUX" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/maintenance/bridge)
+"lUZ" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/coldcolony/malta/research/chargebay)
 "lVr" = (
 /obj/item/storage/toolbox/emergency,
 /obj/structure/table,
@@ -32748,6 +32995,13 @@
 	temperature = 180
 	},
 /area/ruin/unpowered)
+"lYZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/main)
 "lZE" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -33006,6 +33260,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "mdu" = (
@@ -33072,6 +33327,17 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/miningeva)
+"meA" = (
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/coldcolony/malta/chapel/main)
 "meB" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -33406,6 +33672,10 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/engineering/chief)
+"mnq" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet,
+/area/coldcolony/malta/resid_serv/bar/atrium)
 "mnr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -34067,6 +34337,7 @@
 /area/coldcolony/ruin/abandoned_garage)
 "mAq" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -34184,6 +34455,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/vip)
 "mCq" = (
@@ -34528,6 +34800,10 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
+"mJH" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet/green,
+/area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "mJJ" = (
 /obj/structure/closet/crate/engineering,
 /obj/item/floor_painter,
@@ -35189,6 +35465,10 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
+"mTZ" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet/blue,
+/area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
 "mUd" = (
 /obj/item/flashlight,
 /obj/structure/rack,
@@ -36423,6 +36703,10 @@
 /obj/structure/sign/engineering,
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/engineering/atmos)
+"ntE" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/resid_serv/crew_quarters/locker)
 "ntJ" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -36561,6 +36845,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37186,6 +37471,7 @@
 /area/coldcolony/malta/bridge/nuke_storage)
 "nHj" = (
 /obj/structure/chair/sofa/left,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "nHs" = (
@@ -37377,6 +37663,7 @@
 /area/coldcolony/malta/bridge/ntrep)
 "nLw" = (
 /obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -37395,10 +37682,12 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "nLS" = (
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "nLT" = (
 /obj/structure/chair/sofa/left,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "nMB" = (
@@ -37999,6 +38288,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/bar)
 "nXh" = (
@@ -38673,6 +38963,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -39632,6 +39923,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "oyd" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -40567,6 +40859,7 @@
 	pixel_x = -22
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "oQd" = (
@@ -43350,6 +43643,14 @@
 	icon_state = "yellow"
 	},
 /area/coldcolony/malta/engineering/monitor)
+"pPA" = (
+/obj/structure/chair,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/coldcolony/malta/resid_serv/kitchen)
 "pPM" = (
 /obj/effect/decal/snow/sand/surround{
 	dir = 8
@@ -43415,6 +43716,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43483,6 +43785,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "pTo" = (
@@ -43567,6 +43870,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/medical/morgue)
+"pWL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/quartermaster/office)
 "pXq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/bodyscanner{
@@ -44019,6 +44329,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -44244,6 +44555,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "qkx" = (
@@ -45576,6 +45888,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/bar/atrium)
+"qGF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/coldcolony/malta/security/prison/cell_block/A)
 "qGQ" = (
 /obj/structure/table,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -45797,6 +46116,13 @@
 	icon_state = "caution"
 	},
 /area/coldcolony/malta/engineering/teg)
+"qLh" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet,
+/area/coldcolony/malta/resid_serv/bar/atrium)
 "qLj" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -46141,6 +46467,13 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/medical/virology)
+"qRQ" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet,
+/area/coldcolony/malta/resid_serv/bar/atrium)
 "qRW" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -46649,6 +46982,7 @@
 "raT" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -46876,6 +47210,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -47197,6 +47532,10 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/ruin/sm_lab)
+"riV" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/wood,
+/area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "riZ" = (
 /obj/machinery/cryopod{
 	dir = 8
@@ -47495,6 +47834,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
+"rnP" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet,
+/area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "rnW" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -48218,6 +48561,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/resid_serv/hydroponics)
 "rBf" = (
@@ -48904,6 +49248,12 @@
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
+"rOB" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/bridge/meeting_room)
 "rPl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -49697,6 +50047,13 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/permabrig)
+"sfy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/coldcolony/malta/research/chargebay)
 "sfG" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -51422,6 +51779,10 @@
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
+"sMZ" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet/royalblack,
+/area/coldcolony/malta/bridge)
 "sNd" = (
 /obj/structure/chair{
 	dir = 1
@@ -51663,6 +52024,7 @@
 	on = 1;
 	target_pressure = 4500
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -52016,6 +52378,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -52222,6 +52585,12 @@
 	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
+"tdM" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/break_room)
 "tdO" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor{
@@ -52473,6 +52842,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -53510,6 +53880,19 @@
 /obj/machinery/vending/crittercare,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
+"tDf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/security/prison/cell_block/A)
 "tDn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -54289,6 +54672,7 @@
 /area/coldcolony/malta/research/explab)
 "tTq" = (
 /obj/structure/chair/stool,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -54568,6 +54952,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "tXv" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
 	},
@@ -55479,6 +55864,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -55818,6 +56204,11 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/warden)
+"uvz" = (
+/obj/structure/bed,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/security/permahallway)
 "uvI" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/space_heater,
@@ -56038,6 +56429,7 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/processing)
 "uAq" = (
@@ -56045,6 +56437,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -56414,6 +56807,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
+"uJm" = (
+/obj/machinery/shower{
+	dir = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/structure/curtain/open/shower,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "uJI" = (
 /obj/structure/sign/poster/official/random,
 /turf/simulated/wall,
@@ -56507,6 +56911,11 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
+"uLN" = (
+/obj/structure/chair/wood,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/carpet,
+/area/coldcolony/malta/resid_serv/bar/atrium)
 "uMh" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -58437,6 +58846,13 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/medical/virology)
+"vsX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/exit)
 "vta" = (
 /obj/structure/table,
 /obj/item/tank/jetpack/oxygen,
@@ -59552,6 +59968,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -59842,6 +60259,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -59899,6 +60317,7 @@
 	c_tag = "Dorm Hallway";
 	dir = 9
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -59964,6 +60383,7 @@
 /obj/structure/chair/e_chair{
 	dir = 1
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/security/execution)
 "vTq" = (
@@ -60023,6 +60443,13 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
+"vUE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/service/north)
 "vUY" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/dirt,
@@ -60108,6 +60535,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -60558,6 +60986,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -61206,6 +61635,13 @@
 	temperature = 180
 	},
 /area/ruin/unpowered/coldcolony_outside)
+"woE" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/entrance)
 "woJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62594,6 +63030,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -63098,6 +63535,17 @@
 "xag" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/ruin/sm_division)
+"xao" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/coldcolony/malta/chapel/main)
 "xat" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Bar"
@@ -63363,6 +63811,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -63381,6 +63830,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/bridge/meeting_room)
 "xhG" = (
@@ -63947,6 +64397,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -64325,6 +64776,12 @@
 "xxQ" = (
 /turf/simulated/wall,
 /area/coldcolony/malta/security/detectives_office)
+"xxT" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "xyf" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -65499,6 +65956,13 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/securearmory)
+"xUZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/break_room)
 "xVd" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -66238,6 +66702,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "ylA" = (
@@ -93839,7 +94304,7 @@ qMt
 hBE
 rMP
 nHW
-nHW
+xxT
 uSf
 fiE
 luV
@@ -95913,11 +96378,11 @@ paC
 paC
 jhP
 spt
-gHX
-gHX
+cyZ
+cyZ
 eBX
 gHX
-gHX
+cyZ
 ogz
 vAZ
 xpg
@@ -96429,9 +96894,9 @@ cod
 hJE
 eMS
 apT
-mXD
+mnq
 qkz
-qkz
+qLh
 mXD
 gWC
 mXD
@@ -96691,7 +97156,7 @@ nfr
 faO
 jfW
 sMa
-lHT
+uLN
 xwx
 xzy
 jhP
@@ -96946,11 +97411,11 @@ iql
 mXD
 pDT
 pDT
-mXD
+mnq
 gWC
 mXD
 pDT
-mXD
+mnq
 nWM
 vVi
 kmf
@@ -97201,7 +97666,7 @@ ufD
 xzy
 ohR
 mXD
-qkz
+qLh
 qkz
 vjY
 ieA
@@ -97443,7 +97908,7 @@ yad
 xjX
 nxo
 enQ
-tEk
+riV
 sYU
 sAo
 gwz
@@ -97712,7 +98177,7 @@ tEk
 wMT
 jhP
 mKG
-xzy
+qRQ
 ohR
 mXD
 gmN
@@ -97721,7 +98186,7 @@ mXD
 ieA
 lHT
 cTC
-xzy
+qRQ
 jhP
 vVi
 vVi
@@ -97939,7 +98404,7 @@ sZt
 wku
 dKh
 oQY
-oQY
+rnP
 oQY
 xqL
 wku
@@ -98691,7 +99156,7 @@ bTh
 oGI
 oGI
 lux
-kML
+xao
 oIk
 kML
 oIk
@@ -99018,7 +99483,7 @@ iNr
 lTw
 lKq
 oXV
-oXV
+jTM
 ivA
 oXV
 nyp
@@ -99487,11 +99952,11 @@ hen
 mbt
 tlB
 iDk
-kuC
+vUE
 uvI
 xYj
 ehZ
-kNZ
+ntE
 sVx
 chJ
 jxE
@@ -99502,7 +99967,7 @@ lij
 hpo
 bFi
 mWe
-fIQ
+uJm
 kEA
 mWe
 fIQ
@@ -99793,7 +100258,7 @@ pBo
 xBK
 tqk
 clk
-kbC
+eMC
 vJt
 bQv
 sSX
@@ -99975,7 +100440,7 @@ oGI
 rkz
 hcc
 hcc
-pvf
+meA
 yhl
 pvf
 yhl
@@ -100020,7 +100485,7 @@ dRG
 dRG
 mWe
 clQ
-clQ
+aAo
 tLE
 dMu
 umr
@@ -100256,7 +100721,7 @@ jFM
 rio
 dEz
 von
-fcp
+dvb
 axl
 fcp
 mzR
@@ -100303,7 +100768,7 @@ sEc
 bQv
 xOh
 xOh
-xOh
+iXS
 xOh
 xOh
 gls
@@ -100798,7 +101263,7 @@ umr
 wqn
 ylh
 bvX
-xmr
+avQ
 umr
 xqZ
 ptd
@@ -101035,7 +101500,7 @@ xYj
 gQV
 sVx
 fmA
-qny
+hkk
 hmQ
 txM
 mWe
@@ -101075,7 +101540,7 @@ shZ
 tMZ
 nFp
 oFH
-shZ
+gSZ
 tMZ
 koo
 bQv
@@ -101789,7 +102254,7 @@ ceA
 iqz
 cUQ
 kuC
-anN
+liL
 qid
 hyp
 ygI
@@ -101800,7 +102265,7 @@ dEz
 mZz
 uSp
 uSp
-uSp
+mJH
 rht
 xYj
 mki
@@ -101905,7 +102370,7 @@ vvg
 wjX
 tcg
 rHq
-lKo
+cOI
 lKo
 kui
 pYW
@@ -102051,7 +102516,7 @@ qid
 qEA
 ygI
 ygI
-ygI
+mTZ
 otF
 dEz
 lRP
@@ -102863,14 +103328,14 @@ aPj
 ceA
 twC
 vzn
-wrr
+dXF
 wrr
 cRS
 opO
 twC
 sdV
 oFH
-jxZ
+pPA
 oZm
 tqd
 oFH
@@ -104724,7 +105189,7 @@ chR
 qKQ
 qoT
 eNU
-pdw
+eNJ
 kMS
 sxx
 hLy
@@ -105646,7 +106111,7 @@ oPG
 dsY
 pXB
 arw
-ozA
+qGF
 dsY
 uHy
 nUb
@@ -105698,7 +106163,7 @@ umQ
 pZD
 qcr
 qEp
-qcr
+diJ
 kFy
 vQg
 kOy
@@ -105871,7 +106336,7 @@ ceA
 ceA
 wdf
 fLd
-kvW
+akD
 pNm
 umR
 umR
@@ -106219,7 +106684,7 @@ eXZ
 arT
 jlt
 bpJ
-klv
+lUZ
 bmK
 klv
 fEV
@@ -106525,7 +106990,7 @@ gIq
 gIq
 niI
 uPd
-gIq
+xUZ
 hVk
 mEd
 jFK
@@ -106730,7 +107195,7 @@ lCK
 abq
 btK
 vuU
-vuU
+sfy
 woJ
 kOy
 pUd
@@ -107162,7 +107627,7 @@ knb
 wdf
 qKl
 ktH
-rBP
+uvz
 xLx
 jvT
 wTo
@@ -107187,7 +107652,7 @@ uPA
 fAP
 pUM
 bYd
-dEZ
+tDf
 ecf
 uHy
 vbY
@@ -107810,7 +108275,7 @@ gIq
 roo
 hoT
 kXC
-gIq
+xUZ
 iFr
 iFT
 sNm
@@ -108057,7 +108522,7 @@ sGS
 qQX
 rvQ
 tnH
-uPd
+tdM
 ouS
 gIq
 mYb
@@ -108830,7 +109295,7 @@ pnT
 lfw
 xjo
 xjo
-xjo
+eSE
 jAh
 xhd
 rQn
@@ -108992,7 +109457,7 @@ oTV
 mFN
 xTS
 gur
-rGT
+aqM
 aWe
 mhX
 awI
@@ -109988,7 +110453,7 @@ qVK
 qfL
 qfL
 teP
-cIp
+eMR
 cIp
 biT
 raL
@@ -110243,7 +110708,7 @@ vVI
 kzc
 eBi
 uoW
-uoW
+lYZ
 iKz
 ocE
 oeW
@@ -110268,7 +110733,7 @@ bmI
 ekk
 lzU
 cRr
-tGh
+jgg
 blj
 aev
 cNL
@@ -111031,7 +111496,7 @@ upT
 jEq
 vBc
 qbL
-bmI
+cIE
 bmI
 pqU
 qbL
@@ -111292,7 +111757,7 @@ qQS
 wuJ
 pqU
 qbL
-bmI
+cIE
 bmI
 bEF
 qHW
@@ -112586,7 +113051,7 @@ tSW
 hpD
 syT
 syT
-jOt
+jvg
 jOt
 tRI
 dxj
@@ -115218,7 +115683,7 @@ vuR
 mKl
 dCE
 mKl
-mKl
+aUv
 uHo
 mYX
 ceA
@@ -115234,7 +115699,7 @@ clU
 lyQ
 ePi
 vTb
-aky
+woE
 pqq
 qbF
 jpd
@@ -116449,7 +116914,7 @@ pHA
 psL
 aOV
 xKF
-kgr
+sMZ
 dnX
 kuG
 gbC
@@ -116755,7 +117220,7 @@ bpV
 kSi
 lmc
 qYu
-mKl
+aUv
 uJR
 taU
 taU
@@ -117006,7 +117471,7 @@ xqu
 law
 vYt
 bpV
-bpV
+pWL
 kDV
 kDV
 cDc
@@ -117027,7 +117492,7 @@ tju
 iho
 ldR
 aiN
-aiN
+vsX
 oAg
 ldR
 xEL
@@ -117258,7 +117723,7 @@ xgv
 www
 coS
 gWl
-eKv
+eZk
 mPX
 uAV
 vuS
@@ -117294,7 +117759,7 @@ vwb
 pof
 pof
 kHp
-pof
+eFL
 ety
 vwb
 iAx
@@ -117508,7 +117973,7 @@ bLa
 dbw
 rOc
 mPW
-tpN
+lQt
 vyA
 lmc
 xgv
@@ -118276,7 +118741,7 @@ ceA
 nVv
 xfi
 axw
-axw
+gXV
 dJn
 rMO
 wVO
@@ -118796,7 +119261,7 @@ kWn
 bfw
 bfw
 cvD
-pHX
+bVl
 jyw
 kGW
 drM
@@ -119532,7 +119997,7 @@ cBB
 uTD
 gIU
 hKw
-gKn
+rOB
 cce
 gVH
 rkv
@@ -121331,13 +121796,13 @@ tvs
 tvs
 iOc
 pqf
-uep
+gbo
 gKn
 cwA
 gOa
 rQj
 gKn
-gKn
+rOB
 ngA
 reE
 lXT

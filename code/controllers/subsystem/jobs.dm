@@ -570,16 +570,16 @@ SUBSYSTEM_DEF(jobs)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		if(rank == JOB_TITLE_PRISONER)
-			return
-
-		var/obj/effect/landmark/start/hangover_spawn_point
-		for(var/obj/effect/landmark/start/hangover/hangover_landmark in GLOB.start_landmarks_list)
-			hangover_spawn_point = hangover_landmark
-			if(hangover_landmark.used) //so we can revert to spawning them on top of eachother if something goes wrong
-				continue
-			hangover_landmark.used = TRUE
-			break
-		mark_spawn = hangover_spawn_point || pick(GLOB.latejoin)
+			mark_spawn = pick(GLOB.latejoin_prisoner)
+		else
+			var/obj/effect/landmark/start/hangover_spawn_point
+			for(var/obj/effect/landmark/start/hangover/hangover_landmark in GLOB.start_landmarks_list)
+				hangover_spawn_point = hangover_landmark
+				if(hangover_landmark.used) //so we can revert to spawning them on top of eachother if something goes wrong
+					continue
+				hangover_landmark.used = TRUE
+				break
+			mark_spawn = hangover_spawn_point || pick(GLOB.latejoin)
 
 	if(!mark_spawn)
 		mark_spawn = locate("start*[rank]") // use old stype
@@ -600,10 +600,6 @@ SUBSYSTEM_DEF(jobs)
 
 	if(isturf(mark_spawn))
 		turf_spawn = mark_spawn
-
-	else if(istype(mark_spawn, /obj/effect/landmark/start/hangover))
-		mark_spawn.JoinPlayerHere(human)
-		return
 
 	else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
 		turf_spawn = mark_spawn.loc
@@ -1076,3 +1072,28 @@ SUBSYSTEM_DEF(jobs)
 /atom/proc/JoinPlayerHere(mob/joining_mob)
 	// By default, just place the mob on the same turf as the marker or whatever.
 	joining_mob.forceMove(get_turf(src))
+
+/// Returns a list of jobs that we are allowed to fuck with during random events
+/datum/controller/subsystem/jobs/proc/get_valid_overflow_jobs()
+	var/static/list/overflow_jobs
+	if(!isnull(overflow_jobs))
+		return overflow_jobs
+
+	overflow_jobs = list()
+	for(var/datum/job/check_job)
+		if(check_job.admin_only)
+			continue
+		if(!check_job.allow_bureaucratic_error)
+			continue
+		overflow_jobs += check_job
+	return overflow_jobs
+
+/datum/controller/subsystem/jobs/proc/set_overflow_role(new_overflow_role)
+	var/datum/job/new_overflow = ispath(new_overflow_role) ? GetJobType(new_overflow_role) : GetJob(new_overflow_role)
+	if(!new_overflow)
+		CRASH("set_overflow_role failed | new_overflow_role: [isnull(new_overflow_role) ? "null" : new_overflow_role]")
+	var/cap = CONFIG_GET(number/overflow_cap)
+
+	new_overflow.allow_bureaucratic_error = FALSE
+	new_overflow.spawn_positions = cap
+	new_overflow.total_positions = cap

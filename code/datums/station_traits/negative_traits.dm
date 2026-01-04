@@ -44,7 +44,6 @@
 	show_in_report = TRUE
 	report_message = "Мммм... Обязательный для посещения корпоратив по случаю... мххггг... Возможно мы переборщили с алкоголем..."
 	trait_to_give = STATION_TRAIT_HANGOVER
-	force = TRUE
 	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/random_spawns)
 
 /datum/station_trait/hangover/New()
@@ -68,3 +67,71 @@
 		)
 	hat = new hat(spawned_mob)
 	spawned_mob.equip_to_slot_or_del(hat, ITEM_SLOT_HEAD)
+
+/datum/station_trait/blackout
+	name = "Авария энергосистемы"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 3
+	show_in_report = TRUE
+	report_message = "Из-за перегрузки энергосистем, произошло повреждение станционного освещения. Будьте осторожны и смотрите под ноги."
+
+/datum/station_trait/blackout/on_round_start()
+	. = ..()
+	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
+		if(is_station_level(apc.z) && prob(60))
+			INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
+
+/datum/station_trait/empty_maint
+	name = "Убранные технические туннели"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 5
+	show_in_report = TRUE
+	report_message = "Перед началом смены мы убрали практически весь мусор, что находился в технических туннелях."
+	//blacklist = list(/datum/station_trait/filled_maint)
+	trait_to_give = STATION_TRAIT_EMPTY_MAINT
+	// This station trait is checked when loot drops initialize, so it's too late
+	can_revert = FALSE
+
+/// Cap is set to 20. As HoP can close only one job per minute, it take some time to fix everythimg, if it's fixable, of course
+/datum/station_trait/overflow_job_bureaucracy
+	name = "Серьёзная бюрократическая ошибка"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 5
+	show_in_report = TRUE
+	var/chosen_job_name
+	// This station trait is checked when subsystems initialize, so it's too late
+	can_revert = FALSE
+
+/datum/station_trait/overflow_job_bureaucracy/New()
+	. = ..()
+	RegisterSignal(SSjobs, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(set_overflow_job_override))
+
+/datum/station_trait/overflow_job_bureaucracy/get_report()
+	return "[name] - Из-за ошибки с нашей стороны на одну из должностей станции было открыто слишком много слотов. Судя по всему, это [chosen_job_name]. Постарайтесь исправить ситуацию, если это возможно."
+
+/datum/station_trait/overflow_job_bureaucracy/proc/set_overflow_job_override(datum/source)
+	SIGNAL_HANDLER
+	var/datum/job/picked_job = pick(SSjobs.get_valid_overflow_jobs())
+	chosen_job_name = LOWER_TEXT(picked_job.title) // like Chief Engineers vs like chief engineers
+	SSjobs.set_overflow_role(picked_job.type)
+
+/datum/station_trait/slow_shuttle
+	name = "Медленный шаттл поставок"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 5
+	show_in_report = TRUE
+	report_message = "Из-за отклонения \"АКН Трурль\" от маршрута, шаттлу поставок потребуется гораздо больше времени, чтобы добраться до станции. Шаттл эвакуации это не затронет."
+	//blacklist = list(/datum/station_trait/quick_shuttle)
+
+/datum/station_trait/slow_shuttle/on_round_start()
+	. = ..()
+	SSshuttle.supply.callTime *= 1.5
+
+/datum/station_trait/bot_languages
+	name = "Сбой языковой матрицы роботов"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 4
+	cost = STATION_TRAIT_COST_LOW
+	show_in_report = TRUE
+	report_message = "Из-за ионного шторма, произошедшего на станции, у всех станционных ботов сгорела языковая матрица. Ожидайте сообщения от ботов на странных языках."
+	trait_to_give = STATION_TRAIT_BOTS_GLITCHED

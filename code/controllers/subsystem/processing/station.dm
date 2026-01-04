@@ -4,7 +4,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	runlevels = RUNLEVEL_GAME
 	wait = 5 SECONDS
 	offline_implications = "Station traits will no longer process. No intervention needed at this time."
-
+	init_order = INIT_ORDER_STATION // in order to capture signals from other subsystems
 	///A list of currently active station traits
 	var/list/station_traits = list()
 	///Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.

@@ -973,9 +973,9 @@
 	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
 		if(!station_trait.show_in_report)
 			continue
-		trait_list_strings += "[station_trait.get_report()]<BR>"
+		trait_list_strings += "[station_trait.get_report()]<br>"
 	if(trait_list_strings.len > 0)
-		message_text += "<hr><b>Выявленные особенности текущей смены:</b><BR>" + trait_list_strings.Join()
+		message_text += "<hr><b>Выявленные особенности текущей смены:</b><br>" + trait_list_strings.Join()
 	print_command_report(message_text, "Информация о состоянии станции", FALSE)
 
 #undef ROUNDSTART_LOGOUT_REPORT_TIME

@@ -1,6 +1,5 @@
 /datum/station_trait/announcement_intern_ru
 	name = "Временная замена анонсов станции"
-	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 1
 	show_in_report = TRUE
 	report_message = "Пожалуйста, будьте с ним повежливее, он тут работает первый день..."
@@ -12,7 +11,6 @@
 
 /datum/station_trait/announcement_intern
 	name = "Временная замена анонсов станции"
-	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 1
 	show_in_report = TRUE
 	report_message = "Мы наняли его из другого сектора, поэтому, вероятно, он не совсем знает наш язык."

@@ -96,6 +96,9 @@
 	/// Whether this is a head position
 	var/head_position = FALSE
 
+	/// Should this job be allowed to be picked for the bureaucratic error event?
+	var/allow_bureaucratic_error = TRUE
+
 #define MAX_START_MONEY_MULTIPLIER 3
 
 /datum/job/New()
