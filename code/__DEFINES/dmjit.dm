@@ -1,4 +1,4 @@
-#ifndef OPENDREAM
+/*#ifndef OPENDREAM
 
 #define DMJIT_LIB "./libdmjit.so"
 #define DMJIT_NATIVE CRASH("dm-jit not loaded")
@@ -73,3 +73,4 @@
 	DMJIT_NATIVE
 
 #endif
+*/

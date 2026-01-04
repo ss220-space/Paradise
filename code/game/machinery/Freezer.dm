@@ -124,9 +124,9 @@
 	var/list/data = list()
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
-	data["temperature"] = round(air_contents.temperature)
-	data["temperatureCelsius"] = round(air_contents.temperature - T0C, 1)
-	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
+	data["temperature"] = round(air_contents.temperature())
+	data["temperatureCelsius"] = round(air_contents.temperature() - T0C, 1)
+	if(air_contents.total_moles() == 0 && air_contents.temperature() == 0)
 		data["temperatureCelsius"] = 0
 	data["min"] = round(min_temperature)
 	data["max"] = round(T20C)
@@ -293,9 +293,9 @@
 	var/list/data = list()
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
-	data["temperature"] = round(air_contents.temperature)
-	data["temperatureCelsius"] = round(air_contents.temperature - T0C, 1)
-	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
+	data["temperature"] = round(air_contents.temperature())
+	data["temperatureCelsius"] = round(air_contents.temperature() - T0C, 1)
+	if(air_contents.total_moles() == 0 && air_contents.temperature() == 0)
 		data["temperatureCelsius"] = 0
 	data["min"] = round(T20C)
 	data["max"] = round(T20C + max_temperature)

@@ -34851,6 +34851,7 @@
 	pixel_y = 4;
 	req_access = list(24)
 	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cCq" = (

@@ -12,8 +12,8 @@
 	item_state = "buildpipe"
 	var/flipped = 0
 
-/obj/item/pipe/New(loc, pipe_type, dir, obj/machinery/atmospherics/make_from)
-	..()
+/obj/item/pipe/Initialize(mapload, pipe_type, dir, obj/machinery/atmospherics/make_from)
+	. = ..()
 	if(make_from)
 		src.dir = make_from.dir
 		src.pipename = make_from.name

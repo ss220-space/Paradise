@@ -47,6 +47,13 @@
 	nitrogen = 82
 	temperature = 180
 
+/turf/simulated/floor/wood/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/wood/dark
 	icon_state = "dark-wood"
 	floor_tile = /obj/item/stack/tile/wood/dark
@@ -165,6 +172,13 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
+
+/turf/simulated/floor/carpet/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/carpet/Initialize(mapload)
 	. = ..()

@@ -134,9 +134,6 @@
 					M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/pit/remove_air(amount)
-	return 0
-
 /obj/structure/pit/container_resist(mob/escapee)
 	var/breakout_time = 1.5 //2 minutes by default
 

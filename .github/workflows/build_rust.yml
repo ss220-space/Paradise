@@ -87,16 +87,10 @@ jobs:
         git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
-        
-        cd rust
 
-        cargo build --release --target i686-unknown-linux-gnu
-        cargo build --release --target i686-pc-windows-gnu
 
-        cd ..
 
-        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
-        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
+        tools/ci/build_all_rustlibs.sh
 
     - name: Commit and push changes
       env:

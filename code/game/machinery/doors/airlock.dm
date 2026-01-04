@@ -58,6 +58,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	hud_possible = list(DIAG_AIRLOCK_HUD)
 	smoothing_groups = SMOOTH_GROUP_AIRLOCK
 	interaction_flags_click = ALLOW_SILICON_REACH
+	cares_about_temperature = TRUE
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
@@ -1342,13 +1343,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN, forced)
 	operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	update_icon(AIRLOCK_OPENING, TRUE)
 	sleep(1)
 	set_opacity(FALSE)
 	update_freelook_sight()
 	sleep(4)
 	set_density(FALSE)
-	air_update_turf(TRUE)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, TRUE)
@@ -1390,7 +1391,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!override)
 		sleep(1)
 	set_density(TRUE)
-	air_update_turf(TRUE)
+
 	if(!override)
 		sleep(4)
 	if(!safe)
@@ -1401,6 +1402,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	sleep(1)
 	update_icon(AIRLOCK_CLOSED, TRUE)
 	operating = NONE
+	recalculate_atmos_connectivity()
 	if(safe)
 		CheckForMobs()
 	return TRUE

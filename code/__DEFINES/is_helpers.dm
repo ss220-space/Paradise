@@ -354,6 +354,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismultitool(A) (istype(A, /obj/item/multitool))
 
+#define iswrench(A) (istype(A, /obj/item/wrench))
+
 #define iscoil(A) (istype(A, /obj/item/stack/cable_coil))
 
 #define ispowertool(A) (istype(A, /obj/item/crowbar/power) || istype(A, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))

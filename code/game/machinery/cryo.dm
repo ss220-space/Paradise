@@ -194,10 +194,10 @@
 		return
 
 	if(air_contents)
-		temperature_archived = air_contents.temperature
+		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature) > 1)
+	if(abs(temperature_archived-air_contents.temperature()) > 1)
 		parent.update = 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/AllowDrop()
@@ -251,11 +251,11 @@
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 	data["occupant"] = occupantData
 
-	data["cellTemperature"] = round(air_contents.temperature)
+	data["cellTemperature"] = round(air_contents.temperature())
 	data["cellTemperatureStatus"] = "good"
-	if(air_contents.temperature > T0C) // if greater than 273.15 kelvin (0 celcius)
+	if(air_contents.temperature() > T0C) // if greater than 273.15 kelvin (0 celcius)
 		data["cellTemperatureStatus"] = "bad"
-	else if(air_contents.temperature > TCRYO)
+	else if(air_contents.temperature() > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
@@ -395,7 +395,7 @@
 			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
 			occupant.Sleeping(stun_time)
 			occupant.Paralyse(stun_time)
-			if(air_contents.oxygen > 2)
+			if(air_contents.oxygen() > 2)
 				if(occupant.getOxyLoss())
 					occupant.adjustOxyLoss(-6)
 			else
@@ -419,11 +419,11 @@
 	if(!occupant)
 		return
 	var/cold_protection = 0
-	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
+	var/temperature_delta = air_contents.temperature() - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		cold_protection = H.get_cold_protection(air_contents.temperature)
+		cold_protection = H.get_cold_protection(air_contents.temperature())
 
 	if(abs(temperature_delta) > 1)
 		var/air_heat_capacity = air_contents.heat_capacity()
@@ -431,7 +431,7 @@
 		var/heat = (1 - cold_protection) * conduction_coefficient * temperature_delta * \
 			(air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
 
-		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
+		air_contents.set_temperature(clamp(air_contents.temperature() - heat / air_heat_capacity, TCMB, INFINITY))
 		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()

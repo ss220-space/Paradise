@@ -9,8 +9,8 @@
 	/// The pipenet we are plugged into
 	var/datum/pipeline/parent
 
-/obj/machinery/atmospherics/unary/New()
-	..()
+/obj/machinery/atmospherics/unary/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	air_contents = new
 	air_contents.volume = 200
@@ -90,18 +90,17 @@
 	if(Old == parent)
 		parent = New
 
-/obj/machinery/atmospherics/unary/unsafe_pressure_release(mob/user, pressures)
-	..()
+/obj/machinery/atmospherics/unary/unsafe_pressure_release(mob/user, pressure)
+	. = ..()
 
 	var/turf/T = get_turf(src)
-	if(T)
-		//Remove the gas from air_contents and assume it
-		var/datum/gas_mixture/environment = T.return_air()
-		var/lost = pressures*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+	if(!T)
+		return
 
-		var/datum/gas_mixture/to_release = air_contents.remove(lost)
-		T.assume_air(to_release)
-		air_update_turf(1)
+	var/lost = pressure * CELL_VOLUME / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+
+	var/datum/gas_mixture/to_release = air_contents.remove(lost)
+	T.blind_release_air(to_release)
 
 /obj/machinery/atmospherics/unary/process_atmos()
 	..()

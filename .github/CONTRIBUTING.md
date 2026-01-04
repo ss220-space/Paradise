@@ -85,8 +85,8 @@ add: new lavaland elite mob
 - **experiment:** Ваш ПР сделан с целью какого-то эксперимента.
 - **map** Вы меняете только карту.
 - **local** Вы делаете добавляете новый текст на русском или переводите на русский.
-- **imageadd:**  Вы добавили новый спрайт.
-- **imagedel:**  Вы удалили старый спрайт.
+- **imageadd:** Вы добавили новый спрайт.
+- **imagedel:** Вы удалили старый спрайт.
 - **soundadd:** Вы добавили новый звук.
 - **sounddel:** Вы удалили старый звук.
 - **spellcheck:** Вы исправили опечатку.
@@ -94,6 +94,35 @@ add: new lavaland elite mob
 - **refactor:** Вы полностью переписали старый код, улучшив его, НО не изменив функционал.
 - **server:** Вы меняете что-то связанное с серверной частью или Github.
 - **wip:** Ваш PR в драфте и планируется длительная разработка.
+
+## Modifying Rust Code
+
+Some parts of Paradise are written in [Rust][] for performance or reliability
+reasons:
+
+- Our atmos engine, MILLA, is in the `rust/src/milla/` directory.
+- The `mapmanip` library, an Aurora Station module used for automating DMM
+  modification, is in the `rust/src/mapmanip` library.
+
+The Rust parts of our codebase are compiled into a single library,
+separate from the rest of the code. If you're on Windows, you get a pre-built
+copy by default. If you're on Linux, you built one already to run the server.
+
+If you make changes to the Rust library, you'll want to rebuild. This will be
+very similar to [rust-g][]. The only difference is that you run `cargo` from the
+`rust/` directory, and don't need to specify `--all-features` (though it doesn't
+hurt).
+
+The server will automatically detect that you have a local build, and use that
+over the default Windows one.
+
+When you're ready to make a PR, please DO NOT modify `rustlibs.dll` or
+`tools/ci/librustlibs_ci.so`. Leave "Allow edits and access to secrets by
+maintainers" enabled, and post a comment on your PR saying `!build_rust`. A bot
+will automatically build them for you and update your branch.
+
+[Rust]: https://www.rust-lang.org/
+[rust-g]: https://github.com/ParadiseSS13/rust-g
 
 ## Specifications
 

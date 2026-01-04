@@ -1,4 +1,6 @@
 /obj/docking_port/mobile/proc/shuttle_smash(list/mobile_turfs, list/stationary_turfs, mobile_dir)
+	set waitfor = FALSE
+
 	var/list/viewers_by_turf = list()
 	var/list/things_by_turf = list()
 

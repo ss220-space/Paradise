@@ -35,13 +35,13 @@
 /obj/structure/wryn/wax/Initialize(mapload)
 	if(usr)
 		add_fingerprint(usr)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	. = ..()
 
 /obj/structure/wryn/wax/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/wryn/wax/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -97,6 +97,7 @@
 	anchored = TRUE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
+	cares_about_temperature = TRUE
 	var/list/icons = list("wax_floor1", "wax_floor2", "wax_floor3")
 	icon_state = "wax_floor1"
 	max_integrity = 10
@@ -151,9 +152,9 @@
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
 
-/obj/structure/wryn/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/wryn/floor/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 #define WAX_DOOR_CLOSED 0
