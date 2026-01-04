@@ -393,10 +393,10 @@ SUBSYSTEM_DEF(air)
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
 
-		if(istype(atmos_machine , /obj/machinery/power/supermatter_shard))
+		if(istype(atmos_machine, /obj/machinery/power/supermatter_shard))
 			supermatters += atmos_machine
 
-		else if(isnull(atmos_machine ) || (atmos_machine .process_atmos(seconds) == PROCESS_KILL))
+		else if(isnull(atmos_machine) || (atmos_machine.process_atmos(seconds) == PROCESS_KILL))
 			atmos_machinery -= atmos_machine
 
 		if(MC_TICK_CHECK)
@@ -827,7 +827,7 @@ SUBSYSTEM_DEF(air)
 	SSair.flags |= SS_NO_FIRE
 	// Disable fire, too.
 	for(var/turf/simulated/simuleated_turf in SSair.hotspots)
-		QDEL_NULL(simuleated_turf .active_hotspot)
+		QDEL_NULL(simuleated_turf.active_hotspot)
 
 /// condenses water on a tile at the specified coordinates
 /proc/condense_water(water_phase, x, y, z)
