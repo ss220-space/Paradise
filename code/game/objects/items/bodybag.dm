@@ -435,13 +435,9 @@
 	QDEL_NULL(air_contents)
 	return ..()
 
-/obj/structure/closet/body_bag/environmental/return_air()
+/obj/structure/closet/body_bag/environmental/return_obj_air()
 	refresh_air()
 	return air_contents
-
-/obj/structure/closet/body_bag/environmental/remove_air(amount)
-	refresh_air()
-	return air_contents.remove(amount)
 
 /obj/structure/closet/body_bag/environmental/return_analyzable_air()
 	refresh_air()
@@ -455,11 +451,11 @@
 /obj/structure/closet/body_bag/environmental/proc/refresh_air()
 	air_contents = null
 	air_contents = new	//liters
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 	air_contents.volume = 50
 
-	air_contents.oxygen = O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C)
-	air_contents.nitrogen = N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_oxygen(O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
+	air_contents.set_nitrogen(N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/structure/closet/body_bag/environmental/update_icon_state()
 	return
@@ -625,11 +621,11 @@
 /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate/refresh_air()
 	air_contents = null
 	air_contents = new	//liters
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 	air_contents.volume = 50
 
-	air_contents.oxygen = O2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
-	air_contents.sleeping_agent = N2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.set_oxygen(O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
+	air_contents.set_sleeping_agent(N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/structure/closet/body_bag/environmental/hardlight
 	name = "hardlight bodybag"

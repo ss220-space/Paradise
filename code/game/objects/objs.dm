@@ -351,7 +351,6 @@
 	throwned_mob.Knockdown(3 SECONDS)
 
 #undef MOB_DAMAGE_FROM_OBJECTS_MODIFIER
-#undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
 
 /obj/proc/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
