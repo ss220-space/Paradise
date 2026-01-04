@@ -95,6 +95,13 @@
 /turf/simulated/floor/plasteel/stairs/old
 	icon_state = "stairs-old"
 
+/turf/simulated/floor/plasteel/stairs/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/plasteel/grimy
 	icon_state = "grimy"
 
