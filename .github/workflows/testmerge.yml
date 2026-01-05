@@ -169,6 +169,7 @@ jobs:
           sed -i '1i #define PARADISE_PRODUCTION_HARDWARE' paradise.dme
           git config --local user.email "action@github.com"
           git config --local user.name "Testmerge Worker"
+          git add paradise.dme
           git commit -m "Add PARADISE_PRODUCTION_HARDWARE"
 
           # Generate TGUI bundle
