@@ -107,7 +107,7 @@
 	RegisterSignal(SSjobs, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(set_overflow_job_override))
 
 /datum/station_trait/overflow_job_bureaucracy/get_report()
-	return "[name] — Из-за ошибки с нашей стороны на одну из должностей станции было открыто слишком много слотов. Судя по всему, это [chosen_job_name]. Постарайтесь исправить ситуацию, если это возможно."
+	return "<i>[name]</i> — Из-за ошибки с нашей стороны на одну из должностей станции было открыто слишком много слотов. Судя по всему, это [chosen_job_name]. Постарайтесь исправить ситуацию, если это возможно."
 
 /datum/station_trait/overflow_job_bureaucracy/proc/set_overflow_job_override(datum/source)
 	SIGNAL_HANDLER
@@ -205,10 +205,28 @@
 
 /datum/station_trait/random_event_weight_modifier/anomaly_storms
 	name = "Аномальное созвездие"
-	report_message = "Пространство вокруг станции зафиксировало множество неизвестных сигналов и аномалий. Будьте предельно осторожны."
+	report_message = "Пространство вокруг станции зафиксировало множество неизвестных сигналов и аномалий. Будьте осторожны."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
 	event_names = list("Аномалия")
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 3 ///1500 instead of 500. Oh god
 
+/datum/station_trait/random_event_weight_modifier/more_antags
+	name = "Вражеская активность"
+	report_message = "Внимание! В космическом пространстве вокруг станции замечена повышенная активность маломестных шаттлов без активного транспондера. Ожидайте незванных гостей."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	event_names = list("Космический ниндзя", "Ядерный оперативник", "Дрейфующий Контрактник")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 3
+	disable_is_one_shot = TRUE
+
+/datum/station_trait/random_event_weight_modifier/more_majors
+	name = "Повышенная опасность биологических угроз"
+	report_message = "Внимание! Несколько космических станций в вашем секторе было уничтожено в результате вспышек биоугроз. Будьте предельно осторожны."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	event_names = list("Блоб", "Заражение ксеноморфами", "Пауки Ужаса", "Космический Дракон")
+	event_severity = /datum/event_container/major
+	weight_multiplier = 3
