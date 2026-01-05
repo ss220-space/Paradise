@@ -666,7 +666,7 @@
 
 /datum/chemical_reaction/water_vapor/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	var/datum/gas_mixture/vapor
+	var/datum/gas_mixture/vapor = new()
 	vapor.set_water_vapor(created_volume)
 	var/datum/milla_safe/turf_blind_release/milla = new()
 	milla.invoke_async(location, vapor)
