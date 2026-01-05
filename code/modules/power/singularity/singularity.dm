@@ -307,7 +307,7 @@
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
-	if(istype(A, /obj/machinery/power/supermatter_shard) && !consumedSupermatter)
+	if(istype(A, /obj/machinery/atmospherics/supermatter_crystal) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
@@ -455,14 +455,14 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(isbrain(M)) //Ignore brains
 			continue
-		if(!M.stat) // We can't stare on the lord if we are not so alive.
-			continue
-		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.
-			to_chat(M, span_notice("You look directly into the [src.name], good thing you had your protective eyewear on!"))
-			continue
+		if(HAS_TRAIT(M, TRAIT_MESON_VISION))
+			to_chat(M, span_notice("You look directly into [src], but remain unaffected!"))
+			return
 		M.Stun(6 SECONDS)
-		M.visible_message(span_danger("[M] stares blankly at [src]!"), \
-						span_userdanger("You look directly into [src] and feel weak."))
+		M.visible_message(
+			span_danger("[M] stares blankly at [src]!"),
+			span_userdanger("You look directly into [src] and feel weak.")
+		)
 	return
 
 /obj/singularity/proc/emp_area()

@@ -1673,7 +1673,7 @@
 /turf/simulated/floor/plating,
 /area/construction)
 "RX" = (
-/obj/machinery/power/supermatter_shard{
+/obj/machinery/atmospherics/supermatter_crystal{
 	anchored = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,

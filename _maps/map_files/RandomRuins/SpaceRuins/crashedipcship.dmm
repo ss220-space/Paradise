@@ -908,7 +908,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "pD" = (
-/obj/machinery/power/supermatter_shard/anchored,
+/obj/machinery/atmospherics/supermatter_crystal/anchored,
 /turf/simulated/floor/engine,
 /area/ruin/space/crashedipcship/shard)
 "pF" = (

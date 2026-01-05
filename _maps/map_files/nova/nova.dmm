@@ -146153,7 +146153,7 @@
 	},
 /area/tcommsat/server)
 "vHo" = (
-/obj/machinery/power/supermatter_shard{
+/obj/machinery/atmospherics/supermatter_crystal{
 	anchored = 1;
 	zap_sound_extrarange = -6
 	},

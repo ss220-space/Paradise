@@ -23,7 +23,20 @@
 
 /obj/effect/countdown/proc/attach(atom/A)
 	attached_to = A
-	loc = get_turf(A)
+	var/turf/loc_turf = get_turf(A)
+	if(!loc_turf)
+		RegisterSignal(attached_to, COMSIG_MOVABLE_MOVED, PROC_REF(retry_attach), TRUE)
+	else
+		forceMove(loc_turf)
+
+/obj/effect/countdown/proc/retry_attach()
+	SIGNAL_HANDLER
+
+	var/turf/loc_turf = get_turf(attached_to)
+	if(!loc_turf)
+		return
+	forceMove(loc_turf)
+	UnregisterSignal(attached_to, COMSIG_MOVABLE_MOVED)
 
 /obj/effect/countdown/proc/start()
 	if(!started)
@@ -80,7 +93,6 @@
 
 /obj/effect/countdown/clonepod
 	name = "cloning pod countdown"
-	// text_size = 1
 
 /obj/effect/countdown/clonepod/get_value()
 	var/obj/machinery/clonepod/C = attached_to
@@ -102,7 +114,6 @@
 
 /obj/effect/countdown/clockworkgate
 	name = "gateway countdown"
-	// text_size = 1
 	color = "#BE8700"
 
 /obj/effect/countdown/clockworkgate/get_value()
@@ -122,3 +133,20 @@
 	else
 		var/time_left = max(0, (H.finish_time - world.time) / 10)
 		return round(time_left)
+
+// MARK: Supermatter
+/obj/effect/countdown/supermatter
+	name = "supermatter damage"
+	color = "#00ff80"
+	pixel_y = 8
+
+/obj/effect/countdown/supermatter/attach(atom/attached_atom)
+	. = ..()
+	if(istype(attached_atom, /obj/machinery/atmospherics/supermatter_crystal/shard))
+		pixel_y = -12
+
+/obj/effect/countdown/supermatter/get_value()
+	var/obj/machinery/atmospherics/supermatter_crystal/supermatter = attached_to
+	if(!istype(supermatter))
+		return
+	return "<div align='center' valign='bottom' style='position:relative; top:0px; left:0px'>[round(S.get_integrity_percent())]%</div>"

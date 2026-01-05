@@ -81,8 +81,7 @@
 		)
 
 	var/affected_apc_count = 0
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc = thing
+	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
 		var/area/current_area = get_area(apc)
 
 		if((current_area.type in skipped_areas_apc) || !is_station_level(apc.z))

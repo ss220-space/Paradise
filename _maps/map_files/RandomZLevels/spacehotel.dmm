@@ -2366,7 +2366,7 @@
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iL" = (
-/obj/machinery/power/supermatter_shard/anchored,
+/obj/machinery/atmospherics/supermatter_crystal/anchored,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iM" = (

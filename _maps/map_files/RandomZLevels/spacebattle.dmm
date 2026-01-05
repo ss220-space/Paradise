@@ -935,8 +935,6 @@
 	},
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/engines_and_power/supermatter.dmi';
-	icon_state = "darkmatter";
 	name = "supermatter shard"
 	},
 /turf/simulated/floor/engine,
