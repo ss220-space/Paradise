@@ -65,7 +65,7 @@
 
 #define WARNING_DELAY 60
 
-#define HALLUCINATION_RANGE(P) (min(7, round(P ** 0.25)))
+#define HALLUCINATION_RANGE(P) (min(7, round((P) ** 0.25)))
 
 #define MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION 0.205
 
@@ -497,14 +497,19 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			//causing damage
 			//Due to DAMAGE_INCREASE_MULTIPLIER, we only deal one 4th of the damage the statements otherwise would cause
 
-			//((((some value between 0.5 and 1 * (temp - ((273.15 + 40) * some values between 1 and 10))) * some number between 0.25 and knock your socks off / 150) * 0.25
-			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
+			// ((((some value between 0.5 and 1 * (temp - ((273.15 + 40) * some values between 1 and 10))) * some number between 0.25 and knock your socks off / 150) * 0.25
+			// Heat and mols account for each other, a lot of hot mols are more damaging then a few
 			// Reduced heat damage below 200 Mols
-			damage = max(damage + (max(max(removed.total_moles() / MOLE_PENALTY_THRESHOLD, 0.5) * (removed.temperature() - ((T0C + heat_penalty_threshold) * dynamic_heat_resistance)), 0) * mole_heat_penalty / 50 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+            var/heat_damage = (max(max(removed.total_moles() / MOLE_PENALTY_THRESHOLD, 0.5) * (removed.temperature() - ((T0C + heat_penalty_threshold) * dynamic_heat_resistance)), 0) * mole_heat_penalty / 50 ) * DAMAGE_INCREASE_MULTIPLIER
+            damage = max(damage + heat_damage, 0)
+
 			// Power only starts affecting damage when it is above 5000
-			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
+            var/power_damage = (max(power - POWER_PENALTY_THRESHOLD, 0) / 500) * DAMAGE_INCREASE_MULTIPLIER
+            damage = max(damage + power_damage, 0)
+
 			// Molar count only starts affecting damage when it is above 1800
-			damage = max(damage + (max(combined_gas - MOLE_PENALTY_THRESHOLD, 0) / 80) * DAMAGE_INCREASE_MULTIPLIER, 0)
+            var/mole_damage = (max(combined_gas - MOLE_PENALTY_THRESHOLD, 0) / 80) * DAMAGE_INCREASE_MULTIPLIER
+            damage = max(damage + mole_damage, 0)
 
 			//There might be a way to integrate healing and hurting via heat
 			//healing damage
@@ -683,7 +688,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY)
 			alarm()
 			if(damage < damage_archived) // We are gaining integrity. Just say that
-				radio_announce("<b>[safe_alert] Integrity: [get_integrity_percent()]%</b>", name, ENG_FREQ, radio)
+				radio_announce(span_bold("[safe_alert] Integrity: [get_integrity_percent()]%"), name, ENG_FREQ, radio)
 				lastwarning = REALTIMEOFDAY
 			else // We are losing integrity, let's warn engineering.
 				if(damage > emergency_point) //Oh shit it's bad, time to freak out
@@ -1349,3 +1354,4 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 #undef PLASMA_CRUNCH
 #undef HYDROGEN_CRUNCH
 #undef H2O_CRUNCH
+#undef MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION
