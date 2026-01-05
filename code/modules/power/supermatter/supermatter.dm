@@ -305,7 +305,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	if(!air)
 		return SUPERMATTER_ERROR
 
-	var/integrity = get_integrity()
+	var/integrity = get_integrity_percent()
 	if(integrity < SUPERMATTER_DELAM_PERCENT)
 		return SUPERMATTER_DELAMINATING
 
@@ -358,7 +358,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		var/turf/T = get_turf(M)
 		if(istype(T) && are_zs_connected(T, src)) // if the player is on the same zlevel as the SM shared
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
-	radio_announce(speaking, name, null, radio)
+	radio_announce(speaking, name, PUB_FREQ, radio)
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(!processes) // Stop exploding if you're frozen by an admin, damn you
 			cut_overlay(causality_field, TRUE)
@@ -366,7 +366,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio_announce(span_big("[safe_alert] Failsafe has been disengaged."), name, null, radio)
+			radio_announce(span_big("[safe_alert] Failsafe has been disengaged."), name, PUB_FREQ, radio)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
@@ -378,7 +378,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before causality stabilization.</b>"
 		else
 			speaking = span_reallybig("[i * 0.1]...")
-		radio_announce(speaking, name, null, radio)
+		radio_announce(speaking, name, PUB_FREQ, radio)
 		sleep(10)
 
 	explode()
@@ -682,18 +682,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY)
 			alarm()
 			if(damage < damage_archived) // We are gaining integrity. Just say that
-				radio_announce("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, ENG_FREQ, radio)
+				radio_announce("<b>[safe_alert] Integrity: [get_integrity_percent()]%</b>", name, ENG_FREQ, radio)
 				lastwarning = REALTIMEOFDAY
 			else // We are losing integrity, let's warn engineering.
 				if(damage > emergency_point) //Oh shit it's bad, time to freak out
-					radio_announce(span_big("[emergency_alert] Integrity: [get_integrity()]%"), name, null, radio)
+					radio_announce(span_big("[emergency_alert] Integrity: [get_integrity_percent()]%"), name, PUB_FREQ, radio)
 					lastwarning = REALTIMEOFDAY
 					if(!has_reached_emergency)
 						investigate_log("has reached the emergency point for the first time.", "supermatter")
 						message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 						has_reached_emergency = TRUE
 				else // The damage is still going up but not yet super high
-					radio_announce("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, ENG_FREQ, radio)
+					radio_announce("<b>[warning_alert] Integrity: [get_integrity_percent()]%</b>", name, ENG_FREQ, radio)
 					lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
 				// Warning for other engine statuses
@@ -993,13 +993,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			l_power = 3,
 			l_color = SUPERMATTER_TESLA_COLOUR,
 		)
-	if(combined_gas > MOLE_CRUNCH_THRESHOLD && get_integrity() > SUPERMATTER_DANGER_PERCENT)
+	if(combined_gas > MOLE_CRUNCH_THRESHOLD && get_integrity_percent() > SUPERMATTER_DANGER_PERCENT)
 		set_light(
 			l_range = 4 + clamp((450 - damage) / 10, 1, 50),
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
-	if(combined_gas <= MOLE_CRUNCH_THRESHOLD || get_integrity() >= SUPERMATTER_DANGER_PERCENT)
+	if(combined_gas <= MOLE_CRUNCH_THRESHOLD || get_integrity_percent() >= SUPERMATTER_DANGER_PERCENT)
 		for(var/obj/D in darkness_effects)
 			qdel(D)
 		return

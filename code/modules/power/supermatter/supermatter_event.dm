@@ -35,7 +35,7 @@
 /datum/engi_event/supermatter_event/proc/general_radio_say(text)
 	if(!text)
 		return
-	radio_announce(text, supermatter.name, null, supermatter)
+	radio_announce(text, supermatter.name, PUB_FREQ, supermatter)
 
 // Below this are procs used for the SM events, in order of severity
 // MARK: D class events
@@ -133,14 +133,12 @@
 /datum/engi_event/supermatter_event/bravo_tier/alert_engi()
 	sm_radio_say(span_bold("Обнаружена аномальная кристаллическая активность! Класс активности: [name]. Требуется вмешательство обслуживающего персонала!"))
 
-
 // more gas
 /datum/engi_event/supermatter_event/bravo_tier/gas_multiply
 	name = "B-1"
 
 /datum/engi_event/supermatter_event/bravo_tier/gas_multiply/on_start()
 	supermatter.gas_multiplier = 3
-
 
 /datum/engi_event/supermatter_event/bravo_tier/heat_multiplier
 	name = "B-2"

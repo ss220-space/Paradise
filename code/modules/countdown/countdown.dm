@@ -149,4 +149,4 @@
 	var/obj/machinery/atmospherics/supermatter_crystal/supermatter = attached_to
 	if(!istype(supermatter))
 		return
-	return "<div align='center' valign='bottom' style='position:relative; top:0px; left:0px'>[round(S.get_integrity_percent())]%</div>"
+	return "<div align='center' valign='bottom' style='position:relative; top:0px; left:0px'>[round(supermatter.get_integrity_percent())]%</div>"
