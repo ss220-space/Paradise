@@ -833,7 +833,7 @@ SUBSYSTEM_DEF(air)
 /proc/condense_water(water_phase, x, y, z)
 	var/turf/simulated/floor/tile =  locate(x, y, z)
 
-	if(!istupe(tile))
+	if(!istype(tile))
 		return
 
 	tile.MakeSlippery(water_phase, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
