@@ -204,8 +204,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
 #define LAVALAND_TEMPERATURE 300
-#define LAVALAND_OXYGEN 8
-#define LAVALAND_NITROGEN 14
+#define LAVALAND_OXYGEN 14
+#define LAVALAND_NITROGEN 23
 
 
 // Reactions
