@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
 	else
-		loaded_tank.air_contents.set_toxins(max(0, P.air_contents.toxins() - 0.001 * drainratio))
+		loaded_tank.air_contents.set_toxins(max(0, loaded_tank.air_contents.toxins() - 0.001 * drainratio))
 
 /obj/machinery/power/rad_collector/attack_hand(mob/user)
 	if(..())

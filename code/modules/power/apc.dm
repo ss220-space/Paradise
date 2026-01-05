@@ -1732,8 +1732,8 @@
 	if(operating)
 		toggle_breaker()
 	// no matter what, ensure the area knows something happened to the power
-	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
-		var/area/apc_area = get_area(apc)
+	var/area/apc_area = get_area(src)
+	if(apc_area)
 		apc_area.power_change()
 
 #undef UPSTATE_CELL_IN

@@ -67,6 +67,7 @@
 
 #define HALLUCINATION_RANGE(P) (min(7, round(P ** 0.25)))
 
+#define MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION 0.205
 
 #define GRAVITATIONAL_ANOMALY "gravitational_anomaly"
 #define FLUX_ANOMALY "flux_anomaly"
@@ -425,7 +426,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
-	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1, cause = "Exploding Supermatter")
+	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) * 0.5 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 2, explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 4 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 6, 1, 1, cause = "Exploding Supermatter")
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()

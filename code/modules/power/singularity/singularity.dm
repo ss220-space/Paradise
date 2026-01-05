@@ -452,18 +452,19 @@
 	return
 
 /obj/singularity/proc/mezzer()
-	for(var/mob/living/carbon/M in oviewers(8, src))
-		if(isbrain(M)) //Ignore brains
+	for(var/mob/living/carbon/stunned_mob in oviewers(8, src))
+		if(isbrain(stunned_mob)) //Ignore brains
 			continue
-		if(HAS_TRAIT(M, TRAIT_MESON_VISION))
-			to_chat(M, span_notice("You look directly into [src], but remain unaffected!"))
-			return
-		M.Stun(6 SECONDS)
-		M.visible_message(
-			span_danger("[M] stares blankly at [src]!"),
+
+		if(HAS_TRAIT(stunned_mob, TRAIT_MESON_VISION))
+			to_chat(stunned_mob, span_notice("You look directly into [src], but remain unaffected!"))
+			continue
+
+		stunned_mob.Stun(6 SECONDS)
+		stunned_mob.visible_message(
+			span_danger("[stunned_mob] stares blankly at [src]!"),
 			span_userdanger("You look directly into [src] and feel weak.")
 		)
-	return
 
 /obj/singularity/proc/emp_area()
 	empulse(src, 8, 10)

@@ -30,7 +30,7 @@
 /datum/engi_event/supermatter_event/proc/sm_radio_say(text)
 	if(!text)
 		return
-	radio_announce("Таймер остановлен вручную с консоли управления камерой содержания.", supermatter.name, ENG_FREQ, supermatter)
+	radio_announce(text, supermatter.name, ENG_FREQ, supermatter)
 
 /datum/engi_event/supermatter_event/proc/general_radio_say(text)
 	if(!text)
