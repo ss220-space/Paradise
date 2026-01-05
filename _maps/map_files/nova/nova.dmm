@@ -146155,7 +146155,7 @@
 "vHo" = (
 /obj/machinery/atmospherics/supermatter_crystal{
 	anchored = 1;
-	zap_sound_extrarange = -6
+	
 	},
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)

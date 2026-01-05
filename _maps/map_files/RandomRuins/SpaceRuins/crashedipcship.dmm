@@ -907,10 +907,6 @@
 /obj/item/t_scanner,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
-"pD" = (
-/obj/machinery/atmospherics/supermatter_crystal/anchored,
-/turf/simulated/floor/engine,
-/area/ruin/space/crashedipcship/shard)
 "pF" = (
 /obj/structure/table,
 /obj/item/tank/internals/plasma/empty{
@@ -5966,7 +5962,7 @@ sH
 UR
 Ry
 MS
-pD
+Bj
 mF
 Ry
 vj
