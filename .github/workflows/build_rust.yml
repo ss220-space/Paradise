@@ -123,7 +123,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git add --force librustlibs.so rustlibs.dll librustlibs_515.so librustlibs_516.so rustlibs_515.dll rustlibs_516.dll
+        git add --force librustlibs.so rustlibs.dll librustlibs_515.so librustlibs_516.so rustlibs_515.dll rustlibs_516.dll librustlibs_515_prod.so librustlibs_516_prod.so
         git commit -m "Build Rust library"
         git push origin
 
