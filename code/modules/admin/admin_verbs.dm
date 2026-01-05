@@ -510,7 +510,8 @@ ADMIN_VERB(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObserve", ADMIN_VERB_
 	if(!isobserver(user.mob) && !check_rights(R_MENTOR, FALSE, user))
 		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
 
-	addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
+	if(isobserver(user.mob))
+		addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
 
 	if(!look_into_inventory)
 		return
@@ -518,7 +519,9 @@ ADMIN_VERB(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObserve", ADMIN_VERB_
 	if(!target.client)
 		to_chat(user, span_warning("[target] не имеет за собой игрока(Disconnected)."))
 		return
-	addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob/dead/observer, do_observe), target), 10 DECISECONDS)
+
+	if(!isobserver(user.mob) && !check_rights(R_MENTOR, FALSE, user))
+		addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob/dead/observer, do_observe), target), 10 DECISECONDS)
 
 ADMIN_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.", ADMIN_CATEGORY_GAME)
 	var/list/jobs = list()
