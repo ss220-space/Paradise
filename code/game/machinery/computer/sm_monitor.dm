@@ -53,28 +53,33 @@
 		data["active"] = TRUE
 		data["SM_integrity"] = active.get_integrity()
 		data["SM_power"] = active.power
+		data["SM_pre_reduction_power"] = active.pre_reduction_power
 		data["SM_ambienttemp"] = air.temperature()
 		data["SM_ambientpressure"] = air.return_pressure()
+		data["SM_moles"] = air.total_moles()
+		data["SM_gas_coefficient"] = active.gas_coefficient
 		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
+		var/list/gasdata = list()
 		var/TM = air.total_moles()
 		if(TM)
-			data["SM_gas_O2"] = round(100 * air.oxygen() / TM, 0.01)
-			data["SM_gas_CO2"] = round(100 * air.carbon_dioxide() / TM, 0.01)
-			data["SM_gas_N2"] = round(100 * air.nitrogen() / TM, 0.01)
-			data["SM_gas_PL"] = round(100 * air.toxins() / TM, 0.01)
-			data["SM_gas_NO2"] = round(100 * air.sleeping_agent() / TM, 0.01)
-			data["SM_gas_agent_b"] = round(100 * air.agent_b() / TM, 0.01)
-			data["SM_gas_H2"] = round(100 * air.hydrogen() / TM, 0.01)
-			data["SM_gas_H2O"] = round(100 * air.water_vapor() / TM, 0.01)
+			gasdata.Add(list(list("name"= "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Hydrogen", "amount" = air.hydrogen(), "portion" = round(100 * air.hydrogen() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Water Vapor", "amount" = air.water_vapor(), "portion" = round(100 * air.water_vapor() / TM, 0.01))))
 		else
-			data["SM_gas_O2"] = 0
-			data["SM_gas_CO2"] = 0
-			data["SM_gas_N2"] = 0
-			data["SM_gas_PH"] = 0
-			data["SM_gas_NO2"] = 0
-			data["SM_gas_agent_b"] = 0
-			data["SM_gas_H2"] = 0
-			data["SM_gas_H2O"] = 0
+			gasdata.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
+			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Nitrogen", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Hydrogen", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Water Vapor", "amount" = 0,"portion" = 0)))
+		data["gases"] = gasdata
 	else
 		var/list/SMS = list()
 		for(var/I in supermatters)
@@ -85,8 +90,8 @@
 
 			SMS.Add(list(list(
 				"area_name" = A.name,
-				"integrity" = S.get_integrity(),
-				"uid" = S.UID()
+				"integrity" = S.get_integrity_percent(),
+				"supermatter_id" = S.supermatter_id
 			)))
 
 		data["active"] = FALSE
@@ -142,12 +147,11 @@
 			refresh()
 
 		if("view")
-			var/newuid = params["view"]
+			var/newuid = text2num(params["view"])
 			for(var/obj/machinery/atmospherics/supermatter_crystal/S in supermatters)
-				if(S.UID() == newuid)
+				if(S.supermatter_id == newuid)
 					active = S
 					break
 
 		if("back")
 			active = null
-
