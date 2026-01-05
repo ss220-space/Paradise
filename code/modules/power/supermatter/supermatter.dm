@@ -264,7 +264,7 @@
 		removed.set_toxins(removed.toxins() + max(device_energy / PLASMA_RELEASE_MODIFIER, 0))
 		removed.set_oxygen(removed.oxygen() + max((device_energy + removed.temperature() - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
-	var/heat_capacity = removed.heat_capacity()
+	var/heat_capacity = removed.heat_capacity() || 1
 
 	var/thermal_power = THERMAL_RELEASE_MODIFIER * device_energy
 	if(debug)
