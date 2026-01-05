@@ -1,5 +1,5 @@
 #define NITROGEN_RETARDATION_FACTOR 0.15 //Higher == N2 slows reaction more
-#define THERMAL_RELEASE_MODIFIER 2000 //Higher == more heat released during reaction
+#define THERMAL_RELEASE_MODIFIER 5000 //Higher == more heat released during reaction
 #define PLASMA_RELEASE_MODIFIER 1500 //Higher == less phor.. plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 15000 //Higher == less oxygen released at high temperature/power
 #define REACTION_POWER_MODIFIER 1.1 //Higher == more overall power
@@ -271,10 +271,9 @@
 		visible_message("[src]: Releasing [round(thermal_power)] W.")
 		visible_message("[src]: Releasing additional [round((heat_capacity - old_heat_capacity) * removed.temperature())] W with exhaust gasses.")
 
-	if(removed.total_moles())
-		var/produced_joules = max(0, (thermal_power))
-		produced_joules *= (heat_capacity / removed.total_moles())
-		removed.set_temperature((removed.thermal_energy() + produced_joules) / heat_capacity)
+	//deltaT = deltaQ / heat_capacity (deltaQ equals thermal_power)
+	//We are assuming here, that volume does not change here
+	removed.set_temperature(max(TCMB, removed.temperature() + (thermal_power / heat_capacity)))
 
 	env.merge(removed)
 
