@@ -2730,9 +2730,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "aDC" = (
-/obj/machinery/atmospherics/supermatter_crystal{
-	anchored = 1
-	},
+/obj/machinery/atmospherics/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "aDD" = (
