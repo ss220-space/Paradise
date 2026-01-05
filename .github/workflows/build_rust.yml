@@ -112,6 +112,13 @@ jobs:
         cargo build --release --target $WINDOWS_TARGET --no-default-features --features byond-516
         cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516.dll
 
+        export RUSTFLAGS='-C target-cpu=raptorlake'
+        cargo build --release --target=$LINUX_TARGET
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_515_prod.so
+        cargo clean
+        cargo build --release --target=$LINUX_TARGET --no-default-features --features byond-516
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_516_prod.so
+
     - name: Commit and push changes
       env:
         GH_TOKEN: ${{ github.token }}
