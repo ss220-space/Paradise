@@ -8605,6 +8605,7 @@
 	dir = 5;
 	name = "Труба на фильтрацию"
 	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "brG" = (

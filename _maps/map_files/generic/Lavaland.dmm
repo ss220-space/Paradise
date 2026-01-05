@@ -74,7 +74,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "ap" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "aq" = (
@@ -386,7 +386,7 @@
 /turf/simulated/wall,
 /area/mine/eva)
 "bg" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "bh" = (
@@ -631,7 +631,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bJ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/sign/securearea{
 	name = "KEEP CLEAR: DOCKING AREA"
 	},
@@ -668,7 +668,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "bN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "bO" = (
@@ -1061,7 +1061,7 @@
 	},
 /area/mine/production)
 "cG" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
 "cH" = (
@@ -1141,7 +1141,7 @@
 /turf/simulated/wall/r_wall,
 /area/mine/maintenance)
 "cR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "cS" = (
@@ -4922,7 +4922,7 @@
 /obj/machinery/flasher{
 	id = "labor"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "uP" = (
@@ -6451,7 +6451,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Jl" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
@@ -6684,7 +6684,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "LQ" = (
@@ -6842,7 +6842,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Ni" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
@@ -7173,7 +7173,7 @@
 /area/lavaland/surface/outdoors)
 "PQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Qd" = (
@@ -7877,7 +7877,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "WP" = (

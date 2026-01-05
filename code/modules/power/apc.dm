@@ -1700,6 +1700,27 @@
 
 	return channel_type == CHANNEL_SETTING_ON
 
+/// Repairs all wires, enables all breakers, and unshorts the APC
+/obj/machinery/power/apc/proc/repair_apc()
+	if(wires)
+		wires.repair()
+
+	if(!operating)
+		toggle_breaker()
+
+	if(!shorted)
+		return
+
+	shorted = FALSE
+
+/// If the APC has a cell, recharge it
+/obj/machinery/power/apc/proc/recharge_apc()
+	var/obj/item/stock_parts/cell/cell = get_cell()
+	if(!cell)
+		return
+
+	cell.charge = cell.maxcharge
+
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1
 #undef UPSTATE_OPENED2

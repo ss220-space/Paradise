@@ -18,6 +18,19 @@
 	name = "Призвать вилы Архидьявола"
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
 
+/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus
+	name = "Призвать вилы Крампуса"
+	item_type = /obj/item/twohanded/pitchfork/demonic/greater/krampus
+
+/obj/effect/proc_holder/spell/conjure_item/krampus_bag
+	name = "Призвать мешок Крампуса"
+	item_type = /obj/item/krampus_bag
+	action_icon_state = "krampus_bag"
+	action_icon = 'icons/obj/items.dmi'
+	action_background_icon_state = "bg_demon"
+	base_cooldown = 10 SECONDS
+	human_req = FALSE
+
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Призвать золотую скрипку"
 	desc = "Призывает/отзывает дьявольскую золотую скрипку."
@@ -403,8 +416,10 @@
 		if(!prob(fire_prob))
 			continue
 
-		new /obj/effect/hotspot(turf)
-		turf.hotspot_expose(2000, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		hotspot.temperature = 3000
+		hotspot.recolor()
+		turf.hotspot_expose(2000, 50)
 
 	playsound(get_turf(user), 'sound/magic/blind.ogg', 50, TRUE)
 

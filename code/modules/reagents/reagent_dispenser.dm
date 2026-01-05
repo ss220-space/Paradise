@@ -6,6 +6,7 @@
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
+	cares_about_temperature = TRUE
 	/// In units, how much the dispenser can hold
 	var/tank_volume = 1000
 	/// The ID of the reagent that the dispenser uses
@@ -31,12 +32,12 @@
 	create_reagents(tank_volume)
 	reagents.add_reagent(reagent_id, tank_volume)
 
-/obj/structure/reagent_dispensers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/reagent_dispensers/temperature_expose(temperature, volume)
 	..()
 	if(reagents)
 		for(var/i in 1 to 8)
 			if(reagents)
-				reagents.temperature_reagents(exposed_temperature)
+				reagents.temperature_reagents(temperature)
 
 /obj/structure/reagent_dispensers/proc/boom(rigtrigger = FALSE, log_attack = FALSE)
 	if(went_boom)

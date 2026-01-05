@@ -400,3 +400,5 @@
 #define TRAIT_TWOHANDED_BLOCKED "twohandec_blocked"
 
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
+
+#define TRAIT_PRESSURE_VISION "pressure_vision"

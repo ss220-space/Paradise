@@ -9,6 +9,7 @@
 	icon_state = "metal"
 	max_integrity = 200
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50)
+	cares_about_temperature = TRUE
 	var/initial_state
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
@@ -25,11 +26,11 @@
 /obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
 	initial_state = icon_state
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/mineral_door/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/mineral_door/add_debris_element()
@@ -65,7 +66,7 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 
-/obj/structure/mineral_door/CanAtmosPass(turf/T, vertical)
+/obj/structure/mineral_door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
@@ -102,7 +103,7 @@
 	if(is_opaque)
 		set_opacity(FALSE)
 	state = 1
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
@@ -125,7 +126,7 @@
 	if(is_opaque)
 		set_opacity(TRUE)
 	state = 0
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
@@ -214,10 +215,10 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/mineral_door/transparent/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
-		TemperatureAct(exposed_temperature)
+	if(temperature > 300)
+		TemperatureAct(temperature)
 
 /obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct(temperature)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 500)

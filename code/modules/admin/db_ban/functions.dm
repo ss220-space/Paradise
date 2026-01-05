@@ -1,8 +1,8 @@
 #define MAX_ADMIN_BANS_PER_ADMIN 1
 
 /datum/admins/proc/DB_ban_record(bantype, mob/banned_mob, duration = -1, reason, job = "", rounds = 0, banckey = null, banip = null, bancid = null)
-
-	if(!check_rights(R_BAN))	return
+	if(!check_rights(R_BAN))
+		return
 
 	if(!SSdbcore.IsConnected())
 		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns."), confidential=TRUE)
@@ -190,8 +190,8 @@
 		flag_account_for_forum_sync(ckey)
 
 /datum/admins/proc/DB_ban_unban(ckey, bantype, job = "")
-
-	if(!check_rights(R_BAN))	return
+	if(!check_rights(R_BAN))
+		return
 
 	if(!SSdbcore.IsConnected())
 		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!."), confidential=TRUE)
@@ -280,8 +280,8 @@
 		flag_account_for_forum_sync(ckey)
 
 /datum/admins/proc/DB_ban_edit(banid = null, param = null)
-
-	if(!check_rights(R_BAN))	return
+	if(!check_rights(R_BAN))
+		return
 
 	if(!isnum(banid) || !istext(param))
 		to_chat(usr, "Cancelled", confidential=TRUE)
@@ -377,7 +377,6 @@
 			return
 
 /datum/admins/proc/DB_ban_unban_by_id(id)
-
 	if(!check_rights(R_BAN))
 		return
 
@@ -430,18 +429,7 @@
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
 
-/client/proc/DB_ban_panel()
-	set category = STATPANEL_ADMIN_BAN
-	set name = "Banning Panel"
-	set desc = "DB Ban Panel"
-
-	if(!check_rights(R_BAN))
-		return
-
-	holder.DB_ban_panel()
-
 /datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)
-
 	if(!usr.client)
 		return
 

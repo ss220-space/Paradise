@@ -4,6 +4,7 @@
 	report_alerts = FALSE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
+	has_gravity = TRUE
 
 /area/vision_change_area/awaymission/evil_santa_storm
 	name = "Evil santa forest"
@@ -12,6 +13,7 @@
 	report_alerts = FALSE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
+	has_gravity = TRUE
 	ambientsounds = list(
 		'sound/ambience/spooky/haunting_ambience.ogg',
 		'sound/ambience/spooky/suspenseful_ambience.ogg',
@@ -26,6 +28,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_ne
 	name = "Evil santa spawn north east"
 	icon_state = "awaycontent2"
+
 /area/vision_change_area/awaymission/evil_santa/spawn_nw
 	name = "Evil santa spawn north west"
 	icon_state = "awaycontent3"
@@ -217,8 +220,16 @@
 	lootdoubles = FALSE
 
 	loot = list(
-		/obj/item/gift/evil_santa_reward = 33,
-		/obj/item/gift = 67,
+		/obj/item/gift/evil_santa_reward = 28,
+		/obj/item/gift = 57,
+		/obj/item/gift/santa_special = 15,
+	)
+
+/obj/effect/spawner/lootdrop/evil_santa_gift/xmas_tree
+	loot = list(
+		/obj/item/gift/evil_santa_reward = 18,
+		/obj/item/gift = 77,
+		/obj/item/gift/santa_special = 5,
 	)
 
 /obj/item/paper/journal_scrap_1

@@ -726,3 +726,11 @@
 	holder.pixel_x += x_offset
 	holder.pixel_y += y_offset
 
+/datum/atom_hud/data/pressure
+	hud_icons = list(PRESSURE_HUD)
+
+/// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
+/datum/atom_hud/data/pressure/show_to(mob/new_viewer)
+	. = ..()
+	SSair.add_pressure_hud(new_viewer)
+

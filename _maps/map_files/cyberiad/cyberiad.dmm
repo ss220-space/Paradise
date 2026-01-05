@@ -25924,11 +25924,7 @@
 /area/escapepodbay)
 "bVK" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bVL" = (
@@ -26784,7 +26780,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "bYr" = (
-/obj/effect/landmark/start/cargo_technician,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -26835,15 +26830,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "bYK" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 4;
-	pixel_y = 4
-	},
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -34851,6 +34838,7 @@
 	pixel_y = 4;
 	req_access = list(24)
 	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cCq" = (
@@ -49492,6 +49480,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
+"eSR" = (
+/obj/effect/landmark/start/cargo_technician,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/sorting)
 "eTm" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_South";
@@ -50401,6 +50393,22 @@
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/obj/item/stamp/denied{
+	pixel_y = 10;
+	pixel_x = -5
+	},
+/obj/item/stamp/granted{
+	pixel_y = 10;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -52650,6 +52658,7 @@
 /area/hallway/secondary/exit)
 "gpC" = (
 /obj/item/flag/cargo,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -53221,7 +53230,6 @@
 /turf/simulated/floor/engine,
 /area/maintenance/server)
 "gEb" = (
-/obj/structure/table,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -54896,6 +54904,21 @@
 	dir = 2;
 	id_tag = "Cargo Office Windows";
 	name = "Cargo Office Shutters"
+	},
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/obj/item/stamp/granted{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/item/stamp/denied{
+	pixel_y = 10;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -61131,6 +61154,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/structure/table/reinforced,
+/obj/item/stock_parts/cell/high/plus,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -65738,6 +65767,22 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/obj/item/stamp/denied{
+	pixel_y = 10;
+	pixel_x = -5
+	},
+/obj/item/stamp/granted{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -71836,6 +71881,16 @@
 /area/hallway/primary/port)
 "oZx" = (
 /obj/structure/table/wood/fancy/royalblue,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/obj/item/pen{
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "oZM" = (
@@ -77763,6 +77818,13 @@
 	name = "Cargo Requests Console";
 	pixel_y = 30
 	},
+/obj/item/destTagger,
+/obj/item/destTagger,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -81952,13 +82014,6 @@
 /turf/space,
 /area/solar/port)
 "trQ" = (
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
-	},
-/obj/item/rcs,
-/obj/item/rcs,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -81966,6 +82021,18 @@
 	dir = 8;
 	name = "west fire alarm";
 	pixel_x = -24
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -83160,7 +83227,6 @@
 	},
 /area/atmos/control)
 "tRr" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -83169,6 +83235,7 @@
 	name = "west bump";
 	pixel_x = -26
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -83331,6 +83398,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"tUo" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_x = 1;
+	pixel_y = 3
+	},
+/obj/item/rcs,
+/obj/item/rcs,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "tUr" = (
 /turf/simulated/wall,
 /area/medical/medbay2)
@@ -87792,10 +87870,10 @@
 	},
 /area/toxins/xenobiology)
 "vTF" = (
-/obj/machinery/recharge_station,
 /obj/structure/sign/cargo{
 	pixel_y = -32
 	},
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -87931,15 +88009,14 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "vVz" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/high/plus,
 /obj/machinery/camera{
 	c_tag = "Cargo Delivery Office";
 	dir = 5
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -114998,7 +115075,7 @@ bYM
 bYM
 bYM
 rBG
-fjx
+eSR
 sti
 bYM
 bYM
@@ -116532,7 +116609,7 @@ qTv
 bQe
 cbz
 fql
-cbz
+tUo
 bVK
 bYK
 vTF
