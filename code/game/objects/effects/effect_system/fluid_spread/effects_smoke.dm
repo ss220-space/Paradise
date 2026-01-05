@@ -326,18 +326,9 @@
 	if(!istype(chilly))
 		return
 
-	if(chilly.air)
-		var/datum/gas_mixture/air = chilly.air
-		if(!distcheck || get_dist(location, chilly) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-			air.temperature = temperature
-
-		if(air.toxins)
-			air.nitrogen += air.toxins
-			air.toxins = 0
-
-		for(var/obj/effect/hotspot/fire in chilly)
-			qdel(fire)
-		chilly.air_update_turf(FALSE, FALSE)
+	if(!chilly.blocks_air)
+		var/datum/milla_safe/smoke_spread_chill/milla = new()
+		milla.invoke_async(src, chilly)
 
 	if(weldvents)
 		for(var/obj/machinery/atmospherics/unary/comp in chilly)
@@ -351,6 +342,25 @@
 		potential_tinder.ExtinguishMob()
 	for(var/obj/item/potential_tinder in chilly)
 		potential_tinder.extinguish()
+
+/datum/milla_safe/smoke_spread_chill
+
+/datum/milla_safe/smoke_spread_chill/on_run(datum/effect_system/fluid_spread/smoke/freezing/smoke, turf/turf)
+	var/datum/gas_mixture/env = get_turf_air(turf)
+	if(env.fuel_burnt() == 0)
+		return
+
+	if(!smoke.distcheck || get_dist(turf, smoke) < smoke.blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+		env.set_temperature(env.temperature())
+
+	var/toxins = env.toxins()
+
+	if(toxins)
+		env.set_nitrogen(env.nitrogen() + toxins)
+		env.set_toxins(0)
+
+	for(var/obj/effect/hotspot/fake/fire in turf)
+		qdel(fire)
 
 /datum/effect_system/fluid_spread/smoke/freezing/set_up(range = 5, amount = DIAMOND_AREA(range), atom/holder, atom/location, blast_radius = 0)
 	. = ..()

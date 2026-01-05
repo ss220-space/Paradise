@@ -198,3 +198,8 @@
 
 	..()
 
+/mob/living/silicon/robot/syndicate/air_push(direction, strength)
+	// Syndicate borgs ignore airflow, because they're bloody expensive.
+	// This should probably be revisited later, as part of a broader move_resist/move_force/pull_force rework.
+	return
+

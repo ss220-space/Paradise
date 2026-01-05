@@ -91,6 +91,13 @@
 /atom/proc/prepare_huds()
 	if(hud_list) // I choose to be lienient about people calling this proc more then once
 		return
+
+	var/static/list/hud_dmis
+	if(!hud_dmis)
+		hud_dmis = list(
+			PRESSURE_HUD = 'icons/effects/effects.dmi',
+		)
+
 	hud_list = list()
 	for(var/hud in hud_possible)
 		var/hint = hud_possible[hud]
@@ -99,7 +106,10 @@
 			hud_list[hud] = list()
 
 		else
-			var/image/I = image('icons/mob/hud.dmi', src, "")
+			var/use_this_dmi = hud_dmis[hud]
+			if(!use_this_dmi)
+				use_this_dmi = 'icons/mob/hud.dmi'
+			var/image/I = image(use_this_dmi, src, "")
 			I.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
 			hud_list[hud] = I
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
@@ -118,21 +128,24 @@
 	set category = ADMIN_CATEGORY_DEBUG
 	set hidden = TRUE
 
-	if(!loc)
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
+
+	if(!environment)
 		return
 
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/text = span_notice("Coordinates: [x],[y] \n")
+	text += span_danger("Temperature: [environment.temperature()] \n")
+	text += span_notice("Nitrogen: [environment.nitrogen()] \n")
+	text += span_notice("Oxygen: [environment.oxygen()] \n")
+	text += span_notice("Plasma : [environment.toxins()] \n")
+	text += span_notice("Carbon Dioxide: [environment.carbon_dioxide()] \n")
+	text += span_notice("N2O: [environment.sleeping_agent()] \n")
+	text += span_notice("Agent B: [environment.agent_b()] \n")
+	text += span_notice("Hydrogen: [environment.hydrogen()] \n")
+	text += span_notice("Water Vapor: [environment.water_vapor()] \n")
 
-	var/t = span_notice("Coordinates: [x],[y] \n")
-	t+= span_danger("Temperature: [environment.temperature] \n")
-	t+= span_notice("Nitrogen: [environment.nitrogen] \n")
-	t+= span_notice("Oxygen: [environment.oxygen] \n")
-	t+= span_notice("Plasma : [environment.toxins] \n")
-	t+= span_notice("Carbon Dioxide: [environment.carbon_dioxide] \n")
-	t+= span_notice("N2O: [environment.sleeping_agent] \n")
-	t+= span_notice("Agent B: [environment.agent_b] \n")
-
-	to_chat(usr, t)
+	to_chat(usr, text)
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 

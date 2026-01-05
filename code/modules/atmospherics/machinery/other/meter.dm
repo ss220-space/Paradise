@@ -42,7 +42,7 @@
 		icon_state = "meter0"
 		return
 
-	var/datum/gas_mixture/environment = target.return_air()
+	var/datum/gas_mixture/environment = target.return_obj_air()
 	if(!environment)
 		icon_state = "meterX"
 		return
@@ -67,7 +67,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		return
 
-	var/datum/gas_mixture/environment = target.return_air()
+	var/datum/gas_mixture/environment = target.return_obj_air()
 	if(!environment)
 		update_icon(UPDATE_ICON_STATE)
 		return
@@ -95,9 +95,9 @@
 /obj/machinery/atmospherics/meter/proc/status()
 	var/t = ""
 	if(target)
-		var/datum/gas_mixture/environment = target.return_air()
+		var/datum/gas_mixture/environment = target.return_obj_air()
 		if(environment)
-			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]&deg;K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature(), 0.01)]&deg;K ([round(environment.temperature() - T0C, 0.01)]&deg;C)"
 		else
 			t += "The sensor error light is blinking."
 	else
@@ -113,9 +113,9 @@
 		. += span_danger("The display is off.")
 
 	else if(target)
-		var/datum/gas_mixture/environment = target.return_air()
+		var/datum/gas_mixture/environment = target.return_obj_air()
 		if(environment)
-			. += span_notice("The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C).")
+			. += span_notice("The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature(), 0.01)]K ([round(environment.temperature() - T0C, 0.01)]&deg;C).")
 		else
 			. += span_warning("The sensor error light is blinking.")
 	else
@@ -176,6 +176,6 @@
 	if(!connected_meter)
 		return
 
-	var/datum/gas_mixture/environment = connected_meter.target.return_air()
+	var/datum/gas_mixture/environment = connected_meter.target.return_obj_air()
 	pressure.set_output(environment.return_pressure())
-	temperature.set_output(environment.temperature)
+	temperature.set_output(environment.temperature())

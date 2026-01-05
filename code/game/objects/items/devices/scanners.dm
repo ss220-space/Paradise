@@ -814,12 +814,12 @@ BODY SCANNERS
 	var/list/scan_data = list()
 	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
-		scan_data += "Состояние: [span_danger("ОШИБКА")]</span></span>"
-		scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font></span>"
-		scan_data += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font></span>"
-		scan_data += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)</span>"
-		scan_data += "Уровень крови: --- %, --- u, тип: ---</span>"
-		scan_data += "Пульс: <font color='#0080ff'>--- bpm.</font></span>"
+		scan_data += "Состояние: [span_danger("ОШИБКА")]"
+		scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
+		scan_data += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font>"
+		scan_data += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)"
+		scan_data += "Уровень крови: --- %, --- u, тип: ---"
+		scan_data += "Пульс: <font color='#0080ff'>--- bpm.</font>"
 		scan_data += "Гены не обнаружены."
 		to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
 		return
@@ -1318,9 +1318,20 @@ BODY SCANNERS
  * Gets called by analyzer_act, which in turn is called by tool_act.
  * Also used in other chat-based gas scans.
  */
-/proc/atmos_scan(mob/user, atom/target, silent=FALSE, print=TRUE)
-	var/mixture = target?.return_analyzable_air()
-	if(!mixture)
+/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
+	var/datum/gas_mixture/air
+	var/list/milla = null
+	if(milla_turf_details && istype(target, /turf))
+		milla = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(target, milla)
+		air = new()
+		air.copy_from_milla(milla)
+	else
+		air = target.return_analyzable_air()
+		if(!air)
+			return FALSE
+
+	if(!air)
 		return FALSE
 
 	var/icon = target
@@ -1332,45 +1343,58 @@ BODY SCANNERS
 	if(!print)
 		return TRUE
 
-	var/list/airs = islist(mixture) ? mixture : list(mixture)
-	for(var/datum/gas_mixture/air as anything in airs)
-		var/mix_name = capitalize(lowertext(target.name))
-		if(length(airs) > 1) //not a unary gas mixture
-			var/mix_number = airs.Find(air)
-			message += span_boldnotice("Node [mix_number]")
-			mix_name += " - Node [mix_number]"
+	var/total_moles = air.total_moles()
+	var/pressure = air.return_pressure()
+	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+	var/heat_capacity = air.heat_capacity()
+	var/thermal_energy = air.thermal_energy()
 
-		var/total_moles = air.total_moles()
-		var/pressure = air.return_pressure()
-		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-		var/temperature = air.return_temperature()
-		var/heat_capacity = air.heat_capacity()
-		var/thermal_energy = air.thermal_energy()
+	if(total_moles)
+		message += span_notice("Total: [round(total_moles, 0.01)] moles")
+		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
+			message += span_notice("  Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)")
+		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
+			message += span_notice("  Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)")
+		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
+			message += span_notice("  Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)")
+		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
+			message += span_notice("  Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)")
+		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
+			message += span_notice("  Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)")
+		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
+			message += span_notice("  Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)")
+		if(air.hydrogen() && (milla_turf_details || air.hydrogen() / total_moles > 0.01))
+			message += span_notice("  Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)")
+		if(air.water_vapor() && (milla_turf_details || air.water_vapor() / total_moles > 0.01))
+			message += span_notice("  Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)")
 
-		//TODO: Port gas mixtures from TG
-		if(total_moles > 0)
-			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
-			if(air.oxygen)
-				message += span_notice("Oxygen: [round(air.oxygen, 0.01)] mol ([round(air.oxygen / total_moles*100, 0.01)] %)")
-			if(air.carbon_dioxide)
-				message += span_notice("Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] mol ([round(air.carbon_dioxide / total_moles*100, 0.01)] %)")
-			if(air.nitrogen)
-				message += span_notice("Nitrogen: [round(air.nitrogen, 0.01)] mol ([round(air.nitrogen / total_moles*100, 0.01)] %)")
-			if(air.toxins)
-				message += span_notice("Plasma: [round(air.toxins, 0.01)] mol ([round(air.toxins / total_moles*100, 0.01)] %)")
-			if(air.sleeping_agent)
-				message += span_notice("Nitrous Oxide: [round(air.sleeping_agent, 0.01)] mol ([round(air.sleeping_agent / total_moles*100, 0.01)] %)")
-			if(air.agent_b)
-				message += span_notice("Agent B: [round(air.agent_b, 0.01)] mol ([round(air.agent_b / total_moles*100, 0.01)] %)")
+		message += span_notice("Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)")
+		message += span_notice("Volume: [round(volume)] Liters")
+		message += span_notice("Pressure: [round(pressure, 0.1)] kPa")
+		message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
+		message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
+	else
+		message += span_notice("[target] is empty!")
+		message += span_notice("Volume: [round(volume)] Liters") // don't want to change the order volume appears in, suck it
 
-			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
-			message += span_notice("Volume: [volume] L")
-			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")
-			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
-			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
-		else
-			message += length(airs) > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
-			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it
+	if(milla)
+		// Values from milla/src/lib.rs, +1 due to array indexing difference.
+		message += span_notice("Airtight N/E/S/W: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]")
+		switch(milla[MILLA_INDEX_ATMOS_MODE])
+			// These are enum values, so they don't get increased.
+			if(0)
+				message += span_notice("Atmos Mode: Space")
+			if(1)
+				message += span_notice("Atmos Mode: Sealed")
+			if(2)
+				message += span_notice("Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])")
+			else
+				message += span_notice("Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.")
+		message += span_notice("Superconductivity N/E/S/W: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]")
+		message += span_notice("Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]")
+		message += span_notice("Hotspot: [floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]-T0C)] &deg;C ([floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE])] K), [round(milla[MILLA_INDEX_HOTSPOT_VOLUME] * CELL_VOLUME, 1)] Liters ([milla[MILLA_INDEX_HOTSPOT_VOLUME]]x)")
+		message += span_notice("Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])")
+		message += span_notice("Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles")
 
 	// we let the join apply newlines so we do need handholding
 	to_chat(user, chat_box_examine((jointext(message, "\n"))))

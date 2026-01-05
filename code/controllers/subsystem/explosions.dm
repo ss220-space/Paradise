@@ -81,7 +81,9 @@ SUBSYSTEM_DEF(explosions)
 			//------- TURF FIRES -------
 
 			if(flame_distance && prob(40) && !isspaceturf(explode) && !explode.density)
-				new /obj/effect/hotspot(explode) //Mostly for ambience!
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(explode) //Mostly for ambience!
+				hotspot.temperature = 1000
+				hotspot.recolor()
 			if(distance > EXPLODE_NONE)
 				if(issimulatedturf(explode))
 					var/turf/simulated/S = explode

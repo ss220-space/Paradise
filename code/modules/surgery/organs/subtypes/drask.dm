@@ -144,7 +144,7 @@
 	if(source.stat == DEAD)
 		return
 
-	if(owner.bodytemperature > cooling_start_temp && environment.temperature <= cooling_stop_temp)
+	if(owner.bodytemperature > cooling_start_temp && environment.temperature() <= cooling_stop_temp)
 		owner.adjust_bodytemperature(-5)
 
 /obj/item/organ/internal/lungs/drask/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)

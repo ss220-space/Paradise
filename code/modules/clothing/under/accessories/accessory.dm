@@ -8,6 +8,7 @@
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	gender = MALE
+	cares_about_temperature = TRUE
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -342,7 +343,7 @@
 	icon_state = "plasma"
 	materials = list(MAT_PLASMA = 1000)
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(temperature, volume)
 	..()
 	if(temperature > T0C + 200)
 		burn_up()

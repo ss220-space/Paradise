@@ -143,6 +143,15 @@
 		get_scooped(M)
 	..()
 
+/mob/living/simple_animal/mouse/bullet_act(obj/projectile/Proj) // No more mouse blocking projectiles
+	if(!Proj)
+		return -1
+
+	if(Proj?.original == src || (Proj.firer && Proj.firer.a_intent == INTENT_HARM))
+		return ..()
+
+	return -1
+
 /mob/living/simple_animal/mouse/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -427,14 +436,14 @@
 	if(mind || !SSticker || !SSticker.mode)
 		return
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
-	
+
 	if(QDELETED(src))
 		return
-	
+
 	if(!length(candidates))
 		log_and_message_admins("There were no players willing to play as a mouse infected with a blob.")
 		return
-		
+
 	var/mob/M = pick(candidates)
 	possess_by_player(M.key)
 	var/datum_type = mind.get_blob_infected_type()
