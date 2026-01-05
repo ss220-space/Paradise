@@ -1240,6 +1240,17 @@
 	..()
 	for(var/i in 1 to 8)
 		new /obj/item/disk/tech_disk(src)
+/*
+ * Unica kit box
+ */
+/obj/item/storage/box/unica_kit
+	icon_state = "box_hos"
+
+/obj/item/storage/box/unica_kit/populate_contents()
+	new /obj/item/gun/projectile/revolver/mateba(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/clothing/accessory/holster(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

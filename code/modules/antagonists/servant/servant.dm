@@ -26,7 +26,7 @@
 	objectives += serve_obj
 	check_if_in_owner()
 	. = ..()
-	START_PROCESSING(SSprocessing, src)
+	addtimer(CALLBACK(src, PROC_REF(heal)), 1 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	RegisterSignal(serve_to, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
 	RegisterSignal(owner.current, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(die))
@@ -40,7 +40,7 @@
 		in_owner = FALSE
 		REMOVE_TRAIT(owner.current, TRAIT_NO_BREATH, MAGIC_TRAIT)
 
-/datum/antagonist/servant/process(seconds_per_tick)
+/datum/antagonist/servant/proc/heal()
 	if(!in_owner)
 		return
 	owner.current.heal_overall_damage(5, 5)
@@ -55,7 +55,7 @@
 /datum/antagonist/servant/proc/check_range()
 	SIGNAL_HANDLER
 
-	if(serve_to in range(12, owner.current))
+	if(get_dist(serve_to, owner.current) <= 12)
 		return
 	owner.current.forceMove(serve_to)
 	to_chat(owner.current, span_warningbig("Вы ушли слишком далеко от вашего хозяина!"))

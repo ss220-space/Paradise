@@ -533,16 +533,6 @@
 	revived.visible_message(span_boldnotice("[revived.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(revived)] полностью здоров[GEND_YM_OI_YM_YMI(revived)]"))
 	revived.revive()
 
-//IDK where to put this so it will be here
-/obj/item/storage/box/unica_kit
-	icon_state = "box_hos"
-
-/obj/item/storage/box/unica_kit/populate_contents()
-	new /obj/item/gun/projectile/revolver/mateba(src)
-	new /obj/item/ammo_box/speedloader/a357(src)
-	new /obj/item/ammo_box/speedloader/a357(src)
-	new /obj/item/clothing/accessory/holster(src)
-
 /obj/item/dice/d20/fate/proc/unica(mob/living/carbon/human/gifted)
 	to_chat(gifted, span_boldnotice("Пиу-пау!"))
 	var/box = new /obj/item/storage/box/unica_kit
