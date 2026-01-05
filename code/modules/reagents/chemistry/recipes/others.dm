@@ -672,8 +672,7 @@
 	var/datum/gas_mixture/vapor = new()
 	vapor.set_water_vapor(created_volume)
 	vapor.set_temperature(373) // 100C
-	var/datum/milla_safe/turf_blind_release/milla = new()
-	milla.invoke_async(location, vapor)
+	location.blind_release_air(vapor)
 
 /datum/chemical_reaction/virus_food
 	name = "Virus Food"
