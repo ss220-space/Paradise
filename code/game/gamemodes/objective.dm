@@ -1744,5 +1744,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Вы должны служить... Кому-то..."
 
 /datum/objective/serve/New(mob/living/target_to_serve)
+	if(!istype(target_to_serve))
+		return
 	serve_to = target_to_serve
 	explanation_text = "Вы слуга [serve_to.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(serve_to)] приказы."

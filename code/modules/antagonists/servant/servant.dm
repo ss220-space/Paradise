@@ -8,14 +8,15 @@
 	var/in_owner = TRUE
 	var/datum/weakref/master_ref
 	var/datum/weakref/serv_ref
+	var/datum/action/summon_servant/summon_action = new
+	var/datum/action/servant_self_summon/self_summon_action = new
+
 
 /datum/antagonist/servant/New(var/mob/living/target)
 	. = ..()
 	serve_to = target
 
 /datum/antagonist/servant/on_gain()
-	var/datum/action/summon_servant/summon_action = new
-	var/datum/action/servant_self_summon/self_summon_action = new
 	master_ref= WEAKREF(serve_to)
 	serv_ref = WEAKREF(owner.current)
 	self_summon_action.master = master_ref.resolve()
@@ -66,7 +67,7 @@
 	UnregisterSignal(owner.current, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(owner.current, COMSIG_MOB_DEATH)
 	UnregisterSignal(serve_to, COMSIG_MOB_DEATH)
-	var/datum/action/summon_servant/summon_action = locate() in serve_to.actions
+	qdel(self_summon_action)
 	qdel(summon_action)
 	. = ..()
 
