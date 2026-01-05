@@ -229,7 +229,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
-	update_icon()
 	if(stat & BROKEN)
 		return
 
@@ -249,8 +248,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	if(canister.holding)
 		environment = canister.holding.air_contents
 	else
-		var/turf/T = get_turf(canister)
-		environment = get_turf_air(T)
+		var/turf/turf = get_turf(canister)
+		environment = get_turf_air(turf)
 
 	var/env_pressure = environment.return_pressure()
 	var/pressure_delta = min(canister.release_pressure - env_pressure, (canister.air_contents.return_pressure() - env_pressure) / 2)
@@ -264,7 +263,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		var/datum/gas_mixture/removed = canister.air_contents.remove(transfer_moles)
 
 		environment.merge(removed)
-		canister.update_icon()
 
 /obj/machinery/portable_atmospherics/canister/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)

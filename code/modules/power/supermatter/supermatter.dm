@@ -83,11 +83,6 @@
 
 	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
 
-	/// How often do we want to process the crystal?
-	var/ticks_per_run = 5
-	/// How long has it been since we processed the crystal?
-	var/tick_counter = 0
-
 /obj/machinery/power/supermatter_shard/crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -150,14 +145,8 @@
 	return
 
 /obj/machinery/power/supermatter_shard/process_atmos()
-	tick_counter += SSair.wait
-
-	if(tick_counter < ticks_per_run)
-		return
-
 	var/datum/milla_safe/supermatter_process/milla = new()
 	milla.invoke_async(src)
-	tick_counter -= ticks_per_run
 
 /datum/milla_safe/supermatter_process
 
@@ -288,7 +277,7 @@
 		if(!istype(eyes))
 			continue
 		// If they can see it without mesons on or can see objects through mesons. Bad on them.
-		if((l.sight >= SEE_TURFS) && !(l.sight >= (SEE_TURFS|SEE_OBJS)))
+		if((l.sight & (SEE_TURFS|SEE_OBJS)) == SEE_TURFS)
 			continue
 		l.Hallucinate(min(200 SECONDS, l.AmountHallucinate() + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
 		l.last_hallucinator_log = "seeing SM without mesons"

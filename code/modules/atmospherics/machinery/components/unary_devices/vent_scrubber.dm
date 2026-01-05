@@ -91,7 +91,7 @@
 		amount = active_power_usage
 
 	if(widenet)
-		amount += amount*(length(adjacent_turfs)*(length(adjacent_turfs)/2))
+		amount += amount * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
 	use_power(amount, power_channel)
 	return 1
 
@@ -197,26 +197,26 @@
 		return
 
 	if(!node)
-		on = 0
+		on = FALSE
 
 	if(welded)
-		return 0
+		return FALSE
 	//broadcast_status()
 	if(!on)
-		return 0
+		return FALSE
 
 	scrub(loc)
 	if(widenet)
-		for(var/turf/simulated/tile in adjacent_turfs)
+		for(var/turf/simulated/tile as anything in adjacent_turfs)
 			scrub(tile)
 
 //we populate a list of turfs with nonatmos-blocked cardinal turfs AND
 //	diagonal turfs that can share atmos with *both* of the cardinal turfs
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/check_turfs()
 	adjacent_turfs.Cut()
-	var/turf/T = loc
-	if(istype(T))
-		adjacent_turfs = T.GetAtmosAdjacentTurfs(TRUE)
+	var/turf/turf = loc
+	if(istype(turf))
+		adjacent_turfs = turf.GetAtmosAdjacentTurfs(TRUE)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
 	if(!tile || !istype(tile))
