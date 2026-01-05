@@ -1011,6 +1011,9 @@
 /obj/machinery/atm{
 	pixel_y = 32
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -9538,6 +9541,7 @@
 	dir = 5;
 	name = "Труба на фильтрацию"
 	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "brF" = (
@@ -14529,8 +14533,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/light{
-	dir = 1;
-	pixel_y = -6
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -54868,9 +54871,6 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
 "hPr" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/computer/supplycomp/public{
 	dir = 8
@@ -62013,8 +62013,7 @@
 	dir = 1
 	},
 /obj/machinery/light{
-	dir = 1;
-	pixel_y = -6
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -69932,9 +69931,6 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -81377,6 +81373,12 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
+"odi" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "odl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -90119,6 +90121,12 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/crew_quarters/hor)
+"qaz" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/office)
 "qaH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -109032,9 +109040,6 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -125264,8 +125269,7 @@
 	dir = 1
 	},
 /obj/machinery/light{
-	dir = 1;
-	pixel_y = -6
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -162867,7 +162871,7 @@ qcB
 bZS
 rpO
 bmb
-byU
+odi
 lSG
 cNe
 bJh
@@ -163636,7 +163640,7 @@ coE
 bwf
 qcG
 byU
-byU
+odi
 bUt
 fft
 txc
@@ -164664,7 +164668,7 @@ coE
 bwf
 jOq
 byU
-byU
+odi
 bUt
 mUS
 bCo
@@ -165164,10 +165168,10 @@ rrr
 gEq
 xZQ
 hNt
-dLX
+qaz
 dLX
 fVO
-dLX
+qaz
 lAA
 fgk
 bnc
@@ -165437,7 +165441,7 @@ nUa
 jpD
 rum
 lQL
-byU
+odi
 lSG
 cNe
 bJh
@@ -166706,10 +166710,10 @@ dLX
 gFd
 xZQ
 hOs
-dLX
+qaz
 dLX
 kmb
-dLX
+qaz
 lCN
 fgk
 bnc

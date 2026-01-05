@@ -322,8 +322,10 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/T)
 	var/list/hit_list = list()
 	hit_list += src
-	new /obj/effect/hotspot(T)
-	T.hotspot_expose(2000,50,1)
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+	hotspot.temperature = 1000
+	hotspot.recolor()
+	T.hotspot_expose(2000, 50)
 	for(var/mob/living/L in T.contents)
 		if(L in hit_list)
 			continue

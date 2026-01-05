@@ -35039,6 +35039,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "mSx" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"

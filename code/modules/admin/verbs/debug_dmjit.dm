@@ -1,4 +1,4 @@
-#ifndef OPENDREAM
+/*#ifndef OPENDREAM
 
 ADMIN_VERB(dmjit_debug_toggle_hooks, R_DEBUG, "dmJIT toggle hooks", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_DMJIT)
 	var/result = dmjit_toggle_hooks()
@@ -21,3 +21,4 @@ ADMIN_VERB(dmjit_debug_dump_deopts, R_DEBUG, "dmJIT dump deopts", ADMIN_VERB_NO_
 	message_admins("[key_name_admin(user)] Performed dmJIT deopt count dump")
 
 #endif
+*/

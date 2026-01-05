@@ -70,7 +70,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
-	SSair.deferred_pipenet_rebuilds -= src
+	SSair.pipenets_to_build -= src
 	for(var/mob/living/mob in contents) //ventcrawling is serious business
 		mob.stop_ventcrawling()
 	QDEL_NULL(pipe_vision_img) //we have to qdel it, or it might keep a ref somewhere else
@@ -174,10 +174,10 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
 	if(remove_deferral)
-		SSair.deferred_pipenet_rebuilds -= src
+		SSair.pipenets_to_build -= src
 
 /obj/machinery/atmospherics/proc/defer_build_network()
-	SSair.deferred_pipenet_rebuilds += src
+	SSair.pipenets_to_build += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
@@ -204,8 +204,8 @@ Pipelines + Other Objects -> Pipe network
 		to_chat(user, span_warning("You cannot unwrench [src], turn it off first."))
 		return .
 
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
+	var/datum/gas_mixture/int_air = return_obj_air()
+	var/datum/gas_mixture/env_air = our_turf.get_readonly_air()
 
 	var/unsafe_wrenching = FALSE
 	var/internal_air = int_air ? int_air.return_pressure() : 0
@@ -255,8 +255,9 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	if(!pressures)
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
+		var/datum/gas_mixture/int_air = return_obj_air()
+		var/turf/T = get_turf(src)
+		var/datum/gas_mixture/env_air = T.get_readonly_air()
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
 	var/fuck_you_dir = get_dir(src, user)

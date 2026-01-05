@@ -1451,10 +1451,10 @@
 /obj/structure/closet/coffin/vampire/proc/create_interior()
 	interior_tank = new(null)	// we need to place it to the nullspace since its a closet
 	interior_air = new
-	interior_air.temperature = T20C
+	interior_air.set_temperature(T20C)
 	interior_air.volume = 200
-	interior_air.oxygen = O2STANDARD*interior_air.volume/(R_IDEAL_GAS_EQUATION*interior_air.temperature)
-	interior_air.nitrogen = N2STANDARD*interior_air.volume/(R_IDEAL_GAS_EQUATION*interior_air.temperature)
+	interior_air.set_oxygen(O2STANDARD * interior_air.volume / (R_IDEAL_GAS_EQUATION * interior_air.temperature()))
+	interior_air.set_nitrogen(N2STANDARD * interior_air.volume / (R_IDEAL_GAS_EQUATION * interior_air.temperature()))
 
 /obj/structure/closet/coffin/vampire/proc/update_trophies(datum/antagonist/vampire/vampire)
 	heal_brute += vampire.get_trophies(INTERNAL_ORGAN_HEART)						// 150 MAX
@@ -1654,41 +1654,35 @@
 	if(!interior_tank)
 		return
 
-	var/datum/gas_mixture/tank_air = interior_tank.return_air()
+	var/datum/gas_mixture/tank_air = interior_tank.return_obj_air()
 	var/release_pressure = ONE_ATMOSPHERE
 	var/interior_pressure = interior_air.return_pressure()
 	var/pressure_delta = min(release_pressure - interior_pressure, (tank_air.return_pressure() - interior_pressure)/2)
 	var/transfer_moles = 0
 
 	if(pressure_delta > 0)
-		if(tank_air.return_temperature() > 0)
-			transfer_moles = pressure_delta*interior_air.return_volume()/(interior_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+		if(tank_air.temperature() > 0)
+			transfer_moles = pressure_delta * interior_air.return_volume() / (interior_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
 			interior_air.merge(removed)
 
 	else if(pressure_delta < 0)
-		var/datum/gas_mixture/t_air = return_air()
+		var/datum/gas_mixture/t_air = return_obj_air()
 		pressure_delta = interior_pressure - release_pressure
 
 		if(t_air)
 			pressure_delta = min(interior_pressure - t_air.return_pressure(), pressure_delta)
 
 		if(pressure_delta > 0)
-			transfer_moles = pressure_delta*interior_air.return_volume()/(interior_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+			transfer_moles = pressure_delta * interior_air.return_volume() / (interior_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = interior_air.remove(transfer_moles)
 			if(t_air)
 				t_air.merge(removed)
 			else
 				qdel(removed)
 
-/obj/structure/closet/coffin/vampire/remove_air(amount)
-	return interior_air.remove(amount)
-
-/obj/structure/closet/coffin/vampire/return_air()
+/obj/structure/closet/coffin/vampire/return_obj_air()
 	return interior_air
-
-/obj/structure/closet/coffin/vampire/proc/return_temperature()
-	return interior_air.return_temperature()
 
 /obj/structure/closet/coffin/vampire/proc/return_pressure()
 	return interior_air.return_pressure()

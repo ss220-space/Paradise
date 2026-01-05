@@ -225,13 +225,13 @@ ADMIN_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local a
 	if(!isturf(T))
 		return
 
-	var/datum/gas_mixture/env = T.return_air()
+	var/datum/gas_mixture/env = T.get_readonly_air()
 
 	var/t = ""
-	t+= "Nitrogen : [env.nitrogen]\n"
-	t+= "Oxygen : [env.oxygen]\n"
-	t+= "Plasma : [env.toxins]\n"
-	t+= "CO2: [env.carbon_dioxide]\n"
+	t+= "Nitrogen : [env.nitrogen()]\n"
+	t+= "Oxygen : [env.oxygen()]\n"
+	t+= "Plasma : [env.toxins()]\n"
+	t+= "CO2: [env.carbon_dioxide()]\n"
 
 	user.mob.show_message(t, 1)
 	BLACKBOX_LOG_ADMIN_VERB("Air Status (Location)")
@@ -669,7 +669,7 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.toxins = 70
+				Plasma.air_contents.set_toxins(70)
 				Rad.drainratio = 0
 				Rad.P = Plasma
 				Plasma.loc = Rad
@@ -787,53 +787,6 @@ ADMIN_VERB(toggle_medal_disable, R_DEBUG, "Toggle Medal Disable", "Toggles the s
 
 	log_and_message_admins("[SSachievements.achievements_enabled? "disabled" : "enabled"] the medal hub lockout.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
-
-ADMIN_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Interesting Turfs", "Shows all the Interesting Turfs from LINDA", ADMIN_CATEGORY_DEBUG)
-	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-	var/confirm = tgui_alert(user, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", list("Im sure", "Nope"))
-	if(confirm != "Im sure")
-		return
-
-	message_admins("[key_name_admin(user)] is visualising active atmos turfs. Server may lag.")
-
-	var/list/zlevel_turf_indexes = list()
-
-	for(var/i in SSair.active_turfs)
-		var/turf/T = i
-		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
-		if(!zlevel_turf_indexes["[T.z]"])
-			zlevel_turf_indexes["[T.z]"] = list()
-		zlevel_turf_indexes["[T.z]"] |= T
-		CHECK_TICK
-
-	// Sort the keys
-	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
-
-	for(var/key in zlevel_turf_indexes)
-		to_chat(user, span_notice("Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b>"))
-
-	var/z_to_view = tgui_input_number(user, "A list of z-levels their ATs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0, max_value = 255)
-
-	if(!z_to_view)
-		return
-
-	// Do not combine these
-	var/list/ui_dat = list()
-	var/list/turf_markers = list()
-
-	var/datum/browser/vis = new(user, "atvis", "Active Turfs (Z[z_to_view])", 300, 315)
-	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
-	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
-	// Now generate the other list
-	for(var/x in zlevel_turf_indexes["[z_to_view]"])
-		var/turf/T = x
-		turf_markers += "s([T.x],[T.y]);"
-		CHECK_TICK
-
-	ui_dat += "<script>[turf_markers.Join("")]</script>"
-
-	vis.set_content(ui_dat.Join(""))
-	vis.open(FALSE)
 
 ADMIN_VERB_VISIBILITY(view_pingstat, ADMIN_VERB_VISIBLITY_FLAG_HOST)
 ADMIN_VERB(view_pingstat, R_HOST, "View Pingstat", "Open the Pingstat Report.", ADMIN_CATEGORY_DEBUG)

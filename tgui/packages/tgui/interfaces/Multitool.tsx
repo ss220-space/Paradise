@@ -475,6 +475,9 @@ type AirSensorData = {
   toxinsCheck: boolean;
   nitrogenCheck: boolean;
   carbonDioxideCheck: boolean;
+  nitrousOxideCheck: boolean;
+  hydrogenCheck: boolean;
+  waterVaporCheck: boolean;
 };
 
 const AirSensorMtoolMenu = (_props: unknown) => {
@@ -487,6 +490,9 @@ const AirSensorMtoolMenu = (_props: unknown) => {
     toxinsCheck,
     nitrogenCheck,
     carbonDioxideCheck,
+    nitrousOxideCheck,
+    hydrogenCheck,
+    waterVaporCheck,
   } = data;
 
   const checkButtons = [
@@ -503,6 +509,21 @@ const AirSensorMtoolMenu = (_props: unknown) => {
       bitflag: 32,
       checked: carbonDioxideCheck,
       label: 'Monitor carbon dioxide concentration',
+    },
+    {
+      bitflag: 64,
+      checked: nitrousOxideCheck,
+      label: 'Monitor carbon nitrous oxide concentration',
+    },
+    {
+      bitflag: 128,
+      checked: hydrogenCheck,
+      label: 'Monitor carbon hydrogen concentration',
+    },
+    {
+      bitflag: 256,
+      checked: waterVaporCheck,
+      label: 'Monitor carbon water vapor concentration',
     },
   ];
 

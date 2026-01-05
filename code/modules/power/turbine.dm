@@ -139,43 +139,48 @@
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
 
-/obj/machinery/power/compressor/CanAtmosPass(turf/T, vertical)
+/obj/machinery/power/compressor/CanAtmosPass(direction)
 	return !density
 
 #define COMPFRICTION 5e5
 
 /obj/machinery/power/compressor/process()
-	if(!turbine)
-		stat = BROKEN
-	if(stat & BROKEN || panel_open)
+	var/datum/milla_safe/compressor_process/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/compressor_process
+
+/datum/milla_safe/compressor_process/on_run(obj/machinery/power/compressor/compressor)
+	if(!compressor.turbine)
+		compressor.stat = BROKEN
+
+	if(compressor.stat & BROKEN || compressor.panel_open)
 		return
-	if(!starter)
+
+	if(!compressor.starter)
 		return
 
-	rpm = 0.9* rpm + 0.1 * rpmtarget
-	var/datum/gas_mixture/environment = inturf.return_air()
-
-	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
-
+	compressor.rpm = 0.9 * compressor.rpm + 0.1 * compressor.rpmtarget
+	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/transfer_moles = environment.total_moles()/10
-	//var/transfer_moles = rpm/10000*capacity
-	var/datum/gas_mixture/removed = inturf.remove_air(transfer_moles)
-	gas_contained.merge(removed)
+	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
+	compressor.gas_contained.merge(removed)
+	compressor.gas_contained.merge(removed)
 
 // RPM function to include compression friction - be advised that too low/high of a compfriction value can make things screwy
 
-	rpm = max(0, rpm - (rpm*rpm)/(COMPFRICTION*efficiency))
+	compressor.rpm = max(0, compressor.rpm - (compressor.rpm*compressor.rpm)/(COMPFRICTION*compressor.efficiency))
 
-	if(starter && !(stat & NOPOWER))
-		use_power(2800)
-		if(rpm<1000)
-			rpmtarget = 1000
+	if(!(compressor.stat & NOPOWER))
+		compressor.use_power(2800)
+		if(compressor.rpm < 1000)
+			compressor.rpmtarget = 1000
 	else
-		if(rpm<1000)
-			rpmtarget = 0
+		if(compressor.rpm < 1000)
+			compressor.rpmtarget = 0
 
 	var/new_rpm_threshold
-	switch(rpm)
+	switch(compressor.rpm)
 		if(50001 to INFINITY)
 			new_rpm_threshold = OVERDRIVE
 		if(10001 to 50000)
@@ -187,9 +192,9 @@
 		else
 			new_rpm_threshold = NONE
 
-	if(rpm_threshold != new_rpm_threshold)
-		rpm_threshold = new_rpm_threshold
-		update_icon(UPDATE_OVERLAYS)
+	if(compressor.rpm_threshold != new_rpm_threshold)
+		compressor.rpm_threshold = new_rpm_threshold
+		compressor.update_icon(UPDATE_OVERLAYS)
 
 #undef COMPFRICTION
 
@@ -241,40 +246,48 @@
 #define TURBGENG 0.5
 
 /obj/machinery/power/turbine/process()
-	if(!compressor)
-		stat = BROKEN
+	var/datum/milla_safe/turbine_process/milla = new()
+	milla.invoke_async(src)
 
-	if((stat & BROKEN) || panel_open)
+/datum/milla_safe/turbine_process
+
+/datum/milla_safe/turbine_process/on_run(obj/machinery/power/turbine/turbine)
+	var/obj/machinery/power/compressor/compressor = turbine.compressor
+	if(!turbine.compressor)
+		turbine.stat = BROKEN
+
+	if((turbine.stat & BROKEN) || turbine.panel_open)
 		return
+
 	if(!compressor.starter)
 		return
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBGENQ and TURBGENG values
 
-	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
+	turbine.lastgen = ((compressor.rpm / TURBGENQ) ** TURBGENG) * TURBGENQ * turbine.productivity
 
-	add_avail(lastgen)
+	turbine.add_avail(turbine.lastgen)
 
 	// Weird function but it works. Should be something else...
 
-	var/newrpm = ((compressor.gas_contained.temperature) * compressor.gas_contained.total_moles())/4
+	var/newrpm = ((compressor.gas_contained.temperature()) * compressor.gas_contained.total_moles())/4
 
 	newrpm = max(0, newrpm)
 
 	if(!compressor.starter || newrpm > 1000)
 		compressor.rpmtarget = newrpm
 
-	if(compressor.gas_contained.total_moles()>0)
-		var/oamount = min(compressor.gas_contained.total_moles(), (compressor.rpm+100)/35000*compressor.capacity)
-		var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
-		outturf.assume_air(removed)
+	if(compressor.gas_contained.total_moles() > 0)
+		var/oamount = min(compressor.gas_contained.total_moles(), (compressor.rpm + 100) / 35000 * compressor.capacity)
+		var/datum/gas_mixture/removed = turbine.compressor.gas_contained.remove(oamount)
+		turbine.outturf.blind_release_air(removed)
 
-	if((lastgen > 100) != generator_threshold)
-		generator_threshold = !generator_threshold
-		update_icon(UPDATE_OVERLAYS)
+	if((turbine.lastgen > 100) != turbine.generator_threshold)
+		turbine.generator_threshold = !turbine.generator_threshold
+		turbine.update_icon(UPDATE_OVERLAYS)
 
-	updateDialog()
+	turbine.updateDialog()
 
 #undef TURBGENQ
 #undef TURBGENG
@@ -391,7 +404,7 @@
 			<br>
 			Turbine speed: [src.compressor.rpm]rpm<br>
 			Power currently being generated: [src.compressor.turbine.lastgen]W<br>
-			Internal gas temperature: [src.compressor.gas_contained.temperature]K<br>
+			Internal gas temperature: [src.compressor.gas_contained.temperature()]K<br>
 			</pre><hr><a href='byond://?src=[UID()];close=1'>Close</a>
 			<br>
 			"}

@@ -15,17 +15,29 @@
 	var/datum/excited_group/excited_group
 	var/excited = 0
 	var/recently_active = 0
-	var/datum/gas_mixture/air
 	var/archived_cycle = 0
 	var/current_cycle = 0
 	var/icy = 0
 	var/icyoverlay
+	/// The active hotspot on this turf. The fact this is done through a literal object is painful
 	var/obj/effect/hotspot/active_hotspot
-	var/planetary_atmos = FALSE //air will revert to its initial mix over time
 
-	var/temperature_archived //USED ONLY FOR SOLIDS
+	/// The temp we were when we got archived
+	var/temperature_archived
 
-	var/atmos_overlay_type = null //current active overlay
+	/// Current gas overlay. Can be set to plasma or sleeping_gas
+	var/atmos_overlay_type = null
+	/// If a fire is ongoing, how much fuel did we burn last tick?
+	/// Value is not updated while below PLASMA_MINIMUM_BURN_TEMPERATURE.
+	var/fuel_burnt = 0
+	/// When do we last remember having wind?
+	var/wind_tick = null
+	/// Wind's X component
+	var/wind_x = null
+	/// Wind's Y component
+	var/wind_y = null
+	/// Wind effect
+	var/obj/effect/wind/wind_effect = null
 
 /turf/simulated/Initialize(mapload)
 	. = ..()
@@ -54,13 +66,27 @@
 	if(volume >= 3)
 		MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
-	var/hotspot = (locate(/obj/effect/hotspot) in src)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = remove_air(air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), TCMB)
-		lowertemp.react()
-		assume_air(lowertemp)
+	quench(1000, 2)
+
+/// Quenches any fire on the turf, and if it does, cools down the turf's air by the given parameters.
+/turf/simulated/proc/quench(delta, divisor)
+	var/found = FALSE
+	for(var/obj/effect/hotspot/hotspot in src)
 		qdel(hotspot)
+		found = TRUE
+
+	if(!found)
+		return
+
+	var/datum/milla_safe/turf_cool/milla = new()
+	milla.invoke_async(src, delta, divisor)
+
+/datum/milla_safe/turf_cool
+
+/datum/milla_safe/turf_cool/on_run(turf/T, delta, divisor)
+	var/datum/gas_mixture/air = get_turf_air(T)
+	air.set_temperature(max(min(air.temperature() - delta * divisor, air.temperature() / divisor), TCMB))
+	air.react()
 
 /turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
 	AddComponent(/datum/component/wet_floor, wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent, should_display_overlay)
@@ -96,51 +122,40 @@
 	..()
 	RemoveLattice()
 	if(!(flags & CHANGETURF_IGNORE_AIR))
-		assimilate_air()
+		var/datum/milla_safe/turf_assimilate_air/milla = new()
+		milla.invoke_async(src)
 
-//////Assimilate Air//////
-/turf/simulated/proc/assimilate_air()
-	if(blocks_air || !air) // Fuck off
+/datum/milla_safe/turf_assimilate_air
+
+/datum/milla_safe/turf_assimilate_air/on_run(turf/self)
+	if(self.blocks_air || isnull(self))
 		return
-	var/aoxy = 0
-	var/anitro = 0
-	var/aco = 0
-	var/atox = 0
-	var/asleep = 0
-	var/ab = 0
-	var/atemp = TCMB
 
+	var/datum/gas_mixture/merged = new()
 	var/turf_count = 0
 
-	for(var/turf/T in atmos_adjacent_turfs)
-		if(isspaceturf(T))//Counted as no air
-			turf_count++//Considered a valid turf for air calcs
+	for(var/turf/T in self.GetAtmosAdjacentTurfs())
+		if(isspaceturf(T))
+			turf_count += 1
 			continue
-		else if(isfloorturf(T))
-			var/datum/gas_mixture/turf_air = T.return_air()
-			aoxy += turf_air.oxygen
-			anitro += turf_air.nitrogen
-			aco += turf_air.carbon_dioxide
-			atox += turf_air.toxins
-			asleep += turf_air.sleeping_agent
-			ab += turf_air.agent_b
-			atemp += turf_air.temperature
-			turf_count++
 
-	var/datum/gas_mixture/new_air = new
+		if(T.blocks_air)
+			continue
 
-	new_air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-	new_air.nitrogen = (anitro / max(turf_count, 1))
-	new_air.carbon_dioxide = (aco / max(turf_count, 1))
-	new_air.toxins = (atox / max(turf_count, 1))
-	new_air.sleeping_agent = (asleep / max(turf_count, 1))
-	new_air.agent_b = (ab / max(turf_count, 1))
-	new_air.temperature = (atemp / max(turf_count, 1))
+		merged.merge(get_turf_air(T))
+		turf_count++
 
-	air = new_air
-
-	if(SSair)
-		SSair.add_to_active(src)
+	if(turf_count > 0)
+		// Average the contents of the turfs.
+		merged.set_oxygen(merged.oxygen() / turf_count)
+		merged.set_nitrogen(merged.nitrogen() / turf_count)
+		merged.set_carbon_dioxide(merged.carbon_dioxide() / turf_count)
+		merged.set_toxins(merged.toxins() / turf_count)
+		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
+		merged.set_agent_b(merged.agent_b() / turf_count)
+		merged.set_hydrogen(merged.hydrogen() / turf_count)
+		merged.set_water_vapor(merged.water_vapor() / turf_count)
+	get_turf_air(self).copy_from(merged)
 
 /turf/simulated/proc/is_shielded()
 	return

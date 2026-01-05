@@ -114,9 +114,12 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, span_notice("[src] rapidly dispenses [P]!"))
-	activate_rpd(TRUE)
+	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
 		P.wrench_act(user, integrated_wrench)
+	else if(iswrench(inactive_hand_item) && (user.CanReach(P, inactive_hand_item)))
+		P.wrench_act(user, inactive_hand_item)
+	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
@@ -125,9 +128,13 @@
 	var/rotate_dir = iconrotation ? iconrotation : user.dir
 	var/obj/structure/disposalconstruct/construct = new(T, whatdpipe, rotate_dir)
 	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
-	activate_rpd(TRUE)
+	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
 		construct.wrench_act(user, integrated_wrench)
+	else if(iswrench(inactive_hand_item) && (user.CanReach(construct, inactive_hand_item)))
+		construct.wrench_act(user, inactive_hand_item)
+	activate_rpd(TRUE)
+
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)

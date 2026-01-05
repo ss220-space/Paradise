@@ -12,6 +12,7 @@
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
+	cares_about_temperature = TRUE
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
@@ -245,6 +246,7 @@
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.set_anchored(FALSE)
+		recalculate_atmos_connectivity()
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, span_notice("You place the [W] on [src]."))
 		W.update_nearby_icons()
@@ -295,10 +297,10 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(temperature, volume)
 	..()
 	if(!broken)
-		if(exposed_temperature > T0C + 1500)
+		if(temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
 
 /obj/structure/grille/hitby(atom/movable/atom_movable, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

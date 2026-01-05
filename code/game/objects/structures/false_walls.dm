@@ -27,10 +27,11 @@
 	canSmoothWith = SMOOTH_GROUP_WALLS
 	smoothing_groups = SMOOTH_GROUP_WALLS
 	smooth = SMOOTH_BITMASK
+	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/falsewall/examine_status(mob/user)
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -51,7 +52,7 @@
 
 /obj/structure/falsewall/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/falsewall/CanAtmosPass(turf/T, vertical)
@@ -87,7 +88,7 @@
 		obj_flags |= BLOCK_Z_IN_DOWN
 		sleep(0.4 SECONDS)
 		set_opacity(TRUE)
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
@@ -330,9 +331,9 @@
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
 
-/obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/falsewall/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		burnbabyburn()
 
 /obj/structure/falsewall/alien
