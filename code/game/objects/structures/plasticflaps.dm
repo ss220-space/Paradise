@@ -15,9 +15,9 @@
 	. = ..()
 	switch(state)
 		if(PLASTIC_FLAPS_NORMAL)
-			. += "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>"
+			. += span_notice("[src] are <b>screwed</b> to the floor.")
 		if(PLASTIC_FLAPS_DETACHED)
-			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
+			. += span_notice("[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.")
 
 /obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -99,13 +99,13 @@
 	desc = "Heavy duty, airtight, plastic flaps."
 
 /obj/structure/plasticflaps/mining/Initialize(mapload)
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	. = ..()
 
 /obj/structure/plasticflaps/mining/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/plasticflaps/mining/CanAtmosPass(turf/T, vertical)
+/obj/structure/plasticflaps/mining/CanAtmosPass(direction)
 	return FALSE

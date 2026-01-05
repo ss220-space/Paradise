@@ -178,7 +178,7 @@
 
 /obj/item/assembly/infra/verb/rotate_verb()
 	set name = "Повернуть"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	rotate(usr)

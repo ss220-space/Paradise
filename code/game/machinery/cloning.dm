@@ -221,10 +221,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant && occupant.stat != DEAD)
 		. += span_notice("Процесс клонирования завершён на [round(get_completion())]%.")
 
-/obj/machinery/clonepod/return_air() //non-reactive air
+/obj/machinery/clonepod/return_obj_air()
+	//non-reactive air
 	var/datum/gas_mixture/GM = new
-	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
-	GM.temperature = T20C
+	GM.set_nitrogen(MOLES_O2STANDARD + MOLES_N2STANDARD)
+	GM.set_temperature(T20C)
 	return GM
 
 /obj/machinery/clonepod/proc/get_completion()
@@ -249,7 +250,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
 	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
 		return 0
-	clonemind = locate(R.mind)
+	clonemind = R.mind.resolve()
 	if(!istype(clonemind))	//not a mind
 		return 0
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body

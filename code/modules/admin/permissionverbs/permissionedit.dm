@@ -195,14 +195,9 @@
 
 	qdel(log_query)
 
-//TODO remove with legacy admin system
-/client/proc/edit_admin_permissions()
-	set category = STATPANEL_ADMIN_ADMIN
-	set name = "Permissions Panel"
-	set desc = "Edit admin permissions"
-	if(!check_rights(R_PERMISSIONS))
-		return
-	usr.client.holder.edit_admin_permissions()
+// TODO: remove with legacy admin system
+ADMIN_VERB(edit_admin_permissions_legacy, R_PERMISSIONS, "Permissions Panel (Legacy)", "Edit admin permissions.", ADMIN_CATEGORY_MAIN)
+	user.holder.edit_admin_permissions()
 
 /datum/admins/proc/edit_admin_permissions()
 	if(!check_rights(R_PERMISSIONS))

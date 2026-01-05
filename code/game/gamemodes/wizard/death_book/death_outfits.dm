@@ -125,11 +125,14 @@
 	H.wear_suit.slowdown = 0
 	H.head.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	H.update_equipment_speed_mods()
+
 	if(!isvox(H))
 		return
+
 	var/obj/item/tank/internals/oxygen/red/prom = H.s_store
-	prom.air_contents.oxygen = 0
-	prom.air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * prom.volume / (R_IDEAL_GAS_EQUATION * T20C)
+	var/datum/gas_mixture/air_contents = prom.return_obj_air()
+	air_contents.set_oxygen(0)
+	air_contents.set_nitrogen((6 * ONE_ATMOSPHERE) * prom.volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /datum/outfit/radial_outfit/death_book/plague_inc
 	name = "Вестник чумы"

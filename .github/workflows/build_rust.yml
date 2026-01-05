@@ -87,22 +87,43 @@ jobs:
         git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
-        
+
         cd rust
 
-        cargo build --release --target i686-unknown-linux-gnu
-        cargo build --release --target i686-pc-windows-gnu
+        WINDOWS_TARGET="i686-pc-windows-gnu"
+        LINUX_TARGET="i686-unknown-linux-gnu"
 
-        cd ..
+        # Handle building on windows
+        if [[ "$OSTYPE" == "msys" ]]; then
+          WINDOWS_TARGET="i686-pc-windows-msvc"
+        fi
 
-        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
-        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
+        cargo build --release --target $LINUX_TARGET
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_515.so
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs.so
+        cargo clean
+        cargo build --release --target $LINUX_TARGET --no-default-features --features byond-516
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_516.so
+
+        cargo build --release --target $WINDOWS_TARGET
+        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_515.dll
+        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs.dll
+        cargo clean
+        cargo build --release --target $WINDOWS_TARGET --no-default-features --features byond-516
+        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516.dll
+
+        export RUSTFLAGS='-C target-cpu=raptorlake'
+        cargo build --release --target=$LINUX_TARGET
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_515_prod.so
+        cargo clean
+        cargo build --release --target=$LINUX_TARGET --no-default-features --features byond-516
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_516_prod.so
 
     - name: Commit and push changes
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git add --force librustlibs.so rustlibs.dll
+        git add --force librustlibs.so rustlibs.dll librustlibs_515.so librustlibs_516.so rustlibs_515.dll rustlibs_516.dll librustlibs_515_prod.so librustlibs_516_prod.so
         git commit -m "Build Rust library"
         git push origin
 

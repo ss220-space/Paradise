@@ -15,15 +15,14 @@
 		icon_state = "exposed_off"
 		on = FALSE
 
-/obj/machinery/atmospherics/unary/oxygen_generator/New()
-	..()
-
+/obj/machinery/atmospherics/unary/oxygen_generator/Initialize(mapload)
+	. = ..()
 	air_contents.volume = 50
 
 /obj/machinery/atmospherics/unary/oxygen_generator/process_atmos()
 	..()
 	if(!on)
-		return 0
+		return FALSE
 
 	var/total_moles = air_contents.total_moles()
 
@@ -32,9 +31,9 @@
 
 		var/added_oxygen = oxygen_content - total_moles
 
-		air_contents.temperature = (current_heat_capacity*air_contents.temperature + 20*added_oxygen*T0C)/(current_heat_capacity+20*added_oxygen)
-		air_contents.oxygen += added_oxygen
+		air_contents.set_temperature((current_heat_capacity * air_contents.temperature() + 20 * added_oxygen * T0C) / (current_heat_capacity + 20 * added_oxygen))
+		air_contents.set_oxygen(air_contents.oxygen() + added_oxygen)
 
-		parent.update = 1
+		parent.update = TRUE
 
-	return 1
+	return TRUE

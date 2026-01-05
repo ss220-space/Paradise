@@ -34,7 +34,7 @@
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
 		M.forceMove(drop_loc)
-		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+		visible_message(span_danger("[M] bursts out of [src]!"))
 
 	if(!ismachineperson(src))
 		flick("gibbed-h", animation)
@@ -94,7 +94,7 @@
 	if(SSticker?.mode)
 		SSblackbox.ReportDeath(src)
 
-/mob/living/carbon/human/update_revive(updating, defib_revive)
+/mob/living/carbon/human/update_revive(updating = TRUE, force = FALSE, defib_revive = FALSE)
 	. = ..()
 	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll

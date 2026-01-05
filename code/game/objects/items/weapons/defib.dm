@@ -171,7 +171,7 @@
 
 /obj/item/defibrillator/verb/toggle_paddles_verb()
 	set name = "Взять электроды"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -517,7 +517,3 @@
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, FALSE)
 	on_cooldown = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/twohanded/shockpaddles/borg/update_icon_state()
-	icon_state = "[base_icon_state][on_cooldown ? "_cooldown" : ""]"
-

@@ -28,7 +28,7 @@
 		this["fluff"] = ""
 		this["uids"] = list()
 		for(var/minigame_obj in GLOB.mini_games[mini_game]) //each mini_game can contain multiple actual spawners, we use only one desc/info
-			this["uids"] += "\ref[minigame_obj]"
+			this["uids"] += UID_of(minigame_obj)
 			if(!this["desc"])	//haven't set descriptions yet
 				var/obj/O = minigame_obj
 				this["desc"] = O.desc
@@ -54,7 +54,7 @@
 			return
 
 	var/list/possible_spawners = params["ID"]
-	var/obj/MS = locate(pick(possible_spawners))
+	var/obj/MS = locateUID(pick(possible_spawners))
 	if(!MS || !MS.is_mob_spawnable())
 		log_runtime(EXCEPTION("A ghost tried to interact with an invalid mini_game, or the mini_game didn't exist."))
 		return

@@ -10,6 +10,7 @@
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
 	var/receive_frequency = ATMOS_FIRE_FREQ
+	var/list/modes = list()
 
 /obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
@@ -34,13 +35,9 @@
 
 /obj/machinery/computer/atmos_alert/ui_data(mob/user)
 	var/list/data = list()
-
-	data["priority"] = list()
-	for(var/zone in priority_alarms)
-		data["priority"] |= zone
-	data["minor"] = list()
-	for(var/zone in minor_alarms)
-		data["minor"] |= zone
+	data["priority"] = priority_alarms
+	data["minor"] = minor_alarms
+	data["mode"] = modes
 
 	return data
 
@@ -71,16 +68,24 @@
 
 	var/zone = signal.data["zone"]
 	var/severity = signal.data["alert"]
+	var/mode = signal.data["mode"]
 
-	if(!zone || !severity)
+	if(!zone || !(severity || mode))
+		return
+
+	if(mode)
+		if(mode == AALARM_MODE_FILTERING)
+			modes -= zone
+		else
+			modes[zone] = GLOB.aalarm_modes["[mode]"]
 		return
 
 	minor_alarms -= zone
 	priority_alarms -= zone
 	if(severity == "severe")
-		priority_alarms += zone
+		priority_alarms |= zone
 	else if(severity == "minor")
-		minor_alarms += zone
+		minor_alarms |= zone
 	update_icon()
 
 /obj/machinery/computer/atmos_alert/update_icon_state()

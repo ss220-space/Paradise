@@ -5,6 +5,8 @@
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
 	light_range = 3
+	light_power = 0.5
+	light_color = COLOR_PALE_LIME
 	stop_automated_movement = TRUE
 	wander = FALSE
 	healable = FALSE
@@ -563,8 +565,10 @@
 /mob/living/simple_animal/bot/proc/speak(message, channel) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if(!on || !message)
 		return
+
+	var/radio_freq = channel == HEADSET_MODE ? PUB_FREQ : SSradio.radiochannels[channel]
 	if(channel)
-		radio_announce(message, name, channel == HEADSET_MODE ? PUB_FREQ : channel, src)
+		radio_announce(message, name, channel == HEADSET_MODE ? PUB_FREQ : radio_freq, src)
 	else
 		say(message)
 
@@ -1184,7 +1188,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/verb/show_laws()
 	set name = "Набор законов"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	to_chat(src, "<b>Набор законов:</b>")
 	if(paicard?.pai && paicard.pai.master && paicard.pai.pai_law0)

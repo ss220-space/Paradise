@@ -38,7 +38,7 @@ you'll get a message like this:
 
 If you see any errors or warnings,
 something has gone wrong - possibly a corrupt download or the files extracted wrong,
-or a code issue on the main repo.  Feel free to ask on Discord.
+or a code issue on the main repo. Feel free to ask on Discord.
 
 Once that's done, open up the config folder.
 Firstly, you will want to copy everything from the example folder into the regular config folder.
@@ -52,7 +52,7 @@ so they may have unknown and bizarre bugs.
 You'll also want to edit admins.txt to remove the default admins and add your own.
 If you are connecting from localhost to your own test server, you should automatically be admin.
 "Host" is the highest level of access, and the other recommended admin levels for now are
-"Game Admin" and "Moderator".  The format is:
+"Game Admin" and "Moderator". The format is:
 
 ```cfg
     byondkey - Rank
@@ -70,11 +70,13 @@ Then press GO and the server should start up and be ready to join.
 
 ## Installation (Linux)
 
-The code is fully able to run on linux, however windows is still the recommended platform. The library we use for external functions (RUSTG) requires some extra dependencies.
+The code is fully able to run on linux, however windows is still the recommended platform. The libraries we use for external functions (RUSTG and MILLA) require some extra dependencies.
 
 For debian, please download the latest RUSTG release from [https://github.com/ParadiseSS13/rust-g](https://github.com/ParadiseSS13/rust-g), run the following: `apt-get install libssl-dev:i386 pkg-config:i386 zlib1g-dev:i386`.
 
-After installing these packages, RUSTG should function as intended. We assume that if you are hosting on linux, you know what you are doing.
+After installing these packages, RUSTG should be able to build and function as intended. Build instructions are on the RUSTG page. We assume that if you are hosting on linux, you know what you are doing.
+
+Once you've built RUSTG, you can build MILLA similarly, just go into the `rust/` directory and run `cargo build --release --target=i686-unknown-linux-gnu`.
 
 ## UPDATING
 

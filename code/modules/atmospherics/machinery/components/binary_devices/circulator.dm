@@ -22,9 +22,9 @@
 /obj/item/pipe/circulator
 	name = "circulator/heat exchanger fitting"
 
-/obj/item/pipe/circulator/New(loc)
+/obj/item/pipe/circulator/Initialize(mapload)
 	var/obj/machinery/atmospherics/binary/circulator/C = new /obj/machinery/atmospherics/binary/circulator(null)
-	..(loc, make_from = C)
+	. = ..(mapload, make_from = C)
 
 /obj/machinery/atmospherics/binary/circulator/Destroy()
 	if(generator && generator.cold_circ == src)
@@ -45,10 +45,10 @@
 		return null
 
 	//Calculate necessary moles to transfer using PV = nRT
-	if(inlet.temperature > 0)
+	if(inlet.temperature() > 0)
 		var/pressure_delta = (input_starting_pressure - output_starting_pressure) / 2
 
-		var/transfer_moles = pressure_delta * outlet.volume/(inlet.temperature * R_IDEAL_GAS_EQUATION)
+		var/transfer_moles = pressure_delta * outlet.volume / (inlet.temperature() * R_IDEAL_GAS_EQUATION)
 
 		last_pressure_delta = pressure_delta
 
@@ -67,7 +67,7 @@
 
 /obj/machinery/atmospherics/binary/circulator/process_atmos()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_air()
 	if(side_inverted==0)
