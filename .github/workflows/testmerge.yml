@@ -166,6 +166,11 @@ jobs:
             git commit -m "Automatic changelog generation"
           fi
 
+          sed -i '1i #define PARADISE_PRODUCTION_HARDWARE' paradise.dme
+          git config --local user.email "action@github.com"
+          git config --local user.name "Testmerge Worker"
+          git commit -m "Add PARADISE_PRODUCTION_HARDWARE"
+
           # Generate TGUI bundle
           POST_TESTMERGE_SHA=$(git rev-parse HEAD)
           CHANGES=$(git diff $POST_TESTMERGE_SHA $PRE_TESTMERGE_SHA ./tgui | wc -l)
