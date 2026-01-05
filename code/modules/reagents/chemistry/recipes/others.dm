@@ -665,8 +665,8 @@
 	mix_sound = null
 
 /datum/chemical_reaction/water_vapor/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	if(!location)
+	var/turf/location = get_turf(holder.my_atom)
+	if(!istype(location))
 		return
 	
 	var/datum/gas_mixture/vapor = new()
