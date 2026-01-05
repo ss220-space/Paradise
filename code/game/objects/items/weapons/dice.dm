@@ -414,10 +414,8 @@
 			qdel(obj)
 			continue
 		for(var/datum/mind/user in obj.get_owners())
-			if(QDELETED(obj))
-				to_chat(user, span_userdanger("Вам кажется, что вы что-то забыли..."))
-				SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
-				continue
+			to_chat(user, span_userdanger("Вам кажется, что вы что-то забыли..."))
+			SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
 			var/list/messages = list()
 			messages.Add(user.prepare_announce_objectives(FALSE))
 			to_chat(user.current, chat_box_red(messages.Join("<br>")))

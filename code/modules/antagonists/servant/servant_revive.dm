@@ -31,8 +31,8 @@
 		var/obj/item/coin/magic/new_coin = new(master.loc)
 		master.put_in_hands(new_coin)
 		return
-	Servant.possess_by_player(chosen.key)
-	var/datum/antagonist/servant/serv = new /datum/antagonist/servant(user)
+	Servant.possess_by_player(servant_key.key)
+	var/datum/antagonist/servant/serv = new /datum/antagonist/servant(master)
 	Servant.mind.add_antag_datum(serv)
 	qdel(src)
 
