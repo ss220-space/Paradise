@@ -668,7 +668,7 @@
 	var/location = get_turf(holder.my_atom)
 	var/datum/gas_mixture/vapor = new()
 	vapor.set_water_vapor(created_volume / 10)
-	vapor.set_temperature(100)
+	vapor.set_temperature(373) // 100C
 	var/datum/milla_safe/turf_blind_release/milla = new()
 	milla.invoke_async(location, vapor)
 
