@@ -442,19 +442,13 @@
 	src.visible_message(span_userdanger("На месте [declent_ru(GENITIVE)] появился портал, из которого выходят адские отродья!"))
 	var/spawned_hounds = 0
 	var/spawned_t_hounds = 0
-	var/list/spawned_turfs = list()
 	var/list/turfs_around = list()
 	var/turf/turf_to_spawn
 	var/mob/living/simple_animal/hostile/hellhound/hound
 
-	for(var/turf/turf_around in range(3, swarmed))
-		LAZYADD(turfs_around, turf_around)
-
-	while(spawned_hounds < 5 || spawned_t_hounds < 2)
-		turf_to_spawn = pick(turfs_around)
-		if(turf_to_spawn in spawned_turfs)
-			continue
-		LAZYADD(spawned_turfs, turf_to_spawn)
+	shuffle(turfs_around)
+	while((spawned_hounds < 5 || spawned_t_hounds < 2) && turfs_around.len)
+		turf_to_spawn = pop(turfs_around)
 		if(spawned_t_hounds < 2)
 			hound = new /mob/living/simple_animal/hostile/hellhound/tear(turf_to_spawn)
 			hound.faction = list("rift")
