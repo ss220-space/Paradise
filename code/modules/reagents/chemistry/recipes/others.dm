@@ -660,7 +660,7 @@
 	result = null
 	required_reagents = list("water" = 1)
 	result_amount = 1
-	min_temp = T0C + 100
+	min_temp = T100C
 	mix_message = "Вода стремительно испаряется."
 	mix_sound = null
 
@@ -668,10 +668,10 @@
 	var/turf/location = get_turf(holder.my_atom)
 	if(!istype(location))
 		return
-	
+
 	var/datum/gas_mixture/vapor = new()
 	vapor.set_water_vapor(created_volume)
-	vapor.set_temperature(373) // 100C
+	vapor.set_temperature(T100C)
 	location.blind_release_air(vapor)
 
 /datum/chemical_reaction/virus_food
