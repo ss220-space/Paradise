@@ -31,18 +31,9 @@
 		var/obj/item/coin/magic/new_coin = new(master.loc)
 		master.put_in_hands(new_coin)
 		return
-
-	var/datum/mind/servant_mind = new(servant_key)
-	servant_mind.transfer_to(Servant)
-	var/datum/antagonist/servant/serve = new(master)
-	servant_mind.add_antag_datum(serve)
-	var/datum/action/summon_servant/summon_action = new
-	var/datum/action/servant_self_summon/self_summon_action = new
-	summon_action.servant = Servant
-	self_summon_action.master = master
-	summon_action.servant = Servant
-	self_summon_action.Grant(Servant)
-	summon_action.Grant(master)
+	Servant.possess_by_player(chosen.key)
+	var/datum/antagonist/servant/serv = new /datum/antagonist/servant(user)
+	Servant.mind.add_antag_datum(serv)
 	qdel(src)
 
 /datum/servant_revive/proc/stop()
