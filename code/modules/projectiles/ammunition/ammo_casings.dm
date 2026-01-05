@@ -195,6 +195,9 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	bullet_type = BULLET_TYPE_PLAIN
 
+/obj/item/ammo_casing/c45/empty
+	projectile_type = null
+
 /obj/item/ammo_casing/c45colt/rubber
 	desc = "A .45 Colt rubber bullet casing."
 	icon_state = "r-casing"

@@ -410,3 +410,5 @@
 #define STATION_TRAIT_HANGOVER "station_trait_hangover"
 #define STATION_TRAIT_EMPTY_MAINT "station_trait_empty_maint"
 #define STATION_TRAIT_BOTS_GLITCHED "station_trait_bot_glitch"
+#define STATION_TRAIT_REVOLUTIONARY_TRASHING "station_trait_revolutionary_trashing"
+#define STATION_TRAIT_POST_WAR_TRASH "station_trait_post_war_trash"

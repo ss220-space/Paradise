@@ -230,3 +230,205 @@
 	event_names = list("Блоб", "Заражение ксеноморфами", "Пауки Ужаса", "Космический Дракон")
 	event_severity = /datum/event_container/major
 	weight_multiplier = 3
+
+/datum/station_trait/revolutionary_trashing
+	name = "Беспорядки после революции"
+	report_message = "Вашу станцию недавно отбили после попытки революции. Мы не успели убрать весь беспорядок."
+	trait_type = STATION_TRAIT_NEGATIVE
+	show_in_report = TRUE
+	trait_to_give = STATION_TRAIT_REVOLUTIONARY_TRASHING
+	weight = 2
+	///The IDs of the graffiti designs that we will generate.
+	var/static/list/trash_talk = list(
+		"youaredead",
+		"tunnelsnake",
+		"body",
+		"end",
+		"revolution",
+		"uboa",
+		"syndicate2",
+		"syndicate1",
+		"lie",
+		"valid",
+		"voxpox",
+		"shitcurity",
+		"peace",
+		"cyka",
+		"antilizard",
+		"Tunnel",
+		"Gib",
+		"space",
+		"prolizard",
+	)
+	/// Lists of area to trash
+	var/static/list/areas_to_trash = list(
+		/area/bridge,
+		/area/security,
+		/area/medical/cmo,
+		/area/quartermaster/qm,
+		/area/blueshield,
+		/area/ntrep,
+		/area/lawoffice,
+		/area/magistrateoffice,
+		/area/crew_quarters/captain,
+		/area/crew_quarters/heads,
+		/area/crew_quarters/hor,
+		/area/crew_quarters/hos,
+		/area/crew_quarters/chief,
+		/area/crew_quarters/courtroom,
+		/area/crew_quarters/recruit,
+	)
+	blacklist = list(/datum/station_trait/post_war)
+
+/datum/station_trait/revolutionary_trashing/on_round_start()
+	. = ..()
+
+	INVOKE_ASYNC(src, PROC_REF(trash_this_place)) //Must be called asynchronously
+
+/**
+ * "Trashes" the command areas of the station.
+ *
+ * Creates random graffiti and damages certain machinery/structures in the
+ * command areas of the station.
+ */
+
+/datum/station_trait/revolutionary_trashing/proc/trash_this_place()
+	var/choosen_areas = list()
+	for(var/area/command_area as anything in GLOB.areas)
+		if(is_type_in_list(command_area, areas_to_trash))
+			choosen_areas += command_area
+
+	for(var/area/area_to_trash in choosen_areas)
+		for(var/list/zlevel_turfs as anything in area_to_trash.get_zlevel_turf_lists())
+			for(var/turf/current_turf as anything in zlevel_turfs)
+				if(iswallturf(current_turf))
+					continue
+				if(prob(25))
+					var/obj/effect/decal/cleanable/crayon/created_art
+					created_art = new(current_turf, RANDOM_COLOUR, pick(trash_talk))
+					created_art.pixel_x = rand(-10, 10)
+					created_art.pixel_y = rand(-10, 10)
+
+				if(prob(0.1)) /// prob(1) is too much
+					new /obj/effect/mob_spawn/human/corpse/assistant(current_turf)
+					continue
+
+				for(var/obj/current_thing as anything in current_turf.contents)
+					if(istype(current_thing, /obj/machinery/light) && prob(40))
+						var/obj/machinery/light/light_to_smash = current_thing
+						light_to_smash.break_light_tube(skip_sound_and_sparks = TRUE)
+						continue
+
+					if(istype(current_thing, /obj/structure/window))
+						if(prob(45))
+							current_thing.take_damage(rand(50, 90)) //fulltile windows will be safe
+							continue
+
+					if(istype(current_thing, /obj/structure/table) && prob(40))
+						current_thing.take_damage(100)
+						continue
+
+					if(istype(current_thing, /obj/structure/chair) && prob(60))
+						current_thing.take_damage(300)
+						continue
+
+					if(istype(current_thing, /obj/machinery/computer) && prob(30))
+						if(istype(current_thing, /obj/machinery/computer/communications))
+							continue //To prevent the shuttle from getting autocalled at the start of the round
+						current_thing.take_damage(160)
+						continue
+
+					if(istype(current_thing, /obj/machinery/vending) && prob(70))
+						var/obj/machinery/vending/vendor_to_trash = current_thing
+						vendor_to_trash.obj_break()
+						continue
+
+					if(istype(current_thing, /obj/structure/closet/fireaxecabinet)) //A staple of revolutionary behavior
+						current_thing.take_damage(90)
+						continue
+
+					if(istype(current_thing, /obj/item/bedsheet))
+						qdel(current_thing)
+						continue
+
+					if(istype(current_thing, /obj/item/flag))
+						new /obj/item/flag/ussp(current_thing.loc)
+						qdel(current_thing)
+						continue
+
+					if(istype(current_thing, /obj/machinery/door) && prob(50))
+						current_thing.take_damage(rand(200, 400))
+						continue
+
+				CHECK_TICK
+
+/datum/station_trait/post_war
+	name = "Повреждения после битвы"
+	report_message = "Предыдущая смена столкнулась с отрядом \"Атом\". Мы восстановили структурную целостность станции и забрали трофеи, но не успели закончить с ремонтом."
+	trait_type = STATION_TRAIT_NEGATIVE
+	show_in_report = TRUE
+	trait_to_give = STATION_TRAIT_REVOLUTIONARY_TRASHING
+	weight = 1
+	blacklist = list(/datum/station_trait/revolutionary_trashing)
+
+/datum/station_trait/post_war/on_round_start()
+	. = ..()
+
+	INVOKE_ASYNC(src, PROC_REF(trash_this_place)) //Must be called asynchronously
+
+/datum/station_trait/post_war/proc/trash_this_place()
+	for(var/area/area_to_trash in SSmapping.existing_station_areas)
+		for(var/list/zlevel_turfs as anything in area_to_trash.get_zlevel_turf_lists())
+			for(var/turf/current_turf as anything in zlevel_turfs)
+				if(iswallturf(current_turf))
+					var/turf/simulated/wall/our_wall = current_turf
+					if(prob(15))
+						our_wall.add_multiple_dents(rand(1, 10), WALL_DENT_SHOT)
+					continue
+
+				if(isfloorturf(current_turf) && prob(20))
+					var/turf/simulated/floor/station_floor = current_turf
+					if(prob(70))
+						station_floor.burn_tile()
+					else
+						station_floor.break_tile()
+					if(prob(45))
+						new /obj/item/ammo_casing/c45/empty(current_turf)
+
+				for(var/obj/current_thing as anything in current_turf.contents)
+					if(istype(current_thing, /obj/machinery/light) && prob(40))
+						var/obj/machinery/light/light_to_smash = current_thing
+						light_to_smash.break_light_tube(skip_sound_and_sparks = TRUE)
+						continue
+
+					if(istype(current_thing, /obj/structure/window))
+						if(prob(45))
+							current_thing.take_damage(rand(40, 90)) //fulltile windows will be safe
+							continue
+
+					if(istype(current_thing, /obj/machinery/computer) && prob(30))
+						if(istype(current_thing, /obj/machinery/computer/communications))
+							continue //To prevent the shuttle from getting autocalled at the start of the round
+						current_thing.take_damage(150-300)
+						continue
+
+					if(istype(current_thing, /obj/item/flag) && prob(40))
+						new /obj/item/flag/syndi(current_thing.loc)
+						qdel(current_thing)
+						continue
+
+					if(istype(current_thing, /obj/machinery/vending) && prob(70))
+						var/obj/machinery/vending/vendor_to_trash = current_thing
+						vendor_to_trash.obj_break()
+						continue
+
+					if(istype(current_thing, /obj/structure/closet/secure_closet) && prob(20))
+						current_thing.emag_act()
+						continue
+
+					if(istype(current_thing, /obj/machinery/door) && prob(50))
+						if(prob(10))
+							current_thing.emag_act()
+						else
+							current_thing.take_damage(rand(150, 300))
+						continue
