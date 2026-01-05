@@ -31,24 +31,27 @@
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
-/turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
+/turf/proc/GetAtmosAdjacentTurfs(alldir = FALSE)
 	if(!issimulatedturf(src))
 		return list()
 
 	var/adjacent_turfs = list()
-	for(var/turf/T in RANGE_EDGE_TURFS(1, src))
-		var/direction = get_dir(src, T)
+	for(var/direction in GLOB.cardinal)
+		var/turf/turf = get_step(src, direction)
+
 		if(!CanAtmosPass(direction))
 			continue
-		if(!T.CanAtmosPass(turn(direction, 180)))
+
+		if(!turf.CanAtmosPass(turn(direction, 180)))
 			continue
-		adjacent_turfs += T
+
+		adjacent_turfs += turf
 
 	if(!alldir)
 		return adjacent_turfs
 
-	for(var/turf/T in RANGE_TURFS(1, src))
-		var/direction = get_dir(src, T)
+	for(var/turf/turf as anything in RANGE_TURFS(1, src))
+		var/direction = get_dir(src, turf)
 		if(direction in GLOB.cardinal)
 			continue
 		// check_direction is the first way we move, from src
@@ -67,10 +70,10 @@
 			// We already know we can reach intermediate, so now we just need to check the second step.
 			if(!intermediate.CanAtmosPass(other_direction))
 				continue
-			if(!T.CanAtmosPass(turn(other_direction, 180)))
+			if(!turf.CanAtmosPass(turn(other_direction, 180)))
 				continue
 
-			adjacent_turfs += T
+			adjacent_turfs += turf
 			break
 
 	return adjacent_turfs

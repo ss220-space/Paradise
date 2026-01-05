@@ -21,6 +21,8 @@
 #define T0C 273.15
 /// 20degC
 #define T20C 293.15
+/// 100degC
+#define T100C 373.15
 
 #define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION)) //moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO (MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
