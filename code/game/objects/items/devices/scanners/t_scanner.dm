@@ -79,6 +79,7 @@
 	icon_state = "[base_icon_state][on]"
 
 /obj/item/t_scanner/proc/toggle_mode()
+	playsound(src, SFX_INDUSTRIAL_SCAN, 20, TRUE, -2, TRUE, FALSE)
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
 	if(on)

@@ -14,12 +14,16 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 3
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	origin_tech = "magnets=1;engineering=1"
 	tool_behaviour = TOOL_ANALYZER
+	/// Boolean whether this has a CD
 	var/cooldown = FALSE
-	var/cooldown_time = 250
-	var/accuracy // 0 is the best accuracy.
+	/// The time in deciseconds
+	var/cooldown_time = 25 SECONDS
+	/// 0 is best accuracy
+	var/barometer_accuracy
+	/// Cached gasmix data from ui_interact
 	var/list/last_gasmix_data
 	var/list/history_gasmix_data
 	var/history_gasmix_index = 0
@@ -31,7 +35,7 @@
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
-	. += span_notice("To scan an environment, activate it or use it on your location.")
+	. += span_notice("Right-click [src] to open the gas reference.")
 	. += span_notice("Alt-click [src] to activate the barometer function.")
 
 /obj/item/analyzer/suicide_act(mob/living/carbon/user)
@@ -42,27 +46,34 @@
 	if(cooldown)
 		to_chat(user, span_warning("[src]'s barometer function is prepraring itself."))
 		return CLICK_ACTION_BLOCKING
+
 	var/turf/T = get_turf(user)
 	if(!T)
 		return NONE
+
 	playsound(src, 'sound/effects/pop.ogg', 100)
 	var/area/user_area = T.loc
 	var/datum/weather/ongoing_weather = null
+
 	if(!user_area.outdoors)
 		to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
 		return CLICK_ACTION_BLOCKING
+
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
 		if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
 			ongoing_weather = W
 			break
+
 	if(ongoing_weather)
 		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
 			to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
 			return CLICK_ACTION_BLOCKING
+
 		to_chat(user, span_warning("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 		if(ongoing_weather.aesthetic)
 			to_chat(user, span_warning("[src]'s barometer function says that the next storm will breeze on by."))
+
 	else
 		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
 		var/fixed = next_hit ? next_hit - world.time : -1
@@ -70,6 +81,7 @@
 			to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
 		else
 			to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
+
 	cooldown = TRUE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 	return CLICK_ACTION_SUCCESS
@@ -85,8 +97,8 @@
 /obj/item/analyzer/proc/butchertime(amount)
 	if(!amount)
 		return
-	if(accuracy)
-		var/inaccurate = round(accuracy * (1 / 3))
+	if(barometer_accuracy)
+		var/inaccurate = round(barometer_accuracy * (1 / 3))
 		if(prob(50))
 			amount -= inaccurate
 		if(prob(50))
@@ -102,7 +114,7 @@
 /obj/item/analyzer/ui_data(mob/user)
 	var/list/data = list()
 	if(auto_updating)
-		on_analyze(source=src, target=scan_target)
+		on_analyze(source = src, target = scan_target)
 	LAZYINITLIST(last_gasmix_data)
 	LAZYINITLIST(history_gasmix_data)
 	data["gasmixes"] = last_gasmix_data
@@ -141,6 +153,7 @@
 /// Called when our analyzer is used on something
 /obj/item/analyzer/proc/on_analyze(datum/source, atom/target, save_data=TRUE)
 	SIGNAL_HANDLER
+
 	LAZYINITLIST(history_gasmix_data)
 	switch(target_mode)
 		if(ANALYZER_MODE_SURROUNDINGS)
@@ -157,28 +170,35 @@
 	var/mixture = scan_target?.return_analyzable_air()
 	if(!mixture)
 		return FALSE
+
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
 	var/list/new_gasmix_data = list()
 	for(var/datum/gas_mixture/air as anything in airs)
 		var/mix_name = capitalize(lowertext(scan_target.name))
 		if(scan_target == get_turf(src))
 			mix_name = "Location Reading"
+
 		if(length(airs) != 1) //not a unary gas mixture
 			mix_name += " - Node [airs.Find(air)]"
+
 		new_gasmix_data += list(gas_mixture_parser(air, mix_name))
+
 	last_gasmix_data = new_gasmix_data
 	history_gasmix_index = 0
+
 	if(save_data)
 		if(length(history_gasmix_data) >= ANALYZER_HISTORY_SIZE)
 			history_gasmix_data.Cut(ANALYZER_HISTORY_SIZE, length(history_gasmix_data) + 1)
+
 		history_gasmix_data.Insert(1, list(new_gasmix_data))
 
 /obj/item/analyzer/attack_self(mob/user)
 	if(user.stat != CONSCIOUS)
 		return
+
 	target_mode = ANALYZER_MODE_SURROUNDINGS
-	atmos_scan(user=user, target=get_turf(src), silent=FALSE, print=FALSE)
-	on_analyze(source=user, target=get_turf(src), save_data=!auto_updating)
+	atmos_scan(user = user, target = get_turf(src), silent = FALSE, print = FALSE)
+	on_analyze(source = user, target = get_turf(src), save_data = !auto_updating)
 	ui_interact(user)
 	add_fingerprint(user)
 
@@ -186,11 +206,13 @@
 	. = ..()
 	if(!user.can_see(target, scan_range))
 		return
+
 	target_mode = ANALYZER_MODE_TARGET
 	if(target == user || target == user.loc)
 		target_mode = ANALYZER_MODE_SURROUNDINGS
-	atmos_scan(user=user, target=(target.return_analyzable_air() ? target : get_turf(src)), print=FALSE)
-	on_analyze(source=user, target=(target.return_analyzable_air() ? target : get_turf(src)), save_data=!auto_updating)
+
+	atmos_scan(user = user, target = (target.return_analyzable_air() ? target : get_turf(src)), print = FALSE)
+	on_analyze(source = user, target = (target.return_analyzable_air() ? target : get_turf(src)), save_data = !auto_updating)
 	ui_interact(user)
 
 /**
@@ -216,9 +238,13 @@
 		return FALSE
 
 	var/icon = target
-	var/message = list()
+	var/list/message = list()
 	if(!silent && isliving(user))
-		user.visible_message(span_notice("[user] uses the analyzer on [icon2html(icon, viewers(icon))] [target]."), span_notice("You use the analyzer on [icon2html(icon, user)] [target]"))
+		playsound(user, SFX_INDUSTRIAL_SCAN, 20, TRUE, -2, TRUE, FALSE)
+		user.visible_message(
+			span_notice("[user] uses the analyzer on [icon2html(icon, viewers(icon))] [target]."),
+			span_notice("You use the analyzer on [icon2html(icon, user)] [target]"),
+		)
 	message += span_boldnotice("Results of analysis of [icon2html(icon, user)] [target].")
 
 	if(!print)
@@ -233,21 +259,21 @@
 	if(total_moles)
 		message += span_notice("Total: [round(total_moles, 0.01)] moles")
 		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
-			message += span_notice("  Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)")
+			message += span_oxygen("  Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)")
 		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
-			message += span_notice("  Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)")
+			message += span_nitrogen("  Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)")
 		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
-			message += span_notice("  Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)")
+			message += span_carbon_dioxide("  Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)")
 		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
-			message += span_notice("  Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)")
+			message += span_plasma("  Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)")
 		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
-			message += span_notice("  Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)")
+			message += span_sleeping_agent("  Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)")
 		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
-			message += span_notice("  Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)")
+			message += span_agent_b("  Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)")
 		if(air.hydrogen() && (milla_turf_details || air.hydrogen() / total_moles > 0.01))
-			message += span_notice("  Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)")
+			message += span_hydrogen("  Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)")
 		if(air.water_vapor() && (milla_turf_details || air.water_vapor() / total_moles > 0.01))
-			message += span_notice("  Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)")
+			message += span_water_vapor("  Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)")
 
 		message += span_notice("Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)")
 		message += span_notice("Volume: [round(volume)] Liters")
@@ -271,6 +297,7 @@
 				message += span_notice("Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])")
 			else
 				message += span_notice("Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.")
+
 		message += span_notice("Superconductivity N/E/S/W: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]")
 		message += span_notice("Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]")
 		message += span_notice("Hotspot: [floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]-T0C)] &deg;C ([floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE])] K), [round(milla[MILLA_INDEX_HOTSPOT_VOLUME] * CELL_VOLUME, 1)] Liters ([milla[MILLA_INDEX_HOTSPOT_VOLUME]]x)")
@@ -278,7 +305,8 @@
 		message += span_notice("Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles")
 
 	// we let the join apply newlines so we do need handholding
-	to_chat(user, chat_box_examine((jointext(message, "\n"))))
+	to_chat(user, chat_box_examine((jointext(message, "\n"))), type = MESSAGE_TYPE_INFO)
+	return TRUE
 
 #undef ANALYZER_MODE_SURROUNDINGS
 #undef ANALYZER_MODE_TARGET

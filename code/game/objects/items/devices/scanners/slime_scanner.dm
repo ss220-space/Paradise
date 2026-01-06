@@ -17,6 +17,7 @@
 		to_chat(user, span_warning("This device can only scan slimes!"))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
+	playsound(src, SFX_INDUSTRIAL_SCAN, 20, TRUE, -2, TRUE, FALSE)
 	slime_scan(target, user)
 
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
