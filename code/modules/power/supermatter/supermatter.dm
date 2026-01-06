@@ -1078,7 +1078,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			else if(pulled_mob.buckled)
 				var/atom/movable/buckler = pulled_mob.buckled
 				if(buckler.unbuckle_mob(pulled_mob, TRUE))
-					visible_message(span_danger("[src]'s sheer force rips [pulled_mob] away from [buckler]!"))
+					visible_message(span_danger("Невероятная сила [declent_ru(GENITIVE)] отрывает [pulled_mob.declent_ru(ACCUSATIVE)] от [buckler.declent_ru(GENITIVE)]!"))
 		step_towards(movable_atom, center)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)

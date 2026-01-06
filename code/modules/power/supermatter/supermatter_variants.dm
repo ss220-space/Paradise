@@ -14,7 +14,7 @@
 	layer = ABOVE_MOB_LAYER
 	moveable = TRUE
 
-/obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
+/obj/machinery/atmospherics/supermatter_crystal/shard/get_ru_names()
 	return list(
 		NOMINATIVE = "осколок суперматерии",
 		GENITIVE = "осколка суперматерии",
