@@ -377,8 +377,6 @@ pub(crate) fn post_process(
                 react(my_next_tile, true);
             }
 
-            do_turf_effects(my_next_tile, x, y, z);
-
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
         }
@@ -467,6 +465,10 @@ pub(crate) fn check_interesting(
         {
             // Crossed the sleeping agent visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if do_turf_effects(my_next_tile) {
+            reasons |= ReasonFlags::CONDENSATION;
         }
 
         if my_next_tile.temperature() > PLASMA_BURN_MIN_TEMP {
@@ -717,7 +719,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 }
 
 /// Apply the effects of the gas onto the turf itself
-pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
+pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
     let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
     // Calculate the water saturation pressure using the Arden Buck equation
     let saturation_pressure: f32;
@@ -747,20 +749,9 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
             .set_water_vapor(my_next_tile.gases.water_vapor() - condensed_water);
         //We lose gas, so we lose the thermal energy it had
         my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
-        // Make the floor wet
-        let _ = call_global(
-            "condense_water",
-            &[
-                if cached_temperature > T0C {
-                    ByondValue::from(1.0)
-                } else {
-                    ByondValue::from(3.0)
-                },
-                ByondValue::from((x + 1) as f32),
-                ByondValue::from((y + 1) as f32),
-                ByondValue::from((z + 1) as f32),
-            ],
-        );
+        true
+    } else {
+        false
     }
 }
 

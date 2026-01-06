@@ -292,6 +292,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define MILLA_INTERESTING_REASON_HOT (1 << 1)
 /// Interesting because it has wind that can push stuff around.
 #define MILLA_INTERESTING_REASON_WIND (1 << 2)
+/// Interesting because it has water vapor condensation
+#define MILLA_INTERESTING_REASON_CONDENSATION (1 << 3)
+
 #define MILLA_NORTH (1 << 0)
 #define MILLA_EAST (1 << 1)
 #define MILLA_SOUTH (1 << 2)

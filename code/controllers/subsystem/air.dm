@@ -417,8 +417,7 @@ SUBSYSTEM_DEF(air)
 
 		var/reasons = currentrun[offset + MILLA_INDEX_INTERESTING_REASONS]
 
-		// Bind the MILLA tile we got, if needed.
-		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
+		if(reasons & MILLA_INTERESTING_REASON_DISPLAY | MILLA_INTERESTING_REASON_CONDENSATION)
 			var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
 			if(isnull(turf.bound_air))
 				bind_turf(turf, milla_tile)
@@ -429,9 +428,17 @@ SUBSYSTEM_DEF(air)
 				turf.bound_air.dirty = FALSE
 				turf.bound_air.synchronized = FALSE
 
+		// Bind the MILLA tile we got, if needed.
+		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
 			var/turf/simulated/simulated_turf = turf
 			if(istype(simulated_turf))
 				simulated_turf.update_visuals()
+
+		if(reasons & MILLA_INTERESTING_REASON_CONDENSATION)
+
+			var/turf/simulated/simulated_turf = turf
+			if(istype(simulated_turf))
+				simulated_turf.MakeSlippery(water_phase, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
@@ -810,15 +817,6 @@ SUBSYSTEM_DEF(air)
 	// Disable fire, too.
 	for(var/turf/simulated/simuleated_turf in SSair.hotspots)
 		QDEL_NULL(simuleated_turf.active_hotspot)
-
-/// condenses water on a tile at the specified coordinates
-/proc/condense_water(water_phase, x, y, z)
-	var/turf/simulated/floor/tile =  locate(x, y, z)
-
-	if(!istype(tile))
-		return
-
-	tile.MakeSlippery(water_phase, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
