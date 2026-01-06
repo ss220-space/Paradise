@@ -195,7 +195,7 @@
 /obj/item/multitool/field_debug/proc/setup_debug_field()
 	current = new(src, range_to_use, FALSE)
 	current.set_fieldturf_color = COLOR_PROXIMITY_FIELD
-	current.set_edgeturf_color = "#ffaaff"
+	current.set_edgeturf_color = COLOR_PROXIMITY_EDGE
 	current.recalculate_field(full_recalc = TRUE)
 
 /obj/item/multitool/field_debug/attack_self(mob/user)
@@ -207,6 +207,9 @@
 		QDEL_NULL(current)
 
 /obj/item/multitool/field_debug/click_alt(mob/user)
+    if(!current)
+		return
+
 	current.edge_is_a_field = !current.edge_is_a_field
 
 //DEBUG FIELDS
