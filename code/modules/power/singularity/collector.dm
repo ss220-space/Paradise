@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector
 	name = "radiation collector array"
-	desc = "A device which converts raditation to useable electical energy using plasma."
+	desc = "Устройство, преобразующее радиацию в полезную электрическую энергию с использованием плазмы."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "ca"
 	anchored = FALSE
@@ -15,6 +15,16 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	var/active = FALSE
 	var/locked = FALSE
 	var/drainratio = 1
+
+/obj/machinery/power/rad_collector/get_ru_names()
+	return list(
+		NOMINATIVE = "радиационный коллектор",
+		GENITIVE = "радиационного коллектора",
+		DATIVE = "радиационному коллектору",
+		ACCUSATIVE = "радиационный коллектор",
+		INSTRUMENTAL = "радиационным коллектором",
+		PREPOSITIONAL = "радиационном коллекторе"
+	)
 
 /obj/machinery/power/rad_collector/Initialize(mapload)
 	. = ..()

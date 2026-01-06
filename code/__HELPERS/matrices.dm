@@ -171,7 +171,7 @@ round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), ro
 	if(length(A) != 20 || length(B) != 20)
 		return COLOR_MATRIX_IDENTITY
 	var/list/output = list()
-	length(output) = 20
+	output.len = 20
 	for(var/value in 1 to 20)
 		output[value] = A[value] + B[value]
 	return output
@@ -183,7 +183,7 @@ round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), ro
 	if(length(A) != 20 || length(B) != 20)
 		return COLOR_MATRIX_IDENTITY
 	var/list/output = list()
-	length(output) = 20
+	output.len = 20
 	var/x = 1
 	var/y = 1
 	var/offset = 0
