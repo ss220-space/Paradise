@@ -23982,6 +23982,15 @@
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/cabin4)
+"cLp" = (
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "cLr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -36894,6 +36903,10 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 22
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
@@ -101496,6 +101509,10 @@
 	c_tag = "Departure Lounge South";
 	dir = 8
 	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -104809,6 +104826,9 @@
 /obj/effect/decal/warning_stripes/northwest,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/alarm{
+	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -113752,6 +113772,9 @@
 "vtj" = (
 /obj/item/hand_tele,
 /obj/structure/table,
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "vtm" = (
@@ -165474,7 +165497,7 @@ ckx
 nCm
 uKu
 csV
-rSJ
+cLp
 cEe
 xuv
 lRh
