@@ -37,7 +37,6 @@
 		//Allow for reactions
 		air_contents.react()
 		return
-	update_icon()
 
 /obj/machinery/portable_atmospherics/Destroy()
 	SSair.atmos_machinery -= src
