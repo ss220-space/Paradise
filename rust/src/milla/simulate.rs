@@ -1,8 +1,6 @@
 use crate::milla::constants::*;
 use crate::milla::model::*;
-use byondapi::global_call::call_global;
 use byondapi::map::ByondXYZ;
-use byondapi::prelude::ByondValue;
 use core::f32;
 use eyre::eyre;
 use scc::Bag;
@@ -701,7 +699,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .set_water_vapor(my_next_tile.gases.water_vapor() + hydrogen_burnt);
 
         // Recalculate heat capacity.
-        cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+        //cached_heat_capacity = fraction * my_next_tile.heat_capacity();
         // THEN we can add in the new thermal energy.
         thermal_energy += HYDROGEN_BURN_ENERGY * hydrogen_burnt;
         // Recalculate temperature for any subsequent reactions.

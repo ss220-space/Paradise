@@ -417,7 +417,8 @@ SUBSYSTEM_DEF(air)
 
 		var/reasons = currentrun[offset + MILLA_INDEX_INTERESTING_REASONS]
 
-		if(reasons & MILLA_INTERESTING_REASON_DISPLAY | MILLA_INTERESTING_REASON_CONDENSATION)
+		// Bind the MILLA tile we got, if needed.
+		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
 			var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
 			if(isnull(turf.bound_air))
 				bind_turf(turf, milla_tile)
@@ -428,17 +429,15 @@ SUBSYSTEM_DEF(air)
 				turf.bound_air.dirty = FALSE
 				turf.bound_air.synchronized = FALSE
 
-		// Bind the MILLA tile we got, if needed.
-		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
 			var/turf/simulated/simulated_turf = turf
 			if(istype(simulated_turf))
 				simulated_turf.update_visuals()
 
 		if(reasons & MILLA_INTERESTING_REASON_CONDENSATION)
 			var/turf/simulated/simulated_turf = turf
-			var/datum/gas_mixture/air = simulated_turf.get_readonly_air()
-			if(istype(simulated_turf))
-				simulated_turf.MakeSlippery(air.temperature() > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
+			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
+			if(temperature < T100C && istype(simulated_turf))
+				simulated_turf.MakeSlippery(temperature > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
