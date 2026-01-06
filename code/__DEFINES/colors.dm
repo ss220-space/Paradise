@@ -574,6 +574,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_SECSPEAR_BLUE "#3fc4ed"
 #define COLOR_SECSPEAR_YELLOW "#edc73f"
 
+#define COLOR_PROXIMITY_FIELD "#aaffff"
+#define COLOR_PROXIMITY_EDGE "#ffaaff"
+
 // Luma coefficients suggested for HDTVs. If you change these, make sure they add up to 1.
 #define LUMA_R 0.213
 #define LUMA_G 0.715

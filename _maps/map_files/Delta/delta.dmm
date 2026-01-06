@@ -3527,10 +3527,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/maintenance/kitchen)
-"aDC" = (
-/obj/machinery/atmospherics/supermatter_crystal/engine,
-/turf/simulated/floor/engine,
-/area/engineering/supermatter)
 "aDD" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
@@ -36885,16 +36881,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"dSr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/locker/locker_toilet)
 "dSB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
@@ -75413,6 +75399,20 @@
 	icon_state = "caution"
 	},
 /area/atmos)
+"mKw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 22
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker/locker_toilet)
 "mKB" = (
 /obj/machinery/icemachine,
 /obj/effect/decal/cleanable/dirt,
@@ -84603,6 +84603,10 @@
 	icon_state = "chapel"
 	},
 /area/chapel/main)
+"oOd" = (
+/obj/machinery/atmospherics/supermatter_crystal/engine,
+/turf/simulated/floor/engine,
+/area/engineering/supermatter)
 "oOf" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -92243,6 +92247,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"qwf" = (
+/obj/effect/decal/warning_stripes/northwest,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/gateway)
 "qws" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -101489,16 +101505,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"sCz" = (
-/obj/machinery/camera{
-	c_tag = "Departure Lounge South";
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
-	},
-/area/hallway/secondary/exit)
 "sCB" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/engineering_welding,
@@ -104803,15 +104809,6 @@
 	icon_state = "whitered"
 	},
 /area/security/medbay)
-"ttr" = (
-/obj/effect/decal/warning_stripes/northwest,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/gateway)
 "ttw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -106424,6 +106421,20 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab)
+"tLd" = (
+/obj/machinery/camera{
+	c_tag = "Departure Lounge South";
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/hallway/secondary/exit)
 "tLf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -113747,11 +113758,6 @@
 	icon_state = "wood-broken6"
 	},
 /area/maintenance/kitchen)
-"vtj" = (
-/obj/item/hand_tele,
-/obj/structure/table,
-/turf/simulated/floor/plasteel,
-/area/teleporter)
 "vtm" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -119039,6 +119045,14 @@
 "wEh" = (
 /turf/simulated/wall/r_wall,
 /area/teleporter/abandoned)
+"wEl" = (
+/obj/item/hand_tele,
+/obj/structure/table,
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel,
+/area/teleporter)
 "wEm" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -125395,6 +125409,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/sleep)
+"xWQ" = (
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "xWZ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -151009,7 +151032,7 @@ bIH
 aYW
 bbk
 cfr
-aDC
+oOd
 cfr
 cdZ
 cfr
@@ -164763,7 +164786,7 @@ qne
 qEK
 vur
 qEK
-sCz
+tLd
 dXK
 kUB
 kUB
@@ -165472,7 +165495,7 @@ ckx
 nCm
 uKu
 csV
-rSJ
+xWQ
 cEe
 xuv
 lRh
@@ -165723,7 +165746,7 @@ tIK
 wDT
 vjx
 csV
-ttr
+qwf
 goP
 vXL
 goP
@@ -167510,7 +167533,7 @@ dss
 uek
 sYF
 bHx
-vtj
+wEl
 uYe
 uhk
 hhQ
@@ -171123,7 +171146,7 @@ vzE
 cxn
 qxo
 cyz
-dSr
+mKw
 aUK
 cAa
 kuF
