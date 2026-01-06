@@ -116,11 +116,11 @@
 			return BATON_DO_NORMAL_ATTACK
 		var/wait_desc = get_wait_description()
 		if(wait_desc)
-			to_chat(user, wait_desc)
+			balloon_alert(user, wait_desc)
 		return BATON_ATTACK_DONE
 
 	if(HAS_TRAIT_FROM(target, TRAIT_IWASBATONED, UNIQUE_TRAIT_SOURCE(user))) //no doublebaton abuse son!
-		to_chat(user, span_danger("You fumble and miss [target]!"))
+		balloon_alert(user, "промах!")
 		return BATON_ATTACK_DONE
 
 	if(stun_animation)
@@ -130,7 +130,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		if(human_target.check_shields(src, 0, "[user]'s [name]", ITEM_ATTACK))
+		if(human_target.check_shields(src, 0, "[declent_ru(ACCUSATIVE)] [user.declent_ru(GENITIVE)]", ITEM_ATTACK))
 			return BATON_ATTACK_DONE
 		if(check_martial_counter(target, user))
 			return BATON_ATTACK_DONE
@@ -140,7 +140,7 @@
 		if(affect_cyborgs)
 			attack_desc = get_cyborg_stun_description(target, user)
 		else
-			attack_desc = get_unga_dunga_cyborg_stun_description(target, user)
+			attack_desc = get_failed_cyborg_stun_description(target, user)
 			playsound(get_turf(src), 'sound/effects/bang.ogg', 10, TRUE) //bonk
 			. = BATON_ATTACK_DONE
 
@@ -148,7 +148,7 @@
 		if(affect_bots)
 			attack_desc = get_cyborg_stun_description(target, user)
 		else
-			attack_desc = get_unga_dunga_cyborg_stun_description(target, user)
+			attack_desc = get_failed_cyborg_stun_description(target, user)
 			playsound(get_turf(src), 'sound/effects/bang.ogg', 10, TRUE)
 			. = BATON_ATTACK_DONE
 	else
@@ -205,8 +205,8 @@
 	if(!active || !HAS_TRAIT(user, TRAIT_CLUMSY) || prob(50))
 		return FALSE
 	user.visible_message(
-		span_danger("[user] accidentally hits [user.p_them()]self over the head with [src]! What a doofus!"),
-		span_userdanger("You accidentally hit yourself over the head with [src]!"),
+		span_danger("[user.declent_ru(NOMINATIVE)] замахива[PLUR_ET_YUT(user)]ся [declent_ru(INSTRUMENTAL)] и со всей силы бь[PLUR_ET_YUT] себя по голове!"),
+		span_userdanger("Вы замахиваетесь [declent_ru(INSTRUMENTAL)] и со всей силы бьёте себя по голове!"),
 	)
 
 	if(isrobot(user))
@@ -243,20 +243,20 @@
 /// Default message for stunning a living, non-cyborg mob.
 /obj/item/melee/baton/proc/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
-	.["visible"] = span_danger("[user] knocks [target] down with [src]!")
-	.["local"] = span_userdanger("[user] knocks you down with [src]!")
+	.["visible"] = span_danger("[user.declent_ru(NOMINATIVE)] сбива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] с ног ударом [declent_ru(GENITIVE)]!")
+	.["local"] = span_userdanger("[user.declent_ru(NOMINATIVE)] сбива[PLUR_ET_YUT(user)] вас с ног ударом [declent_ru(GENITIVE)]!")
 
 /// Default message for stunning a cyborg.
 /obj/item/melee/baton/proc/get_cyborg_stun_description(mob/living/target, mob/living/user)
 	. = list()
-	.["visible"] = span_danger("[user] pulses [target]'s sensors with the baton!")
-	.["local"] = span_danger("You pulse [target]'s sensors with the baton!")
+	.["visible"] = span_danger("[user.declent_ru(NOMINATIVE)] перегружа[PLUR_ET_YUT(user)] сенсоры [target.declent_ru(ACCUSATIVE)] ударом [declent_ru(GENITIVE)]!")
+	.["local"] = span_danger("Вы перегружаете сенсоры [target.declent_ru(ACCUSATIVE)] ударом [declent_ru(GENITIVE)]!")
 
 /// Default message for trying to stun a cyborg with a baton that can't stun cyborgs.
-/obj/item/melee/baton/proc/get_unga_dunga_cyborg_stun_description(mob/living/target, mob/living/user)
+/obj/item/melee/baton/proc/get_failed_cyborg_stun_description(mob/living/target, mob/living/user)
 	. = list()
-	.["visible"] = span_danger("[user] tries to knock down [target] with [src], and predictably fails!") //look at this duuuuuude
-	.["local"] = span_userdanger("[user] tries to... knock you down with [src]?") //look at the top of his head!
+	.["visible"] = span_danger("[user.declent_ru(NOMINATIVE)] безуспешно пыта[PLUR_ET_YUT(user)]ся оглушить [target.declent_ru(ACCUSATIVE)] ударом [declent_ru(GENITIVE)]!")
+	.["local"] = span_userdanger("[user.declent_ru(NOMINATIVE)] безуспешно пыта[PLUR_ET_YUT(user)]ся оглушить вас ударом [declent_ru(GENITIVE)]!")
 
 /// Contains any special effects that we apply to living, non-cyborg mobs we stun. Does not include applying a knockdown, dealing stamina damage, etc.
 /obj/item/melee/baton/proc/additional_effects_non_cyborg(mob/living/target, mob/living/user)
