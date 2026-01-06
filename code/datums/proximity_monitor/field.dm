@@ -207,7 +207,7 @@
 		QDEL_NULL(current)
 
 /obj/item/multitool/field_debug/click_alt(mob/user)
-    if(!current)
+	if(!current)
 		return
 
 	current.edge_is_a_field = !current.edge_is_a_field
