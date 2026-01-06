@@ -20,7 +20,7 @@
 	. = ..()
 
 /datum/engi_event/supermatter_event/on_end()
-	sm_radio_say("<b>Anomalous crystal activity has ended.</b>")
+	sm_radio_say(span_bold("Аномальная кристаллическая активность прекратилась."))
 	supermatter.heat_penalty_threshold = SUPERMATTER_HEAT_PENALTY_THRESHOLD
 	supermatter.gas_multiplier = 1
 	supermatter.power_additive = 0
