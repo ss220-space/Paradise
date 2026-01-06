@@ -495,7 +495,7 @@
 
 /datum/design/manipulator_shell
 	id = "manipulator_shell"
-	req_tech = list("materials" = 4, "programming" = 5, "engineering" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 4)
 	build_path = /obj/item/shell/manipulator
 	build_type = PROTOLATHE
 	materials = list(
