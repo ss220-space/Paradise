@@ -101500,6 +101500,10 @@
 	c_tag = "Departure Lounge South";
 	dir = 8
 	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -165493,7 +165497,7 @@ ckx
 nCm
 uKu
 csV
-uZI
+cLp
 cEe
 xuv
 lRh
