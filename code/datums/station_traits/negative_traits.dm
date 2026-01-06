@@ -208,7 +208,7 @@
 	report_message = "Пространство вокруг станции зафиксировало множество неизвестных сигналов и аномалий. Будьте осторожны."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Аномалия")
+	event_names = list("Аномалия", "Червоточины")
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 3 ///1500 instead of 500. Oh god
 
@@ -226,10 +226,30 @@
 	name = "Повышенная опасность биологических угроз"
 	report_message = "Внимание! Несколько космических станций в вашем секторе было уничтожено в результате вспышек биоугроз. Будьте предельно осторожны."
 	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 2
+	weight = 1
 	event_names = list("Блоб", "Заражение ксеноморфами", "Пауки Ужаса", "Космический Дракон")
 	event_severity = /datum/event_container/major
 	weight_multiplier = 3
+
+/datum/station_trait/random_event_weight_modifier/emp_satellite
+	name = "вражеский ЭМИ спутник"
+	report_message = "В секторе станции был замечен замаскированный электромагнитный спутник Синдиката. Нам пока не удалось его отключить, поэтому ожидайте массовые повреждения электроники."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	event_names = list("Перегрузка ЛКП", "Сбой работы дверей", "Цифровой вирус",  "Электрический шторм", "Телекоммуникационный сбой")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 5
+	disable_is_one_shot = TRUE
+
+/datum/station_trait/random_event_weight_modifier/spiders
+	name = "Нашествие пауков"
+	report_message = "С целью борьбы с грызунами мы выпустили колонию пауков переростков в вентиляцию станции. Это была ошибка."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	event_names = list("Нашествие пауков")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 10 //oh god
+	disable_is_one_shot = TRUE
 
 /datum/station_trait/revolutionary_trashing
 	name = "Беспорядки после революции"
@@ -238,6 +258,7 @@
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_REVOLUTIONARY_TRASHING
 	weight = 2
+	blacklist = list(/datum/station_trait/post_war)
 	///The IDs of the graffiti designs that we will generate.
 	var/static/list/trash_talk = list(
 		"youaredead",
@@ -278,7 +299,6 @@
 		/area/crew_quarters/courtroom,
 		/area/crew_quarters/recruit,
 	)
-	blacklist = list(/datum/station_trait/post_war)
 
 /datum/station_trait/revolutionary_trashing/on_round_start()
 	. = ..()
@@ -417,7 +437,7 @@
 						qdel(current_thing)
 						continue
 
-					if(istype(current_thing, /obj/machinery/vending) && prob(70))
+					if(istype(current_thing, /obj/machinery/vending) && prob(5))
 						var/obj/machinery/vending/vendor_to_trash = current_thing
 						vendor_to_trash.obj_break()
 						continue
@@ -426,9 +446,72 @@
 						current_thing.emag_act()
 						continue
 
-					if(istype(current_thing, /obj/machinery/door) && prob(50))
+					if(istype(current_thing, /obj/machinery/door) && prob(10))
 						if(prob(10))
 							current_thing.emag_act()
 						else
 							current_thing.take_damage(rand(150, 300))
 						continue
+
+				CHECK_TICK
+
+/datum/station_trait/cramped_internals
+	name = "Удешевлённые экстренные коробки"
+	report_message = "Из-за сокращения бюджета содержимое экстренных коробок было уменьшено."
+	trait_type = STATION_TRAIT_NEGATIVE
+	show_in_report = TRUE
+	trait_to_give = STATION_TRAIT_CRAMPED_INTERNALS
+	weight = 2
+	//blacklist = list(/datum/station_trait/premium_internals_box)
+
+/datum/station_trait/looted_armory
+	name = "Разграбленная оружейная"
+	report_message = "Из-за острой нехватки финансирования, часть снаряжения в оружейной отсутствует. С другой стороны, стоимость покупки нового оружия в карго несколько ниже."
+	trait_type = STATION_TRAIT_NEGATIVE
+	show_in_report = TRUE
+	trait_to_give = STATION_TRAIT_LOOTED_ARMORY
+	weight = 2
+	//blacklist = list(/datum/station_trait/upgraded_armory)
+
+/datum/station_trait/looted_armory/on_round_start()
+	for(var/set_name in SSshuttle.supply_packs)
+		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
+		if(get_supply_group_name(pack.group) != "Безопасность") //fuck
+			continue
+		pack.cost *= 0.6
+
+	INVOKE_ASYNC(src, PROC_REF(loot_armory))
+
+/datum/station_trait/looted_armory/proc/loot_armory()
+	for(var/area/security/securearmory/armory in GLOB.areas)
+		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
+			for(var/turf/current_turf as anything in zlevel_turfs)
+				for(var/obj/current_thing as anything in current_turf.contents)
+
+					if(istype(current_thing, /obj/item) && prob(50))
+						if(istype(current_thing, /obj/item/clothing/suit/armor/reflector))
+							continue
+						qdel(current_thing)
+						continue
+
+					if(istype(current_thing, /obj/vehicle) && prob(70))
+						qdel(current_thing)
+						continue
+
+					if(istype(current_thing, /obj/machinery/flasher) && prob(60))
+						qdel(current_thing)
+						continue
+					if(istype(current_thing, /obj/machinery/suit_storage_unit) && prob(40))
+						qdel(current_thing)
+						continue
+
+/* Waiting for new vendors
+/datum/station_trait/spiked_drinks
+	name = "Отравленные напитки"
+	report_message = "Из-за сбоя в работе автоматической фабрики по разливу напитков корпорации \"Robust Softdrinks\", их продукция может содержать следы этанола и галлюциногенов."
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 3
+	cost = STATION_TRAIT_COST_LOW
+	show_in_report = TRUE
+	trait_to_give = STATION_TRAIT_SPIKED_DRINKS
+*/

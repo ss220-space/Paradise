@@ -22,9 +22,9 @@
 		new breathmask(src)
 	if(internals)
 		new internals(src)
-	if(first_aid)
+	if(first_aid && !HAS_TRAIT(SSstation, STATION_TRAIT_CRAMPED_INTERNALS))
 		new first_aid(src)
-	if(glowstick)
+	if(glowstick && !HAS_TRAIT(SSstation, STATION_TRAIT_CRAMPED_INTERNALS))
 		new glowstick(src)
 
 //MARK: Job-specific survival boxes

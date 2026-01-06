@@ -178,11 +178,12 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY))
+		for(var/i in 1 to rand(1,3))
+			new /obj/item/gun/projectile/automatic/wt550(src)
+	else
+		for(var/i in 1 to 5)
+			new /obj/item/gun/projectile/automatic/wt550(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91
 	name = "security SP-91-RC gun cabinet"
@@ -200,11 +201,12 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY))
+		for(var/i in 1 to rand(1,3))
+			new /obj/item/gun/projectile/automatic/sp91rc(src)
+	else
+		for(var/i in 1 to 5)
+			new /obj/item/gun/projectile/automatic/sp91rc(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12
 	name = "security Sparkle-A12 gun cabinet"
@@ -222,11 +224,12 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY))
+		for(var/i in 1 to rand(1,3))
+			new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	else
+		for(var/i in 1 to 5)
+			new /obj/item/gun/projectile/automatic/sparkle_a12(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
@@ -244,11 +247,12 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY))
+		for(var/i in 1 to rand(1,3))
+			new /obj/item/gun/energy/laser(src)
+	else
+		for(var/i in 1 to 5)
+			new /obj/item/gun/energy/laser(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30
 	name = "security LR-30 gun cabinet"
@@ -266,11 +270,12 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY))
+		for(var/i in 1 to rand(1,3))
+			new /obj/item/gun/projectile/automatic/lr30(src)
+	else
+		for(var/i in 1 to 5)
+			new /obj/item/gun/projectile/automatic/lr30(src)
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
