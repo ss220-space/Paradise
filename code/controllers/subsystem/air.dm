@@ -435,10 +435,10 @@ SUBSYSTEM_DEF(air)
 				simulated_turf.update_visuals()
 
 		if(reasons & MILLA_INTERESTING_REASON_CONDENSATION)
-
 			var/turf/simulated/simulated_turf = turf
+			var/datum/gas_mixture/air = simulated_turf.get_readonly_air()
 			if(istype(simulated_turf))
-				simulated_turf.MakeSlippery(water_phase, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
+				simulated_turf.MakeSlippery(air.temperature() > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
