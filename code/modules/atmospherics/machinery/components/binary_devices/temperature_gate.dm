@@ -7,7 +7,6 @@
 	name = "temperature gate"
 
 	can_unwrench = TRUE
-	can_unwrench_while_on = FALSE
 
 	// if the temperature of the input mix is lower than this, gas will flow (or higher if inverted)
 	var/target_temperature = 273 // 0C but rounded to nearest whole number

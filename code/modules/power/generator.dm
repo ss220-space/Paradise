@@ -15,6 +15,9 @@
 	var/lastgenlev = -1
 	var/lastcirc = "00"
 
+	var/light_range_on = 1
+	var/light_power_on = 0.1 //just dont want it to be culled by byond.
+
 /obj/machinery/power/generator/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
@@ -60,21 +63,25 @@
 	updateDialog()
 
 /obj/machinery/power/generator/power_change(forced = FALSE)
+	. = ..()
 	if(!anchored)
 		stat |= NOPOWER
-		update_icon(UPDATE_OVERLAYS)
-		return
-	if(!..())
-		return
+	if((stat & (BROKEN|NOPOWER)))
+		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/generator/update_overlays()
 	. = ..()
 	if(stat & (NOPOWER|BROKEN))
+		underlays.Cut()
 		return
 	if(lastgenlev != 0)
 		. += "teg-op[lastgenlev]"
+		underlays += emissive_appearance(icon, "teg-op[lastgenlev]")
 	. += "teg-oc[lastcirc]"
+	underlays += emissive_appearance(icon, "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
