@@ -36895,6 +36895,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 22
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "dSB" = (
@@ -104810,6 +104814,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -112150,6 +112157,15 @@
 	icon_state = "yellow"
 	},
 /area/maintenance/electrical)
+"uZI" = (
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "uZJ" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -113752,6 +113768,9 @@
 "vtj" = (
 /obj/item/hand_tele,
 /obj/structure/table,
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "vtm" = (
@@ -165474,7 +165493,7 @@ ckx
 nCm
 uKu
 csV
-rSJ
+uZI
 cEe
 xuv
 lRh
