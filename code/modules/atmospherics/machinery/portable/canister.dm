@@ -263,6 +263,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		var/datum/gas_mixture/removed = canister.air_contents.remove(transfer_moles)
 
 		environment.merge(removed)
+		canister.update_icon()
 
 /obj/machinery/portable_atmospherics/canister/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
