@@ -85,3 +85,6 @@
 /datum/species/skeleton/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN
 
+/datum/species/tajaran/compressor_grind(location)
+	new /obj/item/stack/sheet/bone(location)
+
