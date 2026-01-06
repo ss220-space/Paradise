@@ -23,7 +23,7 @@
 		..(severity)
 		return
 
-	if(prob(50/severity))
+	if(prob(50 / severity))
 		on = !on
 		update_icon()
 
@@ -53,11 +53,10 @@
 /datum/milla_safe/portable_scrubber_scrub
 
 /datum/milla_safe/portable_scrubber_scrub/on_run(obj/machinery/portable_atmospherics/scrubber/scrubber)
-
 	var/turf/turf = get_turf(scrubber)
 	scrubber.scrub(get_turf_air(turf))
 	if(scrubber.widenet)
-		for(var/turf/simulated/tile in turf.GetAtmosAdjacentTurfs(alldir = 1))
+		for(var/turf/simulated/tile as anything in turf.GetAtmosAdjacentTurfs(alldir = TRUE))
 			scrubber.scrub(get_turf_air(tile))
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(datum/gas_mixture/environment)

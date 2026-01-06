@@ -506,7 +506,7 @@
 	if(!force)
 		if(!mobile_port.check_dock(new_dock))
 			return
-		if(!mobile_port.canMove())
+		if(mobile_port.canMove())
 			return
 
 	var/obj/docking_port/stationary/old_dock = mobile_port.get_docked()
@@ -514,7 +514,7 @@
 	var/area_type = old_dock?.area_type || /area/space
 
 	//close and lock the dock's airlocks
-	//mobile_port.closePortDoors(old_dock)
+	mobile_port.closePortDoors(old_dock)
 
 	var/area/shuttle/areaInstance = mobile_port.areaInstance
 
@@ -540,7 +540,7 @@
 	mobile_port.remove_ripples()
 
 	//move or squish anything in the way ship at destination
-	mobile_port.shuttle_smash(old_turfs, new_turfs, new_dock.dir)
+	//mobile_port.shuttle_smash(old_turfs, new_turfs, new_dock.dir)
 
 	// begin transition
 	for(var/i in 1 to length(old_turfs))

@@ -34,12 +34,6 @@
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
 	return list(node, above, below)
 
-/obj/machinery/atmospherics/pipe/multiz/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
-
 /obj/machinery/atmospherics/pipe/multiz/Destroy()
 	. = ..()
 	if(node)
