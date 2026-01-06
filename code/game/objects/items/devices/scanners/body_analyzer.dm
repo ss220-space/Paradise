@@ -142,7 +142,7 @@
 	var/dat = ""
 	var/mob/living/carbon/human/target = M
 
-	dat = "<font color='blue'><b>Target Statistics:</b></font><br>"
+	dat = span_blue("<b>Target Statistics:</b><br>")
 	var/t1
 	switch(target.stat) // obvious, see what their status is
 		if(CONSCIOUS)

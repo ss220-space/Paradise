@@ -133,9 +133,9 @@
 			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
 
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type][blood_species_text].<br>"
+			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type][blood_species_text].<br>"
+			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
 		else
 			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
 
@@ -163,7 +163,7 @@
 
 	if(scan_data["infectedList"])
 		for(var/infection in scan_data["infectedList"])
-			P.header += span_red("Заражение в [infection].<<br>")
+			P.header += span_red("Заражение в [infection].<br>")
 
 	if(scan_data["extraFacture"] == 1)
 		P.header += span_red("Обнаружено перелом. Локализация невозможна.<br>")

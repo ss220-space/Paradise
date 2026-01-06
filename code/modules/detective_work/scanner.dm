@@ -121,7 +121,7 @@
 			"[user] points [src] at [scan_atom] and performs a forensic scan.",
 			span_notice("You scan [scan_atom]. The scanner is now analysing the results...")
 		)
-		to_chat(user, span_notice("You scan [scanned_atom]. The scanner is now analysing the results..."))
+		to_chat(user, span_notice("You scan [scan_atom]. The scanner is now analysing the results..."))
 
 		// GATHER INFORMATION
 
