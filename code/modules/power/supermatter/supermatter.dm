@@ -924,7 +924,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		var/mob/living/user = AM
 		if(HAS_TRAIT(user, TRAIT_GODMODE))
 			return
-		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
+		//message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", INVESTIGATE_ENGINE)
 		user.dust()
 		if(power_changes)
@@ -936,7 +936,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			var/suspicion = ""
 			if(AM.fingerprintslast)
 				suspicion = "last touched by [AM.fingerprintslast]"
-			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
+			//message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
 			investigate_log("has consumed [AM] - [suspicion].", INVESTIGATE_ENGINE)
 			if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
 				power += 5000//releases A LOT of power
