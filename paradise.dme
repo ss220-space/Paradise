@@ -1529,6 +1529,7 @@
 #include "code\game\objects\items\weapons\gimmicks\ban_hammer.dm"
 #include "code\game\objects\items\weapons\grenades\atmosgrenade.dm"
 #include "code\game\objects\items\weapons\grenades\bananade.dm"
+#include "code\game\objects\items\weapons\grenades\barrier_grenade.dm"
 #include "code\game\objects\items\weapons\grenades\chem_grenade.dm"
 #include "code\game\objects\items\weapons\grenades\clowngrenade.dm"
 #include "code\game\objects\items\weapons\grenades\clusterbuster.dm"
