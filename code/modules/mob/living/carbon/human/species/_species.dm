@@ -1281,6 +1281,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	return blood_overlays
 
+/datum/species/proc/compressor_grind(location)
+	return
+
 #undef MAX_WATER_TEMPERATURE_CHANGE
 #undef MIN_TEMPERATURE_DIFF
 #undef BASE_WATER_VOLUME

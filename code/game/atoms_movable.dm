@@ -1660,3 +1660,5 @@
 	forceMove(holder_obj.loc)
 	qdel(holder_obj)
 
+/atom/movable/proc/compressor_grind()
+	ex_act(EXPLODE_DEVASTATE)

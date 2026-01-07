@@ -4406,8 +4406,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/structure/table/reinforced,
-/obj/item/clothing/glasses/meson,
+/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -4672,6 +4671,13 @@
 	dir = 1
 	},
 /area/security/customs)
+"aPC" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/sign/turbine,
+/turf/simulated/wall/r_wall/coated,
+/area/maintenance/turbine)
 "aPE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -10616,6 +10622,7 @@
 /obj/structure/table/reinforced,
 /obj/item/folder,
 /obj/item/pen,
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -24653,6 +24660,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "cPj" = (
@@ -25607,9 +25617,8 @@
 	},
 /area/crew_quarters/bar)
 "cTl" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4;
-	id = "mix_in"
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -25684,8 +25693,8 @@
 /area/toxins/lab)
 "cTE" = (
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -33915,12 +33924,8 @@
 	},
 /area/civilian/barber)
 "dDi" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -33961,7 +33966,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/binary/pump{
 	dir = 4
 	},
 /turf/simulated/floor/engine,
@@ -35204,6 +35209,9 @@
 /obj/structure/sign/vacuum{
 	pixel_y = -32
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dIJ" = (
@@ -35238,6 +35246,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -35312,7 +35323,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/southwest,
-/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -65929,6 +65939,13 @@
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
+"lml" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/sign/magboots,
+/turf/simulated/wall/r_wall/coated,
+/area/maintenance/turbine)
 "lmz" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel{
@@ -103341,6 +103358,15 @@
 	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
+"vgH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/turbine)
 "vgP" = (
 /turf/simulated/wall/r_wall,
 /area/assembly/showroom)
@@ -133626,9 +133652,9 @@ iGw
 dmB
 iGw
 iGw
-iGw
-aaa
-aaa
+dDe
+dIE
+dDe
 aaa
 aaa
 aaa
@@ -133884,7 +133910,7 @@ dmE
 cDK
 iGw
 dDe
-dIE
+vgH
 dDe
 dUm
 iGw
@@ -134911,9 +134937,9 @@ bwC
 dnc
 cDM
 aWR
-dDl
+lml
 dJf
-cTH
+aPC
 aWR
 diY
 uYk

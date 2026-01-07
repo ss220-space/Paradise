@@ -197,6 +197,18 @@
 #define span_vortex_anomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 
 /**
+ * MARK: Gases
+ */
+#define span_oxygen(str) ("<span class='oxygen'>" + str + "</span>")
+#define span_nitrogen(str) ("<span class='nitrogen'>" + str + "</span>")
+#define span_carbon_dioxide(str) ("<span class='carbon_dioxide'>" + str + "</span>")
+#define span_plasma(str) ("<span class='plasma'>" + str + "</span>")
+#define span_sleeping_agent(str) ("<span class='sleeping_agent'>" + str + "</span>")
+#define span_agent_b(str) ("<span class='agent_b'>" + str + "</span>")
+#define span_hydrogen(str) ("<span class='hydrogen'>" + str + "</span>")
+#define span_water_vapor(str) ("<span class='water_vapor'>" + str + "</span>")
+
+/**
  * MARK: Font sizes
  * Don't rename it. Each numbered span corresponds to the numbered font style.
  */
@@ -207,4 +219,3 @@
 #define span_fontsize5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
 #define span_fontsize6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
 #define span_fontsize7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
-
