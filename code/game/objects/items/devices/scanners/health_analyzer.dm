@@ -652,6 +652,9 @@
 	else
 		scan_data += span_warning(">Мозг не обнаружен.")
 
+	if(HAS_TRAIT(H, TRAIT_IRRADIATED))
+		scan_data += span_warning("Объект облучен. Необходимо провести терапию токсинами для заживления.")
+
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
 		if(!bodypart)

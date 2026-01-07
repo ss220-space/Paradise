@@ -283,6 +283,8 @@
 			Knockdown(effect * blocked)
 		if(CONFUSED)
 			AdjustConfused(effect * blocked)
+		if(EFFECT_UNCONSCIOUS)
+			unconscious(effect * blocked)
 
 	updatehealth("apply effect")
 	return TRUE

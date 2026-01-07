@@ -254,8 +254,7 @@
 		return .
 
 	to_chat(user, span_danger("При контакте с [src.declent_ru(INSTRUMENTAL)] и [I.declent_ru(NOMINATIVE)] мгновенно вспыхивают!"))
-	for(var/mob/living/victim in view(5, get_turf(src)))
-		victim.apply_effect(80, IRRADIATE)
+	radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(I)
 	qdel(src)
@@ -280,8 +279,7 @@
 		span_hear("Внезапно наступает тишина.")
 	)
 	victim.gib()
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(120, IRRADIATE)
+	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(src)
 
@@ -297,8 +295,7 @@
 		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
 		span_italics("Внезапно наступает тишина.")
 	)
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(80, IRRADIATE)
+	radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.gib()
 	return FALSE
@@ -400,8 +397,7 @@
 			span_userdanger("Вы попытались взять [sliver.declent_ru(ACCUSATIVE)] голыми руками. Это было глупо."),
 			span_italics("Внезапно наступает тишина.")
 		)
-		for(var/mob/living/L in view(5, src))
-			L.apply_effect(80, IRRADIATE)
+		radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
@@ -514,8 +510,7 @@
 			span_hear("Внезапно наступает тишина.")
 		)
 		user.gib()
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(60, IRRADIATE)
+	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)
 	update_icon(UPDATE_ICON_STATE)

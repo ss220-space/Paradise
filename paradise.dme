@@ -997,6 +997,7 @@
 #include "code\game\area\areas\mining.dm"
 #include "code\game\area\areas\syndicate_base.dm"
 #include "code\game\area\areas\ruins\lavaland.dm"
+#include "code\game\atom\atom_color.dm"
 #include "code\game\atom\atom_localization.dm"
 #include "code\game\dna\dna2.dm"
 #include "code\game\dna\dna2_domutcheck.dm"

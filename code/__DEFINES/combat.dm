@@ -37,6 +37,7 @@
 #define DROWSY "drowsy"
 #define JITTER "jitter"
 #define CONFUSED "confused"
+#define EFFECT_UNCONSCIOUS "unconscious"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS (1<<0)
