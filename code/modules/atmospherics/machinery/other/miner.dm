@@ -18,7 +18,7 @@
 	var/max_ext_mol = INFINITY
 	var/max_ext_kpa = 6500
 	var/overlay_color = COLOR_WHITE
-	var/active = TRUE
+	var/active = FALSE
 	var/power_draw = 0
 	var/power_draw_static = 2000
 	var/power_draw_dynamic_mol_coeff = 5 //DO NOT USE DYNAMIC SETTINGS UNTIL SOMEONE MAKES A USER INTERFACE/CONTROLLER FOR THIS!
