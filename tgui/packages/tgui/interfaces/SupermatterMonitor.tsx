@@ -56,11 +56,9 @@ const SupermatterMonitorListView = () => {
           fill
           title="Detected Supermatters"
           buttons={
-            <Button
-              icon="sync"
-              content="Refresh"
-              onClick={() => act('refresh')}
-            />
+            <Button icon="sync" onClick={() => act('refresh')}>
+              Refresh
+            </Button>
           }
         >
           <Table>
@@ -84,13 +82,14 @@ const SupermatterMonitorListView = () => {
                 </Table.Cell>
                 <Table.Cell collapsing>
                   <Button
-                    content="Details"
                     onClick={() =>
                       act('view', {
                         view: sm.supermatter_id,
                       })
                     }
-                  />
+                  >
+                    Details
+                  </Button>
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -232,11 +231,9 @@ const SupermatterMonitorDataView = () => {
               scrollable
               title="Gases"
               buttons={
-                <Button
-                  icon="arrow-left"
-                  content="Back"
-                  onClick={() => act('back')}
-                />
+                <Button icon="arrow-left" onClick={() => act('back')}>
+                  Back
+                </Button>
               }
             >
               <LabeledList>
