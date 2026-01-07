@@ -114,6 +114,14 @@
 	var/gas_throughput = 0
 	/// List of things that would get sucked into the compressor if it spins fast enough
 	var/list/to_suck_in = list()
+	var/static/list/compressor_ignored_things = typecacheof(list(
+		/mob/dead,
+		/mob/camera,
+		/mob/oranges_ear,
+		/obj/effect,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+	))
 
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
@@ -278,13 +286,6 @@
 /obj/machinery/power/compressor/proc/enter_inlet_turf(turf/source, atom/movable/entered)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 
-	var/static/list/compressor_ignored_things = typecacheof(list(
-		/mob/dead,
-		/mob/camera,
-		/obj/effect,
-		/obj/docking_port,
-		/atom/movable/lighting_object,
-		))
 	if(!compressor_ignored_things[entered.type] && !entered.anchored)
 		to_suck_in += entered
 
@@ -302,14 +303,6 @@
 		things += thing.contents
 
 /obj/machinery/power/compressor/proc/suck_in()
-	var/static/list/compressor_ignored_things = typecacheof(list(
-		/mob/dead,
-		/mob/camera,
-		/mob/oranges_ear,
-		/obj/effect,
-		/obj/docking_port,
-		/atom/movable/lighting_object,
-	))
 	var/list/act_list = list()
 
 	for(var/atom/movable/thing in to_suck_in)
@@ -522,9 +515,6 @@
 		stat &= ~BROKEN
 	else
 		stat |= BROKEN
-
-/obj/machinery/power/turbine/CanAtmosPass(turf/T, vertical)
-	return !density
 
 /obj/machinery/power/turbine/process()
 	var/datum/milla_safe/turbine_process/milla = new()
