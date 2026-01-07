@@ -683,7 +683,6 @@
 #include "code\datums\components\persistent_overlay.dm"
 #include "code\datums\components\pref_holder.dm"
 #include "code\datums\components\radiation_countdown.dm"
-#include "code\datums\components\radioactivity.dm"
 #include "code\datums\components\ritual_object.dm"
 #include "code\datums\components\seethrough.dm"
 #include "code\datums\components\shell.dm"

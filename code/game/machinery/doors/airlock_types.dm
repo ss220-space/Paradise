@@ -146,19 +146,27 @@
 
 /obj/machinery/door/airlock/uranium
 	name = "uranium airlock"
-	desc = "And they said I was crazy."
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	paintable = FALSE
-	var/event_step = 20
+	/// The last time a radiation pulse was performed
+	var/last_event = 0
+	/// Is this airlock actually radioactive?
+	var/actually_radioactive = TRUE
 
-/obj/machinery/door/airlock/uranium/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_cycle = 15, \
-				rad_cycle_chance = 50, \
-				rad_cycle = 2 SECONDS, \
-				rad_cycle_radius = 3 \
+/obj/machinery/door/airlock/uranium/process()
+	if(actually_radioactive && world.time > last_event + 20)
+		if(prob(50))
+			radiate()
+		last_event = world.time
+
+/obj/machinery/door/airlock/uranium/proc/radiate()
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
 
 /obj/machinery/door/airlock/uranium/glass

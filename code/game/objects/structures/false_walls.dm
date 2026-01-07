@@ -242,7 +242,6 @@
 /*
  * Uranium Falsewalls
  */
-
 /obj/structure/falsewall/uranium
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
@@ -255,14 +254,43 @@
 	var/last_event = 0
 	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
+	var/active = null
+	/// The last time a radiation pulse was performed
+	var/last_event = 0
 
 /obj/structure/falsewall/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
+	RegisterSignal(src, COMSIG_ATOM_PROPAGATE_RAD_PULSE, PROC_REF(radiate))
+
+/obj/structure/falsewall/uranium/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/falsewall/uranium/attack_hand(mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/falsewall/uranium/proc/radiate()
+	SIGNAL_HANDLER
+
+	if(active)
+		return
+
+	if(world.time <= last_event + 1.5 SECONDS)
+		return
+
+	active = TRUE
+	radiation_pulse(
+		src,
+		max_range = 3,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
+	propagate_radiation_pulse()
+	last_event = world.time
+	active = FALSE
 
 /*
  * Other misc falsewall types

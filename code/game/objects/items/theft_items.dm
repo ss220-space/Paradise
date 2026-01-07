@@ -10,6 +10,7 @@
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	/// Cooldown between radiation pulses
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
 
@@ -25,11 +26,6 @@
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_cycle = 40, \
-				rad_cycle = 2 SECONDS, \
-				rad_cycle_radius = 5 \
-	)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nuke_core/Destroy()
@@ -43,9 +39,10 @@
 	if(cooldown < world.time - 2 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
+		radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION)
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] натирает себя [src.declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой!"))
+	user.visible_message(span_suicide("[user] натирает себя [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой!"))
 	return TOXLOSS
 
 //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives

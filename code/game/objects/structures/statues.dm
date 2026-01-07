@@ -73,10 +73,51 @@
 
 /obj/structure/statue/uranium
 	max_integrity = 300
-	light_range = 2
+	light_range = 3
+	light_power = 0.7
+	light_color = LIGHT_COLOR_NUCLEAR
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
-	var/last_event = 0
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
+	/// The last time a radiation pulse was performed
+	var/last_event = 0
+
+/obj/structure/statue/uranium/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_PROPAGATE_RAD_PULSE, PROC_REF(radiate))
+
+/obj/structure/statue/uranium/proc/radiate()
+	SIGNAL_HANDLER
+
+	if(active)
+		return
+
+	if(world.time <= last_event + 1.5 SECONDS)
+		return
+
+	active = TRUE
+	radiation_pulse(
+		src,
+		max_range = 3,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+	propagate_radiation_pulse()
+	last_event = world.time
+	active = FALSE
+
+/obj/structure/statue/uranium/attack_hand(mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/statue/uranium/attackby(obj/item/W, mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/statue/uranium/Bumped(atom/movable/movable_atom)
+	radiate()
+	return ..()
 
 /obj/structure/statue/uranium/nuke
 	name = "statue of a nuclear fission explosive"
@@ -87,14 +128,6 @@
 	name = "statue of an engineer"
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
-
-/obj/structure/statue/uranium/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
-	)
 
 /obj/structure/statue/plasma
 	max_integrity = 200
