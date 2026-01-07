@@ -102,3 +102,6 @@
 	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_howl)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_growl)
+
+/datum/species/vulpkanin/compressor_grind(location)
+	new /obj/item/reagent_containers/food/snacks/vulpix(location)

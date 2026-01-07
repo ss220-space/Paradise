@@ -1,6 +1,11 @@
+/**
+ * MARK: Flashlights
+ */
+
 /obj/item/flashlight
 	name = "flashlight"
-	desc = "A hand-held emergency light."
+	desc = "Ручной аварийный источник света. Питается от внутренней батареи."
+	gender = MALE
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
@@ -20,9 +25,29 @@
 	/// The sound the light makes when it's turned on/off
 	var/togglesound = 'sound/weapons/empty.ogg'
 
+/obj/item/flashlight/get_ru_names()
+	return list(
+		NOMINATIVE = "фонарик",
+		GENITIVE = "фонарика",
+		DATIVE = "фонарику",
+		ACCUSATIVE = "фонарик",
+		INSTRUMENTAL = "фонариком",
+		PREPOSITIONAL = "фонарике"
+	)
+
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"
 	light_system = MOVABLE_LIGHT
+
+/obj/item/flashlight/dummy/get_ru_names()
+	return list(
+		NOMINATIVE = "дебаг-фонарик",
+		GENITIVE = "дебаг-фонарика",
+		DATIVE = "дебаг-фонарику",
+		ACCUSATIVE = "дебаг-фонарик",
+		INSTRUMENTAL = "дебаг-фонариком",
+		PREPOSITIONAL = "дебаг-фонарике"
+	)
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
@@ -44,7 +69,7 @@
 
 /obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
-		to_chat(user, "You cannot turn the light on while in this [user.loc].")	//To prevent some lighting anomalities.
+		balloon_alert(user, "нельзя включить здесь!")
 		return FALSE
 	on = !on
 	playsound(user, togglesound, 100, TRUE)
@@ -62,12 +87,12 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!ishuman(user) || SSticker?.mode.name != "monkey")	//don't have dexterity
-		to_chat(user, span_notice("You don't have the dexterity to do this!"))
+		balloon_alert(user, "вы слишком неуклюжи!")
 		return .
 
 	var/mob/living/carbon/human/human_target = target	//mob has protective eyewear
 	if(ishuman(target) && ((human_target.head && human_target.head.flags_cover & HEADCOVERSEYES) || (human_target.wear_mask && human_target.wear_mask.flags_cover & MASKCOVERSEYES) || (human_target.glasses && human_target.glasses.flags_cover & GLASSESCOVERSEYES)))
-		to_chat(user, span_notice("You're going to need to remove that [(human_target.head && human_target.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (human_target.wear_mask && human_target.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first."))
+		balloon_alert(user, "глаза цели закрыты!")
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -75,30 +100,30 @@
 	if(target == user)	//they're using it on themselves
 		if(user.flash_eyes(visual = TRUE))
 			user.visible_message(
-				span_notice("[user] directs [src] to [user.p_their()] eyes."),
-				span_notice("You wave the light in front of your eyes! Trippy!"),
+				span_notice("[user.declent_ru(NOMINATIVE)] свет[PLUR_IT_YAT(user)] [declent_ru(INSTRUMENTAL)] себе в глаза."),
+				span_notice("Вы светите [declent_ru(INSTRUMENTAL)] себе в глаза. Прикольно!"),
 			)
 		else
 			user.visible_message(
-				span_notice("[user] directs [src] to [user.p_their()] eyes."),
-				span_notice("You wave the light in front of your eyes."),
+				span_notice("[user.declent_ru(NOMINATIVE)] свет[PLUR_IT_YAT(user)] [declent_ru(INSTRUMENTAL)] себе в глаза."),
+				span_notice("Вы светите [declent_ru(INSTRUMENTAL)] себе в глаза."),
 			)
 	else
 
 		user.visible_message(
-			span_notice("[user] directs [src] to [target]'s eyes."),
-			span_notice("You direct [src] to [target]'s eyes."),
+			span_notice("[user.declent_ru(NOMINATIVE)] свет[PLUR_IT_YAT(user)] [declent_ru(INSTRUMENTAL)] [target.declent_ru(DATIVE)] в глаза."),
+			span_notice("Вы светите [declent_ru(INSTRUMENTAL)] [target.declent_ru(DATIVE)] прямо в глаза."),
 		)
 
 		if(ishuman(target)) //robots and aliens are unaffected
 			var/obj/item/organ/internal/eyes/eyes = human_target.get_int_organ(/obj/item/organ/internal/eyes)
 			if(human_target.stat == DEAD || !eyes || HAS_TRAIT(human_target, TRAIT_BLIND))	//mob is dead or fully blind
-				to_chat(user, span_notice("[human_target]'s pupils are unresponsive to the light!"))
+				to_chat(user, span_notice("Зрачки [human_target.declent_ru(GENITIVE)] не реагируют на свет!"))
 			else if(HAS_TRAIT(human_target, TRAIT_XRAY) || human_target.nightvision >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
-				to_chat(user, span_notice("[human_target]'s pupils glow eerily!"))
+				to_chat(user, span_notice("Зрачки [human_target.declent_ru(GENITIVE)] угрожающе светятся!"))
 			else //they're okay!
 				if(human_target.flash_eyes(visual = TRUE))
-					to_chat(user, span_notice("[human_target]'s pupils narrow."))
+					to_chat(user, span_notice("Зрачки [human_target.declent_ru(GENITIVE)] суживаются."))
 
 /obj/item/flashlight/extinguish_light(force = FALSE)
 	if(on)
@@ -108,7 +133,8 @@
 
 /obj/item/flashlight/pen
 	name = "penlight"
-	desc = "A pen-sized light, used by medical staff."
+	desc = "Небольшой фонарь в форме ручки. Используется медицинским персоналом."
+	gender = FEMALE
 	icon_state = "penlight"
 	item_state = ""
 	belt_icon = "penlight"
@@ -117,9 +143,21 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 
+/obj/item/flashlight/pen/get_ru_names()
+	return list(
+		NOMINATIVE = "фонарик-ручка",
+		GENITIVE = "фонарик-ручки",
+		DATIVE = "фонарик-ручке",
+		ACCUSATIVE = "фонарик-ручку",
+		INSTRUMENTAL = "фонарик-ручкой",
+		PREPOSITIONAL = "фонарик-ручке"
+	)
+
 /obj/item/flashlight/seclite
 	name = "seclite"
-	desc = "Надежный фонарик, используемый службой безопасности."
+	desc = "Ручной источник света. За счёт аккумулятора увеличенной мощности \
+			обладает широким радиусом освещения. Достаточно увесистый, \
+			чтобы сойти за небольшую дубинку. Используется силовыми и охранными структурами."
 	icon_state = "seclite"
 	item_state = "seclite"
 	belt_icon = "seclite"
@@ -129,33 +167,58 @@
 
 /obj/item/flashlight/seclite/get_ru_names()
 	return list(
-		NOMINATIVE = "фонарик",
-		GENITIVE = "фонарика",
-		DATIVE = "фонарику",
-		ACCUSATIVE = "фонарик",
-		INSTRUMENTAL = "фонариком",
-		PREPOSITIONAL = "фонарике",
+		NOMINATIVE = "тактический фонарик",
+		GENITIVE = "тактического фонарика",
+		DATIVE = "тактическому фонарику",
+		ACCUSATIVE = "тактический фонарик",
+		INSTRUMENTAL = "тактическим фонариком",
+		PREPOSITIONAL = "тактическом фонарике",
 	)
 
 /obj/item/flashlight/sectaclight
 	name = "security tactical flashlight"
-	desc = "Прочный тактический фонарь, оборудованный для комфортного ношения на голове. Используется представителями службы безопасности."
+	desc = "Прочный тактический фонарь, оборудованный для комфортного ношения на голове. \
+			Используется силовыми и охранными структурами."
 	icon_state = "sectaclight"
 	item_state = ""
 	slot_flags = ITEM_SLOT_EARS
 
+/obj/item/flashlight/sectaclight/get_ru_names()
+	return list(
+		NOMINATIVE = "головной фонарь",
+		GENITIVE = "головного фонаря",
+		DATIVE = "головному фонарю",
+		ACCUSATIVE = "головной фонарь",
+		INSTRUMENTAL = "головным фонарём",
+		PREPOSITIONAL = "головном фонаре",
+	)
+
 /obj/item/flashlight/drone
 	name = "low-power flashlight"
-	desc = "A miniature lamp, that might be used by small robots."
+	desc = "Портативный источник света, предназначенный для установки в роботизированные системы."
 	icon_state = "penlight"
 	item_state = ""
 	light_range = 2
 	w_class = WEIGHT_CLASS_TINY
 
-// the desk lamps are a bit special
+/obj/item/flashlight/drone/get_ru_names()
+	return list(
+		NOMINATIVE = "маломощный фонарь",
+		GENITIVE = "маломощного фонаря",
+		DATIVE = "маломощному фонарю",
+		ACCUSATIVE = "маломощный фонарь",
+		INSTRUMENTAL = "маломощным фонарём",
+		PREPOSITIONAL = "маломощном фонаре",
+	)
+
+/**
+ * MARK: Desk lamps
+ */
+
 /obj/item/flashlight/lamp
 	name = "desk lamp"
-	desc = "A desk lamp with an adjustable mount."
+	desc = "Стационарный источник света. Предназначена в первую очередь для офисного освещения."
+	gender = FEMALE
 	icon_state = "lamp"
 	item_state = "lamp"
 	light_range = 5
@@ -164,25 +227,59 @@
 	on = TRUE
 	light_color = COLOR_PALE_YELLOW
 
-// green-shaded desk lamp
+/obj/item/flashlight/lamp/get_ru_names()
+	return list(
+		NOMINATIVE = "настольная лампа",
+		GENITIVE = "настольной лампы",
+		DATIVE = "настольной лампе",
+		ACCUSATIVE = "настольную лампу",
+		INSTRUMENTAL = "настольной лампой",
+		PREPOSITIONAL = "настольной лампе",
+	)
+
 /obj/item/flashlight/lamp/green
-	desc = "A classic green-shaded desk lamp."
+	name = "green-shaded desk lamp"
+	desc = "Стационарный источник света. Классический вариант зелёного цвета."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
 	light_color = COLOR_LIGHT_GREEN
 
-//Bananalamp
+/obj/item/flashlight/lamp/green/get_ru_names()
+	return list(
+		NOMINATIVE = "зелёная настольная лампа",
+		GENITIVE = "зелёной настольной лампы",
+		DATIVE = "зелёной настольной лампе",
+		ACCUSATIVE = "зелёную настольную лампу",
+		INSTRUMENTAL = "зелёной настольной лампой",
+		PREPOSITIONAL = "зелёной настольной лампе",
+	)
+
 /obj/item/flashlight/lamp/bananalamp
 	name = "banana lamp"
-	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
+	desc = "Стационарный источник света. Жёлтого цвета лампа с абажуром в форме \
+			банановой кожуры и дурацким шнуром включения."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
 	light_color = COLOR_BRIGHT_LIME
 
-// FLARES
+/obj/item/flashlight/lamp/bananalamp/get_ru_names()
+	return list(
+		NOMINATIVE = "банановая настольная лампа",
+		GENITIVE = "банановой настольной лампы",
+		DATIVE = "банановой настольной лампе",
+		ACCUSATIVE = "банановую настольную лампу",
+		INSTRUMENTAL = "банановой настольной лампой",
+		PREPOSITIONAL = "банановой настольной лампе",
+	)
+
+/**
+ * MARK: Flares
+ */
+
 /obj/item/flashlight/flare
 	name = "flare"
-	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
+	desc = "Ручной аварийный источник света. Заполнен пиротехническим составом, который поджигается \
+			при активации, давая яркое пламя красного цвета."
 	light_range = 8
 	light_system = MOVABLE_LIGHT
 	light_color = "#ff0000"
@@ -191,10 +288,23 @@
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
 	var/can_fire_cigs = TRUE
 	var/fuel = 0
+	/// Force when enabled
 	var/on_damage = 7
 	var/produce_heat = 1500
+	/// Minimum amount on initialization
 	var/fuel_lower = 800
+	/// Maximum amount on initialization
 	var/fuel_upp = 1000
+
+/obj/item/flashlight/flare/get_ru_names()
+	return list(
+		NOMINATIVE = "фальшфейер",
+		GENITIVE = "фальшфейера",
+		DATIVE = "фальшфейеру",
+		ACCUSATIVE = "фальшфейер",
+		INSTRUMENTAL = "фальшфейером",
+		PREPOSITIONAL = "фальшфейере",
+	)
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	fuel = rand(fuel_lower, fuel_upp)
@@ -239,19 +349,26 @@
 	damtype = initial(damtype)
 	update_brightness()
 
+/obj/item/flashlight/flare/extinguish_light(force = FALSE)
+	if(force)
+		fuel = 0
+		balloon_alert_to_viewers("стремительно выгорает!")
+	else
+		balloon_alert_to_viewers("медленно тускнеет")
+
 /obj/item/flashlight/flare/attack_self(mob/user)
 	// Usual checks
 	if(!fuel)
-		to_chat(user, span_notice("[src] is out of fuel."))
+		balloon_alert(user, "израсходовано!")
 		return
 	if(on)
-		to_chat(user, span_notice("[src] is already on."))
+		balloon_alert(user, "уже горит!")
 		return
 
 	. = ..()
 	// All good, turn it on.
 	if(.)
-		user.visible_message(span_notice("[user] activates [src]."), span_notice("You activate [src]."))
+		balloon_alert(user, "активировано")
 		if(produce_heat)
 			force = on_damage
 			damtype = BURN
@@ -261,11 +378,11 @@
 	. = ..()
 	turn_on()
 
-//Special flare subtype for the illumination flare shell
-//Acts like a flare, just even stronger, and set length
+/// Special flare subtype for the illumination flare shell
+/// Acts like a flare, just even stronger, and set length
 /obj/item/flashlight/flare/on/illumination
 	name = "illumination flare"
-	desc = "It's really bright, and unreachable."
+	desc = "Очень яркий и недоступный для глаз игроков."
 	icon_state = "" //No sprite
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	light_range = 7
@@ -284,11 +401,14 @@
 /obj/item/flashlight/flare/on/illumination/ex_act(severity, target)
 	return //Nope
 
-// GLOWSTICKS
+/**
+ * MARK: Glowsticks
+ */
 
 /obj/item/flashlight/flare/glowstick
 	name = "green glowstick"
-	desc = "A military-grade glowstick."
+	desc = "Ручной химический источник света. Активация путём сгибания корпуса обеспечивает \
+			равномерное свечение в течение определённого времени. Одноразовый, непроницаемый, не выделяет тепла."
 	light_range = 4
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
@@ -300,6 +420,16 @@
 	fuel_upp = 2000
 	blocks_emissive = FALSE
 	var/chemglow_sprite_type = "green"
+
+/obj/item/flashlight/flare/glowstick/get_ru_names()
+	return list(
+		NOMINATIVE = "зелёный химсвет",
+		GENITIVE = "зелёного химсвета",
+		DATIVE = "зелёному химсвету",
+		ACCUSATIVE = "зелёный химсвет",
+		INSTRUMENTAL = "зелёным химсветом",
+		PREPOSITIONAL = "зелёном химсвете",
+	)
 
 /obj/item/flashlight/flare/glowstick/Initialize(mapload)
 	light_color = color
@@ -321,6 +451,16 @@
 	color = COLOR_SOFT_RED
 	chemglow_sprite_type = "red"
 
+/obj/item/flashlight/flare/glowstick/red/get_ru_names()
+	return list(
+		NOMINATIVE = "красный химсвет",
+		GENITIVE = "красного химсвета",
+		DATIVE = "красному химсвету",
+		ACCUSATIVE = "красный химсвет",
+		INSTRUMENTAL = "красным химсветом",
+		PREPOSITIONAL = "красном химсвете",
+	)
+
 /obj/item/flashlight/flare/glowstick/green
 
 /obj/item/flashlight/flare/glowstick/blue
@@ -328,28 +468,80 @@
 	color = LIGHT_COLOR_BLUE
 	chemglow_sprite_type = "blue"
 
+/obj/item/flashlight/flare/glowstick/blue/get_ru_names()
+	return list(
+		NOMINATIVE = "синий химсвет",
+		GENITIVE = "синего химсвета",
+		DATIVE = "синему химсвету",
+		ACCUSATIVE = "синий химсвет",
+		INSTRUMENTAL = "синим химсветом",
+		PREPOSITIONAL = "синем химсвете",
+	)
+
 /obj/item/flashlight/flare/glowstick/orange
 	name = "orange glowstick"
 	color = LIGHT_COLOR_ORANGE
 	chemglow_sprite_type = "orange"
+
+/obj/item/flashlight/flare/glowstick/orange/get_ru_names()
+	return list(
+		NOMINATIVE = "оранжевый химсвет",
+		GENITIVE = "оранжевого химсвета",
+		DATIVE = "оранжевому химсвету",
+		ACCUSATIVE = "оранжевый химсвет",
+		INSTRUMENTAL = "оранжевым химсветом",
+		PREPOSITIONAL = "оранжевом химсвете",
+	)
 
 /obj/item/flashlight/flare/glowstick/yellow
 	name = "yellow glowstick"
 	color = LIGHT_COLOR_DIM_YELLOW
 	chemglow_sprite_type = "yellow"
 
+/obj/item/flashlight/flare/glowstick/yellow/get_ru_names()
+	return list(
+		NOMINATIVE = "жёлтый химсвет",
+		GENITIVE = "жёлтого химсвета",
+		DATIVE = "жёлтому химсвету",
+		ACCUSATIVE = "жёлтый химсвет",
+		INSTRUMENTAL = "жёлтым химсветом",
+		PREPOSITIONAL = "жёлтом химсвете",
+	)
+
 /obj/item/flashlight/flare/glowstick/pink
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
 	chemglow_sprite_type = "pink"
 
+/obj/item/flashlight/flare/glowstick/pink/get_ru_names()
+	return list(
+		NOMINATIVE = "розовый химсвет",
+		GENITIVE = "розового химсвета",
+		DATIVE = "розовому химсвету",
+		ACCUSATIVE = "розовый химсвет",
+		INSTRUMENTAL = "розовым химсветом",
+		PREPOSITIONAL = "розовом химсвете",
+	)
+
 /obj/item/flashlight/flare/glowstick/emergency
 	name = "emergency glowstick"
-	desc = "A cheap looking, mass produced glowstick. You can practically feel it was made on a tight budget."
+	desc = "Ручной химический источник света. Активация путём сгибания корпуса обеспечивает \
+			равномерное свечение в течение определённого времени. Одноразовый, непроницаемый, не выделяет тепла. \
+			Дешёвая вариация, предназначенная для чрезвычайных ситуаций."
 	color = LIGHT_COLOR_BLUE
 	fuel_lower = 30
 	fuel_upp = 90
 	chemglow_sprite_type = "blue"
+
+/obj/item/flashlight/flare/glowstick/emergency/get_ru_names()
+	return list(
+		NOMINATIVE = "аварийный химсвет",
+		GENITIVE = "аварийного химсвета",
+		DATIVE = "аварийному химсвету",
+		ACCUSATIVE = "аварийный химсвет",
+		INSTRUMENTAL = "аварийным химсветом",
+		PREPOSITIONAL = "аварийном химсвете",
+	)
 
 /obj/item/flashlight/flare/glowstick/random
 	name = "random colored glowstick"
@@ -362,16 +554,13 @@
 	new T(loc)
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
-/obj/item/flashlight/flare/extinguish_light(force = FALSE)
-	if(force)
-		fuel = 0
-		visible_message(span_danger("[src] burns up rapidly!"))
-	else
-		visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
+/**
+ * MARK: Torch
+ */
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
-	desc = "Простейший факел, сделанный из листьев, намотанных на древесину."
+	desc = "Простейший источник света, сделанный из ветоши, намотанной на древесину."
 	w_class = WEIGHT_CLASS_BULKY
 	light_range = 6
 	icon_state = "torch"
@@ -389,10 +578,13 @@
 		PREPOSITIONAL = "факеле",
 	)
 
+/**
+ * MARK: Slime
+ */
+
 /obj/item/flashlight/slime
-	gender = PLURAL
 	name = "glowing slime extract"
-	desc = "A glowing ball of what appears to be amber."
+	desc = "Светящийся комок слизи янтарного цвета."
 	icon_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	light_range = 6
@@ -401,15 +593,32 @@
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
 
+/obj/item/flashlight/slime/get_ru_names()
+	return list(
+		NOMINATIVE = "светящийся экстракт слайма",
+		GENITIVE = "светящегося экстракта слайма",
+		DATIVE = "светящемуся экстракту слайма",
+		ACCUSATIVE = "светящийся экстракт слайма",
+		INSTRUMENTAL = "светящимся экстрактом слайма",
+		PREPOSITIONAL = "светящемся экстракте слайма",
+	)
+
+/obj/item/flashlight/slime/update_icon_state()
+	return
+
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
 
 /obj/item/flashlight/slime/extinguish_light(force = FALSE)
 	if(force)
-		visible_message(span_danger("[src] withers away."))
+		balloon_alert_to_viewers("стремительно выгорает")
 		qdel(src)
 	else
-		visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
+		balloon_alert_to_viewers("медленно тускнеет")
+
+/**
+ * MARK: EMP
+ */
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"
@@ -447,10 +656,14 @@
 		if(ismob(A))
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")
-		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
+		balloon_alert(user, "осталось [emp_cur_charges] использовани[declension_ru(emp_cur_charges, "е", "я", "й")]")
 		A.emp_act(1)
 	else
-		to_chat(user, span_warning("\The [src] needs time to recharge!"))
+		balloon_alert(user, "перезарядка!")
+
+/**
+ * MARK: Disco light
+ */
 
 /obj/item/flashlight/spotlight //invisible lighting source
 	name = "disco light"

@@ -12,12 +12,22 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/hallway/secondary/entry)
-"aD" = (
-/obj/item/mod/control/pre_equipped/empty/syndicate,
+"aq" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/item/mod/control/pre_equipped/advanced,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"aK" = (
-/obj/item/mod/control/pre_equipped/traitor,
+"ar" = (
+/obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
+"aF" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/obj/item/mod/control/pre_equipped/magnate,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "aS" = (
@@ -93,6 +103,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"co" = (
+/obj/item/mod/control/pre_equipped/responsory/inquisitory/commander,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "cr" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
@@ -106,13 +120,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
-"cw" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/item/mod/control/pre_equipped/advanced,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "cx" = (
 /obj/machinery/door/airlock/hatch/gamma,
 /turf/simulated/floor/plating,
@@ -174,6 +181,13 @@
 /obj/structure/dispenser,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"eD" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/item/mod/control/pre_equipped/mining,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "eO" = (
 /obj/machinery/light{
 	dir = 1
@@ -194,10 +208,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"eX" = (
-/obj/item/mod/control/pre_equipped/responsory/inquisitory/medic,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "fa" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -226,12 +236,9 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /turf/simulated/floor/plasteel,
 /area/bridge)
-"fU" = (
-/obj/item/mod/control/pre_equipped/safeguard_mk_two/gamma,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
-"fX" = (
-/obj/item/mod/control/pre_equipped/brigmed,
+"gj" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/item/mod/control/pre_equipped/responsory/security,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "gn" = (
@@ -245,6 +252,15 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"gt" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "gw" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -270,6 +286,11 @@
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/plasteel,
 /area/construction)
+"gZ" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/item/mod/control/pre_equipped/administrative,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "hj" = (
 /turf/simulated/floor/plating,
 /area/storage/primary)
@@ -320,10 +341,6 @@
 	dir = 9
 	},
 /area/hallway/secondary/entry)
-"hX" = (
-/obj/item/mod/control/pre_equipped/prototype,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "if" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -395,8 +412,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
+"jl" = (
+/obj/item/mod/control/pre_equipped/traitor,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "js" = (
 /turf/simulated/wall/r_wall,
+/area/construction/solars)
+"jv" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/item/mod/control/pre_equipped/corporate,
+/turf/simulated/floor/plasteel,
 /area/construction/solars)
 "jF" = (
 /turf/simulated/floor/plasteel{
@@ -433,6 +459,16 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/construction)
+"kS" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/obj/item/mod/control/pre_equipped/medical,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "kZ" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -466,6 +502,27 @@
 	dir = 8
 	},
 /area/construction/hallway)
+"lM" = (
+/obj/item/mod/control/pre_equipped/traitor_elite,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
+"lT" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/asteroid/corner,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
+"lU" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/item/mod/control/pre_equipped/standard,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "mh" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -610,17 +667,6 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"qm" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/obj/item/mod/control/pre_equipped/responsory/chaplain,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
-"qo" = (
-/obj/item/mod/control/pre_equipped/cosmohonk,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "qq" = (
 /turf/space,
 /area/space)
@@ -723,6 +769,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/primary)
+"sp" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/item/mod/control/pre_equipped/engineering,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "ss" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
@@ -751,10 +804,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"th" = (
-/obj/item/mod/control/pre_equipped/responsory/commander,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "tk" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel,
@@ -778,8 +827,8 @@
 	dir = 8
 	},
 /area/bridge)
-"tK" = (
-/obj/item/mod/control/pre_equipped/traitor_elite,
+"tI" = (
+/obj/item/mod/control/pre_equipped/responsory/engineer,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "tM" = (
@@ -794,6 +843,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
+"tV" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/item/mod/control/pre_equipped/loader,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "tZ" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -843,6 +899,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
+"uP" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/item/mod/control/pre_equipped/praetorian,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "uT" = (
 /obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel{
@@ -856,10 +919,6 @@
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"vl" = (
-/obj/item/mod/control/pre_equipped/responsory/clown,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "vq" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -910,13 +969,6 @@
 "wl" = (
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
-"ws" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/obj/item/mod/control/pre_equipped/rescue,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "wz" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
@@ -925,7 +977,10 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "wB" = (
-/obj/item/mod/control/pre_equipped/responsory/inquisitory/commander,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/item/mod/control/pre_equipped/mining/asteroid,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "wG" = (
@@ -969,13 +1024,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/engineering/gravitygenerator)
-"xp" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/item/mod/control/pre_equipped/mining,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "xs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/item/pizzabox,
@@ -997,6 +1045,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
+"xH" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/item/mod/control/pre_equipped/responsory/janitor,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
+"xP" = (
+/obj/machinery/atmospherics/supermatter_crystal/engine,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plating,
+/area/engineering/engine)
 "xW" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/disposalpipe/segment{
@@ -1064,9 +1125,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"zu" = (
+"zt" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
-/obj/item/mod/control/pre_equipped/debug,
+/obj/item/mod/control/pre_equipped/responsory/medic,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "zY" = (
@@ -1081,16 +1142,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/primary)
-"Ae" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
-	},
-/obj/item/mod/control/pre_equipped/medical,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Ak" = (
 /turf/simulated/floor/glass/plasma,
 /area/construction/solars)
@@ -1098,17 +1149,17 @@
 /obj/structure/lattice/catwalk,
 /turf/simulated/openspace,
 /area/construction/hallway)
+"Au" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/item/mod/control/pre_equipped/atmospheric,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Aw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"AE" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/item/mod/control/pre_equipped/mining/asteroid,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "AG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -1122,19 +1173,20 @@
 "AN" = (
 /turf/simulated/openspace,
 /area/construction/hallway)
+"AQ" = (
+/obj/item/mod/control/pre_equipped/safeguard_mk_two/gamma,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "AX" = (
 /turf/space/openspace,
 /area/space)
-"Ba" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Bb" = (
 /turf/simulated/wall/r_wall,
 /area/storage/primary)
+"Bg" = (
+/obj/item/mod/control/pre_equipped/empty/syndicate,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Bh" = (
 /obj/machinery/door/airlock,
 /obj/structure/lattice/catwalk,
@@ -1150,13 +1202,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/construction)
-"By" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/obj/item/mod/control/pre_equipped/praetorian,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "BK" = (
 /obj/machinery/light{
 	dir = 8
@@ -1196,6 +1241,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
+"Cy" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/item/mod/control/pre_equipped/responsory/chaplain,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
+"CC" = (
+/obj/item/mod/control/pre_equipped/security,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "CJ" = (
 /obj/machinery/light{
 	dir = 8
@@ -1228,6 +1284,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"Dn" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/obj/item/mod/control/pre_equipped/responsory/inquisitory/security,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Dr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
@@ -1260,11 +1323,13 @@
 	dir = 4
 	},
 /area/construction/hallway)
-"DP" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/item/mod/control/pre_equipped/apocryphal,
+"DU" = (
+/obj/structure/cable,
+/obj/structure/cable/multiz{
+	color = "#dd1010"
+	},
 /turf/simulated/floor/plasteel,
-/area/construction/solars)
+/area/construction/hallway)
 "Eu" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -1294,14 +1359,6 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"EG" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/obj/item/mod/control/pre_equipped/responsory/janitor,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "EL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L13"
@@ -1346,6 +1403,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/bridge)
+"Gu" = (
+/obj/item/mod/control/pre_equipped/safeguard_mk_one,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Gv" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
@@ -1389,17 +1450,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
-"HM" = (
-/obj/item/mod/control/pre_equipped/security,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "HQ" = (
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"HW" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/item/mod/control/pre_equipped/corporate,
+"HU" = (
+/obj/item/mod/control/pre_equipped/responsory/inquisitory/medic,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "Ib" = (
@@ -1444,17 +1500,6 @@
 "IY" = (
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"Ja" = (
-/obj/item/mod/control/pre_equipped/research,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
-"Jd" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/asteroid/corner,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Ji" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1477,11 +1522,6 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
-"JE" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/item/mod/control/pre_equipped/responsory/medic,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "JJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -1495,6 +1535,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/primary)
+"JX" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/item/mod/control/pre_equipped/debug,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "JY" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
@@ -1545,13 +1590,6 @@
 	icon_state = "L13"
 	},
 /area/storage/primary)
-"KH" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/item/mod/control/pre_equipped/atmospheric,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "KO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L1"
@@ -1577,16 +1615,6 @@
 	dir = 1
 	},
 /area/construction/hallway)
-"LE" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/obj/item/mod/control/pre_equipped/standard,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "LH" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -1600,13 +1628,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"LY" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/item/mod/control/pre_equipped/engineering,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "LZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
@@ -1640,6 +1661,14 @@
 /obj/item/rcd,
 /turf/simulated/floor/plasteel,
 /area/bridge)
+"Mq" = (
+/obj/item/mod/control/pre_equipped/safeguard_mk_two,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
+"Mz" = (
+/obj/item/mod/control/pre_equipped/responsory/clown,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "MK" = (
 /obj/structure/disposalpipe/trunk/multiz{
 	dir = 2
@@ -1718,13 +1747,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
-"Oj" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
-	},
-/obj/item/mod/control/pre_equipped/magnate,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Ok" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel,
@@ -1754,13 +1776,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"OF" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
-	},
-/obj/item/mod/control/pre_equipped/responsory/inquisitory/security,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Pf" = (
 /obj/machinery/light{
 	dir = 4
@@ -1784,10 +1799,6 @@
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
-"PQ" = (
-/obj/item/mod/control/pre_equipped/elite,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "PR" = (
@@ -1823,12 +1834,24 @@
 	dir = 1
 	},
 /area/engineering/gravitygenerator)
+"Qm" = (
+/obj/item/mod/control/pre_equipped/prototype,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Qs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"Qt" = (
+/obj/item/mod/control/pre_equipped/cosmohonk,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
+"Rk" = (
+/obj/item/mod/control/pre_equipped/elite,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Rn" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8;
@@ -1842,6 +1865,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
+"RI" = (
+/obj/item/mod/control/pre_equipped/brigmed,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "RN" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -1853,13 +1880,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plating,
 /area/construction)
-"RX" = (
-/obj/machinery/power/supermatter_shard{
-	anchored = 1
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plating,
-/area/engineering/engine)
 "Sb" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -1930,7 +1950,7 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/primary)
-"Tm" = (
+"Tn" = (
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1957,6 +1977,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
+"TG" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "TL" = (
 /obj/structure/disposalpipe/trunk/multiz/down{
 	dir = 2
@@ -1978,6 +2005,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
+"Ud" = (
+/obj/item/mod/control/pre_equipped/responsory/commander,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Uq" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/glass/plasma,
@@ -1994,15 +2025,6 @@
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"UI" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "UJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -2018,10 +2040,6 @@
 	dir = 8
 	},
 /area/hallway/secondary/entry)
-"UR" = (
-/obj/item/mod/control/pre_equipped/safeguard_mk_one,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Ve" = (
 /obj/machinery/light{
 	dir = 4
@@ -2043,6 +2061,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
+"Vw" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/item/mod/control/pre_equipped/rescue,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Vx" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -2059,10 +2084,6 @@
 "VG" = (
 /turf/simulated/openspace,
 /area/maintenance/maintcentral)
-"VU" = (
-/obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "VW" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -2092,6 +2113,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/construction)
+"Wo" = (
+/obj/item/mod/control/pre_equipped/research,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Wp" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -2129,13 +2154,6 @@
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"Xd" = (
-/obj/structure/cable,
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
-/turf/simulated/floor/plasteel,
-/area/construction/hallway)
 "Xl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -2182,10 +2200,6 @@
 "Yi" = (
 /turf/simulated/floor/plating,
 /area/atmos)
-"Yj" = (
-/obj/item/mod/control/pre_equipped/responsory/engineer,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Yk" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -2198,11 +2212,6 @@
 	icon_state = "L12"
 	},
 /area/storage/primary)
-"Yn" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/item/mod/control/pre_equipped/administrative,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "Yr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
@@ -2219,19 +2228,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
+"Yt" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/item/mod/control/pre_equipped/apocryphal,
+/turf/simulated/floor/plasteel,
+/area/construction/solars)
 "Yv" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/atmos)
-"YA" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/item/mod/control/pre_equipped/loader,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
 "YE" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel,
@@ -2289,15 +2296,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/glass,
-/area/construction/solars)
-"Zy" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/item/mod/control/pre_equipped/responsory/security,
-/turf/simulated/floor/plasteel,
-/area/construction/solars)
-"ZT" = (
-/obj/item/mod/control/pre_equipped/safeguard_mk_two,
-/turf/simulated/floor/plasteel,
 /area/construction/solars)
 "ZZ" = (
 /obj/machinery/light,
@@ -19948,7 +19946,7 @@ qq
 Ko
 vC
 ss
-RX
+xP
 eR
 ch
 Sx
@@ -87042,7 +87040,7 @@ uT
 wl
 wl
 YU
-Tm
+Tn
 wl
 je
 wl
@@ -87300,7 +87298,7 @@ wl
 wl
 Oc
 cu
-Xd
+DU
 je
 wl
 wl
@@ -149489,15 +149487,15 @@ Ht
 Ht
 Ht
 Ht
-LE
+lU
 BQ
-ws
+Vw
 BQ
-By
+uP
 BQ
-qm
+Cy
 BQ
-EG
+xH
 Ht
 Ht
 Ht
@@ -149746,15 +149744,15 @@ Ht
 Ht
 Ht
 Ht
-LY
+sp
 IY
-Ja
+Wo
 IY
-qo
+Qt
 IY
-vl
+Mz
 IY
-JE
+zt
 Ht
 Ht
 Ht
@@ -150003,15 +150001,15 @@ Ht
 Ht
 Ht
 Ht
-KH
+Au
 IY
-HM
+CC
 IY
-aK
+jl
 IY
-th
+Ud
 IY
-Zy
+gj
 Ht
 Ht
 Ht
@@ -150260,15 +150258,15 @@ Ht
 Ht
 Ht
 Ht
-cw
+aq
 IY
-UR
+Gu
 IY
-tK
+lM
 IY
-Yj
+tI
 IY
-DP
+Yt
 Ht
 Ht
 Ht
@@ -150517,15 +150515,15 @@ Ht
 Ht
 Ht
 Ht
-xp
+eD
 IY
-ZT
+Mq
 IY
-aD
+Bg
 IY
-VU
+ar
 IY
-HW
+jv
 Ht
 Ht
 Ht
@@ -150774,15 +150772,15 @@ js
 Ht
 Ht
 Ht
-AE
-IY
-fU
-IY
-PQ
-IY
 wB
 IY
-zu
+AQ
+IY
+Rk
+IY
+co
+IY
+JX
 Ht
 Ht
 Ht
@@ -151031,15 +151029,15 @@ js
 Ht
 Ht
 Ht
-YA
+tV
 IY
-fX
+RI
 IY
-hX
+Qm
 IY
-eX
+HU
 IY
-Yn
+gZ
 Ht
 Ht
 Ht
@@ -151288,13 +151286,13 @@ js
 Ht
 Ht
 Ht
-Ae
+kS
 hI
-Oj
+aF
 hI
-Jd
+lT
 hI
-OF
+Dn
 hI
 hw
 Ht
@@ -151549,7 +151547,7 @@ Ht
 Ht
 Ht
 Ht
-Ba
+TG
 Ht
 Ht
 Ht
@@ -151806,7 +151804,7 @@ Ht
 TR
 BQ
 BQ
-UI
+gt
 BQ
 BQ
 Ca

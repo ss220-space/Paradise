@@ -942,7 +942,7 @@ so that different stomachs can handle things in different ways VB*/
 		nightvision = max(nightvision, 8)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	..()
+	return ..()
 
 /mob/living/carbon/ExtinguishMob()
 	for(var/X in get_equipped_items())

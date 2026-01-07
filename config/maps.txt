@@ -34,13 +34,13 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 8
 LAVALAND_BUDGET 100
 
 ## Disable the loading of "Taipan"
-DISABLE_TAIPAN
+#DISABLE_TAIPAN
 
 ## Disable the loading of Lavaland
-DISABLE_LAVALAND
+#DISABLE_LAVALAND
 
 ## Disable the loading of away missions
-DISABLE_AWAY_MISSIONS
+#DISABLE_AWAY_MISSIONS
 
 ## Disable the loading of space ruins
-DISABLE_SPACE_RUINS
+#DISABLE_SPACE_RUINS

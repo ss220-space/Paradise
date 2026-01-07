@@ -2010,3 +2010,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
+
+/mob/living/carbon/human/compressor_grind()
+	dna.species.compressor_grind(loc)

@@ -285,14 +285,14 @@ td, th {
 		var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
 		if(!new_ckey)	return
 		if(new_ckey in GLOB.admin_datums)
-			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential = TRUE)
 			return
 		adm_ckey = new_ckey
 		task = "rank"
 	else if(task != "show")
 		adm_ckey = ckey(ckey)
 		if(!adm_ckey)
-			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential = TRUE)
 			return
 
 	var/datum/admins/D = GLOB.admin_datums[adm_ckey]
@@ -324,7 +324,7 @@ td, th {
 			if("*Новый Ранг*")
 				new_rank = tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null, encode = FALSE)
 				if(!new_rank)
-					to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential=TRUE)
+					to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential = TRUE)
 					return
 				if(new_rank in GLOB.admin_ranks)
 					rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights

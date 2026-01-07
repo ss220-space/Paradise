@@ -275,6 +275,13 @@
 		else if(emote_instance.message) // Assuming all non-base emotes have this
 			stack_trace("Keyless emote: [emote_instance.type]")
 
+		if(emote_instance.additional_keys)
+			for(var/a_key in emote_instance.additional_keys)
+				if(!.[a_key])
+					.[a_key] = list(emote_instance)
+				else
+					.[a_key] += emote_instance
+
 		if(emote_instance.key_third_person) // This one is optional
 			if(!.[emote_instance.key_third_person])
 				.[emote_instance.key_third_person] = list(emote_instance)

@@ -785,3 +785,82 @@
 	robot.module.modules += new /obj/item/reagent_containers/glass/bucket(robot.module)
 	robot.module.rebuild()
 	return TRUE
+
+/obj/item/borg/upgrade/mounted_seat
+	name = "robotic mounted seat module"
+	desc = "Модуль для киборгов в виде сидения. Позволяет окружающим садиться на робота и использовать его в качестве эффективного средства передвижения."
+	icon_state = "seat_module"
+	require_module = TRUE
+	origin_tech = "engineering=3;materials=3;"
+	var/datum/action/innate/toggle_seat/toggle_action = new
+	var/datum/action/innate/launch_riders/launch_action = new
+
+/obj/item/borg/upgrade/mounted_seat/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль встроенного сидения",
+		GENITIVE = "модуля встроенного сидения",
+		DATIVE = "модулю встроенного сидения",
+		ACCUSATIVE = "модуль встроенного сидения",
+		INSTRUMENTAL = "модулем встроенного сидения",
+		PREPOSITIONAL = "модуле встроенного сидения",
+	)
+
+/obj/item/borg/upgrade/mounted_seat/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		balloon_alert(user, "регуляторы мощности взломаны!")
+	else
+		balloon_alert(user, "нет эффекта!")
+
+/obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
+	if(!..())
+		return FALSE
+
+	robot.can_buckle = TRUE
+	toggle_action.Grant(robot, src)
+	if(emagged)
+		launch_action.Grant(robot, src)
+	return TRUE
+
+/obj/item/borg/upgrade/mounted_seat/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	robot.can_buckle = FALSE
+	toggle_action.Remove(robot, src)
+	launch_action.Remove(robot, src) //REMOVE IT!!!
+	return TRUE
+
+/datum/action/innate/toggle_seat
+	name = "Выдвинуть/задвинуть cидение"
+	desc = "Переключите режим своего встроенного сидения."
+	button_icon_state = "seat_on"
+
+/datum/action/innate/toggle_seat/Activate()
+	if(!isrobot(usr))
+		return
+
+	var/mob/living/silicon/robot/robot = usr
+	robot.toggle_seat()
+	switch(robot.can_buckle)
+		if(TRUE)
+			button_icon_state = "seat_on"
+			UpdateButtonIcon()
+		if(FALSE)
+			button_icon_state = "seat_off"
+			UpdateButtonIcon()
+
+/datum/action/innate/launch_riders
+	name = "Выкинуть всех пассажиров"
+	desc = "Скидывает пассажиров, сидящих на вашем сидении."
+	button_icon_state = "launch_riders"
+
+/datum/action/innate/launch_riders/Activate()
+	if(!isrobot(usr))
+		return
+
+	var/mob/living/silicon/robot/robot = usr
+	robot.eject_riders_harmfull()
+
+/obj/item/borg/upgrade/mounted_seat/pre_emaged
+	emagged = TRUE

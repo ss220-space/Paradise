@@ -387,33 +387,15 @@ SUBSYSTEM_DEF(air)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	var/list/supermatters = list()
 
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
 
-		if(istype(atmos_machine, /obj/machinery/power/supermatter_shard))
-			supermatters += atmos_machine
-
-		else if(isnull(atmos_machine) || (atmos_machine.process_atmos(seconds) == PROCESS_KILL))
-			atmos_machinery -= atmos_machine
+		if(!atmos_machine || (atmos_machine.process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery.Remove(atmos_machine)
 
 		if(MC_TICK_CHECK)
-			for(var/supermatter_shard in supermatters)
-				currentrun += supermatter_shard
-			return
-
-	while(length(supermatters))
-		var/obj/machinery/power/supermatter_shard/supermatter_shard = supermatters[length(supermatters)]
-		supermatters.len--
-
-		if(isnull(supermatter_shard) || (supermatter_shard.process_atmos(seconds) == PROCESS_KILL))
-			atmos_machinery -= supermatter_shard
-
-		if(MC_TICK_CHECK)
-			for(var/other_sm in supermatters)
-				currentrun += other_sm
 			return
 
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
@@ -450,6 +432,12 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/simulated_turf = turf
 			if(istype(simulated_turf))
 				simulated_turf.update_visuals()
+
+		if(reasons & MILLA_INTERESTING_REASON_CONDENSATION)
+			var/turf/simulated/simulated_turf = turf
+			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
+			if(temperature < T100C && istype(simulated_turf))
+				simulated_turf.MakeSlippery(temperature > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
@@ -828,11 +816,6 @@ SUBSYSTEM_DEF(air)
 	// Disable fire, too.
 	for(var/turf/simulated/simuleated_turf in SSair.hotspots)
 		QDEL_NULL(simuleated_turf.active_hotspot)
-
-/// condenses water on a tile at the specified coordinates
-/proc/condense_water(water_phase, x, y, z)
-	var/turf/simulated/floor/tile =  locate(x, y, z)
-	tile.MakeSlippery(water_phase, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe

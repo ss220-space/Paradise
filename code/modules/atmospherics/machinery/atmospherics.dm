@@ -13,7 +13,9 @@ Pipelines + Other Objects -> Pipe network
 	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
+	layer = GAS_PIPE_HIDDEN_LAYER //under wires
+
 	/// Generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things.
 	var/layer_offset = 0.0
 	/// Can this be unwrenched?
@@ -43,18 +45,6 @@ Pipelines + Other Objects -> Pipe network
 	/// The image of the pipe/device used for ventcrawling
 	var/image/pipe_vision_img
 
-/obj/machinery/atmospherics/New()
-	if(!armor)
-		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
-	..()
-
-	if(!pipe_color)
-		pipe_color = color
-	color = null
-
-	if(!pipe_color_check(pipe_color))
-		pipe_color = null
-
 /obj/machinery/atmospherics/Initialize(mapload)
 	var/turf/turf_loc = null
 	if(isturf(loc))
@@ -63,6 +53,13 @@ Pipelines + Other Objects -> Pipe network
 	SSspatial_grid.add_grid_membership(src, turf_loc, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
 	. = ..()
 	SSair.atmos_machinery += src
+
+	if(!pipe_color)
+		pipe_color = color
+	color = null
+
+	if(!pipe_color_check(pipe_color))
+		pipe_color = null
 
 /obj/machinery/atmospherics/proc/atmos_init()
 	// Updates all pipe overlays and underlays

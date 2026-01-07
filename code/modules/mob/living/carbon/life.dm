@@ -57,6 +57,10 @@
 
 /datum/milla_safe/carbon_breathe/on_run(mob/living/carbon/carbon)
 	var/turf/location = get_turf(carbon)
+
+	if(isnull(location))
+		return
+
 	carbon.breathe(get_turf_air(location))
 
 //Second link in a breath chain, calls check_breath()
