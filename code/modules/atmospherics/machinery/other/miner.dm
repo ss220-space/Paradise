@@ -9,11 +9,9 @@
 	desc = "Gasses mined from the gas giant below (above?) flow out through this massive vent."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/miners.dmi'
 	icon_state = "miner"
-	density = FALSE
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	idle_power_usage = 150
 	active_power_usage = 2000
-	initialize_directions = NONE
 	var/spawn_temp = T20C
 	/// Moles of gas to spawn per second
 	var/spawn_mol = MOLES_CELLSTANDARD
@@ -171,50 +169,49 @@
 	..()
 
 /obj/machinery/atmospherics/miner/n2o
-	name = "\improper N2O Gas Miner"
+	name = "N2O Gas Miner"
 	overlay_color = COLOR_GAS_MINER_N2O
 
 /obj/machinery/atmospherics/miner/n2o/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_sleeping_agent(count)
 
 /obj/machinery/atmospherics/miner/nitrogen
-	name = "\improper N2 Gas Miner"
+	name = "N2 Gas Miner"
 	overlay_color = COLOR_GAS_MINER_N2
 
 /obj/machinery/atmospherics/miner/nitrogen/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_nitrogen(count)
 
 /obj/machinery/atmospherics/miner/oxygen
-	name = "\improper O2 Gas Miner"
+	name = "O2 Gas Miner"
 	overlay_color = COLOR_GAS_MINER_O2
 
 /obj/machinery/atmospherics/miner/oxygen/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_oxygen(count)
 
 /obj/machinery/atmospherics/miner/plasma
-	name = "\improper Plasma Gas Miner"
+	name = "Plasma Gas Miner"
 	overlay_color = COLOR_RED
 
 /obj/machinery/atmospherics/miner/plasma/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_toxins(count)
 
 /obj/machinery/atmospherics/miner/carbon_dioxide
-	name = "\improper CO2 Gas Miner"
+	name = "CO2 Gas Miner"
 	overlay_color = COLOR_GAS_MINER_CO2
 
 /obj/machinery/atmospherics/miner/carbon_dioxide/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_carbon_dioxide(count)
 
 /obj/machinery/atmospherics/miner/agent_b
-	name = "\improper Agent B Gas Miner"
+	name = "Agent B Gas Miner"
 	overlay_color = COLOR_GAS_MINER_AGENT_B
 
 /obj/machinery/atmospherics/miner/agent_b/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_agent_b(count)
 
 /obj/machinery/atmospherics/miner/hydrogen
-	name = "\improper H2 Gas Miner"
-	overlay_color = COLOR_WHITE
+	name = "H2 Gas Miner"
 
 /obj/machinery/atmospherics/miner/hydrogen/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_hydrogen(count)
