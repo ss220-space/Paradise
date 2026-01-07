@@ -253,11 +253,11 @@
 
 /obj/item/security_voucher/detective/get_ru_names()
 	return list(
-		NOMINATIVE = "ваучер детектива",
-		GENITIVE = "ваучера детектива",
-		DATIVE = "ваучеру детектива",
-		ACCUSATIVE = "ваучер детектива",
-		INSTRUMENTAL = "ваучером детектива",
-		PREPOSITIONAL = "ваучере детектива",
+		NOMINATIVE = "ваучер Детектива",
+		GENITIVE = "ваучера Детектива",
+		DATIVE = "ваучеру Детектива",
+		ACCUSATIVE = "ваучер Детектива",
+		INSTRUMENTAL = "ваучером Детектива",
+		PREPOSITIONAL = "ваучере Детектива",
 	)
 
