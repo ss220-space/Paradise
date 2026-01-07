@@ -289,7 +289,7 @@
 	item_state = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
-/obj/item/melee/baton/security/cattleprod/get_ru_names()
+/obj/item/melee/baton/security/cattleprod/teleprod/get_ru_names()
 	return list(
 		NOMINATIVE = "теле-прут",
 		GENITIVE = "теле-прута",

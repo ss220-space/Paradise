@@ -593,7 +593,7 @@
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
 
-/obj/item/flashlight/flare/slime/get_ru_names()
+/obj/item/flashlight/slime/get_ru_names()
 	return list(
 		NOMINATIVE = "светящийся экстракт слайма",
 		GENITIVE = "светящегося экстракта слайма",
