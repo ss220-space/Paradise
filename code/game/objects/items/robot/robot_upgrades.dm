@@ -797,12 +797,12 @@
 
 /obj/item/borg/upgrade/mounted_seat/get_ru_names()
 	return list(
-		NOMINATIVE = "Модуль встроенного сидения",
-		GENITIVE = "Модуля встроенного сидения",
-		DATIVE = "Модулю встроенного сидения",
-		ACCUSATIVE = "Модуль встроенного сидения",
-		INSTRUMENTAL = "Модулем встроенного сидения",
-		PREPOSITIONAL = "Модуле встроенного сидения",
+		NOMINATIVE = "модуль встроенного сидения",
+		GENITIVE = "модуля встроенного сидения",
+		DATIVE = "модулю встроенного сидения",
+		ACCUSATIVE = "модуль встроенного сидения",
+		INSTRUMENTAL = "модулем встроенного сидения",
+		PREPOSITIONAL = "модуле встроенного сидения",
 	)
 
 /obj/item/borg/upgrade/mounted_seat/emag_act(mob/user)
@@ -832,7 +832,7 @@
 	return TRUE
 
 /datum/action/innate/toggle_seat
-	name = "Выдвинуть/Задвинуть cидение"
+	name = "Выдвинуть/задвинуть cидение"
 	desc = "Переключите режим своего встроенного сидения."
 	button_icon_state = "seat_on"
 
