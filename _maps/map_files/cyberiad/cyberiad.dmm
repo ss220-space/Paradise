@@ -52219,7 +52219,7 @@
 /obj/structure/sign/poster/official/space_a{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
 /turf/simulated/floor/engine/insulated,
@@ -54413,7 +54413,7 @@
 "hhu" = (
 /obj/structure/cable,
 /obj/machinery/power/turbine,
-/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
 "hir" = (
@@ -61821,6 +61821,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
+"kxX" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/sign/turbine,
+/turf/simulated/wall/r_wall/coated,
+/area/maintenance/turbine)
 "kym" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -64122,6 +64127,11 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"lzl" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/sign/magboots,
+/turf/simulated/wall/r_wall/coated,
+/area/maintenance/turbine)
 "lzq" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/cobweb2,
@@ -79767,7 +79777,7 @@
 /obj/machinery/igniter{
 	id = "gasturbine"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
 /turf/simulated/floor/engine/insulated,
@@ -89133,7 +89143,7 @@
 	comp_id = "incineratorturbine";
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
 "wsZ" = (
@@ -131321,7 +131331,7 @@ dcV
 ddg
 dlI
 fRU
-dlI
+lzl
 tvg
 dlm
 dlm
@@ -131835,7 +131845,7 @@ dda
 ddh
 dlI
 dll
-dlI
+kxX
 ggC
 dlm
 dlm

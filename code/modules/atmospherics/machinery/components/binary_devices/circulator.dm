@@ -121,16 +121,17 @@
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
 		return
+
 	if(last_pressure_delta > 0)
 		if(last_pressure_delta > ONE_ATMOSPHERE)
 			icon_state = "circ[side]-run"
-			underlays += emissive_appearance(icon,"emit[side]-run")
+			underlays += emissive_appearance(icon,"emit[side]-run", src)
 		else
 			icon_state = "circ[side]-slow"
-			underlays += emissive_appearance(icon,"emit[side]-slow")
+			underlays += emissive_appearance(icon,"emit[side]-slow", src)
 	else
 		icon_state = "circ[side]-off"
-		underlays += emissive_appearance(icon,"emit[side]-off")
+		underlays += emissive_appearance(icon,"emit[side]-off", src)
 
 #undef CIRC_LEFT
 

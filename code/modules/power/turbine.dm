@@ -161,6 +161,10 @@
 	locate_machinery()
 	recalculate_atmos_connectivity()
 	// Register signal near inlet to suck things in
+	register_inturf()
+
+
+/obj/machinery/power/compressor/proc/register_inturf()
 	RegisterSignal(inturf, COMSIG_ATOM_ENTERED, PROC_REF(enter_inlet_turf))
 	RegisterSignal(inturf, COMSIG_ATOM_EXIT, PROC_REF(leave_inlet_turf))
 
@@ -199,18 +203,22 @@
 	return ..()
 
 /obj/machinery/power/compressor/wrench_act(mob/living/user, obj/item/I)
+	var/turf/old_inturf = inturf
 	. = default_change_direction_wrench(user, I)
 	if(!.)
 		return .
 
 	turbine = null
+	UnregisterSignal(old_inturf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXIT))
 	inturf = get_step(src, dir)
+	register_inturf()
 	locate_machinery()
 
 	if(turbine)
 		to_chat(user, span_notice("The turbine is connected."))
 	else
 		to_chat(user, span_warning("The turbine is not connected."))
+	check_broken()
 
 /obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -587,8 +595,10 @@
 	locate_machinery()
 	if(compressor)
 		to_chat(user, span_notice("The compressor is connected."))
+		stat &= ~BROKEN
 	else
 		to_chat(user, span_warning("The compressor is not connected."))
+		stat |= BROKEN
 
 /obj/machinery/power/turbine/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
@@ -611,14 +621,22 @@
 /obj/machinery/power/turbine/ui_data(mob/user)
 	var/list/data = list()
 	data["compressor"] = !isnull(compressor)
-	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN))
+	data["compressor_broken"] = (compressor?.stat & BROKEN)
 	data["turbine"] = !isnull(compressor?.turbine)
 	data["turbine_broken"] = (compressor?.turbine?.stat & BROKEN)
-	if(compressor && compressor.turbine)
+	data["throttle"] = (compressor?.throttle * 100)
+
+	if(compressor?.turbine)
 		data["online"] = compressor.starter
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
-		data["temperature"] = compressor.gas_contained.temperature()
+		data["compressionRatio"] = compressor.compression_ratio
+		data["temperature"] = compressor.temperature
+		data["bearingDamage"] = clamp((compressor.bearing_damage / BEARING_DAMAGE_MAX) * 100, 0, 100)
+		data["preBurnTemperature"] = compressor.pre_burn_temp
+		data["postBurnTemperature"] = compressor.post_burn_temp
+		data["thermalEfficiency"] = compressor.thermal_efficiency
+		data["gasThroughput"] = compressor.gas_throughput
 	return data
 
 /obj/machinery/power/turbine/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -670,6 +688,7 @@
 	if(!ui)
 		ui = new(user, src, "TurbineComputer", name)
 		ui.open()
+
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)
 	var/list/data = list()

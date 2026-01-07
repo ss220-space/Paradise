@@ -57,13 +57,8 @@ export const TurbineComputer = (_props) => {
         </Section>
 
         {bearingDamage >= 100 ? (
-          <Stack mb="30px" style={{ fontSize: '256px' }}>
-            <Stack.Item
-              bold
-              color="red"
-              style={{ fontSize: '256px' }}
-              textAlign="center"
-            >
+          <Stack mb="30px">
+            <Stack.Item bold color="red" fontSize={5} textAlign="center">
               Bearings Inoperable, Repair Required
             </Stack.Item>
           </Stack>
