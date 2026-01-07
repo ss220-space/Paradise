@@ -2123,7 +2123,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/miner_hydrogen
 	name = "Майнер H2"
 	contains = list(/obj/machinery/atmospherics/miner/hydrogen)
-	cost = 300
+	cost = 400
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером H2"
 	container_ru_names = list(
