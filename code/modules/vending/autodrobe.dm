@@ -23,6 +23,7 @@
 			"name" = "Головные уборы",
 			"icon" = "hat-cowboy",
 			"products" = list(
+				/obj/item/clothing/head/colour/headband = 10,
 				/obj/item/clothing/head/chicken = 10,
 				/obj/item/clothing/head/helmet/gladiator = 10,
 				/obj/item/clothing/head/flatcap = 10,
@@ -33,6 +34,7 @@
 				/obj/item/clothing/head/pirate = 10,
 				/obj/item/clothing/head/bandana = 10,
 				/obj/item/clothing/head/bandana = 10,
+				/obj/item/clothing/head/colour/headband = 10,
 				/obj/item/clothing/head/ushanka = 10,
 				/obj/item/clothing/head/wizard/marisa/fake = 10,
 				/obj/item/clothing/head/witchwig = 10,
@@ -44,7 +46,7 @@
 				/obj/item/clothing/head/snowman = 10,
 				/obj/item/clothing/head/cueball = 10,
 				/obj/item/clothing/head/zepelli = 10,
-				/obj/item/clothing/head/shapka_pepega = 5,
+				/obj/item/clothing/head/shapka_pepega = 10,
 			),
 		),
 		list(
