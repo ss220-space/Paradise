@@ -2030,11 +2030,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с канистрой плазмы",
 	)
 
-/datum/supply_packs/engineering/miner_n2o
+/datum/supply_packs/engineering/miner
+	required_tech = list(RESEARCH_TREE_TOXINS = 4)
+	cost = 150
+	containertype = /obj/structure/largecrate
+
+/datum/supply_packs/engineering/miner/n2o
 	name = "Майнер N2O"
 	contains = list(/obj/machinery/atmospherics/miner/n2o)
 	cost = 200
-	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером N2O"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с майнером N2O",
@@ -2045,11 +2049,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером N2O",
 	)
 
-/datum/supply_packs/engineering/miner_nitrogen
+/datum/supply_packs/engineering/miner/nitrogen
 	name = "Майнер N2"
 	contains = list(/obj/machinery/atmospherics/miner/nitrogen)
-	cost = 150
-	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером N2"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с майнером N2",
@@ -2060,11 +2062,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером N2",
 	)
 
-/datum/supply_packs/engineering/miner_oxygen
+/datum/supply_packs/engineering/miner/oxygen
 	name = "Майнер O2"
 	contains = list(/obj/machinery/atmospherics/miner/oxygen)
-	cost = 150
-	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером O2"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с майнером O2",
@@ -2075,11 +2075,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером O2",
 	)
 
-/datum/supply_packs/engineering/miner_plasma
+/datum/supply_packs/engineering/miner/plasma
 	name = "Майнер плазмы"
 	contains = list(/obj/machinery/atmospherics/miner/plasma)
 	cost = 300
-	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером плазмы"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с майнером плазмы",
@@ -2090,11 +2089,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером плазмы",
 	)
 
-/datum/supply_packs/engineering/miner_carbon_dioxide
+/datum/supply_packs/engineering/miner/carbon_dioxide
 	name = "Майнер CO2"
 	contains = list(/obj/machinery/atmospherics/miner/carbon_dioxide)
-	cost = 150
-	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером CO2"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с майнером CO2",
@@ -2105,11 +2102,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером CO2",
 	)
 
-/datum/supply_packs/engineering/miner_agent_b
+/datum/supply_packs/engineering/miner/agent_b
 	name = "Майнер Agent B"
 	contains = list(/obj/machinery/atmospherics/miner/agent_b)
 	cost = 250
-	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером Agent B"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с майнером Agent B",
@@ -2120,11 +2116,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером Agent B",
 	)
 
-/datum/supply_packs/engineering/miner_hydrogen
+/datum/supply_packs/engineering/miner/hydrogen
 	name = "Майнер H2"
 	contains = list(/obj/machinery/atmospherics/miner/hydrogen)
 	cost = 400
-	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером H2"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с майнером H2",
