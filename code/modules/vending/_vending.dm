@@ -1350,9 +1350,9 @@
 	if(!length(possible_crits))
 		return
 	for(var/crit_path in shuffle(possible_crits))
-		var/datum/vendor_crit/id_card = all_possible_crits[crit_path]
-		if(id_card.is_valid(src, victim))
-			return id_card
+		var/datum/vendor_crit/crit_type = all_possible_crits[crit_path]
+		if(crit_type.is_valid(src, victim))
+			return crit_type
 
 /obj/machinery/vending/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
 
