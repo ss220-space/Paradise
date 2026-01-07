@@ -24,7 +24,7 @@
 		return -1
 	target = nOwner.mind
 	update_text()
-	GLOB.employmentContracts += src
+	GLOB.employmentContracts |= src
 
 /obj/item/paper/contract/employment/update_text()
 	name = "Документ — Трудовой договор — [target]"
