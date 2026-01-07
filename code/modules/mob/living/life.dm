@@ -21,36 +21,35 @@
 	if(QDELETED(src)) // some chems can gib mobs
 		return
 
-	if(stat != DEAD)
-		//Mutations and radiation
-		handle_mutations_and_radiation()
+	if(!HAS_TRAIT(src, TRAIT_STASIS))
+		if(stat != DEAD)
+			//Mutations and radiation
+			handle_mutations_and_radiation()
+			//Heart Attack, if applicable
+			handle_heartattack()
+			//Breathing, if applicable
+			handle_breathing(times_fired)
 
-	if(stat != DEAD)
-		//Breathing, if applicable
-		handle_breathing(times_fired)
+		if(LAZYLEN(diseases))
+			handle_diseases()
 
-	if(LAZYLEN(diseases))
-		handle_diseases()
+		if(QDELETED(src)) // diseases can qdel the mob via transformations
+			return
 
-	if(QDELETED(src)) // diseases can qdel the mob via transformations
-		return
+		// Handle temperature/pressure differences between body and environment
+		var/datum/gas_mixture/readonly_environment = null
+		if(isobj(loc))
+			var/obj/object = loc
+			readonly_environment = object.return_obj_air()
 
-	//Heart Attack, if applicable
-	if(stat != DEAD)
-		handle_heartattack()
+		if(isnull(readonly_environment))
+			var/turf/location = get_turf(src)
+			if(!isnull(location))
+				readonly_environment = location.get_readonly_air()
 
-	//Handle temperature/pressure differences between body and environment
-	var/datum/gas_mixture/readonly_environment = null
-	if(isobj(loc))
-		var/obj/object = loc
-		readonly_environment = object.return_obj_air()
+		handle_environment(readonly_environment)
 
-	if(isnull(readonly_environment))
-		var/turf/location = get_turf(src)
-		if(!isnull(location))
-			readonly_environment = location.get_readonly_air()
-
-	handle_environment(readonly_environment)
+		handle_gravity(seconds, times_fired)
 
 	handle_fire()
 
@@ -87,8 +86,6 @@
 
 	if(machine)
 		machine.check_eye(src)
-
-	handle_gravity(seconds, times_fired)
 
 	handle_SSD(seconds)
 

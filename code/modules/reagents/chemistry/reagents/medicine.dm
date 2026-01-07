@@ -575,10 +575,9 @@
 	color = "#B4DCBE"
 	taste_description = "очищения"
 
-/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.radiation = max(0, M.radiation-1)
-	return ..()
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick)
+	if(affected_mob.adjustToxLoss(-1 * REM * seconds_per_tick, updating_health = FALSE))
+		return STATUS_UPDATE_HEALTH
 
 /datum/reagent/medicine/pen_acid
 	name = "Пентетовая кислота"

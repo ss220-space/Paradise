@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(machines)
 	offline_implications = "Machinery will no longer process. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 	ss_id = "machines"
+	wait = 2 SECONDS
 
 	/// Associative list of all machines that exist.
 	VAR_PRIVATE/list/machines_by_type = list()

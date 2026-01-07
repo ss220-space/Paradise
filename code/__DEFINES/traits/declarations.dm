@@ -55,7 +55,10 @@
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
-#define TRAIT_FAKEDEATH "fakedeath"	//Makes the owner appear as dead to most forms of medical examination
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
+/// Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_FAKEDEATH "fakedeath"
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
 #define TRAIT_NO_SPELLS "no_spells"	// Used to prevent cast or use any spells
@@ -283,8 +286,6 @@
 #define TRAIT_PLANT_ORIGIN "plant_origin"
 /// Another damn biotype
 #define TRAIT_NO_INTORGANS "no_internal_organs"
-/// This mob is completely immune to the radiation damage and effects
-#define TRAIT_RADIMMUNE "rad_immunity"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
 /// This mob is completely immune to viruses and diseases
@@ -405,3 +406,18 @@
 #define TRAIT_PRESSURE_VISION "pressure_vision"
 
 #define TRAIT_MESON_VISION "meson_vision"
+
+// Radiation defines
+/// Marks that this object is irradiated
+#define TRAIT_IRRADIATED "iraddiated"
+/// Immune to being irradiated
+#define TRAIT_RADIMMUNE "rad_immunity"
+/// Harmful radiation effects, the toxin damage and the burns, will not occur while this trait is active
+#define TRAIT_HALT_RADIATION_EFFECTS "halt_radiation_effects"
+/// This clothing protects the user from radiation.
+/// This should not be used on clothing_traits, but should be applied to the clothing itself.
+#define TRAIT_RADIATION_PROTECTED_CLOTHING "radiation_protected_clothing"
+/// Whether or not this item will allow the radiation SS to go through standard
+/// radiation processing as if this wasn't already irradiated.
+/// Basically, without this, COMSIG_IN_RANGE_OF_IRRADIATION won't fire once the object is irradiated.
+#define TRAIT_BYPASS_EARLY_IRRADIATED_CHECK "radiation_bypass_early_irradiated_check"

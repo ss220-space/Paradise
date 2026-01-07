@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(mobs)
 	priority = FIRE_PRIORITY_MOBS
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	wait = 2 SECONDS
 	init_order = INIT_ORDER_MOBS
 	offline_implications = "Mobs will no longer process. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH

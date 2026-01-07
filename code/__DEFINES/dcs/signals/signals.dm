@@ -1160,14 +1160,6 @@
 #define COMSIG_INSTRUMENT_TEMPO_CHANGE "instrument_tempo_change"
 
 /*******Component Specific Signals*******/
-//Janitor
-
-///(): Returns bitflags of wet values.
-#define COMSIG_TURF_IS_WET "check_turf_wet"
-///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_TURF_MAKE_DRY "make_turf_try"
-///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
 //Creamed
 
@@ -1584,3 +1576,6 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+/// from internal loop in /atom/proc/propagate_radiation_pulse: (atom/pulse_source)
+#define COMSIG_ATOM_PROPAGATE_RAD_PULSE "atom_propagate_radiation_pulse"

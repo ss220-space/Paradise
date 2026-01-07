@@ -23,6 +23,9 @@
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE
 
+	/// Chance we mutate
+	var/mutate_chance = 40
+
 /datum/weather/rad_storm/endless
 	weather_duration_upper = 10 HOURS
 
@@ -40,24 +43,28 @@
 		return FALSE
 	return ..()
 
-/datum/weather/rad_storm/weather_act(mob/living/target)
-	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+/datum/weather/rad_storm/weather_act(mob/living/living)
+	if(!prob(mutate_chance))
 		return
 
-	var/resist = target.getarmor(attack_flag = RAD)
-	target.apply_effect(20, IRRADIATE, resist)
-
-	if(!ishuman(target) || !prob(max(0, 100 - resist)))
+	if(!ishuman(living) || HAS_TRAIT(living, TRAIT_GODMODE))
 		return
 
-	randmuti(target)
+	var/mob/living/carbon/human/human = living
+	if(HAS_TRAIT(human, TRAIT_RADIMMUNE))
+		return
+
+	if(SSradiation.wearing_rad_protected_clothing(human))
+		return
+
+	randmuti(human)
 
 	if(prob(50))
 		if(prob(90))
-			randmutb(target)
+			randmutb(human)
 		else
-			randmutg(target)
-	target.check_genes(MUTCHK_FORCED)
+			randmutg(human)
+	human.check_genes(MUTCHK_FORCED)
 
 /datum/weather/rad_storm/end()
 	if(..())

@@ -1,3 +1,9 @@
+/**
+ * The base type for nearly all physical objects in SS13
+
+ * Lots and lots of functionality lives here, although in general we are striving to move
+ * as much as possible to the components/elements system
+ */
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -163,6 +169,9 @@
 
 	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
 	var/cares_about_temperature = FALSE
+
+	/// Radiation insulation types
+	var/rad_insulation = RAD_NO_INSULATION
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
