@@ -17,6 +17,12 @@
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
 
+/obj/item/reagent_containers/hypospray/get_short_name() // Override if `list_reagents` has more than 1 element.
+	if(!length(reagents.reagent_list))
+		return declent_ru(NOMINATIVE)
+	var/datum/reagent/reagent = reagents.reagent_list[1]
+	return reagent.name
+
 /obj/item/reagent_containers/hypospray/get_ru_names()
 	return list(
 		NOMINATIVE = "гипоспрей",
