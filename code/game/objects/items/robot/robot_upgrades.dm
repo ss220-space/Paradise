@@ -788,7 +788,7 @@
 
 /obj/item/borg/upgrade/mounted_seat
 	name = "robotic mounted seat module"
-	desc = "Модуль для киборгов в виде сидения. Позволяет окружающим садиться на робота и использовать его в качестве эффективного средства передвижения"
+	desc = "Модуль для киборгов в виде сидения. Позволяет окружающим садиться на робота и использовать его в качестве эффективного средства передвижения."
 	icon_state = "seat_module"
 	require_module = TRUE
 	origin_tech = "engineering=3;materials=3;"
