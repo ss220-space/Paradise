@@ -6686,6 +6686,12 @@
 	icon_state = "dark"
 	},
 /area/maintenance/trading)
+"aZd" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/crew_quarters/theatre)
 "aZf" = (
 /obj/structure/chair{
 	dir = 8
@@ -16333,10 +16339,6 @@
 "crR" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/assembly/chargebay)
-"crT" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "crU" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden,
@@ -23660,6 +23662,10 @@
 	icon_state = "darkpurple"
 	},
 /area/bridge)
+"dxX" = (
+/obj/machinery/atmospherics/supermatter_crystal/engine,
+/turf/simulated/floor/engine,
+/area/engineering/supermatter)
 "dyb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
@@ -24068,13 +24074,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/blueshield)
-"dBm" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engineering/break_room)
 "dBr" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -36822,6 +36821,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"fwo" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/wood,
+/area/security/permabrig)
 "fwq" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55229,12 +55232,6 @@
 	icon_state = "darkbluealt"
 	},
 /area/bridge)
-"ikr" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/crew_quarters/theatre)
 "iks" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
@@ -70903,6 +70900,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/evidence)
+"kCG" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/security/detectives_office)
 "kCH" = (
 /obj/structure/chair/sofa/left{
 	color = "#85130b";
@@ -78940,10 +78941,6 @@
 	dir = 1
 	},
 /area/security/prison/cell_block/A)
-"lQL" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/wood,
-/area/security/permabrig)
 "lQO" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -92520,13 +92517,6 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/spacebridge/comcar)
-"nOV" = (
-/obj/item/radio/intercom/directional/north,
-/obj/machinery/power/electrolyzer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/atmos)
 "nOW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -126987,6 +126977,10 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
+"sQI" = (
+/obj/machinery/vending/cart,
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/heads)
 "sQM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -141238,6 +141232,13 @@
 	icon_state = "darkred"
 	},
 /area/security/evidence)
+"uUa" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engineering/break_room)
 "uUb" = (
 /obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dust,
@@ -146155,13 +146156,6 @@
 	icon_state = "darkredfull"
 	},
 /area/tcommsat/server)
-"vHo" = (
-/obj/machinery/power/supermatter_shard{
-	anchored = 1;
-	zap_sound_extrarange = -6
-	},
-/turf/simulated/floor/engine,
-/area/engineering/supermatter)
 "vHp" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -153602,10 +153596,6 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"wLp" = (
-/obj/machinery/vending/cart,
-/turf/simulated/floor/wood/fancy/light,
-/area/crew_quarters/heads)
 "wLs" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -156854,6 +156844,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/bar/atrium)
+"xlf" = (
+/obj/item/radio/intercom/directional/north,
+/obj/machinery/power/electrolyzer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos)
 "xlh" = (
 /obj/structure/sign/directions/floor/alt{
 	dir = 6;
@@ -177695,7 +177692,7 @@ ufb
 pty
 fpC
 cNn
-lQL
+fwo
 uYD
 qGB
 ybe
@@ -209313,7 +209310,7 @@ wOl
 bIm
 wtw
 syE
-nOV
+xlf
 jpx
 dsE
 abn
@@ -211398,7 +211395,7 @@ qjd
 ngx
 cdd
 ngx
-vHo
+dxX
 ngx
 xMA
 epr
@@ -213667,7 +213664,7 @@ kAj
 kAj
 yco
 yiU
-dBm
+uUa
 bbQ
 lla
 ulx
@@ -253485,7 +253482,7 @@ bMP
 czx
 uFH
 vjo
-wLp
+sQI
 dDu
 cCL
 uRm
@@ -254570,7 +254567,7 @@ nKt
 eLZ
 pDv
 qdG
-crT
+kCG
 fBg
 ieI
 syu
@@ -258439,7 +258436,7 @@ awY
 gYO
 hiX
 gBd
-ikr
+aZd
 aJc
 ibq
 wZK
