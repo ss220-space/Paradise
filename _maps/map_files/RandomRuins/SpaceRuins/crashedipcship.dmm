@@ -2513,6 +2513,10 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
+"Oe" = (
+/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
+/turf/simulated/floor/engine,
+/area/ruin/space/crashedipcship/shard)
 "On" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -5962,7 +5966,7 @@ sH
 UR
 Ry
 MS
-Bj
+Oe
 mF
 Ry
 vj
