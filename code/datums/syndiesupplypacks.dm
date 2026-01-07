@@ -862,14 +862,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 50
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой азота"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с канистрой азота",
-		GENITIVE = "ящика с канистрой азота",
-		DATIVE = "ящику с канистрой азота",
-		ACCUSATIVE = "ящик с канистрой азота",
-		INSTRUMENTAL = "ящиком с канистрой азота",
-		PREPOSITIONAL = "ящике с канистрой азота",
-	)
 
 /datum/syndie_supply_packs/engineering/canister/oxygen
 	name = "Канистра кислорода"
@@ -877,14 +869,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 50
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой кислорода"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с канистрой кислорода",
-		GENITIVE = "ящика с канистрой кислорода",
-		DATIVE = "ящику с канистрой кислорода",
-		ACCUSATIVE = "ящик с канистрой кислорода",
-		INSTRUMENTAL = "ящиком с канистрой кислорода",
-		PREPOSITIONAL = "ящике с канистрой кислорода",
-	)
 
 /datum/syndie_supply_packs/engineering/canister/air
 	name = "Канистра воздуха"
@@ -892,14 +876,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 50
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой воздуха"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с канистрой воздуха",
-		GENITIVE = "ящика с канистрой воздуха",
-		DATIVE = "ящику с канистрой воздуха",
-		ACCUSATIVE = "ящик с канистрой воздуха",
-		INSTRUMENTAL = "ящиком с канистрой воздуха",
-		PREPOSITIONAL = "ящике с канистрой воздуха",
-	)
 
 /datum/syndie_supply_packs/engineering/canister/sleeping_agent
 	name = "Канистра оксида азота"
@@ -907,14 +883,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой оксида азота"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с канистрой оксида азота",
-		GENITIVE = "ящика с канистрой оксида азота",
-		DATIVE = "ящику с канистрой оксида азота",
-		ACCUSATIVE = "ящик с канистрой оксида азота",
-		INSTRUMENTAL = "ящиком с канистрой оксида азота",
-		PREPOSITIONAL = "ящике с канистрой оксида азота",
-	)
 
 /datum/syndie_supply_packs/engineering/canister/carbon_dioxide
 	name = "Канистра углекислого газа"
@@ -922,14 +890,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой углекислого газа"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с канистрой углекислого газа",
-		GENITIVE = "ящика с канистрой углекислого газа",
-		DATIVE = "ящику с канистрой углекислого газа",
-		ACCUSATIVE = "ящик с канистрой углекислого газа",
-		INSTRUMENTAL = "ящиком с канистрой углекислого газа",
-		PREPOSITIONAL = "ящике с канистрой углекислого газа",
-	)
 
 /datum/syndie_supply_packs/engineering/canister/toxins
 	name = "Канистра плазмы"
@@ -937,14 +897,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой плазмы"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с канистрой плазмы",
-		GENITIVE = "ящика с канистрой плазмы",
-		DATIVE = "ящику с канистрой плазмы",
-		ACCUSATIVE = "ящик с канистрой плазмы",
-		INSTRUMENTAL = "ящиком с канистрой плазмы",
-		PREPOSITIONAL = "ящике с канистрой плазмы",
-	)
 
 /datum/syndie_supply_packs/engineering/miner_n2o
 	name = "Майнер N2O"
@@ -952,14 +904,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 2000
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером N2O"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером N2O",
-		GENITIVE = "ящика с майнером N2O",
-		DATIVE = "ящику с майнером N2O",
-		ACCUSATIVE = "ящик с майнером N2O",
-		INSTRUMENTAL = "ящиком с майнером N2O",
-		PREPOSITIONAL = "ящике с майнером N2O",
-	)
 
 /datum/syndie_supply_packs/engineering/miner_nitrogen
 	name = "Майнер N2"
@@ -967,14 +911,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 1500
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером N2"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером N2",
-		GENITIVE = "ящика с майнером N2",
-		DATIVE = "ящику с майнером N2",
-		ACCUSATIVE = "ящик с майнером N2",
-		INSTRUMENTAL = "ящиком с майнером N2",
-		PREPOSITIONAL = "ящике с майнером N2",
-	)
 
 /datum/syndie_supply_packs/engineering/miner_oxygen
 	name = "Майнер O2"
@@ -982,14 +918,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 1500
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером O2"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером O2",
-		GENITIVE = "ящика с майнером O2",
-		DATIVE = "ящику с майнером O2",
-		ACCUSATIVE = "ящик с майнером O2",
-		INSTRUMENTAL = "ящиком с майнером O2",
-		PREPOSITIONAL = "ящике с майнером O2",
-	)
 
 /datum/syndie_supply_packs/engineering/miner_plasma
 	name = "Майнер плазмы"
@@ -997,14 +925,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 3000
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером плазмы"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером плазмы",
-		GENITIVE = "ящика с майнером плазмы",
-		DATIVE = "ящику с майнером плазмы",
-		ACCUSATIVE = "ящик с майнером плазмы",
-		INSTRUMENTAL = "ящиком с майнером плазмы",
-		PREPOSITIONAL = "ящике с майнером плазмы",
-	)
 
 /datum/syndie_supply_packs/engineering/miner_carbon_dioxide
 	name = "Майнер CO2"
@@ -1012,14 +932,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 1500
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером CO2"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером CO2",
-		GENITIVE = "ящика с майнером CO2",
-		DATIVE = "ящику с майнером CO2",
-		ACCUSATIVE = "ящик с майнером CO2",
-		INSTRUMENTAL = "ящиком с майнером CO2",
-		PREPOSITIONAL = "ящике с майнером CO2",
-	)
 
 /datum/syndie_supply_packs/engineering/miner_agent_b
 	name = "Майнер Agent B"
@@ -1027,14 +939,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 2500
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером Agent B"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером Agent B",
-		GENITIVE = "ящика с майнером Agent B",
-		DATIVE = "ящику с майнером Agent B",
-		ACCUSATIVE = "ящик с майнером Agent B",
-		INSTRUMENTAL = "ящиком с майнером Agent B",
-		PREPOSITIONAL = "ящике с майнером Agent B",
-	)
 
 /datum/syndie_supply_packs/engineering/miner_hydrogen
 	name = "Майнер H2"
@@ -1042,14 +946,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 3000
 	containertype = /obj/structure/largecrate
 	containername = "ящик с майнером H2"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером H2",
-		GENITIVE = "ящика с майнером H2",
-		DATIVE = "ящику с майнером H2",
-		ACCUSATIVE = "ящик с майнером H2",
-		INSTRUMENTAL = "ящиком с майнером H2",
-		PREPOSITIONAL = "ящике с майнером H2",
-	)
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
