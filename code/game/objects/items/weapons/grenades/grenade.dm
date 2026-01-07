@@ -87,7 +87,7 @@
 			det_time = 5 SECONDS
 		if(5 SECONDS)
 			det_time = 0.1 SECONDS
-	balloon_alert(user, "время детонации — [det_time == 0.1 SECONDS ? "[det_time/10] секунд[declension_ru(det_time/10, "а", "ы", "")]" : "мгновенно"]")
+	balloon_alert(user, "время детонации — [det_time == 0.1 SECONDS ? "мгновенно" : "[det_time/10] секунд[DECL_SEC_MIN(det_time/10)]"]")
 	add_fingerprint(user)
 	return TRUE
 

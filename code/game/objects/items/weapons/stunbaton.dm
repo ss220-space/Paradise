@@ -253,7 +253,7 @@
 /obj/item/melee/baton/security/cattleprod/get_ru_names()
 	return list(
 		NOMINATIVE = "оглушающий прут",
-		GENITIVE = "оглушающго прута",
+		GENITIVE = "оглушающего прута",
 		DATIVE = "оглушающему пруту",
 		ACCUSATIVE = "оглушающий прут",
 		INSTRUMENTAL = "оглушающий прутом",
