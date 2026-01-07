@@ -1043,16 +1043,13 @@
 	if(ishuman(user))
 		money_account = get_card_account(user)
 		var/mob/living/carbon/human/H = user
+		var/obj/item/card/id/id_card = H.get_id_card()
 		var/obj/item/stack/spacecash/cash = H.get_active_hand()
-		if(istype(cash))
-			data["user"]["cash"] = cash.amount
-		else if(istype(H))
-			var/obj/item/card/id/id_card = H.get_id_card()
-			if(istype(money_account))
-				data["user"] = list()
-				data["user"]["name"] = money_account.owner_name
-				data["user"]["cash"] = money_account.money
-				data["user"]["job"] = (istype(id_card) && id_card.rank) ? id_card.rank : "Должность не определена"
+		if(istype(money_account))
+			data["user"] = list()
+			data["user"]["name"] = money_account.owner_name
+			data["user"]["cash"] = istype(cash) ? cash.amount : money_account.money
+			data["user"]["job"] = (istype(id_card) && id_card.rank) ? id_card.rank : "Должность не определена"
 	data["stock"] = list()
 	for(var/datum/data/vending_product/product_record in product_records + premium_records + hidden_records)
 		data["stock"][product_record.name] = product_record.amount
