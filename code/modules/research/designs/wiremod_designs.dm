@@ -493,6 +493,20 @@
 		PROTOLATHE_CATEGORY_CIRCUITRY,
 	)
 
+/datum/design/manipulator_shell
+	id = "manipulator_shell"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 4)
+	build_path = /obj/item/shell/manipulator
+	build_type = PROTOLATHE
+	materials = list(
+		MAT_GLASS = 1000,
+		MAT_METAL = 5500,
+		MAT_TITANIUM = 1000,
+	)
+	category = list(
+		PROTOLATHE_CATEGORY_CIRCUITRY,
+	)
+
 /datum/design/server_shell
 	id = "server_shell"
 	req_tech = list("materials" = 5, "programming" = 7, "engineering" = 6)
