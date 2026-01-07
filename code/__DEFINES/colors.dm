@@ -576,3 +576,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 #define COLOR_PROXIMITY_FIELD "#aaffff"
 #define COLOR_PROXIMITY_EDGE "#ffaaff"
+
+#define COLOR_GAS_MINER_N2O "#ffcccc"
+#define COLOR_GAS_MINER_N2 "#ccffcc"
+#define COLOR_GAS_MINER_O2 "#007fff"
+#define COLOR_GAS_MINER_CO2 "#cdcdcd"
+#define COLOR_GAS_MINER_AGENT_B "#e81e24"
