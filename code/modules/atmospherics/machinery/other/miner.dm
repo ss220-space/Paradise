@@ -92,6 +92,8 @@
 	set_active(!active)
 	balloon_alert(user, active? "включено": "выключено")
 
+/obj/machinery/atmospherics/miner/wrench_act(mob/living/user, obj/item/I)
+	. = default_unfasten_wrench(user, I)
 
 /obj/machinery/atmospherics/miner/proc/update_power()
 	if(!active)
