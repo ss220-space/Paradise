@@ -249,7 +249,7 @@
 
 /obj/item/security_voucher/detective
 	name = "detective voucher"
-	desc = "Жетон, позволяющий получить набор оружия из торгового автомата \"SecTech\". Выдаётся всем детективам службы безопасности в штатном порядке."
+	desc = "Жетон, позволяющий получить набор оружия из торгового автомата \"SecTech\". Выдаётся всем Детективам службы безопасности в штатном порядке."
 
 /obj/item/security_voucher/detective/get_ru_names()
 	return list(
