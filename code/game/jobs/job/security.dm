@@ -1,6 +1,7 @@
 /datum/job/head_of_staff/hos
 	title = JOB_TITLE_HOS
 	flag = JOB_FLAG_HOS
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1
 	selection_color = "#c25656"
@@ -16,6 +17,7 @@
 		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS
 	)
+	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	law_level = LAW_LEVEL_HOS
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed_slightly = 0
@@ -51,6 +53,7 @@
 	box = /obj/item/storage/box/survival/survival_security/hos
 
 /datum/job/security
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1
 	supervisors = "Главой службы безопасности"
@@ -58,8 +61,8 @@
 	selection_color = "#edcdcd"
 	minimal_player_age = 14
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
-	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	exp_requirements = 900
+	exp_type = EXP_TYPE_CREW
 	disabilities_allowed = 0
 	disabilities_allowed_slightly = 0
 	insurance_type = INSURANCE_TYPE_DELUXE
@@ -219,6 +222,7 @@
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
+	selection_color = "#cee6ef"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Security Medic")

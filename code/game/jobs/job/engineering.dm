@@ -2,6 +2,7 @@
 	title = JOB_TITLE_CHIEF
 	flag = JOB_FLAG_CHIEF
 	department_flag = JOBCAT_ENGSEC
+	department = STATION_DEPARTMENT_ENGINEERING
 	is_engineering = 1
 	selection_color = "#ffba4c"
 	access = list(
@@ -43,6 +44,7 @@
 	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineering
+	department = STATION_DEPARTMENT_ENGINEERING
 	department_flag = JOBCAT_ENGSEC
 	is_engineering = 1
 	supervisors = "Главным инженером"

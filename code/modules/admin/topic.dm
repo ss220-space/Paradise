@@ -1,13 +1,19 @@
+#define POWER_ALL "Power all APCs"
+#define REPAIR_ALL "Repair all APCs"
+#define REPAIR_AND_POWER_ALL "Repair and Power APCs"
+#define DEPOWER_ALL "Depower all APCs"
+#define SHORT_OUT "Short out APCs"
+
 /datum/admins/Topic(href, href_list)
 	..()
 
-	if(usr.client != src.owner || !check_rights(0))
+	if(usr.client != src.owner || !check_rights(R_NONE))
 		log_admin("[key_name(usr)] tried to use the admin panel without authorization.")
 		message_admins("[key_name_admin(usr)] has attempted to override the admin panel!")
 		return
 
 	if(SSticker.mode && SSticker.mode.check_antagonists_topic(href, href_list))
-		check_antagonists()
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
 		return
 
 	if(href_list["rejectadminhelp"])
@@ -303,7 +309,8 @@
 		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["edit_shuttle_time"])
-		if(!check_rights(R_SERVER))	return
+		if(!check_rights(R_SERVER))
+			return
 
 		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
 		if(isnull(timer))
@@ -362,7 +369,8 @@
 		href_list["check_antagonist"] =  TRUE
 
 	else if(href_list["delay_round_end"])
-		if(!check_rights(R_SERVER))	return
+		if(!check_rights(R_SERVER))
+			return
 
 		SSticker.delay_end = !SSticker.delay_end
 		log_and_message_admins("[SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
@@ -371,7 +379,8 @@
 		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["simplemake"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/M = locateUID(href_list["mob"])
 		if(!istype(M, /mob))
@@ -436,7 +445,8 @@
 
 	/////////////////////////////////////new ban stuff
 	else if(href_list["unbanf"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/banfolder = href_list["unbanf"]
 		GLOB.banlist_savefile.cd = "/base/[banfolder]"
@@ -449,7 +459,8 @@
 				unbanpanel()
 
 	else if(href_list["unbane"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		UpdateTime()
 		var/reason
@@ -549,7 +560,8 @@
 				return
 
 	else if(href_list["jobban2"])
-//		if(!check_rights(R_BAN))	return
+//		if(!check_rights(R_BAN))
+//			return
 
 		var/mob/M = locateUID(href_list["jobban2"])
 		if(!istype(M, /mob))
@@ -797,7 +809,8 @@
 
 	//JOBBAN'S INNARDS
 	else if(href_list["jobban3"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/mob/M = locateUID(href_list["jobban4"])
 		if(!istype(M, /mob))
@@ -978,9 +991,7 @@
 			qdel(C)
 
 	else if(href_list["open_logging_view"])
-		var/mob/M = locateUID(href_list["open_logging_view"])
-		if(ismob(M))
-			usr.client.open_logging_view(list(M), TRUE)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, locateUID(href_list["open_logging_view"]), TRUE)
 
 	else if(href_list["geoip"])
 		if(!check_rights(R_ADMIN))
@@ -1054,7 +1065,8 @@
 		show_note(index = target)
 
 	else if(href_list["removejobban"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/t = href_list["removejobban"]
 		if(t)
@@ -1068,7 +1080,8 @@
 				DB_ban_unban(ckey(key), BANTYPE_JOB_PERMA, job)
 
 	else if(href_list["newban"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/mob/M = locateUID(href_list["newban"])
 		if(!istype(M, /mob))
@@ -1184,7 +1197,8 @@
 		cmd_admin_mute(M, mute_type)
 
 	else if(href_list["c_mode"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
@@ -1203,7 +1217,8 @@
 		onclose(usr, "c_mode")
 
 	else if(href_list["f_secret"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
@@ -1222,7 +1237,8 @@
 		onclose(usr, "f_secret")
 
 	else if(href_list["c_mode2"])
-		if(!check_rights(R_ADMIN|R_SERVER))	return
+		if(!check_rights(R_ADMIN|R_SERVER))
+			return
 
 		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
@@ -1235,7 +1251,8 @@
 		.(href, list("c_mode"=1))
 
 	else if(href_list["f_secret2"])
-		if(!check_rights(R_ADMIN|R_SERVER))	return
+		if(!check_rights(R_ADMIN|R_SERVER))
+			return
 
 		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
@@ -1331,7 +1348,8 @@
 		.(href, list("change_weights"=1))
 
 	else if(href_list["monkeyone"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["monkeyone"])
 		if(!istype(H))
@@ -1360,28 +1378,7 @@
 		message_admins(span_notice("[key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]"))
 
 	else if(href_list["sendtoprison"])
-		if(!check_rights(R_ADMIN))	return
-
-		if(tgui_alert(usr, "Отправить в админскую тюрьму на остаток раунда?", "Подтверждение", list("Да", "Нет")) != "Да")
-			return
-
-		var/mob/M = locateUID(href_list["sendtoprison"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("Это можно использовать только на объектах типа /mob"), confidential=TRUE)
-			return
-		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, span_warning("Это нельзя использовать на объектах типа /mob/living/silicon/ai"), confidential=TRUE)
-			return
-
-		var/turf/prison_cell = pick(GLOB.prisonwarp)
-		if(!prison_cell)	return
-
-		var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
-		pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
-		pod.target = M
-		new /obj/effect/pod_landingzone(M, pod)
-
-		log_and_message_admins("sent [key_name_admin(M)] to the prison station.")
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/imprison, locateUID(href_list["sendtoprison"]))
 
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
@@ -1468,54 +1465,20 @@
 		M.client.prefs.save_character(M.client)
 
 	else if(href_list["cma_admin"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["cma_admin"])
-		if(!ishuman(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /human"), confidential=TRUE)
-			return
-		usr.client.change_human_appearance_admin(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/change_human_appearance_admin, locateUID(href_list["cma_admin"]))
 
 	else if(href_list["cma_self"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["cma_self"])
-		if(!ishuman(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /human"), confidential=TRUE)
-			return
-		usr.client.change_human_appearance_self(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/change_human_appearance_self, locateUID(href_list["cma_self"]))
 
 	else if(href_list["check_contents"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["check_contents"])
-		if(!isliving(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /living"), confidential=TRUE)
-			return
-		usr.client.cmd_admin_check_contents(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_check_contents, locateUID(href_list["check_contents"]))
 
 	else if(href_list["man_up"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/M = locateUID(href_list["man_up"])
-		if(!ismob(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		usr.client.man_up(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/man_up, locateUID(href_list["man_up"]))
 
 	else if(href_list["select_equip"])
-		if(!check_rights(R_EVENT))
-			return
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/select_equipment, locateUID(href_list["select_equip"]))
 
-		var/mob/M = locateUID(href_list["select_equip"])
-		if(!ishuman(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /human"), confidential=TRUE)
-			return
-		usr.client.cmd_admin_dress(M)
 	else if(href_list["change_voice"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1543,22 +1506,13 @@
 		usr.client.update_mob_sprite(M)
 
 	else if(href_list["asays"])
-		if(!check_rights(R_ADMIN | R_MOD))
-			return
-
-		usr.client.view_asays()
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_asays)
 
 	else if(href_list["msays"])
-		if(!check_rights(R_ADMIN | R_MENTOR))
-			return
-
-		usr.client.view_msays()
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_msays)
 
 	else if(href_list["devsays"])
-		if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
-			return
-
-		usr.client.view_devsays()
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/view_devsays)
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_EVENT))
@@ -1740,7 +1694,8 @@
 		log_admin("[key_name(usr)] has immediately returned [key_name(M)] from the Syndicate Jail")
 
 	else if(href_list["aroomwarp"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
 			return
@@ -1775,7 +1730,8 @@
 			log_and_message_admins("disallowed [key_name(O)] to respawn!")
 
 	else if(href_list["revive"])
-		if(!check_rights(R_REJUVINATE))	return
+		if(!check_rights(R_REJUVINATE))
+			return
 
 		var/mob/living/L = locateUID(href_list["revive"])
 		if(!istype(L))
@@ -1786,7 +1742,8 @@
 		log_and_message_admins("healed / revived [key_name(L)]")
 
 	else if(href_list["makeai"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
@@ -1802,41 +1759,13 @@
 		SSticker?.score?.save_silicon_laws(ai_character, usr, "admin AIzed user", log_all_laws = TRUE)
 
 	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
-		if(!istype(H))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
-			return
-
-		if(tgui_alert(usr, "Confirm make superhero?",, list("Yes", "No")) != "Yes")
-			return
-
-		usr.client.cmd_admin_super(H)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_super, locateUID(href_list["makesuper"]))
 
 	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
-		if(!istype(H))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
-			return
-		if(tgui_alert(usr, "Confirm make robot?",, list("Yes", "No")) != "Yes")
-			return
-
-		usr.client.cmd_admin_robotize(H)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_robotize, locateUID(href_list["makerobot"]))
 
 	else if(href_list["makeanimal"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/M = locateUID(href_list["makeanimal"])
-		if(isnewplayer(M))
-			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"), confidential=TRUE)
-			return
-		if(tgui_alert(usr, "Confirm make animal?",, list("Yes", "No")) != "Yes")
-			return
-
-		usr.client.cmd_admin_animalize(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_animalize, locateUID(href_list["makeanimal"]))
 
 	else if(href_list["makePAI"])
 		if(!check_rights(R_SPAWN))
@@ -1867,15 +1796,7 @@
 		H.paize(name, bespai)
 
 	else if(href_list["makegorilla"])
-		if(!check_rights(R_SPAWN))
-			return
-
-		var/mob/M = locateUID(href_list["makegorilla"])
-		if(isnewplayer(M))
-			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"), confidential=TRUE)
-			return
-
-		usr.client.cmd_admin_gorillize(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_gorillize, locateUID(href_list["makegorilla"]))
 
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))
@@ -1909,41 +1830,26 @@
 			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"))
 			return
 		var/block = text2num(href_list["block"])
-		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
 		if(source == "old")
-			show_old_player_panel(H)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_old_player_panel, H)
 		else
 			usr.client.holder.Topic(null, list("showdna" = H.UID()))
 
-		//H.regenerate_icons()
-
 	else if(href_list["observeinventory"])
-		var/client/C = usr.client
-		var/mob/M = locateUID(href_list["observeinventory"])
-
-		if(!ismob(M))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
-			return
-		C.admin_observe_target(M, TRUE)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["observeinventory"]), TRUE)
 
 	else if(href_list["adminplayeropts"])
-		var/mob/M = locateUID(href_list["adminplayeropts"])
-
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-
-		show_player_panel(M)
+		var/mob/selected_mob = locateUID(href_list["adminplayeropts"])
+		usr.client.VUAP_selected_mob = selected_mob
+		usr.client.selectedPlayerCkey = selected_mob.ckey
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["adminplayerobservefollow"])
-		var/client/client = usr.client
-		var/mob/mob = locateUID(href_list["adminplayerobservefollow"])
-
-		client.admin_observe_target(mob)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]))
 
 	else if(href_list["check_antagonist"])
-		check_antagonists()
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
 
 	else if(href_list["check_teams"])
 		if(!check_rights(R_ADMIN))
@@ -2099,7 +2005,10 @@
 				team.admin_remove_member(usr, member)
 
 			if("view_member")
-				show_player_panel(member.current)
+				var/mob/selected_mob = member.current
+				usr.client.VUAP_selected_mob = selected_mob
+				usr.client.selectedPlayerCkey = selected_mob.ckey
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 			if("add_objective")
 				team.admin_add_objective(usr)
@@ -2114,7 +2023,8 @@
 		check_teams()
 
 	else if(href_list["randomizename"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["randomizename"])
 		//exists?
@@ -2319,16 +2229,13 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 
 	else if(href_list["adminplayerobservecoodjump"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/x = text2num(href_list["X"])
-		var/y = text2num(href_list["Y"])
-		var/z = text2num(href_list["Z"])
-
-		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
-		sleep(2)
-		C.jumptocoord(x,y,z)
+		return SSadmin_verbs.dynamic_invoke_verb(
+			usr,
+			/datum/admin_verb/jump_to_coord,
+			text2num(href_list["X"]),
+			text2num(href_list["Y"]),
+			text2num(href_list["Z"]),
+		)
 
 	else if(href_list["adminchecklaws"])
 		if(!check_rights(R_ADMIN|R_MENTOR))
@@ -2344,7 +2251,8 @@
 		admin_mob_info(subject)
 
 	else if(href_list["adminspawncookie"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["adminspawncookie"])
 		if(!ishuman(H))
@@ -2366,10 +2274,7 @@
 		to_chat(H, span_notice("Your prayers have been answered!! You received the <b>best cookie</b>!"))
 
 	else if(href_list["BlueSpaceArtillery"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
-
-		var/mob/living/M = locateUID(href_list["BlueSpaceArtillery"])
-		usr.client.bluespace_artillery(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bluespace_artillery, locateUID(href_list["BlueSpaceArtillery"]))
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))
@@ -2422,7 +2327,7 @@
 		if(!customname)
 			customname = "paper"
 		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
-		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/obj/machinery/photocopier/faxmachine/fax = locateUID(href_list["originfax"])
 
 		P.name = "Central Command - [customname]"
 		P.info = "<b>You <i>really</i> should've known better.</b>"
@@ -2439,22 +2344,13 @@
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
+
 	else if(href_list["Bless"])
-		if(!check_rights(R_EVENT))
-			return
-		var/mob/living/M = locateUID(href_list["Bless"])
-		if(!istype(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
-			return
-		usr.client.bless(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/bless, locateUID(href_list["Bless"]))
+
 	else if(href_list["Smite"])
-		if(!check_rights(R_EVENT))
-			return
-		var/mob/living/M = locateUID(href_list["Smite"])
-		if(!istype(M))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
-			return
-		usr.client.smite(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, locateUID(href_list["Smite"]))
+
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2486,7 +2382,7 @@
 			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
 			return
 		var/obj/item/paper/P = new /obj/item/paper(null)
-		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/obj/machinery/photocopier/faxmachine/fax = locateUID(href_list["originfax"])
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
 		var/stype = tgui_input_list(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?", "Выберите этот документ", stypes)
@@ -2567,13 +2463,13 @@
 			to_chat(owner, span_notice("You sent [reason] to [H] via a secure channel."))
 			to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
 		else
-			owner.response_team()
+			owner.send_response_team()
 
 	else if(href_list["AdminFaxView"])
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/obj/item/fax = locate(href_list["AdminFaxView"])
+		var/obj/item/fax = locateUID(href_list["AdminFaxView"])
 		if(istype(fax, /obj/item/paper))
 			var/obj/item/paper/P = fax
 			P.show_content(usr,1)
@@ -2588,7 +2484,7 @@
 
 			for(var/page = 1 to length(bundle.papers))
 				var/obj/pageobj = bundle.papers[page]
-				data += "<a href='byond://?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[bundle]'>Page [page] - [pageobj.name]</a><br>"
+				data += "<a href='byond://?src=[UID()];AdminFaxViewPage=[page];paper_bundle=[bundle.UID()]'>Page [page] - [pageobj.name]</a><br>"
 
 			var/datum/browser/popup = new(usr, "PaperBundle[bundle.UID()]", "Fax View")
 			popup.include_default_stylesheet = FALSE
@@ -2602,7 +2498,7 @@
 			return
 
 		var/page = text2num(href_list["AdminFaxViewPage"])
-		var/obj/item/paper_bundle/bundle = locate(href_list["paper_bundle"])
+		var/obj/item/paper_bundle/bundle = locateUID(href_list["paper_bundle"])
 
 		if(!bundle) return
 
@@ -2618,10 +2514,10 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/sender = locate(href_list["AdminFaxCreate"])
-		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/mob/sender = locateUID(href_list["AdminFaxCreate"])
+		var/obj/machinery/photocopier/faxmachine/fax = locateUID(href_list["originfax"])
 		var/faxtype = href_list["faxtype"]
-		var/reply_to = locate(href_list["replyto"])
+		var/reply_to = locateUID(href_list["replyto"])
 		var/destination
 		var/notify
 		var/obj/item/paper/P
@@ -2754,20 +2650,22 @@
 				sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
-			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=[P.UID()]'>VIEW</a>).")
 		else
 			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
-			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).")
+			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=[P.UID()]'>VIEW</a>).")
 		return
+
 	else if(href_list["AdminFaxNotify"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/sender = locate(href_list["AdminFaxNotify"])
+		var/mob/sender = locateUID(href_list["AdminFaxNotify"])
 		var/mob/living/carbon/human/H = sender
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(sender, span_specialnotice("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
 			sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		return
+
 	else if(href_list["refreshfaxpanel"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2777,82 +2675,64 @@
 	else if(href_list["getplaytimewindow"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/M = locateUID(href_list["getplaytimewindow"])
-		if(!istype(M, /mob))
+
+		var/mob/target = locateUID(href_list["getplaytimewindow"])
+		if(!ismob(target))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
 			return
-		cmd_mentor_show_exp_panel(M.client)
+
+		cmd_mentor_show_exp_panel(target.client)
 
 	else if(href_list["jumpto"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/M = locateUID(href_list["jumpto"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		usr.client.jumptomob(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/jump_to_mob, locateUID(href_list["jumpto"]))
 
 	else if(href_list["getmob"])
-		if(!check_rights(R_ADMIN))	return
-
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")	return
-		var/mob/M = locateUID(href_list["getmob"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		usr.client.Getmob(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/get_mob, locateUID(href_list["getmob"]))
 
 	else if(href_list["sendmob"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/M = locateUID(href_list["sendmob"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		usr.client.sendmob(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/send_mob, locateUID(href_list["sendmob"]))
 
 	else if(href_list["narrateto"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/M = locateUID(href_list["narrateto"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		usr.client.cmd_admin_direct_narrate(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_direct_narrate, locateUID(href_list["narrateto"]))
 
 	else if(href_list["subtlemessage"])
-		if(!check_rights(R_EVENT))
-			return
-
-		var/mob/M = locateUID(href_list["subtlemessage"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
-			return
-		usr.client.cmd_admin_subtle_message(M)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_subtle_message, locateUID(href_list["subtlemessage"]))
 
 	else if(href_list["traitor"])
-		if(!check_rights(R_ADMIN|R_MOD))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
-		if(!SSticker || !SSticker.mode)
+		if(SSticker.current_state < GAME_STATE_PLAYING)
 			tgui_alert(usr, "The game hasn't started yet!")
 			return
 
-		var/mob/M = locateUID(href_list["traitor"])
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
+		var/mob/target = locateUID(href_list["traitor"])
+		if(!ismob(target))
+			var/datum/mind/mind = target
+			if(!istype(mind))
+				to_chat(usr, "This can only be used on instances of type /mob and /mind", confidential = TRUE)
+				return
+
+			mind.edit_memory()
 			return
-		show_traitor_panel(M)
+
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_traitor_panel, target)
+
+	else if(href_list["borgpanel"])
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, locateUID(href_list["borgpanel"]))
 
 	else if(href_list["spawn_panel"])
-		usr.client.spawn_panel()
-		return
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/spawn_panel)
 
 	else if(href_list["dupe_marked_datum"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
+
 		return DuplicateObject(marked_datum, perfectcopy=1, newloc=get_turf(usr))
 
-	else if(href_list["object_list"])			//this is the laggiest thing ever
-		if(!check_rights(R_SPAWN))	return
+	else if(href_list["object_list"]) //this is the laggiest thing ever
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/atom/loc = usr.loc
 
@@ -2994,7 +2874,8 @@
 			to_chat(usr, span_warning("You may only use this when the game is running."), confidential=TRUE)
 
 	else if(href_list["memoeditlist"])
-		if(!check_rights(R_SERVER)) return
+		if(!check_rights(R_SERVER))
+			return
 		var/sql_key = href_list["memoeditlist"]
 		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")] WHERE (ckey=:sql_key)", list(
 			"sql_key" = sql_key
@@ -3011,7 +2892,8 @@
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		var/ok = 0
 		switch(href_list["secretsfun"])
@@ -3160,7 +3042,7 @@
 					return
 				if(!you_realy_want_do_this())
 					return
-				usr.client.cmd_change_command_name()
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/change_command_name)
 
 			if("reset_station_name")
 				if(!check_rights(R_ADMIN))
@@ -3213,21 +3095,38 @@
 			if("power")
 				if(!you_realy_want_do_this())
 					return
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
-				log_and_message_admins(span_notice("made all areas powered"))
-				power_restore()
+				switch(tgui_alert(usr, "What Would You Like to Do?", "Make All Areas Powered", list(POWER_ALL, REPAIR_ALL, REPAIR_AND_POWER_ALL)))
+					if(POWER_ALL)
+						power_restore(TRUE, POWER_RESTORE_ONLY)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power all APCs")
+						log_and_message_admins(span_adminnotice("[key_name_admin(usr)] powered all APCs"))
+					if(REPAIR_ALL)
+						power_restore(TRUE, APC_REPAIR_ONLY)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair all APCs")
+						log_and_message_admins(span_adminnotice("[key_name_admin(usr)] repaired all APCs"))
+					if(REPAIR_AND_POWER_ALL)
+						power_restore(TRUE, APC_REPAIR_AND_CHARGE)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair and Power all APCs")
+						log_and_message_admins(span_adminnotice("[key_name_admin(usr)] repaired and powered all APCs"))
+
 			if("unpower")
 				if(!you_realy_want_do_this())
 					return
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower All APCs")
-				log_and_message_admins(span_notice("made all areas unpowered"))
-				power_failure()
+				if(tgui_alert(usr, "What Would You Like to Do?", "Make All Areas Unpowered", list(DEPOWER_ALL, SHORT_OUT)) == DEPOWER_ALL)
+					depower_apcs()
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower all APCs")
+					log_and_message_admins(span_adminnotice("[key_name_admin(usr)] made all areas unpowered"))
+				else
+					power_failure(TRUE, 100)
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Short out APCs")
+					log_and_message_admins(span_adminnotice("[key_name_admin(usr)] has shorted APCs"))
+
 			if("quickpower")
 				if(!you_realy_want_do_this())
 					return
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
-				log_and_message_admins(span_notice("made all SMESs powered"))
 				power_restore_quick()
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
+				log_and_message_admins(span_adminnotice("[key_name(usr)] made all SMESs powered"))
 
 			if("prisonwarp")
 				if(!SSticker)
@@ -3337,20 +3236,20 @@
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)
-										M.show_message(text("<span class='notice'>You shudder as if cold...</span>"), 1)
+										M.show_message(span_notice("You shudder as if cold..."), 1)
 									if(2)
-										M.show_message(text("<span class='notice'>You feel something gliding across your back...</span>"), 1)
+										M.show_message(span_notice("You feel something gliding across your back..."), 1)
 									if(3)
-										M.show_message(text("<span class='notice'>Your eyes twitch, you feel like something you can't see is here...</span>"), 1)
+										M.show_message(span_notice("Your eyes twitch, you feel like something you can't see is here..."), 1)
 									if(4)
-										M.show_message(text("<span class='notice'>You notice something moving out of the corner of your eye, but nothing is there...</span>"), 1)
+										M.show_message(span_notice("You notice something moving out of the corner of your eye, but nothing is there..."), 1)
 								for(var/obj/W in orange(5,M))
 									if(prob(25) && !W.anchored)
 										step_rand(W)
 					sleep(rand(100,1000))
 				for(var/mob/M in GLOB.player_list)
 					if(M.stat != 2)
-						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
+						M.show_message(span_notice("The chilling wind suddenly stops..."), 1)
 			if("lightout")
 				if(!you_realy_want_do_this())
 					return
@@ -3392,7 +3291,7 @@
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("polymorph")
-				usr.client.polymorph_all()
+				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/polymorph_all)
 			if("stupify")
 				if(!you_realy_want_do_this())
 					return
@@ -3425,16 +3324,15 @@
 					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
-						var/obj/item/clothing/head/kitty/hat = new
+
+						if(!(human.dna.species.blacklisted_disabilities & DISABILITY_FLAG_CATEARS))
+							human.force_gene_block(GLOB.cat_earsblock, TRUE, TRUE)
+
 						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
 						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
 						human.drop_item_ground(human.w_uniform, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
-						human.drop_item_ground(human.head, TRUE, FALSE, TRUE)
-						human.equip_to_slot_or_del(hat, hat.slot_flags)
-
 						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)
-						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
 					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
 					var/list/names = splittext(human.real_name," ")
 					var/newname = "[names[length(names)]]-[pick(honorifics[human.gender])]"
@@ -3693,7 +3591,8 @@
 				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretscoder"])
-		if(!check_rights(R_DEBUG))	return
+		if(!check_rights(R_DEBUG))
+			return
 
 		switch(href_list["secretscoder"])
 			if("spawn_objects")
@@ -3849,12 +3748,12 @@
 	else if(href_list["delete_outfit"])
 		if(!check_rights(R_EVENT))
 			return
-		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
+		var/datum/outfit/O = locateUID(href_list["chosen_outfit"])
 		delete_outfit(usr,O)
 	else if(href_list["save_outfit"])
 		if(!check_rights(R_EVENT))
 			return
-		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
+		var/datum/outfit/O = locateUID(href_list["chosen_outfit"])
 		save_outfit(usr,O)
 	else if(href_list["open_ccDB"])
 		if(!check_rights(R_ADMIN))
@@ -3875,14 +3774,10 @@
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
 
 	else if(href_list["adminalert"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_alert_message, locateUID(href_list["adminalert"]))
 
 	else if(href_list["resultspoll"])
-		var/datum/poll_question/poll = locate(href_list["resultspoll"]) in GLOB.polls
+		var/datum/poll_question/poll = locateUID(href_list["resultspoll"])
 		var/start_index = text2num(href_list["startat"]) || 0
 		poll_results_panel(poll, start_index)
 
@@ -3937,6 +3832,12 @@
 		popup.set_window_options("can_close=1;window=related_[M];")
 		popup.open()
 		onclose(usr, "show_dna")
+
+#undef POWER_ALL
+#undef REPAIR_ALL
+#undef REPAIR_AND_POWER_ALL
+#undef DEPOWER_ALL
+#undef SHORT_OUT
 
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3996,25 +3897,33 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(atom/target)
-	if(!target) return
+/**
+ * Generates admin follow links for tracking specific atoms, with special handling for clients, AIs, and observer mobs
+ *
+ * Arguments:
+ * * target_atom - The atom to create an admin follow link for
+ */
+/proc/admin_jump_link(atom/target_atom)
+	if(!target_atom)
+		return
+
 	// The way admin jump links handle their src is weirdly inconsistent...
+	if(isclient(target_atom))
+		var/client/target_client = target_atom
+		if(target_client.mob)
+			target_atom = target_client.mob
 
-	if(isclient(target))
-		var/client/C = target
-		if(C.mob)
-			target = C.mob
+	. = ADMIN_FLW(target_atom, "FLW")
 
-	. = ADMIN_FLW(target, "FLW")
+	if(isAI(target_atom)) // AI core/eye follow links
+		var/mob/living/silicon/ai/ai_instance = target_atom
+		if(ai_instance.client && ai_instance.eyeobj) // No point following clientless AI eyes
+			. += "|[ADMIN_FLW(ai_instance.eyeobj, "EYE")]"
 
-	if(isAI(target)) // AI core/eye follow links
-		var/mob/living/silicon/ai/A = target
-		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"
-	else if(istype(target, /mob/dead/observer))
-		var/mob/dead/observer/O = target
-		if(O.mind && O.mind.current)
-			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
+	else if(isobserver(target_atom))
+		var/mob/dead/observer/observer_instance = target_atom
+		if(observer_instance.mind && observer_instance.mind.current)
+			. += "|[ADMIN_FLW(observer_instance.mind.current, "BDY")]"
 
 /proc/you_realy_want_do_this(mob/user)
 	user = user || usr

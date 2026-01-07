@@ -151,6 +151,21 @@
 		PREPOSITIONAL = "интерфейсе \"Мозг-Компьютер\""
 	)
 
+/obj/item/shell/manipulator
+	name = "manipulator assembly"
+	icon_state = "setup_large_arm-open"
+	shell_to_spawn = /obj/structure/wiremod_manipulator
+
+/obj/item/shell/manipulator/get_ru_names()
+	return list(
+		NOMINATIVE = "манипулятор",
+		GENITIVE = "манипулятора",
+		DATIVE = "манипулятору",
+		ACCUSATIVE = "манипулятор",
+		INSTRUMENTAL = "манипулятором",
+		PREPOSITIONAL = "манипуляторе"
+	)
+
 // /obj/item/shell/scanner_gate
 // 	name = "scanner gate assembly"
 // 	icon = 'icons/obj/machines/scangate.dmi'

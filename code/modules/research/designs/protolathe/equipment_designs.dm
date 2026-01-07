@@ -169,6 +169,14 @@
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)
 
+/datum/design/small_crowbar
+	id = "small_crowbar"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 1000)
+	build_path = /obj/item/crowbar/small
+	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)
+
 /datum/design/handdrill
 	id = "handdrill"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_ENGINEERING = 6)
@@ -302,4 +310,12 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 2000, MAT_TITANIUM = 4000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/holotool
+	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)
+
+/datum/design/atmos_goggles
+	id = "atmos_goggles"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_MAGNETS = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/meson/atmos
 	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)

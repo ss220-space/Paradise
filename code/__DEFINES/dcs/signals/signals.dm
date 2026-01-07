@@ -613,8 +613,6 @@
 #define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
 /// from base of /client/proc/set_eye() : (atom/old_eye, atom/new_eye)
 #define COMSIG_CLIENT_SET_EYE "client_set_eye"
-// from /client/proc/change_view() : (new_size)
-#define COMSIG_VIEW_SET "view_set"
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
 /// From base of /mob/proc/update_held_items
@@ -787,9 +785,6 @@
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 	/// Should we stop the current living movement attempt
 	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
-
-/// from base of /client/proc/handle_popup_close() : (window_id)
-#define COMSIG_POPUP_CLEARED "popup_cleared"
 
 /// from base of /datum/status_effect/Destroy() : (effect_type)
 #define COMSIG_MOB_STATUS_EFFECT_ENDED "mob_status_effect_ended"
@@ -1585,5 +1580,7 @@
 /// From /datum/diablerie_level/proc/remove()
 #define SIGNAL_DIABLERIE_LEVEL_REMOVE "diablerie_level_remove"
 
-///Sent after awards are saved in the database (/datum/controller/subsystem/achievements/save_achievements_to_db)
+/// Sent after awards are saved in the database (/datum/controller/subsystem/achievements/save_achievements_to_db)
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
+
+#define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"

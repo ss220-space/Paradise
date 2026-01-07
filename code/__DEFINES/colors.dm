@@ -81,6 +81,7 @@
 #define COLOR_GOLD "#ffd700"
 #define COLOR_ETHIOPIA_YELLOW "#fcdd09"
 #define COLOR_LIGHT_YELLOW "#fffee0"
+#define COLOR_PALE_YELLOW "#fff4bb"
 
 // Green
 #define COLOR_OLIVE "#808000"
@@ -102,6 +103,9 @@
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964a"
 #define COLOR_PAI_GREEN "#00ff88"
 #define COLOR_PALE_GREEN "#20e28e"
+#define COLOR_PALE_LIME "#f3ffbb"
+#define COLOR_LIGHT_GREEN "#aaffaa"
+#define COLOR_BRIGHT_LIME "#f7ff57"
 
 // Blue
 #define COLOR_CYAN "#00ffff"
@@ -126,6 +130,7 @@
 #define COLOR_BLUE_VERY_LIGHT "#ccecff"
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75a2bb"
+#define COLOR_MEDIUM_TURQUOISE "#48d1cc"
 
 // Pink
 #define COLOR_PINK "#ffc0cb"
@@ -563,3 +568,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	0.33, 0.33, 0.33,\
 	0.33, 0.33, 0.33,\
 	0.33, 0.33, 0.33)
+
+// Security spear colors
+#define COLOR_SECSPEAR_RED "#ed3f3f"
+#define COLOR_SECSPEAR_BLUE "#3fc4ed"
+#define COLOR_SECSPEAR_YELLOW "#edc73f"
+
+#define COLOR_PROXIMITY_FIELD "#aaffff"
+#define COLOR_PROXIMITY_EDGE "#ffaaff"

@@ -582,6 +582,7 @@
 	drink_name = "стакан пива"
 	drink_desc = "Освежающая пинта пива."
 	taste_description = "мочи"
+	can_synth = FALSE
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

@@ -44,3 +44,11 @@
 		"type" = type, \
 		"payload" = payload, \
 	))))
+
+/**
+ * Gets a ui_state that checks to see if the user has specific admin permissions.
+ *
+ * Arguments:
+ * * required_perms: Which admin permission flags to check the user for, such as [R_ADMIN]
+ */
+#define ADMIN_STATE(required_perms) (GLOB.admin_states["[required_perms]"] ||= new /datum/ui_state/admin_state(required_perms))

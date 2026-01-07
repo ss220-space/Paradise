@@ -86,13 +86,13 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 						break_tile_to_plating()
 					else
 						break_tile()
-					hotspot_expose(1000, CELL_VOLUME)
+					hotspot_expose(1000, 100)
 					if(prob(33))
 						new /obj/item/stack/sheet/metal(src)
 		if(EXPLODE_LIGHT)
 			if(prob(50))
 				break_tile()
-				hotspot_expose(1000, CELL_VOLUME)
+				hotspot_expose(1000, 100)
 
 	return
 
@@ -106,12 +106,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 // Checks if the turf is safe to be on
 /turf/simulated/floor/is_safe()
-	if(!air)
-		return FALSE
-	var/datum/gas_mixture/Z = air
+	var/datum/gas_mixture/Z = get_readonly_air()
 	var/pressure = Z.return_pressure()
 	// Can most things breathe and tolerate the temperature and pressure?
-	if(Z.oxygen < 16 || Z.toxins >= 0.05 || Z.carbon_dioxide >= 10 || Z.sleeping_agent >= 1 || (Z.temperature <= 270) || (Z.temperature >= 360) || (pressure <= 20) || (pressure >= 550))
+	if(Z.oxygen() < 16 || Z.toxins() >= 0.05 || Z.carbon_dioxide() >= 10 || Z.sleeping_agent() >= 1 || (Z.temperature() <= 270) || (Z.temperature() >= 360) || (pressure <= 20) || (pressure >= 550))
 		return FALSE
 	return TRUE
 
@@ -141,6 +139,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	current_overlay = pick(burnt_states())
 	burnt = TRUE
 	update_icon()
+
+/turf/simulated/floor/temperature_expose(temperature, volume)
+	if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST && prob(1))
+		burn_tile()
 
 /turf/simulated/floor/proc/make_plating(make_floor_tile, mob/user)	// Set `make_floor_tile` to FALSE, if `floor_tile` have another drop logic before calling this proc.
 	if(make_floor_tile && floor_tile && !broken && !burnt)

@@ -7,7 +7,7 @@
 	var/modules_spawn_chance = 0
 
 /datum/loot_tier/proc/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)
-	if(!istype(crate))
+	if(!isatom(crate))
 		return
 
 	for(var/i in 1 to loot_count)
@@ -429,6 +429,7 @@
 		/obj/item/melee/energy/sword/pirate,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/weldingtool/sword,
+		/obj/item/twohanded/spear/secspear,
 		/obj/item/dnainjector/hulkmut,
 		/obj/item/dnainjector/farvisionmut,
 		/obj/item/relict_production/strange_teleporter,

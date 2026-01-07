@@ -576,6 +576,24 @@
 		source_list.Cut(chosen_index, chosen_index + 1) // Cut is far more efficient that Remove()
 
 /**
+ * Like pick_weight, but allowing for nested lists.
+ *
+ * For example, given the following list:
+ * list(A = 1, list(B = 1, C = 1))
+ * A would have a 50% chance of being picked,
+ * and list(B, C) would have a 50% chance of being picked.
+ * If list(B, C) was picked, B and C would then each have a 50% chance of being picked.
+ * So the final probabilities would be 50% for A, 25% for B, and 25% for C.
+ *
+ * Weights should be integers. Entries without weights are assigned weight 1 (so unweighted lists can be used as well)
+ */
+/proc/pick_weight_recursive(list/list_to_pick)
+	var/result = pick_weight_classic(fill_with_ones(list_to_pick))
+	while(islist(result))
+		result = pick_weight_classic(fill_with_ones(result))
+	return result
+
+/**
  * Picks a random element by weight from the list and removes it from the list
  *
  * Arguments:
@@ -605,6 +623,25 @@
 		result += picked
 		copy -= picked
 	return result
+
+/**
+ * Given a list, return a copy where values without defined weights are given weight 1.
+ * For example, fill_with_ones(list(A, B=2, C)) = list(A=1, B=2, C=1)
+ * Useful for weighted random choices (loot tables, syllables in languages, etc.)
+ */
+/proc/fill_with_ones(list/list_to_pad)
+	if(!islist(list_to_pad))
+		return list_to_pad
+
+	var/list/final_list = list()
+
+	for(var/key in list_to_pad)
+		if(list_to_pad[key])
+			final_list[key] = list_to_pad[key]
+		else
+			final_list[key] = 1
+
+	return final_list
 
 /**
  * Returns the top (last) element from the list, does not remove it from the list. Stack functionality.
@@ -646,11 +683,11 @@
 
 // MARK: TODO: REF
 //Mergesort: divides up the list into halves to begin the sort
-/proc/sortKey(list/client/L, order = 1)
+/proc/sort_key(list/client/L, order = 1)
 	if(isnull(L) || length(L) < 2)
 		return L
 	var/middle = length(L) / 2 + 1
-	return mergeKey(sortKey(L.Copy(0,middle)), sortKey(L.Copy(middle)), order)
+	return mergeKey(sort_key(L.Copy(0,middle)), sort_key(L.Copy(middle)), order)
 
 // MARK: TODO: REF
 //Mergsort: does the actual sorting and returns the results back to sortAtom
@@ -813,6 +850,8 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
+#define MAX_BITFIELD_BITS 24
+
 /**
  * Converts a bitfield to a list of numbers (or words if a wordlist is provided)
  *
@@ -823,19 +862,21 @@
 /proc/bitfield_to_list(input_bitfield = 0, list/word_list)
 	var/list/result_list = list()
 	if(islist(word_list))
-		var/max_index = min(length(word_list), 24)
+		var/max_index = min(length(word_list), MAX_BITFIELD_BITS)
 		var/current_bit = 1
 		for(var/current_index in 1 to max_index)
 			if(input_bitfield & current_bit)
 				result_list += word_list[current_index]
 			current_bit = current_bit << 1
 	else
-		for(var/bit_position = 0 to 23)
+		for(var/bit_position = 0 to (MAX_BITFIELD_BITS - 1))
 			var/bit_value = 1 << bit_position
 			if(input_bitfield & bit_value)
 				result_list += bit_value
 
 	return result_list
+
+#undef MAX_BITFIELD_BITS
 
 /// Returns the key based on the index
 #define KEYBYINDEX(L, index) (((index <= length(L)) && (index > 0)) ? L[index] : null)

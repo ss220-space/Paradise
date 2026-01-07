@@ -411,7 +411,7 @@
 	name = "Security"
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
-	channels = list(SEC_FREQ_NAME = 1)
+	channels = list(SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/sec
 	borg_skins = list(
 		/datum/robot_skin/default/sec,
@@ -601,23 +601,11 @@
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
 	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
-
-	var/datum/reagents/R = new/datum/reagents(50)
-	if(emag.reagents)
-		qdel(emag.reagents)
-	emag.reagents = R
-	R.my_atom = emag
-	R.add_reagent("beer2", 50)
-	emag.name = "Mickey Finn's Special Brew"
+	emag = new /obj/item/kitchen/knife/butcher/meatcleaver(src)
 
 	fix_modules()
 
 /obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R)
-	if(emag)
-		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
-		B.reagents.add_reagent("beer2", 2)
-
 	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
 	spray?.reagents.add_reagent("pestkiller", 3)
 

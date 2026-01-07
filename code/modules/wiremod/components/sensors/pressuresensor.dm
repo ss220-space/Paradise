@@ -24,7 +24,7 @@
 		result.set_output(null)
 		return
 	//Get environment info
-	var/datum/gas_mixture/environment = location.return_air()
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/total_moles = environment.total_moles()
 	var/pressure = environment.return_pressure()
 	if(total_moles)

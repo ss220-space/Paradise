@@ -132,17 +132,17 @@ BODY SCANNERS
 			if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
 				continue
 
-		var/turf/T = get_turf(in_turf_atom)
-		var/image/I = new(loc = T)
+		var/turf/turf = get_turf(in_turf_atom)
+		var/image/img = new(loc = turf)
 		var/mutable_appearance/MA = new(in_turf_atom)
 		MA.alpha = isliving(in_turf_atom) ? 255 : 128
 		MA.dir = in_turf_atom.dir
 		if(MA.layer < TURF_LAYER)
 			MA.layer += TRAY_SCAN_LAYER_OFFSET
 		MA.plane = GAME_PLANE
-		SET_PLANE_EXPLICIT(MA, GAME_PLANE, T)
-		I.appearance = MA
-		t_ray_images += I
+		SET_PLANE_EXPLICIT(MA, GAME_PLANE, turf)
+		img.appearance = MA
+		t_ray_images += img
 
 	if(length(t_ray_images))
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
@@ -313,7 +313,7 @@ BODY SCANNERS
 
 /obj/item/healthanalyzer/proc/print_report_verb()
 	set name = "Печать отчёта"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src = usr
 
 	var/mob/user = usr
@@ -382,15 +382,21 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type][blood_species_text].<br>"
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type][blood_species_text].<br>"
 		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]]."
+			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	if(scan_data["timeofdeath"])
 		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
@@ -404,7 +410,11 @@ BODY SCANNERS
 		P.header += "<hr>"
 		P.header += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:<br>"
 		for(var/damage in scan_data["damageLocalization"])
-			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <span style='color: red;'><font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
+			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
+
+	if(scan_data["bleedingList"])
+		for(var/bleeding in scan_data["bleedingList"])
+			P.header += span_red("Кровотечение в [bleeding].<br>")
 
 	if(scan_data["fractureList"])
 		for(var/fracture in scan_data["fractureList"])
@@ -425,7 +435,7 @@ BODY SCANNERS
 		for(var/reagent in scan_data["reagentList"])
 			P.header += "&emsp;[reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - <b>ПЕРЕДОЗИРОВКА</b>" : "."]<br>"
 	else
-		P.header += "Реагенты не обнаружены.<br>"
+		P.header += "<br>Реагенты не обнаружены.<br>"
 
 	if(scan_data["addictionList"])
 		P.header += "<b>Обнаружены зависимости от реагентов:</b><br>"
@@ -464,14 +474,14 @@ BODY SCANNERS
 	if(scan_data["brainWorms"])
 		P.header += "<font color='#d82020'>Обнаружены отклонения в работе мозга.</font><br>"
 
-	if(scan_data["brainDamage"] >= 100)
+	if(scan_data["brainDamage"] == "LESS")
+		P.header += "<font color='#d82020'><b>Мозг не обнаружен.</b></font><br>"
+	else if(scan_data["brainDamage"] >= 100)
 		P.header += "<font color='#d82020'><b>Мозг мёртв.</b></font><br>"
 	else if(scan_data["brainDamage"] >= 60)
 		P.header += "<font color='#d82020'><b>Обнаружено серьёзное повреждение мозга.</b></font><br>"
 	else if(scan_data["brainDamage"] >= 10)
 		P.header += "<font color='#d82020'>Обнаружено значительное повреждение мозга.</font><br>"
-	else if(scan_data["brainDamage"] == "LESS")
-		P.header += "<font color='#d82020'><b>Мозг не обнаружен.</b></font><br>"
 
 	if(scan_data["implantDetect"])
 		P.header += "Обнаружены кибернетические модификации:<br>"
@@ -739,30 +749,45 @@ BODY SCANNERS
 
 	var/list/fractureList = list()
 	var/list/infectedList = list()
+	var/list/bleedingList = list()
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		var/limb = e.name
-		if(e.has_fracture())
+		var/limb = bodypart.declent_ru(PREPOSITIONAL)
+		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-			if((e.limb_zone in check_list) && !e.is_splinted())
+			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
 				fractureList += "[limb]"
-		if(e.has_infected_wound())
+		if(bodypart.has_infected_wound())
 			infectedList += "[limb]"
+		if(bodypart.bleeding_amount > 0)
+			var/bleeding = ""
+			if(bodypart.has_arterial_bleeding())
+				bleeding += "Артериальное кровотечение"
+			else if(bodypart.has_heavy_bleeding())
+				bleeding += "Обильное кровотечение"
+			else
+				bleeding += "Кровотечение"
+			bleeding += "  в [limb]"
+			if(bodypart.bleeding_amount <= bodypart.bleedsuppress)
+				bleeding += " – остановлено"
+
+			bleedingList += bleeding
 
 	data["fractureList"] = fractureList
 	data["infectedList"] = infectedList
+	data["bleedingList"] = bleedingList
 
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		if(e.has_fracture())
+		if(bodypart.has_fracture())
 			data["extraFacture"] = TRUE
 			break
-	for(var/obj/item/organ/external/e as anything in H.bodyparts)
-		if(e.has_internal_bleeding())
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		if(bodypart.has_internal_bleeding())
 			data["extraBleeding"] = TRUE
 			break
 
@@ -789,12 +814,12 @@ BODY SCANNERS
 	var/list/scan_data = list()
 	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
-		scan_data += "Состояние: [span_danger("ОШИБКА")]</span></span>"
-		scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font></span>"
-		scan_data += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font></span>"
-		scan_data += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)</span>"
-		scan_data += "Уровень крови: --- %, --- u, тип: ---</span>"
-		scan_data += "Пульс: <font color='#0080ff'>--- bpm.</font></span>"
+		scan_data += "Состояние: [span_danger("ОШИБКА")]"
+		scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
+		scan_data += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font>"
+		scan_data += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)"
+		scan_data += "Уровень крови: --- %, --- u, тип: ---"
+		scan_data += "Пульс: <font color='#0080ff'>--- bpm.</font>"
 		scan_data += "Гены не обнаружены."
 		to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
 		return
@@ -887,26 +912,40 @@ BODY SCANNERS
 		scan_data += span_warning(">Мозг не обнаружен.")
 
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		var/limb = e.name
-		if(e.has_fracture())
+		var/limb = bodypart.name
+		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-			if((e.limb_zone in check_list) && !e.is_splinted())
+			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
 				scan_data += span_warning("Обнаружен перелом в [limb].")
-		if(e.has_infected_wound())
+		if(bodypart.has_infected_wound())
 			scan_data += span_warning("Заражение в [limb].")
-
 	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
 			continue
-		if(e.has_fracture())
+		if(bodypart.bleeding_amount > 0)
+			var/bleed_stat = ""
+			if(bodypart.has_arterial_bleeding())
+				bleed_stat += "артериальное "
+			else if(bodypart.has_heavy_bleeding())
+				bleed_stat += "обильное "
+
+			if(bodypart.bleeding_amount <= bodypart.bleedsuppress)
+				bleed_stat += "остановленное "
+
+			scan_data += span_warning("Обнаружено [bleed_stat]кровотечение в [bodypart.declent_ru(PREPOSITIONAL)].")
+	for(var/name in H.bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+		if(!bodypart)
+			continue
+		if(bodypart.has_fracture())
 			scan_data += span_warning("Обнаружены переломы. Локализация невозможна.")
 			break
-	for(var/obj/item/organ/external/e as anything in H.bodyparts)
-		if(e.has_internal_bleeding())
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		if(bodypart.has_internal_bleeding())
 			scan_data += span_warning("Обнаружено внутреннее кровотечение. Локализация невозможна.")
 			break
 	var/blood_id = H.get_blood_id()
@@ -926,21 +965,27 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
 				blood_type = R.name
 			else
 				blood_type = blood_id
+
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else
-			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	scan_data += "Пульс: <font color='[H.pulse == PULSE_NORM ? "#0080ff" : "red"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
 	var/list/implant_detect = list()
@@ -971,7 +1016,7 @@ BODY SCANNERS
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Вкл/Выкл локализацию"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -1273,9 +1318,20 @@ BODY SCANNERS
  * Gets called by analyzer_act, which in turn is called by tool_act.
  * Also used in other chat-based gas scans.
  */
-/proc/atmos_scan(mob/user, atom/target, silent=FALSE, print=TRUE)
-	var/mixture = target?.return_analyzable_air()
-	if(!mixture)
+/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
+	var/datum/gas_mixture/air
+	var/list/milla = null
+	if(milla_turf_details && istype(target, /turf))
+		milla = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(target, milla)
+		air = new()
+		air.copy_from_milla(milla)
+	else
+		air = target.return_analyzable_air()
+		if(!air)
+			return FALSE
+
+	if(!air)
 		return FALSE
 
 	var/icon = target
@@ -1287,45 +1343,58 @@ BODY SCANNERS
 	if(!print)
 		return TRUE
 
-	var/list/airs = islist(mixture) ? mixture : list(mixture)
-	for(var/datum/gas_mixture/air as anything in airs)
-		var/mix_name = capitalize(lowertext(target.name))
-		if(length(airs) > 1) //not a unary gas mixture
-			var/mix_number = airs.Find(air)
-			message += span_boldnotice("Node [mix_number]")
-			mix_name += " - Node [mix_number]"
+	var/total_moles = air.total_moles()
+	var/pressure = air.return_pressure()
+	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+	var/heat_capacity = air.heat_capacity()
+	var/thermal_energy = air.thermal_energy()
 
-		var/total_moles = air.total_moles()
-		var/pressure = air.return_pressure()
-		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-		var/temperature = air.return_temperature()
-		var/heat_capacity = air.heat_capacity()
-		var/thermal_energy = air.thermal_energy()
+	if(total_moles)
+		message += span_notice("Total: [round(total_moles, 0.01)] moles")
+		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
+			message += span_notice("  Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)")
+		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
+			message += span_notice("  Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)")
+		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
+			message += span_notice("  Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)")
+		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
+			message += span_notice("  Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)")
+		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
+			message += span_notice("  Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)")
+		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
+			message += span_notice("  Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)")
+		if(air.hydrogen() && (milla_turf_details || air.hydrogen() / total_moles > 0.01))
+			message += span_notice("  Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)")
+		if(air.water_vapor() && (milla_turf_details || air.water_vapor() / total_moles > 0.01))
+			message += span_notice("  Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)")
 
-		//TODO: Port gas mixtures from TG
-		if(total_moles > 0)
-			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
-			if(air.oxygen)
-				message += span_notice("Oxygen: [round(air.oxygen, 0.01)] mol ([round(air.oxygen / total_moles*100, 0.01)] %)")
-			if(air.carbon_dioxide)
-				message += span_notice("Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] mol ([round(air.carbon_dioxide / total_moles*100, 0.01)] %)")
-			if(air.nitrogen)
-				message += span_notice("Nitrogen: [round(air.nitrogen, 0.01)] mol ([round(air.nitrogen / total_moles*100, 0.01)] %)")
-			if(air.toxins)
-				message += span_notice("Plasma: [round(air.toxins, 0.01)] mol ([round(air.toxins / total_moles*100, 0.01)] %)")
-			if(air.sleeping_agent)
-				message += span_notice("Nitrous Oxide: [round(air.sleeping_agent, 0.01)] mol ([round(air.sleeping_agent / total_moles*100, 0.01)] %)")
-			if(air.agent_b)
-				message += span_notice("Agent B: [round(air.agent_b, 0.01)] mol ([round(air.agent_b / total_moles*100, 0.01)] %)")
+		message += span_notice("Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)")
+		message += span_notice("Volume: [round(volume)] Liters")
+		message += span_notice("Pressure: [round(pressure, 0.1)] kPa")
+		message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
+		message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
+	else
+		message += span_notice("[target] is empty!")
+		message += span_notice("Volume: [round(volume)] Liters") // don't want to change the order volume appears in, suck it
 
-			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
-			message += span_notice("Volume: [volume] L")
-			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")
-			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
-			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
-		else
-			message += length(airs) > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
-			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it
+	if(milla)
+		// Values from milla/src/lib.rs, +1 due to array indexing difference.
+		message += span_notice("Airtight N/E/S/W: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]")
+		switch(milla[MILLA_INDEX_ATMOS_MODE])
+			// These are enum values, so they don't get increased.
+			if(0)
+				message += span_notice("Atmos Mode: Space")
+			if(1)
+				message += span_notice("Atmos Mode: Sealed")
+			if(2)
+				message += span_notice("Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])")
+			else
+				message += span_notice("Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.")
+		message += span_notice("Superconductivity N/E/S/W: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]")
+		message += span_notice("Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]")
+		message += span_notice("Hotspot: [floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]-T0C)] &deg;C ([floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE])] K), [round(milla[MILLA_INDEX_HOTSPOT_VOLUME] * CELL_VOLUME, 1)] Liters ([milla[MILLA_INDEX_HOTSPOT_VOLUME]]x)")
+		message += span_notice("Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])")
+		message += span_notice("Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles")
 
 	// we let the join apply newlines so we do need handholding
 	to_chat(user, chat_box_examine((jointext(message, "\n"))))
@@ -1705,7 +1774,7 @@ BODY SCANNERS
 	dat += "<th>Other Wounds</th>"
 	dat += "</tr>"
 
-	for(var/obj/item/organ/external/e as anything in target.bodyparts)
+	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
 		dat += "<tr>"
 		var/AN = ""
 		var/open = ""
@@ -1716,19 +1785,20 @@ BODY SCANNERS
 		var/splint = ""
 		var/internal_bleeding = ""
 		var/lung_ruptured = ""
-		if(e.has_internal_bleeding())
+		if(bodypart.has_internal_bleeding())
 			internal_bleeding = "<br>Internal bleeding"
-		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
+		if(istype(bodypart, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"
-		if(e.is_splinted())
+		if(bodypart.is_splinted())
 			splint = "Splinted:"
-		if(e.has_fracture())
-			AN = "[e.broken_description]:"
-		if(e.is_robotic())
+		if(bodypart.has_fracture())
+			AN = "[bodypart.broken_description]:"
+		if(bodypart.is_robotic())
 			robot = "Robotic:"
-		if(e.open)
+		if(bodypart.open)
 			open = "Open:"
-		switch(e.germ_level)
+
+		switch(bodypart.germ_level)
 			if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 				infected = "Mild Infection:"
 			if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
@@ -1744,11 +1814,14 @@ BODY SCANNERS
 			if(INFECTION_LEVEL_THREE to INFINITY)
 				infected = "Septic:"
 
-		if(LAZYLEN(e.embedded_objects) || e.hidden)
+		if(bodypart.bleeding_amount > 0)
+			bled = "[round(bodypart.bleeding_amount, 0.01)] "
+		if(LAZYLEN(bodypart.embedded_objects) || bodypart.hidden)
 			imp += "Unknown body present:"
 		if(!AN && !open && !infected && !imp)
 			AN = "None:"
-		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+
+		dat += "<td>[bodypart.declent_ru(NOMINATIVE)]</td><td>[bodypart.burn_dam]</td><td>[bodypart.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"
 	for(var/obj/item/organ/internal/organ as anything in target.internal_organs)
 		var/mech = organ.desc

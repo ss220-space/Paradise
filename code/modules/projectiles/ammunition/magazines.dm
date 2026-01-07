@@ -56,7 +56,7 @@
 			if(new_casing.loc != src)
 				new_casing.forceMove(src)
 			if(casing)
-				casing.forceMove(drop_location())
+				casing.forceMove(get_turf(user))
 				playsound(casing.loc, casing.casing_drop_sound, 60, TRUE)
 				casing.pixel_x = rand(-10, 10)
 				casing.pixel_y = rand(-10, 10)

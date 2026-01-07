@@ -20,7 +20,7 @@
 		machine.check_eye(src)
 
 	if(malfhack?.aidisabled)
-		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
+		to_chat(src, span_danger("ERROR: APC access disabled, hack attempt canceled."))
 		deltimer(malfhacking)
 		// This proc handles cleanup of screen notifications and
 		// messenging the client
@@ -34,18 +34,21 @@
 	var/area/my_area = get_area(src)
 
 	if(!lacks_power())
-		if(aiRestorePowerRoutine > 1)
+		if(aiRestorePowerRoutine > POWER_RESTORATION_START)
 			update_blind_effects()
-			aiRestorePowerRoutine = 0
+			aiRestorePowerRoutine = POWER_RESTORATION_OFF
 			update_sight()
-			to_chat(src, "Alert cancelled. Power has been restored[aiRestorePowerRoutine == 2 ? "without our assistance" : ""].")
+			to_chat(src, "Alert cancelled. Power has been restored[aiRestorePowerRoutine == POWER_RESTORATION_SEARCH_APC ? "without our assistance" : ""].")
+			send_ai_alarm(recover = TRUE)
 	else
 		if(lacks_power())
 			if(!aiRestorePowerRoutine)
 				update_blind_effects()
-				aiRestorePowerRoutine = 1
+				aiRestorePowerRoutine = POWER_RESTORATION_START
+				send_ai_alarm("Потеряно питание ИИ!")
 				update_sight()
-				to_chat(src, "<span class='danger'>You have lost power!</span>")
+				to_chat(src, span_danger("You have lost power!"))
+
 				if(!is_special_character(src))
 					set_zeroth_law("")
 					SSticker?.score?.save_silicon_laws(src, additional_info = "zero law was deleted due to power lost", log_all_laws = TRUE)
@@ -57,7 +60,8 @@
 					T = get_turf(src)
 					if(!lacks_power())
 						to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
-						aiRestorePowerRoutine = 0
+						aiRestorePowerRoutine = POWER_RESTORATION_OFF
+						send_ai_alarm(recover = TRUE)
 						update_blind_effects()
 						update_sight()
 						return
@@ -68,7 +72,7 @@
 					T = get_turf(src)
 					if(isspaceturf(T))
 						to_chat(src, "Unable to verify! No power connection detected!")
-						aiRestorePowerRoutine = 2
+						aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
 						return
 					to_chat(src, "Connection verified. Searching for APC in power network.")
 					sleep(50)
@@ -78,8 +82,7 @@
 
 					var/obj/machinery/power/apc/theAPC = null
 
-					var/PRP
-					for(PRP = 1, PRP <= 4, PRP++)
+					for(var/PRP in 1 to 4)
 						for(var/obj/machinery/power/apc/APC in my_area)
 							if(!(APC.stat & BROKEN))
 								theAPC = APC
@@ -91,12 +94,13 @@
 									to_chat(src, "Unable to locate APC!")
 								else
 									to_chat(src, "Lost connection with the APC!")
-							aiRestorePowerRoutine = 2
+							aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
 							return
 
 						if(!lacks_power())
 							to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
-							aiRestorePowerRoutine = 0
+							aiRestorePowerRoutine = POWER_RESTORATION_OFF
+							send_ai_alarm(recover = TRUE)
 							update_blind_effects()
 							update_sight()
 							to_chat(src, "Here are your current laws:")
@@ -116,10 +120,10 @@
 								to_chat(src, "Receiving control information from APC.")
 								sleep(2)
 								//bring up APC dialog
-								apc_override = 1
+								apc_override = TRUE
 								theAPC.attack_ai(src)
-								apc_override = 0
-								aiRestorePowerRoutine = 3
+								apc_override = FALSE
+								aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
 						sleep(50)
 						theAPC = null
 
@@ -127,6 +131,10 @@
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss())
+
+	if(health <= maxHealth * 0.5 && health > 0)
+		send_ai_alarm("Обнаружено критическое повреждение ИИ. Уровень целостности: [round((health / maxHealth) * 100)]%")
+
 	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/silicon/ai/proc/lacks_power()
@@ -137,3 +145,64 @@
 /mob/living/silicon/ai/rejuvenate()
 	..()
 	add_ai_verbs(src)
+
+#define AI_MONITORING_SYSTEM "Система мониторинга ИИ"
+#define AI_ALARM_COOLDOWN (1 MINUTES)
+
+/mob/living/silicon/ai/proc/send_ai_alarm(reason = "Сообщите об этом в баг-репорт.", recover = FALSE)
+	if(recover)
+		send_ai_recover_alarm()
+		return
+
+	if(!COOLDOWN_FINISHED(src, ai_alarm_cooldown))
+		return
+
+	COOLDOWN_START(src, ai_alarm_cooldown, AI_ALARM_COOLDOWN)
+	ai_recover_alarm_enabled = TRUE
+
+	var/announcement = "Внимание! [reason] Требуется срочное вмешательство."
+	send_ai_notification(announcement)
+
+/mob/living/silicon/ai/proc/send_ai_recover_alarm()
+	if(!ai_recover_alarm_enabled)
+		return
+
+	if(!COOLDOWN_FINISHED(src, ai_recover_alarm_cooldown))
+		return
+
+	COOLDOWN_START(src, ai_recover_alarm_cooldown, AI_ALARM_COOLDOWN)
+	COOLDOWN_RESET(src, ai_alarm_cooldown)
+	ai_recover_alarm_enabled = FALSE
+
+	var/announcement = "Питание ИИ восстановлено."
+	send_ai_notification(announcement)
+
+/mob/living/silicon/ai/proc/send_ai_notification(message)
+	var/obj/machinery/message_server/message_server = find_pda_server()
+	if(!message_server)
+		return
+
+	radio_announce(message, AI_MONITORING_SYSTEM, COMM_FREQ, src)
+
+	var/obj/item/pda/dummy_pda = new /obj/item/pda()
+	dummy_pda.owner = AI_MONITORING_SYSTEM
+	var/datum/data/pda/app/messenger/sender_messenger = dummy_pda.find_program(/datum/data/pda/app/messenger)
+
+	if(!sender_messenger)
+		qdel(dummy_pda)
+		return
+
+	for(var/obj/item/pda/pda as anything in GLOB.PDAs)
+		if(!(pda.ownjob in GLOB.ai_death_alarm_jobs))
+			continue
+
+		var/datum/data/pda/app/messenger/messenger = pda.find_program(/datum/data/pda/app/messenger)
+		if(!messenger?.can_receive())
+			continue
+
+		sender_messenger.create_message(pda, message = message)
+
+	qdel(dummy_pda)
+
+#undef AI_MONITORING_SYSTEM
+#undef AI_ALARM_COOLDOWN

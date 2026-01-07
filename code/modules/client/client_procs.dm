@@ -190,12 +190,12 @@
 
 /client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
-		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
+		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, FALSE))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
 			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_SEC_MIN(wait_time)] перед отправкой нового сообщения."), confidential=TRUE)
 			return 1
 		last_message_time = world.time
-	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
+	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, FALSE) && last_message == message)
 		last_message_count++
 		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
 			return FALSE
@@ -238,8 +238,10 @@
 
 	if(connection != "seeker") //Invalid connection type.
 		return null
+
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
+
 	if(byond_build < CONFIG_GET(number/minimum_client_build))
 		version_blocked = TRUE
 
@@ -262,6 +264,10 @@
 		persistent_client = new(ckey)
 		persistent_client.byond_build = byond_build
 		persistent_client.byond_version = byond_version
+
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "+find"))
+		winset(src, null, list("browser-options" = "+refresh"))
 
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
@@ -399,6 +405,8 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			playercount += 1
+	spawn(10 SECONDS)
+		load_donations()
 
 	// Update the state of the panic bunker based on current playercount
 	var/threshold = CONFIG_GET(number/panic_bunker_threshold)
@@ -410,6 +418,44 @@
 	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
+
+/client/proc/load_donations()
+	UNTIL(SSdonations.initialized)
+
+	if(!SSdbcore.IsConnected())
+		return
+
+	tgui_panel.window.send_message("donations/load_data", list(
+		"month_donations" = SSdonations.month_donations,
+		"target_donation" = SSdonations.target_donation,
+		"tts_target_donation" = SSdonations.tts_target_donation,
+		"donations_text" = SSdonations.donations_text,
+		"boosty_url" = SSdonations.boosty_url,
+		"kofi_url" = SSdonations.kofi_url,
+		"discord_url"= SSdonations.discord_url,
+	))
+	check_donator_achivements()
+
+/client/proc/check_donator_achivements()
+	var/count = SSdonations.get_donations_count(ckey)
+	var/amount = SSdonations.get_donations_amount(ckey)
+
+	if(!count)
+		return
+
+	if(count >= 0)
+		give_award(/datum/award/achievement/donations/first_time, mob)
+
+	if(count >= PERMANENT_SPONSOR_COUNT)
+		give_award(/datum/award/achievement/donations/permanent_sponsor, mob)
+
+	if(amount >= BRONZE_LEVEL)
+		give_award(/datum/award/achievement/donations/bronze_sponsor, mob)
+
+	if(amount < PLATINUM_LEVEL)
+		return
+
+	give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses
@@ -439,7 +485,7 @@
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 
-	persistent_client.client = null
+	persistent_client?.client = null
 
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
@@ -531,7 +577,7 @@
 	if(!SSdbcore.IsConnected())
 		return
 
-	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
+	if(check_rights(R_ADMIN, FALSE, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
 		donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
 		return
@@ -1140,20 +1186,15 @@
 /// Attempts to make the client orbit the given object, for administrative purposes.
 /// If they are not an observer, will try to aghost them.
 /client/proc/admin_follow(atom/movable/target)
-	var/can_ghost = TRUE
-
 	if(!isobserver(mob))
-		can_ghost = admin_ghost()
-
-	if(!can_ghost)
-		return FALSE
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_ghost)
 
 	var/mob/dead/observer/observer = mob
 	observer.ManualFollow(target)
 
 /client/verb/toggle_fullscreen()
 	set name = "Полный экран"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	fullscreen = !fullscreen
 
@@ -1201,7 +1242,7 @@
 /client/verb/fit_viewport()
 	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1270,7 +1311,7 @@
 /client/verb/fix_title_screen()
 	set name = "Починить меню лобби"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1283,7 +1324,7 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))

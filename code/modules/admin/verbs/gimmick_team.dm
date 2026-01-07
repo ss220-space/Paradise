@@ -1,13 +1,10 @@
 // Gimmick Team
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
-/client/proc/gimmick_team()
-	set category = STATPANEL_ADMIN_EVENT
-	set name = "Отправить Гиммик тим"
-	set desc = "Спавнит команду игроков в выбранной экипировке."
-	if(!check_rights(R_EVENT))
-		return
+ADMIN_VERB(gimmick_team, R_EVENT, "Отправить \"Гиммик комманду\"", "Спавнит команду игроков в выбранной экипировке.", ADMIN_CATEGORY_EVENTS)
+	user.gimmick_team()
 
+/client/proc/gimmick_team()
 	if(!SSticker)
 		tgui_alert(src, "Игра ещё не началась!")
 		return
@@ -85,7 +82,7 @@
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<br><span class='danger'><b>[themission]</b></span>")
+		to_chat(H, "<br>[span_danger("<b>[themission]</b>")]")
 		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)

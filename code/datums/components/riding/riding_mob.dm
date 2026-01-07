@@ -34,7 +34,7 @@
 	if(isanimal(parent))
 		var/mob/living/simple_animal/simple_parent = parent
 		simple_parent.stop_automated_movement = FALSE
-	REMOVE_TRAIT(parent, TRAIT_AI_PAUSED, ref(src))
+	REMOVE_TRAIT(parent, TRAIT_AI_PAUSED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /datum/component/riding/creature/RegisterWithParent()
@@ -82,7 +82,7 @@
 	rider.layer = initial(rider.layer)
 	if(can_be_driven)
 		//let the player take over if they should be controlling movement
-		ADD_TRAIT(ridden, TRAIT_AI_PAUSED, ref(src))
+		ADD_TRAIT(ridden, TRAIT_AI_PAUSED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /datum/component/riding/creature/vehicle_mob_unbuckle(mob/living/formerly_ridden, mob/living/former_rider, force = FALSE)
@@ -93,7 +93,7 @@
 		*/
 	//remove_abilities(former_rider)
 	if(!length(formerly_ridden.buckled_mobs))
-		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, ref(src))
+		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, UNIQUE_TRAIT_SOURCE(src))
 	// We gotta reset those layers at some point, don't we?
 	former_rider.layer = MOB_LAYER
 	formerly_ridden.layer = MOB_LAYER

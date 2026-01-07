@@ -659,7 +659,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Создать ловушку"
-	set category = STATPANEL_SWARMER
+	set category = VERB_CATEGORY_SWARMER
 	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources."
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
@@ -668,7 +668,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
 	set name = "Создать баррикаду"
-	set category = STATPANEL_SWARMER
+	set category = VERB_CATEGORY_SWARMER
 	set desc = "Creates a barricade that will stop anything but swarmers and disabler beams from passing through."
 	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, span_warning("There is already a blockade here. Aborting."))
@@ -693,7 +693,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Репликация"
-	set category = STATPANEL_SWARMER
+	set category = VERB_CATEGORY_SWARMER
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, span_notice("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
 	if(resources < 100)
@@ -712,7 +712,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
 	set name = "Саморемонт"
-	set category = STATPANEL_SWARMER
+	set category = VERB_CATEGORY_SWARMER
 	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
 	if(!isturf(loc))
 		return

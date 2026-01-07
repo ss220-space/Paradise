@@ -36,7 +36,7 @@
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
 		update_icon(UPDATE_ICON_STATE)
-	soundloop = new(list(src))
+	soundloop = new(src)
 	become_hearing_sensitive()
 
 /obj/item/taperecorder/Destroy()
@@ -440,7 +440,7 @@
 
 /obj/item/tape/verb/wipe()
 	set name = "Стереть плёнку"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr

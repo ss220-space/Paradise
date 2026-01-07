@@ -18,9 +18,12 @@
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_on = FALSE
-	var/on = FALSE
-	var/togglesound = 'sound/weapons/empty.ogg'
+	light_color = COLOR_LIGHT_YELLOW
 	toolbox_radial_menu_compatibility = TRUE
+	/// Should the flashlight start turned on?
+	var/on = FALSE
+	/// The sound the light makes when it's turned on/off
+	var/togglesound = 'sound/weapons/empty.ogg'
 
 /obj/item/flashlight/get_ru_names()
 	return list(
@@ -222,6 +225,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list()
 	on = TRUE
+	light_color = COLOR_PALE_YELLOW
 
 /obj/item/flashlight/lamp/get_ru_names()
 	return list(
@@ -238,6 +242,7 @@
 	desc = "Стационарный источник света. Классический вариант зелёного цвета."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
+	light_color = COLOR_LIGHT_GREEN
 
 /obj/item/flashlight/lamp/green/get_ru_names()
 	return list(
@@ -255,6 +260,7 @@
 			банановой кожуры и дурацким шнуром включения."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
+	light_color = COLOR_BRIGHT_LIME
 
 /obj/item/flashlight/lamp/bananalamp/get_ru_names()
 	return list(
@@ -322,7 +328,7 @@
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
 	if(pos && produce_heat)
-		pos.hotspot_expose(produce_heat, 5)
+		pos.hotspot_expose(produce_heat, 1)
 	fuel = max(fuel - 1, 0)
 	if(!fuel || !on)
 		turn_off()
@@ -580,8 +586,7 @@
 /obj/item/flashlight/slime
 	name = "glowing slime extract"
 	desc = "Светящийся комок слизи янтарного цвета."
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
-	item_state = "slime"
+	icon_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	light_range = 6
 	light_system = MOVABLE_LIGHT
