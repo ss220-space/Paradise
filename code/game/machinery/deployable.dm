@@ -551,10 +551,6 @@
 	)
 	color = target_matrix
 
-#undef SINGLE
-#undef VERTICAL
-#undef HORIZONTAL
-
 #undef METAL
 #undef WOOD
 #undef SAND

@@ -417,5 +417,3 @@
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
-
-#define TRAIT_MESON_VISION "meson_vision"
