@@ -1,7 +1,9 @@
 // One and only
 /obj/item/melee/baton/security
 	name = "stunbaton"
-	desc = "A stun baton for incapacitating people with."
+	desc = "Несмертельное средство обезвреживания. Удар во включенном состоянии генерирует маломощный электрический импульс, \
+			вызывающий резкое сокращение мышц цели и последующее оглушение. Работает от сменного аккумулятора. \
+			Используется многими силовыми и охранными структурами по всей Галактике."
 	icon_state = "stunbaton"
 	base_icon_state = "stunbaton"
 	item_state = "baton"
@@ -28,6 +30,16 @@
 	var/obj/item/stock_parts/cell/cell
 	/// How much power does it cost to stun someone.
 	var/cell_hit_cost = 500
+
+/obj/item/melee/baton/security/get_ru_names()
+	return list(
+		NOMINATIVE = "оглушающая дубинка",
+		GENITIVE = "оглушающей дубинки",
+		DATIVE = "оглушающей дубинке",
+		ACCUSATIVE = "оглушающую дубинку",
+		INSTRUMENTAL = "оглушающей дубинкой",
+		PREPOSITIONAL = "оглушающей дубинке"
+	)
 
 /obj/item/melee/baton/security/Initialize(mapload)
 	. = ..()
@@ -80,14 +92,14 @@
 /obj/item/melee/baton/security/examine(mob/user)
 	. = ..()
 	if(isrobot(loc))
-		. += span_notice("This baton is drawing power directly from your own internal charge.")
+		. += span_notice("Заряжается напрямую от вашей внутренней батареи.")
 	if(cell)
-		. += span_notice("The baton is [round(cell.percent())]% charged.")
+		. += span_notice("Индикатор заряда: <b>[round(cell.percent())]%</b>.")
 	else
-		. += span_warning("The baton does not have a power source installed.")
+		. += span_boldwarning("Батарея отсутствует.")
 
 /obj/item/melee/baton/security/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide."))
+	user.visible_message(span_suicide("[user.declent_ru(NOMINATIVE)] засовыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в рот и включа[PLUR_ET_YUT(user)]! Это похоже на попытку самоубийства!"))
 	return FIRELOSS
 
 /obj/item/melee/baton/security/proc/deductcharge(amount)
@@ -132,17 +144,17 @@
 /obj/item/melee/baton/security/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!cell)
-		balloon_alert(user, "батарейка отсутствует!")
+		balloon_alert(user, "батарея отсутствует!")
 		return .
 	if(isrobot(loc))
-		balloon_alert(user, "дурацкая идея!")
+		balloon_alert(user, "невозможно!")
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 
 	cell.forceMove_turf()
 	user.put_in_hands(cell, ignore_anim = FALSE)
-	balloon_alert(user, "батарейка извлечена")
+	balloon_alert(user, "батарея извлечена")
 	cell.update_icon()
 	cell = null
 	active = FALSE
@@ -157,7 +169,7 @@
 		if(isrobot(loc))
 			balloon_alert(user, "недостаточно заряда!")
 		else if(!cell)
-			balloon_alert(user, "отсутствует батарейка!")
+			balloon_alert(user, "батарея отсутствует!")
 		else
 			balloon_alert(user, "разряжено!")
 	update_icon(UPDATE_ICON_STATE)
@@ -187,21 +199,16 @@
 /// After the initial stun period, we check to see if the target needs to have the stun applied.
 /obj/item/melee/baton/security/proc/apply_stun_effect_end(mob/living/target)
 	if(!target.IsKnockdown())
-		to_chat(target, span_warning("Your muscles seize, making you collapse!"))
+		to_chat(target, span_warning("Ваши мышцы сводит судорогой, и вы падаете на землю!"))
 	target.Knockdown(knockdown_time)
 
 /obj/item/melee/baton/security/get_wait_description()
-	return span_danger("The baton is still charging!")
+	return "заряжается!"
 
 /obj/item/melee/baton/security/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
-	.["visible"] = span_danger("[user] stuns [target] with [src]!")
-	.["local"] = span_userdanger("[user] stuns you with [src]!")
-
-/obj/item/melee/baton/security/get_unga_dunga_cyborg_stun_description(mob/living/target, mob/living/user)
-	. = list()
-	.["visible"] = span_danger("[user] tries to stun [target] with [src], and predictably fails!")
-	.["local"] = span_userdanger("[user] tries to... stun you with [src]?")
+	.["visible"] = span_danger("[user.declent_ru(NOMINATIVE)] оглуша[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] ударом [declent_ru(GENITIVE)]!")
+	.["local"] = span_userdanger("[user.declent_ru(NOMINATIVE)] оглуша[PLUR_ET_YUT(user)] вас ударом [declent_ru(GENITIVE)]!")
 
 /obj/item/melee/baton/security/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
@@ -217,8 +224,8 @@
 		flick("baton_active", source)
 		finalize_baton_attack(user, user, in_attack_chain = FALSE)
 		user.visible_message(
-			span_warning("[user] shocks [user.p_themselves()] while attempting to wash the active [src]!"),
-			span_userdanger("You unwisely attempt to wash [src] while it's still on."),
+			span_warning("[user] получа[PLUR_ET_YUT(user)] удар током при попытке помыть включённую [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("Вы получаете удар током при попытке помыть включённую [declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, SFX_SPARKS, 50, TRUE)
 		deductcharge(cell_hit_cost)
@@ -228,7 +235,9 @@
 // Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/security/cattleprod
 	name = "stunprod"
-	desc = "An improvised stun baton."
+	desc = "Кустарное оружие несмертельного действия. Представляет собой металлический прут с прикреплённым воспламенителем, \
+			запитанным от батареи. Громоздкий и неудобный аналог стандартных оглушающих дубинок."
+	gender = MALE
 	icon_state = "stunprod_nocell"
 	base_icon_state = "stunprod"
 	item_state = "prod"
@@ -240,6 +249,17 @@
 	slot_flags = ITEM_SLOT_BACK
 	/// Our prescious sparks holder
 	var/obj/item/assembly/igniter/sparkler
+
+/obj/item/melee/baton/security/cattleprod/get_ru_names()
+	return list(
+		NOMINATIVE = "оглушающий прут",
+		GENITIVE = "оглушающего прута",
+		DATIVE = "оглушающему пруту",
+		ACCUSATIVE = "оглушающий прут",
+		INSTRUMENTAL = "оглушающий прутом",
+		PREPOSITIONAL = "оглушающем пруте"
+	)
+
 
 /obj/item/melee/baton/security/cattleprod/Initialize(mapload)
 	. = ..()
@@ -261,11 +281,23 @@
 // Teleprod
 /obj/item/melee/baton/security/cattleprod/teleprod
 	name = "teleprod"
-	desc = "A prod with a bluespace crystal on the end. The crystal doesn't look too fun to touch."
+	desc = "Металлический прут с прикреплённым блюспейс-кристаллом, \
+			подключённым к батарее. От наконечника кристалла веет странной энергией. \
+			Его точно безопасно трогать?"
 	icon_state = "teleprod_nocell"
 	base_icon_state = "teleprod"
 	item_state = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"
+
+/obj/item/melee/baton/security/cattleprod/teleprod/get_ru_names()
+	return list(
+		NOMINATIVE = "теле-прут",
+		GENITIVE = "теле-прута",
+		DATIVE = "теле-пруту",
+		ACCUSATIVE = "теле-прут",
+		INSTRUMENTAL = "теле-прутом",
+		PREPOSITIONAL = "теле-пруте"
+	)
 
 /obj/item/melee/baton/security/cattleprod/teleprod/clumsy_check(mob/living/carbon/human/user, mob/living/intented_target)
 	. = ..()

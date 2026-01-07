@@ -50399,16 +50399,16 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/stamp/denied{
-	pixel_y = 10;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 10
 	},
 /obj/item/stamp/granted{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -52216,15 +52216,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ggC" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	external_pressure_bound = 0;
-	internal_pressure_bound = 4000;
-	pressure_checks = 2;
-	releasing = 0
-	},
 /obj/structure/sign/poster/official/space_a{
 	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
 	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
@@ -54417,6 +54413,7 @@
 "hhu" = (
 /obj/structure/cable,
 /obj/machinery/power/turbine,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
 "hir" = (
@@ -54909,16 +54906,16 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/stamp/granted{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /obj/item/stamp/denied{
-	pixel_y = 10;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -61824,6 +61821,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
+"kxX" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/sign/turbine,
+/turf/simulated/wall/r_wall/coated,
+/area/maintenance/turbine)
 "kym" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -64125,6 +64127,11 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"lzl" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/sign/magboots,
+/turf/simulated/wall/r_wall/coated,
+/area/maintenance/turbine)
 "lzq" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/cobweb2,
@@ -65771,16 +65778,16 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/stamp/denied{
-	pixel_y = 10;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 10
 	},
 /obj/item/stamp/granted{
-	pixel_y = 10;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -71885,8 +71892,8 @@
 	pixel_y = 5
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /obj/item/pen{
 	pixel_y = 7
@@ -79770,6 +79777,9 @@
 /obj/machinery/igniter{
 	id = "gasturbine"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
 "swC" = (
@@ -82028,8 +82038,8 @@
 	pixel_y = 4
 	},
 /obj/item/storage/box/donkpockets{
-	pixel_y = 4;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_y = 8
@@ -82227,10 +82237,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "tvg" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	frequency = 1443;
-	id = "air_in"
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1
 	},
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
@@ -89135,6 +89143,7 @@
 	comp_id = "incineratorturbine";
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/turbine)
 "wsZ" = (
@@ -92600,6 +92609,12 @@
 	icon_state = "white"
 	},
 /area/toxins/explab)
+"xQp" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1
+	},
+/turf/simulated/floor/engine/insulated,
+/area/maintenance/turbine)
 "xQX" = (
 /obj/structure/rack{
 	dir = 8;
@@ -131316,12 +131331,12 @@ dcV
 ddg
 dlI
 fRU
-dlI
+lzl
 tvg
 dlm
 dlm
+dlm
 sza
-uTI
 doE
 uTI
 uTI
@@ -131577,8 +131592,8 @@ eFb
 svV
 wsN
 hhu
+xQp
 guB
-uTI
 doE
 uTI
 uTI
@@ -131830,12 +131845,12 @@ dda
 ddh
 dlI
 dll
-dlI
+kxX
 ggC
 dlm
 dlm
+dlm
 sza
-uTI
 doE
 uTI
 uTI

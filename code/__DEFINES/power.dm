@@ -12,3 +12,5 @@
 #define WATTS * WATT
 ///The joule is the standard unit of energy for this codebase. You can use this with other defines to clarify that it will not be multiplied by time.
 #define JOULES * JOULE
+/// Conversion ratio from Watt over a machine process tick time to Joules
+#define WATT_TICK_TO_JOULE 2

@@ -397,6 +397,14 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_DISPOSALS_JUNCTION_LEFT
 	pipe_icon = "pipe-j2"
 
+/datum/pipes/atmospheric/temperature_gate
+	pipe_name = "temperature gate"
+	pipe_id = PIPE_TEMPERATURE_GATE
+	orientations = 4
+	pipe_icon = "temperature_gate"
+	pipe_category = RPD_DEVICES
+	rpd_dispensable = TRUE
+
 /proc/get_pipe_name(pipe_id, pipe_type)
 	for(var/datum/pipes/P in GLOB.construction_pipe_list)
 		if(P.pipe_id == pipe_id && P.pipe_type == pipe_type)
