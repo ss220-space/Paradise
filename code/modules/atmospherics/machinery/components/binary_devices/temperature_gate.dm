@@ -1,11 +1,7 @@
 /obj/machinery/atmospherics/binary/temperature_gate
-
 	name = "temperature gate"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/temperature_gate.dmi'
 	icon_state = "map"
-
-	name = "temperature gate"
-
 	can_unwrench = TRUE
 
 	// if the temperature of the input mix is lower than this, gas will flow (or higher if inverted)
@@ -135,11 +131,11 @@
 			. = TRUE
 
 		if("min_temp")
-			target_temperature = 0
+			target_temperature = TCMB
 			. = TRUE
 
 		if("custom_temperature")
-			target_temperature = clamp(text2num(params["temperature"]), 0 , maximum_temperature)
+			target_temperature = clamp(text2num(params["temperature"]), TCMB , maximum_temperature)
 			. = TRUE
 
 	if(.)
