@@ -29,6 +29,8 @@
  */
 /datum/data/vending_product
 	name = "generic"
+	/// Shorter name of the product (for Grid layout in TGUI)
+	var/short_name = ""
 	/// Description of the vending product
 	var/desc = ""
 	/// Typepath of the product that is created when this record "sells"
@@ -511,6 +513,7 @@
 		var/obj/item/item = new typepath(src)
 		var/datum/data/vending_product/new_record = new /datum/data/vending_product()
 		new_record.name = capitalize(item.declent_ru(NOMINATIVE))
+		new_record.short_name = capitalize(item.get_short_name())
 		new_record.desc = item.desc
 		qdel(item)
 		new_record.product_path = typepath
@@ -1007,9 +1010,9 @@
 		var/list/static_record = list(
 			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
 			name = capitalize(item.declent_ru(NOMINATIVE)),
+			short_name = capitalize(item.get_short_name()),
 			desc = item.desc,
 			price = product_record.price,
-			max_amount = product_record.max_amount,
 			ref = product_record.UID()
 		)
 

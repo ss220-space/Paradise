@@ -35,12 +35,10 @@ type Category = {
 };
 
 type ProductRecord = {
-  is_hidden: boolean;
-  req_coin: boolean;
   price: number;
   name: string;
+  short_name: string;
   desc: string;
-  max_amount: number;
   ref: string;
   category: string;
   icon?: string;
@@ -274,6 +272,7 @@ const Product = (props) => {
     base64: product.image,
     dmIcon: product.icon,
     dmIconState: product.icon_state,
+    asset: ['vending32x32', product.path],
     disabled: disabled,
     tooltipPosition: 'bottom',
     product: product,
@@ -315,7 +314,7 @@ const ProductGrid = (props) => {
       }
       tooltip={`${product.name}`}
       buttonsAlt={
-        <Stack fontSize={0.9}>
+        <Stack fontSize={0.8}>
           <Stack.Item grow textAlign={'left'}>
             <ProductPrice {...priceProps} />
           </Stack.Item>
@@ -325,7 +324,7 @@ const ProductGrid = (props) => {
         </Stack>
       }
     >
-      {product.name}
+      {product.short_name}
     </ImageButton>
   );
 };
