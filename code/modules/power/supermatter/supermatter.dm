@@ -1,9 +1,4 @@
-//Ported from /vg/station13, which was in turn forked from baystation12;
-//Please do not bother them with bugs from this port, however, as it has been modified quite a bit.
-//Modifications include removing the world-ending full supermatter variation, and leaving only the shard.
-
 //Zap constants, speeds up targeting
-
 #define COIL (ROD + 1)
 #define ROD (LIVING + 1)
 #define LIVING (MACHINERY + 1)
@@ -362,37 +357,52 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	set waitfor = FALSE
 
 	if(final_countdown) // We're already doing it go away
+		stack_trace("[src] told to delaminate again while it's already delaminating.")
 		return
+
+	notify_ghosts(
+		"[declent_ru(NOMINATIVE)] начал процесс расслаивания!",
+		source = src,
+		title = "Надвигается катастрофа",
+	)
+
 	final_countdown = TRUE
 
 	var/image/causality_field = image(icon, null, "causality_field")
 	add_overlay(causality_field)
 
 	var/speaking = span_reallybig("[emergency_alert] Целостность суперматерии достигла критической точки. Активировано поле экстренной дестабилизации причинно-следственной связи.")
-	for(var/mob/M in GLOB.player_list) // for all players
-		var/turf/T = get_turf(M)
-		if(istype(T) && are_zs_connected(T, src)) // if the player is on the same zlevel as the SM shared
-			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
+	for(var/mob/target as anything in GLOB.player_list) // for all players
+		var/turf/target_turf = get_turf(target)
+		if(istype(target_turf) && are_zs_connected(target_turf, src)) // if the player is on the same zlevel as the SM shared
+			SEND_SOUND(target, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
+
 	radio_announce(speaking, name, PUB_FREQ, radio)
+
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(!processes) // Stop exploding if you're frozen by an admin, damn you
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
+
 		if(damage < explosion_point) // Cutting it a bit close there engineers
 			radio_announce(span_big("[safe_alert] Система защиты от сбоев отключена."), name, PUB_FREQ, radio)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
 			return
+
 		else if((i % 50) != 0 && i > 50) // A message once every 5 seconds until the final 5 seconds which count down individualy
 			sleep(1 SECONDS)
 			continue
+
 		else if(i > 50)
 			speaking = "<b>[DisplayTimeText(i, TRUE)] остается до стабилизации причинно-следственной связи.</b>"
+
 		else
 			speaking = span_reallybig("[i * 0.1]...")
+
 		radio_announce(speaking, name, PUB_FREQ, radio)
 		sleep(1 SECONDS)
 
@@ -400,47 +410,48 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/explode(forced_combined_gas = 0, forced_power = 0, forced_gasmix_power_ratio = 0)
 	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
-	for(var/mob in GLOB.alive_mob_list)
-		var/mob/living/L = mob
-		if(istype(L) && are_zs_connected(L, src))
-			if(ishuman(mob))
+	for(var/mob/living/living_mob as anything in GLOB.alive_mob_list)
+		if(istype(living_mob) && are_zs_connected(living_mob, src))
+			if(ishuman(living_mob))
 				//Hilariously enough, running into a closet should make you get hit the hardest.
-				var/mob/living/carbon/human/H = mob
-				var/hallucination_amount = (max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))) SECONDS
-				H.AdjustHallucinate(hallucination_amount)
-			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
-			L.apply_effect(rads, IRRADIATE)
+				var/mob/living/carbon/human/human_mob = living_mob
+				var/hallucination_amount = (max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(living_mob, src) + 1))))) SECONDS
+				human_mob.AdjustHallucinate(hallucination_amount)
 
-	var/turf/T = get_turf(src)
+			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(living_mob, src) + 1))
+			living_mob.apply_effect(rads, IRRADIATE)
+
+	var/turf/source_turf = get_turf(src)
 	var/super_matter_charge_sound = sound('sound/magic/charge.ogg')
-	for(var/player in GLOB.player_list)
-		var/mob/M = player
-		var/turf/mob_turf = get_turf(M)
-		if(are_zs_connected(T, mob_turf))
-			SEND_SOUND(M, super_matter_charge_sound)
+	for(var/mob/player_mob as anything in GLOB.player_list)
+		var/turf/mob_turf = get_turf(player_mob)
+		if(are_zs_connected(source_turf, mob_turf))
+			SEND_SOUND(player_mob, super_matter_charge_sound)
 
-			if(are_zs_connected(M, src))
-				to_chat(M, span_boldannounceic("На мгновение вы ощущаете искажение реальности..."))
+			if(are_zs_connected(player_mob, src))
+				to_chat(player_mob, span_boldannounceic("На мгновение вы ощущаете искажение реальности..."))
 			else
-				to_chat(M, span_boldannounceic("Вы изо всех сил держитесь за [M.loc], пока реальность вокруг вас искажается. Вы чувствуете себя в безопасности."))
+				to_chat(player_mob, span_boldannounceic("Вы изо всех сил держитесь за [player_mob.loc], пока реальность вокруг вас искажается. Вы чувствуете себя в безопасности."))
 
 	if(max(combined_gas, forced_combined_gas) > MOLE_CRUNCH_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", INVESTIGATE_ENGINE)
-		if(T)
-			var/obj/singularity/S = new(T)
-			S.energy = 800
-			S.consume(src)
+		if(source_turf)
+			var/obj/singularity/new_singularity = new(source_turf)
+			new_singularity.energy = 800
+			new_singularity.consume(src)
 			return //No boom for me sir
+
 	else if(max(power, forced_power) > POWER_PENALTY_THRESHOLD)
 		investigate_log("has spawned additional energy balls.", INVESTIGATE_ENGINE)
-		if(T)
-			var/obj/singularity/energy_ball/E = new(T)
-			E.energy = 200 //Gets us about 9 balls
+		if(source_turf)
+			var/obj/singularity/energy_ball/new_energy_ball = new(source_turf)
+			new_energy_ball.energy = 200 //Gets us about 9 balls
 
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
-	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) * 0.5 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 2, explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 4 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 6, 1, 1, cause = "Exploding Supermatter")
+
+	explosion(get_turf(source_turf), explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) * 0.5 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 2, explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 4 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 6, 1, 1, cause = "Exploding Supermatter")
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
@@ -453,24 +464,24 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 /datum/milla_safe/supermatter_process
 
 /datum/milla_safe/supermatter_process/on_run(obj/machinery/atmospherics/supermatter_crystal/supermatter)
-	var/turf/T = get_turf(supermatter)
-	var/datum/gas_mixture/env = get_turf_air(T)
-	supermatter.process_atmos_safely(T, env)
+	var/turf/turf_location = get_turf(supermatter)
+	var/datum/gas_mixture/environment_gas_mixture = get_turf_air(turf_location)
+	supermatter.process_atmos_safely(turf_location, environment_gas_mixture)
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
+/obj/machinery/atmospherics/supermatter_crystal/proc/process_atmos_safely(turf/turf_location, datum/gas_mixture/environment_gas_mixture)
 	if(!processes) //Just fuck me up bro
 		return
 
-	if(isnull(T))		// We have a null turf...something is wrong, stop processing this entity.
+	if(isnull(turf_location))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
 	if(!istype(loc, /turf)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
 		return  //Yeah just stop.
 
-	if(T.density)
-		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
-		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
-			visible_message(span_warning("[declent_ru(NOMINATIVE)] плавится сквозь [T.declent_ru(ACCUSATIVE)]!"))
+	if(turf_location.density)
+		var/turf/changed_turf = turf_location.ChangeTurf(turf_location.baseturf)
+		if(!changed_turf.density) //In case some joker finds way to place these on indestructible walls
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] плавится сквозь [turf_location.declent_ru(ACCUSATIVE)]!"))
 		return
 
 	try_events()
@@ -495,15 +506,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
-	var/datum/gas_mixture/removed
+	var/datum/gas_mixture/removed_gas
 	if(produces_gas)
 		//Remove gas from surrounding area
-		removed = env.remove(gasefficency * env.total_moles())
+		removed_gas = environment_gas_mixture.remove(gasefficency * environment_gas_mixture.total_moles())
 	else
 		// Pass all the gas related code an empty gas container
-		removed = new()
+		removed_gas = new()
 	damage_archived = damage
-	if(!removed || removed.total_moles() <= 0 || isspaceturf(T)) //we're in space or there is no gas to process
+	if(!removed_gas || removed_gas.total_moles() <= 0 || isspaceturf(turf_location)) //we're in space or there is no gas to process
 		if(takes_damage)
 			damage += min(((power + 2000) * 0.002) * DAMAGE_INCREASE_MULTIPLIER, DAMAGE_HARDCAP * explosion_point) // always does at least some damage
 	else
@@ -514,7 +525,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			// ((((some value between 0.5 and 1 * (temp - ((273.15 + 40) * some values between 1 and 10))) * some number between 0.25 and knock your socks off / 150) * 0.25
 			// Heat and mols account for each other, a lot of hot mols are more damaging then a few
 			// Reduced heat damage below 200 Mols
-			var/heat_damage = (max(max(removed.total_moles() / MOLE_PENALTY_THRESHOLD, 0.5) * (removed.temperature() - ((T0C + heat_penalty_threshold) * dynamic_heat_resistance)), 0) * mole_heat_penalty / 50 ) * DAMAGE_INCREASE_MULTIPLIER
+			var/heat_damage = (max(max(removed_gas.total_moles() / MOLE_PENALTY_THRESHOLD, 0.5) * (removed_gas.temperature() - ((T0C + heat_penalty_threshold) * dynamic_heat_resistance)), 0) * mole_heat_penalty / 50 ) * DAMAGE_INCREASE_MULTIPLIER
 			damage = max(damage + heat_damage, 0)
 
 			// Power only starts affecting damage when it is above 5000
@@ -529,12 +540,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
 				//Only has a net positive effect when the temp is below the damage point. Heals up to 2 damage without N2O, going up to 12 with full N2O
-				damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold) * dynamic_heat_resistance, 0) / 150 ), 0)
+				damage = max(damage + (min(removed_gas.temperature() - (T0C + heat_penalty_threshold) * dynamic_heat_resistance, 0) / 150 ), 0)
 
 			//Check for holes in the SM inner chamber.
-			var/turf/here = get_turf(src)
-			for(var/turf/neighbor in here.GetAtmosAdjacentTurfs(alldir = TRUE))
-				if(!isspaceturf(neighbor))
+			var/turf/current_turf = get_turf(src)
+			for(var/turf/neighbor_turf in current_turf.GetAtmosAdjacentTurfs(alldir = TRUE))
+				if(!isspaceturf(neighbor_turf))
 					continue
 				damage += (power + 2000) * 0.002 * DAMAGE_INCREASE_MULTIPLIER
 				break
@@ -545,15 +556,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			damage = min(damage_archived + (DAMAGE_HARDCAP * explosion_point),damage)
 
 		//calculating gas related values
-		combined_gas = max(removed.total_moles(), 0)
+		combined_gas = max(removed_gas.total_moles(), 0)
 
-		plasmacomp = max(removed.toxins() / combined_gas, 0)
-		o2comp = max(removed.oxygen() / combined_gas, 0)
-		co2comp = max(removed.carbon_dioxide() / combined_gas, 0)
-		n2ocomp = max(removed.sleeping_agent() / combined_gas, 0)
-		n2comp = max(removed.nitrogen() / combined_gas, 0)
-		h2comp = max(removed.hydrogen() / combined_gas, 0)
-		h2ocomp = max(removed.water_vapor() / combined_gas, 0)
+		plasmacomp = max(removed_gas.toxins() / combined_gas, 0)
+		o2comp = max(removed_gas.oxygen() / combined_gas, 0)
+		co2comp = max(removed_gas.carbon_dioxide() / combined_gas, 0)
+		n2ocomp = max(removed_gas.sleeping_agent() / combined_gas, 0)
+		n2comp = max(removed_gas.nitrogen() / combined_gas, 0)
+		h2comp = max(removed_gas.hydrogen() / combined_gas, 0)
+		h2ocomp = max(removed_gas.water_vapor() / combined_gas, 0)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp + h2ocomp - n2comp, 0), 1)
 
@@ -594,7 +605,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 
 		if(power_changes)
-			power = max((removed.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
+			power = max((removed_gas.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 		pre_reduction_power = power
 
@@ -604,37 +615,37 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 		//radiation_pulse(src, power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
 
-		for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
-			if(are_zs_connected(R, src) && get_dist(R, src) <= 15) //Better than using orange() every process
-				R.receive_pulse(power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
+		for(var/obj/machinery/power/rad_collector/rad_collector as anything in GLOB.rad_collectors)
+			if(are_zs_connected(rad_collector, src) && get_dist(rad_collector, src) <= 15) //Better than using orange() every process
+				rad_collector.receive_pulse(power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
-		removed.set_toxins(removed.toxins() + max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0))
+		removed_gas.set_toxins(removed_gas.toxins() + max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0))
 		//Varies based on power, gas content, and heat
-		removed.set_oxygen(removed.oxygen() + max((((device_energy + removed.temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0))
+		removed_gas.set_oxygen(removed_gas.oxygen() + max((((device_energy + removed_gas.temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0))
 
 		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-		if(removed.total_moles() >= 1)
+		if(removed_gas.total_moles() >= 1)
 			var/produced_joules = max(0, ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
-			produced_joules *= (removed.heat_capacity() / removed.total_moles())
-			removed.set_temperature((removed.thermal_energy() + produced_joules) / removed.heat_capacity())
+			produced_joules *= (removed_gas.heat_capacity() / removed_gas.total_moles())
+			removed_gas.set_temperature((removed_gas.thermal_energy() + produced_joules) / removed_gas.heat_capacity())
 
 		if(produces_gas)
-			env.merge(removed)
+			environment_gas_mixture.merge(removed_gas)
 
 	//Makes em go mad and accumulate rads.
-	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!HAS_TRAIT(l, TRAIT_MESON_VISION))
-			var/D = sqrt(1 / max(1, get_dist(l, src)))
-			var/hallucination_amount = power * hallucination_power * D
-			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
-	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
-		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
-		l.apply_effect(rads, IRRADIATE)
+	for(var/mob/living/carbon/human/human_mob in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
+		if(!HAS_TRAIT(human_mob, TRAIT_MESON_VISION))
+			var/distance_factor = sqrt(1 / max(1, get_dist(human_mob, src)))
+			var/hallucination_amount = power * hallucination_power * distance_factor
+			human_mob.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
+	for(var/mob/living/living_mob in range(src, round((power / 100) ** 0.25)))
+		var/rads = (power / 10) * sqrt( 1 / max(get_dist(living_mob, src), 1) )
+		living_mob.apply_effect(rads, IRRADIATE)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -644,15 +655,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
 	if((power * gas_coefficient) > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000, if the damage is above 550, or mole crushing
-		var/range = 4
+		var/zap_range = 4
 		zap_cutoff = 1500
-		if(removed && removed.return_pressure() > 0 && removed.temperature() > 0)
+		if(removed_gas && removed_gas.return_pressure() > 0 && removed_gas.temperature() > 0)
 			//You may be able to freeze the zapstate of the engine with good planning, we'll see
-			zap_cutoff = clamp(3000 - (power * (removed.total_moles()) / 10) / removed.temperature(), 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
+			zap_cutoff = clamp(3000 - (power * (removed_gas.total_moles()) / 10) / removed_gas.temperature(), 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
 			//We should always be able to zap our way out of the default enclosure
 			//See supermatter_zap() for more details
-			range = clamp(power / removed.return_pressure() * 10, 2, 7)
-		var/flags = ZAP_SUPERMATTER_FLAGS
+			zap_range = clamp(power / removed_gas.return_pressure() * 10, 2, 7)
+		var/zap_flags = ZAP_SUPERMATTER_FLAGS
 		var/zap_count = 0
 		//Deal with power zaps
 		switch(power)
@@ -663,13 +674,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 				zap_icon = SLIGHTLY_CHARGED_ZAP_ICON_STATE
 				//Uncaps the zap damage, it's maxed by the input power
 				//Objects take damage now
-				flags |= (ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
+				zap_flags |= (ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
 				zap_count = 3
 			if(CRITICAL_POWER_PENALTY_THRESHOLD to INFINITY)
 				zap_icon = OVER_9000_ZAP_ICON_STATE
 				//It'll stun more now, and damage will hit harder, gloves are no garentee.
 				//Machines go boom
-				flags |= (ZAP_MOB_STUN | ZAP_MACHINE_EXPLOSIVE | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
+				zap_flags |= (ZAP_MOB_STUN | ZAP_MACHINE_EXPLOSIVE | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
 				zap_count = 4
 		//Now we deal with damage shit
 		if(damage > damage_penalty_point && prob(20))
@@ -679,12 +690,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			playsound(loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
 			hue_angle_shift = clamp(903 * log(10, (power + 8000)) - 3590, -50, 240)
 			var/zap_color = color_matrix_rotate_hue(hue_angle_shift)
-			for(var/i in 1 to zap_count)
+			for(var/zap_index in 1 to zap_count)
 				supermatter_zap(
 					zapstart = src,
-					range = range,
+					range = zap_range,
 					zap_str = clamp(power * 2, 4000, 20000),
-					zap_flags = flags,
+					zap_flags = zap_flags,
 					zap_cutoff = (clamp(power * 2, 4000, 20000) / 3.5),
 					power_level = power,
 					color = zap_color,
@@ -739,8 +750,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	return TRUE
 
 /obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/projectile/proj)
-	var/turf/L = loc
-	if(!istype(L))
+	var/turf/local_turf = loc
+	if(!istype(local_turf))
 		return FALSE
 	if(!istype(proj, /obj/projectile/beam/emitter/hitscan) && power_changes)
 		investigate_log("has been hit by [proj] fired by [key_name(proj.firer)]", INVESTIGATE_ENGINE)
@@ -757,7 +768,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	var/gain = 100
 	investigate_log("was consumed by a singularity.", INVESTIGATE_ENGINE)
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
-	visible_message(span_userdanger("[declent_ru(NOMINATIVE)] поглощен сингулярностью!"))
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] поглощен сингулярностью!"))
 	var/turf/sm_turf = get_turf(src)
 	for(var/mob/hearing_mob as anything in GLOB.player_list)
 		if(!is_valid_z_level(get_turf(hearing_mob), sm_turf))
@@ -767,18 +778,25 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	qdel(src)
 	return gain
 
-/obj/machinery/atmospherics/supermatter_crystal/blob_act(obj/structure/blob/B)
-	if(B && !isspaceturf(loc)) //does nothing in space
-		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
-		damage += B.obj_integrity * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
-		if(B.obj_integrity > 100)
-			B.visible_message(span_danger("[B] strikes at [src] and flinches away!"),\
-			span_hear("You hear a loud crack as you are washed with a wave of heat."))
-			B.take_damage(100, BURN)
-		else
-			B.visible_message(span_danger("[B] strikes at [src] and rapidly flashes to ash."),\
-			span_hear("You hear a loud crack as you are washed with a wave of heat."))
-			Consume(B)
+/obj/machinery/atmospherics/supermatter_crystal/blob_act(obj/structure/blob/blob)
+	if(!blob && isspaceturf(loc)) //does nothing in space
+		return
+
+	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+	damage += blob.obj_integrity * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
+
+	if(blob.obj_integrity > 100)
+		blob.visible_message(
+			span_danger("[capitalize(blob)] strikes at [src] and flinches away!"),
+			span_hear("You hear a loud crack as you are washed with a wave of heat."),
+		)
+		blob.take_damage(100, BURN)
+	else
+		blob.visible_message(
+			span_danger("[capitalize(blob)] strikes at [src] and rapidly flashes to ash."),
+			span_hear("You hear a loud crack as you are washed with a wave of heat."),
+		)
+		Consume(blob)
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_tk(mob/user)
 	if(!iscarbon(user))
@@ -787,7 +805,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	to_chat(jedi, span_userdanger("Это была действительно гениальная идея."))
 	jedi.investigate_log("has consumed the brain of [key_name(jedi)] after being touched with telekinesis", INVESTIGATE_DEATHS)
 	jedi.visible_message(
-		span_danger("[jedi] suddenly slumps over."),
+		span_danger("[capitalize(jedi)] suddenly slumps over."),
 		span_userdanger("As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea.")
 	)
 	jedi.ghostize()
@@ -800,16 +818,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 /obj/machinery/atmospherics/supermatter_crystal/attack_alien(mob/user)
 	dust_mob(user, cause = "alien attack")
 
-/obj/machinery/atmospherics/supermatter_crystal/attack_animal(mob/living/simple_animal/S)
-	var/murder
-	if(!S.melee_damage_upper && !S.melee_damage_lower)
-		murder = S.friendly
+/obj/machinery/atmospherics/supermatter_crystal/attack_animal(mob/living/simple_animal/attacking_animal)
+	var/attack_action
+	if(!attacking_animal.melee_damage_upper && !attacking_animal.melee_damage_lower)
+		attack_action = attacking_animal.friendly
 	else
-		murder = S.attacktext
-	dust_mob(S, \
-	span_danger("[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!"), \
-	span_userdanger("You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops."), \
-	"simple animal attack")
+		attack_action = attacking_animal.attacktext
+	dust_mob(
+		attacking_animal,
+		span_danger("[attacking_animal] unwisely [attack_action] [src], and [attacking_animal.p_their()] body burns brilliantly before flashing into ash!"),
+		span_userdanger("You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops."),
+		"simple animal attack",
+	)
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_robot(mob/user)
 	if(Adjacent(user))
@@ -832,79 +852,79 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	if(nom.incorporeal_move || HAS_TRAIT(nom, TRAIT_GODMODE)) //try to keep supermatter sliver's + hemostat's dust conditions in sync with this too
 		return
 	if(!vis_msg)
-		vis_msg = span_danger("[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!")
+		vis_msg = span_danger("[nom] протягивает руку и касается [declent_ru(ACCUSATIVE)], вызывая резонанс... [GEND_HIS_HER_CAP(nom)] тело начинает светиться и вспыхивать пламенем, прежде чем превратиться в пыль!")
 	if(!mob_msg)
-		mob_msg = span_userdanger("You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"")
+		mob_msg = span_userdanger("Вы протягиваете руку и дотрагиваетесь до [declent_ru(ACCUSATIVE)]. Всё начинает гореть, и вы слышите только звон. Ваша последняя мысль: \"Это было неразумное решение...\".")
 	if(!cause)
 		cause = "contact"
-	nom.visible_message(vis_msg, mob_msg, span_hear("You hear an unearthly noise as a wave of heat washes over you."))
+	nom.visible_message(vis_msg, mob_msg, span_hear("Вы слышите неземной шум, когда вас накрывает волна жара."))
 	investigate_log("has been attacked ([cause]) by [key_name(nom)]", INVESTIGATE_ENGINE)
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(nom)
 
-/obj/machinery/atmospherics/supermatter_crystal/attackby(obj/item/used, mob/living/user, params)
-	if(!istype(used) || (used.flags & ABSTRACT) || !istype(user))
+/obj/machinery/atmospherics/supermatter_crystal/attackby(obj/item/used_item, mob/living/attacking_mob, params)
+	if(!istype(used_item) || (used_item.flags & ABSTRACT) || !istype(attacking_mob))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(moveable && default_unfasten_wrench(user, used, time = 20))
+	if(moveable && default_unfasten_wrench(attacking_mob, used_item, time = 20))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(used, /obj/item/scalpel/supermatter))
-		if(!ishuman(user))
+	if(istype(used_item, /obj/item/scalpel/supermatter))
+		if(!ishuman(attacking_mob))
 			return ATTACK_CHAIN_BLOCKED
 
-		var/mob/living/carbon/human/H = user
-		var/obj/item/scalpel/supermatter/scalpel = used
+		var/mob/living/carbon/human/human_user = attacking_mob
+		var/obj/item/scalpel/supermatter/scalpel_tool = used_item
 
-		if(!scalpel.uses_left)
-			to_chat(H, span_warning("[scalpel.declent_ru(NOMINATIVE)] недостаточно острый, чтобы отрезать кусочек от [declent_ru(ACCUSATIVE)]!"))
+		if(!scalpel_tool.uses_left)
+			to_chat(human_user, span_warning("[capitalize(scalpel_tool.declent_ru(NOMINATIVE))] недостаточно острый, чтобы отрезать кусочек от [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_BLOCKED
 
-		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(H)
-		if(sliver)
-			scalpel.uses_left--
-			if(!scalpel.uses_left)
-				to_chat(H, span_boldwarning("Крошечный кусочек отваливается от лезвия [scalpel.declent_ru(ACCUSATIVE)], делая его бесполезным!"))
+		var/obj/item/nuke_core/supermatter_sliver/sliver_core = carve_sliver(human_user)
+		if(sliver_core)
+			scalpel_tool.uses_left--
+			if(!scalpel_tool.uses_left)
+				to_chat(human_user, span_boldwarning("Крошечный кусочек отваливается от лезвия [scalpel_tool.declent_ru(ACCUSATIVE)], делая его бесполезным!"))
 
-			var/obj/item/retractor/supermatter/tongs = H.is_in_hands(/obj/item/retractor/supermatter)
+			var/obj/item/retractor/supermatter/tongs_tool = human_user.is_in_hands(/obj/item/retractor/supermatter)
 
-			if(tongs && !tongs.sliver)
-				tongs.sliver = sliver
-				sliver.forceMove(tongs)
-				tongs.icon_state = "supermatter_tongs_loaded"
-				to_chat(H, span_notice("Вы поднимаете [sliver.declent_ru(ACCUSATIVE)] [tongs.declent_ru(INSTRUMENTAL)]!"))
+			if(tongs_tool && !tongs_tool.sliver)
+				tongs_tool.sliver = sliver_core
+				sliver_core.forceMove(tongs_tool)
+				tongs_tool.icon_state = "supermatter_tongs_loaded"
+				to_chat(human_user, span_notice("Вы поднимаете [sliver_core.declent_ru(ACCUSATIVE)] [tongs_tool.declent_ru(INSTRUMENTAL)]!"))
 
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(used, /obj/item/retractor/supermatter))
-		to_chat(user, span_notice("[used.declent_ru(NOMINATIVE)] отскакивает от [declent_ru(ACCUSATIVE)], сначала нужно отрезать кусочек!"))
+	if(istype(used_item, /obj/item/retractor/supermatter))
+		to_chat(attacking_mob, span_notice("[capitalize(used_item.declent_ru(NOMINATIVE))] отскакивает от [declent_ru(ACCUSATIVE)], сначала нужно отрезать кусочек!"))
 
-	else if(user.drop_from_active_hand())
-		user.visible_message(
-			span_danger("Когда [user] касается [declent_ru(ACCUSATIVE)] [used.declent_ru(INSTRUMENTAL)], в комнате воцаряется тишина..."),
-			span_userdanger("Вы нажимаете [declent_ru(INSTRUMENTAL)] на [used.declent_ru(ACCUSATIVE)], и всё внезапно замолкает. [used.declent_ru(NOMINATIVE)] превращается в пыль, когда вы отшатываетесь от [declent_ru(ACCUSATIVE)]."),
+	else if(attacking_mob.drop_from_active_hand())
+		attacking_mob.visible_message(
+			span_danger("Когда [attacking_mob] касается [declent_ru(ACCUSATIVE)] [used_item.declent_ru(INSTRUMENTAL)], в комнате воцаряется тишина..."),
+			span_userdanger("Вы нажимаете [declent_ru(INSTRUMENTAL)] на [used_item.declent_ru(ACCUSATIVE)], и всё внезапно замолкает. [used_item.declent_ru(NOMINATIVE)] превращается в пыль, когда вы отшатываетесь от [declent_ru(ACCUSATIVE)]."),
 			span_hear("Внезапно все замолкает."),
 		)
-		investigate_log("has been attacked ([used]) by [key_name(user)]", INVESTIGATE_ENGINE)
-		Consume(used)
+		investigate_log("has been attacked ([used_item]) by [key_name(attacking_mob)]", INVESTIGATE_ENGINE)
+		Consume(used_item)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
 		//radiation_pulse(src, 600, GAMMA_RAD)
-		user.apply_effect(150, IRRADIATE)
+		attacking_mob.apply_effect(150, IRRADIATE)
 
-/obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/AM)
-	if(HAS_TRAIT(AM, TRAIT_SUPERMATTER_IMMUNE))
+/obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/movable_atom)
+	if(HAS_TRAIT(movable_atom, TRAIT_SUPERMATTER_IMMUNE))
 		return
 
-	if(isliving(AM))
-		AM.visible_message(
-			span_danger("[AM.declent_ru(NOMINATIVE)] вреза[PLUR_ET_YUT(AM)]ся  в [declent_ru(ACCUSATIVE)], вызывая резонанс... [GEND_HIS_HER(AM)] тело начинает светиться и вспыхивает, превращаясь в пыль!"),
+	if(isliving(movable_atom))
+		movable_atom.visible_message(
+			span_danger("[capitalize(movable_atom.declent_ru(NOMINATIVE))] вреза[PLUR_ET_YUT(movable_atom)]ся  в [declent_ru(ACCUSATIVE)], вызывая резонанс... [GEND_HIS_HER(movable_atom)] тело начинает светиться и вспыхивает, превращаясь в пыль!"),
 			span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)], когда ваши уши наполняются неземным звоном. Ваша последняя мысль: \"О, чёрт!\"."),
 			span_hear("Вы слышите неземной шум, когда волна тепла омывает вас."),
 		)
-	else if(isobj(AM) && !iseffect(AM))
-		AM.visible_message(
-			span_danger("[AM.declent_ru(NOMINATIVE)] врезается в [declent_ru(ACCUSATIVE)] и быстро превращается в пепел."),
+	else if(isobj(movable_atom) && !iseffect(movable_atom))
+		movable_atom.visible_message(
+			span_danger("[capitalize(movable_atom.declent_ru(NOMINATIVE))] врезается в [declent_ru(ACCUSATIVE)] и быстро превращается в пепел."),
 			null,
 			span_hear("Вы слышите громкий треск, когда вас омывает волна тепла."),
 		)
@@ -912,16 +932,16 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		return
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
-	Consume(AM)
+	Consume(movable_atom)
 
-/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A)
+/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/bumped_atom)
 	..()
-	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
-		Bumped(A)
+	if(!istype(bumped_atom, /obj/machinery/atmospherics/supermatter_crystal))
+		Bumped(bumped_atom)
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
-	if(isliving(AM))
-		var/mob/living/user = AM
+/obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/movable_atom)
+	if(isliving(movable_atom))
+		var/mob/living/user = movable_atom
 		if(HAS_TRAIT(user, TRAIT_GODMODE))
 			return
 		//message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
@@ -929,35 +949,38 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		user.dust()
 		if(power_changes)
 			matter_power += 200
-	else if(istype(AM, /obj/singularity) || istype(AM, /obj/machinery/field/containment))
+
+	else if(istype(movable_atom, /obj/singularity) || istype(movable_atom, /obj/machinery/field/containment))
 		return
-	else if(isobj(AM))
-		if(!iseffect(AM))
+
+	else if(isobj(movable_atom))
+		if(!iseffect(movable_atom))
 			var/suspicion = ""
-			if(AM.fingerprintslast)
-				suspicion = "last touched by [AM.fingerprintslast]"
-			//message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
-			investigate_log("has consumed [AM] - [suspicion].", INVESTIGATE_ENGINE)
-			if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
+			if(movable_atom.fingerprintslast)
+				suspicion = "last touched by [movable_atom.fingerprintslast]"
+			//message_admins("[src] has consumed [movable_atom], [suspicion] [ADMIN_JMP(src)].")
+			investigate_log("has consumed [movable_atom] - [suspicion].", INVESTIGATE_ENGINE)
+			if(istype(movable_atom, /obj/machinery/atmospherics/supermatter_crystal))
 				power += 5000//releases A LOT of power
 				matter_power += 500000
 				damage += 180//drops the integrety by 20%
-				AM.visible_message(
-					span_danger("[AM.declent_ru(NOMINATIVE)] врезается в [declent_ru(ACCUSATIVE)], быстро испуская вспышки чистой энергии. Энергия внутри [declent_ru(ACCUSATIVE)] подвергается сверхсветовому рассеянию!"),
+				movable_atom.visible_message(
+					span_danger("[capitalize(movable_atom.declent_ru(NOMINATIVE))] врезается в [declent_ru(ACCUSATIVE)], быстро испуская вспышки чистой энергии. Энергия внутри [declent_ru(ACCUSATIVE)] подвергается сверхсветовому рассеянию!"),
 					null,
 					span_hear("Вы слышите громкий треск, и вас накрывает волна жара."),
 				)
-		qdel(AM)
-	if(!iseffect(AM) && power_changes)
+		qdel(movable_atom)
+
+	if(!iseffect(movable_atom) && power_changes)
 		matter_power += 200
 
-	//Some poor sod got eaten, go ahead and irradiate people nearby.
-	for(var/mob/living/L in range(10))
-		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1))
-		L.apply_effect(rads, IRRADIATE)
-		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_ENGINE)
-		L.visible_message(
-			span_danger("Когда [declent_ru(NOMINATIVE)] медленно прекращает резонировать, кожа [L.declent_ru(GENITIVE)] покрывается новыми радиационными ожогами."),
+	// Some poor sod got eaten, go ahead and irradiate people nearby.
+	for(var/mob/living/near_mob in range(10))
+		var/rads = 500 * sqrt( 1 / (get_dist(near_mob, src) + 1))
+		near_mob.apply_effect(rads, IRRADIATE)
+		investigate_log("has irradiated [key_name(near_mob)] after consuming [movable_atom].", INVESTIGATE_ENGINE)
+		near_mob.visible_message(
+			span_danger("Когда [declent_ru(NOMINATIVE)] медленно прекращает резонировать, кожа [near_mob.declent_ru(GENITIVE)] покрывается новыми радиационными ожогами."),
 			span_danger("Неземной звон стихает, и вы замечаете, что получили новые радиационные ожоги."),
 			span_hear("Вы слышите неземной звон и замечаете, что ваша кожа покрыта свежими радиационными ожогами."),
 		)

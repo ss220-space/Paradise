@@ -27,15 +27,15 @@
 	supermatter.heat_multiplier = 1
 	supermatter.event_active = null
 
-/datum/engi_event/supermatter_event/proc/sm_radio_say(text)
-	if(!text)
+/datum/engi_event/supermatter_event/proc/sm_radio_say(announcement_text)
+	if(!announcement_text)
 		return
-	radio_announce(text, supermatter.name, ENG_FREQ, supermatter)
+	radio_announce(announcement_text, supermatter.name, ENG_FREQ, supermatter)
 
-/datum/engi_event/supermatter_event/proc/general_radio_say(text)
-	if(!text)
+/datum/engi_event/supermatter_event/proc/general_radio_say(announcement_text)
+	if(!announcement_text)
 		return
-	radio_announce(text, supermatter.name, PUB_FREQ, supermatter)
+	radio_announce(announcement_text, supermatter.name, PUB_FREQ, supermatter)
 
 // Below this are procs used for the SM events, in order of severity
 // MARK: D class events
@@ -51,27 +51,27 @@
 	name = "D-1"
 
 /datum/engi_event/supermatter_event/delta_tier/sleeping_gas/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_sleeping_agent(2000)
-	supermatter_turf.blind_release_air(air)
+	var/datum/gas_mixture/air_mixture = new()
+	air_mixture.set_sleeping_agent(2000)
+	supermatter_turf.blind_release_air(air_mixture)
 
 // nitrogen
 /datum/engi_event/supermatter_event/delta_tier/nitrogen
 	name = "D-2"
 
 /datum/engi_event/supermatter_event/delta_tier/nitrogen/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_nitrogen(2000)
-	supermatter_turf.blind_release_air(air)
+	var/datum/gas_mixture/air_mixture = new()
+	air_mixture.set_nitrogen(2000)
+	supermatter_turf.blind_release_air(air_mixture)
 
 // carbon dioxide
 /datum/engi_event/supermatter_event/delta_tier/carbon_dioxide
 	name = "D-3"
 
 /datum/engi_event/supermatter_event/delta_tier/carbon_dioxide/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_carbon_dioxide(2000)
-	supermatter_turf.blind_release_air(air)
+	var/datum/gas_mixture/air_mixture = new()
+	air_mixture.set_carbon_dioxide(2000)
+	supermatter_turf.blind_release_air(air_mixture)
 
 // MARK: C class events
 /datum/engi_event/supermatter_event/charlie_tier
@@ -86,18 +86,18 @@
 	name = "C-1"
 
 /datum/engi_event/supermatter_event/charlie_tier/oxygen/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_oxygen(2000)
-	supermatter_turf.blind_release_air(air)
+	var/datum/gas_mixture/air_mixture = new()
+	air_mixture.set_oxygen(2000)
+	supermatter_turf.blind_release_air(air_mixture)
 
 // plasma
 /datum/engi_event/supermatter_event/charlie_tier/plasma
 	name = "C-2"
 
 /datum/engi_event/supermatter_event/charlie_tier/plasma/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_toxins(2000)
-	supermatter_turf.blind_release_air(air)
+	var/datum/gas_mixture/air_mixture = new()
+	air_mixture.set_toxins(2000)
+	supermatter_turf.blind_release_air(air_mixture)
 
 // lowers the temp required for the SM to take damage.
 /datum/engi_event/supermatter_event/charlie_tier/heat_penalty_threshold
@@ -112,18 +112,18 @@
 	name = "C-4"
 
 /datum/engi_event/supermatter_event/charlie_tier/hydrogen/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_hydrogen(2000)
-	supermatter_turf.blind_release_air(air)
+	var/datum/gas_mixture/air_mixture = new()
+	air_mixture.set_hydrogen(2000)
+	supermatter_turf.blind_release_air(air_mixture)
 
 //water vapor
 /datum/engi_event/supermatter_event/charlie_tier/water_vapor
 	name = "C-5"
 
 /datum/engi_event/supermatter_event/charlie_tier/water_vapor/on_start()
-	var/datum/gas_mixture/air = new()
-	air.set_water_vapor(2000)
-	supermatter_turf.blind_release_air(air)
+	var/datum/gas_mixture/air_mixture = new()
+	air_mixture.set_water_vapor(2000)
+	supermatter_turf.blind_release_air(air_mixture)
 
 // MARK: B class events
 /datum/engi_event/supermatter_event/bravo_tier
@@ -166,17 +166,17 @@
 
 /datum/engi_event/supermatter_event/alpha_tier/apc_short/on_start()
 	var/area/current_area = get_area(supermatter)
-	var/obj/machinery/power/apc/A = current_area.get_apc()
-	A.apc_short()
+	var/obj/machinery/power/apc/area_apc = current_area.get_apc()
+	area_apc.apc_short()
 
 /datum/engi_event/supermatter_event/alpha_tier/air_siphon
 	name = "A-2"
 
 /datum/engi_event/supermatter_event/alpha_tier/air_siphon/on_start()
 	var/area/current_area = get_area(supermatter)
-	for(var/obj/machinery/alarm/A in current_area)
-		A.mode = AALARM_MODE_OFF
-		A.apply_mode()
+	for(var/obj/machinery/alarm/air_alarm in current_area)
+		air_alarm.mode = AALARM_MODE_OFF
+		air_alarm.apply_mode()
 
 /datum/engi_event/supermatter_event/alpha_tier/gas_multiplier
 	name = "A-3"

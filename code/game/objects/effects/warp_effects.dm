@@ -28,9 +28,9 @@
 	. = ..()
 	if(GLOB.heart)
 		range = GLOB.heart.pulse_range * 4
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)
+	var/matrix/scale_matrix = matrix() * 0.5
+	transform = scale_matrix
+	animate(src, transform = scale_matrix * range, time = 0.1 * range SECONDS, alpha = 0)
 	QDEL_IN(src, 0.1 * range SECONDS)
 
 // MARK: Gravity generator
@@ -38,9 +38,9 @@
 
 /obj/effect/warp_effect/gravity_generator/Initialize(mapload)
 	. = ..()
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128, easing = CIRCULAR_EASING | EASE_IN)
+	var/matrix/scale_matrix = matrix() * 0.5
+	transform = scale_matrix
+	animate(src, transform = scale_matrix * 40, time = 0.8 SECONDS, alpha = 128, easing = CIRCULAR_EASING | EASE_IN)
 	QDEL_IN(src, 0.8 SECONDS)
 
 // MARK: BSG
@@ -48,7 +48,7 @@
 
 /obj/effect/warp_effect/bsg/Initialize(mapload)
 	. = ..()
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
+	var/matrix/scale_matrix = matrix() * 0.5
+	transform = scale_matrix
+	animate(src, transform = scale_matrix * 8, time = 0.8 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.8 SECONDS)

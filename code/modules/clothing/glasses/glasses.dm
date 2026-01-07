@@ -111,12 +111,12 @@
 /obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
 	. = ..()
 	if(active_on_equip && slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+		ADD_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/glasses/meson/dropped(mob/user)
 	. = ..()
 	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "Meson Sunglasses"

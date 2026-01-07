@@ -64,11 +64,11 @@
 	aug_message = "Suddenly, you realize how much of a mess the station really is..."
 
 /obj/item/organ/internal/cyberimp/eyes/meson/insert(mob/living/carbon/human/user_human, special = FALSE)
-	ADD_TRAIT(user_human, TRAIT_MESON_VISION, "meson_vision[UID()]")
+	ADD_TRAIT(user_human, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/item/organ/internal/cyberimp/eyes/meson/remove(mob/living/carbon/human/user_human, special = FALSE)
-	REMOVE_TRAIT(user_human, TRAIT_MESON_VISION, "meson_vision[UID()]")
+	REMOVE_TRAIT(user_human, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/item/organ/internal/cyberimp/eyes/xray

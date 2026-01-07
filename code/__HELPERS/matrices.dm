@@ -110,134 +110,188 @@
 /matrix/proc/get_angle()
 	. = -ATAN2(a,d)
 
-/////////////////////
-// COLOUR MATRICES //
-/////////////////////
+/**
+ * Documenting a couple of potentially useful color matrices here to inspire ideas
+ *
+ * // Greyscale - indentical to saturation @ 0
+ * list(LUMA_R,LUMA_R,LUMA_R,0, LUMA_G,LUMA_G,LUMA_G,0, LUMA_B,LUMA_B,LUMA_B,0, 0,0,0,1, 0,0,0,0)
+ *
+ * // Color inversion
+ * list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, 0,0,0,1, 1,1,1,0)
+ *
+ * // Sepiatone
+ * list(0.393,0.349,0.272,0, 0.769,0.686,0.534,0, 0.189,0.168,0.131,0, 0,0,0,1, 0,0,0,0)
+ *
+ */
+// MARK: COLOUR MATRICES
+/// Changes distance hues have from grey while maintaining the overall lightness. Greys are unaffected.
+/// 1 is identity, 0 is greyscale, >1 oversaturates colors
+/proc/color_matrix_saturation(saturation_value)
+	var/inverse_value = 1 - saturation_value
+	var/red_component = round(LUMA_R * inverse_value, 0.001)
+	var/green_component = round(LUMA_G * inverse_value, 0.001)
+	var/blue_component = round(LUMA_B * inverse_value, 0.001)
 
-/* Documenting a couple of potentially useful color matrices here to inspire ideas
-// Greyscale - indentical to saturation @ 0
-list(LUMA_R,LUMA_R,LUMA_R,0, LUMA_G,LUMA_G,LUMA_G,0, LUMA_B,LUMA_B,LUMA_B,0, 0,0,0,1, 0,0,0,0)
-
-// Color inversion
-list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, 0,0,0,1, 1,1,1,0)
-
-// Sepiatone
-list(0.393,0.349,0.272,0, 0.769,0.686,0.534,0, 0.189,0.168,0.131,0, 0,0,0,1, 0,0,0,0)
-*/
-
-///Changes distance hues have from grey while maintaining the overall lightness. Greys are unaffected.
-///1 is identity, 0 is greyscale, >1 oversaturates colors
-/proc/color_matrix_saturation(value)
-	var/inv = 1 - value
-	var/R = round(LUMA_R * inv, 0.001)
-	var/G = round(LUMA_G * inv, 0.001)
-	var/B = round(LUMA_B * inv, 0.001)
-
-	return list(R + value,R,R,0, G,G + value,G,0, B,B,B + value,0, 0,0,0,1, 0,0,0,0)
-
-///Moves all colors angle degrees around the color wheel while maintaining intensity of the color and not affecting greys
-///0 is identity, 120 moves reds to greens, 240 moves reds to blues
-/proc/color_matrix_rotate_hue(angle)
-	var/sin = sin(angle)
-	var/cos = cos(angle)
-	var/cos_inv_third = 0.333*(1-cos)
-	var/sqrt3_sin = sqrt(3)*sin
 	return list(
-round(cos+cos_inv_third, 0.001), round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), 0,
-round(cos_inv_third-sqrt3_sin, 0.001), round(cos+cos_inv_third, 0.001), round(cos_inv_third+sqrt3_sin, 0.001), 0,
-round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), round(cos+cos_inv_third, 0.001), 0,
-0,0,0,1,
-0,0,0,0)
+		red_component + saturation_value, red_component, red_component, 0,
+		green_component, green_component + saturation_value, green_component, 0,
+		blue_component, blue_component, blue_component + saturation_value, 0,
+		0, 0, 0, 1,
+		0, 0, 0, 0,
+	)
 
-///These next three rotate values about one axis only
-///x is the red axis, y is the green axis, z is the blue axis.
-/proc/color_matrix_rotate_x(angle)
-	var/sinval = round(sin(angle), 0.001); var/cosval = round(cos(angle), 0.001)
-	return list(1,0,0,0, 0,cosval,sinval,0, 0,-sinval,cosval,0, 0,0,0,1, 0,0,0,0)
+/// Moves all colors angle degrees around the color wheel while maintaining intensity of the color and not affecting greys
+/// 0 is identity, 120 moves reds to greens, 240 moves reds to blues
+/proc/color_matrix_rotate_hue(rotation_angle)
+	var/sine_value = sin(rotation_angle)
+	var/cosine_value = cos(rotation_angle)
+	var/cosine_inverse_third = 0.333 * (1 - cosine_value)
+	var/sqrt3_times_sine = sqrt(3) * sine_value
 
-/proc/color_matrix_rotate_y(angle)
-	var/sinval = round(sin(angle), 0.001); var/cosval = round(cos(angle), 0.001)
-	return list(cosval,0,-sinval,0, 0,1,0,0, sinval,0,cosval,0, 0,0,0,1, 0,0,0,0)
+	return list(
+		round(cosine_value + cosine_inverse_third, 0.001),
+		round(cosine_inverse_third + sqrt3_times_sine, 0.001),
+		round(cosine_inverse_third - sqrt3_times_sine, 0.001),
+		0,
+		round(cosine_inverse_third - sqrt3_times_sine, 0.001),
+		round(cosine_value + cosine_inverse_third, 0.001),
+		round(cosine_inverse_third + sqrt3_times_sine, 0.001),
+		0,
+		round(cosine_inverse_third + sqrt3_times_sine, 0.001),
+		round(cosine_inverse_third - sqrt3_times_sine, 0.001),
+		round(cosine_value + cosine_inverse_third, 0.001),
+		0,
+		0, 0, 0, 1,
+		0, 0, 0, 0
+	)
 
-/proc/color_matrix_rotate_z(angle)
-	var/sinval = round(sin(angle), 0.001); var/cosval = round(cos(angle), 0.001)
-	return list(cosval,sinval,0,0, -sinval,cosval,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0)
+// These next three rotate values about one axis only
+// x is the red axis, y is the green axis, z is the blue axis.
+/proc/color_matrix_rotate_x(rotation_angle)
+	var/sine_value = round(sin(rotation_angle), 0.001)
+	var/cosine_value = round(cos(rotation_angle), 0.001)
+	return list(
+		1, 0, 0, 0,
+		0, cosine_value, sine_value, 0,
+		0, -sine_value, cosine_value, 0,
+		0, 0, 0, 1,
+		0, 0, 0, 0,
+	)
 
+/proc/color_matrix_rotate_y(rotation_angle)
+	var/sine_value = round(sin(rotation_angle), 0.001)
+	var/cosine_value = round(cos(rotation_angle), 0.001)
+	return list(
+		cosine_value, 0, -sine_value, 0,
+		0, 1, 0, 0,
+		sine_value, 0, cosine_value, 0,
+		0, 0, 0, 1,
+		0, 0, 0, 0,
+	)
 
-///Returns a matrix addition of A with B
-/proc/color_matrix_add(list/A, list/B)
-	if(!istype(A) || !istype(B))
+/proc/color_matrix_rotate_z(rotation_angle)
+	var/sine_value = round(sin(rotation_angle), 0.001)
+	var/cosine_value = round(cos(rotation_angle), 0.001)
+	return list(
+		cosine_value, sine_value, 0, 0,
+		-sine_value, cosine_value, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1,
+		0, 0, 0, 0,
+	)
+
+/// Returns a matrix addition of first_matrix with second_matrix
+/proc/color_matrix_add(list/first_matrix, list/second_matrix)
+	if(!istype(first_matrix) || !istype(second_matrix))
 		return COLOR_MATRIX_IDENTITY
-	if(length(A) != 20 || length(B) != 20)
+	if(length(first_matrix) != 20 || length(second_matrix) != 20)
 		return COLOR_MATRIX_IDENTITY
-	var/list/output = list()
-	output.len = 20
-	for(var/value in 1 to 20)
-		output[value] = A[value] + B[value]
-	return output
+	var/list/output_matrix = list()
+	output_matrix.len = 20
+	for(var/index in 1 to 20)
+		output_matrix[index] = first_matrix[index] + second_matrix[index]
+	return output_matrix
 
-///Returns a matrix multiplication of A with B
-/proc/color_matrix_multiply(list/A, list/B)
-	if(!istype(A) || !istype(B))
+/// Returns a matrix multiplication of first_matrix with second_matrix
+/proc/color_matrix_multiply(list/first_matrix, list/second_matrix)
+	if(!istype(first_matrix) || !istype(second_matrix))
 		return COLOR_MATRIX_IDENTITY
-	if(length(A) != 20 || length(B) != 20)
+	if(length(first_matrix) != 20 || length(second_matrix) != 20)
 		return COLOR_MATRIX_IDENTITY
-	var/list/output = list()
-	output.len = 20
-	var/x = 1
-	var/y = 1
-	var/offset = 0
-	for(y in 1 to 5)
-		offset = (y-1)*4
-		for(x in 1 to 4)
-			output[offset+x] = round(A[offset+1]*B[x] + A[offset+2]*B[x+4] + A[offset+3]*B[x+8] + A[offset+4]*B[x+12]+(y == 5?B[x+16]:0), 0.001)
-	return output
+	var/list/output_matrix = list()
+	output_matrix.len = 20
+	var/column_index = 1
+	var/row_index = 1
+	var/row_offset = 0
+	for(row_index in 1 to 5)
+		row_offset = (row_index - 1) * 4
+		for(column_index in 1 to 4)
+			output_matrix[row_offset + column_index] = round( \
+				first_matrix[row_offset + 1] * second_matrix[column_index] + \
+				first_matrix[row_offset + 2] * second_matrix[column_index + 4] + \
+				first_matrix[row_offset + 3] * second_matrix[column_index + 8] + \
+				first_matrix[row_offset + 4] * second_matrix[column_index + 12] + \
+				(row_index == 5 ? second_matrix[column_index + 16] : 0), \
+				0.001, \
+			)
+	return output_matrix
 
 /**
  * Converts RGB shorthands into RGBA matrices complete of constants rows (ergo a 20 keys list in byond).
  * if return_identity_on_fail is true, stack_trace is called instead of CRASH, and an identity is returned.
  */
-/proc/color_to_full_rgba_matrix(color, return_identity_on_fail = TRUE)
-	if(!color)
+/proc/color_to_full_rgba_matrix(color_input, return_identity_on_fail = TRUE)
+	if(!color_input)
 		return COLOR_MATRIX_IDENTITY
-	if(istext(color))
-		var/list/L = rgb2num(color)
-		if(!L)
-			var/message = "Invalid/unsupported color ([color]) argument in color_to_full_rgba_matrix()"
+	if(istext(color_input))
+		var/list/color_components = rgb2num(color_input)
+		if(!color_components)
+			var/error_message = "Invalid/unsupported color ([color_input]) argument in color_to_full_rgba_matrix()"
 			if(return_identity_on_fail)
-				stack_trace(message)
+				stack_trace(error_message)
 				return COLOR_MATRIX_IDENTITY
-			CRASH(message)
-		return list(L[1]/255,0,0,0, 0,L[2]/255,0,0, 0,0,L[3]/255,0, 0,0,0,length(L)>3?L[4]/255:1, 0,0,0,0)
-	if(!islist(color)) //invalid format
-		CRASH("Invalid/unsupported color ([color]) argument in color_to_full_rgba_matrix()")
-	var/list/L = color
-	switch(length(L))
+			CRASH(error_message)
+		return list(
+			color_components[1] / 255, 0, 0, 0,
+			0, color_components[2] / 255, 0, 0,
+			0, 0, color_components[3] / 255, 0,
+			0, 0, 0, length(color_components) > 3 ? color_components[4] / 255 : 1,
+			0, 0, 0, 0,
+		)
+	if(!islist(color_input)) // invalid format
+		CRASH("Invalid/unsupported color ([color_input]) argument in color_to_full_rgba_matrix()")
+	var/list/input_components = color_input
+	switch(length(input_components))
 		if(3 to 5) // row-by-row hexadecimals
 			. = list()
-			for(var/a in 1 to length(L))
-				var/list/rgb = rgb2num(L[a])
-				for(var/b in rgb)
-					. += b/255
-				if(length(rgb) % 4) // RGB has no alpha instruction
-					. += a != 4 ? 0 : 1
-			if(length(L) < 4) //missing both alphas and constants rows
-				. += list(0,0,0,1, 0,0,0,0)
-			else if(length(L) < 5) //missing constants row
-				. += list(0,0,0,0)
-		if(9 to 12) //RGB
-			. = list(L[1],L[2],L[3],0, L[4],L[5],L[6],0, L[7],L[8],L[9],0, 0,0,0,1)
-			for(var/b in 1 to 3)  //missing constants row
-				. += length(L) < 9+b ? 0 : L[9+b]
+			for(var/element_index in 1 to length(input_components))
+				var/list/rgb_values = rgb2num(input_components[element_index])
+				for(var/channel_value in rgb_values)
+					. += channel_value / 255
+				if(length(rgb_values) % 4) // RGB has no alpha instruction
+					. += element_index != 4 ? 0 : 1
+			if(length(input_components) < 4) // missing both alphas and constants rows
+				. += list(0, 0, 0, 1, 0, 0, 0, 0)
+			else if(length(input_components) < 5) // missing constants row
+				. += list(0, 0, 0, 0)
+		if(9 to 12) // RGB
+			. = list(
+				input_components[1], input_components[2], input_components[3], 0,
+				input_components[4], input_components[5], input_components[6], 0,
+				input_components[7], input_components[8], input_components[9], 0,
+				0, 0, 0, 1,
+			)
+			for(var/constant_index in 1 to 3) // missing constants row
+				. += length(input_components) < 9 + constant_index ? 0 : input_components[9 + constant_index]
 			. += 0
 		if(16 to 20) // RGBA
-			. = L.Copy()
-			if(length(L) < 20) //missing constants row
-				for(var/b in 1 to 20-length(L))
+			. = input_components.Copy()
+			if(length(input_components) < 20) // missing constants row
+				for(var/missing_component_index in 1 to 20 - length(input_components))
 					. += 0
 		else
-			var/message = "Invalid/unsupported color (list of length [length(L)]) argument in color_to_full_rgba_matrix()"
+			var/error_message = "Invalid/unsupported color (list of length [length(input_components)]) argument in color_to_full_rgba_matrix()"
 			if(return_identity_on_fail)
-				stack_trace(message)
+				stack_trace(error_message)
 				return COLOR_MATRIX_IDENTITY
-			CRASH(message)
+			CRASH(error_message)

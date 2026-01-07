@@ -53,7 +53,10 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(anchored)
 		if(!locked)
 			toggle_power()
-			user.visible_message("[user.name] turns the [name] [active ? "on" : "off"].", "You turn the [name] [active ? "on" : "off"].")
+			user.visible_message(
+				"[user.name] turns the [name] [active ? "on" : "off"].",
+				"You turn the [name] [active ? "on" : "off"]."
+			)
 			add_fingerprint(user)
 			investigate_log("turned [active ? span_green("on") : span_red("off")] by [key_name_log(user)]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins() / 0.29)]%" : span_red("It is empty")].", INVESTIGATE_ENGINE)
 		else
@@ -171,7 +174,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector/update_overlays()
 	. = ..()
-	cut_overlays()
 	if(loaded_tank)
 		add_overlay("ptank")
 	if(stat & (NOPOWER|BROKEN))
