@@ -32,7 +32,7 @@
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))
-		src.visible_message(span_warning("Осколки [src.declent_ru(GENITIVE)] начинают быстро вибрировать и исчезают."))
+		src.visible_message(span_warning("Осколки [declent_ru(GENITIVE)] начинают быстро вибрировать и исчезают."))
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')

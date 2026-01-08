@@ -280,7 +280,7 @@
 
 		if(suppressed)
 			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] попадает вам [organ_hit_text]"))
+			to_chat(L, span_userdanger("[declent_ru_cap(NOMINATIVE)] попадает вам [organ_hit_text]"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
@@ -290,8 +290,8 @@
 								"получа[PLUR_ET_YUT(L)] ранение",
 								"поражён[GEND_A_O_Y(L)]",
 								"прошибает")
-			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
-								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
+			L.visible_message(span_danger("[L.declent_ru_cap(NOMINATIVE)] [hit_text] [declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
+								span_userdanger("В вас попали [declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 		if(L?.mind && firer?.mind?.objectives)

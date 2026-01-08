@@ -83,19 +83,19 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			announcer.say(";Произведена доставка двигателя типа: [engtype].")	//Let's announce the terrible choice to everyone
 
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает сильно вибрировать и шипеть, а затем быстро распадается!"))
+		visible_message(span_notice("[declent_ru_cap(NOMINATIVE)] начинает сильно вибрировать и шипеть, а затем быстро распадается!"))
 		qdel(src)	//Self-destructs to prevent crew from spawning multiple engines.
 	else
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] гудит! Маяк не найден или не выбран!"))
+		visible_message(span_notice("[declent_ru_cap(NOMINATIVE)] гудит! Маяк не найден или не выбран!"))
 		isactive = FALSE
 		return
 
 /// Deletes objects and mobs from the beacon's turf.
 /obj/item/enginepicker/proc/clearturf(turf/T)
 	for(var/obj/item/I in T)
-		I.visible_message("[capitalize(I.declent_ru(NOMINATIVE))] превращается в пыль!")
+		I.visible_message("[I.declent_ru_cap(NOMINATIVE)] превращается в пыль!")
 		qdel(I)
 
 	for(var/mob/living/M in T)
-		M.visible_message("[capitalize(M.declent_ru(NOMINATIVE))] уничтожается!")
+		M.visible_message("[M.declent_ru_cap(NOMINATIVE)] уничтожается!")
 		M.gib()

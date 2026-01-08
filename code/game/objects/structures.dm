@@ -113,7 +113,7 @@
 	if(!T || !istype(T))
 		return FALSE
 
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_warning("[user.declent_ru_cap(NOMINATIVE)] начина[PLUR_ET_YUT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
 	climber = user
 	if(!do_after(user, 5 SECONDS, src))
 		climber = null
@@ -125,7 +125,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_warning("[user.declent_ru_cap(NOMINATIVE)] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
 
 	clumse_stuff(climber)
 

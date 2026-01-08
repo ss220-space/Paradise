@@ -99,7 +99,7 @@
 		var/obj/item/stack/nanopaste/nanopaste = I
 
 		if(obj_integrity >= max_integrity)
-			user.balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] в полном порядке")
+			user.balloon_alert(user, "[declent_ru_cap(NOMINATIVE)] в полном порядке")
 			return ATTACK_CHAIN_PROCEED
 
 		if(!nanopaste.use(1))
@@ -108,8 +108,8 @@
 
 		repair_damage(max_integrity * 0.15)
 		user.visible_message(
-			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] наносит немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
-			span_notice("Вы нанесли немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
+			span_notice("[user.declent_ru_cap(NOMINATIVE)] наносит немного нанопасты на [declent_ru(ACCUSATIVE)]. [declent_ru_cap(NOMINATIVE)] выглядит целее."),
+			span_notice("Вы нанесли немного нанопасты на [declent_ru(ACCUSATIVE)]. [declent_ru_cap(NOMINATIVE)] выглядит целее."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

@@ -224,11 +224,11 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	if(istype(multitool.buffer, /obj/machinery/bsa/back))
 		back = multitool.buffer
 		multitool.buffer = null
-		to_chat(user, span_notice("Вы соединили [src.declent_ru(ACCUSATIVE)] с [back.declent_ru(INSTRUMENTAL)]."))
+		to_chat(user, span_notice("Вы соединили [declent_ru(ACCUSATIVE)] с [back.declent_ru(INSTRUMENTAL)]."))
 	else if(istype(multitool.buffer, /obj/machinery/bsa/front))
 		front = multitool.buffer
 		multitool.buffer = null
-		to_chat(user, span_notice("Вы соединили [src.declent_ru(ACCUSATIVE)] с [front.declent_ru(INSTRUMENTAL)]."))
+		to_chat(user, span_notice("Вы соединили [declent_ru(ACCUSATIVE)] с [front.declent_ru(INSTRUMENTAL)]."))
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)

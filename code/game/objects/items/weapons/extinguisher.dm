@@ -96,18 +96,18 @@
 		var/safety_save = safety
 		safety = TRUE
 		if(reagents.total_volume == reagents.maximum_volume)
-			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] уже полностью заправлен!"))
+			to_chat(user, span_notice("[declent_ru_cap(NOMINATIVE)] уже полностью заправлен!"))
 			safety = safety_save
 			return TRUE
 		var/obj/structure/reagent_dispensers/watertank/watertank = target
 		var/transferred = watertank.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] был заправлен на [transferred] единиц[DECL_SEC_MIN(transferred)]."))
+			to_chat(user, span_notice("[declent_ru_cap(NOMINATIVE)] был заправлен на [transferred] единиц[DECL_SEC_MIN(transferred)]."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power
 		else
-			to_chat(user, span_notice("[capitalize(watertank.declent_ru(NOMINATIVE))] пуст!"))
+			to_chat(user, span_notice("[watertank.declent_ru_cap(NOMINATIVE)] пуст!"))
 		safety = safety_save
 		return TRUE
 	return FALSE
@@ -122,7 +122,7 @@
 		return
 
 	if(reagents.total_volume < 1)
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] пуст."))
+		to_chat(user, span_danger("[declent_ru_cap(NOMINATIVE)] пуст."))
 		return
 
 	if(world.time < last_use + 2 SECONDS)

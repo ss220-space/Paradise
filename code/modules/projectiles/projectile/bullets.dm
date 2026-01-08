@@ -553,7 +553,7 @@
 				return TRUE
 			else
 				blocked = 100
-				target.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] рикошетит!"), \
+				target.visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] рикошетит!"), \
 									span_userdanger("Ваша защита отражает[declent_ru(ACCUSATIVE)]!"))
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)

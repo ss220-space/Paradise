@@ -90,7 +90,7 @@
 			return
 		var/taken = rand(1,amount)
 		amount -= taken
-		to_chat(user, span_notice("Вы взяли немного [src.declent_ru(GENITIVE)] в руки."))
+		to_chat(user, span_notice("Вы взяли немного [declent_ru(GENITIVE)] в руки."))
 		if(!user.blood_DNA)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()

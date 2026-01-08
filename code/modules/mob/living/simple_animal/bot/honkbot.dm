@@ -81,7 +81,7 @@
 /mob/living/simple_animal/bot/honkbot/set_custom_texts()
 	text_hack = "Вы перегрузили звуковую систему [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили звуковую систему [declent_ru(GENITIVE)]."
-	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"
+	text_dehack_fail = "[declent_ru_cap(NOMINATIVE)] отказывается вам подчиняться!"
 
 /mob/living/simple_animal/bot/honkbot/get_controls(mob/user)
 	var/dat
@@ -115,9 +115,9 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]. [capitalize(declent_ru(NOMINATIVE))] злобно смеётся!"))
+			to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]. [declent_ru_cap(NOMINATIVE)] злобно смеётся!"))
 			oldtarget_name = user.name
-		audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] злобно смеётся!"))
+		audible_message(span_danger("[declent_ru_cap(NOMINATIVE)] злобно смеётся!"))
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 		update_icon()
 
@@ -194,8 +194,8 @@
 				threatlevel = 6 // will never let you go
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntime)
 			add_attack_logs(src, C, "honked by [src]")
-			C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] хонкнул [C]!"),
-							span_userdanger("[capitalize(declent_ru(NOMINATIVE))] хонкнул вас!"))
+			C.visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] хонкнул [C]!"),
+							span_userdanger("[declent_ru_cap(NOMINATIVE)] хонкнул вас!"))
 		else
 			C.Stuttering(40 SECONDS)
 			C.Stun(20 SECONDS)
@@ -281,7 +281,7 @@
 				oldtarget_name = C.name
 				bike_horn()
 				speak("Хонк!")
-				visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> начинает гнаться за [C.name]!")
+				visible_message("<b>[declent_ru_cap(NOMINATIVE)]</b> начинает гнаться за [C.name]!")
 				mode = BOT_HUNT
 				INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 				break
@@ -293,7 +293,7 @@
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	GLOB.move_manager.stop_looping(src)
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[declent_ru_cap(NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -321,9 +321,9 @@
 		"[arrived] спотыка[PLUR_ET_YUT(arrived)]ся об [declent_ru(GENITIVE)]!", \
 		"[arrived] опрокидыва[PLUR_ET_YUT(arrived)]ся на [declent_ru(GENITIVE)]!", \
 		"[arrived] отлета[PLUR_ET_YUT(arrived)] с пути [declent_ru(GENITIVE)]!", \
-		"[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
-		"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [GEND_HIS_HER(arrived)] упасть!", \
-		"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]")
+		"[declent_ru_cap(NOMINATIVE)] сбивает [arrived]!", \
+		"[declent_ru_cap(NOMINATIVE)] влетает в [arrived], заставляя [GEND_HIS_HER(arrived)] упасть!", \
+		"[declent_ru_cap(NOMINATIVE)] опрокидывает [arrived]!")]")
 	)
 	arrived.Weaken(10 SECONDS)
 	if(!client)

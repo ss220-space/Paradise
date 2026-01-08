@@ -152,7 +152,7 @@
 /obj/machinery/tcomms/relay/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TcommsRelay", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "TcommsRelay", declent_ru_cap(NOMINATIVE))
 		ui.open()
 
 /obj/machinery/tcomms/relay/ui_data(mob/user)

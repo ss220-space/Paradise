@@ -7,9 +7,9 @@
 		if(INTENT_HELP)
 			if(stat == DEAD)
 				return
-			visible_message(span_notice("[user] [response_help_continuous] [src.declent_ru(ACCUSATIVE)]."), \
+			visible_message(span_notice("[user] [response_help_continuous] [declent_ru(ACCUSATIVE)]."), \
 				span_notice("[user] [response_help_continuous] вас."))
-			//to_chat(user, span_notice("Вы [response_help_simple] [src.declent_ru(ACCUSATIVE)]."))
+			//to_chat(user, span_notice("Вы [response_help_simple] [declent_ru(ACCUSATIVE)]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			return TRUE
 
@@ -25,25 +25,25 @@
 				return TRUE
 			if(!Move(get_step(src, shove_dir), shove_dir))
 				add_attack_logs(user, src, "толкнул")
-				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
+				visible_message(span_danger("[user] [response_disarm_continuous] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[user] [response_disarm_continuous] вас!"), \
 					span_warning("Вы слышите звуки шарканья!"))
-				//to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)]!"))
+				//to_chat(user, span_danger("Вы [response_disarm_simple] [declent_ru(ACCUSATIVE)]!"))
 			else
 				add_attack_logs(user, src, "толкнул")
-				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)], отталкивая [GEND_HIS_HER(src)]!"), \
+				visible_message(span_danger("[user] [response_disarm_continuous] [declent_ru(ACCUSATIVE)], отталкивая [GEND_HIS_HER(src)]!"), \
 					span_userdanger("[user] оттолкнул вас!"), \
 					span_warning("Вы слышите звуки шарканья!"))
-				//to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)], отталкивая [GEND_HIS_HER(src)]!"))
+				//to_chat(user, span_danger("Вы [response_disarm_simple] [declent_ru(ACCUSATIVE)], отталкивая [GEND_HIS_HER(src)]!"))
 			return TRUE
 		if(INTENT_HARM)
 			if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
-				to_chat(user, span_warning("Вы не хотите вредить [src.declent_ru(DATIVE)]."))
+				to_chat(user, span_warning("Вы не хотите вредить [declent_ru(DATIVE)]."))
 				return
 			user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message(span_danger("[user] [response_harm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
+			visible_message(span_danger("[user] [response_harm_continuous] [declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] [response_harm_continuous] вас!"))
-			//to_chat(user, span_danger("Вы [response_harm_simple] [src.declent_ru(ACCUSATIVE)]!"))
+			//to_chat(user, span_danger("Вы [response_harm_simple] [declent_ru(ACCUSATIVE)]!"))
 			attack_threshold_check(user.dna.species.punchdamagehigh)
 			add_attack_logs(user, src, "атаковал")
 			updatehealth()
@@ -55,9 +55,9 @@
 	if(!.)
 		return
 	playsound(loc, SFX_PUNCH, 25, TRUE, -1)
-	visible_message(span_danger("[user] крушит [src.declent_ru(ACCUSATIVE)]!"), \
+	visible_message(span_danger("[user] крушит [declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] сокрушает вас!"))
-	to_chat(user, span_danger("Вы бьёте [src.declent_ru(ACCUSATIVE)]!"))
+	to_chat(user, span_danger("Вы бьёте [declent_ru(ACCUSATIVE)]!"))
 	adjustBruteLoss(30)
 */
 
@@ -70,9 +70,9 @@
 			return 1
 	if(user.a_intent == INTENT_HELP)
 		if(health > 0)
-			visible_message(span_notice("[user.name] [response_help_continuous] [src.declent_ru(ACCUSATIVE)]."), \
+			visible_message(span_notice("[user.name] [response_help_continuous] [declent_ru(ACCUSATIVE)]."), \
 				span_notice("[user.name] [response_help_continuous] вас."))
-			to_chat(user, span_notice("Вы [response_help_simple] [src.declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы [response_help_simple] [declent_ru(ACCUSATIVE)]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 */
 
@@ -80,16 +80,16 @@
 	if(..()) //if harm or disarm intent.
 		if(user.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
+			visible_message(span_danger("[user] [response_disarm_continuous] [declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] [response_disarm_continuous] вас!"), \
 				span_warning("Вы слышите звуки шарканья!"))
-			//to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)]!"))
+			//to_chat(user, span_danger("Вы [response_disarm_simple] [declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(user, src, "толкнул")
 		else
 			var/damage = rand(15, 30)
-			visible_message(span_danger("[user] терзает [src.declent_ru(ACCUSATIVE)]!"), \
+			visible_message(span_danger("[user] терзает [declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] терзает вас!"))
-			//to_chat(user, span_danger("Вы бьёте [src.declent_ru(ACCUSATIVE)]!"))
+			//to_chat(user, span_danger("Вы бьёте [declent_ru(ACCUSATIVE)]!"))
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			attack_threshold_check(damage)
 			add_attack_logs(user, src, "атаковал")

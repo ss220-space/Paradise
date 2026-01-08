@@ -528,7 +528,7 @@
 		return
 
 	if(prob(50))
-		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	mover.forceMove(loc)
@@ -540,7 +540,7 @@
 		return ..()
 
 	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
-		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
+		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
 		return ..()
 
 	AM.forceMove(get_turf(src))

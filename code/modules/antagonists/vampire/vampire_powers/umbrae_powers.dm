@@ -87,7 +87,7 @@
 		update_integrity(obj_integrity - 50)
 
 	if(obj_integrity <= 0)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] исчезает."))
+		visible_message(span_notice("[declent_ru_cap(NOMINATIVE)] исчезает."))
 		qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/triggered(mob/living/carbon/victim)
