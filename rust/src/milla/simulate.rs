@@ -723,7 +723,7 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
     let saturation_pressure: f32;
     let water_vapor: f32 = my_next_tile.gases.water_vapor();
 
-    if water_vapor < WATER_VAPOR_MIN_SATURATION_MOLES {
+    if water_vapor < 0.0 {
         return false;
     }
 
@@ -754,10 +754,11 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
             .set_water_vapor(water_vapor - condensed_water);
         //We lose gas, so we lose the thermal energy it had
         my_next_tile.thermal_energy = cached_temperature * my_next_heat_capacity;
-        true
-    } else {
-        false
+        if water_vapor > WATER_VAPOR_MIN_SATURATION_MOLES {
+            return true;
+        }
     }
+    false
 }
 
 /// Apply effects caused by the tile's atmos mode.
