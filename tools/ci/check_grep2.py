@@ -355,7 +355,7 @@ def check_localization_macro_usage(idx, line):
         if 'UNLINT' not in line:
             return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
 
-CAPITALIZED_DECLENT_RU = re.compile(r'capitalize\(\w+\.declent_ru\(\w+\)\)')
+CAPITALIZED_DECLENT_RU = re.compile(r'capitalize\((?:\w+\.)?declent_ru\(\w+\)\)')
 def check_capitalized_declent_ru_usage(idx, line):
     if CAPITALIZED_DECLENT_RU.search(line):
         return [(idx + 1, "Do not use `capitalize(declent_ru)` construction directly. Use the ready-made macros in code/game/atom/atom_localization.dm")]
