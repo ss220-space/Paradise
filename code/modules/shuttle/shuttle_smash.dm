@@ -64,6 +64,9 @@
 		victim.shuttle_crush_react(stationary_turf, mobile_dir)
 	gib()
 
+/mob/living/silicon/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = TRUE)
+	. = ..()	// we are skipping ungibable search, since silicons have no valuables to drop and this only cause bugs with brain removal
+
 /mob/living/silicon/robot/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = TRUE)
 	if(module)
 		var/obj/item/gripper/our_gripper = locate() in module.modules
