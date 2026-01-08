@@ -14,14 +14,15 @@
 #define EFFECT_PROB_HIGH 75
 #define EFFECT_PROB_VERYHIGH 95
 
+#define MAX_DUPE_TECH 4
+#define MAX_DUPE_COUNT 3
+#define MAX_BAD_THING_COEF 20
+
 #define FAIL 8
 /obj/machinery/r_n_d/experimentor
 	name = "E.X.P.E.R.I-MENTOR"
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
-	density = TRUE
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	var/recentlyExperimented = FALSE
 	var/mob/trackedIan
 	var/mob/trackedRuntime
@@ -36,35 +37,19 @@
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
 
-
 /obj/machinery/r_n_d/experimentor/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
-
 /obj/machinery/r_n_d/experimentor/LateInitialize()
 	. = ..()
 	console_connect()
-
 
 /obj/machinery/r_n_d/experimentor/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
-
-/* //uncomment to enable forced reactions.
-/obj/machinery/r_n_d/experimentor/verb/forceReaction()
-	set name = "Force Experimentor Reaction"
-	set category = STATPANEL_ADMIN_DEBUG	set src in oview(1)
-	var/reaction = tgui_input_list(usr, "What reaction?", , list(SCANTYPE_POKE, SCANTYPE_IRRADIATE, SCANTYPE_GAS, SCANTYPE_HEAT, SCANTYPE_COLD, SCANTYPE_OBLITERATE))
-	var/oldReaction = item_reactions["[loaded_item.type]"]
-	item_reactions["[loaded_item.type]"] = reaction
-	experiment(item_reactions["[loaded_item.type]"],loaded_item)
-	spawn(10)
-		if(loaded_item)
-			item_reactions["[loaded_item.type]"] = oldReaction
-*/
 
 /obj/machinery/r_n_d/experimentor/proc/SetTypeReactions()
 	var/probWeight = 0
@@ -89,7 +74,6 @@
 			var/obj/item/tempCheck = I
 			if(initial(tempCheck.icon_state) != null)
 				critical_items += I
-
 
 /obj/machinery/r_n_d/experimentor/Initialize(mapload)
 	. = ..()
@@ -120,6 +104,7 @@
 		badThingCoeff += M.rating*2
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		badThingCoeff += M.rating
+	badThingCoeff = min(badThingCoeff, MAX_BAD_THING_COEF)
 
 /obj/machinery/r_n_d/experimentor/proc/checkCircumstances(obj/item/O)
 	//snowflake check to only take "made" bombs
@@ -129,10 +114,8 @@
 			return FALSE
 	return TRUE
 
-
 /obj/machinery/r_n_d/experimentor/update_icon_state()
 	icon_state = "h_lathe[recentlyExperimented ? "_wloop" : ""]"
-
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
@@ -172,22 +155,26 @@
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
 
-		if(istype(I, /obj/item/relic) || (techs_sum > 4 || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
+		if(HAS_TRAIT(I, TRAIT_NO_CLONE_IN_EXPERIMENTATOR) || (techs_sum > MAX_DUPE_TECH || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
 			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
 
-		if (I.type in subtypesof(/obj/item/stack))
+		if(I.type in subtypesof(/obj/item/stack))
 			var/obj/item/stack/stack = I
-			if (stack.amount > 1)
+			if(stack.amount > 1)
 				to_chat(user, span_warning("Предмет должен быть цельным."))
 				return ATTACK_CHAIN_PROCEED
 
 		investigate_log("Experimentor has made a clone of [I]", INVESTIGATE_EXPERIMENTOR)
 		throwSmoke(get_turf(pick(oview(1,src))))
-		for (var/i = 1; i <= badThingCoeff; i++)
+		for(var/i = 1; i <= badThingCoeff; i++)
 			visible_message(span_notice("A duplicate [I] pops out!"))
 			var/type_to_make = I.type
-			new type_to_make(get_turf(pick(oview(1,src))))
+			var/obj/item/clone = new type_to_make(get_turf(pick(oview(1,src))))
+			if(!isstack(clone))
+				continue
+			var/obj/item/stack/stack_clone = clone
+			stack_clone.amount = 1
 
 		clone_next = FALSE
 		return ATTACK_CHAIN_PROCEED
@@ -200,7 +187,6 @@
 	flick("h_lathe_load", src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/r_n_d/experimentor/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -209,7 +195,6 @@
 	if(. && linked_console)
 		linked_console.linked_destroy = null
 		linked_console = null
-
 
 /obj/machinery/r_n_d/experimentor/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -222,7 +207,6 @@
 		return .
 	ejectItem()
 	default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
 	if(..())
@@ -239,13 +223,14 @@
 		var/list/D = ConvertReqString2List(loaded_item.origin_tech)
 		for(var/T in D)
 			dat += "[T]<br>"
+		var/item_uid = loaded_item.UID()
 		dat += "<br><br>Available tests:"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</a></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</a></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_POKE]'>Poke</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_IRRADIATE];'>Irradiate</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_GAS]'>Gas</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_HEAT]'>Burn</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_COLD]'>Freeze</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=[item_uid];function=[SCANTYPE_OBLITERATE]'>Destroy</a></b><br>"
 		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</a>"
 	else
 		dat += "<b>Nothing loaded.</b>"
@@ -254,7 +239,6 @@
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/machinery/r_n_d/experimentor/proc/matchReaction(matching,reaction)
 	var/obj/item/D = matching
@@ -301,7 +285,7 @@
 		if(prob(probtocheck))
 			result = TRUE
 			return from[counter+1]
-		if(counter + 2 < from.len)
+		if(counter + 2 < length(from))
 			counter = counter + 2
 		else
 			counter = 1
@@ -311,7 +295,7 @@
 	if(!isRelict)
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("[exp_on] is gripped in just the right way, enhancing its focus.")
-			badThingCoeff++
+			badThingCoeff = min(badThingCoeff + 1, MAX_BAD_THING_COEF)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src] malfunctions and destroys [exp_on], lashing its arms out at nearby people!"))
 			for(var/mob/living/m in oview(1, src))
@@ -341,7 +325,6 @@
 	else
 		exp = FAIL
 
-
 /obj/machinery/r_n_d/experimentor/proc/scan_irradiate(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message(span_danger("[src] reflects radioactive rays at [exp_on]!"))
 	if(!isRelict)
@@ -352,21 +335,21 @@
 			investigate_log("Experimentor has made a clone of [exp_on]", INVESTIGATE_EXPERIMENTOR)
 			ejectItem()
 
-		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
+		if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, melting [exp_on] and leaking radiation!"))
 			for(var/mob/living/m in oview(1, src))
 				m.apply_effect(25,IRRADIATE)
 				investigate_log("Experimentor has irradiated [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
 			ejectItem(TRUE)
 
-		if(prob(EFFECT_PROB_LOW-badThingCoeff))
+		if(prob(EFFECT_PROB_LOW - badThingCoeff))
 			visible_message(span_warning("[src] malfunctions, spewing toxic waste!"))
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
 					if(prob(EFFECT_PROB_VERYHIGH))
 						new /obj/effect/decal/cleanable/greenglow(T)
 
-		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
+		if(prob(EFFECT_PROB_MEDIUM - badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
 			var/newPath = pickWeighted(valid_items)
@@ -379,7 +362,7 @@
 
 			ejectItem()
 
-	else if(prob(EFFECT_PROB_VERYLOW))
+	else if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 		visible_message(span_warning("The [exp_on] has activated an unknown subroutine!"))
 		clone_next = TRUE
 		ejectItem()
@@ -387,14 +370,13 @@
 	else
 		exp = FAIL
 
-
 /obj/machinery/r_n_d/experimentor/proc/scan_gas(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message(span_warning("[src] fills its chamber with gas, [exp_on] included."))
 	if(!isRelict)
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("[exp_on] achieves the perfect mix!")
 			new /obj/item/stack/sheet/mineral/plasma(get_turf(pick(oview(1,src))))
-		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
+		if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 			visible_message(span_danger("[src] destroys [exp_on], leaking dangerous gas!"))
 			chosenchem = pick("carbon","radium","toxin","condensedcapsaicin","psilocybin","space_drugs","ethanol","beepskysmash")
 			var/datum/reagents/inner_reagent = new/datum/reagents(400)
@@ -407,7 +389,7 @@
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
-		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
+		if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 			visible_message(span_danger("[src]'s chemical chamber has sprung a leak!"))
 			chosenchem = pick("mutationtoxin","nanomachines","sacid")
 			var/datum/reagents/inner_reagent = new/datum/reagents(400)
@@ -421,10 +403,10 @@
 			ejectItem(TRUE)
 			warn_admins(usr, "[chosenchem] smoke")
 			investigate_log("Experimentor has released <span style='color: red;''>[chosenchem]</span> smoke!", INVESTIGATE_EXPERIMENTOR)
-		if(prob(EFFECT_PROB_LOW-badThingCoeff))
+		if(prob(EFFECT_PROB_LOW - badThingCoeff))
 			visible_message("[src] malfunctions, spewing harmless gas.>")
 			throwSmoke(src.loc)
-		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
+		if(prob(EFFECT_PROB_MEDIUM - badThingCoeff))
 			visible_message(span_warning("[src] melts [exp_on], ionizing the air around it!"))
 			empulse(src.loc, 4, 0) //change this to 4,6 once the EXPERI-Mentor is moved.
 			investigate_log("Experimentor has generated an Electromagnetic Pulse.", INVESTIGATE_EXPERIMENTOR)
@@ -438,7 +420,6 @@
 		qdel(exp_on)
 	else
 		exp = FAIL
-
 
 /obj/machinery/r_n_d/experimentor/proc/scan_heat(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message("[src] raises [exp_on]'s temperature.")
@@ -473,16 +454,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message(span_warning("[src] malfunctions, melting [exp_on] and leaking hot air!"))
-			var/datum/gas_mixture/env = src.loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = min((removed.temperature*heat_capacity + 100000)/heat_capacity, 1000)
-			env.merge(removed)
-			air_update_turf()
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, 100000, 1000)
 			investigate_log("Experimentor has released hot air.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -502,7 +475,6 @@
 		qdel(exp_on)
 	else
 		exp = FAIL
-
 
 /obj/machinery/r_n_d/experimentor/proc/scan_cold(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message("[src] lowers [exp_on]'s temperature.")
@@ -531,16 +503,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message(span_warning("[src] malfunctions, shattering [exp_on] and leaking cold air!"))
-			var/datum/gas_mixture/env = src.loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = (removed.temperature*heat_capacity - 75000)/heat_capacity
-			env.merge(removed)
-			air_update_turf()
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, -75000, 1000, TCMB)
 			investigate_log("Experimentor has released cold air.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -559,7 +523,6 @@
 		qdel(exp_on)
 	else
 		exp = FAIL
-
 
 /obj/machinery/r_n_d/experimentor/proc/scan_obliterate(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message(span_warning("[exp_on] activates the crushing mechanism."))
@@ -588,7 +551,7 @@
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
 					throwAt.Add(AM)
-			for(var/counter = 1, counter < throwAt.len, ++counter)
+			for(var/counter = 1, counter < length(throwAt), ++counter)
 				var/atom/movable/cast = throwAt[counter]
 				spawn(0)
 					cast.throw_at(pick(throwAt),10,1)
@@ -598,7 +561,7 @@
 		badThingCoeff++
 		var/list/obj/item/stack/sheet/mineral/minreals = list(/obj/item/stack/sheet/mineral/diamond, /obj/item/stack/sheet/mineral/gold, /obj/item/stack/sheet/glass,/obj/item/stack/sheet/metal,/obj/item/stack/sheet/mineral/plasma,/obj/item/stack/sheet/mineral/silver,/obj/item/stack/sheet/mineral/titanium,/obj/item/stack/sheet/mineral/uranium,/obj/item/stack/sheet/mineral/tranquillite,/obj/item/stack/sheet/mineral/bananium)
 		// Plastinium and abductor alloy are alloys, not processed ores.
-		for (var/i = 1; i <= 3; ++i)
+		for(var/i = 1; i <= 3; ++i)
 			var/obj/item/stack/sheet/mineral/m0 = pick(minreals)
 			var/obj/item/stack/sheet/mineral/M = new m0(get_turf(exp_on))
 			M.amount = 10
@@ -606,7 +569,6 @@
 		ejectItem(TRUE)
 	else
 		exp = FAIL
-
 
 /obj/machinery/r_n_d/experimentor/proc/experiment(exp, obj/item/exp_on)
 	recentlyExperimented = TRUE
@@ -675,17 +637,29 @@
 
 	addtimer(CALLBACK(src, PROC_REF(reset_machine)), resetTime)
 
-
 /obj/machinery/r_n_d/experimentor/proc/reset_machine()
 	recentlyExperimented = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/r_n_d/experimentor/proc/console_connect()
 	var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(console_dist, src)
 	if(D)
 		linked_console = D
 
+/datum/milla_safe/experimentor_temperature
+
+/datum/milla_safe/experimentor_temperature/on_run(obj/machinery/r_n_d/experimentor/experimentor, delta, min_new_temp)
+	var/turf/location = get_turf(experimentor)
+	var/datum/gas_mixture/env = get_turf_air(location)
+
+	var/transfer_moles = 0.25 * env.total_moles()
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(removed)
+		var/heat_capacity = removed.heat_capacity()
+		if(heat_capacity == 0 || heat_capacity == null)
+			heat_capacity = 1
+		removed.set_temperature(max(min_new_temp, (removed.temperature() * heat_capacity + delta) / heat_capacity))
+	env.merge(removed)
 
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())
@@ -693,7 +667,7 @@
 	usr.set_machine(src)
 
 	var/scantype = href_list["function"]
-	var/obj/item/process = locate(href_list["item"]) in src
+	var/obj/item/process = locateUID(href_list["item"])
 
 	if(href_list["close"])
 		close_window(usr, "experimentor")
@@ -724,7 +698,7 @@
 		experiment(dotype,process)
 		use_power(750)
 		if(dotype != FAIL)
-			if(process && process.origin_tech)
+			if(process?.origin_tech)
 				var/list/temp_tech = ConvertReqString2List(process.origin_tech)
 				var/tech_log
 				for(var/T in temp_tech)
@@ -755,6 +729,10 @@
 #undef EFFECT_PROB_HIGH
 #undef EFFECT_PROB_VERYHIGH
 
+#undef MAX_DUPE_TECH
+#undef MAX_DUPE_COUNT
+#undef MAX_BAD_THING_COEF
+
 #undef FAIL
 
 /obj/item/relict_production
@@ -774,7 +752,6 @@
 	return TRUE
 
 /obj/item/relict_production/perfect_mix
-	name = "perfect mix"
 	desc = "Странный объект из которого можно бесконечно заполнять емкости какой-то жидкостью."
 	icon_state = "beaker"
 	item_state = "beaker"
@@ -787,7 +764,7 @@
 
 /obj/item/relict_production/perfect_mix/New()
 	. = ..()
-	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer, /datum/reagent/beer2))
+	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer))
 
 /obj/item/relict_production/perfect_mix/afterattack(atom/target, mob/user, proximity)
 	if(istype(target, /obj/item/reagent_containers/glass))
@@ -801,7 +778,6 @@
 	name = "strange teleporter"
 	desc = "Странный объект телепортирующий вас при активации."
 	icon_state = "prox-multitool2"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=4;bluespace=4"
 	cooldown = 10 SECONDS
 
@@ -825,7 +801,6 @@
 	name = "pet spray"
 	desc = "Странный объект создающий враждебных существ."
 	icon_state = "armor-igniter-analyzer"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "biotech=5"
 	cooldown = 60 SECONDS
 
@@ -863,7 +838,6 @@
 	name = "rapid dupe"
 	desc = "Странный объект создающий другие странные объекты при контакте с аномалиями."
 	icon_state = "shock_kit"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=5"
 
 //////////////////////////////////SPECIAL ITEMS////////////////////////////////////////
@@ -874,11 +848,14 @@
 	icon_state = "shock_kit"
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	var/realName = "defined object"
 	var/revealed = FALSE
 	var/realProc
 
 /obj/item/relic/New()
 	..()
+	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
 	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","suspicious tech","gear")]"

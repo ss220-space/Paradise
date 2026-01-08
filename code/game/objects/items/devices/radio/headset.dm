@@ -2,7 +2,6 @@
 	name = "radio headset"
 	desc = "Радиочастотная гарнитура общего назначения, использующая телекоммуникационные системы \
 			для поддержания двусторонней связи по основной частоте объекта."
-	gender = FEMALE
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
@@ -14,7 +13,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/ears.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/ears.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi',
 	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
@@ -22,7 +21,6 @@
 	slot_flags = ITEM_SLOT_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
-	var/obj/item/encryptionkey/keyslot1 = null
 	var/obj/item/encryptionkey/keyslot2 = null
 
 	var/ks1type = null
@@ -37,31 +35,36 @@
 		DATIVE = "радиочастотной гарнитуры",
 		ACCUSATIVE = "радиочастотную гарнитуру",
 		INSTRUMENTAL = "радиочастотной гарнитурой",
-		PREPOSITIONAL = "радиочастотной гарнитуре"
+		PREPOSITIONAL = "радиочастотной гарнитуре",
 	)
 
-/obj/item/radio/headset/New()
-	..()
-	internal_channels.Cut()
-
 /obj/item/radio/headset/Initialize(mapload)
-	. = ..()
-
 	if(ks1type)
-		keyslot1 = new ks1type(src)
-		if(keyslot1.syndie)
-			syndiekey = keyslot1
+		keyslot = new ks1type(src)
 	if(ks2type)
 		keyslot2 = new ks2type(src)
-		if(keyslot2.syndie)
-			syndiekey = keyslot2
-
-	recalculateChannels(TRUE)
+	. = ..()
+	possibly_deactivate_in_loc()
 
 /obj/item/radio/headset/Destroy()
-	QDEL_NULL(keyslot1)
+	QDEL_NULL(keyslot)
 	QDEL_NULL(keyslot2)
 	return ..()
+
+/obj/item/radio/headset/get_internal_channels()
+	return list()
+
+/obj/item/radio/headset/proc/possibly_deactivate_in_loc()
+	if(!listening)
+		return
+	if(ismob(loc))
+		set_listening(should_be_listening)
+	else
+		set_listening(FALSE, actual_setting = FALSE)
+
+/obj/item/radio/headset/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	possibly_deactivate_in_loc()
 
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
@@ -93,6 +96,116 @@
 
 	return FALSE
 
+/obj/item/radio/headset/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/encryptionkey))
+		if(loc == user && (user.check_obscured_slots() & user.get_slot_by_item(src)))
+			user.balloon_alert(user, "закрыто одеждой!")
+			return ATTACK_CHAIN_PROCEED
+		add_fingerprint(user)
+		user.set_machine(src)
+		if(keyslot && keyslot2)
+			user.balloon_alert(user, "слоты для ключей заняты!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		if(keyslot)
+			keyslot2 = I
+		else
+			keyslot = I
+		recalculate_channels()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(ishuman(user) && loc == user)
+		var/mob/living/carbon/human/H_user = user
+		if(H_user.check_obscured_slots() & H_user.get_slot_by_item(src))
+			user.balloon_alert(user, "закрыто одеждой!")
+			return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	user.set_machine(src)
+	if(keyslot || keyslot2)
+		if(keyslot)
+			var/turf/T = get_turf(user)
+			if(T)
+				keyslot.loc = T
+				keyslot = null
+		if(keyslot2)
+			var/turf/T = get_turf(user)
+			if(T)
+				keyslot2.loc = T
+				keyslot2 = null
+
+		recalculate_channels()
+		user.balloon_alert(user, "ключ извлечён")
+		I.play_tool_sound(user, I.tool_volume)
+	else
+		user.balloon_alert(user, "слот для ключа пуст!")
+
+/obj/item/radio/headset/recalculate_channels(setDescription = TRUE)
+	. = ..()
+	if(!setDescription)
+		return
+	setupRadioDescription()
+
+/obj/item/radio/headset/load_channels()
+	. = ..()
+	load_keyslot(keyslot)
+	load_keyslot(keyslot2)
+
+/obj/item/radio/headset/load_keyslot(obj/item/encryptionkey/key)
+	if(!istype(key))
+		return
+
+	translate_binary |= key.translate_binary
+	translate_hive |= key.translate_hive
+
+	if(!key.syndie)
+		return
+
+	syndiekey = key
+
+/obj/item/radio/headset/get_base_channels()
+	return (keyslot?.channels | keyslot2?.channels)
+
+/obj/item/radio/headset/make_broken()
+	. = ..()
+	name = "broken radio headset"
+	ru_names = list(
+		NOMINATIVE = "сломанная радиочастотная гарнитура",
+		GENITIVE = "сломанную радиочастотную гарнитуру",
+		DATIVE = "сломанной радиочастотной гарнитуры",
+		ACCUSATIVE = "сломанную радиочастотную гарнитуру",
+		INSTRUMENTAL = "сломанной радиочастотной гарнитурой",
+		PREPOSITIONAL = "сломанной радиочастотной гарнитуре",
+	)
+
+/obj/item/radio/headset/reset_channels()
+	. = ..()
+	translate_binary = FALSE
+	translate_hive = FALSE
+	syndiekey = null
+
+/obj/item/radio/headset/proc/setupRadioDescription()
+	var/radio_text = ""
+	for(var/i = 1 to length(channels))
+		var/channel = channels[i]
+		var/key = get_radio_key_from_channel(channel)
+		radio_text += "[key] - [channel]"
+		if(i != length(channels))
+			radio_text += ", "
+
+	radio_desc = radio_text
+
+/obj/item/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
+	qdel(keyslot)
+	keyslot = new /obj/item/encryptionkey/syndicate
+	syndiekey = keyslot
+	recalculate_channels()
+
 /obj/item/radio/headset/alt
 	name = "bowman headset"
 	desc = "Тактическая гарнитура, разработанная по военным технологиям. \
@@ -109,7 +222,7 @@
 		DATIVE = "тактической гарнитуры",
 		ACCUSATIVE = "тактическую гарнитуру",
 		INSTRUMENTAL = "тактической гарнитурой",
-		PREPOSITIONAL = "тактической гарнитуре"
+		PREPOSITIONAL = "тактической гарнитуре",
 	)
 
 /obj/item/radio/headset/syndicate
@@ -121,23 +234,22 @@
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
-	desc = "Тактическая гарнитура, разработанная по технологиям Синдиката. \
+	desc = "Тактическая гарнитура, разработанная по технологиям \"Синдиката\". \
 			Система активного шумоподавления защищает органы слуха пользователя от громких звуков. \
-			Использует особые протоколы связи для доступа к зашифрованным каналам Синдиката и прослушивания закрытых каналов НаноТрейзен. \
+			Использует особые протоколы связи для доступа к зашифрованным каналам \"Синдиката\" и прослушивания закрытых каналов \"Нанотрейзен\". \
 			Работает автономно без необходимости прямого подключения к местным телекоммуникационным системам."
 	item_flags = BANGPROTECT_MINOR
-	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
 /obj/item/radio/headset/syndicate/alt/get_ru_names()
 	return list(
-		NOMINATIVE = "тактическая гарнитура Синдиката",
-		GENITIVE = "тактическую гарнитуру Синдиката",
-		DATIVE = "тактической гарнитуры Синдиката",
-		ACCUSATIVE = "тактическую гарнитуру Синдиката",
-		INSTRUMENTAL = "тактической гарнитурой Синдиката",
-		PREPOSITIONAL = "тактической гарнитуре Синдиката"
+		NOMINATIVE = "тактическая гарнитура \"Синдиката\"",
+		GENITIVE = "тактическую гарнитуру \"Синдиката\"",
+		DATIVE = "тактической гарнитуры \"Синдиката\"",
+		ACCUSATIVE = "тактическую гарнитуру \"Синдиката\"",
+		INSTRUMENTAL = "тактической гарнитурой \"Синдиката\"",
+		PREPOSITIONAL = "тактической гарнитуре \"Синдиката\"",
 	)
 
 /obj/item/radio/headset/syndicate/syndteam
@@ -148,33 +260,30 @@
 
 /obj/item/radio/headset/syndicate/alt/lavaland
 	name = "syndicate lavaland headset"
-	desc = "Тактическая гарнитура, разработанная по технологиям Синдиката. \
+	desc = "Тактическая гарнитура, разработанная по технологиям \"Синдиката\". \
 			Система активного шумоподавления защищает органы слуха пользователя от громких звуков. \
-			Использует особые протоколы связи для доступа к зашифрованным каналам Синдиката и прослушивания закрытых каналов НаноТрейзен. \
+			Использует особые протоколы связи для доступа к зашифрованным каналам \"Синдиката\" и прослушивания закрытых каналов \"Нанотрейзен\". \
 			Работает автономно без необходимости прямого подключения к местным телекоммуникационным системам. \
-			Специальная модель для сотрудников Синдиката, оперирующих на поверхности Лазиса."
+			Специальная модель для сотрудников \"Синдиката\", оперирующих на поверхности Лазиса."
+	default_frequency = SYND_FREQ
 
 /obj/item/radio/headset/syndicate/alt/lavaland/get_ru_names()
 	return list(
-		NOMINATIVE = "тактическая гарнитура Синдиката (Лазис)",
-		GENITIVE = "тактическую гарнитуру Синдиката (Лазис)",
-		DATIVE = "тактической гарнитуры Синдиката (Лазис)",
-		ACCUSATIVE = "тактическую гарнитуру Синдиката (Лазис)",
-		INSTRUMENTAL = "тактической гарнитурой Синдиката (Лазис)",
-		PREPOSITIONAL = "тактической гарнитуре Синдиката (Лазис)"
+		NOMINATIVE = "тактическая гарнитура \"Синдиката\" (Лазис)",
+		GENITIVE = "тактическую гарнитуру \"Синдиката\" (Лазис)",
+		DATIVE = "тактической гарнитуры \"Синдиката\" (Лазис)",
+		ACCUSATIVE = "тактическую гарнитуру \"Синдиката\" (Лазис)",
+		INSTRUMENTAL = "тактической гарнитурой \"Синдиката\" (Лазис)",
+		PREPOSITIONAL = "тактической гарнитуре \"Синдиката\" (Лазис)",
 	)
-
-/obj/item/radio/headset/syndicate/alt/lavaland/New()
-	. = ..()
-	set_frequency(SYND_FREQ)
 
 /obj/item/radio/headset/syndicate/admin_officer
 	name = "syndicate officer's headset"
-	desc = "Тактическая гарнитура, разработанная по технологиям Синдиката. \
+	desc = "Тактическая гарнитура, разработанная по технологиям \"Синдиката\". \
 			Система активного шумоподавления защищает органы слуха пользователя от громких звуков. \
-			Использует особые протоколы связи для доступа к зашифрованным каналам Синдиката и прослушивания закрытых каналов НаноТрейзен. \
+			Использует особые протоколы связи для доступа к зашифрованным каналам \"Синдиката\" и прослушивания закрытых каналов \"Нанотрейзен\". \
 			Работает автономно без необходимости прямого подключения к местным телекоммуникационным системам. \
-			Элитная модель, созданная для командного состава Синдиката."
+			Элитная модель, созданная для командного состава \"Синдиката\"."
 	icon_state = "taipan_headset"
 	item_state = "taipan_headset"
 	ks1type = /obj/item/encryptionkey/syndteam
@@ -185,39 +294,36 @@
 
 /obj/item/radio/headset/syndicate/admin_officer/get_ru_names()
 	return list(
-		NOMINATIVE = "тактическая гарнитура Офицера Синдиката",
-		GENITIVE = "тактическую гарнитуру Офицера Синдиката",
-		DATIVE = "тактической гарнитуры Офицера Синдиката",
-		ACCUSATIVE = "тактическую гарнитуру Офицера Синдиката",
-		INSTRUMENTAL = "тактической гарнитурой Офицера Синдиката",
-		PREPOSITIONAL = "тактической гарнитуре Офицера Синдиката"
+		NOMINATIVE = "тактическая гарнитура Офицера \"Синдиката\"",
+		GENITIVE = "тактическую гарнитуру Офицера \"Синдиката\"",
+		DATIVE = "тактической гарнитуры Офицера \"Синдиката\"",
+		ACCUSATIVE = "тактическую гарнитуру Офицера \"Синдиката\"",
+		INSTRUMENTAL = "тактической гарнитурой Офицера \"Синдиката\"",
+		PREPOSITIONAL = "тактической гарнитуре Офицера \"Синдиката\"",
 	)
 
 /obj/item/radio/headset/syndicate/taipan
 	name = "syndicate taipan headset"
-	desc = "Тактическая гарнитура, разработанная по технологиям Синдиката. \
+	desc = "Тактическая гарнитура, разработанная по технологиям \"Синдиката\". \
 			Система активного шумоподавления защищает органы слуха пользователя от громких звуков. \
-			Использует особые протоколы связи для доступа к зашифрованным каналам Синдиката и прослушивания закрытых каналов НаноТрейзен. \
+			Использует особые протоколы связи для доступа к зашифрованным каналам \"Синдиката\" и прослушивания закрытых каналов \"Нанотрейзен\". \
 			Работает автономно без необходимости прямого подключения к местным телекоммуникационным системам. \
-			Специальная модель для сотрудников Синдиката, оперирующих в секторе Эпсилон Лукусты."
+			Специальная модель для сотрудников \"Синдиката\", оперирующих в секторе Эпсилон Лукусты."
 	icon_state = "taipan_headset"
 	item_state = "taipan_headset"
 	ks1type = /obj/item/encryptionkey/syndicate/taipan
 	item_flags = BANGPROTECT_MINOR
+	default_frequency = SYND_TAIPAN_FREQ
 
 /obj/item/radio/headset/syndicate/taipan/get_ru_names()
 	return list(
-		NOMINATIVE = "тактическая гарнитура Синдиката (Тайпан)",
-		GENITIVE = "тактическую гарнитуру Синдиката (Тайпан)",
-		DATIVE = "тактической гарнитуры Синдиката (Тайпан)",
-		ACCUSATIVE = "тактическую гарнитуру Синдиката (Тайпан)",
-		INSTRUMENTAL = "тактической гарнитурой Синдиката (Тайпан)",
-		PREPOSITIONAL = "тактической гарнитуре Синдиката (Тайпан)"
+		NOMINATIVE = "тактическая гарнитура \"Синдиката\" (Тайпан)",
+		GENITIVE = "тактическую гарнитуру \"Синдиката\" (Тайпан)",
+		DATIVE = "тактической гарнитуры \"Синдиката\" (Тайпан)",
+		ACCUSATIVE = "тактическую гарнитуру \"Синдиката\" (Тайпан)",
+		INSTRUMENTAL = "тактической гарнитурой \"Синдиката\" (Тайпан)",
+		PREPOSITIONAL = "тактической гарнитуре \"Синдиката\" (Тайпан)",
 	)
-
-/obj/item/radio/headset/syndicate/taipan/New()
-	. = ..()
-	set_frequency(SYND_TAIPAN_FREQ)
 
 /obj/item/radio/headset/syndicate/taipan/tcomms_agent
 	ks1type = /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
@@ -244,7 +350,7 @@
 		DATIVE = "тактической гарнитуры СССП",
 		ACCUSATIVE = "тактическую гарнитуру СССП",
 		INSTRUMENTAL = "тактической гарнитурой СССП",
-		PREPOSITIONAL = "тактической гарнитуре СССП"
+		PREPOSITIONAL = "тактической гарнитуре СССП",
 	)
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
@@ -256,7 +362,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется сотрудниками местной службы безопасности."
 	icon_state = "sec_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/headset_sec/get_ru_names()
@@ -266,7 +371,7 @@
 		DATIVE = "радиочастотной гарнитуры службы безопасности",
 		ACCUSATIVE = "радиочастотную гарнитуру службы безопасности",
 		INSTRUMENTAL = "радиочастотной гарнитурой службы безопасности",
-		PREPOSITIONAL = "радиочастотной гарнитуре службы безопасности"
+		PREPOSITIONAL = "радиочастотной гарнитуре службы безопасности",
 	)
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"
@@ -286,7 +391,7 @@
 		DATIVE = "тактической гарнитуры службы безопасности",
 		ACCUSATIVE = "тактическую гарнитуру службы безопасности",
 		INSTRUMENTAL = "тактической гарнитурой службы безопасности",
-		PREPOSITIONAL = "тактической гарнитуре службы безопасности"
+		PREPOSITIONAL = "тактической гарнитуре службы безопасности",
 	)
 /obj/item/radio/headset/headset_brigphys
 	name = "brig physician's bowman headset"
@@ -306,7 +411,7 @@
 		DATIVE = "тактической гарнитуры Бригмедика",
 		ACCUSATIVE = "тактическую гарнитуру Бригмедика",
 		INSTRUMENTAL = "тактической гарнитурой Бригмедика",
-		PREPOSITIONAL = "тактической гарнитуре Бригмедика"
+		PREPOSITIONAL = "тактической гарнитуре Бригмедика",
 	)
 
 /obj/item/radio/headset/prisoner
@@ -318,6 +423,7 @@
 	item_state = "prisoner_headset"
 	ks2type = /obj/item/encryptionkey/prisoner
 	freqlock = TRUE
+	default_frequency = PRS_FREQ
 
 /obj/item/radio/headset/prisoner/get_ru_names()
 	return list(
@@ -326,12 +432,71 @@
 		DATIVE = "радиочастотной гарнитуры заключенных",
 		ACCUSATIVE = "радиочастотную гарнитуру заключенных",
 		INSTRUMENTAL = "радиочастотной гарнитурой заключенных",
-		PREPOSITIONAL = "радиочастотной гарнитуре заключенных"
+		PREPOSITIONAL = "радиочастотной гарнитуре заключенных",
 	)
 
-/obj/item/radio/headset/prisoner/New()
-	. = ..()
-	set_frequency(PRS_FREQ)
+/obj/item/radio/headset/green
+	name = "green radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется зелеными."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks2type = /obj/item/encryptionkey/green
+	freqlock = TRUE
+	default_frequency = T1_FREQ
+
+/obj/item/radio/headset/green/get_ru_names()
+	return list(
+		NOMINATIVE = "радиочастотная гарнитура зеленых",
+		GENITIVE = "радиочастотную гарнитуру зеленых",
+		DATIVE = "радиочастотной гарнитуры зеленых",
+		ACCUSATIVE = "радиочастотную гарнитуру зеленых",
+		INSTRUMENTAL = "радиочастотной гарнитурой зеленых",
+		PREPOSITIONAL = "радиочастотной гарнитуре зеленых",
+	)
+
+/obj/item/radio/headset/blue
+	name = "blue radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется синими."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks2type = /obj/item/encryptionkey/blue
+	freqlock = TRUE
+	default_frequency = T2_FREQ
+
+/obj/item/radio/headset/blue/get_ru_names()
+	return list(
+		NOMINATIVE = "радиочастотная гарнитура синих",
+		GENITIVE = "радиочастотную гарнитуру синих",
+		DATIVE = "радиочастотной гарнитуры синих",
+		ACCUSATIVE = "радиочастотную гарнитуру синих",
+		INSTRUMENTAL = "радиочастотной гарнитурой синих",
+		PREPOSITIONAL = "радиочастотной гарнитуре синих",
+	)
+
+/obj/item/radio/headset/red
+	name = "red radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется красными."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks2type = /obj/item/encryptionkey/red
+	freqlock = TRUE
+	default_frequency = T3_FREQ
+
+/obj/item/radio/headset/red/get_ru_names()
+	return list(
+		NOMINATIVE = "радиочастотная гарнитура красных",
+		GENITIVE = "радиочастотную гарнитуру красных",
+		DATIVE = "радиочастотной гарнитуры красных",
+		ACCUSATIVE = "радиочастотную гарнитуру красных",
+		INSTRUMENTAL = "радиочастотной гарнитурой красных",
+		PREPOSITIONAL = "радиочастотной гарнитуре красных",
+	)
 
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs radio headset"
@@ -339,7 +504,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется местным юридическим персоналом."
 	icon_state = "sec_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_iaa/get_ru_names()
@@ -349,9 +513,8 @@
 		DATIVE = "радиочастотной гарнитуры Агента Внутренних Дел",
 		ACCUSATIVE = "радиочастотную гарнитуру Агента Внутренних Дел",
 		INSTRUMENTAL = "радиочастотной гарнитурой Агента Внутренних Дел",
-		PREPOSITIONAL = "радиочастотной гарнитуре Агента Внутренних Дел"
+		PREPOSITIONAL = "радиочастотной гарнитуре Агента Внутренних Дел",
 	)
-
 
 /obj/item/radio/headset/headset_iaa/alt
 	name = "internal affairs bowman headset"
@@ -370,7 +533,7 @@
 		DATIVE = "тактической гарнитуры Агента Внутренних Дел",
 		ACCUSATIVE = "тактическую гарнитуру Агента Внутренних Дел",
 		INSTRUMENTAL = "тактической гарнитурой Агента Внутренних Дел",
-		PREPOSITIONAL = "тактической гарнитуре Агента Внутренних Дел"
+		PREPOSITIONAL = "тактической гарнитуре Агента Внутренних Дел",
 	)
 
 /obj/item/radio/headset/headset_eng
@@ -380,7 +543,6 @@
 			подключена к системе оповещений инженерного оборудования. \
 			Используется местным инженерным персоналом."
 	icon_state = "eng_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_eng/get_ru_names()
@@ -390,7 +552,7 @@
 		DATIVE = "радиочастотной гарнитуры инженерного отдела",
 		ACCUSATIVE = "радиочастотную гарнитуру инженерного отдела",
 		INSTRUMENTAL = "радиочастотной гарнитурой инженерного отдела",
-		PREPOSITIONAL = "радиочастотной гарнитуре инженерного отдела"
+		PREPOSITIONAL = "радиочастотной гарнитуре инженерного отдела",
 	)
 
 /obj/item/radio/headset/headset_rob
@@ -399,7 +561,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется местными робототехниками."
 	icon_state = "rob_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_rob
 
 /obj/item/radio/headset/headset_rob/get_ru_names()
@@ -409,7 +570,7 @@
 		DATIVE = "радиочастотной гарнитуры робототехников",
 		ACCUSATIVE = "радиочастотную гарнитуру робототехников",
 		INSTRUMENTAL = "радиочастотной гарнитурой робототехников",
-		PREPOSITIONAL = "радиочастотной гарнитуре робототехников"
+		PREPOSITIONAL = "радиочастотной гарнитуре робототехников",
 	)
 
 /obj/item/radio/headset/headset_med
@@ -418,7 +579,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется местным медицинским персоналом."
 	icon_state = "med_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_med/get_ru_names()
@@ -428,7 +588,7 @@
 		DATIVE = "радиочастотной гарнитуры медицинского отдела",
 		ACCUSATIVE = "радиочастотную гарнитуру медицинского отдела",
 		INSTRUMENTAL = "радиочастотной гарнитурой медицинского отдела",
-		PREPOSITIONAL = "радиочастотной гарнитуре медицинского отдела"
+		PREPOSITIONAL = "радиочастотной гарнитуре медицинского отдела",
 	)
 
 /obj/item/radio/headset/headset_sci
@@ -439,7 +599,6 @@
 			подключена к исследовательским системам объекта. \
 			Используется местным научным персоналом."
 	icon_state = "sci_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_sci
 
 /obj/item/radio/headset/headset_sci/get_ru_names()
@@ -449,7 +608,7 @@
 		DATIVE = "радиочастотной гарнитуры научного отдела",
 		ACCUSATIVE = "радиочастотную гарнитуру научного отдела",
 		INSTRUMENTAL = "радиочастотной гарнитурой научного отдела",
-		PREPOSITIONAL = "радиочастотной гарнитуре научного отдела"
+		PREPOSITIONAL = "радиочастотной гарнитуре научного отдела",
 	)
 
 /obj/item/radio/headset/headset_medsci
@@ -459,7 +618,6 @@
 			подключена к частотам медицинского и научного отделов. \
 			Используется местными сотрудниками, работающими на периферии медицинской и научной деятельности."
 	icon_state = "medsci_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_medsci
 
 /obj/item/radio/headset/headset_medsci/get_ru_names()
@@ -469,7 +627,7 @@
 		DATIVE = "радиочастотной гарнитуры научного и медицинского отделов",
 		ACCUSATIVE = "радиочастотную гарнитуру научного и медицинского отделов",
 		INSTRUMENTAL = "радиочастотной гарнитурой научного и медицинского отделов",
-		PREPOSITIONAL = "радиочастотной гарнитуре научного и медицинского отделов"
+		PREPOSITIONAL = "радиочастотной гарнитуре научного и медицинского отделов",
 	)
 
 /obj/item/radio/headset/headset_com
@@ -479,7 +637,6 @@
 			обеспечивающим выдающееся качество связи для контроля ситуации в реальном времени. \
 			Используется местным командным составом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_com
 
 /obj/item/radio/headset/headset_com/get_ru_names()
@@ -489,7 +646,7 @@
 		DATIVE = "радиочастотной гарнитуры командного отдела",
 		ACCUSATIVE = "радиочастотную гарнитуру командного отдела",
 		INSTRUMENTAL = "радиочастотной гарнитурой командного отдела",
-		PREPOSITIONAL = "радиочастотной гарнитуре командного отдела"
+		PREPOSITIONAL = "радиочастотной гарнитуре командного отдела",
 	)
 
 /obj/item/radio/headset/heads/captain
@@ -498,7 +655,6 @@
 			Встроенные телекоммуникационные протоколы поддерживают двустороннюю связь по всем частотам объекта, \
 			обеспечиваяя контроль над ситуацией в реальном времени. Используется местным Капитаном."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/get_ru_names()
@@ -508,7 +664,7 @@
 		DATIVE = "радиочастотной гарнитуры Капитана",
 		ACCUSATIVE = "радиочастотную гарнитуру Капитана",
 		INSTRUMENTAL = "радиочастотной гарнитурой Капитана",
-		PREPOSITIONAL = "радиочастотной гарнитуре Капитана"
+		PREPOSITIONAL = "радиочастотной гарнитуре Капитана",
 	)
 
 /obj/item/radio/headset/heads/captain/alt
@@ -530,7 +686,7 @@
 		DATIVE = "тактической гарнитуры Капитана",
 		ACCUSATIVE = "тактическую гарнитуру Капитана",
 		INSTRUMENTAL = "тактической гарнитурой Капитана",
-		PREPOSITIONAL = "тактической гарнитуре Капитана"
+		PREPOSITIONAL = "тактической гарнитуре Капитана",
 	)
 
 /obj/item/radio/headset/heads/rd
@@ -542,7 +698,6 @@
 			а также обеспечивают доступ к командным и научным частотам. \
 			Используется местным Научным Руководителем."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/rd/get_ru_names()
@@ -552,7 +707,7 @@
 		DATIVE = "радиочастотной гарнитуры Научного Руководителя",
 		ACCUSATIVE = "радиочастотную гарнитуру Научного Руководителя",
 		INSTRUMENTAL = "радиочастотной гарнитурой Научного Руководителя",
-		PREPOSITIONAL = "радиочастотной гарнитуре Научного Руководителя"
+		PREPOSITIONAL = "радиочастотной гарнитуре Научного Руководителя",
 	)
 
 /obj/item/radio/headset/heads/hos
@@ -563,7 +718,6 @@
 			обеспечивая отличное качество коммуникации с составом службы безопасности и командования в реальном времени. \
 			Используется местным Главой Службы Безопасности."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/get_ru_names()
@@ -573,7 +727,7 @@
 		DATIVE = "радиочастотной гарнитуры Главы Службы Безопасности",
 		ACCUSATIVE = "радиочастотную гарнитуру Главы Службы Безопасности",
 		INSTRUMENTAL = "радиочастотной гарнитурой Главы Службы Безопасности",
-		PREPOSITIONAL = "радиочастотной гарнитуре Главы Службы Безопасности"
+		PREPOSITIONAL = "радиочастотной гарнитуре Главы Службы Безопасности",
 	)
 
 /obj/item/radio/headset/heads/hos/alt
@@ -596,7 +750,7 @@
 		DATIVE = "тактической гарнитуры Главы Службы Безопасности",
 		ACCUSATIVE = "тактическую гарнитуру Главы Службы Безопасности",
 		INSTRUMENTAL = "тактической гарнитурой Главы Службы Безопасности",
-		PREPOSITIONAL = "тактической гарнитуре Главы Службы Безопасности"
+		PREPOSITIONAL = "тактической гарнитуре Главы Службы Безопасности",
 	)
 
 /obj/item/radio/headset/heads/ce
@@ -607,7 +761,6 @@
 			двустороннюю связь с системой оповещений инженерного оборудования, \
 			а также инженерной и командной частотами. Используется местным Главным Инженером."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ce
 
 /obj/item/radio/headset/heads/ce/get_ru_names()
@@ -617,7 +770,7 @@
 		DATIVE = "радиочастотной гарнитуры Главного Инженера",
 		ACCUSATIVE = "радиочастотную гарнитуру Главного Инженера",
 		INSTRUMENTAL = "радиочастотной гарнитурой Главного Инженера",
-		PREPOSITIONAL = "радиочастотной гарнитуре Главного Инженера"
+		PREPOSITIONAL = "радиочастотной гарнитуре Главного Инженера",
 	)
 
 /obj/item/radio/headset/heads/cmo
@@ -628,7 +781,6 @@
 			двустороннюю связь с медицинской и командной частотами. \
 			Используется местным Главным Врачом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/cmo
 
 /obj/item/radio/headset/heads/cmo/get_ru_names()
@@ -638,7 +790,7 @@
 		DATIVE = "радиочастотной гарнитуры Главного Врача",
 		ACCUSATIVE = "радиочастотную гарнитуру Главного Врача",
 		INSTRUMENTAL = "радиочастотной гарнитурой Главного Врача",
-		PREPOSITIONAL = "радиочастотной гарнитуре Главного Врача"
+		PREPOSITIONAL = "радиочастотной гарнитуре Главного Врача",
 	)
 
 /obj/item/radio/headset/heads/hop
@@ -648,7 +800,6 @@
 			обеспечивающим доступ к частотам обслуживающего персонала и командования. \
 			Используется местным Главой Персонала."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hop
 
 /obj/item/radio/headset/heads/hop/get_ru_names()
@@ -658,7 +809,7 @@
 		DATIVE = "радиочастотной гарнитуры Главы Персонала",
 		ACCUSATIVE = "радиочастотную гарнитуру Главы Персонала",
 		INSTRUMENTAL = "радиочастотной гарнитурой Главы Персонала",
-		PREPOSITIONAL = "радиочастотной гарнитуре Главы Персонала"
+		PREPOSITIONAL = "радиочастотной гарнитуре Главы Персонала",
 	)
 
 /obj/item/radio/headset/heads/qm
@@ -669,7 +820,6 @@
 			обеспечивающим доступ к частотам снабжения и командования. \
 			Используется местным Квартирмейстеромом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/qm
 
 /obj/item/radio/headset/heads/qm/get_ru_names()
@@ -679,7 +829,7 @@
 		DATIVE = "радиочастотной гарнитуры Квартирмейстера",
 		ACCUSATIVE = "радиочастотную гарнитуру Квартирмейстера",
 		INSTRUMENTAL = "радиочастотной гарнитурой Квартирмейстера",
-		PREPOSITIONAL = "радиочастотной гарнитуре Квартирмейстера"
+		PREPOSITIONAL = "радиочастотной гарнитуре Квартирмейстера",
 	)
 
 /obj/item/radio/headset/headset_cargo
@@ -700,7 +850,7 @@
 		DATIVE = "радиочастотной гарнитуры отдела снабжения",
 		ACCUSATIVE = "радиочастотную гарнитуру отдела снабжения",
 		INSTRUMENTAL = "радиочастотной гарнитурой отдела снабжения",
-		PREPOSITIONAL = "радиочастотной гарнитуре отдела снабжения"
+		PREPOSITIONAL = "радиочастотной гарнитуре отдела снабжения",
 	)
 
 /obj/item/radio/headset/headset_cargo/mining
@@ -718,7 +868,7 @@
 		DATIVE = "радиочастотной гарнитуры шахтёров",
 		ACCUSATIVE = "радиочастотную гарнитуру шахтёров",
 		INSTRUMENTAL = "радиочастотной гарнитурой шахтёров",
-		PREPOSITIONAL = "радиочастотной гарнитуре шахтёров"
+		PREPOSITIONAL = "радиочастотной гарнитуре шахтёров",
 	)
 
 /obj/item/radio/headset/headset_service
@@ -727,7 +877,6 @@
 			по зашифрованным частотам отдела обслуживания. \
 			Используется местным обслуживающим персоналом."
 	icon_state = "srv_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_service
 
 /obj/item/radio/headset/headset_service/get_ru_names()
@@ -737,7 +886,7 @@
 		DATIVE = "радиочастотной гарнитуры отдела обслуживания",
 		ACCUSATIVE = "радиочастотную гарнитуру отдела обслуживания",
 		INSTRUMENTAL = "радиочастотной гарнитурой отдела обслуживания",
-		PREPOSITIONAL = "радиочастотной гарнитуре отдела обслуживания"
+		PREPOSITIONAL = "радиочастотной гарнитуре отдела обслуживания",
 	)
 
 /obj/item/radio/headset/heads/ntrep
@@ -745,19 +894,18 @@
 	desc = "Специализированная радиочастотная гарнитура, выполненная из ударопрочных полимеров. \
 			Оснащена улучшенным телекоммуникационным оборудованием, \
 			обеспечивающим доступ к большей части зашифрованных частот объекта. \
-			Используется местным Представителем НаноТрейзен."
+			Используется местным Представителем \"Нанотрейзен\"."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
 /obj/item/radio/headset/heads/ntrep/get_ru_names()
 	return list(
-		NOMINATIVE = "радиочастотная гарнитура Представителя НаноТрейзен",
-		GENITIVE = "радиочастотную гарнитуру Представителя НаноТрейзен",
-		DATIVE = "радиочастотной гарнитуры Представителя НаноТрейзен",
-		ACCUSATIVE = "радиочастотную гарнитуру Представителя НаноТрейзен",
-		INSTRUMENTAL = "радиочастотной гарнитурой Представителя НаноТрейзен",
-		PREPOSITIONAL = "радиочастотной гарнитуре Представителя НаноТрейзен"
+		NOMINATIVE = "радиочастотная гарнитура Представителя \"Нанотрейзен\"",
+		GENITIVE = "радиочастотную гарнитуру Представителя \"Нанотрейзен\"",
+		DATIVE = "радиочастотной гарнитуры Представителя \"Нанотрейзен\"",
+		ACCUSATIVE = "радиочастотную гарнитуру Представителя \"Нанотрейзен\"",
+		INSTRUMENTAL = "радиочастотной гарнитурой Представителя \"Нанотрейзен\"",
+		PREPOSITIONAL = "радиочастотной гарнитуре Представителя \"Нанотрейзен\"",
 	)
 
 /obj/item/radio/headset/heads/magistrate
@@ -767,9 +915,7 @@
 			обеспечивающим доступ к зашифрованным частотам объекта \
 			для коммуникации по вопросам права. Используется местным Магистратом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/magistrate
-
 
 /obj/item/radio/headset/heads/magistrate/get_ru_names()
 	return list(
@@ -778,7 +924,7 @@
 		DATIVE = "радиочастотной гарнитуры Магистрата",
 		ACCUSATIVE = "радиочастотную гарнитуру Магистрата",
 		INSTRUMENTAL = "радиочастотной гарнитурой Магистрата",
-		PREPOSITIONAL = "радиочастотной гарнитуре Магистрата"
+		PREPOSITIONAL = "радиочастотной гарнитуре Магистрата",
 	)
 
 /obj/item/radio/headset/heads/magistrate/alt
@@ -799,7 +945,7 @@
 		DATIVE = "тактической гарнитуры Магистрата",
 		ACCUSATIVE = "тактическую гарнитуру Магистрата",
 		INSTRUMENTAL = "тактической гарнитурой Магистрата",
-		PREPOSITIONAL = "тактической гарнитуре Магистрата"
+		PREPOSITIONAL = "тактической гарнитуре Магистрата",
 	)
 
 /obj/item/radio/headset/heads/blueshield
@@ -810,7 +956,6 @@
 			обеспечивая отличное качество коммуникации с командным составом. \
 			Используется местным Офицером \"Синий Щит\"."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/blueshield
 
 /obj/item/radio/headset/heads/blueshield/get_ru_names()
@@ -820,9 +965,8 @@
 		DATIVE = "радиочастотной гарнитуры Офицера \"Синий Щит\"",
 		ACCUSATIVE = "радиочастотную гарнитуру Офицера \"Синий Щит\"",
 		INSTRUMENTAL = "радиочастотной гарнитурой Офицера \"Синий Щит\"",
-		PREPOSITIONAL = "радиочастотной гарнитуре Офицера \"Синий Щит\""
+		PREPOSITIONAL = "радиочастотной гарнитуре Офицера \"Синий Щит\"",
 	)
-
 
 /obj/item/radio/headset/heads/blueshield/alt
 	name = "\proper blueshield's bowman headset"
@@ -844,7 +988,7 @@
 		DATIVE = "тактической гарнитуры Офицера \"Синий Щит\"",
 		ACCUSATIVE = "тактическую гарнитуру Офицера \"Синий Щит\"",
 		INSTRUMENTAL = "тактической гарнитурой Офицера \"Синий Щит\"",
-		PREPOSITIONAL = "тактической гарнитуре Офицера \"Синий Щит\""
+		PREPOSITIONAL = "тактической гарнитуре Офицера \"Синий Щит\"",
 	)
 
 /obj/item/radio/headset/ert
@@ -855,7 +999,6 @@
 			Работает автономно без необходимости прямого подключения к местным телекоммуникационным системам. \
 			Используется Оперативниками ОБР."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/ert
 	freqlock = TRUE
 
@@ -866,7 +1009,7 @@
 		DATIVE = "радиочастотной гарнитуры Оперативника ОБР",
 		ACCUSATIVE = "радиочастотную гарнитуру Оперативника ОБР",
 		INSTRUMENTAL = "радиочастотной гарнитурой Оперативника ОБР",
-		PREPOSITIONAL = "радиочастотной гарнитуре Оперативника ОБР"
+		PREPOSITIONAL = "радиочастотной гарнитуре Оперативника ОБР",
 	)
 
 /obj/item/radio/headset/ert/alt
@@ -888,7 +1031,7 @@
 		DATIVE = "тактической гарнитуры Оперативника ОБР",
 		ACCUSATIVE = "тактическую гарнитуру Оперативника ОБР",
 		INSTRUMENTAL = "тактической гарнитурой Оперативника ОБР",
-		PREPOSITIONAL = "тактической гарнитуре Оперативника ОБР"
+		PREPOSITIONAL = "тактической гарнитуре Оперативника ОБР",
 	)
 
 /obj/item/radio/headset/ert/alt/solgov
@@ -907,9 +1050,8 @@
 		DATIVE = "тактической гарнитуры КМП ТСФ",
 		ACCUSATIVE = "тактическую гарнитуру КМП ТСФ",
 		INSTRUMENTAL = "тактической гарнитурой КМП ТСФ",
-		PREPOSITIONAL = "тактической гарнитуре КМП ТСФ"
+		PREPOSITIONAL = "тактической гарнитуре КМП ТСФ",
 	)
-
 
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
@@ -930,7 +1072,7 @@
 		DATIVE = "тактической гарнитуры Командира ОБР",
 		ACCUSATIVE = "тактическую гарнитуру Командира ОБР",
 		INSTRUMENTAL = "тактической гарнитурой Командира ОБР",
-		PREPOSITIONAL = "тактической гарнитуре Командира ОБР"
+		PREPOSITIONAL = "тактической гарнитуре Командира ОБР",
 	)
 
 /obj/item/radio/headset/ert/alt/commander/solgov
@@ -950,7 +1092,7 @@
 		DATIVE = "тактической гарнитуры Лейтенанта ТСФ",
 		ACCUSATIVE = "тактическую гарнитуру Лейтенанта ТСФ",
 		INSTRUMENTAL = "тактической гарнитурой Лейтенанта ТСФ",
-		PREPOSITIONAL = "тактической гарнитуре Лейтенанта ТСФ"
+		PREPOSITIONAL = "тактической гарнитуре Лейтенанта ТСФ",
 	)
 
 /obj/item/radio/headset/centcom
@@ -977,7 +1119,7 @@
 		DATIVE = "тактической гарнитуры Офицера ЦК",
 		ACCUSATIVE = "тактическую гарнитуру Офицера ЦК",
 		INSTRUMENTAL = "тактической гарнитурой Офицера ЦК",
-		PREPOSITIONAL = "тактической гарнитуре Офицера ЦК"
+		PREPOSITIONAL = "тактической гарнитуре Офицера ЦК",
 	)
 
 /obj/item/radio/headset/centcom/solgov
@@ -998,7 +1140,7 @@
 		DATIVE = "тактической гарнитуры Генерала ТСФ",
 		ACCUSATIVE = "тактическую гарнитуру Генерала ТСФ",
 		INSTRUMENTAL = "тактической гарнитурой Генерала ТСФ",
-		PREPOSITIONAL = "тактической гарнитуре Генерала ТСФ"
+		PREPOSITIONAL = "тактической гарнитуре Генерала ТСФ",
 	)
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
@@ -1008,7 +1150,6 @@
 			дополнительными зашифрованными частотами роботизированных систем объекта через защищённый интерфейс."
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "radio"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ai_integrated
 	var/myAi = null	// Atlantis: Reference back to the AI which has this radio.
 	var/disabledAi = FALSE // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
@@ -1020,7 +1161,6 @@
 			Оснащена системой защиты от пылевого засорения. \
 			Используется местным медицинском персоналом, работающим на поверхности Лазиса."
 	icon_state = "minmed_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_mining_medic
 
 /obj/item/radio/headset/headset_mining_medic/get_ru_names()
@@ -1030,7 +1170,7 @@
 		DATIVE = "радиочастотной гарнитуры Шахтёрского Врача",
 		ACCUSATIVE = "радиочастотную гарнитуру Шахтёрского Врача",
 		INSTRUMENTAL = "радиочастотной гарнитурой Шахтёрского Врача",
-		PREPOSITIONAL = "радиочастотной гарнитуре Шахтёрского Врача"
+		PREPOSITIONAL = "радиочастотной гарнитуре Шахтёрского Врача",
 	)
 
 /obj/item/radio/headset/heads/ai_integrated/is_listening()
@@ -1070,138 +1210,6 @@
 	freqlock = TRUE
 */
 
-
-/obj/item/radio/headset/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/encryptionkey))
-		if(loc == user && (user.check_obscured_slots() & user.get_slot_by_item(src)))
-			user.balloon_alert(user, "закрыто одеждой!")
-			return ATTACK_CHAIN_PROCEED
-		add_fingerprint(user)
-		user.set_machine(src)
-		if(keyslot1 && keyslot2)
-			user.balloon_alert(user, "слоты для ключей заняты!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		if(keyslot1)
-			keyslot2 = I
-		else
-			keyslot1 = I
-		recalculateChannels()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
-
-/obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(ishuman(user) && loc == user)
-		var/mob/living/carbon/human/H_user = user
-		if(H_user.check_obscured_slots() & H_user.get_slot_by_item(src))
-			user.balloon_alert(user, "закрыто одеждой!")
-			return
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return
-	user.set_machine(src)
-	if(keyslot1 || keyslot2)
-
-		for(var/ch_name in channels)
-			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
-			secure_radio_connections[ch_name] = null
-
-		if(keyslot1)
-			var/turf/T = get_turf(user)
-			if(T)
-				keyslot1.loc = T
-				keyslot1 = null
-		if(keyslot2)
-			var/turf/T = get_turf(user)
-			if(T)
-				keyslot2.loc = T
-				keyslot2 = null
-
-		recalculateChannels()
-		user.balloon_alert(user, "ключ извлечён")
-		I.play_tool_sound(user, I.tool_volume)
-	else
-		user.balloon_alert(user, "слот для ключа пуст!")
-
-/obj/item/radio/headset/recalculateChannels(setDescription = FALSE)
-	channels = list()
-	translate_binary = FALSE
-	translate_hive = FALSE
-	syndiekey = null
-
-	if(keyslot1)
-		for(var/ch_name in keyslot1.channels)
-			if(ch_name in channels)
-				continue
-			channels += ch_name
-			channels[ch_name] = keyslot1.channels[ch_name]
-
-		if(keyslot1.translate_binary)
-			translate_binary = TRUE
-
-		if(keyslot1.translate_hive)
-			translate_hive = TRUE
-
-		if(keyslot1.syndie)
-			syndiekey = keyslot1
-
-	if(keyslot2)
-		for(var/ch_name in keyslot2.channels)
-			if(ch_name in channels)
-				continue
-			channels += ch_name
-			channels[ch_name] = keyslot2.channels[ch_name]
-
-		if(keyslot2.translate_binary)
-			translate_binary = TRUE
-
-		if(keyslot2.translate_hive)
-			translate_hive = TRUE
-
-		if(keyslot2.syndie)
-			syndiekey = keyslot2
-
-
-	for(var/ch_name in channels)
-		if(!SSradio)
-			name = "broken radio headset"
-			ru_names = list(
-				NOMINATIVE = "сломанная радиочастотная гарнитура",
-				GENITIVE = "сломанную радиочастотную гарнитуру",
-				DATIVE = "сломанной радиочастотной гарнитуры",
-				ACCUSATIVE = "сломанную радиочастотную гарнитуру",
-				INSTRUMENTAL = "сломанной радиочастотной гарнитурой",
-				PREPOSITIONAL = "сломанной радиочастотной гарнитуре"
-			)
-			return
-
-		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
-
-	if(setDescription)
-		setupRadioDescription()
-
-	return
-
-/obj/item/radio/headset/proc/setupRadioDescription()
-	var/radio_text = ""
-	for(var/i = 1 to channels.len)
-		var/channel = channels[i]
-		var/key = get_radio_key_from_channel(channel)
-		radio_text += "[key] - [channel]"
-		if(i != channels.len)
-			radio_text += ", "
-
-	radio_desc = radio_text
-
-/obj/item/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
-	qdel(keyslot1)
-	keyslot1 = new /obj/item/encryptionkey/syndicate
-	syndiekey = keyslot1
-	recalculateChannels()
-
 /obj/item/bowman_conversion_tool
 	name = "bowman headset conversion tool"
 	desc = "Инструмент для модификации радиочастотной гарнитуры в гарнитуру тактического типа."
@@ -1222,7 +1230,7 @@
 		DATIVE = "инструменту для модификации гарнитуры",
 		ACCUSATIVE = "инструмент для модификации гарнитуры",
 		INSTRUMENTAL = "инструментом для модификации гарнитуры",
-		PREPOSITIONAL = "инструменте для модификации гарнитуры"
+		PREPOSITIONAL = "инструменте для модификации гарнитуры",
 	)
 
 /obj/item/bowman_conversion_tool/Initialize(mapload)

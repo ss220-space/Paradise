@@ -1,15 +1,12 @@
 /datum/keybinding/human
 	category = KB_CATEGORY_HUMAN
 
-
 /datum/keybinding/human/can_use(client/user)
 	return ishuman(user.mob)
-
 
 /datum/keybinding/human/toggle_holster
 	name = "Использовать кобуру"
 	keys = list("H")
-
 
 /datum/keybinding/human/toggle_holster/down(client/user)
 	. = ..()

@@ -5,7 +5,6 @@
  *		Head of Security
  */
 
-
 /*
  * Security
  */
@@ -22,7 +21,6 @@
 	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
 	name = "warden's jumpskirt"
 	icon_state = "wardenf"
-	item_state = "r_suit"
 	item_color = "wardenf"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -31,7 +29,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/rank/security
@@ -72,7 +70,6 @@
 	name = "security officer's jumpskirt"
 	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
 	icon_state = "securityf"
-	item_state = "r_suit"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -80,9 +77,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
-
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
@@ -93,14 +89,15 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/security2
-	name = "security officer's uniform"
+	name = "alternative security officer's uniform"
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
 	icon_state = "redshirt2"
-	item_state = "r_suit"
+	item_state = "redshirt2"
 	item_color = "redshirt2"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/security/corp
+	name = "corporative security officer's uniform"
 	icon_state = "sec_corporate"
 	item_state = "sec_corporate"
 	item_color = "sec_corporate"
@@ -131,8 +128,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/det/skirt
 	name = "hard-worn skirt"
@@ -145,9 +142,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
-
 
 /obj/item/clothing/under/det/noir
 	name = "hard-worn black suit"
@@ -158,13 +154,12 @@
 
 /obj/item/clothing/under/det/noir/skirt
 	name = "hard-worn black skirt"
-	desc = "Anyone who wears this is dealing in shady business."
 	icon_state = "noirdet_skirt"
 	item_state = "noir_skirt"
 	item_color = "noirdet_skirt"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/det/alt_a
@@ -182,8 +177,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/uniform.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/vulpkanin/uniform.dmi'
-		)
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/vulpkanin/uniform.dmi',
+	)
 
 /obj/item/clothing/under/det/alt_b
 	icon_state = "detective_suit_alt"
@@ -204,7 +199,6 @@
 	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	name = "head of security's jumpskirt"
 	icon_state = "hosf"
-	item_state = "r_suit"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -212,7 +206,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/rank/head_of_security/corp
@@ -231,7 +225,7 @@
 	item_color = "hosalt_skirt"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/rank/head_of_security/paradef
@@ -242,14 +236,13 @@
 	item_color = "hos_parade_fem"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 //Jensen cosplay gear
 
 /obj/item/clothing/under/rank/head_of_security/jensen
 	desc = "You never asked for anything that stylish."
-	name = "head of security's jumpsuit"
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
@@ -268,8 +261,8 @@
 
 /obj/item/clothing/suit/armor/hos/officernavyjacket
 	name = "officer's navy jacket"
-	icon_state = "officernavyjacket"
-	item_state = "officernavyjacket"
+	icon_state = "officerdnavyjacket"
+	item_state = "officerdnavyjacket"
 
 /obj/item/clothing/suit/armor/hos/officerbluejacket
 	name = "officer's blue jacket"
@@ -299,7 +292,6 @@
 	item_state = "gy_suit"
 	item_color = "hos_formal"
 
-
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys
 	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
@@ -316,7 +308,6 @@
 	icon_state = "brig_physf"
 	item_state = "brig_physf"
 	item_color = "brig_physf"
-	permeability_coefficient = 0.50
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
@@ -326,8 +317,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/rank/security/brigmedical
 	desc = "Комбинезон медика СБ синего цвета 26-го века. Является компромиссом между санитарными нормами и стандартами защиты."
@@ -345,7 +336,7 @@
 	item_color = "brigmed_skirt"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 //Pod Pilot

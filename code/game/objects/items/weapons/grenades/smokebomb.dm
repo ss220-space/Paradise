@@ -1,12 +1,20 @@
 /obj/item/grenade/smokebomb
-	desc = "It is set to detonate in 2 seconds."
 	name = "smoke bomb"
-	icon = 'icons/obj/weapons/grenade.dmi'
+	desc = "Взрывчатое устройство, предназначенное для ручного подрыва. При детонации испускает дым, \
+			создающий дымовую завесу."
 	icon_state = "smokebomb"
 	det_time = 2 SECONDS
-	item_state = "flashbang"
-	slot_flags = ITEM_SLOT_BELT
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke
+
+/obj/item/grenade/smokebomb/get_ru_names()
+	return list(
+		NOMINATIVE = "дымовая граната",
+		GENITIVE = "дымовой гранаты",
+		DATIVE = "дымовой гранате",
+		ACCUSATIVE = "дымовую гранату",
+		INSTRUMENTAL = "дымовой гранатой",
+		PREPOSITIONAL = "дымовой гранате"
+	)
 
 /obj/item/grenade/smokebomb/New()
 	..()
@@ -19,6 +27,9 @@
 
 /obj/item/grenade/smokebomb/prime()
 	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(start_smoke))
+
+/obj/item/grenade/smokebomb/proc/start_smoke()
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	smoke.set_up(amount = 10, location = loc)
 	spawn(0)

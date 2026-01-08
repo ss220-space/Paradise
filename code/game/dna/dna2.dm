@@ -128,10 +128,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		GLOB.body_accessory_by_name.len,	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		length(GLOB.body_accessory_by_name),	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		1)
 
 	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
 
@@ -143,7 +143,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_MALE, 1)
 		if(PLURAL)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
-
 
 	UpdateUI()
 
@@ -192,7 +191,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 	return UI[block] > 2050
 
-
 // Set UI gene "on" (1) or "off" (0)
 /datum/dna/proc/SetUIState(block, on, defer = FALSE)
 	if(block <= 0)
@@ -232,7 +230,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		if(2)
 			val = rand(2761, 4095)
 	SetUIValue(block, val, defer)
-
 
 // Get a hex-encoded UI block.
 /datum/dna/proc/GetUIBlock(block)
@@ -276,7 +273,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			continue
 		SetSEValue(i, rand(1, 1024), 1)
 	UpdateSE()
-
 
 // Set a DNA SE block's raw value.
 /datum/dna/proc/SetSEValue(block, value, defer = FALSE)
@@ -367,7 +363,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	//testing("SetSESubBlock([block],[subBlock],[newSubBlock],[defer]): [oldBlock] -> [newBlock]")
 	SetSEBlock(block, newBlock, defer)
 
-
 /proc/EncodeDNABlock(value)
 	return uppertext(add_zero2(num2hex(value, 1), 3))
 
@@ -391,7 +386,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Just checks our character has all the crap it needs.
 /datum/dna/proc/check_integrity(mob/living/carbon/human/character)
 	if(character)
-		if(UI.len != DNA_UI_LENGTH)
+		if(length(UI) != DNA_UI_LENGTH)
 			ResetUIFrom(character)
 
 		if(length(struc_enzymes)!= 3 * DNA_SE_LENGTH)

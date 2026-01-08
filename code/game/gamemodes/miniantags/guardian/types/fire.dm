@@ -1,11 +1,8 @@
 /mob/living/simple_animal/hostile/guardian/fire
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	melee_damage_type = BURN
 	attack_sound = 'sound/items/welder.ogg'
 	attacktext = "жжёт"
 	damage_transfer = 0.8
-	range = 10
 	playstyle_string = "Как <b>Хаос</b>, вы обладаете лишь легким сопротивлением урону, но поджигаете любого врага, с которым столкнетесь. Кроме того, ваши атаки ближнего боя случайным образом телепортируют врагов. У вас есть мощное заклинание, призывающее сильнейшие галлюцинации."
 	environment_smash = 1
 	magic_fluff_string = "....и вытаскиваете Колдуна, создателя бесконечного хаоса!"
@@ -13,14 +10,12 @@
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый сеять хаос в произвольном порядке."
 	var/toggle = FALSE
 
-
 /mob/living/simple_animal/hostile/guardian/fire/Initialize(mapload, mob/living/host)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /mob/living/simple_animal/hostile/guardian/fire/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
@@ -45,17 +40,14 @@
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 				summoner.AdjustHallucinate(10 SECONDS)
 
-
 /mob/living/simple_animal/hostile/guardian/fire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	collision_ignite(arrived)
 
-
 /mob/living/simple_animal/hostile/guardian/fire/MobBump(mob/living/bumped_mob)
 	. = ..()
 	collision_ignite(bumped_mob)
-
 
 /mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(atom/movable/AM)
 	if(isliving(AM))
@@ -64,12 +56,10 @@
 			M.fire_stacks = 7
 			M.IgniteMob()
 
-
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination
 	name = "Волна галлюцинаций"
 	desc = "Призовите самый темный страх на ваших жертв. Хозяин невосприимчив к эффекту."
 	action_icon_state = "blight"
-	action_background_icon_state = "bg_spell"
 	base_cooldown = 12 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
@@ -78,23 +68,19 @@
 	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
 	aoe_range = 10
 
-
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/New(mob/living/summoned_by)
 	. = ..()
 	summoner = summoned_by
 
-
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/Destroy()
 	summoner = null
 	return ..()
-
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.range = aoe_range
 	T.use_turf_of_user = TRUE
 	return T
-
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)

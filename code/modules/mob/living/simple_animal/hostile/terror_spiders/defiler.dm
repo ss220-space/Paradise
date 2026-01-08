@@ -25,10 +25,12 @@
 	spider_tier = TS_TIER_3
 	web_type = /obj/structure/spider/terrorweb/white
 	delay_web = 10
-	special_abillity = list(/obj/effect/proc_holder/spell/terror_smoke,
-							/obj/effect/proc_holder/spell/terror_parasmoke,
-							/obj/effect/proc_holder/spell/aoe/terror_shriek)
-	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за три укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
+	special_abillity = list(
+		/obj/effect/proc_holder/spell/terror_smoke,
+		/obj/effect/proc_holder/spell/terror_parasmoke,
+		/obj/effect/proc_holder/spell/aoe/terror_shriek,
+	)
+	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель — атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за три укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
 	datum_type = /datum/antagonist/terror_spider/main_spider/defiler
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/get_ru_names()
@@ -95,7 +97,6 @@
 		INSTRUMENTAL = "зараженной паутиной",
 		PREPOSITIONAL = "зараженной паутине",
 	)
-
 
 /obj/structure/spider/terrorweb/white/web_special_ability(mob/living/carbon/C)
 	if(istype(C))

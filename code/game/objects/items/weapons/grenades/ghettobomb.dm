@@ -3,17 +3,9 @@
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
 	desc = "Самопальное взрывное устройство малой мощности."
-	gender = FEMALE
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
-	active = 0
-	det_time = 5 SECONDS
 	display_timer = 0
 	var/list/times
 
@@ -24,17 +16,17 @@
 		DATIVE = "самодельной взрывчатке",
 		ACCUSATIVE = "самодельную взрывчатку",
 		INSTRUMENTAL = "самодельной взрывчаткой",
-		PREPOSITIONAL = "самодельной взрывчатке"
+		PREPOSITIONAL = "самодельной взрывчатке",
 	)
 
 /obj/item/grenade/iedcasing/New()
 	..()
 	add_overlay("improvised_grenade_filled")
 	add_overlay("improvised_grenade_wired")
-	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[rand(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[rand(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
+	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[randfloat(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[randfloat(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
 	det_time = text2num(pickweight(times))
 	if(det_time < 0) //checking for 'duds'
-		det_time = rand(3 SECONDS, 8 SECONDS)
+		det_time = randfloat(3 SECONDS, 8 SECONDS)
 
 /obj/item/grenade/iedcasing/CheckParts(list/parts_list)
 	..()
@@ -47,11 +39,8 @@
 		can_underlay.plane = FLOAT_PLANE
 		underlays += can_underlay
 
-
 /obj/item/grenade/iedcasing/update_overlays()
 	. = ..()
-
-
 
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
@@ -84,7 +73,6 @@
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "improvised_satchel"
 	item_state = "plastic-explosive"
-	toolspeed = 1
 	det_time = 8 SECONDS
 	var/atom/target = null
 	var/image_overlay = null
@@ -98,7 +86,6 @@
 	if(burned_out)
 		. += span_notice("Looks like wick has burned out")
 
-
 /obj/item/grenade/iedsatchel/update_icon_state()
 	if(active)
 		icon_state = "[initial(icon_state)]_active"
@@ -108,11 +95,10 @@
 		return
 	icon_state = initial(icon_state)
 
-
 /obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity, params)
 	if(!proximity)
 		return
-	if(!iswallturf(T) && !istype(T, /obj/machinery/door/airlock))
+	if(!iswallturf(T) && !is_airlock(T))
 		return
 	to_chat(user, span_notice("You start planting the [src]."))
 
@@ -142,7 +128,6 @@
 		return
 	to_chat(user, span_notice("You tickled a makeshift wick made of wires, it looks like it needs to be set on fire."))
 
-
 /obj/item/grenade/iedsatchel/wirecutter_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return FALSE
@@ -156,7 +141,6 @@
 	set_anchored(FALSE)
 	target = null
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/grenade/iedsatchel/attackby(obj/item/I, mob/user, params)
 	if(active)
@@ -180,7 +164,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/grenade/iedsatchel/proc/trigger(mob/user)
 	if(burned_out)
@@ -211,7 +194,7 @@
 	update_mob()
 	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src)
 	if(target)
-		if(istype(target, /obj/machinery/door/airlock))
+		if(is_airlock(target))
 			var/obj/machinery/door/airlock/T = target
 			if((T.obj_integrity - 300) <= 0)
 				qdel(T)

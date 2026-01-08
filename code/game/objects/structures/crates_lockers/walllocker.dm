@@ -20,7 +20,6 @@
 	icon_closed = "emerg"
 	icon_opened = "emergopen"
 
-
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
@@ -34,7 +33,6 @@
 
 /obj/structure/closet/walllocker/emerglocker/north
 	pixel_y = 32
-	dir = SOUTH
 
 /obj/structure/closet/walllocker/emerglocker/south
 	pixel_y = -32

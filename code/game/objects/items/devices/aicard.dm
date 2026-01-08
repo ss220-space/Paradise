@@ -9,7 +9,6 @@
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
-
 /obj/item/aicard/afterattack(atom/target, mob/user, proximity, params)
 	..()
 	if(!proximity || !target)
@@ -22,7 +21,6 @@
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
 
-
 /obj/item/aicard/update_icon_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI)
@@ -33,13 +31,11 @@
 	else
 		icon_state = "aicard"
 
-
 /obj/item/aicard/update_overlays()
 	. = ..()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI)
 		. += "aicard-on"
-
 
 /obj/item/aicard/update_name(updates = ALL)
 	. = ..()
@@ -49,13 +45,11 @@
 	else
 		name = "intelliCard"
 
-
 /obj/item/aicard/proc/update_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
 	update_appearance(UPDATE_ICON|UPDATE_NAME)
 	if(AI)
 		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
-
 
 /obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
@@ -68,7 +62,6 @@
 	if(!ui)
 		ui = new(user, src, "AICard", "[name]")
 		ui.open()
-
 
 /obj/item/aicard/ui_data(mob/user)
 	var/list/data = list()
@@ -97,7 +90,6 @@
 
 	return data
 
-
 /obj/item/aicard/ui_act(action, params)
 	if(..())
 		return
@@ -110,7 +102,7 @@
 	switch(action)
 		if("wipe")
 			if(flush) // Don't doublewipe.
-				to_chat(user, "<span class='warning'>You are already wiping this AI!</span>")
+				to_chat(user, span_warning("You are already wiping this AI!"))
 				return
 			var/confirm = tgui_alert(user, "Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", list("Yes", "No"))
 			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == UI_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
@@ -119,13 +111,13 @@
 
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi
-			to_chat(AI, "<span class='warning'>Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!</span>")
-			to_chat(user, "<span class='notice'>You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver.</span>")
+			to_chat(AI, span_warning("Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!"))
+			to_chat(user, span_notice("You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver."))
 
 		if("wireless")
 			AI.control_disabled = !AI.control_disabled
-			to_chat(AI, "<span class='warning'>Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!</span>")
-			to_chat(user, "<span class='notice'>You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface.</span>")
+			to_chat(AI, span_warning("Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!"))
+			to_chat(user, span_notice("You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface."))
 			update_icon()
 
 	return TRUE
@@ -143,13 +135,11 @@
 		R.show_laws()
 	flush = FALSE
 
-
 /obj/item/aicard/add_tape()
 	var/mob/living/silicon/ai/AI = locate() in src
 	if(!AI)
 		return
 	QDEL_NULL(AI.builtInCamera)
-
 
 /obj/item/aicard/remove_tape()
 	var/mob/living/silicon/ai/AI = locate() in src

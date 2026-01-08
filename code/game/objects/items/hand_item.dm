@@ -3,14 +3,11 @@
 	desc = "This is how real men fight."
 	icon_state = "latexballon"
 	item_state = "nothing"
-	force = 0
-	throwforce = 0
 	item_flags = DROPDEL|ABSTRACT
 	attack_verb = list("шлёпнул")
 	hitsound = 'sound/weapons/slap.ogg'
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
-
 
 /obj/item/slapper/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	user.do_attack_animation(target)
@@ -26,13 +23,11 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/item/slapper/attack_self(mob/living/user)
 	. = ..()
 	if(!isliving(user))
 		return
 	user.emote("highfive", intentional = TRUE)
-
 
 /obj/item/slapper/attack_obj(obj/object, mob/living/user, params)
 	if(!istype(object, /obj/structure/table))
@@ -71,10 +66,8 @@
 			. = ATTACK_CHAIN_BLOCKED
 			qdel(src)
 
-
 /obj/item/slapper/get_clamped_volume() //Without this, you would hear the slap twice if it has force.
 	return 0
-
 
 /*
 /obj/item/slapper/parry

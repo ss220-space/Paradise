@@ -142,9 +142,9 @@
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
-	LAZYADD(messages, span_warning("<b>Вы – [info.truename], агент ада, дьявол.\n\
-	Вы прибыли сюда, преследуя важную цель.\n\
-	Склоните экипаж к грехопадению и укрепите влияние ада.</b>"))
+	LAZYADD(messages, span_warning("<b>Вы — [info.truename], агент ада, дьявол.\n\
+		Вы прибыли сюда, преследуя важную цель.\n\
+		Склоните экипаж к грехопадению и укрепите влияние ада.</b>"))
 	LAZYADD(messages, "Вы никак не можете навредить другим дьяволам.")
 	LAZYADD(messages, info.bane.law)
 	LAZYADD(messages, info.ban.law)
@@ -252,7 +252,6 @@
 	to_chat(sender, span_warningbig("Ты не в силах узнать мое имя, глупый ангел."))
 	to_chat(target, span_warning("Кто-то пытася силой заставить вас сказать свое настоящее имя, но вы смогли защититься."))
 
-
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
 	owner.current.RemoveElement(/datum/element/devil_regeneration)
@@ -282,7 +281,6 @@
 		ui = new(user, src, "DevilInfo")
 		ui.open()
 
-
 /datum/antagonist/devil/ui_status(mob/user, datum/ui_state/state)
 	return UI_INTERACTIVE
 
@@ -303,9 +301,8 @@
 
 	return data
 
-
 /**
- * Takes any datum `source` and checks it for changeling datum.
+ * Takes any datum `source` and checks it for devil datum.
  */
 /proc/isdevilantag(datum/source)
 	if(!source)
@@ -343,11 +340,11 @@
 	text += "Обязательство: [info?.obligation?.law] <br>"
 	text += "Слабость: [info?.bane?.law] <br>"
 	text += "Изгнание: [info?.banish?.law] <br>"
-	var/soul_count = soulsOwned?.len || 0
-	var/rituals_count = ritualSouls?.len || 0
+	var/soul_count = length(soulsOwned)
+	var/rituals_count = length(ritualSouls)
 	text += "Куплено душ: [max(soul_count - rituals_count, 0)]<br>"
 	text += "Принесено жертв: [rituals_count]<br>"
-	text += "Наложено проклятий тени: [shadows?.len || 0]<br>"
+	text += "Наложено проклятий тени: [length(shadows)]<br>"
 
 	var/list/all_objectives = owner.get_all_objectives()
 

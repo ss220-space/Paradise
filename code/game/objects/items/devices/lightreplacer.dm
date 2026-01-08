@@ -32,12 +32,6 @@
 //
 // The explosion cannot insta-kill anyone with 30% or more health.
 
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
-
 /obj/item/lightreplacer
 
 	name = "light replacer"
@@ -52,8 +46,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
+	toolbox_radial_menu_compatibility = TRUE
 
-	var/emagged = FALSE
 	var/max_uses = 20
 	var/uses = 10
 	// How much to increase per each glass?
@@ -72,8 +66,7 @@
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[status_string()]</span>"
-
+	. += span_notice("[status_string()]")
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass))
@@ -155,14 +148,12 @@
 
 	return ..()
 
-
 /obj/item/lightreplacer/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
 		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
-
 
 /obj/item/lightreplacer/update_name(updates = ALL)
 	. = ..()
@@ -171,16 +162,13 @@
 	else
 		name = initial(name)
 
-
 /obj/item/lightreplacer/update_icon_state()
 	icon_state = "lightreplacer[emagged]"
-
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
 	to_chat(user, status_string())
-
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
@@ -201,11 +189,11 @@
 		AddUses(new_bulbs)
 	bulb_shards = bulb_shards % shards_required
 	if(new_bulbs != 0)
-		to_chat(user, "<span class='notice'>[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses.</span>")
+		to_chat(user, span_notice("[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses."))
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
-/obj/item/lightreplacer/proc/Charge(var/mob/user)
+/obj/item/lightreplacer/proc/Charge(mob/user)
 	charge += 1
 	if(charge > 3)
 		AddUses(1)
@@ -216,7 +204,7 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
+			to_chat(U, span_notice("You replace the light [target.fitting] with [src]."))
 
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)
@@ -243,9 +231,8 @@
 			to_chat(U, "[src]'s refill light blinks red.")
 			return
 	else
-		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
+		to_chat(U, span_warning("There is a working [target.fitting] already inserted!"))
 		return
-
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
@@ -277,9 +264,7 @@
 	if(!used)
 		to_chat(U, "[src]'s refill light blinks red.")
 
-
 /obj/item/lightreplacer/cyborg
-
 
 /obj/item/lightreplacer/bluespace
 	name = "bluespace light replacer"
@@ -289,8 +274,3 @@
 
 /obj/item/lightreplacer/bluespace/emag_act()
 	return  // long range explosions are stupid
-
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
-#undef LIGHT_BURNED

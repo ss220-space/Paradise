@@ -16,12 +16,12 @@
 	else
 		owner_AI = owner
 
-/datum/action/innate/ai/IsAvailable()
+/datum/action/innate/ai/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(owner_AI && owner_AI.malf_cooldown > world.time)
 		return
 
-/datum/action/innate/ai/Trigger(left_click = TRUE)
+/datum/action/innate/ai/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
@@ -93,18 +93,18 @@
 	. = ..()
 	owner_AI.malf_picker = new /datum/module_picker
 
-/datum/action/innate/ai/choose_modules/Trigger(left_click = TRUE)
+/datum/action/innate/ai/choose_modules/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	owner_AI.malf_picker.use(owner_AI)
 
 /datum/action/innate/ai/return_to_core
 	name = "Return to Main Core"
 	desc = "Leave the APC you are shunted to, and return to your core."
-	icon_icon = 'icons/obj/engines_and_power/power.dmi'
+	button_icon = 'icons/obj/engines_and_power/power.dmi'
 	button_icon_state = "apcemag"
 	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
 
-/datum/action/innate/ai/return_to_core/Trigger(left_click = TRUE)
+/datum/action/innate/ai/return_to_core/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	var/obj/machinery/power/apc/apc = owner_AI.loc
 	if(!istype(apc)) // This shouldn't happen but here for safety.
@@ -156,7 +156,7 @@
 		return
 
 	for(var/datum/AI_Module/AM in possible_modules)
-		if (href_list[AM.mod_pick_name])
+		if(href_list[AM.mod_pick_name])
 
 			// Cost check
 			if(AM.cost > processing_time)
@@ -248,9 +248,10 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, span_notice("Nuclear device armed."))
-	GLOB.major_announcement.announce("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
-									ANNOUNCE_ANOMALY_RU,
-									'sound/AI/aimalf.ogg'
+	GLOB.major_announcement.announce(
+		message = "Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
+		new_title = ANNOUNCE_ANOMALY_RU,
+		new_sound = 'sound/AI/aimalf.ogg'
 	)
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE
@@ -295,9 +296,10 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		GLOB.major_announcement.announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.",
-										ANNOUNCE_MALF_RU,
-										'sound/misc/notice1.ogg'
+		GLOB.major_announcement.announce(
+			message = "УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.",
+			new_title = ANNOUNCE_MALF_RU,
+			new_sound = 'sound/misc/notice1.ogg'
 		)
 		SSshuttle.remove_hostile_environment(src, 'sound/AI/eshuttle_dock.ogg')
 		qdel(src)
@@ -311,10 +313,10 @@
 		qdel(src)
 	else
 		if(!(sec_left % 60) && !announced)
-			var/message = "[sec_left] СЕКУНД ДО АКТИВАЦИИ УСТРОЙСТВА СУДНОГО ДНЯ!"
-			GLOB.major_announcement.announce(message,
-											ANNOUNCE_MALF_RU,
-											'sound/misc/notice1.ogg'
+			GLOB.major_announcement.announce(
+				message = "[sec_left] СЕКУНД ДО АКТИВАЦИИ УСТРОЙСТВА СУДНОГО ДНЯ!",
+				new_title = ANNOUNCE_MALF_RU,
+				new_sound = 'sound/misc/notice1.ogg'
 			)
 			announced = 10
 		announced = max(0, announced-1)
@@ -456,7 +458,6 @@
 	to_chat(owner, span_notice("All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode."))
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
-
 //Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
 /datum/AI_Module/small/overload_machine
 	module_name = "Machine Overload"
@@ -476,7 +477,6 @@
 /datum/action/innate/ai/ranged/overload_machine/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
@@ -485,7 +485,6 @@
 			qdel(M)
 
 /obj/effect/proc_holder/ranged_ai/overload_machine
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
 	enable_text = span_notice("You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.")
 	disable_text = span_notice("You release your hold on the powernet.")
@@ -505,14 +504,13 @@
 
 	ranged_ability_user.playsound_local(ranged_ability_user, SFX_SPARKS, 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
+	if(attached_action?.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message(span_italics("You hear a loud electrical buzzing sound coming from [target]!"))
 	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
 	remove_ranged_ability(ranged_ability_user, span_warning("Overloading machine circuitry..."))
 	return TRUE
-
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
 /datum/AI_Module/small/override_machine
@@ -533,14 +531,12 @@
 /datum/action/innate/ai/ranged/override_machine/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
 		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
 
 /obj/effect/proc_holder/ranged_ai/override_machine
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
 	enable_text = span_notice("You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.")
 	disable_text = span_notice("You release your hold on the powernet.")
@@ -560,14 +556,13 @@
 
 	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
+	if(attached_action?.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [target]!"))
 	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability(ranged_ability_user, span_danger("Sending override signal..."))
 	return TRUE
-
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
 /datum/AI_Module/large/place_cyborg_transformer
@@ -662,7 +657,6 @@
 /datum/action/innate/ai/blackout/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/blackout/Activate()
 	for(var/thing in GLOB.apcs)
@@ -699,7 +693,6 @@
 /datum/action/innate/ai/reactivate_cameras/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
-	button.desc = desc
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
 	var/fixed_cameras = 0

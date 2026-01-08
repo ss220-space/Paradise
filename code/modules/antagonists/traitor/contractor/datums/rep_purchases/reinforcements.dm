@@ -3,15 +3,13 @@
 */
 /datum/rep_purchase/item/contractor_partner
 	name = "Вызов напарника"
-	description = "Устройство, позволяющее связаться с ближайшими отделениями Синдиката в вашем секторе. \
+	description = "Устройство, позволяющее связаться с ближайшими отделениями \"Синдиката\" в вашем секторе. \
 			Если в вашем районе есть свободный агент, его незамедлительно отправят к вам на помощь. \
 			В случае отсутствия свободных агентов, средства будут возвращены."
 	stock = 1
 	cost = 2
 	item_type = /obj/item/antag_spawner/contractor_partner
 	refundable = TRUE
-
-
 
 /obj/item/antag_spawner/contractor_partner
 	name = "Устройство связи с Контрактником"
@@ -49,6 +47,10 @@
 	to_chat(user, span_notice("Аплинк тихо вибрирует, соединяясь с ближайшими агентами..."))
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_sit")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за Агента поддержки Контрактника [user.real_name]?", ROLE_TRAITOR, FALSE, 150, source = source)
+	
+	if(QDELETED(src))
+		return
+	
 	if(length(candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
@@ -71,16 +73,16 @@
 	partner.dna.ready_dna(partner)
 
 	partner_outfit.equip(partner)
-	partner.ckey = key
+	partner.possess_by_player(key)
 	partner_mind = partner.mind
 	partner_mind.make_contractor_support()
-	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] - Ваш начальник. Выполняйте любые приказы, отданные [genderize_ru(user.gender, "им", "ею", "им", "ими")]. Вы здесь только для того, чтобы помочь [genderize_ru(user.gender, "ему", "ей", "ему", "им")] с выполнением задач.")))
-	to_chat(partner_mind.current, span_warning("Если [genderize_ru(user.gender, "он", "она", "оно", "они")] погибн[pluralize_ru(user.gender, "ет", "ут")] или буд[pluralize_ru(user.gender, "ет", "ут")] недоступ[pluralize_ru(user.gender, "ен", "ны")] по другим причинам, вы должны помогать другим агентам в меру своих возможностей."))
+	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] — Ваш начальник. Выполняйте любые приказы, отданные [GEND_IM_EI_IM_IMI(user)]. Вы здесь только для того, чтобы помочь [GEND_HIM_HER(user)] с выполнением задач.")))
+	to_chat(partner_mind.current, span_warning("Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] или буд[PLUR_ET_UT(user)] недоступ[GEND_EN_NA_NO_NY(user)] по другим причинам, вы должны помогать другим агентам в меру своих возможностей."))
 
 	var/datum/objective/protect/contractor/CT = new
 	CT.owner = partner.mind
 	CT.target = user.mind
-	CT.explanation_text = "[user.real_name] - Ваш начальник. [genderize_ru(user.gender, "Его", "Её", "Его", "Их")] приказы являются первоочередными."
+	CT.explanation_text = "[user.real_name] — Ваш начальник. [GEND_HIS_HER_CAP(user)] приказы являются первоочередными."
 	partner.mind.objectives += CT
 	partner.change_voice()
 

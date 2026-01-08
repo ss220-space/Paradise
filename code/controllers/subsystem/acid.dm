@@ -10,10 +10,14 @@ SUBSYSTEM_DEF(acid)
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-
 /datum/controller/subsystem/acid/get_stat_details()
 	return "P:[length(processing)]"
 
+/datum/controller/subsystem/acid/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(processing)
+	.["custom"] = custom_data
 
 /datum/controller/subsystem/acid/fire(resumed = 0)
 	if(!resumed)
@@ -22,8 +26,8 @@ SUBSYSTEM_DEF(acid)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 
-	while(currentrun.len)
-		var/obj/O = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/O = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!O || QDELETED(O))
 			processing -= O

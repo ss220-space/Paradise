@@ -8,7 +8,6 @@
 	deactivation_messages = list("Вы больше не способны менять свой внешний вид.")
 	instability = GENE_INSTABILITY_MINOR
 
-
 /datum/dna/gene/basic/grant_spell/morph/New()
 	..()
 	block = GLOB.morphblock
@@ -19,14 +18,11 @@
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_morph"
 
-
 /obj/effect/proc_holder/spell/morph/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/morph/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
@@ -108,7 +104,7 @@
 	//Body accessory.
 	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
-		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
+		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = tgui_input_list(usr, "Пожалуйста, выберите стиль аксессуаров для тела.", "Создание персонажа", valid_body_accessories, M.body_accessory)
 			if(new_body_accessory)
 				M.change_body_accessory(new_body_accessory)
@@ -156,10 +152,10 @@
 			M.change_skin_tone(new_tone)
 
 	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/prompt = "Пожалуйста, выберите тон кожи: 1-[M.dna.species.icon_skin_tones.len] ("
-		for(var/i = 1 to M.dna.species.icon_skin_tones.len)
+		var/prompt = "Пожалуйста, выберите тон кожи: 1-[length(M.dna.species.icon_skin_tones)] ("
+		for(var/i = 1 to length(M.dna.species.icon_skin_tones))
 			prompt += "[i] = [M.dna.species.icon_skin_tones[i]]"
-			if(i != M.dna.species.icon_skin_tones.len)
+			if(i != length(M.dna.species.icon_skin_tones))
 				prompt += ", "
 		prompt += ")"
 
@@ -167,7 +163,7 @@
 		if(!new_tone)
 			new_tone = 0
 		else
-			new_tone = max(min(round(text2num(new_tone)), M.dna.species.icon_skin_tones.len), 1)
+			new_tone = max(min(round(text2num(new_tone)), length(M.dna.species.icon_skin_tones)), 1)
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
@@ -178,10 +174,9 @@
 
 	M.update_dna()
 
-	M.visible_message(span_notice("[M] трансформиру[pluralize_ru(M.gender, "ет", "ют")]ся, изменяя свой внешний вид!"),
+	M.visible_message(span_notice("[M] трансформиру[PLUR_ET_YUT(M)]ся, изменяя свой внешний вид!"),
 					span_notice("Вы меняете свою внешность!"),
 					span_warning("О боже!  Что это, чёрт возьми, было?  Звук был такой, будто плоть сплющивают, а кости перетирают, придавая им другую форму!"))
-
 
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name = "Телепатия"
@@ -190,18 +185,15 @@
 	instability = GENE_INSTABILITY_MINOR
 	spelltype = /obj/effect/proc_holder/spell/remotetalk
 
-
 /datum/dna/gene/basic/grant_spell/remotetalk/New()
 	..()
 	block = GLOB.remotetalkblock
-
 
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/mutant, flags)
 	. = ..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
 	hud.manage_hud(mutant, THOUGHTS_HUD_PRECISE)
-
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/mutant, flags)
 	. = ..()
@@ -210,20 +202,17 @@
 		mutant.RemoveSpell(spell)
 	hud.manage_hud(mutant, THOUGHTS_HUD_DISPERSE)
 
-
 /obj/effect/proc_holder/spell/remotetalk
 	name = "Project Mind"
 	desc = "Позвольте другим ощущать ваши мысли."
 	base_cooldown = 0
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_project"
 
 /obj/effect/proc_holder/spell/remotetalk/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
-
 
 /obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!ishuman(user))
@@ -246,7 +235,7 @@
 		user.thoughts_hud_set(TRUE, say_test(say))
 		addtimer(CALLBACK(hud, TYPE_PROC_REF(/datum/atom_hud/thoughts/, manage_hud), target, THOUGHTS_HUD_DISPERSE), 3 SECONDS)
 		say = strip_html(say)
-		say = pencode_to_html(say, user, format = 0, fields = 0)
+		say = pencode_to_html(say, user, enable_formatting = FALSE, enable_fields = FALSE)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
 
@@ -259,22 +248,18 @@
 		user.show_message(span_abductor("Вы проецируете свой разум на [(target in user.get_visible_mobs()) ? target.name : "неизвестную сущность"]: [say]"))
 
 		for(var/mob/dead/observer/G in GLOB.player_list)
-			G.show_message(span_italics("Телепатическое сообщение от <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) для <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]"))
-
+			G.show_message(span_italics("Телепатическое сообщение от ([ghost_follow_link(user, ghost = G)])<b>[user]</b> для ([ghost_follow_link(target, ghost=G)])<b>[target]</b>: [say]"))
 
 /obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
 	desc = "Дайте людям возможность поделиться их мыслями!"
 	base_cooldown = 45 SECONDS
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_mindscan"
 	var/list/available_targets = list()
 
-
 /obj/effect/proc_holder/spell/mindscan/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
-
 
 /obj/effect/proc_holder/spell/mindscan/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
@@ -290,14 +275,12 @@
 		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
 		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 45 SECONDS)
 
-
 /obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)
 		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		available_targets -= target
 		hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
 		target.show_message(span_abductor("Вы чувствуете, как это ощущение исчезает..."))
-
 
 /obj/effect/proc_holder/spell/mindscan/Topic(href, href_list)
 	var/mob/living/user
@@ -322,7 +305,7 @@
 
 		target.thoughts_hud_set(TRUE, say_test(say))
 		say = strip_html(say)
-		say = pencode_to_html(say, target, format = 0, fields = 0)
+		say = pencode_to_html(say, target, enable_formatting = FALSE, enable_fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 
@@ -335,14 +318,12 @@
 		user.show_message(span_abductor("Вы слышите голос [target.name]: [say]"))
 
 		for(var/mob/dead/observer/G in GLOB.player_list)
-			G.show_message(span_italics("Телепатический ответ от <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) для <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]"))
-
+			G.show_message(span_italics("Телепатический ответ от ([ghost_follow_link(target, ghost = G)])<b>[target]</b> для ([ghost_follow_link(user, ghost=G)])<b>[user]</b>: [say]"))
 
 /obj/effect/proc_holder/spell/mindscan/Destroy()
 	for(var/mob/living/target in available_targets)
 		removeAvailability(target)
 	return ..()
-
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name = "Удаленное наблюдение"
@@ -352,26 +333,20 @@
 	spelltype = /obj/effect/proc_holder/spell/remoteview
 	traits_to_add = list(TRAIT_OPEN_MIND)
 
-
 /datum/dna/gene/basic/grant_spell/remoteview/New()
 	..()
 	block = GLOB.remoteviewblock
 
-
 /obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"
 	desc = "Следите за людьми с любого расстояния!"
-	base_cooldown = 10 SECONDS
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_view"
 
-
 /obj/effect/proc_holder/spell/remoteview/create_new_targeting()
 	return new /datum/spell_targeting/remoteview
-
 
 /obj/effect/proc_holder/spell/remoteview/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H

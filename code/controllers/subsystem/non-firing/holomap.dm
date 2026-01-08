@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(holomaps)
 	flags |= SS_NO_INIT // Make extra sure we don't initialize twice.
 
 /datum/controller/subsystem/holomaps/Initialize(timeofday)
-	if (generate_holomaps())
+	if(generate_holomaps())
 		return SS_INIT_SUCCESS
 	return SS_INIT_FAILURE
 
@@ -152,7 +152,6 @@ SUBSYSTEM_DEF(holomaps)
 	holomaps["[z_level]"] = canvas
 	holomap_position_to_name["[z_level]"] = position_to_name
 	return setup_station_map(area_canvas, z_level)
-
 
 /// Draws the station area overlay. Required to be run if you want the map to be viewable on a station map viewer.
 /// Takes the area canvas, and the Z-level value.

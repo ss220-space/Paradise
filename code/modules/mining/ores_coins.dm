@@ -9,7 +9,6 @@
 	name = "rock"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
-	max_amount = 50
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
@@ -23,9 +22,8 @@
 		DATIVE = "камню",
 		ACCUSATIVE = "камень",
 		INSTRUMENTAL = "камнем",
-		PREPOSITIONAL = "камне"
+		PREPOSITIONAL = "камне",
 	)
-
 
 /obj/item/stack/ore/update_overlays()
 	. = ..()
@@ -57,12 +55,10 @@
 	if(length(stack_overlays))
 		. += stack_overlays
 
-
 /obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
 	. = ..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
-
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -74,7 +70,6 @@
 	new refined_type(drop_location(), amount)
 	balloon_alert(usr, "переплавлено!")
 	qdel(src)
-
 
 /obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
 	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!ishuman(arrived) && !isrobot(arrived)))
@@ -92,7 +87,6 @@
 		// Then, if the user is dragging an ore box, empty the satchel into the box.
 		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
 			arrived_mob.pulling.attackby(bag, arrived)
-
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()
@@ -122,13 +116,12 @@
 		DATIVE = "урановой руде",
 		ACCUSATIVE = "урановую руду",
 		INSTRUMENTAL = "урановой рудой",
-		PREPOSITIONAL = "урановой руде"
+		PREPOSITIONAL = "урановой руде",
 	)
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
 	icon_state = "Iron ore"
-	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
@@ -141,13 +134,12 @@
 		DATIVE = "железной руде",
 		ACCUSATIVE = "железную руду",
 		INSTRUMENTAL = "железной рудой",
-		PREPOSITIONAL = "железной руде"
+		PREPOSITIONAL = "железной руде",
 	)
 
 /obj/item/stack/ore/glass
 	name = "sand pile"
 	icon_state = "Glass ore"
-	origin_tech = "materials=1"
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
@@ -160,7 +152,7 @@
 		DATIVE = "песку",
 		ACCUSATIVE = "песок",
 		INSTRUMENTAL = "песком",
-		PREPOSITIONAL = "песке"
+		PREPOSITIONAL = "песке",
 	)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
@@ -212,23 +204,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "вулканическому пеплу",
 		ACCUSATIVE = "вулканический пепел",
 		INSTRUMENTAL = "вулканическим пеплом",
-		PREPOSITIONAL = "вулканическом пепле"
-	)
-
-/obj/item/stack/ore/glass/basalt/ancient
-	name = "ancient sand"
-	icon_state = "volcanic_sand"
-	item_state = "volcanic_sand"
-	singular_name = "ancient sand pile"
-
-/obj/item/stack/ore/glass/basalt/ancient/get_ru_names()
-	return list(
-		NOMINATIVE = "древний песок",
-		GENITIVE = "древнего песка",
-		DATIVE = "древнему песку",
-		ACCUSATIVE = "древний песок",
-		INSTRUMENTAL = "древним песком",
-		PREPOSITIONAL = "древнем песке"
+		PREPOSITIONAL = "вулканическом пепле",
 	)
 
 /obj/item/stack/ore/plasma
@@ -247,7 +223,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "плазменной руде",
 		ACCUSATIVE = "плазменную руду",
 		INSTRUMENTAL = "плазменной рудой",
-		PREPOSITIONAL = "плазменной руде"
+		PREPOSITIONAL = "плазменной руде",
 	)
 
 /obj/item/stack/ore/silver
@@ -266,7 +242,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "серебряной руде",
 		ACCUSATIVE = "серебряную руду",
 		INSTRUMENTAL = "серебряной рудой",
-		PREPOSITIONAL = "серебряной руде"
+		PREPOSITIONAL = "серебряной руде",
 	)
 
 /obj/item/stack/ore/gold
@@ -285,7 +261,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "золотой руде",
 		ACCUSATIVE = "золотую руду",
 		INSTRUMENTAL = "золотой рудой",
-		PREPOSITIONAL = "золотой руде"
+		PREPOSITIONAL = "золотой руде",
 	)
 
 /obj/item/stack/ore/diamond
@@ -304,7 +280,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "алмазной руде",
 		ACCUSATIVE = "алмазную руду",
 		INSTRUMENTAL = "алмазной рудой",
-		PREPOSITIONAL = "алмазной руде"
+		PREPOSITIONAL = "алмазной руде",
 	)
 
 /obj/item/stack/ore/bananium
@@ -323,7 +299,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "бананиумной руде",
 		ACCUSATIVE = "бананиумную руду",
 		INSTRUMENTAL = "бананиумной рудой",
-		PREPOSITIONAL = "бананиумной руде"
+		PREPOSITIONAL = "бананиумной руде",
 	)
 
 /obj/item/stack/ore/tranquillite
@@ -342,7 +318,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "транквиллитовой руде",
 		ACCUSATIVE = "транквиллитовую руду",
 		INSTRUMENTAL = "транквиллитовой рудой",
-		PREPOSITIONAL = "транквиллитовой руде"
+		PREPOSITIONAL = "транквиллитовой руде",
 	)
 
 /obj/item/stack/ore/titanium
@@ -360,7 +336,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "титановой руде",
 		ACCUSATIVE = "титановую руду",
 		INSTRUMENTAL = "титановой рудой",
-		PREPOSITIONAL = "титановой руде"
+		PREPOSITIONAL = "титановой руде",
 	)
 
 /obj/item/stack/ore/slag
@@ -376,7 +352,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "шлаку",
 		ACCUSATIVE = "шлак",
 		INSTRUMENTAL = "шлаком",
-		PREPOSITIONAL = "шлаке"
+		PREPOSITIONAL = "шлаке",
 	)
 
 /obj/item/twohanded/required/gibtonite
@@ -400,9 +376,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "гибтониту",
 		ACCUSATIVE = "гибтонит",
 		INSTRUMENTAL = "гибтонитом",
-		PREPOSITIONAL = "гибтоните"
+		PREPOSITIONAL = "гибтоните",
 	)
-
 
 /obj/item/twohanded/required/gibtonite/Destroy()
 	if(wires)
@@ -410,12 +385,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-
 /obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	if(!supress_message && ismob(puller))
 		balloon_alert(puller, "слишком тяжело!")
 	return FALSE // must be carried in two hands or be picked up with ripley
-
 
 /obj/item/twohanded/required/gibtonite/update_icon_state()
 	switch(quality)
@@ -426,12 +399,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		if(GIBTONITE_QUALITY_HIGH)
 			icon_state = "Gibtonite ore 3"
 
-
 /obj/item/twohanded/required/gibtonite/update_overlays()
 	. = ..()
 	if(wires)
 		. += "Gibtonite_igniter"
-
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(isigniter(I))
@@ -478,7 +449,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 	return ..()
 
-
 /obj/item/twohanded/required/gibtonite/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!wires || primed)
@@ -486,7 +456,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	wires.Interact(user)
-
 
 /obj/item/twohanded/required/gibtonite/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -507,7 +476,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return .
 	wires.Interact(user)
 
-
 /obj/item/twohanded/required/gibtonite/attack_ghost(mob/user)
 	if(wires)
 		wires.Interact(user)
@@ -518,7 +486,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	else
 		..()
 
-/obj/item/twohanded/required/gibtonite/bullet_act(var/obj/projectile/P)
+/obj/item/twohanded/required/gibtonite/bullet_act(obj/projectile/P)
 	GibtoniteReaction(P.firer)
 	..()
 
@@ -547,7 +515,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		else if(triggered_by == 2)
 			add_game_logs("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
 		else
-			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
+			user.visible_message(span_warning("[user] strikes \the [src], causing a chain reaction!"), span_danger("You strike \the [src], causing a chain reaction."))
 			add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)])", user)
 		spawn(det_time)
 		if(primed)
@@ -561,12 +529,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			if(!QDELETED(src))
 				qdel(src)
 
-
 /obj/item/stack/ore/ex_act(severity, target)
 	if(!severity || severity <= EXPLODE_HEAVY)
 		return
 	qdel(src)
-
 
 /*****************************Coin********************************/
 
@@ -594,7 +560,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "монете",
 		ACCUSATIVE = "монету",
 		INSTRUMENTAL = "монетой",
-		PREPOSITIONAL = "монете"
+		PREPOSITIONAL = "монете",
 	)
 
 /obj/item/coin/New()
@@ -605,6 +571,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
+
+/obj/item/coin/get_item_credit_value()
+	return credits
 
 /obj/item/coin/gold
 	cmineral = "gold"
@@ -685,7 +654,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "монете Гильдии Воров",
 		ACCUSATIVE = "монету Гильдии Воров",
 		INSTRUMENTAL = "монетой Гильдии Воров",
-		PREPOSITIONAL = "монете Гильдии Воров"
+		PREPOSITIONAL = "монете Гильдии Воров",
 	)
 
 /obj/item/coin/antagtoken
@@ -704,7 +673,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "антаг токену",
 		ACCUSATIVE = "антаг токен",
 		INSTRUMENTAL = "антаг токеном",
-		PREPOSITIONAL = "антаг токене"
+		PREPOSITIONAL = "антаг токене",
 	)
 
 /obj/item/coin/antagtoken/syndicate
@@ -713,20 +682,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/antagtoken/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "монета Синдиката",
-		GENITIVE = "монеты Синдиката",
-		DATIVE = "монете Синдиката",
-		ACCUSATIVE = "монету Синдиката",
-		INSTRUMENTAL = "монетой Синдиката",
-		PREPOSITIONAL = "монете Синдиката"
+		NOMINATIVE = "монета \"Синдиката\"",
+		GENITIVE = "монеты \"Синдиката\"",
+		DATIVE = "монете \"Синдиката\"",
+		ACCUSATIVE = "монету \"Синдиката\"",
+		INSTRUMENTAL = "монетой \"Синдиката\"",
+		PREPOSITIONAL = "монете \"Синдиката\"",
 	)
-
 
 /obj/item/coin/update_overlays()
 	. = ..()
 	if(string_attached)
 		. += "coin_string_overlay"
-
 
 /obj/item/coin/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))
@@ -745,7 +712,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 	return  ..()
 
-
 /obj/item/coin/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!string_attached)
@@ -758,7 +724,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/obj/item/stack/cable_coil/coil = new(drop_location(), 1)
 	transfer_fingerprints_to(coil)
 	coil.add_fingerprint(user)
-
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -775,7 +740,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		new typekey(get_turf(loc))
 		qdel(src)
 
-
 /obj/item/coin/attack_self(mob/user)
 	if(cooldown < world.time - 15)
 		var/coinflip = pick(sideslist)
@@ -791,7 +755,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 				"salad" = "ERROR"
 			)
 			user.visible_message(
-				span_notice("[user] подбрасыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
+				span_notice("[user] подбрасыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
 				span_notice("Вы подбросили [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
 				span_notice("Слышен звон монеты.")
 			)

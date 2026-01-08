@@ -56,7 +56,6 @@
 
 	return data
 
-
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_act(action, params)
 	if(..())
 		return
@@ -69,10 +68,8 @@
 
 	return TRUE
 
-
 //Access controller for door control - used in virology and the like
 /obj/machinery/embedded_controller/radio/airlock/access_controller
-	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "access_control_standby"
 
 	name = "Access Controller"

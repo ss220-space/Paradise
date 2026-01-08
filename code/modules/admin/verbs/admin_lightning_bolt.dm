@@ -1,25 +1,18 @@
-#define MODE_CKEY			"По игроку"
-#define MODE_POINTER		"По указателю"
-#define WARNING_MESSAGE		span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
-#define DEFAULT_DAMAGE		100
-#define DEFAULT_RADIUS		3
-#define DEFAULT_DELAY		3
+#define MODE_CKEY "По игроку"
+#define MODE_POINTER "По указателю"
+#define WARNING_MESSAGE span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
+#define DEFAULT_DAMAGE 100
+#define DEFAULT_RADIUS 3
+#define DEFAULT_DELAY 3
 
-/client/proc/drop_lightning_bolt()
-	set category = STATPANEL_ADMIN_FUN
-	set name = "Drop lightning bolt"
-	set desc = "Вызвать молнию различной силы под вами."
-
-	if(!check_rights(R_EVENT))
-		return
+ADMIN_VERB(drop_lightning_bolt, R_EVENT, "Drop lightning bolt", "Вызвать молнию различной силы под вами.", ADMIN_CATEGORY_FUN)
 	if(!SSticker || !SSticker.mode)
-		tgui_alert(usr, "Нельзя вызывать молнии до начала раунда!", "Предупреждение")
+		tgui_alert(user, "Нельзя вызывать молнии до начала раунда!", "Предупреждение")
 		return
 
 	var/datum/drop_lightning_bolt_ui/editor = new()
-	editor.ui_interact(mob)
+	editor.ui_interact(user.mob)
 
-// _________________________________________TGUI_________________________________________
 /datum/drop_lightning_bolt_ui
 	var/client/client = null
 	var/mob/living/victim_mob = null
@@ -30,9 +23,10 @@
 	var/delay = DEFAULT_DELAY
 	var/list/players = list()
 	var/pointing = FALSE
+	var/reason
 
 /datum/drop_lightning_bolt_ui/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/drop_lightning_bolt_ui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -144,6 +138,8 @@
 		_mob.apply_damage(damage, BURN)
 		_mob.updatehealth("admin lightning bolt")
 
+	if(reason && victim_mob)
+		to_chat(victim_mob, span_userdanger("Молния бьёт вас из пустоты! Боги наказали вас за [reason]!"))
 
 	log_admin("[key_name(usr)] dropped lightning bolt at [victim] with damage=[damage], radius=[radius], delay=[delay]")
 	message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(victim)] with damage=[damage], radius=[radius], delay=[delay]")
@@ -189,6 +185,11 @@
 
 	dropper.mode = MODE_POINTER
 	return TRUE
+
+/datum/drop_lightning_bolt_ui/preloaded_target/New(mob/user, reason)
+	victim_mob = user
+	mode = MODE_CKEY
+	src.reason = reason
 
 #undef MODE_CKEY
 #undef MODE_POINTER

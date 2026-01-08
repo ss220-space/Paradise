@@ -10,9 +10,6 @@
 	maturation = 5
 	production = 3
 	yield = 5
-	potency = 10
-	growthstages = 6
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "tobacco-dead"
 	reagents_add = list("cocaextract" = 0.1, "plantmatter" = 0.1)
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
@@ -31,9 +28,8 @@
 	desc = "Zip packet of cocainet. Can`t wait to make trail of it."
 	icon_state = "coca_packet"
 
-
 /obj/item/coca_packet/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card) || is_sharp(I))
+	if(istype(I, /obj/item/card) || I.sharp)
 		to_chat(user, span_notice("You have formed two trails of cocaine on the surface."))	// FBI OPEN UP
 		var/turf/our_turf = get_turf(src)
 		for(var/i = 1 to 2)
@@ -43,7 +39,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/crack_crystal
 	name = "crystal"
@@ -61,7 +56,6 @@
 	list_reagents = list()
 	smoketime = 150
 
-
 /obj/item/clothing/mask/cigarette/pipe/crack_pipe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/crack_crystal))
 		add_fingerprint(user)
@@ -75,7 +69,6 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/coca_trail
 	name = "cocaine trail"

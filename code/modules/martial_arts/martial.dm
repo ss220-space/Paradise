@@ -11,12 +11,14 @@
 	var/datum/martial_art/base = null
 	/// Chance to deflect projectiles while on throw mode.
 	var/deflection_chance = 0
+	var/can_deflect = FALSE
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
 	///Chance to block melee attacks using items
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
+	var/can_reflect = FALSE
 	var/help_verb = null
 	/// Set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns = FALSE
@@ -54,7 +56,6 @@
 	var/can_horizontally_grab = TRUE
 	/// If falce, doesn't change strength and strength limit.
 	var/change_musculs = TRUE
-
 
 /datum/martial_art/New()
 	. = ..()
@@ -264,7 +265,7 @@
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Информацию о БИ"
 	set desc = "Gives information about the martial arts you know."
-	set category = STATPANEL_MARTIALARTS
+	set category = VERB_CATEGORY_MARTIALARTS
 	var/mob/living/carbon/human/human = usr
 	if(!istype(human))
 		to_chat(usr, span_warning("You shouldn't have access to this verb. Report this as a bug to the github please."))
@@ -274,10 +275,9 @@
 /mob/living/carbon/human/proc/dirslash_enabling()
 	set name = "Атака по направлению"
 	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
-	set category = STATPANEL_MARTIALARTS
+	set category = VERB_CATEGORY_MARTIALARTS
 	dirslash_enabled = !dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [dirslash_enabled? "enabled" : "disabled"] now."))
-
 
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
@@ -317,7 +317,6 @@
 		if(MARTIAL_COMBO_STEP_HELP)
 			return "human"
 
-
 /// Returns martial art grab resist chance for passed grab state.
 /datum/martial_art/proc/get_resist_chance(grab_state)
 	if(!grab_resist_chances)
@@ -333,10 +332,15 @@
 			if(!isnull(grab_resist_chances[MARTIAL_GRAB_KILL]))
 				return grab_resist_chances[MARTIAL_GRAB_KILL]
 
-
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
+	name = "boxing gloves"
+	desc = "Because you really needed another excuse to punch your crewmates."
+	icon_state = "boxing"
+	item_state = "boxing"
+	put_on_delay = 60
+
 	var/datum/martial_art/boxing/style
 
 /obj/item/clothing/gloves/boxing/Initialize(mapload)
@@ -354,13 +358,11 @@
 		return .
 	style.teach(user, TRUE)
 
-
 /obj/item/clothing/gloves/boxing/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.remove(user)
-
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -377,8 +379,7 @@
 
 /obj/item/storage/belt/champion/wrestling/true
 	name = "Пояс Истинного Чемпиона"
-	desc = "Вы - лучший! и Вы это знаете!"
-
+	desc = "Вы — лучший! и Вы это знаете!"
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -390,14 +391,12 @@
 	style.teach(user, TRUE)
 	to_chat(user, span_sciradio("You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab."))
 
-
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
 		return .
 	style.remove(user)
 	to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
-
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
@@ -406,20 +405,16 @@
 	icon_state ="scroll2"
 	var/used = FALSE
 
-
 /obj/item/plasma_fist_scroll/update_icon_state()
 	icon_state = used ? "blankscroll" : initial(icon_state)
-
 
 /obj/item/plasma_fist_scroll/update_name(updates = ALL)
 	. = ..()
 	name = used ? "empty scroll" : initial(name)
 
-
 /obj/item/plasma_fist_scroll/update_desc(updates = ALL)
 	. = ..()
 	desc = used ? "It's completely blank." : initial(desc)
-
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -433,10 +428,9 @@
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
-
 /obj/item/sleeping_carp_scroll
-	name = "mysterious scroll"
-	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
+	name = "загадочный свиток"
+	desc = "Свиток исписанный загадочными символами. Похоже, в нём описаны техники какого-то боевого искусства."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
@@ -445,26 +439,20 @@
 		return
 	if(user.mind && (ischangeling(user) || isvampire(user))) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user)) //Changelings
-			to_chat(user, span_warning("We try multiple times, but we are not able to comprehend the contents of the scroll!"))
+			to_chat(user, span_warning("Мы пытаемся много раз, но всё же не способны понять содержимое свитка!"))
 			return
 		else //Vampires
-			to_chat(user, span_warning("Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!"))
+			to_chat(user, span_warning("Твоя жажда крови не даёт тебе сконцентрироваться на изучении свитка!"))
 			return
 
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
-		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
+		to_chat(user, span_warning("Ты уже изучил техники Спящего Карпа. Прочтение свитка ничего не даст."))
 		return
-
-	to_chat(user, span_sciradio("You have learned the ancient martial art of the Sleeping Carp! \
-					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
-					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab."))
-
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("[src] lights up in fire and quickly burns to ash."))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] подхватыва[PLUR_ET_YUT(src)] огонь и быстро сгора[PLUR_ET_YUT(src)] до тла."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
@@ -482,7 +470,7 @@
 		DATIVE = "старому руководству",
 		ACCUSATIVE = "старое руководство",
 		INSTRUMENTAL = "старым руководством",
-		PREPOSITIONAL = "старом руководстве"
+		PREPOSITIONAL = "старом руководстве",
 	)
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
@@ -524,7 +512,7 @@
 		DATIVE = "импланту улучшения CQC",
 		ACCUSATIVE = "имплант улучшения CQC",
 		INSTRUMENTAL = "имплантом улучшения CQC",
-		PREPOSITIONAL = "импланте улучшения CQC"
+		PREPOSITIONAL = "импланте улучшения CQC",
 	)
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
@@ -565,7 +553,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-
 /obj/item/mr_chang_technique
 	name = "\"Aggressive Marketing Technique\""
 	desc = "Лишь беглый взгляд по обложке этого журнала принёс вам 23 кредита чистой прибыли! О как!"
@@ -581,7 +568,7 @@
 		DATIVE = "журналу \"Техника Агрессивного Маркетинга\"",
 		ACCUSATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
 		INSTRUMENTAL = "журналом \"Техника Агрессивного Маркетинга\"",
-		PREPOSITIONAL = "журнале \"Техника Агрессивного Маркетинга\""
+		PREPOSITIONAL = "журнале \"Техника Агрессивного Маркетинга\"",
 	)
 
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
@@ -611,7 +598,7 @@
 		DATIVE = "мануалу \"Курс Техники метания ножей молодого Десантника\"",
 		ACCUSATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
 		INSTRUMENTAL = "Мануалом \"Курс Техники метания ножей молодого Десантника\"",
-		PREPOSITIONAL = "Мануале \"Курс Техники метания ножей молодого Десантника\""
+		PREPOSITIONAL = "Мануале \"Курс Техники метания ножей молодого Десантника\"",
 	)
 
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
@@ -635,15 +622,12 @@
 	force_unwielded = 10
 	force_wielded = 24
 	throwforce = 20
-	throw_speed = 2
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	block_chance = 50
 
-
 /obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/bostaff/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -703,7 +687,6 @@
 			target.SetSleeping(60 SECONDS)
 			target.apply_damage(25, BRAIN)
 
-
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
@@ -726,11 +709,9 @@
 	streak = ""
 	icon_state = ""
 
-
 /atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
 	return ..()
-
 
 /atom/movable/screen/combo/update_overlays()
 	. = list()
@@ -740,13 +721,11 @@
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
 		. += intent_icon
 
-
 /atom/movable/screen/combo/update_icon_state()
 	icon_state = ""
 	if(!streak)
 		return
 	icon_state = "combo"
-
 
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME

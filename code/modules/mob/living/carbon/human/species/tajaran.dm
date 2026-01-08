@@ -66,8 +66,10 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/tajaran),
 	)
 
-	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
-								 /mob/living/simple_animal/tribble)
+	allowed_consumed_mobs = list(
+		/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, \
+		/mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble
+	)
 
 	suicide_messages = list(
 		"пытается откусить себе язык!",
@@ -84,6 +86,12 @@
 		JOB_MIN_AGE_HIGH_ED = 19,
 		JOB_MIN_AGE_COMMAND = 19,
 	)
+
+	autohiss_basic_map = list(
+		"r" = list("rr", "rrr", "rrrr"),
+		"р" = list("рр", "ррр", "рррр"),
+	)
+	autohiss_exempt = list("Сик'таир")
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -109,3 +117,6 @@
 	remove_verb(H, /mob/living/carbon/human/proc/emote_purr)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_purrl)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)
+
+/datum/species/tajaran/compressor_grind(location)
+	new /obj/item/reagent_containers/food/snacks/tajaroni(location)

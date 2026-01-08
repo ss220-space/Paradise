@@ -6,7 +6,7 @@
 	cure_prob = 50
 	cure_text = "Святая вода"
 	discovered = TRUE
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	visibility_flags = HIDDEN_PANDEMIC

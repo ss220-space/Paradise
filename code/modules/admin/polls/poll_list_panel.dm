@@ -6,19 +6,13 @@
 /datum/ui_module/poll_list_panel
 	name = "Poll List Panel"
 
-/datum/admins/proc/open_poll_list()
-	set name = "Server Poll Management"
-	set category = STATPANEL_ADMIN_ADMIN
-
-	if(!check_rights(R_SERVER))
-		return
-
-	var/datum/ui_module/poll_list_panel/panel_pollo = new(usr)
-	panel_pollo.ui_interact(usr)
-
+ADMIN_VERB(poll_panel, R_SERVER, "Server Poll Management", "View and manage polls.", ADMIN_CATEGORY_MAIN)
+	var/datum/ui_module/poll_list_panel/panel_pollo = new(user)
+	panel_pollo.ui_interact(user.mob)
+	BLACKBOX_LOG_ADMIN_VERB("Server Poll Management")
 
 /datum/ui_module/poll_list_panel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ui_module/poll_list_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -55,7 +49,7 @@
 		return
 
 	var/client/ui_client = ui.user.client
-	switch (action)
+	switch(action)
 		if("newpoll")
 			ui_client.open_poll_management()
 		if("editpoll")
@@ -91,10 +85,9 @@
 			var/start_index = text2num(params["startat"]) || 0
 			ui_client.holder.poll_results_panel(our_poll, start_index)
 
-
 /**
-  * Shows the results for a poll
-  */
+ * Shows the results for a poll
+ */
 /datum/admins/proc/poll_results_panel(datum/poll_question/poll, start_index = 0)
 	if(!check_rights(R_SERVER))
 		return
@@ -103,9 +96,9 @@
 		return
 	var/output = {"<div align='center'><b>Player Poll Results</b><hr>[poll.question]<hr>"}
 	//Each poll type is different
-	switch (poll.poll_type)
+	switch(poll.poll_type)
 		//Show the options that were clicked
-		if (POLLTYPE_MULTI, POLLTYPE_OPTION)
+		if(POLLTYPE_MULTI, POLLTYPE_OPTION)
 			output += "<table><tr><th>Options</th><th>Votes</th></tr>"
 			//Get the results
 			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"
@@ -125,7 +118,7 @@
 				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td></tr>"
 			qdel(query_get_poll_results)
 		//Provide lists of ckeys and their answers
-		if (POLLTYPE_TEXT)
+		if(POLLTYPE_TEXT)
 			//Change the table name
 			output += "<a href='byond://?_src_=holder;resultspoll=[poll.UID()];startat=[start_index-10]'>Previous Page</a><a href='byond://?_src_=holder;resultspoll=[poll.UID()];startat=[start_index+10]'>Next Page</a><br/>"
 			output += "<table><tr><th>Ckey</th><th>Response</th></tr>"
@@ -147,7 +140,7 @@
 				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td></tr>"
 			qdel(query_get_poll_results)
 		//Show each option, how many times it was rated for each and then the average
-		if (POLLTYPE_RATING)
+		if(POLLTYPE_RATING)
 			output += "<table><tr><th>Option</th><th>Rating</th><th>Count</th></tr>"
 			//Get the results
 			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"

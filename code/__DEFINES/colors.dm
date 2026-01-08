@@ -81,6 +81,7 @@
 #define COLOR_GOLD "#ffd700"
 #define COLOR_ETHIOPIA_YELLOW "#fcdd09"
 #define COLOR_LIGHT_YELLOW "#fffee0"
+#define COLOR_PALE_YELLOW "#fff4bb"
 
 // Green
 #define COLOR_OLIVE "#808000"
@@ -102,6 +103,9 @@
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964a"
 #define COLOR_PAI_GREEN "#00ff88"
 #define COLOR_PALE_GREEN "#20e28e"
+#define COLOR_PALE_LIME "#f3ffbb"
+#define COLOR_LIGHT_GREEN "#aaffaa"
+#define COLOR_BRIGHT_LIME "#f7ff57"
 
 // Blue
 #define COLOR_CYAN "#00ffff"
@@ -126,6 +130,7 @@
 #define COLOR_BLUE_VERY_LIGHT "#ccecff"
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75a2bb"
+#define COLOR_MEDIUM_TURQUOISE "#48d1cc"
 
 // Pink
 #define COLOR_PINK "#ffc0cb"
@@ -488,11 +493,6 @@
 #define COLOR_AMMO_ARMORPIERCE "#d9d9d9"
 #define COLOR_AMMO_HOLLOWPOINT "#ff9900"
 
-// Cerestation rocks (DELETE THIS SHIT PLEASE!)
-#define COLOR_ASTEROID_ROCK "#735555"
-#define COLOR_ANCIENT_ROCK "#575757"
-#define COLOR_COLD_ROCK "#575764"
-
 // Pipe colours.
 #define	PIPE_COLOR_GREY "#dddddd"
 #define	PIPE_COLOR_RED "#dd1010"
@@ -563,3 +563,27 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 // Color matrix utilities.
 #define COLOR_MATRIX_ADD(C) list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, C)
 #define COLOR_MATRIX_OVERLAY(C) list(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, C)
+
+#define MATRIX_GREYSCALE list(\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33)
+
+// Security spear colors
+#define COLOR_SECSPEAR_RED "#ed3f3f"
+#define COLOR_SECSPEAR_BLUE "#3fc4ed"
+#define COLOR_SECSPEAR_YELLOW "#edc73f"
+
+#define COLOR_PROXIMITY_FIELD "#aaffff"
+#define COLOR_PROXIMITY_EDGE "#ffaaff"
+
+// Luma coefficients suggested for HDTVs. If you change these, make sure they add up to 1.
+#define LUMA_R 0.213
+#define LUMA_G 0.715
+#define LUMA_B 0.072
+
+#define COLOR_GAS_MINER_N2O "#ffcccc"
+#define COLOR_GAS_MINER_N2 "#ccffcc"
+#define COLOR_GAS_MINER_O2 "#007fff"
+#define COLOR_GAS_MINER_CO2 "#cdcdcd"
+#define COLOR_GAS_MINER_AGENT_B "#e81e24"

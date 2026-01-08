@@ -12,6 +12,7 @@
 // -----------------------------
 /obj/item/storage/secure
 	name = "secstorage"
+	icon = 'icons/obj/storage/boxes.dmi'
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
 	var/icon_opened = "secure0"
@@ -21,18 +22,12 @@
 	var/l_set = FALSE
 	var/l_setshort = FALSE
 	var/l_hacking = FALSE
-	var/emagged = FALSE
 	var/open = FALSE
-	w_class = WEIGHT_CLASS_NORMAL
-	max_w_class = WEIGHT_CLASS_SMALL
-	max_combined_w_class = 14
-
 
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>The service panel is [open ? "open" : "closed"].</span>"
-
+		. += span_notice("The service panel is [open ? "open" : "closed"].")
 
 /obj/item/storage/secure/update_overlays()
 	. = ..()
@@ -41,11 +36,9 @@
 	else if(!locked)
 		. += icon_opened
 
-
 /obj/item/storage/secure/populate_contents()
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
-
 
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -53,7 +46,6 @@
 		return .
 	open = !open
 	to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
-
 
 /obj/item/storage/secure/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -76,7 +68,6 @@
 	l_setshort = TRUE
 	addtimer(VARSET_CALLBACK(src, l_setshort, FALSE), 8 SECONDS)
 
-
 /obj/item/storage/secure/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
@@ -96,7 +87,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/item/storage/secure/emag_act(mob/user, obj/weapon)
 	if(emagged)
@@ -118,13 +108,12 @@
 	else if(user)
 		to_chat(user, "You short out the lock on [src].")
 
-
 /obj/item/storage/secure/click_alt(mob/living/user)
 	if(!try_to_open(user))
 		return CLICK_ACTION_BLOCKING
 	return ..()
 
-/obj/item/storage/secure/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/storage/secure/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!try_to_open(usr))
 		return FALSE
 	return ..()
@@ -161,13 +150,12 @@
 	data["current_code"] = (code) ? (isnum(text2num(code))) ? code : "ERROR" : FALSE
 	return data
 
-
 /obj/item/storage/secure/ui_act(action, params)
 	if(..())
 		return
 
 	if(!usr.IsAdvancedToolUser() && !isobserver(usr))
-		to_chat(usr, "<span class='warning'>You are not able to operate [src].</span>")
+		to_chat(usr, span_warning("You are not able to operate [src]."))
 		return
 
 	. = TRUE
@@ -194,18 +182,21 @@
 					code = null
 				else
 					code += text("[]", params["buttonValue"])
-					if(length(code) > 5 )
+					if(length(code) > 5)
 						code = "ERROR"
 
 /obj/item/storage/secure/can_be_inserted(obj/item/W, stop_messages = 0)
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, span_notice("[src] is locked!"))
 	return FALSE
 
 /obj/item/storage/secure/hear_talk(mob/living/M, list/message_pieces)
-	return
+	if(locked)
+		return
+
+	..()
 
 /obj/item/storage/secure/hear_message(mob/living/M, msg)
 	return
@@ -216,14 +207,12 @@
 /obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	desc = "A large briefcase with a digital locking system."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "secure"
 	item_state = "sec-case"
 	flags = CONDUCT
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -232,7 +221,7 @@
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user)
 	if((loc == user) && locked)
-		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
+		to_chat(usr, span_warning("[src] is locked and cannot be opened!"))
 	else if((loc == user) && !locked)
 		playsound(loc, 'sound/effects/briefcase.ogg', 50, TRUE, -5)
 		user.s_active?.close(user) //Close and re-open
@@ -251,7 +240,6 @@
 /obj/item/storage/secure/briefcase/captian/populate_contents()
 	new /obj/item/card/id/captains_spare(src)
 
-
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie
 	force = 15
@@ -266,7 +254,6 @@
 
 /obj/item/storage/secure/safe
 	name = "secure safe"
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "safe"
 	icon_opened = "safe0"
 	icon_locking = "safeb"
@@ -275,7 +262,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	max_w_class = 8
 	anchored = TRUE
-	density = FALSE
 	cant_hold = list(/obj/item/storage/secure/briefcase)
 
 /obj/item/storage/secure/safe/attack_hand(mob/user)

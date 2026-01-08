@@ -12,7 +12,6 @@
 /obj/item/bikehorn
 	name = "bike horn"
 	desc = "A horn off of a bicycle."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bike_horn"
 	item_state = "bike_horn"
 	hitsound = null
@@ -40,12 +39,10 @@
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
 
-
 /obj/item/bikehorn/golden/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		flip_mobs()
-
 
 /obj/item/bikehorn/golden/attack_self(mob/user)
 	flip_mobs()
@@ -73,13 +70,12 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
-	throwforce = 0
 	actions_types = list(/datum/action/item_action/laugh_track)
 	var/cooldown = 0
 
 /obj/item/clown_recorder/attack_self(mob/user)
 	if(cooldown > world.time)
-		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
+		to_chat(user, span_notice("The tape is still winding back."))
 		return
 	playsound(src, pick('sound/voice/sitcom_laugh1.ogg', 'sound/voice/sitcom_laugh2.ogg', 'sound/voice/sitcom_laugh3.ogg', 'sound/voice/sitcom_laugh4.ogg', 'sound/voice/sitcom_laugh5.ogg'), 50, FALSE)
 
@@ -90,7 +86,7 @@
 
 /obj/item/clown_recorder/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
+		to_chat(user, span_notice("Winding back speed has been improved by the bananium ooze!"))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 #undef LAUGH_COOLDOWN

@@ -5,14 +5,12 @@
 	desc = "A glass tile, which is wired, somehow."
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "glass_wire"
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 3.0
 	throwforce = 5.0
 	throw_speed = 5
 	throw_range = 20
 	flags = CONDUCT
 	max_amount = 60
-
 
 /obj/item/stack/light_w/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -25,7 +23,6 @@
 	coil.add_fingerprint(user)
 	var/obj/item/stack/sheet/glass/glass = new(drop_loc)
 	glass.add_fingerprint(user)
-
 
 /obj/item/stack/light_w/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/metal))

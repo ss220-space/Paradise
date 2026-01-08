@@ -8,7 +8,6 @@
 	var/mob/owner = null	// Carp doesn't attack owner, set when using in hand
 	var/owned = 1	// Boolean, no owner to begin with
 
-
 /obj/item/toy/carpplushie/dehy_carp/Destroy()
 	owner = null
 	return ..()
@@ -17,7 +16,7 @@
 /obj/item/toy/carpplushie/dehy_carp/attack_self(mob/user as mob)
 	src.add_fingerprint(user)	// Anyone can add their fingerprints to it with this
 	if(owned)
-		to_chat(user, "<span class='notice'>[src] stares up at you with friendly eyes.</span>")
+		to_chat(user, span_notice("[src] stares up at you with friendly eyes."))
 		owner = user
 		owned = 0
 	return ..()
@@ -30,7 +29,7 @@
 /obj/item/toy/carpplushie/dehy_carp/afterattack(obj/O, mob/user, proximity, params)
 	if(!proximity) return
 	if(istype(O,/obj/structure/sink))
-		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
+		to_chat(user, span_notice("You place [src] under a stream of water..."))
 		user.drop_from_active_hand()
 		loc = get_turf(O)
 		return Swell()
@@ -38,7 +37,7 @@
 
 /obj/item/toy/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"
-	visible_message("<span class='notice'>[src] swells up!</span>")
+	visible_message(span_notice("[src] swells up!"))
 
 	// Animation
 	icon = 'icons/mob/carp.dmi'
@@ -48,5 +47,5 @@
 	// Make space carp
 	var/mob/living/simple_animal/hostile/carp/megacarp/C = new /mob/living/simple_animal/hostile/carp/megacarp(get_turf(src))
 	// Make carp non-hostile to user, yes this means
-	C.faction |= list("syndicate", "\ref[owner]")
+	C.faction |= list("syndicate", PERSONAL_FACTION(owner))
 	qdel(src)

@@ -4,9 +4,7 @@
 	icon_state = "paper_bin1"
 	item_state = "sheet-metal"
 	throwforce = 1
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
-	throw_range = 7
 	pressure_resistance = 8
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
@@ -28,13 +26,11 @@
 	extinguish()
 	update_icon(UPDATE_ICON_STATE)
 
-
-/obj/item/paper_bin/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/paper_bin/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(over_object != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
@@ -44,7 +40,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /obj/item/paper_bin/attack_hand(mob/user)
 	if(ishuman(user))
@@ -61,8 +56,8 @@
 			update_icon(UPDATE_ICON_STATE)
 
 		var/obj/item/paper/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
+		if(length(papers) > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
+			P = papers[length(papers)]
 			papers.Remove(P)
 			P.forceMove_turf()
 		else
@@ -78,13 +73,12 @@
 		if(in_range(user, src))
 			user.put_in_hands(P, ignore_anim = FALSE)
 			P.add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+			to_chat(user, span_notice("You take [P] out of the [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, span_notice("[src] is empty!"))
 
 	add_fingerprint(user)
 	return
-
 
 /obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/paper))
@@ -105,22 +99,19 @@
 
 	return ..()
 
-
 /obj/item/paper_bin/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		if(amount)
-			. += "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
+			. += span_notice("There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.")
 		else
-			. += "<span class='notice'>There are no papers in the bin.</span>"
-
+			. += span_notice("There are no papers in the bin.")
 
 /obj/item/paper_bin/update_icon_state()
 	if(amount < 1)
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin[purple_bin ? "2" : "1"]"
-
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"
@@ -134,15 +125,15 @@
 			update_icon(UPDATE_ICON_STATE)
 
 		var/obj/item/paper/carbon/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
+		if(length(papers) > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
+			P = papers[length(papers)]
 			papers.Remove(P)
 		else
 			P = new /obj/item/paper/carbon(drop_location())
 		user.put_in_hands(P, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+		to_chat(user, span_notice("You take [P] out of the [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, span_notice("[src] is empty!"))
 
 	add_fingerprint(user)
 	return

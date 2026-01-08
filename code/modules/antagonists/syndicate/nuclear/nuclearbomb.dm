@@ -14,7 +14,6 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb
 	name = "Nuclear Fission Explosive"
 	desc = "Uh oh. RUN!!!!"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
@@ -42,11 +41,9 @@ GLOBAL_VAR(bomb_set)
 	var/sheets_to_fix = 5
 	var/cinematic_type = STATION_NUKE
 
-
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
 	cinematic_type = SYNDICATE_NUKE
-
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
@@ -55,10 +52,9 @@ GLOBAL_VAR(bomb_set)
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core)
-	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src) //Let us not irradiate the vault by default.
+	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src)) //Let us not irradiate the vault by default.
 	AddElement(/datum/element/high_value_item)
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
@@ -66,7 +62,6 @@ GLOBAL_VAR(bomb_set)
 	QDEL_NULL(core)
 	GLOB.poi_list.Remove(src)
 	return ..()
-
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
@@ -94,7 +89,6 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_FULLY_EXPOSED)
 			. += span_notice("The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].")
 
-
 /obj/machinery/nuclearbomb/update_icon_state()
 	icon_state = initial(icon_state)
 	if(lighthack)
@@ -111,7 +105,6 @@ GLOBAL_VAR(bomb_set)
 	if(!safety)
 		icon_state = "nuclearbomb1"
 
-
 /obj/machinery/nuclearbomb/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -122,7 +115,6 @@ GLOBAL_VAR(bomb_set)
 	if(!lighthack)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask", src)
 
-
 /obj/machinery/nuclearbomb/process()
 	if(timing)
 		GLOB.bomb_set = TRUE // So long as there is one nuke timing, it means one nuke is armed.
@@ -130,7 +122,6 @@ GLOBAL_VAR(bomb_set)
 		if(timeleft <= 0)
 			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
-
 
 /obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -163,7 +154,7 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_CORE_PANEL_UNWELDED
 		if(core)
 			STOP_PROCESSING(SSobj, core)
-			ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+			ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
@@ -201,7 +192,6 @@ GLOBAL_VAR(bomb_set)
 
 	return ..()
 
-
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -229,7 +219,7 @@ GLOBAL_VAR(bomb_set)
 		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
 			START_PROCESSING(SSobj, core)
-			REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+			REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
 		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
@@ -505,7 +495,6 @@ GLOBAL_VAR(bomb_set)
 				GLOB.bomb_set = FALSE
 				SSshuttle?.remove_hostile_environment(src)
 
-
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(exploded)
 		return
@@ -527,7 +516,6 @@ GLOBAL_VAR(bomb_set)
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
-#define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE
@@ -538,7 +526,7 @@ GLOBAL_VAR(bomb_set)
 	safety = TRUE
 	update_icon()
 	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
 
@@ -578,7 +566,6 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/proc/reset_lighthack_callback()
 	lighthack = !lighthack
 	update_icon()
-
 
 /obj/machinery/nuclearbomb/proc/reset_safety_callback()
 	safety = !safety
@@ -621,7 +608,7 @@ GLOBAL_VAR(bomb_set)
 		add_game_logs("[fingerprintslast] who touched the lost [src] in [COORD(diskturf)].")
 		qdel(src)
 
- //station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
+//station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
 /obj/item/disk/nuclear/proc/check_disk_loc()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
@@ -644,7 +631,7 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(GLOB.blobstart.len > 0)
+	if(length(GLOB.blobstart) > 0)
 		GLOB.poi_list.Remove(src)
 		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.blobstart))
 		transfer_fingerprints_to(NEWDISK)

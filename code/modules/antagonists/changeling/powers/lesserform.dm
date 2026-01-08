@@ -9,12 +9,14 @@
 	dna_cost = 1
 	req_human = TRUE
 
-
 /**
  * Transform into a monka.
  */
 /datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
 	if(!istype(user))
+		return FALSE
+
+	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
 		return FALSE
 
 	if(user.has_brain_worms())

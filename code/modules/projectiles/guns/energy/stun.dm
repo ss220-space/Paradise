@@ -12,7 +12,6 @@
 	name = "tesla revolver"
 	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
 	icon_state = "stunrevolver"
-	item_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
 	shaded_charge = TRUE
@@ -28,7 +27,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 
 /obj/item/gun/energy/gun/advtaser/cyborg

@@ -1,7 +1,5 @@
 /obj/item/gun/energy/gun
-	name = "energy gun"
 	desc = "A basic energy-based gun with two settings: kill and disable."
-	icon_state = "energy"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
@@ -11,7 +9,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
 	)
 
 /obj/item/gun/energy/gun/cyborg
@@ -35,13 +33,11 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	. = ..()
 	set_gun_light(new /obj/item/flashlight/seclite(src))
 	cell.maxcharge = 600
 	cell.charge = 600
-
 
 /obj/item/gun/energy/gun/hos
 	name = "X-01 MultiPhase Energy Gun"
@@ -56,7 +52,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 10),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10),
 	)
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
@@ -127,10 +123,9 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE_LASER
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
 
 /obj/item/gun/energy/gun/minigun
@@ -166,7 +161,7 @@
 		DATIVE = "Гатлинг-лазеру",
 		ACCUSATIVE = "Гатлинг-лазер",
 		INSTRUMENTAL = "Гатлинг-лазером",
-		PREPOSITIONAL = "Гатлинг-лазере"
+		PREPOSITIONAL = "Гатлинг-лазере",
 	)
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)
@@ -212,5 +207,5 @@
 		DATIVE = "Гатлинг-пульсеру",
 		ACCUSATIVE = "Гатлинг-пульсер",
 		INSTRUMENTAL = "Гатлинг-пульсером",
-		PREPOSITIONAL = "Гатлинг-пульсере"
+		PREPOSITIONAL = "Гатлинг-пульсере",
 	)

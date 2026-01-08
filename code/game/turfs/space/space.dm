@@ -6,6 +6,7 @@
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = HEAT_CAPACITY_VACUUM
+	atmos_mode = ATMOS_MODE_SPACE
 
 	flags = NO_SCREENTIPS
 
@@ -17,9 +18,6 @@
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
 
-	var/destination_z
-	var/destination_x
-	var/destination_y
 	plane = PLANE_SPACE
 	footstep = null
 	barefootstep = null
@@ -29,9 +27,12 @@
 
 	transparent_floor = TURF_FULLTRANSPARENT
 
+	var/destination_z
+	var/destination_x
+	var/destination_y
+
 	//when this be added to vis_contents of something it be associated with something on clicking,
 	//important for visualisation of turf in openspace and interraction with openspace that show you turf.
-	vis_flags = VIS_INHERIT_ID
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -56,7 +57,7 @@
 		// queueing compile, cloning appearance, etc etc etc that is not necessary here.
 		overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
-	if (light_power && light_range)
+	if(light_power && light_range)
 		update_light()
 
 	if(opacity)
@@ -91,7 +92,6 @@
 			set_light(2, l_on = TRUE)
 			return
 		set_light_on(FALSE)
-
 
 /turf/space/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -158,7 +158,6 @@
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
 
-
 /turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!arrived || !(src in arrived.locs))
@@ -175,7 +174,6 @@
 			if(current_pull.pulling == arrived) // pulling each other doesn't help but makes a loop
 				break
 			current_pull = current_pull.pulling
-
 
 /turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
 	if(!is_taipan(destination_z))
@@ -213,7 +211,6 @@
 		to_chat(arrived_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
 
-
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
 	var/cur_y
@@ -231,7 +228,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (--cur_x||GLOB.global_map.len)
+		next_x = (--cur_x||length(GLOB.global_map))
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*
@@ -245,7 +242,7 @@
 			A.z = target_z
 			A.x = world.maxx - 2
 			spawn (0)
-				if((A && A.loc))
+				if(A?.loc)
 					A.loc.Entered(A)
 	else if(src.x >= world.maxx)
 		if(istype(A, /obj/effect/meteor))
@@ -256,7 +253,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (++cur_x > GLOB.global_map.len ? 1 : cur_x)
+		next_x = (++cur_x > length(GLOB.global_map) ? 1 : cur_x)
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*
@@ -270,7 +267,7 @@
 			A.z = target_z
 			A.x = 3
 			spawn (0)
-				if((A && A.loc))
+				if(A?.loc)
 					A.loc.Entered(A)
 	else if(src.y <= 1)
 		if(istype(A, /obj/effect/meteor))
@@ -281,7 +278,7 @@
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
 		y_arr = GLOB.global_map[cur_x]
-		next_y = (--cur_y||y_arr.len)
+		next_y = (--cur_y||length(y_arr))
 		target_z = y_arr[next_y]
 /*
 		//debug
@@ -294,7 +291,7 @@
 			A.z = target_z
 			A.y = world.maxy - 2
 			spawn (0)
-				if((A && A.loc))
+				if(A?.loc)
 					A.loc.Entered(A)
 
 	else if(src.y >= world.maxy)
@@ -306,7 +303,7 @@
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
 		y_arr = GLOB.global_map[cur_x]
-		next_y = (++cur_y > y_arr.len ? 1 : cur_y)
+		next_y = (++cur_y > length(y_arr) ? 1 : cur_y)
 		target_z = y_arr[next_y]
 /*
 		//debug
@@ -319,7 +316,7 @@
 			A.z = target_z
 			A.y = 3
 			spawn (0)
-				if((A && A.loc))
+				if(A?.loc)
 					A.loc.Entered(A)
 	return
 

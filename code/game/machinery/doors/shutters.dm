@@ -3,7 +3,6 @@
 	name = "shutters"
 	desc = "Heavy duty metal shutters that open mechanically."
 	icon = 'icons/obj/doors/shutters.dmi'
-	icon_state = "closed"
 	layer = SHUTTER_LAYER
 	closingLayer = SHUTTER_LAYER
 	damage_deflection = 20
@@ -26,4 +25,3 @@
 	name = "reinforced wall"
 	desc = "Effectively impervious to conventional methods of destruction."
 	icon = 'icons/obj/doors/fake_wall_shutters.dmi'
-	icon_state = "closed"

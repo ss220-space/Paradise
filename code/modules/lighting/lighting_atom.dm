@@ -39,7 +39,7 @@
 	if(light_system != STATIC_LIGHT)
 		CRASH("update_light() for [src] with following light_system value: [light_system]")
 
-	if (!light_power || !light_range || !light_on) // We won't emit light anyways, destroy the light source.
+	if(!light_power || !light_range || !light_on) // We won't emit light anyways, destroy the light source.
 		QDEL_NULL(light)
 	else
 		if(!ismovable(loc)) // We choose what atom should be the top atom of the light here.
@@ -52,10 +52,8 @@
 		else
 			light = new/datum/light_source(src, .)
 
-
 /atom/proc/extinguish_light(force = FALSE)
 	return
-
 
 /atom/proc/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
 	return

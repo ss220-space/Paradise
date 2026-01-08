@@ -122,7 +122,7 @@ const ChangeSecurityLevel = (props: unknown) => {
               act('change_security_level', { new_security_level: 0 })
             }
           >
-            Account Numbe
+            Account Number
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Description">

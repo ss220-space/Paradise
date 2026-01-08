@@ -6,7 +6,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/meat
 	name = "meatbread loaf"
 	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "meatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatbreadslice
 	slices_num = 5
@@ -27,7 +26,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/xeno
 	name = "xenomeatbread loaf"
 	desc = "The culinary base of every self-respecting eloquent gentleman. Extra Heretical."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "xenomeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	slices_num = 5
@@ -48,7 +46,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/spider
 	name = "spider meat loaf"
 	desc = "Reassuringly green meatloaf made from spider meat."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "spidermeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	slices_num = 5
@@ -68,7 +65,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/banana
 	name = "banana-nut bread"
 	desc = "A heavenly and filling treat."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bananabread"
 	slice_path = /obj/item/reagent_containers/food/snacks/bananabreadslice
 	slices_num = 5
@@ -90,7 +86,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/tofu
 	name = "tofubread"
 	icon_state = "Like meatbread but for vegetarians. Not guaranteed to give superpowers."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "tofubread"
 	slice_path = /obj/item/reagent_containers/food/snacks/tofubreadslice
 	slices_num = 5
@@ -137,7 +132,6 @@
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
 
-
 /obj/item/reagent_containers/food/snacks/breadslice/stale
 	name = "stale bread"
 	desc = "Похоже, ваши похитители позаботились о вашем питании."
@@ -152,7 +146,7 @@
 		DATIVE = "чёрствому хлебу",
 		ACCUSATIVE = "чёрствый хлеб",
 		INSTRUMENTAL = "чёрствым хлебом",
-		PREPOSITIONAL = "чёрством хлебе"
+		PREPOSITIONAL = "чёрством хлебе",
 	)
 
 /obj/item/reagent_containers/food/snacks/breadslice/moldy
@@ -168,16 +162,12 @@
 			DATIVE = "заплесневелому хлебу",
 			ACCUSATIVE = "заплесневелый хлеб",
 			INSTRUMENTAL = "заплесневелым хлебом",
-			PREPOSITIONAL = "заплесневелом хлебе"
+			PREPOSITIONAL = "заплесневелом хлебе",
 		)
 
 /obj/item/reagent_containers/food/snacks/breadslice/burned
 	name = "burned bread slice"
 	desc = "A slice of slightly burned bread. Probably it's not the best idea to eat this..."
-	w_class = WEIGHT_CLASS_SMALL
-	icon_state = "breadslice"
-	trash = /obj/item/trash/plate
-	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5, "????" = 2)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN | TOXIC
@@ -205,7 +195,6 @@
 	tastes = list("bread" = 10, "cheese" = 10)
 	foodtype = GRAIN | DAIRY
 
-
 //////////////////////
 //		Misc		//
 //////////////////////
@@ -225,7 +214,6 @@
 	icon_state = "bunbun"
 	list_reagents = list("nutriment" = 2)
 	tastes = list("bun" = 2)
-	bitesize = 2
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/flatbread
@@ -258,7 +246,7 @@
 		DATIVE = "багету",
 		ACCUSATIVE = "багет",
 		INSTRUMENTAL = "багетом",
-		PREPOSITIONAL = "багете"
+		PREPOSITIONAL = "багете",
 	)
 
 /obj/item/reagent_containers/food/snacks/baguette/combat
@@ -326,5 +314,4 @@
 	filling_color = "#E6DEB5"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	foodtype = GRAIN | SUGAR
-
 

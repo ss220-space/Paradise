@@ -4,11 +4,10 @@
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
+	cares_about_temperature = TRUE
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
-
 
 /obj/structure/statue/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -35,12 +34,10 @@
 
 	return ..()
 
-
 /obj/structure/statue/wrench_act(mob/living/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
 		return FALSE
 	return default_unfasten_wrench(user, I)
-
 
 /obj/structure/statue/welder_act(mob/user, obj/item/I)
 	if(anchored)
@@ -52,7 +49,6 @@
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
-
 
 /obj/structure/statue/attack_hand(mob/living/user)
 	. = ..()
@@ -100,7 +96,6 @@
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
 
-
 /obj/structure/statue/plasma
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
@@ -114,10 +109,10 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/statue/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+	if(temperature > 300)
+		PlasmaBurn(temperature)
 
 /obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
@@ -131,7 +126,6 @@
 			PlasmaBurn()
 	..()
 
-
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
@@ -139,7 +133,6 @@
 		ignite(I.get_heat())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/statue/plasma/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -251,12 +244,10 @@
 	honk()
 	. = ..()
 
-
 /obj/structure/statue/bananium/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		honk()
-
 
 /obj/structure/statue/bananium/attack_hand(mob/user)
 	honk()
@@ -347,36 +338,36 @@
 	anchored = TRUE
 /obj/structure/statue/elwycco
 	name = "Unknown Hero"
-	desc = "Похоже это какой-то очень важный человек, или очень значимый для многих людей. Вы замечаете огроменный топор в его руках, с выгравированным числом 220. Что это число значит? Каждый понимает по своему, однако по слухам оно означает количество его жертв. \n Надпись на табличке - Мы с тобой, Шустрила! Аве, Легион!"
+	desc = "Похоже это какой-то очень важный человек, или очень значимый для многих людей. Вы замечаете огроменный топор в его руках, с выгравированным числом 220. Что это число значит? Каждый понимает по своему, однако по слухам оно означает количество его жертв. \n Надпись на табличке — Мы с тобой, Шустрила! Аве, Легион!"
 	icon_state = "elwycco"
 	anchored = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/thaumicnik
 	name = "Unknown Hero"
-	desc = "Перед собою вы наблюдаете интересного молодого человека, который держит в руках чертежи станции очень похожие на станцию Керберос. Возможно он как то принимал участие в разработке или в конструировании этой станции. В другой же руке вы замечаете планшет с листком, на котором расписаны какие-то даты и заметки к ним. Все что удается вам разглядеть, так это заголовок *event-times* на листочке. \n Надпись на табличке - Один из главных инженеров, принимающих участие в разработке передовой научно-исследовательской станции Kerberos."
+	desc = "Перед собою вы наблюдаете интересного молодого человека, который держит в руках чертежи станции очень похожие на станцию Керберос. Возможно он как то принимал участие в разработке или в конструировании этой станции. В другой же руке вы замечаете планшет с листком, на котором расписаны какие-то даты и заметки к ним. Все что удается вам разглядеть, так это заголовок *event-times* на листочке. \n Надпись на табличке — Один из главных инженеров, принимающих участие в разработке передовой научно-исследовательской станции Kerberos."
 	icon_state = "thaumicnik"
 	anchored = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/hooker
 	name = "Unknown Hero"
-	desc = "Возможно вы и не встречали подобного героя, ведь он всегда ходит в маске, и в белом техническом халате. Скорее всего, он все ещё скрывается среди экипажа, но уже другой личностью. \n Надпись на табличке - Герой, который пожертвовав собою, уничтожил угрозу станции. Награжден посмертно."
+	desc = "Возможно вы и не встречали подобного героя, ведь он всегда ходит в маске, и в белом техническом халате. Скорее всего, он все ещё скрывается среди экипажа, но уже другой личностью. \n Надпись на табличке — Герой, который пожертвовав собою, уничтожил угрозу станции. Награжден посмертно."
 	icon_state = "hooker"
 	anchored = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/artchair
 	name = "Unknown Hero"
-	desc = "ещё один герой корп. NanoTrasen. Вы замечаете интересную деталь, что спинка стула похожа на тюремное окошко. Так же на нем почему-то присутствует кровь, которая уже налегает слоями и хранится около года. По всей видимости этот стул символизирует какую то личность, которая внесла большой вклад в развитие и поддержание нашей галактической системы. \n Надпись на табличке - Спасибо тебе за все, мы всегда были и будем рады тебе."
+	desc = "ещё один герой корп. Nanotrasen. Вы замечаете интересную деталь, что спинка стула похожа на тюремное окошко. Так же на нем почему-то присутствует кровь, которая уже налегает слоями и хранится около года. По всей видимости этот стул символизирует какую то личность, которая внесла большой вклад в развитие и поддержание нашей галактической системы. \n Надпись на табличке — Спасибо тебе за все, мы всегда были и будем рады тебе."
 	icon_state = "artchair"
 	anchored = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/furukai
 	name = "София Вайт"
-	desc = "Загадочная девушка, ныне одна из множества офицеров синдиката. Получившая столь высокую позицию не за связи, а за свои способности. \
-			Движимая местью за потерю родной сестры из-за коррупционных верхушек НаноТрейзен, она вступила в Синдикат,  \
+	desc = "Загадочная девушка, ныне одна из множества офицеров \"Синдиката\". Получившая столь высокую позицию не за связи, а за свои способности. \
+			Движимая местью за потерю родной сестры из-за коррупционных верхушек \"Нанотрейзен\", она вступила в Синдикат,  \
 			где стала известна и как способный агент и как отличный инженер. Хоть ее позывной и отсылал на пушистых, в душе она их ненавидела..."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "furukai"
@@ -386,7 +377,7 @@
 
 /obj/structure/statue/ell_good
 	name = "Mr.Буум"
-	desc = "Загадочный клоун с жёлтым оттенком кожи и выразительными зелёными глазами. Лучший двойной агент синдиката умудрявшийся захватить власть множества объектов. \
+	desc = "Загадочный клоун с жёлтым оттенком кожи и выразительными зелёными глазами. Лучший двойной агент \"Синдиката\" умудрявшийся захватить власть множества объектов. \
 			Его имя часто произносят неправильно из-за чего его заслуги по документам принадлежат сразу нескольким Буумам. \
 			Так же знаменит тем, что убедил руководство НТ тратить время, силы и средства, на золотой унитаз."
 	icon = 'icons/obj/statuelarge.dmi'
@@ -456,25 +447,21 @@
 /obj/structure/statue/unknown/update_icon_state()
 	icon_state = "unknown[lit ? "_lit" : ""]"
 
-
 /obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-
 /obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
 		light()
 	return ..()
-
 
 /obj/structure/statue/unknown/proc/light(show_message)
 	if(lit)
@@ -483,9 +470,8 @@
 	lit = TRUE
 	if(show_message)
 		usr.visible_message(show_message)
-	set_light(CANDLE_LUM, l_on = TRUE)
+	set_light(3, l_on = TRUE)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
 	if(lit)
@@ -517,7 +503,6 @@
 /obj/structure/snowman/built/has_prints()
 	return FALSE
 
-
 /obj/structure/snowman/built/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -532,7 +517,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -550,15 +534,12 @@
 
 ///////// Cheese
 /obj/structure/statue/cheese
-	max_integrity = 100
 	material_drop_type = /obj/item/stack/sheet/cheese
-
 
 /obj/structure/statue/cheese/cheesus
 	name = "statue of cheesus"
 	desc = "Cheese expertly crafted into a representation of our mighty lord and saviour."
 	icon_state = "cheesus1"
-
 
 /obj/structure/statue/cheese/cheesus/update_icon_state()
 	switch(obj_integrity)
@@ -571,12 +552,10 @@
 		else
 			icon_state = "cheesus1"
 
-
 /obj/structure/statue/cheese/cheesus/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && !QDELETED(src))
 		update_icon(UPDATE_ICON_STATE)
-
 
 //////BONES
 /obj/structure/bones

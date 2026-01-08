@@ -13,7 +13,6 @@
 	emote_see = list("трясёт головой", "дрожит")
 	tts_seed = "Jaina"
 	yelp_sound = 'sound/creatures/fox_yelp.ogg' //Used on death.
-	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
@@ -31,7 +30,7 @@
 		DATIVE = "лисе",
 		ACCUSATIVE = "лису",
 		INSTRUMENTAL = "лисой",
-		PREPOSITIONAL = "лисе"
+		PREPOSITIONAL = "лисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/update_icons()
@@ -55,13 +54,11 @@
 /mob/living/simple_animal/pet/dog/fox/forest
 	name = "forest fox"
 	desc = "Лесная дикая лисица. Может укусить."
-	gender = FEMALE
 	icon_state = "fox_forest"
 	icon_living = "fox_forest"
 	icon_dead = "fox_forest_dead"
 	icon_resting = "fox_forest_rest"
 	melee_damage_type = BRUTE
-	melee_damage_lower = 6
 	melee_damage_upper = 12
 
 /mob/living/simple_animal/pet/dog/fox/forest/get_ru_names()
@@ -71,7 +68,7 @@
 		DATIVE = "дикой лисе",
 		ACCUSATIVE = "дикую лису",
 		INSTRUMENTAL = "дикой лисой",
-		PREPOSITIONAL = "дикой лисе"
+		PREPOSITIONAL = "дикой лисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/forest/winter
@@ -99,13 +96,13 @@
 		DATIVE = "ренальду",
 		ACCUSATIVE = "ренальда",
 		INSTRUMENTAL = "ренальдом",
-		PREPOSITIONAL = "ренальде"
+		PREPOSITIONAL = "ренальде",
 	)
 
 //Syndi fox
 /mob/living/simple_animal/pet/dog/fox/Syndifox
 	name = "Syndifox"
-	desc = "Синдилис, очень уважаемый маскот Синдиката."
+	desc = "Синдилис, очень уважаемый маскот \"Синдиката\"."
 	icon_state = "Syndifox"
 	icon_living = "Syndifox"
 	icon_dead = "Syndifox_dead"
@@ -125,7 +122,7 @@
 		DATIVE = "Синдилису",
 		ACCUSATIVE = "Синдилиса",
 		INSTRUMENTAL = "Синдилисом",
-		PREPOSITIONAL = "Синдилисе"
+		PREPOSITIONAL = "Синдилисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/SyndiFox/ComponentInitialize()
@@ -139,12 +136,10 @@
 	add_language(LANGUAGE_GALACTIC_COMMON)
 	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
 
-
 //Central Command Fox
 /mob/living/simple_animal/pet/dog/fox/alisa
 	name = "Alisa"
 	desc = "Алиса, любимый питомец любого Офицера Специальных Операций."
-	gender = FEMALE
 	icon_state = "alisa"
 	icon_living = "alisa"
 	icon_dead = "alisa_dead"
@@ -163,7 +158,7 @@
 		DATIVE = "Алисе",
 		ACCUSATIVE = "Алису",
 		INSTRUMENTAL = "Алисой",
-		PREPOSITIONAL = "Алисе"
+		PREPOSITIONAL = "Алисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/alisa/ComponentInitialize()
@@ -175,7 +170,6 @@
 /mob/living/simple_animal/pet/dog/fox/alisa/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
-
 
 /mob/living/simple_animal/pet/dog/fox/fennec
 	name = "фенек"
@@ -196,5 +190,5 @@
 		DATIVE = "фенеку",
 		ACCUSATIVE = "фенека",
 		INSTRUMENTAL = "фенеком",
-		PREPOSITIONAL = "фенеке"
+		PREPOSITIONAL = "фенеке",
 	)

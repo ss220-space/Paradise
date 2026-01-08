@@ -30,10 +30,8 @@
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
-	origin_tech = "bluespace=7"
 	energy_drain = 1000
 	tele_precision = 1
-
 
 ////////////////////////////////////////////// WORMHOLE GENERATOR //////////////////////////////////////////
 
@@ -52,7 +50,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
-	if(!theareas.len)
+	if(!length(theareas))
 		return FALSE
 	var/area/thearea = pick(theareas)
 	var/list/L = list()
@@ -66,7 +64,7 @@
 					break
 			if(clear)
 				L+=T
-	if(!L.len)
+	if(!length(L))
 		return FALSE
 	var/turf/target_turf = pick(L)
 	if(!target_turf)
@@ -95,7 +93,7 @@
 	energy_drain = 100
 	range = MECHA_MELEE | MECHA_RANGED
 	var/atom/movable/locked
-	var/mode = 1 //1 - gravsling 2 - gravpush
+	var/mode = CATAPULT_GRAVSLING
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
@@ -104,25 +102,22 @@
 		return FALSE
 	equip_cooldown = (initial(equip_cooldown) * mode)
 	switch(mode)
-		if(1)
+		if(CATAPULT_GRAVSLING)
 			if(!locked)
 				if(!istype(target) || target.anchored || istype(target, /obj/mecha))
 					occupant_message("Unable to lock on [target]")
 					return FALSE
 				locked = target
 				occupant_message("Locked on [target]")
-				send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 			else if(target != locked)
 				if(locked in view(chassis))
 					locked.throw_at(target, 14, 1.5)
 					locked = null
-					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 					start_cooldown()
 				else
 					occupant_message("Lock on [locked] disengaged.")
 					locked = null
-					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		if(2)
+		if(CATAPULT_GRAVPUSH)
 			var/list/atoms = list()
 			if(isturf(target))
 				atoms = range(3, target)
@@ -140,16 +135,21 @@
 			add_game_logs("used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
 			start_cooldown()
 
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
+		"mode" = mode == CATAPULT_GRAVSLING ? "Притянуть" : "Толкать",
+		"mode_label" = "Грав. Катапульта"
+	)
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
-	return " [mode==1?"([locked||"Nothing"])":null] \[<a href='byond://?src=[UID()];mode=1'>S</a>|<a href='byond://?src=[UID()];mode=2'>P</a>\]"
+	return data
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
-	..()
-	if(href_list["mode"])
-		mode = text2num(href_list["mode"])
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-	return
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/handle_ui_act(action, list/params)
+	if(action == "change_mode")
+		mode++
+		if(mode > CATAPULT_GRAVPUSH)
+			mode = CATAPULT_GRAVSLING
+		return TRUE
 
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
@@ -170,7 +170,6 @@
 		start_cooldown()
 	return TRUE
 
-
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "Armor Booster Module (Ranged Weaponry)"
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
@@ -188,7 +187,6 @@
 		start_cooldown()
 		return TRUE
 
-
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
@@ -199,7 +197,6 @@
 	equip_cooldown = 2 SECONDS
 	energy_drain = 50
 	range = 0
-	var/active_mode = FALSE
 	var/health_boost = 1
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
@@ -218,35 +215,24 @@
 	chassis.cut_overlay(droid_overlay)
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
-	return " <a href='byond://?src=[UID()];toggle_repairs=1'>[!active_mode?"A":"Dea"]ctivate</a>"
-
-/obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
-	..()
-	if(href_list["toggle_repairs"])
-		toggle_module()
-
 /obj/item/mecha_parts/mecha_equipment/repair_droid/toggle_module()
 	if(!action_checks(src))
 		return
 	chassis.cut_overlay(droid_overlay)
-	if(!active_mode)
+	if(!active)
 		START_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid_a")
-		log_message("Droid activated.")
 	else
 		STOP_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid")
-		log_message("Droid deactivated.")
-	active_mode = !active_mode
+	active = !active
 	chassis.add_overlay(droid_overlay)
-	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
-		active_mode = FALSE
+		active = FALSE
 		return
 	var/h_boost = health_boost
 	var/repaired = FALSE
@@ -264,12 +250,10 @@
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
-			active_mode = FALSE
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+			active = FALSE
 	else //no repair needed, we turn off
 		STOP_PROCESSING(SSobj, src)
-		active_mode = FALSE
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+		active = FALSE
 		chassis.cut_overlay(droid_overlay)
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		chassis.add_overlay(droid_overlay)
@@ -281,7 +265,6 @@
 	desc = "An exosuit module that wirelessly drains energy from any available power channel in area. The performance index is quite low."
 	icon_state = "tesla"
 	origin_tech = "magnets=4;powerstorage=4;engineering=4"
-	energy_drain = 0
 	range = 0
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP, ENVIRON, LIGHT)
@@ -295,13 +278,12 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
-	if(equip_ready) //disabled
+	if(!active) //disabled
 		return
 	var/area/A = get_area(chassis)
 	var/pow_chan = get_power_channel(A)
 	if(pow_chan)
 		return 1000 //making magic
-
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(area/A)
 	var/pow_chan
@@ -312,34 +294,24 @@
 				break
 	return pow_chan
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Topic(href, href_list)
-	..()
-	if(href_list["toggle_relay"])
-		toggle_module()
-
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/toggle_module()
-	if(equip_ready) //inactive
+	set_active(!active)
+	if(active) //inactive
 		START_PROCESSING(SSobj, src)
 		set_ready_state(FALSE)
-		log_message("Activated.")
 	else
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(TRUE)
-		log_message("Deactivated.")
-
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
-	return " <a href='byond://?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
-
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
 	if(!chassis || chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(TRUE)
+		active = FALSE
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(TRUE)
+		active = FALSE
 		occupant_message("No powercell detected.")
 		return
 	if(cur_charge < chassis.cell.maxcharge)
@@ -362,7 +334,6 @@
 	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
 	icon_state = "tesla"
 	origin_tech = "plasmatech=2;powerstorage=2;engineering=2"
-	range = MECHA_MELEE
 	var/coeff = 100
 	var/fuel_type = MAT_PLASMA
 	var/max_fuel = 150000
@@ -371,7 +342,8 @@
 	var/fuel_per_cycle_idle = 10
 	var/fuel_per_cycle_active = 100
 	var/power_per_cycle = 30
-
+	/// Generator is generating
+	var/generation = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -380,26 +352,36 @@
 /obj/item/mecha_parts/mecha_equipment/generator/detach_act()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
-	..()
-	if(href_list["toggle"])
-		if(equip_ready) //inactive
-			set_ready_state(FALSE)
-			START_PROCESSING(SSobj, src)
-			log_message("Activated.")
-		else
-			set_ready_state(TRUE)
-			STOP_PROCESSING(SSobj, src)
-			log_message("Deactivated.")
+/obj/item/mecha_parts/mecha_equipment/generator/toggle_module()
+	generation = !generation
 
-/obj/item/mecha_parts/mecha_equipment/generator/get_module_equip_info()
-	return " \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='byond://?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	if(generation)
+		to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation enabled.")]")
+		START_PROCESSING(SSobj, src)
+		return
+
+	to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation disabled.")]")
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/generator/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_GENERATOR,
+		"fuel_name" = fuel_name,
+		"fuel_amount" = fuel_amount,
+		"active" = generation
+	)
+
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/generator/handle_ui_act(action, list/params)
+	if(action == "toggle_generator")
+		toggle_module()
+		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
-	if(chassis)
-		var/result = load_fuel(target)
-		if(result)
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+	if(!chassis)
+		return
+	load_fuel(target)
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
@@ -437,12 +419,10 @@
 		occupant_message(span_warning("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return FALSE
 
-
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(obj/item/I, mob/user, params)
 	if(load_fuel(I))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/mecha_parts/mecha_equipment/generator/critfail()
 	..()
@@ -451,15 +431,16 @@
 		return
 	var/datum/gas_mixture/GM = new
 	if(prob(10))
-		GM.toxins += 100
-		GM.temperature = 1500+T0C //should be enough to start a fire
+		GM.set_toxins(100)
+		GM.set_temperature(1500 + T0C) //should be enough to start a fire
 		T.visible_message("[src] suddenly disgorges a cloud of heated plasma.")
 		qdel(src)
 	else
-		GM.toxins += 5
-		GM.temperature = istype(T) ? T.air.return_temperature() : T20C
+		GM.set_toxins(5)
+		var/datum/gas_mixture/air = T.get_readonly_air()
+		GM.set_temperature(air ? air.temperature() : T20C)
 		T.visible_message("[src] suddenly disgorges a cloud of plasma.")
-	T.assume_air(GM)
+	T.blind_release_air(GM)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)
@@ -468,14 +449,12 @@
 		return
 	if(fuel_amount<=0)
 		STOP_PROCESSING(SSobj, src)
-		log_message("Deactivated - no fuel.")
 		set_ready_state(TRUE)
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge))
 		set_ready_state(TRUE)
 		occupant_message("No powercell detected.")
-		log_message("Deactivated.")
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/use_fuel = fuel_per_cycle_idle
@@ -483,17 +462,14 @@
 		use_fuel = fuel_per_cycle_active
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
-	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	name = "exonuclear reactor"
 	desc = "An exosuit module that generates power using uranium as fuel. Pollutes the environment."
-	icon_state = "tesla"
 	origin_tech = "powerstorage=4;engineering=4"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
 	max_fuel = 50000
-	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 30
 	power_per_cycle = 50
 	var/rad_per_cycle = 0.3
@@ -548,7 +524,6 @@
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
 	name = "improved exosuit control system"
 	desc = "Equipment for exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
-	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "move_plating"
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
@@ -591,8 +566,6 @@
 		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
 		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
 
-
-
 // SCS-3 CAGE
 
 /obj/item/mecha_parts/mecha_equipment/cage
@@ -602,9 +575,7 @@
 	origin_tech = "combat=6;materials=5"
 	equip_cooldown = 3 SECONDS
 	energy_drain = 500
-	range = MECHA_MELEE
 	salvageable = FALSE
-	harmful = FALSE
 	alert_category = "mecha_cage"
 
 	var/mob/living/carbon/prisoner
@@ -617,12 +588,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
 	return list(
-	    NOMINATIVE = "модуль \"Клетка SCS-3\"",
-	    GENITIVE = "модуля \"Клетка SCS-3\"",
-	    DATIVE = "модулю \"Клетка SCS-3\"",
-	    ACCUSATIVE = "модуль \"Клетка SCS-3\"",
-	    INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
-	    PREPOSITIONAL = "модулю \"Клетка SCS-3\""
+		NOMINATIVE = "модуль \"Клетка SCS-3\"",
+		GENITIVE = "модуля \"Клетка SCS-3\"",
+		DATIVE = "модулю \"Клетка SCS-3\"",
+		ACCUSATIVE = "модуль \"Клетка SCS-3\"",
+		INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
+		PREPOSITIONAL = "модуле \"Клетка SCS-3\"",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
@@ -682,7 +653,7 @@
 		insert_action(target)
 		return TRUE
 
-	occupant_message(span_notice("[target] не мо[pluralize_ru(target.gender, "жет", "гут")] быть удержа[genderize_ru(target.gender, "н", "на", "но", "ны")], так как [target] не наход[pluralize_ru(target.gender, "ит", "ят")]ся в критическом состоянии."))
+	occupant_message(span_notice("[target] не мо[PLUR_JET_GUT(target)] быть удержан[GEND_A_O_Y(target)], так как [target] не наход[PLUR_IT_YAT(target)]ся в критическом состоянии."))
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
@@ -692,7 +663,7 @@
 		stop_supressing(holding)
 	else
 		occupant_message(span_notice("Вы начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target].")))
+		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target]."))
 
 	set_supress_effect(target)
 	if(!do_after_cooldown(target))
@@ -737,10 +708,8 @@
 	stop_supressing(target)
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
-	update_equip_info()
-	occupant_message(span_notice("[target] успешно помещ[genderize_ru(target.gender, "ён", "ена", "ено", "ены")] в клетку."))
+	occupant_message(span_notice("[target] успешно помещен[GEND_A_O_Y(target)] в клетку."))
 	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
-	log_message("[target] loaded in SCS-3 Cage.")
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
@@ -768,8 +737,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/on_escape(mob/living/carbon/target)
 	SIGNAL_HANDLER
-	occupant_message(span_warning("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки."))
-	log_message("[prisoner] escaped from mech cage.")
+	occupant_message(span_warning("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки."))
 	prisoner = null
 	if(holding)
 		if(holding.handcuffed)
@@ -779,7 +747,6 @@
 	else
 		change_alert(CAGE_STAGE_ZERO)
 	change_state("mecha_cage")
-	update_equip_info()
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/change_state(icon)
@@ -787,7 +754,7 @@
 	flick(icon, button)
 	button.UpdateButtonIcon()
 
-/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(var/stage_define)
+/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(stage_define)
 	var/mob/living/carbon/H = chassis.occupant
 	for(var/I in subtypesof(/atom/movable/screen/alert/mech_cage))
 		var/atom/movable/screen/alert/mech_cage/alert = I
@@ -797,17 +764,16 @@
 
 	current_stage = stage_define
 
-
 /obj/item/mecha_parts/mecha_equipment/cage/proc/set_supress_effect(mob/living/carbon/target)
 	supress_effect = new(target.loc)
 	flick("effect_on_doll", supress_effect)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, так как [target] прикова[genderize_ru(target.gender, "н", "на", "но", "ны")] к [target.buckled.declent_ru(DATIVE)]!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, так как [target] прикован[GEND_A_O_Y(target)] к [target.buckled.declent_ru(DATIVE)]!"))
 		return FALSE
 	if(target.has_buckled_mobs())
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] висит слайм!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, пока на [GEND_ON_IN_HIM(target)] висит слайм!"))
 		return FALSE
 	if(prisoner)
 		occupant_message(span_warning("Клетка уже занята!"))
@@ -829,34 +795,35 @@
 	UnregisterSignal(prisoner, COMSIG_MOVABLE_MOVED)
 	prisoner.forceMove(get_turf(src))
 	if(!force)
-		occupant_message("[prisoner] извлеч[genderize_ru(prisoner.gender, "ён", "ена", "ено", "ены")].")
-		log_message("[prisoner] ejected from SCS 3 Cage.")
+		occupant_message("[prisoner] извлечен[GEND_A_O_Y(prisoner)].")
 	else
-		occupant_message("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки.")
-		log_message("[prisoner] escaped from SCS 3 Cage.")
+		occupant_message("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки.")
 	prisoner = null
 	change_state("mecha_cage")
-	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_detach()
 	if(prisoner || holding)
-		occupant_message(span_warning("Невозможно отсоединить [declent_ru(ACCUSATIVE)] - модуль в работе!"))
+		occupant_message(span_warning("Невозможно отсоединить [declent_ru(ACCUSATIVE)] — модуль в работе!"))
 		return FALSE
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cage/detach_act()
 	button = null
 
-/obj/item/mecha_parts/mecha_equipment/cage/get_module_equip_info()
-	if(prisoner)
-		return " <br />\[Задержанный: [prisoner] \]<br /><a href='byond://?src=[UID()];eject=1'>Eject</a>"
+/obj/item/mecha_parts/mecha_equipment/cage/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_CAGE,
+		"prisoner" = prisoner
+	)
 
-/obj/item/mecha_parts/mecha_equipment/cage/Topic(href,href_list)
-	..()
-	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
-	if(afilter.get("eject"))
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/cage/handle_ui_act(action, list/params)
+	if(action == "eject")
 		eject(FALSE)
-	return
+		return TRUE
+
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/container_resist()
 	if(prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
@@ -874,16 +841,15 @@
 	desc = "Пара мощных механических клешней. Такие могут запросто схватить гуманоида, не дав ему возможности выбраться."
 	icon = 'icons/misc/supress_effect.dmi'
 	icon_state = "effect_on_doll"
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = ABOVE_GAME_PLANE
 
 /obj/effect/supress/get_ru_names()
 	return list(
-	    NOMINATIVE = "механические клешни",
-	    GENITIVE = "механических клешней",
-	    DATIVE = "механическим клешням",
-	    ACCUSATIVE = "механические клешни",
-	    INSTRUMENTAL = "механическими клешнями",
-	    PREPOSITIONAL = "механических клешней"
+		NOMINATIVE = "механические клешни",
+		GENITIVE = "механических клешней",
+		DATIVE = "механическим клешням",
+		ACCUSATIVE = "механические клешни",
+		INSTRUMENTAL = "механическими клешнями",
+		PREPOSITIONAL = "механических клешнях",
 	)

@@ -16,12 +16,10 @@
 
 	area_type = /area
 	protected_areas = list(/area/space)
-	target_trait = STATION_LEVEL
 
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	overlay_plane = FLOOR_PLANE
 	immunity_type = TRAIT_LAVA_IMMUNE
-
 
 /datum/weather/floor_is_lava/can_weather_act(mob/living/mob_to_check)
 	if(!mob_to_check.client) //Only sentient people are going along with it!
@@ -38,10 +36,8 @@
 		if(structure_to_check.density)
 			return FALSE
 
-
 /datum/weather/floor_is_lava/weather_act(mob/living/target)
 	target.adjustFireLoss(3)
-
 
 /datum/weather/floor_is_lava/fake
 	name = "the floor is lava (fake)"

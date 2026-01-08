@@ -1,7 +1,6 @@
 /obj/machinery/papershredder
 	name = "paper shredder"
 	desc = "Устройство для тех документов, которых вы не хотите видеть."
-	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = TRUE
@@ -16,8 +15,8 @@
 		/obj/item/card/id = 3,
 		/obj/item/paper_bundle = 3,
 		/obj/item/folder = 4,
-		/obj/item/book = 5
-		)
+		/obj/item/book = 5,
+	)
 
 /obj/machinery/papershredder/get_ru_names()
 	return list(
@@ -26,7 +25,7 @@
 		DATIVE = "измельчителю бумаги",
 		ACCUSATIVE = "измельчитель бумаги",
 		INSTRUMENTAL = "измельчителем бумаги",
-		PREPOSITIONAL = "измельчителе бумаги"
+		PREPOSITIONAL = "измельчителе бумаги",
 	)
 
 /obj/machinery/papershredder/attackby(obj/item/I, mob/user, params)
@@ -67,7 +66,6 @@
 			shredded.throw_at(throw_to, 1, 1)
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/papershredder/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -80,7 +78,7 @@
 
 /obj/machinery/papershredder/verb/empty_contents()
 	set name = "Опустошить корзину"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in range(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -98,7 +96,7 @@
 	if(empty_into && !istype(empty_into))
 		empty_into = null
 
-	if(empty_into && empty_into.contents.len >= empty_into.storage_slots)
+	if(empty_into && length(empty_into.contents) >= empty_into.storage_slots)
 		balloon_alert(user, "нет места!")
 		return
 
@@ -109,17 +107,16 @@
 			break
 		if(empty_into)
 			empty_into.handle_item_insertion(SP)
-			if(empty_into.contents.len >= empty_into.storage_slots)
+			if(length(empty_into.contents) >= empty_into.storage_slots)
 				break
 	if(empty_into)
 		if(paperamount)
-			to_chat(user, span_notice("Вы заполняете [empty_into.declent_ru(ACCUSATIVE)] стольким количеством растерзанной бумаги, сколько [genderize_ru(empty_into.gender, "он", "она", "оно", "они")] мо[pluralize_ru(empty_into.gender, "жет", "гут")] вместить."))
+			to_chat(user, span_notice("Вы заполняете [empty_into.declent_ru(ACCUSATIVE)] стольким количеством растерзанной бумаги, сколько [GEND_HE_SHE(empty_into)] мо[PLUR_JET_GUT(empty_into)] вместить."))
 		else
 			to_chat(user, span_notice("Вы опустошаете [declent_ru(ACCUSATIVE)] в [empty_into.declent_ru(ACCUSATIVE)]."))
 	else
 		to_chat(user, span_notice("Вы опустошаете [declent_ru(ACCUSATIVE)]."))
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/papershredder/proc/get_shredded_paper(atom/location)
 	if(!paperamount)
@@ -129,10 +126,8 @@
 	paperamount--
 	return new /obj/item/shredded_paper(location)
 
-
 /obj/machinery/papershredder/update_icon_state()
 	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
-
 
 /obj/item/shredded_paper/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
@@ -160,20 +155,17 @@
 
 	return ..()
 
-
 /obj/item/shredded_paper
 	name = "shredded paper"
 	desc = "Куча разорванной бумаги."
 	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "shredded_paper"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	layer = 4
 	max_integrity = 25
 	throw_range = 3
-	throw_speed = 2
 
 /obj/item/shredded_paper/get_ru_names()
 	return list(
@@ -182,7 +174,7 @@
 		DATIVE = "измельчённой бумаге",
 		ACCUSATIVE = "измельчённую бумагу",
 		INSTRUMENTAL = "измельчонной бумагой",
-		PREPOSITIONAL = "измельчённой бумаге"
+		PREPOSITIONAL = "измельчённой бумаге",
 	)
 
 /obj/item/shredded_paper/Initialize(mapload)

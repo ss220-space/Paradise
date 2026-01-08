@@ -5,7 +5,6 @@
 	name = "pill"
 	desc = "Небольшая таблетка, предназначенная для введения веществ в организм субъекта пероральным путём."
 	gender = FEMALE
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pill"
 	item_state = "pill"
 	possible_transfer_amounts = null
@@ -18,12 +17,12 @@
 
 /obj/item/reagent_containers/food/pill/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка",
-        GENITIVE = "таблетки",
-        DATIVE = "таблетке",
-        ACCUSATIVE = "таблетку",
-        INSTRUMENTAL = "таблеткой",
-        PREPOSITIONAL = "таблетке"
+		NOMINATIVE = "таблетка",
+		GENITIVE = "таблетки",
+		DATIVE = "таблетке",
+		ACCUSATIVE = "таблетку",
+		INSTRUMENTAL = "таблеткой",
+		PREPOSITIONAL = "таблетке",
 	)
 
 /obj/item/reagent_containers/food/pill/Initialize(mapload)
@@ -33,7 +32,6 @@
 
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return
-
 
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -54,7 +52,6 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
 		return
@@ -66,7 +63,7 @@
 		balloon_alert(user, "таблетка растворена")
 		reagents.trans_to(target, reagents.total_volume)
 		for(var/mob/O in viewers(2, user))
-			O.show_message(span_warning("[user] броса[pluralize_ru(user.gender, "ет", "ют")] что-то в [target.declent_ru(ACCUSATIVE)]."), 1)
+			O.show_message(span_warning("[user] броса[PLUR_ET_YUT(user)] что-то в [target.declent_ru(ACCUSATIVE)]."), 1)
 		spawn(5)
 			qdel(src)
 
@@ -83,12 +80,12 @@
 
 /obj/item/reagent_containers/food/pill/tox/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Токсины)",
-        GENITIVE = "таблетки (Токсины)",
-        DATIVE = "таблетке (Токсины)",
-        ACCUSATIVE = "таблетку (Токсины)",
-        INSTRUMENTAL = "таблеткой (Токсины)",
-        PREPOSITIONAL = "таблетке (Токсины)"
+		NOMINATIVE = "таблетка (Токсины)",
+		GENITIVE = "таблетки (Токсины)",
+		DATIVE = "таблетке (Токсины)",
+		ACCUSATIVE = "таблетку (Токсины)",
+		INSTRUMENTAL = "таблеткой (Токсины)",
+		PREPOSITIONAL = "таблетке (Токсины)",
 	)
 
 /obj/item/reagent_containers/food/pill/initropidril
@@ -99,28 +96,28 @@
 
 /obj/item/reagent_containers/food/pill/initropidril/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Инитропидрил)",
-        GENITIVE = "таблетки (Инитропидрил)",
-        DATIVE = "таблетке (Инитропидрил)",
-        ACCUSATIVE = "таблетку (Инитропидрил)",
-        INSTRUMENTAL = "таблеткой (Инитропидрил)",
-        PREPOSITIONAL = "таблетке (Инитропидрил)"
+		NOMINATIVE = "таблетка (Инитропидрил)",
+		GENITIVE = "таблетки (Инитропидрил)",
+		DATIVE = "таблетке (Инитропидрил)",
+		ACCUSATIVE = "таблетку (Инитропидрил)",
+		INSTRUMENTAL = "таблеткой (Инитропидрил)",
+		PREPOSITIONAL = "таблетке (Инитропидрил)",
 	)
 
 /obj/item/reagent_containers/food/pill/fakedeath
 	name = "fake death pill"
-	desc = "Проглотите, чтобы скрыть свой пульс и прикинуться мёртвым. Побочный эффект - вы не сможете говорить во время действия вещества."
+	desc = "Проглотите, чтобы скрыть свой пульс и прикинуться мёртвым. Побочный эффект — вы не сможете говорить во время действия вещества."
 	icon_state = "pill4"
 	list_reagents = list("capulettium_plus" = 50)
 
 /obj/item/reagent_containers/food/pill/fakedeath/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Капулеттий+)",
-        GENITIVE = "таблетки (Капулеттий+)",
-        DATIVE = "таблетке (Капулеттий+)",
-        ACCUSATIVE = "таблетку (Капулеттий+)",
-        INSTRUMENTAL = "таблеткой (Капулеттий+)",
-        PREPOSITIONAL = "таблетке (Капулеттий+)"
+		NOMINATIVE = "таблетка (Капулеттий+)",
+		GENITIVE = "таблетки (Капулеттий+)",
+		DATIVE = "таблетке (Капулеттий+)",
+		ACCUSATIVE = "таблетку (Капулеттий+)",
+		INSTRUMENTAL = "таблеткой (Капулеттий+)",
+		PREPOSITIONAL = "таблетке (Капулеттий+)",
 	)
 
 /obj/item/reagent_containers/food/pill/adminordrazine
@@ -131,12 +128,12 @@
 
 /obj/item/reagent_containers/food/pill/adminordrazine/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Админордразин)",
-        GENITIVE = "таблетки (Админордразин)",
-        DATIVE = "таблетке (Админордразин)",
-        ACCUSATIVE = "таблетку (Админордразин)",
-        INSTRUMENTAL = "таблеткой (Админордразин)",
-        PREPOSITIONAL = "таблетке (Админордразин)"
+		NOMINATIVE = "таблетка (Админордразин)",
+		GENITIVE = "таблетки (Админордразин)",
+		DATIVE = "таблетке (Админордразин)",
+		ACCUSATIVE = "таблетку (Админордразин)",
+		INSTRUMENTAL = "таблеткой (Админордразин)",
+		PREPOSITIONAL = "таблетке (Админордразин)",
 	)
 
 /obj/item/reagent_containers/food/pill/morphine
@@ -147,12 +144,12 @@
 
 /obj/item/reagent_containers/food/piil/morphine/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Морфин)",
-        GENITIVE = "таблетки (Морфин)",
-        DATIVE = "таблетке (Морфин)",
-        ACCUSATIVE = "таблетку (Морфин)",
-        INSTRUMENTAL = "таблеткой (Морфин)",
-        PREPOSITIONAL = "таблетке (Морфин)"
+		NOMINATIVE = "таблетка (Морфин)",
+		GENITIVE = "таблетки (Морфин)",
+		DATIVE = "таблетке (Морфин)",
+		ACCUSATIVE = "таблетку (Морфин)",
+		INSTRUMENTAL = "таблеткой (Морфин)",
+		PREPOSITIONAL = "таблетке (Морфин)",
 	)
 
 /obj/item/reagent_containers/food/pill/methamphetamine
@@ -163,12 +160,12 @@
 
 /obj/item/reagent_containers/food/pill/methamphetamine/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Метамфетамин)",
-        GENITIVE = "таблетки (Метамфетамин)",
-        DATIVE = "таблетке (Метамфетамин)",
-        ACCUSATIVE = "таблетку (Метамфетамин)",
-        INSTRUMENTAL = "таблеткой (Метамфетамин)",
-        PREPOSITIONAL = "таблетке (Метамфетамин)"
+		NOMINATIVE = "таблетка (Метамфетамин)",
+		GENITIVE = "таблетки (Метамфетамин)",
+		DATIVE = "таблетке (Метамфетамин)",
+		ACCUSATIVE = "таблетку (Метамфетамин)",
+		INSTRUMENTAL = "таблеткой (Метамфетамин)",
+		PREPOSITIONAL = "таблетке (Метамфетамин)",
 	)
 /obj/item/reagent_containers/food/pill/lsd
 	name = "LSD pill"
@@ -178,12 +175,12 @@
 
 /obj/item/reagent_containers/food/pill/lsd/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (ЛСД)",
-        GENITIVE = "таблетки (ЛСД)",
-        DATIVE = "таблетке (ЛСД)",
-        ACCUSATIVE = "таблетку (ЛСД)",
-        INSTRUMENTAL = "таблеткой (ЛСД)",
-        PREPOSITIONAL = "таблетке (ЛСД)"
+		NOMINATIVE = "таблетка (ЛСД)",
+		GENITIVE = "таблетки (ЛСД)",
+		DATIVE = "таблетке (ЛСД)",
+		ACCUSATIVE = "таблетку (ЛСД)",
+		INSTRUMENTAL = "таблеткой (ЛСД)",
+		PREPOSITIONAL = "таблетке (ЛСД)",
 	)
 
 /obj/item/reagent_containers/food/pill/rum
@@ -194,12 +191,12 @@
 
 /obj/item/reagent_containers/food/pill/rum/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Ром)",
-        GENITIVE = "таблетки (Ром)",
-        DATIVE = "таблетке (Ром)",
-        ACCUSATIVE = "таблетку (Ром)",
-        INSTRUMENTAL = "таблеткой (Ром)",
-        PREPOSITIONAL = "таблетке (Ром)"
+		NOMINATIVE = "таблетка (Ром)",
+		GENITIVE = "таблетки (Ром)",
+		DATIVE = "таблетке (Ром)",
+		ACCUSATIVE = "таблетку (Ром)",
+		INSTRUMENTAL = "таблеткой (Ром)",
+		PREPOSITIONAL = "таблетке (Ром)",
 	)
 
 /obj/item/reagent_containers/food/pill/stimulative_agent
@@ -208,14 +205,14 @@
 	icon_state = "pill15"
 	list_reagents = list("stimulative_agent" = 5)
 
-/obj/item/reagent_containers/food/pill/stimulative_agent/get_ru_names() 
+/obj/item/reagent_containers/food/pill/stimulative_agent/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Боевой Стимулятор)",
-        GENITIVE = "таблетки (Боевой Стимулятор)",
-        DATIVE = "таблетке (Боевой Стимулятор)",
-        ACCUSATIVE = "таблетку (Боевой Стимулятор)",
-        INSTRUMENTAL = "таблеткой (Боевой Стимулятор)",
-        PREPOSITIONAL = "таблетке (Боевой Стимулятор)"
+		NOMINATIVE = "таблетка (Боевой Стимулятор)",
+		GENITIVE = "таблетки (Боевой Стимулятор)",
+		DATIVE = "таблетке (Боевой Стимулятор)",
+		ACCUSATIVE = "таблетку (Боевой Стимулятор)",
+		INSTRUMENTAL = "таблеткой (Боевой Стимулятор)",
+		PREPOSITIONAL = "таблетке (Боевой Стимулятор)",
 	)
 
 /obj/item/reagent_containers/food/pill/haloperidol
@@ -226,12 +223,12 @@
 
 /obj/item/reagent_containers/food/pill/haloperidol/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Галоперидол)",
-        GENITIVE = "таблетки (Галоперидол)",
-        DATIVE = "таблетке (Галоперидол)",
-        ACCUSATIVE = "таблетку (Галоперидол)",
-        INSTRUMENTAL = "таблеткой (Галоперидол)",
-        PREPOSITIONAL = "таблетке (Галоперидол)"
+		NOMINATIVE = "таблетка (Галоперидол)",
+		GENITIVE = "таблетки (Галоперидол)",
+		DATIVE = "таблетке (Галоперидол)",
+		ACCUSATIVE = "таблетку (Галоперидол)",
+		INSTRUMENTAL = "таблеткой (Галоперидол)",
+		PREPOSITIONAL = "таблетке (Галоперидол)",
 	)
 
 /obj/item/reagent_containers/food/pill/happy
@@ -242,12 +239,12 @@
 
 /obj/item/reagent_containers/food/pill/happy/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка счастья",
-        GENITIVE = "таблетки счастья",
-        DATIVE = "таблетке счастья",
-        ACCUSATIVE = "таблетку счастья",
-        INSTRUMENTAL = "таблеткой счастья",
-        PREPOSITIONAL = "таблетке счастья"
+		NOMINATIVE = "таблетка счастья",
+		GENITIVE = "таблетки счастья",
+		DATIVE = "таблетке счастья",
+		ACCUSATIVE = "таблетку счастья",
+		INSTRUMENTAL = "таблеткой счастья",
+		PREPOSITIONAL = "таблетке счастья",
 	)
 
 /obj/item/reagent_containers/food/pill/zoom
@@ -258,12 +255,12 @@
 
 /obj/item/reagent_containers/food/pill/zoom/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка бодрости",
-        GENITIVE = "таблетки бодрости",
-        DATIVE = "таблетке бодрости",
-        ACCUSATIVE = "таблетку бодрости",
-        INSTRUMENTAL = "таблеткой бодрости",
-        PREPOSITIONAL = "таблетке бодрости"
+		NOMINATIVE = "таблетка бодрости",
+		GENITIVE = "таблетки бодрости",
+		DATIVE = "таблетке бодрости",
+		ACCUSATIVE = "таблетку бодрости",
+		INSTRUMENTAL = "таблеткой бодрости",
+		PREPOSITIONAL = "таблетке бодрости",
 	)
 
 /obj/item/reagent_containers/food/pill/charcoal
@@ -274,12 +271,12 @@
 
 /obj/item/reagent_containers/food/pill/charcoal/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Активированный уголь)",
-        GENITIVE = "таблетки (Активированный уголь)",
-        DATIVE = "таблетке (Активированный уголь)",
-        ACCUSATIVE = "таблетку (Активированный уголь)",
-        INSTRUMENTAL = "таблеткой (Активированный уголь)",
-        PREPOSITIONAL = "таблетке (Активированный уголь)"
+		NOMINATIVE = "таблетка (Активированный уголь)",
+		GENITIVE = "таблетки (Активированный уголь)",
+		DATIVE = "таблетке (Активированный уголь)",
+		ACCUSATIVE = "таблетку (Активированный уголь)",
+		INSTRUMENTAL = "таблеткой (Активированный уголь)",
+		PREPOSITIONAL = "таблетке (Активированный уголь)",
 	)
 
 /obj/item/reagent_containers/food/pill/epinephrine
@@ -290,12 +287,12 @@
 
 /obj/item/reagent_containers/food/pill/epinephrine/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Эпинефрин)",
-        GENITIVE = "таблетки (Эпинефрин)",
-        DATIVE = "таблетке (Эпинефрин)",
-        ACCUSATIVE = "таблетку (Эпинефрин)",
-        INSTRUMENTAL = "таблеткой (Эпинефрин)",
-        PREPOSITIONAL = "таблетке (Эпинефрин)"
+		NOMINATIVE = "таблетка (Эпинефрин)",
+		GENITIVE = "таблетки (Эпинефрин)",
+		DATIVE = "таблетке (Эпинефрин)",
+		ACCUSATIVE = "таблетку (Эпинефрин)",
+		INSTRUMENTAL = "таблеткой (Эпинефрин)",
+		PREPOSITIONAL = "таблетке (Эпинефрин)",
 	)
 
 /obj/item/reagent_containers/food/pill/salicylic
@@ -306,12 +303,12 @@
 
 /obj/item/reagent_containers/food/pill/salicylic/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Салициловая кислота)",
-        GENITIVE = "таблетки (Салициловая кислота)",
-        DATIVE = "таблетке (Салициловая кислота)",
-        ACCUSATIVE = "таблетку (Салициловая кислота)",
-        INSTRUMENTAL = "таблеткой (Салициловая кислота)",
-        PREPOSITIONAL = "таблетке (Салициловая кислота)"
+		NOMINATIVE = "таблетка (Салициловая кислота)",
+		GENITIVE = "таблетки (Салициловая кислота)",
+		DATIVE = "таблетке (Салициловая кислота)",
+		ACCUSATIVE = "таблетку (Салициловая кислота)",
+		INSTRUMENTAL = "таблеткой (Салициловая кислота)",
+		PREPOSITIONAL = "таблетке (Салициловая кислота)",
 	)
 
 /obj/item/reagent_containers/food/pill/salbutamol
@@ -322,12 +319,12 @@
 
 /obj/item/reagent_containers/food/pill/salbutamol/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Сальбутамол)",
-        GENITIVE = "таблетки (Сальбутамол)",
-        DATIVE = "таблетке (Сальбутамол)",
-        ACCUSATIVE = "таблетку (Сальбутамол)",
-        INSTRUMENTAL = "таблеткой (Сальбутамол)",
-        PREPOSITIONAL = "таблетке (Сальбутамол)"
+		NOMINATIVE = "таблетка (Сальбутамол)",
+		GENITIVE = "таблетки (Сальбутамол)",
+		DATIVE = "таблетке (Сальбутамол)",
+		ACCUSATIVE = "таблетку (Сальбутамол)",
+		INSTRUMENTAL = "таблеткой (Сальбутамол)",
+		PREPOSITIONAL = "таблетке (Сальбутамол)",
 	)
 
 /obj/item/reagent_containers/food/pill/hydrocodone
@@ -338,12 +335,12 @@
 
 /obj/item/reagent_containers/food/pill/hydrocodone/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Гидрокодон)",
-        GENITIVE = "таблетки (Гидрокодон)",
-        DATIVE = "таблетке (Гидрокодон)",
-        ACCUSATIVE = "таблетку (Гидрокодон)",
-        INSTRUMENTAL = "таблеткой (Гидрокодон)",
-        PREPOSITIONAL = "таблетке (Гидрокодон)"
+		NOMINATIVE = "таблетка (Гидрокодон)",
+		GENITIVE = "таблетки (Гидрокодон)",
+		DATIVE = "таблетке (Гидрокодон)",
+		ACCUSATIVE = "таблетку (Гидрокодон)",
+		INSTRUMENTAL = "таблеткой (Гидрокодон)",
+		PREPOSITIONAL = "таблетке (Гидрокодон)",
 	)
 
 /obj/item/reagent_containers/food/pill/calomel
@@ -354,12 +351,12 @@
 
 /obj/item/reagent_containers/food/pill/calomel/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Каломель)",
-        GENITIVE = "таблетки (Каломель)",
-        DATIVE = "таблетке (Каломель)",
-        ACCUSATIVE = "таблетку (Каломель)",
-        INSTRUMENTAL = "таблеткой (Каломель)",
-        PREPOSITIONAL = "таблетке (Каломель)"
+		NOMINATIVE = "таблетка (Каломель)",
+		GENITIVE = "таблетки (Каломель)",
+		DATIVE = "таблетке (Каломель)",
+		ACCUSATIVE = "таблетку (Каломель)",
+		INSTRUMENTAL = "таблеткой (Каломель)",
+		PREPOSITIONAL = "таблетке (Каломель)",
 	)
 
 /obj/item/reagent_containers/food/pill/mutadone
@@ -370,12 +367,12 @@
 
 /obj/item/reagent_containers/food/pill/mutadone/get_ru_names()
 	return list(
-        NOMINATIVE = "таблетка (Мутадон)",
-        GENITIVE = "таблетки (Мутадон)",
-        DATIVE = "таблетке (Мутадон)",
-        ACCUSATIVE = "таблетку (Мутадон)",
-        INSTRUMENTAL = "таблеткой (Мутадон)",
-        PREPOSITIONAL = "таблетке (Мутадон)"
+		NOMINATIVE = "таблетка (Мутадон)",
+		GENITIVE = "таблетки (Мутадон)",
+		DATIVE = "таблетке (Мутадон)",
+		ACCUSATIVE = "таблетку (Мутадон)",
+		INSTRUMENTAL = "таблеткой (Мутадон)",
+		PREPOSITIONAL = "таблетке (Мутадон)",
 	)
 
 /obj/item/reagent_containers/food/pill/mannitol
@@ -391,5 +388,37 @@
 		DATIVE = "таблетке (Маннитол)",
 		ACCUSATIVE = "таблетку (Маннитол)",
 		INSTRUMENTAL = "таблеткой (Маннитол)",
-		PREPOSITIONAL = "таблетке (Маннитол)"
+		PREPOSITIONAL = "таблетке (Маннитол)",
+	)
+
+/obj/item/reagent_containers/food/pill/bicaridine
+	name = "bicaridine pill"
+	desc = "Используется для лечения травм."
+	icon_state = "pill5"
+	list_reagents = list("bicaridine" = 10)
+
+/obj/item/reagent_containers/food/pill/bicaridine/get_ru_names()
+	return list(
+		NOMINATIVE = "таблетка (Бикаридин)",
+		GENITIVE = "таблетки (Бикаридин)",
+		DATIVE = "таблетке (Бикаридин)",
+		ACCUSATIVE = "таблетку (Бикаридин)",
+		INSTRUMENTAL = "таблеткой (Бикаридин)",
+		PREPOSITIONAL = "таблетке (Бикаридин)"
+	)
+
+/obj/item/reagent_containers/food/pill/kelotane
+	name = "kelotane pill"
+	desc = "Используется для лечения ожогов."
+	icon_state = "pill6"
+	list_reagents = list("kelotane" = 10)
+
+/obj/item/reagent_containers/food/pill/kelotane/get_ru_names()
+	return list(
+		NOMINATIVE = "таблетка (Келотан)",
+		GENITIVE = "таблетки (Келотан)",
+		DATIVE = "таблетке (Келотан)",
+		ACCUSATIVE = "таблетку (Келотан)",
+		INSTRUMENTAL = "таблеткой (Келотан)",
+		PREPOSITIONAL = "таблетке (Келотан)"
 	)

@@ -2,16 +2,13 @@
 	name = "Открыть вентиляцию"
 	desc = "Выплюньте кислотную рвоту на ближайшие вентиляционные решётки или скрубберы. Кислоте потребуется некоторое время, чтобы подействовать. Нельзя использовать изнутри вентиляции."
 	action_icon_state = "acid_vent"
-	base_cooldown = 10 SECONDS
 	hunger_cost = 10
-
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
 	T.range = 1
 	T.allowed_type = /obj/machinery/atmospherics/unary
 	return T
-
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/valid_target(target, user)
 	if(istype(target, /obj/machinery/atmospherics/unary/vent_scrubber))
@@ -22,7 +19,6 @@
 		return V.welded
 	return FALSE
 
-
 /obj/effect/proc_holder/spell/morph_spell/open_vent/cast(list/targets, mob/user)
 	if(!length(targets))
 		user.balloon_alert(user, "рядом нет вентиляции!")
@@ -31,7 +27,7 @@
 	to_chat(user, span_sinister("Вы начинаете изрыгать кислотную рвоту!"))
 	user.balloon_alert(user, "подготовка...")
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		user.balloon_alert(user, span_warning("отменено"))
+		user.balloon_alert(user, "отменено")
 		revert_cast(user)
 		return
 	for(var/thing in targets)
@@ -39,7 +35,6 @@
 		unary.add_overlay(GLOB.acid_overlay)
 		addtimer(CALLBACK(src, PROC_REF(unweld_vent), unary), 2 SECONDS)
 		playsound(unary, 'sound/items/welder.ogg', 100, TRUE)
-
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/unary)
 	if(istype(unary, /obj/machinery/atmospherics/unary/vent_scrubber))

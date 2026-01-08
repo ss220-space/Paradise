@@ -8,7 +8,6 @@
 	. = ..(input_assembly = new_assembly)
 // X-RAY
 
-
 /obj/machinery/camera/xray/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
@@ -21,32 +20,24 @@
 	. = ..(input_assembly = new_assembly)
 // ALL UPGRADES
 
-
 /obj/machinery/camera/all/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly), new /obj/item/assembly/prox_sensor(new_assembly), new /obj/item/analyzer(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // AUTONAME
 
-/obj/machinery/camera/autoname
-	var/number = 0 //camera number in area
+// This camera type automatically sets it's name to whatever the area that it's in is called.
+/obj/machinery/camera/autoname/Initialize(mapload)
+	var/static/list/autonames_in_areas = list()
 
-//This camera type automatically sets it's name to whatever the area that it's in is called.
-/obj/machinery/camera/autoname/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
-	. = ..()
-	number = 1
-	var/area/A = get_area(src)
-	if(A)
-		for(var/obj/machinery/camera/autoname/C in SSmachines.get_by_type(/obj/machinery/camera/autoname))
-			if(C == src)
-				continue
-			var/area/CA = get_area(C)
-			if(CA.type == A.type)
-				if(C.number)
-					number = max(number, C.number + 1)
-		var/cam_tag = "[A.name] #[number]"
-		src.c_tag = sanitize(cam_tag)
+	var/area/camera_area = get_area(src)
+	if(!camera_area)
+		c_tag = "Unknown #[rand(1, 100)]"
+		stack_trace("Camera with tag [c_tag] was spawned without an area, please report this to your nearest coder.")
+		return ..()
 
+	c_tag = "[sanitize(camera_area.name)] #[++autonames_in_areas[camera_area]]" // increase the number, then print it (this is what ++ before does)
+	return ..() // We do this here so the camera is not added to the cameranet until it has a name.
 
 // CHECKS
 
@@ -58,7 +49,6 @@
 
 /obj/machinery/camera/proc/isMotion()
 	return locate(/obj/item/assembly/prox_sensor) in assembly.upgrades
-
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

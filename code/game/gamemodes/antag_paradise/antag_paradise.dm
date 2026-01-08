@@ -7,7 +7,7 @@
 /datum/game_mode/antag_paradise
 	name = "Antag Paradise"
 	config_tag = "antag-paradise"
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF)
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
 	required_players = 10
 	required_enemies = 1
@@ -37,11 +37,9 @@
 	/// Timestamp for autotraitor
 	COOLDOWN_DECLARE(antag_making_cooldown)
 
-
 /datum/game_mode/antag_paradise/announce()
 	to_chat(world, "<b>The current game mode is - Antag Paradise</b>")
 	to_chat(world, "<b>Traitors, thieves, vampires and changelings, oh my! Stay safe as these forces work to bring down the station.</b>")
-
 
 /datum/game_mode/antag_paradise/process()
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
@@ -62,13 +60,12 @@
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
-
 /datum/game_mode/antag_paradise/proc/roll_antagonists(list/antag_possibilities, roundstart = FALSE)
 	pre_antags = list()
 	pre_double_antags = list()
 
 	var/players = roundstart ? num_players() : num_station_players()
-	var/scale = /*CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) :*/ 10
+	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
 	var/antags_amount
 	var/special_antag_amount
 
@@ -101,7 +98,7 @@
 			for(var/i in 1 to special_antag_amount)
 				var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_THIEF])
 				if(special_antag)
-					listclearduplicates(special_antag, antag_possibilities[ROLE_THIEF])
+					list_clear_duplicates(special_antag, antag_possibilities[ROLE_THIEF])
 					special_antag.special_role = SPECIAL_ROLE_THIEF
 					special_antag.restricted_roles = restricted_jobs
 					pre_antags[special_antag] = ROLE_THIEF
@@ -196,7 +193,7 @@
 					var/datum/mind/thief = pick_n_take(antag_possibilities[ROLE_THIEF])
 					if(!thief)
 						continue
-					listclearduplicates(thief, antag_possibilities[ROLE_THIEF])
+					list_clear_duplicates(thief, antag_possibilities[ROLE_THIEF])
 					if(thief.special_role)
 						continue
 					thief.special_role = SPECIAL_ROLE_THIEF
@@ -237,7 +234,6 @@
 				pre_double_antags[antag] = ROLE_CHANGELING
 				break
 
-
 /datum/game_mode/antag_paradise/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
@@ -254,7 +250,6 @@
 	calculate_antags()
 
 	return roll_antagonists(antag_possibilities, roundstart = TRUE)
-
 
 /datum/game_mode/antag_paradise/proc/calculate_antags()
 	var/players = num_players()
@@ -322,7 +317,6 @@
 		return
 	antags_weights[pick_weight_classic(tripple_weights_config)] = subtype_weights[ANTAG_TRIPPLE]
 
-
 /datum/game_mode/antag_paradise/post_setup()
 	for(var/datum/mind/antag as anything in pre_antags)
 		if(pre_antags[antag] == ROLE_NINJA)
@@ -334,7 +328,6 @@
 	addtimer(CALLBACK(src, PROC_REF(initiate_antags), TRUE), rand(1 SECONDS, 10 SECONDS))
 	COOLDOWN_START(src, antag_making_cooldown, AUTOTRAITOR_LOW_BOUND)	// first auto-traitor tick checks all players in 5 minutes
 	..()
-
 
 /datum/game_mode/antag_paradise/proc/initiate_antags(roundstart = FALSE)
 	for(var/datum/mind/antag as anything in pre_antags)
@@ -377,7 +370,6 @@
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
 
-
 /proc/config_to_roles(list/check_list)
 	var/list/new_list = list()
 	for(var/index in check_list)
@@ -407,7 +399,6 @@
 				new_list += index
 				new_list[index] = check_list[index]
 	return new_list
-
 
 #undef AUTOTRAITOR_LOW_BOUND
 #undef AUTOTRAITOR_HIGH_BOUND

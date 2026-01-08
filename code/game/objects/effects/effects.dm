@@ -34,8 +34,8 @@
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/experience_pressure_difference()
-	return
+/obj/effect/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /obj/effect/ex_act(severity, target)
 	switch(severity)
@@ -48,10 +48,8 @@
 			if(prob(25))
 				qdel(src)
 
-
 /obj/effect/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
-
 
 /**
  * # The abstract object
@@ -63,7 +61,6 @@
 	name = "Abstract object"
 	invisibility = INVISIBILITY_ABSTRACT
 	layer = TURF_LAYER
-	density = FALSE
 	icon = null
 	icon_state = null
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)

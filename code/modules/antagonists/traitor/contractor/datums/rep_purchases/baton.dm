@@ -1,9 +1,9 @@
 /**
-  * # Rep Purchase - Contractor Baton and upgrades
-  */
+ * # Rep Purchase - Contractor Baton and upgrades
+ */
 /datum/rep_purchase/item/baton
 	name = "Дубинка Контрактника"
-	description = "Компактная специализированная дубинка, которую выдают контрактникам Синдиката. \
+	description = "Компактная специализированная дубинка, которую выдают контрактникам \"Синдиката\". \
 			Это оружие применяется для поражения цели слабым электрическим током, что позволяет быстро обездвижить её."
 	cost = 2
 	stock = 2

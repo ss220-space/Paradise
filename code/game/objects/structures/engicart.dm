@@ -3,7 +3,6 @@
 	desc = "A cart for storing engineering items."
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
-	anchored = FALSE
 	density = TRUE
 	pull_push_slowdown = 1
 	var/obj/item/stack/sheet/glass/myglass = null
@@ -24,12 +23,10 @@
 	QDEL_NULL(myredtoolbox)
 	return ..()
 
-
 /obj/structure/engineeringcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
-
 
 /obj/structure/engineeringcart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
@@ -127,7 +124,6 @@
 
 	return ..()
 
-
 /obj/structure/engineeringcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(isinspace())
@@ -148,7 +144,6 @@
 			span_notice("You have loosened [name]'s casters."),
 			span_italics("You hear ratchet."),
 		)
-
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -181,48 +176,47 @@
 		if(myglass)
 			myglass.forceMove_turf()
 			user.put_in_hands(myglass, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myglass] from [src].</span>")
+			to_chat(user, span_notice("You take [myglass] from [src]."))
 			myglass = null
 	if(href_list["metal"])
 		if(mymetal)
 			mymetal.forceMove_turf()
 			user.put_in_hands(mymetal, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [mymetal] from [src].</span>")
+			to_chat(user, span_notice("You take [mymetal] from [src]."))
 			mymetal = null
 	if(href_list["plasteel"])
 		if(myplasteel)
 			myplasteel.forceMove_turf()
 			user.put_in_hands(myplasteel, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myplasteel] from [src].</span>")
+			to_chat(user, span_notice("You take [myplasteel] from [src]."))
 			myplasteel = null
 	if(href_list["flashlight"])
 		if(myflashlight)
 			myflashlight.forceMove_turf()
 			user.put_in_hands(myflashlight, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myflashlight] from [src].</span>")
+			to_chat(user, span_notice("You take [myflashlight] from [src]."))
 			myflashlight = null
 	if(href_list["bluetoolbox"])
 		if(mybluetoolbox)
 			mybluetoolbox.forceMove_turf()
 			user.put_in_hands(mybluetoolbox, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [mybluetoolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [mybluetoolbox] from [src]."))
 			mybluetoolbox = null
 	if(href_list["redtoolbox"])
 		if(myredtoolbox)
 			myredtoolbox.forceMove_turf()
 			user.put_in_hands(myredtoolbox, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myredtoolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [myredtoolbox] from [src]."))
 			myredtoolbox = null
 	if(href_list["yellowtoolbox"])
 		if(myyellowtoolbox)
 			myyellowtoolbox.forceMove_turf()
 			user.put_in_hands(myyellowtoolbox, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myyellowtoolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [myyellowtoolbox] from [src]."))
 			myyellowtoolbox = null
 
 	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
-
 
 /obj/structure/engineeringcart/update_overlays()
 	. = ..()

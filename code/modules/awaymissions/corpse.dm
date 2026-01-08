@@ -4,10 +4,11 @@
 
 //To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
 
+GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
+
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/mob_type = null
@@ -51,6 +52,8 @@
 	var/mob/dead/observer/O = user
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
+	if(GLOB.off_mob_spawns)
+		return
 	if(!uses)
 		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
@@ -78,7 +81,7 @@
 		to_chat(usr, span_warning("You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!"))
 		return
 	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
-		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
+		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, FALSE, usr))
 			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней."))
 			return
 	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
@@ -192,7 +195,7 @@
 	equip(mob, use_prefs = prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 	if(plr)
-		mob.ckey = plr.ckey
+		mob.possess_by_player(plr.ckey)
 		if(flavour)
 
 			to_chat(mob, chat_box_green(flavour_text))
@@ -224,11 +227,6 @@
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
 	mob_species = null		//Set species
-	allow_species_pick = FALSE
-	allow_prefs_prompt = FALSE
-	allow_gender_pick = FALSE
-	allow_name_pick = FALSE
-	allow_tts_pick = TRUE
 	var/list/pickable_species = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_DIONA)
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
@@ -276,7 +274,6 @@
 		mob_name = id_job
 	return ..()
 
-
 /obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
 	if(!allow_prefs_prompt)
 		return FALSE
@@ -302,7 +299,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /obj/effect/mob_spawn/human/species_prompt()
 	var/selected_species = tgui_input_list(usr, "Select a species: ", "Species Selection", pickable_species)
@@ -437,13 +433,11 @@
 /obj/effect/mob_spawn/human/corpse/damaged
 	brute_damage = 1000
 
-
 /obj/effect/mob_spawn/human/alive
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	death = FALSE
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
-
 
 //Non-human spawners
 
@@ -467,7 +461,6 @@
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
-
 
 ///////////Civilians//////////////////////
 
@@ -538,18 +531,10 @@
 	outfit = /datum/outfit/job/engineer/suit
 
 /datum/outfit/job/engineer/suit
-	name = "Station Engineer"
 	toggle_helmet = TRUE
-	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
-	shoes = /obj/item/clothing/shoes/workboots
 	mask = /obj/item/clothing/mask/breath
-	id = /obj/item/card/id/engineering
-	l_pocket = /obj/item/t_scanner
-
-	backpack = /obj/item/storage/backpack/industrial
-
 
 /obj/effect/mob_spawn/human/clown
 	name = "Clown"
@@ -576,7 +561,6 @@
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	return ..()
-
 
 /datum/outfit/clownsoldier
 	name = "Clown Soldier"
@@ -641,14 +625,11 @@
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Shaft Miner"
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/supply
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
@@ -698,7 +679,6 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/beach
 	outfit = /datum/outfit/beachbum
 
@@ -728,7 +708,6 @@
 
 /datum/outfit/beachbum/female
 	name = "Beach Bum (female)"
-	glasses = /obj/item/clothing/glasses/sunglasses
 	uniform = /obj/item/clothing/under/swimsuit/red
 
 /////////////////Spooky Undead//////////////////////
@@ -742,8 +721,6 @@
 /obj/effect/mob_spawn/human/skeleton/alive
 	death = FALSE
 	roundstart = FALSE
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "remains"
 	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
@@ -766,7 +743,6 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/commander
 	name = "Commander"
 	mob_name = "Commander"
@@ -783,8 +759,6 @@
 	head = /obj/item/clothing/head/beret/centcom/officer
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
-
-
 
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"
@@ -826,21 +800,18 @@
 
 /obj/effect/mob_spawn/carp
 	mob_type = /mob/living/simple_animal/hostile/carp
-	death = TRUE
 	name = "Dead carp"
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base_dead"
 
 /obj/effect/mob_spawn/mousedead
 	mob_type = /mob/living/simple_animal/mouse
-	death = TRUE
 	name = "Dead mouse"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_brown_splat"
 
 /obj/effect/mob_spawn/ratdead
 	mob_type = /mob/living/simple_animal/mouse/rat
-	death = TRUE
 	name = "Dead rat"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "rat_white_splat"
@@ -848,14 +819,11 @@
 //For black market packers gate
 
 /obj/effect/mob_spawn/human/corpse/tacticool
-	mob_type = /mob/living/carbon/human
 	name = "Tacticool corpse"
 	icon = 'icons/mob/clothing/uniform.dmi'
 	icon_state = "tactifool_s"
 	mob_name = UNKNOWN_NAME_RUS
 	random = TRUE
-	death = TRUE
-	disable_sensors = TRUE
 	outfit = /datum/outfit/packercorpse
 
 /datum/outfit/packercorpse
@@ -875,9 +843,8 @@
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader
 	name = "Syndi trader corpse"
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "secure"
+	icon_state = "securitypack" // idk, its trash
 	random = TRUE
-	disable_sensors = TRUE
 	outfit = /datum/outfit/syndicatetrader
 
 /datum/outfit/syndicatetrader

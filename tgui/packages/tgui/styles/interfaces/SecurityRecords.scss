@@ -21,33 +21,33 @@
 }
 
 .SecurityRecords__listRow--arrest {
-  background-color: colors.bg(#890e26);
+  background-color: colors.bg(hsl(348.3, 81.5%, 29.6%));
 }
 
 .SecurityRecords__listRow--execute {
-  background-color: colors.bg(#7a49a5);
+  background-color: colors.bg(hsl(272, 38.7%, 46.7%));
 }
 
 .SecurityRecords__listRow--incarcerated {
-  background-color: colors.bg(#743b03);
+  background-color: colors.bg(hsl(29.7, 95%, 23.3%));
 }
 
 .SecurityRecords__listRow--parolled {
-  background-color: colors.bg(#008091);
+  background-color: colors.bg(hsl(187, 100%, 28.4%));
 }
 
 .SecurityRecords__listRow--released {
-  background-color: colors.bg(#216489);
+  background-color: colors.bg(hsl(201.3, 61.2%, 33.3%));
 }
 
 .SecurityRecords__listRow--demote {
-  background-color: colors.bg(#196400);
+  background-color: colors.bg(hsl(105, 100%, 19.6%));
 }
 
 .SecurityRecords__listRow--search {
-  background-color: colors.bg(#b38f00);
+  background-color: colors.bg(hsl(47.9, 100%, 35.1%));
 }
 
 .SecurityRecords__listRow--monitor {
-  background-color: colors.bg(#251496);
+  background-color: colors.bg(hsl(247.8, 76.5%, 33.3%));
 }

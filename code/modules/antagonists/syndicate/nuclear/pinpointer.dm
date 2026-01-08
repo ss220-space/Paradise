@@ -1,16 +1,20 @@
-#define MODE_OFF	0
-#define MODE_DISK	1
-#define MODE_NUKE	2
-#define MODE_ADV	3
-#define MODE_SHIP	4
+#define MODE_OFF 0
+#define MODE_DISK 1
+#define MODE_NUKE 2
+#define MODE_ADV 3
+#define MODE_SHIP 4
 #define MODE_OPERATIVE 5
-#define MODE_CREW	6
-#define MODE_NINJA	7
-#define MODE_THIEF	8
+#define MODE_CREW 6
+#define MODE_NINJA 7
+#define MODE_THIEF 8
 #define MODE_TENDRIL 9
-#define SETTING_DISK		0
-#define SETTING_LOCATION	1
-#define SETTING_OBJECT		2
+#define MODE_DIAL 10
+#define MODE_PART_UPPER 11
+#define MODE_PART_LOWER 12
+
+#define SETTING_DISK 0
+#define SETTING_LOCATION 1
+#define SETTING_OBJECT 2
 
 /obj/item/pinpointer
 	name = "pinpointer"
@@ -44,11 +48,9 @@
 	var/icon_medium = "pinonmedium"
 	var/icon_far = "pinonfar"
 
-
 /obj/item/pinpointer/Initialize(mapload)
 	. = ..()
 	GLOB.pinpointer_list += src
-
 
 /obj/item/pinpointer/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -62,7 +64,6 @@
 	source_turf = null
 	return ..()
 
-
 /obj/item/pinpointer/process()
 	switch(mode)
 		if(MODE_DISK)
@@ -70,10 +71,8 @@
 		if(MODE_NUKE)
 			workbomb()
 
-
 /obj/item/pinpointer/attack_self(mob/user)
 	cycle(user)
-
 
 /obj/item/pinpointer/proc/cycle(mob/user, silent = FALSE)
 	if(cur_index > length(modes))
@@ -93,7 +92,6 @@
 	if(!silent)
 		to_chat(user, span_notice("[get_mode_text(mode)]"))
 
-
 /obj/item/pinpointer/proc/get_mode_text(mode)
 	switch(mode)
 		if(MODE_DISK)
@@ -112,12 +110,16 @@
 			return "Вы включили спец-пинпоинтер."
 		if(MODE_TENDRIL)
 			return "High energy scanner active."
-
+		if(MODE_DIAL)
+			return "Стрелки показывают на циферблат"
+		if(MODE_PART_UPPER)
+			return "Стрелки показывают на верхнюю часть сердца"
+		if(MODE_PART_LOWER)
+			return "Стрелки показывают на нижнюю часть сердца"
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
 		the_disk = locate() in GLOB.poi_list
-
 
 /obj/item/pinpointer/proc/scanbomb()
 	if(syndicate && !the_s_bomb)
@@ -125,7 +127,6 @@
 		return
 	if(!syndicate && !the_bomb)
 		the_bomb = locate() in GLOB.poi_list
-
 
 /obj/item/pinpointer/update_icon_state()
 	if(mode == MODE_OFF)
@@ -145,7 +146,6 @@
 			icon_state = icon_medium
 		if(16 to INFINITY)
 			icon_state = icon_far
-
 
 /obj/item/pinpointer/proc/pinpoint_at(atom/pin_target)
 	if(!pin_target)
@@ -171,7 +171,6 @@
 	target_turf = null
 	source_turf = null
 
-
 /obj/item/pinpointer/proc/nullify_targets(stop_icon_update = FALSE)
 	var/should_update = target
 	target = null
@@ -181,16 +180,13 @@
 	if(!stop_icon_update && should_update)
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/pinpointer/proc/workdisk()
 	scandisk()
 	pinpoint_at(the_disk)
 
-
 /obj/item/pinpointer/proc/workbomb()
 	scanbomb()
 	pinpoint_at(syndicate ? the_s_bomb : the_bomb)
-
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
@@ -206,12 +202,10 @@
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/setting = NONE
 
-
 /obj/item/pinpointer/advpinpointer/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
 		. += span_notice("You can <b>Alt-Click</b> to choose tracking target.")
-
 
 /obj/item/pinpointer/advpinpointer/process()
 	switch(setting)
@@ -220,12 +214,10 @@
 		if(SETTING_LOCATION, SETTING_OBJECT)
 			pinpoint_at(target)
 
-
 /obj/item/pinpointer/advpinpointer/click_alt(mob/user)
 	if(Adjacent(user))
 		toggle_mode(user)
 		return CLICK_ACTION_SUCCESS
-
 
 /obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -303,7 +295,6 @@
 	if(mode == MODE_OFF)
 		cycle(user, silent = TRUE)
 
-
 ///////////////////////
 //nuke op pinpointers//
 ///////////////////////
@@ -311,7 +302,6 @@
 	var/obj/docking_port/mobile/home = null
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
-
 
 /obj/item/pinpointer/nukeop/process()
 	switch(mode)
@@ -321,7 +311,6 @@
 			workbomb()
 		if(MODE_SHIP)
 			worklocation()
-
 
 /obj/item/pinpointer/nukeop/workdisk()
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
@@ -333,7 +322,6 @@
 	scandisk()
 	pinpoint_at(the_disk)
 
-
 /obj/item/pinpointer/nukeop/workbomb()
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
 		mode = MODE_SHIP	//Ensures worklocation() continues to work
@@ -343,7 +331,6 @@
 		return		//Get outta here
 	scanbomb()
 	pinpoint_at(the_s_bomb)
-
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
 	if(!GLOB.bomb_set)
@@ -355,7 +342,6 @@
 	if(!home)
 		home = SSshuttle.getShuttle("syndicate")
 	pinpoint_at(home)
-
 
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
@@ -369,12 +355,10 @@
 	icon_far = "pinonfar_contractor"
 	modes = list(MODE_OPERATIVE)
 
-
 /obj/item/pinpointer/operative/process()
 	if(mode == MODE_OPERATIVE)
 		scan_for_ops()
 		pinpoint_at(target)
-
 
 /obj/item/pinpointer/operative/proc/scan_for_ops()
 	target = null	// Resets nearest_op every time it scans
@@ -393,7 +377,6 @@
 				target = operative
 				closest_distance = new_dist
 
-
 /obj/item/pinpointer/operative/examine(mob/user)
 	. = ..()
 	if(target)
@@ -402,18 +385,15 @@
 	else
 		. += span_notice("No operatives detected within scanning range.")
 
-
 /obj/item/pinpointer/ninja
 	name = "spider clan pinpointer"
 	desc = "A pinpointer that leads to the first Spider Clan assassin detected."
 	modes = list(MODE_NINJA)
 
-
 /obj/item/pinpointer/ninja/process()
 	if(mode == MODE_NINJA)
 		scan_for_ninja()
 		pinpoint_at(target)
-
 
 /obj/item/pinpointer/ninja/proc/scan_for_ninja()
 	target = null //Resets nearest_ninja every time it scans
@@ -432,7 +412,6 @@
 				target = potential_ninja
 				closest_distance = new_dist
 
-
 /obj/item/pinpointer/ninja/examine(mob/user)
 	. = ..()
 	if(target)
@@ -440,7 +419,6 @@
 		. += span_notice("Nearest ninja detected is <i>[ninja.real_name]</i>.")
 	else
 		. += span_notice("No ninjas detected within scanning range.")
-
 
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
@@ -456,12 +434,10 @@
 	icon_far = "pinonfar_crew"
 	modes = list(MODE_CREW)
 
-
 /obj/item/pinpointer/crew/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
 		. += span_notice("You can <b>Alt-Click</b> to choose whom to track.")
-
 
 /obj/item/pinpointer/crew/proc/is_trackable(mob/living/carbon/human/pin_target)
 	if(pin_target && istype(pin_target.w_uniform, /obj/item/clothing/under))
@@ -476,11 +452,9 @@
 		return target_turf && source_turf.z == target_turf.z
 	return FALSE
 
-
 /obj/item/pinpointer/crew/process()
 	if(mode == MODE_CREW)
 		pinpoint_at(target)
-
 
 /obj/item/pinpointer/crew/pinpoint_at(atom/pin_target)
 	if(!is_trackable(pin_target))
@@ -488,11 +462,9 @@
 		return
 	..()
 
-
 /obj/item/pinpointer/crew/click_alt(mob/user)
 	choose_signal(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/pinpointer/crew/proc/choose_signal(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -537,23 +509,19 @@
 	if(mode == MODE_OFF)
 		cycle(user, silent = TRUE)
 
-
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"
 	desc = "A handheld tracking device that tracks crew based on remote centcom sensors."
-
 
 /obj/item/pinpointer/crew/centcom/is_trackable(mob/living/carbon/human/pin_target)
 	source_turf = get_turf(src)
 	target_turf = get_turf(pin_target)
 	return source_turf && target_turf && source_turf.z == target_turf.z
 
-
 ///////////////////////
 ///thief pinpointers///
 ///////////////////////
 /obj/item/pinpointer/thief
-	name = "pinpointer"
 	desc = "Модифицированный пинпоинтер #REDACTED# предназначенный для нахождения всех ценных и интересных для #REDACTED# сигнатур, не передающий сигналы локаторами. На обратной стороне напечатан странный непонятный детский ребус."
 	modes = list(MODE_THIEF)
 	shows_nuke_timer = FALSE
@@ -568,17 +536,14 @@
 	var/list/current_targets
 	var/targets_index = 1
 
-
 /obj/item/pinpointer/thief/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
 		. += span_notice("Нажмите <b>Alt-Click</b> для выбора режима отслеживания.")
 
-
 /obj/item/pinpointer/thief/process()
 	if(setting == SETTING_LOCATION || setting == SETTING_OBJECT)
 		pinpoint_at(target)
-
 
 /obj/item/pinpointer/thief/cycle(mob/user, silent = TRUE)
 	. = ..()
@@ -592,11 +557,9 @@
 		else
 			to_chat(user, span_notice("Режим пинпоинтера не определен."))
 
-
 /obj/item/pinpointer/thief/click_alt(mob/user)
 	toggle_mode(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -751,7 +714,6 @@
 	if(mode == MODE_OFF)
 		cycle(user, silent = TRUE)
 
-
 /obj/item/pinpointer/tendril
 	name = "ancient scanning unit"
 	desc = "Convenient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
@@ -764,12 +726,10 @@
 	icon_far = "pinonfar_ancient"
 	modes = list(MODE_TENDRIL)
 
-
 /obj/item/pinpointer/tendril/process()
 	if(mode == MODE_TENDRIL)
 		scan_for_tendrils()
 		pinpoint_at(target)
-
 
 /obj/item/pinpointer/tendril/proc/scan_for_tendrils()
 	target = null //Resets nearest_op every time it scans
@@ -786,12 +746,77 @@
 			target = tendril
 			closest_distance = new_dist
 
-
 /obj/item/pinpointer/tendril/examine(mob/user)
 	. = ..()
 	if(mode == MODE_TENDRIL)
 		. += "Number of high energy signatures remaining: [length(GLOB.tendrils)]"
 
+/obj/item/pinpointer/clock
+	name = "clockwork pinpointer"
+	desc = "Странные часы, чьи стрелки показывают на осколки сердца древнего божества"
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clock_pointer"
+	item_state = "clock_pointer"
+	materials = list(MAT_METAL=500)
+	modes = list(MODE_DIAL, MODE_PART_UPPER, MODE_PART_LOWER)
+	shows_nuke_timer = FALSE
+	icon_off = "clock_pointer"
+	icon_null = "clock_pointer"
+	icon_direct = "clock_pointer"
+	icon_close = "clock_pointer_active"
+	icon_medium = "clock_pointer_active"
+	icon_far = "clock_pointer_active"
+	var/obj/structure/part_dial/dial = null
+	var/obj/item/part_upper/upper = null
+	var/obj/item/part_upper/lower/lower = null
+
+/obj/item/pinpointer/clock/get_ru_names()
+	return list(
+		NOMINATIVE = "часовой целеуказатель",
+		GENITIVE = "часового целеуказателя",
+		DATIVE = "часовому целеуказателю",
+		ACCUSATIVE = "часовой целеуказатель",
+		INSTRUMENTAL = "часовым целеуказателем",
+		PREPOSITIONAL = "часовом целеуказателе",
+	)
+
+/obj/item/pinpointer/clock/process()
+	switch(mode)
+		if(MODE_DIAL)
+			if(find_dial())
+				return
+			mode = MODE_OFF
+		if(MODE_PART_UPPER)
+			if(find_upper())
+				return
+			mode = MODE_OFF
+		if(MODE_PART_LOWER)
+			if(find_lower())
+				return
+			mode = MODE_OFF
+		else
+			return
+
+/obj/item/pinpointer/clock/proc/find_dial()
+	dial = locate() in GLOB.poi_list
+	if(!dial)
+		return FALSE
+	pinpoint_at(dial)
+	return TRUE
+
+/obj/item/pinpointer/clock/proc/find_upper()
+	upper = locate() in GLOB.poi_list
+	if(!upper)
+		return FALSE
+	pinpoint_at(upper)
+	return TRUE
+
+/obj/item/pinpointer/clock/proc/find_lower()
+	lower = locate() in GLOB.poi_list
+	if(!lower)
+		return FALSE
+	pinpoint_at(lower)
+	return TRUE
 
 #undef MODE_OFF
 #undef MODE_DISK
@@ -806,4 +831,6 @@
 #undef SETTING_DISK
 #undef SETTING_LOCATION
 #undef SETTING_OBJECT
-
+#undef MODE_DIAL
+#undef MODE_PART_UPPER
+#undef MODE_PART_LOWER

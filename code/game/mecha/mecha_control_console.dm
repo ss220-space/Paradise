@@ -1,6 +1,5 @@
 /obj/machinery/computer/mecha
 	name = "exosuit control console"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_LAVENDER
@@ -8,7 +7,6 @@
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
-	var/stored_data = list()
 
 /obj/machinery/computer/mecha/attack_ai(mob/user)
 	return attack_hand(user)
@@ -39,10 +37,7 @@
 		if(tr_data)
 			data["beacons"] += list(tr_data)
 
-	data["stored_data"] = stored_data
-
 	return data
-
 
 /obj/machinery/computer/mecha/ui_act(action, params)
 	if(..())
@@ -63,14 +58,6 @@
 			if(istype(MT))
 				MT.shock()
 				return TRUE
-		if("get_log")
-			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
-			if(istype(MT))
-				stored_data = MT.get_mecha_log()
-				return TRUE
-		if("clear_log")
-			stored_data = list()
-			return TRUE
 
 /obj/item/mecha_parts/mecha_tracking
 	name = "Exosuit tracking beacon"
@@ -86,7 +73,7 @@
 		return FALSE
 	var/obj/mecha/M = loc
 	var/list/answer[0]
-	answer["reference"] = "\ref[src]"
+	answer["reference"] = UID()
 	answer["name"] = sanitize(replacetext(M.name,"\"","'")) // Double apostrophes break JSON
 	if(M.cell)
 		answer["cell"] = 1
@@ -96,7 +83,7 @@
 	else
 		answer["cell"] = 0
 	answer["integrity"] = round((M.obj_integrity/M.max_integrity*100), 0.01)
-	answer["airtank"] = M.return_pressure()
+	answer["airtank"] = M.internal_tank.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
 	answer["location"] = "[sanitize(area.name)||UNKNOWN_STATUS_RUS]"
@@ -117,7 +104,7 @@
 	var/answer = {"<b>Name:</b> [M.name]
 						<b>Integrity:</b> [M.obj_integrity / M.max_integrity * 100]%
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
-						<b>Airtank:</b> [M.return_pressure()]kPa
+						<b>Airtank:</b> [M.internal_tank.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
 						<b>Location:</b> [sanitize(A.name)||UNKNOWN_STATUS_RUS]
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
@@ -141,7 +128,7 @@
 	if(M.cell)
 		data["cellCharge"] = M.cell.charge
 		data["cellMaxCharge"] = M.cell.charge
-	data["airtank"] = M.return_pressure()
+	data["airtank"] = M.internal_tank.return_pressure()
 	data["pilot"] = M.occupant
 	data["location"] = get_area(M)
 	data["active"] = M.selected
@@ -164,12 +151,6 @@
 	if(M)
 		M.emp_act(2)
 	qdel(src)
-
-/obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
-	if(!in_mecha())
-		return list()
-	var/obj/mecha/M = loc
-	return M.get_log_tgui()
 
 /obj/item/mecha_parts/mecha_tracking/ai_control
 	name = "exosuit AI control beacon"

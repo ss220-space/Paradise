@@ -1,10 +1,10 @@
-//#define KARMA_ENABLE
+//# define KARMA_ENABLE
 
 /*	KARMA
 	Everything karma related is here.
 	Part of karma purchase is handled in client_procs.dm	*/
 
-/proc/sql_report_karma(var/mob/spender, var/mob/receiver)
+/proc/sql_report_karma(mob/spender, mob/receiver)
 	var/receiverrole = "None"
 	var/receiverspecial = "None"
 
@@ -18,15 +18,16 @@
 		return
 
 	var/datum/db_query/log_query = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time)
-		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now())"}, list(
+		INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time, server_id)
+		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now(), :server_id)"}, list(
 			"sname" = spender.name,
 			"skey" = spender.ckey,
 			"rname" = receiver.name,
 			"rkey" = receiver.ckey,
 			"rrole" = receiverrole,
 			"rspecial" = receiverspecial,
-			"sip" = spender.client.address
+			"sip" = spender.client.address,
+			"server_id" = CONFIG_GET(string/instance_id)
 		))
 
 	if(!log_query.warn_execute())
@@ -83,7 +84,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, span_warning("Karma is disabled."))
 		return FALSE
-	if(!SSticker || !GLOB.player_list.len || (SSticker.current_state == GAME_STATE_PREGAME))
+	if(!SSticker || !length(GLOB.player_list) || (SSticker.current_state == GAME_STATE_PREGAME))
 		to_chat(src, span_warning("You can't award karma until the game has started."))
 		return FALSE
 	if(client.karma_spent || (ckey in GLOB.karma_spenders))
@@ -119,7 +120,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(!can_give_karma())
 		return
@@ -134,7 +135,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			continue // Don't include special roles for non-observers, because players use it to meta
 		karma_list += M
 
-	if(!karma_list.len)
+	if(!length(karma_list))
 		to_chat(usr, span_warning("There's no-one to spend your karma on."))
 		return
 
@@ -145,10 +146,10 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	spend_karma(pickedmob)
 
-/mob/verb/spend_karma(var/mob/M)
+/mob/verb/spend_karma(mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
@@ -181,7 +182,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /client/verb/check_karma()
 	set name = "Check Karma"
 	set desc = "Reports how much karma you have accrued."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, span_warning("Karma is disabled."))

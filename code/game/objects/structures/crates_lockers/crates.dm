@@ -3,9 +3,7 @@
 #define SECURE_CRATE_STAGE_WIRES_PREPARED 2
 #define SECURE_CRATE_STAGE_OPENED 1
 
-
 // MARK: Basic crate
-
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -14,25 +12,27 @@
 	climbable = TRUE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 50
 	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
 	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
-
+	/// Overlay for lightmask of our crate
+	var/overlay_lightmask
+	/// Can our crate make emissive light?
+	var/can_be_emissive = FALSE
 
 /obj/structure/closet/crate/update_icon_state()
-	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
-
+	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
 
 /obj/structure/closet/crate/update_overlays()
 	// . = ..() is not needed here because of different overlay handling logic for crates
+	underlays.Cut()
 	. = list()
 	if(manifest)
 		. += "manifest"
-
+	if(can_be_emissive)
+		underlays += emissive_appearance(icon, overlay_lightmask, src)
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -54,10 +54,11 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	var/obj/item/radio/electropack = locate() in src
+	if(rigged && electropack)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, "электропака в ящике"))
+			if(L.electrocute_act(17, electropack))
 				do_sparks(5, TRUE, src)
 				return 2
 
@@ -74,7 +75,6 @@
 		structure_shaken()
 
 	return TRUE
-
 
 /obj/structure/closet/crate/close()
 	if(!opened || !can_close())
@@ -94,12 +94,10 @@
 	update_icon()
 	return TRUE
 
-
 /obj/structure/closet/crate/attackby(obj/item/I, mob/user, params)
 	if(!opened && try_rig(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
 	if(!(opened ? close() : open(by_hand)))
@@ -152,23 +150,23 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		var/obj/item/radio/electropack = locate() in src
+		if(rigged && electropack)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, "электропака в ящике"))
+				if(L.electrocute_act(17, electropack))
 					do_sparks(5, TRUE, src)
 					return
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
-/obj/structure/closet/crate/proc/notifyRecipient(var/destination)
+/obj/structure/closet/crate/proc/notifyRecipient(destination)
 	var/msg = "[capitalize(name)] has arrived at [destination]."
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 			if(D.department in src.announce_beacons[destination])
 				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
-
 
 // MARK: Secure crate
 
@@ -185,10 +183,10 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	var/tamperproof = FALSE
-	broken = SECURE_CRATE_STAGE_NO_BROKEN
 	locked = TRUE
 	can_be_emaged = TRUE
-
+	overlay_lightmask = "securecrate_lightmask"
+	can_be_emissive = TRUE
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -198,7 +196,6 @@
 		. += overlay_broken
 	else
 		. += overlay_unlocked
-
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -216,15 +213,12 @@
 	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
-
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
-
 
 /obj/structure/closet/crate/secure/click_alt(mob/living/user)
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)
 	if(!istype(user))
@@ -264,10 +258,8 @@
 	add_fingerprint(user)
 	toggle(user, by_hand = TRUE)
 
-
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
-
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(!locked)
@@ -281,7 +273,6 @@
 	if(!user)
 		return
 	balloon_alert(user, "разблокировано")
-
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/object in src)
@@ -300,14 +291,12 @@
 		else
 			open()
 
-
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
 	if(!locked || broken)
 		return
 	if(user)
 		balloon_alert(user, "не удалось!")
-	playsound(loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
-
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -330,8 +319,7 @@
 	var/obj/item/organ/external/affecting = human.get_organ(user.r_hand == tool ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	user.apply_damage(5, BRUTE , affecting)
 	user.emote("scream")
-	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвал[genderize_ru(tool.gender, "ся", "ась", "ось", "ись")]ась и повредил[genderize_ru(tool.gender, "", "а", "о", "и")] [affecting.declent_ru(ACCUSATIVE)]!"))
-
+	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(tool)]ась и повредил[GEND_A_O_I(tool)] [affecting.declent_ru(ACCUSATIVE)]!"))
 
 /obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -352,7 +340,6 @@
 	do_sparks(5, TRUE, src)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 
-
 /obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(!locked || broken != SECURE_CRATE_STAGE_WIRES_PREPARED || user.a_intent == INTENT_HARM)
@@ -372,7 +359,6 @@
 	balloon_alert(user, "не тот провод!")
 	do_sparks(5, TRUE, src)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
-
 
 // MARK: Specific crates
 
@@ -407,7 +393,6 @@
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
 	name = "RCD crate"
-	icon_state = "crate"
 
 /obj/structure/closet/crate/rcd/populate_contents()
 	new /obj/item/rcd_ammo(src)
@@ -422,22 +407,25 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
+/obj/structure/closet/crate/freezer/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/location = get_turf(src)
+		gas = location.get_readonly_air()
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-	newgas.oxygen = gas.oxygen
-	newgas.carbon_dioxide = gas.carbon_dioxide
-	newgas.nitrogen = gas.nitrogen
-	newgas.toxins = gas.toxins
+	newgas.set_oxygen(gas.oxygen())
+	newgas.set_carbon_dioxide(gas.carbon_dioxide())
+	newgas.set_nitrogen(gas.nitrogen())
+	newgas.set_toxins(gas.toxins())
 	newgas.volume = gas.volume
-	newgas.temperature = gas.temperature
-	if(newgas.temperature <= target_temp)	return
+	newgas.set_temperature(gas.temperature())
+	if(newgas.temperature() <= target_temp)	return
 
-	if((newgas.temperature - cooling_power) > target_temp)
-		newgas.temperature -= cooling_power
+	if((newgas.temperature() - cooling_power) > target_temp)
+		newgas.set_temperature(newgas.temperature() - cooling_power)
 	else
-		newgas.temperature = target_temp
+		newgas.set_temperature(target_temp)
 	return newgas
 
 /obj/structure/closet/crate/can
@@ -467,7 +455,6 @@
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
-
 /obj/structure/closet/crate/vault
 	desc = "Ящик с ценностями."
 	name = "vault crate"
@@ -480,9 +467,8 @@
 		DATIVE = "ящику с ценностями",
 		ACCUSATIVE = "ящик с ценностями",
 		INSTRUMENTAL = "ящиком с ценностями",
-		PREPOSITIONAL = "ящике с ценностями"
+		PREPOSITIONAL = "ящике с ценностями",
 	)
-
 
 /obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
 	name = "wooden crate"
@@ -496,9 +482,8 @@
 		DATIVE = "деревянному ящику",
 		ACCUSATIVE = "деревянный ящик",
 		INSTRUMENTAL = "деревянным ящиком",
-		PREPOSITIONAL = "деревянном ящике"
+		PREPOSITIONAL = "деревянном ящике",
 	)
-
 
 // MARK: Specific secure crates
 
@@ -506,11 +491,21 @@
 	desc = "A secure weapons crate."
 	name = "weapons crate"
 	icon_state = "weaponcrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
 	name = "plasma crate"
 	icon_state = "plasmacrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
 
 /obj/structure/closet/crate/secure/gear
 	desc = "A secure gear crate."
@@ -672,7 +667,6 @@
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	can_be_emaged = FALSE
 
-
 // MARK: Blood crates
 
 /obj/structure/closet/crate/secure/blood
@@ -681,7 +675,6 @@
 	icon_state = "bloodcrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	req_access = list(ACCESS_MEDICAL)
-	locked = TRUE
 
 /obj/structure/closet/crate/secure/blood/get_ru_names()
 	return list(
@@ -690,9 +683,8 @@
 		DATIVE = "комплекту донорской крови (человеческий)",
 		ACCUSATIVE = "комплект донорской крови (человеческий)",
 		INSTRUMENTAL = "комплектом донорской крови (человеческий)",
-		PREPOSITIONAL = "комплекте донорской крови (человеческий)"
+		PREPOSITIONAL = "комплекте донорской крови (человеческий)",
 	)
-
 
 /obj/structure/closet/crate/secure/blood/xeno
 	name = "secure xenoblood crate"
@@ -706,9 +698,8 @@
 		DATIVE = "комплекту донорской крови (ксено)",
 		ACCUSATIVE = "комплект донорской крови (ксено)",
 		INSTRUMENTAL = "комплектом донорской крови (ксено)",
-		PREPOSITIONAL = "комплекте донорской крови (ксено)"
+		PREPOSITIONAL = "комплекте донорской крови (ксено)",
 	)
-
 
 /obj/structure/closet/crate/secure/blood/mixed
 	name = "secure mixed blood crate"
@@ -722,9 +713,8 @@
 		DATIVE = "комплекту донорской крови (смешанная)",
 		ACCUSATIVE = "комплект донорской крови (смешанная)",
 		INSTRUMENTAL = "комплектом донорской крови (смешанная)",
-		PREPOSITIONAL = "комплекте донорской крови (смешанная)"
+		PREPOSITIONAL = "комплекте донорской крови (смешанная)",
 	)
-
 
 /obj/structure/closet/crate/secure/blood/nitrogenis
 	name = "secure nitrogenis blood crate"
@@ -733,14 +723,13 @@
 
 /obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь – азот)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь – азот)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь – азот)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – азот)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – азот)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – азот)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — азот)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — азот)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — азот)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — азот)",
 	)
-
 
 /obj/structure/closet/crate/secure/blood/oxygenis
 	name = "secure synthetic blood crate"
@@ -749,10 +738,15 @@
 
 /obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь – кислород)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь – кислород)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – кислород)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – кислород)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — кислород)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — кислород)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — кислород)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — кислород)",
 	)
+
+#undef SECURE_CRATE_STAGE_NO_BROKEN
+#undef SECURE_CRATE_STAGE_PANEL_OPEN
+#undef SECURE_CRATE_STAGE_WIRES_PREPARED
+#undef SECURE_CRATE_STAGE_OPENED

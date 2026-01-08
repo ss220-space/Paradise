@@ -25,13 +25,12 @@
 
 	area_type = /area
 	protected_areas = list(/area/space)
-	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_WEATHER_IMMUNE
 
 	self_fire = TRUE
 
-	var/list/affected_turfs_list = list()
+	var/list/affected_turfs_list
 	var/static/list/possible_modes = list(LAVA_MODE = 10, PORTAL_MODE = 5, METEOR_MODE = 10, EMPTY_MODE = 50)
 	var/static/music = 'sound/music/dies_irae.ogg'
 
@@ -39,12 +38,7 @@
 	. = ..()
 	SSshuttle.emergency.request(null, coefficient = 0.3)
 	transform_mobs()
-	for(var/area/area as anything in impacted_areas)
-		for(var/turf/turf in area.get_contained_turfs())
-			if(is_space_or_openspace(turf) || turf.density)
-				continue
-			affected_turfs_list += turf
-
+	affected_turfs_list = generate_turf_list()
 
 /datum/weather/hell/proc/transform_mobs()
 	var/list/devils
@@ -68,7 +62,7 @@
 	var/demon_type = (prob(50))? /mob/living/simple_animal/demon/slaughter : /mob/living/simple_animal/demon/slaughter/laughter
 	var/mob/new_mob = new demon_type(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon)
 
@@ -81,13 +75,12 @@
 			to_chat(mob, span_warning("Ваша проданная душа взывает к вам. Вы вынуждены повиноваться ее воле. Вы чувствуете серьезные изменения в своем теле."))
 			addtimer(CALLBACK(src, PROC_REF(transform_imp), mob), TELEGRAPH_TIME)
 
-
 /datum/weather/hell/proc/transform_imp(mob/mob)
 	if(QDELETED(src))
 		return
 	var/mob/new_mob = new /mob/living/simple_animal/imp(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/from_soul)
 
@@ -115,7 +108,7 @@
 
 	var/mob/new_mob = new /mob/living/simple_animal/demon/shadow(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon/shadow)
 
@@ -145,7 +138,7 @@
 			prosses_turfs(PROC_REF(run_meteors), TURF_METEOR_COUNT)
 
 /datum/weather/hell/proc/prosses_turfs(proc_ref, count)
-	for(var/i = 1; i <= count; i++)
+	for(var/i in 1 to count)
 		var/turf = pick(affected_turfs_list)
 		call(src, proc_ref)(turf)
 
@@ -178,19 +171,16 @@
 	for(var/mob/player in (GLOB.player_list))
 		SEND_SOUND(player, sound(null, channel = CHANNEL_BOSS_MUSIC))
 
-
 /obj/structure/hell_rift
 	name = "hell rift"
 	desc = "Разлом, позволяющий адским существам проникнуть в этот мир."
 	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
-	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	color = "#7D1E20"
 	light_color = COLOR_SOFT_RED
 	light_range = 8
 	anchored = TRUE
-	density = FALSE
 	plane = OBJ_LAYER
 	var/imps_count = 0
 	var/timer_id
@@ -202,7 +192,7 @@
 		DATIVE = "адскому разлому",
 		ACCUSATIVE = "адский разлом",
 		INSTRUMENTAL = "адским разломом",
-		PREPOSITIONAL = "адском разломе"
+		PREPOSITIONAL = "адском разломе",
 	)
 
 /obj/structure/hell_rift/ComponentInitialize()
@@ -225,10 +215,22 @@
 	if(!result)
 		return ..()
 	var/mob/living/simple_animal/imp/imp = new(get_turf(loc))
-	imp.key = user.key
+	imp.possess_by_player(user.key)
 	imp.mind?.add_antag_datum(/datum/antagonist/imp)
 	imps_count++
 	if(imps_count < PORTAL_MAX_IMPS)
 		return
 	deltimer(timer_id)
 	qdel(src)
+
+#undef TURF_LAVA_COUNT
+#undef TURF_PORTAL_COUNT
+#undef TURF_METEOR_COUNT
+#undef PORTAL_LIFETIME
+#undef PORTAL_MAX_IMPS
+#undef LAVA_TIME
+#undef LAVA_MODE
+#undef PORTAL_MODE
+#undef METEOR_MODE
+#undef EMPTY_MODE
+#undef TELEGRAPH_TIME

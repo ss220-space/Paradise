@@ -23,18 +23,15 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult_fake
 
-
 /turf/simulated/wall/cult/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /turf/simulated/wall/cult/update_icon_state()
 	if(SSticker?.cultdat && !holy)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
 		return
 	icon_state = initial(icon_state)
-
 
 /turf/simulated/wall/cult_fake/Initialize(mapload)
 	. = ..()
@@ -85,7 +82,6 @@
 	desc = "A huge chunk of reinforced metal used to seperate rooms. It seems to have additional plating to protect against heat."
 	icon = 'icons/turf/walls/coated_reinforced_wall.dmi'
 	max_temperature = INFINITY
-	smooth = SMOOTH_BITMASK
 	icon_state = "coated_reinforced_wall-0"
 	base_icon_state = "coated_reinforced_wall"
 
@@ -98,7 +94,6 @@
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
 	smoothing_groups = SMOOTH_GROUP_CLOCKWORK_WALLS
-	smooth = SMOOTH_BITMASK
 	explosion_block = 2
 	hardness = 10
 	slicing_duration = 80
@@ -110,10 +105,8 @@
 	var/obj/effect/clockwork/overlay/wall/realappearance
 
 /turf/simulated/wall/clockwork/fake
-	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates in the corner of your eyes. Maybe just a wind..."
 	sheet_type = /obj/item/stack/sheet/brass_fake
-	sheet_amount = 1
 	girder_type = /obj/structure/clockwork/wall_gear/fake
 	baseturf = /turf/simulated/floor/clockwork/fake
 

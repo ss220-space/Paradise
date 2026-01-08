@@ -15,12 +15,10 @@
 
 	beakers += B1
 
-
 /obj/item/grenade/chem_grenade/meat
 	payload_name = "meat"
 	desc = "Not always as messy as the name implies."
 	stage = 2
-
 
 /obj/item/grenade/chem_grenade/meat/New()
 	..()
@@ -62,7 +60,6 @@
 	B2.reagents.add_reagent("hell_water", 60)
 	B2.reagents.add_reagent("potassium", 20)
 	B2.reagents.add_reagent("phosphorus", 20)
-
 
 /obj/item/grenade/chem_grenade/drugs
 	payload_name = "miracle"
@@ -130,7 +127,6 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/infra)
 
-
 // Basic explosion grenade
 /obj/item/grenade/chem_grenade/explosion
 	payload_name = "conventional"
@@ -164,7 +160,6 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/mousetrap/armed)
 
-
 // Water + Potassium = Boom
 
 /obj/item/grenade/chem_grenade/waterpotassium
@@ -188,7 +183,6 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
-
 /obj/item/grenade/chem_grenade/waterpotassium/tripwire/New()
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/infra)
@@ -200,9 +194,6 @@
 /obj/item/grenade/chem_grenade/waterpotassium/tripwire_armed_stealth/New()
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/infra/armed/stealth)
-
-
-
 
 // Basic EMP grenade
 /obj/item/grenade/chem_grenade/emp

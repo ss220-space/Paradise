@@ -1,0 +1,24 @@
+name: Collect Data
+
+on:
+  workflow_call:
+    outputs:
+      stations:
+        description: "The stations that were found"
+        value: ${{ jobs.collect_data.outputs.stations }}
+
+jobs:
+  collect_data:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    outputs:
+      stations: ${{ steps.station_finder.outputs.stations }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Find Stations
+        id: station_finder
+        run: |
+          STATIONS='["cyberiad", "delta", "nova"]'
+          echo "stations=$STATIONS" >> $GITHUB_OUTPUT

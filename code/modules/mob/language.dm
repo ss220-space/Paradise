@@ -53,11 +53,11 @@
 	var/join_override
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
-	if(!syllables || !syllables.len || english_names)
+	if(!syllables || !length(syllables) || english_names)
 		if(gender==FEMALE)
 			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
 		else
-			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
 
 	var/full_name = ""
 	var/new_name = ""
@@ -71,7 +71,7 @@
 
 /datum/language/proc/scramble(input)
 
-	if(!syllables || !syllables.len)
+	if(!syllables || !length(syllables))
 		return stars(input)
 
 	// If the input is cached already, move it to the end of the cache and return it
@@ -110,14 +110,13 @@
 
 	// Add it to cache, cutting old entries if the list is too long
 	scramble_cache[input] = scrambled_text
-	if(scramble_cache.len > SCRAMBLE_CACHE_LEN)
+	if(length(scramble_cache) > SCRAMBLE_CACHE_LEN)
 		scramble_cache.Cut(1, scramble_cache.len-SCRAMBLE_CACHE_LEN-1)
-
 
 	return scrambled_text
 
 /datum/language/proc/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return span_message("<span class='[colour]'>[message]</span>")
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -134,7 +133,7 @@
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = span_gamesay("[name], [span_name("[speaker_mask]")] ([ghost_follow_link(speaker, ghost=player)]) [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
+			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)])[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
@@ -160,7 +159,6 @@
 	name = "Шум"
 	desc = "Просто шум."
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER|NOBABEL
-
 
 /datum/language/noise/get_talkinto_msg_range(message)
 	// if you make a loud noise (screams etc), you'll be heard from 4 tiles over instead of two
@@ -256,19 +254,18 @@
 	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
-
 #define SKRELL_ADDITIONAL_SYLLABLES 2 // Maximum of additional syllables for first and second names
 
 /datum/language/skrell/get_random_name() // Name generator authors: @saichi23 && @cadavrik
 	// Now I love making list in list in list in list in list
 	// Two sublists were made by authors so that the names would turn out most consonant for reading (in a way that's possible for skrells)
 	var/list/ru_name_syllables = list(
-		list(	// list 1
+		list(// list 1
 			list("заоо", "зао", "зикс", "зо", "йуо", "кью", "кьюм", "кси", "ксу", "квум", "кву",	// sublist1
 				"кви", "квей", "квиш", "куу", "кюан", "киэн", "ку", "кил", "лиа", "люик", "луи",
 				"рио", "сейу", "тсой", "уль", "улур", "урр", "ур", "цу", "эль", "эо", "эу"),
 
-			list(
+			list(\
 			"аг", "вум", "вул", "вол", "гли", "зи", "заоо", "зао", "зикс", "зуо", "зук", "зуво",	// sublist2
 			"икс", "ил", "ис", "йук", "кву", "квум", "куум", "куо", "куа", "куак", "кул", "квол",
 			"кью", "кьюа", "кэ", "кин", "кии", "кс", "ки", "киу", "кос", "лоа", "лак", "лум", "лик",
@@ -278,7 +275,7 @@
 			)
 		),
 
-		list(	// list 2
+		list(// list 2
 			list("заоо", "зао", "зо", "йуо", "лиа", "луи", "рио", "сейу", "эо"),	// sublist1
 
 			list(
@@ -312,7 +309,6 @@
 	return "[trim(full_name)]"
 
 #undef SKRELL_ADDITIONAL_SYLLABLES
-
 
 /datum/language/vox
 	name = LANGUAGE_VOX
@@ -394,7 +390,6 @@
 	new_name += "[pick(list("Тристан","Зарлан","Клак","Краз","Крамн","Орлан","Зракс"))]"
 	return new_name
 
-
 /datum/language/slime
 	name = LANGUAGE_SLIME
 	desc = "Язык Плазмолюдов. Это смесь булькающих и хлюпающих звуков. Другим гуманоидам очень сложно говорить на нём без механической помощи."
@@ -434,7 +429,7 @@
 		to_chat(speaker, span_warning("Вы не можете поднести руки к голове для телепатии!"))
 		return FALSE
 
-	speaker.visible_message( span_notice("[speaker] прикладыва[pluralize_ru(speaker.gender, "ет", "ют")] пальцы к виску.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
+	speaker.visible_message( span_notice("[speaker] прикладыва[PLUR_ET_YUT(speaker)] пальцы к виску.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
 
 	return TRUE
 
@@ -472,11 +467,13 @@
 	key = "#"
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
-	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
-					 "lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
-					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
-					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
-					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+	syllables = list(
+		"år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+		"lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
+		"så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+		"må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+		"huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön"
+	)
 
 /datum/language/moth/get_random_name()
 	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
@@ -516,14 +513,16 @@
 	colour = "say_quote"
 	key = "2"
 	space_chance = 100
-	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
-					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
-					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
-					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
-					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+	syllables = list(
+		"lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
+		"sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
+		"magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
+		"exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
+		"consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
+		"voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
+		"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
+		"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum"
+	)
 
 /datum/language/gutter
 	name = LANGUAGE_GUTTER
@@ -557,15 +556,17 @@
 	key = "?"
 	space_chance = 65
 	english_names = TRUE
-	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+	syllables = list(
+		"dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
+		"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+		"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+		"ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+		"key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+		"tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+		"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+		"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+		"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod"
+	)
 
 /datum/language/wryn
 	name = LANGUAGE_WRYN
@@ -625,7 +626,6 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
-
 /datum/language/ling
 	name = LANGUAGE_HIVE_CHANGELING
 	desc = "Хотя обычно Генокрады относятся друг к другу с осторожностью и подозрением, они могут общаться на расстоянии."
@@ -634,7 +634,6 @@
 	key = "g"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
-
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
 	var/datum/antagonist/changeling/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling)
@@ -651,7 +650,6 @@
 	key = "gi"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
-
 
 /datum/language/eventling/broadcast(mob/living/speaker, message, speaker_mask)
 	var/datum/antagonist/changeling/evented/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling/evented)
@@ -702,7 +700,6 @@
 /datum/language/abductor/golem
 	name = LANGUAGE_HIVE_GOLEM
 	desc = "Големы могут общаться с себе подобными при помощи псионической связи."
-	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
@@ -749,23 +746,31 @@
 
 	add_say_logs(speaker, message, language = "ROBOT")
 
-	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i><span class='robot'>\"[message]\"</span></span></span>"
+	var/list/message_start = list("<i><span class='game say'>[name], [span_name("[speaker.name]")]") //Strings as lists lets you add blocks of text much easier
+	var/list/message_body = list(span_message("[speaker.say_quote(message)],</i>[span_robot("\"[message]\"")]</span>"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
-			M.show_message("[message_start_dead] [message_body]", 2)
+			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)])<i><span class='game say'>[name], [span_name("[speaker.name]")]")
+			var/list/dead_message = message_start_dead + message_body
+			M.show_message(dead_message.Join(" "), 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !(isdrone(S)||iscogscarab(S)))
+		if(!S.binarycheck())
+			continue
+		else if(drone_only && !(isdrone(S) || iscogscarab(S)))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
-		else if(!S.binarycheck())
-			continue
-
-		S.show_message("[message_start] [message_body]", 2)
+			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>")
+		else if(isrobot(S))
+			var/mob/living/silicon/robot/borg = S
+			if(borg.connected_ai?.name == speaker.name)
+				var/list/big_font_prefix = list("<span style='font-size: 18px;'>")
+				var/list/big_font_suffix = list("</span>")
+				message_start = big_font_prefix + message_start
+				message_body = message_body + big_font_suffix
+		var/list/final_message = message_start + message_body
+		S.show_message(final_message.Join(" "), 2)
 
 	var/list/listening = hearers(1, src)
 	listening -= src
@@ -773,7 +778,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'><span class='name'>синтезированный голос</span> <span class='message'>сообщает: \"бип бип бип\"</span></span></i>",2)
+		M.show_message("<i>[span_gamesay("[span_name("synthesised voice")] [span_message("beeps, \"beep beep beep\"")]")]</i>", 2)
 
 /datum/language/binary/drone
 	name = LANGUAGE_DRONE_BINARY
@@ -781,11 +786,8 @@
 	speech_verbs = list("переда%(ёт,ют)%")
 	ask_verbs = list("переда%(ёт,ют)%")
 	exclaim_verbs = list("переда%(ёт,ют)%")
-	colour = "say_quote"
 	key = "d"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
 	drone_only = TRUE
-	follow = TRUE
 
 /datum/language/drone
 	name = LANGUAGE_DRONE
@@ -837,27 +839,22 @@
 	desc = "Гаф-гав-гаф."
 	key = "vu"
 
-
 /datum/language/angel
 	name = LANGUAGE_ANGEL
 	colour = "colossus yell"
 	flags = RESTRICTED|NO_STUTTER|NOBABEL|NONGLOBAL|INNATE
-
 
 /datum/language/angel/proc/get_spans(mob/speaker)
 	. = colour //reset spans, just in case someone gets deculted or the cords change owner
 	if(iscultist(speaker))
 		. += " narsiesmall"
 
-
 /datum/language/angel/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[get_spans(speaker)]'>[message]</span></span>"
-
+	return span_message("<span class='[get_spans(speaker)]'>[message]</span>")
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || LAZYIN(languages, speaking)
-
 
 //TBD
 /mob/proc/check_lang_data()
@@ -866,7 +863,6 @@
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
-
 
 /mob/living/check_lang_data()
 	. = ""
@@ -881,16 +877,14 @@
 			else
 				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.name]\">По умолчанию</a><br>[L.desc]<br><br>"
 
-
 /mob/verb/check_languages()
 	set name = "Меню языков"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set src = usr
 
 	var/datum/browser/popup = new(src, "checklanguage", "Меню языков", 420, 470)
 	popup.set_content(check_lang_data())
 	popup.open()
-
 
 /mob/living/Topic(href, href_list)
 	. = ..()
@@ -905,7 +899,6 @@
 				set_default_language(L)
 		check_languages()
 		return TRUE
-
 
 // Language handling.
 /mob/proc/add_language(language_name)
@@ -926,7 +919,6 @@
 	if(.)
 		LAZYADD(languages, new_language)
 
-
 /mob/proc/remove_language(language_name)
 	var/result_flags = SEND_SIGNAL(src, COMSIG_LANG_PRE_ACT, language_name)
 	if(SEND_SIGNAL(src, COMSIG_MOB_LANGUAGE_REMOVE, language_name, result_flags) & DISEASE_MOB_LANGUAGE_PROCESSED)
@@ -942,7 +934,6 @@
 	if(.)
 		LAZYREMOVE(languages, rem_language)
 
-
 /mob/living/remove_language(language_name)
 	var/datum/language/rem_language = GLOB.all_languages[language_name]
 	if(!istype(rem_language))
@@ -955,7 +946,6 @@
 
 	return ..()
 
-
 /mob/proc/grant_all_babel_languages()
 	for(var/la in GLOB.all_languages)
 		var/datum/language/new_language = GLOB.all_languages[la]
@@ -963,20 +953,17 @@
 			continue
 		LAZYOR(languages, new_language)
 
-
 /mob/proc/grant_all_languages()
 	for(var/la in GLOB.all_languages)
 		add_language(la)
 
-
 /proc/convert_lang_key_to_name(language_key)
 	var/static/list/language_keys_and_names = list()
-	if(!language_keys_and_names.len)
+	if(!length(language_keys_and_names))
 		for(var/language_name in GLOB.all_languages)
 			var/datum/language/language = GLOB.all_languages[language_name]
 			language_keys_and_names[language.key] = language_name
 	return language_keys_and_names[language_key]
-
 
 /proc/get_language_prefix(language_name)
 	var/datum/language/language = GLOB.all_languages[language_name]
@@ -985,6 +972,5 @@
 	else
 		. = "Non-existent key"
 		CRASH("[language_name] language does not exist.")
-
 
 #undef SCRAMBLE_CACHE_LEN

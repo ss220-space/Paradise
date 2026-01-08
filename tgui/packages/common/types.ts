@@ -10,3 +10,20 @@ export type ArgumentsOf<F extends Fn> = F extends (...args: infer A) => unknown
  * type inference.
  */
 export type Fn = (...args: any[]) => void;
+
+type ByondStorage = {
+  clear: () => void;
+  fill: (data: object) => void;
+  getItem: (item: string) => object;
+  hasitem: (item: string) => boolean;
+  removeItem: (item: string) => void;
+  setItem: (item: string, value: any) => void;
+  sync: () => void;
+};
+
+export type ByondWindow = Window &
+  typeof globalThis & {
+    hubStorage?: ByondStorage;
+    serverStorage?: ByondStorage;
+    domainStorage?: ByondStorage;
+  };

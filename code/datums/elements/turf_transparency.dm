@@ -45,8 +45,6 @@ GLOBAL_LIST_EMPTY(pillars_by_z)
 	invisibility = 0
 	layer = OBJ_LAYER
 	plane = HUD_PLANE
-	anchored = TRUE
-	move_resist = INFINITY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = PIXEL_SCALE
 
@@ -261,7 +259,6 @@ GLOBAL_LIST_EMPTY(pillars_by_z)
 		var/mutable_appearance/plating_underlay = mutable_appearance('icons/turf/floors.dmi', "plating", layer = TURF_LAYER-0.02)
 		plating_underlay.appearance_flags = RESET_ALPHA | RESET_COLOR
 		our_turf.underlays -= plating_underlay
-
 
 ///Called when there is no real turf below this turf
 /datum/element/turf_z_transparency/proc/get_baseturf_underlay(turf/our_turf)

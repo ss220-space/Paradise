@@ -15,15 +15,12 @@
 /obj/item/twohanded/staff/broom
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 	item_state = "broom0"
-
 
 /obj/item/twohanded/staff/broom/update_icon_state()
 	item_state = "[initial(icon_state)][HAS_TRAIT(src, TRAIT_WIELDED)]"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/twohanded/staff/broom/wield(obj/item/source, mob/living/carbon/user)
 	force =  5
@@ -38,7 +35,6 @@
 
 	to_chat(user, span_notice("You hold [src] between your legs."))
 
-
 /obj/item/twohanded/staff/broom/unwield(obj/item/source, mob/living/carbon/user)
 	force = 3
 	attack_verb = list("огрел", "ударил")
@@ -46,7 +42,6 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_BROOM_TRAIT)
-
 
 /obj/item/twohanded/staff/broom/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/mask/horsehead))
@@ -62,22 +57,8 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/twohanded/staff/broom/horsebroom
 	name = "broomstick horse"
 	desc = "Saddle up!"
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
-
-
-/obj/item/twohanded/staff/stick
-	name = "stick"
-	desc = "A great tool to drag someone else's drinks across the bar."
-	icon_state = "stick"
-	item_state = "stick"
-	force = 3.0
-	throwforce = 5.0
-	throw_speed = 1
-	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL

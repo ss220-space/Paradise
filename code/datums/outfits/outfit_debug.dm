@@ -10,7 +10,7 @@
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
 		/obj/item/gun/magic/wand/resurrection/debug = 1,
 		/obj/item/gun/magic/wand/death/debug = 1,
-		/obj/item/debug/human_spawner = 1
+		/obj/item/debug/human_spawner = 1,
 	)
 	belt = /obj/item/storage/belt/military/abductor/full
 	l_ear = /obj/item/radio/headset/centcom/debug
@@ -30,9 +30,8 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/advanced,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
-		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 	)
-
 
 /datum/outfit/admin/debug/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -60,7 +59,6 @@
 	name = "AVD-CNED Encryption Key"
 	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PRS_FREQ_NAME = 1, PROC_FREQ_NAME = 1) // just in case
 	syndie = TRUE
-	change_voice = FALSE
 
 /obj/item/encryptionkey/all/get_ru_names()
 	return list(
@@ -77,12 +75,10 @@
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = TRUE // yeah, all channels, sure, probably fine
 
-
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
-	desc = "Повреждение сетчатки – это не шутка."
+	desc = "Повреждение сетчатки — это не шутка."
 	tint = FLASH_PROTECTION_NONE
-	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH // vomit prevention when being surrounded by tons of dead bodies
 
 /obj/item/clothing/mask/gas/welding/advanced/get_ru_names()
 	return list(
@@ -112,7 +108,6 @@
 	name = "AVD-CNED glasses"
 	desc = "Медицинский, охранно-диагностический худ."
 	icon_state = "nvgmeson"
-	flags_cover = GLASSESCOVERSEYES
 	flash_protect = FLASH_PROTECTION_WELDER
 
 	prescription_upgradable = FALSE
@@ -164,7 +159,6 @@
 /obj/item/clothing/glasses/hud/debug/visor_toggling(mob/living/carbon/human/user)
 	return
 
-
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
 	see_in_dark = initial(see_in_dark)
 	lighting_alpha = initial(lighting_alpha)
@@ -180,8 +174,6 @@
 	desc = "Создайте гуманоида, нацелившись на турф и нажав ЛКМ. Используйте в руке, чтобы изменить расу."
 	icon = 'icons/obj/weapons/magic.dmi'
 	icon_state = "nothingwand"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
 	var/valid_species = list()
@@ -383,7 +375,6 @@
 //
 
 /obj/item/storage/box/debug
-	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 1000
 	storage_slots = 99
@@ -410,7 +401,7 @@
 	new /obj/item/storage/box/beakers/bluespace(src)
 	new /obj/item/storage/box/debug/material(src)
 	new /obj/item/storage/box/debug/misc_debug(src)
-	new /obj/item/storage/box/centcomofficer(src)
+	new /obj/item/storage/box/survival/centcomofficer(src)
 	new /obj/item/radio/uplink/admin(src)
 
 /obj/item/storage/box/debug/material
@@ -425,7 +416,6 @@
 		INSTRUMENTAL = "коробкой с материалами",
 		PREPOSITIONAL = "коробке с материалами",
 	)
-
 
 /obj/item/storage/box/debug/material/populate_contents()
 	new /obj/item/stack/sheet/metal/fifty(src)

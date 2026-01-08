@@ -1,10 +1,10 @@
 // Do not attemtp to remove the blank string from the server arg. It will break DB saving.
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 
 	if(!target_ckey)
@@ -33,7 +33,7 @@
 
 	if(!ckey_found)
 		if(usr)
-			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+			to_chat(usr, span_redtext("[target_ckey] has not been seen before, you can only add notes to known players."))
 		return
 
 	var/crew_number = 0
@@ -53,10 +53,6 @@
 	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
 		adminckey = ckey(adminckey)
 
-	if(!server)
-		if(config && CONFIG_GET(string/servername))
-			server = CONFIG_GET(string/servername)
-
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
 		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime)
 		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum)
@@ -64,7 +60,7 @@
 		"targetckey" = target_ckey,
 		"notetext" = notetext,
 		"adminkey" = adminckey,
-		"server" = server,
+		"server" = CONFIG_GET(string/instance_id),
 		"crewnum" = crew_number
 	))
 	if(!query_noteadd.warn_execute())
@@ -84,7 +80,7 @@
 	var/adminckey
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -118,7 +114,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -223,7 +219,7 @@
 		if(!query_list_notes.warn_execute())
 			qdel(query_list_notes)
 			return
-		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		to_chat(usr, span_notice("Started regex note search for [search]. Please wait for results..."))
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]

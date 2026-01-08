@@ -1,16 +1,17 @@
-#define TS_HIGHPOP_TRIGGER 60
-#define TS_MIDPOP_TRIGGER 50
-#define TS_MINPLAYERS_TRIGGER 35
+#define TS_HIGHPOP_TRIGGER 50
+#define TS_MIDPOP_TRIGGER 40
+#define TS_MINPLAYERS_TRIGGER 30
 
 /datum/event/spider_terror
 	announceWhen = 240
 
 /datum/event/spider_terror/announce(false_alarm)
 	if(false_alarm)
-		GLOB.major_announcement.announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/effects/siren-spooky.ogg',
-										new_sound2 = 'sound/AI/outbreak_terror.ogg'
+		GLOB.major_announcement.announce(
+			message = "Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/effects/siren-spooky.ogg',
+			new_sound2 = 'sound/AI/outbreak_terror.ogg'
 		)
 
 /datum/event/spider_terror/start()

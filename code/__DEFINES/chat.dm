@@ -23,19 +23,19 @@
 
 // Debug printing macros (for development and testing)
 /// Used for debug messages to the world
-#define debug_world(msg) if (GLOB.Debug2) to_chat(world, \
+#define debug_world(msg) if(GLOB.Debug2) to_chat(world, \
 	type = MESSAGE_TYPE_DEBUG, \
 	text = "DEBUG: [msg]")
 /// Used for debug messages to the player
-#define debug_usr(msg) if (GLOB.Debug2 && usr) to_chat(usr, \
+#define debug_usr(msg) if(GLOB.Debug2 && usr) to_chat(usr, \
 	type = MESSAGE_TYPE_DEBUG, \
 	text = "DEBUG: [msg]")
 /// Used for debug messages to the admins
-#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, \
+#define debug_admins(msg) if(GLOB.Debug2) to_chat(GLOB.admins, \
 	type = MESSAGE_TYPE_DEBUG, \
 	text = "DEBUG: [msg]")
 /// Used for debug messages to the server
-#define debug_world_log(msg) if (GLOB.Debug2) log_world("DEBUG: [msg]")
+#define debug_world_log(msg) if(GLOB.Debug2) log_world("DEBUG: [msg]")
 
 /// Wraps text in a standard boxed message container
 #define chat_box_regular(str) ("<div class='boxed_message'>" + str + "</div>")
@@ -66,3 +66,6 @@
 #define UNKNOWN_STATUS_RUS "Неизвестно"
 /// Replaces job's name of someone if they don't have one
 #define NOJOB_STATUS_RUS "Без должности"
+
+/// The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
+#define OOC_COOLDOWN 5

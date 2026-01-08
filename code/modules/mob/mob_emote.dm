@@ -43,7 +43,6 @@
 		to_chat(src, span_notice("Unusable emote '[emote_key]'. Say *help for a list."))
 	return FALSE
 
-
 /**
  * Perform a custom emote.
  *
@@ -62,7 +61,6 @@
 
 	emote("me", m_type, input, intentional, ignore_cooldowns = ignore_cooldowns)
 
-
 /**
  * Get a list of all emote keys usable by the current mob.
  *
@@ -80,11 +78,9 @@
 					all_keys += P.key_third_person
 	return all_keys
 
-
 /datum/emote/help
 	key = "help"
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer, /mob/living/silicon/ai)
-
 
 /datum/emote/help/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -108,6 +104,20 @@
 				else
 					base_keys += full_key
 				all_keys += P.key
+			if(P.additional_keys)
+				for(var/a_key in P.additional_keys)
+					full_key = a_key
+					if(a_key in all_keys)
+						continue
+					if(P.can_run_emote(user, status_check = FALSE, intentional = TRUE))
+						if(P.message_param && P.param_desc)
+							// Add our parameter description, like flap-user
+							full_key = a_key + "\[[EMOTE_PARAM_SEPARATOR][P.param_desc]\]"
+						if(istype(H) && P.species_type_whitelist_typecache && H.dna && is_type_in_typecache(H.dna.species, P.species_type_whitelist_typecache))
+							species_emotes += full_key
+						else
+							base_keys += full_key
+						all_keys += a_key
 
 	base_keys = sortList(base_keys)
 	message += base_keys.Join(", ")
@@ -120,7 +130,6 @@
 		message += "."
 	to_chat(user, message)
 
-
 /datum/emote/flip
 	key = "flip"
 	key_third_person = "flips"
@@ -130,7 +139,6 @@
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/living/captive_brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
-
 
 /datum/emote/flip/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 
@@ -170,7 +178,6 @@
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS, TIMER_UNIQUE)
 	return ..()
 
-
 /datum/emote/spin
 	key = "spin"
 	key_third_person = "spins"
@@ -180,7 +187,6 @@
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/living/captive_brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 	cooldown = 3 SECONDS // how long the spin takes, any faster and mobs can spin
-
 
 /datum/emote/spin/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()

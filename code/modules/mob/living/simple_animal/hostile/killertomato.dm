@@ -4,7 +4,6 @@
 	icon_state = "tomato"
 	icon_living = "tomato"
 	icon_dead = "tomato_dead"
-	speak_chance = 0
 	turns_per_move = 5
 	maxHealth = 30
 	health = 30
@@ -31,7 +30,7 @@
 		DATIVE = "Помидору-Убийце",
 		ACCUSATIVE = "Помидора-Убийцу",
 		INSTRUMENTAL = "Помидором-убийцей",
-		PREPOSITIONAL = "Помидоре-убийце"
+		PREPOSITIONAL = "Помидоре-убийце",
 	)
 
 /mob/living/simple_animal/hostile/killertomato/ComponentInitialize()

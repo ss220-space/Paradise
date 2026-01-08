@@ -1,7 +1,7 @@
 /**
  *  Guardian's mines. Can be attached to anything to do explosive stuff on a victim.
  */
-#define MINE_LIFE_TIME (60 SECONDS)
+#define MINE_LIFE_TIME 60 SECONDS
 
 ///Datum specialized for guardian(holoparasite)-bomber.
 /datum/component/guardian_mine
@@ -45,7 +45,6 @@
 
 	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE))
 
-
 /datum/component/guardian_mine/proc/defuse()
 	if(is_exploded)
 		return
@@ -76,3 +75,4 @@
 	is_exploded = TRUE
 	UnregisterFromParent()
 
+#undef MINE_LIFE_TIME

@@ -9,7 +9,6 @@
 		ui = new(user, src, "PDA", name)
 		ui.open()
 
-
 /obj/item/pda/ui_data(mob/user)
 	var/list/data = list()
 

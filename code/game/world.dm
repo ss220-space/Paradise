@@ -1,19 +1,14 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
-#ifdef UNIT_TESTS
+#ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
-
-/proc/enable_debugging(mode, port)
-	CRASH("auxtools not loaded")
 
 /world/New()
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
 	prof_init()
 #endif
-
-	dmjit_hook_main_init()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
@@ -34,6 +29,10 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	SSdbcore.SetRoundID() // Set the round ID here
 	load_poll_data()
 
+	#ifdef MULTIINSTANCE
+	SSinstancing.seed_data() // Set us up in the DB
+	#endif
+
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
 
@@ -42,14 +41,13 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
-	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
 	load_admins(run_async=FALSE) // This better happen early on.
 
-	#ifdef UNIT_TESTS
-	log_world("Unit Tests Are Enabled!")
+	#ifdef TEST_RUNNER
+	log_world("Test runner enabled.")
 	#endif
-
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
@@ -70,8 +68,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	Master.Initialize(10, FALSE, TRUE)
 
-
-	#ifdef UNIT_TESTS
+	#ifdef TEST_RUNNER
 	GLOB.test_runner = new
 	GLOB.test_runner.Start()
 	#endif
@@ -90,7 +87,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
 /// List of all world topic handler datums. Populated inside makeDatumRefLists()
 GLOBAL_LIST_EMPTY(world_topic_handlers)
-
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
@@ -148,8 +144,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// If we got here, we are in a "normal" reboot
 	Master.Shutdown() // Shutdown subsystems
 
-	// If we were running unit tests, finish that run
-	#ifdef UNIT_TESTS
+	// If we were running game tests, finish that run
+	#ifdef TEST_RUNNER
 	GLOB.test_runner.Finalize()
 	return
 	#endif
@@ -181,13 +177,13 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		..(0)
 
 /world/proc/load_mode()
-	var/list/Lines = file2list("data/mode.txt")
-	if(Lines.len)
+	var/list/Lines = world.file2list("data/mode.txt")
+	if(length(Lines))
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
 			add_game_logs("Saved mode is '[GLOB.master_mode]'")
 
-/world/proc/save_mode(var/the_mode)
+/world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
@@ -203,8 +199,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	if(totalPlayersReady <= CONFIG_GET(number/auto_extended_players_num))
 		GLOB.master_mode = "extended"
-		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
-	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
+		to_chat(world, span_boldnotice("Due to the lowpop the mode has been changed."))
+	to_chat(world, span_boldnotice("The mode is now: [GLOB.master_mode]"))
 
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
@@ -311,14 +307,51 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
-
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
-	if (debug_server)
+	if(debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
+	if(SSredis.connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
 	..()
+
+/**
+ * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.
+ * If map_load_z_cutoff is passed in, it will only load turfs up to that z level, inclusive.
+ * This is because maploading will handle the turfs it loads itself.
+ */
+/world/proc/increase_max_x(new_maxx, map_load_z_cutoff = maxz)
+	if(new_maxx <= maxx)
+		return
+	var/old_max = world.maxx
+	maxx = new_maxx
+	if(!map_load_z_cutoff)
+		return
+	var/area/global_area = GLOB.areas_by_type[world.area] // We're guaranteed to be touching the global area, so we'll just do this
+	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
+	for(var/zlevel in 1 to map_load_z_cutoff)
+		var/list/to_add = block(
+			locate(old_max + 1, 1, zlevel),
+			locate(maxx, maxy, zlevel))
+
+		global_area.turfs_by_zlevel[zlevel] += to_add
+
+/world/proc/increase_max_y(new_maxy, map_load_z_cutoff = maxz)
+	if(new_maxy <= maxy)
+		return
+	var/old_maxy = maxy
+	maxy = new_maxy
+	if(!map_load_z_cutoff)
+		return
+	var/area/global_area = GLOB.areas_by_type[world.area] // We're guarenteed to be touching the global area, so we'll just do this
+	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
+	for(var/zlevel in 1 to map_load_z_cutoff)
+		var/list/to_add = block(
+			locate(1, old_maxy + 1, 1),
+			locate(maxx, maxy, map_load_z_cutoff))
+		global_area.turfs_by_zlevel[zlevel] += to_add
 
 /world/proc/incrementMaxZ()
 	maxz++

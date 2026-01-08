@@ -1,14 +1,13 @@
 /datum/action/innate/cult
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon = 'icons/mob/actions/actions_cult.dmi'
 	background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_TRANSFER_MIND
 	buttontooltipstyle = "cult"
 
-/datum/action/innate/cult/IsAvailable()
+/datum/action/innate/cult/IsAvailable(feedback = FALSE)
 	if(!iscultist(owner))
 		return FALSE
 	return ..()
-
 
 //Comms
 /datum/action/innate/cult/comm
@@ -28,12 +27,14 @@
 	if(!user || !message)
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You can't speak!</span>")
+		to_chat(user, span_warning("You can't speak!"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
-		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		user.visible_message(
+			span_notice("[user] appears to whisper to themselves."),
+			span_notice("You begin to whisper to yourself.")
+		) //Make them do *something* abnormal.
 		sleep(10)
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
@@ -42,35 +43,35 @@
 
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/demon/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
+		my_message = span_cultlarge("<b>Harbringer of the Slaughter:</b> [message]")
 	else
-		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]</span>"
+		my_message = span_cultspeech("<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, span_cultspeech(" <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
 
 	add_say_logs(user, message, language = "CULT")
 
 /datum/action/innate/cult/comm/spirit
 	name = "Spiritual Communion"
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
+	allow_observer_click = TRUE
 
-/datum/action/innate/cult/comm/spirit/IsAvailable()
+/datum/action/innate/cult/comm/spirit/IsAvailable(feedback = FALSE)
 	return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
 	var/my_message
 	if(!message)
 		return
-	my_message = "<span class='cultlarge'>The [user.name]: [message]</span>"
+	my_message = span_cultlarge("The [user.name]: [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
-
+			to_chat(M, span_cultspeech(" <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
 
 //Objectives
 /datum/action/innate/cult/check_progress
@@ -78,13 +79,14 @@
 	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
+	allow_observer_click = TRUE
 
 /datum/action/innate/cult/check_progress/New()
 	if(SSticker.mode)
 		button_icon_state = SSticker.cultdat.tome_icon
 	..()
 
-/datum/action/innate/cult/check_progress/IsAvailable()
+/datum/action/innate/cult/check_progress/IsAvailable(feedback = FALSE)
 	if(iscultist(owner) || isobserver(owner))
 		return TRUE
 	return FALSE
@@ -92,11 +94,10 @@
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
 		return
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
-
+		to_chat(usr, span_cultitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))
 
 //Draw rune
 /datum/action/innate/cult/use_dagger
@@ -109,10 +110,11 @@
 		button_icon_state = SSticker.cultdat.dagger_icon
 	..()
 
-/datum/action/innate/cult/use_dagger/override_location()
-	button.ordered = FALSE
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
+//TODO vakons actions: later
+// /datum/action/innate/cult/use_dagger/override_location()
+// 	button.ordered = FALSE
+// 	button.screen_loc = "6:157,4:-2"
+// 	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/use_dagger/Activate()
 	var/obj/item/melee/cultblade/dagger/dagger
@@ -132,4 +134,4 @@
 		owner.put_in_hands(dagger)
 		dagger.attack_self(owner)
 	else
-		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")
+		to_chat(usr, span_cultitalic("You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell."))

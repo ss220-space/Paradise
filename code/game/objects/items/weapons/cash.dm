@@ -10,11 +10,10 @@
 	desc = "Money money money."
 	icon = 'icons/goonstation/objects/money.dmi'
 	icon_state = "cashgreen"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 1
 	throwforce = 1
 	throw_speed = 1
-	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -40,8 +39,10 @@
 
 /obj/item/stack/spacecash/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
-		throwingdatum.thrower.say(pick("Бесплатные деньги!!", "Настоящий денежный дождь!!",\
-								 "Деньги, деньги, деньги!!!", "Это лучшая сделка!!"))
+		throwingdatum.thrower.say(pick(
+			"Бесплатные деньги!!", "Настоящий денежный дождь!!",\
+			"Деньги, деньги, деньги!!!", "Это лучшая сделка!!")
+		)
 		switch(amount)
 			if(CASH1 to CASH2 - 1)
 				throwforce = 5
@@ -56,6 +57,9 @@
 			if(CASHMAX to INFINITY)
 				throwforce = 10
 	. = ..()
+
+/obj/item/stack/spacecash/get_item_credit_value()
+	return amount
 
 /obj/item/stack/spacecash/after_throw(datum/callback/callback)
 	throwforce = initial(throwforce)

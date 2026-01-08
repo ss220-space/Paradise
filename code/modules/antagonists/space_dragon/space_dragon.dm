@@ -27,7 +27,6 @@
 	maxHealth = 400
 	health = 400
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 0)
-	a_intent = INTENT_HARM
 	speed = -0.2
 	attacktext = "кусает"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
@@ -48,7 +47,6 @@
 	maptext_width = 64
 	turns_per_move = 5
 	ranged = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30, /obj/item/reagent_containers/food/snacks/carpmeat = 15)
 	deathmessage = "визж%(ит,ат)%, %(его,её,его,их)% глаза мутнеют, крылья превращаются в пыль и %(он,она,оно,они)% пада%(ет,ют)% замертво!"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -81,7 +79,6 @@
 	/// Maximum devastation damage dealt coefficient based on max health
 	var/devastation_damage_max_percentage = 25
 
-
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
 	. = ..()
 	small_sprite = new
@@ -102,13 +99,11 @@
 /mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-
 /mob/living/simple_animal/hostile/space_dragon/Login()
 	. = ..()
 	if(!chosen_color)
 		dragon_name()
 		color_selection()
-
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, origin)
 	if(severity >= EXPLODE_DEVASTATE)
@@ -116,7 +111,6 @@
 		adjustBruteLoss(initial(maxHealth)*damage_coefficient)
 		return
 	return ..()
-
 
 /mob/living/simple_animal/hostile/space_dragon/Life(seconds_per_tick, times_fired)
 	. = ..()
@@ -129,7 +123,6 @@
 		consumed_mob.forceMove(loc)
 		consumed_mob.Paralyse(6 SECONDS)
 
-
 /mob/living/simple_animal/hostile/space_dragon/death(gibbed)
 	for(var/atom/movable/barfed_out in contents)
 		barfed_out.forceMove(loc)
@@ -138,7 +131,6 @@
 	. = ..()
 	add_dragon_overlay()
 	UnregisterSignal(small_sprite, COMSIG_ACTION_TRIGGER)
-
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
 	if(using_special)
@@ -185,7 +177,6 @@
 		var/obj/mecha/M = target
 		M.take_damage(80, BRUTE, MELEE, 1)
 
-
 /mob/living/simple_animal/hostile/space_dragon/proc/try_gust()
 	if(using_special)
 		return
@@ -194,11 +185,9 @@
 	add_dragon_overlay()
 	useGust(0)
 
-
 /mob/living/simple_animal/hostile/space_dragon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!using_special)
 		. = ..()
-
 
 /mob/living/simple_animal/hostile/space_dragon/OpenFire()
 	if(using_special)
@@ -206,15 +195,13 @@
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
 
-
 /mob/living/simple_animal/hostile/space_dragon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	var/was_dead = stat == DEAD
 	. = ..()
 	add_dragon_overlay()
 
-	if (was_dead)
+	if(was_dead)
 		RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
-
 
 /**
  * Allows space dragon to choose its own name.
@@ -228,9 +215,8 @@
 		to_chat(src, span_warning("Это имя некорректно, попробуйте ещё раз."))
 		dragon_name()
 		return
-	to_chat(src, span_notice("Ваше имя теперь - [span_name("[chosen_name]")], устрашающий Космический Дракон."))
+	to_chat(src, span_notice("Ваше имя теперь — [span_name("[chosen_name]")], устрашающий Космический Дракон."))
 	rename_character(null, chosen_name)
-
 
 /**
  * Allows space dragon to choose a color for itself.
@@ -246,12 +232,11 @@
 		return
 	var/temp_hsv = RGBtoHSV(chosen_color)
 	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
-		to_chat(src, span_danger("Этот цвет некорректен - он недостаточно светлый."))
+		to_chat(src, span_danger("Этот цвет некорректен — он недостаточно светлый."))
 		color_selection()
 		return
 	add_atom_colour(chosen_color, FIXED_COLOUR_PRIORITY)
 	add_dragon_overlay()
-
 
 /**
  * Adds the proper overlay to the space dragon.
@@ -277,7 +262,6 @@
 		overlay.appearance_flags = RESET_COLOR
 		add_overlay(overlay)
 
-
 /**
  * Determines a line of turfs from sources's position to the target with length range.
  *
@@ -299,7 +283,6 @@
 			break
 		T = check
 	return (get_line(src, T) - get_turf(src))
-
 
 /**
  * Spawns fire at each position in a line from the source to the target.
@@ -327,7 +310,6 @@
 		delayFire += 1.5
 		addtimer(CALLBACK(src, PROC_REF(dragon_fire_line), T), delayFire)
 
-
 /**
  * What occurs on each tile to actually create the fire.
  *
@@ -340,8 +322,10 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/T)
 	var/list/hit_list = list()
 	hit_list += src
-	new /obj/effect/hotspot(T)
-	T.hotspot_expose(2000,50,1)
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+	hotspot.temperature = 1000
+	hotspot.recolor()
+	T.hotspot_expose(2000, 50)
 	for(var/mob/living/L in T.contents)
 		if(L in hit_list)
 			continue
@@ -356,7 +340,6 @@
 			continue
 		hit_list += M
 		M.take_damage(90, BRUTE, MELEE, 1)
-
 
 /**
  * Handles consuming and storing consumed things inside Space Dragon
@@ -374,7 +357,6 @@
 	A.forceMove(src)
 	return TRUE
 
-
 /**
  * Resets Space Dragon's status after using wing gust.
  *
@@ -387,7 +369,6 @@
 		icon_state = "spacedragon"
 	using_special = FALSE
 	add_dragon_overlay()
-
 
 /**
  * Handles wing gust from the windup all the way to the endlag at the end.
@@ -426,7 +407,6 @@
 			L.Paralyse(6 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
-
 
 #undef DARKNESS_THRESHOLD
 

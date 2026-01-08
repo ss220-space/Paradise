@@ -3,7 +3,6 @@
 	desc = "An adapter which allows pipes to connect to other pipenets on different decks."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "multiz"
-	dir = SOUTH
 	layer = GAS_PIPE_VISIBLE_LAYER+0.1
 
 	volume = 105
@@ -29,17 +28,11 @@
 	..()
 	initialize_directions = dir
 
-/obj/machinery/atmospherics/pipe/multiz/hide(var/i)
+/obj/machinery/atmospherics/pipe/multiz/hide(i)
 	return
 
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
 	return list(node, above, below)
-
-/obj/machinery/atmospherics/pipe/multiz/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
 
 /obj/machinery/atmospherics/pipe/multiz/Destroy()
 	. = ..()
@@ -55,7 +48,6 @@
 		below.disconnect(src)
 		below.defer_build_network()
 		below = null
-
 
 /obj/machinery/atmospherics/pipe/multiz/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
@@ -102,5 +94,5 @@
 		return FALSE //No nodes exist
 	return TRUE
 
-/obj/machinery/atmospherics/pipe/multiz/change_color(var/new_color)
+/obj/machinery/atmospherics/pipe/multiz/change_color(new_color)
 	return // no

@@ -3,8 +3,6 @@ GLOBAL_VAR(claw_game_html)
 /obj/machinery/arcade/claw
 	name = "Claw Game"
 	desc = "One of the most infuriating ways to win a toy."
-	icon = 'icons/obj/machines/arcade.dmi'
-	icon_state = "clawmachine_1_on"
 	token_price = 5
 	window_name = "Claw Game"
 	var/machine_image = "_1"
@@ -63,7 +61,7 @@ GLOBAL_VAR(claw_game_html)
 /obj/machinery/arcade/claw/start_play(mob/user as mob)
 	..()
 	user << browse_rsc('page.css')
-	for(var/i in 1 to img_resources.len)
+	for(var/i in 1 to length(img_resources))
 		user << browse_rsc(img_resources[i])
 	var/my_game_html = replacetext(GLOB.claw_game_html, "/* ref src */", UID())
 	var/datum/browser/popup = new(user, window_name, name, 915, 700, src)

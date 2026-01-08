@@ -20,12 +20,11 @@
 		DATIVE = "консоли управления дронами",
 		ACCUSATIVE = "консоль управления дронами",
 		INSTRUMENTAL = "консолью управления дронами",
-		PREPOSITIONAL = "консоли управления дронами"
+		PREPOSITIONAL = "консоли управления дронами",
 	)
 
 /obj/machinery/computer/drone_control/attack_ai(mob/user)
 	return src.attack_hand(user)
-
 
 /obj/machinery/computer/drone_control/attack_hand(mob/user)
 	if(..())
@@ -45,19 +44,19 @@
 
 	user.set_machine(src)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	dat += "<b>Ремонтные дроны</B><br>"
+	dat += "<b>Ремонтные дроны</b><br>"
 
 	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 		dat += "<br>[D.real_name] ([D.stat == 2 ? "<font color='red'>НЕАКТИВЕН" : "<font color='green'>АКТИВЕН"]</font>)"
 		dat += "<br>Заряд батареи: [D.cell.charge]/[D.cell.maxcharge]."
 		dat += "<br>Текущее местоположение: [get_area(D)]."
-		dat += "<br><a href='byond://?src=[UID()];resync=\ref[D]'>Синхронизировать</a> | <a href='byond://?src=[UID()];shutdown=\ref[D]'>Отключить</a>"
+		dat += "<br><a href='byond://?src=[UID()];resync=[D.UID()]'>Синхронизировать</a> | <a href='byond://?src=[UID()];shutdown=[D.UID()]'>Отключить</a>"
 
-	dat += "<br><b><a href='byond://?src=[UID()];request_help=1'>Запросить нового дрона</a></B>"
+	dat += "<br><b><a href='byond://?src=[UID()];request_help=1'>Запросить нового дрона</a></b>"
 
-	dat += "<br><br><b>Запросить присутствие дрона в зоне:</B> <a href='byond://?src=[UID()];setarea=1'>[drone_call_area]</a> (<a href='byond://?src=[UID()];ping=1'>Отправить пинг</a>)"
+	dat += "<br><br><b>Запросить присутствие дрона в зоне:</b> <a href='byond://?src=[UID()];setarea=1'>[drone_call_area]</a> (<a href='byond://?src=[UID()];ping=1'>Отправить пинг</a>)"
 
-	dat += "<br><br><b>Фабрикатор дронов</B>: "
+	dat += "<br><br><b>Фабрикатор дронов</b>: "
 	dat += "[dronefab ? "<a href='byond://?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "АКТИВЕН" : "НЕАКТИВЕН"]</a>" : "<font color='red'><b>ФАБРИКАТОР НЕ ОБНАРУЖЕН.</b></font> (<a href='byond://?src=[UID()];search_fab=1'>Поиск</a>)"]"
 	user << browse(dat, "window=computer;size=400x500")
 	onclose(user, "computer")
@@ -112,7 +111,7 @@
 
 	else if(href_list["resync"])
 
-		var/mob/living/silicon/robot/drone/D = locate(href_list["resync"])
+		var/mob/living/silicon/robot/drone/D = locateUID(href_list["resync"])
 
 		if(D.stat != 2)
 			to_chat(usr, span_warning("Вы отправляете директиву на синхронизацию законов для дрона."))
@@ -120,7 +119,7 @@
 
 	else if(href_list["shutdown"])
 
-		var/mob/living/silicon/robot/drone/D = locate(href_list["shutdown"])
+		var/mob/living/silicon/robot/drone/D = locateUID(href_list["shutdown"])
 
 		if(D.stat != 2)
 			to_chat(usr, span_warning("Вы отправляете команду на уничтожение несчастного дрона."))

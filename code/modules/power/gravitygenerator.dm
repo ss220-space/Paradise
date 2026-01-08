@@ -104,7 +104,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
  */
 /obj/machinery/gravity_generator/main
 	icon_state = "on_8"
-	idle_power_usage = 0
 	active_power_usage = 3000
 	power_channel = ENVIRON
 	sprite_number = 8
@@ -201,7 +200,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(GRAV_NEEDS_WRENCH)
 			. += span_notice("The new plating just needs to be <b>bolted</b> into place now.")
 
-
 /obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !(stat & BROKEN) || broken_state != GRAV_NEEDS_PLASTEEL || !istype(I, /obj/item/stack/sheet/plasteel))
 		return ..()
@@ -266,13 +264,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <a href='byond://?src=[UID()];gentoggle=1'>OFF</a>"
+		dat += "[span_linkon("ON")] <a href='byond://?src=[UID()];gentoggle=1'>OFF</a>"
 	else
-		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</a> <span class='linkOn'>OFF</span> "
+		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</a> [span_linkon("OFF")] "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
 	if(charging_state != GRAV_POWER_IDLE)
-		dat += "<span class='bad'>WARNING</span> Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
+		dat += "[span_bad("WARNING")] Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
 	else if(on)
 		dat += "Powered."
 	else
@@ -300,7 +298,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	. = ..()
 	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
 	set_power()
-
 
 /obj/machinery/gravity_generator/main/get_status()
 	if(stat & BROKEN)
@@ -410,7 +407,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 		if(shaked.client)
 			shake_camera(shaked, 15, 1)
-			shaked.playsound_local(our_turf, null, 100, TRUE, 0.5, sound = alert_sound)
+			shaked.playsound_local(our_turf, null, 100, TRUE, 0.5, sound_to_use = alert_sound)
 
 // TODO: Make the gravity generator cooperate with the space manager
 /obj/machinery/gravity_generator/main/proc/gravity_in_level()
@@ -438,16 +435,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			GLOB.gravity_generators["[z]"] -= src
 
 // MARK: Misc
-
-/obj/effect/warp_effect/gravity_generator
-
-/obj/effect/warp_effect/gravity_generator/Initialize(mapload)
-	. = ..()
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128, easing = CIRCULAR_EASING | EASE_IN)
-	QDEL_IN(src, 0.8 SECONDS)
-
 /obj/item/paper/gravity_gen
 	name = "paper - 'Generate your own gravity!'"
 	info = {"<h1>Generating Gravity For Dummies</h1>

@@ -1,3 +1,13 @@
+/**
+ * The absolute base class for everything
+ *
+ * A datum instantiated has no physical world presence, use an atom if you want something
+ * that actually lives in the world
+ *
+ * Be very mindful about adding variables to this class, they are inherited by every single
+ * thing in the entire game, and so you can easily cause memory usage to rise a lot with careless
+ * use of variables at this level
+ */
 /datum
 	/**
 	  * Tick count time when this object was destroyed.
@@ -5,9 +15,14 @@
 	  * If this is non zero then the object has been garbage collected and is awaiting either
 	  * a hard del by the GC subsystme, or to be autocollected (if it has no references)
 	  */
-	var/gc_destroyed //Time when this object was destroyed.
+	var/gc_destroyed
+
+	/// Open uis owned by this datum
+	/// Lazy, since this case is semi rare
+	var/list/open_uis
+
 	/// Active timers with this datum as the target
-	var/list/active_timers  //for SStimer
+	var/list/active_timers
 	/// Status traits attached to this datum
 	var/list/_status_traits
 	/**
@@ -31,6 +46,23 @@
 
 	/// A weak reference to another datum
 	var/datum/weakref/weak_reference
+
+	/// Used by SSprocessing
+	var/isprocessing = FALSE
+
+	/// List for handling persistent filters.
+	var/list/filter_data
+
+	/*
+	* Lazy associative list of currently active cooldowns.
+	*
+	* cooldowns [ COOLDOWN_INDEX ] = add_timer()
+	* add_timer() returns the truthy value of -1 when not stoppable, and else a truthy numeric index
+	*/
+	var/list/cooldowns
+
+	/// Protects datum from editing. Flags are assigned in datumvars procs via [GENERAL_PROTECT_DATUM].
+	var/datum_protecting_flags = NONE
 
 #ifdef TESTING
 	var/running_find_references
@@ -56,6 +88,38 @@
 	var/list/found_refs
 	#endif
 #endif
+
+
+/**
+ * Callback called by a timer to end an associative-list-indexed cooldown.
+ *
+ * Arguments:
+ * * source - datum storing the cooldown
+ * * index - string index storing the cooldown on the cooldowns associative list
+ *
+ * This sends a signal reporting the cooldown end.
+ */
+/proc/end_cooldown(datum/source, index)
+	if(QDELETED(source))
+		return
+	SEND_SIGNAL(source, COMSIG_CD_STOP(index))
+	TIMER_COOLDOWN_END(source, index)
+
+
+/**
+ * Proc used by stoppable timers to end a cooldown before the time has ran out.
+ *
+ * Arguments:
+ * * source - datum storing the cooldown
+ * * index - string index storing the cooldown on the cooldowns associative list
+ *
+ * This sends a signal reporting the cooldown end, passing the time left as an argument.
+ */
+/proc/reset_cooldown(datum/source, index)
+	if(QDELETED(source))
+		return
+	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
+	TIMER_COOLDOWN_END(source, index)
 
 /**
  * Default implementation of clean-up code.

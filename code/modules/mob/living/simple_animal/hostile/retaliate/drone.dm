@@ -18,12 +18,10 @@
 	response_harm = "hits the"
 	speak = list("ALERT.", "Hostile-ile-ile entities dee-twhoooo-wected.", "Threat parameterszzzz- szzet.", "Bring sub-sub-sub-systems uuuup to combat alert alpha-a-a.")
 	emote_see = list("beeps menacingly.", "whirrs threateningly.", "scans for targets.")
-	a_intent = INTENT_HARM
-	stop_automated_movement_when_pulled = FALSE
 	health = 200
 	maxHealth = 200
 	speed = 8
-	projectiletype = /obj/projectile/beam/immolator/weak
+	projectiletype = /obj/projectile/beam/immolator/weak/hitscan
 	projectilesound = 'sound/weapons/laser3.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("malf_drone")
@@ -31,7 +29,6 @@
 	del_on_death = 1
 	var/passive_mode = TRUE // if true, don't target anything.
 	var/datum/effect_system/trail_follow/ion/ion_trail
-
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
@@ -48,7 +45,6 @@
 /mob/living/simple_animal/hostile/malf_drone/Destroy()
 	QDEL_NULL(ion_trail)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -73,7 +69,6 @@
 	else
 		icon_state = "drone0"
 
-
 /mob/living/simple_animal/hostile/malf_drone/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -87,7 +82,6 @@
 		passive_mode = FALSE
 		update_icons()
 
-
 /mob/living/simple_animal/hostile/malf_drone/Life(seconds, times_fired)
 	. = ..()
 	if(.) // mob is alive. We check this just in case Life() can fire for qdel'ed mobs.
@@ -99,11 +93,11 @@
 		do_sparks(3, TRUE, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
-			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
+			visible_message(span_notice("[src] retracts several targetting vanes."))
 			if(target)
 				lose_target()
 		else
-			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
+			visible_message(span_warning("[src] suddenly lights up, and additional targetting vanes slide into place."))
 		update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/emp_act(severity)
@@ -207,7 +201,6 @@
 	desc = "An automated combat drone armed with state of the art weaponry and shielding."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "drone3"
-	density = TRUE
 	health = 200
 	maxHealth = 200
 	speed = 8
@@ -216,12 +209,10 @@
 	bot_purpose = "devastion"
 	bot_core_type = /obj/machinery/bot_core/syndicate
 	window_name = "Standart Robot Control v1.6"
-	path_image_color = "#FF0000"
 	declare_arrests = FALSE
 	idcheck = TRUE
 	arrest_type = TRUE
-	auto_patrol = FALSE
-	projectile = /obj/projectile/beam/immolator/weak
+	projectile = /obj/projectile/beam/immolator/weak/hitscan
 
 /mob/living/simple_animal/bot/ed209/combat_drone/Initialize(mapload)
 	. = ..()
@@ -235,7 +226,7 @@
 	return
 
 /mob/living/simple_animal/bot/ed209/combat_drone/set_weapon()
-	projectile = /obj/projectile/beam/immolator/weak
+	projectile = /obj/projectile/beam/immolator/weak/hitscan
 
 /mob/living/simple_animal/bot/ed209/combat_drone/turn_on()
 	. = ..()
@@ -284,10 +275,10 @@
 		if(length(candidates))
 			var/mob/living/simple_animal/hostile/malf_drone/syndicate/S = new /mob/living/simple_animal/hostile/malf_drone/syndicate(get_turf(src))
 			var/mob/M = pick(candidates)
-			S.key = M.key
+			S.possess_by_player(M.key)
 			S.master_commander = user
 			S.sentience_act()
-			to_chat(S, "Модуль активирован. Основная задача: подчинение [user.name]. Дополнительная задача: уничтожение враждебных единиц не относящихся к Синдикату в подконтрольном секторе.")
+			to_chat(S, "Модуль активирован. Основная задача: подчинение [user.name]. Дополнительная задача: уничтожение враждебных единиц не относящихся к \"Синдикату\" в подконтрольном секторе.")
 			S.mind.store_memory("<b>Подчиняться [user.name].</b>")
 			qdel(src)
 			qdel(I)
@@ -305,7 +296,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "drone_manual"
 	item_state = "book7"
-	
+
 /obj/item/drone_manual/get_ru_names()
 	return list(
 		NOMINATIVE = "странное руководство",
@@ -313,12 +304,12 @@
 		DATIVE = "странному руководству",
 		ACCUSATIVE = "странное руководство",
 		INSTRUMENTAL = "странным руководством",
-		PREPOSITIONAL = "странном руководстве"
+		PREPOSITIONAL = "странном руководстве",
 	)
-	
+
 /obj/item/drone_manual/attack_self(mob/user)
 	. = ..()
-	to_chat(user, span_alert("После того как вы пробежались глазами по содержанию книги, она рассыпалась пеплом. Но, кажется, вы можете вспомнить пару методов работы, описанных там - самодельные платы и базовую модель самого дрона."))
+	to_chat(user, span_alert("После того как вы пробежались глазами по содержанию книги, она рассыпалась пеплом. Но, кажется, вы можете вспомнить пару методов работы, описанных там — самодельные платы и базовую модель самого дрона."))
 	user.mind.learned_recipes += list(/datum/crafting_recipe/drone,
 		/datum/crafting_recipe/drone_circ,
 		/datum/crafting_recipe/drone_circ_adv,
@@ -328,7 +319,7 @@
 
 /obj/item/drone_modules
 	name = "Drone module"
-	desc = "Если вы это видите - сообщите в баг-репорты."
+	desc = "Если вы это видите — сообщите в баг-репорты."
 	icon_state = "drone_BCM"
 	var/explanation = "Вы не должны были этого видеть."
 
@@ -347,7 +338,7 @@
 	name = "Drone IFFM"
 	desc = "Неплохо сделанная плата."
 	icon_state = "drone_IFF"
-	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений - а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне Синдиката."
+	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений — а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне \"Синдиката\"."
 
 /obj/item/drone_modules/drone_AI
 	name = "Drone AICM"

@@ -17,14 +17,14 @@
 /* This comment bypasses grep checks */ /var/__prof
 
 /proc/__detect_prof()
-	if (world.system_type == UNIX)
-		if (fexists("./libprof.so"))
+	if(world.system_type == UNIX)
+		if(fexists("./libprof.so"))
 			// No need for LD_LIBRARY_PATH badness.
 			return __prof = "./libprof.so"
-		else if (fexists("./prof"))
+		else if(fexists("./prof"))
 			// Old dumb filename.
 			return __prof = "./prof"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/prof"))
+		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/prof"))
 			// Old dumb filename in `~/.byond/bin`.
 			return __prof = "prof"
 		else
@@ -45,27 +45,15 @@
 
 GLOBAL_VAR_INIT(profiler_enabled, FALSE)
 
-/client/proc/profiler_start()
-	set name = "Tracy Profiler Start"
-	set category = "Debug"
-	set desc = "Starts the tracy profiler and writes the data to the server's data directory."
-
-	if(holder && holder.rights != R_HOST)
-		return
-
-	switch(alert("Are you sure? Tracy will remain active until the server restarts.", "Tracy Init", "No", "Yes"))
+ADMIN_VERB_VISIBILITY(profiler_start, ADMIN_VERB_VISIBLITY_FLAG_HOST)
+ADMIN_VERB(profiler_start, R_HOST, "Tracy Profiler Start", "Starts the tracy profiler and writes the data to the server's data directory.", ADMIN_CATEGORY_DEBUG)
+	switch(alert(user, "Are you sure? Tracy will remain active until the server restarts.", "Tracy Init", "No", "Yes"))
 		if("Yes")
 			prof_init()
 
-/client/proc/profiler_stop()
-	set name = "Tracy Profiler Stop"
-	set category = "Debug"
-	set desc = "Stop the tracy profiler."
-
-	if(holder && holder.rights != R_HOST)
-		return
-
-	switch(alert("Are you sure?", "Tracy Stop", "No", "Yes"))
+ADMIN_VERB_VISIBILITY(profiler_stop, ADMIN_VERB_VISIBLITY_FLAG_HOST)
+ADMIN_VERB(profiler_stop, R_HOST, "Tracy Profiler Stop", "Stop the tracy profiler.", ADMIN_CATEGORY_DEBUG)
+	switch(alert(user, "Are you sure?", "Tracy Stop", "No", "Yes"))
 		if("Yes")
 			prof_stop()
 

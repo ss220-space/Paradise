@@ -4,10 +4,8 @@
 	icon_state = "adrenal_old"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=3;combat=5;syndicate=2"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	uses = 3
 	implant_data = /datum/implant_fluff/adrenaline
-
 
 /obj/item/implant/supercharge/activate(cause)
 	uses--
@@ -28,11 +26,9 @@
 	if(!uses)
 		qdel(src)
 
-
 /obj/item/implanter/supercharge
 	name = "bio-chip implanter (supercharge)"
 	imp = /obj/item/implant/supercharge
-
 
 /obj/item/implantcase/supercharge
 	name = "bio-chip case - 'supercharge'"

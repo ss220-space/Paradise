@@ -24,7 +24,7 @@
 		DATIVE = "сканеру аутопсии",
 		ACCUSATIVE = "сканер аутопсии",
 		INSTRUMENTAL = "сканером аутопсии",
-		PREPOSITIONAL = "сканере аутопсии"
+		PREPOSITIONAL = "сканере аутопсии",
 	)
 
 /obj/item/autopsy_scanner/Destroy()
@@ -34,7 +34,7 @@
 /datum/autopsy_data_scanner
 	var/weapon = null // this is the DEFINITE weapon type that was used
 	var/list/organs_scanned = list() // this maps a number of scanned organs to
-									 // the wounds to those organs with this data's weapon type
+									// the wounds to those organs with this data's weapon type
 	var/organ_names = ""
 
 /datum/autopsy_data_scanner/Destroy()
@@ -62,12 +62,12 @@
 	for(var/index in check_organ.autopsy_data)
 		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-		if(!LAZYACCESS(wdata, index))
-			var/datum/autopsy_data_scanner/scanner_data = new
+		var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, index)
+		if(!scanner_data)
+			scanner_data = new()
 			scanner_data.weapon = weapon_data.weapon
-			wdata[index] = scanner_data
+			LAZYADDASSOC(wdata, index, scanner_data)
 
-		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
 		var/organ_name = check_organ.declent_ru(NOMINATIVE)
 
 		if(!scanner_data.organs_scanned[organ_name])
@@ -105,8 +105,8 @@
 
 	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
 	var/obj/item/paper/paper = new(user.loc)
-	paper.name = "Отчёт патологоанатома – [dead_name]"
-	paper.info = "<b><center>[station_name()] – Отчёт патологоанатома</b></center><br><br><b>Имя погибшего:</b> [dead_name]</br><br><b>Должность погибшего:</b> [dead_rank]<br><br><b>Время смерти:</b> [dead_tod]<br><br><b>Причина смерти:</b> [dead_cause]<br><br><b>Химические следы:</b> [dead_chems]<br><br><b>Дополнительные детали:</b> [dead_notes]<br><br><b>Подпись патологоанатома:</b> <span class=\"paper_field\">"
+	paper.name = "Отчёт патологоанатома — [dead_name]"
+	paper.info = "<b><center>[station_name()] — Отчёт патологоанатома</b></center><br><br><b>Имя погибшего:</b> [dead_name]</br><br><b>Должность погибшего:</b> [dead_rank]<br><br><b>Время смерти:</b> [dead_tod]<br><br><b>Причина смерти:</b> [dead_cause]<br><br><b>Химические следы:</b> [dead_chems]<br><br><b>Дополнительные детали:</b> [dead_notes]<br><br><b>Подпись патологоанатома:</b> <span class=\"paper_field\">"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	user.put_in_hands(paper, ignore_anim = FALSE)
 
@@ -142,7 +142,7 @@
 	if(LAZYLEN(wdata))
 		var/n = 1
 		for(var/wdata_idx in wdata)
-			var/datum/autopsy_data_scanner/scanner_data = wdata[wdata_idx]
+			var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, wdata_idx)
 			var/total_hits = 0
 			var/total_score = 0
 			var/age = 0
@@ -189,7 +189,7 @@
 	sleep(PRINT_TIMER)
 
 	var/obj/item/paper/paper = new(drop_location())
-	paper.name = "Отчёт об аутопсии - [target_name]"
+	paper.name = "Отчёт об аутопсии — [target_name]"
 	paper.info = "<tt>[scan_data]</tt>"
 	paper.update_icon()
 	user.put_in_hands(paper, ignore_anim = FALSE)

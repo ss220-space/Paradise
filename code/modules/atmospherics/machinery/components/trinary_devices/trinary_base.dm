@@ -1,9 +1,6 @@
 /obj/machinery/atmospherics/trinary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH|WEST
-	use_power = IDLE_POWER_USE
 
-	on = FALSE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
 	layer_offset = GAS_FILTER_OFFSET
 
@@ -21,8 +18,8 @@
 
 	var/flipped = 0
 
-/obj/machinery/atmospherics/trinary/New()
-	..()
+/obj/machinery/atmospherics/trinary/Initialize(mapload)
+	. = ..()
 
 	if(!flipped)
 		switch(dir)
@@ -183,10 +180,8 @@
 	else if(A == node3)
 		return parent3
 
-
 /obj/machinery/atmospherics/trinary/return_pipenets()
 	return list(parent1, parent2, parent3)
-
 
 /obj/machinery/atmospherics/trinary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)
@@ -196,23 +191,21 @@
 	else if(Old == parent3)
 		parent3 = New
 
-/obj/machinery/atmospherics/trinary/unsafe_pressure_release(var/mob/user,var/pressures)
+/obj/machinery/atmospherics/trinary/unsafe_pressure_release(mob/user, pressures)
 	..()
 
 	var/turf/T = get_turf(src)
 	if(T)
 		//Remove the gas from air1+air2+air3 and assume it
-		var/datum/gas_mixture/environment = T.return_air()
-		var/lost = pressures*environment.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
-		lost += pressures*environment.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
-		lost += pressures*environment.volume/(air3.temperature * R_IDEAL_GAS_EQUATION)
-		var/shared_loss = lost/3
+		var/lost = pressures * CELL_VOLUME / (air1.temperature() * R_IDEAL_GAS_EQUATION)
+		lost += pressures * CELL_VOLUME / (air2.temperature() * R_IDEAL_GAS_EQUATION)
+		lost += pressures * CELL_VOLUME / (air3.temperature() * R_IDEAL_GAS_EQUATION)
+		var/shared_loss = lost / 3
 
 		var/datum/gas_mixture/to_release = air1.remove(shared_loss)
 		to_release.merge(air2.remove(shared_loss))
 		to_release.merge(air3.remove(shared_loss))
-		T.assume_air(to_release)
-		air_update_turf(1)
+		T.blind_release_air(to_release)
 
 /obj/machinery/atmospherics/trinary/process_atmos()
 	..()

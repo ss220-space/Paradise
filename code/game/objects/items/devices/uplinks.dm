@@ -1,7 +1,6 @@
 /// List of all uplinks in the world.
 GLOBAL_LIST_EMPTY(world_uplinks)
 
-
 /obj/item/uplink
 	/// Uplink TC amount. Specified on initialization by different uplink types.
 	var/uses = 100
@@ -28,7 +27,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 
-
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
 	. = ..()
 	src.uses = uses ? uses : src.uses
@@ -36,24 +34,21 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	uplink_items = get_uplink_items(src, generate_discounts = TRUE)
 	GLOB.world_uplinks += src
 
-
 /obj/item/uplink/Destroy()
 	GLOB.world_uplinks -= src
 	traitor = null
 	return ..()
 
-
 /obj/item/uplink/ui_host()
 	return loc
 
-
- /**
-  * Build the item lists for use with the UI
-  * Generates a list of items for use in the UI, based on job and other parameters.
-  *
-  * Arguments:
-  * * user - User to check.
-  */
+/**
+ * Build the item lists for use with the UI
+ * Generates a list of items for use in the UI, based on job and other parameters.
+ *
+ * Arguments:
+ * * user - User to check.
+ */
 /obj/item/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind?.assigned_role
@@ -74,11 +69,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				continue
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
-			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name),
+			cats[length(cats)]["items"] += list(list("name" = sanitize(uplink_item.name),
 												"desc" = sanitize(uplink_item.description()),
 												"cost" = uplink_item.cost,
 												"hijack_only" = uplink_item.hijack_only,
-												"obj_path" = ref(uplink_item),
+												"obj_path" = uplink_item.UID(),
 												"refundable" = uplink_item.refundable,
 												"uid" = uplink_item.UID()
 												)
@@ -101,7 +96,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	return safepick(random_items)
 
-
 /**
  * Handles buying an item, spending TC and updating TGUI.
  *
@@ -111,7 +105,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/proc/buy(datum/uplink_item/uplink_item, mob/buyer)
 	if(is_jammed)
-		to_chat(buyer, span_warning("[declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
+		to_chat(buyer, span_warning("[declent_ru(NOMINATIVE)], похоже, заблокирован — нельзя использовать!"))
 		return FALSE
 	if(!uplink_item)
 		return FALSE
@@ -121,7 +115,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	uplink_item.buy(src, buyer)
 	SStgui.update_uis(src)
 	return TRUE
-
 
 /obj/item/uplink/proc/mass_purchase(datum/uplink_item/uplink_item, mob/user, quantity = 1)
 	// jamming check happens in ui_act
@@ -171,18 +164,16 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	// If we are here, we didnt refund
 	to_chat(user, span_warning("[hold_item] не подлежит возврату."))
 
-
-// HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
-/* How to create an uplink in 3 easy steps!
-
- 1. All obj/item 's have a hidden_uplink var. By default it's null. Give the item one with "new(src)", it must be in it's contents. Feel free to add "uses".
-
- 2. Code in the triggers. Use check_trigger for this, I recommend closing the item's menu with "usr << browse(null, "window=windowname") if it returns true.
- The var/value is the value that will be compared with the var/target. If they are equal it will activate the menu.
-
- 3. If you want the menu to stay until the users locks his uplink, add an active_uplink_check(mob/user) in your interact/attack_hand proc.
- Then check if it's true, if true return. This will stop the normal menu appearing and will instead show the uplink menu.
-*/
+/**
+ * HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
+ * How to create an uplink in 3 easy steps!
+ * 1. All obj/item 's have a hidden_uplink var. By default it's null. Give the item one with "new(src)", it must be in it's contents. Feel free to add "uses".
+ * 2. Code in the triggers. Use check_trigger for this, I recommend closing the item's menu with "usr << browse(null, "window=windowname") if it returns true.
+ * The var/value is the value that will be compared with the var/target. If they are equal it will activate the menu.
+ *
+ * 3. If you want the menu to stay until the users locks his uplink, add an active_uplink_check(mob/user) in your interact/attack_hand proc.
+ * Then check if it's true, if true return. This will stop the normal menu appearing and will instead show the uplink menu.
+ */
 /obj/item/uplink/hidden
 	name = "hidden uplink"
 	desc = "There is something wrong if you're examining this."
@@ -195,23 +186,19 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// A list of 3 categories and item indexes in uplink_cats, to show as recommendedations
 	var/list/lucky_numbers
 
-
 /obj/item/uplink/hidden/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(delayed_check)), 0.2 SECONDS)
 
-
 /obj/item/uplink/hidden/proc/delayed_check()
 	if(!isitem(loc))	// The hidden uplink MUST be inside an obj/item's contents.
 		qdel(src)
-
 
 /**
  * Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.
  */
 /obj/item/uplink/hidden/proc/toggle()
 	active = !active
-
 
 /**
  * Directly trigger the uplink. Turn on if it isn't already.
@@ -220,7 +207,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!active)
 		toggle()
 	interact(user)
-
 
 /**
  * Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
@@ -233,7 +219,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован — нельзя использовать!"))
 		return FALSE
 	if(value == target)
 		trigger(user)
@@ -248,7 +234,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!ui)
 		ui = new(user, src, "Uplink", "Аплинк")
 		ui.open()
-
 
 /obj/item/uplink/hidden/ui_data(mob/user)
 	var/list/data = list()
@@ -275,7 +260,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["contractor"] = contractor_data
 
 	return data
-
 
 /obj/item/uplink/hidden/ui_static_data(mob/user)
 	var/list/data = list()
@@ -307,7 +291,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/proc/calculate_cart_tc()
 	. = 0
 	for(var/reference in shopping_cart)
-		var/datum/uplink_item/item = locate(reference) in uplink_items
+		var/datum/uplink_item/item = locateUID(reference)
 		var/purchase_amt = shopping_cart[reference]
 		. += item.cost * purchase_amt
 
@@ -322,20 +306,19 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	cached_cart = list()
 	for(var/reference in shopping_cart)
-		var/datum/uplink_item/I = locate(reference) in uplink_items
+		var/datum/uplink_item/I = locateUID(reference)
 		cached_cart += list(list(
 			"name" = sanitize(I.name),
 			"desc" = sanitize(I.description()),
 			"cost" = I.cost,
 			"hijack_only" = I.hijack_only,
-			"obj_path" = ref(I),
+			"obj_path" = I.UID(),
 			"amount" = shopping_cart[reference],
 			"limit" = I.limited_stock))
 
 /obj/item/uplink/hidden/interact(mob/user)
 
 	ui_interact(user)
-
 
 /obj/item/uplink/hidden/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -363,11 +346,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			return buy(uplink_item, ui.user)
 
 		if("buyItem")
-			var/datum/uplink_item/uplink_item = locate(params["item"]) in uplink_items
+			var/datum/uplink_item/uplink_item = locateUID(params["item"])
 			return buy(uplink_item, ui.user)
 
 		if("add_to_cart")
-			var/datum/uplink_item/uplink_item = locate(params["item"]) in uplink_items
+			var/datum/uplink_item/uplink_item = locateUID(params["item"])
 			if(LAZYIN(shopping_cart, params["item"]))
 				to_chat(ui.user, span_warning("[uplink_item.name] уже в корзине!"))
 				return
@@ -392,13 +375,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] вибрирует, в нём недостаточно телекристаллов!"))
 				return
 			if(is_jammed)
-				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован — нельзя использовать!"))
 				return
 
 			// Buying of the uplink stuff
 			var/list/bought_things = list()
 			for(var/reference in shopping_cart)
-				var/datum/uplink_item/item = locate(reference) in uplink_items
+				var/datum/uplink_item/item = locateUID(reference)
 				var/purchase_amt = shopping_cart[reference]
 				if(purchase_amt <= 0)
 					continue
@@ -447,14 +430,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	shopping_cart = null
 	generate_tgui_cart(TRUE)
 
-
 /**
-  * Called in tgui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in tgui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/item/uplink/hidden/proc/tgui_act_modal(action, list/params)
 	. = TRUE
 	var/id = params["id"]
@@ -471,7 +453,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				return
 	return FALSE
 
-
 /**
  * I placed this here because of how relevant it is.
  * You place this in your uplinkable item to check if an uplink is active or not.
@@ -485,7 +466,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return TRUE
 	return FALSE
 
-
 /**
  * PRESET UPLINKS
  * A collection of preset uplinks.
@@ -498,22 +478,17 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	hidden_uplink = new(src, choose_uplink(), get_uses_amount())
 	icon_state = "radio"
 
-
 /obj/item/radio/uplink/attack_self(mob/user)
 	hidden_uplink?.trigger(user)
-
 
 /obj/item/radio/uplink/proc/choose_uplink()
 	return UPLINK_TYPE_TRAITOR
 
-
 /obj/item/radio/uplink/proc/get_uses_amount()
 	return 100
 
-
 /obj/item/radio/uplink/nuclear/choose_uplink()
 	return UPLINK_TYPE_NUCLEAR
-
 
 /obj/item/radio/uplink/nuclear/loneop/get_uses_amount()
 	return ..() + count_nuke_uses()
@@ -531,27 +506,21 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/sst/get_uses_amount()
 	return ..() + count_nuke_uses()
 
-
 /obj/item/radio/uplink/admin/choose_uplink()
 	return UPLINK_TYPE_ADMIN
 
-
 /obj/item/radio/uplink/admin/get_uses_amount()
 	return 2500
-
 
 /obj/item/multitool/uplink/Initialize(mapload)
 	. = ..()
 	hidden_uplink = new(src, UPLINK_TYPE_TRAITOR)
 
-
 /obj/item/multitool/uplink/attack_self(mob/user)
 	hidden_uplink?.trigger(user)
 
-
 /obj/item/radio/headset/uplink
 	traitor_frequency = 1445
-
 
 /obj/item/radio/headset/uplink/Initialize(mapload)
 	. = ..()

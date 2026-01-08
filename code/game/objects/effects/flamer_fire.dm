@@ -34,8 +34,6 @@
 	icon_state = "dynamic_2"
 	layer = ABOVE_OBJ_LAYER
 
-	light_system = STATIC_LIGHT
-	light_on = TRUE
 	light_range = 3
 	light_power = 3
 	light_color = "#f88818"
@@ -55,7 +53,6 @@
 	var/datum/callback/to_call
 
 	var/fire_variant = FIRE_VARIANT_DEFAULT
-
 
 /obj/flamer_fire/ComponentInitialize()
 	. = ..()
@@ -99,7 +96,6 @@
 	firelevel = reagent.durationfire + fuel_pressure * reagent.durationmod
 	burnlevel = reagent.intensityfire
 
-
 	update_flame()
 
 	addtimer(CALLBACK(src, PROC_REF(un_burst_flame)), 0.5 SECONDS)
@@ -137,7 +133,6 @@
 		ignited_morb.apply_damage(firedamage, BURN)
 		animation_flash_color(ignited_morb, tied_reagent.burncolor) //pain hit flicker
 
-
 	var/turf/current_turf = get_turf(src)
 
 	if(!isopenspaceturf(current_turf))
@@ -165,7 +160,6 @@
 
 	entered.handle_flamer_fire_crossed(src)
 
-
 /obj/flamer_fire/proc/set_on_fire(mob/living/mob)
 	if(!istype(mob))
 		return
@@ -179,10 +173,8 @@
 	if(!tied_reagent.fire_penetrating)
 		burn_damage = max(burn_damage * (100 - fire_intensity_resistance) / 100, 0)
 
-
 	mob.adjust_fire_stacks(tied_reagent.durationfire)
 	mob.IgniteMob()
-
 
 	mob.apply_damage(burn_damage, BURN) //This makes fire stronk.
 
@@ -258,9 +250,9 @@
 		var/angle = 180 - abs( abs( direction_angle - spread_direction_angle ) - 180 ) // the angle difference between the spread direction and initial direction
 
 		switch(angle) //this reduces power when the explosion is going around corners
-			if (45)
+			if(45)
 				spread_power *= 0.75
-			if (90 to 180) //turns out angles greater than 90 degrees almost never happen. This bit also prevents trying to spread backwards
+			if(90 to 180) //turns out angles greater than 90 degrees almost never happen. This bit also prevents trying to spread backwards
 				continue
 
 		switch(spread_direction)
@@ -269,7 +261,7 @@
 			else
 				spread_power -= 1.414 //diagonal spreading
 
-		if (spread_power < 1)
+		if(spread_power < 1)
 			continue
 
 		var/turf/picked_turf = get_step(target, spread_direction)
@@ -317,7 +309,6 @@
 		if(!has_pass)
 			return
 		fire_spread_recur(picked_turf, spread_power, direction, fire_lvl, burn_lvl, f_color, burn_sprite)
-
 
 //Flashes a color, then goes back to regular.
 /proc/animation_flash_color(atom/animation_atom, flash_color = COLOR_RED, speed = 3) //Flashes red on default.

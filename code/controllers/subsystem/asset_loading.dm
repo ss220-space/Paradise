@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(asset_loading)
 
 /datum/controller/subsystem/asset_loading/fire(resumed)
 	while(length(generate_queue))
-		var/datum/asset/to_load = generate_queue[generate_queue.len]
+		var/datum/asset/to_load = generate_queue[length(generate_queue)]
 
 		to_load.queued_generation()
 

@@ -14,7 +14,6 @@
 	new /obj/item/clothing/suit/storage/cargotech(src)
 	new /obj/item/qm_quest_tablet/cargotech(src)
 
-
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)
@@ -28,8 +27,10 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/door_remote/quartermaster(src)
-	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
+	new /obj/item/autoimplanter/oneuse/meson_eyes(src)
 	new /obj/item/cartridge/quartermaster(src)
 	new /obj/item/stamp/granted(src)	//added here deleted on maps
 	new /obj/item/stamp/denied(src)
 	new /obj/item/storage/garmentbag/quartermaster(src)
+	new /obj/item/gun/energy/gun/mini(src)
+	new /obj/item/clothing/accessory/holster(src)

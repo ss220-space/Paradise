@@ -5,10 +5,6 @@
 		return 1
 	return 0
 
-
-/mob/living/silicon/ai/var/max_locations = 10
-/mob/living/silicon/ai/var/stored_locations[0]
-
 /mob/living/silicon/ai/proc/get_camera_list()
 
 	track.cameras.Cut()
@@ -33,9 +29,8 @@
 	track.cameras = T
 	return T
 
-
-/mob/living/silicon/ai/proc/ai_camera_list(var/camera in get_camera_list())
-	set category = STATPANEL_AICOMMANDS
+/mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Список камер"
 
 	if(src.stat == 2)
@@ -51,7 +46,7 @@
 	return
 
 /mob/living/silicon/ai/proc/ai_store_location(loc as text)
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Сохранить позицию"
 	set desc = "Stores your current camera location by the given name"
 
@@ -60,7 +55,7 @@
 		to_chat(src, span_warning("Must supply a location name"))
 		return
 
-	if(stored_locations.len >= max_locations)
+	if(length(stored_locations) >= max_locations)
 		to_chat(src, span_warning("Cannot store additional locations. Remove one first"))
 		return
 
@@ -80,7 +75,7 @@
 	return sortList(stored_locations)
 
 /mob/living/silicon/ai/proc/ai_goto_location(loc in sorted_stored_locations())
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "К сохранненной позиции"
 	set desc = "Returns to the selected camera location"
 
@@ -92,7 +87,7 @@
 	src.eyeobj.setLoc(L)
 
 /mob/living/silicon/ai/proc/ai_remove_location(loc in sorted_stored_locations())
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Удалить сохраненную позицию"
 	set desc = "Deletes the selected camera location"
 
@@ -147,7 +142,7 @@
 	return targets
 
 /mob/living/silicon/ai/proc/ai_camera_track(target_name in trackable_mobs())
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Режим слежения"
 	set desc = "Select who you would like to track."
 
@@ -161,7 +156,7 @@
 
 	ai_actual_track(target)
 
-/mob/living/silicon/ai/proc/ai_cancel_tracking(var/forced = 0)
+/mob/living/silicon/ai/proc/ai_cancel_tracking(forced = 0)
 	if(!cameraFollow)
 		return
 
@@ -240,7 +235,6 @@
 		return
 	user.eyeobj.setLoc(get_turf(src))
 
-
 /mob/living/silicon/ai/attack_ai(mob/user)
 	ai_camera_list()
 
@@ -248,7 +242,7 @@
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
 
-	for(var/i = L.len, i > 0, i--)
+	for(var/i = length(L), i > 0, i--)
 		for(var/j = 1 to i - 1)
 			a = L[j]
 			b = L[j + 1]

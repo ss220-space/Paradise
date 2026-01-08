@@ -6,21 +6,15 @@
 	icon_dead = "slugcat_dead"
 	icon_resting = "slugcat_rest"
 	speak = list("Furrr.","Uhh.", "Hurrr.")
-	gender = MALE
 	turns_per_move = 5
 	nightvision = 8
 	health = 100
 	maxHealth = 100
-	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_type = STAMINA
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "бьёт"
-	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	can_collar = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 5)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -57,7 +51,6 @@
 	icon_dead = "slugcat_monk_dead"
 	icon_resting = "slugcat_monk_rest"
 	is_pacifist = TRUE
-	gold_core_spawnable = FRIENDLY_SPAWN
 	health = 80
 	maxHealth = 80
 
@@ -68,7 +61,6 @@
 	icon_living = "slugcat_hunter"
 	icon_dead = "slugcat_hunter_dead"
 	icon_resting = "slugcat_hunter_rest"
-	is_pacifist = FALSE
 	is_reduce_damage = FALSE
 	faction = list("slime","neutral","hostile")
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -82,12 +74,10 @@
 	icon_living = "slugcat_gold"
 	icon_dead = "slugcat_gold_dead"
 	icon_resting = "slugcat_gold_rest"
-	is_pacifist = FALSE
 	is_reduce_damage = FALSE
 	gold_core_spawnable = NO_SPAWN
 	health = 300
 	maxHealth = 300
-
 
 /mob/living/simple_animal/pet/slugcat/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -106,7 +96,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /mob/living/simple_animal/pet/slugcat/death(gibbed)
 	drop_hat()
@@ -140,19 +129,16 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-
 /mob/living/simple_animal/pet/slugcat/on_lying_down(new_lying_angle)
 	if(inventory_head)
 		hat_offset_y = hat_offset_y_rest
 	drop_hand()
 	. = ..()
 
-
 /mob/living/simple_animal/pet/slugcat/on_standing_up()
 	if(inventory_head)
 		hat_offset_y = initial(hat_offset_y)
 	. = ..()
-
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
 	icon_living = "[icon_living]_spear"
@@ -185,7 +171,6 @@
 		slugI.pixel_y = hat_offset_y
 		//slugI.transform = matrix(1, 0, 1, 0, 1, 0)
 		return slugI
-
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(stat != CONSCIOUS)
@@ -227,7 +212,6 @@
 	regenerate_icons()
 	return TRUE
 
-
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
@@ -259,7 +243,6 @@
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
-
 
 /mob/living/simple_animal/pet/slugcat/proc/place_to_hand(obj/item/item_to_add, mob/user)
 	if(stat != CONSCIOUS)
@@ -306,13 +289,11 @@
 	move_item_to_hand(item_to_add)
 	return TRUE
 
-
 /mob/living/simple_animal/pet/slugcat/proc/move_item_to_hand(obj/item/item_to_add)
 	if(item_to_add.loc != src)
 		item_to_add.forceMove(src)
 	inventory_hand = item_to_add
 	speared()
-
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)
@@ -330,12 +311,10 @@
 
 	return TRUE
 
-
 /mob/living/simple_animal/pet/slugcat/proc/drop_hand()
 	if(inventory_hand)
 		drop_item_ground(inventory_hand)
 		null_hand()
-
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hand()
 	unspeared()

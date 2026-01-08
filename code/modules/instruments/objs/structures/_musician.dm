@@ -37,11 +37,11 @@
 	return TRUE
 
 /**
-  * Whether the instrument should stop playing
-  *
-  * Arguments:
-  * * user - The user
-  */
+ * Whether the instrument should stop playing
+ *
+ * Arguments:
+ * * user - The user
+ */
 /obj/structure/musician/proc/should_stop_playing(mob/user)
 	if(!(anchored || can_play_unanchored))
 		return TRUE

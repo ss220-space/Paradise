@@ -3,9 +3,7 @@
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
 	button_icon_state = "absorb_dna"
 	power_type = CHANGELING_INNATE_POWER
-	chemical_cost = 0
 	req_human = TRUE
-
 
 /datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user, ignore_absorbing = FALSE)
 	if(!..())
@@ -24,7 +22,6 @@
 		return FALSE
 
 	return cling.can_absorb_dna(user.pulling)
-
 
 /datum/action/changeling/absorbDNA/sting_action(mob/user)
 	var/mob/living/carbon/human/target = user.pulling
@@ -99,7 +96,6 @@
 	target.death(FALSE)
 	target.Drain()
 	return TRUE
-
 
 #undef LING_ABSORB_RECENT_SPEECH
 

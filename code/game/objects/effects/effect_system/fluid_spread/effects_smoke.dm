@@ -12,8 +12,6 @@
 	opacity = TRUE
 	plane = ABOVE_GAME_PLANE
 	layer = FLY_LAYER
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = FALSE
 	/// How long the smoke sticks around before it dissipates.
 	var/lifetime = 5 SMOKE_TICK_TO_SECONDS
@@ -34,7 +32,6 @@
 	if(spread_bucket)
 		SSsmoke.cancel_spread(src)
 	return ..()
-
 
 /**
  * Makes the smoke fade out and then deletes it.
@@ -71,7 +68,6 @@
 		set_opacity(FALSE)
 	animate(src, time = frames, alpha = 0)
 
-
 /obj/effect/particle_effect/fluid/smoke/spread(seconds_per_tick = 0.1 SECONDS)
 	if(!group || group.total_size > group.target_size)
 		return
@@ -94,7 +90,6 @@
 
 		// the smoke spreads rapidly, but not instantly
 		SSfoam.queue_spread(spread_smoke)
-
 
 /obj/effect/particle_effect/fluid/smoke/process(seconds_per_tick)
 	lifetime -= seconds_per_tick SECONDS
@@ -267,7 +262,6 @@
 	name = "red smoke"
 	color = "#af0033"
 
-
 /obj/effect/particle_effect/fluid/smoke/bad/hell
 	name = "red smoke"
 	color = BLOOD_COLOR_RED
@@ -332,18 +326,9 @@
 	if(!istype(chilly))
 		return
 
-	if(chilly.air)
-		var/datum/gas_mixture/air = chilly.air
-		if(!distcheck || get_dist(location, chilly) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-			air.temperature = temperature
-
-		if(air.toxins)
-			air.nitrogen += air.toxins
-			air.toxins = 0
-
-		for(var/obj/effect/hotspot/fire in chilly)
-			qdel(fire)
-		chilly.air_update_turf(FALSE, FALSE)
+	if(!chilly.blocks_air)
+		var/datum/milla_safe/smoke_spread_chill/milla = new()
+		milla.invoke_async(src, chilly)
 
 	if(weldvents)
 		for(var/obj/machinery/atmospherics/unary/comp in chilly)
@@ -357,6 +342,25 @@
 		potential_tinder.ExtinguishMob()
 	for(var/obj/item/potential_tinder in chilly)
 		potential_tinder.extinguish()
+
+/datum/milla_safe/smoke_spread_chill
+
+/datum/milla_safe/smoke_spread_chill/on_run(datum/effect_system/fluid_spread/smoke/freezing/smoke, turf/turf)
+	var/datum/gas_mixture/env = get_turf_air(turf)
+	if(env.fuel_burnt() == 0)
+		return
+
+	if(!smoke.distcheck || get_dist(turf, smoke) < smoke.blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+		env.set_temperature(env.temperature())
+
+	var/toxins = env.toxins()
+
+	if(toxins)
+		env.set_nitrogen(env.nitrogen() + toxins)
+		env.set_toxins(0)
+
+	for(var/obj/effect/hotspot/fake/fire in turf)
+		qdel(fire)
 
 /datum/effect_system/fluid_spread/smoke/freezing/set_up(range = 5, amount = DIAMOND_AREA(range), atom/holder, atom/location, blast_radius = 0)
 	. = ..()
@@ -373,7 +377,6 @@
 	temperature = T20C
 	distcheck = FALSE
 	weldvents = FALSE
-
 
 /////////////////////////////////////////////
 // Sleep smoke
@@ -394,7 +397,6 @@
 /datum/effect_system/fluid_spread/smoke/sleeping
 	effect_type = /obj/effect/particle_effect/fluid/smoke/sleeping
 
-
 /////////////////////////////////////////////
 // Vomiting smoke
 /////////////////////////////////////////////
@@ -410,7 +412,6 @@
 	victim.drop_from_active_hand()
 	victim.vomit()
 	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
-
 
 /datum/effect_system/fluid_spread/smoke/vomiting
 	effect_type = /obj/effect/particle_effect/fluid/smoke/vomiting
@@ -468,7 +469,6 @@
 	smoke.set_up(amount = amount, holder = holder, location = location, carry = smoke_reagents, silent = TRUE)
 	smoke.start(log = log)
 
-
 /// A factory which produces clouds of chemical bearing smoke.
 /datum/effect_system/fluid_spread/smoke/chem
 	/// Evil evil hack so we have something to "hold" our reagents
@@ -482,7 +482,6 @@
 /datum/effect_system/fluid_spread/smoke/chem/Destroy()
 	QDEL_NULL(chemholder)
 	return ..()
-
 
 /datum/effect_system/fluid_spread/smoke/chem/set_up(range = 1, amount = DIAMOND_AREA(range), atom/holder, atom/location = null, datum/reagents/carry = null, silent = FALSE)
 	. = ..()
@@ -535,6 +534,8 @@
 /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor
 	lifetime = 2 SECONDS
 
+#define REAGENT_EVAPORATION(amount) (round(amount * REAGENT_EVAPARATION_RATIO, 0.1))
+
 /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor/smoke_mob(mob/living/carbon/smoker, seconds_per_tick)
 	if(!istype(smoker))
 		return FALSE
@@ -547,5 +548,9 @@
 	reagents.copy_to(smoker, REAGENT_EVAPORATION(reagents.total_volume))
 	return TRUE
 
+#undef REAGENT_EVAPORATION
+
 /datum/effect_system/fluid_spread/smoke/chem/quick/vapor
 	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor
+
+#undef SMOKE_TICK_TO_SECONDS

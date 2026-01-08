@@ -37,8 +37,9 @@
 	if(!hidden)
 		name = initial(name)
 		return
-	name = choosable_items[hidden_type]::name
 
+	var/atom/selected_type = choosable_items[hidden_type]
+	name = initial(selected_type.name)
 
 /obj/structure/clockwork/functional/update_desc(updates = ALL)
 	. = ..()
@@ -57,17 +58,18 @@
 		if("broken grille")
 			desc = "A flimsy framework of metal rods. <br>[span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")]"
 		else
-			desc = choosable_items[hidden_type]::desc
-
+			var/atom/selected_type = choosable_items[hidden_type]
+			desc = initial(selected_type.desc)
 
 /obj/structure/clockwork/functional/update_icon_state()
 	if(!hidden)
 		icon = initial(icon)
 		icon_state = anchored ? "[initial(icon_state)]-off" : initial(icon_state)
 		return
-	icon = choosable_items[hidden_type]::icon
-	icon_state = choosable_items[hidden_type]::icon_state
 
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
+	icon_state = initial(selected_type.icon_state)
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
@@ -100,7 +102,6 @@
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/clockwork/functional/obj_destruction()
 	visible_message(death_message)
@@ -179,7 +180,6 @@
 			if(ishuman(L) && !HAS_TRAIT(L, TRAIT_NO_BLOOD_RESTORE) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 				L.AdjustBlood(1)
 
-
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)
@@ -235,7 +235,6 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-
 /obj/structure/clockwork/functional/altar/update_icon_state()
 	if(!hidden)
 		icon = initial(icon)
@@ -244,12 +243,13 @@
 			return
 		icon_state = first_stage ? "[initial(icon_state)]-fast" : initial(icon_state)
 		return
-	icon = choosable_items[hidden_type]::icon
-	if(hidden_type == "potted plant")
-		icon_state = "plant-[rand(1,36)]"
-	else
-		icon_state = choosable_items[hidden_type]::icon_state
 
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
+	if(hidden_type == "potted plant")
+		icon_state = "plant-[rand(1, 36)]"
+	else
+		icon_state = initial(selected_type.icon_state)
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
@@ -300,7 +300,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/structure/clockwork/functional/altar/process()
 	for(var/mob/living/M in range(1, src))
 		if(isclocker(M) && M.stat == CONSCIOUS)
@@ -337,14 +336,14 @@
 	else if(first_stage)
 		stop_convert()
 
-/obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/first_stage_check(mob/living/carbon/human/target)
 	first_stage = TRUE
 	target.visible_message(span_warning("[src] begins to glow a piercing amber!"), span_clock("You feel something start to invade your mind..."))
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/second_stage_check(mob/living/carbon/human/target)
 	second_stage = TRUE
 	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or mindless monkey. or dead guy
 		target.visible_message(span_warning("[src] in glowing manner starts corrupting [target]!"), \
@@ -361,7 +360,7 @@
 		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
 
-/obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)
+/obj/structure/clockwork/functional/altar/proc/stop_convert(silent = FALSE)
 	QDEL_NULL(glow)
 	first_stage = FALSE
 	second_stage = FALSE
@@ -370,7 +369,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	if(!silent)
 		visible_message(span_warning("[src] slowly stops glowing!"))
-
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/shard))
@@ -386,28 +384,32 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/cult_summon.ogg'
-		)
+		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар. Служба безопасности получает право свободно применять летальную силу для уничтожения угрозы. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+			ANNOUNCE_CCPARANORMAL_RU,
+			'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
-		begin_the_ritual()
+		begin_the_ritual(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
+/obj/structure/clockwork/functional/altar/proc/check_pos()
+	for(var/turf/check_turf in range(1, src))
+		if(iswallturf(check_turf))
+			return FALSE
+	return TRUE
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
 
-	if(GLOB.ark_of_the_clockwork_justiciar)
-		to_chat(user, span_clockitalic("There is already Gateway somewhere!"))
+	if(GLOB.heart)
+		balloon_alert(user, "сердце уже призвано!")
 		return FALSE
 
-	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
+	if(gamemode.clocker_objs.clock_status < RATVAR_NEED_HEART)
 		to_chat(user, span_clockitalic("<b>Ratvar</b> is not ready to be summoned yet!"))
 		return FALSE
-	if(gamemode.clocker_objs.clock_status == RATVAR_HAS_RISEN)
+	if(gamemode.clocker_objs.clock_status > RATVAR_NEED_HEART)
 		to_chat(user, span_clockitalic("\"My fellow. There is no need for it anymore.\""))
 		return FALSE
 
@@ -415,17 +417,22 @@
 	if(!(A in summon_areas))
 		to_chat(user, span_cultlarge("Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!"))
 		return FALSE
-	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
-	"The power comes...", list("Let Ratvar shine ones more!", "No"))
+	if(!(check_pos()))
+		balloon_alert(user, "недостаточно места!")
+		return FALSE
+	var/confirm_final = tgui_alert(user, "Совершив это действие, вы пробудите Сердце Ратвара. Перенос его станет невозможен. Еретики узнают о ритуале и его местоположении. Вы уверены, что хотите продолжить?",
+	"Финал грядет...", list("Да воссияет же Ратвар!", "Нет"))
 	if(user)
-		if(confirm_final != "Let Ratvar shine ones more!")
+		if(confirm_final != "Да воссияет же Ратвар!")
 			to_chat(user, span_clockitalic("<b>You decide to prepare further before pincing the shard.</b>"))
 			return FALSE
 		return TRUE
 
-/obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
-	visible_message(span_danger("The [src] expands itself revealing into the great Ark!"))
-	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+/obj/structure/clockwork/functional/altar/proc/begin_the_ritual(mob/user)
+	visible_message(span_danger("На месте [declent_ru(GENITIVE)] появляется огромное сердце!"))
+	new /obj/structure/clockwork/functional/heart(get_turf(src))
+	var/clockpointer = new /obj/item/pinpointer/clock(get_turf(user))
+	user.put_in_hands(clockpointer)
 	qdel(src)
 	return
 
@@ -442,8 +449,7 @@
 /obj/structure/clockwork/functional/cogscarab_fabricator/examine(mob/user)
 	. = ..()
 	if(!hidden && (isclocker(user) || isobserver(user)))
-		. += span_notice("There's [cog_slots - cogscarab_list.len] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."].")
-
+		. += span_notice("There's [cog_slots - length(cogscarab_list)] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."].")
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
 	. = ..()
@@ -468,7 +474,6 @@
 	cog_slots -= 1
 	if(!timer_fabrictor)
 		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
@@ -495,7 +500,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
 	. = ..()
 	if(. && timer_fabrictor) // hidden
@@ -512,15 +516,15 @@
 	if(!anchored)
 		to_chat(user, span_warning("It seems to be non-functional to produce a new shell!"))
 		return FALSE
-	if(cogscarab_list.len >= cog_slots)
+	if(length(cogscarab_list) >= cog_slots)
 		to_chat(user, span_notice("There's no empty shells to take!"))
 		return FALSE
 	if(alert(user, "Do you wish to become cogscarab?",,"Yes","No") == "Yes")
-		if(cogscarab_list.len >= cog_slots) //Double check. No duplications
+		if(length(cogscarab_list) >= cog_slots) //Double check. No duplications
 			to_chat(user, span_notice("There's no empty shells to take!"))
 			return FALSE
 		var/mob/living/silicon/robot/cogscarab/cog = new(loc)
-		cog.key = user.key
+		cog.possess_by_player(user.key)
 		if(SSticker.mode.add_clocker(cog.mind))
 			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone")
 		cog.fabr = src

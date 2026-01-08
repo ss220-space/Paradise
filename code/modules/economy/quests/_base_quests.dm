@@ -25,9 +25,9 @@
 	/// Reward for quest.
 	var/reward
 	/// Name of the person who accepted the order.
-	var/idname = "*None Provided*"
+	var/idname = "*Не указано*"
 	/// Name of the person who accepted the order.
-	var/idrank = "*None Provided*"
+	var/idrank = "*Не указано*"
 	///	If TRUE we can reroll this quest.
 	var/can_reroll = TRUE
 	/// Date when the order was accepted
@@ -66,7 +66,6 @@
 	if(length(customer.can_order))
 		quest_type = pick(customer.can_order)
 
-
 	if(!quest_type)
 		var/list/possible_types = list()
 		if((num_station_players() < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
@@ -90,16 +89,15 @@
 
 	return new quest_type(src)
 
-
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
 		return
 	add_time()
-	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
+	if(world.time - time_start - 0.4 * quest_time + 300 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
-/datum/cargo_quests_storage/proc/add_time(time = 3 MINUTES)
+/datum/cargo_quests_storage/proc/add_time(time = 5 MINUTES)
 	var/timeleft = time_start + quest_time - world.time
 	deltimer(quest_check_timer)
 	quest_time += time
@@ -145,7 +143,7 @@
 
 /datum/cargo_quest
 	/// Quest name, using in interface.
-	var/quest_type_name = "generic"
+	var/quest_type_name = "шаблонное название"
 	/// Link to the storage.
 	var/datum/cargo_quests_storage/q_storage
 	/// Quest desc, using in interface.
@@ -158,11 +156,12 @@
 	var/list/req_items = list()
 	///possible difficultly
 	var/difficultly_flags
-
-
-	var/cargo_quest_reward = 0			//The reward for the quest, consider the debut of the roflcat
-	var/list/bounty_jobs = list()		//Positions that will be paid. (Noooo I won't do part of this in new)
-	var/linked_departament = "Cargo"	//The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
+	/// The reward for the quest, consider the debut of the roflcat
+	var/cargo_quest_reward = 0
+	/// Positions that will be paid. (Noooo I won't do part of this in new)
+	var/list/bounty_jobs = list()
+	/// The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
+	var/linked_departament = STATION_DEPARTMENT_SUPPLY
 
 /datum/cargo_quest/New(storage, read_datum = FALSE)
 	if(!read_datum)

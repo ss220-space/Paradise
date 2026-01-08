@@ -1,9 +1,7 @@
 /datum/objective/devil
 
 /datum/objective/devil/sacrifice
-	needs_target = TRUE
 	antag_menu_name = "Завладеть душой"
-	check_cryo = TRUE
 	explanation_text = "Ошибка. Цель не сгенерирована"
 
 /datum/objective/devil/sacrifice/proc/forge()
@@ -62,7 +60,6 @@
 /datum/objective/devil/sacrifice/proc/on_devil_sacrifice_check()
 	SIGNAL_HANDLER
 	return COMPONENT_SACRIFICE_VALID
-
 
 /datum/objective/devil/sacrifice/proc/on_devil_sacrifice()
 	SIGNAL_HANDLER

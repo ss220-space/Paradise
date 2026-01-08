@@ -70,7 +70,6 @@
 	data["offsetY"] = offset_y
 	data["tabIndex"] = tab_index
 
-
 	var/datum/station_goal/station_shield/goal = locate() in SSticker.mode?.station_goals
 	if(goal)
 		data["coverage"] = goal.last_coverage

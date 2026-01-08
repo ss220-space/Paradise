@@ -26,7 +26,6 @@
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
-	viewalerts = FALSE
 	modules_break = FALSE
 
 	req_access = list(ACCESS_CENT_COMMANDER) //I dare you to try
@@ -53,6 +52,16 @@
 	var/warn_wind_up = WINDUP_STATE_NONE
 	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+	)
+
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
+
 /mob/living/silicon/robot/cogscarab/Initialize(mapload)
 	. = ..()
 	remove_language(LANGUAGE_BINARY)
@@ -73,7 +82,6 @@
 		SSticker.mode.add_clocker(mind)
 
 	update_icons()
-
 
 /mob/living/silicon/robot/drone/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)
@@ -110,7 +118,6 @@
 			to_chat(src, span_warning("You feel how your cogs inside slowing down! You need to find beacon to rewind yourself!"))
 			warn_wind_up = WINDUP_STATE_WARNING
 
-
 	if(wind_up_timer <= 0)
 		if(wind_up_timer < 0)
 			wind_up_timer = 0
@@ -122,7 +129,6 @@
 		wind_up_timer -= seconds
 	hud_used?.wind_up_timer?.icon_state = "windup_display-[6-(round(wind_up_timer, wind_up_icon_segment) / wind_up_icon_segment)]"
 	//rounds to 30 and divides by 30. if timer full, 6 - 5, state 1. from 1 to 6.
-
 
 /mob/living/silicon/robot/cogscarab/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -146,12 +152,10 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-
 /mob/living/silicon/robot/cogscarab/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade))
 		return ATTACK_CHAIN_BLOCKED
 	return ..()
-
 
 /mob/living/silicon/robot/cogscarab/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -172,7 +176,7 @@
 	H.attack_hand(grabber)
 
 	to_chat(grabber, span_notice("Вы подняли [src.name]."))
-	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
+	to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	return H
@@ -197,13 +201,11 @@
 /mob/living/silicon/robot/cogscarab/allowed(obj/item/I) //No opening cover
 	return FALSE
 
-
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given", should_log = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	set_health(maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0)))
 	update_stat("updatehealth([reason])", should_log)
-
 
 /mob/living/silicon/robot/cogscarab/update_stat(reason = "none given", should_log = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -214,7 +216,6 @@
 		log_debug("died of damage, trigger reason: [reason]")
 		return
 	return ..()
-
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)
 	. = ..(gibbed)
@@ -243,7 +244,6 @@
 		to_chat(src, span_warning("You are too small to pull that."))
 	return FALSE
 
-
 /mob/living/silicon/robot/cogscarab/add_robot_verbs()
 	add_verb(src, silicon_subsystems)
 
@@ -267,7 +267,6 @@
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
-
 /mob/living/silicon/robot/cogscarab/get_access()
 	return list() //none cause from gears.
 
@@ -280,7 +279,7 @@
 /mob/living/silicon/robot/cogscarab/verb/light()
 	set name = "Освещение"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = STATPANEL_COGSCARAB
+	set category = VERB_CATEGORY_COGSCARAB
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp

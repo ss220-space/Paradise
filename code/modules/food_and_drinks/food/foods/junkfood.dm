@@ -41,9 +41,9 @@
 	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/no_raisin
-	name = "4no Raisins"
-	icon_state = "4no_raisins"
-	desc = "Best raisins in the universe. Not sure why."
+	name = "raisins 1984"
+	icon_state = "1984_raisins"
+	desc = "Пачка сухого изюма производства \"DonkCo\". Слоган на упаковке гласит: \"Вы любите этот вкус. Вы всегда любили его. Даже не пытайтесь думать иначе\"."
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
 	junkiness = 25
@@ -51,6 +51,16 @@
 	list_reagents = list("plantmatter" = 2, "sugar" = 2)
 	tastes = list("dried raisins" = 1)
 	foodtype = JUNKFOOD | FRUIT
+
+/obj/item/reagent_containers/food/snacks/no_raisin/get_ru_names()
+	return list(
+		NOMINATIVE = "изюм \"1984\"",
+		GENITIVE = "изюма \"1984\"",
+		DATIVE = "изюму \"1984\"",
+		ACCUSATIVE = "изюм \"1984\"",
+		INSTRUMENTAL = "изюмом \"1984\"",
+		PREPOSITIONAL = "изюме \"1984\""
+	)
 
 /obj/item/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
@@ -140,77 +150,3 @@
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)
 	junkiness = 0
 	foodtype = FRUIT
-
-//////////////////////
-//		Other		//
-//////////////////////
-
-/obj/item/reagent_containers/food/snacks/proteinbar_banana
-	name = "протеиновый батончик \"Банановый рай\""
-	desc = "Специализированный пищевой продукт с высоким содержанием белка. \
-			Разработан филиалом Donk Co расположенным на планете клоунов."
-	w_class = WEIGHT_CLASS_SMALL
-	icon_state = "proteinbar_bananza"
-	filling_color = "#d1a62f"
-	junkiness = 5
-	list_reagents = list("protein" = 10, "banana" = 5, "sugar" = 3)
-	tastes = list("банана" = 1, "удовольствия" = 1)
-	foodtype = JUNKFOOD
-	opened = FALSE
-
-/obj/item/reagent_containers/food/snacks/proteinbar_banana/get_ru_names()
-	return list(
-		NOMINATIVE = "протеиновый батончик \"Банановый рай\"",
-		GENITIVE = "протеинового батончика \"Банановый рай\"",
-		DATIVE = "протеиновому батончику \"Банановый рай\"",
-		ACCUSATIVE = "протеиновый батончик \"Банановый рай\"",
-		INSTRUMENTAL = "протеиновым батончиком \"Банановый рай\"",
-		PREPOSITIONAL = "протеиновом батончике \"Банановый рай\"",
-	)
-
-/obj/item/reagent_containers/food/snacks/proteinbar_cherry
-	name = "протеиновый батончик \"Вишнёвая слаймодевочка\""
-	desc = "Специализированный пищевой продукт с высоким содержанием белка. \
-			Долгое время существовал миф, будто в его состав входит слизь одной известной слаймолюдки."
-	w_class = WEIGHT_CLASS_SMALL
-	icon_state = "proteinbar_cherry"
-	filling_color = "#d1a62f"
-	junkiness = 5
-	list_reagents = list("protein" = 10, "cherryjelly" = 5, "sugar" = 3, "slimejelly" = 1)
-	tastes = list("вишни" = 1, "удовольствия" = 1)
-	foodtype = JUNKFOOD
-	opened = FALSE
-
-/obj/item/reagent_containers/food/snacks/proteinbar_cherry/get_ru_names()
-	return list(
-		NOMINATIVE = "протеиновый батончик \"Вишнёвая слаймодевочка\"",
-		GENITIVE = "протеинового батончика \"Вишнёвая слаймодевочка\"",
-		DATIVE = "протеиновому батончику \"Вишнёвая слаймодевочка\"",
-		ACCUSATIVE = "протеиновый батончик \"Вишнёвая слаймодевочка\"",
-		INSTRUMENTAL = "протеиновым батончиком \"Вишнёвая слаймодевочка\"",
-		PREPOSITIONAL = "протеиновом батончике \"Вишнёвая слаймодевочка\"",
-	)
-
-
-/obj/item/reagent_containers/food/snacks/proteinbar_beef
-	name = "протеиновый батончик \"Наследие Бурёнки\""
-	desc = "Специализированный пищевой продукт с высоким содержанием белка. \
-			Во время производства ни одна корова не пострадала."
-	w_class = WEIGHT_CLASS_SMALL
-	icon_state = "proteinbar_beef"
-	filling_color = "#d1a62f"
-	junkiness = 5
-	list_reagents = list("protein" = 12)
-	tastes = list("говядины" = 1, "удовольствия" = 1)
-	foodtype = JUNKFOOD
-	opened = FALSE
-
-/obj/item/reagent_containers/food/snacks/proteinbar_beef/get_ru_names()
-	return list(
-		NOMINATIVE = "протеиновый батончик \"Наследие Бурёнки\"",
-		GENITIVE = "протеинового батончика \"Наследие Бурёнки\"",
-		DATIVE = "протеиновому батончику \"Наследие Бурёнки\"",
-		ACCUSATIVE = "протеиновый батончик \"Наследие Бурёнки\"",
-		INSTRUMENTAL = "протеиновым батончиком \"Наследие Бурёнки\"",
-		PREPOSITIONAL = "протеиновом батончике \"Наследие Бурёнки\"",
-	)

@@ -38,7 +38,7 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 		"asays", "admin_log", "logging", "open_logging_views"
 	)
 
-	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 
 	if(gvars_datum_protected_varlist[var_name])
@@ -60,10 +60,10 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 	gvars_datum_init_order = list()
 	gvars_datum_protected_varlist = list("gvars_datum_protected_varlist" = TRUE)
 	var/list/global_procs = typesof(/datum/controller/global_vars/proc)
-	var/expected_len = vars.len - gvars_datum_in_built_vars.len
-	if(global_procs.len != expected_len)
-		warning("Unable to detect all global initialization procs! Expected [expected_len] got [global_procs.len]!")
-		if(global_procs.len)
+	var/expected_len = length(vars) - gvars_datum_in_built_vars.len
+	if(length(global_procs) != expected_len)
+		warning("Unable to detect all global initialization procs! Expected [expected_len] got [length(global_procs)]!")
+		if(length(global_procs))
 			var/list/expected_global_procs = vars - gvars_datum_in_built_vars
 			for(var/I in global_procs)
 				expected_global_procs -= replacetext("[I]", "InitGlobal", "")

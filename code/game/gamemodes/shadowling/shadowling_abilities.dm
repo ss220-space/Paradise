@@ -1,6 +1,5 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
-
 /obj/effect/proc_holder/spell/proc/shadowling_check(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
@@ -22,7 +21,6 @@
 
 	return FALSE
 
-
 /**
  * Stuns and mutes a human target, depending on the distance relative to the shadowling.
  */
@@ -39,7 +37,6 @@
 	selection_deactivated_message	= span_notice("Ваши глаза расслабляются... пока что.")
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/shadowling_glare/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.random_target = TRUE
@@ -48,16 +45,13 @@
 	T.range = 10
 	return T
 
-
 /obj/effect/proc_holder/spell/shadowling_glare/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
-
 /obj/effect/proc_holder/spell/shadowling_glare/valid_target(mob/living/carbon/human/target, user)
 	return !target.stat && !is_shadow_or_thrall(target)
-
 
 /obj/effect/proc_holder/spell/shadowling_glare/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
@@ -65,7 +59,7 @@
 	user.visible_message(span_warning("<b>Глаза [user] вспыхивают ослепительно красным светом!</b>"))
 	var/distance = get_dist(target, user)
 	if(distance <= 2)
-		target.visible_message(span_danger("[target] застывает на месте, [genderize_ru(target.gender,"его","её","его","их")] глаза стекленеют..."), \
+		target.visible_message(span_danger("[target] застывает на месте, [GEND_HIS_HER(target)] глаза стекленеют..."), \
 								span_userdanger("Ваш взгляд насильно притягивается к глазам [user], и вы пленяетесь их неописуемой красотой..."))
 
 		target.Weaken(4 SECONDS)
@@ -78,8 +72,7 @@
 		target.Slowed(10 SECONDS)
 		target.AdjustSilence(10 SECONDS)
 		to_chat(target, span_userdanger("Красный свет вспыхивает перед глазами, и разум пытается противостоять ему... Вы обессилены... Вы не в состоянии говорить..."))
-		target.visible_message(span_danger("[target] застывает на месте, [genderize_ru(target.gender,"его","её","его","их")] глаза стекленеют..."))
-
+		target.visible_message(span_danger("[target] застывает на месте, [GEND_HIS_HER(target)] глаза стекленеют..."))
 
 /obj/effect/proc_holder/spell/aoe/shadowling_veil
 	name = "Veil"
@@ -90,18 +83,15 @@
 	action_icon_state = "veil"
 	aoe_range = 5
 
-
 /obj/effect/proc_holder/spell/aoe/shadowling_veil/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.range = aoe_range
 	return T
 
-
 /obj/effect/proc_holder/spell/aoe/shadowling_veil/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
-
 
 /obj/effect/proc_holder/spell/aoe/shadowling_veil/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -116,7 +106,6 @@
 				continue
 			atom.extinguish_light()
 
-
 /obj/effect/proc_holder/spell/shadowling_shadow_walk
 	name = "Shadow Walk"
 	desc = "На короткое время переносит вас в пространство между мирами, позволяя проходить сквозь стены и делая невидимым."
@@ -125,10 +114,8 @@
 	phase_allowed = TRUE
 	action_icon_state = "shadow_walk"
 
-
 /obj/effect/proc_holder/spell/shadowling_shadow_walk/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk/cast(list/targets, mob/living/user = usr)
 	if(!shadowling_check(user))
@@ -161,7 +148,6 @@
 	user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
 	user.forceMove(get_turf(user))
 
-
 /obj/effect/proc_holder/spell/shadowling_guise
 	name = "Guise"
 	desc = "Окутывает твой силует тенями, делая тебя менее заметным."
@@ -170,23 +156,19 @@
 	action_icon_state = "shadow_walk"
 	var/conseal_time = 4 SECONDS
 
-
 /obj/effect/proc_holder/spell/shadowling_guise/Destroy()
 	if(action?.owner)
 		reveal(action.owner)
 	return ..()
 
-
 /obj/effect/proc_holder/spell/shadowling_guise/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/shadowling_guise/cast(list/targets, mob/living/user = usr)
 	user.visible_message(span_warning("[user] внезапно исчезает!"), \
 						span_shadowling("Вы окутываете себя тьмой, и вас становится трудно разглядеть."))
 	user.alpha_set(standartize_alpha(10), ALPHA_SOURCE_SHADOW_THRALL)
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
-
 
 /obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/living/user)
 	if(QDELETED(user))
@@ -196,7 +178,6 @@
 	user.visible_message(span_warning("[user] появляется из ниоткуда!"), \
 						span_shadowling("Ваша теневая маскировка исчезает."))
 
-
 /obj/effect/proc_holder/spell/shadowling_vision
 	name = "Shadowling Darksight"
 	desc = "Дарует вам ночное зрение."
@@ -204,15 +185,12 @@
 	clothes_req = FALSE
 	action_icon_state = "darksight"
 
-
 /obj/effect/proc_holder/spell/shadowling_vision/Destroy()
 	action?.owner?.set_vision_override(null)
 	return ..()
 
-
 /obj/effect/proc_holder/spell/shadowling_vision/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/shadowling_vision/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!istype(user))
@@ -225,11 +203,9 @@
 		to_chat(user, span_notice("Вы возвращаете нормальное зрение."))
 		user.set_vision_override(null)
 
-
 /obj/effect/proc_holder/spell/shadowling_vision/thrall
 	desc = "Thrall Darksight"
 	desc = "Дарует вам возможность видеть в темноте."
-
 
 /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins
 	name = "Icy Veins"
@@ -239,19 +215,16 @@
 	action_icon_state = "icy_veins"
 	aoe_range = 5
 
-
 /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.range = aoe_range
 	T.allowed_type = /mob/living
 	return T
 
-
 /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
-
 
 /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -274,7 +247,6 @@
 			if(target.reagents)
 				target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
 
-
 /obj/effect/proc_holder/spell/shadowling_enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
 	name = "Enthrall"
 	desc = "Порабощает сознание гуманойдов вашей воле, они должны быть живыми и активными. Это занимает некоторое время."
@@ -286,27 +258,23 @@
 	need_active_overlay = TRUE
 	var/enthralling = FALSE
 
-
 /obj/effect/proc_holder/spell/shadowling_enthrall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.range = 1
 	T.click_radius = -1
 	return T
 
-
 /obj/effect/proc_holder/spell/shadowling_enthrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(enthralling || user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
-
 /obj/effect/proc_holder/spell/shadowling_enthrall/valid_target(mob/living/carbon/human/target, user)
 	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client
 
-
 /obj/effect/proc_holder/spell/shadowling_enthrall/cast(list/targets, mob/user = usr)
 
-	listclearnulls(SSticker.mode.shadowling_thralls)
+	list_clear_nulls(SSticker.mode.shadowling_thralls)
 	if(!is_shadow(user))
 		return
 
@@ -317,13 +285,13 @@
 
 	enthralling = TRUE
 	to_chat(user, span_danger("Эта цель верна. Вы начинаете процесс подчинения."))
-	to_chat(target, span_userdanger("[user] смотр[pluralize_ru(user.gender,"ит","ят")] на вас. Вы чувствуете, что ваша голова начинает пульсировать."))
+	to_chat(target, span_userdanger("[user] смотр[PLUR_IT_YAT(user)] на вас. Вы чувствуете, что ваша голова начинает пульсировать."))
 
 	for(var/progress = 0, progress <= 3, progress++)
 		switch(progress)
 			if(1)
 				to_chat(user, span_notice("Вы прикладываете ладони к голове [target]..."))
-				user.visible_message(span_warning("[user] прикладыва[pluralize_ru(user.gender,"ет","ют")] свои ладони к голове [target]"))
+				user.visible_message(span_warning("[user] прикладыва[PLUR_ET_YUT(user)] свои ладони к голове [target]"))
 			if(2)
 				to_chat(user, span_notice("Вы начинаете обрабатывать разум [target] до состояния чистого листа..."))
 				user.visible_message(span_warning("Ладони [user] вспыхивают ярко-красным светом на висках [target]!"))
@@ -345,12 +313,11 @@
 
 	enthralling = FALSE
 	to_chat(user, span_shadowling("Вы подчинили себе <b>[target]</b>!"))
-	target.visible_message(span_big("[target], похоже, испытал[genderize_ru(target.gender,"","а","о","и")] откровение!"), \
+	target.visible_message(span_big("[target], похоже, испытал[GEND_A_O_I(target)] откровение!"), \
 							span_warning("Фальшивые лица все <b>ТЁМНЫЕ не настоящие, не настоящие, не настоящие</b>!!!"))
 	target.setOxyLoss(0) //In case the shadowling was choking them out
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
-
 
 /**
  * Resets a shadowling's species to normal, removes genetic defects, and re-equips their armor.
@@ -366,10 +333,8 @@
 	var/null_charge_acquired
 	var/revive_thrall_acquired
 
-
 /obj/effect/proc_holder/spell/shadowling_regen_armor/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/shadowling_regen_armor/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!is_shadow(user))
@@ -380,8 +345,10 @@
 	if(!istype(user))
 		return
 
-	user.visible_message(span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
-					 span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов."))
+	user.visible_message(
+		span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
+		span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов.")
+	)
 	user.set_species(/datum/species/shadow/ling)
 	user.adjustCloneLoss(-(user.getCloneLoss()))
 	user.set_vision_override(/datum/vision_override/nightvision) // nighvision withot button
@@ -424,7 +391,6 @@
 			else
 				to_chat(shadowling, span_shadowling("<b>[user.real_name] объединил силу рабов ты можешь вознестись</b>")) //Tells all the other shadowlings
 
-
 /**
  * Lets a shadowling bring together their thralls' strength, granting new abilities and a headcount.
  */
@@ -439,10 +405,8 @@
 	var/revive_thrall_acquired
 	action_icon_state = "collective_mind"
 
-
 /obj/effect/proc_holder/spell/shadowling_collective_mind/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/shadowling_collective_mind/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
@@ -513,7 +477,6 @@
 			else
 				to_chat(shadowling, span_shadowling("<b>[user.real_name] has coalesced the strength of the thralls. You can draw upon it at any time to ascend. (Shadowling Evolution Tab)</b>"))//Tells all the other shadowlings
 
-
 /obj/effect/proc_holder/spell/shadowling_blindness_smoke
 	name = "Blindness Smoke"
 	desc = "Выпускает облако чёрного дыма, которое лечит рабов."
@@ -521,16 +484,13 @@
 	clothes_req = FALSE
 	action_icon_state = "black_smoke"
 
-
 /obj/effect/proc_holder/spell/shadowling_blindness_smoke/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/shadowling_blindness_smoke/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
-
 
 /obj/effect/proc_holder/spell/shadowling_blindness_smoke/cast(list/targets, mob/user = usr) //Extremely hacky
 	if(!shadowling_check(user))
@@ -546,14 +506,11 @@
 	smoke.set_up(range = 3, location = user.loc, carry = reagents_list, silent = TRUE)
 	smoke.start()
 
-
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
 	name = "Странная чёрная жидкость"
 	id = "blindness_smoke"
 	description = "ЗАПИСЬ В БАЗЕ ДАННЫХ ОТСУТСТВУЕТ"
-	color = "#000000" //Complete black (RGB: 0, 0, 0)
 	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
-
 
 /datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -561,7 +518,7 @@
 		to_chat(M, span_warning("Вы вдыхаете чёрный дым, и ваши глаза ужасно горят!"))
 		M.EyeBlind(10 SECONDS)
 		if(prob(25))
-			M.visible_message(span_warning("[M] яростно тр[pluralize_ru(M.gender, "ёт", "ут")] свои глаза!"))
+			M.visible_message(span_warning("[M] яростно тр[PLUR_YOT_UT(M)] свои глаза!"))
 			M.Stun(4 SECONDS)
 	else
 		to_chat(M, span_notice("Вы вдыхаете чёрный дым и чувствуете лёгкость!"))
@@ -570,34 +527,29 @@
 		update_flags |= M.adjustToxLoss(-10, FALSE)
 	return ..() | update_flags
 
-
 /obj/effect/proc_holder/spell/aoe/shadowling_screech
 	name = "Sonic Screech"
 	desc = "Оглушает и сбивает с толку находящихся рядом гуманойдов, а также разбивает окна."
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "screech"
-	aoe_range = 7
-
 
 /obj/effect/proc_holder/spell/aoe/shadowling_screech/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.range = aoe_range
 	return T
 
-
 /obj/effect/proc_holder/spell/aoe/shadowling_screech/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
-
 
 /obj/effect/proc_holder/spell/aoe/shadowling_screech/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
 		revert_cast(user)
 		return
 
-	user.audible_message(span_warning("<b>[user] изда[pluralize_ru(user.gender,"ет","ют")] ужасный крик!</b>"))
+	user.audible_message(span_warning("<b>[user] изда[PLUR_ET_YUT(user)] ужасный крик!</b>"))
 	playsound(user.loc, 'sound/effects/screech.ogg', 100, TRUE)
 
 	for(var/turf/turf in targets)
@@ -622,7 +574,6 @@
 		for(var/obj/structure/window/window in turf.contents)
 			window.take_damage(rand(80, 100))
 
-
 /obj/effect/proc_holder/spell/shadowling_null_charge
 	name = "Null Charge"
 	desc = "Empties an APC, preventing it from recharging until fixed."
@@ -631,7 +582,6 @@
 	action_icon_state = "null_charge"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/shadowling_null_charge/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = 0
@@ -639,12 +589,10 @@
 	T.allowed_type = /obj/machinery/power/apc
 	return T
 
-
 /obj/effect/proc_holder/spell/shadowling_null_charge/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
-
 
 /obj/effect/proc_holder/spell/shadowling_null_charge/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!shadowling_check(user))
@@ -684,7 +632,6 @@
 		target_apc.null_charge()
 		target_apc.update_icon()
 
-
 /obj/effect/proc_holder/spell/shadowling_revive_thrall
 	name = "Black Recuperation"
 	desc = "Оживляет или усиливает раба."
@@ -697,23 +644,19 @@
 	/// Whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
 	var/ignore_prer = FALSE
 
-
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = -1
 	T.range = 1
 	return T
 
-
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
-
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/valid_target(mob/living/carbon/human/target, user)
 	return is_thrall(target)
-
 
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/thrall = targets[1]
@@ -737,9 +680,9 @@
 			revert_cast(user)
 			return
 
-		user.visible_message(span_danger("[user] клад[pluralize_ru(user.gender,"ет","ут")] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
-							span_shadowling("Вы кладете ладони на лицо [thrall] и начинаете наполнять [genderize_ru(thrall.gender,"его","её","его","их")] энергией..."))
-		to_chat(thrall, span_userdanger("[user] положил[genderize_ru(user.gender,"","а","о","и")] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
+		user.visible_message(span_danger("[user] клад[PLUR_ET_UT(user)] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
+							span_shadowling("Вы кладете ладони на лицо [thrall] и начинаете наполнять [GEND_HIS_HER(thrall)] энергией..."))
+		to_chat(thrall, span_userdanger("[user] положил[GEND_A_O_I(user)] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
 		if(!do_after(user, 8 SECONDS, thrall, NONE))
 			to_chat(user, span_warning("Ваша концентрация нарушается. Поток энергии ослабевает."))
 			revert_cast(user)
@@ -755,7 +698,7 @@
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
 		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 		thrall.Weaken(10 SECONDS)
-		thrall.visible_message(span_warning("<b>[thrall] падает, [genderize_ru(thrall.gender,"его","её","его","их")] кожа лица деформируются!"), \
+		thrall.visible_message(span_warning("<b>[thrall] падает, [GEND_HIS_HER(thrall)] кожа лица деформируются!"), \
 								span_userdanger("<i>АААААААААААААААХХ</i>"))
 
 		sleep(2 SECONDS)
@@ -763,7 +706,7 @@
 			revert_cast(user)
 			return
 
-		thrall.visible_message(span_warning("[thrall] медленно поднима[pluralize_ru(thrall.gender,"ет","ют")]ся, переставая быть похожим[pluralize_ru(thrall.gender,"","и")] на гуманоида."), \
+		thrall.visible_message(span_warning("[thrall] медленно поднима[PLUR_ET_YUT(thrall)]ся, переставая быть похожим[PLUR_I(thrall)] на гуманоида."), \
 								span_shadowling("<b>Вы чувствуете, как в вас вливается новая сила. Вы получили дар от своих хозяев. Теперь вы очень похожи на них. Вы обретаете силу во тьме, но медленно увядаете при свете. Кроме того, теперь вы обладаете способностью использовать ослепляющий взгляд и ходить в тени.</b>"))
 
 		thrall.set_species(/datum/species/shadow/ling/lesser)
@@ -772,7 +715,7 @@
 		thrall.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
 
 	else if(thrall.stat == DEAD)
-		user.visible_message(span_danger("[user] опуска[pluralize_ru(user.gender,"ет","ют")]ся на колени над [thrall], кладя свои ладони на [genderize_ru(thrall.gender,"его","её","его","их")] грудь."), \
+		user.visible_message(span_danger("[user] опуска[PLUR_ET_YUT(user)]ся на колени над [thrall], кладя свои ладони на [GEND_HIS_HER(thrall)] грудь."), \
 							span_shadowling("Вы склоняетесь над телом своего раба и начинаете накапливать энергию..."))
 		thrall.notify_ghost_cloning("Ваши хозяева возрождают вас! Если вы хотите оживить свой труп, войдите в него заново.", source = thrall)
 		if(!do_after(user, 3 SECONDS, thrall, NONE))
@@ -799,14 +742,13 @@
 		thrall.update_revive()
 		thrall.Weaken(8 SECONDS)
 		thrall.emote("gasp")
-		thrall.visible_message(span_boldannounceic("[thrall] тяжело дышит, в [genderize_ru(thrall.gender,"его","её","его","их")] глазах сияет тусклый красный свет."), \
+		thrall.visible_message(span_boldannounceic("[thrall] тяжело дышит, в [GEND_HIS_HER(thrall)] глазах сияет тусклый красный свет."), \
 								span_shadowling("<b><i>Вы вернулись. Один из ваших хозяев привел вас из потусторонней тьмы.</b></i>"))
 		playsound(thrall, SFX_BODYFALL, 50, TRUE)
 
 	else
 		to_chat(user, span_warning("Цель должна быть активна, чтобы наделить ее силой, или мертва, чтобы ее оживить."))
 		revert_cast(user)
-
 
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle
 	name = "Destroy Engines"
@@ -819,23 +761,19 @@
 	need_active_overlay = TRUE
 	var/global/extend_limit_pressed = FALSE
 
-
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = -1
 	T.range = 1
 	return T
 
-
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
-
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle/valid_target(mob/living/carbon/human/target, user)
 	return !target.stat && !is_shadow_or_thrall(target)
-
 
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
@@ -873,14 +811,14 @@
 	target.death()
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/timer = SSshuttle.emergency.timeLeft(1) + 10 MINUTES
-		GLOB.major_announcement.announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.",
-										ANNOUNCE_SYSERROR_RU,
-										'sound/misc/notice1.ogg'
+		GLOB.major_announcement.announce(
+			message = "Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.",
+			new_title = ANNOUNCE_SYSERROR_RU,
+			new_sound = 'sound/misc/notice1.ogg'
 		)
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.RemoveSpell(src)	//Can only be used once!
-
 
 // ASCENDANT ABILITIES BEYOND THIS POINT //
 
@@ -895,14 +833,12 @@
 	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/ascendant_annihilate/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = 1
 	T.range = 7
 	T.try_auto_target = FALSE
 	return T
-
 
 /obj/effect/proc_holder/spell/ascendant_annihilate/cast(list/targets, mob/user = usr)
 	var/mob/living/simple_animal/ascendant_shadowling/ascendant = user
@@ -920,7 +856,7 @@
 		revert_cast(user)
 		return
 
-	user.visible_message(span_danger("Метки [user] вспыхивают, когда [genderize_ru(user.gender,"он","она","оно","они")] дела[pluralize_ru(user.gender,"ет","ют")] жест в [target]!"), \
+	user.visible_message(span_danger("Метки [user] вспыхивают, когда [GEND_HE_SHE(user)] дела[PLUR_ET_YUT(user)] жест в [target]!"), \
 						span_shadowling("Вы направляете копьё телекинетической энергии в [target]."))
 	sleep(0.4 SECONDS)
 
@@ -930,7 +866,6 @@
 	playsound(target, 'sound/magic/disintegrate.ogg', 100, TRUE)
 	target.visible_message(span_userdanger("[target] взрывается!"))
 	target.gib()
-
 
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant
 	name = "Black will"
@@ -950,17 +885,14 @@
 	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/ascendant_hypnosis/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = 0
 	T.range = 7
 	return T
 
-
 /obj/effect/proc_holder/spell/ascendant_hypnosis/valid_target(mob/living/carbon/human/target, user)
 	return !is_shadow_or_thrall(target) && target.ckey && target.mind && !target.stat
-
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
 	if(user.phasing)
@@ -972,13 +904,11 @@
 
 	target.vomit(0, VOMIT_BLOOD, distance = 2, message = FALSE)
 	playsound(user.loc, 'sound/hallucinations/veryfar_noise.ogg', 50, TRUE)
-	to_chat(user, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [genderize_ru(target.gender,"его","её","его","их")] в раба"))
+	to_chat(user, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [GEND_HIS_HER(target)] в раба"))
 	to_chat(target, span_userdanger(span_fontsize3("Волна мучительной боли проникает в ваше сознание, и...")))
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 	target.add_language(LANGUAGE_HIVE_SHADOWLING)
-
-
 
 /obj/effect/proc_holder/spell/ascendant_phase_shift
 	name = "Phase Shift"
@@ -988,10 +918,8 @@
 	human_req = FALSE
 	action_icon_state = "shadow_walk"
 
-
 /obj/effect/proc_holder/spell/ascendant_phase_shift/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/ascendant_phase_shift/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
 	if(!istype(user))
@@ -1005,27 +933,23 @@
 		user.incorporeal_move = INCORPOREAL_NORMAL
 		user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
 	else
-		user.visible_message(span_danger("[user] внезапно появля[pluralize_ru(user.gender,"ет","ют")]ся из ниоткуда!"), \
+		user.visible_message(span_danger("[user] внезапно появля[PLUR_ET_YUT(user)]ся из ниоткуда!"), \
 							span_shadowling("Вы возвращаетесь из пространства между мирами."))
 		user.incorporeal_move = INCORPOREAL_NONE
 		user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
 
-
 /obj/effect/proc_holder/spell/aoe/ascendant_storm
 	name = "Lightning Storm"
 	desc = "Оглушает окружающих."
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "lightning_storm"
 	aoe_range = 6
 
-
 /obj/effect/proc_holder/spell/aoe/ascendant_storm/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.range = aoe_range
 	return T
-
 
 /obj/effect/proc_holder/spell/aoe/ascendant_storm/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
 	if(!istype(user))
@@ -1050,7 +974,6 @@
 		target.take_organ_damage(0, 50)
 		user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 
-
 /obj/effect/proc_holder/spell/ascendant_transmit
 	name = "Ascendant Broadcast"
 	desc = "Посылает сообщение всем вокруг."
@@ -1059,10 +982,8 @@
 	human_req = FALSE
 	action_icon_state = "transmit"
 
-
 /obj/effect/proc_holder/spell/ascendant_transmit/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/ascendant_transmit/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
 	var/text = tgui_input_text(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
@@ -1073,3 +994,4 @@
 
 	user.announce(text)
 
+#undef EMPOWERED_THRALL_LIMIT

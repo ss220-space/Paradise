@@ -3,8 +3,6 @@
 	icon_state = "blob"
 	desc = "Ядерная боеголовка спуталась в щупальцах блоба, пульсирующих ужасающим зеленым свечением."
 	max_integrity = BLOB_CAP_NUKE_MAX_HP
-	health_regen = BLOB_CAP_NUKE_HP_REGEN
-	point_return = BLOB_REFUND_CAP_NUKE_COST
 
 /obj/structure/blob/special/captured_nuke/Initialize(mapload, owner_overmind, obj/machinery/nuclearbomb/N)
 	. = ..()
@@ -12,11 +10,9 @@
 	N?.forceMove(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/blob/special/captured_nuke/update_overlays()
 	. = ..()
 	. += mutable_appearance('icons/mob/blob.dmi', "blob_nuke_overlay", appearance_flags = RESET_COLOR)
-
 
 /obj/structure/blob/special/captured_nuke/Destroy()
 	for(var/obj/machinery/nuclearbomb/O in contents)

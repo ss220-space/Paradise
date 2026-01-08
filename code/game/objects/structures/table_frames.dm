@@ -4,7 +4,6 @@
  *		Wooden Frames
  */
 
-
 /*
  * Normal Frames
  */
@@ -12,15 +11,11 @@
 /obj/structure/table_frame
 	name = "table frame"
 	desc = "Four metal legs with four framing rods for a table. You could easily pass through this."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "table_frame"
-	density = FALSE
-	anchored = FALSE
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	max_integrity = 100
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2
-
 
 /obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -84,7 +79,6 @@
 
 	return ..()
 
-
 /obj/structure/table_frame/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -125,9 +119,7 @@
 	desc = "Four wooden legs with four framing wooden rods for a wooden table. You could easily pass through this."
 	icon_state = "wood_frame"
 	framestack = /obj/item/stack/sheet/wood
-	framestackamount = 2
 	resistance_flags = FLAMMABLE
-
 
 /obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -163,7 +155,6 @@
 
 	return ..()
 
-
 /obj/structure/table_frame/brass
 	name = "brass table frame"
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
@@ -171,7 +162,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	framestack = /obj/item/stack/sheet/brass
 	framestackamount = 1
-
 
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -193,7 +183,6 @@
 
 	return ..()
 
-
 /obj/structure/table_frame/brass/narsie_act()
 	..()
 	if(src) //do we still exist?
@@ -202,13 +191,8 @@
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/table_frame/brass/fake
-	name = "brass table frame"
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch, and not because of magic!"
-	icon_state = "brass_frame"
-	resistance_flags = FIRE_PROOF | ACID_PROOF
 	framestack = /obj/item/stack/sheet/brass_fake
-	framestackamount = 1
-
 
 /obj/structure/table_frame/brass/fake/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

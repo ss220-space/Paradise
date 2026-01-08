@@ -21,7 +21,6 @@
 	/// Aditional text of question
 	var/question_text
 
-
 /datum/component/ghost_direct_control/Initialize(
 	ban_type = ROLE_SENTIENT,
 	role_name = null,
@@ -108,7 +107,7 @@
 		source = parent,
 		role_cleanname = role_name
 	)
-	var/mob/chosen_one = (possible_ghosts.len)? pick(possible_ghosts): null
+	var/mob/chosen_one = (length(possible_ghosts))? pick(possible_ghosts): null
 	awaiting_ghosts = FALSE
 	if(isnull(chosen_one))
 		return
@@ -164,7 +163,7 @@
 		return
 	add_game_logs("took control of [new_body].", harbinger)
 	// doesn't transfer mind because that transfers antag datum as well
-	new_body.key = harbinger.key
+	new_body.possess_by_player(harbinger.ckey)
 	if(isanimal(new_body))
 		var/mob/living/simple_animal/animal_body = new_body
 		animal_body.toggle_ai(AI_OFF)
@@ -182,7 +181,6 @@
 	to_chat(harbinger, span_boldnotice(assumed_control_message))
 	after_assumed_control?.Invoke(harbinger)
 	qdel(src)
-
 
 /datum/component/ghost_direct_control/proc/on_ghost_controlable_check(mob/user)
 	SIGNAL_HANDLER

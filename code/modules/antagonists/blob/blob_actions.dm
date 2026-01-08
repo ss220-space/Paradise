@@ -1,5 +1,4 @@
 /datum/action/innate/blob
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	background_icon_state = "bg_default_on"
 
 /datum/action/innate/blob/comm
@@ -27,7 +26,7 @@
 	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, usr)
 
 /datum/action/innate/blob/self_burst
-	icon_icon = 'icons/hud/blob.dmi'
+	button_icon = 'icons/hud/blob.dmi'
 	button_icon = 'icons/hud/blob.dmi'
 	background_icon_state = "block"
 	button_icon_state = "ui_tocore"

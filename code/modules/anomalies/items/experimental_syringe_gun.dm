@@ -30,7 +30,7 @@
 		DATIVE = "экспериментальному шприцемёту", \
 		ACCUSATIVE = "экспериментальный шприцемёт", \
 		INSTRUMENTAL = "экспериментальным шприцемётом", \
-		PREPOSITIONAL = "экспериментальном шприцемёте"
+		PREPOSITIONAL = "экспериментальном шприцемёте",
 	)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Initialize(mapload)
@@ -91,7 +91,7 @@
 			return ..()
 
 		var/obj/item/reagent_containers/glass/RC = item
-		if (!RC.reagents.reagent_list)
+		if(!RC.reagents.reagent_list)
 			return  ..()
 
 		ready_reagents.reagents.clear_reagents()
@@ -130,7 +130,7 @@
 	if(!core)
 		return
 
-	if(syringes.len < max_syringes && prob(core.get_strength() / 5))
+	if(length(syringes) < max_syringes && prob(core.get_strength() / 5))
 		syringes.Add(new /obj/item/reagent_containers/syringe)
 		process_chamber()
 
@@ -141,7 +141,7 @@
 	if(chambered?.BB)
 		ready_reagents.reagents.trans_to(chambered.BB, ready_reagents.reagents.total_volume)
 
-	for (var/obj/item/reagent_containers/syringe/slime in syringes)
+	for(var/obj/item/reagent_containers/syringe/slime in syringes)
 		ready_reagents.reagents.trans_to(slime, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/living/user, flag, params)
@@ -171,9 +171,9 @@
 	if(!core || HAS_TRAIT(user, TRAIT_NO_BLOOD) || !istype(user))
 		return ..()
 
-	user.visible_message(span_suicide("[user] разреза[pluralize_ru(user.gender,"ет","ют")] свою руку и подключа[pluralize_ru(user.gender,"ет","ют")] систему автозаправки к \
-									кровеносной системе! Выглядит будто он[genderize_ru(gender, "", "а", "о", "и")] \
-									пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
+	user.visible_message(span_suicide("[user] разреза[PLUR_ET_YUT(user)] свою руку и подключа[PLUR_ET_YUT(user)] систему автозаправки к \
+									кровеносной системе! Выглядит будто он[GEND_A_O_I(src)] \
+									пыта[PLUR_ET_YUT(user)]ся убить себя!"))
 	ready_reagents.reagents.trans_to(user, ready_reagents.reagents.total_volume)
 	user.bleed(user.blood_volume)
 	return OXYLOSS | BRUTELOSS
@@ -184,14 +184,15 @@
 /obj/item/gun/syringe/rapidsyringe/experimental/preloaded
 	core = new /obj/item/assembly/signaler/core/vortex/tier2()
 
-
 /datum/crafting_recipe/rapidsyringe_experimental
 	name = "Experemintal syringe gun"
 	result = /obj/item/gun/syringe/rapidsyringe/experimental
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
-	reqs = list(/obj/item/relict_production/perfect_mix = 1,
-				/obj/item/gun/syringe/rapidsyringe = 1,
-				/obj/item/stock_parts/matter_bin = 1)
+	reqs = list(
+		/obj/item/relict_production/perfect_mix = 1,
+		/obj/item/gun/syringe/rapidsyringe = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

@@ -20,8 +20,6 @@
 	antag_datum_type = /datum/antagonist/xenomorph/queen
 
 /mob/living/carbon/alien/humanoid/empress/large
-	name = "alien empress"
-	caste = "q"
 	icon = 'icons/mob/alienhuge.dmi'
 	pixel_x = -32
 
@@ -55,7 +53,6 @@
 	real_name = name
 	..()
 
-
 /mob/living/carbon/alien/humanoid/empress/get_caste_organs()
 	. = ..()
 	. += list(
@@ -65,7 +62,6 @@
 		/obj/item/organ/internal/xenos/resinspinner,
 		/obj/item/organ/internal/xenos/neurotoxin
 	)
-
 
 /mob/living/carbon/alien/humanoid/empress/is_strong()
 	return TRUE

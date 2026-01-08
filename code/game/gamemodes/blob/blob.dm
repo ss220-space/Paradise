@@ -1,28 +1,3 @@
-/datum/game_mode
-	/// List of of blobs, their offsprings and blobburnouts spawned by them
-	var/list/blobs = list("infected"=list(), "offsprings"=list(), "minions"=list())
-	/// Count of blob tiles to blob win
-	var/blob_win_count = BLOB_BASE_TARGET_POINT
-	/// Number of resource produced by the core
-	var/blob_point_rate = 3
-	/// Number of bursted blob infected
-	var/bursted_blobs_count = 0
-	/// Total blob submode stage
-	var/blob_stage = BLOB_STAGE_NONE
-	/// The need to delay the end of the game when the blob wins
-	var/delay_blob_end = FALSE
-	/// Disables automatic GAMMA code
-	var/off_auto_gamma = FALSE
-	/// Disables automatic nuke codes
-	var/off_auto_nuke_codes = FALSE
-	/// Is all blobs have infinity points
-	var/is_blob_infinity_points = FALSE
-	/// Is all blobs have infinity points
-	var/list/legit_blobs = list()
-	/// Total blobs objective
-	var/datum/objective/blob_critical_mass/blob_objective
-
-
 /datum/game_mode/blob
 	name = "blob"
 	config_tag = "blob"
@@ -38,20 +13,18 @@
 	/// The number of players for which 1 more roundstart blob will be added.
 	var/players_per_core = BLOB_PLAYERS_PER_CORE
 
-
 /datum/game_mode/blob/pre_setup()
 
 	var/list/possible_blobs = get_players_for_role(ROLE_BLOB)
 
 	// stop setup if no possible traitors
-	if(!possible_blobs.len)
+	if(!length(possible_blobs))
 		return FALSE
 
 	cores_to_spawn = max(round(num_players() / players_per_core, 1), 1)
 
-
 	for(var/j = 0, j < cores_to_spawn, j++)
-		if(!possible_blobs.len)
+		if(!length(possible_blobs))
 			break
 
 		var/datum/mind/blob = pick(possible_blobs)
@@ -60,12 +33,11 @@
 		add_game_logs("has been selected as a Blob", blob)
 		possible_blobs -= blob
 	var/list/blob_infected = blobs["infected"]
-	if(!blob_infected?.len)
+	if(!length(blob_infected))
 		return FALSE
 	blob_win_count += BLOB_TARGET_POINT_PER_CORE * cores_to_spawn
 	..()
 	return TRUE
-
 
 /datum/game_mode/blob/post_setup()
 	for(var/datum/mind/blob in blobs["infected"])
@@ -78,12 +50,10 @@
 
 	return ..()
 
-
 /datum/game_mode/blob/announce()
 	to_chat(world, "<b>Текущий режим игры - <font color='green'>Блоб</font>!</b>")
 	to_chat(world, "<b>Опасный инопланетный организм стремительно распространяется по всей станции!</b>")
 	to_chat(world, "Вы должны уничтожить его, сведя к минимуму ущерб, нанесенный станции.")
-
 
 /datum/game_mode/proc/get_blob_candidates()
 	var/list/candidates = list()
@@ -104,13 +74,11 @@
 			candidates += player
 	return candidates
 
-
 /datum/game_mode/proc/get_blob_objective()
 	if(!blob_objective)
 		blob_objective = new()
 		update_blob_objective()
 	return blob_objective
-
 
 /datum/game_mode/proc/update_blob_objective()
 	if(blob_objective && !blob_objective.completed)
@@ -119,11 +87,9 @@
 		blob_objective.set_target()
 		blob_objective.owner = src
 
-
 /datum/game_mode/proc/blob_died()
-	if(!GLOB.blob_cores.len && blob_stage >= BLOB_STAGE_FIRST && blob_stage < BLOB_STAGE_STORM)
+	if(!length(GLOB.blob_cores) && blob_stage >= BLOB_STAGE_FIRST && blob_stage < BLOB_STAGE_STORM)
 		addtimer(CALLBACK(src, PROC_REF(report_blob_death), BLOB_DEATH_REPORT_FIRST), TIME_TO_ANNOUNCE_BLOBS_DIE)
-
 
 /datum/game_mode/proc/get_blobs_minds()
 	var/list/blob_list = list()
@@ -135,15 +101,14 @@
 		blob_list.Add(value)
 	return blob_list
 
-
 /datum/game_mode/proc/report_blob_death(report_number)
 	switch(report_number)
-		if (BLOB_DEATH_REPORT_FIRST)
+		if(BLOB_DEATH_REPORT_FIRST)
 			send_intercept(BLOB_THIRD_REPORT)
-		if (BLOB_DEATH_REPORT_THIRD)
+		if(BLOB_DEATH_REPORT_THIRD)
 			if(!off_auto_gamma && SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GAMMA)
 				SSsecurity_level.set_level(SEC_LEVEL_RED)
-		if (BLOB_DEATH_REPORT_FOURTH)
+		if(BLOB_DEATH_REPORT_FOURTH)
 			blob_stage = BLOB_STAGE_ZERO
 			SSvote.start_vote(new /datum/vote/crew_transfer)
 			return
@@ -151,11 +116,10 @@
 			return
 	addtimer(CALLBACK(src, PROC_REF(report_blob_death), report_number + 1), TIME_TO_SWITCH_CODE)
 
-
 /datum/game_mode/proc/make_blobs(count, need_new_blob = FALSE)
 	var/list/candidates = get_blob_candidates()
 	var/mob/living/carbon/human/blob = null
-	count = min(count, candidates.len)
+	count = min(count, length(candidates))
 	for(var/i = 0, i < count, i++)
 		blob = pick(candidates)
 		var/datum_type = blob.mind.get_blob_infected_type()
@@ -164,7 +128,6 @@
 		blob.mind.add_antag_datum(blob_datum)
 		candidates -= blob
 	return count
-
 
 /datum/game_mode/proc/make_blobized_mouses(count)
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
@@ -177,12 +140,12 @@
 		return FALSE
 
 	for(var/i in 1 to count)
-		if (length(candidates))
+		if(length(candidates))
 			var/obj/vent = pick(vents)
 			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
 			blob.move_into_vent(vent, FALSE)
 			var/mob/ghost = pick_n_take(candidates)
-			blob.set_key(ghost.key)
+			blob.possess_by_player(ghost.key)
 			var/datum_type = blob.mind.get_blob_infected_type()
 			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
@@ -194,32 +157,32 @@
 
 	return TRUE
 
-
 /datum/game_mode/proc/process_blob_stages()
-	if(!GLOB.blob_cores.len)
+	if(!length(GLOB.blob_cores))
 		return
 	if(blob_stage == BLOB_STAGE_NONE)
 		blob_stage = BLOB_STAGE_ZERO
-	if(blob_stage == BLOB_STAGE_ZERO && legit_blobs.len >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_ZERO && length(legit_blobs) >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_FIRST
 		send_intercept(BLOB_FIRST_REPORT)
 		SSshuttle?.emergency?.cancel()
 		SSshuttle?.add_hostile_environment(GLOB.blob_cores)
 
-	if(blob_stage == BLOB_STAGE_FIRST && legit_blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_FIRST && length(legit_blobs) >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
-		GLOB.major_announcement.announce("Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/outbreak5.ogg'
+		GLOB.major_announcement.announce(
+			message = "Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/outbreak5.ogg'
 		)
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)
 
-	if(blob_stage == BLOB_STAGE_SECOND && legit_blobs.len >= THIRD_STAGE_COEF * blob_win_count && (blob_win_count - legit_blobs.len) <= THIRD_STAGE_DELTA_THRESHOLD)
+	if(blob_stage == BLOB_STAGE_SECOND && length(legit_blobs) >= THIRD_STAGE_COEF * blob_win_count && (blob_win_count - length(legit_blobs)) <= THIRD_STAGE_DELTA_THRESHOLD)
 		blob_stage = BLOB_STAGE_THIRD
 		send_intercept(BLOB_SECOND_REPORT)
 
-	if(legit_blobs.len >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
+	if(length(legit_blobs) >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
 		if(SSweather)
 			blob_stage = BLOB_STAGE_STORM
 			SSweather.run_weather(/datum/weather/blob_storm)
@@ -228,12 +191,10 @@
 
 	addtimer(CALLBACK(src, PROC_REF(process_blob_stages)), STAGES_CALLBACK_TIME)
 
-
 /datum/game_mode/proc/show_warning(message)
 	for(var/datum/mind/blob in (blobs["infected"] + blobs["offsprings"]))
 		if(blob.current.stat != DEAD)
 			to_chat(blob.current, span_warning("[message]"))
-
 
 /datum/game_mode/proc/burst_blobs()
 	for(var/datum/mind/blob in get_blobs_minds())

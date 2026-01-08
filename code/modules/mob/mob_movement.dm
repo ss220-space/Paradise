@@ -103,8 +103,10 @@
 
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
-	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ((NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1))
-	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
+	var/glide_delay = add_delay
+	if(NSCOMPONENT(direct) && EWCOMPONENT(direct))
+		glide_delay = FLOOR(glide_delay * sqrt(2), world.tick_lag)
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(glide_delay)) // set it now in case of pulled objects
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
 	if(old_move_delay + world.tick_lag > world.time)
@@ -122,7 +124,7 @@
 	. = ..()
 
 	if(ISDIAGONALDIR(direct) && mob.loc == new_loc) //moved diagonally successfully
-		add_delay *= sqrt(2)
+		add_delay = FLOOR(add_delay * sqrt(2), world.tick_lag)
 
 	var/after_glide = 0
 	if(visual_delay)
@@ -142,7 +144,6 @@
 		// as a result of player input and not because they were pulled or any other magic.
 		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED, direct, old_dir)
 
-
 /**
  * Checks to see if you're being grabbed and if so attempts to break it
  *
@@ -161,7 +162,6 @@
 		to_chat(mob, span_warning("Вы скованы и не можете пошевелиться!"))
 		return TRUE
 	return mob.resist_grab(moving_resist = TRUE)
-
 
 /**
  * Allows mobs to ignore density and phase through objects
@@ -240,7 +240,6 @@
 			L.setDir(direct)
 	return TRUE
 
-
 /**
  * Handles mob/living movement in space (or no gravity)
  *
@@ -278,7 +277,6 @@
 
 	return TRUE
 
-
 /mob/get_spacemove_backup(moving_direction, continuous_move)
 	for(var/atom/pushover as anything in range(1, get_turf(src)))
 		if(pushover == src)
@@ -309,7 +307,7 @@
 		if(rebound.last_pushoff == world.time)
 			continue
 		if(continuous_move && !pass_allowed)
-			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
+			var/datum/move_loop/move/rebound_engine = GLOB.move_manager.processing_on(rebound, SSspacedrift)
 			// If you're moving toward it and you're both going the same direction, stop
 			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
 				continue
@@ -322,12 +320,10 @@
 			continue
 		return rebound
 
-
 /mob/get_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on))	// global admin override.
 		return GLOB.gravity_is_on
 	return mob_negates_gravity() || ..()
-
 
 /**
  * Does this mob ignore gravity
@@ -335,9 +331,8 @@
 /mob/proc/mob_negates_gravity()
 	return FALSE
 
-
 /client/proc/check_has_body_select()
-	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /atom/movable/screen/zone_sel)
+	return mob?.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /atom/movable/screen/zone_sel)
 
 /client/verb/body_toggle_head()
 	set name = "body-toggle-head"
@@ -464,22 +459,20 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-
 /client/verb/toggle_throw_mode()
 	set hidden = 1
 	if(iscarbon(mob))
 		var/mob/living/carbon/C = mob
 		C.toggle_throw_mode()
 	else
-		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
-
+		to_chat(usr, span_danger("Это существо не может бросать предметы"))
 
 /mob/proc/toggle_move_intent(new_move_intent)
 	return
 
 /mob/verb/move_up()
 	set name = "Подняться"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, UP)
@@ -488,7 +481,7 @@
 	var/turf/above_turf = GET_TURF_ABOVE(current_turf)
 
 	if(!above_turf)
-		to_chat(src, "<span class='warning'>There's nowhere to go in that direction!</span>")
+		to_chat(src, span_warning("В этом направлении некуда идти!"))
 		return
 
 	if(ismovable(loc)) //Inside an object, tell it we moved
@@ -498,16 +491,16 @@
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
 		if(buckled)
-			to_chat(src, "<span class='notice'>[buckled] is is not capable of flight.<span>")
+			to_chat(src, span_notice("[capitalize(buckled.declent_ru(NOMINATIVE))] не способ[GEND_EN_NA_NO_NY(buckled)] летать."))
 		else
-			to_chat(src, "<span class='notice'>You are not Superman.<span>")
+			to_chat(src, span_notice("Вы не Супермен чтобы взлететь вверх."))
 		return
 	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
-		to_chat(src, span_notice("You move upwards."))
+		to_chat(src, span_notice("Вы двигаетесь вверх."))
 
 /mob/verb/move_down()
 	set name = "Опуститься"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, DOWN)
@@ -516,7 +509,7 @@
 	var/turf/below_turf = GET_TURF_BELOW(current_turf)
 
 	if(!below_turf)
-		to_chat(src, span_warning("There's nowhere to go in that direction!"))
+		to_chat(src, span_warning("В этом направлении некуда идти!"))
 		return
 
 	if(ismovable(loc)) //Inside an object, tell it we moved
@@ -525,5 +518,19 @@
 
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
-		to_chat(src, span_notice("You move down."))
+		to_chat(src, span_notice("Вы двигаетесь вниз."))
 	return FALSE
+
+/mob/abstract_move(atom/destination)
+	var/turf/new_turf = get_turf(destination)
+
+	var/atom/oldloc = loc
+	var/area/oldarea = get_area(oldloc)
+	var/area/newarea = get_area(destination)
+
+	if(oldarea != newarea)
+		newarea.Entered(src, oldarea)
+
+	if(new_turf && (istype(new_turf, /turf/cordon)))
+		return
+	return ..()

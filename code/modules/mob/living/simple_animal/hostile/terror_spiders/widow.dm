@@ -16,8 +16,6 @@
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
 	speed = -0.1
-	maxHealth = 120
-	health = 120
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	ranged = 1
 	rapid = 2
@@ -27,12 +25,14 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	web_type = /obj/structure/spider/terrorweb/widow
-	special_abillity = list(/obj/effect/proc_holder/spell/fireball/smoke_spit,
-							/obj/effect/proc_holder/spell/fireball/venom_spit)
+	special_abillity = list(
+		/obj/effect/proc_holder/spell/fireball/smoke_spit,
+		/obj/effect/proc_holder/spell/fireball/venom_spit,
+	)
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
 	tts_seed = "Karastamper"
-	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель - внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
+	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель — внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow/get_ru_names()
 	return list(
@@ -61,7 +61,6 @@
 		lose_target()
 		step_away(src, L)
 		visible_message(span_notice("[src] jumps away from [L]!"))
-
 
 /obj/structure/spider/terrorweb/widow
 	name = "sinister web"

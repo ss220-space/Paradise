@@ -1,3 +1,9 @@
+/// Amount of time after the rounds starts, that the player disconnect report is issued.
+#define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
+
+/// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1
+
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -58,13 +64,155 @@
 	/// A list of all station goals for this game mode
 	var/list/datum/station_goal/station_goals = list()
 
+	/// A list of all minds which have the traitor antag datum.
+	var/list/datum/mind/traitors = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
+	var/list/datum/mind/implanted = list()
+	/// A list of all minds which have the changeling antag datum
+	var/list/datum/mind/changelings = list()
+	/// A list of all minds which have the vampire antag datum
+	var/list/datum/mind/vampires = list()
+	/// A list of all minds which are thralled by a vampire
+	var/list/datum/mind/vampire_enthralled = list()
+
+	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
+	var/list/datum/mind/pre_traitors = list()
+	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
+	var/list/datum/mind/pre_changelings = list()
+	///list of minds of soon to be vampires
+	var/list/datum/mind/pre_vampires = list()
+	/// A list containing references to the minds of soon-to-be mindflayers.
+	var/list/datum/mind/pre_mindflayers = list()
+	/// A list of all minds which have the wizard special role
+	var/list/datum/mind/wizards = list()
+	/// A list of all minds that are wizard apprentices
+	var/list/datum/mind/apprentices = list()
+
+	/// How many abductor teams do we have
+	var/abductor_teams = 0
+	/// A list which contains the minds of all abductors
+	var/list/datum/mind/abductors = list()
+	/// A list which contains the minds of all abductees
+	var/list/datum/mind/abductees = list()
+
+	/// A list of all the nuclear operatives' minds
+	var/list/datum/mind/syndicates = list()
+
+	/// A list of all the minds of head revolutionaries
+	var/list/datum/mind/head_revolutionaries = list()
+	/// A list of all the minds of revolutionaries
+	var/list/datum/mind/revolutionaries = list()
+
+	/// A list of all the minds with the superhero special role
+	var/list/datum/mind/superheroes = list()
+	/// A list of all the minds with the supervillain special role
+	var/list/datum/mind/supervillains = list()
+	/// A list of all the greyshirt minds
+	var/list/datum/mind/greyshirts = list()
+
+	/// A list of all the minds that have the ERT special role
+	var/list/datum/mind/ert = list()
+
+	/// The Contractor Support Units
+	var/list/datum/mind/support = list()
+	var/datum/mind/exchange_red
+	var/datum/mind/exchange_blue
+	/// The number of contractors who accepted the offer.
+	var/contractor_accepted = 0
+
+	/// A list of all demon minds spawned via event or wizard artefact.
+	var/list/datum/mind/demons = list()
+
+	var/list/datum/mind/sintouched = list()
+	var/list/datum/mind/devils = list()
+
+	/// A list of all minds currently in the cult
+	var/list/datum/mind/cult = list()
+	var/datum/cult_objectives/cult_objs = new
+	/// Does the cult have glowing eyes
+	var/cult_risen = FALSE
+	/// Does the cult have halos
+	var/cult_ascendant = FALSE
+	/// How many crew need to be converted to rise
+	var/rise_number
+	/// How many crew need to be converted to ascend
+	var/ascend_number
+	/// Used for the CentComm announcement at ascension
+	var/ascend_percent
+	/// The number of ghost summons available to the cult.
+	var/ghost_summons = null
+
+	/// A list of all minds currently in the cult
+	var/list/datum/mind/clockwork_cult = list()
+	var/datum/clockwork_objectives/clocker_objs = new
+	/// Does the clockers have significant power stored
+	var/power_reveal = FALSE
+	/// Does the cult have halos
+	var/crew_reveal = FALSE
+	/// How many power need to be in supply to reveal
+	var/power_reveal_number
+	/// How many crew need to be converted to reveal
+	var/crew_reveal_number
+	/// Used for CentCom announcement when reached crew limit conversion
+	var/reveal_percent
+
+	/// List of of blobs, their offsprings and blobburnouts spawned by them
+	var/list/blobs = list(
+		"infected" = list(),
+		"offsprings" = list(),
+		"minions" = list()
+	)
+	/// Count of blob tiles to blob win
+	var/blob_win_count = BLOB_BASE_TARGET_POINT
+	/// Number of resource produced by the core
+	var/blob_point_rate = 3
+	/// Number of bursted blob infected
+	var/bursted_blobs_count = 0
+	/// Total blob submode stage
+	var/blob_stage = BLOB_STAGE_NONE
+	/// The need to delay the end of the game when the blob wins
+	var/delay_blob_end = FALSE
+	/// Disables automatic GAMMA code
+	var/off_auto_gamma = FALSE
+	/// Disables automatic nuke codes
+	var/off_auto_nuke_codes = FALSE
+	/// Is all blobs have infinity points
+	var/is_blob_infinity_points = FALSE
+	/// Is all blobs have infinity points
+	var/list/legit_blobs = list()
+	/// Total blobs objective
+	var/datum/objective/blob_critical_mass/blob_objective
+
+	// LEGACY SHIT!
+	var/list/datum/mind/shadows = list()
+	var/list/datum/mind/shadowling_thralls = list()
+	var/list/shadow_objectives = list()
+	var/required_thralls = 15 //How many thralls are needed (hardcoded for now)
+	var/shadowling_ascended = 0 //If at least one shadowling has ascended
+	var/shadowling_dead = 0 //is shadowling kill
+	var/objective_explanation
+	var/warning_threshold
+	var/victory_warning_announced = FALSE
+	var/thrall_ratio = 1
+
+	var/list/datum/mind/thieves = list()
+
+	var/list/datum/mind/space_ninjas = list()
+
+	var/list/datum/mind/goon_vampires = list()
+	var/list/datum/mind/goon_vampire_enthralled = list()
+
+	var/syndies_didnt_escape = 0
+	var/nuke_off_station = 0
+
+	var/list/datum/mind/raiders = list() //Antags.
+	var/list/raid_objectives = list() //Raid objectives
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<b>Notice</b>: [src] did not define announce()")
 
-
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
-	return "Gamemode report for [name] not set.  Contact a coder."
+	return "Gamemode report for [name] not set. Contact a coder."
 
 /**
  * Checks to see if the game can be setup and ran with the current number of players or whatnot.
@@ -80,13 +228,11 @@
 
 	return FALSE
 
-
 /**
  * Attempts to select players for special roles the mode might have.
  */
 /datum/game_mode/proc/pre_setup()
 	return TRUE
-
 
 /**
  * Everyone should now be on the station and have their normal gear. This is the place to give the special roles extra things.
@@ -104,7 +250,6 @@
 	GLOB.start_state.count()
 	return TRUE
 
-
 /datum/game_mode/proc/set_mode_in_db()	// I wonder what this could do guessing by the name
 	if(SSticker?.mode && SSdbcore.IsConnected())
 		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
@@ -115,13 +260,11 @@
 		query_round_game_mode.warn_execute()
 		qdel(query_round_game_mode)
 
-
 /**
  * Called by the gameticker.
  */
 /datum/game_mode/process(wait)
 	return PROCESS_KILL
-
 
 /**
  * Called by the gameticker.
@@ -176,7 +319,6 @@
 						messenger.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
-
 /**
  * Check to be called by ticker
  */
@@ -186,13 +328,11 @@
 
 	return FALSE
 
-
 /**
  * This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
  */
 /datum/game_mode/proc/cleanup()
 	return
-
 
 /datum/game_mode/proc/declare_completion()
 	var/clients = 0
@@ -272,8 +412,30 @@
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
-	return FALSE
 
+	if(!SSredis.connected)
+		return FALSE
+
+	if(CONFIG_GET(flag/enable_instance_announce))
+		// Send our presence to required channels
+		var/list/presence_data = list()
+		presence_data["author"] = "system"
+		presence_data["source"] = CONFIG_GET(string/instance_id)
+		presence_data["message"] = "Round [GLOB.round_id] ended at `[SQLtime()]`"
+
+		var/presence_text = json_encode(presence_data)
+
+		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+			SSredis.publish(channel, presence_text)
+
+	// Report detailed presence info to system
+	var/list/presence_data_2 = list()
+	presence_data_2["source"] = CONFIG_GET(string/instance_id)
+	presence_data_2["round_id"] = GLOB.round_id
+	presence_data_2["event"] = "round_end"
+	SSredis.publish("byond.system", json_encode(presence_data_2))
+
+	return FALSE
 
 /**
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
@@ -307,7 +469,7 @@
 		if(length(prefered_species))
 			var/prefered_species_mod = prefered_species[player.client.prefs.species]
 			if(isnum(prefered_species_mod))
-				for (var/i in 1 to prefered_species_mod)	//prefered mod
+				for(var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
 
 	return candidates
@@ -349,7 +511,7 @@
 		if(length(preferred_species))
 			var/prefered_species_mod = preferred_species[player.client.prefs.species]
 			if(isnum(prefered_species_mod))
-				for (var/i in 1 to prefered_species_mod)	//prefered mod
+				for(var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
 
 	return candidates
@@ -364,7 +526,6 @@
 			|| AI.mind.offstation_role || AI.mind.special_role)
 			continue
 		. += AI.mind
-
 
 /// All the checks required to find baseline human being
 /proc/is_player_station_relevant(mob/living/carbon/human/player)
@@ -393,9 +554,8 @@
 		return FALSE
 	return TRUE	// congratulations, you are normal!
 
-
 /datum/game_mode/proc/latespawn(mob/player)
-
+	return
 
 /datum/game_mode/proc/num_players()
 	. = 0
@@ -403,20 +563,17 @@
 		if(player.client && player.ready)
 			.++
 
-
 /proc/num_station_players()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(is_player_station_relevant(player))
 			.++
 
-
 /datum/game_mode/proc/num_players_started()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.client)
 			.++
-
 
 /**
  * Keeps track of all living heads.
@@ -429,7 +586,6 @@
 		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
-
 
 /**
  * Keeps track of all heads.
@@ -445,7 +601,6 @@
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
-
 /**
  * Keeps track of all living security members.
  */
@@ -456,7 +611,6 @@
 
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
-
 
 /**
  * Keeps track of all  security members.
@@ -471,20 +625,17 @@
 		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
-
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return FALSE
 
-
 /datum/game_mode/New()
 	newscaster_announcements = pick(GLOB.newscaster_standard_feeds)
-
 
 /**
  * Reports player logouts.
  */
 /proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
+	var/msg = "[span_notice("Roundstart logout report")]\n\n"
 	for(var/mob/living/mob_living in GLOB.mob_list)
 
 		if(mob_living.ckey)
@@ -495,7 +646,6 @@
 					break
 			if(!found)
 				msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (<font color='#ffcc00'><b>Disconnected</b></font>)\n"
-
 
 		if(mob_living.ckey && mob_living.client)
 			if(mob_living.client.inactivity >= (ROUNDSTART_LOGOUT_REPORT_TIME / 2))	//Connected, but inactive (alt+tabbed or something)
@@ -546,7 +696,6 @@
 		if(check_rights(R_ADMIN, FALSE, mob))
 			to_chat(mob, msg)
 
-
 /**
  * Announces objectives/generic antag text.
  */
@@ -559,7 +708,6 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-
 /proc/show_objectives(datum/mind/player)
 	if(!player?.current)
 		return
@@ -570,10 +718,8 @@
 		to_chat(player.current, "<b>Objective #[obj_count]</b>: [objective.explanation_text]")
 		obj_count++
 
-
 /proc/get_nuke_code()
 	return GLOB.nuke_codes[/obj/machinery/nuclearbomb]
-
 
 /proc/get_nuke_status()
 	var/nuke_status = NUKE_MISSING
@@ -584,9 +730,12 @@
 				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
 
-
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
+	
+	if(QDELETED(player))
+		return
+	
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
@@ -594,7 +743,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(player)]) to replace a jobbanned player.")
 		log_game("[theghost.key] has taken control of ([player.key]) to replace a jobbanned for [role_type] player.")
 		player.ghostize()
-		player.key = theghost.key
+		player.possess_by_player(theghost.key)
 	else
 		log_game("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take player's place.")
 		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")
@@ -608,23 +757,22 @@
 	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
 	if(player.current)
 		if(player.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += " [span_redtext("died")]"
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += " [span_greentext("survived")]"
 
 		if(flee_check)
 			var/turf/player_turf = get_turf(player.current)
 			if(!player_turf || !is_station_level(player_turf.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while [span_redtext("fleeing the station")]"
 
 		if(player.current.real_name != player.name)
 			text += " as <b>[player.current.real_name]</b>"
 
 	else
-		text += " <span class='redtext'>had [player.p_their()] body destroyed</span>"
+		text += " [span_redtext("had [player.p_their()] body destroyed")]"
 
 	return text
-
 
 /proc/printeventplayer(datum/mind/player)
 	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>"
@@ -644,7 +792,6 @@
 
 	return text
 
-
 /proc/printobjectives(datum/mind/player)
 	var/list/objective_parts = list()
 
@@ -658,7 +805,6 @@
 
 	return objective_parts.Join("<br>")
 
-
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()
 
@@ -670,7 +816,9 @@
 		if(!goal.can_gain())
 			continue
 
+		#ifndef GAME_TESTS
 		possible += goal
+		#endif
 
 	var/goal_weights = 0
 	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
@@ -680,7 +828,6 @@
 
 	if(length(station_goals))
 		send_station_goals_message()
-
 
 /datum/game_mode/proc/send_station_goals_message()
 
@@ -697,7 +844,6 @@
 
 	log_game("Station goals at round start were: [english_list(goals)].")
 
-
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/datum/station_goal/goal in station_goals)
 		if(!goal)
@@ -705,12 +851,10 @@
 
 		goal.print_result()
 
-
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, "hudevent")
-
 
 /datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
@@ -741,7 +885,7 @@
 	. += auto_declare_completion_goon_enthralled()
 	. += auto_declare_completion_devil()
 	. += auto_declare_completion_sintouched()
-	listclearnulls(.)
+	list_clear_nulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
 	if(istype(god, /obj/singularity/god/narsie))
@@ -752,25 +896,28 @@
 
 	return FALSE
 
-/datum/game_mode/proc/apocalypse()
-	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
-	GLOB.major_announcement.announce("Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
-									ANNOUNCE_CCPARANORMAL_RU,
-									'sound/AI/commandreport.ogg'
+/datum/game_mode/proc/apocalypse(god_name)
+	GLOB.major_announcement.announce(
+		message = "Обнаружена вторжение внепространственного бога по имени [god_name]. Помощь и инструкции по противодействию будут направлены в ближайшее время. Всему лояльному экипажу — не допустить распространения угрозы.",
+		new_title = ANNOUNCE_CCPARANORMAL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	sleep(50 SECONDS)
-	GLOB.major_announcement.announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
-									ANNOUNCE_CCPARANORMAL_RU,
-									'sound/AI/commandreport.ogg'
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+	GLOB.major_announcement.announce(
+		message = "Помощь в пути. Всему лояльному экипажу следует закрепиться на текущих позициях и ожидать прибытия подкрепления.",
+		new_title = ANNOUNCE_CCPARANORMAL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	sleep(30 SECONDS)
 
 	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
 
 	if(!god)
-		GLOB.minor_announcement.announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.minor_announcement.announce(
+			message = "Сенсоры более не фиксируют признаков угрозы. Санкционирована экстренная эвакуация.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE
@@ -814,3 +961,9 @@
 		intercepttext += "<br>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<br>"
 		intercepttext += "Конец сообщения."
 	print_command_report(intercepttext, interceptname, FALSE)
+
+/datum/game_mode/proc/late_join(mob/new_player/player)
+	return FALSE
+
+#undef ROUNDSTART_LOGOUT_REPORT_TIME
+#undef STATION_GOAL_BUDGET

@@ -23,8 +23,11 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = 1
 	state = TVALVE_STATE_SIDE
+
+/obj/machinery/atmospherics/trinary/tvalve/examine(mob/user)
+	. = ..()
+	. += span_notice("Click this to toggle the mode. The direction with the dot is where the gas will flow to. The gas flows from the opposite side or the one with the uninterrupted line.")
 
 /obj/machinery/atmospherics/trinary/tvalve/update_icon_state()
 	..()
@@ -32,7 +35,7 @@
 	if(flipped)
 		flipstate = "m"
 	if(animation)
-		flick("tvalve[flipstate][state][!state]",src)
+		flick("tvalve[flipstate][state][!state]", src)
 	else
 		icon_state = "tvalve[flipstate][state]"
 
@@ -126,7 +129,6 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = 1
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/power_change(forced = FALSE)
@@ -135,9 +137,15 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/update_icon_state()
-	..()
+	var/flipstate = ""
+
+	if(flipped)
+		flipstate = "m"
+
 	if(!powered())
-		icon_state = "tvalvenopower"
+		icon_state = "tvalve[flipstate]nopower"
+		return
+	..()
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/attack_ai(mob/user)
 	return attack_hand(user)

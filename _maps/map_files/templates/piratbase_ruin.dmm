@@ -62,7 +62,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "ag" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -120,7 +120,7 @@
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -232,7 +232,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/clothing/head/helmet/space/nasavoid{
 	name = "Old Void Helmet";
 	desc = "Old space helmet"
@@ -1183,7 +1183,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1697,6 +1697,7 @@
 "ew" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/stack/medical/bruise_pack/extended,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "ex" = (
@@ -2109,8 +2110,9 @@
 	req_access = list(160);
 	name = "prison locker"
 	},
-/obj/item/clothing/shoes/orange,
 /obj/item/clothing/head/beanie/orange,
+/obj/item/stack/spacecash/c10,
+/obj/item/clothing/shoes/orange,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2159,7 +2161,7 @@
 /area/ruin/space/pirate_base/prison_solar)
 "fQ" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2857,7 +2859,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "hF" = (
@@ -3174,29 +3176,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
-"iv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "rightpirat_blast";
-	name = "Right BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = 6
-	},
-/obj/machinery/door_control{
-	id = "leftpirat_blast";
-	name = "Left BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = -6
-	},
-/obj/machinery/light_switch{
-	pixel_y = -2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "ix" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3629,7 +3608,7 @@
 	},
 /obj/item/clothing/suit/bio_suit/scientist,
 /obj/item/clothing/head/bio_hood/scientist,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "jR" = (
@@ -4089,11 +4068,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "ll" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
@@ -4395,7 +4374,7 @@
 	amount = 5
 	},
 /obj/machinery/constructable_frame/machine_frame,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4699,7 +4678,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4997,6 +4976,7 @@
 /area/ruin/space/pirate_base/xeno_lab)
 "nE" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -5057,7 +5037,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5223,7 +5203,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atrium)
 "oo" = (
@@ -5421,7 +5401,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "oK" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner";
@@ -5541,7 +5521,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5612,7 +5592,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/lootdrop/spentcasing,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6311,6 +6291,7 @@
 	req_access = list(160);
 	name = "prison locker"
 	},
+/obj/item/stack/spacecash/c100,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6374,7 +6355,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "rI" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "rK" = (
@@ -6534,7 +6515,6 @@
 "sl" = (
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
-/obj/item/card/id/prisoner/random,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -6543,6 +6523,8 @@
 	req_access = list(160);
 	name = "prison locker"
 	},
+/obj/item/stack/spacecash/c100,
+/obj/item/card/id/prisoner/random,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6952,7 +6934,7 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "tu" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -7111,7 +7093,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "tQ" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
 "tR" = (
@@ -7431,7 +7413,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "uI" = (
@@ -7851,6 +7833,10 @@
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
+"vK" = (
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/entertainment)
 "vL" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -8026,7 +8012,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8327,7 +8313,7 @@
 /turf/space,
 /area/space)
 "xk" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -8405,7 +8391,7 @@
 /area/ruin/space/pirate_base/atrium)
 "xx" = (
 /obj/effect/turf_decal/box/red,
-/obj/machinery/quantumpad/cere/arrivals_cargo{
+/obj/machinery/quantumpad{
 	color = "#A52A2A";
 	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
 	req_access = list(160);
@@ -8616,7 +8602,7 @@
 "ye" = (
 /obj/item/stock_parts/micro_laser,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil{
 	amount = 4
 	},
@@ -8864,7 +8850,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -9090,11 +9076,32 @@
 /obj/item/storage/box/syndie_kit/chameleon,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
+"zF" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rightpirat_blast";
+	name = "Right BlastDoor";
+	req_access = list(160);
+	pixel_y = 6;
+	pixel_x = 6
+	},
+/obj/machinery/door_control{
+	id = "leftpirat_blast";
+	name = "Left BlastDoor";
+	req_access = list(160);
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
 "zH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/vending/wallmed{
 	pixel_y = -30
 	},
@@ -9117,18 +9124,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
-"zQ" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 4
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "zR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -9152,7 +9147,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "zV" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "zW" = (
@@ -9475,6 +9470,7 @@
 /area/ruin/unpowered)
 "AV" = (
 /obj/structure/table,
+/obj/item/stack/spacecash/c100,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -9778,6 +9774,7 @@
 "BQ" = (
 /obj/structure/table,
 /obj/item/stack/medical/splint,
+/obj/item/stack/medical/suture,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
 "BR" = (
@@ -9797,7 +9794,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -10161,7 +10158,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -10342,7 +10339,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
 "Dw" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
@@ -10737,7 +10734,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -10863,7 +10860,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
@@ -10916,6 +10913,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "Fh" = (
 /obj/structure/closet,
+/obj/item/stack/medical/ointment/extended,
 /obj/item/toy/plushie/plasmamanplushie,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -11323,6 +11321,16 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
+"Gn" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
 "Go" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -11729,7 +11737,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "Hs" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -11859,7 +11867,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12074,7 +12082,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "Iq" = (
@@ -12325,6 +12333,14 @@
 	icon_state = "cmo"
 	},
 /area/ruin/space/pirate_base/security_medical)
+"Jb" = (
+/obj/structure/table/glass,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/xeno_lab)
 "Jc" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/greengrid,
@@ -12355,6 +12371,7 @@
 	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "Jk" = (
@@ -12849,7 +12866,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/pirate_base/lab_hall)
 "Kx" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -13051,6 +13068,8 @@
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/firstaid/with_mousetrap/tactical,
+/obj/item/stack/medical/suture/advanced,
+/obj/item/stack/medical/bruise_pack/military,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -13866,7 +13885,7 @@
 /area/space)
 "NC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -14303,7 +14322,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14686,7 +14705,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "PW" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -14753,7 +14772,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "Qg" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "Qh" = (
@@ -14837,14 +14856,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "Qv" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Qw" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/xeno,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
@@ -15159,6 +15178,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/spacecash/c100,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15453,7 +15473,7 @@
 /obj/structure/sign/biohazard{
 	pixel_x = 32
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15827,7 +15847,7 @@
 	},
 /obj/effect/turf_decal/box/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/quantumpad/cere/cargo_arrivals{
+/obj/machinery/quantumpad{
 	color = "#A52A2A";
 	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
 	req_access = list(160);
@@ -17628,7 +17648,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "YU" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21357,7 +21377,7 @@ wn
 YT
 Yj
 CQ
-rw
+vK
 IH
 jj
 cR
@@ -22131,7 +22151,7 @@ qc
 qc
 qc
 ey
-iv
+zF
 FU
 sK
 FK
@@ -22235,7 +22255,7 @@ qc
 ey
 WE
 vJ
-zQ
+Gn
 wI
 DE
 bh
@@ -25535,7 +25555,7 @@ AK
 AK
 MD
 bt
-Nv
+Jb
 qW
 uv
 Md

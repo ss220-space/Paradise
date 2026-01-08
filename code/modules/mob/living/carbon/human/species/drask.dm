@@ -50,9 +50,6 @@
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
 
-	cold_level_1 = 260 //Default 260 - Lower is better
-	cold_level_2 = 200 //Default 200
-	cold_level_3 = 120 //Default 120
 	coldmod = -1
 
 	heat_level_1 = 310 //Default 370 - Higher is better
@@ -89,6 +86,17 @@
 		JOB_MIN_AGE_COMMAND = 50,
 	)
 
+	autohiss_basic_map = list(
+		"o" = list ("oo", "ooo"),
+		"u" = list ("uu", "uuu"),
+		"о" = list ("оо", "ооо"),
+		"у" = list ("уу", "ууу"),
+	)
+	autohiss_extra_map = list(
+		"m" = list ("mm", "mmm"),
+		"м" = list ("мм", "ммм"),
+	)
+	autohiss_exempt = list("Орлуум")
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -105,10 +113,8 @@
 
 	add_verb(human, /mob/living/carbon/human/proc/emote_hum)
 
-
 /datum/species/drask/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_IDEAL, STRENGTH_LEVEL_SUPERHUMAN)
-
 
 /datum/species/drask/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -202,3 +208,6 @@
 	. += DRASK_PITCH_SHIFT
 
 #undef DRASK_PITCH_SHIFT
+
+/datum/species/drask/compressor_grind(location)
+	new /obj/item/soap(location)

@@ -13,8 +13,6 @@
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 
 /obj/machinery/power/Destroy(force)
 	disconnect_from_network()
@@ -132,7 +130,6 @@
 	powernet.remove_machine(src)
 	return TRUE
 
-
 /obj/machinery/power/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -149,7 +146,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 ///////////////////////////////////////////
 // Powernet handling helpers
@@ -207,7 +203,6 @@
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////
 
-
 // returns a list of all power-related objects (nodes, cable, junctions) in turf,
 // excluding source, that match the direction d
 // if unmarked==1, only return those with no powernet
@@ -244,7 +239,7 @@
 
 	worklist[O] = TRUE //start propagating from the passed object
 
-	while(index<=worklist.len) //until we've exhausted all power objects
+	while(index<=length(worklist)) //until we've exhausted all power objects
 		P = worklist[index] //get the next power object found
 		index++
 
@@ -268,7 +263,6 @@
 		if(!PM.connect_to_network()) //couldn't find a node on its turf...
 			PM.disconnect_from_network() //... so disconnect if already on a powernet
 
-
 //Merge two powernets, the bigger (in cable length term) absorbing the other
 /proc/merge_powernets(datum/powernet/net1, datum/powernet/net2)
 	if(!net1 || !net2) //if one of the powernet doesn't exist, return
@@ -278,7 +272,7 @@
 		return
 
 	//We assume net1 is larger. If net2 is in fact larger we are just going to make them switch places to reduce on code.
-	if(net1.cables.len < net2.cables.len)	//net2 is larger than net1. Let's switch them around
+	if(length(net1.cables) < length(net2.cables))	//net2 is larger than net1. Let's switch them around
 		var/temp = net1
 		net1 = net2
 		net2 = temp
@@ -359,14 +353,13 @@
 	else if(istype(power_source, /datum/powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
-	else if (istype(power_source, /obj/item/stock_parts/cell))
+	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy
 
 ////////////////////////////////////////////////
 // Misc.
 ///////////////////////////////////////////////
-
 
 // return a knot cable (O-X) if one is present in the turf
 // null if there's none

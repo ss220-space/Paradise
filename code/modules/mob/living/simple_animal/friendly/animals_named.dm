@@ -19,7 +19,7 @@
 		DATIVE = "Сане",
 		ACCUSATIVE = "Саню",
 		INSTRUMENTAL = "Саней",
-		PREPOSITIONAL = "Сане"
+		PREPOSITIONAL = "Сане",
 	)
 
 /mob/living/simple_animal/cow/Betsy
@@ -36,7 +36,7 @@
 		DATIVE = "Бетси",
 		ACCUSATIVE = "Бетси",
 		INSTRUMENTAL = "Бетси",
-		PREPOSITIONAL = "Бетси"
+		PREPOSITIONAL = "Бетси",
 	)
 
 /mob/living/simple_animal/chicken/Wife
@@ -54,7 +54,7 @@
 		DATIVE = "Гале",
 		ACCUSATIVE = "Галю",
 		INSTRUMENTAL = "Галей",
-		PREPOSITIONAL = "Гале"
+		PREPOSITIONAL = "Гале",
 	)
 
 /mob/living/simple_animal/cock/Commandor
@@ -72,7 +72,7 @@
 		DATIVE = "Коммандору Клакки",
 		ACCUSATIVE = "Коммандора Клакки",
 		INSTRUMENTAL = "Коммандором Клакки",
-		PREPOSITIONAL = "Коммандоре Клакки"
+		PREPOSITIONAL = "Коммандоре Клакки",
 	)
 
 /mob/living/simple_animal/goose/Scientist
@@ -96,13 +96,12 @@
 		DATIVE = "Гусару",
 		ACCUSATIVE = "Гусара",
 		INSTRUMENTAL = "Гусаром",
-		PREPOSITIONAL = "Гусаре"
+		PREPOSITIONAL = "Гусаре",
 	)
 
 /mob/living/simple_animal/pet/cat/fat/Iriska
 	name = "Iriska"
 	desc = "Упитана. Счастлива. Бюрократы её обожают. И похоже даже черезчур сильно."
-	gender = FEMALE
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
@@ -113,14 +112,13 @@
 		DATIVE = "Ириске",
 		ACCUSATIVE = "Ириску",
 		INSTRUMENTAL = "Ириской",
-		PREPOSITIONAL = "Ириске"
+		PREPOSITIONAL = "Ириске",
 	)
 
 /mob/living/simple_animal/pet/cat/white/Penny
 	name = "Penny"
 	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
 	gender = FEMALE
-	icon_state = "penny"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
@@ -134,13 +132,12 @@
 		DATIVE = "Копейке",
 		ACCUSATIVE = "Копейку",
 		INSTRUMENTAL = "Копейкой",
-		PREPOSITIONAL = "Копейке"
+		PREPOSITIONAL = "Копейке",
 	)
 
 /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "Crusher"
 	desc = "Любит крушить всё, что не прикручено. Нужно вовремя прибираться."
-	icon_state = "crusher"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
@@ -152,12 +149,12 @@
 		DATIVE = "Бедокуру",
 		ACCUSATIVE = "Бедокура",
 		INSTRUMENTAL = "Бедокуром",
-		PREPOSITIONAL = "Бедокуре"
+		PREPOSITIONAL = "Бедокуре",
 	)
 
 /mob/living/simple_animal/mouse/wooly/rep
 	name = "Господин Мышкин"
-	desc = "Господин Мышкин - самый влиятельный грызун-дипломат в обозримой вселенной и сооснователь корпорации НаноТрейзен в одном лице. В текущее время находится в командировке в Секторе Эпсилон Лукусты"
+	desc = "Господин Мышкин — самый влиятельный грызун-дипломат в обозримой вселенной и сооснователь корпорации \"Нанотрейзен\" в одном лице. В текущее время находится в командировке в секторе Эпсилон Лукусты."
 	icon_state = "mouse_rep"
 	icon_living = "mouse_rep"
 	icon_dead = "mouse_rep_dead"
@@ -175,8 +172,8 @@
 		GENITIVE = "Господина Мышкина",
 		DATIVE = "Господину Мышкину",
 		ACCUSATIVE = "Господина Мышкина",
-		INSTRUMENTAL = "Господином Мышкином",
-		PREPOSITIONAL = "Господине Мышкине"
+		INSTRUMENTAL = "Господином Мышкиным",
+		PREPOSITIONAL = "Господине Мышкине",
 	)
 
 /mob/living/simple_animal/mouse/wooly/rep/update_icons()
@@ -202,10 +199,8 @@
 	icon_dead = "library_owl_dead"
 	icon_resting = "library_owl_rest"
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "пинает"
 	speak = list("Уух-Ууууф.","Хууу, Хуууу.", "Ху-хууух!")
-	gender = MALE
 	speak_emote = list("угукает", "ухает")
 	emote_hear = list("угукает!", "ухает!", "размахивает своими крыльями!")
 	emote_see = list("встряхивает свои перья.", "машет крылышками.", "дрожит.")
@@ -221,9 +216,7 @@
 	speak_chance = 1
 	turns_per_move = 10
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	mob_size = MOB_SIZE_SMALL
 	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
 	death_sound = 'sound/creatures/owl_death.ogg'
 	talk_sound = list('sound/creatures/owl_talk.ogg')
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -238,7 +231,7 @@
 		DATIVE = "сычу Славе",
 		ACCUSATIVE = "сыча Славу",
 		INSTRUMENTAL = "сычом Славой",
-		PREPOSITIONAL = "сыче Славе"
+		PREPOSITIONAL = "сыче Славе",
 	)
 
 /mob/living/simple_animal/pet/library_owl/can_use_machinery(obj/machinery/mas)
@@ -282,7 +275,7 @@
 		DATIVE = "Брейну",
 		ACCUSATIVE = "Брейна",
 		INSTRUMENTAL = "Брейном",
-		PREPOSITIONAL = "Брейне"
+		PREPOSITIONAL = "Брейне",
 	)
 
 /obj/effect/decal/remains/mouse/Pinkie
@@ -298,7 +291,7 @@
 		DATIVE = "Пинки",
 		ACCUSATIVE = "Пинки",
 		INSTRUMENTAL = "Пинки",
-		PREPOSITIONAL = "Пинки"
+		PREPOSITIONAL = "Пинки",
 	)
 
 /mob/living/simple_animal/mouse/rat/Ratatui
@@ -318,7 +311,7 @@
 		DATIVE = "Рататую",
 		ACCUSATIVE = "Рататуя",
 		INSTRUMENTAL = "Рататуем",
-		PREPOSITIONAL = "Рататуе"
+		PREPOSITIONAL = "Рататуе",
 	)
 
 /mob/living/simple_animal/mouse/rat/irish/Remi
@@ -339,7 +332,7 @@
 		DATIVE = "Реми",
 		ACCUSATIVE = "Реми",
 		INSTRUMENTAL = "Реми",
-		PREPOSITIONAL = "Реми"
+		PREPOSITIONAL = "Реми",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya
@@ -356,7 +349,7 @@
 		DATIVE = "Фене",
 		ACCUSATIVE = "Феню",
 		INSTRUMENTAL = "Феней",
-		PREPOSITIONAL = "Фене"
+		PREPOSITIONAL = "Фене",
 	)
 
 /mob/living/simple_animal/pet/dog/brittany/Psycho
@@ -374,7 +367,7 @@
 		DATIVE = "Перрито",
 		ACCUSATIVE = "Перрито",
 		INSTRUMENTAL = "Перрито",
-		PREPOSITIONAL = "Перрито"
+		PREPOSITIONAL = "Перрито",
 	)
 
 /mob/living/simple_animal/pet/dog/pug/Frank
@@ -392,5 +385,5 @@
 		DATIVE = "Фрэнку",
 		ACCUSATIVE = "Фрэнка",
 		INSTRUMENTAL = "Фрэнком",
-		PREPOSITIONAL = "Френке"
+		PREPOSITIONAL = "Френке",
 	)

@@ -1,6 +1,25 @@
 #define MAGIC_SPELLS_COUNT 3
 #define HULK_COOLDOWN 10 MINUTES
 
+#define NOT_DEVIL_GUNS list(\
+		/obj/item/gun/energy/pulse,\
+		/obj/item/gun/energy/pulse/carbine,\
+		/obj/item/gun/projectile/automatic/sniper_rifle\
+	)
+
+#define DEVIL_GUNS list(\
+		/obj/item/gun/projectile/automatic/sniper_rifle/compact,\
+		/obj/item/gun/projectile/automatic/sniper_rifle/axmc,\
+		/obj/item/gun/projectile/automatic/m52,\
+		/obj/item/gun/projectile/automatic/lr30,\
+		/obj/item/gun/projectile/automatic/lasercarbine,\
+		/obj/item/gun/projectile/automatic/cats,\
+		/obj/item/gun/projectile/automatic/ak814,\
+		/obj/item/gun/projectile/automatic/sfg\
+	)
+
+GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
+
 /datum/devil_contract
 	var/name = "Ошибка"
 	var/contract_type = 0
@@ -111,7 +130,6 @@
 		/obj/effect/proc_holder/spell/goliath_tentacles,
 		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
 		/obj/effect/proc_holder/spell/watchers_look,
-
 	)
 
 /datum/devil_contract/magic/check_contract(mob/living/carbon/human/user)
@@ -121,7 +139,7 @@
 
 /datum/devil_contract/magic/fulfill_contract(mob/living/carbon/human/user)
 	var/list/spell_list = possible_magic.Copy()
-	for(var/i = 1; i <= MAGIC_SPELLS_COUNT; i++)
+	for(var/i in 1 to MAGIC_SPELLS_COUNT)
 		var/spell_type = pick_n_take(spell_list)
 		var/obj/effect/proc_holder/spell/spell = new spell_type(null)
 		spell.clothes_req = FALSE
@@ -162,7 +180,7 @@
 		. |= ATTACK_CHAIN_SUCCESS
 		victim.revive()
 		add_attack_logs(user, victim, "infernally revived via contract")
-		user.visible_message(span_notice("Внезапно вспыхнуло пламя, и [victim.declent_ru(NOMINATIVE)] [genderize_ru(victim.gender, "восстал", "восстала", "восстало", "восстали")]."))
+		user.visible_message(span_notice("Внезапно вспыхнуло пламя, и [victim.declent_ru(NOMINATIVE)] восстал[GEND_A_O_I(victim)]."))
 		victim.fakefire()
 		contract.fulfill_contract(victim)
 		spawn(5)
@@ -246,7 +264,6 @@
 	spell.create_lich(user)
 	qdel(spell)
 
-
 /datum/devil_contract/gun
 	name = "контракт оружия"
 	contract_type = CONTRACT_GUN
@@ -263,5 +280,7 @@
 	var/spell = new /obj/effect/proc_holder/spell/conjure_item/contract_gun(null, gun_type)
 	user.mind.AddSpell(spell)
 
-
 #undef MAGIC_SPELLS_COUNT
+#undef HULK_COOLDOWN
+#undef NOT_DEVIL_GUNS
+#undef DEVIL_GUNS

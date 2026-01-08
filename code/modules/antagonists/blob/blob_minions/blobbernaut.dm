@@ -14,7 +14,6 @@
 	melee_damage_lower = BLOBMOB_BLOBBERNAUT_DMG_SOLO_LOWER
 	melee_damage_upper = BLOBMOB_BLOBBERNAUT_DMG_SOLO_UPPER
 	obj_damage = BLOBMOB_BLOBBERNAUT_DMG_OBJ
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "ударяет"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	verb_say = list("тяжело произносит", "бормочет")
@@ -32,7 +31,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
 	update_health_hud()
-
 
 /mob/living/simple_animal/hostile/blob_minion/blobbernaut/experience_pressure_difference(pressure_difference, direction)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
@@ -91,7 +89,7 @@
 
 /// Called by the blob creation power to give us a mind and a basic task orientation
 /mob/living/simple_animal/hostile/blob_minion/blobbernaut/minion/proc/assign_key(ckey, datum/blobstrain/blobstrain)
-	key = ckey
+	possess_by_player(ckey)
 	flick("blobbernaut_produce", src)
 	SEND_SOUND(src, sound('sound/effects/blobattack.ogg'))
 	SEND_SOUND(src, sound('sound/effects/attackblob.ogg'))

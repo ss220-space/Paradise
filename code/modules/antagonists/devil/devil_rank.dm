@@ -26,7 +26,6 @@
 /datum/devil_rank/proc/link_rank(mob/living/carbon/carbon)
 	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
-
 /datum/devil_rank/proc/remove_spells()
 	if(!devil.owner)
 		return
@@ -61,7 +60,7 @@
 		/obj/effect/proc_holder/spell/devil_panel,
 		/obj/effect/proc_holder/spell/sacrifice_circle,
 		/obj/effect/proc_holder/spell/summon_contract,
-		/obj/effect/proc_holder/spell/return_soul
+		/obj/effect/proc_holder/spell/return_soul,
 	)
 
 /datum/devil_rank/enraged_devil
@@ -80,7 +79,7 @@
 		/obj/effect/proc_holder/spell/return_soul,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/dark_conversion
+		/obj/effect/proc_holder/spell/dark_conversion,
 	)
 
 /datum/devil_rank/blood_lizard
@@ -102,7 +101,7 @@
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/dark_conversion
+		/obj/effect/proc_holder/spell/dark_conversion,
 	)
 
 /datum/devil_rank/blood_lizard/apply_rank()
@@ -141,23 +140,19 @@
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
 		/obj/effect/proc_holder/spell/sintouch,
-		/obj/effect/proc_holder/spell/dark_conversion
+		/obj/effect/proc_holder/spell/dark_conversion,
 	)
 
 /datum/devil_rank/true_devil/apply_rank()
 	var/mob/devil_mob = devil.owner.current
 	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
 		devil_mob.forceMove(get_turf(devil_mob))
-	var/mob/living/carbon/true_devil/true_devil
 	if(isdevil(devil_mob))
 		to_chat(devil_mob, span_revenbignotice("Вы чувствуете, как ваше тело меняется."))
-		true_devil = devil_mob
 		return FALSE
-	true_devil = new (get_turf(devil_mob))
-	ADD_TRAIT(devil_mob, TRAIT_NO_BREATH, DEVIL_TRAIT)
-	devil_mob.forceMove(true_devil)
-	true_devil.oldform = devil_mob
+	var/mob/living/carbon/true_devil/true_devil = new (get_turf(devil_mob))
 	devil.owner.transfer_to(true_devil)
+	QDEL_IN(devil_mob, 1 SECONDS)
 	return TRUE
 
 /datum/devil_rank/ascend
@@ -170,7 +165,7 @@
 		/obj/effect/proc_holder/spell/fireball/hellish/acsend,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/devil_broadcast
+		/obj/effect/proc_holder/spell/devil_broadcast,
 	)
 
 /datum/devil_rank/ascend/apply_rank()
@@ -184,17 +179,7 @@
 		true_devil.set_name()
 		return FALSE
 	true_devil = new (get_turf(devil_mob))
-	if(isdevil(devil_mob))
-		var/mob/living/carbon/true_devil/old_devil = devil_mob
-		old_devil.oldform?.forceMove(true_devil)
-		true_devil.oldform = old_devil.oldform
-		old_devil.oldform = null
-		old_devil.forceMove(true_devil)
-		QDEL_IN(old_devil, 1 SECONDS)
-	else
-		ADD_TRAIT(devil_mob, TRAIT_NO_BREATH, DEVIL_TRAIT)
-		devil_mob.forceMove(true_devil)
-		true_devil.oldform = devil_mob
 	devil.owner.transfer_to(true_devil)
+	QDEL_IN(devil_mob, 1 SECONDS)
 	return TRUE
 

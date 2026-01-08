@@ -9,7 +9,6 @@
 	analyzerdesceffect = "Расширяется при атаке ожогами, иногда дополнительно расширяется при расширении и уязвим к урону травмами."
 	reagent = /datum/reagent/blob/replicating_foam
 
-
 /datum/blobstrain/reagent/replicating_foam/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
 	if(damage_type == BRUTE)
 		damage = damage * 2
@@ -21,7 +20,6 @@
 			newB.update_integrity(B.get_integrity() - damage)
 			newB.update_blob()
 	return ..()
-
 
 /datum/blobstrain/reagent/replicating_foam/expand_reaction(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/O)
 	if(prob(30))

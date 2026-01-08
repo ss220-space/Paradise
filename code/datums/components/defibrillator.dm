@@ -102,6 +102,8 @@
  */
 /datum/component/defib/proc/trigger_defib(obj/item/paddles, mob/living/carbon/human/target, mob/living/user)
 	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
+	if(HAS_TRAIT(paddles, TRAIT_DEFIB_BLOCKED))  // The TRAIT is added if the built-in defibrillator in the inugami gloves is disabled
+		return
 	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -152,7 +154,7 @@
 		return
 
 	user.visible_message(
-		span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] размещать электроды дефибриллятора на груди [target.name]."),
+		span_warning("[user] начина[PLUR_ET_YUT(user)] размещать электроды дефибриллятора на груди [target.name]."),
 		span_warning("Вы начинаете размещать электроды дефибриллятора на груди [target.name]."),
 	)
 
@@ -168,7 +170,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] разместил[genderize_ru(user.gender, "", "а", "о", "и")] электроды дефибриллятора на груди [target.name]."),
+		span_notice("[user] разместил[GEND_A_O_I(user)] электроды дефибриллятора на груди [target.name]."),
 		span_notice("Вы разместили электроды дефибриллятора на груди [target.name]."),
 	)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, FALSE)
@@ -187,16 +189,15 @@
 		busy = FALSE
 		return
 
-
 	if(target.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = target.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!heart || heart.is_dead())
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
 			busy = FALSE
 		if(!heart)
-			defib_ref.atom_say("Реанимация не удалась - электрическая активность сердца не зафиксирована!")
+			defib_ref.atom_say("Реанимация не удалась — электрическая активность сердца не зафиксирована!")
 		else if(heart.is_dead())
-			defib_ref.atom_say("Реанимация не удалась - обнаружен некроз сердца!")
+			defib_ref.atom_say("Реанимация не удалась — обнаружен некроз сердца!")
 
 		target.set_heartattack(FALSE)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
@@ -228,22 +229,22 @@
 	var/time_dead = world.time - target.timeofdeath
 
 	if((time_dead > DEFIB_TIME_LIMIT) || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
-		defib_ref.atom_say("Реанимация не удалась - обнаружены необратимые повреждения сердца!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены необратимые повреждения сердца!")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)
-		defib_ref.atom_say("Реанимация не удалась - обнаружены обширные повреждения тканей!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены обширные повреждения тканей!")
 		defib_success = FALSE
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
-		defib_ref.atom_say("Реанимация не удалась - объём крови в организме пациента на критически низком уровне!")
+		defib_ref.atom_say("Реанимация не удалась — объём крови в организме пациента на критически низком уровне!")
 		defib_success = FALSE
 	else if(!target.get_organ_slot(INTERNAL_ORGAN_BRAIN))  //So things like headless clings don't get outed
-		defib_ref.atom_say("Реанимация не удалась - мозг в теле пациента не обнаружен!")
+		defib_ref.atom_say("Реанимация не удалась — мозг в теле пациента не обнаружен!")
 		defib_success = FALSE
 	else if(ghost)
 		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
-			defib_ref.atom_say("Реанимация не удалась - электрическая активность мозга не зафиксирована!")
+			defib_ref.atom_say("Реанимация не удалась — электрическая активность мозга не зафиксирована!")
 		else
-			defib_ref.atom_say("Реанимация не удалась - мозг пациента не отреагировал!")
+			defib_ref.atom_say("Реанимация не удалась — мозг пациента не отреагировал!")
 		defib_success = FALSE
 	else if(HAS_TRAIT(target, TRAIT_NO_CLONE) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
 		defib_ref.atom_say("Реанимация не удалась!")
@@ -262,7 +263,7 @@
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 
-		target.update_revive(TRUE, TRUE)
+		target.update_revive(updating = TRUE, force = FALSE, defib_revive = TRUE)
 		target.Paralyse(12 SECONDS)
 		target.emote("gasp")
 
@@ -280,6 +281,7 @@
 		target.med_hud_set_health()
 		target.med_hud_set_status()
 		target.shock_internal_organs(100)
+		target.special_check_for_transplantation()
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		add_attack_logs(user, target, "Revived with [defib_ref]")
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
@@ -299,8 +301,8 @@
 		return
 	busy = TRUE
 	target.visible_message(
-		span_danger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] [target.name] электродами боевого дефибриллятора!"),
-		span_userdanger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] вас электродами боевого дефибриллятора!"),
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
 	)
 	if(ignore_hardsuits)
 		target.apply_damage(70, STAMINA)
@@ -341,7 +343,7 @@
 	if(electrocute_mob(affecting, power_source, origin)) // shock anyone touching them >:)
 		var/obj/item/organ/internal/heart/heart = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(istype(heart) && heart.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
-			affecting.visible_message(span_danger("[affecting] сотряса[pluralize_ru(affecting.gender, "ет", "ют")]ся от электрического тока, проходящего через [genderize_ru(affecting.gender, "его", "её", "его", "их")] руку!"), \
+			affecting.visible_message(span_danger("[affecting] сотряса[PLUR_ET_YUT(affecting)]ся от электрического тока, проходящего через [GEND_HIS_HER(affecting)] руку!"), \
 							span_userdanger("Вы чувствуете мощный удар током, проходящий через ваше сердце!"))
 			affecting.set_heartattack(TRUE)
 

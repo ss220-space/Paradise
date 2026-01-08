@@ -2,8 +2,6 @@
 
 /area/awaymission/academy
 	name = "Academy Asteroids"
-	icon_state = "away"
-	report_alerts = FALSE
 	no_teleportlocs = TRUE
 	tele_proof = TRUE
 	requires_power = FALSE
@@ -45,7 +43,6 @@
 	icon_state = "monocle"
 	item_state = "headset"
 
-
 // Butler outfit
 /datum/outfit/butler
 	name = "Butler"
@@ -56,7 +53,7 @@
 	gloves = /obj/item/clothing/gloves/color/white
 
 /obj/effect/bump_teleporter/academy_no_mesons
-    var/list/items_to_remove = list(
+	var/list/items_to_remove = list(
 		/obj/item/clothing/glasses/meson,
 		/obj/item/clothing/glasses/hud/health/meson,
 		/obj/item/clothing/head/helmet/meson,

@@ -19,13 +19,11 @@ Bonus
 
 	name = "Озноб"
 	id = "shivering"
-	stealth = 0
 	resistance = 2
 	stage_speed = 2
 	transmittable = 2
 	level = 2
 	severity = 2
-
 
 /datum/symptom/shivering/Activate(datum/disease/virus/advance/A)
 	..()

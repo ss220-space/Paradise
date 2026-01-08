@@ -1,12 +1,11 @@
 
 /obj/item/clothing/head/hardhat
-	name = "hard hat"
+	name = "yellow hard hat"
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
 	var/on = FALSE
 	light_on = FALSE
-	light_power = 1
 	light_range = 4
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
@@ -20,12 +19,11 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/hardhat/attack_self()
 	toggle_helmet_light()
-
 
 /obj/item/clothing/head/hardhat/proc/toggle_helmet_light()
 	on = !on
@@ -35,12 +33,10 @@
 		turn_off()
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/head/hardhat/proc/turn_on()
 	set_light_on(TRUE)
@@ -60,12 +56,14 @@
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
 /obj/item/clothing/head/hardhat/orange
+	name = "orange hard hat"
 	icon_state = "hardhat0_orange"
 	item_state = "hardhat0_orange"
 	item_color = "orange"
 	dog_fashion = null
 
 /obj/item/clothing/head/hardhat/red
+	name = "red hard hat"
 	icon_state = "hardhat0_red"
 	item_state = "hardhat0_red"
 	item_color = "red"
@@ -78,6 +76,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 
 /obj/item/clothing/head/hardhat/white
+	name = "white hard hat"
 	icon_state = "hardhat0_white"
 	item_state = "hardhat0_white"
 	item_color = "white"
@@ -86,9 +85,9 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/hardhat/dblue
+	name = "dark blue hard hat"
 	icon_state = "hardhat0_dblue"
 	item_state = "hardhat0_dblue"
 	item_color = "dblue"
@@ -115,5 +114,5 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)

@@ -20,14 +20,13 @@
 	health = 100
 	death_sound = 'sound/creatures/terrorspiders/death5.ogg'
 	speed = -0.3
-	melee_damage_lower = 15
 	melee_damage_upper = 15
 	armour_penetration = 2
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	delay_web = 10
 	web_type = /obj/structure/spider/terrorweb/gray
 	special_abillity = list(/obj/effect/proc_holder/spell/terror_stealth)
-	spider_intro_text = "Будучи Наблюдателем Ужаса, ваша задача - устраивать засады. Вы почти невидимы в паутине, и наносите сокрушительный урон, пробивающий броню, если находитесь в ней. Вы также можете стать полностью невидимым на короткий промежуток времени."
+	spider_intro_text = "Будучи Наблюдателем Ужаса, ваша задача — устраивать засады. Вы почти невидимы в паутине, и наносите сокрушительный урон, пробивающий броню, если находитесь в ней. Вы также можете стать полностью невидимым на короткий промежуток времени."
 	ai_spins_webs = FALSE // uses massweb instead
 	tts_seed = "Cassiopeia"
 	var/prob_ai_massweb = 10
@@ -77,7 +76,6 @@
 		L.apply_damage(45, STAMINA)
 		L.AdjustSilence(10 SECONDS)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/lurker/spider_special_action()
 	if(prob(prob_ai_massweb))

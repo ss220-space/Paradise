@@ -1,16 +1,14 @@
-#define RESONATOR_MODE_AUTO   1
+#define RESONATOR_MODE_AUTO 1
 #define RESONATOR_MODE_MANUAL 2
 #define RESONATOR_MODE_MATRIX 3
 
 /**********************Resonator**********************/
 /obj/item/resonator
 	name = "resonator"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
 	origin_tech = "magnets=3;engineering=3"
 	desc = "Портативное устройство, создающее энергетические поля, которые резонируют до детонации, разрушая породу. Наносит повышенный урон в условиях низкого давления. Имеет два режима: автоматический и ручной подрыв."
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	throwforce = 10
 	/// the mode of the resonator; has three modes: auto (1), manual (2), and matrix (3)
@@ -31,7 +29,7 @@
 		DATIVE = "резонатору",
 		ACCUSATIVE = "резонатор",
 		INSTRUMENTAL = "резонатором",
-		PREPOSITIONAL = "резонаторе"
+		PREPOSITIONAL = "резонаторе",
 	)
 
 /obj/item/resonator/attack_self(mob/user)
@@ -52,7 +50,6 @@
 	if(LAZYLEN(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
 
-
 /obj/item/resonator/pre_attackby(atom/target, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !check_allowed_items(target, TRUE))
@@ -61,12 +58,10 @@
 	user.changeNext_move(attack_speed)
 	create_resonance(target, user)
 
-
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
 	name = "resonance field"
 	desc = "Энергетическое поле, наносящее значительный урон всему внутри при разрыве. Эффективнее в условиях низкого давления."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 5 SECONDS
@@ -92,9 +87,8 @@
 		DATIVE = "резонансному полю",
 		ACCUSATIVE = "резонансное поле",
 		INSTRUMENTAL = "резонансным полем",
-		PREPOSITIONAL = "резонансном поле"
+		PREPOSITIONAL = "резонансном поле",
 	)
-	
 
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, mode, set_failure = 40)
 	if(mode == RESONATOR_MODE_AUTO)
@@ -142,11 +136,8 @@
 	var/turf/src_turf = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
-		if(isancientturf(src_turf))
-			visible_message(span_notice("Эта порода устойчива ко всем инструментам, кроме кирок!"))
-		else
-			var/turf/simulated/mineral/M = src_turf
-			M.attempt_drill(creator)
+		var/turf/simulated/mineral/mineral = src_turf
+		mineral.attempt_drill(creator)
 	check_pressure(src_turf)
 	playsound(src_turf,'sound/weapons/resonator_blast.ogg',50, TRUE)
 	for(var/mob/living/L in src_turf)
@@ -192,7 +183,7 @@
 		DATIVE = "улучшенному резонатору",
 		ACCUSATIVE = "улучшенный резонатор",
 		INSTRUMENTAL = "улучшенным резонатором",
-		PREPOSITIONAL = "улучшенном резонаторе"
+		PREPOSITIONAL = "улучшенном резонаторе",
 	)
 
 /obj/item/resonator/upgraded/attack_self(mob/user)

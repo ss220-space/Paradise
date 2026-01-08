@@ -19,12 +19,14 @@
 
 /datum/blobstrain/reagent/blazing_oil/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
 	if(damage_type == BURN && damage_flag != ENERGY)
-		for(var/turf/simulated/T as anything in range(1, B))
+		for(var/turf/simulated/T in range(1, B))
 			if(iswallturf(T) || ismineralturf(T))
 				continue
 			var/obj/structure/blob/C = locate() in T
-			if(!(C && C.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
-				new /obj/effect/hotspot(T)
+			if(!(C?.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+				hotspot.temperature = 1000
+				hotspot.recolor()
 	if(damage_flag == FIRE)
 		return FALSE
 	return ..()

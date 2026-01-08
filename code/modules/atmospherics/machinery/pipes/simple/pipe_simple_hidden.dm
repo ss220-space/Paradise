@@ -1,10 +1,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden
 	icon_state = "intact"
-	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 	// these are inherited, but it's nice to have them explicit here
-	plane = GAME_PLANE
-	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
 	name = "Scrubbers pipe"
@@ -42,7 +39,6 @@
 	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
 
-
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_underlays()
 	if(!check_icon_cache())
 		return
@@ -64,7 +60,6 @@
 		universal_underlays(direction = dir)
 		universal_underlays(direction = turn(dir, -180))
 
-
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow
 	color = PIPE_COLOR_YELLOW
 
@@ -76,3 +71,9 @@
 
 /obj/machinery/atmospherics/pipe/simple/hidden/purple
 	color = PIPE_COLOR_PURPLE
+
+/obj/machinery/atmospherics/pipe/simple/hidden/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/simple/hidden/blue
+	color = PIPE_COLOR_BLUE

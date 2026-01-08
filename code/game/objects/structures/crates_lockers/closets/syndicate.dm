@@ -3,7 +3,6 @@
 	desc = "Why is this here?"
 	icon_state = "syndicate"
 
-
 /obj/structure/closet/syndicate/personal
 	desc = "It's a storage unit for operative gear."
 
@@ -46,7 +45,7 @@
 	desc = "It's a storage unit for an elite syndicate strike team's gear."
 
 /obj/structure/closet/syndicate/sst/populate_contents()
-	new /obj/item/ammo_box/magazine/mm556x45(src)
+	new /obj/item/ammo_box/magazine/a762x51(src)
 	new /obj/item/gun/projectile/automatic/l6_saw(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
 	new /obj/item/storage/belt/military/sst(src)

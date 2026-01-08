@@ -14,8 +14,8 @@
 	dir = EAST
 	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
-	integrity_failure = 0
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
+	cares_about_temperature = TRUE
 	var/obj/item/access_control/electronics
 	var/base_state = "left"
 	var/reinf = 0
@@ -24,7 +24,6 @@
 	var/rods = 2
 	var/cable = 1
 	var/list/debris = list()
-
 
 /obj/machinery/door/window/Initialize(mapload, set_dir)
 	. = ..()
@@ -47,7 +46,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	QDEL_LIST(debris)
@@ -55,7 +53,6 @@
 		playsound(src, SFX_SHATTER, 70, TRUE)
 	QDEL_NULL(electronics)
 	return ..()
-
 
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
@@ -102,7 +99,6 @@
 	if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 
-
 /obj/machinery/door/window/bumpopen(mob/user)
 	if(operating || !density)
 		return
@@ -117,7 +113,6 @@
 			cmag_switch(TRUE, user)
 			return
 		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
-
 
 /obj/machinery/door/window/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -137,17 +132,14 @@
 
 	return TRUE
 
-
-/obj/machinery/door/window/CanAtmosPass(turf/T, vertical)
-	if(get_dir(loc, T) == dir)
+/obj/machinery/door/window/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
 	else
-		return 1
-
+		return TRUE
 
 /obj/machinery/door/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower() && !pass_info.no_id)
-
 
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -164,7 +156,6 @@
 	if(density && dir == get_dir(leaving, newLoc))
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
-
 
 /obj/machinery/door/window/update_icon_state()
 	switch(operating)
@@ -187,6 +178,7 @@
 		return FALSE
 	if(!operating) //in case of emag
 		operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
@@ -195,13 +187,11 @@
 
 	set_density(FALSE)
 
-	air_update_turf(TRUE)
 	update_freelook_sight()
 
 	if(operating) //emag again
 		operating = NONE
 	return TRUE
-
 
 /obj/machinery/door/window/close(forced = 0)
 	if(operating)
@@ -216,13 +206,12 @@
 
 	set_density(TRUE)
 	update_icon()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	sleep(1 SECONDS)
 
 	operating = NONE
 	return TRUE
-
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -258,10 +247,10 @@
 	C.name = name
 	qdel(src)
 
-/obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/window/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
-		take_damage(round(exposed_volume / 200), BURN, 0, 0)
+	if(temperature > T0C + (reinf ? 1600 : 800))
+		take_damage(round(temperature / 200), BURN, 0, 0)
 
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)
@@ -301,14 +290,12 @@
 	operating = FALSE
 	return TRUE
 
-
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
@@ -322,7 +309,6 @@
 	panel_open = !panel_open
 	to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [src.name]."))
 
-
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
 	if(operating)
 		return
@@ -332,8 +318,10 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(panel_open && !density && !operating)
-		user.visible_message(span_warning("[user] removes the electronics from the [name]."), \
-							 "You start to remove electronics from the [name]...")
+		user.visible_message(
+			span_warning("[user] removes the electronics from the [name]."), \
+			"You start to remove electronics from the [name]..."
+		)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -414,7 +402,6 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
-
 /obj/machinery/door/window/clockwork_fake
 	name = "brass windoor"
 	desc = "A completely not magical thin door with translucent brass paneling."
@@ -425,16 +412,13 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	cancolor = FALSE
 
-
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass(src, 2)
 
-
 /obj/machinery/door/window/clockwork_fake/Initialize(mapload, set_dir)
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
-
 
 /obj/machinery/door/window/clockwork/setDir(newdir)
 	if(!made_glow)
@@ -442,7 +426,6 @@
 		E.setDir(newdir)
 		made_glow = TRUE
 	return ..()
-
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))
@@ -465,7 +448,6 @@
 	dir = NORTH
 
 /obj/machinery/door/window/eastleft
-	dir = EAST
 
 /obj/machinery/door/window/westleft
 	dir = WEST
@@ -479,7 +461,6 @@
 	base_state = "right"
 
 /obj/machinery/door/window/eastright
-	dir = EAST
 	icon_state = "right"
 	base_state = "right"
 
@@ -497,7 +478,6 @@
 	dir = NORTH
 
 /obj/machinery/door/window/brigdoor/eastleft
-	dir = EAST
 
 /obj/machinery/door/window/brigdoor/westleft
 	dir = WEST
@@ -511,7 +491,6 @@
 	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/eastright
-	dir = EAST
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
 
@@ -529,7 +508,6 @@
 	dir = NORTH
 
 /obj/machinery/door/window/brigdoor/security/cell/eastleft
-	dir = EAST
 
 /obj/machinery/door/window/brigdoor/security/cell/westleft
 	dir = WEST
@@ -543,7 +521,6 @@
 	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/security/cell/eastright
-	dir = EAST
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
 

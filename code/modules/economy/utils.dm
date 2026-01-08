@@ -4,12 +4,15 @@
 // Economy system is such a mess of spaghetti.  This should help.
 ////////////////////////
 
-/proc/get_money_account(var/account_number, var/from_z=-1)
+/proc/get_money_account(account_number, from_z=-1)
 	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
-		if(from_z > -1 && DB.z != from_z) continue
-		if((DB.stat & NOPOWER) || !DB.activated ) continue
+		if(from_z > -1 && DB.z != from_z)
+			continue
+		if((DB.stat & NOPOWER) || !DB.activated)
+			continue
 		var/datum/money_account/acct = DB.get_account(account_number)
-		if(!acct) continue
+		if(!acct)
+			continue
 		return acct
 
 /proc/get_card_account(mob/user)
@@ -27,11 +30,14 @@
 /proc/get_account_from_card(obj/item/card/id/id)
 	return get_money_account(id.associated_account_number)
 
+/obj/item/proc/get_item_credit_value()
+	return
+
 /obj/machinery/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user, price, vended_name, datum/money_account/account_we_pay_on = GLOB.vendor_account)
 	if(price > cashmoney.amount)
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
-		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
+		to_chat(user, "[icon2html(cashmoney, user)] [span_warning("That is not enough money.")]")
 		return FALSE
 
 	// Bills (banknotes) cannot really have worth different than face value,
@@ -42,7 +48,7 @@
 	if(!cashmoney.use(price))
 		return FALSE
 
-	visible_message("<span class='notice'>[user] inserts a credit chip into [src].</span>")
+	visible_message(span_notice("[user] inserts a credit chip into [src]."))
 
 	// Vending machines have no idea who paid with cash
 	account_we_pay_on.credit(price, "Sale of [vended_name]", name, "(cash)")
@@ -50,13 +56,13 @@
 
 /obj/machinery/proc/pay_with_card(mob/M, price, vended_name, datum/money_account/account_we_pay_on = GLOB.vendor_account)
 	if(iscarbon(M))
-		visible_message("<span class='notice'>[M] swipes a card through [src].</span>")
+		visible_message(span_notice("[M] swipes a card through [src]."))
 	var/datum/money_account/customer_account = get_card_account(M)
 	if(!customer_account)
-		to_chat(M, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
+		to_chat(M, span_warning("Error: Unable to access account. Please contact technical support if problem persists."))
 		return FALSE
 	if(customer_account.suspended)
-		to_chat(M, "<span class='warning'>Unable to access account: account suspended.</span>")
+		to_chat(M, span_warning("Unable to access account: account suspended."))
 		return FALSE
 	// Have the customer punch in the PIN before checking if there's enough money.
 	// Prevents people from figuring out acct is empty at high security levels
@@ -64,10 +70,10 @@
 		// If card requires pin authentication (ie seclevel 1 or 2)
 		var/attempt_pin = tgui_input_number(M, "Enter pin code", "Vendor Transaction", 111111, 999999, 111111)
 		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
-			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+			to_chat(M, span_warning("Unable to access account: incorrect credentials."))
 			return FALSE
 	if(price > customer_account.money)
-		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
+		to_chat(M, span_warning("Your bank account has insufficient money to purchase this."))
 		return FALSE
 	// Okay to move the money at this point
 	customer_account.charge(price, account_we_pay_on,
@@ -83,8 +89,7 @@
 	return "$[num2septext(money)]"
 
 // Seperated from charge so they can reuse the code and also because there's many instances where a log will be made without actually making a transaction
-/datum/money_account/proc/makeTransactionLog(transaction_amount = 0, transaction_purpose, terminal_name = "",
- dest_name = UNKNOWN_STATUS_RUS, charging = TRUE, date = GLOB.current_date_string, time = "")
+/datum/money_account/proc/makeTransactionLog(transaction_amount = 0, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, charging = TRUE, date = GLOB.current_date_string, time = "")
 	var/datum/transaction/T = new()
 	T.target_name = dest_name
 	T.purpose = transaction_purpose
@@ -101,11 +106,10 @@
 		T.time = time
 	transaction_log.Add(T)
 
- // Charge is for transferring money from an account to another. The destination account can possibly not exist (Magical money sink)
-/datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose,
- terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, dest_purpose, dest_target_name)
+// Charge is for transferring money from an account to another. The destination account can possibly not exist (Magical money sink)
+/datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, dest_purpose, dest_target_name)
 	if(suspended)
-		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
+		to_chat(usr, span_warning("Unable to access source account: account suspended."))
 		return 0
 
 	if(transaction_amount <= money)
@@ -118,7 +122,7 @@
 			dest_purpose ? dest_purpose : transaction_purpose, terminal_name, dest_target_name ? dest_target_name : dest_name, FALSE)
 		return 1
 	else
-		to_chat(usr, "<span class='warning'>Insufficient funds in account.</span>")
+		to_chat(usr, span_warning("Insufficient funds in account."))
 		return 0
 
 // phantom_charge is for when you want to charge an account, without making any corresponding log (e.g. you make it yourself with custom date
@@ -137,8 +141,7 @@
 		return 0
 
 // Credit is for giving money to an account out of thin air. Suspension does not matter.
-/datum/money_account/proc/credit(transaction_amount = 0, transaction_purpose,
- terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, date = GLOB.current_date_string, time = "")
+/datum/money_account/proc/credit(transaction_amount = 0, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, date = GLOB.current_date_string, time = "")
 
 	money += transaction_amount
 	makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name, FALSE, date, time)

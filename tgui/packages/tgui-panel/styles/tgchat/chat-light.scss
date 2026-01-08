@@ -150,7 +150,7 @@ h2.alert {
 }
 
 .prisradio {
-  color: #ff831a;
+  color: hsl(27.5, 100%, 55.1%);
 }
 
 .engradio {
@@ -228,7 +228,7 @@ h2.alert {
 }
 
 .announcement.sec h1 {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 .boldannounceic {
@@ -353,6 +353,14 @@ span.body .coderesponses {
 
 .agent_b {
   color: hsl(180, 100%, 15%);
+}
+
+.hydrogen {
+  color: hsl(351, 16%, 41%);
+}
+
+.water_vapor {
+  color: hsl(248, 39%, 39%);
 }
 
 // MARK: Boxed messages

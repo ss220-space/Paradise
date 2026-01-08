@@ -2,7 +2,6 @@
 	name = "creature"
 	desc = "Разрушающее рассудок существо из преисподней."
 
-	gender = MALE
 	icon_state = "otherthing-pink"
 	icon_living = "otherthing-pink"
 	icon_dead = "otherthing-pink-dead"
@@ -26,7 +25,7 @@
 		DATIVE = "существу",
 		ACCUSATIVE = "существо",
 		INSTRUMENTAL = "существом",
-		PREPOSITIONAL = "существе"
+		PREPOSITIONAL = "существе",
 	)
 
 /mob/living/simple_animal/hostile/netherworld/ComponentInitialize()
@@ -55,7 +54,7 @@
 		DATIVE = "ми-го",
 		ACCUSATIVE = "ми-го",
 		INSTRUMENTAL = "ми-го",
-		PREPOSITIONAL = "ми-го"
+		PREPOSITIONAL = "ми-го",
 	)
 
 /mob/living/simple_animal/hostile/netherworld/migo/Initialize(mapload)
@@ -113,17 +112,17 @@
 /obj/structure/spawner/nether/examine(mob/user)
 	. = ..()
 	if(isskeleton(user))
-		. += "<span class='notice'>A direct link to another dimension full of creatures very happy to see you.</span> <span class='green'>You can see your house from here!</span>"
+		. += "[span_notice("A direct link to another dimension full of creatures very happy to see you.")] [span_green("You can see your house from here!")]"
 	else
-		. += "<span class='notice'>A direct link to another dimension full of creatures not very happy to see you.</span> <span class='warning'>Entering the link would be a very bad idea.</span>"
+		. += "[span_notice("A direct link to another dimension full of creatures not very happy to see you.")] [span_warning("Entering the link would be a very bad idea.")]"
 
 /obj/structure/spawner/nether/attack_hand(mob/user)
 	. = ..()
 	if(isskeleton(user))
-		to_chat(user, "<span class='notice'>You don't feel like going home yet...</span>")
+		to_chat(user, span_notice("You don't feel like going home yet..."))
 	else
-		user.visible_message("<span class='warning'>[user] is violently pulled into the link!</span>", \
-							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
+		user.visible_message(span_warning("[user] is violently pulled into the link!"), \
+							span_userdanger("Touching the portal, you are quickly pulled through into a world of unimaginable horror!"))
 		contents.Add(user)
 
 /obj/structure/spawner/nether/process()
@@ -137,5 +136,5 @@
 				blank = new(loc)
 				blank.name = "[M]"
 				blank.desc = "It's [M], but [M.p_their()] flesh has an ashy texture, and [M.p_their()] face is featureless save an eerie smile."
-				visible_message("<span class='warning'>[M] reemerges from the link!</span>")
+				visible_message(span_warning("[M] reemerges from the link!"))
 				qdel(M)

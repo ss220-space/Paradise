@@ -19,13 +19,11 @@ Bonus
 
 	name = "Жар"
 	id = "fever"
-	stealth = 0
 	resistance = 3
 	stage_speed = 3
 	transmittable = 2
 	level = 2
 	severity = 2
-
 
 /datum/symptom/fever/Activate(datum/disease/virus/advance/A)
 	..()

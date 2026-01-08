@@ -94,7 +94,6 @@
 // --------------------- TERROR SPIDERS: AI BEHAVIOR CODE -------------------------
 // --------------------------------------------------------------------------------
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_action()
 	if(target)
 		CreatePath(target)
@@ -166,7 +165,6 @@
 			spider_special_action()
 		..()
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -182,7 +180,6 @@
 	if(. && amount > 0)
 		Retaliate()
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustFireLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -197,7 +194,6 @@
 	. = ..()
 	if(. && amount > 0)
 		Retaliate()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Retaliate()
 	var/list/around = oview(src, 7)
@@ -310,7 +306,7 @@
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)

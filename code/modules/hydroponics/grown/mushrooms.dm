@@ -3,7 +3,6 @@
 	bitesize_mod = 2
 	wine_power = 0.4
 
-
 // Reishi
 /obj/item/seeds/reishi
 	name = "pack of reishi mycelium"
@@ -30,7 +29,6 @@
 	icon_state = "reishi"
 	tastes = list("reishi" = 1)
 	filling_color = "#FF4500"
-
 
 // Fly Amanita
 /obj/item/seeds/amanita
@@ -59,7 +57,6 @@
 	tastes = list("amanita" = 1)
 	filling_color = "#FF0000"
 	log_eating = TRUE
-
 
 // Destroying Angel
 /obj/item/seeds/angel
@@ -119,7 +116,6 @@
 	tastes = list("liberty-cap" = 1)
 	wine_flavor = "freedom"
 
-
 // Plump Helmet
 /obj/item/seeds/plump
 	name = "pack of plump-helmet mycelium"
@@ -147,7 +143,6 @@
 	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)
 	distill_reagent = "manlydorf"
 
-
 // Walking Mushroom
 /obj/item/seeds/plump/walkingmushroom
 	name = "pack of walking mushroom mycelium"
@@ -160,7 +155,6 @@
 	endurance = 30
 	maturation = 5
 	yield = 1
-	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list()
 	reagents_add = list("vitamin" = 0.05, "nutriment" = 0.15)
 	rarity = 30
@@ -185,8 +179,7 @@
 	M.move_to_delay -= round(seed.production / 50)
 	M.health = M.maxHealth
 	qdel(src)
-	to_chat(user, "<span class='notice'>You plant the walking mushroom.</span>")
-
+	to_chat(user, span_notice("You plant the walking mushroom."))
 
 // Chanterelle
 /obj/item/seeds/chanter
@@ -215,7 +208,6 @@
 	tastes = list("chanterelle" = 1)
 	filling_color = "#FFA500"
 
-
 // Glowshroom
 /obj/item/seeds/glowshroom
 	name = "pack of glowshroom mycelium"
@@ -228,7 +220,6 @@
 	endurance = 30
 	maturation = 15
 	production = 1
-	yield = 3 //-> spread
 	potency = 30 //-> brightness
 	growthstages = 4
 	rarity = 20
@@ -253,7 +244,7 @@
 	if(isspaceturf(user.loc))
 		return FALSE
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
+		to_chat(user, span_warning("You need more space to plant [src]."))
 		return FALSE
 	var/count = 0
 	var/maxcount = 1
@@ -264,14 +255,13 @@
 	for(var/obj/structure/glowshroom/G in user.loc)
 		count++
 	if(count >= maxcount)
-		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
+		to_chat(user, span_warning("There are too many shrooms here to plant [src]."))
 		return FALSE
 	new effect_path(user.loc, seed)
 	investigate_log("was planted by [key_name_log(user)] at [COORD(user)]", INVESTIGATE_BOTANY)
-	to_chat(user, "<span class='notice'>You plant [src].</span>")
+	to_chat(user, span_notice("You plant [src]."))
 	qdel(src)
 	return TRUE
-
 
 // Glowcap
 /obj/item/seeds/glowshroom/glowcap
@@ -292,7 +282,6 @@
 	name = "glowcap cluster"
 	desc = "<i>Mycena Ruthenia</i>: This species of mushroom glows in the dark, but isn't actually bioluminescent. They're warm to the touch..."
 	icon_state = "glowcap"
-	filling_color = "#00FA9A"
 	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"

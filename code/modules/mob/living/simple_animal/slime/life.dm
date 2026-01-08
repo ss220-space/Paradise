@@ -12,7 +12,7 @@
 			handle_nutrition()
 			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
 				return
-			reagents.remove_all(0.5 * REAGENTS_METABOLISM * reagents.reagent_list.len) //Slimes are such snowflakes
+			reagents.remove_all(0.5 * REAGENTS_METABOLISM * length(reagents.reagent_list)) //Slimes are such snowflakes
 			handle_targets()
 			if(!ckey)
 				handle_mood()
@@ -23,16 +23,15 @@
 	if(!destination && !QDELETED(src))
 		stack_trace("Slime moved to null space")
 
-
 /mob/living/simple_animal/slime/proc/AIprocess()  // the master AI process
 
 	if(AIproc || stat || client)
 		return
 
 	var/hungry = 0
-	if (nutrition < get_starve_nutrition())
+	if(nutrition < get_starve_nutrition())
 		hungry = 2
-	else if (nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
+	else if(nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
 		hungry = 1
 
 	AIproc = 1
@@ -104,12 +103,11 @@
 
 	AIproc = 0
 
-
-/mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
+/mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
 		return
 
-	var/loc_temp = get_temperature(environment)
+	var/loc_temp = get_temperature(readonly_environment)
 
 	adjust_bodytemperature(adjust_body_temperature(bodytemperature, loc_temp, 1))
 
@@ -127,7 +125,6 @@
 
 	else
 		Tempstun = 0
-
 
 /mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
 	var/temperature = current
@@ -220,7 +217,6 @@
 	//Heal yourself.
 	heal_damage_type(3 + round(nutrition_rand / 4))
 
-
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 
 	if(docile) //God as my witness, I will never go hungry again
@@ -244,7 +240,7 @@
 			if(age_state.age != SLIME_BABY && prob(chance_reproduce) || age_state.age == SLIME_ELDER)
 				Reproduce()
 
-	if (buckled || Target || ckey)
+	if(buckled || Target || ckey)
 		return FALSE
 
 	if(amount_grown >= age_state.amount_grown)
@@ -295,7 +291,7 @@
 
 		if(Target)
 			--target_patience
-			if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile) // Tired of chasing or something draws out attention
+			if(target_patience <= 0 || SStun > world.time || Discipline || attacked || docile) // Tired of chasing or something draws out attention
 				target_patience = 0
 				Target = null
 
@@ -304,13 +300,13 @@
 
 		var/hungry = 0 // determines if the slime is hungry
 
-		if (nutrition < get_starve_nutrition())
+		if(nutrition < get_starve_nutrition())
 			hungry = 2
-		else if (nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
+		else if(nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
 			hungry = 1
 
 		if(hungry == 2 && !client) // if a slime is starving, it starts losing its friends
-			if(Friends.len && prob(1))
+			if(length(Friends) && prob(1))
 				var/mob/nofriend = pick(Friends)
 				--Friends[nofriend]
 
@@ -344,7 +340,7 @@
 
 					targets += L // Possible target found!
 
-				if(targets.len)
+				if(length(targets))
 					if(attacked || rabid || hungry == 2)
 						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
 					else
@@ -358,20 +354,20 @@
 								Target = C
 								break
 
-			if (Target)
+			if(Target)
 				target_patience = rand(5, 7)
 				if(age_state.age != SLIME_BABY)
 					target_patience += 3
 
 		if(!Target) // If we have no target, we are wandering or following orders
-			if (Leader)
+			if(Leader)
 				if(holding_still)
 					holding_still = max(holding_still - 1, 0)
 				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
 					step_to(src, Leader)
 
 			else if(hungry)
-				if (holding_still)
+				if(holding_still)
 					holding_still = max(holding_still - hungry, 0)
 				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
 					step(src, pick(GLOB.cardinal))
@@ -379,7 +375,7 @@
 			else
 				if(holding_still)
 					holding_still = max(holding_still - 1, 0)
-				else if (docile && pulledby)
+				else if(docile && pulledby)
 					holding_still = 10
 				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
 					step(src, pick(GLOB.cardinal))
@@ -394,20 +390,20 @@
 
 /mob/living/simple_animal/slime/proc/handle_mood()
 	var/newmood = ""
-	if (rabid || attacked)
+	if(rabid || attacked)
 		newmood = "angry"
-	else if (docile)
+	else if(docile)
 		newmood = ":3"
-	else if (Target)
+	else if(Target)
 		newmood = "mischievous"
 
-	if (!newmood)
-		if (Discipline && prob(25))
+	if(!newmood)
+		if(Discipline && prob(25))
 			newmood = "pout"
-		else if (prob(1))
+		else if(prob(1))
 			newmood = pick("sad", ":3", "pout")
 
-	if ((mood == "sad" || mood == ":3" || mood == "pout") && !newmood)
+	if((mood == "sad" || mood == ":3" || mood == "pout") && !newmood)
 		if(prob(75))
 			newmood = mood
 
@@ -418,7 +414,7 @@
 /mob/living/simple_animal/slime/proc/handle_speech()
 	//Speech understanding starts here
 	var/to_say
-	if(speech_buffer.len)
+	if(length(speech_buffer))
 		var/who = speech_buffer[1] // Who said it?
 		var/phrase = speech_buffer[2] // What did they say?
 		if((findtext(phrase, num2text(number)) || findtext(phrase, "slimes"))) // Talking to us
@@ -441,10 +437,10 @@
 						to_say = pick("No...", "I no follow...")
 			else if(findtext(phrase, "stop"))
 				if(buckled) // We are asked to stop feeding
-					if (Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
+					if(Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
 						Feedstop()
 						Target = null
-						if (Friends[who] < SLIME_FRIENDSHIP_STOPEAT_NOANGRY)
+						if(Friends[who] < SLIME_FRIENDSHIP_STOPEAT_NOANGRY)
 							--Friends[who]
 							to_say = "Grrr..." // I'm angry but I do it
 						else
@@ -469,7 +465,7 @@
 							to_say = "No... keep follow..."
 			else if(findtext(phrase, "stay"))
 				if(Leader)
-					if (Leader == who)
+					if(Leader == who)
 						holding_still = Friends[who] * 10
 						to_say = "Yes... stay..."
 					else if(Friends[who] > Friends[Leader])
@@ -520,7 +516,7 @@
 		for(var/mob/living/L in view(7,src))
 			if(isslime(L) && L != src)
 				++slimes_near
-				if (L.stat == DEAD)
+				if(L.stat == DEAD)
 					++dead_slimes
 			if(L in Friends)
 				t += 20

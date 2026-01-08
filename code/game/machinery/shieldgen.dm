@@ -4,20 +4,18 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-old"
 	density = TRUE
-	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	max_integrity = 200
 
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/machinery/shield/Destroy()
 	set_opacity(FALSE)
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/machinery/shield/has_prints()
@@ -28,8 +26,7 @@
 	. = ..()
 	move_update_air(T)
 
-
-/obj/machinery/shield/CanAtmosPass(turf/T, vertical)
+/obj/machinery/shield/CanAtmosPass(direction)
 	return !density
 
 /obj/machinery/shield/ex_act(severity, target)
@@ -118,7 +115,7 @@
 		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return visible
 
 /obj/machinery/shieldgen
@@ -127,8 +124,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
 	density = TRUE
-	opacity = FALSE
-	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
@@ -143,7 +138,6 @@
 	QDEL_LIST(deployed_shields)
 	deployed_shields = null
 	return ..()
-
 
 /obj/machinery/shieldgen/proc/shields_up()
 	if(active)
@@ -170,7 +164,7 @@
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(deployed_shields.len && prob(5))
+		if(length(deployed_shields) && prob(5))
 			qdel(pick(deployed_shields))
 
 	return
@@ -220,20 +214,19 @@
 
 	if(active)
 		add_fingerprint(user)
-		user.visible_message(span_notice("[bicon(src)] [user] deactivated the shield generator."), \
-			span_notice("[bicon(src)] You deactivate the shield generator."), \
+		user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] deactivated the shield generator."), \
+			span_notice("[icon2html(src, user)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
 			add_fingerprint(user)
-			user.visible_message(span_notice("[bicon(src)] [user] activated the shield generator."), \
-				span_notice("[bicon(src)] You activate the shield generator."), \
+			user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] activated the shield generator."), \
+				span_notice("[icon2html(src, user)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else
 			to_chat(user, "The device must first be secured to the floor.")
-
 
 /obj/machinery/shieldgen/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/emag))
@@ -278,7 +271,6 @@
 
 	return ..()
 
-
 /obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -308,19 +300,15 @@
 		WRENCH_ANCHOR_MESSAGE
 		set_anchored(TRUE)
 
-
 /obj/machinery/shieldgen/update_icon_state()
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
-
 
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
 #define maxstoredpower 500
 /obj/machinery/shieldwallgen
 	name = "Shield Generator"
 	desc = "A shield generator."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "shieldgen"
-	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
 	var/active = 0
@@ -337,10 +325,8 @@
 	flags = CONDUCT
 	use_power = NO_POWER_USE
 
-
 /obj/machinery/shieldwallgen/update_icon_state()
 	icon_state = "shieldgen[active ? "_on" : ""]"
-
 
 /obj/machinery/shieldwallgen/proc/power()
 	if(!anchored)
@@ -474,7 +460,6 @@
 		CF.loc = T
 		CF.dir = field_dir
 
-
 /obj/machinery/shieldwallgen/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
@@ -484,7 +469,6 @@
 		return .
 	set_anchored(!anchored)
 	to_chat(user, "You [anchored ? "secure" : "loosen"] the external reinforcing bolts [anchored ? "to" : "from"] the floor.")
-
 
 /obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -500,7 +484,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/shieldwallgen/proc/cleanup(NSEW)
 	var/obj/machinery/shieldwall/F
@@ -532,7 +515,6 @@
 	storedpower -= Proj.damage
 	..()
 	return
-
 
 ////////////// Containment Field START
 /obj/machinery/shieldwall
@@ -580,7 +562,6 @@
 		else
 			gen_secondary.storedpower -=10
 
-
 /obj/machinery/shieldwall/bullet_act(obj/projectile/Proj)
 	if(needs_power)
 		var/obj/machinery/shieldwallgen/G
@@ -591,7 +572,6 @@
 		G.storedpower -= Proj.damage
 	..()
 	return
-
 
 /obj/machinery/shieldwall/ex_act(severity, target)
 	if(needs_power)
@@ -618,7 +598,6 @@
 
 	return
 
-
 /obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -628,12 +607,10 @@
 	if(isprojectile(mover))
 		return prob(10)
 
-
 /obj/machinery/shieldwall/syndicate
 	name = "energy shield"
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
-
 
 /obj/machinery/shieldwall/syndicate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -646,12 +623,10 @@
 	else if(isprojectile(mover))
 		return FALSE
 
-
 /obj/machinery/shieldwall/syndicate/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(pass_info.faction && ("syndicate" in pass_info.faction))
 		return TRUE
 	return ..()
-
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()
 	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.
@@ -665,12 +640,10 @@
 	phaseout()
 	return ..()
 
-
 /obj/machinery/shieldwall/syndicate/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		phaseout()
-
 
 /obj/machinery/shieldwall/syndicate/bullet_act(obj/projectile/Proj)
 	phaseout()

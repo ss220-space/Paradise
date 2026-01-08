@@ -4,7 +4,7 @@
 
 /obj/item/twohanded/fishing_rod
 	name = "ol' reliable"
-	desc = "Старая, видавшая виды удочка. Если она прослужила так долго и ещё не развалилась - вам точно не следует волноваться о её надёжности."
+	desc = "Старая, видавшая виды удочка. Если она прослужила так долго и ещё не развалилась — вам точно не следует волноваться о её надёжности."
 	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
@@ -35,7 +35,7 @@
 		DATIVE = "удочке",
 		ACCUSATIVE = "удочку",
 		INSTRUMENTAL = "удочкой",
-		PREPOSITIONAL = "удочке"
+		PREPOSITIONAL = "удочке",
 	)
 
 /obj/item/twohanded/fishing_rod/tribal
@@ -44,7 +44,6 @@
 	icon_state = "tribal_rod"
 	item_state = "tribal_rod"
 
-
 /obj/item/twohanded/fishing_rod/tribal/get_ru_names()
 	return list(
 		NOMINATIVE = "примитивная удочка",
@@ -52,7 +51,7 @@
 		DATIVE = "примитивной удочке",
 		ACCUSATIVE = "примитивную удочку",
 		INSTRUMENTAL = "примитивной удочкой",
-		PREPOSITIONAL = "примитивной удочке"
+		PREPOSITIONAL = "примитивной удочке",
 	)
 
 /obj/item/twohanded/fishing_rod/Destroy()
@@ -62,7 +61,7 @@
 /obj/item/twohanded/fishing_rod/examine(mob/user)
 	. = ..()
 	if(bait)
-		. += span_notice("на крючке наход[pluralize_ru(bait.gender, "ит", "ят")]ся [bait.declent_ru(NOMINATIVE)].")
+		. += span_notice("на крючке наход[PLUR_IT_YAT(bait)]ся [bait.declent_ru(NOMINATIVE)].")
 		. += span_notice("Вы можете снять наживку, используя <b>Alt + ЛКМ</b>.")
 
 /obj/item/twohanded/fishing_rod/update_icon_state()
@@ -171,7 +170,6 @@
 	to_chat(user, span_notice("Вы насадили [worm.declent_ru(ACCUSATIVE)] на крючок."))
 	update_icon(UPDATE_OVERLAYS)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/twohanded/fishing_rod/click_alt(mob/user)
 	if(!bait)

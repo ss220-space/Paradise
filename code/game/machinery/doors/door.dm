@@ -2,7 +2,7 @@
 	name = "door"
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/doorint.dmi'
-	icon_state = "door1"
+	icon_state = null
 	anchored = TRUE
 	opacity = TRUE
 	density = TRUE
@@ -45,6 +45,9 @@
 	/// Whether or not the door can be opened by hand (used for blast doors and shutters)
 	var/can_open_with_hands = TRUE
 
+	/// How much this door reduces superconductivity to when closed.
+	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
+
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
@@ -58,7 +61,7 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -70,12 +73,10 @@
 	. = ..()
 	update_dir()
 
-
 /obj/machinery/door/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon()
-
 
 /obj/machinery/door/proc/update_dir()
 	if(width > 1)
@@ -88,7 +89,7 @@
 
 /obj/machinery/door/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
@@ -97,7 +98,7 @@
 /obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
 	. = ..()
 
-	if(skip_effects || operating || emagged || (!can_open_with_hands && density) )
+	if(skip_effects || operating || emagged || (!can_open_with_hands && density))
 		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom
@@ -131,7 +132,6 @@
 					return
 				INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 
-
 /obj/machinery/door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
@@ -145,7 +145,6 @@
 			bound_width = ICON_SIZE_X
 			bound_height = width * ICON_SIZE_Y
 
-
 /obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
@@ -154,10 +153,17 @@
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
 
+/obj/machinery/door/CanAtmosPass(direction)
+	return operating || !density
 
-/obj/machinery/door/CanAtmosPass(turf/T, vertical)
-	return !density
+/obj/machinery/door/get_superconductivity(direction)
+	if(!density)
+		return ..()
 
+	if(heat_proof)
+		return ZERO_HEAT_TRANSFER_COEFFICIENT
+
+	return superconductivity
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating || !can_open_with_hands)
@@ -183,7 +189,6 @@
 		cmag_switch(TRUE, user)
 		return
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
-
 
 /obj/machinery/door/proc/pry_open_check(mob/user)
 	. = TRUE
@@ -214,7 +219,6 @@
 
 	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		V.bloodusable = max(V.bloodusable - 5, 0)
-
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -285,7 +289,6 @@
 		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
-
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		clean_cmag_ooze(I, user)
@@ -297,12 +300,12 @@
 			try_to_crowbar(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(!(I.item_flags & NOBLUDGEON))
-			try_to_activate_door(user)
+		if(I.item_flags & NOBLUDGEON)
+			return ..()
+		else if(try_to_activate_door(user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -384,10 +387,8 @@
 	sound_ready = FALSE
 	addtimer(VARSET_CALLBACK(src, sound_ready, TRUE), sound_cooldown)
 
-
 /obj/machinery/door/update_icon_state()
 	icon_state = "door[density]"
-
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
@@ -411,6 +412,7 @@
 	if(operating)
 		return FALSE
 	operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
 	sleep(0.5 SECONDS)
@@ -419,12 +421,10 @@
 	layer = initial(layer)
 	update_icon()
 	operating = NONE
-	air_update_turf(TRUE)
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
 	return TRUE
-
 
 /obj/machinery/door/proc/close()
 	if(density)
@@ -450,7 +450,7 @@
 	if(visible && !glass)
 		set_opacity(TRUE)
 	operating = NONE
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()
@@ -458,11 +458,12 @@
 		crush()
 	return TRUE
 
-
 /obj/machinery/door/proc/CheckForMobs()
 	if(locate(/mob/living) in get_turf(src))
 		sleep(1)
 		open()
+
+#define DOOR_CRUSH_DAMAGE 10
 
 /obj/machinery/door/proc/crush()
 	for(var/mob/living/L in get_turf(src))
@@ -482,6 +483,8 @@
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
 
+#undef DOOR_CRUSH_DAMAGE
+
 /obj/machinery/door/proc/requiresID()
 	return 1
 
@@ -499,13 +502,9 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
-/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
-	if(opacity || heat_proof)
-		return TRUE
-	return FALSE
-
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
+	icon_state = "door1"
 
 /obj/machinery/door/proc/lock()
 	return
@@ -524,7 +523,6 @@
 /obj/machinery/door/ex_act(severity, target)
 	//if it blows up a wall it should blow up a door
 	return ..(severity ? min(EXPLODE_DEVASTATE, severity + 1) : EXPLODE_NONE, target)
-
 
 /obj/machinery/door/get_explosion_block()
 	return density ? real_explosion_block : 0

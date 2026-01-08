@@ -11,7 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 	name = "Princess of Terror spider"
 	desc = "Огромный паук. Он выглядит необычайно милым и пушистым."
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
 	icon_dead = "terror_princess1_dead"
@@ -25,15 +24,12 @@
 	deathmessage = "Издаёт пронзительный визг и медленно опадает на землю."
 	death_sound = 'sound/creatures/terrorspiders/princess_death.ogg'
 	spider_tier = TS_TIER_3
-	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
-	spider_intro_text = "Будучи Принцессой Ужаса, ваша задача - откладывать яйца и охранять их. Хоть вы и умеете плеваться кислотой, а также обладаете визгом, помогающим в бою, вам не стоит сражаться намеренно, ведь для этого есть другие пауки."
+	spider_intro_text = "Будучи Принцессой Ужаса, ваша задача — откладывать яйца и охранять их. Хоть вы и умеете плеваться кислотой, а также обладаете визгом, помогающим в бою, вам не стоит сражаться намеренно, ведь для этого есть другие пауки."
 	datum_type = /datum/antagonist/terror_spider/main_spider/princess
-	ranged = 1
 	projectiletype = /obj/projectile/terrorspider/princess
 	ranged_cooldown_time = 30
 	canlay = 1
 	hasnested = TRUE
-	spider_spawnfrequency = 1600 // 160 seconds
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_princess)
 	var/spider_max_children = 20
 	tts_seed = "Lissandra"
@@ -48,7 +44,6 @@
 		PREPOSITIONAL = "Принцессе Ужаса",
 	)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_queen_subtype_abilities()
 	// Queens start in movement mode, where they can ventcrawl but not lay eggs. Then they move to NestMode() where they can wallsmash and egglay, but not ventcrawl.
 	// Princesses are simpler, and can always lay eggs, always vent crawl, but never smash walls. Unlike queens, they don't have a "nesting" transformation.
@@ -56,7 +51,6 @@
 	queeneggs_action.Grant(src)
 	queensense_action = new()
 	queensense_action.Grant(src)
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ListAvailableEggTypes()
 	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_REAPER, TS_DESC_BUILDER)
@@ -129,7 +123,6 @@
 		spider_lastspawn = world.time
 		DoLayTerrorEggs(pick(spider_types_standard), 1)
 		// Yes, this means NPC princesses won't create T2 spiders.
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ai_nest_is_full()
 	var/list/spider_array = CountSpidersDetailed(TRUE)

@@ -4,7 +4,6 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "sqpad"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 250 //if 400, cd = 30 seconds due to base parts
@@ -84,14 +83,12 @@
 		return S
 	return null
 
-
 /obj/machinery/syndiepad/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/syndiepad/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -115,7 +112,6 @@
 			console_link = TRUE
 			var/datum/syndie_data_storage/S = LocateDataStorage()
 			S?.sync()
-
 
 /obj/machinery/syndiepad/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -278,5 +274,4 @@
 				if(!tele_success)
 					to_chat(user, span_warning("Object '[ROI]'' was not teleported for unknown reason!"))
 			return
-
 

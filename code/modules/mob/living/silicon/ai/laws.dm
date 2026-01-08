@@ -1,9 +1,9 @@
 /mob/living/silicon/ai/proc/show_laws_verb()
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Список законов"
 	src.show_laws()
 
-/mob/living/silicon/ai/show_laws(var/everyone = 0)
+/mob/living/silicon/ai/show_laws(everyone = 0)
 	var/who
 
 	if(everyone)
@@ -28,6 +28,6 @@
 			R.show_laws()
 
 /mob/living/silicon/ai/proc/ai_checklaws()
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Объявить законы"
 	subsystem_law_manager()

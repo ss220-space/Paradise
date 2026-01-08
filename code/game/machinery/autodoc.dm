@@ -1,7 +1,7 @@
 /*автодок это достаточно крупная штука, делающая простые вещи. Я начал ее делать, но потом выгорел,
- да и в конечном итоге решил, что он нахер не нужен в нашем билде, но
- мне было жалко, удалять то, на что я потратил большое колво времени, поэтому тут я решил оставить полностью
- закоменченный файл. сори
+да и в конечном итоге решил, что он нахер не нужен в нашем билде, но
+мне было жалко, удалять то, на что я потратил большое колво времени, поэтому тут я решил оставить полностью
+закоменченный файл. сори
 
 #define BODY_ZONE_BY_GROUPS list(BODY_ZONE_HEAD = BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES = BODY_ZONE_HEAD,
 								BODY_ZONE_PRECISE_MOUTH = BODY_ZONE_HEAD, BODY_ZONE_CHEST= BODY_ZONE_CHEST,
@@ -54,11 +54,9 @@
 	for(var/atom/movable/target in src)
 		target.forceMove(source_turf)
 
-
 /obj/machinery/autodoc/examine(mob/user)
 	. = ..()
 	. += span_notice("You can rotate [src] by using </b>wrench<b>.")
-
 
 /obj/machinery/autodoc/update_overlays()
 	. = ..()
@@ -67,7 +65,6 @@
 
 	if(connected)
 		return
-
 
 /obj/machinery/autodoc/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -79,7 +76,6 @@
 		I.forceMove(src)
 		return
 	return ..()
-
 
 /obj/machinery/autodoc/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -103,7 +99,7 @@
 /obj/machinery/autodoc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "AutoDoc", name, 800, 500, master_ui, state)
+		ui = new(user, src, ui_key, "AutoDoc") //, name, 800, 500, master_ui, state
 		ui.open()
 
 /obj/machinery/autodoc/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -189,7 +185,7 @@
 	if(current_organ.burn_dam)
 		current_organ.burn_dam = clamp(current_organ.brute_dam-HEAL_PER_TIME, 0, current_organ.burn_dam)
 		return
-	if(organs_to_heal.len > 1)
+	if(length(organs_to_heal) > 1)
 		organs_to_heal = organs_to_heal.Copy(2)
 		occupant.updatehealth("heal overall damage")
 		occupant.UpdateDamageIcon()
@@ -280,7 +276,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-
 /obj/machinery/autodoc/proc/connect()
 	var/turf/target_turf = get_step(src, dir)
 
@@ -309,13 +304,11 @@
 		return
 	tray_toggle(user)
 
-
 /obj/machinery/autodoc/container_resist(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated())
 		return
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
 	tray_toggle(user)
-
 
 /obj/machinery/autodoc/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
@@ -330,4 +323,7 @@
 	layer = BELOW_OBJ_LAYER
 	var/obj/machinery/autodoc/doc
 
-#undef BODY_ZONE_BY_GROUPS */
+#undef BODY_ZONE_BY_GROUPS
+#undef HEAL_PER_TIME
+#undef FIXING_TIME
+*/

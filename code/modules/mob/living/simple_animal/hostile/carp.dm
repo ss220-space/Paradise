@@ -8,7 +8,6 @@
 	icon_living = "base"
 	icon_dead = "base_dead"
 	icon_gib = "carp_gib"
-	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
 	response_help = "гладит"
@@ -67,9 +66,8 @@
 		DATIVE = "космокарпу",
 		ACCUSATIVE = "космокарпа",
 		INSTRUMENTAL = "космокарпом",
-		PREPOSITIONAL = "космокарпе"
+		PREPOSITIONAL = "космокарпе",
 	)
-
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
@@ -177,7 +175,7 @@
 		DATIVE = "мегакосмокарпу",
 		ACCUSATIVE = "мегакосмокарпа",
 		INSTRUMENTAL = "мегакосмокарпом",
-		PREPOSITIONAL = "мегакосмокарпе"
+		PREPOSITIONAL = "мегакосмокарпе",
 	)
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
@@ -186,7 +184,6 @@
 	melee_damage_lower += rand(5, 10)
 	melee_damage_upper += rand(10, 20)
 	maxHealth += rand(60, 90)
-
 
 /mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(
 	amount = 0,
@@ -199,7 +196,6 @@
 	if(. && amount > 0)
 		regen_cooldown = world.time + REGENERATION_DELAY
 
-
 /mob/living/simple_animal/hostile/carp/megacarp/Life()
 	..()
 	if(regen_cooldown < world.time)
@@ -210,8 +206,6 @@
 	desc = "Большая рыба, имеющая сходства с дальними космическими родственниками."
 	icon_state = "carp"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 1)
-	response_help = "гладит"
-	response_disarm = "осторожно отодвигает в сторону"
 	response_harm = "ударяет"
 	retreat_distance = 6
 	vision_range = 5
@@ -226,7 +220,7 @@
 		DATIVE = "морскому карпу",
 		ACCUSATIVE = "морского карпа",
 		INSTRUMENTAL = "морским карпом",
-		PREPOSITIONAL = "морском карпе"
+		PREPOSITIONAL = "морском карпе",
 	)
 
 /mob/living/simple_animal/hostile/carp/sea/ComponentInitialize()
@@ -243,7 +237,6 @@
 	icon_living = "Mcarp"
 	icon_dead = "MCarp_Dead"
 
-	obj_damage = 50
 	melee_damage_lower = 25
 	melee_damage_upper = 30
 	maxHealth = 150
@@ -256,7 +249,7 @@
 		DATIVE = "мутирововшему карпу",
 		ACCUSATIVE = "мутировавшего карпа",
 		INSTRUMENTAL = "мутировавшим карпом",
-		PREPOSITIONAL = "мутировавшем карпе"
+		PREPOSITIONAL = "мутировавшем карпе",
 	)
 
 /mob/living/simple_animal/hostile/carp/koi
@@ -271,8 +264,6 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	obj_damage = 5
-	maxHealth = 25
-	health = 25
 	speak_emote = list("бурчит")
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/salmonmeat = 1)
 
@@ -287,7 +278,7 @@
 		DATIVE = "космическому кои",
 		ACCUSATIVE = "космического кои",
 		INSTRUMENTAL = "космическим кои",
-		PREPOSITIONAL = "космическом кои"
+		PREPOSITIONAL = "космическом кои",
 	)
 
 /mob/living/simple_animal/hostile/carp/koi/Initialize(mapload)
@@ -303,6 +294,5 @@
 	icon_living = "koi5"
 	icon_dead = "koi5-dead"
 	randomize_icon = FALSE
-	retaliate_only = TRUE
 
 #undef REGENERATION_DELAY

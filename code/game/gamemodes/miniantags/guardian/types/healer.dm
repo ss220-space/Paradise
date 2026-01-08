@@ -1,6 +1,5 @@
 /mob/living/simple_animal/hostile/guardian/healer
 	friendly = "heals"
-	speed = 0
 	damage_transfer = 0.7
 	melee_damage_lower = 5
 	melee_damage_upper = 5
@@ -23,8 +22,6 @@
 	icon_state = "seal"
 	attacktext = "шлёпает"
 	speak_emote = list("лает", "рявкает")
-	friendly = "heals"
-	speed = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
@@ -37,7 +34,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 /mob/living/simple_animal/hostile/guardian/healer/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -92,15 +89,15 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
 	set name = "Установить БС-маяк"
-	set category = STATPANEL_GUARDIAN
+	set category = VERB_CATEGORY_GUARDIAN
 	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
 		if(isfloorturf(beacon_loc))
 			var/turf/simulated/floor/F = beacon_loc
 			F.icon = 'icons/turf/floors.dmi'
-			F.name = "bluespace recieving pad"
-			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
+			F.name = "bluespace receiving pad"
+			F.desc = "A receiving zone for bluespace teleportations. Building a wall over it should disable it."
 			F.icon_state = "light_on-w"
 			to_chat(src, span_danger("Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав Alt+ЛКМ"))
 			if(beacon)
@@ -123,7 +120,7 @@
 	if(!Adjacent(A))
 		to_chat(src, span_danger("Вам нужно быть рядом с целью!"))
 		return
-	if((A.anchored))
+	if(A.anchored)
 		to_chat(src, span_danger("Цель прикреплена к полу. Телепортация невозможна."))
 		return
 	to_chat(src, span_danger("Вы начинаете телепортировать [A]"))
@@ -144,12 +141,10 @@
 	else
 		to_chat(src, span_danger("Вам нужно стоять смирно!"))
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend
 	name = "Быстрое исцеление"
 	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
 	action_icon_state = "heal"
-	action_background_icon_state = "bg_spell"
 	base_cooldown = 35 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
@@ -158,16 +153,13 @@
 	var/list/possible_cures = list("bleedings","fractures","infections","embedded","damaged_organs")
 	var/mob/living/carbon/human/summoner = null
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/New(mob/living/carbon/human/summoned_by)
 	. = ..()
 	summoner = summoned_by
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/Destroy()
 	summoner = null
 	return ..()
-
 
 /obj/effect/proc_holder/spell/guardian_quickmend/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
@@ -177,10 +169,8 @@
 	T.try_auto_target = TRUE
 	return T
 
-
 /obj/effect/proc_holder/spell/guardian_quickmend/valid_target(target, user)
 	return target == summoner
-
 
 /obj/effect/proc_holder/spell/guardian_quickmend/cast(list/targets, mob/user)
 	for(var/target in targets)
@@ -191,7 +181,7 @@
 	if(do_after(user, cast_time, summoner))
 		if(prob(chance_to_mend))
 			var/list/injures[] = list()
-			injures["bleedings"] = summoner.check_internal_bleedings()
+			injures["bleedings"] = summoner.check_internal_bleedings() + summoner.check_arterial_bleedings()
 			injures["fractures"] = summoner.check_fractures()
 			injures["infections"] =  summoner.check_infections()
 			injures["embedded"] = summoner.check_limbs_with_embedded_objects()
@@ -201,7 +191,7 @@
 			for(var/injure in injures)
 				if((injures[injure]).len > 0)
 					available_cures.Add(injure)
-			if(!available_cures.len)
+			if(!length(available_cures))
 				return 0
 			var/random_cure = pick(available_cures)
 			to_chat(user, "Найдена травма. Попытка исцеления..")
@@ -209,7 +199,9 @@
 				if("bleedings")
 					var/obj/item/organ/external/limb = pick(injures["bleedings"])
 					limb.stop_internal_bleeding()
-					to_chat(user, "Внутреннее кровотечение остановлено.")
+					limb.stop_arterial_bleeding()
+					limb.stop_bleeding()
+					to_chat(user, "Кровотечение остановлено.")
 					return 1
 				if("fractures")
 					var/obj/item/organ/external/limb = pick(injures["fractures"])

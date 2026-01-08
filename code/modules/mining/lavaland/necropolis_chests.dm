@@ -15,7 +15,7 @@
 		DATIVE = "сундуку некрополя",
 		ACCUSATIVE = "сундук некрополя",
 		INSTRUMENTAL = "сундуком некрополя",
-		PREPOSITIONAL = "сундуке некрополя"
+		PREPOSITIONAL = "сундуке некрополя",
 	)
 
 /obj/structure/closet/crate/necropolis/tendril
@@ -131,7 +131,7 @@
 		DATIVE = "загадочному сундуку",
 		ACCUSATIVE = "загадочный сундук",
 		INSTRUMENTAL = "загадочным сундуком",
-		PREPOSITIONAL = "загадочном сундуке"
+		PREPOSITIONAL = "загадочном сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/puzzle/populate_contents()
@@ -228,7 +228,7 @@
 		DATIVE = "посоху асклепия",
 		ACCUSATIVE = "посох асклепия",
 		INSTRUMENTAL = "посохом асклепия",
-		PREPOSITIONAL = "посохе асклепия"
+		PREPOSITIONAL = "посохе асклепия",
 	)
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
@@ -282,7 +282,7 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред - всего лишь смутное, греховное воспоминание..."))
+	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
 	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
@@ -295,10 +295,7 @@
 	item_state = "asclepius_active"
 	activated = TRUE
 
-
 // enchanced flowers
-#define COOLDOWN_SUMMON (1 MINUTES)
-
 /obj/item/eflowers
 	name ="enchanted flowers"
 	desc = "Очаровательный букет, делающий носителя дружелюбным в глазах фауны. Сожмите букет, чтобы призвать приручённых существ. Не призывает мегафауну. <b>Для приручения мегафауны требуется 35 контактов.</b>"
@@ -315,8 +312,10 @@
 		DATIVE = "зачарованным цветам",
 		ACCUSATIVE = "зачарованные цветы",
 		INSTRUMENTAL = "зачарованными цветами",
-		PREPOSITIONAL = "зачарованных цветах"
+		PREPOSITIONAL = "зачарованных цветах",
 	)
+
+#define COOLDOWN_SUMMON 1 MINUTES
 
 /obj/item/eflowers/attack_self(mob/user)
 	var/turf/T = get_turf(user)
@@ -325,13 +324,15 @@
 		to_chat(user, span_warning("Вы пока не можете этого сделать!"))
 		return
 	if(is_station_level(T.z) && !A.outdoors)
-		to_chat(user, span_warning("Кажется, призывать фауну в помещении – плохая идея."))
+		to_chat(user, span_warning("Кажется, призывать фауну в помещении — плохая идея."))
 		return
 	user.visible_message(span_warning("[user] протягивает букет, призывая союзников!"))
 	for(var/mob/m in summons)
 		m.forceMove(T)
 	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
 	next_summon = world.time + COOLDOWN_SUMMON
+
+#undef COOLDOWN_SUMMON
 
 /obj/item/eflowers/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -377,7 +378,6 @@
 	icon_state = "rune_scimmy"
 	force = 28
 	slot_flags = ITEM_SLOT_BELT
-	damtype = BRUTE
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'
 	attack_verb = list("плс'л","атк'л","руб'л")
@@ -389,7 +389,7 @@
 		DATIVE = "руническому ятагану",
 		ACCUSATIVE = "рунический ятаган",
 		INSTRUMENTAL = "руническим ятаганом",
-		PREPOSITIONAL = "руническом ятагане"
+		PREPOSITIONAL = "руническом ятагане",
 	)
 
 /obj/item/rune_scimmy/ComponentInitialize()
@@ -415,7 +415,7 @@
 		DATIVE = "тёмному осколку",
 		ACCUSATIVE = "тёмный осколок",
 		INSTRUMENTAL = "тёмным осколком",
-		PREPOSITIONAL = "тёмном осколке"
+		PREPOSITIONAL = "тёмном осколке",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
@@ -481,8 +481,6 @@
 	desc = "Катана, некогда сдерживавшая ужасное существо, была разрушена. Однако даже после этого её фрагменты, в которых заключена сущность, вновь объединились, чтобы найти нового хозяина."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 15
 	armour_penetration = 15
 	block_chance = 50
@@ -509,7 +507,7 @@
 		DATIVE = "проклятой катане",
 		ACCUSATIVE = "проклятую катану",
 		INSTRUMENTAL = "проклятой катаной",
-		PREPOSITIONAL = "проклятой катане"
+		PREPOSITIONAL = "проклятой катане",
 	)
 
 /obj/item/cursed_katana/ComponentInitialize()
@@ -528,11 +526,9 @@
 		swing_sound = SFX_KATANA_SWING \
 	)
 
-
 /obj/item/cursed_katana/examine(mob/user)
 	. = ..()
 	. += drew_blood ? ("[span_notice("Она насытилось... пока что.")]") : (span_danger("Она не успокоится, пока не отведает крови."))
-
 
 /obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(can_combo_attack(user, target))
@@ -546,7 +542,7 @@
 
 /obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] бь[pluralize_ru(user.gender,"ёт","ют")] [target.declent_ru(ACCUSATIVE)] рукоятью [declent_ru(GENITIVE)]!"),
+		span_warning("[user] бь[PLUR_YOT_YUT(user)] [target.declent_ru(ACCUSATIVE)] рукоятью [declent_ru(GENITIVE)]!"),
 		span_notice("Вы бьёте рукоятью по [target.declent_ru(DATIVE)]!")
 	)
 	to_chat(target, span_userdanger("[user] ударил вас рукоятью!"))
@@ -555,7 +551,7 @@
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, TYPE_PROC_REF(/datum, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
-	to_chat(target, span_userdanger("[user] ударил[pluralize_ru(user.gender,"","и")] вас рукоятью!"))
+	to_chat(target, span_userdanger("[user] ударил[PLUR_I(user)] вас рукоятью!"))
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
 /obj/item/cursed_katana/proc/strike_throw_impact(mob/living/source, atom/hit_atom, datum/thrownthing/thrownthing)
@@ -573,7 +569,7 @@
 
 /obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] соверша[pluralize_ru(user.gender,"ет","ют")] широкий взмах!"),
+		span_warning("[user] соверша[PLUR_ET_YUT(user)] широкий взмах!"),
 		span_notice("Вы совершаете широкий взмах!")
 	)
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
@@ -586,12 +582,12 @@
 		for(var/mob/living/additional_target in T)
 			if(user.Adjacent(additional_target) && additional_target.density)
 				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-				to_chat(additional_target, span_userdanger("[user] поразил[pluralize_ru(user.gender,"","и")] вас взмахом!"))
+				to_chat(additional_target, span_userdanger("[user] поразил[PLUR_I(user)] вас взмахом!"))
 	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
 
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
 	user.visible_message(
-		span_warning("[user] позволя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)]!"),
+		span_warning("[user] позволя[PLUR_ET_YUT(user)] [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)]!"),
 		span_warning("Вы позволяете [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)], исцеляя себя ценой его жизни!")
 	)
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
@@ -599,10 +595,10 @@
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] подреза[pluralize_ru(user.gender,"ет","ют")] сухожилия [target.declent_ru(GENITIVE)]!"),
+		span_warning("[user] подреза[PLUR_ET_YUT(user)] сухожилия [target.declent_ru(GENITIVE)]!"),
 		span_notice("Вы подрезаете сухожилия [target.declent_ru(GENITIVE)]!")
 	)
-	to_chat(target, span_userdanger("[user] подрезал[pluralize_ru(user.gender,"","и")] ваши сухожилия!"))
+	to_chat(target, span_userdanger("[user] подрезал[PLUR_I(user)] ваши сухожилия!"))
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
@@ -612,7 +608,6 @@
 	else
 		A.add_bleed(6)
 
-
 /obj/item/cursed_katana/proc/dash(mob/living/target, mob/user)
 	var/turf/dash_target = get_turf(target)
 	var/turf/user_turf = get_turf(user)
@@ -620,10 +615,10 @@
 		to_chat(user, span_userdanger("Сюда невозможно совершить рывок!"))
 		return
 	user.visible_message(
-		span_warning("[user] стремительно пронза[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"),
+		span_warning("[user] стремительно пронза[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"),
 		span_notice("Вы стремительно пронзаете [target.declent_ru(ACCUSATIVE)]!")
 	)
-	to_chat(target, span_userdanger("[user] пронза[pluralize_ru(user.gender,"ет","ют")] вас!"))
+	to_chat(target, span_userdanger("[user] пронза[PLUR_ET_YUT(user)] вас!"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 1 to 9)
@@ -634,7 +629,7 @@
 		dash_target = current_dash_target
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
 			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-			to_chat(additional_target, span_userdanger("[user] порезал[pluralize_ru(user.gender,"","и")] вас!"))
+			to_chat(additional_target, span_userdanger("[user] порезал[PLUR_I(user)] вас!"))
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
 

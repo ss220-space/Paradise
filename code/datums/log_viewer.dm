@@ -51,7 +51,7 @@ if(!result || result.ckey != __ckey){\
 				log_records.Add(logs.Copy(start_index, end_index + 1))
 
 	if(length(invalid_mobs))
-		to_chat(user, "<span class='warning'>The search criteria contained invalid mobs. They have been removed from the criteria.</span>")
+		to_chat(user, span_warning("The search criteria contained invalid mobs. They have been removed from the criteria."))
 		for(var/i in invalid_mobs)
 			selected_mobs -= i // Cleanup
 
@@ -143,7 +143,7 @@ if(!result || result.ckey != __ckey){\
 		if(QDELETED(M))
 			selected_mobs -= i
 			continue
-		dat += "<a href='byond://?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
+		dat += "<a href='byond://?src=[UID()];remove_mob=[M.UID()]'>[get_display_name(M)]</a>"
 	dat += "<a href='byond://?src=[UID()];add_mob=1'>Add Mob</a>"
 	dat += "<a href='byond://?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<br>"
@@ -202,7 +202,7 @@ if(!result || result.ckey != __ckey){\
 			return
 		var/res = timeStampToNum(input)
 		if(res < 0)
-			to_chat(usr, "<span class='warning'>'[input]' is an invalid input value.</span>")
+			to_chat(usr, span_warning("'[input]' is an invalid input value."))
 			return
 		time_from = res
 		show_ui(usr)
@@ -213,7 +213,7 @@ if(!result || result.ckey != __ckey){\
 			return
 		var/res = timeStampToNum(input)
 		if(res < 0)
-			to_chat(usr, "<span class='warning'>'[input]' is an invalid input value.</span>")
+			to_chat(usr, span_warning("'[input]' is an invalid input value."))
 			return
 		time_to = res
 
@@ -232,7 +232,7 @@ if(!result || result.ckey != __ckey){\
 				log_records.Cut()
 			else
 				if(records_len > RECORD_HARD_LIMIT)
-					to_chat(usr, "<span class='warning'>Record limit reached. Limiting to [RECORD_HARD_LIMIT].</span>")
+					to_chat(usr, span_warning("Record limit reached. Limiting to [RECORD_HARD_LIMIT]."))
 					log_records.Cut(RECORD_HARD_LIMIT)
 		show_ui(usr)
 		return
@@ -260,7 +260,7 @@ if(!result || result.ckey != __ckey){\
 		add_ckey(usr, ckey_choice)
 		return
 	if(href_list["remove_mob"])
-		var/mob/M = locate(href_list["remove_mob"])
+		var/mob/M = locateUID(href_list["remove_mob"])
 		if(M)
 			selected_mobs -= M
 		show_ui(usr)

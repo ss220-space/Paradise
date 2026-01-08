@@ -5,7 +5,6 @@
 	name = "Inject Embryo"
 	desc = "Impregnate your victim with Alien Embryo."
 	action_icon_state = "alien_hide"
-	plasma_cost = 0
 	base_cooldown = INJECT_LARVA_COOLDOWN
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate/create_new_targeting()
@@ -16,7 +15,6 @@
 	T.use_turf_of_user = TRUE
 	T.allowed_type = /mob/living/carbon/human
 	return T
-
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate/valid_target(target, mob/user)
 	if(user.pulling != target || !ishuman(target))
@@ -34,7 +32,6 @@
 		to_chat(user, span_warning("Victim is dead!"))
 		return FALSE
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate/cast(list/targets, mob/user)
 	var/mob/living/carbon/human = targets[1]

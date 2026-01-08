@@ -23,7 +23,7 @@
 	panel_pollo.ui_interact(usr)
 
 /datum/ui_module/poll_management_panel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ui_module/poll_management_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -80,7 +80,7 @@
 		return
 
 	var/client/ui_client = ui.user.client
-	switch (action)
+	switch(action)
 		if("clear_poll_votes")
 			poll.clear_poll_votes()
 		if("initialize_poll")

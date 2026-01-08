@@ -25,7 +25,6 @@
 	strain = camera.blobstrain
 	. = ..()
 
-
 /datum/antagonist/blob_overmind/add_owner_to_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
 	if(add_to_mode && mode && !(owner in mode.blobs["infected"]))
@@ -36,7 +35,6 @@
 		else mode.blobs["infected"] |= owner
 		mode.update_blob_objective()
 
-
 /datum/antagonist/blob_overmind/remove_owner_from_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
 	if(add_to_mode && mode && (owner in mode.blobs["infected"]))
@@ -46,11 +44,9 @@
 		else mode.blobs["infected"] -= owner
 		mode.update_blob_objective()
 
-
 /datum/antagonist/blob_overmind/give_objectives()
 	if(SSticker)
 		add_objective(SSticker.mode.get_blob_objective())
-
 
 /datum/antagonist/blob_overmind/roundend_report_header()
 	return

@@ -19,8 +19,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi'
-		)
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/paramedic_jacket
 	name = "paramedic jacket"
@@ -53,8 +53,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Botanist
 /obj/item/clothing/suit/apron
@@ -73,8 +73,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Captain
 /obj/item/clothing/suit/captunic
@@ -93,8 +93,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/captunic/coat
 	name = "captain fur coat"
@@ -105,7 +105,6 @@
 
 /obj/item/clothing/suit/captunic/parade
 	name = "captain's parade jacket"
-	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_black_open"
 	item_state = "cap_jacket_black_open"
 	ignore_suitadjust = FALSE
@@ -119,7 +118,6 @@
 
 /obj/item/clothing/suit/captunic/jacket
 	name = "captain's jacket"
-	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_open"
 	item_state = "cap_jacket_open"
 	ignore_suitadjust = FALSE
@@ -129,7 +127,6 @@
 
 /obj/item/clothing/suit/captunic/bomber
 	name = "captain's bomber jacket"
-	desc = "Worn by a Captain to show their class."
 	icon_state = "bomber_captain_open"
 	item_state = "bomber_captain_open"
 	ignore_suitadjust = FALSE
@@ -154,8 +151,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
 		armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -184,8 +181,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Chaplain
 /obj/item/clothing/suit/hooded/monk
@@ -224,8 +221,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Chef
 /obj/item/clothing/suit/chef/classic
@@ -257,22 +254,21 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/det_suit/black
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 	icon_state = "detective_black"
 
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
 	name = "jacket"
 	desc = "A forensics technician jacket."
-	item_state = "det_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -294,8 +290,8 @@
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK =  'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK =  'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown
 	name = "brown jacket"
@@ -326,8 +322,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/blueshield/srt
 	name = "SRT coat"
@@ -351,8 +347,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 /obj/item/clothing/suit/storage/hazardvest/beltdonor
 	name = "hazard belt"
 	desc = "A high-visibility webbing used in work zones. This one comes with premial quality materials."
@@ -370,9 +366,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
-
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
 	name = "atmospherics hazard belt"
@@ -388,8 +383,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/lawyer/blackjacket
 	name = "black suit jacket"
@@ -441,8 +436,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
@@ -463,8 +458,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/storage/ntrep
 	name = "Nanotrasen Representative jacket"
@@ -483,8 +478,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Medical
 /obj/item/clothing/suit/storage/fr_jacket
@@ -506,8 +501,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Suspenders
 /obj/item/clothing/suit/suspenders
@@ -527,16 +522,14 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi'
-		)
-
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/suspenders/Initialize(mapload)
 	. = ..()
 	if(!color && paintable)
 		color = "#a30e22"
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/clothing/suit/suspenders/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
@@ -555,7 +548,6 @@
 
 	return ..()
 
-
 /obj/item/clothing/suit/suspenders/update_overlays()
 	. = ..()
 	if(color)
@@ -564,14 +556,11 @@
 		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips", appearance_flags = RESET_COLOR)
 		. += suspenders_clips
 
-
 /obj/item/clothing/suit/suspenders/nodrop
-
 
 /obj/item/clothing/suit/suspenders/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 // Surgeon
 /obj/item/clothing/suit/apron/surgical
@@ -589,7 +578,7 @@
 		DATIVE = "хирургическому фартуку",
 		ACCUSATIVE = "хирургический фартук",
 		INSTRUMENTAL = "хирургическим фартуком",
-		PREPOSITIONAL = "хирургическом фартуке"
+		PREPOSITIONAL = "хирургическом фартуке",
 	)
 
 /obj/item/clothing/suit/hop_jacket
@@ -639,4 +628,4 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
-		)
+	)

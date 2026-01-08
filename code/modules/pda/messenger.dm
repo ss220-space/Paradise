@@ -68,7 +68,6 @@
 
 	. = TRUE
 
-
 	switch(action)
 		if("Toggle Messenger")
 			toff = !toff
@@ -116,7 +115,6 @@
 	if(play_beep && !pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
-
 // If there is no sender, will ignore cheks for sender.
 /datum/data/pda/app/messenger/proc/create_message(obj/item/pda/recipient_pda, mob/living/sender, message)
 	if(!message)
@@ -159,7 +157,7 @@
 
 	SStgui.update_uis(src)
 	recipient_messenger.notify("[span_bold("Новое сообщение! Отправитель: [pda.owner][pda.ownjob ? " ([pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
-	to_chat(sender, "[bicon(pda)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
+	to_chat(sender, "[icon2html(pda, sender)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
 
 	log_pda_message(message, sender, pda, recipient_pda)
 	if(pda.silent)
@@ -167,15 +165,13 @@
 
 	playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 
-
 /datum/data/pda/app/messenger/proc/show_message_to_ghosts(obj/item/pda/pda, obj/item/pda/recipient_pda, message)
 	for(var/mob/mob as anything in GLOB.dead_mob_list)
 		if(!isobserver(mob) || !mob.client || !HASBIT(mob.client.prefs.toggles, PREFTOGGLE_CHAT_GHOSTPDA))
 			continue
 
-		var/ghost_message = "[span_name("[pda.owner]")] ([ghost_follow_link(pda, ghost = mob)]) [span_gamesay("Сообщение на КПК")] --> [span_name("[recipient_pda.owner]")] ([ghost_follow_link(recipient_pda, ghost = mob)]): [span_message("[message]")]"
+		var/ghost_message = "([ghost_follow_link(pda, ghost = mob)])[span_name("[pda.owner]")] [span_gamesay("Сообщение на КПК")] --> ([ghost_follow_link(recipient_pda, ghost = mob)])[span_name("[recipient_pda.owner]")]: [span_message("[message]")]"
 		to_chat(mob, "[ghost_message]")
-
 
 /datum/data/pda/app/messenger/proc/can_send_message(message, sender, recipient_pda, useMS)
 	var/turf/sender_pos = sender ? get_turf(sender) : null
@@ -223,7 +219,6 @@
 
 	return TRUE
 
-
 /datum/data/pda/app/messenger/proc/log_pda_message(message, sender, pda, atom/recipient_pda)
 	log_pda("(PDA: [name]) sent \"[message]\" to [recipient_pda.name]", sender)
 	var/log_message = "sent PDA message \"[message]\" using [pda]"
@@ -236,7 +231,6 @@
 		log_message = "[log_message] (no holder)"
 
 	add_misc_logs(sender, log_message, receiver)
-
 
 /datum/data/pda/app/messenger/proc/available_pdas()
 	var/list/names = list()

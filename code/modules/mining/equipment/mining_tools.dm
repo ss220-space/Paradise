@@ -3,7 +3,6 @@
 	name = "pickaxe"
 	desc = "Стандартная кирка, предназначенная для разрушения камней."
 	gender = FEMALE
-	icon = 'icons/obj/items.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -29,7 +28,7 @@
 		DATIVE = "кирке",
 		ACCUSATIVE = "кирку",
 		INSTRUMENTAL = "киркой",
-		PREPOSITIONAL = "кирке"
+		PREPOSITIONAL = "кирке",
 	)
 
 /obj/item/pickaxe/ComponentInitialize()
@@ -40,7 +39,6 @@
 		no_multi_hit = TRUE, \
 		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
-
 
 /obj/item/pickaxe/emergency
 	name = "emergency disembarkation tool"
@@ -56,7 +54,7 @@
 		DATIVE = "инструменту для экстренной раскопки",
 		ACCUSATIVE = "инструмент для экстренной раскопки",
 		INSTRUMENTAL = "инструментом для экстренной раскопки",
-		PREPOSITIONAL = "инструменте для экстренной раскопки"
+		PREPOSITIONAL = "инструменте для экстренной раскопки",
 	)
 
 /obj/item/pickaxe/safety
@@ -75,7 +73,7 @@
 		DATIVE = "безопасной кирке",
 		ACCUSATIVE = "безопасную кирку",
 		INSTRUMENTAL = "безопасной киркой",
-		PREPOSITIONAL = "безопасной кирке"
+		PREPOSITIONAL = "безопасной кирке",
 	)
 
 /obj/item/pickaxe/mini
@@ -95,7 +93,7 @@
 		DATIVE = "компактной кирке",
 		ACCUSATIVE = "компактую кирку",
 		INSTRUMENTAL = "компактной киркой",
-		PREPOSITIONAL = "компактной кирке"
+		PREPOSITIONAL = "компактной кирке",
 	)
 
 /obj/item/pickaxe/silver
@@ -114,7 +112,7 @@
 		DATIVE = "кирке с серебрянным наконечником",
 		ACCUSATIVE = "кирку с серебрянным наконечником",
 		INSTRUMENTAL = "киркой с серебрянным наконечником",
-		PREPOSITIONAL = "кирке с серебрянным наконечником"
+		PREPOSITIONAL = "кирке с серебрянным наконечником",
 	)
 
 /obj/item/pickaxe/gold
@@ -134,7 +132,7 @@
 		DATIVE = "кирке с золотым наконечником",
 		ACCUSATIVE = "кирку с золотым наконечником",
 		INSTRUMENTAL = "киркой с золотым наконечником",
-		PREPOSITIONAL = "кирке с золотым наконечником"
+		PREPOSITIONAL = "кирке с золотым наконечником",
 	)
 
 /obj/item/pickaxe/diamond
@@ -153,9 +151,8 @@
 		DATIVE = "кирке с алмазным наконечником",
 		ACCUSATIVE = "кирку с алмазным наконечником",
 		INSTRUMENTAL = "киркой с алмазным наконечником",
-		PREPOSITIONAL = "кирке с алмазным наконечником"
+		PREPOSITIONAL = "кирке с алмазным наконечником",
 	)
-
 
 /obj/item/pickaxe/drill
 	name = "mining drill"
@@ -174,7 +171,7 @@
 		DATIVE = "шахтёрской дрели",
 		ACCUSATIVE = "шахтёрскую дрель",
 		INSTRUMENTAL = "шахтёрской дрелью",
-		PREPOSITIONAL = "шахтёрской дрели"
+		PREPOSITIONAL = "шахтёрской дрели",
 	)
 
 /obj/item/pickaxe/drill/cyborg
@@ -188,13 +185,12 @@
 		DATIVE = "шахтёрской дрели робота",
 		ACCUSATIVE = "шахтёрскую дрель робота",
 		INSTRUMENTAL = "шахтёрской дрелью робота",
-		PREPOSITIONAL = "шахтёрской дрели робота"
+		PREPOSITIONAL = "шахтёрской дрели робота",
 	)
 
 /obj/item/pickaxe/drill/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
 
 /obj/item/pickaxe/drill/diamonddrill
 	name = "diamond-tipped mining drill"
@@ -209,9 +205,8 @@
 		DATIVE = "алмазной шахтёрской дрели",
 		ACCUSATIVE = "алмазную шахтёрскую дрель",
 		INSTRUMENTAL = "алмазной шахтёрской дрелью",
-		PREPOSITIONAL = "алмазной шахтёрской дрели"
+		PREPOSITIONAL = "алмазной шахтёрской дрели",
 	)
-
 
 /obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP trait, and easier to change borg specific drill mechanics.
@@ -225,14 +220,13 @@
 		DATIVE = "алмазной шахтёрской дрели робота",
 		ACCUSATIVE = "алмазную шахтёрскую дрель робота",
 		INSTRUMENTAL = "алмазной шахтёрской дрелью робота",
-		PREPOSITIONAL = "алмазной шахтёрской дрели робота"
+		PREPOSITIONAL = "алмазной шахтёрской дрели робота",
 	)
 
 /obj/item/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
 	desc = "Уничтожает камни с использованием звука, может использоваться как инструмент для сноса стен."
 	icon_state = "jackhammer"
-	item_state = "jackhammer"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
@@ -246,7 +240,7 @@
 		DATIVE = "звуковому отбойному молоту",
 		ACCUSATIVE = "звуковой отбойный молот",
 		INSTRUMENTAL = "звуковым отбойным молотом",
-		PREPOSITIONAL = "звуковом отбойным молоте"
+		PREPOSITIONAL = "звуковом отбойным молоте",
 	)
 
 /obj/item/pickaxe/drill/jackhammer/phantom
@@ -256,14 +250,12 @@
 	name = "shovel"
 	desc = "Массивный инструмент для вскапывания и перемещения земли."
 	gender = FEMALE
-	icon = 'icons/obj/items.dmi'
 	icon_state = "shovel"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 4
 	item_state = "shovel"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("ударил", "огрел")
@@ -278,7 +270,7 @@
 		DATIVE = "лопате",
 		ACCUSATIVE = "лопату",
 		INSTRUMENTAL = "лопатой",
-		PREPOSITIONAL = "лопате"
+		PREPOSITIONAL = "лопате",
 	)
 
 /obj/item/shovel/ComponentInitialize()
@@ -289,7 +281,6 @@
 		no_multi_hit = TRUE, \
 		swing_sound = SFX_BLUNT_SWING_LIGHT \
 	)
-
 
 /obj/item/shovel/spade
 	name = "spade"
@@ -308,7 +299,7 @@
 		DATIVE = "лопатке",
 		ACCUSATIVE = "лопатку",
 		INSTRUMENTAL = "лопаткой",
-		PREPOSITIONAL = "лопатке"
+		PREPOSITIONAL = "лопатке",
 	)
 
 /obj/item/shovel/spade/wooden
@@ -326,7 +317,7 @@
 		DATIVE = "деревянной лопатке",
 		ACCUSATIVE = "деревянную лопатку",
 		INSTRUMENTAL = "деревянной лопаткой",
-		PREPOSITIONAL = "деревянной лопатке"
+		PREPOSITIONAL = "деревянной лопатке",
 	)
 
 /obj/item/shovel/safety
@@ -345,5 +336,5 @@
 		DATIVE = "безопасной лопате",
 		ACCUSATIVE = "безопасную лопату",
 		INSTRUMENTAL = "безопасной лопатой",
-		PREPOSITIONAL = "безопасной лопате"
+		PREPOSITIONAL = "безопасной лопате",
 	)

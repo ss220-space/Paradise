@@ -42,7 +42,7 @@
 
 	var/list/nametemp = list()
 	var/find
-	if(cam.aipictures.len == 0)
+	if(length(cam.aipictures) == 0)
 		to_chat(usr, span_userdanger("No images saved"))
 		return
 	for(var/datum/picture/t in cam.aipictures)
@@ -107,7 +107,7 @@
 	injectmasteralbum(P)
 
 /obj/item/camera/siliconcam/ai_camera/verb/take_image()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Сделать фото"
 	set desc = "Takes an image"
 	set src in usr
@@ -115,7 +115,7 @@
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/ai_camera/verb/view_images()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Посмотреть фото"
 	set desc = "View images"
 	set src in usr
@@ -123,7 +123,7 @@
 	viewpictures()
 
 /obj/item/camera/siliconcam/ai_camera/verb/delete_images()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Удалить фото"
 	set desc = "Delete image"
 	set src in usr
@@ -131,7 +131,7 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/ai_camera/verb/toggle_camera_flash_verb()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Вспышка камеры"
 	set desc = "Toggle camera flashing"
 	set src in usr
@@ -139,7 +139,7 @@
 	toggle_camera_flash(src)
 
 /obj/item/camera/siliconcam/robot_camera/verb/take_image()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Сделать фото"
 	set desc = "Takes an image"
 	set src in usr
@@ -147,7 +147,7 @@
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/robot_camera/verb/view_images()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Посмотреть фото"
 	set desc = "View images"
 	set src in usr
@@ -155,7 +155,7 @@
 	viewpictures()
 
 /obj/item/camera/siliconcam/robot_camera/verb/delete_images()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Удалить фото"
 	set desc = "Delete a local image"
 	set src in usr
@@ -164,7 +164,7 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/robot_camera/verb/toggle_camera_flash_verb()
-	set category = STATPANEL_SUBSYSTEMS
+	set category = VERB_CATEGORY_SUBSYSTEMS
 	set name = "Вспышка камеры"
 	set desc = "Toggle camera flash"
 	set src in usr

@@ -31,9 +31,11 @@
 	// Increase germ_level regularly
 	handle_germs()
 
+	if(HAS_TRAIT(src, TRAIT_HAS_CARBON_REGENERATION))
+		heal_overall_damage(0.5, 0.5)
+
 	if(stat != DEAD)
 		return TRUE
-
 
 ///////////////
 // BREATHING //
@@ -44,22 +46,29 @@
 	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return
 	if(times_fired % 2 == 1)
-		breathe() //Breathe every other tick, unless suffocating
+		var/datum/milla_safe/carbon_breathe/milla = new()
+		milla.invoke_async(src)
 	else
 		if(istype(loc, /obj/))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src, 0)
 
+/datum/milla_safe/carbon_breathe
+
+/datum/milla_safe/carbon_breathe/on_run(mob/living/carbon/carbon)
+	var/turf/location = get_turf(carbon)
+
+	if(isnull(location))
+		return
+
+	carbon.breathe(get_turf_air(location))
+
 //Second link in a breath chain, calls check_breath()
-/mob/living/carbon/proc/breathe()
+/mob/living/carbon/proc/breathe(datum/gas_mixture/environment)
 	if(reagents.has_reagent("lexorin"))
 		return
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
-
-	var/datum/gas_mixture/environment
-	if(loc)
-		environment = loc.return_air()
 
 	var/datum/gas_mixture/breath
 
@@ -70,7 +79,7 @@
 	if(AmountLoseBreath())
 		if(prob(75))
 			emote("gasp")
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src, 0)
 	else
@@ -81,25 +90,24 @@
 
 			if(isobj(loc)) //Breathe from loc as object
 				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
+				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME, environment)
 
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
 				if(environment)
-					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
+					breath_moles = environment.total_moles() * BREATH_PERCENTAGE
 
-				breath = loc.remove_air(breath_moles)
+				breath = environment.remove(breath_moles)
 		else //Breathe from loc as obj again
-			if(istype(loc, /obj/))
+			if(isobj(loc))
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src, 0)
 
 	check_breath(breath)
 
 	if(breath)
-		loc.assume_air(breath)
-		air_update_turf()
-		if(ishuman(src) && !internal && environment.temperature < 278 && environment.return_pressure() > 20)
+		environment.merge(breath)
+		if(ishuman(src) && !internal && environment.temperature() < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 
 //Third link in a breath chain, calls handle_breath_temperature()
@@ -123,12 +131,12 @@
 	var/SA_para_min = 1
 	var/SA_sleep_min = 1
 	var/oxygen_used = 0
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
+	var/breath_pressure = (breath.total_moles() * R_IDEAL_GAS_EQUATION * breath.temperature()) / BREATH_VOLUME
 
-	var/O2_partialpressure = (breath.oxygen/breath.total_moles())*breath_pressure
-	var/Toxins_partialpressure = (breath.toxins/breath.total_moles())*breath_pressure
-	var/CO2_partialpressure = (breath.carbon_dioxide/breath.total_moles())*breath_pressure
-	var/SA_partialpressure = (breath.sleeping_agent/breath.total_moles())*breath_pressure
+	var/O2_partialpressure = (breath.oxygen() / breath.total_moles()) * breath_pressure
+	var/Toxins_partialpressure = (breath.toxins() / breath.total_moles()) * breath_pressure
+	var/CO2_partialpressure = (breath.carbon_dioxide() / breath.total_moles()) * breath_pressure
+	var/SA_partialpressure = (breath.sleeping_agent() / breath.total_moles()) * breath_pressure
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
@@ -137,18 +145,18 @@
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
-			oxygen_used = breath.oxygen*ratio
+			oxygen_used = breath.oxygen() * ratio
 		else
 			adjustOxyLoss(3)
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
-		oxygen_used = breath.oxygen
+		oxygen_used = breath.oxygen()
 		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	breath.oxygen = max(breath.oxygen - oxygen_used, 0)
-	breath.carbon_dioxide += oxygen_used
+	breath.set_oxygen(breath.oxygen() - oxygen_used)
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + oxygen_used)
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -168,14 +176,14 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.toxins/safe_tox_max) * 10
+		var/ratio = (breath.toxins() / safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert(ALERT_TOO_MUCH_TOX)
 
 	//TRACE GASES
-	if(breath.sleeping_agent)
+	if(breath.sleeping_agent())
 		if(SA_partialpressure > SA_para_min)
 			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)
@@ -193,7 +201,6 @@
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
 
-
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(!internal)
 		return
@@ -209,16 +216,13 @@
 		return
 	return internal.remove_air_volume(volume_needed)
 
-
 /mob/living/carbon/proc/handle_organs()
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		organ.on_life()
 
-
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
-
 
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(radiation)
@@ -241,10 +245,8 @@
 
 		radiation = clamp(radiation, 0, 100)
 
-
 /mob/living/carbon/handle_chemicals_in_body()
 	reagents.metabolize(src)
-
 
 /mob/living/carbon/proc/handle_wetness(times_fired)
 	if(times_fired % 20==2) //dry off a bit once every 20 ticks or so
@@ -305,7 +307,6 @@
 				healths.icon_state = "health6"
 		else
 			healths.icon_state = "health7"
-
 
 /mob/living/carbon/update_damage_hud()
 	if(!client)
@@ -383,17 +384,17 @@
 			clear_fullscreen("brute")
 
 /mob/living/carbon/proc/handle_patches()
-	var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
+	var/multiple_patch_multiplier = length(processing_patches) > 1 ? (length(processing_patches) * 1.5) : 1
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)
 		var/obj/item/reagent_containers/food/pill/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
-			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume) * P.protection_on_apply
+			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume)
 			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, show_message = FALSE, ignore_protection = TRUE, def_zone = P.application_zone)
 			P.needs_to_apply_reagents = FALSE
-			P.reagents.trans_to(src, applied_amount * 0.5 * P.protection_on_apply)
+			P.reagents.trans_to(src, applied_amount * 0.5)
 			P.reagents.remove_any(applied_amount * 0.5)
 		else
 			if(!P.reagents || P.reagents.total_volume <= 0)

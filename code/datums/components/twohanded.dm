@@ -2,10 +2,10 @@
  * Two Handed Component
  *
  * When applied to an item it will make it two handed
- *
+ * Only one of the component can exist on an item.
  */
 /datum/component/two_handed
-	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS // Only one of the component can exist on an item
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// Are we holding the two handed item properly
 	var/wielded = FALSE
 	/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
@@ -37,7 +37,6 @@
 	/// To prevent message spamming
 	var/antispam_timer = 0
 
-
 /**
  * Two Handed component
  *
@@ -51,9 +50,19 @@
  * * force_unwielded (optional) The force setting when the item is unwielded, do not use with force_multiplier
  * * icon_wielded (optional) The icon to be used when wielded
  */
-/datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
-										force_multiplier=0, force_wielded=0, force_unwielded=0, sharp_when_wielded = FALSE, \
-										icon_wielded=FALSE, datum/callback/wield_callback, datum/callback/unwield_callback)
+/datum/component/two_handed/Initialize(
+	require_twohands = FALSE,
+	wieldsound = FALSE,
+	unwieldsound = FALSE,
+	attacksound = FALSE,
+	force_multiplier = 0,
+	force_wielded = 0,
+	force_unwielded = 0,
+	sharp_when_wielded = FALSE,
+	icon_wielded = FALSE,
+	datum/callback/wield_callback,
+	datum/callback/unwield_callback,
+)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -72,11 +81,27 @@
 	if(require_twohands)
 		ADD_TRAIT(parent, TRAIT_NEEDS_TWO_HANDS, ABSTRACT_ITEM_TRAIT)
 
+/datum/component/two_handed/Destroy(force)
+	offhand_item = null
+	wield_callback = null
+	unwield_callback = null
+	return ..()
 
 // Inherit the new values passed to the component
-/datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
-											force_multiplier, force_wielded, force_unwielded, sharp_when_wielded, icon_wielded, \
-											datum/callback/wield_callback, datum/callback/unwield_callback)
+/datum/component/two_handed/InheritComponent(
+	datum/component/two_handed/new_comp,
+	original,
+	require_twohands,
+	wieldsound,
+	unwieldsound,
+	force_multiplier,
+	force_wielded,
+	force_unwielded,
+	sharp_when_wielded,
+	icon_wielded,
+	datum/callback/wield_callback,
+	datum/callback/unwield_callback,
+)
 	if(!original)
 		return
 	if(require_twohands)
@@ -102,7 +127,6 @@
 	if(unwield_callback)
 		src.unwield_callback = unwield_callback
 
-
 // register signals withthe parent item
 /datum/component/two_handed/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
@@ -112,7 +136,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
-
+	RegisterSignal(parent, COMSIG_UPDATE_TWOHANDED_DAMAGE, PROC_REF(on_update_damage))
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -124,8 +148,8 @@
 		COMSIG_ATOM_UPDATE_ICON,
 		COMSIG_MOVABLE_MOVED,
 		COMSIG_ITEM_SHARPEN_ACT,
+		COMSIG_UPDATE_TWOHANDED_DAMAGE,
 	))
-
 
 /// Triggered on equip of the item containing the component
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
@@ -135,7 +159,6 @@
 		wield(user)
 	if(!require_twohands && wielded && !user.is_in_hands(parent))
 		unwield(user)
-
 
 /// Triggered on drop of item containing the component and its offhand part
 /datum/component/two_handed/proc/on_drop(datum/source, mob/user)
@@ -149,13 +172,11 @@
 		offhand_item = null
 		qdel(source)
 
-
 /// Triggered on destroy of the component's offhand
 /datum/component/two_handed/proc/on_destroy(datum/source)
 	SIGNAL_HANDLER
 
 	offhand_item = null
-
 
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
@@ -167,7 +188,6 @@
 		else if(user.is_in_hands(parent))
 			wield(user)
 
-
 /**
  * Wield the two handed item in both hands
  *
@@ -177,10 +197,11 @@
 /datum/component/two_handed/proc/wield(mob/living/carbon/user)
 	SIGNAL_HANDLER
 
+	if(wielded || HAS_TRAIT(parent, TRAIT_TWOHANDED_BLOCKED))
+		return
+
 	var/obj/item/check = parent
 	var/abstract_check = !(check.item_flags & ABSTRACT)
-	if(wielded)
-		return
 
 	if(is_monkeybasic(user))
 		if(require_twohands)
@@ -241,7 +262,7 @@
 	if(istype(item))
 		item.wielded = TRUE
 
-	ADD_TRAIT(parent, TRAIT_WIELDED, src)
+	ADD_TRAIT(parent, TRAIT_WIELDED, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
 	wield_callback?.Invoke(parent, user)
 
@@ -257,20 +278,20 @@
 	if(sharp_when_wielded)
 		parent_item.set_sharpness(TRUE)
 
-	var/original_name = parent_item.name
+	var/original_name = parent_item.declent_ru(ACCUSATIVE)
 	parent_item.name = "[original_name] (Wielded)"
 	parent_item.update_appearance()
 	if(user)
-		user.update_inv_hands()
+		user.update_held_items()
 
 	if(isrobot(user))
 		if(world.time > antispam_timer + 0.1 SECONDS)
 			antispam_timer = world.time
-			to_chat(user, span_notice("Вы сконцентировались на поддержании [original_name]."))
+			to_chat(user, span_notice("Вы сконцентировались на поддержании [parent_item.declent_ru(GENITIVE)]."))
 	else
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, span_notice("Вы взяли [original_name] в обе руки."))
+			to_chat(user, span_notice("Вы взяли [parent_item.declent_ru(ACCUSATIVE)] в обе руки."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -285,7 +306,6 @@
 	RegisterSignal(offhand_item, COMSIG_QDELETING, PROC_REF(on_destroy))
 	user.put_in_inactive_hand(offhand_item)
 
-
 /**
  * Unwield the two handed item
  *
@@ -297,7 +317,7 @@
 /datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message = TRUE, can_drop = TRUE)
 	SIGNAL_HANDLER
 
-	if(!wielded)
+	if(!wielded || HAS_TRAIT(parent, TRAIT_TWOHANDED_BLOCKED))
 		return
 
 	//Dont ask
@@ -309,7 +329,7 @@
 	wielded = FALSE
 	UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
-	REMOVE_TRAIT(parent, TRAIT_WIELDED, src)
+	REMOVE_TRAIT(parent, TRAIT_WIELDED, UNIQUE_TRAIT_SOURCE(src))
 	unwield_callback?.Invoke(parent, user)
 
 	// update item stats
@@ -335,7 +355,7 @@
 	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
-		user.update_inv_hands()
+		user.update_held_items()
 
 		// if the item requires two handed drop the item on unwield
 		if(require_twohands && can_drop)
@@ -345,20 +365,20 @@
 		if(show_message)
 			var/abstract_check = !(item.item_flags & ABSTRACT)
 			if(isrobot(parent))
-				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item]."))
+				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item.declent_ru(ACCUSATIVE)]."))
 			else
 				if(require_twohands || parent_item.loc != user)
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Вы уронили [parent_item]."))
+						to_chat(user, span_notice("Вы уронили [parent_item.declent_ru(ACCUSATIVE)]."))
 				if(parent_item.loc == user && user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Теперь вы держите [parent_item] одной рукой."))
+						to_chat(user, span_notice("Теперь вы держите [parent_item.declent_ru(ACCUSATIVE)] одной рукой."))
 				if(parent_item.loc == user && !user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Вы экипировали [parent_item]."))
+						to_chat(user, span_notice("Вы экипировали [parent_item.declent_ru(ACCUSATIVE)]."))
 
 	// Play sound if set
 	if(unwieldsound)
@@ -371,7 +391,6 @@
 	// Clear any old refrence to an item that should be gone now
 	offhand_item = null
 
-
 /**
  * on_attack triggers on attack with the parent item
  */
@@ -380,7 +399,6 @@
 
 	if(wielded && attacksound)
 		playsound(source.loc, attacksound, 50, TRUE)
-
 
 /**
  * on_update_icon triggers on call to update parent items icon
@@ -397,7 +415,6 @@
 	source.icon_state = icon_wielded
 	return COMSIG_ATOM_NO_UPDATE_ICON_STATE
 
-
 /**
  * on_moved Triggers on item moved
  */
@@ -405,7 +422,6 @@
 	SIGNAL_HANDLER
 
 	unwield(user, can_drop = FALSE)
-
 
 /**
  * on_swap_hands Triggers on swapping hands, blocks swap if the other hand is busy
@@ -417,7 +433,6 @@
 		return
 	if(held_item == parent)
 		return COMPONENT_BLOCK_SWAP
-
 
 /**
  * on_sharpen Triggers on usage of a sharpening stone on the item
@@ -443,6 +458,18 @@
 	sharpened_increase = min(amount, (max_amount - wielded_val))
 	return COMPONENT_BLOCK_SHARPEN_APPLIED
 
+/datum/component/two_handed/proc/on_update_damage(obj/item/item, force_wielded = 0, force_unwielded = 0, force_multiplier = 0)
+	SIGNAL_HANDLER
+	if(force_multiplier)
+		src.force_multiplier = force_multiplier
+
+	if(force_wielded)
+		src.force_wielded = force_wielded
+
+	if(!force_unwielded)
+		return
+
+	src.force_unwielded = force_unwielded
 
 /**
  * The offhand dummy item for two handed items
@@ -450,12 +477,10 @@
  */
 /obj/item/twohanded/offhand
 	name = "offhand"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	wielded = FALSE // Off Hand tracking of wielded status
 
 /obj/item/twohanded/offhand/Initialize(mapload)
 	. = ..()

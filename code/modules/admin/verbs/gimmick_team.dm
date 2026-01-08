@@ -1,13 +1,10 @@
 // Gimmick Team
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
-/client/proc/gimmick_team()
-	set category = STATPANEL_ADMIN_EVENT
-	set name = "Отправить Гиммик тим"
-	set desc = "Спавнит команду игроков в выбранной экипировке."
-	if(!check_rights(R_EVENT))
-		return
+ADMIN_VERB(gimmick_team, R_EVENT, "Отправить \"Гиммик комманду\"", "Спавнит команду игроков в выбранной экипировке.", ADMIN_CATEGORY_EVENTS)
+	user.gimmick_team()
 
+/client/proc/gimmick_team()
 	if(!SSticker)
 		tgui_alert(src, "Игра ещё не началась!")
 		return
@@ -19,7 +16,7 @@
 
 	var/force_species = FALSE
 	var/selected_species = null
-	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет - будут обычные люди.", "Подтверждение", list("Да","Нет")) == "Да")
+	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет — будут обычные люди.", "Подтверждение", list("Да","Нет")) == "Да")
 		force_species = TRUE
 		selected_species = tgui_input_list(src, "Выберете расу", "Выбор расы", GLOB.all_species)
 		if(!selected_species)
@@ -56,7 +53,7 @@
 	var/list/players_to_spawn = list()
 	players_to_spawn = pick_candidates_all_types(src, teamsize, "Вы хотите сыграть за \a [team_name]?", min_hours=minhours, role_cleanname=team_name, reason=themission)
 
-	if(!players_to_spawn.len)
+	if(!length(players_to_spawn))
 		to_chat(src, "Никто не согласился.")
 		return 0
 
@@ -80,12 +77,12 @@
 		SSticker.mode.eventmiscs += H.mind
 		SSticker.mode.update_eventmisc_icons_added(H.mind)
 		H.mind.offstation_role = TRUE
-		H.key = thisplayer.key
+		H.possess_by_player(thisplayer.key)
 		H.change_voice()
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<br><span class='danger'><b>[themission]</b></span>")
+		to_chat(H, "<br>[span_danger("<b>[themission]</b>")]")
 		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)
@@ -94,7 +91,6 @@
 		players_spawned++
 		if(players_spawned >= teamsize)
 			break
-
 
 	log_and_message_admins("used Spawn Gimmick Team.")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Gimmick Team")

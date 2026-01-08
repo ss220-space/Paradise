@@ -83,6 +83,22 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	fdel(asset_path) // just in case, sadly we can't use rust_g stuff here.
 	fcopy(file_location, asset_path)
 
+/// Returns the data that will be JSON encoded
+/datum/asset/json/proc/generate()
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("generate() not implemented for [type]!")
+
+/// Unregisters any assets from the transport.
+/datum/asset/proc/unregister()
+	CRASH("unregister() not implemented for asset [type]!")
+
+/// Immediately regenerate the asset, overwriting any cache.
+/datum/asset/proc/regenerate()
+	unregister()
+	cached_serialized_url_mappings = null
+	cached_serialized_url_mappings_transport_type = null
+	register()
+
 /// If you don't need anything complicated.
 /datum/asset/simple
 	_abstract = /datum/asset/simple
@@ -132,16 +148,21 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/type in children)
 		load_asset_datum(type)
 
+/datum/asset/group/unregister()
+	for(var/type in children)
+		var/datum/asset/asset = get_asset_datum(type)
+		asset.unregister()
+
 /datum/asset/group/send(client/C)
 	for(var/type in children)
-		var/datum/asset/A = get_asset_datum(type)
-		. = A.send(C) || .
+		var/datum/asset/asset = get_asset_datum(type)
+		. = asset.send(C) || .
 
 /datum/asset/group/get_url_mappings()
 	. = list()
 	for(var/type in children)
-		var/datum/asset/A = get_asset_datum(type)
-		. += A.get_url_mappings()
+		var/datum/asset/asset = get_asset_datum(type)
+		. += asset.get_url_mappings()
 
 // spritesheet implementation - coalesces various icons into a single .png file
 // and uses CSS to select icons out of that file - saves on transferring some
@@ -215,7 +236,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		return
 
 	while(length(to_generate))
-		var/list/stored_args = to_generate[to_generate.len]
+		var/list/stored_args = to_generate[length(to_generate)]
 		to_generate.len--
 		queuedInsert(arglist(stored_args))
 		if(yield && TICK_CHECK)
@@ -331,7 +352,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/replaced_css = file2text(css_cache_filename())
 
 	var/regex/find_background_urls = regex(@"background:url\('%(.+?)%'\)", "g")
-	while (find_background_urls.Find(replaced_css))
+	while(find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
 		var/asset_cache_item = SSassets.transport.register_asset(asset_id, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]")
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
@@ -353,13 +374,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/proc/read_data_from_cache()
 	var/json = json_decode(file2text(data_cache_filename()))
 
-	if (islist(json["sprites"]))
+	if(islist(json["sprites"]))
 		sprites = json["sprites"]
 
 	return TRUE
 
 /datum/asset/spritesheet/proc/send_from_cache(client/client)
-	if (isnull(cached_spritesheets_needed))
+	if(isnull(cached_spritesheets_needed))
 		stack_trace("cached_spritesheets_needed was null when sending assets from [type] from cache")
 		cached_spritesheets_needed = list()
 
@@ -367,7 +388,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /// Returns the URL to put in the background:url of the CSS asset
 /datum/asset/spritesheet/proc/get_background_url(asset)
-	if (generating_cache)
+	if(generating_cache)
 		return "%[asset]%"
 	else
 		return SSassets.transport.get_asset_url(asset)
@@ -377,7 +398,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	write_data_to_cache()
 
 /datum/asset/spritesheet/proc/write_css_to_cache()
-	for (var/size_id in sizes)
+	for(var/size_id in sizes)
 		fcopy(SSassets.cache["[name]_[size_id].png"].resource, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name]_[size_id].png")
 
 	generating_cache = TRUE
@@ -395,7 +416,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/list/mappings = list()
 	mappings["spritesheet_[name].css"] = SSassets.transport.get_asset_url("spritesheet_[name].css")
 
-	for (var/asset_name in cached_spritesheets_needed)
+	for(var/asset_name in cached_spritesheets_needed)
 		mappings[asset_name] = SSassets.transport.get_asset_url(asset_name)
 
 	return mappings
@@ -503,12 +524,41 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/size_id = sprite[SPR_SIZE]
 	return "[name][size_id]"
 
+/datum/asset/spritesheet/unregister()
+	SSassets.transport.unregister_asset("spritesheet_[name].css")
+	if(length(sizes))
+		for(var/size_id in sizes)
+			SSassets.transport.unregister_asset("[name]_[size_id].png")
+		return
+
+	for(var/sheet in cached_spritesheets_needed)
+		SSassets.transport.unregister_asset(sheet)
+
+/datum/asset/spritesheet/regenerate()
+	unregister()
+	sprites = list()
+	fdel("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+	for(var/sheet in cached_spritesheets_needed)
+		fdel("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[sheet].png")
+	fdel("data/spritesheets/spritesheet_[name].css")
+	for(var/size_id in sizes)
+		fdel("data/spritesheets/[name]_[size_id].png")
+	sizes = list()
+	to_generate = list()
+	cached_serialized_url_mappings = null
+	cached_serialized_url_mappings_transport_type = null
+	fully_generated = FALSE
+	var/old_load = load_immediately
+	load_immediately = TRUE
+	create_spritesheets()
+	realize_spritesheets(yield = FALSE)
+	load_immediately = old_load
+
 #undef SPR_SIZE
 #undef SPR_IDX
 #undef SPRSZ_COUNT
 #undef SPRSZ_ICON
 #undef SPRSZ_STRIPPED
-
 
 /datum/asset/changelog_item
 	_abstract = /datum/asset/changelog_item
@@ -519,12 +569,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	SSassets.transport.register_asset(item_filename, file("html/changelogs/archive/" + item_filename))
 
 /datum/asset/changelog_item/send(client)
-	if (!item_filename)
+	if(!item_filename)
 		return
 	. = SSassets.transport.send_assets(client, item_filename)
 
 /datum/asset/changelog_item/get_url_mappings()
-	if (!item_filename)
+	if(!item_filename)
 		return
 	. = list("[item_filename]" = SSassets.transport.get_asset_url(item_filename))
 
@@ -533,7 +583,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/item_filename
 
 /datum/asset/music/New(path)
-	item_filename = sanitize_filename(path)
+	item_filename = SANITIZE_FILENAME(path)
 	SSassets.transport.register_asset(item_filename, file(path))
 	fdel(path)
 
@@ -634,6 +684,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	assets = sorted_assets
 	..()
 
+/datum/asset/simple/unregister()
+	for(var/asset_name in assets)
+		SSassets.transport.unregister_asset(asset_name)
+
 /*
  * Get a html string that will load a html asset.
  * Needed because byond doesn't allow you to browse() to a url.
@@ -641,34 +695,28 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/namespaced/proc/get_htmlloader(filename)
 	return URL2HTMLLOADER(SSassets.transport.get_asset_url(filename, assets[filename]))
 
-
 /// A subtype to generate a JSON file from a list
 /datum/asset/json
 	_abstract = /datum/asset/json
 	/// The filename, will be suffixed with ".json"
 	var/name
-	
-	
+
 /datum/asset/json/send(client)
 	return SSassets.transport.send_assets(client, "[name].json")
-	
-	
+
 /datum/asset/json/get_url_mappings()
 	return list(
 		"[name].json" = SSassets.transport.get_asset_url("[name].json"),
 	)
-	
-	
+
 /datum/asset/json/register()
 	var/filename = "data/[name].json"
 	fdel(filename)
 	text2file(json_encode(generate()), filename)
 	SSassets.transport.register_asset("[name].json", fcopy_rsc(filename))
 	fdel(filename)
-	
-/// Returns the data that will be JSON encoded
-/datum/asset/json/proc/generate()
-	SHOULD_CALL_PARENT(FALSE)
-	CRASH("generate() not implemented for [type]!")
+
+/datum/asset/json/unregister()
+	SSassets.transport.unregister_asset("[name].json")
 
 #undef ASSET_CROSS_ROUND_CACHE_DIRECTORY

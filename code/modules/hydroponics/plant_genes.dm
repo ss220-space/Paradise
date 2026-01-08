@@ -15,7 +15,6 @@
 /datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
 	return
 
-
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
 /datum/plant_gene/core
 	var/value
@@ -60,7 +59,6 @@
 		return ..()
 	return modder.max_endurance // Yes, this is intended. It is used for both lifespan and endurance
 
-
 /datum/plant_gene/core/endurance
 	name = "Endurance"
 	value = 15
@@ -72,7 +70,6 @@
 	if(!modder) // Let the parent handle it
 		return ..()
 	return modder.max_endurance
-
 
 /datum/plant_gene/core/production
 	name = "Production Speed"
@@ -99,7 +96,6 @@
 		return ..()
 	return modder.max_yield
 
-
 /datum/plant_gene/core/potency
 	name = "Potency"
 	value = 10
@@ -111,7 +107,6 @@
 	if(!modder) // Let the parent handle it
 		return ..()
 	return modder.max_potency
-
 
 /datum/plant_gene/core/weed_rate
 	name = "Weed Growth Rate"
@@ -126,7 +121,6 @@
 		return ..()
 	return modder.min_weed_rate
 
-
 /datum/plant_gene/core/weed_chance
 	name = "Weed Vulnerability"
 	value = 5
@@ -139,7 +133,6 @@
 	if(!modder) // Let the parent handle it
 		return ..()
 	return modder.min_weed_chance
-
 
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
 /datum/plant_gene/reagent
@@ -178,7 +171,6 @@
 		if(R.reagent_id == reagent_id)
 			return FALSE
 	return TRUE
-
 
 // Various traits affecting the product. Each must be somehow useful.
 /datum/plant_gene/trait
@@ -236,7 +228,7 @@
 	// For code, see grown.dm
 	name = "Liquid Contents"
 	examine_line = span_notice("It has a lot of liquid contents inside.")
-	origin_tech = list("biotech" = 5)
+	origin_tech = list(RESEARCH_TREE_BIOTECH = 5)
 	dangerous = TRUE
 
 /datum/plant_gene/trait/slip
@@ -268,11 +260,11 @@
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
 	// Generates sparks on squash.
-	// Small (potency*rate*5) chance to shock squish or slip target for (potency*rate*5) damage.
+	// Small (potency*rate*5) chance to shock squish or slip target for(potency*rate*5) damage.
 	// Multiplies max charge by (rate*1000) when used in potato power cells.
 	name = "Electrical Activity"
 	rate = 0.2
-	origin_tech = list("powerstorage" = 5)
+	origin_tech = list(RESEARCH_TREE_POWERSTORAGE = 5)
 	dangerous = TRUE
 
 /datum/plant_gene/trait/cell_charge/on_new(obj/item/reagent_containers/food/snacks/grown/our_plant)
@@ -292,7 +284,7 @@
 	if(prob(power))
 		add_attack_logs(G, carbon_target, "shocked for [round(power)] for slipping on")
 		carbon_target.investigate_log("got shocked for [round(power)] while slipped on [carbon_target](last touched: [carbon_target.fingerprintslast])", INVESTIGATE_BOTANY)
-		carbon_target.electrocute_act(round(power), "подскальзывания", flags = SHOCK_NOGLOVES)
+		carbon_target.electrocute_act(round(power), G, flags = SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
@@ -301,12 +293,12 @@
 		if(prob(power))
 			add_attack_logs(G, C, "shocked for [round(power)], squashing [G]")
 			C.investigate_log("got shocked for [round(power)], squashing [G]", INVESTIGATE_BOTANY)
-			C.electrocute_act(round(power), "раздавленного плода", flags = SHOCK_NOGLOVES)
+			C.electrocute_act(round(power), G, flags = SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
 		var/batteries_recharged = 0
-		for(var/obj/item/stock_parts/cell/C in target.GetAllContents())
+		for(var/obj/item/stock_parts/cell/C in target.get_all_contents())
 			var/newcharge = min(G.seed.potency*0.01*C.maxcharge, C.maxcharge)
 			if(C.charge < newcharge)
 				C.charge = newcharge
@@ -316,9 +308,7 @@
 				C.update_icon()
 				batteries_recharged = 1
 		if(batteries_recharged)
-			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
-
-
+			to_chat(target, span_notice("Your batteries are recharged!"))
 
 /datum/plant_gene/trait/glow
 	// Makes plant glow. Makes plant in tray glow too.
@@ -375,7 +365,7 @@
 	// Teleport radius is calculated as max(round(potency*rate), 1)
 	name = "Bluespace Activity"
 	rate = 0.1
-	origin_tech = list("bluespace" = 5)
+	origin_tech = list(RESEARCH_TREE_BLUESPACE = 5)
 	dangerous = TRUE
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
@@ -399,7 +389,6 @@
 
 	RegisterSignal(grown_plant, COMSIG_PLANT_ON_SLIP, PROC_REF(on_sliped_carbon))
 
-
 /datum/plant_gene/trait/teleport/proc/on_sliped_carbon(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	SIGNAL_HANDLER
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
@@ -407,17 +396,16 @@
 	if(do_teleport(C, T, teleport_radius))
 		add_attack_logs(C, T, "tele-slipped on [G](max radius: [teleport_radius])")
 		C.investigate_log("teleported from [COORD(T)] to [COORD(C)], slipping on [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
-		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+		to_chat(C, span_warning("You slip through spacetime!"))
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
 		else
 			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 			qdel(G)
 	else
-		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
+		to_chat(C, span_warning("[src] sparks, and burns up!"))
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
-
 
 /datum/plant_gene/trait/noreact
 	// Makes plant reagents not react until squashed.
@@ -428,7 +416,7 @@
 	G.reagents.set_reacting(FALSE)
 
 /datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
-	if(G && G.reagents)
+	if(G?.reagents)
 		var/reglist = ""
 		for(var/datum/reagent/R in G.reagents.reagent_list)
 			reglist += "[R.name] [R.volume], "
@@ -438,7 +426,6 @@
 			target.investigate_log("squashed [G] starting a reaction. [reglist]", INVESTIGATE_BOTANY)
 		G.reagents.set_reacting(TRUE)
 		G.reagents.handle_reactions()
-
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
@@ -466,7 +453,7 @@
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
-			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
+			to_chat(user, span_notice("You add some cable to [G] and slide it inside the battery encasing."))
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state
 			pocell.maxcharge = G.seed.potency * 4
@@ -484,8 +471,7 @@
 
 			qdel(G)
 		else
-			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
-
+			to_chat(user, span_warning("You need five lengths of cable to make a [G] battery!"))
 
 /datum/plant_gene/trait/stinging
 	name = "Hypodermic Prickles"
@@ -502,7 +488,7 @@
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
 			G.reagents.trans_to(L, injecting_amount)
-			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+			to_chat(target, span_danger("You are pricked by [G]!"))
 			var/reglist = ""
 			for(var/datum/reagent/R in G.reagents.reagent_list)
 				reglist += "[R.name] [R.volume], "

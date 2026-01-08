@@ -21,12 +21,14 @@ import sys
 INCLUDER_FILES = [
     'paradise.dme',
     'code/modules/tgs/includes.dm',
-    'code/modules/unit_tests/_unit_tests.dm',
+    'code/tests/game_tests.dm',
 ]
 
 IGNORE_FILES = {
     # Included directly in the function /datum/tgs_api/v5#ApiVersion
-    'code/modules/tgs/v5/v5_interop_version.dm'
+    'code/modules/tgs/v5/v5_interop_version.dm',
+    # Included as part of OD lints
+    'tools/ci/od_lints.dm'
 }
 
 def get_unticked_files(root:Path):
@@ -38,12 +40,13 @@ def get_unticked_files(root:Path):
             print(f'Found {len(included)} includes in {root / includer}')
             ticked_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
 
-    all_dm_files = {f for f in root.glob('**/*.dm')}
+    all_dm_files = {f for f in root.glob('**/*.dm')
+                    if "DMCompiler_linux-x64" not in str(f)} # Otherwise, the script starts checking the OD files and the linter breaks.
     return all_dm_files - ticked_files - {root / f for f in IGNORE_FILES}
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("root", help="paracode root directory")
+    parser.add_argument("root", help="project root directory")
     args = parser.parse_args()
 
     # Windows quoting behavior for directories adds trailing double-quote

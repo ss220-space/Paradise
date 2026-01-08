@@ -12,11 +12,10 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-
-/obj/machinery/computer/HolodeckControl/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_hand(mob/user as mob)
 	if(..())
 		return 1
 
@@ -159,10 +158,8 @@
 	updateUsrDialog()
 	return
 
-
 /obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED
-
 
 /obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
@@ -217,14 +214,13 @@
 			for(var/mob/M in range(10,src))
 				M.show_message("The holodeck overloads!")
 
-
 			for(var/turf/T in linkedholodeck)
 				if(prob(30))
 					do_sparks(2, TRUE, T)
 				T.ex_act(EXPLODE_LIGHT)
-				T.hotspot_expose(1000,500,1)
+				T.hotspot_expose(1000, 500)
 
-/obj/machinery/computer/HolodeckControl/proc/derez(var/obj/obj , var/silent = 1)
+/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
 	holographic_items.Remove(obj)
 
 	if(obj == null)
@@ -259,7 +255,6 @@
 		targetsource.copy_contents_to(linkedholodeck, TRUE)
 		active = 0
 
-
 /obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
 
 	if(world.time < (last_change + 25))
@@ -293,7 +288,6 @@
 			if(L.name=="Holocarp Spawn")
 				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
 
-
 /obj/machinery/computer/HolodeckControl/proc/emergencyShutdown()
 	//Get rid of any items
 	for(var/item in holographic_items)
@@ -324,11 +318,9 @@
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
-
 /turf/simulated/floor/holofloor/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED
 	// HOLOFLOOR DOES NOT GIVE A FUCK
-
 
 /turf/simulated/floor/holofloor/space
 	name = "\proper space"
@@ -351,7 +343,6 @@
 
 /obj/structure/table/holotable
 	obj_flags = NODECONSTRUCT
-	canSmoothWith = SMOOTH_GROUP_TABLES
 
 /obj/structure/table/holotable/wood
 	name = "wooden table"
@@ -369,17 +360,12 @@
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
-	name = "boxing gloves"
-	desc = "Because you really needed another excuse to punch your crewmates."
-	icon_state = "boxing"
-	item_state = "boxing"
 
 /obj/structure/holowindow/has_prints()
 	return FALSE
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
 	density = TRUE
@@ -421,11 +407,10 @@
 	name = "Holographic Energy Sword"
 	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 50
 	block_chance = 50
@@ -448,30 +433,26 @@
 	. = ..()
 	item_color = pick("red","blue","green","purple")
 
-
 /obj/item/holo/esword/update_icon_state()
 	icon_state = active ? "sword[item_color]" : "sword0"
-
 
 /obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		force = 30
-		hitsound = "sound/weapons/blade1.ogg"
+		hitsound = 'sound/weapons/blade1.ogg'
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] can now be concealed."))
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+
+	user.update_held_items()
 	add_fingerprint(user)
 	return
 
@@ -500,7 +481,6 @@
 	pass_flags_self = LETPASSTHROW
 	damage_deflection = 7	// You can't just break it with da foking glass ashtray.
 
-
 /obj/structure/holohoop/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 
@@ -517,7 +497,6 @@
 	target.forceMove(get_turf(src))
 	target.Weaken(10 SECONDS)
 
-
 /obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// Players may use (DISARM|GRAB) intent for pushing each other.
 		return ..()
@@ -526,7 +505,6 @@
 		visible_message(span_notice("[user] dunks [I] into [src]!"))
 
 	return ATTACK_CHAIN_BLOCKED
-
 
 /obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
 	if(!isitem(mover) || isprojectile(mover))
@@ -541,10 +519,8 @@
 
 	return FALSE
 
-
 /obj/structure/holohoop/has_prints()
 	return FALSE
-
 
 /obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -558,7 +534,6 @@
 	mover.forceMove(loc)
 	visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
 	return FALSE
-
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(!isitem(AM) || isprojectile(AM))
@@ -583,7 +558,6 @@
 	var/eventstarted = 0
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
@@ -592,12 +566,10 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-
 /obj/machinery/readybutton/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 	return ATTACK_CHAIN_BLOCKED
-
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	if(user.stat || stat & (BROKEN))
@@ -629,7 +601,6 @@
 
 /obj/machinery/readybutton/update_icon_state()
 	icon_state = ready ? "auth_on" : "auth_off"
-
 
 /obj/machinery/readybutton/proc/begin_event()
 	eventstarted = 1

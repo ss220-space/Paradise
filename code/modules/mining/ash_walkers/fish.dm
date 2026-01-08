@@ -83,7 +83,6 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/shoreline // all this subtypes used in actual fishing
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/lavaland_fish/deep_water
 	w_class = WEIGHT_CLASS_BULKY
@@ -106,7 +105,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 
 /obj/item/lavaland_fish/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/sharpness = is_sharp(I)
+	var/sharpness = I.sharp
 	if(sharpness && user.a_intent == INTENT_HELP && do_flop_animation)
 		fucking_dies()
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
@@ -126,7 +125,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		for(var/i in 1 to butcher_loot[path])
 			new path(loc)
 		butcher_loot.Remove(path)
-	visible_message(span_notice("[user] успешно разделыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[user] успешно разделыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
 	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 	gibs(loc)
 	qdel(src)
@@ -164,14 +163,12 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 /obj/item/lavaland_fish/shoreline/ash_crab
 	name = "ash crab"
 	desc = "Небольшое всеядное ракообразное, обладающее на удивление крепким панцирем. Данный вид имеет интересную привычку поедать мелкие предметы, которые они находят. Лавовые крабы наиболее часто являются объектом охоты как для другой \"морской\" фауны, так и для местных племён в связи с крепким панцирем, используемым в качестве заточки, съедобным мясом и интересными находками в его желудке."
-	icon_state = "ash_crab"
-	item_state = "ash_crab"
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	butcher_loot = list(
 		/obj/item/whetstone/crab_shell = 1,
 		/obj/item/reagent_containers/food/snacks/lavaland/soft_meat = 1,
 		/obj/effect/spawner/random_spawners/lavaland_random_loot = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/shoreline/ash_crab/get_ru_names()
 	return list(
@@ -185,7 +182,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 
 /obj/item/lavaland_fish/shoreline/dead_horseman
 	name = "dead horseman"
-	desc = "Небольших размеров рыба, питающаяся преимущественно кровавыми пиявками, зарытыми в пепле. Получила своё название из-за своего характерного внешнего вида - голова всадника внешне напоминает гуманоидный череп. Ценится местными племенами в первую очередь из-за селезёнки, содержащей в себе частицы киновари и используемой для создания коричневого красителя."
+	desc = "Небольших размеров рыба, питающаяся преимущественно кровавыми пиявками, зарытыми в пепле. Получила своё название из-за своего характерного внешнего вида — голова всадника внешне напоминает гуманоидный череп. Ценится местными племенами в первую очередь из-за селезёнки, содержащей в себе частицы киновари и используемой для создания коричневого красителя."
 	icon_state = "dead_horseman"
 	item_state = "dead_horseman"
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/bloody_leach
@@ -193,7 +190,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		/obj/effect/spawner/random_spawners/forty_pc_skull = 1,
 		/obj/item/reagent_containers/food/snacks/lavaland/soft_meat = 1,
 		/obj/item/lavaland_dye/cinnabar = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/shoreline/dead_horseman/get_ru_names()
 	return list(
@@ -215,7 +212,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		/obj/item/stack/sheet/cartilage_plate = 2,
 		/obj/item/conductive_organ = 1,
 		/obj/item/lavaland_dye/crimson = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/shoreline/shellfish/get_ru_names()
 	return list(
@@ -237,7 +234,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		/obj/item/reagent_containers/food/snacks/lavaland/eel_filet = 1,
 		/obj/item/kitchen/knife/combat/survival/bone/eel = 1,
 		/obj/item/lavaland_dye/indigo = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/deep_water/bottom_eel/get_ru_names()
 	return list(
@@ -261,7 +258,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		/obj/item/reagent_containers/food/snacks/bait/random = 2,
 		/obj/effect/spawner/random_spawners/lavaland_random_loot = 2,
 		/obj/item/lavaland_dye/crimson = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/deep_water/red_devourer/get_ru_names()
 	return list(
@@ -283,7 +280,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	butcher_loot = list(
 		/obj/item/hivelordstabilizer/molten_mass = 2,
 		/obj/item/lavaland_dye/cinnabar = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/deep_water/magma_hammerhead/get_ru_names()
 	return list(
@@ -295,21 +292,19 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		PREPOSITIONAL = "магмовой акуле-молоте",
 	)
 
-
 /obj/item/lavaland_fish/deep_water/blind_reaper
 	name = "blind reaper"
 	desc = "Самая маленькая представительница глубоководных рыб Лазис Ардакса, она привлекает к себе внимание не только небольшим размером, но и огромным костным наростом на голове, напоминающем лезвие циркулярной пилы. Данный вид, будучи лишённым зрения, использует своё лезвие в качестве биологического сонара, что помогает ей ориентироваться на огромных лавовых глубинах."
 	icon_state = "blind_reaper"
 	item_state = "blind_reaper"
 	throwforce = 20
-	force = 10
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	butcher_loot = list(
 		/obj/item/circular_saw_blade = 1,
 		/obj/item/reagent_containers/food/snacks/lavaland/predator_meat = 1,
 		/obj/item/lavaland_dye/indigo = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/deep_water/blind_reaper/get_ru_names()
 	return list(
@@ -333,7 +328,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		/obj/item/reagent_containers/food/snacks/lavaland/predator_meat = 1,
 		/obj/effect/spawner/random_spawners/lavaland_random_loot = 3,
 		/obj/item/lavaland_dye/mint = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/deep_water/herald_of_carnage/get_ru_names()
 	return list(
@@ -347,7 +342,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 
 /obj/item/lavaland_fish/deep_water/sulfuric_tramp
 	name = "sulfuric tramp"
-	desc = "Данный вид рыб никогда не был зафиксирован ни в одной исследовательской работе по изучению фауны Лазис Ардакса - это инвазивный вид, попавший в лавовые реки в результате крушения контрабандистского судна, перевозившего фауну с неизвестной кислотной планеты. Судя по всему, эти рыбы нашли свою нишу в пищевой цепи."
+	desc = "Данный вид рыб никогда не был зафиксирован ни в одной исследовательской работе по изучению фауны Лазис Ардакса — это инвазивный вид, попавший в лавовые реки в результате крушения контрабандистского судна, перевозившего фауну с неизвестной кислотной планеты. Судя по всему, эти рыбы нашли свою нишу в пищевой цепи."
 	icon_state = "sulfuric_tramp"
 	item_state = "sulfuric_tramp"
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva
@@ -355,7 +350,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		/obj/item/t_scanner/adv_mining_scanner/bleary_eye = 1,
 		/obj/item/acid_bladder = 1,
 		/obj/item/lavaland_dye/amber = 1,
-		)
+	)
 
 /obj/item/lavaland_fish/deep_water/sulfuric_tramp/get_ru_names()
 	return list(

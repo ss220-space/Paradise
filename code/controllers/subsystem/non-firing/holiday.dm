@@ -22,7 +22,6 @@ SUBSYSTEM_DEF(holiday)
 			holidays[holiday.name] = holiday
 	return SS_INIT_SUCCESS
 
-
 /datum/controller/subsystem/holiday/OnMasterLoad()
 	if(holidays)
 		holidays = shuffle(holidays)

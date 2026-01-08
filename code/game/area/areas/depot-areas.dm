@@ -39,7 +39,6 @@
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
-
 /area/syndicate_depot/core/proc/update_state()
 	if(destroyed)
 		invisibility = INVISIBILITY_MAXIMUM
@@ -55,7 +54,6 @@
 		invisibility = INVISIBILITY_MAXIMUM
 	update_icon(UPDATE_ICON_STATE)
 
-
 /area/syndicate_depot/core/update_icon_state()
 	if(invisibility == INVISIBILITY_MAXIMUM)
 		icon_state = null
@@ -68,7 +66,6 @@
 		icon_state = "red"
 	else if(local_alarm)
 		icon_state = "bluenew"
-
 
 /area/syndicate_depot/core/proc/reset_alert()
 
@@ -140,10 +137,9 @@
 		if(perimeter_shield_status)
 			increase_alert("Perimeter shield breach!")
 
-
 /area/syndicate_depot/core/proc/armory_locker_looted()
 	if(!run_finished && !used_self_destruct)
-		if(shield_list.len)
+		if(length(shield_list))
 			activate_self_destruct("Armory compromised despite armory shield being online.", FALSE)
 			return
 		declare_finished()
@@ -236,7 +232,7 @@
 		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name == "syndi_depot_bot")
 				possible_bot_spawns |= L
-		if(possible_bot_spawns.len)
+		if(length(possible_bot_spawns))
 			var/obj/effect/landmark/S = pick(possible_bot_spawns)
 			new /obj/effect/portal(get_turf(S))
 			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
@@ -306,7 +302,7 @@
 			reactor.overload(containment_failure)
 	else
 		log_debug("Depot: [src] called activate_self_destruct with no reactor.")
-		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually via admin bomb(25, 35, 45, 55).</span>")
+		message_admins(span_adminnotice("Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually via admin bomb(25, 35, 45, 55)."))
 	update_icon(UPDATE_ICON_STATE)
 
 /area/syndicate_depot/core/proc/activate_lockdown()
@@ -327,7 +323,7 @@
 	for(var/obj/machinery/computer/syndicate_depot/C in machinery_cache)
 		C.security_lockout = FALSE
 
-/area/syndicate_depot/core/proc/set_emergency_access(var/openaccess)
+/area/syndicate_depot/core/proc/set_emergency_access(openaccess)
 	for(var/obj/machinery/door/airlock/A in machinery_cache)
 		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
 			continue
@@ -349,14 +345,14 @@
 		if(!M.ckey)
 			continue
 		var/turf/T = get_turf(M)
-		if(T && T.loc && T.loc == src)
+		if(T?.loc && T.loc == src)
 			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
 
 /area/syndicate_depot/core/proc/shields_up()
-	if(shield_list.len)
+	if(length(shield_list))
 		return
 	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "syndi_depot_shield")
@@ -372,7 +368,7 @@
 		A.lock()
 
 /area/syndicate_depot/core/proc/shields_key_check()
-	if(!shield_list.len)
+	if(!length(shield_list))
 		return
 	if(detected_mech || detected_pod || detected_double_agent)
 		return
@@ -436,26 +432,26 @@
 	return FALSE
 
 /**
-  * Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with ", "
-  *
-  * E.g. list_show(depotarea.guard_list) returns a string like:
-  * "Syndicate Backup (123), Syndicate Backup(456), Syndicate Backup(789)", etc.
-  * Arguments:
-  * * list/L, the list of UIDs from which to draw members
-  * * show_ckeys, bool, if true will display ckeys in addition to names
-  */
+ * Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with ", "
+ *
+ * E.g. list_show(depotarea.guard_list) returns a string like:
+ * "Syndicate Backup (123), Syndicate Backup(456), Syndicate Backup(789)", etc.
+ * Arguments:
+ * * list/L, the list of UIDs from which to draw members
+ * * show_ckeys, bool, if true will display ckeys in addition to names
+ */
 /area/syndicate_depot/core/proc/list_show(list/L, show_ckeys = FALSE)
 	var/list/formatted = list_shownames(L, show_ckeys)
 	return formatted.Join(", ")
 
 /**
-  * Returns a LIST of the NAMES of the mobs in the provided list.
-  *
-  * E.g. list_shownames(depotarea.guard_list) returns a list of the names of extra guard mobs in depot.
-  * Arguments:
-  * * list/L, the list of UIDs from which to draw members
-  * * show_ckeys, bool, if true will display ckeys in addition to names
-  */
+ * Returns a LIST of the NAMES of the mobs in the provided list.
+ *
+ * E.g. list_shownames(depotarea.guard_list) returns a list of the names of extra guard mobs in depot.
+ * Arguments:
+ * * list/L, the list of UIDs from which to draw members
+ * * show_ckeys, bool, if true will display ckeys in addition to names
+ */
 /area/syndicate_depot/core/proc/list_shownames(list/L, show_ckeys = FALSE)
 	var/list/names = list()
 	for(var/uid in L)
@@ -469,13 +465,13 @@
 	return names
 
 /**
-  * Returns a LIST of the MOBS in one of the depot area's lists.
-  *
-  * E.g. list_getmobs(depotarea.guard_list) returns a list of the extra guard mobs in the depot.
-  * Arguments:
-  * * list/L, the list of UIDs from which to draw members
-  * * show_ckeys, bool, if true will display ckeys in addition to names
-  */
+ * Returns a LIST of the MOBS in one of the depot area's lists.
+ *
+ * E.g. list_getmobs(depotarea.guard_list) returns a list of the extra guard mobs in the depot.
+ * Arguments:
+ * * list/L, the list of UIDs from which to draw members
+ * * show_ckeys, bool, if true will display ckeys in addition to names
+ */
 /area/syndicate_depot/core/proc/list_getmobs(list/L, show_ckeys = FALSE)
 	var/list/moblist = list()
 	for(var/uid in L)
@@ -494,7 +490,7 @@
 	var/list/shield_list = list()
 
 /area/syndicate_depot/perimeter/proc/perimeter_shields_up()
-	if(shield_list.len)
+	if(length(shield_list))
 		return
 	for(var/turf/T in src)
 		var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(T)

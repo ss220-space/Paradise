@@ -15,16 +15,15 @@
 
 /obj/item/clothing/shoes/black/greytide
 
-
 /obj/item/clothing/shoes/black/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/shoes/brown
 	name = "brown shoes"
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
+	item_state = "brown"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/brown/captain
@@ -69,12 +68,6 @@
 	item_color = "purple"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/brown
-	name = "brown shoes"
-	icon_state = "brown"
-	item_color = "brown"
-	dying_key = DYE_REGISTRY_SHOES
-
 /obj/item/clothing/shoes/red
 	name = "red shoes"
 	desc = "Stylish red shoes."
@@ -85,8 +78,8 @@
 /obj/item/clothing/shoes/white
 	name = "white shoes"
 	icon_state = "white"
+	item_state = "white"
 	permeability_coefficient = 0.01
-	item_color = "white"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/leather
@@ -113,12 +106,10 @@
 	QDEL_NULL(shackles)
 	return ..()
 
-
 /obj/item/clothing/shoes/orange/attack_self(mob/user)
 	if(shackles)
 		user.put_in_hands(shackles)
 		set_shackles(null)
-
 
 /obj/item/clothing/shoes/orange/proc/set_shackles(obj/item/restraints/handcuffs/new_shackles)
 	if(shackles == new_shackles)
@@ -136,10 +127,8 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 
-
 /obj/item/clothing/shoes/orange/update_icon_state()
 	icon_state = "orange[shackles ? "1" : ""]"
-
 
 /obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/restraints/handcuffs))
@@ -154,13 +143,12 @@
 
 	return ..()
 
-
 /obj/item/clothing/shoes/prison
 	name = "prison boots"
 	desc = "Твердая и неудобная обувь, сделанная другими заключенными."
 	icon_state = "prison_boots"
 	item_state = "prison_boots"
-	
+
 /obj/item/clothing/shoes/prison/get_ru_names()
 	return list(
 		NOMINATIVE = "тюремные башмаки",
@@ -168,9 +156,9 @@
 		DATIVE = "тюремным башмакам",
 		ACCUSATIVE = "тюремные башмаки",
 		INSTRUMENTAL = "тюремныим башмаками",
-		PREPOSITIONAL = "тюремных башмаках"
+		PREPOSITIONAL = "тюремных башмаках",
 	)
-	
+
 /obj/item/clothing/shoes/convers
 	name = "black convers"
 	desc = "Пара высоких чёрных кед, сделанных по последнему писку моды. Выглядят просто отпадно."
@@ -184,7 +172,7 @@
 		DATIVE = "чёрным высоким кедам",
 		ACCUSATIVE = "чёрные высокие кеды",
 		INSTRUMENTAL = "чёрными высокими кедами",
-		PREPOSITIONAL = "чёрных высоких кедах"
+		PREPOSITIONAL = "чёрных высоких кедах",
 	)
 
 /obj/item/clothing/shoes/convers/red
@@ -200,5 +188,5 @@
 		DATIVE = "красным высоким кедам",
 		ACCUSATIVE = "красные высокие кеды",
 		INSTRUMENTAL = "красными высокими кедами",
-		PREPOSITIONAL = "красных высоких кедах"
+		PREPOSITIONAL = "красных высоких кедах",
 	)

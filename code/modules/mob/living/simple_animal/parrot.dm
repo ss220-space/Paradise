@@ -12,23 +12,28 @@
  * Defines
  */
 
-//Only a maximum of one action and one intent should be active at any given time.
-//Actions
-#define PARROT_PERCH	1		//Sitting/sleeping, not moving
-#define PARROT_SWOOP	2		//Moving towards or away from a target
-#define PARROT_WANDER	4		//Moving without a specific target in mind
+// Only a maximum of one action and one intent should be active at any given time.
+// Actions
+/// Sitting/sleeping, not moving
+#define PARROT_PERCH 1
+/// Moving towards or away from a target
+#define PARROT_SWOOP 2
+/// Moving without a specific target in mind
+#define PARROT_WANDER 4
 
-//Intents
-#define PARROT_STEAL	8		//Flying towards a target to steal it/from it
-#define PARROT_ATTACK	16		//Flying towards a target to attack it
-#define PARROT_RETURN	32		//Flying towards its perch
-#define PARROT_FLEE	64		//Flying away from its attacker
-
+// Intents
+/// Flying towards a target to steal it/from it
+#define PARROT_STEAL 8
+/// Flying towards a target to attack it
+#define PARROT_ATTACK 16
+/// Flying towards its perch
+#define PARROT_RETURN 32
+/// Flying away from its attacker
+#define PARROT_FLEE 64
 
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "Попугай пронзительно кричит: \"Это попугай! БВАХ-бах!\""
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"
@@ -99,9 +104,8 @@
 		DATIVE = "попугаю",
 		ACCUSATIVE = "попугая",
 		INSTRUMENTAL = "попугаем",
-		PREPOSITIONAL = "попугае"
+		PREPOSITIONAL = "попугае",
 	)
-
 
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
@@ -115,18 +119,22 @@
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
-	verbs.Add(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
-			  /mob/living/simple_animal/parrot/proc/steal_from_mob, \
-			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-			  /mob/living/simple_animal/parrot/proc/perch_player)
+	verbs.Add(
+		/mob/living/simple_animal/parrot/proc/steal_from_ground, \
+		/mob/living/simple_animal/parrot/proc/steal_from_mob, \
+		/mob/living/simple_animal/parrot/verb/drop_held_item_player, \
+		/mob/living/simple_animal/parrot/proc/perch_player
+	)
 
-	desired_perches = typecacheof(list(/obj/structure/computerframe,	/obj/structure/displaycase, \
-									/obj/structure/filingcabinet,	/obj/machinery/teleport, \
-									/obj/machinery/suit_storage_unit,/obj/machinery/clonepod, \
-									/obj/machinery/dna_scannernew,	/obj/machinery/tcomms, \
-									/obj/machinery/nuclearbomb,		/obj/machinery/particle_accelerator, \
-									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
-									/obj/machinery/computer))
+	desired_perches = typecacheof(list( \
+		/obj/structure/computerframe, /obj/structure/displaycase, \
+		/obj/structure/filingcabinet, /obj/machinery/teleport, \
+		/obj/machinery/suit_storage_unit, /obj/machinery/clonepod, \
+		/obj/machinery/dna_scannernew, /obj/machinery/tcomms, \
+		/obj/machinery/nuclearbomb, /obj/machinery/particle_accelerator, \
+		/obj/machinery/recharge_station, /obj/machinery/smartfridge, \
+		/obj/machinery/computer)
+	)
 
 /mob/living/simple_animal/parrot/add_strippable_element()
 	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
@@ -135,28 +143,26 @@
 	GLOB.hear_radio_list -= src
 	return ..()
 
-
 /mob/living/simple_animal/parrot/proc/generate_ears_speak()
-	clean_speak = list("Хай!",
-						"Привет!",
-						"Крекер?",
-						"БВАААК! Джордж Меллонс меня обижает!")
-
+	clean_speak = list(
+		"Хай!",
+		"Привет!",
+		"Крекер?",
+		"БВАААК! Джордж Меллонс меня обижает!",
+	)
 
 /mob/living/simple_animal/parrot/death(gibbed)
 	if(can_die())
 		if(held_item)
 			custom_emote(EMOTE_VISIBLE, "бросает [held_item.declent_ru(ACCUSATIVE)]!")
 			drop_held_item()
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 	return ..()
-
 
 /mob/living/simple_animal/parrot/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Held Item", held_item)
-
 
 /*
  * Attack responces
@@ -185,7 +191,6 @@
 			parrot_state |= PARROT_FLEE		//Otherwise, fly like a bat out of hell!
 			drop_held_item(FALSE)
 
-
 //Mobs with objects
 /mob/living/simple_animal/parrot/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -201,7 +206,6 @@
 	icon_state = "parrot_fly"
 	drop_held_item(FALSE)
 
-
 //Bullets
 /mob/living/simple_animal/parrot/bullet_act(obj/projectile/P)
 	..()
@@ -215,14 +219,12 @@
 		icon_state = "parrot_fly"
 		drop_held_item(FALSE)
 
-
 /mob/living/simple_animal/parrot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(client && (parrot_state & PARROT_PERCH))
 		parrot_state = PARROT_WANDER
 		if(icon_state == "parrot_sit")
 			icon_state = "parrot_fly"
-
 
 /*
  * AI - Not really intelligent, but I'm calling it AI anyway.
@@ -244,7 +246,6 @@
 	else
 		ADD_TRAIT(src, TRAIT_MOVE_FLOATING, UNIQUE_TRAIT_SOURCE(src))
 
-
 /mob/living/simple_animal/parrot/proc/update_speak()
 	speak.Cut()
 
@@ -256,7 +257,6 @@
 	else //If we have no headset or channels to use, dont try to use any!
 		for(var/possible_phrase in clean_speak)
 			speak += possible_phrase
-
 
 /mob/living/simple_animal/parrot/proc/update_available_channels()
 	available_channels.Cut()
@@ -281,7 +281,6 @@
 	if(ears.translate_binary)
 		available_channels.Add(":b")
 
-
 /mob/living/simple_animal/parrot/handle_automated_movement()
 	if(pulledby)
 		parrot_state = PARROT_WANDER
@@ -290,19 +289,17 @@
 	if(!isturf(loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
 		return //If it can't move, dont let it move.
 
-
 //-----SPEECH
 	/* Parrot speech mimickry!
-	   Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
-	   Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
-	   Then it clears the buffer to make sure they dont magically remember something from hours ago. */
+	Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
+	Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
+	Then it clears the buffer to make sure they dont magically remember something from hours ago. */
 	if(length(speech_buffer) && prob(10))
 		if(length(clean_speak))
 			clean_speak -= pick(clean_speak)
 
 		clean_speak += pick(speech_buffer)
 		speech_buffer.Cut()
-
 
 //-----SLEEPING
 	if(parrot_state == PARROT_PERCH)
@@ -337,7 +334,7 @@
 //-----WANDERING - This is basically a 'I dont know what to do yet' state
 	else if(parrot_state == PARROT_WANDER)
 		//Stop movement, we'll set it later
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 
 		//Wander around aimlessly. This will help keep the loops from searches down
@@ -377,7 +374,7 @@
 
 //-----STEALING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_STEAL))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || held_item || !(parrot_interest in view(src)))
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -406,12 +403,12 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----RETURNING TO PERCH
 	else if(parrot_state == (PARROT_SWOOP|PARROT_RETURN))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_perch || !isturf(parrot_perch.loc)) //Make sure the perch exists and somehow isnt inside of something else.
 			parrot_perch = null
@@ -431,19 +428,19 @@
 			parrot_state = PARROT_WANDER
 			return
 
-		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----FLEEING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_FLEE))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || !isliving(parrot_interest) || !Adjacent(parrot_interest)) //Sanity
 			parrot_state = PARROT_WANDER
 			parrot_interest = null
 			return
 
-		SSmove_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
+		GLOB.move_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
 		parrot_been_shot--
 		return
 
@@ -489,16 +486,15 @@
 		//Otherwise, fly towards the mob!
 		else
 			// No pathfinding here because the parrot is pissed and isn't thinking rationally.
-			SSmove_manager.move_to(src, parrot_interest, 1, parrot_speed)
+			GLOB.move_manager.move_to(src, parrot_interest, 1, parrot_speed)
 		return
 //-----STATE MISHAP
 	else //This should not happen. If it does lets reset everything and try again
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 		parrot_perch = null
 		drop_held_item()
 		parrot_state = PARROT_WANDER
-
 
 /*
  * Procs
@@ -532,13 +528,12 @@
 		return O
 	return null
 
-
 /*
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
  */
 /mob/living/simple_animal/parrot/proc/steal_from_ground()
 	set name = "Схватить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Grabs a nearby item."
 
 	if(stat)
@@ -568,10 +563,9 @@
 	balloon_alert(src, "здесь нечего взять")
 	return 0
 
-
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
 	set name = "Украсть из рук"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Steals an item right out of a person's hand!"
 
 	if(stat)
@@ -602,10 +596,9 @@
 	balloon_alert(src, "здесь нечего взять!")
 	return 0
 
-
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
 	set name = "Выбросить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -613,10 +606,9 @@
 
 	drop_held_item()
 
-
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
 	set name = "Выбросить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -645,10 +637,9 @@
 	update_held_icon()
 	return 1
 
-
 /mob/living/simple_animal/parrot/proc/perch_player()
 	set name = "Присесть"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Sit on a nice comfy perch."
 
 	if(stat || !client)
@@ -664,13 +655,12 @@
 
 	balloon_alert(src, "некуда сесть!")
 
-
 /**
-  * Attempts to pick up an adjacent item
-  *
-  * Arguments:
-  * * I - The item to try and pick up
-  */
+ * Attempts to pick up an adjacent item
+ *
+ * Arguments:
+ * * I - The item to try and pick up
+ */
 /mob/living/simple_animal/parrot/proc/try_grab_item(obj/I)
 	if(!Adjacent(I))
 		return
@@ -681,7 +671,6 @@
 	update_held_icon()
 	I.forceMove(src)
 
-
 /*
  * Sub-types
  */
@@ -691,7 +680,6 @@
 	tts_seed = "Gyro"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
-
 
 /mob/living/simple_animal/parrot/Poly/generate_ears_speak()
 	ears = new /obj/item/radio/headset/headset_eng(src)
@@ -873,30 +861,25 @@
 		"У меня больше ответов, чем вопросов!",
 		"Меня расстреляли, но я не сдался!")
 
-
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(message_mode && istype(ears))
 		ears.talk_into(src, message_pieces, message_mode, verb)
 		used_radios += ears
-
 
 /mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
-
 /mob/living/simple_animal/parrot/hear_radio(list/message_pieces, verb = "говор%(ит,ят)%", part_a, part_b, mob/speaker = null, hard_to_hear = 0, atom/follow_target, check_name_against)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
-
 /mob/living/simple_animal/parrot/proc/parrot_hear(message)
 	if(!message || stat)
 		return
 	speech_buffer.Add(message)
-
 
 /mob/living/simple_animal/parrot/proc/update_held_icon()
 	underlays.Cut()
@@ -911,3 +894,10 @@
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
 
+#undef PARROT_PERCH
+#undef PARROT_SWOOP
+#undef PARROT_WANDER
+#undef PARROT_STEAL
+#undef PARROT_ATTACK
+#undef PARROT_RETURN
+#undef PARROT_FLEE

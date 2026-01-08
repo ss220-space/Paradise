@@ -29,7 +29,6 @@
 
 	return amount
 
-
 /mob/living/silicon/robot/adjustBruteLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -48,7 +47,6 @@
 		heal_overall_damage(amount, 0, updating_health, FALSE, affect_robotic)
 
 	return STATUS_UPDATE_HEALTH
-
 
 /mob/living/silicon/robot/adjustFireLoss(
 	amount = 0,
@@ -70,11 +68,11 @@
 	return STATUS_UPDATE_HEALTH
 
 /mob/living/silicon/robot/adjust_slot_machine_lose_effect()
-	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+	if(prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
 		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила разрушает ваш корпус."))
 		src.gib()
 		return TRUE
-	if (prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
+	if(prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
 		to_chat(src, span_warning("Неудача! Из корпуса [src.name] вылетают искры."))
 		do_sparks(3, TRUE, src)
 		src.destroy_random_component()
@@ -83,7 +81,6 @@
 	do_sparks(3, TRUE, src)
 	src.adjustBruteLoss(rand(15, 20))
 	return FALSE
-
 
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
@@ -125,7 +122,6 @@
 
 	return FALSE
 
-
 /mob/living/silicon/robot/heal_organ_damage(
 	brute = 0,
 	burn = 0,
@@ -141,7 +137,6 @@
 
 	var/datum/robot_component/picked = pick(parts)
 	. |= picked.heal_damage(brute, burn, updating_health)
-
 
 /mob/living/silicon/robot/take_organ_damage(
 	brute = 0,
@@ -195,10 +190,10 @@
 	if(!LAZYLEN(parts))
 		return .
 
-	while(parts.len && (brute > 0 || burn > 0) )
+	while(length(parts) && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
-		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
-		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
+		var/brute_per_part = round(brute/length(parts), DAMAGE_PRECISION)
+		var/burn_per_part = round(burn/length(parts), DAMAGE_PRECISION)
 
 		. |= picked.heal_damage(brute_per_part, burn_per_part, updating_health = FALSE)
 
@@ -209,7 +204,6 @@
 
 	if(. && updating_health)
 		updatehealth("heal overall damage")
-
 
 /mob/living/silicon/robot/take_overall_damage(
 	brute = 0,
@@ -247,10 +241,10 @@
 	if(armour)
 		return armour.take_damage(brute, burn, sharp, updating_health)
 
-	while(parts.len && (brute > 0 || burn > 0) )
+	while(length(parts) && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
-		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
-		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
+		var/brute_per_part = round(brute/length(parts), DAMAGE_PRECISION)
+		var/burn_per_part = round(burn/length(parts), DAMAGE_PRECISION)
 
 		. |= picked.take_damage(brute_per_part, burn_per_part, sharp, updating_health = FALSE)
 
@@ -262,7 +256,6 @@
 	if(. && updating_health)
 		updatehealth("take overall damage")
 
-
 /mob/living/silicon/robot/get_blocking_resistance(
 	damage = 0,
 	damagetype = BRUTE,
@@ -272,7 +265,6 @@
 )
 	. = ..()
 	. += damage_protection
-
 
 /mob/living/silicon/robot/get_incoming_damage_modifier(
 	damage = 0,

@@ -2,17 +2,12 @@
 //Turret Control Panel//
 ////////////////////////
 
-/area
-	// Turrets use this list to see if individual power/lethal settings are allowed
-	var/list/obj/machinery/turretid/turret_controls = list()
-
 /obj/machinery/turretid
 	name = "turret control panel"
 	desc = "Used to control a room's automated defenses."
 	icon = 'icons/obj/machines/turret_control.dmi'
 	icon_state = "control_standby"
 	anchored = TRUE
-	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	interaction_flags_click = ALLOW_SILICON_REACH
 	var/enabled = FALSE
@@ -54,11 +49,8 @@
 
 	check_arrest = FALSE
 	check_records = FALSE
-	check_weapons = FALSE
 	check_access = FALSE
-	check_anomalies = TRUE
 	check_synth	= TRUE
-	check_borgs = FALSE
 	ailock = TRUE
 
 	syndicate = TRUE
@@ -93,10 +85,8 @@
 	update_turret_light()
 	return INITIALIZE_HINT_LATELOAD
 
-
 /obj/machinery/turretid/LateInitialize()
 	updateTurrets()
-
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) && !iscogscarab(user) || isAI(user))
@@ -117,7 +107,6 @@
 
 	return FALSE
 
-
 /obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
@@ -135,7 +124,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/turretid/emag_act(mob/user)
 	if(!emagged)
@@ -182,7 +170,6 @@
 	)
 	return data
 
-
 /obj/machinery/turretid/ui_act(action, params)
 	if(..())
 		return
@@ -202,7 +189,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_turret_light()
 	updateTurrets()
-
 
 /obj/machinery/turretid/proc/updateTurretId(action, force = FALSE)
 	if(action == "power")
@@ -237,7 +223,6 @@
 
 	return TRUE
 
-
 /obj/machinery/turretid/proc/updateTurrets()
 	var/datum/turret_checks/TC = new
 	TC.enabled = enabled
@@ -256,14 +241,12 @@
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 
-
 /obj/machinery/turretid/power_change(forced = FALSE)
 	if(!..())
 		return
 	updateTurrets()
 	update_icon(UPDATE_ICON_STATE)
 	update_turret_light()
-
 
 /obj/machinery/turretid/proc/update_turret_light()
 	if(stat & NOPOWER)
@@ -279,7 +262,6 @@
 
 	set_light(1.5, 1,"#003300", l_on = TRUE)
 
-
 /obj/machinery/turretid/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
@@ -292,7 +274,6 @@
 		return
 
 	icon_state = "control_standby"
-
 
 /obj/machinery/turretid/emp_act(severity)
 	if(enabled)

@@ -2,7 +2,6 @@
 	name = "Литий"
 	id = "lithium"
 	description = "Химический элемент."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "металла"
 
@@ -112,13 +111,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ит", "ят")] нервн[genderize_ru(M.gender, "ым", "ой", "ым", "ыми")]!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_YM_OI_YM_YMI(M)]!"))
 			M.AdjustConfused(30 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(20 SECONDS)
 			M.emote("twitch_s")
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] [genderize_ru(M.gender, "весь", "вся", "всё", "все")] в поту!"))
+			M.visible_message(span_warning("[M] в поту!"))
 			M.adjust_bodytemperature(rand(15,30))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
@@ -168,7 +167,6 @@
 	addiction_chance = 20
 	addiction_threshold = 15
 	shock_reduction = 30
-	harmless = FALSE
 	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "мятного онемения во рту"
@@ -196,13 +194,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ит", "ят")] нервн[genderize_ru(M.gender, "ым", "ой", "ым", "ыми")]!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_YM_OI_YM_YMI(M)]!"))
 			M.AdjustConfused(35 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(20 SECONDS)
 			M.emote("twitch_s")
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] [genderize_ru(M.gender, "весь", "вся", "всё", "все")] в поту!"))
+			M.visible_message(span_warning("[M] в поту!"))
 			M.adjust_bodytemperature(rand(15,30))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
@@ -246,6 +244,7 @@
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
+	M.AdjustKnockdown(-4 SECONDS)
 	if(prob(15))
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
@@ -268,12 +267,12 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ет", "ют")] потерянно!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_ET_YUT(M)] потерянно!"))
 			M.AdjustConfused(40 SECONDS)
 			M.Jitter(40 SECONDS)
 			M.emote("scream")
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] [genderize_ru(M.gender, "весь", "вся", "всё", "все")] в поту!"))
+			M.visible_message(span_warning("[M] в поту!"))
 			M.adjust_bodytemperature(rand(5,30))
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.adjustToxLoss(1, FALSE)
@@ -283,12 +282,12 @@
 			M.emote("grumble")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] поте[pluralize_ru(M.gender, "ет", "ют")] как свинья!"))
+			M.visible_message(span_warning("[M] поте[PLUR_ET_YUT(M)] как свинья!"))
 			M.adjust_bodytemperature(rand(20,100))
 			update_flags |= M.adjustToxLoss(5, FALSE)
 			M.Stun(6 SECONDS)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] тряс[pluralize_ru(M.gender, "ёт", "ют")]ся как эпилептик!"))
+			M.visible_message(span_warning("[M] тряс[PLUR_YOT_YUT(M)]ся как эпилептик!"))
 			M.Jitter(200 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(8, FALSE)
@@ -298,7 +297,7 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("scream")
-			M.visible_message(span_warning("[M] нервно скреб[pluralize_ru(M.gender, "ёт", "ют")] свою кожу!"))
+			M.visible_message(span_warning("[M] нервно скреб[PLUR_YOT_YUT(M)] свою кожу!"))
 			M.Jitter(20 SECONDS)
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			M.emote("twitch_s")
@@ -314,7 +313,6 @@
 	addiction_chance = 10
 	addiction_threshold = 10
 	taste_description = "дешёвой советской дури"
-
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -345,7 +343,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ит", "ят")] потерянно!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] потерянно!"))
 			M.Stun(6 SECONDS)
 			M.emote("drool")
 		else if(effect <= 4)
@@ -359,7 +357,7 @@
 			M.emote("cry")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] кача[pluralize_ru(M.gender, "ет", "ют")]ся и вал[pluralize_ru(M.gender, "ит", "ят")]ся на землю!"))
+			M.visible_message(span_warning("[M] кача[PLUR_ET_YUT(M)]ся и вал[PLUR_IT_YAT(M)]ся на землю!"))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			M.Weaken(16 SECONDS)
@@ -390,13 +388,13 @@
 	heart_rate_increase = 1
 	taste_description = "бодрости"
 	tags = REAGENT_TAG_ANTI_STUN
-
+	chemdesc = "Ускоряет передвижение, бодрит и помогает легче справляться с оглушениями разного рода. Повреждает мозг."
+	chemuse = 50
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
-
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -408,6 +406,7 @@
 	user.AdjustParalysis(-4 SECONDS)
 	user.AdjustStunned(-4 SECONDS)
 	user.AdjustWeakened(-4 SECONDS)
+	user.AdjustKnockdown(-4 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7, FALSE)
 	user.SetSleeping(0)
 	if(prob(50))
@@ -415,7 +414,6 @@
 	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 	return ..() | update_flags
-
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/user)
 	. = ..()
@@ -439,18 +437,18 @@
 			M.AdjustConfused(40 SECONDS)
 			M.Weaken(8 SECONDS)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 7)
 			M.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] кача[pluralize_ru(M.gender, "ет", "ют")]ся и вал[pluralize_ru(M.gender, "ит", "ят")]ся на землю!"))
+			M.visible_message(span_warning("[M] кача[PLUR_ET_YUT(M)]ся и вал[PLUR_IT_YAT(M)]ся на землю!"))
 			M.Jitter(20 SECONDS)
 			M.Weaken(20 SECONDS)
 		else if(effect <= 7)
@@ -461,7 +459,6 @@
 	name = "Соль для ванн"
 	id = "bath_salts"
 	description = "На самом деле это не соли для купания в ванной, а синтетические наркотики, которые часто маскируют под соли для ванн и прочие бытовые вещества, чтобы упроситить распространение."
-	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 15
@@ -471,13 +468,11 @@
 	taste_description = "нереальной бодрости"
 	tags = REAGENT_TAG_ANTI_STUN
 
-
 /datum/reagent/bath_salts/on_mob_add(mob/living/carbon/human/user)
 	. = ..()
 	if(ishuman(user))
 		user.physiology.punch_damage_low += 5
 		user.physiology.punch_damage_high += 5
-
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
@@ -490,13 +485,14 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(check < 8 && head_organ.h_style != "Very Long Beard")
 			head_organ.h_style = "Very Long Hair"
 			head_organ.f_style = "Very Long Beard"
 			H.update_hair()
 			H.update_fhair()
-			H.visible_message(span_warning("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] ДИКО!"))
+			H.visible_message(span_warning("[H] выгляд[PLUR_IT_YAT(H)] ДИКО!"))
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
 		M.Druggy(30 SECONDS)
@@ -508,13 +504,11 @@
 		to_chat(M, span_userdanger("ОНИ УЖЕ БЛИЗКО!!!"))
 	return ..() | update_flags
 
-
 /datum/reagent/bath_salts/on_mob_delete(mob/living/carbon/human/user)
 	. = ..()
 	if(ishuman(user))
 		user.physiology.punch_damage_low -= 5
 		user.physiology.punch_damage_high -= 5
-
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -539,7 +533,7 @@
 /datum/reagent/jenkem
 	name = "Дженкем"
 	id = "jenkem"
-	description = "Дженкем - это тюремный наркотик, изготовленный путем брожения фекалий в растворе мочи. Крайне отвратительно."
+	description = "Дженкем — это тюремный наркотик, изготовленный путем брожения фекалий в растворе мочи. Крайне отвратительно."
 	reagent_state = LIQUID
 	color = "#644600"
 	addiction_chance = 5
@@ -617,6 +611,7 @@
 	if(prob(10))
 		M.AdjustConfused(-10 SECONDS)
 		M.SetWeakened(0, FALSE)
+		M.SetKnockdown(0, FALSE)
 	if(volume >= 70 && prob(25))
 		if(M.reagents.get_reagent_amount("thc") <= 20)
 			M.Drowsy(20 SECONDS)
@@ -624,7 +619,6 @@
 		update_flags |= M.adjustBruteLoss(-2, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
-
 
 /datum/reagent/fliptonium
 	name = "Крутений"
@@ -634,76 +628,77 @@
 	color = "#A42964"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 15
-	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
+	process_flags = ORGANIC | SYNTHETIC // Flipping for everyone!
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
 	taste_description = "кувырков"
+	chemdesc = "Вызывает неконтролируемое вращение."
+	chemuse = 50
 
-/datum/reagent/fliptonium/on_mob_life(mob/living/M)
+/datum/reagent/fliptonium/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle == 5)
-		M.SpinAnimation(speed = 11, loops = -1)
+		user.SpinAnimation(speed = 11, loops = -1, parallel = FALSE)
 	if(current_cycle == 10)
-		M.SpinAnimation(speed = 10, loops = -1)
+		user.SpinAnimation(speed = 10, loops = -1, parallel = FALSE)
 	if(current_cycle == 15)
-		M.SpinAnimation(speed = 9, loops = -1)
+		user.SpinAnimation(speed = 9, loops = -1, parallel = FALSE)
 	if(current_cycle == 20)
-		M.SpinAnimation(speed = 8, loops = -1)
+		user.SpinAnimation(speed = 8, loops = -1, parallel = FALSE)
 	if(current_cycle == 25)
-		M.SpinAnimation(speed = 7, loops = -1)
+		user.SpinAnimation(speed = 7, loops = -1, parallel = FALSE)
 	if(current_cycle == 30)
-		M.SpinAnimation(speed = 6, loops = -1)
+		user.SpinAnimation(speed = 6, loops = -1, parallel = FALSE)
 	if(current_cycle == 40)
-		M.SpinAnimation(speed = 5, loops = -1)
+		user.SpinAnimation(speed = 5, loops = -1, parallel = FALSE)
 	if(current_cycle == 50)
-		M.SpinAnimation(speed = 4, loops = -1)
+		user.SpinAnimation(speed = 4, loops = -1, parallel = FALSE)
 
-	M.AdjustDrowsy(-12 SECONDS)
-	M.AdjustParalysis(-3 SECONDS)
-	M.AdjustStunned(-3 SECONDS)
-	M.AdjustWeakened(-3 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
-	M.SetSleeping(0)
+	user.AdjustDrowsy(-12 SECONDS)
+	user.AdjustParalysis(-3 SECONDS)
+	user.AdjustStunned(-3 SECONDS)
+	user.AdjustWeakened(-3 SECONDS)
+	update_flags |= user.adjustStaminaLoss(-1.5, FALSE)
+	user.SetSleeping(0)
 	return ..() | update_flags
 
-/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/fliptonium/reaction_mob(mob/living/user, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
-		M.SpinAnimation(speed = 12, loops = -1)
+		user.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 	..()
 
-/datum/reagent/fliptonium/on_mob_delete(mob/living/M)
+/datum/reagent/fliptonium/on_mob_delete(mob/living/user)
 	. = ..()
-	M.SpinAnimation(speed = 12, loops = -1)
+	user.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 
-/datum/reagent/fliptonium/overdose_process(mob/living/M, severity)
+/datum/reagent/fliptonium/overdose_process(mob/living/user, severity)
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("Ноги [M] заплетаются!"))
-			M.AdjustConfused(66 SECONDS)
-			M.Weaken(4 SECONDS)
+			user.visible_message(span_warning("Ноги [user] заплетаются!"))
+			user.AdjustConfused(66 SECONDS)
+			user.Weaken(4 SECONDS)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
-			M.drop_l_hand()
-			M.drop_r_hand()
+			user.visible_message(span_warning("[user] маш[PLUR_ET_UT(user)] руками во все стороны, роняя предметы в руках!"))
+			user.drop_l_hand()
+			user.drop_r_hand()
 		else if(effect <= 7)
-			M.emote("laugh")
+			user.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
-			M.drop_l_hand()
-			M.drop_r_hand()
+			user.visible_message(span_warning("[user] маш[PLUR_ET_UT(user)] руками во все стороны, роняя предметы в руках!"))
+			user.drop_l_hand()
+			user.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] кача[pluralize_ru(M.gender, "ет", "ют")]ся и вал[pluralize_ru(M.gender, "ит", "ят")]ся на землю!"))
-			M.Jitter(10 SECONDS)
-			M.Weaken(10 SECONDS)
+			user.visible_message(span_warning("[user] кача[PLUR_ET_YUT(user)]ся и вал[PLUR_IT_YAT(user)]ся на землю!"))
+			user.Jitter(10 SECONDS)
+			user.Weaken(10 SECONDS)
 		else if(effect <= 7)
-			M.emote("laugh")
+			user.emote("laugh")
 	return list(effect, update_flags)
-
 
 /datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
 	name = "Ротатий"
@@ -713,7 +708,6 @@
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	taste_description = "spinning"
-
 
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
@@ -725,14 +719,12 @@
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
-
 /datum/reagent/rotatium/on_mob_delete(mob/living/M)
 	if(M?.hud_used)
 		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 		for(var/key in pm_controller.controlled_planes)
 			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
-
 
 //////////////////////////////
 //		   laughter         //
@@ -747,9 +739,7 @@
 	addiction_threshold = 20
 	color = "#FF4DD2"
 	taste_description = "смеха"
-	can_synth = TRUE
 	reagent_state = LIQUID
-	harmless = TRUE
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -847,7 +837,7 @@
 			update_flags |= M.adjustBrainLoss(rand(1, 7))
 		if(151 to 200)
 			to_chat(M, span_warning("Ваш живот ужасно болит..."))
-			M.visible_message(span_warning("[M] складыва[pluralize_ru(M.gender, "ет", "ют")]ся пополам от боли!"))
+			M.visible_message(span_warning("[M] складыва[PLUR_ET_YUT(M)]ся пополам от боли!"))
 			M.Weaken(6 SECONDS)
 		if(201 to 280)
 			M.emote(pick("twitch", "glare", "cry", "groan"))
@@ -873,8 +863,7 @@
 /datum/reagent/lube/ultra
 	name = "Ультра-смазка"
 	id = "ultralube"
-	description = "Ультра-смазка - это улучшенная смазка, которая вызывает у синтетиков эффект, подобный метамфетамину, за счет резкого снижения внутреннего трения и повышения охлаждающей способности."
-	reagent_state = LIQUID
+	description = "Ультра-смазка — это улучшенная смазка, которая вызывает у синтетиков эффект, подобный метамфетамину, за счет резкого снижения внутреннего трения и повышения охлаждающей способности."
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
@@ -883,12 +872,10 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "стекломоя"
 
-
 /datum/reagent/lube/ultra/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
-
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -900,6 +887,7 @@
 	user.AdjustParalysis(-4 SECONDS)
 	user.AdjustStunned(-4 SECONDS)
 	user.AdjustWeakened(-4 SECONDS)
+	user.AdjustKnockdown(-4 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7, FALSE)
 	user.Jitter(6 SECONDS)
 	update_flags |= user.adjustBrainLoss(0.5, FALSE)
@@ -909,11 +897,9 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
 	return ..() | update_flags
 
-
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
-
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -922,7 +908,7 @@
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+		M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_from_active_hand()
@@ -943,7 +929,6 @@
 	addiction_chance = 10
 	addiction_threshold = 5
 	taste_description = "силикона"
-
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -996,6 +981,7 @@
 	M.AdjustParalysis(-8 SECONDS)
 	M.AdjustStunned(-8 SECONDS)
 	M.AdjustWeakened(-8 SECONDS)
+	M.AdjustKnockdown(-8 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
 	if(prob(5))
 		var/high_message = pick("Вы чувствуете себя спокойно.", "Вы чувствуете себя собранным.", "Вы чувствуете, что вам нужно расслабиться.")
@@ -1031,18 +1017,16 @@
 /datum/reagent/lube/combat
 	name = "Боевая смазка"
 	id = "combatlube"
-	description = "Боевая смазка - это улучшенная смазка, которая вызывает у синтетиков эффекты, многократно превосходящие аналогичные у \"Ультра-смазки\" за счёт резкого снижения внутреннего трения и повышения охлаждающей способности."
+	description = "Боевая смазка — это улучшенная смазка, которая вызывает у синтетиков эффекты, многократно превосходящие аналогичные у \"Ультра-смазки\" за счёт резкого снижения внутреннего трения и повышения охлаждающей способности."
 	process_flags = SYNTHETIC
 	overdose_threshold = 30
 	addiction_chance = 1
 	addiction_chance_additional = 20
 
-
 /datum/reagent/lube/combat/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
-
 
 /datum/reagent/lube/combat/on_mob_life(mob/living/user)
 	user.SetSleeping(0)
@@ -1057,11 +1041,9 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
 	return ..()
 
-
 /datum/reagent/lube/combat/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
-
 
 /datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -1070,7 +1052,7 @@
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+		M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_from_active_hand()
@@ -1101,6 +1083,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 	if(prob(50))
 		update_flags |= M.adjustHeartLoss(1, FALSE)
 	return ..() | update_flags
@@ -1142,6 +1125,7 @@
 	M.SetParalysis(0)
 	M.SetStunned(0)
 	M.SetWeakened(0)
+	M.SetKnockdown(0)
 	if(prob(25))
 		update_flags |= M.adjustHeartLoss(1, FALSE)
 	return ..() | update_flags
@@ -1189,6 +1173,7 @@
 	M.AdjustParalysis(-3 SECONDS)
 	M.AdjustStunned(-3 SECONDS)
 	M.AdjustWeakened(-3 SECONDS)
+	M.AdjustKnockdown(-3 SECONDS)
 	M.SetSleeping(0)
 	return ..() | update_flags
 

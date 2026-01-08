@@ -4,14 +4,10 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
-	baseturf = /turf/baseturf_bottom
 
 	var/unfastened = FALSE
 
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	real_layer = PLATING_LAYER
 
 /turf/simulated/floor/plating/Initialize(mapload)
@@ -42,7 +38,6 @@
 
 	if(unfastened)
 		. += span_warning("It has been unfastened.")
-
 
 /turf/simulated/floor/plating/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -114,7 +109,6 @@
 		new /obj/item/stack/sheet/metal(src, 2)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -153,8 +147,14 @@
 	else
 		ChangeTurf(baseturf)
 
+/turf/simulated/floor/plating/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/plating/airless
-	icon_state = "plating"
 	name = "airless plating"
 	oxygen = 0
 	nitrogen = 0
@@ -173,9 +173,6 @@
 	explosion_vertical_block = 2
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -198,7 +195,6 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-
 /turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !istype(src, /turf/simulated/floor/engine))
@@ -206,7 +202,6 @@
 	make_plating(make_floor_tile = FALSE, force = TRUE)
 	var/obj/item/stack/rods/rods = new(src, 2)
 	rods.add_fingerprint(user)
-
 
 /turf/simulated/floor/engine/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -230,7 +225,6 @@
 		ChangeTurf(/turf/simulated/floor/engine/insulated)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-
 /turf/simulated/floor/engine/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
@@ -238,7 +232,6 @@
 		if(EXPLODE_HEAVY)
 			if(prob(50))
 				ChangeTurf(baseturf)
-
 
 /turf/simulated/floor/engine/blob_consume()
 	ChangeTurf(baseturf)
@@ -248,18 +241,15 @@
 	icon_state = "cult"
 	var/holy = FALSE
 
-
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /turf/simulated/floor/engine/cult/update_icon_state()
 	if(SSticker?.cultdat && !holy)
 		icon_state = SSticker.cultdat.cult_floor_icon_state
 		return
 	icon_state = initial(icon_state)
-
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -274,6 +264,13 @@
 /turf/simulated/floor/engine/cult/holy
 	icon_state = "holy"
 	holy = TRUE
+
+/turf/simulated/floor/engine/cult/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //air filled floors; used in atmos pressure chambers
 
@@ -310,6 +307,24 @@
 	oxygen = 2644
 	nitrogen = 10580
 
+/turf/simulated/floor/engine/agent_b
+	name = "agent B floor"
+	agent_b = 10000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/hydrogen
+	name = "H2 floor"
+	hydrogen = 100000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/water_vapor
+	name = "H2O floor"
+	water_vapor = 10000
+	oxygen = 0
+	nitrogen = 0
+	temperature = 716
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
@@ -321,21 +336,26 @@
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/engine/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+
 /turf/simulated/floor/engine/insulated
 	name = "insulated reinforced floor"
-	icon_state = "engine"
 	insulated = TRUE
 	explosion_vertical_block = 3
 	thermal_conductivity = 0
 
 /turf/simulated/floor/engine/insulated/vacuum
 	name = "insulated vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 
@@ -358,7 +378,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/snow/ex_act(severity, target)
 	return
@@ -373,13 +392,17 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/snow/ex_act(severity, target)
 	return
 
 /turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
+
+// Metal foam states
+// teehee no one will find these here
+#define MFOAM_ALUMINUM 1
+#define MFOAM_IRON 2
 
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
@@ -397,6 +420,8 @@
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
+#undef MFOAM_ALUMINUM
+#undef MFOAM_IRON
 
 /turf/simulated/floor/plating/metalfoam/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -437,8 +462,6 @@
 		smash()
 		add_fingerprint(user)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
-
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)

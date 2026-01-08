@@ -7,14 +7,11 @@
 	var/obj/item/radio/electropack/part2 = null
 	var/status = 0
 	w_class = WEIGHT_CLASS_HUGE
-	flags = CONDUCT
-
 
 /obj/item/assembly/shock_kit/Destroy()
 	QDEL_NULL(part1)
 	QDEL_NULL(part2)
 	return ..()
-
 
 /obj/item/assembly/shock_kit/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -30,7 +27,6 @@
 	part2 = null
 	qdel(src)
 
-
 /obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -41,12 +37,10 @@
 	else
 		to_chat(user, span_notice("[src] is now ready!"))
 
-
 /obj/item/assembly/shock_kit/attack_self(mob/user)
 	part1.attack_self(user, status)
 	part2.attack_self(user, status)
 	add_fingerprint(user)
-
 
 /obj/item/assembly/shock_kit/receive_signal()
 	if(istype(loc, /obj/structure/chair/e_chair))

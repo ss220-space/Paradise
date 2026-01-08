@@ -22,9 +22,9 @@
 	. = ..()
 	if(length(start_showpieces) && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
-		if (showpiece_entry && showpiece_entry["type"])
+		if(showpiece_entry && showpiece_entry["type"])
 			start_showpiece_type = showpiece_entry["type"]
-			if (showpiece_entry["trophy_message"])
+			if(showpiece_entry["trophy_message"])
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
@@ -84,7 +84,6 @@
 			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
 			sleep(74) // 7.4 seconds long
 
-
 /obj/structure/displaycase/update_overlays()
 	. = ..()
 	if(broken)
@@ -96,7 +95,6 @@
 		. += showpiece_overlay
 	if(!open && !broken)
 		. += "glassbox_closed"
-
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -152,7 +150,6 @@
 
 	return ..()
 
-
 /obj/structure/displaycase/crowbar_act(mob/user, obj/item/I) //Only applies to the lab cage and player made display cases
 	if(alert || !openable)
 		return
@@ -190,7 +187,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return
 	else
-	    //prevents remote "kicks" with TK
+		//prevents remote "kicks" with TK
 		if(!Adjacent(user))
 			return
 		add_fingerprint(user)
@@ -200,13 +197,11 @@
 
 /obj/structure/displaycase_chassis
 	anchored = TRUE
-	density = FALSE
 	name = "display case chassis"
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox_chassis"
 	var/obj/item/access_control/electronics
-
 
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -259,7 +254,6 @@
 
 	return ..()
 
-
 /obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -276,7 +270,6 @@
 
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
 /obj/structure/displaycase/captain
-	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 	req_access = list(ACCESS_CAPTAIN)
 

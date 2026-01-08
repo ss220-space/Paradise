@@ -1,24 +1,20 @@
 /obj/item/gun/grenadelauncher
 	name = "grenade launcher"
 	desc = "a terrible, terrible thing. it's really awful!"
-	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "riotgun"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
-	force = 5
 	var/list/grenades = new/list()
 	var/max_grenades = 3
 
 	materials = list(MAT_METAL=2000)
 
-
 /obj/item/gun/grenadelauncher/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
 		. += span_notice("Contains <b>[length(grenades)]/[max_grenades]</b> grenades.")
-
 
 /obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, params)
 	if((istype(I, /obj/item/grenade)))
@@ -34,15 +30,14 @@
 
 	return ..()
 
-
 /obj/item/gun/grenadelauncher/afterattack(obj/target, mob/user, flag, params)
 	if(target == user)
 		return
 
-	if(grenades.len)
+	if(length(grenades))
 		fire_grenade(target,user)
 	else
-		to_chat(user, "<span class='danger'>The grenade launcher is empty.</span>")
+		to_chat(user, span_danger("The grenade launcher is empty."))
 
 /obj/item/gun/grenadelauncher/proc/fire_grenade(atom/target, mob/user)
 	user.visible_message(span_danger("[user] fired a grenade!"), \

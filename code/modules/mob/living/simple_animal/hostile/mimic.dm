@@ -16,7 +16,6 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 8
 	melee_damage_upper = 12
-	attacktext = "атакует"
 	attack_sound = 'sound/weapons/bite.ogg'
 	emote_taunt = list("рычит")
 	speak_emote = list("скрипит")
@@ -67,7 +66,6 @@
 	else
 		icon_state = initial(icon_state)
 
-
 /mob/living/simple_animal/hostile/mimic/crate/FindTarget()
 	. = ..()
 	if(.)
@@ -80,7 +78,7 @@
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
 			C.Weaken(4 SECONDS)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+			C.visible_message(span_danger("\The [src] knocks down \the [C]!"), span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
@@ -148,7 +146,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if(owner != creator)
 		lose_target()
 		creator = owner
-		faction |= "\ref[owner]"
+		faction |= PERSONAL_FACTION(owner)
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(obj/O)
 	if((isitem(O) || isstructure(O)) && !is_type_in_list(O, GLOB.protected_objects))
@@ -184,7 +182,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		maxHealth = health
 		if(user)
 			creator = user
-			faction += "\ref[creator]" // very unique
+			faction += PERSONAL_FACTION(creator) // very unique
 		if(destroy_original)
 			qdel(O)
 		return 1
@@ -198,18 +196,20 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if(knockdown_people && . && prob(15) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Weaken(4 SECONDS)
-		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+		C.visible_message(span_danger("\The [src] knocks down \the [C]!"), span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/Aggro()
 	..()
 	googly_eyes.dir = get_dir(src,target)
 
 /mob/living/simple_animal/hostile/mimic/copy/machine
-	speak = list("HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
-				 "My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
+	speak = list(
+		"HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
+		"My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!"
+	)
 	speak_chance = 15
 
-/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(var/atom/the_target)
+/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(atom/the_target)
 	if(the_target == creator) // Don't attack our creator AI.
 		return 0
 	if(isrobot(the_target))
@@ -273,17 +273,17 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				Pewgun.chambered.update_icon()
 				..()
 			else
-				visible_message("<span class='danger'>The <b>[src]</b> clears a jam!</span>")
+				visible_message(span_danger("The <b>[src]</b> clears a jam!"))
 			Pewgun.chambered.loc = loc //rip revolver immersions, blame shotgun snowflake procs
 			Pewgun.chambered = null
-			if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len)
+			if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo))
 				Pewgun.chambered = Pewgun.magazine.get_round(0)
 				Pewgun.chambered.loc = Pewgun
 			Pewgun.update_icon()
-		else if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len) //only true for pumpguns i think
+		else if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo)) //only true for pumpguns i think
 			Pewgun.chambered = Pewgun.magazine.get_round(0)
 			Pewgun.chambered.loc = Pewgun
-			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")
+			visible_message(span_danger("The <b>[src]</b> cocks itself!"))
 	else
 		ranged = 0 //BANZAIIII
 		retreat_distance = 0

@@ -1,10 +1,8 @@
 /datum/event/dust
 	var/qnty = 1
 
-
 /datum/event/dust/setup()
 	qnty = rand(1, 5)
-
 
 /datum/event/dust/start()
 	while(qnty-- > 0)

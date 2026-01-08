@@ -13,12 +13,11 @@
 	codebase for the entire /TG/station commuity a TONNE easier :3 Thanks for your help!
 */
 
+ADMIN_VERB(get_server_logs, R_ADMIN, "Get Server Logs", "View or retrieve logfiles.", ADMIN_CATEGORY_DEBUG)
+	user.browseserverlogs()
 
 //This proc allows download of past server logs saved within the data/logs/ folder.
-/client/proc/getserverlogs()
-	set name = "Get Server Logs"
-	set desc = "View/retrieve logfiles."
-	set category = STATPANEL_ADMIN_DEBUG
+/client/proc/browseserverlogs()
 	var/path = browse_files("data/logs/")
 	if(!path)
 		return
@@ -28,15 +27,14 @@
 
 	message_admins("[key_name_admin(src)] accessed file: [path]")
 	switch(tgui_alert(usr, "View (in game), Open (in your system's text editor), or Download?", path, list("View", "Open", "Download")))
-		if ("View")
+		if("View")
 			var/datum/browser/popup = new(src, "viewfile.[path]", "Server Logs")
 			popup.set_content("<pre style='word-wrap: break-word;'>[html_encode(wrap_file2text(wrap_file(path)))]</pre>")
 			popup.open(FALSE)
-		if ("Open")
+		if("Open")
 			src << run(wrap_file(path))
-		if ("Download")
+		if("Download")
 			src << ftp(wrap_file(path))
 		else
 			return
-	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.")
-	return
+	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.", confidential = TRUE)

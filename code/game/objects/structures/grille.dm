@@ -1,7 +1,6 @@
 /obj/structure/grille
 	desc = "A flimsy framework of metal rods."
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
 	pass_flags_self = PASSGRILLE
 	density = TRUE
@@ -13,6 +12,7 @@
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
+	cares_about_temperature = TRUE
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
@@ -33,23 +33,12 @@
 			bound_width = ICON_SIZE_X
 			bound_height = width * ICON_SIZE_Y
 
-/obj/structure/grille/fence/east_west
-	//width=80
-	//height=42
-	icon='icons/obj/fence-ew.dmi'
-
-/obj/structure/grille/fence/north_south
-	//width=80
-	//height=42
-	icon='icons/obj/fence-ns.dmi'
-
-
 /obj/structure/grille/examine(mob/user)
 	. = ..()
 	if(anchored)
-		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
+		. += span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")
 	if(!anchored)
-		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
+		. += span_notice("The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.")
 
 /obj/structure/grille/ratvar_act()
 	if(broken)
@@ -97,9 +86,8 @@
 	. = ..()
 	for(var/atom/movable/hit_object as anything in falling_movables)
 		Bumped(hit_object)
-	take_damage(25) //second time turn into broken
+	take_damage(25 * levels) //second time turn into broken
 	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
-
 
 /obj/structure/grille/Bumped(atom/movable/moving_atom)
 	. = ..()
@@ -107,7 +95,6 @@
 		return .
 	shock(moving_atom, 70)
 	COOLDOWN_START(src, shock_cooldown, 1 SECONDS)
-
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
@@ -132,10 +119,9 @@
 /obj/structure/grille/attack_alien(mob/living/carbon/alien/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
+	user.visible_message(span_warning("[user] mangles [src]."))
 	if(!shock(user, 70))
 		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
-
 
 /obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -144,7 +130,6 @@
 	if(!. && isprojectile(mover))
 		return prob(30)
 
-
 /obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
@@ -152,10 +137,9 @@
 		return TRUE
 	return FALSE
 
-
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	var/obj/structure/window/window = locate() in loc
-	if(window && window.fulltile && window.anchored)
+	if(window?.fulltile && window.anchored)
 		return ATTACK_CHAIN_BLOCKED_ALL// don't attack grilles through windows, that's weird and causes too many problems
 
 	if(user.a_intent == INTENT_HARM)
@@ -196,7 +180,6 @@
 
 	return ..()
 
-
 /obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(shock(user, 100))
@@ -214,24 +197,24 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	set_anchored(!anchored)
-	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
+	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
+							span_notice("You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor."))
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
 	var/dir_to_set = NORTH
 	if(!istype(S) || !user)
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
+		to_chat(user, span_warning("You must repair or replace [src] first!"))
 		return
 	if(S.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
+		to_chat(user, span_warning("You need at least one sheet of glass for that!"))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
+		to_chat(user, span_warning("[src] needs to be fastened to the floor first!"))
 		return
 	if(!getRelativeDirection(src, user) && (user.loc != loc))	//essentially a cardinal direction adjacent or sharing same loc check
-		to_chat(user, "<span class='warning'>You can't reach.</span>")
+		to_chat(user, span_warning("You can't reach."))
 		return
 	if(loc == user.loc)
 		dir_to_set = user.dir
@@ -248,25 +231,25 @@
 				dir_to_set = EAST
 	for(var/obj/structure/window/WINDOW in loc)
 		if(WINDOW.dir == dir_to_set)
-			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
+			to_chat(user, span_notice("There is already a window facing this way there."))
 			return
-	to_chat(user, "<span class='notice'>You start placing the window...</span>")
+	to_chat(user, span_notice("You start placing the window..."))
 	if(do_after(user, 2 SECONDS, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)
 			if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-				to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
+				to_chat(user, span_notice("There is already a window facing this way there."))
 				return
 		var/obj/structure/window/W = new S.created_window(get_turf(src))
 		S.use(1)
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.set_anchored(FALSE)
+		recalculate_atmos_connectivity()
 		W.state = WINDOW_OUT_OF_FRAME
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
+		to_chat(user, span_notice("You place the [W] on [src]."))
 		W.update_nearby_icons()
-
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -314,10 +297,10 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(temperature, volume)
 	..()
 	if(!broken)
-		if(exposed_temperature > T0C + 1500)
+		if(temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
 
 /obj/structure/grille/hitby(atom/movable/atom_movable, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

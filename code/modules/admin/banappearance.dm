@@ -79,7 +79,6 @@ DEBUG
 	appearance_remove("[M.ckey]")
 	appearance_savebanfile()
 
-
 /proc/appearance_updatelegacybans()
 	if(!GLOB.appearanceban_runonce)
 		log_admin("Updating appearancefile!")
@@ -88,10 +87,9 @@ DEBUG
 			if(!T)	continue
 		GLOB.appearanceban_runonce++	//don't run this update again
 
-
 /proc/appearance_remove(X)
 	for(var/i = 1; i <= length(GLOB.appearance_keylist); i++)
-		if( findtext(GLOB.appearance_keylist[i], "[X]") )
+		if(findtext(GLOB.appearance_keylist[i], "[X]"))
 			GLOB.appearance_keylist.Remove(GLOB.appearance_keylist[i])
 			appearance_savebanfile()
 			return 1

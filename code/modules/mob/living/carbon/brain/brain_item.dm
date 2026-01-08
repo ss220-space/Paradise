@@ -3,8 +3,6 @@
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал человеку."
 	icon_state = "brain2"
 	max_damage = 120
-	force = 1.0
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
@@ -21,6 +19,8 @@
 	var/decoy_brain = FALSE
 	/// TRUE giving to a user sci hud and active research scanner
 	var/smart_mind = FALSE
+	/// The original body for this brain, if this valriable is null - brain can apply any body without desease.
+	var/original_body = null
 
 /obj/item/organ/internal/brain/get_ru_names()
 	return list(
@@ -29,19 +29,19 @@
 		DATIVE = "мозгу человека",
 		ACCUSATIVE = "мозг человека",
 		INSTRUMENTAL = "мозгом человека",
-		PREPOSITIONAL = "мозге человека"
+		PREPOSITIONAL = "мозге человека",
 	)
 
 /obj/item/organ/internal/brain/Destroy()
 	QDEL_NULL(brainmob)
 	return ..()
 
-/obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
+/obj/item/organ/internal/brain/proc/transfer_identity(mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
 		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
 		dna = H.dna.Clone()
-	name = "\the [dna.real_name]'s [initial(src.name)]"
+	name = "\the [dna.real_name]’s [initial(src.name)]"
 	if(ru_names)
 		for(var/i in NOMINATIVE to PREPOSITIONAL)
 			ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
@@ -57,7 +57,7 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(brainmob && brainmob.client)//if there be a brain inside... the brain.
+	if(brainmob?.client)//if there be a brain inside... the brain.
 		. += "В нём ощущается мощная нейронная активность."
 		return
 	if(brainmob?.mind)
@@ -74,7 +74,7 @@
 
 /obj/item/organ/internal/brain/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(dna)
-		name = "[dna.real_name]'s [initial(name)]"
+		name = "[dna.real_name]’s [initial(name)]"
 		if(ru_names)
 			for(var/i in NOMINATIVE to PREPOSITIONAL)
 				ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
@@ -96,7 +96,6 @@
 
 	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
-
 
 /obj/item/organ/internal/brain/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
 
@@ -120,7 +119,7 @@
 			if(brainmob.mind)
 				brainmob.mind.transfer_to(target)
 			else
-				target.key = brainmob.key
+				target.possess_by_player(brainmob.key)
 		else if(brainmob?.mind && target_changeling)
 			brainmob.mind.current = null
 			brainmob.ghostize()
@@ -129,19 +128,16 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.special_post_clone_handling()
+		H.special_post_clone_handling(special == ORGAN_MANIPULATION_TRANSPLANTATE)
 
 	..(target, special)
-
 
 /obj/item/organ/internal/brain/internal_receive_damage(amount = 0, silent = FALSE) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
 	owner?.apply_damage(amount, BRAIN)
 
-
 /obj/item/organ/internal/brain/necrotize(silent = FALSE) //Brain also has special handling for when it necrotizes
 	if(..() && owner && vital)
 		owner.setBrainLoss(120)
-
 
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
@@ -159,7 +155,7 @@
 		DATIVE = "руническому разуму",
 		ACCUSATIVE = "рунический разум",
 		INSTRUMENTAL = "руническим разумом",
-		PREPOSITIONAL = "руническом разуме"
+		PREPOSITIONAL = "руническом разуме",
 	)
 
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.

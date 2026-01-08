@@ -16,8 +16,8 @@
 	return TRUE
 
 /obj/item/trash/raisins
-	name = "4no raisins"
-	icon_state= "4no_raisins"
+	name = "raisins 1984"
+	icon_state = "1984_raisins"
 
 /obj/item/trash/candy
 	name = "Candy"
@@ -74,7 +74,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/trash/pistachios
@@ -136,10 +136,8 @@
 	icon_state = "doshik"
 	desc = "Still has a delicious smell."
 
-
 /obj/item/trash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/trash/broken_ashtray
 	name = "ashtray shards"
@@ -164,8 +162,8 @@
 
 /obj/item/spentcasing/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10.0, 10)
-	pixel_y = rand(-10.0, 10)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 	dir = pick(GLOB.alldirs)
 
 /obj/effect/spawner/lootdrop/spentcasing

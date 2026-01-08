@@ -22,7 +22,7 @@
 		DATIVE = "\"Хамелеон\"-проектору",
 		ACCUSATIVE = "\"Хамелеон\"-проектор",
 		INSTRUMENTAL = "\"Хамелеон\"-проектором",
-		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
+		PREPOSITIONAL = "\"Хамелеон\"-проекторе",
 	)
 
 /obj/item/chameleon/Initialize(mapload)
@@ -98,8 +98,6 @@
 /obj/effect/dummy/chameleon
 	name = ""
 	desc = ""
-	density = FALSE
-	anchored = TRUE
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
@@ -112,26 +110,39 @@
 	master = C
 	master.active_dummy = src
 
+/obj/effect/dummy/chameleon/proc/notify_disrupt(mob/attacker, mob/defender, obj/item)
+	to_chat(defender, span_danger("Your chameleon projector deactivates."))
+	add_attack_logs(attacker, defender, "disrupt [master] by [item ? item : "attack"]")
 
-/obj/effect/dummy/chameleon/attackby(obj/item/I, mob/user, params)
-	for(var/mob/snake in src)
-		to_chat(snake, span_danger("Your chameleon projector deactivates."))
+/obj/effect/dummy/chameleon/attackby(obj/item/item, mob/user, params)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user, item)
+
 	master.disrupt()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+/obj/effect/dummy/chameleon/attack_hand(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
 
-/obj/effect/dummy/chameleon/attack_hand()
-	for(var/mob/M in src)
-		to_chat(M, span_danger("Your chameleon projector deactivates."))
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_animal()
+/obj/effect/dummy/chameleon/attack_animal(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
+
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_slime()
+/obj/effect/dummy/chameleon/attack_slime(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
+
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_alien()
+/obj/effect/dummy/chameleon/attack_alien(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
+
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/ex_act(severity, target) //no longer bomb-proof
@@ -395,7 +406,7 @@
 	disrupt(user)
 
 /obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
-	if(user && user.cell && user.cell.charge >  activationCost)
+	if(user?.cell && user.cell.charge >  activationCost)
 		if(isturf(user.loc))
 			toggle(user)
 		else
@@ -452,7 +463,7 @@
 		else
 			to_chat(user, span_warning("The chameleon field fizzles."))
 			do_sparks(3, FALSE, user)
-			for(i in 1 to min(7, user.filters.len)) // removing filters that are animating does nothing, we gotta stop the animations first
+			for(i in 1 to min(7, length(user.filters))) // removing filters that are animating does nothing, we gotta stop the animations first
 				f = user.filters[start + i]
 				animate(f)
 		user.filters = null

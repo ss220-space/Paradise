@@ -11,7 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
 	name = "Queen of Terror spider"
 	desc = "Огромный, ужасающий паук. Её яйцевой мешок почти такого же размера, как и её тело, и изобилует паучьими яйцами!"
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
@@ -44,7 +43,7 @@
 	delay_web = 15
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_queen)
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
+	spider_intro_text = "Будучи Королевой Ужаса, ваша цель — управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
 	datum_type = /datum/antagonist/terror_spider/main_spider/queen
 	var/spider_spawnfrequency = 1600 // 160 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
 	var/spider_spawnfrequency_stable = 3600 // 360 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
@@ -74,7 +73,6 @@
 		PREPOSITIONAL = "Королеве Ужаса",
 	)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
 	ventsmash_action = new()
@@ -87,7 +85,6 @@
 		spider_growinstantly = TRUE
 		spider_spawnfrequency = 150
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_queen_subtype_abilities()
 	queennest_action = new()
 	queennest_action.Grant(src)
@@ -98,7 +95,6 @@
 		if(ckey && hasnested)
 			if(world.time > (spider_lastspawn + spider_spawnfrequency))
 				grant_eggs()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_eggs()
 	spider_lastspawn = world.time
@@ -113,10 +109,8 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()
 	return 1 + round(MinutesAlive() / 10)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MinutesAlive()
 	return round((world.time - spider_creation_time) / 600)
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(can_die() && !hasdied)
@@ -142,20 +136,17 @@
 				qdel(T)
 	return ..()
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()
 	..()
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		T.enemies |= enemies
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ai_nest_is_full()
 	var/numspiders = CountSpiders()
 	if(numspiders >= spider_max_per_nest)
 		return TRUE
 	return FALSE
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_special_action()
 	if(!stat && !ckey)
@@ -191,7 +182,7 @@
 					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] приживается, начиная строить гнездо."))
 				else if(entry_vent)
 					if(!path_to_vent)
-						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] настороженно оглядывается – затем ищет лучшее место для строительста гнезда."))
+						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] настороженно оглядывается — затем ищет лучшее место для строительста гнезда."))
 						path_to_vent = 1
 				else
 					neststep = -1
@@ -247,12 +238,10 @@
 							else
 								DoLayTerrorEggs(pick(spider_types_standard), 5)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
 	var/confirm = tgui_alert(src, "Вы уверены, что хотите строить гнездо? Вы сможете откладывать яйца и разбивать стены, но не ползать по вентиляции.", "Гнездо?", list("Да","Нет"))
 	if(confirm == "Да")
 		NestMode()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestMode()
 	queeneggs_action = new()
@@ -267,7 +256,6 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
 	to_chat(src, span_notice("Вы достигли стадии кладки яиц. Теперь вы можете пробивать стены и откладывать яйца, но больше не можете ползать по вентиляции."))
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
 	if(stat == DEAD)
@@ -358,7 +346,6 @@
 		valid_types += TS_DESC_WIDOW
 	return valid_types
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
 	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] издает пронзительный визг!"))
 	playsound(src.loc, 'sound/creatures/terrorspiders/queen_shriek.ogg', 100, TRUE)
@@ -369,7 +356,6 @@
 		if(C.status && prob(camera_chance))
 			C.toggle_cam(src, 0)
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/examine(mob/user)
 	. = ..()
 	if(!key || stat == DEAD)
@@ -378,7 +364,6 @@
 		return
 	. += span_notice("Она отложила [eggslaid] [eggslaid != 1 ? "яиц" : "яйцо"].")
 	. += span_notice("Она прожила [MinutesAlive()] минут.")
-
 
 /obj/projectile/terrorspider/queen
 	name = "queen venom"
@@ -404,12 +389,12 @@
 
 /obj/structure/spider/terrorweb/queen/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
-/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T, vertical)
+/obj/structure/spider/terrorweb/queen/CanAtmosPass(direction)
 	return FALSE
 
 /obj/structure/spider/terrorweb/queen/Destroy()
-	var/turf/T = get_turf(src)
+	var/turf/location = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	location.recalculate_atmos_connectivity()

@@ -8,11 +8,9 @@
 	plane = FLOOR_PLANE
 	layer = 2.5
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 0
 	var/syndicate = 0
 	var/area_bypass = FALSE
-	var/obj/item/radio/beacon/Beacon
+	var/obj/item/beacon/Beacon
 	var/enabled = TRUE
 	var/cc_beacon = FALSE //can be teleported to even if on zlevel2
 
@@ -22,7 +20,7 @@
 
 /obj/machinery/bluespace_beacon/proc/create_beacon()
 	var/turf/T = loc
-	Beacon = new /obj/item/radio/beacon
+	Beacon = new /obj/item/beacon
 	Beacon.invisibility = INVISIBILITY_MAXIMUM
 	Beacon.loc = T
 	Beacon.syndicate = syndicate
@@ -66,7 +64,6 @@
 		if(Beacon)
 			destroy_beacon()
 			update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/bluespace_beacon/syndicate
 	syndicate = TRUE

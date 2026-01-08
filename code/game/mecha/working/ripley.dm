@@ -4,7 +4,6 @@
 	icon_state = "ripley"
 	initial_icon = "ripley"
 	step_in = 4 //Move speed, lower is faster.
-	fast_pressure_step_in = 2 //step_in while in normal pressure conditions
 	slow_pressure_step_in = 4 //step_in while in better pressure conditions
 	max_temperature = 20000
 	max_integrity = 200
@@ -18,12 +17,10 @@
 
 	mech_type = MECH_TYPE_RIPLEY
 
-
 /obj/mecha/working/ripley/Destroy()
 	for(var/i=1, i <= hides, i++)
 		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
 	return ..()
-
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
@@ -56,7 +53,6 @@
 			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
 			. += occupant ? "ripley-a" : "ripley-a-open"
 
-
 /obj/mecha/working/ripley/update_desc(updates = ALL)
 	. = ..()
 
@@ -82,7 +78,6 @@
 		else if(plates >= 3 && hides >= 3)
 			desc = "Autonomous Power Loader Unit. Clad in homemade armor from ear to toe, with Goliath plates on top - a real tank, no other way."
 
-
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
 	name = "APLU \"Firefighter\""
@@ -91,10 +86,18 @@
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+
+/obj/mecha/working/ripley/mkii
+	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection and armor."
+	name = "APLU MK-II \"Ripley\""
+	icon_state = "ripleymkii"
+	max_temperature = 30000
+	max_integrity = 250
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100)
+	wreckage = /obj/structure/mecha_wreckage/ripley/mkii
 
 /obj/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
@@ -106,25 +109,23 @@
 	opacity = FALSE
 	max_temperature = 65000
 	max_integrity = 300
-	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
 
-/obj/mecha/working/ripley/deathripley/New()
-	..()
+/obj/mecha/working/ripley/deathripley/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
-	return
 
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/New()
-	..()
+/obj/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	//Attach drill
@@ -151,7 +152,6 @@
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
 
-
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -175,7 +175,7 @@
 	fast_pressure_step_in = 1 //не хочу страдать на щитспавн мехе для тестов
 	slow_pressure_step_in = 0.5
 
-/obj/mecha/working/ripley/full_load/New()
+/obj/mecha/working/ripley/full_load/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/drill
 	ME.attach(src)

@@ -190,6 +190,12 @@
 	icon_state = "bigafro"
 	unsuitable_gender = FEMALE
 
+/datum/sprite_accessory/hair/lil_cut
+	name = "Lil Cut"
+	icon_state = "lilcut"
+	species_allowed = list(SPECIES_HUMAN)
+	unsuitable_gender = FEMALE
+
 /datum/sprite_accessory/hair/sergeant
 	name = "Flat Top"
 	icon_state = "sergeant"
@@ -672,10 +678,6 @@
 	name = "Overeye Long"
 	icon_state = "longovereye"
 
-/datum/sprite_accessory/hair/father
-	name = "Father"
-	icon_state = "father"
-
 /datum/sprite_accessory/hair/bun4 // Due to a vulp hairstyle called bun
 	name = "Bun 4"
 	icon_state = "bun4"
@@ -749,7 +751,6 @@
 	icon_state = "low_twins"
 
 ///Ume hairs end here///
-
 
 ///Fluff HairStyles//
 /datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human

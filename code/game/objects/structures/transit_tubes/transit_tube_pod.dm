@@ -31,9 +31,9 @@
 	// Give auto tubes time to align before trying to start moving
 	spawn(5)
 
-	air_contents.oxygen = MOLES_O2STANDARD * 2
-	air_contents.nitrogen = MOLES_N2STANDARD
-	air_contents.temperature = T20C
+	air_contents.set_oxygen(MOLES_O2STANDARD * 2)
+	air_contents.set_nitrogen(MOLES_N2STANDARD)
+	air_contents.set_temperature(T20C)
 
 	for(var/obj/structure/transit_tube/tube in loc)
 		setDir(pick(tube.directions()))
@@ -52,12 +52,10 @@
 	stop_following()
 	return ..()
 
-
 /obj/structure/transit_tube_pod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	if(moving) //No drifting while moving in the tubes
 		return TRUE
 	return ..()
-
 
 /obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
 	if(!location)
@@ -73,7 +71,7 @@
 
 	if(length(contents))
 		I.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] pries [src] open.</span>")
+		user.visible_message(span_notice("[user] pries [src] open."))
 		empty_pod()
 
 /obj/structure/transit_tube_pod/process()
@@ -94,11 +92,10 @@
 	var/list/savedcontents = contents.Copy()
 	var/saveddir = dir
 	var/turf/destination = get_edge_target_turf(src, saveddir)
-	visible_message("<span class='warning'>[src] ejects its insides out!</span>")
+	visible_message(span_warning("[src] ejects its insides out!"))
 	for(var/i in savedcontents)
 		var/atom/movable/AM = i
 		AM.throw_at(destination, rand(1, 3), 5)
-
 
 /obj/structure/transit_tube_pod/proc/move_animation(stage = MOVE_ANIMATION_STAGE_ONE)
 	if(stage == MOVE_ANIMATION_STAGE_ONE)
@@ -146,7 +143,6 @@
 
 	return MOVE_ANIMATION_STAGE_ONE
 
-
 /obj/structure/transit_tube_pod/proc/follow_tube(reverse_launch)
 	if(moving)
 		return
@@ -166,30 +162,31 @@
 
 // Should I return a copy here? If the caller edits or qdel()s the returned
 //  datum, there might be problems if I don't...
-/obj/structure/transit_tube_pod/return_air()
+/obj/structure/transit_tube_pod/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new()
 	GM.copy_from(air_contents)
 	return GM
 
-// For now, copying what I found in an unused FEA file (and almost identical in a
-//  used ZAS file). Means that assume_air and remove_air don't actually alter the
-//  air contents.
-/obj/structure/transit_tube_pod/assume_air(datum/gas_mixture/giver)
-	return air_contents.merge(giver)
-
-/obj/structure/transit_tube_pod/remove_air(amount)
-	return air_contents.remove(amount)
-
-
-
 // Called when a pod arrives at, and before a pod departs from a station,
 //  giving it a chance to mix its internal air supply with the turf it is
 //  currently on.
 /obj/structure/transit_tube_pod/proc/mix_air()
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/datum/milla_safe/transit_pod_mix/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/transit_pod_mix
+
+/datum/milla_safe/transit_pod_mix/on_run(obj/structure/transit_tube_pod/pod)
+	var/datum/gas_mixture/environment = null
+	if(isobj(pod.loc))
+		var/obj/O = pod.loc
+		environment = O.return_obj_air()
+	if(isnull(environment))
+		var/turf/T = get_turf(pod)
+		environment = get_turf_air(T)
 	var/env_pressure = environment.return_pressure()
-	var/int_pressure = air_contents.return_pressure()
+	var/int_pressure = pod.air_contents.return_pressure()
 	var/total_pressure = env_pressure + int_pressure
 
 	if(total_pressure == 0)
@@ -204,13 +201,11 @@
 	var/transfer_in = max(0.1, 0.5 * (env_pressure - int_pressure) / total_pressure)
 	var/transfer_out = max(0.1, 0.3 * (int_pressure - env_pressure) / total_pressure)
 
-	var/datum/gas_mixture/from_env = loc.remove_air(environment.total_moles() * transfer_in)
-	var/datum/gas_mixture/from_int = air_contents.remove(air_contents.total_moles() * transfer_out)
+	var/datum/gas_mixture/from_env = environment.remove(environment.total_moles() * transfer_in)
+	var/datum/gas_mixture/from_int = pod.air_contents.remove(pod.air_contents.total_moles() * transfer_out)
 
-	loc.assume_air(from_int)
-	air_contents.merge(from_env)
-
-
+	environment.merge(from_int)
+	pod.air_contents.merge(from_env)
 
 // When the player moves, check if the pos is currently stopped at a station.
 //  if it is, check the direction. If the direction matches the direction of
@@ -262,7 +257,6 @@
 		eject(A, direction)
 		A.Move(get_step(loc, direction), direction)
 
-
 /obj/structure/transit_tube_pod/proc/eject(atom/movable/A, direction)
 	A.forceMove(loc)
 	update_appearance()
@@ -271,13 +265,11 @@
 		var/mob/M = A
 		M.reset_perspective(null)
 
-
 /obj/structure/transit_tube_pod/dispensed
 	name = "temporary transit tube pod"
 	desc = "Gets you from here to there, and no further."
 	icon_state = "temppod"
 	occupied_icon_state = "temppod_occupied"
-
 
 /obj/structure/transit_tube_pod/dispensed/outside_tube()
 	if(!QDELETED(src))

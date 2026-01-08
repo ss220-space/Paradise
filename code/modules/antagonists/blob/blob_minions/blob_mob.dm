@@ -18,15 +18,12 @@
 	can_buckle_to = FALSE
 	universal_speak = TRUE // So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = NO_SPAWN
 	can_be_on_fire = TRUE
 	fire_damage = 3
 	tts_seed = "Earth"
 	tts_atom_say_effect = SOUND_EFFECT_NONE
-	a_intent = INTENT_HARM
 	/// Is blob mob linked to factory
 	var/factory_linked = FALSE
-
 
 /mob/living/simple_animal/hostile/blob_minion/ComponentInitialize()
 	AddComponent( \
@@ -70,7 +67,6 @@
 			return
 	. = ..()
 
-
 /mob/living/simple_animal/hostile/blob_minion/regenerate_icons()
 	update_icon()
 
@@ -89,7 +85,6 @@
 /mob/living/simple_animal/hostile/blob_minion/proc/on_factory_destroyed()
 	SIGNAL_HANDLER
 	to_chat(src, span_userdanger("Your factory was destroyed! You feel yourself dying!"))
-
 
 /mob/living/simple_animal/hostile/blob_minion/can_be_blob()
 	return FALSE

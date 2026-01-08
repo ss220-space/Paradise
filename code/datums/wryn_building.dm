@@ -16,14 +16,13 @@
 		return
 
 	user.adjustWax(-wax_amount)
-	user.visible_message(("[user] выделя[pluralize_ru(user.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(user.gender, "ет", "ют")] из неё [message_word]."))
+	user.visible_message(("[user] выделя[PLUR_ET_YUT(user)] кучу воска и формиру[PLUR_ET_YUT(user)] из неё [message_word]."))
 
 	new structure(user.loc)
 
 /datum/wryn_building/wall
 	name = "Соты (50)"
 	wax_amount = 50
-	icon_state = "wall"
 	structure = /obj/structure/wryn/wax/wall
 	message_word = "соты"
 

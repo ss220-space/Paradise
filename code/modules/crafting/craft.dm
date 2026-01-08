@@ -11,21 +11,21 @@
 				CAT_DECORATIONS,
 				CAT_CLOTHING)
 	var/list/subcategories = list(
-						list(	//Weapon subcategories
+						list(//Weapon subcategories
 							CAT_WEAPON,
 							CAT_AMMO),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
-						list(	//Tribal subcategories
+						list(//Tribal subcategories
 							CAT_ARMOR,
 							CAT_WEAPONS,
 							CAT_MISC2),
-						list(	//Food subcategories
+						list(//Food subcategories
 							CAT_CAKE,
 							CAT_SUSHI,
 							CAT_SANDWICH,
 							CAT_MISCFOOD),
-						list(	//Decoration subcategories
+						list(//Decoration subcategories
 							CAT_DECORATION,
 							CAT_HOLIDAY,
 							CAT_LARGE_DECORATIONS),
@@ -49,7 +49,7 @@
 			var/needed_amount = reqs[A]
 			for(var/B in contents)
 				if(ispath(B, A))
-					if (blacklist.Find(B))
+					if(blacklist.Find(B))
 						continue
 					if(contents[B] >= reqs[A])
 						continue main_loop
@@ -83,7 +83,6 @@
 	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
 		. += user.get_item_by_slot(slot)
 
-
 /proc/get_surroundings(mob/user)
 	. = list()
 	.["other"] = list() //paths go in here
@@ -104,7 +103,7 @@
 		.["toolsother"][I] += 1
 
 /proc/check_tools(mob/user, list/tools, list/contents)
-	if(!tools.len) //does not run if no tools are needed
+	if(!length(tools)) //does not run if no tools are needed
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
@@ -130,7 +129,7 @@
 	return TRUE
 
 /proc/check_pathtools(mob/user, list/pathtools, list/contents)
-	if(!pathtools.len) //does not run if no tools are needed
+	if(!length(pathtools)) //does not run if no tools are needed
 		return TRUE
 	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
@@ -355,11 +354,11 @@
 			SStgui.update_uis(src)
 			var/fail_msg = construct_item(usr, TR)
 			if(!fail_msg)
-				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				to_chat(usr, span_notice("[TR.name] constructed."))
 				if(TR.alert_admins_on_craft)
 					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
 			else
-				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
+				to_chat(usr, span_warning("Construction failed[fail_msg]"))
 			busy = FALSE
 			SStgui.update_uis(src)
 
@@ -383,34 +382,33 @@
 
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
-	. = viewing_category % categories.len + 1
+	. = viewing_category % length(categories) + 1
 
 /datum/personal_crafting/proc/next_subcat()
 	if(islist(subcategories[viewing_category]))
 		var/list/subs = subcategories[viewing_category]
-		. = viewing_subcategory % subs.len + 1
-
+		. = viewing_subcategory % length(subs) + 1
 
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
-	if(viewing_category == categories.len)
+	if(viewing_category == length(categories))
 		. = viewing_category-1
 	else
-		. = viewing_category % categories.len - 1
+		. = viewing_category % length(categories) - 1
 	if(. <= 0)
 		. = categories.len
 
 /datum/personal_crafting/proc/prev_subcat()
 	if(islist(subcategories[viewing_category]))
 		var/list/subs = subcategories[viewing_category]
-		if(viewing_subcategory == subs.len)
+		if(viewing_subcategory == length(subs))
 			. = viewing_subcategory-1
 		else
-			. = viewing_subcategory % subs.len - 1
+			. = viewing_subcategory % length(subs) - 1
 		if(. <= 0)
 			. = subs.len
 	else

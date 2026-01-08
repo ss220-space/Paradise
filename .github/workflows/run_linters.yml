@@ -1,0 +1,130 @@
+name: Run Linters
+
+on:
+  workflow_call:
+
+jobs:
+  linters:
+    name: Linters
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Restore SpacemanDMM cache
+        uses: actions/cache@v5
+        with:
+          path: $HOME/SpacemanDMM
+          key: ${{ runner.os }}-spacemandmm-${{ hashFiles('tools/ci/install_build_deps.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-spacemandmm-
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11.6'
+          cache: 'pip'
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.11.0
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
+      - name: Install python packages
+        run: pip install -r tools/requirements.txt
+
+      - name: Install Tools
+        run: |
+          bash tools/ci/install_build_deps.sh
+          bash tools/ci/install_dreamchecker.sh
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.x
+
+      - name: Install OpenDream
+        uses: robinraju/release-downloader@v1.12
+        with:
+          repository: "OpenDreamProject/OpenDream"
+          tag: "latest"
+          fileName: "DMCompiler_linux-x64.tar.gz"
+          extract: true
+
+      - name: Give Linters A Go
+        id: linter-setup
+        run: ":"
+
+      - name: Run Grep Checks
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: |
+          python tools/ci/check_grep.py
+          python tools/ci/check_grep2.py
+
+      - name: Check Line Endings
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/check_line_endings.py
+
+      - name: Check Unticked Files
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+
+      - name: Check Illegal DME Files
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
+
+      - name: Check Define Sanity
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/define_sanity.py
+
+      - name: Check Duplicate Definitions
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/no_duplicate_definitions.py
+
+      - name: Check Identical Variables
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/identical_variables.py
+
+      - name: Check Icons
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/check_icons.py
+
+      - name: Check Trait Validity
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/trait_validity.py
+
+      - name: Check Alphabetical Order
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/alphabetical_check.py
+
+      - name: Check Russian Names
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/check_ru_names.py
+
+      - name: Run DreamChecker
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        shell: bash
+        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
+
+      - name: Run OpenDream
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: ./DMCompiler_linux-x64/DMCompiler paradise.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
+
+      - name: Run Map Checks
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: |
+          tools/bootstrap/python -m mapmerge2.dmm_test
+          python -m tools.maplint.source --github
+
+      - name: Run DMI Tests
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: tools/bootstrap/python -m dmi.test
+
+      - name: Run JSON Checks
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: bash tools/ci/check_json.sh
+
+      - name: Run TGUI Checks
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: tgui/bin/tgui --ci

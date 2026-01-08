@@ -1,22 +1,12 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали человеку."
-	ru_names = list(
-		NOMINATIVE = "лёгкие человека",
-		GENITIVE = "лёгких человека",
-		DATIVE = "лёгким человека",
-		ACCUSATIVE = "лёгкие человека",
-		INSTRUMENTAL = "лёгкими человека",
-		PREPOSITIONAL = "лёгких человека"
-	)
 	gender = PLURAL
 	icon_state = "lungs"
-	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_LUNGS
 	w_class = WEIGHT_CLASS_NORMAL
 
 	//Breath damage
-
 	var/safe_oxygen_min = 16 // Minimum safe partial pressure of O2, in kPa
 	var/safe_oxygen_max = 0
 	var/safe_nitro_min = 0
@@ -27,7 +17,6 @@
 	var/safe_toxins_max = 0.05
 	var/SA_para_min = 1 //Sleeping agent
 	var/SA_sleep_min = 5 //Sleeping agent
-
 
 	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
@@ -58,6 +47,16 @@
 	var/heat_level_2_damage = HEAT_GAS_DAMAGE_LEVEL_2
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
 	var/heat_damage_types = list(BURN = 1)
+
+/obj/item/organ/internal/lungs/get_ru_names()
+	return list(
+		NOMINATIVE = "лёгкие человека",
+		GENITIVE = "лёгких человека",
+		DATIVE = "лёгким человека",
+		ACCUSATIVE = "лёгкие человека",
+		INSTRUMENTAL = "лёгкими человека",
+		PREPOSITIONAL = "лёгких человека",
+	)
 
 /obj/item/organ/internal/lungs/emp_act()
 	if(!is_robotic() || emp_proof)
@@ -95,7 +94,6 @@
 			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
-
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_GODMODE) || HAS_TRAIT(H, TRAIT_NO_BREATH))
 		return
@@ -116,26 +114,24 @@
 			H.throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 		return FALSE
 
-
 	if(H.health < HEALTH_THRESHOLD_CRIT)
 		return FALSE
 
 	var/gas_breathed = 0
 
 	//Partial pressures in our breath
-	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen)
-	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen)
-	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins)
-	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide)
-	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent)
-
+	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen())
+	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen())
+	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins())
+	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide())
+	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent())
 
 	//-- OXY --//
 
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
 		if(O2_pp > safe_oxygen_max)
-			var/ratio = (breath.oxygen / safe_oxygen_max / safe_oxygen_max) * 10
+			var/ratio = (breath.oxygen() / safe_oxygen_max / safe_oxygen_max) * 10
 			H.apply_damage(clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type, spread_damage = TRUE, forced = TRUE)
 			H.throw_alert(ALERT_TOO_MUCH_OXYGEN, /atom/movable/screen/alert/too_much_oxy)
 		else
@@ -144,16 +140,16 @@
 	//Too little oxygen!
 	if(safe_oxygen_min)
 		if(O2_pp < safe_oxygen_min)
-			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen)
+			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen())
 			H.throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		else
 			H.heal_damage_type(HUMAN_MAX_OXYLOSS, OXY)
-			gas_breathed = breath.oxygen
+			gas_breathed = breath.oxygen()
 			H.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
 	//Exhale
-	breath.oxygen = max(breath.oxygen - gas_breathed, 0)
-	breath.carbon_dioxide += gas_breathed
+	breath.set_oxygen(max(breath.oxygen() - gas_breathed, 0))
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
 	gas_breathed = 0
 
 	//-- Nitrogen --//
@@ -161,7 +157,7 @@
 	//Too much nitrogen!
 	if(safe_nitro_max)
 		if(N2_pp > safe_nitro_max)
-			var/ratio = (breath.nitrogen / safe_nitro_max) * 10
+			var/ratio = (breath.nitrogen() / safe_nitro_max) * 10
 			H.apply_damage(clamp(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type, spread_damage = TRUE, forced = TRUE)
 			H.throw_alert(ALERT_TOO_MUCH_NITRO, /atom/movable/screen/alert/too_much_nitro)
 		else
@@ -170,16 +166,16 @@
 	//Too little nitrogen!
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
-			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
+			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen())
 			H.throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 		else
 			H.heal_damage_type(HUMAN_MAX_OXYLOSS, OXY)
-			gas_breathed = breath.nitrogen
+			gas_breathed = breath.nitrogen()
 			H.clear_alert(ALERT_NOT_ENOUGH_NITRO)
 
 	//Exhale
-	breath.nitrogen -= gas_breathed
-	breath.carbon_dioxide += gas_breathed
+	breath.set_nitrogen(max(0, breath.nitrogen() - gas_breathed))
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
 	gas_breathed = 0
 
 	//-- CO2 --//
@@ -205,50 +201,47 @@
 	//Too little CO2!
 	if(safe_co2_min)
 		if(CO2_pp < safe_co2_min)
-			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide)
+			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide())
 			H.throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.carbon_dioxide
+			gas_breathed = breath.carbon_dioxide()
 			H.clear_alert(ALERT_NOT_ENOUGH_CO2)
 
 	//Exhale
-	breath.carbon_dioxide -= gas_breathed
-	breath.oxygen += gas_breathed
+	breath.set_carbon_dioxide(max(0,  breath.carbon_dioxide() - gas_breathed))
+	breath.set_oxygen(breath.oxygen() + gas_breathed)
 	gas_breathed = 0
-
 
 	//-- TOX --//
 
 	//Too much toxins!
 	if(safe_toxins_max)
 		if(Toxins_pp > safe_toxins_max)
-			var/ratio = (breath.toxins / safe_toxins_max) * 10
+			var/ratio = (breath.toxins() / safe_toxins_max) * 10
 			H.apply_damage(clamp(ratio, tox_breath_dam_min, tox_breath_dam_max), tox_damage_type, spread_damage = TRUE, forced = TRUE)
 			H.throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
 		else
 			H.clear_alert(ALERT_TOO_MUCH_TOX)
 
-
 	//Too little toxins!
 	if(safe_toxins_min)
 		if(Toxins_pp < safe_toxins_min)
-			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins)
+			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins())
 			H.throw_alert(ALERT_NOT_ENOUGH_TOX, /atom/movable/screen/alert/not_enough_tox)
 		else
 			H.heal_damage_type(HUMAN_MAX_OXYLOSS, OXY)
-			gas_breathed = breath.toxins
+			gas_breathed = breath.toxins()
 			H.clear_alert(ALERT_NOT_ENOUGH_TOX)
 
 	//Exhale
-	breath.toxins -= gas_breathed
-	breath.carbon_dioxide += gas_breathed
+	breath.set_toxins(max(0, breath.toxins() - gas_breathed))
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
 	gas_breathed = 0
-
 
 	//-- TRACES --//
 
-	if(breath.sleeping_agent)	// If there's some other shit in the air lets deal with it here.
+	if(breath.sleeping_agent())	// If there's some other shit in the air lets deal with it here.
 		if(SA_pp > SA_para_min)
 			H.Paralyse(6 SECONDS) // 6 seconds gives them one second to wake up and run away a bit!
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
@@ -260,7 +253,6 @@
 	handle_breath_temperature(breath, H)
 
 	return TRUE
-
 
 /obj/item/organ/internal/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0
@@ -276,9 +268,8 @@
 	else
 		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
-
 /obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
-	var/breath_temperature = breath.temperature
+	var/breath_temperature = breath.temperature()
 
 	if(!HAS_TRAIT(H, TRAIT_RESIST_COLD)) // COLD DAMAGE
 		var/CM = abs(H.dna.species.coldmod * H.physiology.cold_mod)
@@ -320,20 +311,22 @@
 /obj/item/organ/internal/lungs/cybernetic
 	name = "cybernetic lungs"
 	desc = "Электронное устройство, имитирующее работу органических лёгких. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
-	ru_names = list(
-		NOMINATIVE = "кибернетические лёгкие",
-		GENITIVE = "кибернетических лёгких",
-		DATIVE = "кибернетическим лёгким",
-		ACCUSATIVE = "кибернетические лёгкие",
-		INSTRUMENTAL = "кибернетическими лёгкими",
-		PREPOSITIONAL = "кибернетических лёгких"
-	)
 	icon_state = "lungs-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	var/species_state = "человек"
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+
+/obj/item/organ/internal/lungs/cybernetic/get_ru_names()
+	return list(
+		NOMINATIVE = "кибернетические лёгкие",
+		GENITIVE = "кибернетических лёгких",
+		DATIVE = "кибернетическим лёгким",
+		ACCUSATIVE = "кибернетические лёгкие",
+		INSTRUMENTAL = "кибернетическими лёгкими",
+		PREPOSITIONAL = "кибернетических лёгких",
+	)
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
@@ -368,15 +361,7 @@
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
-	desc = "Продвинутая версия кибернетического сердца. Оснащены системой фильтрации, удаляющей токсины и углекислый газ и поступаемого газа. Очень уязвимы к ЭМИ."
-	ru_names = list(
-		NOMINATIVE = "улучшенные кибернетические лёгкие",
-		GENITIVE = "улучшенных кибернетических лёгких",
-		DATIVE = "улучшенным кибернетическим лёгким",
-		ACCUSATIVE = "улучшенные кибернетические лёгкие",
-		INSTRUMENTAL = "улучшенными кибернетическими лёгкими",
-		PREPOSITIONAL = "улучшенных кибернетических лёгких"
-	)
+	desc = "Продвинутая версия кибернетических лёгких. Оснащены системой фильтрации, удаляющей токсины и углекислый газ из поступаемого воздуха. Очень уязвимы к ЭМИ."
 	icon_state = "lungs-c-u"
 	origin_tech = "biotech=5"
 
@@ -386,6 +371,16 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded/get_ru_names()
+	return list(
+		NOMINATIVE = "улучшенные кибернетические лёгкие",
+		GENITIVE = "улучшенных кибернетических лёгких",
+		DATIVE = "улучшенным кибернетическим лёгким",
+		ACCUSATIVE = "улучшенные кибернетические лёгкие",
+		INSTRUMENTAL = "улучшенными кибернетическими лёгкими",
+		PREPOSITIONAL = "улучшенных кибернетических лёгких",
+	)
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded/insert(mob/living/carbon/human/target, special)
 	. = ..()

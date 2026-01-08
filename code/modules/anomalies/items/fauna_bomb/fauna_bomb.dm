@@ -1,5 +1,5 @@
-#define	MAX_CREATED_MOBS	12
-#define	MAX_REMEMBERED_MOBS	12
+#define	MAX_CREATED_MOBS 12
+#define	MAX_REMEMBERED_MOBS 12
 
 /obj/item/fauna_bomb
 	name = "fauna bomb"
@@ -51,7 +51,7 @@
 		DATIVE = "фаунной бомбе", \
 		ACCUSATIVE = "фаунную бомбу", \
 		INSTRUMENTAL = "фаунной бомбой", \
-		PREPOSITIONAL = "фаунной бомбе"
+		PREPOSITIONAL = "фаунной бомбе",
 	)
 
 /obj/item/fauna_bomb/Destroy()
@@ -128,7 +128,7 @@
 	var/req_charge = 0
 	for(var/mob/living/simple_animal/hostile/airmob/airmob as anything in created_mobs)
 		airmob.leash_radius = round(core.get_strength() / 15 + 0.5)
-		if (get_dist(src, airmob) > airmob.leash_radius)
+		if(get_dist(src, airmob) > airmob.leash_radius)
 			airmob.dust()
 			continue
 
@@ -157,11 +157,11 @@
 	. += span_notice("Текущий заряд: [charge != max_charge ? charge : span_boldnotice("[charge]")]/[max_charge + used_charge]")
 	. += span_notice("Свободный заряд: [max_charge != max_charge + used_charge ? max_charge : span_boldnotice("[max_charge]")]/[max_charge + used_charge]")
 	. += span_notice("Скорость восстановления заряда: [charge_speed]")
-	. += span_notice("Проецируется существ: [created_mobs.len != MAX_CREATED_MOBS ? created_mobs.len : span_boldnotice("[created_mobs.len]")]/[MAX_CREATED_MOBS]")
+	. += span_notice("Проецируется существ: [length(created_mobs) != MAX_CREATED_MOBS ? length(created_mobs) : span_boldnotice("[length(created_mobs)]")]/[MAX_CREATED_MOBS]")
 
 /obj/item/fauna_bomb/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] направля[pluralize_ru(user.gender,"ет","ют")] проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
-						выкручива[pluralize_ru(user.gender,"ет","ют")] на максимальную мощность и активиру[pluralize_ru(user.gender,"ет","ют")]."), \
+	user.visible_message(span_suicide("[user] направля[PLUR_ET_YUT(user)] проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
+						выкручива[PLUR_ET_YUT(user)] на максимальную мощность и активиру[PLUR_ET_YUT(user)]."), \
 						span_suicide("Вы направляете проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
 						выкручиваете на максимальную мощность и активируете."),
 						span_warning("Вы слышите громкий хлопок!"))
@@ -187,7 +187,7 @@
 	if(!proximity)
 		return ..()
 
-	if(datas.len >= MAX_REMEMBERED_MOBS)
+	if(length(datas) >= MAX_REMEMBERED_MOBS)
 		user.balloon_alert(user, "мало памяти")
 		return
 
@@ -278,7 +278,7 @@
 			ui.user.balloon_alert(ui.user, "проекция развеяна")
 
 		if("create")
-			if(created_mobs.len >= MAX_CREATED_MOBS)
+			if(length(created_mobs) >= MAX_CREATED_MOBS)
 				ui.user.balloon_alert(ui.user, "превышение нагрузки")
 				return
 
@@ -309,7 +309,6 @@
 			current_target = src
 			last_command = action
 			do_commands()
-
 
 #define CHOOSING_ICON 'icons/effects/cult_target.dmi'
 
@@ -352,9 +351,11 @@
 	name = "Fauna bomb"
 	result = /obj/item/fauna_bomb
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/relict_production/pet_spray = 1,
-				/obj/item/grenade/chem_grenade/adv_release = 1,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/relict_production/pet_spray = 1,
+		/obj/item/grenade/chem_grenade/adv_release = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

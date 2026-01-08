@@ -1,14 +1,19 @@
-#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
-#define MAX_PATCH_SPRITE 20 //max icon state of the patch sprites
-#define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
-#define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
-#define MAX_UNITS_PER_PATCH 20 // Max amount of units in a patch
-#define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
+// Max icon state of the pill sprites
+#define MAX_PILL_SPRITE 20
+// Max icon state of the patch sprites
+#define MAX_PATCH_SPRITE 20
+// Max number of pills/patches that can be made at once
+#define MAX_MULTI_AMOUNT 20
+// Max amount of units in a pill
+#define MAX_UNITS_PER_PILL 100
+// Max amount of units in a patch
+#define MAX_UNITS_PER_PATCH 20
+// Max length of a custom pill/condiment/whatever
+#define MAX_CUSTOM_NAME_LEN 64
 
 #define CUSTOM_NAME_DISABLED null
 
-#define TRANSFER_TO_DISPOSAL 0
-#define TRANSFER_TO_BEAKER   1
+#define TRANSFER_TO_BEAKER 1
 
 /obj/machinery/chem_master
 	name = "ChemMaster 3000"
@@ -17,7 +22,6 @@
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -56,7 +60,7 @@
 		DATIVE = "ХимМастеру 3000",
 		ACCUSATIVE = "ХимМастер 3000",
 		INSTRUMENTAL = "ХимМастером 3000",
-		PREPOSITIONAL = "ХимМастере 3000"
+		PREPOSITIONAL = "ХимМастере 3000",
 	)
 
 /obj/machinery/chem_master/Initialize(mapload)
@@ -132,7 +136,6 @@
 		return
 	update_icon()
 
-
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -175,7 +178,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -247,7 +249,7 @@
 			else
 				P.info += "<b>Описание:</b> [R.description]"
 			P.info += "<br><br><b>Заметки:</b><br>"
-			P.name = "Химический анализ - [R.name]"
+			P.name = "Химический анализ — [R.name]"
 			spawn(50)
 				printing = FALSE
 
@@ -460,12 +462,12 @@
 	return data
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/chem_master/proc/ui_act_modal(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
@@ -544,7 +546,7 @@
 		DATIVE = "КондиМастеру 3000",
 		ACCUSATIVE = "КондиМастер 3000",
 		INSTRUMENTAL = "КондиМастером 3000",
-		PREPOSITIONAL = "КондиМастере 3000"
+		PREPOSITIONAL = "КондиМастере 3000",
 	)
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
@@ -583,7 +585,6 @@
 	sprites = list()
 	for(var/i in 1 to sprites_amount)
 		sprites += "[sprite_mask][i]"
-
 
 /datum/chemical_production_mode/proc/get_placeholder_name(datum/reagents/reagents)
 	return get_base_placeholder_name(reagents, clamp(reagents.total_volume / set_items_amount, 0, max_units_per_item))
@@ -709,9 +710,10 @@
 	return reagents.get_master_reagent_name()
 
 #undef MAX_PILL_SPRITE
+#undef MAX_PATCH_SPRITE
+#undef MAX_MULTI_AMOUNT
+#undef MAX_UNITS_PER_PILL
+#undef MAX_UNITS_PER_PATCH
 #undef MAX_CUSTOM_NAME_LEN
-
 #undef CUSTOM_NAME_DISABLED
-
-#undef TRANSFER_TO_DISPOSAL
 #undef TRANSFER_TO_BEAKER

@@ -17,7 +17,7 @@
 		DATIVE = "кислотному мешочку",
 		ACCUSATIVE = "кислотный мешочек",
 		INSTRUMENTAL = "кислотным мешочком",
-		PREPOSITIONAL = "кислотном мешочке"
+		PREPOSITIONAL = "кислотном мешочке",
 	)
 
 /obj/item/acid_bladder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -26,7 +26,7 @@
 		var/mob/living/living = hit_atom
 		var/datum/reagents/reagents_list = new (50)
 		reagents_list.add_reagent("facid", 40)
-		living.visible_message(span_danger("Кислотный пузырек разрывается при попадании на [living], разбрызгивая кислоту по [genderize_ru(living.gender, "его", "её", "его", "их")] телу!"))
+		living.visible_message(span_danger("Кислотный пузырек разрывается при попадании на [living], разбрызгивая кислоту по [GEND_HIS_HER(living)] телу!"))
 		reagents_list.reaction(living, REAGENT_TOUCH)
 		reagents_list.clear_reagents()
 	else if(iswallturf(hit_atom))
@@ -57,7 +57,7 @@
 		DATIVE = "лезвию дисковой пилы",
 		ACCUSATIVE = "лезвие дисковой пилы",
 		INSTRUMENTAL = "лезвием дисковой пилы",
-		PREPOSITIONAL = "лезвии дисковой пилы"
+		PREPOSITIONAL = "лезвии дисковой пилы",
 	)
 
 //**********Grace of Lazis **********//
@@ -79,7 +79,7 @@
 		DATIVE = "благодати Лазис Ардакса",
 		ACCUSATIVE = "благодать Лазис Ардакса",
 		INSTRUMENTAL = "благодатью Лазис Ардакса",
-		PREPOSITIONAL = "благодати Лазис Ардакса"
+		PREPOSITIONAL = "благодати Лазис Ардакса",
 	)
 
 /obj/structure/grace_of_lazis/attackby(obj/item/I, mob/user, params)
@@ -132,7 +132,7 @@
 		DATIVE = "свитку готовки",
 		ACCUSATIVE = "свиток готовки",
 		INSTRUMENTAL = "свитком готовки",
-		PREPOSITIONAL = "свитке готовки"
+		PREPOSITIONAL = "свитке готовки",
 	)
 
 /obj/structure/fluff/ash_statue //used to mark point of interest
@@ -140,7 +140,6 @@
 	desc = "Массивный каменный столб с прикреплённым к нему черепом убитого зверя. Кажется, вы зашли в охотничьи угодья пеплоходцев."
 	icon = 'icons/obj/lavaland/grace_of_lazis.dmi'
 	icon_state = "totem_stone"
-	anchored = TRUE
 	density = TRUE
 	deconstructible = FALSE
 	/// Used in shaman spell. Perfect for finding stuff ic
@@ -153,18 +152,17 @@
 		DATIVE = "пепельному тотему",
 		ACCUSATIVE = "пепельный тотем",
 		INSTRUMENTAL = "пепельным тотемом",
-		PREPOSITIONAL = "пепельном тотеме"
+		PREPOSITIONAL = "пепельном тотеме",
 	)
 
 /obj/structure/fluff/ash_statue/Initialize(mapload)
-	name = "тотем - [special_name]"
+	name = "тотем — [special_name]"
 	GLOB.lavaland_points_of_interest += src
 	. = ..()
 
 /obj/structure/fluff/ash_statue/Destroy(force)
 	GLOB.lavaland_points_of_interest -= src
 	. = ..()
-
 
 /obj/structure/ash_totem
 	name = "totem"
@@ -185,7 +183,7 @@
 		DATIVE = "тотему",
 		ACCUSATIVE = "тотем",
 		INSTRUMENTAL = "тотемом",
-		PREPOSITIONAL = "тотеме"
+		PREPOSITIONAL = "тотеме",
 	)
 
 /obj/structure/ash_totem/examine(mob/user)
@@ -200,11 +198,9 @@
 	if(applied_dye)
 		. += "[icon_state]_[applied_dye]"
 
-
 /obj/structure/ash_totem/wooden
 	name = "wooden totem"
 	desc = "Массивная статуя, сделанная из цельного куска древесины. Рисунок на статуе отдалённо напоминает человеческое лицо, искаженное в гримасе ужаса."
-	icon_state = "totem_wooden"
 
 /obj/structure/ash_totem/wooden/get_ru_names()
 	return list(
@@ -213,7 +209,7 @@
 		DATIVE = "деревянному тотему",
 		ACCUSATIVE = "деревянный тотем",
 		INSTRUMENTAL = "деревянным тотемом",
-		PREPOSITIONAL = "деревянном тотеме"
+		PREPOSITIONAL = "деревянном тотеме",
 	)
 
 /obj/structure/ash_totem/stone
@@ -228,7 +224,7 @@
 		DATIVE = "каменному тотему",
 		ACCUSATIVE = "каменный тотем",
 		INSTRUMENTAL = "каменным тотемом",
-		PREPOSITIONAL = "каменном тотеме"
+		PREPOSITIONAL = "каменном тотеме",
 	)
 
 /obj/structure/ash_totem/bone
@@ -243,7 +239,7 @@
 		DATIVE = "костяному тотему",
 		ACCUSATIVE = "костяной тотем",
 		INSTRUMENTAL = "костяным тотемом",
-		PREPOSITIONAL = "костяном тотеме"
+		PREPOSITIONAL = "костяном тотеме",
 	)
 
 /obj/structure/chair/stool/wooden
@@ -260,14 +256,13 @@
 		DATIVE = "деревянной табуретке",
 		ACCUSATIVE = "деревянную табуретку",
 		INSTRUMENTAL = "деревянной табуреткой",
-		PREPOSITIONAL = "деревянной табуретке"
+		PREPOSITIONAL = "деревянной табуретке",
 	)
 
 /obj/item/chair/stool/wooden
 	name = "wooden stool"
 	desc = "Деревянная табуретка. Достаточно удобная, чтобы держать её в руках."
 	gender = FEMALE
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wooden_stool_toppled"
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
@@ -283,7 +278,7 @@
 		DATIVE = "деревянной табуретке",
 		ACCUSATIVE = "деревянную табуретку",
 		INSTRUMENTAL = "деревянной табуреткой",
-		PREPOSITIONAL = "деревянной табуретке"
+		PREPOSITIONAL = "деревянной табуретке",
 	)
 
 /obj/structure/rack/wooden
@@ -300,12 +295,12 @@
 		DATIVE = "деревянному стеллажу",
 		ACCUSATIVE = "деревянный стеллаж",
 		INSTRUMENTAL = "деревянным стеллажом",
-		PREPOSITIONAL = "деревянном стеллаже"
+		PREPOSITIONAL = "деревянном стеллаже",
 	)
 
 /obj/structure/rack/wooden/Initialize(mapload)
 	. = ..()
-	update_overlays()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/rack/wooden/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)

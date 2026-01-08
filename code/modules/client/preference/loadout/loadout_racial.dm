@@ -1,7 +1,6 @@
 /datum/gear/racial
 	sort_category = "Расовое"
 	subtype_path = /datum/gear/racial
-	cost = 1
 	var/list/whitelisted_species
 
 /datum/gear/racial/can_select(client/cl, job_name, species_name, silent = FALSE)
@@ -23,12 +22,10 @@
 
 	return FALSE
 
-
 /datum/gear/racial/get_header_tips()
 	return "\[Раса: [russian_list(whitelisted_species)]\] "
 
-
- // TAJARAN //
+// TAJARAN //
 
 /datum/gear/racial/taj
 	index_name = "embroidered veil"
@@ -86,14 +83,12 @@
 	path = /obj/item/clothing/glasses/hud/skills/tajblind
 	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 
-
 // GREY //
 
 /datum/gear/racial/language_chip
 	index_name = "selected language chip"
 	path = /obj/item/translator_chip/sol
 	whitelisted_species = list(SPECIES_GREY)
-
 
 /datum/gear/racial/language_chip/New()
 	. = ..()
@@ -103,7 +98,6 @@
 		available_chips[chip.stored_language_rus] = chip
 
 	gear_tweaks += new /datum/gear_tweak/path(available_chips, src)
-
 
 // HUMAN //
 
@@ -123,6 +117,11 @@
 	path = /obj/item/clothing/under/tchaikowsky/highwaistpants
 	whitelisted_species = list(SPECIES_HUMAN)
 
+/datum/gear/racial/lowjeans
+	index_name = "low-rise jeans"
+	path = /obj/item/clothing/under/pants/lowjeans
+	whitelisted_species = list(SPECIES_HUMAN)
+
 /datum/gear/racial/eveningdress
 	index_name = "evening dress"
 	path = /obj/item/clothing/under/tchaikowsky/evening_dress
@@ -130,8 +129,10 @@
 
 /datum/gear/racial/eveningdress/New()
 	..()
-	var/list/eveningdresses = list(/obj/item/clothing/under/tchaikowsky/evening_dress,
-						   /obj/item/clothing/under/tchaikowsky/evening_dress/cyan)
+	var/list/eveningdresses = list(
+		/obj/item/clothing/under/tchaikowsky/evening_dress,
+		/obj/item/clothing/under/tchaikowsky/evening_dress/cyan
+	)
 	gear_tweaks += new /datum/gear_tweak/path(eveningdresses, src, TRUE)
 
 /datum/gear/racial/formaldress

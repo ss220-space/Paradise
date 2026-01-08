@@ -15,8 +15,6 @@
 	icon_living = "terror_brown"
 	icon_dead = "terror_brown_dead"
 	gender = MALE
-	maxHealth = 120
-	health = 120
 	speed = -0.1
 	melee_damage_lower = 10
 	melee_damage_upper = 15
@@ -31,9 +29,11 @@
 	can_wrap = FALSE
 	web_type = null
 	tts_seed = "Zuljin"
-	special_abillity = list(/obj/effect/proc_holder/spell/emplosion/terror_emp,
-							/obj/effect/proc_holder/spell/explosion/terror_burn)
-	spider_intro_text = "Будучи Разрушителем Ужаса, ваша цель - саботировать станцию. Выбивайте заваренную вентиляцию, ломайте канистры с опасными газами, уничтожайте АПЦ и любое оборудование, до которого доберётесь. Помните, вы - не боевой паук, хоть вы и можете справиться с небольшой угрозой, убийства это не ваша забота!"
+	special_abillity = list(
+		/obj/effect/proc_holder/spell/emplosion/terror_emp,
+		/obj/effect/proc_holder/spell/explosion/terror_burn,
+	)
+	spider_intro_text = "Будучи Разрушителем Ужаса, ваша цель — саботировать станцию. Выбивайте заваренную вентиляцию, ломайте канистры с опасными газами, уничтожайте АПЦ и любое оборудование, до которого доберётесь. Помните, вы — не боевой паук, хоть вы и можете справиться с небольшой угрозой, убийства это не ваша забота!"
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/get_ru_names()

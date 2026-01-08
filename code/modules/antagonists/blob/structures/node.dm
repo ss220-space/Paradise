@@ -1,6 +1,5 @@
 /obj/structure/blob/special/node
 	name = "blob node"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	desc = "Большая пульсирующая желтая масса."
 	max_integrity = BLOB_NODE_MAX_HP
@@ -17,7 +16,6 @@
 	GLOB.blob_nodes |= src
 	START_PROCESSING(SSobj, src)
 	. = ..()
-
 
 /obj/structure/blob/special/node/scannerreport()
 	return "Постепенно расширяется и поддерживает близлежащие споры и блобернаутов."
@@ -38,7 +36,6 @@
 	. += mutable_appearance('icons/mob/blob.dmi', "blob_node_overlay")
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
-
 
 /obj/structure/blob/special/node/link_to_overmind(mob/camera/blob/owner_overmind)
 	. = ..()

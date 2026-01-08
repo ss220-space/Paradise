@@ -42,7 +42,6 @@
 	strip_delay = 12
 	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
 
-
 /obj/item/clothing/neck/ninjascarf/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)

@@ -15,9 +15,6 @@
 	src.on_strain_changed = on_strain_changed
 	register_overlord(overmind)
 
-/datum/component/blob_minion/Destroy(force)
-	. = ..()
-
 /datum/component/blob_minion/InheritComponent(datum/component/new_comp, i_am_original, mob/camera/blob/overmind, datum/callback/on_strain_changed)
 	if(!isnull(on_strain_changed))
 		src.on_strain_changed = on_strain_changed
@@ -147,7 +144,7 @@
 	SIGNAL_HANDLER
 	var/spanned_message = minion.say_quote(message)
 	var/rendered = span_blob("<b>\[Blob Telepathy\] [minion.real_name]</b> [spanned_message], [message]")
-	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, minion)
+	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, minion, MESSAGE_TYPE_RADIO)
 	return COMPONENT_CANNOT_SPEAK
 
 /// Called when a blob minion is transformed into something else, hopefully a spore into a zombie

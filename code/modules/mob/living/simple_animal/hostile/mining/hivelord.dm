@@ -11,19 +11,15 @@
 	move_to_delay = 14
 	ranged = 1
 	vision_range = 5
-	aggro_vision_range = 9
 	speed = 3
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "хлещет"
 	speak_emote = list("телепатически вопит")
 	tts_seed = "Ladyvashj"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "проходит сквозь странное тело"
-	ranged_cooldown = 0
 	ranged_cooldown_time = 20
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
@@ -40,9 +36,8 @@
 		DATIVE = "рою",
 		ACCUSATIVE = "рой",
 		INSTRUMENTAL = "роем",
-		PREPOSITIONAL = "рое"
+		PREPOSITIONAL = "рое",
 	)
-	
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -107,7 +102,7 @@
 		DATIVE = "фрагменту роя",
 		ACCUSATIVE = "фрагмент роя",
 		INSTRUMENTAL = "фрагментом роя",
-		PREPOSITIONAL = "фрагменте роя"
+		PREPOSITIONAL = "фрагменте роя",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
@@ -115,7 +110,6 @@
 	addtimer(CALLBACK(src, PROC_REF(death)), life_time)
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
-
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -133,7 +127,7 @@
 		DATIVE = "кровавому рою",
 		ACCUSATIVE = "кровавый рой",
 		INSTRUMENTAL = "кровавым роем",
-		PREPOSITIONAL = "кровавом рое"
+		PREPOSITIONAL = "кровавом рое",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
@@ -152,20 +146,22 @@
 		transfer_reagents(target, 1)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_hand(mob/living/carbon/human/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
-	C.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается телом [C.declent_ru(GENITIVE)]."), \
-                 span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается вашим телом."))
+	C.visible_message(
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается телом [C.declent_ru(GENITIVE)]."), \
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается вашим телом.")
+	)
 	transfer_reagents(C)
 	death()
 
@@ -180,7 +176,7 @@
 	reagents.trans_to(C, volume)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/C)
-	faction = list("\ref[src]", "\ref[C]") // Hostile to everyone except the host.
+	faction = list(PERSONAL_FACTION(src), PERSONAL_FACTION(C)) // Hostile to everyone except the host.
 	C.transfer_blood_to(src, 30)
 	color = mix_color_from_reagents(reagents.reagent_list)
 
@@ -188,20 +184,16 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion
 	name = "legion"
 	desc = "Под этой массой разложения ещё можно разглядеть очертания бывшего человека."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
 	icon_aggro = "legion"
 	icon_dead = "legion"
-	icon_gib = "syndicate_gib"
 	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "хлещет"
 	speak_emote = list("отдаётся эхом")
 	tts_seed = "Bloodseeker"
-	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "отскакивает от"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/regenerative_core/legion)
@@ -220,7 +212,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
@@ -249,7 +241,7 @@
 		DATIVE = "легиону-карлику",
 		ACCUSATIVE = "легион-карлика",
 		INSTRUMENTAL = "легионом-карликом",
-		PREPOSITIONAL = "легионе-карлике"
+		PREPOSITIONAL = "легионе-карлике",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
@@ -258,7 +250,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
 	visible_message(span_warning("Черепа на [declent_ru(PREPOSITIONAL)] вопят в ярости, спасаясь от умирающего носителя!"))
 	var/turf/T = get_turf(src)
-	if (!T) // When legion dusts T = null. Maybe not onli this way.
+	if(!T) // When legion dusts T = null. Maybe not onli this way.
 		return
 	for(var/i in 1 to 2)
 		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)
@@ -280,24 +272,17 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	name = "legion"
 	desc = "Один из многих."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion_head"
 	icon_living = "legion_head"
 	icon_aggro = "legion_head"
 	icon_dead = "legion_head"
-	icon_gib = "syndicate_gib"
 	friendly = "buzzes near"
-	vision_range = 10
-	maxHealth = 1
 	health = 5
-	harm_intent_damage = 5
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attacktext = "кусает"
 	speak_emote = list("отдаётся эхом")
-	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "отскакивает от"
-	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	var/can_infest = TRUE
@@ -310,7 +295,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
@@ -342,7 +327,7 @@
 	H.forceMove(L)
 	if(prob(75) && !H.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a special prize: cancer!
 		var/obj/item/organ/internal/legion_tumour/cancer = new()
-		cancer.insert(H, special = TRUE)
+		cancer.insert(H)
 
 	qdel(src)
 
@@ -384,23 +369,16 @@
 	maxHealth = 450
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	anchored = FALSE
-	AIStatus = AI_ON
-	stop_automated_movement = FALSE
-	wander = TRUE
-	layer = MOB_LAYER
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	loot = list(/obj/item/organ/internal/regenerative_core/legion = 3, /obj/effect/mob_spawn/human/corpse/damaged/legioninfested = 5)
 	move_to_delay = 14
 	vision_range = 5
-	aggro_vision_range = 9
 	speed = 3
 	faction = list("mining")
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
@@ -412,7 +390,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/big_legion/ComponentInitialize()
@@ -442,7 +420,7 @@
 		DATIVE = "обугленным останкам",
 		ACCUSATIVE = "обугленные останки",
 		INSTRUMENTAL = "обугленными останками",
-		PREPOSITIONAL = "об обугленных останках"
+		PREPOSITIONAL = "об обугленных останках",
 	)
 
 //Legion infested mobs
@@ -450,7 +428,6 @@
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	. = ..()
 	H.force_gene_block(GLOB.smallsizeblock, TRUE)
-
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
@@ -499,7 +476,7 @@
 			if(prob(70))
 				backpack_contents += list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1)
 			if(prob(30))
-				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
+				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list(1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
 			if(prob(10))

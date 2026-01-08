@@ -9,7 +9,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
@@ -31,13 +30,13 @@
 
 /obj/item/watertank/verb/toggle_mister()
 	set name = "Вынуть шланг"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr.get_item_by_slot(ITEM_SLOT_BACK) != src)
-		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
+		to_chat(usr, span_notice("The watertank needs to be on your back to use."))
 		return
 
 	on = !on
@@ -50,7 +49,7 @@
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
 			on = 0
-			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
+			to_chat(user, span_notice("You need a free hand to hold the mister."))
 			return
 		noz.loc = user
 	else
@@ -67,12 +66,10 @@
 	if(slot != ITEM_SLOT_BACK)
 		remove_noz()
 
-
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/user = noz.loc
 		user.drop_item_ground(noz, force = TRUE)
-
 
 /obj/item/watertank/Destroy()
 	if(on)
@@ -80,20 +77,17 @@
 		QDEL_NULL(noz)
 	return ..()
 
-
 /obj/item/watertank/attack_hand(mob/user)
 	if(loc == user)
 		ui_action_click()
 		return
 	return ..()
 
-
 /obj/item/watertank/attackby(obj/item/I, mob/user, params)
 	if(I == noz)
 		remove_noz()
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 // This mister item is intended as an extension of the watertank and always attached to it.
 // Therefore, it's designed to be "locked" to the player's hands or extended back onto
@@ -109,7 +103,6 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	container_type = OPENCONTAINER
 
 	var/obj/item/watertank/tank
 
@@ -123,14 +116,14 @@
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
+	to_chat(user, span_notice("The mister snaps back onto the watertank."))
 	tank.on = 0
 	loc = tank
 
 /obj/item/reagent_containers/spray/mister/attack_self()
 	return
 
-/proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
+/proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
 		M.temporarily_remove_item_from_inventory(O)
 		qdel(O)
@@ -138,12 +131,10 @@
 	else
 		return 1
 
-
 /obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(loc != tank.loc)
 		forceMove(tank.loc)
-
 
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity, params)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
@@ -152,7 +143,6 @@
 
 //Janitor tank
 /obj/item/watertank/janitor
-	name = "backpack water tank"
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."
 	icon_state = "waterbackpackjani"
 	item_state = "waterbackpackjani"
@@ -164,7 +154,6 @@
 /obj/item/reagent_containers/spray/mister/janitor
 	name = "janitor spray nozzle"
 	desc = "A janitorial spray nozzle attached to a watertank, designed to clean up large messes."
-	icon = 'icons/obj/watertank.dmi'
 	icon_state = "misterjani"
 	item_state = "misterjani"
 	amount_per_transfer_from_this = 5
@@ -173,9 +162,9 @@
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	to_chat(user, span_notice("You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray."))
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -197,7 +186,6 @@
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)
 
-
 /obj/item/watertank/atmos/update_icon_state()
 	var/obj/item/extinguisher/mini/nozzle/our_noz = noz
 	switch(our_noz.nozzle_mode)
@@ -210,7 +198,6 @@
 		else
 			icon_state = "waterbackpackatmos"
 
-
 /obj/item/watertank/atmos/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!noz)
@@ -218,7 +205,6 @@
 	var/obj/item/extinguisher/mini/nozzle/our_noz = noz
 	our_noz.nozzle_mode = NONE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/extinguisher/mini/nozzle
 	name = "extinguisher nozzle"
@@ -237,7 +223,6 @@
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-
 /obj/item/extinguisher/mini/nozzle/New(parent_tank)
 	. = ..()
 	if(check_tank_exists(parent_tank, src))
@@ -246,17 +231,14 @@
 		max_water = tank.volume
 		loc = tank
 
-
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(tank && loc != tank.loc)
 		forceMove(tank)
-
 
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
 	switch(nozzle_mode)
@@ -274,10 +256,9 @@
 
 	tank.update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/extinguisher/mini/nozzle/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
+	to_chat(user, span_notice("The nozzle snaps back onto the tank!"))
 	tank.on = 0
 	loc = tank
 
@@ -329,14 +310,13 @@
 /obj/effect/nanofrost_container
 	name = "nanofrost container"
 	desc = "A frozen shell of ice containing nanofrost that freezes the surrounding area after activation."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "frozen_smoke_capsule"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags = PASSTABLE
 
 /obj/effect/nanofrost_container/proc/Smoke()
 	var/datum/effect_system/fluid_spread/smoke/freezing/smoke = new
-	smoke.set_up(amount = 6, location = loc, blast_radius = 2)
+	smoke.set_up(amount = 6, location = loc, range = 2)
 	smoke.start()
 	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
 	F.color = "#B2FFFF"

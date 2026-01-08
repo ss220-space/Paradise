@@ -4,10 +4,8 @@
 	icon_state = "gorilla_rampage"
 	implant_state = "implant-syndicate"
 	origin_tech = "combat=5;biotech=5;syndicate=2"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/gorilla_rampage
 	uses = 1
-
 
 /obj/item/implant/gorilla_rampage/activate(cause)
 	if(!iscarbon(imp_in))
@@ -21,11 +19,9 @@
 	)
 	target.gorillize("Enraged", message = FALSE)
 
-
 /obj/item/implanter/gorilla_rampage
 	name = "bio-chip implanter (magillitis serum)"
 	imp = /obj/item/implant/gorilla_rampage
-
 
 /obj/item/implantcase/gorilla_rampage
 	name = "bio-chip case - 'magillitis serum'"

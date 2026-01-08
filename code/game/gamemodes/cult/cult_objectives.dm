@@ -60,7 +60,6 @@
 			to_chat(M, span_cultitalic("<b>Cultists:</b> [cult[1]]"))
 			to_chat(M, span_cultitalic("<b>Constructs:</b> [cult[2]]"))
 
-
 /datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
 		var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
@@ -79,7 +78,7 @@
 	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	if(current_obj.find_target())
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
-			if(cult_mind && cult_mind.current)
+			if(cult_mind?.current)
 				to_chat(cult_mind.current, "[span_danger(SSticker.cultdat.entity_name)] murmurs, [span_cultlarge("Our goal is beyond your reach. Sacrifice [current_obj.target] instead...")]")
 		return TRUE
 	return FALSE
@@ -95,7 +94,7 @@
 		if(obj_sac.find_target())
 			presummon_objs += obj_sac
 			for(var/datum/mind/cult_mind in SSticker.mode.cult)
-				if(cult_mind && cult_mind.current)
+				if(cult_mind?.current)
 					to_chat(cult_mind.current, span_cult("You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!"))
 					to_chat(cult_mind.current, span_cult("Current goal: [obj_sac.explanation_text]"))
 		else
@@ -104,7 +103,7 @@
 /datum/cult_objectives/proc/ready_to_summon()
 	cult_status = NARSIE_NEEDS_SUMMONING
 	for(var/datum/mind/cult_mind in SSticker.mode.cult)
-		if(cult_mind && cult_mind.current)
+		if(cult_mind?.current)
 			to_chat(cult_mind.current, span_cult("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
 			to_chat(cult_mind.current, span_cult("Current goal: [obj_summon.explanation_text]"))
 
@@ -134,7 +133,6 @@
 	..()
 	owner = SSticker.mode
 
-
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
 
@@ -153,11 +151,10 @@
 				target_candidates += H.mind
 	if(length(target_candidates))
 		target = pick(target_candidates)
-		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [genderize_ru(target.current.gender, "его", "её", "его", "их")] тела или мозга на ней и трёх культистов вокруг руны."
+		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [GEND_HIS_HER(target.current)] тела или мозга на ней и трёх культистов вокруг руны."
 		return TRUE
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE
-
 
 /datum/objective/eldergod
 	needs_target = FALSE
@@ -195,8 +192,7 @@
 			summon_spots += summon
 		sanity++
 	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"], вызвав руну «Разорвать завесу» вместе с 9 культистами, конструкциями или вызванными призраками внутри неё.\
-	\nПризыв может быть осуществлён только в [english_list(summon_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
-
+		\nПризыв может быть осуществлён только в [english_list(summon_spots)] — где завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/eldergod/check_completion()
 	if(killed)

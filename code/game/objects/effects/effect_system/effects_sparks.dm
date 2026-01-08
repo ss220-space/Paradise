@@ -20,7 +20,6 @@
 /obj/effect/particle_effect/sparks
 	name = "sparks"
 	icon_state = "sparks"
-	anchored = TRUE
 	var/hotspottemp = 1000
 
 /obj/effect/particle_effect/sparks/New()
@@ -29,20 +28,20 @@
 	playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/turf/T = loc
 	if(isturf(T))
-		T.hotspot_expose(hotspottemp, 100)
+		T.hotspot_expose(hotspottemp, 1)
 	QDEL_IN(src, 20)
 
 /obj/effect/particle_effect/sparks/Destroy()
 	var/turf/T = loc
 	if(isturf(T))
-		T.hotspot_expose(hotspottemp,100)
+		T.hotspot_expose(hotspottemp, 1)
 	return ..()
 
 /obj/effect/particle_effect/sparks/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	var/turf/T = loc
 	if(isturf(T))
-		T.hotspot_expose(hotspottemp,100)
+		T.hotspot_expose(hotspottemp, 1)
 
 /datum/effect_system/spark_spread
 	effect_type = /obj/effect/particle_effect/sparks

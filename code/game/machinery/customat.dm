@@ -6,13 +6,12 @@
 /// Machine is currently denying wares, and will not update its icon, unless its stat change.
 #define FLICK_DENY 2
 
-
-
 /**
  *  Datum used to hold information about a product in a vending machine
  */
 /datum/data/customat_product
 	name = "generic"
+	var/desc = "description of the item"
 	///How many of this product we currently have
 	var/amount = 0
 	///The key by which the object is pushed into the machine's row
@@ -27,20 +26,19 @@
 	var/icon_state = ""
 
 /datum/data/customat_product/New(obj/item/I)
-	name = I.name
+	name = capitalize(I.declent_ru(NOMINATIVE))
+	desc = I.desc
 	amount = 0
 	containment = list()
 	price = 0
-	icon = icon(initial(I.icon))
-	icon_state = initial(I.icon_state)
-
+	icon = I.icon
+	icon_state = I.icon_state
 
 /obj/machinery/customat
 	name = "Customat"
 	desc = "Торговый автомат с кастомным содержимым."
 	icon = 'icons/obj/machines/customat.dmi'
 	icon_state = "custommate-off"
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 600 // base vending integrity * 2
@@ -74,7 +72,6 @@
 	var/flick_sequence = FLICK_NONE
 
 	// Power
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	/// Power used for one vend
 	var/vend_power_usage = 150
@@ -88,7 +85,6 @@
 	var/vend_delay = 1 SECONDS
 	/// Item currently being bought
 	var/datum/data/customat_product/currently_vending = null
-
 
 	// Stuff relating vocalizations
 	/// List of slogans the customat will say, optional
@@ -128,7 +124,6 @@
 
 	// Things that can go wrong
 	/// Makes all prices 0
-	emagged = 0
 
 	/// blocks further flickering while true
 	var/flickering = FALSE
@@ -158,6 +153,15 @@
 	/// Direct ref to the trunk pipe underneath us
 	var/obj/structure/disposalpipe/trunk/trunk
 
+/obj/machinery/customat/get_ru_names()
+	return list(
+		NOMINATIVE = "кастомат",
+		GENITIVE = "кастомата",
+		DATIVE = "кастомату",
+		ACCUSATIVE = "кастомат",
+		INSTRUMENTAL = "кастоматом",
+		PREPOSITIONAL = "кастомате"
+	)
 
 /obj/machinery/customat/proc/set_up_components()
 	component_parts = list()
@@ -199,9 +203,9 @@
 		return ..()
 
 /obj/machinery/customat/proc/eject_all()
-	for (var/key in products)
+	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
-		for (var/obj/item/I in product.containment)
+		for(var/obj/item/I in product.containment)
 			I.forceMove(get_turf(src))
 		product.amount = 0
 		inserted_items_count -= product.containment.len
@@ -271,7 +275,6 @@
 	if(panel_overlay && panel_open)
 		. += panel_overlay
 
-
 /obj/machinery/customat/power_change(forced = FALSE)
 	. = ..()
 	if(stat & NOPOWER)
@@ -281,12 +284,10 @@
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/customat/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-
 
 /obj/machinery/customat/proc/flick_vendor_overlay(flick_flag = FLICK_NONE)
 	if(flick_sequence & (FLICK_VEND|FLICK_DENY))
@@ -300,11 +301,9 @@
 	var/flick_time = (flick_flag & FLICK_VEND) ? vend_overlay_time : (flick_flag & FLICK_DENY) ? deny_overlay_time : 0
 	addtimer(CALLBACK(src, PROC_REF(flick_reset)), flick_time)
 
-
 /obj/machinery/customat/proc/flick_reset()
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
-
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -439,13 +438,12 @@
 
 	return ..()
 
-
 /obj/machinery/customat/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
 		return
 
 	if(isLocked())
-		to_chat(user, span_warning("[src] is locked."))
+		balloon_alert(user, "заблокировано!")
 		return
 
 	. = TRUE
@@ -459,7 +457,10 @@
 
 	if(anchored)
 		panel_open = !panel_open
-		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		if(panel_open)
+			SCREWDRIVER_OPEN_PANEL_MESSAGE
+		else
+			SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		update_icon()
 		SStgui.update_uis(src)
 
@@ -498,13 +499,13 @@
 
 /obj/machinery/customat/emag_act(mob/user)
 	emagged = TRUE
-	for (var/key in products)
+	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
 		product.price = 0
 		products[key] = product
 
 	if(user)
-		to_chat(user, "You short out the product lock on [src]")
+		balloon_alert(user, "взломано")
 
 /obj/machinery/customat/attack_ai(mob/user)
 	return attack_hand(user)
@@ -539,7 +540,7 @@
 		data["user"] = list()
 		data["user"]["name"] = account.owner_name
 		data["userMoney"] = account.money
-		data["user"]["job"] = "Silicon"
+		data["user"]["job"] = "Силикон"
 
 	if(ishuman(user))
 		account = get_card_account(user)
@@ -547,22 +548,24 @@
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
-			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [S.amount] кредит[DECL_CREDIT(S.amount)]."
 		else if(istype(H))
 			var/obj/item/card/id/idcard = H.get_id_card()
 			if(istype(account))
 				data["user"] = list()
 				data["user"]["name"] = account.owner_name
 				data["userMoney"] = account.money
-				data["user"]["job"] = (istype(idcard) && idcard.rank) ? idcard.rank : "No Job"
+				data["user"]["job"] = (istype(idcard) && idcard.rank) ? idcard.rank : "Должность отсутствует"
 			else
-				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
+				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 
 	data["products"] = list()
-	for (var/key in products)
+	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
 		var/list/data_pr = list(
+
 			name = product.name,
+			desc = product.desc,
 			price = product.price,
 			stock = product.amount,
 			icon = product.icon,
@@ -576,7 +579,6 @@
 	data["speaker"] = shut_up ? FALSE : TRUE
 	return data
 
-
 /obj/machinery/customat/ui_static_data(mob/user)
 	var/list/data = list()
 	return data
@@ -586,7 +588,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, span_warning("The vending machine refuses to interface with you, as you are not in its target demographic!"))
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 
 	switch(action)
@@ -597,15 +599,15 @@
 
 		if("vend")
 			if(!vend_ready)
-				to_chat(usr, span_warning("The vending machine is busy!"))
+				balloon_alert(usr, "торговый автомат занят!")
 				return
 			if(panel_open)
-				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
+				balloon_alert(usr, "техпанель открыта!")
 				return
 			var/key = params["Key"]
 			var/datum/data/customat_product/product = products[key]
 			if(product.amount <= 0)
-				to_chat(usr, "Sold out of [product.name].")
+				to_chat(usr, "Товар \"[product.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
 
@@ -622,7 +624,7 @@
 
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
-				to_chat(usr, "Vendor account offline. Unable to process transaction.")
+				to_chat(usr, "Удалённый сервер торговых автоматов отключён. Не удается обработать операцию.")
 				flick_vendor_overlay(FLICK_DENY)
 				vend_ready = TRUE
 				return
@@ -634,7 +636,7 @@
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = FALSE
 				var/left = currently_vending.price
-				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= length(canister.linked_accounts); ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now
@@ -643,7 +645,7 @@
 				var/datum/money_account/customer_account = get_card_account(usr)
 				paid = FALSE
 				var/left = currently_vending.price
-				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= length(canister.linked_accounts); ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now
@@ -652,10 +654,10 @@
 		"Sale of [product.name]", customer_account.owner_name) || paid
 
 			else if(usr.can_advanced_admin_interact())
-				to_chat(usr, span_notice("Vending object due to admin interaction."))
+				to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] выдаёт товар в результате вмешательства администратора."))
 				paid = TRUE
 			else
-				to_chat(usr, span_warning("Payment failure: you have no ID or other method of payment."))
+				to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))
 				vend_ready = TRUE
 				flick_vendor_overlay(FLICK_DENY)
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
@@ -665,7 +667,7 @@
 				vend(currently_vending, usr)
 				. = TRUE
 			else
-				to_chat(usr, span_warning("Payment failure: unable to process payment."))
+				to_chat(usr, span_warning("Сбой платежа: не удаётся обработать платеж."))
 				vend_ready = TRUE
 
 	if(.)
@@ -693,12 +695,10 @@
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product, user), vend_delay)
 
-
 /obj/machinery/customat/proc/delayed_vend(datum/data/customat_product/product, mob/user)
 	do_vend(product, user)
 	vend_ready = TRUE
 	currently_vending = null
-
 
 /**
  * Override this proc to add handling for what to do with the vended product
@@ -731,7 +731,6 @@
 		var/slogan = pick(src.slogan_list)
 		speak(slogan)
 		COOLDOWN_START(src, slogan_cooldown, slogan_delay)
-
 
 /obj/machinery/customat/proc/speak(message)
 	if(stat & NOPOWER)
@@ -772,7 +771,7 @@
 /obj/machinery/customat/proc/expel(obj/structure/disposalholder/holder)
 	var/turf/origin_turf = get_turf(src)
 	var/list/contents = holder.contents
-	for (var/atom/movable/content in contents)
+	for(var/atom/movable/content in contents)
 		if(istype(content, /obj/item))
 			try_insert(null, content, TRUE)
 		else

@@ -13,7 +13,7 @@
 	var/obj/item/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
 
-/obj/item/chrono_eraser/proc/pass_mind(var/datum/mind/M)
+/obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M
 
 /obj/item/chrono_eraser/dropped(mob/user, slot, silent = FALSE)
@@ -36,14 +36,12 @@
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
-
 /obj/item/gun/energy/chrono_gun
 	name = "T.E.D. Projection Apparatus"
 	desc = "It's as if they never existed in the first place."
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = FALSE
@@ -81,15 +79,14 @@
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
+			to_chat(user, span_alert("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
 		src.field_disconnect(F)
 	else
 		startpos = get_turf(src)
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
-
+			to_chat(user, span_notice("Connection established with target: <b>[F.captured]</b>"))
 
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
 	if(F && field == F)
@@ -97,7 +94,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
+			to_chat(user, span_alert("Disconnected from target: <b>[F.captured]</b>"))
 	field = null
 	startpos = null
 
@@ -111,10 +108,9 @@
 		field_disconnect(F)
 		return 0
 
-/obj/item/gun/energy/chrono_gun/proc/pass_mind(var/datum/mind/M)
+/obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
 	if(TED)
 		TED.pass_mind(M)
-
 
 /obj/projectile/energy/chrono_beam
 	name = "eradication beam"
@@ -143,8 +139,8 @@
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
 	projectile_type = /obj/projectile/energy/chrono_beam
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_color = null
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "chronobolt"
 	e_cost = 0
 
@@ -153,7 +149,6 @@
 	desc = "An aura of time-bluespace energy."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "chronofield"
-	density = FALSE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
@@ -209,7 +204,7 @@
 				AM.forceMove(drop_location())
 			qdel(src)
 		else if(tickstokill <= 0)
-			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
+			to_chat(captured, span_boldnotice("As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy..."))
 			var/mob/dead/observer/ghost = captured.ghostize(1)
 			if(captured.mind)
 				if(ghost)
@@ -234,7 +229,6 @@
 	else
 		qdel(src)
 
-
 /obj/structure/chrono_field/bullet_act(obj/projectile/P)
 	if(istype(P, /obj/projectile/energy/chrono_beam))
 		var/obj/projectile/energy/chrono_beam/beam = P
@@ -244,15 +238,14 @@
 	else
 		return 0
 
-/obj/structure/chrono_field/assume_air()
-	return 0
-
-/obj/structure/chrono_field/return_air() //we always have nominal air and temperature
-	var/datum/gas_mixture/GM = new
-	GM.oxygen = MOLES_O2STANDARD
-	GM.nitrogen = MOLES_N2STANDARD
-	GM.temperature = T20C
-	return GM
+/obj/structure/chrono_field/return_obj_air()
+	//we always have nominal air and temperature
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas_mixture = new
+	gas_mixture.set_oxygen(MOLES_O2STANDARD)
+	gas_mixture.set_nitrogen(MOLES_N2STANDARD)
+	gas_mixture.set_temperature(T20C)
+	return gas_mixture
 
 /obj/structure/chrono_field/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	return FALSE
@@ -265,7 +258,6 @@
 
 /obj/structure/chrono_field/blob_act(obj/structure/blob/B)
 	return
-
 
 #undef CHRONO_BEAM_RANGE
 #undef CHRONO_FRAME_COUNT

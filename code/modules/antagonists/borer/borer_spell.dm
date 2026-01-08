@@ -20,7 +20,7 @@
 
 /obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
 
-	if (is_ventcrawling(user) || !src || user.stat || infesting)
+	if(is_ventcrawling(user) || !src || user.stat || infesting)
 		return FALSE
 
 	. = ..()
@@ -35,7 +35,7 @@
 		return
 
 	infesting = TRUE
-	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
+	to_chat(user, "Вы подползаете к [target] и начинаете искать [GEND_HIS_HER(target)] слуховой проход...")
 
 	if(!do_after(user, cast_time, target, NONE))
 		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
@@ -82,7 +82,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/borer_dominate/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
-	if (is_ventcrawling(user) || !src || user.stat)
+	if(is_ventcrawling(user) || !src || user.stat)
 		return FALSE
 
 	. = ..()
@@ -97,7 +97,7 @@
 		to_chat(user, span_warning("Вы не можете позволить себе сделать это с тем, кто уже заражён.."))
 		return
 
-	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [genderize_ru(target.gender,"его","её","его","их" )] конечности волной первородного ужаса!"))
+	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [GEND_HIS_HER(target)] конечности волной первородного ужаса!"))
 	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
 	target.Weaken(weaken_time)
 
@@ -119,7 +119,7 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
-	if (user.stat || user.host?.stat)
+	if(user.stat || user.host?.stat)
 		return FALSE
 
 	. = ..()

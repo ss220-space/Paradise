@@ -4,7 +4,6 @@
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice-31"
 	base_icon_state = "lattice"
-	density = FALSE
 	anchored = TRUE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
@@ -17,7 +16,6 @@
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED)
 
-
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
 	for(var/obj/structure/lattice/LAT in loc)
@@ -27,13 +25,12 @@
 		give_turf_traits = string_list(give_turf_traits)
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
 
-
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
+	return span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
 
 /obj/structure/lattice/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -54,14 +51,12 @@
 		C.deconstruct()
 	..()
 
-
 /obj/structure/lattice/attackby(obj/item/I, mob/user, params)
 	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 	I.melee_attack_chain(user, loc, params)	// hand this off to the turf instead (for building plating, catwalks, etc)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)
@@ -93,8 +88,7 @@
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
 	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-	icon_state = "lattice_clockwork-0"
-	base_icon_state = "lattice_clockwork"
+	icon_state = "lattice-0"
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
@@ -118,14 +112,12 @@
 	icon_state = "catwalk-0"
 	base_icon_state = "catwalk"
 	number_of_rods = 2
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_CATWALK
 	smoothing_groups = SMOOTH_GROUP_CATWALK
-	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
+	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))
 
 /obj/structure/lattice/catwalk/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -142,7 +134,6 @@
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
 	base_icon_state = "catwalk_clockwork"
 	icon_state = "catwalk_clockwork-0"
-	smooth = SMOOTH_BITMASK
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()
@@ -166,17 +157,16 @@
 	name = "fireproof lattice"
 	desc = "A lightweight support lattice made of heat-resistance alloy."
 	icon = 'icons/obj/smooth_structures/lattice_f.dmi'
-	icon_state = "lattice-31"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	max_integrity = 100
 
 /obj/structure/lattice/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленные прутья!</span>")
+	to_chat(user, span_notice("Вы срезали усиленные прутья!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
 	deconstruct()
 
@@ -186,29 +176,24 @@
 	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	max_integrity = 150
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
-	icon_state = "catwalk-0"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	number_of_rods = 3
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
-
 /obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
+	to_chat(user, span_notice("Вы срезали усиленный мостик!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
-
 
 /obj/structure/lattice/catwalk/mapping
 	name = "reinforced catwalk"
 	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
 	resistance_flags = INDESTRUCTIBLE
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
-	base_icon_state = "catwalk"
-	icon_state = "catwalk-0"
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/mapping/deconstruction_hints(mob/user)

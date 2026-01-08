@@ -2,33 +2,35 @@
 	name = "жучок"
 	desc = "Кажется, ты видел такого в фильмах про шпионов."
 	icon_state = "spy_spider"
-	frequency = SPY_SPIDER_FREQ
 	freqlock = SPY_SPIDER_FREQ
-	listening = FALSE
-	broadcasting = FALSE
-	canhear_range = 3
 	gender = MALE
 
 /obj/item/radio/spy_spider/get_ru_names()
 	return list(
-			NOMINATIVE = "жучок", 
-			GENITIVE = "жучка", 
-			DATIVE = "жучку", 
-			ACCUSATIVE = "жучок", 
-			INSTRUMENTAL = "жучком", 
-			PREPOSITIONAL = "жучке"
+			NOMINATIVE = "жучок",
+			GENITIVE = "жучка",
+			DATIVE = "жучку",
+			ACCUSATIVE = "жучок",
+			INSTRUMENTAL = "жучком",
+			PREPOSITIONAL = "жучке",
 		)
+
+/obj/item/radio/spy_spider/Initialize(mapload)
+	. = ..()
+	set_listening(FALSE)
+	set_broadcasting(FALSE)
+	set_frequency(SPY_SPIDER_FREQ)
 
 /obj/item/radio/spy_spider/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Сейчас он [broadcasting ? "включён" : "выключен"]</span>"
+	. += span_notice("Сейчас он [broadcasting ? "включён" : "выключен"]")
 
 /obj/item/radio/spy_spider/attack_self(mob/user)
 	broadcasting = !broadcasting
 	if(broadcasting)
-		to_chat(user, "<span class='notice'>Ты включаешь жучок.</span>")
+		to_chat(user, span_notice("Ты включаешь жучок."))
 	else
-		to_chat(user, "<span class='notice'>Ты выключил жучка.</span>")
+		to_chat(user, span_notice("Ты выключил жучка."))
 	return TRUE
 
 /obj/item/encryptionkey/spy_spider
@@ -50,13 +52,9 @@
 	new /obj/item/encryptionkey/spy_spider(src)
 	new /obj/item/encryptionkey/spy_spider(src)
 
-
 /**
  * CLOTHING PART
  */
-
-/obj/item/clothing
-	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
 /obj/item/clothing/Destroy()
 	QDEL_NULL(spy_spider_attached)
@@ -70,10 +68,9 @@
 	. = ..()
 	spy_spider_attached?.hear_talk(M, message_pieces)
 
-
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in range(1, usr)
 
 	if(!ishuman(usr))
@@ -88,7 +85,6 @@
 
 	verbs -= /obj/item/clothing/proc/remove_spy_spider
 
-
 /**
  * HUMAN PART
  */
@@ -100,7 +96,7 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!w_uniform && !wear_suit)
-		to_chat(user, span_warning("У Вас нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок необходимо крепить на одежду!"))
+		to_chat(user, span_warning("У вас нет желания лезть к н[GEND_HIM_HER(src)] в трусы. Жучок необходимо крепить на одежду!"))
 		return .
 
 	var/obj/item/radio/spy_spider/spy_spider = I
@@ -109,7 +105,7 @@
 		to_chat(user, span_warning("Жучок уже установлен!"))
 		return .
 
-	if(!spy_spider.broadcasting)
+	if(!spy_spider.get_broadcasting())
 		to_chat(user, span_warning("Жучок выключен!"))
 		return .
 
@@ -117,7 +113,7 @@
 	if(!do_after(user, 3 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = attempt_cancel_message, category = DA_CAT_TOOL))
 		return .
 
-	if(QDELETED(clothing_for_attach) || !clothing_for_attach.loc != src || clothing_for_attach.spy_spider_attached || !spy_spider.broadcasting || !user.temporarily_remove_item_from_inventory(spy_spider))
+	if(QDELETED(clothing_for_attach) || !clothing_for_attach.loc != src || clothing_for_attach.spy_spider_attached || !spy_spider.get_broadcasting() || !user.temporarily_remove_item_from_inventory(spy_spider))
 		return .
 
 	. = ATTACK_CHAIN_BLOCKED_ALL

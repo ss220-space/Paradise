@@ -23,7 +23,7 @@
 		DATIVE = "библиотечному компьютеру",
 		ACCUSATIVE = "библиотечный компьютер",
 		INSTRUMENTAL = "библиотечным компьютером",
-		PREPOSITIONAL = "библиотечном компьютере"
+		PREPOSITIONAL = "библиотечном компьютере",
 	)
 
 /obj/machinery/computer/library/checkout/attack_hand(mob/user)
@@ -54,14 +54,14 @@
 
 			if(src.arcanecheckout)
 				new /obj/item/melee/cultblade/dagger(src.loc)
-				to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange looking dagger sitting on the desk. You don't really remember where it came from.</span>")
+				to_chat(user, span_warning("Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange looking dagger sitting on the desk. You don't really remember where it came from."))
 				user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 				src.arcanecheckout = 0
 		if(1)
 			// Inventory
 			dat += "<h3>Inventory</h3>"
 			for(var/obj/item/book/b in inventory)
-				dat += "[b.name] <a href='byond://?src=[UID()];delbook=\ref[b]'>(Delete)</a><br>"
+				dat += "[b.name] <a href='byond://?src=[UID()];delbook=[b.UID()]'>(Delete)</a><br>"
 			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(2)
 			// Checked Out
@@ -80,7 +80,7 @@
 					timedue = round(timedue)
 
 				dat += {"\"[b.bookname]\", Checked out to: [b.mobname]<br>--- Taken: [timetaken] minutes ago, Due: in [timedue] minutes<br>
-					<a href='byond://?src=[UID()];checkin=\ref[b]'>(Check In)</a><br><br>"}
+					<a href='byond://?src=[UID()];checkin=[b.UID()]'>(Check In)</a><br><br>"}
 			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(3)
 			// Check Out a Book
@@ -132,7 +132,7 @@
 					var/author = CB.author
 					var/controls =  "<a href='byond://?src=[UID()];id=[CB.id]'>\[Order\]</a>"
 					controls += {" <a href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a>"}
-					if(check_rights(R_ADMIN, 0, user = user))
+					if(check_rights(R_ADMIN, FALSE, user = user))
 						controls +=  " <a style='color:red' href='byond://?src=[UID()];del=[CB.id]'>\[Delete\]</a>"
 						author += " (<a style='color:red' href='byond://?src=[UID()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</a>)"
 					dat += {"<tr>
@@ -208,7 +208,6 @@
 			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
 			balloon_alert(user, "взломано")
 
-
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -223,10 +222,8 @@
 
 	return ..()
 
-
 /obj/machinery/computer/library/checkout/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
-
 
 /obj/machinery/computer/library/checkout/Topic(href, href_list)
 	if(..())
@@ -254,7 +251,7 @@
 		else
 			query.title = null
 	if(href_list["setcategory"])
-		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", , list("Any") + GLOB.library_section_names)
+		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", "Select category" , list("Any") + GLOB.library_section_names)
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)
@@ -304,7 +301,7 @@
 				return
 
 			if(query.affected == 0)
-				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
+				to_chat(usr, span_danger("Unable to find any matching rows."))
 				qdel(query)
 				return
 			qdel(query)
@@ -342,7 +339,7 @@
 				if(!bibledelay)
 
 					var/obj/item/storage/bible/B = new /obj/item/storage/bible(src.loc)
-					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state) )
+					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state))
 						B.icon_state = SSticker.Bible_icon_state
 						B.item_state = SSticker.Bible_item_state
 						B.name = SSticker.Bible_name
@@ -381,10 +378,10 @@
 		b.duedate = world.time + (checkoutperiod * 600)
 		checkouts.Add(b)
 	if(href_list["checkin"])
-		var/datum/borrowbook/b = locate(href_list["checkin"])
+		var/datum/borrowbook/b = locateUID(href_list["checkin"])
 		checkouts.Remove(b)
 	if(href_list["delbook"])
-		var/obj/item/book/b = locate(href_list["delbook"])
+		var/obj/item/book/b = locateUID(href_list["delbook"])
 		inventory.Remove(b)
 	if(href_list["uploadauthor"])
 		var/newauthor = tgui_input_text(usr, "Enter the author's name: ", max_length = MAX_MESSAGE_LEN)

@@ -7,8 +7,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/unathi/robe
 	name = "roughspun robes"
@@ -24,13 +24,12 @@
 		DATIVE = "грубошерстным одеяниям",
 		ACCUSATIVE = "грубошерстные одеяния",
 		INSTRUMENTAL = "грубошерстными одеяниями",
-		PREPOSITIONAL = "грубошерстных одеяниях"
+		PREPOSITIONAL = "грубошерстных одеяниях",
 	)
 
 /obj/item/clothing/neck/mantle/unathi
 	name = "hide mantle"
 	desc = "Довольно жуткая подборка выделанных шкур, сшитых вместе, чтобы получилась рваная накидка."
-	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO
 	sprite_sheets = list(
@@ -39,8 +38,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
+	)
 
 /obj/item/clothing/neck/mantle/unathi/get_ru_names()
 	return list(
@@ -49,5 +48,5 @@
 		DATIVE = "накидке из шкур",
 		ACCUSATIVE = "накидку из шкур",
 		INSTRUMENTAL = "накидкой из шкур",
-		PREPOSITIONAL = "накидке из шкур"
+		PREPOSITIONAL = "накидке из шкур",
 	)

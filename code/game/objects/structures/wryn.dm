@@ -32,17 +32,16 @@
 	smoothing_groups = SMOOTH_GROUP_WRYN_WAX
 	smooth = SMOOTH_BITMASK
 
-
 /obj/structure/wryn/wax/Initialize(mapload)
 	if(usr)
 		add_fingerprint(usr)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	. = ..()
 
 /obj/structure/wryn/wax/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/wryn/wax/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -67,7 +66,7 @@
 		DATIVE = "сотам",
 		ACCUSATIVE = "соты",
 		INSTRUMENTAL = "сотами",
-		PREPOSITIONAL = "сотах"
+		PREPOSITIONAL = "сотах",
 	)
 
 /obj/structure/wryn/wax/window
@@ -87,7 +86,7 @@
 		DATIVE = "прозрачным сотам сотам",
 		ACCUSATIVE = "прозрачные соты",
 		INSTRUMENTAL = "прозрачными сотами",
-		PREPOSITIONAL = "прозрачных сотах"
+		PREPOSITIONAL = "прозрачных сотах",
 	)
 
 /obj/structure/wryn/floor
@@ -96,9 +95,9 @@
 	name = "wax floor"
 	desc = "Что-то жёлтое и липкое покрывает пол... Так стоп..."
 	anchored = TRUE
-	density = FALSE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
+	cares_about_temperature = TRUE
 	var/list/icons = list("wax_floor1", "wax_floor2", "wax_floor3")
 	icon_state = "wax_floor1"
 	max_integrity = 10
@@ -113,7 +112,7 @@
 		DATIVE = "полу из воска",
 		ACCUSATIVE = "пол из воска",
 		INSTRUMENTAL = "полом из воска",
-		PREPOSITIONAL = "поле из воска"
+		PREPOSITIONAL = "поле из воска",
 	)
 
 // wax floor procs
@@ -124,7 +123,6 @@
 		var/turf/check = get_step(src, check_dir)
 		if(issimulatedturf(check) && !(locate(/obj/structure/wryn) in check))
 			. += floorImageCache["[GetOppositeDir(check_dir)]"]
-
 
 /obj/structure/wryn/floor/proc/fullUpdateWeedOverlays()
 	if(!length(floorImageCache))
@@ -137,7 +135,6 @@
 	for(var/obj/structure/wryn/floor/floor in range(1,src))
 		floor.update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/wryn/floor/New(pos)
 	..()
 	var/picked = pick(icons)
@@ -148,7 +145,6 @@
 	fullUpdateWeedOverlays()
 	return ..()
 
-
 /obj/structure/wryn/wax/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -156,10 +152,9 @@
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
 
-
-/obj/structure/wryn/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/wryn/floor/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 #define WAX_DOOR_CLOSED 0
@@ -185,7 +180,7 @@
 		DATIVE = "двери из сот",
 		ACCUSATIVE = "дверь из сот",
 		INSTRUMENTAL = "дверью из сот",
-		PREPOSITIONAL = "двери из сот"
+		PREPOSITIONAL = "двери из сот",
 	)
 
 /obj/structure/alien/resin/door/wax/ComponentInitialize()
@@ -214,7 +209,6 @@
 
 	return try_switch_state(user)
 
-
 /obj/structure/alien/resin/door/wax/try_switch_state(atom/movable/user)
 	if(operating)
 		return FALSE
@@ -231,3 +225,6 @@
 
 	switch_state()
 	return TRUE
+
+#undef WAX_DOOR_CLOSED
+#undef WAX_DOOR_OPENED

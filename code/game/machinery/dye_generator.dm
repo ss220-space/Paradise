@@ -5,15 +5,12 @@
 	base_icon_state = "barbervend"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	light_range = 2
-
 
 /obj/machinery/dye_generator/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/dye_generator/update_overlays()
 	. = ..()
@@ -35,11 +32,9 @@
 		. += "[base_icon_state]"
 		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
-
 /obj/machinery/dye_generator/obj_break(damage_flag)
 	..()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/dye_generator/power_change(forced = FALSE)
 	. = ..()
@@ -47,12 +42,10 @@
 		set_light_on(!(stat & NOPOWER))
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/dye_generator/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-
 
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
@@ -63,11 +56,9 @@
 		return
 	set_light_color(temp)
 
-
 /obj/machinery/dye_generator/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
-
 
 /obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -86,30 +77,22 @@
 
 	return ..()
 
-
 //Hair Dye Bottle
 /obj/item/hair_dye_bottle
 	name = "Hair Dye Bottle"
 	desc = "A refillable bottle used for holding hair dyes of all sorts of colors."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "hairdyebottle"
-	throwforce = 0
 	throw_speed = 4
-	throw_range = 7
-	force = 0
 	w_class = WEIGHT_CLASS_TINY
 	var/hair_dye_color = "#FFFFFF"
-
 
 /obj/item/hair_dye_bottle/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/hair_dye_bottle/update_overlays()
 	. = ..()
 	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = hair_dye_color)
-
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || user.a_intent != INTENT_HELP || !(target in view(1)))

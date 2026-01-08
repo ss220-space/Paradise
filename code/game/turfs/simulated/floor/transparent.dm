@@ -17,7 +17,6 @@
 	footstep = FOOTSTEP_GLASS
 	barefootstep = FOOTSTEP_GLASS
 	clawfootstep = FOOTSTEP_GLASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished glass floor tile has been lit up
 	var/light_process = 0
 
@@ -98,7 +97,6 @@
 	playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 	ChangeTurf(/turf/simulated/floor/plating)
 
-
 /turf/simulated/floor/glass/extinguish_light(force = FALSE)
 	light_power = 0
 	light_range = 0
@@ -107,7 +105,6 @@
 	desc = "Something shadowy moves to cover the glass. Perhaps shining a light will force it to clear?"
 	START_PROCESSING(SSobj, src)
 
-
 /turf/simulated/floor/glass/process()
 	if(get_lumcount() > 0.2)
 		light_process++
@@ -115,7 +112,6 @@
 			reset_light()
 		return
 	light_process = 0
-
 
 /turf/simulated/floor/glass/proc/reset_light()
 	light_process = 0
@@ -158,7 +154,6 @@
 /turf/simulated/floor/glass/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
 	return ..(T, defer_change, FALSE, after_flags, copy_existing_baseturf)
 
-
 /turf/simulated/floor/glass/reinforced
 	name = "reinforced glass floor"
 	desc = "Jump on it, it can cope. Promise..."
@@ -193,7 +188,6 @@
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
 	base_icon_state = "titaniumglass"
-	canSmoothWith = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
 	thermal_conductivity = 0.025
 	heat_capacity = 1600
 	explosion_vertical_block = 2
@@ -202,18 +196,3 @@
 	name = "plastitanium glass floor"
 	icon = 'icons/turf/floors/plastitaniumglass.dmi'
 	base_icon_state = "plastitaniumglass"
-
-/turf/simulated/floor/glass/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/glass/reinforced/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/glass/plasma/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0

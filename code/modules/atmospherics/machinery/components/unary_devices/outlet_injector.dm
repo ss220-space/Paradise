@@ -3,25 +3,22 @@
 	desc = "Has a valve and pump attached to it"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/injector.dmi'
 	icon_state = "map_injector"
-	use_power = IDLE_POWER_USE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 	can_unwrench = TRUE
 	frequency = ATMOS_TANKS_FREQ
-	on = FALSE
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/outlet_injector
 
 	var/injecting = 0
 	var/volume_rate = 50
 	var/id
 
-
 /obj/machinery/atmospherics/unary/outlet_injector/on
-	on = 1
+	on = TRUE
 
-/obj/machinery/atmospherics/unary/outlet_injector/New()
-	..()
+/obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
+	. = ..()
 	if(id && !id_tag)//I'm not dealing with any more merge conflicts
 		id_tag = id
 
@@ -51,45 +48,49 @@
 	update_icon()
 
 /obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
-	..()
+	. = ..()
 
-	injecting = 0
+	injecting = FALSE
 
 	if(!on || stat & NOPOWER)
-		return 0
+		return FALSE
 
-	if(air_contents.temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+	var/temperature = air_contents.temperature()
+
+	if(temperature > 0)
+		var/transfer_moles = (air_contents.return_pressure()) * volume_rate / (temperature * R_IDEAL_GAS_EQUATION)
 
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
-		loc.assume_air(removed)
-		air_update_turf()
+		var/turf/turf = get_turf(src)
+		turf.blind_release_air(removed)
 
-		parent.update = 1
+		parent.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/outlet_injector/proc/inject()
 	if(on || injecting)
-		return 0
+		return FALSE
 
-	injecting = 1
+	injecting = TRUE
 
-	if(air_contents.temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+	var/temperature = air_contents.temperature()
+
+	if(temperature > 0)
+		var/transfer_moles = (air_contents.return_pressure()) * volume_rate / (temperature * R_IDEAL_GAS_EQUATION)
 
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
-		loc.assume_air(removed)
+		var/turf/turf = get_turf(src)
+		turf.blind_release_air(removed)
 
-		parent.update = 1
-
+		parent.update = TRUE
 	flick("inject", src)
 
 /obj/machinery/atmospherics/unary/outlet_injector/proc/broadcast_status()
 	if(!radio_connection)
-		return 0
+		return FALSE
 
 	var/datum/signal/signal = new
 	signal.transmission_method = 1 //radio signal
@@ -101,11 +102,11 @@
 		"power" = on,
 		"volume_rate" = volume_rate,
 		"sigtype" = "status"
-	 )
+	)
 
 	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/outlet_injector/atmos_init()
 	..()
@@ -122,7 +123,7 @@
 		on = !on
 
 	if(signal.data["inject"] != null)
-		spawn inject()
+		INVOKE_ASYNC(src, PROC_REF(inject))
 		return
 
 	if(signal.data["set_volume_rate"] != null)
@@ -130,14 +131,12 @@
 		volume_rate = between(0, number, air_contents.volume)
 
 	if(signal.data["status"])
-		spawn(2)
-			broadcast_status()
+		addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
 		return //do not update_icon
 
 		//log_admin("DEBUG \[[world.timeofday]\]: outlet_injector/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
 		//return
-	spawn(2)
-		broadcast_status()
+	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
 	update_icon()
 
 	/*hide(var/i) //to make the little pipe section invisible, the icon changes.
@@ -151,10 +150,9 @@
 			on = 0
 		return*/
 
-
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
 
-/obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
+/obj/machinery/atmospherics/unary/outlet_injector/hide(i)
 	update_underlays()

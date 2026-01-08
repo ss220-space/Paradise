@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Get pull requests with required label and check for merge conflicts
         id: get_labeled_prs
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const label_needed = '${{ env.REQUIRED_LABEL }}';
@@ -57,20 +57,20 @@ jobs:
             core.setOutput('labeled_pr_details', prDetails);
 
       - name: Git checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
           ref: ${{ env.BASE_BRANCH }}
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11.6'
           cache: 'pip'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22.11.0
           cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
@@ -158,14 +158,14 @@ jobs:
             git config --local user.name "TGUI bundle Generation"
             git commit -m "Testmerge TGUI bundle build generation"
           fi
-          
+
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
 
           # Output the list of merged PRs
           echo "merged_prs=${MERGED_PRS[*]}" >> $GITHUB_OUTPUT
 
       - name: Comment on merged PRs
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |

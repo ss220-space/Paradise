@@ -1,3 +1,5 @@
+#define INVISIBILITY_NONE 0
+
 ///Default see in dark. See in dark sucks.
 #define DEFAULT_SEE_IN_DARK 1e6
 
@@ -44,7 +46,7 @@
 
 #define SILICONMESON 1
 #define SILICONTHERM 2
-#define SILICONXRAY  4
+#define SILICONXRAY 4
 #define SILICONNIGHTVISION 8
 
 #define SECHUD 1
@@ -52,14 +54,13 @@
 #define ANTAGHUD 3
 
 //for clothing visor toggles, these determine which vars to toggle
-#define VISOR_FLASHPROTECT		(1<<0)
-#define VISOR_TINT				(1<<1)
-#define VISOR_VISIONFLAGS		(1<<2) //all following flags only matter for glasses
-#define VISOR_DARKNESSVIEW		(1<<3)
-#define VISOR_INVISVIEW			(1<<4)
-#define VISOR_HUDTYPE			(1<<5)
-#define VISOR_EXAM_EXTENTIONS	(1<<6)
-
+#define VISOR_FLASHPROTECT (1<<0)
+#define VISOR_TINT (1<<1)
+#define VISOR_VISIONFLAGS (1<<2) //all following flags only matter for glasses
+#define VISOR_DARKNESSVIEW (1<<3)
+#define VISOR_INVISVIEW (1<<4)
+#define VISOR_HUDTYPE (1<<5)
+#define VISOR_EXAM_EXTENTIONS (1<<6)
 
 #define VISOR_FULL_HUD (VISOR_HUDTYPE|VISOR_EXAM_EXTENTIONS)
 

@@ -9,7 +9,6 @@
 	origin_tech = "biotech=2"
 	holder_flags = HUMAN_HOLDER
 
-
 /obj/item/holder/New()
 	..()
 	START_PROCESSING(SSobj, src)
@@ -20,7 +19,7 @@
 
 /obj/item/holder/process()
 
-	if(istype(loc,/turf) || !(contents.len))
+	if(istype(loc,/turf) || !(length(contents)))
 
 		for(var/mob/M in contents)
 
@@ -30,12 +29,10 @@
 
 		qdel(src)
 
-
 /obj/item/holder/attackby(obj/item/I, mob/user, params)
 	for(var/mob/living/animal in contents)
 		return animal.attackby(I, user, params)
 	return ..()
-
 
 /obj/item/holder/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user && ishuman(user))	//eating holder
@@ -44,7 +41,6 @@
 				qdel(src)
 				return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
@@ -75,12 +71,7 @@
 				return
 		M.status_flags &= ~PASSEMOTES
 
-
-//Mob procs and vars for scooping up
-/mob/living
-	var/holder_type = null
-
-/mob/living/simple_animal/MouseDrop(atom/over_object)
+/mob/living/simple_animal/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	var/mob/living/carbon/human_to_ask = over_object
 
 	if(!istype(human_to_ask))
@@ -102,9 +93,9 @@
 				if(Adjacent(human_to_ask))
 					pick_up_mob(human_to_ask)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+					to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
 			if("No")
-				to_chat(src, "<span class='warning'>[human_to_ask] decided not to pick you up.</span>")
+				to_chat(src, span_warning("[human_to_ask] decided not to pick you up."))
 	else
 		return ..()
 
@@ -124,7 +115,7 @@
 		H.desc = desc
 	H.attack_hand(grabber)
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
+	to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	switch(mob_size)
@@ -154,20 +145,19 @@
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4"
 
 /obj/item/holder/drone/emagged
-	name = "maintenance drone"
 	icon_state = "drone-emagged"
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4;syndicate=3"
 
 /obj/item/holder/cogscarab
 	name = "cogscarab"
 	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
-	icon_state = "drone_holder"
+	icon_state = "cogscarab"
 	origin_tech = "materials=3;magnets=4;powerstorage=9;bluespace=4"
 
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
-	icon_state = "pai"
+	icon_state = "pai-repairbot"
 	origin_tech = "materials=3;programming=4;engineering=4"
 
 /obj/item/holder/mouse
@@ -364,7 +354,7 @@
 	name = "pet"
 	desc = "It's a chicken"
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "chicken_brown"
+	icon_state = "chicken_red"
 	slot_flags = null
 
 /obj/item/holder/cock
@@ -423,7 +413,6 @@
 /obj/item/holder/possum/poppy
 	name = "poppy"
 	desc = "It's a possum Poppy. Ewwww..."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "possum_poppy"
 
 /obj/item/holder/frog

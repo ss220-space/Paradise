@@ -61,7 +61,7 @@ SUBSYSTEM_DEF(statpanels)
 		if(holder_check)
 			target.stat_panel.send_message("update_split_admin_tabs", !!(target.prefs.toggles2 & PREFTOGGLE_2_SPLIT_ADMIN_TABS))
 
-		if(holder_check && target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob))
+		if(holder_check && target.mob && check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, target.mob))
 
 			// Shows SDQL2 list
 			if(!length(GLOB.sdql2_queries) && ("SDQL2" in target.panel_tabs))
@@ -76,7 +76,6 @@ SUBSYSTEM_DEF(statpanels)
 
 				if(target.stat_tab == "MC" && ((num_fires % mc_wait == 0)))
 					set_MC_tab(target)
-
 
 		if(MC_TICK_CHECK)
 			return

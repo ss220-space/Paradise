@@ -65,6 +65,7 @@
 			our_mob.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
 			our_mob.AdjustParalysis(-2 SECONDS)
 			our_mob.AdjustWeakened(-2 SECONDS)
+			our_mob.AdjustKnockdown(-2 SECONDS)
 		if(20 to 40)
 			//Human only effects
 			if(ishuman(our_mob))
@@ -148,7 +149,7 @@
 		if(prob(50))
 			if(prob(25))
 				var/phrase = pick("Боль в спине убивает вас!", "Вы так устали...",
-					"Существование - это боль!", "Вы медленно умираешь...",
+					"Существование — это боль!", "Вы медленно умираешь...",
 					"Чёрт...", "У вас такие тонкие пальцы...")
 				to_chat(our_mob, span_warning(phrase))
 			mob_human.emote("moan")

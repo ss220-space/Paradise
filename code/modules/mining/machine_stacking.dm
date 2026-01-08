@@ -5,7 +5,6 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	desc = "Управляет упаковочной машиной... по крайней мере в теории."
-	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/machine = null
 	var/machinedir = SOUTHEAST
@@ -17,7 +16,7 @@
 		DATIVE = "консоли упаковочной машины",
 		ACCUSATIVE = "консоль упаковочной машины",
 		INSTRUMENTAL = "консолью упаковочной машины",
-		PREPOSITIONAL = "консоли упаковочной машины"
+		PREPOSITIONAL = "консоли упаковочной машины",
 	)
 
 /obj/machinery/mineral/stacking_unit_console/Initialize(mapload)
@@ -68,7 +67,6 @@
 
 /**********************Mineral stacking unit**************************/
 
-
 /obj/machinery/mineral/stacking_machine
 	name = "stacking machine"
 	icon = 'icons/obj/machines/mining_machines.dmi'
@@ -92,7 +90,7 @@
 		DATIVE = "упаковочной машине",
 		ACCUSATIVE = "упаковочную машину",
 		INSTRUMENTAL = "упаковочной машиной",
-		PREPOSITIONAL = "упаковочной машине"
+		PREPOSITIONAL = "упаковочной машине",
 	)
 
 /obj/machinery/mineral/stacking_machine/process()

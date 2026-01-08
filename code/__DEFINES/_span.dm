@@ -8,8 +8,6 @@
  * MARK: Without CSS
  * Are these chat selectors?
  */
-#define span_adminnotice(str) ("<span class='adminnotice'>" + str + "</span>")
-#define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 #define span_emojienabled(str) ("<span class='emoji_enabled'>" + str + "</span>")
 #define span_header(str) ("<span class='header'>" + str + "</span>")
 #define span_linkoff(str) ("<span class='linkOff'>" + str + "</span>")
@@ -20,23 +18,21 @@
 #define span_boldmessage(str) ("<span class='boldmessage'>" + str + "</span>")
 #define span_combatdanger(str) ("<span class='combat danger'>" + str + "</span>")
 #define span_combatuserdanger(str) ("<span class='combat userdanger'>" + str + "</span>")
-#define span_small(str) ("<span class='small'>" + str + "</span>")
 #define span_game_emote(str) ("<span class='game emote'>" + str + "</span>")
 #define span_vnimanie(str) ("<span class='ВНИМАНИЕ'>" + str + "</span>")
-#define span_holoparasite(str) ("<span class='holoparasite'>" + str + "</span>")
-#define span_hear(str) ("<span class='hear'>" + str + "</span>")
-#define span_greenannounce(str) ("<span class='greenannounce'>" + str + "</span>")
 #define span_caution(str) ("<span class='caution'>" + str + "</span>")
-#define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
-#define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
-#define span_announce(str) ("<span class='announce'>" + str + "</span>")
+#define span_typing(str) ("<span class='typing'>" + str + "</span>")
+#define span_value(str) ("<span class='value'>" + str + "</span>")
+#define span_body(str) ("<span class='body'>" + str + "</span>")
 
 /**
- * MARK: GENERAL STUFF
+ * MARK: General Stuff
  */
 #define span_italics(str) ("<span class='italic'>" + str + "</span>")
+#define span_emote(str) ("<span class='emote'>" + str + "</span>")
 #define span_bold(str) ("<span class='bold'>" + str + "</span>")
 #define span_bolditalics(str) ("<span class='bolditalics'>" + str + "</span>")
+#define span_small(str) ("<span class='small'>" + str + "</span>")
 #define span_big(str) ("<span class='big'>" + str + "</span>")
 #define span_bigbold(str) ("<span class='big bold'>" + str + "</span>")
 #define span_reallybig(str) ("<span class='reallybig'>" + str + "</span>")
@@ -100,9 +96,10 @@
 #define span_adminticket(str) ("<span class='adminticket'>" + str + "</span>")
 #define span_adminticketalt(str) ("<span class='adminticketalt'>" + str + "</span>")
 #define span_admin_channel(str) ("<span class='admin_channel'>" + str + "</span>")
+#define span_dev_channel(str) ("<span class='dev_channel'>" + str + "</span>")
+#define span_mentor_channel(str) ("<span class='mentor_channel'>" + str + "</span>")
 #define span_all_admin_ping(str) ("<span class='all_admin_ping'>" + str + "</span>")
 
-// MARK: Radio
 /**
  * MARK: Radio
  * TODO: Check and delete if it can be replaced.
@@ -118,6 +115,7 @@
 #define span_ghostalert(str) ("<span class='ghostalert'>" + str + "</span>")
 #define span_warning(str) ("<span class='warning'>" + str + "</span>")
 #define span_boldwarning(str) ("<span class='boldwarning'>" + str + "</span>")
+#define span_announce(str) ("<span class='announce'>" + str + "</span>")
 #define span_warningbig(str) ("<span class='warning big'>" + str + "</span>")
 #define span_danger(str) ("<span class='danger'>" + str + "</span>")
 #define span_bolddanger(str) ("<span class='bolddanger'>" + str + "</span>")
@@ -126,7 +124,17 @@
 #define span_disarm(str) ("<span class='disarm'>" + str + "</span>")
 #define span_notice(str) ("<span class='notice'>" + str + "</span>")
 #define span_boldnotice(str) ("<span class='boldnotice'>" + str + "</span>")
+#define span_hear(str) ("<span class='hear'>" + str + "</span>")
+#define span_adminnotice(str) ("<span class='adminnotice'>" + str + "</span>")
+#define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 #define span_suicide(str) ("<span class='suicide'>" + str + "</span>")
+
+/**
+ * MARK: Announcements
+ */
+#define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
+#define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
+#define span_greenannounce(str) ("<span class='greenannounce'>" + str + "</span>")
 
 /**
  * MARK: Antagonists
@@ -149,6 +157,7 @@
 #define span_mind_control(str) ("<span class='mind_control'>" + str + "</span>")
 #define span_his_grace(str) ("<span class='his_grace'>" + str + "</span>")
 #define span_shadowling(str) ("<span class='shadowling'>" + str + "</span>")
+#define span_holoparasite(str) ("<span class='holoparasite'>" + str + "</span>")
 
 /**
  * MARK: Cults
@@ -188,6 +197,18 @@
 #define span_vortex_anomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 
 /**
+ * MARK: Gases
+ */
+#define span_oxygen(str) ("<span class='oxygen'>" + str + "</span>")
+#define span_nitrogen(str) ("<span class='nitrogen'>" + str + "</span>")
+#define span_carbon_dioxide(str) ("<span class='carbon_dioxide'>" + str + "</span>")
+#define span_plasma(str) ("<span class='plasma'>" + str + "</span>")
+#define span_sleeping_agent(str) ("<span class='sleeping_agent'>" + str + "</span>")
+#define span_agent_b(str) ("<span class='agent_b'>" + str + "</span>")
+#define span_hydrogen(str) ("<span class='hydrogen'>" + str + "</span>")
+#define span_water_vapor(str) ("<span class='water_vapor'>" + str + "</span>")
+
+/**
  * MARK: Font sizes
  * Don't rename it. Each numbered span corresponds to the numbered font style.
  */
@@ -198,4 +219,3 @@
 #define span_fontsize5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
 #define span_fontsize6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
 #define span_fontsize7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
-

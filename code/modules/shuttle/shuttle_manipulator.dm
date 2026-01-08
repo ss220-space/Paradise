@@ -64,7 +64,6 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-
 /obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)
 	// Extremely important that this doesn't get varedited by mistake, otherwise horrible,
 	// horrible things can happen to the server.
@@ -73,9 +72,8 @@
 		return FALSE
 	return ..()
 
-
 /obj/machinery/shuttle_manipulator/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -147,7 +145,7 @@
 	if(..())
 		return
 	if(shuttle_and_preview_cooldown > world.time)
-		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
+		to_chat(usr, span_warning("Please wait until the desired shuttle has finished being loaded."))
 		return
 	. = TRUE
 
@@ -205,7 +203,6 @@
 					usr.forceMove(get_turf(mdp))
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
-
 
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
 	// Check for an existing preview
@@ -272,7 +269,7 @@
 
 /obj/machinery/shuttle_manipulator/proc/load_template(datum/map_template/shuttle/S)
 	// load shuttle template, centred at shuttle import landmark,
-	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import")) // e.g. /obj/effect/landmark/shuttle_import
+	var/turf/landmark_turf = get_turf(locate(/obj/effect/landmark/shuttle_import)) // e.g. /obj/effect/landmark/shuttle_import
 	S.load(landmark_turf, centered = TRUE)
 
 	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)

@@ -9,11 +9,10 @@
 
 	var/vision_flags = 0
 	var/see_in_dark = 0
-	var/see_invisible = 0
-	var/lighting_alpha
+	var/see_invisible = SEE_INVISIBLE_LIVING
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 	var/eye_colour = "#000000" // Should never be null
-	var/old_eye_colour = "#000000"
 	var/flash_protect = FLASH_PROTECTION_NONE
 	var/aug_message = "Your vision is augmented!"
 
@@ -54,9 +53,8 @@
 	else
 		owner.flash_eyes(3, visual = TRUE)
 
-
 /obj/item/organ/internal/cyberimp/eyes/meson
-	name = "Meson scanner implant"
+	name = "meson scanner implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
 	eye_colour = "#199900"
 	icon_state = "mesonhud_implant"
@@ -64,6 +62,14 @@
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	aug_message = "Suddenly, you realize how much of a mess the station really is..."
+
+/obj/item/organ/internal/cyberimp/eyes/meson/insert(mob/living/carbon/human/user_human, special = FALSE)
+	ADD_TRAIT(user_human, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
+
+/obj/item/organ/internal/cyberimp/eyes/meson/remove(mob/living/carbon/human/user_human, special = FALSE)
+	REMOVE_TRAIT(user_human, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
 
 /obj/item/organ/internal/cyberimp/eyes/xray
 	name = "X-ray implant"
@@ -101,13 +107,13 @@
 	. = ..()
 	if(HUDType)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.add_hud_to(M)
+		H.show_to(M)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(HUDType)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.remove_hud_from(M)
+		H.hide_from(M)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	name = "Medical HUD implant"

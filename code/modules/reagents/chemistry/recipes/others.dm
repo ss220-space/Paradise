@@ -17,7 +17,7 @@
 
 /datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
+	holder.my_atom.visible_message(span_warning("The solution spews out foam!"))
 
 	var/datum/effect_system/fluid_spread/foam/s = new()
 	s.set_up(amount = created_volume, location = location, carry = holder)
@@ -39,7 +39,6 @@
 	s.start()
 	holder.clear_reagents()
 
-
 /datum/chemical_reaction/metalfoam
 	name = "Metal Foam"
 	id = "metalfoam"
@@ -50,12 +49,11 @@
 /datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
-	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
+	holder.my_atom.visible_message(span_warning("The solution spews out a metalic foam!"))
 
 	var/datum/effect_system/fluid_spread/foam/metal/s = new()
 	s.set_up(amount = created_volume, location = location)
 	s.start()
-
 
 /datum/chemical_reaction/ironfoam
 	name = "Iron Foam"
@@ -67,7 +65,7 @@
 /datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
-	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
+	holder.my_atom.visible_message(span_warning("The solution spews out a metalic foam!"))
 
 	var/datum/effect_system/fluid_spread/foam/metal/iron/s = new()
 	s.set_up(amount = created_volume, location = location)
@@ -157,14 +155,12 @@
 	required_reagents = list("plasma" = 2, "ethanol" = 1, "sodium" = 1)
 	result_amount = 3
 
-
 /datum/chemical_reaction/steroids
 	name = "Стероиды"
 	id = "steroids"
 	result = "steroids"
 	required_reagents = list("protein" = 2, "oil" = 1, "ethanol" = 1)
 	result_amount = 3
-
 
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
@@ -189,7 +185,6 @@
 	required_reagents = list("fungus" = 1, "blood" = 1)
 	result_amount = 2
 	mix_message = "The substance turns thick and stiff, yet soft."
-
 
 /datum/chemical_reaction/oil
 	name = "Oil"
@@ -659,6 +654,26 @@
 	mix_message = "Water pools as the ice melts."
 	mix_sound = null
 
+/datum/chemical_reaction/water_vapor
+	name = "Water Evaporation"
+	id = "water_evaporation"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	min_temp = T100C
+	mix_message = "Вода стремительно испаряется."
+	mix_sound = null
+
+/datum/chemical_reaction/water_vapor/on_reaction(datum/reagents/holder, created_volume)
+	var/turf/location = get_turf(holder.my_atom)
+	if(!istype(location))
+		return
+
+	var/datum/gas_mixture/vapor = new()
+	vapor.set_water_vapor(created_volume)
+	vapor.set_temperature(T100C)
+	location.blind_release_air(vapor)
+
 /datum/chemical_reaction/virus_food
 	name = "Virus Food"
 	id = "virusfood"
@@ -725,7 +740,6 @@
 				D.Evolve(level_min, level_max)
 				return
 
-
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"
 	id = "mixvirus2"
@@ -787,7 +801,6 @@
 	id = "remvirus"
 	required_reagents = list("diphenhydramine" = 1)
 	required_catalysts = list("blood" = 1)
-	count_of_catalysts = 1
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
 	for(var/datum/reagent/R in holder.reagent_list)

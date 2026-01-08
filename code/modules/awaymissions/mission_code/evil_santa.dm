@@ -4,6 +4,7 @@
 	report_alerts = FALSE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
+	has_gravity = TRUE
 
 /area/vision_change_area/awaymission/evil_santa_storm
 	name = "Evil santa forest"
@@ -12,12 +13,13 @@
 	report_alerts = FALSE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
+	has_gravity = TRUE
 	ambientsounds = list(
 		'sound/ambience/spooky/haunting_ambience.ogg',
 		'sound/ambience/spooky/suspenseful_ambience.ogg',
 		'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
 		'sound/ambience/apathy.ogg',
-		)
+	)
 
 /area/vision_change_area/awaymission/evil_santa/spawn_s
 	name = "Evil santa spawn south"
@@ -26,6 +28,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_ne
 	name = "Evil santa spawn north east"
 	icon_state = "awaycontent2"
+
 /area/vision_change_area/awaymission/evil_santa/spawn_nw
 	name = "Evil santa spawn north west"
 	icon_state = "awaycontent3"
@@ -46,21 +49,21 @@
 	name = "Evil santa mines"
 	icon_state = "awaycontent7"
 	ambientsounds = list(
-				'sound/ambience/spooky/howled_4.ogg',\
-				'sound/ambience/spooky/psy_amb.ogg',\
-				'sound/ambience/spooky/rnd_ugrnd_amb_4.ogg',\
-				'sound/ambience/spooky/rnd_ugrnd_amb_5.ogg',\
-				'sound/ambience/spooky/ugrnd_ambient_banging_1.ogg',\
-				'sound/ambience/spooky/ugrnd_ambient_banging_2.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_3.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_4.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_5.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_6.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_7.ogg',\
-				'sound/ambience/spooky/ugrnd_lab_3.ogg',\
-				'sound/ambience/spooky/ugrnd_whispers_1.ogg',\
-				'sound/ambience/spooky/ugrnd_whispers_4.ogg'
-				)
+		'sound/ambience/spooky/howled_4.ogg',
+		'sound/ambience/spooky/psy_amb.ogg',
+		'sound/ambience/spooky/rnd_ugrnd_amb_4.ogg',
+		'sound/ambience/spooky/rnd_ugrnd_amb_5.ogg',
+		'sound/ambience/spooky/ugrnd_ambient_banging_1.ogg',
+		'sound/ambience/spooky/ugrnd_ambient_banging_2.ogg',
+		'sound/ambience/spooky/ugrnd_drip_3.ogg',
+		'sound/ambience/spooky/ugrnd_drip_4.ogg',
+		'sound/ambience/spooky/ugrnd_drip_5.ogg',
+		'sound/ambience/spooky/ugrnd_drip_6.ogg',
+		'sound/ambience/spooky/ugrnd_drip_7.ogg',
+		'sound/ambience/spooky/ugrnd_lab_3.ogg',
+		'sound/ambience/spooky/ugrnd_whispers_1.ogg',
+		'sound/ambience/spooky/ugrnd_whispers_4.ogg',
+	)
 
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l
 	name = "Evil santa left labyrinth"
@@ -84,7 +87,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/vision_change_area/awaymission/evil_santa/end/hall
 	name = "Evil santa hall"
@@ -105,10 +107,10 @@
 	name = "Evil santa forest labyrinth"
 	icon_state = "dark"
 	ambientsounds = list(
-			'sound/ambience/spooky/haunting_ambience.ogg',
-			'sound/ambience/spooky/suspenseful_ambience.ogg',
-			'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
-			)
+		'sound/ambience/spooky/haunting_ambience.ogg',
+		'sound/ambience/spooky/suspenseful_ambience.ogg',
+		'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
+	)
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/proc/set_ready()
 	cooldown = FALSE
@@ -153,7 +155,7 @@
 				naughty_guys |= naughty
 				RegisterSignal(naughty, COMSIG_MOB_DEATH, PROC_REF(ready_or_not))
 
-	if(naughty_guys.len > 0)
+	if(length(naughty_guys) > 0)
 		BlockBlastDoors()
 	else
 		UnlockBlastDoors()
@@ -199,7 +201,6 @@
 
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer
 	mob_type = /mob/living/carbon/human/lesser/monkey
-	death = TRUE
 	name = "Dead monkey shaftminer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet-monkey"
@@ -213,90 +214,42 @@
 	head = /obj/item/clothing/head/jester
 	l_pocket = /obj/item/grown/bananapeel
 
-/obj/item/a_gift/evil_santa_reward
-
-/obj/item/a_gift/evil_santa_reward/attack_self(mob/M as mob)
-	var/gift_type = pick(
-		/obj/item/storage/box/syndie_kit/mr_chang_technique,
-		/obj/item/documents/syndicate/yellow/trapped,
-		/obj/item/documents/nanotrasen,
-		/obj/item/documents/syndicate/mining,
-		/obj/item/paper/researchnotes,
-		/obj/item/melee/energy/sword/pirate,
-		/obj/item/stack/spacecash/c5000,
-		/obj/item/stack/spacecash/c1000,
-		/obj/item/storage/box/wizard/hardsuit,
-		/obj/item/storage/box/syndie_kit/hardsuit,
-		/obj/item/clothing/suit/space/hardsuit/champion/templar/premium,
-		/obj/item/clothing/suit/space/hardsuit/soviet,
-		/obj/item/clothing/suit/space/hardsuit/ancient,
-		/obj/item/clothing/suit/space/eva/pirate/leader,
-		/obj/item/clothing/head/helmet/space/eva/pirate/leader,
-		/obj/item/hardsuit_shield/syndi,
-		/obj/item/hardsuit_shield/wizard,
-		/obj/vehicle/ridden/speedbike/red,
-		/obj/vehicle/ridden/speedbike/red,
-		/obj/vehicle/ridden/speedbike,
-		/obj/vehicle/ridden/speedbike,
-		/obj/vehicle/ridden/motorcycle,
-		/obj/vehicle/ridden/motorcycle,
-		/obj/vehicle/ridden/snowmobile/blue/key,
-		/obj/vehicle/ridden/snowmobile/key,
-		/obj/vehicle/ridden/car,
-		/obj/item/dnainjector/insulation,
-		/obj/item/dnainjector/nobreath,
-		/obj/item/dnainjector/runfast,
-		/obj/item/dnainjector/hulkmut,
-		/obj/item/dnainjector/morph,
-		/obj/item/dnainjector/xraymut,
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti,
-		/obj/item/toy/plushie/pig,
-		/obj/item/toy/plushie/pig,
-		/obj/item/toy/plushie/pig,
-		/obj/item/toy/xmas_cracker,
-		/obj/item/toy/xmas_cracker,
-		/obj/item/toy/pet_rock/naughty_coal,
-		/obj/item/reagent_containers/food/snacks/sugar_coal,
-		)
-
-	if(!ispath(gift_type,/obj/item))	return
-
-	var/obj/item/I = new gift_type(M)
-	M.temporarily_remove_item_from_inventory(src, force = TRUE)
-	M.put_in_hands(I)
-	I.add_fingerprint(M)
-	qdel(src)
-	return
-
 /obj/effect/spawner/lootdrop/evil_santa_gift
 	name = "evil santa reward gift spawner 1 to 3"
 	icon_state = "evil_santa_gift"
 	lootdoubles = FALSE
 
 	loot = list(
-				/obj/item/a_gift/evil_santa_reward = 33,
-				/obj/item/a_gift = 67,
-				)
+		/obj/item/gift/evil_santa_reward = 28,
+		/obj/item/gift = 57,
+		/obj/item/gift/santa_special = 15,
+	)
+
+/obj/effect/spawner/lootdrop/evil_santa_gift/xmas_tree
+	loot = list(
+		/obj/item/gift/evil_santa_reward = 18,
+		/obj/item/gift = 77,
+		/obj/item/gift/santa_special = 5,
+	)
 
 /obj/item/paper/journal_scrap_1
 	name = "Журнал неизвестного, страница 1"
 	info = "И снова уголёк...<br> \
-			Каждый год, как наступает этот дурацкий праздник - я обнаруживаю вместо подарка УГОЛЬ!.<br> \
+			Каждый год, как наступает этот дурацкий праздник — я обнаруживаю вместо подарка УГОЛЬ!.<br> \
 			Но не в этот раз. Хватит с меня. В этом году всё будет по другому. Клянусь, я найду этого старикашку.<br> \
 			И он отдаст мне ВСЕ подарки, если, конечно, он хочет жить долго и продолжать наслаждаться своим печеньем с молоком."
 
 /obj/item/paper/journal_scrap_2
 	name = "Журнал неизвестного, страница 9"
 	info = "Свереный полюс... Все думали, что это всего лишь легенда, но он на самом деле живет здесь!<br> \
-			А вот эльфы и сказочная деревушка - полная брехня. Не знаю, где он собирает все эти игрушки, но я обязательно выясню.<br> \
+			А вот эльфы и сказочная деревушка — полная брехня. Не знаю, где он собирает все эти игрушки, но я обязательно выясню.<br> \
 			Не так уж и много интересного тут на полюсе: снег, лес, да пара иглу; но в центре леса что то есть... Уверен он прячется там!.<br> \
 			К слову, здесь очень приятный и липкий снег. Сегодня слепил снеговика."
 
 /obj/item/paper/journal_scrap_3
 	name = "Журнал неизвестного, страница 25"
 	info = "Ох чёрт... Это хреново...<br> \
-			Даже такой закаленный боец синдиката, как я, еле убежал от него. Едва не откинул концы...<br> \
+			Даже такой закаленный боец \"Синдиката\", как я, еле убежал от него. Едва не откинул концы...<br> \
 			Он ждал меня... Он знал, что я приду. Он был готов.<br> \
 			Едвали смогу выбраться. Оружие бы мне помогло, если бы я не решил его оставить...<br> \
 			Я застрял в его шахте, надеюсь сигнал дойдет до базы и помощь придет... <br> \

@@ -1,11 +1,5 @@
 #define AIRLOCK_CONTROL_RANGE 22
 
-// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
-/obj/machinery/door/airlock
-	var/id_tag
-	var/shockedby = list()
-	var/cur_command = null	//the command the door is currently attempting to complete
-
 /obj/machinery/door/airlock/process()
 	if(arePowerSystemsOn() && cur_command)
 		execute_current_command()
@@ -122,7 +116,6 @@
 		if(density && radio_connection && mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)))
 			send_status(1)
 
-
 /obj/machinery/door/airlock/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	if(new_frequency)
@@ -168,8 +161,10 @@
 
 /obj/machinery/airlock_sensor/process()
 	if(on)
-		var/datum/gas_mixture/air_sample = return_air()
-		var/pressure = round(air_sample.return_pressure(),0.1)
+		var/turf/location = get_turf(src)
+
+		var/datum/gas_mixture/air_sample = location.get_readonly_air()
+		var/pressure = round(air_sample.return_pressure(), 0.1)
 
 		if(abs(pressure - previousPressure) > 0.001 || previousPressure == null)
 			var/datum/signal/signal = new
@@ -237,7 +232,6 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -248,7 +242,6 @@
 		return ATTACK_CHAIN_BLOCKED
 
 	return ..()
-
 
 /obj/machinery/access_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -292,3 +285,5 @@
 /obj/machinery/access_button/airlock_exterior
 	frequency = 1379
 	command = "cycle_exterior"
+
+#undef AIRLOCK_CONTROL_RANGE

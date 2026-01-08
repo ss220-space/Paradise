@@ -46,7 +46,7 @@
 /// APC power channel setting on.
 #define CHANNEL_SETTING_ON 2   //on
 /// APC user setting.
-#define CHANNEL_SETTING_AUTO_ON  3 //auto
+#define CHANNEL_SETTING_AUTO_ON 3 //auto
 
 //open states
 #define APC_CLOSED 0
@@ -64,7 +64,6 @@
 #define APC_ELECTRONICS_INSTALLED 1
 #define APC_ELECTRONICS_SECURED 2
 
-
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
 
@@ -72,16 +71,12 @@
 // may be opened to change power cell
 // three different channels (lighting/equipment/environ) - may each be set to on, off, or auto
 
-
 //NOTE: STUFF STOLEN FROM AIRLOCK.DM thx
-
 
 /obj/machinery/power/apc
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
 	icon_state = "apc0"
-	use_power = NO_POWER_USE
-	max_integrity = 200
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	req_access = list(ACCESS_ENGINE_EQUIP)
@@ -96,7 +91,7 @@
 	var/areastring
 	/// The power terminal connected to this APC
 	var/obj/machinery/power/terminal/terminal
-	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or recieving power
+	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or receiving power
 	var/main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 
 	/// Amount of power used in the last cycle for lighting channel
@@ -122,7 +117,7 @@
 	/*** APC Status Vars ***/
 	/// The wire panel associated with this APC
 	var/datum/wires/apc/wires
-	/// Can the APC recieve/transmit power? Determined by the condition of the 2 Main Power Wires
+	/// Can the APC receive/transmit power? Determined by the condition of the 2 Main Power Wires
 	var/shorted = FALSE
 	/// Is the APC on and transmitting power.
 	var/operating = TRUE
@@ -150,7 +145,7 @@
 	var/locked = TRUE
 	/// If TRUE, the APC will automatically draw power from connect terminal, if FALSE it will not charge.
 	var/chargemode = TRUE
-	/// Counter var, ticks up when the APC recieves power from terminal and resets to 0 when not charging, used for the `var/charging` var
+	/// Counter var, ticks up when the APC receives power from terminal and resets to 0 when not charging, used for the `var/charging` var
 	var/chargecount = 0
 	/// Whether this APC will generate alert reports based on current status.
 	var/report_power_alarm = TRUE
@@ -195,7 +190,6 @@
 	var/global/list/status_overlays_environ
 	var/keep_preset_name = FALSE
 
-
 /obj/machinery/power/apc/worn_out
 	name = "Worn out APC"
 	keep_preset_name = TRUE
@@ -223,7 +217,6 @@
 	item_state = "electronic"
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'
-	toolspeed = 1
 
 /obj/machinery/power/apc/get_cell()
 	return cell
@@ -311,7 +304,6 @@
 
 	cog = null // Or you can't put it in
 
-
 	update_icon()
 
 	make_terminal()
@@ -322,28 +314,27 @@
 	. = ..()
 	if(in_range(user, src))
 		if(stat & BROKEN)
-			. += "<span class='warning'>Looks broken</span>"
+			. += span_warning("Looks broken")
 		else if(opened)
 			if(has_electronics() && terminal)
-				. += "<span class='notice'>The cover is [opened == APC_COVER_OFF ?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"].</span>"
+				. += span_notice("The cover is [opened == APC_COVER_OFF ?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"].")
 			else if(!has_electronics() && terminal)
-				. += "<span class='notice'>There are some wires but no electronics.</span>"
+				. += span_notice("There are some wires but no electronics.")
 			else if(has_electronics() && !terminal)
-				. += "<span class='notice'>Electronics installed but not wired.</span>"
+				. += span_notice("Electronics installed but not wired.")
 			else /* if(!has_electronics && !terminal) */
-				. += "<span class='notice'>There are no electronics nor connected wires.</span>"
+				. += span_notice("There are no electronics nor connected wires.")
 			if(user.Adjacent(src) && cog)
-				. += "<span class='warning'>[src]'s innards have been replaced by strange brass machinery!</span>"
+				. += span_warning("[src]'s innards have been replaced by strange brass machinery!")
 		else
 			if(stat & MAINT)
-				. += "<span class='notice'>The cover is closed. Something wrong with it: it doesn't work.</span>"
+				. += span_notice("The cover is closed. Something wrong with it: it doesn't work.")
 			else if(malfhack)
-				. += "<span class='warning'>The cover is broken. It may be hard to force it open.</span>"
+				. += span_warning("The cover is broken. It may be hard to force it open.")
 			else
-				. += "<span class='notice'>The cover is closed.</span>"
+				. += span_notice("The cover is closed.")
 	if(cog && isclocker(user))
-		. += "<span class='clock'>There is an integration cog installed!</span>"
-
+		. += span_clock("There is an integration cog installed!")
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
@@ -420,7 +411,6 @@
 	if(force_update || (update & 2))
 		..(UPDATE_OVERLAYS)
 
-
 /obj/machinery/power/apc/update_icon_state()
 	if(update_state & UPSTATE_ALLGOOD)
 		icon_state = "apc0"
@@ -439,7 +429,6 @@
 		icon_state = "apcemag"
 	else if(update_state & UPSTATE_WIREEXP)
 		icon_state = "apcewires"
-
 
 /obj/machinery/power/apc/update_overlays()
 	. = ..()
@@ -471,7 +460,6 @@
 	underlays += emissive_appearance(icon, statover_equip.icon_state, src)
 	underlays += emissive_appearance(icon, statover_light.icon_state, src)
 	underlays += emissive_appearance(icon, statover_envir.icon_state, src)
-
 
 /obj/machinery/power/apc/proc/check_updates()
 
@@ -539,7 +527,6 @@
 		results += 2
 	return results
 
-
 // Used in process so it doesn't update the icon too much
 /obj/machinery/power/apc/proc/queue_icon_update()
 
@@ -548,11 +535,9 @@
 		// Start the update
 		addtimer(CALLBACK(src, PROC_REF(queue_icon_callback)), APC_UPDATE_ICON_COOLDOWN)
 
-
 /obj/machinery/power/apc/proc/queue_icon_callback()
 	update_icon()
 	updating_icon = FALSE
-
 
 /obj/machinery/power/apc/flicker(second_pass = FALSE)
 	if(opened || panel_open)
@@ -573,7 +558,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 1 SECONDS)
 
 	return TRUE
-
 
 /obj/machinery/power/apc/attackby(obj/item/I, mob/living/user, params)
 	if(issilicon(user) && get_dist(src, user) > 1)
@@ -805,13 +789,11 @@
 	togglelock(H)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
 	if(!can_use(user) || is_locked(user))
 		return
 	toggle_breaker(user)
-
 
 /obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -820,44 +802,44 @@
 	if(opened) // a) on open apc
 		if(electronics_state == APC_ELECTRONICS_INSTALLED)
 			if(terminal)
-				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
+				to_chat(user, span_warning("Disconnect the wires first!"))
 				return
-			to_chat(user, "<span class='notice'>You are trying to remove the power control board...</span>" )
+			to_chat(user, span_notice("You are trying to remove the power control board...") )
 			if(I.use_tool(src, user, 50, volume = I.tool_volume))
 				if(has_electronics())
 					electronics_state = APC_ELECTRONICS_NONE
 					if(stat & BROKEN)
 						user.visible_message(\
 							"[user.name] has broken the power control board inside [name]!",
-							"<span class='notice'>You break the charred power control board and remove the remains.</span>",
-							"<span class='italics'>You hear a crack.</span>")
+							span_notice("You break the charred power control board and remove the remains."),
+							span_italics("You hear a crack."))
 						return
 						//SSticker.mode:apcs-- //XSI said no and I agreed. -rastaf0
 					else if(emagged) // We emag board, not APC's frame
 						emagged = FALSE
 						user.visible_message(
 							"[user.name] has discarded the shorted power control board from [name]!",
-							"<span class='notice'>You discarded the shorted board.</span>")
+							span_notice("You discarded the shorted board."))
 						return
 					else if(malfhack) // AI hacks board, not APC's frame
 						user.visible_message(\
 							"[user.name] has discarded strangely the programmed power control board from [name]!",
-							"<span class='notice'>You discarded the strangely programmed board.</span>")
+							span_notice("You discarded the strangely programmed board."))
 						malfai = null
 						malfhack = 0
 						return
 					else
 						user.visible_message(\
 							"[user.name] has removed the power control board from [name]!",
-							"<span class='notice'>You remove the power control board.</span>")
+							span_notice("You remove the power control board."))
 						new /obj/item/apc_electronics(loc)
 						return
 		else if(cog)
 			user.visible_message("[user] starts prying [cog] from [src].", \
-			"<span class='notice'>You painstakingly start tearing [cog] out of [src]'s guts...</span>")
+			span_notice("You painstakingly start tearing [cog] out of [src]'s guts..."))
 			if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 				user.visible_message("[user] destroys [cog] in [src]!", \
-				"<span class='notice'>[cog] comes free with a clank and snaps in two as the machinery returns to normal!</span>")
+				span_notice("[cog] comes free with a clank and snaps in two as the machinery returns to normal!"))
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 				QDEL_NULL(cog)
 			return
@@ -868,10 +850,10 @@
 			return
 	else if(!(stat & BROKEN)) // b) on closed and not broken APC
 		if(coverlocked && !(stat & MAINT)) // locked...
-			to_chat(user, "<span class='warning'>The cover is locked and cannot be opened!</span>")
+			to_chat(user, span_warning("The cover is locked and cannot be opened!"))
 			return
 		else if(panel_open) // wires are exposed
-			to_chat(user, "<span class='warning'>Exposed wires prevents you from opening it!</span>")
+			to_chat(user, span_warning("Exposed wires prevents you from opening it!"))
 			return
 		else
 			opened = APC_OPENED
@@ -889,28 +871,27 @@
 		return
 	else if(opened)
 		if(cell && !(stat & MAINT))
-			to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
+			to_chat(user, span_warning("Close the APC first!")) //Less hints more mystery!
 			return
 		else
 			if(electronics_state == APC_ELECTRONICS_INSTALLED)
 				electronics_state = APC_ELECTRONICS_SECURED
 				stat &= ~MAINT
-				to_chat(user, "<span class='notice'>You screw the circuit electronics into place.</span>")
+				to_chat(user, span_notice("You screw the circuit electronics into place."))
 			else if(electronics_state == APC_ELECTRONICS_SECURED)
 				electronics_state = APC_ELECTRONICS_INSTALLED
 				stat |= MAINT
-				to_chat(user, "<span class='notice'>You unfasten the electronics.</span>")
+				to_chat(user, span_notice("You unfasten the electronics."))
 			else
-				to_chat(user, "<span class='warning'>There is nothing to secure!</span>")
+				to_chat(user, span_warning("There is nothing to secure!"))
 				return
 			update_icon()
 	else if(emagged)
-		to_chat(user, "<span class='warning'>The interface is broken!</span>")
+		to_chat(user, span_warning("The interface is broken!"))
 	else
 		panel_open = !panel_open
 		to_chat(user, "The wires have been [panel_open ? "exposed" : "unexposed"]")
 		update_icon()
-
 
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -927,7 +908,6 @@
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)
-
 
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(emagged)
@@ -950,7 +930,6 @@
 	update_icon()
 	return TRUE
 
-
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)
 		return damage_amount
@@ -960,10 +939,8 @@
 	if(!(obj_flags & NODECONSTRUCT))
 		set_broken()
 
-
 /obj/machinery/power/apc/proc/has_electronics()
 	return electronics_state != APC_ELECTRONICS_NONE
-
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -972,7 +949,7 @@
 		if(opened != APC_COVER_OFF)
 			opened = APC_COVER_OFF
 			coverlocked = FALSE
-			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
+			visible_message(span_warning("The APC cover is knocked down!"))
 			update_icon()
 
 /obj/machinery/power/apc/welder_act(mob/user, obj/item/I)
@@ -987,12 +964,12 @@
 			new /obj/item/stack/sheet/metal(loc)
 			user.visible_message(\
 				"[user.name] has cut [src] apart with [I].",\
-				"<span class='notice'>You disassembled the broken APC frame.</span>")
+				span_notice("You disassembled the broken APC frame."))
 		else
 			new /obj/item/mounted/frame/apc_frame(loc)
 			user.visible_message(\
 				"[user.name] has cut [src] from the wall with [I].",\
-				"<span class='notice'>You cut the APC frame from the wall.</span>")
+				span_notice("You cut the APC frame from the wall."))
 		qdel(src)
 
 /obj/machinery/power/apc/emag_act(mob/user)
@@ -1024,7 +1001,10 @@
 
 	if(usr == user && opened && (!issilicon(user) || istype(user.get_active_hand(), /obj/item/gripper)))
 		if(cell)
-			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
+			user.visible_message(
+				span_warning("[user.name] removes [cell] from [src]!"),
+				span_warning("You remove the [cell].")
+			)
 			cell.forceMove_turf()
 			user.put_in_hands(cell, ignore_anim = FALSE)
 			cell.add_fingerprint(user)
@@ -1054,7 +1034,6 @@
 		wires.Interact(user)
 
 	return ui_interact(user)
-
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
 	if(!istype(malf))
@@ -1135,13 +1114,12 @@
 
 /obj/machinery/power/apc/ui_status(mob/user, datum/ui_state/state)
 	if(aidisabled && (isAI(user) || isrobot(user)))
-		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
 		return UI_CLOSE
 	. = ..()
 
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment_channel]/[lighting_channel]/[environment_channel] ([last_used_equipment+last_used_lighting+last_used_environment]) : [cell? cell.percent() : "N/C"] ([charging])"
-
 
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted)
@@ -1162,12 +1140,10 @@
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	area.power_change()
 
-
 /obj/machinery/power/apc/proc/turn_emergency_power_off()
 	emergency_power = FALSE
 	for(var/obj/machinery/light as anything in area.lights_cache)
 		INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
-
 
 /obj/machinery/power/apc/proc/can_use(mob/user) //used by attack_hand() and Topic()
 	if(stat & BROKEN)
@@ -1231,13 +1207,13 @@
 		if("lock")
 			if(usr.has_unlimited_silicon_privilege)
 				if(emagged || stat & BROKEN)
-					to_chat(usr, "<span class='warning'>The APC does not respond to the command!</span>")
+					to_chat(usr, span_warning("The APC does not respond to the command!"))
 					return FALSE
 				else
 					locked = !locked
 					update_icon()
 			else
-				to_chat(usr, "<span class='warning'>Access Denied!</span>")
+				to_chat(usr, span_warning("Access Denied!"))
 				return FALSE
 		if("cover")
 			coverlocked = !coverlocked
@@ -1245,7 +1221,7 @@
 			toggle_breaker(usr)
 		if("toggle_nightshift")
 			if(last_nightshift_switch > world.time + 100) // don't spam...
-				to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
+				to_chat(usr, span_warning("[src]'s night lighting circuit breaker is still cycling!"))
 				return FALSE
 			last_nightshift_switch = world.time
 			set_nightshift(!nightshift_lights)
@@ -1282,7 +1258,6 @@
 				INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 				CHECK_TICK
 
-
 /obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	operating = !operating
 	update()
@@ -1307,10 +1282,10 @@
 	if(!istype(malf))
 		return
 	if(isapc(malf.loc)) // Already in an APC
-		to_chat(malf, "<span class='warning'>You must evacuate your current APC first!</span>")
+		to_chat(malf, span_warning("You must evacuate your current APC first!"))
 		return
 	if(!malf.can_shunt)
-		to_chat(malf, "<span class='warning'>You cannot shunt!</span>")
+		to_chat(malf, span_warning("You cannot shunt!"))
 		return
 	if(!is_station_level(z))
 		return
@@ -1349,7 +1324,7 @@
 					if((A.stat != DEAD) && A.nuking)
 						point.the_disk = A //The pinpointer tracks the AI back into its core.
 	else
-		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
+		to_chat(occupier, span_danger("Primary core damaged, unable to return core processes."))
 		if(forced)
 			occupier.loc = loc
 			ASYNC
@@ -1374,8 +1349,7 @@
 				smoke.start()
 				do_sparks(3, TRUE, src)
 				for(var/mob/M in viewers(src))
-					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
-
+					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, span_danger("You hear sizzling electronics."), 2)
 
 /obj/machinery/power/apc/surplus()
 	if(terminal)
@@ -1384,7 +1358,7 @@
 		return 0
 
 /obj/machinery/power/apc/add_load(amount)
-	if(terminal && terminal.powernet)
+	if(terminal?.powernet)
 		terminal.add_load(amount)
 
 /obj/machinery/power/apc/avail()
@@ -1436,7 +1410,6 @@
 										// by the same amount just used
 			cell.give(cellused)
 			add_load(cellused/GLOB.CELLRATE)		// add the load used to recharge the cell
-
 
 		else		// no excess, and not enough per-apc
 			if((cell.charge/GLOB.CELLRATE + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
@@ -1520,7 +1493,6 @@
 
 	handle_flicker()
 
-
 /obj/machinery/power/apc/proc/handle_autoflag()
 	if(cell.charge >= 1250 || longtermpower > 0)	// Put most likely at the top so we don't check it last, efficiency 101
 		if(autoflag != APC_AUTOFLAG_ALL_ON)
@@ -1559,7 +1531,6 @@
 				area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_ALL_OFF
 
-
 /// Handles APC arc'ing every APC process interval
 /obj/machinery/power/apc/proc/handle_shock_chance(excess = 0)
 	if(excess < 2500000)
@@ -1575,10 +1546,9 @@
 			shock_mobs += victim
 		var/mob/living/victim = safepick(shock_mobs)	//We only want to shock a single random mob in range, not every one.
 		if(victim)
-			victim.electrocute_act(rand(5, 25), "электрической дуги")
+			victim.electrocute_act(rand(5, 25), src)
 			playsound(get_turf(victim), 'sound/effects/eleczap.ogg', 75, TRUE)
 			Beam(victim, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
-
 
 /obj/machinery/power/apc/proc/handle_flicker()
 	if(prob(MACHINE_FLICKER_CHANCE))
@@ -1588,7 +1558,6 @@
 	if(prob(MACHINE_FLICKER_CHANCE) * 3)
 		var/obj/machinery/light/picked_light = safepick(area.lights_cache)
 		picked_light?.flicker()
-
 
 /obj/machinery/power/apc/proc/autoset(current_setting, new_setting)
 	switch(new_setting)
@@ -1608,7 +1577,6 @@
 
 	return current_setting	//if setting is not changed, just keep current setting
 
-
 // damage and destruction acts
 
 /obj/machinery/power/apc/emp_act(severity)
@@ -1624,13 +1592,11 @@
 	addtimer(CALLBACK(src, PROC_REF(emp_callback)), 60 SECONDS)
 	..()
 
-
 /obj/machinery/power/apc/proc/emp_callback()
 	equipment_channel = CHANNEL_SETTING_AUTO_ON
 	environment_channel = CHANNEL_SETTING_AUTO_ON
 	update_icon()
 	update()
-
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
@@ -1733,6 +1699,42 @@
 			channel_type = environment_channel
 
 	return channel_type == CHANNEL_SETTING_ON
+
+/// Repairs all wires, enables all breakers, and unshorts the APC
+/obj/machinery/power/apc/proc/repair_apc()
+	if(wires)
+		wires.repair()
+
+	if(!operating)
+		toggle_breaker()
+
+	if(!shorted)
+		return
+
+	shorted = FALSE
+
+/// If the APC has a cell, recharge it
+/obj/machinery/power/apc/proc/recharge_apc()
+	var/obj/item/stock_parts/cell/cell = get_cell()
+	if(!cell)
+		return
+
+	cell.charge = cell.maxcharge
+
+/obj/machinery/power/apc/proc/apc_short()
+	// if it has internal wires, cut the power wires
+	if(wires)
+		if(!wires.is_cut(WIRE_MAIN_POWER1))
+			wires.cut(WIRE_MAIN_POWER1)
+		if(!wires.is_cut(WIRE_MAIN_POWER2))
+			wires.cut(WIRE_MAIN_POWER2)
+	// if it was operating, toggle off the breaker
+	if(operating)
+		toggle_breaker()
+	// no matter what, ensure the area knows something happened to the power
+	var/area/apc_area = get_area(src)
+	if(apc_area)
+		apc_area.power_change()
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1

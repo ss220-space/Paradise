@@ -12,7 +12,7 @@
 	infra_luminosity = 3
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	wreckage = /obj/structure/mecha_wreckage/marauder
-	add_req_access = FALSE
+	id_lock_on = FALSE
 	internal_damage_threshold = 25
 	force = 45
 	max_equip = 5
@@ -34,8 +34,8 @@
 	smoke_action.Remove(user)
 	zoom_action.Remove(user)
 
-/obj/mecha/combat/marauder/loaded/New()
-	..()
+/obj/mecha/combat/marauder/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
@@ -63,10 +63,10 @@
 	force = 80
 	max_equip = 8
 
-/obj/mecha/combat/marauder/seraph/loaded/New()
-	..()//Let it equip whatever is needed.
+/obj/mecha/combat/marauder/seraph/loaded/Initialize(mapload)
+	. = ..()//Let it equip whatever is needed.
 	var/obj/item/mecha_parts/mecha_equipment/ME
-	if(equipment.len)//Now to remove it and equip anew.
+	if(length(equipment))//Now to remove it and equip anew.
 		for(ME in equipment)
 			equipment -= ME
 			qdel(ME)
@@ -83,7 +83,6 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
 
-
 /obj/mecha/combat/marauder/mauler
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
 	name = "Mauler"
@@ -92,9 +91,10 @@
 	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
+	ui_theme = "syndicate"
 
-/obj/mecha/combat/marauder/mauler/loaded/New()
-	..()
+/obj/mecha/combat/marauder/mauler/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src)

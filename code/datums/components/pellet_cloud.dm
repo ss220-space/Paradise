@@ -53,7 +53,6 @@
 	/// for if we're an ammo casing being fired
 	var/mob/living/shooter
 
-
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/projectile/shrapnel, magnitude=5)
 	if(!isammocasing(parent) && !isgrenade(parent) && !issupplypod(parent) && !ismortarcasing(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -68,7 +67,6 @@
 		num_pellets = magnitude
 	else if(isgrenade(parent) || issupplypod(parent) || ismortarcasing(parent))
 		radius = magnitude
-
 
 /datum/component/pellet_cloud/Destroy(force)
 	purple_hearts = null
@@ -123,7 +121,7 @@
 		shell.BB.damage = original_damage
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(fired_from)
-		if (!istype(target_loc) || !istype(current_loc) || !(shell.BB))
+		if(!istype(target_loc) || !istype(current_loc) || !(shell.BB))
 			return
 		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, target_loc, shooter, params, spread, fired_from)
 
@@ -152,7 +150,7 @@
 		return
 
 	var/list/all_the_turfs_were_gonna_lacerate = RANGE_TURFS(radius, A) - RANGE_TURFS(radius-1, A)
-	num_pellets = all_the_turfs_were_gonna_lacerate.len + pellet_delta
+	num_pellets = length(all_the_turfs_were_gonna_lacerate) + pellet_delta
 
 	for(var/T in all_the_turfs_were_gonna_lacerate)
 		INVOKE_ASYNC(src, PROC_REF(pew), T)
@@ -255,7 +253,7 @@
 	P.firer_source_atom  = parent
 	P.firer = parent // don't hit ourself that would be really annoying
 	P.suppressed = TRUE// set the projectiles to make no message so we can do our own aggregate message
-	P.preparePixelProjectile(target, target, parent)
+	P.preparePixelProjectile(target, parent)
 	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
 	RegisterSignal(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
 	pellets += P
@@ -263,6 +261,9 @@
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
 /datum/component/pellet_cloud/proc/finalize()
+	for(var/mob/living/martyr as anything in purple_hearts)
+		if(martyr.stat == DEAD && martyr.client)
+			martyr.client.give_award(/datum/award/achievement/misc/lookoutsir, martyr)
 	UnregisterSignal(parent, COMSIG_PREQDELETED)
 	if(queued_delete)
 		qdel(parent)
@@ -321,7 +322,6 @@
 	targets_hit -= target
 	LAZYREMOVE(bodies, target)
 	LAZYREMOVE(purple_hearts, target)
-
 
 #undef CLOUD_POSITION_DAMAGE
 #undef CLOUD_POSITION_W_BONUS

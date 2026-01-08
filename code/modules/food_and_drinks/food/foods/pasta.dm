@@ -25,7 +25,6 @@
 	tastes = list("raw pasta" = 1)
 	foodtype = GRAIN
 
-
 //////////////////////
 //	Pasta Dishes	//
 //////////////////////
@@ -78,7 +77,6 @@
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 2)
 	foodtype = GRAIN | MEAT
 
-
 /obj/item/reagent_containers/food/snacks/macncheese
 	name = "mac 'n' cheese"
 	desc = "One of the most comforting foods in the world. Apparently."
@@ -121,5 +119,4 @@
 	trash = /obj/item/trash/snack_bowl
 	list_reagents = list("nutriment" = 3, "protein" = 5, "plantmatter" = 3)
 	tastes = list("pasta" = 1, "cabage" = 1, "meat" = 2)
-	bitesize = 2
 	foodtype = GRAIN | VEGETABLES | MEAT

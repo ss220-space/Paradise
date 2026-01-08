@@ -10,7 +10,6 @@
 	density = FALSE
 	stat = DEAD
 
-
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(flags & INITIALIZED)
@@ -34,12 +33,11 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	if(!(SSticker && SSticker.current_state == GAME_STATE_PREGAME && check_rights(R_ADMIN, 0, src)))
+	if(!(SSticker && SSticker.current_state == GAME_STATE_PREGAME && check_rights(R_ADMIN, FALSE, src)))
 		return .
 	status_tab_data[++status_tab_data.len] = list("Список игроков:", "")
 	for(var/mob/new_player/player in GLOB.player_list)
 		status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Готов)" : "(Не готов)")
-
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)
@@ -130,11 +128,11 @@
 		handle_player_polling()
 
 	if(href_list["viewpoll"])
-		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.active_polls
+		var/datum/poll_question/poll = locateUID(href_list["viewpoll"])
 		poll_player(poll)
 
 	if(href_list["votepollref"])
-		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.active_polls
+		var/datum/poll_question/poll = locateUID(href_list["votepollref"])
 		vote_on_poll_handler(poll, href_list)
 
 	if(href_list["refresh"])
@@ -166,13 +164,11 @@
 			// stop_sound_channel(CHANNEL_LOBBYMUSIC)
 			client?.tgui_panel?.stop_music()
 
-
 			observer.started_as_observer = 1
 			close_spawn_windows()
-			var/obj/O = locate("landmark*Observer-Start")
+			var/obj/O = locate(/obj/effect/landmark/observer_start)
 			to_chat(src, span_notice("Телепортация."))
 			observer.abstract_move(get_turf(O))
-			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
 			observer.icon = client.prefs.preview_icon
 			observer.alpha = 127
@@ -181,9 +177,10 @@
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 			observer.real_name = client.prefs.real_name
 			observer.name = observer.real_name
-			observer.key = key
+			observer.possess_by_player(key)
+			observer.persistent_client.time_of_death = world.time
 			QDEL_NULL(mind)
-			if (CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
+			if(CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
 			qdel(src)
 			return 1
 
@@ -220,7 +217,8 @@
 				to_chat(usr, span_danger("К сожалению, выбранный вами голос персонажа больше не доступен на вашем текущем уровне подписки."))
 				client.prefs.ShowChoices(src)
 				return FALSE
-
+		if(SSticker?.mode?.late_join(src))
+			return
 		LateChoices()
 
 	if(href_list["manifest"])
@@ -259,11 +257,24 @@
 			client.prefs.process_link(src, href_list)
 
 	if(href_list["change_picture"])
-		client.admin_change_title_screen()
+		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/admin_change_title_screen)
 		return
 
 	if(href_list["leave_notice"])
-		client.change_title_screen_notice()
+		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/change_title_screen_notice)
+		return
+
+	if(href_list["switch_server"])
+		var/selected_port = text2num(href_list["switch_server"])
+		if(selected_port == world.port)
+			to_chat(usr, span_warning("Вы уже подключены к данному серверу."))
+			return
+
+		to_chat(usr, span_warning("Подключение к новому серверу..."))
+
+		// Formulate a connection URL
+		var/target = "byond://[world.internet_address]:[selected_port]"
+		src << link(target)
 		return
 
 	if(href_list["focus"])
@@ -272,11 +283,16 @@
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
-	if(!job)	return 0
-	if(!job.is_position_available()) return 0
-	if(jobban_isbanned(src,rank))	return 0
-	if(!job.player_old_enough(client))	return 0
-	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
+	if(!job)
+		return 0
+	if(!job.is_position_available())
+		return 0
+	if(jobban_isbanned(src,rank))
+		return 0
+	if(!job.player_old_enough(client))
+		return 0
+	if(job.admin_only && !(check_rights(R_ADMIN, FALSE)))
+		return 0
 	if(job.available_in_playtime(client))
 		return 0
 	if(!job.can_novice_play(client))
@@ -285,9 +301,9 @@
 	if(CONFIG_GET(flag/assistant_limit))
 		if(job.title == JOB_TITLE_CIVILIAN)
 			var/count = 0
-			var/datum/job/officer = SSjobs.GetJob(JOB_TITLE_OFFICER)
-			var/datum/job/warden = SSjobs.GetJob(JOB_TITLE_WARDEN)
-			var/datum/job/hos = SSjobs.GetJob(JOB_TITLE_HOS)
+			var/datum/job/security/officer = SSjobs.GetJob(JOB_TITLE_OFFICER)
+			var/datum/job/security/warden = SSjobs.GetJob(JOB_TITLE_WARDEN)
+			var/datum/job/head_of_staff/hos = SSjobs.GetJob(JOB_TITLE_HOS)
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
 			if(job.current_positions > (CONFIG_GET(number/assistant_ratio) * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
@@ -335,14 +351,12 @@
 		return FALSE
 	return pick(jobs_available)
 
-
 /mob/proc/move_to_spawn(list/spawn_turfs)
 	if(length(GLOB.start_override))
 		forceMove(pick(GLOB.start_override))
 		return
 
 	forceMove(pick(spawn_turfs))
-
 
 /mob/proc/spawn_equip(rank)
 	if(GLOB.start_override_outfit)
@@ -353,8 +367,7 @@
 	. = SSjobs.EquipRank(src, rank, 1)
 	EquipCustomItems(.)
 
-
-/mob/new_player/proc/AttemptLateSpawn(rank, var/spawning_at)
+/mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
 	if(src != usr)
 		return FALSE
 
@@ -364,6 +377,10 @@
 
 	if(!GLOB.enter_allowed)
 		to_chat(usr, span_notice("Администратор заблокировал вход в игру!"))
+		return FALSE
+
+	if("[client.prefs.default_slot]" in persistent_client.joined_as_slots)
+		tgui_alert(usr, "Вы уже играли за этого персонажа в этом раунде!")
 		return FALSE
 
 	if(rank == "RandomJob")
@@ -389,7 +406,7 @@
 
 	if(!thisjob.character_old_enough(client))
 		var/datum/species/species = GLOB.all_species[client?.prefs.species]
-		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст – [get_age_limits(species, thisjob.min_age_type)]"
+		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст — [get_age_limits(species, thisjob.min_age_type)]"
 		to_chat(src, msg)
 		alert(msg)
 		return FALSE
@@ -411,7 +428,7 @@
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
 		ai_character.moveToEmptyCore()
-		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
+		AnnounceCyborg(ai_character, rank, "был загружен в пустое ядро в [get_area(ai_character)]")
 
 		SSticker.mode.latespawn(ai_character)
 		SSticker?.score?.save_silicon_laws(ai_character, additional_info = "latespawn", log_all_laws = TRUE)
@@ -481,12 +498,12 @@
 		if(GLOB.summon_magic_triggered)
 			give_magic(character)
 
-
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
 
 	qdel(src)
 
+#define ARRIVALS_ANNOUNCEMENT_COMPUTER "Уведомитель о прибытии"
 
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -494,7 +511,7 @@
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			if(A.announce_arrivals)
 				ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
@@ -505,7 +522,7 @@
 			if(character.mind)
 				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
-					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer", follow_target_override = character)
+					radio_announce(arrivalmessage, ARRIVALS_ANNOUNCEMENT_COMPUTER, PUB_FREQ, follow_target_override = character)
 
 /mob/new_player/proc/create_announce_message(mob/living/carbon/human/arrived, rank, join_message, message)
 	if(arrived.mind.role_alt_title)
@@ -534,13 +551,15 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
-					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"]."
+					var/arrivalmessage = "Новый [rank ? "[rank]" : "турист" ] [join_message ? join_message : "прибыл на станцию"]."
 					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer", follow_target_override = character)
+					radio_announce("Новый [rank ? " [rank]" : " турист" ] [join_message ? join_message : "прибыл на станцию"].", ARRIVALS_ANNOUNCEMENT_COMPUTER, PUB_FREQ, follow_target_override = character)
+
+#undef ARRIVALS_ANNOUNCEMENT_COMPUTER
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -567,7 +586,6 @@
 				dat += " [a.title], "
 			else
 				dat += " [a.title]. </span><br>"
-
 
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
@@ -637,6 +655,13 @@
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
+// If current character can't be antagonist, try to pick random character, who can.
+/mob/new_player/proc/handle_can_be_antagonist()
+	if(!mind.special_role || client.prefs.can_be_antagonist)
+		return
+
+	client.prefs.get_possible_antagonist()
+
 /mob/new_player/proc/create_character()
 	spawning = TRUE
 	close_spawn_windows()
@@ -645,14 +670,17 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
+	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
+
+	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
 	client.prefs.copy_to(new_character)
 
 	// stop_sound_channel(CHANNEL_LOBBYMUSIC)
 	client?.tgui_panel?.stop_music()
-
 
 	if(mind)
 		mind.active = FALSE					// we wish to transfer the key manually
@@ -669,8 +697,7 @@
 		mind.transfer_to(new_character)					// won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
 
-
-	new_character.set_key(key)		// Manually transfer the key to log them in
+	new_character.possess_by_player(key)		// Manually transfer the key to log them in
 
 	return new_character
 
@@ -690,14 +717,16 @@
 	if((!chosen_language && client.prefs.language != LANGUAGE_NONE) || (chosen_language && chosen_language.flags & RESTRICTED))
 		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
 		client.prefs.language = LANGUAGE_NONE
+		INVOKE_ASYNC(src, PROC_REF(save_character))
+
+/mob/new_player/proc/save_character()
+	client?.prefs?.save_character(client)
 
 /mob/new_player/proc/ViewManifest()
 	GLOB.generic_crew_manifest.ui_interact(usr)
 
-
 /mob/new_player/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	return FALSE
-
 
 /mob/new_player/proc/close_spawn_windows()
 	close_window(src, "latechoices") //closes late choices window
@@ -705,9 +734,8 @@
 	close_window(src, "preferences") //closes preferences
 	close_window(src, "mob_occupation") //closes job selection
 
-
 /mob/new_player/proc/has_admin_rights()
-	return check_rights(R_ADMIN, 0, src)
+	return check_rights(R_ADMIN, FALSE, src)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

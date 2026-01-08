@@ -14,13 +14,11 @@
 	maxHealth = 200
 	health = 200
 	speed = -1
-	attacktext = "атакует"
 	anchored = TRUE
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
 	loot = list(/obj/item/clothing/mask/cursedclown)
-	a_intent = INTENT_HARM
 	wander = FALSE
 	minimum_distance = 2
 	move_to_delay = 1
@@ -39,7 +37,6 @@
 	var/eating = FALSE
 	var/smiting = FALSE
 	var/admincluwne = FALSE
-
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()
@@ -66,16 +63,13 @@
 /mob/living/simple_animal/hostile/floor_cluwne/Destroy()
 	return ..()
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/attack_hand(mob/living/carbon/human/M)
 	..()
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/floor_cluwne/Life(seconds, times_fired)
 	if(current_victim && !ishuman(current_victim)) //Just in case a nonhuman is accidentally chosen. A human will then be chosen later on in Acquire_Victim()
@@ -125,37 +119,30 @@
 
 	..()
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache))
-		SSmove_manager.move_to(src, target, minimum_distance, delay)
+		GLOB.move_manager.move_to(src, target, minimum_distance, delay)
 	else
-		SSmove_manager.stop_looping(src)
-
+		GLOB.move_manager.stop_looping(src)
 
 /mob/living/simple_animal/hostile/floor_cluwne/FindTarget()
 	return current_victim
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/CanAttack(atom/the_target)//you will not escape
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/floor_cluwne/AttackingTarget()
 	return
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/lose_target()
 	return
 
-
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS) //prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS) //prevents runtimes with machine fuckery
 	return FALSE
-
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	var/list/players_copy = GLOB.player_list.Copy()
-	while(players_copy.len)
+	while(length(players_copy))
 		var/mob/living/carbon/human/H = pick_n_take(players_copy)
 		if(!ishuman(H))
 			continue
@@ -195,14 +182,12 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Reset_View(screens, color, mob/living/carbon/human/H)
 	if(screens)
 		for(var/whole_screen in screens)
 			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
 	if(color && H)
 		animate(H.client, color = color, time = 5)
-
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/On_Stage()
 	var/mob/living/carbon/human/H = current_victim
@@ -267,7 +252,6 @@
 			if(prob(3))
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg') , 30, TRUE)
 
-
 			if(prob(4))
 				for(var/obj/item/I in orange(H, 5))
 					if(I && !I.anchored)
@@ -314,7 +298,7 @@
 						if(istype(O, /obj/structure/closet))
 							var/obj/structure/closet/locker = O
 							locker.bust_open()
-						if(O.density || istype(O, /obj/machinery/door/airlock))
+						if(O.density || is_airlock(O))
 							forceMove(H.loc)
 					if(T.density)
 						forceMove(H.loc)
@@ -334,9 +318,8 @@
 
 				eating = TRUE
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Grab(mob/living/carbon/human/H)
-	to_chat(H, "<span class='userdanger'>You feel a cold, gloved hand clamp down on your ankle!</span>")
+	to_chat(H, span_userdanger("You feel a cold, gloved hand clamp down on your ankle!"))
 	for(var/I in 1 to get_dist(src, H))
 
 		if(do_after(src, 1 SECONDS, H))
@@ -347,7 +330,7 @@
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, TRUE)
 
 	if(get_dist(src,H) <= 1)
-		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
+		visible_message(span_danger("[src] begins dragging [H] under the floor!"))
 
 		if(do_after(src, 5 SECONDS, H) && eating)
 			if(!HAS_TRAIT_FROM(H, TRAIT_BLIND, FLOOR_CLUWNE_TRAIT))
@@ -364,7 +347,7 @@
 			ADD_TRAIT(H, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
-			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
+			H.visible_message(span_userdanger("[src] pulls [H] under the floor!"))
 		else//some fuck pulled away our food
 			stage = STAGE_TORMENT
 			eating = FALSE
@@ -375,7 +358,6 @@
 
 	manifested = FALSE
 	Manifest()
-
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Kill(mob/living/carbon/human/H)
 	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, FALSE)
@@ -427,7 +409,6 @@
 	layer = TURF_LAYER
 	duration = 150
 	randomdir = FALSE
-
 
 /obj/effect/temp_visual/fcluwne_manifest/New()
 	. = ..()

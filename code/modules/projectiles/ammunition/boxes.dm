@@ -17,12 +17,11 @@
 		DATIVE = "коробке патронов (.357)",
 		ACCUSATIVE = "коробку патронов (.357)",
 		INSTRUMENTAL = "коробкой патронов (.357)",
-		PREPOSITIONAL = "коробке патронов (.357)"
+		PREPOSITIONAL = "коробке патронов (.357)",
 	)
 
 /obj/item/ammo_box/a357/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(length(stored_ammo) / 3)]"
-
 
 /obj/item/ammo_box/n762
 	name = "ammo box (7.62x38mm)"
@@ -39,7 +38,30 @@
 		DATIVE = "коробке патронов (7,62x38 мм)",
 		ACCUSATIVE = "коробку патронов (7,62x38 мм)",
 		INSTRUMENTAL = "коробкой патронов (7,62x38 мм)",
-		PREPOSITIONAL = "коробке патронов (7,62x38 мм)"
+		PREPOSITIONAL = "коробке патронов (7,62x38 мм)",
+	)
+
+/obj/item/ammo_box/speedloader
+	use_bullet_type_overlay = TRUE
+	can_fast_load = FALSE
+
+/obj/item/ammo_box/speedloader/n762
+	name = "speed loader (7.62x38)"
+	desc = "Устройство для быстрой зарядки револьверов патронами 7.62x38 калибра."
+	materials = list(MAT_METAL = 2000)
+	ammo_type = /obj/item/ammo_casing/n762
+	caliber = CALIBER_7_DOT_62X38MM
+	icon_state = "762x38-7"
+	icon_prefix = "762x38"
+
+/obj/item/ammo_box/speedloader/n762/get_ru_names()
+	return list(
+		NOMINATIVE = "устройство быстрой зарядки (7.62x38)",
+		GENITIVE = "устройства быстрой зарядки (7.62x38)",
+		DATIVE = "устройству быстрой зарядки (7.62x38)",
+		ACCUSATIVE = "устройство быстрой зарядки (7.62x38)",
+		INSTRUMENTAL = "устройством быстрой зарядки (7.62x38)",
+		PREPOSITIONAL = "устройстве быстрой зарядки (7.62x38)",
 	)
 
 // SHOTGUN
@@ -48,7 +70,6 @@
 	desc = "Коробка, содержащая пулевые патроны калибра 12х70."
 	icon_state = "slugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun
-	max_ammo = 7
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/shotgun/get_ru_names()
@@ -58,7 +79,7 @@
 		DATIVE = "коробке ружейных патронов (пулевой 12х70)",
 		ACCUSATIVE = "коробку ружейных патронов (пулевой 12х70)",
 		INSTRUMENTAL = "коробкой ружейных патронов (пулевой 12х70)",
-		PREPOSITIONAL = "коробке ружейных патронов (пулевой 12х70)"
+		PREPOSITIONAL = "коробке ружейных патронов (пулевой 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/buck
@@ -74,7 +95,7 @@
 		DATIVE = "коробке ружейных патронов (картечь 12х70)",
 		ACCUSATIVE = "коробку ружейных патронов (картечь 12х70)",
 		INSTRUMENTAL = "коробкой ружейных патронов (картечь 12х70)",
-		PREPOSITIONAL = "коробке ружейных патронов (картечь 12х70)"
+		PREPOSITIONAL = "коробке ружейных патронов (картечь 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/buck/assassination
@@ -89,7 +110,7 @@
 		DATIVE = "коробке патронов (шрапнель с глушащим токсином 12х70)",
 		ACCUSATIVE = "коробку патронов (шрапнель с глушащим токсином 12х70)",
 		INSTRUMENTAL = "коробкой патронов (шрапнель с глушащим токсином 12х70)",
-		PREPOSITIONAL = "коробке патронов (шрапнель с глушащим токсином 12х70)"
+		PREPOSITIONAL = "коробке патронов (шрапнель с глушащим токсином 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/buck/magnum
@@ -104,7 +125,7 @@
 		DATIVE = "коробке патронов (магнум картечь 12х70)",
 		ACCUSATIVE = "коробку патронов (магнум картечь 12х70)",
 		INSTRUMENTAL = "коробкой патронов (магнум картечь 12х70)",
-		PREPOSITIONAL = "коробке патронов (магнум картечь 12х70)"
+		PREPOSITIONAL = "коробке патронов (магнум картечь 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/rubbershot
@@ -120,7 +141,7 @@
 		DATIVE = "коробке патронов (резиновая картечь 12х70)",
 		ACCUSATIVE = "коробку патронов (резиновая картечь 12х70)",
 		INSTRUMENTAL = "коробкой патронов (резиновая картечь 12х70)",
-		PREPOSITIONAL = "коробке патронов (резиновая картечь 12х70)"
+		PREPOSITIONAL = "коробке патронов (резиновая картечь 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/rubbershot/dart
@@ -135,7 +156,7 @@
 		DATIVE = "коробке патронов (патрон-шприц 12х70)",
 		ACCUSATIVE = "коробку патронов (патрон-шприц 12х70)",
 		INSTRUMENTAL = "коробкой патронов (патрон-шприц 12х70)",
-		PREPOSITIONAL = "коробке патронов (патрон-шприц 12х70)"
+		PREPOSITIONAL = "коробке патронов (патрон-шприц 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/beanbag
@@ -151,7 +172,7 @@
 		DATIVE = "коробке патронов (резиновая пуля 12х70)",
 		ACCUSATIVE = "коробку патронов (резиновая пуля 12х70)",
 		INSTRUMENTAL = "коробкой патронов (резиновая пуля 12х70)",
-		PREPOSITIONAL = "коробке патронов (резиновая пуля 12х70)"
+		PREPOSITIONAL = "коробке патронов (резиновая пуля 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/beanbag/fake
@@ -170,7 +191,7 @@
 		DATIVE = "коробке патронов (электрошок 12х70)",
 		ACCUSATIVE = "коробку патронов (электрошок 12х70)",
 		INSTRUMENTAL = "коробкой патронов (электрошок 12х70)",
-		PREPOSITIONAL = "коробке патронов (электрошок 12х70)"
+		PREPOSITIONAL = "коробке патронов (электрошок 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/breaching
@@ -186,7 +207,7 @@
 		DATIVE = "коробке патронов (штурмовые 12х70)",
 		ACCUSATIVE = "коробку патронов (штурмовые 12х70)",
 		INSTRUMENTAL = "коробкой патронов (штурмовые 12х70)",
-		PREPOSITIONAL = "коробке патронов (штурмовые 12х70)"
+		PREPOSITIONAL = "коробке патронов (штурмовые 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/pulseslug
@@ -202,7 +223,7 @@
 		DATIVE = "коробке патронов (импульсная пуля 12х70)",
 		ACCUSATIVE = "коробку патронов (импульсная пуля 12х70)",
 		INSTRUMENTAL = "коробкой патронов (импульсная пуля 12х70)",
-		PREPOSITIONAL = "коробке патронов (импульсная пуля 12х70)"
+		PREPOSITIONAL = "коробке патронов (импульсная пуля 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/incendiary
@@ -218,7 +239,7 @@
 		DATIVE = "коробке патронов (зажигательные 12х70)",
 		ACCUSATIVE = "коробку патронов (зажигательные 12х70)",
 		INSTRUMENTAL = "коробкой патронов (зажигательные 12х70)",
-		PREPOSITIONAL = "коробке патронов (зажигательные 12х70)"
+		PREPOSITIONAL = "коробке патронов (зажигательные 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/frag12
@@ -234,7 +255,7 @@
 		DATIVE = "коробке патронов (разрывная пуля 12х70)",
 		ACCUSATIVE = "коробку патронов (разрывная пуля 12х70)",
 		INSTRUMENTAL = "коробкой патронов (разрывная пуля 12х70)",
-		PREPOSITIONAL = "коробке патронов (разрывная пуля 12х70)"
+		PREPOSITIONAL = "коробке патронов (разрывная пуля 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/dragonsbreath
@@ -250,7 +271,7 @@
 		DATIVE = "коробке патронов (дыхание дракона 12х70)",
 		ACCUSATIVE = "коробку патронов (дыхание дракона 12х70)",
 		INSTRUMENTAL = "коробкой патронов (дыхание дракона 12х70)",
-		PREPOSITIONAL = "коробке патронов (дыхание дракона 12х70)"
+		PREPOSITIONAL = "коробке патронов (дыхание дракона 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/dragonsbreath/napalm
@@ -265,7 +286,7 @@
 		DATIVE = "коробке патронов (напалмовое дыхание дракона 12х70)",
 		ACCUSATIVE = "коробку патронов (напалмовое дыхание дракона 12х70)",
 		INSTRUMENTAL = "коробкой патронов (напалмовое дыхание дракона 12х70)",
-		PREPOSITIONAL = "коробке патронов (напалмовое дыхание дракона 12х70)"
+		PREPOSITIONAL = "коробке патронов (напалмовое дыхание дракона 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/ion
@@ -281,7 +302,7 @@
 		DATIVE = "коробке патронов (ионная пуля 12х70)",
 		ACCUSATIVE = "коробку патронов (ионная пуля 12х70)",
 		INSTRUMENTAL = "коробкой патронов (ионная пуля 12х70)",
-		PREPOSITIONAL = "коробке патронов (ионная пуля 12х70)"
+		PREPOSITIONAL = "коробке патронов (ионная пуля 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/laserslug
@@ -297,7 +318,7 @@
 		DATIVE = "коробке патронов (лазерная пуля 12х70)",
 		ACCUSATIVE = "коробку патронов (лазерная пуля 12х70)",
 		INSTRUMENTAL = "коробкой патронов (лазерная пуля 12х70)",
-		PREPOSITIONAL = "коробке патронов (лазерная пуля 12х70)"
+		PREPOSITIONAL = "коробке патронов (лазерная пуля 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/lasershot
@@ -313,7 +334,7 @@
 		DATIVE = "коробке патронов (лазерная картечь 12х70)",
 		ACCUSATIVE = "коробку патронов (лазерная картечь 12х70)",
 		INSTRUMENTAL = "коробкой патронов (лазерная картечь 12х70)",
-		PREPOSITIONAL = "коробке патронов (лазерная картечь 12х70)"
+		PREPOSITIONAL = "коробке патронов (лазерная картечь 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/bioterror
@@ -329,7 +350,7 @@
 		DATIVE = "коробке патронов (биотеррор 12х70)",
 		ACCUSATIVE = "коробку патронов (биотеррор 12х70)",
 		INSTRUMENTAL = "коробкой патронов (биотеррор 12х70)",
-		PREPOSITIONAL = "коробке патронов (биотеррор 12х70)"
+		PREPOSITIONAL = "коробке патронов (биотеррор 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/tranquilizer
@@ -345,7 +366,7 @@
 		DATIVE = "коробке патронов (транквилизатор 12х70)",
 		ACCUSATIVE = "коробку патронов (транквилизатор 12х70)",
 		INSTRUMENTAL = "коробкой патронов (транквилизатор 12х70)",
-		PREPOSITIONAL = "коробке патронов (транквилизатор 12х70)"
+		PREPOSITIONAL = "коробке патронов (транквилизатор 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/flechette
@@ -361,13 +382,13 @@
 		DATIVE = "коробке патронов (флешетта 12х70)",
 		ACCUSATIVE = "коробку патронов (флешетта 12х70)",
 		INSTRUMENTAL = "коробкой патронов (флешетта 12х70)",
-		PREPOSITIONAL = "коробке патронов (флешетта 12х70)"
+		PREPOSITIONAL = "коробке патронов (флешетта 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/improvised
 	name = "ammunition box (improvised shells)"
 	desc = "Коробка, содержащая самодельные патроны калибра 12х70."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "largebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 
@@ -378,7 +399,7 @@
 		DATIVE = "коробке патронов (самодельная картечь 12х70)",
 		ACCUSATIVE = "коробку патронов (самодельная картечь 12х70)",
 		INSTRUMENTAL = "коробкой патронов (самодельная картечь 12х70)",
-		PREPOSITIONAL = "коробке патронов (самодельная картечь 12х70)"
+		PREPOSITIONAL = "коробке патронов (самодельная картечь 12х70)",
 	)
 
 /obj/item/ammo_box/shotgun/improvised/overload
@@ -393,9 +414,8 @@
 		DATIVE = "коробке патронов (самодельная картечь повышенной мощности 12х70)",
 		ACCUSATIVE = "коробку патронов (самодельная картечь повышенной мощности 12х70)",
 		INSTRUMENTAL = "коробкой патронов (самодельная картечь повышенной мощности 12х70)",
-		PREPOSITIONAL = "коробке патронов (самодельная картечь повышенной мощности 12х70)"
+		PREPOSITIONAL = "коробке патронов (самодельная картечь повышенной мощности 12х70)",
 	)
-
 
 // AUTOMATIC
 /obj/item/ammo_box/c9mm
@@ -413,7 +433,7 @@
 		DATIVE = "коробке патронов (9 мм)",
 		ACCUSATIVE = "коробку патронов (9 мм)",
 		INSTRUMENTAL = "коробкой патронов (9 мм)",
-		PREPOSITIONAL = "коробке патронов (9 мм)"
+		PREPOSITIONAL = "коробке патронов (9 мм)",
 	)
 
 /obj/item/ammo_box/rubber9mm
@@ -431,7 +451,79 @@
 		DATIVE = "коробке патронов (нелетальный 9 мм)",
 		ACCUSATIVE = "коробку патронов (нелетальный 9 мм)",
 		INSTRUMENTAL = "коробкой патронов (нелетальный 9 мм)",
-		PREPOSITIONAL = "коробке патронов (нелетальный 9 мм)"
+		PREPOSITIONAL = "коробке патронов (нелетальный 9 мм)",
+	)
+
+/obj/item/ammo_box/c45colt
+	name = "ammo box (.45 Colt)"
+	desc = "Коробка, содержащая патроны калибра .45 Colt."
+	icon_state = "box_c45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt
+	max_ammo = 30
+
+/obj/item/ammo_box/c45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (.45 Colt)",
+		GENITIVE = "коробки патронов (.45 Colt)",
+		DATIVE = "коробке патронов (.45 Colt)",
+		ACCUSATIVE = "коробку патронов (.45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (.45 Colt)",
+		PREPOSITIONAL = "коробке патронов (.45 Colt)",
+	)
+
+/obj/item/ammo_box/rubber45colt
+	name = "ammo box (rubber .45 Colt)"
+	desc = "Коробка, содержащая резиновые патроны калибра .45 Colt."
+	icon_state = "box_rubber45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	max_ammo = 30
+
+/obj/item/ammo_box/rubber45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (нелетальный .45 Colt)",
+		GENITIVE = "коробки патронов (нелетальный .45 Colt)",
+		DATIVE = "коробке патронов (нелетальный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (нелетальный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (нелетальный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (нелетальный .45 Colt)",
+	)
+
+/obj/item/ammo_box/expansive45colt
+	name = "ammo box (expansive .45 Colt)"
+	desc = "Коробка, содержащая экспансивные патроны калибра .45 Colt."
+	icon_state = "box_hp45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt/hp
+	max_ammo = 30
+
+/obj/item/ammo_box/expansive45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (экспансивный .45 Colt)",
+		GENITIVE = "коробки патронов (экспансивный .45 Colt)",
+		DATIVE = "коробке патронов (экспансивный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (экспансивный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (экспансивный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (экспансивный .45 Colt)",
+	)
+
+/obj/item/ammo_box/ap45colt
+	name = "ammo box (armor piercing .45 Colt)"
+	desc = "Коробка, содержащая бронебойные патроны калибра .45 Colt."
+	icon_state = "box_ap45colt"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c45colt/ap
+	max_ammo = 30
+
+/obj/item/ammo_box/ap45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (бронебойный .45 Colt)",
+		GENITIVE = "коробки патронов (бронебойный .45 Colt)",
+		DATIVE = "коробке патронов (бронебойный .45 Colt)",
+		ACCUSATIVE = "коробку патронов (бронебойный .45 Colt)",
+		INSTRUMENTAL = "коробкой патронов (бронебойный .45 Colt)",
+		PREPOSITIONAL = "коробке патронов (бронебойный .45 Colt)",
 	)
 
 /obj/item/ammo_box/c10mm
@@ -449,9 +541,8 @@
 		DATIVE = "коробке патронов (10 мм)",
 		ACCUSATIVE = "коробку патронов (10 мм)",
 		INSTRUMENTAL = "коробкой патронов (10 мм)",
-		PREPOSITIONAL = "коробке патронов (10 мм)"
+		PREPOSITIONAL = "коробке патронов (10 мм)",
 	)
-
 
 /obj/item/ammo_box/fortynr
 	name = "ammo box .40 S&W"
@@ -467,7 +558,7 @@
 		DATIVE = "коробке патронов (.40 S&W)",
 		ACCUSATIVE = "коробку патронов (.40 S&W)",
 		INSTRUMENTAL = "коробкой патронов (.40 S&W)",
-		PREPOSITIONAL = "коробке патронов (.40 S&W)"
+		PREPOSITIONAL = "коробке патронов (.40 S&W)",
 	)
 
 /obj/item/ammo_box/c45
@@ -485,7 +576,7 @@
 		DATIVE = "коробке патронов (.45)",
 		ACCUSATIVE = "коробку патронов (.45)",
 		INSTRUMENTAL = "коробкой патронов (.45)",
-		PREPOSITIONAL = "коробке патронов (.45)"
+		PREPOSITIONAL = "коробке патронов (.45)",
 	)
 
 /obj/item/ammo_box/c45/ext
@@ -501,7 +592,24 @@
 		DATIVE = "большой коробке патронов (.45)",
 		ACCUSATIVE = "большую коробку патронов (.45)",
 		INSTRUMENTAL = "большой коробкой патронов (.45)",
-		PREPOSITIONAL = "большой коробке патронов (.45)"
+		PREPOSITIONAL = "большой коробке патронов (.45)",
+	)
+
+/obj/item/ammo_box/a762x25
+	name = "ammo box (7.62x25mm)"
+	desc = "Большая коробка, содержащая патроны калибра 7.62x25мм."
+	icon_state = "ammobox_762x25"
+	ammo_type = /obj/item/ammo_casing/ftt762
+	max_ammo = 70
+
+/obj/item/ammo_box/a762x25/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (7.62x25мм)",
+		GENITIVE = "коробки патронов (7.62x25мм)",
+		DATIVE = "коробке патронов (7.62x25мм)",
+		ACCUSATIVE = "коробку патронов (7.62x25мм)",
+		INSTRUMENTAL = "коробкой патронов (7.62x25мм)",
+		PREPOSITIONAL = "коробке патронов (7.62x25мм)",
 	)
 
 /obj/item/ammo_box/rubber45
@@ -518,7 +626,7 @@
 		DATIVE = "коробке патронов (нелетальный .45)",
 		ACCUSATIVE = "коробку патронов (нелетальный .45)",
 		INSTRUMENTAL = "коробкой патронов (нелетальный .45)",
-		PREPOSITIONAL = "коробке патронов (нелетальный .45)"
+		PREPOSITIONAL = "коробке патронов (нелетальный .45)",
 	)
 
 /obj/item/ammo_box/rubber45/ext
@@ -534,7 +642,7 @@
 		DATIVE = "большой коробке патронов (нелетальный .45)",
 		ACCUSATIVE = "большую коробку патронов (нелетальный .45)",
 		INSTRUMENTAL = "большой коробкой патронов (нелетальный .45)",
-		PREPOSITIONAL = "большой коробке патронов (нелетальный .45)"
+		PREPOSITIONAL = "большой коробке патронов (нелетальный .45)",
 	)
 
 /obj/item/ammo_box/a556
@@ -552,7 +660,7 @@
 		DATIVE = "коробке патронов (5,56 мм)",
 		ACCUSATIVE = "коробку патронов (5,56 мм)",
 		INSTRUMENTAL = "коробкой патронов (5,56 мм)",
-		PREPOSITIONAL = "коробке патронов (5,56 мм)"
+		PREPOSITIONAL = "коробке патронов (5,56 мм)",
 	)
 
 /obj/item/ammo_box/ak814
@@ -570,7 +678,22 @@
 		DATIVE = "коробке патронов (5,45х39 мм)",
 		ACCUSATIVE = "коробку патронов (5,45х39 мм)",
 		INSTRUMENTAL = "коробкой патронов (5,45х39 мм)",
-		PREPOSITIONAL = "коробке патронов (5,45х39 мм)"
+		PREPOSITIONAL = "коробке патронов (5,45х39 мм)",
+	)
+
+/obj/item/ammo_box/ak814/fusty
+	name = "AK fusty ammo box (5.45x39mm)"
+	desc = "Коробка, содержащая затхлые патроны калибра 5,45х39 мм."
+	ammo_type = /obj/item/ammo_casing/a545/fusty
+
+/obj/item/ammo_box/ak814/fusty/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка затхлых патронов (5,45х39 мм)",
+		GENITIVE = "коробки затхлых патронов (5,45х39 мм)",
+		DATIVE = "коробке затхлых патронов (5,45х39 мм)",
+		ACCUSATIVE = "коробку затхлых патронов (5,45х39 мм)",
+		INSTRUMENTAL = "коробкой затхлых патронов (5,45х39 мм)",
+		PREPOSITIONAL = "коробке затхлых патронов (5,45х39 мм)",
 	)
 
 /obj/item/ammo_box/c46x30mm
@@ -578,7 +701,7 @@
 	desc = "Коробка, содержащая патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/c46x30mm/get_ru_names()
 	return list(
@@ -587,7 +710,7 @@
 		DATIVE = "коробке патронов (4,6x30 мм)",
 		ACCUSATIVE = "коробку патронов (4,6x30 мм)",
 		INSTRUMENTAL = "коробкой патронов (4,6x30 мм)",
-		PREPOSITIONAL = "коробке патронов (4,6x30 мм)"
+		PREPOSITIONAL = "коробке патронов (4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/ap46x30mm
@@ -595,7 +718,7 @@
 	desc = "Коробка, содержащая бронебойные патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/ap46x30mm/get_ru_names()
 	return list(
@@ -604,7 +727,7 @@
 		DATIVE = "коробке патронов (бронебойные 4,6x30 мм)",
 		ACCUSATIVE = "коробку патронов (бронебойные 4,6x30 мм)",
 		INSTRUMENTAL = "коробкой патронов (бронебойные 4,6x30 мм)",
-		PREPOSITIONAL = "коробке патронов (бронебойные 4,6x30 мм)"
+		PREPOSITIONAL = "коробке патронов (бронебойные 4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/tox46x30mm
@@ -612,7 +735,7 @@
 	desc = "Коробка, содержащая отравляющие патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/tox46x30mm/get_ru_names()
 	return list(
@@ -621,7 +744,7 @@
 		DATIVE = "коробке патронов (отравляющие 4,6x30 мм)",
 		ACCUSATIVE = "коробку патронов (отравляющие 4,6x30 мм)",
 		INSTRUMENTAL = "коробкой патронов (отравляющие 4,6x30 мм)",
-		PREPOSITIONAL = "коробке патронов (отравляющие 4,6x30 мм)"
+		PREPOSITIONAL = "коробке патронов (отравляющие 4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/inc46x30mm
@@ -629,7 +752,7 @@
 	desc = "Коробка, содержащая зажигательные патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/inc46x30mm/get_ru_names()
 	return list(
@@ -638,14 +761,14 @@
 		DATIVE = "коробке патронов (зажигательные 4,6x30 мм)",
 		ACCUSATIVE = "коробку патронов (зажигательные 4,6x30 мм)",
 		INSTRUMENTAL = "коробкой патронов (зажигательные 4,6x30 мм)",
-		PREPOSITIONAL = "коробке патронов (зажигательные 4,6x30 мм)"
+		PREPOSITIONAL = "коробке патронов (зажигательные 4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/c9mmte
-	name = "ammo box (9mm TE)"
-	desc = "Коробка, содержащая нелетальные патроны калибра 9 мм TE."
-	icon_state = "9mmTEbox"
-	ammo_type = /obj/item/ammo_casing/c9mmte
+	name = "ammo box (45 N&R)"
+	desc = "Коробка, содержащая патроны калибра 45 N&R."
+	icon_state = "45NRbox"
+	ammo_type = /obj/item/ammo_casing/c45nr
 	max_ammo = 60
 
 /obj/item/ammo_box/c9mmte/get_ru_names()
@@ -655,7 +778,7 @@
 		DATIVE = "коробке патронов (9 мм TE)",
 		ACCUSATIVE = "коробку патронов (9 мм TE)",
 		INSTRUMENTAL = "коробкой патронов (9 мм TE)",
-		PREPOSITIONAL = "коробке патронов (9 мм TE)"
+		PREPOSITIONAL = "коробке патронов (9 мм TE)",
 	)
 
 /obj/item/ammo_box/m50
@@ -671,9 +794,8 @@
 		DATIVE = "коробке патронов (.50AE)",
 		ACCUSATIVE = "коробку патронов (.50AE)",
 		INSTRUMENTAL = "коробкой патронов (.50AE)",
-		PREPOSITIONAL = "коробке патронов (.50AE)"
+		PREPOSITIONAL = "коробке патронов (.50AE)",
 	)
-
 
 // MISC
 /obj/item/ammo_box/a40mm
@@ -691,7 +813,7 @@
 		DATIVE = "коробке патронов (40 мм)",
 		ACCUSATIVE = "коробку патронов (40 мм)",
 		INSTRUMENTAL = "коробкой патронов (40 мм)",
-		PREPOSITIONAL = "коробке патронов (40 мм)"
+		PREPOSITIONAL = "коробке патронов (40 мм)",
 	)
 
 /obj/item/ammo_box/laserammobox
@@ -699,7 +821,7 @@
 	desc = "Коробка, содержащая лазерные патроны."
 	icon_state = "laserbox"
 	ammo_type = /obj/item/ammo_casing/laser
-	max_ammo = 40
+	max_ammo = 36
 
 /obj/item/ammo_box/laserammobox/get_ru_names()
 	return list(
@@ -708,9 +830,8 @@
 		DATIVE = "коробке лазреных патронов",
 		ACCUSATIVE = "коробку лазреных патронов",
 		INSTRUMENTAL = "коробкой лазреных патронов",
-		PREPOSITIONAL = "коробке лазреных патронов"
+		PREPOSITIONAL = "коробке лазреных патронов",
 	)
-
 
 /obj/item/ammo_box/foambox
 	name = "ammo box (Foam Darts)"
@@ -727,7 +848,7 @@
 		DATIVE = "коробке с пенными патронами",
 		ACCUSATIVE = "коробку с пенными патронами",
 		INSTRUMENTAL = "коробкой с пенными патронами",
-		PREPOSITIONAL = "коробке с пенными патронами"
+		PREPOSITIONAL = "коробке с пенными патронами",
 	)
 
 /obj/item/ammo_box/foambox/riot
@@ -737,10 +858,8 @@
 /obj/item/ammo_box/foambox/sniper
 	name = "ammo box (Foam Sniper Darts)"
 	desc = "Коробка, содержащая снайперские пенные патроны."
-	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foambox_sniper"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
-	max_ammo = 40
 
 /obj/item/ammo_box/foambox/sniper/get_ru_names()
 	return list(
@@ -749,7 +868,7 @@
 		DATIVE = "коробке со снайперскими пенными патронами",
 		ACCUSATIVE = "коробку со снайперскими пенными патронами",
 		INSTRUMENTAL = "коробкой со снайперскими пенными патронами",
-		PREPOSITIONAL = "коробке со снайперскими пенными патронами"
+		PREPOSITIONAL = "коробке со снайперскими пенными патронами",
 	)
 
 /obj/item/ammo_box/foambox/sniper/riot
@@ -771,7 +890,22 @@
 		DATIVE = "коробке патронов (.50L COMP)",
 		ACCUSATIVE = "коробку патронов (.50L COMP)",
 		INSTRUMENTAL = "коробкой патронов (.50L COMP)",
-		PREPOSITIONAL = "коробке патронов (.50L COMP)"
+		PREPOSITIONAL = "коробке патронов (.50L COMP)",
+	)
+
+/obj/item/ammo_box/sniper_rounds_compact/penetrator
+	name = "Box of compact penetrator sniper rounds (.50L COMP)"
+	desc = "Коробка, содержащая компактные бронебойные снайперские патроны .50L калибра COMP."
+	ammo_type = /obj/item/ammo_casing/compact/penetrator
+
+/obj/item/ammo_box/sniper_rounds_compact/penetrator/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка бронебойных патронов (.50L COMP)",
+		GENITIVE = "коробки бронебойных патронов (.50L COMP)",
+		DATIVE = "коробке бронебойных патронов (.50L COMP)",
+		ACCUSATIVE = "коробку бронебойных патронов (.50L COMP)",
+		INSTRUMENTAL = "коробкой бронебойных патронов (.50L COMP)",
+		PREPOSITIONAL = "коробке бронебойных патронов (.50L COMP)",
 	)
 
 /obj/item/ammo_box/sniper_rounds_penetrator
@@ -789,7 +923,7 @@
 		DATIVE = "коробке патронов (бронебойныые .50)",
 		ACCUSATIVE = "коробку патронов (бронебойныые .50)",
 		INSTRUMENTAL = "коробкой патронов (бронебойныые .50)",
-		PREPOSITIONAL = "коробке патронов (бронебойныые .50)"
+		PREPOSITIONAL = "коробке патронов (бронебойныые .50)",
 	)
 
 /obj/item/ammo_box/m10mm
@@ -806,7 +940,7 @@
 		DATIVE = "коробке патронов (10 мм)",
 		ACCUSATIVE = "коробку патронов (10 мм)",
 		INSTRUMENTAL = "коробкой патронов (10 мм)",
-		PREPOSITIONAL = "коробке патронов (10 мм)"
+		PREPOSITIONAL = "коробке патронов (10 мм)",
 	)
 
 /obj/item/ammo_box/m10mm/ap
@@ -821,7 +955,7 @@
 		DATIVE = "коробке патронов (бронебойные 10 мм)",
 		ACCUSATIVE = "коробку патронов (бронебойные 10 мм)",
 		INSTRUMENTAL = "коробкой патронов (бронебойные 10 мм)",
-		PREPOSITIONAL = "коробке патронов (бронебойные 10 мм)"
+		PREPOSITIONAL = "коробке патронов (бронебойные 10 мм)",
 	)
 
 /obj/item/ammo_box/m10mm/hp
@@ -837,7 +971,7 @@
 		DATIVE = "коробке патронов (экспансивные 10 мм)",
 		ACCUSATIVE = "коробку патронов (экспансивные 10 мм)",
 		INSTRUMENTAL = "коробкой патронов (экспансивные 10 мм)",
-		PREPOSITIONAL = "коробке патронов (экспансивные 10 мм)"
+		PREPOSITIONAL = "коробке патронов (экспансивные 10 мм)",
 	)
 
 /obj/item/ammo_box/m10mm/fire
@@ -853,44 +987,43 @@
 		DATIVE = "коробке патронов (зажигательные 10 мм)",
 		ACCUSATIVE = "коробку патронов (зажигательные 10 мм)",
 		INSTRUMENTAL = "коробкой патронов (зажигательные 10 мм)",
-		PREPOSITIONAL = "коробке патронов (зажигательные 10 мм)"
+		PREPOSITIONAL = "коробке патронов (зажигательные 10 мм)",
 	)
 
-/obj/item/ammo_box/specter
+/obj/item/ammo_box/enforcer
 	origin_tech = "combat=2"
 	max_ammo = 30
 
-/obj/item/ammo_box/specter/laser
-	name = "ammo box (Specter laser)"
-	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Спектр\"."
+/obj/item/ammo_box/enforcer/laser
+	name = "ammo box (Enforcer laser)"
+	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Блюститель\"."
 	icon_state = "speclaser"
-	ammo_type = /obj/item/ammo_casing/specter/laser
+	ammo_type = /obj/item/ammo_casing/enforcer/laser
 
-/obj/item/ammo_box/specter/laser/get_ru_names()
+/obj/item/ammo_box/enforcer/laser/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (Спектр лазерные)",
-		GENITIVE = "коробка патронов (Спектр лазерные)",
-		DATIVE = "коробка патронов (Спектр лазерные)",
-		ACCUSATIVE = "коробка патронов (Спектр лазерные)",
-		INSTRUMENTAL = "коробка патронов (Спектр лазерные)",
-		PREPOSITIONAL = "коробка патронов (Спектр лазерные)"
+		NOMINATIVE = "коробка патронов (Блюститель лазерные)",
+		GENITIVE = "коробка патронов (Блюститель лазерные)",
+		DATIVE = "коробка патронов (Блюститель лазерные)",
+		ACCUSATIVE = "коробка патронов (Блюститель лазерные)",
+		INSTRUMENTAL = "коробка патронов (Блюститель лазерные)",
+		PREPOSITIONAL = "коробка патронов (Блюститель лазерные)",
 	)
 
-
-/obj/item/ammo_box/specter/disabler
-	name = "ammo box (Specter disabler)"
-	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Спектр\"."
+/obj/item/ammo_box/enforcer/disabler
+	name = "ammo box (Enforcer disabler)"
+	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Блюститель\"."
 	icon_state = "specstamina"
-	ammo_type = /obj/item/ammo_casing/specter/disable
+	ammo_type = /obj/item/ammo_casing/enforcer/disable
 
-/obj/item/ammo_box/specter/disabler/get_ru_names()
+/obj/item/ammo_box/enforcer/disabler/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (Спектр парализующие)",
-		GENITIVE = "коробка патронов (Спектр парализующие)",
-		DATIVE = "коробке патронов (Спектр парализующие)",
-		ACCUSATIVE = "коробку патронов (Спектр парализующие)",
-		INSTRUMENTAL = "коробкой патронов (Спектр парализующие)",
-		PREPOSITIONAL = "коробке патронов (Спектр парализующие)"
+		NOMINATIVE = "коробка патронов (Блюститель парализующие)",
+		GENITIVE = "коробка патронов (Блюститель парализующие)",
+		DATIVE = "коробке патронов (Блюститель парализующие)",
+		ACCUSATIVE = "коробку патронов (Блюститель парализующие)",
+		INSTRUMENTAL = "коробкой патронов (Блюститель парализующие)",
+		PREPOSITIONAL = "коробке патронов (Блюститель парализующие)",
 	)
 
 /**
@@ -903,8 +1036,7 @@
 	desc = "Устройство для быстрой зарядки револьверов патронами .357 калибра."
 	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/a357
-	max_ammo = 7
-	caliber = ".357"
+	caliber = CALIBER_DOT_357
 	icon_state = "357-7" // DEFAULT icon, composed of prefix + "-" + max_ammo for multiple_sprites == 1 boxes
 	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
@@ -916,7 +1048,7 @@
 		DATIVE = "устройству быстрой зарядки (.357)",
 		ACCUSATIVE = "устройство быстрой зарядки (.357)",
 		INSTRUMENTAL = "устройством быстрой зарядки (.357)",
-		PREPOSITIONAL = "устройстве быстрой зарядки (.357)"
+		PREPOSITIONAL = "устройстве быстрой зарядки (.357)",
 	)
 
 /obj/item/ammo_box/speedloader/improvised
@@ -926,7 +1058,7 @@
 	ammo_type = null
 	icon_state = "makeshift_speedloader"
 	max_ammo = 4
-	caliber = ".257"
+	caliber = CALIBER_DOT_257
 
 /obj/item/ammo_box/speedloader/improvised/get_ru_names()
 	return list(
@@ -935,7 +1067,7 @@
 		DATIVE = "самодельному устройству быстрой зарядки (.257)",
 		ACCUSATIVE = "самодельное устройство быстрой зарядки (.257)",
 		INSTRUMENTAL = "самодельным устройством быстрой зарядки (.257)",
-		PREPOSITIONAL = "самодельном устройстве быстрой зарядки (.257)"
+		PREPOSITIONAL = "самодельном устройстве быстрой зарядки (.257)",
 	)
 
 /obj/item/ammo_box/speedloader/improvised/update_overlays()
@@ -954,7 +1086,7 @@
 	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 6
-	caliber = ".38"
+	caliber = CALIBER_DOT_38
 	icon_state = "38-6"
 	multiple_sprites = 1
 	icon_prefix = "38"
@@ -966,7 +1098,7 @@
 		DATIVE = "устройству быстрой зарядки (.38)",
 		ACCUSATIVE = "устройство быстрой зарядки (.38)",
 		INSTRUMENTAL = "устройством быстрой зарядки (.38)",
-		PREPOSITIONAL = "устройстве быстрой зарядки (.38)"
+		PREPOSITIONAL = "устройстве быстрой зарядки (.38)",
 	)
 
 /obj/item/ammo_box/speedloader/c38/hp
@@ -983,7 +1115,32 @@
 		DATIVE = "устройству быстрой зарядки (экспансивные .38)",
 		ACCUSATIVE = "устройство быстрой зарядки (экспансивные .38)",
 		INSTRUMENTAL = "устройством быстрой зарядки (экспансивные .38)",
-		PREPOSITIONAL = "устройстве быстрой зарядки (экспансивные .38)"
+		PREPOSITIONAL = "устройстве быстрой зарядки (экспансивные .38)",
+	)
+
+/obj/item/ammo_box/speedloader/rubber45colt
+	name = "speed loader (.45 Colt)"
+	desc = "Устройство для быстрой перезарядки револьверов патронами калибра .45 Colt."
+	icon_state = "38"
+	materials = list(MAT_METAL = 2000)
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	max_ammo = 6
+	caliber = CALIBER_DOT_45_COLT
+	icon_state = "speedloader45colt-6"
+	multiple_sprites = 1
+	icon_prefix = "speedloader45colt"
+
+/obj/item/ammo_box/speedloader/rubber45colt/empty
+	start_empty = TRUE
+
+/obj/item/ammo_box/speedloader/rubber45colt/get_ru_names()
+	return list(
+		NOMINATIVE = "ускоритель заряжания (.45 Colt)",
+		GENITIVE = "ускорителя заряжания (.45 Colt)",
+		DATIVE = "ускорителю заряжания (.45 Colt)",
+		ACCUSATIVE = "ускоритель заряжания (.45 Colt)",
+		INSTRUMENTAL = "ускорителем заряжания (.45 Colt)",
+		PREPOSITIONAL = "ускорителе заряжания (.45 Colt)",
 	)
 
 /obj/item/ammo_box/nagant
@@ -1000,7 +1157,7 @@
 		DATIVE = "коробке патронов (7,62х38 мм)",
 		ACCUSATIVE = "коробку патронов (7,62х38 мм)",
 		INSTRUMENTAL = "коробкой патронов (7,62х38 мм)",
-		PREPOSITIONAL = "коробке патронов (7,62х38 мм)"
+		PREPOSITIONAL = "коробке патронов (7,62х38 мм)",
 	)
 
 // SHOTGUN
@@ -1010,8 +1167,7 @@
 	icon_state = "shotgunloader"
 	icon_prefix = "shotgunloader"
 	origin_tech = "combat=2"
-	caliber = ".12"
-	max_ammo = 7
+	caliber = CALIBER_12X70
 	ammo_type = null
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -1026,7 +1182,7 @@
 		DATIVE = "устройству быстрой зарядки дробовиков",
 		ACCUSATIVE = "устройство быстрой зарядки дробовиков",
 		INSTRUMENTAL = "устройством быстрой зарядки дробовиков",
-		PREPOSITIONAL = "устройстве быстрой зарядки дробовиков"
+		PREPOSITIONAL = "устройстве быстрой зарядки дробовиков",
 	)
 
 /obj/item/ammo_box/speedloader/shotgun/update_overlays()
@@ -1038,7 +1194,6 @@
 			new_ammo_icon.Shift(ISEVEN(i) ? WEST : EAST, 3)
 		new_ammo_icon.Turn(FLOOR((i - 1) * 45, 90))
 		. += new_ammo_icon
-
 
 /obj/item/ammo_box/speedloader/shotgun/slug
 	name = "shotgun speedloader (slug)"
@@ -1124,9 +1279,8 @@
 /obj/item/ammo_box/speedloader/caps
 	name = "speed loader (caps)"
 	desc = "Устройство для быстрой зарядки револьверов холостыми патронами .357 калибра."
-	icon_state = "357"
 	ammo_type = /obj/item/ammo_casing/cap
-	max_ammo = 7
+	caliber = CALIBER_CAP
 	multiple_sprites = 1
 
 /obj/item/ammo_box/speedloader/caps/get_ru_names()
@@ -1136,7 +1290,24 @@
 		DATIVE = "устройству быстрой зарядки (холостые .357)",
 		ACCUSATIVE = "устройство быстрой зарядки (холостые .357)",
 		INSTRUMENTAL = "устройством быстрой зарядки (холостые .357)",
-		PREPOSITIONAL = "устройстве быстрой зарядки (холостые .357)"
+		PREPOSITIONAL = "устройстве быстрой зарядки (холостые .357)",
+	)
+
+/obj/item/ammo_box/a75
+	name = "ammo box (.75)"
+	desc = "Коробка, содержащая ракетные заряды калибра .75."
+	icon_state = "75box"
+	ammo_type = /obj/item/ammo_casing/caseless/a75
+	max_ammo = 10
+
+/obj/item/ammo_box/a75/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка ракетных зарядов (.75)",
+		GENITIVE = "коробки ракетных зарядов (.75)",
+		DATIVE = "коробке ракетных зарядов (.75)",
+		ACCUSATIVE = "коробку ракетных зарядов (.75)",
+		INSTRUMENTAL = "коробкой ракетных зарядов (.75)",
+		PREPOSITIONAL = "коробке ракетных зарядов (.75)",
 	)
 
 /**
@@ -1147,7 +1318,7 @@
 	name = "stripper clip (7.62mm)"
 	desc = "Устройство для быстрой зарядки револьверов холостыми патронами калибра 7,62х54 мм. Вмещает 5 патронов."
 	icon_state = "762"
-	caliber = "7.62x54mm"
+	caliber = CALIBER_7_DOT_62X54MM
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 5
 	multiple_sprites = 1
@@ -1159,7 +1330,7 @@
 		DATIVE = "обойму (7,62х54 мм)",
 		ACCUSATIVE = "обойма (7,62х54 мм)",
 		INSTRUMENTAL = "обоймой (7,62х54 мм)",
-		PREPOSITIONAL = "обойме (7,62х54 мм)"
+		PREPOSITIONAL = "обойме (7,62х54 мм)",
 	)
 
 /obj/item/ammo_box/a762
@@ -1176,5 +1347,5 @@
 		DATIVE = "коробке патронов (7,62x54 мм)",
 		ACCUSATIVE = "коробку патронов (7,62x54 мм)",
 		INSTRUMENTAL = "коробкой патронов (7,62x54 мм)",
-		PREPOSITIONAL = "коробке патронов (7,62x54 мм)"
+		PREPOSITIONAL = "коробке патронов (7,62x54 мм)",
 	)

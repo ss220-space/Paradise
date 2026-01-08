@@ -8,7 +8,6 @@
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
-	dir = SOUTH
 
 /obj/item/robot_parts/New(newloc, model)
 	..(newloc)
@@ -32,7 +31,7 @@
 	if(loc != user)
 		return
 	model_info = choice
-	to_chat(usr, "<span class='notice'>You change the company limb model to [choice].</span>")
+	to_chat(usr, span_notice("You change the company limb model to [choice]."))
 
 /obj/item/robot_parts/l_arm
 	name = "left arm"
@@ -142,14 +141,12 @@
 				return 1
 	return 0
 
-
 /obj/item/robot_parts/robot_suit/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!check_completion())
 		to_chat(user, span_warning("The endoskeleton must be assembled before debugging can begin!"))
 		return .
 	Interact(user)
-
 
 /obj/item/robot_parts/robot_suit/attackby(obj/item/I, mob/living/user, params)
 	if(is_pen(I))
@@ -247,7 +244,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!istype(I, /obj/item/mmi))
+	if(!is_mmi(I))
 		return ..()
 
 	. = ATTACK_CHAIN_PROCEED
@@ -352,7 +349,7 @@
 
 	SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-	if(!new_borg.mmi.greet(new_borg) && new_borg.mind?.special_role)
+	if(!new_mmi.greet(new_borg) && new_borg.mind?.special_role)
 		new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
@@ -384,7 +381,6 @@
 		new_borg.set_lockcharge(TRUE)
 		to_chat(new_borg, span_warning("Error: Servo motors unresponsive."))
 
-
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <a href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
 			t1 += "Master AI: <a href='byond://?src=[UID()];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n"
@@ -403,7 +399,7 @@
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL)
-		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
+		to_chat(living_user, span_warning("You need a multitool!"))
 		return
 
 	if(href_list["Name"])
@@ -419,7 +415,7 @@
 		if(!sabotaged)
 			forced_ai = select_active_ai(usr)
 		if(!forced_ai)
-			to_chat(usr, "<span class='error'>No active AIs detected.</span>")
+			to_chat(usr, span_error("No active AIs detected."))
 
 	else if(href_list["Law"])
 		lawsync = !lawsync
@@ -433,7 +429,6 @@
 	add_fingerprint(usr)
 	Interact(usr)
 	return
-
 
 /obj/item/robot_parts/chest/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))
@@ -461,7 +456,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/robot_parts/head/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/flash))
@@ -494,13 +488,12 @@
 
 	return ..()
 
-
 /obj/item/robot_parts/emag_act(mob/user)
 	if(sabotaged)
 		if(user)
-			to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
+			to_chat(user, span_warning("[src] is already sabotaged!"))
 	else
 		add_attack_logs(user, src, "emagged")
 		if(user)
-			to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
+			to_chat(user, span_warning("You slide the emag into the dataport on [src] and short out the safeties."))
 		sabotaged = 1

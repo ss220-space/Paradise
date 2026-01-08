@@ -25,7 +25,7 @@
 		DATIVE = "ручному шахтёрскому сканеру",
 		ACCUSATIVE = "ручной шахтёрский сканер",
 		INSTRUMENTAL = "ручным шахтёрским сканером",
-		PREPOSITIONAL = "ручном шахтёрском сканере"
+		PREPOSITIONAL = "ручном шахтёрском сканере",
 	)
 
 /obj/item/mining_scanner/click_alt(mob/user)
@@ -40,7 +40,6 @@
 		mineral_scan_pulse(get_turf(user), 5)
 		if(speaker)
 			playsound(src, pick(soundone, soundtwo), 35)
-
 
 //Debug item to identify all ore spread quickly
 /obj/item/mining_scanner/admin
@@ -59,9 +58,7 @@
 	icon_state = "adv_mining0"
 	base_icon_state = "adv_mining"
 	item_state = "analyzer"
-	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 1 SECONDS
 	var/current_cooldown = 0
 	var/range = 9
@@ -78,7 +75,7 @@
 		DATIVE = "продвинутому автоматическому шахтёрскому сканеру",
 		ACCUSATIVE = "продвинутый автоматический шахтёрский сканер",
 		INSTRUMENTAL = "продвинутым автоматическим шахтёрским сканером",
-		PREPOSITIONAL = "продвинутом автоматическом шахтёрском сканере"
+		PREPOSITIONAL = "продвинутом автоматическом шахтёрском сканере",
 	)
 
 /obj/item/t_scanner/adv_mining_scanner/click_alt(mob/user)
@@ -86,20 +83,14 @@
 	to_chat(user, span_notice("Вы переключаете режим работы динамика [declent_ru(GENITIVE)] на [speaker ? "<b>ВКЛ</b>" : "<b>ВЫКЛ</b>"]."))
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
-	flags = CONDUCT
 	speaker = FALSE //you know...
-
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
-
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
-	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
-			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
-			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+ЛКМ</b>\""
 	icon_state = "mining0"
 	base_icon_state = "mining"
 	range = 4
@@ -112,19 +103,16 @@
 		DATIVE = "автоматическому шахтёрскому сканеру",
 		ACCUSATIVE = "автоматический шахтёрский сканер",
 		INSTRUMENTAL = "автоматическим шахтёрским сканером",
-		PREPOSITIONAL = "автоматическом шахтёрском сканере"
+		PREPOSITIONAL = "автоматическом шахтёрском сканере",
 	)
 
 /obj/item/mining_scanner/cyborg
 	cooldown = 50
-	flags = CONDUCT
 	speaker = FALSE
-
 
 /obj/item/mining_scanner/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
 
 /obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)
@@ -148,7 +136,6 @@
 	for(var/turf/simulated/mineral/mineral as anything in minerals)
 		mineral.add_overlay(image('icons/effects/ore_overlays.dmi', mineral.scan_state))
 		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlays)), 3.5 SECONDS)
-
 
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE
@@ -178,7 +165,6 @@
 	range = 4
 	cooldown = 3 SECONDS
 
-
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/get_ru_names()
 	return list(
 		NOMINATIVE = "затуманенный глаз",
@@ -186,7 +172,7 @@
 		DATIVE = "затуманенному глазу",
 		ACCUSATIVE = "затуманенный глаз",
 		INSTRUMENTAL = "затуманенным глазом",
-		PREPOSITIONAL = "затуманенном глазе"
+		PREPOSITIONAL = "затуманенном глазе",
 	)
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/Initialize(mapload)

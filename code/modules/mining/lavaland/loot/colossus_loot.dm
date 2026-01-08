@@ -9,7 +9,7 @@
 		DATIVE = "сундуку колосса",
 		ACCUSATIVE = "сундук колосса",
 		INSTRUMENTAL = "сундуком колосса",
-		PREPOSITIONAL = "сундуке колосса"
+		PREPOSITIONAL = "сундуке колосса",
 	)
 
 /obj/structure/closet/crate/necropolis/colossus/populate_contents()
@@ -29,7 +29,7 @@
 		DATIVE = "ангельскому сундуку колосса",
 		ACCUSATIVE = "ангельский сундук колосса",
 		INSTRUMENTAL = "ангельским сундуком колосса",
-		PREPOSITIONAL = "ангельском сундуке колосса"
+		PREPOSITIONAL = "ангельском сундуке колосса",
 	)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
@@ -62,12 +62,13 @@
 		DATIVE = "аномальному кристаллу",
 		ACCUSATIVE = "аномальный кристалл",
 		INSTRUMENTAL = "аномальным кристаллом",
-		PREPOSITIONAL = "аномальном кристалле"
+		PREPOSITIONAL = "аномальном кристалле",
 	)
 
 /obj/machinery/anomalous_crystal/Initialize(mapload)
 	. = ..()
 	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech")
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()
@@ -128,7 +129,7 @@
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.drop_item_ground(W)
-		var/datum/job/clown/C = SSjobs.GetJob(JOB_TITLE_CLOWN)
+		var/datum/job/service/clown/C = SSjobs.GetJob(JOB_TITLE_CLOWN)
 		C.equip(H)
 		affected_targets.Add(H)
 
@@ -137,7 +138,6 @@
 	activation_method = pick("mob_bump","speech")
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
-	activation_method = "touch"
 	cooldown_add = 200
 	var/terrain_theme = "winter"
 	var/NewTerrainFloors
@@ -186,9 +186,6 @@
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors)
-						if(O.air)
-							var/datum/gas_mixture/G = O.air
-							G.copy_from(O.air)
 						if(prob(florachance) && length(NewFlora) && !O.is_blocked_turf())
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
@@ -211,14 +208,15 @@
 			affected_targets += A
 
 /obj/machinery/anomalous_crystal/emitter //Generates a projectile when interacted with
-	activation_method = "touch"
 	cooldown_add = 50
 	var/generated_projectile = /obj/projectile/beam/emitter
 
 /obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
 	. = ..()
-	generated_projectile = pick(/obj/projectile/magic/fireball/infernal,/obj/projectile/magic/spellblade,
-								 /obj/projectile/bullet/meteorshot, /obj/projectile/beam/xray, /obj/projectile/colossus)
+	generated_projectile = pick(
+		/obj/projectile/magic/fireball/infernal, /obj/projectile/magic/spellblade, \
+		/obj/projectile/bullet/meteorshot, /obj/projectile/beam/xray, /obj/projectile/colossus \
+	)
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())
@@ -240,7 +238,6 @@
 		P.fire()
 
 /obj/machinery/anomalous_crystal/dark_reprise //Revives anyone nearby, but turns them into shadowpeople and renders them uncloneable, so the crystal is your only hope of getting up again if you go down.
-	activation_method = "touch"
 	activation_sound = 'sound/hallucinations/growl1.ogg'
 
 /obj/machinery/anomalous_crystal/dark_reprise/ActivationReaction(mob/user, method)
@@ -258,15 +255,13 @@
 					ADD_TRAIT(H, TRAIT_NO_CLONE, ANOMALOUS_CRYSTAL_TRAIT)
 					H.grab_ghost(force = TRUE)
 
-
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
-	activation_method = "touch"
 	var/ready_to_deploy = 0
 
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
 		ready_to_deploy = 1
-		notify_ghosts("Аномальный кристалл активирован в [get_area(src)]! Теперь призраки могут использовать его в любое время.", enter_link = "<a href='byond://?src=\ref[src];ghostjoin=1'>(Нажмите для входа)</a>", source = src, action = NOTIFY_ATTACK)
+		notify_ghosts("Аномальный кристалл активирован в [get_area(src)]! Теперь призраки могут использовать его в любое время.", enter_link = "<a href='byond://?src=[UID()];ghostjoin=1'>(Нажмите для входа)</a>", source = src, action = NOTIFY_ATTACK)
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	..()
@@ -275,7 +270,7 @@
 		if(be_helper != "Да")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
-		W.key = user.key
+		W.possess_by_player(user.key)
 
 /obj/machinery/anomalous_crystal/helpers/Topic(href, href_list)
 	if(href_list["ghostjoin"])
@@ -285,11 +280,10 @@
 
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"
-	desc = "Это маленькое парящее создание – абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
+	desc = "Это маленькое парящее создание — абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
-	turns_per_move = 1
 	response_help = "отмахивается"
 	response_disarm = "отталкивает"
 	response_harm = "разрушает"
@@ -307,7 +301,6 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
 	faction = list("neutral")
-	universal_understand = 1
 	del_on_death = 1
 	unsuitable_atmos_damage = 0
 	environment_smash = 0
@@ -322,7 +315,7 @@
 		DATIVE = "духу света",
 		ACCUSATIVE = "духа света",
 		INSTRUMENTAL = "духом света",
-		PREPOSITIONAL = "духе света"
+		PREPOSITIONAL = "духе света",
 	)
 
 /mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
@@ -331,11 +324,11 @@
 	AddElement(/datum/element/simple_flying)
 	remove_verb(src, /mob/verb/me_verb)
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.add_hud_to(src)
+	med_hud.show_to(src)
 
 /mob/living/simple_animal/hostile/lightgeist/Destroy()
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.remove_hud_from(src)
+	med_hud.hide_from(src)
 	return ..()
 
 /mob/living/simple_animal/hostile/lightgeist/ComponentInitialize()
@@ -358,17 +351,17 @@
 		death()
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
-	activation_method = "touch"
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
-										   /obj/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
-										   /obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader)
+	var/list/banned_items_typecache = list(
+		/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
+		/obj/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
+		/obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader
+	)
 
 /obj/machinery/anomalous_crystal/refresher/Initialize(mapload)
 	. = ..()
 	banned_items_typecache = typecacheof(banned_items_typecache)
-
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
 	if(..())
@@ -380,13 +373,12 @@
 				var/obj/item/W = i
 				if(!(W.flags & (ADMIN_SPAWNED|HOLOGRAM)) && !(W.item_flags & ABSTRACT))
 					L += W
-		if(L.len)
+		if(length(L))
 			var/obj/item/CHOSEN = pick(L)
 			new CHOSEN.type(T)
 			qdel(CHOSEN)
 
 /obj/machinery/anomalous_crystal/possessor //Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
-	activation_method = "touch"
 
 /obj/machinery/anomalous_crystal/possessor/ActivationReaction(mob/user, method)
 	if(..())
@@ -406,7 +398,6 @@
 	name = "quantum entanglement stasis warp field"
 	desc = "Вы едва можете осознать эту вещь... поэтому и не видите её."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
@@ -418,7 +409,7 @@
 		DATIVE = "квантовому стазисному полю",
 		ACCUSATIVE = "квантовое стазисное поле",
 		INSTRUMENTAL = "квантовым стазисным полем",
-		PREPOSITIONAL = "квантовом стазисном поле"
+		PREPOSITIONAL = "квантовом стазисном поле",
 	)
 
 /obj/structure/closet/stasis/process()
@@ -434,7 +425,6 @@
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 
-
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived) && holder_animal)
@@ -442,7 +432,6 @@
 		mob.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.mind.transfer_to(holder_animal)
 		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
-
 
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
@@ -461,7 +450,6 @@
 /obj/structure/closet/stasis/ex_act()
 	return
 
-
 /obj/effect/proc_holder/spell/exit_possession
 	name = "Exit Possession"
 	desc = "Покинуть тело, которым вы овладели"
@@ -470,10 +458,8 @@
 	human_req = FALSE
 	action_icon_state = "exit_possession"
 
-
 /obj/effect/proc_holder/spell/exit_possession/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/exit_possession/cast(list/targets, mob/user = usr)
 	if(!isfloorturf(user.loc))

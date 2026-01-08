@@ -1,6 +1,5 @@
 /obj/structure/blob/special/core
 	name = "blob core"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	desc = "Огромная пульсирующая желтая масса."
 	max_integrity = BLOB_CORE_MAX_HP
@@ -12,7 +11,6 @@
 	health_regen = BLOB_CORE_HP_REGEN
 	resistance_flags = LAVA_PROOF
 	strong_reinforce_range = BLOB_CORE_STRONG_REINFORCE_RANGE
-	reflector_reinforce_range = BLOB_CORE_REFLECTOR_REINFORCE_RANGE
 	claim_range = BLOB_CORE_CLAIM_RANGE
 	pulse_range = BLOB_CORE_PULSE_RANGE
 	expand_range = BLOB_CORE_EXPAND_RANGE
@@ -22,11 +20,9 @@
 	var/is_offspring = null
 	var/selecting = 0
 
-
 /obj/structure/blob/special/core/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/stationloving, FALSE, TRUE)
-
 
 /obj/structure/blob/special/core/Initialize(mapload, client/new_overmind = null, offspring)
 	GLOB.blob_cores += src
@@ -84,7 +80,6 @@
 	take_damage(damage, BRUTE, BOMB, 0)
 	return TRUE
 
-
 /obj/structure/blob/special/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, overmind_reagent_trigger = 1)
 	. = ..()
 	if(obj_integrity > 0)
@@ -106,7 +101,6 @@
 	reinforce_area(seconds_per_tick)
 	..()
 
-
 /obj/structure/blob/special/core/proc/create_overmind(client/new_overmind, override_delay)
 	if(overmind_get_delay > world.time && !override_delay)
 		return
@@ -119,7 +113,6 @@
 		get_new_overmind(new_overmind)
 	else
 		INVOKE_ASYNC(src, PROC_REF(get_new_overmind))
-
 
 /obj/structure/blob/special/core/proc/get_new_overmind(client/new_overmind)
 	var/mob/C = null
@@ -139,12 +132,11 @@
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc, src)
 		B.mind_initialize()
-		B.key = C.key
+		B.possess_by_player(C.key)
 		link_to_overmind(B)
 		B.is_offspring = is_offspring
 		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)
 		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")
-
 
 /obj/structure/blob/special/core/proc/add_datum_if_not_exist()
 	if(!overmind.mind.has_antag_datum(/datum/antagonist/blob_overmind))

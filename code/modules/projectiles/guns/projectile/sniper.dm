@@ -5,6 +5,8 @@
 	item_state = "sniper"
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	suppressed_fire_sound = 'sound/weapons/gunshots/snipersupp.ogg'
 	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
@@ -12,38 +14,17 @@
 	burst_size = 1
 	origin_tech = "combat=7"
 	can_suppress = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = null
 	accuracy = GUN_ACCURACY_SNIPER
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_SNIPER_MUZZLE | GUN_MODULE_CLASS_SNIPER_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 26, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 12, "y" = -4),
+	)
 	recoil = GUN_RECOIL_MEGA
 	fire_modes = GUN_MODE_SINGLE_ONLY
-
-/obj/item/gun/projectile/automatic/sniper_rifle/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun_module/muzzle/suppressor))
-		add_fingerprint(user)
-		var/obj/item/gun_module/muzzle/suppressor/suppressor = I
-		if(!can_suppress)
-			balloon_alert(user, "несовместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(suppressed)
-			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(suppressor, src))
-			return ..()
-		balloon_alert(user, "установлено")
-		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
-		suppressed = suppressor
-		suppressor.oldsound = fire_sound
-		suppressor.initial_w_class = w_class
-		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-		update_icon()
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -52,6 +33,7 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
 	name = "syndicate penetrator sniper rifle"
+	icon_state = "sniperpenetrator"
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
@@ -61,11 +43,6 @@
 	QDEL_NULL(magazine)
 	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src)
 
-
-/obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""][suppressed ? "-suppressed" : ""]"
-
-
 /obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
 	name = "compact sniper rifle"
 	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
@@ -73,9 +50,13 @@
 	weapon_weight = WEAPON_LIGHT
 	fire_delay = 2 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
-	zoomable = FALSE
 	accuracy = GUN_ACCURACY_SNIPER
 	recoil = GUN_RECOIL_HIGH
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 12, "y" = -4),
+	)
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
@@ -84,7 +65,7 @@
 	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/point50
 	max_ammo = 5
-	caliber = ".50"
+	caliber = CALIBER_DOT_50
 
 /obj/item/ammo_box/magazine/sniper_rounds/update_icon_state()
 	if(ammo_count())
@@ -94,11 +75,12 @@
 
 /obj/item/ammo_casing/point50
 	desc = "A .50 bullet casing."
-	caliber = ".50"
+	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper
 	//speed = 0.75
@@ -116,19 +98,17 @@
 
 	return ..()
 
-
 //Sleepy ammo
 /obj/item/ammo_box/magazine/sniper_rounds/soporific
 	name = "sniper rounds (Zzzzz)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
 	icon_state = "soporific"
-	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/soporific
 	max_ammo = 3
 
 /obj/item/ammo_casing/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
-	caliber = ".50"
+	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper/soporific
 	icon_state = ".50sop"
 	harmful = FALSE
@@ -154,21 +134,19 @@
 	desc = "What did you mean by saying warcrimes? There wasn't any millitary"
 	icon_state = "explosive"
 	ammo_type = /obj/item/ammo_casing/explosive
-	max_ammo = 5
 
 /obj/item/ammo_casing/explosive
 	desc = "A .50 bullet casing, specialised in destruction"
-	caliber = ".50"
+	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper/explosive
 	icon_state = ".50exp"
 
 /obj/projectile/bullet/sniper/explosive
-	armour_penetration = 50
 	damage = 85
 	stun = 6 SECONDS
 	dismemberment = 0
 	weaken = 6 SECONDS
-	breakthings = TRUE
+	ricochets_max = 0
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
@@ -182,11 +160,10 @@
 	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain"
 	icon_state = "haemorrhage"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
-	max_ammo = 5
 
 /obj/item/ammo_casing/haemorrhage
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
-	caliber = ".50"
+	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper/haemorrhage
 	icon_state = ".50exp"
 
@@ -211,14 +188,13 @@
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/penetrator
-	origin_tech = "combat=6"
-	max_ammo = 5
 
 /obj/item/ammo_casing/penetrator
 	desc = "A .50 caliber penetrator round casing."
-	caliber = ".50"
+	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
@@ -235,20 +211,19 @@
 	desc = "An extremely powerful round capable of inflicting massive damage on a target."
 	ammo_type = /obj/item/ammo_casing/compact
 	max_ammo = 4
-	caliber = ".50L"
+	caliber = CALIBER_DOT_50L
 
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
-	caliber = ".50L"
+	caliber = CALIBER_DOT_50L
 	projectile_type = /obj/projectile/bullet/sniper/compact
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
-	damage = 70
 	knockdown = 4 SECONDS
-	armour_penetration = 50
 	breakthings = FALSE
 	dismemberment = 0
 
@@ -257,7 +232,6 @@
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/compact/penetrator
-	origin_tech = "combat=6"
 	max_ammo = 5
 
 /obj/item/ammo_casing/compact/penetrator
@@ -269,7 +243,6 @@
 	name = "soporofic sniper rounds(compact)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
 	icon_state = "soporific"
-	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/compact/soporific
 	max_ammo = 3
 
@@ -285,12 +258,10 @@
 	icon_state = ".50mag"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	max_ammo = 6
-	caliber = "foam_force_sniper"
-
+	caliber = CALIBER_FOAM_FORCE_SNIPER
 
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon_state()
 	return
-
 
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
 	. = ..()
@@ -300,11 +271,18 @@
 	else if(ammo)
 		. += ".50mag-f"
 
-
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
 	name = "axmc sniper rifle"
-	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний Нанотрейзен. Обладает схожими со снайперской винтовкой Синдиката характеристиками."
-	ru_names = list(
+	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний \"Нанотрейзен\". Обладает схожими со снайперской винтовкой \"Синдиката\" характеристиками."
+	icon = 'icons/obj/weapons/projectile.dmi'
+	icon_state = "AXMC"
+	item_state = "AXMC"
+	mag_type = /obj/item/ammo_box/magazine/a338
+	fire_delay = 5.5 SECONDS
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+
+/obj/item/gun/projectile/automatic/sniper_rifle/axmc/get_ru_names()
+	return list(
 		NOMINATIVE = "снайперская винтовка axmc",
 		GENITIVE = "снайперской винтовки axmc",
 		DATIVE = "снайперской винтовке axmc",
@@ -312,14 +290,44 @@
 		INSTRUMENTAL = "снайперской винтовкой axmc",
 		PREPOSITIONAL = "снайперской винтовке axmc",
 	)
-	icon_state = "AXMC"
-	item_state = "AXMC"
-	mag_type = /obj/item/ammo_box/magazine/a338
-	fire_delay = 5.5 SECONDS
+
+/obj/item/gun/projectile/automatic/sniper_rifle/axmc/attackby(obj/item/item, mob/user, params)
+	//TODO: remove it after normal sprite for AXMC
+	if(istype(item, /obj/item/gun_module/muzzle/suppressor))
+		add_fingerprint(user)
+		var/obj/item/gun_module/muzzle/suppressor/suppressor = item
+		if(!can_suppress)
+			balloon_alert(user, "несовместимо!")
+			return ATTACK_CHAIN_PROCEED
+		if(suppressed)
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(suppressor, src))
+			return ..()
+		balloon_alert(user, "установлено")
+		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
+		suppressed = suppressor
+		suppressor.oldsound = fire_sound
+		suppressor.initial_w_class = w_class
+		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
+		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+/obj/item/gun/projectile/automatic/sniper_rifle/axmc/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""][suppressed ? "-suppressed" : ""]"
 
 /obj/item/ammo_box/magazine/a338
 	name = "sniper rounds (.338)"
-	ru_names = list(
+	icon_state = ".338mag"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/a338
+	max_ammo = 10
+	caliber = CALIBER_DOT_338
+
+/obj/item/ammo_box/magazine/a338/get_ru_names()
+	return list(
 		NOMINATIVE = "снайперские патроны .338",
 		GENITIVE = "снайперских патронов .338",
 		DATIVE = "снайперским патронам .338",
@@ -327,11 +335,6 @@
 		INSTRUMENTAL = "снайперскими патронами .338",
 		PREPOSITIONAL = "снайперских патронах .338",
 	)
-	icon_state = ".338mag"
-	origin_tech = "combat=6"
-	ammo_type = /obj/item/ammo_casing/a338
-	max_ammo = 10
-	caliber = ".338"
 
 /obj/item/ammo_box/magazine/a338/update_icon_state()
 	if(ammo_count())
@@ -341,11 +344,12 @@
 
 /obj/item/ammo_casing/a338
 	desc = "Гильзя калибра .338."
-	caliber = ".338"
+	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/a338
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/a338
 	damage = 80
@@ -354,7 +358,13 @@
 //Sleepy ammo
 /obj/item/ammo_box/magazine/a338/soporific
 	name = "sniper rounds .338 (Zzzzz)"
-	ru_names = list(
+	desc = "Усыпляющие снайперские патроны калибра .338, созданные для счастливых дней и тихих ночей..."
+	icon_state = ".338soporific"
+	ammo_type = /obj/item/ammo_casing/a338_soporific
+	max_ammo = 6
+
+/obj/item/ammo_box/magazine/a338/soporific/get_ru_names()
+	return list(
 		NOMINATIVE = "снайперские патроны .338 (усыпляющие)",
 		GENITIVE = "снайперских патронов .338 (усыпляющих)",
 		DATIVE = "снайперским патронам .338 (усыпляющим)",
@@ -362,14 +372,9 @@
 		INSTRUMENTAL = "снайперскими патронами .338 (усыпляющими)",
 		PREPOSITIONAL = "снайперских патронах .338 (усыпляющих)",
 	)
-	desc = "Усыпляющие снайперские патроны калибра .338, созданные для счастливых дней и тихих ночей..."
-	icon_state = ".338soporific"
-	origin_tech = "combat=6"
-	ammo_type = /obj/item/ammo_casing/a338_soporific
-	max_ammo = 6
 
 /obj/item/ammo_casing/a338_soporific
-	caliber = ".338"
+	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/soporific/a338
 	icon_state = ".50sop"
 	harmful = FALSE
@@ -379,7 +384,12 @@
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/a338/explosive
 	name = "sniper rounds .338 (boom)"
-	ru_names = list(
+	desc = "Что вы имели в виду, говоря о военных преступлениях? Не было никаких военных."
+	icon_state = ".338explosive"
+	ammo_type = /obj/item/ammo_casing/a338_explosive
+
+/obj/item/ammo_box/magazine/a338/explosive/get_ru_names()
+	return list(
 		NOMINATIVE = "снайперские патроны .338 (разрывные)",
 		GENITIVE = "снайперских патронов .338 (разрывных)",
 		DATIVE = "снайперским патронам .338 (разрывным)",
@@ -387,13 +397,9 @@
 		INSTRUMENTAL = "снайперскими патронами .338 (разрывными)",
 		PREPOSITIONAL = "снайперских патронах .338 (разрывных)",
 	)
-	desc = "Что вы имели в виду, говоря о военных преступлениях? Не было никаких военных."
-	icon_state = ".338explosive"
-	ammo_type = /obj/item/ammo_casing/a338_explosive
-	max_ammo = 10
 
 /obj/item/ammo_casing/a338_explosive
-	caliber = ".338"
+	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/explosive/a338
 	icon_state = ".50exp"
 
@@ -402,7 +408,12 @@
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/a338/haemorrhage
 	name = "sniper rounds 338 (Bleed)"
-	ru_names = list(
+	desc = "Кровопускающие снайперские выстрелы, оставляют вашу цель в луже кровавой боли"
+	icon_state = ".338haemorrhage"
+	ammo_type = /obj/item/ammo_casing/a338_haemorrhage
+
+/obj/item/ammo_box/magazine/a338/haemorrhage/get_ru_names()
+	return list(
 		NOMINATIVE = "снайперские патроны .338 (кровопускающие)",
 		GENITIVE = "снайперских патронов .338 (кровопускающих)",
 		DATIVE = "снайперским патронам .338 (кровопускающим)",
@@ -410,13 +421,9 @@
 		INSTRUMENTAL = "снайперскими патронами .338 (кровопускающими)",
 		PREPOSITIONAL = "снайперских патронах .338 (кровопускающих)",
 	)
-	desc = "Кровопускающие снайперские выстрелы, оставляют вашу цель в луже кровавой боли"
-	icon_state = ".338haemorrhage"
-	ammo_type = /obj/item/ammo_casing/a338_haemorrhage
-	max_ammo = 10
 
 /obj/item/ammo_casing/a338_haemorrhage
-	caliber = ".338"
+	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/haemorrhage/a338
 	icon_state = ".50exp"
 
@@ -425,7 +432,12 @@
 //penetrator ammo
 /obj/item/ammo_box/magazine/a338/penetrator
 	name = "sniper rounds 338 (penetrator)"
-	ru_names = list(
+	desc = "Чрезвычайно мощный патрон, способный пронзить укрытие и любого, кому не повезло оказаться за ним."
+	icon_state = ".338penetrator"
+	ammo_type = /obj/item/ammo_casing/a338_penetrator
+
+/obj/item/ammo_box/magazine/a338/penetrator/get_ru_names()
+	return list(
 		NOMINATIVE = "снайперские патроны .338 (проникающие)",
 		GENITIVE = "снайперских патронов .338 (проникающих)",
 		DATIVE = "снайперским патронам .338 (проникающим)",
@@ -433,15 +445,59 @@
 		INSTRUMENTAL = "снайперскими патронами .338 (проникающими)",
 		PREPOSITIONAL = "снайперских патронах .338 (проникающих)",
 	)
-	desc = "Чрезвычайно мощный патрон, способный пронзить укрытие и любого, кому не повезло оказаться за ним."
-	icon_state = ".338penetrator"
-	ammo_type = /obj/item/ammo_casing/a338_penetrator
-	origin_tech = "combat=6"
-	max_ammo = 10
 
 /obj/item/ammo_casing/a338_penetrator
-	caliber = ".338"
+	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/penetrator/a338
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator/a338
+
+/obj/item/ammo_box/a338
+	name = "Box of sniper rounds (.338)"
+	desc = "Коробка, содержащая снайперские патроны .338 калибра."
+	icon_state = "ammobox_338"
+	origin_tech = "combat=5"
+	ammo_type = /obj/item/ammo_casing/a338
+	max_ammo = 20
+
+/obj/item/ammo_box/a338/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка снайперских патронов (.338)",
+		GENITIVE = "коробки снайперских патронов (.338)",
+		DATIVE = "коробке снайперских патронов (.338)",
+		ACCUSATIVE = "коробку снайперских патронов (.338)",
+		INSTRUMENTAL = "коробкой снайперских патронов (.338)",
+		PREPOSITIONAL = "коробке снайперских патронов (.338)",
+	)
+
+/obj/item/ammo_box/a338/explosive
+	name = "Box of explosive sniper rounds (.338)"
+	desc = "Коробка, содержащая разрывные снайперские патроны .338 калибра."
+	ammo_type = /obj/item/ammo_casing/a338_explosive
+
+/obj/item/ammo_box/a338/explosive/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка разрывных снайперских патронов (.338)",
+		GENITIVE = "коробки разрывных снайперских патронов (.338)",
+		DATIVE = "коробке разрывных снайперских патронов (.338)",
+		ACCUSATIVE = "коробку разрывных снайперских патронов (.338)",
+		INSTRUMENTAL = "коробкой разрывных снайперских патронов (.338)",
+		PREPOSITIONAL = "коробке разрывных снайперских патронов (.338)",
+	)
+
+/obj/item/ammo_box/a338/penetrator
+	name = "Box of penetrator sniper rounds (.338)"
+	desc = "Коробка, содержащая проникающие снайперские патроны .338 калибра."
+	ammo_type = /obj/item/ammo_casing/a338_penetrator
+
+/obj/item/ammo_box/a338/penetrator/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка проникающих снайперских патронов (.338)",
+		GENITIVE = "коробки проникающих снайперских патронов (.338)",
+		DATIVE = "коробке проникающих снайперских патронов (.338)",
+		ACCUSATIVE = "коробку проникающих снайперских патронов (.338)",
+		INSTRUMENTAL = "коробкой проникающих снайперских патронов (.338)",
+		PREPOSITIONAL = "коробке проникающих снайперских патронов (.338)",
+	)

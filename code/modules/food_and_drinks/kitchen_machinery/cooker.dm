@@ -1,10 +1,8 @@
 /obj/machinery/cooker
 	name = "cooker"
-	desc = "You shouldn't be seeing this!"
-	layer = 2.9
+	desc = "Вы не должны были этого видеть. Пожалуйста, сообщите о нахождении этого предмета в #баг-репорты-v2"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	var/on = 0
 	var/onicon = null
@@ -17,6 +15,16 @@
 	var/foodcolor = null
 	var/has_specials = 0		//Set to 1 if the machine has specials to check, otherwise leave it at 0
 	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+
+/obj/machinery/cooker/get_ru_names()
+	return list(
+		NOMINATIVE = "кухонный аппарат",
+		GENITIVE = "кухонного аппарата",
+		DATIVE = "кухонному аппарату",
+		ACCUSATIVE = "кухонный аппарат",
+		INSTRUMENTAL = "кухонным аппаратом",
+		PREPOSITIONAL = "кухонном аппарате"
+	)
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
@@ -37,13 +45,13 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is still active!</span>")
+		balloon_alert(user, "работает!")
 		return FALSE
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return TRUE
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	to_chat(user, "<span class ='notice'>You can only process food!</span>")
+	balloon_alert(user, "не является пищей!")
 	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
@@ -67,7 +75,8 @@
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(drop_turf)
 	setRegents(props, burnt)
 	if(user && (user in viewers(5, src)))
-		to_chat(user, span_warning("You smell burning coming from the [src]!"))
+		to_chat(user, span_warning("Вы чувствуете запах гари от [declent_ru(ACCUSATIVE)]!"))
+	playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE)
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new // burning things makes smoke!
 	smoke.set_up(amount = 5, location = src)
 	smoke.start()
@@ -75,29 +84,35 @@
 	if(prob(firechance))
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"
-		oil.desc = "uh oh, looks like some fat from [src]"
-		drop_turf.hotspot_expose(700, 50, 1)
+		oil.desc = "Ой-ой, похоже это жир из [declent_ru(GENITIVE)]."
+		oil.ru_names = list(
+			NOMINATIVE = "жир",
+			GENITIVE = "жира",
+			DATIVE = "жиру",
+			ACCUSATIVE = "жир",
+			INSTRUMENTAL = "жиром",
+			PREPOSITIONAL = "жире"
+		)
+		drop_turf.hotspot_expose(700, 1)
 		//TODO have a chance of setting the tile on fire
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
-	setme.name = "[thiscooktype] [name.name]"
-	setme.desc = "[name.desc]. It has been [thiscooktype]"
-
+	setme.name = "[name.name], [thiscooktype]"
+	setme.desc = "[name.desc] [thiscooktype]."
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	if(!chef.drop_transfer_item_to_loc(tocook, src))
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	balloon_alert(chef, "обработка")
+	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	on = 1
-
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()
 	var/obj/item/reagent_containers/food/snacks/type = new(get_turf(src))
 	return type
-
 
 /obj/machinery/cooker/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -105,10 +120,8 @@
 		return .
 	special_grab_attack(grabbed_thing, grabber)
 
-
 /obj/machinery/cooker/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
 	return
-
 
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -126,14 +139,14 @@
 
 	add_fingerprint(user)
 	if(panel_open)
-		to_chat(user, span_warning("Close the panel first!"))
+		balloon_alert(user, "панель открыта!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!checkValid(I, user))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!burns && istype(I, /obj/item/reagent_containers/food/snacks) && checkCooked(I))
-		to_chat(user, span_warning("That is already [thiscooktype], it would do nothing!"))
+		balloon_alert(user, "уже обработано!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!putIn(I, user))
@@ -141,7 +154,6 @@
 
 	addtimer(CALLBACK(src, PROC_REF(cooking_end), I, user), cooktime)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/cooker/proc/cooking_end(obj/item/cooking, mob/cook)
 	if(QDELETED(cooking) || cooking.loc != src)
@@ -169,7 +181,6 @@
 	newfood.cooktype[thiscooktype] = 1
 	turnoff(cooking)
 
-
 /obj/machinery/cooker/crowbar_act(mob/user, obj/item/I)
 	if(!upgradeable)
 		return
@@ -182,7 +193,6 @@
 	if(default_deconstruction_screwdriver(user, openicon, officon, I))
 		return TRUE
 
-
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate
 /obj/machinery/cooker/proc/checkSpecials(obj/item/I)
@@ -190,5 +200,5 @@
 		return 0
 	return 0
 
-/obj/machinery/cooker/proc/cookSpecial(var/special)
+/obj/machinery/cooker/proc/cookSpecial(special)
 	return

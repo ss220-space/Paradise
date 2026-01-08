@@ -33,7 +33,7 @@
 
 	T.visible_message(span_warning("Раствор образует сильный пар!"))
 
-	var/datum/reagents/reagents_list = new (amount * reagents.len)
+	var/datum/reagents/reagents_list = new (amount * length(reagents))
 	for(var/reagent in reagents)
 		reagents_list.add_reagent(reagent, amount)
 
@@ -45,7 +45,7 @@
 	playsound(T, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
-	if(holder && holder.my_atom)
+	if(holder?.my_atom)
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)
 		var/message = "A [reaction_name] reaction has occurred in [ADMIN_VERBOSEJMP(T)]"

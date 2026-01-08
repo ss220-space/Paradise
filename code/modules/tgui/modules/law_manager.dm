@@ -13,7 +13,7 @@
 	var/global/list/datum/ai_laws/player_laws
 	var/mob/living/silicon/owner = null
 
-/datum/ui_module/law_manager/New(var/mob/living/silicon/S)
+/datum/ui_module/law_manager/New(mob/living/silicon/S)
 	..()
 	owner = S
 
@@ -48,7 +48,7 @@
 				owner.lawchannel = params["law_channel"]
 
 		if("state_law")
-			var/datum/ai_law/AL = locate(params["ref"]) in owner.laws.all_laws()
+			var/datum/ai_law/AL = locateUID(params["ref"])
 			if(AL)
 				var/state_law = text2num(params["state_law"])
 				owner.laws.set_state_law(AL, state_law)
@@ -110,7 +110,7 @@
 
 		if("edit_law")
 			if(is_malf(usr))
-				var/datum/ai_law/AL = locate(params["edit_law"]) in owner.laws.all_laws()
+				var/datum/ai_law/AL = locateUID(params["edit_law"])
 				// Dont allow non-admins to edit their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
 					to_chat(usr, span_warning("Вы не можете изменить этот закон."))
@@ -125,7 +125,7 @@
 
 		if("delete_law")
 			if(is_malf(usr))
-				var/datum/ai_law/AL = locate(params["delete_law"]) in owner.laws.all_laws()
+				var/datum/ai_law/AL = locateUID(params["delete_law"])
 				// Dont allow non-admins to delete their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
 					to_chat(usr, span_warning("Вы не можете удалить этот закон."))
@@ -139,13 +139,13 @@
 			owner.statelaws(owner.laws)
 
 		if("state_law_set")
-			var/datum/ai_laws/ALs = locate(params["state_law_set"]) in (is_admin(usr) ? admin_laws : player_laws)
+			var/datum/ai_laws/ALs = locateUID(params["state_law_set"])
 			if(ALs)
 				owner.statelaws(ALs)
 
 		if("transfer_laws")
 			if(is_malf(usr))
-				var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (is_admin(usr) ? admin_laws : player_laws)
+				var/datum/ai_laws/ALs = locateUID(params["transfer_laws"])
 				if(ALs)
 					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
 					ALs.sync(owner, FALSE, TRUE)
@@ -165,7 +165,7 @@
 
 /datum/ui_module/law_manager/ui_state(mob/user)
 	if(check_rights(R_ADMIN, FALSE))
-		return GLOB.admin_state
+		return ADMIN_STATE(R_ADMIN)
 	if(issilicon(user))
 		return GLOB.conscious_state
 	return GLOB.default_state
@@ -209,14 +209,14 @@
 
 	return data
 
-/datum/ui_module/law_manager/proc/package_laws(var/list/data, var/field, var/list/datum/ai_law/laws)
+/datum/ui_module/law_manager/proc/package_laws(list/data, field, list/datum/ai_law/laws)
 	var/list/packaged_laws = list()
 	for(var/datum/ai_law/AL in laws)
-		packaged_laws[++packaged_laws.len] = list("law" = AL.law, "index" = AL.get_index(), "state" = owner.laws.get_state_law(AL), "ref" = "\ref[AL]")
+		packaged_laws[++packaged_laws.len] = list("law" = AL.law, "index" = AL.get_index(), "state" = owner.laws.get_state_law(AL), "ref" = AL.UID())
 	data[field] = packaged_laws
 	data["has_[field]"] = packaged_laws.len
 
-/datum/ui_module/law_manager/proc/package_multiple_laws(var/list/datum/ai_laws/laws)
+/datum/ui_module/law_manager/proc/package_multiple_laws(list/datum/ai_laws/laws)
 	var/list/law_sets = list()
 	for(var/datum/ai_laws/ALs in laws)
 		var/list/packaged_laws = list()
@@ -225,11 +225,11 @@
 		package_laws(packaged_laws, "ion_laws", ALs.ion_laws)
 		package_laws(packaged_laws, "inherent_laws", ALs.inherent_laws)
 		package_laws(packaged_laws, "supplied_laws", ALs.supplied_laws)
-		law_sets[++law_sets.len] = list("name" = ALs.name, "header" = ALs.law_header, "ref" = "\ref[ALs]","laws" = packaged_laws)
+		law_sets[++law_sets.len] = list("name" = ALs.name, "header" = ALs.law_header, "ref" = ALs.UID(),"laws" = packaged_laws)
 
 	return law_sets
 
-/datum/ui_module/law_manager/proc/is_malf(var/mob/user)
+/datum/ui_module/law_manager/proc/is_malf(mob/user)
 	if(is_admin(user) && !owner.is_slaved())
 		return TRUE
 	if(isAI(owner))
@@ -245,7 +245,7 @@
 /mob/living/silicon/robot/is_slaved()
 	return lawupdate && connected_ai ? sanitize(connected_ai.name) : null
 
-/datum/ui_module/law_manager/proc/sync_laws(var/mob/living/silicon/ai/AI)
+/datum/ui_module/law_manager/proc/sync_laws(mob/living/silicon/ai/AI)
 	if(!AI)
 		return
 	for(var/mob/living/silicon/robot/R in AI.connected_robots)

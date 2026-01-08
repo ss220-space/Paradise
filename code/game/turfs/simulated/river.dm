@@ -8,7 +8,6 @@
 	name = "river waypoint"
 	/// Whether the turf of this landmark has already been linked to others during river generation.
 	var/connected = FALSE
-	invisibility = INVISIBILITY_ABSTRACT
 
 /// A straightforward system for making "rivers", paths made up of a specific
 /// turf type that are generated in a random path on a z-level.
@@ -45,7 +44,7 @@
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 	var/list/possible_locs = block(min_x, min_y, target_z, max_x, max_y, target_z)
-	while(num_spawned < nodes && possible_locs.len)
+	while(num_spawned < nodes && length(possible_locs))
 		var/turf/T = pick(possible_locs)
 		var/area/A = get_area(T)
 		if(!istype(A, whitelist_area_type) || (T.turf_flags & NO_LAVA_GEN))
@@ -57,7 +56,7 @@
 	//make some randomly pathing rivers
 	for(var/A in river_nodes)
 		var/obj/effect/landmark/river_waypoint/W = A
-		if (W.z != target_z || W.connected)
+		if(W.z != target_z || W.connected)
 			continue
 		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
@@ -108,7 +107,7 @@
 	for(var/F in RANGE_TURFS(1, start_turf) - start_turf)
 		var/turf/T = F
 		var/area/new_area = get_area(T)
-		if(!T || (T.density && !istype(T, whitelist_turf_type)) || istype(T, /turf/simulated/floor/indestructible) || istype(T, /turf/simulated/wall/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.turf_flags & NO_LAVA_GEN) )
+		if(!T || (T.density && !istype(T, whitelist_turf_type)) || istype(T, /turf/simulated/floor/indestructible) || istype(T, /turf/simulated/wall/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.turf_flags & NO_LAVA_GEN))
 			continue
 
 		if(get_dir(start_turf, F) in GLOB.cardinal)

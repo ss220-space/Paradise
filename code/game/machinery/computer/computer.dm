@@ -4,10 +4,8 @@
 	icon_state = "computer"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
-	max_integrity = 200
 	integrity_failure = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
@@ -21,7 +19,6 @@
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
-
 
 /obj/machinery/computer/Initialize(mapload, obj/structure/computerframe/frame)
 	. = ..()
@@ -37,7 +34,6 @@
 	power_change()
 	update_icon()
 
-
 /obj/machinery/computer/Destroy()
 	if(istype(frame))
 		qdel(frame)
@@ -45,7 +41,6 @@
 	frame = null
 
 	return ..()
-
 
 /obj/machinery/computer/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -56,7 +51,7 @@
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-		visible_message(span_danger("[src] grows dim, its screen barely readable."))
+		visible_message(span_danger("Экран [declent_ru(GENITIVE)] тускнеет, изображение становится едва видимым."))
 
 /obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
@@ -95,10 +90,8 @@
 	update_icon()
 	flickering = FALSE
 
-
 /obj/machinery/computer/update_icon_state()
 	icon_state = abductor ? "aliencomputer" : initial(icon_state)
-
 
 /obj/machinery/computer/update_overlays()
 	. = ..()
@@ -126,7 +119,6 @@
 		. += "[icon_keyboard]"
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
-
 /obj/machinery/computer/power_change(forced = FALSE)
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
@@ -140,7 +132,6 @@
 		set_light(l_range = light_range_on, l_power = light_power_on, l_color = screen_emissive_color, l_on = TRUE)
 	if(.)
 		update_icon()
-
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -170,26 +161,21 @@
 			if(prob(10))
 				obj_break("energy")
 
-
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
 	if(!(obj_flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
 			if(stat & BROKEN)
 				if(user)
-					to_chat(user, span_notice("The broken glass falls out."))
-
+					to_chat(user, span_notice("Из рамки дисплея выпадает разбитое стекло."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
-
 				new /obj/item/shard(drop_location())
 				new /obj/item/shard(drop_location())
 				frame.state = 4
-
 			else
 				if(user)
-					to_chat(user, span_notice("You disconnect the monitor."))
-
+					loc.balloon_alert(user, "монитор отключён")
 			frame.update_icon()
 
 		for(var/obj/C in src)
@@ -197,7 +183,6 @@
 
 	frame = null
 	qdel(src)
-
 
 /obj/machinery/computer/proc/set_broken()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -224,7 +209,6 @@
 	if(circuit && !(obj_flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)
-
 
 /obj/machinery/computer/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(!self_hurt && prob(50 * (damage / 15)))
@@ -261,7 +245,6 @@
 	icon_state = "right-closed"
 
 /obj/machinery/computer/old_frame/macintosh
-	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "stock_computer"
 	icon_state = "oldcomp"
 

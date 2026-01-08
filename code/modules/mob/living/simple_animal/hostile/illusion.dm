@@ -7,7 +7,6 @@
 	icon_dead = "null"
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	a_intent = INTENT_HARM
 	attacktext = "терзает"
 	maxHealth = 100
 	health = 100
@@ -19,11 +18,9 @@
 	deathmessage = "vanishes into thin air! It was a fake!"
 	del_on_death = 1
 
-
 /mob/living/simple_animal/hostile/illusion/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
-
 
 /mob/living/simple_animal/hostile/illusion/Life()
 	..()
@@ -49,7 +46,6 @@
 	else
 		. = ..()
 
-
 /mob/living/simple_animal/hostile/illusion/AttackingTarget()
 	. = ..()
 	if(. && isliving(target) && prob(multiply_chance))
@@ -72,7 +68,6 @@
 	speed = -1
 	obj_damage = 0
 	environment_smash = 0
-
 
 /mob/living/simple_animal/hostile/illusion/escape/AttackingTarget()
 	return

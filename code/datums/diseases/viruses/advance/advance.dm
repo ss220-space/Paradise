@@ -5,15 +5,15 @@
 
 */
 
-#define VIRUS_SYMPTOM_LIMIT	6
-#define VIRUS_MAX_SYMPTOM_LEVEL	6
+#define VIRUS_SYMPTOM_LIMIT 6
+#define VIRUS_MAX_SYMPTOM_LEVEL 6
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
+	"sodiumchloride", "sugar", "orangejuice",
+	"spaceacillin", "salglu_solution", "ethanol",
+	"teporone", "diphenhydramine", "lipolicide",
+	"silver", "gold"
 ))
 
 GLOBAL_LIST_EMPTY(archive_diseases)
@@ -26,11 +26,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 /datum/disease/virus/advance
 
-	name = UNKNOWN_STATUS_RUS // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
 	agent = "Продвинутые микробы"
-	max_stages = 5
 
 	// NEW VARS
 
@@ -39,7 +37,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	var/processing = 0
 
 /datum/disease/virus/advance/New()
-	if(!symptoms || !symptoms.len)
+	if(!symptoms || !length(symptoms))
 		symptoms = GenerateSymptoms(1, 2)
 
 	AssignProperties(GenerateProperties())
@@ -56,7 +54,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/stage_act()
 	if(!..())
 		return FALSE
-	if(symptoms && symptoms.len)
+	if(symptoms && length(symptoms))
 
 		if(!processing)
 			processing = 1
@@ -131,7 +129,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 			if(!HasSymptom(S) || override_symptoms)
 				possible_symptoms += S
 
-	if(!possible_symptoms.len)
+	if(!length(possible_symptoms))
 		return generated
 
 	var/N = 1
@@ -141,7 +139,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		while(prob(20) && N < VIRUS_SYMPTOM_LIMIT)
 			N++
 
-	for(var/i = 1; i <= N && possible_symptoms.len; i++)
+	for(var/i = 1; i <= N && length(possible_symptoms); i++)
 		generated += pick_n_take(possible_symptoms)
 
 	return generated
@@ -173,7 +171,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/virus/advance/proc/GenerateProperties()
 
-	if(!symptoms || !symptoms.len)
+	if(!symptoms || !length(symptoms))
 		CRASH("We did not have any symptoms before generating properties.")
 
 	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_speed" = 1, "transmittable" = 1, "severity" = 0)
@@ -190,57 +188,44 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // Assign the properties that are in the list.
 /datum/disease/virus/advance/proc/AssignProperties(list/properties = list())
-	if(properties && properties.len)
-		// stealth
-		switch(properties["stealth"])
-			if(1)
-				visibility_flags = HIDDEN_HUD
-			if(2)
-				visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
-			if(3 to INFINITY)
-				visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER|HIDDEN_PANDEMIC
-			else
-				visibility_flags = VISIBLE
-
-		// transmittable
-		switch(properties["transmittable"] - round(symptoms.len/2))
-			if(-INFINITY to 1)
-				spread_flags = BLOOD
-			if(2 to 3)
-				spread_flags = CONTACT
-			if(4 to INFINITY)
-				spread_flags = AIRBORNE
-		additional_info = spread_text()
-		permeability_mod = clamp((0.25 * properties["transmittable"]), 0.2, 2)
-
-		//stage speed
-		stage_prob = clamp(max(1.3 * sqrtor0(properties["stage_speed"] + 11), properties["stage_speed"]), 1, 40)
-
-		//severity
-		switch(properties["severity"])
-			if(-INFINITY to 0)
-				severity = NONTHREAT
-			if(1)
-				severity = MINOR
-			if(2)
-				severity = MEDIUM
-			if(3)
-				severity = HARMFUL
-			if(4)
-				severity = DANGEROUS
-			if(5 to INFINITY)
-				severity = BIOHAZARD
-
-		//resistance
-		cure_prob = clamp(15 - properties["resistance"], 5, 40)
-		GenerateCure(properties["resistance"])
-	else
+	if(!length(properties))
 		CRASH("Our properties were empty or null!")
 
-//TODO: доделать эту хуйню
+	// stealth
+	switch(properties["stealth"])
+		if(1)
+			visibility_flags = HIDDEN_HUD
+		if(2)
+			visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
+		if(3 to INFINITY)
+			visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER|HIDDEN_PANDEMIC
+		else
+			visibility_flags = VISIBLE
+
+	// transmittable
+	switch(properties["transmittable"] - round(length(symptoms)/2))
+		if(-INFINITY to 1)
+			spread_flags = BLOOD
+		if(2 to 3)
+			spread_flags = CONTACT
+		if(4 to INFINITY)
+			spread_flags = AIRBORNE
+	additional_info = spread_text()
+	permeability_mod = clamp((0.25 * properties["transmittable"]), 0.2, 2)
+
+	//stage speed
+	stage_prob = clamp(max(1.3 * sqrtor0(properties["stage_speed"] + 11), properties["stage_speed"]), 1, 40)
+
+	set_severity(properties["severity"])
+
+	//resistance
+	cure_prob = clamp(15 - properties["resistance"], 5, 40)
+	GenerateCure(properties["resistance"])
+
+// TODO: доделать эту хуйню
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/virus/advance/proc/GenerateCure(resistance)
-	var/res = round(clamp(resistance - (symptoms.len / 2), 1, GLOB.advance_cures.len))
+	var/res = round(clamp(resistance - (length(symptoms) / 2), 1, length(GLOB.advance_cures)))
 
 	// Get the cure name from the cure_id
 	var/datum/reagent/D = GLOB.chemical_reagents_list[GLOB.advance_cures[res]]
@@ -257,7 +242,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // Randomly remove a symptom.
 /datum/disease/virus/advance/proc/Devolve()
-	if(symptoms.len > 1)
+	if(length(symptoms) > 1)
 		var/s = safepick(symptoms)
 		if(s)
 			RemoveSymptom(s)
@@ -284,7 +269,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	if(HasSymptom(S))
 		return
 
-	if(symptoms.len < (VIRUS_SYMPTOM_LIMIT - 1) + rand(-1, 1))
+	if(length(symptoms) < (VIRUS_SYMPTOM_LIMIT - 1) + rand(-1, 1))
 		symptoms += S
 	else
 		RemoveSymptom(pick(symptoms))
@@ -308,21 +293,21 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 
 	var/list/diseases = list()
 
 	for(var/datum/disease/virus/advance/A in D_list)
 		diseases += A.Copy()
 
-	if(!diseases.len)
+	if(!length(diseases))
 		return null
-	if(diseases.len <= 1)
+	if(length(diseases) <= 1)
 		return pick(diseases) // Just return the only entry.
 
 	var/i = 0
 	// Mix our diseases until we are left with only one result.
-	while(i < 20 && diseases.len > 1)
+	while(i < 20 && length(diseases) > 1)
 
 		i++
 
@@ -332,7 +317,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		var/datum/disease/virus/advance/D2 = pick(diseases)
 		D2.Mix(D1)
 
-	 // Should be only 1 entry left, but if not let's only return a single entry
+	// Should be only 1 entry left, but if not let's only return a single entry
 //	to_chat(world, "END MIXING!!!!!")
 	var/datum/disease/virus/advance/to_return = pick(diseases)
 	to_return.Refresh(reset_name = TRUE)
@@ -345,7 +330,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 			for(var/datum/disease/D in data["diseases"])
 				preserve += D.Copy()
 			R.data = data.Copy()
-		if(preserve.len)
+		if(length(preserve))
 			R.data["diseases"] = preserve
 
 /proc/AdminCreateVirus(client/user)
@@ -376,7 +361,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 					i -= 1
 	while(i > 0)
 
-	if(D.symptoms.len > 0)
+	if(length(D.symptoms) > 0)
 
 		var/new_name = tgui_input_text(user, "Name your new disease.", "New Name")
 		if(!new_name)
@@ -412,7 +397,6 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	A.AssignProperties(list("resistance" = resistance, "stealth" = stealth, "stage_rate" = stage_rate, "transmittable" = transmittable, "severity" = severity))
 	A.Refresh(update_properties = FALSE)
 	return A
-
 
 /datum/disease/virus/advance/proc/totalStageSpeed()
 	var/total_stage_speed = 0

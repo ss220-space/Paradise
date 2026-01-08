@@ -3,11 +3,10 @@
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, span_notice("You inflate [src]."))
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
 	transfer_fingerprints_to(R)
 	qdel(src)
@@ -17,7 +16,6 @@
 	desc = "An inflated membrane. Do not puncture."
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 	max_integrity = 50
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
@@ -25,24 +23,22 @@
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
 
-/obj/structure/inflatable/Initialize(location)
+/obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
+/obj/structure/inflatable/CanAtmosPass(direction)
 	return !density
-
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (is_sharp(I) || is_pointed(I)))
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (I.sharp || is_pointed(I)))
 		deconstruct(FALSE)
-
 
 /obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -50,7 +46,6 @@
 /obj/structure/inflatable/click_alt(mob/living/user)
 	deconstruct(TRUE)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/structure/inflatable/deconstruct(disassembled = TRUE)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, TRUE)
@@ -63,7 +58,6 @@
 		visible_message("[src] slowly deflates.")
 		addtimer(CALLBACK(src, PROC_REF(deflate)), 5 SECONDS)
 
-
 /obj/structure/inflatable/proc/deflate()
 	var/obj/item/inflatable/R = new intact(loc)
 	transfer_fingerprints_to(R)
@@ -71,7 +65,7 @@
 
 /obj/structure/inflatable/verb/hand_deflate()
 	set name = "Сдуть"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -82,12 +76,11 @@
 /obj/item/inflatable/door
 	name = "inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation."
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door"
 
 /obj/item/inflatable/door/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, span_notice("You inflate [src]."))
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -95,7 +88,6 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
 	opacity = TRUE
 	torn = /obj/item/inflatable/door/torn
@@ -114,7 +106,6 @@
 /obj/structure/inflatable/door/attack_hand(mob/user)
 	return try_to_operate(user)
 
-
 /obj/structure/inflatable/door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -122,10 +113,8 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 
-
-/obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
+/obj/structure/inflatable/door/CanAtmosPass(direction)
 	return !density
-
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
 	if(is_operating)
@@ -142,7 +131,6 @@
 	else if(ismecha(user))
 		operate()
 
-
 /obj/structure/inflatable/door/proc/operate()
 	is_operating = TRUE
 	if(state_closed)
@@ -158,32 +146,28 @@
 	set_density(state_closed)
 	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	is_operating = FALSE
-
 
 /obj/structure/inflatable/door/update_icon_state()
 	icon_state = "door_[state_closed ? "closed" : "open"]"
 
-
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation. It is too torn to be usable."
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall_torn"
 
 /obj/item/inflatable/torn/attack_self(mob/user)
-	to_chat(user, "<span class='warning'>The inflatable wall is too torn to be inflated!</span>")
+	to_chat(user, span_warning("The inflatable wall is too torn to be inflated!"))
 	add_fingerprint(user)
 
 /obj/item/inflatable/door/torn
 	name = "torn inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation. It is too torn to be usable."
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door_torn"
 
 /obj/item/inflatable/door/torn/attack_self(mob/user)
-	to_chat(user, "<span class='warning'>The inflatable door is too torn to be inflated!</span>")
+	to_chat(user, span_warning("The inflatable door is too torn to be inflated!"))
 	add_fingerprint(user)
 
 /obj/item/storage/briefcase/inflatable
@@ -191,7 +175,6 @@
 	desc = "Contains inflatable walls and doors."
 	icon_state = "inf_box"
 	item_state = "syringe_kit"
-	max_combined_w_class = 21
 	w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/inflatable)
 

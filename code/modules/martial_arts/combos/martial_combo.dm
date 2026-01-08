@@ -36,13 +36,13 @@
 		return
 
 	final_combo_text = ""
-	for(var/step as anything in steps)
+	for(var/step in steps)
 		final_combo_text += final_combo_text ? ", " : ""
 		final_combo_text += GLOB.martial_combo_step_message[step]
 
 	to_chat(user, "[span_notice(name)]: [final_combo_text]. [explaination_text]")
 
-/datum/martial_combo/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
+/datum/martial_combo/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()
 	if(target.mind && all_objectives)
 		for(var/datum/objective/pain_hunter/objective in all_objectives)

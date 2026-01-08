@@ -7,11 +7,14 @@
 // Themes
 import './styles/main.scss';
 import './styles/themes/abductor.scss';
+import './styles/themes/admin.scss';
 import './styles/themes/cardtable.scss';
+import './styles/themes/cargo.scss';
 import './styles/themes/changeling.scss';
 import './styles/themes/clockwork.scss';
 import './styles/themes/infernal.scss';
 import './styles/themes/hackerman.scss';
+import './styles/themes/honker.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/hydroponics.scss';
 import './styles/themes/ntos.scss';

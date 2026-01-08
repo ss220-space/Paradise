@@ -8,7 +8,6 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = LANGUAGE_GALACTIC_COMMON
 	default_language = LANGUAGE_MONKEY_HUMAN
 	inherent_traits = list(
 		TRAIT_HAS_REGENERATION,
@@ -60,10 +59,8 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey),
 	)
 
-
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
-
 
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -71,24 +68,19 @@
 	H.name = H.real_name
 	H.meatleft = 5
 
-
 /datum/species/monkey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
-
 
 /datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.meatleft = initial(H.meatleft)
 
-
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	. = ..()
 	H.force_gene_block(GLOB.monkeyblock, !remove)
 
-
 /datum/species/monkey/can_understand(mob/other)
 	return istype(other, /mob/living/simple_animal/hostile/gorilla)
-
 
 /datum/species/monkey/tajaran
 	name = SPECIES_FARWA
@@ -104,7 +96,6 @@
 	base_color = "#000000"
 	tail = "farwatail"
 	skinned_type = /obj/item/stack/sheet/animalhide/farwa
-	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/tajaran,
@@ -134,10 +125,8 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/tajaran),
 	)
 
-
 /datum/species/monkey/tajaran/can_understand(mob/other)
 	return
-
 
 /datum/species/monkey/vulpkanin
 	name = SPECIES_WOLPIN
@@ -153,7 +142,6 @@
 	base_color = "#000000"
 	tail = "wolpintail"
 	skinned_type = /obj/item/stack/sheet/animalhide/wolpin
-	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vulpkanin,
@@ -183,10 +171,8 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/vulpkanin),
 	)
 
-
 /datum/species/monkey/vulpkanin/can_understand(mob/other)
 	return
-
 
 /datum/species/monkey/skrell
 	name = SPECIES_NEARA
@@ -201,7 +187,6 @@
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	skinned_type = /obj/item/stack/sheet/animalhide/neara
-	reagent_tag = PROCESS_ORG
 	tail = null
 	inherent_traits = list(
 		TRAIT_HAS_REGENERATION,
@@ -237,7 +222,6 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 	)
 
-
 /datum/species/monkey/skrell/can_understand(mob/other)
 	return
 
@@ -255,9 +239,6 @@
 	flesh_color = "#34AF10"
 	base_color = "#000000"
 	skinned_type = /obj/item/stack/sheet/animalhide/stok
-	reagent_tag = PROCESS_ORG
-
-	bodyflags = HAS_TAIL
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
@@ -286,7 +267,6 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/unathi),
 	)
-
 
 /datum/species/monkey/unathi/can_understand(mob/other)
 	return
