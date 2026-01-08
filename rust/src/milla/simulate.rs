@@ -727,9 +727,7 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
         return false;
     }
 
-    let my_next_heat_capacity = my_next_tile.heat_capacity();
-
-    let cached_temperature = my_next_tile.thermal_energy / my_next_heat_capacity;
+    let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
     let temp_diff: f32 = cached_temperature - T0C;
 
     if cached_temperature > T0C {
@@ -753,7 +751,7 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
             .gases
             .set_water_vapor(water_vapor - condensed_water);
         //We lose gas, so we lose the thermal energy it had
-        my_next_tile.thermal_energy = cached_temperature * my_next_heat_capacity;
+        my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
         if water_vapor > WATER_VAPOR_MIN_SATURATION_MOLES {
             return true;
         }
