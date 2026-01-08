@@ -3359,7 +3359,7 @@
 	},
 /area/quartermaster/storage)
 "aCi" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -8452,7 +8452,7 @@
 	},
 /area/hydroponics)
 "bjU" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/camera{
 	c_tag = "Supermatter Engine West";
 	network = list("SS13","Engineering")
@@ -16670,7 +16670,7 @@
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "caA" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -20414,7 +20414,7 @@
 	},
 /area/crew_quarters/bar)
 "cvU" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/camera{
 	c_tag = "Supermatter Engine East";
 	network = list("SS13","Engineering")
@@ -33266,9 +33266,7 @@
 	},
 /area/security/permabrig)
 "dCn" = (
-/obj/machinery/power/rad_collector{
-	anchored = 1
-	},
+/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -75859,9 +75857,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "mPs" = (
-/obj/machinery/power/rad_collector{
-	anchored = 1
-	},
+/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"

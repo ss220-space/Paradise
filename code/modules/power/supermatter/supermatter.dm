@@ -617,10 +617,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 		emit_radiation()
 
-		for(var/obj/machinery/power/rad_collector/rad_collector as anything in GLOB.rad_collectors)
-			if(are_zs_connected(rad_collector, src) && get_dist(rad_collector, src) <= 15) //Better than using orange() every process
-				rad_collector.receive_pulse(power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
-
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
 

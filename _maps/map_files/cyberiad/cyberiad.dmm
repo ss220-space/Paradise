@@ -38462,9 +38462,7 @@
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cQY" = (
-/obj/machinery/power/rad_collector{
-	anchored = 1
-	},
+/obj/machinery/power/rad_collector/anchored,
 /obj/item/tank/internals/plasma,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
@@ -42276,9 +42274,7 @@
 	},
 /area/quartermaster/qm)
 "deC" = (
-/obj/machinery/power/rad_collector{
-	anchored = 1
-	},
+/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/engineering/engine)

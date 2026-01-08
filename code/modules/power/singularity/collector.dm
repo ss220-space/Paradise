@@ -1,3 +1,10 @@
+// stored_energy += (pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT
+#define RAD_COLLECTOR_THRESHOLD 80	// This gets subtracted from the value of absorbed radiation
+#define RAD_COLLECTOR_COEFFICIENT 400
+#define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
+#define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
+
+
 GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector
@@ -10,11 +17,17 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	max_integrity = 350
 	integrity_failure = 80
+	///Stores the loaded tank instance
 	var/obj/item/tank/internals/plasma/loaded_tank = null
-	var/last_power = 0
+	var/stored_energy = 0
+	///Is the collector working?
 	var/active = FALSE
+	///Is the collector locked with an id?
 	var/locked = FALSE
-	var/drainratio = 1
+	///Amount of gas removed per tick
+	var/drain_ratio = 1
+	///Multiplier for the amount of gas removed per tick
+	var/powerproduction_drain = 0.001
 
 /obj/machinery/power/rad_collector/get_ru_names()
 	return list(
@@ -25,6 +38,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		INSTRUMENTAL = "радиационным коллектором",
 		PREPOSITIONAL = "радиационном коллекторе"
 	)
+
+/obj/machinery/power/rad_collector/anchored
+	anchored = TRUE
 
 /obj/machinery/power/rad_collector/Initialize(mapload)
 	. = ..()
@@ -38,13 +54,19 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(!loaded_tank)
 		return
 
-	if(loaded_tank.air_contents.toxins() <= 0)
+	if(!loaded_tank.air_contents.toxins())
 		investigate_log(span_red("out of fuel."), INVESTIGATE_ENGINE)
-		loaded_tank.air_contents.set_toxins(0)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
 	else
-		loaded_tank.air_contents.set_toxins(max(0, loaded_tank.air_contents.toxins() - 0.001 * drainratio))
+		var/gasdrained = min(powerproduction_drain * drain_ratio, loaded_tank.air_contents.toxins())
+		loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
+
+		var/power_produced = RAD_COLLECTOR_OUTPUT
+		add_avail(power_produced)
+		stored_energy -= power_produced
+
+	return ..()
 
 /obj/machinery/power/rad_collector/attack_hand(mob/user)
 	if(..())
@@ -78,7 +100,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return ..()
 		to_chat(user, span_notice("You have loaded the plasma tank into [src]."))
 		loaded_tank = item
-		update_icon()
+		update_appearance()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(item.GetID() || is_pda(item))
@@ -133,21 +155,32 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		return .
 	eject(user)
 
-/obj/machinery/power/rad_collector/multitool_act(mob/living/user, obj/item/item)
-	. = TRUE
-	if(!item.use_tool(src, user, volume = item.tool_volume))
-		return .
-	to_chat(user, span_notice("The [item.name] detects that [last_power]W were recently produced.."))
-
 /obj/machinery/power/rad_collector/return_analyzable_air()
 	if(loaded_tank)
 		return loaded_tank.return_analyzable_air()
 	return null
 
+/obj/machinery/power/rad_collector/examine(mob/user)
+	. = ..()
+	if(!active)
+		. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
+	// stored_energy is converted directly to watts every SSmachines.wait * 0.1 seconds.
+	// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
+	// So joules = stored_energy * SSmachines.wait * 0.1
+	var/joules = stored_energy * SSmachines.wait * 0.1
+	. += span_notice("[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.")
+
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		eject()
 		stat |= BROKEN
+
+/obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
+	if(loaded_tank && active)
+		var/power_produced = RAD_COLLECTOR_OUTPUT
+		power_produced = loaded_tank.air_contents.toxins() * pulse_strength * 20
+		add_avail(power_produced)
+		stored_energy = power_produced
 
 /obj/machinery/power/rad_collector/proc/eject(mob/user)
 	locked = FALSE
@@ -159,15 +192,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(active)
 		toggle_power()
 	else
-		update_icon()
-
-/obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
-	if(loaded_tank && active)
-		var/power_produced = 0
-		power_produced = loaded_tank.air_contents.toxins() * pulse_strength * 20
-		add_avail(power_produced)
-		last_power = power_produced
-		return
+		update_appearance()
 
 /obj/machinery/power/rad_collector/update_icon_state()
 	icon_state = "ca[active ? "_on" : ""]"
@@ -184,8 +209,10 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/proc/toggle_power()
 	active = !active
 	if(active)
+		icon_state = "ca_on"
 		flick("ca_active", src)
 	else
+		icon_state = "ca"
 		flick("ca_deactive", src)
-	update_icon()
+	update_appearance()
 

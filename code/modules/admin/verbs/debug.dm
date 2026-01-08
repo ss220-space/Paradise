@@ -658,7 +658,7 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
 				Plasma.air_contents.set_toxins(70)
-				Rad.drainratio = 0
+				Rad.drain_ratio = 0
 				Rad.loaded_tank = Plasma
 				Plasma.loc = Rad
 
