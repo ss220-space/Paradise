@@ -585,7 +585,7 @@ ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communicat
 
 	var/list/message_sound = list(
 		"Уведомление *бип*" = 'sound/misc/notice2.ogg',
-		"Перехвачены вражеские сообщения" = ANNOUNCER_INTERCEPT,
+		"Перехвачено вражескле сообщение" = ANNOUNCER_INTERCEPT,
 		"Составлен отчёт о новой команде" = SSstation.announcer.get_rand_report_sound(),
 	)
 
