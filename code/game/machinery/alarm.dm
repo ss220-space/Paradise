@@ -1,7 +1,8 @@
-#define AALARM_PRESET_HUMAN 1 // Default
-#define AALARM_PRESET_VOX 2 // Support Vox
-#define AALARM_PRESET_COLDROOM 3 // Kitchen coldroom
-#define AALARM_PRESET_SERVER 4 // Server coldroom
+#define AALARM_PRESET_HUMAN 1 //! Default
+#define AALARM_PRESET_VOX 2 //! Support Vox
+#define AALARM_PRESET_COLDROOM 3 //! Kitchen coldroom
+#define AALARM_PRESET_SERVER 4 //! Server coldroom
+#define AALARM_PRESET_DISABLED 5 //! Disables all alarms
 
 #define AALARM_REPORT_TIMEOUT 100
 
@@ -12,8 +13,8 @@
 /// 1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
 #define MAX_ENERGY_CHANGE 1000
 
-#define MAX_TEMPERATURE 363.15 // 90C
-#define MIN_TEMPERATURE 233.15 // -40C
+#define MAX_TEMPERATURE 363.15 //! 90C
+#define MIN_TEMPERATURE 233.15 //! -40C
 
 
 GLOBAL_LIST_INIT(aalarm_modes, list(
@@ -28,10 +29,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	"[AALARM_MODE_OFF]" = "Off",
 	"[AALARM_MODE_FLOOD]" = "Flood",
 ))
-
-#define AIR_ALARM_FRAME 0
-#define AIR_ALARM_BUILDING 1
-#define AIR_ALARM_READY 2
 
 // A datum for dealing with threshold limit values
 // used in /obj/machinery/alarm
@@ -48,13 +45,13 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	max2 = _max2
 
 /datum/tlv/proc/get_danger_level(curval as num)
-	if(max2 >=0 && curval>max2)
+	if(max2 >= 0 && curval > max2)
 		return ATMOS_ALARM_DANGER
-	if(min2 >=0 && curval<min2)
+	if(min2 >= 0 && curval < min2)
 		return ATMOS_ALARM_DANGER
-	if(max1 >=0 && curval>max1)
+	if(max1 >= 0 && curval > max1)
 		return ATMOS_ALARM_WARNING
-	if(min1 >=0 && curval<min1)
+	if(min1 >= 0 && curval < min1)
 		return ATMOS_ALARM_WARNING
 	return ATMOS_ALARM_NONE
 
@@ -65,8 +62,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	max2 = other.max2
 
 /obj/machinery/alarm
-	name = "alarm"
-	icon = 'icons/obj/machines/monitors.dmi'
+	name = "air alarm"
+	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
+	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
 	idle_power_usage = 4
@@ -82,20 +80,20 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	/// Which MILLA tick were we initialized at?
 	var/init_tick
 	var/alarm_id = null
-	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = ATMOS_FIRE_FREQ
 	var/remote_control = TRUE
 	var/rcon_setting = RCON_AUTO
 	var/rcon_time = 0
-	var/locked = 1
+	var/locked = TRUE
 	var/datum/wires/alarm/wires = null
-	var/wiresexposed = FALSE // If it's been screwdrivered open.
-	var/aidisabled = 0
+	/// If it's been screwdrivered open.
+	var/wiresexposed = FALSE
+	var/aidisabled = FALSE
 	var/AAlarmwires = 31
-	var/shorted = 0
+	var/shorted = FALSE
 
-	// Waiting on a device to respond.
-	// Specifies an id_tag.  NULL means we aren't waiting.
+	/// Waiting on a device to respond.
+	/// Specifies an id_tag.  NULL means we aren't waiting.
 	var/waiting_on_device = null
 
 	var/mode = AALARM_MODE_FILTERING
@@ -103,7 +101,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/area_uid
 	var/area/alarm_area
 	var/danger_level = ATMOS_ALARM_NONE
-	var/alarmActivated = 0 // Manually activated (independent from danger level)
+	/// Manually activated (independent from danger level)
+	var/alarmActivated = 0
 
 	var/buildstage = AIR_ALARM_READY
 
@@ -118,7 +117,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
 
-/obj/machinery/alarm/syndicate //general syndicate access
+/obj/machinery/alarm/engine
+	locked = FALSE
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+
+/// general syndicate access
+/obj/machinery/alarm/syndicate
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
@@ -134,6 +138,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
+
+/obj/machinery/alarm/disabled
+	preset = AALARM_PRESET_DISABLED
 
 /obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
@@ -194,38 +201,54 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				TLV_PRESSURE = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
 				TLV_TEMPERATURE = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
 			)
+		if(AALARM_PRESET_DISABLED)
+			no_cycle_after = TRUE
+			TLV = list(
+				TLV_O2 = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_N2 = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_CO2 = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_PL = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_N2O = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_H2 = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_H2O = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_OTHER = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				TLV_PRESSURE = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
+				TLV_TEMPERATURE = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // K
+			)
 
 	if(!no_cycle_after)
 		mode = AALARM_MODE_CYCLE
 		apply_mode()
 
-/obj/machinery/alarm/Initialize(mapload, direction, building = 0)
+/obj/machinery/alarm/Initialize(mapload, direction, building = AIR_ALARM_FRAME)
 	. = ..()
-	GLOB.air_alarms += src
-	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 
-	wires = new(src)
+	alarm_area = get_area(src)
 
 	if(building)
-		if(loc)
-			src.loc = loc
-
-		if(dir)
+		if(direction)
 			setDir(direction)
 
 		buildstage = AIR_ALARM_FRAME
 		wiresexposed = TRUE
 		set_pixel_offsets_from_dir(-24, 24, -24, 24)
-		update_icon()
-		return
 
-	first_run()
+	GLOB.air_alarms += src
 	alarm_area.air_alarms += src
+
+	if(!mapload)
+		GLOB.air_alarms = sortAtom(GLOB.air_alarms)
+
+	wires = new(src)
+
+	if(!building)
+		first_run()
+
 	init_tick = SSair.milla_tick
+
 	set_frequency(frequency)
-	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+	if(is_taipan(z))
 		req_access = list(ACCESS_SYNDICATE)
-	update_icon()
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
@@ -240,11 +263,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
-	alarm_area = get_area(src)
-	area_uid = alarm_area.uid
-	if(name == "alarm")
-		name = "[alarm_area.name] Air Alarm"
-	apply_preset(1) // Don't cycle.
+	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/process()
@@ -263,7 +282,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
 	var/datum/tlv/cur_tlv
 
-	cur_tlv = TLV["pressure"]
+	cur_tlv = TLV[TLV_PRESSURE]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 	if(environment_pressure < cur_tlv.min2 && mode == AALARM_MODE_FILTERING)
@@ -275,7 +294,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(mode == AALARM_MODE_REFILL && environment_pressure >= cur_tlv.min1)
 		mode = AALARM_MODE_FILTERING
 		apply_mode()
-
 
 	cur_tlv = TLV[TLV_O2]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
@@ -332,7 +350,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/turf/location = get_turf(alarm)
 	var/datum/gas_mixture/environment = get_turf_air(location)
 
-	var/datum/tlv/cur_tlv = alarm.TLV["temperature"]
+	var/datum/tlv/cur_tlv = alarm.TLV[TLV_TEMPERATURE]
 	//Handle temperature adjustment here.
 	if(environment.temperature() < alarm.target_temperature - 2 || environment.temperature() > alarm.target_temperature + 2 || alarm.regulating_temperature)
 		//If it goes too far, we should adjust ourselves back before stopping.
@@ -342,7 +360,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				return
 			if(!alarm.regulating_temperature && alarm.thermostat_state)
 				alarm.regulating_temperature = TRUE
-				alarm.visible_message("\The [alarm] clicks as it starts [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
+				alarm.visible_message(
+					"[alarm] clicks as it starts [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.",
+					"You hear a click and a faint electronic hum.",
+				)
 
 			if(alarm.target_temperature > MAX_TEMPERATURE)
 				alarm.target_temperature = MAX_TEMPERATURE
@@ -365,7 +386,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 			if(abs(environment.temperature() - alarm.target_temperature) <= 0.5)
 				alarm.regulating_temperature = FALSE
-				alarm.visible_message("[alarm] clicks quietly as it stops [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
+				alarm.visible_message(
+					"[alarm] clicks quietly as it stops [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.",
+					"You hear a click as a faint electronic humming stops.",
+				)
 
 			environment.merge(gas)
 
@@ -405,204 +429,160 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	underlays += emissive_appearance(icon, "alarm_lightmask", src)
 
 
-/obj/machinery/alarm/proc/refresh_all()
-	for(var/id_tag in alarm_area.air_vent_names)
-		var/list/I = alarm_area.air_vent_info[id_tag]
-		if(I && I["timestamp"]+AALARM_REPORT_TIMEOUT/2 > world.time)
-			continue
-		send_signal(id_tag, list("status") )
-	for(var/id_tag in alarm_area.air_scrub_names)
-		var/list/I = alarm_area.air_scrub_info[id_tag]
-		if(I && I["timestamp"]+AALARM_REPORT_TIMEOUT/2 > world.time)
-			continue
-		send_signal(id_tag, list("status") )
-
-/obj/machinery/alarm/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_TO_AIRALARM)
-
-/obj/machinery/alarm/proc/send_signal(target, list/command)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
-	if(!radio_connection)
-		return 0
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-
-	signal.data = command
-	signal.data["tag"] = target
-	signal.data["sigtype"] = "command"
-
-	radio_connection.post_signal(src, signal, RADIO_FROM_AIRALARM)
-	return TRUE
-
-// TODO refactor radio signals
 /obj/machinery/alarm/proc/apply_mode()
-	var/datum/tlv/pressure_tlv = TLV["pressure"]
+	var/datum/tlv/pressure_tlv = TLV[TLV_PRESSURE]
 	switch(mode)
 		if(AALARM_MODE_FILTERING)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"scrub_o2" = (preset == AALARM_PRESET_VOX),
-					"scrub_n2" = FALSE,
-					"scrub_co2" = TRUE,
-					"scrub_toxins" = FALSE,
-					"scrub_n2o" = FALSE,
-					"scrub_h2" = FALSE,
-					"scrub_h2o" = FALSE,
-					"scrubbing" = TRUE,
-					"widenet" = FALSE,
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"checks" = TRUE,
-					"set_external_pressure" = (pressure_tlv.min1 + pressure_tlv.max1) / 2
-				))
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = TRUE
+				scrubber.scrub_O2 = (preset == AALARM_PRESET_VOX)
+				scrubber.scrub_N2 = FALSE
+				scrubber.scrub_CO2 = TRUE
+				scrubber.scrub_Toxins = FALSE
+				scrubber.scrub_N2O = FALSE
+				scrubber.scrub_H2 = FALSE
+				scrubber.scrub_H2O = FALSE
+				scrubber.scrubbing = TRUE
+				scrubber.widenet = FALSE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = TRUE
+				pump.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				pump.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
+				pump.update_icon(UPDATE_ICON_STATE)
+
 		if(AALARM_MODE_CONTAMINATED)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"scrub_co2" = TRUE,
-					"scrub_toxins" = TRUE,
-					"scrub_n2o" = TRUE,
-					"scrub_h2" = TRUE,
-					"scrub_h2o" = TRUE,
-					"scrubbing" = TRUE,
-					"widenet" = TRUE,
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"checks" = TRUE,
-					"set_external_pressure" = (pressure_tlv.min1 + pressure_tlv.max1) / 2
-				))
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = TRUE
+				scrubber.scrub_CO2 = TRUE
+				scrubber.scrub_Toxins = TRUE
+				scrubber.scrub_N2O = TRUE
+				scrubber.scrub_H2 = TRUE
+				scrubber.scrub_H2O = TRUE
+				scrubber.scrubbing = TRUE
+				scrubber.widenet = TRUE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = TRUE
+				pump.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				pump.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
+				pump.update_icon(UPDATE_ICON_STATE)
+
 		if(AALARM_MODE_DRAUGHT)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"widenet" = FALSE,
-					"scrubbing" = FALSE
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure" = pressure_tlv.max1
-				))
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = TRUE
+				scrubber.widenet = FALSE
+				scrubber.scrubbing = FALSE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = TRUE
+				pump.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				pump.external_pressure_bound = pressure_tlv.max1
+				pump.update_icon(UPDATE_ICON_STATE)
+
 		if(AALARM_MODE_REFILL)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"scrub_co2" = TRUE,
-					"scrub_toxins" = FALSE,
-					"scrub_n2o" = FALSE,
-					"scrub_h2" = FALSE,
-					"scrub_h2o" = FALSE,
-					"scrubbing" = TRUE,
-					"widenet" = FALSE,
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"checks" = TRUE,
-					"set_external_pressure" = (pressure_tlv.min1 + pressure_tlv.max1) / 2
-				))
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = TRUE
+				scrubber.scrub_CO2 = TRUE
+				scrubber.scrub_Toxins = FALSE
+				scrubber.scrub_N2O = FALSE
+				scrubber.scrub_H2  = FALSE
+				scrubber.scrub_H2O = FALSE
+				scrubber.scrubbing = TRUE
+				scrubber.widenet = FALSE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = TRUE
+				pump.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				pump.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
+				pump.update_icon(UPDATE_ICON_STATE)
+
 		if(AALARM_MODE_PANIC, AALARM_MODE_CYCLE)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"widenet" = TRUE,
-					"scrubbing" = FALSE
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power" = FALSE
-				))
-		if(
-			AALARM_MODE_SIPHON
-		)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"widenet" = FALSE,
-					"scrubbing" = FALSE
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power" = FALSE
-				))
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = TRUE
+				scrubber.widenet = TRUE
+				scrubber.scrubbing = FALSE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = FALSE
+				pump.update_icon(UPDATE_ICON_STATE)
+
+		if(AALARM_MODE_SIPHON)
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = TRUE
+				scrubber.widenet = FALSE
+				scrubber.scrubbing = FALSE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = FALSE
+				pump.update_icon(UPDATE_ICON_STATE)
 
 		if(AALARM_MODE_OFF)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = TRUE
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power" = FALSE
-				))
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = FALSE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = FALSE
+				pump.update_icon(UPDATE_ICON_STATE)
+
 		if(AALARM_MODE_FLOOD)
-			for(var/device_id in alarm_area.air_scrub_names)
-				send_signal(device_id, list(
-					"power" = FALSE
-				))
-			for(var/device_id in alarm_area.air_vent_names)
-				send_signal(device_id, list(
-					"power" = TRUE,
-					"checks" = FALSE,
-				))
+			for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+				if(scrubber.stat & (NOPOWER|BROKEN))
+					continue
+				scrubber.on = FALSE
+				scrubber.update_icon(UPDATE_ICON_STATE)
+
+			for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
+				if(pump.stat & (NOPOWER|BROKEN))
+					continue
+				pump.on = TRUE
+				pump.pressure_checks = ONLY_CHECK_INT_PRESSURE
+				pump.internal_pressure_bound = 0
+				pump.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/alarm/proc/apply_danger_level()
 	var/new_area_danger_level = ATMOS_ALARM_NONE
-	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
-		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
-			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
-	if(alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
-		post_alert(new_area_danger_level)
+	for(var/obj/machinery/alarm/air_alarm in alarm_area.machinery_cache)
+		if(!(air_alarm.stat & (NOPOWER|BROKEN)) && !air_alarm.shorted)
+			new_area_danger_level = max(new_area_danger_level, air_alarm.danger_level)
+	alarm_area.atmosalert(new_area_danger_level, src)
 
-	update_icon()
-
-/obj/machinery/alarm/proc/post_alert(alert_level)
-	if(!report_danger_level)
-		return
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
-
-	if(!frequency)
-		return
-
-	var/datum/signal/alert_signal = new
-	alert_signal.source = src
-	alert_signal.transmission_method = 1
-	alert_signal.data["zone"] = get_area_name(src, TRUE)
-	alert_signal.data["type"] = "Atmospheric"
-
-	if(alert_level == ATMOS_ALARM_DANGER)
-		alert_signal.data["alert"] = "severe"
-	else if(alert_level == ATMOS_ALARM_WARNING)
-		alert_signal.data["alert"] = "minor"
-	else if(alert_level == ATMOS_ALARM_NONE)
-		alert_signal.data["alert"] = "clear"
-
-	frequency.post_signal(src, alert_signal)
-
-/obj/machinery/alarm/proc/post_mode(mode)
-	if(!mode)
-		return
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
-
-	if(!frequency)
-		return
-
-	var/datum/signal/mode_signal = new
-	mode_signal.source = src
-	mode_signal.transmission_method = 1
-	mode_signal.data["zone"] = get_area_name(src, TRUE)
-	mode_signal.data["mode"] = mode
-
-	frequency.post_signal(src, mode_signal)
+	update_icon(UPDATE_ICON_STATE)
 
 ///////////////
 //END HACKING//
@@ -640,10 +620,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
-	var/known_total = environment.oxygen() + environment.nitrogen() + environment.carbon_dioxide() + environment.toxins() + environment.sleeping_agent() + environment.hydrogen() + environment.water_vapor()
+	var/known_total = environment.oxygen() + environment.nitrogen() + environment.carbon_dioxide() + environment.toxins() + environment.sleeping_agent()
 	var/total = environment.total_moles()
-	if(total == 0)
-		return null
 
 	var/datum/tlv/cur_tlv
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.return_volume()
@@ -654,19 +632,19 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 	cur_tlv = TLV[TLV_O2]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
-	var/oxygen_percent = environment.oxygen() / total * 100
+	var/oxygen_percent = total ? environment.oxygen() / total * 100 : 0
 
-	cur_tlv = TLV[TLV_H2]
+	cur_tlv = TLV[TLV_N2]
 	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen() * GET_PP)
-	var/nitrogen_percent = environment.nitrogen() / total * 100
+	var/nitrogen_percent = total ? environment.nitrogen() / total * 100 : 0
 
 	cur_tlv = TLV[TLV_CO2 ]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide() * GET_PP)
-	var/co2_percent = environment.carbon_dioxide() / total * 100
+	var/co2_percent = total ? environment.carbon_dioxide() / total * 100 : 0
 
 	cur_tlv = TLV[TLV_PL]
 	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins() * GET_PP)
-	var/plasma_percent = environment.toxins() / total * 100
+	var/plasma_percent = total ? environment.toxins() / total * 100 : 0
 
 	cur_tlv = TLV[TLV_N2O]
 	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent() * GET_PP)
@@ -683,7 +661,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	cur_tlv = TLV[TLV_OTHER]
 	var/other_moles = total - known_total
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
-	var/other_percent = other_moles / total * 100
+	var/other_percent = total ? other_moles / total * 100 : 0
 
 	cur_tlv = TLV[TLV_TEMPERATURE]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature())
@@ -743,8 +721,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	data["thresholds"] = generate_thresholds_menu()
 
 	// Locked when:
-	//   Not sent from atmos console AND
-	//   Not silicon AND locked.
+	// - Not sent from atmos console AND
+	// - Not silicon AND locked.
 	var/datum/tgui/active_ui = SStgui.get_open_ui(user, src, "main")
 	data["locked"] = !is_authenticated(user, active_ui)
 	data["rcon"] = rcon_setting
@@ -752,50 +730,57 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["emagged"] = emagged
 	data["modes"] = list(
-		"mode[AALARM_MODE_FILTERING]"		= list("name" = GLOB.aalarm_modes["[AALARM_MODE_FILTERING]"],	"desc" = "Scrubs out contaminants. Will shut off and drop firelocks if pressure drops too low.", "id" = AALARM_MODE_FILTERING),
-		"mode[AALARM_MODE_DRAUGHT]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_DRAUGHT]"],			"desc" = "Siphons out air while replacing", "id" = AALARM_MODE_DRAUGHT),
-		"mode[AALARM_MODE_PANIC]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_PANIC]"],				"desc" = "Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),
-		"mode[AALARM_MODE_CYCLE]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_CYCLE]"],				"desc" = "Siphons air before replacing", "id" = AALARM_MODE_CYCLE),
-		"mode[AALARM_MODE_SIPHON]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_SIPHON]"],			"desc" = "Siphons air out of the room", "id" = AALARM_MODE_SIPHON),
-		"mode[AALARM_MODE_CONTAMINATED]"	= list("name" = GLOB.aalarm_modes["[AALARM_MODE_CONTAMINATED]"],		"desc" = "Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),
-		"mode[AALARM_MODE_REFILL]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_REFILL]"],			"desc" = "Refills a room to normal pressure, then switches to Filtering.", "id" = AALARM_MODE_REFILL),
-		"mode[AALARM_MODE_CUSTOM]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_CUSTOM]"],			"desc" = "Custom settings with no automatic mode switching.", "id" = AALARM_MODE_CUSTOM),
-		"mode[AALARM_MODE_OFF]"				= list("name" = GLOB.aalarm_modes["[AALARM_MODE_OFF]"],				"desc" = "Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),
-		"mode[AALARM_MODE_FLOOD]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_FLOOD]"],				"desc" = "Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
+		"mode[AALARM_MODE_FILTERING]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_FILTERING]"], "desc" = "Scrubs out contaminants. Will shut off and drop firelocks if pressure drops too low.", "id" = AALARM_MODE_FILTERING),
+		"mode[AALARM_MODE_DRAUGHT]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_DRAUGHT]"], "desc" = "Siphons out air while replacing", "id" = AALARM_MODE_DRAUGHT),
+		"mode[AALARM_MODE_PANIC]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_PANIC]"], "desc" = "Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),
+		"mode[AALARM_MODE_CYCLE]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_CYCLE]"], "desc" = "Siphons air before replacing", "id" = AALARM_MODE_CYCLE),
+		"mode[AALARM_MODE_SIPHON]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_SIPHON]"], "desc" = "Siphons air out of the room", "id" = AALARM_MODE_SIPHON),
+		"mode[AALARM_MODE_CONTAMINATED]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_CONTAMINATED]"], "desc" = "Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),
+		"mode[AALARM_MODE_REFILL]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_REFILL]"], "desc" = "Refills a room to normal pressure, then switches to Filtering.", "id" = AALARM_MODE_REFILL),
+		"mode[AALARM_MODE_CUSTOM]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_CUSTOM]"], "desc" = "Custom settings with no automatic mode switching.", "id" = AALARM_MODE_CUSTOM),
+		"mode[AALARM_MODE_OFF]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_OFF]"], "desc" = "Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),
+		"mode[AALARM_MODE_FLOOD]" = list("name" = GLOB.aalarm_modes["[AALARM_MODE_FLOOD]"], "desc" = "Shuts off scrubbers and opens vents", "emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Human",    	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
-		AALARM_PRESET_VOX		= list("name"="Vox",      	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
-		AALARM_PRESET_COLDROOM	= list("name"="Coldroom",	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
-		AALARM_PRESET_SERVER	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
+		AALARM_PRESET_HUMAN = list("name" = "Human", "desc" = "Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),
+		AALARM_PRESET_VOX = list("name" = "Vox", "desc" = "Checks for nitrogen only", "id" = AALARM_PRESET_VOX),
+		AALARM_PRESET_COLDROOM = list("name" = "Coldroom", "desc" = "For freezers", "id" = AALARM_PRESET_COLDROOM),
+		AALARM_PRESET_SERVER = list("name" = "Server Room", "desc" = "For server rooms", "id" = AALARM_PRESET_SERVER),
+		AALARM_PRESET_DISABLED 	= list("name" = "Disabled", "desc" = "Disables all alarms", "id" = AALARM_PRESET_DISABLED),
 	)
 	data["preset"] = preset
 
 	var/list/vents = list()
-	if(length(alarm_area.air_vent_names))
-		for(var/id_tag in alarm_area.air_vent_names)
+	if(length(alarm_area.vents))
+		for(var/obj/machinery/atmospherics/unary/vent_pump/pump as anything in alarm_area.vents)
 			var/list/vent_info = list()
-			var/long_name = alarm_area.air_vent_names[id_tag]
-			var/list/vent_data = alarm_area.air_vent_info[id_tag]
-			if(!vent_data)
-				continue
-			vent_info["id_tag"] = id_tag
-			vent_info["name"] = readd_quote(sanitize(long_name))
-			vent_info += vent_data
+			vent_info["id_tag"] = pump.UID()
+			vent_info["name"] = pump.name
+			vent_info["power"] = pump.on
+			vent_info["direction"] = pump.releasing
+			vent_info["checks"] = pump.pressure_checks
+			vent_info["external"] = pump.external_pressure_bound
 			vents += list(vent_info)
 	data["vents"] = vents
 
 	var/list/scrubbers = list()
-	if(length(alarm_area.air_scrub_names))
-		for(var/id_tag in alarm_area.air_scrub_names)
-			var/long_name = alarm_area.air_scrub_names[id_tag]
-			var/list/scrubber_data = alarm_area.air_scrub_info[id_tag]
-			if(!scrubber_data)
-				continue
-			scrubber_data["id_tag"] = id_tag
-			scrubber_data["name"] = readd_quote(sanitize(long_name))
-			scrubbers += list(scrubber_data)
+	if(length(alarm_area.scrubbers))
+		for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber as anything in alarm_area.scrubbers)
+			var/list/scrubber_info = list()
+			scrubber_info["id_tag"] = scrubber.UID()
+			scrubber_info["name"] = readd_quote(sanitize(scrubber.name))
+			scrubber_info["power"] = scrubber.on
+			scrubber_info["scrubbing"] = scrubber.scrubbing
+			scrubber_info["widenet"] = scrubber.widenet
+			scrubber_info["filter_o2"] = scrubber.scrub_O2
+			scrubber_info["filter_n2"] = scrubber.scrub_N2
+			scrubber_info["filter_co2"] = scrubber.scrub_CO2
+			scrubber_info["filter_toxins"] = scrubber.scrub_Toxins
+			scrubber_info["filter_n2o"] = scrubber.scrub_N2O
+			scrubber_info["filter_h2"] = scrubber.scrub_H2
+			scrubber_info["filter_h2o"] = scrubber.scrub_H2O
+			scrubbers += list(scrubber_info)
 	data["scrubbers"] = scrubbers
 	return data
 
@@ -804,12 +789,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	data["name"] = readd_quote(sanitize(name))
 	data["ref"] = UID()
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
-	var/area/A = get_area(src)
-	data["area"] = readd_quote(sanitize(A.name))
-	var/turf/T = get_turf(src)
-	data["x"] = T.x
-	data["y"] = T.y
-	data["z"] = T.z
+	var/area/area = get_area(src)
+	data["area"] = readd_quote(sanitize(area.name))
+	var/turf/turf = get_turf(src)
+	data["x"] = turf.x
+	data["y"] = turf.y
+	data["z"] = turf.z
 	return data
 
 /obj/machinery/alarm/proc/generate_thresholds_menu()
@@ -819,35 +804,54 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/list/gas_names = list(
 		TLV_O2 = "O2",
 		TLV_N2 = "N2",
-		TLV_CO2	= "CO2",
+		TLV_CO2 = "CO2",
 		TLV_PL = "Toxin",
 		TLV_N2O = "N2O",
 		TLV_H2 = "H2",
 		TLV_H2 = "H2O",
-		TLV_OTHER = "Other")
-	for(var/g in gas_names)
-		thresholds += list(list("name" = gas_names[g], "settings" = list()))
-		selected = TLV[g]
-		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min2", "selected" = selected.min2))
-		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min1", "selected" = selected.min1))
-		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
-		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
+		TLV_OTHER = "Other",
+	)
+	for(var/gas in gas_names)
+		thresholds += list(list("name" = gas_names[gas], "settings" = list()))
+		selected = TLV[gas]
+		thresholds[length(thresholds)]["settings"] += list(list("env" = gas, "val" = "min2", "selected" = selected.min2))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = gas, "val" = "min1", "selected" = selected.min1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = gas, "val" = "max1", "selected" = selected.max1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = gas, "val" = "max2", "selected" = selected.max2))
 
-	selected = TLV["pressure"]
-	thresholds += list(list("name" = "Pressure", "settings" = list()))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
+	selected = TLV[TLV_PRESSURE]
+	thresholds += list(list("name" = TLV_PRESSURE, "settings" = list()))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_PRESSURE, "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_PRESSURE, "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_PRESSURE, "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_PRESSURE, "val" = "max2", "selected" = selected.max2))
 
-	selected = TLV["temperature"]
-	thresholds += list(list("name" = "Temperature", "settings" = list()))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
-	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
+	selected = TLV[TLV_TEMPERATURE]
+	thresholds += list(list("name" = TLV_TEMPERATURE, "settings" = list()))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_TEMPERATURE, "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_TEMPERATURE, "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_TEMPERATURE, "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = TLV_TEMPERATURE, "val" = "max2", "selected" = selected.max2))
 
 	return thresholds
+
+/obj/machinery/alarm/ui_state(mob/user)
+	if(issilicon(user))
+		if(isAI(user))
+			var/mob/living/silicon/ai/ai = user
+			if(!ai.lacks_power() || ai.apc_override)
+				return GLOB.always_state
+		else
+			for(var/obj/machinery/computer/atmoscontrol/atmos_control in view(user.client.maxview(), user))
+				if(!atmos_control.stat)
+					return GLOB.always_state
+
+	if(ishuman(user))
+		for(var/obj/machinery/computer/atmoscontrol/atmos_control in range(1, user))
+			if(!atmos_control.stat)
+				return GLOB.always_state
+
+	return GLOB.default_state
 
 /obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -855,7 +859,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		ui = new(user, src, "AirAlarm", name)
 		ui.open()
 
-/obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
+/obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui = null, bypass = FALSE)
 	// Return true if they are connecting with a remote console
 	// lol this is a wank hack, please don't shoot me
 	for(var/obj/machinery/computer/atmoscontrol/control in orange(1, user))
@@ -872,7 +876,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return UI_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
-		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
+		to_chat(user, span_warning("AI control for [src] interface has been disabled."))
 		return UI_CLOSE
 
 	. = shorted ? UI_DISABLED : UI_INTERACTIVE
@@ -891,10 +895,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	// Used for rcon auth
 	var/datum/tgui/active_ui = SStgui.get_open_ui(usr, src, "main")
 
-	var/device_id = params["id_tag"]
 	switch(action)
 		if("set_rcon")
-			var/attempted_rcon_setting = params["rcon"]
+			var/attempted_rcon_setting = text2num(params["rcon"])
 			switch(attempted_rcon_setting)
 				if(RCON_NO)
 					rcon_setting = RCON_NO
@@ -902,86 +905,147 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					rcon_setting = RCON_AUTO
 				if(RCON_YES)
 					rcon_setting = RCON_YES
+
 		if("command")
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			switch(params["cmd"])
+			var/device_id = params["id_tag"]
+			var/cmd = params["cmd"]
+			switch(cmd)
 				if("power",
 					"adjust_external_pressure",
 					"set_external_pressure",
 					"checks",
-					"scrub_co2",
-					"scrub_toxins",
-					"scrub_n2o",
-					"scrub_n2",
-					"scrub_o2",
-					"scrub_h2",
-					"scrub_h2o",
+					"co2_scrub",
+					"tox_scrub",
+					"n2o_scrub",
+					"n2_scrub",
+					"o2_scrub",
+					"h2_scrub",
+					"h2o_scrub",
 					"widenet",
 					"scrubbing",
 					"direction")
-					var/val
-					if(!isnull(params["val"]))
-						val=params["val"]
-					else
+					var/val = isnum(params["val"]) ? params["val"] : text2num(params["val"])
+					if(isnull(val))
 						var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, 0, round_value = FALSE)
 						if(isnull(newval))
 							return
 						val = newval
+
+					// Figure out what it is
+					var/obj/machinery/atmospherics/unary/unary = locateUID(device_id)
+					if(!unary)
+						return
+
+					if(!((unary in alarm_area.vents) || (unary in alarm_area.scrubbers)))
+						message_admins(span_boldannounceooc("[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!"))
+						return
+
 					mode = AALARM_MODE_CUSTOM
-					// For those who read this: This radio BS is what makes air alarms take 10 years to update in the UI
-					send_signal(device_id, list(params["cmd"] = val))
-					waiting_on_device = device_id
+
+					// Its a vent. Handle
+					if(istype(unary, /obj/machinery/atmospherics/unary/vent_pump))
+						var/obj/machinery/atmospherics/unary/vent_pump/vent_pump = unary
+
+						if(vent_pump.stat & (NOPOWER|BROKEN))
+							return
+
+						switch(cmd)
+							if("power")
+								vent_pump.on = val
+							if("adjust_external_pressure")
+								vent_pump.external_pressure_bound = clamp(vent_pump.external_pressure_bound + val, 0, ONE_ATMOSPHERE * 50)
+							if("set_external_pressure")
+								vent_pump.external_pressure_bound = clamp(val, 0, ONE_ATMOSPHERE * 50)
+							if("checks")
+								vent_pump.pressure_checks = val
+							if("direction")
+								vent_pump.releasing = val
+
+						vent_pump.update_icon(UPDATE_ICON_STATE)
+
+					// Its a scrubber. Do the same but ever so slightly similar.
+					else if(istype(unary, /obj/machinery/atmospherics/unary/vent_scrubber))
+						var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = unary
+
+						if(scrubber.stat & (NOPOWER|BROKEN))
+							return
+
+						switch(cmd)
+							if("power")
+								scrubber.on = val
+							if("co2_scrub")
+								scrubber.scrub_CO2 = val
+							if("tox_scrub")
+								scrubber.scrub_Toxins = val
+							if("n2o_scrub")
+								scrubber.scrub_N2O = val
+							if("n2_scrub")
+								scrubber.scrub_N2 = val
+							if("o2_scrub")
+								scrubber.scrub_O2 = val
+							if("h2_scrub")
+								scrubber.scrub_H2 = val
+							if("h2o_scrub")
+								scrubber.scrub_H2O = val
+							if("widenet")
+								scrubber.widenet = val
+							if("scrubbing")
+								scrubber.scrubbing = val
+
+						scrubber.update_icon(UPDATE_ICON_STATE)
 
 				if("set_threshold")
 					var/env = params["env"]
 					var/varname = params["var"]
+					if(!(varname in list("min1", "min2", "max1", "max2"))) // uh oh
+						message_admins("[key_name_admin(usr)] attempted to href edit vars on [src]!!!")
+						return
 					var/datum/tlv/tlv = TLV[env]
 					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
-
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
 					if(newval < 0)
 						tlv.vars[varname] = -1.0
-					else if(env == "temperature" && newval > 5000)
+					else if(env == TLV_TEMPERATURE && newval > 5000)
 						tlv.vars[varname] = 5000
-					else if(env == "pressure" && newval > 50 * ONE_ATMOSPHERE)
+					else if(env == TLV_PRESSURE && newval > 50 * ONE_ATMOSPHERE)
 						tlv.vars[varname] = 50 * ONE_ATMOSPHERE
-					else if(env != "temperature" && env != "pressure" && newval > 200)
+					else if(env != TLV_TEMPERATURE && env != TLV_PRESSURE && newval > 200)
 						tlv.vars[varname] = 200
 					else
 						newval = round(newval, 0.01)
 						tlv.vars[varname] = newval
 
 		if("atmos_alarm")
-			if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
-				post_alert(ATMOS_ALARM_DANGER)
+			alarm_area.atmosalert(ATMOS_ALARM_DANGER, src)
 			alarmActivated = TRUE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 		if("atmos_reset")
-			if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
-				post_alert(ATMOS_ALARM_NONE)
+			alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE)
 			alarmActivated = FALSE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 		if("mode")
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			mode = params["mode"]
+			mode = text2num(params["mode"])
 			apply_mode()
+
 
 		if("preset")
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			preset = params["preset"]
+			preset = text2num(params["preset"])
 			apply_preset()
 
-		if("temperature")
-			var/datum/tlv/selected = TLV["temperature"]
+		if(TLV_TEMPERATURE)
+			var/datum/tlv/selected = TLV[TLV_TEMPERATURE]
 			var/max_temperature = selected.max1 >= 0 ? min(selected.max1, MAX_TEMPERATURE) : max(selected.max1, MAX_TEMPERATURE)
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
@@ -998,29 +1062,16 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
 
-/obj/machinery/alarm/ui_state(mob/user)
-	if(issilicon(user))
-		if(isAI(user))
-			var/mob/living/silicon/ai/AI = user
-			if(!AI.lacks_power() || AI.apc_override)
-				return GLOB.always_state
-		if(isrobot(user))
-			return GLOB.always_state
-
-	else if(ishuman(user))
-		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
-			if(!AC.stat)
-				return GLOB.always_state
-
-	return GLOB.default_state
-
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], disabling its safeties."))
+			user.visible_message(
+				span_warning("Sparks fly out of [src]!"),
+				span_notice("You emag [src], disabling its safeties."),
+			)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		return
+		return TRUE
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -1043,7 +1094,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				playsound(get_turf(src), coil.usesound, 50, TRUE)
 				buildstage = AIR_ALARM_READY
 				wiresexposed = TRUE
-				update_icon()
+				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				first_run()
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -1056,7 +1107,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				playsound(get_turf(src), I.usesound, 50, TRUE)
 				qdel(I)
 				buildstage = AIR_ALARM_BUILDING
-				update_icon(UPDATE_ICON_STATE)
+				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -1124,12 +1175,15 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 /obj/machinery/alarm/power_change(forced = FALSE)
 	. = ..()
-	if(.)
-		update_icon()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -1144,12 +1198,14 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_FRAME)
-			. += span_notice("Its <i>circuit</i> is missing and the <b>bolts<b> are exposed.")
+			. += span_notice("Its <i>circuit</i> is missing and the <b>bolts</b> are exposed.")
 		if(AIR_ALARM_BUILDING)
 			. += span_notice("The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.")
 		if(AIR_ALARM_READY)
 			if(wiresexposed)
 				. += span_notice("The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.")
+			else
+				. += span_notice("You can unlock an Air Alarm by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.")
 
 /obj/machinery/alarm/proc/togglelock(mob/living/user)
 	add_fingerprint(user)
@@ -1175,7 +1231,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
 		shorted = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/proc/enable_ai_control_callback()
 	if(aidisabled)
@@ -1183,26 +1239,25 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"
-	desc = "This particular atmos control unit appears to have no access restrictions."
+	desc = "A wall-mounted device used to control atmospheric equipment. Its access restrictions appear to have been removed."
 	locked = FALSE
 	req_access = null
 
-/*
-AIR ALARM CIRCUIT
-Just an object used in constructing air alarms
-*/
+/**
+ * AIR ALARM CIRCUIT
+ * Just an object used in constructing air alarms
+ */
 /obj/item/airalarm_electronics
 	name = "air alarm electronics"
+	desc = "Looks like a circuit. Probably is."
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	desc = "Looks like a circuit. Probably is."
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	usesound = 'sound/items/deconstruct.ogg'
 
 //for oldstation
-
 /obj/machinery/alarm/old
 	name = "old air alarm"
 	desc = "This atmos control unit is too old, that it no longer requires access."
@@ -1221,6 +1276,3 @@ Just an object used in constructing air alarms
 #undef MAX_ENERGY_CHANGE
 #undef MAX_TEMPERATURE
 #undef MIN_TEMPERATURE
-#undef AIR_ALARM_FRAME
-#undef AIR_ALARM_BUILDING
-#undef AIR_ALARM_READY

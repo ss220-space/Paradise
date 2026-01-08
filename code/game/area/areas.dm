@@ -111,10 +111,10 @@
 
 	/// The air alarms present in this area.
 	var/list/air_alarms = list()
-	var/list/air_vent_names = list()
-	var/list/air_scrub_names = list()
-	var/list/air_vent_info = list()
-	var/list/air_scrub_info = list()
+	/// The list of vents in our area.
+	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
+	/// The list of scrubbers in our area.
+	var/list/obj/machinery/atmospherics/unary/vent_scrubber/scrubbers = list()
 
 	/// Turrets use this list to see if individual power/lethal settings are allowed
 	var/list/obj/machinery/turretid/turret_controls = list()

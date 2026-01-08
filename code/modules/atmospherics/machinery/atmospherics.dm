@@ -17,7 +17,7 @@ Pipelines + Other Objects -> Pipe network
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
 
 	/// Generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things.
-	var/layer_offset = 0.0
+	var/layer_offset = 0
 	/// Can this be unwrenched?
 	var/can_unwrench = FALSE
 	/// Can this be put under a tile?
@@ -44,6 +44,9 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	/// The image of the pipe/device used for ventcrawling
 	var/image/pipe_vision_img
+
+	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
+	var/autolink_id = null
 
 /obj/machinery/atmospherics/Initialize(mapload)
 	var/turf/turf_loc = null
