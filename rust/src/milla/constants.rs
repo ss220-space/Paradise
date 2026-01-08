@@ -169,6 +169,9 @@ pub(crate) const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;
 /// How much thermal energy is produced, in joules per mole of sleeping agent.
 pub(crate) const NITROUS_BREAKDOWN_ENERGY: f32 = 200_000.0;
 
+/// Minimum moles of water vapor required to initiate condensation.
+pub(crate) const WATER_VAPOR_MIN_SATURATION_MOLES: f32 = 0.01;
+
 // How much thermal energy is produced, in joules per mole of water vapor.
 pub(crate) const WATER_VAPOR_BREAKDOWN_ENERGY: f32 = 200.0;
 

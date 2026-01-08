@@ -738,7 +738,9 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
         (my_next_tile.gases.water_vapor() * R_IDEAL_GAS_EQUATION * cached_temperature
             / TILE_VOLUME)
             / saturation_pressure;
-    if relative_humidity > 1.0 && my_next_tile.gases.water_vapor() > 0.0 {
+    if relative_humidity > 1.0
+        && my_next_tile.gases.water_vapor() > WATER_VAPOR_MIN_SATURATION_MOLES
+    {
         // Condense all the water we cannot hold
         let condensed_water: f32 =
             my_next_tile.gases.water_vapor() - my_next_tile.gases.water_vapor() / relative_humidity;
