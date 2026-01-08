@@ -326,8 +326,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	update_list()
 
 	if(!old_gravity)
-		investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
-		message_admins("The gravity generator was brought online. [ADMIN_VERBOSEJMP(src)]")
+		if(SSticker.current_state == GAME_STATE_PLAYING)
+			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
+			message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
 		shake_everyone()
 
 /obj/machinery/gravity_generator/main/proc/disable()
@@ -340,8 +341,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	update_list()
 
 	if(old_gravity)
-		investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
-		message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
+		if(SSticker.current_state == GAME_STATE_PLAYING)
+			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
+			message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
 		shake_everyone()
 
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
