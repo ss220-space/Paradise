@@ -57,6 +57,8 @@
 #define DETONATION_RADS 200
 #define DETONATION_HALLUCINATION 600
 
+/// All humans within this range will be irradiated
+#define DETONATION_RADIATION_RANGE 20
 
 #define WARNING_DELAY 60
 
@@ -418,8 +420,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 				var/hallucination_amount = (max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(living_mob, src) + 1))))) SECONDS
 				human_mob.AdjustHallucinate(hallucination_amount)
 
-			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(living_mob, src) + 1))
-			living_mob.apply_effect(rads, IRRADIATE)
+			if(get_dist(living_mob, src) <= DETONATION_RADIATION_RANGE)
+				SSradiation.irradiate(living_mob)
 
 	var/turf/source_turf = get_turf(src)
 	var/super_matter_charge_sound = sound('sound/magic/charge.ogg')
@@ -613,7 +615,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH + h2comp * HYDROGEN_CRUNCH + h2ocomp * H2O_CRUNCH)
 
-		//radiation_pulse(src, power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
+		emit_radiation()
 
 		for(var/obj/machinery/power/rad_collector/rad_collector as anything in GLOB.rad_collectors)
 			if(are_zs_connected(rad_collector, src) && get_dist(rad_collector, src) <= 15) //Better than using orange() every process
@@ -643,9 +645,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			var/distance_factor = sqrt(1 / max(1, get_dist(human_mob, src)))
 			var/hallucination_amount = power * hallucination_power * distance_factor
 			human_mob.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
-	for(var/mob/living/living_mob in range(src, round((power / 100) ** 0.25)))
-		var/rads = (power / 10) * sqrt( 1 / max(get_dist(living_mob, src), 1) )
-		living_mob.apply_effect(rads, IRRADIATE)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -909,8 +908,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		Consume(used_item)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
-		//radiation_pulse(src, 600, GAMMA_RAD)
-		attacking_mob.apply_effect(150, IRRADIATE)
+		radiation_pulse(src, max_range = 3, threshold = 0.1, chance = 50)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/movable_atom)
 	if(HAS_TRAIT(movable_atom, TRAIT_SUPERMATTER_IMMUNE))
@@ -975,9 +973,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 		matter_power += 200
 
 	// Some poor sod got eaten, go ahead and irradiate people nearby.
+	radiation_pulse(src, max_range = 6, threshold = 0.3, chance = 30)
 	for(var/mob/living/near_mob in range(10))
-		var/rads = 500 * sqrt( 1 / (get_dist(near_mob, src) + 1))
-		near_mob.apply_effect(rads, IRRADIATE)
 		investigate_log("has irradiated [key_name(near_mob)] after consuming [movable_atom].", INVESTIGATE_ENGINE)
 		near_mob.visible_message(
 			span_danger("Когда [declent_ru(NOMINATIVE)] медленно прекращает резонировать, кожа [near_mob.declent_ru(GENITIVE)] покрывается новыми радиационными ожогами."),
@@ -1384,3 +1381,4 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 #undef HYDROGEN_CRUNCH
 #undef H2O_CRUNCH
 #undef MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION
+#undef DETONATION_RADIATION_RANGE
