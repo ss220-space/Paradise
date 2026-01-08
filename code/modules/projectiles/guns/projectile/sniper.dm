@@ -143,7 +143,6 @@
 
 /obj/projectile/bullet/sniper/explosive
 	damage = 85
-	stun = 6 SECONDS
 	dismemberment = 0
 	weaken = 6 SECONDS
 	ricochets_max = 0
