@@ -16,7 +16,7 @@
 
 /datum/antagonist/servant/on_gain()
 	self_summon_action.master = serve_to
-	summon_action.servant = owner
+	summon_action.servant = owner.current
 	self_summon_action.Grant(owner.current)
 	summon_action.Grant(serve_to)
 	var/datum/objective/serve/serve_obj = new(serve_to)
