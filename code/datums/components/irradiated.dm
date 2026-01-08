@@ -190,7 +190,7 @@
 	name = "Облученный"
 	desc = "Вы подверглись облучению! Быстро устраните токсины и примите душ, чтобы остановить дальнейшее повреждение."
 	//use_user_hud_icon = TRUE
-	//overlay_state = "irradiated"
+	icon_state = "irradiated"
 
 #undef RADIATION_BURN_SPLOTCH_DAMAGE
 #undef RADIATION_BURN_INTERVAL_MIN

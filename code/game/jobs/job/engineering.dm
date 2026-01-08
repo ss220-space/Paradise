@@ -19,6 +19,7 @@
 	)
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
+	liver_traits = list(TRAIT_ENGINEER_METABOLISM)
 
 /datum/outfit/job/chief_engineer
 	name = JOB_TITLE_CHIEF
@@ -54,6 +55,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_ENGINEERING
 	paycheck = PAYCHECK_CREW
+	liver_traits = list(TRAIT_ENGINEER_METABOLISM)
 
 /datum/job/engineering/engineer
 	title = JOB_TITLE_ENGINEER
