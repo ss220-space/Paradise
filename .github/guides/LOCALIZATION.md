@@ -195,9 +195,14 @@ amount = 102
 
 Изменяет регистр первого символа строки на верхний – `capitalize(текст)`.
 
+**НЕ ИСПОЛЬЗУЙТЕ ЭТОТ ПРОК НАПРЯМУЮ С `declent_ru`!**
+Вместо этого используйте готовый макрос `declent_ru_cap(case_id)`, расположенный в файле `code/game/atom/atom_localization.dm`.
+
 ```DM
 var/mob_name = "клоун"
 "[capitalize(mob_name)] убегает!" // "Клоун убегает!"
+
+"Вы думаете о [mob_name.declent_ru_cap(PREPOSITIONAL)]." // "Вы думаете о Клоуне."
 ```
 
 ### Балуны
