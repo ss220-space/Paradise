@@ -418,3 +418,6 @@
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
 #define STATION_TRAIT_MIMANIUM_SHIPMENTS "station_trait_mimanium_shipments"
 #define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
+#define STATION_TRAIT_PDA_GLITCHED "station_trait_pda_glitched"
+#define STATION_TRAIT_CLASSIC_ASSISTANTS "station_trait_classic_assistants"
+#define STATION_TRAIT_BIRTHDAY "station_trait_birthday"
