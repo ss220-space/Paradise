@@ -20,7 +20,7 @@
 
 - PR'ы не должны иметь каких-либо **merge-конфликтов**. Используйте `git rebase` или `git reset`, чтобы обновлять свои ветки, не `git pull`.
 
-- Всегда объясняйте, почему ваши PR должен быть **одобрен** и какую **ценность** для проекта несут данные изменения. Этим правилом можно пренебречь, если вы считаете, что польза PR'а очевидна и не требует каких-либо дополнительных пояснений. Тем не менее, дополнительная информация никогда не будет лишней.
+- Всегда объясняйте, почему ваш PR должен быть **одобрен** и какую **ценность** для проекта несут данные изменения. Этим правилом можно пренебречь, если вы считаете, что польза PR'а очевидна и не требует каких-либо дополнительных пояснений. Тем не менее, дополнительная информация никогда не будет лишней.
 
 #### Использование Changelog
 
@@ -155,80 +155,72 @@ var/path_type = "/obj/item/baseball_bat"
 
 ### Используйте `[A.UID()]` вместо `\ref[A]`
 
-BYOND has a system to pass "soft references" to datums, using the format `"\ref[datum]"` inside a string. This allows you to find the object just based
-off of a text string, which is especially useful when dealing with the bridge between BYOND code and HTML/JS in UIs. It's resolved back into an object
-reference by using `locate("\ref[datum]")` when the code comes back to BYOND. The issue with this is that locate() can return a unexpected datum
-if the original datum has been deleted - BYOND recycles the references.
+В BYOND существует система передачи «мягких ссылок» на объекты (datums) с использованием формата `"\ref[datum]"`. Это позволяет находить объект только по текстовой строке, что особенно удобно при взаимодействии кода BYOND с HTML/JS в пользовательских интерфейсах. При возврате в BYOND ссылка преобразуется обратно в объект с помощью `locate("\ref[datum]")`. Проблема заключается в том, что если исходный объект был удалён, `locate()` может вернуть совершенно другой объект — BYOND повторно использует ссылки после удаления.
 
-UID's are actually unique; they work off of a global counter and are not recycled. Each datum has one assigned to it when it's created, which can be
-accessed by `[datum.UID()]`. You can use this as a snap-in replacement for `\ref` by changing any `locate(ref)` calls in your code to `locateUID(ref)`.
-Usage of this system is mandatory for any /Topic( calls, and will produce errors in Dream Daemon if it's not used. `<a href='byond://?src=[UID()];'>`, not `<a href='byond://?src=\ref[src];'`.
+**Идентификаторы UID** ("уникальные идентификаторы") действительно уникальны: они генерируются с помощью глобального счётчика и **никогда** не переиспользуются. Каждому объекту UID присваивается при создании и доступен через [datum.UID()]. Вы можете использовать UID как прямую замену `\ref`, заменив все вызовы `locate(ref)` в вашем коде на `locateUID(ref)`. Использование этой системы **обязательно** для всех вызовов `/Topic(`, иначе DM будет выдавать ошибку. Используйте `<a href='byond://?src=[UID()];'>`, а не `<a href='byond://?src=\ref[src];'`.
 
-### Use var/name format when declaring variables
+### Используйте формат `var/name` при объявлении переменных
 
-While DM allows other ways of declaring variables, this one should be used for consistency.
+Хотя DM допускает и другие способы объявления переменных, для единообразия следует использовать **именно этот**.
 
-### Tabs, not spaces
+### Используйте табуляцию, а не пробелы
 
-You must use tabs to indent your code, NOT SPACES.
+Вы **обязаны** использовать табуляцию для отступов в коде, **НЕ ПРОБЕЛЫ**.
 
-(You may use spaces to align something, but you should tab to the block level first, then add the remaining spaces)
+Пробелы разрешается использовать для **выравнивания**, но сначала сделайте отступ до уровня блока с помощью табуляции, а затем добавьте нужное количество пробелов.
 
-### No hacky code
+### Не пишите "костыльный" код
 
-Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`), is highly discouraged and only allowed when there is **_no_** other option. (
-Protip: 'I couldn't immediately think of a proper way so thus there must be no other option' is not gonna cut it here! If you can't think of anything else, say that outright and admit that you need help with it. Maintainers exist for exactly that reason.)
+"Костыльный" код — например, добавление специфических проверок вроде `istype(src, /obj/whatever)`, крайне не рекомендуется и допускается только тогда, когда другого варианта **действительно нет**.
+Подсказка: фраза "Я не смог сразу придумать нормального решения, значит другого варианта нет" здесь **не сработает**! Если вы не знаете, как решить задачу правильно — прямо скажите об этом и попросите помощи. Именно для этого и **существуют мейнтейнеры**.
 
-You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and
-then overriding them as required.
+**Избегайте** костылей, применяя **объектно-ориентированные подходы**: переопределяйте процедуры (procs) или выносите код в отдельные функции, которые можно переопределять при необходимости.
 
-The same also applies to bugfix - If an invalid value is being passed into a proc from something that shouldn't have that value, don't fix it on the proc itself, fix it at its origin! (Where feasible)
+То же самое касается **исправления багов**: если в процедуру передаётся некорректное значение откуда-то, где его быть не должно, не исправляйте проблему внутри самой процедуры — устраните её в источнике, если это возможно.
 
-### No duplicated code
+### Не дублируйте код
 
-Copying code from one place to another may be suitable for small, short-time projects, but Paradise is a long-term project and highly discourages this.
+Копирование кода из одного места в другое допустимо в небольших краткосрочных проектах, но наш билд — **долгосрочный** проект, и дублирование здесь **крайне** не рекомендуется.
 
-Instead you can use object orientation, or simply placing repeated code in a function, to obey this specification easily.
+Вместо этого используйте ООП или просто выносите повторяющийся код в **отдельные функции**.
 
-### Startup/Runtime tradeoffs with lists and the "hidden" init proc
+### Компромиссы при старте и во время выполнения: списки и "скрытая" процедура `init`
 
-First, read the comments in [this BYOND thread](http://www.byond.com/forum/?post=2086980&page=2#comment19776775), starting where the link takes you.
+**Сначала** прочитайте комментарии в [этой теме на форуме BYOND](http://www.byond.com/forum/?post=2086980&page=2#comment19776775), начиная с указанного места.
 
-There are two key points here:
+Здесь два ключевых момента:
 
-1. Defining a list in the variable's definition calls a hidden proc - init. If you have to define a list at startup, do so in New() (or preferably Initialize()) and avoid the overhead of a second call (Init() and then New())
+1. Определение списка прямо в объявлении переменной вызывает скрытую процедуру `init`. Если список нужно создавать при запуске — делайте это в `New()` (или, что лучше, в `Initialize()`), чтобы избежать накладных расходов от двойного вызова (`Init()`, а затем `New()`).
 
-2. It also consumes more memory to the point where the list is actually required, even if the object in question may never use it!
+2. Такой подход также потребляет больше памяти — список резервируется сразу, даже если объект, которому он принадлежит, никогда его не использует.
 
-Remember: although this tradeoff makes sense in many cases, it doesn't cover them all. Think carefully about your addition before deciding if you need to use it.
+Помните: хотя такой компромисс часто оправдан, он не подходит для всех случаев. Внимательно подумайте, **действительно** ли он нужен в **вашем** случае.
 
-### Prefer `Initialize()` over `New()` for atoms
+### Приоритет `Initialize()` вместо `New()` для атомов
 
-Our game controller is pretty good at handling long operations and lag, but it can't control what happens when the map is loaded, which calls `New` for all atoms on the map. If you're creating a new atom, use the `Initialize` proc to do what you would normally do in `New`. This cuts down on the number of proc calls needed when the world is loaded.
+Наш игровой контроллер хорошо справляется с длительными операциями и лагами, но он **не может** повлиять на то, что происходит при загрузке карты, когда вызывается `New()` для всех атомов на карте. Если вы создаёте новый атом — используйте процедуру `Initialize()` **вместо** `New()` для инициализации. Это уменьшит количество вызовов процедур при загрузке мира.
 
-While we normally encourage (and in some cases, even require) bringing out of date code up to date when you make unrelated changes near the out of date code, that is not the case for `New` -> `Initialize` conversions. These systems are generally more dependant on parent and children procs so unrelated random conversions of existing things can cause bugs that take months to figure out.
+Обычно мы требуем обновлять устаревший код, если вы вносите правки рядом с ним. Однако это правило **не распространяется** на замену `New()` → `Initialize()`. Такие системы сильно зависят от иерархии наследования, и неосторожная модификация существующего кода может привести к багам, которые проявятся только через месяцы.
 
-### No implicit var/
+### Не используйте неявный `var/`
 
-When you declare a parameter in a proc, the var/ is implicit. Do not include any implicit var/ when declaring a variable.
+При объявлении параметров процедуры префикс `var/` подразумевается **автоматически**. Не включайте его явно.
 
-I.e.
-Bad:
+Пример:
 
-```
+```DM
+// Плохо
 obj/item/proc1(var/input1, var/input2)
-```
 
-Good:
-
-```
+// Хорошо
 obj/item/proc1(input1, input2)
 ```
 
-### No magic numbers or strings
+### Не используйте "магические" числа и строки
 
-This means stuff like having a "mode" variable for an object set to "1" or "2" with no clear indicator of what that means. Make these #defines with a name that
-more clearly states what it's for. For instance:
+Это означает использование переменных вроде `mode = 1` или `mode = 2` без пояснения, что они значат. **Вместо этого** создавайте `#define` с понятными именами.
+
+Пример:
 
 ```DM
 /datum/proc/do_the_thing(thing_to_do)
@@ -239,7 +231,7 @@ more clearly states what it's for. For instance:
       (...)
 ```
 
-There's no indication of what "1" and "2" mean! Instead, you should do something like this:
+Непонятно, что означают `1` и `2`. Лучше сделать так:
 
 ```DM
 #define DO_THE_THING_REALLY_HARD 1
@@ -252,49 +244,33 @@ There's no indication of what "1" and "2" mean! Instead, you should do something
       (...)
 ```
 
-This is clearer and enhances readability of your code! Get used to doing it!
+Это делает код читабельнее. **Привыкайте** так писать!
 
-### Control statements
+### Управляющие конструкции
 
-(if, while, for, etc)
+(`if`, `while`, `for` и т.д.)
 
-- All control statements must not contain code on the same line as the statement (`if(condition) return`)
-- All control statements comparing a variable to a number should use the formula of `thing` `operator` `number`, not the reverse
-  (eg: `if(count <= 10)` not `if(10 >= count)`)
-- All control statements must be spaced as `if()`, with the brackets touching the keyword.
-- Do not use one-line control statements.
-  Instead of doing
-  ```
-  if(x) return
-  ```
-  You should do
-  ```
-  if(x)
-    return
-  ```
+- В одной строке с управляющей конструкцией не должно быть кода: `if(condition) return ...` — запрещено.
+- При сравнении переменной с числом используйте форму `переменная оператор число`, а не наоборот.
+	Например: `if(count <= 10)`, а не `if(10 >= count)`.
+- Управляющие конструкции должны быть записаны как `if()`, без пробела между ключевым словом и скобками.
 
-### Player Output
+### Используйте ранний возврат
 
-Due to the use of "Goonchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob/client/world << "message"`,
-you must use `to_chat(mob/client/world, "message")`. Failure to do so will lead to your code not working.
+Он же "early return", он же "ранний ретёрн".
+Не оборачивайте всю процедуру в `if`-блок, если можно **просто вернуться** при невыполнении условия.
 
-### Use early return
-
-Do not enclose a proc in an if-block when returning on a condition is more feasible.
-
-This is bad:
+Пример:
 
 ```DM
+// Плохо
 /datum/datum1/proc/proc1()
   if(thing1)
     if(!thing2)
       if(thing3 == 30)
-        do stuff
-```
+        сделать чё-то
 
-This is good:
-
-```DM
+// Хорошо
 /datum/datum1/proc/proc1()
   if(!thing1)
     return
@@ -302,161 +278,127 @@ This is good:
     return
   if(thing3 != 30)
     return
-  do stuff
+  сделать чё-то
 ```
 
-This prevents nesting levels from getting deeper then they need to be.
+Это предотвращает чрезмерную вложенность и облегчает читаемость кода.
 
-### Uses addtimer() instead of sleep() or spawn()
+### Используйте `addtimer()` вместо `sleep()` или `spawn()`
 
-If you need to call a proc after a set amount of time, use addtimer() instead of spawn() / sleep() where feasible.
-Although it is more complex, it is more performant and unlike spawn() or sleep(), it can be cancelled.
-For more details, see https://github.com/tgstation/tgstation/pull/22933.
+Если вам нужно вызвать процедуру через определённое время — используйте `addtimer()` **вместо** `spawn()` и `sleep()` там, где это возможно.
+Хотя это сложнее, это **производительнее** и, в отличие от `spawn()` или `sleep()`, может быть **отменено**.
+Подробнее: https://github.com/tgstation/tgstation/pull/22933.
 
-Look for code example on how to properly use it.
-
-This is bad:
+Пример:
 
 ```DM
+// Плохо
 /datum/datum1/proc/proc1()
   spawn(5)
   dothing(arg1, arg2, arg3)
-```
 
-This is good:
-
-```DM
+// Хорошо
   addtimer(CALLBACK(procsource, PROC_REF(dothing), arg1, arg2, arg3), waittime, timertype)
 ```
 
-This prevents nesting levels from getting deeper then they need to be.
+### Операторы
 
-### Operators
+#### Пробелы
 
-#### Spacing
+- Разделяемые пробелами операторы:
+  - Булевы и логические операторы: `&&`, `||`, `<`, `>`, `==` и т.д. (но не `!`)
+  - Побитовое И: `&`
+  - Разделители аргументов: `,` (и `;` в `for`-циклах)
+  - Операторы присваивания: `=`, `+=` и т.д.
+  - Математические операторы: `+`, `-`, `/`, `*`
+- Неразделяемые пробелами операторы:
+  - Побитовое ИЛИ: `|`
+  - Операторы доступа: `.`, `:`
+  - Скобки: `()`
+  - Логическое НЕ: `!`
 
-- Operators that should be separated by spaces
-  - Boolean and logic operators like &&, || <, >, ==, etc (but not !)
-  - Bitwise AND &
-  - Argument separator operators like , (and ; when used in a forloop)
-  - Assignment operators like = or += or the like
-  - Math operators like +, -, /, or \*
-- Operators that should not be separated by spaces
-  - Bitwise OR |
-  - Access operators like . and :
-  - Parentheses ()
-  - logical not !
+#### Использование
 
-#### Use
+- Побитовое И - `&`
+  - Пишите как `bitfield & bitflag`, но **НИКОГДА** не `bitflag & bitfield`,  хотя оба варианта работают, обратный порядок нестандартен и запутывает.
+- В ассоциативных списках ключи-строки должны быть в кавычках:
+  - ПЛОХО: `list(a = "b")`
+  - ХОРОШО: `list("a" = "b")`
 
-- Bitwise AND - '&'
-  - Should be written as `bitfield & bitflag` NEVER `bitflag & bitfield`, both are valid, but the latter is confusing and nonstandard.
-- Associated lists declarations must have their key value quoted if it's a string
-  - WRONG: list(a = "b")
-  - RIGHT: list("a" = "b")
+#### Битовые флаги
 
-#### Bitflags
-
-- We prefer using bitshift operators instead of directly typing out the value. I.E.
-  ```
+- Мы предпочитаем использовать побитовые сдвиги вместо прямого указания чисел.
+  ```DM
+  // Хорошо
   #define MACRO_ONE (1<<0)
   #define MACRO_TWO (1<<1)
   #define MACRO_THREE (1<<2)
   #define MACRO_ALL (~0)
-  ```
-  Is preferable to
-  ```
+
+  // Плохо
   #define MACRO_ONE 1
   #define MACRO_TWO 2
   #define MACRO_THREE 4
-  #defin MACRO_ALL 7 // or 16777215 as more accurate
+  #define MACRO_ALL 7 // или 16777215 как более аккуратное
   ```
-  This make the code more readable and less prone to error
+  Это делает код читабельнее и снижает вероятность ошибок.
 
-### Legacy Code
+### Устаревший код (legacy)
 
-SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
+В коде игры много устаревшего кода, который более не принимается. Вот примеры:
 
-- To display messages to all mobs that can view `src`, you should use
-  `visible_message()`.
-  - Bad:
+- Не используйте цветовые макросы (`\red`, `\blue` и т.д.). Вместо этого — `span`-макросы. (`span_warning("Красный текст")`, `span_notice("blue text")`).
+  -
+  ```DM
+  // Плохо
+  to_chat("\red Красный текст \black чёрный текст")
+  to_chat("<span class='warning'>Красный текст</span>")
+
+  // Хорошо
+  to_chat("[span_warning("Красный текст")] чёрный текст")
   ```
-  for(var/mob/M in viewers(src))
-          M.show_message(span_warning("Arbitrary text"))
-  ```
-  - Good:
-  ```
-  visible_message(span_warning("Arbitrary text"))
-  ```
-- You should not use color macros (`\red, \blue, \green, \black`) to color text,
-  instead, you should use span macros. span_warning(`red text`),
-  span_notice(`blue text`).
-  - Bad:
-  ```
-  to_chat("\red Red Text \black black text")
-  to_chat("<span class='warning'>red text</span>")
-  ```
-  - Good:
-  ```
-  to_chat("[span_warning("Red Text")]black text")
-  ```
-- To use variables in strings, you should **never** use the `text()` operator, use
-  embedded expressions directly in the string.
-  - Bad:
-  ```
-  to_chat(text("[] is leaking []!", src.name, src.liquid_type))
-  ```
-  - Good:
-  ```
-  to_chat("[src] is leaking [liquid_type]")
-  ```
-- To reference a variable/proc on the src object, you should **not** use
-  `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use
-  `var`/`proc()`.
-  - Bad:
-  ```
+- При обращении к переменной/процедуре объекта не пишите
+  `src.var`/`src.proc()` — `src.` подразумевается автоматически:
+
+  ```DM
+  // Плохо
   var/user = src.interactor
   src.fillReserves(user)
-  ```
-  - Good:
-  ```
+
+  // Хорошо
   var/user = interactor
   fillReserves(user)
   ```
 
-### Develop Secure Code
+### Пишите безопасный код
 
-- Player input must always be escaped safely, we recommend you use stripped_input in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind
+- Входные данные от игроков всегда должны быть экранированы. Используйте `stripped_input` вместо обычного `input`. Считайте, что любой ввод от игрока — потенциально вредоносный.
 
-- Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
+- Запросы к базе данных должны использовать параметры (значения с `:`). Это предотвращает SQL-инъекции.
 
-  - Good:
+  ```DM
+	// Плохо
+  	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
 
-  ```dm
+  	// Хорошо
   	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
   		"target_ckey" = target_ckey
-  	)) // Note the use of parameters on the above line and :target_ckey in the query
+  	))
   ```
 
-  - Bad:
+- Все вызовы `/Topic()` должны проверяться на корректность. Клиенты легко могут подделать вызов, поэтому убедитесь, что он допустим для текущего состояния объекта. **Не полагайтесь на UI**!
 
-  ```dm
-  	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
-  ```
+- Информация, которую игроки могут использовать для метаигры (например, определение типа антагониста или стадии раунда), должна быть доступна **только** администраторам.
 
-- All calls to topics must be checked for correctness. Topic href calls can be easily faked by clients, so you should ensure that the call is valid for the state the item is in. Do not rely on the UI code to provide only valid topic calls, because it won't.
+- Функции, способные вызвать масштабные изменения или хаос (вкладка "Веселье"), должны быть изначально **заблокированы** за одной из стандартных админ-ролей. Выбирайте роль по уровню потенциального ущерба.
 
-- Information that players could use to metagame (that is, to identify round information and/or antagonist type via information that would not be available to them in character) should be kept as administrator only.
+### Файлы
 
-- Where you have code that can cause large-scale modification and _FUN_, make sure you start it out locked behind one of the default admin roles - use common sense to determine which role fits the level of damage a function could do.
+- Поскольку ошибки времени выполнения не показывают полный путь, старайтесь избегать файлов с одинаковыми именами в разных папках.
 
-### Files
+- Имена файлов не должны содержать заглавных букв, пробелов или символов, требующих экранирования в URI.
 
-- Because runtime errors do not give the full path, try to avoid having files with the same name across folders.
-
-- File names should not be mixed case, or contain spaces or any character that would require escaping in a uri.
-
-- Files and path accessed and referenced by code above simply being #included should be strictly lowercase to avoid issues on filesystems where case matters.
+- Все файлы и пути, на которые есть ссылки в коде (кроме #include), должны быть **строго** в нижнем регистре, чтобы избежать проблем на чувствительных к регистру файловых системах.
 
 ### SQL
 
@@ -620,26 +562,6 @@ There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be u
 There are two official roles for GitHub: `Maintainer` and `Review Team`. First ones have ability to merge and close
 pull requests by themselfs. The Review Team has ability to approve pull requests. After two approves PR will be sent
 to the Merge Queue.
-
-### Maintainers List
-
-- [Aziz Chynaliev](https://github.com/Bizzonium)
-- [Dimach](https://github.com/Dimach)
-
-### Review Team List
-
-- [Vladisvell](https://github.com/Vladisvell)
-- [Zwei](https://github.com/Gottfrei)
-- [BeebBeebBoob](https://github.com/BeebBeebBoob)
-- [Daeberdir](https://github.com/Daeberdir)
-- [Rerik007](https://github.com/Rerik007)
-- [ROdenFL](https://github.com/ROdenFL)
-- [NightDawnFox](https://github.com/NightDawnFox)
-
-### Map Review Team
-
-- [SAAD](https://github.com/SAADf603)
-- [SQUEEK](https://github.com/aeternaclose)
 
 ### Review Team instructions
 
