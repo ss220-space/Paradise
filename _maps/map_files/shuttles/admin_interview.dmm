@@ -1035,7 +1035,7 @@
 /area/shuttle/administration)
 "VE" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"fire"=80,"acid"=100)
 	},
 /obj/structure/flora/ausbushes/genericbush,
 /turf/simulated/floor/grass,

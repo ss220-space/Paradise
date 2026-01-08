@@ -71,7 +71,7 @@
 /area/admin)
 "aN" = (
 /obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
 	},
 /obj/effect/turf_decal{
 	dir = 8;
@@ -617,7 +617,7 @@
 /area/admin)
 "ga" = (
 /obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
@@ -1338,15 +1338,15 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100)
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -1866,16 +1866,16 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -3413,7 +3413,7 @@
 /area/admin)
 "Nv" = (
 /obj/structure/sink/puddle{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
@@ -4062,7 +4062,7 @@
 /area/admin)
 "VM" = (
 /obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
 	},
 /obj/item/reagent_containers/food/snacks/charred_krill{
 	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"

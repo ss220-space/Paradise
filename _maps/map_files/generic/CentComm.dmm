@@ -836,7 +836,7 @@
 	req_access = list(114)
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters2";
 	layer = 5;
@@ -2470,7 +2470,7 @@
 	req_access = list(114)
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -2675,7 +2675,7 @@
 /area/shuttle/spacebar)
 "bjP" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	id_tag = "ERT_director_office_shutters2";
 	layer = 5;
@@ -3376,7 +3376,7 @@
 /area/syndicate_mothership/elite_squad)
 "bCw" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	req_access = list(114)
 	},
 /obj/item/door_remote/centcomm,
@@ -4023,7 +4023,7 @@
 "bUd" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = list(114)
@@ -4906,7 +4906,7 @@
 /area/centcom/jail)
 "cmk" = (
 /obj/machinery/computer/shuttle/ert{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	req_access = list(109)
 	},
 /obj/machinery/status_display{
@@ -5407,7 +5407,7 @@
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "gamma shuttle";
 	layer = 5;
@@ -5696,7 +5696,7 @@
 /obj/structure/flora/ausbushes,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/grass,
 /area/centcom/specops)
@@ -6513,7 +6513,7 @@
 	pixel_y = -1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7586,7 +7586,7 @@
 /obj/item/gun/energy/laser/instakill/blue,
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Secret Fun";
 	req_access = list(114)
@@ -11492,7 +11492,7 @@
 /area/centcom/zone1)
 "ftT" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -12040,7 +12040,7 @@
 /area/ninja/outpost)
 "fGc" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/clothing/gloves/combat,
 /obj/item/radio/headset/syndicate/alt/syndteam,
@@ -14862,7 +14862,7 @@
 /area/ninja/outpost)
 "heu" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/wood{
 	icon_state = "light-fancy-wood"
@@ -15127,7 +15127,7 @@
 /area/ninja/outside)
 "hmX" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -15270,7 +15270,7 @@
 /area/shuttle/escape)
 "hsG" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -16815,7 +16815,7 @@
 /area/centcom/zone2)
 "iky" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	req_access = list(114)
 	},
 /obj/item/clothing/suit/judgerobe{
@@ -17125,7 +17125,7 @@
 /area/centcom/specops)
 "itg" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	req_access = list(114)
 	},
 /obj/item/clothing/suit/judgerobe{
@@ -17670,7 +17670,7 @@
 /area/shuttle/syndicate_elite)
 "iDG" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -17846,7 +17846,7 @@
 /area/centcom/zone2)
 "iGV" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"fire"=80,"acid"=100)
 	},
 /obj/structure/flora/ausbushes/genericbush,
 /turf/simulated/floor/grass,
@@ -18491,7 +18491,7 @@
 "jbD" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access = list(114)
@@ -18917,7 +18917,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -20905,7 +20905,7 @@
 /area/syndicate_mothership/jail)
 "kfC" = (
 /obj/mecha/combat/marauder/seraph/loaded{
-	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"rad"=80,"fire"=100,"acid"=100);
+	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"fire"=100,"acid"=100);
 	name = "D2";
 	operation_req_access = list(109)
 	},
@@ -21260,7 +21260,7 @@
 	id_tag = "ERT_Quarantine"
 	},
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -22110,7 +22110,7 @@
 /area/centcom/zone2)
 "kJd" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom{
@@ -22372,7 +22372,7 @@
 /area/centcom/supply)
 "kPa" = (
 /obj/mecha/combat/marauder/seraph{
-	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"rad"=80,"fire"=100,"acid"=100);
+	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"fire"=100,"acid"=100);
 	color = "#006666";
 	name = "Rocinante"
 	},
@@ -25278,7 +25278,7 @@
 /area/centcom/specops)
 "mcz" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/clothing/gloves/combat,
 /obj/item/radio/headset/syndicate/alt/syndteam,
@@ -26543,7 +26543,7 @@
 /area/centcom/zone1)
 "mDL" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "CC_supply_internal2";
 	layer = 5;
@@ -26789,7 +26789,7 @@
 /area/shuttle/trade/sol)
 "mHv" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"fire"=80,"acid"=100);
 	dir = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
@@ -27088,7 +27088,7 @@
 /area/centcom/zone3)
 "mOZ" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters2";
 	layer = 5;
@@ -27412,7 +27412,7 @@
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = list(114)
@@ -29975,7 +29975,7 @@
 	pixel_y = -1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -30059,7 +30059,7 @@
 /area/syndicate_mothership)
 "nYX" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom{
@@ -31615,7 +31615,7 @@
 /obj/item/gun/projectile/automatic/sniper_rifle,
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Sniper Rifle";
 	req_access = list(114)
@@ -34321,7 +34321,7 @@
 /area/centcom/zone1)
 "pXb" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"fire"=80,"acid"=100);
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -35152,7 +35152,7 @@
 /area/centcom/zone3)
 "qqU" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -40600,7 +40600,7 @@
 /obj/item/gun/energy/pulse/destroyer/annihilator,
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
 	req_access = list(114)
@@ -41835,7 +41835,7 @@
 /area/centcom/jail)
 "tmQ" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters2";
 	layer = 5;
 	locked = 1;
@@ -43586,7 +43586,7 @@
 /area/centcom/supply)
 "uah" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -46711,7 +46711,7 @@
 /area/centcom/evac)
 "vvr" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"fire"=80,"acid"=100);
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -49390,7 +49390,7 @@
 /area/centcom/jail)
 "wOy" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "CC_supply_internal2";
 	layer = 5;
@@ -50445,7 +50445,7 @@
 	id_tag = "ERT_Quarantine"
 	},
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;

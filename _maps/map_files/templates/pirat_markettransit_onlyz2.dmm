@@ -602,7 +602,7 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "Trade_exit";
 	name = "Black market warehouse";
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	use_power = 0
 	},
@@ -1216,7 +1216,7 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "Trade_doc";
 	name = "Black market warehouse";
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	use_power = 0
 	},
