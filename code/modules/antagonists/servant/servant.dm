@@ -6,8 +6,6 @@
 	antag_menu_name = "Магический слуга"
 	var/mob/living/carbon/human/serve_to
 	var/in_owner = TRUE
-	var/datum/weakref/master_ref
-	var/datum/weakref/serv_ref
 	var/datum/action/summon_servant/summon_action = new
 	var/datum/action/servant_self_summon/self_summon_action = new
 
@@ -17,10 +15,8 @@
 	serve_to = target
 
 /datum/antagonist/servant/on_gain()
-	master_ref= WEAKREF(serve_to)
-	serv_ref = WEAKREF(owner.current)
-	self_summon_action.master = master_ref.resolve()
-	summon_action.servant = serv_ref.resolve()
+	self_summon_action.master = serve_to
+	summon_action.servant = owner
 	self_summon_action.Grant(owner.current)
 	summon_action.Grant(serve_to)
 	var/datum/objective/serve/serve_obj = new(serve_to)
