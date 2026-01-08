@@ -98,7 +98,6 @@
 
 	insurance += internal_organs_damage * REQ_INSURANCE_ORGAN
 
-	insurance += user.radiation * REQ_INSURANCE_RAD
 	insurance += max(0, round((BLOOD_VOLUME_NORMAL - user.blood_volume) / BLOOD_VOLUME_NORMAL * 100)) * REQ_INSURANCE_BLOOD
 
 	var/internal_bleedings = 0

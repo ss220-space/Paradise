@@ -24,7 +24,7 @@
 	if(!HAS_TRAIT(src, TRAIT_STASIS))
 		if(stat != DEAD)
 			//Mutations and radiation
-			handle_mutations_and_radiation()
+			handle_mutations()
 			//Heart Attack, if applicable
 			handle_heartattack()
 			//Breathing, if applicable
@@ -98,8 +98,8 @@
 /mob/living/proc/handle_heartattack()
 	return
 
-/mob/living/proc/handle_mutations_and_radiation()
-	radiation = 0 //so radiation don't accumulate in simple animals
+/mob/living/proc/handle_mutations(seconds_per_tick)
+	return
 
 /mob/living/proc/handle_chemicals_in_body()
 	return

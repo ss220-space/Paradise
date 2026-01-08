@@ -117,6 +117,7 @@
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
+	AddElement(/datum/element/radiation_protected_clothing)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
@@ -164,6 +165,7 @@
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
+	AddElement(/datum/element/radiation_protected_clothing)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()

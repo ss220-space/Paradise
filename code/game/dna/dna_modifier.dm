@@ -482,7 +482,7 @@
 		occupantData["uniqueEnzymes"] = null
 		occupantData["uniqueIdentity"] = null
 		occupantData["structuralEnzymes"] = null
-		occupantData["radiationLevel"] = null
+		//occupantData["radiationLevel"] = null
 	else
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
@@ -495,7 +495,7 @@
 		occupantData["uniqueEnzymes"] = connected.occupant.dna.unique_enzymes
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes
-		occupantData["radiationLevel"] = connected.occupant.radiation
+		//occupantData["radiationLevel"] = connected.occupant.radiation
 	data["occupant"] = occupantData
 
 	data["isBeakerLoaded"] = connected.beaker ? 1 : 0
