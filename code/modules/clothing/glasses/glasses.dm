@@ -235,7 +235,7 @@
 	origin_tech = "magnets=2;engineering=1"
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 100)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',

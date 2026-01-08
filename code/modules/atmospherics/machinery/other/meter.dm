@@ -9,7 +9,7 @@
 
 	var/obj/machinery/atmospherics/pipe/target = null
 	max_integrity = 150
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 40, ACID = 0)
 	frequency = ATMOS_DISTRO_FREQ
 	var/id
 	var/id_tag

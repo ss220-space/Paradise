@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	max_integrity = 300
 	light_on = FALSE
 	light_range = 2
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, fire = 50, acid = 0)
 	var/list/masters //List of living mobs that use the holopad
 	var/list/holorays //Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn

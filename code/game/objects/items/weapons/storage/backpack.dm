@@ -62,7 +62,7 @@
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/storage/backpack/holding))

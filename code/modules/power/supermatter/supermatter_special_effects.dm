@@ -22,8 +22,6 @@
 	addtimer(CALLBACK(src, PROC_REF(handle_mind_giving)), SPECIAL_EFFECTS_TIMER_DELAY*4)
 	//5. Random up seeds.
 	addtimer(CALLBACK(src, PROC_REF(handle_seeds_mutation)), SPECIAL_EFFECTS_TIMER_DELAY*5)
-	//6. Mutate everyone with DNA.
-	addtimer(CALLBACK(src, PROC_REF(handle_genetic_mutation)), SPECIAL_EFFECTS_TIMER_DELAY*6)
 
 //Makes APCs go wild
 /datum/supermatter_explosive_effects/proc/handle_apc_breaking()
@@ -144,25 +142,12 @@
 				INVOKE_ASYNC(src, PROC_REF(give_mind_lesser), monke)
 	return
 
-/datum/supermatter_explosive_effects/proc/handle_genetic_mutation()
-	for(var/mob/living/creature in GLOB.alive_mob_list)
-		if(!creature.dna || HAS_TRAIT(creature, TRAIT_NO_DNA) || HAS_TRAIT(creature, TRAIT_RADIMMUNE))
-			continue
-		var/turf/creature_turf = get_turf(creature)
-		if(!creature_turf || creature_turf.z != z)
-			continue
-		var/resist = creature.getarmor(attack_flag = RAD)
-		var/chance = clamp(dna_mutation_chance * (1 - (resist / 100)), 0, 100)
-		if(prob(chance))
-			randmut(creature, FALSE)
-			creature.check_genes(MUTCHK_FORCED)
-
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)
-	
+
 	if(QDELETED(monke))
 		return
-	
+
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
@@ -173,10 +158,10 @@
 //Gives mind to a random simple animal. Works asynchronically.
 /datum/supermatter_explosive_effects/proc/give_mind(mob/living/simple_animal/animal)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [animal]?", ROLE_SENTIENT, TRUE, source = animal)
-	
+
 	if(QDELETED(animal))
 		return
-	
+
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)

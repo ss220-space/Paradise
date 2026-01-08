@@ -15,13 +15,12 @@
 #define ENERGY "energy"
 #define BOMB "bomb"
 #define BIO "bio"
-#define RAD "rad"
 #define FIRE "fire"
 #define ACID "acid"
 #define MAGIC "magic"
 
 /// All armors
-#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
+#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE)
 
 #define STUN "stun"
 #define WEAKEN "weaken"

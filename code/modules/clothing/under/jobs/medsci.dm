@@ -7,7 +7,7 @@
 	icon_state = "director"
 	item_state = "g_suit"
 	item_color = "director"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 10, RAD = 0, FIRE = 0, ACID = 35)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 10, FIRE = 0, ACID = 35)
 
 /obj/item/clothing/under/rank/research_director/get_ru_names()
 	return list(
@@ -25,7 +25,7 @@
 	icon_state = "science"
 	item_state = "w_suit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/scientist/get_ru_names()
 	return list(
@@ -125,7 +125,7 @@
 	icon_state = "chemistry"
 	item_state = "chemistry"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 50, ACID = 65)
 
 /obj/item/clothing/under/rank/chemist/get_ru_names()
 	return list(
@@ -162,7 +162,7 @@
 	icon_state = "cmo"
 	item_state = "cmo"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/chief_medical_officer/get_ru_names()
 	return list(
@@ -196,7 +196,7 @@
 	icon_state = "genetics"
 	item_state = "genetics"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/geneticist/get_ru_names()
 	return list(
@@ -230,7 +230,7 @@
 	icon_state = "virology"
 	item_state = "virology"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/virologist/get_ru_names()
 	return list(
@@ -264,7 +264,7 @@
 	icon_state = "nursesuit"
 	item_state = "nursesuit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/nursesuit/get_ru_names()
 	return list(
@@ -283,7 +283,7 @@
 	icon_state = "nurse"
 	item_state = "nurse"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/nurse/get_ru_names()
 	return list(
@@ -302,7 +302,7 @@
 	icon_state = "orderly"
 	item_state = "orderly"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/orderly/get_ru_names()
 	return list(
@@ -320,7 +320,7 @@
 	icon_state = "medical"
 	item_state = "medical"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/get_ru_names()
 	return list(
@@ -507,7 +507,7 @@
 	desc = "Этот комбинезон обладает красным крестом на груди, обозначающим, что перед вами профессиональный парамедик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения и радиации."
 	icon_state = "paramedic"
 	item_state = "paramedic"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 10, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/paramedic/get_ru_names()
 	return list(
@@ -592,7 +592,7 @@
 	icon_state = "genetics_new"
 	item_state = "w_suit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/geneticist_new/get_ru_names()
 	return list(
@@ -610,7 +610,7 @@
 	icon_state = "chemist_new"
 	item_state = "w_suit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 50, ACID = 65)
 
 /obj/item/clothing/under/rank/chemist_new/get_ru_names()
 	return list(
@@ -628,7 +628,7 @@
 	icon_state = "scientist_new"
 	item_state = "w_suit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/scientist_new/get_ru_names()
 	return list(
@@ -646,7 +646,7 @@
 	icon_state = "virologist_new"
 	item_state = "w_suit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/virologist_new/get_ru_names()
 	return list(

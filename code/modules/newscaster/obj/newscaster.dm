@@ -19,7 +19,7 @@
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано \"Нанотрейзен\" для использования на коммерческих объектах."
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	integrity_failure = 50
 	anchored = TRUE
 	/// The current screen index in the UI.

@@ -91,7 +91,7 @@
 		/obj/item/reagent_containers/applicator/brute = 149,
 		/obj/item/reagent_containers/applicator/burn = 149,
 	)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
@@ -209,7 +209,7 @@
 		/obj/item/tourniquet = 99,
 		/obj/item/healthanalyzer = 99,
 	)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 	tiltable = FALSE

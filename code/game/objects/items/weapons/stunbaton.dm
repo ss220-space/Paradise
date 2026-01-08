@@ -12,7 +12,7 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("огрел", "ударил")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, FIRE = 80, ACID = 80)
 	active = FALSE
 	allows_stun_in_harm = TRUE
 	force_say_chance = 50

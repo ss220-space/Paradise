@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	set_dir_on_move = FALSE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 100)
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	cares_about_temperature = TRUE
 	var/ini_dir = null
@@ -533,7 +533,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	cancolor = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, FIRE = 80, ACID = 100)
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
@@ -683,7 +683,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmabasic/get_ru_names()
@@ -706,7 +706,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
-	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, FIRE = 99, ACID = 100)
 	damage_deflection = 21
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
@@ -731,7 +731,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	heat_resistance = 1600
 	max_integrity = 150
 	explosion_block = 1
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 80, ACID = 100)
 
 /obj/structure/window/abductor/get_ru_names()
 	return list(
@@ -784,7 +784,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmabasic/get_ru_names()
@@ -832,7 +832,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
-	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced/get_ru_names()
@@ -860,7 +860,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, FIRE = 80, ACID = 100)
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	cancolor = TRUE
@@ -941,7 +941,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 80, ACID = 100)
 
 /obj/structure/window/full/abductor/get_ru_names()
 	return list(
@@ -967,7 +967,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 80, ACID = 100)
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE //+ SMOOTH_GROUP_SHUTTLE_PARTS
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
@@ -1011,7 +1011,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
 	icon_state = "shuttle_window_ninja-0"
 	base_icon_state = "shuttle_window_ninja"
-	armor = list(MELEE = 50, BULLET = 30, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 
 /obj/structure/window/full/shuttle/ninja/get_ru_names()
 	return list(
@@ -1037,7 +1037,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	flags = PREVENT_CLICK_UNDER | NO_SCREENTIPS
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 80, ACID = 100)
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
@@ -1064,7 +1064,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, FIRE = 80, ACID = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/sheet/brass
 	reinf = FALSE
@@ -1088,7 +1088,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, FIRE = 80, ACID = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/sheet/brass_fake
 	reinf = FALSE

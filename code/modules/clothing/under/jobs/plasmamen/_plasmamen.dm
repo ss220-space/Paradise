@@ -1,7 +1,7 @@
 /obj/item/clothing/under/plasmaman
 	name = "plasma envirosuit"
 	desc = "Специализированный костюм, позволяющий плазменным формам жизни существовать в обогащённой кислородом среде. Внутри установлен экстренный автоматический огнетушитель на случай возгорания. Не подходит для космоса."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	strip_delay = 200
 	var/next_extinguish = 0

@@ -13,7 +13,7 @@ Pipelines + Other Objects -> Pipe network
 	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 100, ACID = 70)
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
 
 	/// Generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things.

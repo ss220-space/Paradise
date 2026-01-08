@@ -5,7 +5,7 @@
 	max_integrity = BLOB_FACTORY_MAX_HP
 	point_return = BLOB_REFUND_FACTORY_COST
 	resistance_flags = LAVA_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 25, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 25, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 70)
 	///How many spores this factory can have.
 	var/max_spores = BLOB_FACTORY_MAX_SPORES
 	///The list of spores and zombies

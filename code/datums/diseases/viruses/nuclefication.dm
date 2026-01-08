@@ -1,3 +1,4 @@
+/*
 /datum/disease/virus/nuclefication // YOU WILL NEVER ESCAPE
 	name = "Синдром дисплазии суперматерии"
 	agent = "Мутировавшие клетки мозга"
@@ -112,3 +113,4 @@
 		if(3)
 			var/obj/item/organ/internal/organ = check_available_organs(H)
 			organ?.necrotize()
+*/
