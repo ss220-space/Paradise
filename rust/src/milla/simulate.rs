@@ -93,13 +93,13 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
             // A bias from [-1.0, 1.0] representing how much air is flowing from the negative tile
             // to the positive one, based purely on pressure.
             let pressure_bias = 2.0 * (my_pressure / combined_pressure) - 1.0;
-            let wind_gas_flow = (1.0 + WIND_SPEED).powf(my_new_tile.wind[axis].abs()) - 1.0;
-
             // New wind mixes the pressure bias with the old wind, and clamps it to reasonable
             // bounds.
             my_new_tile.wind[axis] = (my_tile.wind[axis]
                 + WIND_ACCELERATION * (pressure_bias * WIND_STRENGTH - my_tile.wind[axis]))
                 .clamp(-MAX_WIND, MAX_WIND);
+
+            let wind_gas_flow = (1.0 + WIND_SPEED).powf(my_new_tile.wind[axis].abs()) - 1.0;
 
             for i in 0..GAS_COUNT {
                 my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
@@ -727,7 +727,9 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
         return false;
     }
 
-    let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
+    let my_next_heat_capacity = my_next_tile.heat_capacity();
+
+    let cached_temperature = my_next_tile.thermal_energy / my_next_heat_capacity;
     let temp_diff: f32 = cached_temperature - T0C;
 
     if cached_temperature > T0C {
@@ -751,7 +753,7 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
             .gases
             .set_water_vapor(water_vapor - condensed_water);
         //We lose gas, so we lose the thermal energy it had
-        my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
+        my_next_tile.thermal_energy = cached_temperature * my_next_heat_capacity;
         true
     } else {
         false
