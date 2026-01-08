@@ -516,6 +516,7 @@
 #include "code\datums\datacore.dm"
 #include "code\datums\datum.dm"
 #include "code\datums\datumvars.dm"
+#include "code\datums\dice_of_fate_roll.dm"
 #include "code\datums\discord.dm"
 #include "code\datums\dog_fashion.dm"
 #include "code\datums\filter.dm"
