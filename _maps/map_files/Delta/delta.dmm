@@ -2246,9 +2246,6 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/table/reinforced,
-/obj/item/clothing/suit/radiation,
-/obj/item/clothing/head/radiation,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -2256,6 +2253,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/closet/radiation,
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "auJ" = (
@@ -3359,7 +3358,6 @@
 	},
 /area/quartermaster/storage)
 "aCi" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -3797,6 +3795,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
@@ -4431,6 +4431,8 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/southwest,
+/obj/structure/closet/radiation,
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "aJO" = (
@@ -8452,7 +8454,6 @@
 	},
 /area/hydroponics)
 "bjU" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/camera{
 	c_tag = "Supermatter Engine West";
 	network = list("SS13","Engineering")
@@ -10431,9 +10432,16 @@
 /area/maintenance/auxsolarstarboard)
 "bvC" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding/white/end{
+	dir = 1
+	},
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/engineering/controlroom)
 "bvD" = (
 /obj/machinery/vending/cola,
@@ -10767,9 +10775,14 @@
 	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding/white/end,
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/engineering/controlroom)
 "bxh" = (
 /turf/simulated/wall/r_wall,
@@ -14925,13 +14938,13 @@
 /area/aisat/aihallway)
 "bRF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/emitter{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/power/emitter/anchored{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
 "bRK" = (
@@ -16670,7 +16683,6 @@
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "caA" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -17068,13 +17080,12 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cch" = (
-/obj/structure/table/reinforced,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/structure/closet/radiation,
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "ccj" = (
@@ -17999,9 +18010,6 @@
 /area/hallway/primary/central/south)
 "cgX" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -18458,7 +18466,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/dispenser,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cko" = (
@@ -18756,15 +18763,15 @@
 	},
 /area/hallway/primary/central/east)
 "cmc" = (
-/obj/machinery/power/emitter{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/power/emitter/anchored{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
@@ -19219,7 +19226,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "coL" = (
@@ -20146,10 +20152,7 @@
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/multitool,
-/obj/item/multitool{
-	pixel_x = 4;
-	pixel_y = -4
-	},
+/obj/item/multitool,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cuv" = (
@@ -20414,7 +20417,6 @@
 	},
 /area/crew_quarters/bar)
 "cvU" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/camera{
 	c_tag = "Supermatter Engine East";
 	network = list("SS13","Engineering")
@@ -22372,9 +22374,8 @@
 /area/maintenance/engineering)
 "cDV" = (
 /obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	tag = "icon-shower (EAST)";
+	dir = 4
 	},
 /obj/effect/turf_decal/siding/white/end,
 /turf/simulated/floor/plasteel{
@@ -27345,7 +27346,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
@@ -31380,7 +31380,6 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
 	tag = "icon-shower (EAST)"
 	},
 /obj/effect/turf_decal/siding/white/end{
@@ -49277,7 +49276,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/emitter{
+/obj/machinery/power/emitter/anchored{
 	dir = 8
 	},
 /turf/simulated/floor/engine,
@@ -83687,7 +83686,6 @@
 	},
 /area/crew_quarters/cabin1)
 "oDr" = (
-/obj/machinery/power/emitter,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -83698,6 +83696,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/power/emitter/anchored,
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
 "oDt" = (
@@ -87544,16 +87543,14 @@
 	},
 /area/hallway/primary/central/nw)
 "pyN" = (
-/obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 1;
-	state = 2
-	},
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/eastnorthwest,
+/obj/machinery/power/emitter/anchored{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "pyO" = (
@@ -92808,12 +92805,9 @@
 	},
 /area/crew_quarters/chief)
 "qCX" = (
-/obj/machinery/power/emitter{
-	anchored = 1;
-	state = 2
-	},
 /obj/structure/cable/yellow,
 /obj/effect/decal/warning_stripes/eastsouthwest,
+/obj/machinery/power/emitter/anchored,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "qDc" = (
