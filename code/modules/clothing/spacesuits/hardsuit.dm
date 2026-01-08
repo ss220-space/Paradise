@@ -250,6 +250,10 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, FIRE = 100, ACID = 75)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/head/helmet/space/hardsuit/engine/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
+
 /obj/item/clothing/suit/space/hardsuit/engine
 	name = "engineering hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
@@ -257,6 +261,18 @@
 	resistance_flags = FIRE_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
 	dog_fashion = /datum/dog_fashion/back/hardsuit
+
+/obj/item/clothing/suit/space/hardsuit/engine/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
+
+/obj/item/clothing/suit/space/hardsuit/engine/equipped(mob/user, slot)
+	. = ..()
+	AddComponent(/datum/component/geiger_sound)
+
+/obj/item/clothing/suit/space/hardsuit/engine/dropped()
+	. = ..()
+	qdel(GetComponent(/datum/component/geiger_sound))
 
 //Atmospherics
 /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
