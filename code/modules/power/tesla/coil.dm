@@ -19,7 +19,19 @@
 	var/zap_cooldown = 100
 	///Reference to the last zap done
 	var/last_zap = 0
+
 	var/datum/wires/tesla_coil/wires = null
+	///Amount of power stored inside the coil to be released in the powernet
+	var/stored_energy = 0
+
+	// Variables to calculate sound based on stored_energy to give engineers an audioclue of the magnitude of energy production.
+	/// Calculated range of zap sounds based on power
+	var/zap_sound_range = 0
+	/// Calculated volume of zap sounds based on power
+	var/zap_sound_volume = 0
+
+/obj/machinery/power/tesla_coil/anchored
+	anchored = TRUE
 
 /obj/machinery/power/tesla_coil/Initialize(mapload)
 	. = ..()
@@ -97,21 +109,30 @@
 		else
 			connect_to_network()
 
+/obj/machinery/power/tesla_coil/process(seconds_per_tick)
+	var/power_produced = min(stored_energy, (stored_energy * 0.04) + 1000) * seconds_per_tick
+	stored_energy -= power_produced
+	zap_sound_volume = min(stored_energy / 200000, 100)
+	zap_sound_range = min(stored_energy / 4000000, 10)
+
 /obj/machinery/power/tesla_coil/zap_act(power, zap_flags)
 	if(!anchored || panel_open)
 		return ..()
 
 	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
-	zap_buckle_check(power)
-
-	if(zap_flags & ZAP_GENERATES_POWER)
-		return power / 2
-
-	var/power_produced = powernet ? power * input_power_multiplier : power
-	add_avail(power_produced)
 	flick("coilhit", src)
-	return power - power_produced
+
+	if(!(zap_flags & ZAP_GENERATES_POWER)) // Prevent infinite recursive power
+		return 0
+
+	if(zap_flags & ZAP_LOW_POWER_GEN)
+		power /= 10
+
+	zap_buckle_check(power)
+	var/power_removed = powernet ? power * input_power_multiplier : power
+	stored_energy += max(power_removed, 0)
+	return max(power - power_removed, 0) // You get back the amount we didn't use
 
 /obj/machinery/power/tesla_coil/proc/zap()
 	if((last_zap + zap_cooldown) > world.time || !powernet)
@@ -120,7 +141,7 @@
 	var/power = (powernet.avail) * 0.2 * input_power_multiplier  //Always always always use more then you output for the love of god
 	power = min(surplus(), power) //Take the smaller of the two
 	add_load(power)
-	playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+	playsound(loc, 'sound/magic/lightningshock.ogg', zap_sound_volume, TRUE, zap_sound_range)
 	tesla_zap(source = src, zap_range = 10, power = power, cutoff = 1e3, zap_flags = zap_flags)
 	zap_buckle_check(power)
 
@@ -131,10 +152,12 @@
 	icon_state = "grounding_rod0"
 	anchored = FALSE
 	density = TRUE
-
 	can_buckle = TRUE
 	buckle_lying = 0 // This is actually not TRUE/FALSE; this is an angle that gets multiplied by this number.
 	buckle_requires_restraints = TRUE
+
+/obj/machinery/power/grounding_rod/anchored
+	anchored = TRUE
 
 /obj/machinery/power/grounding_rod/Initialize(mapload)
 	. = ..()
@@ -171,4 +194,4 @@
 		//stored_energy += energy
 		return FALSE
 	else
-		. = ..()
+		return ..()

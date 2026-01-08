@@ -5,10 +5,11 @@
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
 	cares_about_temperature = TRUE
+	max_integrity = 200
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/state = GIRDER_NORMAL
 	/// Percentage chance that a projectile passes through the girder.
 	var/girderpasschance = 20
-	max_integrity = 200
 	/// If the girder can be moved around by crowbarring it.
 	var/can_displace = TRUE
 	/// Used to determine amount returned in deconstruction.

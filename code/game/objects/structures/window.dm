@@ -39,6 +39,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 100)
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	cares_about_temperature = TRUE
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -537,6 +538,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
+	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/window/reinforced/get_ru_names()
 	return list(
@@ -685,6 +687,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 /obj/structure/window/plasmabasic/get_ru_names()
 	return list(
@@ -709,6 +712,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, FIRE = 99, ACID = 100)
 	damage_deflection = 21
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/window/plasmareinforced/get_ru_names()
 	return list(
@@ -786,6 +790,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 /obj/structure/window/full/plasmabasic/get_ru_names()
 	return list(
@@ -834,6 +839,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/window/full/plasmareinforced/get_ru_names()
 	return list(
@@ -864,6 +870,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	cancolor = TRUE
+	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/window/full/reinforced/get_ru_names()
 	return list(
@@ -972,6 +979,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE //+ SMOOTH_GROUP_SHUTTLE_PARTS
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
 	glass_type = /obj/item/stack/sheet/titaniumglass
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 /obj/structure/window/full/shuttle/get_ru_names()
 	return list(
@@ -1046,6 +1054,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation = RAD_EXTREME_INSULATION
 
 /obj/structure/window/plastitanium/get_ru_names()
 	return list(

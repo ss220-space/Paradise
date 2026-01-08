@@ -188,9 +188,9 @@
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	damage = 10 //A worse lasergun
-	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN
 	var/zap_range = 3
-	var/power = 10000
+	var/power = 1e4
 
 /obj/projectile/energy/shock_revolver/get_ru_names()
 	return list(

@@ -12,22 +12,20 @@
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
-
+	rad_insulation = RAD_MEDIUM_INSULATION
+	density = TRUE
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP// just in case in up. But falsewall should be on the floor.
+	opacity = TRUE
+	max_integrity = 100
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
+	cares_about_temperature = TRUE
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
 	var/walltype = /turf/simulated/wall
 	var/girder_type = /obj/structure/girder/displaced
 	var/opening = FALSE
-
-	density = TRUE
-	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP// just in case in up. But falsewall should be on the floor.
-	opacity = TRUE
-	max_integrity = 100
-
-	canSmoothWith = SMOOTH_GROUP_WALLS
-	smoothing_groups = SMOOTH_GROUP_WALLS
-	smooth = SMOOTH_BITMASK
-	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()

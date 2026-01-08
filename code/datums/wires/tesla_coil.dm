@@ -10,14 +10,14 @@
 	return ..()
 
 /datum/wires/tesla_coil/interactable(mob/user)
-	var/obj/machinery/power/tesla_coil/T = holder
-	if(T?.panel_open)
+	var/obj/machinery/power/tesla_coil/tesla_coil = holder
+	if(tesla_coil?.panel_open)
 		return TRUE
 	return FALSE
 
 /datum/wires/tesla_coil/on_pulse(wire)
-	var/obj/machinery/power/tesla_coil/T = holder
+	var/obj/machinery/power/tesla_coil/tesla_coil = holder
 	switch(wire)
 		if(WIRE_TESLACOIL_ZAP)
-			T.zap()
+			tesla_coil.zap()
 	..()
