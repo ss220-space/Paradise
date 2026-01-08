@@ -327,14 +327,14 @@
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/scan_consolenew
-	var/selected_ui_block = 1.0
-	var/selected_ui_subblock = 1.0
-	var/selected_se_block = 1.0
-	var/selected_se_subblock = 1.0
+	var/selected_ui_block = 1
+	var/selected_ui_subblock = 1
+	var/selected_se_block = 1
+	var/selected_se_subblock = 1
 	var/selected_ui_target = 1
 	var/selected_ui_target_hex = 1
-	var/radiation_duration = 2.0
-	var/radiation_intensity = 1.0
+	var/radiation_duration = 2
+	var/radiation_intensity = 1
 	var/list/datum/dna2/record/buffers[3]
 	var/irradiating = 0
 	var/injector_ready = FALSE	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
@@ -482,7 +482,7 @@
 		occupantData["uniqueEnzymes"] = null
 		occupantData["uniqueIdentity"] = null
 		occupantData["structuralEnzymes"] = null
-		//occupantData["radiationLevel"] = null
+		occupantData["radiationLevel"] = null
 	else
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
@@ -495,9 +495,11 @@
 		occupantData["uniqueEnzymes"] = connected.occupant.dna.unique_enzymes
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes
-		//occupantData["radiationLevel"] = connected.occupant.radiation
-	data["occupant"] = occupantData
 
+		var/datum/status_effect/genetic_damage/genetic_damage = connected.occupant.has_status_effect(/datum/status_effect/genetic_damage)
+		data["radiationLevel"] = genetic_damage ? round((genetic_damage.total_damage / genetic_damage.minimum_before_tox_damage) * 100, 0.1) : 0
+
+	data["occupant"] = occupantData
 	data["isBeakerLoaded"] = connected.beaker ? 1 : 0
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
