@@ -835,6 +835,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	party_debris = null
 	return ..()
 
+/obj/effect/landmark/start/hangover/Initialize(mapload)
+	. = ..()
+	create_debris(get_turf(src))
+
 ///Spawns the mob with some drugginess/drunkenness, and some disgust.
 /obj/effect/landmark/start/hangover/proc/make_hungover(mob/hangover_mob)
 	if(!iscarbon(hangover_mob))
@@ -851,16 +855,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/start/hangover/JoinPlayerHere(mob/joining_mob)
 	. = ..()
 	make_hungover(joining_mob)
-	create_debris(get_turf(joining_mob))
 
 /obj/effect/landmark/start/hangover/proc/create_debris(turf/our_turf)
-	/*
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BIRTHDAY))
 		party_debris += new /obj/effect/decal/cleanable/confetti(get_turf(src)) //a birthday celebration can also be a hangover
 		var/list/bonus_confetti = GLOB.alldirs
 		for(var/confettis in bonus_confetti)
 			var/party_turf_to_spawn_on = get_step(src, confettis)
-			if(!isopenturf(party_turf_to_spawn_on))
+			if(!issimulatedturf(party_turf_to_spawn_on))
 				continue
 			var/dense_object = FALSE
 			for(var/atom/content in party_turf_to_spawn_on)
@@ -873,7 +875,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 				party_debris += new /obj/effect/decal/cleanable/confetti(party_turf_to_spawn_on)
 			if(prob(10))
 				party_debris += new /obj/item/toy/balloon(party_turf_to_spawn_on)
-	*/
+
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		return
 	if(prob(80))
@@ -904,7 +906,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 			continue
 		joining_mob.forceMove(closet)
 		make_hungover(joining_mob)
-		create_debris(get_turf(joining_mob))
 		return
 
 	return ..() //Call parent as fallback

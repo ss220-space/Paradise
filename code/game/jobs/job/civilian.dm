@@ -21,6 +21,13 @@
 
 	uniform = /obj/item/clothing/under/color/random
 
+/datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CLASSIC_ASSISTANTS))
+		uniform = /obj/item/clothing/under/color/grey
+		mask = /obj/item/clothing/mask/gas
+		gloves = /obj/item/clothing/gloves/color/yellow/fake
+
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER
 	flag = JOB_FLAG_PRISONER
