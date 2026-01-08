@@ -14,7 +14,7 @@
 	Servant.equipOutfit(/datum/outfit/butler)
 	Servant.forceMove(master)
 
-	for(var/mob/ghost in GLOB.dead_mob_list)
+	for(var/mob/ghost as anything in GLOB.dead_mob_list)
 		if(ghost.client == servant_to_revive)
 			Servant.client = servant_to_revive
 			servant_key = servant_to_revive.key
