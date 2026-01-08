@@ -11,13 +11,11 @@
 	vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE|VENTCRAWL_ENTRANCE_ALLOWED
 	can_unwrench = TRUE
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) // connects to regular and supply pipes
-	multitool_menu_type = /datum/multitool_menu/idtag/freq/vent_pump
 	frequency = ATMOS_VENTSCRUB
 
 	/// Is the vent open to put a piece of paper in it
 	var/open = FALSE // A living relic of papercult
 	var/area/initial_loc
-	var/area_uid
 	/// If false, siphons instead of releasing air
 	var/releasing = TRUE
 	var/max_transfer_joules = 200 /*kPa*/ * 2 * ONE_ATMOSPHERE
@@ -31,9 +29,6 @@
 
 	/// How much pressure does there have to be in the pipe to burst the vent open?
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE
-
-	var/radio_filter_out
-	var/radio_filter_in
 
 /obj/machinery/atmospherics/unary/vent_pump/on
 	on = TRUE
@@ -125,24 +120,27 @@
 	if(QDELETED(parent))
 		// We're orphaned!
 		return FALSE
-	var/turf/T = get_turf(src)
-	if(T.density) //No, you should not be able to get free air from walls
+
+	var/turf/turf = get_turf(src)
+	if(turf.density) //No, you should not be able to get free air from walls
 		return
+
 	if(!node)
 		on = FALSE
+
 	if(!on)
 		return FALSE
 
 	if(welded)
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
 			visible_message(span_danger("The welded cover of [src] bursts open!"))
-			for(var/mob/living/M in range(1, src))
-				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
+			for(var/mob/living/living_mob in range(1, src))
+				unsafe_pressure_release(living_mob, air_contents.return_pressure())	//let's send everyone flying
 			welded = FALSE
 			update_icon()
 		return FALSE
 
-	var/datum/gas_mixture/environment = T.get_readonly_air()
+	var/datum/gas_mixture/environment = turf.get_readonly_air()
 	if(releasing) //internal -> external
 		var/pressure_delta = 10000
 		if(pressure_checks == ONLY_CHECK_EXT_PRESSURE)
@@ -157,7 +155,7 @@
 			var/transfer_moles = min(max_transfer_joules, wanted_joules) / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 			// This isn't exactly "blind", but using the data from last tick is good enough for a vent.
-			T.blind_release_air(removed)
+			turf.blind_release_air(removed)
 			parent.update = TRUE
 
 	else //external -> internal
@@ -221,9 +219,6 @@
 	var/obj/item/multitool/multitool = item
 	multitool.buffer_uid = UID()
 	to_chat(user, span_notice("You save [src] into [multitool]'s buffer"))
-
-	//. = TRUE
-	//multitool_menu_interact(user, item)
 
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
 	if(welded)

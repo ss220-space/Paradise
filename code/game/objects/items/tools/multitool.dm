@@ -26,11 +26,13 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	/// Shows what a wire does if set to TRUE
 	var/shows_wire_information = FALSE
-	/// Simple machine buffer for device linkage
-	var/obj/machinery/buffer
+	/// Reference to whatever machine is held in the buffer
+	var/obj/machinery/buffer // TODO - Make this a soft ref to tie into whats below
 	var/datum/multitool_menu_host/menu
 	var/emp_shielded = FALSE
 	var/broken_type = /obj/item/multitool_broken
+	/// Soft-ref for linked stuff. This should be used over the above var.
+	var/buffer_uid
 
 /obj/item/multitool/get_ru_names()
 	return list(

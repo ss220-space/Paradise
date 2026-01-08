@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary
 	initialize_directions = SOUTH
-	layer = TURF_LAYER+0.1
+	layer = TURF_LAYER + 0.1
 	var/id_tag
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
@@ -25,11 +25,11 @@
 /obj/machinery/atmospherics/unary/atmos_init()
 	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
-		if(target.initialize_directions & get_dir(target,src))
-			var/c = check_connect_types(target,src)
-			if(c)
-				target.connected_to = c
-				src.connected_to = c
+		if(target.initialize_directions & get_dir(target, src))
+			var/connect = check_connect_types(target, src)
+			if(connect)
+				target.connected_to = connect
+				src.connected_to = connect
 				node = target
 				break
 
@@ -48,7 +48,7 @@
 			node.atmos_init()
 			node.addMember(src)
 		build_network()
-		. = 1
+		. = TRUE
 
 /obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
 	if(!parent)
@@ -63,11 +63,11 @@
 		node = null
 	update_icon()
 
-/obj/machinery/atmospherics/unary/nullifyPipenet(datum/pipeline/P)
+/obj/machinery/atmospherics/unary/nullifyPipenet(datum/pipeline/pipeline)
 	..()
-	if(!P)
+	if(!pipeline)
 		return
-	if(P == parent)
+	if(pipeline == parent)
 		parent.other_airs -= air_contents
 		parent = null
 
@@ -93,15 +93,11 @@
 /obj/machinery/atmospherics/unary/unsafe_pressure_release(mob/user, pressure)
 	. = ..()
 
-	var/turf/T = get_turf(src)
-	if(!T)
+	var/turf/turf = get_turf(src)
+	if(!turf)
 		return
 
 	var/lost = pressure * CELL_VOLUME / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 
 	var/datum/gas_mixture/to_release = air_contents.remove(lost)
-	T.blind_release_air(to_release)
-
-/obj/machinery/atmospherics/unary/process_atmos()
-	..()
-	return parent
+	turf.blind_release_air(to_release)
