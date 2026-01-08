@@ -323,7 +323,7 @@
 	)
 
 /obj/item/storage/box/warmdonkpockets/populate_contents()
-	for(var/I in 1 to 6)
+	for(var/i in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/warmdonkpocket(src)
 
 

@@ -1740,8 +1740,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/serve
 	name = "Служить"
 	antag_menu_name = "Служить"
-	var/mob/living/serve_to
 	explanation_text = "Вы должны служить... Кому-то..."
+	var/mob/living/serve_to
 
 /datum/objective/serve/New(mob/living/target_to_serve)
 	if(!istype(target_to_serve))
