@@ -3,6 +3,7 @@
 	edge_is_a_field = TRUE
 	var/gravity_value = 0
 	var/list/modified_turfs = list()
+	var/mob_ref_key
 
 /datum/proximity_monitor/advanced/gravity/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, gravity)
 	. = ..()
@@ -53,7 +54,7 @@
 		warn_mob(movable, old_location)
 
 /datum/proximity_monitor/advanced/gravity/warns_on_entrance/proc/warn_mob(mob/living/to_warn, turf/location)
-	var/mob_ref_key = to_warn.UID()
+	mob_ref_key = UID_of(to_warn)
 	if(mob_ref_key in recently_warned)
 		return
 

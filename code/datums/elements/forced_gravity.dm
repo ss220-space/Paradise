@@ -5,13 +5,14 @@
 	var/gravity
 	///whether we will override the turf if it forces no gravity
 	var/ignore_turf_gravity
+	var/our_ref
 
 /datum/element/forced_gravity/Attach(datum/target, gravity = 1, ignore_turf_gravity = FALSE, can_override = FALSE)
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	var/our_ref = UID()
+	our_ref = UID()
 	if(HAS_TRAIT_FROM(target, TRAIT_FORCED_GRAVITY, our_ref))
 		return
 
@@ -28,7 +29,7 @@
 	. = ..()
 	var/static/list/signals_b_gone = list(COMSIG_ATOM_HAS_GRAVITY, COMSIG_TURF_HAS_GRAVITY)
 	UnregisterSignal(source, signals_b_gone)
-	REMOVE_TRAIT(source, TRAIT_FORCED_GRAVITY, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(source, TRAIT_FORCED_GRAVITY, our_ref)
 
 /datum/element/forced_gravity/proc/gravity_check(datum/source, turf/location, list/gravs)
 	SIGNAL_HANDLER
