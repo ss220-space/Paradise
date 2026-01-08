@@ -1,8 +1,8 @@
 /datum/station_trait/announcement_intern_ru
-	name = "Временная замена анонсов станции"
+	name = "Временная замена оператора системы оповещений"
 	weight = 1
 	show_in_report = TRUE
-	report_message = "Пожалуйста, будьте с ним повежливее, он тут работает первый день..."
+	report_message = "По ряду причин на период текущей смены штатный оператор системы оповещений будет заменён интерном. Мы уверены, что он справится со своей задачей."
 	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern) //datum/station_trait/birthday)
 
 /datum/station_trait/announcement_intern_ru/New()
@@ -10,10 +10,10 @@
 	SSstation.announcer = /datum/centcom_announcer/intern_ru
 
 /datum/station_trait/announcement_intern
-	name = "Временная замена анонсов станции"
+	name = "Временная замена оператора системы оповещений"
 	weight = 1
 	show_in_report = TRUE
-	report_message = "Мы наняли его из другого сектора, поэтому, вероятно, он не совсем знает наш язык."
+	report_message = "По ряду причин на период текущей смены штатный оператор системы оповещений будет заменён интерном из удалённого сектора. Хоть у него и имеется некоторый акцент, мы уверены, что это не станет проблемой."
 	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern_ru) //datum/station_trait/birthday)
 
 /datum/station_trait/announcement_intern/New()
@@ -24,7 +24,7 @@
 	name = "Временная \"система\" оповещений"
 	weight = 1
 	show_in_report = TRUE
-	report_message = "Стандартная система оповещений проходит техническое обслуживание. К счастью, у нас есть отличная замена."
+	report_message = "Стандартная система оповещений проходит техническое обслуживание. Но это не станет проблемой, так как у нас имеется подходящая замена."
 	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_intern_ru) //datum/station_trait/birthday)
 
 /datum/station_trait/announcement_medbot/New()

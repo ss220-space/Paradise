@@ -1,9 +1,9 @@
-#define PARTY_COOLDOWN_LENGTH_MIN (4 MINUTES) //5-10
+#define PARTY_COOLDOWN_LENGTH_MIN (4 MINUTES) // 5-10
 #define PARTY_COOLDOWN_LENGTH_MAX (8 MINUTES)
 
 /datum/station_trait/lucky_winner
 	name = "Бесплатная пицца"
-	report_message = "Ваша станция победила в еженедельной лотерее по выдаче бесплатной пиццы. Ожидайте прибытие пода с пиццой каждые несколько минут."
+	report_message = "Ваш объект победил в еженедельной лотерее по выдаче бесплатной пиццы. Ожидайте прибытия капсулы с пиццей каждые несколько минут."
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 1
