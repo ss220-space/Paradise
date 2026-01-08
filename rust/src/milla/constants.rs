@@ -230,6 +230,8 @@ pub(crate) const WIND_ACCELERATION: f32 = 0.1;
 /// [0.0, f32::INFINITY]
 pub(crate) const WIND_SPEED: f32 = 1.5;
 
+pub(crate) const WIND_SPEED_MULTIPLIER: f32 = WIND_SPEED * BYOND_WIND_MULTIPLIER;
+
 /// A hard cap on how strong wind can become.
 /// [0.0, f32::INFINITY]
 pub(crate) const MAX_WIND: f32 = f32::INFINITY;
