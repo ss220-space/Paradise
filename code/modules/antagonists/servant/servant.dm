@@ -23,7 +23,7 @@
 	summon_action.servant = serv_ref.resolve()
 	self_summon_action.Grant(owner.current)
 	summon_action.Grant(serve_to)
-	var/datum/objective/serve/serve_obj= new(serve_to)
+	var/datum/objective/serve/serve_obj = new(serve_to)
 	objectives += serve_obj
 	check_if_in_owner()
 	. = ..()
