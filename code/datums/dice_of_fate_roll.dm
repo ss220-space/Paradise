@@ -77,6 +77,12 @@
 /datum/dice_roll/proc/damnation()
 	user.visible_message(span_colossus("Damnatio memoriae."))
 	playsound(user, 'sound/magic/narsie_attack.ogg', 200, TRUE)
+	delete_records()
+	delete_from_objectives()
+	user.ghostize()
+	user.dust()
+
+/datum/dice_roll/proc/delete_records()
 	var/datum/data/record/user_sec_record = find_record("name", user.real_name, GLOB.data_core.security)
 	var/datum/data/record/user_gen_record = find_record("name", user.real_name, GLOB.data_core.general)
 	var/datum/data/record/user_med_record = find_record("name", user.real_name, GLOB.data_core.medical)
@@ -87,8 +93,8 @@
 		if(contract.target != user.mind)
 			continue
 		qdel(contract)
-	user.ghostize()
-	user.dust()
+
+/datum/dice_roll/proc/delete_from_objectives()
 	SSticker.mode.victims.Remove(user)
 	for(var/datum/objective/obj as anything in GLOB.all_objectives)
 		if(obj.owner != user.mind)
@@ -105,6 +111,9 @@
 			messages.Add(user.prepare_announce_objectives(FALSE))
 			to_chat(user.current, chat_box_red(messages.Join("<br>")))
 			SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
+	if(is_sacrifice_target(user.mind))
+		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
+			SSticker.mode.cult_objs.ready_to_summon()
 
 /datum/dice_roll/proc/butcher()
 	var/obj/item/organ/external/body = user.get_organ(BODY_ZONE_CHEST)
