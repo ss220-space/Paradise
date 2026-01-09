@@ -17,6 +17,10 @@
 "bP" = (
 /turf/simulated/wall/r_wall,
 /area/fastload)
+"cO" = (
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "eW" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -80,6 +84,10 @@
 /obj/spacepod/sec,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"pF" = (
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "qp" = (
 /obj/item/tank/jetpack/oxygen,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -197,6 +205,14 @@
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"LO" = (
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"MJ" = (
+/obj/effect/spawner/new_year/garland/north,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "Nb" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -215,6 +231,10 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"Ql" = (
+/obj/effect/spawner/new_year/gift,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "RQ" = (
 /obj/item/stack/sheet/plasteel/fifty,
 /obj/structure/rack,
@@ -233,6 +253,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"UE" = (
+/obj/effect/spawner/new_year/presents_tree,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "WA" = (
 /obj/item/tank/internals/emergency_oxygen/double/vox,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -6367,9 +6391,9 @@ YB
 YB
 YB
 Xw
-YB
-YB
-YB
+cO
+cO
+cO
 Xw
 YB
 YB
@@ -6434,7 +6458,7 @@ YB
 YB
 YB
 YB
-YB
+Ql
 YB
 YB
 YB
@@ -6632,7 +6656,7 @@ YB
 YB
 YB
 YB
-YB
+UE
 YB
 YB
 YB
@@ -6692,6 +6716,7 @@ jD
 jD
 jD
 BO
+MJ
 YB
 YB
 YB
@@ -6703,8 +6728,7 @@ YB
 YB
 YB
 YB
-YB
-YB
+pF
 BO
 jD
 jD
@@ -6758,8 +6782,8 @@ jD
 jD
 jD
 BO
-YB
-YB
+MJ
+Ql
 YB
 YB
 YB
@@ -6769,8 +6793,8 @@ YB
 YB
 YB
 YB
-YB
-YB
+Ql
+pF
 BO
 jD
 jD
@@ -6824,6 +6848,7 @@ jD
 jD
 jD
 BO
+MJ
 YB
 YB
 YB
@@ -6835,8 +6860,7 @@ YB
 YB
 YB
 YB
-YB
-YB
+pF
 BO
 jD
 jD
@@ -6896,7 +6920,7 @@ YB
 YB
 YB
 YB
-YB
+UE
 YB
 YB
 YB
@@ -7094,7 +7118,7 @@ YB
 YB
 YB
 YB
-YB
+Ql
 YB
 YB
 YB
@@ -7159,9 +7183,9 @@ YB
 YB
 YB
 qA
-YB
-YB
-YB
+LO
+LO
+LO
 qA
 YB
 An

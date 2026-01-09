@@ -27628,6 +27628,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush,
+/obj/effect/spawner/new_year/presents_tree,
 /turf/simulated/floor/grass,
 /area/medical/sleeper)
 "dcq" = (
@@ -29189,7 +29190,7 @@
 	},
 /area/solar/starboard)
 "diS" = (
-/obj/machinery/hologram/holopad,
+/obj/effect/spawner/new_year/presents_tree,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "diW" = (
@@ -61090,6 +61091,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "joR" = (

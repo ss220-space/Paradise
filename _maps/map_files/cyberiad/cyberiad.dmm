@@ -6976,8 +6976,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office";
-	pixel_y = 2
+	department = "Head of Security's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7404,8 +7403,7 @@
 "aAG" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office";
-	pixel_y = 2
+	department = "Magistrate's Office"
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -16707,8 +16705,7 @@
 "blc" = (
 /obj/machinery/plantgenes,
 /obj/structure/sign/kidanplaque{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -17014,8 +17011,7 @@
 	dir = 1
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office";
-	pixel_y = 2
+	department = "Captain's Office"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -18003,8 +17999,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
@@ -18321,9 +18316,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/bar/atrium)
 "brp" = (
 /obj/structure/railing{
@@ -19915,9 +19908,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/bar/atrium)
 "byA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -22532,9 +22523,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/bar/atrium)
 "bJR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -25469,8 +25458,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office";
-	pixel_y = 2
+	department = "Head of Personnel's Office"
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -28713,8 +28701,7 @@
 "ceG" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -29045,8 +29032,7 @@
 "cfR" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office";
-	pixel_y = 2
+	department = "Chief Medical Officer's Office"
 	},
 /obj/machinery/light,
 /obj/structure/cable{
@@ -29647,8 +29633,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Research Director's Office";
-	pixel_y = 2
+	department = "Research Director's Office"
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -41415,8 +41400,7 @@
 "daZ" = (
 /obj/machinery/kitchen_machine/candy_maker,
 /obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
@@ -44865,9 +44849,7 @@
 	},
 /area/bridge)
 "dnp" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/bar/atrium)
 "dnq" = (
 /obj/effect/turf_decal/siding/wood{
@@ -45570,9 +45552,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/bar/atrium)
 "dpM" = (
 /obj/machinery/door/firedoor,
@@ -47158,8 +47138,7 @@
 "dQK" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 2
+	department = "NT Representative's Office"
 	},
 /obj/item/paper/ntrep,
 /turf/simulated/floor/wood,
@@ -50370,8 +50349,7 @@
 	dir = 6
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office";
-	pixel_y = 2
+	department = "Chief Engineer's Office"
 	},
 /obj/item/paper/tcommskey,
 /turf/simulated/floor/plasteel{
@@ -53252,8 +53230,7 @@
 "gEE" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/light{
 	dir = 8
@@ -56551,8 +56528,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
@@ -59801,8 +59777,7 @@
 "jDe" = (
 /obj/machinery/vending/hydronutrients,
 /obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/machinery/light{
 	dir = 4
@@ -72297,8 +72272,7 @@
 "piI" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/item/rcs,
 /turf/simulated/floor/plasteel{
@@ -80078,8 +80052,7 @@
 "sDB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs Office";
-	pixel_y = 2
+	department = "Internal Affairs Office"
 	},
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light{
@@ -82511,8 +82484,7 @@
 "tBI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office";
-	pixel_y = 2
+	department = "Quartermaster's Office"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83410,8 +83382,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/item/rcs,
 /obj/item/rcs,
@@ -92791,9 +92762,8 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/spawner/new_year/presents_tree,
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/bar/atrium)
 "xUA" = (
 /obj/structure/cable{

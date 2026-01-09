@@ -1,0 +1,2 @@
+copyright: Takenfrom funky-station at https://github.com/LaryNevesPR/My-Funky-Station/commit/01d3c9c8162fd016c1c9920bee71e66baf06e341, cover is edited by littleboobs.
+license: CC-BY-SA-3.0
